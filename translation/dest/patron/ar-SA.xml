@@ -13,7 +13,7 @@
 	<string name="patronUntil">لديك حساب راعي حتى %s.</string>
 	<string name="ifNotRenewed">اذا لم تجدد، سيتم تخفيضك لحساب مجاني.</string>
 	<string name="weRelyOnSupport">نحن نعتمد على دعم من أُناس مثلك لجعل هذا ممكناً، اذا استمتعت على Lishogi، يرجى النظر في دعمنا وأن تصبح راعي!</string>
-	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">مدى الحياة</string>
 	<string name="payLifetimeOnce">ادفع %s مره، وكنّ راعي Lishogi للأبد!</string>
 	<string name="lifetimePatron">راعي Lishogi مدة الحياة</string>
@@ -29,8 +29,6 @@
 	<string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
 	<string name="celebratedPatrons">The celebrated Patrons who make Lishogi possible</string>
 	<string name="whereMoneyGoes">أين يذهب المال؟</string>
-	<string name="serversAndDeveloper">First of all, powerful servers.
-Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">انظر للتكاليف مفصلة.</string>
 	<string name="changeMonthlySupport">هل يمكنني تغيير/الغاء دعمي الشهري؟</string>
 	<string name="changeOrContact">Yes, at any time, from this page.

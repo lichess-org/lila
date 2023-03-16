@@ -504,7 +504,7 @@
 	<string name="handicap">Fory</string>
 	<string name="startPosition">Ustawienie początkowe</string>
 	<string name="clearBoard">Wyczyść szachownicę</string>
-	<string name="fillXHand">Fill hand of %s</string>
+	<string name="fillXHand">Uzupełnij rękę: %s</string>
 	<string name="savePosition">Zapisz pozycję</string>
 	<string name="loadPosition">Wczytaj ustawienie</string>
 	<string name="isPrivate">Prywatny</string>
@@ -656,7 +656,7 @@
 	<string name="listBlockedPlayers">Lista zablokowanych przez Ciebie graczy</string>
 	<string name="human">Człowiek</string>
 	<string name="computer">Komputer</string>
-	<string name="side">Strona</string>
+	<string name="side">Z boku</string>
 	<string name="clock">Zegar</string>
 	<string name="unauthorizedError">Brak dostępu.</string>
 	<string name="noInternetConnection">Brak połączenia z internetem. Nadal możesz wybrać z menu opcję gry offline.</string>
@@ -791,7 +791,7 @@
 	<string name="security">Bezpieczeństwo</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To jest lista urządzeń, z których logowałeś się na swoje konto. Unieważnij sesje, których nie rozpoznajesz.</string>
 	<string name="alternativelyYouCanX">Możesz również %s.</string>
-	<string name="sessions">Sessions</string>
+	<string name="sessions">Sesje</string>
 	<string name="revokeAllSessions">unieważnić wszystkie sesje</string>
 	<string name="playShogiEverywhere">Graj w shogi wszędzie</string>
 	<string name="asFreeAsLishogi">Darmowa jak całe Lishogi</string>
@@ -851,7 +851,7 @@
 	<string name="shogiResources">Materiały o shogi</string>
 	<string name="coaches">Trenerzy</string>
 	<string name="invalidNotation">Nieprawidłowa notacja</string>
-	<string name="invalidSfen">Invalid SFEN</string>
+	<string name="invalidSfen">Nieprawidłowy SFEN</string>
 	<string name="error.minLength">Minimalna długość to %s znaków</string>
 	<string name="error.maxLength">Maksymalna długość to %s znaków</string>
 	<string name="error.min">Musi być większe lub równe %s</string>
@@ -976,12 +976,12 @@
 	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Bierki w strefie promocji</string>
 	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Wejście króla</string>
 	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Łączna wartość</string>
-	<string name="postGameStudy">Post-game study</string>
-	<string name="postGameStudies">Post-game studies</string>
-	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
-	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
-	<string name="studyWithOpponent">Study with opponent</string>
-	<string name="studyWith">Study with:</string>
-	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
-	<string name="standardStudy">Standard study</string>
+	<string name="postGameStudy">Opracowanie po partii</string>
+	<string name="postGameStudies">Opracowania po partiach</string>
+	<string name="postGameStudyExplanation">Opracowania po partiach są umieszczone w osobnej kategorii i pozwalają na bezpośrednie oferowanie rewanżu lub szukanie nowej partii.</string>
+	<string name="postGameStudiesOfGame">Opracowania po tej partii</string>
+	<string name="studyWithOpponent">Analizuj wraz z przeciwnikiem</string>
+	<string name="studyWith">Analizuj z:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Opcjonalne</string>
+	<string name="standardStudy">Zwykłe opracowanie</string>
 </resources>

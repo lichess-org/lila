@@ -13,7 +13,7 @@
 	<string name="patronUntil">Jy het \'n Beskermheer rekening tot %s.</string>
 	<string name="ifNotRenewed">As jy dit nie hernu nie, sal jy weer een van die leke wees.</string>
 	<string name="weRelyOnSupport">Ons steun op die ondersteuning van mense soos julle om dit moontlik te maak. Indien jy dit geniet om Lishogi te gebruik, oorweeg dit om ons te ondersteun deur \'n skenking te maak en \'n Beskermheer te word!</string>
-	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Lewenslange</string>
 	<string name="payLifetimeOnce">Betaal %s een keer. Word \'n Lishogi Beskermheer vir ewig!</string>
 	<string name="lifetimePatron">Lewenslange Lishogi Beskermheer</string>
@@ -29,8 +29,6 @@
 	<string name="weAreSmallTeam">Ons is \'n klein span, so jou ondersteuning maak \'n groot verskil!</string>
 	<string name="celebratedPatrons">Die gevierde Beskermhere wat Lishogi moontlik maak</string>
 	<string name="whereMoneyGoes">Waarheen gaan my geld?</string>
-	<string name="serversAndDeveloper">First of all, powerful servers.
-Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Sien die uiteengesette koste analise</string>
 	<string name="changeMonthlySupport">Kan ek my maandelikse ondersteuning kanseleer of verander?</string>
 	<string name="changeOrContact">Natuurlik, enige tyd, van hierdie blad af.

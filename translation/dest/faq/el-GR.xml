@@ -3,8 +3,8 @@
 	<string name="faqAbbreviation">Συχνές ερωτήσεις</string>
 	<string name="frequentlyAskedQuestions">Frequently Asked Questions</string>
 	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="forkedFromLichess">Lishogi is open source project forked from Lichess, but since it\'s for playing shogi, it\'s called Lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Lichess. And Lichess is called Lichess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
 	<string name="leeshogi">lee-shogi</string>
 	<string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lishogi is open-source and unencumbered by proprietary junk that plagues other websites.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>

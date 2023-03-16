@@ -13,7 +13,7 @@
 	<string name="patronUntil">Tens uma conta de patrono até %s.</string>
 	<string name="ifNotRenewed">Se não for renovado, serás despromovido a conta gratuita.</string>
 	<string name="weRelyOnSupport">Contamos com o apoio de pessoas como tu para o tornar possível. Se gostas de usar o Lishogi, por favor considera apoiar-nos através de uma doação ao te tornares um patrono!</string>
-	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Vitalícia</string>
 	<string name="payLifetimeOnce">Paga %s uma vez. Sê um patrono do Lishogi para sempre!</string>
 	<string name="lifetimePatron">Patrono vitalício do Lishogi</string>
@@ -29,8 +29,6 @@
 	<string name="weAreSmallTeam">Somos uma equipa pequena pelo que o teu apoio faz uma grande diferença!</string>
 	<string name="celebratedPatrons">Os gloriosos patronos que tornam o Lishogi possível</string>
 	<string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
-	<string name="serversAndDeveloper">First of all, powerful servers.
-Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Vê os custos detalhadamente</string>
 	<string name="changeMonthlySupport">Posso mudar/cancelar o meu suporte mensal?</string>
 	<string name="changeOrContact">Sim, a qualquer momento, a partir desta página.

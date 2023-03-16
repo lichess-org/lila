@@ -13,7 +13,7 @@
 	<string name="patronUntil">נהפכת לתומך עד %s.</string>
 	<string name="ifNotRenewed">אם לא יחודש, אז תשונמך בחינם.</string>
 	<string name="weRelyOnSupport">אנחנו תלויים בתומכים כמוך על מנת להפוך את זה לאפשרי. אם את/ה נהנה/ית מליצ\'ס, בבקשה תשקול/י לתמוך בנו על ידי תרומה ולהפוך לתומך!</string>
-	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">לכל החיים</string>
 	<string name="payLifetimeOnce">שלם %s פעם אחת. הפוך לתומך לכל החיים!</string>
 	<string name="lifetimePatron">פטרון לכל החיים</string>
@@ -29,8 +29,6 @@
 	<string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
 	<string name="celebratedPatrons">התומכים המהוללים שגורמים לליצ\'ס להיות אפשרי</string>
 	<string name="whereMoneyGoes">לאן הכסף הולך?</string>
-	<string name="serversAndDeveloper">First of all, powerful servers.
-Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">ראה את ניתוח ההוצאות הכלכליות</string>
 	<string name="changeMonthlySupport">האם אני יכול/ה לשנות/לבטל את התמיכה החודשית שלי?</string>
 	<string name="changeOrContact">כן, בכל זמן נתון, מהעמוד הזה.

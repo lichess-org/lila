@@ -13,7 +13,7 @@
 	<string name="patronUntil">You have a Patron account until %s.</string>
 	<string name="ifNotRenewed">If not renewed, you will then be downgraded to free.</string>
 	<string name="weRelyOnSupport">We rely on support from people like you to make it possible. If you enjoy using Lishogi, please consider supporting us by donating and becoming a Patron!</string>
-	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">Lifetime</string>
 	<string name="payLifetimeOnce">Pay %s once. Be a Lishogi Patron forever!</string>
 	<string name="lifetimePatron">Lifetime Lishogi Patron</string>
@@ -29,8 +29,6 @@
 	<string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
 	<string name="celebratedPatrons">The celebrated Patrons who make Lishogi possible</string>
 	<string name="whereMoneyGoes">Where does the money go?</string>
-	<string name="serversAndDeveloper">Først og fremst til kraftige servere.
-Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
 	<string name="costBreakdown">See the detailed cost breakdown</string>
 	<string name="changeMonthlySupport">Can I change/cancel my monthly support?</string>
 	<string name="changeOrContact">Yes, at any time, from this page.

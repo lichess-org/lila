@@ -13,7 +13,7 @@
 	<string name="patronUntil">%s までのパトロン・アカウントを贈ります。</string>
 	<string name="ifNotRenewed">更新しないと無料アカウントに戻ります。</string>
 	<string name="weRelyOnSupport">そのためにはあなたのような方からのサポートが必要です。Lishogi を楽しんでいるのなら、寄付をしてパトロンになることを考えてみてください！</string>
-	<string name="donationSupport">If you want to support lishogi and open source development, consider donating! You will not get anything in return, because lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
 	<string name="lifetime">永久</string>
 	<string name="payLifetimeOnce">%s を一度に寄付すれば、永久に Lihosig パトロンです！</string>
 	<string name="lifetimePatron">永久 Lishogi パトロン</string>
@@ -29,8 +29,6 @@
 	<string name="weAreSmallTeam">小さな団体なので、あなたのサポートは本当に大きな助けになります！</string>
 	<string name="celebratedPatrons">Lishogi の実現に貢献しているパトロンのみなさん</string>
 	<string name="whereMoneyGoes">このお金は何に使われますか？</string>
-	<string name="serversAndDeveloper">まず第一に、より強力なサーバーです。
-そして Lishogi の創設者であり常勤の開発者でもある %s に支払われます。</string>
 	<string name="costBreakdown">費用の内訳を見る</string>
 	<string name="changeMonthlySupport">毎月の寄付を変更／キャンセルできますか？</string>
 	<string name="changeOrContact">はい、このページでいつでも。

@@ -249,10 +249,10 @@
 	<string name="unlimited">Безмежно</string>
 	<string name="mode">Лад</string>
 	<string name="casual">Товариська</string>
-	<string name="rated">Щабельна</string>
+	<string name="rated">Рейтингова</string>
 	<string name="casualTournament">Товариська</string>
-	<string name="ratedTournament">Щабельна</string>
-	<string name="thisGameIsRated">Гра щабельна</string>
+	<string name="ratedTournament">Рейтингова</string>
+	<string name="thisGameIsRated">Гра на рейтинг</string>
 	<string name="rematch">Помста</string>
 	<string name="rematchOfferSent">Помсту подано</string>
 	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
@@ -280,8 +280,8 @@
 	<string name="freeOnlineShogi">Free Online Shogi</string>
 	<string name="spectators">Глядачі:</string>
 	<plurals name="nbRated">
-		<item quantity="one">%s щабельна</item>
-		<item quantity="few">%s щабельні</item>
+		<item quantity="one">%s на рейтинг</item>
+		<item quantity="few">%s на рейтинг</item>
 		<item quantity="many">%s щабельні</item>
 		<item quantity="other">%s щабельні</item>
 	</plurals>
