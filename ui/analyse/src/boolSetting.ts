@@ -11,17 +11,17 @@ export interface BoolSetting {
   change(v: boolean): void;
 }
 
-export function boolSetting(o: BoolSetting, trans: Trans, redraw: Redraw) {
+export function boolSetting(o: BoolSetting, redraw: Redraw) {
   const fullId = 'abset-' + o.id;
   return h(
     'div.setting.' + fullId,
     o.title
       ? {
-          attrs: { title: trans.noarg(o.title) },
+          attrs: { title: o.title },
         }
       : {},
     [
-      h('label', { attrs: { for: fullId } }, trans.noarg(o.name)),
+      h('label', { attrs: { for: fullId } }, o.name),
       h('div.switch', [
         h('input#' + fullId + '.cmn-toggle', {
           attrs: {

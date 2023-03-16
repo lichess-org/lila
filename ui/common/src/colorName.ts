@@ -9,7 +9,7 @@ export const enum ColorName {
 
 const colorNamePref = parseInt(document.body.dataset.colorName || '0');
 
-export function transWithColorName(trans: Trans, key: string, color: Color, initialSfen: Sfen | undefined): string {
+export function transWithColorName(trans: Trans, key: I18nKey, color: Color, initialSfen: Sfen | undefined): string {
   const res = trans(key, colorName(trans.noarg, color, initialSfen));
   return capitalizeFirstLetter(res);
 }

@@ -61,14 +61,10 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
 }
 
 export default function (ctrl: LobbyController): MaybeVNodes {
+  const headers: I18nKey[] = ['player', 'rating', 'time', 'mode'];
   return [
     h('table.hooks__list', [
-      h('thead', [
-        h(
-          'tr',
-          ['', 'player', 'rating', 'time', 'mode'].map(header => h('th', ctrl.trans(header)))
-        ),
-      ]),
+      h('thead', [h('tr', [h('th', '')].concat(headers.map(header => h('th', ctrl.trans(header)))))]),
       h(
         'tbody',
         {

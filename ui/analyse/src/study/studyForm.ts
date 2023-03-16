@@ -172,7 +172,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               select({
                 key: 'computer',
                 name: ctrl.trans.noarg('computerAnalysis'),
-                choices: userSelectionChoices.map(c => [c[0], ctrl.trans.noarg(c[1])]),
+                choices: userSelectionChoices.map(c => [c[0], c[1]]),
                 selected: data.settings.computer,
               })
             ),

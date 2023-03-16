@@ -126,7 +126,7 @@ function studyAdvancedButton(ctrl: RoundController): VNode | null {
                 ctrl.trans.noarg('postGameStudiesOfGame')
               ),
             ]),
-            h('div.study-option', [h('div.study-title', ctrl.trans.noarg('Standard Study')), standardStudyForm(ctrl)]),
+            h('div.study-option', [h('div.study-title', ctrl.trans.noarg('standardStudy')), standardStudyForm(ctrl)]),
           ]),
         ]
       )
@@ -280,7 +280,7 @@ export function standard(
   ctrl: RoundController,
   condition: ((d: RoundData) => boolean) | undefined,
   icon: string,
-  hint: string,
+  hint: I18nKey,
   socketMsg: string,
   onclick?: () => void
 ): VNode {
@@ -349,7 +349,7 @@ export function opponentGone(ctrl: RoundController) {
 function actConfirm(
   ctrl: RoundController,
   f: (v: boolean) => void,
-  transKey: string,
+  transKey: I18nKey,
   icon: string,
   klass?: string
 ): VNode {
@@ -508,7 +508,7 @@ export function cancelTakebackProposition(ctrl: RoundController) {
     : null;
 }
 
-function acceptButton(ctrl: RoundController, klass: string, action: () => void, i18nKey: string = 'accept') {
+function acceptButton(ctrl: RoundController, klass: string, action: () => void, i18nKey: I18nKey = 'accept') {
   const text = ctrl.noarg(i18nKey);
   return ctrl.nvui
     ? h(
@@ -526,7 +526,7 @@ function acceptButton(ctrl: RoundController, klass: string, action: () => void, 
         hook: util.bind('click', action),
       });
 }
-function declineButton(ctrl: RoundController, action: () => void, i18nKey: string = 'decline') {
+function declineButton(ctrl: RoundController, action: () => void, i18nKey: I18nKey = 'decline') {
   const text = ctrl.noarg(i18nKey);
   return ctrl.nvui
     ? h(

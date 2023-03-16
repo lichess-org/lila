@@ -40,7 +40,7 @@ const editor = (ctrl: Controller): VNode => {
     .sort();
   const allThemes = location.pathname == '/training/daily' ? null : ctrl.allThemes;
   const availableThemes = allThemes ? allThemes.dynamic.filter(t => !votedThemes[t]) : null;
-  if (availableThemes) availableThemes.sort((a, b) => (trans(a) < trans(b) ? -1 : 1));
+  if (availableThemes) availableThemes.sort((a, b) => (trans(a as I18nKey) < trans(b as I18nKey) ? -1 : 1));
   return h('div.puzzle__themes', [
     h(
       'div.puzzle__themes_list',
@@ -65,10 +65,10 @@ const editor = (ctrl: Controller): VNode => {
               {
                 attrs: {
                   href: `/training/${key}`,
-                  title: trans(`${key}Description`),
+                  title: trans(`${key}Description` as I18nKey),
                 },
               },
-              trans(key)
+              trans(key as I18nKey)
             ),
             !allThemes
               ? null
@@ -127,10 +127,10 @@ const editor = (ctrl: Controller): VNode => {
                   {
                     attrs: {
                       value: theme,
-                      title: trans(`${theme}Description`),
+                      title: trans(`${theme}Description` as I18nKey),
                     },
                   },
-                  trans(theme)
+                  trans(theme as I18nKey)
                 )
               ),
             ]

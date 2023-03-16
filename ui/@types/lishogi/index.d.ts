@@ -110,14 +110,16 @@ interface AssetUrlOpts {
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
-type TransNoArg = (key: string) => string;
+type I18nKey = import('./i18n').I18nKey;
+
+type TransNoArg = (key: I18nKey) => string;
 
 interface Trans {
-  (key: string, ...args: Array<string | number>): string;
+  (key: I18nKey, ...args: Array<string | number>): string;
   noarg: TransNoArg;
-  plural(key: string, count: number, ...args: Array<string | number>): string;
-  vdom<T>(key: string, ...args: T[]): (string | T)[];
-  vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): (string | T)[];
+  plural(key: I18nKey, count: number, ...args: Array<string | number>): string;
+  vdom<T>(key: I18nKey, ...args: T[]): (string | T)[];
+  vdomPlural<T>(key: I18nKey, count: number, countArg: T, ...args: T[]): (string | T)[];
 }
 
 type PubsubCallback = (...data: any[]) => void;

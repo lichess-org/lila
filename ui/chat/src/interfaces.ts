@@ -85,7 +85,7 @@ export interface ChatPalantir {
 export interface ViewModel {
   tab: Tab;
   enabled: boolean;
-  placeholderKey: string;
+  placeholderKey: I18nKey;
   loading: boolean;
   timeout: boolean;
   writeable: boolean;

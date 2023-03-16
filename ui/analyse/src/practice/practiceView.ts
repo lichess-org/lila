@@ -45,7 +45,7 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
     h('div.instruction', [
       h('strong', root.trans.noarg(end.winner ? 'checkmate' : 'draw')),
       end.winner
-        ? h('em', h('color', transWithColorName(root.trans, 'xkWinsGame', end.winner, root.data.game.initialSfen)))
+        ? h('em', h('color', transWithColorName(root.trans, 'xWinsGame', end.winner, root.data.game.initialSfen)))
         : h('em', root.trans.noarg('theGameIsADraw')),
     ]),
   ]);

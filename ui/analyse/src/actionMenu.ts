@@ -8,7 +8,7 @@ import AnalyseCtrl from './ctrl';
 import * as kifExport from './notationExport';
 
 interface AutoplaySpeed {
-  name: string;
+  name: I18nKey;
   delay: AutoplayDelay;
 }
 
@@ -209,7 +209,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           .concat([
             ctrlBoolSetting(
               {
-                name: 'enable',
+                name: ctrl.trans('enable'),
                 title: (mandatoryCeval ? 'Required by practice mode' : 'Engine') + ' (Hotkey: z)',
                 id: 'all',
                 checked: ctrl.showComputer(),
@@ -224,7 +224,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ? [
                   ctrlBoolSetting(
                     {
-                      name: 'bestMoveArrow',
+                      name: ctrl.trans('bestMoveArrow'),
                       title: 'Hotkey: a',
                       id: 'shapes',
                       checked: ctrl.showAutoShapes(),
@@ -234,7 +234,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ),
                   ctrlBoolSetting(
                     {
-                      name: 'evaluationGauge',
+                      name: ctrl.trans('evaluationGauge'),
                       id: 'gauge',
                       checked: ctrl.showGauge(),
                       change: ctrl.toggleGauge,
@@ -252,8 +252,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ),
                   ctrlBoolSetting(
                     {
-                      name: 'infiniteAnalysis',
-                      title: 'removesTheDepthLimit',
+                      name: ctrl.trans('infiniteAnalysis'),
+                      title: ctrl.trans('removesTheDepthLimit'),
                       id: 'infinite',
                       checked: ceval.infinite(),
                       change: ctrl.cevalSetInfinite,
@@ -389,5 +389,5 @@ export function view(ctrl: AnalyseCtrl): VNode {
 }
 
 function ctrlBoolSetting(o: BoolSetting, ctrl: AnalyseCtrl) {
-  return boolSetting(o, ctrl.trans, ctrl.redraw);
+  return boolSetting(o, ctrl.redraw);
 }

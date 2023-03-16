@@ -1,4 +1,4 @@
-const list = [
+const list: I18nKey[] = [
   'awesome',
   'excellent',
   'greatJob',

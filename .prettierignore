@@ -20,6 +20,7 @@ ui/game/**/*.js
 ui/game/**/*.d.ts
 ui/nvui/**/*.js
 ui/nvui/**/*.d.ts
+ui/@types/lishogi/i18n.d.ts
 
 *.min.js
 

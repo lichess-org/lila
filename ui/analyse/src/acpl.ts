@@ -9,7 +9,7 @@ type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
 interface Advice {
   kind: AdviceKind;
-  plural: string;
+  plural: I18nKey;
   symbol: string;
 }
 

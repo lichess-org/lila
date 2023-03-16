@@ -1,4 +1,4 @@
-import { colorName } from 'common/colorName';
+import { colorName, transWithColorName } from 'common/colorName';
 import { MaybeVNodes } from 'common/snabbdom';
 import * as game from 'game';
 import * as status from 'game/status';
@@ -108,7 +108,7 @@ function whosTurn(ctrl: RoundController, color: Color, position: Position) {
       ? h(
           'div.rclock-turn__text',
           d.player.spectator
-            ? ctrl.trans(d.game.player + 'Plays')
+            ? transWithColorName(ctrl.trans, 'xPlays', d.game.player, d.game.initialSfen)
             : ctrl.trans(d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent')
         )
       : null,

@@ -224,8 +224,8 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
           numberRow(ctrl.trans('xWins', 'sente'), [s.senteWins, slots], 'percent'),
           numberRow(ctrl.trans('xWins', 'gote'), [s.goteWins, slots], 'percent'),
           numberRow(noarg('draws'), [s.draws, slots], 'percent'),
-          numberRow(noarg('byes'), [s.byes, slots], 'percent'),
-          numberRow(noarg('absences'), [s.absences, slots], 'percent'),
+          numberRow('byes', [s.byes, slots], 'percent'),
+          numberRow('absences', [s.absences, slots], 'percent'),
         ]),
       ])
     : undefined;

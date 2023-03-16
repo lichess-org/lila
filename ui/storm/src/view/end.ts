@@ -8,7 +8,9 @@ import StormCtrl from '../ctrl';
 
 const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];
 
-const newHighI18n = {
+const newHighI18n: {
+  [key: string]: I18nKey;
+} = {
   day: 'newDailyHighscore',
   week: 'newWeeklyHighscore',
   month: 'newMonthlyHighscore',

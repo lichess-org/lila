@@ -13,7 +13,7 @@ import { StudyChapterMeta } from './interfaces';
 import { chapter as chapterTour } from './studyTour';
 import { importNotation, variants as xhrVariants } from './studyXhr';
 
-export const modeChoices = [
+export const modeChoices: [string, I18nKey][] = [
   ['normal', 'normalAnalysis'],
   ['practice', 'practiceWithComputer'],
   ['conceal', 'hideNextMoves'],
@@ -194,7 +194,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),
             makeTab('sfen', 'SFEN', noarg('loadAPositionFromSfen')),
-            makeTab('notation', 'KIF/CSA', noarg('loadAGameFromKifCsa')),
+            makeTab('notation', 'KIF/CSA', 'KIF/CSA'),
           ]),
           activeTab === 'edit'
             ? h(
@@ -297,7 +297,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 {
                   attrs: { for: 'chapter-variant' },
                 },
-                noarg('Variant')
+                noarg('variant')
               ),
               h(
                 'select#chapter-variant.form-control',

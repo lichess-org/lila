@@ -168,7 +168,7 @@ export function replay(ctrl: Controller): MaybeVNode {
           href: `/training/dashboard/${replay.days}`,
         },
       },
-      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles`]
+      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key as I18nKey)} puzzles`]
     ),
     h('div.puzzle__side__replay__bar', {
       attrs: {

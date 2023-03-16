@@ -24,10 +24,7 @@ function keyListFrom(name) {
 
         resolve({
           name,
-          code:
-            keys
-              .map(k => `val \`${k}\` = new I18nKey("${name === 'site' ? '' : xmlName(name) + ':'}${k}")`)
-              .join('\n') + '\n',
+          keys
         });
       })
     );
@@ -35,17 +32,26 @@ function keyListFrom(name) {
 }
 
 Promise.all(dbs.map(keyListFrom)).then(objs => {
+  function mapKeys(name, keys) {
+    return keys.map(k => `val \`${k}\` = new I18nKey("${name === 'site' ? '' : xmlName(name) + ':'}${k}")`)
+    .join('\n') + '\n';
+  }
   function dbCode(obj) {
-    return obj.name === 'site' ? obj.code : `object ${obj.name} {\n${obj.code}}\n`;
+    return obj.name === 'site' ? mapKeys(obj.name, obj.keys) : `object ${obj.name} {\n${mapKeys(obj.name, obj.keys)}}\n`;
   }
 
-  const code = `// Generated with bin/trans-dump.js
+  const codeScala = `// Generated with bin/trans-dump.js
 package lila.i18n
 // format: OFF
 object I18nKeys {
 ${objs.map(dbCode).join('\n')}
 }
 `;
+  const codeTs = `// Generated with bin/trans-dump.js
+export type I18nKey =
+${objs.map(o => o.keys).flat().map(k => `'${k}'`).join('|\n')};
+`;
 
-  return writeFile(path.resolve(lilaDir, 'modules/i18n/src/main/I18nKeys.scala'), code);
+  return writeFile(path.resolve(lilaDir, 'modules/i18n/src/main/I18nKeys.scala'), codeScala) &&
+  writeFile(path.resolve(lilaDir, '/home/wanderer/lishogi/lila/ui/@types/lishogi/i18n.d.ts'), codeTs);
 });
