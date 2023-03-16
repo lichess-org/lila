@@ -41,11 +41,10 @@ final class Analyser(
                   // first request, store
                   case _ =>
                     lila.mon.fishnet.analysis.requestCount("game").increment()
-                    repo addAnalysis work
-                  // evalCache skipPositions work.game flatMap { skipPositions =>
-                  //  lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                  //  repo addAnalysis work.copy(skipPositions = skipPositions)
-                  // }
+                    evalCache skipPositions work.game flatMap { skipPositions =>
+                      lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                      repo addAnalysis work.copy(skipPositions = skipPositions)
+                    }
                 }
               }
             }
@@ -81,11 +80,10 @@ final class Analyser(
               repo getSimilarAnalysis work flatMap {
                 _.isEmpty ?? {
                   lila.mon.fishnet.analysis.requestCount("study").increment()
-                  repo addAnalysis work
-                  // evalCache skipPositions work.game flatMap { skipPositions =>
-                  //  lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                  //  repo addAnalysis work.copy(skipPositions = skipPositions)
-                  // }
+                  evalCache skipPositions work.game flatMap { skipPositions =>
+                    lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                    repo addAnalysis work.copy(skipPositions = skipPositions)
+                  }
                 }
               }
             }
