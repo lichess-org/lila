@@ -131,12 +131,11 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, path: string):
       const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
         truncated = truncateComment(comment.text, 300, ctx);
 
-      const truncate = truncated.length < comment.text.length;
-      let sel = 'comment';
-      if (truncate) sel += '.truncated';
+      const isTruncated = truncated.length < comment.text.length;
+      const selector = 'comment' + (isTruncated ? '.truncated' : '');
 
-      return h(sel, {
-        hook: truncate
+      return h(selector, {
+        hook: isTruncated
           ? truncatedComment(truncated, text => by + enrichText(text), path, ctx)
           : innerHTML(truncated, text => by + enrichText(text)),
       });
