@@ -104,7 +104,7 @@ export const truncatedComment = <A>(a: A, toHtml: (a: A) => string, path: string
   insert(vnode: VNode) {
     (vnode.elm as HTMLElement).addEventListener('click', () => {
       ctx.ctrl.userJumpIfCan(path);
-      // Select the comments tab in the underboard - this is wrong
+      // Select the comments tab in the underboard
       ctx.ctrl.study?.vm.toolTab('comments');
       //Redraw everything
       ctx.ctrl.redraw();
