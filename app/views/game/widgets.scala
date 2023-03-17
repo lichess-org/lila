@@ -78,7 +78,11 @@ object widgets {
               else transWithColorName(trans.xPlays, g.turnColor, g.isHandicap)
             }
           ),
-          frag(br, br),
+          if (g.playedPlies > 0)
+            div(cls := "moves-count")(
+              strong(trans.nbMoves.pluralSame(g.playedPlies))
+            )
+          else frag(br, br),
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
           g.notationImport.flatMap(_.user).map { user =>
