@@ -764,7 +764,7 @@ export type I18nKey =
 'optional'|
 'standardStudy'|
 'opponentLeftCounter'|
-'moves'|
+'nbMoves'|
 'nbPlayers'|
 'nbGames'|
 'nbBookmarks'|

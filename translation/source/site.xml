@@ -79,7 +79,7 @@
 	<string name="deleteFromHere">Delete from here</string>
 	<string name="forceVariation">Force variation</string>
 	<string name="move">Move</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
