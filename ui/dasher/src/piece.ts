@@ -54,7 +54,7 @@ function isChu(t: Piece): boolean {
 }
 
 function isPngPiece(t: Piece): boolean {
-  return t === 'Portella' || t === 'Portella_2Kanji' || t === 'Intl_Portella';
+  return t === 'Portella' || t === 'Portella_2Kanji' || t === 'Intl_Portella' || t === 'joyful';
 }
 
 function pieceView(current: Piece, set: (t: Piece) => void) {

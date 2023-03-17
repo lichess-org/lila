@@ -50,6 +50,7 @@ object PieceSet extends PieceSetBase {
     "Intl_Wooden_3D",
     "Intl_Portella",
     "international",
+    "joyful",
     "simple_kanji",
     "doubutsu",
     "Logy_Games",

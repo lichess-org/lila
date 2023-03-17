@@ -8,7 +8,7 @@ lila_dir = pwd()
 source_dir = lila_dir + '/public/piece/'
 dest_dir = lila_dir + '/public/piece-css/'
 
-bidirectional = [['shogi_BnW', 'svg']]
+bidirectional = [['shogi_BnW', 'svg'], ['joyful', 'png']]
 
 themes = [
   ['1Kanji_3D', 'svg'],
