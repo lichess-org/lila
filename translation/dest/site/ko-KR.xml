@@ -21,8 +21,8 @@
   <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
   <string name="createAGame">새 게임 만들기</string>
-  <string name="whiteIsVictorious">백색 승리</string>
-  <string name="blackIsVictorious">흑색 승리</string>
+  <string name="whiteIsVictorious">백 승리</string>
+  <string name="blackIsVictorious">흑 승리</string>
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
   <string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
