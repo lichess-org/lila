@@ -69,7 +69,7 @@ function side(ctrl: LearnCtrl) {
 }
 
 function whatNext(ctrl: LearnCtrl) {
-  const makeStage = (href: string, img: string, title: string, subtitle: string, done?: boolean) => {
+  const makeStage = (href: string, img: string, title: I18nKey, subtitle: I18nKey, done?: boolean) => {
     const transTitle = ctrl.trans.noarg(title);
     return h(
       'a.stage' + titleVerbosityClass(transTitle) + (done ? '.done' : ''),

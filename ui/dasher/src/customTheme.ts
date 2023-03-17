@@ -51,6 +51,8 @@ export function ctrl(data: CustomThemeData, trans: Trans, redraw: Redraw, open: 
   };
 }
 
+const gridTypes: I18nKey[] = ['none', 'gridSlim', 'gridThick', 'gridVeryThick'];
+
 export function view(ctrl: CustomThemeCtrl): VNode {
   if (ctrl.loading === 'done') {
     return h(
@@ -72,7 +74,7 @@ export function view(ctrl: CustomThemeCtrl): VNode {
           makeSelection(
             ctrl,
             ctrl.trans.noarg('gridWidth'),
-            ['none', 'gridSlim', 'gridThick', 'gridVeryThick'].map(o => ctrl.trans.noarg(o))
+            gridTypes.map(o => ctrl.trans.noarg(o))
           ),
           makeColorInput(ctrl, ctrl.trans.noarg('gridColor'), 'gridColor'),
         ]),
