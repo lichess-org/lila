@@ -61,10 +61,10 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
     const mainChildren = main.forceVariation
       ? undefined
       : renderChildrenOf(ctx, main, {
-        parentPath: opts.parentPath + main.id,
-        isMainline: true,
-        conceal,
-      });
+          parentPath: opts.parentPath + main.id,
+          isMainline: true,
+          conceal,
+        });
     const passOpts = {
       parentPath: opts.parentPath,
       isMainline: !main.forceVariation,
@@ -204,7 +204,13 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   );
 }
 
-function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean, path: string | undefined): MaybeVNodes {
+function renderMainlineCommentsOf(
+  ctx: Ctx,
+  node: Tree.Node,
+  conceal: Conceal,
+  withColor: boolean,
+  path: string | undefined
+): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 
   const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
@@ -218,9 +224,14 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     if (conceal) sel += '.' + conceal;
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
+
+    const truncate = truncated.length < comment.text.length;
+    if (truncate) sel += '.truncated';
+
     return h(sel, {
-      hook: truncated.length == comment.text.length ? innerHTML(truncated, text => by + enrichText(text)) :
-        truncatedComment(truncated, text => by + enrichText(text), path, ctx),
+      hook: truncate
+        ? truncatedComment(truncated, text => by + enrichText(text), path, ctx)
+        : innerHTML(truncated, text => by + enrichText(text)),
     });
   });
 }

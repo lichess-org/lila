@@ -131,9 +131,15 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, path: string |
       if (comment.by === 'lichess' && !ctx.showComputer) return;
       const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
         truncated = truncateComment(comment.text, 300, ctx);
-      return h('comment', {
-        hook: truncated.length == comment.text.length ? innerHTML(truncated, text => by + enrichText(text)) :
-        truncatedComment(truncated, text => by + enrichText(text), path, ctx),
+
+      const truncate = truncated.length < comment.text.length;
+      let sel = 'comment';
+      if (truncate) sel += '.truncated';
+
+      return h(sel, {
+        hook: truncate
+          ? truncatedComment(truncated, text => by + enrichText(text), path, ctx)
+          : innerHTML(truncated, text => by + enrichText(text)),
       });
     })
     .filter(nonEmpty);
