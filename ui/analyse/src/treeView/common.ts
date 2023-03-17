@@ -100,7 +100,29 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
   );
 }
 
-export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
+export const truncatedComment = <A>(a: A, toHtml: (a: A) => string, path: string | undefined, ctx: Ctx): Hooks => ({
+  insert(vnode: VNode) {
+    (vnode.elm as HTMLElement).addEventListener('click', () => {
+      // Switch to the associated move
+      ctx.ctrl.userJumpIfCan(path || '');
+      // Select the comments tab in the underboard
+      ctx.ctrl.study?.vm.toolTab('comments');
+      // Scroll down to the comments tab
+      $('.analyse__underboard')[0]?.scrollIntoView();
+    });
+
+    (vnode.elm as HTMLElement).innerHTML = toHtml(a);
+    vnode.data!.cachedA = a;
+  },
+  postpatch(old: VNode, vnode: VNode) {
+    if (old.data!.cachedA !== a) {
+      (vnode.elm as HTMLElement).innerHTML = toHtml(a);
+    }
+    vnode.data!.cachedA = a;
+  },
+});
+
+export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, path: string | undefined): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
   return node
     .comments!.map(comment => {
@@ -108,7 +130,8 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
       const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
         truncated = truncateComment(comment.text, 300, ctx);
       return h('comment', {
-        hook: innerHTML(truncated, text => by + enrichText(text)),
+        hook: truncated.length == comment.text.length ? innerHTML(truncated, text => by + enrichText(text)) :
+        truncatedComment(truncated, text => by + enrichText(text), path, ctx),
       });
     })
     .filter(nonEmpty);

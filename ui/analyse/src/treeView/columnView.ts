@@ -14,6 +14,7 @@ import {
   findCurrentPath,
   renderInlineCommentsOf,
   truncateComment,
+  truncatedComment,
   retroLine,
   Ctx as BaseCtx,
   Opts as BaseOpts,
@@ -48,7 +49,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   if (conceal === 'hide') return;
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
-      commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
+      commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(nonEmpty);
     if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
         renderMoveAndChildrenOf(ctx, main, {
@@ -60,10 +61,10 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
     const mainChildren = main.forceVariation
       ? undefined
       : renderChildrenOf(ctx, main, {
-          parentPath: opts.parentPath + main.id,
-          isMainline: true,
-          conceal,
-        });
+        parentPath: opts.parentPath + main.id,
+        isMainline: true,
+        conceal,
+      });
     const passOpts = {
       parentPath: opts.parentPath,
       isMainline: !main.forceVariation,
@@ -178,7 +179,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
       ),
     ];
   return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
-    .concat(renderInlineCommentsOf(ctx, node))
+    .concat(renderInlineCommentsOf(ctx, node, path))
     .concat(opts.inline ? renderInline(ctx, opts.inline, opts) : null)
     .concat(
       renderChildrenOf(ctx, node, {
@@ -203,7 +204,7 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   );
 }
 
-function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
+function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean, path: string | undefined): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 
   const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
@@ -218,7 +219,8 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
-      hook: innerHTML(truncated, text => by + enrichText(text)),
+      hook: truncated.length == comment.text.length ? innerHTML(truncated, text => by + enrichText(text)) :
+        truncatedComment(truncated, text => by + enrichText(text), path, ctx),
     });
   });
 }
@@ -240,7 +242,8 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
   };
-  const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
+  //I hardcoded the root path, I'm not sure if there's a better way for that to be done
+  const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');
   return h(
     'div.tview2.tview2-column',
     {
