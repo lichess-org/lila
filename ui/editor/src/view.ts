@@ -1,4 +1,4 @@
-import { transWithColorName } from 'common/colorName';
+import { standardColorName, transWithColorName } from 'common/colorName';
 import { dragNewPiece } from 'shogiground/drag';
 import { colors, MouchEvent } from 'shogiground/types';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
@@ -285,7 +285,10 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              `${ctrl.trans.noarg('flipBoard')} - (${ctrl.trans(ctrl.shogiground.state.orientation)} POV)`
+              `${ctrl.trans.noarg('flipBoard')} - (${standardColorName(
+                ctrl.trans,
+                ctrl.shogiground.state.orientation
+              )} POV)`
             ),
             h(
               'a',
