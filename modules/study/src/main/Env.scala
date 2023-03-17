@@ -96,6 +96,8 @@ final class Env(
     case lila.user.User.GDPRErase(user) => api.erase(user).unit
     case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
       serverEvalMerger(analysis, complete).unit
+    case lila.analyse.actorApi.PostGameStudyAnalysisProgress(analysis, complete) =>
+      serverEvalMerger.postGameStudies(analysis, complete).unit
     case lila.hub.actorApi.study.RoundRematch(studyId, gameId) =>
       api.roundRematch(Study.Id(studyId), gameId)
     case lila.hub.actorApi.study.RoundRematchOffer(studyId, by) =>

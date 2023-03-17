@@ -78,7 +78,8 @@ case class Chapter(
   def isGamebook = ~gamebook
   def isConceal  = conceal.isDefined
 
-  def isGameChapter = root.isGameRoot
+  def isGameChapter          = root.isGameRoot
+  def isFirstGameRootChapter = root.gameMainline.exists(_.part == 0)
 
   def withoutChildren = copy(root = root.withoutChildren)
 

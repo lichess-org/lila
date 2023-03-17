@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.util.chaining._
 
+import lila.common.Bus
 import lila.analyse.AnalysisRepo
 import lila.game.Game
 
@@ -18,7 +19,7 @@ final class Analyser(
     system: akka.actor.ActorSystem
 ) {
 
-  val maxPlies = 200
+  val maxPlies = 225
 
   private val workQueue = new lila.hub.DuctSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")
 
@@ -31,14 +32,13 @@ final class Analyser(
             makeWork(game, sender) pipe { work =>
               workQueue {
                 repo getSimilarAnalysis work flatMap {
-                  // already in progress, do nothing
-                  case Some(similar) if similar.isAcquired => funit
-                  // queued by system, reschedule for the human sender
-                  case Some(similar) if similar.sender.system && !sender.system =>
-                    repo.updateAnalysis(similar.copy(sender = sender))
-                  // queued for someone else, do nothing
-                  case Some(_) => funit
-                  // first request, store
+                  case Some(similar) => {
+                    val maybeUpdatedSimilar = updateAnalysis(similar, sender)
+                    maybeUpdatedSimilar.foreach { a =>
+                      repo.updateAnalysis(a)
+                    }
+                    funit
+                  }
                   case _ =>
                     lila.mon.fishnet.analysis.requestCount("game").increment()
                     evalCache skipPositions work.game flatMap { skipPositions =>
@@ -55,12 +55,27 @@ final class Analyser(
   def apply(gameId: String, sender: Work.Sender): Fu[Boolean] =
     gameRepo game gameId flatMap { _ ?? { apply(_, sender) } }
 
+  def postGameStudy(gameId: String, sender: Work.Sender): Fu[Boolean] =
+    gameRepo game gameId flatMap {
+      _ ?? { g =>
+        (g.metadata.analysed ?? analysisRepo.byId(g.id)) flatMap {
+          case Some(analysis) =>
+            Bus.publish(
+              lila.analyse.actorApi.PostGameStudyAnalysisProgress(analysis, true),
+              "studyAnalysisProgress"
+            )
+            fuTrue
+          case _ => apply(g, sender)
+        }
+      }
+    }
+
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Boolean] =
     analysisRepo exists req.chapterId flatMap {
       case true => fuFalse
       case _ => {
         import req._
-        val sender = Work.Sender(req.userId.some, none, false, system = false)
+        val sender = Work.Sender(req.userId.some, none, none, false, system = false)
         limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
           if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           accepted ?? {
@@ -92,6 +107,19 @@ final class Analyser(
       }
     }
 
+  private def updateAnalysis(analysis: Work.Analysis, sender: Work.Sender): Option[Work.Analysis] = {
+    val senderUpdate =
+      (!analysis.isAcquired && analysis.sender.system && !sender.system) ?? analysis
+        .copy(sender = sender)
+        .some
+    val pgsUpdates = sender.postGameStudy.filter(so => !analysis.postGameStudies.exists(_ contains so)) ?? {
+      so =>
+        senderUpdate.getOrElse(analysis).copy(postGameStudies = (so :: ~analysis.postGameStudies).some).some
+    }
+
+    pgsUpdates.orElse(senderUpdate)
+  }
+
   private def makeWork(game: Game, sender: Work.Sender): Work.Analysis =
     makeWork(
       game = Work.Game(
@@ -115,6 +143,7 @@ final class Analyser(
       lastTryByKey = none,
       acquired = none,
       skipPositions = Nil,
+      postGameStudies = Nil.some,
       createdAt = DateTime.now
     )
 }

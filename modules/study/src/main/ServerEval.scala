@@ -6,7 +6,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.analyse.{ Analysis, Info }
-import lila.hub.actorApi.fishnet.StudyChapterRequest
+import lila.hub.actorApi.fishnet.{ PostGameStudyRequest, StudyChapterRequest }
 import lila.tree.Node.Comment
 import lila.user.User
 
@@ -24,14 +24,25 @@ object ServerEval {
         !eval.done && onceEvery(chapter.id.value)
       } ?? {
         chapterRepo.startServerEval(chapter) >>- {
-          fishnet ! StudyChapterRequest(
-            studyId = study.id.value,
-            chapterId = chapter.id.value,
-            initialSfen = chapter.root.sfen.some,
-            variant = chapter.setup.variant,
-            moves = chapter.root.mainline.map(_.usi).toList,
-            userId = userId
-          )
+          chapter.setup.gameId
+            .ifTrue(chapter.isFirstGameRootChapter)
+            .fold {
+              fishnet ! StudyChapterRequest(
+                studyId = study.id.value,
+                chapterId = chapter.id.value,
+                initialSfen = chapter.root.sfen.some,
+                variant = chapter.setup.variant,
+                moves = chapter.root.mainline.map(_.usi).toList,
+                userId = userId
+              )
+            } { gameId =>
+              fishnet ! PostGameStudyRequest(
+                userId = userId,
+                gameId = gameId,
+                studyId = study.id.value,
+                chapterId = chapter.id.value
+              )
+            }
         }
       }
   }
@@ -106,6 +117,11 @@ object ServerEval {
               }
             } logFailure logger
         }
+      }
+
+    def postGameStudies(analysis: Analysis, complete: Boolean) =
+      ~(analysis.postGameStudies) foreach { pgs =>
+        apply(analysis.copy(id = pgs.chapterId, studyId = pgs.studyId.some), complete)
       }
 
     def divisionOf(chapter: Chapter) =

@@ -58,6 +58,7 @@ object Work {
 
   case class Sender(
       userId: Option[String],
+      postGameStudy: Option[lila.analyse.Analysis.PostGameStudy],
       ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean
@@ -112,6 +113,7 @@ object Work {
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
+      postGameStudies: Option[List[lila.analyse.Analysis.PostGameStudy]], // list of studies to inform
       skipPositions: List[Int],
       createdAt: DateTime
   ) extends Work {

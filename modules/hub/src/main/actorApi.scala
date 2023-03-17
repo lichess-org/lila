@@ -222,6 +222,12 @@ package team {
 package fishnet {
   case class AutoAnalyse(gameId: String)
   case class NewKey(userId: String, key: String)
+  case class PostGameStudyRequest(
+      userId: String,
+      gameId: String,
+      studyId: String,
+      chapterId: String
+  )
   case class StudyChapterRequest(
       studyId: String,
       chapterId: String,

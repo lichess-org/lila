@@ -25,15 +25,15 @@ final private class Limiter(
 
   private def concurrentCheck(sender: Work.Sender) =
     sender match {
-      case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-      case Work.Sender(Some(userId), _, _, _) =>
+      case Work.Sender(_, _, _, mod, system) if mod || system => fuTrue
+      case Work.Sender(Some(userId), _, _, _, _) =>
         !analysisColl.exists(
           $doc(
             "sender.userId" -> userId,
             "game.variant"  -> shogi.variant.Standard.id
           )
         )
-      case Work.Sender(_, Some(ip), _, _) =>
+      case Work.Sender(_, _, Some(ip), _, _) =>
         !analysisColl.exists(
           $doc(
             "sender.ip" -> ip
@@ -46,9 +46,9 @@ final private class Limiter(
 
   private def perDayCheck(sender: Work.Sender) =
     sender match {
-      case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-      case Work.Sender(Some(userId), _, _, _) => requesterApi.countToday(userId) map (_ < maxPerDay)
-      case Work.Sender(_, Some(ip), _, _) =>
+      case Work.Sender(_, _, _, mod, system) if mod || system => fuTrue
+      case Work.Sender(Some(userId), _, _, _, _) => requesterApi.countToday(userId) map (_ < maxPerDay)
+      case Work.Sender(_, _, Some(ip), _, _) =>
         fuccess {
           RequestLimitPerIP(ip, cost = 1)(true)(false)
         }

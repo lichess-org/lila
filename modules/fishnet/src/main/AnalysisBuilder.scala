@@ -31,6 +31,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
         Analysis(
           id = work.game.id,
           studyId = work.game.studyId,
+          postGameStudies = work.postGameStudies,
           infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.usiList, work.startPly),
           startPly = work.startPly,
           uid = work.sender.userId,

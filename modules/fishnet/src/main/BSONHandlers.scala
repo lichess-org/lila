@@ -40,6 +40,8 @@ private object BSONHandlers {
   implicit val GameHandler = Macros.handler[Game]
   import Work.Move
   implicit val MoveHandler = Macros.handler[Move]
+  import lila.analyse.Analysis.PostGameStudy
+  implicit val PostGameStudyHandler = Macros.handler[PostGameStudy]
   import Work.Sender
   implicit val SenderHandler = Macros.handler[Sender]
   import Work.Analysis

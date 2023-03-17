@@ -12,3 +12,4 @@ case class AnalysisProgress(
 )
 
 case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
+case class PostGameStudyAnalysisProgress(analysis: Analysis, complete: Boolean)
