@@ -103,10 +103,12 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
 export const truncatedComment = <A>(a: A, toHtml: (a: A) => string, path: string | undefined, ctx: Ctx): Hooks => ({
   insert(vnode: VNode) {
     (vnode.elm as HTMLElement).addEventListener('click', () => {
-      // Switch to the associated move
+      // Switch to the associated move, or to the root if path is undefined
       ctx.ctrl.userJumpIfCan(path || '');
-      // Select the comments tab in the underboard
+      // Select the comments tab in the underboard - this is wrong
       ctx.ctrl.study?.vm.toolTab('comments');
+      //Redraw everything
+      ctx.ctrl.redraw();
       // Scroll down to the comments tab
       $('.analyse__underboard')[0]?.scrollIntoView();
     });
