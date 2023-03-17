@@ -209,7 +209,7 @@ function renderMainlineCommentsOf(
   node: Tree.Node,
   conceal: Conceal,
   withColor: boolean,
-  path: string | undefined
+  path: string
 ): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 

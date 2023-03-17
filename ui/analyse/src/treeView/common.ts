@@ -100,11 +100,10 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
   );
 }
 
-export const truncatedComment = <A>(a: A, toHtml: (a: A) => string, path: string | undefined, ctx: Ctx): Hooks => ({
+export const truncatedComment = <A>(a: A, toHtml: (a: A) => string, path: string, ctx: Ctx): Hooks => ({
   insert(vnode: VNode) {
     (vnode.elm as HTMLElement).addEventListener('click', () => {
-      // Switch to the associated move, or to the root if path is undefined
-      ctx.ctrl.userJumpIfCan(path || '');
+      ctx.ctrl.userJumpIfCan(path);
       // Select the comments tab in the underboard - this is wrong
       ctx.ctrl.study?.vm.toolTab('comments');
       //Redraw everything
@@ -124,7 +123,7 @@ export const truncatedComment = <A>(a: A, toHtml: (a: A) => string, path: string
   },
 });
 
-export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, path: string | undefined): MaybeVNodes {
+export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, path: string): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
   return node
     .comments!.map(comment => {
