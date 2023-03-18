@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Насумична боја</string>
 	<string name="createAGame">Започни нову партију</string>
-	<string name="whiteIsVictorious">Бели је победник</string>
-	<string name="blackIsVictorious">Црни је победник</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Ти си на потезу!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Нови противник</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
 	<string name="joinTheGame">Придружи се партији</string>
-	<string name="whitePlays">Бели је на потезу</string>
-	<string name="blackPlays">Црни је на потезу</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
@@ -53,11 +49,7 @@
 	<string name="forceDraw">Приморај на реми</string>
 	<string name="talkInChat">Буди љубазан у ћаскању!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Прва особа која кликне на овај линк ће играти са тобом.</string>
-	<string name="whiteResigned">Бели је предао</string>
-	<string name="blackResigned">Црни је предао</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">Бели је напустио партију</string>
-	<string name="blackLeftTheGame">Црни је напустио партију</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Подели овај линк како би посматрачи могли да гледају партију</string>
@@ -80,7 +72,7 @@
 	<string name="deleteFromHere">Избриши одавде</string>
 	<string name="forceVariation">Промакни варијацију</string>
 	<string name="move">Потез</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="few">%s moves</item>
 		<item quantity="other">%s moves</item>
@@ -218,11 +210,7 @@
 	<string name="drawOfferDeclined">Предлог за реми је одбијен</string>
 	<string name="drawOfferAccepted">Предлог за реми је прихваћен</string>
 	<string name="drawOfferCanceled">Предлог за реми је повучен</string>
-	<string name="whiteOffersDraw">Бели нуди реми</string>
-	<string name="blackOffersDraw">Црни нуди реми</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">Бели одбија реми</string>
-	<string name="blackDeclinesDraw">Црни одбија реми</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Противник нуди реми</string>
 	<string name="accept">Прихвати</string>
@@ -389,8 +377,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си човек.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Није шахмат</string>
-	<string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
-	<string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Покушај поново</string>
 	<string name="reconnecting">Поновно повезивање</string>
@@ -465,8 +451,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="performance">Перформанса</string>
 	<string name="tournamentComplete">Турнир завршен</string>
 	<string name="movesPlayed">Одиграно потеза</string>
-	<string name="whiteWins">Победе као бели</string>
-	<string name="blackWins">Победе као црни</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Ремија</string>
 	<string name="nextXTournament">Следећи %s турнир:</string>
@@ -845,8 +829,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="hideBestMove">Сакријте најбољи потез</string>
 	<string name="getAHint">Добиј те помоћ</string>
 	<string name="evaluatingYourMove">Процењивање вашег потеза ...</string>
-	<string name="whiteWinsGame">Бели је победио</string>
-	<string name="blackWinsGame">Црни је победио</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Научите из грешака</string>
 	<string name="learnFromThisMistake">Научите из ове грешке</string>

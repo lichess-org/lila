@@ -43,7 +43,7 @@ The top computer move will lose zero centipawns, but lesser moves will result in
 
 This value can be used as an indicator of the quality of play. The fewer centipawns one loses per move, the stronger the play.
 
-The computer analysis on Lishogi is powered by Stockfish.</string>
+The computer analysis on Lishogi is powered by YaneuraOu and Fairy-Stockfish.</string>
 	<string name="insufficientMaterial">Losing on time, drawing and insufficient material</string>
 	<string name="goodIntroduction">good introduction</string>
 	<string name="officialRulesPDF">official rules (PDF)</string>

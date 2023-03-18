@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Color a l\'atzar</string>
 	<string name="createAGame">Crea una partida</string>
-	<string name="whiteIsVictorious">Les blanques han guanyat</string>
-	<string name="blackIsVictorious">Les negres han guanyat</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">És el teu torn!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Nou adversari</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
 	<string name="joinTheGame">Uneix-te a la partida</string>
-	<string name="whitePlays">Les blanques juguen</string>
-	<string name="blackPlays">Les negres juguen</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">El seu contrincant ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
@@ -52,11 +48,7 @@
 	<string name="forceDraw">Fer taules</string>
 	<string name="talkInChat">Siusplau sigues amable al xat!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquesta URL jugarà amb tu.</string>
-	<string name="whiteResigned">Les blanques s\'han rendit</string>
-	<string name="blackResigned">Les negres s\'han rendit</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">Les blanques han abandonat la partida</string>
-	<string name="blackLeftTheGame">Les negres han abandonat la partida</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparteix aquesta URL perquè els espectadors puguin veure la partida</string>
@@ -79,7 +71,7 @@
 	<string name="deleteFromHere">Esborrar des d\'aquí</string>
 	<string name="forceVariation">Forçar variant</string>
 	<string name="move">Moviment</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
@@ -208,11 +200,7 @@
 	<string name="drawOfferDeclined">S\'ha rebutjat l\'oferta de taules</string>
 	<string name="drawOfferAccepted">S\'ha acceptat l\'oferta de taules</string>
 	<string name="drawOfferCanceled">S\'ha cancel·lat l\'oferta de taules</string>
-	<string name="whiteOffersDraw">Blanques ofereixen taules</string>
-	<string name="blackOffersDraw">Negres ofereixen taules</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">Blanques refusen taules</string>
-	<string name="blackDeclinesDraw">Negres refusen taules</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">El teu oponent t\'ofereix taules</string>
 	<string name="accept">Accepta</string>
@@ -366,8 +354,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Clica al tauler per fer el teu moviment i demostrar que ets una persona.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">No és escac i mat</string>
-	<string name="whiteCheckmatesInOneMove">Les blanques fan escac i mat en un moviment</string>
-	<string name="blackCheckmatesInOneMove">Les negres fan escac i mat en un moviment</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Intenta-ho de nou</string>
 	<string name="reconnecting">S\'està reconnectant</string>
@@ -438,8 +424,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="performance">Rendiment</string>
 	<string name="tournamentComplete">Torneig completat</string>
 	<string name="movesPlayed">Moviments jugats</string>
-	<string name="whiteWins">Les blanques guanyen</string>
-	<string name="blackWins">Les negres guanyen</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Taules</string>
 	<string name="nextXTournament">Proper torneig de %s:</string>
@@ -813,8 +797,6 @@ en %3$s</string>
 	<string name="hideBestMove">Amagar la millor jugada</string>
 	<string name="getAHint">Obtenir una pista</string>
 	<string name="evaluatingYourMove">Avaluant la seva jugada ...</string>
-	<string name="whiteWinsGame">Les blanques guanyen</string>
-	<string name="blackWinsGame">Les negres guanyen</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Aprendre dels seus errors</string>
 	<string name="learnFromThisMistake">Aprendre d\'aquest error</string>

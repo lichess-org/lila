@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Người chấp quân</string>
 	<string name="randomColor" comment="Side - sente/gote">Chọn màu quân ngẫu nhiên</string>
 	<string name="createAGame">Khởi tạo ván cờ</string>
-	<string name="whiteIsVictorious">Bên Trắng thắng</string>
-	<string name="blackIsVictorious">Bên Đen thắng</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Đến lượt bạn!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Đối thủ mới</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Đối thủ muốn chơi một ván cờ mới với bạn</string>
 	<string name="joinTheGame">Tham gia ván cờ</string>
-	<string name="whitePlays">Lượt Trắng đi</string>
-	<string name="blackPlays">Lượt Đen đi</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">Đối thủ bỏ cuộc. Bạn có thể tuyên bố thắng cuộc trong %s giây.</item>
@@ -51,11 +47,7 @@
 	<string name="forceDraw">Bắt buộc hòa</string>
 	<string name="talkInChat">Thảo luận trong chat</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng url này sẽ bắt đầu chơi với bạn</string>
-	<string name="whiteResigned">Trắng chịu thua</string>
-	<string name="blackResigned">Đen chịu thua</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">Trắng đã thoát khỏi ván cờ</string>
-	<string name="blackLeftTheGame">Đen đã thoát khỏi ván cờ</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Chia sẻ url này để mời khán giả đến xem ván cờ</string>
@@ -78,7 +70,7 @@
 	<string name="deleteFromHere">Xoá từ đây</string>
 	<string name="forceVariation">Đổi biến</string>
 	<string name="move">Các nước đi</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="other">%s moves</item>
 	</plurals>
 	<string name="variantLoss">Bước đi sai lầm dẫn đến chiếu hết</string>
@@ -198,11 +190,7 @@
 	<string name="drawOfferDeclined">Từ chối hoà</string>
 	<string name="drawOfferAccepted">Đồng ý hoà</string>
 	<string name="drawOfferCanceled">Yêu cầu hoà bị hủy bỏ</string>
-	<string name="whiteOffersDraw">Trắng đề nghị hòa</string>
-	<string name="blackOffersDraw">Đen đề nghị hòa</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">Trắng từ chối hòa</string>
-	<string name="blackDeclinesDraw">Đen từ chối hòa</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Đối phương xin hoà</string>
 	<string name="accept">Đồng ý</string>
@@ -343,8 +331,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người</string>
 	<string name="captcha.fail">Hãy giải captcha shogi.</string>
 	<string name="notACheckmate">Không phải là một nước chiếu hết</string>
-	<string name="whiteCheckmatesInOneMove">Trắng chiếu chiếu hết trong một nước đi</string>
-	<string name="blackCheckmatesInOneMove">Đen chiếu chiếu hết trong một nước đi</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Thử lại</string>
 	<string name="reconnecting">Kết nối lại</string>
@@ -411,8 +397,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="performance">Hiệu suất</string>
 	<string name="tournamentComplete">Kết thúc giải đấu</string>
 	<string name="movesPlayed">Số nước đi</string>
-	<string name="whiteWins">Trắng thắng</string>
-	<string name="blackWins">Đen thắng</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Hoà</string>
 	<string name="nextXTournament">Giải đấu tiếp theo %s:</string>
@@ -775,8 +759,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="hideBestMove">Ẩn nước đi tốt nhất</string>
 	<string name="getAHint">Xem gợi ý</string>
 	<string name="evaluatingYourMove">Đánh giá nước đi của bạn...</string>
-	<string name="whiteWinsGame">Trắng thắng</string>
-	<string name="blackWinsGame">Đen thắng</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Học từ lỗi của mình</string>
 	<string name="learnFromThisMistake">Học từ sai lầm này</string>

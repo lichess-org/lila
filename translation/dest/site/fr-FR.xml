@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Couleur aléatoire</string>
 	<string name="createAGame">Créer une partie</string>
-	<string name="whiteIsVictorious">Victoire de gote</string>
-	<string name="blackIsVictorious">Victoire de sente</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">Victoire de %s</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Vous jouez %s</string>
 	<string name="itsYourTurn">C\'est votre tour !</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Nouvel adversaire</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Votre adversaire souhaite jouer une nouvelle partie avec vous</string>
 	<string name="joinTheGame">Rejoindre la partie</string>
-	<string name="whitePlays">Trait à gote</string>
-	<string name="blackPlays">Trait à sente</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">Trait à %s</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Votre adversaire a quitté la partie. Vous pourrez revendiquer la victoire dans %s seconde.</item>
@@ -52,11 +48,7 @@
 	<string name="forceDraw">Déclarer la nulle</string>
 	<string name="talkInChat">Soyez courtois dans le chat.</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La première personne qui cliquera sur ce lien jouera avec vous.</string>
-	<string name="whiteResigned">Gote abandonne</string>
-	<string name="blackResigned">Sente abandonne</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s abandonne</string>
-	<string name="whiteLeftTheGame">Gote a quitté la partie</string>
-	<string name="blackLeftTheGame">Sente a quitté la partie</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s a quitté la partie</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Partagez ce lien pour permettre à des spectateurs de voir la partie</string>
@@ -79,7 +71,7 @@
 	<string name="deleteFromHere">Supprimer à partir d\'ici</string>
 	<string name="forceVariation">Forcer la variante</string>
 	<string name="move">Coup</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
@@ -208,11 +200,7 @@
 	<string name="drawOfferDeclined">Proposition de nulle refusée</string>
 	<string name="drawOfferAccepted">Proposition de nulle acceptée</string>
 	<string name="drawOfferCanceled">Proposition de nulle annulée</string>
-	<string name="whiteOffersDraw">Gote propose la nulle</string>
-	<string name="blackOffersDraw">Sente propose la nulle</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s propose la nulle</string>
-	<string name="whiteDeclinesDraw">Gote refuse la nulle</string>
-	<string name="blackDeclinesDraw">Sente refuse la nulle</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s refuse la nulle</string>
 	<string name="yourOpponentOffersADraw">Votre adversaire propose la nulle</string>
 	<string name="accept">Accepter</string>
@@ -365,8 +353,6 @@
 	<string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
 	<string name="captcha.fail">Vous devez résoudre le diagramme de shogi.</string>
 	<string name="notACheckmate">Ce n\'est pas un échec et mat</string>
-	<string name="whiteCheckmatesInOneMove">Gote mate en un coup</string>
-	<string name="blackCheckmatesInOneMove">Sente mate en un coup</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s mate en un coup</string>
 	<string name="retry">Réessayer</string>
 	<string name="reconnecting">Reconnexion en cours</string>
@@ -437,8 +423,6 @@
 	<string name="performance">Performance</string>
 	<string name="tournamentComplete">Tournoi complet</string>
 	<string name="movesPlayed">Coups joués</string>
-	<string name="whiteWins">Gains par gote</string>
-	<string name="blackWins">Gains par sente</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s victoires</string>
 	<string name="draws">Nulles</string>
 	<string name="nextXTournament">Prochain tournoi de %s :</string>
@@ -809,8 +793,6 @@
 	<string name="hideBestMove">Cacher le meilleur coup</string>
 	<string name="getAHint">Obtenir un indice</string>
 	<string name="evaluatingYourMove">Evaluation de votre coup ...</string>
-	<string name="whiteWinsGame">Gote gagne</string>
-	<string name="blackWinsGame">Sente gagne</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s gagne</string>
 	<string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
 	<string name="learnFromThisMistake">Apprendre de cette erreur</string>

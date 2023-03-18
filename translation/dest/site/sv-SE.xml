@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Slumpvis färg</string>
 	<string name="createAGame">Skapa ett parti</string>
-	<string name="whiteIsVictorious">Vit har vunnit</string>
-	<string name="blackIsVictorious">Svart har vunnit</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Det är din tur!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Ny motståndare</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Din motståndare vill spela ett nytt parti med dig</string>
 	<string name="joinTheGame">Starta partiet</string>
-	<string name="whitePlays">Vits drag</string>
-	<string name="blackPlays">Svarts drag</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Din motståndare lämnade partiet. Du kan begära seger om %s sekund.</item>
@@ -52,11 +48,7 @@
 	<string name="forceDraw">Begär remi</string>
 	<string name="talkInChat">Vänligen uppträd trevligt i chatten!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den första som använder den här länken kommer att spela med dig.</string>
-	<string name="whiteResigned">Vit har gett upp</string>
-	<string name="blackResigned">Svart har gett upp</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">Vitspelaren har lämnat partiet</string>
-	<string name="blackLeftTheGame">Svartspelaren har lämnat partiet</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Dela länken till åskådare som vill se partiet</string>
@@ -79,7 +71,7 @@
 	<string name="deleteFromHere">Radera härifrån</string>
 	<string name="forceVariation">Visa som variant</string>
 	<string name="move">Drag</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
@@ -208,11 +200,7 @@
 	<string name="drawOfferDeclined">Remierbjudande avbrutet</string>
 	<string name="drawOfferAccepted">Remierbjudande accepterat</string>
 	<string name="drawOfferCanceled">Remierbjudande avbrutet</string>
-	<string name="whiteOffersDraw">Vit erbjuder remi</string>
-	<string name="blackOffersDraw">Svart erbjuder remi</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">Vit avböjer remi</string>
-	<string name="blackDeclinesDraw">Svart avböjer remi</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Din motståndare erbjuder remi</string>
 	<string name="accept">Acceptera</string>
@@ -366,8 +354,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Klicka på brädet och gör ditt drag för att bevisa att du är en människa.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Inte schackmatt</string>
-	<string name="whiteCheckmatesInOneMove">Vit gör schackmatt på ett drag</string>
-	<string name="blackCheckmatesInOneMove">Svart gör schackmatt på ett drag</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Försök igen</string>
 	<string name="reconnecting">Återansluter</string>
@@ -438,8 +424,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="performance">Prestation</string>
 	<string name="tournamentComplete">Turneringen avslutad</string>
 	<string name="movesPlayed">Drag spelade</string>
-	<string name="whiteWins">Vinster Vit</string>
-	<string name="blackWins">Vinster Svart</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Remier</string>
 	<string name="nextXTournament">Nästa %s turnering:</string>
@@ -810,8 +794,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="hideBestMove">Dölj det bästa draget</string>
 	<string name="getAHint">Ledtråd?</string>
 	<string name="evaluatingYourMove">Utvärderar ditt drag...</string>
-	<string name="whiteWinsGame">Vit vinner</string>
-	<string name="blackWinsGame">Svart vinner</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Lär av dina misstag</string>
 	<string name="learnFromThisMistake">Lär av detta misstaget</string>

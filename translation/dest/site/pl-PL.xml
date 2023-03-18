@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Losowo</string>
 	<string name="createAGame">Nowa partia</string>
-	<string name="whiteIsVictorious">Zwycięstwo białych</string>
-	<string name="blackIsVictorious">Zwycięstwo czarnych</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s zwyciężyły</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Grasz jako %s</string>
 	<string name="itsYourTurn">Twój ruch!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Nowy przeciwnik</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Przeciwnik chce zagrać z Tobą nową partię</string>
 	<string name="joinTheGame">Dołącz do gry</string>
-	<string name="whitePlays">Ruch białych</string>
-	<string name="blackPlays">Ruch czarnych</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">Ruch mają %s</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundę.</item>
@@ -54,11 +50,7 @@
 	<string name="forceDraw">Ogłoś remis</string>
 	<string name="talkInChat">Bądź uprzejmy na czacie!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która przejdzie pod ten adres, dołączy do Twojej partii.</string>
-	<string name="whiteResigned">Białe poddały się</string>
-	<string name="blackResigned">Czarne poddały się</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s poddały się</string>
-	<string name="whiteLeftTheGame">Białe porzuciły partię</string>
-	<string name="blackLeftTheGame">Czarne porzuciły partię</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s opuściły grę</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s nie wykonały ruchu</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Udostępnij ten adres innym, by mogli zobaczyć tę partię</string>
@@ -81,11 +73,11 @@
 	<string name="deleteFromHere">Usuń od tego miejsca</string>
 	<string name="forceVariation">Przedstaw jako wariant</string>
 	<string name="move">Ruch</string>
-	<plurals name="moves">
-		<item quantity="one">%s ruch</item>
-		<item quantity="few">%s ruchy</item>
-		<item quantity="many">%s ruchów</item>
-		<item quantity="other">%s ruchów</item>
+	<plurals name="nbMoves">
+		<item quantity="one">%s move</item>
+		<item quantity="few">%s moves</item>
+		<item quantity="many">%s moves</item>
+		<item quantity="other">%s moves</item>
 	</plurals>
 	<string name="variantLoss">Wariant przegrywający</string>
 	<string name="variantWin">Wariant wygrywający</string>
@@ -228,11 +220,7 @@
 	<string name="drawOfferDeclined">Odrzucono propozycję remisu</string>
 	<string name="drawOfferAccepted">Przyjęto propozycję remisu</string>
 	<string name="drawOfferCanceled">Wycofano propozycję remisu</string>
-	<string name="whiteOffersDraw">Białe proponują remis</string>
-	<string name="blackOffersDraw">Czarne proponują remis</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s oferują remis</string>
-	<string name="whiteDeclinesDraw">Białe odrzucają propozycję remisu</string>
-	<string name="blackDeclinesDraw">Czarne odrzucają propozycję remisu</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s odrzucają propozycję remisu</string>
 	<string name="yourOpponentOffersADraw">Przeciwnik proponuje remis</string>
 	<string name="accept">Przyjmij</string>
@@ -411,8 +399,6 @@
 	<string name="clickOnTheBoardToMakeYourMove">Wykonaj ruch i udowodnij, że jesteś człowiekiem.</string>
 	<string name="captcha.fail">Rozwiąż zadanie shogi.</string>
 	<string name="notACheckmate">To nie jest mat</string>
-	<string name="whiteCheckmatesInOneMove">Białe dają mata w jednym ruchu</string>
-	<string name="blackCheckmatesInOneMove">Czarne dają mata w jednym ruchu</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s matują w jednym ruchu</string>
 	<string name="retry">Spróbuj jeszcze raz</string>
 	<string name="reconnecting">Ponowne łączenie</string>
@@ -491,8 +477,6 @@
 	<string name="performance">Wynik</string>
 	<string name="tournamentComplete">Turniej zakończony</string>
 	<string name="movesPlayed">Wykonanych ruchów</string>
-	<string name="whiteWins">Wygranych białych</string>
-	<string name="blackWins">Wygranych czarnych</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wygrywają</string>
 	<string name="draws">Remisów</string>
 	<string name="nextXTournament">Następny turniej %s:</string>
@@ -879,8 +863,6 @@
 	<string name="hideBestMove">Ukryj najlepszy ruch</string>
 	<string name="getAHint">Pokaż podpowiedź</string>
 	<string name="evaluatingYourMove">Ocenianie Twojego ruchu…</string>
-	<string name="whiteWinsGame">Wygrana białych</string>
-	<string name="blackWinsGame">Wygrana czarnych</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wygrywają</string>
 	<string name="learnFromYourMistakes">Ucz się na swoich błędach</string>
 	<string name="learnFromThisMistake">Ucz się na tym błędzie</string>

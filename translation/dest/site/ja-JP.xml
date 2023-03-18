@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">上手</string>
 	<string name="randomColor" comment="Side - sente/gote">ランダム</string>
 	<string name="createAGame">対局を作成する</string>
-	<string name="whiteIsVictorious">後手の勝ちです</string>
-	<string name="blackIsVictorious">先手の勝ちです</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%sの勝ちです</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">あなたは%sです</string>
 	<string name="itsYourTurn">あなたの手番です！</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">新しい相手</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">相手が再対局を申し込みました。</string>
 	<string name="joinTheGame">対局に参加する</string>
-	<string name="whitePlays">後手番です</string>
-	<string name="blackPlays">先手番です</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s番です</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
@@ -51,11 +47,7 @@
 	<string name="forceDraw">引き分けにする</string>
 	<string name="talkInChat">チャットでは礼儀を忘れず</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">このURLを最初にクリックした人があなたと対局します。</string>
-	<string name="whiteResigned">後手が投了しました</string>
-	<string name="blackResigned">先手が投了しました</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%sが投了しました</string>
-	<string name="whiteLeftTheGame">後手が退席しました</string>
-	<string name="blackLeftTheGame">先手が退席しました</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%sが退席しました</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">誰かに対局を見てほしい場合、このURLを共有してください</string>
@@ -78,7 +70,7 @@
 	<string name="deleteFromHere">ここから削除</string>
 	<string name="forceVariation">変化として表示</string>
 	<string name="move">手</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="other">%s moves</item>
 	</plurals>
 	<string name="variantLoss">バリアント負け</string>
@@ -198,11 +190,7 @@
 	<string name="drawOfferDeclined">引き分けの申し込みは拒否されました</string>
 	<string name="drawOfferAccepted">引き分けの申し込みに合意しました</string>
 	<string name="drawOfferCanceled">引き分けの申し込みをキャンセルしました</string>
-	<string name="whiteOffersDraw">後手が引き分けを申し込んでいます</string>
-	<string name="blackOffersDraw">先手が引き分けを申し込んでいます</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%sが引き分けを申し込んでいます</string>
-	<string name="whiteDeclinesDraw">後手が引き分けを拒否しました</string>
-	<string name="blackDeclinesDraw">先手が引き分けを拒否しました</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%sが引き分けを拒否しました</string>
 	<string name="yourOpponentOffersADraw">相手が引き分けを申し込みました</string>
 	<string name="accept">承諾</string>
@@ -343,8 +331,6 @@
 	<string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
 	<string name="captcha.fail">問題を解いて人間だと証明してください。</string>
 	<string name="notACheckmate">詰みではありません</string>
-	<string name="whiteCheckmatesInOneMove">後手 1 手で詰み</string>
-	<string name="blackCheckmatesInOneMove">先手 1 手で詰み</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s 1 手で詰み</string>
 	<string name="retry">もう一度</string>
 	<string name="reconnecting">再接続</string>
@@ -411,8 +397,6 @@
 	<string name="performance">パフォーマンス</string>
 	<string name="tournamentComplete">トーナメント終了</string>
 	<string name="movesPlayed">総手数</string>
-	<string name="whiteWins">後手勝ち</string>
-	<string name="blackWins">先手勝ち</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s 勝</string>
 	<string name="draws">引き分け</string>
 	<string name="nextXTournament">次の %s トーナメント:</string>
@@ -775,8 +759,6 @@
 	<string name="hideBestMove">最善手をかくす</string>
 	<string name="getAHint">ヒントを見る</string>
 	<string name="evaluatingYourMove">あなたの手を評価中…</string>
-	<string name="whiteWinsGame">後手勝ち</string>
-	<string name="blackWinsGame">先手勝ち</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s勝</string>
 	<string name="learnFromYourMistakes">自分の悪手に学ぼう</string>
 	<string name="learnFromThisMistake">この悪手に学ぶ</string>

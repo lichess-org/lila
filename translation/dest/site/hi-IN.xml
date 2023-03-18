@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">ऊवाते (Uwate)</string>
 	<string name="randomColor" comment="Side - sente/gote">कोई भी रंग</string>
 	<string name="createAGame">नया खेल बनाएं</string>
-	<string name="whiteIsVictorious">सफेद (Gote) विजय हुआ</string>
-	<string name="blackIsVictorious">काले (Sente) की जय</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s की विजय हुई</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">यह आपकी बारी है!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">नया प्रतिद्वंदी ढूंढें</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">आपका प्रतिद्वंदी आपके साथ एक और खेल खेलना चाहता है</string>
 	<string name="joinTheGame">खेल में शामिल हों</string>
-	<string name="whitePlays">सफेद (Gote) की चाल</string>
-	<string name="blackPlays">काले (Sente) की चाल</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप %s सेकंड में जीत का दावा कर सकते हैं।</item>
@@ -52,11 +48,7 @@
 	<string name="forceDraw">बराबरी पर खेल समाप्त करें</string>
 	<string name="talkInChat">कृपया चैट में अच्छे बनें !</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">इस URL पर आने वाला पहला व्यक्ति आपके साथ खेलेगा।</string>
-	<string name="whiteResigned">सफेद (Gote) ने हार मान ली</string>
-	<string name="blackResigned">काले (Sente) ने हार मान ली</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">सफेद (Gote) खेल छोड़ कर चला गया</string>
-	<string name="blackLeftTheGame">काले (Sente) खेल छोड़ कर चला गया</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">दर्शकों को यह खेल दिखाने के लिए उन्हें यह URL दें</string>
@@ -79,7 +71,7 @@
 	<string name="deleteFromHere">यहां से हटाओ</string>
 	<string name="forceVariation">बल भिन्नता (Forced variation)</string>
 	<string name="move">चाल</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
@@ -208,11 +200,7 @@
 	<string name="drawOfferDeclined">बराबरी पे खेल समाप्त करने का प्रस्ताव अस्वीकारित किया गया</string>
 	<string name="drawOfferAccepted">बराबरी पे खेल समाप्त करने का प्रस्ताव स्वीकारित किया गया</string>
 	<string name="drawOfferCanceled">बराबरी पे खेल समाप्त करने का प्रस्ताव रद्द किया गया</string>
-	<string name="whiteOffersDraw">Gote खिलाड़ी का बराबरी पे खेल समाप्त करने का प्रस्ताव</string>
-	<string name="blackOffersDraw">Sente खिलाड़ी का बराबरी पे खेल समाप्त करने का प्रस्ताव</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">Gote खिलाड़ी द्वारा बराबरी पे खेल समाप्त करने का प्रस्ताव ख़ारिज</string>
-	<string name="blackDeclinesDraw">Sente खिलाड़ी द्वारा बराबरी पे खेल समाप्त करने का प्रस्ताव ख़ारिज</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">आपके प्रतिद्वंदी ने बराबरी पे खेल समाप्त करने का प्रस्ताव भेजा है</string>
 	<string name="accept">स्वीकार</string>
@@ -366,8 +354,6 @@
 	<string name="clickOnTheBoardToMakeYourMove">अपनी चाल चलने के लिए बोर्ड पर क्लिक करें और साबित करे की आप इंसान हैं।</string>
 	<string name="captcha.fail">कृपया shogi कैप्चा (shogi captcha) हल करें।</string>
 	<string name="notACheckmate">शह और मात नहीं</string>
-	<string name="whiteCheckmatesInOneMove">Gote १ चाल में शहमात देगा</string>
-	<string name="blackCheckmatesInOneMove">Sente १ चाल में शहमात देगा</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">फिर कोशिश करें</string>
 	<string name="reconnecting">रीकनेक्ट होने</string>
@@ -438,8 +424,6 @@
 	<string name="performance">प्रदर्शन</string>
 	<string name="tournamentComplete">टूर्नामेंट पूर्ण</string>
 	<string name="movesPlayed">चालें चलायीं</string>
-	<string name="whiteWins">Gote विजयी हुआ</string>
-	<string name="blackWins">Sente विजयी हुआ</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">ड्रा</string>
 	<string name="nextXTournament">अगले %s टूर्नामेंट:</string>
@@ -810,8 +794,6 @@
 	<string name="hideBestMove">सबसे अच्छी चाल छिपाएं</string>
 	<string name="getAHint">सुझाव प्राप्त करें</string>
 	<string name="evaluatingYourMove">कंप्यूटर आपके कदम का मूल्यांकन कर रहे हैं …</string>
-	<string name="whiteWinsGame">Gote विजयी हुआ</string>
-	<string name="blackWinsGame">Sente विजयी हुआ</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">अपनी गलतियों से सीखें</string>
 	<string name="learnFromThisMistake">इस गलती से सीखें</string>

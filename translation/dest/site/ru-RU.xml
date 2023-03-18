@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Уватэ</string>
 	<string name="randomColor" comment="Side - sente/gote">Случайный цвет</string>
 	<string name="createAGame">Создать игру</string>
-	<string name="whiteIsVictorious">Победа белых</string>
-	<string name="blackIsVictorious">Победа чёрных</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Ваш ход!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Найти другого соперника</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает вам сыграть ещё раз</string>
 	<string name="joinTheGame">Принять вызов</string>
-	<string name="whitePlays">Ход белых</string>
-	<string name="blackPlays">Ход чёрных</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Ваш соперник покинул игру. Вы можете объявить победу через %s секунду.</item>
@@ -54,11 +50,7 @@
 	<string name="forceDraw">Объявить ничью</string>
 	<string name="talkInChat">Будьте вежливы в чате!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">С вами сыграет первый, кто перейдёт по этой ссылке.</string>
-	<string name="whiteResigned">Белые сдались</string>
-	<string name="blackResigned">Чёрные сдались</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">Белые вышли из игры</string>
-	<string name="blackLeftTheGame">Чёрные вышли из игры</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Пригласите зрителей с помощью этой ссылки</string>
@@ -81,7 +73,7 @@
 	<string name="deleteFromHere">Удалить с этого места</string>
 	<string name="forceVariation">Сделать вариант главным</string>
 	<string name="move">Ход</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="few">%s moves</item>
 		<item quantity="many">%s moves</item>
@@ -228,11 +220,7 @@
 	<string name="drawOfferDeclined">Предложение ничьей отклонено</string>
 	<string name="drawOfferAccepted">Предложение ничьей принято</string>
 	<string name="drawOfferCanceled">Предложение ничьей отменено</string>
-	<string name="whiteOffersDraw">Белые предлагают ничью</string>
-	<string name="blackOffersDraw">Чёрные предлагают ничью</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">Белые отклонили предложение ничьей</string>
-	<string name="blackDeclinesDraw">Чёрные отклонили предложение ничьей</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Ваш соперник предлагает вам ничью</string>
 	<string name="accept">Принять</string>
@@ -411,8 +399,6 @@
 	<string name="clickOnTheBoardToMakeYourMove">Кликните по доске и сделайте ход, чтобы доказать, что вы человек, а не компьютер. (Всем известно, что компьютеры не умеют играть в сёги!).</string>
 	<string name="captcha.fail">Пожалуйста, решите капчу.</string>
 	<string name="notACheckmate">Это не мат</string>
-	<string name="whiteCheckmatesInOneMove">Белые ставят мат в один ход</string>
-	<string name="blackCheckmatesInOneMove">Чёрные ставят мат в один ход</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Повторить</string>
 	<string name="reconnecting">Переподключение</string>
@@ -491,8 +477,6 @@
 	<string name="performance">Перфоманс</string>
 	<string name="tournamentComplete">Турнир завершён</string>
 	<string name="movesPlayed">Сделано ходов</string>
-	<string name="whiteWins">Побед белыми</string>
-	<string name="blackWins">Побед чёрными</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Ничьих</string>
 	<string name="nextXTournament">Следующий турнир по %s:</string>
@@ -879,8 +863,6 @@
 	<string name="hideBestMove">Скрыть лучший ход</string>
 	<string name="getAHint">Взять подсказку</string>
 	<string name="evaluatingYourMove">Оценка вашего хода...</string>
-	<string name="whiteWinsGame">Белые выиграли</string>
-	<string name="blackWinsGame">Чёрные выиграли</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Разобрать свои ошибки</string>
 	<string name="learnFromThisMistake">Разобрать эту ошибку</string>

@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Satunnainen</string>
 	<string name="createAGame">Luo uusi peli</string>
-	<string name="whiteIsVictorious">Valkea voittaa</string>
-	<string name="blackIsVictorious">Musta voittaa</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Sinun vuorosi!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Uusi vastustaja</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Vastustajasi haluaa pelata uudelleen</string>
 	<string name="joinTheGame">Liity peliin</string>
-	<string name="whitePlays">Valkean vuoro</string>
-	<string name="blackPlays">Mustan vuoro</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
@@ -52,11 +48,7 @@
 	<string name="forceDraw">Pakota tasapeli</string>
 	<string name="talkInChat">Kirjoita keskusteluun. Ole kohtelias!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Peli aukeaa henkilölle, joka avaa tämän linkin ensimmäiseksi.</string>
-	<string name="whiteResigned">Valkea luovutti</string>
-	<string name="blackResigned">Musta luovutti</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">Valkea lähti pelistä</string>
-	<string name="blackLeftTheGame">Musta lähti pelistä</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Jaa tämä linkki pelin katsojille</string>
@@ -79,7 +71,7 @@
 	<string name="deleteFromHere">Poista tästä alkaen</string>
 	<string name="forceVariation">Pakota muunnelmaksi</string>
 	<string name="move">Siirto</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
@@ -208,11 +200,7 @@
 	<string name="drawOfferDeclined">Tasapeliehdotus hylätty</string>
 	<string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>
 	<string name="drawOfferCanceled">Tasapeliehdotus peruttu</string>
-	<string name="whiteOffersDraw">Valkea ehdottaa tasapeliä</string>
-	<string name="blackOffersDraw">Musta ehdottaa tasapeliä</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">Valkea kieltäytyy tasapelistä</string>
-	<string name="blackDeclinesDraw">Musta kieltäytyy tasapelistä</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Vastustajasi ehdottaa tasapeliä</string>
 	<string name="accept">Hyväksy</string>
@@ -366,8 +354,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Tee siirtosi todistaaksesi olevasi ihminen.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Siirto ei ole shakkimatti</string>
-	<string name="whiteCheckmatesInOneMove">Valkean yhden siirron matti</string>
-	<string name="blackCheckmatesInOneMove">Mustan yhden siirron matti</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Yritä uudelleen</string>
 	<string name="reconnecting">Yhdistetään uudelleen</string>
@@ -438,8 +424,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="performance">Suoritus</string>
 	<string name="tournamentComplete">Turnaus päättynyt</string>
 	<string name="movesPlayed">Siirtoja</string>
-	<string name="whiteWins">Valkean voittoja</string>
-	<string name="blackWins">Mustan voittoja</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Tasapelejä</string>
 	<string name="nextXTournament">Seuraava %s-turnaus:</string>
@@ -810,8 +794,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="hideBestMove">Piilota paras siirto</string>
 	<string name="getAHint">Haluan vihjeen</string>
 	<string name="evaluatingYourMove">Siirtoasi arvioidaan...</string>
-	<string name="whiteWinsGame">Valkea voittaa</string>
-	<string name="blackWinsGame">Musta voittaa</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Opi virheistäsi</string>
 	<string name="learnFromThisMistake">Opi tästä virheestä</string>

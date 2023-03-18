@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">צבע אקראי</string>
 	<string name="createAGame">צור משחק</string>
-	<string name="whiteIsVictorious">הלבן ניצח</string>
-	<string name="blackIsVictorious">השחור ניצח</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">זה התור שלך!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">יריב חדש</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">יריבך רוצה לשחק איתך שוב</string>
 	<string name="joinTheGame">הצטרף למשחק</string>
-	<string name="whitePlays">תור הלבן</string>
-	<string name="blackPlays">תור השחור</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">המשתמש עזב את המשחק. תוכל לקחת ניצחון בעוד %s שנייה.</item>
@@ -54,11 +50,7 @@
 	<string name="forceDraw">הכרז תיקו</string>
 	<string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
-	<string name="whiteResigned">הלבן פרש</string>
-	<string name="blackResigned">השחור פרש</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
-	<string name="blackLeftTheGame">השחור עזב את המשחק</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">שתף כתובת זו כדי לאפשר לצופים לראות את המשחק</string>
@@ -81,7 +73,7 @@
 	<string name="deleteFromHere">מחק מכאן והלאה</string>
 	<string name="forceVariation">וריאנט יחיד</string>
 	<string name="move">מסע</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="two">%s moves</item>
 		<item quantity="many">%s moves</item>
@@ -228,11 +220,7 @@
 	<string name="drawOfferDeclined">הצעת התיקו נדחתה</string>
 	<string name="drawOfferAccepted">הצעת התיקו התקבלה</string>
 	<string name="drawOfferCanceled">הצעת התיקו בוטלה</string>
-	<string name="whiteOffersDraw">לבן מציע תיקו</string>
-	<string name="blackOffersDraw">שחור מציע תיקו</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">לבן מסרב לתיקו</string>
-	<string name="blackDeclinesDraw">שחור מסרב לתיקו</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">יריבך מציע תיקו</string>
 	<string name="accept">הסכם</string>
@@ -412,8 +400,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">לא מט.</string>
-	<string name="whiteCheckmatesInOneMove">הלבן כופה מט במסע אחד</string>
-	<string name="blackCheckmatesInOneMove">השחור כופה מט במסע אחד</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">נסה שוב</string>
 	<string name="reconnecting">מתחבר מחדש</string>
@@ -492,8 +478,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="performance">דירוג הביצוע</string>
 	<string name="tournamentComplete">הטורניר הושלם</string>
 	<string name="movesPlayed">מהלכים ששוחקו</string>
-	<string name="whiteWins">לבן מנצח</string>
-	<string name="blackWins">שחור מנצח</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">תוצאות תיקו</string>
 	<string name="nextXTournament">טורניר ה%s הבא:</string>
@@ -883,8 +867,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="hideBestMove">הסתר את המהלך הטוב ביותר</string>
 	<string name="getAHint">קבל רמז</string>
 	<string name="evaluatingYourMove">מעריך את המסע שלך...</string>
-	<string name="whiteWinsGame">הלבן מנצח</string>
-	<string name="blackWinsGame">השחור מנצח</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">למד מהטעויות שלך</string>
 	<string name="learnFromThisMistake">למד מהטעות הזאת</string>

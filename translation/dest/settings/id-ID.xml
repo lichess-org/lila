@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="settings">Settings</string>
-  <string name="closeAccount">Close account</string>
-  <string name="closingIsDefinitive">Closing is definitive. There is no going back. Are you sure?</string>
-  <string name="cantOpenSimilarAccount">You will not be allowed to open a new account with the same name, even if the case is different.</string>
-  <string name="changedMindDoNotCloseAccount">I changed my mind, don\'t close my account</string>
-  <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will NEVER be able to log in EVER AGAIN.</string>
-  <string name="thisAccountIsClosed">This account is closed.</string>
+  <string name="settings">Pengaturan</string>
+  <string name="closeAccount">Tutup akun</string>
+  <string name="closingIsDefinitive">Menghapus akun tidak dapat dibatalkan. Apakah anda yakin?</string>
+  <string name="cantOpenSimilarAccount">Anda tidak akan diizinkan untuk membuka akun baru dengan nama yang sama, meskipun besar-kecil hurufnya berbeda.</string>
+  <string name="changedMindDoNotCloseAccount">Saya akan berubah, jangan tutup akun saya</string>
+  <string name="closeAccountExplanation">Apakah Anda yakin ingin menutup akun Anda? Menutup akun Anda adalah keputusan permanen. Anda tidak akan PERNAH bisa MASUK lagi.</string>
+  <string name="thisAccountIsClosed">Akun ini telah ditutup.</string>
 </resources>

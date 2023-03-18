@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Willekeurige kleur</string>
 	<string name="createAGame">Start een nieuwe partij</string>
-	<string name="whiteIsVictorious">Wit heeft gewonnen</string>
-	<string name="blackIsVictorious">Zwart heeft gewonnen</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s is victorious</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">Je bent aan zet!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Nieuwe tegenstander</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Uw tegenstander wil een nieuwe partij met u spelen</string>
 	<string name="joinTheGame">Speel mee</string>
-	<string name="whitePlays">Wit aan zet</string>
-	<string name="blackPlays">Zwart aan zet</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Je tegenstander heeft het spel verlaten. Je kan de overwinning opeisen over %s seconde.</item>
@@ -52,11 +48,7 @@
 	<string name="forceDraw">Dwing remise af</string>
 	<string name="talkInChat">Wees a.u.b. vriendelijk in de chat!</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Degene die als eerste op deze link klikt, zal met u spelen.</string>
-	<string name="whiteResigned">Wit geeft op</string>
-	<string name="blackResigned">Zwart geeft op</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">Wit is weggegaan</string>
-	<string name="blackLeftTheGame">Zwart is weggegaan</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel deze link om anderen de partij te laten zien</string>
@@ -79,7 +71,7 @@
 	<string name="deleteFromHere">Verwijder vanaf hier</string>
 	<string name="forceVariation">Forceer variatie</string>
 	<string name="move">Zet</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
@@ -208,11 +200,7 @@
 	<string name="drawOfferDeclined">Remiseaanbod geweigerd</string>
 	<string name="drawOfferAccepted">Remiseaanbod geaccepteerd</string>
 	<string name="drawOfferCanceled">Remiseaanbod geannuleerd</string>
-	<string name="whiteOffersDraw">Wit biedt remise aan</string>
-	<string name="blackOffersDraw">Zwart biedt remise aan</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">Wit weigert remise</string>
-	<string name="blackDeclinesDraw">Zwart weigert remise</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Uw tegenstander biedt remise aan</string>
 	<string name="accept">Accepteren</string>
@@ -366,8 +354,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Klik op het bord om je zet te spelen en te bewijzen dat je een mens bent.</string>
 	<string name="captcha.fail">Please solve the shogi captcha.</string>
 	<string name="notACheckmate">Dit is geen schaakmat</string>
-	<string name="whiteCheckmatesInOneMove">Wit zet schaakmat in één zet</string>
-	<string name="blackCheckmatesInOneMove">Zwart zet schaakmat in één zet</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">Probeer het opnieuw</string>
 	<string name="reconnecting">Opnieuw aan het verbinden</string>
@@ -438,8 +424,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="performance">Prestatie</string>
 	<string name="tournamentComplete">Toernooi voltooid</string>
 	<string name="movesPlayed">Gespeelde zetten</string>
-	<string name="whiteWins">Overwinningen met wit</string>
-	<string name="blackWins">Overwinningen met zwart</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">Remises</string>
 	<string name="nextXTournament">Volgend %s-toernooi:</string>
@@ -810,8 +794,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="hideBestMove">Verberg de beste zet</string>
 	<string name="getAHint">Een hint vragen</string>
 	<string name="evaluatingYourMove">De evaluatie van je zet...</string>
-	<string name="whiteWinsGame">Wit wint</string>
-	<string name="blackWinsGame">Zwart wint</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">Leren van je fouten</string>
 	<string name="learnFromThisMistake">Leer van deze fout</string>

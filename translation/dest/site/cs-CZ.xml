@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Uwate</string>
 	<string name="randomColor" comment="Side - sente/gote">Náhodná barva</string>
 	<string name="createAGame">Vytvořit hru</string>
-	<string name="whiteIsVictorious">Vyhrál bílý</string>
-	<string name="blackIsVictorious">Vyhrál černý</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">Vyhrál %s</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">Hrajete jako %s</string>
 	<string name="itsYourTurn">Jste na tahu!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">Nový protihráč</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Váš soupeř s Vámi chce hrát další partii</string>
 	<string name="joinTheGame">Připojit se ke hře</string>
-	<string name="whitePlays">Bílý na tahu</string>
-	<string name="blackPlays">Černý na tahu</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s je na tahu</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekundu.</item>
@@ -54,11 +50,7 @@
 	<string name="forceDraw">Vynutit remízu</string>
 	<string name="talkInChat">Pro povídání v chatu pište sem</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">První kdo přijde pomocí tohoto odkazu, bude s Vámi hrát</string>
-	<string name="whiteResigned">Bílý se vzdal</string>
-	<string name="blackResigned">Černý se vzdal</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s rezignoval</string>
-	<string name="whiteLeftTheGame">Bílý opustil hru</string>
-	<string name="blackLeftTheGame">Černý opustil hru</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s opustil hru.</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s netáhl</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">Pomocí tohoto odkazu můžete pozvat ostatní ke sledování této partie</string>
@@ -81,11 +73,11 @@
 	<string name="deleteFromHere">Smazat odsud</string>
 	<string name="forceVariation">Zobrazit jako variantu</string>
 	<string name="move">Tah</string>
-	<plurals name="moves">
-		<item quantity="one">%s tah</item>
-		<item quantity="few">%s tahy</item>
-		<item quantity="many">%s tahů</item>
-		<item quantity="other">%s tahů</item>
+	<plurals name="nbMoves">
+		<item quantity="one">%s move</item>
+		<item quantity="few">%s moves</item>
+		<item quantity="many">%s moves</item>
+		<item quantity="other">%s moves</item>
 	</plurals>
 	<string name="variantLoss">Prohra</string>
 	<string name="variantWin">Výhra</string>
@@ -228,11 +220,7 @@
 	<string name="drawOfferDeclined">Soupeř remízu odmítl</string>
 	<string name="drawOfferAccepted">Soupeř remízu přijal</string>
 	<string name="drawOfferCanceled">Nabídka remízy byla zrušena</string>
-	<string name="whiteOffersDraw">Bílý nabízí remízu</string>
-	<string name="blackOffersDraw">Černý nabízí remízu</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s nabízí remízu</string>
-	<string name="whiteDeclinesDraw">Bílý odmítá remízu</string>
-	<string name="blackDeclinesDraw">Černý odmítá remízu</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s odmítá remízu</string>
 	<string name="yourOpponentOffersADraw">Soupeř nabízí remízu</string>
 	<string name="accept">Přijmout</string>
@@ -411,8 +399,6 @@
 	<string name="clickOnTheBoardToMakeYourMove">Kliknutím na šachovnici zadejte váš tah a dokažte, že jste človek.</string>
 	<string name="captcha.fail">Prosím vyřešte shogi captcha.</string>
 	<string name="notACheckmate">Toto není mat.</string>
-	<string name="whiteCheckmatesInOneMove">Bílý dá prvním tahem mat</string>
-	<string name="blackCheckmatesInOneMove">Černý dá prvním tahem mat</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s dá jedním tahem mat</string>
 	<string name="retry">Zkusit znovu</string>
 	<string name="reconnecting">Připojování</string>
@@ -491,8 +477,6 @@
 	<string name="performance">Výkon</string>
 	<string name="tournamentComplete">Turnaj skončil</string>
 	<string name="movesPlayed">Odehráno tahů</string>
-	<string name="whiteWins">Bílý vyhrál</string>
-	<string name="blackWins">Černý vyhrál</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s výher</string>
 	<string name="draws">Remízy</string>
 	<string name="nextXTournament">Příští %s turnaj:</string>
@@ -879,8 +863,6 @@
 	<string name="hideBestMove">Skrýt nejlepší tah</string>
 	<string name="getAHint">Získat nápovědu</string>
 	<string name="evaluatingYourMove">Hodnotím tvůj tah...</string>
-	<string name="whiteWinsGame">Bílý vyhrál</string>
-	<string name="blackWinsGame">Černý vyhrál</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s vyhrál</string>
 	<string name="learnFromYourMistakes">Poučte se ze svých chyb</string>
 	<string name="learnFromThisMistake">Poučte se z této chyby</string>

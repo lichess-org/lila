@@ -29,8 +29,6 @@
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">上手</string>
 	<string name="randomColor" comment="Side - sente/gote">隨機選色</string>
 	<string name="createAGame">開始對局</string>
-	<string name="whiteIsVictorious">後手勝利</string>
-	<string name="blackIsVictorious">先手勝利</string>
 	<string name="xIsVictorious" comment="%s - sente(black)/gote(white)">%s勝利</string>
 	<string name="youPlayAsX" comment="%s - sente(black)/gote(white)">You play as %s</string>
 	<string name="itsYourTurn">您的回合!</string>
@@ -39,8 +37,6 @@
 	<string name="newOpponent">換個對手</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">您的對手想和你複賽</string>
 	<string name="joinTheGame">加入這盤棋</string>
-	<string name="whitePlays">輪到後手</string>
-	<string name="blackPlays">輪到先手</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒內獲勝。</item>
@@ -51,11 +47,7 @@
 	<string name="forceDraw">和棋</string>
 	<string name="talkInChat">請在聊天室裡文明一點</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一個訪問該網址的人將與您下棋。</string>
-	<string name="whiteResigned">後手投了</string>
-	<string name="blackResigned">先手投了</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%s resigned</string>
-	<string name="whiteLeftTheGame">後手離開遊戲</string>
-	<string name="blackLeftTheGame">先手離開遊戲</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%s left the game</string>
 	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">分享這個網址，邀請觀眾觀戰</string>
@@ -78,7 +70,7 @@
 	<string name="deleteFromHere">從這處開始刪除</string>
 	<string name="forceVariation">移除變化</string>
 	<string name="move">走棋</string>
-	<plurals name="moves">
+	<plurals name="nbMoves">
 		<item quantity="other">%s moves</item>
 	</plurals>
 	<string name="variantLoss">您因特殊規則而輸了</string>
@@ -198,11 +190,7 @@
 	<string name="drawOfferDeclined">和棋請求被拒絕</string>
 	<string name="drawOfferAccepted">同意和棋</string>
 	<string name="drawOfferCanceled">和棋取消</string>
-	<string name="whiteOffersDraw">後手提出和棋</string>
-	<string name="blackOffersDraw">先手提出和棋</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="whiteDeclinesDraw">後手拒絕和棋</string>
-	<string name="blackDeclinesDraw">先手拒絕和棋</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">您的對手提出和棋</string>
 	<string name="accept">接受</string>
@@ -342,8 +330,6 @@
 	<string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
 	<string name="captcha.fail">請完成驗證。</string>
 	<string name="notACheckmate">沒有詰</string>
-	<string name="whiteCheckmatesInOneMove">後手一手詰</string>
-	<string name="blackCheckmatesInOneMove">先手一手詰</string>
 	<string name="xCheckmatesInOneMove" comment="%s - sente(black)/gote(white)">%s to checkmate in one move</string>
 	<string name="retry">重試</string>
 	<string name="reconnecting">重新連接中</string>
@@ -410,8 +396,6 @@
 	<string name="performance">表現</string>
 	<string name="tournamentComplete">錦標賽結束</string>
 	<string name="movesPlayed">步數</string>
-	<string name="whiteWins">後手獲勝</string>
-	<string name="blackWins">先手獲勝</string>
 	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s wins</string>
 	<string name="draws">和棋</string>
 	<string name="nextXTournament">下一個%s錦標賽</string>
@@ -774,8 +758,6 @@
 	<string name="hideBestMove">隱藏最佳移動</string>
 	<string name="getAHint">得到提示</string>
 	<string name="evaluatingYourMove">分析您的移動</string>
-	<string name="whiteWinsGame">後手勝利</string>
-	<string name="blackWinsGame">先手獲勝</string>
 	<string name="xWinsGame" comment="%s - sente(black)/gote(white)">%s wins</string>
 	<string name="learnFromYourMistakes">從您的失誤中學習</string>
 	<string name="learnFromThisMistake">從您的失誤中學習</string>
