@@ -29,6 +29,7 @@ import scala.collection.JavaConverters
 import java.util.Arrays
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
+import chess.format.pgn.Pgn
 import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
@@ -85,7 +86,7 @@ final class MarkdownRender(
     tooManyUnderscoreRegex.replaceAllIn(text.value, "_" * 3)
   )
 
-  def apply(key: Key)(text: Markdown): Html = Html {
+  def apply(key: Key, pgns: Map[String, Pgn] = Map.empty)(text: Markdown): Html = Html {
     Chronometer
       .sync {
         try renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)).value))

@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, InitialPosition, Parser, Tag, TagType, Tags, SanStr, San, Sans, Move }
+import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr }
 import chess.format.{ pgn as chessPgn, Fen }
 import chess.{ Centis, Color, Outcome }
 
@@ -20,7 +20,7 @@ final class PgnDump(
       initialFen: Option[Fen.Epd],
       flags: WithFlags,
       teams: Option[Color.Map[TeamId]] = None
-  ): Fu[ParsedPgn] =
+  ): Fu[Pgn] =
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
     }
@@ -35,19 +35,20 @@ final class PgnDump(
           teams = teams
         )
       else fuccess(Tags(Nil))
-    tagsFuture map { tags =>
-      val sans = flags.moves ?? {
-        val fenSituation = tags.fen flatMap Fen.readWithMoveNumber
-        toSans(
+    tagsFuture map { ts =>
+      val turns = flags.moves ?? {
+        val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
+        makeTurns(
           flags keepDelayIf game.playable applyDelay {
             if (fenSituation.exists(_.situation.color.black)) SanStr("..") +: game.sans
             else game.sans
           },
+          fenSituation.fold(1)(_.fullMoveNumber.value),
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
         )
       }
-      ParsedPgn(InitialPosition(Nil), tags, Sans(sans))
+      Pgn(ts, turns)
     }
 
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
@@ -150,14 +151,30 @@ final class PgnDump(
       }
     }
 
-  private def toSans(moves: Seq[SanStr], clocks: Vector[Centis], startColor: Color): List[San] =
-    val clockOffset = startColor.fold(0, 1)
-    moves.zipWithIndex.map { (san, index) =>
-      chessPgn.Move(
-        san = san,
-        secondsLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)
+  private def makeTurns(
+      moves: Seq[SanStr],
+      from: Int,
+      clocks: Vector[Centis],
+      startColor: Color
+  ): List[chessPgn.Turn] =
+    (moves grouped 2).zipWithIndex.toList map { case (moves, index) =>
+      val clockOffset = startColor.fold(0, 1)
+      chessPgn.Turn(
+        number = index + from,
+        white = moves.headOption.filter(SanStr("..") != _) map { san =>
+          chessPgn.Move(
+            san = san,
+            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+          )
+        },
+        black = moves lift 1 map { san =>
+          chessPgn.Move(
+            san = san,
+            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+          )
+        }
       )
-    }
+    } filterNot (_.isEmpty)
 
 object PgnDump:
 
