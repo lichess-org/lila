@@ -100,7 +100,7 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
   );
 }
 
-export const truncatedComment = <A>(a: A, toHtml: (a: A) => string, path: string, ctx: Ctx): Hooks => ({
+export const truncatedComment = (path: string, ctx: Ctx): Hooks => ({
   insert(vnode: VNode) {
     (vnode.elm as HTMLElement).addEventListener('click', () => {
       ctx.ctrl.userJumpIfCan(path);
@@ -111,15 +111,6 @@ export const truncatedComment = <A>(a: A, toHtml: (a: A) => string, path: string
       // Scroll down to the comments tab
       $('.analyse__underboard')[0]?.scrollIntoView();
     });
-
-    (vnode.elm as HTMLElement).innerHTML = toHtml(a);
-    vnode.data!.cachedA = a;
-  },
-  postpatch(old: VNode, vnode: VNode) {
-    if (old.data!.cachedA !== a) {
-      (vnode.elm as HTMLElement).innerHTML = toHtml(a);
-    }
-    vnode.data!.cachedA = a;
   },
 });
 
@@ -131,14 +122,23 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, path: string):
       const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
         truncated = truncateComment(comment.text, 300, ctx);
 
-      const isTruncated = truncated.length < comment.text.length;
-      const selector = 'comment' + (isTruncated ? '.truncated' : '');
-
-      return h(selector, {
-        hook: isTruncated
-          ? truncatedComment(truncated, text => by + enrichText(text), path, ctx)
-          : innerHTML(truncated, text => by + enrichText(text)),
-      });
+      if (truncated.length < comment.text.length) {
+        return h(
+          'comment.truncated',
+          {
+            hook: truncatedComment(path, ctx),
+          },
+          [
+            h('span', {
+              hook: innerHTML(truncated, text => by + enrichText(text)),
+            }),
+          ]
+        );
+      } else {
+        return h('comment', {
+          hook: innerHTML(truncated, text => by + enrichText(text)),
+        });
+      }
     })
     .filter(nonEmpty);
 }

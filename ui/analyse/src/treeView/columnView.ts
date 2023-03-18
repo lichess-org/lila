@@ -225,14 +225,24 @@ function renderMainlineCommentsOf(
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
 
-    const truncate = truncated.length < comment.text.length;
-    if (truncate) sel += '.truncated';
-
-    return h(sel, {
-      hook: truncate
-        ? truncatedComment(truncated, text => by + enrichText(text), path, ctx)
-        : innerHTML(truncated, text => by + enrichText(text)),
-    });
+    // Adding a truncation selector if the comment got truncated
+    if (truncated.length < comment.text.length) {
+      return h(
+        sel + '.truncated',
+        {
+          hook: truncatedComment(path, ctx),
+        },
+        [
+          h('span', {
+            hook: innerHTML(truncated, text => by + enrichText(text)),
+          }),
+        ]
+      );
+    } else {
+      return h(sel, {
+        hook: innerHTML(truncated, text => by + enrichText(text)),
+      });
+    }
   });
 }
 
