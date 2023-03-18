@@ -37,9 +37,11 @@ export interface MoveCtrl {
   takeback(): void;
   resign(v: boolean, immediately?: boolean): void;
   rematch(): void;
-  helpModalOpen: Prop<boolean>;
+  modalOpen: Prop<boolean>;
   voice: VoiceCtrl; // convenience
   root: RootCtrl;
+  mode: 'round' | 'puzzle';
+  redraw: () => void;
 }
 
 export interface CrazyPocket {
@@ -74,7 +76,7 @@ export interface RootCtrl {
   keyboard: boolean;
 }
 
-export type MsgType = 'phrase' | 'partial' | 'status' | 'error';
+export type MsgType = 'phrase' | 'partial' | 'status' | 'error' | 'stop' | 'start';
 
 export type VoiceListener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
 
@@ -91,6 +93,10 @@ export interface VoiceCtrl {
 
 export interface VoiceMoveCtrl {
   registerMoveCtrl(ctrl: MoveCtrl): void;
+  //natoFiles(enabled?: boolean): boolean;
+  arrogance(conf?: number): number;
+  arrowColors(enabled?: boolean): boolean;
+  //arrowNumbers(enabled?: boolean): boolean;
 }
 
 export interface KaldiOpts {

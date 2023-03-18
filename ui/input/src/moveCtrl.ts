@@ -7,7 +7,7 @@ import { pieceCharToRole } from './util';
 
 export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
   const isFocused = propWithEffect(false, root.redraw);
-  const helpModalOpen = propWithEffect(false, root.redraw);
+  const modalOpen = propWithEffect(false, root.redraw);
   const handlers = new Set<MoveHandler>();
   let initFen = step.fen;
   let lastSelect = performance.now();
@@ -77,9 +77,11 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
     takeback: () => root.takebackYes?.(),
     next: () => root.next?.(),
     vote: (v: boolean) => root.vote?.(v),
-    helpModalOpen,
+    modalOpen,
     isFocused,
     voice: voiceCtrl,
     root,
+    mode: root.next ? 'puzzle' : 'round',
+    redraw: root.redraw,
   };
 }

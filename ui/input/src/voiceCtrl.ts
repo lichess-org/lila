@@ -23,7 +23,7 @@ export const voiceCtrl = new (class implements VoiceCtrl {
     if (vocab.length === this.vocabulary.length && vocab.every((value, index) => value === this.vocabulary[index]))
       return;
     this.vocabulary = vocab;
-    if (window.LichessVoice) await this.initKaldi();
+    if (window.LichessVoice) await this.initKaldi(true);
   }
 
   get isBusy(): boolean {
@@ -40,21 +40,23 @@ export const voiceCtrl = new (class implements VoiceCtrl {
   }
 
   stop() {
+    console.trace('stop');
     this.download?.abort();
     this.mediaStream?.getAudioTracks().forEach(track => (track.enabled = false));
-    if (!this.download) this.broadcast('');
+    if (!this.download) this.broadcast('', 'stop');
     this.download = undefined;
   }
 
   async start(): Promise<void> {
     let [msgText, msgType] = ['Unknown', 'error' as MsgType];
     try {
+      console.trace('start');
       if (this.isRecording) return;
       this.busy = true;
       await this.initModel();
       await this.initKaldi();
       this.mediaStream!.getAudioTracks()[0].enabled = true;
-      [msgText, msgType] = ['Listening...', 'status'];
+      [msgText, msgType] = ['Listening...', 'start'];
     } catch (e: any) {
       this.voskNode?.disconnect();
       this.micSource?.disconnect();
@@ -72,8 +74,8 @@ export const voiceCtrl = new (class implements VoiceCtrl {
     }
   }
 
-  async initKaldi() {
-    if (!this.vocabulary.length) return;
+  async initKaldi(force = false) {
+    if (!this.vocabulary || (!force && this.voskNode)) return;
     const wasRecording = this.isRecording;
     this.mediaStream!.getAudioTracks()[0].enabled = false;
 
