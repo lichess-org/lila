@@ -29,8 +29,6 @@ export type I18nKey =
 'uwate'|
 'randomColor'|
 'createAGame'|
-'whiteIsVictorious'|
-'blackIsVictorious'|
 'xIsVictorious'|
 'youPlayAsX'|
 'itsYourTurn'|
@@ -39,8 +37,6 @@ export type I18nKey =
 'newOpponent'|
 'yourOpponentWantsToPlayANewGameWithYou'|
 'joinTheGame'|
-'whitePlays'|
-'blackPlays'|
 'xPlays'|
 'opponentLeftChoices'|
 'makeYourOpponentResign'|
@@ -48,11 +44,7 @@ export type I18nKey =
 'forceDraw'|
 'talkInChat'|
 'theFirstPersonToComeOnThisUrlWillPlayWithYou'|
-'whiteResigned'|
-'blackResigned'|
 'xResigned'|
-'whiteLeftTheGame'|
-'blackLeftTheGame'|
 'xLeftTheGame'|
 'xDidntMove'|
 'shareThisUrlToLetSpectatorsSeeTheGame'|
@@ -168,11 +160,7 @@ export type I18nKey =
 'drawOfferDeclined'|
 'drawOfferAccepted'|
 'drawOfferCanceled'|
-'whiteOffersDraw'|
-'blackOffersDraw'|
 'xOffersDraw'|
-'whiteDeclinesDraw'|
-'blackDeclinesDraw'|
 'xDeclinesDraw'|
 'yourOpponentOffersADraw'|
 'accept'|
@@ -273,8 +261,6 @@ export type I18nKey =
 'clickOnTheBoardToMakeYourMove'|
 'captcha.fail'|
 'notACheckmate'|
-'whiteCheckmatesInOneMove'|
-'blackCheckmatesInOneMove'|
 'xCheckmatesInOneMove'|
 'retry'|
 'reconnecting'|
@@ -329,8 +315,6 @@ export type I18nKey =
 'performance'|
 'tournamentComplete'|
 'movesPlayed'|
-'whiteWins'|
-'blackWins'|
 'xWins'|
 'draws'|
 'nextXTournament'|
@@ -669,8 +653,6 @@ export type I18nKey =
 'hideBestMove'|
 'getAHint'|
 'evaluatingYourMove'|
-'whiteWinsGame'|
-'blackWinsGame'|
 'xWinsGame'|
 'learnFromYourMistakes'|
 'learnFromThisMistake'|
