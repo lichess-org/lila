@@ -7,6 +7,10 @@ import lila.tree.Node.Shapes
 
 class CommentParserTest extends Specification {
 
+  import chess.format.pgn.Comment
+  import scala.language.implicitConversions
+  given Conversion[String, Comment] = Comment(_)
+
   val C = CommentParser
 
   "parse comment" >> {
