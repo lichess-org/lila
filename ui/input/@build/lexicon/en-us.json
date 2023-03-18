@@ -37,7 +37,6 @@
   { "in": "promote", "val": "=", "tags": [ "move" ] },
   { "in": "promotes", "val": "=", "tags": [ "move" ] },
 
-  { "in": "takeback", "val": "takeback", "tags": [ "command", "rounds", "exact" ] },
   { "in": "oops", "val": "takeback", "tags": [ "command", "rounds", "exact" ] },
   { "in": "shit", "val": "takeback", "tags": [ "command", "rounds", "exact" ] },
   { "in": "oh shit", "val": "takeback", "tags": [ "command", "rounds", "exact" ] },
