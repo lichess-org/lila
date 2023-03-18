@@ -1,10 +1,13 @@
 $c-bg: if($theme == 'light', $c-bg-zebra, $c-bg-low);
+$c-settings-bg: if($theme == 'transp', rgba(38, 36, 33, 0.9), $c-bg-high);
 $c-recording: hsl(6, 86%, 50%);
 $c-recording-hover: hsl(6, 100%, if($theme == 'light', 40%, 60%));
-$c-off: gray;
-$c-off-hover: if($theme == 'light', #444, #aaa);
+$c-off: if($theme== 'transp', #aaa, gray);
+$c-off-hover: if($theme == 'light', #444, if($theme== 'transp', #ddd, #aaa));
+$c-rounds-status-bar-bg: if($theme == 'transp', hsla(0, 0%, 0%, 0.7), transparent);
+$gap: max($block-gap, 16px);
 
-.input-move {
+.keyboard-move {
   @extend %flex-between-nowrap;
   border-bottom: 1px solid if($theme == 'light', $c-border, $c-bg-box);
   align-items: center;
@@ -13,9 +16,31 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   padding: 4px;
   font-size: 14px;
   font-weight: bold;
-
   em {
     color: $c-font-dim;
+  }
+}
+
+#keyboard-input {
+  @include transition;
+  padding: 6px;
+  border: $border;
+  width: 100%;
+  &.wrong {
+    background: $c-bad;
+    color: $c-bad-over;
+  }
+}
+
+span#status-row {
+  @extend %flex-between-nowrap;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: bold;
+  a {
+    text-align: center;
   }
 }
 
@@ -26,32 +51,39 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   text-align: center;
 }
 
-#keyboard-input {
-  @include transition;
-  padding: 6px;
-  border: $border;
-  width: 100%;
-
-  &.wrong {
-    background: $c-bad;
-    color: $c-bad-over;
-  }
-}
-
 #voice-help-button {
   cursor: pointer;
   color: $c-off;
-  margin-#{$end-direction}: 6px;
-  font-size: 14px;
+  margin: 4px;
+  font-size: 16px;
   line-height: 28px;
   &:hover {
     color: $c-off-hover;
   }
 }
 
+#voice-settings-button {
+  cursor: pointer;
+  padding: 4px;
+  color: $c-off;
+  font-size: 18px;
+  border-radius: 3px 3px 0 0;
+  line-height: 28px;
+  height: 40px;
+  width: 48px;
+  &:hover {
+    color: $c-primary;
+  }
+  &.active {
+    color: white;
+    background-color: $c-primary;
+  }
+}
+
 #microphone-button {
   font-family: 'lichess';
   cursor: pointer;
+  margin: 4px;
   color: $c-off;
   width: 34px;
   height: 28px;
@@ -93,12 +125,109 @@ $c-off-hover: if($theme == 'light', #444, #aaa);
   }
 }
 
-div#microphone-context-menu {
+.voice-move {
+  display: block;
+  position: relative;
+  background-color: $c-rounds-status-bar-bg;
+  &.puz {
+    border-bottom: 1px solid if($theme == 'light', $c-border, $c-bg-box);
+    background: $c-bg;
+  }
+  border-radius: 3px 3px 0 0;
+  * {
+    user-select: none;
+  }
+}
+
+div#voice-settings {
   position: absolute;
-  width: 200px;
   z-index: 10;
-  background-color: red; // testing
-  height: 160px;
-  top: 0;
-  right: 0;
+  width: 100%;
+  top: 40;
+  left: 0;
+  border-top: 2px solid $c-primary;
+  border-bottom: 1px solid $c-off;
+  border-radius: 3px;
+  background: $c-settings-bg;
+  padding-top: $gap;
+  > div {
+    padding: 0 $gap $gap;
+  }
+
+  .setting {
+    @extend %flex-center-nowrap;
+
+    flex: 0 0 auto;
+
+    label {
+      flex: 4 1 auto;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .switch + label {
+      margin-#{$start-direction}: 1ch;
+    }
+
+    input[type='range'] {
+      cursor: pointer;
+      flex: 1 4 auto;
+      padding: 0;
+      height: 1.6em;
+      width: 100%;
+      margin: 0 1ch;
+    }
+
+    .range_value {
+      direction: ltr;
+      width: 25%;
+      //flex: 0 0 auto;
+      display: block;
+      text-align: left;
+    }
+  }
+
+  div.choices {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    // a single clickable/draggable choice button
+    .choice {
+      @extend %metal, %box-radius;
+      cursor: pointer;
+      margin: 0 0 0 4px;
+      padding: 8px 10px;
+      flex: initial;
+      display: inline-block;
+      text-align: center;
+      border: 1px;
+      //border-color: $c-neutral;
+
+      @if $theme-light {
+        background: linear-gradient(hsl(0deg, 0%, 92%) 0%, hsl(0deg, 0%, 86%) 100%);
+      } @else if $theme == 'dark' {
+        background: linear-gradient(hsl(0deg, 0%, 27%) 0%, hsl(0deg, 0%, 19%) 100%);
+      } @else {
+        background: hsla(0deg, 0%, 50%, 0.3);
+      }
+
+      label {
+        pointer-events: none;
+      }
+
+      &:not(.selected):hover {
+        color: lighten($c-font, 20%);
+        box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
+      }
+    }
+
+    .selected {
+      cursor: default;
+
+      color: white;
+      background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
+    }
+  }
 }

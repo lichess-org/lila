@@ -120,7 +120,7 @@ export default function (ctrl: Controller): VNode {
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
-        ctrl.moveCtrl ? renderMoveCtrl(ctrl.moveCtrl) : null,
+        ctrl.moveCtrl ? renderMoveCtrl(ctrl.moveCtrl, !showCeval) : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         h(

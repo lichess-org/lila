@@ -155,7 +155,8 @@ object helpModal:
             td(cls := "tips")(
               ul(
                 li(
-                  "Move pieces by speaking UCI, SAN, or the destination square"
+                  "Move pieces by speaking UCI, SAN, or a phrase similar to " +
+                    "examples below"
                 ),
                 li(
                   "Say any piece but pawn to move that piece " +
@@ -166,7 +167,7 @@ object helpModal:
                     "Speak the color, or say \"clear\" to cancel"
                 ),
                 li(
-                  "Up to 4 arrows are shown. Not enough? Then be specific"
+                  "Up to 4 arrows are shown. Not enough? Be more specific"
                 ),
                 li(
                   "We sometimes include moves that sound like what you said"
@@ -180,7 +181,7 @@ object helpModal:
         table(
           tbody(
             header(performAMove()),
-            row(voice("e4"), "Move something to e4"),
+            row(voice("e4"), "Move to e4 or select a piece there"),
             row(voice("knight"), "Move my knight or capture a knight"),
             row(voice("bishop g7"), "Move bishop to g7"),
             row(voice("queen takes rook"), "Take rook with queen"),
@@ -198,8 +199,8 @@ object helpModal:
             row(voice("clock"), readOutClocks()),
             row(voice("opponent"), readOutOpponentName()),
             row(voice("next"), trans.puzzle.nextPuzzle()),
-            row(voice("up vote"), trans.puzzle.upVote()),
-            row(voice("down vote"), trans.puzzle.downVote()),
+            row(voice("up"), trans.puzzle.upVote()),
+            row(voice("down"), trans.puzzle.downVote()),
             row(voice("help"), trans.showHelpDialog())
           )
         )

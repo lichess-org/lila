@@ -39,7 +39,8 @@
   grid-area: moves;
 }
 
-.input-move {
+.voice-move,
+.keyboard-move {
   grid-area: input;
 }
 
@@ -48,7 +49,7 @@
 
   @include breakpoint($mq-col1) {
     grid-template-rows: auto auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto;
-    grid-template-areas: 'moves' 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'input' 'controls';
+    grid-template-areas: 'moves' 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'controls' 'input';
 
     // Put clocks and players in the same grid cell.
     // This allows having a single cell column, instead of

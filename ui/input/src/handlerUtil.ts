@@ -75,8 +75,8 @@ const commandFunctions: Record<string, (ctrl?: MoveCtrl) => void> = {
   takeback: (ctrl: MoveCtrl) => ctrl.takeback?.(),
   upv: (ctrl: MoveCtrl) => ctrl.vote?.(true),
   downv: (ctrl: MoveCtrl) => ctrl.vote?.(false),
-  help: (ctrl: MoveCtrl) => ctrl.helpModalOpen(true),
-  '?': (ctrl: MoveCtrl) => ctrl.helpModalOpen(true),
+  help: (ctrl: MoveCtrl) => ctrl.modalOpen(true),
+  '?': (ctrl: MoveCtrl) => ctrl.modalOpen(true),
 };
 const commands = Object.keys(commandFunctions);
 
