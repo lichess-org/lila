@@ -99,7 +99,7 @@ object jsI18n {
       loadAPositionFromSfen,
       automatic,
       urlOfTheGame,
-      loadAGameFromXOrY,
+      loadAGameFromX,
       createChapter,
       configureLiveBroadcast,
       createStudy,

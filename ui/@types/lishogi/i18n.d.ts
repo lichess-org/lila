@@ -1148,7 +1148,7 @@ export type I18nKey =
 'loadAPositionFromSfen'|
 'automatic'|
 'urlOfTheGame'|
-'loadAGameFromXOrY'|
+'loadAGameFromX'|
 'createChapter'|
 'configureLiveBroadcast'|
 'createStudy'|

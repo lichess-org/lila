@@ -236,7 +236,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   {
                     attrs: { for: 'chapter-game' },
                   },
-                  trans('loadAGameFromXOrY', 'lishogi.org')
+                  trans('loadAGameFromX', 'lishogi.org')
                 ),
                 h('textarea#chapter-game.form-control', {
                   attrs: { placeholder: noarg('urlOfTheGame') },
