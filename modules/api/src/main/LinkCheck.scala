@@ -1,7 +1,5 @@
 package lila.api
 
-import cats.syntax.all.*
-
 import lila.chat.UserLine
 import lila.common.config.NetDomain
 import lila.hub.actorApi.shutup.PublicSource
