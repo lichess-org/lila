@@ -383,19 +383,21 @@ final class PlanApi(
           user <- userRepo.byId(capture.userId) orFail s"Missing user for paypal capture $capture"
           // look for previous charge
           previous <- mongo.charge
-            .find($doc("payPalCheckout.subscriptionId" -> subId))
+            // hit the userId index
+            .find($doc("userId" -> user.id, "payPalCheckout.subscriptionId" -> subId))
             .sort($doc("date" -> -1))
             .one[Charge]
+            // avoid duplicating the initial charge
             .map(_.filter(_.date.isBefore(DateTime.now.minusMinutes(3))))
           _ <- previous ?? { prev =>
+            logger.info(s"Renewing paypal checkout subscription with $capture")
             addSubscriptionCharge(prev.copyAsNew, user, none)
           }
         yield ()
       } | funit
 
     private def addSubscriptionCharge(charge: Charge, user: User, country: Option[Country]) = for
-      isLifetime <- pricingApi isLifetime charge.money
-      _          <- addCharge(charge, country)
+      _ <- addCharge(charge, country)
       _ <- userPatron(user).flatMap {
         case None =>
           mongo.patron.insert.one(
@@ -418,7 +420,8 @@ final class PlanApi(
           mongo.patron.update.one($id(patron.id), p2) >>
             setDbUserPlanOnCharge(user, patron.canLevelUp)
       }
-      _ <- isLifetime ?? setLifetime(user)
+      isLifetime <- pricingApi isLifetime charge.money
+      _          <- isLifetime ?? setLifetime(user)
     yield logger.info(s"Charged ${user.username} with paypal checkout: $charge")
 
     private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
