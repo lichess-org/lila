@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Configuració avançada</string>
 	<string name="makePrivateTournament">Fes el torneig privat, i restringeix l\'accés amb clau d\'entrada</string>
 	<string name="join">Inscriu-t\'hi</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Abandona</string>
 	<string name="points">Punts</string>
 	<string name="wins">Victòries</string>

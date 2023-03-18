@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Vis avancerede Indstillinger</string>
 	<string name="makePrivateTournament">Gør turneringen privat og begræns adgang med en adgangskode</string>
 	<string name="join">Tilmeld</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Frameld</string>
 	<string name="points">Points</string>
 	<string name="wins">Gevinster</string>

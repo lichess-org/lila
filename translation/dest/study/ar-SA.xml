@@ -109,7 +109,6 @@
   <string name="startFromCustomPosition">البدء من وضع مخصص</string>
   <string name="loadAGameByUrl">تحميل لعبة من رابط</string>
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
-  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">تلقائي</string>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="loadAGameFromXOrY">استيراد لعبة من %1$s</string>

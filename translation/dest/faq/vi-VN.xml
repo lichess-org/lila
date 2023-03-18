@@ -43,7 +43,7 @@ Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 4
 
 Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít phần trăm tốt mất mỗi nước đi, càng có ưu thế.
 
-Phân tích máy tính trên Lichess do Stockfish cung cấp.</string>
+Phân tích máy tính trên Lishogi do Stockfish cung cấp.</string>
 	<string name="insufficientMaterial">Thua về thời gian, hòa và không đủ quân chiếu hết</string>
 	<string name="goodIntroduction">lời mở đầu tốt</string>
 	<string name="officialRulesPDF">luật chính thức (PDF)</string>
@@ -58,7 +58,7 @@ Phân tích máy tính trên Lichess do Stockfish cung cấp.</string>
 	<string name="titlesAvailableOnLishogi">Có những danh hiệu nào trên Lishogi?</string>
 	<string name="showYourTitle">Nếu bạn có danh hiệu OTB, bạn có thể đăng ký để hiển thị tiêu đề này trên tài khoản của mình bằng cách hoàn thành %1$s, bao gồm hình ảnh rõ ràng của tài liệu/thẻ nhận dạng và ảnh tự chụp của bạn đang cầm tài liệu/thẻ.
 
-Việc xác minh là người chơi có danh hiệu trên Lichess sẽ cho phép bạn chơi trong các sự kiện Đấu trường kỳ thủ có danh hiệu.
+Việc xác minh là người chơi có danh hiệu trên Lishogi sẽ cho phép bạn chơi trong các sự kiện Đấu trường kỳ thủ có danh hiệu.
 
 Cuối cùng là danh hiệu danh dự %2$s.</string>
 	<string name="verificationForm">biểu mẫu xác minh</string>

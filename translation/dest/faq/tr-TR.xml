@@ -47,7 +47,7 @@ Lishogi üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.<
 	<string name="insufficientMaterial">Zaman kaybı, beraberlik ve yetersiz taş</string>
 	<string name="goodIntroduction">iyi giriş</string>
 	<string name="officialRulesPDF">resmi kurallar (PDF)</string>
-	<string name="lishogiTraining">Lishgoi antrenmanları</string>
+	<string name="lishogiTraining">Lishogi antrenmanları</string>
 	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">el kitabı (PDF)</string>
 	<string name="notRepeatedMoves">Biz hamle tekrarı yapmadık. Oyun neden hamle tekrarından berabere bitti?</string>

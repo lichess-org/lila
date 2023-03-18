@@ -422,6 +422,7 @@
 	<string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
 	<string name="makePrivateTournament">प्रतियोगिता को निजी बनाएं, और पासवर्ड के साथ पहुंच को प्रतिबंधित करें</string>
 	<string name="join">शामिल हों</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">छोड़ के जाएं</string>
 	<string name="points">अंक</string>
 	<string name="wins">जीत</string>

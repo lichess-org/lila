@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Wys gevorderde instellings</string>
 	<string name="makePrivateTournament">Maak die toernooi privaat, en beperk toegang met \'n wagwoord</string>
 	<string name="join">Sluit aan</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Ontrek</string>
 	<string name="points">Punte</string>
 	<string name="wins">Oorwinnings</string>

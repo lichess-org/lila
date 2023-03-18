@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
 	<string name="makePrivateTournament">Turnuvayı özel olarak ayarlayın ve şifre koyarak erişimi kısıtlayın</string>
 	<string name="join">Katıl</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Çekil</string>
 	<string name="points">Puanlar</string>
 	<string name="wins">Galibiyetler</string>
@@ -469,7 +470,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="socialMediaLinks">Sosyal medya bağlantıları</string>
 	<string name="inlineNotation">Notasyonu aynı satırda göster</string>
 	<string name="watchLishogiTV">Lishogi TV izle</string>
-	<string name="previouslyOnLishogiTV">Lishgoi TV\'de bunlar da vardı</string>
+	<string name="previouslyOnLishogiTV">Lishogi TV\'de bunlar da vardı</string>
 	<string name="onlinePlayers">Çevrimiçi oyuncular</string>
 	<string name="activeToday">Bugün aktif</string>
 	<string name="activePlayers">Aktif oyuncular</string>

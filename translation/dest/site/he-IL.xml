@@ -476,6 +476,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">הצג הגדרות מתקדמות</string>
 	<string name="makePrivateTournament">הפוך את הטורניר לפרטי, והגבל כניסה עם סיסמה</string>
 	<string name="join">הצטרף</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">צא</string>
 	<string name="points">נקודות</string>
 	<string name="wins">ניצחונות</string>

@@ -449,6 +449,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Покажи напредна подешавања</string>
 	<string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
 	<string name="join">Придружи се</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Повуци се</string>
 	<string name="points">Поена</string>
 	<string name="wins">Победа</string>

@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Haladó beállítások megjelenítése</string>
 	<string name="makePrivateTournament">Készíts privát tornát és a hozzáférést védd le jelszóval</string>
 	<string name="join">Csatlakozás</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Visszavon</string>
 	<string name="points">Pontok</string>
 	<string name="wins">Győzelmek</string>

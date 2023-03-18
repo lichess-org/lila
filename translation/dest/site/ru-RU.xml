@@ -475,6 +475,7 @@
 	<string name="showAdvancedSettings">Показать дополнительные настройки</string>
 	<string name="makePrivateTournament">Сделать турнир закрытым и ограничить доступ паролем</string>
 	<string name="join">Участвовать</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Покинуть</string>
 	<string name="points">Очки</string>
 	<string name="wins">Победы</string>

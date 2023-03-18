@@ -395,6 +395,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">고급 설정 보기</string>
 	<string name="makePrivateTournament">토너먼트를 비공개로 바꾸고, 비밀번호가 있어야만 들어갈 수 있습니다.</string>
 	<string name="join">참가하기</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">중단</string>
 	<string name="points">포인트</string>
 	<string name="wins">승리</string>

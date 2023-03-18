@@ -394,6 +394,7 @@
 	<string name="showAdvancedSettings">显示高级设置</string>
 	<string name="makePrivateTournament">设置比赛私有，并用密码限制访问</string>
 	<string name="join">参与锦标赛</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">退出锦标赛</string>
 	<string name="points">分数</string>
 	<string name="wins">胜</string>

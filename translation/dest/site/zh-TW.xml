@@ -394,6 +394,7 @@
 	<string name="showAdvancedSettings">顯示進階設定</string>
 	<string name="makePrivateTournament">把錦標賽設定為私人，並設定密碼來限制進入。</string>
 	<string name="join">加入</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">離開</string>
 	<string name="points">分數</string>
 	<string name="wins">勝</string>

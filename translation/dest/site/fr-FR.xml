@@ -421,6 +421,7 @@
 	<string name="showAdvancedSettings">Afficher les paramètres avancés</string>
 	<string name="makePrivateTournament">Rendre le tournoi privé et en restreindre l\'accès avec un mot de passe</string>
 	<string name="join">Rejoindre</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Renoncer</string>
 	<string name="points">Points</string>
 	<string name="wins">Victoires</string>

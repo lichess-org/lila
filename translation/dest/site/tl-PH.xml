@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Show advanced settings</string>
 	<string name="makePrivateTournament">Make the tournament private, and restrict access with a password</string>
 	<string name="join">Join</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Withdraw</string>
 	<string name="points">Points</string>
 	<string name="wins">Mga Panalo</string>

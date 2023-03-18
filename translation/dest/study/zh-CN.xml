@@ -94,7 +94,6 @@
   <string name="startFromCustomPosition">从自定义局面开始</string>
   <string name="loadAGameByUrl">通过 URL 加载游戏</string>
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
-  <string name="loadAGameFromKif">从KIF文件加载游戏</string>
   <string name="automatic">自动</string>
   <string name="urlOfTheGame">游戏的 URL</string>
   <string name="loadAGameFromXOrY">从 %1$s 加载游戏</string>

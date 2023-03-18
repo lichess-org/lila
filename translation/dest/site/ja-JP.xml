@@ -395,6 +395,7 @@
 	<string name="showAdvancedSettings">「高度な設定」を表示</string>
 	<string name="makePrivateTournament">トーナメントを「非公開」にすると参加にパスワードが必要になります</string>
 	<string name="join">参加する</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">一時停止する</string>
 	<string name="points">ポイント</string>
 	<string name="wins">勝</string>

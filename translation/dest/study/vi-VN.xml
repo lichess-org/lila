@@ -58,7 +58,7 @@
   <string name="downloadGame">Tải xuống ván cờ</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">PGN chương</string>
-  <string name="chapterCsa">PGN chương</string>
+  <string name="chapterCsa">CSA chương</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="broadcastUrl">URL phát sóng</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
@@ -93,8 +93,7 @@
   <string name="editor">Biên tập viên</string>
   <string name="startFromCustomPosition">Bắt đầu từ thế cờ tùy chỉnh</string>
   <string name="loadAGameByUrl">Tải ván cờ bằng URL</string>
-  <string name="loadAPositionFromSfen">Tải thế cờ từ mã FEN</string>
-  <string name="loadAGameFromKif">Tải ván cờ từ PGN</string>
+  <string name="loadAPositionFromSfen">Tải thế cờ từ mã SFEN</string>
   <string name="automatic">Tự động</string>
   <string name="urlOfTheGame">URL tới ván đấu, mỗi URL một dòng</string>
   <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s</string>

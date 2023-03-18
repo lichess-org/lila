@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Visa avancerade inställningar</string>
 	<string name="makePrivateTournament">Gör turneringen privat, och begränsa åtkomst med ett lösenord</string>
 	<string name="join">Delta</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Lämna</string>
 	<string name="points">Poäng</string>
 	<string name="wins">Vinster</string>

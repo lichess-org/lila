@@ -476,6 +476,7 @@
 	<string name="showAdvancedSettings">Покаж додаткові лашти</string>
 	<string name="makePrivateTournament">Зроби особистий змаг з ключним доступом</string>
 	<string name="join">Долучись</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Вилучись</string>
 	<string name="points">Очки</string>
 	<string name="wins">Перемоги</string>

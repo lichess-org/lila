@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
 	<string name="makePrivateTournament">Rendi privato il torneo e limita l\'accesso con una password</string>
 	<string name="join">Unisciti</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">Ritirati</string>
 	<string name="points">Punti</string>
 	<string name="wins">Vittorie</string>

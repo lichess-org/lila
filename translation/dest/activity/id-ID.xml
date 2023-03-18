@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Activity</string>
+  <string name="hostedALiveStream">Hosted a live stream</string>
+  <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
+    <item quantity="other">Supported lishogi.org for %1$s months as a %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="other">Practised %1$s positions on %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="other">Solved %s tactical puzzles</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="other">Played %1$s %2$s games</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="other">Posted %1$s messages in %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="other">Played %1$s moves</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="other">in %1$s correspondence games</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="other">Completed %s correspondence games</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="other">Started following %s players</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="other">Gained %s new followers</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="other">Hosted %s simultaneous exhibitions</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="other">Participated in %s simultaneous exhibitions</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="other">Created %s new studies</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="other">Competed in %s tournaments</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="other">Ranked #%1$s (top %2$s%%) with %3$s games in %4$s</item>
+  </plurals>
+  <string name="signedUp">Signed up to lishogi.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="other">Joined %s teams</item>
+  </plurals>
+</resources>

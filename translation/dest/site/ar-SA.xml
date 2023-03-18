@@ -530,6 +530,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="showAdvancedSettings">إظهار الإعدادات المتقدمة</string>
 	<string name="makePrivateTournament">جعل البطولة خاصة، وتقييد الوصول بكلمة مرور</string>
 	<string name="join">إشترك</string>
+	<string name="pause">Pause</string>
 	<string name="withdraw">انسحاب</string>
 	<string name="points">النقاط</string>
 	<string name="wins">الفوز</string>

@@ -103,7 +103,6 @@
   <string name="startFromCustomPosition">Rozpocznij z ustawionej pozycji</string>
   <string name="loadAGameByUrl">Zaimportuj partię z linku</string>
   <string name="loadAPositionFromSfen">Zaimportuj pozycję z SFEN</string>
-  <string name="loadAGameFromKif">Importuj partie z KIF</string>
   <string name="automatic">Automatycznie</string>
   <string name="urlOfTheGame">Link do partii</string>
   <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s</string>
