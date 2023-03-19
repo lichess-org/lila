@@ -105,7 +105,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Automatický</string>
   <string name="urlOfTheGame">URL hry</string>
-  <string name="loadAGameFromXOrY">Načíst hru z %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Vytvořit kapitolu</string>
   <string name="configureLiveBroadcast">Konfigurace živého vysílání</string>
   <string name="createStudy">Vytvořit studii</string>

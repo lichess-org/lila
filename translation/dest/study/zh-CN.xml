@@ -96,7 +96,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">自动</string>
   <string name="urlOfTheGame">游戏的 URL</string>
-  <string name="loadAGameFromXOrY">从 %1$s 加载游戏</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">创建章节</string>
   <string name="configureLiveBroadcast">设置直播配置</string>
   <string name="createStudy">创建课程</string>

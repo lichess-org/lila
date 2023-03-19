@@ -105,7 +105,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">אוטומטי</string>
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>
-  <string name="loadAGameFromXOrY">טען משחק מ%1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">צור פרק</string>
   <string name="configureLiveBroadcast">קבע שידור חי</string>
   <string name="createStudy">צור מחקר</string>

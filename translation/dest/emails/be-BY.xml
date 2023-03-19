@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Confirm your lishogi.org account, %s</string>
-  <string name="emailConfirm_click">Click the link to enable your Lishogi account:</string>
-  <string name="emailConfirm_ignore">If you did not register with Lishogi you can safely ignore this message.</string>
-  <string name="passwordReset_subject">Reset your lishogi.org password, %s</string>
-  <string name="passwordReset_intro">We received a request to reset the password for your account.</string>
-  <string name="passwordReset_clickOrIgnore">If you made this request, click the link below. If not, you can ignore this email.</string>
-  <string name="emailChange_subject">Confirm new email address, %s</string>
-  <string name="emailChange_intro">You have requested to change your email address.</string>
-  <string name="emailChange_click">To confirm you have access to this email, please click the link below:</string>
-  <string name="welcome_subject">Welcome to lishogi.org, %s</string>
-  <string name="welcome_text">You have successfully created your account on https://lishogi.org.
+  <string name="emailConfirm_subject">%s, пацвердзіце ваш уліковы запіс на lishogi.org</string>
+  <string name="emailConfirm_click">Націсніце на спасылку, каб актываваць уліковы запіс Lishogi:</string>
+  <string name="emailConfirm_ignore">Калі вы не рэгістраваліся на Lishogi, проста праігнаруйце гэта паведамленне.</string>
+  <string name="passwordReset_subject">%s, вы скідаеце ваш пароль на lishogi.org</string>
+  <string name="passwordReset_intro">Мы атрымалі запыт на змену пароля да вашага ўліковага запісу.</string>
+  <string name="passwordReset_clickOrIgnore">Калі запыт выкананы вамі, націсніце на спасылку ніжэй. Калі не, праігнаруйце гэты ліст.</string>
+  <string name="emailChange_subject">%s, пацвердзіце новы адрас пошты</string>
+  <string name="emailChange_intro">Мы атрымалі запыт на змену вашага адраса электроннай пошты.</string>
+  <string name="emailChange_click">Для пацвярджэння таго, што ў вас ёсць доступ да адраса электроннай пошты, калі ласка, націсніце спасылку ніжэй:</string>
+  <string name="welcome_subject">Вітаем вас на lishogi.org, %s</string>
+  <string name="welcome_text">Вы паспяхова зарэгістравалі свой уліковы запіс на https://lishogi.org.
 
-Here is your profile page: %1$s. You can personalise it on %2$s.
+Вось спасылка на ваш профіль: %1$s. Вы можаце наладзіць яго тут %2$s.
 
-Have fun, and may your pieces always find their way to your opponent\'s king!</string>
-  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
-  <string name="common_orPaste">(Clicking not working? Try pasting it into your browser!)</string>
-  <string name="common_note">This is a service email related to your use of %s.</string>
-  <string name="common_contact">To contact us, please use %s.</string>
+Поспехаў, і ды знойдуць Вашы фігуры шлях да караля суперніка!</string>
+  <string name="logInToLishogi">Уваход на lishogi.org, %s</string>
+  <string name="common_orPaste">(Націсканне на спасылку не працуе? Паспрабуйце ўставіць у ваш браўзер!)</string>
+  <string name="common_note">Гэта службовы ліст, які звязаны з вашым выкарыстаннем %s.</string>
+  <string name="common_contact">Каб звязацца з намі, калі ласка, выкарыстоўвайце %s.</string>
 </resources>

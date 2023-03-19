@@ -99,7 +99,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Automatisch</string>
   <string name="urlOfTheGame">URL der Partie</string>
-  <string name="loadAGameFromXOrY">Partie von %1$s laden</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Kapitel erstellen</string>
   <string name="configureLiveBroadcast">Live-Übertragung konfigurieren</string>
   <string name="createStudy">Studie erstellen</string>

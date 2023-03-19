@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLishogiLagging">Is Lishogi lagging?</string>
-  <string name="measurementInProgressThreeDot">Measurements in progress...</string>
-  <string name="noAndYourNetworkIsGood">No. And your network is good.</string>
-  <string name="noAndYourNetworkIsBad">No. And your network is bad.</string>
-  <string name="yesItWillBeFixedSoon">Yes. It will be fixed soon!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">And now, the long answer! Game lag is composed of two unrelated values (lower is better):</string>
-  <string name="lishogiServerLatency">Lishogi server latency</string>
-  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
-  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
-  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (United Kingdom), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
-  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">You can find both these values at any time, by clicking your username in the top bar.</string>
-  <string name="lagCompensation">Lag compensation</string>
-  <string name="lagCompensationExplanation">Lishogi compensates network lag. This includes sustained lag and occasional lag spikes. There are limits and heuristics based on time control and the compensated lag so far, so that the result should feel reasonable for both players. As a result, having a higher network lag than your opponent is not a handicap!</string>
+  <string name="isLishogiLagging">Apakah Lishogi lag?</string>
+  <string name="measurementInProgressThreeDot">Perhitungan dalam proses...</string>
+  <string name="noAndYourNetworkIsGood">Tidak. Dan jaringan internet Anda sedang dalam kondisi baik.</string>
+  <string name="noAndYourNetworkIsBad">Tidak. Dan jaringan internet Anda sedang dalam kondisi buruk.</string>
+  <string name="yesItWillBeFixedSoon">Ya. Ini akan segera diperbaiki!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Dan sekarang, jawaban detail! Lag permainan terdiri dari dua nilai yang tidak berhubungan (rendah lebih baik):</string>
+  <string name="lishogiServerLatency">Latensi Lishogi server</string>
+  <string name="lishogiServerLatencyExplanation">Waktu dibutuhkan untuk memproses langkah pada server. Sama untuk semua orang, dan hanya tergantung beban pada server. Semakin banyak pemain semakin tinggi waktunya, tetapi pengembang Lishogi melakukan yang terbaik untuk menjaganya rendah. Waktu yang dibutuhkan jarang melebihi 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Jaringan antara Lishogi dan anda</string>
+  <string name="networkBetweenLishogiAndYouExplanation">Waktu yang dibutuhkan untuk mengirim langkah dari komputer anda ke Lishogi server, dan mendapat respon balik. Tergantung pada jarak anda ke Lishogi (Perancis), dan kualitas koneksi internet anda. Pengembang Lishogi tidak bisa memperbaiki wifi anda atau membuatnya lebih kencang.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Anda dapat menemukan kedua nilai tersebut kapan saja, dengan meng-klik nama pengguna pada panel atas.</string>
+  <string name="lagCompensation">Kompensasi lag</string>
+  <string name="lagCompensationExplanation">Lishogi mengkompensasi lag jaringan. Ini meliputi lag berkelanjutan atau lonjakan lag sesekali. Ada batasan dan heuristik yang didasarkan pada kontrol waktu dan kompensasi lag, sehingga hasil terasa masuk akal bagi kedua pemain. Akibatnya, memiliki jeda jaringan yang lebih tinggi daripada lawan Anda bukanlah rintangan!</string>
 </resources>

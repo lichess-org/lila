@@ -1,42 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena tournaments</string>
-  <string name="isItRated">ใช่เกมคิดคะแนนหรือไม่</string>
-  <string name="willBeNotified">You will be notified when the tournament starts, so it is safe to play in another tab while waiting.</string>
-  <string name="isRated">This tournament is rated and will affect your rating.</string>
-  <string name="isNotRated">This tournament is *not* rated and will *not* affect your rating.</string>
-  <string name="someRated">Some tournaments are rated and will affect your rating.</string>
-  <string name="howAreScoresCalculated">How are scores calculated?</string>
-  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw 1 point, and a loss is worth no points.
-If you win two games consecutively you will start a double point streak, represented by a flame icon.
-The following games will continue to be worth double points until you fail to win a game.
-That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
+  <string name="arenaTournaments">ทัวร์นาเมนต์สังเวียน</string>
+  <string name="isItRated">มันถูกคิดคะแนนหรือไม่?</string>
+  <string name="willBeNotified">คุณจะได้รับการแจ้งเตือนเมื่อทัวร์นาเมนต์เริ่มต้น ดังนั้นจึงปลอดภัยหากจะเล่นในแท็บอื่นระหว่างรอ</string>
+  <string name="isRated">ทัวร์นาเมนต์นี้ถูกคิดคะแนน และจะมีผลต่อระดับคะแนนของคุณ</string>
+  <string name="isNotRated">ทัวร์นาเมนต์นี้ *ไม่* ถูกคิดคะแนน และจะ *ไม่* มีผลต่อระดับคะแนนของคุณ</string>
+  <string name="someRated">บางทัวร์นาเมนต์จะถูกคิดคะแนน และจะมีผลต่อระดับคะแนนของคุณ</string>
+  <string name="howAreScoresCalculated">แต้มถูกคำนวณอย่างไร?</string>
+  <string name="howAreScoresCalculatedAnswer">ชนะได้ 2 แต้ม เสมอได้ 1 แต้ม ส่วนแพ้จะไม่ได้แต้ม ถ้าคุณชนะสองเกมติดต่อกัน คุณจะเริ่มได้แต้มสองเท่าต่อเนื่องซึ่งแสดงโดยไอคอนเปลวไฟ เกมต่อๆไปจะยังมีมูลค่าสองเท่าจนกว่าคุณจะไม่ชนะเกม นั่นคือ ชนะได้ 4 แต้ม เสมอได้ 2 แต้ม ส่วนแพ้จะยังคงไม่ได้แต้ม ตัวอย่างเช่น ชนะ 2 เกมตามด้วยเสมอ จะได้ 6 แต้ม: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">สังเวียนเบอร์เซิร์ก</string>
+  <string name="berserkAnswer">เมื่อผู้เล่นคลิกปุ่มเบอร์เซิร์กเมื่อเริ่มต้นเกม พวกเขาจะเสียเวลาในนาฬิกาไปครึ่งหนึ่ง แต่หากชนะเกมก็จะได้แต้มพิเศษทัวร์นาเมนต์อีก 1 แต้ม 
 
-For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
+การใช้เบอร์เซิร์กในเกมที่ควบคุมเวลาโดยมีการเพิ่มเวลา การเพิ่มเวลาจะถูกยกเลิกไป (1+2 ถูกยกเว้น มันให้ 1+0)
 
-Going Berserk in time controls with an increment and byoyomi also cancels the increment and byoyomi time (1+2 is an exception, it gives 1+0).
+ไม่มีเบอร์เซิร์กสำหรับเกมที่เวลาเริ่มต้นเป็นศูนย์ (0+1, 0+2)
 
-Berserk is not available for games with zero initial time (0+1, 0+2).
-
-Berserk only grants an extra point if you play at least 7 moves in the game.</string>
-  <string name="howIsTheWinnerDecided">How is the winner decided?</string>
-  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament\'s set time limit will be announced winner(s).
-
-When two or more players have the same number of points, the tournament performance is the tie break.</string>
-  <string name="howDoesPairingWork">How does the pairing work?</string>
-  <string name="howDoesPairingWorkAnswer">At the beginning of the tournament, players are paired based on their rating.
-As soon as you finish a game, return to the tournament lobby: you will then be paired with a player close to your ranking. This ensures minimum wait time, however you may not face all other players in the tournament.
-Play fast and return to the lobby to play more games and win more points.</string>
-  <string name="howDoesItEnd">How does it end?</string>
-  <string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however they don\'t count for the tournament.</string>
-  <string name="otherRules">Other important rules</string>
-  <string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
+เบอร์เซิร์กมอบแต้มพิเศษเฉพาะถ้าคุณเล่นอย่างน้อย 7 รอบเดินในเกม</string>
+  <string name="howIsTheWinnerDecided">ตัดสินผู้ชนะอย่างไร?</string>
+  <string name="howIsTheWinnerDecidedAnswer">ผู้เล่นที่มีแต้มมากที่สุดเมื่อสรุปตามเวลาที่จำกัดไว้ของทัวร์นาเมนต์จะถูกประกาศให้เป็นผู้ชนะ</string>
+  <string name="howDoesPairingWork">จับคู่แข่งกันอย่างไร?</string>
+  <string name="howDoesPairingWorkAnswer">เมื่อเริ่มต้นทัวร์นาเมนต์ ผู้เล่นจะถูกจับคู่โดยอิงตามระดับคะแนนของพวกเขา ทันทีที่คุณจบเกมและกลับไปที่ล็อบบี้ทัวร์นาเมนต์: คุณจะถูกจับคู่กับผู้เล่นในระดับที่ใกล้เคียงกับคุณ วิธีนี้เชื่อมั่นว่าใช้เวลารอน้อย อย่างไรก็ตามคุณอาจไม่ได้แข่งกับผู้เล่นอื่นๆ ในทัวร์นาเมนต์ครบทุกราย จงเล่นให้เร็ว แล้วกลับไปล็อบบี้เพื่อเล่นเกมเพิ่มเติมและชนะเพื่อแต้มที่มากขึ้น</string>
+  <string name="howDoesItEnd">มันจบลงอย่างไร?</string>
+  <string name="howDoesItEndAnswer">ทัวร์นาเมนต์มีนาฬิกานับถอยหลัง เมื่อเวลาถึงศูนย์ การจัดอันดับของทัวร์นาเมนต์จะหยุดนิ่งและจะประกาศผู้ชนะ ส่วนเกมที่กำลังแข่งอยู่จะต้องแข่งให้เสร็จสิ้น เพียงแต่จะไม่ถูกนับรวมในทัวร์นาเมนต์</string>
+  <string name="otherRules">กติกาสำคัญอื่นๆ</string>
+  <string name="thereIsACountdown">มีการนับถอยหลังสำหรับการเดินครั้งแรกของคุณ หากไม่เดินภายในเวลาที่กำหนด คุณจะถูกปรับแพ้ให้กับคู่แข่งของคุณ</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
+    <item quantity="other">การเสมอกันภายในการเดิน %s ครั้งแรก จะไม่ได้รับแต้มทั้งคู่</item>
   </plurals>
-  <string name="thisIsPrivate">This is a private tournament</string>
-  <string name="shareUrl">Share this URL to let people join: %s</string>
+  <string name="thisIsPrivate">นี่คือทัวร์นาเมนต์ส่วนตัว</string>
+  <string name="shareUrl">แชร์ URL นี้เพื่อให้คนอื่นๆได้เข้าร่วม: %s</string>
   <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

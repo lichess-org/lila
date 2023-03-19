@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="search">Search</string>
-	<string name="advancedSearch">Advanced search</string>
+	<string name="search">Пошук</string>
+	<string name="advancedSearch">Пашыраны пошук</string>
 	<plurals name="searchInXGames">
-		<item quantity="one">Search in %s shogi game</item>
-		<item quantity="few">Search in %s shogi games</item>
-		<item quantity="many">Search in %s shogi games</item>
-		<item quantity="other">Search in %s shogi games</item>
+		<item quantity="one">Шукаць у %s гульне</item>
+		<item quantity="few">Шукаць у %s гульнях</item>
+		<item quantity="many">Шукаць у %s гульнях</item>
+		<item quantity="other">Шукаць у %s гульнях</item>
 	</plurals>
 	<plurals name="xGamesFound">
-		<item quantity="one">One game found</item>
-		<item quantity="few">%s games found</item>
-		<item quantity="many">%s games found</item>
-		<item quantity="other">%s games found</item>
+		<item quantity="one">Знойдзена %s гульня</item>
+		<item quantity="few">Знойдзена %s гульні</item>
+		<item quantity="many">Знойдзена %s гульняў</item>
+		<item quantity="other">Знойдзена %s гульняў</item>
 	</plurals>
-	<string name="opponentName">Opponent name</string>
-	<string name="loser">Loser</string>
-	<string name="from">From</string>
-	<string name="to">To</string>
-	<string name="humanOrComputer">Whether the player\'s opponent was human or a computer</string>
-	<string name="aiLevel">A.I. level</string>
-	<string name="source">Source</string>
-	<string name="nbTurns">Number of turns</string>
-	<string name="result">Result</string>
-	<string name="winnerColor">Winner color</string>
-	<string name="date">Date</string>
-	<string name="sortBy">Sort by</string>
-	<string name="analysis">Analysis</string>
-	<string name="onlyAnalysed">Only games where a computer analysis is available</string>
+	<string name="opponentName">Імя суперніка</string>
+	<string name="loser">Пацярпелы</string>
+	<string name="from">Ад</string>
+	<string name="to">Да</string>
+	<string name="humanOrComputer">З\'яўляецца лі супернік чалавекам або камп\'ютарам</string>
+	<string name="aiLevel">Узровень Ш.І.</string>
+	<string name="source">Крыніца</string>
+	<string name="nbTurns">Колькасць хадоў</string>
+	<string name="result">Вынік</string>
+	<string name="winnerColor">Колер пераможца</string>
+	<string name="date">Дата</string>
+	<string name="sortBy">Сартаваць па</string>
+	<string name="analysis">Аналіз</string>
+	<string name="onlyAnalysed">Толькі гульні, для якіх даступны камп\'ютарны аналіз</string>
 </resources>

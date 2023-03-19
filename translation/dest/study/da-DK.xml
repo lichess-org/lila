@@ -99,7 +99,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Automatisk</string>
   <string name="urlOfTheGame">URL for partiet</string>
-  <string name="loadAGameFromXOrY">Indlæs et parti fra %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Opret kapitel</string>
   <string name="configureLiveBroadcast">Konfigurer live-transmission</string>
   <string name="createStudy">Opret studie</string>

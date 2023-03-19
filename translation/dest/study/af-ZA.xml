@@ -99,7 +99,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Outomaties</string>
   <string name="urlOfTheGame">URL van die wedstryd</string>
-  <string name="loadAGameFromXOrY">Laai \'n wedstryd van %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Skep \'n hoofstuk</string>
   <string name="configureLiveBroadcast">Stel \'n lewendige uitsending op</string>
   <string name="createStudy">Skep \'n studie</string>

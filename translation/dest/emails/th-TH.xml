@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Confirm your lishogi.org account, %s</string>
-  <string name="emailConfirm_click">Click the link to enable your Lishogi account:</string>
-  <string name="emailConfirm_ignore">If you did not register with Lishogi you can safely ignore this message.</string>
-  <string name="passwordReset_subject">Reset your lishogi.org password, %s</string>
-  <string name="passwordReset_intro">We received a request to reset the password for your account.</string>
-  <string name="passwordReset_clickOrIgnore">If you made this request, click the link below. If not, you can ignore this email.</string>
-  <string name="emailChange_subject">Confirm new email address, %s</string>
-  <string name="emailChange_intro">You have requested to change your email address.</string>
-  <string name="emailChange_click">To confirm you have access to this email, please click the link below:</string>
-  <string name="welcome_subject">Welcome to lishogi.org, %s</string>
-  <string name="welcome_text">You have successfully created your account on https://lishogi.org.
+  <string name="emailConfirm_subject">ยืนยันบัญชี lishogi.org ของคุณ, %s</string>
+  <string name="emailConfirm_click">คลิกที่ลิงก์เพื่อเปิดใช้งานบัญชี lishogi ของคุณ:</string>
+  <string name="emailConfirm_ignore">ถ้าคุณไม่ได้ลงทะเบียนกับ Lishogi คุณสามารถเพิกเฉยต่อข้อความนี้ได้อย่างปลอดภัย</string>
+  <string name="passwordReset_subject">ตั้งรหัสผ่าน lishogi.org ใหม่, %s</string>
+  <string name="passwordReset_intro">เราได้รับการร้องขอเพื่อตั้งรหัสผ่านใหม่สำหรับบัญชีของคุณ</string>
+  <string name="passwordReset_clickOrIgnore">ถ้าคุณได้ทำการร้องขอนี้ จงคลิกที่ลิงก์ด้านล่าง  แต่ถ้าไม่, คุณสามารถเพิกเฉยต่ออีเมลนี้</string>
+  <string name="emailChange_subject">ยืนยันที่อยู่อีเมลใหม่, %s</string>
+  <string name="emailChange_intro">คุณได้ร้องขอเปลี่ยนแปลงที่อยู่อีเมลของคุณ</string>
+  <string name="emailChange_click">เพื่อยืนยันว่าคุณได้เข้าถึงอีเมลนี้ กรุณาคลิกที่ลิงก์ด้านล่าง:</string>
+  <string name="welcome_subject">ยินดีต้อนรับสู่ lishogi.org, %s</string>
+  <string name="welcome_text">คุณได้สร้างบัญชีของคุณที่ https://lishogi.org สำเร็จแล้ว
 
-Here is your profile page: %1$s. You can personalise it on %2$s.
+นี่คือหน้าประวัติประจำตัวของคุณ: %1$s ซึ่งคุณสามารถปรับเปลี่ยนมันได้เองที่ %2$s
 
-Have fun, and may your pieces always find their way to your opponent\'s king!</string>
-  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
-  <string name="common_orPaste">(Clicking not working? Try pasting it into your browser!)</string>
-  <string name="common_note">This is a service email related to your use of %s.</string>
-  <string name="common_contact">To contact us, please use %s.</string>
+ขอให้สนุก และหวังว่าหมากของคุณจะพบหนทางไปสู่คิงของคู่แข่งของคุณเสมอ!</string>
+  <string name="logInToLishogi">เข้าสู่ระบบ lishogi.org, %s</string>
+  <string name="common_orPaste">(การคลิกไม่ทำงาน? ลองวางมันลงในเบราว์เซอร์ของคุณดูสิ!)</string>
+  <string name="common_note">นี่คืออีเมลบริการที่เกี่ยวข้องกับการใช้ %s ของคุณ</string>
+  <string name="common_contact">เพื่อติดต่อเราให้ใช้ %s</string>
 </resources>

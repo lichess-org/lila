@@ -105,7 +105,7 @@
   <string name="loadAPositionFromSfen">Zaimportuj pozycję z SFEN</string>
   <string name="automatic">Automatycznie</string>
   <string name="urlOfTheGame">Link do partii</string>
-  <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Stwórz rozdział</string>
   <string name="configureLiveBroadcast">Skonfiguruj przekaz na żywo</string>
   <string name="createStudy">Stwórz opracowanie</string>

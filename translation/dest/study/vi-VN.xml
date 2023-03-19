@@ -96,7 +96,7 @@
   <string name="loadAPositionFromSfen">Tải thế cờ từ mã SFEN</string>
   <string name="automatic">Tự động</string>
   <string name="urlOfTheGame">URL tới ván đấu, mỗi URL một dòng</string>
-  <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Tạo chương mới</string>
   <string name="configureLiveBroadcast">Cấu hình truyền hình trực tiếp</string>
   <string name="createStudy">Tạo nghiên cứu</string>

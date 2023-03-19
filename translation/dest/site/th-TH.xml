@@ -426,8 +426,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="country">Country</string>
 	<string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
 	<string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
-	<string name="watchLishogiTV">Watch Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
+	<string name="watchLishogiTV">ดู Lishogi TV</string>
+	<string name="previouslyOnLishogiTV">Lishogi TV ก่อนหน้า</string>
 	<string name="onlinePlayers">ผู้เล่นออนไลน์</string>
 	<string name="activeToday">Active today</string>
 	<string name="activePlayers">ผู้เล่นที่ขยัน</string>
@@ -445,7 +445,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="butYouCanKeepTrying">But you can keep trying.</string>
 	<string name="success">สำเร็จ</string>
 	<string name="wasThisPuzzleAnyGood">Was this puzzle any good?</string>
-	<string name="pleaseVotePuzzle">Help Lishogi improve by voting, using the up or down arrow:</string>
+	<string name="pleaseVotePuzzle">ช่วย Lishogi ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
 	<string name="thankYou">ขอบคุณ!</string>
 	<string name="ratingX">Rating: %s</string>
 	<string name="hidden">hidden</string>
@@ -553,7 +553,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clock">นาฬิกา</string>
 	<string name="unauthorizedError">Access is unauthorised.</string>
 	<string name="noInternetConnection">No internet connection. You can still play offline from the menu.</string>
-	<string name="connectedToLishogi">You are now connected to lishogi.org</string>
+	<string name="connectedToLishogi">ขณะนี้คุณเชื่อมต่ออยู่กับ lishogi.org</string>
 	<string name="signedOut">You have been signed out</string>
 	<string name="loginSuccessful">You are now signed in</string>
 	<string name="playOnTheBoardOffline">Over the board</string>
@@ -655,8 +655,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ถ้าคุณไม่พบอีเมล ลองตรวจดูในหมวดอื่นๆ เช่น ถังขยะ สแปม โซเชียล หรือโฟลเดอร์อื่นๆ</string>
 	<string name="weHaveSentYouAnEmailTo">เราได้ส่งอีเมลไปที่ %s แล้ว คลิกลิงค์ในอีเมลเพื่อตั้งรหัสผ่านใหม่</string>
 	<string name="byRegisteringYouAgreeToBeBoundByOur">โดยการลงทะเบียน คุณยอมรับที่จะผูกพันธ์ด้วย %s ของเรา</string>
-	<string name="networkLagBetweenYouAndLishogi">Network lag between you and Lishogi</string>
-	<string name="timeToProcessAMoveOnLishogiServer">Time to process a move on Lishogi\'s server</string>
+	<string name="networkLagBetweenYouAndLishogi">เครือข่ายล่าช้าระหว่างคุณกับ Lishogi</string>
+	<string name="timeToProcessAMoveOnLishogiServer">เวลาเพื่อทำการเดินหนึ่งครั้งบนเซิร์ฟเวอร์ของ Lishogi</string>
 	<string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
 	<string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
 	<string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
@@ -672,7 +672,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
 	<string name="kidMode">โหมดเด็ก</string>
 	<string name="kidModeExplanation">สิ่งนี้เป็นเรื่องเกี่ยวกับความปลอดภัย ในโหมดสำหรับเด็ก การสื่อสารของไซต์ทั้งหมดจะถูกปิด จงใช้งานสิ่งนี้สำหรับเด็กและนักเรียนของคุณ เพื่อปกป้องพวกเขาจากผู้ใช้อินเทอร์เน็ตอื่นๆ</string>
-	<string name="inKidModeTheLishogiLogoGetsIconX">In kid mode, the Lishogi logo gets a %s icon, so you know your kids are safe.</string>
+	<string name="inKidModeTheLishogiLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ Lishogi จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
 	<string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
 	<string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
 	<string name="security">ความปลอดภัย</string>
@@ -681,7 +681,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="sessions">วาระ</string>
 	<string name="revokeAllSessions">ยกเลิกวาระทั้งหมด</string>
 	<string name="playShogiEverywhere">Play shogi everywhere</string>
-	<string name="asFreeAsLishogi">As free as Lishogi</string>
+	<string name="asFreeAsLishogi">อิสระเหมือนดั่ง Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">ทุกคนจะได้รับคุณลักษณะทั้งหมดฟรี</string>
 	<string name="zeroAdvertisement">โฆษณาเป็นศูนย์</string>
@@ -729,7 +729,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameSuffixInvalid">ชื่อผู้ใช้ที่ต้องลงท้ายด้วยตัวอักษรหรือตัวเลข</string>
 	<string name="usernameCharsInvalid">ชื่อผู้ใช้ประกอบด้วยตัวอักษร, ตัวเลข, ขีดล่าง และเครื่องหมายขีด เท่านั้น</string>
 	<string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
-	<string name="directlySupportLishogi">Directly support Lishogi</string>
+	<string name="directlySupportLishogi">สนับสนุน Lishogi โดยตรง</string>
 	<string name="playShogiInStyle">Play shogi in style</string>
 	<string name="shogiBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>

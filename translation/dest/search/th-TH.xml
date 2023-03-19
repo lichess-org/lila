@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="search">Search</string>
-	<string name="advancedSearch">Advanced search</string>
+	<string name="search">ค้นหา</string>
+	<string name="advancedSearch">ค้นหาเชิงลึก</string>
 	<plurals name="searchInXGames">
-		<item quantity="other">Search in %s shogi games</item>
+		<item quantity="other">ค้นหาใน %s เกมหมากรุก</item>
 	</plurals>
 	<plurals name="xGamesFound">
-		<item quantity="other">%s games found</item>
+		<item quantity="other">พบ %s เกม</item>
 	</plurals>
-	<string name="opponentName">Opponent name</string>
-	<string name="loser">Loser</string>
-	<string name="from">From</string>
-	<string name="to">To</string>
-	<string name="humanOrComputer">Whether the player\'s opponent was human or a computer</string>
-	<string name="aiLevel">A.I. level</string>
-	<string name="source">Source</string>
-	<string name="nbTurns">Number of turns</string>
-	<string name="result">Result</string>
-	<string name="winnerColor">Winner color</string>
-	<string name="date">Date</string>
-	<string name="sortBy">Sort by</string>
-	<string name="analysis">Analysis</string>
-	<string name="onlyAnalysed">Only games where a computer analysis is available</string>
+	<string name="opponentName">ชื่อคู่แข่ง</string>
+	<string name="loser">ผู้แพ้</string>
+	<string name="from">จาก</string>
+	<string name="to">ถึง</string>
+	<string name="humanOrComputer">ไม่ว่าคู่แข่งของผู้เล่นเป็นมนุษย์หรือคอมพิวเตอร์</string>
+	<string name="aiLevel">ระดับปัญญา A.I.</string>
+	<string name="source">แหล่ง</string>
+	<string name="nbTurns">จำนวนตาเดิน</string>
+	<string name="result">ผลลัพธ์</string>
+	<string name="winnerColor">สีที่ชนะ</string>
+	<string name="date">วันที่</string>
+	<string name="sortBy">เรียงตาม</string>
+	<string name="analysis">การวิเคราะห์</string>
+	<string name="onlyAnalysed">เฉพาะเกมที่วิเคราะห์ด้วยคอมพิวเตอร์ได้</string>
 </resources>

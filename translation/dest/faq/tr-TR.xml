@@ -10,7 +10,6 @@
 	<string name="whyIsLilaCalledLila">Benzer şekilde, Lishogi\'nin kaynak kodu %1$s\'dur. Zira Lishogi\'nin büyük bir bölümü sezgisel bir programlama dili olan %2$s ile yazılmıştır.</string>
 	<string name="howCanIContributeToLishogi">Lishogi\'ye nasıl katkıda bulunabilirim?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi, sizlerin bağışları ve gönüllülerden oluşan bir ekibin gayretleriyle ayakta kalmaktadır.</string>
-	<string name="findMoreAndSeeHowHelp">%1$s hakkında daha fazla bilgi edinebilirsiniz. Lishogi\'ye zamanınızı ve becerilerinizi gönüllü olarak göstererek yardım etmek istiyorsanız, birçok %2$s var.</string>
 	<string name="beingAPatron">Destek olun</string>
 	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
 	<string name="breakdownOfOurCosts">giderlerimizin dağılışı</string>

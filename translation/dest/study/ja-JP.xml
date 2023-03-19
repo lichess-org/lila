@@ -96,7 +96,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">自動</string>
   <string name="urlOfTheGame">対局棋譜の URL、１行に一つ</string>
-  <string name="loadAGameFromXOrY">%1$s から棋譜を読み込み</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">章を作成</string>
   <string name="configureLiveBroadcast">ライブ放送の設定</string>
   <string name="createStudy">研究を作成</string>

@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Move to start</string>
-  <string name="puzzlesSolved">puzzles solved</string>
-  <string name="newDailyHighscore">New daily highscore!</string>
-  <string name="newWeeklyHighscore">New weekly highscore!</string>
-  <string name="newMonthlyHighscore">New monthly highscore!</string>
-  <string name="newAllTimeHighscore">New all-time highscore!</string>
-  <string name="previousHighscoreWasX">Previous highscore was %s</string>
-  <string name="playAgain">Play again</string>
+  <string name="moveToStart">Trekk for å begynne</string>
+  <string name="puzzlesSolved">sjakknøtter løst</string>
+  <string name="newDailyHighscore">Ny rekord for dagen!</string>
+  <string name="newWeeklyHighscore">Ny rekord for uken!</string>
+  <string name="newMonthlyHighscore">Ny rekord for måneden!</string>
+  <string name="newAllTimeHighscore">Ny rekord noensinne!</string>
+  <string name="previousHighscoreWasX">Forrige rekord var %s</string>
+  <string name="playAgain">Spill igjen</string>
   <plurals name="xRuns">
-    <item quantity="one">1 run</item>
-    <item quantity="other">%s runs</item>
+    <item quantity="one">1 runde</item>
+    <item quantity="other">%s runder</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Played one run of %2$s</item>
-    <item quantity="other">Played %1$s runs of %2$s</item>
+    <item quantity="one">Har spilt én runde med %2$s</item>
+    <item quantity="other">Har spilt %1$s runder med %2$s</item>
   </plurals>
-  <string name="highscoreX">Highscore: %s</string>
-  <string name="score">Score</string>
-  <string name="moves">Moves</string>
-  <string name="accuracy">Accuracy</string>
-  <string name="combo">Combo</string>
-  <string name="time">Time</string>
-  <string name="timePerMove">Time per move</string>
-  <string name="highestSolved">Highest solved</string>
-  <string name="puzzlesPlayed">Puzzles played</string>
-  <string name="newRun">New run (hotkey: Space)</string>
-  <string name="endRun">End run (hotkey: Enter)</string>
-  <string name="highscores">Highscores</string>
-  <string name="viewBestRuns">View best runs</string>
-  <string name="bestRunOfDay">Best run of day</string>
-  <string name="runs">Runs</string>
+  <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Poengsum</string>
+  <string name="moves">Trekk</string>
+  <string name="accuracy">Presisjon</string>
+  <string name="combo">Kombo</string>
+  <string name="time">Tid</string>
+  <string name="timePerMove">Tid per trekk</string>
+  <string name="highestSolved">Beste løsning</string>
+  <string name="puzzlesPlayed">Spilte sjakknøtter</string>
+  <string name="newRun">Ny runde (hurtigtast: mellomrom)</string>
+  <string name="endRun">Avslutt runden (hurtigtast: linjeskift)</string>
+  <string name="highscores">Rekorder</string>
+  <string name="viewBestRuns">Vis beste runder</string>
+  <string name="bestRunOfDay">Dagens beste runde</string>
+  <string name="runs">Runder</string>
 </resources>

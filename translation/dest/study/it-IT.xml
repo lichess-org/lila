@@ -99,7 +99,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Automatica</string>
   <string name="urlOfTheGame">URL della partita</string>
-  <string name="loadAGameFromXOrY">Carica una partita da %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Crea capitolo</string>
   <string name="configureLiveBroadcast">Configura diretta live</string>
   <string name="createStudy">Crea studio</string>

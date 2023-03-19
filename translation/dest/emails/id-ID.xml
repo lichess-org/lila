@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Confirm your lishogi.org account, %s</string>
-  <string name="emailConfirm_click">Click the link to enable your Lishogi account:</string>
-  <string name="emailConfirm_ignore">If you did not register with Lishogi you can safely ignore this message.</string>
-  <string name="passwordReset_subject">Reset your lishogi.org password, %s</string>
-  <string name="passwordReset_intro">We received a request to reset the password for your account.</string>
-  <string name="passwordReset_clickOrIgnore">If you made this request, click the link below. If not, you can ignore this email.</string>
-  <string name="emailChange_subject">Confirm new email address, %s</string>
-  <string name="emailChange_intro">You have requested to change your email address.</string>
-  <string name="emailChange_click">To confirm you have access to this email, please click the link below:</string>
-  <string name="welcome_subject">Welcome to lishogi.org, %s</string>
-  <string name="welcome_text">You have successfully created your account on https://lishogi.org.
-
-Here is your profile page: %1$s. You can personalise it on %2$s.
-
-Have fun, and may your pieces always find their way to your opponent\'s king!</string>
+  <string name="emailConfirm_subject">Konfirmasi akun lishogi.org Anda, %s</string>
+  <string name="emailConfirm_click">Klik link untuk mengaktifkan akun Lishogi Anda:</string>
+  <string name="emailConfirm_ignore">Jika Anda tidak mendaftarkan di Lishogi Anda dapat dengan aman mengabaikan pesan ini.</string>
+  <string name="passwordReset_subject">Atur ulang sandi lishogi.org, %s</string>
+  <string name="passwordReset_intro">Kami menerima permintaan untuk menyetel ulang sandi untuk akun Anda.</string>
+  <string name="passwordReset_clickOrIgnore">Jika Anda membuat permintaan ini, klik link di bawah ini. Jika tidak, Anda dapat mengabaikan email ini.</string>
+  <string name="emailChange_subject">Konfirmasi alamat email yang baru, %s</string>
+  <string name="emailChange_intro">Anda minta untuk mengubah alamat email Anda.</string>
+  <string name="emailChange_click">Untuk mengonfirmasi bahwa Anda memiliki akses ke email ini, silakan klik link dibawah ini:</string>
+  <string name="welcome_subject">Selamat datang di lishogi.org, %s</string>
+  <string name="welcome_text">Anda telah berhasil membuat akun pada https://lishogi.org. Berikut adalah halaman profil Anda: %1$s. Anda dapat mempersonalisasikan itu pada %2$s. Selamat bermain, semoga bidak Anda selalu menemukan jalan mereka ke raja lawan Anda!</string>
   <string name="logInToLishogi">Log in to lishogi.org, %s</string>
-  <string name="common_orPaste">(Clicking not working? Try pasting it into your browser!)</string>
-  <string name="common_note">This is a service email related to your use of %s.</string>
-  <string name="common_contact">To contact us, please use %s.</string>
+  <string name="common_orPaste">(Klik tidak bekerja? Coba salinkan ke browser Anda!)</string>
+  <string name="common_note">Ini adalah layanan email yang terkait dengan penggunaan %s.</string>
+  <string name="common_contact">Untuk menghubungi kami, harap gunakan %s.</string>
 </resources>

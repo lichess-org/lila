@@ -96,7 +96,7 @@
   <string name="loadAPositionFromSfen">透過 SFEN 讀取盤面</string>
   <string name="automatic">自動</string>
   <string name="urlOfTheGame">棋局連結（一行一個）</string>
-  <string name="loadAGameFromXOrY">從 %1$s 讀取棋譜</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">建立章節</string>
   <string name="configureLiveBroadcast">實況設定</string>
   <string name="createStudy">建立研究</string>

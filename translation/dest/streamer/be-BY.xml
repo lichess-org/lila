@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xStreamsShogi">%s streams shogi</string>
-  <string name="lishogiStreamers">Lishogi streamers</string>
-  <string name="lishogiStreamer">Lishogi streamer</string>
-  <string name="live">LIVE!</string>
-  <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Currently streaming: %s</string>
-  <string name="lastStream">Last stream %s</string>
-  <string name="becomeStreamer">Become a Lishogi streamer</string>
-  <string name="doYouHaveStream">Do you have a Twitch or YouTube channel?</string>
-  <string name="hereWeGo">Here we go!</string>
-  <string name="allStreamers">All streamers</string>
-  <string name="editPage">Edit streamer page</string>
-  <string name="yourPage">Your streamer page</string>
-  <string name="downloadKit">Download streamer kit</string>
-  <string name="xIsStreaming">%s is streaming</string>
-  <string name="rules">Streaming rules</string>
-  <string name="rule1">Include the keyword \"lishogi.org\" in your stream title and use the category \"Shogi\" when you stream on Lishogi.</string>
-  <string name="rule2">Remove the keyword when you stream non-Lishogi stuff.</string>
-  <string name="rule3">Lishogi will detect your stream automatically and enable the following perks:</string>
-  <string name="perks">Benefits of streaming with the keyword</string>
-  <string name="perk1">Get a flaming streamer icon on your Lishogi profile.</string>
-  <string name="perk2">Get bumped up to the top of the streamers list.</string>
-  <string name="perk3">Notify your Lishogi followers.</string>
-  <string name="perk4">Show your stream in your games, tournaments and studies.</string>
+  <string name="lishogiStreamers">Стрымеры на Lishogi</string>
+  <string name="lishogiStreamer">Стрымер на Lishogi</string>
+  <string name="live">У ЭФІРЫ!</string>
+  <string name="offline">АФЛАЙН</string>
+  <string name="currentlyStreaming">Зараз стрыміць: %s</string>
+  <string name="lastStream">Апошні стрым %s</string>
+  <string name="becomeStreamer">Стаць страмерам на Lishogi</string>
+  <string name="doYouHaveStream">У вас ёсць каналы на Twitch або YouTube?</string>
+  <string name="hereWeGo">Пачынаем!</string>
+  <string name="allStreamers">Усе стрымеры</string>
+  <string name="editPage">Змяніць стрымерскую старонку</string>
+  <string name="yourPage">Ваша старонка стрымеру</string>
+  <string name="downloadKit">Спапаваць прылады для стрыму</string>
+  <string name="xIsStreaming">%s у эфіры</string>
+  <string name="rules">Правілы стрымаў</string>
+  <string name="rule1">Уключыце ключавое слова \"lishogi.org\" да загалоўку вашай трансляцыі і выкарыстоўвайце катэгорыю \"Шахматы\" пры трансляцыі на Lishogi.</string>
+  <string name="rule2">Выдаліце ключавое слова калі стрыміце не-Lishogi дзейнасць.</string>
+  <string name="rule3">Lishogi аўтаматычна выявіць ваш стрым і ўключыць наступныя перавагі:</string>
+  <string name="perks">Перавагі стрыму з ключавым словам</string>
+  <string name="perk1">Атрыманне вогненны значок стымеру на вашым профіле Lishogi.</string>
+  <string name="perk2">Патрапіць ў верх спісу стрымаў.</string>
+  <string name="perk3">Паведамляе падпісчыкаў.</string>
+  <string name="perk4">Адлюстраванне стрыму у вашых гульнях, турнірах і навучаннях.</string>
   <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
   <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
   <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
-  <string name="approved">Your stream is approved.</string>
-  <string name="pendingReview">Your stream is being reviewed by moderators.</string>
-  <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
-  <string name="whenReady">When you are ready to be listed as a Lishogi streamer, %s</string>
-  <string name="requestReview">request a moderator review</string>
+  <string name="approved">Ваш стрым зацверджана.</string>
+  <string name="pendingReview">Ваш стрым разглядаецца мадэратарамі.</string>
+  <string name="pleaseFillIn">Калі ласка, запоўніце інфармацыю наконт стрыму і загрузіце выяву.</string>
+  <string name="whenReady">Калі будзіце гатовы быць адлюстраваным як стрымер Lishogi, %s</string>
+  <string name="requestReview">запрасіць прагляд мадэратара</string>
   <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
 As examples, you can include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
 Put this in the stream title in the Twitch or YouTube page, not in the Lishogi stream settings.
@@ -39,26 +39,26 @@ If your stream is in English, there is no need to include a language tag.
 
 Streamer pages eventually expire if they are not used for a long time, also, you must stream once within a week of your approval or the page de-activates. The streaming trophy will also not appear on your account until you’ve streamed. If your streamer page has expired you must apply again and wait to be approved.
  </string>
-  <string name="twitchUsername">Your Twitch username or URL</string>
-  <string name="optionalOrEmpty">Optional. Leave empty if none</string>
-  <string name="youtubeChannel">Your YouTube channel ID or URL</string>
-  <string name="streamerName">Your streamer name on Lishogi</string>
+  <string name="twitchUsername">Ваша імя карыстальніка/спасылка на Twich</string>
+  <string name="optionalOrEmpty">Апцыянальна. Калі няма, пакіньце пустым</string>
+  <string name="youtubeChannel">ID вашага YouTube канала ці спасылка</string>
+  <string name="streamerName">Ваша стрымерскае імя на Lishogi</string>
   <plurals name="keepItShort">
-    <item quantity="one">Keep it short: %s character max</item>
-    <item quantity="few">Keep it short: %s characters max</item>
-    <item quantity="many">Keep it short: %s characters max</item>
-    <item quantity="other">Keep it short: %s characters max</item>
+    <item quantity="one">Сцісла: максімальна %s сімвал</item>
+    <item quantity="few">Сцісла: максімальна %s сімвала</item>
+    <item quantity="many">Сцісла: максімальна %s сімвалаў</item>
+    <item quantity="other">Сцісла: максімальна %s сімвалаў</item>
   </plurals>
-  <string name="visibility">Visible on the streamers page</string>
-  <string name="whenApproved">When approved by moderators</string>
-  <string name="headline">Headline</string>
-  <string name="tellUsAboutTheStream">Tell us about your stream in one sentence</string>
-  <string name="longDescription">Long description</string>
-  <string name="xStreamerPicture">%s streamer picture</string>
-  <string name="changePicture">Change/delete your picture</string>
-  <string name="uploadPicture">Upload a picture</string>
+  <string name="visibility">Паказваць на старонке са стрымерамі</string>
+  <string name="whenApproved">Пасля зацвярджэння мадэратарамі</string>
+  <string name="headline">Загаловак</string>
+  <string name="tellUsAboutTheStream">Распавядзіце пра ваш стрым адным сказам</string>
+  <string name="longDescription">Поўнае апісанне</string>
+  <string name="xStreamerPicture">Выява стрымеру %s</string>
+  <string name="changePicture">Змяніць/выдаліць вашу выяву</string>
+  <string name="uploadPicture">Загрузіць выяву</string>
   <string name="deletePicture">Delete picture</string>
-  <string name="maxSize">Max size: %s</string>
+  <string name="maxSize">Максімальны памер: %s</string>
   <string name="installBlocker">Install a malware blocker!</string>
   <string name="beSafe">Be safe from ads and trackers
 infesting Twitch and YouTube.

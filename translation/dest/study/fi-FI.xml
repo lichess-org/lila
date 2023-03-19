@@ -99,7 +99,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Automaattinen</string>
   <string name="urlOfTheGame">URL peliin</string>
-  <string name="loadAGameFromXOrY">Lataa peli lähteestä %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Aloita luku</string>
   <string name="configureLiveBroadcast">Määritä livelähetys</string>
   <string name="createStudy">Luo tutkielma</string>

@@ -99,7 +99,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Otomatik</string>
   <string name="urlOfTheGame">Oyunun bağlantısı</string>
-  <string name="loadAGameFromXOrY">%1$s kullanarak oyun yükle</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Bölüm oluştur</string>
   <string name="configureLiveBroadcast">Canlı yayını yapılandır</string>
   <string name="createStudy">Çalışma oluştur</string>

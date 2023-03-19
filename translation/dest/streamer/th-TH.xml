@@ -4,12 +4,12 @@
   <string name="lishogiStreamers">Lishogi streamers</string>
   <string name="lishogiStreamer">Lishogi streamer</string>
   <string name="live">LIVE!</string>
-  <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Currently streaming: %s</string>
-  <string name="lastStream">Last stream %s</string>
+  <string name="offline">ออฟไลน์</string>
+  <string name="currentlyStreaming">กำลังถ่ายทอดสดอยู่ขณะนี้: %s</string>
+  <string name="lastStream">ถ่ายทอดสดครั้งล่าสุด %s</string>
   <string name="becomeStreamer">Become a Lishogi streamer</string>
   <string name="doYouHaveStream">Do you have a Twitch or YouTube channel?</string>
-  <string name="hereWeGo">Here we go!</string>
+  <string name="hereWeGo">ไปกันเลย!</string>
   <string name="allStreamers">All streamers</string>
   <string name="editPage">Edit streamer page</string>
   <string name="yourPage">Your streamer page</string>

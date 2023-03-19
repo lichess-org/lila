@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xStreamsShogi">%s streams shogi</string>
-  <string name="lishogiStreamers">Lishogi streamers</string>
-  <string name="lishogiStreamer">Lishogi streamer</string>
-  <string name="live">LIVE!</string>
-  <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Currently streaming: %s</string>
-  <string name="lastStream">Last stream %s</string>
-  <string name="becomeStreamer">Become a Lishogi streamer</string>
-  <string name="doYouHaveStream">Do you have a Twitch or YouTube channel?</string>
-  <string name="hereWeGo">Here we go!</string>
-  <string name="allStreamers">All streamers</string>
-  <string name="editPage">Edit streamer page</string>
-  <string name="yourPage">Your streamer page</string>
-  <string name="downloadKit">Download streamer kit</string>
-  <string name="xIsStreaming">%s is streaming</string>
-  <string name="rules">Streaming rules</string>
-  <string name="rule1">Include the keyword \"lishogi.org\" in your stream title and use the category \"Shogi\" when you stream on Lishogi.</string>
-  <string name="rule2">Remove the keyword when you stream non-Lishogi stuff.</string>
-  <string name="rule3">Lishogi will detect your stream automatically and enable the following perks:</string>
-  <string name="perks">Benefits of streaming with the keyword</string>
-  <string name="perk1">Get a flaming streamer icon on your Lishogi profile.</string>
-  <string name="perk2">Get bumped up to the top of the streamers list.</string>
-  <string name="perk3">Notify your Lishogi followers.</string>
-  <string name="perk4">Show your stream in your games, tournaments and studies.</string>
+  <string name="lishogiStreamers">Lishogi-strømmere</string>
+  <string name="lishogiStreamer">Lishogi-strømmer</string>
+  <string name="live">DIREKTE!</string>
+  <string name="offline">AVKOBLET</string>
+  <string name="currentlyStreaming">Strømmer nå: %s</string>
+  <string name="lastStream">Strømmet sist %s</string>
+  <string name="becomeStreamer">Bli en Lishogi-strømmer</string>
+  <string name="doYouHaveStream">Har du en Twitch- eller YouTube-kanal?</string>
+  <string name="hereWeGo">Nå kjører vi!</string>
+  <string name="allStreamers">Alle strømmere</string>
+  <string name="editPage">Rediger strømmer-siden</string>
+  <string name="yourPage">Din strømmer-side</string>
+  <string name="downloadKit">Last ned strømmer-pakken</string>
+  <string name="xIsStreaming">%s strømmer nå</string>
+  <string name="rules">Strømmeregler</string>
+  <string name="rule1">Du må inkludere nøkkelordet «lishogi.org» i tittelen på strømmen og bruke kategorien «Chess» når du strømmer på Lishogi.</string>
+  <string name="rule2">Fjern \"lishogi.org\" fra tittelen på strømmen når du strømmer noe annet enn Lishogi.</string>
+  <string name="rule3">Lishogi oppdager strømmen din automatisk og gir deg følgende fordeler:</string>
+  <string name="perks">Fordeler ved å inkludere \"lishogi.org\" i tittelen på strømmen</string>
+  <string name="perk1">Få et spesielt strømmer-ikon på Lishogi-profilen din.</string>
+  <string name="perk2">Bli flyttet til toppen av listen over strømmere.</string>
+  <string name="perk3">Send en melding til følgerne dine på Lishogi.</string>
+  <string name="perk4">Vis strømmen din i partier, turneringer og studier på Lishogi.</string>
   <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
   <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
   <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
-  <string name="approved">Your stream is approved.</string>
-  <string name="pendingReview">Your stream is being reviewed by moderators.</string>
-  <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
-  <string name="whenReady">When you are ready to be listed as a Lishogi streamer, %s</string>
-  <string name="requestReview">request a moderator review</string>
+  <string name="approved">Strømmen din er godkjent.</string>
+  <string name="pendingReview">Strømmen din blir nå vurdert av moderatorne.</string>
+  <string name="pleaseFillIn">Vennligst fyll inn informasjon om strømmen din og last opp et bilde.</string>
+  <string name="whenReady">Når du er klar til å bli listet som en Lishogi-strømmer, %s</string>
+  <string name="requestReview">be om en vurdering fra en moderator</string>
   <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
 As examples, you can include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
 Put this in the stream title in the Twitch or YouTube page, not in the Lishogi stream settings.
@@ -39,24 +39,24 @@ If your stream is in English, there is no need to include a language tag.
 
 Streamer pages eventually expire if they are not used for a long time, also, you must stream once within a week of your approval or the page de-activates. The streaming trophy will also not appear on your account until you’ve streamed. If your streamer page has expired you must apply again and wait to be approved.
  </string>
-  <string name="twitchUsername">Your Twitch username or URL</string>
-  <string name="optionalOrEmpty">Optional. Leave empty if none</string>
-  <string name="youtubeChannel">Your YouTube channel ID or URL</string>
-  <string name="streamerName">Your streamer name on Lishogi</string>
+  <string name="twitchUsername">Ditt Twitch-brukernavn eller URL</string>
+  <string name="optionalOrEmpty">Valgfritt. Kan være tom</string>
+  <string name="youtubeChannel">Din YouTube-kanal-ID eller URL</string>
+  <string name="streamerName">Ditt strømmernavn på Lishogi</string>
   <plurals name="keepItShort">
-    <item quantity="one">Keep it short: %s character max</item>
-    <item quantity="other">Keep it short: %s characters max</item>
+    <item quantity="one">Hold deg kort; maks %s tegn</item>
+    <item quantity="other">Hold deg kort; maks %s tegn</item>
   </plurals>
-  <string name="visibility">Visible on the streamers page</string>
-  <string name="whenApproved">When approved by moderators</string>
-  <string name="headline">Headline</string>
-  <string name="tellUsAboutTheStream">Tell us about your stream in one sentence</string>
-  <string name="longDescription">Long description</string>
-  <string name="xStreamerPicture">%s streamer picture</string>
-  <string name="changePicture">Change/delete your picture</string>
-  <string name="uploadPicture">Upload a picture</string>
+  <string name="visibility">Synlig på strømmersiden</string>
+  <string name="whenApproved">Når godkjent av moderatorne</string>
+  <string name="headline">Overskrift</string>
+  <string name="tellUsAboutTheStream">I én setning, fortell oss om strømmen din</string>
+  <string name="longDescription">Lang beskrivelse</string>
+  <string name="xStreamerPicture">%s strømmerbilde</string>
+  <string name="changePicture">Endre/slette ditt strømmerbilde</string>
+  <string name="uploadPicture">Last opp et bilde</string>
   <string name="deletePicture">Delete picture</string>
-  <string name="maxSize">Max size: %s</string>
+  <string name="maxSize">Maks størrelse: %s</string>
   <string name="installBlocker">Install a malware blocker!</string>
   <string name="beSafe">Be safe from ads and trackers
 infesting Twitch and YouTube.

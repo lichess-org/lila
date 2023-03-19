@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Move to start</string>
-  <string name="puzzlesSolved">puzzles solved</string>
-  <string name="newDailyHighscore">New daily highscore!</string>
-  <string name="newWeeklyHighscore">New weekly highscore!</string>
-  <string name="newMonthlyHighscore">New monthly highscore!</string>
-  <string name="newAllTimeHighscore">New all-time highscore!</string>
-  <string name="previousHighscoreWasX">Previous highscore was %s</string>
-  <string name="playAgain">Play again</string>
+  <string name="moveToStart">เดินหมากเพี่อเริ่มเกม</string>
+  <string name="puzzlesSolved">ปริศนาที่ถูกแก้แล้ว</string>
+  <string name="newDailyHighscore">คะแนนสูงสุดประจำวันใหม่!</string>
+  <string name="newWeeklyHighscore">คะแนนสูงสุดประจำสัปดาห์ใหม่!</string>
+  <string name="newMonthlyHighscore">คะแนนสูงสุดประจำเดือนใหม่!</string>
+  <string name="newAllTimeHighscore">คะแนนสูงสุดตลอดเวลาใหม่!</string>
+  <string name="previousHighscoreWasX">คะแนนสูงสุดก่อนหน้านี้คือ %s</string>
+  <string name="playAgain">เล่นอีกครั้ง</string>
   <plurals name="xRuns">
     <item quantity="other">%s runs</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="other">Played %1$s runs of %2$s</item>
   </plurals>
-  <string name="highscoreX">Highscore: %s</string>
-  <string name="score">Score</string>
-  <string name="moves">Moves</string>
-  <string name="accuracy">Accuracy</string>
-  <string name="combo">Combo</string>
-  <string name="time">Time</string>
-  <string name="timePerMove">Time per move</string>
-  <string name="highestSolved">Highest solved</string>
-  <string name="puzzlesPlayed">Puzzles played</string>
-  <string name="newRun">New run (hotkey: Space)</string>
-  <string name="endRun">End run (hotkey: Enter)</string>
-  <string name="highscores">Highscores</string>
-  <string name="viewBestRuns">View best runs</string>
-  <string name="bestRunOfDay">Best run of day</string>
+  <string name="highscoreX">คะแนนสูงสุด: %s</string>
+  <string name="score">คะแนน</string>
+  <string name="moves">จำนวนตาเดิน</string>
+  <string name="accuracy">ความแม่นยำ</string>
+  <string name="combo">คอมโบ</string>
+  <string name="time">เวลา</string>
+  <string name="timePerMove">เวลาต่อตาเดิน</string>
+  <string name="highestSolved">ระดับคะแนนสูงสุดของปริศนาที่แก้ได้</string>
+  <string name="puzzlesPlayed">จำนวนปริศนาที่เล่น</string>
+  <string name="newRun">เริ่มตาใหม่ (ปุ่มลัด: Space)</string>
+  <string name="endRun">จบตานี้ (ปุ่มลัด: Enter)</string>
+  <string name="highscores">คะแนนสูงสุด</string>
+  <string name="viewBestRuns">ดูตาเล่นที่ดีสุด</string>
+  <string name="bestRunOfDay">ตาเล่นที่ดีสุดของวันนี้</string>
   <string name="runs">Runs</string>
 </resources>

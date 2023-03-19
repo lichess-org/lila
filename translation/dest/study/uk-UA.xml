@@ -105,7 +105,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Автоматично</string>
   <string name="urlOfTheGame">URL-адреса гри</string>
-  <string name="loadAGameFromXOrY">Завантажити гру з %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Створити розділ</string>
   <string name="configureLiveBroadcast">Налаштувати живу трансляцію</string>
   <string name="createStudy">Створити дослідження</string>

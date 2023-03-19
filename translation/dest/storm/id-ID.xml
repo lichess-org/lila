@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Move to start</string>
-  <string name="puzzlesSolved">puzzles solved</string>
-  <string name="newDailyHighscore">New daily highscore!</string>
-  <string name="newWeeklyHighscore">New weekly highscore!</string>
-  <string name="newMonthlyHighscore">New monthly highscore!</string>
-  <string name="newAllTimeHighscore">New all-time highscore!</string>
-  <string name="previousHighscoreWasX">Previous highscore was %s</string>
-  <string name="playAgain">Play again</string>
+  <string name="moveToStart">Melangkah untuk memulai</string>
+  <string name="puzzlesSolved">teka-teki terpecahkan</string>
+  <string name="newDailyHighscore">Skor tertinggi harian terbaru!</string>
+  <string name="newWeeklyHighscore">Skor tertinggi mingguan terbaru!</string>
+  <string name="newMonthlyHighscore">Skor tertinggi bulanan terbaru!</string>
+  <string name="newAllTimeHighscore">Skor tertinggi terbaru!</string>
+  <string name="previousHighscoreWasX">Skor tertinggi sebelumnya %s</string>
+  <string name="playAgain">Mainkan lagi</string>
   <plurals name="xRuns">
-    <item quantity="other">%s runs</item>
+    <item quantity="other">%s berjalan</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="other">Played %1$s runs of %2$s</item>
+    <item quantity="other">Memainkan %1$s kali %2$s</item>
   </plurals>
-  <string name="highscoreX">Highscore: %s</string>
-  <string name="score">Score</string>
-  <string name="moves">Moves</string>
-  <string name="accuracy">Accuracy</string>
-  <string name="combo">Combo</string>
-  <string name="time">Time</string>
-  <string name="timePerMove">Time per move</string>
-  <string name="highestSolved">Highest solved</string>
-  <string name="puzzlesPlayed">Puzzles played</string>
-  <string name="newRun">New run (hotkey: Space)</string>
-  <string name="endRun">End run (hotkey: Enter)</string>
-  <string name="highscores">Highscores</string>
-  <string name="viewBestRuns">View best runs</string>
-  <string name="bestRunOfDay">Best run of day</string>
-  <string name="runs">Runs</string>
+  <string name="highscoreX">Skor tertinggi: %s</string>
+  <string name="score">Skor</string>
+  <string name="moves">Langkah</string>
+  <string name="accuracy">Akurasi</string>
+  <string name="combo">Kombo</string>
+  <string name="time">Waktu</string>
+  <string name="timePerMove">Waktu per langkah</string>
+  <string name="highestSolved">Terpecahkan tertinggi</string>
+  <string name="puzzlesPlayed">Teka-teki dimainkan</string>
+  <string name="newRun">Mulai baru (tombol: Space)</string>
+  <string name="endRun">Akhiri (tombol: Enter)</string>
+  <string name="highscores">Skor tertinggi</string>
+  <string name="viewBestRuns">Lihat hasil terbaik</string>
+  <string name="bestRunOfDay">Hasil terbaik hari ini</string>
+  <string name="runs">Berjalan</string>
 </resources>

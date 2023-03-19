@@ -99,7 +99,7 @@
   <string name="loadAPositionFromSfen">Load a position from SFEN</string>
   <string name="automatic">Αυτόματο</string>
   <string name="urlOfTheGame">URL παρτίδας</string>
-  <string name="loadAGameFromXOrY">Φόρτωση παρτίδας από %1$s</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
   <string name="createChapter">Δημιουργία κεφαλαίου</string>
   <string name="configureLiveBroadcast">Ρύθμιση αναμετάδοσης</string>
   <string name="createStudy">Δημιουργία μελέτης</string>

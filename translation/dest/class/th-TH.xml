@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiClasses">Classes</string>
+	<string name="lishogiClasses">ชั้นเรียน</string>
 	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
 	<string name="features">Features</string>
 	<string name="quicklyGenerateSafeUsernames">Quickly generate safe usernames and passwords for students</string>
-	<string name="trackStudentProgress">Track student progress in games and puzzles</string>
+	<string name="trackStudentProgress">ติดตามความก้าวหน้าของนักเรียนจากเกมและปริศนา</string>
 	<string name="messageAllStudents">Message all students about new class material</string>
 	<string name="freeForAllForever">100% free for all, forever, with no ads or trackers</string>
 	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
@@ -42,7 +42,7 @@ Password: %3$s</string>
 	<string name="inviteDesc2">They will receive a message on Lishogi with a link to join the class.</string>
 	<string name="inviteDesc3">Important: only invite students you know, and who actively want to join the class.</string>
 	<string name="inviteDesc4">Never send unsolicited invites to arbitrary players.</string>
-	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createANewLishogiAccount">สร้างบัญชี Lishogi ใหม่</string>
 	<string name="createDesc1">If the student doesn\'t have a Lishogi account yet, you can create one for them here.</string>
 	<string name="createDesc2">No email address is required. A password will be generated, and you will have to transmit it to the student, so they can log in.</string>
 	<string name="createDesc3">Important: a student must not have multiple accounts.</string>
@@ -81,12 +81,12 @@ Here is the link to access the class.</string>
 	<string name="overDays">Over days</string>
 	<string name="timePlaying">Time playing</string>
 	<string name="variantXOverLastY">%1$s over last %2$s</string>
-	<string name="winrate">Win rate</string>
+	<string name="winrate">อัตราชนะ</string>
 	<string name="na">N/A</string>
-	<string name="news">Class news</string>
+	<string name="news">ข่าวสาร</string>
 	<string name="editNews">Edit news</string>
 	<string name="notifyAllStudents">Notify all students</string>
-	<string name="nothingHere">Nothing here, yet.</string>
+	<string name="nothingHere">ยังไม่มีอะไรที่นี่</string>
 	<string name="newsEdit1">All class news in a single field.</string>
 	<string name="newsEdit2">Add the recent news at the top. Don\'t delete previous news.</string>
 	<string name="newsEdit3">Separate news with ---

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="learnShogi">Learn shogi</string>
-	<string name="byPlaying">by playing!</string>
-	<string name="menu">Menu</string>
-	<string name="progressX">Progress: %s</string>
-	<string name="resetMyProgress">Reset my progress</string>
-	<string name="youWillLoseAllYourProgress">You will lose all your progress!</string>
-	<string name="play">play!</string>
+	<string name="byPlaying">ด้วยการเล่น!</string>
+	<string name="menu">เมนู</string>
+	<string name="progressX">คืบหน้า: %s</string>
+	<string name="resetMyProgress">คืนค่าความคืบหน้าของฉัน</string>
+	<string name="youWillLoseAllYourProgress">คุณจะสูญเสียความคืบหน้าของคุณทั้งหมด!</string>
+	<string name="play">เล่น!</string>
 	<string name="shogiPieces">Shogi pieces</string>
 	<string name="theIntroduction">Introduction</string>
 	<string name="introBasics">Let\'s learn some basics.</string>
@@ -18,47 +18,51 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
 	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
 	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
-	<string name="theRook">The rook</string>
-	<string name="itMovesInStraightLines">It moves in straight lines</string>
-	<string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
-	<string name="rookGoal">Click on the rook to bring it to the star!</string>
+	<string name="theRook">เรือ</string>
+	<string name="itMovesInStraightLines">มันเดินตามแนวตรง</string>
+	<string name="rookIntro">เรือเป็นหมากที่มีประสิทธิภาพสูง คุณพร้อมจะบัญชาการมันรึยัง?</string>
+	<string name="rookGoal">คลิกที่เรือ
+เพื่อนำมันไปสู่ดาว!</string>
 	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
 	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
 	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
 	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
-	<string name="grabAllTheStars">Grab all the stars!</string>
-	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
-	<string name="rookComplete">Congratulations! You have successfully mastered the rook.</string>
-	<string name="theBishop">The bishop</string>
-	<string name="itMovesDiagonally">It moves diagonally</string>
-	<string name="bishopIntro">Next we will learn how to manoeuvre a bishop!</string>
+	<string name="grabAllTheStars">คว้าดาวทั้งหมด!</string>
+	<string name="theFewerMoves">ยิ่งคุณใช้การเดินน้อย
+คุณยิ่งได้คะแนนเพิ่ม!</string>
+	<string name="rookComplete">ยินดีด้วย! คุณเข้าใจเกี่ยวกับเรือสำเร็จแล้ว</string>
+	<string name="theBishop">บิชอป</string>
+	<string name="itMovesDiagonally">มันเดินตามแนวทแยง</string>
+	<string name="bishopIntro">ต่อไปเราจะเรียนรู้วิธีซ้อมรบบิชอป!</string>
 	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".</string>
 	<string name="bishopSummary">The bishop moves in any diagonal direction.</string>
 	<string name="horseSummary">The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.</string>
-	<string name="bishopComplete">Congratulations! You can command a bishop.</string>
-	<string name="theKing">The king</string>
-	<string name="theMostImportantPiece">The most important piece</string>
-	<string name="kingIntro">You are the king. If you fall in battle, the game is lost.</string>
-	<string name="theKingIsSlow">The king is rather slow.</string>
+	<string name="bishopComplete">ยินดีด้วย! คุณสามารถบัญชาการบิชอปได้</string>
+	<string name="theKing">คิง</string>
+	<string name="theMostImportantPiece">หมากที่สำคัญที่สุด</string>
+	<string name="kingIntro">คุณคือกษัตริย์ ถ้าคุณล้มในการสู้รบ เกมจะพ่ายแพ้</string>
+	<string name="theKingIsSlow">คิงนั้นเชื่องช้า</string>
 	<string name="kingSummary">King can move in any direction, but only by one sqaure.</string>
-	<string name="kingComplete">You can now command the commander!</string>
-	<string name="theKnight">The knight</string>
-	<string name="itMovesInAnLShape">It moves in an L shape, but only FORWARD!</string>
-	<string name="knightIntro">Here\'s another challenge for you. The knight is... a tricky piece.</string>
-	<string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
-	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
+	<string name="kingComplete">ตอนนี้คุณสามารถสั่งผู้บัญชาการได้แล้ว!</string>
+	<string name="theKnight">อัศวิน</string>
+	<string name="itMovesInAnLShape">มันจะเดินแนวรูปตัว L</string>
+	<string name="knightIntro">นี่คือความท้าทายสำหรับคุณ อัศวินคือ... ชิ้นส่วนเล่ห์เหลี่ยม</string>
+	<string name="knightsHaveAFancyWay">อัศวินมีวิธีการกระโดดไปรอบๆอย่างแพรวพราว!</string>
+	<string name="knightsCanJumpOverObstacles">อัศวินสามารถกระโดดข้ามอุปสรรค!
+หลบหนีและพิชิตดวงดาว!</string>
 	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
 	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
 	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
-	<string name="knightComplete">Congratulations! You have mastered the knight.</string>
-	<string name="thePawn">The pawn</string>
-	<string name="itMovesForwardOnly">March forward!</string>
-	<string name="pawnIntro">Pawns are weak, but they pack a lot of potential.</string>
-	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
-	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
-	<string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
+	<string name="knightComplete">ยินดีด้วย! คุณได้เรียนรู้อัศวินแล้ว</string>
+	<string name="thePawn">เบี้ย</string>
+	<string name="itMovesForwardOnly">มันเดินไปข้างหน้าเท่านั้น</string>
+	<string name="pawnIntro">เบี้ยอ่อนแอ แต่พวกมันบรรจุศักยภาพไว้มาก</string>
+	<string name="pawnsMoveOneSquareOnly">เบี้ยเดินหนึ่งช่องเท่านั้น
+แต่เมื่อพวกมันเดินไปถึงอีกด้านของกระดาน พวกมันจะกลายเป็นชิ้นที่แข็งแกร่งขึ้น!</string>
+	<string name="pawnPromotion">การเลื่อนขั้นเบี้ย</string>
+	<string name="pawnComplete">ยินดีด้วย! เบี้ยไม่มีความลับใดต่อคุณแล้ว</string>
 	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
 	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
 	<string name="theLance">The lance</string>
@@ -85,15 +89,15 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="silverComplete">Congratulations! You are on a roll.</string>
 	<string name="promotion">This piece can be promoted.</string>
 	<string name="yourPieceReachedThePromotionZone">Your piece reached the promotion zone!</string>
-	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
-	<string name="selectThePieceYouWant">Select the piece you want!</string>
-	<string name="fundamentals">Fundamentals</string>
-	<string name="capture">Capture</string>
-	<string name="takeTheEnemyPieces">Take the enemy pieces</string>
-	<string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
+	<string name="itNowPromotesToAStrongerPiece">ตอนนี้มันได้เลื่อนขั้นเป็นหมากที่แข็งแกร่งขึ้น</string>
+	<string name="selectThePieceYouWant">เลือกหมากที่คุณต้องการ!</string>
+	<string name="fundamentals">ความรู้พื้นฐาน</string>
+	<string name="capture">การจับกิน</string>
+	<string name="takeTheEnemyPieces">ยึดหมากของศัตรู</string>
+	<string name="captureIntro">ระบุหมากที่คู่แข่งไม่ได้ปกป้องไว้ แล้วจับกินหมากนั้น!</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
-	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="captureComplete">ยินดีด้วย! คุณรู้วิธีสู้ด้วยตัวหมากรุกแล้ว!</string>
 	<string name="pieceDrops">Piece drops</string>
 	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
 	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
@@ -101,62 +105,62 @@ And don\'t lose yours.</string>
 	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Dropping a piece in promotion zone doesn\'t result in promotion.
 Take the enemy pieces!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
-	<string name="protection">Protection</string>
-	<string name="keepYourPiecesSafe">Keep your pieces safe</string>
-	<string name="protectionIntro">Identify the pieces your opponent attacks, and defend them!</string>
-	<string name="protectionComplete">Congratulations! A piece you don\'t lose is a piece you win!</string>
-	<string name="escape">You\'re under attack!
-Escape the threat!</string>
-	<string name="noEscape">There is no escape,
-but you can defend!</string>
+	<string name="protection">การปกป้อง</string>
+	<string name="keepYourPiecesSafe">รักษาหมากของคุณให้ปลอดภัย</string>
+	<string name="protectionIntro">ระบุหมากที่ถูกคู่แข่งของคุณโจมตี แล้วปกป้องพวกมัน!</string>
+	<string name="protectionComplete">ยินดีด้วย! หมากที่คุณไม่เสียคือหมากที่คุณชนะ!</string>
+	<string name="escape">คุณกำลังถูกโจมตี!
+จงหลีกหนีจากภัยคุกคาม!</string>
+	<string name="noEscape">ไม่มีทางหลีกหนี
+แต่คุณสามารถปกป้องได้!</string>
 	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
 	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
-	<string name="dontLetThemTakeAnyUndefendedPiece">Don\'t let them take
-any undefended piece!</string>
-	<string name="combat">Combat</string>
-	<string name="captureAndDefendPieces">Capture and defend pieces</string>
-	<string name="combatIntro">A good warrior knows both attack and defence!</string>
-	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
-	<string name="checkInOne">Check in one</string>
-	<string name="attackTheOpponentsKing">Attack the opponent\'s king</string>
-	<string name="checkInOneIntro">To check your opponent, attack their king. They must defend it!</string>
-	<string name="checkInOneGoal">Aim at the opponent\'s king
-in one move!</string>
-	<string name="checkInOneComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
-	<string name="outOfCheck">Out of check</string>
-	<string name="defendYourKing">Defend your king</string>
-	<string name="outOfCheckIntro">You are in check! You must escape or block the attack.</string>
+	<string name="dontLetThemTakeAnyUndefendedPiece">อย่าให้พวกเขา
+ยึดหมากที่ไม่ได้ปกป้องไป!</string>
+	<string name="combat">การต่อสู้</string>
+	<string name="captureAndDefendPieces">จับกินและปกป้องหมาก</string>
+	<string name="combatIntro">นักรบที่ดีย่อมรู้ทั้งการโจมตีและปกป้อง!</string>
+	<string name="combatComplete">ยินดีด้วย! คุณรู้วิธีสู้ด้วยตัวหมากรุกแล้ว!</string>
+	<string name="checkInOne">รุกในหนึ่งครั้ง</string>
+	<string name="attackTheOpponentsKing">โจมตีคิงของคู่แข่ง</string>
+	<string name="checkInOneIntro">เพื่อรุกคู่แข่งของคุณ ให้โจมตีคิงของพวกเขา พวกเขาจะต้องปกป้องมัน!</string>
+	<string name="checkInOneGoal">พุ่งเป้าไปที่คิงของคู่แข่ง
+โดยเดินครั้งเดียว!</string>
+	<string name="checkInOneComplete">ยินดีด้วย! คุณได้รุกคู่แข่งของคุณ บังคับให้พวกเขาต้องปกป้องคิง!</string>
+	<string name="outOfCheck">พ้นการถูกรุก</string>
+	<string name="defendYourKing">ปกป้องคิงของคุณ</string>
+	<string name="outOfCheckIntro">คุณกำลังถูกรุก! คุณต้องหลีกหนี หรือกีดกันการโจมตี</string>
 	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
-	<string name="escapeWithTheKing">Escape with the king!</string>
-	<string name="theKingCannotEscapeButBlock">The king cannot escape,
-but you can block the attack!</string>
-	<string name="youCanGetOutOfCheckByTaking">You can get out of check
-by taking the attacking piece.</string>
-	<string name="thisKnightIsCheckingThroughYourDefenses">This knight is checking
-through your defences!</string>
+	<string name="escapeWithTheKing">หลีกหนีด้วยคิง!</string>
+	<string name="theKingCannotEscapeButBlock">คิงไม่สามารถหลีกหนีได้
+แต่คุณสามารถกีดกันการโจมตี!</string>
+	<string name="youCanGetOutOfCheckByTaking">คุณสามารถพ้นจากการถูกรุก
+โดยการยึดหมากที่กำลังโจมตี</string>
+	<string name="thisKnightIsCheckingThroughYourDefenses">อัศวินนี้กำลังรุก
+ผ่านการป้องกันของคุณ!</string>
 	<string name="getOutOfCheck">Get out of check!</string>
 	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
-	<string name="escapeOrBlock">Escape with the king
-or block the attack!</string>
-	<string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
-	<string name="mateInOne">Mate in one</string>
-	<string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
-	<string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
+	<string name="escapeOrBlock">จงหลีกหนีด้วยคิง
+หรือกีดกันการโจมตี!</string>
+	<string name="outOfCheckComplete">ยินดีด้วย! คิงของคุณไม่ถูกยึด มั่นใจว่าคุณสามารถป้องกันการรุกได้!</string>
+	<string name="mateInOne">จนในหนึ่งครั้ง</string>
+	<string name="defeatTheOpponentsKing">ปราบคิงของคู่แข่ง</string>
+	<string name="mateInOneIntro">คุณจะชนะเมื่อคู่แข่งไม่สามารถปกป้องการรุกได้</string>
 	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
 	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
-	<string name="attackYourOpponentsKing">Attack your opponent\'s king
-in a way that cannot be defended!</string>
+	<string name="attackYourOpponentsKing">โจมตีคิงของคู่แข่ง
+โดยที่เขาไม่สามารถจะปกป้องได้!</string>
 	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
 	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
 	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
-	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
-	<string name="intermediate">Intermediate</string>
-	<string name="boardSetup">Board setup</string>
-	<string name="howTheGameStarts">How the game starts</string>
-	<string name="boardSetupIntro">The two armies face each other, ready for the battle.</string>
-	<string name="thisIsTheInitialPosition">This is the initial position
-of every game of shogi!
-Make any move to continue.</string>
+	<string name="mateInOneComplete">ยินดีด้วย! นั่นคือวิธีที่คุณจะชนะเกมหมากรุก!</string>
+	<string name="intermediate">ระดับปานกลาง</string>
+	<string name="boardSetup">การจัดกระดาน</string>
+	<string name="howTheGameStarts">วิธีเริ่มต้นเกม</string>
+	<string name="boardSetupIntro">สองกองทัพเผชิญหน้ากัน พร้อมที่จะต่อสู้</string>
+	<string name="thisIsTheInitialPosition">นี่คือตำแหน่งตั้งต้น
+ของทุกๆเกมหมากรุก!
+จงทำการเดิน เพื่อดำเนินการต่อ</string>
 	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
 	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
 	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
@@ -165,7 +169,7 @@ Make any move to continue.</string>
 	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
 	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
 	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
-	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="boardSetupComplete">ยินดีด้วย! คุณรู้วิธีจัดกระดานหมากรุกแล้ว</string>
 	<string name="repetition">Repetition</string>
 	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
 	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
@@ -173,14 +177,14 @@ Make any move to continue.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
 	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
-	<string name="advanced">Advanced</string>
-	<string name="pieceValue">Piece value</string>
-	<string name="evaluatePieceStrength">Evaluate piece strength</string>
+	<string name="advanced">ขั้นสูง</string>
+	<string name="pieceValue">ค่าของตัวหมาก</string>
+	<string name="evaluatePieceStrength">ประเมินความแกร่งของหมาก</string>
 	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
 The king is priceless! Losing it means losing the game.</string>
-	<string name="queenOverBishop">Take the piece
-with the highest value!
-Queen &gt; Bishop</string>
+	<string name="queenOverBishop">จงกินหมาก
+ที่มีค่าสูงสุด!
+ควีน &gt; บิชอป</string>
 	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
 Take the most valuable piece.</string>
 	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
@@ -193,47 +197,47 @@ Take the most valuable piece.</string>
 	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
 	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
 	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
-	<string name="takeThePieceWithTheHighestValue">Take the piece
-with the highest value!</string>
+	<string name="takeThePieceWithTheHighestValue">จงกินหมาก
+ที่มีค่าสูงสุด!</string>
 	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
-	<string name="checkInTwo">Check in two</string>
-	<string name="twoMovesToGiveCheck">Two moves to give a check</string>
-	<string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent\'s king!</string>
-	<string name="checkInTwoGoal">Threaten the opponent\'s king
-in two moves!</string>
-	<string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
-	<string name="whatNext">What next?</string>
+	<string name="checkInTwo">รุกในสองครั้ง</string>
+	<string name="twoMovesToGiveCheck">เดินสองครั้งเพื่อรุก</string>
+	<string name="checkInTwoIntro">หาวิธีผสมผสานที่ถูกต้องในการเดินสองครั้ง เพื่อรุกคิงของคู่แข่ง</string>
+	<string name="checkInTwoGoal">คุกคามคิงของคู่แข่ง
+โดยเดินสองครั้ง!</string>
+	<string name="checkInTwoComplete">ยินดีด้วย! คุณได้รุกคู่แข่งของคุณ บังคับให้พวกเขาปกป้องคิงของพวกเขา!</string>
+	<string name="whatNext">มีอะไรต่อ?</string>
 	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
-	<string name="register">Register</string>
-	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
-	<string name="practice">Practise</string>
+	<string name="register">ลงทะเบียน</string>
+	<string name="getAFreeLishogiAccount">รับบัญชี Lishogi ฟรี</string>
+	<string name="practice">ฝึกหัด</string>
 	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
-	<string name="puzzles">Puzzles</string>
-	<string name="exerciseYourTacticalSkills">Exercise your tactical skills</string>
+	<string name="puzzles">ปริศนา</string>
+	<string name="exerciseYourTacticalSkills">ฝึกทักษะกลยุทธ์ของคุณ</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
-	<string name="videos">Videos</string>
+	<string name="videos">วิดีโอ</string>
 	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
-	<string name="playPeople">Play people</string>
-	<string name="opponentsFromAroundTheWorld">Opponents from around the world</string>
-	<string name="playMachine">Play machine</string>
-	<string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
-	<string name="letsGo">Let\'s go!</string>
-	<string name="stageX">Stage %s</string>
-	<string name="awesome">Awesome!</string>
-	<string name="excellent">Excellent!</string>
-	<string name="greatJob">Great job!</string>
-	<string name="perfect">Perfect!</string>
-	<string name="outstanding">Outstanding!</string>
-	<string name="wayToGo">Way to go!</string>
-	<string name="yesYesYes">Yes, yes, yes!</string>
-	<string name="youreGoodAtThis">You\'re good at this!</string>
-	<string name="nailedIt">Nailed it.</string>
-	<string name="rightOn">Right on!</string>
-	<string name="stageXComplete">Stage %s complete</string>
+	<string name="playPeople">เล่นกับผู้คน</string>
+	<string name="opponentsFromAroundTheWorld">คู่แข่งจากทั่วโลก</string>
+	<string name="playMachine">เล่นกับจักรกล</string>
+	<string name="testYourSkillsWithTheComputer">ทดสอบทักษะของคุณกับคอมพิวเตอร์</string>
+	<string name="letsGo">ไปกันเลย!</string>
+	<string name="stageX">ขั้นที่ %s</string>
+	<string name="awesome">ดีเลิศ!</string>
+	<string name="excellent">ยอดเยี่ยม!</string>
+	<string name="greatJob">ดีมาก!</string>
+	<string name="perfect">สมบูรณ์แบบ!</string>
+	<string name="outstanding">สุดยอด!</string>
+	<string name="wayToGo">ลุยต่อ!</string>
+	<string name="yesYesYes">ใช่เลย!</string>
+	<string name="youreGoodAtThis">คุณเก่งเรื่องนี้นะ!</string>
+	<string name="nailedIt">เป๊ะเลย</string>
+	<string name="rightOn">ถูกต้องเลย!</string>
+	<string name="stageXComplete">ขั้นที่ %s สมบูรณ์</string>
 	<string name="yourScore">Your score</string>
-	<string name="next">Next</string>
-	<string name="backToMenu">Back to menu</string>
-	<string name="puzzleFailed">Puzzle failed!</string>
-	<string name="retry">Retry</string>
+	<string name="next">ถัดไป</string>
+	<string name="backToMenu">กลับสู่เมนู</string>
+	<string name="puzzleFailed">แก้ปริศนาล้มเหลว!</string>
+	<string name="retry">ลองใหม่</string>
 </resources>

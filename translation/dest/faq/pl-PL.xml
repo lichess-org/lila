@@ -10,9 +10,6 @@
 	<string name="whyIsLilaCalledLila">Podobnie, kod źródłowy Lishogi, %1$s, oznacza li[shogi in sca]la, a to dlatego, że większość kodu Lishogi napisanego jest w intuicyjnym języku programowania %2$s.</string>
 	<string name="howCanIContributeToLishogi">Jak mogę pomóc współtworzyć Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi wspierany jest darowiznami swoich patronów i wysiłkami grupy wolontariuszy.</string>
-	<string name="findMoreAndSeeHowHelp">Więcej informacji w tym temacie znajdziesz tutaj:
-%1$s
-%2$s</string>
 	<string name="beingAPatron">Zostań patronem</string>
 	<string name="otherWaysToContribute">Oto wiele sposobów, na które możesz wspomóc Lishogi.</string>
 	<string name="breakdownOfOurCosts">Podział naszych kosztów</string>

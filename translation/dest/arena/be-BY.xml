@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena tournaments</string>
-  <string name="isItRated">Is it rated?</string>
-  <string name="willBeNotified">You will be notified when the tournament starts, so it is safe to play in another tab while waiting.</string>
-  <string name="isRated">This tournament is rated and will affect your rating.</string>
-  <string name="isNotRated">This tournament is *not* rated and will *not* affect your rating.</string>
-  <string name="someRated">Some tournaments are rated and will affect your rating.</string>
-  <string name="howAreScoresCalculated">How are scores calculated?</string>
-  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw 1 point, and a loss is worth no points.
-If you win two games consecutively you will start a double point streak, represented by a flame icon.
-The following games will continue to be worth double points until you fail to win a game.
-That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
+  <string name="arenaTournaments">Турніры Арэны</string>
+  <string name="isItRated">Гэта рэйтынгавыя гульні?</string>
+  <string name="willBeNotified">Вас апавясцяць, калі пачнецца турнір, так што пакуль што можаце пагуляць, адкрыўшы іншую ўкладку.</string>
+  <string name="isRated">Гэты турнір рэйтынгавы і паўплывае на ваш рэйтынг.</string>
+  <string name="isNotRated">Гэты турнір *не* рэйтынгавы і *не* паўплывае на ваш рэйтынг.</string>
+  <string name="someRated">Некаторыя турніры – рэйтынгавыя і паўплываюць на ваш рэйтынг.</string>
+  <string name="howAreScoresCalculated">Якім чынам размяркоўваюцца балы?</string>
+  <string name="howAreScoresCalculatedAnswer">Перамога прыносіць 2 балы, нічыя – 1 бал, а параза не прыносіць балаў увогуле. Калі вы выйграеце 2 гульні запар, актывуецца падваенне балаў, што паказваецца значкам полымя. Наступныя гульні будуць прыносіць падвоеныя балы, пакуль вы не прайграеце: такім чынам, перамога прынясе 4 балаў, нічыя - 2 балы, а параза адмяняе падваенне.
 
-For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
+Прыкладам, дзве перамогі і нічыя прынясуць 6 балаў: 2 + 2 + (2 х 1)</string>
+  <string name="berserk">Лютасць арэны</string>
+  <string name="berserkAnswer">Калі гулец націсне на кнопку шалёнасці (Berserk) напачатку гульні, ён губляе палову часу, але перамога прынясе дадатковы турнірны бал.
 
-Going Berserk in time controls with an increment and byoyomi also cancels the increment and byoyomi time (1+2 is an exception, it gives 1+0).
+Шалёнасць у гульнях з даданнем часу, таксама скасоўвае даданне часу. (выключэнне - 1+2, будзе 1+0)
 
-Berserk is not available for games with zero initial time (0+1, 0+2).
+Шалёнасць недаступная для гульняў з нулявым пачатковым часам (0+1, 0+2).
 
-Berserk only grants an extra point if you play at least 7 moves in the game.</string>
-  <string name="howIsTheWinnerDecided">How is the winner decided?</string>
-  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament\'s set time limit will be announced winner(s).
-
-When two or more players have the same number of points, the tournament performance is the tie break.</string>
-  <string name="howDoesPairingWork">How does the pairing work?</string>
-  <string name="howDoesPairingWorkAnswer">At the beginning of the tournament, players are paired based on their rating.
-As soon as you finish a game, return to the tournament lobby: you will then be paired with a player close to your ranking. This ensures minimum wait time, however you may not face all other players in the tournament.
-Play fast and return to the lobby to play more games and win more points.</string>
-  <string name="howDoesItEnd">How does it end?</string>
-  <string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however they don\'t count for the tournament.</string>
-  <string name="otherRules">Other important rules</string>
-  <string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
+Шалёнасць прыносіць дадатковы бал, калі ў гульні, было зраблена хоця б 7 хадоў.</string>
+  <string name="howIsTheWinnerDecided">Як абіраецца пераможац?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Гулец(ы) з большасцю балаў па сканчэнні турнірнага часу будзе(-уць) аб\'яўлены пераможцам(і).</string>
+  <string name="howDoesPairingWork">Як працуе лёсаванне?</string>
+  <string name="howDoesPairingWorkAnswer">У пачатку турніру гульцы размяркоўваюцца паводле іх рэйтынгу.
+Як толькі гульня скончылася, вярніцеся ў лобі турніру: наступная гульня будзе праведзеная з гульцом, найбліжэйшым да вас па рэйтынгу. Гэты механізм гарантуе, што вам не давядзецца доўга чакаць наступнага суперніка, аднак ёсць магчымасць, што вы не згуляеце з кожным удзельнікам турніру.
+Гуляйце хутка, вяртайцеся ў лобі і гуляйце яшчэ, каб выйграць як мага болей балаў.</string>
+  <string name="howDoesItEnd">Калі турнір сканчаецца?</string>
+  <string name="howDoesItEndAnswer">У кожным турніры вядзецца зваротны адлік па часе. Калі ён дасягае нуля, балы турніру замарожваюцца, пасля чаго агалошваецца пераможца. Калі раптам у гэты момант будуць праходзіць гульні, іх трэба будзе скончыць, але яны ўжо не паўплываюць на вынік турніру.</string>
+  <string name="otherRules">Іншыя важныя правілы</string>
+  <string name="thereIsACountdown">Тут ёсць зваротны адлік для вашага першага ходу. Калі вы не зробіце ход за гэты час, то перамога будзе прысуджана вашаму суперніку.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Drawing the game within the first %s move will earn neither player any points.</item>
-    <item quantity="few">Drawing the game within the first %s moves will earn neither player any points.</item>
-    <item quantity="many">Drawing the game within the first %s moves will earn neither player any points.</item>
-    <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
+    <item quantity="one">Нічыя ў першым ходзе не прынясе балаў ні аднаму з гульцоў.</item>
+    <item quantity="few">Нічыя ў першых %s хадах не прынясе балаў ні аднаму з гульцоў.</item>
+    <item quantity="many">Нічыя ў першых %s хадах не прынясе балаў ні аднаму з гульцоў.</item>
+    <item quantity="other">Нічыя ў першых %s хадах не прынясе балаў ні аднаму з гульцоў.</item>
   </plurals>
-  <string name="thisIsPrivate">This is a private tournament</string>
-  <string name="shareUrl">Share this URL to let people join: %s</string>
+  <string name="thisIsPrivate">Гэта прыватны турнір</string>
+  <string name="shareUrl">Падзяліцеся гэтай спасылкай, каб запрасіць гульцоў: %s</string>
   <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

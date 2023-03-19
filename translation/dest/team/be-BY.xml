@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="team">Team</string>
-  <string name="teams">Teams</string>
+  <string name="team">Каманда</string>
+  <string name="teams">Каманды</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s member</item>
-    <item quantity="few">%s members</item>
-    <item quantity="many">%s members</item>
-    <item quantity="other">%s members</item>
+    <item quantity="one">%s чальцоў</item>
+    <item quantity="few">%s удзельнікаў</item>
+    <item quantity="many">%s удзельнікаў</item>
+    <item quantity="other">%s удзельнікаў</item>
   </plurals>
-  <string name="allTeams">All teams</string>
-  <string name="newTeam">New team</string>
-  <string name="myTeams">My teams</string>
-  <string name="noTeamFound">No team found</string>
-  <string name="joinTeam">Join team</string>
-  <string name="quitTeam">Leave team</string>
+  <string name="allTeams">Усе каманды</string>
+  <string name="newTeam">Новая каманда</string>
+  <string name="myTeams">Мае каманды</string>
+  <string name="noTeamFound">Каманда не знойдзена</string>
+  <string name="joinTeam">Далучыцца да каманды</string>
+  <string name="quitTeam">Выйсці з каманды</string>
   <string name="anyoneCanJoin">Free for all</string>
   <string name="aConfirmationIsRequiredToJoin">A confirmation is required to join</string>
   <string name="joiningPolicy">Joining policy</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Team leader</item>
-    <item quantity="few">Team leaders</item>
-    <item quantity="many">Team leaders</item>
-    <item quantity="other">Team leaders</item>
+    <item quantity="one">Лідар каманды</item>
+    <item quantity="few">Лідары каманды</item>
+    <item quantity="many">Лідары каманды</item>
+    <item quantity="other">Лідары каманды</item>
   </plurals>
   <string name="teamBestPlayers">Best players</string>
-  <string name="teamRecentMembers">Recent members</string>
-  <string name="kickSomeone">Kick someone out of the team</string>
-  <string name="whoToKick">Who do you want to kick out of the team?</string>
+  <string name="teamRecentMembers">Нядаўна далучыліся</string>
+  <string name="kickSomeone">Выгнаць кагосьці з каманды</string>
+  <string name="whoToKick">Каго вы хочаце выгнаць з каманды?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s join request</item>
-    <item quantity="few">%s join requests</item>
-    <item quantity="many">%s join requests</item>
-    <item quantity="other">%s join requests</item>
+    <item quantity="one">%s запыт на далучэнне</item>
+    <item quantity="few">%s запыта на далучэнне</item>
+    <item quantity="many">%s запытаў на далучэнне</item>
+    <item quantity="other">%s запытаў на далучэнне</item>
   </plurals>
-  <string name="willBeReviewed">Your join request will be reviewed by the team leader.</string>
-  <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
-  <string name="teamBattle">Team Battle</string>
-  <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
-  <string name="teamTournament">Team tournament</string>
-  <string name="teamTournamentOverview">An Arena tournament that only members of your team can join</string>
-  <string name="messageAllMembers">Message all members</string>
-  <string name="messageAllMembersOverview">Send a private message to every member of the team</string>
-  <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.
-You can use this to call players to join a tournament or a team battle.
-Players who don\'t like receiving your messages might leave the team.</string>
-  <string name="teamsIlead">Teams I lead</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
-  <string name="usersWhoCanManageThisTeam">Users who can manage this team</string>
-  <string name="leadersChat">Leaders chat</string>
+  <string name="willBeReviewed">Ваш запыт на далучэнне будзе разгледжан лідэрам каманды.</string>
+  <string name="beingReviewed">Ваш запыт зараз разглядаецца лідэрам каманды.</string>
+  <string name="teamBattle">Камандная бітва</string>
+  <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае балы для сваёй каманды</string>
+  <string name="teamTournament">Камандны турнір</string>
+  <string name="teamTournamentOverview">Арэнный турнір, ўступіць у які могуць толькі члены вашай групы</string>
+  <string name="messageAllMembers">Напісаць ўсім удзельнікам</string>
+  <string name="messageAllMembersOverview">Напісаць асобнае паведамленне ўсім удзельнікам каманды</string>
+  <string name="messageAllMembersLongDescription">Даслаць асабістае паведамленне да ЎСІХ чальцоў каманды.
+Гэта можна выкарыстоўваць, каб паклікаць далучыцца да турніру або каманднай гульні.
+Гульцы, якія ня любяць такія паведамленні могуць пакінуць каманду.</string>
+  <string name="teamsIlead">Каманды, лідарам якіх я з\'яўляюся</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можа вы хочаце дадаць якія небудзь з найбліжэйшых турніраў?</string>
+  <string name="usersWhoCanManageThisTeam">Карыстальнікі, якія могуць кіраваць камандай</string>
+  <string name="leadersChat">Чат лідараў</string>
 </resources>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Confirm your lishogi.org account, %s</string>
-  <string name="emailConfirm_click">Click the link to enable your Lishogi account:</string>
-  <string name="emailConfirm_ignore">If you did not register with Lishogi you can safely ignore this message.</string>
-  <string name="passwordReset_subject">Reset your lishogi.org password, %s</string>
-  <string name="passwordReset_intro">We received a request to reset the password for your account.</string>
-  <string name="passwordReset_clickOrIgnore">If you made this request, click the link below. If not, you can ignore this email.</string>
-  <string name="emailChange_subject">Confirm new email address, %s</string>
-  <string name="emailChange_intro">You have requested to change your email address.</string>
-  <string name="emailChange_click">To confirm you have access to this email, please click the link below:</string>
-  <string name="welcome_subject">Welcome to lishogi.org, %s</string>
-  <string name="welcome_text">You have successfully created your account on https://lishogi.org.
+  <string name="emailConfirm_subject">Bekreft lishogi.org-kontoen din, %s</string>
+  <string name="emailConfirm_click">Trykk på linken for å aktivere Lishogi-kontoen:</string>
+  <string name="emailConfirm_ignore">Hvis du ikke har registrert deg på Lishogi, kan du trygt ignorere denne meldingen.</string>
+  <string name="passwordReset_subject">Tilbakestill lishogi.org-passordet ditt, %s</string>
+  <string name="passwordReset_intro">Vi mottok en forespørsel om å lage et nytt passord for kontoen din.</string>
+  <string name="passwordReset_clickOrIgnore">Hvis du har gjort denne forespørselen, klikker du koblingen nedenfor. Hvis ikke, kan du ignorere denne eposten.</string>
+  <string name="emailChange_subject">Bekreft din e-postadresse, %s</string>
+  <string name="emailChange_intro">Du har bedt om å endre e-postadressen din.</string>
+  <string name="emailChange_click">For å bekrefte at du har tilgang til denne e-posten, kan du klikke koblingen nedenfor:</string>
+  <string name="welcome_subject">Velkommen til lishogi.org, %s</string>
+  <string name="welcome_text">Du har opprettet en konto hos https://lishogi.org.
 
-Here is your profile page: %1$s. You can personalise it on %2$s.
+Her finner du profilsiden din: %1$s. Du kan tilpasse den på %2$s.
 
-Have fun, and may your pieces always find their way to your opponent\'s king!</string>
-  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
-  <string name="common_orPaste">(Clicking not working? Try pasting it into your browser!)</string>
-  <string name="common_note">This is a service email related to your use of %s.</string>
-  <string name="common_contact">To contact us, please use %s.</string>
+Kos deg, og måtte dine brikke alltid finne frem til motstanderens konge!</string>
+  <string name="logInToLishogi">Logg inn på lishogi.org, %s</string>
+  <string name="common_orPaste">(Fungerer det ikke å klikke? Prøv å lime den inn i nettleseren!)</string>
+  <string name="common_note">Dette er en e-post relatert til din bruk av %s.</string>
+  <string name="common_contact">Bruk %s om du vil ta kontakt med oss.</string>
 </resources>

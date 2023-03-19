@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="donate">Donate</string>
+	<string name="donate">บริจาค</string>
 	<string name="lishogiPatron">Lishogi Patron</string>
-	<string name="freeAccount">Free account</string>
+	<string name="freeAccount">บัญชีฟรี</string>
 	<string name="becomePatron">Become a Lishogi Patron</string>
 	<string name="xBecamePatron">%s became a Lishogi Patron</string>
 	<string name="newPatrons">New Patrons</string>
@@ -14,17 +14,17 @@
 	<string name="ifNotRenewed">If not renewed, you will then be downgraded to free.</string>
 	<string name="weRelyOnSupport">We rely on support from people like you to make it possible. If you enjoy using Lishogi, please consider supporting us by donating and becoming a Patron!</string>
 	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
-	<string name="lifetime">Lifetime</string>
+	<string name="lifetime">ตลอดชีพ</string>
 	<string name="payLifetimeOnce">Pay %s once. Be a Lishogi Patron forever!</string>
 	<string name="lifetimePatron">Lifetime Lishogi Patron</string>
 	<string name="makeExtraDonation">Make an extra donation?</string>
-	<string name="monthly">Monthly</string>
+	<string name="monthly">รายเดือน</string>
 	<string name="recurringBilling">Recurring billing, renewing your Patron wings every month.</string>
-	<string name="onetime">One-time</string>
+	<string name="onetime">รายครั้ง</string>
 	<string name="singleDonation">A single donation that grants you the Patron wings for one month.</string>
-	<string name="otherAmount">Other</string>
+	<string name="otherAmount">อื่นๆ</string>
 	<string name="pleaseEnterAmount">Please enter an amount in USD</string>
-	<string name="withCreditCard">Credit Card</string>
+	<string name="withCreditCard">บัตรเครดิต</string>
 	<string name="withPaypal">PayPal</string>
 	<string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
 	<string name="celebratedPatrons">The celebrated Patrons who make Lishogi possible</string>

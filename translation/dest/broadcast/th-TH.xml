@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Broadcasts</string>
-  <string name="liveBroadcasts">Live tournament broadcasts</string>
-  <string name="newBroadcast">New live broadcast</string>
-  <string name="ongoing">Ongoing</string>
-  <string name="upcoming">Upcoming</string>
-  <string name="completed">Completed</string>
+  <string name="broadcasts">การออกอากาศ</string>
+  <string name="liveBroadcasts">การออกอากาศทัวร์นาเมนต์สด</string>
+  <string name="newBroadcast">ออกอากาศสดใหม่</string>
+  <string name="ongoing">ดำเนินอยู่</string>
+  <string name="upcoming">ใกล้จะถึง</string>
+  <string name="completed">เสร็จแล้ว</string>
   <string name="eventName">Event name</string>
   <string name="eventDescription">Short event description</string>
-  <string name="fullDescription">Full event description</string>
-  <string name="fullDescriptionHelp">Optional long description of the broadcast. %1$s is available. Length must be less than %2$s characters.</string>
+  <string name="fullDescription">คำอธิบายรายการแบบเต็ม</string>
+  <string name="fullDescriptionHelp">คำอธิบายยาวซึ่งไม่บังคับของการออกอากาศ %1$s มีพร้อม ความยาวต้องน้อยกว่า %2$s ตัวอักษร</string>
   <string name="sourceUrl">Source URL</string>
-  <string name="sourceUrlHelp">URL that Lishogi will check to get PGN updates. It must be publicly accessible from the Internet.</string>
-  <string name="roundNumber">Round number</string>
-  <string name="startDate">Start date in your own timezone</string>
-  <string name="startDateHelp">Optional, if you know when the event starts</string>
-  <string name="credits">Credit the source</string>
+  <string name="sourceUrlHelp">URL ที่ Lishogi จะทำโพลเพื่อรับอัพเดท PGN มันต้องเข้าถึงได้อย่างสาธารณะจากอินเทอร์เน็ต</string>
+  <string name="roundNumber">เลขรอบ</string>
+  <string name="startDate">วันที่เริ่มในเขตเวลาของคุณ</string>
+  <string name="startDateHelp">ไม่บังคับ, ถ้าคุณรู้ว่ารายการจะเริ่มเมื่อใด</string>
+  <string name="credits">เครดิตแหล่ง</string>
   <string name="cloneBroadcast">Clone the broadcast</string>
   <string name="resetBroadcast">Reset the broadcast</string>
 </resources>
