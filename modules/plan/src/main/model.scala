@@ -233,9 +233,9 @@ case class PayPalCapture(
     status: String,
     billing_agreement_id: Option[PayPalSubscriptionId]
 ):
-  def isCompleted   = status == "COMPLETED"
-  def capturedMoney = isCompleted option amount.money
-  def userId        = UserId(custom_id)
+  def isCompleted    = status == "COMPLETED"
+  def capturedMoney  = isCompleted option amount.money
+  def userId         = UserId(custom_id)
   def subscriptionId = billing_agreement_id
 case class PayPalSaleAmount(total: BigDecimal, currency: Currency):
   def amount = PayPalAmount(total, currency)
