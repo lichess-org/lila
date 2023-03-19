@@ -887,7 +887,7 @@ export default class AnalyseCtrl {
   closeTools = () => {
     if (this.retro) this.retro = undefined;
     if (this.practice) this.togglePractice();
-    if (this.explorer.enabled()) this.toggleExplorer();
+    if (this.explorer.enabled()) this.explorer.toggle();
     this.persistence?.toggleOpen(false);
     this.actionMenu(false);
   };
@@ -902,23 +902,9 @@ export default class AnalyseCtrl {
   };
 
   toggleExplorer = (): void => {
-    let shouldOpen = false;
-    if (this.actionMenu()) {
-      this.actionMenu(false);
-      if (!this.explorer.enabled() && this.explorer.allowed()) {
-        shouldOpen = true;
-      }
-    } else {
-      if (this.explorer.enabled()) this.explorer.toggle();
-      else if (this.explorer.allowed()) {
-        shouldOpen = true;
-      }
-    }
-
-    if (shouldOpen) {
-      this.closeTools();
-      this.explorer.toggle();
-    }
+    const wasOpen = this.explorer.enabled() && !this.actionMenu();
+    this.closeTools();
+    if (!wasOpen && this.explorer.allowed()) this.explorer.toggle();
   };
 
   togglePractice = () => {
