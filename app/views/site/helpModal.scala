@@ -155,22 +155,34 @@ object helpModal:
             td(cls := "tips")(
               ul(
                 li(
-                  "Move pieces by speaking UCI, SAN, or a phrase similar to " +
-                    "examples below"
+                  "Your voice audio never leaves your device. Moves are sent using plain text as if made by mouse or touch."
                 ),
                 li(
-                  "Say any piece but pawn to move that piece " +
-                    "or capture that opponent piece"
+                  "You may speak UCI, SAN, piece names, board squares, or phrases like ",
+                  strong("\"take the rook\""),
+                  " or just ",
+                  strong("\"takes\""),
+                  "."
                 ),
                 li(
-                  "Ambiguous commands show colored arrows. " +
-                    "Speak the color, or say \"clear\" to cancel"
+                  "Ambiguous commands show colored or numbered arrows. Speak the color or number to choose one, or say ",
+                  strong("\"clear\""),
+                  " to cancel. Set your arrow style with the hamburger menu."
                 ),
                 li(
-                  "Up to 4 arrows are shown. Not enough? Be more specific"
+                  "The hamburger menu has a confidence slider. Higher values result in less ambiguity but an increased chance of mishearing."
                 ),
                 li(
-                  "We sometimes include moves that sound like what you said"
+                  "Up to 8 arrows are shown. At lower confidence settings we include additional moves that sound alike."
+                ),
+                li(
+                  "At present, voice control is only available with standard chess in puzzles and unrated games. There are no plans for rated play."
+                ),
+                li(
+                  "The phonetic alphabet is ",
+                  strong(
+                    "alfa, bravo, charlie, delta, echo, foxtrot, golf, hotel."
+                  )
                 )
               )
             )
@@ -181,14 +193,17 @@ object helpModal:
         table(
           tbody(
             header(performAMove()),
-            row(voice("e4"), "Move to e4 or select a piece there"),
+            row(frag(voice("e4"), voice("echo 4")), "Move to e4 or select a piece there"),
             row(voice("knight"), "Move my knight or capture a knight"),
-            row(voice("bishop g7"), "Move bishop to g7"),
+            row(frag(voice("bishop h6"), voice("bishop hotel 6")), "Move bishop to h6"),
             row(voice("queen takes rook"), "Take rook with queen"),
-            row(voice("c8 promote knight"), "Move c pawn to 8, promote to knight"),
+            row(
+              frag(voice("c8 promote knight"), voice("charlie 8 knight")),
+              "Move c8 promote to knight"
+            ),
             row(voice("castle"), "Kingside castle"),
-            row(voice("long castle"), "Queenside castle"),
-            row(voice("b5c6"), "Full UCI or SAN works too")
+            row(frag(voice("long castle"), voice("queenside castle")), "Queenside castle"),
+            row(frag(voice("a7g1"), voice("alfa 7 golf 1")), "Full UCI works too")
           )
         ),
         table(
@@ -196,12 +211,19 @@ object helpModal:
             header(otherCommands()),
             row(voice("draw"), offerOrAcceptDraw()),
             row(voice("resign"), trans.resignTheGame()),
-            row(voice("clock"), readOutClocks()),
-            row(voice("opponent"), readOutOpponentName()),
+            row(voice("ooops"), "Request a takeback"),
+            row(
+              frag(voice("clear"), voice("no")),
+              "Clear arrows, selection, or this dialog"
+            ),
+            row(frag(voice("yes"), voice("confirm")), "Confirm single arrow"),
+            row(voice("stop"), "Stop listening"),
             row(voice("next"), trans.puzzle.nextPuzzle()),
-            row(voice("up"), trans.puzzle.upVote()),
-            row(voice("down"), trans.puzzle.downVote()),
-            row(voice("help"), trans.showHelpDialog())
+            row(voice("help"), trans.showHelpDialog()),
+            tr(
+              td,
+              td(button(cls := "button", id := "all-phrases-button")("Show me everything"))
+            )
           )
         )
       )

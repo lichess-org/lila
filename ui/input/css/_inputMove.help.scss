@@ -13,6 +13,12 @@
 }
 
 .voice-move-help {
+  &#modal-wrap {
+    max-width: 1000px;
+    &.bigger {
+      width: 100%;
+    }
+  }
   table {
     align-self: start;
   }
@@ -26,10 +32,28 @@
       flex-direction: column;
     }
   }
+  #all-phrases-button {
+    margin-top: 1em;
+    padding: 0.6em 1.2em;
+  }
+  #big-table {
+    td {
+      padding: 0 1em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    tr {
+      td:nth-child(even) {
+        border-right: 1px solid $c-brag;
+      }
+      td:last-child {
+        border-right: none;
+      }
+    }
+  }
 }
 voice {
-  display: inline-block;
+  display: block;
   font-weight: bold;
   color: $c-font;
-  vertical-align: middle;
 }

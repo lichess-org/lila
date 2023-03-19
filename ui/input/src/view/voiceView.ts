@@ -10,7 +10,7 @@ type ArrowPref = 'Colors' | 'Numbers';
 export function renderVoiceView(ctrl: MoveCtrl, isPuzzle: boolean) {
   const rec = storedBooleanProp('recording', false);
   console.log('new one');
-  return h(`div.voice-move${isPuzzle ? '.puz' : ''}`, [
+  return h(`div#voice-move${isPuzzle ? '.puz' : ''}`, [
     h('span#status-row', [
       h('a#voice-help-button', {
         attrs: { role: 'button', ...dataIcon('') },

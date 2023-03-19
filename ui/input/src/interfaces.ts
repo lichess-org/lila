@@ -94,6 +94,7 @@ export interface VoiceCtrl {
 export interface VoiceMoveCtrl {
   registerMoveCtrl(ctrl: MoveCtrl): void;
   //natoFiles(enabled?: boolean): boolean;
+  getAllAvailable(): [string, string][];
   arrogance(conf?: number): number;
   arrowColors(enabled?: boolean): boolean;
   //arrowNumbers(enabled?: boolean): boolean;
