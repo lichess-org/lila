@@ -1691,7 +1691,6 @@ export type I18nKey =
 'whyIsLilaCalledLila'|
 'howCanIContributeToLishogi'|
 'lishogiPoweredByDonationsAndVolunteers'|
-'findMoreAndSeeHowHelp'|
 'beingAPatron'|
 'otherWaysToContribute'|
 'breakdownOfOurCosts'|
