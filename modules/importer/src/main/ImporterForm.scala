@@ -78,7 +78,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
           } map Fen.write
 
           val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-            case Some("normal")                          => Status.Resign
+            case Some("normal")                          => game.situation.status | Status.Resign
             case Some("abandoned")                       => Status.Aborted
             case Some("time forfeit")                    => Status.Outoftime
             case Some("rules infraction")                => Status.Cheat
