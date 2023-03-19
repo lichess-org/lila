@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr }
-import chess.format.{ pgn as chessPgn, Fen }
+import chess.format.{ pgn as chessPgn }
 import chess.{ Centis, Color, Outcome }
 
 import lila.common.config.BaseUrl
