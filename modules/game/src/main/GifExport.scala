@@ -56,21 +56,22 @@ final class GifExport(
         .stream() pipe upstreamResponse(s"pov ${pov.game.id}")
 
   def gameThumbnail(game: Game, theme: String, piece: String): Fu[Source[ByteString, ?]] =
-    val query = List(
-      "fen"         -> (Fen write game.chess).value,
-      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(using lightUserApi.sync),
-      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(using lightUserApi.sync),
-      "orientation" -> game.naturalOrientation.name
-    ) ::: List(
-      game.lastMoveKeys.map { "lastMove" -> _ },
-      game.situation.checkSquare.map { "check" -> _.key },
-      some("theme" -> theme),
-      some("piece" -> piece)
-    ).flatten
     lightUserApi.preloadMany(game.userIds) >>
       ws.url(s"$url/image.gif")
         .withMethod("GET")
-        .withQueryStringParameters(query*)
+        .withQueryStringParameters(
+          List(
+            "fen"   -> (Fen write game.chess).value,
+            "white" -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(using lightUserApi.sync),
+            "black" -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(using lightUserApi.sync),
+            "orientation" -> game.naturalOrientation.name
+          ) ::: List(
+            game.lastMoveKeys.map { "lastMove" -> _ },
+            game.situation.checkSquare.map { "check" -> _.key },
+            some("theme" -> theme),
+            some("piece" -> piece)
+          ).flatten*
+        )
         .stream() pipe upstreamResponse(s"gameThumbnail ${game.id}")
 
   def thumbnail(
