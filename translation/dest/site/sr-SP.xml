@@ -194,7 +194,7 @@
   <string name="forgotPassword">Заборавили сте лозинку?</string>
   <string name="error.namePassword">Не користите своје корисничко име као шифру.</string>
   <string name="youAreLeavingLichess">Напуштате Личесс</string>
-  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Настаби до %s</string>
+  <string name="proceedToX">Настаби до %s</string>
   <string name="accountRegisteredWithoutEmail">Налог %s је регистрован без Е-поште.</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>

@@ -100,7 +100,15 @@ function renderDate(date: Date, trans: Trans) {
   return renderFullDate(date);
 }
 
-const renderFullDate = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+const renderFullDate = (date: Date) => {
+  // Display date using locale culture settings.
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
+  // For example: 2023-03-15
+  // de-DE: "15.3.2023"
+  // us-US: "3/15/2023"
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' } as const;
+  return date.toLocaleDateString(undefined, options);
+};
 
 const sameDay = (d: Date, e: Date) =>
   d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();

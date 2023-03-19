@@ -14,7 +14,7 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.1.3"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.1.4"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.2"
   val chess       = "org.lichess"                  %% "scalachess"                      % "14.5.8"
@@ -28,7 +28,7 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.3.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.89.Final" classifier s"$os-$arch"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.90.Final" classifier s"$os-$arch"
   val scalatest   = "org.scalatest"              %% "scalatest"    % "3.2.11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"    % "0.14.0"
   val apacheText  = "org.apache.commons"          % "commons-text" % "1.10.0"
@@ -61,7 +61,7 @@ object Dependencies {
 
   object reactivemongo {
     val driver = "org.reactivemongo" %% "reactivemongo"               % "1.1.0-RC7"
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC8"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC9"
     val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"1.1.0-RC6-$os-x86-64"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)

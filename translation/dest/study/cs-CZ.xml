@@ -68,6 +68,7 @@
   <string name="studyPgn">PGN studie</string>
   <string name="downloadAllGames">Stáhnout všechny hry</string>
   <string name="chapterPgn">PGN kapitoly</string>
+  <string name="copyChapterPgn">Kopírovat PGN</string>
   <string name="downloadGame">Stáhnout hru</string>
   <string name="studyUrl">URL studie</string>
   <string name="currentChapterUrl">URL aktuální kapitoly</string>

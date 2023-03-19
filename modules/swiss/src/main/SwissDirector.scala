@@ -80,9 +80,7 @@ final private class SwissDirector(
       }
       .monSuccess(_.swiss.startRound)
 
-  private def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(
-      pairing: SwissPairing
-  ): Game =
+  private def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(pairing: SwissPairing): Game =
     Game
       .make(
         chess = chess

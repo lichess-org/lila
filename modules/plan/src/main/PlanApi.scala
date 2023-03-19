@@ -3,13 +3,14 @@ package lila.plan
 import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import reactivemongo.api.*
+import cats.syntax.all.*
+import org.joda.time.{ Days, DateTime }
 
 import lila.common.config.Secret
 import lila.common.{ Bus, IpAddress, EmailAddress }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
-import org.joda.time.Days
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -310,7 +311,7 @@ final class PlanApi(
           val charge = Charge.make(
             userId = order.userId,
             giftTo = giftTo.map(_.id),
-            payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id, none).some,
+            payPalCheckout = Patron.PayPalCheckout(order.id, order.payer.id, none).some,
             money = money,
             usd = usd
           )
@@ -319,7 +320,7 @@ final class PlanApi(
               giftTo match
                 case Some(to) => gift(user, to, money)
                 case None =>
-                  def newPayPalCheckout = Patron.PayPalCheckout(order.payer.id, none)
+                  def newPayPalCheckout = Patron.PayPalCheckout(order.id, order.payer.id, none)
                   userPatron(user).flatMap {
                     case None =>
                       mongo.patron.insert.one(
@@ -351,13 +352,12 @@ final class PlanApi(
         subId: PayPalSubscriptionId,
         user: User,
         ip: IpAddress
-    ) = for {
+    ) = for
       order <- payPalClient.getOrder(orderId) orFail s"Missing paypal order for id $orderId"
       sub   <- payPalClient.getSubscription(subId) orFail s"Missing paypal subscription for order $order"
       money = sub.capturedMoney
-      pricing    <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"
-      usd        <- currencyApi toUsd money orFail s"Invalid paypal currency $money"
-      isLifetime <- pricingApi isLifetime money
+      pricing <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"
+      usd     <- currencyApi toUsd money orFail s"Invalid paypal currency $money"
       _ <-
         if (!pricing.valid(money))
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money $orderId")
@@ -366,44 +366,63 @@ final class PlanApi(
           val charge = Charge.make(
             userId = user.id.some,
             giftTo = None,
-            payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id, sub.id.some).some,
+            payPalCheckout = Patron.PayPalCheckout(order.id, order.payer.id, sub.id.some).some,
             money = money,
             usd = usd
           )
-          addCharge(charge, order.country) >> {
-            val payPalCheckout = Patron.PayPalCheckout(order.payer.id, subId.some)
-            userPatron(user).flatMap {
-              case None =>
-                mongo.patron.insert.one(
-                  Patron(
-                    _id = user.id,
-                    payPalCheckout = payPalCheckout.some,
-                    lastLevelUp = Some(nowDate)
-                  ).expireInOneMonth
-                ) >>
-                  setDbUserPlanOnCharge(user, levelUp = false)
-              case Some(patron) =>
-                val p2 = patron
-                  .copy(
-                    payPalCheckout = payPalCheckout.some,
-                    stripe = none,
-                    free = none
-                  )
-                  .levelUpIfPossible
-                  .expireInOneMonth
-                mongo.patron.update.one($id(patron.id), p2) >>
-                  setDbUserPlanOnCharge(user, patron.canLevelUp)
-            } >> {
-              isLifetime ?? setLifetime(user)
-            } >>- logger.info(s"Charged ${user.username} with paypal checkout: $money")
-          }
-    } yield ()
+          addSubscriptionCharge(charge, user, order.country)
+    yield ()
 
     def subscriptionUser(id: PayPalSubscriptionId): Fu[Option[User]] =
       subscriptionIdPatron(id) flatMap { _.map(_.id) ?? userRepo.byId }
 
+    // only used for automatically renewing subscription charges
     def onCaptureCompleted(capture: PayPalCapture) =
-      logger.info(s"Charged $capture")
+      (capture.subscriptionId, capture.capturedMoney).mapN { (subId, money) =>
+        for
+          user <- userRepo.byId(capture.userId) orFail s"Missing user for paypal capture $capture"
+          // look for previous charge
+          previous <- mongo.charge
+            // hit the userId index
+            .find($doc("userId" -> user.id, "payPalCheckout.subscriptionId" -> subId))
+            .sort($doc("date" -> -1))
+            .one[Charge]
+            // avoid duplicating the initial charge
+            .map(_.filter(_.date.isBefore(DateTime.now.minusMinutes(3))))
+          _ <- previous ?? { prev =>
+            logger.info(s"Renewing paypal checkout subscription with $capture")
+            addSubscriptionCharge(prev.copyAsNew, user, none)
+          }
+        yield ()
+      } | funit
+
+    private def addSubscriptionCharge(charge: Charge, user: User, country: Option[Country]) = for
+      _ <- addCharge(charge, country)
+      _ <- userPatron(user).flatMap {
+        case None =>
+          mongo.patron.insert.one(
+            Patron(
+              _id = user.id,
+              payPalCheckout = charge.payPalCheckout,
+              lastLevelUp = Some(nowDate)
+            ).expireInOneMonth
+          ) >>
+            setDbUserPlanOnCharge(user, levelUp = false)
+        case Some(patron) =>
+          val p2 = patron
+            .copy(
+              payPalCheckout = charge.payPalCheckout,
+              stripe = none,
+              free = none
+            )
+            .levelUpIfPossible
+            .expireInOneMonth
+          mongo.patron.update.one($id(patron.id), p2) >>
+            setDbUserPlanOnCharge(user, patron.canLevelUp)
+      }
+      isLifetime <- pricingApi isLifetime charge.money
+      _          <- isLifetime ?? setLifetime(user)
+    yield logger.info(s"Charged ${user.username} with paypal checkout: $charge")
 
     private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
       mongo.patron.one[Patron]($doc("payPalCheckout.subscriptionId" -> id))
@@ -439,7 +458,7 @@ final class PlanApi(
               case customer => fuccess(Synced(patron.some, customer, none))
             }
 
-          case (_, Some(Patron.PayPalCheckout(_, Some(subId))), _) =>
+          case (_, Some(Patron.PayPalCheckout(_, _, Some(subId))), _) =>
             payPalClient.getSubscription(subId) flatMap {
               case None =>
                 logger.warn(s"${user.username} sync: unset DB patron that's not in paypal")

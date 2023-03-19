@@ -21,7 +21,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
-  <string name="whiteIsVictorious">Les blanques han guanyat</string>
+  <string name="whiteIsVictorious">Guanyen les blanques</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
   <string name="youPlayTheBlackPieces">Jugues les negres</string>
@@ -209,10 +209,10 @@
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="error.weakPassword">La contrasenya és massa comuna i massa fàcil d\'endevinar.</string>
   <string name="error.namePassword">Si us plau, no feu servir el vostre nom d\'usuari com a contrasenya.</string>
-  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Heu fet servir la mateixa contrasenya que en altre lloc web i aquest lloc ha estat compromès. Per assegurar la seguretat del vostre compte de Lichess heu d\'elegir una nova contrasenya. Gràcies per la vostra comprensió.</string>
+  <string name="blankedPassword">Heu fet servir la mateixa contrasenya que en altre lloc web i aquest lloc ha estat compromès. Per assegurar la seguretat del vostre compte de Lichess heu d\'elegir una nova contrasenya. Gràcies per la vostra comprensió.</string>
   <string name="youAreLeavingLichess">Esteu sortint de Lichess</string>
   <string name="neverTypeYourPassword">Mai introduïu la contrasenya de Lichess en un altre lloc web!</string>
-  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Continuar a %s</string>
+  <string name="proceedToX">Continuar a %s</string>
   <string name="passwordSuggestion">No feu servir una contrasenya suggerida per algú altre. La farà servir per robar el vostre compte.</string>
   <string name="emailSuggestion">No feu server un correu electrònic suggerit per algú altre. La farà servir per robar el vostre compte.</string>
   <string name="emailConfirmHelp">Ajuda amb l\'email de confirmació</string>
@@ -390,6 +390,7 @@
   <string name="toStudy">Estudi</string>
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Al enganxar el PGN d\'una partida, s\'obté una repetició navegable, una anàlisi per ordinador, un xat de joc i una URL per compartir.</string>
+  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>

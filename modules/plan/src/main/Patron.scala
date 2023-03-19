@@ -57,7 +57,12 @@ case class Patron(
 object Patron:
 
   case class Stripe(customerId: StripeCustomerId)
-  case class PayPalCheckout(payerId: PayPalPayerId, subscriptionId: Option[PayPalSubscriptionId]):
+
+  case class PayPalCheckout(
+      orderId: PayPalOrderId,
+      payerId: PayPalPayerId,
+      subscriptionId: Option[PayPalSubscriptionId]
+  ):
     def renew = subscriptionId.isDefined
 
   case class PayPalLegacy(

@@ -4,6 +4,7 @@ import cats.syntax.all.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
+import org.joda.time.DateTime
 
 case class Charge(
     _id: String, // random
@@ -11,7 +12,7 @@ case class Charge(
     giftTo: Option[UserId] = none,
     stripe: Option[Charge.Stripe] = none,
     payPal: Option[Charge.PayPalLegacy] = none,
-    payPalCheckout: Option[Charge.PayPalCheckout] = none,
+    payPalCheckout: Option[Patron.PayPalCheckout] = none,
     money: Money,
     usd: Usd,
     date: DateTime
@@ -31,19 +32,23 @@ case class Charge(
 
   def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }
 
+  def copyAsNew = copy(_id = Charge.makeId, date = DateTime.now)
+
 object Charge:
+
+  private def makeId = ThreadLocalRandom nextString 8
 
   def make(
       userId: Option[UserId],
       giftTo: Option[UserId],
       stripe: Option[Charge.Stripe] = none,
       payPal: Option[Charge.PayPalLegacy] = none,
-      payPalCheckout: Option[Charge.PayPalCheckout] = none,
+      payPalCheckout: Option[Patron.PayPalCheckout] = none,
       money: Money,
       usd: Usd
   ) =
     Charge(
-      _id = ThreadLocalRandom nextString 8,
+      _id = makeId,
       userId = userId,
       giftTo = giftTo,
       stripe = stripe,
@@ -65,12 +70,6 @@ object Charge:
       email: Option[Patron.PayPalLegacy.Email],
       txnId: Option[String],
       subId: Option[Patron.PayPalLegacy.SubId]
-  )
-
-  case class PayPalCheckout(
-      orderId: PayPalOrderId,
-      payerId: PayPalPayerId,
-      subscriptionId: Option[PayPalSubscriptionId]
   )
 
   case class Gift(from: UserId, to: UserId, date: DateTime)

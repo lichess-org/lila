@@ -231,10 +231,10 @@
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="error.weakPassword">Toto heslo je veľmi bežné, a ľahké na uhádnutie.</string>
   <string name="error.namePassword">Zadajte prihlasovacie meno a heslo.</string>
-  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Na inej stránke ste použili rovnaké heslo a táto stránka bola napadnutá. Aby sme zaistili bezpečnosť Vášho účtu Lichess, je potrebné aby ste si nastavili nové heslo. Ďakujeme Vám za pochopenie.</string>
+  <string name="blankedPassword">Na inej stránke ste použili rovnaké heslo a táto stránka bola napadnutá. Aby sme zaistili bezpečnosť Vášho účtu Lichess, je potrebné aby ste si nastavili nové heslo. Ďakujeme Vám za pochopenie.</string>
   <string name="youAreLeavingLichess">Odchádzate z Lichessu</string>
   <string name="neverTypeYourPassword">Nikdy nepoužívajte vaše Lichess heslo na inom webe!</string>
-  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Pokračovať na %s</string>
+  <string name="proceedToX">Pokračovať na %s</string>
   <string name="passwordSuggestion">Nepoužívajte heslo ktoré, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
   <string name="emailSuggestion">Nepoužívajte e-mail, ktorý, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
   <string name="emailConfirmHelp">Pomoc s overením e-mailu</string>
@@ -442,6 +442,7 @@
   <string name="toStudy">Štúdia</string>
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
+  <string name="importGameCaveat">Variácie sa vymažú. Ak ich chcete zachovať, importujte PGN prostredníctvom štúdie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná partia</item>
     <item quantity="few">%s importované partie</item>

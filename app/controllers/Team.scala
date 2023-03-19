@@ -597,11 +597,13 @@ final class Team(
     }
 
   def apiRequests(teamId: TeamId) =
-    Scoped(_.Team.Read) { _ => me =>
+    Scoped(_.Team.Read) { req => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
-        api.requestsWithUsers(team) map { reqs =>
-          ApiResult.Data(JsArray(reqs map env.team.jsonView.requestWithUserWrites.writes))
-        }
+        import env.team.jsonView.requestWithUserWrites
+        val reqs =
+          if getBool("declined", req) then api.declinedRequestsWithUsers(team)
+          else api.requestsWithUsers(team)
+        reqs map Json.toJson map ApiResult.Data.apply
       }
     }
 

@@ -231,10 +231,10 @@
   <string name="forgotPassword">Ste pozabili geslo?</string>
   <string name="error.weakPassword">To geslo je zelo pogosto in ga je prelahko uganiti.</string>
   <string name="error.namePassword">Prosimo, ne uporabljajte svojega uporabniškega imena kot gesla.</string>
-  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Isto geslo ste uporabili na drugem spletnem mestu in to spletno mesto je bilo prizadeto. Da bi zagotovili varnost vašega računa Lichess, morate določiti novo geslo. Zahvaljujemo se vam za razumevanje.</string>
+  <string name="blankedPassword">Isto geslo ste uporabili na drugem spletnem mestu in to spletno mesto je bilo prizadeto. Da bi zagotovili varnost vašega računa Lichess, morate določiti novo geslo. Zahvaljujemo se vam za razumevanje.</string>
   <string name="youAreLeavingLichess">Zapuščate Lichess</string>
   <string name="neverTypeYourPassword">Nikoli ne vnesite svojega gesla za Lichess na drugem mestu!</string>
-  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Nadaljujte na %s</string>
+  <string name="proceedToX">Nadaljujte na %s</string>
   <string name="passwordSuggestion">Ne nastavite gesla, ki ga predlaga nekdo drug. Uporabili ga bodo za krajo vašega računa.</string>
   <string name="emailSuggestion">Ne nastavite e-poštnega naslova, ki ga predlaga nekdo drug. Uporabili ga bodo za krajo vašega računa.</string>
   <string name="emailConfirmHelp">Pomoč za potrditev naslova elektronske pošte</string>

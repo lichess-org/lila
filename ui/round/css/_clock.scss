@@ -189,7 +189,7 @@
 
     display: none;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint(420px) {
       order: -1;
       display: flex;
       flex: 0 1 auto;

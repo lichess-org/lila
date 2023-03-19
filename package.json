@@ -38,7 +38,8 @@
     "check-format": "prettier --check .",
     "lint": "eslint . --ext .ts",
     "lila-journal": "journalctl --user -fu lila -o cat",
-    "serverlog": "multitail -cT ansi -l 'pnpm lila-journal' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log",
-    "multilog": "multitail -cT ansi -l 'pnpm lila-journal' -cT ansi -L 'ui/build -w' -cT ansi -ke '^[0-9\\.]{10} ' -I .metals/metals.log -cT ansi -I logs/all.log"
+    "metals-log": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
+    "serverlog": "pnpm lila-journal & pnpm metals-log",
+    "multilog": "pnpm serverlog & ui/build -w"
   }
 }

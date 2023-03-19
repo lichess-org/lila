@@ -43,7 +43,7 @@ final class EmailAddressValidator(
     e.domain.map(_.lower).fold(fuccess(Result.DomainMissing))(validateDomain)
 
   private[security] def validateDomain(domain: Domain.Lower): Fu[Result] =
-    if DisposableEmailDomain.whitelisted(domain) then fuccess(Result.Passlist)
+    if DisposableEmailDomain.whitelisted(domain into Domain) then fuccess(Result.Passlist)
     else if disposable(domain into Domain) then fuccess(Result.Blocklist)
     else
       dnsApi.mx(domain).flatMap { domains =>
