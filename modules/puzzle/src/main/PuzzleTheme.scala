@@ -38,7 +38,7 @@ object PuzzleTheme:
     PuzzleTheme(Key("dovetailMate"), i.dovetailMate, i.dovetailMateDescription)
   val equality       = PuzzleTheme(Key("equality"), i.equality, i.equalityDescription)
   val endgame        = PuzzleTheme(Key("endgame"), i.endgame, i.endgameDescription)
-  val enPassant      = PuzzleTheme(Key("enPassant"), I18nKey("En passant"), i.enPassantDescription)
+  val enPassant      = PuzzleTheme(Key("enPassant"), trans.learn.enPassant, i.enPassantDescription)
   val exposedKing    = PuzzleTheme(Key("exposedKing"), i.exposedKing, i.exposedKingDescription)
   val fork           = PuzzleTheme(Key("fork"), i.fork, i.forkDescription)
   val hangingPiece   = PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription)

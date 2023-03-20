@@ -104,7 +104,7 @@ object side:
           tour.startsAt
         ),
         tour.startingPosition.map { pos =>
-          p(a(targetBlank, href := pos.url)(pos.name))
+          p(a(href := pos.url)(pos.name))
         } orElse tour.position.map { fen =>
           p(
             "Custom position",

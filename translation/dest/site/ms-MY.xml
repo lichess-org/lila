@@ -59,6 +59,7 @@
   <string name="usingServerAnalysis">Menggunakan server analisis</string>
   <string name="loadingEngine">Memuatkan enjin ...</string>
   <string name="calculatingMoves">Mengira pergerakan...</string>
+  <string name="engineFailed">Ralat memproseskan enjin</string>
   <string name="cloudAnalysis">Analisis Cloud</string>
   <string name="goDeeper">Pergi lebih mendalam</string>
   <string name="showThreat">Tunjukkan ancaman</string>
@@ -149,6 +150,7 @@
   <string name="viewInFullSize">View in full size</string>
   <string name="logOut">Sign out</string>
   <string name="signIn">Sign in</string>
+  <string name="rememberMe">Kekalkan saya di Log masuk</string>
   <string name="youNeedAnAccountToDoThat">You need an account to do that</string>
   <string name="signUp">Register</string>
   <string name="computersAreNotAllowedToPlay">Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead to being banned.</string>
@@ -194,8 +196,31 @@
   <string name="email">Emel</string>
   <string name="passwordReset">Reset kata kunci</string>
   <string name="forgotPassword">Lupa kata kunci?</string>
+  <string name="error.weakPassword">Kata laluan ini sangat biasa, dan terlalu mudah untuk diteka.</string>
+  <string name="error.namePassword">Tolong jangan gunakan nama pengguna (Username) anda sebagai kata laluan anda.</string>
+  <string name="blankedPassword">Anda telah menggunakan kata laluan yang sama di laman sesawang lain, dan laman sesawang tersebut telah dicerobohi. Untuk memastikan keselamatan akaun Lichess anda, kami memerlukan anda menetapkan kata laluan baharu. Terima kasih kerana kerjasama anda.</string>
+  <string name="youAreLeavingLichess">Anda akan meninggalkan Lichess</string>
+  <string name="neverTypeYourPassword">Jangan sekali-kali taip kata laluan Lichess anda di laman sesawang lain!</string>
+  <string name="proceedToX">Teruskan ke %s</string>
+  <string name="passwordSuggestion">Jangan tetapkan kata laluan yang dicadangkan oleh orang lain. Mereka akan menggunakannya untuk mencuri akaun anda.</string>
+  <string name="emailSuggestion">Jangan tetapkan alamat e-mel yang dicadangkan oleh orang lain. Mereka akan menggunakannya untuk mencuri akaun anda.</string>
+  <string name="emailConfirmHelp">Bantuan dengan pengesahan e-mel</string>
+  <string name="emailConfirmNotReceived">Tidak menerima e-mel pengesahan anda selepas mendaftar?</string>
   <string name="whatSignupUsername">Nama apa yang awak gunakan untuk mendaftar?</string>
+  <string name="usernameNotFound">Kami tidak dapat mencari mana-mana pengguna dengan nama ini: %s</string>
+  <string name="usernameCanBeUsedForNewAccount">Anda boleh menggunakan nama pengguna (Username) ini untuk membuat akaun baharu</string>
+  <string name="emailSent">Kami telah menghantar e-mel ke %s.</string>
   <string name="emailCanTakeSomeTime">Ia boleh mengambil masa untuk sampai.</string>
+  <string name="refreshInboxAfterFiveMinutes">Tunggu 5 minit dan muat ulang semula di peti masuk e-mel anda.</string>
+  <string name="checkSpamFolder">Semak juga folder spam anda, ia mungkin telah dihantar di sana. Jika ya, tandakannya sebagai bukan spam.</string>
+  <string name="emailForSignupHelp">Jika semuanya gagal, hantarkan e-mel ini kepada kami:</string>
+  <string name="copyTextToEmail">Salin (Copy) dan tampal (Paste) teks di atas dan hantar ke %s</string>
+  <string name="waitForSignupHelp">Kami akan kembali sebentar lagi untuk membantu anda melengkapkan pendaftaran anda.</string>
+  <string name="accountConfirmed">Pengguna %s berjaya disahkan sepenuhnya.</string>
+  <string name="accountCanLogin">Anda boleh log masuk sekarang sebagai %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Anda tidak memerlukan e-mel pengesahan.</string>
+  <string name="accountClosed">Akaun %s telah ditutup.</string>
+  <string name="accountRegisteredWithoutEmail">Akaun %s telah didaftarkan tanpa e-mel.</string>
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -320,6 +345,7 @@
   <string name="siteDescription">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</string>
   <string name="xJoinedTeamY">%1$s menyertai pasukan %2$s</string>
   <string name="xCreatedTeamY">%1$s mencipta pasukan %2$s</string>
+  <string name="startedStreaming">mula streaming</string>
   <string name="xStartedStreaming">%s mula siaran langsung</string>
   <string name="averageElo">Penilaian purata</string>
   <string name="location">Lokasi</string>
@@ -328,6 +354,7 @@
   <string name="apply">Hantar</string>
   <string name="save">Simpan</string>
   <string name="leaderboard">Papan pendahulu</string>
+  <string name="screenshotCurrentPosition">Tangkapan skrin (Screenshot) kedudukan semasa</string>
   <string name="gameAsGIF">Permainan sebagai GIF</string>
   <string name="pasteTheFenStringHere">Paste teks FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste text PGN di sini</string>
@@ -336,11 +363,20 @@
   <string name="continueFromHere">Teruskan dari sini</string>
   <string name="toStudy">Belajar</string>
   <string name="importGame">Import permainan</string>
+  <string name="importGameExplanation">Tampalkan (Paste) permainan PGN untuk membolehkan anda semak imbas ulang tayang,
+analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
+  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Variasi akan dipadamkan. Untuk menyimpannya, import PGN melalui pembelajaran (Study).</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s permainan diimport</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ini adalah CAPTCHA catur.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klik pada papan permainan untuk membuat langkah anda, dan buktikan anda adalah manusia.</string>
+  <string name="captcha.fail">Tolong selesaikan captcha catur.</string>
   <string name="notACheckmate">Bukan syahmat</string>
+  <string name="whiteCheckmatesInOneMove">Putih checkmate dalam satu langkah gerakan</string>
+  <string name="blackCheckmatesInOneMove">Hitam checkmate dalam satu langkah gerakan</string>
+  <string name="retry">Cuba semula</string>
+  <string name="reconnecting">Penyambungan semula</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s rakan dalam talian</item>
   </plurals>
@@ -411,8 +447,15 @@
   <string name="boardEditor">Papan penyunting</string>
   <string name="setTheBoard">Perbaiki papan catur</string>
   <string name="popularOpenings">Pembukaan terkenal</string>
+  <string name="endgamePositions">Kedudukan Akhir Permainan</string>
+  <string name="chess960StartPosition">Kedudukan mula Chess960: %s</string>
   <string name="startPosition">Posisi permulaan</string>
+  <string name="clearBoard">Kosongkan papan</string>
+  <string name="loadPosition">Memuat naik posisi</string>
   <string name="isPrivate">Peribadi</string>
+  <string name="reportXToModerators">Laporkan %s ke moderator</string>
+  <string name="profileCompletion">Kesempurnaan profil: %s</string>
+  <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Jika tiada, biar kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Sunting profile</string>
@@ -425,6 +468,8 @@
   <string name="oneUrlPerLine">Satu URL setiap baris.</string>
   <string name="inlineNotation">Notasi dalaman</string>
   <string name="savingMoves">Penyimpanan sementara</string>
+  <string name="savingMovesHelp">Kami sentiasa menyimpan variasi anda dalam cache pelayaran internet anda.</string>
+  <string name="makeAStudy">Untuk penyimpanan dan perkongsian, pertimbangkan untuk membuat kajian pembelajaran.</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>
   <plurals name="nbGamesInPlay">

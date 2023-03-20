@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Để có được các thế cờ dành riêng cho bạn:</string>
   <string name="puzzleId">Thế cờ %s</string>
   <string name="puzzleOfTheDay">Thế cờ của ngày</string>
+  <string name="dailyPuzzle">Thế Cờ hàng ngày</string>
   <string name="clickToSolve">Click để giải</string>
   <string name="goodMove">Nước tốt</string>
   <string name="bestMove">Nước tối ưu!</string>

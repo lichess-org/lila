@@ -48,7 +48,7 @@ final class Signup(
             store.recentByPrintExists(fp) map { printFound =>
               if printFound then YesBecausePrintExists
               else if suspIp then YesBecauseIpSusp
-              else if email.domain.map(_.lower).exists(DisposableEmailDomain.whitelisted) then Nope
+              else if email.domain.exists(DisposableEmailDomain.whitelisted) then Nope
               else YesBecauseEmailDomain
             }
           }

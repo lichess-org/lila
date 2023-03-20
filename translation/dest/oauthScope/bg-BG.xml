@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken" comment="newAccessToken&#10;&#10;API stands for application programming interface. In this context, it is an API that enables third-party software to work with Lichess. The API has an access token (sort of like a 'login') for security, which is for your account only.">Нов личен API токен за достъп</string>
+  <string name="newAccessToken">Нов личен API токен за достъп</string>
   <string name="tokenGrantsPermission">Токенът разрешава на други хора да използват вашия акаунт.</string>
   <string name="carefullySelect">Внимателно изберете какво е позволено да се прави от ваша страна.</string>
   <string name="tokenDescription">Описание на токена</string>
@@ -8,17 +8,17 @@
   <string name="whatTheTokenCanDo">Какво може да прави от ваше име токенът:</string>
   <string name="doNotShareIt">Токенът ще има достъп до вашият акаунт. НЕ го споделяйте с никого!</string>
   <string name="copyTokenNow">Не забравяйте да запазите личния си токен. Няма да имате възможност да го видите отново!</string>
-  <string name="preferenceRead" comment="preferenceRead&#10;&#10;In the context of an authentication token, a setting that enables permission to view preferences.">Прочетете предпочитанията</string>
-  <string name="preferenceWrite" comment="preferenceWrite&#10;&#10;In the context of an authentication token, a setting that enables permission to edit preferences.">Напишете предпочитания</string>
+  <string name="preferenceRead">Прочетете предпочитанията</string>
+  <string name="preferenceWrite">Напишете предпочитания</string>
   <string name="emailRead">Прочети имейл адреса</string>
   <string name="challengeRead">Прочети предстоящите промени</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an access token, a setting that enables permission to send, accept and reject challenges on behalf of the user">Изпрати, приеми, откажи предизвикателства</string>
+  <string name="challengeWrite">Изпрати, приеми, откажи предизвикателства</string>
   <string name="challengeBulk">Създай много игри наведнъж за други играчи</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Чети лични проучвания и излъчвания</string>
+  <string name="studyRead">Чети лични проучвания и излъчвания</string>
   <string name="studyWrite">Създай, обнови, изтрии проучвания и излъчвания</string>
   <string name="tournamentWrite">Създай, обновни, присъедини се към турнири</string>
   <string name="racerWrite">Създай и се присъедини към пъзел състезания</string>
-  <string name="puzzleRead" comment="puzzleRead&#10;&#10;In the context of an access token, a setting that enables the permission to view the user's puzzle solving history">Виж пъзел активност</string>
+  <string name="puzzleRead">Виж пъзел активност</string>
   <string name="teamRead">Прочети личната информация на отбора</string>
   <string name="teamWrite">Присъедини се и напусни отбори</string>
   <string name="teamLead">Управление на клубовете които ръководите: изпращане на лични съобщения, изключване на членове</string>

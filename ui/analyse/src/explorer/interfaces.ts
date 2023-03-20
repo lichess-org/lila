@@ -33,6 +33,7 @@ export interface OpeningData extends ExplorerData {
   topGames?: OpeningGame[];
   recentGames?: OpeningGame[];
   opening?: Opening;
+  queuePosition?: number;
 }
 
 export interface Opening {

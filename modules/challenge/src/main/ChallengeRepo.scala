@@ -134,14 +134,10 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   def statusById(id: Challenge.ID) = coll.primitiveOne[Status]($id(id), "status")
 
-  private def setStatus(
-      challenge: Challenge,
-      status: Status,
-      expiresAt: Option[DateTime => DateTime]
-  ) =
+  private def setStatus(challenge: Challenge, status: Status, expiresAt: Option[DateTime => DateTime]) =
     coll.update
       .one(
-        selectCreated ++ $id(challenge.id),
+        selectCreatedOrOffline ++ $id(challenge.id),
         $doc(
           "$set" -> $doc(
             "status"    -> status.id,
@@ -153,4 +149,5 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   private[challenge] def remove(id: Challenge.ID) = coll.delete.one($id(id)).void
 
-  private val selectCreated = $doc("status" -> Status.Created.id)
+  private val selectCreated          = $doc("status" -> Status.Created)
+  private val selectCreatedOrOffline = $doc("status" $in List(Status.Created, Status.Offline))

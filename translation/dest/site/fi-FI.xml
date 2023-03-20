@@ -209,10 +209,10 @@
   <string name="forgotPassword">Unohditko salasanasi?</string>
   <string name="error.weakPassword">Tämä salasana on erittäin yleinen ja liian helppo arvata.</string>
   <string name="error.namePassword">Älä laita salasanaksesi käyttäjänimeäsi.</string>
-  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Olet käyttänyt samaa salasanaa toisella sivustolla, ja kyseinen sivusto on vaarantunut. Sinun on asetettava uusi salasana Lichess-tunnuksesi turvallisuuden varmistamiseksi. Kiitokset ymmärtäväisyydestäsi.</string>
+  <string name="blankedPassword">Olet käyttänyt samaa salasanaa toisella sivustolla, ja kyseinen sivusto on vaarantunut. Sinun on asetettava uusi salasana Lichess-tunnuksesi turvallisuuden varmistamiseksi. Kiitokset ymmärtäväisyydestäsi.</string>
   <string name="youAreLeavingLichess">Olet poistumassa Lichessistä</string>
   <string name="neverTypeYourPassword">Älä koskaan kirjoita Lichess-salasanaasi toiselle sivustolle!</string>
-  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Siirry %s</string>
+  <string name="proceedToX">Siirry %s</string>
   <string name="passwordSuggestion">Älä ota käyttöön jonkun toisen ehdottamaa salasanaa. Hän voi varastaa sen avulla käyttäjätunnuksesi.</string>
   <string name="emailSuggestion">Älä ota käyttöön jonkun toisen ehdottamaa sähköpostiosoitetta. Hän voi varastaa sen avulla käyttäjätunnuksesi.</string>
   <string name="emailConfirmHelp">Apua sähköpostin vahvistamiseen</string>
@@ -390,6 +390,7 @@
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
   <string name="importGameExplanation">Liitä pelin PGN, niin voit selata peliä ja saat sille tietokoneanalyysin, keskusteluhuoneen sekä URL:n, jonka voit jakaa.</string>
+  <string name="importGameCaveat">Muunnelmat poistetaan. Jos haluat säilyttää ne, tuo PGN ensin tutkielmaan.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>

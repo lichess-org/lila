@@ -230,16 +230,20 @@ case class PayPalCapture(
     id: PayPalTransactionId,
     amount: PayPalAmount,
     custom_id: String,
-    status: String
+    status: String,
+    billing_agreement_id: Option[PayPalSubscriptionId]
 ):
-  def isCompleted   = status == "COMPLETED"
-  def capturedMoney = isCompleted option amount.money
+  def isCompleted    = status == "COMPLETED"
+  def capturedMoney  = isCompleted option amount.money
+  def userId         = UserId(custom_id)
+  def subscriptionId = billing_agreement_id
 case class PayPalSaleAmount(total: BigDecimal, currency: Currency):
   def amount = PayPalAmount(total, currency)
 case class PayPalSale(
     id: PayPalTransactionId,
     amount: PayPalSaleAmount,
     custom: String,
-    state: String
+    state: String,
+    billing_agreement_id: Option[PayPalSubscriptionId]
 ):
-  def toCapture = PayPalCapture(id, amount.amount, custom_id = custom, status = state)
+  def toCapture = PayPalCapture(id, amount.amount, custom_id = custom, status = state, billing_agreement_id)

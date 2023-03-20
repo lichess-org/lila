@@ -66,12 +66,12 @@ final class ChallengeApi(
       Bus.publish(Event.Cancel(c.cancel), "challenge")
     }
 
-  private def offline(c: Challenge) = (repo offline c) >>- uncacheAndNotify(c)
+  private def offline(c: Challenge) = repo.offline(c) >>- uncacheAndNotify(c)
 
   private[challenge] def ping(id: Challenge.ID): Funit =
     repo statusById id flatMap {
       case Some(Status.Created) => repo setSeen id
-      case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
+      case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _ foreach uncacheAndNotify }
       case _                    => fuccess(socketReload(id))
     }
 

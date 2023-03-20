@@ -17,6 +17,6 @@
   <string name="includingAXToIndicateACapture">Incluye una \"x\" para indicar que una captura es opcional</string>
   <string name="bothTheLetterOAndTheDigitZero">Pueden usarse tanto la letra \"o\" como el dígito cero \"0\" al enrocar</string>
   <string name="ifItIsLegalToCastleBothWays">Si es legal enrocar en ambos sentidos, utiliza enter para enrocar corto</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">La capitalización sólo importa en situaciones ambiguas que impliquen un alfil y el peón b</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">El uso de mayúsculas solo importa en situaciones ambiguas que impliquen un alfil y el peón b</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">Para realizar movimientos condicionales, simplemente escríbelo antes de que sea tu turno</string>
 </resources>

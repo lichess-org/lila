@@ -40,7 +40,6 @@ export const voiceCtrl = new (class implements VoiceCtrl {
   }
 
   stop() {
-    console.trace('stop');
     this.download?.abort();
     this.mediaStream?.getAudioTracks().forEach(track => (track.enabled = false));
     if (!this.download) this.broadcast('', 'stop');
@@ -50,7 +49,6 @@ export const voiceCtrl = new (class implements VoiceCtrl {
   async start(): Promise<void> {
     let [msgText, msgType] = ['Unknown', 'error' as MsgType];
     try {
-      console.trace('start');
       if (this.isRecording) return;
       this.busy = true;
       await this.initModel();

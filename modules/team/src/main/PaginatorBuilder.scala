@@ -84,7 +84,7 @@ final private[team] class PaginatorBuilder(
 
   def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
     Paginator(
-      adapter = new DeclinedRequestAdapter(team),
+      adapter = DeclinedRequestAdapter(team),
       page,
       maxRequestsPerPage
     )

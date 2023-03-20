@@ -230,9 +230,13 @@ final private class SwissFields(form: Form[?], swiss: Option[Swiss])(implicit ct
         br,
         "PlayerC PlayerD",
         br,
-        "Missing players will be given a bye, which is worth 1 point.",
+        "To give a bye (1 point) to a player instead of a pairing, add a line like so:",
         br,
-        "Leave empty to let lichess create pairings automatically."
+        "PlayerE 1",
+        br,
+        "Missing players will be considered absent and get zero points.",
+        br,
+        "Leave this field empty to let lichess create pairings automatically."
       ).some,
       half = true
     )(form3.textarea(_)(rows := 4))

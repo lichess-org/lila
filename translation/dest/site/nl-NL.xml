@@ -209,10 +209,10 @@
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="error.weakPassword">Dit wachtwoord komt heel vaak voor en is te gemakkelijk te raden.</string>
   <string name="error.namePassword">Gebruik uw gebruikersnaam niet als wachtwoord.</string>
-  <string name="blankedPassword" comment="blankedPassword&#10;&#10;Shown on login when the user is blocked from logging in due to having a known compromised password.">Je hebt hetzelfde wachtwoord gebruikt op een andere site en die site heeft een datalek gehad. Om de veiligheid van je Lichess-account te garanderen, dien je een nieuw wachtwoord in te stellen. Bedankt voor je begrip.</string>
+  <string name="blankedPassword">Je hebt hetzelfde wachtwoord gebruikt op een andere site en die site heeft een datalek gehad. Om de veiligheid van je Lichess-account te garanderen, dien je een nieuw wachtwoord in te stellen. Bedankt voor je begrip.</string>
   <string name="youAreLeavingLichess">Je verlaat Lichess</string>
   <string name="neverTypeYourPassword">Voer je Lichess-wachtwoord nooit in op een andere website!</string>
-  <string name="proceedToX" comment="proceedToX&#10;&#10;When a user clicks a link to an external page, a warning will show up to notify the user that they are leaving Lichess. This is the text on the button to confirm you want to go to the external site. The %s placeholder will be replaced with the domain of the site e.g. &quot;Proceed to google.com&quot;.">Ga naar %s</string>
+  <string name="proceedToX">Ga naar %s</string>
   <string name="passwordSuggestion">Stel geen wachtwoord in dat iemand anders voorstelt. Ze kunnen het gebruiken om je account te stelen.</string>
   <string name="emailSuggestion">Stel geen e-mailadres in dat iemand anders voorstelt. Ze kunnen het gebruiken om je account te stelen.</string>
   <string name="emailConfirmHelp">Hulp met e-mailbevestiging</string>
@@ -390,6 +390,7 @@
   <string name="toStudy">Studie</string>
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Als je een PGN in het venster plakt, krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
+  <string name="importGameCaveat">Variaties worden gewist. Om ze te behouden, importeer de PGN via een studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>

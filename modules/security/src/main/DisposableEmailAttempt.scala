@@ -39,7 +39,7 @@ final class DisposableEmailAttempt(
     val attempts = ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)
     if (
       attempts.sizeIs > 3 || (
-        attempts.nonEmpty && email.domain.exists(d => !DisposableEmailDomain.whitelisted(d.lower))
+        attempts.nonEmpty && email.domain.exists(d => !DisposableEmailDomain.whitelisted(d))
       )
     ) irc.signupAfterTryingDisposableEmail(user, email, attempts.map(_.email))
 

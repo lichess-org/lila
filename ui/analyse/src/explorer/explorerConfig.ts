@@ -13,7 +13,7 @@ import { Redraw } from '../interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
-const allRatings = [600, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500];
+const allRatings = [400, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500];
 const minYear = 1952;
 
 type Month = string;

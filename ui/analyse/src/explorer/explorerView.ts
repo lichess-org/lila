@@ -248,9 +248,11 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
     openingTitle(ctrl, data),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
-      ctrl.explorer.config.fullHouse()
-        ? null
-        : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
+      data?.queuePosition
+        ? h('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
+        : !ctrl.explorer.config.fullHouse()
+        ? h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu'))
+        : null,
     ]),
   ]);
 
@@ -377,6 +379,8 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
   const playerName = explorer.config.data.playerName.value();
   const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2022-10'),
     lichessDbExplanation = explorer.root.trans('lichessDbExplanation');
+  const data = explorer.current();
+  const queuePosition = data && isOpening(data) && data.queuePosition;
   return h('div.explorer-title', [
     db == 'masters'
       ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
@@ -393,7 +397,11 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
               h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
               ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
               explorer.isIndexing() && !explorer.config.data.open()
-                ? h('i.ddloader', { attrs: { title: 'Indexing...' } })
+                ? h('i.ddloader', {
+                    attrs: {
+                      title: queuePosition ? `Indexing ${queuePosition} other players first ...` : 'Indexing ...',
+                    },
+                  })
                 : undefined,
             ],
             explorer.root.trans('switchSides')

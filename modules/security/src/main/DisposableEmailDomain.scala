@@ -35,8 +35,7 @@ final class DisposableEmailDomain(
   private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
 
   def apply(domain: Domain): Boolean =
-    val lower = domain.lower
-    !DisposableEmailDomain.whitelisted(lower) && regex.find(lower.value)
+    !DisposableEmailDomain.whitelisted(domain) && regex.find(domain.lower.value)
 
   def isOk(domain: Domain) = !apply(domain) && !mxRecordPasslist(domain)
 
@@ -45,7 +44,7 @@ final class DisposableEmailDomain(
 
 private object DisposableEmailDomain:
 
-  def whitelisted(domain: Domain.Lower) = whitelist contains domain.value
+  def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.|(domain).lower)
 
   private val mxRecordPasslist = Set(Domain("simplelogin.co"), Domain("simplelogin.com"))
 
@@ -60,7 +59,7 @@ private object DisposableEmailDomain:
     "hotamil.com"
   )
 
-  private val whitelist = Set(
+  private val whitelist = Domain.Lower from Set(
     "fide.com", // https://check-mail.org/domain/fide.com/ says DISPOSABLE / TEMPORARY DOMAIN
     /* Default domains included */
     "aol.com",

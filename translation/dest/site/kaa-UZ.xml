@@ -82,7 +82,11 @@
   <string name="noGameFound">Oyın tabılmadı</string>
   <string name="openings">Debyutlar</string>
   <string name="openingExplorer">Debyutlar bazası</string>
+  <string name="allSet">Barlıǵı ornatıldı!</string>
+  <string name="importPgn">PGNdi import qılıw</string>
   <string name="delete">Óshiriw</string>
+  <string name="deleteThisImportedGame">Import qılınǵan oyındı óshiresiz be?</string>
+  <string name="replayMode">Qayta oynaw rejimi</string>
   <string name="enable">Iske túsiriw</string>
   <string name="memory">Yad</string>
   <string name="blunder">Qopal qáte</string>
@@ -337,6 +341,17 @@
   <string name="download">Júklep alıw</string>
   <string name="welcome">Xosh keldińiz!</string>
   <string name="noRestriction">Sheklewsiz</string>
+  <string name="simulHostcolor">Bas oyınshınıń hár bir oyın ushın taslar reńi</string>
+  <string name="estimatedStart">Boljawlı baslanıw waqtı</string>
+  <string name="simulFeatured">%s da kórsetiw</string>
+  <string name="simulFeaturedHelp">Kópshilikke qarsı oyınlardı %sda hámmege kórsetiw. Jeke oyınlardı óshiriw.</string>
+  <string name="simulDescription">Kópshilikke qarsı oyın táriypi</string>
+  <string name="simulDescriptionHelp">Qatnasıwshılarǵa bir nárse aytıwdı qáleysiz be?</string>
+  <string name="inYourLocalTimezone">Ózińizdiń jergilikli waqtıńızda</string>
+  <string name="tournChat">Turnir sáwbeti</string>
+  <string name="noChat">Sáwbet joq</string>
+  <string name="onlyTeamLeaders">Tek topar jetekshileri</string>
+  <string name="onlyTeamMembers">Tek topar aǵzaları</string>
   <string name="since">Baslap</string>
   <string name="until">Deyin</string>
 </resources>
