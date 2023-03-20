@@ -21,7 +21,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
-  <string name="whiteIsVictorious">Les blanques han guanyat</string>
+  <string name="whiteIsVictorious">Guanyen les blanques</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
   <string name="youPlayTheBlackPieces">Jugues les negres</string>
@@ -390,7 +390,7 @@
   <string name="toStudy">Estudi</string>
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Al enganxar el PGN d\'una partida, s\'obté una repetició navegable, una anàlisi per ordinador, un xat de joc i una URL per compartir.</string>
-  <string name="importGameCaveat">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
+  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>

@@ -57,4 +57,8 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="allowChatHelp">Nechat hráče diskutovat v chatu</string>
   <string name="arenaStreaks">Série v aréně</string>
   <string name="arenaStreaksHelp">Po dvou výhrách, další po sobě jdoucí výhry udělují 4 body místo 2.</string>
+  <string name="noBerserkAllowed">Berserk mód není povolen</string>
+  <string name="noArenaStreaks">Žádné arénové série</string>
+  <string name="averagePerformance">Průměrný výkon</string>
+  <string name="averageScore">Průměrné skóre</string>
 </resources>
