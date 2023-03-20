@@ -4,7 +4,6 @@ import { MaybeVNodes } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../view/moveView';
-import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { ConcealOf, Conceal } from '../interfaces';
 import {
@@ -13,12 +12,11 @@ import {
   nodeClasses,
   findCurrentPath,
   renderInlineCommentsOf,
-  truncateComment,
   retroLine,
   Ctx as BaseCtx,
   Opts as BaseOpts,
+  renderComment,
 } from './common';
-import { enrichText, innerHTML } from 'common/richText';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -48,7 +46,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   if (conceal === 'hide') return;
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
-      commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
+      commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(nonEmpty);
     if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
         renderMoveAndChildrenOf(ctx, main, {
@@ -178,7 +176,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
       ),
     ];
   return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
-    .concat(renderInlineCommentsOf(ctx, node))
+    .concat(renderInlineCommentsOf(ctx, node, path))
     .concat(opts.inline ? renderInline(ctx, opts.inline, opts) : null)
     .concat(
       renderChildrenOf(ctx, node, {
@@ -203,23 +201,24 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   );
 }
 
-function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
+function renderMainlineCommentsOf(
+  ctx: Ctx,
+  node: Tree.Node,
+  conceal: Conceal,
+  withColor: boolean,
+  path: string
+): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 
   const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
 
   return node.comments!.map(comment => {
-    if (comment.by === 'lichess' && !ctx.showComputer) return;
     let sel = 'comment' + colorClass;
     if (comment.text.startsWith('Inaccuracy.')) sel += '.inaccuracy';
     else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
     else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
-    const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
-      truncated = truncateComment(comment.text, 400, ctx);
-    return h(sel, {
-      hook: innerHTML(truncated, text => by + enrichText(text)),
-    });
+    return renderComment(comment, node.comments!, sel, ctx, path, 400);
   });
 }
 
@@ -240,7 +239,8 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
   };
-  const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
+  //I hardcoded the root path, I'm not sure if there's a better way for that to be done
+  const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');
   return h(
     'div.tview2.tview2-column',
     {

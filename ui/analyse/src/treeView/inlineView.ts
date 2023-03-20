@@ -27,7 +27,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
                 isMainline: true,
                 withIndex: opts.withIndex,
               }),
-              ...renderInlineCommentsOf(ctx, main),
+              ...renderInlineCommentsOf(ctx, main, opts.parentPath),
             ]),
         h(
           'interrupt',
@@ -84,7 +84,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
 
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
   const path = opts.parentPath + node.id,
-    comments = renderInlineCommentsOf(ctx, node);
+    comments = renderInlineCommentsOf(ctx, node, path);
   if (opts.truncate === 0) return [h('move', { attrs: { p: path } }, '[...]')];
   return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
     .concat(comments)
@@ -144,7 +144,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
       hook: mainHook(ctrl),
     },
     [
-      ...renderInlineCommentsOf(ctx, ctrl.tree.root),
+      ...renderInlineCommentsOf(ctx, ctrl.tree.root, ''),
       ...(renderChildrenOf(ctx, ctrl.tree.root, {
         parentPath: '',
         isMainline: true,
