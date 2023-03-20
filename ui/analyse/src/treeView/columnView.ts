@@ -4,7 +4,6 @@ import { MaybeVNodes } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../view/moveView';
-import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { ConcealOf, Conceal } from '../interfaces';
 import {
@@ -13,13 +12,11 @@ import {
   nodeClasses,
   findCurrentPath,
   renderInlineCommentsOf,
-  truncateComment,
-  truncatedComment,
   retroLine,
   Ctx as BaseCtx,
   Opts as BaseOpts,
+  renderComment,
 } from './common';
-import { enrichText, innerHTML } from 'common/richText';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -216,33 +213,12 @@ function renderMainlineCommentsOf(
   const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
 
   return node.comments!.map(comment => {
-    if (comment.by === 'lichess' && !ctx.showComputer) return;
     let sel = 'comment' + colorClass;
     if (comment.text.startsWith('Inaccuracy.')) sel += '.inaccuracy';
     else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
     else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
-    const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
-      truncated = truncateComment(comment.text, 400, ctx);
-
-    // Adding a truncation selector if the comment got truncated
-    if (truncated.length < comment.text.length) {
-      return h(
-        sel + '.truncated',
-        {
-          hook: truncatedComment(path, ctx),
-        },
-        [
-          h('span', {
-            hook: innerHTML(truncated, text => by + enrichText(text)),
-          }),
-        ]
-      );
-    } else {
-      return h(sel, {
-        hook: innerHTML(truncated, text => by + enrichText(text)),
-      });
-    }
+    return renderComment(comment, node.comments!, sel, ctx, path, 400);
   });
 }
 
