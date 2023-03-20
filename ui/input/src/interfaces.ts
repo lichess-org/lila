@@ -81,7 +81,7 @@ export type MsgType = 'phrase' | 'partial' | 'status' | 'error' | 'stop' | 'star
 export type VoiceListener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
 
 export interface VoiceCtrl {
-  // keep rounds / puzzle / move stuff out of this
+  // keep rounds, puzzle, move stuff out of this
   setVocabulary: (vocabulary: string[]) => Promise<void>;
   start: () => Promise<void>; // initialize if necessary and begin recording
   stop: () => void; // stop recording/downloading/whatever
@@ -93,8 +93,7 @@ export interface VoiceCtrl {
 
 export interface VoiceMoveCtrl {
   registerMoveCtrl(ctrl: MoveCtrl): void;
-  //natoFiles(enabled?: boolean): boolean;
-  getAllAvailable(): [string, string][];
+  available(): [string, string][];
   arrogance(conf?: number): number;
   arrowColors(enabled?: boolean): boolean;
   //arrowNumbers(enabled?: boolean): boolean;

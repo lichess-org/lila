@@ -23,7 +23,7 @@
   { "in": "queen", "tok": "Q", "tags": [ "role", "move" ] },
   { "in": "king", "tok": "K", "tags": [ "role", "move" ] },
 
-  { "in": "castle", "val": "O-O", "tags": [ "move", "exact" ] },
+  { "in": "castle", "val": "castle", "tags": [ "move", "exact" ] },
   { "in": "short castle", "val": "O-O", "tags": [ "move", "exact" ] },
   { "in": "king side castle", "val": "O-O", "tags": [ "move", "exact" ] },
   { "in": "castle king side", "val": "O-O", "tags": [ "move", "exact" ] },
@@ -48,8 +48,6 @@
   { "in": "clock", "val": "clock", "tags": [ "command", "rounds", "exact" ] },
   { "in": "opponent", "val": "who", "tags": [ "command", "rounds", "exact" ] },
   { "in": "next", "val": "next", "tags": [ "command", "puzzle", "exact" ] },
-  { "in": "up", "val": "upv", "tags": [ "command", "puzzle", "exact" ] },
-  { "in": "down", "val": "downv", "tags": [ "command", "puzzle", "exact" ] },
   { "in": "help", "val": "?", "tags": [ "command", "exact" ] },
   { "in": "stop", "val": "stop", "tags": [ "command", "exact" ] },
 
