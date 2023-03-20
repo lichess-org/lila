@@ -40,7 +40,6 @@ export const voiceCtrl = new (class implements VoiceCtrl {
   }
 
   stop() {
-    console.trace('stop');
     this.download?.abort();
     this.mediaStream?.getAudioTracks().forEach(track => (track.enabled = false));
     if (!this.download) this.broadcast('', 'stop');
@@ -50,7 +49,6 @@ export const voiceCtrl = new (class implements VoiceCtrl {
   async start(): Promise<void> {
     let [msgText, msgType] = ['Unknown', 'error' as MsgType];
     try {
-      console.trace('start');
       if (this.isRecording) return;
       this.busy = true;
       await this.initModel();
@@ -140,7 +138,12 @@ export const voiceCtrl = new (class implements VoiceCtrl {
       this.download.onerror = _ => reject('Failed. See console');
       this.download.onabort = _ => reject('Aborted');
       this.download.onprogress = (e: ProgressEvent) =>
-        this.broadcast(`Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 1000000)}MB`);
+        this.broadcast(
+          e.total <= 0
+            ? 'Downloading...'
+            : `Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 1000000)}MB`
+        );
+
       this.download.onload = _ => {
         this.broadcast('Extracting...');
         resolve(this.download?.response);

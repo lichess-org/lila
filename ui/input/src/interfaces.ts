@@ -36,7 +36,7 @@ export interface MoveCtrl {
   vote(v: boolean): void;
   takeback(): void;
   resign(v: boolean, immediately?: boolean): void;
-  rematch(): void;
+  rematch(accept?: boolean): boolean;
   modalOpen: Prop<boolean>;
   voice: VoiceCtrl; // convenience
   root: RootCtrl;
@@ -65,7 +65,7 @@ export interface RootCtrl {
   offerDraw?: (v: boolean, immediately?: boolean) => void;
   takebackYes?: () => void;
   resign?: (v: boolean, immediately?: boolean) => void;
-  challengeRematch?: () => void;
+  rematch?: (accept?: boolean) => boolean;
   sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   submitMove?: (v: boolean) => void;
@@ -81,7 +81,7 @@ export type MsgType = 'phrase' | 'partial' | 'status' | 'error' | 'stop' | 'star
 export type VoiceListener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
 
 export interface VoiceCtrl {
-  // keep rounds / puzzle / move stuff out of this
+  // keep rounds, puzzle, move stuff out of this
   setVocabulary: (vocabulary: string[]) => Promise<void>;
   start: () => Promise<void>; // initialize if necessary and begin recording
   stop: () => void; // stop recording/downloading/whatever
@@ -93,8 +93,7 @@ export interface VoiceCtrl {
 
 export interface VoiceMoveCtrl {
   registerMoveCtrl(ctrl: MoveCtrl): void;
-  //natoFiles(enabled?: boolean): boolean;
-  getAllAvailable(): [string, string][];
+  available(): [string, string][];
   arrogance(conf?: number): number;
   arrowColors(enabled?: boolean): boolean;
   //arrowNumbers(enabled?: boolean): boolean;

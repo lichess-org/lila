@@ -90,7 +90,7 @@ class VoiceMoveControl implements VoiceMoveCtrl {
   xvalsToMoves: Map<string, Uci | Set<Uci>>; // map valid xvals to all full legal moves
   xvalsToSquares: Map<string, Uci | Set<Uci>>; // map of xvals to selectable or reachable square(s)
   ambiguity?: Map<string, Uci>; // map from choice (blue, red, 1, 2, etc) to uci
-  debug = { emptyMatches: false, buildMoves: false, buildPartials: true };
+  debug = { emptyMatches: false, buildMoves: false, buildPartials: false };
 
   constructor() {
     for (const e of lexicon) {
@@ -123,38 +123,27 @@ class VoiceMoveControl implements VoiceMoveCtrl {
 
   // listen is called by the voiceCtrl when a phrase is heard
   listen(msgText: string, msgType: MsgType, words?: WordResult) {
-    if (msgType === 'phrase' && msgText.length > 1 && words) {
+    if (msgType === 'stop') this.clearMoveProgress(); // 'stop' msg from vosk is not a voice phrase
+    else if (msgType === 'phrase' && msgText.length > 1 && words) {
       this.nArrogance = this.arrogance(); // cache it
-      if (this.debug) this.verboseNew('listen', `'${msgText}'`, words.map(x => `${x.word} (${x.conf})`).join(', '));
+      if (this.debug)
+        console.groupCollapsed('listen', `'${msgText}'`, words.map(x => `${x.word} (${x.conf})`).join(', '));
 
+      // return true on success from a handle<x> method to short-cicuit the chain
       this.handleCommand(msgText) || this.handleAmbiguity(msgText, words) || this.handleMove(msgText, words);
-    } else if (msgType === 'stop') {
-      this.clearMoveProgress();
+
+      if (this.debug) console.groupEnd();
     }
     this.ctrl.root.redraw();
   }
 
-  getAllAvailable(): [string, string][] {
-    const res: [string, string][] = [];
-    for (const [xval, uci] of this.xvalsToMoves) {
-      const toVal = typeof uci === 'string' ? uci : '...';
-      res.push(...(this.valsPhrase(xval).map(p => [p, toVal]) as [string, string][]));
-    }
-    for (const [xval, uci] of this.xvalsToSquares) {
-      const toVal = typeof uci === 'string' ? uci : '...';
-      res.push(...(this.valsPhrase(xval).map(p => [p, toVal]) as [string, string][]));
-    }
-    for (const e of this.byTags(['command', 'choice'])) {
-      res.push(...(this.valsPhrase(e.val!).map(p => [p, e.val!]) as [string, string][]));
-    }
-    return [...new Map(res)]; // vals expansion can create duplicates
-  }
-  // the next 3 handle methods return true if they handled the input, short-cicuiting the chain
+  // return true on success from a handle<x> method to short-cicuit the chain
   handleCommand(msgText: string): boolean {
     const exactMatch = this.byWord.get(msgText);
     if (exactMatch?.val === 'no') {
       if (this.ctrl.modalOpen()) this.ctrl.modalOpen(false);
-      else this.clearMoveProgress();
+      else if (this.ctrl.rematch()) this.ctrl.rematch(false);
+      this.clearMoveProgress();
       return true;
     }
     const matchedVal = this.matchOneTags(msgText, ['command']);
@@ -163,12 +152,15 @@ class VoiceMoveControl implements VoiceMoveCtrl {
       this.ctrl.voice?.stop();
       this.clearMoveProgress();
       return true;
+    } else if (matchedVal[0] === 'rematch') {
+      this.ctrl.rematch(true);
+      return true;
     }
     return nonMoveCommand(matchedVal[0], this.ctrl);
   }
 
   handleAmbiguity(phrase: string, words: WordResult): boolean {
-    if (!this.ambiguity) return false;
+    if (!this.ambiguity || words.length > 2) return false; // might want > 1 here
     const doColors = this.arrowColors();
     const conf = words.reduce((acc, w) => acc + w.conf, 0) / words.length;
     const moves: [string, [Uci]][] = [];
@@ -178,14 +170,14 @@ class VoiceMoveControl implements VoiceMoveCtrl {
     });
     const chosen = this.matchOne(phrase, moves); // partite match
     if (!chosen || (chosen[1] >= conf && this.nArrogance < 2)) {
-      this.ambiguity = undefined;
-      if (this.debug) this.verbose('handleAmbiguity', `no match for '${phrase}' conf=${conf} among`, new Map(moves));
+      this.clearMoveProgress();
+      if (this.debug) console.log('handleAmbiguity', `no match for '${phrase}' conf=${conf} among`, new Map(moves));
       return false;
     }
     if (this.debug)
-      this.verbose(
+      console.log(
         'handleAmbiguity',
-        `matched '${phrase}' conf=${conf} to '${chosen[0]}' cost=${chosen[1]} among`,
+        `matched '${phrase}' conf=${conf} to '${chosen[0]}' at cost=${chosen[1]} among`,
         new Map(moves)
       );
     this.submit(chosen[0]);
@@ -219,7 +211,7 @@ class VoiceMoveControl implements VoiceMoveCtrl {
       (this.nArrogance === 1 && closeEnough === 1 && exactMatches === 0) ||
       (this.nArrogance === 2 && closeEnough > 0 && exactMatches === 0)
     ) {
-      this.verbose('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]} conf=${conf}`);
+      if (this.debug) console.log('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]} conf=${conf}`);
       this.submit(m[0][0]); // only one match or only one match with 0 cost..  or cowboy mode
       return true;
     } else if (m.length > 0) {
@@ -240,13 +232,17 @@ class VoiceMoveControl implements VoiceMoveCtrl {
         for (const uci of ucis) pushMap(xtoksToOutSet, xtoks, uci);
       }
     }
-    const matches = spreadMap(xtoksToOutSet)
-      .map(([xtoks, ucis]) => [...ucis].map(u => [u, this.costToMatch(htoks, xtoks, partite)]) as [Uci, number][])
-      .flat()
-      .filter(([, cost]) => cost < this.MAX_COST)
-      .sort(([, lhsCost], [, rhsCost]) => lhsCost - rhsCost);
-    if (matches.length > 0 || this.debug?.emptyMatches)
-      this.verbose('matchMany', `from '${phrase}' and`, xtoksToOutSet, '\nto', new Map(matches));
+    const matchMap = new Map<string, number>();
+    for (const [xtoks, ucis] of spreadMap(xtoksToOutSet)) {
+      const cost = this.costToMatch(htoks, xtoks, partite);
+      if (cost < this.MAX_COST)
+        ucis.forEach(uci => {
+          if (!matchMap.has(uci) || matchMap.get(uci)! > cost) matchMap.set(uci, cost);
+        });
+    }
+    const matches = [...matchMap].sort(([, lhsCost], [, rhsCost]) => lhsCost - rhsCost);
+    if ((this.debug && matches.length > 0) || this.debug?.emptyMatches)
+      console.log('matchMany', `from '${phrase}' and`, xtoksToOutSet, '\nto', new Map(matches));
     return matches;
   }
 
@@ -262,7 +258,10 @@ class VoiceMoveControl implements VoiceMoveCtrl {
   }
 
   costToMatch(h: string, x: string, partite: boolean) {
-    if (h === x) return 0;
+    if (h === x) {
+      console.log('hello mr bbill');
+      return 0;
+    }
     const xforms = findTransforms(h, x)
       .map(t => t.reduce((acc, t) => acc + this.subCost(t, partite), 0))
       .sort((lhs, rhs) => lhs - rhs);
@@ -288,8 +287,7 @@ class VoiceMoveControl implements VoiceMoveCtrl {
     choices = choices
       .filter(([uci, _], keepIfFirst) => choices.findIndex(first => first[0] === uci) === keepIfFirst)
       .slice(0, this.brushes.length);
-
-    // arrange [choices, colors] by ascending numeric label ordered by x then y
+    // arrange [colors, uci] by ascending numeric label ordered by x then y
     this.ambiguity = new Map(
       choices.length === 1
         ? [['yes', choices[0][0]]]
@@ -297,14 +295,13 @@ class VoiceMoveControl implements VoiceMoveCtrl {
             .sort((lhs, rhs) => this.compareLabel(lhs[0], rhs[0]))
             .map(([uci], i) => [this.brushes[i][0], uci] as [string, Uci])
     );
-    if (this.debug) this.verbose('ambiguate', this.ambiguity);
+    if (this.debug) console.log('ambiguate', this.ambiguity);
     this.drawArrows();
   }
 
   compareLabel(lhs: Uci, rhs: Uci) {
     const asWhite = this.cg.state.orientation === 'white';
     const labelPos = (uci: string) => {
-      // user units 100x100 per square
       const destOffset = this.destOffset(uci);
       const fileNum = asWhite ? uci.charCodeAt(0) - 97 : 104 - uci.charCodeAt(0);
       const rankNum = asWhite ? 56 - uci.charCodeAt(1) : uci.charCodeAt(1) - 49;
@@ -381,8 +378,10 @@ class VoiceMoveControl implements VoiceMoveCtrl {
         srole = this.board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
 
       if (srole == 'K') {
-        if (this.isOurs(dp)) xvalsToMoves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
-        else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
+        if (this.isOurs(dp)) {
+          pushMap(xvalsToMoves, 'castle', uci);
+          xvalsToMoves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
+        } else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
       }
 
       pushMap(xvalsToMoves, [...uci].join(','), uci);
@@ -428,7 +427,7 @@ class VoiceMoveControl implements VoiceMoveCtrl {
       // since all toks === vals in xtokset, just comma separate to map to val space
       [...xtokset].map(x => pushMap(xvalsToMoves, [...x].join(','), uci));
     }
-    if (this.debug?.buildMoves) this.verbose('buildMoves', xvalsToMoves);
+    if (this.debug?.buildMoves) console.log('buildMoves', xvalsToMoves);
     return xvalsToMoves;
   }
 
@@ -457,7 +456,7 @@ class VoiceMoveControl implements VoiceMoveCtrl {
       if (moves.length > this.brushes.length) moves.forEach(x => remove(partials, xouts, x));
       else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(partials, xouts, x));
     }
-    if (this.debug?.buildPartials) this.verbose('buildPartials', partials);
+    if (this.debug?.buildPartials) console.log('buildPartials', partials);
     return partials;
   }
 
@@ -471,14 +470,10 @@ class VoiceMoveControl implements VoiceMoveCtrl {
 
   clearMoveProgress() {
     const mustRedraw = this.moveInProgress;
-    this.clearAmbiguity();
-    this.selection = undefined;
-    if (mustRedraw) this.cg.redrawAll();
-  }
-
-  clearAmbiguity() {
     this.ambiguity = undefined;
     this.cg.setShapes([]);
+    this.selection = undefined;
+    if (mustRedraw) this.cg.redrawAll();
   }
 
   get selection(): Key | undefined {
@@ -572,18 +567,16 @@ class VoiceMoveControl implements VoiceMoveCtrl {
     return getSpread(this.byVal, val).map(e => e.in);
   }
 
-  verboseNew(...args: any[]) {
-    if (!this.debug) return;
-    console.groupEnd();
-    if (!args?.length) return;
-    else if (args.length === 1) console.log(args);
-    else console.groupCollapsed(`\x1b[32m${args[0]}\x1b[0m:`, ...args.slice(1));
-  }
-
-  verbose(...args: any[]) {
-    if (!this.debug || !args?.length) return;
-    else if (args.length === 1) console.log(args);
-    else console.log(`\x1b[32m${args[0]}\x1b[0m:`, ...args.slice(1));
+  available(): [string, string][] {
+    const res: [string, string][] = [];
+    for (const [xval, uci] of [...this.xvalsToMoves, ...this.xvalsToSquares]) {
+      const toVal = typeof uci === 'string' ? uci : '[...]';
+      res.push(...(this.valsPhrase(xval).map(p => [p, toVal]) as [string, string][]));
+    }
+    for (const e of this.byTags(['command', 'choice'])) {
+      res.push(...(this.valsPhrase(e.val!).map(p => [p, e.val!]) as [string, string][]));
+    }
+    return [...new Map(res)]; // vals expansion can create duplicates
   }
 }
 

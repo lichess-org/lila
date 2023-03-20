@@ -12,39 +12,31 @@ export const lexicon: Entry[] = [
     subs: [
       {
         to: '',
-        cost: 0.3149425287356322,
+        cost: 0.3724137931034483,
       },
       {
         to: 'e',
-        cost: 0.4431034482758621,
+        cost: 0.4646551724137931,
       },
       {
         to: 'f',
-        cost: 0.4459770114942529,
+        cost: 0.46896551724137936,
       },
       {
         to: '8',
-        cost: 0.4488505747126437,
+        cost: 0.47327586206896555,
       },
       {
         to: 'a8',
-        cost: 0.48908045977011494,
+        cost: 0.5336206896551724,
       },
       {
         to: 'h',
-        cost: 0.5120689655172415,
+        cost: 0.5681034482758621,
       },
       {
         to: '8a',
-        cost: 0.635632183908046,
-      },
-      {
-        to: '8e',
-        cost: 0.7563218390804598,
-      },
-      {
-        to: 'b',
-        cost: 0.7764367816091955,
+        cost: 0.753448275862069,
       },
     ],
   },
@@ -59,27 +51,15 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'd',
-        cost: 0.4545977011494253,
+        cost: 0.4818965517241379,
       },
       {
         to: 'e',
-        cost: 0.5264367816091955,
+        cost: 0.5896551724137931,
       },
       {
         to: 'b8',
-        cost: 0.5867816091954023,
-      },
-      {
-        to: '8b',
-        cost: 0.7448275862068966,
-      },
-      {
-        to: 'a',
-        cost: 0.7649425287356322,
-      },
-      {
-        to: 'Q',
-        cost: 0.842528735632184,
+        cost: 0.6801724137931034,
       },
     ],
   },
@@ -94,23 +74,19 @@ export const lexicon: Entry[] = [
       },
       {
         to: '3',
-        cost: 0.6068965517241379,
+        cost: 0.710344827586207,
       },
       {
         to: '6',
-        cost: 0.6241379310344828,
+        cost: 0.7362068965517241,
       },
       {
         to: 'g',
-        cost: 0.6270114942528736,
+        cost: 0.7405172413793104,
       },
       {
         to: 'c8',
-        cost: 0.6385057471264368,
-      },
-      {
-        to: 'e',
-        cost: 0.8770114942528735,
+        cost: 0.7577586206896552,
       },
     ],
   },
@@ -125,35 +101,35 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'g',
-        cost: 0.4574712643678161,
+        cost: 0.48620689655172417,
       },
       {
         to: 'b',
-        cost: 0.46609195402298853,
+        cost: 0.4991379310344828,
       },
       {
         to: 'e',
-        cost: 0.5379310344827586,
+        cost: 0.6068965517241379,
       },
       {
         to: 'd8',
-        cost: 0.6097701149425288,
+        cost: 0.7146551724137931,
       },
       {
         to: '3',
-        cost: 0.6183908045977011,
+        cost: 0.7275862068965517,
       },
       {
         to: '8d',
-        cost: 0.695977011494253,
+        cost: 0.8439655172413794,
       },
       {
         to: 'a',
-        cost: 0.7045977011494253,
+        cost: 0.856896551724138,
       },
       {
         to: 'c',
-        cost: 0.7275862068965517,
+        cost: 0.8913793103448275,
       },
     ],
   },
@@ -164,43 +140,31 @@ export const lexicon: Entry[] = [
     subs: [
       {
         to: '',
-        cost: 0.3781609195402299,
+        cost: 0.4672413793103448,
       },
       {
         to: 'a',
-        cost: 0.4517241379310345,
+        cost: 0.47758620689655173,
       },
       {
         to: 'b',
-        cost: 0.47183908045977013,
+        cost: 0.5077586206896552,
       },
       {
         to: 'd',
-        cost: 0.47471264367816096,
+        cost: 0.5120689655172415,
       },
       {
         to: 'g',
-        cost: 0.48620689655172417,
+        cost: 0.5293103448275862,
       },
       {
         to: 'c',
-        cost: 0.5005747126436781,
+        cost: 0.5508620689655173,
       },
       {
         to: 'e8',
-        cost: 0.5982758620689655,
-      },
-      {
-        to: 'h',
-        cost: 0.82816091954023,
-      },
-      {
-        to: 'f',
-        cost: 0.8626436781609196,
-      },
-      {
-        to: '8',
-        cost: 0.8913793103448275,
+        cost: 0.6974137931034483,
       },
     ],
   },
@@ -215,23 +179,19 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'a',
-        cost: 0.5839080459770115,
+        cost: 0.6758620689655173,
       },
       {
         to: 'h',
-        cost: 0.6040229885057471,
+        cost: 0.7060344827586207,
       },
       {
         to: 'e',
-        cost: 0.6873563218390805,
+        cost: 0.8310344827586207,
       },
       {
         to: '8f',
-        cost: 0.707471264367816,
-      },
-      {
-        to: 'f8',
-        cost: 0.871264367816092,
+        cost: 0.8612068965517241,
       },
     ],
   },
@@ -246,31 +206,19 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'd',
-        cost: 0.46896551724137936,
+        cost: 0.503448275862069,
       },
       {
         to: 'g8',
-        cost: 0.5091954022988506,
+        cost: 0.5637931034482759,
       },
       {
         to: 'c',
-        cost: 0.6902298850574713,
+        cost: 0.835344827586207,
       },
       {
         to: '8g',
-        cost: 0.6988505747126437,
-      },
-      {
-        to: '3',
-        cost: 0.8137931034482759,
-      },
-      {
-        to: 'e',
-        cost: 0.8166666666666667,
-      },
-      {
-        to: 'b',
-        cost: 0.8827586206896552,
+        cost: 0.8482758620689655,
       },
     ],
   },
@@ -285,19 +233,19 @@ export const lexicon: Entry[] = [
       },
       {
         to: '8',
-        cost: 0.47758620689655173,
+        cost: 0.5163793103448276,
       },
       {
         to: 'a',
-        cost: 0.5609195402298851,
+        cost: 0.6413793103448276,
       },
       {
         to: '8h',
-        cost: 0.6586206896551725,
+        cost: 0.7879310344827586,
       },
       {
         to: 'e',
-        cost: 0.7189655172413794,
+        cost: 0.878448275862069,
       },
     ],
   },
@@ -312,47 +260,15 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'P',
-        cost: 0.5350574712643679,
+        cost: 0.6025862068965517,
       },
       {
         to: 'e1',
-        cost: 0.5436781609195402,
+        cost: 0.6155172413793104,
       },
       {
         to: 'f1',
-        cost: 0.6758620689655173,
-      },
-      {
-        to: '1a',
-        cost: 0.782183908045977,
-      },
-      {
-        to: '1f',
-        cost: 0.7850574712643679,
-      },
-      {
-        to: 'a1',
-        cost: 0.7879310344827586,
-      },
-      {
-        to: '1e',
-        cost: 0.7908045977011495,
-      },
-      {
-        to: 'g1',
-        cost: 0.8195402298850575,
-      },
-      {
-        to: 'b1',
-        cost: 0.856896551724138,
-      },
-      {
-        to: 'd1',
-        cost: 0.885632183908046,
-      },
-      {
-        to: 'c1',
-        cost: 0.8885057471264368,
+        cost: 0.8137931034482759,
       },
     ],
   },
@@ -363,51 +279,27 @@ export const lexicon: Entry[] = [
     subs: [
       {
         to: '',
-        cost: 0.29195402298850576,
+        cost: 0.33793103448275863,
       },
       {
         to: 'g',
-        cost: 0.5522988505747126,
+        cost: 0.628448275862069,
       },
       {
         to: 'e2',
-        cost: 0.5580459770114943,
+        cost: 0.6370689655172415,
       },
       {
         to: '3',
-        cost: 0.5954022988505747,
+        cost: 0.693103448275862,
       },
       {
         to: 'd',
-        cost: 0.710344827586207,
+        cost: 0.8655172413793104,
       },
       {
         to: 'f2',
-        cost: 0.7218390804597701,
-      },
-      {
-        to: '2a',
-        cost: 0.8022988505747126,
-      },
-      {
-        to: '2e',
-        cost: 0.8051724137931034,
-      },
-      {
-        to: 'd2',
-        cost: 0.8310344827586207,
-      },
-      {
-        to: 'g2',
-        cost: 0.8339080459770115,
-      },
-      {
-        to: 'a2',
-        cost: 0.8367816091954023,
-      },
-      {
-        to: '2f',
-        cost: 0.8655172413793104,
+        cost: 0.8827586206896552,
       },
     ],
   },
@@ -422,35 +314,19 @@ export const lexicon: Entry[] = [
       },
       {
         to: '3e',
-        cost: 0.48045977011494256,
+        cost: 0.5206896551724138,
       },
       {
         to: 'e3',
-        cost: 0.6011494252873564,
+        cost: 0.7017241379310345,
       },
       {
         to: '3a',
-        cost: 0.6442528735632185,
+        cost: 0.7663793103448275,
       },
       {
         to: 'f3',
-        cost: 0.65,
-      },
-      {
-        to: '3f',
-        cost: 0.7390804597701149,
-      },
-      {
-        to: 'g',
-        cost: 0.7419540229885058,
-      },
-      {
-        to: 'a3',
-        cost: 0.8080459770114943,
-      },
-      {
-        to: '3d',
-        cost: 0.8109195402298851,
+        cost: 0.775,
       },
     ],
   },
@@ -465,39 +341,19 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'f4',
-        cost: 0.5408045977011494,
+        cost: 0.6112068965517241,
       },
       {
         to: 'e4',
-        cost: 0.6126436781609196,
+        cost: 0.7189655172413794,
       },
       {
         to: '4f',
-        cost: 0.6672413793103449,
+        cost: 0.8008620689655173,
       },
       {
         to: '4a',
-        cost: 0.724712643678161,
-      },
-      {
-        to: '4e',
-        cost: 0.7362068965517241,
-      },
-      {
-        to: '5',
-        cost: 0.7591954022988505,
-      },
-      {
-        to: 'd4',
-        cost: 0.7965517241379311,
-      },
-      {
-        to: 'a4',
-        cost: 0.8511494252873564,
-      },
-      {
-        to: 'P',
-        cost: 0.8540229885057471,
+        cost: 0.8870689655172415,
       },
     ],
   },
@@ -512,35 +368,19 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'f5',
-        cost: 0.5235632183908047,
+        cost: 0.585344827586207,
       },
       {
         to: '5f',
-        cost: 0.5494252873563219,
+        cost: 0.6241379310344828,
       },
       {
         to: 'e5',
-        cost: 0.6155172413793104,
+        cost: 0.7232758620689655,
       },
       {
         to: '5a',
-        cost: 0.6844827586206896,
-      },
-      {
-        to: 'a5',
-        cost: 0.7505747126436781,
-      },
-      {
-        to: '5e',
-        cost: 0.7793103448275862,
-      },
-      {
-        to: '4',
-        cost: 0.8396551724137931,
-      },
-      {
-        to: 'c5',
-        cost: 0.8683908045977011,
+        cost: 0.8267241379310345,
       },
     ],
   },
@@ -555,31 +395,23 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'f6',
-        cost: 0.5925287356321839,
+        cost: 0.6887931034482759,
       },
       {
         to: 'e6',
-        cost: 0.6471264367816092,
+        cost: 0.7706896551724138,
       },
       {
         to: '6a',
-        cost: 0.6614942528735632,
+        cost: 0.7922413793103449,
       },
       {
         to: 'h6',
-        cost: 0.6729885057471265,
+        cost: 0.8094827586206896,
       },
       {
         to: 'c6',
-        cost: 0.7304597701149426,
-      },
-      {
-        to: 'a6',
-        cost: 0.753448275862069,
-      },
-      {
-        to: 'g6',
-        cost: 0.8741379310344828,
+        cost: 0.8956896551724138,
       },
     ],
   },
@@ -594,47 +426,23 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'h7',
-        cost: 0.6528735632183909,
+        cost: 0.7793103448275862,
       },
       {
         to: 'e7',
-        cost: 0.6816091954022989,
-      },
-      {
-        to: '7f',
-        cost: 0.693103448275862,
-      },
-      {
-        to: '7a',
-        cost: 0.7132183908045977,
-      },
-      {
-        to: 'f7',
-        cost: 0.7160919540229885,
-      },
-      {
-        to: 'd7',
-        cost: 0.7936781609195402,
-      },
-      {
-        to: '6',
         cost: 0.8224137931034483,
       },
       {
-        to: 'b7',
-        cost: 0.825287356321839,
+        to: '7f',
+        cost: 0.8396551724137931,
       },
       {
-        to: '7e',
-        cost: 0.8597701149425288,
+        to: '7a',
+        cost: 0.8698275862068966,
       },
       {
-        to: 'a7',
-        cost: 0.8942528735632185,
-      },
-      {
-        to: '7^',
-        cost: 0.8971264367816092,
+        to: 'f7',
+        cost: 0.8741379310344828,
       },
     ],
   },
@@ -645,51 +453,31 @@ export const lexicon: Entry[] = [
     subs: [
       {
         to: '',
-        cost: 0.47011494252873565,
+        cost: 0.5,
       },
       {
         to: 'a',
-        cost: 0.4287356321839081,
+        cost: 0.4431034482758621,
       },
       {
         to: 'a8',
-        cost: 0.4344827586206897,
+        cost: 0.4517241379310345,
       },
       {
         to: 'h',
-        cost: 0.4402298850574713,
+        cost: 0.46034482758620693,
       },
       {
         to: 'e',
-        cost: 0.503448275862069,
+        cost: 0.5551724137931034,
       },
       {
         to: '8a',
-        cost: 0.5666666666666667,
+        cost: 0.65,
       },
       {
         to: 'e8',
-        cost: 0.621264367816092,
-      },
-      {
-        to: 'a2',
-        cost: 0.767816091954023,
-      },
-      {
-        to: 'f8',
-        cost: 0.7706896551724138,
-      },
-      {
-        to: 'f',
-        cost: 0.8454022988505747,
-      },
-      {
-        to: 'h8',
-        cost: 0.8482758620689655,
-      },
-      {
-        to: '8e',
-        cost: 0.8798850574712644,
+        cost: 0.731896551724138,
       },
     ],
   },
@@ -704,15 +492,15 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'Pa',
-        cost: 0.5206896551724138,
+        cost: 0.5810344827586207,
       },
       {
         to: 'Pe',
-        cost: 0.6413793103448276,
+        cost: 0.7620689655172415,
       },
       {
         to: 'Pf',
-        cost: 0.664367816091954,
+        cost: 0.7965517241379311,
       },
     ],
   },
@@ -723,19 +511,19 @@ export const lexicon: Entry[] = [
     subs: [
       {
         to: '',
-        cost: 0.36379310344827587,
+        cost: 0.44568965517241377,
       },
       {
         to: 'K',
-        cost: 0.5063218390804598,
+        cost: 0.5594827586206896,
       },
       {
         to: 'Na',
-        cost: 0.5896551724137931,
+        cost: 0.6844827586206896,
       },
       {
         to: 'Nd',
-        cost: 0.6787356321839081,
+        cost: 0.818103448275862,
       },
     ],
   },
@@ -746,15 +534,15 @@ export const lexicon: Entry[] = [
     subs: [
       {
         to: '',
-        cost: 0.4298850574712644,
+        cost: 0.5,
       },
       {
         to: 'Bf',
-        cost: 0.6327586206896552,
+        cost: 0.7491379310344828,
       },
       {
         to: 'Ba',
-        cost: 0.6557471264367816,
+        cost: 0.7836206896551725,
       },
     ],
   },
@@ -765,11 +553,11 @@ export const lexicon: Entry[] = [
     subs: [
       {
         to: '',
-        cost: 0.38103448275862073,
+        cost: 0.47155172413793106,
       },
       {
         to: 'Ra',
-        cost: 0.5465517241379311,
+        cost: 0.6198275862068966,
       },
     ],
   },
@@ -784,11 +572,11 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'Qe',
-        cost: 0.5695402298850575,
+        cost: 0.6543103448275862,
       },
       {
         to: '8Q',
-        cost: 0.5724137931034483,
+        cost: 0.6586206896551725,
       },
     ],
   },
@@ -799,29 +587,29 @@ export const lexicon: Entry[] = [
     subs: [
       {
         to: '',
-        cost: 0.29482758620689653,
+        cost: 0.3422413793103448,
       },
       {
         to: 'Ka',
-        cost: 0.49770114942528737,
+        cost: 0.5465517241379311,
       },
       {
         to: 'Kf',
-        cost: 0.5293103448275862,
+        cost: 0.5939655172413794,
       },
       {
         to: 'Ke',
-        cost: 0.532183908045977,
+        cost: 0.5982758620689655,
       },
       {
         to: 'N',
-        cost: 0.5752873563218391,
+        cost: 0.6629310344827586,
       },
     ],
   },
   {
     in: 'castle',
-    val: 'O-O',
+    val: 'castle',
     tags: ['move', 'exact'],
     tok: '!',
     subs: [
@@ -835,37 +623,37 @@ export const lexicon: Entry[] = [
     in: 'short castle',
     val: 'O-O',
     tags: ['move', 'exact'],
-    tok: 'r!',
+    tok: 'p!',
   },
   {
     in: 'king side castle',
     val: 'O-O',
     tags: ['move', 'exact'],
-    tok: 'Ks!',
+    tok: 'Kq!',
   },
   {
     in: 'castle king side',
     val: 'O-O',
     tags: ['move', 'exact'],
-    tok: '!Ks',
+    tok: '!Kq',
   },
   {
     in: 'long castle',
     val: 'O-O-O',
     tags: ['move', 'exact'],
-    tok: 't!',
+    tok: 'r!',
   },
   {
     in: 'castle queen side',
     val: 'O-O-O',
     tags: ['move', 'exact'],
-    tok: '!Qs',
+    tok: '!Qq',
   },
   {
     in: 'queen side castle',
     val: 'O-O-O',
     tags: ['move', 'exact'],
-    tok: 'Qs!',
+    tok: 'Qq!',
   },
   {
     in: 'take',
@@ -891,11 +679,11 @@ export const lexicon: Entry[] = [
       },
       {
         to: '6',
-        cost: 0.4632183908045977,
+        cost: 0.4948275862068966,
       },
       {
         to: 'h',
-        cost: 0.5551724137931034,
+        cost: 0.6327586206896552,
       },
     ],
   },
@@ -923,7 +711,7 @@ export const lexicon: Entry[] = [
       },
       {
         to: '&R',
-        cost: 0.517816091954023,
+        cost: 0.5767241379310345,
       },
     ],
   },
@@ -939,7 +727,7 @@ export const lexicon: Entry[] = [
       },
       {
         to: '8(',
-        cost: 0.46034482758620693,
+        cost: 0.49051724137931035,
       },
     ],
   },
@@ -1007,13 +795,13 @@ export const lexicon: Entry[] = [
     in: 'offer draw',
     val: 'draw',
     tags: ['command', 'rounds', 'exact'],
-    tok: 'u.',
+    tok: 's.',
   },
   {
     in: 'accept draw',
     val: 'draw',
     tags: ['command', 'rounds', 'exact'],
-    tok: 'v.',
+    tok: 't.',
   },
   {
     in: 'resign',
@@ -1076,34 +864,10 @@ export const lexicon: Entry[] = [
     ],
   },
   {
-    in: 'up',
-    val: 'upv',
-    tags: ['command', 'puzzle', 'exact'],
-    tok: '<',
-    subs: [
-      {
-        to: '',
-        cost: 0.5,
-      },
-    ],
-  },
-  {
-    in: 'down',
-    val: 'downv',
-    tags: ['command', 'puzzle', 'exact'],
-    tok: '=',
-    subs: [
-      {
-        to: '',
-        cost: 0.5,
-      },
-    ],
-  },
-  {
     in: 'help',
     val: '?',
     tags: ['command', 'exact'],
-    tok: '>',
+    tok: '<',
     subs: [
       {
         to: '',
@@ -1115,7 +879,7 @@ export const lexicon: Entry[] = [
     in: 'stop',
     val: 'stop',
     tags: ['command', 'exact'],
-    tok: '?',
+    tok: '=',
     subs: [
       {
         to: '',
@@ -1127,19 +891,19 @@ export const lexicon: Entry[] = [
     in: 'yes',
     val: 'yes',
     tags: ['choice', 'exact'],
-    tok: '@',
+    tok: '>',
     subs: [
       {
         to: '',
-        cost: 0.22011494252873565,
+        cost: 0.23017241379310346,
       },
       {
         to: 'e',
-        cost: 0.41436781609195406,
+        cost: 0.42155172413793107,
       },
       {
         to: 'e8',
-        cost: 0.43735632183908046,
+        cost: 0.4560344827586207,
       },
     ],
   },
@@ -1147,7 +911,7 @@ export const lexicon: Entry[] = [
     in: 'confirm',
     val: 'yes',
     tags: ['choice', 'exact'],
-    tok: 'A',
+    tok: '?',
     subs: [
       {
         to: '',
@@ -1159,7 +923,7 @@ export const lexicon: Entry[] = [
     in: 'no',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'C',
+    tok: '@',
     subs: [
       {
         to: '',
@@ -1167,7 +931,7 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'N',
-        cost: 0.4114942528735632,
+        cost: 0.41724137931034483,
       },
     ],
   },
@@ -1175,7 +939,7 @@ export const lexicon: Entry[] = [
     in: 'clear',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'D',
+    tok: 'A',
     subs: [
       {
         to: '',
@@ -1187,7 +951,7 @@ export const lexicon: Entry[] = [
     in: 'close',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'E',
+    tok: 'C',
     subs: [
       {
         to: '',
@@ -1199,7 +963,7 @@ export const lexicon: Entry[] = [
     in: 'cancel',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'F',
+    tok: 'D',
     subs: [
       {
         to: '',
@@ -1211,7 +975,7 @@ export const lexicon: Entry[] = [
     in: 'abort',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'G',
+    tok: 'E',
     subs: [
       {
         to: '',
@@ -1223,7 +987,7 @@ export const lexicon: Entry[] = [
     in: 'blue',
     val: 'blue',
     tags: ['choice', 'exact'],
-    tok: 'H',
+    tok: 'F',
     subs: [
       {
         to: '',
@@ -1231,11 +995,11 @@ export const lexicon: Entry[] = [
       },
       {
         to: '2',
-        cost: 0.40862068965517245,
+        cost: 0.41293103448275864,
       },
       {
         to: 'b',
-        cost: 0.42298850574712643,
+        cost: 0.4344827586206897,
       },
     ],
   },
@@ -1243,7 +1007,7 @@ export const lexicon: Entry[] = [
     in: 'green',
     val: 'green',
     tags: ['choice', 'exact'],
-    tok: 'I',
+    tok: 'G',
     subs: [
       {
         to: '',
@@ -1255,7 +1019,7 @@ export const lexicon: Entry[] = [
       },
       {
         to: '3',
-        cost: 0.41724137931034483,
+        cost: 0.42586206896551726,
       },
     ],
   },
@@ -1263,7 +1027,7 @@ export const lexicon: Entry[] = [
     in: 'yellow',
     val: 'yellow',
     tags: ['choice', 'exact'],
-    tok: 'J',
+    tok: 'H',
     subs: [
       {
         to: '',
@@ -1275,7 +1039,7 @@ export const lexicon: Entry[] = [
     in: 'red',
     val: 'red',
     tags: ['choice', 'exact'],
-    tok: 'L',
+    tok: 'I',
     subs: [
       {
         to: '',
@@ -1283,7 +1047,7 @@ export const lexicon: Entry[] = [
       },
       {
         to: '8',
-        cost: 0.42586206896551726,
+        cost: 0.4387931034482759,
       },
     ],
   },
@@ -1291,7 +1055,7 @@ export const lexicon: Entry[] = [
     in: 'pink',
     val: 'pink',
     tags: ['choice', 'exact'],
-    tok: 'M',
+    tok: 'J',
     subs: [
       {
         to: '',
@@ -1303,7 +1067,7 @@ export const lexicon: Entry[] = [
     in: 'purple',
     val: 'purple',
     tags: ['choice', 'exact'],
-    tok: 'O',
+    tok: 'L',
     subs: [
       {
         to: '',
@@ -1315,7 +1079,7 @@ export const lexicon: Entry[] = [
     in: 'orange',
     val: 'orange',
     tags: ['choice', 'exact'],
-    tok: 'S',
+    tok: 'M',
     subs: [
       {
         to: '',
@@ -1327,7 +1091,7 @@ export const lexicon: Entry[] = [
     in: 'grey',
     val: 'paleGrey',
     tags: ['choice', 'exact'],
-    tok: 'T',
+    tok: 'O',
     subs: [
       {
         to: '',
@@ -1339,7 +1103,7 @@ export const lexicon: Entry[] = [
     in: 'alfa',
     val: 'a',
     tags: ['file', 'move', 'nato'],
-    tok: 'U',
+    tok: 'S',
     subs: [
       {
         to: '',
@@ -1351,7 +1115,7 @@ export const lexicon: Entry[] = [
     in: 'bravo',
     val: 'b',
     tags: ['file', 'move', 'nato'],
-    tok: 'V',
+    tok: 'T',
     subs: [
       {
         to: '',
@@ -1363,7 +1127,7 @@ export const lexicon: Entry[] = [
     in: 'charlie',
     val: 'c',
     tags: ['file', 'move', 'nato'],
-    tok: 'W',
+    tok: 'U',
     subs: [
       {
         to: '',
@@ -1375,7 +1139,7 @@ export const lexicon: Entry[] = [
     in: 'delta',
     val: 'd',
     tags: ['file', 'move', 'nato'],
-    tok: 'X',
+    tok: 'V',
     subs: [
       {
         to: '',
@@ -1387,7 +1151,7 @@ export const lexicon: Entry[] = [
     in: 'echo',
     val: 'e',
     tags: ['file', 'move', 'nato'],
-    tok: 'Y',
+    tok: 'W',
     subs: [
       {
         to: '',
@@ -1399,7 +1163,7 @@ export const lexicon: Entry[] = [
     in: 'foxtrot',
     val: 'f',
     tags: ['file', 'move', 'nato'],
-    tok: 'Z',
+    tok: 'X',
     subs: [
       {
         to: '',
@@ -1411,7 +1175,7 @@ export const lexicon: Entry[] = [
     in: 'golf',
     val: 'g',
     tags: ['file', 'move', 'nato'],
-    tok: '[',
+    tok: 'Y',
     subs: [
       {
         to: '',
@@ -1423,7 +1187,7 @@ export const lexicon: Entry[] = [
     in: 'hotel',
     val: 'h',
     tags: ['file', 'move', 'nato'],
-    tok: '\\',
+    tok: 'Z',
     subs: [
       {
         to: '',
@@ -1435,7 +1199,7 @@ export const lexicon: Entry[] = [
     in: 'mate',
     val: '',
     tags: ['move', 'ignore'],
-    tok: ']',
+    tok: '[',
     subs: [
       {
         to: '',
@@ -1443,11 +1207,11 @@ export const lexicon: Entry[] = [
       },
       {
         to: 'N',
-        cost: 0.43160919540229886,
+        cost: 0.4474137931034483,
       },
       {
         to: 'b',
-        cost: 0.48333333333333334,
+        cost: 0.525,
       },
     ],
   },
@@ -1455,7 +1219,7 @@ export const lexicon: Entry[] = [
     in: 'check',
     val: '',
     tags: ['move', 'ignore'],
-    tok: '^',
+    tok: '\\',
     subs: [
       {
         to: '',
@@ -1467,7 +1231,7 @@ export const lexicon: Entry[] = [
     in: 'puzzle',
     val: '',
     tags: ['ignore'],
-    tok: '_',
+    tok: ']',
     subs: [
       {
         to: '',
@@ -1479,7 +1243,7 @@ export const lexicon: Entry[] = [
     in: 'and',
     val: '',
     tags: ['ignore'],
-    tok: '`',
+    tok: '^',
     subs: [
       {
         to: '',
@@ -1491,7 +1255,7 @@ export const lexicon: Entry[] = [
     in: 'oh',
     val: '',
     tags: ['ignore'],
-    tok: 'i',
+    tok: '_',
     subs: [
       {
         to: '',
@@ -1503,7 +1267,7 @@ export const lexicon: Entry[] = [
     in: 'um',
     val: '',
     tags: ['ignore'],
-    tok: 'j',
+    tok: '`',
     subs: [
       {
         to: '',
@@ -1515,7 +1279,7 @@ export const lexicon: Entry[] = [
     in: 'uh',
     val: '',
     tags: ['ignore'],
-    tok: 'k',
+    tok: 'i',
     subs: [
       {
         to: '',
@@ -1527,7 +1291,7 @@ export const lexicon: Entry[] = [
     in: 'hmm',
     val: '',
     tags: ['ignore'],
-    tok: 'l',
+    tok: 'j',
     subs: [
       {
         to: '',
@@ -1539,7 +1303,7 @@ export const lexicon: Entry[] = [
     in: 'huh',
     val: '',
     tags: ['ignore'],
-    tok: 'm',
+    tok: 'k',
     subs: [
       {
         to: '',
@@ -1551,7 +1315,7 @@ export const lexicon: Entry[] = [
     in: 'his',
     val: '',
     tags: ['ignore'],
-    tok: 'n',
+    tok: 'l',
     subs: [
       {
         to: '',
@@ -1563,7 +1327,7 @@ export const lexicon: Entry[] = [
     in: 'her',
     val: '',
     tags: ['ignore'],
-    tok: 'o',
+    tok: 'm',
     subs: [
       {
         to: '',
@@ -1575,7 +1339,7 @@ export const lexicon: Entry[] = [
     in: 'the',
     val: '',
     tags: ['ignore'],
-    tok: 'p',
+    tok: 'n',
     subs: [
       {
         to: '',
@@ -1587,7 +1351,7 @@ export const lexicon: Entry[] = [
     in: 'their',
     val: '',
     tags: ['ignore'],
-    tok: 'q',
+    tok: 'o',
     subs: [
       {
         to: '',
@@ -1597,7 +1361,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'short',
-    tok: 'r',
+    tok: 'p',
     tags: ['part'],
     subs: [
       {
@@ -1608,7 +1372,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'side',
-    tok: 's',
+    tok: 'q',
     tags: ['part'],
     subs: [
       {
@@ -1619,7 +1383,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'long',
-    tok: 't',
+    tok: 'r',
     tags: ['part'],
     subs: [
       {
@@ -1628,17 +1392,17 @@ export const lexicon: Entry[] = [
       },
       {
         to: '1',
-        cost: 0.40287356321839085,
+        cost: 0.4043103448275862,
       },
       {
         to: 'P',
-        cost: 0.4057471264367816,
+        cost: 0.40862068965517245,
       },
     ],
   },
   {
     in: 'offer',
-    tok: 'u',
+    tok: 's',
     tags: ['part'],
     subs: [
       {
@@ -1649,7 +1413,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'accept',
-    tok: 'v',
+    tok: 't',
     tags: ['part'],
     subs: [
       {

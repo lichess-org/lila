@@ -3,13 +3,14 @@ import { h, VNode, Hooks } from 'snabbdom';
 import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import { storedBooleanProp } from 'common/storage';
 import { voiceMoveCtrl } from '../voiceMoveCtrl';
-import { voiceModal } from './voiceModal';
+import { snabModal } from 'common/modal';
+import { spinnerVdom as spinner } from 'common/spinner';
+import * as xhr from 'common/xhr';
 
 type ArrowPref = 'Colors' | 'Numbers';
 
 export function renderVoiceView(ctrl: MoveCtrl, isPuzzle: boolean) {
   const rec = storedBooleanProp('recording', false);
-  console.log('new one');
   return h(`div#voice-move${isPuzzle ? '.puz' : ''}`, [
     h('span#status-row', [
       h('a#voice-help-button', {
@@ -91,6 +92,7 @@ function choiceButton(pref: ArrowPref) {
     [h('label', pref)]
   );
 }
+
 function toggleSettings() {
   const settingsButton = $('#voice-settings-button');
   $('#voice-settings-button').toggleClass('active');
@@ -99,4 +101,37 @@ function toggleSettings() {
   } else {
     $('#voice-settings').hide();
   }
+}
+
+function voiceModal(ctrl: MoveCtrl) {
+  return snabModal({
+    class: `voice-move-help`,
+    content: [h('div.scrollable', spinner())],
+    onClose: () => ctrl.modalOpen(false),
+    onInsert: async el => {
+      const [, html] = await Promise.all([
+        lichess.loadCssPath('inputMove.help'),
+        xhr.text(xhr.url(`/help/voice-move`, {})),
+      ]);
+      el.find('.scrollable').html(html);
+      el.find('#all-phrases-button').on('click', () => {
+        let html = '<table id="big-table"><tbody>';
+        const all = voiceMoveCtrl()
+          .available()
+          .sort((a, b) => a[0].localeCompare(b[0]));
+        const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
+        const rows = Math.ceil(all.length / cols);
+        for (let row = 0; row < rows; row++) {
+          html += '<tr>';
+          for (let i = row; i < all.length; i += rows) {
+            html += `<td>${all[i][0]}</td><td>${all[i][1]}</td>`;
+          }
+          html += '</tr>';
+        }
+        html += '</tbody></table>';
+        //$('#modal-wrap').toggleClass('bigger');
+        el.find('.scrollable').html(html);
+      });
+    },
+  });
 }

@@ -155,28 +155,33 @@ object helpModal:
             td(cls := "tips")(
               ul(
                 li(
-                  "Your voice audio never leaves your device. Moves are sent using plain text as if made by mouse or touch."
+                  "Click the microphone to enable voice moves. It glows red when listening."
+                ),
+                li(
+                  "Your voice audio never leaves your device. Moves are sent as plain text just like those made by mouse or touch."
                 ),
                 li(
                   "You may speak UCI, SAN, piece names, board squares, or phrases like ",
-                  strong("\"take the rook\""),
-                  " or just ",
+                  strong("\"pawn takes rook\""),
+                  " and ",
                   strong("\"takes\""),
-                  "."
+                  ". Click ",
+                  strong("Show me everything"),
+                  " for a full list."
                 ),
                 li(
                   "Ambiguous commands show colored or numbered arrows. Speak the color or number to choose one, or say ",
                   strong("\"clear\""),
-                  " to cancel. Set your arrow style with the hamburger menu."
+                  " to cancel. Set your arrow style using the hamburger menu."
                 ),
                 li(
-                  "The hamburger menu has a confidence slider. Higher values result in less ambiguity but an increased chance of mishearing."
+                  "Higher values for the confidence slider result in less ambiguity but an increased chance of mishearing."
                 ),
                 li(
                   "Up to 8 arrows are shown. At lower confidence settings we include additional moves that sound alike."
                 ),
                 li(
-                  "At present, voice control is only available with standard chess in puzzles and unrated games. There are no plans for rated play."
+                  "At present, voice control is only available with standard chess in puzzles and unrated games."
                 ),
                 li(
                   "The phonetic alphabet is ",
