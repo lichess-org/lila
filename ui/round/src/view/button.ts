@@ -719,6 +719,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
             ctrl.noarg('viewTournament')
           )
         : null,
+      studyButton(ctrl),
       analysisButton(ctrl),
     ];
   return content.find(x => !!x) ? h('div.follow-up', content) : null;
