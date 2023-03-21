@@ -213,7 +213,7 @@ export default class AnalyseCtrl {
     this.fork = makeFork(this);
   }
 
-  private setOrientation = (): void => {
+  setOrientation = (): void => {
     const userId = document.body.dataset.user,
       players = this.study?.data.postGameStudy?.players,
       userOrientation =

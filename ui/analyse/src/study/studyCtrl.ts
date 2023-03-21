@@ -199,6 +199,7 @@ export default function (
 
   function onReload(d: ReloadData) {
     const s = d.study!;
+
     const prevPath = ctrl.path;
     const sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
@@ -212,6 +213,7 @@ export default function (
     members.dict(s.members);
     chapters.list(s.chapters);
     ctrl.flipped = false;
+    if (!!s.postGameStudy) ctrl.setOrientation();
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
