@@ -56,6 +56,7 @@ final class JsonView(
             .add("description", currentChapter.description)
             .add("serverEval", currentChapter.serverEval)
             .add("relay", currentChapter.relay)(relayWrites)
+            .add("gameLength", currentChapter.gameMainlineLength)
             .pipe(addChapterMode(currentChapter))
         )
         .add("description", study.description)
@@ -282,8 +283,7 @@ object JsonView {
       try {
         import lila.tree.Node.{ glyphsWriter, clockWrites, commentWriter }
         import lila.tree.Eval.JsonHandlers.evalWrites
-        val comments   = nr.comments.list.flatMap(_.removeMeta)
-        val variations = nr.children.variations
+        val comments = nr.comments.list.flatMap(_.removeMeta)
         Json
           .obj(
             "ply"  -> nr.ply,
@@ -300,8 +300,8 @@ object JsonView {
           .add("clock", nr.clock)
           .add(
             "children",
-            if (alwaysChildren || variations.nonEmpty) Some {
-              JsArray(variations map makeNodeJsonWriter(true).writes)
+            if (alwaysChildren || nr.children.nodes.nonEmpty) Some {
+              JsArray(nr.children.nodes map makeNodeJsonWriter(true).writes)
             }
             else None
           )
@@ -315,11 +315,8 @@ object JsonView {
 
   val partitionTreeJsonWriter: Writes[Node.Root] = Writes { root =>
     JsArray {
-      (root +: root.mainline).map(minimalNodeJsonWriter.writes)
+      (root +: root.mainline).map(nr => minimalNodeJsonWriter.writes(nr.dropFirstChild))
     }
   }
-
-  def nodeJsonWriter(alwaysChildren: Boolean): Writes[RootOrNode] =
-    makeNodeJsonWriter(alwaysChildren)
 
 }
