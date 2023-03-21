@@ -43,7 +43,7 @@ export const storedJsonProp =
       return v;
     }
     const ret = JSON.parse(storage.get(key)!);
-    return ret !== null ? ret : defaultValue;
+    return ret !== null ? ret : defaultValue();
   };
 
 export interface StoredSet<V> {
