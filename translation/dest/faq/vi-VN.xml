@@ -30,7 +30,6 @@
 	<string name="howBulletBlitzEtcDecided">Cờ siêu chớp, cờ chớp và các định giờ khác được quyết định thế nào?</string>
 	<string name="basedOnGameDuration">Việc xác định loại cờ của Lishogi dựa trên thời lượng ván đấu ước tính =%1$s
 Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 40 × 3 = 420 giây.</string>
-	<string name="durationFormula">60 x ( thời gian đồng hồ chính theo phút ) + 60 x ( thời gian bổ sung ) + 25 x ( thời gian byoyomi )</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s giây = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s giây = %2$s</string>
 	<string name="whatVariantsCanIplay">Tôi có thể chơi các loại biến thể nào trên Lishogi?</string>

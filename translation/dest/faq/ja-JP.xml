@@ -30,7 +30,6 @@
 	<string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持ち時間の区分の基準は？</string>
 	<string name="basedOnGameDuration">Lishogi の持ち時間は推定所要時間（%1$s）で分類されています。
  たとえば 5+3|4（5分＋1手3秒＋4秒秒読み）の対局の推定所要時間は 60 x 5 + 60 x 3 + 25 x 4 = 580秒です。</string>
-	<string name="durationFormula">60 x (初期持ち時間) + 60 x (1 手ごとの追加時間) + 25 x (秒読み時間)</string>
 	<string name="inferiorThanXsEqualYtimeControl">＜ %1$s秒 = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi にはどんなバリアント（変則ルール）がありますか？</string>

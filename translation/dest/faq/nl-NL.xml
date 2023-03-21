@@ -30,7 +30,6 @@
 	<string name="howBulletBlitzEtcDecided">Hoe worden bullet, blitz en andere speeltempo\'s bepaald?</string>
 	<string name="basedOnGameDuration">Lishogi speeltempo\'s zijn gebaseerd op de geschatte partijduur = %1$s
   Bijvoorbeeld, de geschatte duur van een 5+3 partij is 5 * 60 + 40 * 3 = 420 seconden.</string>
-	<string name="durationFormula">(initiële kloktijd) + 40 * (increment)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lishogi?</string>

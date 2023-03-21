@@ -30,7 +30,6 @@
 	<string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
 	<string name="basedOnGameDuration">Los controles de tiempo de Lishogi se basan en la duración estimada de una partida = %1$s
  Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
-	<string name="durationFormula">(hora inicial del reloj) + 40 * (aumento del reloj)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
 	<string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lishogi?</string>

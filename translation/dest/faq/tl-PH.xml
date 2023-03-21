@@ -30,7 +30,6 @@
 	<string name="howBulletBlitzEtcDecided">How are Bullet, Blitz and other time controls decided?</string>
 	<string name="basedOnGameDuration">Lishogi time controls are based on estimated game duration = %1$s
 For instance, the estimated duration of a 5+3|4 game is 60 × 5 + 60 × 3 + 25 × 4 = 580 seconds.</string>
-	<string name="durationFormula">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Anong mga variant ang pwede kong laruin sa Lishogi?</string>

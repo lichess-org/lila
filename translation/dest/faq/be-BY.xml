@@ -30,7 +30,6 @@
 	<string name="howBulletBlitzEtcDecided">Як кантролі часу Кулі, Бліцу ды іншых вырашаны?</string>
 	<string name="basedOnGameDuration">Кантролі часу на Lishogi заснаваны на чаканай працягласці гульні = %1$s
 Напрыклад, чаканая працягласць гульні 5+3 = 5 × 60 + 40 × 3 = 420 сякунд.</string>
-	<string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
 	<string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на Lishogi?</string>

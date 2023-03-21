@@ -80,7 +80,7 @@ object faq {
           "time-controls",
           howBulletBlitzEtcDecided.txt(),
           p(
-            basedOnGameDuration(strong(durationFormula()))
+            basedOnGameDuration(strong(formulaOfDuration()))
           ),
           ul(
             li(inferiorThanXsEqualYtimeControl(60, "UltraBullet")),

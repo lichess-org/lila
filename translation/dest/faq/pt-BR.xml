@@ -30,7 +30,6 @@
 	<string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros ritmos de jogo são decididos?</string>
 	<string name="basedOnGameDuration">Os ritmos de jogo do Lishogi baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
-	<string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Que variantes posso jogar no Lishogi?</string>

@@ -1709,7 +1709,7 @@ export type I18nKey =
 'gameplay'|
 'howBulletBlitzEtcDecided'|
 'basedOnGameDuration'|
-'durationFormula'|
+'formulaOfDuration'|
 'inferiorThanXsEqualYtimeControl'|
 'superiorThanXsEqualYtimeControl'|
 'whatVariantsCanIplay'|

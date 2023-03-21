@@ -30,7 +30,6 @@
 	<string name="howBulletBlitzEtcDecided">बुलेट(Bullet), ब्लिट्ज(blitz) और अन्य समय नियंत्रण कैसे तय किए जाते हैं?</string>
 	<string name="basedOnGameDuration">Lishogi समय नियंत्रण अनुमानित खेल अवधि = %1$s पर आधारित है।
 उदाहरण के लिए, 5 + 3 गेम की अनुमानित अवधि 5 × 60 + 40 × 3 = 420 सेकंड है।</string>
-	<string name="durationFormula">(घड़ी प्रारंभिक समय) + 40 × (घड़ी की वृद्धि)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi पर मैं कौन से संस्करण (variants) खेल सकता हूं ?</string>
