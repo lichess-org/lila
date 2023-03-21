@@ -18,35 +18,36 @@ final private class WebPush(
       subscriptions.toNel ?? send(data)
     }
 
-  private def send(data: => PushApi.Data)(subscriptions: NonEmptyList[WebSubscription]): Funit = {
-    ws.url(config.url)
-      .withHttpHeaders("ContentType" -> "application/json")
-      .post(
-        Json.obj(
-          "subs" -> JsArray(subscriptions.map { sub =>
-            Json.obj(
-              "endpoint" -> sub.endpoint,
-              "keys" -> Json.obj(
-                "p256dh" -> sub.p256dh,
-                "auth"   -> sub.auth
+  private def send(data: => PushApi.Data)(subscriptions: NonEmptyList[WebSubscription]): Funit =
+    if (config.url.isEmpty) funit
+    else
+      ws.url(config.url)
+        .withHttpHeaders("ContentType" -> "application/json")
+        .post(
+          Json.obj(
+            "subs" -> JsArray(subscriptions.map { sub =>
+              Json.obj(
+                "endpoint" -> sub.endpoint,
+                "keys" -> Json.obj(
+                  "p256dh" -> sub.p256dh,
+                  "auth"   -> sub.auth
+                )
               )
-            )
-          }.toList),
-          "payload" -> Json
-            .obj(
-              "title"   -> data.title,
-              "body"    -> data.body,
-              "tag"     -> data.stacking.key,
-              "payload" -> data.payload
-            )
-            .toString,
-          "ttl" -> 43200
-        )
-      ) flatMap {
-      case res if res.status == 200 => funit
-      case res                      => fufail(s"[push] web: ${res.status} ${res.body}")
-    }
-  }
+            }.toList),
+            "payload" -> Json
+              .obj(
+                "title"   -> data.title,
+                "body"    -> data.body,
+                "tag"     -> data.stacking.key,
+                "payload" -> data.payload
+              )
+              .toString,
+            "ttl" -> 43200
+          )
+        ) flatMap {
+        case res if res.status == 200 => funit
+        case res                      => fufail(s"[push] web: ${res.status} ${res.body}")
+      }
 }
 
 private object WebPush {
