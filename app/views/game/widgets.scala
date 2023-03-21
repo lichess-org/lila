@@ -80,7 +80,7 @@ object widgets {
           ),
           if (g.playedPlies > 0)
             div(cls := "moves-count")(
-              strong(trans.nbMoves.pluralSame(g.playedPlies))
+              span(trans.nbMoves.pluralSame(g.playedPlies))
             )
           else frag(br, br),
           g.metadata.analysed option
