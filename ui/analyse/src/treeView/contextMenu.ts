@@ -67,8 +67,8 @@ function action(icon: string, text: string, handler: () => void): VNode {
 function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
-    cantChangeMainline = !!ctrl.study?.data.postGameStudy,
     onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
+    cantChangeMainline = !!ctrl.study?.data.postGameStudy && onMainline,
     trans = ctrl.trans.noarg;
   return h(
     'div#' + elementId + '.visible',
@@ -87,7 +87,9 @@ function view(opts: Opts, coords: Coords): VNode {
         ? null
         : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
       onMainline || cantChangeMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
-      action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
+      !cantChangeMainline || node.forceVariation
+        ? action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path))
+        : null,
     ]
       .concat(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : [])
       .concat([
