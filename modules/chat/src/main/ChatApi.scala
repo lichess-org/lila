@@ -233,24 +233,43 @@ final class ChatApi(
       }
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
-      userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
-        case (Some(user), false) if user.enabled =>
-          Writer.preprocessUserInput(t1, user.username.some) flatMap { t2 =>
-            val allow =
-              if (user.isBot) !lila.common.String.hasLinks(t2)
-              else flood.allowMessage(userId into Flood.Source, t2)
-            allow option {
-              UserLine(
-                user.username,
-                user.title,
-                user.isPatron,
-                t2,
-                troll = user.isTroll,
-                deleted = false
-              )
-            }
+      userChat.find(chatId) flatMap { chat =>
+        userRepo.byIds(chat.userIds) flatMap { userList =>
+          userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
+            case (Some(user), false) if user.enabled =>
+              Writer.preprocessUserInput(t1, user.username.some) flatMap { t2 =>
+
+                // we allow "spamming" if there are no other normal users in chat
+                // and if there is at least one BOT user in chat (to avoid allowing spamming when
+                // a normal opponent just hasn't entered chat yet)
+                // this means that we can't spam, even if we're playing against BOT
+                // until the BOT wrote something in chat, but I think there are almost no use cases
+                // where this is necessary
+
+                val notMoreThanOneNonBotUser =
+                  userList.find(user => (user.id != userId && !user.isBot)).isEmpty
+
+                val atLeastOneBotUser = !userList.find(user => user.isBot).isEmpty
+
+                val allow =
+                  if (user.isBot || (notMoreThanOneNonBotUser && atLeastOneBotUser))
+                    !lila.common.String.hasLinks(t2)
+                  else flood.allowMessage(userId into Flood.Source, t2)
+
+                allow option {
+                  UserLine(
+                    user.username,
+                    user.title,
+                    user.isPatron,
+                    t2,
+                    troll = user.isTroll,
+                    deleted = false
+                  )
+                }
+              }
+            case _ => none
           }
-        case _ => none
+        }
       }
 
   object playerChat:
