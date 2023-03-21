@@ -113,7 +113,7 @@ object Work {
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
-      postGameStudies: Option[List[lila.analyse.Analysis.PostGameStudy]], // list of studies to inform
+      postGameStudies: Option[Set[lila.analyse.Analysis.PostGameStudy]], // set of studies to inform
       skipPositions: List[Int],
       createdAt: DateTime
   ) extends Work {

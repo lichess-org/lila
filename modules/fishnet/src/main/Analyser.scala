@@ -60,10 +60,13 @@ final class Analyser(
       _ ?? { g =>
         (g.metadata.analysed ?? analysisRepo.byId(g.id)) flatMap {
           case Some(analysis) =>
-            Bus.publish(
-              lila.analyse.actorApi.PostGameStudyAnalysisProgress(analysis, true),
-              "studyAnalysisProgress"
-            )
+            sender.postGameStudy foreach { pgs =>
+              Bus.publish(
+                lila.analyse.actorApi
+                  .StudyAnalysisProgress(analysis.copy(id = pgs.chapterId, studyId = pgs.studyId.some), true),
+                "studyAnalysisProgress"
+              )
+            }
             fuTrue
           case _ => apply(g, sender)
         }
@@ -109,12 +112,14 @@ final class Analyser(
 
   private def updateAnalysis(analysis: Work.Analysis, sender: Work.Sender): Option[Work.Analysis] = {
     val senderUpdate =
-      (!analysis.isAcquired && analysis.sender.system && !sender.system) ?? analysis
-        .copy(sender = sender)
-        .some
+      (!analysis.isAcquired && analysis.sender.system && !sender.system) ?? {
+        analysis
+          .copy(sender = sender)
+          .some
+      }
     val pgsUpdates = sender.postGameStudy.filter(so => !analysis.postGameStudies.exists(_ contains so)) ?? {
       so =>
-        senderUpdate.getOrElse(analysis).copy(postGameStudies = (so :: ~analysis.postGameStudies).some).some
+        senderUpdate.getOrElse(analysis).copy(postGameStudies = (~analysis.postGameStudies + so).some).some
     }
 
     pgsUpdates.orElse(senderUpdate)
@@ -143,7 +148,7 @@ final class Analyser(
       lastTryByKey = none,
       acquired = none,
       skipPositions = Nil,
-      postGameStudies = Nil.some,
+      postGameStudies = sender.postGameStudy.map(pgs => Set(pgs)),
       createdAt = DateTime.now
     )
 }

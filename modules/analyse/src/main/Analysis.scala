@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 case class Analysis(
     id: String, // game ID, or chapter ID if studyId is set
     studyId: Option[String],
-    postGameStudies: Option[List[Analysis.PostGameStudy]],
+    postGameStudies: Option[Set[Analysis.PostGameStudy]],
     infos: List[Info],
     startPly: Int,
     uid: Option[String], // requester lishogi ID
@@ -66,7 +66,7 @@ object Analysis {
       Analysis(
         id = r str "_id",
         studyId = r strO "studyId",
-        postGameStudies = r.getO[List[PostGameStudy]]("pgs"),
+        postGameStudies = r.getO[Set[PostGameStudy]]("pgs"),
         infos = Info.decodeList(raw, startPly),
         startPly = startPly,
         uid = r strO "uid",

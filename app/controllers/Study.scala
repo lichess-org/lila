@@ -225,7 +225,17 @@ final class Study(
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
       _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
       pov = userAnalysisC.makePov(chapter.root.sfen.some, chapter.setup.variant, chapter.setup.fromNotation)
-      analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
+      analysis <- chapter.serverEval.exists(_.done) ?? {
+        chapter.root.gameMainline
+          .ifTrue(chapter.isFirstGameRootChapter)
+          .fold(
+            env.analyse.analyser.byId(chapter.id.value)
+          ) { gm =>
+            env.analyse.analyser
+              .byId(gm.id)
+              .map2(_.copy(id = chapter.id.value, studyId = sc.study.id.value.some))
+          }
+      }
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData = env.round.jsonView.userAnalysisJson(
         pov,
