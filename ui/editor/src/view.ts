@@ -184,7 +184,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   selected: ctrl.turn === color,
                 },
               },
-              ctrl.trans.noarg(color)
+              transWithColorName(ctrl.trans, 'xPlays', color, undefined)
             );
           })
         )
