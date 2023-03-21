@@ -208,7 +208,8 @@ object BSONHandlers {
     Node.GameMainlineExtension(
       shapes = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty,
       comments = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty,
-      glyphs = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
+      glyphs = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty,
+      score  = doc.getAsOpt[Score](F.score)
     )
   }
 
@@ -218,6 +219,7 @@ object BSONHandlers {
       shapes   -> rn.shapes.value.nonEmpty.option(rn.shapes),
       comments -> rn.comments.value.nonEmpty.option(rn.comments),
       glyphs   -> rn.glyphs.nonEmpty,
+      score    -> rn.score,
       order -> {
         (rn.children.nodes.sizeIs > 1) option rn.children.nodes.map(_.id)
       }

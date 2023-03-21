@@ -80,6 +80,7 @@ case class Chapter(
 
   def isGameChapter          = root.isGameRoot
   def isFirstGameRootChapter = root.gameMainline.exists(_.part == 0)
+  def gameMainlineLength     = root.gameMainline.map(_.usiMoves.size)
 
   def withoutChildren = copy(root = root.withoutChildren)
 
@@ -131,7 +132,7 @@ object Chapter {
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
   }
 
-  case class ServerEval(path: Path, done: Boolean)
+  case class ServerEval(done: Boolean)
 
   case class RelayAndTags(id: Id, relay: Relay, tags: Tags) {
 

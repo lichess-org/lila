@@ -26,6 +26,7 @@ sealed trait RootOrNode {
   def usiOption: Option[Usi]
   def idOption: Option[UsiCharPair]
   def forceVariation: Boolean
+  def dropFirstChild: RootOrNode
 }
 
 case class Node(
@@ -57,6 +58,8 @@ case class Node(
 
   def withClock(centis: Option[Centis])  = copy(clock = centis)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
+
+  def dropFirstChild = copy(children = Children(children.variations))
 
   def isCommented = comments.value.nonEmpty
 
@@ -245,21 +248,24 @@ object Node {
   case class GameMainlineExtension(
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
-      glyphs: Glyphs = Glyphs.empty
+      glyphs: Glyphs = Glyphs.empty,
+      score: Option[Score] = None
   ) {
 
     def merge(n: Node): Node =
       n.copy(
         shapes = n.shapes ++ shapes,
         comments = n.comments ++ comments,
-        glyphs = n.glyphs merge glyphs
+        glyphs = n.glyphs merge glyphs,
+        score  = score
       )
 
     def merge(r: Node.Root): Node.Root =
       r.copy(
         shapes = r.shapes ++ shapes,
         comments = r.comments ++ comments,
-        glyphs = r.glyphs merge glyphs
+        glyphs = r.glyphs merge glyphs,
+        score = score
       )
 
   }
@@ -289,6 +295,7 @@ object Node {
       }
 
     def withoutChildren = copy(children = Node.emptyChildren)
+    def dropFirstChild  = copy(children = Children(children.variations))
 
     def addChild(child: Node) = copy(children = children addNode child)
 
@@ -350,6 +357,9 @@ object Node {
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
 
     def isGameRoot = gameMainline.isDefined
+
+    lazy val gameMainlinePath: Option[Path] =
+      gameMainline.map(gm => mainlinePath.take(gm.usiMoves.size))
 
     def hasMultipleCommentAuthors: Boolean = (comments.authors ::: children.commentAuthors).toSet.size > 1
 

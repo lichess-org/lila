@@ -14,11 +14,12 @@ private object StudyFlatTree {
     val depth = toDepth(key)
 
     def toNodeWithChildren(children: Option[Children]): Option[Node] =
-      toUsiCharPair(key).flatMap { ucp =>
-        readNode(data, ucp).map(
-          _.copy(children = children | Node.emptyChildren)
-        )
-      }
+      toUsiCharPair(key)
+        .flatMap { ucp =>
+          readNode(data, ucp).map(
+            _.copy(children = children | Node.emptyChildren)
+          )
+        }
   }
 
   private def toDepth(key: String): Int =
@@ -78,7 +79,7 @@ private object StudyFlatTree {
       flatTree.elements.toList
         .collect {
           case el if !Path.dbKeys.contains(el.name) =>
-            FlatNode(el.name, el.value.asOpt[Bdoc].get)
+            FlatNode(Path.decodeDbKey(el.name), el.value.asOpt[Bdoc].get)
         }
         .sortBy(-_.depth)
 
@@ -116,7 +117,9 @@ private object StudyFlatTree {
       root.children.first ?? { traverseGameMainlineExtensions(_) }
 
     private def rootVariations(root: Node.Root): Vector[(String, Bdoc)] =
-      root.children.nodes.flatMap { traverseVariations(_, Path.root, root.mainlinePath) }
+      root.children.nodes.flatMap {
+        traverseVariations(_, Path.root, root.gameMainlinePath.getOrElse(root.mainlinePath))
+      }
 
     private def traverse(node: Node, parentPath: Path): Vector[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES) ?? {
@@ -127,7 +130,7 @@ private object StudyFlatTree {
       }
 
     private def traverseGameMainlineExtensions(rn: RootOrNode): Vector[(String, Bdoc)] = {
-      val rest = rn.children.first.filterNot(_.forceVariation) ?? {
+      val rest = rn.children.first ?? {
         traverseGameMainlineExtensions(_)
       }
       if (storeNode(rn)) rest appended (rn.ply.toString -> writeGameMainlineExtension(rn))
@@ -144,7 +147,7 @@ private object StudyFlatTree {
         val rest: Vector[(String, Bdoc)] = node.children.nodes.flatMap { node =>
           traverseVariations(node, path, mainline)
         }
-        if (!node.forceVariation && path.isOnPathOf(mainline)) rest
+        if (path.isOnPathOf(mainline)) rest
         else {
           val intersection = path.intersect(mainline)
           rest appended (s"${intersection.depth}${Path.gameMainlineSep}${path.drop(intersection.depth)}" -> writeNode(
@@ -154,7 +157,7 @@ private object StudyFlatTree {
       }
 
     private def storeNode(rn: RootOrNode): Boolean =
-      rn.comments.value.nonEmpty || rn.shapes.value.nonEmpty || !rn.glyphs.isEmpty
+      rn.score.isDefined || rn.comments.value.nonEmpty || rn.shapes.value.nonEmpty || !rn.glyphs.isEmpty
 
   }
 }

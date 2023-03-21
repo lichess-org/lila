@@ -19,7 +19,7 @@ case class Path(ids: Vector[UsiCharPair]) extends AnyVal {
   def isEmpty = ids.isEmpty
 
   def isOnPathOf(other: Path): Boolean =
-    other.toString.startsWith(this.toString)
+    other.ids.startsWith(this.ids)
 
   def +(id: UsiCharPair): Path = Path(ids appended id)
   def +(node: Node): Path      = Path(ids appended node.id)
@@ -35,15 +35,15 @@ case class Path(ids: Vector[UsiCharPair]) extends AnyVal {
     }
 
   def toDbField(root: Node.Root) =
-    if (root.isGameRoot) {
-      val intersection = this.intersect(root.mainlinePath)
+    root.gameMainlinePath.fold {
+      if (ids.isEmpty) s"root.${Path.rootDbKey}"
+      else s"root.${Path encodeDbKey this}"
+    } { gmp =>
+      val intersection = this.intersect(gmp)
       if (intersection == this)
         s"root.${Path.gameMainlineExtensionDbKey}.${this.depth}"
       else
         s"root.${intersection.depth}${Path.gameMainlineSep}${Path encodeDbKey this.drop(intersection.depth)}"
-    } else {
-      if (ids.isEmpty) s"root.${Path.rootDbKey}"
-      else s"root.${Path encodeDbKey this}"
     }
 
   def depth = ids.size

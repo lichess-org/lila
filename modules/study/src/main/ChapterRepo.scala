@@ -214,7 +214,9 @@ final class ChapterRepo(
     }
 
   private def pathExists(root: Node.Root, path: Path) =
-    !(root.isGameRoot && path.isOnPathOf(root.mainlinePath)) ?? ($doc(path.toDbField(root) $exists true))
+    !(root.isGameRoot && root.gameMainlinePath.exists(path isOnPathOf _)) ?? ($doc(
+      path.toDbField(root) $exists true
+    ))
 
   // root.path.subField
   private def pathToField(root: Node.Root, path: Path, subField: String): String =
@@ -270,7 +272,6 @@ final class ChapterRepo(
         $id(chapter.id),
         "serverEval",
         Chapter.ServerEval(
-          path = chapter.root.mainlinePath,
           done = false
         )
       )
