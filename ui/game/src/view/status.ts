@@ -31,7 +31,7 @@ export default function status(
       switch (winner) {
         case 'sente':
         case 'gote':
-          return transWithColorName(trans, 'xLeftTheGame', winner, initialSfen);
+          return transWithColorName(trans, 'xLeftTheGame', winner === 'sente' ? 'gote' : 'sente', initialSfen);
         default:
           return noarg('draw');
       }
@@ -40,7 +40,9 @@ export default function status(
     case 'outoftime':
       return noarg('timeOut');
     case 'noStart':
-      return winner ? transWithColorName(trans, 'xDidntMove', winner, initialSfen) : noarg('finished');
+      return winner
+        ? transWithColorName(trans, 'xDidntMove', winner === 'sente' ? 'gote' : 'sente', initialSfen)
+        : noarg('finished');
     case 'cheat':
       return noarg('cheatDetected');
     case 'unknownFinish':
