@@ -58,7 +58,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
       conceal,
     };
     return ([moveView.renderIndex(main.ply, ctx.ctrl.plyOffset(), false)] as MaybeVNodes)
-      .concat(main.forceVariation ? [] : [renderMoveOf(ctx, main, passOpts)])
+      .concat(main.forceVariation ? [h('move-notation', '--')] : [renderMoveOf(ctx, main, passOpts)])
       .concat([
         h(
           'interrupt',
@@ -121,7 +121,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-    classes = nodeClasses(ctx, node, path);
+    classes = nodeClasses(ctx, node, path, true);
   if (opts.conceal) classes[opts.conceal as string] = true;
   return h(
     'move',

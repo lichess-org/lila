@@ -39,17 +39,18 @@ export interface NodeClasses {
   [key: string]: boolean;
 }
 
-export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeClasses {
+export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path, mainline = false): NodeClasses {
   const glyphIds = ctx.showGlyphs && node.glyphs ? node.glyphs.map(g => g.id) : [];
   return {
     active: path === ctx.ctrl.path,
     'context-menu': path === ctx.ctrl.contextMenuPath,
     current: path === ctx.currentPath,
     nongame:
-      !ctx.currentPath &&
-      !!ctx.ctrl.gamePath &&
-      treePath.contains(path, ctx.ctrl.gamePath) &&
-      path !== ctx.ctrl.gamePath,
+      (!ctx.currentPath &&
+        !!ctx.ctrl.gamePath &&
+        treePath.contains(path, ctx.ctrl.gamePath) &&
+        path !== ctx.ctrl.gamePath) ||
+      (mainline && !!ctx.ctrl.study?.data.chapter.gameLength && ctx.ctrl.study?.data.chapter.gameLength < node.ply),
     inaccuracy: glyphIds.includes(6),
     mistake: glyphIds.includes(2),
     blunder: glyphIds.includes(4),

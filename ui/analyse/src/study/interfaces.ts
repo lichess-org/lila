@@ -171,6 +171,7 @@ export interface StudyChapter {
   features: StudyChapterFeatures;
   description?: string;
   relay?: StudyChapterRelay;
+  gameLength?: number;
 }
 
 export interface StudyChapterRelay {
