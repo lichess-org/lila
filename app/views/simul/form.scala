@@ -128,7 +128,7 @@ object form {
           form3.select(_, clockExtraChoices)
         ),
         form3.group(form("color"), trans.hostColorForEachGame(), half = true)(
-          form3.select(_, colorChoices)
+          form3.select(_, colorChoices) // todo
         )
       ),
       form3.split(
