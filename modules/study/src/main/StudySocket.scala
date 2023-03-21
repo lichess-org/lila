@@ -232,19 +232,21 @@ final private class StudySocket(
     chatBusChan = _.Study
   )
 
-  private def moveOrDrop(studyId: Study.Id, au: AnaUsi, opts: MoveOpts)(who: Who) =
+  private def moveOrDrop(studyId: Study.Id, au: AnaUsi, opts: MoveOpts)(who: Who) = {
+    val path = Path(au.path)
     au.node match {
-      case Validated.Valid(node) if node.ply < Node.MAX_PLIES =>
+      case Validated.Valid(node) if path.depth < Node.MAX_PLIES =>
         au.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
             studyId,
-            Position.Ref(Chapter.Id(chapterId), Path(au.path)),
+            Position.Ref(Chapter.Id(chapterId), path),
             node withClock opts.clock,
             opts
           )(who)
         }
       case _ =>
     }
+  }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply _
 
