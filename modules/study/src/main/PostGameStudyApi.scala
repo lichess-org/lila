@@ -34,7 +34,13 @@ final class PostGameStudyApi(
           .postGameStudyWithOpponent(game.id)
           .getOrElse(
             studyMaker
-              .postGameStudy(game, Color.Sente, User.lishogiId, game.userIds, withOpponent = true)
+              .postGameStudy(
+                game,
+                Color.Sente,
+                game.userIds.headOption.ifTrue(game.userIds.size == 1).getOrElse(User.lishogiId),
+                game.userIds,
+                withOpponent = true
+              )
               .flatMap(scs => insertNewStudy(scs))
               .addEffect { s =>
                 gameRepo.setPostGameStudy(game.id, s.id.value)
