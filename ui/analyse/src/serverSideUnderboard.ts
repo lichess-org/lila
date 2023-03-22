@@ -41,7 +41,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     lichess.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
     lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       setTimeout(
-        () => (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown'),
+        () => (v ? $menu.find('.computer-analysis') : $menu.find('span:not(.computer-analysis)').first()).trigger('mousedown'),
         50
       );
       if (v) advChart?.reflow();
