@@ -227,10 +227,7 @@ final class StudyApi(
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
   )(who: Who): Funit = {
-    val node =
-      if (position.chapter.isGameChapter && position.path.parent == position.chapter.root.mainlinePath)
-        rawNode.withoutChildren.withForceVariation(true)
-      else rawNode.withoutChildren
+    val node         = rawNode.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
@@ -282,10 +279,12 @@ final class StudyApi(
         chapter.updateRoot { root =>
           root.withChildren(_.deleteNodeAt(position.path))
         } match {
-          case Some(newChapter) =>
+          case Some(newChapter)
+              if (chapter.root.gameMainlinePath
+                .fold(true)(gmp => newChapter.root.mainlinePath.isOnPathOf(gmp))) =>
             chapterRepo.update(newChapter) >>-
               sendTo(study.id)(_.deleteNode(position, who))
-          case None =>
+          case _ =>
             fufail(s"Invalid delNode $studyId $position") >>-
               reloadSriBecauseOf(study, who.sri, chapter.id)
         }
@@ -312,7 +311,8 @@ final class StudyApi(
           }
         } match {
           case Some(newChapter)
-              if (!chapter.isGameChapter || newChapter.root.mainline.sameElements(chapter.root.mainline)) =>
+              if (chapter.root.gameMainlinePath
+                .fold(true)(gmp => newChapter.root.mainlinePath.isOnPathOf(gmp))) =>
             chapterRepo.update(newChapter) >>-
               sendTo(study.id)(_.promote(position, toMainline, who)) >>
               newChapter.root.children
