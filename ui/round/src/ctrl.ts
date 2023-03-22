@@ -3,6 +3,7 @@
 import * as ab from 'ab';
 import * as round from './round';
 import * as game from 'game';
+import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
 import * as ground from './ground';
 import notify from 'common/notification';
@@ -724,6 +725,22 @@ export default class RoundController {
     const d = this.data;
     return d.opponent.gone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.gone;
   };
+
+  rematch(accept?: boolean): boolean {
+    if (accept === undefined)
+      return this.data.opponent.offeringRematch === true || this.data.player.offeringRematch === true;
+    else if (accept) {
+      if (this.data.game.rematch) location.href = gameRoute(this.data.game.rematch, this.data.opponent.color);
+      if (!game.rematchable(this.data)) return false;
+      if (!this.data.opponent.offeringRematch) this.data.player.offeringRematch = true;
+      this.socket.send('rematch-yes');
+    } else {
+      if (!this.data.opponent.offeringRematch) return false;
+      this.socket.send('rematch-no');
+    }
+    this.redraw();
+    return true;
+  }
 
   canOfferDraw = (): boolean => game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < this.ply - 20;
 

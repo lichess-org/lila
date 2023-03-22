@@ -73,7 +73,7 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
     clock: () => root.clock,
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
     resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
-    rematch: () => (root.challengeRematch ? root.challengeRematch() : null),
+    rematch: (accept?: boolean) => root.rematch?.(accept) ?? false,
     takeback: () => root.takebackYes?.(),
     next: () => root.next?.(),
     vote: (v: boolean) => root.vote?.(v),

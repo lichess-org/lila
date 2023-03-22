@@ -142,7 +142,8 @@ class VoiceMoveControl implements VoiceMoveCtrl {
     const exactMatch = this.byWord.get(msgText);
     if (exactMatch?.val === 'no') {
       if (this.ctrl.modalOpen()) this.ctrl.modalOpen(false);
-      else this.clearMoveProgress();
+      else if (this.ctrl.rematch()) this.ctrl.rematch(false);
+      this.clearMoveProgress();
       return true;
     }
     const matchedVal = this.matchOneTags(msgText, ['command']);
@@ -151,12 +152,15 @@ class VoiceMoveControl implements VoiceMoveCtrl {
       this.ctrl.voice?.stop();
       this.clearMoveProgress();
       return true;
+    } else if (matchedVal[0] === 'rematch') {
+      this.ctrl.rematch(true);
+      return true;
     }
     return nonMoveCommand(matchedVal[0], this.ctrl);
   }
 
   handleAmbiguity(phrase: string, words: WordResult): boolean {
-    if (!this.ambiguity || words.length > 2) return false;
+    if (!this.ambiguity || words.length > 2) return false; // might want > 1 here
     const doColors = this.arrowColors();
     const conf = words.reduce((acc, w) => acc + w.conf, 0) / words.length;
     const moves: [string, [Uci]][] = [];
