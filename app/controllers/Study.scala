@@ -226,13 +226,13 @@ final class Study(
       _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
       pov = userAnalysisC.makePov(chapter.root.sfen.some, chapter.setup.variant, chapter.setup.fromNotation)
       analysis <- chapter.serverEval.exists(_.done) ?? {
-        chapter.root.gameMainline
+        chapter.setup.gameId
           .ifTrue(chapter.isFirstGameRootChapter)
           .fold(
             env.analyse.analyser.byId(chapter.id.value)
-          ) { gm =>
+          ) { gameId =>
             env.analyse.analyser
-              .byId(gm.id)
+              .byId(gameId)
               .map2(_.copy(id = chapter.id.value, studyId = sc.study.id.value.some))
           }
       }

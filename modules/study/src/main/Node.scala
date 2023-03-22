@@ -257,7 +257,7 @@ object Node {
         shapes = n.shapes ++ shapes,
         comments = n.comments ++ comments,
         glyphs = n.glyphs merge glyphs,
-        score  = score
+        score = score
       )
 
     def merge(r: Node.Root): Node.Root =
@@ -358,7 +358,7 @@ object Node {
 
     def isGameRoot = gameMainline.isDefined
 
-    lazy val gameMainlinePath: Option[Path] =
+    def gameMainlinePath: Option[Path] =
       gameMainline.map(gm => mainlinePath.take(gm.usiMoves.size))
 
     def hasMultipleCommentAuthors: Boolean = (comments.authors ::: children.commentAuthors).toSet.size > 1

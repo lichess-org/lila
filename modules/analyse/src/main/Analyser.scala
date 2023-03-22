@@ -41,7 +41,7 @@ final class Analyser(
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.studyId match {
       case None => {
-        if (analysis.postGameStudies.isDefined)
+        if (analysis.postGameStudies.nonEmpty)
           Bus.publish(actorApi.PostGameStudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
         gameRepo game analysis.id map {
           _ ?? { game =>

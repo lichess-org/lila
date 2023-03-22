@@ -209,7 +209,7 @@ object BSONHandlers {
       shapes = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty,
       comments = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty,
       glyphs = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty,
-      score  = doc.getAsOpt[Score](F.score)
+      score = doc.getAsOpt[Score](F.score)
     )
   }
 

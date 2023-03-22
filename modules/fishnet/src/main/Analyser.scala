@@ -111,19 +111,24 @@ final class Analyser(
     }
 
   private def updateAnalysis(analysis: Work.Analysis, sender: Work.Sender): Option[Work.Analysis] = {
-    val senderUpdate =
-      (!analysis.isAcquired && analysis.sender.system && !sender.system) ?? {
-        analysis
-          .copy(sender = sender)
-          .some
-      }
-    val pgsUpdates = sender.postGameStudy.filter(so => !analysis.postGameStudies.exists(_ contains so)) ?? {
-      so =>
-        senderUpdate.getOrElse(analysis).copy(postGameStudies = (~analysis.postGameStudies + so).some).some
-    }
+    val senderUpdate = updateAnalysisSender(analysis, sender)
+    val pgsUpdates =
+      sender.postGameStudy.flatMap(updateAnalysisPostGameStudies(senderUpdate.getOrElse(analysis), _))
 
     pgsUpdates.orElse(senderUpdate)
   }
+
+  private def updateAnalysisSender(analysis: Work.Analysis, sender: Work.Sender): Option[Work.Analysis] =
+    if (analysis.isAcquired || !analysis.sender.system || sender.system)
+      none
+    else analysis.copy(sender = sender).some
+
+  private def updateAnalysisPostGameStudies(
+      analysis: Work.Analysis,
+      postGameStudy: lila.analyse.Analysis.PostGameStudy
+  ): Option[Work.Analysis] =
+    if (analysis.postGameStudies.contains(postGameStudy)) none
+    else analysis.copy(postGameStudies = analysis.postGameStudies + postGameStudy).some
 
   private def makeWork(game: Game, sender: Work.Sender): Work.Analysis =
     makeWork(
@@ -148,7 +153,7 @@ final class Analyser(
       lastTryByKey = none,
       acquired = none,
       skipPositions = Nil,
-      postGameStudies = sender.postGameStudy.map(pgs => Set(pgs)),
+      postGameStudies = sender.postGameStudy.toSet,
       createdAt = DateTime.now
     )
 }

@@ -120,7 +120,7 @@ object ServerEval {
       }
 
     def postGameStudies(analysis: Analysis, complete: Boolean) =
-      ~(analysis.postGameStudies) foreach { pgs =>
+      analysis.postGameStudies foreach { pgs =>
         apply(analysis.copy(id = pgs.chapterId, studyId = pgs.studyId.some), complete)
       }
 
