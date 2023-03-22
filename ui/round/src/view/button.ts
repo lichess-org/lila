@@ -105,7 +105,7 @@ function postGameStudyForm(ctrl: RoundController): VNode {
 
 function studyAdvancedButton(ctrl: RoundController): VNode | null {
   const d = ctrl.data;
-  return game.replayable(d)
+  return game.replayable(d) && !!ctrl.data.player.user
     ? h(
         'a.fbt.new-study-button',
         {
@@ -134,8 +134,16 @@ function studyAdvancedButton(ctrl: RoundController): VNode | null {
 }
 
 let loadingStudy = false;
+let initiatedStudy = false;
 function studyButton(ctrl: RoundController): VNode | null {
-  const d = ctrl.data;
+  const d = ctrl.data,
+    isAnon = !ctrl.data.player.user,
+    withAnonOrAnon = !ctrl.data.opponent.user || isAnon;
+  const title = withAnonOrAnon
+    ? ctrl.trans.noarg('postGameStudy')
+    : !!ctrl.data.player.spectator
+    ? ctrl.trans.noarg('studyOfPlayers')
+    : ctrl.trans.noarg('studyWithOpponent');
   return game.replayable(d)
     ? h('div.post-game-study', [
         ctrl.postGameStudyOffer && !loadingStudy
@@ -159,14 +167,14 @@ function studyButton(ctrl: RoundController): VNode | null {
               'a.fbt',
               {
                 class: {
-                  glowing: ctrl.postGameStudyOffer && !loadingStudy,
+                  glowing: ctrl.postGameStudyOffer && !loadingStudy && !initiatedStudy,
                 },
                 attrs: { href: '/study/' + d.game.postGameStudy },
                 hook: util.bind('click', () => {
                   ctrl.postGameStudyOffer = false;
                 }),
               },
-              h('span', ctrl.trans.noarg('studyWithOpponent'))
+              h('span', title)
             )
           : h(
               'form',
@@ -181,6 +189,7 @@ function studyButton(ctrl: RoundController): VNode | null {
                     ctrl.redraw();
                   }, 2500);
                   loadingStudy = true;
+                  initiatedStudy = true;
                   ctrl.redraw();
                 }),
               },
@@ -193,10 +202,10 @@ function studyButton(ctrl: RoundController): VNode | null {
                     },
                     attrs: {
                       type: 'submit',
-                      disabled: !!ctrl.data.player.spectator,
+                      disabled: !!ctrl.data.player.spectator || isAnon,
                     },
                   },
-                  loadingStudy ? spinner() : ctrl.trans.noarg('studyWithOpponent')
+                  loadingStudy ? spinner() : title
                 ),
               ]
             ),

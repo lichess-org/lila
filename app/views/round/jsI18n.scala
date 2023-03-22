@@ -101,6 +101,7 @@ object jsI18n {
     trans.standardStudy,
     trans.postGameStudyExplanation,
     trans.studyWithOpponent,
+    trans.studyOfPlayers,
     trans.studyWith,
     trans.optional,
     trans.postGameStudiesOfGame,
