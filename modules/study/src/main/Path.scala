@@ -41,9 +41,9 @@ case class Path(ids: Vector[UsiCharPair]) extends AnyVal {
     } { gmp =>
       val intersection = this.intersect(gmp)
       if (intersection == this)
-        s"root.${Path.gameMainlineExtensionDbKey}.${this.depth}"
+        s"root.${Path.gameMainlineExtensionDbKey}.${this.depth + root.ply}"
       else
-        s"root.${intersection.depth}${Path.gameMainlineSep}${Path encodeDbKey this.drop(intersection.depth)}"
+        s"root.${intersection.depth + root.ply}${Path.gameMainlineSep}${Path encodeDbKey this.drop(intersection.depth)}"
     }
 
   def depth = ids.size
