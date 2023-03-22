@@ -1,4 +1,5 @@
-import { handicaps } from 'game/handicaps';
+import { colorName } from 'common/colorName';
+import { handicaps } from 'common/handicaps';
 import { initialSfen } from 'shogiops/sfen';
 import LobbyController from './ctrl';
 import { FormStore, makeStore, toFormLines } from './form';
@@ -402,6 +403,9 @@ export default class Setup {
         variant = $variantSelect.val(),
         $infos = $('div.level').find('.ai_info > div'),
         useYane = variant == 1 && (!sfen || handicaps.includes(sfen) || initialSfen('standard') === sfen);
+
+      $form.find('.color-submits button[value="sente"]').attr('title', colorName(this.root.trans.noarg, 'sente', sfen));
+      $form.find('.color-submits button[value="gote"]').attr('title', colorName(this.root.trans.noarg, 'gote', sfen));
 
       $infos.text((_, text) => {
         const from = useYane ? 'Fairy Stockfish' : 'YaneuraOu V7.00';

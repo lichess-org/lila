@@ -1,5 +1,5 @@
 import { defined } from 'common/common';
-import { handicaps } from 'game/handicaps';
+import { handicaps } from 'common/handicaps';
 import { initialSfen } from 'shogiops/sfen';
 import AnalyseCtrl from './ctrl';
 import { AnalyseData } from './interfaces';

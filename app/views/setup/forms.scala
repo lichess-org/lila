@@ -103,6 +103,13 @@ object forms {
       )
     )
 
+  private def translatedSideChoices(implicit ctx: Context) =
+    List(
+      ("sente", standardColorName(shogi.Color.Sente), none),
+      ("random", trans.randomColor.txt(), none),
+      ("gote", standardColorName(shogi.Color.Gote), none)
+    )
+
   private def blindSideChoice(form: Form[_])(implicit ctx: Context) =
     ctx.blind option frag(
       renderLabel(form("color"), trans.side()),

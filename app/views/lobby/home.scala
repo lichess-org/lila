@@ -186,6 +186,12 @@ object home {
   }
 
   private val i18nKeys = List(
+    trans.black,
+    trans.white,
+    trans.sente,
+    trans.gote,
+    trans.shitate,
+    trans.uwate,
     trans.realTime,
     trans.correspondence,
     trans.nbGamesInPlay,
@@ -207,7 +213,7 @@ object home {
     trans.yourTurn,
     trans.rating,
     trans.createAGame,
-    trans.quickPairing,
+    // trans.quickPairing,
     trans.lobby,
     trans.custom,
     trans.anonymous

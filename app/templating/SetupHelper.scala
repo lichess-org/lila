@@ -165,13 +165,6 @@ trait SetupHelper { self: I18nHelper =>
       )
     }
 
-  def translatedSideChoices(implicit lang: Lang) =
-    List(
-      ("sente", trans.black.txt(), none),
-      ("random", trans.randomColor.txt(), none),
-      ("gote", trans.white.txt(), none)
-    )
-
   def translatedBoardLayoutChoices(implicit lang: Lang) =
     List(
       (Pref.BoardLayout.SIDE, trans.side.txt()),
