@@ -704,6 +704,7 @@ export type I18nKey =
 'agreementNice'|
 'agreementAccount'|
 'agreementPolicy'|
+'agreeWithX'|
 'searchOrStartNewDiscussion'|
 'edit'|
 'rapid'|
@@ -742,6 +743,7 @@ export type I18nKey =
 'postGameStudyExplanation'|
 'postGameStudiesOfGame'|
 'studyWithOpponent'|
+'studyOfPlayers'|
 'studyWith'|
 'optional'|
 'standardStudy'|
@@ -1395,6 +1397,7 @@ export type I18nKey =
 'nowLifetime'|
 'nowOneMonth'|
 'downgradeNextMonth'|
+'donationPolicy'|
 'patronForMonths'|
 'lishogiCoaches'|
 'lishogiCoach'|

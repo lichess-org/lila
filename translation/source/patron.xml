@@ -69,4 +69,5 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
 	<string name="nowLifetime">You are now a lifetime Lishogi Patron!</string>
 	<string name="nowOneMonth">You are now a Lishogi Patron for one month!</string>
 	<string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lishogi account will revert to a regular account.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>
