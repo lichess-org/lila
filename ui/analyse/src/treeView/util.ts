@@ -50,7 +50,9 @@ export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path, mainline
         !!ctx.ctrl.gamePath &&
         treePath.contains(path, ctx.ctrl.gamePath) &&
         path !== ctx.ctrl.gamePath) ||
-      (mainline && !!ctx.ctrl.study?.data.chapter.gameLength && ctx.ctrl.study?.data.chapter.gameLength < node.ply),
+      (mainline &&
+        !!ctx.ctrl.study?.data.chapter.gameLength &&
+        ctx.ctrl.study?.data.chapter.gameLength < path.length / 2),
     inaccuracy: glyphIds.includes(6),
     mistake: glyphIds.includes(2),
     blunder: glyphIds.includes(4),
