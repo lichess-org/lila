@@ -68,4 +68,5 @@ Tai voit %s.</string>
 	<string name="nowLifetime">Olet nyt elinikäinen Lishogiin tukija!</string>
 	<string name="nowOneMonth">Olet nyt Lishogiin tukija kuukauden ajan!</string>
 	<string name="downgradeNextMonth">Kuukauden päästä sinua EI veloiteta uudelleen, ja Lishogi-tilisi palautuu ilmaistiliksi.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

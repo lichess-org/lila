@@ -74,10 +74,10 @@
 	<string name="forceVariation">Zobrazit jako variantu</string>
 	<string name="move">Tah</string>
 	<plurals name="nbMoves">
-		<item quantity="one">%s move</item>
-		<item quantity="few">%s moves</item>
-		<item quantity="many">%s moves</item>
-		<item quantity="other">%s moves</item>
+		<item quantity="one">%s tah</item>
+		<item quantity="few">%s tahy</item>
+		<item quantity="many">%s tahu</item>
+		<item quantity="other">%s tahů</item>
 	</plurals>
 	<string name="variantLoss">Prohra</string>
 	<string name="variantWin">Výhra</string>
@@ -368,7 +368,7 @@
 	<string name="youAreNotInTeam">Nejste členem týmu %s</string>
 	<string name="backToGame">Zpět do hry</string>
 	<string name="siteDescription">Shogi online zdarma. Hrajte přímo ve vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="shogiDescription">Šogi, také známý jako \"将棋\" v japonštině, je strategická hra pro dva hráče, která se hrála v Japonsku už po staletí. Často se také nezývá jako ,,japonské šachy\" kvůli podobnostem se západní hrou šachů, ale má jedinečné vlastnosti, díky nimž je výjímečnou hrou.</string>
 	<string name="learnShogiHereX">Pokud nejste obeznámeni s pravidly shogi, podívejte se na - %s.</string>
 	<string name="xJoinedTeamY">%1$s se přidal k týmu %2$s</string>
 	<string name="xCreatedTeamY">%1$s založil tým %2$s</string>
@@ -461,7 +461,7 @@
 	<string name="showAdvancedSettings">Zobrazit pokročilá nastavení</string>
 	<string name="makePrivateTournament">Udělejte turnaj soukromý a omezte přístup heslem</string>
 	<string name="join">Přidat se</string>
-	<string name="pause">Pause</string>
+	<string name="pause">Pozastavit</string>
 	<string name="withdraw">Odhlásit se</string>
 	<string name="points">Body</string>
 	<string name="wins">Výhry</string>
@@ -489,7 +489,7 @@
 	<string name="handicap">Znevýhodnění</string>
 	<string name="startPosition">Základní postavení</string>
 	<string name="clearBoard">Prázdná šachovnice</string>
-	<string name="fillXHand">Fill hand of %s</string>
+	<string name="fillXHand">Vyplnit ruku %s</string>
 	<string name="savePosition">Uložit pozici</string>
 	<string name="loadPosition">Nahrát pozici</string>
 	<string name="isPrivate">Soukromý</string>
@@ -715,7 +715,7 @@
 	<string name="numberOfByoyomiPeriods">Počet intervalů byoyomi</string>
 	<string name="hostColorForEachGame">Barva hosta pro každou hru</string>
 	<string name="onlyMembersOfTeam">Pouze členové týmu</string>
-	<string name="simulDescription">Simul description</string>
+	<string name="simulDescription">Popis simultánky</string>
 	<string name="anythingTellParticipants">Je tu něco co by jste chtěli sdělit účastníkům?</string>
 	<string name="lishogiTournaments">Turnaje Lishogi</string>
 	<string name="tournamentFAQ">Arena turnaj - často kladené otázky</string>
@@ -729,7 +729,7 @@
 	<string name="keyEnterOrExitVariation">Zobraz variantu</string>
 	<string name="newTournament">Nový turnaj</string>
 	<string name="tournamentHomeTitle">Šógi turnaje nabízejí různé časové možnosti a varianty</string>
-	<string name="tournamentHomeDescription">Play fast-paced shogi tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical and more options available for endless shogi fun.</string>
+	<string name="tournamentHomeDescription">Zahrajte si rychlý šógi turnaj! Připojte se k oficiálnímu plánovanému turnaji, nebo si vytvořte vlastní. Bullet, Blitz, Klasické a další možnosti jsou k dispozici pro nekonečnou zábavu.</string>
 	<string name="tournamentNotFound">Turnaj nenalezen</string>
 	<string name="tournamentDoesNotExist">Tento turnaj neexistuje.</string>
 	<string name="tournamentMayHaveBeenCanceled">Možná byl zrušen, jestliže jej opustili všichni hráči před jeho začátkem.</string>
@@ -763,20 +763,20 @@
 	<string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii můžete také použít scrollovací kolečko myši nad šachovnicí.</string>
 	<string name="analysisShapesHowTo">Kliknutím se shiftem či kliknutím pravým tlačítkem lze kreslit do šachovnice kolečka a šipky.</string>
 	<string name="letOtherPlayersMessageYou">Povolit zprávy od ostatních hráčů</string>
-	<string name="shareYourInsightsData">Share your shogi insights data</string>
+	<string name="shareYourInsightsData">Sdílejte výsledky analýzy vašeho hraní</string>
 	<string name="withNobody">S nikým</string>
 	<string name="withFriends">S přáteli</string>
 	<string name="withEverybody">Se všemi</string>
 	<string name="youHaveAlreadyRegisteredTheEmail">Již máte zaregistrován email: %s</string>
 	<string name="kidMode">Dětský režim</string>
 	<string name="kidModeExplanation">To je pro bezpečnost. V dětském režimu je jakákoli komunikace zablokována. Zapněte to pro děti a studenty, pro ochranu před ostatními na Internetu.</string>
-	<string name="inKidModeTheLishogiLogoGetsIconX">In kid mode, the Lishogi logo gets a %s icon, so you know your kids are safe.</string>
+	<string name="inKidModeTheLishogiLogoGetsIconX">Když je zapnutý dětský režim, tak se u loga Lishogi objeví ikona %s. Podle toho poznáte, že je Vaše dítě v bezpečí.</string>
 	<string name="enableKidMode">Povolit dětský režim</string>
 	<string name="disableKidMode">Vypnout dětský režim</string>
 	<string name="security">Zabezpečení</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je přehled zařízení, na kterých došlo k přihlášení k Vašemu účtu. Pokud některé zařízení nepoznáváte, můžete zrušit jeho relaci.</string>
 	<string name="alternativelyYouCanX">Nebo můžete %s.</string>
-	<string name="sessions">Sessions</string>
+	<string name="sessions">Relace</string>
 	<string name="revokeAllSessions">odebrat všechny relace</string>
 	<string name="playShogiEverywhere">Hrajte šógi kdekoliv</string>
 	<string name="asFreeAsLishogi">Svobodný jako Lishogi</string>
@@ -820,7 +820,7 @@
 	<string name="gridSlim">Štíhlá</string>
 	<string name="gridThick">Tlustá</string>
 	<string name="gridVeryThick">Velmi tlustá</string>
-	<string name="hands" comment="Title in custom board theme editor">Hands</string>
+	<string name="hands" comment="Title in custom board theme editor">Ruce</string>
 	<string name="boardTheme">Vzhled šachovnice</string>
 	<string name="boardSize">Velikost šachovnice</string>
 	<string name="pieceSet">Vzhled figur</string>
@@ -835,8 +835,8 @@
 	<string name="shogiBasics">Základy šógi</string>
 	<string name="shogiResources">Zdroje o šógi</string>
 	<string name="coaches">Trenéři</string>
-	<string name="invalidNotation">Invalid notation</string>
-	<string name="invalidSfen">Invalid SFEN</string>
+	<string name="invalidNotation">Neplatný formát notace</string>
+	<string name="invalidSfen">Neplatný formát SFEN</string>
 	<string name="error.minLength">Minimální délka je %s</string>
 	<string name="error.maxLength">Maximální délka je %s</string>
 	<string name="error.min">Musí být větší nebo rovno %s</string>
@@ -845,7 +845,7 @@
 	<string name="custom">Vlastní</string>
 	<string name="notifications">Oznámení</string>
 	<string name="challenges">Výzvy</string>
-	<string name="perfRatingX">Rating: %s</string>
+	<string name="perfRatingX">Hodnocení %s:</string>
 	<plurals name="nbSecondsToPlayTheFirstMove">
 		<item quantity="one">%s sekunda na první tah</item>
 		<item quantity="few">%s sekundy na první tah</item>
@@ -872,13 +872,13 @@
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Najděte lepší tah pro %s</string>
 	<string name="resumeLearning">Pokračovat v učení</string>
 	<string name="youCanDoBetter">Máte lepší tah</string>
-	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Zkuste jiný tah pro %s</string>
 	<string name="solution">Řešení</string>
 	<string name="waitingForAnalysis">Čekání na analýzu</string>
-	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">Žádné chyby nenalezeny pro %s</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Procházení chyb pro %s dokončeno</string>
 	<string name="doItAgain">Udělat znovu</string>
-	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Projít %s chyby</string>
 	<string name="advantage">Výhoda</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s sekunda</item>
@@ -926,6 +926,7 @@
 	<string name="agreementNice">Přísahám, že budu vždy respektovat ostatní hráče.</string>
 	<string name="agreementAccount">Přísahám, že nikdy nebudu vytvářet více účtů.</string>
 	<string name="agreementPolicy">Souhlasím, že se budu řídit všemi pravidly Lishogiu.</string>
+	<string name="agreeWithX">Souhlasím s: %s</string>
 	<string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
 	<string name="edit">Upravit</string>
 	<string name="rapid">Rapid</string>
@@ -956,15 +957,16 @@
 	<string name="previousBlogPosts">Předchozí blogové příspěvky</string>
 	<string name="continueReadingThis"> Pokračovat ve čtení tohoto příspěvku</string>
 	<string name="discussBlogForum">Diskutovat o tomto blogu ve fóru</string>
-	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invading pieces</string>
-	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entering king</string>
-	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Total value</string>
-	<string name="postGameStudy">Post-game study</string>
-	<string name="postGameStudies">Post-game studies</string>
-	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
-	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
-	<string name="studyWithOpponent">Study with opponent</string>
-	<string name="studyWith">Study with:</string>
-	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
-	<string name="standardStudy">Standard study</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invazní kameny</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Vstupující král</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Celková hodnota</string>
+	<string name="postGameStudy">Studie po hře</string>
+	<string name="postGameStudies">Studie po hře</string>
+	<string name="postGameStudyExplanation">Studie po hře jsou uvedeny v jejich vlastní kategorii a umožňují přímé vyzvání k odvetě nebo hledání nové hry.</string>
+	<string name="postGameStudiesOfGame">Studie po hře této hry</string>
+	<string name="studyWithOpponent">Studovat se soupeřem</string>
+	<string name="studyOfPlayers">Studie hráčů</string>
+	<string name="studyWith">Studovat s:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Nepovinné</string>
+	<string name="standardStudy">Standardní studie</string>
 </resources>

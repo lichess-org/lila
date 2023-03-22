@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="shogi">Шогі</string>
+	<string name="shogi">Сёгі</string>
 	<string name="playWithAFriend">Гуляць з сябрам</string>
 	<string name="playWithTheMachine">Гуляць з камп\'ютарам</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Каб запрасіць каго-небудзь гуляць, падзяліцеся гэтым URL</string>
@@ -39,10 +39,10 @@
 	<string name="joinTheGame">Далучыцца да гульні</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s гуляць</string>
 	<plurals name="opponentLeftCounter">
-		<item quantity="one">Your opponent left the game. You can claim victory in %s second.</item>
+		<item quantity="one">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунду.</item>
 		<item quantity="few">Your opponent left the game. You can claim victory in %s seconds.</item>
 		<item quantity="many">Your opponent left the game. You can claim victory in %s seconds.</item>
-		<item quantity="other">Ваш супраціўнік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунд.</item>
+		<item quantity="other">Ваш супраціўнік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунды.</item>
 	</plurals>
 	<string name="opponentLeftChoices">Ваш супраціўнік пакінуў гульню. Вы можаце абвясціць сваю перамогу ці нічыю, або пачакаць.</string>
 	<string name="makeYourOpponentResign">Прымусіць супраціўніка здацца</string>
@@ -74,7 +74,7 @@
 	<string name="forceVariation">Узначаліць варыянт</string>
 	<string name="move">Ход</string>
 	<plurals name="nbMoves">
-		<item quantity="one">%s move</item>
+		<item quantity="one">%s ход</item>
 		<item quantity="few">%s moves</item>
 		<item quantity="many">%s moves</item>
 		<item quantity="other">%s хады</item>
@@ -879,15 +879,15 @@
 	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Разгляд памылак для %s скончаны</string>
 	<string name="doItAgain">Яшчэ раз</string>
 	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Разабраць памылкі %s</string>
-	<string name="advantage">Advantage</string>
+	<string name="advantage">Перавага</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s second</item>
 		<item quantity="few">%s seconds</item>
 		<item quantity="many">%s seconds</item>
-		<item quantity="other">%s seconds</item>
+		<item quantity="other">%s секунды</item>
 	</plurals>
-	<string name="opening">Opening</string>
-	<string name="middlegame">Middlegame</string>
+	<string name="opening">Дэбют</string>
+	<string name="middlegame">Мітальшпіль</string>
 	<string name="endgame">Эндшпіль</string>
 	<string name="registerToSendChallenges">Зарэгіструйцеся, каб выклікаць супраціўнікаў на гульню.</string>
 	<string name="youCannotChallengeX">Вы не можаце выклікаць на гульню %s.</string>
@@ -926,6 +926,7 @@
 	<string name="agreementNice">Я згаджаюся, што я заўсёды адносіцца з павагай да другіх гульцоў.</string>
 	<string name="agreementAccount">Я згаджаюся, што я не буду ствараць некалькі ўліковых запісаў.</string>
 	<string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lishogi.</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">Знайсці або пачаць новую размову </string>
 	<string name="edit">Рэдагаваць</string>
 	<string name="rapid">Рапід</string>
@@ -943,28 +944,29 @@
 	<string name="toReportSomeoneForCheatingOrBadBehavior">Каб паведаміць аб падмане ці дрэнных паводзінах карыстальніка, %1$s</string>
 	<string name="useTheReportForm">скарыстайцеся формай справаздачы</string>
 	<string name="toRequestSupport">Каб атрымаць дапамогу, %1$s</string>
-	<string name="tryTheContactPage">try the contact page</string>
-	<string name="thisTopicIsArchived">This topic has been archived and can no longer be replied to.</string>
-	<string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
-	<string name="teamNamedX">%1$s team</string>
-	<string name="youCannotPostYetPlaySomeGames">You can\'t post in the forums yet. Play some games!</string>
-	<string name="subscribe">Subscribe</string>
-	<string name="unsubscribe">Unsubscribe</string>
-	<string name="notationSystem">Notation</string>
-	<string name="officialBlog">Lishogi Official Blog</string>
-	<string name="blogPostsFromYear">Blog posts from %1$s</string>
+	<string name="tryTheContactPage">паспрабуйце старонку кантактаў</string>
+	<string name="thisTopicIsArchived">Гэта тэма была архівавана і абмяркаваць яе больш немагчыма.</string>
+	<string name="joinTheTeamXToPost">Далучыцеся да %1$s, каб пакінуць пісаць на форуме</string>
+	<string name="teamNamedX">каманда %1$s</string>
+	<string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
+	<string name="subscribe">Падпісацца</string>
+	<string name="unsubscribe">Адпісацца</string>
+	<string name="notationSystem">Натацыя</string>
+	<string name="officialBlog">Афіцыйны блог Lishogi</string>
+	<string name="blogPostsFromYear">Публікацыя ад %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
-	<string name="continueReadingThis"> Continue reading this post</string>
+	<string name="continueReadingThis"> Працягнуць чытаць гэты пост</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
-	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Invading pieces</string>
-	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entering king</string>
-	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Total value</string>
+	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Фігуры ў палоне супраціўніка</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Кароль у палоне супраціўніка</string>
+	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Агульны кошт</string>
 	<string name="postGameStudy">Post-game study</string>
 	<string name="postGameStudies">Post-game studies</string>
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
-	<string name="studyWith">Study with:</string>
-	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
+	<string name="studyOfPlayers">Study of players</string>
+	<string name="studyWith">Аналізуй з:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Змяняльны</string>
 	<string name="standardStudy">Standard study</string>
 </resources>

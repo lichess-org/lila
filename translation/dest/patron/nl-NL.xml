@@ -69,4 +69,5 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
 	<string name="nowLifetime">Je bent nu een levenslange Lishogi Patroon!</string>
 	<string name="nowOneMonth">Je bent nu een Lishogi Patroon voor een maand!</string>
 	<string name="downgradeNextMonth">Over een maand worden er GEEN extra kosten in rekening gebracht en je Lishogi account wordt teruggezet naar een kosteloos account.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

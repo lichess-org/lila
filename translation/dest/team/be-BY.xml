@@ -14,16 +14,16 @@
   <string name="noTeamFound">Каманда не знойдзена</string>
   <string name="joinTeam">Далучыцца да каманды</string>
   <string name="quitTeam">Выйсці з каманды</string>
-  <string name="anyoneCanJoin">Free for all</string>
-  <string name="aConfirmationIsRequiredToJoin">A confirmation is required to join</string>
-  <string name="joiningPolicy">Joining policy</string>
+  <string name="anyoneCanJoin">Кожны можа далучыцца</string>
+  <string name="aConfirmationIsRequiredToJoin">Патрэбна пацвярджэнне , каб далучыцца</string>
+  <string name="joiningPolicy">Умовы далучэння</string>
   <plurals name="teamLeaders">
     <item quantity="one">Лідар каманды</item>
     <item quantity="few">Лідары каманды</item>
     <item quantity="many">Лідары каманды</item>
     <item quantity="other">Лідары каманды</item>
   </plurals>
-  <string name="teamBestPlayers">Best players</string>
+  <string name="teamBestPlayers">Лепшыя гульцы каманды</string>
   <string name="teamRecentMembers">Нядаўна далучыліся</string>
   <string name="kickSomeone">Выгнаць кагосьці з каманды</string>
   <string name="whoToKick">Каго вы хочаце выгнаць з каманды?</string>

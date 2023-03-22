@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="preferences">Налады</string>
-	<string name="gameDisplay">Game display</string>
-	<string name="boardLayout">Board layout</string>
-	<string name="clearHands">Hide ghosts of pieces in hand</string>
+	<string name="gameDisplay">Выгляд дошкі</string>
+	<string name="boardLayout">Расклад дошкі</string>
+	<string name="clearHands">Схаваць фігуры, калі яны на руцэ</string>
 	<string name="pieceAnimation">Анімацыя фігур</string>
 	<string name="materialDifference">Паказваць розніцу ў фігурах</string>
-	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
-	<string name="boardHighlightsCheck">Board highlights - check</string>
+	<string name="boardHighlightsLastDests">Дошка паказвае — апошні ход/скід</string>
+	<string name="boardHighlightsCheck">Дошка паказвае — шах</string>
 	<string name="pieceDestinations">Паказваць дапушчальныя хады</string>
-	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
+	<string name="dropDestinations">Даступныя клеткі (для хадоў і прэвентыўных хадоў)</string>
 	<string name="boardCoordinates">Каардынаты дошкі</string>
 	<string name="moveListWhilePlaying">Паказваць спіс хадоў</string>
-	<string name="colorName">Name used for individual players</string>
-	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
+	<string name="colorName">Імя, якое выкарыстоўваецца для асобных гульцоў</string>
+	<string name="displayTouchSquareOverlay">Накладанне квадратнага асвятлення на сэнсарныя прылады</string>
 	<string name="zenMode">Рэжым Дзэн</string>
 	<string name="displayBoardResizeHandle">Паказваць ручку змены памеру дошкі</string>
 	<string name="onlyOnInitialPosition">Толькі ў пачатковым становішчы</string>
-	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
-	<string name="shogiClock">Shogi clock</string>
+	<string name="blindfoldShogi">Сёгі ўсляпую (фігуры схаваныя)</string>
+	<string name="shogiClock">Гадзіннік сёгі</string>
 	<string name="tenthsOfSeconds">Дзясятыя долі секунды</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Калі засталося менш за 10 с</string>
-	<string name="clockTickingStart">Clock should start ticking at</string>
+	<string name="clockTickingStart">Гадзіннікі павінны пачаць працаваць, калі</string>
 	<string name="soundWhenTimeGetsCritical">Гукавое апавяшчэнне пры нястачы часу</string>
 	<string name="giveMoreTime">Дадаць часу</string>
 	<string name="gameBehavior">Налады гульні</string>
@@ -40,8 +40,8 @@
 	<string name="confirmResignationAndDrawOffers">Пацвярджаць здаччу і прапановы нічый</string>
 	<string name="inputMovesWithTheKeyboard">Уводзіць хады з дапамогай клавіятуры</string>
 	<string name="scrollOnTheBoardToReplayMoves">Гартайце колцам мышцы на дошцы, каб прайграць хады</string>
-	<string name="westernNotation">Western notation</string>
-	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
+	<string name="westernNotation">Заходнія абазначэнні</string>
+	<string name="japaneseNotation">Японскія абазначэнні</string>
+	<string name="kitaoKawasakiNotation">Абазначэнні Кітаа-Кавасакі</string>
 	<string name="yourPreferencesHaveBeenSaved">Вашы налады былі захаваныя.</string>
 </resources>

@@ -2,11 +2,11 @@
 <resources>
 	<string name="coordinates">Каардынаты</string>
 	<string name="coordinateTraining">Трэніроўка каардынат</string>
-	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Average score as %1$s: %2$s</string>
-	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
-	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
-	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="averageScoreAsXY" comment="%1$s - sente(black)/gote(white)">Сярэдні вынік за %1$s: %2$s</string>
+	<string name="knowingTheShogiBoard">Ведаць каардынаты дошкі сёгі - вельмі важны навык у сёгі:</string>
+	<string name="mostShogiCourses">Усе курсы і практыкаванні маюць адмысловыя абазначэнні. Вы можаце выбіраць паміж японскімі і заходнімі.</string>
+	<string name="talkToYourShogiFriends">Гэта спрашчае гутарку з сябрамі ў сёгі, бо вы абодва разумееце \"мову сёгі\".</string>
 	<string name="youCanAnalyseAGameMoreEffectively">Вы можаце больш эфектыўна аналізаваць гульні, калі вы ведаеце дзе кожная клетка знаходзіцца.</string>
-	<string name="aSquareNameAppears">A coordinate appears on the board and you must click on the corresponding square. You have 30 seconds to correctly map as many squares as possible!</string>
+	<string name="aSquareNameAppears">Каардыната клетцы будзе з\'яўляцца на дошцы і вам трэба клікнуць на яе. У вас ёсць 30 секунд, каб вызначыць як мага больш клетак!</string>
 	<string name="startTraining">Пачаць трэніроўку</string>
 </resources>

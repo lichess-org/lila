@@ -71,4 +71,5 @@
 	<string name="nowLifetime">Цяпер вы пажыцёвы спонсар Lishogi!</string>
 	<string name="nowOneMonth">Вы цяпер спонсар Lishogi на месяц!</string>
 	<string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш уліковы запіс Lishogi зробіцца звычайным.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

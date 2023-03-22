@@ -71,4 +71,5 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
 	<string name="nowLifetime">Jesteś teraz dożywotnim patronem Lishogi!</string>
 	<string name="nowOneMonth">Jesteś teraz patronem Lishogi na jeden miesiąc!</string>
 	<string name="downgradeNextMonth">W tym miesiącu NIE zostaniesz ponownie obciążony, a Twoje konto Lishogi pozostanie darmowe.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

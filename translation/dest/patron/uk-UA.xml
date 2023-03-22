@@ -71,4 +71,5 @@
 	<string name="nowLifetime">Тепер ти - пожиттєвий Покровитель Lishogi!</string>
 	<string name="nowOneMonth">Тепер Ви Покровитель Lishogi на один місяць!</string>
 	<string name="downgradeNextMonth">Через один місяць з Вас НЕ буде списано кошти знову, і ваш обліковий запис Lishogi буде повернено до звичайного.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

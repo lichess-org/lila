@@ -6,16 +6,16 @@
   <string name="ongoing">Бягучыя</string>
   <string name="upcoming">Надыходзячыя</string>
   <string name="completed">Завершаныя</string>
-  <string name="eventName">Event name</string>
-  <string name="eventDescription">Short event description</string>
+  <string name="eventName">Назва падзеі</string>
+  <string name="eventDescription">Кароткае апісанне падзеі</string>
   <string name="fullDescription">Поўнае апісанне турніру</string>
   <string name="fullDescriptionHelp">Неабавязковая дасканалае апісанне турніру. Даступны %1$s. Даўжыня павінна быць менш за %2$s сімвалаў.</string>
-  <string name="sourceUrl">Source URL</string>
+  <string name="sourceUrl">Адрас крыніцы</string>
   <string name="sourceUrlHelp">Спасылка, з якой Lishogi паспрабуе атрымоўваць абнаўленні PGN. Яны павінна быць даступнай для кожнай ва Інтэрнэце.</string>
   <string name="roundNumber">Нумар туру</string>
   <string name="startDate">Дата пачатаку ў вашым часавым поясе</string>
   <string name="startDateHelp">Па жаданні, калі вы ведаеце пачатак падзеі</string>
   <string name="credits">Падзякаваць крыніцы</string>
-  <string name="cloneBroadcast">Clone the broadcast</string>
-  <string name="resetBroadcast">Reset the broadcast</string>
+  <string name="cloneBroadcast">Зрабіць клона трансляцыі</string>
+  <string name="resetBroadcast">Скінуць трансляцыю</string>
 </resources>

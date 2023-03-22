@@ -10,7 +10,7 @@
   <string name="lishogiServerLatencyExplanation">Čas který trvá zpracovat tah. Je stejný pro všechny, a závisí pouze na vytížení serveru. Čím více hráčů, tím větší bude, ale Lishogi vývojáři dělají vše, co je v jejich silách, aby tento čas zůstal nízký. Zřídka přesahuje 10 ms.</string>
   <string name="networkBetweenLishogiAndYou">Připojení mezi Lishogi a vámi</string>
   <string name="networkBetweenLishogiAndYouExplanation">Čas, který trvá odeslat váš tah z počítače na Lishogi server a odpovědět. Je to specifické pro vaši vzdálenost od Lishogi (Francie) a pro kvalitu vašeho internetového připojení. Lishogi vývojáři nemohou opravit vaši wifi nebo zrychlit připojení.</string>
-  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">You can find both these values at any time, by clicking your username in the top bar.</string>
-  <string name="lagCompensation">Lag compensation</string>
-  <string name="lagCompensationExplanation">Lishogi compensates network lag. This includes sustained lag and occasional lag spikes. There are limits and heuristics based on time control and the compensated lag so far, so that the result should feel reasonable for both players. As a result, having a higher network lag than your opponent is not a handicap!</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Obě tyto hodnoty můžete zjistit kdykoli kliknutím na své uživatelské jméno v horní liště.</string>
+  <string name="lagCompensation">Kompezace lagu</string>
+  <string name="lagCompensationExplanation">Lishogi kompenzuje prodlevu (lag) vašeho připojení, a to jak zpoždění setrvalé, a i zpoždění občasné. Důsledkem toho není větší zpoždění Vašeho připojení než Vašeho soupeře nevýhodou!</string>
 </resources>

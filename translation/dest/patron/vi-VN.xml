@@ -68,4 +68,5 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
 	<string name="nowLifetime">Giờ bạn đã trở thành Lishogi Patron trọn đời!</string>
 	<string name="nowOneMonth">Giờ bạn đã trở thành Lishogi Patron trong một tháng!</string>
 	<string name="downgradeNextMonth">Sau một tháng, bạn sẽ không phải trả tiền lại nữa, và tài khoản Lishogi của bạn sẽ quay trở lại tài khoản thường.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

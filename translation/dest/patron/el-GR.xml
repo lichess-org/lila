@@ -69,4 +69,5 @@
 	<string name="nowLifetime">Είστε πλέον ένας εφ όρου ζωής Lishogi Δωρητής!</string>
 	<string name="nowOneMonth">Πλέον είστε Lishogi Δωρητής για ένα μήνα!</string>
 	<string name="downgradeNextMonth">Σε ένα μήνα, ΔΕΝ θα χρεωθείτε ξανά, και ο Lishogi λογαριασμός σας θα υποβαθμιστεί σε ελεύθερο.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

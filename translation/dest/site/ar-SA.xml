@@ -1001,6 +1001,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="agreementNice">أوافق على أني سأكون محترم تجاه اللاعبين الأخرين.</string>
 	<string name="agreementAccount">أوافق على أني لن أنشئ حسابات متعددة.</string>
 	<string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">البحث أو بدء محادثة جديدة</string>
 	<string name="edit">تعديل</string>
 	<string name="rapid">سريع</string>
@@ -1039,6 +1040,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>

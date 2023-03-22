@@ -816,6 +816,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="agreementNice">Tôi đồng ý rằng, tôi luôn luôn tôn trọng người chơi khác.</string>
 	<string name="agreementAccount">Tôi đồng ý rằng, tôi sẽ không tạo nhiều tài khoản.</string>
 	<string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lishogi.</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
 	<string name="edit">Chỉnh sửa</string>
 	<string name="rapid">Cờ nhanh</string>
@@ -854,6 +855,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>

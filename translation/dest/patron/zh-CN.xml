@@ -68,4 +68,5 @@
 	<string name="nowLifetime">您现在是Lishogi终身会员</string>
 	<string name="nowOneMonth">从现在起为期一个月，您是 Lishogi 的赞助者！</string>
 	<string name="downgradeNextMonth">在一个月内，您将不会再次被收取费用，且您的 Lishogi 账户将被降级为免费。</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

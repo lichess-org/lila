@@ -36,5 +36,5 @@
   </plurals>
   <string name="thisIsPrivate">Гэта прыватны турнір</string>
   <string name="shareUrl">Падзяліцеся гэтай спасылкай, каб запрасіць гульцоў: %s</string>
-  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
+  <string name="drawStreak">Серыя нічыіх: Калі гулец мае некалькі паслядоуных нічыіх на Арэне, то толькі першая з іх прынясе ачко, або нічыі, якія працягнуцца болей чым %s хадоу. Серыю нічыіх можна перапыніць толькі перамогай, але не пройгрышам або яшчэ адной нічыёй.</string>
 </resources>

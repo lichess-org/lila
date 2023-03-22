@@ -3,20 +3,20 @@
 	<string name="faqAbbreviation">Частыя пытанні</string>
 	<string name="frequentlyAskedQuestions">Частыя пытанні</string>
 	<string name="whyIsLishogiCalledLishogi">Чаму Lishogi называецца Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from Lichess, but since it\'s for playing shogi, it\'s called Lishogi.</string>
+	<string name="forkedFromLichess">Lishogi - гэта праект з адчыненым ісходным кодам які быў узяты з Lichess, але тут гуляюць у сёгі, ён называецца Lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Lishogi — гэта камбінацыя live/light/libre(жывы/лёгкі/вольны) і chess(шахматы). Lishogi вымаўляцца як %1$s.</string>
-	<string name="leeshogi">lee-shogi</string>
+	<string name="leeshogi">лі-сёгі</string>
 	<string name="whyLiveLightLibre">Live(жывы), бо партыі граюцца і глядзяцца ў рэальным часе 24/7; light(лёгкі) і libre(вольны), бо Lishogi мае адкрыты зыходны код та неабяцяжараны чыёйсці непажаданай рэкламай, як на шмат якіх сайтах.</string>
 	<string name="whyIsLilaCalledLila">Аналагічна, зыходны код Lishogi, %1$s, расшыфроўваецца як li [chess на sca] la, бо асноўная частка Lishogi напісана на %2$s, інтуітыўна зразумелай мове праграмавання.</string>
 	<string name="howCanIContributeToLishogi">Як я магу дапамагчы Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
 	<string name="beingAPatron">стаць спонсарам</string>
-	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
+	<string name="otherWaysToContribute">Вось шмат іншых спосабаў, якімі вы можаце дапамагчы ў развіце Lishogi.</string>
 	<string name="breakdownOfOurCosts">дэтальнае апісанне нашых затрат</string>
 	<string name="otherWaysToHelp">іншых спосабаў дапамогі</string>
 	<string name="fairPlay">Сумленная гульня</string>
-	<string name="whyFlaggedRatingManipulationOrCheater">Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?</string>
-	<string name="cheatDetectionMethods">Lishogi has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing %1$s, but decisions are rarely overturned.</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">Чаму мяне падазраваюць у жульніцтве? Як тое: выкарыстанне дапамогі іншых гульцоў, дагаворныя гульні або падказкі камп\'ютарных праграм?</string>
+	<string name="cheatDetectionMethods">Lishogi выкарыстоўвае вельмі надзейныя спосабы і старанна прапрацаваны працэс для вывучэння доказаў і прыняцця рашэнняў. У гэты працэс уцягнута мноства мадэратараў і ён можа заняць даволі працяглы час. У выніку выносіцца толькі рашэнне аб тым, ці быў гулец несумленны, але ніякія падрабязнасці не выдаюцца, інакш гэта магло б аблегчыць несумленным гульцам магчымасць абыходзіць спосабы іх выяўлення. Акрамя таго, чым больш дэталяў, тым больш пустых спрэчак, а гэты час лепш выдаткаваць на нешта больш стаялае. Гульцы могуць абскардзіць рашэнне па электроннай пошце %1$s, але трэба мець на ўвазе, што адказ на яго не гарантуецца, і рашэнні адмяняюцца вельмі рэдка.</string>
 	<string name="whenAmIEligibleRatinRefund">Калі я магу разлічваць на аўтаматычную кампенсацыю рэйтынга, згубленага чыцеру?</string>
 	<string name="ratingRefundExplanation">Праз хвіліну пасля выяўлення такога гульца, 40 апошніх рэйтынгавых гульняў за апошнія 3 дні бяруцца. Калі вы адзін з супернікаў у гэтых гульнях, вы згубілі рэйтынг (праз паразу або нічыю), і ваш рэйтынг не быў умоўным, вы атрымліваецце кампенсацыю рэйтынгу. Кампенсацыя абмежавана вашым пікавым рэйтынгам і вашым прагрэсам рэйтынгу пасля гульні.
  (Напрыклад, калі ваш рэйтынг значна ўзрос пасля такіх гульняў, вы можаце атрымаць частковую кампенсацыю або ўвогуле нічога.) Кампенсацыя ніколі не перавысіць 150 балаў рэйтынгу.</string>
@@ -30,10 +30,11 @@
 	<string name="howBulletBlitzEtcDecided">Як кантролі часу Кулі, Бліцу ды іншых вырашаны?</string>
 	<string name="basedOnGameDuration">Кантролі часу на Lishogi заснаваны на чаканай працягласці гульні = %1$s
 Напрыклад, чаканая працягласць гульні 5+3 = 5 × 60 + 40 × 3 = 420 сякунд.</string>
+	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
 	<string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на Lishogi?</string>
-	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi падтрымлівае класічныя сёгі і %1$s.</string>
 	<string name="whatIsACPL">Што такое сярэдняя страта санціпешкі (ACPL)?</string>
 	<string name="acplExplanation">Санціпешка - адзінка вымярэння, якая выкарыстоўваецца ў шахматах для адлюстравання перавагі. Санціпешка = 1/100 пешкі. Таму 100 санціпешак = 1 пешка. Гэтыя значэнні не граюць аніякай афіцыйнай ролі ў гульні, але карысныя гульцам і асабліва ў кампутарных шахматах, каб ацаніць пазіцыю.
 
@@ -44,10 +45,10 @@
 Капмутарны аналіз на Lishogi выкарыстоўвае YaneuraOu/Fairy-Stockfish.</string>
 	<string name="insufficientMaterial">Параза па часе, нічыя і недастатковы матэрыял</string>
 	<string name="goodIntroduction">добрае тлумачэнне</string>
-	<string name="officialRulesPDF">official rules (PDF)</string>
+	<string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
 	<string name="lishogiTraining">Lishogi практыку</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
-	<string name="handBookPDF">handbook (PDF)</string>
+	<string name="fourfoldRepetition">Чатырохразовае паўтарэнне пазіцыі</string>
+	<string name="handBookPDF">даведнік(PDF)</string>
 	<string name="notRepeatedMoves">Мы не паўтаралі хады. Чаму гульня скончылася ўнічыю праз паўтарэнне?</string>
 	<string name="repeatedPositionsThatMatters">Трохразовае паўтарэнне гэта пра паўтораныя %1$s, не хады. Паўтарэнні могуць адбыцца і не запар.</string>
 	<string name="positions">пазіцыі</string>
@@ -93,7 +94,7 @@
 	<string name="ratingLeaderboards">дошку лідараў рэйтынгу</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">сыграць па меншай меры 30 рэйтынгавых партый у дадзеным варыянце,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">сыграць хаця б адну рэйтынгавую партыю на працягу мінулага тыдня ў гэтым варыянце,</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">мець адхіленне рэйтынгу менш за %1$s у звычайных сёгі, і менш за %2$s у варыянтах,</string>
 	<string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другое патрабаванне для таго, каб гульцы, якія больш не карыстаюцца сваімі ўліковымі запісамі, не адабражаліся на дошках лідараў.</string>
 	<string name="whyAreRatingHigher">Чаму рэйтынгі вышэй, чым на іншых сайтах та арганісацыях такіх як ФІДЭ, USCF і ICC?</string>

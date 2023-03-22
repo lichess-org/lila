@@ -853,6 +853,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="agreementNice">Elfogadom, hogy tisztelettudó leszek a többi játékossal szemben.</string>
 	<string name="agreementAccount">Elfogadom, hogy nem készítek egynél több fiókot.</string>
 	<string name="agreementPolicy">Elfogadom, hogy követni fogom a Lishogi szabályait.</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
 	<string name="edit">Szerkeszt</string>
 	<string name="rapid">Rapid</string>
@@ -891,6 +892,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>

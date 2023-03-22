@@ -853,6 +853,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="agreementNice">Αποδέχομαι ότι πάντα θα επιδεικνύω σεβασμό προς όλους του παίκτες.</string>
 	<string name="agreementAccount">Αποδέχομαι ότι δεν θα δημιουργήσω πολλαπλούς λογαριασμούς.</string>
 	<string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lishogi.</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
 	<string name="edit">Επεξεργασία</string>
 	<string name="rapid">Rapid</string>
@@ -891,6 +892,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>

@@ -69,4 +69,5 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
 	<string name="nowLifetime">Ikaw ay isa nang Lishogi Patron nang habang buhay!</string>
 	<string name="nowOneMonth">Ikaw ay isa nang Lishogi Patron para sa isang buwan!</string>
 	<string name="downgradeNextMonth">Sa loob ng isang buwan, ikaw ay HINDI na sisingilin muli, at ang iyong Lishogi account ay babalik bilang isang regular na account.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

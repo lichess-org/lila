@@ -9,7 +9,7 @@
   <string name="equality">Porovnání</string>
   <string name="equalityDescription">Vraťte se ze prohrané pozice a zajistěte remízu nebo vyváženou pozici.</string>
   <string name="defensiveMove">Obranný tah</string>
-  <string name="defensiveMoveDescription">A precise move or sequence of moves that is needed to avoid losing material or another advantage.</string>
+  <string name="defensiveMoveDescription">Přesný tah nebo pořadí tahů, které jsou potřebné k tomu, aby nedošlo ke ztrátě materiálu nebo jiné výhody.</string>
   <string name="deflection">Deflection</string>
   <string name="deflectionDescription">A move that distracts an opponent piece from another duty that it performs, such as guarding a key square. Sometimes also called \"overloading\".</string>
   <string name="discoveredAttack">Discovered attack</string>
@@ -71,7 +71,7 @@
   <string name="veryLong">Very long puzzle</string>
   <string name="veryLongDescription">Seven moves or more to win.</string>
   <string name="lishogiGames">Z Lishogi her</string>
-  <string name="lishogiGamesDescription">Puzzles generated from games played on Lishogi.</string>
-  <string name="otherSources">From other sources</string>
-  <string name="otherSourcesDescription">Many thanks to everyone who submitted or allowed Lishogi to use these puzzles!</string>
+  <string name="lishogiGamesDescription">Puzzle generované z her hraných na Lishogi.</string>
+  <string name="otherSources">Z jiných zdrojů</string>
+  <string name="otherSourcesDescription">Mnohokrát děkujeme každému, kdo odeslal nebo umožnil Lishogi používat tyto puzzle!</string>
 </resources>

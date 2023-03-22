@@ -69,4 +69,5 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
 	<string name="nowLifetime">Du bist jetzt ein lebenslanger Lishogi Patron!</string>
 	<string name="nowOneMonth">Du bist jetzt für einen Monat Lishogi Patron!</string>
 	<string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lishogi-Konto wird in ein reguläres Konto umgewandelt.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

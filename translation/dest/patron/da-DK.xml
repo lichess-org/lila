@@ -69,4 +69,5 @@ Men patroner kan bryste sig med et sejt, nyt profil-ikon.</string>
 	<string name="nowLifetime">Du er nu en livstids Lishogi Patron!</string>
 	<string name="nowOneMonth">Du er nu en Lishogi Patron i en måned!</string>
 	<string name="downgradeNextMonth">Om en måned bliver du IKKE debiteret igen, og din konto bliver nedgraderet til gratis.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

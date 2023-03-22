@@ -44,7 +44,7 @@
   <string name="leaveTheStudy">Opustit studii</string>
   <string name="youAreNowAContributor">Nyní jste přispívající</string>
   <string name="youAreNowASpectator">Nyní jste divák</string>
-  <string name="tags">Tags</string>
+  <string name="tags">Tagy</string>
   <string name="like">To se mi líbí</string>
   <string name="newTag">Nový štítek</string>
   <string name="commentThisPosition">Komentář k tomuto příspěvku</string>
@@ -65,9 +65,9 @@
   <string name="cloneStudy">Klonovat</string>
   <string name="downloadAllGames">Stáhnout všechny hry</string>
   <string name="downloadGame">Stáhnout hru</string>
-  <string name="studyKif">Study KIF</string>
-  <string name="chapterKif">Chapter KIF</string>
-  <string name="chapterCsa">Chapter CSA</string>
+  <string name="studyKif">KIF studie</string>
+  <string name="chapterKif">KIF kapitoly</string>
+  <string name="chapterCsa">CSA kapitoly</string>
   <string name="studyUrl">URL studie</string>
   <string name="broadcastUrl">Adresa vysílání</string>
   <string name="currentChapterUrl">URL aktuální kapitoly</string>
@@ -102,10 +102,10 @@
   <string name="editor">Tvůrce</string>
   <string name="startFromCustomPosition">Začít od vlastní pozice</string>
   <string name="loadAGameByUrl">Načíst hru podle URL</string>
-  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
+  <string name="loadAPositionFromSfen">Načíst pozici z SFEN</string>
   <string name="automatic">Automatický</string>
   <string name="urlOfTheGame">URL hry</string>
-  <string name="loadAGameFromX">Load games from %1$s</string>
+  <string name="loadAGameFromX">Načíst hru z %1$s</string>
   <string name="createChapter">Vytvořit kapitolu</string>
   <string name="configureLiveBroadcast">Konfigurace živého vysílání</string>
   <string name="createStudy">Vytvořit studii</string>

@@ -926,6 +926,7 @@
 	<string name="agreementNice">Zgadzam się odnosić zawsze z szacunkiem do innych graczy.</string>
 	<string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
 	<string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lishogi.</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową dyskusję</string>
 	<string name="edit">Edytuj</string>
 	<string name="rapid">Rapid</string>
@@ -964,6 +965,7 @@
 	<string name="postGameStudyExplanation">Opracowania po partiach są umieszczone w osobnej kategorii i pozwalają na bezpośrednie oferowanie rewanżu lub szukanie nowej partii.</string>
 	<string name="postGameStudiesOfGame">Opracowania po tej partii</string>
 	<string name="studyWithOpponent">Analizuj wraz z przeciwnikiem</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Analizuj z:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Opcjonalne</string>
 	<string name="standardStudy">Zwykłe opracowanie</string>

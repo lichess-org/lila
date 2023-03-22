@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="lishogiClasses">Заняткі</string>
-	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="teachClassesOfShogiStudents">Выкладайце заняткі па сёгі студэнтам з інструментамі Lishogi.</string>
 	<string name="features">Магчымасці</string>
 	<string name="quicklyGenerateSafeUsernames">Хутка стварайце імёны карыстальнікаў і паролі для студэнтаў</string>
 	<string name="trackStudentProgress">Адсочвайце прагрэс студэнтаў у гульнях і задачах</string>
@@ -12,7 +12,7 @@
 	<string name="teachersX">Выкладчыкі: %s</string>
 	<string name="newClass">Новы занятак</string>
 	<string name="closeClass">Скончыць занятак</string>
-	<string name="closedByX">Closed by %s</string>
+	<string name="closedByX">Скончаны %s</string>
 	<string name="reopen">Пераадкрыць</string>
 	<string name="removeStudent">Выдаліць студэнта</string>
 	<string name="removedStudents">Выдаленыя</string>
@@ -24,7 +24,7 @@
 	<string name="visibleByBothStudentsAndTeachers">Бачна выкладчыкам і студэнтам занятку</string>
 	<string name="teachersOfTheClass">Выкладчыкі занятку</string>
 	<string name="addLishogiUsernames">Дадайце імёны карыстальнікаў Lishogi, каб запрасіць іх у якасці выкладчыкаў. Адзін на радок.</string>
-	<string name="theyMustFirstApply">They must first apply to be Lishogi Teachers.</string>
+	<string name="theyMustFirstApply">Спачатку яны павіны стаць Настаўнікамі Lishogi.</string>
 	<string name="resetPassword">Скасаваць пароль</string>
 	<string name="makeSureToCopy">Абавязкова скапіруйце альбо запішыце пароль зараз. Вы не зможаце яго больш пабачыць!</string>
 	<string name="passwordX">Пароль: %s</string>
@@ -59,7 +59,7 @@
 		<item quantity="many">%s чакаючых запрашэнняў</item>
 		<item quantity="other">%s чакаючых запрашэнняў</item>
 	</plurals>
-	<string name="noPendingInvitations">No pending invitations</string>
+	<string name="noPendingInvitations">Ніякіх чакаючых запрашэнняў</string>
 	<string name="onlyVisibleToTeachers">Бачны толькі для выкладчыкаў занятку</string>
 	<string name="lastActiveDate">Анлайн</string>
 	<string name="managed">Кіраваны</string>
@@ -100,5 +100,5 @@
 	<string name="newsEdit2">Дадавайце апошнія навіну ўверсе. Не выдаляйце папярэднія навіны.</string>
 	<string name="newsEdit3">Падзяляйце навіны з дапамогай ---
 Гэта адлюструе гарызантальную лінію.</string>
-	<string name="markdownAvailable">%s is available for more advanced syntax.</string>
+	<string name="markdownAvailable">Можаце выкарыстаць %s для больш адмысловага сінтаксісу.</string>
 </resources>

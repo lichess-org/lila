@@ -856,6 +856,7 @@ en %3$s</string>
 	<string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
 	<string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
 	<string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lishogi.</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
 	<string name="edit">Edita</string>
 	<string name="rapid">Ràpides</string>
@@ -894,6 +895,7 @@ en %3$s</string>
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>

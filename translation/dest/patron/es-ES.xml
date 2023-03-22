@@ -69,4 +69,5 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
 	<string name="nowLifetime">¡Ahora eres un Patrón de Lishogi de por vida!</string>
 	<string name="nowOneMonth">¡Ahora eres un Patrón de Lishogi por un mes!</string>
 	<string name="downgradeNextMonth">En un mes, NO se te cobrará de nuevo, y tu cuenta de Lishogi será reducida a la versión normal.</string>
+	<string name="donationPolicy">Donation policy</string>
 </resources>

@@ -30,6 +30,7 @@
 	<string name="howBulletBlitzEtcDecided">Hvordan afgøres forskellen mellem Bullet, Blitz og andre tidskontroller?</string>
 	<string name="basedOnGameDuration">Tidskontroller på Lishogi er baseret på en estimeret varighed af partiet = %1$s
   For eksempel er den estimeret varighed af et 5+3 parti 5 * 60 + 40 * 3 = 420 sekunder.</string>
+	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille på Lishogi?</string>

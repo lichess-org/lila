@@ -815,6 +815,7 @@
 	<string name="agreementNice">我會一直尊重其他的玩家</string>
 	<string name="agreementAccount">我同意我不會創造許多副帳</string>
 	<string name="agreementPolicy">我同意我將會遵守Lishogi的規則</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
 	<string name="edit">編輯</string>
 	<string name="rapid">快速模式</string>
@@ -853,6 +854,7 @@
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>

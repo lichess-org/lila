@@ -853,6 +853,7 @@
 	<string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
 	<string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
 	<string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lishogi नीतियों का पालन करूंगा।</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
 	<string name="edit">संपादित</string>
 	<string name="rapid">रैपिड</string>
@@ -891,6 +892,7 @@
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>

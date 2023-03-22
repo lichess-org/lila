@@ -853,6 +853,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="agreementNice">Jeg lover, at jeg altid vil være venlig mod andre spillere.</string>
 	<string name="agreementAccount">Jeg lover, at jeg ikke vil oprette flere konti.</string>
 	<string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lishogi-politikker.</string>
+	<string name="agreeWithX">I agree with: %s</string>
 	<string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
 	<string name="edit">Rediger</string>
 	<string name="rapid">Hurtigskak</string>
@@ -891,6 +892,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
 	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
 	<string name="studyWithOpponent">Study with opponent</string>
+	<string name="studyOfPlayers">Study of players</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>
