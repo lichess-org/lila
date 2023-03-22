@@ -208,7 +208,27 @@ object index {
                     )
                   ),
                   div(cls := "service")(
-                    button(cls := "paypal button")(withPaypal())
+                    button(
+                      cls := List(
+                        "paypal button" -> true,
+                        "disabled"      -> ctx.isAnon
+                      )
+                    )(withPaypal())
+                  ),
+                  ctx.isAnon option div(cls := "confirm-policy")(
+                    label(
+                      frag(
+                        input(
+                          tpe := "checkbox",
+                          cls := "regular-checkbox"
+                        ),
+                        trans.agreeWithX(
+                          a(href := routes.Page.donations, target := "_blank")(
+                            donationPolicy()
+                          )
+                        )
+                      )
+                    )
                   )
                 )
               )

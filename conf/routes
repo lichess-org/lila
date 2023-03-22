@@ -174,7 +174,6 @@ POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
 
 # Patron
-GET   /patreon                         controllers.Page.patron
 GET   /patron                          controllers.Plan.index
 GET   /patron/thanks                   controllers.Plan.thanks
 GET   /patron/list                     controllers.Plan.list
@@ -183,6 +182,7 @@ POST  /patron/cancel                   controllers.Plan.cancel
 POST  /patron/webhook                  controllers.Plan.webhook
 POST  /patron/ipn                      controllers.Plan.payPalIpn
 GET   /features                        controllers.Plan.features
+GET   /patreon                         controllers.Main.movedPermanently(to: String = "/patron")
 GET   /donate                          controllers.Main.movedPermanently(to: String = "/patron")
 
 # Practice
@@ -699,6 +699,7 @@ GET   /help                            controllers.Main.movedPermanently(to: Str
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /how-to-cheat                    controllers.Page.howToCheat
 GET   /ads                             controllers.Page.ads
+GET   /donations                       controllers.Page.donations
 GET   /resources                       controllers.Page.resources
 GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark: String)
 GET   /explanation/impasse             controllers.Page.impasse

@@ -16,7 +16,7 @@ final class Page(
   val privacy      = helpDocument("privacy")
   val master       = helpDocument("master")
   val ads          = helpDocument("ads")
-  val patron       = singleDocument("patron")
+  val donations    = helpDocument("donations")
   val notSupported = singleDocument("404")
 
   // Explanations use lang

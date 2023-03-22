@@ -65,6 +65,10 @@ lishogi.checkout = function (publicKey) {
     $checkout.find('.service').html(lishogi.spinnerHtml);
   });
 
+  $('.confirm-policy input').change(function () {
+    $('.service button').toggleClass('disabled');
+  });
+
   //let stripe = Stripe(publicKey);
   //let showError = (error) => {
   //  // TODO: consider a more sophisticated error handling mechanism,
