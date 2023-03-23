@@ -34,7 +34,7 @@ function buildCostMap(
 async function main() {
   const subMap = new Map<string, SubInfo>();
   const opThreshold = parseInt(getArg('max-ops') ?? '1');
-  const freqThreshold = parseFloat(getArg('freq') ?? '0.003');
+  const freqThreshold = parseFloat(getArg('freq') ?? '0.002');
   const countThreshold = parseInt(getArg('count') ?? '6');
   const outfile = getArg('out') ?? '../src/voiceMoveGrammar.ts';
   const lexfile = getArg('lex') ?? 'en-us.json';

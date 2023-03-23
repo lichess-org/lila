@@ -1,9 +1,8 @@
 import * as cg from 'chessground/types';
-import { promote } from 'chess/promotion';
+import { promote } from './promotion';
 import { propWithEffect } from 'common';
 import { voiceCtrl } from './main';
 import { RootCtrl, MoveHandler, MoveCtrl } from './interfaces';
-import { pieceCharToRole } from './util';
 
 export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
   const isFocused = propWithEffect(false, root.redraw);
@@ -12,7 +11,7 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
   let initFen = step.fen;
   let lastSelect = performance.now();
   const cgState = root.chessground.state;
-  let usedSan = false;
+  const usedSan = false;
   function select(key: cg.Key): void {
     if (cgState.selected === key) {
       root.chessground.cancelMove();
@@ -37,14 +36,6 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
       root.chessground.newPiece({ role, color }, key);
       root.sendNewPiece(role, key, false);
     },
-    promote(orig, dest, piece) {
-      const role = pieceCharToRole[piece];
-      const variant = root.data.game.variant.key;
-      if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
-      root.chessground.cancelMove();
-      promote(root.chessground, dest, role);
-      root.sendMove(orig, dest, role, { premove: false });
-    },
     update(step, yourMove = false) {
       initFen = step.fen;
       handlers.forEach(h => h(step.fen, root.chessground, yourMove));
@@ -53,13 +44,19 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
       handlers.add(h);
       h(initFen, root.chessground);
     },
-    san(orig, dest) {
-      usedSan = true;
+    move(orig, dest, pieceChar) {
+      const variant = root.data.game.variant.key;
+      const role = pieceChar ? pieceCharToRole[pieceChar.toUpperCase()] : undefined;
+      if (role === 'pawn' || (role === 'king' && variant !== 'antichess')) return;
       root.chessground.cancelMove();
-      select(orig);
-      select(dest);
-      // ensure chessground does not leave the destination square selected
-      root.chessground.cancelMove();
+      if (role) {
+        promote(root.chessground, dest, role);
+        root.sendMove(orig, dest, role, { premove: false });
+      } else {
+        //usedSan = true; // what is this?  something to do with AB but not sure what
+        root.chessground.selectSquare(orig, true);
+        root.chessground.selectSquare(dest, root.keyboard || role !== undefined);
+      }
     },
     select,
     hasSelected: () => cgState.selected,
@@ -85,3 +82,12 @@ export function makeMoveCtrl(root: RootCtrl, step: { fen: string }): MoveCtrl {
     redraw: root.redraw,
   };
 }
+
+const pieceCharToRole: { [key: string]: cg.Role } = {
+  P: 'pawn',
+  N: 'knight',
+  B: 'bishop',
+  R: 'rook',
+  Q: 'queen',
+  K: 'king',
+};

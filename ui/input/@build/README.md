@@ -11,7 +11,7 @@ frequently once the dust settles
 # usage:
 
 ```
-node dist/makeGrammar.js --freq=.003 \ # default values given explicitly here
+node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
                          --count=6 \
                          --max-ops=1 \
                          --in=./crowdv-27-02-2023.json \

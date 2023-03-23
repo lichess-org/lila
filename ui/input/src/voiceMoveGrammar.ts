@@ -623,37 +623,37 @@ export const lexicon: Entry[] = [
     in: 'short castle',
     val: 'O-O',
     tags: ['move', 'exact'],
-    tok: 'p!',
+    tok: 'r!',
   },
   {
     in: 'king side castle',
     val: 'O-O',
     tags: ['move', 'exact'],
-    tok: 'Kq!',
+    tok: 'Ks!',
   },
   {
     in: 'castle king side',
     val: 'O-O',
     tags: ['move', 'exact'],
-    tok: '!Kq',
+    tok: '!Ks',
   },
   {
     in: 'long castle',
     val: 'O-O-O',
     tags: ['move', 'exact'],
-    tok: 'r!',
+    tok: 't!',
   },
   {
     in: 'castle queen side',
     val: 'O-O-O',
     tags: ['move', 'exact'],
-    tok: '!Qq',
+    tok: '!Qs',
   },
   {
     in: 'queen side castle',
     val: 'O-O-O',
     tags: ['move', 'exact'],
-    tok: 'Qq!',
+    tok: 'Qs!',
   },
   {
     in: 'take',
@@ -795,13 +795,13 @@ export const lexicon: Entry[] = [
     in: 'offer draw',
     val: 'draw',
     tags: ['command', 'rounds', 'exact'],
-    tok: 's.',
+    tok: 'u.',
   },
   {
     in: 'accept draw',
     val: 'draw',
     tags: ['command', 'rounds', 'exact'],
-    tok: 't.',
+    tok: 'v.',
   },
   {
     in: 'resign',
@@ -864,10 +864,22 @@ export const lexicon: Entry[] = [
     ],
   },
   {
+    in: 'continue',
+    val: 'next',
+    tags: ['command', 'puzzle', 'exact'],
+    tok: '<',
+    subs: [
+      {
+        to: '',
+        cost: 0.5,
+      },
+    ],
+  },
+  {
     in: 'help',
     val: '?',
     tags: ['command', 'exact'],
-    tok: '<',
+    tok: '=',
     subs: [
       {
         to: '',
@@ -879,7 +891,7 @@ export const lexicon: Entry[] = [
     in: 'stop',
     val: 'stop',
     tags: ['command', 'exact'],
-    tok: '=',
+    tok: '>',
     subs: [
       {
         to: '',
@@ -891,7 +903,7 @@ export const lexicon: Entry[] = [
     in: 'yes',
     val: 'yes',
     tags: ['choice', 'exact'],
-    tok: '>',
+    tok: '?',
     subs: [
       {
         to: '',
@@ -911,7 +923,7 @@ export const lexicon: Entry[] = [
     in: 'confirm',
     val: 'yes',
     tags: ['choice', 'exact'],
-    tok: '?',
+    tok: '@',
     subs: [
       {
         to: '',
@@ -923,7 +935,7 @@ export const lexicon: Entry[] = [
     in: 'no',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: '@',
+    tok: 'A',
     subs: [
       {
         to: '',
@@ -939,7 +951,7 @@ export const lexicon: Entry[] = [
     in: 'clear',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'A',
+    tok: 'C',
     subs: [
       {
         to: '',
@@ -951,7 +963,7 @@ export const lexicon: Entry[] = [
     in: 'close',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'C',
+    tok: 'D',
     subs: [
       {
         to: '',
@@ -963,7 +975,7 @@ export const lexicon: Entry[] = [
     in: 'cancel',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'D',
+    tok: 'E',
     subs: [
       {
         to: '',
@@ -975,7 +987,7 @@ export const lexicon: Entry[] = [
     in: 'abort',
     val: 'no',
     tags: ['choice', 'exact'],
-    tok: 'E',
+    tok: 'F',
     subs: [
       {
         to: '',
@@ -987,7 +999,7 @@ export const lexicon: Entry[] = [
     in: 'blue',
     val: 'blue',
     tags: ['choice', 'exact'],
-    tok: 'F',
+    tok: 'G',
     subs: [
       {
         to: '',
@@ -1007,7 +1019,7 @@ export const lexicon: Entry[] = [
     in: 'green',
     val: 'green',
     tags: ['choice', 'exact'],
-    tok: 'G',
+    tok: 'H',
     subs: [
       {
         to: '',
@@ -1027,7 +1039,7 @@ export const lexicon: Entry[] = [
     in: 'yellow',
     val: 'yellow',
     tags: ['choice', 'exact'],
-    tok: 'H',
+    tok: 'I',
     subs: [
       {
         to: '',
@@ -1039,7 +1051,7 @@ export const lexicon: Entry[] = [
     in: 'red',
     val: 'red',
     tags: ['choice', 'exact'],
-    tok: 'I',
+    tok: 'J',
     subs: [
       {
         to: '',
@@ -1055,7 +1067,7 @@ export const lexicon: Entry[] = [
     in: 'pink',
     val: 'pink',
     tags: ['choice', 'exact'],
-    tok: 'J',
+    tok: 'L',
     subs: [
       {
         to: '',
@@ -1067,7 +1079,7 @@ export const lexicon: Entry[] = [
     in: 'purple',
     val: 'purple',
     tags: ['choice', 'exact'],
-    tok: 'L',
+    tok: 'M',
     subs: [
       {
         to: '',
@@ -1079,7 +1091,7 @@ export const lexicon: Entry[] = [
     in: 'orange',
     val: 'orange',
     tags: ['choice', 'exact'],
-    tok: 'M',
+    tok: 'O',
     subs: [
       {
         to: '',
@@ -1091,7 +1103,7 @@ export const lexicon: Entry[] = [
     in: 'grey',
     val: 'paleGrey',
     tags: ['choice', 'exact'],
-    tok: 'O',
+    tok: 'S',
     subs: [
       {
         to: '',
@@ -1103,7 +1115,7 @@ export const lexicon: Entry[] = [
     in: 'alfa',
     val: 'a',
     tags: ['file', 'move', 'nato'],
-    tok: 'S',
+    tok: 'T',
     subs: [
       {
         to: '',
@@ -1115,7 +1127,7 @@ export const lexicon: Entry[] = [
     in: 'bravo',
     val: 'b',
     tags: ['file', 'move', 'nato'],
-    tok: 'T',
+    tok: 'U',
     subs: [
       {
         to: '',
@@ -1127,7 +1139,7 @@ export const lexicon: Entry[] = [
     in: 'charlie',
     val: 'c',
     tags: ['file', 'move', 'nato'],
-    tok: 'U',
+    tok: 'V',
     subs: [
       {
         to: '',
@@ -1139,7 +1151,7 @@ export const lexicon: Entry[] = [
     in: 'delta',
     val: 'd',
     tags: ['file', 'move', 'nato'],
-    tok: 'V',
+    tok: 'W',
     subs: [
       {
         to: '',
@@ -1151,7 +1163,7 @@ export const lexicon: Entry[] = [
     in: 'echo',
     val: 'e',
     tags: ['file', 'move', 'nato'],
-    tok: 'W',
+    tok: 'X',
     subs: [
       {
         to: '',
@@ -1163,7 +1175,7 @@ export const lexicon: Entry[] = [
     in: 'foxtrot',
     val: 'f',
     tags: ['file', 'move', 'nato'],
-    tok: 'X',
+    tok: 'Y',
     subs: [
       {
         to: '',
@@ -1175,7 +1187,7 @@ export const lexicon: Entry[] = [
     in: 'golf',
     val: 'g',
     tags: ['file', 'move', 'nato'],
-    tok: 'Y',
+    tok: 'Z',
     subs: [
       {
         to: '',
@@ -1187,7 +1199,7 @@ export const lexicon: Entry[] = [
     in: 'hotel',
     val: 'h',
     tags: ['file', 'move', 'nato'],
-    tok: 'Z',
+    tok: '[',
     subs: [
       {
         to: '',
@@ -1199,7 +1211,7 @@ export const lexicon: Entry[] = [
     in: 'mate',
     val: '',
     tags: ['move', 'ignore'],
-    tok: '[',
+    tok: '\\',
     subs: [
       {
         to: '',
@@ -1219,7 +1231,7 @@ export const lexicon: Entry[] = [
     in: 'check',
     val: '',
     tags: ['move', 'ignore'],
-    tok: '\\',
+    tok: ']',
     subs: [
       {
         to: '',
@@ -1231,7 +1243,7 @@ export const lexicon: Entry[] = [
     in: 'puzzle',
     val: '',
     tags: ['ignore'],
-    tok: ']',
+    tok: '^',
     subs: [
       {
         to: '',
@@ -1243,7 +1255,7 @@ export const lexicon: Entry[] = [
     in: 'and',
     val: '',
     tags: ['ignore'],
-    tok: '^',
+    tok: '_',
     subs: [
       {
         to: '',
@@ -1255,7 +1267,7 @@ export const lexicon: Entry[] = [
     in: 'oh',
     val: '',
     tags: ['ignore'],
-    tok: '_',
+    tok: '`',
     subs: [
       {
         to: '',
@@ -1267,7 +1279,7 @@ export const lexicon: Entry[] = [
     in: 'um',
     val: '',
     tags: ['ignore'],
-    tok: '`',
+    tok: 'i',
     subs: [
       {
         to: '',
@@ -1279,7 +1291,7 @@ export const lexicon: Entry[] = [
     in: 'uh',
     val: '',
     tags: ['ignore'],
-    tok: 'i',
+    tok: 'j',
     subs: [
       {
         to: '',
@@ -1291,7 +1303,7 @@ export const lexicon: Entry[] = [
     in: 'hmm',
     val: '',
     tags: ['ignore'],
-    tok: 'j',
+    tok: 'k',
     subs: [
       {
         to: '',
@@ -1303,7 +1315,7 @@ export const lexicon: Entry[] = [
     in: 'huh',
     val: '',
     tags: ['ignore'],
-    tok: 'k',
+    tok: 'l',
     subs: [
       {
         to: '',
@@ -1315,7 +1327,7 @@ export const lexicon: Entry[] = [
     in: 'his',
     val: '',
     tags: ['ignore'],
-    tok: 'l',
+    tok: 'm',
     subs: [
       {
         to: '',
@@ -1327,7 +1339,7 @@ export const lexicon: Entry[] = [
     in: 'her',
     val: '',
     tags: ['ignore'],
-    tok: 'm',
+    tok: 'n',
     subs: [
       {
         to: '',
@@ -1339,7 +1351,7 @@ export const lexicon: Entry[] = [
     in: 'the',
     val: '',
     tags: ['ignore'],
-    tok: 'n',
+    tok: 'o',
     subs: [
       {
         to: '',
@@ -1351,7 +1363,19 @@ export const lexicon: Entry[] = [
     in: 'their',
     val: '',
     tags: ['ignore'],
-    tok: 'o',
+    tok: 'p',
+    subs: [
+      {
+        to: '',
+        cost: 0,
+      },
+    ],
+  },
+  {
+    in: 'training',
+    val: '',
+    tags: ['ignore'],
+    tok: 'q',
     subs: [
       {
         to: '',
@@ -1361,7 +1385,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'short',
-    tok: 'p',
+    tok: 'r',
     tags: ['part'],
     subs: [
       {
@@ -1372,7 +1396,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'side',
-    tok: 'q',
+    tok: 's',
     tags: ['part'],
     subs: [
       {
@@ -1383,7 +1407,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'long',
-    tok: 'r',
+    tok: 't',
     tags: ['part'],
     subs: [
       {
@@ -1402,7 +1426,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'offer',
-    tok: 's',
+    tok: 'u',
     tags: ['part'],
     subs: [
       {
@@ -1413,7 +1437,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'accept',
-    tok: 't',
+    tok: 'v',
     tags: ['part'],
     subs: [
       {

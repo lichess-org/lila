@@ -16,7 +16,7 @@ import { defined, prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
-import { PromotionCtrl } from 'chess/promotion';
+import { PromotionCtrl } from 'input/promotion';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;

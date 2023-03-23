@@ -38,7 +38,7 @@ import { storedBooleanProp } from 'common/storage';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
-import { PromotionCtrl } from 'chess/promotion';
+import { PromotionCtrl } from 'input/promotion';
 import wikiTheory, { wikiClear, WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';

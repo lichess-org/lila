@@ -5,6 +5,7 @@ import { Api as CgApi } from 'chessground/api';
 import { DrawShape } from 'chessground/draw';
 import * as cgUtil from 'chessground/util';
 import * as cg from 'chessground/types';
+import { voiceMoveHandler } from './voiceMoveHandler';
 
 export type Callback = (orig: Key, dest: Key, role: cg.Role) => void;
 
@@ -86,6 +87,7 @@ export class PromotionCtrl {
   };
 
   cancelPrePromotion = (): void => {
+    voiceMoveHandler?.registerModal(undefined);
     if (this.prePromotionRole) {
       this.withGround(g => g.setAutoShapes([]));
       this.prePromotionRole = undefined;
@@ -96,6 +98,18 @@ export class PromotionCtrl {
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
     if (!promoting) return;
+    voiceMoveHandler?.registerModal(
+      (msgText: string) => {
+        if (msgText === 'no') this.cancel();
+        else {
+          this.promoting = undefined;
+          this.doPromote(promoting, msgText as cg.Role);
+          this.redraw();
+        }
+      },
+      ['queen', 'knight', 'rook', 'bishop', ...(antichess ? ['king', 'pawn'] : [])]
+    );
+
     return (
       this.withGround(g =>
         this.renderPromotion(

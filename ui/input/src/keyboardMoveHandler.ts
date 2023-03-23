@@ -1,5 +1,6 @@
 import { Submit, SubmitOpts, InputOpts, MoveHandler } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
+import { Role } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
 import * as util from './handlerUtil';
 
@@ -29,7 +30,7 @@ export function makeKeyboardHandler(opts: InputOpts): MoveHandler | undefined {
       if (isKey(v) && selectedKey) opts.ctrl.select(v);
       // ambiguous capture+promotion (also check legalSans[v] here because bc8 could mean Bc8)
       if (v.match(util.ambiguousPromotionCaptureRegex) && legalSans[v] && !submitOpts.force) return;
-      else opts.ctrl.san(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key);
+      else opts.ctrl.move(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key);
       clear();
     } else if (
       legalSans &&
@@ -48,7 +49,7 @@ export function makeKeyboardHandler(opts: InputOpts): MoveHandler | undefined {
       const promotionSan = selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1) ? selectedKey.slice(0, 1) + v : v;
       const foundUci = util.sanToUci(promotionSan.replace('=', '').slice(0, -1), legalSans);
       if (!foundUci) return;
-      opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
+      opts.ctrl.move(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase() as Role);
       clear();
     } else if (v.match(util.crazyhouseRegex)) {
       // Incomplete crazyhouse strings such as Q@ or Q@a should do nothing.

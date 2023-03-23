@@ -2,7 +2,7 @@ import { MoveCtrl } from '../interfaces';
 import { h, VNode, Hooks } from 'snabbdom';
 import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import { storedBooleanProp } from 'common/storage';
-import { voiceMoveCtrl } from '../voiceMoveCtrl';
+import { makeVoiceMoveHandler, voiceMoveHandler } from '../voiceMoveHandler';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import * as xhr from 'common/xhr';
@@ -11,6 +11,7 @@ type ArrowPref = 'Colors' | 'Numbers';
 
 export function renderVoiceView(ctrl: MoveCtrl, isPuzzle: boolean) {
   const rec = storedBooleanProp('recording', false);
+  makeVoiceMoveHandler();
   return h(`div#voice-move${isPuzzle ? '.puz' : ''}`, [
     h('span#status-row', [
       h('a#voice-help-button', {
@@ -24,7 +25,7 @@ export function renderVoiceView(ctrl: MoveCtrl, isPuzzle: boolean) {
         class: { enabled: ctrl.voice.isRecording, busy: ctrl.voice.isBusy },
         attrs: { role: 'button', ...dataIcon(ctrl.voice.isBusy ? '' : '') },
         hook: onInsert(el => {
-          voiceMoveCtrl().registerMoveCtrl(ctrl);
+          voiceMoveHandler.registerMoveCtrl(ctrl);
           el.addEventListener('click', _ => {
             rec(!(ctrl.voice.isRecording || ctrl.voice.isBusy)) ? ctrl.voice.start() : ctrl.voice.stop();
           });
@@ -61,12 +62,12 @@ function voiceSettings(ctrl: MoveCtrl): VNode {
           max: 2,
           step: 1,
         },
-        hook: rangeConfig(voiceMoveCtrl().arrogance, (val: number) => {
-          voiceMoveCtrl().arrogance(val);
+        hook: rangeConfig(voiceMoveHandler.arrogance, (val: number) => {
+          voiceMoveHandler.arrogance(val);
           ctrl.redraw();
         }),
       }),
-      h('div.range_value', ['Mouse', 'Normal', 'Cowboy'][voiceMoveCtrl().arrogance()]),
+      h('div.range_value', ['Mouse', 'Normal', 'Cowboy'][voiceMoveHandler.arrogance()]),
     ]),
 
     h('div.choices', [
@@ -80,7 +81,7 @@ function voiceSettings(ctrl: MoveCtrl): VNode {
 }
 
 function choiceButton(pref: ArrowPref) {
-  const vmCtrl = voiceMoveCtrl();
+  const vmCtrl = voiceMoveHandler;
   return h(
     `div#${pref}.choice.${vmCtrl.arrowColors() === (pref === 'Colors') ? 'selected' : ''}`,
     {
@@ -116,9 +117,7 @@ function voiceModal(ctrl: MoveCtrl) {
       el.find('.scrollable').html(html);
       el.find('#all-phrases-button').on('click', () => {
         let html = '<table id="big-table"><tbody>';
-        const all = voiceMoveCtrl()
-          .available()
-          .sort((a, b) => a[0].localeCompare(b[0]));
+        const all = voiceMoveHandler.available().sort((a, b) => a[0].localeCompare(b[0]));
         const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
         const rows = Math.ceil(all.length / cols);
         for (let row = 0; row < rows; row++) {

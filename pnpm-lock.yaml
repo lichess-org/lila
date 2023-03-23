@@ -81,6 +81,7 @@ importers:
       common: workspace:*
       debounce-promise: ^3.1.2
       game: workspace:*
+      input: workspace:*
       nvui: workspace:*
       prop-types: ^15.8.1
       snabbdom: ^3.5.1
@@ -102,6 +103,7 @@ importers:
       common: link:../common
       debounce-promise: 3.1.2
       game: link:../game
+      input: link:../input
       nvui: link:../nvui
       prop-types: 15.8.1
       snabbdom: 3.5.1
@@ -499,19 +501,19 @@ importers:
     specifiers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
-      chess: workspace:*
       chessground: ^8.3.7
       chessops: ^0.12.5
       common: workspace:*
+      input: workspace:*
       puz: workspace:*
       snabbdom: ^3.5.1
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
-      chess: link:../chess
       chessground: 8.3.7
       chessops: 0.12.5
       common: link:../common
+      input: link:../input
       puz: link:../puz
       snabbdom: 3.5.1
 
@@ -520,7 +522,6 @@ importers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
       chat: workspace:*
-      chess: workspace:*
       chessground: ^8.3.7
       common: workspace:*
       game: workspace:*
@@ -531,7 +532,6 @@ importers:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       chat: link:../chat
-      chess: link:../chess
       chessground: 8.3.7
       common: link:../common
       game: link:../game
@@ -625,19 +625,19 @@ importers:
     specifiers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
-      chess: workspace:*
       chessground: ^8.3.7
       chessops: ^0.12.5
       common: workspace:*
+      input: workspace:*
       puz: workspace:*
       snabbdom: ^3.5.1
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
-      chess: link:../chess
       chessground: 8.3.7
       chessops: 0.12.5
       common: link:../common
+      input: link:../input
       puz: link:../puz
       snabbdom: 3.5.1
 

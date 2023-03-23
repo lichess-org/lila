@@ -1,4 +1,4 @@
-import { MoveCtrl, VoiceMoveCtrl, WordResult, MsgType } from './interfaces';
+import { MoveCtrl, VoiceMoveHandler, WordResult, VoiceListener, MsgType } from './interfaces';
 import { Dests } from 'chessground/types';
 import { DrawShape, DrawBrush } from 'chessground/draw';
 import { storedBooleanProp, storedIntProp } from 'common/storage';
@@ -51,13 +51,13 @@ module shorthand:
 
 **************************************************************************************************/
 
-let vMoveCtrl: VoiceMoveCtrl;
+export let voiceMoveHandler: VoiceMoveHandler;
 
-export function voiceMoveCtrl(): VoiceMoveCtrl {
-  return vMoveCtrl ? vMoveCtrl : (vMoveCtrl = new VoiceMoveControl());
+export function makeVoiceMoveHandler(): VoiceMoveHandler {
+  return voiceMoveHandler ? voiceMoveHandler : (voiceMoveHandler = new VoiceMoveCtrl());
 }
 
-class VoiceMoveControl implements VoiceMoveCtrl {
+class VoiceMoveCtrl implements VoiceMoveHandler {
   byVal = new Map<string, Entry | Set<Entry>>(); // map values to lexicon entries
   byTok = new Map<string, Entry>(); // map token chars to lexicon entries
   byWord = new Map<string, Entry>(); // map input words to lexicon entries
@@ -81,6 +81,8 @@ class VoiceMoveControl implements VoiceMoveCtrl {
     ['grey', { key: 'vgy', color: '#555555', opacity: 0.8, lineWidth: 12 }],
   ];
 
+  modalListener?: VoiceListener; // nothing to do with modal dialogs, currently for PromotionCtrl
+  modalMatches: string[] = [];
   board: cs.Board;
   ctrl: MoveCtrl;
   cg: CgApi;
@@ -108,6 +110,12 @@ class VoiceMoveControl implements VoiceMoveCtrl {
     this.ctrl.voice.setVocabulary(this.tagWords());
   }
 
+  // clients can register a modal listener to use our fuzzy matching but otherwise preempt move handling
+  public registerModal(modalListener?: VoiceListener, phrases?: string[]) {
+    this.modalListener = modalListener; // could be a stack or list in future
+    this.modalMatches = phrases ?? [...this.byWord.keys()];
+  }
+
   // setState is called by moveCtrl on board init & opponent moves
   setState(fen: string, api: CgApi /*, yourMove?: boolean*/) {
     this.cg = api;
@@ -126,15 +134,31 @@ class VoiceMoveControl implements VoiceMoveCtrl {
     if (msgType === 'stop') this.clearMoveProgress(); // 'stop' msg from vosk is not a voice phrase
     else if (msgType === 'phrase' && msgText.length > 1 && words) {
       this.nArrogance = this.arrogance(); // cache it
-      if (this.debug)
-        console.groupCollapsed('listen', `'${msgText}'`, words.map(x => `${x.word} (${x.conf})`).join(', '));
+      try {
+        if (this.debug)
+          console.groupCollapsed(`listen '${msgText}' ${words.map(x => `${x.word} (${x.conf})`).join(', ')}`);
 
-      // return true on success from a handle<x> method to short-cicuit the chain
-      this.handleCommand(msgText) || this.handleAmbiguity(msgText, words) || this.handleMove(msgText, words);
-
-      if (this.debug) console.groupEnd();
+        if (this.passModal(msgText))
+          this.handleCommand(msgText) || this.handleAmbiguity(msgText, words) || this.handleMove(msgText, words);
+      } finally {
+        if (this.debug) console.groupEnd();
+      }
     }
     this.ctrl.root.redraw();
+  }
+
+  // passModal returns true if no modal interaction is registered
+  passModal(heard: string): boolean {
+    if (!this.modalListener) return true;
+    const match = this.matchOne(
+      heard,
+      ['no', ...this.modalMatches].map(x => [this.wordVal(x), [x]])
+    );
+    if (match) {
+      this.modalListener(match[0], 'phrase');
+      this.modalListener = undefined;
+    }
+    return false;
   }
 
   // return true on success from a handle<x> method to short-cicuit the chain
@@ -259,16 +283,15 @@ class VoiceMoveControl implements VoiceMoveCtrl {
 
   costToMatch(h: string, x: string, partite: boolean) {
     if (h === x) {
-      console.log('hello mr bbill');
       return 0;
     }
     const xforms = findTransforms(h, x)
-      .map(t => t.reduce((acc, t) => acc + this.subCost(t, partite), 0))
+      .map(t => t.reduce((acc, t) => acc + this.transformCost(t, partite), 0))
       .sort((lhs, rhs) => lhs - rhs);
     return xforms?.[0];
   }
 
-  subCost(transform: Transform, partite: boolean) {
+  transformCost(transform: Transform, partite: boolean) {
     if (transform.from === transform.to) return 0;
     const from = this.byTok.get(transform.from);
     const sub = from?.subs?.find(x => x.to === transform.to);
@@ -292,14 +315,14 @@ class VoiceMoveControl implements VoiceMoveCtrl {
       choices.length === 1
         ? [['yes', choices[0][0]]]
         : choices
-            .sort((lhs, rhs) => this.compareLabel(lhs[0], rhs[0]))
+            .sort((lhs, rhs) => this.compareLabelPos(lhs[0], rhs[0]))
             .map(([uci], i) => [this.brushes[i][0], uci] as [string, Uci])
     );
     if (this.debug) console.log('ambiguate', this.ambiguity);
     this.drawArrows();
   }
 
-  compareLabel(lhs: Uci, rhs: Uci) {
+  compareLabelPos(lhs: Uci, rhs: Uci) {
     const asWhite = this.cg.state.orientation === 'white';
     const labelPos = (uci: string) => {
       const destOffset = this.destOffset(uci);
@@ -361,21 +384,19 @@ class VoiceMoveControl implements VoiceMoveCtrl {
       if (dests.length > this.brushes.length) this.selection = uci === this.selection ? undefined : src(uci);
       else this.ambiguate(dests.map(uci => [uci, 0]));
       this.cg.redrawAll();
-    } else if (uci.length < 5) this.ctrl.san(src(uci), dest(uci));
-    else this.ctrl.promote(src(uci), dest(uci), promo(uci));
+    } else this.ctrl.move(src(uci), dest(uci), promo(uci));
   }
 
   // given each uci, build every possible move phrase for it
   buildMoves(): Map<string, Uci | Set<Uci>> {
     const xvalsToMoves = new Map<string, Uci | Set<Uci>>();
     for (const uci of this.ucis) {
-      const xtokset = new Set([move(uci)]),
-        usrc = src(uci),
+      const usrc = src(uci),
         udest = dest(uci),
         nsrc = cs.square(usrc),
         ndest = cs.square(udest),
         dp = this.board.pieces[ndest],
-        srole = this.board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
+        srole = this.board.pieces[nsrc].toUpperCase();
 
       if (srole == 'K') {
         if (this.isOurs(dp)) {
@@ -383,14 +404,14 @@ class VoiceMoveControl implements VoiceMoveCtrl {
           xvalsToMoves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
         } else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
       }
-
-      pushMap(xvalsToMoves, [...uci].join(','), uci);
+      const xtokset = new Set<Uci>(); // allowable exact phrases for this uci
+      xtokset.add(uci);
       if (dp && !this.isOurs(dp)) {
         const drole = dp.toUpperCase(); // takes
-        pushMap(xvalsToMoves, `${srole},${drole}`, uci);
-        pushMap(xvalsToMoves, `${srole},x,${drole}`, uci);
-        pushMap(xvalsToMoves, `x,${drole}`, uci);
-        pushMap(xvalsToMoves, `x`, uci);
+        xtokset.add(`${srole}${drole}`);
+        xtokset.add(`${srole}x${drole}`);
+        xtokset.add(`x${drole}`);
+        xtokset.add(`x`);
       }
       if (srole === 'P') {
         if (uci[0] === uci[2] || !dp) {
@@ -632,7 +653,7 @@ function validOps(h: string, x: string, pos: number) {
   return validOps;
 }
 
-// these are just optimizations for cases where a set has only one element, which is most of the time
+// optimizations for when a set has only one element, which is most of the time
 
 function spread<T>(v: undefined | T | Set<T>): T[] {
   return v === undefined ? [] : v instanceof Set ? [...v] : [v];
@@ -663,17 +684,15 @@ function pushMap<T>(m: Map<string, T | Set<T>>, key: string, val: T) {
 
 const src = (uci: Uci) => uci.slice(0, 2) as Key;
 const dest = (uci: Uci) => uci.slice(2, 4) as Key;
-const move = (uci: Uci) => uci.slice(0, 4);
-const promo = (uci: Uci) => uci.slice(4, 5);
+const promo = (uci: Uci) => (uci.length > 4 ? uci.slice(4, 5) : undefined);
 
 const deltas = (d: number[], s = 0) => d.flatMap(x => [s - x, s + x]);
 
-function movesTo(s: number, role: 'N' | 'B' | 'R' | 'Q' | 'K', board: cs.Board): number[] {
-  // minor tweaks on sanWriter function in chess module
+function movesTo(s: number, role: string, board: cs.Board): number[] {
   if (role === 'K') return deltas([1, 7, 8, 9], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) === 1);
   else if (role === 'N') return deltas([6, 10, 15, 17], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) <= 2);
   const dests: number[] = [];
-  for (const delta of deltas(role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : [7, 9])) {
+  for (const delta of deltas(role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : role === 'B' ? [7, 9] : [])) {
     for (
       let square = s + delta;
       square >= 0 && square < 64 && cs.squareDist(square, square - delta) === 1;

@@ -22,36 +22,9 @@ export default (window as any).LichessVoice = {
       if (msg.result.partial.length < 2) return; // can't do anything with this
       //opts.broadcast(msg.result.partial, 'partial', undefined, 1000);
     });
-    return opts.impl == 'vanilla' ? vanillaProcessor(opts.audioCtx) : workletProcessor(opts.audioCtx);
+    const voskNode = opts.audioCtx.createScriptProcessor(4096, 1, 1);
+
+    voskNode.onaudioprocess = (e: any) => kaldi.acceptWaveform(e.inputBuffer);
+    return voskNode;
   },
 };
-
-//========================== works ok on all but deprecated ==============================
-
-function vanillaProcessor(audioCtx: AudioContext): AudioNode {
-  // createScriptProcessor was deprecated in 2014
-  const voskNode = audioCtx.createScriptProcessor(4096, 1, 1);
-
-  voskNode.onaudioprocess = (e: any) => kaldi.acceptWaveform(e.inputBuffer);
-  return voskNode;
-}
-
-//========================= preferred impl but safari bugged =============================
-
-async function workletProcessor(audioCtx: AudioContext): Promise<AudioNode> {
-  const debugChannel = new MessageChannel(); // safari can't log with a worker
-  debugChannel.port1.onmessage = (e: MessageEvent) => console.log(e.data);
-
-  const channel = new MessageChannel();
-  voiceModel.registerPort(channel.port1);
-
-  await audioCtx.audioWorklet.addModule(lichess.assetUrl('compiled/voskWorklet.js'));
-
-  const voskNode = new AudioWorkletNode(audioCtx, 'vosk-worklet', {
-    channelCount: 1,
-    numberOfInputs: 1,
-    numberOfOutputs: 1,
-  });
-  voskNode.port.postMessage({ action: 'register', recognizerId: kaldi.id }, [channel.port2, debugChannel.port2]);
-  return voskNode;
-}

@@ -48,6 +48,7 @@
   { "in": "clock", "val": "clock", "tags": [ "command", "rounds", "exact" ] },
   { "in": "opponent", "val": "who", "tags": [ "command", "rounds", "exact" ] },
   { "in": "next", "val": "next", "tags": [ "command", "puzzle", "exact" ] },
+  { "in": "continue", "val": "next", "tags": [ "command", "puzzle", "exact" ] },
   { "in": "help", "val": "?", "tags": [ "command", "exact" ] },
   { "in": "stop", "val": "stop", "tags": [ "command", "exact" ] },
 
@@ -89,5 +90,6 @@
   { "in": "his", "val": "", "tags": [ "ignore" ] },
   { "in": "her", "val": "", "tags": [ "ignore" ] },
   { "in": "the", "val": "", "tags": [ "ignore" ] },
-  { "in": "their", "val": "", "tags": [ "ignore" ] }
+  { "in": "their", "val": "", "tags": [ "ignore" ] },
+  { "in": "training", "val": "", "tags": [ "ignore" ] }
 ]

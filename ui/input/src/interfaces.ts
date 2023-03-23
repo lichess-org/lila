@@ -19,11 +19,10 @@ export type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
 export interface MoveCtrl {
   drop(key: cg.Key, piece: string): void;
-  promote(orig: cg.Key, dest: cg.Key, piece: string): void;
   update(step: { fen: string }, yourMove?: boolean): void;
   addHandler(h: MoveHandler | undefined): void;
   isFocused: Prop<boolean>;
-  san(orig: cg.Key, dest: cg.Key): void;
+  move(orig: cg.Key, dest: cg.Key, roleChar?: string): void;
   select(key: cg.Key): void;
   hasSelected(): cg.Key | undefined;
   confirmMove(): void;
@@ -91,8 +90,9 @@ export interface VoiceCtrl {
   addListener: (name: string, listener: VoiceListener) => void;
 }
 
-export interface VoiceMoveCtrl {
+export interface VoiceMoveHandler {
   registerMoveCtrl(ctrl: MoveCtrl): void;
+  registerModal(modalListener?: VoiceListener, phrases?: string[]): void;
   available(): [string, string][];
   arrogance(conf?: number): number;
   arrowColors(enabled?: boolean): boolean;

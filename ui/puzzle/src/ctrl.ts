@@ -31,7 +31,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
-import { PromotionCtrl } from 'chess/promotion';
+import { PromotionCtrl } from 'input/promotion';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';

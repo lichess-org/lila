@@ -6,8 +6,8 @@
   },
   "isolatedModules": true,
   "references": [
-    { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },
+    { "path": "../input/tsconfig.json" },
     { "path": "../puz/tsconfig.json" }
   ]
 }
