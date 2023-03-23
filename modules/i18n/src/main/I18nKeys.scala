@@ -310,6 +310,7 @@ object I18nKeys:
   val `followsYou` = I18nKey("followsYou")
   val `xStartedFollowingY` = I18nKey("xStartedFollowingY")
   val `more` = I18nKey("more")
+  val `moreBlogs` = I18nKey("moreBlogs")
   val `memberSince` = I18nKey("memberSince")
   val `lastSeenActive` = I18nKey("lastSeenActive")
   val `player` = I18nKey("player")

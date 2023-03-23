@@ -165,12 +165,24 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   grid-gap: 0 2%;
   grid-template-rows: auto; /* first row auto */
-  grid-auto-rows: 0; /* all the other rows 0 */
   font-size: 0.9em;
   h2 {
     font-size: 1.2em;
   }
   .ublog-post-card:hover {
     box-shadow: none;
+  }
+}
+
+.ublog-community-blogs--link {
+  grid-area: blog;
+  grid-column: 1 / 1;
+  margin-top: 10px;
+  padding-left: 5px;
+  font-weight: bold;
+  color: #999999;
+
+  @include breakpoint($mq-col3) {
+    padding-left: 0px;
   }
 }

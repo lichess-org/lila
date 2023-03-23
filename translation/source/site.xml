@@ -428,6 +428,7 @@ computer analysis, game chat and shareable URL.</string>
     <item quantity="other">%s following</item>
   </plurals>
   <string name="more">More</string>
+  <string name="moreBlogs">More blogs</string>
   <string name="memberSince">Member since</string>
   <string name="lastSeenActive">Active %s</string>
   <string name="player">Player</string>

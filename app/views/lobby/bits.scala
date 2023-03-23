@@ -84,25 +84,28 @@ object bits:
       )
     )
 
-  def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(using
-      ctx: Context
-  ): Frag =
-    div(cls := "lobby__blog ublog-post-cards")(
-      lichess map { post =>
-        a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
-          img(
-            src     := post.image,
-            cls     := "ublog-post-card__image",
-            widthA  := UblogPost.thumbnail.Small.width,
-            heightA := UblogPost.thumbnail.Small.height
-          ),
-          span(cls := "ublog-post-card__content")(
-            h2(cls := "ublog-post-card__title")(post.title),
-            semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
+  def lastPosts(
+    lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost]
+  )(using ctx: Context) =
+    frag(
+      div(cls := "lobby__blog ublog-post-cards")(
+        lichess map { post =>
+          a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
+            img(
+              src     := post.image,
+              cls     := "ublog-post-card__image",
+              widthA  := UblogPost.thumbnail.Small.width,
+              heightA := UblogPost.thumbnail.Small.height
+            ),
+            span(cls := "ublog-post-card__content")(
+              h2(cls := "ublog-post-card__title")(post.title),
+              semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
+            )
           )
-        )
-      },
-      ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
+        },
+        ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) }),
+        a(cls := "ublog-community-blogs--link", href := routes.Ublog.communityAll())(trans.moreBlogs()," »")
+      )
     )
 
   def showUnreadLichessMessage(using Context) =
