@@ -1,9 +1,9 @@
+import { standardColorName } from 'common/colorName';
 import { Prop, defined, prop } from 'common/common';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import { StoredProp, storedProp } from 'common/storage';
 import * as xhr from 'common/xhr';
-import { toBlackWhite } from 'shogiops/util';
 import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
@@ -324,8 +324,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                     ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value);
                   }),
                 },
-                ['sente', 'gote'].map(function (color) {
-                  return option(color, currentChapter.setup.orientation, noarg(toBlackWhite(color)));
+                ['sente', 'gote'].map(function (color: Color) {
+                  return option(color, currentChapter.setup.orientation, standardColorName(noarg, color));
                 })
               ),
             ]),
