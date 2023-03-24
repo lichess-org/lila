@@ -1,11 +1,11 @@
 import * as control from './control';
 import * as xhr from 'common/xhr';
-import { Controller, MoveController } from './interfaces';
+import { Controller, KeyboardController } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 
-export default (ctrl: MoveController) => {
+export default (ctrl: KeyboardController) =>
   window.Mousetrap.bind(['left', 'k'], () => {
     control.prev(ctrl);
     ctrl.redraw();
@@ -34,7 +34,7 @@ export default (ctrl: MoveController) => {
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle);
-};
+
 export const view = (ctrl: Controller): VNode =>
   snabModal({
     class: 'keyboard-help',

@@ -24,7 +24,8 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { makeMoveCtrl, MoveCtrl } from 'input';
+import { makeVoiceMove, VoiceMove } from 'voice';
+import { ctrl as makeKeyboardMove, KeyboardMove, RootController } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
@@ -86,26 +87,26 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   }
 
-  let moveCtrl: MoveCtrl | undefined;
+  let keyboardMove: KeyboardMove | undefined;
+  let voiceMove: VoiceMove | undefined;
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);
-    this.moveCtrl = moveCtrl = makeMoveCtrl(
-      {
-        data: {
-          game: { variant: { key: 'standard' } },
-          player: { color: vm.pov },
-        },
-        chessground: cg,
-        sendMove: playUserMove,
-        redraw: this.redraw,
-        userJumpPlyDelta,
-        next: nextPuzzle,
-        vote,
-        keyboard: opts.pref.keyboardMove,
+    const root: RootController = {
+      data: {
+        game: { variant: { key: 'standard' } },
+        player: { color: vm.pov },
       },
-      { fen: this.vm.node.fen }
-    );
+      chessground: cg,
+      sendMove: playUserMove,
+      redraw: this.redraw,
+      userJumpPlyDelta,
+      next: nextPuzzle,
+      vote,
+    };
+    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(root, { fen: this.vm.node.fen });
+    if (opts.pref.keyboardMove) this.keyboardMove = keyboardMove = makeKeyboardMove(root, { fen: this.vm.node.fen });
+    console.log(opts.pref.voiceMove, opts.pref.keyboardMove);
     requestAnimationFrame(() => this.redraw());
   }
 
@@ -203,7 +204,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
-    moveCtrl?.update({ fen: vm.node.fen });
+    voiceMove?.update({ fen: vm.node.fen });
+    keyboardMove?.update({ fen: vm.node.fen });
   }
 
   function playUci(uci: Uci): void {
@@ -475,7 +477,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     promotion.cancel();
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
-    moveCtrl?.update({ fen: vm.node.fen });
+    keyboardMove?.update({ fen: vm.node.fen });
+    voiceMove?.update({ fen: vm.node.fen });
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 
@@ -615,7 +618,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     setChessground,
     ground,
     makeCgOpts,
-    moveCtrl,
+    voiceMove,
+    keyboardMove,
     keyboardHelp,
     userJump,
     viewSolution,

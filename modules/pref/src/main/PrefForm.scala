@@ -28,6 +28,7 @@ object PrefForm:
         "pieceNotation" -> optional(booleanNumber),
         "zen"           -> optional(booleanNumber),
         "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+        "voice"         -> optional(booleanNumber),
         "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
@@ -66,6 +67,7 @@ object PrefForm:
       pieceNotation: Option[Int],
       zen: Option[Int],
       resizeHandle: Option[Int],
+      voice: Option[Int],
       blindfold: Int
   )
 
@@ -114,6 +116,7 @@ object PrefForm:
         destination = display.destination == 1,
         coords = display.coords,
         replay = display.replay,
+        voice = display.voice | pref.voice,
         blindfold = display.blindfold,
         challenge = challenge,
         message = message,
@@ -143,6 +146,7 @@ object PrefForm:
           coords = pref.coords,
           replay = pref.replay,
           captured = if (pref.captured) 1 else 0,
+          voice = pref.voice.some,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,

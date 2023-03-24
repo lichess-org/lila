@@ -10,6 +10,16 @@ export function fixCrazySan(san: San): San {
 
 export type Dests = Map<Key, Key[]>;
 
+export function destsToUcis(dests: Dests): Uci[] {
+  const ucis: string[] = [];
+  for (const [orig, d] of dests) {
+    d.forEach(function (dest) {
+      ucis.push(orig + dest);
+    });
+  }
+  return ucis;
+}
+
 export function readDests(lines?: string): Dests | null {
   if (typeof lines === 'undefined') return null;
   const dests = new Map();

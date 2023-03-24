@@ -9,7 +9,8 @@
     { "path": "../ceval/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },
-    { "path": "../input/tsconfig.json" },
+    { "path": "../keyboardMove/tsconfig.json" },
+    { "path": "../voice/tsconfig.json" },
     { "path": "../nvui/tsconfig.json" },
     { "path": "../tree/tsconfig.json" }
   ]

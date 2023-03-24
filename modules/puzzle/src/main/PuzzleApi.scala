@@ -88,8 +88,8 @@ final class PuzzleApi(
         ) flatMapz { doc =>
           val prevUp   = ~doc.int(F.voteUp)
           val prevDown = ~doc.int(F.voteDown)
-          val up       = prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)
-          val down     = prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)
+          val up       = (prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)) atLeast newVote
+          val down     = (prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)) atLeast -newVote
           coll.update
             .one(
               $id(puzzleId),

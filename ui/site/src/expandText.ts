@@ -45,7 +45,7 @@ lichess.load.then(() => {
     studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})(#\\d+)?\\b');
 
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
-    if (a.href !== a.textContent) return;
+    if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return;
     const tw = toTwitterEmbedUrl(a.href);
     if (tw)
       return {

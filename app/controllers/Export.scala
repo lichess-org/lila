@@ -63,12 +63,12 @@ final class Export(env: Env) extends LilaController(env):
   def puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.puzzle.api.puzzle find id) { puzzle =>
       env.game.gifExport.thumbnail(
-        fen = puzzle.fenAfterInitialMove,
+        situation = puzzle.situationAfterInitialMove err s"invalid puzzle ${puzzle.id}",
         lastMove = puzzle.line.head.some,
         orientation = puzzle.color,
-        variant = Standard,
-        Theme(theme).name,
-        PieceSet.get(piece).name
+        theme = Theme(theme).name,
+        piece = PieceSet.get(piece).name,
+        description = s"puzzleThumbnail ${puzzle.id}"
       ) pipe stream()
     }
 
@@ -80,14 +80,14 @@ final class Export(env: Env) extends LilaController(env):
       theme: Option[String],
       piece: Option[String]
   ) =
-    exportImageOf(fuccess(Fen read Fen.Epd.clean(fen))) { _ =>
+    exportImageOf(fuccess(Fen.read(Variant.orDefault(variant), Fen.Epd.clean(fen)))) { situation =>
       env.game.gifExport.thumbnail(
-        fen = Fen.Epd.clean(fen),
+        situation = situation,
         lastMove = lastMove,
         orientation = Color.fromName(color) | Color.White,
-        variant = Variant.orDefault(variant),
-        Theme(theme).name,
-        PieceSet.get(piece).name
+        theme = Theme(theme).name,
+        piece = PieceSet.get(piece).name,
+        description = s"fenThumbnail $fen"
       ) pipe stream()
     }
 

@@ -86,6 +86,7 @@ export class PromotionCtrl {
   };
 
   cancelPrePromotion = (): void => {
+    lichess.mic?.removeListener('promotion');
     if (this.prePromotionRole) {
       this.withGround(g => g.setAutoShapes([]));
       this.prePromotionRole = undefined;
@@ -96,6 +97,16 @@ export class PromotionCtrl {
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
     if (!promoting) return;
+    lichess.mic?.addListener('promotion', (msgText: string) => {
+      if (['no', 'cancel', 'abort', 'close', 'clear', 'oops', 'undo'].includes(msgText)) this.cancel();
+      else if (['queen', 'knight', 'rook', 'bishop', ...(antichess ? ['king'] : [])].includes(msgText)) {
+        this.promoting = undefined;
+        this.doPromote(promoting, msgText as cg.Role);
+        this.redraw();
+      } else return false;
+      return true;
+    });
+
     return (
       this.withGround(g =>
         this.renderPromotion(
