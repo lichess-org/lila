@@ -1,7 +1,6 @@
 package lila.study
 
 import shogi.format.usi.{ Usi, UsiCharPair }
-import shogi.Centis
 
 import lila.game.Game
 
@@ -13,7 +12,7 @@ object GameToRoot {
   ): Node.Root = {
     val clocks = withClocks ?? (
       for {
-        initTime <- game.clock.map(c => Centis.ofSeconds(c.limitSeconds))
+        initTime <- game.clock.map(_.config.initTime)
         times    <- game.bothClockStates
       } yield (initTime +: times)
     )
@@ -54,7 +53,7 @@ object GameToRoot {
             usi = usi,
             sfen = g.toSfen,
             check = g.situation.check,
-            clock = gm.clocks flatMap (_ lift (g.plies - init.plies - 1)),
+            clock = gm.clocks flatMap (_ lift (g.plies - init.plies)),
             forceVariation = false,
             children = Node.emptyChildren
           )
