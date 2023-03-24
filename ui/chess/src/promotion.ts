@@ -5,7 +5,6 @@ import { Api as CgApi } from 'chessground/api';
 import { DrawShape } from 'chessground/draw';
 import * as cgUtil from 'chessground/util';
 import * as cg from 'chessground/types';
-import { mic } from 'common/mic';
 
 export type Callback = (orig: Key, dest: Key, role: cg.Role) => void;
 
@@ -87,7 +86,7 @@ export class PromotionCtrl {
   };
 
   cancelPrePromotion = (): void => {
-    mic.removeListener('promotion');
+    lichess.mic?.removeListener('promotion');
     if (this.prePromotionRole) {
       this.withGround(g => g.setAutoShapes([]));
       this.prePromotionRole = undefined;
@@ -98,7 +97,7 @@ export class PromotionCtrl {
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
     if (!promoting) return;
-    mic.addListener('promotion', (msgText: string) => {
+    lichess.mic?.addListener('promotion', (msgText: string) => {
       if (['no', 'cancel', 'abort', 'close', 'clear', 'oops', 'undo'].includes(msgText)) this.cancel();
       else if (['queen', 'knight', 'rook', 'bishop', ...(antichess ? ['king'] : [])].includes(msgText)) {
         this.promoting = undefined;

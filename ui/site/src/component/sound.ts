@@ -1,7 +1,6 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
-import { mic } from 'common/mic';
 
 declare class Howl {
   constructor(opts: { src: string | string[] });
@@ -107,8 +106,8 @@ const sound: SoundI = new (class {
     const msg = new SpeechSynthesisUtterance(text);
     msg.volume = this.getVolume();
     msg.lang = translated ? document.documentElement!.lang : 'en-US';
-    msg.onstart = _ => mic.pushPause();
-    msg.onend = msg.onerror = _ => mic.popPause();
+    msg.onstart = _ => lichess.mic?.pushPause();
+    msg.onend = msg.onerror = _ => lichess.mic?.popPause();
     speechSynthesis.speak(msg);
     return true;
   };
