@@ -242,10 +242,10 @@ class VoiceMoveCtrl implements VoiceMove {
     const matchMap = new Map<string, number>();
     for (const [xtoks, ucis] of spreadMap(xtoksToOutSet)) {
       const cost = this.costToMatch(htoks, xtoks, partite);
-      if (cost > 1) continue;
-      for (const uci of ucis) {
-        if (!matchMap.has(uci) || matchMap.get(uci)! > cost) matchMap.set(uci, cost);
-      }
+      if (cost < 1)
+        for (const uci of ucis) {
+          if (!matchMap.has(uci) || matchMap.get(uci)! > cost) matchMap.set(uci, cost);
+        }
     }
     const matches = [...matchMap].sort(([, lhsCost], [, rhsCost]) => lhsCost - rhsCost);
     if ((this.debug && matches.length > 0) || this.debug?.emptyMatches)

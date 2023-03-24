@@ -67,7 +67,7 @@
   { "in": "pink", "val": "pink", "tags": ["choice", "exact"] },
   { "in": "purple", "val": "purple", "tags": ["choice", "exact"] },
   { "in": "orange", "val": "orange", "tags": ["choice", "exact"] },
-  { "in": "grey", "val": "paleGrey", "tags": ["choice", "exact"] },
+  { "in": "grey", "val": "grey", "tags": ["choice", "exact"] },
 
   { "in": "alfa", "val": "a", "tags": ["file", "move", "nato"] },
   { "in": "bravo", "val": "b", "tags": ["file", "move", "nato"] },
