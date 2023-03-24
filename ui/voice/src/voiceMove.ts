@@ -4,7 +4,6 @@ import { propWithEffect, PropWithEffect } from 'common';
 import { Api as CgApi } from 'chessground/api';
 import * as cs from 'chess';
 import { promote } from 'chess/promotion';
-import { mic } from 'common/mic';
 import { VoiceMove, RootCtrl } from './interfaces';
 import { src, dest, promo, movesTo, nonMoveCommand } from './util';
 import { lexicon, Entry } from './voiceMoveGrammar';
@@ -98,8 +97,8 @@ class VoiceMoveCtrl implements VoiceMove {
     this.modalOpen = propWithEffect(false, root.redraw);
     this.root = root;
     this.update(step);
-    mic.addListener('voiceMoveHandler', this.listen.bind(this));
-    mic.setVocabulary(this.tagWords());
+    lichess.mic?.addListener('voiceMoveHandler', this.listen.bind(this));
+    lichess.mic?.setVocabulary(this.tagWords());
   }
 
   // update is called by the root controller when the board position changes
@@ -143,7 +142,7 @@ class VoiceMoveCtrl implements VoiceMove {
     const matchedVal = this.matchOneTags(msgText, ['command']);
     if (!matchedVal) return false;
     if (matchedVal[0] === 'stop') {
-      mic?.stop();
+      lichess.mic?.stop();
       this.clearMoveProgress();
       return true;
     } else if (matchedVal[0] === 'rematch') {

@@ -5,7 +5,6 @@ import { storedBooleanProp } from 'common/storage';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import * as xhr from 'common/xhr';
-import { mic } from 'common/mic';
 
 type ArrowPref = 'Colors' | 'Numbers';
 
@@ -22,19 +21,19 @@ export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
       }),
       h('p#voice-status', {
         hook: onInsert(el =>
-          mic.addListener('moveInput', txt => {
+          lichess.mic?.addListener('moveInput', txt => {
             el.innerText = txt;
           })
         ),
       }),
       h('a#microphone-button', {
-        class: { enabled: mic.isRecording, busy: mic.isBusy },
-        attrs: { role: 'button', ...dataIcon(mic.isBusy ? '' : '') },
+        class: { enabled: lichess.mic!.isRecording, busy: lichess.mic!.isBusy },
+        attrs: { role: 'button', ...dataIcon(lichess.mic?.isBusy ? '' : '') },
         hook: onInsert(el => {
           el.addEventListener('click', _ => {
-            rec(!(mic.isRecording || mic.isBusy)) ? mic.start() : mic.stop();
+            rec(!(lichess.mic?.isRecording || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
           });
-          if (rec() && !mic.isRecording) setTimeout(() => el.dispatchEvent(new Event('click')));
+          if (rec() && !lichess.mic?.isRecording) setTimeout(() => el.dispatchEvent(new Event('click')));
         }),
       }),
       h('a#voice-settings-button', {
