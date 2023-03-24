@@ -94,12 +94,11 @@ object EmailAddressValidator:
     case Passlist      extends Result(none)
     case Alright       extends Result(none)
     case DomainMissing extends Result("The email address domain is missing.".some) // no translation needed
-    case Blocklist
-        extends Result("Disposable email addresses cannot be used for password recovery (Blocklist).".some)
-    case DnsMissing extends Result("This email domain doesn't seem to work (missing MX DNS)".some)
-    case DnsTimeout extends Result("This email domain doesn't seem to work (timeout MX DNS)".some)
+    case Blocklist     extends Result("Cannot use disposable email addresses (Blocklist).".some)
+    case DnsMissing    extends Result("This email domain doesn't seem to work (missing MX DNS)".some)
+    case DnsTimeout    extends Result("This email domain doesn't seem to work (timeout MX DNS)".some)
     case DnsBlocklist
         extends Result(
-          "Disposable email addresses cannot be used for password recovery (DNS blocklist).".some
+          "Cannot use disposable email addresses (DNS blocklist).".some
         )
     case Reputation extends Result("This email domain has a poor reputation and cannot be used.".some)

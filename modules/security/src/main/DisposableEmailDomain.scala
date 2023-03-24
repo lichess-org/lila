@@ -101,6 +101,7 @@ private object DisposableEmailDomain:
     "ygm.com" /* AOL */,
     "ymail.com" /* Yahoo */,
     "zoho.com",
+    "zohomail.eu",
     "fastmail.com",
     "fastmail.fm",
     "yandex.com",

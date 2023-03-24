@@ -2,6 +2,7 @@ package lila.study
 
 import chess.Centis
 import chess.Pos
+import chess.format.pgn.{ Comment as ChessComment }
 import lila.common.Maths
 import lila.tree.Node.{ Shape, Shapes }
 
@@ -22,8 +23,8 @@ private[study] object CommentParser:
       comment: String
   )
 
-  def apply(comment: String): ParsedComment =
-    parseShapes(comment) match
+  def apply(comment: ChessComment): ParsedComment =
+    parseShapes(comment.value) match
       case (shapes, c2) =>
         parseClock(c2) match
           case (clock, c3) => ParsedComment(shapes, clock, c3)
