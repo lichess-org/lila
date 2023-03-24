@@ -1,5 +1,5 @@
 import * as cg from 'chessground/types';
-import { promote } from './promotion';
+import { promote } from 'chess/src/promotion';
 import { propWithEffect } from 'common';
 import { voiceCtrl } from './main';
 import { RootCtrl, MoveHandler, MoveCtrl } from './interfaces';

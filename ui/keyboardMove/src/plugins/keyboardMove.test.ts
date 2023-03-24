@@ -1,5 +1,4 @@
-import { /*jest, beforeEach,*/ describe, expect, test } from '@jest/globals';
-/*
+import { jest, beforeEach, describe, expect, test } from '@jest/globals';
 import { Prop, propWithEffect } from 'common';
 import keyboardMove from './keyboardMove';
 
@@ -37,18 +36,13 @@ const defaultCtrl = {
   usedSan: true,
   helpModalOpen: propWithEffect(false, () => null),
   isFocused: propWithEffect(false, () => null),
-  voiceMove: false,
-  keyboardMove: false,
-  lastSpokenPhrase: propWithEffect('', () => null),
-  isListening: propWithEffect(false, () => null),
 };
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 const toMap = (obj: object) => new Map(Object.entries(obj));
-*/
+
 describe('keyboardMove', () => {
-  test('looks good to me!', () => expect(true).toBe(true));
-  /*  beforeEach(() => {
+  beforeEach(() => {
     document.body.innerHTML = `<input id="keyboardInput" />`;
     input = document.getElementById('keyboardInput') as HTMLInputElement;
   });
@@ -558,5 +552,4 @@ describe('keyboardMove', () => {
     expect(input.value).toBe('j4');
     expect(input.classList.contains('wrong')).toBeTruthy();
   });
-  */
 });

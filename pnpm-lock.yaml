@@ -81,7 +81,6 @@ importers:
       common: workspace:*
       debounce-promise: ^3.1.2
       game: workspace:*
-      input: workspace:*
       nvui: workspace:*
       prop-types: ^15.8.1
       snabbdom: ^3.5.1
@@ -103,7 +102,6 @@ importers:
       common: link:../common
       debounce-promise: 3.1.2
       game: link:../game
-      input: link:../input
       nvui: link:../nvui
       prop-types: 15.8.1
       snabbdom: 3.5.1
@@ -279,28 +277,6 @@ importers:
       chessground: 8.3.7
       snabbdom: 3.5.1
 
-  ui/input:
-    specifiers:
-      '@jest/globals': ^29.3.1
-      '@types/audioworklet': ^0.0.36
-      '@types/cash': workspace:*
-      '@types/lichess': workspace:*
-      chess: workspace:*
-      chessground: ^8.3.7
-      common: workspace:*
-      snabbdom: ^3.5.1
-      vosk-browser: ^0.0.8
-    dependencies:
-      '@jest/globals': 29.3.1
-      '@types/audioworklet': 0.0.36
-      '@types/cash': link:../@types/cash
-      '@types/lichess': link:../@types/lichess
-      chess: link:../chess
-      chessground: 8.3.7
-      common: link:../common
-      snabbdom: 3.5.1
-      vosk-browser: 0.0.8
-
   ui/insight:
     specifiers:
       '@types/cash': workspace:*
@@ -315,6 +291,24 @@ importers:
       '@types/lichess': link:../@types/lichess
       common: link:../common
       numeral: 2.0.6
+      snabbdom: 3.5.1
+
+  ui/keyboardMove:
+    specifiers:
+      '@jest/globals': ^29.3.1
+      '@types/cash': workspace:*
+      '@types/lichess': workspace:*
+      chess: workspace:*
+      chessground: ^8.3.7
+      common: workspace:*
+      snabbdom: ^3.5.1
+    dependencies:
+      '@jest/globals': 29.3.1
+      '@types/cash': link:../@types/cash
+      '@types/lichess': link:../@types/lichess
+      chess: link:../chess
+      chessground: 8.3.7
+      common: link:../common
       snabbdom: 3.5.1
 
   ui/learn:
@@ -479,10 +473,11 @@ importers:
       chessground: ^8.3.7
       chessops: ^0.12.5
       common: workspace:*
-      input: workspace:*
+      keyboardMove: workspace:*
       nvui: workspace:*
       snabbdom: ^3.5.1
       tree: workspace:*
+      voice: workspace:*
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
@@ -492,28 +487,29 @@ importers:
       chessground: 8.3.7
       chessops: 0.12.5
       common: link:../common
-      input: link:../input
+      keyboardMove: link:../keyboardMove
       nvui: link:../nvui
       snabbdom: 3.5.1
       tree: link:../tree
+      voice: link:../voice
 
   ui/racer:
     specifiers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
+      chess: workspace:*
       chessground: ^8.3.7
       chessops: ^0.12.5
       common: workspace:*
-      input: workspace:*
       puz: workspace:*
       snabbdom: ^3.5.1
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
+      chess: link:../chess
       chessground: 8.3.7
       chessops: 0.12.5
       common: link:../common
-      input: link:../input
       puz: link:../puz
       snabbdom: 3.5.1
 
@@ -522,22 +518,26 @@ importers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
       chat: workspace:*
+      chess: workspace:*
       chessground: ^8.3.7
       common: workspace:*
       game: workspace:*
-      input: workspace:*
+      keyboardMove: workspace:*
       nvui: workspace:*
       snabbdom: ^3.5.1
+      voice: workspace:*
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
       chat: link:../chat
+      chess: link:../chess
       chessground: 8.3.7
       common: link:../common
       game: link:../game
-      input: link:../input
+      keyboardMove: link:../keyboardMove
       nvui: link:../nvui
       snabbdom: 3.5.1
+      voice: link:../voice
 
   ui/serviceWorker:
     specifiers:
@@ -625,19 +625,19 @@ importers:
     specifiers:
       '@types/cash': workspace:*
       '@types/lichess': workspace:*
+      chess: workspace:*
       chessground: ^8.3.7
       chessops: ^0.12.5
       common: workspace:*
-      input: workspace:*
       puz: workspace:*
       snabbdom: ^3.5.1
     dependencies:
       '@types/cash': link:../@types/cash
       '@types/lichess': link:../@types/lichess
+      chess: link:../chess
       chessground: 8.3.7
       chessops: 0.12.5
       common: link:../common
-      input: link:../input
       puz: link:../puz
       snabbdom: 3.5.1
 
@@ -728,6 +728,28 @@ importers:
       chessground: 8.3.7
       common: link:../common
       lichess-pgn-viewer: 1.5.5
+
+  ui/voice:
+    specifiers:
+      '@jest/globals': ^29.3.1
+      '@types/audioworklet': ^0.0.36
+      '@types/cash': workspace:*
+      '@types/lichess': workspace:*
+      chess: workspace:*
+      chessground: ^8.3.7
+      common: workspace:*
+      snabbdom: ^3.5.1
+      vosk-browser: ^0.0.8
+    dependencies:
+      '@jest/globals': 29.3.1
+      '@types/audioworklet': 0.0.36
+      '@types/cash': link:../@types/cash
+      '@types/lichess': link:../@types/lichess
+      chess: link:../chess
+      chessground: 8.3.7
+      common: link:../common
+      snabbdom: 3.5.1
+      vosk-browser: 0.0.8
 
 packages:
 

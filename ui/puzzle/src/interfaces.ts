@@ -9,7 +9,7 @@ import { StoredProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
-import { PromotionCtrl } from 'input/promotion';
+import { PromotionCtrl } from 'chess/promotion';
 import { MoveCtrl } from 'input';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';

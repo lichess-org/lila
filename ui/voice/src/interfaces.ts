@@ -37,7 +37,6 @@ export interface MoveCtrl {
   resign(v: boolean, immediately?: boolean): void;
   rematch(accept?: boolean): boolean;
   modalOpen: Prop<boolean>;
-  voice: VoiceCtrl; // convenience
   root: RootCtrl;
   mode: 'round' | 'puzzle';
   redraw: () => void;
@@ -75,24 +74,9 @@ export interface RootCtrl {
   keyboard: boolean;
 }
 
-export type MsgType = 'phrase' | 'partial' | 'status' | 'error' | 'stop' | 'start';
-
-export type VoiceListener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
-
-export interface VoiceCtrl {
-  // keep rounds, puzzle, move stuff out of this
-  setVocabulary: (vocabulary: string[]) => Promise<void>;
-  start: () => Promise<void>; // initialize if necessary and begin recording
-  stop: () => void; // stop recording/downloading/whatever
-  readonly isBusy: boolean; // are we downloading, extracting, or loading?
-  readonly isRecording: boolean; // are we recording?
-  readonly status: string; // errors, progress, or the most recent voice command
-  addListener: (name: string, listener: VoiceListener) => void;
-}
-
 export interface VoiceMoveHandler {
   registerMoveCtrl(ctrl: MoveCtrl): void;
-  registerModal(modalListener?: VoiceListener, phrases?: string[]): void;
+  registerModal(modalListener?: Voice.Listener, phrases?: string[]): void;
   available(): [string, string][];
   arrogance(conf?: number): number;
   arrowColors(enabled?: boolean): boolean;
@@ -102,13 +86,6 @@ export interface VoiceMoveHandler {
 export interface KaldiOpts {
   keys: string[];
   audioCtx: AudioContext;
-  broadcast: (msgText: string, msgType: MsgType, words: WordResult | undefined, forMs: number) => void;
+  broadcast: (msgText: string, msgType: Voice.MsgType, words: Voice.WordResult | undefined, forMs: number) => void;
   impl: 'vanilla' | 'worklet';
 }
-
-export type WordResult = Array<{
-  conf: number;
-  start: number;
-  end: number;
-  word: string;
-}>;

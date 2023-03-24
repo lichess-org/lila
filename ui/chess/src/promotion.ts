@@ -5,7 +5,7 @@ import { Api as CgApi } from 'chessground/api';
 import { DrawShape } from 'chessground/draw';
 import * as cgUtil from 'chessground/util';
 import * as cg from 'chessground/types';
-import { voiceMoveHandler } from './voiceMoveHandler';
+//import { voiceMoveHandler } from './voiceMoveHandler';
 
 export type Callback = (orig: Key, dest: Key, role: cg.Role) => void;
 

@@ -27,7 +27,7 @@ import { makeMoveCtrl, MoveCtrl } from 'input';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
-import { PromotionCtrl, promote } from 'input/promotion';
+import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
 import { uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';

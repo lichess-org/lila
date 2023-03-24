@@ -11,7 +11,6 @@
     { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },
     { "path": "../game/tsconfig.json" },
-    { "path": "../input/tsconfig.json" },
     { "path": "../nvui/tsconfig.json" },
     { "path": "../tree/tsconfig.json" }
   ],

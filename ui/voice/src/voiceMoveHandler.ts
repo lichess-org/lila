@@ -1,4 +1,5 @@
-import { MoveCtrl, VoiceMoveHandler, WordResult, VoiceListener, MsgType } from './interfaces';
+import { MoveCtrl, VoiceMoveHandler } from './interfaces';
+import { voice } from 'common/voice';
 import { Dests } from 'chessground/types';
 import { DrawShape, DrawBrush } from 'chessground/draw';
 import { storedBooleanProp, storedIntProp } from 'common/storage';
@@ -81,7 +82,7 @@ class VoiceMoveCtrl implements VoiceMoveHandler {
     ['grey', { key: 'vgy', color: '#555555', opacity: 0.8, lineWidth: 12 }],
   ];
 
-  modalListener?: VoiceListener; // nothing to do with modal dialogs, currently for PromotionCtrl
+  modalListener?: Voice.Listener; // nothing to do with modal dialogs, currently for PromotionCtrl
   modalMatches: string[] = [];
   board: cs.Board;
   ctrl: MoveCtrl;
@@ -105,13 +106,15 @@ class VoiceMoveCtrl implements VoiceMoveHandler {
 
   public registerMoveCtrl(ctrl: MoveCtrl) {
     this.ctrl = ctrl;
-    this.ctrl.voice.addListener('voiceMoveHandler', this.listen.bind(this));
+    //this.ctrl.voice.addListener('voiceMoveHandler', this.listen.bind(this));
+    voice.addListener('voiceMoveHandler', this.listen.bind(this));
     ctrl.addHandler(this.setState.bind(this));
-    this.ctrl.voice.setVocabulary(this.tagWords());
+    //this.ctrl.voice.setVocabulary(this.tagWords());
+    voice.setVocabulary(this.tagWords());
   }
 
   // clients can register a modal listener to use our fuzzy matching but otherwise preempt move handling
-  public registerModal(modalListener?: VoiceListener, phrases?: string[]) {
+  public registerModal(modalListener?: Voice.Listener, phrases?: string[]) {
     this.modalListener = modalListener; // could be a stack or list in future
     this.modalMatches = phrases ?? [...this.byWord.keys()];
   }
@@ -130,7 +133,7 @@ class VoiceMoveCtrl implements VoiceMoveHandler {
   }
 
   // listen is called by the voiceCtrl when a phrase is heard
-  listen(msgText: string, msgType: MsgType, words?: WordResult) {
+  listen(msgText: string, msgType: Voice.MsgType, words?: Voice.WordResult) {
     if (msgType === 'stop') this.clearMoveProgress(); // 'stop' msg from vosk is not a voice phrase
     else if (msgType === 'phrase' && msgText.length > 1 && words) {
       this.nArrogance = this.arrogance(); // cache it
@@ -173,7 +176,8 @@ class VoiceMoveCtrl implements VoiceMoveHandler {
     const matchedVal = this.matchOneTags(msgText, ['command']);
     if (!matchedVal) return false;
     if (matchedVal[0] === 'stop') {
-      this.ctrl.voice?.stop();
+      //this.ctrl.voice?.stop();
+      voice?.stop();
       this.clearMoveProgress();
       return true;
     } else if (matchedVal[0] === 'rematch') {
@@ -183,7 +187,7 @@ class VoiceMoveCtrl implements VoiceMoveHandler {
     return nonMoveCommand(matchedVal[0], this.ctrl);
   }
 
-  handleAmbiguity(phrase: string, words: WordResult): boolean {
+  handleAmbiguity(phrase: string, words: Voice.WordResult): boolean {
     if (!this.ambiguity || words.length > 2) return false; // might want > 1 here
     const doColors = this.arrowColors();
     const conf = words.reduce((acc, w) => acc + w.conf, 0) / words.length;
@@ -208,7 +212,7 @@ class VoiceMoveCtrl implements VoiceMoveHandler {
     return true;
   }
 
-  handleMove(phrase: string, words: WordResult): boolean {
+  handleMove(phrase: string, words: Voice.WordResult): boolean {
     const conf = words.reduce((acc, w) => acc + w.conf, 0) / words.length;
     if (
       this.selection &&

@@ -194,6 +194,30 @@ interface LichessEditor {
   setOrientation(o: Color): void;
 }
 
+declare namespace Voice {
+  export type MsgType = 'phrase' | 'partial' | 'status' | 'error' | 'stop' | 'start';
+
+  export type WordResult = Array<{
+    conf: number;
+    start: number;
+    end: number;
+    word: string;
+  }>;
+
+  export type Listener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
+
+  export interface Microphone {
+    // keep rounds, puzzle, move stuff out of this
+    setVocabulary: (vocabulary: string[]) => Promise<void>;
+    start: () => Promise<void>; // initialize if necessary and begin recording
+    stop: () => void; // stop recording/downloading/whatever
+    readonly isBusy: boolean; // are we downloading, extracting, or loading?
+    readonly isRecording: boolean; // are we recording?
+    readonly status: string; // errors, progress, or the most recent voice command
+    addListener: (name: string, listener: Listener) => void;
+  }
+}
+
 declare namespace Editor {
   export interface Config {
     baseUrl: string;
@@ -254,6 +278,7 @@ interface Window {
   readonly LichessDasher: (element: any) => any;
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
+  readonly LichessKeyboardMove: any;
   readonly LichessRound: any;
   readonly LichessRoundNvui?: Nvui;
   readonly LichessPuzzleNvui?: Nvui;
@@ -261,7 +286,7 @@ interface Window {
     render(): any;
   };
   readonly LichessChartRatingHistory?: any;
-  readonly LichessVoice?: any;
+  readonly LichessVoicePlugin: { mic: Voice.Microphone; vosk: any };
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

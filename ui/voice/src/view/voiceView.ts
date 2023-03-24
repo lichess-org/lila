@@ -6,6 +6,7 @@ import { makeVoiceMoveHandler, voiceMoveHandler } from '../voiceMoveHandler';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import * as xhr from 'common/xhr';
+import { mic } from 'common/mic';
 
 type ArrowPref = 'Colors' | 'Numbers';
 
@@ -19,17 +20,17 @@ export function renderVoiceView(ctrl: MoveCtrl, isPuzzle: boolean) {
         hook: bind('click', () => ctrl.modalOpen(true)),
       }),
       h('p#voice-status', {
-        hook: onInsert(el => ctrl.voice.addListener('moveInput', txt => (el.innerText = txt))),
+        hook: onInsert(el => mic.addListener('moveInput', txt => (el.innerText = txt))),
       }),
       h('a#microphone-button', {
-        class: { enabled: ctrl.voice.isRecording, busy: ctrl.voice.isBusy },
-        attrs: { role: 'button', ...dataIcon(ctrl.voice.isBusy ? '' : '') },
+        class: { enabled: mic.isRecording, busy: mic.isBusy },
+        attrs: { role: 'button', ...dataIcon(mic.isBusy ? '' : '') },
         hook: onInsert(el => {
           voiceMoveHandler.registerMoveCtrl(ctrl);
           el.addEventListener('click', _ => {
-            rec(!(ctrl.voice.isRecording || ctrl.voice.isBusy)) ? ctrl.voice.start() : ctrl.voice.stop();
+            rec(!(mic.isRecording || mic.isBusy)) ? mic.start() : mic.stop();
           });
-          if (rec() && !ctrl.voice.isRecording) setTimeout(() => el.dispatchEvent(new Event('click')));
+          if (rec() && !mic.isRecording) setTimeout(() => el.dispatchEvent(new Event('click')));
         }),
       }),
       h('a#voice-settings-button', {

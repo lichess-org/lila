@@ -9,7 +9,7 @@ import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { makeSan } from 'chessops/san';
 import { parseUci } from 'chessops/util';
-import { PromotionCtrl } from 'input/promotion';
+import { PromotionCtrl } from 'chess/promotion';
 import { prop, Prop } from 'common';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';

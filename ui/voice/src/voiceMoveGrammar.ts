@@ -1,4 +1,4 @@
-// *************************** this file is generated. see ui/input/@build/README.md ***************************
+// *************************** this file is generated. see ui/voice/@build/README.md ***************************
 
 export type Sub = { to: string; cost: number };
 

@@ -158,7 +158,7 @@ function ppCost(key: string, e: SubInfo) {
 function writeGrammar(out: string) {
   fs.writeFileSync(
     out,
-    '// *************************** this file is generated. see ui/input/@build/README.md ***************************\n\n' +
+    '// *************************** this file is generated. see ui/voice/@build/README.md ***************************\n\n' +
       'export type Sub = { to: string, cost: number };\n\n' +
       'export type Entry = { in: string, tok: string, tags: string[], val?: string, subs?: Sub[] };\n\n' +
       `export const lexicon: Entry[] = ${JSON.stringify(builder.lexicon, null, 2)};`

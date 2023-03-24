@@ -4,8 +4,9 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    "types": ["lichess", "web", "cash"],
-    "composite": true
+    "types": ["lichess", "web", "cash", "audioworklet"],
+    "composite": true,
+    "skipLibCheck": true
   },
   "isolatedModules": true,
   "references": [{ "path": "../common/tsconfig.json" }, { "path": "../chess/tsconfig.json" }]
