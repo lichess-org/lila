@@ -15,6 +15,7 @@ interface StudyShareCtrl {
   cloneable: boolean;
   notation: number;
   offset: number;
+  gameId?: string;
   redraw: () => void;
   trans: Trans;
 }
@@ -75,14 +76,15 @@ export function ctrl(
     redraw,
     trans,
     offset,
+    gameId: data.chapter.gameLength ? data.chapter.setup.gameId : undefined,
   };
 }
 
 export function view(ctrl: StudyShareCtrl): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
-  let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`;
-  let embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
+  let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`,
+    embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
   const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly()) {
     const p = ctrl.currentNode().ply;
@@ -119,6 +121,17 @@ export function view(ctrl: StudyShareCtrl): VNode {
             )
           : null,
       ]),
+      ctrl.gameId
+        ? h('div.form-group', [
+            h('label.form-label', ctrl.trans.noarg('currentGameUrl')),
+            h('input.form-control.autoselect', {
+              attrs: {
+                readonly: true,
+                value: `${baseUrl()}/${ctrl.gameId}`,
+              },
+            }),
+          ])
+        : null,
       h(
         'div.form-group',
         [
