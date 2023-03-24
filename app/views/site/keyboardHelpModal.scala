@@ -73,7 +73,7 @@ object keyboardHelpModal:
           row(kbd("z"), trans.toggleAllAnalysis()),
           row(kbd("a"), trans.bestMoveArrow()),
           row(kbd("e"), trans.openingEndgameExplorer()),
-          row(frag(kbd("shift"), kbd("space")), trans.playMostPopularMove()),
+          row(frag(kbd("shift"), kbd("space")), trans.playOpeningEndgameMove()),
           row(kbd("r"), trans.keyRequestComputerAnalysis()),
           row(kbd("enter"), trans.keyNextLearnFromYourMistakes()),
           row(frag(kbd("b"), or, kbd("shift"), kbd("b")), trans.keyNextBlunder()),

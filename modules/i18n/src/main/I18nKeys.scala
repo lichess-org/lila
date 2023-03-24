@@ -93,7 +93,7 @@ object I18nKeys:
   val `openingExplorer` = I18nKey("openingExplorer")
   val `openingEndgameExplorer` = I18nKey("openingEndgameExplorer")
   val `xOpeningExplorer` = I18nKey("xOpeningExplorer")
-  val `playMostPopularMove` = I18nKey("playMostPopularMove")
+  val `playOpeningEndgameMove` = I18nKey("playOpeningEndgameMove")
   val `winPreventedBy50MoveRule` = I18nKey("winPreventedBy50MoveRule")
   val `lossSavedBy50MoveRule` = I18nKey("lossSavedBy50MoveRule")
   val `winOr50MovesByPriorMistake` = I18nKey("winOr50MovesByPriorMistake")
