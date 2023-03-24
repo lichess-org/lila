@@ -281,7 +281,7 @@ final class StudyApi(
         } match {
           case Some(newChapter)
               if (chapter.root.gameMainlinePath
-                .fold(true)(gmp => newChapter.root.mainlinePath.isOnPathOf(gmp))) =>
+                .fold(true)(gmp => gmp.isOnPathOf(newChapter.root.mainlinePath))) =>
             chapterRepo.update(newChapter) >>-
               sendTo(study.id)(_.deleteNode(position, who))
           case _ =>
@@ -300,6 +300,15 @@ final class StudyApi(
       }
     }
 
+  def unbindFromGame(studyId: Study.Id, chapterId: Chapter.Id)(who: Who) =
+    sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
+      Contribute(who.u, study) {
+        chapterRepo.update(chapter.copy(root = chapter.root.copy(gameMainline = none))) >>- sendTo(study.id)(
+          _.updateChapter(chapter.id, who)
+        )
+      }
+    }
+
   // rewrites the whole chapter because of `forceVariation`. Very inefficient.
   def promote(studyId: Study.Id, position: Position.Ref, toMainline: Boolean)(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId) { case Study.WithChapter(study, chapter) =>
@@ -312,7 +321,7 @@ final class StudyApi(
         } match {
           case Some(newChapter)
               if (chapter.root.gameMainlinePath
-                .fold(true)(gmp => newChapter.root.mainlinePath.isOnPathOf(gmp))) =>
+                .fold(true)(gmp => gmp.isOnPathOf(newChapter.root.mainlinePath))) =>
             chapterRepo.update(newChapter) >>-
               sendTo(study.id)(_.promote(position, toMainline, who)) >>
               newChapter.root.children
@@ -341,10 +350,10 @@ final class StudyApi(
 
   private def doForceVariation(sc: Study.WithChapter, path: Path, force: Boolean, who: Who): Funit =
     sc.chapter.forceVariation(force, path) match {
-      case Some(newChapter) =>
+      case Some(newChapter) if (sc.chapter.root.gameMainlinePath.fold(true)(gmp => !path.isOnPathOf(gmp))) =>
         chapterRepo.forceVariation(force)(newChapter, path) >>-
           sendTo(sc.study.id)(_.forceVariation(Position(newChapter, path).ref, force, who))
-      case None =>
+      case _ =>
         fufail(s"Invalid forceVariation ${Position(sc.chapter, path)} $force") >>-
           reloadSriBecauseOf(sc.study, who.sri, sc.chapter.id)
     }

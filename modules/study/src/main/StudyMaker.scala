@@ -37,7 +37,7 @@ final private class StudyMaker(
     )
     val members = users.map(uid => StudyMember(uid, StudyMember.Role.Write))
     val study = Study.make(
-      name = Study.Name(s"${pgs.gameId} - Post-game study"),
+      name = Study.Name(s"Post-game study - ${pgs.gameId}"),
       ownerId = ownerId,
       from = Study.From.Game(pgs.gameId),
       members = Option(members).filter(_.nonEmpty),
@@ -132,7 +132,7 @@ final private class StudyMaker(
 
   private def makeClocks(pov: Pov): Option[Vector[Centis]] =
     for {
-      initTime <- pov.game.clock.map(c => Centis.ofSeconds(c.limitSeconds))
+      initTime <- pov.game.clock.map(_.config.initTime)
       times    <- pov.game.bothClockStates
     } yield (initTime +: times)
 
