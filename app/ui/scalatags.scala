@@ -161,7 +161,6 @@ trait ScalatagsExtensions:
   }
 
   val noFollow = rel := "nofollow"
-  val me       = rel := "me"
 
   def ariaTitle(v: String): Modifier = (t: Builder) => {
     val value = Builder.GenericAttrValueSource(v)
