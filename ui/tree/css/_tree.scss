@@ -70,6 +70,7 @@
   }
   move.nongame {
     font-style: italic;
+    color: $c-font;
   }
   move:not(.empty):hover {
     &,
