@@ -6,24 +6,24 @@
 	<string name="becomePatron">Стаць cпонсарам Lishogi</string>
 	<string name="xBecamePatron">%s стаў(-ла) cпонсарам Lishogi</string>
 	<string name="newPatrons">Новыя спонсары</string>
-	<string name="freeShogi">Free shogi for everyone, forever!</string>
+	<string name="freeShogi">Бясплатныя сёгі для ўсіх, назаўсёды!</string>
 	<string name="noAdsNoSubs">Ніякай рэкламы, ніякіх падпісак; толькі адкрыты зыходны код та запал.</string>
 	<string name="thankYou">Дзякуй за ваш унёсак!</string>
 	<string name="youHaveLifetime">У вас пажыццёвы ўліковы запіс спонсара. Гэта вельмі крута!</string>
 	<string name="patronUntil">Вы спонсар да %s.</string>
-	<string name="ifNotRenewed">If not renewed, you will then be downgraded to free.</string>
+	<string name="ifNotRenewed">Пры неаднаўленні, яго ўзровень будзе паніжаны да бясплатнага.</string>
 	<string name="weRelyOnSupport">Мы разлічваем на дапамогу такіх людзей як вы, каб зрабіць усе гэта магчым. Калі вам падабаецца Lishogi, калі ласка, падумайце пра магчымасць дапамагчы нам грашовым ахвяраваннем і стаць спонсарам!</string>
-	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">Калі вы хочаце падтрымаць Lishogi і распрацоўку з адкрытым зыходным кодам, падумайце аб ахвяраванні! Вы нічога не атрымаеце наўзамен, таму што Lishogi ставіцца да ўсіх карыстальнікам аднолькава, але ваша ахвяраванне будзе вельмі ацэнена!</string>
 	<string name="lifetime">Пажыццёва</string>
 	<string name="payLifetimeOnce">Ахвяруйце %s аднойчы. Станьце спонсарам Lishogi пажыццёва!</string>
 	<string name="lifetimePatron">Пажыццёвы спонсар Lishogi</string>
-	<string name="makeExtraDonation">Make an extra donation?</string>
+	<string name="makeExtraDonation">Зрабіць дадатковае ахвяраванне?</string>
 	<string name="monthly">Штомесячна</string>
 	<string name="recurringBilling">Рэгулярныя плацяжы, аднаўляюць крылы спонсара штомесяц.</string>
 	<string name="onetime">Аднаразова</string>
 	<string name="singleDonation">Адначасовае ахвяраванне, якое дадае вам крылы Спонсара на адзін месяц.</string>
 	<string name="otherAmount">Іншая сума</string>
-	<string name="pleaseEnterAmount">Please enter an amount in USD</string>
+	<string name="pleaseEnterAmount">Калі ласка, увядзіце суму ў USD</string>
 	<string name="withCreditCard">Банкаўская картка</string>
 	<string name="withPaypal">PayPal</string>
 	<string name="weAreSmallTeam">Мы маленькая каманда, таму ваша дамога вельмі важлівая!</string>
@@ -36,7 +36,7 @@
 	<string name="contactSupport">звязацца са службай дапамогі Lishogi</string>
 	<string name="otherMethods">Іншыя шляхі ахвяравання?</string>
 	<string name="bankTransfers">Мы таксама прымаем банкаўскія пералікі</string>
-	<string name="bitcoin">And here\'s our bitcoin address: %s</string>
+	<string name="bitcoin">А вось тут наш біткоін-адрас: %s</string>
 	<string name="patronFeatures">Можа нейкія ўнікальныя магчымасці прыдугледжаны для спонсараў?</string>
 	<string name="noPatronFeatures">Не, таму што Lishogi поўнасцю бясплатны, назаўсёды і для кожнага. Гэта абяцанне.
 Аднак, спонсары атрымліваюць цудоўную іконку да профілю.</string>
@@ -60,8 +60,8 @@
 	<string name="decideHowMuch">Колькі каштуе Lishogi, на вашу думку:</string>
 	<string name="stopPayments">Адгукнуць картку і прыпыніць платяжы:</string>
 	<string name="noLongerSupport">Больш не падтрымліваць Lishogi</string>
-	<string name="paymentHistory">Payment history</string>
-	<string name="paid">Paid</string>
+	<string name="paymentHistory">Гісторыя плацяжоў</string>
+	<string name="paid">Аплачана</string>
 	<string name="viewOthers">Паглядзець іншых спонсараў Lishogi</string>
 	<string name="date">Дата</string>
 	<string name="amount">Сума</string>
@@ -71,5 +71,5 @@
 	<string name="nowLifetime">Цяпер вы пажыцёвы спонсар Lishogi!</string>
 	<string name="nowOneMonth">Вы цяпер спонсар Lishogi на месяц!</string>
 	<string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш уліковы запіс Lishogi зробіцца звычайным.</string>
-	<string name="donationPolicy">Donation policy</string>
+	<string name="donationPolicy">Палітыка ахвяраванняў</string>
 </resources>

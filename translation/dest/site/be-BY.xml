@@ -39,10 +39,10 @@
 	<string name="joinTheGame">Далучыцца да гульні</string>
 	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s гуляць</string>
 	<plurals name="opponentLeftCounter">
-		<item quantity="one">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунду.</item>
+		<item quantity="one">Ваш супраціўнік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунду</item>
 		<item quantity="few">Your opponent left the game. You can claim victory in %s seconds.</item>
 		<item quantity="many">Your opponent left the game. You can claim victory in %s seconds.</item>
-		<item quantity="other">Ваш супраціўнік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунды.</item>
+		<item quantity="other">Ваш супраціўнік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунды.</item>
 	</plurals>
 	<string name="opponentLeftChoices">Ваш супраціўнік пакінуў гульню. Вы можаце абвясціць сваю перамогу ці нічыю, або пачакаць.</string>
 	<string name="makeYourOpponentResign">Прымусіць супраціўніка здацца</string>
@@ -926,7 +926,7 @@
 	<string name="agreementNice">Я згаджаюся, што я заўсёды адносіцца з павагай да другіх гульцоў.</string>
 	<string name="agreementAccount">Я згаджаюся, што я не буду ствараць некалькі ўліковых запісаў.</string>
 	<string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lishogi.</string>
-	<string name="agreeWithX">I agree with: %s</string>
+	<string name="agreeWithX">Згаджаюся з: %s</string>
 	<string name="searchOrStartNewDiscussion">Знайсці або пачаць новую размову </string>
 	<string name="edit">Рэдагаваць</string>
 	<string name="rapid">Рапід</string>
@@ -954,19 +954,19 @@
 	<string name="notationSystem">Натацыя</string>
 	<string name="officialBlog">Афіцыйны блог Lishogi</string>
 	<string name="blogPostsFromYear">Публікацыя ад %1$s</string>
-	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="previousBlogPosts">Апошнія запісі блога</string>
 	<string name="continueReadingThis"> Працягнуць чытаць гэты пост</string>
-	<string name="discussBlogForum">Discuss this blog post in the forum</string>
+	<string name="discussBlogForum">Абмяркуйце гэты пост на форуме</string>
 	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Фігуры ў палоне супраціўніка</string>
 	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Кароль у палоне супраціўніка</string>
 	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Агульны кошт</string>
-	<string name="postGameStudy">Post-game study</string>
-	<string name="postGameStudies">Post-game studies</string>
-	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
-	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
-	<string name="studyWithOpponent">Study with opponent</string>
-	<string name="studyOfPlayers">Study of players</string>
+	<string name="postGameStudy">Распрацоўка пасля партыі</string>
+	<string name="postGameStudies">Распрацоўкі пасля партыі</string>
+	<string name="postGameStudyExplanation">Даследаванні пасля гульні пералічаныя ў асобнай катэгорыі і дазваляюць наўпрост прапаноўваць матч-рэванш або шукаць новую гульню.</string>
+	<string name="postGameStudiesOfGame">Распрацоўкі паля гэтай гульні</string>
+	<string name="studyWithOpponent">Навучайцеся з супраціўнік</string>
+	<string name="studyOfPlayers">Студыі ад гульцоў</string>
 	<string name="studyWith">Аналізуй з:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Змяняльны</string>
-	<string name="standardStudy">Standard study</string>
+	<string name="standardStudy">Звычайная студыя</string>
 </resources>

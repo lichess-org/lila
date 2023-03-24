@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">Не было сыграна дастаткова рэйтынгавых гульняў, каб ўсталяваць надзейны рэйтынг.</string>
   <string name="progressOverLastXGames">Прагрэс за апошнія %s гульняў:</string>
   <string name="ratingDeviation">Адхіленне рэйтынгу: %s.</string>
-  <string name="ratingDeviationHelp">Lower value means the rating is more stable. Above %s, the rating is considered provisional.</string>
+  <string name="ratingDeviationHelp">Больш нізкае значэнне азначае, што рэйтынг больш стабільны. Вышэй за %s рэйтынг лічыцца папярэдніх.</string>
   <string name="totalGames">Агулам гульняў</string>
   <string name="ratedGames">Рэйтынгавыя гульні</string>
   <string name="tournamentGames">Гульні ў турнірах</string>

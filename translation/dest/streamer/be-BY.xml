@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xStreamsShogi">%s streams shogi</string>
+  <string name="xStreamsShogi">%s стрыміць сёгі</string>
   <string name="lishogiStreamers">Стрымеры на Lishogi</string>
   <string name="lishogiStreamer">Стрымер на Lishogi</string>
   <string name="live">У ЭФІРЫ!</string>
@@ -24,21 +24,20 @@
   <string name="perk2">Патрапіць ў верх спісу стрымаў.</string>
   <string name="perk3">Паведамляе падпісчыкаў.</string>
   <string name="perk4">Адлюстраванне стрыму у вашых гульнях, турнірах і навучаннях.</string>
-  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
-  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
-  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
+  <string name="youHaveBeenSelectedFrontpage">Вы былі абраныя для публікацыі на першай старонцы!</string>
+  <string name="noteThatOnlyLimited">Звярніце ўвагу, што мы можам паказваць толькі абмежаваную колькасць трансляцый на галоўнай старонцы, </string>
+  <string name="soYoursMayNotAlwaysAppear">так што ваша можа з\'яўляцца не заўсёды.</string>
   <string name="approved">Ваш стрым зацверджана.</string>
   <string name="pendingReview">Ваш стрым разглядаецца мадэратарамі.</string>
   <string name="pleaseFillIn">Калі ласка, запоўніце інфармацыю наконт стрыму і загрузіце выяву.</string>
   <string name="whenReady">Калі будзіце гатовы быць адлюстраваным як стрымер Lishogi, %s</string>
   <string name="requestReview">запрасіць прагляд мадэратара</string>
-  <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
-As examples, you can include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
-Put this in the stream title in the Twitch or YouTube page, not in the Lishogi stream settings.
-If your stream is in English, there is no need to include a language tag.
+  <string name="anotherLanguage">Калі ваша трансляцыя вядзецца на мове, выдатным ад англійскага, пакажыце правільны моўны тэг (%s), зняволены ў квадратныя дужкі, у пачатку загалоўка вашай трансляцыі.
+У якасці прыкладаў вы можаце ўключыць\" [BY] \"для беларускага,\" [TR] \"для турэцкага,\" [FR] \" для французскага і г. д.
+Пакажыце гэта ў загалоўку трансляцыі на старонцы Twitch або YouTube, а не ў наладах трансляцыі Lishogi.
+Калі ваш стрым на англійскай мове, няма неабходнасці ўключаць моўнай тэг.
 
-Streamer pages eventually expire if they are not used for a long time, also, you must stream once within a week of your approval or the page de-activates. The streaming trophy will also not appear on your account until you’ve streamed. If your streamer page has expired you must apply again and wait to be approved.
- </string>
+Тэрмін дзеяння старонак стрымераў у канчатковым выніку мінае, калі яны не выкарыстоўваюцца на працягу доўгага часу, акрамя таго, вы павінны трансляваць адзін раз на працягу тыдня пасля вашага адабрэння, інакш старонка дэактывуецца. Трафей для трансляцыі таксама не з\'явіцца ў вашым уліковым запісе, пакуль вы не скончыце трансляцыю. Калі тэрмін дзеяння вашай старонкі стрымера скончыўся, вы павінны падаць заяўку яшчэ раз і дачакацца адабрэння. </string>
   <string name="twitchUsername">Ваша імя карыстальніка/спасылка на Twich</string>
   <string name="optionalOrEmpty">Апцыянальна. Калі няма, пакіньце пустым</string>
   <string name="youtubeChannel">ID вашага YouTube канала ці спасылка</string>
@@ -57,11 +56,11 @@ Streamer pages eventually expire if they are not used for a long time, also, you
   <string name="xStreamerPicture">Выява стрымеру %s</string>
   <string name="changePicture">Змяніць/выдаліць вашу выяву</string>
   <string name="uploadPicture">Загрузіць выяву</string>
-  <string name="deletePicture">Delete picture</string>
+  <string name="deletePicture">Выдаліць выяву</string>
   <string name="maxSize">Максімальны памер: %s</string>
-  <string name="installBlocker">Install a malware blocker!</string>
-  <string name="beSafe">Be safe from ads and trackers
-infesting Twitch and YouTube.
-Lishogi recommends uBlock Origin
-which is free and open-source.</string>
+  <string name="installBlocker">Усталюйце блакавальнік шкоднасных праграм!</string>
+  <string name="beSafe">Будзьце абаронены ад рэкламы і трэкераў
+навадняючых Twich і Youtube.
+Lishogi раіць uBlock Origin,
+бясплатны і з адкрытым зыходным кодам.</string>
 </resources>

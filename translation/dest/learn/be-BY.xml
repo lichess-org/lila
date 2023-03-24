@@ -155,40 +155,40 @@
 	<string name="firstPlaceTheKing">Ёсць два традыцыйныя шляхі выстаўлення фігур да гульні. Мы навучым вас стылю Оохаши (大橋), самому часта выкарыстоўваным прафесіяналамі. Кароль ідзе першым. Перасуньце караля ў цэнтральны квадрат вашага задняга шэрагу.</string>
 	<string name="dropAGold">Скіньце залатога генерала на левы бок караля, затым выставце іншага залатога генерала па правую частку.</string>
 	<string name="thenPlaceASilver">Затым пакладзеце сярэбранага генерала побач з левым залатым генералам і сярэбранага генерала з правым залатым генералам.</string>
-	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
-	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
-	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
-	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
-	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
+	<string name="dropTheKnights">Скіньце каней такім жа чынам, як вы скінулі сярэбраных генералаў.Ваш супраціўнік будзе ўжываць стыль Іто (伊藤).</string>
+	<string name="dropTheLances">Скіньце дзіды. Ваш праціўнік пачне расстаўляць пешкі злева направа перад дзідамі. Гэта стыль Іто.</string>
+	<string name="placeTheBishopThenRook">Пастаўце слана над левым канём, затым ладдзю над правым канём. Вядома, у рэальных гульнях няма неабходнасці быць сінхранізаваным са сваім апанентам падчас налады.</string>
+	<string name="placeThePawns">Нарэшце, на 3-м рангу скіньце пешкі гэтак жа, як вы расставілі фігуры задняга рангу. Круг будзе вашым правадніком.</string>
+	<string name="pushingThe3rdPawn">Пханне 3-й пешкі, каб адкрыць дыяганаль слана, з\'яўляецца найбольш распаўсюджаным першым ходам. Зрабіце гэты крок, каб працягнуць.</string>
 	<string name="boardSetupComplete">Віншуем! Зараз вы ведаеце, як ставіць фігуры на шахматнай дошцы.</string>
 	<string name="repetition">Паўтарэнне</string>
-	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
-	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
-	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
-	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
-	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
-	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Чатырохразовае паўтарэнне - гэта нічыя, за выключэннем...</string>
+	<string name="repetitionIntro">Чатырохразовае паўтарэнне - нічыя, вечны чэк - пройгрыш.</string>
+	<string name="ifTheSamePositionOccurs">Калі тая ж пазіцыя сустракаецца ў сёгі 4 разы, гэта аўтаматычная нічыя. Такая сітуацыя называецца сеннічіт (日 日.). Зрабіце адзіны законны крок.</string>
+	<string name="perpetualCheckIsALoss">Але пастаяннае чыненьне шаха караля супраціўніка - гэта пройгрыш для стараны, якая робіць шах. Да няшчасця для вашага супраціўніка, яны не ведаюць! Зрабіце адзіны законны крок.</string>
+	<string name="boardFlippedFindBestMove">Дошка была проста перагорнута. Які найлепшы ход тут?</string>
+	<string name="repetitionComplete">Ідэя, якая ляжыць у аснове таго, што пастаянны шах з\'яўляецца пройгрышам, заключаецца ў тым, каб ніхто не змог навязаць нічыю.</string>
 	<string name="advanced">Прасунуты этап</string>
 	<string name="pieceValue">Каштоўнасць фігур</string>
 	<string name="evaluatePieceStrength">Ацаніце сілу фігуры</string>
-	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
-The king is priceless! Losing it means losing the game.</string>
+	<string name="pieceValueIntroNew">Фігуры з высокай мабільнасцю маюць больш высокую каштоўнасць.
+Кароль бясцэнны ! Страціць караля азначае прайграць гульню.</string>
 	<string name="queenOverBishop">Атакуйце фігуры з больш высокай каштоўнасцю!
 Ферзь &gt; Слон</string>
-	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
-Take the most valuable piece.</string>
-	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
-Take the most valuable piece without losing your own.</string>
-	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
-Take the most valuable piece.</string>
-	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
-	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
-	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
-	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
-	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
-	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
+	<string name="pawnsAreTheLeastValuable">Пешкі - найменш каштоўныя фігуры, за імі ідуць дзіды. Коні трохі больш каштоўныя, чым дзіды.
+Вазьміце самую каштоўную фігуру.</string>
+	<string name="knightSilverGold">Конь &lt; Срэбра &lt; Золата
+Вазьміце самую каштоўную фігуру, не страціўшы сваю ўласную.</string>
+	<string name="goldBishopRook">Золата &lt; Слон &lt; Ладдзя
+Вазьміце найбольш каштоўную фігуру.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Вазьміце ўсе фігуры па парадку, пачынаючы з самых каштоўных і заканчваючы найменш каштоўнымі!</string>
+	<string name="anExchangeIs">Абмен - гэта калі вы захопліваеце адну фігуру і губляеце іншую. Які абмен лепш? Срэбра за ладдзю або золата за каня?</string>
+	<string name="theOpponentJustGaveAway">Супраціўнік толькі што аддаў яго каштоўную ладдзю! Ці возьмеш яе?</string>
+	<string name="yourKingsValueIsInfinite">Каштоўнасць караля бясцэнная ў параўнанні з ладдзёй. Які найлепшы ход тут?</string>
+	<string name="twoGeneralsAreBetter">Два генералы могуць каштаваць больш, чым адна буйная фігура. Конь з дзідай можа быць лепш, чым генерал. Знайдзіце спосаб ахвяраваць сланом і выйграць двух генералаў.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Памятаеш, якая фігура найбольш каштоўная?</string>
 	<string name="takeThePieceWithTheHighestValue">Вазьміце найкаштоўнейшую фігуру!</string>
-	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">Кароль больш каштоўны, чым усе астатнія фігуры разам узятыя. Магчыма, гэта нармальна - ахвяраваць фігурамі, каб атакаваць караля праціўніка. Толькі не забывайце таксама пра бяспеку вашага ўласнага караля!</string>
 	<string name="checkInTwo">Шах у 2 хады</string>
 	<string name="twoMovesToGiveCheck">Два хады на тое, каб зрабіць шах</string>
 	<string name="checkInTwoIntro">Знайдзіце камбінацыю ў два хады, каб паставіць шах каралю суперніка!</string>
@@ -196,17 +196,17 @@ Take the most valuable piece.</string>
 ў два хады!</string>
 	<string name="checkInTwoComplete">Віншуем! Вы паставілі шах вашаму суперніку, вымусіўшы яго бараніць свайго караля!</string>
 	<string name="whatNext">Што далей?</string>
-	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayShogi">Вы ўмееце гуляць у сёгі, віншуем! Вы хочаце стаць мацнейшым гульцом?</string>
 	<string name="register">Рэгістрацыя</string>
 	<string name="getAFreeLishogiAccount">Стварыце бясплатны ўліковы запіс</string>
 	<string name="practice">Практыка</string>
-	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
+	<string name="learnCommonShogiPositions">Вучыце асноўныя пазіцыі</string>
 	<string name="puzzles">Задачы</string>
 	<string name="exerciseYourTacticalSkills">Патрэніруйце свае тактычныя навыкі</string>
-	<string name="shogiResources">Shogi resources</string>
-	<string name="curatedShogiResources">See our curated list of shogi resources</string>
+	<string name="shogiResources">Рэсурсы па сёгі</string>
+	<string name="curatedShogiResources">Паглядзіце на наш спіс рэсурсаў па сёгі</string>
 	<string name="videos">Відэа</string>
-	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveShogiVideos">Глядзець навучальныя відэа па сёгі</string>
 	<string name="playPeople">Гульня анлайн</string>
 	<string name="opponentsFromAroundTheWorld">Супернікі з усяго свету</string>
 	<string name="playMachine">Гульня з ботам</string>
@@ -224,7 +224,7 @@ Take the most valuable piece.</string>
 	<string name="nailedIt">Усё так!</string>
 	<string name="rightOn">Слушна!</string>
 	<string name="stageXComplete">Этап %s завершаны</string>
-	<string name="yourScore">Your score</string>
+	<string name="yourScore">Ваш лік</string>
 	<string name="next">Далей</string>
 	<string name="backToMenu">Вярнуцца ў меню</string>
 	<string name="puzzleFailed">Задача не вырашана!</string>

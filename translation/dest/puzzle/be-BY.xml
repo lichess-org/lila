@@ -13,8 +13,8 @@
   <string name="specialMoves">Адмысловыя хады</string>
   <string name="didYouLikeThisPuzzle">Ці спадабалася задача?</string>
   <string name="voteToLoadNextOne">Прагаласуйце, каб перайсці да наступнай!</string>
-  <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
-  <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Find the best move for %s.</string>
+  <string name="yourPuzzleRatingX">Ваш рэйтынг у вырашэнні задач: %s</string>
+  <string name="findTheBestMoveForX" comment="%s - sente(black)/gote(white)">Знайдзіце найлепшы ход для %s.</string>
   <string name="toGetPersonalizedPuzzles">Каб атрымаць персаналізаваныя задачы:</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>
@@ -38,10 +38,10 @@
     <item quantity="one">%s move left</item>
     <item quantity="few">%s moves left</item>
     <item quantity="many">%s moves left</item>
-    <item quantity="other">%s moves left</item>
+    <item quantity="other">%s хадоў засталося</item>
   </plurals>
   <string name="fromGameLink">З гульні %s</string>
-  <string name="puzzleSource">Source: %s</string>
+  <string name="puzzleSource">Крыніца: %s</string>
   <string name="continueTraining">Працягнуць трэніроўку</string>
   <string name="difficultyLevel">Узровень складанасці</string>
   <string name="normal">Нармальны</string>

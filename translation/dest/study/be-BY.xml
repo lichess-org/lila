@@ -44,7 +44,7 @@
   <string name="leaveTheStudy">Пакінуць навучанне</string>
   <string name="youAreNowAContributor">Вы цяпер рэдактар</string>
   <string name="youAreNowASpectator">Вы цяпер глядач</string>
-  <string name="tags">Tags</string>
+  <string name="tags">Тэгі</string>
   <string name="like">Упадабаць</string>
   <string name="newTag">Новы тэг</string>
   <string name="commentThisPosition">Каментаваць пазіцыю</string>
@@ -65,13 +65,13 @@
   <string name="cloneStudy">Кланаваць</string>
   <string name="downloadAllGames">Спампаваць усе гульні</string>
   <string name="downloadGame">Спампаваць гульню</string>
-  <string name="studyKif">Study KIF</string>
-  <string name="chapterKif">Chapter KIF</string>
-  <string name="chapterCsa">Chapter CSA</string>
+  <string name="studyKif">Студыя KIF</string>
+  <string name="chapterKif">Раздзел KIF</string>
+  <string name="chapterCsa">Раздзел CSA</string>
   <string name="studyUrl">URL навучання</string>
-  <string name="broadcastUrl">Broadcast URL</string>
+  <string name="broadcastUrl">Спасылка на трансляцыю</string>
   <string name="currentChapterUrl">URL бягучага раздзелу</string>
-  <string name="currentGameUrl">Current game URL</string>
+  <string name="currentGameUrl">Спасылка на бягучую гульню</string>
   <string name="youCanPasteThisInTheForumToEmbed">Вы можаце ўставіць гэта на форум, каб убудаваць</string>
   <string name="startAtInitialPosition">Пачынаць у пачатковай пазіцыі</string>
   <string name="startAtX">Пачынаць з %s</string>
@@ -102,10 +102,10 @@
   <string name="editor">Рэдактар</string>
   <string name="startFromCustomPosition">Пачынаць з абранай пазіцыі</string>
   <string name="loadAGameByUrl">Загрузіць гульні па URLs</string>
-  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
+  <string name="loadAPositionFromSfen">Загрузіць пазіцыю з SFEN</string>
   <string name="automatic">Аўтаматычна</string>
   <string name="urlOfTheGame">URL гульняў, адзін на радок</string>
-  <string name="loadAGameFromX">Load games from %1$s</string>
+  <string name="loadAGameFromX">Загружайце гульні з %1$s</string>
   <string name="createChapter">Стварыць раздзел</string>
   <string name="configureLiveBroadcast">Наладзіць прамую трансляцыю</string>
   <string name="createStudy">Стварыць навучанне</string>
@@ -129,6 +129,6 @@
   <string name="clearChat">Ачысціць чат</string>
   <string name="deleteTheStudyChatHistory">Выдаліць гісторыю чата навучання цалкам? Гэта нельга будзе адмяніць!</string>
   <string name="deleteStudy">Выдаліць навучанне</string>
-  <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
+  <string name="deleteTheEntireStudy">Выдаліць навучанне цалкам? Гэта нельга будзе адмяніць!</string>
   <string name="whereDoYouWantToStudyThat">Дзе вы жадаеце навучацца?</string>
 </resources>
