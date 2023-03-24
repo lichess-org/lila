@@ -18,6 +18,7 @@ import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme, PuzzleDifficulty }
 import lila.user.{ User as UserModel }
 import lila.common.LangPath
+import play.api.i18n.Lang
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -230,24 +231,32 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           } dmap JsonOk
       )
 
-  def streak     = Open(serveStreak(_))
-  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(_))
-  private def serveStreak(implicit ctx: Context) = NoBot {
+  def streak     = Open(serveStreak(using _))
+  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(using _))
+  private def serveStreak(using ctx: Context) = NoBot {
+    streakJsonAndPuzzle.mapz { (json, puzzle) =>
+      Ok(
+        views.html.puzzle
+          .show(
+            puzzle,
+            json,
+            env.puzzle.jsonView.pref(ctx.pref),
+            PuzzleSettings.default,
+            langPath = LangPath(routes.Puzzle.streak).some
+          )
+      ).noCache.enableSharedArrayBuffer
+    }
+  }
+
+  private def streakJsonAndPuzzle(using Lang) =
     env.puzzle.streak.apply flatMapz { case PuzzleStreak(ids, puzzle) =>
-      env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = ctx.me) map { preJson =>
-        val json = preJson ++ Json.obj("streak" -> ids)
-        Ok(
-          views.html.puzzle
-            .show(
-              puzzle,
-              json,
-              env.puzzle.jsonView.pref(ctx.pref),
-              PuzzleSettings.default,
-              langPath = LangPath(routes.Puzzle.streak).some
-            )
-        ).noCache.enableSharedArrayBuffer
+      env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = none) map { puzzleJson =>
+        (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
       }
     }
+
+  def apiStreak = Action.async { req =>
+    streakJsonAndPuzzle(using reqLang(using req)) mapz { (json, _) => JsonOk(json) }
   }
 
   def vote(id: PuzzleId) =

@@ -166,7 +166,8 @@ GET   /$lang<\w\w\w?>/training/:angleOrId controllers.Puzzle.showLang(lang, angl
 
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak
-GET   /$lang<\w\w\w?>/streak               controllers.Puzzle.streakLang(lang)
+GET   /api/streak                       controllers.Puzzle.apiStreak
+GET   /$lang<\w\w\w?>/streak            controllers.Puzzle.streakLang(lang)
 
 # Puzzle Storm
 GET   /storm                            controllers.Storm.home
