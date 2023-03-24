@@ -4,8 +4,8 @@
   "private": true,
   "description": "lichess.org auxillary input move",
   "type": "module",
-  "module": "main.js",
-  "types": "main.d.ts",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "keywords": [
     "chess",
     "lichess"

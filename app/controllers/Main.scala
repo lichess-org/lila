@@ -11,7 +11,6 @@ import lila.api.Context
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
 
-//import views.site.helpModal
 final class Main(
     env: Env,
     prismicC: Prismic,

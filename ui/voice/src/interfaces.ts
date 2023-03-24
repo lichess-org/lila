@@ -6,7 +6,7 @@ export type MoveHandler = (fen: Fen, api: CgApi, yourMove?: boolean) => void;
 
 export interface InputOpts {
   input?: HTMLInputElement;
-  ctrl: MoveCtrl;
+  ctrl: VoiceMove;
 }
 
 export interface SubmitOpts {
@@ -17,29 +17,13 @@ export interface SubmitOpts {
 
 export type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-export interface MoveCtrl {
-  drop(key: cg.Key, piece: string): void;
+export interface VoiceMove {
+  available(): [string, string][];
+  arrogance(conf?: number): number;
+  arrowColors(enabled?: boolean): boolean;
   update(step: { fen: string }, yourMove?: boolean): void;
-  addHandler(h: MoveHandler | undefined): void;
-  isFocused: Prop<boolean>;
-  move(orig: cg.Key, dest: cg.Key, roleChar?: string): void;
-  select(key: cg.Key): void;
-  hasSelected(): cg.Key | undefined;
-  confirmMove(): void;
-  usedSan: boolean;
-  jump(delta: number): void;
-  justSelected(): boolean;
-  clock(): ClockCtrl | undefined;
-  draw(): void;
-  next(): void;
-  vote(v: boolean): void;
-  takeback(): void;
-  resign(v: boolean, immediately?: boolean): void;
-  rematch(accept?: boolean): boolean;
   modalOpen: Prop<boolean>;
   root: RootCtrl;
-  mode: 'round' | 'puzzle';
-  redraw: () => void;
 }
 
 export interface CrazyPocket {
@@ -71,16 +55,6 @@ export interface RootCtrl {
   redraw: () => void;
   next?: () => void;
   vote?: (v: boolean) => void;
-  keyboard: boolean;
-}
-
-export interface VoiceMoveHandler {
-  registerMoveCtrl(ctrl: MoveCtrl): void;
-  registerModal(modalListener?: Voice.Listener, phrases?: string[]): void;
-  available(): [string, string][];
-  arrogance(conf?: number): number;
-  arrowColors(enabled?: boolean): boolean;
-  //arrowNumbers(enabled?: boolean): boolean;
 }
 
 export interface KaldiOpts {

@@ -65,7 +65,6 @@ export interface RoundData extends GameData {
     id: string;
   };
   expiration?: Expiration;
-  voiceMove: boolean;
 }
 
 export interface Expiration {
@@ -178,6 +177,7 @@ export interface Pref {
   highlight: boolean;
   is3d: boolean;
   keyboardMove: boolean;
+  voiceMove: boolean;
   moveEvent: Prefs.MoveEvent;
   ratings: boolean;
   replay: Prefs.Replay;
@@ -185,7 +185,6 @@ export interface Pref {
   showCaptured: boolean;
   submitMove: boolean;
   resizeHandle: Prefs.ShowResizeHandle;
-  voiceMove: boolean;
 }
 
 export interface MoveMetadata {

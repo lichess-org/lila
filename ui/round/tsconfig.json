@@ -4,7 +4,7 @@
   "isolatedModules": true,
   "references": [
     { "path": "../chat/tsconfig.json" },
-    { "path": "../chess/tsconfig.json"},
+    { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },
     { "path": "../game/tsconfig.json" },
     { "path": "../voice/tsconfig.json" },

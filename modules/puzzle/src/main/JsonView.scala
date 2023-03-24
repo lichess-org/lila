@@ -90,6 +90,7 @@ final class JsonView(
       "blindfold"    -> p.blindfold,
       "coords"       -> p.coords,
       "keyboardMove" -> p.keyboardMove,
+      "voiceMove"    -> p.voice,
       "rookCastle"   -> p.rookCastle,
       "animation"    -> Json.obj("duration" -> p.animationMillis),
       "destination"  -> p.destination,

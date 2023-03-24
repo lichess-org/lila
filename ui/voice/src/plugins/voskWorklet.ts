@@ -10,7 +10,7 @@ export class VoskWorklet extends AudioWorkletProcessor {
   sampleCount = 0;
 
   error(msg: any) {
-    this.debugPort.postMessage(msg); // for console log
+    this.debugPort.postMessage(msg);
   }
 
   onmessage(event: MessageEvent) {
@@ -28,7 +28,7 @@ export class VoskWorklet extends AudioWorkletProcessor {
       // this block should execute once every second.  On safari it does not.
       // my iphone seems to get data at 32kHz, and my macbook gets it at 22kHz
       // while all the queries against the MediaStream return 48k.
-      // that is why i have a sadz.
+      // this is why i have sad.
       if (effectiveRate < 47000 || effectiveRate > 49000) this.error(`Effective sample rate: ${effectiveRate}`);
       this.sampleCount -= sampleRate;
     }

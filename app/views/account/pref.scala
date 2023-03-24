@@ -66,6 +66,10 @@ object pref:
               radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
             ),
             setting(
+              "Voice move controls",
+              radios(form("display.voice"), booleanChoices)
+            ),
+            setting(
               blindfoldChess(),
               radios(form("display.blindfold"), translatedBlindfoldChoices)
             ),

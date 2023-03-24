@@ -10,7 +10,8 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
-import { MoveCtrl } from 'input';
+import { VoiceMove } from 'voice';
+import { KeyboardMove } from 'keyboardMove';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
 
@@ -20,7 +21,7 @@ export type PuzzleId = string;
 
 export type Redraw = () => void;
 
-export interface MoveController {
+export interface KeyboardController {
   vm: Vm;
   redraw: Redraw;
   userJump(path: Tree.Path): void;
@@ -40,7 +41,7 @@ export interface AllThemes {
   static: Set<ThemeKey>;
 }
 
-export interface Controller extends MoveController {
+export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<boolean>;
   outcome(): Outcome | undefined;
@@ -75,7 +76,8 @@ export interface Controller extends MoveController {
   session: PuzzleSession;
   allThemes?: AllThemes;
   showRatings: boolean;
-  moveCtrl?: MoveCtrl;
+  keyboardMove?: KeyboardMove;
+  voiceMove?: VoiceMove;
 
   streak?: PuzzleStreak;
   skip(): void;

@@ -70,6 +70,7 @@ interface Lichess {
   playMusic(): any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
+  mic?: Voice.Microphone;
 }
 
 type I18nDict = { [key: string]: string };
@@ -195,26 +196,29 @@ interface LichessEditor {
 }
 
 declare namespace Voice {
-  export type MsgType = 'phrase' | 'partial' | 'status' | 'error' | 'stop' | 'start';
+  export type MsgType = 'phrase' | 'status' | 'error' | 'stop' | 'start';
 
   export type WordResult = Array<{
+    word: string;
     conf: number;
     start: number;
     end: number;
-    word: string;
   }>;
 
-  export type Listener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
-
+  export type Listener = (msgText: string, msgType: MsgType, words?: WordResult) => boolean | void;
+  // return true to stop propagation
   export interface Microphone {
     // keep rounds, puzzle, move stuff out of this
     setVocabulary: (vocabulary: string[]) => Promise<void>;
     start: () => Promise<void>; // initialize if necessary and begin recording
     stop: () => void; // stop recording/downloading/whatever
+    pushPause: () => void; // pause recording
+    popPause: () => void; // resume recording
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
     readonly isRecording: boolean; // are we recording?
     readonly status: string; // errors, progress, or the most recent voice command
     addListener: (name: string, listener: Listener) => void;
+    removeListener: (name: string) => void;
   }
 }
 
@@ -278,7 +282,6 @@ interface Window {
   readonly LichessDasher: (element: any) => any;
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
-  readonly LichessKeyboardMove: any;
   readonly LichessRound: any;
   readonly LichessRoundNvui?: Nvui;
   readonly LichessPuzzleNvui?: Nvui;
@@ -286,6 +289,7 @@ interface Window {
     render(): any;
   };
   readonly LichessChartRatingHistory?: any;
+  readonly LichessKeyboardMove?: any;
   readonly LichessVoicePlugin: { mic: Voice.Microphone; vosk: any };
   readonly stripeHandler: any;
   readonly Stripe: any;
