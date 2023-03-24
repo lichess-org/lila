@@ -167,6 +167,7 @@ GET   /$lang<\w\w\w?>/training/:angleOrId controllers.Puzzle.showLang(lang, angl
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak
 GET   /api/streak                       controllers.Puzzle.apiStreak
+POST  /api/streak/:score                controllers.Puzzle.apiStreakResult(score: Int)
 GET   /$lang<\w\w\w?>/streak            controllers.Puzzle.streakLang(lang)
 
 # Puzzle Storm

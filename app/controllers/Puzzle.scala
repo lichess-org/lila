@@ -161,12 +161,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                       score <- data.streakScore
                       if data.win.no
                       if score > 0
-                      _ = lila.mon.streak.run.score(ctx.isAuth).record(score)
+                      _ = lila.mon.streak.run.score(ctx.isAuth.toString).record(score)
                       userId <- ctx.userId
-                    } {
-                      lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
-                      env.user.repo.addStreakRun(userId, score)
-                    }
+                    } setStreakResult(userId, score)
                     renderJson(puzzle, angle) map { nextJson =>
                       Json.obj("next" -> nextJson)
                     }
@@ -255,9 +252,22 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
+  private def setStreakResult(userId: UserId, score: Int) =
+    lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
+    env.user.repo.addStreakRun(userId, score)
+
   def apiStreak = Action.async { req =>
     streakJsonAndPuzzle(using reqLang(using req)) mapz { (json, _) => JsonOk(json) }
   }
+
+  def apiStreakResult(score: Int) =
+    ScopedBody(_.Puzzle.Write) { req => me =>
+      if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
+        lila.mon.streak.run.score("mobile").record(score)
+        setStreakResult(me.id, score)
+        NoContent.toFuccess
+      else BadRequest.toFuccess
+    }
 
   def vote(id: PuzzleId) =
     AuthBody { implicit ctx => me =>
