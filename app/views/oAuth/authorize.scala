@@ -13,7 +13,7 @@ object authorize {
       title = "Authorization",
       moreCss = cssTag("oauth"),
       moreJs = embedJsUnsafe(
-        """setTimeout(function(){const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.classList.remove('button')}, 2000);"""
+        """setTimeout(function(){const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');}, 2000);"""
       )
     ) {
       main(cls := "oauth box box-pad")(
