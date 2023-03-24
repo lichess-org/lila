@@ -1101,7 +1101,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'grey',
-    val: 'paleGrey',
+    val: 'grey',
     tags: ['choice', 'exact'],
     tok: 'S',
     subs: [
