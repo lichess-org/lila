@@ -68,7 +68,7 @@ function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
     onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
-    cantChangeMainline = !!ctrl.study?.data.postGameStudy && onMainline,
+    cantChangeMainline = !!ctrl.study?.data.chapter.gameLength,
     trans = ctrl.trans.noarg;
   return h(
     'div#' + elementId + '.visible',
@@ -83,13 +83,9 @@ function view(opts: Opts, coords: Coords): VNode {
     },
     [
       h('p.title', nodeFullName(node, opts.root.data.pref.notation)),
-      onMainline || cantChangeMainline
-        ? null
-        : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
+      onMainline ? null : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
       onMainline || cantChangeMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
-      !cantChangeMainline || node.forceVariation
-        ? action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path))
-        : null,
+      onMainline && cantChangeMainline ? null : action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
     ]
       .concat(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : [])
       .concat([
