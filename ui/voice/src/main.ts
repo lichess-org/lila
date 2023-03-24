@@ -1,15 +1,14 @@
-import { VoiceMove } from './interfaces';
 import { h, VNode, Hooks } from 'snabbdom';
 import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import { storedBooleanProp } from 'common/storage';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
+import { type VoiceMove } from './voiceMove';
 import * as xhr from 'common/xhr';
 
 type ArrowPref = 'Colors' | 'Numbers';
 
-export { makeVoiceMove } from './voiceMove';
-export { type VoiceMove } from './interfaces';
+export { makeVoiceMove, type VoiceMove } from './voiceMove';
 
 export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
   const rec = storedBooleanProp('recording', false);

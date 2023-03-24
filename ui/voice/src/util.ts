@@ -1,4 +1,4 @@
-import { VoiceMove } from './interfaces';
+import { type VoiceMove } from './voiceMove';
 import { Role } from 'chessground/types';
 import { Board, squareDist } from 'chess';
 

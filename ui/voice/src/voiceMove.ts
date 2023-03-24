@@ -1,10 +1,10 @@
 import { DrawShape, DrawBrush } from 'chessground/draw';
 import { storedBooleanProp, storedIntProp } from 'common/storage';
-import { propWithEffect, PropWithEffect } from 'common';
+import { propWithEffect, PropWithEffect, Prop } from 'common';
 import { Api as CgApi } from 'chessground/api';
 import * as cs from 'chess';
 import { promote } from 'chess/promotion';
-import { VoiceMove, RootCtrl } from './interfaces';
+import { RootCtrl } from './interfaces';
 import { src, dest, promo, movesTo, nonMoveCommand } from './util';
 import { lexicon, Entry } from './voiceMoveGrammar';
 
@@ -52,6 +52,15 @@ module shorthand:
 
 **************************************************************************************************/
 export const makeVoiceMove = (root: RootCtrl, step: { fen: string }) => new VoiceMoveCtrl(root, step);
+
+export interface VoiceMove {
+  available(): [string, string][];
+  arrogance(conf?: number): number;
+  arrowColors(enabled?: boolean): boolean;
+  update(step: { fen: string }, yourMove?: boolean): void;
+  modalOpen: Prop<boolean>;
+  root: RootCtrl;
+}
 
 class VoiceMoveCtrl implements VoiceMove {
   byVal = new Map<string, Entry | Set<Entry>>(); // map values to lexicon entries
@@ -113,7 +122,7 @@ class VoiceMoveCtrl implements VoiceMove {
     }
   }
 
-  // listen is called by mic when a phrase is heard
+  // listen is called by lichess.mic when a phrase is heard
   listen(msgText: string, msgType: Voice.MsgType, words?: Voice.WordResult) {
     if (msgType === 'stop') this.clearMoveProgress(); // 'stop' msg from vosk is not a voice phrase
     else if (msgType === 'phrase' && msgText.length > 1 && words) {
@@ -204,8 +213,9 @@ class VoiceMoveCtrl implements VoiceMove {
       (this.nArrogance === 1 && closeEnough === 1 && exactMatches === 0) ||
       (this.nArrogance === 2 && closeEnough > 0 && exactMatches === 0)
     ) {
+      // we'll probably need to tweak those conditionals
       if (this.debug) console.log('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]} conf=${conf}`);
-      this.submit(m[0][0]); // only one match or only one match with 0 cost..  or cowboy mode
+      this.submit(m[0][0]);
       return true;
     } else if (m.length > 0) {
       this.ambiguate(m); //.filter(m => m[1] < 1.8 - conf));
@@ -251,9 +261,7 @@ class VoiceMoveCtrl implements VoiceMove {
   }
 
   costToMatch(h: string, x: string, partite: boolean) {
-    if (h === x) {
-      return 0;
-    }
+    if (h === x) return 0;
     const xforms = findTransforms(h, x)
       .map(t => t.reduce((acc, t) => acc + this.transformCost(t, partite), 0))
       .sort((lhs, rhs) => lhs - rhs);
@@ -355,9 +363,8 @@ class VoiceMoveCtrl implements VoiceMove {
       this.cg.redrawAll();
       return;
     }
-    const variant = this.root.data.game.variant.key;
     const role = promo(uci);
-    if (role === 'pawn' || (role === 'king' && variant !== 'antichess')) return;
+    //if (role === 'pawn' || (role === 'king' && this.root.data.game.variant.key !== 'antichess')) return;
     this.cg.cancelMove();
     if (role) {
       promote(this.cg, dest(uci), role);
