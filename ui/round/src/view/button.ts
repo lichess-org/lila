@@ -82,9 +82,13 @@ function postGameStudyForm(ctrl: RoundController): VNode {
         attrs: { type: 'hidden', name: 'gameId', value: ctrl.data.game.id },
       }),
       h('div', [
-        h('label', { title: ctrl.trans.noarg('optional') }, ctrl.trans.noarg('studyWith')),
+        h('label', ctrl.trans.noarg('studyWith')),
         h('input.user-autocomplete', {
-          attrs: { name: 'invited', 'data-tag': 'span', placeholder: ctrl.trans.noarg('searchByUsername') },
+          attrs: {
+            name: 'invited',
+            'data-tag': 'span',
+            placeholder: ctrl.trans.noarg('searchByUsername') + ` (${ctrl.trans.noarg('optional').toLowerCase()})`,
+          },
         }),
       ]),
       h('input', {
@@ -110,12 +114,12 @@ function studyAdvancedButton(ctrl: RoundController): VNode | null {
         'a.fbt.new-study-button',
         {
           hook: util.bind('click', _ => {
-            $.modal($('.continue-with.g_' + d.game.id), undefined, undefined, true);
+            $.modal($('.g_' + d.game.id), undefined, undefined, true);
           }),
         },
         [
           '+',
-          h('div.continue-with.none.g_' + d.game.id, [
+          h('div.none.g_' + d.game.id, [
             h('div.study-option', [
               h('div.study-title', ctrl.trans.noarg('postGameStudy')),
               h('div.desc', ctrl.trans.noarg('postGameStudyExplanation')),

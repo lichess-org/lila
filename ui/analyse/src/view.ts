@@ -36,6 +36,7 @@ import relayIntro from './study/relay/relayIntroView';
 import relayManager from './study/relay/relayManagerView';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
+import { studyAdvancedButton } from './viewModal';
 
 const li = window.lishogi;
 
@@ -255,7 +256,7 @@ function controls(ctrl: AnalyseCtrl) {
       ctrl.embed
         ? null
         : h(
-            'div.features',
+            'div.features' + (!ctrl.synthetic ? '.from-game' : ''),
             ctrl.studyPractice
               ? [
                   h('a.fbt', {
@@ -280,6 +281,7 @@ function controls(ctrl: AnalyseCtrl) {
                   //    active: ctrl.explorer.enabled(),
                   //  },
                   //}),
+                  !ctrl.synthetic ? studyAdvancedButton(ctrl, menuIsOpen) : null,
                   ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()
                     ? h('button.fbt', {
                         attrs: {

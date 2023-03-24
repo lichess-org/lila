@@ -45,6 +45,15 @@ private object jsI18n {
     trans.goodMove,
     trans.viewTheSolution,
     trans.youNeedAnAccountToDoThat,
+    // study
+    trans.postGameStudy,
+    trans.standardStudy,
+    trans.postGameStudyExplanation,
+    trans.studyWith,
+    trans.optional,
+    trans.postGameStudiesOfGame,
+    trans.study.createStudy,
+    trans.study.searchByUsername,
     // ceval (also uses gameOver)
     trans.depthX,
     trans.usingServerAnalysis,
