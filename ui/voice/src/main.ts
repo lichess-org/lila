@@ -6,8 +6,6 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { type VoiceMove } from './voiceMove';
 import * as xhr from 'common/xhr';
 
-type ArrowPref = 'Colors' | 'Numbers';
-
 export { makeVoiceMove, type VoiceMove } from './voiceMove';
 
 export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
@@ -53,6 +51,8 @@ const rangeConfig = (read: () => number, write: (value: number) => void): Hooks 
     el.addEventListener('mouseout', _ => el.blur());
   },
 });
+
+type ArrowPref = 'Colors' | 'Numbers';
 
 function voiceSettings(ctrl: VoiceMove): VNode {
   return h('div#voice-settings', { attrs: { style: 'display: none' } }, [

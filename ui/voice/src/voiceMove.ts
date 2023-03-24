@@ -1,11 +1,11 @@
 import { DrawShape, DrawBrush } from 'chessground/draw';
+import { Role } from 'chessground/types';
 import { storedBooleanProp, storedIntProp } from 'common/storage';
 import { propWithEffect, PropWithEffect, Prop } from 'common';
 import { Api as CgApi } from 'chessground/api';
 import * as cs from 'chess';
 import { promote } from 'chess/promotion';
 import { RootCtrl } from './interfaces';
-import { src, dest, promo, movesTo, nonMoveCommand } from './util';
 import { lexicon, Entry } from './voiceMoveGrammar';
 
 /**************************************************************************************************
@@ -148,17 +148,21 @@ class VoiceMoveCtrl implements VoiceMove {
       this.clearMoveProgress();
       return true;
     }
-    const matchedVal = this.matchOneTags(msgText, ['command']);
+    const matchedVal = this.matchOneTags(msgText, ['command']); // probably shouldn't fuzzy match here but..
     if (!matchedVal) return false;
-    if (matchedVal[0] === 'stop') {
+    const c = matchedVal[0];
+
+    if (c === 'stop') {
       lichess.mic?.stop();
       this.clearMoveProgress();
-      return true;
-    } else if (matchedVal[0] === 'rematch') {
-      this.root.rematch?.(true);
-      return true;
-    }
-    return nonMoveCommand(matchedVal[0], this);
+    } else if (c === 'rematch') this.root.rematch?.(true);
+    else if (c === 'draw') this.root.offerDraw?.(true, true);
+    else if (c === 'resign') this.root.resign?.(true, true);
+    else if (c === 'next') this.root.next?.();
+    else if (c === 'takeback') this.root.takebackYes?.();
+    else if (c === 'help') this.modalOpen(true);
+    else return false;
+    return true;
   }
 
   handleAmbiguity(phrase: string, words: Voice.WordResult): boolean {
@@ -672,4 +676,35 @@ function pushMap<T>(m: Map<string, T | Set<T>>, key: string, val: T) {
     if (v instanceof Set) v.add(val);
     else if (v !== val) m.set(key, new Set([v as T, val]));
   }
+}
+
+const src = (uci: Uci) => uci.slice(0, 2) as Key;
+const dest = (uci: Uci) => uci.slice(2, 4) as Key;
+const promo = (uci: Uci) =>
+  ({
+    P: 'pawn',
+    N: 'knight',
+    B: 'bishop',
+    R: 'rook',
+    Q: 'queen',
+    K: 'king',
+  }[uci.slice(4, 5).toUpperCase()] as Role);
+
+function movesTo(s: number, role: string, board: cs.Board): number[] {
+  const deltas = (d: number[], s = 0) => d.flatMap(x => [s - x, s + x]);
+
+  if (role === 'K') return deltas([1, 7, 8, 9], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) === 1);
+  else if (role === 'N') return deltas([6, 10, 15, 17], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) <= 2);
+  const dests: number[] = [];
+  for (const delta of deltas(role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : role === 'B' ? [7, 9] : [])) {
+    for (
+      let square = s + delta;
+      square >= 0 && square < 64 && cs.squareDist(square, square - delta) === 1;
+      square += delta
+    ) {
+      dests.push(square);
+      if (board.pieces[square]) break;
+    }
+  }
+  return dests;
 }
