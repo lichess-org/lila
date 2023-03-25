@@ -111,18 +111,15 @@ export const bind = (ctrl: AnalyseCtrl) => {
       if (move) ctrl.explorerMove(move);
     });
 
-    const keyToJumpToGlyphSymbol = (key: string, isBottom: boolean, symbol: string) => {
+    const keyToJumpToGlyphSymbol = (key: string, symbol: string) => {
       kbd.bind(key, () => {
-        ctrl.jumpToGlyphSymbol(isBottom ? ctrl.bottomColor() : ctrl.topColor(), symbol);
+        ctrl.jumpToGlyphSymbol(ctrl.bottomColor(), symbol);
         ctrl.redraw();
       });
     };
-    keyToJumpToGlyphSymbol('b', true, '??');
-    keyToJumpToGlyphSymbol('m', true, '?');
-    keyToJumpToGlyphSymbol('i', true, '?!');
-    keyToJumpToGlyphSymbol('shift+b', false, '??');
-    keyToJumpToGlyphSymbol('shift+m', false, '?');
-    keyToJumpToGlyphSymbol('shift+i', false, '?!');
+    keyToJumpToGlyphSymbol('b', '??');
+    keyToJumpToGlyphSymbol('m', '?');
+    keyToJumpToGlyphSymbol('i', '?!');
   }
 };
 

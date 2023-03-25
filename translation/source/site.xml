@@ -98,7 +98,7 @@
   <string name="openingExplorer">Opening explorer</string>
   <string name="openingEndgameExplorer">Opening/endgame explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
-  <string name="playOpeningEndgameMove">Play the opening/endgame explorer move</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Play first opening/endgame-explorer move</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
