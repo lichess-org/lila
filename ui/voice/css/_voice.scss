@@ -7,9 +7,8 @@ $c-off-hover: if($theme == 'light', #444, if($theme== 'transp', #ddd, #aaa));
 $c-rounds-status-bar-bg: if($theme == 'transp', hsla(0, 0%, 0%, 0.7), transparent);
 $gap: max($block-gap, 16px);
 
-span#status-row {
+#status-row {
   @extend %flex-between-nowrap;
-  align-items: center;
   min-height: 40px;
   padding: 0 8px;
   font-size: 14px;
@@ -31,27 +30,9 @@ span#status-row {
   color: $c-off;
   margin: 4px;
   font-size: 16px;
-  line-height: 28px;
+  line-height: 22px;
   &:hover {
     color: $c-off-hover;
-  }
-}
-
-#voice-settings-button {
-  cursor: pointer;
-  padding: 4px;
-  color: $c-off;
-  font-size: 18px;
-  border-radius: 3px 3px 0 0;
-  line-height: 28px;
-  height: 40px;
-  width: 48px;
-  &:hover {
-    color: $c-primary;
-  }
-  &.active {
-    color: white;
-    background-color: $c-primary;
   }
 }
 
@@ -61,8 +42,7 @@ span#status-row {
   margin: 4px;
   color: $c-off;
   width: 34px;
-  height: 28px;
-  line-height: 28px;
+  line-height: 22px;
   font-size: 22px;
   border-width: 0 1px 0 1px;
   border-radius: 0.25em;
@@ -73,30 +53,34 @@ span#status-row {
   &:hover {
     color: $c-off-hover;
   }
+  &.busy {
+    font-size: 16px;
+  }
+  &.enabled {
+    color: $c-recording;
+    animation: pulseBorderRed 1s;
+    animation-iteration-count: infinite;
+    &:hover {
+      color: $c-recording-hover;
+    }
+  }
 }
 
-#microphone-button.busy {
-  font-size: 16px;
-}
-
-#microphone-button.enabled {
-  color: $c-recording;
-  animation: pulseBorderRed 1s;
-  animation-iteration-count: infinite;
+#voice-settings-button {
+  cursor: pointer;
+  margin-top: 4px;
+  padding: 4px 4px 8px;
+  color: $c-off;
+  font-size: 18px;
+  border-radius: 3px 3px 0 0;
+  line-height: 22px;
+  width: 48px;
   &:hover {
-    color: $c-recording-hover;
+    color: $c-primary;
   }
-}
-
-@keyframes pulseBorderRed {
-  0% {
-    border-color: transparent;
-  }
-  50% {
-    border-color: $c-recording;
-  }
-  100% {
-    border-color: transparent;
+  &.active {
+    color: white;
+    background-color: $c-primary;
   }
 }
 
@@ -114,7 +98,7 @@ span#status-row {
   }
 }
 
-div#voice-settings {
+#voice-settings {
   position: absolute;
   z-index: 10;
   width: 100%;
@@ -198,5 +182,17 @@ div#voice-settings {
       color: white;
       background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
     }
+  }
+}
+
+@keyframes pulseBorderRed {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: $c-recording;
+  }
+  100% {
+    border-color: transparent;
   }
 }
