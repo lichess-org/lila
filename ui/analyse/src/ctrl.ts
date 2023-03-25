@@ -156,6 +156,11 @@ export default class AnalyseCtrl {
 
     keyboard.bind(this);
 
+    if (opts.engineId) {
+      this.getCeval().selectedEngine(opts.engineId);
+      if (!this.ceval.enabled()) this.toggleCeval();
+    }
+
     lichess.pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();

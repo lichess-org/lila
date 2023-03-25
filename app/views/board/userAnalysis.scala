@@ -18,7 +18,8 @@ object userAnalysis:
       data: JsObject,
       pov: lila.game.Pov,
       withForecast: Boolean = false,
-      inlinePgn: Option[String] = None
+      inlinePgn: Option[String] = None,
+      engineId: Option[String] = None
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.analysis.txt(),
@@ -38,7 +39,8 @@ object userAnalysis:
                 "i18n" -> userAnalysisI18n(withForecast = withForecast),
                 "wiki" -> pov.game.variant.standard
               )
-              .add("inlinePgn", inlinePgn) ++
+              .add("inlinePgn", inlinePgn)
+              .add("engineId", engineId) ++
               views.html.board.bits.explorerAndCevalConfig
           )}""")
       ),
