@@ -10,6 +10,7 @@ import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given
+import chess.Clock.LimitMinutes
 
 object show:
 
@@ -69,6 +70,10 @@ object show:
               trans.simulHostExtraTime(),
               ": ",
               pluralize("minute", sim.clock.hostExtraMinutes),
+              br,
+              trans.simulHostExtraTimePerPlayer(),
+              ": ",
+              pluralize("minute", LimitMinutes raw sim.clock.hostExtraTimePerPlayer),
               br,
               trans.hostColorX(sim.color match {
                 case Some("white") => trans.white()

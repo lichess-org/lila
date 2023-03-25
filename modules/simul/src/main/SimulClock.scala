@@ -1,11 +1,13 @@
 package lila.simul
 
 import chess.{ Centis, Clock, Color }
+import chess.Clock.LimitMinutes
 
 // All durations are expressed in seconds
 case class SimulClock(
     config: Clock.Config,
-    hostExtraTime: Int
+    hostExtraTime: Int,
+    hostExtraTimePerPlayer: LimitMinutes
 ):
 
   def chessClockOf(hostColor: Color) =
@@ -17,6 +19,9 @@ case class SimulClock(
     )
 
   def hostExtraMinutes = hostExtraTime / 60
+
+  def adjustedForPlayers(numberOfPlayers: Int) =
+    copy(hostExtraTime = hostExtraTime + numberOfPlayers * (LimitMinutes raw hostExtraTimePerPlayer) * 60)
 
   def valid =
     if (config.limitSeconds.value + hostExtraTime == 0) config.incrementSeconds >= 10

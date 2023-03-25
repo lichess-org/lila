@@ -525,6 +525,8 @@ object I18nKeys:
   val `simulClockHint` = I18nKey("simulClockHint")
   val `simulAddExtraTime` = I18nKey("simulAddExtraTime")
   val `simulHostExtraTime` = I18nKey("simulHostExtraTime")
+  val `simulAddExtraTimePerPlayer` = I18nKey("simulAddExtraTimePerPlayer")
+  val `simulHostExtraTimePerPlayer` = I18nKey("simulHostExtraTimePerPlayer")
   val `lichessTournaments` = I18nKey("lichessTournaments")
   val `tournamentFAQ` = I18nKey("tournamentFAQ")
   val `timeBeforeTournamentStarts` = I18nKey("timeBeforeTournamentStarts")

@@ -34,6 +34,10 @@ object SimulForm:
   }
   val clockExtraDefault = 0
 
+  val clockExtraPerPlayer        = LimitMinutes.from((0 to 3) :+ 5)
+  val clockExtraPerPlayerDefault = LimitMinutes(0)
+  val clockExtraPerPlayerChoices = options(LimitMinutes raw clockExtraPerPlayer, "%d minute{s}")
+
   val colors = List("white", "random", "black")
   val colorChoices = List(
     "white"  -> "White",
@@ -63,6 +67,7 @@ object SimulForm:
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
       clockExtra = clockExtraDefault,
+      clockExtraPerPlayer = clockExtraPerPlayerDefault,
       variants = List(chess.variant.Standard.id),
       position = none,
       color = colorDefault,
@@ -78,6 +83,7 @@ object SimulForm:
       clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
       clockIncrement = simul.clock.config.incrementSeconds,
       clockExtra = simul.clock.hostExtraMinutes,
+      clockExtraPerPlayer = simul.clock.hostExtraTimePerPlayer,
       variants = simul.variants.map(_.id),
       position = simul.position,
       color = simul.color | "random",
@@ -90,10 +96,11 @@ object SimulForm:
   private def baseForm(host: User, teams: List[LeaderTeam]) =
     Form(
       mapping(
-        "name"           -> nameType(host),
-        "clockTime"      -> numberIn(clockTimeChoices).into[LimitMinutes],
-        "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
-        "clockExtra"     -> numberIn(clockExtraChoices),
+        "name"                -> nameType(host),
+        "clockTime"           -> numberIn(clockTimeChoices).into[LimitMinutes],
+        "clockIncrement"      -> numberIn(clockIncrementChoices).into[IncrementSeconds],
+        "clockExtra"          -> numberIn(clockExtraChoices),
+        "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerChoices).into[LimitMinutes],
         "variants" -> list {
           typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
         }.verifying("At least one variant", _.nonEmpty),
@@ -114,6 +121,7 @@ object SimulForm:
       clockTime: LimitMinutes,
       clockIncrement: IncrementSeconds,
       clockExtra: Int,
+      clockExtraPerPlayer: LimitMinutes,
       variants: List[Variant.Id],
       position: Option[Fen.Epd],
       color: String,
@@ -126,7 +134,8 @@ object SimulForm:
     def clock =
       SimulClock(
         config = Clock.Config(LimitSeconds(clockTime.value * 60), clockIncrement),
-        hostExtraTime = clockExtra * 60
+        hostExtraTime = clockExtra * 60,
+        hostExtraTimePerPlayer = clockExtraPerPlayer
       )
 
     def actualVariants = variants.flatMap { Variant(_) }
