@@ -1,15 +1,15 @@
 $c-support: $c-brag;
 
 .lobby__support {
+  gap: $block-gap;
   a {
     @extend %flex-center-nowrap, %box-neat;
 
     background: $c-bg-box;
     font-size: 1.3em;
-    margin-bottom: $block-gap;
     padding: 0.2em 0.5em;
 
-    @include transition;
+    @include transition(background);
 
     &:hover {
       background: $c-support;
@@ -30,7 +30,7 @@ $c-support: $c-brag;
       color: $c-support;
       font-size: 2.6em;
 
-      @include transition;
+      @include transition(color);
     }
   }
 
@@ -38,7 +38,7 @@ $c-support: $c-brag;
     flex: 1 1 auto;
     color: $c-support;
 
-    @include transition;
+    @include transition(color);
 
     strong {
       font-weight: normal;

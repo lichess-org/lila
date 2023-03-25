@@ -27,6 +27,11 @@ $mq-not-col3: $mq-not-small;
     margin-top: $block-gap;
   }
 
+  &__tournaments,
+  &__simuls {
+    max-height: 20em;
+  }
+
   @include breakpoint($mq-col2) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(3, fit-content(0));
@@ -44,19 +49,28 @@ $mq-not-col3: $mq-not-small;
 
   @include breakpoint($mq-col3) {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 12em repeat(2, fit-content(0));
+    grid-template-rows: 12em repeat(2, fit-content(0)) auto auto 20em;
     grid-template-areas:
       'table   app     app'
       'side    app     app'
-      'tv      leader  winner'
+      'tv      blog    blog'
+      'tv      support support'
+      'tv  tours   tours'
       'puzzle  tours   tours'
-      'support blog    blog '
-      'about   simuls  simuls';
+      'puzzle leader    winner'
+      'about simuls    simuls';
 
     &__start {
       flex-flow: column;
       align-items: stretch;
       justify-content: center;
+    }
+    &__support {
+      display: flex;
+      flex-flow: row nowrap;
+      a {
+        flex: 1 1 auto;
+      }
     }
 
     &__counters {
@@ -73,15 +87,11 @@ $mq-not-col3: $mq-not-small;
     grid-template-rows: repeat(2, fit-content(0));
     grid-template-areas:
       'side   app     app    table'
+      'tv     blog    blog   puzzle'
       'tv     leader  winner puzzle'
-      'about  blog    blog   support'
-      '.      tours   tours  .'
+      'about  leader  winner support'
+      'about  tours   tours  support'
       '.      simuls  simuls .';
-
-    &__tournaments,
-    &__simuls {
-      max-height: 20em;
-    }
 
     &__side {
       margin-top: 2em;
