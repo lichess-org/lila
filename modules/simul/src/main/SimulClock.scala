@@ -21,7 +21,7 @@ case class SimulClock(
   def hostExtraMinutes = hostExtraTime / 60
 
   def adjustedForPlayers(numberOfPlayers: Int) =
-    copy(hostExtraTime = hostExtraTime + numberOfPlayers * (LimitMinutes raw hostExtraTimePerPlayer) * 60)
+    copy(hostExtraTime = hostExtraTime + numberOfPlayers * hostExtraTimePerPlayer.value * 60)
 
   def valid =
     if (config.limitSeconds.value + hostExtraTime == 0) config.incrementSeconds >= 10
