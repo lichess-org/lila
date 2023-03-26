@@ -210,7 +210,7 @@ class VoiceMoveCtrl implements VoiceMove {
   chooseMoves(m: [string, number][], conf: number) {
     const exactMatches = m.filter(([_, cost]) => cost === 0).length;
     const closeEnough = m.filter(([_, cost]) => cost <= this.nArrogance * 0.2 - 0.1).length;
-    const confident = conf + this.nArrogance * 0.25 >= 1;
+    const confident = this.nArrogance < 2 ? conf === 1 : conf >= 0.8;
     if (
       (m.length === 1 && conf > 0) ||
       (confident && exactMatches === 1) ||
