@@ -7,19 +7,25 @@ import lila.app.{ given, * }
 
 final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
 
-  def home     = Open(serveHome(_))
-  def homeLang = LangPage(routes.Storm.home)(serveHome(_))
-  private def serveHome(implicit ctx: Context) = NoBot {
+  def home     = Open(serveHome(using _))
+  def homeLang = LangPage(routes.Storm.home)(serveHome(using _))
+  private def serveHome(using ctx: Context) = NoBot {
+    dataAndHighScore(ctx.me, ctx.pref.some) map { (data, high) =>
+      Ok(views.html.storm.home(data, high)).noCache
+    }
+  }
+
+  private def dataAndHighScore(me: Option[lila.user.User], pref: Option[lila.pref.Pref]) =
     env.storm.selector.apply flatMap { puzzles =>
-      ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
-        Ok(
-          views.html.storm.home(
-            env.storm.json(puzzles, ctx.me),
-            env.storm.json.pref(ctx.pref),
-            high
-          )
-        ).noCache
+      me.?? { u => env.storm.highApi.get(u.id) dmap some } map { high =>
+        env.storm.json(puzzles, me, pref) -> high
       }
+    }
+
+  def apiGet = AnonOrScoped(_.Puzzle.Read) { req => me =>
+    dataAndHighScore(me, none) map { (data, high) =>
+      import lila.storm.StormJson.given
+      JsonOk(data.add("high" -> high))
     }
   }
 

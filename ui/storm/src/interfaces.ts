@@ -2,7 +2,7 @@ import { Prop } from 'common';
 import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {
-  data: StormData;
+  puzzles: Puzzle[];
   pref: StormPrefs;
   i18n: I18nDict;
 }
@@ -11,7 +11,6 @@ export interface StormPrefs extends PuzPrefs {}
 
 export interface StormData {
   puzzles: Puzzle[];
-  notAnExploit: string;
   key?: string;
   signed?: string;
 }
