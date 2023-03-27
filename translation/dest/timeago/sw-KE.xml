@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">sasa hivi</string>
+  <string name="rightNow">sasa hivi</string>
   <plurals name="nbSecondsAgo">
     <item quantity="one">sekunde %s zilizopita</item>
     <item quantity="other">sekunde %s zilizopita</item>
