@@ -134,7 +134,7 @@ POST  /training/coordinate/score       controllers.Coordinate.score
 GET   /$lang<\w\w\w?>/training/coordinate controllers.Coordinate.homeLang(lang)
 
 # Training - Puzzle
-GET   /training                        controllers.Puzzle.home
+GET   /training                        controllers.Puzzle.home(difficulty: Option[String] ?= Some("normal"))
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/help                   controllers.Puzzle.help

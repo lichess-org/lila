@@ -33,7 +33,7 @@ import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/u
 import { pgnToTree, mergeSolution } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
 import { Role, Move, Outcome } from 'chessops/types';
-import { storedBooleanProp } from 'common/storage';
+import { storedBooleanProp, storedStringProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
@@ -46,6 +46,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const hasStreak = !!opts.data.streak;
   const autoNext = storedBooleanProp(`puzzle.autoNext${hasStreak ? '.streak' : ''}`, hasStreak);
   const rated = storedBooleanProp('puzzle.rated', true);
+  const difficulty = storedStringProp('puzzle.difficulty', 'normal');
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
@@ -635,6 +636,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       rated(!rated());
       redraw();
     },
+    setDifficulty: (diff: string) => difficulty(diff),
     outcome,
     toggleCeval,
     toggleThreatMode,

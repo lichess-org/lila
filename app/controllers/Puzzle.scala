@@ -19,6 +19,7 @@ import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, P
 import lila.user.{ User as UserModel }
 import lila.common.LangPath
 import play.api.i18n.Lang
+import lila.puzzle.PuzzleDifficulty
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -90,16 +91,29 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def home = Open(serveHome(using _))
+  def home(difficulty: Option[String]) = Open(serveHome(difficulty)(using _))
 
-  def homeLang = LangPage(routes.Puzzle.home.url)(serveHome(using _))
+  def homeLang(lang: String) =
+    LangPage(routes.Puzzle.home().url)(serveHome(PuzzleDifficulty.default.key.some)(using _))(lang)
 
-  private def serveHome(using Context) =
+  private def loadPuzzle(using ctx: Context) =
     NoBot {
       val angle = PuzzleAngle.mix
       nextPuzzleForMe(angle, none) flatMap {
         _.fold(redirectNoPuzzle) {
-          renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
+          renderShow(_, angle, langPath = LangPath(routes.Puzzle.home()).some)
+        }
+      }
+    }
+
+  private def serveHome(difficulty: Option[String])(using ctx: Context) =
+    lila.puzzle.PuzzleDifficulty.find(difficulty.get).fold(loadPuzzle) { diff =>
+      ctx.me.fold(loadPuzzle) { me =>
+        env.puzzle.session.getSettings(me) flatMap { settings =>
+          settings.difficulty match
+            case `diff` => loadPuzzle
+            case _ =>
+              env.puzzle.session.setDifficulty(me, diff) inject Redirect(routes.Puzzle.home(difficulty))
         }
       }
     }
@@ -358,7 +372,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               angleOrId.toLongOption
                 .flatMap(Puz.numericalId.apply)
                 .??(env.puzzle.api.puzzle.find) map {
-                case None      => Redirect(routes.Puzzle.home)
+                case None      => Redirect(routes.Puzzle.home())
                 case Some(puz) => Redirect(routes.Puzzle.show(puz.id))
               }
     }

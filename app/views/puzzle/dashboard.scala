@@ -129,7 +129,7 @@ object dashboard:
           ),
           dashOpt.flatMap(body) |
             div(cls := s"${baseClass}__empty")(
-              a(href := routes.Puzzle.home)(trans.puzzle.noPuzzlesToShow())
+              a(href := routes.Puzzle.home())(trans.puzzle.noPuzzlesToShow())
             )
         )
       )

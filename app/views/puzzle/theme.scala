@@ -50,7 +50,7 @@ object theme:
       div(cls := s"puzzle-themes__list ${cat.value.replace(":", "-")}")(
         themes.map { pt =>
           val url =
-            if (pt.theme == PuzzleTheme.mix) routes.Puzzle.home
+            if (pt.theme == PuzzleTheme.mix) routes.Puzzle.home()
             else routes.Puzzle.show(pt.theme.key.value)
           a(cls := "puzzle-themes__link", href := (pt.count > 0).option(langHref(url)))(
             span(

@@ -72,6 +72,7 @@ export interface Controller extends KeyboardController {
   autoNexting: () => boolean;
   rated: StoredProp<boolean>;
   toggleRated: () => void;
+  setDifficulty: (diff: string) => void;
   session: PuzzleSession;
   allThemes?: AllThemes;
   showRatings: boolean;

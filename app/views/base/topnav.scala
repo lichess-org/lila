@@ -37,7 +37,7 @@ object topnav:
         )
       ),
       ctx.noBot option {
-        val puzzleUrl = langHref(routes.Puzzle.home.url)
+        val puzzleUrl = langHref(routes.Puzzle.home().url)
         st.section(
           linkTitle(puzzleUrl, trans.puzzles()),
           div(role := "group")(

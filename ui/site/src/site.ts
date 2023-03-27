@@ -26,6 +26,11 @@ lichess.info = info;
 lichess.load.then(() => {
   $('#user_tag').removeAttr('href');
 
+  let puzzleDifficulty = lichess.storage.get('analyse.puzzle.difficulty') ?? 'normal';
+  if (puzzleDifficulty !== 'normal') {
+    $("a[href='/training']").attr('href', `/training?difficulty=${puzzleDifficulty}`);
+  }
+
   requestAnimationFrame(() => {
     miniBoard.initAll();
     miniGame.initAll();

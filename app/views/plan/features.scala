@@ -82,7 +82,7 @@ object features:
               a(href := routes.Learn.index)("All chess basics lessons")
             ),
             tr(unlimited)(
-              a(href := routes.Puzzle.home)("Tactical puzzles from user games")
+              a(href := routes.Puzzle.home())("Tactical puzzles from user games")
             ),
             tr(unlimited)(
               a(href := routes.Puzzle.streak)("Puzzle Streak"),
@@ -148,7 +148,7 @@ object features:
               "Board editor and analysis board with Stockfish 14+"
             ),
             tr(unlimited)(
-              a(href := routes.Puzzle.home)("Tactics puzzles")
+              a(href := routes.Puzzle.home())("Tactics puzzles")
             ),
             tr(check)(
               "Available in 80+ languages"

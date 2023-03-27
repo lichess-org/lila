@@ -38,7 +38,7 @@ object bits:
   def pageMenu(active: String, user: Option[User], days: Int = 30)(implicit ctx: Context) =
     val u = user.filterNot(ctx.is).map(_.username)
     st.nav(cls := "page-menu__menu subnav")(
-      a(href := routes.Puzzle.home)(
+      a(href := routes.Puzzle.home())(
         trans.puzzles()
       ),
       a(cls := active.active("themes"), href := routes.Puzzle.themes)(
