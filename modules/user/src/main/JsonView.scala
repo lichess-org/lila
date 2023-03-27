@@ -174,3 +174,22 @@ object JsonView:
         "racingKings"   -> leaderboards.racingKings
       )
     }
+
+  given leaderboardTopOneWrites(using OWrites[User.LightPerf]): OWrites[Perfs.Leaderboards] =
+    OWrites { leaderboards =>
+      Json.obj(
+        "bullet"        -> leaderboards.bullet.headOption,
+        "blitz"         -> leaderboards.blitz.headOption,
+        "rapid"         -> leaderboards.rapid.headOption,
+        "classical"     -> leaderboards.classical.headOption,
+        "ultraBullet"   -> leaderboards.ultraBullet.headOption,
+        "crazyhouse"    -> leaderboards.crazyhouse.headOption,
+        "chess960"      -> leaderboards.chess960.headOption,
+        "kingOfTheHill" -> leaderboards.kingOfTheHill.headOption,
+        "threeCheck"    -> leaderboards.threeCheck.headOption,
+        "antichess"     -> leaderboards.antichess.headOption,
+        "atomic"        -> leaderboards.atomic.headOption,
+        "horde"         -> leaderboards.horde.headOption,
+        "racingKings"   -> leaderboards.racingKings.headOption
+      )
+    }

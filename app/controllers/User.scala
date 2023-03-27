@@ -315,7 +315,13 @@ final class User(
 
   def topNbApi(nb: Int, perfKey: Perf.Key) =
     Action.async {
-      topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
+      if nb == 1 && perfKey == Perf.Key("all") then
+        env.user.cached.top10.get {} map { leaderboards =>
+          import env.user.jsonView.lightPerfIsOnlineWrites
+          import lila.user.JsonView.leaderboardTopOneWrites
+          JsonOk(leaderboards)
+        }
+      else topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
     }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
