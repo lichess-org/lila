@@ -30,17 +30,17 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   }
 
   def record =
-    OpenBody { implicit ctx =>
-      NoBot {
-        given play.api.mvc.Request[?] = ctx.body
-        env.storm.forms.run
-          .bindFromRequest()
-          .fold(
-            _ => fuccess(none),
-            data => env.storm.dayApi.addRun(data, ctx.me)
-          ) map env.storm.json.newHigh map JsonOk
-      }
-    }
+    def doRecord(me: Option[lila.user.User])(using Request[?]) =
+      env.storm.forms.run
+        .bindFromRequest()
+        .fold(
+          _ => fuccess(none),
+          data => env.storm.dayApi.addRun(data, me)
+        ) map env.storm.json.newHigh map JsonOk
+    OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write))(
+      open = ctx => NoBot { doRecord(ctx.me)(using ctx.body) }(using ctx),
+      scoped = req => me => doRecord(me.some)(using req)
+    )
 
   def dashboard(page: Int) =
     Auth { implicit ctx => me =>
