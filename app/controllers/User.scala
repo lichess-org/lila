@@ -297,7 +297,7 @@ final class User(
 
   def apiList = Action.async {
     env.user.cached.top10.get {} map { leaderboards =>
-      given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+      import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
       JsonOk(leaderboards)
     }
