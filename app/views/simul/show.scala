@@ -72,7 +72,7 @@ object show:
               br,
               trans.simulHostExtraTimePerPlayer(),
               ": ",
-              pluralize("minute", sim.clock.hostExtraTimePerPlayer.value),
+              pluralize("minute", sim.clock.hostExtraMinutesPerPlayer),
               br,
               trans.hostColorX(sim.color match {
                 case Some("white") => trans.white()

@@ -1,28 +1,28 @@
 package lila.simul
 
 import chess.{ Centis, Clock, Color }
-import chess.Clock.LimitMinutes
+import chess.Clock.LimitSeconds
 
-// All durations are expressed in seconds
 case class SimulClock(
     config: Clock.Config,
-    hostExtraTime: Int,
-    hostExtraTimePerPlayer: LimitMinutes
+    hostExtraTime: LimitSeconds,
+    hostExtraTimePerPlayer: LimitSeconds
 ):
 
   def chessClockOf(hostColor: Color) =
     config.toClock.giveTime(
       hostColor,
       Centis.ofSeconds {
-        hostExtraTime.atLeast(-config.limitSeconds.value + 20)
+        hostExtraTime.value.atLeast(-config.limitSeconds.value + 20)
       }
     )
 
-  def hostExtraMinutes = hostExtraTime / 60
+  def hostExtraMinutes          = hostExtraTime.value / 60
+  def hostExtraMinutesPerPlayer = hostExtraTimePerPlayer.value / 60
 
   def adjustedForPlayers(numberOfPlayers: Int) =
-    copy(hostExtraTime = hostExtraTime + numberOfPlayers * hostExtraTimePerPlayer.value * 60)
+    copy(hostExtraTime = hostExtraTime + numberOfPlayers * hostExtraTimePerPlayer.value)
 
   def valid =
-    if (config.limitSeconds.value + hostExtraTime == 0) config.incrementSeconds >= 10
+    if (config.limitSeconds + hostExtraTime == LimitSeconds(0)) config.incrementSeconds >= 10
     else config.limitSeconds + hostExtraTime > 0

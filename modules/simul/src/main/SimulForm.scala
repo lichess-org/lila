@@ -16,15 +16,14 @@ import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
 
 object SimulForm:
 
-  val clockTimes       = LimitMinutes.from((5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20))
+  val clockTimeChoices = options((5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20), "%d minute{s}")
   val clockTimeDefault = LimitMinutes(20)
-  val clockTimeChoices = options(LimitMinutes raw clockTimes, "%d minute{s}")
 
-  val clockIncrements = IncrementSeconds.from(
-    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockIncrementChoices = options(
+    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30),
+    "%d second{s}"
   )
   val clockIncrementDefault = IncrementSeconds(60)
-  val clockIncrementChoices = options(IncrementSeconds raw clockIncrements, "%d second{s}")
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtras         = clockExtrasPositive.tail.map(-_).reverse concat clockExtrasPositive
@@ -32,11 +31,10 @@ object SimulForm:
     case (d, str) if d > 0 => (d, s"+$str")
     case pair              => pair
   }
-  val clockExtraDefault = 0
+  val clockExtraDefault = LimitMinutes(0)
 
-  val clockExtraPerPlayer        = LimitMinutes.from((0 to 3) :+ 5)
+  val clockExtraPerPlayerChoices = options((0 to 3) :+ 5, "%d minute{s}")
   val clockExtraPerPlayerDefault = LimitMinutes(0)
-  val clockExtraPerPlayerChoices = options(LimitMinutes raw clockExtraPerPlayer, "%d minute{s}")
 
   val colors = List("white", "random", "black")
   val colorChoices = List(
@@ -82,8 +80,8 @@ object SimulForm:
       name = simul.name,
       clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
       clockIncrement = simul.clock.config.incrementSeconds,
-      clockExtra = simul.clock.hostExtraMinutes,
-      clockExtraPerPlayer = simul.clock.hostExtraTimePerPlayer,
+      clockExtra = LimitMinutes(simul.clock.hostExtraMinutes),
+      clockExtraPerPlayer = LimitMinutes(simul.clock.hostExtraMinutesPerPlayer),
       variants = simul.variants.map(_.id),
       position = simul.position,
       color = simul.color | "random",
@@ -99,7 +97,7 @@ object SimulForm:
         "name"                -> nameType(host),
         "clockTime"           -> numberIn(clockTimeChoices).into[LimitMinutes],
         "clockIncrement"      -> numberIn(clockIncrementChoices).into[IncrementSeconds],
-        "clockExtra"          -> numberIn(clockExtraChoices),
+        "clockExtra"          -> numberIn(clockExtraChoices).into[LimitMinutes],
         "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerChoices).into[LimitMinutes],
         "variants" -> list {
           typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
@@ -120,7 +118,7 @@ object SimulForm:
       name: String,
       clockTime: LimitMinutes,
       clockIncrement: IncrementSeconds,
-      clockExtra: Int,
+      clockExtra: LimitMinutes,
       clockExtraPerPlayer: LimitMinutes,
       variants: List[Variant.Id],
       position: Option[Fen.Epd],
@@ -134,8 +132,8 @@ object SimulForm:
     def clock =
       SimulClock(
         config = Clock.Config(LimitSeconds(clockTime.value * 60), clockIncrement),
-        hostExtraTime = clockExtra * 60,
-        hostExtraTimePerPlayer = clockExtraPerPlayer
+        hostExtraTime = LimitSeconds(clockExtra.value * 60),
+        hostExtraTimePerPlayer = LimitSeconds(clockExtraPerPlayer.value * 60)
       )
 
     def actualVariants = variants.flatMap { Variant(_) }
