@@ -3,6 +3,7 @@ import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {
   puzzles: Puzzle[];
+  key?: string;
   pref: StormPrefs;
   i18n: I18nDict;
 }

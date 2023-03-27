@@ -21,7 +21,7 @@ object StormForm:
   val run = Form(
     mapping(
       "puzzles"      -> number(min = 1, max = 200),
-      "score"        -> number(min = 1, max = maxScore),
+      "score"        -> number(min = 1, max = 200),
       "moves"        -> number(min = 1, max = 900),
       "errors"       -> number(min = 0, max = 50),
       "combo"        -> number(min = 1, max = 900),
@@ -34,5 +34,3 @@ object StormForm:
 
   val notAnExploit =
     "Yes, we know that you can send whatever score you like. That's why there's no leaderboards and no competition."
-
-  val maxScore = 200

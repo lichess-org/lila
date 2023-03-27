@@ -4,6 +4,7 @@ import play.api.mvc.*
 
 import lila.api.Context
 import lila.app.{ given, * }
+import lila.common.HTTPRequest
 
 final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
 
@@ -30,16 +31,16 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   }
 
   def record =
-    def doRecord(me: Option[lila.user.User])(using Request[?]) =
+    def doRecord(me: Option[lila.user.User], mobile: Boolean)(using Request[?]) =
       env.storm.forms.run
         .bindFromRequest()
         .fold(
           _ => fuccess(none),
-          data => env.storm.dayApi.addRun(data, me)
+          data => env.storm.dayApi.addRun(data, me, mobile = mobile)
         ) map env.storm.json.newHigh map JsonOk
     OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write))(
-      open = ctx => NoBot { doRecord(ctx.me)(using ctx.body) }(using ctx),
-      scoped = req => me => doRecord(me.some)(using req)
+      open = ctx => NoBot { doRecord(ctx.me, mobile = false)(using ctx.body) }(using ctx),
+      scoped = req => me => doRecord(me.some, mobile = HTTPRequest.isLichessMobile(req))(using req)
     )
 
   def dashboard(page: Int) =

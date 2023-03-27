@@ -30,7 +30,7 @@ export default class StormCtrl implements PuzCtrl {
   flipped = false;
 
   constructor(opts: StormOpts, redraw: (data: StormData) => void) {
-    this.data = { puzzles: opts.puzzles };
+    this.data = { puzzles: opts.puzzles, key: opts.key };
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
     this.filters = new PuzFilters(this.redraw, false);
