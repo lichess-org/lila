@@ -1,7 +1,7 @@
 package lila.simul
 
 import chess.{ Centis, Clock, Color }
-import chess.Clock.LimitSeconds
+import chess.Clock.{ LimitSeconds, LimitMinutes }
 
 case class SimulClock(
     config: Clock.Config,
@@ -13,12 +13,12 @@ case class SimulClock(
     config.toClock.giveTime(
       hostColor,
       Centis.ofSeconds {
-        hostExtraTime.value.atLeast(-config.limitSeconds.value + 20)
+        hostExtraTime.atLeast(-config.limitSeconds + 20).value
       }
     )
 
-  def hostExtraMinutes          = hostExtraTime.value / 60
-  def hostExtraMinutesPerPlayer = hostExtraTimePerPlayer.value / 60
+  def hostExtraMinutes          = LimitMinutes(hostExtraTime.value / 60)
+  def hostExtraMinutesPerPlayer = LimitMinutes(hostExtraTimePerPlayer.value / 60)
 
   def adjustedForPlayers(numberOfPlayers: Int) =
     copy(hostExtraTime = hostExtraTime + numberOfPlayers * hostExtraTimePerPlayer.value)
