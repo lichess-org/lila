@@ -30,6 +30,7 @@ import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
 import { uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
+import { ltpm } from 'common';
 
 import {
   RoundOpts,
@@ -316,7 +317,7 @@ export default class RoundController {
 
   setTitle = () => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}) => {
+  actualActualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}) => {
     const socketOpts: SocketOpts = {
       sign: this.sign,
       ackable: true,
@@ -340,6 +341,12 @@ export default class RoundController {
     this.preDrop = undefined;
     this.transientMove.register();
     this.redraw();
+  };
+
+  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}) => {
+    if (ltpm(this.data.tournament?.id))
+      setTimeout(() => this.actualActualSendMove(tpe, data, { ...meta, premove: false }), 1000);
+    else this.actualActualSendMove(tpe, data, meta);
   };
 
   sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {

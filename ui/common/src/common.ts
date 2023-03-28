@@ -67,3 +67,5 @@ export const scrollToInnerSelector = (el: HTMLElement, selector: string) => scro
 export const scrollTo = (el: HTMLElement, target: HTMLElement | null) => {
   if (target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
 };
+
+export const ltpm = (tournamentId: string | undefined) => tournamentId === 'losetime';
