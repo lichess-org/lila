@@ -364,7 +364,7 @@
   <string name="toStudy">연구</string>
   <string name="importGame">게임 불러오기</string>
   <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">변형은 지워집니다. 변형을 유지하려면 스터디를 통해 PGN을 가져오세요.</string>
+  <string name="importGameCaveat">변형은 지워집니다. 변형을 유지하려면 스터디를 통해 PGN을 가져오세요.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">불러온 게임 %s개</item>
   </plurals>
