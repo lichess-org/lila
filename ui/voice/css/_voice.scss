@@ -13,6 +13,7 @@ $gap: max($block-gap, 16px);
   padding: 0 8px;
   font-size: 14px;
   font-weight: bold;
+  user-select: none;
   a {
     text-align: center;
   }
@@ -93,9 +94,6 @@ $gap: max($block-gap, 16px);
     background: $c-bg;
   }
   border-radius: 3px 3px 0 0;
-  * {
-    user-select: none;
-  }
 }
 
 #voice-settings {
@@ -112,6 +110,7 @@ $gap: max($block-gap, 16px);
   > div {
     padding: 0 $gap $gap;
   }
+  user-select: none;
 
   .setting {
     @extend %flex-center-nowrap;

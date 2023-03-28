@@ -1,5 +1,4 @@
-.voice-move-help,
-.keyboard-move-help {
+.voice-move-help {
   @extend %help-modal;
 
   td.tips li {
@@ -10,9 +9,6 @@
   a {
     margin-#{$start-direction}: 0.25em;
   }
-}
-
-.voice-move-help {
   &#modal-wrap {
     max-width: 1000px;
     &.bigger {
