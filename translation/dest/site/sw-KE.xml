@@ -83,11 +83,6 @@
   <string name="recentGames">Michezo ya hivi karibuni</string>
   <string name="topGames">Michezo ya juu</string>
   <string name="masterDbExplanation">Michezo ya OTB ya %1$s + wachezaji waliokadiriwa na FIDE kutoka %2$s mpaka %3$s</string>
-  <plurals name="mateInXHalfMoves">
-    <item quantity="one">Kunaswa kwa %s nusu-hatua</item>
-    <item quantity="other">Kunaswa kwa %s nusu-hatua
-Kunaswa kwa %s nusu-hatua</item>
-  </plurals>
   <string name="dtzWithRounding">DTZ50\" kuweka takriban, kulingana na idadi ya nusu-hatua mpaka ukamataji au hatua ya askari ifuatayo</string>
   <string name="noGameFound">Hakuna mchezo uliopatikana</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Labda ujumuishe michezo zaidi kutoka kwa ratiba ya mapendeleo?</string>
