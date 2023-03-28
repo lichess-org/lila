@@ -72,7 +72,7 @@ class VoiceMoveCtrl implements VoiceMove {
   xvalsToSquares: Map<string, Uci | Set<Uci>>; // map of xvals to selectable or reachable square(s)
   ambiguity?: Map<string, Uci>; // map from choice (blue, red, 1, 2, etc) to uci
 
-  LABEL_SIZE = 40; // size of number labels in svg user units, 100 is the width of a board square
+  LABEL_SIZE = 40; // size of arrow labels in svg user units, 100 is the width of a board square
 
   cg: CgApi;
   root: RootCtrl;
@@ -106,20 +106,20 @@ class VoiceMoveCtrl implements VoiceMove {
     this.modalOpen = propWithEffect(false, root.redraw);
     this.root = root;
     this.update(step);
-    lichess.mic?.addListener('voiceMoveHandler', this.listen.bind(this));
+    lichess.mic?.addListener('voiceMove', this.listen.bind(this));
     lichess.mic?.setVocabulary(this.tagWords());
   }
 
   // update is called by the root controller when the board position changes
   update(step: { fen: string } /*, yourMove?: boolean*/) {
+    if (this.cg && this.cg !== this.root.chessground) console.log('chessground dancing');
     this.cg = this.root.chessground;
     this.board = cs.readFen(step.fen);
     this.ucis = cs.destsToUcis(this.cg.state.movable.dests ?? new Map());
     this.xvalsToMoves = this.buildMoves();
     this.xvalsToSquares = this.buildPartials();
-    if (!('v-pink' in this.cg.state.drawable.brushes)) {
+    if (!('v-pink' in this.cg.state.drawable.brushes))
       for (const [color, brush] of this.brushes) this.cg.state.drawable.brushes[`v-${color}`] = brush;
-    }
   }
 
   // listen is called by lichess.mic when a phrase is heard
@@ -209,15 +209,14 @@ class VoiceMoveCtrl implements VoiceMove {
 
   chooseMoves(m: [string, number][], conf: number) {
     const exactMatches = m.filter(([_, cost]) => cost === 0).length;
-    const closeEnough = m.filter(([_, cost]) => cost <= this.nArrogance * 0.2 - 0.1).length;
-    const confident = conf + this.nArrogance * 0.25 >= 1;
+    const closeEnough = m.filter(([_, cost]) => cost <= this.nArrogance * 0.2).length;
+    const confident = this.nArrogance < 2 ? conf === 1 : conf >= 0.8;
     if (
       (m.length === 1 && conf > 0) ||
       (confident && exactMatches === 1) ||
       (this.nArrogance === 1 && closeEnough === 1 && exactMatches === 0) ||
       (this.nArrogance === 2 && closeEnough > 0 && exactMatches === 0)
     ) {
-      // we'll probably need to tweak those conditionals
       if (this.debug) console.log('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]} conf=${conf}`);
       this.submit(m[0][0]);
       return true;
@@ -229,8 +228,8 @@ class VoiceMoveCtrl implements VoiceMove {
     return false;
   }
 
-  // mappings can be partite wrt tag sets - in the substitution graph, all tokens with the same
-  // tags occupy the same partition and cannot share an edge if partite is true.
+  // mappings can be partite over tag sets - in the substitution graph, all tokens with identical
+  // tags define a partition and cannot share an edge when partite is true.
   matchMany(phrase: string, xvalsToOutSet: [string, string[]][], partite = false): [string, number][] {
     const htoks = this.phraseToks(phrase);
     const xtoksToOutSet = new Map<string, Set<string>>(); // temp map for val->tok expansion
@@ -249,7 +248,7 @@ class VoiceMoveCtrl implements VoiceMove {
     }
     const matches = [...matchMap].sort(([, lhsCost], [, rhsCost]) => lhsCost - rhsCost);
     if ((this.debug && matches.length > 0) || this.debug?.emptyMatches)
-      console.log('matchMany', `from '${phrase}' and`, xtoksToOutSet, '\nto', new Map(matches));
+      console.log('matchMany', `from: `, xtoksToOutSet, '\nto: ', new Map(matches));
     return matches;
   }
 
@@ -294,7 +293,10 @@ class VoiceMoveCtrl implements VoiceMove {
     // arrange [colors, uci] by ascending numeric label ordered by x then y
     this.ambiguity = new Map(
       choices.length === 1
-        ? [['yes', choices[0][0]]]
+        ? [
+            ['yes', choices[0][0]],
+            ['grey', choices[0][0]],
+          ]
         : choices
             .sort((lhs, rhs) => this.compareLabelPos(lhs[0], rhs[0]))
             .map(([uci], i) => [this.brushes[i][0], uci] as [string, Uci])
