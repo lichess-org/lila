@@ -199,6 +199,7 @@
   <string name="changeUsername">Ŝanĝi uzantnomon</string>
   <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝiĝi. Ekzemple de \"johndoe\" al \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Ŝanĝu ĉiam uzantnomon. Vi rajtas fari tion nur unufoje kaj vi rajtas ŝanĝi nur la usklecon de la literoj en via nomo.</string>
+  <string name="signupUsernameHint">Certigi, ke vi elektas uzantnomon, ke estas adekvata por ĉiu-aĝaj spektantoj. Vi ne povas ŝanĝi ĝin poste, kaj la administrantoj fermas ĉiujn ajn kontojn, kiuj havas malbonimpresajn uzantnomojn!</string>
   <string name="signupEmailHint">Ni nur uzos ĝin por pasvorta restarigo.</string>
   <string name="password">Pasvorto</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
@@ -206,6 +207,16 @@
   <string name="email">Retadreso</string>
   <string name="passwordReset">Ŝanĝi pasvorton</string>
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
+  <string name="error.weakPassword">Ĉi tiu pasvorto estas tre ofta, kaj oni povas simple diveni tion.</string>
+  <string name="error.namePassword">Bonvolu ne uzi vian uzantnomon kiel vian pasvorton.</string>
+  <string name="blankedPassword">Vi uzis la saman pasvorton ĉe alia retego, kaj tiu retejo estis breĉita. Por certigi la sekurecon de via Lichess-konto, ni devas, ke vi faru novan pasvorton. Dankon por via kunsento.</string>
+  <string name="youAreLeavingLichess">Vi foriras de retejo Lichess</string>
+  <string name="neverTypeYourPassword">Neniam tajpu vian Lichess-pasvorton en alia retejo!</string>
+  <string name="proceedToX">Daŭrigi al %s</string>
+  <string name="passwordSuggestion">Ne fari pasvorton, ke aliuloj sugestas. Oni uzos ĝin por ŝteli vian konton.</string>
+  <string name="emailSuggestion">Ne uzi retpoŝtadreson, ke aliuloj sugestas. Oni uzos ĝin por ŝteli vian konton.</string>
+  <string name="emailConfirmHelp">Helpo kun konfirmo-retpoŝtaĵo</string>
+  <string name="emailConfirmNotReceived">Ĉu vi ne ricevis vian konfirmo-retpoŝtaĵon post registrado?</string>
   <string name="whatSignupUsername">Kiun uzantnomon vi uzis por registriĝi?</string>
   <string name="usernameNotFound">Ni ne povis trovi ajnan uzanton per tiu ĉi nomo: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Vi povas uzi ĉi tiun uzantnomon por krei novan konton</string>
@@ -218,6 +229,7 @@
   <string name="waitForSignupHelp">Ni estos kun vi baldaŭ por helpi vin plenigi vian registriĝon.</string>
   <string name="accountConfirmed">La uzanto %s estis konfirmita sukcese.</string>
   <string name="accountCanLogin">Vi povas ensaluti tuje kiel %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Vi ne devas konfirmo-retpoŝtaĵon.</string>
   <string name="accountClosed">La konto %s estas fermita.</string>
   <string name="accountRegisteredWithoutEmail">La konto %s estis registrita sen retpoŝto.</string>
   <string name="rank">Posicio</string>
@@ -359,6 +371,7 @@
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
   <string name="xJoinedTeamY">%1$s aliĝis al teamo %2$s</string>
   <string name="xCreatedTeamY">%1$s kreis teamon %2$s</string>
+  <string name="startedStreaming">komencis elsendon</string>
   <string name="xStartedStreaming">%s komencis elsendon</string>
   <string name="averageElo">Meznombra rango</string>
   <string name="location">Loko</string>
@@ -535,6 +548,8 @@
   <string name="blog">Blogo</string>
   <string name="notes">Notoj</string>
   <string name="typePrivateNotesHere">Entajpu privatajn notojn ĉi tie</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skribu privatan noton pri ĉi tiu uzanto</string>
+  <string name="noNoteYet">Neniu noto ankoraŭ</string>
   <string name="invalidUsernameOrPassword">Malĝusta uzantnomo aŭ pasvorto</string>
   <string name="incorrectPassword">Malkorekta pasvorto</string>
   <string name="invalidAuthenticationCode">Nevalida aŭtentigada kodo</string>
