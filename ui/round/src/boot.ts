@@ -4,10 +4,15 @@ import { RoundApi, RoundMain } from './main';
 import { ChatCtrl } from 'chat';
 import { TourPlayer } from 'game';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
+import { ltpm } from 'common';
 
 export default function (opts: RoundOpts): void {
   const data = opts.data;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
+  if (ltpm(data.tournament?.id)) {
+    const $setup = $('.header .setup');
+    $setup.html($setup.html().replace('+0', '-1'));
+  }
   lichess.socket = new lichess.StrongSocket(data.url.socket, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
