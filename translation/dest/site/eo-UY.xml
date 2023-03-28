@@ -377,7 +377,7 @@
   <string name="toStudy">Studo</string>
   <string name="importGame">Importi ludon</string>
   <string name="importGameExplanation">Kiam vi enmetas PGN-on de ludo, vi povas reludi ĝin, vidi komputilan analizon, babili kun la kontraŭulon, kaj dissemi la ligilon URL.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Variaĵoj estos forigitaj. Por havi ilin enportu la PGN tra studoj.</string>
+  <string name="importGameCaveat">Variaĵoj estos forigitaj. Por havi ilin enportu la PGN tra studoj.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importitaj ludoj</item>
     <item quantity="other">%s Importitaj ludoj</item>
