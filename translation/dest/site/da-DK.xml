@@ -390,7 +390,7 @@
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Variationer vil blive slettet. Hvis du vil beholde dem, skal du importere PGN\'en via et studie.</string>
+  <string name="importGameCaveat">Variationer vil blive slettet. Hvis du vil beholde dem, skal du importere PGN\'en via et studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importerede spil</item>
     <item quantity="other">%s importerede spil</item>
