@@ -68,17 +68,24 @@ object show:
               ),
               trans.simulHostExtraTime(),
               ": ",
-              pluralize("minute", sim.clock.hostExtraMinutes),
+              pluralize("minute", sim.clock.hostExtraMinutes.value),
               br,
-              trans.simulHostExtraTimePerPlayer(),
-              ": ",
-              pluralize("minute", sim.clock.hostExtraMinutesPerPlayer),
-              br,
-              trans.hostColorX(sim.color match {
+              sim.clock.hostExtraTimePerPlayerForDisplay.map { time =>
+                frag(
+                  trans.simulHostExtraTimePerPlayer(),
+                  ": ",
+                  time match
+                    case Left(minutes)  => pluralize("minute", minutes.value)
+                    case Right(seconds) => pluralize("second", seconds.value)
+                  ,
+                  br
+                )
+              },
+              trans.hostColorX(sim.color match
                 case Some("white") => trans.white()
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
-              }),
+              ),
               sim.position.flatMap(p => lila.tournament.Thematic.byFen(p.opening)) map { pos =>
                 frag(br, a(targetBlank, href := pos.url)(pos.name))
               } orElse sim.position.map { fen =>

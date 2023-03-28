@@ -33,8 +33,8 @@ object SimulForm:
   }
   val clockExtraDefault = LimitMinutes(0)
 
-  val clockExtraPerPlayerChoices = options((0 to 3) :+ 5, "%d minute{s}")
-  val clockExtraPerPlayerDefault = LimitMinutes(0)
+  val clockExtraPerPlayerChoices = options((0 to 60 by 10) ++ Seq(90, 120, 180, 240, 300), "%d second{s}")
+  val clockExtraPerPlayerDefault = LimitSeconds(0)
 
   val colors = List("white", "random", "black")
   val colorChoices = List(
@@ -81,7 +81,7 @@ object SimulForm:
       clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
       clockIncrement = simul.clock.config.incrementSeconds,
       clockExtra = simul.clock.hostExtraMinutes,
-      clockExtraPerPlayer = simul.clock.hostExtraMinutesPerPlayer,
+      clockExtraPerPlayer = simul.clock.hostExtraTimePerPlayer,
       variants = simul.variants.map(_.id),
       position = simul.position,
       color = simul.color | "random",
@@ -98,7 +98,7 @@ object SimulForm:
         "clockTime"           -> numberIn(clockTimeChoices).into[LimitMinutes],
         "clockIncrement"      -> numberIn(clockIncrementChoices).into[IncrementSeconds],
         "clockExtra"          -> numberIn(clockExtraChoices).into[LimitMinutes],
-        "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerChoices).into[LimitMinutes],
+        "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerChoices).into[LimitSeconds],
         "variants" -> list {
           typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
         }.verifying("At least one variant", _.nonEmpty),
@@ -119,7 +119,7 @@ object SimulForm:
       clockTime: LimitMinutes,
       clockIncrement: IncrementSeconds,
       clockExtra: LimitMinutes,
-      clockExtraPerPlayer: LimitMinutes,
+      clockExtraPerPlayer: LimitSeconds,
       variants: List[Variant.Id],
       position: Option[Fen.Epd],
       color: String,
@@ -133,7 +133,7 @@ object SimulForm:
       SimulClock(
         config = Clock.Config(LimitSeconds(clockTime.value * 60), clockIncrement),
         hostExtraTime = LimitSeconds(clockExtra.value * 60),
-        hostExtraTimePerPlayer = LimitSeconds(clockExtraPerPlayer.value * 60)
+        hostExtraTimePerPlayer = clockExtraPerPlayer
       )
 
     def actualVariants = variants.flatMap { Variant(_) }
