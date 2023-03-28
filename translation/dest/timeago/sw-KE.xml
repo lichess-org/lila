@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">sasa hivi</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">ndani ya sekunde %s
+ndani ya sekunde %s</item>
+    <item quantity="other">ndani ya sekunde %s
+ndani ya sekunde %s</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">ndani ya dakika %s
+ndani ya dakika %s</item>
+    <item quantity="other">ndani ya dakika %s
+ndani ya dakika %s</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">ndani ya saa %s
+ndani ya masaa %s</item>
+    <item quantity="other">ndani ya saa %s
+ndani ya masaa %s</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">ndani ya siku %s
+ndani ya siku %s</item>
+    <item quantity="other">ndani ya siku %s
+ndani ya siku %s</item>
+  </plurals>
   <plurals name="inNbWeeks">
     <item quantity="one">ndani ya wiki %s</item>
     <item quantity="other">katika wiki %s zijazo</item>
@@ -17,12 +41,16 @@ ndani ya miaka %s</item>
   </plurals>
   <string name="rightNow">sasa hivi</string>
   <plurals name="nbSecondsAgo">
-    <item quantity="one">sekunde %s zilizopita</item>
-    <item quantity="other">sekunde %s zilizopita</item>
+    <item quantity="one">sekunde %s iliyopita
+sekunde %s zilizopita</item>
+    <item quantity="other">sekunde %s iliyopita
+sekunde %s zilizopita</item>
   </plurals>
   <plurals name="nbMinutesAgo">
-    <item quantity="one">Dakika %s zilizopita</item>
-    <item quantity="other">Dakika %s zilizopita</item>
+    <item quantity="one">dakika %s iliyopita
+dakika %s zilizopita</item>
+    <item quantity="other">dakika %s iliyopita
+dakika %s zilizopita</item>
   </plurals>
   <plurals name="nbHoursAgo">
     <item quantity="one">saa %s uliopita
@@ -45,6 +73,13 @@ wiki %s zilizopita</item>
   <plurals name="nbMonthsAgo">
     <item quantity="one">mwezi %s uliopita
 miezi %s iliyopita</item>
-    <item quantity="other">miezi %s iliyopita</item>
+    <item quantity="other">mwezi %s uliopita
+miezi %s iliyopita</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">mwaka %s uliopita
+miaka %s iliyopita</item>
+    <item quantity="other">mwaka %s uliopita
+miaka %s iliyopita</item>
   </plurals>
 </resources>
