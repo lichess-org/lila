@@ -662,6 +662,7 @@
   <string name="simulClockHint">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>
   <string name="simulHostExtraTime">Plia tempo por la gastiganto</string>
+  <string name="simulAddExtraTimePerPlayer">Aldoni komencan tempon al via horloĝo por ĉiu ludanto, kiu aliĝis al la samtempludo.</string>
   <string name="lichessTournaments">Turniroj de Lichess</string>
   <string name="tournamentFAQ">Oftaj demandoj pri la turnira areno</string>
   <string name="timeBeforeTournamentStarts">Tempo ĝis la turniro komenciĝas</string>
@@ -749,6 +750,7 @@
   <string name="light">Hela</string>
   <string name="dark">Malhela</string>
   <string name="transparent">Travidebla</string>
+  <string name="deviceTheme">Ila etoso</string>
   <string name="backgroundImageUrl">Malantaŭografikaĵo URL:</string>
   <string name="boardGeometry">Tabula geometrio</string>
   <string name="boardTheme">Tabula temo</string>
@@ -889,14 +891,22 @@
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="cancelTournament">Nuligi la turniron</string>
   <string name="tournDescription">Turnira priskribo</string>
+  <string name="ratedFormHelp">Ludoj estas rangaj
+kaj influas la rangojn de ludantoj</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
   <string name="noRestriction">Neniu limigo</string>
+  <string name="minimumRatedGames">Minimumo de rangaj ludoj</string>
   <string name="minimumRating">Minimuma rango</string>
   <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
   <string name="onlyTitled">Nuraj titolaj ludantoj</string>
+  <string name="onlyTitledHelp">Necesigi la oficiala titolo por aliĝi al la turniro</string>
   <string name="cancelSimul">Nuligi la samtempludo</string>
   <string name="estimatedStart">Proksimuma komenca tempo</string>
+  <string name="simulFeaturedHelp">Montri vian samtempludon al ĉiuj en %s. Malaktivigi por privataj samtempludoj.</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
+  <string name="simulDescriptionHelp">Ĉu vi volas diri ion al la partoprenantoj?</string>
+  <string name="markdownAvailable">%s estas havebla por pli progresinta sintakso.</string>
+  <string name="inYourLocalTimezone">En via loka horzono</string>
   <string name="tournChat">Babilejo de turnira</string>
   <string name="noChat">Malaktivigi babilejon</string>
   <string name="onlyTeamLeaders">Nuraj teamaj gvidantoj</string>
