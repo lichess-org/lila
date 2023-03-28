@@ -175,6 +175,7 @@ GET   /storm                            controllers.Storm.home
 POST  /storm                            controllers.Storm.record
 GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?= 1)
 GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username, page: Int ?= 1)
+GET   /api/storm                        controllers.Storm.apiGet
 GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username, days: Int ?= 30)
 GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang)
 

@@ -4,37 +4,44 @@ import play.api.mvc.*
 
 import lila.api.Context
 import lila.app.{ given, * }
+import lila.common.HTTPRequest
 
 final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
 
-  def home     = Open(serveHome(_))
-  def homeLang = LangPage(routes.Storm.home)(serveHome(_))
-  private def serveHome(implicit ctx: Context) = NoBot {
+  def home     = Open(serveHome(using _))
+  def homeLang = LangPage(routes.Storm.home)(serveHome(using _))
+  private def serveHome(using ctx: Context) = NoBot {
+    dataAndHighScore(ctx.me, ctx.pref.some) map { (data, high) =>
+      Ok(views.html.storm.home(data, high)).noCache
+    }
+  }
+
+  private def dataAndHighScore(me: Option[lila.user.User], pref: Option[lila.pref.Pref]) =
     env.storm.selector.apply flatMap { puzzles =>
-      ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
-        Ok(
-          views.html.storm.home(
-            env.storm.json(puzzles, ctx.me),
-            env.storm.json.pref(ctx.pref),
-            high
-          )
-        ).noCache
+      me.?? { u => env.storm.highApi.get(u.id) dmap some } map { high =>
+        env.storm.json(puzzles, me, pref) -> high
       }
+    }
+
+  def apiGet = AnonOrScoped(_.Puzzle.Read) { req => me =>
+    dataAndHighScore(me, none) map { (data, high) =>
+      import lila.storm.StormJson.given
+      JsonOk(data.add("high" -> high))
     }
   }
 
   def record =
-    OpenBody { implicit ctx =>
-      NoBot {
-        given play.api.mvc.Request[?] = ctx.body
-        env.storm.forms.run
-          .bindFromRequest()
-          .fold(
-            _ => fuccess(none),
-            data => env.storm.dayApi.addRun(data, ctx.me)
-          ) map env.storm.json.newHigh map JsonOk
-      }
-    }
+    def doRecord(me: Option[lila.user.User], mobile: Boolean)(using Request[?]) =
+      env.storm.forms.run
+        .bindFromRequest()
+        .fold(
+          _ => fuccess(none),
+          data => env.storm.dayApi.addRun(data, me, mobile = mobile)
+        ) map env.storm.json.newHigh map JsonOk
+    OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write))(
+      open = ctx => NoBot { doRecord(ctx.me, mobile = false)(using ctx.body) }(using ctx),
+      scoped = req => me => doRecord(me.some, mobile = HTTPRequest.isLichessMobile(req))(using req)
+    )
 
   def dashboard(page: Int) =
     Auth { implicit ctx => me =>
