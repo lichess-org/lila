@@ -10,6 +10,8 @@ import chess.Color
 
 object PuzzleForm:
 
+  val maxStreakScore = 250
+
   case class RoundData(
       win: PuzzleWin,
       rated: Boolean,
@@ -27,7 +29,7 @@ object PuzzleForm:
       "rated"       -> boolean,
       "replayDays"  -> optional(numberIn(PuzzleDashboard.dayChoices)),
       "streakId"    -> optional(nonEmptyText),
-      "streakScore" -> optional(number(min = 0, max = 250)),
+      "streakScore" -> optional(number(min = 0, max = maxStreakScore)),
       "color"       -> optional(lila.common.Form.color.mapping)
     )(RoundData.apply)(unapply)
   )

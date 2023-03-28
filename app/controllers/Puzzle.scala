@@ -18,6 +18,7 @@ import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme, PuzzleDifficulty }
 import lila.user.{ User as UserModel }
 import lila.common.LangPath
+import play.api.i18n.Lang
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -160,12 +161,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                       score <- data.streakScore
                       if data.win.no
                       if score > 0
-                      _ = lila.mon.streak.run.score(ctx.isAuth).record(score)
+                      _ = lila.mon.streak.run.score(ctx.isAuth.toString).record(score)
                       userId <- ctx.userId
-                    } {
-                      lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
-                      env.user.repo.addStreakRun(userId, score)
-                    }
+                    } setStreakResult(userId, score)
                     renderJson(puzzle, angle) map { nextJson =>
                       Json.obj("next" -> nextJson)
                     }
@@ -230,25 +228,46 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           } dmap JsonOk
       )
 
-  def streak     = Open(serveStreak(_))
-  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(_))
-  private def serveStreak(implicit ctx: Context) = NoBot {
-    env.puzzle.streak.apply flatMapz { case PuzzleStreak(ids, puzzle) =>
-      env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = ctx.me) map { preJson =>
-        val json = preJson ++ Json.obj("streak" -> ids)
-        Ok(
-          views.html.puzzle
-            .show(
-              puzzle,
-              json,
-              env.puzzle.jsonView.pref(ctx.pref),
-              PuzzleSettings.default,
-              langPath = LangPath(routes.Puzzle.streak).some
-            )
-        ).noCache.enableSharedArrayBuffer
-      }
+  def streak     = Open(serveStreak(using _))
+  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(using _))
+  private def serveStreak(using ctx: Context) = NoBot {
+    streakJsonAndPuzzle.mapz { (json, puzzle) =>
+      Ok(
+        views.html.puzzle
+          .show(
+            puzzle,
+            json,
+            env.puzzle.jsonView.pref(ctx.pref),
+            PuzzleSettings.default,
+            langPath = LangPath(routes.Puzzle.streak).some
+          )
+      ).noCache.enableSharedArrayBuffer
     }
   }
+
+  private def streakJsonAndPuzzle(using Lang) =
+    env.puzzle.streak.apply flatMapz { case PuzzleStreak(ids, puzzle) =>
+      env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none, user = none) map { puzzleJson =>
+        (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
+      }
+    }
+
+  private def setStreakResult(userId: UserId, score: Int) =
+    lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
+    env.user.repo.addStreakRun(userId, score)
+
+  def apiStreak = Action.async { req =>
+    streakJsonAndPuzzle(using reqLang(using req)) mapz { (json, _) => JsonOk(json) }
+  }
+
+  def apiStreakResult(score: Int) =
+    ScopedBody(_.Puzzle.Write) { req => me =>
+      if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
+        lila.mon.streak.run.score("mobile").record(score)
+        setStreakResult(me.id, score)
+        NoContent.toFuccess
+      else BadRequest.toFuccess
+    }
 
   def vote(id: PuzzleId) =
     AuthBody { implicit ctx => me =>
