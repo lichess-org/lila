@@ -268,8 +268,8 @@ final class Swiss(
           ,
           date =>
             env.swiss.api.scheduleNextRound(swiss, date) inject render:
-                case Accepts.Json() => NoContent
-                case _              => Redirect(routes.Swiss.show(id))
+              case Accepts.Json() => NoContent
+              case _              => Redirect(routes.Swiss.show(id))
         )
     }
     AuthOrScopedBody(_.Tournament.Write)(
