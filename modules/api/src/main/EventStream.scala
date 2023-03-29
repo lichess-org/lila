@@ -127,7 +127,7 @@ final class EventStream(
           .map(_.nextId)
           .foreach: nextId =>
             challengeMaker
-              .makeCanceledRematchFor(gameId, me, nextId)
+              .showCanceledRematchFor(gameId, me, nextId)
               .foreach:
                 _.foreach: c =>
                   val json = challengeJson("challengeCanceled")(c) ++ challengeCompat(c, me)
