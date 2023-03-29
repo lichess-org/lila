@@ -28,7 +28,9 @@ $mq-not-col3: $mq-not-small;
   }
 
   &__tournaments,
-  &__simuls {
+  &__simuls,
+  &__leaderboard,
+  &__winners {
     max-height: 20em;
   }
 
@@ -84,7 +86,7 @@ $mq-not-col3: $mq-not-small;
 
   @include breakpoint($mq-col4) {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, fit-content(0));
+    grid-template-rows: repeat(3, fit-content(0));
     grid-template-areas:
       'side   app     app    table'
       'tv     blog    blog   puzzle'
@@ -99,6 +101,14 @@ $mq-not-col3: $mq-not-small;
 
     &__counters {
       margin: 0;
+    }
+
+    &__support {
+      display: flex;
+      flex-flow: column;
+      a {
+        flex: 0 1 auto;
+      }
     }
   }
 
