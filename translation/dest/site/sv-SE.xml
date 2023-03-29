@@ -949,4 +949,5 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="lichessDbExplanation">Rankade spel från alla Lichess spelare</string>
   <string name="switchSides">Växla sida</string>
   <string name="closingAccountWithdrawAppeal">Att avsluta ditt konto kommer att dra tillbaka ditt överklagande</string>
+  <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
 </resources>
