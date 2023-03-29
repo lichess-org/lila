@@ -663,6 +663,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra time to your clock to help cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra clock time</string>
+  <string name="simulAddExtraTimePerPlayer">Add initial time to your clock for each player joining the simul.</string>
+  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Host extra clock time per player</string>
   <string name="lichessTournaments">Lichess tournaments</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
   <string name="timeBeforeTournamentStarts">Time before tournament starts</string>

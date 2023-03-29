@@ -628,6 +628,8 @@
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
+  <string name="simulAddExtraTimePerPlayer">同時対局の参加者 1 人につき何分の形で自分の持時間を増やせます。</string>
+  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">ホスト延長時間（人数比例）</string>
   <string name="lichessTournaments">Lichess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
   <string name="timeBeforeTournamentStarts">開始までの時間</string>

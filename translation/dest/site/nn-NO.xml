@@ -661,6 +661,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="simulClockHint">Fischer klokkesett. Jo fleire spelarar du tar med, jo meir tid kan du trengje.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på di eiga klokka for å makte simultanframsyninga.</string>
   <string name="simulHostExtraTime">Ekstra tid for simultanoppvisaren</string>
+  <string name="simulAddExtraTimePerPlayer">Legg ekstra tenketid til klokka di for kvar spelar som melder seg på simultanspelet.</string>
+  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Ekstra tenketid som simultanverten får for kvar spelar</string>
   <string name="lichessTournaments">Lichess-turnering</string>
   <string name="tournamentFAQ">Spørsmål og svar knytta til arenaturnering</string>
   <string name="timeBeforeTournamentStarts">Tid til turneringa startar</string>

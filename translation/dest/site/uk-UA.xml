@@ -450,7 +450,7 @@
   <string name="importGame">Імпортувати гру</string>
   <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
+  <string name="importGameCaveat">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпортована гра</item>
     <item quantity="few">%s імпортованих гри</item>
