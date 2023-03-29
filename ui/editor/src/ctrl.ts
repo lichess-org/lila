@@ -10,7 +10,7 @@ import { Role, Rules } from 'shogiops/types';
 import { toBW } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
 import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variant/util';
-import { initializePosition } from 'shogiops/variant/variant';
+import { defaultPosition, initializePosition } from 'shogiops/variant/variant';
 import { EditorData, EditorOptions, EditorState, OpeningPosition, Redraw, Selected } from './interfaces';
 import { makeConfig } from './shogiground';
 
@@ -202,17 +202,42 @@ export default class EditorCtrl {
   }
 
   fillGotesHand(): void {
-    const pos = this.getPosition();
-    const senteHand = pos.hands.color('sente');
+    const pos = this.getPosition(),
+      senteHand = pos.hands.color('sente'),
+      startingBoard = defaultPosition(this.rules).board;
 
     const pieceCounts: { [index: string]: number } = {
-      lance: 4 - pos.board.role('lance').size() - pos.board.role('promotedlance').size() - senteHand.get('lance'),
-      knight: 4 - pos.board.role('knight').size() - pos.board.role('promotedknight').size() - senteHand.get('knight'),
-      silver: 4 - pos.board.role('silver').size() - pos.board.role('promotedsilver').size() - senteHand.get('silver'),
-      gold: 4 - pos.board.role('gold').size() - senteHand.get('gold'),
-      pawn: 18 - pos.board.role('pawn').size() - pos.board.role('tokin').size() - senteHand.get('pawn'),
-      bishop: 2 - pos.board.role('bishop').size() - pos.board.role('horse').size() - senteHand.get('bishop'),
-      rook: 2 - pos.board.role('rook').size() - pos.board.role('dragon').size() - senteHand.get('rook'),
+      lance:
+        startingBoard.role('lance').size() -
+        pos.board.role('lance').size() -
+        pos.board.role('promotedlance').size() -
+        senteHand.get('lance'),
+      knight:
+        startingBoard.role('knight').size() -
+        pos.board.role('knight').size() -
+        pos.board.role('promotedknight').size() -
+        senteHand.get('knight'),
+      silver:
+        startingBoard.role('silver').size() -
+        pos.board.role('silver').size() -
+        pos.board.role('promotedsilver').size() -
+        senteHand.get('silver'),
+      gold: startingBoard.role('gold').size() - pos.board.role('gold').size() - senteHand.get('gold'),
+      pawn:
+        startingBoard.role('pawn').size() -
+        pos.board.role('pawn').size() -
+        pos.board.role('tokin').size() -
+        senteHand.get('pawn'),
+      bishop:
+        startingBoard.role('bishop').size() -
+        pos.board.role('bishop').size() -
+        pos.board.role('horse').size() -
+        senteHand.get('bishop'),
+      rook:
+        startingBoard.role('rook').size() -
+        pos.board.role('rook').size() -
+        pos.board.role('dragon').size() -
+        senteHand.get('rook'),
     };
     const goteHand = Hand.empty();
 
