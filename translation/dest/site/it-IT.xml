@@ -949,4 +949,5 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="lichessDbExplanation">Partite classificate di tutti i giocatori di Lichess</string>
   <string name="switchSides">Cambia colore</string>
   <string name="closingAccountWithdrawAppeal">Se cancelli il tuo account il tuo appello sarà ritirato</string>
+  <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
 </resources>
