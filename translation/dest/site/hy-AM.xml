@@ -206,6 +206,8 @@
   <string name="email">Էլ. փոստ</string>
   <string name="passwordReset">Վերականգնել գաղտնաբառը</string>
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
+  <string name="error.weakPassword">Այդ գաղտնաբառը շատ տարածված է, և այն չափազանց հեշտ է գուշակել։</string>
+  <string name="error.namePassword">Խնդրում ենք՝ Ձեր մասնակցային անունը մի՛ օգտագործեք որպես գաղտնաբառ։</string>
   <string name="youAreLeavingLichess">Դուք լքում եք Lichess-ը</string>
   <string name="neverTypeYourPassword">Երբեք մի՛ մուտքագրեք Lichess-ի գաղտնաբառը այլ կայքերում։</string>
   <string name="emailConfirmHelp">Օգնություն էլեկտրոնային փոստի հաստատման հարցում</string>
@@ -911,4 +913,5 @@
   <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
   <string name="switchSides">Փոխել կողմը</string>
   <string name="closingAccountWithdrawAppeal">Ձեր մասնակցային հաշվի փակումը կչեղարկի Ձեր դիմումը</string>
+  <string name="ourEventTips">Մեր խորհուրդները միջոցառումներ կազմակերպելու հարցում</string>
 </resources>
