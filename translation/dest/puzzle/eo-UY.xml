@@ -23,6 +23,8 @@
   <string name="keepGoing">Daŭrigu…</string>
   <string name="puzzleSuccess">Sukceso!</string>
   <string name="puzzleComplete">Puzlo kompletigita!</string>
+  <string name="byOpenings">Laŭ malfermoj</string>
+  <string name="puzzlesByOpenings">Puzloj laŭ malfermoj</string>
   <string name="notTheMove">Tiu ne estas la movo!</string>
   <string name="trySomethingElse">Provu ion alian.</string>
   <string name="ratingX">Taksado: %s</string>

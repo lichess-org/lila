@@ -104,8 +104,6 @@ object OAuthScope:
     I18nKey("External engine") -> List(Engine.Read, Engine.Write)
   )
 
-  val allButWeb = all.filterNot(_.key startsWith "web:")
-
   val dangerList: Set[OAuthScope] = Set(
     Team.Lead,
     Web.Login,

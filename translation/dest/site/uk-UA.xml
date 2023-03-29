@@ -740,6 +740,7 @@
   <string name="simulClockHint">Налаштування годинника Фішера. Чим більше учасників, тим більше часу Вам знадобиться.</string>
   <string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>
   <string name="simulHostExtraTime">Додатковий час організатора</string>
+  <string name="simulAddExtraTimePerPlayer">Додавайте початковий час до вашого годинника для кожного гравця, що приєднується до сеансу.</string>
   <string name="lichessTournaments">Турніри Lichess</string>
   <string name="tournamentFAQ">ЧаПи про турнір Арена</string>
   <string name="timeBeforeTournamentStarts">Час до початку турніру</string>
@@ -1032,4 +1033,5 @@
   <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
+  <string name="ourEventTips">Наші поради щодо організації подій</string>
 </resources>
