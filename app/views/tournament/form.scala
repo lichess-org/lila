@@ -26,6 +26,13 @@ object form:
             else trans.createANewTournament()
           ),
           postForm(cls := "form3", action := routes.Tournament.create)(
+            frag(
+              div(cls := "form-group")(
+                a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+                  trans.ourEventTips()
+                )
+              )
+            ),
             form3.globalError(form),
             fields.name,
             form3.split(fields.rated, fields.variant),
