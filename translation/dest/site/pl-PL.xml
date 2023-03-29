@@ -733,7 +733,7 @@
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
   <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
   <string name="simulAddExtraTimePerPlayer">Dodaj początkowy czas do zegara dla każdego gracza dołączającego do symultany.</string>
-  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Dodatkowy czas dla symultanisty za każdego gracza</string>
+  <string name="simulHostExtraTimePerPlayer">Dodatkowy czas dla symultanisty za każdego gracza</string>
   <string name="lichessTournaments">Turnieje Lichess</string>
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
