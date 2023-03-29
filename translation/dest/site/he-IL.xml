@@ -733,7 +733,7 @@
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
   <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>
   <string name="simulAddExtraTimePerPlayer">הוספת זמן לשעון שלך בכל פעם שמצטרף/ת שחקן/ית למשחק הסימולטני.</string>
-  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">זמן נוסף למארח/ת עבור כל שחקן/ית שמצטרף/ת</string>
+  <string name="simulHostExtraTimePerPlayer">זמן נוסף למארח/ת עבור כל שחקן/ית שמצטרף/ת</string>
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
