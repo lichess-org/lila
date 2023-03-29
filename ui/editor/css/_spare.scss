@@ -65,12 +65,18 @@
 }
 
 .board-editor.variant-minishogi .spare .no-square {
-  flex: 0 0 calc(100% / 6);
+  flex: 0 0 calc(100% / 7);
 }
 
 .board-editor.variant-chushogi .spare .no-square {
   flex: 0 0 calc(100% / 12);
+  &.pointer {
+    order: 1;
+  }
   @include breakpoint($mq-x-small) {
     flex: 0 0 calc(100% / 22);
+    &.pointer {
+      order: unset;
+    }
   }
 }

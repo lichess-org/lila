@@ -4,7 +4,7 @@ import { colors, MouchEvent } from 'shogiground/types';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
 import { parseSfen } from 'shogiops/sfen';
 import { Piece, Role, Rules } from 'shogiops/types';
-import { allRoles, handRoles } from 'shogiops/variant/util';
+import { allRoles, handRoles, promote } from 'shogiops/variant/util';
 import { VNode, h } from 'snabbdom';
 import EditorCtrl from './ctrl';
 import { EditorState, OpeningPosition, Selected } from './interfaces';
@@ -411,8 +411,17 @@ function selectedToClass(s: Selected): string {
 function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, position: 'top' | 'bottom'): VNode {
   const selectedClass = selectedToClass(ctrl.selected());
 
-  const pieces = allRoles(ctrl.rules).map(function (role) {
-    return [color, role];
+  // Assumes correct css flex-basis
+  const baseRoles: (Role | 'skip')[] = [],
+    promotedRoles: (Role | 'skip')[] = [];
+  allRoles(ctrl.rules).forEach(r => {
+    if (!promotedRoles.includes(r)) {
+      baseRoles.push(r);
+      const promoted = promote(ctrl.rules)(r);
+      if (promoted) {
+        promotedRoles.push(promoted);
+      } else promotedRoles.push('skip');
+    }
   });
 
   return h(
@@ -422,14 +431,16 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
         class: ['spare', 'spare-' + position, 'spare-' + color].join(' '),
       },
     },
-    [...pieces, 'trash', 'pointer'].map((s: Selected) => {
-      const className = selectedToClass(s);
+    [...baseRoles, 'pointer', ...promotedRoles, 'trash'].map((s: 'pointer' | 'trash' | 'skip' | Role) => {
+      if (s === 'skip') return h('div.no-square');
+      const sel: Selected = s !== 'trash' && s !== 'pointer' ? [color, s] : s;
+      const className = selectedToClass(sel);
       const attrs = {
         class: className,
-        ...(s !== 'pointer' && s !== 'trash'
+        ...(sel !== 'pointer' && sel !== 'trash'
           ? {
-              'data-color': s[0],
-              'data-role': s[1],
+              'data-color': sel[0],
+              'data-role': sel[1],
             }
           : {}),
       };
@@ -438,15 +449,15 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
         {
           class: {
             'no-square': true,
-            pointer: s === 'pointer',
-            trash: s === 'trash',
+            pointer: sel === 'pointer',
+            trash: sel === 'trash',
             'selected-square': selectedClass === className,
           },
           on: {
-            mousedown: selectSPStart(ctrl, s),
-            mouseup: selectSPEnd(ctrl, s),
-            touchstart: selectSPStart(ctrl, s),
-            touchend: selectSPEnd(ctrl, s),
+            mousedown: selectSPStart(ctrl, sel),
+            mouseup: selectSPEnd(ctrl, sel),
+            touchstart: selectSPStart(ctrl, sel),
+            touchend: selectSPEnd(ctrl, sel),
           },
         },
         [h('div', [h('piece', { attrs })])]
