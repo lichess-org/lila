@@ -662,6 +662,8 @@
   <string name="simulClockHint">Configuração de acréscimos no relógio. Quanto mais jogadores admitir, mais tempo pode necessitar.</string>
   <string name="simulAddExtraTime">Você pode acrescentar tempo adicional a seu relógio, para ajudá-lo a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do simultanista</string>
+  <string name="simulAddExtraTimePerPlayer">Adicionar tempo inicial ao seu relógio por cada jogador adversário que entrar na simultânea.</string>
+  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Tempo adicional do simultanista por jogador</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
   <string name="tournamentFAQ">Perguntas Frequentes sobre torneios no estilo Arena</string>
   <string name="timeBeforeTournamentStarts">Contagem regressiva para início do torneio</string>
