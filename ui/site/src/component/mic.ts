@@ -15,7 +15,7 @@ export const mic: Voice.Microphone =
     voskStatus = '';
     busy = false;
     interrupt = false;
-    pauseStack = 1;
+    paused = 1;
     listeners = new Map<string, Voice.Listener>();
 
     constructor() {
@@ -41,20 +41,19 @@ export const mic: Voice.Microphone =
     get isBusy(): boolean {
       return this.busy;
     }
+
     get status(): string {
       return this.voskStatus;
     }
-    set status(status: string) {
-      this.voskStatus = status;
-    }
+
     get isRecording(): boolean {
-      return this.pauseStack === 0 && !this.busy;
+      return this.paused === 0 && !this.busy && this.mediaStream?.getAudioTracks()[0].enabled === true;
     }
 
     stop() {
-      this.pauseStack = 1;
+      this.paused = 1;
       this.download?.abort();
-      this.mediaStream?.getAudioTracks().forEach(track => (track.enabled = false));
+      this.mediaStream?.getAudioTracks().forEach(t => (t.enabled = false));
       if (!this.download) this.broadcast('', 'stop');
       this.download = undefined;
     }
@@ -63,7 +62,7 @@ export const mic: Voice.Microphone =
       let [msgText, msgType] = ['Unknown', 'error' as Voice.MsgType];
       try {
         if (this.isRecording) return;
-        this.pauseStack = 0;
+        this.paused = 0;
         this.busy = true;
         await this.initModel();
         await this.initKaldi();
@@ -86,16 +85,16 @@ export const mic: Voice.Microphone =
       }
     }
 
-    // these methods are dangerous, don't use unless you have to and always put popPause in a finally block
-    pushPause() {
-      if (++this.pauseStack !== 1 || !this.mediaStream?.getAudioTracks()[0].enabled) return;
+    // pause/resume use a counter and must be balanced.
+    pause() {
+      if (++this.paused !== 1 || !this.mediaStream?.getAudioTracks()[0].enabled) return;
       this.mediaStream.getAudioTracks()[0].enabled = false;
       this.broadcast('Paused...', 'status');
     }
 
-    popPause() {
-      this.pauseStack = Math.min(this.pauseStack - 1, 0);
-      if (this.pauseStack !== 0 || this.mediaStream?.getAudioTracks()[0].enabled !== false) return;
+    resume() {
+      this.paused = Math.min(this.paused - 1, 0);
+      if (this.paused !== 0 || this.mediaStream?.getAudioTracks()[0].enabled !== false) return;
       this.mediaStream.getAudioTracks()[0].enabled = true;
       this.broadcast('Listening...', 'status');
     }
@@ -145,7 +144,7 @@ export const mic: Voice.Microphone =
       forMs = 0
     ) {
       window.clearTimeout(this.broadcastTimeout);
-      this.status = text;
+      this.voskStatus = text;
       for (const li of [...this.listeners.values()].reverse()) {
         if (!this.interrupt) li(text, msgType, words);
       }

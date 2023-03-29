@@ -206,7 +206,7 @@ declare namespace Voice {
   }>;
 
   export type Listener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
-  // return true to stop propagation
+
   export interface Microphone {
     // keep rounds, puzzle, move stuff out of this
     setVocabulary: (vocabulary: string[]) => Promise<void>;
@@ -214,8 +214,8 @@ declare namespace Voice {
     start: () => Promise<void>; // initialize if necessary and begin recording
     stop: () => void; // stop recording/downloading/whatever
 
-    pushPause: () => void; // pause recording, dangerous
-    popPause: () => void; // resume recording, dangerous
+    pause: () => void; // pause recording, no overhead
+    resume: () => void; // resume recording, dangerous
 
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
     readonly isRecording: boolean; // are we recording?
