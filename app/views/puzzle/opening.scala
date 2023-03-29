@@ -16,7 +16,7 @@ object opening:
       ctx: Context
   ) =
     views.html.base.layout(
-      title = trans.puzzle.puzzlesByOpenings(),
+      title = trans.puzzle.puzzlesByOpenings.txt(),
       moreCss = cssTag("puzzle.page"),
       moreJs = jsModule("puzzle.opening")
     )(
