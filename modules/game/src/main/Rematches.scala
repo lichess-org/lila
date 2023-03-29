@@ -31,10 +31,10 @@ final class Rematches(idGenerator: IdGenerator)(using Executor):
 
   def isOffering(pov: PovRef) = getOffered(pov.gameId).exists(_.by == pov.color)
 
-  def offer(pov: PovRef): Fu[GameId] = (getOffered(pov.gameId) match {
+  def offer(pov: PovRef): Fu[GameId] = (getOffered(pov.gameId) match
     case Some(existing) => fuccess(existing.copy(by = pov.color))
     case None           => idGenerator.game map { NextGame.Offered(pov.color, _) }
-  }) map { offer =>
+  ) map { offer =>
     cache.put(pov.gameId, offer)
     offeredReverseLookup.put(offer.nextId, pov.gameId)
     offer.nextId

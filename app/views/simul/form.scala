@@ -111,6 +111,16 @@ object form:
         )(
           form3.select(_, clockExtraChoices)
         ),
+        form3.group(
+          form("clockExtraPerPlayer"),
+          trans.simulHostExtraTimePerPlayer(),
+          help = trans.simulAddExtraTimePerPlayer().some,
+          half = true
+        )(
+          form3.select(_, clockExtraPerPlayerChoices)
+        )
+      ),
+      form3.split(
         form3.group(form("color"), trans.simulHostcolor(), half = true)(
           form3.select(_, colorChoices)
         )

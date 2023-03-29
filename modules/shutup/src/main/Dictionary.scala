@@ -313,7 +313,7 @@ wichser
 am[iı]na (koyay[iı]m|koy?dum)
 amc[iı]k
 anan[iı]n am[iı]
-ann?an[iı](zi)? s[ii̇]k[eii̇]y[ii̇]m
+((ann?an[iı](z[iı])?)|(kar[iı]n[iı](z[iı])?)|(avrad[iı]n[iı](z[iı])?)) (s[ii̇]k[ei](yim|cem|rim|m))
 aptal
 beyinsiz
 bok yedin
@@ -321,12 +321,12 @@ ezik
 gerizekal[iı]
 ibne
 ka[sş]ar
-oç
-orospu( ([çc]o[çc]u[ğg]?u|evlad[ıi]))?
+oç+
+[ou]r[ou]s[pb]u( ([çc]o[çc]u[ğg]?u|evlad[ıi]))?
 piç(lik)?
 pu[sş]t
 salak
-s[ii̇]kecem
+s[ii̇]k[ei](yim|cem|rim|m)
 sikiyonuz
 s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz

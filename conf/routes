@@ -384,7 +384,7 @@ POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id)
 GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id, page: Int)
 GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id, user)
 GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id, user)
-POST  /swiss/$id<\w{8}>/schedule-next-round   controllers.Swiss.scheduleNextRound(id)
+POST  /api/swiss/$id<\w{8}>/schedule-next-round controllers.Swiss.scheduleNextRound(id)
 GET   /$lang<\w\w\w?>/swiss                   controllers.Swiss.homeLang(lang)
 
 # Simul

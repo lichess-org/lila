@@ -257,17 +257,25 @@ final class Swiss(
     }
 
   def scheduleNextRound(id: SwissId) =
-    AuthBody { implicit ctx => me =>
-      WithEditableSwiss(id, me) { swiss =>
-        given play.api.mvc.Request[?] = ctx.body
-        env.swiss.forms.nextRound
-          .bindFromRequest()
-          .fold(
-            _ => Redirect(routes.Swiss.show(id)).toFuccess,
-            date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))
-          )
-      }
+    def doSchedule(using Request[?])(me: UserModel) = WithEditableSwiss(id, me) { swiss =>
+      env.swiss.forms.nextRound
+        .bindFromRequest()
+        .fold(
+          err =>
+            render.async:
+              case Accepts.Json() => newJsonFormError(err)(using reqLang)
+              case _              => Redirect(routes.Swiss.show(id)).toFuccess
+          ,
+          date =>
+            env.swiss.api.scheduleNextRound(swiss, date) inject render:
+                case Accepts.Json() => NoContent
+                case _              => Redirect(routes.Swiss.show(id))
+        )
     }
+    AuthOrScopedBody(_.Tournament.Write)(
+      auth = ctx => doSchedule(using ctx.body),
+      scoped = req => doSchedule(using req)
+    )
 
   def terminate(id: SwissId) =
     Auth { implicit ctx => me =>

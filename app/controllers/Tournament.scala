@@ -300,9 +300,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       isPrivate: Boolean,
       req: RequestHeader,
       fail: => Result
-  )(
-      create: => Fu[Result]
-  ): Fu[Result] =
+  )(create: => Fu[Result]): Fu[Result] =
     val cost =
       if (isGranted(_.ManageTournament, me)) 2
       else if (
