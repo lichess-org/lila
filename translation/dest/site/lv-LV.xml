@@ -698,7 +698,7 @@
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
   <string name="simulHostExtraTime">Papildu laiks vadītājam</string>
   <string name="simulAddExtraTimePerPlayer">Pievienot papildu laiku jūsu pulkstenim par katru spēlētāju, kas pievienojas simultānseansam.</string>
-  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Papildus laiks vadītājam par katru spēlētāju</string>
+  <string name="simulHostExtraTimePerPlayer">Papildus laiks vadītājam par katru spēlētāju</string>
   <string name="lichessTournaments">Lichess turnīri</string>
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
