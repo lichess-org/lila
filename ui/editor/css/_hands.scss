@@ -66,6 +66,13 @@
     &.r-5 {
       padding-bottom: calc(100% / 5 / 11 * 12);
     }
+    sg-hp-wrap {
+      &::after {
+        font-size: 1em;
+        bottom: 0;
+        right: 0;
+      }
+    }
     sg-hp-wrap[data-nb='0'] {
       opacity: 0.5 !important;
       &::after {

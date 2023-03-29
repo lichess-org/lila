@@ -32,6 +32,13 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
     &.pos-bottom {
       grid-area: e-hand-bot;
     }
+    .sg-hand-wrap {
+      sg-hp-wrap {
+        &::after {
+          font-size: 0.8em;
+        }
+      }
+    }
   }
   sg-board {
     cursor: inherit;
