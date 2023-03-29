@@ -442,7 +442,7 @@
   <string name="toStudy">Do studie</string>
   <string name="importGame">Importuj hru</string>
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Varianty budou vymazány. Chcete-li je ponechat, importujte PGN prostřednictvím studie.</string>
+  <string name="importGameCaveat">Varianty budou vymazány. Chcete-li je ponechat, importujte PGN prostřednictvím studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná</item>
     <item quantity="few">%s importované</item>
