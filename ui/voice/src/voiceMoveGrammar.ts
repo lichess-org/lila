@@ -1,12 +1,11 @@
 // *************************** this file is generated. see ui/voice/@build/README.md ***************************
 
-export type Sub = { to: string, cost: number };
-export type Entry = { in: string, tok: string, tags: string[], val?: string, subs?: Sub[] };
+export type Sub = { to: string; cost: number };
+export type Entry = { in: string; tok: string; tags: string[]; val?: string; subs?: Sub[] };
 
 export const lexicon: Entry[] = [
   {
     in: 'a',
-    val: 'undefined',
     tok: 'a',
     tags: ['file', 'move'],
     subs: [
@@ -21,7 +20,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'b',
-    val: 'undefined',
     tok: 'b',
     tags: ['file', 'move'],
     subs: [
@@ -33,7 +31,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'c',
-    val: 'undefined',
     tok: 'c',
     tags: ['file', 'move'],
     subs: [
@@ -46,7 +43,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'd',
-    val: 'undefined',
     tok: 'd',
     tags: ['file', 'move'],
     subs: [
@@ -63,7 +59,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'e',
-    val: 'undefined',
     tok: 'e',
     tags: ['file', 'move'],
     subs: [
@@ -78,7 +73,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'f',
-    val: 'undefined',
     tok: 'f',
     tags: ['file', 'move'],
     subs: [
@@ -91,7 +85,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'g',
-    val: 'undefined',
     tok: 'g',
     tags: ['file', 'move'],
     subs: [
@@ -104,7 +97,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'h',
-    val: 'undefined',
     tok: 'h',
     tags: ['file', 'move'],
     subs: [
@@ -117,7 +109,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'one',
-    val: 'undefined',
     tok: '1',
     tags: ['rank', 'move'],
     subs: [
@@ -129,7 +120,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'two',
-    val: 'undefined',
     tok: '2',
     tags: ['rank', 'move'],
     subs: [
@@ -143,7 +133,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'three',
-    val: 'undefined',
     tok: '3',
     tags: ['rank', 'move'],
     subs: [
@@ -156,7 +145,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'four',
-    val: 'undefined',
     tok: '4',
     tags: ['rank', 'move'],
     subs: [
@@ -169,7 +157,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'five',
-    val: 'undefined',
     tok: '5',
     tags: ['rank', 'move'],
     subs: [
@@ -182,7 +169,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'six',
-    val: 'undefined',
     tok: '6',
     tags: ['rank', 'move'],
     subs: [
@@ -196,7 +182,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'seven',
-    val: 'undefined',
     tok: '7',
     tags: ['rank', 'move'],
     subs: [
@@ -210,7 +195,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'eight',
-    val: 'undefined',
     tok: '8',
     tags: ['rank', 'move'],
     subs: [
@@ -225,7 +209,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'pawn',
-    val: 'undefined',
     tok: 'P',
     tags: ['role', 'move'],
     subs: [
@@ -237,7 +220,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'knight',
-    val: 'undefined',
     tok: 'N',
     tags: ['role', 'move'],
     subs: [
@@ -249,7 +231,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'bishop',
-    val: 'undefined',
     tok: 'B',
     tags: ['role', 'move'],
     subs: [
@@ -260,7 +241,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'rook',
-    val: 'undefined',
     tok: 'R',
     tags: ['role', 'move'],
     subs: [
@@ -270,7 +250,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'queen',
-    val: 'undefined',
     tok: 'Q',
     tags: ['role', 'move'],
     subs: [
@@ -281,7 +260,6 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'king',
-    val: 'undefined',
     tok: 'K',
     tags: ['role', 'move'],
     subs: [
@@ -766,21 +744,18 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'short',
-    val: 'undefined',
     tok: 'r',
     tags: ['part'],
     subs: [{ to: '', cost: 0.5 }],
   },
   {
     in: 'side',
-    val: 'undefined',
     tok: 's',
     tags: ['part'],
     subs: [{ to: '', cost: 0.5 }],
   },
   {
     in: 'long',
-    val: 'undefined',
     tok: 't',
     tags: ['part'],
     subs: [
@@ -791,17 +766,14 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'offer',
-    val: 'undefined',
     tok: 'u',
     tags: ['part'],
     subs: [{ to: '', cost: 0.5 }],
   },
   {
     in: 'accept',
-    val: 'undefined',
     tok: 'v',
     tags: ['part'],
     subs: [{ to: '', cost: 0.5 }],
   },
-]
-;
+];

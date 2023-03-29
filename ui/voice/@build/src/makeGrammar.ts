@@ -333,7 +333,9 @@ class Builder {
       this.lexicon
         .map(
           e =>
-            `in: '${e.in}',\n    val: '${e.val}',\n    tok: '${e.tok}',\n    ` +
+            `in: '${e.in}',\n    ` +
+            (e.val !== undefined ? `val: '${e.val ?? ''}',\n    ` : '') +
+            `tok: '${e.tok}',\n    ` +
             `tags: [${e.tags?.map(t => `'${t}'`).join(', ')}],` +
             (e.subs
               ? `\n    subs: [${e.subs.length > 1 ? '\n      ' : ''}${e.subs

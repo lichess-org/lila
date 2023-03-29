@@ -83,7 +83,7 @@ class VoiceMoveCtrl implements VoiceMove {
   arrowColors = storedBooleanProp('voice.useColors', true);
   nArrogance: number; // same as arrogance, just cached
 
-  debug = { emptyMatches: false, buildMoves: false, buildPartials: false };
+  debug = { emptyMatches: false, buildMoves: true, buildPartials: false };
 
   brushes: [string, DrawBrush][] = [
     ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],
@@ -112,10 +112,10 @@ class VoiceMoveCtrl implements VoiceMove {
 
   // update is called by the root controller when the board position changes
   update(step: { fen: string } /*, yourMove?: boolean*/) {
-    if (this.cg && this.cg !== this.root.chessground) console.log('chessground dancing');
     this.cg = this.root.chessground;
     this.board = cs.readFen(step.fen);
-    this.ucis = cs.destsToUcis(this.cg.state.movable.dests ?? new Map());
+    if (!this.cg.state.movable.dests) return;
+    this.ucis = cs.destsToUcis(this.cg.state.movable.dests);
     this.xvalsToMoves = this.buildMoves();
     this.xvalsToSquares = this.buildPartials();
     if (!('v-pink' in this.cg.state.drawable.brushes))

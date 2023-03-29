@@ -1,6 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
+import { isMobile } from 'common/mobile';
 
 declare class Howl {
   constructor(opts: { src: string | string[] });
@@ -100,14 +101,18 @@ const sound: SoundI = new (class {
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
+    console.log('say', text, cut, force, translated);
     if (cut) speechSynthesis.cancel();
     if (!this.speechStorage.get() && !force) return false;
 
     const msg = new SpeechSynthesisUtterance(text);
     msg.volume = this.getVolume();
     msg.lang = translated ? document.documentElement!.lang : 'en-US';
-    msg.onstart = _ => lichess.mic?.pushPause();
-    msg.onend = msg.onerror = _ => lichess.mic?.popPause();
+    if (!isMobile()) {
+      // iOS doesn't fire these events right, but mobile mics don't seem to feed back
+      msg.onstart = _ => lichess.mic?.pushPause();
+      msg.onend = msg.onerror = _ => lichess.mic?.popPause();
+    }
     speechSynthesis.speak(msg);
     return true;
   };
