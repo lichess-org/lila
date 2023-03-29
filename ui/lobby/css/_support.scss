@@ -1,7 +1,6 @@
 $c-support: $c-brag;
 
 .lobby__support {
-  gap: $block-gap;
   a {
     @extend %flex-center-nowrap, %box-neat;
 
