@@ -20,7 +20,7 @@ $mq-not-col3: $mq-not-small;
 .lobby {
   grid-area: main;
   display: grid;
-  grid-template-areas: 'app' 'table' 'side' 'blog' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'support' 'about' '.';
+  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'about';
   grid-gap: $block-gap;
 
   &__counters {
@@ -34,44 +34,46 @@ $mq-not-col3: $mq-not-small;
     max-height: 20em;
   }
 
+  .timeline {
+    display: none;
+  }
+
   @include breakpoint($mq-col2) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(3, fit-content(0));
     grid-template-areas:
-      'table  table'
       'app    app'
-      'side   tv'
-      'side   puzzle'
+      'side  table'
       'blog   blog'
-      'leader winner'
+      'tv   puzzle'
+      'support support'
       'tours  tours'
-      'about  support';
+      'leader winner'
+      'about  about';
+
+    &__support {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 2%;
+    }
   }
 
   @include breakpoint($mq-col3) {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 12em repeat(2, fit-content(0)) auto auto 20em;
+    grid-template-rows: 12em repeat(2, fit-content(0)) auto auto fit-content(0);
     grid-template-areas:
-      'table   app     app'
-      'side    app     app'
-      'tv      blog    blog'
-      'tv      support support'
-      'tv  tours   tours'
-      'puzzle  tours   tours'
-      'puzzle leader    winner'
-      'about  leader    winner';
+      'table  app     app'
+      'side   app     app'
+      'tv     blog    blog'
+      'tv     support support'
+      'puzzle tours   tours'
+      'puzzle leader  winner'
+      'about  leader  winner';
 
     &__start {
       flex-flow: column;
       align-items: stretch;
       justify-content: center;
-    }
-    &__support {
-      display: flex;
-      flex-flow: row nowrap;
-      a {
-        flex: 1 1 auto;
-      }
     }
 
     &__counters {
@@ -79,6 +81,7 @@ $mq-not-col3: $mq-not-small;
     }
 
     .timeline {
+      display: block;
       margin-#{$start-direction}: 0;
     }
   }
@@ -104,6 +107,7 @@ $mq-not-col3: $mq-not-small;
     &__support {
       display: flex;
       flex-flow: column;
+      gap: $block-gap;
       a {
         flex: 0 1 auto;
       }
