@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.annotation.nowarn
 import scala.util.chaining.*
 import views.html
 

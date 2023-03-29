@@ -9,7 +9,6 @@ import ch.qos.logback.classic.util.ContextInitializer
 import ch.qos.logback.core.util._
 import org.slf4j.{ LoggerFactory, ILoggerFactory }
 import org.slf4j.bridge._
-import play.api.Mode
 
 private object LoggerConfigurator {
 

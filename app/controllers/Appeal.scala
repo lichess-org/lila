@@ -22,7 +22,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     }
 
   def landing =
-    Auth { implicit ctx => me =>
+    Auth { implicit ctx => _ =>
       if (ctx.isAppealUser || isGranted(_.Appeals))
         pageHit
         OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
@@ -119,7 +119,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def mute(username: UserStr) =
     Secure(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
+      asMod(username) { (appeal, _) =>
         env.appeal.api.toggleMute(appeal) >>
           env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)
@@ -128,14 +128,14 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def sendToZulip(username: UserStr) =
     Secure(_.SendToZulip) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
+      asMod(username) { (_, suspect) =>
         env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
       }
     }
 
   def snooze(username: UserStr, dur: String) =
     Secure(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
+      asMod(username) { (appeal, _) =>
         env.appeal.api.snooze(me.user, appeal.id, dur)
         env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)

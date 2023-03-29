@@ -4,7 +4,6 @@ import alleycats.Zero
 import play.api.data.FormError
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.annotation.nowarn
 import views.*
 
 import lila.api.Context
@@ -477,7 +476,7 @@ final class Auth(
       }
     }
 
-  def magicLinkSent(email: String) =
+  def magicLinkSent =
     Open { implicit ctx =>
       fuccess {
         Ok(html.auth.bits.magicLinkSent)
@@ -541,7 +540,7 @@ final class Auth(
         }
     }
 
-  def loginWithTokenPost(token: String, referrer: Option[String]) =
+  def loginWithTokenPost(token: String) =
     Open { implicit ctx =>
       if (ctx.isAuth) Redirect(getReferrer).toFuccess
       else
