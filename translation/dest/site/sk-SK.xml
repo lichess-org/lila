@@ -733,7 +733,7 @@
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
   <string name="simulAddExtraTimePerPlayer">Za každého hráča, ktorý sa pripojí k simultánke, navýšiť čas na Vašich hodinách o počiatočný čas partie.</string>
-  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Navýšiť čas na hodinách za každého hráča</string>
+  <string name="simulHostExtraTimePerPlayer">Navýšiť čas na hodinách za každého hráča</string>
   <string name="lichessTournaments">Lichess turnaje</string>
   <string name="tournamentFAQ">Často kladené otázky pre turnajovú arénu</string>
   <string name="timeBeforeTournamentStarts">Čas do štartu turnaja</string>
@@ -1027,4 +1027,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
   <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
+  <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
 </resources>

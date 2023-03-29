@@ -28,6 +28,11 @@
   <string name="keepGoing">Продовжуйте...</string>
   <string name="puzzleSuccess">Успіх!</string>
   <string name="puzzleComplete">Задача вирішена!</string>
+  <string name="byOpenings">За дебютами</string>
+  <string name="puzzlesByOpenings">Задачі за дебютами</string>
+  <string name="openingsYouPlayedTheMost">Дебюти, які ви грали найбільше в рейтингових іграх</string>
+  <string name="useFindInPage">Використайте \"Знайти на сторінці\" в меню браузера, щоб знайти свій улюблений дебют!</string>
+  <string name="useCtrlF">Використайте Ctrl+F, щоб знайти свій улюблений дебют!</string>
   <string name="notTheMove">Поганий хід!</string>
   <string name="trySomethingElse">Спробуйте щось інше.</string>
   <string name="ratingX">Рейтинг: %s</string>

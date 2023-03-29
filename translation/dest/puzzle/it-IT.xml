@@ -28,6 +28,11 @@
   <string name="keepGoing">Continua così…</string>
   <string name="puzzleSuccess">Risolto!</string>
   <string name="puzzleComplete">Problema completato!</string>
+  <string name="byOpenings">Per apertura</string>
+  <string name="puzzlesByOpenings">Puzzle ordinati per apertura</string>
+  <string name="openingsYouPlayedTheMost">Aperture che hai giocato di più nelle partite classificate</string>
+  <string name="useFindInPage">Usa \"Trova nella pagina\" nel menu del browser per trovare la tua apertura preferita!</string>
+  <string name="useCtrlF">Usa Ctrl+F per trovare la tua apertura preferita!</string>
   <string name="notTheMove">Non è la mossa esatta!</string>
   <string name="trySomethingElse">Prova qualcos\'altro.</string>
   <string name="ratingX">Punteggio: %s</string>

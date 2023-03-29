@@ -27,6 +27,9 @@
   <string name="keepGoing">Fortsätt…</string>
   <string name="puzzleSuccess">Rätt!</string>
   <string name="puzzleComplete">Problemet klart!</string>
+  <string name="byOpenings">Efter öppningar</string>
+  <string name="puzzlesByOpenings">Schackproblem efter öppningar</string>
+  <string name="openingsYouPlayedTheMost">Öppningar som du spelade mest i rankade partier</string>
   <string name="notTheMove">Det är inte rätt drag!</string>
   <string name="trySomethingElse">Prova något annat.</string>
   <string name="ratingX">Rating: %s</string>

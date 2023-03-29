@@ -662,6 +662,8 @@
   <string name="simulClockHint">Configuración de reloj Fischer. Cuantos más oponentes, más tiempo se necesita.</string>
   <string name="simulAddExtraTime">Puedes añadir tiempo adicional a tu reloj para ayudarte en la simultánea.</string>
   <string name="simulHostExtraTime">Tiempo extra del anfitrión</string>
+  <string name="simulAddExtraTimePerPlayer">Añadir tiempo inicial a tu reloj por cada jugador que se una a la simultánea.</string>
+  <string name="simulHostExtraTimePerPlayer">Tiempo extra del anfitrión por cada jugador</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes de los torneos</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes de que comience el torneo</string>
@@ -946,4 +948,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="lichessDbExplanation">Partidas por puntos de todos los jugadores de Lichess</string>
   <string name="switchSides">Cambiar color</string>
   <string name="closingAccountWithdrawAppeal">Cerrar tu cuenta retirará tu apelación</string>
+  <string name="ourEventTips">Nuestros consejos para organizar eventos</string>
 </resources>
