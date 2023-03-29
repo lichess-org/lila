@@ -986,4 +986,5 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>
   <string name="switchSides">Întoarce tabla</string>
   <string name="closingAccountWithdrawAppeal">Închiderea contului dvs. vă va retrage apelul</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Sfaturile noastre pentru organizarea evenimentelor</string>
 </resources>
