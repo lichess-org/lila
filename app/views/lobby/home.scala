@@ -56,8 +56,7 @@ object home:
       main(
         cls := List(
           "lobby"      -> true,
-          "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
-          "lobby--no-simuls" -> simuls.isEmpty
+          "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
         )
       )(
         div(cls := "lobby__table")(
