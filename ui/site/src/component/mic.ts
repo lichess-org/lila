@@ -14,8 +14,8 @@ export const mic: Voice.Microphone =
     vocabulary: string[] = [];
     voskStatus = '';
     busy = false;
-    paused = false; // for ignoring speech synthesis, less overhead than start/stop
-    pauseStack = 0;
+    interrupt = false;
+    paused = 1;
     listeners = new Map<string, Voice.Listener>();
 
     constructor() {
@@ -41,20 +41,19 @@ export const mic: Voice.Microphone =
     get isBusy(): boolean {
       return this.busy;
     }
+
     get status(): string {
       return this.voskStatus;
     }
-    set status(status: string) {
-      this.voskStatus = status;
-    }
+
     get isRecording(): boolean {
-      return !!this.mediaStream?.getAudioTracks()[0].enabled && !this.busy;
+      return this.paused === 0 && !this.busy && this.mediaStream?.getAudioTracks()[0].enabled === true;
     }
 
     stop() {
-      this.paused = false;
+      this.paused = 1;
       this.download?.abort();
-      this.mediaStream?.getAudioTracks().forEach(track => (track.enabled = false));
+      this.mediaStream?.getAudioTracks().forEach(t => (t.enabled = false));
       if (!this.download) this.broadcast('', 'stop');
       this.download = undefined;
     }
@@ -63,10 +62,11 @@ export const mic: Voice.Microphone =
       let [msgText, msgType] = ['Unknown', 'error' as Voice.MsgType];
       try {
         if (this.isRecording) return;
+        this.paused = 0;
         this.busy = true;
         await this.initModel();
         await this.initKaldi();
-        this.mediaStream!.getAudioTracks()[0].enabled = !this.paused;
+        this.mediaStream!.getAudioTracks()[0].enabled = true;
         [msgText, msgType] = ['Listening...', 'start'];
       } catch (e: any) {
         this.voskNode?.disconnect();
@@ -85,16 +85,18 @@ export const mic: Voice.Microphone =
       }
     }
 
-    pushPause() {
-      if (++this.pauseStack !== 1) return;
-      this.paused = true;
-      if (this.mediaStream) this.mediaStream.getAudioTracks()[0].enabled = false;
+    // pause/resume use a counter and must be balanced.
+    pause() {
+      if (++this.paused !== 1 || !this.mediaStream?.getAudioTracks()[0].enabled) return;
+      this.mediaStream.getAudioTracks()[0].enabled = false;
+      this.broadcast('Paused...', 'status');
     }
 
-    popPause() {
-      if (--this.pauseStack !== 0) return;
-      this.paused = false;
-      if (this.mediaStream) this.mediaStream.getAudioTracks()[0].enabled = true;
+    resume() {
+      this.paused = Math.min(this.paused - 1, 0);
+      if (this.paused !== 0 || this.mediaStream?.getAudioTracks()[0].enabled !== false) return;
+      this.mediaStream.getAudioTracks()[0].enabled = true;
+      this.broadcast('Listening...', 'status');
     }
 
     async initKaldi(force = false) {
@@ -142,9 +144,16 @@ export const mic: Voice.Microphone =
       forMs = 0
     ) {
       window.clearTimeout(this.broadcastTimeout);
-      this.status = text;
-      for (const li of [...this.listeners.values()].reverse()) if (li(text, msgType, words)) break;
+      this.voskStatus = text;
+      for (const li of [...this.listeners.values()].reverse()) {
+        if (!this.interrupt) li(text, msgType, words);
+      }
+      this.interrupt = false;
       this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
+    }
+
+    stopPropagation() {
+      this.interrupt = true;
     }
 
     async downloadModel(emscriptenPath: string): Promise<void> {

@@ -4,28 +4,17 @@ import play.api.libs.json.*
 
 import lila.user.User
 import org.joda.time.format.DateTimeFormat
+import lila.pref.Pref
 
 final class StormJson(sign: StormSign):
 
   import StormJson.given
 
-  def apply(puzzles: List[StormPuzzle], user: Option[User]): JsObject = Json
-    .obj(
-      "puzzles"      -> puzzles,
-      "notAnExploit" -> StormForm.notAnExploit
-    )
-    .add("key" -> user.map(sign.getPrev))
-
-  def pref(p: lila.pref.Pref) =
-    Json.obj(
-      "coords"      -> p.coords,
-      "rookCastle"  -> p.rookCastle,
-      "destination" -> p.destination,
-      "moveEvent"   -> p.moveEvent,
-      "highlight"   -> p.highlight,
-      "is3d"        -> p.is3d,
-      "animation"   -> p.animationMillisForSpeedPuzzles
-    )
+  def apply(puzzles: List[StormPuzzle], user: Option[User], pref: Option[Pref]): JsObject =
+    Json
+      .obj("puzzles" -> puzzles)
+      .add("pref" -> pref)
+      .add("key" -> user.map(sign.getPrev))
 
   def newHigh(n: Option[StormHigh.NewHigh]) =
     Json
@@ -62,5 +51,17 @@ object StormJson:
       "fen"    -> p.fen.value,
       "line"   -> p.line.toList.map(_.uci).mkString(" "),
       "rating" -> p.rating
+    )
+  }
+
+  given Writes[Pref] = Writes { p =>
+    Json.obj(
+      "coords"      -> p.coords,
+      "rookCastle"  -> p.rookCastle,
+      "destination" -> p.destination,
+      "moveEvent"   -> p.moveEvent,
+      "highlight"   -> p.highlight,
+      "is3d"        -> p.is3d,
+      "animation"   -> p.animationMillisForSpeedPuzzles
     )
   }

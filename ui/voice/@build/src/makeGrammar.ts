@@ -156,12 +156,15 @@ function ppCost(key: string, e: SubInfo) {
 }
 
 function writeGrammar(out: string) {
+  // we are using a custom format here, because we want voiceMoveGrammar to be quickly navigable
   fs.writeFileSync(
     out,
-    '// *************************** this file is generated. see ui/voice/@build/README.md ***************************\n\n' +
-      'export type Sub = { to: string, cost: number };\n\n' +
-      'export type Entry = { in: string, tok: string, tags: string[], val?: string, subs?: Sub[] };\n\n' +
-      `export const lexicon: Entry[] = ${JSON.stringify(builder.lexicon, null, 2)};`
+    `// *************************** this file is generated. see ui/voice/@build/README.md ***************************
+
+export type Sub = { to: string, cost: number };
+export type Entry = { in: string, tok: string, tags: string[], val?: string, subs?: Sub[] };
+
+export const lexicon: Entry[] = ${builder.stringify()};`
   );
 }
 
@@ -247,8 +250,8 @@ type Entry = {
 
 class Builder {
   occurrences = new Map<string, number>();
-  tokenVal = new Map<string, string>();
-  wordToken = new Map<string, string>();
+  tokVal = new Map<string, string>();
+  wordTok = new Map<string, string>();
   phrases: Entry[] = [];
   lexicon: Entry[];
   constructor(lexfile = 'en-us.json') {
@@ -268,8 +271,8 @@ class Builder {
         else e.tok = available.shift();
       } else if (e.tok === ' ' || e.tok === ',') throw new Error(`Illegal token for ${e.in}`);
       const tok = e.tok as string;
-      this.wordToken.set(e.in, tok);
-      this.tokenVal.set(tok, e.val ?? '');
+      this.wordTok.set(e.in, tok);
+      this.tokVal.set(tok, e.val ?? '');
       e.subs = [{ to: '', cost: e.tags?.includes('ignore') ? 0 : 0.5 }];
     }
     for (const e of this.phrases) {
@@ -277,23 +280,22 @@ class Builder {
       const words = e.in.split(' ');
       let phraseToks = '';
       for (const word of words) {
-        const tok = this.wordToken.get(word) ?? available.shift();
-        if (!this.wordToken.has(word)) {
+        const tok = this.wordTok.get(word) ?? available.shift();
+        if (!this.wordTok.has(word)) {
           const part: Entry = { in: word, tok: tok!, tags: ['part'] };
           this.lexicon.push(part);
-          this.wordToken.set(word, tok!);
-          this.tokenVal.set(tok!, part.in);
+          this.wordTok.set(word, tok!);
+          this.tokVal.set(tok!, part.in);
           part.subs = [{ to: '', cost: 0.5 }];
         }
         phraseToks += tok;
       }
       e.tok = phraseToks;
+      if (!e.val) e.val = '';
     }
   }
   addOccurrence(phrase: string) {
-    this.encode(phrase)
-      .split('')
-      .forEach(token => this.occurrences.set(token, (this.occurrences.get(token) ?? 0) + 1));
+    [...this.encode(phrase)].forEach(token => this.occurrences.set(token, (this.occurrences.get(token) ?? 0) + 1));
   }
   addSub(token: string, sub: Sub) {
     const tok = this.lexicon.find(e => e.tok === token)!;
@@ -305,13 +307,13 @@ class Builder {
     }
   }
   tokenOf(word: string) {
-    return this.wordToken.get(word) ?? ('12345678'.includes(word) ? word : '');
+    return this.wordTok.get(word) ?? ('12345678'.includes(word) ? word : '');
   }
   fromToken(token: string) {
-    return this.tokenVal.get(token) ?? token;
+    return this.tokVal.get(token) ?? token;
   }
   encode(phrase: string) {
-    return this.wordToken.has(phrase)
+    return this.wordTok.has(phrase)
       ? this.tokenOf(phrase)
       : phrase
           .split(' ')
@@ -319,16 +321,35 @@ class Builder {
           .join('');
   }
   decode(tokens: string) {
-    return tokens
-      .split('')
-      .map(token => this.fromToken(token))
-      .join(' ');
+    return [...tokens].map(token => this.fromToken(token)).join(' ');
   }
   wordsOf(tokens: string) {
-    return tokens
-      .split('')
-      .map(token => [...this.wordToken.entries()].find(([_, tok]) => tok === token)?.[0])
-      .join(' ');
+    return [...tokens].map(token => [...this.wordTok.entries()].find(([_, tok]) => tok === token)?.[0]).join(' ');
+  }
+  stringify() {
+    // output like prettier
+    return (
+      '[\n  {\n    ' +
+      this.lexicon
+        .map(
+          e =>
+            `in: '${e.in}',\n    ` +
+            (e.val !== undefined ? `val: '${e.val ?? ''}',\n    ` : '') +
+            `tok: '${e.tok}',\n    ` +
+            `tags: [${e.tags?.map(t => `'${t}'`).join(', ')}],` +
+            (e.subs
+              ? `\n    subs: [${e.subs.length > 1 ? '\n      ' : ''}${e.subs
+                  .map(s => {
+                    let c = s.cost.toFixed(2);
+                    if (c.slice(-1) === '0') c = c.slice(0, -1);
+                    return `{ to: '${s.to}', cost: ${c} }`;
+                  })
+                  .join(',\n      ')}${e.subs.length > 1 ? ',\n    ],' : '],'}`
+              : '')
+        )
+        .join('\n  },\n  {\n    ') +
+      '\n  },\n]\n'
+    ).replaceAll('\\', '\\\\');
   }
 }
 

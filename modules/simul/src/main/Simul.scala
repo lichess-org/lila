@@ -81,6 +81,7 @@ case class Simul(
       status = SimulStatus.Started,
       startedAt = nowDate.some,
       applicants = Nil,
+      clock = clock.adjustedForPlayers(nbAccepted),
       pairings = applicants collect {
         case a if a.accepted => SimulPairing(a.player)
       },

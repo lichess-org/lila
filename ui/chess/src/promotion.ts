@@ -97,14 +97,14 @@ export class PromotionCtrl {
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
     if (!promoting) return;
-    lichess.mic?.addListener('promotion', (msgText: string) => {
-      if (['no', 'cancel', 'abort', 'close', 'clear', 'oops', 'undo'].includes(msgText)) this.cancel();
-      else if (['queen', 'knight', 'rook', 'bishop', ...(antichess ? ['king'] : [])].includes(msgText)) {
+    lichess.mic?.addListener('promotion', (text: string) => {
+      if (['no', 'cancel', 'abort', 'close', 'clear', 'oops', 'undo'].includes(text)) this.cancel();
+      else if (['queen', 'knight', 'rook', 'bishop', ...(antichess ? ['king'] : [])].includes(text)) {
         this.promoting = undefined;
-        this.doPromote(promoting, msgText as cg.Role);
+        this.doPromote(promoting, text as cg.Role);
         this.redraw();
-      } else return false;
-      return true;
+      }
+      lichess.mic?.stopPropagation();
     });
 
     return (

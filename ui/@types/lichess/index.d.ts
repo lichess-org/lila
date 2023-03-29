@@ -205,20 +205,25 @@ declare namespace Voice {
     end: number;
   }>;
 
-  export type Listener = (msgText: string, msgType: MsgType, words?: WordResult) => boolean | void;
-  // return true to stop propagation
+  export type Listener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
+
   export interface Microphone {
     // keep rounds, puzzle, move stuff out of this
     setVocabulary: (vocabulary: string[]) => Promise<void>;
+
     start: () => Promise<void>; // initialize if necessary and begin recording
     stop: () => void; // stop recording/downloading/whatever
-    pushPause: () => void; // pause recording
-    popPause: () => void; // resume recording
+
+    pause: () => void; // pause recording, no overhead
+    resume: () => void; // resume recording, dangerous
+
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
     readonly isRecording: boolean; // are we recording?
     readonly status: string; // errors, progress, or the most recent voice command
+
     addListener: (name: string, listener: Listener) => void;
     removeListener: (name: string) => void;
+    stopPropagation: () => void; // listeners can call this to stop propagation during modal interactions
   }
 }
 

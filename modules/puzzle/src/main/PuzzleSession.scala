@@ -61,22 +61,20 @@ final class PuzzleSessionApi(
       .fold[Fu[PuzzleSettings]](fuccess(PuzzleSettings.default))(_.dmap(_.settings))
 
   def setDifficulty(user: User, difficulty: PuzzleDifficulty): Funit =
-    updateSession(user) { prev =>
+    updateSession(user): prev =>
       createSessionFor(
         user,
         prev.map(_.path.angle) | PuzzleAngle.mix,
         PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
       )
-    }
 
   def setAngleAndColor(user: User, angle: PuzzleAngle, color: Option[Color]): Funit =
-    updateSession(user) { prev =>
+    updateSession(user): prev =>
       createSessionFor(
         user,
         angle,
         PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
       )
-    }
 
   private[puzzle] def set(user: User, session: PuzzleSession) = sessions.put(user.id, fuccess(session))
 
@@ -98,11 +96,11 @@ final class PuzzleSessionApi(
       user: User,
       angle: PuzzleAngle
   ): Fu[PuzzleSession] =
-    sessions.getFuture(user.id, _ => createSessionFor(user, angle, PuzzleSettings.default)) flatMap {
-      current =>
+    sessions
+      .getFuture(user.id, _ => createSessionFor(user, angle, PuzzleSettings.default))
+      .flatMap: current =>
         if (current.path.angle == angle && !shouldChangeSession(user, current)) fuccess(current)
         else createSessionFor(user, angle, current.settings) tap { sessions.put(user.id, _) }
-    }
 
   private def shouldChangeSession(user: User, session: PuzzleSession) = !session.brandNew && {
     val perf = user.perfs.puzzle

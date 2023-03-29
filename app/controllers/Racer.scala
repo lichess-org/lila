@@ -44,11 +44,11 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
         case Some(r) =>
           val race   = r.isLobby.??(env.racer.api.join(r.id, playerId)) | r
           val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
+          import lila.storm.StormJson.given
           Ok(
             html.racer.show(
               race,
-              env.racer.json.data(race, player),
-              env.storm.json.pref(ctx.pref)
+              env.racer.json.data(race, player, ctx.pref)
             )
           ).noCache.toFuccess
     }
