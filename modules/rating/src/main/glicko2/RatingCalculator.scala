@@ -22,7 +22,6 @@ object RatingCalculator:
     (ratingDeviation / MULTIPLIER)
 
 final class RatingCalculator(
-    defaultVolatility: Double = 0.06d,
     tau: Double = 0.75d,
     ratingPeriodsPerDay: Double = 0
 ):

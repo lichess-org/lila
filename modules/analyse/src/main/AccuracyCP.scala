@@ -1,7 +1,5 @@
 package lila.analyse
 
-import chess.Color
-
 import lila.game.Pov
 import lila.game.Game.SideAndStart
 import lila.tree.Eval.*

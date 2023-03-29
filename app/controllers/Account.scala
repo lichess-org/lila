@@ -431,9 +431,7 @@ final class Account(
                     case Right(user) =>
                       auth.MagicLinkRateLimit(user, data.email, ctx.req) {
                         lila.mon.user.auth.reopenRequest("success").increment()
-                        env.security.reopen.send(user, data.email) inject Redirect(
-                          routes.Account.reopenSent(data.email.value)
-                        )
+                        env.security.reopen.send(user, data.email) inject Redirect(routes.Account.reopenSent)
                       }(rateLimitedFu)
                   }
               )
@@ -442,7 +440,7 @@ final class Account(
       }
     }
 
-  def reopenSent(email: String) = Open { implicit ctx =>
+  def reopenSent = Open { implicit ctx =>
     fuccess {
       Ok(html.account.reopen.sent)
     }

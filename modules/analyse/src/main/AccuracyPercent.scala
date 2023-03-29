@@ -5,7 +5,7 @@ import chess.Color
 import lila.common.Maths
 import lila.game.Game
 import lila.tree.Eval
-import lila.tree.Eval.{ Cp, Mate }
+import lila.tree.Eval.Cp
 
 // Quality of a move, based on previous and next WinPercent
 opaque type AccuracyPercent = Double
@@ -73,46 +73,44 @@ for x in xs:
 
   // a mean of volatility-weighted mean and harmonic mean
   def gameAccuracy(startColor: Color, cps: List[Cp]): Option[Color.Map[AccuracyPercent]] =
-    val allWinPercents = (Cp.initial :: cps) map WinPercent.fromCentiPawns
-    allWinPercents.headOption flatMap { firstWinPercent =>
-      val windowSize          = (cps.size / 10) atLeast 2 atMost 8
-      val allWinPercentValues = WinPercent raw allWinPercents
-      val windows =
-        List
-          .fill(windowSize.atMost(allWinPercentValues.size) - 2)(allWinPercentValues take windowSize)
-          .toList ::: allWinPercentValues.sliding(windowSize).toList
-      val weights = windows map { xs => ~Maths.standardDeviation(xs) atLeast 0.5 atMost 12 }
-      val weightedAccuracies: Iterable[((Double, Double), Color)] = allWinPercents
-        .sliding(2)
-        .zip(weights)
-        .zipWithIndex
-        .collect { case ((List(prev, next), weight), i) =>
-          val color = Color.fromWhite((i % 2 == 0) == startColor.white)
-          val accuracy =
-            AccuracyPercent.fromWinPercents(color.fold(prev, next), color.fold(next, prev)).value
-          ((accuracy, weight), color)
-        }
-        .to(Iterable)
+    val allWinPercents      = (Cp.initial :: cps) map WinPercent.fromCentiPawns
+    val windowSize          = (cps.size / 10) atLeast 2 atMost 8
+    val allWinPercentValues = WinPercent raw allWinPercents
+    val windows =
+      List
+        .fill(windowSize.atMost(allWinPercentValues.size) - 2)(allWinPercentValues take windowSize)
+        .toList ::: allWinPercentValues.sliding(windowSize).toList
+    val weights = windows map { xs => ~Maths.standardDeviation(xs) atLeast 0.5 atMost 12 }
+    val weightedAccuracies: Iterable[((Double, Double), Color)] = allWinPercents
+      .sliding(2)
+      .zip(weights)
+      .zipWithIndex
+      .collect { case ((List(prev, next), weight), i) =>
+        val color = Color.fromWhite((i % 2 == 0) == startColor.white)
+        val accuracy =
+          AccuracyPercent.fromWinPercents(color.fold(prev, next), color.fold(next, prev)).value
+        ((accuracy, weight), color)
+      }
+      .to(Iterable)
 
-      // cps.zip(weightedAccuracies) foreach { case (eval, ((acc, weight), color)) =>
-      //   println(s"$eval $color ${weight.toInt} ${acc.toInt}")
-      // }
+    // cps.zip(weightedAccuracies) foreach { case (eval, ((acc, weight), color)) =>
+    //   println(s"$eval $color ${weight.toInt} ${acc.toInt}")
+    // }
 
-      def colorAccuracy(color: Color) = for {
-        weighted <- Maths.weightedMean {
-          weightedAccuracies collect {
-            case (weightedAccuracy, c) if c == color => weightedAccuracy
-          }
+    def colorAccuracy(color: Color) = for {
+      weighted <- Maths.weightedMean {
+        weightedAccuracies collect {
+          case (weightedAccuracy, c) if c == color => weightedAccuracy
         }
-        harmonic <- Maths.harmonicMean {
-          weightedAccuracies collect {
-            case ((accuracy, _), c) if c == color => accuracy
-          }
+      }
+      harmonic <- Maths.harmonicMean {
+        weightedAccuracies collect {
+          case ((accuracy, _), c) if c == color => accuracy
         }
-      } yield AccuracyPercent((weighted + harmonic) / 2)
+      }
+    } yield AccuracyPercent((weighted + harmonic) / 2)
 
-      for {
-        wa <- colorAccuracy(Color.white)
-        ba <- colorAccuracy(Color.black)
-      } yield Color.Map(wa, ba)
-    }
+    for
+      wa <- colorAccuracy(Color.white)
+      ba <- colorAccuracy(Color.black)
+    yield Color.Map(wa, ba)

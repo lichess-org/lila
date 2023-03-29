@@ -6,7 +6,7 @@ import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
-import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
+import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config

@@ -1,16 +1,14 @@
 package lila.memo
 
 import com.github.blemale.scaffeine.Cache
-import alleycats.Zero
-import scala.annotation.nowarn
 
-final class ExpireSetMemo[K](ttl: FiniteDuration)(using StringRuntime[K]):
+final class ExpireSetMemo[K](ttl: FiniteDuration):
 
   private val cache: Cache[K, Boolean] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(ttl)
     .build[K, Boolean]()
 
-  @nowarn def get(key: K): Boolean = cache.underlying.getIfPresent(key) == true
+  def get(key: K): Boolean = cache.underlying.getIfPresent(key) == true
 
   def intersect(keys: Iterable[K]): Set[K] =
     keys.nonEmpty ?? {
@@ -38,7 +36,7 @@ final class HashCodeExpireSetMemo[A](ttl: FiniteDuration):
     .expireAfterWrite(ttl)
     .build[Int, Boolean]()
 
-  @nowarn def get(key: A): Boolean = cache.underlying.getIfPresent(key.hashCode) == true
+  def get(key: A): Boolean = cache.underlying.getIfPresent(key.hashCode) == true
 
   def put(key: A) = cache.put(key.hashCode, true)
 

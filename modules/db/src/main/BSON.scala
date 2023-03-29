@@ -101,7 +101,7 @@ object BSON extends Handlers:
     def double(i: Double): BSONDouble                 = BSONDouble(i)
     def doubleO(i: Double): Option[BSONDouble]        = if (i != 0) Some(BSONDouble(i)) else None
     def zero[A](a: A)(using zero: Zero[A]): Option[A] = if (zero.zero == a) None else Some(a)
-    def yesnoO[A](a: A)(using sr: SameRuntime[A, Boolean], rs: SameRuntime[Boolean, A]): Option[BSONBoolean] =
+    def yesnoO[A](a: A)(using sr: SameRuntime[A, Boolean]): Option[BSONBoolean] =
       boolO(sr(a))
 
   val writer = new Writer

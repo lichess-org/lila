@@ -12,7 +12,6 @@ import lila.app.{ given, * }
 import lila.user.Holder
 import lila.clas.ClasInvite
 import lila.clas.Clas.{ Id => ClasId }
-import router.ReverseRouterConversions.clasInviteIdConv
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -546,7 +545,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def studentClosePost(id: ClasId, username: UserStr) =
     SecureBody(_.Teacher) { implicit ctx => me =>
-      WithClassAndStudents(me, id) { (clas, students) =>
+      WithClassAndStudents(me, id) { (clas, _) =>
         WithStudent(clas, username) { s =>
           if (s.student.managed)
             env.clas.api.student.closeAccount(s) >>

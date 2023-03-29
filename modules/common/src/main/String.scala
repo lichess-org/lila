@@ -1,9 +1,7 @@
 package lila.common
 
 import java.text.Normalizer
-import java.util.stream.Collectors
 import play.api.libs.json.*
-import scala.jdk.CollectionConverters.*
 import scalatags.Text.all.*
 
 import lila.base.RawHtml

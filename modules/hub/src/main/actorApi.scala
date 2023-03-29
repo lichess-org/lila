@@ -1,7 +1,7 @@
 package lila.hub
 package actorApi
 
-import chess.format.{ BoardFen, Uci, Fen }
+import chess.format.{ Uci, Fen }
 import org.joda.time.Period
 import play.api.libs.json.*
 

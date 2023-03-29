@@ -461,12 +461,12 @@ final class Auth(
                         MagicLinkRateLimit(user, storedEmail, ctx.req) {
                           lila.mon.user.auth.magicLinkRequest("success").increment()
                           env.security.magicLink.send(user, storedEmail) inject Redirect(
-                            routes.Auth.magicLinkSent(storedEmail.value)
+                            routes.Auth.magicLinkSent
                           )
                         }(rateLimitedFu)
                       case _ =>
                         lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                        Redirect(routes.Auth.magicLinkSent(data.email.value)).toFuccess
+                        Redirect(routes.Auth.magicLinkSent).toFuccess
                     }
                 )
             }
@@ -540,7 +540,7 @@ final class Auth(
         }
     }
 
-  def loginWithTokenPost(token: String) =
+  def loginWithTokenPost(token: String, @annotation.nowarn referrer: Option[String]) =
     Open { implicit ctx =>
       if (ctx.isAuth) Redirect(getReferrer).toFuccess
       else
