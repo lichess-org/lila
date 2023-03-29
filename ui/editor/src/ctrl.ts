@@ -5,12 +5,21 @@ import { NumberPair } from 'shogiground/types';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
 import { Board } from 'shogiops/board';
 import { Hand, Hands } from 'shogiops/hands';
-import { forsythToRole, initialSfen, makeSfen, parseSfen, roleToForsyth } from 'shogiops/sfen';
-import { Role, Rules } from 'shogiops/types';
+import {
+  forsythToRole,
+  initialSfen,
+  makeBoardSfen,
+  makeHands,
+  makeSfen,
+  parseBoardSfen,
+  parseHands,
+  parseSfen,
+  roleToForsyth,
+} from 'shogiops/sfen';
+import { Role, Rules, Setup } from 'shogiops/types';
 import { toBW } from 'shogiops/util';
-import { Position } from 'shogiops/variant/position';
 import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variant/util';
-import { defaultPosition, initializePosition } from 'shogiops/variant/variant';
+import { defaultPosition } from 'shogiops/variant/variant';
 import { EditorData, EditorOptions, EditorState, OpeningPosition, Redraw, Selected } from './interfaces';
 import { makeConfig } from './shogiground';
 
@@ -76,15 +85,34 @@ export default class EditorCtrl {
     this.redraw();
   }
 
-  private getPosition(): Position {
-    const splitSfen = this.data.sfen.split(' ');
-    const boardSfen = this.shogiground ? this.shogiground.getBoardSfen() : splitSfen[0] || '';
-    const handsSfen = this.shogiground ? this.shogiground.getHandsSfen() : splitSfen[2] || '';
-    return parseSfen(this.rules, `${boardSfen} ${toBW(this.turn)} ${handsSfen} ${this.moveNumber}`, false).unwrap();
+  private getSetup(): Setup {
+    const splitSfen = this.data.sfen.split(' '),
+      boardSfen = this.shogiground ? this.shogiground.getBoardSfen() : splitSfen[0] || '',
+      board = parseBoardSfen(this.rules, boardSfen).unwrap(
+        b => b,
+        _ => Board.empty()
+      ),
+      handsSfen = this.shogiground ? this.shogiground.getHandsSfen() : splitSfen[2] || '',
+      hands = parseHands(this.rules, handsSfen).unwrap(
+        b => b,
+        _ => Hands.empty()
+      );
+    return {
+      board: board,
+      hands: hands,
+      turn: this.turn,
+      moveNumber: this.moveNumber,
+    };
   }
 
-  getSfen(): string {
-    return makeSfen(this.getPosition());
+  getSfen(setup?: Setup): string {
+    if (!defined(setup)) setup = this.getSetup();
+    return [
+      makeBoardSfen(this.rules, setup.board),
+      toBW(setup.turn),
+      makeHands(this.rules, setup.hands),
+      Math.max(1, Math.min(this.moveNumber, 9999)),
+    ].join(' ');
   }
 
   private getLegalSfen(): string | undefined {
@@ -139,17 +167,14 @@ export default class EditorCtrl {
   }
 
   clearBoard(): void {
-    const emptyPos = initializePosition(
-      this.rules,
-      {
+    this.setSfen(
+      this.getSfen({
         board: Board.empty(),
         hands: Hands.empty(),
         turn: this.turn,
         moveNumber: 1,
-      },
-      false
-    ).unwrap();
-    this.setSfen(makeSfen(emptyPos));
+      })
+    );
   }
 
   loadNewSfen(sfen: string | 'prompt'): void {
@@ -176,7 +201,7 @@ export default class EditorCtrl {
   }
 
   canFillGoteHand(): boolean {
-    const pos = this.getPosition();
+    const pos = this.getSetup();
     return (
       this.countPieces('pawn', pos) <= 18 &&
       this.countPieces('lance', pos) <= 4 &&
@@ -189,54 +214,55 @@ export default class EditorCtrl {
     );
   }
 
-  countPieces(role: Role, pos?: Position): number {
-    if (!defined(pos)) pos = this.getPosition();
+  countPieces(role: Role, setup?: Setup): number {
+    if (!defined(setup)) setup = this.getSetup();
     role = unpromote(this.rules)(role) || role;
     return (
-      pos.board.role(role).size() +
+      setup.board.role(role).size() +
       (handRoles(this.rules).includes(role)
-        ? pos.hands.color('sente').get(role) + pos.hands.color('gote').get(role)
+        ? setup.hands.color('sente').get(role) + setup.hands.color('gote').get(role)
         : 0) +
-      (promotableRoles(this.rules).includes(role) ? pos.board.role(promote(this.rules)(role)!).size() : 0)
+      (promotableRoles(this.rules).includes(role) ? setup.board.role(promote(this.rules)(role)!).size() : 0)
     );
   }
 
   fillGotesHand(): void {
-    const pos = this.getPosition(),
-      senteHand = pos.hands.color('sente'),
+    const setup = this.getSetup(),
+      board = setup.board,
+      senteHand = setup.hands.color('sente'),
       startingBoard = defaultPosition(this.rules).board;
 
     const pieceCounts: { [index: string]: number } = {
       lance:
         startingBoard.role('lance').size() -
-        pos.board.role('lance').size() -
-        pos.board.role('promotedlance').size() -
+        board.role('lance').size() -
+        board.role('promotedlance').size() -
         senteHand.get('lance'),
       knight:
         startingBoard.role('knight').size() -
-        pos.board.role('knight').size() -
-        pos.board.role('promotedknight').size() -
+        board.role('knight').size() -
+        board.role('promotedknight').size() -
         senteHand.get('knight'),
       silver:
         startingBoard.role('silver').size() -
-        pos.board.role('silver').size() -
-        pos.board.role('promotedsilver').size() -
+        board.role('silver').size() -
+        board.role('promotedsilver').size() -
         senteHand.get('silver'),
-      gold: startingBoard.role('gold').size() - pos.board.role('gold').size() - senteHand.get('gold'),
+      gold: startingBoard.role('gold').size() - board.role('gold').size() - senteHand.get('gold'),
       pawn:
         startingBoard.role('pawn').size() -
-        pos.board.role('pawn').size() -
-        pos.board.role('tokin').size() -
+        board.role('pawn').size() -
+        board.role('tokin').size() -
         senteHand.get('pawn'),
       bishop:
         startingBoard.role('bishop').size() -
-        pos.board.role('bishop').size() -
-        pos.board.role('horse').size() -
+        board.role('bishop').size() -
+        board.role('horse').size() -
         senteHand.get('bishop'),
       rook:
         startingBoard.role('rook').size() -
-        pos.board.role('rook').size() -
-        pos.board.role('dragon').size() -
+        board.role('rook').size() -
+        board.role('dragon').size() -
         senteHand.get('rook'),
     };
     const goteHand = Hand.empty();
@@ -244,9 +270,9 @@ export default class EditorCtrl {
     for (const p in pieceCounts) {
       if (pieceCounts[p] > 0) goteHand.set(p as Role, pieceCounts[p]);
     }
-    pos.hands = Hands.from(senteHand, goteHand);
+    setup.hands = Hands.from(senteHand, goteHand);
 
-    this.setSfen(makeSfen(pos));
+    this.setSfen(this.getSfen(setup));
 
     this.onChange();
   }
