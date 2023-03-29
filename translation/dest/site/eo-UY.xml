@@ -716,6 +716,7 @@
   <string name="kidMode">Infana reĝimo</string>
   <string name="kidModeExplanation">Ĉi tio temas pri sekureco. En infana reĝimo, ĉiuj retejaj komunikadoj estas malebligitaj. Aktivigu ĉi tiun por viaj infanoj kaj lernejaj studentoj, por protekti ilin de aliaj retaj uzantoj.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En infana reĝimo, la lichess-emblemo ekhavas %s-emblemon, por ke vi sciu ke viaj infanoj sekuras.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Via konto estas mastrumita. Petu vian ŝako-instruiston pri malaktivigado de \"infana reĝimo\".</string>
   <string name="enableKidMode">Aktivigi infanan reĝimon</string>
   <string name="disableKidMode">Malaktivigi infanan reĝimon</string>
   <string name="security">Sekureco</string>
@@ -913,9 +914,19 @@ kaj influas la rangojn de ludantoj</string>
   <string name="onlyTeamMembers">Nuraj teamaj membroj</string>
   <string name="toggleLocalAnalysis">Baskuligu lokan komputilan analizon</string>
   <string name="toggleAllAnalysis">Baskuligu ĉiujn komputilan analizon</string>
+  <string name="playComputerMove">Ludi la plej bonan komputilan movon</string>
   <string name="analysisOptions">Analizaj agordoj</string>
   <string name="focusChat">Babilejo de fokuso</string>
+  <string name="showHelpDialog">Montri ĉi tiun help-dialogujon</string>
+  <string name="reopenYourAccount">Remalfermi vian konton</string>
+  <string name="closedAccountChangedMind">Se vi fermis vian konton, sed decidis alie poste, vi povas unufoje rehavigi vian konton.</string>
+  <string name="onlyWorksOnce">Ĉi tiu funkcios nur unufoje.</string>
+  <string name="cantDoThisTwice">Se vi fermos vian konton je la dua fojo, ne estos maniero por regajni ĝin.</string>
+  <string name="emailAssociatedToaccount">Retpoŝtadreso, ke asociitas al la konto</string>
+  <string name="sentEmailWithLink">Ni sendis retmesaĝon kun ligilo al vi.</string>
+  <string name="hangOn">Atendu!</string>
   <string name="abortTheGame">Ĉesigu ludon</string>
   <string name="resignTheGame">Rezignu la ludo</string>
   <string name="until">Ĝis</string>
+  <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
 </resources>
