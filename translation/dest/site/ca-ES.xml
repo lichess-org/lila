@@ -662,6 +662,8 @@
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
   <string name="simulHostExtraTime">Temps extra per a l\'amfitrió</string>
+  <string name="simulAddExtraTimePerPlayer">Afegir temps inicial al vostre rellotge per cada jugador que entri a la simultània.</string>
+  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Temps extra de l\'amfitrió per jugador</string>
   <string name="lichessTournaments">Tornejos de Lichess</string>
   <string name="tournamentFAQ">Torneig Arena: Preguntes Més Freqüents</string>
   <string name="timeBeforeTournamentStarts">Temps per a què comenci el torneig</string>
