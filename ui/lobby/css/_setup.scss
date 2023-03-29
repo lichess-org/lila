@@ -76,11 +76,15 @@ $c-slider: $c-setup;
     }
   }
   .sfen_position {
-    label {
-      flex: 0 0 20%;
-    }
-    .handicap.label_select select {
-      flex-grow: 1;
+    .handicap.label_select {
+      @extend %flex-center-nowrap;
+      label {
+        text-align: left;
+        flex: unset;
+      }
+      select {
+        flex-grow: 1;
+      }
     }
     .sfen_form {
       margin-top: 0.5em;
