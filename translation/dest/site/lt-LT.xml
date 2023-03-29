@@ -734,7 +734,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simule.</string>
   <string name="simulHostExtraTime">Papildomas laikas šeimininkui</string>
   <string name="simulAddExtraTimePerPlayer">Pridėti pradinio laiko prie jūsų laikrodžio už kiekvieną prie simultano prisijungiantį žaidėją.</string>
-  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;An option when creating a simul. Add more time to the simul host's clock for each player joining the simul.">Papildomas laikas šeimininkui už kiekvieną žaidėją</string>
+  <string name="simulHostExtraTimePerPlayer">Papildomas laikas šeimininkui už kiekvieną žaidėją</string>
   <string name="lichessTournaments">„lichess“ turnyrai</string>
   <string name="tournamentFAQ">Arenos turnyrų DUK</string>
   <string name="timeBeforeTournamentStarts">Laikas iki turnyro pradžios</string>
