@@ -632,6 +632,11 @@ export default class RoundController {
     }
   };
 
+  opponentOffers(offer: string, i18nKey: string) {
+    this.voiceMove?.opponentOffers(offer, (v: boolean) => this.socket.sendLoading(v ? `${offer}-yes` : `${offer}-no`));
+    notify(this.noarg(i18nKey));
+  }
+
   takebackYes = () => {
     this.socket.sendLoading('takeback-yes');
     this.chessground.cancelPremove();

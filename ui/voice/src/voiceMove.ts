@@ -54,11 +54,12 @@ module shorthand:
 export const makeVoiceMove = (root: RootCtrl, step: { fen: string }) => new VoiceMoveCtrl(root, step);
 
 export interface VoiceMove {
-  available(): [string, string][];
+  allPhrases(): [string, string][];
   arrogance(conf?: number): number;
   arrowColors(enabled?: boolean): boolean;
   update(step: { fen: string }, yourMove?: boolean): void;
-  modalOpen: Prop<boolean>;
+  showHelp: Prop<boolean>;
+  opponentOffers(offer: string, confirm: (v: boolean) => void): void;
   root: RootCtrl;
 }
 
@@ -78,12 +79,13 @@ class VoiceMoveCtrl implements VoiceMove {
   root: RootCtrl;
   board: cs.Board;
 
-  modalOpen: PropWithEffect<boolean>;
+  showHelp: PropWithEffect<boolean>;
+  confirmables: Map<string, (v: boolean) => void> = new Map();
   arrogance = storedIntProp('voice.arrogance', 1); // UI calls it 'confidence', but we know better
   arrowColors = storedBooleanProp('voice.useColors', true);
   nArrogance: number; // same as arrogance, just cached
 
-  debug = { emptyMatches: false, buildMoves: true, buildPartials: false };
+  debug = { emptyMatches: false, buildMoves: false, buildPartials: false };
 
   brushes: [string, DrawBrush][] = [
     ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],
@@ -103,7 +105,10 @@ class VoiceMoveCtrl implements VoiceMove {
       if (e.val === undefined) e.val = e.tok;
       pushMap(this.byVal, e.val, e);
     }
-    this.modalOpen = propWithEffect(false, root.redraw);
+    this.showHelp = propWithEffect(false, isOpen => {
+      isOpen ? this.confirmables.set('help', () => this.showHelp(false)) : this.confirmables.delete('help');
+      root.redraw();
+    });
     this.root = root;
     this.update(step);
     lichess.mic?.addListener('voiceMove', this.listen.bind(this));
@@ -141,26 +146,26 @@ class VoiceMoveCtrl implements VoiceMove {
 
   // return true on success from a handle<x> method to short-cicuit the chain
   handleCommand(msgText: string): boolean {
-    const exactMatch = this.byWord.get(msgText);
-    if (exactMatch?.val === 'no') {
-      if (this.modalOpen()) this.modalOpen(false);
-      else if (this.root.rematch?.()) this.root.rematch(false);
-      this.clearMoveProgress();
-      return true;
-    }
-    const matchedVal = this.matchOneTags(msgText, ['command']); // probably shouldn't fuzzy match here but..
+    const matchedVal = this.matchOneTags(msgText, ['command', 'choice']); // probably shouldn't fuzzy match here but..
     if (!matchedVal) return false;
     const c = matchedVal[0];
 
+    for (const [k, v] of this.confirmables) {
+      if (k === c || c === 'yes' || c === 'no') {
+        this.confirmables.delete(k);
+        v(c !== 'no');
+        return true;
+      }
+    }
     if (c === 'stop') {
       lichess.mic?.stop();
       this.clearMoveProgress();
     } else if (c === 'rematch') this.root.rematch?.(true);
-    else if (c === 'draw') this.root.offerDraw?.(true, true);
-    else if (c === 'resign') this.root.resign?.(true, true);
+    else if (c === 'draw') this.root.offerDraw?.(true, false);
+    else if (c === 'resign') this.root.resign?.(true, false);
     else if (c === 'next') this.root.next?.();
     else if (c === 'takeback') this.root.takebackYes?.();
-    else if (c === 'help') this.modalOpen(true);
+    else if (c === 'help') this.showHelp(true);
     else return false;
     return true;
   }
@@ -210,7 +215,7 @@ class VoiceMoveCtrl implements VoiceMove {
   chooseMoves(m: [string, number][], conf: number) {
     const exactMatches = m.filter(([_, cost]) => cost === 0).length;
     const closeEnough = m.filter(([_, cost]) => cost <= this.nArrogance * 0.2).length;
-    const confident = this.nArrogance < 2 ? conf === 1 : conf >= 0.8;
+    const confident = this.nArrogance === 2 ? conf >= 0.8 : 1;
     if (
       (m.length === 1 && conf > 0) ||
       (confident && exactMatches === 1) ||
@@ -303,6 +308,11 @@ class VoiceMoveCtrl implements VoiceMove {
     );
     if (this.debug) console.log('ambiguate', this.ambiguity);
     this.drawArrows();
+  }
+
+  opponentOffers(offer: string, confirm?: (granted: boolean) => void) {
+    if (confirm) this.confirmables.set(offer, confirm);
+    else this.confirmables.delete(offer);
   }
 
   compareLabelPos(lhs: Uci, rhs: Uci) {
@@ -586,7 +596,7 @@ class VoiceMoveCtrl implements VoiceMove {
     return getSpread(this.byVal, val).map(e => e.in);
   }
 
-  available(): [string, string][] {
+  allPhrases(): [string, string][] {
     const res: [string, string][] = [];
     for (const [xval, uci] of [...this.xvalsToMoves, ...this.xvalsToSquares]) {
       const toVal = typeof uci === 'string' ? uci : '[...]';

@@ -449,7 +449,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'help',
-    val: '?',
+    val: 'help',
     tok: '=',
     tags: ['command', 'exact'],
     subs: [{ to: '', cost: 0.5 }],

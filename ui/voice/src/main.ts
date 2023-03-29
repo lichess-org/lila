@@ -14,7 +14,7 @@ export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
     h('span#status-row', [
       h('a#voice-help-button', {
         attrs: { role: 'button', ...dataIcon('') },
-        hook: bind('click', () => ctrl.modalOpen(true)),
+        hook: bind('click', () => ctrl.showHelp(true)),
       }),
       h('p#voice-status', {
         hook: onInsert(el =>
@@ -39,7 +39,7 @@ export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
       }),
     ]),
     voiceSettings(ctrl),
-    ctrl.modalOpen() ? voiceModal(ctrl) : null,
+    ctrl.showHelp() ? voiceModal(ctrl) : null,
   ]);
 }
 
@@ -110,7 +110,7 @@ function voiceModal(ctrl: VoiceMove) {
   return snabModal({
     class: `voice-move-help`,
     content: [h('div.scrollable', spinner())],
-    onClose: () => ctrl.modalOpen(false),
+    onClose: () => ctrl.showHelp(false),
     onInsert: async el => {
       const [, html] = await Promise.all([
         lichess.loadCssPath('voiceMove.help'),
@@ -119,7 +119,7 @@ function voiceModal(ctrl: VoiceMove) {
       el.find('.scrollable').html(html);
       el.find('#all-phrases-button').on('click', () => {
         let html = '<table id="big-table"><tbody>';
-        const all = ctrl.available().sort((a, b) => a[0].localeCompare(b[0]));
+        const all = ctrl.allPhrases().sort((a, b) => a[0].localeCompare(b[0]));
         const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
         const rows = Math.ceil(all.length / cols);
         for (let row = 0; row < rows; row++) {
