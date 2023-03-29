@@ -19,7 +19,8 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def index(username: UserStr, page: Int) = Open { implicit ctx =>
     NotForKids {
-      OptionFuResult(env.user.repo byId username) { user =>
+      val userFu = if username == UserStr("me") then fuccess(ctx.me) else env.user.repo.byId(username)
+      OptionFuResult(userFu) { user =>
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           (canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
             Ok(html.ublog.blog(user, blog, posts))

@@ -26,7 +26,6 @@ final class Preload(
     liveStreamApi: lila.streamer.LiveStreamApi,
     dailyPuzzle: lila.puzzle.DailyPuzzle.Try,
     lobbyApi: lila.api.LobbyApi,
-    lobbySocket: lila.lobby.LobbySocket,
     playbanApi: lila.playban.PlaybanApi,
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,

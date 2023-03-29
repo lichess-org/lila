@@ -365,7 +365,7 @@
   <string name="importGame">Import permainan</string>
   <string name="importGameExplanation">Tampalkan (Paste) permainan PGN untuk membolehkan anda semak imbas ulang tayang,
 analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Variasi akan dipadamkan. Untuk menyimpannya, import PGN melalui pembelajaran (Study).</string>
+  <string name="importGameCaveat">Variasi akan dipadamkan. Untuk menyimpannya, import PGN melalui pembelajaran (Study).</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s permainan diimport</item>
   </plurals>

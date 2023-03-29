@@ -56,8 +56,7 @@ object home:
       main(
         cls := List(
           "lobby"      -> true,
-          "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
-          "lobby--no-simuls" -> simuls.isEmpty
+          "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
         )
       )(
         div(cls := "lobby__table")(
@@ -128,8 +127,8 @@ object home:
         puzzle map { p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle")
         },
-        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         bits.lastPosts(lastPost, ublogPosts),
+        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),

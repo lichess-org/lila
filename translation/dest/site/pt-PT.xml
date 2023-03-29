@@ -663,6 +663,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="simulClockHint">Configuração de incrementos no relógio. Quanto mais jogadores admitires, mais tempo poderás necessitar.</string>
   <string name="simulAddExtraTime">Podes acrescentar tempo adicional ao teu relógio, para te ajudar a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do anfitrião</string>
+  <string name="simulAddExtraTimePerPlayer">Adicione tempo inicial ao seu relógio para cada jogador que entra na simulação.</string>
+  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Tempo extra de relógio por jogador</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
   <string name="tournamentFAQ">Perguntas frequentes sobre torneios em arena</string>
   <string name="timeBeforeTournamentStarts">Contagem decrescente para o início do torneio</string>

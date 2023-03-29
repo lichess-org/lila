@@ -148,7 +148,11 @@ final class SwissApi(
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
     Sequencing(swiss.id)(cache.swissCache.notFinishedById) { old =>
-      old.settings.manualRounds ?? {
+      (!old.settings.manualRounds).?? {
+        mongo.swiss
+          .updateField($id(old.id), "settings.i", Swiss.RoundInterval.manual)
+          .void
+      } >> {
         if (old.isCreated) mongo.swiss.updateField($id(old.id), "startsAt", date).void
         else if (old.isStarted && old.nbOngoing == 0)
           mongo.swiss.updateField($id(old.id), "nextRoundAt", date).void >>- {

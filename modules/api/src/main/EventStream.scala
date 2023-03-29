@@ -113,22 +113,25 @@ final class EventStream(
 
       // pretend like the rematch is a challenge
       case lila.hub.actorApi.round.RematchOffer(gameId) =>
-        challengeMaker.makeRematchFor(gameId, me) foreach {
-          _ foreach { c =>
-            val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
-            queue offer json.some
-          }
-        }
+        challengeMaker
+          .makeRematchFor(gameId, me)
+          .foreach:
+            _.foreach: c =>
+              val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
+              queue offer json.some
 
       // pretend like the rematch cancel is a challenge cancel
       case lila.hub.actorApi.round.RematchCancel(gameId) =>
-        rematches.getOffered(gameId).map(_.nextId) foreach { challengeId =>
-          val json = Json.obj(
-            "type"      -> "challengeCanceled",
-            "challenge" -> Json.obj("id" -> challengeId)
-          )
-          queue.offer(json.some).unit
-        }
+        rematches
+          .getOffered(gameId)
+          .map(_.nextId)
+          .foreach: nextId =>
+            challengeMaker
+              .showCanceledRematchFor(gameId, me, nextId)
+              .foreach:
+                _.foreach: c =>
+                  val json = challengeJson("challengeCanceled")(c) ++ challengeCompat(c, me)
+                  queue.offer(json.some).unit
 
     private def isMyChallenge(c: Challenge) =
       c.destUserId.has(me.id) || c.challengerUserId.has(me.id)
