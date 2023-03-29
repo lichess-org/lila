@@ -16,12 +16,12 @@ final class ChallengeMaker(
 )(using Executor):
 
   def makeRematchFor(gameId: GameId, dest: User): Fu[Option[Challenge]] =
-    collectDataFor(gameId, dest) flatMapz { case (game, challenger, challengerUser) =>
+    collectDataFor(gameId, dest) flatMapz { (game, challenger, challengerUser) =>
       makeRematch(Pov(game, challenger), challengerUser, dest) dmap some
     }
 
   def showCanceledRematchFor(gameId: GameId, dest: User, nextId: GameId): Fu[Option[Challenge]] =
-    collectDataFor(gameId, dest) flatMapz { case (game, challenger, challengerUser) =>
+    collectDataFor(gameId, dest) flatMapz { (game, challenger, challengerUser) =>
       toChallenge(Pov(game, challenger), challengerUser, dest, nextId) dmap some
     }
 
