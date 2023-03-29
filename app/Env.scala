@@ -7,7 +7,7 @@ import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 
 import lila.common.config.*
-import lila.common.{ Bus, Strings, UserIds }
+import lila.common.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
 
