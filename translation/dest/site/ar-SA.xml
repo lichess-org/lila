@@ -812,7 +812,7 @@ https://lichess. org/study</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
   <string name="simulHostExtraTime">التوقيت الإضافي لساعة المضيف</string>
   <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
-  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">استضافة وقت إضافيًا لكل لاعب</string>
+  <string name="simulHostExtraTimePerPlayer">استضافة وقت إضافيًا لكل لاعب</string>
   <string name="lichessTournaments">مسابقات الموقع</string>
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
