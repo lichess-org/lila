@@ -1027,4 +1027,5 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>
   <string name="switchSides">Zmień kolor</string>
   <string name="closingAccountWithdrawAppeal">Zamknięcie konta spowoduje wycofanie Twojego odwołania</string>
+  <string name="ourEventTips">Nasze wskazówki dotyczące organizacji wydarzeń</string>
 </resources>
