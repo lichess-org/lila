@@ -263,7 +263,7 @@ final class Swiss(
         .fold(
           err =>
             render.async:
-              case Accepts.Json() => jsonFormErrorDefaultLang(err)
+              case Accepts.Json() => newJsonFormError(err)(using reqLang)
               case _              => Redirect(routes.Swiss.show(id)).toFuccess
           ,
           date =>
