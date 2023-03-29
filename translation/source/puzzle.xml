@@ -29,6 +29,11 @@
   <string name="keepGoing">Keep going…</string>
   <string name="puzzleSuccess">Success!</string>
   <string name="puzzleComplete">Puzzle complete!</string>
+  <string name="byOpenings">By openings</string>
+  <string name="puzzlesByOpenings">Puzzles by openings</string>
+  <string name="openingsYouPlayedTheMost">Openings you played the most in rated games</string>
+  <string name="useFindInPage">Use "Find in page" in the browser menu to find your favourite opening!</string>
+  <string name="useCtrlF">Use Ctrl+f to find your favourite opening!</string>
   <string name="notTheMove">That's not the move!</string>
   <string name="trySomethingElse">Try something else.</string>
   <string name="ratingX">Rating: %s</string>

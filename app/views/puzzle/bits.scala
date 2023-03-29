@@ -45,7 +45,7 @@ object bits:
         trans.puzzle.puzzleThemes()
       ),
       a(cls := active.active("openings"), href := routes.Puzzle.openings())(
-        "By openings"
+        trans.puzzle.byOpenings()
       ),
       a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard", u))(
         trans.puzzle.puzzleDashboard()
