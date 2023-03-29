@@ -166,13 +166,16 @@ GET   /$lang<\w\w\w?>/training/:angleOrId controllers.Puzzle.showLang(lang, angl
 
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak
-GET   /$lang<\w\w\w?>/streak               controllers.Puzzle.streakLang(lang)
+GET   /api/streak                       controllers.Puzzle.apiStreak
+POST  /api/streak/:score                controllers.Puzzle.apiStreakResult(score: Int)
+GET   /$lang<\w\w\w?>/streak            controllers.Puzzle.streakLang(lang)
 
 # Puzzle Storm
 GET   /storm                            controllers.Storm.home
 POST  /storm                            controllers.Storm.record
 GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?= 1)
 GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username, page: Int ?= 1)
+GET   /api/storm                        controllers.Storm.apiGet
 GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username, days: Int ?= 30)
 GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang)
 

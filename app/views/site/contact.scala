@@ -202,28 +202,10 @@ object contact:
             Leaf(
               "security",
               "Security vulnerability",
-              frag(
-                p("Please report security issues to ", contactEmailLink()),
-                p(
-                  "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
-                  "Note that we do not currently pay cash bounties."
-                ),
-                p(
-                  "Vulnerabilities are relevant even when they are not directly exploitable, ",
-                  "for example XSS mitigated by CSP."
-                ),
-                p(
-                  "When doing your research, please minimize negative impact for other users. ",
-                  "As long as you keep this in mind, testing should not require prior coordination. ",
-                  "Avoid spamming, DDoS and volumetric attacks."
-                ),
-                p(
-                  "We believe transport encryption will probably be sufficient for all reports. ",
-                  "If you insist on using PGP, please clarify the nature of the message ",
-                  "in the plain-text subject and encrypt for ",
-                  a(href := "/.well-known/gpg.asc")("multiple recipients"),
-                  "."
-                )
+              p(
+                "Please refer to our ",
+                a(href := "https://github.com/lichess-org/lila/security/policy")("Security policy"),
+                "."
               )
             ),
             Leaf(

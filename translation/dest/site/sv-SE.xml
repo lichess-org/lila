@@ -209,8 +209,10 @@
   <string name="forgotPassword">Glömt lösenordet?</string>
   <string name="error.weakPassword">Detta lösenord är extremt vanligt, och alltför lätt att gissa.</string>
   <string name="error.namePassword">Använd inte ditt användarnamn som lösenord.</string>
+  <string name="blankedPassword">Du har använt samma lösenord på en annan hemsida, och den hemsidan har blivit hackad. För att säkra ditt Lichesskonto måste du välja ett nytt lösenord. Tack för din förståelse.</string>
   <string name="youAreLeavingLichess">Du lämnar Lichess</string>
   <string name="neverTypeYourPassword">Skriv aldrig ditt Lichess-lösenord på en annan webbplats!</string>
+  <string name="proceedToX">Gå vidare till %s</string>
   <string name="passwordSuggestion">Ange inte ett lösenord som föreslagits av någon annan. De kommer att använda det för att stjäla ditt konto.</string>
   <string name="emailSuggestion">Ange inte en e-postadress som föreslagits av någon annan. De kommer att använda den för att stjäla ditt konto.</string>
   <string name="emailConfirmHelp">Hjälp med e-postbekräftelse</string>

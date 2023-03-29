@@ -30,13 +30,28 @@ $mq-not-col3: $mq-not-small;
   @include breakpoint($mq-col2) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(3, fit-content(0));
-    grid-template-areas: 'table  table' 'app    app' 'side   tv' 'side   puzzle' 'blog   blog' 'leader winner' 'tours  tours' 'simuls simuls' 'about  support';
+    grid-template-areas:
+      'table  table'
+      'app    app'
+      'side   tv'
+      'side   puzzle'
+      'blog   blog'
+      'leader winner'
+      'tours  tours'
+      'simuls simuls'
+      'about  support';
   }
 
   @include breakpoint($mq-col3) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 12em repeat(2, fit-content(0));
-    grid-template-areas: 'table   app     app' 'side    app     app' 'tv      leader  winner' 'puzzle  tours   tours' 'support blog    blog ' 'about   simuls  simuls';
+    grid-template-areas:
+      'table   app     app'
+      'side    app     app'
+      'tv      leader  winner'
+      'puzzle  tours   tours'
+      'support blog    blog '
+      'about   simuls  simuls';
 
     &__start {
       flex-flow: column;
@@ -56,7 +71,12 @@ $mq-not-col3: $mq-not-small;
   @include breakpoint($mq-col4) {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, fit-content(0));
-    grid-template-areas: 'side   app     app    table' 'tv     leader  winner puzzle' 'about  blog    blog   support' '.      tours   tours  .' '.      simuls  simuls .';
+    grid-template-areas:
+      'side   app     app    table'
+      'tv     leader  winner puzzle'
+      'about  blog    blog   support'
+      '.      tours   tours  .'
+      '.      simuls  simuls .';
 
     &__tournaments,
     &__simuls {

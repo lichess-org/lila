@@ -16,7 +16,7 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.1.4"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.2"
+  val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.4"
   val chess       = "org.lichess"                  %% "scalachess"                      % "14.6.3"
   val compression = "org.lichess"                  %% "compression"                     % "1.8"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
@@ -78,7 +78,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.0-M2_lila-1"
+    val version = "2.2.0-M3"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
