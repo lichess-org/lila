@@ -2,6 +2,7 @@
   .study-option {
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
     &:first-child {
       margin-bottom: 0.5rem;
       padding-bottom: 0.5rem;
