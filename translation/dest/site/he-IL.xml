@@ -1029,4 +1029,5 @@
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
   <string name="switchSides">הפוך צד</string>
   <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
+  <string name="ourEventTips">הטיפים שלנו לארגון אירועים</string>
 </resources>
