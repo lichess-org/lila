@@ -28,6 +28,11 @@
   <string name="keepGoing">Fortsett…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Oppgåva er fullført!</string>
+  <string name="byOpenings">Etter opningar</string>
+  <string name="puzzlesByOpenings">Oppgåver etter opningar</string>
+  <string name="openingsYouPlayedTheMost">Opningar du spelte mest av i rangerte parti</string>
+  <string name="useFindInPage">Bruk \"Finn side\" i nettlesarmenyen for å finne den opninga du spelar mest!</string>
+  <string name="useCtrlF">Bruk Ctrl+f for å finne den opninga du spelar mest!</string>
   <string name="notTheMove">Det er ikkje rett trekk!</string>
   <string name="trySomethingElse">Prøv noko anna.</string>
   <string name="ratingX">Rating: %s</string>
