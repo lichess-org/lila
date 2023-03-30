@@ -3,8 +3,6 @@ package lila.analyse
 import reactivemongo.api.bson.{ BSONBoolean, BSONInteger }
 import org.joda.time.format.DateTimeFormat
 import lila.db.dsl.{ given, * }
-import lila.memo.CacheApi
-import lila.user.User
 
 final class RequesterApi(coll: Coll)(using Executor):
 

@@ -10,7 +10,7 @@ import lila.common.LightUser
 
 final class JsonView(rematches: Rematches):
 
-  import JsonView.{ *, given }
+  import JsonView.given
 
   def base(game: Game, initialFen: Option[Fen.Epd]) =
     Json

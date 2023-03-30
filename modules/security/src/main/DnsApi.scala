@@ -6,7 +6,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.base.LilaException
 import lila.common.Domain
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.given
 
 final private class DnsApi(
     ws: StandaloneWSClient,

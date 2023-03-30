@@ -2,7 +2,6 @@ package lila.notify
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
 import play.api.Configuration
 
 import lila.db.dsl.Coll

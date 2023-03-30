@@ -14,7 +14,6 @@ import lila.common.Json.given
 import lila.memo.CacheApi
 import lila.user.User
 import java.util.Currency
-import play.api.libs.ws.StandaloneWSRequest
 import play.api.i18n.Lang
 import play.api.ConfigLoader
 
@@ -25,7 +24,6 @@ final private class PayPalClient(
 )(using Executor):
 
   import PayPalClient.*
-  import JsonHandlers.given
   import JsonHandlers.payPal.given
   import WebService.*
 
@@ -231,6 +229,7 @@ final private class PayPalClient(
     }
   }
 
+  @annotation.nowarn
   private def debugInput(data: Seq[(String, Matchable)]) =
     fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
 

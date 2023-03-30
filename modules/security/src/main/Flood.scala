@@ -4,7 +4,6 @@ import com.github.blemale.scaffeine.Cache
 import org.joda.time.Instant
 
 import lila.common.base.Levenshtein.isLevenshteinDistanceLessThan
-import lila.user.User
 
 final class Flood(duration: FiniteDuration):
 

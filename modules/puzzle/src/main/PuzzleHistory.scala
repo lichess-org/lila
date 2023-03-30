@@ -71,7 +71,7 @@ object PuzzleHistory:
       }
       .reverse
 
-final class PuzzleHistoryApi(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
+final class PuzzleHistoryApi(colls: PuzzleColls)(using Executor):
 
   import PuzzleHistory.*
 

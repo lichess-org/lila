@@ -6,12 +6,10 @@ import scala.util.{ Success, Try }
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 import lila.rating.Glicko
 
 object BsonHandlers:
 
-  import Puzzle.given
   import Puzzle.BSONFields.*
 
   private[puzzle] given puzzleReader: BSONDocumentReader[Puzzle] with

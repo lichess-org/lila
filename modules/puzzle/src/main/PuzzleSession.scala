@@ -3,7 +3,7 @@ package lila.puzzle
 import chess.Color
 import scala.util.chaining.*
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.memo.CacheApi
 import lila.user.User
 
@@ -37,11 +37,7 @@ object PuzzleSettings:
   val default                       = PuzzleSettings(PuzzleDifficulty.default, none)
   def default(color: Option[Color]) = PuzzleSettings(PuzzleDifficulty.default, color)
 
-final class PuzzleSessionApi(
-    colls: PuzzleColls,
-    pathApi: PuzzlePathApi,
-    cacheApi: CacheApi
-)(using Executor):
+final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using Executor):
 
   import BsonHandlers.*
 

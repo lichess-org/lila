@@ -109,14 +109,3 @@ final class PuzzleReplayApi(
       } map { ids =>
       PuzzleReplay(days, theme, ids.size, ids)
     }
-
-  private val puzzleLookup =
-    $lookup.pipelineFull(
-      from = colls.puzzle.name.value,
-      as = "puzzle",
-      let = $doc("pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))),
-      pipe = List(
-        $doc("$match"   -> $expr($doc("$eq" -> $arr("$_id", "$$pid")))),
-        $doc("$project" -> $doc("_id" -> true))
-      )
-    )

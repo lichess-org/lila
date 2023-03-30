@@ -1,8 +1,7 @@
 package lila.gameSearch
 
-import chess.{ Mode, Status }
+import chess.Status
 
-import lila.common.Json.given
 import lila.rating.RatingRange
 import lila.search.Range
 

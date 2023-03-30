@@ -3,7 +3,6 @@ package lila.oauth
 import cats.data.Validated
 import reactivemongo.api.bson.*
 import lila.db.dsl.*
-import lila.user.User
 
 final class AuthorizationApi(val coll: Coll)(using Executor):
   import AuthorizationApi.{ BSONFields as F, PendingAuthorization, PendingAuthorizationBSONHandler }
@@ -87,7 +86,7 @@ private object AuthorizationApi:
         expires = r.get[DateTime](F.expires)
       )
 
-    def writes(w: BSON.Writer, o: PendingAuthorization) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: PendingAuthorization) =
       $doc(
         F.hashedCode         -> o.hashedCode,
         F.clientId           -> o.clientId.value,

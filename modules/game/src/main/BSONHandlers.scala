@@ -20,6 +20,7 @@ import scala.util.{ Success, Try }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.common.Days
+import scala.annotation.nowarn
 
 object BSONHandlers:
 
@@ -55,7 +56,7 @@ object BSONHandlers:
         },
         promoted = r.str("t").view.flatMap(chess.Pos.fromChar(_)).to(Set)
       )
-    def writes(w: BSON.Writer, o: Crazyhouse.Data) =
+    def writes(@nowarn w: BSON.Writer, o: Crazyhouse.Data) =
       BSONDocument(
         "p" -> {
           o.pockets.white.roles.map(_.forsythUpper).mkString +

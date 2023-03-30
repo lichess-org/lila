@@ -3,7 +3,6 @@ package lila.coordinate
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.user.User
 import lila.db.dsl.{ given, * }
 import chess.Color
 

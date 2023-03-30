@@ -5,7 +5,6 @@ import play.api.data.Forms.*
 import play.api.libs.json.*
 
 import lila.common.Form.{ numberIn, stringIn, given }
-import lila.common.Json.given
 import chess.Color
 
 object PuzzleForm:
@@ -58,7 +57,7 @@ object PuzzleForm:
     val round = Form(
       mapping(
         "win" -> text
-      )(w => RoundData(win = PuzzleWin(w == "1" || w == "true"), rated = true, none, none, none, none))(r =>
+      )(w => RoundData(win = PuzzleWin(w == "1" || w == "true"), rated = true, none, none, none, none))(_ =>
         none
       )
     )

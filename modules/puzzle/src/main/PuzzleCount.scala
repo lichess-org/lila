@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import reactivemongo.api.*
-
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 

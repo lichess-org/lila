@@ -1,9 +1,7 @@
 package lila.notify
 
-import chess.Color
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.notify.Notification.*
 import reactivemongo.api.bson.*
 
 private object BSONHandlers:
@@ -62,6 +60,6 @@ private object BSONHandlers:
         case "genericLink"    => reader.as[GenericLink]
         case "streamStart"    => reader.as[StreamStart]
 
-    def writes(writer: Writer, n: NotificationContent): Bdoc = writeNotificationContent(n)
+    def writes(@annotation.nowarn w: Writer, n: NotificationContent): Bdoc = writeNotificationContent(n)
 
   private[notify] given BSONDocumentHandler[Notification] = Macros.handler

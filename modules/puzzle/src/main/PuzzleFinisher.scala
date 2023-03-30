@@ -17,9 +17,7 @@ final private[puzzle] class PuzzleFinisher(
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
     colls: PuzzleColls
-)(using ec: Executor, scheduler: Scheduler, mode: play.api.Mode):
-
-  import BsonHandlers.given
+)(using ec: Executor, scheduler: Scheduler):
 
   private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
     maxSize = Max(64),

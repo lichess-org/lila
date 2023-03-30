@@ -9,7 +9,6 @@ final private class Expiration(
     notifier: PlanNotifier
 )(using Executor):
 
-  import BsonHandlers.given
   import BsonHandlers.PatronHandlers.given
 
   def run: Funit =

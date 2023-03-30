@@ -3,7 +3,7 @@ package lila.chat
 import play.api.libs.json.*
 
 import lila.common.LightUser
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 
 object JsonView:
 

@@ -18,9 +18,9 @@ final class Divider:
 
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Epd]) =
     if (!Variant.list.divisionSensibleVariants(variant)) Division.empty
-    else cache.get(id, _ => noCache(id, sans, variant, initialFen))
+    else cache.get(id, _ => noCache(sans, variant, initialFen))
 
-  def noCache(id: GameId, sans: Vector[SanStr], variant: Variant, initialFen: Option[Fen.Epd]) =
+  def noCache(sans: Vector[SanStr], variant: Variant, initialFen: Option[Fen.Epd]) =
     chess.Replay
       .boards(
         sans = sans,

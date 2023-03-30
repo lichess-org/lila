@@ -3,7 +3,6 @@ package lila.security
 import java.security.MessageDigest
 import java.nio.charset.StandardCharsets.UTF_8
 import com.roundeights.hasher.Algo
-import org.mindrot.BCrypt
 
 import lila.common.String.base64
 import lila.common.Iso
