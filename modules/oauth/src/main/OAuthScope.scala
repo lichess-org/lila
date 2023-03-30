@@ -94,7 +94,7 @@ object OAuthScope:
   )
 
   val classified: List[(I18nKey, List[OAuthScope])] = List(
-    I18nKey("User account")    -> List(Email.Read, Preference.Read, Preference.Write),
+    I18nKey("User account")    -> List(Email.Read, Preference.Read, Preference.Write, Web.Mod),
     I18nKey("Interactions")    -> List(Follow.Read, Follow.Write, Msg.Write),
     I18nKey("Play games")      -> List(Challenge.Read, Challenge.Write, Challenge.Bulk, Tournament.Write),
     I18nKey("Teams")           -> List(Team.Read, Team.Write, Team.Lead),
