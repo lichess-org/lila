@@ -193,15 +193,15 @@ final class Ublog(env: Env) extends LilaController(env):
       lila.ublog.UblogForm.tier
         .bindFromRequest()
         .fold(
-          err => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
+          _ => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
           tier =>
-            for {
+            for
               user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect.apply
               _    <- env.ublog.api.setTier(blog.id, tier)
               _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
               _ <- env.mod.logApi
                 .blogTier(lila.report.Mod(me.user), user, blog.id.full, UblogBlog.Tier.name(tier))
-            } yield Redirect(urlOfBlog(blog)).flashSuccess
+            yield Redirect(urlOfBlog(blog)).flashSuccess
         )
     }
   }
@@ -276,14 +276,14 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def communityAtom(language: String) = Action.async { implicit req =>
+  def communityAtom(language: String) = Action.async { _ =>
     val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
     env.ublog.paginator.liveByCommunity(l, page = 1) map { posts =>
       Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
     }
   }
 
-  def liked(page: Int) = Auth { implicit ctx => me =>
+  def liked(page: Int) = Auth { implicit ctx => _ =>
     NotForKids {
       Reasonable(page, config.Max(15)) {
         ctx.me ?? { me =>

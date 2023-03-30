@@ -1,6 +1,6 @@
 package controllers
 
-import lila.api.{ *, given }
+import lila.api.*
 
 import play.api.http.*
 import play.api.mvc.Codec

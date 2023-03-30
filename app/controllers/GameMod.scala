@@ -101,8 +101,6 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
     }.pipe(asAttachmentStream(s"lichess_mod_${user.username}_${gameIds.size}_games.pgn"))
       .as(pgnContentType)
 
-  private def guessSwisses(user: lila.user.User): Fu[Seq[lila.swiss.Swiss]] = fuccess(Nil)
-
 object GameMod:
 
   case class Filter(

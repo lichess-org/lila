@@ -201,7 +201,6 @@ final class UserRepo(val coll: Coll)(using Executor):
   def addStreakRun = addStormLikeRun("streak")
 
   private def addStormLikeRun(field: String)(userId: UserId, score: Int): Funit =
-    val inc = $inc(s"perfs.$field.runs" -> 1)
     coll.update
       .one(
         $id(userId),

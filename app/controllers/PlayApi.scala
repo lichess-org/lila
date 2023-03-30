@@ -116,14 +116,14 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         case _ => notFoundJson("No such command")
 
   def boardCommandGet(cmd: String) =
-    ScopedBody(_.Board.Play) { implicit req => me =>
+    ScopedBody(_.Board.Play) { _ => me =>
       cmd.split('/') match
         case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id), me)(getChat)
         case _                         => notFoundJson("No such command")
     }
 
   def botCommandGet(cmd: String) =
-    ScopedBody(_.Bot.Play) { implicit req => me =>
+    ScopedBody(_.Bot.Play) { _ => me =>
       cmd.split('/') match
         case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id), me)(getChat)
         case _                         => notFoundJson("No such command")

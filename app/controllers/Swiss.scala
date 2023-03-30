@@ -87,7 +87,7 @@ final class Swiss(
     }
 
   def apiShow(id: SwissId) =
-    Action.async { implicit req =>
+    Action.async { _ =>
       env.swiss.cache.swissCache byId id flatMap {
         case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
         case _           => notFoundJson()
@@ -162,7 +162,7 @@ final class Swiss(
     }
 
   def apiTerminate(id: SwissId) =
-    ScopedBody(_.Tournament.Write) { implicit req => me =>
+    ScopedBody(_.Tournament.Write) { _ => me =>
       env.swiss.cache.swissCache byId id flatMapz {
         case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
           env.swiss.api

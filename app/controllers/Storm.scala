@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 
-final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
+final class Storm(env: Env) extends LilaController(env):
 
   def home     = Open(serveHome(using _))
   def homeLang = LangPage(routes.Storm.home)(serveHome(using _))
@@ -23,7 +23,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       }
     }
 
-  def apiGet = AnonOrScoped(_.Puzzle.Read) { req => me =>
+  def apiGet = AnonOrScoped(_.Puzzle.Read) { _ => me =>
     dataAndHighScore(me, none) map { (data, high) =>
       import lila.storm.StormJson.given
       JsonOk(data.add("high" -> high))
@@ -63,7 +63,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
     }
 
   def apiDashboardOf(username: UserStr, days: Int) =
-    Open { implicit ctx =>
+    Open { _ =>
       lila.user.User.validateId(username) ?? { userId =>
         if (days < 0 || days > 365) notFoundJson("Invalid days parameter")
         else

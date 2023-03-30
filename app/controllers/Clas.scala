@@ -544,7 +544,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     }
 
   def studentClosePost(id: ClasId, username: UserStr) =
-    SecureBody(_.Teacher) { implicit ctx => me =>
+    SecureBody(_.Teacher) { _ => me =>
       WithClassAndStudents(me, id) { (clas, _) =>
         WithStudent(clas, username) { s =>
           if (s.student.managed)

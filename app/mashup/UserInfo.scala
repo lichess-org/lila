@@ -10,7 +10,7 @@ import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.user.{ Trophy, TrophyApi, User }
+import lila.user.User
 
 case class UserInfo(
     user: User,
