@@ -160,7 +160,6 @@ function ppCost(key: string, e: SubInfo) {
 }
 
 function writeGrammar(out: string) {
-  // we are using a custom format here, because we want voiceMoveGrammar to be quickly navigable
   fs.writeFileSync(
     out,
     `// *************************** this file is generated. see ui/voice/@build/README.md ***************************
