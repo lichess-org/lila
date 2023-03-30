@@ -208,22 +208,24 @@ object helpModal:
             ),
             row(voice("castle"), "Kingside castle"),
             row(frag(voice("long castle"), voice("queenside castle")), "Queenside castle"),
-            row(frag(voice("a7g1"), voice("alfa 7 golf 1")), "Full UCI works too")
+            row(frag(voice("a7g1"), voice("alfa 7 golf 1")), "Full UCI works too"),
+            row(voice("draw"), offerOrAcceptDraw())
           )
         ),
         table(
           tbody(
             header(otherCommands()),
-            row(voice("draw"), offerOrAcceptDraw()),
             row(voice("resign"), trans.resignTheGame()),
-            row(voice("ooops"), "Request a takeback"),
+            row(frag(voice("oops"), voice("undo")), "Request a takeback"),
             row(
-              frag(voice("clear"), voice("no")),
-              "Clear arrows, selection, or this dialog"
+              frag(voice("no"), voice("clear")),
+              "Clear arrows or deny a request"
             ),
-            row(frag(voice("yes"), voice("confirm")), "Confirm single arrow"),
+            row(frag(voice("yes"), voice("confirm")), "Confirm something"),
             row(voice("stop"), "Stop listening"),
             row(voice("next"), trans.puzzle.nextPuzzle()),
+            row(voice("thumbs up"), trans.puzzle.upVote()),
+            row(voice("solution"), "Show puzzle solution"),
             row(voice("help"), trans.showHelpDialog()),
             tr(
               td,

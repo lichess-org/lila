@@ -64,10 +64,7 @@ class VoiceMoveCtrl implements VoiceMove {
       if (e.val === undefined) e.val = e.tok;
       pushMap(this.byVal, e.val, e);
     }
-    this.showHelp = propWithEffect(false, isOpen => {
-      isOpen ? this.confirm.set('no', () => this.showHelp(false)) : this.confirm.delete('help');
-      root.redraw();
-    });
+    this.showHelp = propWithEffect(false, root.redraw);
     this.root = root;
     this.update(step);
     lichess.mic?.addListener('voiceMove', this.listen.bind(this));
@@ -123,7 +120,9 @@ class VoiceMoveCtrl implements VoiceMove {
     if (c === 'stop') {
       lichess.mic?.stop();
       this.clearMoveProgress();
-    } else if (c === 'rematch') this.root.rematch?.(true);
+    } else if (c === 'no' && this.showHelp()) this.showHelp(false);
+    else if (c === 'help') this.showHelp(true);
+    else if (c === 'rematch') this.root.rematch?.(true);
     else if (c === 'draw') this.root.offerDraw?.(true, false);
     else if (c === 'resign') this.root.resign?.(true, false);
     else if (c === 'next') this.root.next?.();
@@ -131,7 +130,6 @@ class VoiceMoveCtrl implements VoiceMove {
     else if (c === 'upvote') this.root.vote?.(true);
     else if (c === 'downvote') this.root.vote?.(false);
     else if (c === 'solve') this.root.solve?.();
-    else if (c === 'help') this.showHelp(true);
     else return false;
     return true;
   }

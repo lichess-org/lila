@@ -52,7 +52,7 @@
   { "in": "thumbs up", "val": "upvote", "tags": [ "command", "puzzle" ] },
   { "in": "thumbs down", "val": "downvote", "tags": [ "command", "puzzle" ] },
   { "in": "solution", "val": "solve", "tags": [ "command", "puzzle" ] },
-  { "in": "help", "val": "?", "tags": [ "command" ] },
+  { "in": "help", "val": "help", "tags": [ "command" ] },
   { "in": "stop", "val": "stop", "tags": [ "command" ] },
 
   { "in": "yes", "val": "yes", "tags": [ "choice" ] },
