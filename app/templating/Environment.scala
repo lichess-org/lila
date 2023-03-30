@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.user.UserContext
 
 object Environment

@@ -69,36 +69,22 @@ final class LilaJsObject(private val js: JsObject) extends AnyVal:
 final class LilaJsValue(private val js: JsValue) extends AnyVal:
 
   def str(key: String): Option[String] =
-    js.asOpt[JsObject] flatMap { obj =>
-      (obj \ key).asOpt[String]
-    }
+    (js \ key).asOpt[String]
 
   def int(key: String): Option[Int] =
-    js.asOpt[JsObject] flatMap { obj =>
-      (obj \ key).asOpt[Int]
-    }
+    (js \ key).asOpt[Int]
 
   def long(key: String): Option[Long] =
-    js.asOpt[JsObject] flatMap { obj =>
-      (obj \ key).asOpt[Long]
-    }
+    (js \ key).asOpt[Long]
 
   def boolean(key: String): Option[Boolean] =
-    js.asOpt[JsObject] flatMap { obj =>
-      (obj \ key).asOpt[Boolean]
-    }
+    (js \ key).asOpt[Boolean]
 
   def obj(key: String): Option[JsObject] =
-    js.asOpt[JsObject] flatMap { obj =>
-      (obj \ key).asOpt[JsObject]
-    }
+    (js \ key).asOpt[JsObject]
 
   def get[A: Reads](key: String): Option[A] =
-    js.asOpt[JsObject] flatMap { obj =>
-      (js \ key).asOpt[A]
-    }
+    (js \ key).asOpt[A]
 
   def arr(key: String): Option[JsArray] =
-    js.asOpt[JsObject] flatMap { obj =>
-      (obj \ key).asOpt[JsArray]
-    }
+    (js \ key).asOpt[JsArray]

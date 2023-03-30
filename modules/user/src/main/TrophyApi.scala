@@ -24,8 +24,7 @@ final class TrophyApi(
       expireAfter = Syncache.ExpireAfter.Write(1 hour)
     )
 
-  private given BSONHandler[TrophyKind] = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
-
+  private given BSONHandler[TrophyKind]     = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
   private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =

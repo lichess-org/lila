@@ -2,7 +2,6 @@ package lila.common
 
 import akka.NotUsed
 import akka.stream.scaladsl.*
-import scala.annotation.nowarn
 
 object LilaStream:
 

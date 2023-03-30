@@ -1,8 +1,8 @@
 package lila.app
 
-import akka.actor.{ ActorSystem, CoordinatedShutdown }
+import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import play.api.{ Environment, Configuration, Application, BuiltInComponents }
+import play.api.{ Environment, Configuration, BuiltInComponents }
 import play.api.http.HttpRequestHandler
 import play.api.libs.crypto.CookieSignerProvider
 import play.api.libs.ws.StandaloneWSClient

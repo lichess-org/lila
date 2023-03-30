@@ -2,7 +2,6 @@ package lila.perfStat
 
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import play.api.Configuration
 
 import lila.common.config.*
 

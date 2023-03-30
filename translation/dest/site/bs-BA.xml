@@ -697,7 +697,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="simulAddExtraTime">Možete dodati više vremena na svoj sat kako bi Vam to pomoglo tokom igranja simultanke.</string>
   <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
   <string name="simulAddExtraTimePerPlayer">Dodajte početno vrijeme na Vaš sat za svakog igrača koji se pridruži simultanci.</string>
-  <string name="simulHostExtraTimePerPlayer" comment="simulHostExtraTimePerPlayer&#10;&#10;Add more time to the simul host's clock for each player joining the simul.">Dodatno vrijeme po igraču za domaćina simultanke</string>
+  <string name="simulHostExtraTimePerPlayer">Dodatno vrijeme po igraču za domaćina simultanke</string>
   <string name="lichessTournaments">Lichess turniri</string>
   <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
   <string name="timeBeforeTournamentStarts">Vrijeme do početka turnira</string>
@@ -988,4 +988,5 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Zamijenite strane</string>
   <string name="closingAccountWithdrawAppeal">Zatvaranje Vašeg računa povući će Vašu žalbu</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naši savjeti za organiziranje događajâ</string>
 </resources>

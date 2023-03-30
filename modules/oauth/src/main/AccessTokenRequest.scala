@@ -6,7 +6,6 @@ import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 
 import lila.common.String.base64
-import lila.user.User
 
 object AccessTokenRequest:
   import Protocol.*

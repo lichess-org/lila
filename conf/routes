@@ -355,7 +355,7 @@ POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(i
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id)
 POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id)
 GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id)
-GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
+GET   /tournament/help                        controllers.Tournament.help
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
 GET   /tournament/shields/:categ              controllers.Tournament.categShields(categ)
@@ -523,7 +523,7 @@ GET   /auth/token/:token               controllers.Auth.loginWithToken(token)
 POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token, referrer: Option[String])
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
-GET   /auth/magic-link/sent/:email     controllers.Auth.magicLinkSent(email)
+GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
 GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token)
 
 # Mod
@@ -761,7 +761,7 @@ POST  /account/twofactor/setup         controllers.Account.setupTwoFactor
 POST  /account/twofactor/disable       controllers.Account.disableTwoFactor
 GET   /account/reopen                  controllers.Account.reopen
 POST  /account/reopen/send             controllers.Account.reopenApply
-GET   /account/reopen/sent/:email      controllers.Account.reopenSent(email)
+GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
 # App BC

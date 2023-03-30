@@ -1,6 +1,5 @@
 package lila.mailer
 
-import org.joda.time.Period
 import play.api.i18n.Lang
 import scala.util.chaining.*
 import scalatags.Text.all.*
@@ -53,8 +52,7 @@ The Lichess team"""
       user        <- userRepo byId username orFail s"No such user $username"
       emailOption <- userRepo email user.id
       title       <- fuccess(user.title) orFail "User doesn't have a title!"
-      body = alsoSendAsPrivateMessage(user) { lang =>
-        given Lang = lang
+      body = alsoSendAsPrivateMessage(user) { _ =>
         s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
@@ -223,7 +221,6 @@ $disableSettingNotice $disableLink"""
     }
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
-    given Lang = userLang(user)
     body(userLang(user)) tap { txt =>
       lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
     }

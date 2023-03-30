@@ -21,7 +21,7 @@ import chess.format.pgn.SanStr
 import JsonView.{ *, given }
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 
 sealed trait Event:
   def typ: String

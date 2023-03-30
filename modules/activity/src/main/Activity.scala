@@ -4,7 +4,6 @@ import activities.*
 import org.joda.time.Interval
 
 import lila.common.LichessDay
-import lila.user.User
 
 case class Activity(
     id: Activity.Id,

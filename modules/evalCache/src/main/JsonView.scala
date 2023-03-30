@@ -3,7 +3,7 @@ package lila.evalCache
 import chess.format.Fen
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 import lila.evalCache.EvalCacheEntry.*
 
 object JsonView:

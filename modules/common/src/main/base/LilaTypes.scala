@@ -3,7 +3,7 @@ package lila.base
 import ornicar.scalalib.newtypes.*
 
 import alleycats.Zero
-import play.api.libs.json.{ JsError, JsObject, JsResult }
+import play.api.libs.json.JsObject
 
 trait LilaTypes:
 

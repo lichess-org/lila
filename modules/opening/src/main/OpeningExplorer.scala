@@ -1,6 +1,5 @@
 package lila.opening
 
-import chess.format.{ Fen, Uci }
 import chess.format.pgn.SanStr
 import chess.opening.Opening
 import com.softwaremill.tagging.*
@@ -8,8 +7,6 @@ import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-
-import lila.game.Game
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,

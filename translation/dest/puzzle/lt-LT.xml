@@ -28,6 +28,11 @@
   <string name="keepGoing">Toliau…</string>
   <string name="puzzleSuccess">Pavyko!</string>
   <string name="puzzleComplete">Užduotis išspręsta!</string>
+  <string name="byOpenings">Pagal debiutus</string>
+  <string name="puzzlesByOpenings">Galvosūkiai pagal debiutus</string>
+  <string name="openingsYouPlayedTheMost">Debiutai, kuriuos žaidėte paskutinėse reitinguotose partijose</string>
+  <string name="useFindInPage">Naudokite \"Rasti puslapyje\" savo naršyklės meniu norėdami rasti savo mėgiamiausią debiutą!</string>
+  <string name="useCtrlF">Naudokite Ctrl+f norėdami rasti savo mėgiamiausią debiutą!</string>
   <string name="notTheMove">Ne toks ėjimas!</string>
   <string name="trySomethingElse">Bandykite kitką.</string>
   <string name="ratingX">Reitingas: %s</string>

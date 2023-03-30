@@ -27,8 +27,8 @@ final class Practice(
     }
 
   def show(
-      sectionId: String,
-      studySlug: String,
+      @nowarn sectionId: String,
+      @nowarn studySlug: String,
       studyId: StudyId
   ) =
     Open { implicit ctx =>
@@ -36,8 +36,8 @@ final class Practice(
     }
 
   def showChapter(
-      sectionId: String,
-      studySlug: String,
+      @nowarn sectionId: String,
+      @nowarn studySlug: String,
       studyId: StudyId,
       chapterId: StudyChapterId
   ) =

@@ -662,6 +662,8 @@
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
   <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
+  <string name="simulAddExtraTimePerPlayer">Lisää alussa kelloosi aikaa jokaista simultaaniin liittyvää pelaajaa kohden.</string>
+  <string name="simulHostExtraTimePerPlayer">Lisää jokaista pelaajaa kohden isännän kelloon lisää aikaa</string>
   <string name="lichessTournaments">Lichessin turnaukset</string>
   <string name="tournamentFAQ">Areenaturnausten FAQ</string>
   <string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
@@ -946,4 +948,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="lichessDbExplanation">Lichessin kaikkien pelaajien pisteytetyt pelit</string>
   <string name="switchSides">Vaihda puolta</string>
   <string name="closingAccountWithdrawAppeal">Jos suljet tunnuksesi, valituksesi raukeaa</string>
+  <string name="ourEventTips">Meidän vinkkimme tapahtumien järjestämiseen</string>
 </resources>

@@ -19,7 +19,6 @@ final class PuzzleActivity(
 
   import PuzzleActivity.*
   import BsonHandlers.given
-  import JsonView.{ *, given }
 
   def stream(config: Config): Source[String, ?] =
     Source futureSource {

@@ -6,7 +6,6 @@ import scalatags.Text.all.Tag
 import controllers.routes
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.team.Team.nameToId
 import lila.hub.LightTeam.TeamName
 
 trait TeamHelper { self: HasEnv with RouterHelper =>

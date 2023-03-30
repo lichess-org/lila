@@ -339,7 +339,7 @@ final class Round(
     }
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) =
-    Scoped(_.Challenge.Write) { implicit req => me =>
+    Scoped(_.Challenge.Write) { _ => me =>
       import lila.round.actorApi.round.Moretime
       if (seconds < 1 || seconds > 86400) BadRequest.toFuccess
       else

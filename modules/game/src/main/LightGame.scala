@@ -2,8 +2,6 @@ package lila.game
 
 import chess.{ Color, Status }
 
-import lila.user.User
-
 case class LightGame(
     id: GameId,
     whitePlayer: Player,

@@ -662,6 +662,8 @@
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
   <string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>
   <string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
+  <string name="simulAddExtraTimePerPlayer">Eş zamanlı gösteriye katılan her oyuncu için saatinize başlangıç süresi ekleyin.</string>
+  <string name="simulHostExtraTimePerPlayer">Ev sahibi, katılan her oyuncu için ekstra süre alır</string>
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
   <string name="timeBeforeTournamentStarts">Turnuvaya kalan süre</string>
@@ -944,4 +946,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
   <string name="switchSides">Renk değiştir</string>
   <string name="closingAccountWithdrawAppeal">Hesabınızı kapatırsanız başvurunuz geri çekilecektir</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Etkinlik düzenlemek için ipuçlarımız</string>
 </resources>

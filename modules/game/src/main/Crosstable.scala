@@ -1,6 +1,7 @@
 package lila.game
 
 import scala.util.Success
+import scala.annotation.nowarn
 
 case class Crosstable(
     users: Crosstable.Users,
@@ -114,7 +115,7 @@ object Crosstable:
         case Some(_)                => "-"
         case None                   => "="
       s"${result.gameId}$flag"
-    def writes(w: BSON.Writer, o: Crosstable) =
+    def writes(@nowarn w: BSON.Writer, o: Crosstable) =
       BSONDocument(
         id      -> makeKey(o.user1.id, o.user2.id),
         score1  -> o.user1.score,

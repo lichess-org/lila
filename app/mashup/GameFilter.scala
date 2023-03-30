@@ -2,7 +2,7 @@ package lila.app
 package mashup
 
 import lila.common.paginator.Paginator
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.game.{ Game, Query }
 import lila.user.User
 

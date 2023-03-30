@@ -2,10 +2,8 @@ package lila.oauth
 
 import reactivemongo.api.bson.*
 import com.roundeights.hasher.Algo
-import ornicar.scalalib.SecureRandom
 
 import lila.common.Bearer
-import lila.user.User
 
 case class AccessToken(
     id: AccessToken.Id,
@@ -76,7 +74,7 @@ object AccessToken:
         expires = r.getO[DateTime](expires)
       )
 
-    def writes(w: BSON.Writer, o: AccessToken) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: AccessToken) =
       $doc(
         id           -> o.id,
         plain        -> o.plain,

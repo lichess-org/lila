@@ -5,13 +5,11 @@ import play.api.i18n.Lang
 
 import lila.common.Heapsort
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl.{ *, given }
-import lila.forum.ForumCateg
+import lila.db.dsl.*
 import lila.game.LightPov
 import lila.practice.PracticeStructure
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi
-import lila.ublog.UblogPost
 import lila.user.User
 
 final class ActivityReadApi(

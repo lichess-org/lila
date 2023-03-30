@@ -1,12 +1,9 @@
 package lila.opening
 
-import chess.opening.OpeningDb
 import play.api.mvc.RequestHeader
 
-import lila.db.dsl.*
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import lila.user.User
 
 final class OpeningApi(
     wikiApi: OpeningWikiApi,

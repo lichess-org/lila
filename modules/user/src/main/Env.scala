@@ -7,7 +7,6 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
-import lila.common.LightUser
 import lila.db.dsl.Coll
 
 private class UserConfig(

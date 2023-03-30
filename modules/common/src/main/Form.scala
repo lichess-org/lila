@@ -12,8 +12,6 @@ import play.api.data.{ Field, FormError, JodaFormats, Mapping, Form => PlayForm 
 import play.api.data.validation as V
 import scala.util.Try
 
-import lila.common.base.StringUtils
-
 object Form:
 
   type Options[A] = Iterable[(A, String)]

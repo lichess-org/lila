@@ -18,13 +18,12 @@ import lila.plan.{
   PayPalSubscriptionId,
   PlanCheckout,
   StripeCustomer,
-  StripeCustomerId,
-  StripeMode
+  StripeCustomerId
 }
 import lila.user.{ User as UserModel }
 import views.*
 
-final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env):
+final class Plan(env: Env) extends LilaController(env):
 
   private val logger = lila.log("plan")
 

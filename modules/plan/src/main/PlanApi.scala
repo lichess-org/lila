@@ -1,6 +1,5 @@
 package lila.plan
 
-import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import reactivemongo.api.*
 import cats.syntax.all.*
@@ -378,7 +377,7 @@ final class PlanApi(
 
     // only used for automatically renewing subscription charges
     def onCaptureCompleted(capture: PayPalCapture) =
-      (capture.subscriptionId, capture.capturedMoney).mapN { (subId, money) =>
+      capture.subscriptionId.map { subId =>
         for
           user <- userRepo.byId(capture.userId) orFail s"Missing user for paypal capture $capture"
           // look for previous charge

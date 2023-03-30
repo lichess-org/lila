@@ -2,9 +2,9 @@ package lila.memo
 
 object OnceEvery:
 
-  def apply[K](ttl: FiniteDuration)(using SameRuntime[K, String]): K => Boolean =
+  def apply[K](ttl: FiniteDuration): K => Boolean =
 
-    val cache = new ExpireSetMemo[K](ttl)
+    val cache = ExpireSetMemo[K](ttl)
 
     key => {
       val isNew = !cache.get(key)

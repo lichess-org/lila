@@ -25,7 +25,6 @@ import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDa
 import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import io.mola.galimatias.URL
-import scala.collection.JavaConverters
 import java.util.Arrays
 import scala.jdk.CollectionConverters.*
 import scala.util.Try

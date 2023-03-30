@@ -1,8 +1,5 @@
 package lila.puzzle
 
-import scala.util.chaining.*
-import chess.Color
-
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -45,7 +42,7 @@ final class PuzzleSelector(
             s"No puzzle path for ${user.id} $angle $tier" flatMap { pathId =>
               val newSession = session.switchTo(pathId)
               sessionApi.set(user, newSession)
-              findNextPuzzleFor(user, angle, retries = retries + 1)
+              findNextPuzzleFor(user, angle, retries = withRetries + 1)
             }
 
         def serveAndMonitor(puzzle: Puzzle) =

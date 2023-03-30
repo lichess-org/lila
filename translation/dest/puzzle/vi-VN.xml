@@ -28,6 +28,11 @@
   <string name="keepGoing">Hãy tiếp tục…</string>
   <string name="puzzleSuccess">Thành công!</string>
   <string name="puzzleComplete">Hoàn thành thế cờ!</string>
+  <string name="byOpenings">Theo khai cuộc</string>
+  <string name="puzzlesByOpenings">Cờ thế theo khai cuộc</string>
+  <string name="openingsYouPlayedTheMost">Khai cuộc bạn thường chơi trong ván đấu xếp hạng</string>
+  <string name="useFindInPage">Dùng \"tìm kiếm trong trang\" trên trình duyệt để tìm khai cuộc yêu thích!</string>
+  <string name="useCtrlF">Dùng Ctrl+f để tìm khai cuộc yêu thích!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
   <string name="trySomethingElse">Hãy thử nước đi khác.</string>
   <string name="ratingX">Hệ số: %s</string>

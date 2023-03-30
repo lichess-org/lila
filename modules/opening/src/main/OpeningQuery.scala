@@ -5,11 +5,7 @@ import chess.format.pgn.{ SanStr, PgnMovesStr, PgnStr }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 import chess.Replay
 import chess.variant.Standard
-import chess.{ Situation, Speed }
 import chess.MoveOrDrop.*
-import org.joda.time.format.DateTimeFormat
-
-import lila.common.LilaOpeningFamily
 
 case class OpeningQuery(replay: Replay, config: OpeningConfig):
   export replay.state.sans

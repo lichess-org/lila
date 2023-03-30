@@ -2,8 +2,6 @@ package lila.analyse
 
 import chess.{ Ply, Color }
 
-import lila.user.User
-
 case class Analysis(
     id: Analysis.ID, // game ID, or chapter ID if studyId is set
     studyId: Option[StudyId],

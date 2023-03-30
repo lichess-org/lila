@@ -4,7 +4,7 @@ import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 import lila.common.LightUser
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
@@ -33,7 +33,7 @@ final class JsonView(getLightUser: LightUser.GetterSync):
   given Writes[Count]                  = Json.writes
   given (using Lang): Writes[PerfStat] = Json.writes
 
-  def apply(data: PerfStatData)(using lang: Lang) =
+  def apply(data: PerfStatData)(using Lang) =
     Json.obj(
       "user"       -> data.user,
       "perf"       -> data.user.perfs(data.stat.perfType),

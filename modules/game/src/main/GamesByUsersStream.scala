@@ -2,13 +2,10 @@ package lila.game
 
 import actorApi.{ FinishGame, StartGame }
 import akka.stream.scaladsl.*
-import chess.format.Fen
 import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.common.Json.given
-import lila.game.Game
-import lila.user.User
 import lila.db.dsl.given
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using

@@ -1,7 +1,6 @@
 package lila.rating
 
-import lila.db.dsl.{ *, given }
-import lila.common.Iso
+import lila.db.dsl.given
 import reactivemongo.api.bson.BSONHandler
 
 object BSONHandlers:

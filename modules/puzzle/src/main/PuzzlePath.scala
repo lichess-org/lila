@@ -21,7 +21,7 @@ object PuzzlePath:
 final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
 
   import BsonHandlers.given
-  import PuzzlePath.{ *, given }
+  import PuzzlePath.*
 
   def nextFor(
       user: User,

@@ -28,6 +28,11 @@
   <string name="keepGoing">Pokračujte…</string>
   <string name="puzzleSuccess">Úspech!</string>
   <string name="puzzleComplete">Úloha splnená!</string>
+  <string name="byOpenings">Podľa otvorení</string>
+  <string name="puzzlesByOpenings">Šachové úlohy podľa otvorení</string>
+  <string name="openingsYouPlayedTheMost">Otvorenia, ktoré ste najviac hrali v hodnotených partiách</string>
+  <string name="useFindInPage">K nájdeniu Vášho obľúbeného otvorenia použite \"Nájsť na stránke\" v menu prehliadača!</string>
+  <string name="useCtrlF">K nájdeniu Vášho obľúbeného otvorenia použite Ctrl+f!</string>
   <string name="notTheMove">To nie je ten správny ťah!</string>
   <string name="trySomethingElse">Skúste niečo iné.</string>
   <string name="ratingX">Rating: %s</string>

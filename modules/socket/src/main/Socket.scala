@@ -1,7 +1,6 @@
 package lila.socket
 
 import play.api.libs.json.*
-import alleycats.Zero
 
 object Socket extends Socket:
 

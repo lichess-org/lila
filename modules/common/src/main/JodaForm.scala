@@ -79,7 +79,7 @@ object JodaFormats:
         .allCatch[T]
         .either(parse(s))
         .left
-        .map(e => Seq(FormError(key, errMsg, errArgs)))
+        .map(_ => Seq(FormError(key, errMsg, errArgs)))
     }
 
   /** Formatter for the `org.joda.time.DateTime` type.

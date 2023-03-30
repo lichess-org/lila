@@ -2,7 +2,6 @@ package lila.game
 
 import cats.syntax.all.*
 import chess.{ Ply, Color }
-import scala.util.chaining.*
 
 import lila.user.User
 
@@ -142,7 +141,6 @@ object Player:
   case class UserInfo(id: UserId, rating: IntRating, provisional: RatingProvisional)
 
   import reactivemongo.api.bson.*
-  import lila.db.BSON
   import lila.db.dsl.given
 
   given BSONDocumentHandler[HoldAlert] = Macros.handler

@@ -5,7 +5,6 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.relation.RelationRepo.makeId
-import lila.user.User
 
 final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
     Executor

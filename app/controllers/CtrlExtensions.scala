@@ -1,8 +1,7 @@
 package controllers
 
 import play.api.mvc.*
-import play.api.http.*
-import lila.app.{ *, given }
+import lila.app.*
 import lila.common.HTTPRequest
 
 trait CtrlExtensions extends ControllerHelpers:

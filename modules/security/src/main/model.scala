@@ -3,7 +3,7 @@ package lila.security
 import play.api.mvc.RequestHeader
 import play.api.data.Form
 
-import lila.common.{ EmailAddress, IpAddress, Iso }
+import lila.common.{ EmailAddress, IpAddress }
 import lila.user.User
 
 case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]]:

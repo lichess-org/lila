@@ -3,7 +3,6 @@ package lila.plan
 import cats.syntax.all.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.User
 import org.joda.time.DateTime
 
 case class Charge(

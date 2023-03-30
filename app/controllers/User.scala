@@ -1,7 +1,6 @@
 package controllers
 
 import akka.stream.scaladsl.*
-import play.api.data.Form
 import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json.*
@@ -27,8 +26,7 @@ final class User(
     env: Env,
     roundC: => Round,
     gameC: => Game,
-    modC: => Mod,
-    puzzleC: => Puzzle
+    modC: => Mod
 ) extends LilaController(env):
 
   import env.relation.{ api as relationApi }
@@ -507,7 +505,7 @@ final class User(
     }
 
   def apiReadNote(username: UserStr) =
-    Scoped() { implicit req => me =>
+    Scoped() { _ => me =>
       env.user.repo byId username flatMapz {
         env.socialInfo.fetchNotes(_, me) flatMap {
           lila.user.JsonView.notes(_)(using lightUserApi)

@@ -3,7 +3,6 @@ package lila.notify
 import reactivemongo.api.bson.ElementProducer
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private class NotificationRepo(colls: NotifyColls)(using Executor):
 

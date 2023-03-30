@@ -4,11 +4,10 @@ import play.api.data.*
 import play.api.data.validation.Constraints
 import play.api.data.Forms.*
 
-import User.ClearPassword
 import lila.common.LameName
 import lila.common.Form.{ cleanNonEmptyText, cleanText, trim, into, given }
 
-final class UserForm(authenticator: Authenticator):
+final class UserForm:
 
   def username(user: User): Form[UserName] =
     Form(
