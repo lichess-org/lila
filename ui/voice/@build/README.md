@@ -25,7 +25,9 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
                          --in=crowdv-en-1.json \
                          --out=../src/voiceMoveGrammar
 ```
+
 ## arguments:
+
 ```
   {freq} is the minimum frequency of a valid substitution. frequency is calculated as the
     number of input phrases corrected by the substitution divided by the total number of
@@ -45,6 +47,7 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
 ```
 
 # some terminology:
+
 ```
 
   grammar - a list of entries for input words recognized by kaldi
@@ -53,7 +56,7 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
     token representation, a value code, classification tags, and a substitution list
 
   word - a unit of recognition corresponding to the "in" field of a single grammar entry.
-    a word can also be a phrase that is treated as a single unit. for example - "long castle", 
+    a word can also be a phrase that is treated as a single unit. for example - "long castle",
     "queen side castle".
 
   phrase - one or more words separated by spaces
@@ -76,15 +79,17 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
   xtoks - an exact phrase in the token space
 
   xvals - an exact phrase in the val space
- 
+
   in voiceMove, class lookup methods for lexicon entry fields take the form <fromTo> where <from>
   is the input field and <to> is the output. for example: tokWord fetches the input word corresponding
   to a token, and wordTok fetches the token corresponding to an input word
 
   any variable prefixed with x or h - x means exact and h means heard. another way to think of it
-  is:  x is what we try to map h to when performing substitutions. 
+  is:  x is what we try to map h to when performing substitutions.
 ```
+
 # see also:
+
 ```
   * src/makeGrammar.ts
   * ui/site/component/mic.ts

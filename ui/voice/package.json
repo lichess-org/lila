@@ -2,7 +2,7 @@
   "name": "voice",
   "version": "1.0.0",
   "private": true,
-  "description": "lichess.org auxillary input move",
+  "description": "lichess.org voice rec",
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -10,7 +10,7 @@
     "chess",
     "lichess"
   ],
-  "author": "Thibault Duplessis",
+  "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@jest/globals": "^29.3.1",

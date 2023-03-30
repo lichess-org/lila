@@ -165,10 +165,10 @@ function writeGrammar(out: string) {
     out,
     `// *************************** this file is generated. see ui/voice/@build/README.md ***************************
 
-export type Sub = { to: string, cost: number };
-export type Entry = { in: string, tok: string, tags: string[], val?: string, subs?: Sub[] };
+export type Sub = { to: string; cost: number };
+export type Entry = { in: string; tok: string; tags: string[]; val?: string; subs?: Sub[] };
 
-export const lexicon: Entry[] = ${builder.stringify()};`
+export const lexicon: Entry[] = ${builder.stringify()};\n`
   );
 }
 
@@ -359,7 +359,7 @@ class Builder {
               : '')
         )
         .join('\n  },\n  {\n    ') +
-      '\n  },\n]\n'
+      '\n  },\n]'
     ).replaceAll('\\', '\\\\');
   }
 }
