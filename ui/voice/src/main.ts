@@ -7,6 +7,7 @@ import { type VoiceMove } from './voiceMove';
 import * as xhr from 'common/xhr';
 
 export { makeVoiceMove, type VoiceMove } from './voiceMove';
+export { type RootCtrl } from './interfaces';
 
 export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
   const rec = storedBooleanProp('recording', false);

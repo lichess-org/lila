@@ -65,13 +65,14 @@ class VoiceMoveCtrl implements VoiceMove {
       pushMap(this.byVal, e.val, e);
     }
     this.showHelp = propWithEffect(false, isOpen => {
-      isOpen ? this.confirm.set('help', () => this.showHelp(false)) : this.confirm.delete('help');
+      isOpen ? this.confirm.set('no', () => this.showHelp(false)) : this.confirm.delete('help');
       root.redraw();
     });
     this.root = root;
     this.update(step);
     lichess.mic?.addListener('voiceMove', this.listen.bind(this));
-    lichess.mic?.setVocabulary(this.tagWords());
+    const excludeTag = root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
+    lichess.mic?.setVocabulary(this.tagWords().filter(x => this.byWord.get(x)?.tags?.includes(excludeTag) !== true));
   }
 
   // update is called by the root controller when the board position changes
@@ -96,8 +97,6 @@ class VoiceMoveCtrl implements VoiceMove {
           console.groupCollapsed(`listen '${msgText}' ${words.map(x => `${x.word} (${x.conf})`).join(', ')}`);
 
         if (this.handleCommand(msgText) || this.handleAmbiguity(msgText, words) || this.handleMove(msgText, words)) {
-          // the logic for handling round confirmations is splattered all over the view code
-          // so deny these and clean them up here after any successful command
           this.confirm.forEach((cb, _) => cb(false));
           this.confirm.clear();
         }
@@ -129,6 +128,9 @@ class VoiceMoveCtrl implements VoiceMove {
     else if (c === 'resign') this.root.resign?.(true, false);
     else if (c === 'next') this.root.next?.();
     else if (c === 'takeback') this.root.takebackYes?.();
+    else if (c === 'upvote') this.root.vote?.(true);
+    else if (c === 'downvote') this.root.vote?.(false);
+    else if (c === 'solve') this.root.solve?.();
     else if (c === 'help') this.showHelp(true);
     else return false;
     return true;
@@ -160,6 +162,7 @@ class VoiceMoveCtrl implements VoiceMove {
     return true;
   }
 
+  // return true from a handle method to short-cicuit the chain
   handleMove(phrase: string, words: Voice.WordResult): boolean {
     const conf = words.reduce((acc, w) => acc + w.conf, 0) / words.length;
     if (
@@ -198,8 +201,8 @@ class VoiceMoveCtrl implements VoiceMove {
     return false;
   }
 
-  // mappings can be partite over tag sets - in the substitution graph, all tokens with identical
-  // tags define a partition and cannot share an edge when partite is true.
+  // mappings can be partite over tag sets. in the substitution graph, all tokens with identical
+  // tags define a partition and cannot share an edge when the partite argument is true.
   matchMany(phrase: string, xvalsToOutSet: [string, string[]][], partite = false): [string, number][] {
     const htoks = this.phraseToks(phrase);
     const xtoksToOutSet = new Map<string, Set<string>>(); // temp map for val->tok expansion

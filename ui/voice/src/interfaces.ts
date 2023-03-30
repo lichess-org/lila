@@ -30,6 +30,7 @@ export interface RootCtrl {
   redraw: () => void;
   next?: () => void;
   vote?: (v: boolean) => void;
+  solve?: () => void;
 }
 
 export interface KaldiOpts {
