@@ -205,7 +205,7 @@ object GreatPlayer:
     ("Ilyin-Genevsky", "Alexander_Ilyin-Genevsky"),
     ("Inarkiev", "Ernesto_Inarkiev"),
     ("Ioseliani", "Nana_Ioseliani"),
-    ("Ivanchuk", "Vassily_Ivanchuk"),
+    ("Ivanchuk", "Vasyl_Ivanchuk"),
     ("Ivanov", "Alexander_Ivanov_(chess_player)"),
     ("Ivkov", "Borislav_Ivkov"),
     ("Jaffé", "Charles_Jaffe"),
