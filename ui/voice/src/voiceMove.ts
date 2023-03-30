@@ -6,51 +6,10 @@ import { Api as CgApi } from 'chessground/api';
 import * as cs from 'chess';
 import { promote } from 'chess/promotion';
 import { RootCtrl } from './interfaces';
-import { lexicon, Entry } from './voiceMoveGrammar';
+import { lexicon, Entry } from './voiceMoveGrammar-en';
 
-/**************************************************************************************************
+// For an overview of this stuff, see the README.md in ui/voice/@build
 
-module shorthand:
-
-  grammar - a list of entries for input words recognized by kaldi
-
-  entry - a single entry in the grammar contains the input word (sometimes more than one), a one
-    character token representation, an output code, classification tags, and a substitution list
-
-  word - a unit of recognition corresponding to the "in" field of grammar entries. in this context,
-    a word can also be a phrase that is treated as a single unit. for example - "long castle", 
-    "queen side castle", "up vote".
-
-  phrase - one or more words (corresponding to one or more distinct tokens) separated by spaces
-
-  tok - short for token, a single char uniquely representing the kaldi-recognizable characteristics
-    of an input word (or an atomic phrase such as 'short castle'). error corrections happen in
-    the token space.
-
-  val - the value of a token/word in terms that move & command processing logic understands.
-    mappings from token/words to vals are not bijective - the input words 'captures' and 'takes'
-    have the same value but not the same token.
-
-  toks - a phrase tokenized as a string with no spaces or separators
-
-  vals - a phrase as vals separated by commas
-
-  htoks - a heard phrase as token string, may contain errors or ambiguities
-
-  hvals - a heard phrase in the val space (i.e. comma separated vals)
-
-  xtoks - an exact phrase in the token space
-
-  xvals - an exact phrase in the val space
- 
-  class lookup methods for lexicon entry fields take the form <fromTo> where <from> is the input
-  field and <to> is the output. for example: tokWord fetches the input word corresponding to
-  a token, and wordTok fetches the token corresponding to an input word
-
-  any variable prefixed with x or h - x means exact and h means heard. another way to think of it
-  is:  x is what we try to map h to when performing substitutions. 
-
-**************************************************************************************************/
 export const makeVoiceMove = (root: RootCtrl, step: { fen: string }) => new VoiceMoveCtrl(root, step);
 
 export interface VoiceMove {
@@ -59,7 +18,7 @@ export interface VoiceMove {
   arrowColors(enabled?: boolean): boolean;
   update(step: { fen: string }, yourMove?: boolean): void;
   showHelp: Prop<boolean>;
-  opponentOffers(offer: string, confirm: (v: boolean) => void): void;
+  opponentRequest(request: string, callback: (v: boolean) => void): void;
   root: RootCtrl;
 }
 
@@ -67,6 +26,7 @@ class VoiceMoveCtrl implements VoiceMove {
   byVal = new Map<string, Entry | Set<Entry>>(); // map values to lexicon entries
   byTok = new Map<string, Entry>(); // map token chars to lexicon entries
   byWord = new Map<string, Entry>(); // map input words to lexicon entries
+  confirm = new Map<string, (v: boolean) => void>(); // boolean confirmation callbacks
 
   ucis: Uci[]; // every legal move in uci
   xvalsToMoves: Map<string, Uci | Set<Uci>>; // map valid xvals to all full legal moves
@@ -80,12 +40,11 @@ class VoiceMoveCtrl implements VoiceMove {
   board: cs.Board;
 
   showHelp: PropWithEffect<boolean>;
-  confirmables: Map<string, (v: boolean) => void> = new Map();
   arrogance = storedIntProp('voice.arrogance', 1); // UI calls it 'confidence', but we know better
   arrowColors = storedBooleanProp('voice.useColors', true);
   nArrogance: number; // same as arrogance, just cached
 
-  debug = { emptyMatches: false, buildMoves: false, buildPartials: false };
+  debug = { emptyMatches: false, buildMoves: false, buildPartials: false, collapse: true };
 
   brushes: [string, DrawBrush][] = [
     ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],
@@ -106,7 +65,7 @@ class VoiceMoveCtrl implements VoiceMove {
       pushMap(this.byVal, e.val, e);
     }
     this.showHelp = propWithEffect(false, isOpen => {
-      isOpen ? this.confirmables.set('help', () => this.showHelp(false)) : this.confirmables.delete('help');
+      isOpen ? this.confirm.set('help', () => this.showHelp(false)) : this.confirm.delete('help');
       root.redraw();
     });
     this.root = root;
@@ -127,33 +86,38 @@ class VoiceMoveCtrl implements VoiceMove {
       for (const [color, brush] of this.brushes) this.cg.state.drawable.brushes[`v-${color}`] = brush;
   }
 
-  // listen is called by lichess.mic when a phrase is heard
+  // listen is called by lichess.mic (ui/site/component/mic.ts) when a phrase is heard
   listen(msgText: string, msgType: Voice.MsgType, words?: Voice.WordResult) {
     if (msgType === 'stop') this.clearMoveProgress(); // 'stop' msg from vosk is not a voice phrase
     else if (msgType === 'phrase' && msgText.length > 1 && words) {
       this.nArrogance = this.arrogance(); // cache it
       try {
-        if (this.debug)
+        if (this.debug?.collapse)
           console.groupCollapsed(`listen '${msgText}' ${words.map(x => `${x.word} (${x.conf})`).join(', ')}`);
 
-        this.handleCommand(msgText) || this.handleAmbiguity(msgText, words) || this.handleMove(msgText, words);
+        if (this.handleCommand(msgText) || this.handleAmbiguity(msgText, words) || this.handleMove(msgText, words)) {
+          // the logic for handling round confirmations is splattered all over the view code
+          // so deny these and clean them up here after any successful command
+          this.confirm.forEach((cb, _) => cb(false));
+          this.confirm.clear();
+        }
       } finally {
-        if (this.debug) console.groupEnd();
+        if (this.debug?.collapse) console.groupEnd();
       }
     }
     this.root.redraw();
   }
 
-  // return true on success from a handle<x> method to short-cicuit the chain
+  // return true from a handle method to short-cicuit the chain
   handleCommand(msgText: string): boolean {
-    const matchedVal = this.matchOneTags(msgText, ['command', 'choice']); // probably shouldn't fuzzy match here but..
+    const matchedVal = this.matchOneTags(msgText, ['command', 'choice']);
     if (!matchedVal) return false;
     const c = matchedVal[0];
 
-    for (const [k, v] of this.confirmables) {
-      if (k === c || c === 'yes' || c === 'no') {
-        this.confirmables.delete(k);
-        v(c !== 'no');
+    for (const [action, callback] of this.confirm) {
+      if (c === 'yes' || c === 'no' || c === action) {
+        this.confirm.delete(action);
+        callback(c !== 'no');
         return true;
       }
     }
@@ -170,6 +134,7 @@ class VoiceMoveCtrl implements VoiceMove {
     return true;
   }
 
+  // return true from a handle method to short-cicuit the chain
   handleAmbiguity(phrase: string, words: Voice.WordResult): boolean {
     if (!this.ambiguity || words.length > 2) return false; // might want > 1 here
     const doColors = this.arrowColors();
@@ -281,9 +246,9 @@ class VoiceMoveCtrl implements VoiceMove {
     const from = this.byTok.get(transform.from);
     const sub = from?.subs?.find(x => x.to === transform.to);
     if (partite) {
-      // mappings within a partition (defined by tags) are not allowed when partite is true
+      // mappings within a tag partition are not allowed when partite is true
       const to = this.byTok.get(transform.to);
-      // this can and should be optimized, maybe consolidate tags when parsing the lexicon
+      // this should be optimized, maybe consolidate tags when parsing the lexicon
       if (from?.tags?.every(x => to?.tags?.includes(x)) && from.tags.length === to!.tags.length) return 100;
     }
     return sub?.cost ?? 100;
@@ -291,28 +256,26 @@ class VoiceMoveCtrl implements VoiceMove {
 
   ambiguate(choices: [string, number][]) {
     if (choices.length === 0) return;
+
     // dedup & keep first to preserve cost order
     choices = choices
       .filter(([uci, _], keepIfFirst) => choices.findIndex(first => first[0] === uci) === keepIfFirst)
       .slice(0, this.brushes.length);
-    // arrange [colors, uci] by ascending numeric label ordered by x then y
-    this.ambiguity = new Map(
+
+    const doColors = this.arrowColors();
+    if (!doColors) choices.sort((lhs, rhs) => this.compareLabelPos(lhs[0], rhs[0])); // so numbers go ltr
+
+    this.ambiguity =
       choices.length === 1
-        ? [
-            ['yes', choices[0][0]],
-            ['grey', choices[0][0]],
-          ]
-        : choices
-            .sort((lhs, rhs) => this.compareLabelPos(lhs[0], rhs[0]))
-            .map(([uci], i) => [this.brushes[i][0], uci] as [string, Uci])
-    );
+        ? new Map([['yes', choices[0][0]]])
+        : new Map(choices.map(([uci], i) => [doColors ? this.brushes[i][0] : `${i + 1}`, uci] as [string, Uci]));
     if (this.debug) console.log('ambiguate', this.ambiguity);
     this.drawArrows();
   }
 
-  opponentOffers(offer: string, confirm?: (granted: boolean) => void) {
-    if (confirm) this.confirmables.set(offer, confirm);
-    else this.confirmables.delete(offer);
+  opponentRequest(request: string, callback?: (granted: boolean) => void) {
+    if (callback) this.confirm.set(request, callback);
+    else this.confirm.delete(request);
   }
 
   compareLabelPos(lhs: Uci, rhs: Uci) {
@@ -331,10 +294,10 @@ class VoiceMoveCtrl implements VoiceMove {
   drawArrows() {
     if (!this.ambiguity) return;
     const doColors = this.arrowColors();
-
     const shapes: DrawShape[] = [];
+
     [...this.ambiguity].forEach(([c, uci], i) => {
-      const thisColor = doColors && c !== 'yes' ? c : 'grey';
+      const thisColor = c === 'yes' || !doColors ? 'grey' : c;
       const thisLabel = c === 'yes' ? '?' : doColors ? undefined : `${i + 1}`;
       shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-${thisColor}` });
 
@@ -380,14 +343,13 @@ class VoiceMoveCtrl implements VoiceMove {
       return;
     }
     const role = promo(uci);
-    //if (role === 'pawn' || (role === 'king' && this.root.data.game.variant.key !== 'antichess')) return;
     this.cg.cancelMove();
     if (role) {
       promote(this.cg, dest(uci), role);
       this.root.sendMove(src(uci), dest(uci), role, { premove: false });
     } else {
       this.cg.selectSquare(src(uci), true);
-      this.cg.selectSquare(dest(uci), role !== undefined);
+      this.cg.selectSquare(dest(uci), false);
     }
   }
 

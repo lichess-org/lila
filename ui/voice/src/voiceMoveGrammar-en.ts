@@ -449,7 +449,7 @@ export const lexicon: Entry[] = [
   },
   {
     in: 'help',
-    val: 'help',
+    val: '?',
     tok: '=',
     tags: ['command', 'exact'],
     subs: [{ to: '', cost: 0.5 }],
@@ -726,7 +726,12 @@ export const lexicon: Entry[] = [
     val: '',
     tok: 'o',
     tags: ['ignore'],
-    subs: [{ to: '', cost: 0.0 }],
+    subs: [
+      { to: '', cost: 0.0 },
+      { to: 'd', cost: 0.3 },
+      { to: 'b', cost: 0.6 },
+      { to: 'e', cost: 0.6 },
+    ],
   },
   {
     in: 'their',

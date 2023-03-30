@@ -632,8 +632,8 @@ export default class RoundController {
     }
   };
 
-  opponentOffers(offer: string, i18nKey: string) {
-    this.voiceMove?.opponentOffers(offer, (v: boolean) => this.socket.sendLoading(v ? `${offer}-yes` : `${offer}-no`));
+  opponentRequest(req: string, i18nKey: string) {
+    this.voiceMove?.opponentRequest(req, (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`));
     notify(this.noarg(i18nKey));
   }
 

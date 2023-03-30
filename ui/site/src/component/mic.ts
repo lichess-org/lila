@@ -85,7 +85,7 @@ export const mic: Voice.Microphone =
       }
     }
 
-    // pause/resume use a counter and must be balanced.
+    // pause/resume use a counter so calls must be balanced.
     pause() {
       if (++this.paused !== 1 || !this.mediaStream?.getAudioTracks()[0].enabled) return;
       this.mediaStream.getAudioTracks()[0].enabled = false;
