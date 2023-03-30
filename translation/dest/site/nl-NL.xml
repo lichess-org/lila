@@ -663,6 +663,7 @@
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
   <string name="simulAddExtraTimePerPlayer">Voeg extra tijd toe aan de klok voor elke speler die meedoet aan de simultaan.</string>
+  <string name="simulHostExtraTimePerPlayer">Extra tijd voor de simultaangever per deelnemer</string>
   <string name="lichessTournaments">Lichess toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
