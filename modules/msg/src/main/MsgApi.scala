@@ -1,12 +1,11 @@
 package lila.msg
 
 import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.ReadPreference
+import reactivemongo.akkastream.cursorProducer
 import scala.util.Try
 
 import lila.common.config.MaxPerPage
-import lila.common.{ Bus, LightUser, LilaStream }
+import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.relation.Relations
 import lila.user.Holder

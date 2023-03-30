@@ -109,14 +109,12 @@ object UserInfo:
       studyRepo: lila.study.StudyRepo,
       ratingChartApi: lila.history.RatingChartApi,
       userApi: lila.api.UserApi,
-      userCached: lila.user.Cached,
       isHostingSimul: lila.round.IsSimulHost,
       streamerApi: lila.streamer.StreamerApi,
       teamApi: lila.team.TeamApi,
       teamCache: lila.team.Cached,
       coachApi: lila.coach.CoachApi,
-      insightShare: lila.insight.Share,
-      playbanApi: lila.playban.PlaybanApi
+      insightShare: lila.insight.Share
   )(using Executor):
     def apply(user: User, nbs: NbGames, ctx: Context, withUblog: Boolean = true): Fu[UserInfo] =
       ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip

@@ -11,7 +11,6 @@ import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
-import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ User, Holder, UserRepo }
 import lila.report.SuspectId
 import lila.common.config.Max
@@ -143,7 +142,6 @@ final class KaladinApi(
     private[KaladinApi] def apply(user: KaladinUser): Funit =
       subs.get(user.suspectId) ?? { modIds =>
         subs = subs - user.suspectId
-        import lila.notify.{ KaladinDone, Notification }
         modIds
           .map { modId =>
             notifyApi.notifyOne(modId, lila.notify.KaladinDone(user.suspectId.value))

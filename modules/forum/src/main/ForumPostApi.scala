@@ -1,6 +1,5 @@
 package lila.forum
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 

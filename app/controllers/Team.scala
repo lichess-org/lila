@@ -606,7 +606,7 @@ final class Team(
     }
 
   def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) =
-    Scoped(_.Team.Lead) { req => me =>
+    Scoped(_.Team.Lead) { _ => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         api request lila.team.Request.makeId(team.id, userId.id) flatMap {
           case None      => fuccess(ApiResult.ClientError("No such team join request"))

@@ -1,6 +1,6 @@
 package lila.analyse
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.game.Game
 
 final class AnalysisRepo(val coll: Coll)(using Executor):

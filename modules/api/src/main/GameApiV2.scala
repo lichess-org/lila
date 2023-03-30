@@ -22,7 +22,6 @@ final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
     gameJsonView: lila.game.JsonView,
-    tournamentRepo: lila.tournament.TournamentRepo,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
     swissApi: lila.swiss.SwissApi,

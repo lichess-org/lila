@@ -208,7 +208,7 @@ Allow: /
         }
     }
 
-  def legacyQaQuestion(id: Int, slug: String) =
+  def legacyQaQuestion(id: Int, @nowarn slug: String) =
     Open { _ =>
       MovedPermanently {
         val faq = routes.Main.faq.url

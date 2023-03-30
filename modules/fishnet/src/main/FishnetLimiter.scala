@@ -1,7 +1,5 @@
 package lila.fishnet
 
-import reactivemongo.api.bson.*
-
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 

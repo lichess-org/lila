@@ -4,7 +4,6 @@ import org.joda.time.Interval
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.Iso
 import lila.common.Json.{ *, given }
 import lila.game.LightPov
 import lila.rating.PerfType

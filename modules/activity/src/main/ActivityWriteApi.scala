@@ -82,7 +82,7 @@ final class ActivityWriteApi(
     $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
   }
 
-  def plan(userId: UserId, months: Int) = update(userId) { a =>
+  def plan(userId: UserId, months: Int) = update(userId) { _ =>
     $doc(ActivityFields.patron -> Patron(months))
   }
 

@@ -62,7 +62,7 @@ final class Tutor(env: Env) extends LilaController(env):
       Ok(views.html.tutor.time(report, perf, me)).toFuccess
   }
 
-  def refresh(username: UserStr) = TutorPageAvailability(username) { ctx => user => availability =>
+  def refresh(username: UserStr) = TutorPageAvailability(username) { _ => user => availability =>
     env.tutor.api.request(user, availability) >> redirHome(user)
   }
 

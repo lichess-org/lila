@@ -278,7 +278,7 @@ final class Swiss(
     )
 
   def terminate(id: SwissId) =
-    Auth { implicit ctx => me =>
+    Auth { _ => me =>
       WithEditableSwiss(id, me) { swiss =>
         env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
       }

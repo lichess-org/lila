@@ -10,7 +10,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
 import lila.common.config.*
-import lila.game.Game
 
 @Module
 private class FishnetConfig(

@@ -2,7 +2,7 @@ package lila.analyse
 import org.specs2.mutable.Specification
 
 import chess.Color
-import lila.tree.Eval.{ Cp, Mate }
+import lila.tree.Eval.Cp
 
 class AccuracyPercentTest extends Specification {
 

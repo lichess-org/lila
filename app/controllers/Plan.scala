@@ -250,7 +250,6 @@ final class Plan(env: Env) extends LilaController(env):
 
   def updatePayment =
     AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
       CaptureRateLimit(ctx.ip) {
         env.plan.api.stripe.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)) ?? { sub =>

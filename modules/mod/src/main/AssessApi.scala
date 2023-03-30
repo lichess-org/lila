@@ -2,7 +2,6 @@ package lila.mod
 
 import chess.{ Black, Color, White }
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.analyse.{ Analysis, AnalysisRepo }

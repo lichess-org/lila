@@ -4,7 +4,7 @@ import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Color, Mode, Situation }
+import chess.{ Mode, Situation }
 import scala.util.chaining.*
 
 import lila.game.{ Game, Player, Pov, Source }
