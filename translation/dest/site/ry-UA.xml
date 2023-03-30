@@ -4,6 +4,8 @@
   <string name="level">Рувень</string>
   <string name="chat">Чет</string>
   <string name="resign">Здати ся</string>
+  <string name="checkmate">Мат</string>
+  <string name="stalemate">Пат</string>
   <string name="white">Білі</string>
   <string name="black">Чорні</string>
   <string name="move">Ход</string>
@@ -18,8 +20,8 @@
   <string name="enable">Уключити</string>
   <string name="cpus">Ядер</string>
   <string name="memory">Памнять</string>
-  <string name="blunder">Захыб</string>
-  <string name="mistake">Хыба</string>
+  <string name="blunder">Хыба</string>
+  <string name="mistake">Захыб</string>
   <string name="draw">Реміза</string>
   <plurals name="nbGames">
     <item quantity="one">%s бавка</item>
