@@ -52,6 +52,7 @@ final class Env(
     ircApi: lila.irc.IrcApi,
     settingStore: lila.memo.SettingStore.Builder,
     ratingFactors: () => lila.rating.RatingFactors,
+    notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
 )(using
     ec: Executor,
