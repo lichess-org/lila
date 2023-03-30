@@ -28,6 +28,11 @@
   <string name="keepGoing">Continue…</string>
   <string name="puzzleSuccess">Sucesso!</string>
   <string name="puzzleComplete">Quebra-cabeças concluído!</string>
+  <string name="byOpenings">Por abertura</string>
+  <string name="puzzlesByOpenings">Quebra-cabeças por abertura</string>
+  <string name="openingsYouPlayedTheMost">Aberturas que você mais jogou em partidas valendo pontos</string>
+  <string name="useFindInPage">Use a ferramenta \"Encontrar na página\" do navegador para encontrar sua abertura favorita!</string>
+  <string name="useCtrlF">Aperte Ctrl + F para encontrar sua abertura favorita!</string>
   <string name="notTheMove">O movimento não é este!</string>
   <string name="trySomethingElse">Tente algo diferente.</string>
   <string name="ratingX">Rating: %s</string>
