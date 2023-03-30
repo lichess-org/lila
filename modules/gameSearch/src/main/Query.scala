@@ -2,6 +2,7 @@ package lila.gameSearch
 
 import chess.Status
 
+import lila.common.Json.given
 import lila.rating.RatingRange
 import lila.search.Range
 

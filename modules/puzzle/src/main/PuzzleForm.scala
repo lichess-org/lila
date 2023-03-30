@@ -5,6 +5,7 @@ import play.api.data.Forms.*
 import play.api.libs.json.*
 
 import lila.common.Form.{ numberIn, stringIn, given }
+import lila.common.Json.given
 import chess.Color
 
 object PuzzleForm:
