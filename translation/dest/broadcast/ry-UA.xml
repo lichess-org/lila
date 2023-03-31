@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Трансляції</string>
+  <string name="liveBroadcasts">Наострі трансляції турніра</string>
+  <string name="newBroadcast">Нова наостра трансляція</string>
+  <string name="addRound">Придати рунду</string>
+  <string name="ongoing">Теперішні</string>
+  <string name="upcoming">Будучні</string>
+  <string name="completed">Довершені</string>
+  <string name="roundName">Назывка рунды</string>
+  <string name="roundNumber">Номер рунды</string>
+  <string name="tournamentName">Назывка перемаганкы</string>
+  <string name="tournamentDescription">Куртый опис турніра</string>
+  <string name="fullDescription">Повный опис турніра</string>
+  <string name="sourceUrlOrGameIds">Зачаточноє URL, вадь ідентіфікатор бавкы</string>
+  <string name="credits">Оддяка</string>
+  <string name="resetRound">Перепустити сисю рунду</string>
+  <string name="deleteRound">Стерти сю рунду</string>
+  <string name="broadcastUrl">Адрес трансляції</string>
+  <string name="currentRoundUrl">Одкликованя теперішнього тура</string>
+  <string name="currentGameUrl">Одкликованя теперішньої бавкы</string>
+  <string name="downloadAllRounds">Стерьхати вшыткі рунды</string>
+</resources>
