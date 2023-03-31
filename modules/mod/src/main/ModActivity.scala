@@ -2,11 +2,9 @@ package lila.mod
 
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.Json
-import reactivemongo.api.ReadPreference
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
-import lila.report.Report
 import lila.report.Room
 import lila.user.User
 

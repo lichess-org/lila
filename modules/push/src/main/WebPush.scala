@@ -6,7 +6,6 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import cats.data.NonEmptyList
 
-import lila.user.User
 import play.api.ConfigLoader
 
 final private class WebPush(

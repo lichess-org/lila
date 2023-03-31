@@ -3,7 +3,7 @@ package views.html.team
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -113,7 +113,7 @@ object show:
                   )
                 else ctx.isAuth option joinButton(t)
               ),
-              ctx.userId.ifTrue(t.enabled && info.mine) map { myId =>
+              t.enabled && info.mine option
                 postForm(
                   cls    := "team-show__subscribe form3",
                   action := routes.Team.subscribe(t.id)
@@ -122,8 +122,7 @@ object show:
                     span(form3.cmnToggle("team-subscribe", "subscribe", checked = info.subscribed)),
                     label(`for` := "team-subscribe")(subToTeamMessages.txt())
                   )
-                )
-              },
+                ),
               (info.mine && !info.ledByMe) option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())

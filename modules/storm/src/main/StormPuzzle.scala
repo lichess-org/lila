@@ -3,8 +3,6 @@ package lila.storm
 import cats.data.NonEmptyList
 import chess.format.{ Fen, Uci }
 
-import lila.puzzle.Puzzle
-
 case class StormPuzzle(
     id: PuzzleId,
     fen: Fen.Epd,

@@ -3,15 +3,11 @@ package lila.tutor
 import chess.Color
 
 import lila.analyse.AccuracyPercent
-import lila.common.{ Heapsort, LilaOpeningFamily }
+import lila.common.LilaOpeningFamily
 import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
-import lila.rating.PerfType
-import lila.tutor.TutorCompare.compOrder
 import lila.common.config.Max
 
-case class TutorColorOpenings(
-    families: List[TutorOpeningFamily]
-):
+case class TutorColorOpenings(families: List[TutorOpeningFamily]):
   lazy val accuracyCompare = TutorCompare[LilaOpeningFamily, AccuracyPercent](
     InsightDimension.OpeningFamily,
     TutorMetric.Accuracy,

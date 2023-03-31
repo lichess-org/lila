@@ -3,12 +3,10 @@ package lila.lobby
 import actorApi.*
 import cats.syntax.all.*
 
-import lila.common.config.Max
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
 import lila.hub.SyncActor
 import lila.socket.Socket.{ Sri, Sris }
-import lila.user.User
 
 final private class LobbySyncActor(
     seekApi: SeekApi,

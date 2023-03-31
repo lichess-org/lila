@@ -88,15 +88,15 @@ private object BSONHandlers:
         in = r.getO[FollowList]("i").filterNot(_.isEmpty),
         out = r.getO[FollowList]("o").filterNot(_.isEmpty)
       )
-    def writes(w: lila.db.BSON.Writer, o: Follows) =
+    def writes(@annotation.nowarn w: lila.db.BSON.Writer, o: Follows) =
       BSONDocument(
         "i" -> o.in,
         "o" -> o.out
       )
 
   given lila.db.BSON[SwissRank] with
-    def reads(r: lila.db.BSON.Reader)                = SwissRank(SwissId(r.str("i")), Rank(r.intD("r")))
-    def writes(w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
+    def reads(r: lila.db.BSON.Reader) = SwissRank(SwissId(r.str("i")), Rank(r.intD("r")))
+    def writes(@nowarn w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
 
   object ActivityFields:
     val id         = "_id"

@@ -8,7 +8,7 @@ import scala.util.chaining.*
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, WinPercent }
 import lila.game.{ Game, Pov }
-import lila.common.{ LilaOpeningFamily, SimpleOpening }
+import lila.common.SimpleOpening
 
 case class RichPov(
     pov: Pov,

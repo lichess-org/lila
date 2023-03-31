@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 
 final private class ReportScore(
     getAccuracy: Report.Candidate => Fu[Option[Accuracy]],

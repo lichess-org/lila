@@ -4,13 +4,10 @@ import cats.data.NonEmptyList
 import chess.Color
 
 import lila.analyse.AccuracyPercent
-import lila.common.Heapsort.given
 import lila.common.LilaOpeningFamily
 import lila.insight.*
 import lila.rating.PerfType
-import lila.tutor.TutorCompare.{ compOrder, AnyComparison }
-import lila.insight.Result
-import lila.common.config
+import lila.tutor.TutorCompare.AnyComparison
 
 // for simplicity, all metrics should be positive: higher is better
 case class TutorPerfReport(

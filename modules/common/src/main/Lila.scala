@@ -13,6 +13,8 @@ object Lila extends Lila:
   export ornicar.scalalib.zeros.given
   export ornicar.scalalib.extensions.{ given, * }
 
+  class useless extends annotation.nowarn("msg=unused")
+
   inline def nowNanos: Long    = System.nanoTime()
   inline def nowMillis: Long   = System.currentTimeMillis()
   inline def nowCentis: Long   = nowMillis / 10

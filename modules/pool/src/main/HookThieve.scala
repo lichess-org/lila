@@ -2,11 +2,7 @@ package lila.pool
 
 import lila.common.Bus
 
-final private class HookThieve()(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler
-):
+final private class HookThieve()(using Executor, Scheduler):
 
   import HookThieve.*
 

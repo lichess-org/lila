@@ -8,7 +8,6 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ defaultLang, I18nKeys as trans }
-import lila.user.Title
 import lila.common.LightUser
 
 trait GameHelper:

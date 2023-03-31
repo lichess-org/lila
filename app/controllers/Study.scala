@@ -222,7 +222,6 @@ final class Study(
           chapter.root.fen.some,
           chapter.setup.orientation,
           owner = false,
-          me = ctx.me,
           division = division
         )
       )
@@ -380,8 +379,7 @@ final class Study(
               lila.pref.Pref.default,
               initialFen,
               setup.orientation,
-              owner = false,
-              me = none
+              owner = false
             )
             analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {

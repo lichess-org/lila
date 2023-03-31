@@ -194,7 +194,6 @@ final class AssessApi(
       Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
-    def loserUserOption  = game.winnerColor.map(_.fold(black, white))
     def winnerNbGames =
       for {
         user     <- winnerUserOption

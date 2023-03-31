@@ -28,7 +28,6 @@ final class RelayApi(
 )(using ec: Executor, mat: akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
-  import lila.study.BSONHandlers.given
   import JsonView.given
 
   def byId(id: RelayRoundId) = roundRepo.coll.byId[RelayRound](id.value)
@@ -342,7 +341,6 @@ final class RelayApi(
       _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
         import lila.common.Json.given
-        import JsonView.given
         import lila.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
         lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")

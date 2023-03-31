@@ -1,10 +1,8 @@
 package lila.practice
 
-import lila.study.{ Chapter, Study }
+import lila.study.Chapter
 
-case class PracticeStructure(
-    sections: List[PracticeSection]
-):
+case class PracticeStructure(sections: List[PracticeSection]):
 
   def study(id: StudyId): Option[PracticeStudy] =
     sections.flatMap(_ study id).headOption

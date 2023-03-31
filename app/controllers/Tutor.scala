@@ -13,7 +13,7 @@ import lila.common.LilaOpeningFamily
 final class Tutor(env: Env) extends LilaController(env):
 
   def home =
-    Secure(_.Beta) { implicit ctx => holder =>
+    Secure(_.Beta) { _ => holder =>
       Redirect(routes.Tutor.user(holder.user.username)).toFuccess
     }
 

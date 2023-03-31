@@ -1,11 +1,9 @@
 package lila.swiss
 
 import chess.{ Black, Color, White }
-import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.user.User
 
 final private class SwissDirector(
     mongo: SwissMongo,

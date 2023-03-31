@@ -6,7 +6,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
-import lila.user.User
 
 @Module
 final class Env(

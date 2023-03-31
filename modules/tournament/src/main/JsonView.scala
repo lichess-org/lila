@@ -8,7 +8,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }
-import lila.game.{ Game, LightPov }
+import lila.game.LightPov
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType

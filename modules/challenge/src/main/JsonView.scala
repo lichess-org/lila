@@ -14,7 +14,7 @@ final class JsonView(
     isOnline: lila.socket.IsOnline
 ):
 
-  import Challenge.{ *, given }
+  import Challenge.*
 
   private given OWrites[Challenger.Registered] = OWrites { r =>
     val light = getLightUser(r.id)

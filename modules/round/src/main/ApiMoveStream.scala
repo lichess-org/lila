@@ -1,8 +1,7 @@
 package lila.round
 
 import akka.stream.scaladsl.*
-import chess.Color
-import chess.format.{ BoardFen, Fen }
+import chess.format.Fen
 import chess.{ Centis, Replay }
 import play.api.libs.json.*
 
@@ -62,7 +61,6 @@ final class ApiMoveStream(
                   yield (white, black)
                   queue offer toJson(
                     Fen write s,
-                    s.color,
                     s.board.history.lastMove.map(_.uci),
                     clk
                   )
@@ -91,19 +89,13 @@ final class ApiMoveStream(
   private def toJson(game: Game, fen: Fen.Epd, lastMoveUci: Option[String]): JsObject =
     toJson(
       fen,
-      game.turnColor,
       lastMoveUci,
       game.clock.map { clk =>
         (clk.remainingTime(chess.White), clk.remainingTime(chess.Black))
       }
     )
 
-  private def toJson(
-      fen: Fen.Epd,
-      turnColor: Color,
-      lastMoveUci: Option[String],
-      clock: Option[PairOf[Centis]]
-  ): JsObject =
+  private def toJson(fen: Fen.Epd, lastMoveUci: Option[String], clock: Option[PairOf[Centis]]): JsObject =
     clock.foldLeft(
       Json
         .obj("fen" -> fen)

@@ -21,7 +21,7 @@ final class MsgSearch(
   def apply(me: User, q: String): Fu[MsgSearch.Result] =
     if (me.kid) forKid(me, q)
     else
-      searchThreads(me, q) zip UserStr.read(q).??(searchFriends(me, _)) zip searchUsers(me, UserStr(q)) map {
+      searchThreads(me, q) zip UserStr.read(q).??(searchFriends(me, _)) zip searchUsers(UserStr(q)) map {
         case ((threads, friends), users) =>
           MsgSearch
             .Result(
@@ -65,7 +65,7 @@ final class MsgSearch(
   private def searchFriends(me: User, q: UserStr): Fu[List[LightUser]] =
     relationApi.searchFollowedBy(me, q, 15) flatMap lightUserApi.asyncMany dmap (_.flatten)
 
-  private def searchUsers(me: User, q: UserStr): Fu[List[LightUser]] =
+  private def searchUsers(q: UserStr): Fu[List[LightUser]] =
     userCache.userIdsLike(q) flatMap lightUserApi.asyncMany dmap (_.flatten)
 
 object MsgSearch:

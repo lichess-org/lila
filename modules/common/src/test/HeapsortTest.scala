@@ -2,7 +2,7 @@ package lila.common
 import org.specs2.mutable.*
 
 class HeapsortTest extends Specification {
-  import lila.common.Heapsort.{ topN, botN, given }
+  import lila.common.Heapsort.{ topN, botN }
   "Heapsort" >> {
     "empty collection" >> {
       List.empty[Int].topN(10) === List.empty[Int]

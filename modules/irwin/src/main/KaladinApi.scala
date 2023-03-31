@@ -94,7 +94,7 @@ final class KaladinApi(
   private def readResponse(user: KaladinUser): Funit = user.response ?? { res =>
     res.pred match
       case Some(pred) =>
-        markOrReport(user, res, pred) >>- {
+        markOrReport(user, pred) >>- {
           notification(user)
           lila.mon.mod.kaladin.activation.record(pred.percent).unit
         }
@@ -106,7 +106,7 @@ final class KaladinApi(
         }
   }
 
-  private def markOrReport(user: KaladinUser, res: KaladinUser.Response, pred: KaladinUser.Pred): Funit =
+  private def markOrReport(user: KaladinUser, pred: KaladinUser.Pred): Funit =
 
     def sendReport = for {
       suspect <- getSuspect(user.suspectId.value)

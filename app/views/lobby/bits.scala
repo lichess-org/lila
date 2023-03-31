@@ -2,7 +2,7 @@ package views.html.lobby
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost
@@ -107,7 +107,7 @@ object bits:
       ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
     )
 
-  def showUnreadLichessMessage(using Context) =
+  def showUnreadLichessMessage =
     nopeInfo(
       cls := "unread-lichess-message",
       p("You have received a private message from Lichess."),

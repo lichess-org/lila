@@ -101,7 +101,7 @@ object EmailConfirm:
     val name        = "email_confirm"
     private val sep = ":"
 
-    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie =
+    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(using RequestHeader): Cookie =
       lilaCookie.session(
         name = name,
         value = s"${user.username}$sep${email.value}"

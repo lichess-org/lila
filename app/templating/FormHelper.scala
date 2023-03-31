@@ -4,7 +4,6 @@ package templating
 import play.api.data.*
 import play.api.i18n.Lang
 
-import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 

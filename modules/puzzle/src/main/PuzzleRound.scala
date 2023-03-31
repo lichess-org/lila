@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import lila.user.User
-
 case class PuzzleRound(
     id: PuzzleRound.Id,
     win: PuzzleWin,            // last result

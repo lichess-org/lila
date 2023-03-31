@@ -8,7 +8,6 @@ import scala.util.{ Failure, Success, Try, NotGiven }
 
 import lila.common.Iso.*
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
-import scala.annotation.nowarn
 
 trait Handlers:
 
@@ -149,7 +148,7 @@ trait Handlers:
   //   def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
-    def writeTry(@nowarn n: BSONNull.type) = Success(BSONNull)
+    def writeTry(@unused n: BSONNull.type) = Success(BSONNull)
 
   given BSONHandler[IpAddress] = stringIsoHandler
 

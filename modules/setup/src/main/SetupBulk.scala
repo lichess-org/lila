@@ -9,10 +9,9 @@ import play.api.data.Forms.*
 import play.api.libs.json.Json
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.*
 import lila.common.{ Bearer, Days, Template }
-import lila.game.{ Game, GameRule, IdGenerator }
-import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
+import lila.game.{ GameRule, IdGenerator }
+import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.User
 
 object SetupBulk:
@@ -228,8 +227,8 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost    = nbGames * (if (me.isVerified || me.isApiHog) 1 else 3)
-            rateLimit[Fu[Result]](me.id, cost = nbGames) {
+            val cost    = nbGames * (if me.isVerified || me.isApiHog then 1 else 3)
+            rateLimit[Fu[Result]](me.id, cost = cost) {
               lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames).unit
               idGenerator
                 .games(nbGames)

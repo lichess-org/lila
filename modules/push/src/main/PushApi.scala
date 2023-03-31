@@ -13,7 +13,6 @@ import lila.hub.actorApi.push.TourSoon
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
 import lila.notify.*
 import lila.notify.{ NotificationPref, NotifyAllows }
-import lila.user.User
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -24,20 +23,17 @@ final private class PushApi(
     postApi: lila.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
-  private[push] def notifyPush(
-      to: Iterable[NotifyAllows],
-      content: NotificationContent,
-      params: Iterable[(String, String)]
-  ): Funit = content match
-    case PrivateMessage(sender, text) =>
-      lightUser(sender).flatMap(luser => privateMessage(to.head, sender, luser.titleName, text))
-    case MentionedInThread(mentioner, topic, _, _, postId) =>
-      lightUser(mentioner).flatMap(luser => forumMention(to.head, luser.titleName, topic, postId))
-    case StreamStart(streamerId, streamerName) =>
-      streamStart(to, streamerId, streamerName)
-    case InvitedToStudy(invitedBy, studyName, studyId) =>
-      lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
-    case _ => funit
+  private[push] def notifyPush(to: Iterable[NotifyAllows], content: NotificationContent): Funit =
+    content match
+      case PrivateMessage(sender, text) =>
+        lightUser(sender).flatMap(luser => privateMessage(to.head, sender, luser.titleName, text))
+      case MentionedInThread(mentioner, topic, _, _, postId) =>
+        lightUser(mentioner).flatMap(luser => forumMention(to.head, luser.titleName, topic, postId))
+      case StreamStart(streamerId, streamerName) =>
+        streamStart(to, streamerId, streamerName)
+      case InvitedToStudy(invitedBy, studyName, studyId) =>
+        lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
+      case _ => funit
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit

@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets.UTF_8
 import scala.jdk.CollectionConverters.*
 
 import lila.common.config.*
-import FirebasePush.given
 
 @Module
 final private class PushConfig(
@@ -90,8 +89,8 @@ final class Env(
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       logUnit { pushApi corresAlarm pov }
-    case lila.notify.PushNotification(to, content, params) =>
-      logUnit { pushApi notifyPush (to, content, params) }
+    case lila.notify.PushNotification(to, content, _) =>
+      logUnit { pushApi notifyPush (to, content) }
     case t: lila.hub.actorApi.push.TourSoon =>
       logUnit { pushApi tourSoon t }
   }

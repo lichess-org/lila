@@ -1,8 +1,5 @@
 package lila.challenge
 
-import scala.annotation.nowarn
-
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.user.User
 

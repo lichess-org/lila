@@ -11,7 +11,7 @@ import lila.user.User
 
 final class JsonView(getLightUser: LightUser.GetterSync):
 
-  import JsonView.{ given, * }
+  import JsonView.given
 
   private given userIdWriter: OWrites[UserId] = OWrites { u =>
     val light = getLightUser(u)

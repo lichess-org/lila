@@ -200,7 +200,7 @@ final class Ublog(env: Env) extends LilaController(env):
               _    <- env.ublog.api.setTier(blog.id, tier)
               _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
               _ <- env.mod.logApi
-                .blogTier(lila.report.Mod(me.user), user, blog.id.full, UblogBlog.Tier.name(tier))
+                .blogTier(lila.report.Mod(me.user), user, UblogBlog.Tier.name(tier))
             yield Redirect(urlOfBlog(blog)).flashSuccess
         )
     }

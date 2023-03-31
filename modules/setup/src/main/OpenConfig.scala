@@ -7,7 +7,6 @@ import chess.variant.{ Variant, FromPosition }
 import lila.common.Days
 import lila.game.{ GameRule, PerfPicker }
 import lila.rating.PerfType
-import lila.user.User
 
 final case class OpenConfig(
     name: Option[String],
