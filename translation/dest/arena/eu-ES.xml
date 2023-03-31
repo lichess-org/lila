@@ -54,4 +54,8 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="allowChatHelp">Utzi jokalariei txatean hitz egiten</string>
   <string name="arenaStreaks">Arena boladak</string>
   <string name="arenaStreaksHelp">Bi garaipenen ostean, jarraian datozen garaipenek 4 puntu emango dituzte 2 eman beharrean.</string>
+  <string name="noBerserkAllowed">Ez da Berserkik onartzen</string>
+  <string name="noArenaStreaks">Ez da Arena boladarik onartzen</string>
+  <string name="averagePerformance">Bataz besteko performancea</string>
+  <string name="averageScore">Batez besteko puntuazioa</string>
 </resources>
