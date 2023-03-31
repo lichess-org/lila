@@ -32,8 +32,11 @@
   <string name="youCanUseOpeningBookNoEngine">Na Lichessu, glavna razlika u pravilima za dopisni šah jest da je dozvoljeno upotrebljavati knjige o šahovskim otvaranjima i baze podataka o njima. Upotreba šahovskih programa i dalje je zabranjena i rezultirat će time da igrač bude označen zbog nje. Iako ICCF dozvoljava upotrebu programa u dopisnom šahu, to nije slučaj s Lichessom.</string>
   <string name="gameplay">Tip igre</string>
   <string name="howBulletBlitzEtcDecided">Kako se određuju kontrole vremena za Metak, Blic i druge šahovske varijante?</string>
+  <string name="basedOnGameDuration">Lichess vremenske kontrole temelje se na procijenjenoj trajanju igre = %1$s. 
+Primjerice, procijenjeno trajanje igre 5+3 je 5 × 60 + 40 × 3 = 420 sekundi.</string>
   <string name="durationFormula">(početno vrijeme) + 40 × (bonus vrijeme)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Koje varijante šaha mogu igrati na Lichessu?</string>
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i još osam %1$s.</string>
   <string name="eightVariants">8 varijanti šaha</string>
@@ -75,6 +78,11 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="accounts">Računi</string>
   <string name="titlesAvailableOnLichess">Koje titule postoje na Lichessu?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess priznaje sve FIDE titule stečene igrom na tabli (OTB), kao i %1$s. Evo spiska FIDE titula:</string>
+  <string name="showYourTitle">Ako imate OTB naslov, možete zatražiti da se on prikaže na vašem računu popunjavanjem %1$s, uključujući jasnu sliku identifikacijskog dokumenta/kartice i selfi na kojem držite dokument/karticu.
+
+Potvrda kao igrač s naslovom na Lichessu omogućuje sudjelovanje u događajima s naslovom Arenom.
+
+Na kraju, postoji počasni %2$s naslov.</string>
   <string name="asWellAsManyNMtitles">mnoge nacionalne majstorske titule</string>
   <string name="verificationForm">formular za verifikaciju</string>
   <string name="canIbecomeLM">Mogu li steći titulu Lichess majstora (LM)?</string>
