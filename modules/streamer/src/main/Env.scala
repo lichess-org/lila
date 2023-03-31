@@ -67,7 +67,6 @@ final class Env(
   private lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
   private val streaming = Streaming(
-    ws = ws,
     api = api,
     isOnline = isOnline,
     keyword = config.keyword,

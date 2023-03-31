@@ -148,7 +148,7 @@ trait Handlers:
   //   def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
-    def writeTry(@unused n: BSONNull.type) = Success(BSONNull)
+    def writeTry(@annotation.nowarn("msg=unused") n: BSONNull.type) = Success(BSONNull)
 
   given BSONHandler[IpAddress] = stringIsoHandler
 
