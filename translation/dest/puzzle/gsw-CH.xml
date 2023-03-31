@@ -28,6 +28,11 @@
   <string name="keepGoing">Blib dra…</string>
   <string name="puzzleSuccess">Korräkt!</string>
   <string name="puzzleComplete">Ufgab abgschlosse!</string>
+  <string name="byOpenings">Nach Eröffnige</string>
+  <string name="puzzlesByOpenings">Ufgabe nach Eröffnige</string>
+  <string name="openingsYouPlayedTheMost">Dini meischt-gschpillte Eröffnige, i gwertete Partie</string>
+  <string name="useFindInPage">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
+  <string name="useCtrlF">Find dini bevorzugti Eröffnig mit Ctrl+F !</string>
   <string name="notTheMove">Das isch nöd de Zug!</string>
   <string name="trySomethingElse">Probier öppis Anders.</string>
   <string name="ratingX">Wertig: %s</string>

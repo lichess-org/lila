@@ -28,6 +28,11 @@
   <string name="keepGoing">Continua jugant…</string>
   <string name="puzzleSuccess">Èxit!</string>
   <string name="puzzleComplete">Problema fet!</string>
+  <string name="byOpenings">Per obertura</string>
+  <string name="puzzlesByOpenings">Problemes per obertura</string>
+  <string name="openingsYouPlayedTheMost">Obertures que heu jugat més en partides puntuades</string>
+  <string name="useFindInPage">Utilitzeu la \"Cerca en la pàgina\" del menú del vostre navegador per trobar la vostra obertura preferida!</string>
+  <string name="useCtrlF">Utilitzeu Ctrl+f per trobar la vostra obertura preferida!</string>
   <string name="notTheMove">Aquesta no és la jugada!</string>
   <string name="trySomethingElse">Prova d\'una altra manera.</string>
   <string name="ratingX">Puntuació: %s</string>
