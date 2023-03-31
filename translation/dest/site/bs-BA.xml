@@ -224,6 +224,8 @@
   <string name="youAreLeavingLichess">Napuštate Lichess</string>
   <string name="neverTypeYourPassword">Nikada nemojte unijeti Vašu lozinku za Lichess na nekom drugom sajtu!</string>
   <string name="proceedToX">Idite na %s</string>
+  <string name="passwordSuggestion">Nemojte postavljati lozinku koju je predložio netko drugi. Mogu je iskoristiti za krađu vašeg računa.</string>
+  <string name="emailSuggestion">Nemojte postavljati e-mail adresu koju je predložio netko drugi. Mogu je iskoristiti za krađu vašeg računa.</string>
   <string name="emailConfirmHelp">Pomoć za potvrdu e-pošte</string>
   <string name="emailConfirmNotReceived">Niste primili e-poštu za potvrdu nakon prijavljivanja?</string>
   <string name="whatSignupUsername">Koje ste korisničko ime upotrijebili za prijavu?</string>
