@@ -207,6 +207,14 @@
   <string name="email">Posta elektronikoa</string>
   <string name="passwordReset">Pasahitz berria eskatu</string>
   <string name="forgotPassword">Pasahitza ahaztu duzu?</string>
+  <string name="error.weakPassword">Pasahitz hau oso arrunta eta asmatzeko erraza da.</string>
+  <string name="error.namePassword">Ez erabili zure erabiltzaile-izena pasahitz gisa.</string>
+  <string name="blankedPassword">Pasahitz hau beste webgune baten erabili duzu eta publikoki ezaguna da hori. Lichess kontuaren segurtasuna bermatzeko beste pasahitz bat erabili behar duzu. Eskerrik asko.</string>
+  <string name="youAreLeavingLichess">Lichess uzten ari zara</string>
+  <string name="neverTypeYourPassword">Ez erabiili zure Lichesseko pasahitza beste inon!</string>
+  <string name="proceedToX">Joan zaitez %s helbidera</string>
+  <string name="passwordSuggestion">Ez erabili beste norbaitek esandako pasahitzak. Zure kontua lapurtzeko erabiliko dute.</string>
+  <string name="emailSuggestion">Ez erabili beste norbaitek esandako posta elektronikoa. Zure kontua lapurtzeko erabiliko dute.</string>
   <string name="emailConfirmHelp">Laguntza eposta baieztapenarekin</string>
   <string name="emailConfirmNotReceived">Izena eman ostean ez duzu baieztapen eposta jaso?</string>
   <string name="whatSignupUsername">Zein erabiltzaile-izen erabili duzu izena emateko?</string>
@@ -382,6 +390,7 @@
   <string name="toStudy">Aztertu</string>
   <string name="importGame">Partida inportatu</string>
   <string name="importGameExplanation">PGN partida bat itsastean ikusi daitekeen partida bat lortuko duzu, partidare eta analisiarekin, txatarekin eta elkarbanatu dezakezun helbide batekin.</string>
+  <string name="importGameCaveat">Aldaerak ezabatu egingo dira. Mantendu nahi badituzu inportatu PGNa azterlan gisa.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s inportatutako partidak</item>
     <item quantity="other">%s inportatutako partidak</item>
@@ -653,6 +662,8 @@
   <string name="simulClockHint">Fischer erloju doikuntza. Zenbat eta jokalari gehiagoren aurka jokatua,  are denbora gehiago behar izango duzu</string>
   <string name="simulAddExtraTime">Aldibereko partidetan aritu ahal izateko, agian  denbora gehiago gehitu beharko diozu zure erlojuari</string>
   <string name="simulHostExtraTime">Denbora gehitu erlojuan</string>
+  <string name="simulAddExtraTimePerPlayer">Aldibereko partidara sartzen den jokalari bakoitzagatik denbora gehitu zure erlojuan.</string>
+  <string name="simulHostExtraTimePerPlayer">Jokalari bakoitzeko denbora gehigarria</string>
   <string name="lichessTournaments">Lichess txapelketak</string>
   <string name="tournamentFAQ">Arena txapelketaren ohiko galderak</string>
   <string name="timeBeforeTournamentStarts">Txapelketa hasteko denbora</string>
@@ -936,4 +947,5 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="lichessDbExplanation">Lichesseko jokalari guztien artetik aukeratutako partidetatik aterata</string>
   <string name="switchSides">Aldatu kolorea</string>
   <string name="closingAccountWithdrawAppeal">Kontua ixten baduzu, zure kexa bertan behera geldituko da</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Txapelketak antolatzeko gure aholkuak</string>
 </resources>
