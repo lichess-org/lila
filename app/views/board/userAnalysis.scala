@@ -4,7 +4,7 @@ import play.api.libs.json.{ JsObject, Json }
 
 import chess.variant.{ Variant, FromPosition, Crazyhouse }
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue

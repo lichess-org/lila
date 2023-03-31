@@ -143,7 +143,7 @@ private object BSONHandlers:
       stream = r.getD[Boolean](stream)
     )
 
-    def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
+    def writes(@annotation.nowarn w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
       id         -> o.id,
       games      -> o.games,
       forumPosts -> o.forumPosts,

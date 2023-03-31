@@ -3,7 +3,7 @@ package views.html.tutor
 import controllers.routes
 import play.api.libs.json.*
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorQueue }

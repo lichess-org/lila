@@ -2,7 +2,7 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -67,34 +67,3 @@ object activity:
           )(per.toString)
         }
       )
-
-  private def renderTable(p: Result)(implicit ctx: Context) =
-    table(cls := "slist slist-pad history")(
-      thead(
-        tr(
-          th("Date"),
-          Room.values.map { r =>
-            th("Report", br, r.name)
-          },
-          Action.values.map { a =>
-            th("Action", br, a.toString)
-          }
-        )
-      ),
-      tbody(
-        p.data.view
-          .take(30)
-          .map { case (date, row) =>
-            tr(
-              th(showDate(date)),
-              Room.values.map { r =>
-                td(~row.reports.get(r): Int)
-              },
-              Action.values.map { a =>
-                td(~row.actions.get(a): Int)
-              }
-            )
-          }
-          .toList
-      )
-    )

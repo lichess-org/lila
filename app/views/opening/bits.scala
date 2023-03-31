@@ -6,7 +6,7 @@ import controllers.routes
 import play.api.libs.json.{ JsArray, Json, JsObject }
 import play.api.mvc.Call
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue

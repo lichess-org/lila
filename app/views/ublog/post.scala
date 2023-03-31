@@ -4,10 +4,9 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
