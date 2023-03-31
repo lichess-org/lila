@@ -70,7 +70,10 @@ export default class EditorCtrl {
     });
 
     this.redraw = () => {};
-    this.setSfen(data.sfen);
+    if (!this.setSfen(data.sfen)) {
+      alert('Invalid SFEN');
+      this.startPosition();
+    }
     this.redraw = redraw;
   }
 
@@ -177,14 +180,6 @@ export default class EditorCtrl {
     );
   }
 
-  loadNewSfen(sfen: string | 'prompt'): void {
-    if (sfen === 'prompt') {
-      sfen = (prompt('Paste SFEN position') || '').trim();
-      if (!sfen) return;
-    }
-    this.setSfen(sfen);
-  }
-
   setSfen(sfen: string): boolean {
     return parseSfen(this.rules, sfen, false).unwrap(
       pos => {
@@ -196,21 +191,31 @@ export default class EditorCtrl {
         this.onChange();
         return true;
       },
-      _ => false
+      err => {
+        console.warn(err);
+        return false;
+      }
     );
   }
 
+  setHands(hands: Hands): void {
+    if (this.shogiground) this.shogiground.set({ sfen: { hands: makeHands(this.rules, hands) } });
+    this.onChange();
+  }
+
   canFillGoteHand(): boolean {
-    const pos = this.getSetup();
+    const setup = this.getSetup(),
+      startingBoard = defaultPosition(this.rules).board;
     return (
-      this.countPieces('pawn', pos) <= 18 &&
-      this.countPieces('lance', pos) <= 4 &&
-      this.countPieces('knight', pos) <= 4 &&
-      this.countPieces('silver', pos) <= 4 &&
-      this.countPieces('gold', pos) <= 4 &&
-      this.countPieces('bishop', pos) <= 2 &&
-      this.countPieces('rook', pos) <= 2 &&
-      pos.board.occupied.size() + pos.hands.count() < 38 + this.countPieces('king', pos)
+      this.countPieces('pawn', setup) <= startingBoard.role('pawn').size() &&
+      this.countPieces('lance', setup) <= startingBoard.role('lance').size() &&
+      this.countPieces('knight', setup) <= startingBoard.role('knight').size() &&
+      this.countPieces('silver', setup) <= startingBoard.role('silver').size() &&
+      this.countPieces('gold', setup) <= startingBoard.role('gold').size() &&
+      this.countPieces('bishop', setup) <= startingBoard.role('bishop').size() &&
+      this.countPieces('rook', setup) <= startingBoard.role('rook').size() &&
+      setup.board.occupied.size() + setup.hands.count() <
+        startingBoard.occupied.size() - 2 + this.countPieces('king', setup)
     );
   }
 
@@ -270,11 +275,8 @@ export default class EditorCtrl {
     for (const p in pieceCounts) {
       if (pieceCounts[p] > 0) goteHand.set(p as Role, pieceCounts[p]);
     }
-    setup.hands = Hands.from(senteHand, goteHand);
 
-    this.setSfen(this.getSfen(setup));
-
-    this.onChange();
+    this.setHands(Hands.from(senteHand, goteHand));
   }
 
   setRules(rules: Rules): void {
