@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
+import chess.Clock.{ LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
 

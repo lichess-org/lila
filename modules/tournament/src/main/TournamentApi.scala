@@ -9,10 +9,9 @@ import scala.util.chaining.*
 
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
-import lila.common.{ Bus, Debouncer, LightUser }
+import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.LeaderTeam
-import lila.hub.LightTeam.*
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.user.{ User, UserRepo }
 
@@ -27,7 +26,6 @@ final class TournamentApi(
     autoPairing: AutoPairing,
     pairingSystem: arena.PairingSystem,
     callbacks: TournamentApi.Callbacks,
-    renderer: lila.hub.actors.Renderer,
     socket: TournamentSocket,
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
@@ -517,7 +515,6 @@ final class TournamentApi(
 
   private[tournament] def recomputeEntireTournament(id: TourId): Funit =
     tournamentRepo.byId(id) flatMapz { tour =>
-      import lila.db.dsl.{ *, given }
       import reactivemongo.api.ReadPreference
       playerRepo
         .sortedCursor(tour.id, 64, ReadPreference.primary)

@@ -9,8 +9,6 @@ import lila.common.LichessDay
 
 object StormBsonHandlers:
 
-  import lila.puzzle.BsonHandlers.given
-
   given puzzleReader: BSONDocumentReader[StormPuzzle] with
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[PuzzleId]("_id")

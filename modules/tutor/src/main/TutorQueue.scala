@@ -4,7 +4,6 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import com.softwaremill.tagging.*
 
-import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, LightUserApi }
 import lila.common.config.Max

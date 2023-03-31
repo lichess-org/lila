@@ -3,7 +3,7 @@ package lila.relay
 import akka.stream.scaladsl.*
 import org.joda.time.format.DateTimeFormat
 
-import lila.study.{ Chapter, ChapterRepo, PgnDump, StudyRepo }
+import lila.study.{ ChapterRepo, PgnDump, StudyRepo }
 import lila.common.Bus
 import chess.format.pgn.PgnStr
 

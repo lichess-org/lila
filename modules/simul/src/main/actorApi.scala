@@ -2,7 +2,6 @@ package lila.simul
 package actorApi
 
 import lila.game.Game
-import lila.user.User
 
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[simul] case class StartGame(game: Game, hostId: String)

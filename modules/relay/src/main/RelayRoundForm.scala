@@ -6,7 +6,7 @@ import play.api.data.Forms.*
 import scala.util.Try
 import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
+import lila.common.Form.{ cleanText, into }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study

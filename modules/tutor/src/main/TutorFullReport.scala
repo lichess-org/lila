@@ -1,8 +1,6 @@
 package lila.tutor
 
-import lila.common.Heapsort.given
 import lila.rating.PerfType
-import lila.user.User
 import lila.tutor.TutorCompare.AnyComparison
 
 case class TutorFullReport(

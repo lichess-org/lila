@@ -158,5 +158,4 @@ final class PuzzleDashboardApi(
     rating <- doc.double("rating")
   yield Results(nb, wins, fixes, rating.toInt)
 
-  import BsonHandlers.given
   val relevantThemesSelect = $doc("puzzle.themes" $nin irrelevantThemes)

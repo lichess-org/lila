@@ -3,13 +3,12 @@ package views.html.clas
 import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
 import lila.common.String.html.richText
 import lila.rating.PerfType
-import lila.user.User
 
 object teacherDashboard:
 
@@ -17,7 +16,7 @@ object teacherDashboard:
       c: Clas,
       students: List[Student.WithUser],
       active: String
-  )(modifiers: Modifier*)(implicit ctx: Context) =
+  )(modifiers: Modifier*)(using Context) =
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(

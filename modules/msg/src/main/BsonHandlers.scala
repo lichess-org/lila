@@ -24,7 +24,7 @@ private object BsonHandlers:
             maskWith = r.getO[Last]("maskWith")
           )
         case x => sys error s"Invalid MsgThread users: $x"
-    def writes(@useless w: BSON.Writer, t: MsgThread) =
+    def writes(@annotation.nowarn w: BSON.Writer, t: MsgThread) =
       $doc(
         "_id"      -> t.id,
         "users"    -> t.users.sorted(using stringOrdering),

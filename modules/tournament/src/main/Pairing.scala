@@ -4,8 +4,6 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import chess.Color
 import chess.variant.*
-import lila.game.Game
-import lila.user.User
 
 case class Pairing(
     id: GameId,
@@ -19,7 +17,7 @@ case class Pairing(
     berserk2: Boolean
 ):
 
-  def gameId = id
+  inline def gameId = id
 
   def users                                     = List(user1, user2)
   def usersPair                                 = user1 -> user2

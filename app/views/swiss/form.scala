@@ -3,7 +3,7 @@ package views.html.swiss
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ Swiss, SwissCondition, SwissForm }
@@ -11,7 +11,7 @@ import lila.tournament.TournamentForm
 
 object form:
 
-  def create(form: Form[?], teamId: TeamId)(implicit ctx: Context) =
+  def create(form: Form[?], teamId: TeamId)(using Context) =
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
@@ -48,7 +48,7 @@ object form:
       )
     }
 
-  def edit(swiss: Swiss, form: Form[?])(implicit ctx: Context) =
+  def edit(swiss: Swiss, form: Form[?])(using Context) =
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
@@ -88,7 +88,7 @@ object form:
   private def advancedSettings(settings: Frag*) =
     details(summary("Advanced settings"), settings)
 
-  private def condition(form: Form[?], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
+  private def condition(form: Form[?], fields: SwissFields, swiss: Option[Swiss])(using ctx: Context) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
@@ -113,7 +113,7 @@ object form:
       )
     )
 
-final private class SwissFields(form: Form[?], swiss: Option[Swiss])(implicit ctx: Context):
+final private class SwissFields(form: Form[?], swiss: Option[Swiss])(using Context):
 
   private def disabledAfterStart = swiss.exists(!_.isCreated)
 

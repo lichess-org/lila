@@ -6,7 +6,6 @@ import chess.Speed
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
-import lila.user.User
 
 case class Swiss(
     _id: SwissId,

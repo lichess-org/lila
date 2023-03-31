@@ -4,12 +4,11 @@ import chess.StartingPosition
 import scala.util.chaining.*
 import org.joda.time.DateTimeConstants.*
 
-import lila.common.{ LilaScheduler, LilaStream }
+import lila.common.LilaScheduler
 
 final private class TournamentScheduler(
-    api: TournamentApi,
     tournamentRepo: TournamentRepo
-)(using ec: Executor, scheduler: Scheduler, mat: akka.stream.Materializer):
+)(using ec: Executor, scheduler: Scheduler):
 
   import Schedule.Freq.*
   import Schedule.Speed.*
@@ -496,8 +495,6 @@ Thank you all, you rock!""",
         else t :: tourns
       }
       .reverse
-
-  private case class ScheduleNowWith(dbScheds: List[Tournament])
 
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
     t.schedule exists { s =>
