@@ -10,14 +10,11 @@ object table:
 
   private val dataSort = attr("data-sort")
 
-  def apply(users: List[lila.user.User])(implicit ctx: Context) =
+  def apply(users: List[lila.user.User])(using Context) =
 
     val title = "All mods"
 
-    views.html.base.layout(
-      title = title,
-      moreCss = cssTag("mod.misc")
-    ) {
+    views.html.base.layout(title = title, moreCss = cssTag("mod.misc")):
       main(cls := "page-menu")(
         views.html.mod.menu("mods"),
         div(id := "mod_table", cls := "page-menu__content box")(
@@ -46,4 +43,3 @@ object table:
           )
         )
       )
-    }

@@ -101,12 +101,12 @@ final class Plan(env: Env) extends LilaController(env):
         }
   } yield res
 
-  private def indexPayPalPatron(me: UserModel, patron: lila.plan.Patron, subscription: PayPalSubscription)(
-      implicit ctx: Context
-  ) = for {
-    pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
-    gifts   <- env.plan.api.giftsFrom(me)
-  } yield Ok(html.plan.indexPayPal(me, patron, subscription, pricing, gifts))
+  private def indexPayPalPatron(me: UserModel, patron: lila.plan.Patron, sub: PayPalSubscription)(using
+      Context
+  ) =
+    env.plan.api.giftsFrom(me) map { gifts =>
+      Ok(html.plan.indexPayPal(me, patron, sub, gifts))
+    }
 
   private def myCurrency(implicit ctx: Context): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse

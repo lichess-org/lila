@@ -428,15 +428,14 @@ final class User(
         }
 
         val userLoginsFu = env.security.userLogins(user, nbOthers)
-        val others = for {
+        val others = for
           userLogins <- userLoginsFu
           appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
           data       <- loginsTableData(user, userLogins, nbOthers)
-        } yield html.user.mod.otherUsers(holder, user, data, appeals)
+        yield html.user.mod.otherUsers(holder, user, data, appeals)
 
         val identification = userLoginsFu map { logins =>
-          Granter.is(_.ViewPrintNoIP)(holder) ??
-            html.user.mod.identification(holder, user, logins)
+          Granter.is(_.ViewPrintNoIP)(holder) ?? html.user.mod.identification(logins)
         }
 
         val kaladin = isGranted(_.MarkEngine) ?? env.irwin.kaladinApi.get(user).map {

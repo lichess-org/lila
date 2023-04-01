@@ -34,7 +34,7 @@ object form:
             advancedSettings(
               form3.split(fields.variant, fields.position),
               form3.split(fields.chatFor, fields.entryCode),
-              condition(form, fields, swiss = none),
+              condition(form),
               form3.split(fields.playYourGames, fields.allowList),
               form3.split(fields.forbiddenPairings, fields.manualPairings)
             ),
@@ -66,7 +66,7 @@ object form:
             advancedSettings(
               form3.split(fields.variant, fields.position),
               form3.split(fields.chatFor, fields.entryCode),
-              condition(form, fields, swiss = swiss.some),
+              condition(form),
               form3.split(fields.playYourGames, fields.allowList),
               form3.split(fields.forbiddenPairings, fields.manualPairings)
             ),
@@ -88,7 +88,7 @@ object form:
   private def advancedSettings(settings: Frag*) =
     details(summary("Advanced settings"), settings)
 
-  private def condition(form: Form[?], fields: SwissFields, swiss: Option[Swiss])(using ctx: Context) =
+  private def condition(form: Form[?])(using ctx: Context) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(

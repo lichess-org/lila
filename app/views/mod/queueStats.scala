@@ -8,11 +8,10 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.mod.ModQueueStats.*
 import lila.mod.ModActivity.Period
-import lila.report.Room
 
 object queueStats:
 
-  def apply(p: Result)(implicit ctx: Context) =
+  def apply(p: Result)(using Context) =
     views.html.base.layout(
       title = "Queues stats",
       moreCss = cssTag("mod.activity"),

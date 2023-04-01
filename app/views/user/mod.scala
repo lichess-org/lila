@@ -665,10 +665,7 @@ object mod:
       case email                        => frag(email)
     }
 
-  def identification(mod: Holder, user: User, logins: UserLogins)(using
-      ctx: Context,
-      renderIp: RenderIp
-  ): Frag =
+  def identification(logins: UserLogins)(using ctx: Context, renderIp: RenderIp): Frag =
     val canIpBan  = isGranted(_.IpBan)
     val canFpBan  = isGranted(_.PrintBan)
     val canLocate = isGranted(_.Admin)

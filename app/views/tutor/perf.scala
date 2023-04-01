@@ -1,11 +1,10 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json.*
 import play.api.mvc.Call
 
 import lila.api.Context
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Heapsort.topN
 import lila.tutor.TutorCompare.given
@@ -18,7 +17,7 @@ object perf:
   def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(using
       ctx: Context
   ) =
-    bits.layout(full, menu = menu(full, user, report, "perf"))(
+    bits.layout(menu = menu(user, report, "perf"))(
       cls := "tutor__perf box",
       boxTop(
         h1(
@@ -73,7 +72,6 @@ object perf:
     )
 
   private[tutor] def menu(
-      full: TutorFullReport.Available,
       user: User,
       report: TutorPerfReport,
       active: String
@@ -95,7 +93,7 @@ object perf:
     )
   )
 
-  private def angleCard(title: Frag, url: Option[Call])(content: Modifier*)(using Context) =
+  private def angleCard(title: Frag, url: Option[Call])(content: Modifier*) =
     st.article(
       cls      := List("tutor__perf__angle tutor-card" -> true, "tutor-card--link" -> url.isDefined),
       dataHref := url

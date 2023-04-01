@@ -135,7 +135,7 @@ object bits:
       bookmarked = bookmarked
     )
 
-  def roundAppPreload(pov: Pov, controls: Boolean)(using Context) =
+  def roundAppPreload(pov: Pov)(using Context) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(chessground(pov)),
       div(cls := "col1-rmoves-preload")

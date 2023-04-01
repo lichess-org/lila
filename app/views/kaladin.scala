@@ -15,7 +15,7 @@ object kaladin:
     case p if p < 80 => "orange"
     case _           => "red"
 
-  def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(implicit ctx: Context) =
+  def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(using Context) =
     views.html.base.layout(
       title = "Kaladin dashboard",
       moreCss = cssTag("mod.misc")
@@ -89,7 +89,7 @@ object kaladin:
       )
     }
 
-  def report(response: lila.irwin.KaladinUser.Response)(implicit ctx: Context): Frag =
+  def report(response: lila.irwin.KaladinUser.Response)(using Context): Frag =
     div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
       header(
         span(cls := "title")(

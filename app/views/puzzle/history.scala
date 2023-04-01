@@ -13,7 +13,7 @@ import lila.user.User
 
 object history:
 
-  def apply(user: User, page: Int, pager: Paginator[PuzzleSession])(implicit ctx: Context) =
+  def apply(user: User, pager: Paginator[PuzzleSession])(using ctx: Context) =
     val title =
       if (ctx is user) trans.puzzle.history.txt()
       else s"${user.username} ${trans.puzzle.history.txt()}"

@@ -461,7 +461,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     DashboardPage(u) { implicit ctx => user =>
       Reasonable(page) {
         env.puzzle.history(user, page) map { history =>
-          Ok(views.html.puzzle.history(user, page, history))
+          Ok(views.html.puzzle.history(user, history))
         }
       }
     }

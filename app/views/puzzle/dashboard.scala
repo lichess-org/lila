@@ -2,7 +2,6 @@ package views
 package html.puzzle
 
 import controllers.routes
-import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.api.Context
@@ -15,12 +14,11 @@ import lila.user.User
 
 object dashboard:
 
-  private val baseClass      = "puzzle-dashboard"
-  private val metricClass    = s"${baseClass}__metric"
-  private val themeClass     = s"${baseClass}__theme"
-  private val dataWinPercent = attr("data-win-percent")
+  private val baseClass   = "puzzle-dashboard"
+  private val metricClass = s"${baseClass}__metric"
+  private val themeClass  = s"${baseClass}__theme"
 
-  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,

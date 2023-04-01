@@ -23,7 +23,7 @@ object tree:
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
   val closedByModerators       = "Your account was closed by moderators.";
 
-  private def cleanMenu(implicit ctx: Context): Branch =
+  private def cleanMenu(using Context): Branch =
     Branch(
       "root",
       cleanAllGood,
@@ -68,7 +68,7 @@ object tree:
       )
     )
 
-  private def engineMenu(implicit ctx: Context): Branch =
+  private def engineMenu(using Context): Branch =
     val accept =
       "I accept that I used outside assistance in my games."
     val deny =
@@ -110,7 +110,7 @@ object tree:
       ).some
     )
 
-  private def boostMenu(implicit ctx: Context): Branch =
+  private def boostMenu(using Context): Branch =
     val accept = "I accept that I manipulated my rating."
     val acceptFull =
       "I accept that I deliberately manipulated my rating by losing games on purpose, or by playing another account that was deliberately losing games. I am sorry and I would like another chance."
@@ -144,7 +144,7 @@ object tree:
       ).some
     )
 
-  private def muteMenu(implicit ctx: Context): Branch =
+  private def muteMenu(using Context): Branch =
     val accept = "I accept that I have not followed the communication guidelines"
     val acceptFull =
       "I accept that I have not followed the communication guidelines. I will behave better in future, please give me another chance."
@@ -183,7 +183,7 @@ object tree:
       ).some
     )
 
-  private def rankBanMenu(implicit ctx: Context): Branch =
+  private def rankBanMenu(using Context): Branch =
     val accept = "I accept that I have manipulated my account to get on the leaderboard."
     val deny =
       "I deny having manipulated my account to get on the leaderboard."
@@ -213,7 +213,7 @@ object tree:
       ).some
     )
 
-  private def playbanMenu(implicit ctx: Context): Branch =
+  private def playbanMenu: Branch =
     Branch(
       "root",
       "You have a play timeout.",
@@ -259,7 +259,7 @@ object tree:
       )
     )
 
-  private def altScreen(implicit ctx: Context) = div(cls := "leaf")(
+  private def altScreen(using Context) = div(cls := "leaf")(
     h2(closedByModerators),
     div(cls := "content")(
       p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
@@ -274,7 +274,7 @@ object tree:
     newAppeal()
   )
 
-  def apply(me: User, playban: Boolean)(implicit ctx: Context) =
+  def apply(me: User, playban: Boolean)(using ctx: Context) =
     bits.layout("Appeal a moderation decision") {
       val query    = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
       val isMarked = playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban
@@ -315,23 +315,10 @@ object tree:
     p("Please be honest, concise, and on point.")
   )
 
-  private def newAppeal(preset: String = "")(implicit ctx: Context) =
+  private def newAppeal(preset: String = "")(using Context) =
     discussion.renderForm(
       lila.appeal.Appeal.form.fill(preset),
       action = appealRoutes.post.url,
       isNew = true,
       presets = none
-    )
-
-  private def renderHelp =
-    div(cls := "appeal__help")(
-      p(
-        "If your account has been restricted for violation of ",
-        a(href := routes.Page.tos)("the Lichess rules"),
-        " you may file an appeal here."
-      ),
-      p(
-        "You can read more about the appeal process ",
-        a(href := routes.Page.loneBookmark("appeal"))("here.")
-      )
     )

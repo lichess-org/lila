@@ -13,7 +13,7 @@ object time:
   def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
       Context
   ) =
-    bits.layout(full, menu = perf.menu(full, user, report, "time"))(
+    bits.layout(menu = perf.menu(user, report, "time"))(
       cls := "tutor__time box",
       boxTop(
         h1(

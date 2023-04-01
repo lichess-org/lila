@@ -120,7 +120,7 @@ object post:
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
-                followButton(user, post, followed)
+                followButton(user, followed)
               ),
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
             others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
@@ -156,7 +156,7 @@ object post:
       )(text)
     )
 
-  private def followButton(user: User, post: UblogPost, followed: Boolean)(using Context) =
+  private def followButton(user: User, followed: Boolean)(using Context) =
     div(
       cls := List(
         "ublog-post__follow" -> true,
@@ -193,7 +193,7 @@ object post:
       )
     )
 
-  def miniCard(post: UblogPost.BasePost)(using Context) =
+  def miniCard(post: UblogPost.BasePost) =
     span(cls := "ublog-post-card ublog-post-card--mini")(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       h3(cls := "ublog-post-card__title")(post.title)

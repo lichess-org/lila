@@ -27,12 +27,12 @@ final class Tutor(env: Env) extends LilaController(env):
   }
 
   def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.openings(report, perf, me)).toFuccess
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.openings(perf, me)).toFuccess
   }
 
   def opening(username: UserStr, perf: Perf.Key, colName: String, opName: String) =
-    TutorPerfPage(username, perf) { implicit ctx => me => report => perf =>
+    TutorPerfPage(username, perf) { implicit ctx => me => _ => perf =>
       chess.Color
         .fromName(colName)
         .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).toFuccess) { color =>
@@ -41,7 +41,7 @@ final class Tutor(env: Env) extends LilaController(env):
             .flatMap(perf.openings(color).find)
             .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).toFuccess) { family =>
               env.puzzle.opening.find(family.family.key) map { puzzle =>
-                Ok(views.html.tutor.opening(report, perf, family, color, me, puzzle))
+                Ok(views.html.tutor.opening(perf, family, color, me, puzzle))
               }
             }
         }

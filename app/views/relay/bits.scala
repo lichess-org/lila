@@ -27,7 +27,7 @@ object bits:
       )
     )
 
-  def howToUse(using Context) =
+  def howToUse =
     a(dataIcon := "", cls := "text", href := routes.RelayTour.help)(
       "How to use Lichess Broadcasts"
     )

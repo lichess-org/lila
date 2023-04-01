@@ -144,7 +144,7 @@ object home:
     )
   )
 
-  private def faqEntry(title: Frag, content: Frag)(using Lang) =
+  private def faqEntry(title: Frag, content: Frag) =
     div(cls := "faq")(
       i("?"),
       p(strong(title), content)

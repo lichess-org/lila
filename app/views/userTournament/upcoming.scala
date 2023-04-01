@@ -3,7 +3,7 @@ package userTournament
 
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.paginator.Paginator
 import lila.user.User
 

@@ -203,7 +203,7 @@ object topic:
       )
     }
 
-  private def deleteModal(using Context) =
+  private def deleteModal =
     div(cls := "forum-delete-modal none")(
       p("Delete the post"),
       st.form(method := "post", cls := "form3")(

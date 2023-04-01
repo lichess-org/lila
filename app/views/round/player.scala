@@ -70,7 +70,7 @@ object player:
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
           chatOption.map(_ => chat.frag)
         ),
-        bits.roundAppPreload(pov, controls = true),
+        bits.roundAppPreload(pov),
         div(cls := "round__underboard")(
           bits.crosstable(cross, pov.game),
           (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
