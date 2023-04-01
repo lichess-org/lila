@@ -20,6 +20,7 @@ final class PicfitConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     mode: play.api.Mode,

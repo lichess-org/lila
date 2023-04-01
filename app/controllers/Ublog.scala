@@ -322,7 +322,7 @@ final class Ublog(env: Env) extends LilaController(env):
         given play.api.i18n.Lang = reqLang
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
-            Ok(html.ublog.atom.user(user, blog, posts.currentPageResults)) as XML
+            Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
           }
         }
     }

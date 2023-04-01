@@ -13,6 +13,7 @@ import lila.hub.actorApi.lpv.*
 import lila.user.User
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     net: NetConfig,

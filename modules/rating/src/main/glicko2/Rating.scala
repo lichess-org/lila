@@ -1,6 +1,7 @@
 package lila.rating.glicko2
 
 // rewrite from java https://github.com/goochjs/glicko2
+@annotation.nowarn("msg=unused")
 final class Rating(
     var rating: Double,
     var ratingDeviation: Double,

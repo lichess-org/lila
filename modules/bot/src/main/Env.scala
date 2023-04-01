@@ -4,6 +4,7 @@ import com.softwaremill.macwire.*
 import lila.socket.IsOnline
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     chatApi: lila.chat.ChatApi,
     gameRepo: lila.game.GameRepo,

@@ -15,6 +15,7 @@ private case class ChatConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     netDomain: NetDomain,

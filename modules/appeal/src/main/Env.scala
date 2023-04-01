@@ -5,6 +5,7 @@ import com.softwaremill.macwire.*
 import lila.common.config.*
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     noteApi: lila.user.NoteApi,
