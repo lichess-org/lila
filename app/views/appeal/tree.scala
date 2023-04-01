@@ -281,7 +281,7 @@ object tree:
       main(cls := "page page-small box box-pad appeal force-ltr")(
         h1(cls := "box__top")("Appeal"),
         div(cls := s"nav-tree${if (isMarked) " marked" else ""}")(
-          if (me.enabled.no || query.contains("alt")) altScreen
+          if ((me.enabled.no && !me.marks.anyVisible) || query.contains("alt")) altScreen
           else
             renderNode(
               {

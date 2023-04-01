@@ -29,9 +29,10 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     def rankban: Boolean             = has(UserMark.Rankban)
     def alt: Boolean                 = has(UserMark.Alt)
 
-    def nonEmpty = a.value.nonEmpty option a
-    def dirty    = a.value.exists(UserMark.bannable.contains)
-    def clean    = !a.dirty
+    def nonEmpty   = a.value.nonEmpty option a
+    def dirty      = a.value.exists(UserMark.bannable.contains)
+    def clean      = !a.dirty
+    def anyVisible = a.boost || a.engine
 
     def set(sel: UserMark.type => UserMark, v: Boolean) = UserMarks {
       if (v) sel(UserMark) :: a.value
