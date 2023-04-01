@@ -8,6 +8,16 @@
   <string name="stalemate">Пат</string>
   <string name="white">Білі</string>
   <string name="black">Чорні</string>
+  <string name="asWhite">за бiлых</string>
+  <string name="asBlack">за чорных</string>
+  <string name="randomColor">Трафный цвіт</string>
+  <string name="itsYourTurn">Ваш ход!</string>
+  <string name="cheatDetected">Уявлені чіты</string>
+  <string name="kingInTheCenter">Король у центрі</string>
+  <string name="threeChecks">Три шаха</string>
+  <string name="raceFinished">Перебіг ся кончив</string>
+  <string name="newOpponent">Новый противник</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Противник хоче бавити из вами щи раз</string>
   <string name="move">Ход</string>
   <string name="capture">Взятя</string>
   <string name="close">Закрыти</string>
