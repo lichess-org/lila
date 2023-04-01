@@ -662,6 +662,7 @@
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>
   <string name="simulHostExtraTime">Ekstra tid for verten</string>
+  <string name="simulAddExtraTimePerPlayer">Legg til ekstra tid på klokken din for hver deltaker.</string>
   <string name="lichessTournaments">Lichessturneringer</string>
   <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
