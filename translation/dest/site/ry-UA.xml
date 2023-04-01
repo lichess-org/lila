@@ -145,6 +145,7 @@
   <string name="really">ипен так</string>
   <string name="host">Зарядник</string>
   <string name="create">Учинити</string>
+  <string name="kidModeExplanation">Се про безопасность. У дїтському режімови вшыткі комунікації выключені. Уключіт їх для своїх дїтий вадь студентув, обы защитити їх од другых інтернет хосновачув.</string>
   <string name="lobby">Чекарня</string>
   <string name="light">Світлый</string>
   <string name="dark">Темный</string>

@@ -18,7 +18,7 @@
   <string name="bishopEndgameDescription">قۆناغی کۆتایی یاری تەنها بە فیلەکان و سەربازەکان.</string>
   <string name="bodenMate">کشوماتی \"بۆدین\"</string>
   <string name="bodenMateDescription">دوو فیل لە سەر هێڵی لاری خۆیان هێرش دەکەنە سەر پاشای ڕکابەر، کاتێک پاشاکە لە نێو دوو داشی خۆی گیری خواردووە.</string>
-  <string name="castling">کاستڵینگ</string>
+  <string name="castling">ماڵکردن</string>
   <string name="castlingDescription">پاشا بە سەلامەتی بهێڵەرەوە، و قەڵاکە بێنە مەیدان بۆ هێرشکردن.</string>
   <string name="capturingDefender">بەرگریکارەکان بگرە</string>
   <string name="capturingDefenderDescription">خواردنی داشێک کە گرینگە بۆ بەرگریکردن لە داشێکی تر، ڕێگەت دەدات ئەو داشەی بەرگری نامێنێت لە جوڵەی دواتردا ئاسانتر بگیرێت.</string>

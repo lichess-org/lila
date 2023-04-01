@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Трансляції</string>
+  <string name="liveBroadcasts">Наострі трансляції турніра</string>
+  <string name="newBroadcast">Нова наостра трансляція</string>
+  <string name="addRound">Придати рунду</string>
+  <string name="ongoing">Теперішні</string>
+  <string name="upcoming">Будучні</string>
+  <string name="completed">Довершені</string>
+  <string name="roundName">Назывка рунды</string>
+  <string name="roundNumber">Номер рунды</string>
+  <string name="tournamentName">Назывка перемаганкы</string>
+  <string name="tournamentDescription">Куртый опис турніра</string>
+  <string name="fullDescription">Повный опис турніра</string>
+  <string name="fullDescriptionHelp">Немусайно повный опис турніра. %1$s приступный. Довжина має быти менша за %2$s сімболув.</string>
+  <string name="sourceUrlOrGameIds">Зачаточноє URL, вадь ідентіфікатор бавкы</string>
+  <string name="sourceUrlHelp">Одкликованя, через якоє Lichess буде доставати обновеня PGN. Ун має быти приступный из Інтернета.</string>
+  <string name="gameIdsHelp">Попиля того, можете увести 64 ідентіфікаторув бавкы на Lichess, роздїлені пролишами.</string>
+  <string name="startDate">Дата старта у вашум часовум поясі</string>
+  <string name="startDateHelp">Опціонално, кідь знаєте коли ся зачинат припад</string>
+  <string name="credits">Оддяка</string>
+  <string name="resetRound">Перепустити сисю рунду</string>
+  <string name="deleteRound">Стерти сю рунду</string>
+  <string name="broadcastUrl">Адрес трансляції</string>
+  <string name="currentRoundUrl">Одкликованя теперішнього тура</string>
+  <string name="currentGameUrl">Одкликованя теперішньої бавкы</string>
+  <string name="downloadAllRounds">Стерьхати вшыткі рунды</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Стерти вшытку рунду ай бавкы їв.</string>
+  <string name="deleteAllGamesOfThisRound">Стерти вшыткі бавкы сьої рунды. Жерело має быти актівным, обы учинити їх щи раз.</string>
+</resources>
