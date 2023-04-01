@@ -22,8 +22,8 @@ final class Tutor(env: Env) extends LilaController(env):
   }
 
   def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.perf(report, perf, me)).toFuccess: Fu[Result]
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.perf(perf, me)).toFuccess: Fu[Result]
   }
 
   def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
@@ -48,18 +48,18 @@ final class Tutor(env: Env) extends LilaController(env):
     }
 
   def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.skills(report, perf, me)).toFuccess
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.skills(perf, me)).toFuccess
   }
 
   def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.phases(report, perf, me)).toFuccess
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.phases(perf, me)).toFuccess
   }
 
   def time(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.time(report, perf, me)).toFuccess
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.time(perf, me)).toFuccess
   }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ => user => availability =>

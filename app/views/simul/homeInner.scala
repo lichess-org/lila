@@ -2,7 +2,6 @@ package views.html.simul
 
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import play.api.i18n.Lang
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
@@ -14,7 +13,7 @@ object homeInner:
       createds: List[lila.simul.Simul],
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     div(cls := "box")(
       h1(cls := "box__top")(trans.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
@@ -105,7 +104,7 @@ object homeInner:
       )
     )
 
-  private def simHost(sim: lila.simul.Simul)(implicit ctx: Context) =
+  private def simHost(sim: lila.simul.Simul)(using ctx: Context) =
     td(cls := "host")(
       userIdLink(sim.hostId.some, withOnline = false),
       ctx.pref.showRatings option frag(

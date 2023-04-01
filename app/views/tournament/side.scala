@@ -1,7 +1,6 @@
 package views
 package html.tournament
 
-import chess.variant.{ FromPosition, Standard }
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }

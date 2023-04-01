@@ -5,7 +5,7 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.{ TutorFullReport, TutorQueue }
+import lila.tutor.TutorQueue
 import lila.user.User
 import lila.game.Pov
 import play.api.i18n.Lang

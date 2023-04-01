@@ -6,13 +6,11 @@ import lila.api.Context
 import lila.app.templating.Environment.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
-import lila.tutor.{ TutorFullReport, TutorPerfReport }
+import lila.tutor.TutorPerfReport
 
 object time:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
-      Context
-  ) =
+  def apply(report: TutorPerfReport, user: lila.user.User)(using Context) =
     bits.layout(menu = perf.menu(user, report, "time"))(
       cls := "tutor__time box",
       boxTop(

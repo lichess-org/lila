@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
-import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
+import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
 
 object theme:
 

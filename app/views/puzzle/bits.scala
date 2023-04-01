@@ -14,8 +14,6 @@ import lila.user.User
 
 object bits:
 
-  private val dataLastmove = attr("data-lastmove")
-
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
     views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
 

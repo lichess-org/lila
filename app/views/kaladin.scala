@@ -89,7 +89,7 @@ object kaladin:
       )
     }
 
-  def report(response: lila.irwin.KaladinUser.Response)(using Context): Frag =
+  def report(response: lila.irwin.KaladinUser.Response): Frag =
     div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
       header(
         span(cls := "title")(

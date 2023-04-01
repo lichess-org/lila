@@ -6,7 +6,6 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.opening.OpeningQuery.Query
 import lila.opening.{ OpeningConfig, OpeningPage }
 
 object index:

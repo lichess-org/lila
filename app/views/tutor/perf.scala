@@ -8,15 +8,13 @@ import lila.app.templating.Environment.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Heapsort.topN
 import lila.tutor.TutorCompare.given
-import lila.tutor.{ TutorFullReport, TutorPerfReport }
+import lila.tutor.TutorPerfReport
 import lila.user.User
 import lila.rating.PerfType
 
 object perf:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: User)(using
-      ctx: Context
-  ) =
+  def apply(report: TutorPerfReport, user: User)(using ctx: Context) =
     bits.layout(menu = menu(user, report, "perf"))(
       cls := "tutor__perf box",
       boxTop(
