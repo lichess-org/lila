@@ -24,6 +24,7 @@ private class RoundConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,

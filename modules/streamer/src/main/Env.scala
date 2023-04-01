@@ -18,6 +18,7 @@ private class StreamerConfig(
 private class TwitchConfig(@ConfigName("client_id") val clientId: String, val secret: Secret)
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: play.api.libs.ws.StandaloneWSClient,

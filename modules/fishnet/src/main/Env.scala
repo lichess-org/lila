@@ -25,6 +25,7 @@ private class FishnetConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     uciMemo: lila.game.UciMemo,

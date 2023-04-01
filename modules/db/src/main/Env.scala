@@ -20,20 +20,20 @@ final class Env(
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
 
-  lazy val mainDb = new Db(
+  lazy val mainDb = Db(
     name = "main",
     uri = appConfig.get[String]("mongodb.uri"),
     driver = driver
   )
 
-  lazy val yoloDb = new AsyncDb(
+  lazy val yoloDb = AsyncDb(
     name = "yolo",
     uri = appConfig.get[String]("mongodb.yolo.uri"),
     driver = driver
   ).taggedWith[YoloDb]
 
   def asyncDb(name: String, uri: String) =
-    new AsyncDb(
+    AsyncDb(
       name = name,
       uri = uri,
       driver = driver

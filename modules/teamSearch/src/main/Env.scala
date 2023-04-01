@@ -14,6 +14,7 @@ private class TeamSearchConfig(
     @ConfigName("actor.name") val actorName: String
 )
 
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,

@@ -20,6 +20,7 @@ final private class PushConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,

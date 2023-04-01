@@ -13,15 +13,15 @@ final class Env(
     net: NetConfig
 )(using Executor):
 
-  lazy val analysisRepo = new AnalysisRepo(db(CollName("analysis2")))
+  lazy val analysisRepo = AnalysisRepo(db(CollName("analysis2")))
 
-  lazy val requesterApi = new RequesterApi(db(CollName("analysis_requester")))
+  lazy val requesterApi = RequesterApi(db(CollName("analysis_requester")))
 
   lazy val analyser = wire[Analyser]
 
-  lazy val annotator = new Annotator(net.domain)
+  lazy val annotator = Annotator(net.domain)
 
-  lazy val externalEngine = new ExternalEngineApi(db(CollName("external_engine")), cacheApi)
+  lazy val externalEngine = ExternalEngineApi(db(CollName("external_engine")), cacheApi)
 
   lila.common.Bus.subscribeFun("oauth") { case lila.hub.actorApi.oauth.TokenRevoke(id) =>
     externalEngine onTokenRevoke id unit

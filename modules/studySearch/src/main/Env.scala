@@ -11,6 +11,7 @@ import lila.search.*
 import lila.study.Study
 import lila.user.User
 
+@annotation.nowarn("msg=unused")
 final class Env(
     studyRepo: lila.study.StudyRepo,
     chapterRepo: lila.study.ChapterRepo,

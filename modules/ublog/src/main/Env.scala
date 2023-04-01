@@ -7,6 +7,7 @@ import lila.common.config.*
 import lila.db.dsl.Coll
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,

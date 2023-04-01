@@ -49,7 +49,6 @@ ${trans.common_orPaste.txt()}"""),
 object MagicLink:
 
   import play.api.mvc.RequestHeader
-  import alleycats.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
@@ -71,7 +70,7 @@ object MagicLink:
     key = "login.magicLink.email"
   )
 
-  def rateLimit[A: Zero](user: User, email: EmailAddress, req: RequestHeader)(
+  def rateLimit[A](user: User, email: EmailAddress, req: RequestHeader)(
       run: => Fu[A]
   )(default: => Fu[A]): Fu[A] =
     rateLimitPerUser(user.id, cost = 1) {

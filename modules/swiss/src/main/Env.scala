@@ -9,6 +9,7 @@ import lila.socket.{ GetVersion, SocketVersion }
 import lila.db.dsl.Coll
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
