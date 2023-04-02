@@ -28,4 +28,4 @@ object ResponseHeaders:
       )
     )
 
-  val allowMethods = List("OPTIONS", "GET", "POST", "DELETE") mkString ", "
+  val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE") mkString ", "
