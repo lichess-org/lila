@@ -90,15 +90,18 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
 
   private[puzzle] def continueOrCreateSessionFor(
       user: User,
-      angle: PuzzleAngle
+      angle: PuzzleAngle,
+      canFlush: Boolean
   ): Fu[PuzzleSession] =
     sessions
       .getFuture(user.id, _ => createSessionFor(user, angle, PuzzleSettings.default))
       .flatMap: current =>
-        if (current.path.angle == angle && !shouldChangeSession(user, current)) fuccess(current)
-        else createSessionFor(user, angle, current.settings) tap { sessions.put(user.id, _) }
+        if current.path.angle != angle || (canFlush && shouldFlushSession(user, current))
+        then createSessionFor(user, angle, current.settings) tap { sessions.put(user.id, _) }
+        else fuccess(current)
 
-  private def shouldChangeSession(user: User, session: PuzzleSession) = !session.brandNew && {
+  // renew the session often for provisional players
+  private def shouldFlushSession(user: User, session: PuzzleSession) = !session.brandNew && {
     val perf = user.perfs.puzzle
     perf.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
   }
