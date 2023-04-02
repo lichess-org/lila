@@ -231,11 +231,15 @@
   <string name="aboutSimulImage">Из 50 противникув, Фішер уграв 47, 2 ся кончили ремізов, ай 1 прыйграв.</string>
   <string name="aboutSimulRealLife">Концепт повторят прияту у живых шахматах, коли бавляч иде од стола до стола, бы учинити єден ход.</string>
   <string name="create">Учинити</string>
+  <string name="simulClockHint">Штімованя годинкы Фішера. Чим булше бавлячув против вас, тым булше вам треба часу.</string>
+  <string name="simulAddExtraTime">Вы можете узяти щи си часу, бы обдумати ходы.</string>
   <string name="tournamentHomeTitle">Шахматні турніры из другым контрольом часу ай варіантами</string>
   <string name="tournamentHomeDescription">Бавте у скорі шахматы на турнірах! Уберіт любый из офіціалных турнірув Лічесс вадь учиніт свуй. Булет, Бліц, Класіка, 960, Король у центрі, Тришахы тай повно другых штімовань для бесконечного шахматного радованя.</string>
+  <string name="tournamentMayHaveBeenCanceled">Турнір може быти одміненый, кідь вшыткі бавлячі лишили го перед стартом.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Кідь нич не прийшло, перевірте фасціклы для спама, ай другі міста, де могло бы быти письмо.</string>
   <string name="receiveForumNotifications">Доставати увідоменя коли вас споминавут на форумови</string>
   <string name="kidModeExplanation">Се про безопасность. У дїтському режімови вшыткі комунікації выключені. Уключіт їх для своїх дїтий вадь студентув, обы защитити їх од другых інтернет хосновачув.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">У дїтському режімови од лоґо ся придає %s, бы сьте знали ож ваші дїти у безопасности.</string>
   <string name="lobby">Чекарня</string>
   <string name="light">Світлый</string>
   <string name="dark">Темный</string>
