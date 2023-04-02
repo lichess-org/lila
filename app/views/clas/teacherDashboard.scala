@@ -49,7 +49,7 @@ object teacherDashboard:
   def overview(
       c: Clas,
       students: List[Student.WithUser]
-  )(implicit ctx: Context) =
+  )(using Context) =
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
         c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc)),
@@ -72,7 +72,7 @@ object teacherDashboard:
       c: Clas,
       all: List[Student.WithUser],
       invites: List[ClasInvite]
-  )(implicit ctx: Context) =
+  )(using Context) =
     layout(c, all.filter(_.student.isActive), "students") {
       val archived = all.filter(_.student.isArchived)
       val inviteBox =
@@ -112,7 +112,7 @@ object teacherDashboard:
       frag(inviteBox, archivedBox)
     }
 
-  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(implicit ctx: Context) =
+  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using Context) =
     layout(c, students, active)(
       div(cls := "box__pad students__empty")(
         p(
@@ -132,7 +132,7 @@ object teacherDashboard:
       c: Clas,
       students: List[Student.WithUser],
       progress: ClasProgress
-  )(implicit ctx: Context) =
+  )(using Context) =
     layout(c, students, "progress")(
       progressHeader(c, progress.some),
       div(cls := "students")(
@@ -162,7 +162,7 @@ object teacherDashboard:
                   ),
                   td(prog.nb),
                   if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
-                  else td(dataSort := prog.millis)(showPeriod(prog.period)),
+                  else td(dataSort := prog.millis)(showDuration(prog.duration)),
                   td(
                     if (progress.isPuzzle)
                       a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
@@ -187,7 +187,7 @@ object teacherDashboard:
       basicCompletion: Map[UserId, Int],
       practiceCompletion: Map[UserId, Int],
       coordScores: Map[UserId, chess.Color.Map[Int]]
-  )(implicit ctx: Context) =
+  )(using Context) =
     layout(c, students, "progress")(
       progressHeader(c, none),
       div(cls := "students")(
@@ -226,7 +226,7 @@ object teacherDashboard:
       )
     )
 
-  private def progressHeader(c: Clas, progress: Option[ClasProgress])(implicit ctx: Context) =
+  private def progressHeader(c: Clas, progress: Option[ClasProgress])(using Context) =
     div(cls := "progress")(
       div(cls := "progress-perf")(
         label(trans.variant()),
@@ -264,7 +264,7 @@ object teacherDashboard:
       }
     )
 
-  private def studentList(c: Clas, students: List[Student.WithUser])(implicit ctx: Context) =
+  private def studentList(c: Clas, students: List[Student.WithUser])(using Context) =
     div(cls := "students")(
       table(cls := "slist slist-pad sortable")(
         thead(
@@ -286,7 +286,7 @@ object teacherDashboard:
               }),
               td(user.count.game.localize),
               td(user.perfs.puzzle.nb),
-              td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
+              td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce)),
               td(
                 dataSort := (if (student.managed) 1 else 0),
                 student.managed option iconTag("")(title := trans.clas.managed.txt())
@@ -297,7 +297,7 @@ object teacherDashboard:
       )
     )
 
-  private def studentTd(c: Clas, s: Student.WithUser)(implicit ctx: Context) =
+  private def studentTd(c: Clas, s: Student.WithUser)(using Context) =
     td(
       a(href := clasRoutes.studentShow(c.id.value, s.user.username))(
         userSpan(

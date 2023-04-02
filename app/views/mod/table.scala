@@ -36,7 +36,7 @@ object table:
                       lila.security.Permission(user.roles).map(_.name) mkString ", "
                     )
                   ),
-                  td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
+                  td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce))
                 )
               }
             )

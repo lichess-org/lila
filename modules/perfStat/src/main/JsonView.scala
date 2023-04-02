@@ -46,9 +46,8 @@ object JsonView:
 
   import lila.rating.Glicko.given
 
-  private val isoFormatter = java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME
   private given Writes[DateTime] = Writes { d =>
-    JsString(isoFormatter format d)
+    JsString(isoDateFormatter format d)
   }
   given OWrites[User] = OWrites { u =>
     Json.obj("name" -> u.username)

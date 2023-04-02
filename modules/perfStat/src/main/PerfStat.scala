@@ -1,7 +1,6 @@
 package lila.perfStat
 
-import org.joda.time.Period
-
+import java.time.Duration
 import lila.common.Heapsort
 import lila.game.Pov
 import lila.rating.PerfType
@@ -106,7 +105,7 @@ case class Streak(v: Int, from: Option[GameAt], to: Option[GameAt]):
     val at  = GameAt(pov.game.createdAt, pov.gameId).some
     val end = GameAt(pov.game.movedAt, pov.gameId).some
     Streak(v + by, from orElse at, end)
-  def period = Period(v * 1000L)
+  def duration = Duration.ofSeconds(v)
 object Streak:
   val init = Streak(0, none, none)
 
@@ -140,7 +139,7 @@ case class Count(
         if (~pov.loss && pov.game.status == chess.Status.Timeout) 1 else 0
       }
     )
-  def period = Period(seconds * 1000L)
+  def duration = Duration.ofSeconds(seconds)
 object Count:
   val init = Count(
     all = 0,

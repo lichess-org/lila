@@ -2,7 +2,6 @@ package lila.tournament
 
 import chess.format.Fen
 import com.softwaremill.tagging.*
-import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
@@ -94,7 +93,7 @@ final class JsonView(
           .obj(
             "id"        -> tour.id,
             "createdBy" -> tour.createdBy,
-            "startsAt"  -> isoFormatter.format(tour.startsAt),
+            "startsAt"  -> isoDateFormatter.format(tour.startsAt),
             "system"    -> "arena", // BC
             "fullName"  -> tour.name(),
             "minutes"   -> tour.minutes,
@@ -542,8 +541,6 @@ object JsonView:
       .obj()
       .add("scores", withScores option s.scoresToString)
       .add("fire", streakFire && s.isOnFire)
-
-  private val isoFormatter = java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME
 
   private[tournament] def scheduleJson(s: Schedule) =
     Json.obj(

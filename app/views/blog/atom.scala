@@ -52,4 +52,4 @@ object atom:
     }
 
   def docDate(doc: io.prismic.Document) =
-    doc getDate "blog.date" map (_.value.toDateTimeAtStartOfDay)
+    doc getDate "blog.date" map (_.value.withTimeAtStartOfDay)

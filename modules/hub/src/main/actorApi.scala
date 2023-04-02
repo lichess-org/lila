@@ -2,7 +2,7 @@ package lila.hub
 package actorApi
 
 import chess.format.{ Uci, Fen }
-import org.joda.time.Period
+import java.time.Duration
 import play.api.libs.json.*
 
 // announce something to all clients
@@ -105,7 +105,11 @@ package simul:
   case class PlayerMove(gameId: GameId)
 
 package mailer:
-  case class CorrespondenceOpponent(opponentId: Option[UserId], remainingTime: Option[Period], gameId: GameId)
+  case class CorrespondenceOpponent(
+      opponentId: Option[UserId],
+      remainingTime: Option[Duration],
+      gameId: GameId
+  )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
 
 package irc:

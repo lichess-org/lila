@@ -1,6 +1,6 @@
 package lila.clas
 
-import org.joda.time.Period
+import java.time.Duration
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -36,7 +36,7 @@ case class StudentProgress(
 ):
   def ratingProgress = (rating._2 - rating._1) into IntRatingDiff
   def winRate        = if (nb > 0) wins * 100 / nb else 0
-  def period         = Period(millis)
+  def duration       = Duration.ofMillis(millis)
 
 final class ClasProgressApi(
     gameRepo: GameRepo,

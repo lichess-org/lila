@@ -31,8 +31,7 @@ object atom:
       raw("</feed>")
     )
 
-  private val atomDateFormatter        = ISODateTimeFormat.dateTime
-  def atomDate(date: DateTime): String = atomDateFormatter print date
+  def atomDate(date: DateTime): String = isoDateFormatter format date
 
   private val termAttr   = attr("term")
   private val labelAttr  = attr("label")

@@ -49,7 +49,7 @@ object bits:
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>
-          span(cls := "text", dataIcon := "")(semanticDate(date.value.toDateTimeAtStartOfDay))
+          span(cls := "text", dataIcon := "")(semanticDate(date.value.withTimeAtStartOfDay))
         },
         doc.getText("blog.author").map { author =>
           span(cls := "text", dataIcon := "")(richText(author))

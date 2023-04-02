@@ -20,8 +20,8 @@ final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDut
             .obj(
               "maintenance_window" -> Json.obj(
                 "type"        -> "maintenance_window",
-                "start_time"  -> formatDate(date),
-                "end_time"    -> formatDate(date.plusMinutes(3)),
+                "start_time"  -> isoDateFormatter.format(date),
+                "end_time"    -> isoDateFormatter.format(date.plusMinutes(3)),
                 "description" -> "restart announce",
                 "services" -> Json.arr(
                   Json.obj(
@@ -43,5 +43,3 @@ final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDut
         .void
 
   private lazy val logger = lila.log("pagerDuty")
-
-  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date

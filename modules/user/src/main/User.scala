@@ -225,10 +225,10 @@ object User:
     def userIds = List(orig.id, dest.id)
 
   case class PlayTime(total: Int, tv: Int):
-    import org.joda.time.Period
-    def totalPeriod      = new Period(total * 1000L)
-    def tvPeriod         = new Period(tv * 1000L)
-    def nonEmptyTvPeriod = (tv > 0) option tvPeriod
+    import java.time.Duration
+    def totalDuration      = Duration.ofSeconds(total)
+    def tvDuration         = Duration.ofSeconds(tv)
+    def nonEmptyTvDuration = tv > 0 option tvDuration
   given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
   // what existing usernames are like

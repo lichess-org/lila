@@ -2,15 +2,17 @@ package lila.app
 package templating
 
 import java.util.concurrent.ConcurrentHashMap
-import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
-import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{ DateTimeZone, Period }
 import play.api.i18n.Lang
+import java.time.format.{ FormatStyle, DateTimeFormatter }
+import java.time.{ Duration, Period }
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.PeriodLocales
+import chess.format.pgn.Tag.Date
 
 trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
+
+  export PeriodLocales.{ showPeriod, showDuration }
 
   private val dateTimeStyle = "MS"
   private val dateStyle     = "M-"
@@ -18,53 +20,48 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
   private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
   private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
 
-  private val isoFormatter = ISODateTimeFormat.dateTime
-
-  private val englishDateFormatter     = DateTimeFormat forStyle dateStyle
-  private val englishDateTimeFormatter = DateTimeFormat forStyle dateTimeStyle
+  private val englishDateTimeFormatter =
+    DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+  private val englishDateFormatter =
+    DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
   private def dateTimeFormatter(using lang: Lang): DateTimeFormatter =
     dateTimeFormatters.computeIfAbsent(
       lang.code,
-      _ => DateTimeFormat.forStyle(dateTimeStyle).withLocale(lang.toLocale)
+      _ =>
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(lang.toLocale)
     )
 
   private def dateFormatter(using lang: Lang): DateTimeFormatter =
     dateFormatters.computeIfAbsent(
       lang.code,
-      _ => DateTimeFormat.forStyle(dateStyle).withLocale(lang.toLocale)
+      _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
     )
 
-  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(using Lang): String =
-    dateTimeFormatter print date.toDateTime(zone)
-
   def showDateTimeUTC(date: DateTime)(using Lang): String =
-    showDateTimeZone(date, DateTimeZone.UTC)
+    dateTimeFormatter format date
 
   def showDate(date: DateTime)(using lang: Lang): String =
-    if (lang.language == "ar") dateFormatter print date replaceAll ("\u200f", "")
-    else dateFormatter print date
+    if (lang.language == "ar") dateFormatter.format(date).replaceAll("\u200f", "")
+    else dateFormatter format date
 
   def showEnglishDate(date: DateTime): String =
-    englishDateFormatter print date
+    englishDateFormatter format date
   def showEnglishDateTime(date: DateTime): String =
-    englishDateTimeFormatter print date
+    englishDateTimeFormatter format date
 
   def semanticDate(date: DateTime)(using Lang): Tag =
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
-  def showPeriod(period: Period)(using Lang): String =
-    PeriodLocales.showPeriod(period)
-
   def showMinutes(minutes: Int)(using Lang): String =
-    showPeriod(Period(minutes * 60 * 1000L))
+    showDuration(Duration.ofMinutes(minutes))
 
-  def isoDate(date: DateTime): String = isoFormatter print date
+  def isoDate(date: DateTime): String = isoDateFormatter format date
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
   def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
-    if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
+    if (!alwaysRelative && (date.toMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
     else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDate(date))(nbsp)
 
   def momentFromNowWithPreload(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Frag =
@@ -82,7 +79,7 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
     timeTag(title := f"${showEnglishDateTime(date)} UTC")(momentFromNowServerText(date))
 
   def momentFromNowServerText(date: DateTime, inFuture: Boolean = false): String =
-    val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)
+    val (dateSec, nowSec) = (date.toMillis / 1000, nowSeconds)
     val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt atLeast 0
     val minutes           = seconds / 60
     val hours             = minutes / 60

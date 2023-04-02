@@ -161,7 +161,7 @@ object perfStat:
             ),
             count.seconds > 0 option tr(cls := "full")(
               th(timeSpentPlaying()),
-              td(colspan := "2")(showPeriod(count.period))
+              td(colspan := "2")(showDuration(count.duration))
             )
           )
         )
@@ -316,7 +316,7 @@ object perfStat:
   private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit lang: Lang): Frag =
     div(
       div(cls := "streak")(
-        h3(title(showPeriod(s.period))),
+        h3(title(showDuration(s.duration))),
         fromTo(s)
       )
     )

@@ -42,7 +42,7 @@ object SetupBulk:
 
   private def timestampInNearFuture = longNumber(
     min = 0,
-    max = nowDate.plusDays(1).getMillis
+    max = nowDate.plusDays(1).toMillis
   )
 
   def form = Form[BulkFormData](
@@ -78,8 +78,8 @@ object SetupBulk:
           clock,
           days,
           rated,
-          pairTs.map { new DateTime(_) },
-          clockTs.map { new DateTime(_) },
+          pairTs map millisToDate,
+          clockTs map millisToDate,
           message map Template.apply,
           ~rules,
           fen
