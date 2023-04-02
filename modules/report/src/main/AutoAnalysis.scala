@@ -42,6 +42,6 @@ final class AutoAnalysis(
     _.filter { g =>
       g.analysable && !g.metadata.analysed
     }.distinct
-      .sortBy(-_.createdAt.getSeconds)
+      .sortBy(-_.createdAt.toSeconds)
       .take(10)
   }

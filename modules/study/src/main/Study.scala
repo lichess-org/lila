@@ -47,9 +47,9 @@ case class Study(
   def isUnlisted = visibility == Study.Visibility.Unlisted
   def isPrivate  = visibility == Study.Visibility.Private
 
-  def isNew = (nowSeconds - createdAt.getSeconds) < 4
+  def isNew = (nowSeconds - createdAt.toSeconds) < 4
 
-  def isOld = (nowSeconds - updatedAt.getSeconds) > 20 * 60
+  def isOld = (nowSeconds - updatedAt.toSeconds) > 20 * 60
 
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)

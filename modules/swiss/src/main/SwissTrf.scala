@@ -34,8 +34,8 @@ final class SwissTrf(
         s"012 ${swiss.name}",
         s"022 $baseUrl/swiss/${swiss.id}",
         s"032 Lichess",
-        s"042 ${dateFormatter print swiss.startsAt}",
-        s"052 ${swiss.finishedAt ?? dateFormatter.print}",
+        s"042 ${dateFormatter format swiss.startsAt}",
+        s"052 ${swiss.finishedAt ?? dateFormatter.format}",
         s"062 ${swiss.nbPlayers}",
         s"092 Individual: Swiss-System",
         s"102 $baseUrl/swiss",
@@ -91,7 +91,8 @@ final class SwissTrf(
       s"""$acc${" " * (pos - txt.length - acc.length)}$txt"""
     }
 
-  private val dateFormatter = org.joda.time.format.DateTimeFormat forStyle "M-"
+  import java.time.format.{ DateTimeFormatter, FormatStyle }
+  val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
   def fetchPlayerIds(swiss: Swiss): Fu[PlayerIds] =
     SwissPlayer

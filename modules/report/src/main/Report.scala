@@ -54,7 +54,7 @@ case class Report(
   def bestAtom: Atom   = bestAtoms(1).headOption | recentAtom
   def bestAtoms(nb: Int): List[Atom] =
     atoms.toList.sortBy { a =>
-      (-a.score.value, -a.at.getSeconds)
+      (-a.score.value, -a.at.toSeconds)
     } take nb
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty option atoms.head
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)

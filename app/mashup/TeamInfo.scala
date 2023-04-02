@@ -90,9 +90,9 @@ final class TeamInfoApi(
         PastAndNext(
           past = {
             tours.past.map(AnyTour(_)) ::: swisses.past.map(AnyTour(_))
-          }.sortBy(-_.startsAt.getSeconds),
+          }.sortBy(-_.startsAt.toSeconds),
           next = {
             tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
-          }.sortBy(_.startsAt.getSeconds)
+          }.sortBy(_.startsAt.toSeconds)
         )
     }

@@ -4,6 +4,7 @@ import akka.stream.scaladsl.*
 import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
 import chess.format.{ pgn as chessPgn }
 import org.joda.time.format.DateTimeFormat
+import scala.concurrent.duration.*
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
@@ -36,19 +37,20 @@ final class PgnDump(
       annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
     }
 
-  private val fileR = """[\s,]""".r
+  private val fileR         = """[\s,]""".r
+  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy.MM.dd"
 
   def ownerName(study: Study) = lightUserApi.sync(study.ownerId).fold(study.ownerId)(_.name)
 
   def filename(study: Study): String =
-    val date = dateFormat.print(study.createdAt)
+    val date = dateFormatter.format(study.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
 
   def filename(study: Study, chapter: Chapter): String =
-    val date = dateFormat.print(chapter.createdAt)
+    val date = dateFormatter.format(chapter.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_$date",
       ""
@@ -56,8 +58,6 @@ final class PgnDump(
 
   private def chapterUrl(studyId: StudyId, chapterId: StudyChapterId) =
     s"${net.baseUrl}/study/$studyId/$chapterId"
-
-  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
 
   private def annotatorTag(study: Study) =
     Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
@@ -68,8 +68,8 @@ final class PgnDump(
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
-        Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
-        Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
+        Tag(_.UTCDate, Tag.UTCDate.format.format(chapter.createdAt)),
+        Tag(_.UTCTime, Tag.UTCTime.format.format(chapter.createdAt)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),

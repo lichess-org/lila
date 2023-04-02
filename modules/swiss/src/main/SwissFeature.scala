@@ -38,7 +38,7 @@ final class SwissFeature(
       )
     }
 
-  private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.getMillis)
+  private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.toMillis)
 
   private def getForTeams(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     teams.map(swissCache.featuredInTeam.get).parallel.dmap(_.flatten) flatMap { ids =>

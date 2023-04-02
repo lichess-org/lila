@@ -35,7 +35,7 @@ final private class Pause:
 
   def remainingDelay(userId: UserId, tour: Tournament): Option[Delay] =
     cache getIfPresent userId flatMap { record =>
-      val seconds = record.pausedAt.getSeconds - nowSeconds + delayOf(record, tour).value
+      val seconds = record.pausedAt.toSeconds - nowSeconds + delayOf(record, tour).value
       seconds > 1 option Delay(seconds.toInt)
     }
 

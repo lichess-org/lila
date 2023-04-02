@@ -324,7 +324,7 @@ object InsightDimension:
 
   def valueJson[X](d: InsightDimension[X])(v: X)(using lang: Lang): JsValue =
     d match
-      case Date                    => JsNumber(v.min.getSeconds)
+      case Date                    => JsNumber(v.min.toSeconds)
       case Period                  => JsString(v.toString)
       case Perf                    => JsString(v.trans)
       case Phase                   => JsString(v.name)

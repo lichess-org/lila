@@ -3,7 +3,6 @@ package lila.tournament
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
-import org.joda.time.{ Duration, Interval }
 import play.api.i18n.Lang
 import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -72,9 +71,9 @@ case class Tournament(
 
   def finishesAt = startsAt plusMinutes minutes
 
-  def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
+  def secondsToStart = (startsAt.toSeconds - nowSeconds).toInt atLeast 0
 
-  def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
+  def secondsToFinish = (finishesAt.toSeconds - nowSeconds).toInt atLeast 0
 
   def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
 
@@ -83,19 +82,19 @@ case class Tournament(
       secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
     }
 
-  def finishedSinceSeconds: Option[Long] = isFinished option (nowSeconds - finishesAt.getSeconds)
+  def finishedSinceSeconds: Option[Long] = isFinished option (nowSeconds - finishesAt.toSeconds)
 
   def isRecentlyFinished = finishedSinceSeconds.exists(_ < 30 * 60)
 
-  def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 15
+  def isRecentlyStarted = isStarted && (nowSeconds - startsAt.toSeconds) < 15
 
   def isNowOrSoon = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
 
   def isDistant = startsAt.isAfter(nowDate plusDays 1)
 
-  def duration = Duration(minutes * 60 * 1000)
+  def duration = java.time.Duration.ofMinutes(minutes)
 
-  def interval = Interval(startsAt, duration)
+  def interval = ornicar.scalalib.time.Interval(startsAt, duration)
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 

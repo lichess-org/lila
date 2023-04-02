@@ -31,7 +31,7 @@ case class Swiss(
   def isFinished         = finishedAt.isDefined
   def isNotFinished      = !isFinished
   def isNowOrSoon        = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
-  def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
+  def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.toSeconds) < 30 * 60)
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 

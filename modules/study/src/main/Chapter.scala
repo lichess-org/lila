@@ -121,7 +121,7 @@ object Chapter:
       path: UciPath,
       lastMoveAt: DateTime
   ):
-    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
+    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.toSeconds).toInt
 
   case class ServerEval(path: UciPath, done: Boolean)
 

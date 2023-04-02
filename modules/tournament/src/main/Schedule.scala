@@ -289,8 +289,8 @@ object Schedule:
       case (Unique, _, _) => 60 * 6
 
   private val standardIncHours         = Set(1, 7, 13, 19)
-  private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
-  private def zhInc(s: Schedule)       = s.at.getHourOfDay % 2 == 0
+  private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
+  private def zhInc(s: Schedule)       = s.at.getHour % 2 == 0
 
   private given Conversion[Int, LimitSeconds]     = LimitSeconds(_)
   private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)

@@ -94,7 +94,7 @@ final class JsonView(
           .obj(
             "id"        -> tour.id,
             "createdBy" -> tour.createdBy,
-            "startsAt"  -> formatDate(tour.startsAt),
+            "startsAt"  -> isoFormatter.format(tour.startsAt),
             "system"    -> "arena", // BC
             "fullName"  -> tour.name(),
             "minutes"   -> tour.minutes,
@@ -543,7 +543,7 @@ object JsonView:
       .add("scores", withScores option s.scoresToString)
       .add("fire", streakFire && s.isOnFire)
 
-  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
+  private val isoFormatter = java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME
 
   private[tournament] def scheduleJson(s: Schedule) =
     Json.obj(

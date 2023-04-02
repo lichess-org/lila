@@ -245,7 +245,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     scheduledStillWorthEntering zip scheduledCreated(crud.CrudForm.maxHomepageHours * 60) map {
       case (started, created) =>
         (started ::: created)
-          .sortBy(_.startsAt.getSeconds)
+          .sortBy(_.startsAt.toSeconds)
           .foldLeft(List.empty[Tournament]) {
             case (acc, tour) if !canShowOnHomepage(tour)     => acc
             case (acc, tour) if acc.exists(_ similarTo tour) => acc
