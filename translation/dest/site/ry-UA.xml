@@ -1,13 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playWithAFriend">Бавити против цімборы</string>
+  <string name="playWithTheMachine">Бавити против компютора</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Обы дакого закликати, дайте му се одкликованя</string>
+  <string name="gameOver">Бавка довершена</string>
+  <string name="waitingForOpponent">Чекаєме противника</string>
   <string name="waiting">Чеканя</string>
+  <string name="yourTurn">Ваш ход</string>
+  <string name="aiNameLevelAiLevel">%1$s уровня %2$s</string>
   <string name="level">Рувень</string>
+  <string name="strength">Чажкость</string>
+  <string name="toggleTheChat">Указовати чет</string>
   <string name="chat">Чет</string>
   <string name="resign">Здати ся</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
   <string name="white">Білі</string>
   <string name="black">Чорні</string>
+  <string name="asWhite">за бiлых</string>
+  <string name="asBlack">за чорных</string>
+  <string name="randomColor">Трафный цвіт</string>
+  <string name="createAGame">Учинити бавку</string>
+  <string name="whiteIsVictorious">Білі уграли</string>
+  <string name="blackIsVictorious">Чорні уграли</string>
+  <string name="youPlayTheWhitePieces">Бавите за білых</string>
+  <string name="youPlayTheBlackPieces">Бавите чорными фіґурами</string>
+  <string name="itsYourTurn">Ваш ход!</string>
+  <string name="cheatDetected">Уявлені чіты</string>
+  <string name="kingInTheCenter">Король у центрі</string>
+  <string name="threeChecks">Три шаха</string>
+  <string name="raceFinished">Перебіг ся кончив</string>
+  <string name="newOpponent">Новый противник</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Противник хоче бавити из вами щи раз</string>
+  <string name="joinTheGame">Прикапчати ся од бавцї</string>
+  <string name="whitePlays">Ход білых</string>
+  <string name="blackPlays">Ход чорных</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Ваш противник лишив бавку. Мож буде обявити уграш через %s секунд.</item>
+    <item quantity="few">Ваш противник лишив бавку. Мож буде обявити уграш через %s секунд.</item>
+    <item quantity="other">Ваш противник лишив бавку. Мож буде обявити уграш через %s секунд.</item>
+  </plurals>
+  <string name="opponentLeftChoices">Ваш противник лишив бавку. Мож буде обявити уграш, ремізу авадь щи почекати.</string>
+  <string name="forceResignation">Обявити уграш</string>
+  <string name="forceDraw">Обявити ремізу</string>
+  <string name="talkInChat">Будьте честливі у четови!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Первый, тко перейде по одкликованьови буде бавити из вами.</string>
+  <string name="whiteResigned">Білі ся здали</string>
+  <string name="blackResigned">Чорні ся здали</string>
+  <string name="whiteLeftTheGame">Білі лишили бавку</string>
+  <string name="blackLeftTheGame">Чорні лишили бавку</string>
+  <string name="whiteDidntMove">Білі не ходили щи</string>
+  <string name="blackDidntMove">Чорні не ходили щи</string>
+  <string name="requestAComputerAnalysis">Проаналізовати компюторови</string>
+  <string name="computerAnalysis">Компюторный аналіз</string>
+  <string name="computerAnalysisAvailable">Компюторный аналіз приступный</string>
+  <string name="computerAnalysisDisabled">Компюторный аналіз выключеный</string>
+  <string name="analysis">Дощка аналіза</string>
+  <string name="depthX">Глубокость %s</string>
+  <string name="usingServerAnalysis">Хоснувучи серверный аналіз</string>
+  <string name="loadingEngine">Наладованя пущача...</string>
+  <string name="calculatingMoves">Зрахованя ходув...</string>
+  <string name="engineFailed">Хыба ладованя пущача</string>
   <string name="move">Ход</string>
   <string name="capture">Взятя</string>
   <string name="close">Закрыти</string>
@@ -22,13 +75,23 @@
   <string name="memory">Памнять</string>
   <string name="blunder">Хыба</string>
   <string name="mistake">Захыб</string>
+  <string name="threefoldRepetition">Трикрат повтореня</string>
+  <string name="claimADraw">Обявити ремізу</string>
+  <string name="offerDraw">Понукнути ремізу</string>
   <string name="draw">Реміза</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s бавляч</item>
+    <item quantity="few">%s бавляча</item>
+    <item quantity="other">%s бавлячув</item>
+  </plurals>
+  <string name="drawByMutualAgreement">Реміза по дорозуміню</string>
   <plurals name="nbGames">
     <item quantity="one">%s бавка</item>
     <item quantity="few">%s бавкы</item>
     <item quantity="other">%s бавок</item>
   </plurals>
   <string name="signIn">Зайти</string>
+  <string name="computersAreNotAllowedToPlay">Заказано бавити, хоснувучи даколи шахматні проґрамы ай абсолутно хоснувучи їх у бавцї. Не мож такой хосновати базы даных ай помуч другых бавлячув. Не чиніт повно акаунтув, ото може привести од блокованьови.</string>
   <string name="games">Бавкы</string>
   <string name="forum">Форум</string>
   <string name="players">Бавлячі</string>
@@ -48,7 +111,9 @@
   </plurals>
   <string name="time">Час</string>
   <string name="rating">Рейтінґ</string>
+  <string name="changeUsernameDescription">Перемінити своє имня. Мож учинити лем раз, при тум перемінити мож лем реґістр.</string>
   <string name="email">Електрона почта</string>
+  <string name="blankedPassword">Вы хосновали таку паролу на другому сайтови, из того сайту ся стало протїканя інформації. Обы обеспечити безопасность свого Lichess акаунту, захоснуйте другу паролу. Дякуєме за розуміня.</string>
   <string name="rank">Ранґ</string>
   <string name="cancel">Одмінити</string>
   <string name="accept">Прияти</string>
@@ -78,6 +143,7 @@
     <item quantity="few">%s ремізы</item>
     <item quantity="other">%s реміз</item>
   </plurals>
+  <string name="siteDescription">Задарні онлайн шахматы. Бавте у шахматы такой тепирь у легкому інтерфейсови без рекламы. Не треба реґістрації тай стерьханя проґрамы. Бавте против компютора, цімборами вадь трафными противниками.</string>
   <string name="reset">Зверичи</string>
   <string name="apply">Усокотити</string>
   <string name="save">Усокотити</string>
@@ -120,6 +186,7 @@
   <string name="insult">Оскорба</string>
   <string name="troll">Тролінґ</string>
   <string name="other">Иншакоє</string>
+  <string name="reportDescriptionHelp">Подїліт ся из нами одкликованями на бавкы, де вам ся видит, были нарушені правила, ай опишіт, у чому дїло. Не доста просто написати \"ун чітер\", уповічте чому сьте так рішили. Наріканя достане одвіт скорше, кідь оно на анґлійськув бисідї.</string>
   <string name="by">%s</string>
   <string name="blog">Блоґ</string>
   <string name="notes">Зазначкы</string>
@@ -133,6 +200,7 @@
   <string name="never">Ниґда</string>
   <string name="victory">Побіда</string>
   <string name="defeat">Пораженя</string>
+  <string name="biographyDescription">Повічте за ся, ваші інтересы, што любите у шахматах, ваші любимі дебюты, бавлячі ай так дале...</string>
   <string name="human">Чилядник</string>
   <string name="side">Бук</string>
   <string name="clock">Годинка</string>
@@ -144,7 +212,9 @@
   <string name="about">За сайт</string>
   <string name="really">ипен так</string>
   <string name="host">Зарядник</string>
+  <string name="aboutSimulRealLife">Концепт повторят прияту у живых шахматах, коли бавляч иде од стола до стола, бы учинити єден ход.</string>
   <string name="create">Учинити</string>
+  <string name="tournamentHomeDescription">Бавте у скорі шахматы на турнірах! Уберіт любый из офіціалных турнірув Лічесс вадь учиніт свуй. Булет, Бліц, Класіка, 960, Король у центрі, Тришахы тай повно другых штімовань для бесконечного шахматного радованя.</string>
   <string name="kidModeExplanation">Се про безопасность. У дїтському режімови вшыткі комунікації выключені. Уключіт їх для своїх дїтий вадь студентув, обы защитити їх од другых інтернет хосновачув.</string>
   <string name="lobby">Чекарня</string>
   <string name="light">Світлый</string>
@@ -158,6 +228,12 @@
   <string name="why">Зашто?</string>
   <string name="edit">Перемінити</string>
   <string name="rapid">Рапід</string>
+  <string name="lichessPatronInfo">Lichess - то незысковоє ай докус задарноє проґрамноє застаченя из одкрытым зачаточным кодом. 
+Вшыткі кельтункы, розробкы ай контент ся фінанзувут лем бо вы нас поддіржуєте.</string>
+  <string name="positionInputHelp">Уведіт добрый шор FEN, обы кажда бавка ся зачинала из такої позіції.
+То фунґує лем про прості бавкы, а не варіанты.
+Вы можете хосновати %s для учиненя позіції FEN, а пак вписати ї туй. 
+Лишіт поле пустым, бы бавкы зачинали ся из простої позіції.</string>
   <string name="noChat">Без чета</string>
   <string name="since">Из</string>
   <string name="until">До</string>
