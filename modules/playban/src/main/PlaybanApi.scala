@@ -74,7 +74,7 @@ final class PlaybanApi(
     def sitting: Option[Funit] =
       for {
         userId <- game.player(flaggerColor).userId
-        seconds = nowSeconds - game.movedAt.getSeconds
+        seconds = nowSeconds - game.movedAt.toSeconds
         if unreasonableTime.exists(seconds >= _)
       } yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>-
         feedback.sitting(Pov(game, flaggerColor)) >>
@@ -126,7 +126,7 @@ final class PlaybanApi(
             .map { c =>
               (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)
             }
-            .exists(_ < nowSeconds - game.movedAt.getSeconds)
+            .exists(_ < nowSeconds - game.movedAt.toSeconds)
             .option {
               save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source) >>-
                 feedback.sitting(Pov(game, loser.color)) >>

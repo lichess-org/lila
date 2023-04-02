@@ -20,7 +20,7 @@ object Lila extends Lila:
   inline def nowCentis: Long   = nowMillis / 10
   inline def nowTenths: Long   = nowMillis / 100
   inline def nowSeconds: Int   = (nowMillis / 1000).toInt
-  inline def nowDate: DateTime = org.joda.time.DateTime()
+  inline def nowDate: DateTime = java.time.LocalDateTime.now()
 
   object makeTimeout:
 

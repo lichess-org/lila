@@ -67,7 +67,7 @@ case class TempBan(date: DateTime, mins: Int):
 
   def endsAt = date plusMinutes mins
 
-  def remainingSeconds: Int = (endsAt.getSeconds - nowSeconds).toInt atLeast 0
+  def remainingSeconds: Int = (endsAt.toSeconds - nowSeconds).toInt atLeast 0
 
   def remainingMinutes: Int = (remainingSeconds / 60) atLeast 1
 
@@ -93,7 +93,7 @@ object TempBan:
   def make(bans: Vector[TempBan], accountCreationDate: DateTime): TempBan =
     make {
       (bans.lastOption ?? { prev =>
-        prev.endsAt.toNow.getStandardHours.toSaturatedInt match {
+        prev.endsAt.toNow.toHours.toSaturatedInt match {
           case h if h < 72 => prev.mins * (132 - h) / 60
           case h           => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
         }

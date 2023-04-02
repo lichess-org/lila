@@ -38,7 +38,7 @@ object Work:
       userId: UserId,
       date: DateTime
   ):
-    def ageInMillis       = nowMillis - date.getMillis
+    def ageInMillis       = nowMillis - date.toMillis
     override def toString = s"by $userId at $date"
 
   private[fishnet] case class Game(

@@ -94,7 +94,7 @@ case object Glicko:
   val system = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    system.previewDeviation(p.toRating, new DateTime, reverse)
+    system.previewDeviation(p.toRating, nowDate, reverse)
   } atLeast minDeviation atMost maxDeviation
 
   given BSONDocumentHandler[Glicko] = new BSON[Glicko]:

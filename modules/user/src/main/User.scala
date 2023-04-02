@@ -65,7 +65,7 @@ case class User(
 
   lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
-  def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).getMillis).millis
+  def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).toMillis).millis
 
   def everLoggedIn = seenAt.??(createdAt !=)
 

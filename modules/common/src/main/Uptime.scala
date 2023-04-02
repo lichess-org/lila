@@ -2,13 +2,13 @@ package lila.common
 
 object Uptime:
 
-  val startedAt       = nowDate
-  val startedAtMillis = nowMillis
+  val startedAt: DateTime   = nowDate
+  val startedAtMillis: Long = nowMillis
 
-  def seconds = nowSeconds - startedAt.getSeconds
+  def seconds: Long = nowSeconds - startedAt.toSeconds
 
-  def startedSinceMinutes(minutes: Int) =
+  def startedSinceMinutes(minutes: Int): Boolean =
     startedSinceSeconds(minutes * 60)
 
-  def startedSinceSeconds(seconds: Int) =
+  def startedSinceSeconds(seconds: Int): Boolean =
     startedAtMillis < (nowMillis - (seconds * 1000))

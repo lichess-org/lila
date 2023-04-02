@@ -24,8 +24,8 @@ trait Handlers:
     inline def writeTry(u: U) = writer.writeTry(idOf(u))
 
   given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
-    { case v: BSONDateTime => new DateTime(v.value) },
-    v => BSONDateTime(v.getMillis)
+    { case v: BSONDateTime => millisToDate(v.value) },
+    v => BSONDateTime(v.toMillis)
   )
 
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] = new:
@@ -58,18 +58,18 @@ trait Handlers:
   // def ratioAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
   //   doubleAsIntHandler(to, from, ratioBsonMultiplier)
 
-  def floatIsoHandler[A](implicit iso: FloatIso[A]): BSONHandler[A] =
+  def floatIsoHandler[A](using iso: FloatIso[A]): BSONHandler[A] =
     BSONFloatHandler.as[A](iso.from, iso.to)
   def floatAnyValHandler[A](to: A => Float, from: Float => A): BSONHandler[A] =
-    floatIsoHandler(Iso(from, to))
+    floatIsoHandler(using Iso(from, to))
 
-  def bigDecimalIsoHandler[A](implicit iso: BigDecimalIso[A]): BSONHandler[A] =
+  def bigDecimalIsoHandler[A](using iso: BigDecimalIso[A]): BSONHandler[A] =
     BSONDecimalHandler.as[A](iso.from, iso.to)
 
   def bigDecimalAnyValHandler[A](to: A => BigDecimal, from: BigDecimal => A): BSONHandler[A] =
-    bigDecimalIsoHandler(Iso(from, to))
+    bigDecimalIsoHandler(using Iso(from, to))
 
-  def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] =
+  def dateIsoHandler[A](using iso: Iso[DateTime, A]): BSONHandler[A] =
     dateTimeHandler.as[A](iso.from, iso.to)
 
   def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new:

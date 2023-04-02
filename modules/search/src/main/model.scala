@@ -26,6 +26,5 @@ object CountResponse extends OpaqueInt[CountResponse]:
   given Zero[CountResponse]             = Zero(0)
 
 object Date:
-  import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
-  val format                       = "yyyy-MM-dd HH:mm:ss"
-  val formatter: DateTimeFormatter = DateTimeFormat forPattern format
+  val format    = "yyyy-MM-dd HH:mm:ss"
+  val formatter = java.time.format.DateTimeFormatter ofPattern format

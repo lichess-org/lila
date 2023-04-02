@@ -75,7 +75,7 @@ final class MsgApi(
     val userId   = username.id
     val threadId = MsgThread.id(me.id, userId)
     val before = beforeMillis flatMap { millis =>
-      Try(new DateTime(millis)).toOption
+      Try(millisToDate(millis)).toOption
     }
     (userId != me.id) ?? lightUserApi.async(userId).flatMapz { contact =>
       for

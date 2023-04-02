@@ -3,8 +3,6 @@ package lila.plan
 import cats.syntax.all.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import org.joda.time.DateTime
-
 case class Charge(
     _id: String, // random
     userId: Option[UserId],
@@ -31,7 +29,7 @@ case class Charge(
 
   def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }
 
-  def copyAsNew = copy(_id = Charge.makeId, date = DateTime.now)
+  def copyAsNew = copy(_id = Charge.makeId, date = nowDate)
 
 object Charge:
 

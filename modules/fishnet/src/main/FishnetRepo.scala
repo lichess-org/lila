@@ -57,7 +57,7 @@ final private class FishnetRepo(
         .sort($sort asc "createdAt")
         .one[Bdoc]
         .map(~_.flatMap(_.getAsOpt[DateTime]("createdAt").map { date =>
-          (nowSeconds - date.getSeconds).toInt atLeast 0
+          (nowSeconds - date.toSeconds).toInt atLeast 0
         }))
 
     def compute = for

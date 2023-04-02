@@ -9,27 +9,8 @@ import play.api.data.format.*
 object JodaForms:
   import JodaFormats.{ *, given }
 
-  /** Constructs a simple mapping for a date field (mapped as `org.joda.time.DateTime type`).
-    *
-    * For example:
-    * {{{
-    *   Form("birthdate" -> jodaDate)
-    * }}}
-    */
   val jodaDate: Mapping[org.joda.time.DateTime] = Forms.of[org.joda.time.DateTime]
 
-  /** Constructs a simple mapping for a date field (mapped as `org.joda.time.DateTime type`).
-    *
-    * For example:
-    * {{{
-    *   Form("birthdate" -> jodaDate("dd-MM-yyyy"))
-    * }}}
-    *
-    * @param pattern
-    *   the date pattern, as defined in `org.joda.time.format.DateTimeFormat`
-    * @param timeZone
-    *   the `org.joda.time.DateTimeZone` to use for parsing and formatting
-    */
   def jodaDate(
       pattern: String,
       timeZone: org.joda.time.DateTimeZone = org.joda.time.DateTimeZone.getDefault

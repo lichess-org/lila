@@ -3,6 +3,7 @@ package lila.base
 import alleycats.Zero
 import org.joda.time.DateTime
 import ornicar.scalalib.newtypes.*
+import java.time.LocalDateTime
 
 trait LilaModel:
 

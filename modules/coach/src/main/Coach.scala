@@ -21,7 +21,7 @@ case class Coach(
 
   def hasPicture = picture.isDefined
 
-  def daysOld = Days.daysBetween(createdAt, nowDate).getDays
+  def daysOld = daysBetween(createdAt, nowDate)
 
 object Coach:
 

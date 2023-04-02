@@ -11,6 +11,7 @@ import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Field, FormError, JodaFormats, Mapping, Form => PlayForm }
 import play.api.data.validation as V
 import scala.util.Try
+import java.time.LocalDate
 
 object Form:
 
@@ -250,40 +251,38 @@ object Form:
 
   object UTCDate:
     val dateTimePattern       = "yyyy-MM-dd HH:mm"
-    val utcDate               = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
+    val utcDate               = localDateTime(dateTimePattern)
+    given Formatter[DateTime] = localDateTimeFormat(dateTimePattern, utcZone)
   object ISODateTime:
-    val dateTimePattern       = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    val formatter             = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
-    val isoDateTime           = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
+    val dateTimePattern                  = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    val isoDateTime                      = localDateTime(dateTimePattern)
+    given formatter: Formatter[DateTime] = localDateTimeFormat(dateTimePattern, utcZone)
   object ISODate:
-    val datePattern           = "yyyy-MM-dd"
-    val formatter             = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
-    val isoDateTime           = jodaDate(datePattern, DateTimeZone.UTC)
-    given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(datePattern)
+    val datePattern                       = "yyyy-MM-dd"
+    val isoDateTime                       = localDate(datePattern)
+    given formatter: Formatter[LocalDate] = localDateFormat(datePattern)
   object Timestamp:
-    val formatter = new Formatter[DateTime]:
+    val formatter: Formatter[DateTime] = new:
       def bind(key: String, data: Map[String, String]) =
         stringFormat
           .bind(key, data)
           .flatMap { str =>
             Try(java.lang.Long.parseLong(str)).toEither.flatMap { long =>
-              Try(new DateTime(long)).toEither
+              Try(millisToDate(long)).toEither
             }
           }
           .left
           .map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
-      def unbind(key: String, value: DateTime) = Map(key -> value.getMillis.toString)
+      def unbind(key: String, value: DateTime) = Map(key -> value.toMillis.toString)
     val timestamp = of[DateTime](formatter)
   object ISODateOrTimestamp:
-    val formatter = new Formatter[DateTime]:
+    val formatter: Formatter[LocalDate] = new:
       def bind(key: String, data: Map[String, String]) =
-        ISODate.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
-      def unbind(key: String, value: DateTime) = ISODate.formatter.unbind(key, value)
-    val isoDateOrTimestamp = of[DateTime](formatter)
+        ISODate.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data).map(_.toLocalDate)
+      def unbind(key: String, value: LocalDate) = ISODate.formatter.unbind(key, value)
+    val isoDateOrTimestamp = of[LocalDate](formatter)
   object ISODateTimeOrTimestamp:
-    val formatter = new Formatter[DateTime]:
+    val formatter: Formatter[DateTime] = new:
       def bind(key: String, data: Map[String, String]) =
         ISODateTime.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
       def unbind(key: String, value: DateTime) = ISODateTime.formatter.unbind(key, value)

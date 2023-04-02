@@ -135,7 +135,7 @@ case class StripeInvoice(
     paid: Boolean
 ):
   def money    = amount_due toMoney currency
-  def dateTime = new DateTime(created * 1000)
+  def dateTime = millisToDate(created * 1000)
 
 case class StripePaymentMethod(card: Option[StripeCard])
 

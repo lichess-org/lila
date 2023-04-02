@@ -181,7 +181,7 @@ final class PlanApi(
         val maxPerWeek = {
           val verifiedBonus  = user.isVerified ?? 50
           val nbGamesBonus   = math.sqrt(user.count.game / 50)
-          val seniorityBonus = math.sqrt(Days.daysBetween(user.createdAt, nowDate).getDays.toDouble / 30)
+          val seniorityBonus = math.sqrt(daysBetween(user.createdAt, nowDate) / 30d)
           verifiedBonus + nbGamesBonus + seniorityBonus
         }.toInt.atLeast(1).atMost(50)
         freq match
@@ -387,7 +387,7 @@ final class PlanApi(
             .sort($doc("date" -> -1))
             .one[Charge]
             // avoid duplicating the initial charge
-            .map(_.filter(_.date.isBefore(DateTime.now.minusMinutes(3))))
+            .map(_.filter(_.date.isBefore(nowDate.minusMinutes(3))))
           _ <- previous ?? { prev =>
             logger.info(s"Renewing paypal checkout subscription with $capture")
             addSubscriptionCharge(prev.copyAsNew, user, none)

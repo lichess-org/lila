@@ -98,18 +98,18 @@ final class PgnDump(
             imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
           ).some,
           Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
-          Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
+          Tag(_.Date, importedDate | Tag.UTCDate.format.format(game.createdAt)).some,
           imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
           Tag(_.White, player(game.whitePlayer, wu)).some,
           Tag(_.Black, player(game.blackPlayer, bu)).some,
           Tag(_.Result, result(game)).some,
           importedDate.isEmpty option Tag(
             _.UTCDate,
-            imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)
+            imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.format(game.createdAt)
           ),
           importedDate.isEmpty option Tag(
             _.UTCTime,
-            imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)
+            imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.format(game.createdAt)
           ),
           withRating option Tag(_.WhiteElo, rating(game.whitePlayer)),
           withRating option Tag(_.BlackElo, rating(game.blackPlayer)),

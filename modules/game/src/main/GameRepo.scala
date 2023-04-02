@@ -403,9 +403,9 @@ final class GameRepo(val coll: Coll)(using Executor):
     }
     val checkInHours =
       if (g2.isPgnImport) none
-      else if (g2.fromApi) some(24 * 7)
-      else if (g2.hasClock) 1.some
-      else some(24 * 10)
+      else if (g2.fromApi) some(24L * 7)
+      else if (g2.hasClock) 1L.some
+      else some(24L * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
       F.checkAt     -> checkInHours.map(nowDate.plusHours),

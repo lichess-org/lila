@@ -73,8 +73,8 @@ final class RatingCalculator(
   def previewDeviation(player: Rating, ratingPeriodEndDate: DateTime, reverse: Boolean): Double =
     var elapsedRatingPeriods = 0d
     player.lastRatingPeriodEnd.ifTrue(ratingPeriodsPerMilli > 0) foreach { periodEnd =>
-      val interval = Duration(periodEnd, ratingPeriodEndDate)
-      elapsedRatingPeriods = interval.getMillis() * ratingPeriodsPerMilli
+      val interval = java.time.Duration.between(periodEnd, ratingPeriodEndDate)
+      elapsedRatingPeriods = interval.toMillis * ratingPeriodsPerMilli
     }
     if (reverse) {
       elapsedRatingPeriods = -elapsedRatingPeriods

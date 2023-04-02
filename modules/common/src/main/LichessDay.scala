@@ -1,6 +1,6 @@
 package lila.common
 
-import org.joda.time.Days
+import java.time.LocalDateTime
 
 // number of days since lichess
 opaque type LichessDay = Int
@@ -9,15 +9,15 @@ object LichessDay extends OpaqueInt[LichessDay]:
 
   extension (day: LichessDay) def toDate = genesis.plusDays(day).withTimeAtStartOfDay
 
-  val genesis = new DateTime(2010, 1, 1, 0, 0).withTimeAtStartOfDay
+  val genesis = LocalDateTime.of(2010, 1, 1, 0, 0).withTimeAtStartOfDay
 
-  def today = LichessDay(Days.daysBetween(genesis, nowDate.withTimeAtStartOfDay).getDays)
+  def dayOf(time: LocalDateTime) = LichessDay(daysBetween(genesis, time))
 
-  def daysAgo(days: Int) = LichessDay(
-    Days.daysBetween(genesis, nowDate.minusDays(days).withTimeAtStartOfDay).getDays
-  )
+  def today = dayOf(nowDate)
+
+  def daysAgo(days: Int) = dayOf(nowDate.minusDays(days))
 
   def recent(nb: Int): List[LichessDay] =
     (0 until nb).toList.map { delta =>
-      LichessDay(Days.daysBetween(genesis, nowDate.minusDays(delta).withTimeAtStartOfDay).getDays)
+      dayOf(nowDate.minusDays(delta))
     }

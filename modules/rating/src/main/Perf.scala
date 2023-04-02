@@ -41,7 +41,10 @@ case class Perf(
     )
     newGlicko.sanityCheck option add(newGlicko, date)
 
-  def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: glicko2.Rating, date: DateTime): Perf =
+  def addOrReset(
+      monitor: lila.mon.CounterPath,
+      msg: => String
+  )(r: glicko2.Rating, date: DateTime): Perf =
     add(r, date) | {
       lila.log("rating").error(s"Crazy Glicko2 $msg")
       monitor(lila.mon).increment()

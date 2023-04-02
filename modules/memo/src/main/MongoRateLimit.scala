@@ -53,7 +53,7 @@ final class MongoRateLimit[K](
 
 object MongoRateLimit:
   case class Entry(_id: String, v: Int, e: DateTime):
-    def until = e
+    inline def until = e
   private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
 final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig):
