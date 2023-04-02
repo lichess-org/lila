@@ -183,7 +183,7 @@ final class ActivityReadApi(
     }
     if (!found && views.sizeIs < Activity.recentNb && nowDate.minusDays(8).isBefore(at))
       views :+ ActivityView(
-        interval = Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
+        interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true
       )
     else views

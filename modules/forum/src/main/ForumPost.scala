@@ -39,7 +39,7 @@ case class ForumPost(
   def updatedOrCreatedAt = updatedAt | createdAt
 
   def canStillBeEdited =
-    updatedOrCreatedAt.plus(ForumPost.permitEditsFor.toMillis).isAfterNow
+    updatedOrCreatedAt.plus(ForumPost.permitEditsFor).isAfterNow
 
   def canBeEditedBy(editingUser: User): Boolean =
     userId match
@@ -51,7 +51,7 @@ case class ForumPost(
 
   def shouldShowEditForm(editingUser: User) =
     canBeEditedBy(editingUser) &&
-      updatedOrCreatedAt.plus(ForumPost.showEditFormFor.toMillis).isAfterNow
+      updatedOrCreatedAt.plus(ForumPost.showEditFormFor).isAfterNow
 
   def editPost(updated: DateTime, newText: String): ForumPost =
     val oldVersion = OldVersion(text, updatedOrCreatedAt)

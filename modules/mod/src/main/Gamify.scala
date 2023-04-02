@@ -7,6 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.report.Room
 import lila.user.User
+import java.time.LocalDateTime
 
 final class Gamify(
     logRepo: ModlogRepo,
@@ -24,7 +25,7 @@ final class Gamify(
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] =
     val until  = nowDate minusMonths 1 withDayOfMonth 1
-    val lastId = HistoryMonth.makeId(until.getYear, until.getMonthOfYear)
+    val lastId = HistoryMonth.makeId(until.getYear, until.getMonthValue)
     historyRepo.coll
       .find($empty)
       .sort(
@@ -46,10 +47,10 @@ final class Gamify(
     (afterYear to until.getYear)
       .flatMap { year =>
         ((if (year == afterYear) afterMonth + 1 else 1) to
-          (if (year == until.getYear) until.getMonthOfYear else 12)).map { month =>
+          (if (year == until.getYear) until.getMonthValue else 12)).map { month =>
           mixedLeaderboard(
-            after = new DateTime(year, month, 1, 0, 0).pp("compute mod history"),
-            before = new DateTime(year, month, 1, 0, 0).plusMonths(1).some
+            after = LocalDateTime.of(year, month, 1, 0, 0).pp("compute mod history"),
+            before = LocalDateTime.of(year, month, 1, 0, 0).plusMonths(1).some
           ).map {
             _.headOption.map { champ =>
               HistoryMonth(HistoryMonth.makeId(year, month), year, month, champ)
@@ -157,7 +158,7 @@ final class Gamify(
 object Gamify:
 
   case class HistoryMonth(_id: String, year: Int, month: Int, champion: ModMixed):
-    def date = new DateTime(year, month, 1, 0, 0)
+    def date = LocalDateTime.of(year, month, 1, 0, 0)
   object HistoryMonth:
     def makeId(year: Int, month: Int) = s"$year/$month"
 

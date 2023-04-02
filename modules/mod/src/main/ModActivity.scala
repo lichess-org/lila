@@ -106,7 +106,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           who,
           period,
           data.toList.sortBy(_._1).reverse.flatMap { case (date, row) =>
-            Try(dateFormat parseDateTime date).toOption map { _ -> row }
+            Try(java.time.LocalDateTime.parse(date, dateFormat)).toOption map { _ -> row }
           }
         )
       }
@@ -123,7 +123,7 @@ object ModActivity:
     def set(action: Action, nb: Int) = copy(actions = actions.updated(action, nb))
     def set(room: Room, nb: Int)     = copy(reports = reports.updated(room, nb))
 
-  val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
+  val dateFormat = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
 
   enum Period:
     def key = toString.toLowerCase
@@ -184,7 +184,7 @@ object ModActivity:
   object json:
     def apply(result: Result) = Json.obj(
       "common" -> Json.obj(
-        "xaxis" -> result.data.map(_._1.getMillis)
+        "xaxis" -> result.data.map(_._1.toMillis)
       ),
       "reports" -> Json.obj(
         "series" -> Room.allButXfiles.map { room =>

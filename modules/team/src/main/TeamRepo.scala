@@ -1,9 +1,9 @@
 package lila.team
 
-import org.joda.time.Period
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import java.time.Period
 
 import lila.db.dsl.{ *, given }
 import lila.hub.LeaderTeam

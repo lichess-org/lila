@@ -94,7 +94,7 @@ case class Tournament(
 
   def duration = java.time.Duration.ofMinutes(minutes)
 
-  def interval = ornicar.scalalib.time.Interval(startsAt, duration)
+  def interval = TimeInterval(startsAt, duration)
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 

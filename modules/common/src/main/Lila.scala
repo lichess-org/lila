@@ -12,6 +12,7 @@ object Lila extends Lila:
   export ornicar.scalalib.newtypes.{ given, * }
   export ornicar.scalalib.zeros.given
   export ornicar.scalalib.extensions.{ given, * }
+  export ornicar.scalalib.time.*
 
   class useless extends annotation.nowarn("msg=unused")
 

@@ -30,7 +30,7 @@ private case class WaitingUsers(
 
   // skips the most recent user if odd
   def evenNumber: Set[UserId] =
-    if (isOdd) all - hash.maxBy(_._2.getMillis)._1
+    if (isOdd) all - hash.maxBy(_._2.toMillis)._1
     else all
 
   lazy val haveWaitedEnough: Boolean =

@@ -138,6 +138,5 @@ final class StudySearchApi(
       case _ => funit
 
   private def parseDate(str: String): Option[DateTime] =
-    val datePattern   = "yyyy-MM-dd"
-    val dateFormatter = DateTimeFormat forPattern datePattern
-    scala.util.Try(dateFormatter parseDateTime str).toOption
+    val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
+    scala.util.Try(java.time.LocalDateTime.parse(str, dateFormatter)).toOption

@@ -32,22 +32,22 @@ final class ModQueueStats(
 
   private def compute(period: Period): Fu[Result] =
     repo.coll
-      .find($doc("_id" $gte dateFormat.print(Period dateSince period)))
+      .find($doc("_id" $gte dateFormat.format(Period dateSince period)))
       .cursor[Bdoc](temporarilyPrimary)
       .listAll()
       .map { docs =>
-        for {
+        for
           doc     <- docs
           dateStr <- doc.string("_id")
-          date    <- Try(dateFormat parseDateTime dateStr).toOption
+          date    <- Try(java.time.LocalDateTime.parse(dateStr, dateFormat)).toOption
           data    <- doc.getAsOpt[List[Bdoc]]("data")
-        } yield date -> {
-          for {
+        yield date -> {
+          for
             entry <- data
             nb    <- entry.int("nb")
             room  <- entry.string("room")
             score <- entry.int("score")
-          } yield (room, score, nb)
+          yield (room, score, nb)
         }
       }
       .map { days =>
@@ -55,7 +55,7 @@ final class ModQueueStats(
           period,
           Json.obj(
             "common" -> Json.obj(
-              "xaxis" -> days.map(_._1.getMillis)
+              "xaxis" -> days.map(_._1.toMillis)
             ),
             "rooms" -> Room.values
               .map { room => room.key -> room.name }

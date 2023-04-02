@@ -21,8 +21,8 @@ final class JsonView(
 ):
 
   private object Writers:
-    given OWrites[Interval] = OWrites { i =>
-      Json.obj("start" -> i.getStart, "end" -> i.getEnd)
+    given OWrites[TimeInterval] = OWrites { i =>
+      Json.obj("start" -> i.start, "end" -> i.end)
     }
     given Writes[PerfType]   = writeAs(_.key)
     given Writes[RatingProg] = Json.writes

@@ -17,4 +17,4 @@ object MiniPost:
       shortlede = ~(doc getText s"$coll.shortlede")
       date  <- doc getDate s"$coll.date" map (_.value)
       image <- doc.getImage(s"$coll.image", imgSize).map(_.url)
-    } yield MiniPost(doc.id, doc.slug, title, shortlede, date.toDateTimeAtStartOfDay, image)
+    } yield MiniPost(doc.id, doc.slug, title, shortlede, date.atStartOfDay, image)

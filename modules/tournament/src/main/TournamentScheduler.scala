@@ -2,7 +2,9 @@ package lila.tournament
 
 import chess.StartingPosition
 import scala.util.chaining.*
-import org.joda.time.DateTimeConstants.*
+import java.time.Month.*
+import java.time.DayOfWeek.*
+import java.time.temporal.TemporalAdjusters
 
 import lila.common.LilaScheduler
 
@@ -22,7 +24,7 @@ final private class TournamentScheduler(
         val pruned    = pruneConflicts(dbScheds, newTourns)
         tournamentRepo.insert(pruned).logFailure(logger)
       catch
-        case e: org.joda.time.IllegalInstantException =>
+        case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
           funit
     }
@@ -44,19 +46,19 @@ final private class TournamentScheduler(
   private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] =
     val today       = rightNow.withTimeAtStartOfDay
     val tomorrow    = rightNow plusDays 1
-    val startOfYear = today.dayOfYear.withMinimumValue
+    val startOfYear = today.withDayOfYear(1)
 
     class OfMonth(fromNow: Int):
-      val firstDay   = today.plusMonths(fromNow).dayOfMonth.withMinimumValue
-      val lastDay    = firstDay.dayOfMonth.withMaximumValue
-      val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek - 1) % 7)
+      val firstDay   = today.plusMonths(fromNow).withDayOfMonth(1)
+      val lastDay    = firstDay.`with`(TemporalAdjusters.lastDayOfMonth)
+      val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek.getValue - 1) % 7)
       val secondWeek = firstWeek plusDays 7
       val thirdWeek  = secondWeek plusDays 7
-      val lastWeek   = lastDay.minusDays((lastDay.getDayOfWeek - 1) % 7)
+      val lastWeek   = lastDay.minusDays((lastDay.getDayOfWeek.getValue - 1) % 7)
     val thisMonth = OfMonth(0)
     val nextMonth = OfMonth(1)
 
-    def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
+    def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek.getValue) % 7)
     val nextMonday                 = nextDayOfWeek(1)
     val nextTuesday                = nextDayOfWeek(2)
     val nextWednesday              = nextDayOfWeek(3)
@@ -65,15 +67,15 @@ final private class TournamentScheduler(
     val nextSaturday               = nextDayOfWeek(6)
     val nextSunday                 = nextDayOfWeek(7)
 
-    def secondWeekOf(month: Int) =
-      val start = orNextYear(startOfYear.withMonthOfYear(month))
-      start.plusDays(15 - start.getDayOfWeek)
+    def secondWeekOf(month: java.time.Month) =
+      val start = orNextYear(startOfYear.withMonth(month.getValue))
+      start.plusDays(15 - start.getDayOfWeek.getValue).withTimeAtStartOfDay
 
     def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
     def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
     def orNextYear(date: DateTime) = if (date isBefore rightNow) date plusYears 1 else date
 
-    val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
+    val isHalloween = today.getDayOfMonth == 31 && today.getMonth == OCTOBER
 
     def openingAt(offset: Int): StartingPosition =
       val positions = StartingPosition.featurable
@@ -81,7 +83,11 @@ final private class TournamentScheduler(
 
     val farFuture = today plusMonths 7
 
-    val birthday = new DateTime(2010, 6, 20, 12, 0, 0)
+    val birthday = java.time.LocalDateTime.of(2010, 6, 20, 12, 0, 0)
+
+    extension (date: DateTime)
+      def withDayOfWeek(day: java.time.DayOfWeek): DateTime =
+        date.`with`(TemporalAdjusters.nextOrSame(day))
 
     // all dates UTC
     List(
@@ -348,7 +354,7 @@ Thank you all, you rock!""",
       // hourly standard tournaments!
       (-1 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
+        val hour = date.getHour
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, HyperBullet, Standard, none, date).plan
@@ -377,7 +383,7 @@ Thank you all, you rock!""",
       (-1 to 6).toList
         .flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
-          val hour = date.getHourOfDay
+          val hour = date.getHour
           val speed = hour % 4 match {
             case 0 => Bullet
             case 1 => SuperBlitz
@@ -418,7 +424,7 @@ Thank you all, you rock!""",
       // hourly crazyhouse/chess960/KingOfTheHill tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
+        val hour = date.getHour
         val speed = hour % 7 match {
           case 0     => HippoBullet
           case 1 | 4 => Bullet
@@ -443,13 +449,12 @@ Thank you all, you rock!""",
       // hourly atomic/antichess variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
-        val speed = hour % 7 match {
+        val hour = date.getHour
+        val speed = hour % 7 match
           case 0 | 4 => Blitz
           case 1     => HippoBullet
           case 2 | 5 => Bullet
           case 3 | 6 => SuperBlitz
-        }
         val variant = if (hour % 2 == 0) Atomic else Antichess
         List(
           at(date, hour) map { date =>
@@ -464,18 +469,16 @@ Thank you all, you rock!""",
       // hourly threecheck/horde/racing variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
-        val speed = hour % 7 match {
+        val hour = date.getHour
+        val speed = hour % 7 match
           case 0 | 4 => SuperBlitz
           case 1 | 5 => Blitz
           case 2     => HippoBullet
           case 3 | 6 => Bullet
-        }
-        val variant = hour % 3 match {
+        val variant = hour % 3 match
           case 0 => ThreeCheck
           case 1 => Horde
           case _ => RacingKings
-        }
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, speed, variant, none, date).plan
