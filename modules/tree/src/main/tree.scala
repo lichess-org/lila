@@ -193,7 +193,6 @@ object Node:
     )
   }
 
-  @annotation.nowarn("msg=unused")
   private given Writes[Pos] = Writes[Pos] { p =>
     JsString(p.key)
   }

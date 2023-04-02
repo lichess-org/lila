@@ -2,14 +2,17 @@ package lila.common
 
 import play.api.libs.json.{ Json as PlayJson, * }
 import chess.format.{ Uci }
+import scala.util.NotGiven
 
 object Json:
+
+  trait NoJsonHandler[A] // don't create default JSON handlers for this type
 
   given opaqueFormat[A, T](using
       bts: SameRuntime[A, T],
       stb: SameRuntime[T, A],
       format: Format[A]
-  ): Format[T] =
+  )(using NotGiven[NoJsonHandler[T]]): Format[T] =
     format.bimap(bts.apply, stb.apply)
 
   // given yesnoFormat[T](using
@@ -91,3 +94,5 @@ object Json:
       .flatMap(LilaOpeningFamily.find)
       .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))
   }
+
+  given NoJsonHandler[chess.Pos] with {}
