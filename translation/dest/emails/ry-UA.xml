@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Подтвердіт свуй lichess.org акаунт, %s</string>
-  <string name="emailChange_subject">Подтвердіт нову електрону почту, %s</string>
+  <string name="passwordReset_subject">Звержіт свою паролу на lichess.org, %s</string>
+  <string name="emailChange_subject">Потвердіт нову електрону почту, %s</string>
+  <string name="welcome_subject">Вітаєме на lichess.org, %s</string>
+  <string name="logInToLichess">Зайдіт на lichess.org, %s</string>
+  <string name="common_contact">Хоснуйте %s, обы контактовати из нами.</string>
 </resources>
