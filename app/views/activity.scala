@@ -183,7 +183,13 @@ object activity:
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))("Game"),
               " vs ",
-              playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true),
+              lightPlayerLink(
+                pov.opponent,
+                withRating = true,
+                withDiff = false,
+                withOnline = true,
+                link = true
+              ),
               br
             )
           }
@@ -202,14 +208,19 @@ object activity:
           povs.map { pov =>
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))(
-                pov.game.wonBy(pov.color) match {
+                pov.game.win.map(_ == pov.color) match
                   case Some(true)  => trans.victory()
                   case Some(false) => trans.defeat()
                   case _           => "Draw"
-                }
               ),
               " vs ",
-              playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true),
+              lightPlayerLink(
+                pov.opponent,
+                withRating = true,
+                withDiff = false,
+                withOnline = true,
+                link = true
+              ),
               br
             )
           }

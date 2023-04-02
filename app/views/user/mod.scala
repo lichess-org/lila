@@ -38,7 +38,7 @@ object mod:
       emails: User.Emails,
       erased: User.Erased,
       pmPresets: ModPresets
-  )(using ctx: Context): Frag =
+  )(using Context): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(
         isGranted(_.ModMessage) option {
@@ -223,7 +223,7 @@ object mod:
       )
     )
 
-  def prefs(u: User)(pref: lila.pref.Pref)(implicit ctx: Context) =
+  def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
     frag(
       canViewRoles(u) option mzSection("roles")(
         (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span) (
@@ -255,7 +255,7 @@ object mod:
       strong(cls := "fat")(rageSit.counterView, " / ", playbans)
     )
 
-  def plan(u: User)(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
+  def plan(u: User)(charges: List[lila.plan.Charge])(using Context): Option[Frag] =
     charges.nonEmpty option
       mzSection("plan")(
         strong(cls := "text inline", dataIcon := patronIconChar)(
@@ -291,7 +291,7 @@ object mod:
         br
       )
 
-  def student(managed: lila.clas.Student.ManagedInfo)(implicit ctx: Context): Frag =
+  def student(managed: lila.clas.Student.ManagedInfo)(using Context): Frag =
     mzSection("student")(
       "Created by ",
       userLink(managed.createdBy),
@@ -299,7 +299,7 @@ object mod:
       a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
     )
 
-  def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(implicit lang: Lang) =
+  def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Lang) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(
         strong(cls := "text", dataIcon := "")(
@@ -346,7 +346,7 @@ object mod:
       }
     )
 
-  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(implicit lang: Lang): Frag =
+  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Lang): Frag =
     mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
         strong(cls := "text", dataIcon := "")(
@@ -393,9 +393,7 @@ object mod:
       )
     )
 
-  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using
-      ctx: Context
-  ): Frag =
+  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using Context): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
         p(cls := "text", dataIcon := "")(
@@ -485,7 +483,7 @@ object mod:
                 td(
                   a(href := routes.Round.watcher(result.gameId, result.color.name))(
                     pag.pov(result).fold[Frag](result.gameId) { p =>
-                      playerUsername(p.opponent)
+                      playerUsername(p.opponent.light)
                     }
                   )
                 ),

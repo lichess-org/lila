@@ -21,10 +21,10 @@ final class PlanWebhook(api: PlanApi)(using Executor):
           id   <- event str "id"
           name <- event str "type"
           data <- (event \ "data" \ "object").asOpt[JsObject]
-        yield {
+        yield
           lila.mon.plan.webhook("stripe", name).increment()
           log.debug(s"$name $id ${Json.stringify(data).take(100)}")
-          name match {
+          name match
             case "customer.subscription.deleted" =>
               val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
               api.stripe onSubscriptionDeleted sub
@@ -32,8 +32,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
               val charge = data.asOpt[StripeCharge] err s"Invalid charge $data"
               api.stripe onCharge charge
             case _ => funit
-          }
-        })
+        )
     }
 
   def payPal(js: JsValue): Funit =

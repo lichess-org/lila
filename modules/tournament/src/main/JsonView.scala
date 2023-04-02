@@ -162,11 +162,11 @@ final class JsonView(
     }
 
   def playerInfoExtended(tour: Tournament, info: PlayerInfoExt): Fu[JsObject] =
-    for {
+    for
       ranking <- cached ranking tour
       sheet   <- cached.sheet(tour, info.userId)
       user    <- lightUserApi.asyncFallback(info.userId)
-    } yield info match
+    yield info match
       case PlayerInfoExt(_, player, povs) =>
         val isPlaying = povs.headOption.??(_.game.playable)
         val povScores: List[(LightPov, Option[arena.Sheet.Score])] = povs zip {
@@ -188,7 +188,7 @@ final class JsonView(
             .add("provisional" -> player.provisional)
             .add("withdraw" -> player.withdraw)
             .add("team" -> player.team),
-          "pairings" -> povScores.map { case (pov, score) =>
+          "pairings" -> povScores.map { (pov, score) =>
             Json
               .obj(
                 "id"     -> pov.gameId,
