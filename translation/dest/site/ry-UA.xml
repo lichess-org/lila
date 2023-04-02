@@ -279,6 +279,7 @@
   <string name="simulFeaturedHelp">Указовати ваш сеанс на %s. Выключіт для личных сеансув.</string>
   <string name="noChat">Без чета</string>
   <string name="closedAccountChangedMind">Кідь сьте закрыли свуй акаунт, а з того часу сьте передумали, є у вас лем єдна можность го вернути.</string>
+  <string name="cantDoThisTwice">Кідь другый раз закрыєте акаунт, уже го не вернете.</string>
   <string name="since">Из</string>
   <string name="until">До</string>
 </resources>
