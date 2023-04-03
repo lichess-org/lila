@@ -50,7 +50,8 @@ final private class WebPush(
               "payload" -> data.payload
             )
             .toString,
-          "ttl" -> 43200
+          "urgency" -> data.urgency.key,
+          "ttl"     -> 43200
         )
       ) flatMap {
       case res if res.status == 200 => funit
