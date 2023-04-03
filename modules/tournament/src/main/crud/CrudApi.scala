@@ -51,7 +51,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
   def clone(old: Tournament) =
     old.copy(
       name = s"${old.name} (clone)",
-      startsAt = nowDate plusDays 7
+      startsAt = nowInstant plusDays 7
     )
 
   def paginator(page: Int)(using Executor) =

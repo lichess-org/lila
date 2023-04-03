@@ -38,8 +38,8 @@ case class Game(
     binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
     bookmarks: Int = 0,
-    createdAt: DateTime = nowDate,
-    movedAt: DateTime = nowDate,
+    createdAt: Instant = nowInstant,
+    movedAt: Instant = nowInstant,
     metadata: Metadata
 ):
 
@@ -199,7 +199,7 @@ case class Game(
       },
       loadClockHistory = _ => newClockHistory,
       status = game.situation.status | status,
-      movedAt = nowDate
+      movedAt = nowInstant
     )
 
     val state = Event.State(
@@ -483,7 +483,7 @@ case class Game(
 
   def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
 
-  def correspondenceGiveTime = Progress(this, copy(movedAt = nowDate))
+  def correspondenceGiveTime = Progress(this, copy(movedAt = nowInstant))
 
   def estimateClockTotalTime = clock.map(_.estimateTotalSeconds)
 
@@ -544,9 +544,9 @@ case class Game(
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
 
-  def olderThan(seconds: Int) = movedAt isBefore nowDate.minusSeconds(seconds)
+  def olderThan(seconds: Int) = movedAt isBefore nowInstant.minusSeconds(seconds)
 
-  def justCreated = createdAt isAfter nowDate.minusSeconds(1)
+  def justCreated = createdAt isAfter nowInstant.minusSeconds(1)
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
@@ -671,7 +671,7 @@ object Game:
     chess.variant.Horde
   )
 
-  val hordeWhitePawnsSince = java.time.LocalDateTime.of(2015, 4, 11, 10, 0)
+  val hordeWhitePawnsSince = java.time.Instant.of(2015, 4, 11, 10, 0)
 
   def isOldHorde(game: Game) =
     game.variant == chess.variant.Horde &&
@@ -691,10 +691,10 @@ object Game:
   val tokenSize    = 4
 
   val unplayedHours = 24
-  def unplayedDate  = nowDate minusHours unplayedHours
+  def unplayedDate  = nowInstant minusHours unplayedHours
 
   val abandonedDays = Days(21)
-  def abandonedDate = nowDate minusDays abandonedDays.value
+  def abandonedDate = nowInstant minusDays abandonedDays.value
 
   def strToIdOpt(str: String): Option[GameId]        = strToId(str).some.filter(validId)
   inline def strToId(str: String): GameId            = GameId(str take gameIdSize)
@@ -737,7 +737,7 @@ object Game:
       daysPerTurn: Option[Days] = None,
       rules: Set[GameRule] = Set.empty
   ): NewGame =
-    val createdAt = nowDate
+    val createdAt = nowInstant
     NewGame(
       Game(
         id = IdGenerator.uncheckedGame,

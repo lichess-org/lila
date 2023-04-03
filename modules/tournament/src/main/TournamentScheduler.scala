@@ -20,7 +20,7 @@ final private class TournamentScheduler(
   LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
     tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
       try
-        val newTourns = allWithConflicts(nowDate).map(_.build)
+        val newTourns = allWithConflicts(nowInstant).map(_.build)
         val pruned    = pruneConflicts(dbScheds, newTourns)
         tournamentRepo.insert(pruned).logFailure(logger)
       catch
@@ -43,7 +43,7 @@ final private class TournamentScheduler(
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] =
+  private[tournament] def allWithConflicts(rightNow: Instant): List[Plan] =
     val today       = rightNow.withTimeAtStartOfDay
     val tomorrow    = rightNow plusDays 1
     val startOfYear = today.withDayOfYear(1)
@@ -71,9 +71,9 @@ final private class TournamentScheduler(
       val start = orNextYear(startOfYear.withMonth(month.getValue))
       start.plusDays(15 - start.getDayOfWeek.getValue).withTimeAtStartOfDay
 
-    def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
-    def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
-    def orNextYear(date: DateTime) = if (date isBefore rightNow) date plusYears 1 else date
+    def orTomorrow(date: Instant) = if (date isBefore rightNow) date plusDays 1 else date
+    def orNextWeek(date: Instant) = if (date isBefore rightNow) date plusWeeks 1 else date
+    def orNextYear(date: Instant) = if (date isBefore rightNow) date plusYears 1 else date
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonth == OCTOBER
 
@@ -83,10 +83,10 @@ final private class TournamentScheduler(
 
     val farFuture = today plusMonths 7
 
-    val birthday = java.time.LocalDateTime.of(2010, 6, 20, 12, 0, 0)
+    val birthday = java.time.Instant.of(2010, 6, 20, 12, 0, 0)
 
-    extension (date: DateTime)
-      def withDayOfWeek(day: java.time.DayOfWeek): DateTime =
+    extension (date: Instant)
+      def withDayOfWeek(day: java.time.DayOfWeek): Instant =
         date.`with`(TemporalAdjusters.nextOrSame(day))
 
     // all dates UTC
@@ -515,7 +515,7 @@ Thank you all, you rock!""",
       }
     }
 
-  private def at(day: DateTime, hour: Int, minute: Int = 0): Option[DateTime] =
+  private def at(day: Instant, hour: Int, minute: Int = 0): Option[DateTime] =
     try Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
     catch
       case e: Exception =>

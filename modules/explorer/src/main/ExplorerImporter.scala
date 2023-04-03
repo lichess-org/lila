@@ -12,7 +12,7 @@ final class ExplorerImporter(
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor):
 
-  private val masterGameEncodingFixedAt = java.time.LocalDateTime.of(2016, 3, 9, 0, 0)
+  private val masterGameEncodingFixedAt = java.time.Instant.of(2016, 3, 9, 0, 0)
 
   def apply(id: GameId): Fu[Option[Game]] =
     gameRepo game id flatMap {

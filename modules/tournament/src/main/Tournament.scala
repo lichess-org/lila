@@ -28,9 +28,9 @@ case class Tournament(
     noStreak: Boolean = false,
     schedule: Option[Schedule],
     nbPlayers: Int,
-    createdAt: DateTime,
+    createdAt: Instant,
     createdBy: UserId,
-    startsAt: DateTime,
+    startsAt: Instant,
     winnerId: Option[UserId] = None,
     featuredId: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
@@ -88,9 +88,9 @@ case class Tournament(
 
   def isRecentlyStarted = isStarted && (nowSeconds - startsAt.toSeconds) < 15
 
-  def isNowOrSoon = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowInstant plusMinutes 15) && !isFinished
 
-  def isDistant = startsAt.isAfter(nowDate plusDays 1)
+  def isDistant = startsAt.isAfter(nowInstant plusDays 1)
 
   def duration = java.time.Duration.ofMinutes(minutes)
 
@@ -164,7 +164,7 @@ object Tournament:
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,
-      startDate: Option[DateTime],
+      startDate: Option[Instant],
       berserkable: Boolean,
       streakable: Boolean,
       teamBattle: Option[TeamBattle],
@@ -181,7 +181,7 @@ object Tournament:
       clock = clock,
       minutes = minutes,
       createdBy = by.fold(identity, _.id),
-      createdAt = nowDate,
+      createdAt = nowInstant,
       nbPlayers = 0,
       variant = variant,
       position = position,
@@ -192,7 +192,7 @@ object Tournament:
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startDate | nowDate.plusMinutes(waitMinutes),
+      startsAt = startDate | nowInstant.plusMinutes(waitMinutes),
       description = description,
       hasChat = hasChat
     )
@@ -205,7 +205,7 @@ object Tournament:
       clock = Schedule clockFor sched,
       minutes = minutes,
       createdBy = User.lichessId,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       nbPlayers = 0,
       variant = sched.variant,
       position = sched.position,

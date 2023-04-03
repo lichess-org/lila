@@ -70,7 +70,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
   private[team] def countCreatedSince(userId: UserId, duration: Period): Fu[Int] =
     coll.countSel(
       $doc(
-        "createdAt" $gt nowDate.minus(duration),
+        "createdAt" $gt nowInstant.minus(duration),
         "createdBy" -> userId
       )
     )

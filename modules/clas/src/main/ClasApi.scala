@@ -62,7 +62,7 @@ final class ClasApi(
       coll
         .findAndUpdateSimplified[Clas](
           selector = $id(id) ++ $doc("teachers" -> teacher.id),
-          update = $set("viewedAt" -> nowDate),
+          update = $set("viewedAt" -> nowInstant),
           fetchNewObject = true
         )
 
@@ -113,7 +113,7 @@ final class ClasApi(
       coll.update
         .one(
           $id(c.id),
-          if (v) $set("archived" -> Clas.Recorded(t.id, nowDate))
+          if (v) $set("archived" -> Clas.Recorded(t.id, nowInstant))
           else $unset("archived")
         )
         .void
@@ -268,7 +268,7 @@ final class ClasApi(
         .findAndUpdateSimplified[Student](
           selector = $id(sId),
           update =
-            if (v) $set("archived" -> Clas.Recorded(by.id, nowDate))
+            if (v) $set("archived" -> Clas.Recorded(by.id, nowInstant))
             else $unset("archived"),
           fetchNewObject = true
         )

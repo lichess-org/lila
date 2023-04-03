@@ -10,7 +10,7 @@ case class Note(
     text: String,
     mod: Boolean,
     dox: Boolean,
-    date: DateTime
+    date: Instant
 ):
   def userIds            = List(from, to)
   def isFrom(user: User) = user.id == from
@@ -66,7 +66,7 @@ final class NoteApi(
       text = text,
       mod = modOnly,
       dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
-      date = nowDate
+      date = nowInstant
     )
 
     coll.insert.one(note) >>-

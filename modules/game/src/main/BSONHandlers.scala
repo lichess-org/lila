@@ -270,7 +270,7 @@ object BSONHandlers:
       times = history(color)
     yield BinaryFormat.clockHistory.writeSide(clk.limit, times, flagged has color)
 
-  private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) =
+  private[game] def clockBSONReader(since: Instant, whiteBerserk: Boolean, blackBerserk: Boolean) =
     new BSONReader[Color => Clock]:
       def readTry(bson: BSONValue): Try[Color => Clock] =
         bson match
@@ -280,7 +280,7 @@ object BSONHandlers:
             }
           case b => lila.db.BSON.handlerBadType(b)
 
-  private[game] def clockBSONWrite(since: DateTime, clock: Clock) =
+  private[game] def clockBSONWrite(since: Instant, clock: Clock) =
     byteArrayHandler writeTry {
       BinaryFormat clock since write clock
     }

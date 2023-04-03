@@ -23,8 +23,12 @@ trait Handlers:
   given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(idOf(u))
 
-  given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
-    { case v: BSONDateTime => millisToDate(v.value) },
+  given dateTimeHandler: BSONHandler[LocalDateTime] = quickHandler[LocalDateTime](
+    { case v: BSONDateTime => millisToDateTime(v.value) },
+    v => BSONDateTime(v.toMillis)
+  )
+  given instantHandler: BSONHandler[Instant] = quickHandler[Instant](
+    { case v: BSONDateTime => millisToInstant(v.value) },
     v => BSONDateTime(v.toMillis)
   )
 
@@ -69,8 +73,8 @@ trait Handlers:
   def bigDecimalAnyValHandler[A](to: A => BigDecimal, from: BigDecimal => A): BSONHandler[A] =
     bigDecimalIsoHandler(using Iso(from, to))
 
-  def dateIsoHandler[A](using iso: Iso[DateTime, A]): BSONHandler[A] =
-    dateTimeHandler.as[A](iso.from, iso.to)
+  def instantIsoHandler[A](using iso: Iso[Instant, A]): BSONHandler[A] =
+    instantHandler.as[A](iso.from, iso.to)
 
   def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new:
     def readTry(bson: BSONValue) =

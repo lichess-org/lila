@@ -23,7 +23,7 @@ case class PerfStat(
   def agg(pov: Pov) =
     if (!pov.game.finished) this
     else
-      val thisYear = pov.game.createdAt isAfter nowDate.minusYears(1)
+      val thisYear = pov.game.createdAt isAfter nowInstant.minusYears(1)
       copy(
         highest = RatingAt.agg(highest, pov, 1),
         lowest = if (thisYear) RatingAt.agg(lowest, pov, -1) else lowest,
@@ -63,7 +63,7 @@ case class ResultStreak(win: Streaks, loss: Streaks):
       loss = loss.continueOrReset(~pov.loss, pov)(1)
     )
 
-case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]):
+case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[Instant]):
   def agg(pov: Pov) =
     pov.game.durationSeconds.fold(this) { seconds =>
       val cont = seconds < 3 * 60 * 60 && isContinued(pov.game.createdAt)
@@ -74,9 +74,9 @@ case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]):
       )
     }
   def checkCurrent =
-    if (isContinued(nowDate)) this
+    if (isContinued(nowInstant)) this
     else copy(nb = nb.reset, time = time.reset)
-  private def isContinued(at: DateTime) =
+  private def isContinued(at: Instant) =
     lastDate.fold(true) { ld =>
       at.isBefore(ld plusMinutes PlayStreak.expirationMinutes)
     }
@@ -161,11 +161,11 @@ case class Avg(avg: Double, pop: Int):
       pop = pop + 1
     )
 
-case class GameAt(at: DateTime, gameId: GameId)
+case class GameAt(at: Instant, gameId: GameId)
 object GameAt:
   def agg(pov: Pov) = GameAt(pov.game.movedAt, pov.gameId)
 
-case class RatingAt(int: IntRating, at: DateTime, gameId: GameId)
+case class RatingAt(int: IntRating, at: Instant, gameId: GameId)
 object RatingAt:
   def agg(cur: Option[RatingAt], pov: Pov, comp: Int) =
     pov.player.stableRatingAfter
@@ -179,7 +179,7 @@ object RatingAt:
       } orElse cur
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-case class Result(@Key("opInt") opRating: IntRating, opId: UserId, at: DateTime, gameId: GameId)
+case class Result(@Key("opInt") opRating: IntRating, opId: UserId, at: Instant, gameId: GameId)
 
 case class Results(results: List[Result]):
   def agg(pov: Pov, comp: Int) = {

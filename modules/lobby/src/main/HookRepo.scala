@@ -52,7 +52,7 @@ final private class HookRepo:
 
   // returns removed hooks
   def cleanupOld: Set[Hook] =
-    val limit   = nowDate minusMinutes 15
+    val limit   = nowInstant minusMinutes 15
     val removed = hooks.values.view.filter(_.createdAt isBefore limit).toSet
     hooks = hooks removed removed
     removed

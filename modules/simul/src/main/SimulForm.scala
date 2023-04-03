@@ -104,7 +104,7 @@ object SimulForm:
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
-        "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+        "estimatedStartAt" -> optional(inTheFuture(ISOInstantOrTimestamp.isoDateTimeOrTimestamp)),
         "team"             -> optional(of[TeamId].verifying(id => teams.exists(_.id == id))),
         "featured"         -> optional(boolean)
       )(Setup.apply)(unapply)
@@ -123,7 +123,7 @@ object SimulForm:
       position: Option[Fen.Epd],
       color: String,
       text: String,
-      estimatedStartAt: Option[DateTime] = None,
+      estimatedStartAt: Option[Instant] = None,
       team: Option[TeamId],
       featured: Option[Boolean]
   ):

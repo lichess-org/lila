@@ -13,11 +13,11 @@ case class Event(
     lang: Lang,
     enabled: Boolean,
     createdBy: UserId,
-    createdAt: DateTime,
+    createdAt: Instant,
     updatedBy: Option[UserId],
-    updatedAt: Option[DateTime],
-    startsAt: DateTime,
-    finishesAt: DateTime,
+    updatedAt: Option[Instant],
+    startsAt: Instant,
+    finishesAt: Instant,
     hostedBy: Option[UserId] = None,
     icon: Option[String] = None,
     countdown: Boolean
@@ -34,13 +34,13 @@ case class Event(
 
   def featureNow = featureSince.isBeforeNow && !isFinishedSoon
 
-  def isFinishedSoon = finishesAt.isBefore(nowDate plusMinutes 5)
+  def isFinishedSoon = finishesAt.isBefore(nowInstant plusMinutes 5)
 
   def isFinished = finishesAt.isBeforeNow
 
   def isNow = startsAt.isBeforeNow && !isFinished
 
-  def isNowOrSoon = startsAt.isBefore(nowDate plusMinutes 10) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowInstant plusMinutes 10) && !isFinished
 
   inline def id = _id
 

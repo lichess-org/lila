@@ -68,8 +68,8 @@ object Sheet:
   object Version:
     val V1: Version        = 1
     val V2: Version        = 2
-    private val v2date     = java.time.LocalDateTime.of(2020, 4, 21, 0, 0, 0)
-    def of(date: DateTime) = if (date isBefore v2date) V1 else V2
+    private val v2date     = java.time.Instant.of(2020, 4, 21, 0, 0, 0)
+    def of(date: Instant) = if (date isBefore v2date) V1 else V2
 
   opaque type Streakable <: Boolean = Boolean
   object Streakable:

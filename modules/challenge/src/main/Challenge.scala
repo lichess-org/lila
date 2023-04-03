@@ -23,9 +23,9 @@ case class Challenge(
     challenger: Challenge.Challenger,
     destUser: Option[Challenge.Challenger.Registered],
     rematchOf: Option[GameId],
-    createdAt: DateTime,
-    seenAt: Option[DateTime], // None for open challenges, so they don't sweep
-    expiresAt: DateTime,
+    createdAt: Instant,
+    seenAt: Option[Instant], // None for open challenges, so they don't sweep
+    expiresAt: Instant,
     open: Option[Challenge.Open] = None,
     name: Option[String] = None,
     declineReason: Option[Challenge.DeclineReason] = None,
@@ -259,9 +259,9 @@ object Challenge:
       challenger = challenger,
       destUser = destUser map toRegistered(variant, timeControl),
       rematchOf = rematchOf,
-      createdAt = nowDate,
-      seenAt = !isOpen option nowDate,
-      expiresAt = if (isOpen) nowDate.plusDays(1) else inTwoWeeks,
+      createdAt = nowInstant,
+      seenAt = !isOpen option nowInstant,
+      expiresAt = if (isOpen) nowInstant.plusDays(1) else inTwoWeeks,
       open = isOpen option Open(openToUserIds),
       name = name,
       rules = rules

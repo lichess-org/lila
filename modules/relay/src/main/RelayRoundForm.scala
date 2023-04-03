@@ -15,7 +15,7 @@ import lila.user.User
 final class RelayRoundForm:
 
   import RelayRoundForm.*
-  import lila.common.Form.ISODateTimeOrTimestamp
+  import lila.common.Form.ISOInstantOrTimestamp
 
   val roundMapping =
     mapping(
@@ -24,7 +24,7 @@ final class RelayRoundForm:
         cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
-      "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
+      "startsAt"     -> optional(ISOInstantOrTimestamp.isoDateTimeOrTimestamp),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
@@ -88,7 +88,7 @@ object RelayRoundForm:
       name: RelayRoundName,
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
-      startsAt: Option[DateTime] = None,
+      startsAt: Option[Instant] = None,
       throttle: Option[Int] = None
   ):
 
@@ -127,7 +127,7 @@ object RelayRoundForm:
         tourId = tour.id,
         name = name,
         sync = makeSync(user),
-        createdAt = nowDate,
+        createdAt = nowInstant,
         finished = false,
         startsAt = startsAt,
         startedAt = none

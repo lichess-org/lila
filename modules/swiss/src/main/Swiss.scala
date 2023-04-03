@@ -15,13 +15,13 @@ case class Swiss(
     round: SwissRoundNumber, // ongoing round
     nbPlayers: Int,
     nbOngoing: Int,
-    createdAt: DateTime,
+    createdAt: Instant,
     createdBy: UserId,
     teamId: TeamId,
-    startsAt: DateTime,
+    startsAt: Instant,
     settings: Swiss.Settings,
-    nextRoundAt: Option[DateTime],
-    finishedAt: Option[DateTime],
+    nextRoundAt: Option[Instant],
+    finishedAt: Option[Instant],
     winnerId: Option[UserId] = None
 ):
   inline def id = _id
@@ -30,7 +30,7 @@ case class Swiss(
   def isStarted          = !isCreated && !isFinished
   def isFinished         = finishedAt.isDefined
   def isNotFinished      = !isFinished
-  def isNowOrSoon        = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
+  def isNowOrSoon        = startsAt.isBefore(nowInstant plusMinutes 15) && !isFinished
   def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.toSeconds) < 30 * 60)
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers

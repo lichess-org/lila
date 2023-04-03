@@ -59,7 +59,7 @@ final class TeamInfoApi(
     credits = pmAllCredits * pmAllCost,
     duration = pmAllDays.days
   )
-  def pmAllStatus(id: TeamId): Fu[(Int, DateTime)] =
+  def pmAllStatus(id: TeamId): Fu[(Int, Instant)] =
     pmAllLimiter.getSpent(id) map { entry =>
       (pmAllCredits - entry.v / pmAllCost, entry.until)
     }

@@ -17,8 +17,8 @@ case class User(
     toints: Int = 0,
     playTime: Option[User.PlayTime],
     title: Option[UserTitle] = None,
-    createdAt: DateTime,
-    seenAt: Option[DateTime],
+    createdAt: Instant,
+    seenAt: Option[Instant],
     kid: Boolean,
     lang: Option[String],
     plan: Plan,
@@ -113,7 +113,7 @@ case class User(
 
   def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
-  def createdSinceDays(days: Int) = createdAt isBefore nowDate.minusDays(days)
+  def createdSinceDays(days: Int) = createdAt isBefore nowInstant.minusDays(days)
 
   def isBot = title has Title.BOT
   def noBot = !isBot
@@ -210,15 +210,15 @@ object User:
       kid: Option[Boolean],
       marks: Option[UserMarks],
       roles: Option[List[String]],
-      createdAt: DateTime
+      createdAt: Instant
   ):
     def id                     = _id
     def isKid                  = ~kid
     def isTroll                = marks.exists(_.troll)
     def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-    def isDaysOld(days: Int)   = createdAt isBefore nowDate.minusDays(days)
-    def isHoursOld(hours: Int) = createdAt isBefore nowDate.minusHours(hours)
+    def isDaysOld(days: Int)   = createdAt isBefore nowInstant.minusDays(days)
+    def isHoursOld(hours: Int) = createdAt isBefore nowInstant.minusHours(hours)
     def isLichess              = _id == User.lichessId
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid

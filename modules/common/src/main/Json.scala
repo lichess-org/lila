@@ -80,7 +80,7 @@ object Json:
     JsResult.fromTry(UserStr.read(str) toTry s"Invalid username: $str")
   }
 
-  given Writes[DateTime] = writeAs(_.toMillis)
+  given Writes[Instant] = writeAs(_.toMillis)
 
   given Writes[chess.Color] = writeAs(_.name)
 

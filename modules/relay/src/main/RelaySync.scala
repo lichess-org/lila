@@ -106,7 +106,7 @@ final private class RelaySync(
                   .Relay(
                     index = game.index,
                     path = position.path + n.id,
-                    lastMoveAt = nowDate
+                    lastMoveAt = nowInstant
                   )
                   .some
               )(who) inject position + n
@@ -189,7 +189,7 @@ final private class RelaySync(
           .Relay(
             index = game.index,
             path = game.root.mainlinePath,
-            lastMoveAt = nowDate
+            lastMoveAt = nowInstant
           )
           .some
       )

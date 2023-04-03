@@ -44,13 +44,13 @@ final private class Pause:
 
 object Pause:
 
-  case class Record(pauses: Int, pausedAt: DateTime):
+  case class Record(pauses: Int, pausedAt: Instant):
     def add =
       copy(
         pauses = pauses + 1,
-        pausedAt = nowDate
+        pausedAt = nowInstant
       )
-  val newRecord = Record(1, nowDate)
+  val newRecord = Record(1, nowInstant)
 
   // pause counter of a player
   opaque type Delay = Int

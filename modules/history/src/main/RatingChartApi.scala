@@ -30,7 +30,7 @@ final class RatingChartApi(
       }
   }
 
-  private def ratingsMapToJson(createdAt: DateTime, ratingsMap: RatingsMap) =
+  private def ratingsMapToJson(createdAt: Instant, ratingsMap: RatingsMap) =
     ratingsMap.map { (days, rating) =>
       val date = createdAt plusDays days
       Json.arr(date.getYear, date.getMonthValue - 1, date.getDayOfMonth, rating)

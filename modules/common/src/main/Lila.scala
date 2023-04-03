@@ -16,12 +16,11 @@ object Lila extends Lila:
 
   class useless extends annotation.nowarn("msg=unused")
 
-  inline def nowNanos: Long    = System.nanoTime()
-  inline def nowMillis: Long   = System.currentTimeMillis()
-  inline def nowCentis: Long   = nowMillis / 10
-  inline def nowTenths: Long   = nowMillis / 100
-  inline def nowSeconds: Int   = (nowMillis / 1000).toInt
-  inline def nowDate: DateTime = java.time.LocalDateTime.now()
+  inline def nowNanos: Long  = System.nanoTime()
+  inline def nowMillis: Long = System.currentTimeMillis()
+  inline def nowCentis: Long = nowMillis / 10
+  inline def nowTenths: Long = nowMillis / 100
+  inline def nowSeconds: Int = (nowMillis / 1000).toInt
 
   object makeTimeout:
 

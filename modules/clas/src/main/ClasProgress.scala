@@ -83,7 +83,7 @@ final class ClasProgressApi(
         Match(
           $doc(
             PuzzleRound.BSONFields.user $in userIds,
-            PuzzleRound.BSONFields.date $gt nowDate.minusDays(days)
+            PuzzleRound.BSONFields.date $gt nowInstant.minusDays(days)
           )
         ) -> List(
           GroupField("u")(
@@ -124,7 +124,7 @@ final class ClasProgressApi(
         Match(
           $doc(
             F.playerUids $in userIds,
-            Query.createdSince(nowDate minusDays days),
+            Query.createdSince(nowInstant minusDays days),
             F.perfType -> perfType.id
           )
         ) -> List(

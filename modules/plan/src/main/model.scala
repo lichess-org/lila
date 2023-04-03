@@ -184,7 +184,7 @@ case class PayPalOrder(
   def capturedMoney      = isCompletedCapture ?? purchase_units.headOption.map(_.amount.money)
   def country            = payer.address.flatMap(_.country_code)
 case class PayPalPayment(amount: PayPalAmount)
-case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: DateTime)
+case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: Instant)
 case class PayPalSubscription(
     id: PayPalSubscriptionId,
     status: String,

@@ -14,14 +14,14 @@ final class RequesterApi(coll: Coll)(using Executor):
         $id(requester),
         $inc(
           "total"                   -> 1,
-          formatter.format(nowDate) -> (if (ownGame) 1 else 2)
+          formatter.format(nowInstant) -> (if (ownGame) 1 else 2)
         ),
         upsert = true
       )
       .void
 
   def countTodayAndThisWeek(userId: UserId): Fu[(Int, Int)] =
-    val now = nowDate
+    val now = nowInstant
     coll
       .one(
         $id(userId),

@@ -37,7 +37,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
     _.expireAfterAccess(5 minutes).buildAsyncFuture { id =>
       coll { c =>
         c.one[EvalCacheEntry]($id(id)) addEffect { res =>
-          if (res.isDefined) c.updateFieldUnchecked($id(id), "usedAt", nowDate)
+          if (res.isDefined) c.updateFieldUnchecked($id(id), "usedAt", nowInstant)
         }
       }
     }

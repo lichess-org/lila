@@ -283,7 +283,7 @@ object mod:
               " with ",
               c.serviceName,
               " on ",
-              showDateTimeUTC(c.date),
+              showInstantUTC(c.date),
               " UTC"
             )
           }
@@ -548,7 +548,7 @@ object mod:
   private val clean: Frag     = iconTag("")
   private val reportban       = iconTag("")
   private val notesText       = iconTag("")
-  private def markTd(nb: Int, content: => Frag, date: Option[DateTime] = None) =
+  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None) =
     if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(momentFromNowServerText(_, false)))(content)
     else td
 
@@ -812,7 +812,7 @@ object mod:
     submitButton(
       title := {
         if r.open then "open"
-        else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showDateTimeUTC(done.at)}")}"
+        else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showInstantUTC(done.at)}")}"
       }
     )(reportScore(r.score), " ", strong(r.reason.name))
 

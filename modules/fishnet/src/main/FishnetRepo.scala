@@ -56,7 +56,7 @@ final private class FishnetRepo(
         .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true).some)
         .sort($sort asc "createdAt")
         .one[Bdoc]
-        .map(~_.flatMap(_.getAsOpt[DateTime]("createdAt").map { date =>
+        .map(~_.flatMap(_.getAsOpt[Instant]("createdAt").map { date =>
           (nowSeconds - date.toSeconds).toInt atLeast 0
         }))
 

@@ -36,7 +36,7 @@ final private[video] class Youtube(
                 description = entry.snippet.description,
                 duration = Some(entry.contentDetails.seconds),
                 publishedAt = entry.snippet.publishedAt.flatMap { at =>
-                  scala.util.Try { java.time.LocalDateTime.parse(at) }.toOption
+                  scala.util.Try { java.time.Instant.parse(at) }.toOption
                 }
               )
             )
@@ -75,7 +75,7 @@ object Youtube:
       likes: Int,
       description: Option[String],
       duration: Option[Int], // in seconds
-      publishedAt: Option[DateTime]
+      publishedAt: Option[Instant]
   )
 
   private[video] case class Entry(

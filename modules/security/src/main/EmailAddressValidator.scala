@@ -85,8 +85,8 @@ final class EmailAddressValidator(
     }
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize, nowDate.minusWeeks(1)).dmap(_ >= 2) >>|
-      userRepo.countRecentByPrevEmail(email.normalize, nowDate.minusMonths(1)).dmap(_ >= 4)
+    userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusWeeks(1)).dmap(_ >= 2) >>|
+      userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusMonths(1)).dmap(_ >= 4)
 
 object EmailAddressValidator:
   enum Result(val error: Option[String]):

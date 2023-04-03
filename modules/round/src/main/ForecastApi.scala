@@ -21,7 +21,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
         Forecast(
           _id = pov.fullId,
           steps = steps.filter(_.nonEmpty),
-          date = nowDate
+          date = nowInstant
         ).truncate,
         upsert = true
       )

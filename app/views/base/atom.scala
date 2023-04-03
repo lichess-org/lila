@@ -12,7 +12,7 @@ object atom:
       htmlCall: Call,
       atomCall: Call,
       title: String,
-      updated: Option[DateTime]
+      updated: Option[Instant]
   )(elem: A => Frag) =
     frag(
       raw("""<?xml version="1.0" encoding="utf-8"?>"""),
@@ -30,7 +30,7 @@ object atom:
       raw("</feed>")
     )
 
-  def atomDate(date: DateTime): String = isoDateFormatter format date
+  def atomDate(date: Instant): String = isoDateFormatter format date
 
   private val termAttr   = attr("term")
   private val labelAttr  = attr("label")

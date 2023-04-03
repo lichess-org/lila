@@ -29,7 +29,7 @@ final private class TournamentBusHandler(
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       ejectFromEnterable(userId) >>
         leaderboard
-          .getAndDeleteRecent(userId, nowDate minusDays 30)
+          .getAndDeleteRecent(userId, nowInstant minusDays 30)
           .flatMap {
             _.map {
               api.removePlayerAndRewriteHistory(_, userId)

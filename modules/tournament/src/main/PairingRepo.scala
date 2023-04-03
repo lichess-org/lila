@@ -166,7 +166,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   def insert(pairings: List[Pairing]) =
     coll.insert.many {
       pairings.map { p =>
-        pairingHandler.write(p) ++ $doc("d" -> nowDate)
+        pairingHandler.write(p) ++ $doc("d" -> nowInstant)
       }
     }.void
 

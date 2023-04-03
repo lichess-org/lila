@@ -13,7 +13,7 @@ case class Schedule(
     speed: Schedule.Speed,
     variant: Variant,
     position: Option[Fen.Opening],
-    at: DateTime,
+    at: Instant,
     conditions: Condition.All = Condition.All.empty
 ):
 

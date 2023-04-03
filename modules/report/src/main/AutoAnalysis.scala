@@ -34,7 +34,7 @@ final class AutoAnalysis(
       gameRepo.lastGamesBetween(
         candidate.suspect.user,
         candidate.reporter.user,
-        nowDate.minusHours(2),
+        nowInstant.minusHours(2),
         10
       ) dmap { as ++ _ }
     }

@@ -7,7 +7,7 @@ final class Rating(
     var ratingDeviation: Double,
     var volatility: Double,
     var numberOfResults: Int,
-    var lastRatingPeriodEnd: Option[java.time.LocalDateTime] = None
+    var lastRatingPeriodEnd: Option[java.time.Instant] = None
 ):
 
   import RatingCalculator.*

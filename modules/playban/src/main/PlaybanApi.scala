@@ -228,7 +228,7 @@ final class PlaybanApi(
     } yield ()
   }.void logFailure lila.log("playban")
 
-  private def legiferate(record: UserRecord, accCreatedAt: DateTime, source: Option[Source]): Fu[UserRecord] =
+  private def legiferate(record: UserRecord, accCreatedAt: Instant, source: Option[Source]): Fu[UserRecord] =
     record
       .bannable(accCreatedAt)
       .ifFalse(record.banInEffect)

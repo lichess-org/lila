@@ -26,7 +26,7 @@ object AnnounceStore:
       case length :: unit :: rest =>
         Try {
           val msg     = rest mkString " "
-          val date    = nowDate plusSeconds Duration(s"$length $unit").toSeconds.toInt
+          val date    = nowInstant plusSeconds Duration(s"$length $unit").toSeconds.toInt
           val isoDate = isoDateFormatter format date
           val json    = Json.obj("msg" -> msg, "date" -> isoDate)
           Announce(msg, date, json)
@@ -35,4 +35,4 @@ object AnnounceStore:
     })
     get
 
-  def cancel = Announce("", nowDate, Json.obj())
+  def cancel = Announce("", nowInstant, Json.obj())

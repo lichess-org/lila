@@ -45,7 +45,7 @@ object JsonView:
 
   import lila.rating.Glicko.given
 
-  private given Writes[DateTime] = Writes { d =>
+  private given Writes[Instant] = Writes { d =>
     JsString(isoDateFormatter format d)
   }
   given OWrites[User] = OWrites { u =>

@@ -18,7 +18,7 @@ case class Team(
     nbMembers: Int,
     enabled: Boolean,
     open: Boolean,
-    createdAt: DateTime,
+    createdAt: Instant,
     createdBy: UserId,
     leaders: Set[UserId],
     chat: Team.Access,
@@ -60,7 +60,7 @@ object Team:
     if (u.isVerified) maxJoinCeiling * 2
     else
       {
-        15 + daysBetween(u.createdAt, nowDate) / 7
+        15 + daysBetween(u.createdAt, nowInstant) / 7
       } atMost maxJoinCeiling
 
   type Access = Int
@@ -113,7 +113,7 @@ object Team:
     nbMembers = 1,
     enabled = true,
     open = open,
-    createdAt = nowDate,
+    createdAt = nowInstant,
     createdBy = createdBy.id,
     leaders = Set(createdBy.id),
     chat = Access.MEMBERS,

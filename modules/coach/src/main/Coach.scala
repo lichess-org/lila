@@ -11,15 +11,15 @@ case class Coach(
     nbReviews: Int,
     user: Coach.User,
     languages: List[String],
-    createdAt: DateTime,
-    updatedAt: DateTime
+    createdAt: Instant,
+    updatedAt: Instant
 ):
 
   inline def id = _id
 
   def hasPicture = picture.isDefined
 
-  def daysOld = daysBetween(createdAt, nowDate)
+  def daysOld = daysBetween(createdAt, nowInstant)
 
 object Coach:
 
@@ -40,8 +40,8 @@ object Coach:
       nbReviews = 0,
       user = User(user.perfs.bestStandardRating, user.seenAt | user.createdAt),
       languages = user.lang.toList,
-      createdAt = nowDate,
-      updatedAt = nowDate
+      createdAt = nowInstant,
+      updatedAt = nowInstant
     )
 
   case class WithUser(coach: Coach, user: lila.user.User):
@@ -53,4 +53,4 @@ object Coach:
   opaque type Available = Boolean
   object Available extends YesNo[Available]
 
-  case class User(rating: IntRating, seenAt: DateTime)
+  case class User(rating: IntRating, seenAt: Instant)

@@ -67,5 +67,5 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
   )
 
   def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
-    _.fold(true)(_ < nowDate.minusDays(1).toMillis)
+    _.fold(true)(_ < nowInstant.minusDays(1).toMillis)
   }

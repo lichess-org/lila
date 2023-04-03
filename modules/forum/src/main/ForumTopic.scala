@@ -11,11 +11,11 @@ case class ForumTopic(
     categId: ForumCategId,
     slug: String,
     name: String,
-    createdAt: DateTime,
-    updatedAt: DateTime,
+    createdAt: Instant,
+    updatedAt: Instant,
     nbPosts: Int,
     lastPostId: ForumPostId,
-    updatedAtTroll: DateTime,
+    updatedAtTroll: Instant,
     nbPostsTroll: Int,
     lastPostIdTroll: ForumPostId,
     troll: Boolean,
@@ -27,7 +27,7 @@ case class ForumTopic(
 
   inline def id = _id
 
-  def updatedAt(forUser: Option[User]): DateTime =
+  def updatedAt(forUser: Option[User]): Instant =
     if (forUser.exists(_.marks.troll)) updatedAtTroll else updatedAt
   def nbPosts(forUser: Option[User]): Int   = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
   def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
@@ -58,7 +58,7 @@ case class ForumTopic(
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 
-  def isOld = updatedAt isBefore nowDate.minusMonths(1)
+  def isOld = updatedAt isBefore nowInstant.minusMonths(1)
 
   def lastPage(maxPerPage: MaxPerPage): Int =
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value
@@ -85,11 +85,11 @@ object ForumTopic:
     categId = categId,
     slug = slug,
     name = name,
-    createdAt = nowDate,
-    updatedAt = nowDate,
+    createdAt = nowInstant,
+    updatedAt = nowInstant,
     nbPosts = 0,
     lastPostId = ForumPostId(""),
-    updatedAtTroll = nowDate,
+    updatedAtTroll = nowInstant,
     nbPostsTroll = 0,
     lastPostIdTroll = ForumPostId(""),
     troll = troll,

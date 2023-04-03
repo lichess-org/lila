@@ -99,7 +99,7 @@ final class MsgApi(
       dest: UserId,
       text: String,
       multi: Boolean = false,
-      date: DateTime = nowDate,
+      date: Instant = nowInstant,
       ignoreSecurity: Boolean = false
   ): Fu[PostResult] =
     Msg.make(text, orig, date).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
@@ -191,7 +191,7 @@ final class MsgApi(
     post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
 
   def multiPost(orig: Holder, destSource: Source[UserId, ?], text: String): Fu[Int] =
-    val now = nowDate // same timestamp on all
+    val now = nowInstant // same timestamp on all
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
@@ -257,7 +257,7 @@ final class MsgApi(
 
   private val msgProjection = $doc("_id" -> false, "tid" -> false)
 
-  private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[DateTime]): Fu[List[Msg]] =
+  private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[Instant]): Fu[List[Msg]] =
     colls.msg
       .find(
         $doc("tid" -> threadId) ++ before.?? { b =>
@@ -290,7 +290,7 @@ final class MsgApi(
     $id(MsgThread.id(userId, User.lichessId)) ++ $doc("lastMsg.read" -> false)
   )
 
-  def allMessagesOf(userId: UserId): Source[(String, DateTime), ?] =
+  def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread
       .aggregateWith[Bdoc](
         readPreference = temporarilyPrimary
@@ -334,7 +334,7 @@ final class MsgApi(
         (for
           msg  <- doc child "msg"
           text <- msg string "text"
-          date <- msg.getAsOpt[DateTime]("date")
+          date <- msg.getAsOpt[Instant]("date")
         yield (text, date)).toList
       }
 

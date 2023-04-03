@@ -174,12 +174,12 @@ final class ActivityReadApi(
         }
       }
 
-  private def addSignup(at: DateTime, recent: Vector[ActivityView]) =
+  private def addSignup(at: Instant, recent: Vector[ActivityView]) =
     val (found, views) = recent.foldLeft(false -> Vector.empty[ActivityView]) {
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.sizeIs < Activity.recentNb && nowDate.minusDays(8).isBefore(at))
+    if (!found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at))
       views :+ ActivityView(
         interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true

@@ -105,7 +105,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           who,
           period,
           data.toList.sortBy(_._1).reverse.flatMap { case (date, row) =>
-            Try(java.time.LocalDateTime.parse(date, dateFormat)).toOption map { _ -> row }
+            Try(java.time.Instant.parse(date, dateFormat)).toOption map { _ -> row }
           }
         )
       }
@@ -115,7 +115,7 @@ object ModActivity:
   case class Result(
       who: Who,
       period: Period,
-      data: List[(DateTime, Day)]
+      data: List[(Instant, Day)]
   )
 
   case class Day(actions: Map[Action, Int], reports: Map[Room, Int]):
@@ -133,9 +133,9 @@ object ModActivity:
       else if (str == "month") Month
       else Week
     def dateSince(period: Period) = period match
-      case Period.Week  => nowDate.minusWeeks(1)
-      case Period.Month => nowDate.minusMonths(1)
-      case Period.Year  => nowDate.minusYears(1)
+      case Period.Week  => nowInstant.minusWeeks(1)
+      case Period.Month => nowInstant.minusMonths(1)
+      case Period.Year  => nowInstant.minusYears(1)
 
   sealed abstract class Who(val key: String)
   object Who:

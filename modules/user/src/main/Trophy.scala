@@ -4,7 +4,7 @@ case class Trophy(
     _id: String, // random
     user: UserId,
     kind: TrophyKind,
-    date: DateTime,
+    date: Instant,
     url: Option[String]
 ) extends Ordered[Trophy]:
 

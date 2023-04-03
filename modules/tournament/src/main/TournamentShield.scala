@@ -83,7 +83,7 @@ object TournamentShield:
   case class Award(
       categ: Category,
       owner: UserId,
-      date: DateTime,
+      date: Instant,
       tourId: TourId
   )
   // newer entry first

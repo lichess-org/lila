@@ -5,7 +5,7 @@ case class MiniPost(
     slug: String,
     title: String,
     shortlede: String,
-    date: DateTime,
+    date: Instant,
     image: String
 )
 

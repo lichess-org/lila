@@ -153,7 +153,7 @@ object BinaryFormat:
       (if (limit % 60 == 0) limit / 60 else limit / 15 + 180).toByte
 
   object clock:
-    def apply(start: DateTime) = new clock(Timestamp(start.toMillis))
+    def apply(start: Instant) = new clock(Timestamp(start.toMillis))
 
     def readConfig(ba: ByteArray): Option[Clock.Config] =
       ba.value match

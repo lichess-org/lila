@@ -66,7 +66,7 @@ final private class InsightIndexer(
         .sort(Query.sortChronological)
         .one[Game](readPreference = ReadPreference.secondaryPreferred)
 
-  private def computeFrom(user: User, from: DateTime): Funit =
+  private def computeFrom(user: User, from: Instant): Funit =
     storage nbByPerf user.id flatMap { nbs =>
       var nbByPerf = nbs
       def toEntry(game: Game): Fu[Option[InsightEntry]] =

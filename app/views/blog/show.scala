@@ -47,7 +47,7 @@ object show:
                 (doc
                   .getDate("blog.date")
                   .exists(
-                    _.value.withTimeAtStartOfDay isAfter nowDate.minusWeeks(2)
+                    _.value.withTimeAtStartOfDay isAfter nowInstant.minusWeeks(2)
                   )) option
                   a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
                     "Discuss this blog post in the forum"

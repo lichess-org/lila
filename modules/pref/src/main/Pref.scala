@@ -118,7 +118,7 @@ case class Pref(
 
   def is2d = !is3d
 
-  def agreementNeededSince: Option[DateTime] =
+  def agreementNeededSince: Option[Instant] =
     Agreement.showPrompt && agreement < Agreement.current option Agreement.changedAt
 
   def agree = copy(agreement = Agreement.current)
@@ -396,14 +396,14 @@ object Pref:
 
   object Agreement:
     val current    = 2
-    val changedAt  = java.time.LocalDateTime.of(2021, 12, 28, 8, 0)
-    val showPrompt = changedAt.isAfter(nowDate minusMonths 6)
+    val changedAt  = java.time.Instant.of(2021, 12, 28, 8, 0)
+    val showPrompt = changedAt.isAfter(nowInstant minusMonths 6)
 
   object Zen     extends BooleanPref
   object Ratings extends BooleanPref
 
-  val darkByDefaultSince   = java.time.LocalDateTime.of(2021, 11, 7, 8, 0)
-  val systemByDefaultSince = java.time.LocalDateTime.of(2022, 12, 23, 8, 0)
+  val darkByDefaultSince   = java.time.Instant.of(2021, 11, 7, 8, 0)
+  val systemByDefaultSince = java.time.Instant.of(2022, 12, 23, 8, 0)
 
   def create(id: UserId) = default.copy(_id = id)
 
