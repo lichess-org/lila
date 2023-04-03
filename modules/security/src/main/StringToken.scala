@@ -63,5 +63,5 @@ object StringToken:
     case Custom(f: String => Fu[Boolean])
 
   object DateStr:
-    def toStr(date: Instant)  = date.toMillis.toString
-    def toInstant(str: String) = str.toLongOption map millisToInstant
+    def toStr(date: Instant)   = date.toMillis.toString
+    def toInstant(str: String) = str.toLongOption map { millisToInstant(_) }

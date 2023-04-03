@@ -24,7 +24,7 @@ final class RelayRoundForm:
         cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
-      "startsAt"     -> optional(ISOInstantOrTimestamp.isoDateTimeOrTimestamp),
+      "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)

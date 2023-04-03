@@ -124,7 +124,7 @@ object Query:
   def createdSince(d: Instant): Bdoc =
     F.createdAt $gte d
 
-  def createdBetween(since: Option[Instant], until: Option[DateTime]): Bdoc =
+  def createdBetween(since: Option[Instant], until: Option[Instant]): Bdoc =
     (since, until) match
       case (Some(since), None)        => createdSince(since)
       case (None, Some(until))        => F.createdAt $lt until

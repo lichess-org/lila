@@ -396,14 +396,14 @@ object Pref:
 
   object Agreement:
     val current    = 2
-    val changedAt  = java.time.Instant.of(2021, 12, 28, 8, 0)
+    val changedAt  = instantOf(2021, 12, 28, 8, 0)
     val showPrompt = changedAt.isAfter(nowInstant minusMonths 6)
 
   object Zen     extends BooleanPref
   object Ratings extends BooleanPref
 
-  val darkByDefaultSince   = java.time.Instant.of(2021, 11, 7, 8, 0)
-  val systemByDefaultSince = java.time.Instant.of(2022, 12, 23, 8, 0)
+  val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)
+  val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
 
   def create(id: UserId) = default.copy(_id = id)
 

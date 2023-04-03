@@ -22,7 +22,7 @@ final class SwissFeature(
           .find(
             $doc(
               "teamId" -> lichessTeamId,
-              "startsAt" $gt nowInstant.minusMinutes(5) $lt nowDate.plusMinutes(10)
+              "startsAt" $gt nowInstant.minusMinutes(5) $lt nowInstant.plusMinutes(10)
             )
           )
           .sort($sort asc "startsAt")

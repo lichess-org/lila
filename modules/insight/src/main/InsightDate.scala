@@ -1,6 +1,6 @@
 package lila.insight
 
-case class DateRange(min: Instant, max: DateTime)
+case class DateRange(min: Instant, max: Instant)
 
 case class Period(days: Int):
   def max = nowInstant

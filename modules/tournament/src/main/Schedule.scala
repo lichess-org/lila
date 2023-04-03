@@ -13,7 +13,7 @@ case class Schedule(
     speed: Schedule.Speed,
     variant: Variant,
     position: Option[Fen.Opening],
-    at: Instant,
+    at: LocalDateTime,
     conditions: Condition.All = Condition.All.empty
 ):
 
@@ -136,7 +136,7 @@ object Schedule:
       speed = Speed fromClock tour.clock,
       variant = tour.variant,
       position = tour.position,
-      at = tour.startsAt
+      at = tour.startsAt.dateTime
     )
 
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]):

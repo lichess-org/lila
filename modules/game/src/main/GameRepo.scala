@@ -403,12 +403,12 @@ final class GameRepo(val coll: Coll)(using Executor):
     }
     val checkInHours =
       if (g2.isPgnImport) none
-      else if (g2.fromApi) some(24L * 7)
-      else if (g2.hasClock) 1L.some
-      else some(24L * 10)
+      else if (g2.fromApi) some(24 * 7)
+      else if (g2.hasClock) 1.some
+      else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
-      F.checkAt     -> checkInHours.map(nowInstant.plusHours),
+      F.checkAt     -> checkInHours.map(nowInstant.plusHours(_)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll.insert.one(bson) addFailureEffect {

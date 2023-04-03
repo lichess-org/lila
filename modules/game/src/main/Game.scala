@@ -671,7 +671,7 @@ object Game:
     chess.variant.Horde
   )
 
-  val hordeWhitePawnsSince = java.time.Instant.of(2015, 4, 11, 10, 0)
+  val hordeWhitePawnsSince = instantOf(2015, 4, 11, 10, 0)
 
   def isOldHorde(game: Game) =
     game.variant == chess.variant.Horde &&

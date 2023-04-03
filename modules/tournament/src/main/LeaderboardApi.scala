@@ -24,12 +24,12 @@ final class LeaderboardApi(
 
   def bestByUser(user: User, page: Int) = paginator(user, page, sortBest = true)
 
-  def timeRange(userId: UserId, range: (Instant, DateTime)): Fu[List[Entry]] =
+  def timeRange(userId: UserId, range: TimeInterval): Fu[List[Entry]] =
     repo.coll
       .find(
         $doc(
           "u" -> userId,
-          "d" $gt range._1 $lt range._2
+          "d" $gt range.start $lt range.end
         )
       )
       .sort($sort desc "d")

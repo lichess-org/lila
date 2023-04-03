@@ -10,6 +10,7 @@ import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
 import lila.tree.Node.Comments
 import lila.common.Json.given
+import java.time.LocalDate
 
 final class StudySearchApi(
     client: ESClient,
@@ -104,7 +105,7 @@ final class StudySearchApi(
     client match
       case c: ESClientHttp =>
         {
-          val sinceOption: Either[Unit, Option[Instant]] =
+          val sinceOption: Either[Unit, Option[LocalDate]] =
             if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
           val since = sinceOption match
             case Right(None) => sys error "Missing since date argument"
@@ -136,6 +137,6 @@ final class StudySearchApi(
         } >> client.refresh
       case _ => funit
 
-  private def parseDate(str: String): Option[Instant] =
+  private def parseDate(str: String): Option[LocalDate] =
     val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
-    scala.util.Try(java.time.Instant.parse(str, dateFormatter)).toOption
+    scala.util.Try(java.time.LocalDate.parse(str, dateFormatter)).toOption

@@ -24,7 +24,7 @@ final class SwissForm(using mode: Mode):
           "increment" -> number(min = 0, max = 120).into[IncrementSeconds]
         )(ClockConfig.apply)(unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
-        "startsAt"      -> optional(inTheFuture(ISOInstantOrTimestamp.isoDateTimeOrTimestamp)),
+        "startsAt"      -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
         "variant"       -> optional(typeIn(Variant.list.all.map(_.key).toSet)),
         "rated"         -> optional(boolean),
         "nbRounds"      -> number(min = minRounds, max = 100),
@@ -96,7 +96,7 @@ final class SwissForm(using mode: Mode):
   def nextRound =
     Form(
       single(
-        "date" -> inTheFuture(ISOInstantOrTimestamp.isoDateTimeOrTimestamp)
+        "date" -> inTheFuture(ISOInstantOrTimestamp.mapping)
       )
     )
 

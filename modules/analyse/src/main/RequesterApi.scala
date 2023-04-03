@@ -13,7 +13,7 @@ final class RequesterApi(coll: Coll)(using Executor):
       .one(
         $id(requester),
         $inc(
-          "total"                   -> 1,
+          "total"                      -> 1,
           formatter.format(nowInstant) -> (if (ownGame) 1 else 2)
         ),
         upsert = true
@@ -26,7 +26,7 @@ final class RequesterApi(coll: Coll)(using Executor):
       .one(
         $id(userId),
         $doc {
-          (7L to 0 by -1).toList.map(now.minusDays).map(formatter.format).map(_ -> BSONBoolean(true))
+          (7 to 0 by -1).toList.map(now.minusDays).map(formatter.format).map(_ -> BSONBoolean(true))
         }
       )
       .map { doc =>

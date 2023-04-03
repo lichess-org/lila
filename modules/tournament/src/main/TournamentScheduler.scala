@@ -2,6 +2,7 @@ package lila.tournament
 
 import chess.StartingPosition
 import scala.util.chaining.*
+import java.time.{ LocalDate, LocalDateTime }
 import java.time.Month.*
 import java.time.DayOfWeek.*
 import java.time.temporal.TemporalAdjusters
@@ -20,7 +21,7 @@ final private class TournamentScheduler(
   LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
     tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
       try
-        val newTourns = allWithConflicts(nowInstant).map(_.build)
+        val newTourns = allWithConflicts.map(_.build)
         val pruned    = pruneConflicts(dbScheds, newTourns)
         tournamentRepo.insert(pruned).logFailure(logger)
       catch
@@ -43,13 +44,13 @@ final private class TournamentScheduler(
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  private[tournament] def allWithConflicts(rightNow: Instant): List[Plan] =
-    val today       = rightNow.withTimeAtStartOfDay
-    val tomorrow    = rightNow plusDays 1
+  private[tournament] def allWithConflicts: List[Plan] =
+    val today       = LocalDate.now
+    val tomorrow    = today plusDays 1
     val startOfYear = today.withDayOfYear(1)
 
     class OfMonth(fromNow: Int):
-      val firstDay   = today.plusMonths(fromNow).withDayOfMonth(1)
+      val firstDay   = today.plusMonths(fromNow).dateTime.withDayOfMonth(1)
       val lastDay    = firstDay.`with`(TemporalAdjusters.lastDayOfMonth)
       val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek.getValue - 1) % 7)
       val secondWeek = firstWeek plusDays 7
@@ -58,7 +59,7 @@ final private class TournamentScheduler(
     val thisMonth = OfMonth(0)
     val nextMonth = OfMonth(1)
 
-    def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek.getValue) % 7)
+    def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.date.getDayOfWeek.getValue) % 7)
     val nextMonday                 = nextDayOfWeek(1)
     val nextTuesday                = nextDayOfWeek(2)
     val nextWednesday              = nextDayOfWeek(3)
@@ -67,13 +68,13 @@ final private class TournamentScheduler(
     val nextSaturday               = nextDayOfWeek(6)
     val nextSunday                 = nextDayOfWeek(7)
 
-    def secondWeekOf(month: java.time.Month) =
+    def secondWeekOf(month: java.time.Month): LocalDate =
       val start = orNextYear(startOfYear.withMonth(month.getValue))
       start.plusDays(15 - start.getDayOfWeek.getValue).withTimeAtStartOfDay
 
-    def orTomorrow(date: Instant) = if (date isBefore rightNow) date plusDays 1 else date
-    def orNextWeek(date: Instant) = if (date isBefore rightNow) date plusWeeks 1 else date
-    def orNextYear(date: Instant) = if (date isBefore rightNow) date plusYears 1 else date
+    def orTomorrow(date: LocalDateTime) = if date.isBeforeNow then date plusDays 1 else date
+    def orNextWeek(date: LocalDateTime) = if date.isBeforeNow then date plusWeeks 1 else date
+    def orNextYear(date: LocalDateTime) = if date.isBeforeNow then date plusYears 1 else date
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonth == OCTOBER
 

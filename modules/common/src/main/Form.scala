@@ -275,16 +275,16 @@ object Form:
           .left
           .map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
       def unbind(key: String, value: Instant) = Map(key -> value.toMillis.toString)
-    val timestamp = of[Instant](formatter)
+    val mapping = of[Instant](formatter)
   object ISODateOrTimestamp:
     val formatter: Formatter[LocalDate] = new:
       def bind(key: String, data: Map[String, String]) =
         ISODate.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data).map(_.date)
       def unbind(key: String, value: LocalDate) = ISODate.formatter.unbind(key, value)
-    val isoDateOrTimestamp = of[LocalDate](formatter)
+    val mapping = of[LocalDate](formatter)
   object ISOInstantOrTimestamp:
     val formatter: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) =
         ISOInstant.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
       def unbind(key: String, value: Instant) = ISOInstant.formatter.unbind(key, value)
-    val isoInstantOrTimestamp = of[Instant](formatter)
+    val mapping = of[Instant](formatter)

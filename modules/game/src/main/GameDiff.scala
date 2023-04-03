@@ -98,7 +98,7 @@ object GameDiff:
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, ply => w.intO(ply.value))
       dTry(s"$name$blursBits", player(_).blurs, Blurs.blursHandler.writeTry)
-    dTry(movedAt, _.movedAt, dateTimeHandler.writeTry)
+    dTry(movedAt, _.movedAt, instantHandler.writeTry)
 
     (setBuilder.toList, unsetBuilder.toList)
 

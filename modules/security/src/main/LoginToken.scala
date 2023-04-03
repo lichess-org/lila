@@ -23,7 +23,7 @@ private object LoginToken:
       currentValueHashSize = none,
       valueChecker = StringToken.ValueChecker.Custom(v =>
         fuccess {
-          DateStr.toDate(v) exists nowInstant.minusSeconds(lifetime.toSeconds.toInt).isBefore
+          DateStr.toInstant(v) exists nowInstant.minus(lifetime).isBefore
         }
       )
     )
