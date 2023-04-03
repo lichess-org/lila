@@ -2,13 +2,11 @@ package lila.common
 
 import chess.Color
 import chess.format.Fen
-import org.joda.time.DateTimeZone
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.Forms.*
-import play.api.data.JodaForms.*
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Field, FormError, JodaFormats, Mapping, Form => PlayForm }
+import play.api.data.{ Field, FormError, Mapping, Form => PlayForm }
 import play.api.data.validation as V
 import scala.util.Try
 import java.time.LocalDate

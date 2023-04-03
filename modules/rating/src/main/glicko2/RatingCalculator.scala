@@ -1,8 +1,6 @@
 package lila.rating
 package glicko2
 
-import org.joda.time.Duration
-
 // rewrite from java https://github.com/goochjs/glicko2
 object RatingCalculator:
 

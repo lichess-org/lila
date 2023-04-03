@@ -1,7 +1,6 @@
 package lila.history
 
 import chess.Speed
-import org.joda.time.Days
 import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently

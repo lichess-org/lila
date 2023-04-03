@@ -1,6 +1,5 @@
 package views.html.base
 
-import org.joda.time.format.ISODateTimeFormat
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.*

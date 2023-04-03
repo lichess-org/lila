@@ -1,6 +1,5 @@
 package lila.activity
 
-import org.joda.time.Interval
 import play.api.i18n.Lang
 
 import lila.common.Heapsort
@@ -51,13 +50,13 @@ final class ActivityReadApi(
       _ <- preloadAll(views)
     } yield addSignup(u.createdAt, views)
 
-  private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for {
+  private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for
     _ <- lightUserApi.preloadMany(views.flatMap(_.follows.??(_.allUserIds)))
     _ <- getTourName.preload(views.flatMap(_.tours.??(_.best.map(_.tourId))))
-  } yield ()
+  yield ()
 
   private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
-    for {
+    for
       allForumPosts <- a.forumPosts ?? { p =>
         forumPostApi
           .liteViewsByIds(p.value)
@@ -132,8 +131,7 @@ final class ActivityReadApi(
           .?? { swisses =>
             toSwissesView(swisses.value).dmap(_.some.filter(_.nonEmpty))
           }
-
-    } yield ActivityView(
+    yield ActivityView(
       interval = a.interval,
       games = a.games,
       puzzles = a.puzzles,

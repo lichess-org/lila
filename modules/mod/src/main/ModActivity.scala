@@ -1,6 +1,5 @@
 package lila.mod
 
-import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.Json
 import scala.util.Try
 
@@ -22,11 +21,11 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
   private val cache = cacheApi[CacheKey, Result](64, "mod.activity") {
     _.expireAfter[CacheKey, Result](
       create = (key, _) =>
-        key match {
+        key match
           case (_, Period.Week)  => 15.seconds
           case (_, Period.Month) => 5.minutes
           case (_, Period.Year)  => 1.day
-        },
+      ,
       update = (_, _, current) => current,
       read = (_, _, current) => current
     ).buildAsyncFuture((compute).tupled)
@@ -48,10 +47,10 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           Match(
             $doc(
               "open" -> false,
-              who match {
+              who match
                 case Who.Me(userId) => "done.by" -> userId
                 case Who.Team       => "done.by" $nin List(User.lichessId, User.irwinId)
-              },
+              ,
               "done.at" $gt Period.dateSince(period)
             )
           ),
@@ -62,10 +61,10 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           $doc(
             "human" -> true,
             "date" $gt Period.dateSince(period)
-          ) ++ (who match {
+          ) ++ (who match
             case Who.Me(userId) => $doc("mod" -> userId)
             case Who.Team       => $empty
-          })
+          )
         ) -> List(
           Group($arr(dateToString("date"), "$action"))("nb" -> SumAll),
           PipelineOperator(
@@ -81,13 +80,13 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         )
       }
       .map { docs =>
-        for {
+        for
           doc  <- docs
           id   <- doc.getAsOpt[List[String]]("_id")
           date <- id.headOption
           key  <- id lift 1
           nb   <- doc.int("nb")
-        } yield (date, key, nb)
+        yield (date, key, nb)
       }
       .map {
         _.foldLeft(Map.empty[String, Day]) { case (acc, (date, key, nb)) =>

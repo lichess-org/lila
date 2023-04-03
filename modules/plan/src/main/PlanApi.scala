@@ -3,7 +3,6 @@ package lila.plan
 import play.api.i18n.Lang
 import reactivemongo.api.*
 import cats.syntax.all.*
-import org.joda.time.{ Days, DateTime }
 
 import lila.common.config.Secret
 import lila.common.{ Bus, IpAddress, EmailAddress }

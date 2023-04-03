@@ -3,7 +3,6 @@ package lila.study
 import akka.stream.scaladsl.*
 import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
 import chess.format.{ pgn as chessPgn }
-import org.joda.time.format.DateTimeFormat
 import scala.concurrent.duration.*
 
 import lila.common.String.slugify
@@ -139,20 +138,20 @@ object PgnDump:
     }
     s"$circles$arrows".some.filter(_.nonEmpty)
 
-  def toTurn(first: Node, second: Option[Node], variations: Variations)(using flags: WithFlags) =
+  def toTurn(first: Node, second: Option[Node], variations: Variations)(using WithFlags) =
     chessPgn.Turn(
       number = first.fullMoveNumber.value,
       white = node2move(first, variations).some,
       black = second map { node2move(_, first.children.variations) }
     )
 
-  def toTurns(root: Node.Root)(using flags: WithFlags): Vector[chessPgn.Turn] =
+  def toTurns(root: Node.Root)(using WithFlags): Vector[chessPgn.Turn] =
     toTurns(root.mainline, root.children.variations)
 
   def toTurns(
       line: Vector[Node],
       variations: Variations
-  )(using flags: WithFlags): Vector[chessPgn.Turn] = {
+  )(using WithFlags): Vector[chessPgn.Turn] = {
     line match
       case Vector() => Vector()
       case first +: rest if first.ply.isEven =>
@@ -164,9 +163,7 @@ object PgnDump:
       case l => toTurnsFromWhite(l, variations)
   }.filterNot(_.isEmpty)
 
-  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(using
-      flags: WithFlags
-  ): Vector[chessPgn.Turn] =
+  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(using WithFlags): Vector[chessPgn.Turn] =
     line
       .grouped(2)
       .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case ((variations, turns), pair) =>

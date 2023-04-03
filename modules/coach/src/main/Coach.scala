@@ -1,7 +1,5 @@
 package lila.coach
 
-import org.joda.time.Days
-
 import lila.memo.PicfitImage
 
 case class Coach(

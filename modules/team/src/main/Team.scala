@@ -6,7 +6,6 @@ import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.User
-import org.joda.time.Days
 import lila.hub.LightTeam.TeamName
 
 case class Team(

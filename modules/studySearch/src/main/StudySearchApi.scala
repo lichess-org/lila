@@ -3,7 +3,6 @@ package lila.studySearch
 import akka.actor.*
 import akka.stream.scaladsl.*
 import chess.format.pgn.Tag
-import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.*
 
 import lila.hub.LateMultiThrottler
