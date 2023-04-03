@@ -87,7 +87,9 @@
   <string name="openingExplorer">Зберька дебютув</string>
   <string name="openingEndgameExplorer">Дебютна/ендшпільова зберька</string>
   <string name="unknownDueToRounding">Уграш/прыйграш бізувный лем тоды, коли мусайна поступность ходув была довершена из момента послїднього взятя фіґуры вадь хода пішака позад можного кругленя значень DTZ у базах Syzygy.</string>
+  <string name="allSet">Фунґує!</string>
   <string name="delete">Стерти</string>
+  <string name="realtimeReplay">Таги у бавцї</string>
   <string name="byCPL">По страченым воякам</string>
   <string name="enable">Уключити</string>
   <string name="cpus">Ядер</string>
@@ -109,7 +111,9 @@
     <item quantity="few">%s бавкы</item>
     <item quantity="other">%s бавок</item>
   </plurals>
+  <string name="logOut">Уйти</string>
   <string name="signIn">Зайти</string>
+  <string name="signUp">Реґістрація</string>
   <string name="computersAreNotAllowedToPlay">Заказано бавити, хоснувучи даколи шахматні проґрамы ай абсолутно хоснувучи їх у бавцї. Не мож такой хосновати базы даных ай помуч другых бавлячув. Не чиніт повно акаунтув, ото може привести од блокованьови.</string>
   <string name="games">Бавкы</string>
   <string name="forum">Форум</string>
@@ -117,6 +121,7 @@
   <string name="friends">Цімборы</string>
   <string name="today">Днись</string>
   <string name="variant">Варіант</string>
+  <string name="variants">Варіанты</string>
   <string name="oneDay">Єден динь</string>
   <plurals name="nbDays">
     <item quantity="one">%s динь</item>
@@ -132,6 +137,7 @@
   <string name="rating">Рейтінґ</string>
   <string name="changeUsernameDescription">Перемінити своє имня. Мож учинити лем раз, при тум перемінити мож лем реґістр.</string>
   <string name="signupUsernameHint">Пересвідчіт ся ож убрали сьте статочноє имня. Вы не зможете перемінити го пак ай вшыткі акаунты из провокативными именами будут закрыті!</string>
+  <string name="password">Парола</string>
   <string name="email">Електрона почта</string>
   <string name="error.weakPassword">Сися парола дуже легка, ї дуже просто угадати.</string>
   <string name="blankedPassword">Вы хосновали таку паролу на другому сайтови, из того сайту ся стало протїканя інформації. Обы обеспечити безопасность свого Lichess акаунту, захоснуйте другу паролу. Дякуєме за розуміня.</string>
@@ -143,9 +149,12 @@
   <string name="checkSpamFolder">Такой перевірте фасціклу из спамом, письмо може быти там. Кідь там, укажіт го ги не спам.</string>
   <string name="emailForSignupHelp">Кідь нич не заробило, заженіт нам се письмо:</string>
   <string name="rank">Ранґ</string>
+  <string name="rankX">Місто: %s</string>
   <string name="cancel">Одмінити</string>
   <string name="accept">Прияти</string>
   <string name="decline">Одхылити</string>
+  <string name="finished">Довершеный</string>
+  <string name="standard">Прості шахматы</string>
   <string name="mode">Тіп</string>
   <string name="casual">Цімборська бавка</string>
   <string name="rated">Рейтінґова</string>
@@ -156,6 +165,11 @@
   <string name="inbox">Приходячі</string>
   <string name="subject">Тема</string>
   <string name="send">Загнати</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s рейтінґова</item>
+    <item quantity="few">%s рейтінґові</item>
+    <item quantity="other">%s рейтінґовых</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s побіда</item>
     <item quantity="few">%s побід</item>
@@ -172,7 +186,15 @@
     <item quantity="other">%s реміз</item>
   </plurals>
   <string name="thisAccountViolatedTos">Сись бавляч нарушив правила хоснованя Lichess</string>
+  <string name="takeback">Вернути ход</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%s штудія</item>
+    <item quantity="few">%s штудії</item>
+    <item quantity="other">%s штудій</item>
+  </plurals>
+  <string name="thematic">Тематічный</string>
   <string name="siteDescription">Задарні онлайн шахматы. Бавте у шахматы такой тепирь у легкому інтерфейсови без рекламы. Не треба реґістрації тай стерьханя проґрамы. Бавте против компютора, цімборами вадь трафными противниками.</string>
+  <string name="location">Полога</string>
   <string name="reset">Зверичи</string>
   <string name="apply">Усокотити</string>
   <string name="save">Усокотити</string>
@@ -181,6 +203,7 @@
   <string name="clickOnTheBoardToMakeYourMove">Клопкніт на дощку, обы учинити ход ай доказати, ож исьте чоловік.</string>
   <string name="retry">Щи раз</string>
   <string name="follow">Подписати ся</string>
+  <string name="unfollow">Одписати ся</string>
   <string name="block">Заблоковати</string>
   <string name="blocked">Заблокованоє</string>
   <string name="unblock">Розблоковати</string>
