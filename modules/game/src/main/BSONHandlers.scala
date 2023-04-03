@@ -98,8 +98,8 @@ object BSONHandlers:
       val playedPlies = ply - startedAtPly
       val gameVariant = Variant.idOrDefault(r.getO[Variant.Id](F.variant))
 
-      val whitePlayer = Player.from(light, Color.white, playerIds, r.get[Bdoc](F.whitePlayer))
-      val blackPlayer = Player.from(light, Color.black, playerIds, r.get[Bdoc](F.blackPlayer))
+      val whitePlayer = Player.from(light, Color.white, playerIds, r.getD[Bdoc](F.whitePlayer))
+      val blackPlayer = Player.from(light, Color.black, playerIds, r.getD[Bdoc](F.blackPlayer))
 
       val decoded = r.bytesO(F.huffmanPgn) match
         case Some(huffPgn) => PgnStorage.Huffman.decode(huffPgn, playedPlies, light.id)

@@ -193,9 +193,9 @@ object Node:
     )
   }
 
-  // private given Writes[Pos] = Writes[Pos] { p =>
-  //   JsString(p.key)
-  // }
+  private given Writes[Pos] = Writes[Pos] { p =>
+    JsString(p.key)
+  }
   private val shapeCircleWrites = Json.writes[Shape.Circle]
   private val shapeArrowWrites  = Json.writes[Shape.Arrow]
   given shapeWrites: Writes[Shape] = Writes[Shape] {

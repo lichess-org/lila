@@ -46,6 +46,7 @@ Pasvorto: %3$s</string>
   <string name="createDesc2">Neniu retpoŝtadreso estas bezonata. Pasvorto estos generita, kaj vi devos transdoni ĝin al la studento, por ke ili povu ensaluti.</string>
   <string name="createDesc3">Grava: studento ne devas havi pluraj kontoj.</string>
   <string name="createDesc4">Se ili jam havas unu, uzu anstataŭe la inviti formo anstataŭe.</string>
+  <string name="createStudentWarning">Nur kreu kontojn por veraj studentoj. Ne uzu ĉi tion por krei plurajn kontojn por vi mem. Vi estus malpermesita.</string>
   <string name="lichessUsername">Lichess-uzantnomo</string>
   <string name="generateANewUsername">Krei novan uzantonomon</string>
   <string name="welcomeToClass">Bonvenon al via klaso: %s.
