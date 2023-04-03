@@ -196,33 +196,42 @@ interface LichessEditor {
 }
 
 declare namespace Voice {
-  export type MsgType = 'phrase' | 'status' | 'error' | 'stop' | 'start';
-
   export type WordResult = Array<{
-    word: string;
-    conf: number;
-    start: number;
-    end: number;
+    word: string; // WordResult, Sub, and Entry are not required for basic command dictation.
+    conf: number; // they are provided here if clients want to use a custom grammar for
+    start: number; // voiceMove-like disambiguation.
+    end: number; // see voice/@build/README.md for more info.
   }>;
+  export type Sub = { to: string; cost: number };
+  export type Entry = { in: string; tok: string; tags: string[]; val?: string; subs?: Sub[] };
 
+  export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
+  export type ListenMode = 'full' | 'partial';
   export type Listener = (msgText: string, msgType: MsgType, words?: WordResult) => void;
 
   export interface Microphone {
-    // keep rounds, puzzle, move stuff out of this
-    setVocabulary: (vocabulary: string[]) => Promise<void>;
+    setVocabulary: (vocabulary: string[], mode?: ListenMode) => Promise<void>; // required
+
+    mode: ListenMode; // starts in full
+
+    // optional, to fetch a grammar in parallel during initialization
+    useGrammar: (grammarName: string, callback: (z: Entry[]) => void) => void;
 
     start: () => Promise<void>; // initialize if necessary and begin recording
     stop: () => void; // stop recording/downloading/whatever
 
-    pause: () => void; // pause recording, no overhead
-    resume: () => void; // resume recording, dangerous
+    pause: () => void; // mute mic, no overhead
+    resume: () => void; // unmute mic
 
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
-    readonly isRecording: boolean; // are we recording?
+    readonly isListening: boolean; // are we recording?
     readonly status: string; // errors, progress, or the most recent voice command
 
-    addListener: (name: string, listener: Listener) => void;
-    removeListener: (name: string) => void;
+    //readonly grammar: Entry[]; // optionally fetched during initialization
+
+    addListener: (id: string, listener: Listener, mode?: ListenMode) => void;
+    removeListener: (id: string) => void;
+
     stopPropagation: () => void; // listeners can call this to stop propagation during modal interactions
   }
 }

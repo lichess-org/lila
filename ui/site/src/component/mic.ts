@@ -1,128 +1,144 @@
 import { objectStorage } from 'common/objectStorage';
+import * as xhr from 'common/xhr';
 
 const modelSource = 'vendor/vosk/model-en-us-0.15.tar.gz';
 
-export const mic: Voice.Microphone =
+class Recognizer {
+  listenerMap = new Map<string, Voice.Listener>();
+  vocab: string[] = [];
+  node?: AudioNode;
+
+  get listeners(): Voice.Listener[] {
+    return [...this.listenerMap.values()].reverse(); // LIFO
+  }
+}
+
+// mic supports at most two simultaneous recognizers, one for full phrases and the other for partials
+export const mic =
   window.LichessVoicePlugin?.mic ??
   new (class implements Voice.Microphone {
-    audioCtx?: AudioContext;
-    mediaStream?: MediaStream;
-    micSource?: AudioNode;
-    voskNode?: AudioNode;
+    grammar?: { name: string; callback: (g: Voice.Entry[]) => void };
+
+    audioCtx: AudioContext;
+    mediaStream: MediaStream;
+    micSource: AudioNode;
+
+    listenMode: Voice.ListenMode;
+    recs: { full: Recognizer; partial: Recognizer };
     download?: XMLHttpRequest;
     broadcastTimeout?: number;
-    vocabulary: string[] = [];
     voskStatus = '';
     busy = false;
     interrupt = false;
-    paused = 1;
-    listeners = new Map<string, Voice.Listener>();
+    paused = 0;
 
     constructor() {
       (window.LichessVoicePlugin as any) = { mic: this, vosk: undefined };
       lichess.mic = this;
+      this.recs = { full: new Recognizer(), partial: new Recognizer() };
     }
 
-    addListener(name: string, listener: Voice.Listener) {
-      this.listeners.set(name, listener);
+    get vosk(): any {
+      return (window.LichessVoicePlugin as any)?.vosk;
     }
 
-    removeListener(name: string) {
-      this.listeners.delete(name);
+    addListener(id: string, listener: Voice.Listener, mode: Voice.ListenMode = 'full') {
+      this.recs[mode].listenerMap.set(id, listener);
     }
 
-    async setVocabulary(vocab: string[]) {
-      if (vocab.length === this.vocabulary.length && vocab.every((value, index) => value === this.vocabulary[index]))
-        return;
-      this.vocabulary = vocab;
-      if (window.LichessVoicePlugin.vosk) await this.initKaldi(true);
+    removeListener(id: string) {
+      Object.values(this.recs).forEach(rec => rec.listenerMap.delete(id));
     }
 
-    get isBusy(): boolean {
-      return this.busy;
+    async setVocabulary(vocab: string[], mode: Voice.ListenMode = 'full') {
+      const rec = this.recs[mode];
+      if (vocab.length === rec.vocab.length && vocab.every((w, i) => w === rec.vocab[i])) return;
+      rec.vocab = vocab;
+      if (!this.vosk?.ready()) return;
+      this.stop();
+      await this.initKaldi(mode);
     }
 
-    get status(): string {
-      return this.voskStatus;
-    }
-
-    get isRecording(): boolean {
-      return this.paused === 0 && !this.busy && this.mediaStream?.getAudioTracks()[0].enabled === true;
+    useGrammar(name: string, callback: (g: Voice.Entry[]) => void) {
+      this.grammar = { name: name, callback: callback };
     }
 
     stop() {
-      this.paused = 1;
+      if (this.micTrack) this.micTrack.enabled = false;
+      this.vosk?.stop();
       this.download?.abort();
-      this.mediaStream?.getAudioTracks().forEach(t => (t.enabled = false));
       if (!this.download) this.broadcast('', 'stop');
       this.download = undefined;
     }
 
     async start(): Promise<void> {
-      let [msgText, msgType] = ['Unknown', 'error' as Voice.MsgType];
+      let [text, msgType] = ['Unknown', 'error' as Voice.MsgType];
       try {
-        if (this.isRecording) return;
-        this.paused = 0;
+        if (this.isListening) return;
         this.busy = true;
         await this.initModel();
         await this.initKaldi();
-        this.mediaStream!.getAudioTracks()[0].enabled = true;
-        [msgText, msgType] = ['Listening...', 'start'];
+        this.micTrack!.enabled = true;
+        this.mode = 'full';
+        [text, msgType] = ['Listening...', 'start'];
       } catch (e: any) {
-        this.voskNode?.disconnect();
-        this.micSource?.disconnect();
-        this.audioCtx?.close();
-        this.voskNode = undefined;
-        this.micSource = undefined;
-        this.audioCtx = undefined;
         this.stop();
         console.log(e);
-        [msgText, msgType] = [e.toString(), 'error'];
+        [text, msgType] = [e.toString(), 'error'];
         throw e;
       } finally {
         this.busy = false;
-        this.broadcast(msgText, msgType, undefined, 4000);
+        this.broadcast(text, msgType, undefined, 4000);
       }
     }
 
     // pause/resume use a counter so calls must be balanced.
     pause() {
-      if (++this.paused !== 1 || !this.mediaStream?.getAudioTracks()[0].enabled) return;
-      this.mediaStream.getAudioTracks()[0].enabled = false;
+      if (++this.paused !== 1 || !this.micTrack?.enabled) return;
+      this.micTrack.enabled = false;
       this.broadcast('Paused...', 'status');
     }
 
     resume() {
       this.paused = Math.min(this.paused - 1, 0);
-      if (this.paused !== 0 || this.mediaStream?.getAudioTracks()[0].enabled !== false) return;
-      this.mediaStream.getAudioTracks()[0].enabled = true;
+      if (this.paused !== 0 || this.micTrack?.enabled === undefined) return;
+      this.micTrack.enabled = true;
       this.broadcast('Listening...', 'status');
     }
 
-    async initKaldi(force = false) {
-      if (!this.vocabulary || (!force && this.voskNode)) return;
-      const wasRecording = this.isRecording;
-      this.mediaStream!.getAudioTracks()[0].enabled = false;
-
-      if (this.voskNode) this.voskNode.disconnect();
-      this.voskNode = await window.LichessVoicePlugin.vosk.initKaldi({
-        audioCtx: this.audioCtx!,
-        keys: this.vocabulary,
-        broadcast: this.broadcast.bind(this),
-        impl: 'vanilla',
-      });
-      this.micSource!.connect(this.voskNode!);
-      this.voskNode!.connect(this.audioCtx!.destination);
-      this.mediaStream!.getAudioTracks()[0].enabled = wasRecording;
+    async initKaldi(mode?: Voice.ListenMode) {
+      if (!mode && Object.values(this.recs).every(r => r.node || r.vocab.length === 0)) return;
+      const modes = mode ? [mode] : (['full', 'partial'] as Voice.ListenMode[]);
+      for (const m of modes) {
+        const rec = this.recs[m];
+        if (!mode && (rec.node || rec.vocab.length === 0)) continue;
+        rec.node = await this.vosk?.setRecognizer({
+          mode: m,
+          audioCtx: this.audioCtx!,
+          vocab: rec.vocab,
+          broadcast: this.broadcast.bind(this),
+        });
+      }
     }
 
     async initModel(): Promise<void> {
-      if (this.micSource) return;
+      if (this.vosk?.ready()) return;
       this.broadcast('Loading...');
       const modelUrl = lichess.assetUrl(modelSource, { noVersion: true });
       const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
-      if (!window.LichessVoicePlugin.vosk) await lichess.loadModule('input.vosk');
+      const grammarAsync = this.grammar
+        ? xhr.json(lichess.assetUrl(`grammar/${this.grammar.name}.json`))
+        : Promise.resolve();
+      const audioAsync = this.initAudio();
+      await lichess.loadModule('input.vosk');
+      this.grammar?.callback((await grammarAsync) as Voice.Entry[]);
+      await downloadAsync;
+      await this.vosk.initModel(modelUrl);
+      await audioAsync;
+    }
 
+    async initAudio(): Promise<void> {
+      if (this.audioCtx) return;
       this.audioCtx = new AudioContext();
       this.mediaStream = await navigator.mediaDevices.getUserMedia({
         video: false,
@@ -133,8 +149,40 @@ export const mic: Voice.Microphone =
         },
       });
       this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
-      await downloadAsync;
-      await window.LichessVoicePlugin.vosk.initModel(modelUrl);
+    }
+
+    set mode(mode: Voice.ListenMode) {
+      if (!this.recs[mode]) return;
+      const hookup = () => {
+        this.recs[this.listenMode]?.node?.disconnect();
+        this.micSource!.disconnect();
+        this.micSource!.connect(this.recs[mode].node!);
+        this.recs[mode].node!.connect(this.audioCtx!.destination);
+        this.vosk.setMode(mode);
+        this.listenMode = mode;
+      };
+      if (mode === 'partial') this.initKaldi(mode).then(hookup); // partial recs crap out after one use
+      else hookup();
+    }
+
+    get mode(): Voice.ListenMode {
+      return this.listenMode;
+    }
+
+    get isBusy(): boolean {
+      return this.busy;
+    }
+
+    get status(): string {
+      return this.voskStatus;
+    }
+
+    get isListening(): boolean {
+      return this.paused === 0 && !this.busy && this.micTrack?.enabled === true;
+    }
+
+    get micTrack(): MediaStreamTrack | undefined {
+      return this.mediaStream?.getAudioTracks()[0];
     }
 
     broadcast(
@@ -143,9 +191,13 @@ export const mic: Voice.Microphone =
       words: Voice.WordResult | undefined = undefined,
       forMs = 0
     ) {
+      if (msgType === 'partial') {
+        for (const li of this.recs['partial'].listeners) li(text, msgType);
+        return;
+      }
       window.clearTimeout(this.broadcastTimeout);
       this.voskStatus = text;
-      for (const li of [...this.listeners.values()].reverse()) {
+      for (const li of this.recs['full'].listeners) {
         if (!this.interrupt) li(text, msgType, words);
       }
       this.interrupt = false;

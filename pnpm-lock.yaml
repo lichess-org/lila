@@ -593,6 +593,7 @@ importers:
       stockfish.js: ^10.0.2
       stockfish.wasm: ^0.10.0
       tablesort: ^5.3.0
+      voice: workspace:*
       zxcvbn: ^4.4.2
     dependencies:
       '@fnando/sparkline': 0.3.10
@@ -619,6 +620,7 @@ importers:
       stockfish.js: 10.0.2
       stockfish.wasm: 0.10.0
       tablesort: 5.3.0
+      voice: link:../voice
       zxcvbn: 4.4.2
 
   ui/storm:

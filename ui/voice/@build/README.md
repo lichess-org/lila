@@ -2,15 +2,14 @@
 
 ```
 the idea is that no transform on a heard phrase should be allowed if the sum of its
-substitution costs exceed some value, say 1.0. the makeGrammar script generates
-typescript arrays defining word grammars (tokens, substitution rules, etc) at
-src/voiceMoveGrammar<lang>.ts. these are built from the inputs in ./lexicon/*.json
-and a crowdv.json
+substitution costs exceed some value, say 1.0. the makeGrammar script generates json
+arrays defining word grammars (tokens, substitution rules, etc) at grammar/<type-lang>.json.
+these are built from the inputs in ./lexicon/*.json and a crowdv.json
 
 crowdv.jsons are not kept in the lila.git due to their size, see description of
 makeGrammar's {in} argument
 
-the lexicon folder contains <lang>-lex.jsons and optional <lang>-patch.jsons (where
+the lexicon folder contains <grammar>-lex.jsons and optional <grammar>-patch.jsons (where
 manual substitutions can be defined). patch entries should only be applied to
 vocabulary words that lack a sufficient sample in the crowdv data.
 
@@ -21,9 +20,8 @@ vocabulary words that lack a sufficient sample in the crowdv data.
 ```
 node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
                          --count=6 \
-                         --lang=en \
-                         --in=crowdv-en-1.json \
-                         --out=../src/voiceMoveGrammar
+                         --grammar=moves-en \
+                         --in=crowdv-en-1.json
 ```
 
 ## arguments:
@@ -41,9 +39,6 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
     - as a local file either absolute or relative to the @build/crowdv directory
     - as a https url
     - otherwise, downloaded from https://raw.githubusercontent.com/schlawg/crowdv/master/*
-
-  {out} is the output filename (minus language code and extension) relative to @build for the
-    generated grammar typescript
 ```
 
 # some terminology:

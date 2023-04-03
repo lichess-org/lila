@@ -3,11 +3,11 @@ import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import { storedBooleanProp } from 'common/storage';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { type VoiceMove } from './voiceMove';
+import { type VoiceMove } from './interfaces';
 import * as xhr from 'common/xhr';
 
-export { makeVoiceMove, type VoiceMove } from './voiceMove';
-export { type RootCtrl } from './interfaces';
+export { makeVoiceMove } from './voiceMove';
+export { type RootCtrl, type VoiceMove } from './interfaces';
 
 export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
   const rec = storedBooleanProp('recording', false);
@@ -18,20 +18,16 @@ export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
         hook: bind('click', () => ctrl.showHelp(true)),
       }),
       h('p#voice-status', {
-        hook: onInsert(el =>
-          lichess.mic?.addListener('moveInput', txt => {
-            el.innerText = txt;
-          })
-        ),
+        hook: onInsert(el => lichess.mic?.addListener('moveInput', txt => (el.innerText = txt))),
       }),
       h('a#microphone-button', {
-        class: { enabled: lichess.mic!.isRecording, busy: lichess.mic!.isBusy },
+        class: { enabled: lichess.mic!.isListening, busy: lichess.mic!.isBusy },
         attrs: { role: 'button', ...dataIcon(lichess.mic?.isBusy ? '' : '') },
         hook: onInsert(el => {
           el.addEventListener('click', _ => {
-            rec(!(lichess.mic?.isRecording || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
+            rec(!(lichess.mic?.isListening || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
           });
-          if (rec() && !lichess.mic?.isRecording) setTimeout(() => el.dispatchEvent(new Event('click')));
+          if (rec() && !lichess.mic?.isListening) setTimeout(() => el.dispatchEvent(new Event('click')));
         }),
       }),
       h('a#voice-settings-button', {
@@ -40,7 +36,7 @@ export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
       }),
     ]),
     voiceSettings(ctrl),
-    ctrl.showHelp() ? voiceModal(ctrl) : null,
+    ctrl.showHelp() ? helpModal(ctrl) : null,
   ]);
 }
 
@@ -73,7 +69,22 @@ function voiceSettings(ctrl: VoiceMove): VNode {
       }),
       h('div.range_value', ['Mouse', 'Normal', 'Cowboy'][ctrl.arrogance()]),
     ]),
-
+    h('div.setting', [
+      h('label', { attrs: { for: 'countdown' } }, 'Countdown'),
+      h('input#countdown', {
+        attrs: {
+          type: 'range',
+          min: 0,
+          max: 5,
+          step: 1,
+        },
+        hook: rangeConfig(ctrl.countdown, (val: number) => {
+          ctrl.countdown(val);
+          ctrl.root.redraw();
+        }),
+      }),
+      h('div.range_value', ['Off', '1s', '2s', '3s', '4s', '5s'][ctrl.countdown()]),
+    ]),
     h('div.choices', [
       'Label with',
       h(
@@ -99,15 +110,12 @@ function choiceButton(ctrl: VoiceMove, pref: ArrowPref) {
 
 function toggleSettings() {
   const settingsButton = $('#voice-settings-button');
-  $('#voice-settings-button').toggleClass('active');
-  if (settingsButton.hasClass('active')) {
-    $('#voice-settings').show();
-  } else {
-    $('#voice-settings').hide();
-  }
+  settingsButton.toggleClass('active');
+  if (settingsButton.hasClass('active')) $('#voice-settings').show();
+  else $('#voice-settings').hide();
 }
 
-function voiceModal(ctrl: VoiceMove) {
+function helpModal(ctrl: VoiceMove) {
   return snabModal({
     class: `voice-move-help`,
     content: [h('div.scrollable', spinner())],
@@ -131,7 +139,6 @@ function voiceModal(ctrl: VoiceMove) {
           html += '</tr>';
         }
         html += '</tbody></table>';
-        //$('#modal-wrap').toggleClass('bigger');
         el.find('.scrollable').html(html);
       });
     },

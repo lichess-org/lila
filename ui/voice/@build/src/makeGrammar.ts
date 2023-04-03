@@ -36,10 +36,9 @@ async function main() {
   const opThreshold = parseInt(getArg('max-ops') ?? '1');
   const freqThreshold = parseFloat(getArg('freq') ?? '0.002');
   const countThreshold = parseInt(getArg('count') ?? '6');
-  const lang = getArg('lang') ?? 'en';
-  const out = getArg('out') ?? '../src/voiceMoveGrammar';
+  const grammar = getArg('grammar') ?? 'moves-en';
 
-  builder = new Builder(lang);
+  builder = new Builder(grammar);
   const entries = (await parseCrowdvData(getArg('in') ?? defaultCrowdvFile))
     .map(data => makeLexEntry(data))
     .filter(x => x) as LexEntry[];
@@ -54,10 +53,10 @@ async function main() {
     const [from, to] = key.split(' ');
     builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
   });
-  for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${lang}-patch.json`, 'utf-8')) as Patch[]) ?? []) {
+  for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ?? []) {
     builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
   }
-  writeGrammar(`${out}-${lang}.ts`);
+  writeGrammar(`../grammar/${grammar}.json`);
 }
 
 // flatten list of transforms into sub map
@@ -160,15 +159,7 @@ function ppCost(key: string, e: SubInfo) {
 }
 
 function writeGrammar(out: string) {
-  fs.writeFileSync(
-    out,
-    `// *************************** this file is generated. see ui/voice/@build/README.md ***************************
-
-export type Sub = { to: string; cost: number };
-export type Entry = { in: string; tok: string; tags: string[]; val?: string; subs?: Sub[] };
-
-export const lexicon: Entry[] = ${builder.stringify()};\n`
-  );
+  fs.writeFileSync(out, JSON.stringify(builder.lexicon, null, 2));
 }
 
 function getArg(arg: string): string | undefined {
