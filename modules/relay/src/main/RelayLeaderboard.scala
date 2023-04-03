@@ -31,7 +31,7 @@ final class RelayLeaderboardApi(
   }
 
   private val invalidateDebouncer =
-    lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, compute(id)))
+    new lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, compute(id)))
 
   def invalidate(id: RelayTour.Id) = invalidateDebouncer push id
 
