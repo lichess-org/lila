@@ -50,6 +50,7 @@ final private class WebPush(
               "payload" -> data.payload
             )
             .toString,
+          "topic"   -> data.stacking.key,
           "urgency" -> data.urgency.key,
           "ttl"     -> 43200
         )
