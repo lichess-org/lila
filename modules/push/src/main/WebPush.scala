@@ -35,6 +35,10 @@ final private class WebPush(
               "keys" -> Json.obj(
                 "p256dh" -> sub.p256dh,
                 "auth"   -> sub.auth
+              ),
+              "encodings" -> Json.obj(
+                "aes128gcm" -> sub.aes128gcm,
+                "aesgcm"    -> sub.aesgcm
               )
             )
           }.toList),
