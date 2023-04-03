@@ -162,7 +162,7 @@ object mod:
               title  := "Re-activates this account.",
               cls    := "xhr"
             )(submitButton(cls := "btn-rack__btn active")("Closed")),
-            isGranted(_.SuperAdmin) option postForm(
+            isGranted(_.GdprErase) option postForm(
               action := routes.Mod.gdprErase(u.username),
               cls    := "gdpr-erasure"
             )(
@@ -207,7 +207,7 @@ object mod:
           )
         )
       },
-      (isGranted(_.Admin) && isGranted(_.SetEmail)) ?? frag(
+      isGranted(_.Admin) ?? frag(
         postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
           st.input(
             tpe         := "email",
