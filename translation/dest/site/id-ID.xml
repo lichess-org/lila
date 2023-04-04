@@ -193,6 +193,14 @@
   <string name="email">Email</string>
   <string name="passwordReset">Reset kata sandi</string>
   <string name="forgotPassword">Lupa kata sandi?</string>
+  <string name="error.weakPassword">Password ini terlalu umum dan mudah ditebak.</string>
+  <string name="error.namePassword">Mohon tidak menggunakan username sebagai password.</string>
+  <string name="blankedPassword">Anda telah menggunakan password di website lain, dan website itu telah jebol. Untuk memastikan keamanan akun Lichess anda, kami haruskan untuk menyetel password baru. Terimakasih atas pengertiannya.</string>
+  <string name="youAreLeavingLichess">Anda akan keluar dari Lichess</string>
+  <string name="neverTypeYourPassword">Jangan pernah memasukkan password Lichess di tempat lain!</string>
+  <string name="proceedToX">Melanjutkan ke %s</string>
+  <string name="passwordSuggestion">Jangan gunakan password yang disarankan orang lain. Mereka akan menggunakannya untuk mengambil akun anda.</string>
+  <string name="emailSuggestion">Jangan gunakan email yang disarankan orang lain. Mereka akan menggunakannya untuk mengambil akun anda.</string>
   <string name="emailConfirmHelp">Bantuan untuk email konfirmasi</string>
   <string name="emailConfirmNotReceived">Tidak mendapat email konfirmasi setelah registrasi?</string>
   <string name="whatSignupUsername">Username apa yang Anda gunakan saat sign up?</string>
