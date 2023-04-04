@@ -83,19 +83,35 @@
   <string name="drawn">Ремізова сітуація</string>
   <string name="unknown">Незнамо</string>
   <string name="database">Зберька ходув</string>
+  <string name="whiteDrawBlack">Білі / Реміза / Чорні</string>
+  <string name="averageRatingX">Середньый рейтінґ: %s</string>
   <string name="recentGames">Недавні бавкы</string>
   <string name="topGames">Лїпші бавкы</string>
+  <string name="masterDbExplanation">Два міліоны бавок, проведеных за дощков бавлячами FIDE из рейтінґом %1$s из %2$s од %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Мат у %s пувход</item>
+    <item quantity="few">Мат у %s пувхода</item>
+    <item quantity="other">Мат у %s пувходув</item>
+  </plurals>
+  <string name="noGameFound">Бавок не найдено</string>
   <string name="openings">Дебюты</string>
   <string name="openingExplorer">Зберька дебютув</string>
   <string name="openingEndgameExplorer">Дебютна/ендшпільова зберька</string>
   <string name="unknownDueToRounding">Уграш/прыйграш бізувный лем тоды, коли мусайна поступность ходув была довершена из момента послїднього взятя фіґуры вадь хода пішака позад можного кругленя значень DTZ у базах Syzygy.</string>
   <string name="allSet">Фунґує!</string>
+  <string name="importPgn">Перенести PGN</string>
   <string name="delete">Стерти</string>
+  <string name="deleteThisImportedGame">Стерти сю перенесену бавку?</string>
   <string name="realtimeReplay">Таги у бавцї</string>
   <string name="byCPL">По страченым воякам</string>
+  <string name="openStudy">Одкрыти штудію</string>
   <string name="enable">Уключити</string>
+  <string name="bestMoveArrow">Стрілка указує лїпшый ход</string>
+  <string name="evaluationGauge">Ступниця оцїнкы</string>
+  <string name="multipleLines">Множество стрілок</string>
   <string name="cpus">Ядер</string>
   <string name="memory">Памнять</string>
+  <string name="infiniteAnalysis">Бесконечный аналіз</string>
   <string name="blunder">Хыба</string>
   <string name="mistake">Захыб</string>
   <string name="threefoldRepetition">Трикрат повтореня</string>
@@ -173,6 +189,7 @@
   <string name="accept">Прияти</string>
   <string name="decline">Одхылити</string>
   <string name="finished">Довершеный</string>
+  <string name="finishesX">кончит ся %s</string>
   <string name="gameAborted">Бавка одмінена</string>
   <string name="standard">Прості шахматы</string>
   <string name="unlimited">Без контролу</string>
@@ -229,6 +246,12 @@
   <string name="toStudy">Штудія</string>
   <string name="importGame">Перенести бавку</string>
   <string name="importGameExplanation">Вкладіт бавку у форматови PGN, и будете мати можность перегравати бавку, довершовати компюторный аналіз, приказовати у четови ай дїлити ся одкликованьом на ниї.</string>
+  <string name="importGameCaveat">Варіанты ся зотрут. Обы усокотити їх, перенесіт PGN у штудію.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s перенесена бавка</item>
+    <item quantity="few">%s перенесені бавкы</item>
+    <item quantity="other">%s перенесеных бавок</item>
+  </plurals>
   <string name="clickOnTheBoardToMakeYourMove">Клопкніт на дощку, обы учинити ход ай доказати, ож исьте чоловік.</string>
   <string name="retry">Щи раз</string>
   <string name="follow">Подписати ся</string>
@@ -284,6 +307,7 @@
   <string name="help">Помоч:</string>
   <string name="topics">Темы</string>
   <string name="posts">Уповісткы</string>
+  <string name="lastPost">Послїд. публікація</string>
   <string name="views">Позирань</string>
   <string name="replies">Одвіты</string>
   <string name="reply">Одвітити</string>
@@ -296,6 +320,7 @@
   <string name="other">Иншакоє</string>
   <string name="reportDescriptionHelp">Подїліт ся из нами одкликованями на бавкы, де вам ся видит, были нарушені правила, ай опишіт, у чому дїло. Не доста просто написати \"ун чітер\", уповічте чому сьте так рішили. Наріканя достане одвіт скорше, кідь оно на анґлійськув бисідї.</string>
   <string name="by">%s</string>
+  <string name="importedByX">Перенесено %s</string>
   <string name="blog">Блоґ</string>
   <string name="notes">Зазначкы</string>
   <string name="noNoteYet">Нарисув раз не є</string>
@@ -310,6 +335,7 @@
   <string name="victory">Побіда</string>
   <string name="defeat">Пораженя</string>
   <string name="timeline">Хронолоґія</string>
+  <string name="starting">Зачинат ся:</string>
   <string name="biographyDescription">Повічте за ся, ваші інтересы, што любите у шахматах, ваші любимі дебюты, бавлячі ай так дале...</string>
   <plurals name="blocks">
     <item quantity="one">%s заблоковано</item>
@@ -324,12 +350,17 @@
   <string name="learnMenu">Школованя</string>
   <string name="studyMenu">Штудія</string>
   <string name="practice">Практика</string>
+  <string name="community">Сполоченство</string>
   <string name="tools">Інштрументы</string>
+  <string name="increment">Наддаток</string>
   <string name="error.email_acceptable">Сись адрес почты не приятый. Перевірте щи раз, ай повторіт провбу.</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокіровка</string>
+  <string name="whiteCastlingKingside">Білі O-O</string>
+  <string name="blackCastlingKingside">Чорні O-O</string>
   <string name="watchGames">Позирати бавкы</string>
   <string name="watch">Позирати</string>
+  <string name="streamersMenu">Стрімеры</string>
   <string name="about">За сайт</string>
   <string name="aboutX">За %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s то задарный (%2$s), слободный, без рекламы, из одкрытым зачаточным кодом шахматный сервер.</string>
@@ -351,6 +382,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Мы загнали письмо вам. Клопкніт на одкликованя бы актівовати акаунт.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Кідь нич не прийшло, перевірте фасціклы для спама, ай другі міста, де могло бы быти письмо.</string>
   <string name="weHaveSentYouAnEmailTo">Мы загнали письмо по %s. Клопкніт на одкликованя бы зверичи паролу.</string>
+  <string name="downloadImported">Стерьхати перенесеноє</string>
   <string name="receiveForumNotifications">Доставати увідоменя коли вас споминавут на форумови</string>
   <string name="withNobody">Ни з кым</string>
   <string name="kidMode">Дїтськый режім</string>
@@ -360,11 +392,13 @@
   <string name="security">Безопасность</string>
   <string name="sessions">Сесії</string>
   <string name="lobby">Чекарня</string>
+  <string name="anonymous">Анонім</string>
   <string name="language">Бисїда</string>
   <string name="light">Світлый</string>
   <string name="dark">Темный</string>
   <string name="transparent">Тоненькый</string>
   <string name="boardTheme">Тема дощкы</string>
+  <string name="pieceSet">Тема фіґур</string>
   <string name="usernameAlreadyUsed">Сисе имня уже занято, попробуйте другоє.</string>
   <string name="usernameCharsInvalid">Имня має мати лем ціфры, числа, подчеркув ай дефісув.</string>
   <string name="coaches">Тренеры</string>
@@ -375,6 +409,12 @@
   <string name="next">Дале</string>
   <string name="solution">Одвіт</string>
   <string name="doItAgain">Ищи раз</string>
+  <string name="advantage">Лїпшина</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="few">%s секунды</item>
+    <item quantity="other">%s секунд</item>
+  </plurals>
   <string name="opening">Дебют</string>
   <string name="endgame">Ендшпіль</string>
   <string name="playX">Зограти %s</string>
@@ -390,7 +430,11 @@
   <string name="agreementPolicy">Я согласный, додїржовати вшыткі правила Lichess.</string>
   <string name="edit">Перемінити</string>
   <string name="rapid">Рапід</string>
+  <string name="classical">Простый</string>
+  <string name="important">Важно</string>
   <string name="thisTopicIsArchived">Ся тема у архівови, не мож ї булше коментовати.</string>
+  <string name="teamNamedX">%1$s дружина</string>
+  <string name="subscribe">Подписати ся</string>
   <string name="unsubscribe">Одписати ся</string>
   <string name="lostAgainstTOSViolator">Вы прыйграли, тому тко нарушив правила Lichess</string>
   <string name="download">Стерьхати</string>
