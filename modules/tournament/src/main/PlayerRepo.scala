@@ -187,6 +187,9 @@ final class PlayerRepo(coll: Coll)(using Executor):
   def remove(tourId: TourId, userId: UserId) =
     coll.delete.one(selectTourUser(tourId, userId)).void
 
+  def removeNotInTeams(tourId: TourId, teamIds: Set[TeamId]) =
+    coll.delete.one(selectTour(tourId) ++ $doc("t" $nin teamIds)).void
+
   def existsActive(tourId: TourId, userId: UserId) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
 
@@ -224,6 +227,15 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   def withdraw(tourId: TourId, userId: UserId) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
+
+  def withdrawNotInTeams(tourId: TourId, teamIds: Set[TeamId]) =
+    coll.update
+      .one(
+        selectTour(tourId) ++ $doc("t" $nin teamIds),
+        $set("w" -> true),
+        multi = true
+      )
+      .void
 
   private[tournament] def withPoints(tourId: TourId): Fu[List[Player]] =
     coll.list[Player](
