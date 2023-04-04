@@ -243,6 +243,8 @@ ching(ue|a)
 chupame
 cobarde
 est[úu]pid[ao]
+hdp
+hijo de put\w*
 idiota
 imbecil
 madre
@@ -255,6 +257,7 @@ pendejo
 put[ao]
 trampa
 trampos[ao]
+tu eres put\w*
 verga
 """)
 

@@ -399,7 +399,7 @@ final class Mod(
     }
 
   def gdprErase(username: UserStr) =
-    Secure(_.CloseAccount) { _ => me =>
+    Secure(_.GdprErase) { _ => me =>
       val res = Redirect(routes.User.show(username.value))
       env.api.accountClosure.closeThenErase(username, me) map {
         case Right(msg) => res flashSuccess msg

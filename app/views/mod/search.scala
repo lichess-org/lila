@@ -37,7 +37,7 @@ object search:
               value       := form("q").value
             )
           ),
-          userTable(mod, users, eraseButton = isGranted(_.CloseAccount))
+          userTable(mod, users, eraseButton = isGranted(_.GdprErase))
         )
       )
     }
@@ -224,7 +224,7 @@ object search:
             if (Granter.canViewAltUsername(mod, u))
               td(
                 userLink(u, withBestRating = true, params = "?mod"),
-                (isGranted(_.Admin) && isGranted(_.SetEmail)) option
+                isGranted(_.Admin) option
                   email(emails.strList.mkString(", "))
               )
             else td,
