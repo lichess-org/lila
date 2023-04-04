@@ -52,7 +52,8 @@ object PieceSet extends PieceSetObject:
     PieceSet("anarcandy"),
     PieceSet("shapes"),
     PieceSet("letter"),
-    PieceSet("disguised")
+    PieceSet("disguised"),
+    PieceSet("kiwen-suwi")
   )
 
 object PieceSet3d extends PieceSetObject:
