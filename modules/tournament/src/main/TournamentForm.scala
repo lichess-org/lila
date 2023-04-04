@@ -90,7 +90,7 @@ final class TournamentForm:
         else numberIn(minuteChoices)
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-      "startDate"   -> optional(inTheFuture(ISOInstantOrTimestamp.isoDateTimeOrTimestamp)),
+      "startDate"   -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
       "variant"     -> optional(text.verifying(v => guessVariant(v).isDefined)),
       "position"    -> optional(lila.common.Form.fen.playableStrict),
       "mode"        -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated

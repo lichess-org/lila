@@ -19,7 +19,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] val scheduledSelect      = $doc("schedule" $exists true)
   private def forTeamSelect(id: TeamId)        = $doc("forTeams" -> id)
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams" $in ids)
-  private def sinceSelect(date: Instant)      = $doc("startsAt" $gt date)
+  private def sinceSelect(date: Instant)       = $doc("startsAt" $gt date)
   private def variantSelect(variant: Variant) =
     if (variant.standard) $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
@@ -215,7 +215,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .batchSize(1)
       .cursor[Tournament]()
 
-  private[tournament] def soonStarting(from: Instant, to: DateTime, notIds: Iterable[TourId]) =
+  private[tournament] def soonStarting(from: Instant, to: Instant, notIds: Iterable[TourId]) =
     coll
       .find(createdSelect ++ $doc("nbPlayers" $gt 0, "startsAt" $gt from $lt to, "_id" $nin notIds))
       .cursor[Tournament]()
@@ -343,7 +343,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   def remove(tour: Tournament) = coll.delete.one($id(tour.id))
 
-  def calendar(from: Instant, to: DateTime): Fu[List[Tournament]] =
+  def calendar(from: Instant, to: Instant): Fu[List[Tournament]] =
     coll
       .find(
         $doc(

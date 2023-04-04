@@ -48,10 +48,11 @@ final private class TournamentScheduler(
     val today       = LocalDate.now
     val tomorrow    = today plusDays 1
     val startOfYear = today.withDayOfYear(1)
+    val rightNow    = nowInstant
 
     class OfMonth(fromNow: Int):
-      val firstDay   = today.plusMonths(fromNow).dateTime.withDayOfMonth(1)
-      val lastDay    = firstDay.`with`(TemporalAdjusters.lastDayOfMonth)
+      val firstDay   = today.plusMonths(fromNow).withDayOfMonth(1)
+      val lastDay    = firstDay.adjust(TemporalAdjusters.lastDayOfMonth)
       val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek.getValue - 1) % 7)
       val secondWeek = firstWeek plusDays 7
       val thirdWeek  = secondWeek plusDays 7
@@ -59,18 +60,18 @@ final private class TournamentScheduler(
     val thisMonth = OfMonth(0)
     val nextMonth = OfMonth(1)
 
-    def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.date.getDayOfWeek.getValue) % 7)
-    val nextMonday                 = nextDayOfWeek(1)
-    val nextTuesday                = nextDayOfWeek(2)
-    val nextWednesday              = nextDayOfWeek(3)
-    val nextThursday               = nextDayOfWeek(4)
-    val nextFriday                 = nextDayOfWeek(5)
-    val nextSaturday               = nextDayOfWeek(6)
-    val nextSunday                 = nextDayOfWeek(7)
+    def nextDayOfWeek(n: Int) = today.plusDays((n + 7 - today.getDayOfWeek.getValue) % 7)
+    val nextMonday            = nextDayOfWeek(1)
+    val nextTuesday           = nextDayOfWeek(2)
+    val nextWednesday         = nextDayOfWeek(3)
+    val nextThursday          = nextDayOfWeek(4)
+    val nextFriday            = nextDayOfWeek(5)
+    val nextSaturday          = nextDayOfWeek(6)
+    val nextSunday            = nextDayOfWeek(7)
 
     def secondWeekOf(month: java.time.Month): LocalDate =
-      val start = orNextYear(startOfYear.withMonth(month.getValue))
-      start.plusDays(15 - start.getDayOfWeek.getValue).withTimeAtStartOfDay
+      val start = orNextYear(startOfYear.withMonth(month.getValue).atStartOfDay).date
+      start.plusDays(15 - start.getDayOfWeek.getValue)
 
     def orTomorrow(date: LocalDateTime) = if date.isBeforeNow then date plusDays 1 else date
     def orNextWeek(date: LocalDateTime) = if date.isBeforeNow then date plusWeeks 1 else date
@@ -82,13 +83,13 @@ final private class TournamentScheduler(
       val positions = StartingPosition.featurable
       positions((today.getDayOfYear + offset) % positions.size)
 
-    val farFuture = today plusMonths 7
+    val farFuture = today.plusMonths(7).atStartOfDay
 
-    val birthday = java.time.Instant.of(2010, 6, 20, 12, 0, 0)
+    val birthday = LocalDate.of(2010, 6, 20)
 
-    extension (date: Instant)
-      def withDayOfWeek(day: java.time.DayOfWeek): Instant =
-        date.`with`(TemporalAdjusters.nextOrSame(day))
+    extension (date: LocalDate)
+      def withDayOfWeek(day: java.time.DayOfWeek): LocalDate =
+        date.adjust(TemporalAdjusters.nextOrSame(day))
 
     // all dates UTC
     List(
@@ -124,7 +125,7 @@ Thank you all, you rock!""",
         secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY)    -> Rapid,
         secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY)     -> Classical,
         secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> HyperBullet
-      ).flatMap { case (day, speed) =>
+      ).flatMap { (day, speed) =>
         at(day, 17) filter farFuture.isAfter map { date =>
           Schedule(Yearly, speed, Standard, none, date).plan
         }
@@ -138,7 +139,7 @@ Thank you all, you rock!""",
         secondWeekOf(JUNE).withDayOfWeek(TUESDAY)      -> Atomic,
         secondWeekOf(JULY).withDayOfWeek(WEDNESDAY)    -> Horde,
         secondWeekOf(AUGUST).withDayOfWeek(THURSDAY)   -> ThreeCheck
-      ).flatMap { case (day, variant) =>
+      ).flatMap { (day, variant) =>
         at(day, 17) filter farFuture.isAfter map { date =>
           Schedule(Yearly, SuperBlitz, variant, none, date).plan
         }
@@ -353,45 +354,33 @@ Thank you all, you rock!""",
         ).flatten
       },
       // hourly standard tournaments!
-      (-1 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHour
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, HyperBullet, Standard, none, date).plan
-          },
-          at(date, hour, 30) map { date =>
-            Schedule(Hourly, UltraBullet, Standard, none, date).plan
-          },
-          at(date, hour) map { date =>
-            Schedule(Hourly, Bullet, Standard, none, date).plan
-          },
-          at(date, hour, 30) map { date =>
-            Schedule(Hourly, Bullet, Standard, none, date).plan
-          },
-          at(date, hour) map { date =>
-            Schedule(Hourly, SuperBlitz, Standard, none, date).plan
-          },
-          at(date, hour) map { date =>
-            Schedule(Hourly, Blitz, Standard, none, date).plan
-          },
-          at(date, hour) collect {
-            case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, none, date).plan
+      (-1 to 6).toList
+        .flatMap { hourDelta =>
+          val soon = rightNow.plusHours(hourDelta).dateTime.withMinute(0)
+          List(
+            Schedule(Hourly, HyperBullet, Standard, none, soon),
+            Schedule(Hourly, UltraBullet, Standard, none, soon withMinute 30),
+            Schedule(Hourly, Bullet, Standard, none, soon),
+            Schedule(Hourly, Bullet, Standard, none, soon withMinute 30),
+            Schedule(Hourly, SuperBlitz, Standard, none, soon),
+            Schedule(Hourly, Blitz, Standard, none, soon)
+          ) ::: {
+            (soon.getHour % 2 == 0) ?? List(Schedule(Hourly, Rapid, Standard, none, soon))
           }
-        ).flatten
-      },
+        }
+        .map(_.plan),
       // hourly limited tournaments!
       (-1 to 6).toList
         .flatMap { hourDelta =>
-          val date = rightNow plusHours hourDelta
-          val hour = date.getHour
-          val speed = hour % 4 match {
+          val soon = rightNow plusHours hourDelta
+          val date = soon.date
+          val hour = soon.dateTime.getHour
+          val speed = hour % 4 match
             case 0 => Bullet
             case 1 => SuperBlitz
             case 2 => Blitz
             case _ => Rapid
-          }
-          List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { case (rating, hourDelay) =>
+          List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { (rating, hourDelay) =>
             val perf = Schedule.Speed toPerfType speed
             val conditions = Condition.All(
               nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
@@ -424,19 +413,18 @@ Thank you all, you rock!""",
         },
       // hourly crazyhouse/chess960/KingOfTheHill tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHour
-        val speed = hour % 7 match {
+        val soon = rightNow plusHours hourDelta
+        val date = soon.date
+        val hour = soon.dateTime.getHour
+        val speed = hour % 7 match
           case 0     => HippoBullet
           case 1 | 4 => Bullet
           case 2 | 5 => SuperBlitz
           case 3 | 6 => Blitz
-        }
-        val variant = hour % 3 match {
+        val variant = hour % 3 match
           case 0 => Chess960
           case 1 => KingOfTheHill
           case _ => Crazyhouse
-        }
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, speed, variant, none, date).plan
@@ -516,11 +504,11 @@ Thank you all, you rock!""",
       }
     }
 
-  private def at(day: Instant, hour: Int, minute: Int = 0): Option[DateTime] =
-    try Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
+  private def at(day: LocalDate, hour: Int, minute: Int = 0): Option[LocalDateTime] =
+    try Some(day.atStartOfDay plusHours hour plusMinutes minute)
     catch
       case e: Exception =>
-        logger.error(s"failed to schedule one: ${e.getMessage}")
+        logger.error("failed to schedule", e)
         None
 
 private object TournamentScheduler:

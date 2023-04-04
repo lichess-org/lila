@@ -55,7 +55,7 @@ final private[gameSearch] class GameSearchForm:
   ) fill SearchData()
 
 private[gameSearch] object GameSearchForm:
-  val dateField = optional(ISODateOrTimestamp.isoDateOrTimestamp)
+  val dateField = optional(ISODateOrTimestamp.mapping)
 
 private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
