@@ -17,7 +17,7 @@ object home:
       withHrefLangs = lila.common.LangPath(routes.Swiss.home).some
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
-        h1(cls := "box__top")("Swiss tournaments"),
+        h1(cls := "box__top")(trans.swiss.swissTournaments()),
         renderList(trans.swiss.nowPlaying.txt())(featured.started),
         renderList(trans.swiss.startingSoon.txt())(featured.created),
         div(cls := "swiss-home__infos")(
