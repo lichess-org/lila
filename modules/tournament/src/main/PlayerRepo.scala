@@ -228,15 +228,6 @@ final class PlayerRepo(coll: Coll)(using Executor):
   def withdraw(tourId: TourId, userId: UserId) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
-  def withdrawNotInTeams(tourId: TourId, teamIds: Set[TeamId]) =
-    coll.update
-      .one(
-        selectTour(tourId) ++ $doc("t" $nin teamIds),
-        $set("w" -> true),
-        multi = true
-      )
-      .void
-
   private[tournament] def withPoints(tourId: TourId): Fu[List[Player]] =
     coll.list[Player](
       selectTour(tourId) ++ $doc("m" $gt 0)
@@ -351,6 +342,8 @@ final class PlayerRepo(coll: Coll)(using Executor):
         field = "uid"
       )
     }
+
+  def teamsWithPlayers(tourId: TourId): Fu[Set[TeamId]] = coll.distinctEasy[TeamId, Set]("t", selectTour(tourId))
 
   private[tournament] def sortedCursor(
       tournamentId: TourId,
