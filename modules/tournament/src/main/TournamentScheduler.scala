@@ -356,31 +356,30 @@ Thank you all, you rock!""",
       // hourly standard tournaments!
       (-1 to 6).toList
         .flatMap { hourDelta =>
-          val soon = rightNow.plusHours(hourDelta).dateTime.withMinute(0)
+          val when = atTopOfHour(rightNow, hourDelta)
           List(
-            Schedule(Hourly, HyperBullet, Standard, none, soon),
-            Schedule(Hourly, UltraBullet, Standard, none, soon withMinute 30),
-            Schedule(Hourly, Bullet, Standard, none, soon),
-            Schedule(Hourly, Bullet, Standard, none, soon withMinute 30),
-            Schedule(Hourly, SuperBlitz, Standard, none, soon),
-            Schedule(Hourly, Blitz, Standard, none, soon)
+            Schedule(Hourly, HyperBullet, Standard, none, when),
+            Schedule(Hourly, UltraBullet, Standard, none, when withMinute 30),
+            Schedule(Hourly, Bullet, Standard, none, when),
+            Schedule(Hourly, Bullet, Standard, none, when withMinute 30),
+            Schedule(Hourly, SuperBlitz, Standard, none, when),
+            Schedule(Hourly, Blitz, Standard, none, when)
           ) ::: {
-            (soon.getHour % 2 == 0) ?? List(Schedule(Hourly, Rapid, Standard, none, soon))
+            (when.getHour % 2 == 0) ?? List(Schedule(Hourly, Rapid, Standard, none, when))
           }
         }
         .map(_.plan),
       // hourly limited tournaments!
       (-1 to 6).toList
         .flatMap { hourDelta =>
-          val soon = rightNow plusHours hourDelta
-          val date = soon.date
-          val hour = soon.dateTime.getHour
-          val speed = hour % 4 match
+          val when = atTopOfHour(rightNow, hourDelta)
+          val speed = when.getHour % 4 match
             case 0 => Bullet
             case 1 => SuperBlitz
             case 2 => Blitz
             case _ => Rapid
           List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { (rating, hourDelay) =>
+            import chess.Clock
             val perf = Schedule.Speed toPerfType speed
             val conditions = Condition.All(
               nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
@@ -390,20 +389,17 @@ Thank you all, you rock!""",
               teamMember = none,
               allowList = none
             )
-            at(date, hour) ?? { date =>
-              import chess.Clock
-              val finalDate = date plusHours hourDelay
-              if (speed == Bullet)
-                List(
-                  Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan,
-                  Schedule(Hourly, speed, Standard, none, finalDate plusMinutes 30, conditions)
-                    .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
-                )
-              else
-                List(
-                  Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan
-                )
-            }
+            val finalWhen = when plusHours hourDelay
+            if (speed == Bullet)
+              List(
+                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan,
+                Schedule(Hourly, speed, Standard, none, finalWhen plusMinutes 30, conditions)
+                  .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
+              )
+            else
+              List(
+                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan
+              )
           }
         }
         .map {
@@ -413,72 +409,71 @@ Thank you all, you rock!""",
         },
       // hourly crazyhouse/chess960/KingOfTheHill tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val soon = rightNow plusHours hourDelta
-        val date = soon.date
-        val hour = soon.dateTime.getHour
-        val speed = hour % 7 match
+        val when = atTopOfHour(rightNow, hourDelta)
+        val speed = when.getHour % 7 match
           case 0     => HippoBullet
           case 1 | 4 => Bullet
           case 2 | 5 => SuperBlitz
           case 3 | 6 => Blitz
-        val variant = hour % 3 match
+        val variant = when.getHour % 3 match
           case 0 => Chess960
           case 1 => KingOfTheHill
           case _ => Crazyhouse
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, speed, variant, none, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 17) HyperBullet else Bullet, variant, none, date).plan
-          }
-        ).flatten
+        List(Schedule(Hourly, speed, variant, none, when).plan) :::
+          (speed == Bullet) ?? List(
+            Schedule(
+              Hourly,
+              if when.getHour == 17 then HyperBullet else Bullet,
+              variant,
+              none,
+              when plusMinutes 30
+            ).plan
+          )
       },
       // hourly atomic/antichess variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHour
-        val speed = hour % 7 match
+        val when = atTopOfHour(rightNow, hourDelta)
+        val speed = when.getHour % 7 match
           case 0 | 4 => Blitz
           case 1     => HippoBullet
           case 2 | 5 => Bullet
           case 3 | 6 => SuperBlitz
-        val variant = if (hour % 2 == 0) Atomic else Antichess
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, speed, variant, none, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, none, date).plan
-          }
-        ).flatten
+        val variant = if when.getHour % 2 == 0 then Atomic else Antichess
+        List(Schedule(Hourly, speed, variant, none, when).plan) :::
+          (speed == Bullet) ?? List(
+            Schedule(
+              Hourly,
+              if when.getHour == 18 then HyperBullet else Bullet,
+              variant,
+              none,
+              when plusMinutes 30
+            ).plan
+          )
       },
       // hourly threecheck/horde/racing variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHour
-        val speed = hour % 7 match
+        val when = atTopOfHour(rightNow, hourDelta)
+        val speed = when.getHour % 7 match
           case 0 | 4 => SuperBlitz
           case 1 | 5 => Blitz
           case 2     => HippoBullet
           case 3 | 6 => Bullet
-        val variant = hour % 3 match
+        val variant = when.getHour % 3 match
           case 0 => ThreeCheck
           case 1 => Horde
           case _ => RacingKings
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, speed, variant, none, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 19) HyperBullet else Bullet, variant, none, date).plan
-          }
-        ).flatten
+        List(Schedule(Hourly, speed, variant, none, when).plan) :::
+          (speed == Bullet) ?? List(
+            Schedule(
+              Hourly,
+              if when.getHour == 19 then HyperBullet else Bullet,
+              variant,
+              none,
+              when plusMinutes 30
+            ).plan
+          )
       }
-    ).flatten filter { _.schedule.at isAfter rightNow }
+    ).flatten.filter(_.schedule.at.isAfterNow)
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
@@ -491,7 +486,7 @@ Thank you all, you rock!""",
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
     t.schedule exists { s =>
       ts exists { t2 =>
-        t.variant == t2.variant && (t2.schedule ?? {
+        t.variant == t2.variant && t2.schedule.?? {
           // prevent daily && weekly on the same day
           case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameSpeed(s2) => s sameDay s2
           case s2 =>
@@ -500,9 +495,12 @@ Thank you all, you rock!""",
                 s.hasMaxRating ||  // overlapping same rating limit
                 s.similarSpeed(s2) // overlapping similar
             ) && s.similarConditions(s2) && t.overlaps(t2)
-        })
+        }
       }
     }
+
+  private def atTopOfHour(rightNow: Instant, hourDelta: Int): LocalDateTime =
+    rightNow.plusHours(hourDelta).dateTime.withMinute(0)
 
   private def at(day: LocalDate, hour: Int, minute: Int = 0): Option[LocalDateTime] =
     try Some(day.atStartOfDay plusHours hour plusMinutes minute)
