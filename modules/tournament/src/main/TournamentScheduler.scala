@@ -9,20 +9,13 @@ import java.time.temporal.TemporalAdjusters
 
 import lila.common.LilaScheduler
 
-final private class TournamentScheduler(
-    tournamentRepo: TournamentRepo
-)(using ec: Executor, scheduler: Scheduler):
-
-  import Schedule.Freq.*
-  import Schedule.Speed.*
-  import Schedule.Plan
-  import chess.variant.*
+final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Executor, Scheduler):
 
   LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
     tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
       try
-        val newTourns = allWithConflicts.map(_.build)
-        val pruned    = pruneConflicts(dbScheds, newTourns)
+        val newTourns = TournamentScheduler.allWithConflicts().map(_.build)
+        val pruned    = TournamentScheduler.pruneConflicts(dbScheds, newTourns)
         tournamentRepo.insert(pruned).logFailure(logger)
       catch
         case e: Exception =>
@@ -30,6 +23,13 @@ final private class TournamentScheduler(
           funit
     }
   }
+
+private object TournamentScheduler:
+
+  import Schedule.Freq.*
+  import Schedule.Speed.*
+  import Schedule.Plan
+  import chess.variant.*
 
   /* Month plan:
    * First week: Shield standard tournaments
@@ -44,11 +44,12 @@ final private class TournamentScheduler(
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  private[tournament] def allWithConflicts: List[Plan] =
-    val today       = LocalDate.now
+  def allWithConflicts(
+      today: LocalDate = LocalDate.now,
+      rightNow: Instant = nowInstant
+  ): List[Plan] =
     val tomorrow    = today plusDays 1
     val startOfYear = today.withDayOfYear(1)
-    val rightNow    = nowInstant
 
     class OfMonth(fromNow: Int):
       val firstDay   = today.plusMonths(fromNow).withDayOfMonth(1)
@@ -475,7 +476,7 @@ Thank you all, you rock!""",
       }
     ).flatten.filter(_.schedule.at.isAfterNow)
 
-  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
+  private def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
       .foldLeft(List[Tournament]()) { (tourns, t) =>
         if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
@@ -508,7 +509,3 @@ Thank you all, you rock!""",
       case e: Exception =>
         logger.error("failed to schedule", e)
         None
-
-private object TournamentScheduler:
-
-  case object ScheduleNow
