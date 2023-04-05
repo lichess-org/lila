@@ -126,7 +126,7 @@ case class Schedule(
   def plan                                  = Schedule.Plan(this, None)
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
-  override def toString = s"Schedule($freq $variant $speed $conditions ${at.instant})"
+  override def toString = s"$freq ${variant.key} ${speed.key} $conditions ${at.instant}"
 
 object Schedule:
 
