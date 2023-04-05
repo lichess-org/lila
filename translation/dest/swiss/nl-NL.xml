@@ -106,8 +106,4 @@ Wat het meest in de buurt komt van een online round-robin is een Zwitsers toerno
   <string name="unlimitedAndFree">Onbeperkt en gratis</string>
   <string name="predefinedUsers">Sta enkel vooraf gedefinieerde gebruikers toe om mee te doen</string>
   <string name="forbiddedUsers">Als deze lijst niet leeg is, worden gebruikers die niet op deze lijst staan niet toegelaten. Eén gebruikersnaam per regel.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s ronde Zwitsers</item>
-    <item quantity="other">%1$s / %2$s ronden Zwitsers</item>
-  </plurals>
 </resources>
