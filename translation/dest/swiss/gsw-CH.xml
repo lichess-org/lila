@@ -119,8 +119,4 @@ mit ähnlichem Rang</string>
   <string name="unlimitedAndFree">Unbeschränkt und gratis</string>
   <string name="predefinedUsers">Nur vordefinierte Benutzer s\'Mitmache erlaube</string>
   <string name="forbiddedUsers">Wänn die Lischte nöd leer isch, dörfed Benutzer, wo nöd uf dere Lischte stöhnd, nöd Teilneh. Nur ein Nutzername pro Zile.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s Rundi Schweizer System</item>
-    <item quantity="other">%1$s / %2$s Rundene Schweizer System</item>
-  </plurals>
 </resources>
