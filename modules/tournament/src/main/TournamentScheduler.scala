@@ -44,10 +44,8 @@ private object TournamentScheduler:
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  def allWithConflicts(
-      today: LocalDate = LocalDate.now,
-      rightNow: Instant = nowInstant
-  ): List[Plan] =
+  def allWithConflicts(rightNow: Instant = nowInstant): List[Plan] =
+    val today       = rightNow.date
     val tomorrow    = today plusDays 1
     val startOfYear = today.withDayOfYear(1)
 
