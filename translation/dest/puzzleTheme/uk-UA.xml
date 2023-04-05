@@ -15,7 +15,7 @@
   <string name="backRankMate">Мат по останній горизонталі</string>
   <string name="backRankMateDescription">Мат королю в останньому ряду, коли він у пастці між власними фігурами.</string>
   <string name="bishopEndgame">Слоновий ендшпіль</string>
-  <string name="bishopEndgameDescription">Закінчення гри лише зі слонами та пішаками.</string>
+  <string name="bishopEndgameDescription">Ендшпіль лише зі слонами та пішаками.</string>
   <string name="bodenMate">Мат Бодена</string>
   <string name="bodenMateDescription">Два слони на перехресних діагоналях ставлять мат королю, який оточений власними фігурами.</string>
   <string name="castling">Рокіровка</string>
@@ -48,7 +48,7 @@
   <string name="exposedKing">Незахищений король</string>
   <string name="exposedKingDescription">Король з малою кількістю захисників, що часто призводить до мату.</string>
   <string name="fork">Вилка</string>
-  <string name="forkDescription">Хід, при якому фігура атакує дві фігури одночасно.</string>
+  <string name="forkDescription">Хід, коли фігура атакує дві фігури одночасно.</string>
   <string name="hangingPiece">Незахищена фігура</string>
   <string name="hangingPieceDescription">Незахищена або недостатньо захищена фігура, що може бути атакована.</string>
   <string name="hookMate">Хук-мат</string>
