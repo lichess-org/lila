@@ -112,9 +112,4 @@ Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojo
   <string name="unlimitedAndFree">Neierobežots un bezmaksas</string>
   <string name="predefinedUsers">Atļaut pievienoties tikai noteiktiem spēlētājiem</string>
   <string name="forbiddedUsers">Ja šis saraksts nav tukšs, spēlētājiem kas tajā nav pieminēti nebūs atļauts pievienoties. Katrā rindiņā savs lietotājvārds.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="zero">%1$s. / %2$s raunds Šveices turnīrā</item>
-    <item quantity="one">%1$s. / %2$s raunds Šveices turnīrā</item>
-    <item quantity="other">%1$s. / %2$s raunds Šveices turnīrā</item>
-  </plurals>
 </resources>
