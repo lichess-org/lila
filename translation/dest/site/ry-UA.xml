@@ -114,6 +114,24 @@
   <string name="infiniteAnalysis">Бесконечный аналіз</string>
   <string name="blunder">Хыба</string>
   <string name="mistake">Захыб</string>
+  <string name="inaccuracy">Неточность</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s хыба</item>
+    <item quantity="few">%s хыбы</item>
+    <item quantity="other">%s хыб</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s захыб</item>
+    <item quantity="few">%s захыба</item>
+    <item quantity="other">%s захыбув</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточность</item>
+    <item quantity="few">%s неточности</item>
+    <item quantity="other">%s неточностюв</item>
+  </plurals>
+  <string name="moveTimes">Час на ход</string>
+  <string name="flipBoard">Перевернути дощку</string>
   <string name="threefoldRepetition">Трикрат повтореня</string>
   <string name="claimADraw">Обявити ремізу</string>
   <string name="offerDraw">Понукнути ремізу</string>
@@ -124,13 +142,23 @@
     <item quantity="other">%s бавлячув</item>
   </plurals>
   <string name="drawByMutualAgreement">Реміза по дорозуміню</string>
+  <string name="fiftyMovesWithoutProgress">Пятдисят ходув без проґреса</string>
+  <string name="currentGames">Тепирішні партії</string>
   <plurals name="nbGames">
     <item quantity="one">%s бавка</item>
     <item quantity="few">%s бавкы</item>
     <item quantity="other">%s бавок</item>
   </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s одмічена</item>
+    <item quantity="few">%s одмічені</item>
+    <item quantity="other">%s одміченых</item>
+  </plurals>
+  <string name="viewInFullSize">Позерати у повнум розмірови</string>
   <string name="logOut">Уйти</string>
   <string name="signIn">Зайти</string>
+  <string name="rememberMe">Запомнити муй вход</string>
+  <string name="youNeedAnAccountToDoThat">Треба ся зареґістровати, бы учинити се</string>
   <string name="signUp">Реґістрація</string>
   <string name="computersAreNotAllowedToPlay">Заказано бавити, хоснувучи даколи шахматні проґрамы ай абсолутно хоснувучи їх у бавцї. Не мож такой хосновати базы даных ай помуч другых бавлячув. Не чиніт повно акаунтув, ото може привести од блокованьови.</string>
   <string name="games">Бавкы</string>
@@ -170,13 +198,28 @@
   <string name="email">Електрона почта</string>
   <string name="error.weakPassword">Сися парола дуже легка, ї дуже просто угадати.</string>
   <string name="blankedPassword">Вы хосновали таку паролу на другому сайтови, из того сайту ся стало протїканя інформації. Обы обеспечити безопасность свого Lichess акаунту, захоснуйте другу паролу. Дякуєме за розуміня.</string>
+  <string name="youAreLeavingLichess">Вы лишаєте Lichess</string>
   <string name="neverTypeYourPassword">Ниґда не уводьте свою паролу Lichess дись инде!</string>
+  <string name="proceedToX">Перейти до %s</string>
   <string name="passwordSuggestion">Не кладіт паролу, котру вам посочили другі люди, они можут украсти ваш акаунт.</string>
   <string name="emailSuggestion">Не кладіт почту, котру вам посочили другі люди, они можут украсти ваш акаунт.</string>
+  <string name="emailConfirmHelp">Помоч з потверчжіньом електроної почты</string>
   <string name="emailConfirmNotReceived">Не прийшло вам письмо на почту пусля реґістрації?</string>
+  <string name="whatSignupUsername">Якоє имня сьте хосновали при реґістрації?</string>
+  <string name="usernameNotFound">Мы не найшли хосновача по имньови: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Можете хосновати се имня для нового акаунту</string>
+  <string name="emailSent">Мы загнали уповістку на %s.</string>
+  <string name="emailCanTakeSomeTime">Письмо прийде через даякый час.</string>
+  <string name="refreshInboxAfterFiveMinutes">Почекайте 5 минут тай обновіт свою почту.</string>
   <string name="checkSpamFolder">Такой перевірте фасціклу из спамом, письмо може быти там. Кідь там, укажіт го ги не спам.</string>
   <string name="emailForSignupHelp">Кідь нич не заробило, заженіт нам се письмо:</string>
+  <string name="copyTextToEmail">Копіруйте ай впишіт текст горі ай заженіт на %s</string>
+  <string name="waitForSignupHelp">Мы скоро ся вернеме, бы помочи довершити вам реґістрацію.</string>
+  <string name="accountConfirmed">Хосновач %s успішно потвердженый.</string>
+  <string name="accountCanLogin">Можете зайти такой тепирь, ги %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Вам не треба потверчженя по почті.</string>
+  <string name="accountClosed">Акаунт %s закрытый.</string>
+  <string name="accountRegisteredWithoutEmail">Акаунт %s зареґістрованый без почты.</string>
   <string name="rank">Ранґ</string>
   <string name="rankX">Місто: %s</string>
   <plurals name="nbPuzzles">
@@ -226,16 +269,39 @@
     <item quantity="few">%s ремізы</item>
     <item quantity="other">%s реміз</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ся бавить</item>
+    <item quantity="few">%s ся бавлят</item>
+    <item quantity="other">%s ся бавлят</item>
+  </plurals>
   <string name="exportGames">Стерьхати бавкы</string>
   <string name="ratingRange">Рейтінґ противника</string>
   <string name="thisAccountViolatedTos">Сись бавляч нарушив правила хоснованя Lichess</string>
   <string name="takeback">Вернути ход</string>
+  <string name="takebackPropositionSent">Верненя хода загнато</string>
+  <string name="takebackPropositionDeclined">Верненя хода одхылено</string>
+  <string name="takebackPropositionAccepted">Верненя хода приято</string>
+  <string name="takebackPropositionCanceled">Верненя хода одмінено</string>
+  <string name="yourOpponentProposesATakeback">Ваш противник просит вас вернути ход</string>
+  <string name="bookmarkThisGame">Одмітити бавку</string>
+  <string name="tournament">Турнір</string>
+  <string name="tournaments">Турніры</string>
+  <string name="tournamentPoints">Турнірні балы</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s турнірный бал</item>
+    <item quantity="few">%s турнірных бала</item>
+    <item quantity="other">%s турнірных балув</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s штудія</item>
     <item quantity="few">%s штудії</item>
     <item quantity="other">%s штудій</item>
   </plurals>
+  <string name="viewTournament">Побзерати турнір</string>
+  <string name="backToTournament">Вернути ся од турнірови</string>
   <string name="thematic">Тематічный</string>
+  <string name="mustBeInTeam">Мусай быти у дружині %s</string>
+  <string name="youAreNotInTeam">Вы не у дружині %s</string>
   <string name="backToGame">Вернути ся од бавцї</string>
   <string name="siteDescription">Задарні онлайн шахматы. Бавте у шахматы такой тепирь у легкому інтерфейсови без рекламы. Не треба реґістрації тай стерьханя проґрамы. Бавте против компютора, цімборами вадь трафными противниками.</string>
   <string name="location">Полога</string>
@@ -243,17 +309,37 @@
   <string name="reset">Зверичи</string>
   <string name="apply">Усокотити</string>
   <string name="save">Усокотити</string>
+  <string name="leaderboard">Табела лідерув</string>
+  <string name="screenshotCurrentPosition">Фотка тепирішньої позіції</string>
+  <string name="gameAsGIF">Усокотити ги GIF</string>
+  <string name="pasteTheFenStringHere">Вписати FEN туй</string>
+  <string name="pasteThePgnStringHere">Вписати PGN туй</string>
+  <string name="orUploadPgnFile">Вадь наладовати PGN файл</string>
+  <string name="fromPosition">Из позіції</string>
+  <string name="continueFromHere">Продовжити из позіції</string>
   <string name="toStudy">Штудія</string>
   <string name="importGame">Перенести бавку</string>
-  <string name="importGameExplanation">Вкладіт бавку у форматови PGN, и будете мати можность перегравати бавку, довершовати компюторный аналіз, приказовати у четови ай дїлити ся одкликованьом на ниї.</string>
+  <string name="importGameExplanation">Впишіт бавку у форматови PGN, и будете мати можность перегравати бавку, довершовати компюторный аналіз, приказовати у четови ай дїлити ся одкликованьом на ниї.</string>
   <string name="importGameCaveat">Варіанты ся зотрут. Обы усокотити їх, перенесіт PGN у штудію.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s перенесена бавка</item>
     <item quantity="few">%s перенесені бавкы</item>
     <item quantity="other">%s перенесеных бавок</item>
   </plurals>
+  <string name="thisIsAChessCaptcha">Се шахматна капча.</string>
   <string name="clickOnTheBoardToMakeYourMove">Клопкніт на дощку, обы учинити ход ай доказати, ож исьте чоловік.</string>
+  <string name="captcha.fail">Будьте добрі, решіт шахматну капчу.</string>
+  <string name="notACheckmate">Се не мат</string>
+  <string name="whiteCheckmatesInOneMove">Білі кладут мат у єден ход</string>
+  <string name="blackCheckmatesInOneMove">Чорні кладут мат у єден ход</string>
   <string name="retry">Щи раз</string>
+  <string name="reconnecting">Переприкапченя</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s цімбор онлайн</item>
+    <item quantity="few">%s цімборы онлайн</item>
+    <item quantity="other">%s цімборув онлайн</item>
+  </plurals>
+  <string name="favoriteOpponents">Любимі противникы</string>
   <string name="follow">Подписати ся</string>
   <string name="following">Подписані</string>
   <string name="unfollow">Одписати ся</string>
@@ -444,7 +530,7 @@
   <string name="tournDescriptionHelp">Хочете дашто уповісти хосновачам? Будьте курті у свойих словах. Приступні одкликованя у форматови Markdown:[name](https://url)</string>
   <string name="onlyTitledHelp">Мусай мати офіціалный шахматный статус бы бавити</string>
   <string name="positionInputHelp">Уведіт добрый шор FEN, обы кажда бавка ся зачинала из такої позіції.
-То фунґує лем про прості бавкы, а не варіанты.
+То фунґує лем на прості бавкы, а не варіанты.
 Вы можете хосновати %s для учиненя позіції FEN, а пак вписати ї туй. 
 Лишіт поле пустым, бы бавкы зачинали ся из простої позіції.</string>
   <string name="simulFeaturedHelp">Указовати ваш сеанс на %s. Выключіт для личных сеансув.</string>
