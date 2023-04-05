@@ -21,6 +21,8 @@ import play.api.i18n.Lang
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
+  private val cookieDifficulty = "difficulty"
+
   private def renderJson(
       puzzle: Puz,
       angle: PuzzleAngle,
@@ -108,7 +110,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   ): Fu[Option[Puz]] =
     ctx.me match
       case Some(me) =>
-        color.?? { env.puzzle.session.setAngleAndColor(me, angle, _) } >>
+        ctx.req.session.get(cookieDifficulty) ?? { PuzzleDifficulty.find(_) } ?? {
+          env.puzzle.session.setDifficulty(me, _)
+        } >>
+          color.?? { env.puzzle.session.setAngleAndColor(me, angle, _) } >>
           env.puzzle.selector.nextPuzzleFor(me, angle)
       case None => env.puzzle.anon.getOneFor(angle, ~color)
 
@@ -307,6 +312,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             diff =>
               PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
                 Redirect(routes.Puzzle.show(theme))
+                  .withCookies(env.lilaCookie.session(cookieDifficulty, diff))
           )
       }
     }
