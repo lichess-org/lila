@@ -119,10 +119,4 @@ Artimiausias Round Robin dalykas tinkle - šveicariškas turnyras su dideliu ska
   <string name="unlimitedAndFree">Neribojama ir nemokama</string>
   <string name="predefinedUsers">Leisti prisijungti tik iš anksto nurodytiems vartotojams</string>
   <string name="forbiddedUsers">Jei šis sąrašas nėra tuščias žaidėjai nesantys jame negalės prisijungti. Kiekvienas vartotojo vardas turi būti atskiroje eilutėje.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s Šveicariškas raundas</item>
-    <item quantity="few">%1$s / %2$s Šveicariški raundai</item>
-    <item quantity="many">%1$s / %2$s Šveicariško raundo</item>
-    <item quantity="other">%1$s / %2$s Šveicariškų raundų</item>
-  </plurals>
 </resources>
