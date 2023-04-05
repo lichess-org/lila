@@ -901,7 +901,7 @@
     <item quantity="other">%s секунд</item>
   </plurals>
   <string name="opening">Дебют</string>
-  <string name="middlegame">Міттельшпіль</string>
+  <string name="middlegame">Мітельшпіль</string>
   <string name="endgame">Ендшпіль</string>
   <string name="conditionalPremoves">Умовні ходи на випередження</string>
   <string name="addCurrentVariation">Додати поточний варіант</string>
@@ -1033,5 +1033,5 @@
   <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
-  <string name="ourEventTips">Наші поради щодо організації подій</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Наші поради щодо організації подій</string>
 </resources>
