@@ -16,7 +16,7 @@
          height="260"
          id="rect2" /></clipPath></defs><g
      clip-path="url(#clip0)"
-     transform="translate(-1420,-1497)"
+     transform="matrix(0.95,0,0,0.95,-1342.475,-1415.625)"
      id="g11"><path
        d="m 1479,1732 15.11,-96 h 112.78 l 15.11,96 z"
        fill="#262626"
