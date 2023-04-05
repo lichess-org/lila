@@ -107,8 +107,4 @@ El formato más próximo a un torneo en línea de todos contra todos es un torne
   <string name="unlimitedAndFree">Ilimitado y gratuito</string>
   <string name="predefinedUsers">Permitir unirse únicamente a usuarios predefinidos</string>
   <string name="forbiddedUsers">Si esta lista no está vacía, a los usuarios ausentes de esta lista les estará prohibido unirse. Un nombre de usuario por línea.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s ronda suiza</item>
-    <item quantity="other">%1$s / %2$s rondas suizas</item>
-  </plurals>
 </resources>
