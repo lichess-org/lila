@@ -78,8 +78,8 @@ object SetupBulk:
           clock,
           days,
           rated,
-          pairTs map millisToDate,
-          clockTs map millisToDate,
+          pairTs map millisToInstant,
+          clockTs map millisToInstant,
           message map Template.apply,
           ~rules,
           fen

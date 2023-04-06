@@ -39,7 +39,7 @@ object gamify:
           ),
           table(cls := "slist slist-pad history")(
             tbody(
-              history.headOption.filterNot(_.date.getMonthValue == 12).map { h =>
+              history.headOption.filter(_.date.getMonthValue != 12).map { h =>
                 yearHeader(h.date.getYear)
               },
               history.map { h =>

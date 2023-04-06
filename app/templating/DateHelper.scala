@@ -38,48 +38,52 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
       _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
     )
 
-  def showInstantUTC(date: DateTime)(using Lang): String =
-    dateTimeFormatter format date
+  def showInstantUTC(instant: Instant)(using Lang): String =
+    dateTimeFormatter format instant
 
-  def showDate(date: Instant)(using lang: Lang): String =
-    if (lang.language == "ar") dateFormatter.format(date).replaceAll("\u200f", "")
-    else dateFormatter format date
+  def showDate(instant: Instant)(using lang: Lang): String =
+    if (lang.language == "ar") dateFormatter.format(instant.date).replaceAll("\u200f", "")
+    else dateFormatter format instant.date
 
-  def showEnglishDate(date: Instant): String =
-    englishDateFormatter format date
-  def showEnglishInstant(date: DateTime): String =
-    englishDateTimeFormatter format date
+  def showEnglishDate(instant: Instant): String =
+    englishDateFormatter format instant.dateTime
+  def showEnglishInstant(instant: Instant): String =
+    englishDateTimeFormatter format instant.dateTime
 
-  def semanticDate(date: Instant)(using Lang): Tag =
-    timeTag(datetimeAttr := isoDate(date))(showDate(date))
+  def semanticDate(instant: Instant)(using Lang): Tag =
+    timeTag(datetimeAttr := isoDateTime(instant.dateTime))(showDate(instant))
 
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
 
-  def isoDate(date: Instant): String = isoDateFormatter format date
+  def isoDateTime(instant: Instant): String = isoDateTimeFormatter format instant.date
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
-  def momentFromNow(date: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
-    if (!alwaysRelative && (date.toMillis - nowMillis) > oneDayMillis) absClientInstant(date)
-    else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDate(date))(nbsp)
+  def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
+    if (!alwaysRelative && (date.toMillis - nowMillis) > oneDayMillis) absClientInstant(instant)
+    else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
 
-  def momentFromNowWithPreload(date: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Frag =
-    momentFromNow(date, alwaysRelative, once)(momentFromNowServerText(date))
+  def momentFromNowWithPreload(
+      instant: Instant,
+      alwaysRelative: Boolean = false,
+      once: Boolean = false
+  ): Frag =
+    momentFromNow(instant, alwaysRelative, once)(momentFromNowServerText(date))
 
-  def absClientInstant(date: DateTime): Tag =
+  def absClientInstant(instant: Instant): Tag =
     timeTag(cls := "timeago abs", datetimeAttr := isoDate(date))("-")
 
-  def momentFromNowOnce(date: Instant): Tag = momentFromNow(date, once = true)
+  def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
 
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
     momentFromNow(nowInstant plusSeconds seconds, alwaysRelative)
 
-  def momentFromNowServer(date: Instant): Frag =
-    timeTag(title := f"${showEnglishInstant(date)} UTC")(momentFromNowServerText(date))
+  def momentFromNowServer(instant: Instant): Frag =
+    timeTag(title := f"${showEnglishInstant(date)} UTC")(momentFromNowServerText(instant))
 
-  def momentFromNowServerText(date: Instant, inFuture: Boolean = false): String =
-    val (dateSec, nowSec) = (date.toMillis / 1000, nowSeconds)
+  def momentFromNowServerText(instant: Instant, inFuture: Boolean = false): String =
+    val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
     val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt atLeast 0
     val minutes           = seconds / 60
     val hours             = minutes / 60

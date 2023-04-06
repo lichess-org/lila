@@ -51,5 +51,5 @@ object atom:
       )
     }
 
-  def docDate(doc: io.prismic.Document) =
-    doc getDate "blog.date" map (_.value.withTimeAtStartOfDay)
+  def docDate(doc: io.prismic.Document): Option[Instant] =
+    doc getDate "blog.date" map (_.value.withTimeAtStartOfDay.instant)

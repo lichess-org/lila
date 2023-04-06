@@ -104,8 +104,8 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         Result(
           who,
           period,
-          data.toList.sortBy(_._1).reverse.flatMap { case (date, row) =>
-            Try(java.time.Instant.parse(date, dateFormat)).toOption map { _ -> row }
+          data.toList.sortBy(_._1).reverse.flatMap { (date, row) =>
+            Try(java.time.LocalDateTime.parse(date, dateFormat)).toOption map { _.instant -> row }
           }
         )
       }

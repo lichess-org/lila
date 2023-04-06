@@ -113,7 +113,7 @@ final class ActivityReadApi(
           }
           .dmap(_.filter(_.nonEmpty))
       tours <- a.games.exists(_.hasNonCorres) ?? {
-        val dateRange = a.date -> a.date.plusDays(1)
+        val dateRange = TimeInterval(a.date, a.date.plusDays(1))
         tourLeaderApi
           .timeRange(a.id.userId, dateRange)
           .dmap { entries =>

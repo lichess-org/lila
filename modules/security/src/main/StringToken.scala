@@ -64,4 +64,4 @@ object StringToken:
 
   object DateStr:
     def toStr(date: Instant)   = date.toMillis.toString
-    def toInstant(str: String) = str.toLongOption map { millisToInstant(_) }
+    def toInstant(str: String) = str.toLongOption map millisToInstant

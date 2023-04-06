@@ -131,7 +131,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   def statusById(id: Challenge.ID) = coll.primitiveOne[Status]($id(id), "status")
 
-  private def setStatus(challenge: Challenge, status: Status, expiresAt: Option[Instant => DateTime]) =
+  private def setStatus(challenge: Challenge, status: Status, expiresAt: Option[Instant => Instant]) =
     coll.update
       .one(
         selectCreatedOrOffline ++ $id(challenge.id),

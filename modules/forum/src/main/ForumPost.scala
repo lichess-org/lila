@@ -66,7 +66,7 @@ case class ForumPost(
       reactions = reactions.map(_.view.filterKeys(k => !ForumPost.Reaction.positive(k)).toMap)
     )
 
-  def erase = editPost(nowInstant, "").copy(erasedAt = nowDate.some)
+  def erase = editPost(nowInstant, "").copy(erasedAt = nowInstant.some)
 
   def hasEdits = editHistory.isDefined
 

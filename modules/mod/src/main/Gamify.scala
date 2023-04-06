@@ -8,6 +8,7 @@ import lila.memo.CacheApi.*
 import lila.report.Room
 import lila.user.User
 import java.time.Instant
+import java.time.LocalDateTime
 
 final class Gamify(
     logRepo: ModlogRepo,
@@ -24,7 +25,7 @@ final class Gamify(
   private given BSONDocumentHandler[HistoryMonth] = Macros.handler
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] =
-    val until  = nowInstant minusMonths 1 withDayOfMonth 1
+    val until  = nowDateTime minusMonths 1 withDayOfMonth 1
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthValue)
     historyRepo.coll
       .find($empty)
@@ -43,14 +44,14 @@ final class Gamify(
         case _                          => buildHistoryAfter(2017, 6, until) >> history(false)
     }
 
-  private def buildHistoryAfter(afterYear: Int, afterMonth: Int, until: Instant): Funit =
+  private def buildHistoryAfter(afterYear: Int, afterMonth: Int, until: LocalDateTime): Funit =
     (afterYear to until.getYear)
       .flatMap { year =>
         ((if (year == afterYear) afterMonth + 1 else 1) to
           (if (year == until.getYear) until.getMonthValue else 12)).map { month =>
           mixedLeaderboard(
-            after = Instant.of(year, month, 1, 0, 0).pp("compute mod history"),
-            before = Instant.of(year, month, 1, 0, 0).plusMonths(1).some
+            after = instantOf(year, month, 1, 0, 0).pp("compute mod history"),
+            before = instantOf(year, month, 1, 0, 0).plusMonths(1).some
           ).map {
             _.headOption.map { champ =>
               HistoryMonth(HistoryMonth.makeId(year, month), year, month, champ)
@@ -81,12 +82,12 @@ final class Gamify(
       }
   }
 
-  private def mixedLeaderboard(after: Instant, before: Option[DateTime]): Fu[List[ModMixed]] =
-    for {
+  private def mixedLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModMixed]] =
+    for
       actions <- actionLeaderboard(after, before)
       reports <- reportLeaderboard(after, before)
       modList <- modApi.allMods
-    } yield actions.map(_.modId) intersect modList.map(_.id) diff hidden map { modId =>
+    yield actions.map(_.modId) intersect modList.map(_.id) diff hidden map { modId =>
       ModMixed(
         modId,
         action = actions.find(_.modId == modId) ?? (_.count),
@@ -94,14 +95,14 @@ final class Gamify(
       )
     } sortBy (-_.score)
 
-  private def dateRange(from: Instant, toOption: Option[DateTime]) =
+  private def dateRange(from: Instant, toOption: Option[Instant]) =
     $doc("$gte" -> from) ++ toOption.?? { to =>
       $doc("$lt" -> to)
     }
 
   private val hidden = List(User.lichessId, User.irwinId)
 
-  private def actionLeaderboard(after: Instant, before: Option[DateTime]): Fu[List[ModCount]] =
+  private def actionLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModCount]] =
     logRepo.coll
       .aggregateList(maxDocs = 100, readPreference = temporarilyPrimary) { framework =>
         import framework.*
@@ -123,7 +124,7 @@ final class Gamify(
         }
       }
 
-  private def reportLeaderboard(after: Instant, before: Option[DateTime]): Fu[List[ModCount]] =
+  private def reportLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModCount]] =
     reportApi.coll
       .aggregateList(
         maxDocs = Int.MaxValue,
@@ -158,7 +159,7 @@ final class Gamify(
 object Gamify:
 
   case class HistoryMonth(_id: String, year: Int, month: Int, champion: ModMixed):
-    def date = Instant.of(year, month, 1, 0, 0)
+    lazy val date = LocalDateTime.of(year, month, 1, 0, 0)
   object HistoryMonth:
     def makeId(year: Int, month: Int) = s"$year/$month"
 
