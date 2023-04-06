@@ -32,6 +32,7 @@
   <string name="puzzlesByOpenings">Feladványok megnyitások szerint</string>
   <string name="openingsYouPlayedTheMost">A leggyakoribb megnyitások az értékelt játszmáidból</string>
   <string name="useFindInPage">Használd a böngésző \"Keresés az oldalon\" funkcióját, hogy megtaláld a kedvenc megnyitásod!</string>
+  <string name="useCtrlF">Ctrl+f a kedvenc megnyitásod megtalálásához!</string>
   <string name="notTheMove">Nem a legjobb lépés!</string>
   <string name="trySomethingElse">Próbálkozz mással.</string>
   <string name="ratingX">Pontszám: %s</string>
