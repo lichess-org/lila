@@ -58,30 +58,35 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
 
   def setDifficulty(user: User, difficulty: PuzzleDifficulty): Funit =
     updateSession(user): prev =>
-      createSessionFor(
-        user,
-        prev.map(_.path.angle) | PuzzleAngle.mix,
-        PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
-      )
+      (prev.fold(true)(_.settings.difficulty != difficulty)) option
+        createSessionFor(
+          user,
+          prev.map(_.path.angle) | PuzzleAngle.mix,
+          PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
+        )
 
   def setAngleAndColor(user: User, angle: PuzzleAngle, color: Option[Color]): Funit =
     updateSession(user): prev =>
-      createSessionFor(
-        user,
-        angle,
-        PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
-      )
+      (prev.fold(true)(p => p.settings.color != color || p.path.angle != angle)) option
+        createSessionFor(
+          user,
+          angle,
+          PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
+        )
 
   private[puzzle] def set(user: User, session: PuzzleSession) = sessions.put(user.id, fuccess(session))
 
-  private def updateSession(user: User)(f: Option[PuzzleSession] => Fu[PuzzleSession]): Funit =
+  private def updateSession(user: User)(f: Option[PuzzleSession] => Option[Fu[PuzzleSession]]): Funit =
     sessions
       .getIfPresent(user.id)
       .fold(fuccess(none[PuzzleSession]))(_ dmap some)
       .flatMap { prev =>
-        f(prev) map { next =>
-          if (!prev.exists(next.similarTo)) sessions.put(user.id, fuccess(next))
-        }
+        f(prev) match
+          case Some(nextFu) =>
+            nextFu map { next =>
+              !prev.exists(next.similarTo) ?? sessions.put(user.id, fuccess(next))
+            }
+          case _ => funit
       }
 
   private val sessions = cacheApi.notLoading[UserId, PuzzleSession](32768, "puzzle.session")(
