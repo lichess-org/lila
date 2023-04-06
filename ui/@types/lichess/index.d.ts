@@ -40,6 +40,8 @@ interface Lichess {
 
   socket: any;
   sound: SoundI;
+  mic?: Voice.Microphone;
+
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
@@ -70,7 +72,6 @@ interface Lichess {
   playMusic(): any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
-  mic?: Voice.Microphone;
 }
 
 type I18nDict = { [key: string]: string };

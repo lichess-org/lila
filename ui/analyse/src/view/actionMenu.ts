@@ -1,10 +1,10 @@
 import { isEmpty } from 'common';
 import modal from 'common/modal';
 import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
-import { h, VNode, Hooks } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
 import { config as externalEngineConfig } from './externalEngine';
-import { toggle, ToggleSettings } from 'common/toggle';
+import { toggle, ToggleSettings, rangeConfig } from 'common/controls';
 import AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'game/router';
 import * as pgnExport from '../pgnExport';
@@ -90,15 +90,6 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
     })
   );
 }
-
-const rangeConfig = (read: () => number, write: (value: number) => void): Hooks => ({
-  insert: vnode => {
-    const el = vnode.elm as HTMLInputElement;
-    el.value = '' + read();
-    el.addEventListener('input', _ => write(parseInt(el.value)));
-    el.addEventListener('mouseout', _ => el.blur());
-  },
-});
 
 const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 

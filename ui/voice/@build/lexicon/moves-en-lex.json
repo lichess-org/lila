@@ -45,6 +45,7 @@
   { "in": "accept draw", "val": "draw", "tags": [ "command", "round" ] },
   { "in": "resign", "val": "resign", "tags": [ "command", "round" ] },
   { "in": "rematch", "val": "rematch", "tags": [ "command", "round" ] },
+  { "in": "flip", "val": "flip", "tags": [ "command" ] },
   { "in": "clock", "val": "clock", "tags": [ "command", "round" ] },
   { "in": "opponent", "val": "who", "tags": [ "command", "round" ] },
   { "in": "next", "val": "next", "tags": [ "command", "puzzle" ] },
@@ -53,6 +54,7 @@
   { "in": "thumbs down", "val": "downvote", "tags": [ "command", "puzzle" ] },
   { "in": "solution", "val": "solve", "tags": [ "command", "puzzle" ] },
   { "in": "help", "val": "help", "tags": [ "command" ] },
+  { "in": "stop listening", "val": "stop", "tags": [ "command" ] },
   { "in": "stop recording", "val": "stop", "tags": [ "command" ] },
 
   { "in": "yes", "val": "yes", "tags": [ "choice" ] },
@@ -71,6 +73,7 @@
   { "in": "purple", "val": "purple", "tags": [ "color", "choice" ] },
   { "in": "orange", "val": "orange", "tags": [ "color", "choice" ] },
   { "in": "brown", "val": "brown", "tags": [ "color", "choice" ] },
+  { "in": "white", "val": "white", "tags": [ "color", "choice" ] },
 
   { "in": "alfa", "val": "a", "tags": [ "file", "move", "nato" ] },
   { "in": "bravo", "val": "b", "tags": [ "file", "move", "nato" ] },

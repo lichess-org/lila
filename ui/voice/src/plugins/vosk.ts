@@ -2,41 +2,47 @@ import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
 import { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
 import { RecognizerOpts } from '../interfaces';
 
-const logLevel = 0; // -1 errors only. 0 includes warnings, 3 is just insane
+const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
+const BUF_SIZE = 8192;
 
+// do not touch this unless you are familiar with vosk-browser, emscripten, the vosk api,
+// and kaldi. don't try to clean it up.
 type Recognizer = {
-  node?: ScriptProcessorNode;
+  node: ScriptProcessorNode;
   kaldi: KaldiRecognizer;
 };
 
 export default (window as any).LichessVoicePlugin.vosk = new (class {
   voiceModel: Model;
   recs = new Map<Voice.ListenMode, Recognizer>();
-  mode: Voice.ListenMode = 'full';
+  mode?: Voice.ListenMode = 'full';
 
   async initModel(url: string): Promise<void> {
-    this.voiceModel = await createModel(url, logLevel);
+    this.voiceModel = await createModel(url, LOG_LEVEL);
   }
 
-  async setRecognizer(opts: RecognizerOpts): Promise<AudioNode> {
-    console.info(`Creating ${opts.mode} recognizer with`, opts.vocab);
+  async setRecognizer(opts: RecognizerOpts): Promise<AudioNode | undefined> {
+    if (!opts.vocab || !opts.vocab.length) {
+      this.close(opts.mode);
+      return;
+    }
+    if (LOG_LEVEL >= -1) console.info(`Creating ${opts.mode} recognizer with`, opts.vocab);
 
     const kaldi = new this.voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.vocab));
 
     // fun fact - createScriptProcessor was deprecated in 2014
-    const node = opts.audioCtx.createScriptProcessor(4096, 1, 1);
-    if (opts.mode === 'partial') {
+    const node = opts.audioCtx.createScriptProcessor(BUF_SIZE, 1, 1);
+    if (opts.mode === 'partial')
       kaldi.on('partialresult', (msg: ServerMessagePartialResult) => {
         if (msg.result.partial.length < 2 || this.mode !== 'partial') return;
         opts.broadcast(msg.result.partial, opts.mode, undefined, 1000);
       });
-    } else {
-      //kaldi.setWords(true);
+    else
       kaldi.on('result', (msg: ServerMessageResult) => {
         if (msg.result.text.length < 2 || this.mode !== 'full') return;
         opts.broadcast(msg.result.text, opts.mode, msg.result.result, 3000);
       });
-    }
+
     if (this.mode === opts.mode) node.onaudioprocess = e => kaldi.acceptWaveform(e.inputBuffer);
 
     this.close(opts.mode);
@@ -50,8 +56,12 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
 
   setMode(newMode: Voice.ListenMode): void {
     if (this.mode === newMode && this.recs.get(newMode)?.node?.onaudioprocess) return;
-    const oldNode = this.recs.get(this.mode)?.node;
-    if (oldNode?.onaudioprocess) oldNode.onaudioprocess = null;
+    const oldRec = this.mode ? this.recs.get(this.mode) : undefined;
+    if (oldRec?.node.onaudioprocess) {
+      this.mode = undefined;
+      oldRec.node.onaudioprocess = null;
+      if (newMode === 'full') oldRec.kaldi.retrieveFinalResult();
+    }
     const r = this.recs.get(newMode);
     if (r?.node) r.node.onaudioprocess = e => r.kaldi.acceptWaveform(e.inputBuffer);
     this.mode = newMode;
@@ -60,16 +70,16 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
   stop(): void {
     this.recs.forEach(rec => {
       if (rec.node?.onaudioprocess) rec.node.onaudioprocess = null;
-      //rec.node?.disconnect();
     });
   }
 
   close(mode: Voice.ListenMode) {
     const rec = this.recs.get(mode);
-    rec?.kaldi?.remove();
-    if (rec?.node?.onaudioprocess) rec.node.onaudioprocess = null;
-    rec?.node?.disconnect();
-    if (rec?.node) rec.node = undefined;
+    if (rec && LOG_LEVEL >= -1) console.info(`Closing ${mode} recognizer`);
+    rec?.kaldi.remove();
+    if (rec?.node.onaudioprocess) rec.node.onaudioprocess = null;
+    rec?.node.disconnect();
+    this.recs.delete(mode);
   }
 })();
 

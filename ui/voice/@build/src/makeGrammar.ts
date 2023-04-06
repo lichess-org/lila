@@ -18,15 +18,14 @@ function buildCostMap(
 ) {
   const costMax = 0.9;
   const subCostMin = 0.4;
-  const delCostMin = 0.2;
 
-  // we don't do anything with crowdv json confs, don't trust em
+  // we don't do anything with crowdv json confs
   const costs = [...subMap.entries()]
     .filter(([_, e]) => e.freq >= freqThreshold && e.count >= countThreshold)
     .sort((a, b) => b[1].freq - a[1].freq);
 
   costs.forEach(([_, v], i) => {
-    v.cost = ((costMax - subCostMin) * i) / costs.length + (v.tpe === 'del' ? delCostMin : subCostMin);
+    v.cost = ((costMax - subCostMin) * i) / costs.length + subCostMin;
   });
   return new Map(costs);
 }

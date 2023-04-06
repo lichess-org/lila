@@ -76,8 +76,10 @@ $gap: max($block-gap, 16px);
   border-radius: 3px 3px 0 0;
   line-height: 22px;
   width: 48px;
-  &:hover {
-    color: $c-primary;
+  @media (hover: hover) {
+    &:hover {
+      color: $c-primary;
+    }
   }
   &.active {
     color: white;
@@ -138,7 +140,7 @@ $gap: max($block-gap, 16px);
 
     .range_value {
       direction: ltr;
-      width: 25%;
+      width: 15%;
       //flex: 0 0 auto;
       display: block;
       text-align: left;
@@ -171,13 +173,16 @@ $gap: max($block-gap, 16px);
       label {
         pointer-events: none;
       }
-      &:not(.selected):hover {
-        color: lighten($c-font, 20%);
-        box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
+      @media (hover: hover) {
+        &:not(.selected):hover {
+          color: lighten($c-font, 20%);
+          box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
+        }
       }
     }
     .selected {
       cursor: default;
+      pointer-events: none;
       color: white;
       background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
     }

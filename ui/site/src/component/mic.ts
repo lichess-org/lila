@@ -161,8 +161,8 @@ export const mic =
         this.vosk.setMode(mode);
         this.listenMode = mode;
       };
-      if (mode === 'partial') this.initKaldi(mode).then(hookup); // partial recs crap out after one use
-      else hookup();
+      /*if (mode === 'partial') this.initKaldi(mode).then(hookup); // partial recs crap out after one use
+      else*/ hookup();
     }
 
     get mode(): Voice.ListenMode {

@@ -6,7 +6,7 @@
     "subs": [
       {
         "to": "",
-        "cost": 0.3724137931034483
+        "cost": 0.5
       },
       {
         "to": "e",
@@ -134,7 +134,7 @@
     "subs": [
       {
         "to": "",
-        "cost": 0.4672413793103448
+        "cost": 0.5
       },
       {
         "to": "a",
@@ -273,7 +273,7 @@
     "subs": [
       {
         "to": "",
-        "cost": 0.33793103448275863
+        "cost": 0.5
       },
       {
         "to": "g",
@@ -294,6 +294,10 @@
       {
         "to": "f2",
         "cost": 0.8827586206896552
+      },
+      {
+        "to": "H",
+        "cost": 0.4
       }
     ]
   },
@@ -505,7 +509,7 @@
     "subs": [
       {
         "to": "",
-        "cost": 0.44568965517241377
+        "cost": 0.5
       },
       {
         "to": "K",
@@ -547,7 +551,7 @@
     "subs": [
       {
         "to": "",
-        "cost": 0.47155172413793106
+        "cost": 0.5
       },
       {
         "to": "Ra",
@@ -581,7 +585,7 @@
     "subs": [
       {
         "to": "",
-        "cost": 0.3422413793103448
+        "cost": 0.5
       },
       {
         "to": "Ka",
@@ -822,10 +826,22 @@
     ]
   },
   {
+    "in": "flip",
+    "val": "flip",
+    "tags": ["command"],
+    "tok": "9",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
     "in": "clock",
     "val": "clock",
     "tags": ["command", "round"],
-    "tok": "9",
+    "tok": ":",
     "subs": [
       {
         "to": "",
@@ -837,7 +853,7 @@
     "in": "opponent",
     "val": "who",
     "tags": ["command", "round"],
-    "tok": ":",
+    "tok": ";",
     "subs": [
       {
         "to": "",
@@ -849,7 +865,7 @@
     "in": "next",
     "val": "next",
     "tags": ["command", "puzzle"],
-    "tok": ";",
+    "tok": "<",
     "subs": [
       {
         "to": "",
@@ -861,7 +877,7 @@
     "in": "continue",
     "val": "next",
     "tags": ["command", "puzzle"],
-    "tok": "<",
+    "tok": "=",
     "subs": [
       {
         "to": "",
@@ -885,7 +901,7 @@
     "in": "solution",
     "val": "solve",
     "tags": ["command", "puzzle"],
-    "tok": "=",
+    "tok": ">",
     "subs": [
       {
         "to": "",
@@ -897,18 +913,6 @@
     "in": "help",
     "val": "help",
     "tags": ["command"],
-    "tok": ">",
-    "subs": [
-      {
-        "to": "",
-        "cost": 0.5
-      }
-    ]
-  },
-  {
-    "in": "stop",
-    "val": "stop",
-    "tags": ["command"],
     "tok": "?",
     "subs": [
       {
@@ -918,6 +922,12 @@
     ]
   },
   {
+    "in": "stop recording",
+    "val": "stop",
+    "tags": ["command"],
+    "tok": "{|"
+  },
+  {
     "in": "yes",
     "val": "yes",
     "tags": ["choice"],
@@ -925,7 +935,7 @@
     "subs": [
       {
         "to": "",
-        "cost": 0.23017241379310346
+        "cost": 0.43017241379310345
       },
       {
         "to": "e",
@@ -1501,6 +1511,28 @@
   {
     "in": "down",
     "tok": "z",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "stop",
+    "tok": "{",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "recording",
+    "tok": "|",
     "tags": ["part"],
     "subs": [
       {

@@ -1,68 +1,49 @@
-import { DrawShape, DrawBrush } from 'chessground/draw';
-import { Role } from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
-import { storedBooleanProp, storedIntProp } from 'common/storage';
+import { Role } from 'chessground/types';
+import { storedBooleanPropWithEffect, storedIntPropWithEffect, storedIntProp } from 'common/storage';
 import { propWithEffect, PropWithEffect } from 'common';
 import * as cs from 'chess';
 import { promote } from 'chess/promotion';
-import { RootCtrl, VoiceMove } from './interfaces';
-import { lexicon, Entry } from './voiceMoveGrammar-en';
+import { RootCtrl, VoiceMove, Entry } from './interfaces';
+import { coloredArrows, numberedArrows, timerShape, brushes } from './arrows';
+import { findTransforms, movesTo, pushMap, spreadMap, spread, getSpread, remove, type Transform } from './util';
 
-// For an overview of this stuff, see the README.md in ui/voice/@build
+// For an overview, see the README.md in ui/voice/@build
 
 export const makeVoiceMove = (root: RootCtrl, fen: string) => new VoiceMoveCtrl(root, fen);
-
 class VoiceMoveCtrl implements VoiceMove {
+  cg: CgApi;
+  root: RootCtrl;
+  board: cs.Board;
+  lexicon: Entry[] = [];
+
   byVal = new Map<string, Entry | Set<Entry>>(); // map values to lexicon entries
   bySimilar = new Map<string, Entry | Set<Entry>>(); // map words to entries which can sub for them
   byTok = new Map<string, Entry>(); // map token chars to lexicon entries
   byWord = new Map<string, Entry>(); // map input words to lexicon entries
   confirm = new Map<string, (v: boolean) => void>(); // boolean confirmation callbacks
-  ignorable = new Set<string>(); // words with subs to '' at cost < 0.5, cached for performance
 
   ucis: Uci[]; // every legal move in uci
   moves: Map<string, Uci | Set<Uci>>; // on full phrase - map valid xvals to all full legal moves
   squares: Map<string, Uci | Set<Uci>>; // on full phrase - map of xvals to selectable or reachable square(s)
-  //xvalToMove?: Map<string, Uci>; // on partial phrase - resolve ambiguity in countdown mode, map choice xval to move
   choices?: Map<string, Uci>; // map choice (blue, red, 1, 2, etc) to action
-  //ambiguity?: Map<string, Uci>; // map from choice (blue, red, 1, 2, etc) to uci
   choiceTimeout?: number; // timeout for ambiguity choices
-  skipPartial?: string;
-  lastPartial?: string;
 
-  LABEL_SIZE = 40; // size of arrow labels in svg user units, 100 is the width of a board square
-
-  cg: CgApi;
-  root: RootCtrl;
-  board: cs.Board;
+  MAX_CHOICES = 8; // don't use brushes.length
 
   showHelp: PropWithEffect<boolean>;
-  arrogance = storedIntProp('voice.arrogance', 1); // UI calls it 'confidence', but we know better
-  arrowColors = storedBooleanProp('voice.useColors', true);
-  countdown = storedIntProp('voice.countdown', 3);
-  nArrogance: number; // same as arrogance, just cached
+  clarityPref = storedIntProp('voice.clarity', 1);
+  colorsPref = storedBooleanPropWithEffect('voice.useColors', true, v => this.setPartialVocabulary(v));
+  timerPref = storedIntPropWithEffect('voice.timer', 3, _ => this.setPartialVocabulary());
 
   debug = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
-
-  brushes: [string, DrawBrush][] = [
-    ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],
-    ['blue', { key: 'vbl', color: '#003088', opacity: 0.8, lineWidth: 12 }],
-    ['purple', { key: 'vpu', color: '#68217a', opacity: 0.85, lineWidth: 12 }],
-    ['red', { key: 'vrd', color: '#881010', opacity: 0.8, lineWidth: 12 }],
-    ['yellow', { key: 'vyl', color: '#ffef00', opacity: 0.6, lineWidth: 12 }],
-    ['pink', { key: 'vpn', color: '#ee2080', opacity: 0.5, lineWidth: 12 }],
-    ['orange', { key: 'vor', color: '#f6931f', opacity: 0.8, lineWidth: 12 }],
-    ['brown', { key: 'vgy', color: '#8B4513', opacity: 0.8, lineWidth: 12 }],
-    ['grey', { key: 'vgr', color: '#666666', opacity: 0.8, lineWidth: 12 }],
-    ['ghost', { key: 'vgh', color: '#888888', opacity: 0.4, lineWidth: 6 }],
-  ];
 
   constructor(root: RootCtrl, fen: string) {
     this.showHelp = propWithEffect(false, root.redraw);
     this.root = root;
     this.cg = this.root.chessground;
-    //if (!('v-pink' in this.cg.state.drawable.brushes))
-    for (const [color, brush] of this.brushes) this.cg.state.drawable.brushes[`v-${color}`] = brush;
+    for (const [color, brush] of brushes) this.cg.state.drawable.brushes[`v-${color}`] = brush;
+
     this.update(fen);
 
     lichess.mic?.useGrammar('moves-en', (lexicon: Entry[]) => {
@@ -78,6 +59,7 @@ class VoiceMoveCtrl implements VoiceMove {
           if (s.to.length === 1) pushMap(this.bySimilar, this.tokWord(s.to)!, e);
         }
       }
+      this.lexicon = lexicon;
       const excludeTag = root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
       lichess.mic?.setVocabulary(this.tagWords().filter(x => this.byWord.get(x)?.tags?.includes(excludeTag) !== true));
     });
@@ -85,15 +67,18 @@ class VoiceMoveCtrl implements VoiceMove {
 
     lichess.mic?.addListener('voiceMove', this.listenFull.bind(this));
     lichess.mic?.addListener('partials', this.listenPartial.bind(this), 'partial');
+
+    // TODO resolve in chessground, firefox/cg ignores the first animation on a custom svg
+    setTimeout(() => this.cg.setShapes([timerShape('a1', [0, 0], 1, 'white', 1 / 256)])); // prime ff
   }
 
-  setPartialVocabulary() {
+  setPartialVocabulary(doColors?: boolean) {
     lichess.mic?.setVocabulary(
-      this.countdown() === 0
+      this.timer === 0
         ? []
-        : this.arrowColors()
-        ? ['yes', 'no', 'wait', 'green', 'blue', 'purple', 'red', 'pink', 'yellow', 'orange', 'brown']
-        : ['yes', 'no', 'wait', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'],
+        : (doColors !== undefined ? doColors : this.colorsPref())
+        ? ['yes', 'no', 'stop', 'white', 'green', 'blue', 'purple', 'pink', 'brown', 'orange', 'yellow']
+        : ['yes', 'no', 'stop', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'],
       'partial'
     );
   }
@@ -111,9 +96,6 @@ class VoiceMoveCtrl implements VoiceMove {
   listenFull(text: string, msgType: Voice.MsgType, words?: Voice.WordResult) {
     if (msgType === 'stop') this.clearMoveProgress();
     else if (msgType === 'full') {
-      if (text.startsWith(this.skipPartial ?? 'zzz')) text = text.slice(this.skipPartial!.length + 1);
-      this.skipPartial = this.lastPartial = undefined;
-      this.nArrogance = this.arrogance(); // cache it
       try {
         if (this.debug?.collapse)
           console.groupCollapsed(
@@ -129,13 +111,13 @@ class VoiceMoveCtrl implements VoiceMove {
         if (this.debug?.collapse) console.groupEnd();
       }
     }
-    this.root.redraw();
+    setTimeout(this.root.redraw);
   }
 
   listenPartial(text: string, _: Voice.MsgType, words?: Voice.WordResult) {
     console.log(text, words);
     if (!this.choices || !this.choiceTimeout) return;
-    if (text === 'wait') {
+    if (text === 'stop') {
       clearTimeout(this.choiceTimeout);
       this.choiceTimeout = undefined;
       this.makeArrows();
@@ -144,11 +126,23 @@ class VoiceMoveCtrl implements VoiceMove {
     else if (this.choices.has(text)) this.submit(this.choices.get(text)!);
     else return;
     clearTimeout(this.choiceTimeout);
-    this.cg.redrawAll();
+    if (text !== 'stop') this.choices = undefined;
+    setTimeout(this.cg.redrawAll);
     lichess.mic!.mode = 'full';
-    if (text !== 'wait') this.choices = undefined;
   }
 
+  makeArrows() {
+    if (!this.choices) return;
+    this.cg.setShapes(
+      this.colorsPref()
+        ? coloredArrows([...this.choices], this.choiceTimeout ? this.timer : undefined)
+        : numberedArrows(
+            [...this.choices],
+            this.cg.state.orientation === 'white',
+            this.choiceTimeout ? this.timer : undefined
+          )
+    );
+  }
   // return true from a handle method to short-cicuit the chain
   handleCommand(msgText: string): boolean {
     const matchedVal = this.matchOneTags(msgText, ['command', 'choice']);
@@ -167,6 +161,7 @@ class VoiceMoveCtrl implements VoiceMove {
       this.clearMoveProgress();
     } else if (c === 'no' && this.showHelp()) this.showHelp(false);
     else if (c === 'help') this.showHelp(true);
+    else if (c === 'flip') this.root.flipNow();
     else if (c === 'rematch') this.root.rematch?.(true);
     else if (c === 'draw') this.root.offerDraw?.(true, false);
     else if (c === 'resign') this.root.resign?.(true, false);
@@ -181,13 +176,14 @@ class VoiceMoveCtrl implements VoiceMove {
 
   // return true from a handle method to short-cicuit the chain
   handleAmbiguity(phrase: string, words?: Voice.WordResult): boolean {
-    if (!this.choices || (words && words.length > 2)) return false; // might want > 1 here
+    console.log('are we calling it', phrase, this.choices);
+    if (!this.choices || phrase.includes(' ')) return false;
     const conf = !words ? 1 : words.reduce((acc, w) => acc + w.conf, 0) / words.length;
 
     const chosen = this.matchOne(
       phrase,
       [...this.choices].map(([w, uci]) => [this.wordVal(w), [uci]])
-    ); // partite match
+    );
     if (!chosen) {
       this.clearMoveProgress();
       if (this.debug) console.log('handleAmbiguity', `no match for '${phrase}' conf=${conf} among`, this.choices);
@@ -208,33 +204,23 @@ class VoiceMoveCtrl implements VoiceMove {
     const conf = !words ? 1 : words.reduce((acc, w) => acc + w.conf, 0) / words.length;
     if (
       this.selection &&
-      this.chooseMoves(this.matchMany(phrase, spreadMap(this.squares), this.nArrogance === 2), conf)
+      this.chooseMoves(this.matchMany(phrase, spreadMap(this.squares) /*, this.nArrogance === 2*/), conf)
     )
       return true;
     return this.chooseMoves(
-      this.matchMany(phrase, [...spreadMap(this.moves), ...spreadMap(this.squares)], this.nArrogance === 2),
+      this.matchMany(phrase, [...spreadMap(this.moves), ...spreadMap(this.squares)] /*, this.nArrogance === 2*/),
       conf
     );
   }
 
   chooseMoves(m: [string, number][], conf: number) {
-    const exactMatches = m.filter(([_, cost]) => cost === 0).length;
-    const closeEnough = m.filter(([_, cost]) => cost <= this.nArrogance * 0.2).length;
-    if (
-      (m.length === 1 && conf > 0) ||
-      (this.nArrogance === 2 && exactMatches === 1) ||
-      //(this.nArrogance === 1 && closeEnough === 1 && exactMatches === 0) ||
-      (this.nArrogance === 2 && closeEnough > 0 && exactMatches === 0)
-    ) {
+    if (m.length === 0) return false;
+    if ((m.length === 1 && m[0][1] < 0.4) || m[1][1] - m[0][1] > [0.7, 0.5, 0.3][this.clarityPref()]) {
       if (this.debug) console.log('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]} conf=${conf}`);
       this.submit(m[0][0]);
       return true;
-    } else if (m.length > 0) {
-      this.ambiguate(m); //.filter(m => m[1] < 1.8 - conf));
-      this.cg.redrawAll();
-      return true;
     }
-    return false;
+    return this.ambiguate(m);
   }
 
   // mappings can be partite over tag sets. in the substitution graph, all tokens with identical
@@ -293,12 +279,12 @@ class VoiceMoveCtrl implements VoiceMove {
     return sub?.cost ?? 100;
   }
 
-  ambiguate(choices: [string, number][]) {
-    if (choices.length === 0) return;
+  ambiguate(choices: [string, number][], allowTimer = true) {
+    if (choices.length === 0) return false;
     // dedup by uci & keep first to preserve cost order
     choices = choices
       .filter(([uci, _], keepIfFirst) => choices.findIndex(first => first[0] === uci) === keepIfFirst)
-      .slice(0, 8);
+      .slice(0, this.MAX_CHOICES);
 
     // if multiple choices with identical cost head the list, prefer a single pawn move
     const sameLowCost = choices.filter(([_, cost]) => cost === choices[0][1]);
@@ -311,23 +297,27 @@ class VoiceMoveCtrl implements VoiceMove {
       [choices[0], choices[pIndex]] = [choices[pIndex], choices[0]];
       for (let i = 1; i < sameLowCost.length; i++) choices[i][1] += 0.01;
     }
-    const preferred = choices.length === 1 || choices[0][1] < choices[1][1] ? choices[0][0] : undefined;
-
     this.choices = new Map<string, Uci>();
-    if (this.arrowColors()) choices.forEach(([uci], i) => this.choices!.set(this.brushes[i][0], uci));
-    else choices.forEach(([uci], i) => this.choices!.set(this.tokWord(`${i + 1}`)!, uci));
+
+    if (this.colorsPref()) {
+      const colorNames = [...brushes.keys()];
+      choices.forEach(([uci], i) => this.choices!.set(colorNames[i], uci));
+    } else choices.forEach(([uci], i) => this.choices!.set(this.tokWord(`${i + 1}`)!, uci));
 
     if (this.debug) console.log('ambiguate', this.choices);
 
-    if (this.countdown() > 0 && preferred) {
+    this.choiceTimeout = 0;
+    if (this.timer > 0 && allowTimer && (choices.length === 1 || choices[0][1] < choices[1][1])) {
       this.choiceTimeout = setTimeout(() => {
-        this.submit(preferred);
+        this.submit(choices[0][0]);
         this.choiceTimeout = undefined;
         lichess.mic!.mode = 'full';
-      }, this.countdown() * 1000);
+      }, this.timer * 1000 + 100);
       lichess.mic!.mode = 'partial';
     }
     this.makeArrows();
+    setTimeout(this.cg.redrawAll);
+    return true;
   }
 
   opponentRequest(request: string, callback?: (granted: boolean) => void) {
@@ -335,94 +325,19 @@ class VoiceMoveCtrl implements VoiceMove {
     else this.confirm.delete(request);
   }
 
-  compareLabelPos(lhs: Uci, rhs: Uci) {
-    const asWhite = this.cg.state.orientation === 'white';
-    const labelPos = (uci: string) => {
-      const destOffset = this.destOffset(uci);
-      const fileNum = asWhite ? uci.charCodeAt(0) - 97 : 104 - uci.charCodeAt(0);
-      const rankNum = asWhite ? 56 - uci.charCodeAt(1) : uci.charCodeAt(1) - 49;
-      return [fileNum * 100 - destOffset[0], rankNum * 100 - destOffset[1]];
-    };
-    const lhsPos = labelPos(lhs),
-      rhsPos = labelPos(rhs);
-    return lhsPos[0] - rhsPos[0] || lhsPos[1] - rhsPos[1];
-  }
-
-  makeArrows() {
-    if (!this.choices) return;
-    const doColors = this.arrowColors();
-    const shapes: DrawShape[] = [];
-    const choices = [...this.choices];
-    choices.forEach(([c, uci], i) => {
-      const thisColor = doColors ? c : 'grey';
-      const thisLabel = doColors ? undefined : `${i + 1}`;
-      shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-${thisColor}` });
-      if (thisLabel) shapes.push(this.labelSvg(uci, thisLabel, thisColor));
-    });
-    if (this.choiceTimeout) shapes.push(this.countdownSvg(choices[0][1], doColors ? choices[0][0] : 'grey'));
-    this.cg.setShapes(shapes);
-  }
-
-  destOffset(uci: Uci): [number, number] {
-    const sign = this.cg.state.orientation === 'white' ? 1 : -1;
-    const cc = [...uci].map(c => c.charCodeAt(0));
-    return uci.length < 4 ? [0, 0] : [sign * (cc[0] - cc[2]) * 100, -sign * (cc[1] - cc[3]) * 100];
-  }
-
-  labelOffset(uci: Uci): [number, number] {
-    // TODO fix overlapping queen and bishop labels
-    const [x, y] = this.destOffset(uci);
-    return [x / 3, y / 3];
-  }
-
-  labelSvg(uci: Uci, label: string, color: string, countdown = 0) {
-    color = this.brushes.find(b => b[0] === color)![1].color!;
-    const fontSize = Math.round(this.LABEL_SIZE * 0.82);
-    const r = this.LABEL_SIZE / 2;
-    const strokeW = 3;
-    const [x, y] = this.destOffset(uci).map(o => o / 3 + r - 50);
-    return {
-      orig: src(uci),
-      brush: 'v-grey',
-      fadeOut: countdown * 1000,
-      customSvg: `
-        <svg viewBox="${x} ${y} 100 100">
-          <circle cx="${r}" cy="${r}" r="${r - strokeW}" stroke="white" stroke-width="${strokeW}" fill="${color}"/>
-          <text font-size="${fontSize}" fill="white" font-family="Noto Sans" text-anchor="middle"
-                dominant-baseline="middle" x="${r}" y="${r + strokeW}">
-            ${label}
-          </text>
-        </svg>`,
-    };
-  }
-
-  countdownSvg(uci: Uci, color: string) {
-    color = this.brushes.find(b => b[0] === color)![1].color!;
-    const doColors = this.arrowColors();
-    const [x, y] = this.destOffset(uci).map(o => o / 3);
-    return {
-      orig: src(uci),
-      brush: 'v-grey',
-      customSvg:
-        (doColors ? `<svg width="100" height="100">` : `<svg viewBox="${x} ${y} 100 100">`) +
-        ` <circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}"
-                  stroke-width="50" stroke-opacity="0.3" dash-offset="0" 
-                  stroke-dasharray="0 ${Math.PI * 50}" transform="rotate(270,50,50)">
-            <animate attributeName="stroke-dasharray" dur="${this.countdown()}s" repeatCount="1"
-                    values="0 ${Math.PI * 50};${Math.PI * 50} ${Math.PI * 50}" />
-          </circle>
-        </svg>`,
-    };
-  }
-
   submit(uci: Uci) {
     this.clearMoveProgress();
     if (uci.length < 3) {
       const dests = this.ucis.filter(x => x.startsWith(uci));
-      if (dests.length > this.brushes.length) this.selection = uci === this.selection ? undefined : src(uci);
-      else this.ambiguate(dests.map(uci => [uci, 0]));
-      this.cg.redrawAll();
-      return;
+
+      if (dests.length <= this.MAX_CHOICES)
+        return this.ambiguate(
+          dests.map(uci => [uci, 0]),
+          true
+        );
+      this.selection = uci === this.selection ? undefined : src(uci);
+      setTimeout(this.cg.redrawAll);
+      return true;
     }
     const role = promo(uci);
     this.cg.cancelMove();
@@ -433,6 +348,7 @@ class VoiceMoveCtrl implements VoiceMove {
       this.cg.selectSquare(src(uci), true);
       this.cg.selectSquare(dest(uci), false);
     }
+    return true;
   }
 
   // given each uci, build every possible move phrase for it
@@ -526,7 +442,7 @@ class VoiceMoveCtrl implements VoiceMove {
     for (const [xouts, set] of squares) {
       if (!'PNBRQK'.includes(xouts)) continue;
       const moves = spread(set).filter(x => x.length > 2);
-      if (moves.length > this.brushes.length) moves.forEach(x => remove(squares, xouts, x));
+      if (moves.length > this.MAX_CHOICES) moves.forEach(x => remove(squares, xouts, x));
       else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(squares, xouts, x));
     }
     if (this.debug?.buildSquares) console.log('buildSquares', squares);
@@ -544,11 +460,11 @@ class VoiceMoveCtrl implements VoiceMove {
   clearMoveProgress() {
     const mustRedraw = this.moveInProgress;
     clearTimeout(this.choiceTimeout);
-    this.choices = undefined;
     this.choiceTimeout = undefined;
+    this.choices = undefined;
     this.cg.setShapes([]);
     this.selection = undefined;
-    if (mustRedraw) this.cg.redrawAll();
+    if (mustRedraw) setTimeout(this.cg.redrawAll);
   }
 
   get selection(): Key | undefined {
@@ -561,13 +477,15 @@ class VoiceMoveCtrl implements VoiceMove {
     this.squares = this.buildSquares();
   }
 
+  get timer(): number {
+    return [0, 2, 2.5, 3, 4, 5][this.timerPref()];
+  }
+
   get moveInProgress() {
     return this.selection !== undefined || this.choices !== undefined;
   }
 
-  // prefer the remaining methods to access the grammar rather than the maps
-  // method names follow the terminology template inputOutput(...)
-  // input & output terminology is explained in ui/voice/@build/README.md
+  // accessor method names explained in ui/voice/@build/README.md
   tokWord(tok?: string) {
     return tok && this.byTok.get(tok)?.in;
   }
@@ -590,10 +508,10 @@ class VoiceMoveCtrl implements VoiceMove {
 
   byTags(tags?: string[], intersect = false): Entry[] {
     return tags === undefined
-      ? lexicon
+      ? this.lexicon
       : intersect
-      ? lexicon.filter(e => e.tags.every(tag => tags.includes(tag)))
-      : lexicon.filter(e => e.tags.some(tag => tags.includes(tag)));
+      ? this.lexicon.filter(e => e.tags.every(tag => tags.includes(tag)))
+      : this.lexicon.filter(e => e.tags.some(tag => tags.includes(tag)));
   }
 
   wordTok(word: string) {
@@ -609,10 +527,6 @@ class VoiceMoveCtrl implements VoiceMove {
 
   wordVal(word: string) {
     return this.byWord.get(word)?.val ?? word;
-  }
-
-  wordSimilarWords(word: string): string[] {
-    return spread(this.bySimilar.get(word)).map(e => e.in);
   }
 
   phraseVals(phrase: string) {
@@ -662,89 +576,9 @@ class VoiceMoveCtrl implements VoiceMove {
   }
 }
 
-// everything below only cares about token space
+export const src = (uci: Uci) => uci.slice(0, 2) as Key;
+export const dest = (uci: Uci) => uci.slice(2, 4) as Key;
 
-type Transform = {
-  from: string; // single token
-  to: string; // zero or more tokens, (empty string for erasure)
-  at: number; // index (unused now, previously for breadcrumbs)
-};
-
-const mode = { del: true, sub: 2 };
-
-function findTransforms(
-  h: string,
-  x: string,
-  pos = 0, // for recursion
-  line: Transform[] = [], // for recursion
-  lines: Transform[][] = [], // for recursion
-  crumbs = new Map<string, number>() // for (finite) recursion
-): Transform[][] {
-  if (h === x) return [line];
-  if (pos >= x.length && !mode.del) return [];
-  if (crumbs.has(h + pos) && crumbs.get(h + pos)! <= line.length) return [];
-  crumbs.set(h + pos, line.length);
-
-  return validOps(h, x, pos).flatMap(({ hnext, op }) =>
-    findTransforms(
-      hnext,
-      x,
-      pos + (op === 'skip' ? 1 : op.to.length),
-      op === 'skip' ? line : [...line, op],
-      lines,
-      crumbs
-    )
-  );
-}
-
-function validOps(h: string, x: string, pos: number) {
-  const validOps: { hnext: string; op: Transform | 'skip' }[] = [];
-  if (h[pos] === x[pos]) validOps.push({ hnext: h, op: 'skip' });
-  const minSlice = mode.del !== true || validOps.length > 0 ? 1 : 0;
-  let slen = Math.min(mode.sub ?? 0, x.length - pos);
-  while (slen >= minSlice) {
-    const slice = x.slice(pos, pos + slen);
-    if (pos < h.length && !(slen > 0 && h.startsWith(slice, pos)))
-      validOps.push({
-        hnext: h.slice(0, pos) + slice + h.slice(pos + 1),
-        op: { from: h[pos], at: pos, to: slice },
-      });
-    slen--;
-  }
-  return validOps;
-}
-
-// optimizations for when a set has only one element, which is most of the time
-
-function spread<T>(v: undefined | T | Set<T>): T[] {
-  return v === undefined ? [] : v instanceof Set ? [...v] : [v];
-}
-
-function spreadMap<T>(m: Map<string, T | Set<T>>): [string, T[]][] {
-  return [...m].map(([k, v]) => [k, spread(v)]);
-}
-
-function getSpread<T>(m: Map<string, T | Set<T>>, key: string): T[] {
-  return spread(m.get(key));
-}
-
-function remove<T>(m: Map<string, T | Set<T>>, key: string, val: T) {
-  const v = m.get(key);
-  if (v === val) m.delete(key);
-  else if (v instanceof Set) v.delete(val);
-}
-
-function pushMap<T>(m: Map<string, T | Set<T>>, key: string, val: T) {
-  const v = m.get(key);
-  if (!v) m.set(key, val);
-  else {
-    if (v instanceof Set) v.add(val);
-    else if (v !== val) m.set(key, new Set([v as T, val]));
-  }
-}
-
-const src = (uci: Uci) => uci.slice(0, 2) as Key;
-const dest = (uci: Uci) => uci.slice(2, 4) as Key;
 const promo = (uci: Uci) =>
   ({
     P: 'pawn',
@@ -754,22 +588,3 @@ const promo = (uci: Uci) =>
     Q: 'queen',
     K: 'king',
   }[uci.slice(4, 5).toUpperCase()] as Role);
-
-function movesTo(s: number, role: string, board: cs.Board): number[] {
-  const deltas = (d: number[], s = 0) => d.flatMap(x => [s - x, s + x]);
-
-  if (role === 'K') return deltas([1, 7, 8, 9], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) === 1);
-  else if (role === 'N') return deltas([6, 10, 15, 17], s).filter(o => o >= 0 && o < 64 && cs.squareDist(s, o) <= 2);
-  const dests: number[] = [];
-  for (const delta of deltas(role === 'Q' ? [1, 7, 8, 9] : role === 'R' ? [1, 8] : role === 'B' ? [7, 9] : [])) {
-    for (
-      let square = s + delta;
-      square >= 0 && square < 64 && cs.squareDist(square, square - delta) === 1;
-      square += delta
-    ) {
-      dests.push(square);
-      if (board.pieces[square]) break;
-    }
-  }
-  return dests;
-}

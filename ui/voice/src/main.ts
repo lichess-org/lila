@@ -1,6 +1,7 @@
-import { h, VNode, Hooks } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import { storedBooleanProp } from 'common/storage';
+import { rangeConfig } from 'common/controls';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { type VoiceMove } from './interfaces';
@@ -32,7 +33,7 @@ export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
       }),
       h('a#voice-settings-button', {
         attrs: { role: 'button', ...dataIcon('') },
-        hook: bind('click', toggleSettings),
+        hook: bind('click', toggleSettings.bind(undefined, true)),
       }),
     ]),
     voiceSettings(ctrl),
@@ -40,79 +41,90 @@ export function renderVoiceMove(ctrl: VoiceMove, isPuzzle: boolean) {
   ]);
 }
 
-const rangeConfig = (read: () => number, write: (value: number) => void): Hooks => ({
-  insert: vnode => {
-    const el = vnode.elm as HTMLInputElement;
-    el.value = '' + read();
-    el.addEventListener('input', _ => write(parseInt(el.value)));
-    el.addEventListener('mouseout', _ => el.blur());
-  },
-});
-
-type ArrowPref = 'Colors' | 'Numbers';
-
 function voiceSettings(ctrl: VoiceMove): VNode {
-  return h('div#voice-settings', { attrs: { style: 'display: none' } }, [
-    h('div.setting', [
-      h('label', { attrs: { for: 'conf' } }, 'Confidence'),
-      h('input#conf', {
-        attrs: {
-          type: 'range',
-          min: 0,
-          max: 2,
-          step: 1,
-        },
-        hook: rangeConfig(ctrl.arrogance, (val: number) => {
-          ctrl.arrogance(val);
-          ctrl.root.redraw();
-        }),
-      }),
-      h('div.range_value', ['Mouse', 'Normal', 'Cowboy'][ctrl.arrogance()]),
-    ]),
-    h('div.setting', [
-      h('label', { attrs: { for: 'countdown' } }, 'Countdown'),
-      h('input#countdown', {
-        attrs: {
-          type: 'range',
-          min: 0,
-          max: 5,
-          step: 1,
-        },
-        hook: rangeConfig(ctrl.countdown, (val: number) => {
-          ctrl.countdown(val);
-          ctrl.root.redraw();
-        }),
-      }),
-      h('div.range_value', ['Off', '1s', '2s', '3s', '4s', '5s'][ctrl.countdown()]),
-    ]),
-    h('div.choices', [
-      'Label with',
-      h(
-        'span',
-        ['Colors', 'Numbers'].map(x => choiceButton(ctrl, x as ArrowPref))
-      ),
-    ]),
-  ]);
-}
-
-function choiceButton(ctrl: VoiceMove, pref: ArrowPref) {
   return h(
-    `div#${pref}.choice.${ctrl.arrowColors() === (pref === 'Colors') ? 'selected' : ''}`,
+    'div#voice-settings',
     {
-      hook: bind('click', () => {
-        if (ctrl.arrowColors() !== ctrl.arrowColors(pref === 'Colors'))
-          ['Colors', 'Numbers'].map(x => $(`#${x}`).toggleClass('selected'));
-      }),
+      attrs: { style: 'display: none' },
     },
-    [h('label', pref)]
+    [
+      h('div.setting', [
+        h('label', { attrs: { for: 'clarity' } }, 'Clarity'),
+        h('input#clarity', {
+          attrs: {
+            type: 'range',
+            min: 0,
+            max: 2,
+            step: 1,
+          },
+          hook: rangeConfig(ctrl.clarityPref, (val: number) => {
+            ctrl.clarityPref(val);
+            ctrl.root.redraw();
+          }),
+        }),
+        h('div.range_value', ['Fuzzy', 'Average', 'Clear'][ctrl.clarityPref()]),
+      ]),
+      h('div.setting', [
+        h('label', { attrs: { for: 'timer' } }, 'Timer'),
+        h('input#timer', {
+          attrs: {
+            type: 'range',
+            min: 0,
+            max: 5,
+            step: 1,
+          },
+          hook: rangeConfig(ctrl.timerPref, (val: number) => {
+            ctrl.timerPref(val);
+            ctrl.root.redraw();
+          }),
+        }),
+        h('div.range_value', ['Off', '2s', '2.5s', '3s', '4s', '5s'][ctrl.timerPref()]),
+      ]),
+      h('div.choices', [
+        'Label with',
+        h(
+          'span',
+          ['Colors', 'Numbers'].map(pref =>
+            h(
+              `div#${pref}.choice.${ctrl.colorsPref() === (pref === 'Colors') ? 'selected' : ''}`,
+              {
+                hook: bind('click', () => {
+                  ['Colors', 'Numbers'].map(x => $(`#${x}`).toggleClass('selected'));
+                  ctrl.colorsPref(pref === 'Colors');
+                }),
+              },
+              [h('label', pref)]
+            )
+          )
+        ),
+      ]),
+    ]
   );
 }
 
-function toggleSettings() {
+let lastPointerDown = -1;
+document.addEventListener('pointerdown', e => (lastPointerDown = e.timeStamp));
+
+function toggleSettings(onButton: boolean) {
   const settingsButton = $('#voice-settings-button');
-  settingsButton.toggleClass('active');
-  if (settingsButton.hasClass('active')) $('#voice-settings').show();
-  else $('#voice-settings').hide();
+  const settingsPane = $('#voice-settings');
+
+  function onPointerUp(e: PointerEvent) {
+    const el = e.target as Element;
+    if (settingsPane.get(0)?.contains(el) || settingsButton.get(0)?.contains(el) || e.timeStamp - lastPointerDown > 500)
+      return;
+    toggleSettings(false);
+    document.removeEventListener('pointerup', onPointerUp);
+  }
+  // TODO - keyboard nav, nvui, use blur, something something
+  document.removeEventListener('pointerup', onPointerUp);
+
+  if (onButton || settingsButton.hasClass('active')) settingsButton.toggleClass('active');
+  if (settingsButton.hasClass('active')) {
+    settingsPane.show();
+
+    setTimeout(() => document.addEventListener('pointerup', onPointerUp));
+  } else settingsPane.hide();
 }
 
 function helpModal(ctrl: VoiceMove) {

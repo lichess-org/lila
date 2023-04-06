@@ -1,6 +1,6 @@
-import { defined } from './common';
+import { defined, Prop, withEffect } from './common';
 
-export interface StoredProp<V> {
+export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
 }
 
@@ -42,6 +42,12 @@ export const storedBooleanProp = (k: string, defaultValue: boolean): StoredProp<
     v => v.toString()
   );
 
+export const storedBooleanPropWithEffect = (
+  k: string,
+  defaultValue: boolean,
+  effect: (v: boolean) => void
+): Prop<boolean> => withEffect(storedBooleanProp(k, defaultValue), effect);
+
 export const storedIntProp = (k: string, defaultValue: number): StoredProp<number> =>
   storedProp<number>(
     k,
@@ -49,6 +55,9 @@ export const storedIntProp = (k: string, defaultValue: number): StoredProp<numbe
     str => parseInt(str),
     v => v + ''
   );
+
+export const storedIntPropWithEffect = (k: string, defaultValue: number, effect: (v: number) => void): Prop<number> =>
+  withEffect(storedIntProp(k, defaultValue), effect);
 
 export interface StoredJsonProp<V> {
   (): V;

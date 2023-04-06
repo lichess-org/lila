@@ -170,18 +170,23 @@ object helpModal:
                   " for a full list."
                 ),
                 li(
-                  "Ambiguous commands show colored or numbered arrows. Speak the color or number to choose one, or say ",
-                  strong("\"clear\""),
-                  " to cancel. Set your arrow style using the hamburger menu."
+                  "We show colored or numbered arrows for up to 8 available moves when we're not sure. " +
+                    "If an arrow shows a growing pie, that move will be played when the pie becomes a full circle."
                 ),
                 li(
-                  "Higher values for the confidence slider result in less ambiguity but an increased chance of mishearing."
+                  "During this countdown, you may only say ",
+                  strong("\"yes\""),
+                  " to play the move immediately, ",
+                  strong("\"no\""),
+                  " to cancel, ",
+                  strong("\"stop\""),
+                  " to stop the clock, or the color/number of an arrow. No other command will be recognized."
                 ),
                 li(
-                  "Up to 8 arrows are shown. At lower confidence settings we include additional moves that sound alike."
+                  "Higher clarity values will decrease arrows & countdowns but increase the chance of misplays."
                 ),
                 li(
-                  "At present, voice control is only available with standard chess in puzzles and unrated games."
+                  "Clarity, countdown, and arrow display settings are in the hamburger menu by the microphone."
                 ),
                 li(
                   "The phonetic alphabet is ",
@@ -206,7 +211,7 @@ object helpModal:
               frag(voice("c8 promote knight"), voice("charlie 8 knight")),
               "Move c8 promote to knight"
             ),
-            row(voice("castle"), "Kingside castle"),
+            row(voice("castle"), "castle (either side)"),
             row(frag(voice("long castle"), voice("queenside castle")), "Queenside castle"),
             row(frag(voice("a7g1"), voice("alfa 7 golf 1")), "Full UCI works too"),
             row(voice("draw"), offerOrAcceptDraw())
@@ -217,12 +222,10 @@ object helpModal:
             header(otherCommands()),
             row(voice("resign"), trans.resignTheGame()),
             row(frag(voice("oops"), voice("undo")), "Request a takeback"),
-            row(
-              frag(voice("no"), voice("clear")),
-              "Clear arrows or deny a request"
-            ),
-            row(frag(voice("yes"), voice("confirm")), "Confirm something"),
-            row(voice("stop"), "Stop listening"),
+            row(voice("no"), "Cancel timer or deny a request"),
+            row(voice("yes"), "Play preferred move or confirm something"),
+            row(voice("stop"), "Stop the timer but keep the arrows"),
+            row(voice("stop listening"), "Turn off your microphone"),
             row(voice("next"), trans.puzzle.nextPuzzle()),
             row(voice("thumbs up"), trans.puzzle.upVote()),
             row(voice("solution"), "Show puzzle solution"),

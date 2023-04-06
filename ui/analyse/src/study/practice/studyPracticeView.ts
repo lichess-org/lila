@@ -1,7 +1,7 @@
 import { bind, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, thunk, VNode } from 'snabbdom';
-import { toggle } from 'common/toggle';
+import { toggle } from 'common/controls';
 import { richHTML } from 'common/richText';
 import { option, plural } from '../../view/util';
 import { view as descView } from '../description';

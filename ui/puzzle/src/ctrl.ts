@@ -100,6 +100,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       chessground: cg,
       sendMove: playUserMove,
       redraw: this.redraw,
+      flipNow: flip,
       userJumpPlyDelta,
       next: nextPuzzle,
       vote,
