@@ -72,9 +72,9 @@ private object TournamentScheduler:
       val start = orNextYear(startOfYear.withMonth(month.getValue).atStartOfDay).date
       start.plusDays(15 - start.getDayOfWeek.getValue)
 
-    def orTomorrow(date: LocalDateTime) = if date.isBeforeNow then date plusDays 1 else date
-    def orNextWeek(date: LocalDateTime) = if date.isBeforeNow then date plusWeeks 1 else date
-    def orNextYear(date: LocalDateTime) = if date.isBeforeNow then date plusYears 1 else date
+    def orTomorrow(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date plusDays 1 else date
+    def orNextWeek(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date plusWeeks 1 else date
+    def orNextYear(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date plusYears 1 else date
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonth == OCTOBER
 
@@ -153,7 +153,7 @@ Thank you all, you rock!""",
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
-          ).flatMap { case (day, speed) =>
+          ).flatMap { (day, speed) =>
             at(day, 17) map { date =>
               Schedule(Monthly, speed, Standard, none, date).plan
             }
@@ -167,7 +167,7 @@ Thank you all, you rock!""",
             month.lastWeek.withDayOfWeek(SATURDAY)  -> Atomic,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
-          ).flatMap { case (day, variant) =>
+          ).flatMap { (day, variant) =>
             at(day, 19) map { date =>
               Schedule(
                 Monthly,
@@ -186,7 +186,7 @@ Thank you all, you rock!""",
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical,
             month.firstWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
             month.firstWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
-          ).flatMap { case (day, speed) =>
+          ).flatMap { (day, speed) =>
             at(day, 16) map { date =>
               Schedule(Shield, speed, Standard, none, date) plan {
                 _.copy(
@@ -205,7 +205,7 @@ Thank you all, you rock!""",
             month.thirdWeek.withDayOfWeek(FRIDAY)    -> Atomic,
             month.thirdWeek.withDayOfWeek(SATURDAY)  -> Horde,
             month.thirdWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
-          ).flatMap { case (day, variant) =>
+          ).flatMap { (day, variant) =>
             at(day, 16) map { date =>
               Schedule(Shield, Blitz, variant, none, date) plan {
                 _.copy(
@@ -224,7 +224,7 @@ Thank you all, you rock!""",
         nextThursday  -> Rapid,
         nextFriday    -> Classical,
         nextSaturday  -> HyperBullet
-      ).flatMap { case (day, speed) =>
+      ).flatMap { (day, speed) =>
         at(day, 17) map { date =>
           Schedule(Weekly, speed, Standard, none, date pipe orNextWeek).plan
         }
@@ -238,7 +238,7 @@ Thank you all, you rock!""",
         nextSaturday  -> Atomic,
         nextSunday    -> Horde,
         nextSunday    -> Chess960
-      ).flatMap { case (day, variant) =>
+      ).flatMap { (day, variant) =>
         at(day, 19) map { date =>
           Schedule(
             Weekly,
@@ -252,7 +252,7 @@ Thank you all, you rock!""",
       List( // week-end elite tournaments!
         nextSaturday -> SuperBlitz,
         nextSunday   -> Bullet
-      ).flatMap { case (day, speed) =>
+      ).flatMap { (day, speed) =>
         at(day, 17) map { date =>
           Schedule(Weekend, speed, Standard, none, date pipe orNextWeek).plan
         }
@@ -472,7 +472,7 @@ Thank you all, you rock!""",
             ).plan
           )
       }
-    ).flatten.filter(_.schedule.at.isAfterNow)
+    ).flatten.filter(_.schedule.at.instant.isAfter(rightNow))
 
   private def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
