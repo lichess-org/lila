@@ -21,7 +21,7 @@ import play.api.i18n.Lang
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
-  private val cookieDifficulty = "difficulty"
+  private val cookieDifficulty = "puz-diff"
 
   private def renderJson(
       puzzle: Puz,
@@ -110,7 +110,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   ): Fu[Option[Puz]] =
     ctx.me match
       case Some(me) =>
-        ctx.req.session.get(cookieDifficulty) ?? { PuzzleDifficulty.find(_) } ?? {
+        ctx.req.session.get(cookieDifficulty).flatMap(PuzzleDifficulty.find).?? {
           env.puzzle.session.setDifficulty(me, _)
         } >>
           color.?? { env.puzzle.session.setAngleAndColor(me, angle, _) } >>
