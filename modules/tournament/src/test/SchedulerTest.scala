@@ -8,7 +8,7 @@ class SchedulerTest extends Specification:
     TournamentScheduler.allWithConflicts(date).map(_.schedule).map(_.toString)
   "scheduler" should:
     "morning" in:
-      schedulesAt(new instantOf(2023, 4, 5, 9, 11, DateTimeZone.UTC)) === List(
+      schedulesAt(instantOf(2023, 4, 5, 9, 11)) === List(
         """Unique standard rapid All(None,None,None,None,None,None) 2023-06-20T12:00:00.000Z""",
         """Yearly standard classical All(None,None,None,None,None,None) 2023-05-19T17:00:00.000Z""",
         """Yearly standard hyperBullet All(None,None,None,None,None,None) 2023-06-17T17:00:00.000Z""",
@@ -227,7 +227,7 @@ class SchedulerTest extends Specification:
         """Hourly threeCheck blitz All(None,None,None,None,None,None) 2023-04-05T15:00:00.000Z"""
       )
     "evening" in:
-      schedulesAt(new DateTime(2023, 3, 31, 21, 58, DateTimeZone.UTC)) === List(
+      schedulesAt(instantOf(2023, 3, 31, 21, 58)) === List(
         """Unique standard rapid All(None,None,None,None,None,None) 2023-06-20T12:00:00.000Z""",
         """Yearly standard rapid All(None,None,None,None,None,None) 2023-04-13T17:00:00.000Z""",
         """Yearly standard classical All(None,None,None,None,None,None) 2023-05-19T17:00:00.000Z""",
@@ -421,7 +421,7 @@ class SchedulerTest extends Specification:
         """Hourly threeCheck bullet All(None,None,None,None,None,None) 2023-04-01T03:30:00.000Z"""
       )
     "end of year" in:
-      schedulesAt(new DateTime(2022, 12, 31, 21, 43, DateTimeZone.UTC)) === List(
+      schedulesAt(instantOf(2022, 12, 31, 21, 43)) === List(
         """Unique standard rapid All(None,None,None,None,None,None) 2023-06-20T12:00:00.000Z""",
         """Yearly standard bullet All(None,None,None,None,None,None) 2023-01-09T17:00:00.000Z""",
         """Yearly standard superBlitz All(None,None,None,None,None,None) 2023-02-14T17:00:00.000Z""",
