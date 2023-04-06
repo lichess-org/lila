@@ -2,14 +2,12 @@ package lila.ublog
 
 import akka.stream.scaladsl.*
 import cats.syntax.all.*
-import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
-import lila.memo.SettingStore
 import lila.user.User
 
 final class UblogRank(

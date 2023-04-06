@@ -2,7 +2,6 @@ package lila.team
 
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
@@ -11,10 +10,7 @@ import lila.user.{ User, UserRepo }
 final class TeamMemberStream(
     memberRepo: MemberRepo,
     userRepo: UserRepo
-)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
-):
+)(using Executor, akka.stream.Materializer):
 
   def apply(team: Team, perSecond: MaxPerSecond): Source[(User, DateTime), ?] =
     idsBatches(team, perSecond)

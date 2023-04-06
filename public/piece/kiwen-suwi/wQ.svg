@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="260"
+   height="260"
+   xml:space="preserve"
+   overflow="hidden"
+   version="1.1"
+   id="svg1466"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1460"><clipPath
+       id="clip0"><rect
+         x="2200"
+         y="1757"
+         width="260"
+         height="260"
+         id="rect1457" /></clipPath></defs><g
+     clip-path="url(#clip0)"
+     transform="matrix(0.9,0,0,0.9,-1966.95,-1568.208)"
+     id="g1464"><path
+       style="color:#000000;fill:#262626;fill-rule:evenodd;stroke-miterlimit:8;-inkscape-stroke:none"
+       d="M 105,-22.472656 58.775391,67.025391 -13.984375,-15.035156 12.066406,211.3125 H 197.93359 l 26.05078,-226.347656 -72.75976,82.060547 z"
+       id="path133"
+       transform="matrix(-1,0,0,1,2435.5,1793.5)" /><path
+       id="path1462"
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       d="M 105,22.472656 146.70117,103.21289 196.01562,47.597656 179.54492,190.6875 H 30.455078 L 13.984375,47.597656 63.298828,103.21289 Z"
+       transform="matrix(-1,0,0,1,2435.5,1793.5)" /></g></svg>

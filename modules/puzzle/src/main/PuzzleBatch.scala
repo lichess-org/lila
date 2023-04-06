@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.user.User
 
 // mobile app BC

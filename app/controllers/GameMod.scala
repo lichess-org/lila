@@ -18,7 +18,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   import GameMod.*
 
   def index(username: UserStr) =
-    SecureBody(_.GamesModView) { implicit ctx => me =>
+    SecureBody(_.GamesModView) { implicit ctx => _ =>
       OptionFuResult(env.user.repo byId username) { user =>
         given play.api.mvc.Request[?] = ctx.body
         val form                      = filterForm.bindFromRequest()

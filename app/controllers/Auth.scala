@@ -220,7 +220,7 @@ final class Auth(
                   fuccess {
                     Redirect(routes.Auth.checkYourEmail) withCookies
                       lila.security.EmailConfirm.cookie
-                        .make(env.lilaCookie, user, email)(ctx.req)
+                        .make(env.lilaCookie, user, email)(using ctx.req)
                   }
                 case Signup.Result.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
@@ -288,7 +288,7 @@ final class Auth(
                           env.security.emailConfirm.send(user, newUserEmail.email) inject {
                             Redirect(routes.Auth.checkYourEmail) withCookies
                               lila.security.EmailConfirm.cookie
-                                .make(env.lilaCookie, user, newUserEmail.email)(ctx.req)
+                                .make(env.lilaCookie, user, newUserEmail.email)(using ctx.req)
                           }
                       }(rateLimitedFu)
                   }

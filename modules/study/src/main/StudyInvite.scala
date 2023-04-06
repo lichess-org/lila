@@ -1,12 +1,11 @@
 package lila.study
 
 import lila.db.dsl.{ *, given }
-import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
+import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
 import lila.user.{ Holder, User }
-import lila.study.BSONHandlers.given
 
 final private class StudyInvite(
     studyRepo: StudyRepo,

@@ -3,17 +3,16 @@ package views.html
 import controllers.routes
 import play.api.libs.json.*
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
 import lila.i18n.I18nKeys.{ storm as s }
-import lila.racer.RacerRace
 
 object racer:
 
-  def home(implicit ctx: Context) =
+  def home(using Context) =
     views.html.base.layout(
       moreCss = cssTag("racer-home"),
       title = "Puzzle Racer",
@@ -35,7 +34,7 @@ object racer:
       )
     }
 
-  def show(race: RacerRace, data: JsObject)(implicit ctx: Context) =
+  def show(data: JsObject)(using Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("racer")),
       moreJs = frag(

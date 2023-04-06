@@ -1,6 +1,5 @@
 package lila.plan
 
-import java.util.Currency
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
@@ -13,10 +12,7 @@ import lila.user.User
 import lila.common.EmailAddress
 import play.api.ConfigLoader
 
-final private class StripeClient(
-    ws: StandaloneWSClient,
-    config: StripeClient.Config
-)(using Executor):
+final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using Executor):
 
   import StripeClient.*
   import JsonHandlers.stripe.given

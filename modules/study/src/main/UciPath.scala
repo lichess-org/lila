@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.{ UciPath, UciCharPair }
+import chess.format.UciPath
 
 extension (e: UciPath)
 
@@ -22,8 +22,6 @@ private[study] object UciPathDb:
   val rootDbKey = "_"
 
   // mongodb objects don't support '.' and '$' in keys
-  private def encodeDbKey(id: UciCharPair): String = encodeDbKey(UciPath.fromId(id))
-
   def encodeDbKey(path: UciPath): String =
     path.value.replace('.', 144.toChar).replace('$', 145.toChar)
 

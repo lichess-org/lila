@@ -592,7 +592,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").toFuccess
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
-    if (csrfCheck(req)) f else csrfForbiddenResult
+    if csrfCheck(req) then f else csrfForbiddenResult
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound

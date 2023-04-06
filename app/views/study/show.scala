@@ -2,9 +2,9 @@ package views.html.study
 
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.socket.SocketVersion
@@ -20,7 +20,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
       streamers: List[UserId]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     views.html.base.layout(
       title = s.name.value,
       moreCss = cssTag("analyse.study"),

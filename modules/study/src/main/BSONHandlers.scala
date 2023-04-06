@@ -3,11 +3,10 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Color, Pos, PromotableRole, Role, Outcome, Ply, Check }
+import chess.{ Centis, Pos, PromotableRole, Role, Outcome, Ply, Check }
 import reactivemongo.api.bson.*
 import scala.util.Success
 
-import lila.common.Iso
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
@@ -25,7 +24,7 @@ object BSONHandlers:
       r.getO[Pos]("p") map { pos =>
         Shape.Circle(brush, pos)
       } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
-    def writes(w: Writer, t: Shape) =
+    def writes(@annotation.nowarn w: Writer, t: Shape) =
       t match
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
         case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)

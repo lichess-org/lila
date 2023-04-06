@@ -7,6 +7,7 @@ import lila.common.config.*
 import lila.oauth.OAuthServer
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,

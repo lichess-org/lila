@@ -19,7 +19,7 @@
   "homepage": "https://lichess.org",
   "engines": {
     "node": ">=14 <=19",
-    "pnpm": ">=7"
+    "pnpm": "8.1"
   },
   "dependencies": {
     "@types/node": "^18.11.17",

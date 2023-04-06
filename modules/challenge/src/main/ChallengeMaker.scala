@@ -1,12 +1,8 @@
 package lila.challenge
 
 import Challenge.TimeControl
-import com.github.blemale.scaffeine.Cache
-
 import lila.game.{ Game, GameRepo, Pov, Rematches }
-import lila.memo.CacheApi
 import lila.user.User
-import chess.format.Fen
 import lila.game.Player
 
 final class ChallengeMaker(

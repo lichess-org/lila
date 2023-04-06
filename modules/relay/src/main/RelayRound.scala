@@ -2,8 +2,7 @@ package lila.relay
 
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.study.{ Chapter, Study }
-import lila.user.User
+import lila.study.Study
 
 case class RelayRound(
     _id: RelayRoundId,

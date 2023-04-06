@@ -5,7 +5,6 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
-import lila.user.User
 import lila.hub.LightTeam.TeamName
 
 final class Cached(

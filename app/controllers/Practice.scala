@@ -104,8 +104,7 @@ final class Practice(
               ctx.pref,
               initialFen,
               chapter.setup.orientation,
-              owner = false,
-              me = ctx.me
+              owner = false
             )
           val analysis = baseData ++ Json.obj(
             "treeParts" -> partitionTreeJsonWriter.writes {

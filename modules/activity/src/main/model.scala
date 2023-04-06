@@ -13,7 +13,7 @@ object model:
       (rp1O, rp2O) match
         case (Some(rp1), Some(rp2)) => Some(rp1 add rp2)
         case _                      => rp2O orElse rp1O
-    def make(player: lila.game.Player) =
+    def make(player: lila.game.LightPlayer) =
       player.rating map { rating =>
         RatingProg(rating, rating + ~player.ratingDiff)
       }
@@ -39,7 +39,7 @@ object model:
       povs.foldLeft(summon[Zero[Score]].zero) {
         case (score, pov) if pov.game.finished =>
           score add make(
-            res = pov.game.wonBy(pov.color),
+            res = pov.game.win.map(_ == pov.color),
             rp = RatingProg.make(pov.player)
           )
         case (score, _) => score

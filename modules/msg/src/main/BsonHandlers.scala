@@ -3,7 +3,6 @@ package lila.msg
 import reactivemongo.api.bson.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.User
 import lila.db.dsl.{ *, given }
 import lila.db.BSON
 
@@ -25,7 +24,7 @@ private object BsonHandlers:
             maskWith = r.getO[Last]("maskWith")
           )
         case x => sys error s"Invalid MsgThread users: $x"
-    def writes(w: BSON.Writer, t: MsgThread) =
+    def writes(@annotation.nowarn w: BSON.Writer, t: MsgThread) =
       $doc(
         "_id"      -> t.id,
         "users"    -> t.users.sorted(using stringOrdering),

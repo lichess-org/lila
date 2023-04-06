@@ -9,6 +9,7 @@ import lila.notify.NotifyApi
 import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     captcher: lila.hub.actors.Captcher,
     timeline: lila.hub.actors.Timeline,

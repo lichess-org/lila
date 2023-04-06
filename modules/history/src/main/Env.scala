@@ -6,6 +6,7 @@ import com.softwaremill.tagging.*
 import lila.common.config.CollName
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     userRepo: lila.user.UserRepo,

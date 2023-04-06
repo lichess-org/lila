@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets.UTF_8
 import scala.jdk.CollectionConverters.*
 
 import lila.common.config.*
-import FirebasePush.given
 
 @Module
 final private class PushConfig(
@@ -21,6 +20,7 @@ final private class PushConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
@@ -30,10 +30,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.forum.ForumPostApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, Scheduler):
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
 
@@ -90,8 +87,8 @@ final class Env(
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       logUnit { pushApi corresAlarm pov }
-    case lila.notify.PushNotification(to, content, params) =>
-      logUnit { pushApi notifyPush (to, content, params) }
+    case lila.notify.PushNotification(to, content, _) =>
+      logUnit { pushApi notifyPush (to, content) }
     case t: lila.hub.actorApi.push.TourSoon =>
       logUnit { pushApi tourSoon t }
   }

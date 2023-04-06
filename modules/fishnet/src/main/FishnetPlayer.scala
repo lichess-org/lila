@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import chess.format.Uci
 import chess.{ Black, Clock, White }
 import ornicar.scalalib.ThreadLocalRandom
 

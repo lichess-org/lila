@@ -2,7 +2,7 @@ package lila.team
 
 import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json, Reads }
-import reactivemongo.api.{ Cursor, ReadPreference }
+import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 import scala.util.Try
 

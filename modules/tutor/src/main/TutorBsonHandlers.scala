@@ -3,11 +3,8 @@ package lila.tutor
 import chess.Color
 import reactivemongo.api.bson.*
 
-import lila.common.Iso
-import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.insight.InsightPerfStats
-import lila.rating.PerfType
 
 private object TutorBsonHandlers:
 

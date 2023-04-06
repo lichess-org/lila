@@ -5,6 +5,7 @@ import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
+import akka.actor.ActorSystem
 
 @Module
 final private class CoachConfig(
@@ -13,6 +14,7 @@ final private class CoachConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
@@ -20,7 +22,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi
-)(using Executor, akka.actor.ActorSystem):
+)(using Executor, ActorSystem):
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 

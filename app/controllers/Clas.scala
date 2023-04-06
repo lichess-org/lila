@@ -22,7 +22,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           case _ if getBool("home") => renderHome
           case None                 => renderHome
           case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
-            env.clas.api.clas.of(me, closed = getBool("closed")) map { classes =>
+            env.clas.api.clas.of(me) map { classes =>
               Ok(views.html.clas.clas.teacherIndex(classes, getBool("closed")))
             }
           case Some(me) =>

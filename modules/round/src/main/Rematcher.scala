@@ -2,10 +2,8 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGame, History, Situation }
+import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGame, Situation }
 import ChessColor.{ Black, White }
-import com.github.blemale.scaffeine.Cache
-import lila.memo.CacheApi
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }

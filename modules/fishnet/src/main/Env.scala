@@ -10,7 +10,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
 import lila.common.config.*
-import lila.game.Game
 
 @Module
 private class FishnetConfig(
@@ -26,6 +25,7 @@ private class FishnetConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     uciMemo: lila.game.UciMemo,

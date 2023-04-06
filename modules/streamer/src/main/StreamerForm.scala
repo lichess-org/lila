@@ -5,7 +5,6 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 
 import lila.common.Form.{ constraint, given }
-import play.api.data.format.Formatter
 
 object StreamerForm:
 

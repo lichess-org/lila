@@ -1,7 +1,5 @@
 package lila.msg
 
-import lila.user.User
-
 case class Msg(
     text: String,
     user: UserId,

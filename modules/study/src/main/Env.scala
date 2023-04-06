@@ -6,9 +6,9 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
-import lila.user.User
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
@@ -47,10 +47,10 @@ final class Env(
 
   private val socket: StudySocket = wire[StudySocket]
 
-  lazy val studyRepo             = new StudyRepo(studyDb(CollName("study")))
-  lazy val chapterRepo           = new ChapterRepo(studyDb(CollName("study_chapter_flat")))
-  private lazy val topicRepo     = new StudyTopicRepo(studyDb(CollName("study_topic")))
-  private lazy val userTopicRepo = new StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
+  lazy val studyRepo             = StudyRepo(studyDb(CollName("study")))
+  lazy val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
+  private lazy val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))
+  private lazy val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
 
   lazy val jsonView = wire[JsonView]
 
@@ -80,15 +80,14 @@ final class Env(
 
   lazy val pgnDump = wire[PgnDump]
 
-  lazy val gifExport = new GifExport(ws, appConfig.get[String]("game.gifUrl"))
+  lazy val gifExport = GifExport(ws, appConfig.get[String]("game.gifUrl"))
 
-  def cli =
-    new lila.common.Cli:
-      def process = { case "study" :: "rank" :: "reset" :: Nil =>
-        api.resetAllRanks.map { count =>
-          s"$count done"
-        }
+  def cli: lila.common.Cli = new:
+    def process = { case "study" :: "rank" :: "reset" :: Nil =>
+      api.resetAllRanks.map { count =>
+        s"$count done"
       }
+    }
 
   lila.common.Bus.subscribeFun("studyAnalysisProgress") {
     case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>

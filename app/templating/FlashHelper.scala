@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import lila.api.Context
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 
 trait FlashHelper { self: I18nHelper =>
 

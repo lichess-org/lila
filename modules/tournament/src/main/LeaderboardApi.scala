@@ -7,7 +7,6 @@ import lila.common.config.MaxPerPage
 import lila.common.Maths
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
-import lila.db.paginator.Adapter
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
 

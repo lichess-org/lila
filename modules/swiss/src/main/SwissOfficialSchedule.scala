@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
+import chess.Clock.{ LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
 
@@ -36,7 +36,8 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
     bulletInc,
     blitz,
     hyperbulletInc,
-    superblitz
+    superblitz,
+    rapidInc
   )
   private def daySchedule = (0 to 47).toList.flatMap(i => schedule.lift(i % schedule.length))
 

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="weAreNonProfit">Мы незыскова орґанізація, бо поважуєме 
+же, вшыткі мавут мати приступ задарьный ай слободный од шахматнув платформі світового класу.</string>
   <string name="date">Дата</string>
 </resources>

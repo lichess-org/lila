@@ -224,10 +224,10 @@ object Condition:
         "list" -> verdicts.list.map { case WithVerdict(cond, verd) =>
           Json.obj(
             "condition" -> cond.name(using lang),
-            "verdict" -> (verd match {
+            "verdict" -> (verd match
               case Refused(reason) => reason(lang)
               case Accepted        => JsString("ok")
-            })
+            )
           )
         },
         "accepted" -> verdicts.accepted

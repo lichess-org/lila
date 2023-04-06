@@ -2,8 +2,8 @@ package views.html.site
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.templating.Environment.given
+import lila.app.ui.ScalatagsTemplate.*
 
 object helpModal:
 
@@ -13,7 +13,7 @@ object helpModal:
   private val kbd                         = tag("kbd")
   private def voice(text: String)         = tag("voice")(s"\"$text\"")
 
-  private def navigateMoves(implicit lang: Lang) = frag(
+  private def navigateMoves(using Lang) = frag(
     header(trans.navigateMoveTree()),
     row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
     row(frag(kbd("k"), or, kbd("j")), trans.keyMoveBackwardOrForward()),
@@ -21,16 +21,16 @@ object helpModal:
     row(frag(kbd("0"), or, kbd("$")), trans.keyGoToStartOrEnd()),
     row(frag(kbd("home"), or, kbd("end")), trans.keyGoToStartOrEnd())
   )
-  private def flip(implicit lang: Lang)       = row(kbd("f"), trans.flipBoard())
-  private def zen(implicit lang: Lang)        = row(kbd("z"), trans.preferences.zenMode())
-  private def helpDialog(implicit lang: Lang) = row(kbd("?"), trans.showHelpDialog())
-  private def localAnalysis(implicit lang: Lang) = frag(
+  private def flip(using Lang)       = row(kbd("f"), trans.flipBoard())
+  private def zen(using Lang)        = row(kbd("z"), trans.preferences.zenMode())
+  private def helpDialog(using Lang) = row(kbd("?"), trans.showHelpDialog())
+  private def localAnalysis(using Lang) = frag(
     row(kbd("l"), trans.toggleLocalAnalysis()),
     row(kbd("space"), trans.playComputerMove()),
     row(kbd("x"), trans.showThreat())
   )
 
-  def round(implicit lang: Lang) =
+  def round(using Lang) =
     frag(
       h2(trans.keyboardShortcuts()),
       table(
@@ -43,7 +43,7 @@ object helpModal:
         )
       )
     )
-  def puzzle(implicit lang: Lang) =
+  def puzzle(using Lang) =
     frag(
       h2(trans.keyboardShortcuts()),
       table(
@@ -59,7 +59,7 @@ object helpModal:
         )
       )
     )
-  def analyse(isStudy: Boolean)(implicit lang: Lang) =
+  def analyse(isStudy: Boolean)(using Lang) =
     frag(
       h2(trans.keyboardShortcuts()),
       table(
@@ -99,7 +99,7 @@ object helpModal:
       )
     )
 
-  def keyboardMove(implicit lang: Lang) =
+  def keyboardMove(using Lang) =
     import trans.keyboardMove.*
     frag(
       h2(keyboardInputCommands()),

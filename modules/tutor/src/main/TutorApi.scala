@@ -1,8 +1,5 @@
 package lila.tutor
 
-import com.softwaremill.tagging.*
-import play.api.Mode
-
 import lila.common.{ LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
@@ -15,11 +12,7 @@ final class TutorApi(
     queue: TutorQueue,
     builder: TutorBuilder,
     cacheApi: CacheApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mode: Mode
-):
+)(using Executor, Scheduler):
 
   import TutorBsonHandlers.given
 

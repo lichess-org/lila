@@ -1,11 +1,8 @@
 package lila.tournament
 
 import chess.{ Black, Color, White }
-import scala.util.chaining.*
 
 import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
-import lila.user.User
-import alleycats.Zero
 
 final class AutoPairing(
     gameRepo: GameRepo,

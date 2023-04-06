@@ -1,13 +1,8 @@
 package lila.streamer
 
-import akka.actor.*
-import akka.pattern.ask
-import makeTimeout.short
-import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 
 import lila.memo.CacheApi.*
-import lila.user.User
 
 case class LiveStreams(streams: List[Stream]):
 

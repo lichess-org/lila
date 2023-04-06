@@ -1,7 +1,5 @@
 package lila.insight
 
-import reactivemongo.api.bson.BSONNull
-
 import lila.common.config
 import lila.common.Heapsort.botN
 import lila.game.{ Game, GameRepo, Pov }

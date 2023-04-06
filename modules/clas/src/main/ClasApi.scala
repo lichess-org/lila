@@ -7,7 +7,6 @@ import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
-import lila.security.Permission
 import lila.user.{ Authenticator, User, UserRepo }
 import lila.user.Holder
 
@@ -29,7 +28,7 @@ final class ClasApi(
 
     def byId(id: Clas.Id) = coll.byId[Clas](id.value)
 
-    def of(teacher: User, closed: Boolean = false): Fu[List[Clas]] =
+    def of(teacher: User): Fu[List[Clas]] =
       coll
         .find($doc("teachers" -> teacher.id))
         .sort($doc("archived" -> 1, "viewedAt" -> -1))

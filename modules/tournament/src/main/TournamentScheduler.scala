@@ -4,30 +4,29 @@ import chess.StartingPosition
 import scala.util.chaining.*
 import org.joda.time.DateTimeConstants.*
 
-import lila.common.{ LilaScheduler, LilaStream }
+import lila.common.LilaScheduler
 
-final private class TournamentScheduler(
-    api: TournamentApi,
-    tournamentRepo: TournamentRepo
-)(using ec: Executor, scheduler: Scheduler, mat: akka.stream.Materializer):
+final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Executor, Scheduler):
+
+  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
+    tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
+      try
+        val newTourns = TournamentScheduler.allWithConflicts().map(_.build)
+        val pruned    = TournamentScheduler.pruneConflicts(dbScheds, newTourns)
+        tournamentRepo.insert(pruned).logFailure(logger)
+      catch
+        case e: Exception =>
+          logger.error(s"failed to schedule all: ${e.getMessage}")
+          funit
+    }
+  }
+
+private object TournamentScheduler:
 
   import Schedule.Freq.*
   import Schedule.Speed.*
   import Schedule.Plan
   import chess.variant.*
-
-  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
-    tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
-      try
-        val newTourns = allWithConflicts(nowDate).map(_.build)
-        val pruned    = pruneConflicts(dbScheds, newTourns)
-        tournamentRepo.insert(pruned).logFailure(logger)
-      catch
-        case e: org.joda.time.IllegalInstantException =>
-          logger.error(s"failed to schedule all: ${e.getMessage}")
-          funit
-    }
-  }
 
   /* Month plan:
    * First week: Shield standard tournaments
@@ -42,7 +41,7 @@ final private class TournamentScheduler(
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] =
+  private[tournament] def allWithConflicts(rightNow: DateTime = nowDate): List[Plan] =
     val today       = rightNow.withTimeAtStartOfDay
     val tomorrow    = rightNow plusDays 1
     val startOfYear = today.dayOfYear.withMinimumValue
@@ -497,8 +496,6 @@ Thank you all, you rock!""",
       }
       .reverse
 
-  private case class ScheduleNowWith(dbScheds: List[Tournament])
-
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
     t.schedule exists { s =>
       ts exists { t2 =>
@@ -521,7 +518,3 @@ Thank you all, you rock!""",
       case e: Exception =>
         logger.error(s"failed to schedule one: ${e.getMessage}")
         None
-
-private object TournamentScheduler:
-
-  case object ScheduleNow

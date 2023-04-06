@@ -1,7 +1,6 @@
 package lila.relay
 
 import play.api.data.Forms.*
-import play.api.data.Mapping
 import chess.format.pgn.{ Tag, Tags }
 
 // used to change names and ratings of broadcast players

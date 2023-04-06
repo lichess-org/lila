@@ -44,12 +44,7 @@ final class Racer(env: Env) extends LilaController(env):
         case Some(r) =>
           val race   = r.isLobby.??(env.racer.api.join(r.id, playerId)) | r
           val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
-          Ok(
-            html.racer.show(
-              race,
-              env.racer.json.data(race, player, ctx.pref)
-            )
-          ).noCache.toFuccess
+          Ok(html.racer.show(env.racer.json.data(race, player, ctx.pref))).noCache.toFuccess
     }
 
   def rematch(id: String) =

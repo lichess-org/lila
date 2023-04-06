@@ -3,9 +3,9 @@ package tv
 
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
 import controllers.routes
@@ -19,7 +19,7 @@ object index:
       data: play.api.libs.json.JsObject,
       cross: Option[lila.game.Crosstable.WithMatchup],
       history: List[lila.game.Pov]
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.round.bits.layout(
       variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
@@ -53,7 +53,7 @@ object index:
           side.meta(pov),
           side.channels(channel, champions, "/tv")
         ),
-        views.html.round.bits.roundAppPreload(pov, controls = false),
+        views.html.round.bits.roundAppPreload(pov),
         div(cls := "round__underboard")(
           views.html.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(

@@ -3,9 +3,9 @@ package views.html.puzzle
 import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
 
@@ -17,7 +17,7 @@ object show:
       pref: JsObject,
       settings: lila.puzzle.PuzzleSettings,
       langPath: Option[lila.common.LangPath] = None
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
       title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),

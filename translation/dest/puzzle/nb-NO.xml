@@ -28,6 +28,11 @@
   <string name="keepGoing">Fortsett…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Ferdigknekt nøtt!</string>
+  <string name="byOpenings">Etter åpninger</string>
+  <string name="puzzlesByOpenings">Sjakknøtter etter åpninger</string>
+  <string name="openingsYouPlayedTheMost">Åpningene du spiller mest av i ratede partier</string>
+  <string name="useFindInPage">Bruk søkefunksjonen i nettleseren for å finne favorittåpningen din!</string>
+  <string name="useCtrlF">Bruk Ctrl+f for å finne favorittåpningen din!</string>
   <string name="notTheMove">Det der er ikke trekket!</string>
   <string name="trySomethingElse">Prøv noe annet.</string>
   <string name="ratingX">Rating: %s</string>

@@ -9,6 +9,7 @@ import lila.user.User
 import lila.hub.actorApi.socket.remote.TellUserIn
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     lightUserApi: lila.user.LightUserApi,

@@ -2061,7 +2061,6 @@ object I18nKeys:
     val `xSecondsBetweenRounds` = I18nKey("swiss:xSecondsBetweenRounds")
     val `xMinutesBetweenRounds` = I18nKey("swiss:xMinutesBetweenRounds")
     val `ongoingGames` = I18nKey("swiss:ongoingGames")
-    val `xOutOfYRoundsSwiss` = I18nKey("swiss:xOutOfYRoundsSwiss")
 
   object puzzle:
     val `puzzles` = I18nKey("puzzle:puzzles")

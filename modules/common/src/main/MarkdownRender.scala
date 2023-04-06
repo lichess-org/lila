@@ -106,79 +106,60 @@ object MarkdownRender:
 
   private val rel = "nofollow noopener noreferrer"
 
-  private object WhitelistedImageExtension extends HtmlRenderer.HtmlRendererExtension:
-    override def rendererOptions(options: MutableDataHolder) = ()
-    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
-      htmlRendererBuilder
-        .nodeRendererFactory(new NodeRendererFactory {
-          override def apply(options: DataHolder) = WhitelistedImageNodeRenderer
-        })
-        .unit
-  private object WhitelistedImageNodeRenderer extends NodeRenderer:
-    override def getNodeRenderingHandlers() =
-      new java.util.HashSet(
-        Arrays.asList(
-          new NodeRenderingHandler(
-            classOf[Image],
-            render _
-          )
-        )
-      )
+  private val whitelist =
+    List(
+      "imgur.com",
+      "giphy.com",
+      "wikimedia.org",
+      "creativecommons.org",
+      "pexels.com",
+      "piqsels.com",
+      "freeimages.com",
+      "unsplash.com",
+      "pixabay.com",
+      "githubusercontent.com",
+      "googleusercontent.com",
+      "i.ibb.co",
+      "i.postimg.cc",
+      "xkcd.com",
+      "lichess1.org"
+    )
+  private def whitelistedSrc(src: String): Option[String] =
+    for
+      url <- Try(URL.parse(src)).toOption
+      if url.scheme == "http" || url.scheme == "https"
+      host <- Option(url.host).map(_.toHostString)
+      if whitelist.exists(h => host == h || host.endsWith(s".$h"))
+    yield url.toString
 
-    private val whitelist =
-      List(
-        "imgur.com",
-        "giphy.com",
-        "wikimedia.org",
-        "creativecommons.org",
-        "pexels.com",
-        "piqsels.com",
-        "freeimages.com",
-        "unsplash.com",
-        "pixabay.com",
-        "githubusercontent.com",
-        "googleusercontent.com",
-        "i.ibb.co",
-        "i.postimg.cc",
-        "xkcd.com",
-        "lichess1.org"
-      )
-    private def whitelistedSrc(src: String): Option[String] =
-      for {
-        url <- Try(URL.parse(src)).toOption
-        if url.scheme == "http" || url.scheme == "https"
-        host <- Option(url.host).map(_.toHostString)
-        if whitelist.exists(h => host == h || host.endsWith(s".$h"))
-      } yield url.toString
-
-    private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
-      // Based on implementation in CoreNodeRenderer.
-      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
-        context.renderChildren(node)
-      else
-        {
-          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-          val url          = resolvedLink.getUrl()
-          val altText      = new TextCollectingVisitor().collectAndGetText(node)
-          whitelistedSrc(url) match
-            case Some(src) =>
-              html
-                .srcPos(node.getChars())
-                .attr("src", src)
-                .attr("alt", altText)
-                .attr(resolvedLink.getNonNullAttributes())
-                .withAttr(resolvedLink)
-                .tagVoid("img")
-            case None =>
-              html
-                .srcPos(node.getChars())
-                .attr("href", url)
-                .attr("rel", rel)
-                .withAttr(resolvedLink)
-                .tag("a")
-                .text(altText)
-                .tag("/a")
-        }.unit
+  private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
+    // Based on implementation in CoreNodeRenderer.
+    if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+      context.renderChildren(node)
+    else
+      {
+        val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+        val url          = resolvedLink.getUrl()
+        val altText      = new TextCollectingVisitor().collectAndGetText(node)
+        whitelistedSrc(url) match
+          case Some(src) =>
+            html
+              .srcPos(node.getChars())
+              .attr("src", src)
+              .attr("alt", altText)
+              .attr(resolvedLink.getNonNullAttributes())
+              .withAttr(resolvedLink)
+              .tagVoid("img")
+          case None =>
+            html
+              .srcPos(node.getChars())
+              .attr("href", url)
+              .attr("rel", rel)
+              .withAttr(resolvedLink)
+              .tag("a")
+              .text(altText)
+              .tag("/a")
+      }.unit
 
   private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()

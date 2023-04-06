@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import lila.user.User
-
 case class PuzzleRound(
     id: PuzzleRound.Id,
     win: PuzzleWin,            // last result
@@ -63,7 +61,7 @@ object PuzzleRound:
     val date    = "d" // date of first playing the puzzle
     val theme   = "h"
 
-  import lila.db.dsl.{ *, given }
+  import lila.db.dsl.*
   def puzzleLookup(colls: PuzzleColls, pipeline: List[Bdoc] = Nil) =
     $lookup.pipelineFull(
       from = colls.puzzle.name.value,

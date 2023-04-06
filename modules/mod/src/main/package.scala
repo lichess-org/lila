@@ -1,6 +1,5 @@
 package lila.mod
 
-import lila.security.UserLogins
 import lila.user.User
 
 export lila.Lila.{ *, given }

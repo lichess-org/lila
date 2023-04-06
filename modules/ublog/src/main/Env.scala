@@ -2,12 +2,12 @@ package lila.ublog
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
-import com.softwaremill.tagging.*
 
 import lila.common.config.*
 import lila.db.dsl.Coll
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,

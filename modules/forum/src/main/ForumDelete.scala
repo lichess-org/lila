@@ -1,21 +1,19 @@
 package lila.forum
 
 import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 
 import lila.security.{ Granter as MasterGranter }
-import lila.user.{ Holder, User }
+import lila.user.User
 
 final class ForumDelete(
     postRepo: ForumPostRepo,
     topicRepo: ForumTopicRepo,
-    categRepo: ForumCategRepo,
     indexer: lila.hub.actors.ForumSearch,
     postApi: ForumPostApi,
     topicApi: ForumTopicApi,
     categApi: ForumCategApi,
     modLog: lila.mod.ModlogApi
-)(using ec: Executor, mat: akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer):
 
   def post(categId: ForumCategId, postId: ForumPostId, mod: User): Funit =
     postRepo.unsafe.byCategAndId(categId, postId) flatMapz { post =>

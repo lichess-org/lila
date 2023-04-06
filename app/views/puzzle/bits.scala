@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, Json }
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
@@ -13,8 +13,6 @@ import chess.format.{ BoardFen, Uci }
 import lila.user.User
 
 object bits:
-
-  private val dataLastmove = attr("data-lastmove")
 
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
     views.html.board.bits.mini(fen, p.color, lastMove.some)(span)

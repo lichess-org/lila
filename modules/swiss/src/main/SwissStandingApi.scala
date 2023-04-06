@@ -2,7 +2,6 @@ package lila.swiss
 
 import play.api.libs.json.*
 
-import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 
 /*
@@ -13,7 +12,6 @@ import lila.db.dsl.{ *, given }
  */
 final class SwissStandingApi(
     mongo: SwissMongo,
-    pairingSystem: PairingSystem,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(using Executor):

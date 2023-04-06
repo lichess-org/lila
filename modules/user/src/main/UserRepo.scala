@@ -14,7 +14,6 @@ import lila.rating.{ Perf, PerfType }
 final class UserRepo(val coll: Coll)(using Executor):
 
   import User.{ BSONFields as F, given }
-  import Title.given
   import UserMark.given
 
   def withColl[A](f: Coll => A): A = f(coll)

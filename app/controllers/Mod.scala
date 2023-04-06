@@ -399,7 +399,7 @@ final class Mod(
     }
 
   def gdprErase(username: UserStr) =
-    Secure(_.CloseAccount) { _ => me =>
+    Secure(_.GdprErase) { _ => me =>
       val res = Redirect(routes.User.show(username.value))
       env.api.accountClosure.closeThenErase(username, me) map {
         case Right(msg) => res flashSuccess msg
@@ -542,7 +542,7 @@ final class Mod(
   def presets(group: String) =
     Secure(_.Presets) { implicit ctx => _ =>
       env.mod.presets.get(group).fold(notFound) { setting =>
-        Ok(html.mod.presets(group, setting, setting.form)).toFuccess
+        Ok(html.mod.presets(group, setting.form)).toFuccess
       }
     }
 
@@ -553,7 +553,7 @@ final class Mod(
         setting.form
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.mod.presets(group, setting, err)).toFuccess,
+            err => BadRequest(html.mod.presets(group, err)).toFuccess,
             v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
           )
       }

@@ -5,12 +5,12 @@ import play.api.Mode
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.common.{ Bus, Iso, Uptime }
+import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Player, Pov, Source }
+import lila.game.{ Game, Pov, Source }
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.NoteApi
-import lila.user.{ User, UserRepo }
+import lila.user.{ UserRepo }
 
 final class PlaybanApi(
     coll: Coll,
@@ -27,8 +27,6 @@ final class PlaybanApi(
   )
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
-
-  private case class Blame(player: Player, outcome: Outcome)
 
   private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 

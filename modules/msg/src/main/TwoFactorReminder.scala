@@ -1,11 +1,9 @@
 package lila.msg
 
 import lila.memo.MongoCache
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
-final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, api: MsgApi)(using
-    Executor
-):
+final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, api: MsgApi)(using Executor):
 
   def apply(userId: UserId) = cache get userId
 

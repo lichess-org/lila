@@ -2,12 +2,9 @@ package lila.relay
 
 import play.api.data.*
 import play.api.data.Forms.*
-import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, formatter, into }
-import lila.game.Game
+import lila.common.Form.{ cleanText, formatter, into }
 import lila.security.Granter
-import lila.study.Study
 import lila.user.User
 
 final class RelayTourForm:

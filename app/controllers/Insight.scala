@@ -71,9 +71,8 @@ final class Insight(env: Env) extends LilaController(env):
     )
 
   private def processQuestion(user: lila.user.User, body: Request[JsValue])(using Lang) =
-    import lila.insight.JsonQuestion, JsonQuestion.*
     body.body
-      .validate[JsonQuestion]
+      .validate[lila.insight.JsonQuestion]
       .fold(
         err => BadRequest(jsonError(err.toString)).toFuccess,
         _.question.fold(BadRequest.toFuccess) { q =>

@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     gameRepo: lila.game.GameRepo,
     renderer: lila.hub.actors.Renderer,
