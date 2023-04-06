@@ -163,14 +163,19 @@
   <string name="computersAreNotAllowedToPlay">Заказано бавити, хоснувучи даколи шахматні проґрамы ай абсолутно хоснувучи їх у бавцї. Не мож такой хосновати базы даных ай помуч другых бавлячув. Не чиніт повно акаунтув, ото може привести од блокованьови.</string>
   <string name="games">Бавкы</string>
   <string name="forum">Форум</string>
+  <string name="latestForumPosts">Послїдня публікація на форумі</string>
   <string name="players">Бавлячі</string>
   <string name="friends">Цімборы</string>
+  <string name="discussions">Бисїдованя</string>
   <string name="today">Днись</string>
   <string name="yesterday">Учора</string>
+  <string name="minutesPerSide">Минут на партію</string>
   <string name="variant">Варіант</string>
   <string name="variants">Варіанты</string>
   <string name="timeControl">Контрол часу</string>
   <string name="realTime">Наостро</string>
+  <string name="correspondence">По писаню</string>
+  <string name="daysPerTurn">Днюв на ход</string>
   <string name="oneDay">Єден динь</string>
   <plurals name="nbDays">
     <item quantity="one">%s динь</item>
@@ -191,11 +196,18 @@
   <string name="rating">Рейтінґ</string>
   <string name="ratingStats">Подїленя рейтінґув</string>
   <string name="username">Имня хосновача</string>
+  <string name="usernameOrEmail">Имня вадь почта</string>
+  <string name="changeUsername">Поміняти имня</string>
+  <string name="changeUsernameNotSame">Мож поміняти лем реґістр. Приміром \"johndoe\" на \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Перемінити своє имня. Мож учинити лем раз, при тум перемінити мож лем реґістр.</string>
   <string name="signupUsernameHint">Пересвідчіт ся ож убрали сьте статочноє имня. Вы не зможете перемінити го пак ай вшыткі акаунты из провокативными именами будут закрыті!</string>
+  <string name="signupEmailHint">Мы будеме хосновати почту лем про зверженя паролы.</string>
   <string name="password">Парола</string>
+  <string name="changePassword">Поміняти паролу</string>
   <string name="changeEmail">Перемінити адрес почты</string>
   <string name="email">Електрона почта</string>
+  <string name="passwordReset">Зверженя паролы</string>
+  <string name="forgotPassword">Забыли сьте паролу?</string>
   <string name="error.weakPassword">Сися парола дуже легка, ї дуже просто угадати.</string>
   <string name="blankedPassword">Вы хосновали таку паролу на другому сайтови, из того сайту ся стало протїканя інформації. Обы обеспечити безопасность свого Lichess акаунту, захоснуйте другу паролу. Дякуєме за розуміня.</string>
   <string name="youAreLeavingLichess">Вы лишаєте Lichess</string>
@@ -228,7 +240,20 @@
     <item quantity="other">%s задач</item>
   </plurals>
   <string name="gamesPlayed">Бавок зограто</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s бавка из вами</item>
+    <item quantity="few">%s бавкы из вами</item>
+    <item quantity="other">%s бавок из вами</item>
+  </plurals>
   <string name="cancel">Одмінити</string>
+  <string name="whiteTimeOut">У білых уйшов час</string>
+  <string name="blackTimeOut">У чорных уйшов час</string>
+  <string name="drawOfferSent">Понука ремізы загната</string>
+  <string name="drawOfferAccepted">Понука ремізы прията</string>
+  <string name="drawOfferCanceled">Понука ремізы не прията</string>
+  <string name="whiteOffersDraw">Білі понукувут ремізу</string>
+  <string name="blackOffersDraw">Чорні понукувут ремізу</string>
+  <string name="yourOpponentOffersADraw">Ваш противник понукує ремізу</string>
   <string name="accept">Прияти</string>
   <string name="decline">Одхылити</string>
   <string name="finished">Довершеный</string>
@@ -242,6 +267,11 @@
   <string name="casualTournament">Цімборськый</string>
   <string name="ratedTournament">Рейтінґова</string>
   <string name="rematch">Квітованя</string>
+  <string name="rematchOfferSent">Понука реванша загната</string>
+  <string name="rematchOfferAccepted">Понука реванша прията</string>
+  <string name="rematchOfferCanceled">Понука реванша одмінена</string>
+  <string name="rematchOfferDeclined">Понука реванша не прията</string>
+  <string name="cancelRematchOffer">Забрати понуку на реванш</string>
   <string name="viewRematch">Позирати реванш</string>
   <string name="confirmMove">Потвердити ход</string>
   <string name="play">Бавити</string>
@@ -411,6 +441,7 @@
   <string name="notes">Зазначкы</string>
   <string name="noNoteYet">Нарисув раз не є</string>
   <string name="privacy">Конфіденціалнусть</string>
+  <string name="letOtherPlayersInviteYouToStudy">Поволити другым бавлячам кликати вас у штудію</string>
   <string name="sound">Звук</string>
   <string name="none">Не є</string>
   <string name="fast">Шіковно</string>
@@ -469,6 +500,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Кідь нич не прийшло, перевірте фасціклы для спама, ай другі міста, де могло бы быти письмо.</string>
   <string name="weHaveSentYouAnEmailTo">Мы загнали письмо по %s. Клопкніт на одкликованя бы зверичи паролу.</string>
   <string name="downloadImported">Стерьхати перенесеноє</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Пролистуйте варіанты обы побзерати їх.</string>
   <string name="receiveForumNotifications">Доставати увідоменя коли вас споминавут на форумови</string>
   <string name="withNobody">Ни з кым</string>
   <string name="kidMode">Дїтськый режім</string>
