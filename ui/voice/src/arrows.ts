@@ -24,10 +24,10 @@ export function numberedArrows(choices: [string, Uci][], asWhite: boolean, timer
   const dests = new Map<Key, number | Set<number>>();
   choices.forEach(([, uci]) => {
     shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-grey` });
-    if (uci.length > 2) pushMap(dests, dest(uci), moveArc(uci, asWhite));
+    if (uci.length > 2) pushMap(dests, dest(uci), moveAngle(uci, asWhite));
   });
   if (timer) {
-    shapes.push(timerShape(choices[0][1], labelOffset(choices[0][1], dests, asWhite), timer, 'white', 0.6));
+    shapes.push(timerShape(choices[0][1], labelOffset(choices[0][1], dests, asWhite), timer, 'grey', 0.6));
   }
   choices.forEach(([, uci], i) => {
     shapes.push(labelShape(uci, dests, `${i + 1}`, asWhite));
@@ -84,9 +84,9 @@ function labelShape(uci: Uci, dests: Map<Key, number | Set<number>>, label: stri
 
 // to account for knights, find round(theta * 8 / pi) for every approach angle of incoming
 // moves to a destination square and fractions (knights) are rounded to the nearest odd
-// number yielding a mod 16 group
+// number yielding a mod 16 group. each member is considered a slot
 //
-// if knight arrows arrive at a square with an adjacent value (+/- 1)%16, we further shorten
+// if knight arrows arrive at a square with an adjacent slot (+/- 1)%16, we further shorten
 // the knight move arrow by the label size value
 
 function squarePos(sq: Key, asWhite: boolean): [number, number] {
@@ -95,15 +95,12 @@ function squarePos(sq: Key, asWhite: boolean): [number, number] {
     asWhite ? 56 - sq.charCodeAt(1) : sq.charCodeAt(1) - 49,
   ];
 }
-function moveAngle(uci: Uci, asWhite: boolean) {
-  const dest = destOffset(uci, asWhite);
-  return Math.atan2(dest[1], dest[0]);
-}
-function moveArc(uci: Uci, asWhite: boolean) {
+
+function moveAngle(uci: Uci, asWhite: boolean, asSlot = true) {
   const [srcx, srcy] = squarePos(src(uci), asWhite);
   const [destx, desty] = squarePos(dest(uci), asWhite);
-  const theta = (Math.atan2(desty - srcy, destx - srcx) * 8) / Math.PI;
-  return (Math.round(theta) + 16) % 16;
+  const angle = Math.atan2(desty - srcy, destx - srcx) + Math.PI;
+  return asSlot ? (Math.round(angle * 8) / Math.PI + 16) % 16 : angle;
 }
 
 function destOffset(uci: Uci, asWhite: boolean): [number, number] {
@@ -119,14 +116,14 @@ function destMag(uci: Uci, asWhite: boolean): number {
 function labelOffset(uci: Uci, dests: Map<Key, number | Set<number>>, asWhite: boolean): [number, number] {
   let mag = destMag(uci, asWhite);
   if (mag === 0) return [0, 0];
-  const angle = moveAngle(uci, asWhite);
+  const angle = moveAngle(uci, asWhite, false);
   if (dests.has(dest(uci))) {
     mag -= 52;
-    const moveArcs = dests.get(dest(uci))!;
-    if (moveArcs instanceof Set) {
+    const slots = dests.get(dest(uci))!;
+    if (slots instanceof Set) {
       mag -= 125 / 8;
-      const arc = moveArc(uci, asWhite);
-      if (moveArcs.has((arc + 1) % 16) || moveArcs.has((arc + 15) % 16)) if (arc & 1) mag -= LABEL_SIZE;
+      const arc = moveAngle(uci, asWhite);
+      if (slots.has((arc + 1) % 16) || slots.has((arc + 15) % 16)) if (arc & 1) mag -= LABEL_SIZE;
     }
   }
   return [Math.cos(angle) * mag, Math.sin(angle) * mag];

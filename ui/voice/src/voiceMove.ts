@@ -32,7 +32,7 @@ class VoiceMoveCtrl implements VoiceMove {
   MAX_CHOICES = 8; // don't use brushes.length
 
   showHelp: PropWithEffect<boolean>;
-  clarityPref = storedIntProp('voice.clarity', 1);
+  clarityPref = storedIntProp('voice.clarity', 0);
   colorsPref = storedBooleanPropWithEffect('voice.useColors', true, v => this.setPartialVocabulary(v));
   timerPref = storedIntPropWithEffect('voice.timer', 3, _ => this.setPartialVocabulary());
 

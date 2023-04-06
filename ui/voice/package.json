@@ -34,7 +34,7 @@
     "copy": [
       {
         "src": "grammar",
-        "dest": "../../public"
+        "dest": "../../public/compiled"
       }
     ]
   }
