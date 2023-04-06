@@ -19,7 +19,7 @@ final class RatingChartApi(
 
   def singlePerf(user: User, perfType: PerfType): Fu[JsArray] =
     historyApi.ratingsMap(user, perfType) map {
-      ratingsMapToJson(user.id, user.createdAt, _)
+      ratingsMapToJson(user.createdAt, _)
     } map JsArray.apply
 
   private val cache = cacheApi[UserId, String](4096, "history.rating") {
@@ -30,8 +30,8 @@ final class RatingChartApi(
       }
   }
 
-  private def ratingsMapToJson(userId: UserId, createdAt: DateTime, ratingsMap: RatingsMap) =
-    ratingsMap.map { case (days, rating) =>
+  private def ratingsMapToJson(createdAt: DateTime, ratingsMap: RatingsMap) =
+    ratingsMap.map { (days, rating) =>
       val date = createdAt plusDays days
       Json.arr(date.getYear, date.getMonthOfYear - 1, date.getDayOfMonth, rating)
     }
@@ -44,7 +44,7 @@ final class RatingChartApi(
             RatingChartApi.perfTypes map { pt =>
               Json.obj(
                 "name"   -> pt.trans(using lila.i18n.defaultLang),
-                "points" -> ratingsMapToJson(userId, createdAt, history(pt))
+                "points" -> ratingsMapToJson(createdAt, history(pt))
               )
             }
           }

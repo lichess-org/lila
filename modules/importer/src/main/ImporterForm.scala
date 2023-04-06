@@ -1,7 +1,7 @@
 package lila.importer
 
 import cats.data.Validated
-import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader, Tag, TagType, Tags }
+import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
 import chess.{ Color, Mode, Outcome, Replay, Status, ErrorStr }
 import play.api.data.*
@@ -41,8 +41,6 @@ case class Preprocessed(
 )
 
 case class ImportData(pgn: PgnStr, analyse: Option[String]):
-
-  private type TagPicker = Tag.type => TagType
 
   private val maxPlies = 600
 

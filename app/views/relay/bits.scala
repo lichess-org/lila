@@ -2,7 +2,7 @@ package views.html.relay
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTour
@@ -27,7 +27,7 @@ object bits:
       )
     )
 
-  def howToUse(using Context) =
+  def howToUse =
     a(dataIcon := "", cls := "text", href := routes.RelayTour.help)(
       "How to use Lichess Broadcasts"
     )

@@ -3,7 +3,6 @@ package controllers
 import cats.data.Validated
 import play.api.libs.json.Json
 import play.api.mvc.{ Request, Result }
-import scala.annotation.nowarn
 import views.html
 
 import lila.api.Context
@@ -12,10 +11,9 @@ import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.ID
 import lila.common.{ Bearer, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
-import lila.oauth.{ AccessToken, OAuthScope }
+import lila.oauth.OAuthScope
 import lila.setup.ApiConfig
 import lila.socket.SocketVersion
-import lila.socket.SocketVersion.given
 import lila.user.{ User as UserModel }
 import play.api.mvc.RequestHeader
 
@@ -46,7 +44,7 @@ final class Challenge(
       }
     }
 
-  def show(id: String, _color: Option[String]) =
+  def show(id: String, @annotation.nowarn _color: Option[String]) =
     Open { implicit ctx =>
       showId(id)
     }

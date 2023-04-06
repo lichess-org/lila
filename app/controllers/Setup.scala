@@ -1,11 +1,9 @@
 package controllers
 
-import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.Results
 
 import chess.format.Fen
-import lila.api.{ BodyContext, Context }
+import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.game.{ AnonCookie, Pov }
@@ -17,7 +15,6 @@ import views.*
 
 final class Setup(
     env: Env,
-    editorC: => Editor,
     challengeC: => Challenge,
     apiC: => Api
 ) extends LilaController(env)

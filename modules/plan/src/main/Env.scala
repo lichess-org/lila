@@ -6,8 +6,6 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
-import lila.common.Strings
-import lila.memo.SettingStore.Strings.given
 import lila.db.dsl.Coll
 
 @Module
@@ -21,6 +19,7 @@ private class PlanConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,

@@ -87,6 +87,5 @@ object PgnImport:
     )
 
   import reactivemongo.api.bson.*
-  import ByteArray.given
   import lila.db.dsl.given
   given BSONDocumentHandler[PgnImport] = Macros.handler

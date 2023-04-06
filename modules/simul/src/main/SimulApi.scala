@@ -19,11 +19,10 @@ final class SimulApi(
     gameRepo: GameRepo,
     onGameStart: lila.round.OnStart,
     socket: SimulSocket,
-    renderer: lila.hub.actors.Renderer,
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler):
 
   private val workQueue = lila.hub.AsyncActorSequencers[SimulId](
     maxSize = Max(128),

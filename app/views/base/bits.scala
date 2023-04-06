@@ -72,9 +72,6 @@ z-index: 99;
       else span(cls             := "disabled", dataIcon := "")
     )
 
-  private def sliding(pager: Paginator[?], length: Int, showPost: Boolean): List[Option[Int]] =
-    sliding(pager.currentPage, pager.nbPages, length, showPost)
-
   private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] =
     val fromPage = 1 max (page - length)
     val toPage   = nbPages.min(page + length)

@@ -1,9 +1,7 @@
 package lila.challenge
 
-import akka.actor.ActorSystem
 import akka.stream.scaladsl.*
-import chess.format.Fen
-import chess.{ Situation, Speed }
+import chess.Speed
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
@@ -27,8 +25,7 @@ final class ChallengeBulkApi(
 )(using
     ec: Executor,
     mat: akka.stream.Materializer,
-    scheduler: Scheduler,
-    mode: play.api.Mode
+    scheduler: Scheduler
 ):
 
   import lila.game.BSONHandlers.given
@@ -61,11 +58,11 @@ final class ChallengeBulkApi(
 
   def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
     coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
-      val nbGames = bulks.map(_.games.size).sum
-      if (bulks.sizeIs >= 10) fuccess(Left("Already too many bulks queued"))
-      else if (bulks.map(_.games.size).sum >= 1000) fuccess(Left("Already too many games queued"))
-      else if (bulks.exists(_ collidesWith bulk))
-        fuccess(Left("A bulk containing the same players is scheduled at the same time"))
+      if bulks.sizeIs >= 10 then fuccess(Left("Already too many bulks queued"))
+      else if bulks.map(_.games.size).sum >= 1000
+      then fuccess(Left("Already too many games queued"))
+      else if bulks.exists(_ collidesWith bulk)
+      then fuccess(Left("A bulk containing the same players is scheduled at the same time"))
       else coll.insert.one(bulk) inject Right(bulk)
     }
   }

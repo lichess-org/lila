@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.removeMultibyteSymbols

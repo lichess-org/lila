@@ -1,6 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
+import scala.annotation.nowarn
 
 private enum I18nQuantity:
   case Zero, One, Two, Few, Many, Other
@@ -107,7 +108,7 @@ private object I18nQuantity:
       else if (c == 2) Two
       else Other
 
-    def none(c: Count) = Other
+    def none(@nowarn c: Count) = Other
 
   import selectors.*
 

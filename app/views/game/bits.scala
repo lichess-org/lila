@@ -2,9 +2,9 @@ package views.html.game
 
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType.Correspondence
 

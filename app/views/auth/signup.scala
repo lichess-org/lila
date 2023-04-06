@@ -3,7 +3,7 @@ package auth
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ HTTPRequest, LangPath }
@@ -11,7 +11,7 @@ import lila.security.PasswordCheck
 
 object signup:
 
-  def apply(form: lila.security.HcaptchaForm[?])(implicit ctx: Context) =
+  def apply(form: lila.security.HcaptchaForm[?])(using ctx: Context) =
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(

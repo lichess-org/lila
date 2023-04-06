@@ -6,12 +6,10 @@ import play.api.libs.json.*
 import lila.game.Pov
 import lila.hub.actorApi.timeline.*
 import lila.hub.SyncActor
-import lila.i18n.defaultLang
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
-import lila.user.User
 import lila.round.ChangeFeatured
 import lila.common.Json.given
 

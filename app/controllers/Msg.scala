@@ -5,11 +5,7 @@ import play.api.libs.json.*
 import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
 
-final class Msg(
-    env: Env,
-    apiC: => Api
-) extends LilaController(env):
-
+final class Msg(env: Env) extends LilaController(env):
   def home =
     Auth { implicit ctx => me =>
       negotiate(
@@ -50,14 +46,14 @@ final class Msg(
     }
 
   def search(q: String) =
-    Auth { ctx => me =>
+    Auth { _ => me =>
       q.trim.some.filter(_.nonEmpty) match
         case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
         case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
     }
 
   def unreadCount =
-    Auth { ctx => me =>
+    Auth { _ => me =>
       JsonOk {
         env.msg.compat unreadCount me
       }

@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import lila.game.Game
 import lila.common.Bus
 
 /* async wait for analysis to complete */

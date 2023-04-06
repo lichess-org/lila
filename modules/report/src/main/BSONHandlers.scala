@@ -7,8 +7,6 @@ object BSONHandlers:
 
   import Reason.given
   import Room.given
-  import ReporterId.given
-  import Report.given
   given BSONHandler[Reason]                 = stringIsoHandler
   given BSONHandler[Room]                   = stringIsoHandler
   given BSONDocumentHandler[Report.Inquiry] = Macros.handler

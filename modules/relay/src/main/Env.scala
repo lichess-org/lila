@@ -7,6 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.common.config.*
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,

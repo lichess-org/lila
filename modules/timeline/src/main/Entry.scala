@@ -2,7 +2,6 @@ package lila.timeline
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import scala.util.{ Failure, Success, Try }
 
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }

@@ -11,6 +11,7 @@ import lila.hub.actorApi.irc.Event
 import lila.hub.actorApi.user.Note
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     getLightUser: lila.common.LightUser.Getter,

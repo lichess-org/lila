@@ -1,7 +1,7 @@
 package lila.app
 package ui
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 
 case class OpenGraph(
     title: String,

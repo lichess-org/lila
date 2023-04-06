@@ -1,13 +1,13 @@
 package views.html.site
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import controllers.routes
 
 object bits:
 
-  def getFishnet()(implicit ctx: Context) =
+  def getFishnet()(using Context) =
     views.html.base.layout(
       title = "fishnet API key request",
       csp = defaultCsp.withGoogleForm.some
@@ -39,7 +39,7 @@ object bits:
 </html>"""
     )
 
-  def errorPage(implicit ctx: Context) =
+  def errorPage(using Context) =
     views.html.base.layout(
       title = "Internal server error"
     ) {
@@ -53,7 +53,7 @@ object bits:
       )
     }
 
-  def ghost(implicit ctx: Context) =
+  def ghost(using Context) =
     views.html.base.layout(
       moreCss = cssTag("ghost"),
       title = "Deleted user"

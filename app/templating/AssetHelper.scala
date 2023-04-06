@@ -4,7 +4,7 @@ package templating
 import play.api.mvc.RequestHeader
 
 import lila.api.Context
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 
 trait AssetHelper extends HasEnv { self: I18nHelper with SecurityHelper =>

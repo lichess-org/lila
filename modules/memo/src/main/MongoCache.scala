@@ -5,7 +5,6 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import reactivemongo.api.bson.BSONDocumentHandler.apply
 
 /** To avoid recomputing very expensive values after deploy
   */
@@ -57,8 +56,7 @@ object MongoCache:
   final class Api(
       db: lila.db.Db,
       config: MemoConfig,
-      cacheApi: CacheApi,
-      mode: play.api.Mode
+      cacheApi: CacheApi
   )(using Executor):
 
     private val coll = db(config.cacheColl)

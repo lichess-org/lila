@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
-import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONHandler, Macros }
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 case class User(
     id: UserId,
@@ -286,13 +286,11 @@ object User:
   import lila.db.BSON
   import lila.db.dsl.{ *, given }
   import Plan.given
-  import Title.given
 
   given BSONDocumentHandler[User] = new BSON[User]:
 
     import BSONFields.*
     import UserMark.given
-    import Title.given
     import Count.given
     import Profile.given
     import Perfs.given

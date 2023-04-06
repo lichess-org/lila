@@ -3,7 +3,7 @@ package views.html.team
 import controllers.routes
 import scala.util.chaining.*
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
@@ -52,8 +52,7 @@ object bits:
       .build[Markdown, Html]()
     def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))
 
-  private[team] def teamTr(t: Team)(implicit ctx: Context) =
-    import lila.common.String.*
+  private[team] def teamTr(t: Team)(using ctx: Context) =
     val isMine = isMyTeamSync(t.id)
     tr(cls := "paginated")(
       td(cls := "subject")(

@@ -1,12 +1,9 @@
 package lila.tutor
 
 import alleycats.Zero
-import chess.{ Division, Situation }
 
 import lila.analyse.AccuracyPercent
-import lila.analyse.Analysis
-import lila.game.Pov
-import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats, MeanRating }
+import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats }
 import lila.rating.PerfType
 import lila.user.User
 

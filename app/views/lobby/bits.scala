@@ -2,7 +2,7 @@ package views.html.lobby
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost
@@ -64,22 +64,24 @@ object bits:
           )
         )
       ),
-      div(cls := "lobby__tournaments lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Tournament.home)(
-          h2(cls := "title text", dataIcon := "")(trans.openTournaments()),
-          span(cls := "more")(trans.more(), " »")
+      div(cls := "lobby__tournaments-simuls")(
+        div(cls := "lobby__tournaments lobby__box")(
+          a(cls := "lobby__box__top", href := routes.Tournament.home)(
+            h2(cls := "title text", dataIcon := "")(trans.openTournaments()),
+            span(cls := "more")(trans.more(), " »")
+          ),
+          div(cls := "enterable_list lobby__box__content")(
+            views.html.tournament.bits.enterable(tours)
+          )
         ),
-        div(cls := "enterable_list lobby__box__content")(
-          views.html.tournament.bits.enterable(tours)
-        )
-      ),
-      simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Simul.home)(
-          h2(cls := "title text", dataIcon := "")(trans.simultaneousExhibitions()),
-          span(cls := "more")(trans.more(), " »")
-        ),
-        div(cls := "enterable_list lobby__box__content")(
-          views.html.simul.bits.allCreated(simuls)
+        simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
+          a(cls := "lobby__box__top", href := routes.Simul.home)(
+            h2(cls := "title text", dataIcon := "")(trans.simultaneousExhibitions()),
+            span(cls := "more")(trans.more(), " »")
+          ),
+          div(cls := "enterable_list lobby__box__content")(
+            views.html.simul.bits.allCreated(simuls)
+          )
         )
       )
     )
@@ -105,7 +107,7 @@ object bits:
       ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
     )
 
-  def showUnreadLichessMessage(using Context) =
+  def showUnreadLichessMessage =
     nopeInfo(
       cls := "unread-lichess-message",
       p("You have received a private message from Lichess."),

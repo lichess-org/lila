@@ -18,8 +18,7 @@ final class NotifyApi(
     colls: NotifyColls,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    maxPerPage: MaxPerPage,
-    prefApi: lila.pref.PrefApi
+    maxPerPage: MaxPerPage
 )(using Executor):
 
   import Notification.*

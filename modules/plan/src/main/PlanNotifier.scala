@@ -4,7 +4,6 @@ import akka.actor.*
 
 import lila.common.Bus
 import lila.hub.actorApi.timeline.Propagate
-import lila.mon
 import lila.user.User
 import lila.hub.actorApi.timeline.Atom
 

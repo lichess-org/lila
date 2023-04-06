@@ -3,12 +3,12 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.puzzle.PuzzleOpening.Order
-import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
+import lila.puzzle.{ PuzzleOpening, PuzzleOpeningCollection }
 
 object opening:
 
@@ -16,7 +16,7 @@ object opening:
       ctx: Context
   ) =
     views.html.base.layout(
-      title = "Puzzles by openings",
+      title = trans.puzzle.puzzlesByOpenings.txt(),
       moreCss = cssTag("puzzle.page"),
       moreJs = jsModule("puzzle.opening")
     )(
@@ -24,20 +24,20 @@ object opening:
         bits.pageMenu("openings", ctx.me),
         div(cls := "page-menu__content box")(
           boxTop(
-            h1("Puzzles by openings"),
+            h1(trans.puzzle.puzzlesByOpenings()),
             orderSelect(order)
           ),
           mine.isEmpty option frag(
             p(cls := "help help-touchscreen")(
-              iconTag("", "Use \"Find in page\" in the browser menu to find your favourite opening!")
+              iconTag("", trans.puzzle.useFindInPage())
             ),
-            p(cls := "help help-keyboard")(iconTag("", "Use Ctrl+f to find your favourite opening!"))
+            p(cls := "help help-keyboard")(iconTag("", trans.puzzle.useCtrlF()))
           ),
           div(cls := "puzzle-themes")(
             div(cls := "puzzle-openings")(
               mine.filter(_.families.nonEmpty) map { m =>
                 div(cls := "puzzle-openings__mine")(
-                  h2("Openings you played the most in rated games"),
+                  h2(trans.puzzle.openingsYouPlayedTheMost()),
                   div(cls := "puzzle-openings__list")(m.families take 12 map {
                     familyLink(_, mine)(cls := "puzzle-openings__link")
                   })

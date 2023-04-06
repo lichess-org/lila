@@ -6,13 +6,12 @@ import scala.util.chaining.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.chat.Chat
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, Study as StudyModel }
+import lila.study.{ Order, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 
@@ -223,7 +222,6 @@ final class Study(
           chapter.root.fen.some,
           chapter.setup.orientation,
           owner = false,
-          me = ctx.me,
           division = division
         )
       )
@@ -381,8 +379,7 @@ final class Study(
               lila.pref.Pref.default,
               initialFen,
               setup.orientation,
-              owner = false,
-              me = none
+              owner = false
             )
             analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {
@@ -605,8 +602,6 @@ final class Study(
       case None                                      => unauthorized
       case Some(me) if study.members.contains(me.id) => f
       case _                                         => forbidden
-
-  implicit private def makeChapterId(id: String): StudyChapterId = StudyChapterId(id)
 
   private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
 

@@ -12,7 +12,6 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.String.html.nl2br
 import lila.common.{ Chronometer, EmailAddress }
 import lila.i18n.I18nKeys.{ emails as trans }
-import com.typesafe.config.DefaultConfigLoadingStrategy
 import play.api.ConfigLoader
 
 final class Mailer(

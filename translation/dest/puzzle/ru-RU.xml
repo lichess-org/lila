@@ -28,6 +28,11 @@
   <string name="keepGoing">Продолжайте…</string>
   <string name="puzzleSuccess">Задача решена!</string>
   <string name="puzzleComplete">Задача решена!</string>
+  <string name="byOpenings">По дебютам</string>
+  <string name="puzzlesByOpenings">Задачи по дебютам</string>
+  <string name="openingsYouPlayedTheMost">Дебюты, которые вы играли в большинстве рейтинговых партий</string>
+  <string name="useFindInPage">Используйте «Найти на странице» в меню браузера, чтобы найти ваш любимый дебют!</string>
+  <string name="useCtrlF">Используйте Ctrl+f, чтобы найти ваш любимый дебют!</string>
   <string name="notTheMove">Плохой ход!</string>
   <string name="trySomethingElse">Попробуйте иначе.</string>
   <string name="ratingX">Рейтинг: %s</string>

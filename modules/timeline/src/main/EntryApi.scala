@@ -7,7 +7,6 @@ import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Atom
 import lila.memo.CacheApi.*
-import lila.user.User
 
 final class EntryApi(
     coll: Coll,

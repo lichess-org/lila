@@ -3,8 +3,6 @@ package lila.event
 import play.api.i18n.Lang
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.User
-
 case class Event(
     _id: String,
     title: String,

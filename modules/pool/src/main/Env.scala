@@ -6,16 +6,13 @@ import lila.common.Bus
 import lila.game.Game
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
     idGenerator: lila.game.IdGenerator,
     playbanApi: lila.playban.PlaybanApi
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler
-):
+)(using Executor, akka.actor.ActorSystem, Scheduler):
 
   private lazy val hookThieve = wire[HookThieve]
 

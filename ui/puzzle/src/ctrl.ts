@@ -24,7 +24,7 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { makeVoiceMove, VoiceMove } from 'voice';
+import { makeVoiceMove, VoiceMove, RootCtrl } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, RootController } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
@@ -92,7 +92,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);
-    const root: RootController = {
+    const root = {
       data: {
         game: { variant: { key: 'standard' } },
         player: { color: vm.pov },
@@ -100,13 +100,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       chessground: cg,
       sendMove: playUserMove,
       redraw: this.redraw,
+      flipNow: flip,
       userJumpPlyDelta,
       next: nextPuzzle,
       vote,
+      solve: viewSolution,
     };
-    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(root, { fen: this.vm.node.fen });
-    if (opts.pref.keyboardMove) this.keyboardMove = keyboardMove = makeKeyboardMove(root, { fen: this.vm.node.fen });
-    console.log(opts.pref.voiceMove, opts.pref.keyboardMove);
+    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(root as RootCtrl, this.vm.node.fen);
+    if (opts.pref.keyboardMove)
+      this.keyboardMove = keyboardMove = makeKeyboardMove(root as RootController, { fen: this.vm.node.fen });
     requestAnimationFrame(() => this.redraw());
   }
 
@@ -204,7 +206,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
-    voiceMove?.update({ fen: vm.node.fen });
+    voiceMove?.update(vm.node.fen);
     keyboardMove?.update({ fen: vm.node.fen });
   }
 
@@ -478,7 +480,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
     keyboardMove?.update({ fen: vm.node.fen });
-    voiceMove?.update({ fen: vm.node.fen });
+    voiceMove?.update(vm.node.fen);
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 

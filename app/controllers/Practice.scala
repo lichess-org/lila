@@ -27,8 +27,8 @@ final class Practice(
     }
 
   def show(
-      sectionId: String,
-      studySlug: String,
+      @nowarn sectionId: String,
+      @nowarn studySlug: String,
       studyId: StudyId
   ) =
     Open { implicit ctx =>
@@ -36,8 +36,8 @@ final class Practice(
     }
 
   def showChapter(
-      sectionId: String,
-      studySlug: String,
+      @nowarn sectionId: String,
+      @nowarn studySlug: String,
       studyId: StudyId,
       chapterId: StudyChapterId
   ) =
@@ -104,8 +104,7 @@ final class Practice(
               ctx.pref,
               initialFen,
               chapter.setup.orientation,
-              owner = false,
-              me = ctx.me
+              owner = false
             )
           val analysis = baseData ++ Json.obj(
             "treeParts" -> partitionTreeJsonWriter.writes {

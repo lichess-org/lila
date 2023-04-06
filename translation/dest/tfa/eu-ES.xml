@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">Pasahitza eta aplikazioak ematen dizun kodea behar duzu bi faktoreko autentikazioa desgaitzeko.
 Aplikazioa galdu edo ezabatu baduzu, pasahitza berrezarri eta eposta bidezko prozesua osatu beharko duzu.</string>
   <string name="openTwoFactorApp">Ireki bi faktoreko autentifikazio aplikazioa zure telefonoan, ikusi zure autentifikazio kodea eta idatzi hemen.</string>
+  <string name="setupReminder">Aktibatu bi faktoreko autentifikazioa zure kontua babesteko, horretarako joan helbide honetara https://lichess.org/account/twofactor.
+Mezu hau zure kontuak ardura bereziak dituelako jaso duzu, ala nola taldearen kapitaina, entrenatzailea, irakaslea edo streamerra zara</string>
 </resources>

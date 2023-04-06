@@ -2,11 +2,10 @@ package views.html.streamer
 
 import controllers.routes
 import play.api.i18n.Lang
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
-import lila.user.User
 
 object bits:
 
@@ -95,7 +94,7 @@ object bits:
       )
     )
 
-  def streamerTitle(s: lila.streamer.Streamer.WithContext)(implicit lang: Lang) =
+  def streamerTitle(s: lila.streamer.Streamer.WithContext) =
     span(cls := "streamer-title")(
       h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang map { language =>

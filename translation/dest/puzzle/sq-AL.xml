@@ -27,6 +27,10 @@
   <string name="keepGoing">Vazhdoni…</string>
   <string name="puzzleSuccess">Sukses!</string>
   <string name="puzzleComplete">Ushtrimi u plotësua!</string>
+  <string name="byOpenings">Sipas hapjesh</string>
+  <string name="openingsYouPlayedTheMost">Hapje që bëtë në lojërat më të vlerësuara</string>
+  <string name="useFindInPage">Që të gjeni hapen tuaj të parapëlqyer, përdorni “Gjej në faqe” te menuja e shfletuesit!</string>
+  <string name="useCtrlF">Që të gjeni hapjen tuaj të parapëlqyer, përdorni Ctrl+f!</string>
   <string name="notTheMove">S’është lëvizja e duhur!</string>
   <string name="trySomethingElse">Provoni diçka tjetër.</string>
   <string name="ratingX">Vlerësimi: %s</string>

@@ -9,7 +9,6 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
-import lila.chat.Chat
 import lila.common.config.MaxPerSecond
 import lila.common.{ Bus, GreatPlayer, LightUser }
 import lila.db.dsl.{ *, given }
@@ -20,7 +19,6 @@ import lila.common.config.Max
 
 final class SwissApi(
     mongo: SwissMongo,
-    pairingSystem: PairingSystem,
     cache: SwissCache,
     userRepo: UserRepo,
     socket: SwissSocket,
@@ -37,8 +35,7 @@ final class SwissApi(
 )(using
     ec: Executor,
     scheduler: Scheduler,
-    mat: akka.stream.Materializer,
-    mode: play.api.Mode
+    mat: akka.stream.Materializer
 ):
 
   private val sequencer = lila.hub.AsyncActorSequencers[SwissId](
@@ -148,7 +145,11 @@ final class SwissApi(
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
     Sequencing(swiss.id)(cache.swissCache.notFinishedById) { old =>
-      old.settings.manualRounds ?? {
+      (!old.settings.manualRounds).?? {
+        mongo.swiss
+          .updateField($id(old.id), "settings.i", Swiss.RoundInterval.manual)
+          .void
+      } >> {
         if (old.isCreated) mongo.swiss.updateField($id(old.id), "startsAt", date).void
         else if (old.isStarted && old.nbOngoing == 0)
           mongo.swiss.updateField($id(old.id), "nextRoundAt", date).void >>- {

@@ -106,11 +106,11 @@ case class LightPov(game: LightGame, color: Color):
   def gameId   = game.id
   def player   = game player color
   def opponent = game player !color
-  def win      = game wonBy color
+  // def win      = game wonBy color
 
 object LightPov:
 
-  def apply(game: LightGame, player: Player) = new LightPov(game, player.color)
+  def apply(game: LightGame, player: LightPlayer): LightPov = LightPov(game, player.color)
 
   def ofUserId(game: LightGame, userId: UserId): Option[LightPov] =
     game playerByUserId userId map { apply(game, _) }

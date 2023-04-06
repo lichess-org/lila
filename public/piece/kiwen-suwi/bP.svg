@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="260"
+   height="260"
+   xml:space="preserve"
+   overflow="hidden"
+   version="1.1"
+   id="svg13"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs5"><clipPath
+       id="clip0"><rect
+         x="1161"
+         y="458"
+         width="259"
+         height="260"
+         id="rect2" /></clipPath></defs><g
+     clip-path="url(#clip0)"
+     transform="translate(-1161,-458)"
+     id="g11"><path
+       d="m 1244.58,545.46 c 0,-25.408 20.37,-46 45.5,-46 25.14,0 45.5,20.592 45.5,46 0,25.408 -20.36,46 -45.5,46 -25.13,0 -45.5,-20.592 -45.5,-46 z"
+       fill="#262626"
+       fill-rule="evenodd"
+       id="path7" /><path
+       d="m 1227.58,682.459 23.2,-61.001 h 78.6 l 23.2,61.001 z"
+       fill="#262626"
+       fill-rule="evenodd"
+       id="path9" /></g></svg>

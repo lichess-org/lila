@@ -6,7 +6,6 @@ import play.api.data.format._
 import play.api.data.format.Formats._
 import play.api.data.Forms._
 import play.api.data.validation._
-import scalatags.Text.all._
 
 import lila.common.Form._
 

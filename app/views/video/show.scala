@@ -2,9 +2,9 @@ package views.html.video
 
 import lila.common.String.html.richText
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 
 import controllers.routes
 

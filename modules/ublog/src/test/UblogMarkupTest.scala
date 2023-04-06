@@ -1,10 +1,8 @@
 package lila.ublog
 
-import org.specs2.execute.Result
 import org.specs2.mutable.Specification
-import scalatags.Text.all._
 
-import lila.common.{ config, Markdown }
+import lila.common.Markdown
 
 class UblogMarkupTest extends Specification {
 

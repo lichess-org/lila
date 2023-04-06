@@ -2,13 +2,12 @@ package lila.challenge
 
 import chess.variant.Variant
 import reactivemongo.api.bson.*
-import scala.util.Success
 
 import lila.common.Days
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import scala.annotation.nowarn
 
 private object BSONHandlers:
 
@@ -36,7 +35,7 @@ private object BSONHandlers:
       } orElse {
         r.getO[Days]("d") map TimeControl.Correspondence.apply
       } getOrElse TimeControl.Unlimited
-    def writes(w: Writer, t: TimeControl) =
+    def writes(@nowarn w: Writer, t: TimeControl) =
       t match
         case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
         case TimeControl.Correspondence(d)               => $doc("d" -> d)
@@ -54,14 +53,14 @@ private object BSONHandlers:
       )
   given registeredHandler: BSON[Challenger.Registered] with
     def reads(r: Reader) = Challenger.Registered(r.get[UserId]("id"), r.get[Rating]("r"))
-    def writes(w: Writer, r: Challenger.Registered) =
+    def writes(@nowarn w: Writer, r: Challenger.Registered) =
       $doc(
         "id" -> r.id,
         "r"  -> r.rating
       )
   given anonHandler: BSON[Challenger.Anonymous] with
-    def reads(r: Reader)                           = Challenger.Anonymous(r.str("s"))
-    def writes(w: Writer, a: Challenger.Anonymous) = $doc("s" -> a.secret)
+    def reads(r: Reader)                                   = Challenger.Anonymous(r.str("s"))
+    def writes(@nowarn w: Writer, a: Challenger.Anonymous) = $doc("s" -> a.secret)
 
   given BSON[Challenger] with
     def reads(r: Reader) =

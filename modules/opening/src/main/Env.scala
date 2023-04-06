@@ -7,9 +7,10 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.CollName
 import lila.game.{ GameRepo, PgnDump }
-import lila.memo.{ CacheApi, MongoCache }
+import lila.memo.CacheApi
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     gameRepo: GameRepo,

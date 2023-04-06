@@ -1,16 +1,14 @@
 package controllers
 
-import play.api.data.Form
 import play.api.mvc.*
 import scala.annotation.nowarn
-import scala.util.chaining.*
 import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.IpAddress
-import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.relay.{ RelayTour as TourModel }
 import lila.user.{ User as UserModel }
 import lila.common.config
 
@@ -37,7 +35,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       }
     }
 
-  def form = Auth { implicit ctx => me =>
+  def form = Auth { implicit ctx => _ =>
     NoLameOrBot {
       Ok(html.relay.tourForm.create(env.relay.tourForm.create)).toFuccess
     }
@@ -79,7 +77,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def edit(id: TourModel.Id) = Auth { implicit ctx => me =>
+  def edit(id: TourModel.Id) = Auth { implicit ctx => _ =>
     WithTourCanUpdate(id) { tour =>
       Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).toFuccess
     }

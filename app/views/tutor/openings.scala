@@ -1,26 +1,16 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json.*
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
+import lila.api.Context
+import lila.app.templating.Environment.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.{
-  Rating,
-  TutorBothValueOptions,
-  TutorBothValues,
-  TutorFullReport,
-  TutorPerfReport,
-  ValueCount
-}
+import lila.tutor.TutorPerfReport
 
 object openings:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using
-      ctx: Context
-  ) =
-    bits.layout(full, menu = perf.menu(full, user, report, "openings"))(
+  def apply(report: TutorPerfReport, user: lila.user.User)(using ctx: Context) =
+    bits.layout(menu = perf.menu(user, report, "openings"))(
       cls := "tutor__openings box",
       boxTop(
         h1(

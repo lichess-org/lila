@@ -1,11 +1,9 @@
 package lila.app
 package http
 
-import play.api.http.{ DefaultHttpRequestHandler, HttpConfiguration, HttpErrorHandler, HttpRequestHandler }
+import play.api.http.{ DefaultHttpRequestHandler, HttpConfiguration, HttpErrorHandler }
 import play.api.mvc.{ ControllerComponents, EssentialFilter, Handler, RequestHeader, Results }
 import play.api.routing.Router
-
-import lila.common.Chronometer
 
 final class LilaHttpRequestHandler(
     router: Router,

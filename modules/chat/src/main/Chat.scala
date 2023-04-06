@@ -2,9 +2,8 @@ package lila.chat
 
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.User
-import reactivemongo.api.bson.BSONHandler
-import lila.common.Iso
 import reactivemongo.api.bson.BSONDocumentHandler
+import scala.annotation.nowarn
 
 sealed trait AnyChat:
   def id: ChatId
@@ -111,7 +110,7 @@ object Chat:
   import BSONFields.*
   import reactivemongo.api.bson.BSONDocument
   import Line.given
-  import lila.db.dsl.{ *, given }
+  import lila.db.dsl.given
 
   given BSONDocumentHandler[MixedChat] = new BSON[MixedChat]:
     def reads(r: BSON.Reader): MixedChat =
@@ -119,7 +118,7 @@ object Chat:
         id = r.get[ChatId](id),
         lines = r.get[List[Line]](lines)
       )
-    def writes(w: BSON.Writer, o: MixedChat) =
+    def writes(@nowarn w: BSON.Writer, o: MixedChat) =
       BSONDocument(
         id    -> o.id,
         lines -> o.lines
@@ -131,7 +130,7 @@ object Chat:
         id = r.get[ChatId](id),
         lines = r.get[List[UserLine]](lines)
       )
-    def writes(w: BSON.Writer, o: UserChat) =
+    def writes(@nowarn w: BSON.Writer, o: UserChat) =
       BSONDocument(
         id    -> o.id,
         lines -> o.lines

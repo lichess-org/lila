@@ -289,7 +289,7 @@ export default class RoundController {
       if (/[+#]/.test(s.san)) sound.check();
     }
     this.autoScroll();
-    this.voiceMove?.update(s);
+    this.voiceMove?.update(s.fen);
     this.keyboardMove?.update(s);
     lichess.pubsub.emit('ply', ply);
     return true;
@@ -499,7 +499,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     this.keyboardMove?.update(step, playedColor != d.player.color);
-    this.voiceMove?.update(step, playedColor != d.player.color);
+    this.voiceMove?.update(step.fen, playedColor != d.player.color);
     if (this.music) this.music.jump(o);
     speech.step(step);
     return true; // prevents default socket pubsub
@@ -536,7 +536,7 @@ export default class RoundController {
     this.onChange();
     this.setLoading(false);
     this.keyboardMove?.update(d.steps[d.steps.length - 1]);
-    this.voiceMove?.update(d.steps[d.steps.length - 1]);
+    this.voiceMove?.update(d.steps[d.steps.length - 1].fen);
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -631,6 +631,11 @@ export default class RoundController {
       $('body').toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
     }
   };
+
+  opponentRequest(req: string, i18nKey: string) {
+    this.voiceMove?.opponentRequest(req, (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`));
+    notify(this.noarg(i18nKey));
+  }
 
   takebackYes = () => {
     this.socket.sendLoading('takeback-yes');
@@ -772,7 +777,7 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
-    if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply));
+    if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
     requestAnimationFrame(() => this.redraw());
   };
 

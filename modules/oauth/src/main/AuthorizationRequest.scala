@@ -1,8 +1,6 @@
 package lila.oauth
 
 import cats.data.Validated
-import com.roundeights.hasher.Algo
-import play.api.libs.json.*
 
 import lila.user.User
 

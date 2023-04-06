@@ -3,7 +3,6 @@ package lila.timeline
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class UnsubApi(coll: Coll)(using Executor):
 

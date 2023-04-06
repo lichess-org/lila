@@ -1,6 +1,5 @@
 package lila.security
 
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson.*
 
 import lila.common.{ EmailAddress, IpAddress }
@@ -240,7 +239,7 @@ object UserLogins:
       )
     }
 
-  case class TableData[U: UserIdOf](
+  case class TableData[U](
       userLogins: UserLogins,
       othersWithEmail: UserLogins.WithMeSortedWithEmails[U],
       notes: List[lila.user.Note],

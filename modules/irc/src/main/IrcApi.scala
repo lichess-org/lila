@@ -1,7 +1,6 @@
 package lila.irc
 
-import lila.common.IpAddress
-import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
+import lila.common.{ EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*
 import lila.user.Holder
 import lila.user.User

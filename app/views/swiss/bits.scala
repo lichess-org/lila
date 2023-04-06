@@ -1,6 +1,6 @@
 package views.html.swiss
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKeys as trans }
@@ -116,7 +116,6 @@ object bits:
     trans.swiss.ongoingGames,
     trans.swiss.startingIn,
     trans.swiss.nextRound,
-    trans.team.joinTeam,
-    trans.swiss.xRoundsSwiss,
-    trans.swiss.xOutOfYRoundsSwiss
+    trans.swiss.nbRounds,
+    trans.team.joinTeam
   )

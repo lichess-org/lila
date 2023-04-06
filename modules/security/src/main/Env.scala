@@ -12,11 +12,11 @@ import lila.oauth.OAuthServer
 import lila.user.{ Authenticator, UserRepo }
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     net: NetConfig,
-    captcher: lila.hub.actors.Captcher,
     userRepo: UserRepo,
     authenticator: Authenticator,
     mailer: lila.mailer.Mailer,

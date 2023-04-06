@@ -1,15 +1,9 @@
 package views.html.tutor
 
-import controllers.routes
-import play.api.i18n.Lang
-import play.api.libs.json.*
-import scalatags.Text
-
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.insight.InsightPosition
-import lila.tutor.{ Rating, TutorBothValueOptions, TutorFullReport, TutorNumber, ValueCount }
+import lila.tutor.TutorNumber
 
 object bits:
 
@@ -33,7 +27,6 @@ object bits:
     !ctx.is(user) option userSpan(user, withOnline = false)
 
   private[tutor] def layout(
-      availability: TutorFullReport.Availability,
       menu: Frag,
       title: String = "Lichess Tutor",
       pageSmall: Boolean = false
@@ -41,7 +34,7 @@ object bits:
     views.html.base.layout(
       moreCss = cssTag("tutor"),
       moreJs = jsModule("tutor"),
-      title = "Lichess Tutor",
+      title = title,
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(

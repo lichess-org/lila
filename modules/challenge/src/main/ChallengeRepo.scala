@@ -1,8 +1,5 @@
 package lila.challenge
 
-import scala.annotation.nowarn
-
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -69,11 +66,11 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     }
 
   private def sameOrigAndDest(c: Challenge) =
-    ~(for {
+    ~(for
       challengerId <- c.challengerUserId
       destUserId   <- c.destUserId
       if c.active
-    } yield coll.one[Challenge](
+    yield coll.one[Challenge](
       selectCreated ++ $doc(
         "challenger.id" -> challengerId,
         "destUser.id"   -> destUserId

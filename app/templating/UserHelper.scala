@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ Title, User }
+import lila.user.User
 
 trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with NumberHelper =>
 

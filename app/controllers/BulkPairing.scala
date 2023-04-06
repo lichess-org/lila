@@ -2,20 +2,20 @@ package controllers
 
 import play.api.libs.json.Json
 
-import lila.app.{ given, * }
+import lila.app.*
 import lila.setup.SetupBulk
 
 final class BulkPairing(env: Env) extends LilaController(env):
 
   def list =
-    ScopedBody(_.Challenge.Bulk) { implicit req => me =>
+    ScopedBody(_.Challenge.Bulk) { _ => me =>
       env.challenge.bulk.scheduledBy(me) map { list =>
         JsonOk(Json.obj("bulks" -> list.map(SetupBulk.toJson)))
       }
     }
 
   def delete(id: String) =
-    ScopedBody(_.Challenge.Bulk) { implicit req => me =>
+    ScopedBody(_.Challenge.Bulk) { _ => me =>
       env.challenge.bulk.deleteBy(id, me) flatMap {
         case true => jsonOkResult.toFuccess
         case _    => notFoundJson()
@@ -23,7 +23,7 @@ final class BulkPairing(env: Env) extends LilaController(env):
     }
 
   def startClocks(id: String) =
-    ScopedBody(_.Challenge.Bulk) { implicit req => me =>
+    ScopedBody(_.Challenge.Bulk) { _ => me =>
       env.challenge.bulk.startClocks(id, me) flatMap {
         case true => jsonOkResult.toFuccess
         case _    => notFoundJson()

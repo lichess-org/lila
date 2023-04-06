@@ -11,7 +11,6 @@ import lila.tree.Node.Comment
 import lila.user.{ User, UserRepo }
 import lila.{ tree as T }
 import lila.db.dsl.bsonWriteOpt
-import reactivemongo.api.bson.BSONHandler
 
 object ServerEval:
 

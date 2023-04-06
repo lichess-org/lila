@@ -14,14 +14,13 @@ import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
-import lila.user.User
 
 final private class StudySocket(
     api: StudyApi,
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler):
 
   import StudySocket.{ *, given }
 
@@ -39,7 +38,6 @@ final private class StudySocket(
     eval match
       case ServerEval.Progress(chapterId, tree, analysis, division) =>
         import lila.game.JsonView.given
-        import JsonView.given
         send(
           RP.Out.tellRoom(
             studyId,
@@ -254,8 +252,6 @@ final private class StudySocket(
   private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId into RoomId, NotifyVersion(tpe, data))
-  private def notify[A: Writes](tpe: String, data: A): SendToStudy =
-    studyId => send(RP.Out.tellRoom(studyId, makeMessage(tpe, data)))
   private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy =
     _ => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
 

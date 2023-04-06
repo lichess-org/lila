@@ -2,8 +2,8 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONHandler, BSONNull, Macros }
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
+import reactivemongo.api.ReadPreference
 import scala.concurrent.blocking
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
@@ -222,6 +222,4 @@ object Store:
     def datedFp = fp.map { Dated(_, date) }
     def datedUa = Dated(ua, date)
 
-  import FingerHash.given
-  import UserAgent.given
   given BSONDocumentReader[Info] = Macros.reader[Info]

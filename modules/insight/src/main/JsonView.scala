@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 
+@annotation.nowarn("msg=unused")
 final class JsonView:
 
   import lila.insight.{ InsightDimension as D, InsightMetric as M }

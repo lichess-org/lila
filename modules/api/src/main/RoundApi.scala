@@ -169,8 +169,7 @@ final private[api] class RoundApi(
               pref,
               initialFen,
               orientation,
-              owner = owner,
-              me = me
+              owner = owner
             )
           }
         }

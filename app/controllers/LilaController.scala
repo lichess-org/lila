@@ -46,7 +46,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val rateLimitedFu              = rateLimited.toFuccess
   protected def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
 
-  implicit protected def LilaFunitToResult(funit: Funit)(using req: RequestHeader): Fu[Result] =
+  implicit protected def LilaFunitToResult(@nowarn funit: Funit)(using req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)
@@ -387,7 +387,7 @@ abstract private[controllers] class LilaController(val env: Env)
         op
       )
 
-  protected def FormFuResult[A, B: Writeable: ContentTypeOf](
+  protected def FormFuResult[A, B: Writeable](
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[?]) =
     form
@@ -399,14 +399,14 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def FuRedirect(fua: Fu[Call]) = fua map { Redirect(_) }
 
-  protected def OptionOk[A, B: Writeable: ContentTypeOf](
+  protected def OptionOk[A, B: Writeable](
       fua: Fu[Option[A]]
   )(op: A => B)(implicit ctx: Context): Fu[Result] =
     OptionFuOk(fua) { a =>
       fuccess(op(a))
     }
 
-  protected def OptionFuOk[A, B: Writeable: ContentTypeOf](
+  protected def OptionFuOk[A, B: Writeable](
       fua: Fu[Option[A]]
   )(op: A => Fu[B])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a => op(a) dmap { Ok(_) }) }
@@ -592,7 +592,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").toFuccess
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
-    if (csrfCheck(req)) f else csrfForbiddenResult
+    if csrfCheck(req) then f else csrfForbiddenResult
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound

@@ -1,7 +1,6 @@
 package controllers
 
 import chess.format.Fen
-import chess.Situation
 import chess.variant.Variant
 import play.api.libs.json.*
 import views.*

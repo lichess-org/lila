@@ -13,7 +13,6 @@ import lila.hub.actorApi.push.TourSoon
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
 import lila.notify.*
 import lila.notify.{ NotificationPref, NotifyAllows }
-import lila.user.User
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -24,20 +23,17 @@ final private class PushApi(
     postApi: lila.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
-  private[push] def notifyPush(
-      to: Iterable[NotifyAllows],
-      content: NotificationContent,
-      params: Iterable[(String, String)]
-  ): Funit = content match
-    case PrivateMessage(sender, text) =>
-      lightUser(sender).flatMap(luser => privateMessage(to.head, sender, luser.titleName, text))
-    case MentionedInThread(mentioner, topic, _, _, postId) =>
-      lightUser(mentioner).flatMap(luser => forumMention(to.head, luser.titleName, topic, postId))
-    case StreamStart(streamerId, streamerName) =>
-      streamStart(to, streamerId, streamerName)
-    case InvitedToStudy(invitedBy, studyName, studyId) =>
-      lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
-    case _ => funit
+  private[push] def notifyPush(to: Iterable[NotifyAllows], content: NotificationContent): Funit =
+    content match
+      case PrivateMessage(sender, text) =>
+        lightUser(sender).flatMap(luser => privateMessage(to.head, sender, luser.titleName, text))
+      case MentionedInThread(mentioner, topic, _, _, postId) =>
+        lightUser(mentioner).flatMap(luser => forumMention(to.head, luser.titleName, topic, postId))
+      case StreamStart(streamerId, streamerName) =>
+        streamStart(to, streamerId, streamerName)
+      case InvitedToStudy(invitedBy, studyName, studyId) =>
+        lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
+      case _ => funit
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -60,6 +56,7 @@ final private class PushApi(
                       },
                       body = s"Your game with $opponent is over.",
                       stacking = Stacking.GameFinish,
+                      urgency = Urgency.VeryLow,
                       payload = Json.obj(
                         "userId" -> userId,
                         "userData" -> Json.obj(
@@ -97,6 +94,7 @@ final private class PushApi(
                         title = "It's your turn!",
                         body = s"$opponent played $sanMove",
                         stacking = Stacking.GameMove,
+                        urgency = Urgency.Normal,
                         payload = Json.obj(
                           "userId"   -> userId,
                           "userData" -> corresGameJson(pov, "gameMove")
@@ -132,6 +130,7 @@ final private class PushApi(
                         title = "Takeback offer",
                         body = s"$opponent proposes a takeback",
                         stacking = Stacking.GameTakebackOffer,
+                        urgency = Urgency.Normal,
                         payload = Json.obj(
                           "userId"   -> userId,
                           "userData" -> corresGameJson(pov, "gameTakebackOffer")
@@ -164,6 +163,7 @@ final private class PushApi(
                       title = "Draw offer",
                       body = s"$opponent offers a draw",
                       stacking = Stacking.GameDrawOffer,
+                      urgency = Urgency.Normal,
                       payload = Json.obj(
                         "userId"   -> userId,
                         "userData" -> corresGameJson(pov, "gameDrawOffer")
@@ -189,6 +189,7 @@ final private class PushApi(
             title = "Time is almost up!",
             body = s"You are about to lose on time against $opponent",
             stacking = Stacking.GameMove,
+            urgency = Urgency.High,
             payload = Json.obj(
               "userId"   -> userId,
               "userData" -> corresGameJson(pov, "corresAlarm")
@@ -213,6 +214,7 @@ final private class PushApi(
         title = senderName,
         body = text,
         stacking = Stacking.PrivateMessage,
+        urgency = Urgency.Normal,
         payload = Json.obj(
           "userId" -> to.userId,
           "userData" -> Json.obj(
@@ -231,6 +233,7 @@ final private class PushApi(
         title = studyName.value,
         body = s"$invitedBy invited you to $studyName",
         stacking = Stacking.InvitedStudy,
+        urgency = Urgency.Normal,
         payload = Json.obj(
           "userId" -> to.userId,
           "userData" -> Json.obj(
@@ -256,6 +259,7 @@ final private class PushApi(
               title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
               body = describeChallenge(c),
               stacking = Stacking.ChallengeCreate,
+              urgency = Urgency.Normal,
               payload = Json.obj(
                 "userId" -> dest.id,
                 "userData" -> Json.obj(
@@ -280,6 +284,7 @@ final private class PushApi(
             title = s"${lightJoiner.fold("A player")(_.titleName)} accepts your challenge!",
             body = describeChallenge(c),
             stacking = Stacking.ChallengeAccept,
+            urgency = Urgency.Normal,
             payload = Json.obj(
               "userId" -> challenger.id,
               "userData" -> Json.obj(
@@ -303,6 +308,7 @@ final private class PushApi(
             title = tour.tourName,
             body = "The tournament is about to start!",
             stacking = Stacking.ChallengeAccept,
+            urgency = Urgency.Normal,
             payload = Json
               .obj(
                 "userId" -> userId,
@@ -326,6 +332,7 @@ final private class PushApi(
           title = topicName,
           body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
           stacking = Stacking.ForumMention,
+          urgency = Urgency.Low,
           payload = Json.obj(
             "userId" -> to.userId,
             "userData" -> Json.obj(
@@ -345,6 +352,7 @@ final private class PushApi(
       title = streamerName,
       body = streamerName + " started streaming",
       stacking = Stacking.StreamStart,
+      urgency = Urgency.Low,
       payload = Json.obj(
         "userData" -> Json.obj(
           "type"       -> "streamStart",
@@ -414,6 +422,7 @@ private object PushApi:
       title: String,
       body: String,
       stacking: Stacking,
+      urgency: Urgency,
       payload: JsObject,
       iosBadge: Option[Int] = None
   )

@@ -443,6 +443,7 @@
   <string name="importGame">Importuoti partiją</string>
   <string name="importGameExplanation">Įkeldami partijos PGN gausite naršomą peržiūrą,
 kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
+  <string name="importGameCaveat">Variacijos bus ištrintos. Norėdami jas pasilikti importuokite PGN per studiją.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importuotas žaidimas</item>
     <item quantity="few">%s importuoti žaidimai</item>
@@ -713,25 +714,27 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="contribute">Prisidėkite</string>
   <string name="termsOfService">Naudojimosi sąlygos</string>
   <string name="sourceCode">Pirminis kodas</string>
-  <string name="simultaneousExhibitions">Simulai</string>
+  <string name="simultaneousExhibitions">Simultanai</string>
   <string name="host">Šeimininkas</string>
   <string name="hostColorX">Šeimininko spalva: %s</string>
-  <string name="createdSimuls">Naujai sukurti simulai</string>
-  <string name="hostANewSimul">Kurti nauji simulą</string>
-  <string name="noSimulFound">Simulas nerastas</string>
-  <string name="noSimulExplanation">Šis simulas neegzistuoja.</string>
-  <string name="returnToSimulHomepage">Grįžti į simulų pradžią</string>
-  <string name="aboutSimul">Simulai yra vieno žaidėjo partijos prieš keletą kitų žaidėjų vienu metu.</string>
-  <string name="aboutSimulImage">Iš 50 varžovų, Fišeris laimėjo 47 partijas, lygiosiom baigė 2 ir pralaimėjo 1.</string>
-  <string name="aboutSimulRealLife">Idėja yra paimta iš tikro pasaulio įvykių. Tikrame gyvenime, simulo šeiminkas vaikšto nuo stalo prie stalo atlikdamas po ėjimą.</string>
-  <string name="aboutSimulRules">Prasidėjus simului, kiekvienas žaidėjas pradeda partiją su šeimininku, kuris gauna baltuosius. Simulas baigiasi kai užbaigiamos visos partijos.</string>
+  <string name="createdSimuls">Naujai sukurti simultanai</string>
+  <string name="hostANewSimul">Kurti nauji simultaną</string>
+  <string name="noSimulFound">Simultanas nerastas</string>
+  <string name="noSimulExplanation">Šis simultanas neegzistuoja.</string>
+  <string name="returnToSimulHomepage">Grįžti į simultanų pradžią</string>
+  <string name="aboutSimul">Simultanai yra vieno žaidėjo partijos prieš keletą kitų žaidėjų vienu metu.</string>
+  <string name="aboutSimulImage">Iš 50 varžovų, Fišeris laimėjo 47 partijas, lygiosiomis baigė 2 ir pralaimėjo 1.</string>
+  <string name="aboutSimulRealLife">Idėja yra paimta iš tikro pasaulio įvykių. Tikrame gyvenime, simultano šeiminkas vaikščioja nuo stalo prie stalo atlikdamas po vieną ėjimą.</string>
+  <string name="aboutSimulRules">Prasidėjus simultanui, kiekvienas žaidėjas pradeda partiją su šeimininku, kuris gauna baltuosius. Simultanas baigiasi kai užbaigiamos visos partijos.</string>
   <string name="aboutSimulSettings">Simulai visada yra nevertinami. Revanšai, ėjimų atšaukimai ir „daugiau laiko“ yra negalimi.</string>
   <string name="create">Sukurti</string>
-  <string name="whenCreateSimul">Sukūrę simulą, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
+  <string name="whenCreateSimul">Sukūrę simultaną, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
   <string name="simulVariantsHint">Jei pasirinksite keletą variantų, kiekvienas žaidėjas galės nuspręsti kurį norės žaisti.</string>
   <string name="simulClockHint">Fišerio laikrodžio nustatymas. Prieš kuo daugiau žaidėjų rungsitės, tuo daugiau laiko jums gali prireikti.</string>
-  <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simule.</string>
+  <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simultane.</string>
   <string name="simulHostExtraTime">Papildomas laikas šeimininkui</string>
+  <string name="simulAddExtraTimePerPlayer">Pridėti pradinio laiko prie jūsų laikrodžio už kiekvieną prie simultano prisijungiantį žaidėją.</string>
+  <string name="simulHostExtraTimePerPlayer">Papildomas laikas šeimininkui už kiekvieną žaidėją</string>
   <string name="lichessTournaments">„lichess“ turnyrai</string>
   <string name="tournamentFAQ">Arenos turnyrų DUK</string>
   <string name="timeBeforeTournamentStarts">Laikas iki turnyro pradžios</string>
@@ -987,12 +990,12 @@ ir daro įtaką žaidėjų reitingams</string>
 Veikia tik standartiniams žaidimams, ne variantams.
 Norėdami sugeneruoti FEN poziciją galite naudotis %s, tada ją įklijuokite čia.
 Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijos.</string>
-  <string name="cancelSimul">Atšaukti simulą</string>
+  <string name="cancelSimul">Atšaukti simultaną</string>
   <string name="simulHostcolor">Šeimininko spalva kiekvienam žaidimui</string>
   <string name="estimatedStart">Numatytas pradžios laikas</string>
   <string name="simulFeatured">Rodyti %s</string>
-  <string name="simulFeaturedHelp">Rodyti simulą visiems %s. Neįjungta privatiems simulams.</string>
-  <string name="simulDescription">Simulo aprašymas</string>
+  <string name="simulFeaturedHelp">Rodyti simultaną visiems %s. Neįjungta privatiems simultanams.</string>
+  <string name="simulDescription">Simultano aprašymas</string>
   <string name="simulDescriptionHelp">Ar norite ką nors pranešti dalyviams?</string>
   <string name="markdownAvailable">%s prieinama norint naudoti sudėtingesnę sintaksę.</string>
   <string name="embedsAvailable">Įklijuokite partijos adresą arba studijos skyriaus adresą norėdami juos įterpti.</string>
@@ -1026,4 +1029,5 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="lichessDbExplanation">Reitinguoti žaidimai paimti iš visų Lichess žaidėjų</string>
   <string name="switchSides">Pakeisti puses</string>
   <string name="closingAccountWithdrawAppeal">paskyras</string>
+  <string name="ourEventTips">Mūsų patarimai organizuojant renginius</string>
 </resources>

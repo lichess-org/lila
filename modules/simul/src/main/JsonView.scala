@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import lila.common.LightUser
 import lila.common.Json.given
 import lila.game.{ Game, GameRepo }
-import lila.user.User
 
 final class JsonView(
     gameRepo: GameRepo,
@@ -21,7 +20,7 @@ final class JsonView(
     else simul.gameIds.map(proxyRepo.game).parallel.dmap(_.flatten)
 
   def apply(simul: Simul, team: Option[SimulTeam]): Fu[JsObject] =
-    for {
+    for
       games      <- fetchGames(simul)
       lightHost  <- getLightUser(simul.hostId)
       applicants <- simul.applicants.sortBy(-_.player.rating.value).map(applicantJson).parallel
@@ -31,7 +30,7 @@ final class JsonView(
           .map(pairingJson(games, simul.hostId))
           .parallel
       pairings = pairingOptions.flatten
-    } yield baseSimul(simul, lightHost) ++ Json
+    yield baseSimul(simul, lightHost) ++ Json
       .obj(
         "applicants" -> applicants,
         "pairings"   -> pairings

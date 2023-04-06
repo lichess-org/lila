@@ -9,7 +9,6 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.user.User
 
 final class PairingRepo(coll: Coll)(using Executor, Materializer):
 

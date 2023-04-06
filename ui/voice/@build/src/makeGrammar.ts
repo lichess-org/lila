@@ -5,7 +5,7 @@ import { finished } from 'node:stream/promises';
 
 // requires node 18.x
 
-const defaultCrowdvFile = 'crowdv-27-02-2023.json';
+const defaultCrowdvFile = 'crowdv-en-1.json';
 
 let builder: Builder;
 
@@ -18,15 +18,14 @@ function buildCostMap(
 ) {
   const costMax = 0.9;
   const subCostMin = 0.4;
-  const delCostMin = 0.2;
 
-  // we don't do anything with crowdv json confs, don't trust em
+  // we don't do anything with crowdv json confs
   const costs = [...subMap.entries()]
     .filter(([_, e]) => e.freq >= freqThreshold && e.count >= countThreshold)
     .sort((a, b) => b[1].freq - a[1].freq);
 
   costs.forEach(([_, v], i) => {
-    v.cost = ((costMax - subCostMin) * i) / costs.length + (v.tpe === 'del' ? delCostMin : subCostMin);
+    v.cost = ((costMax - subCostMin) * i) / costs.length + subCostMin;
   });
   return new Map(costs);
 }
@@ -36,9 +35,9 @@ async function main() {
   const opThreshold = parseInt(getArg('max-ops') ?? '1');
   const freqThreshold = parseFloat(getArg('freq') ?? '0.002');
   const countThreshold = parseInt(getArg('count') ?? '6');
-  const outfile = getArg('out') ?? '../src/voiceMoveGrammar.ts';
-  const lexfile = getArg('lex') ?? 'en-us.json';
-  builder = new Builder(lexfile);
+  const grammar = getArg('grammar') ?? 'moves-en';
+
+  builder = new Builder(grammar);
   const entries = (await parseCrowdvData(getArg('in') ?? defaultCrowdvFile))
     .map(data => makeLexEntry(data))
     .filter(x => x) as LexEntry[];
@@ -53,7 +52,10 @@ async function main() {
     const [from, to] = key.split(' ');
     builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
   });
-  writeGrammar(outfile);
+  for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ?? []) {
+    builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
+  }
+  writeGrammar(`../grammar/${grammar}.json`);
 }
 
 // flatten list of transforms into sub map
@@ -156,16 +158,7 @@ function ppCost(key: string, e: SubInfo) {
 }
 
 function writeGrammar(out: string) {
-  // we are using a custom format here, because we want voiceMoveGrammar to be quickly navigable
-  fs.writeFileSync(
-    out,
-    `// *************************** this file is generated. see ui/voice/@build/README.md ***************************
-
-export type Sub = { to: string, cost: number };
-export type Entry = { in: string, tok: string, tags: string[], val?: string, subs?: Sub[] };
-
-export const lexicon: Entry[] = ${builder.stringify()};`
-  );
+  fs.writeFileSync(out, JSON.stringify(builder.lexicon, null, 2));
 }
 
 function getArg(arg: string): string | undefined {
@@ -181,10 +174,11 @@ async function parseCrowdvData(file: string) {
       console.log(`Node 18+ required, you're running ${ps.version}\n\n`);
       ps.exit(1);
     }
+    if (!fs.existsSync('crowdv')) fs.mkdirSync('crowdv');
     let url = file;
-    if (/https?:/.test(url)) file = file.split('/').pop() ?? 'crowdv.json';
+    if (/https?:/.test(url)) file = file.split('/').pop()!;
     else url = `https://raw.githubusercontent.com/schlawg/crowdv/master/${file}`;
-
+    file = `crowdv/${file}`;
     try {
       const { ok, statusText, body } = await (globalThis as any).fetch(url);
       if (!ok) throw new Error(statusText);
@@ -240,6 +234,12 @@ type Sub = {
   cost: number;
 };
 
+type Patch = {
+  from: string;
+  to: string;
+  cost: number;
+};
+
 type Entry = {
   in: string; // the word or phrase recognized by kaldi, unique in lexicon
   tok?: string; // single char token representation (or multiple for a phrase)
@@ -254,8 +254,8 @@ class Builder {
   wordTok = new Map<string, string>();
   phrases: Entry[] = [];
   lexicon: Entry[];
-  constructor(lexfile = 'en-us.json') {
-    this.lexicon = JSON.parse(fs.readFileSync(`lexicon/${lexfile}`, 'utf-8')) as Entry[];
+  constructor(lang: string) {
+    this.lexicon = JSON.parse(fs.readFileSync(`lexicon/${lang}-lex.json`, 'utf-8')) as Entry[];
     const reserved = this.lexicon.map(t => t.tok ?? '').join('') + `,"'`;
     const available = Array.from({ length: 93 }, (_, i) => String.fromCharCode(33 + i))
       .filter(x => !reserved.includes(x))
@@ -348,7 +348,7 @@ class Builder {
               : '')
         )
         .join('\n  },\n  {\n    ') +
-      '\n  },\n]\n'
+      '\n  },\n]'
     ).replaceAll('\\', '\\\\');
   }
 }

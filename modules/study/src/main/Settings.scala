@@ -1,7 +1,5 @@
 package lila.study
 
-import lila.user.User
-
 case class Settings(
     computer: Settings.UserSelection,
     explorer: Settings.UserSelection,

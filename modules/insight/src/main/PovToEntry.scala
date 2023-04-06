@@ -1,7 +1,6 @@
 package lila.insight
 
 import cats.data.NonEmptyList
-import chess.format.Fen
 import chess.opening.OpeningDb
 import chess.{ Ply, Centis, Clock, Role, Situation, Stats }
 import chess.format.pgn.SanStr
@@ -9,8 +8,7 @@ import scala.util.chaining.*
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, WinPercent }
 import lila.game.{ Game, Pov }
-import lila.user.User
-import lila.common.{ LilaOpeningFamily, SimpleOpening }
+import lila.common.SimpleOpening
 
 case class RichPov(
     pov: Pov,

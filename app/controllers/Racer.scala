@@ -9,7 +9,7 @@ import lila.racer.RacerPlayer
 import lila.racer.RacerRace
 import play.api.libs.json.Json
 
-final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
+final class Racer(env: Env) extends LilaController(env):
 
   def home     = Open(serveHome(_))
   def homeLang = LangPage(routes.Racer.home)(serveHome(_))
@@ -18,13 +18,13 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   }
 
   def create =
-    WithPlayerId { implicit ctx => playerId =>
+    WithPlayerId { _ => playerId =>
       env.racer.api.createAndJoin(playerId) map { raceId =>
         Redirect(routes.Racer.show(raceId.value))
       }
     }
 
-  def apiCreate = Scoped(_.Racer.Write) { implicit req => me =>
+  def apiCreate = Scoped(_.Racer.Write) { _ => me =>
     me.noBot ?? {
       env.racer.api.createAndJoin(RacerPlayer.Id.User(me.id)) map { raceId =>
         JsonOk(
@@ -44,17 +44,11 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
         case Some(r) =>
           val race   = r.isLobby.??(env.racer.api.join(r.id, playerId)) | r
           val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
-          import lila.storm.StormJson.given
-          Ok(
-            html.racer.show(
-              race,
-              env.racer.json.data(race, player, ctx.pref)
-            )
-          ).noCache.toFuccess
+          Ok(html.racer.show(env.racer.json.data(race, player, ctx.pref))).noCache.toFuccess
     }
 
   def rematch(id: String) =
-    WithPlayerId { implicit ctx => playerId =>
+    WithPlayerId { _ => playerId =>
       env.racer.api.get(RacerRace.Id(id)) match
         case None => Redirect(routes.Racer.home).toFuccess
         case Some(race) =>
@@ -64,7 +58,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
     }
 
   def lobby =
-    WithPlayerId { implicit ctx => playerId =>
+    WithPlayerId { _ => playerId =>
       env.racer.lobby.join(playerId) map { raceId =>
         Redirect(routes.Racer.show(raceId.value))
       }

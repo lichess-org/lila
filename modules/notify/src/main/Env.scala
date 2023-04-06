@@ -2,7 +2,6 @@ package lila.notify
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
 import play.api.Configuration
 
 import lila.db.dsl.Coll
@@ -10,6 +9,7 @@ import lila.common.Bus
 import lila.common.config.*
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -23,7 +23,7 @@ final class Env(
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
-  private val colls = new NotifyColls(notif = db(CollName("notify")), pref = db(CollName("notify_pref")))
+  val colls = NotifyColls(notif = db(CollName("notify")), pref = db(CollName("notify_pref")))
 
   private val maxPerPage = MaxPerPage(7)
 
@@ -55,7 +55,7 @@ final class Env(
     }
   )
 
-final private class NotifyColls(val notif: Coll, val pref: Coll)
+final class NotifyColls(val notif: Coll, val pref: Coll)
 
 private type GetNotifyAllowsType                   = (UserId, NotificationPref.Event) => Fu[Allows]
 opaque type GetNotifyAllows <: GetNotifyAllowsType = GetNotifyAllowsType

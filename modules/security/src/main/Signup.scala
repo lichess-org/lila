@@ -15,12 +15,10 @@ final class Signup(
     api: SecurityApi,
     ipTrust: IpTrust,
     forms: SecurityForm,
-    emailAddressValidator: EmailAddressValidator,
     emailConfirm: EmailConfirm,
     hcaptcha: Hcaptcha,
     authenticator: lila.user.Authenticator,
     userRepo: lila.user.UserRepo,
-    irc: lila.irc.IrcApi,
     disposableEmailAttempt: DisposableEmailAttempt,
     netConfig: NetConfig
 )(using Executor):

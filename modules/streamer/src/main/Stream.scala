@@ -2,7 +2,6 @@ package lila.streamer
 
 import play.api.libs.json.*
 
-import lila.user.User
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
 import lila.common.Json.given

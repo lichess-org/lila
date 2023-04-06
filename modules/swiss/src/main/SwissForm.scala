@@ -1,19 +1,17 @@
 package lila.swiss
 
-import chess.Clock.{ Config as ClockConfig, LimitMinutes, LimitSeconds, IncrementSeconds }
+import chess.Clock.{ Config as ClockConfig, LimitSeconds, IncrementSeconds }
 import chess.Speed
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.data.validation
-import play.api.data.validation.Constraint
 import play.api.Mode
 
 import lila.common.Form.{ *, given }
 import lila.user.User
 
-final class SwissForm(implicit mode: Mode):
+final class SwissForm(using mode: Mode):
 
   import SwissForm.*
 

@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.Json
 import scala.language.reflectiveCalls
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -15,7 +15,7 @@ object captcha:
   private val dataMoves    = attr("data-moves")
   private val dataPlayable = attr("data-playable")
 
-  def apply(form: lila.common.Form.FormLike, captcha: lila.common.Captcha)(implicit ctx: Context) =
+  def apply(form: lila.common.Form.FormLike, captcha: lila.common.Captcha)(using ctx: Context) =
     frag(
       form3.hidden(form("gameId"), captcha.gameId.value.some),
       if (ctx.blind) form3.hidden(form("move"), captcha.solutions.head.some)

@@ -101,7 +101,6 @@ final class StudyMultiBoard(
         }
 
   import lila.common.Json.given
-  import JsonView.given
 
   given Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
     Json

@@ -161,7 +161,7 @@ object HookConfig extends BaseHumanConfig:
         ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default
       )
 
-    def writes(w: BSON.Writer, o: HookConfig) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: HookConfig) =
       $doc(
         "v"  -> o.variant.id,
         "tm" -> o.timeMode.id,

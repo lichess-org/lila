@@ -2,10 +2,8 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGame, History, Situation }
+import chess.{ Board, Castles, Clock, Color as ChessColor, Ply, Game as ChessGame, Situation }
 import ChessColor.{ Black, White }
-import com.github.blemale.scaffeine.Cache
-import lila.memo.CacheApi
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
@@ -48,12 +46,12 @@ final private class Rematcher(
       case _ => fuccess(List(Event.ReloadOwner))
 
   def no(pov: Pov): Fu[Events] =
-    if (isOffering(pov))
+    if isOffering(pov) then
       pov.opponent.userId foreach { forId =>
         Bus.publish(lila.hub.actorApi.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
       }
       messenger.volatile(pov.game, trans.rematchOfferCanceled.txt())
-    else if (isOffering(!pov))
+    else if isOffering(!pov) then
       declined put pov.fullId
       messenger.volatile(pov.game, trans.rematchOfferDeclined.txt())
     rematches.drop(pov.gameId)

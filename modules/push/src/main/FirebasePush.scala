@@ -9,7 +9,6 @@ import scala.concurrent.blocking
 
 import lila.common.Chronometer
 import lila.memo.FrequencyThreshold
-import lila.user.User
 import play.api.ConfigLoader
 import lila.common.config.Max
 

@@ -5,9 +5,8 @@ import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import play.api.mvc.Call
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.{ I18nKey, JsDump, LangList, Translator }
-import lila.user.UserContext
 
 trait I18nHelper:
 

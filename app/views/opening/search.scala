@@ -1,9 +1,8 @@
 package views.html.opening
 
-import chess.format.Fen
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningSearchResult }
@@ -12,7 +11,7 @@ object search:
 
   import bits.*
 
-  def form(q: String, focus: Boolean = false)(using Context) =
+  def form(q: String, focus: Boolean = false) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls            := "opening__search-form__input",
@@ -26,7 +25,7 @@ object search:
       submitButton(cls := "button", dataIcon := "")
     )
 
-  def resultsList(results: List[OpeningSearchResult])(using Context) =
+  def resultsList(results: List[OpeningSearchResult]) =
     div(cls := List("opening__search__results" -> true, "none" -> results.isEmpty))(
       results map { r =>
         a(cls := "opening__search__result", href := bits.queryUrl(r.query))(

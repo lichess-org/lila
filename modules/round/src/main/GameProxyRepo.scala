@@ -1,9 +1,6 @@
 package lila.round
 
-import org.joda.time.Period
-
 import lila.game.{ Game, PlayerRef, Pov }
-import lila.hub.actorApi.mailer.*
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,

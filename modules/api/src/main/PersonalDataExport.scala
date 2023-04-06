@@ -4,9 +4,7 @@ import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
-import lila.chat.Chat
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.streamer.Streamer
@@ -25,8 +23,7 @@ final class PersonalDataExport(
     ublogApi: lila.ublog.UblogApi,
     streamerApi: lila.streamer.StreamerApi,
     coachApi: lila.coach.CoachApi,
-    picfitUrl: lila.memo.PicfitUrl,
-    mongoCacheApi: lila.memo.MongoCache.Api
+    picfitUrl: lila.memo.PicfitUrl
 )(using Executor, Materializer):
 
   private val lightPerSecond = 60

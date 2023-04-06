@@ -390,7 +390,7 @@
   <string name="toStudy">Studie</string>
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Als je een PGN in het venster plakt, krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Variaties worden gewist. Om ze te behouden, importeer de PGN via een studie.</string>
+  <string name="importGameCaveat">Variaties worden gewist. Om ze te behouden, importeer de PGN via een studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
@@ -662,6 +662,8 @@
   <string name="simulClockHint">Fischer-speeltempo. Hoe meer tegenstanders er zijn, hoe meer tijd je nodig hebt.</string>
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
+  <string name="simulAddExtraTimePerPlayer">Voeg extra tijd toe aan de klok voor elke speler die meedoet aan de simultaan.</string>
+  <string name="simulHostExtraTimePerPlayer">Extra tijd voor de simultaangever per deelnemer</string>
   <string name="lichessTournaments">Lichess toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
@@ -946,4 +948,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
   <string name="switchSides">Van kleur wisselen</string>
   <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Onze tips voor het organiseren van evenementen</string>
 </resources>

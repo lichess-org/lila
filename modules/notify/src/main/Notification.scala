@@ -5,7 +5,6 @@ import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero
 
 import lila.common.paginator.Paginator
-import lila.user.User
 import lila.notify.Notification.*
 
 sealed abstract class NotificationContent(val key: String)

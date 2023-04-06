@@ -4,10 +4,9 @@ package autoconfig
 import scala.quoted.*
 import scala.annotation.StaticAnnotation
 
-import play.api.{ ConfigLoader, Configuration }
+import play.api.ConfigLoader
 
 import com.typesafe.config.*
-import scala.Symbol
 
 // Copied from https://github.com/keynmol/autoconfig-lichess-play-derivation/blob/main/macros.scala
 // Thanks velvetbaldmime :)
@@ -36,6 +35,7 @@ object AutoConfig:
 
   inline def loader[T] = ${ impl[T] }
 
+  @annotation.nowarn("msg=unused")
   private def impl[T](using Quotes)(using tpe: Type[T]) =
     import quotes.reflect.*
 

@@ -18,13 +18,12 @@ import lila.plan.{
   PayPalSubscriptionId,
   PlanCheckout,
   StripeCustomer,
-  StripeCustomerId,
-  StripeMode
+  StripeCustomerId
 }
 import lila.user.{ User as UserModel }
 import views.*
 
-final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env):
+final class Plan(env: Env) extends LilaController(env):
 
   private val logger = lila.log("plan")
 
@@ -102,12 +101,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         }
   } yield res
 
-  private def indexPayPalPatron(me: UserModel, patron: lila.plan.Patron, subscription: PayPalSubscription)(
-      implicit ctx: Context
-  ) = for {
-    pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
-    gifts   <- env.plan.api.giftsFrom(me)
-  } yield Ok(html.plan.indexPayPal(me, patron, subscription, pricing, gifts))
+  private def indexPayPalPatron(me: UserModel, patron: lila.plan.Patron, sub: PayPalSubscription)(using
+      Context
+  ) =
+    env.plan.api.giftsFrom(me) map { gifts =>
+      Ok(html.plan.indexPayPal(me, patron, sub, gifts))
+    }
 
   private def myCurrency(implicit ctx: Context): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
@@ -251,7 +250,6 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def updatePayment =
     AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
       CaptureRateLimit(ctx.ip) {
         env.plan.api.stripe.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)) ?? { sub =>

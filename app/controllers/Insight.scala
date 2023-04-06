@@ -12,7 +12,7 @@ import lila.insight.{ InsightDimension, InsightMetric }
 final class Insight(env: Env) extends LilaController(env):
 
   def refresh(username: UserStr) =
-    OpenOrScoped() { (req, me) =>
+    OpenOrScoped() { (_, me) =>
       AccessibleApi(username)(me) { user =>
         env.insight.api indexAll user inject Ok
       }
@@ -31,7 +31,7 @@ final class Insight(env: Env) extends LilaController(env):
             case Accepts.Json() => jsonStatus(user)
           }
         },
-      scoped = req => me => AccessibleApi(username)(me.some)(jsonStatus)
+      scoped = _ => me => AccessibleApi(username)(me.some)(jsonStatus)
     )
 
   def path(username: UserStr, metric: String, dimension: String, filters: String) =
@@ -71,9 +71,8 @@ final class Insight(env: Env) extends LilaController(env):
     )
 
   private def processQuestion(user: lila.user.User, body: Request[JsValue])(using Lang) =
-    import lila.insight.JsonQuestion, JsonQuestion.*
     body.body
-      .validate[JsonQuestion]
+      .validate[lila.insight.JsonQuestion]
       .fold(
         err => BadRequest(jsonError(err.toString)).toFuccess,
         _.question.fold(BadRequest.toFuccess) { q =>

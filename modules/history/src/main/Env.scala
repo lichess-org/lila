@@ -4,18 +4,15 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.common.config.CollName
-import akka.actor.ActorSystem
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.AsyncDb @@ lila.db.YoloDb
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, Scheduler):
 
   private lazy val coll = db(CollName("history4")).failingSilently()
 

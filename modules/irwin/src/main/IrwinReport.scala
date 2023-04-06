@@ -1,6 +1,6 @@
 package lila.irwin
 
-import lila.game.{ Game, Pov }
+import lila.game.Pov
 import lila.report.SuspectId
 
 case class IrwinReport(

@@ -3,8 +3,7 @@ package lila.evaluation
 import chess.{ Color, Speed }
 
 import lila.analyse.{ AccuracyCP, Analysis }
-import lila.game.{ Game, Player, Pov }
-import lila.user.User
+import lila.game.{ Player, Pov }
 
 case class PlayerAssessment(
     _id: String,

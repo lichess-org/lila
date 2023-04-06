@@ -4,8 +4,8 @@ import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.Color
 import chess.format.{ Fen, Uci }
-import chess.variant.{ Standard, Variant }
-import play.api.mvc.{ RequestHeader, Result }
+import chess.variant.Variant
+import play.api.mvc.Result
 import scala.util.chaining.*
 
 import lila.app.{ given, * }

@@ -1,9 +1,7 @@
 package lila.irwin
 
 import lila.report.SuspectId
-import lila.user.User
 import lila.report.Suspect
-import lila.user.Holder
 import lila.rating.{ Perf, PerfType }
 
 case class KaladinUser(

@@ -9,10 +9,9 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 import lila.game.Game
 import lila.memo.SettingStore
-import scala.util.{ Failure, Success }
 
 final private class FishnetOpeningBook(
     ws: StandaloneWSClient,
@@ -42,11 +41,11 @@ final private class FishnetOpeningBook(
             logger.warn(s"opening book ${game.id} ${level} ${res.status} ${res.body}")
             none
           case res =>
-            for {
+            for
               data <- res.body[JsValue].validate[Response].asOpt
               _ = if (data.moves.isEmpty) outOfBook.put(game.id)
               move <- data randomPonderedMove (game.turnColor, level)
-            } yield move.uci
+            yield move.uci
         }
         .recover { case _: java.util.concurrent.TimeoutException => none }
         .monTry { res =>

@@ -1,16 +1,13 @@
 package lila.db
 
 import cats.data.NonEmptyList
-import chess.format.Fen
-import chess.opening.OpeningFamily
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Failure, Success, Try, NotGiven }
 
 import lila.common.Iso.*
-import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress, Days }
-import scala.collection.Factory
+import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 
 trait Handlers:
 
@@ -151,7 +148,7 @@ trait Handlers:
   //   def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
-    def writeTry(n: BSONNull.type) = Success(BSONNull)
+    def writeTry(@annotation.nowarn("msg=unused") n: BSONNull.type) = Success(BSONNull)
 
   given BSONHandler[IpAddress] = stringIsoHandler
 

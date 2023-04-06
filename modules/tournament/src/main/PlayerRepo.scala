@@ -24,7 +24,6 @@ final class PlayerRepo(coll: Coll)(using Executor):
   def byId(id: TourId): Fu[Option[Player]] = coll.one[Player]($id(id))
 
   private[tournament] def byPlayerIdsOnPage(
-      tourId: TourId,
       playerIds: List[TourPlayerId],
       page: Int
   ): Fu[RankedPlayers] =

@@ -7,6 +7,7 @@ import lila.common.config.*
 import lila.hub.actorApi.round.CorresMoveEvent
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
     practiceApi: lila.practice.PracticeApi,

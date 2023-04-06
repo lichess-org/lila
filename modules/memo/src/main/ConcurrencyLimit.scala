@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.Json
 import play.api.mvc.Result
 import play.api.mvc.Results.TooManyRequests
-import scala.collection.immutable.Queue
 
 /** only allow X streams at a time per key */
 final class ConcurrencyLimit[K](

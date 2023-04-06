@@ -14,7 +14,6 @@ import lila.rating.{ Perf, PerfType }
 final class UserRepo(val coll: Coll)(using Executor):
 
   import User.{ BSONFields as F, given }
-  import Title.given
   import UserMark.given
 
   def withColl[A](f: Coll => A): A = f(coll)
@@ -201,7 +200,6 @@ final class UserRepo(val coll: Coll)(using Executor):
   def addStreakRun = addStormLikeRun("streak")
 
   private def addStormLikeRun(field: String)(userId: UserId, score: Int): Funit =
-    val inc = $inc(s"perfs.$field.runs" -> 1)
     coll.update
       .one(
         $id(userId),

@@ -6,7 +6,7 @@ import play.api.data.Forms.*
 import scala.util.Try
 import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
+import lila.common.Form.{ cleanText, into }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
@@ -53,14 +53,14 @@ object RelayRoundForm:
     cleanUrl(source).isDefined || toGameIds(source).isDefined
 
   private def cleanUrl(source: String): Option[String] =
-    for {
+    for
       url <- Try(URL.parse(source)).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       // prevent common mistakes (not for security)
       if !blocklist.exists(subdomain(host, _))
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
-    } yield url.toString.stripSuffix("/")
+    yield url.toString.stripSuffix("/")
 
   private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
 

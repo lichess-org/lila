@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
@@ -139,7 +139,7 @@ object student:
           s" ($nbStudents/${lila.clas.Clas.maxStudents})"
         )
       ),
-      nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning(clas),
+      nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning,
       created map { case Student.WithPassword(student, password) =>
         flashMessageWith(cls := "student-add__created")(
           strong(
@@ -226,7 +226,7 @@ object student:
     bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add-many",
       h1(cls := "box__top")(trans.clas.createMultipleAccounts()),
-      maxStudentsWarning(clas),
+      maxStudentsWarning,
       created.nonEmpty option frag(
         flashMessageWith(cls := "student-add-many__created")(
           s"${created.size} students accounts have been created."
@@ -270,7 +270,7 @@ object student:
       )
     )
 
-  private def maxStudentsWarning(clas: Clas)(implicit lang: Lang) =
+  private def maxStudentsWarning(using Lang) =
     p(dataIcon := "", cls := "text")(
       trans.clas.maxStudentsNote(
         lila.clas.Clas.maxStudents,

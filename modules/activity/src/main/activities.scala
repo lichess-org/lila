@@ -4,10 +4,6 @@ import model.*
 import alleycats.Zero
 
 import lila.rating.PerfType
-import lila.study.Study
-import lila.swiss.Swiss
-import lila.user.User
-import lila.forum.ForumPost
 
 object activities:
 

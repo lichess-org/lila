@@ -2,12 +2,10 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.opening.NamePart
-import lila.opening.{ OpeningPage, OpeningQuery }
-import lila.puzzle.PuzzleOpening
+import lila.opening.OpeningPage
 
 object show:
 
@@ -109,7 +107,7 @@ object show:
       )
     }
 
-  private def exampleGames(page: OpeningPage)(using Context) =
+  private def exampleGames(page: OpeningPage) =
     div(cls := "opening__games")(page.explored.??(_.games).map { game =>
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom is2d",

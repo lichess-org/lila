@@ -1,6 +1,5 @@
 package lila.study
 
-import chess.format.{ Fen, Uci }
 import chess.Pos
 import play.api.libs.json.*
 import scala.util.chaining.*
@@ -15,7 +14,7 @@ final class JsonView(
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
 
-  import JsonView.{ *, given }
+  import JsonView.given
 
   def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
 
@@ -112,8 +111,6 @@ final class JsonView(
 object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject)
-
-  import Study.given
 
   given OWrites[Study.IdName] = OWrites { s =>
     Json.obj("id" -> s._id, "name" -> s.name)

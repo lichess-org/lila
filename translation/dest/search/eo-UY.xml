@@ -24,6 +24,7 @@
   <string name="sortBy">Ordigi laŭ</string>
   <string name="analysis">Analizo</string>
   <string name="onlyAnalysed">Nur ludoj, kie disponeblas komputila analizo</string>
+  <string name="color">Koloro</string>
   <string name="descending">Malkreskante</string>
   <string name="ascending">Kreskante</string>
   <plurals name="gamesFound">

@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
-import chess.variant.Variant
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }

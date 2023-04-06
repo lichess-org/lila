@@ -732,6 +732,8 @@
   <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
   <string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
   <string name="simulHostExtraTime">Дополнительное время сеансёра</string>
+  <string name="simulAddExtraTimePerPlayer">Добавьте начальное время на ваших часах для каждого игрока, вошедшего в ваш сеанс одновременной игры.</string>
+  <string name="simulHostExtraTimePerPlayer">Добавка времени сеансёра для каждого игрока</string>
   <string name="lichessTournaments">Турниры Lichess</string>
   <string name="tournamentFAQ">Вопросы и ответы про Арену</string>
   <string name="timeBeforeTournamentStarts">Время до начала турнира</string>
@@ -1026,4 +1028,5 @@
   <string name="lichessDbExplanation">Рейтинговые игры по всем игрокам Lichess</string>
   <string name="switchSides">Сменить сторону</string>
   <string name="closingAccountWithdrawAppeal">Закрытие вашей учётной записи отменит ваше обращение</string>
+  <string name="ourEventTips">Наши советы по организации мероприятий</string>
 </resources>

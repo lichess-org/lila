@@ -41,7 +41,7 @@ final class Importer(env: Env) extends LilaController(env):
             ),
           data =>
             ImportRateLimitPerIP(ctx.ip, cost = 1) {
-              doImport(data, ctx.req, ctx.me) flatMap {
+              doImport(data, ctx.me) flatMap {
                 case Right(game) =>
                   ctx.me.ifTrue(data.analyse.isDefined && game.analysable) ?? { me =>
                     env.fishnet
@@ -70,7 +70,7 @@ final class Importer(env: Env) extends LilaController(env):
           .fold(
             err => BadRequest(apiFormError(err)).toFuccess,
             data =>
-              doImport(data, req, me) map {
+              doImport(data, me) map {
                 case Left(error) => BadRequest(jsonError(error))
                 case Right(game) =>
                   JsonOk {
@@ -86,7 +86,6 @@ final class Importer(env: Env) extends LilaController(env):
 
   private def doImport(
       data: lila.importer.ImportData,
-      req: RequestHeader,
       me: Option[lila.user.User]
   ): Fu[Either[String, lila.game.Game]] =
     env.importer.importer(data, me.map(_.id)) flatMap { game =>

@@ -57,6 +57,7 @@ object BuildSettings {
     "-language:postfixOps",
     "-language:implicitConversions",
     "-Xtarget:12"
+    // "-Wunused:all"
   )
 
   val srcMain = Seq(

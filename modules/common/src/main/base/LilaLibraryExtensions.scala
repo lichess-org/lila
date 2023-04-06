@@ -11,7 +11,6 @@ import scala.util.Try
 
 import java.util.Base64
 import lila.common.Chronometer
-import scala.collection.BuildFrom
 import ornicar.scalalib.extensions.*
 import scala.annotation.targetName
 

@@ -3,7 +3,6 @@ package lila.opening
 import chess.opening.{ Opening, OpeningDb }
 import java.text.Normalizer
 
-import lila.common.base.StringUtils.levenshtein
 import lila.common.Chronometer
 import lila.common.Heapsort.topN
 import lila.memo.CacheApi
@@ -13,7 +12,7 @@ case class OpeningSearchResult(opening: Opening):
   def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
   def query = OpeningQuery.Query(opening.key.value, pgn.some)
 
-final class OpeningSearch(cacheApi: CacheApi, explorer: OpeningExplorer):
+final class OpeningSearch(cacheApi: CacheApi):
 
   val max = 32
 

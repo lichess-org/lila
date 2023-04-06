@@ -1,7 +1,7 @@
 package lila.analyse
 
 import cats.syntax.all.*
-import chess.{ Ply, FullMoveNumber, Color }
+import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr
 

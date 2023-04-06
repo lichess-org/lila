@@ -10,7 +10,6 @@ import java.util.concurrent.TimeUnit
 import lila.common.Bus
 import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, Pov, Progress, UciMemo }
-import lila.user.User
 
 final private class Player(
     fishnetPlayer: lila.fishnet.FishnetPlayer,

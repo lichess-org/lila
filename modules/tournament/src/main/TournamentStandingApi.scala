@@ -80,7 +80,7 @@ final class TournamentStandingApi(
     for {
       rankedPlayers <-
         if (page < 10) playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
-        else playerIdsOnPage(tour, page) flatMap { playerRepo.byPlayerIdsOnPage(tour.id, _, page) }
+        else playerIdsOnPage(tour, page) flatMap { playerRepo.byPlayerIdsOnPage(_, page) }
       sheets <- rankedPlayers
         .map { p =>
           cached.sheet(tour, p.player.userId) dmap { p.player.userId -> _ }

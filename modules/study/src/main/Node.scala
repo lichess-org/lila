@@ -325,9 +325,9 @@ object Node:
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
 
     def takeMainlineWhile(f: Node => Boolean) =
-      children.first.fold(this) { main =>
-        copy(children = children.takeMainlineWhile(f))
-      }
+      if children.first.isDefined
+      then copy(children = children.takeMainlineWhile(f))
+      else this
 
     def moveOption = none
 

@@ -1,6 +1,5 @@
 package lila.swiss
 
-import lila.user.User
 import lila.db.dsl.{ *, given }
 import lila.swiss.BsonHandlers.given
 import lila.game.Game

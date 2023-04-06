@@ -1,11 +1,7 @@
 package lila.forum
 
 import lila.common.LilaFuture
-import lila.notify.NotifyApi
-import lila.notify.{ MentionedInThread, Notification }
-import lila.relation.RelationApi
-import lila.pref.PrefApi
-import lila.user.{ User, UserRepo }
+import lila.notify.MentionedInThread
 
 /** Notifier to inform users if they have been mentioned in a post
   *
@@ -13,10 +9,10 @@ import lila.user.{ User, UserRepo }
   *   Api for sending inbox messages
   */
 final class MentionNotifier(
-    userRepo: UserRepo,
-    notifyApi: NotifyApi,
-    relationApi: RelationApi,
-    prefApi: PrefApi
+    userRepo: lila.user.UserRepo,
+    notifyApi: lila.notify.NotifyApi,
+    relationApi: lila.relation.RelationApi,
+    prefApi: lila.pref.PrefApi
 )(using Executor):
 
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =

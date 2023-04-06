@@ -10,7 +10,6 @@ import lila.api.{ Context, GameApiV2 }
 import lila.app.{ given, * }
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
-import lila.game.GamesByIdsStream
 
 final class Api(
     env: Env,
@@ -231,7 +230,6 @@ final class Api(
         )
         GlobalConcurrencyLimitPerIP
           .download(req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)) { source =>
-            val filename = env.api.gameApiV2.filename(tour, config.format)
             Ok.chunked(source)
               .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
               .as(gameC gameContentType config)

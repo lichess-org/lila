@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap
 import org.joda.time.format.{ PeriodFormat, PeriodFormatter }
 import org.joda.time.{ DurationFieldType, Period, PeriodType }
 import play.api.i18n.Lang
-import scala.collection.mutable
 
 object PeriodLocales:
 

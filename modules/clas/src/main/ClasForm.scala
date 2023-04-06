@@ -4,7 +4,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
-import lila.user.User
 
 final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,

@@ -87,7 +87,7 @@ final class Swiss(
     }
 
   def apiShow(id: SwissId) =
-    Action.async { implicit req =>
+    Action.async { _ =>
       env.swiss.cache.swissCache byId id flatMap {
         case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
         case _           => notFoundJson()
@@ -162,7 +162,7 @@ final class Swiss(
     }
 
   def apiTerminate(id: SwissId) =
-    ScopedBody(_.Tournament.Write) { implicit req => me =>
+    ScopedBody(_.Tournament.Write) { _ => me =>
       env.swiss.cache.swissCache byId id flatMapz {
         case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
           env.swiss.api
@@ -257,20 +257,28 @@ final class Swiss(
     }
 
   def scheduleNextRound(id: SwissId) =
-    AuthBody { implicit ctx => me =>
-      WithEditableSwiss(id, me) { swiss =>
-        given play.api.mvc.Request[?] = ctx.body
-        env.swiss.forms.nextRound
-          .bindFromRequest()
-          .fold(
-            _ => Redirect(routes.Swiss.show(id)).toFuccess,
-            date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))
-          )
-      }
+    def doSchedule(using Request[?])(me: UserModel) = WithEditableSwiss(id, me) { swiss =>
+      env.swiss.forms.nextRound
+        .bindFromRequest()
+        .fold(
+          err =>
+            render.async:
+              case Accepts.Json() => newJsonFormError(err)(using reqLang)
+              case _              => Redirect(routes.Swiss.show(id)).toFuccess
+          ,
+          date =>
+            env.swiss.api.scheduleNextRound(swiss, date) inject render:
+              case Accepts.Json() => NoContent
+              case _              => Redirect(routes.Swiss.show(id))
+        )
     }
+    AuthOrScopedBody(_.Tournament.Write)(
+      auth = ctx => doSchedule(using ctx.body),
+      scoped = req => doSchedule(using req)
+    )
 
   def terminate(id: SwissId) =
-    Auth { implicit ctx => me =>
+    Auth { _ => me =>
       WithEditableSwiss(id, me) { swiss =>
         env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
       }

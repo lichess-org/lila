@@ -1,8 +1,6 @@
 package lila.practice
 
-import lila.user.User
-import lila.study.{ Chapter, Study }
-import lila.common.Iso
+import lila.study.Chapter
 
 case class PracticeProgress(
     _id: UserId,

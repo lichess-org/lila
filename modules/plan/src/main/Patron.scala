@@ -1,7 +1,5 @@
 package lila.plan
 
-import lila.user.User
-
 case class Patron(
     _id: UserId,
     stripe: Option[Patron.Stripe] = none,
