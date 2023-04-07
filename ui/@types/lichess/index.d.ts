@@ -212,6 +212,7 @@ declare namespace Voice {
 
   export interface Microphone {
     setVocabulary: (vocabulary: string[], mode?: ListenMode) => Promise<void>; // required
+    setLanguage: (language: string) => void; // defaults to 'en';
 
     mode: ListenMode; // starts in full
 

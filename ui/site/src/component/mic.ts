@@ -1,7 +1,10 @@
 import { objectStorage } from 'common/objectStorage';
 import * as xhr from 'common/xhr';
 
-const modelSource = 'vendor/vosk/model-en-us-0.15.tar.gz';
+const models = new Map([
+  ['en', 'vendor/vosk/model-en-us-0.15.tar.gz'],
+  ['fr', 'vendor/vosk/model-fr-0.22.tar.gz'],
+]);
 
 class Recognizer {
   listenerMap = new Map<string, Voice.Listener>();
@@ -18,6 +21,7 @@ export const mic =
   window.LichessVoicePlugin?.mic ??
   new (class implements Voice.Microphone {
     grammar?: { name: string; callback: (g: Voice.Entry[]) => void };
+    lang = 'fr';
 
     audioCtx: AudioContext;
     mediaStream: MediaStream;
@@ -59,10 +63,17 @@ export const mic =
       await this.initKaldi(mode);
     }
 
+    get language() {
+      return this.lang;
+    }
+
+    async setLanguage(lang: string) {
+      this.lang = lang;
+    }
+
     useGrammar(name: string, callback: (g: Voice.Entry[]) => void) {
       this.grammar = { name: name, callback: callback };
     }
-
     stop() {
       if (this.micTrack) this.micTrack.enabled = false;
       this.vosk?.stop();
@@ -124,7 +135,7 @@ export const mic =
     async initModel(): Promise<void> {
       if (this.vosk?.ready()) return;
       this.broadcast('Loading...');
-      const modelUrl = lichess.assetUrl(modelSource, { noVersion: true });
+      const modelUrl = lichess.assetUrl(models.get(this.lang)!, { noVersion: true });
       const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
       const grammarAsync = this.grammar
         ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${this.grammar.name}.json`))
@@ -222,7 +233,7 @@ export const mic =
 
       const modelBlob: ArrayBuffer | undefined = await new Promise((resolve, reject) => {
         this.download = new XMLHttpRequest();
-        this.download.open('GET', lichess.assetUrl(modelSource), true);
+        this.download.open('GET', lichess.assetUrl(models.get(this.lang)!), true);
         this.download.responseType = 'arraybuffer';
         this.download.onerror = _ => reject('Failed. See console');
         this.download.onabort = _ => reject('Aborted');

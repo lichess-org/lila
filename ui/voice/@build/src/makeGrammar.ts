@@ -38,9 +38,13 @@ async function main() {
   const grammar = getArg('grammar') ?? 'moves-en';
 
   builder = new Builder(grammar);
-  const entries = (await parseCrowdvData(getArg('in') ?? defaultCrowdvFile))
-    .map(data => makeLexEntry(data))
-    .filter(x => x) as LexEntry[];
+  const crowdV = getArg('in') ?? defaultCrowdvFile;
+  const entries =
+    crowdV === 'none'
+      ? []
+      : ((await parseCrowdvData(getArg('in') ?? defaultCrowdvFile))
+          .map(data => makeLexEntry(data))
+          .filter(x => x) as LexEntry[]);
 
   for (const e of entries.filter(e => e.h != e.x)) {
     parseTransforms(findTransforms(e.h, e.x, buildMode), e, subMap, opThreshold);
@@ -52,9 +56,11 @@ async function main() {
     const [from, to] = key.split(' ');
     builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
   });
-  for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ?? []) {
-    builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
-  }
+  const patch = `lexicon/${grammar}-patch.json`;
+  if (fs.existsSync(patch))
+    for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ?? []) {
+      builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
+    }
   writeGrammar(`../grammar/${grammar}.json`);
 }
 

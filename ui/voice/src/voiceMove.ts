@@ -77,8 +77,12 @@ class VoiceMoveCtrl implements VoiceMove {
       this.timer === 0
         ? []
         : (doColors !== undefined ? doColors : this.colorsPref())
-        ? ['yes', 'no', 'stop', 'white', 'green', 'blue', 'purple', 'pink', 'brown', 'orange', 'yellow']
-        : ['yes', 'no', 'stop', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'],
+        ? ['yes', 'no', 'stop', 'white', 'green', 'blue', 'purple', 'pink', 'brown', 'orange', 'yellow'].map(x =>
+            this.valWord(x)
+          )
+        : ['yes', 'no', 'stop', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'].map(x =>
+            this.valWord(x)
+          ),
       'partial'
     );
   }
@@ -114,19 +118,20 @@ class VoiceMoveCtrl implements VoiceMove {
     setTimeout(this.root.redraw);
   }
 
-  listenPartial(text: string, _: Voice.MsgType, words?: Voice.WordResult) {
-    console.log(text, words);
+  listenPartial(word: string, _: Voice.MsgType, words?: Voice.WordResult) {
+    console.log(word, words);
     if (!this.choices || !this.choiceTimeout) return;
-    if (text === 'stop') {
+    const val = this.wordVal(word);
+    if (val === 'stop') {
       clearTimeout(this.choiceTimeout);
       this.choiceTimeout = undefined;
       this.makeArrows();
-    } else if (text === 'no') this.clearMoveProgress();
-    else if (text === 'yes') this.submit(this.choices.values().next().value);
-    else if (this.choices.has(text)) this.submit(this.choices.get(text)!);
+    } else if (val === 'no') this.clearMoveProgress();
+    else if (val === 'yes') this.submit(this.choices.values().next().value);
+    else if (this.choices.has(val)) this.submit(this.choices.get(val)!);
     else return;
     clearTimeout(this.choiceTimeout);
-    if (text !== 'stop') this.choices = undefined;
+    if (val !== 'stop') this.choices = undefined;
     setTimeout(this.cg.redrawAll);
     lichess.mic!.mode = 'full';
   }
@@ -557,6 +562,12 @@ class VoiceMoveCtrl implements VoiceMove {
 
   valsPhrase(vals: string) {
     return this.valsToks(vals).map(toks => [...toks].map(tok => this.tokWord(tok)).join(' '));
+  }
+
+  valWord(val: string) {
+    // returns only the first matching input word for this val, there may be others
+    const v = this.byVal.get(val);
+    return v ? (v instanceof Set<Entry> ? v.values().next().value.in : v.in) : val;
   }
 
   valWords(val: string) {
