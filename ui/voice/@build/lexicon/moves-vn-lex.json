@@ -29,7 +29,7 @@
   { "in": "nhập thành gần", "val": "O-O", "tags": [ "move" ] },
   { "in": "nhập thành cánh vua", "val": "O-O", "tags": [ "move" ] },
   { "in": "nhập thành xa", "val": "O-O-O", "tags": [ "move" ] },
-  { "in": "nhập thành cánh vua", "val": "O-O-O", "tags": [ "move" ] },
+  { "in": "nhập thành cánh hậu", "val": "O-O-O", "tags": [ "move" ] },
   { "in": "ăn", "val": "x", "tags": [ "move" ] },
   { "in": "phong", "val": "=", "tags": [ "move" ] },
 
@@ -39,6 +39,7 @@
   { "in": "xin hoà", "val": "draw", "tags": [ "command", "round" ] },
   { "in": "chấp nhận", "val": "draw", "tags": [ "command", "round" ] },
   { "in": "thua", "val": "resign", "tags": [ "command", "round" ] },
+  { "in": "xin thua", "val": "resign", "tags": [ "command", "round" ] },
   { "in": "chơi lại", "val": "rematch", "tags": [ "command", "round" ] },
   { "in": "ván nữa", "val": "rematch", "tags": [ "command", "round" ] },
   { "in": "xoay", "val": "flip", "tags": [ "command" ] },
@@ -53,6 +54,7 @@
   { "in": "dừng", "val": "stop", "tags": [ "command" ] },
 
   { "in": "đúng", "val": "yes", "tags": [ "choice" ] },
+  { "in": "ok", "val": "yes", "tags": [ "choice" ] },
   { "in": "xác nhận", "val": "yes", "tags": [ "choice" ] },
   { "in": "không", "val": "no", "tags": [ "choice" ] },
   { "in": "sai", "val": "no", "tags": [ "choice" ] },
@@ -70,7 +72,7 @@
   { "in": "nâu", "val": "brown", "tags": [ "color", "choice" ] },
   { "in": "trắng", "val": "white", "tags": [ "color", "choice" ] },
 
-  
+
   { "in": "chiếu hết", "val": "", "tags": [ "move", "ignore" ] },
   { "in": "chiếu", "val": "", "tags": [ "move", "ignore" ] },
   { "in": "cờ thế", "val": "", "tags": [ "ignore" ] },
