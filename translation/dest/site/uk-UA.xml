@@ -741,6 +741,7 @@
   <string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>
   <string name="simulHostExtraTime">Додатковий час організатора</string>
   <string name="simulAddExtraTimePerPlayer">Додавайте початковий час до вашого годинника для кожного гравця, що приєднується до сеансу.</string>
+  <string name="simulHostExtraTimePerPlayer">Додатковий час для організатора за гравця</string>
   <string name="lichessTournaments">Турніри Lichess</string>
   <string name="tournamentFAQ">ЧаПи про турнір Арена</string>
   <string name="timeBeforeTournamentStarts">Час до початку турніру</string>
