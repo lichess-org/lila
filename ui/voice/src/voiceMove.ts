@@ -1,7 +1,12 @@
+import {
+  storedBooleanPropWithEffect,
+  storedIntPropWithEffect,
+  storedStringPropWithEffect,
+  storedIntProp,
+} from 'common/storage';
+import { propWithEffect, PropWithEffect } from 'common';
 import { Api as CgApi } from 'chessground/api';
 import { Role } from 'chessground/types';
-import { storedBooleanPropWithEffect, storedIntPropWithEffect, storedIntProp } from 'common/storage';
-import { propWithEffect, PropWithEffect } from 'common';
 import * as cs from 'chess';
 import { promote } from 'chess/promotion';
 import { RootCtrl, VoiceMove, Entry } from './interfaces';
@@ -18,7 +23,6 @@ class VoiceMoveCtrl implements VoiceMove {
   lexicon: Entry[] = [];
 
   byVal = new Map<string, Entry | Set<Entry>>(); // map values to lexicon entries
-  bySimilar = new Map<string, Entry | Set<Entry>>(); // map words to entries which can sub for them
   byTok = new Map<string, Entry>(); // map token chars to lexicon entries
   byWord = new Map<string, Entry>(); // map input words to lexicon entries
   confirm = new Map<string, (v: boolean) => void>(); // boolean confirmation callbacks
@@ -35,7 +39,7 @@ class VoiceMoveCtrl implements VoiceMove {
   clarityPref = storedIntProp('voice.clarity', 0);
   colorsPref = storedBooleanPropWithEffect('voice.useColors', true, v => this.setPartialVocabulary(v));
   timerPref = storedIntPropWithEffect('voice.timer', 3, _ => this.setPartialVocabulary());
-
+  langPref = storedStringPropWithEffect('voice.lang', 'en', v => (this.lang = v));
   debug = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
 
   constructor(root: RootCtrl, fen: string) {
@@ -46,24 +50,8 @@ class VoiceMoveCtrl implements VoiceMove {
 
     this.update(fen);
 
-    lichess.mic?.useGrammar('moves-en', (lexicon: Entry[]) => {
-      for (const e of lexicon) {
-        this.byWord.set(e.in, e);
-        this.byTok.set(e.tok, e);
-        if (e.val === undefined) e.val = e.tok;
-        pushMap(this.byVal, e.val, e);
-      }
-      for (const e of lexicon) {
-        if (!e.subs) continue;
-        for (const s of e.subs) {
-          if (s.to.length === 1) pushMap(this.bySimilar, this.tokWord(s.to)!, e);
-        }
-      }
-      this.lexicon = lexicon;
-      const excludeTag = root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
-      lichess.mic?.setVocabulary(this.tagWords().filter(x => this.byWord.get(x)?.tags?.includes(excludeTag) !== true));
-    });
-    this.setPartialVocabulary();
+    lichess.mic?.setLang(this.langPref());
+    lichess.mic?.useGrammar(`moves-${this.lang}`, this.init.bind(this));
 
     lichess.mic?.addListener('voiceMove', this.listenFull.bind(this));
     lichess.mic?.addListener('partials', this.listenPartial.bind(this), 'partial');
@@ -72,16 +60,55 @@ class VoiceMoveCtrl implements VoiceMove {
     setTimeout(() => this.cg.setShapes([timerShape('a1', [0, 0], 1, 'white', 1 / 256)])); // prime ff
   }
 
+  get supportedLangs(): [string, string][] {
+    return [
+      ['en', 'English'],
+      ['fr', 'Français'],
+      ['de', 'Deutsch'],
+    ];
+  }
+
+  init(lexicon: Entry[]) {
+    this.byWord.clear();
+    this.byTok.clear();
+    this.byVal.clear();
+    for (const e of lexicon) {
+      this.byWord.set(e.in, e);
+      this.byTok.set(e.tok, e);
+      if (e.val === undefined) e.val = e.tok;
+      pushMap(this.byVal, e.val, e);
+    }
+    this.lexicon = lexicon;
+    const excludeTag = this.root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
+    lichess.mic?.setVocabulary(this.tagWords().filter(x => this.byWord.get(x)?.tags?.includes(excludeTag) !== true));
+    this.setPartialVocabulary();
+  }
+
+  set lang(lang: string) {
+    if (lang === lichess.mic?.lang) return;
+    lichess.mic?.setLang(lang);
+    lichess.mic?.useGrammar(`moves-${lang}`, this.init.bind(this));
+  }
+
+  get lang() {
+    return this.langPref();
+  }
+
   setPartialVocabulary(doColors?: boolean) {
     lichess.mic?.setVocabulary(
       this.timer === 0
         ? []
         : (doColors !== undefined ? doColors : this.colorsPref())
-        ? ['yes', 'no', 'stop', 'white', 'green', 'blue', 'purple', 'pink', 'brown', 'orange', 'yellow']
-        : ['yes', 'no', 'stop', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'],
+        ? ['yes', 'no', 'stop', 'white', 'green', 'blue', 'purple', 'pink', 'brown', 'orange', 'yellow'].map(x =>
+            this.valWord(x)
+          )
+        : ['yes', 'no', 'stop', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'].map(x =>
+            this.valWord(x)
+          ),
       'partial'
     );
   }
+
   // update is called by the root controller when the board position changes
   update(fen: string /*, yourMove?: boolean*/) {
     this.board = cs.readFen(fen);
@@ -114,19 +141,20 @@ class VoiceMoveCtrl implements VoiceMove {
     setTimeout(this.root.redraw);
   }
 
-  listenPartial(text: string, _: Voice.MsgType, words?: Voice.WordResult) {
-    console.log(text, words);
+  listenPartial(word: string, _: Voice.MsgType, words?: Voice.WordResult) {
+    console.log(word, words);
     if (!this.choices || !this.choiceTimeout) return;
-    if (text === 'stop') {
+    const val = this.wordVal(word);
+    if (val === 'stop') {
       clearTimeout(this.choiceTimeout);
       this.choiceTimeout = undefined;
       this.makeArrows();
-    } else if (text === 'no') this.clearMoveProgress();
-    else if (text === 'yes') this.submit(this.choices.values().next().value);
-    else if (this.choices.has(text)) this.submit(this.choices.get(text)!);
+    } else if (val === 'no') this.clearMoveProgress();
+    else if (val === 'yes') this.submit(this.choices.values().next().value);
+    else if (this.choices.has(val)) this.submit(this.choices.get(val)!);
     else return;
     clearTimeout(this.choiceTimeout);
-    if (text !== 'stop') this.choices = undefined;
+    if (val !== 'stop') this.choices = undefined;
     setTimeout(this.cg.redrawAll);
     lichess.mic!.mode = 'full';
   }
@@ -215,7 +243,10 @@ class VoiceMoveCtrl implements VoiceMove {
 
   chooseMoves(m: [string, number][], conf: number) {
     if (m.length === 0) return false;
-    if ((m.length === 1 && m[0][1] < 0.4) || m[1][1] - m[0][1] > [0.7, 0.5, 0.3][this.clarityPref()]) {
+    if (
+      (m.length === 1 && m[0][1] < 0.4) ||
+      (m.length > 1 && m[1][1] - m[0][1] > [0.7, 0.5, 0.3][this.clarityPref()])
+    ) {
       if (this.debug) console.log('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]} conf=${conf}`);
       this.submit(m[0][0]);
       return true;
@@ -557,6 +588,12 @@ class VoiceMoveCtrl implements VoiceMove {
 
   valsPhrase(vals: string) {
     return this.valsToks(vals).map(toks => [...toks].map(tok => this.tokWord(tok)).join(' '));
+  }
+
+  valWord(val: string) {
+    // returns only the first matching input word for this val, there may be others
+    const v = this.byVal.get(val);
+    return v ? (v instanceof Set<Entry> ? v.values().next().value.in : v.in) : val;
   }
 
   valWords(val: string) {

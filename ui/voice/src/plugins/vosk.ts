@@ -7,26 +7,46 @@ const BUF_SIZE = 8192;
 
 // do not touch this unless you are familiar with vosk-browser, emscripten, the vosk api,
 // and kaldi. don't try to clean it up.
-type Recognizer = {
-  node: ScriptProcessorNode;
+class Recognizer {
   kaldi: KaldiRecognizer;
-};
+  node: ScriptProcessorNode;
+  constructor(kaldi: KaldiRecognizer, node: ScriptProcessorNode) {
+    this.kaldi = kaldi;
+    this.node = node;
+  }
+  close() {
+    this.kaldi.remove();
+    if (this.node.onaudioprocess) this.node.onaudioprocess = null;
+    this.node.disconnect();
+  }
+}
 
 export default (window as any).LichessVoicePlugin.vosk = new (class {
-  voiceModel: Model;
+  voiceModel?: Model;
   recs = new Map<Voice.ListenMode, Recognizer>();
   mode?: Voice.ListenMode = 'full';
+  language?: string;
 
-  async initModel(url: string): Promise<void> {
+  get lang() {
+    return this.voiceModel && this.language;
+  }
+
+  async initModel(url: string, lang: string): Promise<void> {
+    this.voiceModel?.terminate();
+    this.voiceModel = undefined;
+    this.recs.forEach(r => r.close());
+    this.recs.clear();
+    console.log('initModel...', lang, url);
+    this.language = lang;
     this.voiceModel = await createModel(url, LOG_LEVEL);
+    console.log('initModel done', this.voiceModel);
   }
 
   async setRecognizer(opts: RecognizerOpts): Promise<AudioNode | undefined> {
-    if (!opts.vocab || !opts.vocab.length) {
+    if (!opts.vocab || !opts.vocab.length || !this.voiceModel) {
       this.close(opts.mode);
       return;
     }
-    if (LOG_LEVEL >= -1) console.info(`Creating ${opts.mode} recognizer with`, opts.vocab);
 
     const kaldi = new this.voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.vocab));
 
@@ -44,9 +64,10 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
       });
 
     if (this.mode === opts.mode) node.onaudioprocess = e => kaldi.acceptWaveform(e.inputBuffer);
-
     this.close(opts.mode);
-    this.recs.set(opts.mode, { kaldi, node });
+
+    if (LOG_LEVEL >= -1) console.info(`Creating ${opts.mode} recognizer with`, opts.vocab);
+    this.recs.set(opts.mode, new Recognizer(kaldi, node));
     return node;
   }
 
@@ -76,9 +97,7 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
   close(mode: Voice.ListenMode) {
     const rec = this.recs.get(mode);
     if (rec && LOG_LEVEL >= -1) console.info(`Closing ${mode} recognizer`);
-    rec?.kaldi.remove();
-    if (rec?.node.onaudioprocess) rec.node.onaudioprocess = null;
-    rec?.node.disconnect();
+    rec?.close();
     this.recs.delete(mode);
   }
 })();

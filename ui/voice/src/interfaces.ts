@@ -21,11 +21,14 @@ export interface VoiceMove {
   clarityPref(clarity?: number): number;
   timerPref(duration?: number): number;
   colorsPref(enabled?: boolean): boolean;
+  langPref(lang?: string): string;
   update(fen: string, yourMove?: boolean): void;
-  showHelp: Prop<boolean>;
   opponentRequest(request: string, callback: (v: boolean) => void): void;
-  root: RootCtrl;
+  showHelp: Prop<boolean>;
   debug?: any;
+  lang: string;
+  readonly supportedLangs: [string, string][]; // [code, name]
+  readonly root: RootCtrl;
 }
 
 export interface RecognizerOpts {

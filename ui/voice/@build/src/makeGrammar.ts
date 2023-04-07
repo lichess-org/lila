@@ -5,8 +5,6 @@ import { finished } from 'node:stream/promises';
 
 // requires node 18.x
 
-const defaultCrowdvFile = 'crowdv-en-1.json';
-
 let builder: Builder;
 
 const buildMode: SubRestriction = { del: true, sub: 2 }; // allow dels and/or specify max sub length
@@ -19,7 +17,6 @@ function buildCostMap(
   const costMax = 0.9;
   const subCostMin = 0.4;
 
-  // we don't do anything with crowdv json confs
   const costs = [...subMap.entries()]
     .filter(([_, e]) => e.freq >= freqThreshold && e.count >= countThreshold)
     .sort((a, b) => b[1].freq - a[1].freq);
@@ -35,12 +32,14 @@ async function main() {
   const opThreshold = parseInt(getArg('max-ops') ?? '1');
   const freqThreshold = parseFloat(getArg('freq') ?? '0.002');
   const countThreshold = parseInt(getArg('count') ?? '6');
-  const grammar = getArg('grammar') ?? 'moves-en';
+  const grammar = ps.argv.slice(2).filter(x => !x.startsWith('-'))[0] ?? getArg('grammar') ?? 'moves-en';
 
   builder = new Builder(grammar);
-  const entries = (await parseCrowdvData(getArg('in') ?? defaultCrowdvFile))
-    .map(data => makeLexEntry(data))
-    .filter(x => x) as LexEntry[];
+  const crowdV = getArg('crowdv') ?? 'none';
+  const entries =
+    crowdV === 'none'
+      ? []
+      : ((await parseCrowdvData(crowdV)).map(data => makeLexEntry(data)).filter(x => x) as LexEntry[]);
 
   for (const e of entries.filter(e => e.h != e.x)) {
     parseTransforms(findTransforms(e.h, e.x, buildMode), e, subMap, opThreshold);
@@ -52,9 +51,11 @@ async function main() {
     const [from, to] = key.split(' ');
     builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
   });
-  for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ?? []) {
-    builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
-  }
+  const patch = `lexicon/${grammar}-patch.json`;
+  if (fs.existsSync(patch))
+    for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ?? []) {
+      builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
+    }
   writeGrammar(`../grammar/${grammar}.json`);
 }
 
@@ -177,7 +178,7 @@ async function parseCrowdvData(file: string) {
     if (!fs.existsSync('crowdv')) fs.mkdirSync('crowdv');
     let url = file;
     if (/https?:/.test(url)) file = file.split('/').pop()!;
-    else url = `https://raw.githubusercontent.com/schlawg/crowdv/master/${file}`;
+    else url = `https://raw.githubusercontent.com/lichess-org/lifat/master/crowdv/${file}`;
     file = `crowdv/${file}`;
     try {
       const { ok, statusText, body } = await (globalThis as any).fetch(url);

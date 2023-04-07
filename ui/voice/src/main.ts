@@ -105,6 +105,27 @@ function voiceSettings(ctrl: VoiceMove): VNode {
           )
         ),
       ]),
+      h('div.setting', [
+        h('label', { attrs: { for: 'lang' } }, 'Language'),
+        h(
+          'select#lang',
+          {
+            attrs: { name: 'lang' },
+            hook: bind('change', e => ctrl.langPref((e.target as HTMLSelectElement).value)),
+          },
+          [
+            ...ctrl.supportedLangs.map(l =>
+              h(
+                'option',
+                {
+                  attrs: l[0] === ctrl.lang ? { value: l[0], selected: '' } : { value: l[0] },
+                },
+                l[1]
+              )
+            ),
+          ]
+        ),
+      ]),
     ]
   );
 }
