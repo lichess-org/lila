@@ -42,6 +42,12 @@ export const storedBooleanProp = (k: string, defaultValue: boolean): StoredProp<
     v => v.toString()
   );
 
+export const storedStringPropWithEffect = (
+  k: string,
+  defaultValue: string,
+  effect: (v: string) => void
+): Prop<string> => withEffect(storedStringProp(k, defaultValue), effect);
+
 export const storedBooleanPropWithEffect = (
   k: string,
   defaultValue: boolean,

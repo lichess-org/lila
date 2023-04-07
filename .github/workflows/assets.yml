@@ -45,6 +45,10 @@ jobs:
       - run: ./ui/build --no-install -p
       - run: cd ui && pnpm run test && cd -
       - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
+      - run: mkdir assets/public/vendor/vosk
+      - run: curl https://raw.githubusercontent.com/lichess-org/lifat/master/vosk/model-en-us-0.15.tar.gz > assets/public/vendor/vosk/model-en-us-0.15.tar.gz
+      - run: curl https://raw.githubusercontent.com/lichess-org/lifat/master/vosk/model-fr-0.22.tar.gz > assets/public/vendor/vosk/model-fr-0.22.tar.gz
+      - run: curl https://raw.githubusercontent.com/lichess-org/lifat/master/vosk/model-de-0.15.tar.gz > assets/public/vendor/vosk/model-de-0.15.tar.gz
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
         env:
           XZ_OPT: '-0'

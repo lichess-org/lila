@@ -212,7 +212,7 @@ declare namespace Voice {
 
   export interface Microphone {
     setVocabulary: (vocabulary: string[], mode?: ListenMode) => Promise<void>; // required
-    setLanguage: (language: string) => void; // defaults to 'en';
+    setLang: (language: string) => Promise<void>; // defaults to 'en';
 
     mode: ListenMode; // starts in full
 
@@ -228,6 +228,7 @@ declare namespace Voice {
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
     readonly isListening: boolean; // are we recording?
     readonly status: string; // errors, progress, or the most recent voice command
+    readonly lang: string; // defaults to 'en'
 
     //readonly grammar: Entry[]; // optionally fetched during initialization
 

@@ -2,8 +2,28 @@ import { objectStorage } from 'common/objectStorage';
 import * as xhr from 'common/xhr';
 
 const models = new Map([
+  ['ca', 'vendor/vosk/model-ca-0.4.tar.gz'],
+  ['cn', 'vendor/vosk/model-cn-0.22.tar.gz'],
+  ['cs', 'vendor/vosk/model-cs-0.4.tar.gz'],
+  ['de', 'vendor/vosk/model-de-0.15.tar.gz'],
   ['en', 'vendor/vosk/model-en-us-0.15.tar.gz'],
+  ['eo', 'vendor/vosk/model-eo-0.42.tar.gz'],
+  ['es', 'vendor/vosk/model-es-0.42.tar.gz'],
+  ['fa', 'vendor/vosk/model-fa-0.4.tar.gz'],
   ['fr', 'vendor/vosk/model-fr-0.22.tar.gz'],
+  ['hi', 'vendor/vosk/model-hi-0.22.tar.gz'],
+  ['it', 'vendor/vosk/model-it-0.22.tar.gz'],
+  ['ja', 'vendor/vosk/model-ja-0.22.tar.gz'],
+  ['ko', 'vendor/vosk/model-ko-0.22.tar.gz'],
+  ['kz', 'vendor/vosk/model-kz-0.15.tar.gz'],
+  ['nl', 'vendor/vosk/model-nl-0.22.tar.gz'],
+  ['pl', 'vendor/vosk/model-pl-0.22.tar.gz'],
+  ['pt', 'vendor/vosk/model-pt-0.3.tar.gz'],
+  ['ru', 'vendor/vosk/model-ru-0.22.tar.gz'],
+  ['tr', 'vendor/vosk/model-tr-0.3.tar.gz'],
+  ['uk', 'vendor/vosk/model-uk-v3.tar.gz'],
+  ['uz', 'vendor/vosk/model-uz-0.22.tar.gz'],
+  ['vn', 'vendor/vosk/model-vn-0.4.tar.gz'],
 ]);
 
 class Recognizer {
@@ -20,8 +40,8 @@ class Recognizer {
 export const mic =
   window.LichessVoicePlugin?.mic ??
   new (class implements Voice.Microphone {
-    grammar?: { name: string; callback: (g: Voice.Entry[]) => void };
-    lang = 'fr';
+    initGrammar?: { name: string; callback: (g: Voice.Entry[]) => void };
+    language = 'en';
 
     audioCtx: AudioContext;
     mediaStream: MediaStream;
@@ -42,6 +62,10 @@ export const mic =
       this.recs = { full: new Recognizer(), partial: new Recognizer() };
     }
 
+    get lang() {
+      return this.language;
+    }
+
     get vosk(): any {
       return (window.LichessVoicePlugin as any)?.vosk;
     }
@@ -54,6 +78,12 @@ export const mic =
       Object.values(this.recs).forEach(rec => rec.listenerMap.delete(id));
     }
 
+    async setLang(lang: string) {
+      if (lang === this.language) return;
+      this.stop();
+      this.language = lang;
+    }
+
     async setVocabulary(vocab: string[], mode: Voice.ListenMode = 'full') {
       const rec = this.recs[mode];
       if (vocab.length === rec.vocab.length && vocab.every((w, i) => w === rec.vocab[i])) return;
@@ -63,17 +93,10 @@ export const mic =
       await this.initKaldi(mode);
     }
 
-    get language() {
-      return this.lang;
-    }
-
-    async setLanguage(lang: string) {
-      this.lang = lang;
-    }
-
     useGrammar(name: string, callback: (g: Voice.Entry[]) => void) {
-      this.grammar = { name: name, callback: callback };
+      this.initGrammar = { name: name, callback: callback };
     }
+
     stop() {
       if (this.micTrack) this.micTrack.enabled = false;
       this.vosk?.stop();
@@ -133,18 +156,19 @@ export const mic =
     }
 
     async initModel(): Promise<void> {
-      if (this.vosk?.ready()) return;
+      if (this.vosk?.ready() && this.vosk?.lang === this.lang) return;
       this.broadcast('Loading...');
       const modelUrl = lichess.assetUrl(models.get(this.lang)!, { noVersion: true });
+      console.log(modelUrl);
       const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
-      const grammarAsync = this.grammar
-        ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${this.grammar.name}.json`))
+      const grammarAsync = this.initGrammar
+        ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${this.initGrammar.name}.json`))
         : Promise.resolve();
       const audioAsync = this.initAudio();
       await lichess.loadModule('input.vosk');
-      this.grammar?.callback((await grammarAsync) as Voice.Entry[]);
       await downloadAsync;
-      await this.vosk.initModel(modelUrl);
+      await this.vosk.initModel(modelUrl, this.lang);
+      this.initGrammar?.callback((await grammarAsync) as Voice.Entry[]);
       await audioAsync;
     }
 
@@ -164,16 +188,12 @@ export const mic =
 
     set mode(mode: Voice.ListenMode) {
       if (!this.recs[mode]) return;
-      const hookup = () => {
-        this.recs[this.listenMode]?.node?.disconnect();
-        this.micSource!.disconnect();
-        this.micSource!.connect(this.recs[mode].node!);
-        this.recs[mode].node!.connect(this.audioCtx!.destination);
-        this.vosk.setMode(mode);
-        this.listenMode = mode;
-      };
-      /*if (mode === 'partial') this.initKaldi(mode).then(hookup); // partial recs crap out after one use
-      else*/ hookup();
+      this.recs[this.listenMode]?.node?.disconnect();
+      this.micSource!.disconnect();
+      this.micSource!.connect(this.recs[mode].node!);
+      this.recs[mode].node!.connect(this.audioCtx!.destination);
+      this.vosk.setMode(mode);
+      this.listenMode = mode;
     }
 
     get mode(): Voice.ListenMode {

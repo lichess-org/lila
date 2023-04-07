@@ -1,0 +1,1244 @@
+[
+  {
+    "in": "a",
+    "tok": "a",
+    "tags": ["file", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "b",
+    "tok": "b",
+    "tags": ["file", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "c",
+    "tok": "c",
+    "tags": ["file", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "d",
+    "tok": "d",
+    "tags": ["file", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "e",
+    "tok": "e",
+    "tags": ["file", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "f",
+    "tok": "f",
+    "tags": ["file", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "g",
+    "tok": "g",
+    "tags": ["file", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "h",
+    "tok": "h",
+    "tags": ["file", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "eins",
+    "tok": "1",
+    "tags": ["rank", "move", "choice"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "zwei",
+    "tok": "2",
+    "tags": ["rank", "move", "choice"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "drei",
+    "tok": "3",
+    "tags": ["rank", "move", "choice"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "vier",
+    "tok": "4",
+    "tags": ["rank", "move", "choice"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "fünf",
+    "tok": "5",
+    "tags": ["rank", "move", "choice"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "sechs",
+    "tok": "6",
+    "tags": ["rank", "move", "choice"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "sieben",
+    "tok": "7",
+    "tags": ["rank", "move", "choice"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "acht",
+    "tok": "8",
+    "tags": ["rank", "move", "choice"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Bauer",
+    "tok": "P",
+    "tags": ["role", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Springer",
+    "tok": "N",
+    "tags": ["role", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Pferd",
+    "tok": "N",
+    "tags": ["role", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Läufer",
+    "tok": "B",
+    "tags": ["role", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Turm",
+    "tok": "R",
+    "tags": ["role", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Dame",
+    "tok": "Q",
+    "tags": ["role", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "König",
+    "tok": "K",
+    "tags": ["role", "move"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Rochade",
+    "val": "castle",
+    "tags": ["move"],
+    "tok": "!",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Kurze Rochade",
+    "val": "O-O",
+    "tags": ["move"],
+    "tok": "t!"
+  },
+  {
+    "in": "rochiere kurz",
+    "val": "O-O",
+    "tags": ["move"],
+    "tok": "uv"
+  },
+  {
+    "in": "rochiere zur Königsseite",
+    "val": "O-O",
+    "tags": ["move"],
+    "tok": "uwx"
+  },
+  {
+    "in": "Lange Rochade",
+    "val": "O-O-O",
+    "tags": ["move"],
+    "tok": "y!"
+  },
+  {
+    "in": "rochiere lang",
+    "val": "O-O-O",
+    "tags": ["move"],
+    "tok": "uz"
+  },
+  {
+    "in": "rochiere zur Damenseite",
+    "val": "O-O-O",
+    "tags": ["move"],
+    "tok": "uw{"
+  },
+  {
+    "in": "schlage",
+    "val": "x",
+    "tags": ["move"],
+    "tok": "#",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "schlägt",
+    "val": "x",
+    "tags": ["move"],
+    "tok": "$",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "wird",
+    "val": "=",
+    "tags": ["move"],
+    "tok": "%",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Unwandlung",
+    "val": "=",
+    "tags": ["move"],
+    "tok": "&",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "ups",
+    "val": "takeback",
+    "tags": ["command"],
+    "tok": "(",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "zurück",
+    "val": "takeback",
+    "tags": ["command"],
+    "tok": ")",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "rückgängig",
+    "val": "takeback",
+    "tags": ["command"],
+    "tok": "*",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Remis",
+    "val": "draw",
+    "tags": ["command", "round"],
+    "tok": "+",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "biete Remis",
+    "val": "draw",
+    "tags": ["command", "round"],
+    "tok": "|+"
+  },
+  {
+    "in": "Remis anbieten",
+    "val": "draw",
+    "tags": ["command", "round"],
+    "tok": "+}"
+  },
+  {
+    "in": "Remis annehmen",
+    "val": "draw",
+    "tags": ["command", "round"],
+    "tok": "+Ā"
+  },
+  {
+    "in": "aufgeben",
+    "val": "resign",
+    "tags": ["command", "round"],
+    "tok": "-",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Revanche",
+    "val": "rematch",
+    "tags": ["command", "round"],
+    "tok": ".",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Brett drehen",
+    "val": "flip",
+    "tags": ["command"],
+    "tok": "āĂ"
+  },
+  {
+    "in": "Uhr",
+    "val": "clock",
+    "tags": ["command", "round"],
+    "tok": "/",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Zeit",
+    "val": "clock",
+    "tags": ["command", "round"],
+    "tok": "0",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Gegner",
+    "val": "who",
+    "tags": ["command", "round"],
+    "tok": "9",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Weiter",
+    "val": "next",
+    "tags": ["command", "puzzle"],
+    "tok": ":",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Nächste",
+    "val": "next",
+    "tags": ["command", "puzzle"],
+    "tok": ";",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Daumen hoch",
+    "val": "upvote",
+    "tags": ["command", "puzzle"],
+    "tok": "ăĄ"
+  },
+  {
+    "in": "Daumen runter",
+    "val": "downvote",
+    "tags": ["command", "puzzle"],
+    "tok": "ăą"
+  },
+  {
+    "in": "Lösung",
+    "val": "solve",
+    "tags": ["command", "puzzle"],
+    "tok": "<",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Hilfe",
+    "val": "help",
+    "tags": ["command"],
+    "tok": "=",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "stop listening",
+    "val": "stop",
+    "tags": ["command"],
+    "tok": "Ćć"
+  },
+  {
+    "in": "stop recording",
+    "val": "stop",
+    "tags": ["command"],
+    "tok": "ĆĈ"
+  },
+  {
+    "in": "ja",
+    "val": "yes",
+    "tags": ["choice"],
+    "tok": ">",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "bestätigen",
+    "val": "yes",
+    "tags": ["choice"],
+    "tok": "?",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "nein",
+    "val": "no",
+    "tags": ["choice"],
+    "tok": "@",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "abbrechen",
+    "val": "no",
+    "tags": ["choice"],
+    "tok": "A",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Abbruch",
+    "val": "no",
+    "tags": ["choice"],
+    "tok": "C",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "schließen",
+    "val": "no",
+    "tags": ["choice"],
+    "tok": "D",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "blau",
+    "val": "blue",
+    "tags": ["color", "choice"],
+    "tok": "E",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "grün",
+    "val": "green",
+    "tags": ["color", "choice"],
+    "tok": "F",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "gelb",
+    "val": "yellow",
+    "tags": ["color", "choice"],
+    "tok": "G",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "rot",
+    "val": "red",
+    "tags": ["color", "choice"],
+    "tok": "H",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "pink",
+    "val": "pink",
+    "tags": ["color", "choice"],
+    "tok": "I",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "lila",
+    "val": "purple",
+    "tags": ["color", "choice"],
+    "tok": "J",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "violett",
+    "val": "purple",
+    "tags": ["color", "choice"],
+    "tok": "L",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "orange",
+    "val": "orange",
+    "tags": ["color", "choice"],
+    "tok": "M",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "braun",
+    "val": "brown",
+    "tags": ["color", "choice"],
+    "tok": "O",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "weiß",
+    "val": "white",
+    "tags": ["color", "choice"],
+    "tok": "S",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "alfa",
+    "val": "a",
+    "tags": ["file", "move", "nato"],
+    "tok": "T",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "bravo",
+    "val": "b",
+    "tags": ["file", "move", "nato"],
+    "tok": "U",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "charlie",
+    "val": "c",
+    "tags": ["file", "move", "nato"],
+    "tok": "V",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "delta",
+    "val": "d",
+    "tags": ["file", "move", "nato"],
+    "tok": "W",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "echo",
+    "val": "e",
+    "tags": ["file", "move", "nato"],
+    "tok": "X",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "foxtrot",
+    "val": "f",
+    "tags": ["file", "move", "nato"],
+    "tok": "Y",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "golf",
+    "val": "g",
+    "tags": ["file", "move", "nato"],
+    "tok": "Z",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "hotel",
+    "val": "h",
+    "tags": ["file", "move", "nato"],
+    "tok": "[",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Matt",
+    "val": "",
+    "tags": ["move", "ignore"],
+    "tok": "\\",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "Schachmatt",
+    "val": "",
+    "tags": ["move", "ignore"],
+    "tok": "]",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "Schach",
+    "val": "",
+    "tags": ["move", "ignore"],
+    "tok": "^",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "Aufgabe",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "_",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "Puzzle",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "`",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "und",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "i",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "oh",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "j",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "äh",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "k",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "ehm",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "l",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "hmm",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "m",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "huch",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "n",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "seinen",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "o",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "ihren",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "p",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "den",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "q",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "Training",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "r",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "Übung",
+    "val": "",
+    "tags": ["ignore"],
+    "tok": "s",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0
+      }
+    ]
+  },
+  {
+    "in": "Kurze",
+    "tok": "t",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "rochiere",
+    "tok": "u",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "kurz",
+    "tok": "v",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "zur",
+    "tok": "w",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Königsseite",
+    "tok": "x",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Lange",
+    "tok": "y",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "lang",
+    "tok": "z",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Damenseite",
+    "tok": "{",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "biete",
+    "tok": "|",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "anbieten",
+    "tok": "}",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "annehmen",
+    "tok": "Ā",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Brett",
+    "tok": "ā",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "drehen",
+    "tok": "Ă",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "Daumen",
+    "tok": "ă",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "hoch",
+    "tok": "Ą",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "runter",
+    "tok": "ą",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "stop",
+    "tok": "Ć",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "listening",
+    "tok": "ć",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
+    "in": "recording",
+    "tok": "Ĉ",
+    "tags": ["part"],
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  }
+]
