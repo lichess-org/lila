@@ -104,7 +104,15 @@
   <string name="lossOr50MovesByPriorMistake">Loss or 50 muives bi earlier mistak</string>
   <string name="unknownDueToRounding">Win/loss anely guaranteed if recommendit tablebase line haes been follaed syne the last captur or poun muive, due tae possible roondin o DTZ values in Syzygy tablebases.</string>
   <string name="allSet">Aw guid!</string>
+  <string name="importPgn">Inbring PGN</string>
   <string name="delete">Dicht</string>
+  <string name="deleteThisImportedGame">Delete this inbrocht gemm?</string>
+  <string name="realtimeReplay">Suith-time</string>
+  <string name="byCPL">Abyes CPL</string>
+  <string name="openStudy">Appen muise</string>
+  <string name="enable">On-turn</string>
+  <string name="bestMoveArrow">Heid muive arrae</string>
+  <string name="evaluationGauge">Vailyie mett</string>
   <string name="memory">Memory</string>
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Remuives the deepth limit, an hauds yer computer wairm</string>
