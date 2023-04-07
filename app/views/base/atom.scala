@@ -30,7 +30,7 @@ object atom:
       raw("</feed>")
     )
 
-  def atomDate(date: Instant): String = isoDateFormatter format date
+  def atomDate(date: Instant): String = isoDateTimeFormatter format date
 
   private val termAttr   = attr("term")
   private val labelAttr  = attr("label")

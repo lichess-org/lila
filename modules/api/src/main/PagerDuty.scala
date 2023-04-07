@@ -19,8 +19,8 @@ final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDut
             .obj(
               "maintenance_window" -> Json.obj(
                 "type"        -> "maintenance_window",
-                "start_time"  -> isoDateFormatter.format(date),
-                "end_time"    -> isoDateFormatter.format(date.plusMinutes(3)),
+                "start_time"  -> isoDateTimeFormatter.format(date),
+                "end_time"    -> isoDateTimeFormatter.format(date.plusMinutes(3)),
                 "description" -> "restart announce",
                 "services" -> Json.arr(
                   Json.obj(

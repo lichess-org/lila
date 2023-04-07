@@ -51,17 +51,17 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
     englishDateTimeFormatter format instant.dateTime
 
   def semanticDate(instant: Instant)(using Lang): Tag =
-    timeTag(datetimeAttr := isoDateTime(instant.dateTime))(showDate(instant))
+    timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
 
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
 
-  def isoDateTime(instant: Instant): String = isoDateTimeFormatter format instant.date
+  def isoDateTime(instant: Instant): String = isoDateTimeFormatter format instant.dateTime.atOffset(utcZone)
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
-    if (!alwaysRelative && (date.toMillis - nowMillis) > oneDayMillis) absClientInstant(instant)
+    if (!alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis) absClientInstant(instant)
     else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
 
   def momentFromNowWithPreload(
@@ -69,10 +69,10 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
       alwaysRelative: Boolean = false,
       once: Boolean = false
   ): Frag =
-    momentFromNow(instant, alwaysRelative, once)(momentFromNowServerText(date))
+    momentFromNow(instant, alwaysRelative, once)(momentFromNowServerText(instant))
 
   def absClientInstant(instant: Instant): Tag =
-    timeTag(cls := "timeago abs", datetimeAttr := isoDate(date))("-")
+    timeTag(cls := "timeago abs", datetimeAttr := isoDateTime(instant))("-")
 
   def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
 
@@ -80,7 +80,7 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
     momentFromNow(nowInstant plusSeconds seconds, alwaysRelative)
 
   def momentFromNowServer(instant: Instant): Frag =
-    timeTag(title := f"${showEnglishInstant(date)} UTC")(momentFromNowServerText(instant))
+    timeTag(title := f"${showEnglishInstant(instant)} UTC")(momentFromNowServerText(instant))
 
   def momentFromNowServerText(instant: Instant, inFuture: Boolean = false): String =
     val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
