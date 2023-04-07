@@ -40,7 +40,7 @@ final private class Pause:
     }
 
   def canJoin(userId: UserId, tour: Tournament): Boolean =
-    remainingDelay(userId, tour).isEmpty
+    tour.isCreated || remainingDelay(userId, tour).isEmpty
 
 object Pause:
 
