@@ -176,7 +176,7 @@
     ]
   },
   {
-    "in": "Bauer",
+    "in": "bauer",
     "tok": "P",
     "tags": ["role", "move"],
     "subs": [
@@ -187,7 +187,7 @@
     ]
   },
   {
-    "in": "Springer",
+    "in": "springer",
     "tok": "N",
     "tags": ["role", "move"],
     "subs": [
@@ -198,7 +198,7 @@
     ]
   },
   {
-    "in": "Pferd",
+    "in": "pferd",
     "tok": "N",
     "tags": ["role", "move"],
     "subs": [
@@ -209,7 +209,7 @@
     ]
   },
   {
-    "in": "Läufer",
+    "in": "läufer",
     "tok": "B",
     "tags": ["role", "move"],
     "subs": [
@@ -220,7 +220,7 @@
     ]
   },
   {
-    "in": "Turm",
+    "in": "turm",
     "tok": "R",
     "tags": ["role", "move"],
     "subs": [
@@ -231,7 +231,7 @@
     ]
   },
   {
-    "in": "Dame",
+    "in": "dame",
     "tok": "Q",
     "tags": ["role", "move"],
     "subs": [
@@ -242,7 +242,7 @@
     ]
   },
   {
-    "in": "König",
+    "in": "könig",
     "tok": "K",
     "tags": ["role", "move"],
     "subs": [
@@ -253,7 +253,7 @@
     ]
   },
   {
-    "in": "Rochade",
+    "in": "rochade",
     "val": "castle",
     "tags": ["move"],
     "tok": "!",
@@ -265,40 +265,28 @@
     ]
   },
   {
-    "in": "Kurze Rochade",
+    "in": "kurze rochade",
     "val": "O-O",
     "tags": ["move"],
-    "tok": "t!"
+    "tok": "r!"
   },
   {
-    "in": "rochiere kurz",
+    "in": "rochieren kurz",
     "val": "O-O",
     "tags": ["move"],
-    "tok": "uv"
+    "tok": "st"
   },
   {
-    "in": "rochiere zur Königsseite",
-    "val": "O-O",
-    "tags": ["move"],
-    "tok": "uwx"
-  },
-  {
-    "in": "Lange Rochade",
+    "in": "lange rochade",
     "val": "O-O-O",
     "tags": ["move"],
-    "tok": "y!"
+    "tok": "u!"
   },
   {
-    "in": "rochiere lang",
+    "in": "rochieren lang",
     "val": "O-O-O",
     "tags": ["move"],
-    "tok": "uz"
-  },
-  {
-    "in": "rochiere zur Damenseite",
-    "val": "O-O-O",
-    "tags": ["move"],
-    "tok": "uw{"
+    "tok": "sv"
   },
   {
     "in": "schlage",
@@ -337,7 +325,7 @@
     ]
   },
   {
-    "in": "Unwandlung",
+    "in": "umwandlung",
     "val": "=",
     "tags": ["move"],
     "tok": "&",
@@ -385,7 +373,7 @@
     ]
   },
   {
-    "in": "Remis",
+    "in": "remis",
     "val": "draw",
     "tags": ["command", "round"],
     "tok": "+",
@@ -397,22 +385,22 @@
     ]
   },
   {
-    "in": "biete Remis",
+    "in": "biete remis",
     "val": "draw",
     "tags": ["command", "round"],
-    "tok": "|+"
+    "tok": "w+"
   },
   {
-    "in": "Remis anbieten",
+    "in": "remis anbieten",
     "val": "draw",
     "tags": ["command", "round"],
-    "tok": "+}"
+    "tok": "+x"
   },
   {
-    "in": "Remis annehmen",
+    "in": "remis annehmen",
     "val": "draw",
     "tags": ["command", "round"],
-    "tok": "+Ā"
+    "tok": "+y"
   },
   {
     "in": "aufgeben",
@@ -427,7 +415,7 @@
     ]
   },
   {
-    "in": "Revanche",
+    "in": "revanche",
     "val": "rematch",
     "tags": ["command", "round"],
     "tok": ".",
@@ -439,13 +427,13 @@
     ]
   },
   {
-    "in": "Brett drehen",
+    "in": "brett drehen",
     "val": "flip",
     "tags": ["command"],
-    "tok": "āĂ"
+    "tok": "z{"
   },
   {
-    "in": "Uhr",
+    "in": "uhr",
     "val": "clock",
     "tags": ["command", "round"],
     "tok": "/",
@@ -457,7 +445,7 @@
     ]
   },
   {
-    "in": "Zeit",
+    "in": "zeit",
     "val": "clock",
     "tags": ["command", "round"],
     "tok": "0",
@@ -469,7 +457,7 @@
     ]
   },
   {
-    "in": "Gegner",
+    "in": "gegner",
     "val": "who",
     "tags": ["command", "round"],
     "tok": "9",
@@ -481,7 +469,7 @@
     ]
   },
   {
-    "in": "Weiter",
+    "in": "weiter",
     "val": "next",
     "tags": ["command", "puzzle"],
     "tok": ":",
@@ -493,7 +481,7 @@
     ]
   },
   {
-    "in": "Nächste",
+    "in": "nächste",
     "val": "next",
     "tags": ["command", "puzzle"],
     "tok": ";",
@@ -505,19 +493,19 @@
     ]
   },
   {
-    "in": "Daumen hoch",
+    "in": "daumen hoch",
     "val": "upvote",
     "tags": ["command", "puzzle"],
-    "tok": "ăĄ"
+    "tok": "|}"
   },
   {
-    "in": "Daumen runter",
+    "in": "daumen runter",
     "val": "downvote",
     "tags": ["command", "puzzle"],
-    "tok": "ăą"
+    "tok": "|Ā"
   },
   {
-    "in": "Lösung",
+    "in": "lösung",
     "val": "solve",
     "tags": ["command", "puzzle"],
     "tok": "<",
@@ -529,7 +517,7 @@
     ]
   },
   {
-    "in": "Hilfe",
+    "in": "hilfe",
     "val": "help",
     "tags": ["command"],
     "tok": "=",
@@ -541,21 +529,9 @@
     ]
   },
   {
-    "in": "stop listening",
+    "in": "stoppen",
     "val": "stop",
     "tags": ["command"],
-    "tok": "Ćć"
-  },
-  {
-    "in": "stop recording",
-    "val": "stop",
-    "tags": ["command"],
-    "tok": "ĆĈ"
-  },
-  {
-    "in": "ja",
-    "val": "yes",
-    "tags": ["choice"],
     "tok": ">",
     "subs": [
       {
@@ -565,7 +541,7 @@
     ]
   },
   {
-    "in": "bestätigen",
+    "in": "ja",
     "val": "yes",
     "tags": ["choice"],
     "tok": "?",
@@ -577,8 +553,8 @@
     ]
   },
   {
-    "in": "nein",
-    "val": "no",
+    "in": "bestätigen",
+    "val": "yes",
     "tags": ["choice"],
     "tok": "@",
     "subs": [
@@ -589,7 +565,7 @@
     ]
   },
   {
-    "in": "abbrechen",
+    "in": "nein",
     "val": "no",
     "tags": ["choice"],
     "tok": "A",
@@ -601,7 +577,7 @@
     ]
   },
   {
-    "in": "Abbruch",
+    "in": "abbrechen",
     "val": "no",
     "tags": ["choice"],
     "tok": "C",
@@ -613,7 +589,7 @@
     ]
   },
   {
-    "in": "schließen",
+    "in": "abbruch",
     "val": "no",
     "tags": ["choice"],
     "tok": "D",
@@ -625,10 +601,22 @@
     ]
   },
   {
+    "in": "schließen",
+    "val": "no",
+    "tags": ["choice"],
+    "tok": "E",
+    "subs": [
+      {
+        "to": "",
+        "cost": 0.5
+      }
+    ]
+  },
+  {
     "in": "blau",
     "val": "blue",
     "tags": ["color", "choice"],
-    "tok": "E",
+    "tok": "F",
     "subs": [
       {
         "to": "",
@@ -640,7 +628,7 @@
     "in": "grün",
     "val": "green",
     "tags": ["color", "choice"],
-    "tok": "F",
+    "tok": "G",
     "subs": [
       {
         "to": "",
@@ -652,7 +640,7 @@
     "in": "gelb",
     "val": "yellow",
     "tags": ["color", "choice"],
-    "tok": "G",
+    "tok": "H",
     "subs": [
       {
         "to": "",
@@ -664,7 +652,7 @@
     "in": "rot",
     "val": "red",
     "tags": ["color", "choice"],
-    "tok": "H",
+    "tok": "I",
     "subs": [
       {
         "to": "",
@@ -676,7 +664,7 @@
     "in": "pink",
     "val": "pink",
     "tags": ["color", "choice"],
-    "tok": "I",
+    "tok": "J",
     "subs": [
       {
         "to": "",
@@ -688,7 +676,7 @@
     "in": "lila",
     "val": "purple",
     "tags": ["color", "choice"],
-    "tok": "J",
+    "tok": "L",
     "subs": [
       {
         "to": "",
@@ -700,7 +688,7 @@
     "in": "violett",
     "val": "purple",
     "tags": ["color", "choice"],
-    "tok": "L",
+    "tok": "M",
     "subs": [
       {
         "to": "",
@@ -712,7 +700,7 @@
     "in": "orange",
     "val": "orange",
     "tags": ["color", "choice"],
-    "tok": "M",
+    "tok": "O",
     "subs": [
       {
         "to": "",
@@ -724,7 +712,7 @@
     "in": "braun",
     "val": "brown",
     "tags": ["color", "choice"],
-    "tok": "O",
+    "tok": "S",
     "subs": [
       {
         "to": "",
@@ -736,7 +724,7 @@
     "in": "weiß",
     "val": "white",
     "tags": ["color", "choice"],
-    "tok": "S",
+    "tok": "T",
     "subs": [
       {
         "to": "",
@@ -748,7 +736,7 @@
     "in": "alfa",
     "val": "a",
     "tags": ["file", "move", "nato"],
-    "tok": "T",
+    "tok": "U",
     "subs": [
       {
         "to": "",
@@ -760,7 +748,7 @@
     "in": "bravo",
     "val": "b",
     "tags": ["file", "move", "nato"],
-    "tok": "U",
+    "tok": "V",
     "subs": [
       {
         "to": "",
@@ -772,7 +760,7 @@
     "in": "charlie",
     "val": "c",
     "tags": ["file", "move", "nato"],
-    "tok": "V",
+    "tok": "W",
     "subs": [
       {
         "to": "",
@@ -784,7 +772,7 @@
     "in": "delta",
     "val": "d",
     "tags": ["file", "move", "nato"],
-    "tok": "W",
+    "tok": "X",
     "subs": [
       {
         "to": "",
@@ -796,7 +784,7 @@
     "in": "echo",
     "val": "e",
     "tags": ["file", "move", "nato"],
-    "tok": "X",
+    "tok": "Y",
     "subs": [
       {
         "to": "",
@@ -808,7 +796,7 @@
     "in": "foxtrot",
     "val": "f",
     "tags": ["file", "move", "nato"],
-    "tok": "Y",
+    "tok": "Z",
     "subs": [
       {
         "to": "",
@@ -820,7 +808,7 @@
     "in": "golf",
     "val": "g",
     "tags": ["file", "move", "nato"],
-    "tok": "Z",
+    "tok": "[",
     "subs": [
       {
         "to": "",
@@ -832,7 +820,7 @@
     "in": "hotel",
     "val": "h",
     "tags": ["file", "move", "nato"],
-    "tok": "[",
+    "tok": "\\",
     "subs": [
       {
         "to": "",
@@ -841,19 +829,7 @@
     ]
   },
   {
-    "in": "Matt",
-    "val": "",
-    "tags": ["move", "ignore"],
-    "tok": "\\",
-    "subs": [
-      {
-        "to": "",
-        "cost": 0
-      }
-    ]
-  },
-  {
-    "in": "Schachmatt",
+    "in": "matt",
     "val": "",
     "tags": ["move", "ignore"],
     "tok": "]",
@@ -865,7 +841,7 @@
     ]
   },
   {
-    "in": "Schach",
+    "in": "schachmatt",
     "val": "",
     "tags": ["move", "ignore"],
     "tok": "^",
@@ -877,9 +853,9 @@
     ]
   },
   {
-    "in": "Aufgabe",
+    "in": "schach",
     "val": "",
-    "tags": ["ignore"],
+    "tags": ["move", "ignore"],
     "tok": "_",
     "subs": [
       {
@@ -889,7 +865,7 @@
     ]
   },
   {
-    "in": "Puzzle",
+    "in": "aufgabe",
     "val": "",
     "tags": ["ignore"],
     "tok": "`",
@@ -1009,32 +985,8 @@
     ]
   },
   {
-    "in": "Training",
-    "val": "",
-    "tags": ["ignore"],
+    "in": "kurze",
     "tok": "r",
-    "subs": [
-      {
-        "to": "",
-        "cost": 0
-      }
-    ]
-  },
-  {
-    "in": "Übung",
-    "val": "",
-    "tags": ["ignore"],
-    "tok": "s",
-    "subs": [
-      {
-        "to": "",
-        "cost": 0
-      }
-    ]
-  },
-  {
-    "in": "Kurze",
-    "tok": "t",
     "tags": ["part"],
     "subs": [
       {
@@ -1044,8 +996,8 @@
     ]
   },
   {
-    "in": "rochiere",
-    "tok": "u",
+    "in": "rochieren",
+    "tok": "s",
     "tags": ["part"],
     "subs": [
       {
@@ -1056,7 +1008,7 @@
   },
   {
     "in": "kurz",
-    "tok": "v",
+    "tok": "t",
     "tags": ["part"],
     "subs": [
       {
@@ -1066,30 +1018,8 @@
     ]
   },
   {
-    "in": "zur",
-    "tok": "w",
-    "tags": ["part"],
-    "subs": [
-      {
-        "to": "",
-        "cost": 0.5
-      }
-    ]
-  },
-  {
-    "in": "Königsseite",
-    "tok": "x",
-    "tags": ["part"],
-    "subs": [
-      {
-        "to": "",
-        "cost": 0.5
-      }
-    ]
-  },
-  {
-    "in": "Lange",
-    "tok": "y",
+    "in": "lange",
+    "tok": "u",
     "tags": ["part"],
     "subs": [
       {
@@ -1100,18 +1030,7 @@
   },
   {
     "in": "lang",
-    "tok": "z",
-    "tags": ["part"],
-    "subs": [
-      {
-        "to": "",
-        "cost": 0.5
-      }
-    ]
-  },
-  {
-    "in": "Damenseite",
-    "tok": "{",
+    "tok": "v",
     "tags": ["part"],
     "subs": [
       {
@@ -1122,7 +1041,7 @@
   },
   {
     "in": "biete",
-    "tok": "|",
+    "tok": "w",
     "tags": ["part"],
     "subs": [
       {
@@ -1133,7 +1052,7 @@
   },
   {
     "in": "anbieten",
-    "tok": "}",
+    "tok": "x",
     "tags": ["part"],
     "subs": [
       {
@@ -1144,7 +1063,7 @@
   },
   {
     "in": "annehmen",
-    "tok": "Ā",
+    "tok": "y",
     "tags": ["part"],
     "subs": [
       {
@@ -1154,8 +1073,8 @@
     ]
   },
   {
-    "in": "Brett",
-    "tok": "ā",
+    "in": "brett",
+    "tok": "z",
     "tags": ["part"],
     "subs": [
       {
@@ -1166,7 +1085,7 @@
   },
   {
     "in": "drehen",
-    "tok": "Ă",
+    "tok": "{",
     "tags": ["part"],
     "subs": [
       {
@@ -1176,8 +1095,8 @@
     ]
   },
   {
-    "in": "Daumen",
-    "tok": "ă",
+    "in": "daumen",
+    "tok": "|",
     "tags": ["part"],
     "subs": [
       {
@@ -1188,7 +1107,7 @@
   },
   {
     "in": "hoch",
-    "tok": "Ą",
+    "tok": "}",
     "tags": ["part"],
     "subs": [
       {
@@ -1199,40 +1118,7 @@
   },
   {
     "in": "runter",
-    "tok": "ą",
-    "tags": ["part"],
-    "subs": [
-      {
-        "to": "",
-        "cost": 0.5
-      }
-    ]
-  },
-  {
-    "in": "stop",
-    "tok": "Ć",
-    "tags": ["part"],
-    "subs": [
-      {
-        "to": "",
-        "cost": 0.5
-      }
-    ]
-  },
-  {
-    "in": "listening",
-    "tok": "ć",
-    "tags": ["part"],
-    "subs": [
-      {
-        "to": "",
-        "cost": 0.5
-      }
-    ]
-  },
-  {
-    "in": "recording",
-    "tok": "Ĉ",
+    "tok": "Ā",
     "tags": ["part"],
     "subs": [
       {
