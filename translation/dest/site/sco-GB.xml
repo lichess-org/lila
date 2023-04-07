@@ -273,9 +273,29 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kintra or flag</string>
   <string name="thankYou">Thank ye!</string>
   <string name="onlinePlayers">Oanline pleyers</string>
+  <string name="success">Makkit weel</string>
+  <string name="no">Naw</string>
+  <string name="yes">Aye</string>
+  <string name="posts">Posts</string>
+  <string name="user">Uiser</string>
   <string name="invalidAuthenticationCode">Wrangous authentication code</string>
+  <string name="newPassword">New trystwird</string>
+  <string name="newPasswordAgain">New trystwird (again)</string>
+  <string name="newPasswordsDontMatch">The new trystwirds dinnae confeer</string>
+  <string name="learnMenu">Lear</string>
+  <string name="studyMenu">Muise</string>
+  <string name="practice">Practeese</string>
+  <string name="community">Community</string>
+  <string name="tools">Tuils</string>
+  <string name="watch">Leuk tae</string>
   <string name="aboutX">Aboot %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, appen-soorce chess server.</string>
   <string name="really">by fegs</string>
+  <string name="create">Creaut</string>
   <string name="readAboutOur">Read aboot oor %s.</string>
+  <string name="withNobody">Wae naebody</string>
+  <string name="withFriends">Wae freends</string>
+  <string name="withEverybody">Wae aebody</string>
+  <string name="kidMode">Bairn mode</string>
+  <string name="abortTheGame">Misgae gemm</string>
 </resources>
