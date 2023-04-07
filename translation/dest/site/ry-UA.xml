@@ -120,6 +120,7 @@
   <string name="cpus">Ядер</string>
   <string name="memory">Памнять</string>
   <string name="infiniteAnalysis">Бесконечный аналіз</string>
+  <string name="removesTheDepthLimit">Знимат ограниченя на глубокость аналізу, ваш компютор зачне гучати май</string>
   <string name="blunder">Хыба</string>
   <string name="mistake">Захыб</string>
   <string name="inaccuracy">Неточность</string>
@@ -171,6 +172,7 @@
   <string name="computersAreNotAllowedToPlay">Заказано бавити, хоснувучи даколи шахматні проґрамы ай абсолутно хоснувучи їх у бавцї. Не мож такой хосновати базы даных ай помуч другых бавлячув. Не чиніт повно акаунтув, ото може привести од блокованьови.</string>
   <string name="games">Бавкы</string>
   <string name="forum">Форум</string>
+  <string name="xPostedInForumY">%1$s написав уповістку у %2$s</string>
   <string name="latestForumPosts">Послїдня публікація на форумі</string>
   <string name="players">Бавлячі</string>
   <string name="friends">Цімборы</string>
@@ -217,6 +219,7 @@
   <string name="passwordReset">Зверженя паролы</string>
   <string name="forgotPassword">Забыли сьте паролу?</string>
   <string name="error.weakPassword">Сися парола дуже легка, ї дуже просто угадати.</string>
+  <string name="error.namePassword">Не хоснуйте своє имня таги паролу.</string>
   <string name="blankedPassword">Вы хосновали таку паролу на другому сайтови, из того сайту ся стало протїканя інформації. Обы обеспечити безопасность свого Lichess акаунту, захоснуйте другу паролу. Дякуєме за розуміня.</string>
   <string name="youAreLeavingLichess">Вы лишаєте Lichess</string>
   <string name="neverTypeYourPassword">Ниґда не уводьте свою паролу Lichess дись инде!</string>
@@ -242,6 +245,11 @@
   <string name="accountRegisteredWithoutEmail">Акаунт %s зареґістрованый без почты.</string>
   <string name="rank">Ранґ</string>
   <string name="rankX">Місто: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Місто ся обновлят штоминутно</item>
+    <item quantity="few">Місто ся обновлят кажді %s минуты</item>
+    <item quantity="other">Місто ся обновлят кажді %s минуты</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s задача</item>
     <item quantity="few">%s задачі</item>
@@ -261,11 +269,16 @@
   <string name="drawOfferCanceled">Понука ремізы не прията</string>
   <string name="whiteOffersDraw">Білі понукувут ремізу</string>
   <string name="blackOffersDraw">Чорні понукувут ремізу</string>
+  <string name="whiteDeclinesDraw">Білі одвергли ремізу</string>
+  <string name="blackDeclinesDraw">Чорні одвергли ремізу</string>
   <string name="yourOpponentOffersADraw">Ваш противник понукує ремізу</string>
   <string name="accept">Прияти</string>
   <string name="decline">Одхылити</string>
+  <string name="playingRightNow">Бавит ся тепирь</string>
+  <string name="eventInProgress">Бавит ся тепирь</string>
   <string name="finished">Довершеный</string>
   <string name="finishesX">кончит ся %s</string>
+  <string name="abortGame">Одмінити бавку</string>
   <string name="gameAborted">Бавка одмінена</string>
   <string name="standard">Прості шахматы</string>
   <string name="unlimited">Без контролу</string>
@@ -274,6 +287,7 @@
   <string name="rated">Рейтінґова</string>
   <string name="casualTournament">Цімборськый</string>
   <string name="ratedTournament">Рейтінґова</string>
+  <string name="thisGameIsRated">Бавка на рейтінґ</string>
   <string name="rematch">Квітованя</string>
   <string name="rematchOfferSent">Понука реванша загната</string>
   <string name="rematchOfferAccepted">Понука реванша прията</string>
@@ -285,8 +299,14 @@
   <string name="play">Бавити</string>
   <string name="inbox">Приходячі</string>
   <string name="chatRoom">Чет</string>
+  <string name="loginToChat">Зайдіт, обы хосновати чет</string>
+  <string name="youHaveBeenTimedOut">Чет на час неприступный для вас.</string>
+  <string name="spectatorRoom">Чет позирачув</string>
+  <string name="composeMessage">Написати уповістку</string>
   <string name="subject">Тема</string>
   <string name="send">Загнати</string>
+  <string name="incrementInSeconds">Придача секунд на ход</string>
+  <string name="freeOnlineChess">Задарні Онлайн Шахматы</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтінґова</item>
     <item quantity="few">%s рейтінґові</item>
@@ -314,8 +334,15 @@
   </plurals>
   <string name="exportGames">Стерьхати бавкы</string>
   <string name="ratingRange">Рейтінґ противника</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Дати %s секунду</item>
+    <item quantity="few">Дати %s секунды</item>
+    <item quantity="other">Дати %s секунд</item>
+  </plurals>
   <string name="thisAccountViolatedTos">Сись бавляч нарушив правила хоснованя Lichess</string>
+  <string name="openingExplorerAndTablebase">Зберька дебютув &amp; ай ендшпілюв</string>
   <string name="takeback">Вернути ход</string>
+  <string name="proposeATakeback">Попросити вернути ход</string>
   <string name="takebackPropositionSent">Верненя хода загнато</string>
   <string name="takebackPropositionDeclined">Верненя хода одхылено</string>
   <string name="takebackPropositionAccepted">Верненя хода приято</string>
@@ -517,6 +544,11 @@
   <string name="askYourChessTeacherAboutLiftingKidMode">Ваш акаунт корманованый. Попросіт выключити вашого учителя вам дїтськый режім.</string>
   <string name="security">Безопасность</string>
   <string name="sessions">Сесії</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Приступно на %s бисїді!</item>
+    <item quantity="few">Приступно на %s бисїдох!</item>
+    <item quantity="other">Приступно на %s бисїдох!</item>
+  </plurals>
   <string name="lobby">Чекарня</string>
   <string name="anonymous">Анонім</string>
   <string name="language">Бисїда</string>
@@ -574,6 +606,7 @@
 Вы можете хосновати %s для учиненя позіції FEN, а пак вписати ї туй. 
 Лишіт поле пустым, бы бавкы зачинали ся из простої позіції.</string>
   <string name="simulFeaturedHelp">Указовати ваш сеанс на %s. Выключіт для личных сеансув.</string>
+  <string name="markdownAvailable">%s приступный для росшыреного форматованя.</string>
   <string name="noChat">Без чета</string>
   <string name="closedAccountChangedMind">Кідь сьте закрыли свуй акаунт, а з того часу сьте передумали, є у вас лем єдна можность го вернути.</string>
   <string name="cantDoThisTwice">Кідь другый раз закрыєте акаунт, уже го не вернете.</string>
