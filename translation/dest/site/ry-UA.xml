@@ -93,15 +93,23 @@
     <item quantity="few">Мат у %s пувхода</item>
     <item quantity="other">Мат у %s пувходув</item>
   </plurals>
+  <string name="dtzWithRounding">Правило 50: реміза ся обявлят, кідь за 50 ходув ани єден пішак не зробив ход, тай ани єдна фіґура не была взята</string>
   <string name="noGameFound">Бавок не найдено</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варта уключити булше бавок у штімованях?</string>
   <string name="openings">Дебюты</string>
   <string name="openingExplorer">Зберька дебютув</string>
   <string name="openingEndgameExplorer">Дебютна/ендшпільова зберька</string>
+  <string name="xOpeningExplorer">%s зберька дебютув</string>
+  <string name="winPreventedBy50MoveRule">Не уйде уграти через правило 50</string>
+  <string name="lossSavedBy50MoveRule">Не прыйграєте через правило 50</string>
+  <string name="winOr50MovesByPriorMistake">Уграш вадь правило 50 ходув</string>
+  <string name="lossOr50MovesByPriorMistake">Пораженя вадь правило 50 ходув</string>
   <string name="unknownDueToRounding">Уграш/прыйграш бізувный лем тоды, коли мусайна поступность ходув была довершена из момента послїднього взятя фіґуры вадь хода пішака позад можного кругленя значень DTZ у базах Syzygy.</string>
   <string name="allSet">Фунґує!</string>
   <string name="importPgn">Перенести PGN</string>
   <string name="delete">Стерти</string>
   <string name="deleteThisImportedGame">Стерти сю перенесену бавку?</string>
+  <string name="replayMode">Позирати у повторі</string>
   <string name="realtimeReplay">Таги у бавцї</string>
   <string name="byCPL">По страченым воякам</string>
   <string name="openStudy">Одкрыти штудію</string>
