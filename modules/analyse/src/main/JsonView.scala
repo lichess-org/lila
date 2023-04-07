@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.{ Ply, Color }
+import chess.{ Ply, Color, ByColor }
 import play.api.libs.json.*
 
 import lila.game.Game
@@ -34,7 +34,7 @@ object JsonView:
         })
     })
 
-  def player(pov: Game.SideAndStart)(analysis: Analysis, accuracy: Option[Color.Map[AccuracyPercent]]) =
+  def player(pov: Game.SideAndStart)(analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =
     analysis.summary
       .find(_._1 == pov.color)
       .map(_._2)
@@ -54,7 +54,7 @@ object JsonView:
       "black" -> player(Game.SideAndStart(Color.black, startedAtPly))(analysis, accuracy)
     )
 
-//   def bothPlayers(pov: Game.SideAndStart, analysis: Analysis, accuracy: Option[Color.Map[AccuracyPercent]]) =
+//   def bothPlayers(pov: Game.SideAndStart, analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =
 //     Json.obj(
 //       "id"    -> analysis.id,
 //       "white" -> player(pov.copy(color = chess.White))(analysis, accuracy),

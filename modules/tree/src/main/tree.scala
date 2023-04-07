@@ -175,10 +175,8 @@ object Node:
   // put all that shit somewhere else
   private given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
-      Crazyhouse.storableRoles.flatMap { role =>
-        Some(v.roles.count(role ==)).filter(0 <).map { count =>
-          role.name -> JsNumber(count)
-        }
+      v.values.map { (role, count) =>
+        role.name -> JsNumber(count)
       }
     )
   }

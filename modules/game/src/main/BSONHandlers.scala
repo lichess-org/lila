@@ -14,6 +14,7 @@ import chess.{
   UnmovedRooks
 }
 import chess.format.Fen
+import chess.bitboard.Bitboard
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
 
@@ -21,6 +22,7 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.common.Days
 import scala.annotation.nowarn
+import chess.ByColor
 
 object BSONHandlers:
 
@@ -49,20 +51,17 @@ object BSONHandlers:
           val (white, black) = {
             r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
           }.partition(_ is chess.White)
-          Pockets(
+          ByColor(
             white = Pocket(white.map(_.role)),
             black = Pocket(black.map(_.role))
           )
         },
-        promoted = r.str("t").view.flatMap(chess.Pos.fromChar(_)).to(Set)
+        promoted = Bitboard(r.str("t").view.flatMap(chess.Pos.fromChar(_)))
       )
     def writes(@nowarn w: BSON.Writer, o: Crazyhouse.Data) =
       BSONDocument(
-        "p" -> {
-          o.pockets.white.roles.map(_.forsythUpper).mkString +
-            o.pockets.black.roles.map(_.forsyth).mkString
-        },
-        "t" -> o.promoted.map(_.asChar).mkString
+        "p" -> o.pockets.forsyth,
+        "t" -> o.promoted.squares.map(_.asChar).mkString
       )
 
   private[game] given gameDrawOffersHandler: BSONHandler[GameDrawOffers] = tryHandler[GameDrawOffers](

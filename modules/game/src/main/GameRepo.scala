@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.{ Color, Status }
+import chess.{ Color, Status, ByColor }
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
@@ -313,7 +313,7 @@ final class GameRepo(val coll: Coll)(using Executor):
         holdAlertProjection
       ) map {
         _.fold(Player.HoldAlert.emptyMap) { doc =>
-          Color.Map(white = holdAlertOf(doc, chess.White), black = holdAlertOf(doc, chess.Black))
+          ByColor(white = holdAlertOf(doc, chess.White), black = holdAlertOf(doc, chess.Black))
         }
       }
 

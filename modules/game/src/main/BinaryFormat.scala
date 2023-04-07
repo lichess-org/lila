@@ -113,7 +113,7 @@ object BinaryFormat:
             Clock(
               config = config,
               color = color,
-              players = Color.Map(
+              players = ByColor(
                 ClockPlayer
                   .withConfig(config)
                   .copy(berserk = whiteBerserk)

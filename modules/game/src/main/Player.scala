@@ -1,7 +1,7 @@
 package lila.game
 
 import cats.syntax.all.*
-import chess.{ Ply, Color }
+import chess.{ Ply, Color, ByColor }
 
 import lila.user.User
 
@@ -135,8 +135,8 @@ object Player:
   case class HoldAlert(ply: Ply, mean: Int, sd: Int):
     def suspicious = HoldAlert.suspicious(ply)
   object HoldAlert:
-    type Map = Color.Map[Option[HoldAlert]]
-    val emptyMap: Map                 = Color.Map(none, none)
+    type Map = ByColor[Option[HoldAlert]]
+    val emptyMap: Map                 = ByColor(none)
     def suspicious(ply: Ply): Boolean = ply >= 16 && ply <= 40
     def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
 
