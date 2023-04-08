@@ -346,10 +346,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       if (streak && win) streak.onComplete(true, res.next);
     }
     redraw();
-    if (!next) {
-      alert('No more puzzles available! Try another theme.');
-      lichess.redirect('/training/themes');
-    }
+    if (!next) lichess.redirect('/training/dashboard/30/dashboard');
   }
 
   const isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
