@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h, Hooks } from 'snabbdom';
 import { bind } from './snabbdom';
 
 export interface ToggleSettings {
@@ -35,3 +35,12 @@ export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void) {
     ]
   );
 }
+
+export const rangeConfig = (read: () => number, write: (value: number) => void): Hooks => ({
+  insert: vnode => {
+    const el = vnode.elm as HTMLInputElement;
+    el.value = '' + read();
+    el.addEventListener('input', _ => write(parseInt(el.value)));
+    el.addEventListener('mouseout', _ => el.blur());
+  },
+});
