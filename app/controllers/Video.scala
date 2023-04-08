@@ -1,32 +1,31 @@
 package controllers
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.video.{ Filter, UserControl, View }
-import views._
+import views.*
 
-final class Video(env: Env) extends LilaController(env) {
+final class Video(env: Env) extends LilaController(env):
 
   private def api = env.video.api
 
-  private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] = {
+  private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] =
     val reqTags = get("tags") ?? (_.split('/').toList.map(_.trim.toLowerCase))
     api.tag.paths(reqTags) map { tags =>
       UserControl(
         filter = Filter(reqTags),
         tags = tags,
         query = get("q"),
-        bot = HTTPRequest isCrawler ctx.req
+        crawler = HTTPRequest isCrawler ctx.req
       )
     } flatMap f
-  }
 
   def index =
     Open { implicit ctx =>
       pageHit
       WithUserControl { control =>
-        control.query match {
+        control.query match
           case Some(query) =>
             api.video.search(ctx.me, query, getInt("page") | 1) map { videos =>
               Ok(html.video.search(videos, control))
@@ -36,7 +35,6 @@ final class Video(env: Env) extends LilaController(env) {
               api.video.count.apply map { case (videos, count) =>
                 Ok(html.video.index(videos, count, control))
               }
-        }
       }
     }
 
@@ -73,4 +71,3 @@ final class Video(env: Env) extends LilaController(env) {
         }
       }
     }
-}

@@ -28,6 +28,8 @@ import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
+import { uciToMove } from 'chessground/util';
+import * as Prefs from 'common/prefs';
 
 import {
   RoundOpts,
@@ -83,6 +85,8 @@ export default class RoundController {
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
+  keyboardHelp: boolean = location.hash === '#keyboard';
+
   private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
@@ -144,7 +148,7 @@ export default class RoundController {
       this.redraw();
     });
 
-    lichess.pubsub.on('sound_set', set => {
+    lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
         lichess.loadScript('javascripts/music/play.js').then(() => {
           this.music = lichess.playMusic();
@@ -153,11 +157,9 @@ export default class RoundController {
     });
 
     lichess.pubsub.on('zen', () => {
-      if (!this.data.player.spectator) {
-        const zen = $('body').toggleClass('zen').hasClass('zen');
-        window.dispatchEvent(new Event('resize'));
-        xhr.setZen(zen);
-      }
+      const zen = $('body').toggleClass('zen').hasClass('zen');
+      window.dispatchEvent(new Event('resize'));
+      xhr.setZen(zen);
     });
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
@@ -268,7 +270,7 @@ export default class RoundController {
     const s = this.stepAt(ply),
       config: CgConfig = {
         fen: s.fen,
-        lastMove: util.uci2move(s.uci),
+        lastMove: uciToMove(s.uci),
         check: !!s.check,
         turnColor: this.ply % 2 === 0 ? 'white' : 'black',
       };
@@ -426,7 +428,7 @@ export default class RoundController {
       else {
         // This block needs to be idempotent, even for castling moves in
         // Chess960.
-        const keys = util.uci2move(o.uci)!,
+        const keys = uciToMove(o.uci)!,
           pieces = this.chessground.state.pieces;
         if (
           !o.castle ||
@@ -484,7 +486,8 @@ export default class RoundController {
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
-        if (!this.chessground.playPremove() && !this.playPredrop()) {
+        if (this.nvui) this.nvui.playPremove(this);
+        else if (!this.chessground.playPremove() && !this.playPredrop()) {
           this.promotion.cancel();
           this.showYourMoveNotification();
         }
@@ -553,7 +556,13 @@ export default class RoundController {
     if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
       lichess.sound.play(key);
-      if (key != 'victory' && d.game.turns > 6 && !d.tournament && !d.swiss && lichess.storage.get('courtesy') == '1')
+      if (
+        key != 'victory' &&
+        d.game.turns > 6 &&
+        !d.tournament &&
+        !d.swiss &&
+        lichess.storage.boolean('courtesy').get()
+      )
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
     if (d.crazyhouse) crazyEndHook();
@@ -603,7 +612,10 @@ export default class RoundController {
   };
 
   private corresClockTick = (): void => {
-    if (this.corresClock && game.playable(this.data)) this.corresClock.tick(this.data.game.player);
+    if (this.corresClock && game.playable(this.data)) {
+      this.corresClock.tick(this.data.game.player);
+      this.redraw();
+    }
   };
 
   private setQuietMode = () => {
@@ -611,9 +623,7 @@ export default class RoundController {
     const is = this.isPlaying();
     if (was !== is) {
       lichess.quietMode = is;
-      $('body')
-        .toggleClass('playing', !this.data.player.spectator)
-        .toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+      $('body').toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
     }
   };
 
@@ -763,22 +773,14 @@ export default class RoundController {
 
         if (d.crazyhouse) crazyInit(this);
 
-        window.addEventListener('beforeunload', e => {
-          const d = this.data;
-          if (
-            lichess.unload.expected ||
-            this.nvui ||
-            !game.playable(d) ||
-            !d.clock ||
-            d.opponent.ai ||
-            this.isSimulHost()
-          )
-            return;
-          this.socket.send('bye2');
-          const msg = 'There is a game in progress!';
-          (e || window.event).returnValue = msg;
-          return msg;
-        });
+        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost())
+          window.addEventListener('beforeunload', e => {
+            if (lichess.unload.expected || !this.isPlaying()) return;
+            this.socket.send('bye2');
+            const msg = 'There is a game in progress!';
+            (e || window.event).returnValue = msg;
+            return msg;
+          });
 
         if (!this.nvui && d.pref.submitMove) {
           window.Mousetrap.bind('esc', () => {

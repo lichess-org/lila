@@ -3,17 +3,17 @@ package views.html.mod
 import play.api.i18n.Lang
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
 
 import controllers.routes
 
-object gamify {
+object gamify:
 
-  def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(implicit
+  def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(using
       ctx: Context
-  ) = {
+  ) =
     val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
       tr(cls := "year")(
@@ -31,7 +31,7 @@ object gamify {
       main(cls := "page-menu")(
         views.html.mod.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content index box")(
-          h1(title),
+          h1(cls := "box__top")(title),
           div(cls := "champs")(
             champion(leaderboards.daily.headOption, "reward1", Period.Day),
             champion(leaderboards.weekly.headOption, "reward2", Period.Week),
@@ -59,11 +59,10 @@ object gamify {
         )
       )
     }
-  }
 
-  def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(implicit
+  def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(using
       ctx: Context
-  ) = {
+  ) =
     val title = s"Moderators of the ${period.name}"
     views.html.base.layout(
       title = title,
@@ -72,9 +71,11 @@ object gamify {
       main(cls := "page-menu")(
         views.html.mod.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content box")(
-          h1(
-            a(href := routes.Mod.gamify, dataIcon := ""),
-            title
+          boxTop(
+            h1(
+              a(href := routes.Mod.gamify, dataIcon := ""),
+              title
+            )
           ),
           div(cls := "period")(
             table(cls := "slist")(
@@ -102,9 +103,8 @@ object gamify {
         )
       )
     }
-  }
 
-  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(implicit
+  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(using
       lang: Lang
   ) =
     div(cls := "champ")(
@@ -137,4 +137,3 @@ object gamify {
         " leaderboard"
       )
     )
-}

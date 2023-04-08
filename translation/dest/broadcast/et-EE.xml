@@ -3,16 +3,28 @@
   <string name="broadcasts">Otseülekanded</string>
   <string name="liveBroadcasts">Otseülekanded turniirilt</string>
   <string name="newBroadcast">Uus otseülekanne</string>
+  <string name="addRound">Lisa voor</string>
   <string name="ongoing">Käimas</string>
   <string name="upcoming">Tulemas</string>
   <string name="completed">Lõppenud</string>
-  <string name="roundNumber">Partii number</string>
+  <string name="roundName">Vooru nimi</string>
+  <string name="roundNumber">Vooru number</string>
+  <string name="tournamentName">Turniiri nimi</string>
+  <string name="tournamentDescription">Lühike turniiri kirjeldus</string>
   <string name="fullDescription">Sündmuse täielik kirjeldus</string>
-  <string name="fullDescriptionHelp">Valikuline otseülekande pikk kirjeldus. %1$s märgistus on saadaval. Pikkus peab olema maksimaalselt %2$s tähemärki.</string>
+  <string name="fullDescriptionHelp">Valikuline otseülekande kirjeldus. %1$s on saadaval. Pikkus peab olema maksimaalselt %2$s tähemärki.</string>
   <string name="sourceUrlOrGameIds">Allika URL või mängu ID-d</string>
   <string name="sourceUrlHelp">URL, kust Lichess saab PGN-i värskenduse. See peab olema Internetist kättesaadav.</string>
   <string name="gameIdsHelp">Või siis on võimalik lisada 64 Lichess mängu ID-t, vahedega eraldatud.</string>
   <string name="startDate">Alguskuupäev sinu ajavööndis</string>
   <string name="startDateHelp">Valikuline, kui tead millal sündmus algab</string>
   <string name="credits">Viita allikale</string>
+  <string name="resetRound">Lähtesta see voor</string>
+  <string name="deleteRound">Kustuta see voor</string>
+  <string name="broadcastUrl">Otseülekande URL</string>
+  <string name="currentRoundUrl">Preaguse vooru URL</string>
+  <string name="currentGameUrl">Praeguse mängu URL</string>
+  <string name="downloadAllRounds">Lae alla kõik voorud</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Kustuta lõplikult voor ja selle mängud.</string>
+  <string name="deleteAllGamesOfThisRound">Kustuta kõik mängud sellest voorust. Allikas peab olema aktiveeritud nende taastamiseks.</string>
 </resources>

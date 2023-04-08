@@ -1,18 +1,15 @@
 package lila.api
 
 import akka.stream.Materializer
-import akka.stream.scaladsl._
-import org.joda.time.DateTime
+import akka.stream.scaladsl.*
 import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 
-import lila.chat.Chat
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.Game
+import lila.streamer.Streamer
 import lila.user.User
+import lila.coach.Coach
 
 final class PersonalDataExport(
     securityEnv: lila.security.Env,
@@ -24,14 +21,15 @@ final class PersonalDataExport(
     relationEnv: lila.relation.Env,
     userRepo: lila.user.UserRepo,
     ublogApi: lila.ublog.UblogApi,
-    picfitUrl: lila.memo.PicfitUrl,
-    mongoCacheApi: lila.memo.MongoCache.Api
-)(implicit ec: ExecutionContext, mat: Materializer) {
+    streamerApi: lila.streamer.StreamerApi,
+    coachApi: lila.coach.CoachApi,
+    picfitUrl: lila.memo.PicfitUrl
+)(using Executor, Materializer):
 
   private val lightPerSecond = 60
   private val heavyPerSecond = 30
 
-  def apply(user: User): Source[String, _] = {
+  def apply(user: User): Source[String, ?] =
 
     val intro =
       Source.futureSource {
@@ -59,13 +57,61 @@ final class PersonalDataExport(
     val followedUsers =
       Source.futureSource {
         relationEnv.api.fetchFollowing(user.id) map { userIds =>
-          Source(List(textTitle("Followed players")) ++ userIds)
+          Source(List(textTitle("Followed players")) ++ userIds.map(_.value))
+        }
+      }
+
+    val streamer = Source.futureSource {
+      streamerApi.find(user) map {
+        _.map(_.streamer).?? { s =>
+          List(textTitle("Streamer profile")) :::
+            List(
+              "name"     -> s.name,
+              "image"    -> s.picture.??(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
+              "headline" -> s.headline.??(_.value),
+              "description" -> s.description.??(_.value),
+              "twitch"      -> s.twitch.??(_.fullUrl),
+              "youTube"     -> s.youTube.??(_.fullUrl),
+              "createdAt"   -> textDate(s.createdAt),
+              "updatedAt"   -> textDate(s.updatedAt),
+              "seenAt"      -> textDate(s.seenAt),
+              "liveAt"      -> s.liveAt.??(textDate)
+            ).map { case (k, v) =>
+              s"$k: $v"
+            }
+        }
+      } map Source.apply
+    }
+
+    val coach = Source.futureSource {
+      coachApi.find(user) map {
+        _.map(_.coach).?? { c =>
+          List(textTitle("Coach profile")) :::
+            c.profile.textLines :::
+            List(
+              "image"     -> c.picture.??(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
+              "languages" -> c.languages.mkString(", "),
+              "createdAt" -> textDate(c.createdAt),
+              "updatedAt" -> textDate(c.updatedAt)
+            ).map { case (k, v) =>
+              s"$k: $v"
+            }
+        }
+      } map Source.apply
+    }
+
+    val coachReviews =
+      Source.futureSource {
+        coachApi.reviews.allByPoster(user) map { reviews =>
+          Source(List(textTitle("Coach reviews")) ::: reviews.list.map { r =>
+            s"${r.coachId}: ${r.text}\n"
+          })
         }
       }
 
     val forumPosts =
       Source(List(textTitle("Forum posts"))) concat
-        forumEnv.postApi.allByUser(user.id).documentSource().throttle(heavyPerSecond, 1 second).map { p =>
+        forumEnv.postRepo.allByUserCursor(user).documentSource().throttle(heavyPerSecond, 1 second).map { p =>
           s"${textDate(p.createdAt)}\n${p.text}$bigSep"
         }
 
@@ -80,8 +126,8 @@ final class PersonalDataExport(
 
     def gameChatsLookup(lookup: Bdoc) =
       gameEnv.gameRepo.coll
-        .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
-          import framework._
+        .aggregateWith[Bdoc](readPreference = temporarilyPrimary) { framework =>
+          import framework.*
           List(
             Match($doc(Game.BSONFields.playerUids -> user.id)),
             Project($id(true)),
@@ -94,7 +140,7 @@ final class PersonalDataExport(
           )
         }
         .documentSource()
-        .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
+        .map { doc => doc.string("l").??(_.drop(user.id.value.size + 1)) }
         .throttle(heavyPerSecond, 1 second)
 
     val privateGameChats =
@@ -111,13 +157,11 @@ final class PersonalDataExport(
     val spectatorGameChats =
       Source(List(textTitle("Spectator game chat messages"))) concat
         gameChatsLookup(
-          $doc(
-            "$lookup" -> $doc(
-              "from"     -> chatEnv.coll.name,
-              "as"       -> "chat",
-              "let"      -> $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
-              "pipeline" -> $arr($doc("$match" -> $doc("$expr" -> $doc("$eq" -> $arr("$_id", "$$id")))))
-            )
+          $lookup.pipelineFull(
+            from = chatEnv.coll.name,
+            as = "chat",
+            let = $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
+            pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
           )
         )
 
@@ -125,20 +169,18 @@ final class PersonalDataExport(
       Source(List(textTitle("Game notes"))) concat
         gameEnv.gameRepo.coll
           .aggregateWith[Bdoc](
-            readPreference = ReadPreference.secondaryPreferred
+            readPreference = temporarilyPrimary
           ) { framework =>
-            import framework._
+            import framework.*
             List(
               Match($doc(Game.BSONFields.playerUids -> user.id)),
               Project($id(true)),
               PipelineOperator(
-                $doc(
-                  "$lookup" -> $doc(
-                    "from"     -> roundEnv.noteApi.collName,
-                    "as"       -> "note",
-                    "let"      -> $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
-                    "pipeline" -> $arr($doc("$match" -> $doc("$expr" -> $doc("$eq" -> $arr("$_id", "$$id")))))
-                  )
+                $lookup.pipelineFull(
+                  from = roundEnv.noteApi.collName,
+                  as = "note",
+                  let = $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
+                  pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
                 )
               ),
               Unwind("note"),
@@ -162,7 +204,7 @@ final class PersonalDataExport(
               "intro"  -> post.intro,
               "body"   -> post.markdown,
               "image"  -> post.image.??(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
-              "topics" -> post.topics.map(_.value).mkString(", ")
+              "topics" -> post.topics.mkString(", ")
             ).map { case (k, v) =>
               s"$k: $v"
             }.mkString("\n") + bigSep
@@ -171,10 +213,13 @@ final class PersonalDataExport(
 
     val outro = Source(List(textTitle("End of data export.")))
 
-    List(
+    List[Source[String, _]](
       intro,
       connections,
       followedUsers,
+      streamer,
+      coach,
+      coachReviews,
       ublogPosts,
       forumPosts,
       privateMessages,
@@ -184,7 +229,6 @@ final class PersonalDataExport(
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
       .keepAlive(15 seconds, () => " ")
-  }
 
   private val bigSep = "\n------------------------------------------\n"
 
@@ -192,4 +236,3 @@ final class PersonalDataExport(
 
   private val englishDateTimeFormatter = DateTimeFormat forStyle "MS"
   private def textDate(date: DateTime) = englishDateTimeFormatter print date
-}

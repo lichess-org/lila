@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">KKK</string>
-  <string name="frequentlyAskedQuestions">Korduma kippuvad küsimused</string>
+  <string name="frequentlyAskedQuestions">Korduma Kippuvad Küsimused</string>
   <string name="whyIsLichessCalledLichess">Miks Lichessi nimi on Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess on sõnade live/light/libre ja chess kombinatsioon. Seda hääldatakse %1$s.</string>
   <string name="leechess">li-tšes</string>
   <string name="hearItPronouncedBySpecialist">Kuula kuidas asjatundja seda hääldab.</string>
+  <string name="howCanIContributeToLichess">Kuidas ma saan toetada Lichessi?</string>
+  <string name="breakdownOfOurCosts">kokkuvõte meie kuludest</string>
   <string name="otherWaysToHelp">muud võimalused aidata</string>
   <string name="fairPlay">Aus mäng</string>
   <string name="howCanIBecomeModerator">Kuidas ma saan moderaatoriks?</string>
+  <string name="fairPlayPage">ausa mängu lehekülg</string>
   <string name="gameplay">Mängimine</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="fideHandbookX">FIDE käsiraamat %s</string>
   <string name="goodIntroduction">hea sissejuhatus</string>
+  <string name="watchIMRosenCheckmate">Vaata kuidas rahvusvaheline meister Eric Rosen matistab %s.</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
   <string name="threefoldRepetitionLowerCase">kolmekordne kordus</string>
+  <string name="positions">positsioonid</string>
+  <string name="accounts">Kasutajatunnused</string>
+  <string name="noUpperCaseDot">Ei.</string>
   <string name="canIChangeMyUsername">Kas ma saan muuta oma kasutajanime?</string>
   <string name="usernamesCannotBeChanged">Ei, kasutajanime ei või muuta praktilistel ja tehnoloogilistel põhjustel. Kasutajanimed kajastuvad liiga mitmes kohas: andmebaasid, ekspordid, logid ja inimeste meeltes. Võimalik on muuta tähtede suurust ühe korra.</string>
   <string name="lichessRatings">Lichess reitingud</string>

@@ -1,12 +1,11 @@
 package lila.db
 
 import akka.actor.CoordinatedShutdown
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import com.typesafe.config.Config
 import play.api.Configuration
-import reactivemongo.api._
-import scala.concurrent.ExecutionContext
+import reactivemongo.api.*
 
 import lila.common.Lilakka
 
@@ -17,24 +16,24 @@ trait YoloDb
 final class Env(
     appConfig: Configuration,
     shutdown: CoordinatedShutdown
-)(implicit ec: ExecutionContext) {
+)(using Executor):
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
 
-  lazy val mainDb = new Db(
+  lazy val mainDb = Db(
     name = "main",
     uri = appConfig.get[String]("mongodb.uri"),
     driver = driver
   )
 
-  lazy val yoloDb = new AsyncDb(
+  lazy val yoloDb = AsyncDb(
     name = "yolo",
     uri = appConfig.get[String]("mongodb.yolo.uri"),
     driver = driver
   ).taggedWith[YoloDb]
 
   def asyncDb(name: String, uri: String) =
-    new AsyncDb(
+    AsyncDb(
       name = name,
       uri = uri,
       driver = driver
@@ -43,4 +42,3 @@ final class Env(
   Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Closing mongodb driver") { () =>
     driver.close()
   }
-}

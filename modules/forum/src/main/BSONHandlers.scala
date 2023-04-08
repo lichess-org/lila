@@ -1,14 +1,13 @@
 package lila.forum
 
-import lila.db.dsl._
-import reactivemongo.api.bson._
+import lila.db.dsl.given
+import reactivemongo.api.bson.*
 
-private object BSONHandlers {
+private object BSONHandlers:
 
-  implicit val CategBSONHandler = Macros.handler[Categ]
+  given BSONDocumentHandler[ForumCateg] = Macros.handler
 
-  implicit val PostEditBSONHandler = Macros.handler[OldVersion]
-  implicit val PostBSONHandler     = Macros.handler[Post]
+  given BSONDocumentHandler[OldVersion] = Macros.handler
+  given BSONDocumentHandler[ForumPost]  = Macros.handler
 
-  implicit val TopicBSONHandler = Macros.handler[Topic]
-}
+  given BSONDocumentHandler[ForumTopic] = Macros.handler

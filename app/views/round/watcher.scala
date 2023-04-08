@@ -4,12 +4,12 @@ package round
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object watcher {
+object watcher:
 
   def apply(
       pov: Pov,
@@ -20,7 +20,7 @@ object watcher {
       userTv: Option[lila.user.User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(implicit ctx: Context) = {
+  )(using ctx: Context) =
 
     val chatJson = chatOption map { c =>
       chat.json(
@@ -41,12 +41,12 @@ object watcher {
         roundNvuiTag,
         roundTag,
         embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
-          Json.obj(
-            "data" -> data,
-            "i18n" -> jsI18n(pov.game),
-            "chat" -> chatJson
-          )
-        )})""")
+            Json.obj(
+              "data" -> data,
+              "i18n" -> jsI18n(pov.game),
+              "chat" -> chatJson
+            )
+          )})""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false
@@ -56,14 +56,13 @@ object watcher {
           bits.side(pov, data, tour, simul, userTv, bookmarked),
           chatOption.map(_ => chat.frag)
         ),
-        bits.roundAppPreload(pov, controls = false),
+        bits.roundAppPreload(pov),
         div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
         div(cls := "round__underchat")(bits underchat pov.game)
       )
     )
-  }
 
-  def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(implicit
+  def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Epd], pgn: chess.format.pgn.Pgn)(using
       ctx: Context
   ) =
     bits.layout(
@@ -86,4 +85,3 @@ object watcher {
         )
       )
     )
-}

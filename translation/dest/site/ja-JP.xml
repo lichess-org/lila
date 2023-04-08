@@ -58,6 +58,8 @@
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">サーバ解析を使用中</string>
   <string name="loadingEngine">エンジン読み込み中…</string>
+  <string name="calculatingMoves">手を読んでいます…</string>
+  <string name="engineFailed">エンジン読み込みエラー</string>
   <string name="cloudAnalysis">クラウド解析</string>
   <string name="goDeeper">より深く</string>
   <string name="showThreat">狙いを表示</string>
@@ -65,7 +67,7 @@
   <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
   <string name="promoteVariation">変化を主手順にする</string>
   <string name="makeMainLine">主手順にする</string>
-  <string name="deleteFromHere">ここから削除</string>
+  <string name="deleteFromHere">これ以降を削除</string>
   <string name="forceVariation">変化として表示</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
@@ -90,6 +92,7 @@
   <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
+  <string name="openings">オープニング</string>
   <string name="openingExplorer">オープニング探索</string>
   <string name="openingEndgameExplorer">序盤／終盤エクスプローラー</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
@@ -147,6 +150,7 @@
   <string name="viewInFullSize">フルサイズで見る</string>
   <string name="logOut">ログアウト</string>
   <string name="signIn">ログイン</string>
+  <string name="rememberMe">次から自動ログイン</string>
   <string name="youNeedAnAccountToDoThat">アカウントが必要です</string>
   <string name="signUp">登録</string>
   <string name="computersAreNotAllowedToPlay">コンピューターの力を借りての対局は禁止されています。対局中にチェスエンジン、データベース、他人の助言は厳禁です。また、複数アカウントの使用も追放の可能性があります。</string>
@@ -184,12 +188,39 @@
   <string name="changeUsername">ユーザー名の変更</string>
   <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
+  <string name="signupUsernameHint">ユーザー名は無難なものにしてください。後で変えることはできないし、ユーザー名が不適切だとアカウントが閉鎖されます！</string>
+  <string name="signupEmailHint">この情報はパスワードのリセットにのみ使用します。</string>
   <string name="password">パスワード</string>
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
   <string name="email">メールアドレス</string>
   <string name="passwordReset">パスワードをリセットする</string>
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
+  <string name="error.weakPassword">このパスワードはありふれすぎていて簡単に破られます。</string>
+  <string name="error.namePassword">パスワードはユーザー名と同じにしないでください。</string>
+  <string name="blankedPassword">あなたは別のサイトで同じパスワードを使用し、そのサイトは侵入を受けています。 Lichess アカウントの安全性のため、新しいパスワードを設定してください。ご理解に感謝します。</string>
+  <string name="youAreLeavingLichess">Lichess から移動します</string>
+  <string name="neverTypeYourPassword">別のサイトで同じパスワードを使わないで！</string>
+  <string name="proceedToX">%s に移動する</string>
+  <string name="passwordSuggestion">他の人が提案したパスワードは使わないように。アカウントが乗っ取られるかもしれません。</string>
+  <string name="emailSuggestion">他の人が提案したメールアドレスは使わないように。アカウントが乗っ取られるかもしれません。</string>
+  <string name="emailConfirmHelp">確認メールについてのヘルプ</string>
+  <string name="emailConfirmNotReceived">サインアップしたのに確認メールが届きませんでしたか？</string>
+  <string name="whatSignupUsername">サインアップに使用したユーザー名は？</string>
+  <string name="usernameNotFound">この名前のユーザーは見つかりません：%s</string>
+  <string name="usernameCanBeUsedForNewAccount">このユーザー名を使って新しいアカウントが作れます</string>
+  <string name="emailSent">%s にメールを送信しました。</string>
+  <string name="emailCanTakeSomeTime">受信まで少しかかるかもしれません。</string>
+  <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
+  <string name="checkSpamFolder">またスパムフォルダに入ってしまう場合もあります。もしそうならスパムではないとマークしてください。</string>
+  <string name="emailForSignupHelp">どの手段もうまくいかない場合は、次のメールをこちらまで送信してください：</string>
+  <string name="copyTextToEmail">上のテキストをコピー＆ペーストして %s に送信します</string>
+  <string name="waitForSignupHelp">またこちらから連絡してサインアップ完了までお手伝いします。</string>
+  <string name="accountConfirmed">ユーザー %s の確認が完了しました。</string>
+  <string name="accountCanLogin">すぐに %s としてログインできます。</string>
+  <string name="accountConfirmationEmailNotNeeded">あなたには確認メールは必要ありません。</string>
+  <string name="accountClosed">アカウント %s は停止されました。</string>
+  <string name="accountRegisteredWithoutEmail">アカウント %s はメールアドレスなしで登録されています。</string>
   <string name="rank">ランク</string>
   <string name="rankX">ランク: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -314,6 +345,7 @@
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
   <string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
   <string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
+  <string name="startedStreaming">配信を開始</string>
   <string name="xStartedStreaming">%s が配信を開始</string>
   <string name="averageElo">平均レーティング</string>
   <string name="location">住所</string>
@@ -322,6 +354,8 @@
   <string name="apply">適用</string>
   <string name="save">保存</string>
   <string name="leaderboard">ランキング</string>
+  <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
+  <string name="gameAsGIF">GIF 形式の棋譜</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
@@ -331,6 +365,7 @@
   <string name="importGame">棋譜をインポート</string>
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
+  <string name="importGameCaveat">変化手順は消えます。残したい場合は研究を経由して PGN をインポートしてください。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s 局をインポート</item>
   </plurals>
@@ -396,6 +431,8 @@
   <string name="tournamentIsStarting">トーナメント開始</string>
   <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
+  <string name="pause">休む</string>
+  <string name="resume">再開する</string>
   <string name="youArePlaying">参加中！</string>
   <string name="winRate">勝率</string>
   <string name="berserkRate">バーサーク率</string>
@@ -430,6 +467,10 @@
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="oneUrlPerLine">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>
+  <string name="savingMoves">手の一時保存</string>
+  <string name="savingMovesHelp">あなたの指した手順は常にブラウザのキャッシュに保存されます。</string>
+  <string name="makeAStudy">永久保存や共有には「研究」機能をお使いください。</string>
+  <string name="clearSavedMoves">手をクリアする</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
   <string name="activePlayers">総対局数上位</string>
@@ -476,6 +517,8 @@
   <string name="blog">ブログ</string>
   <string name="notes">メモ</string>
   <string name="typePrivateNotesHere">自分用のメモ欄</string>
+  <string name="writeAPrivateNoteAboutThisUser">このユーザーについて自分用のメモを書く</string>
+  <string name="noNoteYet">まだメモはありません</string>
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
   <string name="incorrectPassword">パスワードが違います</string>
   <string name="invalidAuthenticationCode">無効な認証コード</string>
@@ -530,6 +573,7 @@
   <string name="community">コミュニティ</string>
   <string name="tools">ツール</string>
   <string name="increment">追加時間</string>
+  <string name="error.unknown">無効な値</string>
   <string name="error.required">この欄は入力必須です</string>
   <string name="error.email">このメールアドレスは無効です</string>
   <string name="error.email_acceptable">このメールアドレスは使用できません。確認してもう一度どうぞ。</string>
@@ -584,11 +628,14 @@
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
+  <string name="simulAddExtraTimePerPlayer">同時対局の参加者 1 人につき何分の形で自分の持時間を増やせます。</string>
+  <string name="simulHostExtraTimePerPlayer">ホスト延長時間（人数比例）</string>
   <string name="lichessTournaments">Lichess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
   <string name="averageCentipawnLoss">平均センチポーン差</string>
-  <string name="keyboardShortcuts">キーボード・ショートカット</string>
+  <string name="accuracy">正確度</string>
+  <string name="keyboardShortcuts">ショートカットキー</string>
   <string name="keyMoveBackwardOrForward">手を戻す/進める</string>
   <string name="keyGoToStartOrEnd">最初/最後に戻る</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
@@ -635,6 +682,7 @@
   <string name="kidMode">キッズモード</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">あなたのアカウントは管理されています。キッズモードの停止は講師に依頼してください。</string>
   <string name="enableKidMode">キッズモードを有効化</string>
   <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>
@@ -668,6 +716,7 @@
   <string name="light">明るい</string>
   <string name="dark">暗い</string>
   <string name="transparent">透明</string>
+  <string name="deviceTheme">デバイスの設定に従う</string>
   <string name="backgroundImageUrl">背景画像URL:</string>
   <string name="boardGeometry">盤の表示形式</string>
   <string name="boardTheme">盤のデザイン</string>
@@ -695,6 +744,7 @@
   <string name="bestWasX">最善手は %s</string>
   <string name="youBrowsedAway">ページを離れました</string>
   <string name="resumePractice">練習を続ける</string>
+  <string name="drawByFiftyMoves">50 手ルールによりドローになりました。</string>
   <string name="theGameIsADraw">ドロー（引き分け）です。</string>
   <string name="computerThinking">コンピューター思考中…</string>
   <string name="seeBestMove">最善手を見る</string>
@@ -859,4 +909,5 @@
   <string name="lichessDbExplanation">Lichess 全プレイヤーのレート戦が対象</string>
   <string name="switchSides">色変更</string>
   <string name="closingAccountWithdrawAppeal">アカウントを閉鎖すると異議申立ても取り下げになります</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">チェスイベント開催のアドバイス</string>
 </resources>

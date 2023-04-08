@@ -1,5 +1,5 @@
+/// <reference types="../types/tablesort" />
 import tablesort from 'tablesort';
-
 import { loadScript } from './component/assets';
 import extendTablesortNumber from 'common/tablesort-number';
 import * as xhr from 'common/xhr';
@@ -42,7 +42,7 @@ lichess.load.then(() => {
             else
               xhr
                 .json(
-                  xhr.url('/player/autocomplete', {
+                  xhr.url('/api/player/autocomplete', {
                     object: 1,
                     teacher: 1,
                     term,

@@ -1,12 +1,10 @@
-import { h, VNode } from 'snabbdom';
+import { h, Hooks, VNode } from 'snabbdom';
 import { dataIcon } from 'common/snabbdom';
 import SwissCtrl from '../ctrl';
 
-function startClock(time: number) {
-  return {
-    insert: (vnode: VNode) => $(vnode.elm as HTMLElement).clock({ time }),
-  };
-}
+const startClock = (time: number): Hooks => ({
+  insert: (vnode: VNode) => lichess.clockWidget(vnode.elm as HTMLElement, { time }),
+});
 
 const oneDayInSeconds = 60 * 60 * 24;
 
@@ -36,7 +34,9 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
 
 function ongoing(ctrl: SwissCtrl): VNode | undefined {
   const nb = ctrl.data.nbOngoing;
-  return nb ? h('div.ongoing', [h('span.nb', [nb]), h('span.shy', ctrl.trans.plural('ongoingGames', nb))]) : undefined;
+  return nb
+    ? h('div.ongoing', [h('span.nb', [nb]), h('span.shy', ctrl.trans.pluralSame('ongoingGames', nb))])
+    : undefined;
 }
 
 export default function (ctrl: SwissCtrl): VNode {

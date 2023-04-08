@@ -1,3 +1,3 @@
-package lila
+package lila.timeline
 
-package object timeline extends PackageObject
+export lila.Lila.{ *, given }

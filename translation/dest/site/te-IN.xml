@@ -3,9 +3,9 @@
   <string name="playWithAFriend">మిత్రులతో ఆడండి</string>
   <string name="playWithTheMachine">కంప్యూటర్ తో ఆడండి</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు ఆహ్వానించడానికి ఈ లింక్ ఇవ్వండి</string>
-  <string name="gameOver">ఆట సమాప్తం</string>
+  <string name="gameOver">ఆట ముగిసిపోయింది</string>
   <string name="waitingForOpponent">ప్రత్యర్థి కోసం ఎదురుచూస్తున్నాం</string>
-  <string name="waiting">కాచుకొని ఉన్నాం</string>
+  <string name="waiting">ఎదురుచాస్తున్నాం</string>
   <string name="yourTurn">మీ వంతు</string>
   <string name="aiNameLevelAiLevel">%1$s స్థాయి %2$s</string>
   <string name="level">స్థాయి</string>
@@ -28,7 +28,7 @@
   <string name="itsYourTurn">ఇప్పుడు మీ వంతు!</string>
   <string name="cheatDetected">మోసం కనుగొనబడింది</string>
   <string name="kingInTheCenter">రాజు రంగమధ్యం చేరారు</string>
-  <string name="threeChecks">మూడువైపుల నుంచి కత్తులు దూస్తున్నాయి</string>
+  <string name="threeChecks">మూడు చెక్కులు</string>
   <string name="raceFinished">పరుగు ముగిసింది</string>
   <string name="variantEnding">మరొక ముగింపు</string>
   <string name="newOpponent">కొత్త ప్రత్యర్థి</string>
@@ -55,6 +55,7 @@
   <string name="depthX">లోతు %s</string>
   <string name="usingServerAnalysis">సర్వర్ విశ్లేషణ వాడుతున్నాం</string>
   <string name="loadingEngine">చదరంగయంత్రం సిద్ధమవుతోంది...</string>
+  <string name="calculatingMoves">Telagu</string>
   <string name="cloudAnalysis">విశ్లషణ జరుగుతుంది</string>
   <string name="goDeeper">ఇంకా లోతుగా వెళ్ళండి</string>
   <string name="showThreat">పొంచి ఉన్న ప్రమాదం చూపించండి</string>
@@ -318,9 +319,6 @@
   <string name="yourPerfRatingIsTooLow">మీ %1$s రేటింగ్ (%2$s) చాలా తక్కువ</string>
   <string name="ratedMoreThanInPerf">%2$s లో ≥ %1$s గా రేట్ చేయబడింది</string>
   <string name="ratedLessThanInPerf">గత వారంలో %2$sలో ≤ %1$s రేట్ చేయబడింది</string>
-  <string name="mustBeInTeam">15 / 5000
-Translation results
-ఈ బృందంలో ఉండాలి, %s</string>
   <string name="youAreNotInTeam">మీరు ఈ బృందంలో లేరు, %s</string>
   <string name="backToGame">తిరిగి ఆటకి</string>
   <string name="siteDescription">ఉచిత ఆన్‌లైన్ చెస్ సర్వర్. శుభ్రమైన ఇంటర్‌ఫేస్‌లో చదరంగం ఆడండి. నమోదు లేదు, ప్రకటనలు లేవు, ప్లగ్ఇన్ అవసరం లేదు. కంప్యూటర్, స్నేహితులు లేదా యాదృచ్ఛిక ప్రత్యర్థులతో చెస్ ఆడండి.</string>
@@ -492,6 +490,12 @@ Translation results
   <string name="privacy">గోప్యత</string>
   <string name="privacyPolicy">గోప్యతా విధానం</string>
   <string name="letOtherPlayersFollowYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
+  <string name="letOtherPlayersChallengeYou">ఇతర ఆటగాళ్లు మిమ్మల్ని అనుసరించనివ్వండి</string>
+  <string name="sound">ధ్వని</string>
+  <string name="none">ఏది లేదు</string>
+  <string name="fast">వేగముగా</string>
+  <string name="normal">మాములుగా</string>
+  <string name="slow">నెమ్మదిగా</string>
   <string name="tools">పరికరాలు</string>
   <string name="error.required">ఈ సమాచారం అవసరం</string>
   <string name="castling">కాస్లింగ్</string>

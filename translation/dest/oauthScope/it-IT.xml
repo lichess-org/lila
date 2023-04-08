@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Nuovo token personale per l\'accesso all\'API</string>
+  <string name="tokenGrantsPermission">Un token permette ad altre persone di usare il tuo account.</string>
+  <string name="carefullySelect">Scegli con attenzione ciò che permetti di fare in tua vece.</string>
+  <string name="tokenDescription">Descrizione del token</string>
+  <string name="rememberTokenUse">Per ricordarti a cosa serve questo token</string>
+  <string name="whatTheTokenCanDo">Cosa può fare il token in tua vece:</string>
+  <string name="doNotShareIt">Il token permetterà l\'accesso al tuo account. NON condividerlo con nessuno!</string>
+  <string name="copyTokenNow">Assicurati di copiare adesso il tuo nuovo token di accesso. Non potrai più visualizzarlo in seguito!</string>
+  <string name="preferenceRead">Visualizzare le impostazioni</string>
+  <string name="preferenceWrite">Scrivi la preferenza</string>
+  <string name="emailRead">Leggi l\'indirizzo e-mail</string>
+  <string name="challengeRead">Leggi le sfide in arrivo</string>
+  <string name="challengeWrite">Invia, accetta e rifiuta le sfide</string>
+  <string name="challengeBulk">Crea molte partite contemporaneamente per gli altri giocatori</string>
+  <string name="studyRead">Leggi studi e trasmissioni privati</string>
+  <string name="studyWrite">Crea, aggiorna, elimina studi e trasmissioni</string>
+  <string name="tournamentWrite">Crea, aggiorna e partecipa a tornei</string>
+  <string name="racerWrite">Crea e partecipa a gare di problemi</string>
+  <string name="puzzleRead">Leggi l\'attività dei problemi</string>
+  <string name="teamRead">Leggi le informazioni private della squadra</string>
+  <string name="teamWrite">Unisciti a e abbandona squadre</string>
+  <string name="teamLead">Gestisci le squadre di cui sei il capo: manda messaggi privati, espelli membri</string>
+  <string name="followRead">Leggi i giocatori seguiti</string>
+  <string name="followWrite">Segui e smetti di seguire altri giocatori</string>
+  <string name="msgWrite">Invia messaggi privati ad altri giocatori</string>
+  <string name="boardPlay">Disputa partite a tavolino tramite API</string>
+  <string name="botPlay">Disputa partite tramite bot API</string>
+  <string name="engineRead">Visualizza e utilizza motori esterni</string>
+  <string name="engineWrite">Crea e aggiorna i motori esterni</string>
+  <string name="webLogin">Crea sessioni del sito web autenticate (concede il pieno accesso!)</string>
+  <string name="webMod">Utilizza strumenti da moderatore (entro i limiti dei tuoi permessi)</string>
+</resources>

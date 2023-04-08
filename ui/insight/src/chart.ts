@@ -2,6 +2,7 @@ import { h, VNode } from 'snabbdom';
 import Ctrl from './ctrl';
 import { Chart } from './interfaces';
 import type * as Highcharts from 'highcharts';
+import { currentTheme } from 'common/theme';
 
 function metricDataTypeFormat(dt: string) {
   if (dt === 'seconds') return '{point.y:.1f}';
@@ -49,7 +50,7 @@ interface Theme {
 }
 
 const theme = (function () {
-  const light = $('body').hasClass('light');
+  const light = currentTheme() === 'light';
   const t: Theme = {
     light: light,
     text: {
@@ -79,6 +80,8 @@ const theme = (function () {
   return t;
 })();
 
+const animation = false; //{ duration: 100 };
+
 function makeChart(el: HTMLElement, data: Chart) {
   const sizeSerie = {
     name: data.sizeSerie.name,
@@ -86,21 +89,17 @@ function makeChart(el: HTMLElement, data: Chart) {
     yAxis: 1,
     type: 'column',
     stack: 'size',
-    animation: {
-      duration: 300,
-    },
+    animation,
     color: 'rgba(120,120,120,0.2)',
   };
-  const valueSeries = data.series.map(function (s) {
+  const valueSeries = data.series.map(s => {
     const c: Highcharts.ColumnChartSeriesOptions = {
       name: s.name,
       data: s.data,
       yAxis: 0,
       type: 'column',
       stack: s.stack,
-      // animation: {
-      //   duration: 300
-      // },
+      // animation,
       dataLabels: {
         enabled: true,
         format: s.stack ? '{point.percentage:.0f}%' : metricDataTypeFormat(s.dataType),
@@ -164,10 +163,12 @@ function makeChart(el: HTMLElement, data: Chart) {
     yAxis: [data.valueYaxis, data.sizeYaxis].map(function (a, i) {
       const isPercent = data.valueYaxis.dataType === 'percent';
       const isSize = i % 2 === 1;
+      const isStack = data.series[0].stack;
+      const isAuto = isSize || ['acpl', 'blurs', 'timeVariance', 'accuracy', 'movetime'].includes(data.question.metric);
       const c: Highcharts.AxisOptions = {
         opposite: isSize,
-        min: !isSize && isPercent ? 0 : undefined,
-        max: !isSize && isPercent ? 100 : undefined,
+        min: isAuto ? undefined : isStack ? 0 : Math.min(...data.series[0].data),
+        max: isAuto ? undefined : isStack ? 100 : Math.max(...data.series[0].data),
         labels: {
           format: yAxisTypeFormat(a.dataType),
           style: {
@@ -193,9 +194,7 @@ function makeChart(el: HTMLElement, data: Chart) {
     }),
     plotOptions: {
       column: {
-        animation: {
-          duration: 300,
-        },
+        animation,
         stacking: 'normal',
         dataLabels: {
           color: theme.text.strong,

@@ -1,15 +1,12 @@
 package lila.db
 
-import akka.actor.ActorSystem
-import ornicar.scalalib.Zero
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
+import alleycats.Zero
 import scala.util.{ Failure, Success }
 
 import lila.common.config.CollName
-import lila.db.dsl._
+import lila.db.dsl.*
 
-final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(implicit ec: ExecutionContext) {
+final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executor):
 
   def get: Fu[Coll] = resolve()
 
@@ -17,22 +14,20 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(implicit ec: 
 
   def map[A](f: Coll => A): Fu[A] = get map f
 
-  def failingSilently(timeout: FiniteDuration = 500 millis)(implicit system: ActorSystem) =
-    new AsyncCollFailingSilently(this, timeout)
-}
+  def failingSilently(timeout: FiniteDuration = 500 millis)(using Scheduler) =
+    AsyncCollFailingSilently(this, timeout)
 
 /* For data we don't really care about,
  * this DB coll with fallback to default when any operation fails. */
-final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(implicit
-    ec: ExecutionContext,
-    system: ActorSystem
-) {
+final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(using
+    Executor,
+    Scheduler
+):
 
-  def apply[A](f: Coll => Fu[A])(implicit default: Zero[A]) =
+  def apply[A](f: Coll => Fu[A])(using default: Zero[A]) =
     coll.get
-      .withTimeout(timeout)
+      .withTimeout(timeout, coll.name.value)
       .transformWith {
         case Failure(_) => fuccess(default.zero)
         case Success(c) => f(c)
       }
-}

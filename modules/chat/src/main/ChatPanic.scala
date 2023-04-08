@@ -1,10 +1,8 @@
 package lila.chat
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
-final class ChatPanic {
+final class ChatPanic:
 
   private var until: Option[DateTime] = none
 
@@ -13,7 +11,7 @@ final class ChatPanic {
       (u.count.gameH > 10 && u.createdSinceDays(1)) || u.isVerified
     }
 
-  def allowed(id: User.ID, fetch: User.ID => Fu[Option[User]]): Fu[Boolean] =
+  def allowed(id: UserId, fetch: UserId => Fu[Option[User]]): Fu[Boolean] =
     if (enabled) fetch(id) dmap { _ ?? allowed }
     else fuTrue
 
@@ -27,15 +25,12 @@ final class ChatPanic {
 
   def get = until
 
-  def start() = {
+  def start() =
     logger.warn("Chat Panic enabled")
-    until = DateTime.now.plusMinutes(180).some
-  }
+    until = nowDate.plusMinutes(180).some
 
-  def stop() = {
+  def stop() =
     logger.warn("Chat Panic disabled")
     until = none
-  }
 
   def set(v: Boolean) = if (v) start() else stop()
-}

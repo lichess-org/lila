@@ -13,6 +13,8 @@
   <string name="specialMoves">Speciella drag</string>
   <string name="didYouLikeThisPuzzle">Gillade du det här problemet?</string>
   <string name="voteToLoadNextOne">Rösta för att ladda nästa!</string>
+  <string name="upVote">Rösta upp pussel</string>
+  <string name="downVote">Rösta ner pussel</string>
   <string name="yourPuzzleRatingWillNotChange">Din pusselrating kommer inte ändras. Observera att pussel inte är en tävling. Rating hjälper till att välja de bästa pusseln för din nuvarande skicklighet.</string>
   <string name="findTheBestMoveForWhite">Hitta bästa draget för vit.</string>
   <string name="findTheBestMoveForBlack">Hitta bästa draget för svart.</string>
@@ -25,6 +27,9 @@
   <string name="keepGoing">Fortsätt…</string>
   <string name="puzzleSuccess">Rätt!</string>
   <string name="puzzleComplete">Problemet klart!</string>
+  <string name="byOpenings">Efter öppningar</string>
+  <string name="puzzlesByOpenings">Schackproblem efter öppningar</string>
+  <string name="openingsYouPlayedTheMost">Öppningar som du spelade mest i rankade partier</string>
   <string name="notTheMove">Det är inte rätt drag!</string>
   <string name="trySomethingElse">Prova något annat.</string>
   <string name="ratingX">Rating: %s</string>
@@ -51,6 +56,7 @@
   </plurals>
   <string name="example">Exempel</string>
   <string name="addAnotherTheme">Lägg till ett annat tema</string>
+  <string name="nextPuzzle">Nästa schackproblem</string>
   <string name="jumpToNextPuzzleImmediately">Hoppa till nästa schackproblem direkt</string>
   <string name="puzzleDashboard">Meny för schackproblem</string>
   <string name="improvementAreas">Förbättringsområden</string>
@@ -71,6 +77,14 @@
 Spela snabbschack och klassiska partier för att öka dina chanser att få ett av dina schackproblem tillagt!</string>
   <string name="fromXGamesFound">%1$s schackproblem hittade i %2$s partier</string>
   <string name="puzzleDashboardDescription">Träna, analysera, förbättra</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s spelad</item>
+    <item quantity="other">%s spelade</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s att spela om</item>
+    <item quantity="other">%s att spela om</item>
+  </plurals>
   <string name="percentSolved">%s lösta</string>
   <string name="noPuzzlesToShow">Ingenting att visa, gå och lös några problem först!</string>
   <string name="improvementAreasDescription">Öva på dessa för att optimera dina framsteg!</string>

@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Datum bygevoeg (oudste)</string>
   <string name="recentlyUpdated">Onlangs opgedateer</string>
   <string name="mostPopular">Mees gewilde</string>
+  <string name="alphabetical">Alfabeties</string>
   <string name="addNewChapter">Voeg \'n nuwe hoofstuk by</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Hoofstuk</item>
@@ -40,6 +41,7 @@
   <string name="youAreNowASpectator">Jy is nou \'n toeskouer</string>
   <string name="pgnTags">PGN etikette</string>
   <string name="like">Hou van</string>
+  <string name="unlike">Afkeur</string>
   <string name="newTag">Nuwe etiket</string>
   <string name="commentThisPosition">Lewer kommentaar op hierdie posisie</string>
   <string name="commentThisMove">Lewer kommentaar op hierdie skuif</string>
@@ -60,6 +62,8 @@
   <string name="studyPgn">Studie PGN</string>
   <string name="downloadAllGames">Laai alle speletjies af</string>
   <string name="chapterPgn">Hoofstuk PGN</string>
+  <string name="copyChapterPgn">Kopieer PGN</string>
+  <string name="copyChapterPgnDescription">Kopieer hoofstuk PGN na die knipbord.</string>
   <string name="downloadGame">Aflaai spel</string>
   <string name="studyUrl">Bestudeer URL</string>
   <string name="currentChapterUrl">Huidige hoofstuk URL</string>
@@ -74,6 +78,7 @@
   <string name="studyNotFound">Studie kon nie gevind word nie</string>
   <string name="editChapter">Verander die hoofstuk</string>
   <string name="newChapter">Nuwe hoofstuk</string>
+  <string name="importFromChapterX">Voer in vanaf %s</string>
   <string name="orientation">Oriëntasie</string>
   <string name="analysisMode">Analiseer mode</string>
   <string name="pinnedChapterComment">Vasgepende hoofstuk kommentaar</string>
@@ -126,7 +131,35 @@
   <string name="clearChat">Maak die gesprek skoon</string>
   <string name="deleteTheStudyChatHistory">Vee die gesprek uit? Onthou, jy kan dit nie terug kry nie!</string>
   <string name="deleteStudy">Vee die studie uit</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Skrap die hele studie? Daar is geen terugkeer nie! Tik die naam van die studie om te bevesting: %s</string>
   <string name="whereDoYouWantToStudyThat">Waar wil jy dit bestudeer?</string>
+  <string name="goodMove">Goeie skuif</string>
+  <string name="mistake">Fout</string>
+  <string name="brilliantMove">Skitterende skuif</string>
+  <string name="blunder">Flater</string>
+  <string name="interestingMove">Interesante skuif</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Twyfelagte skuif</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eenigste skuif</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Gelyke posisie</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Onduidelike posise</string>
+  <string name="whiteIsSlightlyBetter">Wit is effens beter</string>
+  <string name="blackIsSlightlyBetter">Swart is effens beter</string>
+  <string name="whiteIsBetter">Wit is beter</string>
+  <string name="blackIsBetter">Swart is beter</string>
+  <string name="whiteIsWinning">Wit is beter</string>
+  <string name="blackIsWinning">Swart is beter</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nuwigheid</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Ontwikkeling</string>
+  <string name="initiative">Inisiatief</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Aanval</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Teenstoot</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tydskommer</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Met vergoeding</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Met die idee</string>
+  <string name="nextChapter">Volgende hoofstuk</string>
+  <string name="prevChapter">Vorige hoofstuk</string>
+  <string name="studyActions">Studie aksie</string>
   <string name="topics">Onderwerpe</string>
   <string name="myTopics">My onderwerpe</string>
   <string name="popularTopics">Gewilde onderwerpe</string>

@@ -43,7 +43,7 @@
 
     p {
       flex: 3 1;
-      margin-right: 7px;
+      margin-#{$end-direction}: 7px;
     }
 
     .button {
@@ -87,7 +87,7 @@
 
     .accept {
       color: $c-good;
-      margin-right: 1px;
+      margin-#{$end-direction}: 1px;
     }
 
     .decline {
@@ -167,7 +167,7 @@
 
     @include breakpoint($mq-col1) {
       display: block;
-      margin-left: 2em;
+      margin-#{$start-direction}: 2em;
     }
   }
 
@@ -235,8 +235,8 @@
         content: '';
         position: absolute;
         top: 0;
-        left: 0;
-        right: 0;
+        #{$start-direction}: 0;
+        #{$end-direction}: 0;
         bottom: 0;
         pointer-events: none;
         background: $c-primary;
@@ -263,7 +263,7 @@
       justify-content: center;
       position: absolute;
       top: 0;
-      right: -25px;
+      #{$end-direction}: -25px;
       width: 25px;
       height: 6rem;
       border: 0;
@@ -281,7 +281,7 @@
       &:hover {
         background: $c-bad;
         color: $c-bad-over;
-        right: -36px;
+        #{$end-direction}: -36px;
         width: 35px;
       }
     }

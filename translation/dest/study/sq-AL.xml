@@ -62,6 +62,8 @@
   <string name="studyPgn">Studioni PGN</string>
   <string name="downloadAllGames">Shkarkoji krejt lojërat</string>
   <string name="chapterPgn">PGN e kapitullit</string>
+  <string name="copyChapterPgn">Kopjo PGN</string>
+  <string name="copyChapterPgnDescription">Kopjo në të papastër PGN kapitulli.</string>
   <string name="downloadGame">Shkarko lojën</string>
   <string name="studyUrl">URL Mësimi</string>
   <string name="currentChapterUrl">URL e Kapitullit Aktual</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Mësimi s’u gjet</string>
   <string name="editChapter">Përpunoni kapitullin</string>
   <string name="newChapter">Kapitull i ri</string>
+  <string name="importFromChapterX">Importo prej %s</string>
   <string name="orientation">Drejtimi</string>
   <string name="analysisMode">Mënyra Analizim</string>
   <string name="pinnedChapterComment">Koment kapitulli i fiksuar</string>
@@ -150,6 +153,7 @@
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Zhvillim</string>
   <string name="initiative">Nismë</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Sulm</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Kundërsulm</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Probleme me këtë instalim?</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Me kompesim</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Me idenë</string>

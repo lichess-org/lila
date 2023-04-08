@@ -1,0 +1,56 @@
+.tutor {
+  &-grade {
+    margin-bottom: 2em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &__name {
+      font-weight: normal;
+      font-size: 1.2em;
+      margin-bottom: 0.5em;
+    }
+    &__concept {
+      @extend %roboto;
+    }
+    &--detail .tutor-grade__name {
+      text-transform: uppercase;
+      font-size: 1.7em;
+      margin-bottom: 0.5em;
+    }
+    &__visual {
+      @extend %flex-center;
+      > div {
+        flex: 13% 0 0;
+        margin-#{$end-direction}: 1.28%;
+        height: 1.5em;
+        line-height: 1.5em;
+        border: $border;
+        background: $c-bg-low;
+        &.lit {
+          background: mix($c-good, $c-bg-box, 80%);
+        }
+      }
+      &--1,
+      &--2 {
+        > div.lit {
+          background: mix($c-bad, $c-bg-box, 80%);
+        }
+      }
+      &--3 {
+        > div.lit {
+          background: mix($c-brag, $c-bg-box, 80%);
+        }
+      }
+      &--4 {
+        > div.lit {
+          background: desaturate(mix($c-good, $c-bg-box, 80%), 10%);
+        }
+      }
+    }
+    &__detail {
+      font-size: 0.9em;
+      color: $c-font-dim;
+      margin-top: 0.3em;
+    }
+  }
+}

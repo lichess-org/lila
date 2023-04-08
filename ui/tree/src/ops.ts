@@ -23,21 +23,15 @@ export function collect(from: Tree.Node, pickChild: (node: Tree.Node) => Tree.No
   return nodes;
 }
 
-function pickFirstChild(node: Tree.Node): Tree.Node | undefined {
-  return node.children[0];
-}
+const pickFirstChild = (node: Tree.Node): Tree.Node | undefined => node.children[0];
 
-export function childById(node: Tree.Node, id: string): Tree.Node | undefined {
-  return node.children.find(child => child.id === id);
-}
+export const childById = (node: Tree.Node, id: string): Tree.Node | undefined =>
+  node.children.find(child => child.id === id);
 
-export function last(nodeList: Tree.Node[]): Tree.Node | undefined {
-  return nodeList[nodeList.length - 1];
-}
+export const last = (nodeList: Tree.Node[]): Tree.Node | undefined => nodeList[nodeList.length - 1];
 
-export function nodeAtPly(nodeList: Tree.Node[], ply: number): Tree.Node | undefined {
-  return nodeList.find(node => node.ply === ply);
-}
+export const nodeAtPly = (nodeList: Tree.Node[], ply: number): Tree.Node | undefined =>
+  nodeList.find(node => node.ply === ply);
 
 export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node) => boolean): Tree.Path {
   let path = '';
@@ -69,7 +63,7 @@ export function countChildrenAndComments(node: Tree.Node) {
 
 // adds n2 into n1
 export function merge(n1: Tree.Node, n2: Tree.Node): void {
-  n1.eval = n2.eval;
+  if (n2.eval) n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments &&
     n2.comments.forEach(function (c) {
@@ -88,13 +82,10 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
   });
 }
 
-export function hasBranching(node: Tree.Node, maxDepth: number): boolean {
-  return maxDepth <= 0 || !!node.children[1] || (node.children[0] && hasBranching(node.children[0], maxDepth - 1));
-}
+export const hasBranching = (node: Tree.Node, maxDepth: number): boolean =>
+  maxDepth <= 0 || !!node.children[1] || (node.children[0] && hasBranching(node.children[0], maxDepth - 1));
 
-export function mainlineNodeList(from: Tree.Node): Tree.Node[] {
-  return collect(from, pickFirstChild);
-}
+export const mainlineNodeList = (from: Tree.Node): Tree.Node[] => collect(from, pickFirstChild);
 
 export function updateAll(root: Tree.Node, f: (node: Tree.Node) => void): void {
   // applies f recursively to all nodes

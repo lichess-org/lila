@@ -1,6 +1,8 @@
 package lila.common
 
-object GreatPlayer {
+import ornicar.scalalib.ThreadLocalRandom
+
+object GreatPlayer:
 
   val all: Map[String, String] = Map(
     ("Aagaard", "Jacob_Aagaard"),
@@ -146,7 +148,7 @@ object GreatPlayer {
     ("Foltys", "Jan_Foltys"),
     ("Forgács", "Le%C3%B3_Forg%C3%A1cs"),
     ("Forintos", "Gy%C5%91z%C5%91_Forintos"),
-    ("Forsyth", "David_Forsyth_(chess_player)"),
+    ("Fen", "David_Fen_(chess_player)"),
     ("Fressinet", "Laurent_Fressinet"),
     ("Ftáčnik", "%C4%BDubom%C3%ADr_Ft%C3%A1%C4%8Dnik"),
     ("Fuderer", "Andrija_Fuderer"),
@@ -203,7 +205,7 @@ object GreatPlayer {
     ("Ilyin-Genevsky", "Alexander_Ilyin-Genevsky"),
     ("Inarkiev", "Ernesto_Inarkiev"),
     ("Ioseliani", "Nana_Ioseliani"),
-    ("Ivanchuk", "Vassily_Ivanchuk"),
+    ("Ivanchuk", "Vasyl_Ivanchuk"),
     ("Ivanov", "Alexander_Ivanov_(chess_player)"),
     ("Ivkov", "Borislav_Ivkov"),
     ("Jaffé", "Charles_Jaffe"),
@@ -226,6 +228,7 @@ object GreatPlayer {
     ("Kasparyan", "Genrikh_Kasparyan"),
     ("Kavalek", "Lubomir_Kavalek"),
     ("Kazantsev", "Alexander_Kazantsev"),
+    ("Kemény", "Emil_Kem%C3%A9ny"),
     ("Keres", "Paul_Keres"),
     ("Khalifman", "Alexander_Khalifman"),
     ("Kholmov", "Ratmir_Kholmov"),
@@ -463,7 +466,7 @@ object GreatPlayer {
     ("Sergeant", "Philip_Walsingham_Sergeant"),
     ("Shabalov", "Alexander_Shabalov"),
     ("Sherrard", "Benny_Andersson"),
-    ("Shipley", "Emil_Kem%C3%A9ny"),
+    ("Shipley", "Walter_Penn_Shipley"),
     ("Shirov", "Alexei_Shirov"),
     ("Short", "Nigel_Short"),
     ("Showalter", "Jackson_Showalter"),
@@ -604,10 +607,9 @@ object GreatPlayer {
     k
   }.toVector
 
-  def randomName: String = names(lila.common.ThreadLocalRandom nextInt size)
+  def randomName: String = names(ThreadLocalRandom nextInt size)
 
   def wikiUrl(name: String) =
     all get name map { s =>
       s"https://wikipedia.org/wiki/$s"
     }
-}

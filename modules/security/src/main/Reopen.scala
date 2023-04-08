@@ -1,12 +1,11 @@
 package lila.security
 
 import play.api.i18n.Lang
-import scala.concurrent.duration._
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.EmailAddress
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.i18n.I18nKeys.{ emails as trans }
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
@@ -15,12 +14,12 @@ final class Reopen(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  import Mailer.html._
+  import Mailer.html.*
 
   def prepare(
-      username: String,
+      u: UserStr,
       email: EmailAddress,
       closedByMod: User => Fu[Boolean]
   ): Fu[Either[(String, String), User]] =
@@ -28,11 +27,10 @@ final class Reopen(
       case Some(_) =>
         fuccess(Left("emailUsed" -> "This email address is already in use by an active account."))
       case _ =>
-        val userId = User normalize username
-        userRepo.byIdNotErased(userId) flatMap {
+        userRepo.byId(u) flatMap {
           case None =>
             fuccess(Left("noUser" -> "No account found with this username."))
-          case Some(user) if user.enabled =>
+          case Some(user) if user.enabled.yes =>
             fuccess(Left("alreadyActive" -> "This account is already active."))
           case Some(user) =>
             userRepo.currentOrPrevEmail(user.id) flatMap {
@@ -51,7 +49,7 @@ final class Reopen(
         }
     }
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener make user.id flatMap { token =>
       lila.mon.email.send.reopen.increment()
       val url = s"$baseUrl/account/reopen/login/$token"
@@ -73,11 +71,8 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.disabledById } flatMap {
-      _ ?? { user =>
-        userRepo reopen user.id inject user.some
-      }
+    tokener read token flatMapz userRepo.disabledById flatMapz { user =>
+      userRepo reopen user.id inject user.some
     }
 
   private val tokener = LoginToken.makeTokener(tokenerSecret, 20 minutes)
-}

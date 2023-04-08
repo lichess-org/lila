@@ -7,6 +7,7 @@
   <string name="myTeams">ମୋର ଦଳଗୁଡିକ</string>
   <string name="noTeamFound">କୋଣସି ଦଳ ମିଳିଲା ନାହିଁ</string>
   <string name="joinTeam">ଦଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
+  <string name="onlyLeaderLeavesTeam">ଛାଡ଼ିଯିବା ଆଗରୁ ଦୟାକରି ଦଳରେ ଜଣେ ନୂଆ ନେତା ଯୋଡ଼ନ୍ତୁ, କିମ୍ବା ଦଳକୁ ବନ୍ଦ କରିଦିଅନ୍ତୁ।</string>
   <string name="quitTeam">ଦଳ ଛାଡନ୍ତୁ</string>
   <plurals name="teamLeaders">
     <item quantity="one">ଦଳ ନାୟକ</item>

@@ -61,6 +61,8 @@
   <string name="depthX">Hĺbka %s</string>
   <string name="usingServerAnalysis">Používa sa analýza servera</string>
   <string name="loadingEngine">Zavádzanie motora ...</string>
+  <string name="calculatingMoves">Prebieha výpočet...</string>
+  <string name="engineFailed">Chyba pri načítavaní motora</string>
   <string name="cloudAnalysis">Vzdialená analýza</string>
   <string name="goDeeper">Hlbšia analýza</string>
   <string name="showThreat">Ukázať hrozbu</string>
@@ -96,6 +98,7 @@
   <string name="dtzWithRounding">DTZ50\" so zaokrúhlením, vychádzajúci s počtu polťahov až do najbližšieho brania alebo ťahu pešiakom</string>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
+  <string name="openings">Otváranie</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="openingEndgameExplorer">Prieskumník otvorení/koncoviek</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
@@ -171,6 +174,7 @@
   <string name="viewInFullSize">Zobraziť v plnej veľkosti</string>
   <string name="logOut">Odhlásiť sa</string>
   <string name="signIn">Prihlásiť sa</string>
+  <string name="rememberMe">Zapamätať si ma</string>
   <string name="youNeedAnAccountToDoThat">Pre túto požiadavku musíte byť prihlásený</string>
   <string name="signUp">Zaregistrovať sa</string>
   <string name="computersAreNotAllowedToPlay">Hráči využívajúci pomoc počítačov nie sú vítaní. Počas partie nepoužívajte šachové programy, databázy ani rady iných hráčov. Vytváranie viacerých účtov sa silne neodporúča a nadmerné vytváranie účtov bude viesť k Vášmu zablokovaniu.</string>
@@ -203,6 +207,12 @@
     <item quantity="many">%s hodín</item>
     <item quantity="other">%s hodín</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minúta</item>
+    <item quantity="few">%s minúty</item>
+    <item quantity="many">%s minút</item>
+    <item quantity="other">%s minút</item>
+  </plurals>
   <string name="time">Čas</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Štatistika ratingov</string>
@@ -211,12 +221,39 @@
   <string name="changeUsername">Zmeniť užívateľské meno</string>
   <string name="changeUsernameNotSame">Je možné zmeniť iba veľké a malé písmená. Napríklad \"miskomrkvicka\" na MiskoMrkvicka\".</string>
   <string name="changeUsernameDescription">Zmena užívateľského mena. Tento úkon je možné vykonať len raz a je povolené zmeniť iba veľké a malé písmená.</string>
+  <string name="signupUsernameHint">Uistite sa, že si vyberáte rodinne prijateľné používateľské meno! Neskôr ho už nemôžete zmeniť a akýkoľvek účet s nevhodným užívateľským menom bude uzavretý.</string>
+  <string name="signupEmailHint">Použijeme ho iba pri znovunastavení hesla.</string>
   <string name="password">Heslo</string>
   <string name="changePassword">Zmeniť heslo</string>
   <string name="changeEmail">Zmeniť email</string>
   <string name="email">Email</string>
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
+  <string name="error.weakPassword">Toto heslo je veľmi bežné, a ľahké na uhádnutie.</string>
+  <string name="error.namePassword">Zadajte prihlasovacie meno a heslo.</string>
+  <string name="blankedPassword">Na inej stránke ste použili rovnaké heslo a táto stránka bola napadnutá. Aby sme zaistili bezpečnosť Vášho účtu Lichess, je potrebné aby ste si nastavili nové heslo. Ďakujeme Vám za pochopenie.</string>
+  <string name="youAreLeavingLichess">Odchádzate z Lichessu</string>
+  <string name="neverTypeYourPassword">Nikdy nepoužívajte vaše Lichess heslo na inom webe!</string>
+  <string name="proceedToX">Pokračovať na %s</string>
+  <string name="passwordSuggestion">Nepoužívajte heslo ktoré, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
+  <string name="emailSuggestion">Nepoužívajte e-mail, ktorý, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
+  <string name="emailConfirmHelp">Pomoc s overením e-mailu</string>
+  <string name="emailConfirmNotReceived">Nedostali ste váš konfirmačný email po registrácii?</string>
+  <string name="whatSignupUsername">Aké používateľske meno ste použili pri registrácii?</string>
+  <string name="usernameNotFound">Nepodarilo sa nám nájsť používateľa s týmto menom: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Môžte použiť toto meno pre registráciu</string>
+  <string name="emailSent">Poslali sme vám e-mail na adresu %s.</string>
+  <string name="emailCanTakeSomeTime">Bude to trvať nejaký čas kým to príde.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vyčkajte 5 minút a obnovte vašu mailovú schránku.</string>
+  <string name="checkSpamFolder">Prosím skontrolujte tiež priečinok so spamom či tam nieje. Ak je označte ho, že nieje spam.</string>
+  <string name="emailForSignupHelp">Ak zlyhá všetko ostatné, zašlite nám tento email:</string>
+  <string name="copyTextToEmail">Skopírujte a prilepte vyššie uvedený text a pošlite ho na %s</string>
+  <string name="waitForSignupHelp">Čoskoro sa vám ozveme, aby sme vám pomohli dokončiť registráciu.</string>
+  <string name="accountConfirmed">Používateľ %s je úspešne potvrdený.</string>
+  <string name="accountCanLogin">Teraz sa môžete prihlásiť ako %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nové heslo vám bolo odoslané.</string>
+  <string name="accountClosed">Účet %s je zrušený.</string>
+  <string name="accountRegisteredWithoutEmail">Účet %s bol zaregistrovaný bez mailovej adresy.</string>
   <string name="rank">Poradie</string>
   <string name="rankX">Poradie: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -386,6 +423,7 @@
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
   <string name="xJoinedTeamY">%1$s sa pripojil/a k tímu %2$s</string>
   <string name="xCreatedTeamY">%1$s vytvoril/a tím %2$s</string>
+  <string name="startedStreaming">začal vysielať</string>
   <string name="xStartedStreaming">%s začal vysielať</string>
   <string name="averageElo">Priemerný rating</string>
   <string name="location">Poloha</string>
@@ -394,6 +432,8 @@
   <string name="apply">Odoslať</string>
   <string name="save">Uložiť</string>
   <string name="leaderboard">Rebríček</string>
+  <string name="screenshotCurrentPosition">Odfotiť aktuálnu pozíciu</string>
+  <string name="gameAsGIF">Uložiť ako GIF</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
@@ -402,6 +442,7 @@
   <string name="toStudy">Štúdia</string>
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
+  <string name="importGameCaveat">Variácie sa vymažú. Ak ich chcete zachovať, importujte PGN prostredníctvom štúdie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná partia</item>
     <item quantity="few">%s importované partie</item>
@@ -482,6 +523,8 @@
   <string name="tournamentIsStarting">Turnaj sa začína</string>
   <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
+  <string name="pause">Pozastaviť</string>
+  <string name="resume">Pokračovať</string>
   <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Pomer výhier</string>
   <string name="berserkRate">Miera besnenia</string>
@@ -516,6 +559,10 @@
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="oneUrlPerLine">Jedna URL na riadok.</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
+  <string name="savingMoves">Úložisko dočasných ťahov</string>
+  <string name="savingMovesHelp">Vaše varianty vždy ukladáme do cash pamäti Vášho prehliadača.</string>
+  <string name="makeAStudy">Pre bezpečné uchovanie a zdieľanie pouvažujte nad vytvorením štúdie.</string>
+  <string name="clearSavedMoves">Zrušiť dočasné ťahy</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
   <string name="onlinePlayers">Pripojení hráči</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
@@ -565,6 +612,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Poznámky</string>
   <string name="typePrivateNotesHere">Sem píšte súkromné správy</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napíšte súkromnú poznámku o tomto používateľovi</string>
+  <string name="noNoteYet">Zatiaľ žiadne</string>
   <string name="invalidUsernameOrPassword">Nesprávne meno alebo heslo</string>
   <string name="incorrectPassword">Nesprávne heslo</string>
   <string name="invalidAuthenticationCode">Neplatný overovací kód</string>
@@ -625,6 +674,7 @@
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
+  <string name="error.unknown">Neplatná hodnota</string>
   <string name="error.required">Povinné pole</string>
   <string name="error.email">Táto emailová adresa je neplatná</string>
   <string name="error.email_acceptable">Táto emailová adresa nie je akceptovateľná. Ešte raz ju prosím skontrolujte a skúste zadať znova.</string>
@@ -682,10 +732,13 @@
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
+  <string name="simulAddExtraTimePerPlayer">Za každého hráča, ktorý sa pripojí k simultánke, navýšiť čas na Vašich hodinách o počiatočný čas partie.</string>
+  <string name="simulHostExtraTimePerPlayer">Navýšiť čas na hodinách za každého hráča</string>
   <string name="lichessTournaments">Lichess turnaje</string>
   <string name="tournamentFAQ">Často kladené otázky pre turnajovú arénu</string>
   <string name="timeBeforeTournamentStarts">Čas do štartu turnaja</string>
   <string name="averageCentipawnLoss">Priemerná strata (v stotinách pešiaka)</string>
+  <string name="accuracy">Presnosť</string>
   <string name="keyboardShortcuts">Klávesové skratky</string>
   <string name="keyMoveBackwardOrForward">pohyb dopredu/späť</string>
   <string name="keyGoToStartOrEnd">ísť na začiatok/koniec</string>
@@ -736,6 +789,7 @@
   <string name="kidMode">Detský režim</string>
   <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je pod kotrolou. Opýtajte sa učiteľa okolo odstránenia detského módu.</string>
   <string name="enableKidMode">Povoliť detský režim</string>
   <string name="disableKidMode">Vypnúť detský režim</string>
   <string name="security">Zabezpečenie</string>
@@ -772,6 +826,7 @@
   <string name="light">Svetlé</string>
   <string name="dark">Tmavé</string>
   <string name="transparent">Priehľadné</string>
+  <string name="deviceTheme">Motív zariadenia</string>
   <string name="backgroundImageUrl">URL obrázka na pozadí:</string>
   <string name="boardGeometry">Typ šachovnice</string>
   <string name="boardTheme">Vzhľad šachovnice</string>
@@ -802,6 +857,7 @@
   <string name="bestWasX">Najlepší ťah bol %s</string>
   <string name="youBrowsedAway">Precvičovanie prerušené</string>
   <string name="resumePractice">Pokračovať v precvičovaní</string>
+  <string name="drawByFiftyMoves">Hra bola ukončená remízou podľa pravidla 50 ťahov.</string>
   <string name="theGameIsADraw">Hra skončila remízou.</string>
   <string name="computerThinking">Počítač premýšľa...</string>
   <string name="seeBestMove">Ukázať najlepší ťah</string>
@@ -935,8 +991,12 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="cancelSimul">Zrušiť simultánku</string>
   <string name="simulHostcolor">Farba figúr hostiteľa pre každú partiu</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
+  <string name="simulFeatured">Zobraziť na %s</string>
+  <string name="simulFeaturedHelp">Ukázať vašu simultánnu hru všetkým na %s. Zakázať pre súkromné simultánne hry.</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
+  <string name="markdownAvailable">%s je dostupné pre viac pokročilú syntax.</string>
+  <string name="embedsAvailable">Prilepiť URL hry alebo kapitoly štúdia sem.</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
   <string name="noChat">Vypnutý chat</string>
@@ -967,4 +1027,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
   <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
+  <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
 </resources>

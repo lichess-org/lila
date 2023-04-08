@@ -1,14 +1,12 @@
 package lila.simul
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration._
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
-import lila.common.config._
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.common.config.*
+import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
 private class SimulConfig(
@@ -17,6 +15,7 @@ private class SimulConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -31,11 +30,11 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem,
+)(using
+    ec: Executor,
+    scheduler: Scheduler,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 
@@ -49,7 +48,7 @@ final class Env(
 
   private val simulSocket = wire[SimulSocket]
 
-  val isHosting = new lila.round.IsSimulHost(u => api.currentHostIds dmap (_ contains u))
+  val isHosting = lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
 
   val allCreatedFeaturable = cacheApi.unit[List[Simul]] {
     _.refreshAfterWrite(3 seconds)
@@ -60,15 +59,15 @@ final class Env(
     simul.team.isEmpty && featureLimiter(simul.hostId)(true)(false)
   )
 
-  private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
+  private val featureLimiter = lila.memo.RateLimit[UserId](
     credits = config.featureViews.value,
     duration = 24 hours,
     key = "simul.feature",
     log = false
   )
 
-  def version(simulId: Simul.ID) =
-    simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
+  def version(simulId: SimulId) =
+    simulSocket.rooms.ask[SocketVersion](simulId into RoomId)(GetVersion.apply)
 
   Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
@@ -83,6 +82,7 @@ final class Env(
       promise completeWith api.currentHostIds
     },
     "moveEventSimul" -> { case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
+      import lila.common.Json.given
       Bus.publish(
         lila.hub.actorApi.socket.SendTo(
           opponentUserId,
@@ -92,8 +92,6 @@ final class Env(
       )
     }
   )
-}
 
-final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean) {
+final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean):
   def apply(simul: Simul) = f(simul)
-}

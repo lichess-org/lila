@@ -1,20 +1,20 @@
 package views.html
 
 import controllers.routes
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.oauth.AccessToken
 
-object dgt {
+object dgt:
 
   private val liveChessVersion = "2.2.5+"
 
   def index(implicit ctx: Context) =
     layout("index")(
-      h1("Lichess <3 DGT"),
+      h1(cls := "box__top")("Lichess & DGT"),
       p(
         "This page allows you to connect your DGT board to Lichess, and to use it for playing games."
       ),
@@ -69,7 +69,7 @@ object dgt {
     )
 
   def play(token: AccessToken)(implicit ctx: Context) =
-    layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.plain.secret}")"""))(
+    layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.plain.value}")"""))(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
         h2(iconTag("", "If a move is not detected")),
@@ -87,7 +87,7 @@ object dgt {
   def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =
     layout("config", embedJsUnsafeLoadThen("LichessDgt.configPage()"))(
       div(cls := "account")(
-        h1("DGT - configure"),
+        h1(cls := "box__top")("DGT - configure"),
         form(action := routes.DgtCtrl.generateToken, method := "post")(
           st.section(
             h2("Lichess connectivity"),
@@ -166,11 +166,11 @@ object dgt {
               div(cls := "form-group")(
                 st.label(`for` := name, cls := "form-label")("Keywords"),
                 st.textarea(
-                  id := name,
-                  st.name := name,
-                  cls := "form-control",
+                  id        := name,
+                  st.name   := name,
+                  cls       := "form-control",
                   maxlength := 600,
-                  rows := 10
+                  rows      := 10
                 ),
                 st.small(cls := "form-help")(
                   """Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it."""
@@ -202,9 +202,9 @@ object dgt {
         val id = s"${name}_${v._1}"
         div(
           input(
-            st.id := id,
-            tpe := "radio",
-            value := v._1.toString,
+            st.id   := id,
+            tpe     := "radio",
+            value   := v._1.toString,
             st.name := name
           ),
           label(`for` := id)(v._2)
@@ -234,4 +234,3 @@ object dgt {
         div(cls := s"page-menu__content box box-pad dgt__$path")(body)
       )
     )
-}

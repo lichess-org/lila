@@ -1,7 +1,7 @@
 import * as chapterForm from './chapterNewForm';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { option, emptyRedButton } from '../util';
+import { option, emptyRedButton } from '../view/util';
 import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, StudyChapterMeta } from './interfaces';
 import { defined, prop, Prop } from 'common';
 import { h, VNode } from 'snabbdom';
@@ -133,9 +133,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
     : undefined;
 }
 
-function isLoaded(data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig {
-  return 'orientation' in data;
-}
+const isLoaded = (data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig => 'orientation' in data;
 
 function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): VNode[] {
   const mode = data.practice ? 'practice' : defined(data.conceal) ? 'conceal' : data.gamebook ? 'gamebook' : 'normal',

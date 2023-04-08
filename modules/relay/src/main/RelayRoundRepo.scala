@@ -1,15 +1,13 @@
 package lila.relay
 
-import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson.*
+import reactivemongo.akkastream.cursorProducer
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class RelayRoundRepo(val coll: Coll)(using Executor):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   def byTourOrdered(tour: RelayTour): Fu[List[RelayRound]] =
     coll
@@ -18,13 +16,13 @@ final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays)
 
-  def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRound.Id]] =
+  def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRoundId]] =
     coll
       .find(selectors.tour(tour.id), $id(true).some)
       .sort(sort.chrono)
       .cursor[Bdoc]()
       .list(RelayTour.maxRelays)
-      .map(_.flatMap(_.getAsOpt[RelayRound.Id]("_id")))
+      .map(_.flatMap(_.getAsOpt[RelayRoundId]("_id")))
 
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll
@@ -32,13 +30,10 @@ final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent
       .sort(sort.reverseChrono)
       .one[RelayRound]
 
-  private[relay] object sort {
+  private[relay] object sort:
     val chrono        = $doc("createdAt" -> 1)
     val reverseChrono = $doc("createdAt" -> -1)
     val start         = $doc("startedAt" -> -1, "startsAt" -> -1, "name" -> -1)
-  }
 
-  private[relay] object selectors {
+  private[relay] object selectors:
     def tour(id: RelayTour.Id) = $doc("tourId" -> id)
-  }
-}

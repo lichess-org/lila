@@ -4,11 +4,11 @@ package practice
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
-object show {
+object show:
 
   def apply(
       us: lila.practice.UserStudy,
@@ -18,22 +18,20 @@ object show {
       title = us.practiceStudy.name,
       moreCss = cssTag("analyse.practice"),
       moreJs = frag(
-        analyseTag,
+        analyseStudyTag,
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.practice=${safeJsonValue(
-          Json.obj(
-            "practice" -> data.practice,
-            "study"    -> data.study,
-            "data"     -> data.analysis,
-            "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys)),
-            "explorer" -> views.html.board.bits.explorerConfig
-          )
-        )}""")
+            Json.obj(
+              "practice" -> data.practice,
+              "study"    -> data.study,
+              "data"     -> data.analysis,
+              "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys))
+            ) ++ views.html.board.bits.explorerAndCevalConfig
+          )}""")
       ),
-      csp = defaultCsp.withWebAssembly.some,
+      csp = analysisCsp.some,
       chessground = false,
       zoomable = true
     ) {
       main(cls := "analyse")
     }
-}

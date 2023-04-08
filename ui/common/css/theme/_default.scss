@@ -51,6 +51,7 @@ $c-secondary-over: #fff;
 /* Accent: orange */
 $c-accent: hsl(22, 100%, 42%);
 $c-accent-dim: c-dimmer($c-accent);
+$c-accent-faint: hsla(22, 100%, 42%, 0.4);
 $c-accent-clear: c-clearer($c-accent);
 $c-accent-over: #fff;
 
@@ -89,6 +90,16 @@ $c-heart-over: $c-error-over;
 $c-fancy: hsl(294, 61%, 62%);
 $c-fancy-over: white;
 
+/* move error highlights */
+$c-inaccuracy: hsl(202, 78%, 40%);
+$c-mistake: hsl(41, 100%, 35%);
+$c-blunder: hsl(0, 68%, 50%);
+
+/* good move highlights */
+$c-good-move: hsl(130, 67%, 40%);
+$c-brilliant: hsl(129, 71%, 30%);
+$c-interesting: hsl(307, 80%, 59%);
+
 /* text over brag background */
 
 $c-link: $c-primary;
@@ -100,6 +111,7 @@ $c-link-over: $c-primary-over;
 $c-bg-box: $c-bg-high;
 $c-bg-box-opaque: $c-bg-box;
 $c-bg-input: c-light($c-bg-page, 98%);
+$c-bg-variation: $c-bg-zebra2;
 
 $c-border: hsl(0, 0%, 85%);
 $c-border-page: hsl(0, 0%, 80%);

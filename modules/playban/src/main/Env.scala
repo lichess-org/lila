@@ -1,11 +1,12 @@
 package lila.playban
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.CollName
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     messenger: lila.msg.MsgApi,
@@ -16,7 +17,7 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+)(using Executor, play.api.Mode):
 
   private lazy val playbanColl = db(
     CollName(appConfig.get[String]("playban.collection.playban"))
@@ -25,4 +26,3 @@ final class Env(
   private lazy val feedback = wire[PlaybanFeedback]
 
   lazy val api = wire[PlaybanApi]
-}

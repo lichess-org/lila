@@ -17,12 +17,15 @@
   <string name="specialMoves">حرکات مخصوص</string>
   <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
+  <string name="upVote">پازل خوبی بود</string>
+  <string name="downVote">پازل بدی بود</string>
   <string name="yourPuzzleRatingWillNotChange">ریتینگ پازل شما تغییری نخواهد کرد. توجه کنید که پازل ها یک مسابقه نیستند. ریتینگ پازل شما به انتخاب پازل مناسب در سطح خودتان کمک می کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
   <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
   <string name="puzzleId">معمای %s</string>
   <string name="puzzleOfTheDay">مسئله روز</string>
+  <string name="dailyPuzzle">پازل روزانه</string>
   <string name="clickToSolve">برای جل کردن کلیک کنید</string>
   <string name="goodMove">حرکتی خوب</string>
   <string name="bestMove">بهترین حرکت!</string>
@@ -55,6 +58,7 @@
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">تم دیگری را اضافه کنید.</string>
+  <string name="nextPuzzle">پازل بعدی</string>
   <string name="jumpToNextPuzzleImmediately">فورا به مسئله بعدی برورید
 با فعال کردن این تنظیمات ، صفحه به محض تکمیل پازلی که مشاهده می کنید به یک معمای جدید منتقل می شود.</string>
   <string name="puzzleDashboard">داشبورد پازل</string>

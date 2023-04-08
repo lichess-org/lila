@@ -48,11 +48,9 @@
         color: $c-font-clear;
         font-size: 1.4em;
 
-        .utitle {
-          margin-right: 0.7ch;
-        }
-
         .line {
+          @include rtl-mirrored;
+
           flex: 0 0 auto;
           font-size: 1.5em;
         }
@@ -61,7 +59,7 @@
       &__actions {
         @extend %flex-center-nowrap;
 
-        margin-right: 1.2em;
+        margin-#{$end-direction}: 0.7em;
       }
     }
 
@@ -111,7 +109,7 @@
 
       &__submit {
         outline: 0;
-        margin-left: 1em;
+        margin-#{$start-direction}: 1em;
         border-radius: 99px;
         background: $c-font-dimmer;
 

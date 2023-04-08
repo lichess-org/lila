@@ -9,7 +9,7 @@
     flex-wrap: wrap;
     line-height: 2em;
     border-top: $border;
-    padding-right: 14px;
+    padding-#{$end-direction}: 14px;
     min-height: 2em;
 
     &.pv--nowrap {
@@ -33,7 +33,7 @@
     span {
       @extend %san;
 
-      margin-left: 4px;
+      margin-#{$start-direction}: 4px;
     }
 
     &[data-uci] .pv-san:hover {
@@ -43,7 +43,7 @@
     .pv-wrap-toggle {
       position: absolute;
       top: 0;
-      right: 0;
+      #{$end-direction}: 0;
       padding: 0 4px;
       margin: 0;
       cursor: pointer;
@@ -66,7 +66,7 @@
     @extend %popup-shadow;
     position: absolute;
     width: 80%;
-    left: 34px;
+    #{$start-direction}: 34px;
     max-width: 240px;
     z-index: 1;
 

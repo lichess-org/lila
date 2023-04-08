@@ -13,12 +13,15 @@
   <string name="specialMoves">Специални ходове</string>
   <string name="didYouLikeThisPuzzle">Хареса ли Ви този пъзел?</string>
   <string name="voteToLoadNextOne">Гласувайте и преминете към следващия!</string>
+  <string name="upVote">Задачата ми хареса</string>
+  <string name="downVote">Задачата не ми хареса</string>
   <string name="yourPuzzleRatingWillNotChange">Пъзел рейтингът Ви няма да се промени. Обърнете внимание, че пъзелите не са състезание. Вашият рейтинг помага за подбирането на най-подходящите пъзели спрямо настоящите Ви умения.</string>
   <string name="findTheBestMoveForWhite">Открийте най-добрия ход за белите.</string>
   <string name="findTheBestMoveForBlack">Открийте най-добрия ход за черните.</string>
   <string name="toGetPersonalizedPuzzles">За да получите персонализирани задачи:</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача на деня</string>
+  <string name="dailyPuzzle">Задача на деня</string>
   <string name="clickToSolve">Щракнете, за да решите</string>
   <string name="goodMove">Добър ход</string>
   <string name="bestMove">Най-добър ход!</string>
@@ -51,6 +54,7 @@
   </plurals>
   <string name="example">Пример</string>
   <string name="addAnotherTheme">Добавяне на нова тема</string>
+  <string name="nextPuzzle">Следваща задача</string>
   <string name="jumpToNextPuzzleImmediately">Веднага продължи към следващата задача</string>
   <string name="puzzleDashboard">Панел на задачите</string>
   <string name="improvementAreas">Области за подобрение</string>

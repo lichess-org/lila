@@ -33,7 +33,7 @@
   <string name="variantEnding">Variantafslutning</string>
   <string name="newOpponent">Ny modstander</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt parti</string>
-  <string name="joinTheGame">Deltag i spillet</string>
+  <string name="joinTheGame">Deltag i partiet</string>
   <string name="whitePlays">Hvid i trækket</string>
   <string name="blackPlays">Sort i trækket</string>
   <plurals name="opponentLeftCounter">
@@ -59,6 +59,8 @@
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
   <string name="loadingEngine">Indlæser skakmotor ...</string>
+  <string name="calculatingMoves">Beregner træk...</string>
+  <string name="engineFailed">Fejl under indlæsning af beregningsmotor</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
@@ -91,7 +93,8 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med afrunding, baseret på antallet af halv-træk indtil næste fangst eller bondetræk</string>
   <string name="noGameFound">Intet parti fundet</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prøv eventuelt at inkludere flere partier fra præferencemenuen?</string>
+  <string name="openings">Åbninger</string>
   <string name="openingExplorer">Åbningsbog</string>
   <string name="openingEndgameExplorer">Åbning/slutspilsbog</string>
   <string name="xOpeningExplorer">%s åbningsbog</string>
@@ -155,9 +158,10 @@
   <string name="viewInFullSize">Se i fuldskærm</string>
   <string name="logOut">Log ud</string>
   <string name="signIn">Log ind</string>
+  <string name="rememberMe">Husk mig</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
-  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere må ikke spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det at lave flere konti er stærkt frarådet og at lave alt for mange konti vil medføre udelukkelse.</string>
+  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
@@ -194,13 +198,40 @@
   <string name="usernameOrEmail">Brugernavn eller e-mail</string>
   <string name="changeUsername">Ændr brugernavn</string>
   <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"bentlarsen\" til \"BentLarsen\".</string>
-  <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
+  <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang, og du kan kun ændre størrelsen på bogstaverne i dit brugernavn.</string>
+  <string name="signupUsernameHint">Sørg for at vælge et familievenligt brugernavn. Du kan ikke ændre det senere, og alle konti med upassende brugernavne vil blive lukket!</string>
+  <string name="signupEmailHint">Vi vil kun bruge det til nulstilling af adgangskode.</string>
   <string name="password">Adgangskode</string>
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Skift e-mail</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Nulstil adgangskode</string>
   <string name="forgotPassword">Glemt adgangskode?</string>
+  <string name="error.weakPassword">Denne adgangskode er ekstremt almindelig og for let at gætte.</string>
+  <string name="error.namePassword">Brug ikke dit brugernavn som din adgangskode.</string>
+  <string name="blankedPassword">Du har brugt den samme adgangskode på et andet websted, og dette websted er blevet kompromitteret. For at sikre din Lichess-konto skal du angive en ny adgangskode. Tak for din forståelse.</string>
+  <string name="youAreLeavingLichess">Du forlader Lichess</string>
+  <string name="neverTypeYourPassword">Indtast aldrig din Lichess-adgangskode på et andet websted!</string>
+  <string name="proceedToX">Fortsæt til %s</string>
+  <string name="passwordSuggestion">Angiv ikke en adgangskode, som er foreslået af en anden person. De vil bruge den til at stjæle din konto.</string>
+  <string name="emailSuggestion">Angiv ikke en e-mailadresse, som er foreslået af en anden person. De vil bruge den til at stjæle din konto.</string>
+  <string name="emailConfirmHelp">Hjælp med bekræftelse af e-mail</string>
+  <string name="emailConfirmNotReceived">Har du ikke modtaget din bekræftelsesmail efter tilmelding?</string>
+  <string name="whatSignupUsername">Hvilket brugernavn brugte du til at tilmelde dig?</string>
+  <string name="usernameNotFound">Vi kunne ikke finde nogen bruger med dette navn: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Du kan bruge dette brugernavn til at oprette en ny konto</string>
+  <string name="emailSent">Vi har sendt en e-mail til %s.</string>
+  <string name="emailCanTakeSomeTime">Det kan tage lidt tid for den at ankomme.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vent 5 minutter og opdater din e-mails indbakke.</string>
+  <string name="checkSpamFolder">Tjek også din spam-mappe, det kan være, at den havner der. Hvis det er tilfældet, skal du markere den som ikke-spam.</string>
+  <string name="emailForSignupHelp">Hvis alt andet mislykkes, så send os denne e-mail:</string>
+  <string name="copyTextToEmail">Kopier og indsæt ovenstående tekst og send det til %s</string>
+  <string name="waitForSignupHelp">Vi vil snart vende tilbage til dig for at hjælpe dig med at fuldføre din tilmelding.</string>
+  <string name="accountConfirmed">Brugeren %s er blevet bekræftet.</string>
+  <string name="accountCanLogin">Du kan nu logge ind som %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Du behøver ikke en bekræftelsesmail.</string>
+  <string name="accountClosed">Kontoen %s er lukket.</string>
+  <string name="accountRegisteredWithoutEmail">Kontoen %s blev registreret uden en e-mail.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -340,6 +371,7 @@
   <string name="siteDescription">Gratis online skakserver. Spil skak med et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
+  <string name="startedStreaming">begyndte at streame</string>
   <string name="xStartedStreaming">%s begyndte at streame</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
@@ -348,6 +380,8 @@
   <string name="apply">Anvend</string>
   <string name="save">Gem</string>
   <string name="leaderboard">Førertavle</string>
+  <string name="screenshotCurrentPosition">Tag et skræmbillede af den aktuelle stilling</string>
+  <string name="gameAsGIF">Parti som GIF</string>
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller upload en PGN-fil</string>
@@ -356,6 +390,7 @@
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
+  <string name="importGameCaveat">Variationer vil blive slettet. Hvis du vil beholde dem, skal du importere PGN\'en via et studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importerede spil</item>
     <item quantity="other">%s importerede spil</item>
@@ -417,7 +452,7 @@
   <string name="fewerPlayers">Hvis du stiller betingelser for deltagelse, vil din turnering have færre spillere.</string>
   <string name="showAdvancedSettings">Vis avancerede Indstillinger</string>
   <string name="makePrivateTournament">Gør turneringen privat og begræns adgang med en adgangskode</string>
-  <string name="join">Tilmeld</string>
+  <string name="join">Deltag</string>
   <string name="withdraw">Frameld</string>
   <string name="points">Points</string>
   <string name="wins">Gevinster</string>
@@ -426,6 +461,8 @@
   <string name="tournamentIsStarting">Turneringen er begyndt</string>
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
   <string name="standByX">Et øjeblik %s, parrer spillere – gør dig klar!</string>
+  <string name="pause">Sæt på pause</string>
+  <string name="resume">Genoptag</string>
   <string name="youArePlaying">Du spiller nu!</string>
   <string name="winRate">Sejrsrate</string>
   <string name="berserkRate">Bersærk-rate</string>
@@ -460,6 +497,10 @@
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="oneUrlPerLine">En URL pr. linje.</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
+  <string name="savingMoves">Midlertidig træk-lagerplads</string>
+  <string name="savingMovesHelp">Vi gemmer altid dine variationer i din browser-cache.</string>
+  <string name="makeAStudy">Overvej at lave et studie for sikker opbevaring og deling.</string>
+  <string name="clearSavedMoves">Ryd træk</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Online spillere</string>
   <string name="activePlayers">Aktive spillere</string>
@@ -506,7 +547,9 @@
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
   <string name="blog">Blog</string>
   <string name="notes">Noter</string>
-  <string name="typePrivateNotesHere">Skriv private noter her</string>
+  <string name="typePrivateNotesHere">Lav private noter her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv en privat note om denne bruger</string>
+  <string name="noNoteYet">Ingen note endnu</string>
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
   <string name="incorrectPassword">Forkert adgangskode</string>
   <string name="invalidAuthenticationCode">Ugyldig godkendelseskode</string>
@@ -563,6 +606,7 @@
   <string name="community">Fællesskab</string>
   <string name="tools">Værktøjer</string>
   <string name="increment">Forøgelse</string>
+  <string name="error.unknown">Ugyldig værdi</string>
   <string name="error.required">Dette felt skal udfyldes</string>
   <string name="error.email">Denne e-mailadresse er ugyldig</string>
   <string name="error.email_acceptable">Denne e-mailadresse kan ikke accepteres. Dobbelttjek den, og prøv igen.</string>
@@ -618,10 +662,13 @@
   <string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
   <string name="simulHostExtraTime">Ekstra tid til værtsuret</string>
+  <string name="simulAddExtraTimePerPlayer">Læg den indledende tid til dit ur igen for hver spiller, der melder sig til simultanspillet.</string>
+  <string name="simulHostExtraTimePerPlayer">Ekstra tid på arrangørens ur pr. spiller</string>
   <string name="lichessTournaments">Lichess-turneringer</string>
   <string name="tournamentFAQ">Arenaturnering FAQ</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gennemsnitligt centibonde-tab</string>
+  <string name="accuracy">Præcision</string>
   <string name="keyboardShortcuts">Tastaturgenveje</string>
   <string name="keyMoveBackwardOrForward">ryk tilbage/frem</string>
   <string name="keyGoToStartOrEnd">gå til start/slut</string>
@@ -670,6 +717,7 @@
   <string name="kidMode">Børnetilstand</string>
   <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér dette for dine børn eller skoleelever for at beskytte dem mod andre internetbrugere.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand vil Lichess-logoet få et %s ikon, så du ved, at dine børn er sikret.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Din konto er under administration. Spørg din skaklærer om at ophæve børnetilstanden.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
   <string name="security">Sikkerhed</string>
@@ -704,6 +752,7 @@
   <string name="light">Lyst</string>
   <string name="dark">Mørkt</string>
   <string name="transparent">Gennemsigtigt</string>
+  <string name="deviceTheme">Enhedstema</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
   <string name="boardGeometry">Brætgeometri</string>
   <string name="boardTheme">Brættema</string>
@@ -721,7 +770,7 @@
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpasset</string>
-  <string name="notifications">Meddelelser</string>
+  <string name="notifications">Notifikationer</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>
@@ -732,6 +781,7 @@
   <string name="bestWasX">Bedste var %s</string>
   <string name="youBrowsedAway">Du browsede væk</string>
   <string name="resumePractice">Genoptag træning</string>
+  <string name="drawByFiftyMoves">Partiet er endt med remis efter reglen om halvtreds træk.</string>
   <string name="theGameIsADraw">Partiet ender med remis.</string>
   <string name="computerThinking">Computer tænker...</string>
   <string name="seeBestMove">Se bedste træk</string>
@@ -898,4 +948,5 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="lichessDbExplanation">Ratede partier indsamlet fra alle Lichess-spillere</string>
   <string name="switchSides">Skift side</string>
   <string name="closingAccountWithdrawAppeal">Hvis du lukker din konto, vil din appel blive trukket tilbage</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Tips til organisering af begivenheder</string>
 </resources>

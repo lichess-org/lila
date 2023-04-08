@@ -62,6 +62,8 @@
   <string name="studyPgn">Study PGN</string>
   <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">Chapter PGN</string>
+  <string name="copyChapterPgn">Copy PGN</string>
+  <string name="copyChapterPgnDescription">Copy chapter PGN to clipboard.</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Study not found</string>
   <string name="editChapter">Edit chapter</string>
   <string name="newChapter">New chapter</string>
+  <string name="importFromChapterX">Import from %s</string>
   <string name="orientation">Orientation</string>
   <string name="analysisMode">Analysis mode</string>
   <string name="pinnedChapterComment">Pinned chapter comment</string>

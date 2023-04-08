@@ -22,4 +22,5 @@
   <string name="declineVariant">Nílim sásta an leagan seo a imirt faoi láthair.</string>
   <string name="declineNoBot">Nílim ag glacadh dúshláin ó botaí.</string>
   <string name="declineOnlyBot">Nílim ag glacadh ach le dúshláin ó botaí.</string>
+  <string name="inviteLichessUser">Nó tabhair cuireadh d’Úsáideoir Lichess:</string>
 </resources>

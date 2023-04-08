@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Új API hozzáférési token</string>
+  <string name="tokenGrantsPermission">A token segítségével más felhasználók is hozzáférhetnek a fiókodhoz.</string>
+  <string name="carefullySelect">A jogosultsági köröket gondosan válaszd meg.</string>
+  <string name="tokenDescription">Token leírás</string>
+  <string name="rememberTokenUse">Rövid emlékeztető a token felhasználásának módját illetően</string>
+  <string name="whatTheTokenCanDo">Token jogosultságai:</string>
+  <string name="doNotShareIt">A token hozzáférést biztosít a fiókodhoz. NE oszd meg senkivel!</string>
+  <string name="copyTokenNow">Jegyezd fel az alábbi token azonosítót, melyet csak itt és most láthatsz!</string>
+  <string name="preferenceRead">Olvasási jogosultság</string>
+  <string name="preferenceWrite">Írási jogosultság</string>
+  <string name="emailRead">E-mail cím olvasása</string>
+  <string name="challengeRead">Beérkező kihívások olvasása</string>
+  <string name="challengeWrite">Kihívások elfogadása, elutasítása és küldése</string>
+  <string name="challengeBulk">Hozz létre egyszerre több játékot más játékosok számára</string>
+  <string name="studyRead">Privát tanulmányok és közvetítések olvasása</string>
+  <string name="studyWrite">Tanulmányok és közvetítések létrehozása, frissítése és törlése</string>
+  <string name="tournamentWrite">Versenyekhez csatlakozás, létrehozás és frissítés</string>
+  <string name="racerWrite">Hozz létre rejtvény versenyeket és vegyél részt rajtuk</string>
+  <string name="puzzleRead">Feladvány-aktivitási adatok olvasása</string>
+  <string name="teamRead">Privát csapatinformációk</string>
+  <string name="teamWrite">Csatlakozás és kilépés csapatokból</string>
+  <string name="teamLead">Csapatműveletek: PMek küldése, tagok eltávolítása</string>
+  <string name="followRead">Követett játékosok megtekintése</string>
+  <string name="followWrite">Játékosok követése</string>
+  <string name="msgWrite">Privát üzenete küldése játékosoknak</string>
+  <string name="boardPlay">Játszma a Board API segítségével</string>
+  <string name="botPlay">Játszma a Bot API segítségével</string>
+  <string name="engineRead">Külső motorok megtekintése és használata</string>
+  <string name="engineWrite">Külső motorok létrehozása és frissítése</string>
+  <string name="webLogin">Azonosított munkamenet létrehozása (teljes hozzáférést biztosít!)</string>
+  <string name="webMod">Moderálási eszközök használata (jogosultsági köreiden belül)</string>
+</resources>

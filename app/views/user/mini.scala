@@ -1,13 +1,13 @@
 package views.html.user
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
 import controllers.routes
 
-object mini {
+object mini:
 
   def apply(
       u: User,
@@ -17,7 +17,7 @@ object mini {
       rel: Option[lila.relation.Relation],
       ping: Option[Int],
       crosstable: Option[lila.game.Crosstable]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(
@@ -26,7 +26,7 @@ object mini {
             u.profileOrDefault.countryInfo map { c =>
               val hasRoomForNameText = u.username.length + c.shortName.length < 20
               span(
-                cls := "upt__info__top__country",
+                cls   := "upt__info__top__country",
                 title := (!hasRoomForNameText).option(c.name)
               )(
                 img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
@@ -45,36 +45,36 @@ object mini {
       ),
       ctx.userId map { myId =>
         frag(
-          (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
+          (myId != u.id && u.enabled.yes) option div(cls := "upt__actions btn-rack")(
             a(
               dataIcon := "",
-              cls := "btn-rack__btn",
-              title := trans.watchGames.txt(),
-              href := routes.User.tv(u.username)
+              cls      := "btn-rack__btn",
+              title    := trans.watchGames.txt(),
+              href     := routes.User.tv(u.username)
             ),
             !blocked option frag(
               a(
                 dataIcon := "",
-                cls := "btn-rack__btn",
-                title := trans.chat.txt(),
-                href := routes.Msg.convo(u.username)
+                cls      := "btn-rack__btn",
+                title    := trans.chat.txt(),
+                href     := routes.Msg.convo(u.username)
               ),
               a(
                 dataIcon := "",
-                cls := "btn-rack__btn",
-                title := trans.challenge.challengeToPlay.txt(),
-                href := s"${routes.Lobby.home}?user=${u.username}#friend"
+                cls      := "btn-rack__btn",
+                title    := trans.challenge.challengeToPlay.txt(),
+                href     := s"${routes.Lobby.home}?user=${u.username}#friend"
               )
             ),
             views.html.relation.mini(u.id, blocked, followable, rel)
           ),
           crosstable.flatMap(_.nonEmpty) map { cross =>
             a(
-              cls := "upt__score",
-              href := s"${routes.User.games(u.username, "me")}#games",
+              cls   := "upt__score",
+              href  := s"${routes.User.games(u.username, "me")}#games",
               title := trans.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
             )(trans.yourScore(raw(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross
-              .showOpponentScore(myId)}</strong>""")))
+                .showOpponentScore(myId)}</strong>""")))
           }
         )
       },
@@ -84,10 +84,9 @@ object mini {
           " ",
           momentFromNowOnce(u.createdAt)
         ),
-        (u.lameOrTroll || u.disabled) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
+        (u.lameOrTroll || u.enabled.no) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
       ),
       playing.ifFalse(ctx.pref.isBlindfold).map {
         views.html.game.mini(_)
       }
     )
-}

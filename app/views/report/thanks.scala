@@ -1,20 +1,17 @@
 package views.html.report
 
-import scala.annotation.nowarn
-
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object thanks {
+object thanks:
 
-  def apply(userId: String, blocked: Boolean)(implicit ctx: Context) = {
+  def apply(userId: UserId, blocked: Boolean)(implicit ctx: Context) =
 
     val title = "Thanks for the report"
 
-    @nowarn("msg=possible missing interpolator")
     val moreJs = embedJsUnsafeLoadThen("""
 $('button.report-block').one('click', function() {
 const $button = $(this);
@@ -26,7 +23,7 @@ fetch($button.data('action'), {method:'post'})
 
     views.html.base.layout(title = title, moreJs = moreJs) {
       main(cls := "page-small box box-pad")(
-        h1(title),
+        h1(cls := "box__top")(title),
         p("The moderators will review it very soon, and take appropriate action."),
         br,
         br,
@@ -34,11 +31,9 @@ fetch($button.data('action'), {method:'post'})
           "In the meantime, you can block this user: ",
           submitButton(
             attr("data-action") := routes.Relation.block(userId),
-            cls := "report-block button",
-            st.title := trans.block.txt()
-          )(
-            span(cls := "text", dataIcon := "")("Block ", titleNameOrId(userId))
-          )
+            cls                 := "report-block button",
+            st.title            := trans.block.txt()
+          )(span(cls := "text", dataIcon := "")("Block ", titleNameOrId(userId)))
         ),
         br,
         br,
@@ -48,5 +43,3 @@ fetch($button.data('action'), {method:'post'})
       )
 
     }
-  }
-}

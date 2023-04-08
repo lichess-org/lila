@@ -1,12 +1,14 @@
-import { h } from 'snabbdom';
+import * as round from './round';
+import * as util from './util';
+import resizeHandle from 'common/resize';
+import RoundController from './ctrl';
 import { Chessground } from 'chessground';
 import { Config } from 'chessground/config';
-import * as round from './round';
-import resizeHandle from 'common/resize';
-import * as util from './util';
+import { h } from 'snabbdom';
 import { plyStep } from './round';
-import RoundController from './ctrl';
 import { RoundData } from './interfaces';
+import { uciToMove } from 'chessground/util';
+import * as Prefs from 'common/prefs';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -17,11 +19,11 @@ export function makeConfig(ctrl: RoundController): Config {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
     turnColor: step.ply % 2 === 0 ? 'white' : 'black',
-    lastMove: util.uci2move(step.uci),
+    lastMove: uciToMove(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: ctrl.data.pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
@@ -78,23 +80,18 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0',
+      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
     },
     disableContextMenu: true,
   };
 }
 
-export function reload(ctrl: RoundController) {
-  ctrl.chessground.set(makeConfig(ctrl));
-}
+export const reload = (ctrl: RoundController) => ctrl.chessground.set(makeConfig(ctrl));
 
-export function boardOrientation(data: RoundData, flip: boolean): Color {
-  if (data.game.variant.key === 'racingKings') return flip ? 'black' : 'white';
-  else return flip ? data.opponent.color : data.player.color;
-}
+export const boardOrientation = (data: RoundData, flip: boolean): Color =>
+  data.game.variant.key === 'racingKings' ? (flip ? 'black' : 'white') : flip ? data.opponent.color : data.player.color;
 
-export function render(ctrl: RoundController) {
-  return h('div.cg-wrap', {
+export const render = (ctrl: RoundController) =>
+  h('div.cg-wrap', {
     hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl)))),
   });
-}

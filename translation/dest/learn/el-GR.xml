@@ -83,9 +83,9 @@
   <string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το χάσιμο
 ανυπεράσπιστων κομματιών!</string>
   <string name="combat">Μάχη</string>
-  <string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε πιόνια</string>
+  <string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε κομμάτια</string>
   <string name="combatIntro">Ο καλός παίκτης γνωρίζει τόσο την επίθεση όσο και την άμυνα!</string>
-  <string name="combatComplete">Συγχαρητήρια! Ξέρετε πως να μάχεστε με τα πιόνια του σκακιού!</string>
+  <string name="combatComplete">Συγχαρητήρια! Ξέρετε πως να μάχεστε με τα κομμάτια του σκακιού!</string>
   <string name="checkInOne">Σαχ σε μία κίνηση</string>
   <string name="attackTheOpponentsKing">Επίθεση στον βασιλιά του αντιπάλου</string>
   <string name="checkInOneIntro">Για να κάνετε σαχ στον αντίπαλό σας, επιτεθείτε στον βασιλιά του. Πρέπει να τον υπερασπιστεί!</string>
@@ -96,13 +96,13 @@
   <string name="outOfCheckIntro">Είστε σε σαχ! Πρέπει να ξεφύγετε ή να εμποδίσετε την επίθεση.</string>
   <string name="escapeWithTheKing">Ξεφύγετε με τον βασιλιά!</string>
   <string name="theKingCannotEscapeButBlock">Ο βασιλιάς δεν μπορεί να ξεφύγει, αλλά μπορείτε να εμποδίσετε την επίθεση!</string>
-  <string name="youCanGetOutOfCheckByTaking">Μπορείτε να ξεφύγετε από το σαχ παίρνοντας το επιτιθέμενο πιόνι.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Αυτός ο ίππος κάνει σαχ μέσω της άμυνας σας!</string>
+  <string name="youCanGetOutOfCheckByTaking">Μπορείτε να ξεφύγετε από το σαχ παίρνοντας το επιτιθέμενο κομμάτι.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Αυτός ο ίππος κάνει σαχ διαμέσου της άμυνάς σας!</string>
   <string name="escapeOrBlock">Ξεφύγετε με τον βασιλιά ή εμποδίστε την επίθεση!</string>
   <string name="outOfCheckComplete">Συγχαρητήρια! Ο βασιλιάς πρέπει να είναι πάντα ασφαλής, βεβαιωθείτε ότι θα τον προστατεύετε ενάντια σε ένα σαχ!</string>
   <string name="mateInOne">Ματ σε μία</string>
   <string name="defeatTheOpponentsKing">Νικήστε τον βασιλιά του αντιπάλου</string>
-  <string name="mateInOneIntro">Κερδίζετε όταν ο αντίπαλος σας δεν μπορεί να υπερασπιστεί ενάντια σε σαχ.</string>
+  <string name="mateInOneIntro">Κερδίζετε όταν ο αντίπαλός σας δεν μπορεί να υπερασπιστεί ενάντια σε σαχ.</string>
   <string name="attackYourOpponentsKing">Επιτεθείτε στον βασιλιά του αντιπάλου σας με έναν τρόπο που δεν θα μπορεί να τον υπερασπιστεί!</string>
   <string name="mateInOneComplete">Συγχαρητήρια! Έτσι κερδίζετε τα παιχνίδια στο σκάκι!</string>
   <string name="intermediate">Ενδιάμεσο στάδιο</string>
@@ -134,9 +134,9 @@
 στη πλευρά της βασίλισσας!</string>
   <string name="theKnightIsInTheWay">Ο ίππος εμποδίζει!
 Μετακινήστε τον, έπειτα κάντε ροκέ στη πλευρά του βασιλιά.</string>
-  <string name="castleKingSideMovePiecesFirst">Ροκέ στη πλευρά του βασιλιά!
+  <string name="castleKingSideMovePiecesFirst">Ροκέ στην πλευρά του βασιλιά!
 Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
-  <string name="castleQueenSideMovePiecesFirst">Ροκέ στη πλευρά-βασίλισσας!
+  <string name="castleQueenSideMovePiecesFirst">Ροκέ στην πλευρά της βασίλισσας!
 Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
   <string name="youCannotCastleIfMoved">Δεν επιτρέπεται ροκέ αν
 ο βασιλιάς έχει μετακινηθεί
@@ -145,9 +145,9 @@
 ο βασιλιάς δέχεται επίθεση.
 Αποκλείστε το σαχ και μετά κάντε ροκέ!</string>
   <string name="findAWayToCastleKingSide">Βρείτε τρόπο για να κάνετε
-ροκέ στη πλευρά του βασιλιά!</string>
+ροκέ στην πλευρά του βασιλιά!</string>
   <string name="findAWayToCastleQueenSide">Βρείτε τρόπο για να κάνετε
-ροκέ στη πλευρά της βασίλισσας!</string>
+ροκέ στην πλευρά της βασίλισσας!</string>
   <string name="castlingComplete">Συγχαρητήρια! Προτείνεται να κάνετε ροκέ σε κάθε παρτίδα.</string>
   <string name="enPassant">Εν διελεύσει</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
@@ -174,7 +174,7 @@
 Αξιωματικός = 3
 Ίππος = 3
 Πιόνι = 1
-Ο βασιλιάς είναι ανεκτίμητος! Η απώλεια του σημαίνει ήττα στο παιχνίδι.</string>
+Ο βασιλιάς είναι ανεκτίμητος! Η απώλειά του σημαίνει ήττα στο παιχνίδι.</string>
   <string name="queenOverBishop">Πάρτε το κομμάτι
 με την υψηλότερη αξία!
 Βασίλισσα &gt; Αξιωματικός</string>
@@ -197,7 +197,7 @@
   <string name="checkInTwoIntro">Βρείτε το σωστό συνδυασμό δύο κινήσεων που κάνει σαχ στον βασιλιά του αντιπάλου!</string>
   <string name="checkInTwoGoal">Απειλήστε τον αντίπαλο βασιλιά
 σε δύο κινήσεις!</string>
-  <string name="checkInTwoComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντας τον να προστατεύσει τον βασιλιά του!</string>
+  <string name="checkInTwoComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντάς τον να προστατεύσει τον βασιλιά του!</string>
   <string name="whatNext">Τι υπάρχει στη συνέχεια;</string>
   <string name="youKnowHowToPlayChess">Γνωρίζετε πως να παίζετε σκάκι, συγχαρητήρια! Θέλετε να γίνετε ισχυρότερος παίχτης;</string>
   <string name="register">Εγγραφείτε</string>

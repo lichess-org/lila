@@ -11,6 +11,7 @@
   <string name="myTeams">소속된 팀</string>
   <string name="noTeamFound">팀을 찾지 못했습니다</string>
   <string name="joinTeam">팀 가입</string>
+  <string name="onlyLeaderLeavesTeam">탈퇴하기 전에 새 팀 운영자를 추가하거나, 팀을 폐쇄하세요.</string>
   <string name="quitTeam">팀 탈퇴</string>
   <string name="manuallyReviewAdmissionRequests">수동으로 가입 요청을 검토합니다.</string>
   <string name="manuallyReviewAdmissionRequestsHelp">체크한다면, 플레이어는 팀에 가입하기 위해 요청서를 작성해야 합니다. 당신은 이를 받아들이거나 거절할 수 있습니다.</string>
@@ -48,4 +49,6 @@
   <string name="upcomingTourns">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>
   <string name="declinedRequests">거절된 요청</string>
+  <string name="joinLichessVariantTeam">%s 공식 팀을 가입하면 관련 소식과 행사에 대해 알 수 있습니다</string>
+  <string name="teamPage">팀 페이지</string>
 </resources>

@@ -71,6 +71,8 @@
   <string name="studyPgn">Déan staidéar ar PGN</string>
   <string name="downloadAllGames">Íoslódáil gach cluiche</string>
   <string name="chapterPgn">PGN caibidle</string>
+  <string name="copyChapterPgn">Cóipeáil PGN</string>
+  <string name="copyChapterPgnDescription">Cóipeáil an chaibidil PGN chuig an ngearrthaisce.</string>
   <string name="downloadGame">Íoslódáil cluiche</string>
   <string name="studyUrl">URL an staidéir</string>
   <string name="currentChapterUrl">URL caibidil reatha</string>
@@ -85,6 +87,7 @@
   <string name="studyNotFound">Níor aimsíodh staidéar</string>
   <string name="editChapter">Cuir caibidil in eagar</string>
   <string name="newChapter">Caibidil nua</string>
+  <string name="importFromChapterX">Iompórtáil ó %s</string>
   <string name="orientation">Treoshuíomh</string>
   <string name="analysisMode">Modh anailíse</string>
   <string name="pinnedChapterComment">Trácht caibidil greamaithe</string>

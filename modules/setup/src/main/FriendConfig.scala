@@ -1,22 +1,25 @@
 package lila.setup
 
-import chess.Mode
-import chess.format.FEN
+import chess.format.Fen
+import chess.{ Mode, Clock }
+import chess.variant.Variant
+
+import lila.common.Days
+import lila.game.PerfPicker
 import lila.lobby.Color
 import lila.rating.PerfType
-import lila.game.PerfPicker
 
 case class FriendConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
     time: Double,
-    increment: Int,
-    days: Int,
+    increment: Clock.IncrementSeconds,
+    days: Days,
     mode: Mode,
     color: Color,
-    fen: Option[FEN] = None
+    fen: Option[Fen.Epd] = None
 ) extends HumanConfig
-    with Positional {
+    with Positional:
 
   val strictFen = false
 
@@ -25,13 +28,21 @@ case class FriendConfig(
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(makeClock), variant, makeDaysPerTurn)
-}
 
-object FriendConfig extends BaseHumanConfig {
+object FriendConfig extends BaseHumanConfig:
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], c: String, fen: Option[FEN]) =
+  def from(
+      v: Variant.Id,
+      tm: Int,
+      t: Double,
+      i: Clock.IncrementSeconds,
+      d: Days,
+      m: Option[Int],
+      c: String,
+      fen: Option[Fen.Epd]
+  ) =
     new FriendConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = chess.variant.Variant.orDefault(v),
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -45,30 +56,30 @@ object FriendConfig extends BaseHumanConfig {
     variant = variantDefault,
     timeMode = TimeMode.Unlimited,
     time = 5d,
-    increment = 8,
-    days = 2,
+    increment = Clock.IncrementSeconds(8),
+    days = Days(2),
     mode = Mode.default,
     color = Color.default
   )
 
   import lila.db.BSON
-  import lila.db.dsl._
+  import lila.db.dsl.{ *, given }
 
-  implicit private[setup] val friendConfigBSONHandler = new BSON[FriendConfig] {
+  private[setup] given BSON[FriendConfig] with
 
     def reads(r: BSON.Reader): FriendConfig =
       FriendConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
+        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
-        increment = r int "i",
-        days = r int "d",
+        increment = r get "i",
+        days = r.get("d"),
         mode = Mode orDefault (r int "m"),
         color = Color.White,
-        fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
+        fen = r.getO[Fen.Epd]("f") filter (_.value.nonEmpty)
       )
 
-    def writes(w: BSON.Writer, o: FriendConfig) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: FriendConfig) =
       $doc(
         "v"  -> o.variant.id,
         "tm" -> o.timeMode.id,
@@ -78,5 +89,3 @@ object FriendConfig extends BaseHumanConfig {
         "m"  -> o.mode.id,
         "f"  -> o.fen
       )
-  }
-}

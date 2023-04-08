@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">בדיוק עכשיו</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">עוד שנייה</item>
+    <item quantity="two">עוד %s שניות</item>
+    <item quantity="many">עוד %s שניות</item>
+    <item quantity="other">עוד %s שניות</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">עוד דקה %s</item>
+    <item quantity="two">עוד %s דקות</item>
+    <item quantity="many">עוד %s דקות</item>
+    <item quantity="other">עוד %s דקות</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">עוד שעה %s</item>
+    <item quantity="two">עוד %s שעות</item>
+    <item quantity="many">עוד %s שעות</item>
+    <item quantity="other">עוד %s שעות</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">עוד יום %s</item>
+    <item quantity="two">עוד %s ימים</item>
+    <item quantity="many">עוד %s ימים</item>
+    <item quantity="other">עוד %s ימים</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">עוד שבוע %s</item>
+    <item quantity="two">עוד %s שבועות</item>
+    <item quantity="many">עוד %s שבועות</item>
+    <item quantity="other">עוד %s שבועות</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">עוד חודש %s</item>
+    <item quantity="two">עוד %s חודשים</item>
+    <item quantity="many">עוד %s חודשים</item>
+    <item quantity="other">עוד %s חודשים</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">עוד שנה %s</item>
+    <item quantity="two">עוד %s שנים</item>
+    <item quantity="many">עוד %s שנים</item>
+    <item quantity="other">עוד %s שנים</item>
+  </plurals>
+  <string name="rightNow">עכשיו</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">לפני שנייה %s</item>
+    <item quantity="two">לפני %s שניות</item>
+    <item quantity="many">לפני %s שניות</item>
+    <item quantity="other">לפני %s שניות</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">לפני דקה %s</item>
+    <item quantity="two">לפני %s דקות</item>
+    <item quantity="many">לפני %s דקות</item>
+    <item quantity="other">לפני %s דקות</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">לפני שעה %s</item>
+    <item quantity="two">לפני %s שעות</item>
+    <item quantity="many">לפני %s שעות</item>
+    <item quantity="other">לפני %s שעות</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">לפני יום %s</item>
+    <item quantity="two">לפני %s ימים</item>
+    <item quantity="many">לפני %s ימים</item>
+    <item quantity="other">לפני %s ימים</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">לפני שבוע %s</item>
+    <item quantity="two">לפני %s שבועות</item>
+    <item quantity="many">לפני %s שבועות</item>
+    <item quantity="other">לפני %s שבועות</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">לפני חודש %s</item>
+    <item quantity="two">לפני %s חודשים</item>
+    <item quantity="many">לפני %s חודשים</item>
+    <item quantity="other">לפני %s חודשים</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">לפני שנה %s</item>
+    <item quantity="two">לפני %s שנים</item>
+    <item quantity="many">לפני %s שנים</item>
+    <item quantity="other">לפני %s שנים</item>
+  </plurals>
+</resources>

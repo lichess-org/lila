@@ -38,7 +38,10 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   </plurals>
   <string name="thisIsPrivate">Dies ist ein privates Turnier</string>
   <string name="shareUrl">Teile diese URL, um andere einzuladen: %s</string>
-  <string name="drawStreak">Remis-Serien: Wenn ein Spieler mehrere aufeinanderfolgende Remis in der Arena erzielt, wird nur für das erste Remis ein Punkt vergeben, oder aber für Remis, die mehr als %s Züge andauern. Eine Remis-Serie kann nur durch einen Sieg gebrochen werden, nicht durch eine verlorene Partie oder ein Unentschieden.</string>
+  <string name="drawStreakStandard">Remis-Serien: Wenn ein Spieler in mehreren aufeinanderfolgenden Arena-Partien Remis erzielt, wird nur für das erste Remis und in Standard-Partien für Remis, in denen mehr als %s Züge gespielt wurden, ein Punkt vergeben. Eine Remis-Serie kann nur durch einen Sieg gebrochen werden, nicht durch eine verlorene Partie oder ein Unentschieden.</string>
+  <string name="drawStreakVariants">Die minimale Partielänge, um für remisierte Partien Punkte zu erhalten, unterscheidet sich je nach gespielter Variante. Die Tabelle unten listet die Grenzen für jede Variante auf.</string>
+  <string name="variant">Variante</string>
+  <string name="minimumGameLength">Minimale Partielänge</string>
   <string name="history">Arena-Historie</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Das Team ansehen</item>
@@ -52,4 +55,8 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="allowChatHelp">Lasse Spieler in einem Chatraum diskutieren</string>
   <string name="arenaStreaks">Arena-Siegesserien</string>
   <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
+  <string name="noBerserkAllowed">Kein Berserken erlaubt</string>
+  <string name="noArenaStreaks">Keine Arena-Siegesserien</string>
+  <string name="averagePerformance">Durchschnittliche Leistung</string>
+  <string name="averageScore">Durchschnittliche Punktzahl</string>
 </resources>

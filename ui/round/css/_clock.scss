@@ -85,6 +85,7 @@
     will-change: transform;
     z-index: -1;
     display: flex;
+    direction: ltr;
 
     &.hour {
       font-size: 2.3em;
@@ -188,7 +189,7 @@
 
     display: none;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint(420px) {
       order: -1;
       display: flex;
       flex: 0 1 auto;

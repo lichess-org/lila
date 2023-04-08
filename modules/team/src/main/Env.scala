@@ -1,14 +1,15 @@
 package lila.team
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     captcher: lila.hub.actors.Captcher,
     timeline: lila.hub.actors.Timeline,
@@ -22,11 +23,12 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
     db: lila.db.Db
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
+)(using
+    ec: Executor,
     system: ActorSystem,
-    mode: play.api.Mode
-) {
+    mode: play.api.Mode,
+    materializer: akka.stream.Materializer
+):
 
   lazy val teamRepo    = new TeamRepo(db(CollName("team")))
   lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
@@ -44,12 +46,11 @@ final class Env(
 
   private val teamSocket = wire[TeamSocket]
 
-  def version(teamId: Team.ID) =
-    teamSocket.rooms.ask[SocketVersion](teamId)(GetVersion)
+  def version(teamId: TeamId) = teamSocket.rooms.ask[SocketVersion](teamId into RoomId)(GetVersion.apply)
 
   private lazy val notifier = wire[Notifier]
 
-  lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
+  val getTeamName = GetTeamNameSync(cached.blockingTeamName)
 
   lazy val api = wire[TeamApi]
 
@@ -67,4 +68,3 @@ final class Env(
       promise completeWith api.isLeaderOf(leaderId, memberId)
     }
   )
-}

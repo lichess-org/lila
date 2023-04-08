@@ -1,4 +1,9 @@
 .forum-topic {
+  h1 {
+    display: flex;
+    unicode-bidi: plaintext;
+  }
+
   &.topic-form {
     .warning {
       @extend %box-radius;
@@ -38,7 +43,7 @@
       @extend %flex-wrap;
 
       .button {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
       }
 
       .unsub.on .off,

@@ -4,15 +4,18 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.common.Json.given
+import lila.socket.SocketVersion
+import lila.socket.SocketVersion.given
 
-object show {
+object show:
 
   def apply(
       sim: lila.simul.Simul,
-      socketVersion: lila.socket.Socket.SocketVersion,
+      socketVersion: SocketVersion,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
@@ -24,24 +27,24 @@ object show {
       moreJs = frag(
         jsModule("simul"),
         embedJsUnsafeLoadThen(s"""LichessSimul.start(${safeJsonValue(
-          Json.obj(
-            "data"          -> data,
-            "i18n"          -> bits.jsI18n(),
-            "socketVersion" -> socketVersion.value,
-            "userId"        -> ctx.userId,
-            "chat" -> chatOption.map { c =>
-              views.html.chat.json(
-                c.chat,
-                name = trans.chatRoom.txt(),
-                timeout = c.timeout,
-                public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-                localMod = ctx.userId has sim.hostId
-              )
-            },
-            "showRatings" -> ctx.pref.showRatings
-          )
-        )})""")
+            Json.obj(
+              "data"          -> data,
+              "i18n"          -> bits.jsI18n(),
+              "socketVersion" -> socketVersion,
+              "userId"        -> ctx.userId,
+              "chat" -> chatOption.map { c =>
+                views.html.chat.json(
+                  c.chat,
+                  name = trans.chatRoom.txt(),
+                  timeout = c.timeout,
+                  public = true,
+                  resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
+                  localMod = ctx.userId has sim.hostId
+                )
+              },
+              "showRatings" -> ctx.pref.showRatings
+            )
+          )})""")
       )
     ) {
       main(cls := "simul")(
@@ -65,20 +68,26 @@ object show {
               ),
               trans.simulHostExtraTime(),
               ": ",
-              pluralize("minute", sim.clock.hostExtraMinutes),
+              pluralize("minute", sim.clock.hostExtraMinutes.value),
               br,
-              trans.hostColorX(sim.color match {
+              sim.clock.hostExtraTimePerPlayerForDisplay.map { time =>
+                frag(
+                  trans.simulHostExtraTimePerPlayer(),
+                  ": ",
+                  time match
+                    case Left(minutes)  => pluralize("minute", minutes.value)
+                    case Right(seconds) => pluralize("second", seconds.value)
+                  ,
+                  br
+                )
+              },
+              trans.hostColorX(sim.color match
                 case Some("white") => trans.white()
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
-              }),
-              sim.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
-                frag(
-                  br,
-                  a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
-                  " • ",
-                  views.html.base.bits.fenAnalysisLink(pos.fen)
-                )
+              ),
+              sim.position.flatMap(p => lila.tournament.Thematic.byFen(p.opening)) map { pos =>
+                frag(br, a(targetBlank, href := pos.url)(pos.name))
               } orElse sim.position.map { fen =>
                 frag(
                   br,
@@ -109,4 +118,3 @@ object show {
         div(cls := "simul__main box")(spinner)
       )
     }
-}

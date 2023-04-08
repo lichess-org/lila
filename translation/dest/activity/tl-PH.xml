@@ -30,4 +30,8 @@
     <item quantity="one">Hosted %s sabay na eksibisyon</item>
     <item quantity="other">Naka-host na %s sabay na eksibisyon</item>
   </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Sumali sa %s sabay-sabay na eksibisyon</item>
+    <item quantity="other">Sumali sa %s sabay-sabay na eksibisyon</item>
+  </plurals>
 </resources>

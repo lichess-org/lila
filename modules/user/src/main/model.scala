@@ -1,14 +1,14 @@
 package lila.user
 
-final class GetBotIds(f: () => Fu[Set[User.ID]]) extends (() => Fu[Set[User.ID]]) {
+final class GetBotIds(f: () => Fu[Set[UserId]]) extends (() => Fu[Set[UserId]]):
   def apply() = f()
-}
 
-final class RankingsOf(f: User.ID => lila.rating.UserRankMap) extends (User.ID => lila.rating.UserRankMap) {
-  def apply(u: User.ID) = f(u)
-}
+final class RankingsOf(f: UserId => lila.rating.UserRankMap) extends (UserId => lila.rating.UserRankMap):
+  def apply(u: UserId) = f(u)
 
 // permission holder
-case class Holder(user: User) extends AnyVal {
+case class Holder(user: User) extends AnyVal:
   def id = user.id
-}
+
+opaque type UserEnabled = Boolean
+object UserEnabled extends YesNo[UserEnabled]

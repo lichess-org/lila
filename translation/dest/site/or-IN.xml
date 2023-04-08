@@ -117,6 +117,7 @@
   <string name="viewInFullSize">ପୂର୍ଣ୍ଣ ଆକାରରେ ଦେଖନ୍ତୁ</string>
   <string name="logOut">ବାହାରି ଯାନ୍ତୁ</string>
   <string name="signIn">ସା‌ଇନ୍ କରିବା</string>
+  <string name="rememberMe">ମୋତେ ମନେ ରଖିବେ</string>
   <string name="youNeedAnAccountToDoThat">ତାହା କରିବା ପାଇଁ ତୁମର ଏକ ଆକାଉଣ୍ଟ୍ ଦରକାର</string>
   <string name="signUp">ପଞ୍ଜିକରଣ କର</string>
   <string name="computersAreNotAllowedToPlay">କମ୍ପ୍ୟୁଟର ଏବଂ କମ୍ପ୍ୟୁଟର ସାହାଯ୍ୟକାରୀ ଖେଳାଳିଙ୍କୁ ଖେଳିବାକୁ ଅନୁମତି ନାହିଁ | ଖେଳିବା ସମୟରେ ଦୟାକରି ଚେସ ଇଞ୍ଜିନ୍, ଡାଟାବେସ୍ କିମ୍ବା ଅନ୍ୟ ଖେଳାଳିଙ୍କଠାରୁ ସାହାଯ୍ୟ ନିଅନ୍ତୁ ନାହିଁ | ଏହା ମଧ୍ୟ ଧ୍ୟାନ ଦିଅନ୍ତୁ ଯେ ଏକାଧିକ ଆକାଉଣ୍ଟ୍ କରିବା ସଂପୂଣ ନିରୁତ୍ସାହିତ ହୋଇଛି ଏବଂ ଅତ୍ୟଧିକ ମଲ୍ଟି ଆକାଉଣ୍ଟିଂ ନିଷେଧ ହେବ |</string>
@@ -196,10 +197,11 @@
   <string name="fewerPlayers">ଯଦି ଆପଣ ପ୍ରବେଶ ଆବଶ୍ୟକତାକୁ ସେଟ୍ କରନ୍ତି, ତେବେ ଆପଣଙ୍କ ଟୁର୍ନାମେଣ୍ଟରେ କମ୍ ଖେଳାଳି ରହିବେ।</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
   <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
+  <string name="isPrivate">ଘରୋଇ</string>
   <string name="profileCompletion">ପ୍ରୋଫାଇଲ୍ ସମାପ୍ତି: %s</string>
   <string name="profile">ପ୍ରୋଫାଇଲ୍</string>
   <string name="editProfile">ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା</string>
-  <string name="firstName">ଦିଆଯାଇଥିବା ନାମ</string>
+  <string name="firstName">ପ୍ରଦତ୍ତ ନାମ</string>
   <string name="biography">ଜୀବନୀ</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ଦେଶ କିମ୍ୱା ପତାକା</string>
   <string name="thankYou">ଧନ୍ୟବାଦ!</string>
@@ -207,7 +209,8 @@
   <string name="success">ସଫଳତା</string>
   <string name="puzzles">ପ୍ରହେଳିକା</string>
   <string name="name">ନାମ</string>
-  <string name="description">ବର୍ଣ୍ଣନା</string>
+  <string name="description">ଵର୍ଣ୍ଣନା</string>
+  <string name="descPrivate">ଘରୋଇ ଵର୍ଣ୍ଣନା</string>
   <string name="no">ନାହିଁ</string>
   <string name="yes">ହଁ</string>
   <string name="help">ସହାୟତା:</string>
@@ -218,7 +221,9 @@
   <string name="reason">କାରଣ</string>
   <string name="whatIsIheMatter">ମାମଲା କ\'ଣ?</string>
   <string name="importedByX">%sଙ୍କ ଦ୍ୱାରା ଆମଦାନୀ ହୋଇଛି</string>
-  <string name="thisTopicIsNowClosed">ଏହି ବିଷୟଟି ବର୍ତ୍ତମାନ ବନ୍ଦ ହୋଇଯାଇଛି।</string>
+  <string name="thisTopicIsNowClosed">ଏଇ ପ୍ରକରଣଟି ଏବେ ବନ୍ଦ ହୋଇଯାଇଛି।</string>
+  <string name="typePrivateNotesHere">ଘରୋଇ ନୋଟ୍ ଏଠାରେ ଟାଇପ୍ କରନ୍ତୁ</string>
+  <string name="writeAPrivateNoteAboutThisUser">ଏହି ଉପଭୋକ୍ତାଙ୍କ ଵିଷୟରେ ଏକ ଘରୋଇ ନୋଟ୍ ଲେଖନ୍ତୁ</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
   <string name="currentPassword">ଏବେକାର ପାସ୍‍ୱାର୍ଡ଼</string>
@@ -252,6 +257,7 @@
   <string name="createdSimuls">ନୂଆରେ ତିଆରି କରିଥିବା ସିମଲ୍</string>
   <string name="hostANewSimul">ଏକ ନୂଆ ସିମଲ୍ ଆୟୋଜନ କରନ୍ତୁ</string>
   <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="accuracy">ସଠିକତା</string>
   <string name="newTournament">ନୂଆ ଟୁର୍ନାମେଣ୍ଟ</string>
   <string name="weHaveSentYouAnEmailTo">ଆମେ %s କୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍‍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କକୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>

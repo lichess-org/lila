@@ -11,6 +11,11 @@
     <item quantity="one">%s raunds</item>
     <item quantity="other">%s raundi</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="zero">Šveices turnīrs ar %s raundiem</item>
+    <item quantity="one">Šveices turnīrs ar %s raundu</item>
+    <item quantity="other">Šveices turnīrs ar %s raundiem</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="zero">Jauns raunds ik pēc %s dienām</item>
     <item quantity="one">Jauns raunds ik pēc %s dienas</item>
@@ -105,4 +110,11 @@ Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojo
   <string name="streaksAndBerserk">Uzvaru sērijas un \"dullās\" spēles</string>
   <string name="similarToOTB">Līdzīgs turnīram uz vietas</string>
   <string name="unlimitedAndFree">Neierobežots un bezmaksas</string>
+  <string name="predefinedUsers">Atļaut pievienoties tikai noteiktiem spēlētājiem</string>
+  <string name="forbiddedUsers">Ja šis saraksts nav tukšs, spēlētājiem kas tajā nav pieminēti nebūs atļauts pievienoties. Katrā rindiņā savs lietotājvārds.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="zero">%1$s. / %2$s raunds Šveices turnīrā</item>
+    <item quantity="one">%1$s. / %2$s raunds Šveices turnīrā</item>
+    <item quantity="other">%1$s. / %2$s raunds Šveices turnīrā</item>
+  </plurals>
 </resources>

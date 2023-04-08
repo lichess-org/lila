@@ -35,4 +35,5 @@
     <item quantity="one">Գտնվել է %s պարտիա</item>
     <item quantity="other">Գտնվել է %s պարտիա</item>
   </plurals>
+  <string name="ratingExplanation">Երկու խաղացողների միջին վարկանիշը</string>
 </resources>

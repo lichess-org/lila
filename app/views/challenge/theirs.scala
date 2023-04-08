@@ -1,14 +1,14 @@
 package views.html.challenge
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
 
 import controllers.routes
 
-object theirs {
+object theirs:
 
   def apply(
       c: Challenge,
@@ -26,23 +26,31 @@ object theirs {
         c.status match {
           case Status.Created | Status.Offline =>
             frag(
-              h1(
-                if (c.isOpen) c.name | "Open challenge"
-                else
-                  user.fold[Frag]("Anonymous")(u =>
-                    frag(
-                      userLink(u),
-                      " (",
-                      u.perfs(c.perfType).glicko.display,
-                      ")"
+              boxTop(
+                h1(
+                  if (c.isOpen) c.name | "Open challenge"
+                  else
+                    user.fold[Frag]("Anonymous")(u =>
+                      frag(
+                        userLink(u),
+                        " (",
+                        u.perfs(c.perfType).glicko.display,
+                        ")"
+                      )
                     )
-                  )
+                )
               ),
-              bits.details(c),
+              bits.details(c, color),
               c.notableInitialFen.map { fen =>
-                div(cls := "board-preview", views.html.board.bits.mini(fen, !c.finalColor)(div))
+                div(cls := "board-preview", views.html.board.bits.mini(fen.board, !c.finalColor)(div))
               },
-              if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
+              if (c.open.exists(!_.canJoin(ctx.me)))
+                div(
+                  "Waiting for ",
+                  fragList((~c.open.flatMap(_.userIdList)).map(uid => userIdLink(uid.some)), " and "),
+                  " to start the game."
+                )
+              else if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
                 badTag(
                   // very rare message, don't translate
                   s"You have the wrong color link for this open challenge. The ${color.??(_.name)} player has already joined."
@@ -61,7 +69,7 @@ object theirs {
                   badTag(
                     p(trans.thisGameIsRated()),
                     a(
-                      cls := "button",
+                      cls  := "button",
                       href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
                     )(trans.signIn())
                   )
@@ -69,29 +77,28 @@ object theirs {
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeDeclined()),
-              bits.details(c),
+              h1(cls := "box__top")(trans.challenge.challengeDeclined()),
+              bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeAccepted()),
-              bits.details(c),
+              h1(cls := "box__top")(trans.challenge.challengeAccepted()),
+              bits.details(c, color),
               a(
-                id := "challenge-redirect",
+                id   := "challenge-redirect",
                 href := routes.Round.watcher(c.id, "white"),
-                cls := "button button-fat"
+                cls  := "button button-fat"
               )(
                 trans.joinTheGame()
               )
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeCanceled()),
-              bits.details(c),
+              h1(cls := "box__top")(trans.challenge.challengeCanceled()),
+              bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }
       )
     }
-}

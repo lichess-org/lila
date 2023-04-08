@@ -170,7 +170,7 @@ wanneer jouw pion op de vijfde rij staat.</string>
 - Zwart geen legale zetten meer te geven
 - Zwart niet schaak te zetten.</string>
   <string name="stalemateComplete">Gefeliciteerd! Beter pat staan dan mat staan!</string>
-  <string name="advanced">Voor geavanceerden</string>
+  <string name="advanced">Meer voor gevorderden</string>
   <string name="pieceValue">Waarde van stukken</string>
   <string name="evaluatePieceStrength">Evalueer de kracht van stukken</string>
   <string name="pieceValueIntro">Stukken die meer kunnen hebben een hogere waarde!

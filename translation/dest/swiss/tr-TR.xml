@@ -9,6 +9,10 @@
     <item quantity="one">%s tur</item>
     <item quantity="other">%s tur</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s tur İsviçre sistemi</item>
+    <item quantity="other">%s tur İsviçre sistemi</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Günde bir tur</item>
     <item quantity="other">%s günde bir tur</item>
@@ -95,4 +99,10 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="streaksAndBerserk">Kazanma serisi ve divane (berserk) seçeneği</string>
   <string name="similarToOTB">Yüz yüze turnuvalar gibi</string>
   <string name="unlimitedAndFree">Sınırsız ve ücretsiz</string>
+  <string name="predefinedUsers">Sadece önceden belirlenen oyuncular katılabilir</string>
+  <string name="forbiddedUsers">Eğer bu liste boş değilse, listede adı yer almayan kullanıcıların katılması yasaklanacaktır. Her satır için bir kullanıcı adı.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s tur İsviçre sistemi</item>
+    <item quantity="other">%1$s / %2$s tur İsviçre sistemi</item>
+  </plurals>
 </resources>

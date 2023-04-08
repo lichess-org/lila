@@ -1,18 +1,18 @@
 package views.html
 package forum
 
+import controllers.report.routes.{ Report as reportRoutes }
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
-import controllers.routes
+object topic:
 
-object topic {
-
-  def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
+  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(using Context) =
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
@@ -22,9 +22,11 @@ object topic {
       )
     ) {
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
-        h1(
-          a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
-          categ.name
+        boxTop(
+          h1(
+            a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
+            categ.name
+          )
         ),
         st.section(cls := "warning")(
           h2(dataIcon := "", cls := "text")(trans.important()),
@@ -35,7 +37,7 @@ object topic {
           ),
           p(
             trans.toReportSomeoneForCheatingOrBadBehavior(
-              strong(a(href := routes.Report.form)(trans.useTheReportForm()))
+              strong(a(href := reportRoutes.form)(trans.useTheReportForm()))
             )
           ),
           p(
@@ -69,13 +71,13 @@ object topic {
     }
 
   def show(
-      categ: lila.forum.Categ,
-      topic: lila.forum.Topic,
-      posts: Paginator[lila.forum.Post],
+      categ: lila.forum.ForumCateg,
+      topic: lila.forum.ForumTopic,
+      posts: Paginator[lila.forum.ForumPost.WithFrag],
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
@@ -88,31 +90,35 @@ object topic {
         .OpenGraph(
           title = topic.name,
           url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
-          description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
+          description = shorten(posts.currentPageResults.headOption.??(_.post.text), 152)
         )
-        .some
+        .some,
+      csp = defaultCsp.withInlineIconFont.withTwitter.some
     ) {
       val teamOnly = categ.team.filterNot(isMyTeamSync)
       val pager = views.html.base.bits
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
-
       main(cls := "forum forum-topic page-small box box-pad")(
-        h1(
-          a(
-            href := routes.ForumCateg.show(categ.slug),
-            dataIcon := "",
-            cls := "text"
-          ),
-          topic.name
+        boxTop(
+          h1(
+            a(
+              href := topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}") { id =>
+                routes.Ublog.redirect(id).url
+              },
+              dataIcon := "",
+              cls      := "text"
+            ),
+            topic.name
+          )
         ),
         pager,
-        div(cls := "forum-topic__posts expand-text")(
+        div(cls := "forum-topic__posts")(
           posts.currentPageResults.map { p =>
             post.show(
               categ,
               topic,
               p,
-              s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
+              s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.post.number}",
               canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
@@ -140,7 +146,7 @@ object topic {
           div(
             unsub.map { uns =>
               postForm(
-                cls := s"unsub ${if (uns) "on" else "off"}",
+                cls    := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
                 button(cls := "button button-empty text on", dataIcon := "", bits.dataUnsub := "off")(
@@ -151,30 +157,24 @@ object topic {
                 )
               )
             },
-            isGranted(_.ModerateForum) option
-              postForm(action := routes.ForumTopic.hide(categ.slug, topic.slug))(
-                button(cls := "button button-empty button-green")(
-                  if (topic.hidden) "Feature" else "Un-feature"
-                )
-              ),
-            canModCateg option frag(
+            canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor)) option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
                   if (topic.closed) "Reopen" else "Close"
                 )
               ),
+            canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
                   if (topic.isSticky) "Unsticky" else "Sticky"
                 )
               ),
-              deleteModal
-            )
+            canModCateg || ctx.me.exists(topic.isAuthor) option deleteModal
           )
         ),
-        formWithCaptcha.map { case (form, captcha) =>
+        formWithCaptcha.map { (form, captcha) =>
           postForm(
-            cls := "form3 reply",
+            cls    := "form3 reply",
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             novalidate
           )(
@@ -203,13 +203,13 @@ object topic {
       )
     }
 
-  private def deleteModal(implicit ctx: Context) =
+  private def deleteModal =
     div(cls := "forum-delete-modal none")(
       p("Delete the post"),
       st.form(method := "post", cls := "form3")(
         st.select(
           name := "reason",
-          cls := "form-control"
+          cls  := "form-control"
         )(
           option(value := "")("no message"),
           lila.msg.MsgPreset.forumDeletion.presets.map { reason =>
@@ -224,4 +224,3 @@ object topic {
         )
       )
     )
-}

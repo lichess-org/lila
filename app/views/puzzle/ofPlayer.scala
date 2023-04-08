@@ -4,13 +4,13 @@ package html.puzzle
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.puzzle.Puzzle
 import lila.user.User
 
-object ofPlayer {
+object ofPlayer:
 
   def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit ctx: Context) =
     views.html.base.layout(
@@ -19,20 +19,20 @@ object ofPlayer {
       moreJs = infiniteScrollTag
     )(
       main(cls := "page-menu")(
-        bits.pageMenu("player"),
+        bits.pageMenu("player", user),
         div(cls := "page-menu__content puzzle-of-player box box-pad")(
           form(
             action := routes.Puzzle.ofPlayer(),
             method := "get",
-            cls := "form3 puzzle-of-player__form complete-parent"
+            cls    := "form3 puzzle-of-player__form complete-parent"
           )(
             st.input(
-              name := "name",
-              value := query,
-              cls := "form-control user-autocomplete",
-              placeholder := trans.clas.lichessUsername.txt(),
+              name         := "name",
+              value        := query,
+              cls          := "form-control user-autocomplete",
+              placeholder  := trans.clas.lichessUsername.txt(),
               autocomplete := "off",
-              dataTag := "span",
+              dataTag      := "span",
               autofocus
             ),
             submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt())
@@ -49,13 +49,13 @@ object ofPlayer {
                       pager.currentPageResults.map { puzzle =>
                         div(cls := "puzzle-of-player__puzzle")(
                           views.html.board.bits.mini(
-                            fen = puzzle.fenAfterInitialMove,
+                            fen = puzzle.fenAfterInitialMove.board,
                             color = puzzle.color,
-                            lastMove = puzzle.line.head.uci
+                            lastMove = puzzle.line.head.some
                           )(
                             a(
-                              cls := s"puzzle-of-player__puzzle__board",
-                              href := routes.Puzzle.show(puzzle.id.value)
+                              cls  := s"puzzle-of-player__puzzle__board",
+                              href := routes.Puzzle.show(puzzle.id)
                             )
                           ),
                           span(cls := "puzzle-of-player__puzzle__meta")(
@@ -73,4 +73,3 @@ object ofPlayer {
         )
       )
     )
-}

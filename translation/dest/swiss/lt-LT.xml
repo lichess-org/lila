@@ -13,6 +13,12 @@
     <item quantity="many">%s raundo</item>
     <item quantity="other">%s raundų</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s šveicariškas raundas</item>
+    <item quantity="few">%s šveicariški raundai</item>
+    <item quantity="many">%s šveicariško raundo</item>
+    <item quantity="other">%s šveicariškų raundų</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Vienas raundas per dieną</item>
     <item quantity="few">Vienas raundas per %s dienas</item>
@@ -111,4 +117,12 @@ Artimiausias Round Robin dalykas tinkle - šveicariškas turnyras su dideliu ska
   <string name="streaksAndBerserk">Pergalių serijos ir įsiutis</string>
   <string name="similarToOTB">Panašu į gyvus turnyrus</string>
   <string name="unlimitedAndFree">Neribojama ir nemokama</string>
+  <string name="predefinedUsers">Leisti prisijungti tik iš anksto nurodytiems vartotojams</string>
+  <string name="forbiddedUsers">Jei šis sąrašas nėra tuščias žaidėjai nesantys jame negalės prisijungti. Kiekvienas vartotojo vardas turi būti atskiroje eilutėje.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s Šveicariškas raundas</item>
+    <item quantity="few">%1$s / %2$s Šveicariški raundai</item>
+    <item quantity="many">%1$s / %2$s Šveicariško raundo</item>
+    <item quantity="other">%1$s / %2$s Šveicariškų raundų</item>
+  </plurals>
 </resources>

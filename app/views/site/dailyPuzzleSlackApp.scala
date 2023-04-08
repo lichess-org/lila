@@ -1,20 +1,20 @@
 package views.html.site
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
 
-object dailyPuzzleSlackApp {
+object dailyPuzzleSlackApp:
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using Context) =
     views.html.base.layout(
       title = "Daily Chess Puzzle by Lichess (Slack App)",
       moreCss = cssTag("page")
     ) {
       main(cls := "page page-small box box-pad")(
+        h1(cls := "box__top")("Daily Chess Puzzle by Lichess (Slack App)"),
         div(cls := "body")(
-          h1("Daily Chess Puzzle by Lichess (Slack App)"),
           p(
             "Spice up your Slack workspace with a daily chess puzzle from ",
             a(href := "/")("lichess.org"),
@@ -24,10 +24,10 @@ object dailyPuzzleSlackApp {
             href := "https://slack.com/oauth/v2/authorize?client_id=17688987239.964622027363&scope=commands,incoming-webhook"
           )(
             img(
-              alt := "Add to Slack",
+              alt     := "Add to Slack",
               heightA := 40,
-              widthA := 139,
-              src := assetUrl("images/add-to-slack.png")
+              widthA  := 139,
+              src     := assetUrl("images/add-to-slack.png")
             )
           ),
           h2("Summary"),
@@ -72,4 +72,3 @@ object dailyPuzzleSlackApp {
         )
       )
     }
-}

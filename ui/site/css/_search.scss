@@ -24,22 +24,17 @@
 
     .two-columns {
       @extend %flex-wrap;
+      gap: 1em;
 
       > * {
         flex: 1 150px;
-      }
-
-      input[type='text'] {
-        width: 86%;
-      }
-
-      select {
-        width: 78%;
+        @extend %flex-between-nowrap;
+        gap: 2ch;
       }
     }
 
     label {
-      margin-right: 0.8em;
+      margin-#{$end-direction}: 0.8em;
     }
 
     input[type='text'],
@@ -66,7 +61,7 @@
     }
 
     .error {
-      margin-left: 160px;
+      margin-#{$start-direction}: 160px;
       color: red;
     }
 
@@ -86,7 +81,7 @@
       .spinner {
         display: inline-block;
         vertical-align: middle;
-        margin-right: 10px;
+        margin-#{$end-direction}: 10px;
       }
 
       .wait {

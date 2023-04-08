@@ -52,6 +52,7 @@
   <string name="skipExplanation">Jokaldi hau saltatu zure bolada mantentzeko! Lasterketa bakoitzean behin bakarrik erabili dezakezu.</string>
   <string name="failedPuzzles">Huts egindako ariketak</string>
   <string name="slowPuzzles">Ariketa geldoak</string>
+  <string name="skippedPuzzle">Salto egindako ariketa</string>
   <string name="thisWeek">Aste honetan</string>
   <string name="thisMonth">Hilabete honetan</string>
   <string name="allTime">Hasieratik</string>

@@ -1,7 +1,6 @@
 package lila.security
 
 import play.api.data.Form
-import scala.concurrent.duration._
 
 import lila.common.EmailAddress
 import lila.common.IpAddress
@@ -12,9 +11,9 @@ final class DisposableEmailAttempt(
     cacheApi: CacheApi,
     disposableApi: DisposableEmailDomain,
     irc: lila.irc.IrcApi
-) {
+):
 
-  import DisposableEmailAttempt._
+  import DisposableEmailAttempt.*
 
   private val byIp =
     cacheApi.notLoadingSync[IpAddress, Set[Attempt]](64, "security.disposableEmailAttempt.ip") {
@@ -22,32 +21,28 @@ final class DisposableEmailAttempt(
     }
 
   private val byId =
-    cacheApi.notLoadingSync[User.ID, Set[Attempt]](64, "security.disposableEmailAttempt.ip") {
+    cacheApi.notLoadingSync[UserId, Set[Attempt]](64, "security.disposableEmailAttempt.id") {
       _.expireAfterWrite(1 day).build()
     }
 
-  def onFail(form: Form[_], ip: IpAddress): Unit = for {
-    email    <- form("email").value flatMap EmailAddress.from
-    username <- form("username").value
+  def onFail(form: Form[?], ip: IpAddress): Unit = for {
+    email <- form("email").value flatMap EmailAddress.from
     if email.domain.exists(disposableApi.apply)
-  } {
-    val id      = User normalize username
-    val attempt = Attempt(id, email, ip)
-    byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt)
-    byId.underlying.asMap.compute(id, (_, attempts) => ~Option(attempts) + attempt).unit
-  }
+    str <- form("username").value
+    u   <- UserStr read str
+  } yield
+    val attempt = Attempt(u.id, email, ip)
+    byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt).unit
+    byId.underlying.asMap.compute(u.id, (_, attempts) => ~Option(attempts) + attempt).unit
 
-  def onSuccess(user: User, email: EmailAddress, ip: IpAddress) = {
+  def onSuccess(user: User, email: EmailAddress, ip: IpAddress) =
     val attempts = ~byIp.getIfPresent(ip) ++ ~byId.getIfPresent(user.id)
     if (
       attempts.sizeIs > 3 || (
-        attempts.nonEmpty && email.domain.exists(d => !DisposableEmailDomain.whitelisted(d.lower))
+        attempts.nonEmpty && email.domain.exists(d => !DisposableEmailDomain.whitelisted(d))
       )
     ) irc.signupAfterTryingDisposableEmail(user, email, attempts.map(_.email))
-  }
-}
 
-private object DisposableEmailAttempt {
+private object DisposableEmailAttempt:
 
-  case class Attempt(id: User.ID, email: EmailAddress, ip: IpAddress)
-}
+  case class Attempt(id: UserId, email: EmailAddress, ip: IpAddress)

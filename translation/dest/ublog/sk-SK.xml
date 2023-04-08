@@ -39,4 +39,12 @@
   <string name="uploadAnImageForYourPost">Nahrať obrázok pre svoj príspevok</string>
   <string name="imageAlt">Alternatívny popis obrázka</string>
   <string name="imageCredit">Vlastník obrázka</string>
+  <string name="deleteBlog">Definitívne vymazať tento blogový príspevok</string>
+  <string name="deleteImage">Vymazať tento obrázok</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Používanie obrázkov z nasledovných webstránok je bezpečné: </string>
+  <string name="selectPostTopics">Zvoľte témy o ktorých je Váš príspevok</string>
+  <string name="useImagesYouMadeYourself">Môžete tiež použiť Vami vyrobené obrázky, fotky ktoré ste odfotili, snímky obrazovky na stránke Lichess... čokoľvek, k čomu niekto iný nevlastní autorské práva.</string>
+  <string name="safeAndRespectfulContent">Prosím, dbajte na to aby vaše príspevky neboli pohoršujúce a rešpektovali ostatných. Nekopírujte príspevky niekoho iného.</string>
+  <string name="inappropriateContentAccountClosed">Akýkoľvek nevhodný obsah môže mať za následok zrušenie Vášho účtu.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Naše jednoduché tipy ako písať skvelé blogové príspevky</string>
 </resources>

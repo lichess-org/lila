@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">طرق أخرى للمساعدة</string>
   <string name="areThereWebsitesBasedOnLichess">هل هناك مواقع أخرى مبنية على Lichess؟</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">نعم، Lichess بالفعل ألهم مواقع أخرى مفتوحة المصدر التي تستخدم %1$s، %2$s و %3$s الخاصة بنا.</string>
+  <string name="keyboardShortcuts">ما هي اختصارات لوحة المفاتيح؟</string>
+  <string name="keyboardShortcutsExplanation">بعض صفحات Lichess لديها اختصارات لوحة المفاتيح يمكنك استخدامها. حاول الضغط على مفتاح \'؟\' على صفحة دراسة أو تحليل أو لغز أو لعبة لقائمة اختصارات لوحة المفاتيح المتاحة.</string>
   <string name="fairPlay">اللعب النزيه</string>
   <string name="whenAmIEligibleRatinRefund">متى يكون حسابي مستوفي للشروط ليتم اعادة تقييمي من الغشاشين ؟</string>
   <string name="ratingRefundExplanation">بعد دقيقة من وضع العلامة على اللاعب، يتم أخذ اخر ٤٠ مباراة مقيّمة لهم في الثلاثة الايام الأخيرة، اذا كنت خصمهم في هذه المباريات، وخسرت نقاط تقييم (بسبب خسارة مباراة او تعادل) وتقييمك لم يكن مؤقتاً، ستستعيد نقاط تقييمك. تم تحديد حد أقصى للتقييم المسترد استناداً الى ذروة التقييم الخاص بك والتقدم الذي احرزته بعد اللعبة.
@@ -25,6 +27,8 @@
   <string name="howCanIBecomeModerator">كيف يمكنني أن أصبح مشرفاً؟</string>
   <string name="youCannotApply">ليس من الممكن التقدّم بطلب ان تكون مشرف. اذا رأينا شخصاً نعتقد انه سيكون جيداً كمشرف، سنقوم بالتواصل معهم مباشرة.</string>
   <string name="isCorrespondenceDifferent">هل يختلف اللعب بالمراسلة عن لعبة الشطرنج العادية؟</string>
+  <string name="pleaseReadFairPlayPage">للحصول على مزيد من المعلومات ، ارجع الى %s</string>
+  <string name="fairPlayPage">صفحة اللعب العادل</string>
   <string name="youCanUseOpeningBookNoEngine">في Lichess ، يتمثل الاختلاف الرئيسي في قواعد لعبة الشطرنج بالمراسلة في أن الكتاب الافتتاحي مسموح به. لا يزال استخدام المحركات محظورًا وسيؤدي إلى وضع علامة للمساعدة في المحرك. على الرغم من أن ICCF تسمح باستخدام المحرك في المراسلات ، إلا أن Lichess لا تفعل ذلك.</string>
   <string name="gameplay">أسلوب اللعب</string>
   <string name="howBulletBlitzEtcDecided">كيف يتم تحديد بولييت، بليتز وغيرها من الضوابط الزمنية؟</string>
@@ -61,6 +65,7 @@
 ألقِ نظرة على %3$s المتعلقة بهذه الحركة لمزيد من التدرب.</string>
   <string name="goodIntroduction">مقدمة جيدة</string>
   <string name="lichessTraining">التدريب في Lichess</string>
+  <string name="watchIMRosenCheckmate">شاهد كش مات الأستاذ الدُّوَليّ إريك روزن %s.</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
   <string name="threefoldRepetitionExplanation">إذا تكرر موقف ثلاث مرات يمكن للاعبين إقتراح تعادل ب- %1$s. ينفذ Lichess القواعد الرسمية للاتحاد الدولي للشطرنج، كما هو مبين في المادة 9-2 (د) من القرار %2$s.</string>
   <string name="threefoldRepetitionLowerCase">تكرار ثلاثي</string>

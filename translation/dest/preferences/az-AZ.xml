@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Tərcihlər</string>
-  <string name="gameDisplay">Oyun ekranı</string>
   <string name="pieceAnimation">Fiqur animasiyası</string>
   <string name="materialDifference">Material fərqi</string>
   <string name="boardHighlights">Lövhə xəbərdarlıqları (son gediş və şah vermə)</string>

@@ -5,7 +5,7 @@
   <string name="lichessPatron">Patró de Lichess</string>
   <string name="freeAccount">Compte gratuït</string>
   <string name="becomePatron">Fes-te patró de Lichess</string>
-  <string name="xBecamePatron">%s fes-te patró de Lichess</string>
+  <string name="xBecamePatron">%s s\'ha fet patró de Lichess</string>
   <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s és un patró Lichess per %2$s mes</item>
     <item quantity="other">%1$s és un patró Lichess per %2$s mesos</item>
@@ -29,6 +29,7 @@
   <string name="otherAmount">Altre</string>
   <string name="pleaseEnterAmountInX">Si us plau, escriu una quantitat en %s</string>
   <string name="withCreditCard">Targeta de crèdit</string>
+  <string name="logInToDonate">Identificat per donar</string>
   <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>
   <string name="celebratedPatrons">Patrons destacats que fan que Lichess sigui possible</string>
   <string name="whereMoneyGoes">Cap a on van els diners?</string>
@@ -42,7 +43,9 @@ Llavors paguem a un desenvolupador a temps complert: %s, el fundador de Lichess.
 O pots %s.</string>
   <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
   <string name="otherMethods">Hi ha altres mètodes de donació?</string>
+  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess està registrat amb %s.</string>
   <string name="bankTransfers">També acceptem transferències bancàries</string>
+  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Tingueu en compte que només les donacions del formulari superior atorguen l\'estatus de Patró.</string>
   <string name="patronFeatures">Es reserven algunes funcions per als Patrons?</string>
   <string name="noPatronFeatures">No, perquè Lichess es totalment gratuït, per sempre i per a tots. És una promesa.
 Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.</string>
@@ -64,6 +67,7 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="xOrY">%1$s o %2$s</string>
   <string name="decideHowMuch">Decideix quant val Lichess per a tu:</string>
   <string name="stopPayments">Retira la targeta de crèdit i atura els pagaments:</string>
+  <string name="stopPaymentsPayPal">Cancel·lar subscripció de PayPal i aturar els pagaments:</string>
   <string name="noLongerSupport">Ja no dónes suport a Lichess</string>
   <string name="viewOthers">Veure altres Patrons de Lichess</string>
   <string name="date">Data</string>

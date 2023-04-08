@@ -35,8 +35,8 @@ export function ctrl(
   };
 }
 
-export function view(ctrl: StudyCtrl): VNode {
-  return h('div.study__topics', [
+export const view = (ctrl: StudyCtrl): VNode =>
+  h('div.study__topics', [
     ...ctrl.topics.getTopics().map(topic =>
       h(
         'a.topic',
@@ -56,12 +56,11 @@ export function view(ctrl: StudyCtrl): VNode {
         )
       : null,
   ]);
-}
 
 let tagify: Tagify | undefined;
 
-export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
-  return snabModal({
+export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
+  snabModal({
     class: 'study-topics',
     onClose() {
       ctrl.open(false);
@@ -96,7 +95,6 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
       ),
     ],
   });
-}
 
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
   lichess.loadCssPath('tagify');

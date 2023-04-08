@@ -1,14 +1,13 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
-
-import lila.db.dsl._
+import lila.db.dsl.*
 import lila.memo.CacheApi
 
 final private class PuzzleCountApi(
     colls: PuzzleColls,
-    cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    cacheApi: CacheApi,
+    openingApi: PuzzleOpeningApi
+)(using Executor):
 
   def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
     byThemeCache get {}
@@ -16,14 +15,18 @@ final private class PuzzleCountApi(
   def byTheme(theme: PuzzleTheme.Key): Fu[Int] =
     countsByTheme dmap { _.getOrElse(theme, 0) }
 
+  def byAngle(angle: PuzzleAngle): Fu[Int] = angle match
+    case PuzzleAngle.Theme(theme)    => byTheme(theme)
+    case PuzzleAngle.Opening(either) => openingApi.count(either)
+
   private val byThemeCache =
     cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
-      _.refreshAfterWrite(20 minutes)
+      _.refreshAfterWrite(1 day)
         .buildAsyncFuture { _ =>
-          import Puzzle.BSONFields._
+          import Puzzle.BSONFields.*
           colls.puzzle {
             _.aggregateList(Int.MaxValue) { framework =>
-              import framework._
+              import framework.*
               Project($doc(themes -> true)) -> List(
                 Unwind(themes),
                 GroupField(themes)("nb" -> SumAll)
@@ -43,4 +46,3 @@ final private class PuzzleCountApi(
           }
         }
     }
-}

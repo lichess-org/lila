@@ -9,6 +9,10 @@
     <item quantity="one">%s forduló</item>
     <item quantity="other">%s forduló</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s / Svájci típusú kör</item>
+    <item quantity="other">%s / Svájci típusú körök</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Egy forduló naponta</item>
     <item quantity="other">Egy forduló %s naponta</item>
@@ -100,4 +104,10 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="streaksAndBerserk">Nyerő széria és Berserk</string>
   <string name="similarToOTB">Hasonló a valódi sakkversenyekhez</string>
   <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
+  <string name="predefinedUsers">Csak engedélyezett játékosok csatlakozhatnak</string>
+  <string name="forbiddedUsers">Amennyiben a lista nem üres, úgy a listán nem szereplő játékosok nem csatlakozhatnak. Soronként egy felhasználónév.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s Svájci típusú kör</item>
+    <item quantity="other">%1$s /%2$s Svájci típusú körök</item>
+  </plurals>
 </resources>

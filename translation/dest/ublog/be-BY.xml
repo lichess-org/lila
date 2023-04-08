@@ -9,6 +9,8 @@
   <string name="postBody">Асноўны тэкст допісу</string>
   <string name="drafts">Чарнавыя допісы</string>
   <string name="published">Апублікаваны</string>
+  <string name="createBlogDiscussion">Уключыць каментары</string>
+  <string name="createBlogDiscussionHelp">Будзе створаны тэма на форуме, каб людзі маглі каментаваць ваш допіс</string>
   <string name="publishOnYourBlog">Апублікаваць у блогу</string>
   <string name="publishHelp">Калі абрана, то допіс будзе адлюстроўвацца ў вашым блогу. Калі не, то застанецца прыватным у вашых чарнавіках</string>
   <plurals name="publishedNbBlogPosts">
@@ -39,4 +41,5 @@
   <string name="uploadAnImageForYourPost">Загрузіць малюнак да вашага допісу</string>
   <string name="imageAlt">Тэкставае апісанне выявы</string>
   <string name="imageCredit">Выява належыць</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Нашыя простыя парады пра напісанне цудоўных допісаў у блогу</string>
 </resources>

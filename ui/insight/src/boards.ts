@@ -2,8 +2,8 @@ import Ctrl from './ctrl';
 import { h } from 'snabbdom';
 import { Game } from './interfaces';
 
-function miniGame(game: Game) {
-  return h(
+const miniGame = (game: Game) =>
+  h(
     'a',
     {
       attrs: {
@@ -39,12 +39,11 @@ function miniGame(game: Game) {
       ]),
     ]
   );
-}
 
-export default function (ctrl: Ctrl) {
+export default function (ctrl: Ctrl, attrs: any = null) {
   if (!ctrl.vm.answer) return;
 
-  return h('div.game-sample.box', [
+  return h('div.game-sample.box.hscroll', attrs, [
     h('div.top', 'Some of the games used to generate this insight'),
     h('div.boards', ctrl.vm.answer.games.map(miniGame)),
   ]);

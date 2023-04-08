@@ -62,6 +62,8 @@
   <string name="studyPgn">Azterlanaren PGNa</string>
   <string name="downloadAllGames">Partida guztiak deskargatu</string>
   <string name="chapterPgn">Kapituluaren PGNa</string>
+  <string name="copyChapterPgn">Kopiatu PGNa</string>
+  <string name="copyChapterPgnDescription">Kopiatu kapituluaren PGNa arbelera.</string>
   <string name="downloadGame">Partida deskargatu</string>
   <string name="studyUrl">Azterlanaren helbidea</string>
   <string name="currentChapterUrl">Uneko kapituluaren helbidea</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Azterlana ez da aurkitu</string>
   <string name="editChapter">Kapitulua aldatu</string>
   <string name="newChapter">Kapitulu berria</string>
+  <string name="importFromChapterX">Inportatu %s kapitulotik</string>
   <string name="orientation">Kokapena</string>
   <string name="analysisMode">Analisi modua</string>
   <string name="pinnedChapterComment">Kapituluaren iltzatutako iruzkina</string>

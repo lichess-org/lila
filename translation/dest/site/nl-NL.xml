@@ -9,7 +9,7 @@
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <string name="level">Niveau</string>
-  <string name="strength">Sterkte</string>
+  <string name="strength">Speelsterkte</string>
   <string name="toggleTheChat">Chat aan-/uitzetten</string>
   <string name="chat">Chat</string>
   <string name="resign">Geef op</string>
@@ -59,6 +59,8 @@
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Met serveranalyse</string>
   <string name="loadingEngine">Laden van computer...</string>
+  <string name="calculatingMoves">Zetten berekenen...</string>
+  <string name="engineFailed">Fout bij laden engine</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
   <string name="showThreat">Toon dreiging</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' met afronding, gebaseerd op het aantal halfzetten tot de volgende stukwinst of pionzet</string>
   <string name="noGameFound">Geen partij gevonden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
+  <string name="openings">Openingen</string>
   <string name="openingExplorer">Openingverkenner</string>
   <string name="openingEndgameExplorer">Opening-/eindspelverkenner</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Bekijk op volledige grootte</string>
   <string name="logOut">Afmelden</string>
   <string name="signIn">Aanmelden</string>
+  <string name="rememberMe">Mijn gegevens onthouden</string>
   <string name="youNeedAnAccountToDoThat">Je hebt een account nodig om dat te doen</string>
   <string name="signUp">Registreren</string>
   <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van schaakengines mogen hier niet spelen. Maak a.u.b. geen gebruik van schaakengines, databases of de hulp van andere spelers terwijl je je partijen speelt.</string>
@@ -195,12 +199,39 @@
   <string name="changeUsername">Wijzig gebruikersnaam</string>
   <string name="changeUsernameNotSame">Enkel de hoofdlettergevoeligheid van de letters kan veranderen. Bijvoorbeeld van \"janjansen\" naar \"JanJansen\".</string>
   <string name="changeUsernameDescription">Wijzig je gebruikersnaam. Dit kan slechts eenmaal worden gedaan en je kunt alleen het hoofdlettergebruik van je gebruikersnaam veranderen.</string>
+  <string name="signupUsernameHint">Zorg ervoor dat u een gezinsvriendelijke gebruikersnaam kiest. U kunt het later niet meer wijzigen en alle accounts met ongepaste gebruikersnamen zullen gesloten worden!</string>
+  <string name="signupEmailHint">We zullen het alleen gebruiken om het wachtwoord opnieuw in te stellen.</string>
   <string name="password">Wachtwoord</string>
   <string name="changePassword">Wijzig wachtwoord</string>
   <string name="changeEmail">Verander email</string>
   <string name="email">Email</string>
   <string name="passwordReset">Nieuw wachtwoord</string>
   <string name="forgotPassword">Wachtwoord vergeten?</string>
+  <string name="error.weakPassword">Dit wachtwoord komt heel vaak voor en is te gemakkelijk te raden.</string>
+  <string name="error.namePassword">Gebruik uw gebruikersnaam niet als wachtwoord.</string>
+  <string name="blankedPassword">Je hebt hetzelfde wachtwoord gebruikt op een andere site en die site heeft een datalek gehad. Om de veiligheid van je Lichess-account te garanderen, dien je een nieuw wachtwoord in te stellen. Bedankt voor je begrip.</string>
+  <string name="youAreLeavingLichess">Je verlaat Lichess</string>
+  <string name="neverTypeYourPassword">Voer je Lichess-wachtwoord nooit in op een andere website!</string>
+  <string name="proceedToX">Ga naar %s</string>
+  <string name="passwordSuggestion">Stel geen wachtwoord in dat iemand anders voorstelt. Ze kunnen het gebruiken om je account te stelen.</string>
+  <string name="emailSuggestion">Stel geen e-mailadres in dat iemand anders voorstelt. Ze kunnen het gebruiken om je account te stelen.</string>
+  <string name="emailConfirmHelp">Hulp met e-mailbevestiging</string>
+  <string name="emailConfirmNotReceived">Geen bevestigingsmail ontvangen na aanmelden?</string>
+  <string name="whatSignupUsername">Welke gebruikersnaam heb je gebruikt om je aan te melden?</string>
+  <string name="usernameNotFound">We konden geen gebruiker vinden met deze naam: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">U kunt deze gebruikersnaam gebruiken om een nieuw account aan te maken</string>
+  <string name="emailSent">We hebben een e-mail gestuurd naar %s.</string>
+  <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
+  <string name="refreshInboxAfterFiveMinutes">Wacht 5 minuten en vernieuw uw e-mail inbox.</string>
+  <string name="checkSpamFolder">Controleer ook uw spammap, het kan daar terechtkomen. Als dat zo is, markeer het als geen spam.</string>
+  <string name="emailForSignupHelp">Als niks anders lukt, stuur ons dan deze e-mail:</string>
+  <string name="copyTextToEmail">Kopieer en plak de bovenstaande tekst en stuur het naar %s</string>
+  <string name="waitForSignupHelp">We nemen binnenkort contact op om te helpen bij het afronden van de inschrijving.</string>
+  <string name="accountConfirmed">Gebruiker %s is succesvol bevestigd.</string>
+  <string name="accountCanLogin">Je kunt nu inloggen als %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Je hebt geen bevestigingsmail nodig.</string>
+  <string name="accountClosed">Account %s is gesloten.</string>
+  <string name="accountRegisteredWithoutEmail">Account %s is geregistreerd zonder e-mail.</string>
   <string name="rank">Positie</string>
   <string name="rankX">Positie: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -340,6 +371,7 @@
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="xJoinedTeamY">%1$s sloot zich bij team %2$s aan</string>
   <string name="xCreatedTeamY">%1$s heeft team %2$s opgericht</string>
+  <string name="startedStreaming">is begonnen met streamen</string>
   <string name="xStartedStreaming">%s is begonnen met streamen</string>
   <string name="averageElo">Gemiddelde rating</string>
   <string name="location">Plaats</string>
@@ -348,6 +380,8 @@
   <string name="apply">Toepassen</string>
   <string name="save">Bewaar</string>
   <string name="leaderboard">Ranglijst</string>
+  <string name="screenshotCurrentPosition">Schermafbeelding huidige stelling</string>
+  <string name="gameAsGIF">Download partij als GIF</string>
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
   <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
@@ -356,6 +390,7 @@
   <string name="toStudy">Studie</string>
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Als je een PGN in het venster plakt, krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
+  <string name="importGameCaveat">Variaties worden gewist. Om ze te behouden, importeer de PGN via een studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
@@ -426,6 +461,8 @@
   <string name="tournamentIsStarting">Het toernooi begint</string>
   <string name="tournamentPairingsAreNowClosed">De toernooiparingen zijn nu gesloten.</string>
   <string name="standByX">Sta klaar %s, spelers worden gepaard, maak je gereed!</string>
+  <string name="pause">Pauzeren</string>
+  <string name="resume">Hervatten</string>
   <string name="youArePlaying">Je bent aan het spelen!</string>
   <string name="winRate">Win percentage</string>
   <string name="berserkRate">Berserk-percentage</string>
@@ -460,6 +497,10 @@
   <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="oneUrlPerLine">Eén URL per regel.</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
+  <string name="savingMoves">Tijdelijke zettenopslag</string>
+  <string name="savingMovesHelp">We slaan je varianten op in de browser-cache.</string>
+  <string name="makeAStudy">Maak een studie aan om ze te bewaren en/of te delen.</string>
+  <string name="clearSavedMoves">Zetten wissen</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
   <string name="activePlayers">Actieve spelers</string>
@@ -507,6 +548,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notities</string>
   <string name="typePrivateNotesHere">Type privénotities hier</string>
+  <string name="writeAPrivateNoteAboutThisUser">Maak een privé-notitie over deze gebruiker</string>
+  <string name="noNoteYet">Nog geen notities</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige authenticatiecode</string>
@@ -563,6 +606,7 @@
   <string name="community">Gemeenschap</string>
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>
+  <string name="error.unknown">Ongeldige waarde</string>
   <string name="error.required">Dit invullen is verplicht</string>
   <string name="error.email">Dit e-mailadres is ongeldig</string>
   <string name="error.email_acceptable">Dit e-mailadres is niet acceptabel. Controleer het nogmaals en probeer het opnieuw.</string>
@@ -618,10 +662,13 @@
   <string name="simulClockHint">Fischer-speeltempo. Hoe meer tegenstanders er zijn, hoe meer tijd je nodig hebt.</string>
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
+  <string name="simulAddExtraTimePerPlayer">Voeg extra tijd toe aan de klok voor elke speler die meedoet aan de simultaan.</string>
+  <string name="simulHostExtraTimePerPlayer">Extra tijd voor de simultaangever per deelnemer</string>
   <string name="lichessTournaments">Lichess toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
   <string name="averageCentipawnLoss">Gemiddeld centipionverlies</string>
+  <string name="accuracy">Nauwkeurigheid</string>
   <string name="keyboardShortcuts">Toetsenbordsnelkoppelingen</string>
   <string name="keyMoveBackwardOrForward">zet achteruit/vooruit</string>
   <string name="keyGoToStartOrEnd">ga naar het begin/eind</string>
@@ -670,6 +717,7 @@
   <string name="kidMode">Kindvriendelijke modus</string>
   <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en scholieren, om hen te beschermen tegen andere internetgebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het Lichess-logo een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Je account wordt beheerd. Vraag je schaakdocent om de kindermodus uit te zetten.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
@@ -704,6 +752,7 @@
   <string name="light">Licht</string>
   <string name="dark">Donker</string>
   <string name="transparent">Transparant</string>
+  <string name="deviceTheme">Apparaatthema</string>
   <string name="backgroundImageUrl">Achtergrondafbeelding URL:</string>
   <string name="boardGeometry">Bordgeometrie</string>
   <string name="boardTheme">Bordthema</string>
@@ -732,6 +781,7 @@
   <string name="bestWasX">De beste zet was %s</string>
   <string name="youBrowsedAway">U was op een ander tabblad bezig</string>
   <string name="resumePractice">Hervat oefenen</string>
+  <string name="drawByFiftyMoves">De partij is in remise geëindigd vanwege de 50-zettenregel.</string>
   <string name="theGameIsADraw">De partij eindigt in remise.</string>
   <string name="computerThinking">De computer denkt na ...</string>
   <string name="seeBestMove">Toon de beste zet</string>
@@ -898,4 +948,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
   <string name="switchSides">Van kleur wisselen</string>
   <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Onze tips voor het organiseren van evenementen</string>
 </resources>

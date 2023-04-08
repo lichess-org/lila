@@ -1,14 +1,13 @@
 package lila.team
 
-import reactivemongo.api.bson.Macros
+import reactivemongo.api.bson.*
 
 import lila.hub.LeaderTeam
+import lila.db.dsl.given
 
-private object BSONHandlers {
+private object BSONHandlers:
 
-  import lila.db.dsl.BSONJodaDateTimeHandler
-  implicit val TeamBSONHandler       = Macros.handler[Team]
-  implicit val RequestBSONHandler    = Macros.handler[Request]
-  implicit val MemberBSONHandler     = Macros.handler[Member]
-  implicit val LeaderTeamBSONHandler = Macros.handler[LeaderTeam]
-}
+  given BSONDocumentHandler[Team]       = Macros.handler
+  given BSONDocumentHandler[Request]    = Macros.handler
+  given BSONDocumentHandler[TeamMember] = Macros.handler
+  given BSONDocumentHandler[LeaderTeam] = Macros.handler

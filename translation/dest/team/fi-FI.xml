@@ -12,6 +12,7 @@
   <string name="myTeams">Omat joukkueet</string>
   <string name="noTeamFound">Joukkuetta ei löytynyt</string>
   <string name="joinTeam">Liity joukkueeseen</string>
+  <string name="onlyLeaderLeavesTeam">Määritä joukkueelle uusi johtaja, ennen kuin lähdet joukkueesta, tai sulje joukkue.</string>
   <string name="quitTeam">Lähde joukkueesta</string>
   <string name="manuallyReviewAdmissionRequests">Käy liittymispyynnöt yksitellen läpi</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jos valitset tämän, pelaajien tulee joukkueeseen liittyäkseen kirjoittaa liittymispyynnöt, jotka voit hylätä tai hyväksyä.</string>
@@ -33,8 +34,8 @@
   <string name="teamBattle">Joukkuetaisto</string>
   <string name="teamBattleOverview">Useiden joukkueiden keskinäinen kamppailu: kukin pelaaja kerää pisteitä joukkueelleen</string>
   <string name="teamTournament">Joukkueen sisäinen turnaus</string>
-  <string name="teamTournamentOverview">Areena-turnaus, johon vain joukkueen jäsenet voivat liittyä</string>
-  <string name="swissTournamentOverview">Sveitsiläinen turnaus, johon vain joukkueesi jäsenet voivat liittyä</string>
+  <string name="teamTournamentOverview">Areena-turnaus, johon vain joukkueen jäsenet voivat osallistua</string>
+  <string name="swissTournamentOverview">Sveitsiläinen turnaus, johon vain joukkueesi jäsenet voivat osallistua</string>
   <string name="messageAllMembers">Lähetä viesti kaikille jäsenille</string>
   <string name="messageAllMembersOverview">Lähetä yksityisviesti jokaiselle joukkueen jäsenelle</string>
   <string name="messageAllMembersLongDescription">Lähetä henkilökohtainen viesti joukkueen KAIKILLE jäsenille.
@@ -54,4 +55,5 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="completedTourns">Päättyneet turnaukset</string>
   <string name="declinedRequests">Hylätyt pyynnöt</string>
   <string name="joinLichessVariantTeam">Liity viralliseen %s-joukkueeseen saadaksesi sitä koskevia uutisia ja tapahtumia</string>
+  <string name="teamPage">Joukkueen sivu</string>
 </resources>

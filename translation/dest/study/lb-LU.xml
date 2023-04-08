@@ -62,6 +62,8 @@
   <string name="studyPgn">Etüden PGN</string>
   <string name="downloadAllGames">All Partien eroflueden</string>
   <string name="chapterPgn">Kapitel PGN</string>
+  <string name="copyChapterPgn">PGN kopéieren</string>
+  <string name="copyChapterPgnDescription">Kapitel-PGN an d\'Zwëschenoflag kopéieren.</string>
   <string name="downloadGame">Partie eroflueden</string>
   <string name="studyUrl">Etüden URL</string>
   <string name="currentChapterUrl">Aktuellt Kapitel URL</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Etüd net fonnt</string>
   <string name="editChapter">Kapitel editéieren</string>
   <string name="newChapter">Neit Kapitel</string>
+  <string name="importFromChapterX">Importéieren aus %s</string>
   <string name="orientation">Orientatioun</string>
   <string name="analysisMode">Analysemodus</string>
   <string name="pinnedChapterComment">Ugepinnten Kapitelkommentar</string>

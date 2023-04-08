@@ -11,6 +11,7 @@
   <string name="myTeams">Đội của tôi</string>
   <string name="noTeamFound">không tìm thấy đội</string>
   <string name="joinTeam">Tham gia đội</string>
+  <string name="onlyLeaderLeavesTeam">Vui lòng thêm một đội trưởng mới trước khi rời đi, hoặc giải tán đội.</string>
   <string name="quitTeam">Rời đội</string>
   <string name="manuallyReviewAdmissionRequests">Yêu cầu xét duyệt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Nếu chọn, người chơi sẽ cần viết yêu cầu gia nhập đội, bạn có thể từ chối hoặc chấp nhận.</string>
@@ -31,6 +32,7 @@
   <string name="teamBattleOverview">Một trận đấu giữa nhiều đội, mỗi người chơi ghi điểm cho đội của họ</string>
   <string name="teamTournament">Giải đấu trong đội</string>
   <string name="teamTournamentOverview">Một giải đấu Đấu trường mà chỉ thành viên của đội bạn có thể tham gia</string>
+  <string name="swissTournamentOverview">Một giải đấu hệ Thụy Sĩ mà chỉ thành viên của đội bạn có thể tham gia</string>
   <string name="messageAllMembers">Nhắn tin tất cả thành viên</string>
   <string name="messageAllMembersOverview">Gửi một tin nhắn riêng cho mỗi thành viên của đội</string>
   <string name="messageAllMembersLongDescription">Gửi tin nhắn riêng tới TẤT CẢ các thành viên của đội.
@@ -42,10 +44,13 @@ Những người chơi không muốn nhận tin nhắn của bạn có thể s�
   <string name="leadersChat">Trò chuyện của những đội trưởng</string>
   <string name="closeTeam">Giải tán đội</string>
   <string name="closeTeamDescription">Giải tán đội vĩnh viễn.</string>
+  <string name="entryCode">Mã vào đội</string>
   <string name="entryCodeDescriptionForLeader">(Tuỳ chọn) Mật khẩu mà các thành viên mới phải nhớ để tham gia đội.</string>
   <string name="incorrectEntryCode">Nhập mã sai.</string>
   <string name="teamAlreadyExists">Đội này đã tồn tại.</string>
   <string name="upcomingTourns">Các giải đấu sắp tới</string>
   <string name="completedTourns">Các giải đấu đã hoàn thành</string>
   <string name="declinedRequests">Yêu cầu bị từ chối</string>
+  <string name="joinLichessVariantTeam">Tham gia đội %s chính thức để cập nhật tin tức và các sự kiện</string>
+  <string name="teamPage">Trang đội</string>
 </resources>

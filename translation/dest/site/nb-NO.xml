@@ -59,6 +59,8 @@
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Bruker serveranalyse</string>
   <string name="loadingEngine">Laster sjakkmotor ...</string>
+  <string name="calculatingMoves">Beregner trekk...</string>
+  <string name="engineFailed">Kunne ikke laste sjakkmotor</string>
   <string name="cloudAnalysis">Skyanalyse</string>
   <string name="goDeeper">Gå dypere</string>
   <string name="showThreat">Vis trussel</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antall halvtrekk til neste slag eller bondetrekk</string>
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
+  <string name="openings">Åpninger</string>
   <string name="openingExplorer">Åpningsutforsker</string>
   <string name="openingEndgameExplorer">Åpnings-/sluttspillsutforsker</string>
   <string name="xOpeningExplorer">Åpningsutforsker for %s</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Se i full størrelse</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
+  <string name="rememberMe">Hold meg innlogget</string>
   <string name="youNeedAnAccountToDoThat">Du trenger en konto for å gjøre det</string>
   <string name="signUp">Registrer brukerkonto</string>
   <string name="computersAreNotAllowedToPlay">Datamaskiner og spillere som får hjelp av datamaskiner har ikke lov til å spille. Vennligst ikke ta imot hjelp fra sjakkmaskiner, databaser eller andre spillere under partiene. Merk også at det er sterkt frarådet å opprette flere brukerkontoer, og kan lede til at du blir utstengt.</string>
@@ -195,12 +199,39 @@
   <string name="changeUsername">Endre brukernavn</string>
   <string name="changeUsernameNotSame">Du kan bare endre små bokstaver til store eller store til små. For eksempel \"olanordmann\" til \"OlaNordmann\".</string>
   <string name="changeUsernameDescription">Endre brukernavnet ditt. Dette kan bare gjøres én gang, og du bare kan endre små bokstaver til store eller store til små.</string>
+  <string name="signupUsernameHint">Velg et sømmelig brukernavn. Det kan ikke endres, og alle kontoer med usømmelige brukernavn vil bli avsluttet.</string>
+  <string name="signupEmailHint">Vi bruker den bare når du tilbakestiller passordet ditt.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Bytt passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Tilbakestill passord</string>
   <string name="forgotPassword">Glemt passord?</string>
+  <string name="error.weakPassword">Passordet er svært vanlig og for lett å gjette.</string>
+  <string name="error.namePassword">Ikke bruk navnet ditt som passord.</string>
+  <string name="blankedPassword">Du har brukt likt passord på en kompromittert nettside. Du må lage nytt passord.</string>
+  <string name="youAreLeavingLichess">Du forlater Lichess</string>
+  <string name="neverTypeYourPassword">Ikke bruk Lichess-passordet ditt andre steder!</string>
+  <string name="proceedToX">Fortsett til %s</string>
+  <string name="passwordSuggestion">Ikke bruk passord foreslått av andre. Kontoen din vil bli stjålet.</string>
+  <string name="emailSuggestion">Ikke bruk e-postadresse foreslått av andre. Kontoen din vil bli stjålet.</string>
+  <string name="emailConfirmHelp">Hjelp med å bekrefte e-posten</string>
+  <string name="emailConfirmNotReceived">Mottok du ikke bekreftelsesmelding etter at du registrerte deg?</string>
+  <string name="whatSignupUsername">Hvilket brukernavn registrerte du deg med?</string>
+  <string name="usernameNotFound">Vi finner ikke dette brukernavnet: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Du kan opprette en ny konto med dette brukernavnet</string>
+  <string name="emailSent">Vi har sendt en melding til %s.</string>
+  <string name="emailCanTakeSomeTime">Det kan ta litt tid.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vent fem minutter før du oppdaterer innboksen.</string>
+  <string name="checkSpamFolder">Sjekk om meldingen havnet i søppelpostmappen. Merk i tilfelle meldingen som ikke søppelpost.</string>
+  <string name="emailForSignupHelp">Send denne meldingen til oss som siste utvei:</string>
+  <string name="copyTextToEmail">Kopier og lim inn teksten ovenfor og send den til %s</string>
+  <string name="waitForSignupHelp">Vi tar snart kontakt og hjelper deg med registreringen.</string>
+  <string name="accountConfirmed">Brukeren %s er bekreftet.</string>
+  <string name="accountCanLogin">Du kan nå logge inn som %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Du trenger ikke bekreftelsesmelding.</string>
+  <string name="accountClosed">Kontoen %s er avsluttet.</string>
+  <string name="accountRegisteredWithoutEmail">Kontoen %s ble registrert uten e-post.</string>
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -340,6 +371,7 @@
   <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
+  <string name="startedStreaming">begynte å strømme</string>
   <string name="xStartedStreaming">%s begynte å strømme</string>
   <string name="averageElo">Snittrating</string>
   <string name="location">Sted</string>
@@ -348,6 +380,8 @@
   <string name="apply">Bruk</string>
   <string name="save">Lagre</string>
   <string name="leaderboard">Ledertabell</string>
+  <string name="screenshotCurrentPosition">Skjermbilde av stillingen</string>
+  <string name="gameAsGIF">Parti som gif</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
@@ -356,6 +390,7 @@
   <string name="toStudy">Studie</string>
   <string name="importGame">Importer parti</string>
   <string name="importGameExplanation">Lim inn PGN for gjennomblaing, maskinanalyse, partisamtale og delbar URL.</string>
+  <string name="importGameCaveat">Varianter importeres ikke. Bruk en studie for å importere PGN med varianter.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte partier</item>
@@ -426,6 +461,8 @@
   <string name="tournamentIsStarting">Turneringen begynner</string>
   <string name="tournamentPairingsAreNowClosed">Oppsettet av turneringen er nå lukket.</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Fortsett</string>
   <string name="youArePlaying">Du spiller!</string>
   <string name="winRate">Seierprosent</string>
   <string name="berserkRate">Berserkprosent</string>
@@ -457,9 +494,13 @@
   <string name="biography">Biografi</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
-  <string name="socialMediaLinks">Linker til sosiale media</string>
+  <string name="socialMediaLinks">Lenker til sosiale medier</string>
   <string name="oneUrlPerLine">Én URL per linje.</string>
   <string name="inlineNotation">Innebygd notasjon</string>
+  <string name="savingMoves">Midlertidig lagring av trekk</string>
+  <string name="savingMovesHelp">Vi lagrer variantene dine i nettleserens mellomlager.</string>
+  <string name="makeAStudy">Du kan lage en studie for å bevare og dele trekkene.</string>
+  <string name="clearSavedMoves">Fjern trekk</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Påloggede spillere</string>
   <string name="activePlayers">Aktive spillere</string>
@@ -507,6 +548,8 @@
   <string name="blog">Blogg</string>
   <string name="notes">Notater</string>
   <string name="typePrivateNotesHere">Skriv private notater her</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv et privat notat om denne brukeren</string>
+  <string name="noNoteYet">Intet notat ennå</string>
   <string name="invalidUsernameOrPassword">Ugyldig brukernavn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
   <string name="invalidAuthenticationCode">Ugyldig autentiseringskode</string>
@@ -563,6 +606,7 @@
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
+  <string name="error.unknown">Ugyldig verdi</string>
   <string name="error.required">Dette feltet er påkrevet</string>
   <string name="error.email">Denne e-postadressen er ugyldig</string>
   <string name="error.email_acceptable">Denne e-postadressen godtas ikke. Dobbeltsjekk den og prøv på nytt.</string>
@@ -618,10 +662,13 @@
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>
   <string name="simulHostExtraTime">Ekstra tid for verten</string>
+  <string name="simulAddExtraTimePerPlayer">Legg til ekstra tid på klokken din for hver deltaker.</string>
+  <string name="simulHostExtraTimePerPlayer">Ekstra tenketid som simultanverten får for hver spiller</string>
   <string name="lichessTournaments">Lichessturneringer</string>
   <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gjennomsnittlig centibondetap</string>
+  <string name="accuracy">Presisjon</string>
   <string name="keyboardShortcuts">Tastatursnarveier</string>
   <string name="keyMoveBackwardOrForward">Gå bakover/fremover</string>
   <string name="keyGoToStartOrEnd">Gå til start/slutt</string>
@@ -647,9 +694,9 @@
   <string name="cumulative">Akkumulert</string>
   <string name="glicko2Rating">Glicko-2-rating</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Vi har sent deg en e-post. Klikk på linken i e-posten for å aktivere din konto.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt en e-post til deg. Klikk på lenken i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
-  <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på linken i e-posten for å tilbakestille passordet ditt.</string>
+  <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på lenken i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtar du våre %s.</string>
   <string name="readAboutOur">Les %s vår.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelsen mellom deg og lichess</string>
@@ -670,6 +717,7 @@
   <string name="kidMode">Barnemodus</string>
   <string name="kidModeExplanation">Dette handler om sikkerhet. I barnemodus blir all kommunikasjon skrudd av. Bruk dette for å skjerme barn og skole-elever mot brukere på Internett.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen et %s symbol, så du vet at barna dine er trygge.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Kontoen din er forvaltet. Be sjakklæreren din fjerne barnemodus.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Sikkerhet</string>
@@ -704,6 +752,7 @@
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
   <string name="transparent">Gjennomsiktig</string>
+  <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilde:</string>
   <string name="boardGeometry">Brettgeometri</string>
   <string name="boardTheme">Brett-tema</string>
@@ -732,6 +781,7 @@
   <string name="bestWasX">Best var %s</string>
   <string name="youBrowsedAway">Du bladde vekk</string>
   <string name="resumePractice">Gjenoppta øving</string>
+  <string name="drawByFiftyMoves">Partiet er remis etter femtitrekksregelen.</string>
   <string name="theGameIsADraw">Partiet er remis.</string>
   <string name="computerThinking">Maskinen tenker ...</string>
   <string name="seeBestMove">Vis beste trekk</string>
@@ -833,7 +883,7 @@
   <string name="resVsX">%1$s mot %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Noen har skrevet en elevanmeldelse for trenerprofilen din.</string>
   <string name="newPendingReview">Ny elevanmeldelse klar for gjennomgang</string>
-  <string name="lostAgainstTOSViolator">Du tapte mot noen som brøt vilkårene våre</string>
+  <string name="lostAgainstTOSViolator">Du tapte ratingpoeng mot noen som brøt vilkårene våre</string>
   <string name="refundXpointsTimeControlY">Refusjon: %1$s ratingpoeng i %2$s.</string>
   <string name="timeAlmostUp">Tiden er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å vise e-postadresse]</string>
@@ -895,7 +945,8 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
   <string name="since">Fra</string>
   <string name="until">Til</string>
-  <string name="lichessDbExplanation">Ratede partier sanket inn fra alle Lichess-spillerne</string>
+  <string name="lichessDbExplanation">Ratede partier spilt hos Lichess</string>
   <string name="switchSides">Skift side</string>
   <string name="closingAccountWithdrawAppeal">Klagen din blir trukket hvis du stenger kontoen din</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Tips for arrangementer</string>
 </resources>

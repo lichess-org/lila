@@ -1,16 +1,8 @@
-package lila
+package lila.puzzle
 
-import lila.rating.Glicko
+export lila.Lila.{ *, given }
 
-package object puzzle extends PackageObject {
+private val logger = lila.log("puzzle")
 
-  private[puzzle] def logger = lila.log("puzzle")
-}
-
-package puzzle {
-
-  case class Result(win: Boolean) extends AnyVal {
-    def loss   = !win
-    def glicko = if (win) Glicko.Result.Win else Glicko.Result.Loss
-  }
-}
+opaque type PuzzleWin = Boolean
+object PuzzleWin extends YesNo[PuzzleWin]

@@ -1,26 +1,45 @@
 package controllers
 
-import lila.user.UserContext
-import lila.common.Form.trueish
-import lila.common.IsMobile
-
 import play.api.mvc.RequestHeader
-import org.joda.time.DateTime
 
-trait RequestGetter {
+import lila.common.Form.trueish
+import lila.common.HTTPRequest
+import lila.user.UserContext
+import lila.app.*
 
-  protected def get(name: String)(implicit ctx: UserContext): Option[String] = get(name, ctx.req)
+trait RequestGetter:
+
+  protected def get(name: String)(using ctx: UserContext): Option[String] = get(name, ctx.req)
+  protected def getAs[A](
+      name: String
+  )(using ctx: UserContext, sr: SameRuntime[String, A]): Option[A] = get(name).map(sr.apply)
 
   protected def get(name: String, req: RequestHeader): Option[String] =
-    req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
+    HTTPRequest.queryStringGet(req, name)
 
-  protected def getInt(name: String)(implicit ctx: UserContext) =
+  protected def getAs[A](name: String, req: RequestHeader)(using
+      sr: SameRuntime[String, A]
+  ): Option[A] =
+    get(name, req).map(sr.apply)
+
+  protected def getUserStr(name: String)(using ctx: UserContext): Option[UserStr] =
+    get(name, ctx.req) flatMap UserStr.read
+
+  protected def getUserStr(name: String, req: RequestHeader): Option[UserStr] =
+    get(name, req) flatMap UserStr.read
+
+  protected def getInt(name: String)(using UserContext) =
     get(name) flatMap (_.toIntOption)
 
   protected def getInt(name: String, req: RequestHeader): Option[Int] =
     req.queryString get name flatMap (_.headOption) flatMap (_.toIntOption)
 
-  protected def getLong(name: String)(implicit ctx: UserContext) =
+  protected def getIntAs[A](name: String, req: RequestHeader)(using
+      sr: SameRuntime[Int, A]
+  ): Option[A] =
+    getInt(name, req).map(sr.apply)
+
+  protected def getLong(name: String)(using UserContext) =
     get(name) flatMap (_.toLongOption)
 
   protected def getLong(name: String, req: RequestHeader) =
@@ -29,18 +48,14 @@ trait RequestGetter {
   protected def getTimestamp(name: String, req: RequestHeader) =
     getLong(name, req) map { new DateTime(_) }
 
-  protected def getBool(name: String)(implicit ctx: UserContext) =
+  protected def getBool(name: String)(using UserContext): Boolean =
     (getInt(name) exists trueish) || (get(name) exists trueish)
 
-  protected def getBool(name: String, req: RequestHeader) =
+  protected def getBool(name: String, req: RequestHeader): Boolean =
     (getInt(name, req) exists trueish) || (get(name, req) exists trueish)
 
-  protected def getBoolOpt(name: String)(implicit ctx: UserContext) =
-    (getInt(name) map trueish) orElse (get(name) map trueish)
+  protected def getBoolOpt(name: String)(using UserContext): Option[Boolean] =
+    getInt(name).map(trueish) orElse get(name).map(trueish)
 
-  protected def getBoolOpt(name: String, req: RequestHeader) =
-    (getInt(name, req) map trueish) orElse (get(name, req) map trueish)
-
-  protected def getMobile(implicit ctx: UserContext) =
-    IsMobile(getBool("mobile"))
-}
+  protected def getBoolOpt(name: String, req: RequestHeader): Option[Boolean] =
+    getInt(name, req).map(trueish) orElse get(name, req).map(trueish)

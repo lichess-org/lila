@@ -5,6 +5,7 @@
 project/.bloop/
 conf/application.conf
 conf/version.conf
+ui/@build/build-config.json
 
 logs
 project/metals.sbt
@@ -51,3 +52,6 @@ RUNNING_PID
 
 # IntelliJ auto-generated files
 .idea
+
+# Docker-compose
+/docker-compose.yml

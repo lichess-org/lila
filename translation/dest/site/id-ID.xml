@@ -30,7 +30,7 @@
   <string name="kingInTheCenter">Raja berada di tengah</string>
   <string name="threeChecks">Tiga kali skak</string>
   <string name="raceFinished">Balapan telah berakhir</string>
-  <string name="variantEnding">Variasi Babak Akhir</string>
+  <string name="variantEnding">Akhir sesuai aturan variasi</string>
   <string name="newOpponent">Penantang baru</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Lawan Anda ingin bermain lagi dengan Anda</string>
   <string name="joinTheGame">Ikuti permainan</string>
@@ -58,6 +58,8 @@
   <string name="depthX">Detil %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisa</string>
   <string name="loadingEngine">Memuat...</string>
+  <string name="calculatingMoves">Menghitung...</string>
+  <string name="engineFailed">Gagal memuat komputer</string>
   <string name="cloudAnalysis">Analisis Cloud</string>
   <string name="goDeeper">Lihat lebih detail</string>
   <string name="showThreat">Tunjukkan ancaman</string>
@@ -68,8 +70,8 @@
   <string name="deleteFromHere">Hapus dari sini</string>
   <string name="forceVariation">Paksakan variasi</string>
   <string name="move">Langkah</string>
-  <string name="variantLoss">Variasi kerugian</string>
-  <string name="variantWin">Variasi menang</string>
+  <string name="variantLoss">Kekalahan variasi</string>
+  <string name="variantWin">Kemenangan variasi</string>
   <string name="insufficientMaterial">Bidak tidak mencukupi</string>
   <string name="pawnMove">Langkah pion</string>
   <string name="capture">Makan</string>
@@ -90,6 +92,7 @@
   <string name="dtzWithRounding">DTZ50\" dengan pembulatan, berdasarkan jumlah dari langkah setengah sampai ada langkah makan atau langkah pion</string>
   <string name="noGameFound">Permainan tidak ditemukan</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
+  <string name="openings">Pembukaan</string>
   <string name="openingExplorer">Penjelajah pembukaan</string>
   <string name="openingEndgameExplorer">Penjelajah pembukaan/babak akhir</string>
   <string name="xOpeningExplorer">Menjelajahi pembukaan %s</string>
@@ -144,6 +147,7 @@
   <string name="viewInFullSize">Lihat dalam ukuran penuh</string>
   <string name="logOut">Keluar</string>
   <string name="signIn">Masuk</string>
+  <string name="rememberMe">Ingat Saya</string>
   <string name="youNeedAnAccountToDoThat">Anda perlu mendaftar untuk melakukannya</string>
   <string name="signUp">Daftar</string>
   <string name="computersAreNotAllowedToPlay">Komputer maupun pemain yang menggunakan bantuan komputer dilarang bermain. Mohon untuk tidak menggunakan bantuan dari program komputer, database, maupun pemain lain ketika bermain. Juga menggunakan beberapa akun bersamaan sangat dilarang dan akan mengakibatkan akun anda di-BANNED!</string>
@@ -181,12 +185,39 @@
   <string name="changeUsername">Ganti nama pengguna</string>
   <string name="changeUsernameNotSame">Hanya dapat mengubah ke huruf besar atau kecil. Contohnya \"johndoe\" ke \"JohnDoe\"</string>
   <string name="changeUsernameDescription">Ganti nama pengguna Anda. Ini hanya diperbolehkan mengubah huruf besar-kecil nama pengguna Anda.</string>
+  <string name="signupUsernameHint">Pastikan username Anda senonoh. Anda tidak dapat menggantinya lagi dan akun dengan username tidak senonoh akan di tutup!</string>
+  <string name="signupEmailHint">Ini hanya akan digunakan untuk setel ulang password.</string>
   <string name="password">Kata sandi</string>
   <string name="changePassword">Ganti kata sandi</string>
   <string name="changeEmail">Ubah email</string>
   <string name="email">Email</string>
   <string name="passwordReset">Reset kata sandi</string>
   <string name="forgotPassword">Lupa kata sandi?</string>
+  <string name="error.weakPassword">Password ini terlalu umum dan mudah ditebak.</string>
+  <string name="error.namePassword">Mohon tidak menggunakan username sebagai password.</string>
+  <string name="blankedPassword">Anda telah menggunakan password di website lain, dan website itu telah jebol. Untuk memastikan keamanan akun Lichess anda, kami haruskan untuk menyetel password baru. Terimakasih atas pengertiannya.</string>
+  <string name="youAreLeavingLichess">Anda akan keluar dari Lichess</string>
+  <string name="neverTypeYourPassword">Jangan pernah memasukkan password Lichess di tempat lain!</string>
+  <string name="proceedToX">Melanjutkan ke %s</string>
+  <string name="passwordSuggestion">Jangan gunakan password yang disarankan orang lain. Mereka akan menggunakannya untuk mengambil akun anda.</string>
+  <string name="emailSuggestion">Jangan gunakan email yang disarankan orang lain. Mereka akan menggunakannya untuk mengambil akun anda.</string>
+  <string name="emailConfirmHelp">Bantuan untuk email konfirmasi</string>
+  <string name="emailConfirmNotReceived">Tidak mendapat email konfirmasi setelah registrasi?</string>
+  <string name="whatSignupUsername">Username apa yang Anda gunakan saat sign up?</string>
+  <string name="usernameNotFound">Kami tidak dapat menemukan user dengan nama ini: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Anda dapat menggunakan username ini untuk membuat akun baru</string>
+  <string name="emailSent">Kami telah mengirim email ke %s.</string>
+  <string name="emailCanTakeSomeTime">Dapat membutuhkan beberapa waktu hingga sampai.</string>
+  <string name="refreshInboxAfterFiveMinutes">Tunggu 5 menit dan refresh kotak masuk Anda.</string>
+  <string name="checkSpamFolder">Cek juga folder spam Anda, mungkin ada disana. Jika ada, tandai sebagai bukan spam.</string>
+  <string name="emailForSignupHelp">Jika semuanya gagal, kirim kami email ini:</string>
+  <string name="copyTextToEmail">Salin dan tempel teks diatas dan kirimkan ke %s</string>
+  <string name="waitForSignupHelp">Kami akan kembali sejenak untuk membantu penyelesaian signup anda.</string>
+  <string name="accountConfirmed">User %s berhasil dikonfirmasi.</string>
+  <string name="accountCanLogin">Anda sekarang dapat masuk sebagai %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Anda tidak butuh email konfirmasi.</string>
+  <string name="accountClosed">Akun %s telah ditutup.</string>
+  <string name="accountRegisteredWithoutEmail">Akun %s diregistrasi tanpa email.</string>
   <string name="rank">Peringkat</string>
   <string name="rankX">Rating: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -311,6 +342,7 @@
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
   <string name="xJoinedTeamY">%1$s bergabung tim %2$s</string>
   <string name="xCreatedTeamY">%1$s membuat tim %2$s</string>
+  <string name="startedStreaming">memulai streaming</string>
   <string name="xStartedStreaming">%s memulai streaming</string>
   <string name="averageElo">Rating rata-rata</string>
   <string name="location">Lokasi</string>
@@ -319,6 +351,8 @@
   <string name="apply">Terapkan</string>
   <string name="save">Simpan</string>
   <string name="leaderboard">Peringkat Terbaik</string>
+  <string name="screenshotCurrentPosition">Foto posisi saat ini</string>
+  <string name="gameAsGIF">Simpan sebagai GIF</string>
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat berkas PGN</string>
@@ -392,6 +426,8 @@
   <string name="tournamentIsStarting">Turnamen sudah dimulai</string>
   <string name="tournamentPairingsAreNowClosed">Pairing pemain sudah ditutup.</string>
   <string name="standByX">Bersiaplah %s, pairing pemain sedang dilakukan!</string>
+  <string name="pause">Jeda</string>
+  <string name="resume">Lanjutkan</string>
   <string name="youArePlaying">Anda bermain!</string>
   <string name="winRate">Rating kemenangan</string>
   <string name="berserkRate">Rating berserk</string>
@@ -426,6 +462,9 @@
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="oneUrlPerLine">Satu tautan per baris.</string>
   <string name="inlineNotation">Notasi inline</string>
+  <string name="savingMoves">Penyimpanan temporer</string>
+  <string name="savingMovesHelp">Kami selalu menyimpan variasi Anda di cache browser.</string>
+  <string name="clearSavedMoves">Bersihkan gerakan</string>
   <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>
   <string name="activePlayers">Pemain aktif</string>
@@ -472,6 +511,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Catatan</string>
   <string name="typePrivateNotesHere">Ketik pesan pribadi di sini</string>
+  <string name="writeAPrivateNoteAboutThisUser">Tulis catatan pribadi tentang pengguna ini</string>
+  <string name="noNoteYet">Belum ada catatan</string>
   <string name="invalidUsernameOrPassword">Username dan atau password salah</string>
   <string name="incorrectPassword">Kata sandi salah</string>
   <string name="invalidAuthenticationCode">Kode autentikasi salah</string>
@@ -526,6 +567,7 @@
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
   <string name="increment">Kenaikan</string>
+  <string name="error.unknown">Nilai tidak valid</string>
   <string name="error.required">Isian di sini diperlukan</string>
   <string name="error.email">Alamat e-mail ini tidak valid</string>
   <string name="error.email_acceptable">Alamat e-mail ini tidak dapat diterma. Pastikan kembali e-mail Anda, lalu coba lagi.</string>
@@ -536,6 +578,7 @@
   <string name="error.min">Harus lebih besar atau sama dengan %s</string>
   <string name="error.max">Harus kurang atau sama dengan %s</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
+  <string name="ifRegistered">Telah terdaftar</string>
   <string name="onlyExistingConversations">Khusus percakapan yang ada</string>
   <string name="onlyFriends">Hanya teman</string>
   <string name="menu">Menu</string>
@@ -583,6 +626,7 @@
   <string name="tournamentFAQ">Arena Turnamen FAQ</string>
   <string name="timeBeforeTournamentStarts">Waktu sebelum turnamen dimulai</string>
   <string name="averageCentipawnLoss">Rata-rata poin kekalahan</string>
+  <string name="accuracy">Akurasi</string>
   <string name="keyboardShortcuts">Tombol pintas keyboard</string>
   <string name="keyMoveBackwardOrForward">Mundurkan/Majukan</string>
   <string name="keyGoToStartOrEnd">Ke awal/akhir</string>
@@ -663,6 +707,7 @@
   <string name="light">Terang</string>
   <string name="dark">Gelap</string>
   <string name="transparent">Tembus pandang</string>
+  <string name="deviceTheme">Tema perangkat</string>
   <string name="backgroundImageUrl">URL gambar latar belakang:</string>
   <string name="boardGeometry">Geometri Papan</string>
   <string name="boardTheme">Tema Papan</string>
@@ -690,6 +735,7 @@
   <string name="bestWasX">Terbaik adalah %s</string>
   <string name="youBrowsedAway">Anda melihat-lihat</string>
   <string name="resumePractice">Lanjutkan latihan</string>
+  <string name="drawByFiftyMoves">Permainan remis karena aturan 50 langkah.</string>
   <string name="theGameIsADraw">Permainan ini menarik.</string>
   <string name="computerThinking">Komputer berpikir ...</string>
   <string name="seeBestMove">Lihat langkah terbaik</string>
@@ -850,5 +896,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="youCantStartNewGame">Anda tidak dapat memulai permainan baru sampai permainan ini selesai.</string>
   <string name="since">Sejak</string>
   <string name="until">Hingga</string>
+  <string name="lichessDbExplanation">Partai diambil dari semua pemain rated Lichess</string>
   <string name="switchSides">Tukar Sisi</string>
+  <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
 </resources>

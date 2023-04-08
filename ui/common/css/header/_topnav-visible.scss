@@ -28,7 +28,7 @@
         line-height: $site-header-height;
         padding: 0 0.7rem;
         text-transform: uppercase;
-        border-left: 2px solid transparent;
+        border-#{$start-direction}: 2px solid transparent;
       }
 
       .home {
@@ -40,12 +40,12 @@
       visibility: hidden;
       max-height: inherit;
       position: absolute;
-      left: 0;
+      #{$start-direction}: 0;
       background: $c-bg-header-dropdown;
       min-width: 10rem;
       box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
       border-radius: 0 3px 3px 3px;
-      border-left: 2px solid $c-primary;
+      border-#{$start-direction}: 2px solid $c-primary;
 
       a {
         display: block;
@@ -72,7 +72,7 @@
 
     &.blind div {
       display: block;
-      margin-left: -9000px;
+      margin-#{$start-direction}: -9000px;
     }
 
     &.hover section:hover,

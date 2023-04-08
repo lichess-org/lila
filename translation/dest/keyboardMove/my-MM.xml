@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">b4 တွင် ရွခ် တစ်လုံး ထည့်ပါ (Crazyhouse နည်းကွဲသာ)</string>
   <string name="offerOrAcceptDraw">သရေ ကမ်းလှမ်း/လက်ခံပါ</string>
   <string name="readOutClocks">အချိန်မှတ်နာရီ ဖတ်ပြပါ</string>
+  <string name="readOutOpponentName">ပြိုင်ဘက် အမည်ကို အသံထွက် ဖတ်ပြပါ</string>
   <string name="otherCommands">အခြား အမိန့်များ</string>
   <string name="tips">အကြံပြုချက်များ</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">အထက်ပါ ရွှေ့ကွက် သင်္ကေတနှင့် မရင်းနှီးလျှင် ဤနေရာတွင် ထပ်လေ့လာပါ-</string>

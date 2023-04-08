@@ -52,6 +52,7 @@
   <string name="skipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
   <string name="failedPuzzles">Sikertelen feladványok</string>
   <string name="slowPuzzles">Lassú megfejtések</string>
+  <string name="skippedPuzzle">Kihagyott feladvány</string>
   <string name="thisWeek">Ezen a héten</string>
   <string name="thisMonth">Ebben a hónapban</string>
   <string name="allTime">Mindenkori</string>

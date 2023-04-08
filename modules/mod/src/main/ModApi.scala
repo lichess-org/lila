@@ -13,32 +13,26 @@ final class ModApi(
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
   def setAlt(mod: Mod, prev: Suspect, v: Boolean): Funit =
     for {
       _ <- userRepo.setAlt(prev.user.id, v)
       sus = prev.set(_.withMarks(_.set(_.Alt, v)))
-      _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.alt(mod, sus, v)
-    } yield {
-      if (v) notifier.reporters(mod, sus).unit
-    }
+    } yield if (v) notifier.reporters(mod, sus).unit
 
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit =
     (prev.user.marks.engine != v) ?? {
       for {
         _ <- userRepo.setEngine(prev.user.id, v)
         sus = prev.set(_.withMarks(_.set(_.Engine, v)))
-        _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
         _ <- logApi.engine(mod, sus, v)
-      } yield {
+      } yield
         Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
-        if (v) {
+        if (v)
           notifier.reporters(mod, sus)
           refunder schedule sus
-        }
-      }
     }
 
   def autoMark(suspectId: SuspectId, modId: ModId, note: String): Funit =
@@ -46,12 +40,11 @@ final class ModApi(
       sus       <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
       unengined <- logApi.wasUnengined(sus)
       _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined) ?? {
-        reportApi.getMod(modId.value) flatMap {
-          _ ?? { mod =>
-            lila.mon.cheat.autoMark.increment()
-            setEngine(mod, sus, v = true) >>
-              noteApi.lichessWrite(sus.user, note)
-          }
+        reportApi.getMod(modId) flatMapz { mod =>
+          lila.mon.cheat.autoMark.increment()
+          setEngine(mod, sus, v = true) >>
+            noteApi.lichessWrite(sus.user, note) >>
+            reportApi.autoProcess(modId, sus, Set(Room.Cheat, Room.Print))
         }
       }
     } yield ()
@@ -62,17 +55,14 @@ final class ModApi(
       for {
         _ <- userRepo.setBoost(prev.user.id, v)
         sus = prev.set(_.withMarks(_.set(_.Boost, v)))
-        _ <- reportApi.process(mod, sus, Set(Room.Other))
         _ <- logApi.booster(mod, sus, v)
-      } yield {
-        if (v) {
+      } yield
+        if (v)
           Bus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), "adjustBooster")
           notifier.reporters(mod, sus)
-        }
         sus
-      }
 
-  def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {
+  def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] =
     val changed = value != prev.user.marks.troll
     val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
     changed ?? {
@@ -80,47 +70,46 @@ final class ModApi(
         logApi.troll(mod, sus)
         Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
       }
-    } >>
-      reportApi.process(mod, sus, Set(Room.Comm)) >>- {
-        if (value) notifier.reporters(mod, sus).unit
-      } inject sus
-  }
+    } >>- {
+      if (value) notifier.reporters(mod, sus).unit
+    } inject sus
 
   def autoTroll(sus: Suspect, note: String): Funit =
     reportApi.getLichessMod flatMap { mod =>
       setTroll(mod, sus, true) >>
         noteApi.lichessWrite(sus.user, note)
+        >> reportApi.autoProcess(mod.id, sus, Set(Room.Comm))
     }
 
-  def garbageCollect(sus: Suspect): Funit =
-    reportApi.getLichessMod flatMap { mod =>
-      setAlt(mod, sus, v = true) >>
-        setTroll(mod, sus, value = false) >>
-        logApi.garbageCollect(mod, sus)
-    }
+  def garbageCollect(userId: UserId): Funit = for {
+    sus <- reportApi getSuspect userId orFail s"No such suspect $userId"
+    mod <- reportApi.getLichessMod
+    _   <- setAlt(mod, sus, v = true)
+    _   <- logApi.garbageCollect(mod, sus)
+  } yield ()
 
-  def disableTwoFactor(mod: String, username: String): Funit =
+  def disableTwoFactor(mod: ModId, username: UserStr): Funit =
     withUser(username) { user =>
       (userRepo disableTwoFactor user.id) >> logApi.disableTwoFactor(mod, user.id)
     }
 
-  def reopenAccount(mod: String, username: String): Funit =
+  def reopenAccount(mod: ModId, username: UserStr): Funit =
     withUser(username) { user =>
-      !user.enabled ?? {
+      user.enabled.no ?? {
         (userRepo reopen user.id) >> logApi.reopenAccount(mod, user.id)
       }
     }
 
-  def setKid(mod: String, username: String): Funit =
+  def setKid(mod: ModId, username: UserStr): Funit =
     withUser(username) { user =>
       userRepo.isKid(user.id) flatMap {
         !_ ?? { (userRepo.setKid(user, true)) } >> logApi.setKidMode(mod, user.id)
       }
     }
 
-  def setTitle(mod: String, username: String, title: Option[Title]): Funit =
+  def setTitle(mod: ModId, username: UserStr, title: Option[UserTitle]): Funit =
     withUser(username) { user =>
-      title match {
+      title match
         case None =>
           userRepo.removeTitle(user.id) >>
             logApi.removeTitle(mod, user.id) >>-
@@ -131,17 +120,16 @@ final class ModApi(
               logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
               lightUserApi.invalidate(user.id)
           }
-      }
     }
 
-  def setEmail(mod: String, username: String, email: EmailAddress): Funit =
+  def setEmail(mod: ModId, username: UserStr, email: EmailAddress): Funit =
     withUser(username) { user =>
       userRepo.setEmail(user.id, email) >>
         userRepo.setEmailConfirmed(user.id) >>
         logApi.setEmail(mod, user.id)
     }
 
-  def setPermissions(mod: Holder, username: String, permissions: Set[Permission]): Funit =
+  def setPermissions(mod: Holder, username: UserStr, permissions: Set[Permission]): Funit =
     withUser(username) { user =>
       val finalPermissions = Permission(user.roles).filter { p =>
         // only remove permissions the mod can actually grant
@@ -150,7 +138,11 @@ final class ModApi(
         // only add permissions the mod can actually grant
         permissions.filter(Granter.canGrant(mod, _))
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
-        logApi.setPermissions(mod, user.id, Permission.diff(Permission(user.roles), permissions))
+        logApi.setPermissions(
+          Mod.holder(mod),
+          user.id,
+          Permission.diff(Permission(user.roles), finalPermissions)
+        )
     }
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit =
@@ -170,6 +162,5 @@ final class ModApi(
         _.sortBy(_.timeNoSee)
       }
 
-  private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
-    userRepo named username orFail s"[mod] missing user $username" flatMap op
-}
+  private def withUser[A](username: UserStr)(op: User => Fu[A]): Fu[A] =
+    userRepo byId username orFail s"[mod] missing user $username" flatMap op

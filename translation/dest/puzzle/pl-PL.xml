@@ -13,18 +13,26 @@
   <string name="specialMoves">Szczególne posunięcia</string>
   <string name="didYouLikeThisPuzzle">Czy podobało Ci się to zadanie?</string>
   <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
+  <string name="upVote">Daj plusa zadaniu</string>
+  <string name="downVote">Daj minusa zadaniu</string>
   <string name="yourPuzzleRatingWillNotChange">Twój ranking w rozwiązywaniu zadań nie ulegnie zmianie. Pamiętaj, że ranking jest używany jedynie do wybierania zadań odpowiednich dla Twojego poziomu.</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
   <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zadania:</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
+  <string name="dailyPuzzle">Zadanie dnia</string>
   <string name="clickToSolve">Kliknij, aby zobaczyć rozwiązanie</string>
   <string name="goodMove">Dobry ruch</string>
   <string name="bestMove">Najlepszy ruch!</string>
   <string name="keepGoing">Kontynuuj…</string>
   <string name="puzzleSuccess">Sukces!</string>
   <string name="puzzleComplete">Zadanie zakończone!</string>
+  <string name="byOpenings">Według otwarć</string>
+  <string name="puzzlesByOpenings">Zadania według otwarć</string>
+  <string name="openingsYouPlayedTheMost">Najczęściej grane otwarcia w partiach rankingowych</string>
+  <string name="useFindInPage">Użyj \"Znajdź na stronie\" w menu przeglądarki, aby znaleźć swoje ulubione otwarcie!</string>
+  <string name="useCtrlF">Użyj Ctrl+f, aby znaleźć swoje ulubione otwarcie!</string>
   <string name="notTheMove">To nie jest właściwy ruch!</string>
   <string name="trySomethingElse">Spróbuj czegoś innego.</string>
   <string name="ratingX">Ranking: %s</string>
@@ -57,6 +65,7 @@
   </plurals>
   <string name="example">Przykład</string>
   <string name="addAnotherTheme">Dodaj inny motyw</string>
+  <string name="nextPuzzle">Następne zadanie</string>
   <string name="jumpToNextPuzzleImmediately">Natychmiast przejdź do następnego zadania</string>
   <string name="puzzleDashboard">Tablica z zadaniami</string>
   <string name="improvementAreas">Obszary rozwoju</string>

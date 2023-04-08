@@ -39,4 +39,5 @@ Peserta yang terlambat mendapatkan satu \"bye\", bahkan jika mereka melewatkan b
   <string name="pairingSystem">Sistem pembagian partai</string>
   <string name="lateJoin">Telat bergabung</string>
   <string name="pause">Jeda</string>
+  <string name="unlimitedAndFree">Tidak terbatas dan gratis</string>
 </resources>

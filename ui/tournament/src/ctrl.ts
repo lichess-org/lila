@@ -2,7 +2,6 @@ import makeSocket from './socket';
 import * as xhr from './xhr';
 import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
-import * as tour from './tournament';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 // eslint-disable-next-line no-duplicate-imports
 import { TournamentSocket } from './socket';
@@ -39,7 +38,7 @@ export default class TournamentController {
     this.trans = lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
-    this.focusOnMe = tour.isIn(this);
+    this.focusOnMe = this.isIn();
     setTimeout(() => (this.disableClicks = false), 1500);
     this.loadPage(this.data.standing);
     this.scrollToMe();
@@ -204,4 +203,8 @@ export default class TournamentController {
   toggleSearch = () => {
     this.searching = !this.searching;
   };
+
+  isIn = () => !!this.data.me && !this.data.me.withdraw;
+
+  willBePaired = () => this.isIn() && !this.data.pairingsClosed;
 }

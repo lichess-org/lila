@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">رمز وصول API الشخصي الجديد</string>
+  <string name="tokenGrantsPermission">الرمز المميز يمنح الأشخاص الآخرين الإذن باستخدام حسابك.</string>
+  <string name="carefullySelect">اختر بعناية ما هو مسموح له أن يفعله نيابة عنك.</string>
+  <string name="tokenDescription">وصف token</string>
+  <string name="rememberTokenUse">لذا تتذكرون ما هو هذا الرمز المميز ل</string>
+  <string name="whatTheTokenCanDo">ما الذي يمكن أن تفعله الtoken بالنيابة عنك:</string>
+  <string name="doNotShareIt">الرمز المميز سيمنح الوصول إلى حسابك. لا تقم بمشاركته مع أي شخص!</string>
+  <string name="copyTokenNow">احفظ أو اكتب كلمة المرور الخاصة بتطبيق. لن تراها مجددا!</string>
+  <string name="preferenceRead">قراءة التفضيلات</string>
+  <string name="preferenceWrite">اكتب مرجع</string>
+  <string name="emailRead">اقرا عنوان البريد</string>
+  <string name="challengeRead">قراءة التحديات الواردة</string>
+  <string name="challengeWrite">إرسال وقبول ورفض التحديات</string>
+  <string name="challengeBulk">إنشاء العديد من الألعاب مرة واحدة للاعبين الآخرين</string>
+  <string name="studyRead">قراءة الدراسات والبث الخاص</string>
+  <string name="studyWrite">إنشاء، تحديث، حذف الدراسات والبث</string>
+  <string name="tournamentWrite">إنشاء وتحديث والالتحاق بالبطولات</string>
+  <string name="racerWrite">إنشاء سباقات الألغاز والانضمام إليها</string>
+  <string name="puzzleRead">اقرا نشاط الالغاز</string>
+  <string name="teamRead">قراءة معلومات الفريق الخاص</string>
+  <string name="teamWrite">انضم او غادر الفرق</string>
+  <string name="teamLead">إدارة الفرق التي تقودها: إرسال الرسائل الشخصية، طرد الأعضاء</string>
+  <string name="followRead">قراءة اللاعبين المتابعين</string>
+  <string name="followWrite">متابعة/ الغاء متابعة اللاعبين الاخرين</string>
+  <string name="msgWrite">ارسال رسالة خاصة للاعبين الاخرين</string>
+  <string name="boardPlay">العب مبارايات ضد بوت api</string>
+  <string name="botPlay">العب مبارايات ضد بوت api</string>
+  <string name="engineRead">عرض و استخدام المحركات الخارجية</string>
+  <string name="engineWrite">إنشاء وتحديث محركات خارجية</string>
+  <string name="webLogin">إنشاء جلسات موقع مصادقة (منح الوصول الكامل!)</string>
+  <string name="webMod">استخدام أدوات المشرف (ضمن حدود الأذونات الخاصة بك)</string>
+</resources>

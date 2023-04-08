@@ -1,25 +1,30 @@
 package lila.push
 
-import io.methvin.play.autoconfig._
-import play.api.libs.json._
-import play.api.libs.ws.JsonBodyWritables._
+import lila.common.autoconfig.*
+import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import cats.data.NonEmptyList
 
-import lila.user.User
+import play.api.ConfigLoader
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
     config: WebPush.Config,
     ws: StandaloneWSClient
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  def apply(userId: User.ID, data: => PushApi.Data): Funit =
+  def apply(userId: UserId, data: => PushApi.Data): Funit =
     webSubscriptionApi.getSubscriptions(5)(userId) flatMap { subscriptions =>
       subscriptions.toNel ?? send(data)
     }
 
-  private def send(data: => PushApi.Data)(subscriptions: NonEmptyList[WebSubscription]): Funit = {
+  def apply(userIds: Iterable[UserId], data: => PushApi.Data): Funit =
+    webSubscriptionApi.getSubscriptions(userIds, 5) flatMap { subs =>
+      subs.toNel ?? send(data)
+    }
+
+  private def send(data: => PushApi.Data)(subscriptions: NonEmptyList[WebSubscription]): Funit =
     ws.url(config.url)
       .withHttpHeaders("ContentType" -> "application/json")
       .post(
@@ -30,6 +35,10 @@ final private class WebPush(
               "keys" -> Json.obj(
                 "p256dh" -> sub.p256dh,
                 "auth"   -> sub.auth
+              ),
+              "encodings" -> Json.obj(
+                "aes128gcm" -> sub.aes128gcm,
+                "aesgcm"    -> sub.aesgcm
               )
             )
           }.toList),
@@ -41,20 +50,19 @@ final private class WebPush(
               "payload" -> data.payload
             )
             .toString,
-          "ttl" -> 43200
+          "topic"   -> data.stacking.key,
+          "urgency" -> data.urgency.key,
+          "ttl"     -> 43200
         )
       ) flatMap {
       case res if res.status == 200 => funit
       case res                      => fufail(s"[push] web: ${res.status} ${res.body}")
     }
-  }
-}
 
-private object WebPush {
+private object WebPush:
 
   final class Config(
       val url: String,
       @ConfigName("vapid_public_key") val vapidPublicKey: String
   )
-  implicit val configLoader = AutoConfig.loader[Config]
-}
+  given ConfigLoader[Config] = AutoConfig.loader[Config]

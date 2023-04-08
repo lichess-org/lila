@@ -1,60 +1,51 @@
 package lila.clas
 
-import play.api.Mode
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.user.User
 import reactivemongo.core.errors.DatabaseException
 
-final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(implicit
-    ec: ExecutionContext,
-    mode: Mode
-) {
+final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(using
+    Executor
+):
 
-  def get(studentId: User.ID): Fu[Set[User.ID]] =
+  def get(studentId: UserId): Fu[Set[UserId]] =
     studentCache.isStudent(studentId) ?? cache.get(studentId)
 
-  private val cache = cacheApi[User.ID, Set[User.ID]](256, "clas.mates") {
+  private val cache = cacheApi[UserId, Set[UserId]](256, "clas.mates") {
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture(fetchMatesAndTeachers)
   }
 
-  private def fetchMatesAndTeachers(studentId: User.ID): Fu[Set[User.ID]] =
+  private def fetchMatesAndTeachers(studentId: UserId): Fu[Set[UserId]] =
     colls.student
       .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         Match($doc("userId" -> studentId)) -> List(
           Group(BSONNull)("classes" -> PushField("clasId")),
           Facet(
             List(
               "mates" -> List(
                 PipelineOperator(
-                  $doc(
-                    "$lookup" -> $doc(
-                      "from" -> colls.student.name,
-                      "as"   -> "mates",
-                      "let"  -> $doc("ids" -> "$classes"),
-                      "pipeline" -> $arr(
-                        $doc(
-                          "$match" -> $doc(
-                            "$expr" -> $doc(
-                              "$and" -> $arr(
-                                $doc("$in" -> $arr("$clasId", "$$ids")),
-                                $doc("$ne" -> $arr("$userId", studentId))
-                              )
-                            )
+                  $lookup.pipelineFull(
+                    from = colls.student.name,
+                    as = "mates",
+                    let = $doc("ids" -> "$classes"),
+                    pipe = List(
+                      $doc(
+                        "$match" -> $expr(
+                          $and(
+                            $doc("$in" -> $arr("$clasId", "$$ids")),
+                            $doc("$ne" -> $arr("$userId", studentId))
                           )
-                        ),
-                        $doc(
-                          "$group" -> $doc(
-                            "_id"   -> BSONNull,
-                            "mates" -> $doc("$addToSet" -> "$userId")
-                          )
+                        )
+                      ),
+                      $doc(
+                        "$group" -> $doc(
+                          "_id"   -> BSONNull,
+                          "mates" -> $doc("$addToSet" -> "$userId")
                         )
                       )
                     )
@@ -64,23 +55,17 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
               ),
               "teachers" -> List(
                 PipelineOperator(
-                  $doc(
-                    "$lookup" -> $doc(
-                      "from" -> colls.clas.name,
-                      "as"   -> "teachers",
-                      "let"  -> $doc("ids" -> "$classes"),
-                      "pipeline" -> $arr(
-                        $doc(
-                          "$match" -> $doc(
-                            "$expr" -> $doc("$in" -> $arr("$_id", "$$ids"))
-                          )
-                        ),
-                        $doc("$unwind" -> "$teachers"),
-                        $doc(
-                          "$group" -> $doc(
-                            "_id"      -> BSONNull,
-                            "teachers" -> $doc("$addToSet" -> "$teachers")
-                          )
+                  $lookup.pipelineFull(
+                    from = colls.clas.name,
+                    as = "teachers",
+                    let = $doc("ids" -> "$classes"),
+                    pipe = List(
+                      $doc("$match"  -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
+                      $doc("$unwind" -> "$teachers"),
+                      $doc(
+                        "$group" -> $doc(
+                          "_id"      -> BSONNull,
+                          "teachers" -> $doc("$addToSet" -> "$teachers")
                         )
                       )
                     )
@@ -103,8 +88,8 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
       .map { docO =>
         for {
           doc      <- docO
-          mates    <- doc.getAsOpt[Set[User.ID]]("mates")
-          teachers <- doc.getAsOpt[Set[User.ID]]("teachers")
+          mates    <- doc.getAsOpt[Set[UserId]]("mates")
+          teachers <- doc.getAsOpt[Set[UserId]]("teachers")
         } yield mates ++ teachers
       }
       .dmap(~_)
@@ -112,4 +97,3 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
         // can happen, probably in case of student cache bloom filter false positive
         case e: DatabaseException if e.getMessage.contains("resulting value was: MISSING") => Set.empty
       }
-}

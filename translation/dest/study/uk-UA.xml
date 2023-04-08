@@ -24,10 +24,10 @@
     <item quantity="other">%s розділи</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s гра</item>
-    <item quantity="few">%s гри</item>
-    <item quantity="many">%s ігор</item>
-    <item quantity="other">%s гри</item>
+    <item quantity="one">%s Партія</item>
+    <item quantity="few">%s Партії</item>
+    <item quantity="many">%s Партій</item>
+    <item quantity="other">%s Партій</item>
   </plurals>
   <string name="addMembers">Додати учасників</string>
   <plurals name="nbMembers">
@@ -66,8 +66,10 @@
   <string name="shareAndExport">Надсилання та експорт</string>
   <string name="cloneStudy">Клонувати</string>
   <string name="studyPgn">PGN дослідження</string>
-  <string name="downloadAllGames">Завантажити всі ігри</string>
+  <string name="downloadAllGames">Завантажити всі партії</string>
   <string name="chapterPgn">PGN розділу</string>
+  <string name="copyChapterPgn">Скопіювати PGN</string>
+  <string name="copyChapterPgnDescription">Скопіювати PGN розділу в буфер обміну.</string>
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>
@@ -82,6 +84,7 @@
   <string name="studyNotFound">Дослідження не знайдено</string>
   <string name="editChapter">Редагувати розділ</string>
   <string name="newChapter">Новий розділ</string>
+  <string name="importFromChapterX">Імпортувати з %s</string>
   <string name="orientation">Орієнтація</string>
   <string name="analysisMode">Режим аналізу</string>
   <string name="pinnedChapterComment">Закріплений коментар розділу</string>
@@ -114,7 +117,7 @@
   <string name="urlOfTheGame">URL-адреса гри</string>
   <string name="loadAGameFromXOrY">Завантажити гру з %1$s або %2$s</string>
   <string name="createChapter">Створити розділ</string>
-  <string name="configureLiveBroadcast">Налаштувати живу передачу</string>
+  <string name="configureLiveBroadcast">Налаштування трансляції</string>
   <string name="createStudy">Створити дослідження</string>
   <string name="editStudy">Редагування дослідження</string>
   <string name="visibility">Видимість</string>

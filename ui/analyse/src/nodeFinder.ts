@@ -1,9 +1,7 @@
 import { winningChances } from 'ceval';
 import { defined } from 'common';
 
-function hasCompChild(node: Tree.Node): boolean {
-  return !!node.children.find(c => !!c.comp);
-}
+const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
 
 export function nextGlyphSymbol(
   color: Color,
@@ -46,9 +44,7 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
   return found;
 }
 
-function threefoldFen(fen: Fen) {
-  return fen.split(' ').slice(0, 4).join(' ');
-}
+const threefoldFen = (fen: Fen) => fen.split(' ').slice(0, 4).join(' ');
 
 export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
   if (defined(node.threefold)) return;

@@ -1,25 +1,22 @@
 package lila.user
 
-import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
 import scala.util.Success
 
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl._
-import lila.memo.CacheApi._
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 import lila.rating.{ Glicko, Perf, PerfType }
 
 final class RankingApi(
-    userRepo: UserRepo,
     coll: AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(using Executor):
 
-  import RankingApi._
-  implicit private val rankingBSONHandler = Macros.handler[Ranking]
+  import RankingApi.*
+  private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
   def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>
@@ -36,22 +33,22 @@ final class RankingApi(
             "rating"    -> perf.intRating,
             "prog"      -> perf.progress,
             "stable"    -> perf.rankable(PerfType variantOf perfType),
-            "expiresAt" -> DateTime.now.plusDays(7)
+            "expiresAt" -> nowDate.plusDays(7)
           ),
           upsert = true
         )
         .void
     }
 
-  def remove(userId: User.ID): Funit =
+  def remove(userId: UserId): Funit =
     coll {
       _.delete.one($doc("_id" $startsWith s"$userId:")).void
     }
 
-  private def makeId(userId: User.ID, perfType: PerfType) =
+  private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
-  private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
+  private[user] def topPerf(perfId: Perf.Id, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)) ?? { perfKey =>
       coll {
         _.find($doc("perf" -> perfId, "stable" -> true))
@@ -70,8 +67,7 @@ final class RankingApi(
                   )
                 }
               }
-            }.sequenceFu
-              .dmap(_.flatten)
+            }.parallel.dmap(_.flatten)
           }
       }
     }
@@ -107,23 +103,22 @@ final class RankingApi(
       racingKings = racingKings
     )
 
-  object weeklyStableRanking {
+  object weeklyStableRanking:
 
     private type Rank = Int
 
-    def of(userId: User.ID): Map[PerfType, Rank] =
-      cache.getUnit.value match {
+    def of(userId: UserId): Map[PerfType, Rank] =
+      cache.getUnit.value match
         case Some(Success(all)) =>
           all.flatMap { case (pt, ranking) =>
             ranking get userId map (pt -> _)
           }
         case _ => Map.empty
-      }
 
-    private val cache = cacheApi.unit[Map[PerfType, Map[User.ID, Rank]]] {
+    private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]] {
       _.refreshAfterWrite(15 minutes)
         .buildAsyncFuture { _ =>
-          lila.common.Future
+          lila.common.LilaFuture
             .linear(PerfType.leaderboardable) { pt =>
               compute(pt).dmap(pt -> _)
             }
@@ -134,31 +129,30 @@ final class RankingApi(
         }
     }
 
-    private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] = coll {
+    private def compute(pt: PerfType): Fu[Map[UserId, Rank]] = coll {
       _.find(
         $doc("perf" -> pt.id, "stable" -> true),
         $doc("_id" -> true).some
       )
         .sort($doc("rating" -> -1))
         .cursor[Bdoc]()
-        .fold(1 -> Map.newBuilder[User.ID, Rank]) { case (state @ (rank, b), doc) =>
+        .fold(1 -> Map.newBuilder[UserId, Rank]) { case (state @ (rank, b), doc) =>
           doc.string("_id").fold(state) { id =>
-            val user = id takeWhile (':' !=)
+            val user = UserId(id.takeWhile(':' !=))
             b += (user -> rank)
             (rank + 1) -> b
           }
         }
         .map(_._2.result())
     }
-  }
 
-  object weeklyRatingDistribution {
+  object weeklyRatingDistribution:
 
     private type NbUsers = Int
 
     def apply(pt: PerfType) = cache.get(pt.id)
 
-    private val cache = mongoCache[Perf.ID, List[NbUsers]](
+    private val cache = mongoCache[Perf.Id, List[NbUsers]](
       PerfType.leaderboardable.size,
       "user:rating:distribution",
       179 minutes,
@@ -171,10 +165,10 @@ final class RankingApi(
     }
 
     // from 600 to 2800 by Stat.group
-    private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
+    private def compute(perfId: Perf.Id): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? coll {
         _.aggregateList(maxDocs = Int.MaxValue) { framework =>
-          import framework._
+          import framework.*
           Match($doc("perf" -> perfId)) -> List(
             Project(
               $doc(
@@ -199,7 +193,7 @@ final class RankingApi(
                 } yield rating -> nb
               }
               .to(Map)
-            (Glicko.minRating to 2800 by Stat.group).map { r =>
+            (Glicko.minRating.value to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList
           } addEffect monitorRatingDistribution(perfId)
@@ -216,25 +210,20 @@ final class RankingApi(
      * ...
      * rating.distribution.bullet.2800 => 0.9997
      */
-    private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
+    private def monitorRatingDistribution(perfId: Perf.Id)(nbUsersList: List[NbUsers]): Unit =
       val total = nbUsersList.sum
-      (Stat.minRating to 2800 by Stat.group).toList
+      (Stat.minRating.value to 2800 by Stat.group).toList
         .zip(nbUsersList)
         .foldLeft(0) { case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
           PerfType(perfId) foreach { pt =>
-            lila.mon.rating.distribution(pt.key, rating).update(prev.toDouble / total)
+            lila.mon.rating.distribution(pt.key.value, rating).update(prev.toDouble / total)
           }
           acc
         }
         .unit
-    }
-  }
-}
 
-object RankingApi {
+object RankingApi:
 
-  private case class Ranking(_id: String, rating: Int, prog: Option[Int]) {
-    def user = _id.takeWhile(':' !=)
-  }
-}
+  private case class Ranking(_id: String, rating: IntRating, prog: Option[IntRatingDiff]):
+    def user = UserId(_id.takeWhile(':' !=))

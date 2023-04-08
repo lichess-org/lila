@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Nevaram mainīt vairāk kā tikai lielumu. Tehnisku iemeslu dēļ, tas ir pilnīgi neiespējami.</string>
   <string name="orCloseAccount">Taču varat slēgt pašreizējo kontu un atvērt jaunu.</string>
   <string name="wantClearHistory">Vēlos notīrīt savu vēsturi vai reitingu</string>
-  <string name="cantClearHistory">Nav iespējams notīrīt spēļu vēsturi, puzļu vēsturi vai reitingus.</string>
+  <string name="cantClearHistory">Nav iespējams notīrīt spēļu vēsturi, uzdevumu vēsturi vai reitingus.</string>
   <string name="wantReport">Vēlos ziņot par spēlētāju</string>
   <string name="toReportAPlayerUseForm">Lai ziņotu par spēlētāju, aizpildiet ziņošanas veidlapu</string>
   <string name="youCanAlsoReachReportPage">Varat arī nonākt tajā lapā, klikšķinot uz %s pogas \"ziņot\" profila lapā.</string>

@@ -21,6 +21,8 @@ function tournamentClass(tour: Tournament, day: Date): Classes {
 
 const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? '' : perfIcons[tour.perf.key]);
 
+const startDirection = () => (document.dir == 'rtl' ? 'right' : 'left');
+
 function renderTournament(tour: Tournament, day: Date) {
   let left = ((getHours(tour.bounds.start) + getMinutes(tour.bounds.start) / 60) / 24) * 100;
   if (tour.bounds.start < day) left -= 100;
@@ -32,7 +34,7 @@ function renderTournament(tour: Tournament, day: Date) {
       class: tournamentClass(tour, day),
       attrs: {
         href: '/tournament/' + tour.id,
-        style: 'width: ' + width + '%; left: ' + left + '%',
+        style: 'width: ' + width + '%; ' + startDirection() + ': ' + left + '%',
         title: `${tour.fullName} - ${format(tour.bounds.start, 'EEEE, dd/MM/yyyy HH:mm')}`,
       },
     },
@@ -112,7 +114,7 @@ function renderTimeline() {
       h(
         'div.timeheader',
         {
-          attrs: { style: 'left: ' + (hour / 24) * 100 + '%' },
+          attrs: { style: startDirection() + ': ' + (hour / 24) * 100 + '%' },
         },
         timeString(hour)
       )

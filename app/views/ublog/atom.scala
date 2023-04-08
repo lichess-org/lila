@@ -3,23 +3,20 @@ package views.html.ublog
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.common.paginator.Paginator
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
-object atom {
+object atom:
 
   import views.html.base.atom.{ atomDate, category }
-  import views.html.ublog.blog.urlOfBlog
   import views.html.ublog.post.{ thumbnail, urlOfPost }
 
   def user(
       user: User,
-      blog: UblogBlog,
       posts: Seq[UblogPost.PreviewPost]
-  )(implicit lang: Lang) =
+  )(using Lang) =
     views.html.base.atom(
       elems = posts,
       htmlCall = routes.Ublog.index(user.username),
@@ -33,7 +30,7 @@ object atom {
   def community(code: String, posts: Seq[UblogPost.PreviewPost]) =
     views.html.base.atom(
       elems = posts,
-      htmlCall = routes.Ublog.community(code),
+      htmlCall = routes.Ublog.communityLang(code),
       atomCall = routes.Ublog.communityAtom(code),
       title = "Lichess community blogs",
       updated = posts.headOption.flatMap(_.lived).map(_.at)
@@ -43,11 +40,11 @@ object atom {
 
   private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
     frag(
-      tag("id")(post._id),
+      tag("id")(post.id),
       tag("published")(post.lived.map(_.at) map atomDate),
       link(
-        rel := "alternate",
-        tpe := "text/html",
+        rel  := "alternate",
+        tpe  := "text/html",
         href := s"$netBaseUrl${urlOfPost(post)}"
       ),
       tag("title")(post.title),
@@ -67,7 +64,5 @@ object atom {
       tag("author")(tag("name")(authorName))
     )
 
-  private def authorOfBlog(blogId: UblogBlog.Id): String = blogId match {
+  private def authorOfBlog(blogId: UblogBlog.Id): String = blogId match
     case UblogBlog.Id.User(userId) => titleNameOrId(userId)
-  }
-}

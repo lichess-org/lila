@@ -1,20 +1,19 @@
 package controllers
 
-import io.prismic.{ Api => PrismicApi, _ }
-import lila.app._
+import io.prismic.{ Api as PrismicApi, * }
+import lila.app.{ given, * }
 
 final class Prismic(
     env: Env
-)(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.StandaloneWSClient) {
+)(using ec: Executor, ws: play.api.libs.ws.StandaloneWSClient):
 
   private val logger = lila.log("prismic")
 
   private def prismicApi = env.blog.api.prismicApi
 
-  implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
-    DocumentLinkResolver(prismicApi) {
-      case (link, _) => routes.Blog.show(link.id, link.slug, ref).url
-      case _         => routes.Lobby.home.url
+  implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None): DocumentLinkResolver =
+    DocumentLinkResolver(prismicApi) { (link, _) =>
+      routes.Blog.show(link.id, link.slug, ref).url
     }
 
   private def getDocument(id: String): Fu[Option[Document]] =
@@ -49,4 +48,3 @@ final class Prismic(
         _.results.headOption map (_ -> makeLinkResolver(api))
       }
     }
-}

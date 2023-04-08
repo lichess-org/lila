@@ -8,7 +8,7 @@ $mq-col3-uniboard: $mq-x-large;
 /* when the width is appropriate for col1, but landscape prevents it */
 $mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
 
-$col3-uniboard-side: minmax(230px, 20vw);
+$col3-uniboard-side: minmax(230px, 350px);
 $col3-uniboard-table: minmax(240px, 400px);
 $col3-uniboard-controls: 3rem;
 

@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Uneko txandaren URL helbidea</string>
   <string name="currentGameUrl">Uneko partidaren URL helbidea</string>
   <string name="downloadAllRounds">Deskargatu txanda guztiak</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Betiko ezabatu txanda eta bere partida guztiak.</string>
+  <string name="deleteAllGamesOfThisRound">Ezabatu txanda honetako partida guztiak. Jatorria aktibo egon behar da berriz sortzeko.</string>
 </resources>

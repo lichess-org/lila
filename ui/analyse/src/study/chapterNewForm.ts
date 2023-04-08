@@ -2,14 +2,14 @@ import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
 import { snabModal } from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
-import { storedProp, StoredProp } from 'common/storage';
+import { StoredProp, storedStringProp } from 'common/storage';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { option } from '../util';
+import { option } from '../view/util';
 import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
 import { chapter as chapterTour } from './studyTour';
 import { importPgn, variants as xhrVariants } from './studyXhr';
@@ -58,7 +58,7 @@ export function ctrl(
     variants: [],
     open: false,
     initial: prop(false),
-    tab: storedProp('study.form.tab', 'init'),
+    tab: storedStringProp('study.form.tab', 'init'),
     editor: null,
     editorFen: prop(null),
     isDefaultName: true,
@@ -72,14 +72,17 @@ export function ctrl(
       });
   }
 
-  function open() {
+  const open = () => {
+    lichess.pubsub.emit('analyse.close-all');
     vm.open = true;
     loadVariants();
     vm.initial(false);
-  }
-  function close() {
+  };
+  const close = () => {
     vm.open = false;
-  }
+  };
+
+  lichess.pubsub.on('analyse.close-all', close);
 
   return {
     vm,
@@ -118,7 +121,8 @@ export function ctrl(
 }
 
 export function view(ctrl: StudyChapterNewFormCtrl): VNode {
-  const trans = ctrl.root.trans;
+  const trans = ctrl.root.trans,
+    study = ctrl.root.study!;
   const activeTab = ctrl.vm.tab();
   const makeTab = function (key: string, name: string, title: string) {
     return h(
@@ -132,7 +136,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     );
   };
   const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
-  const currentChapter = ctrl.root.study!.data.chapter;
+  const currentChapter = study.data.chapter;
   const mode = currentChapter.practice
     ? 'practice'
     : defined(currentChapter.conceal)
@@ -289,8 +293,19 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           activeTab === 'pgn'
             ? h('div.form-group', [
                 h('textarea#chapter-pgn.form-control', {
-                  attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
+                  attrs: { placeholder: trans.pluralSame('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) },
                 }),
+                h(
+                  'a.button.button-empty',
+                  {
+                    hook: bind('click', () => {
+                      xhr
+                        .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
+                        .then(pgnData => $('#chapter-pgn').val(pgnData));
+                    }),
+                  },
+                  trans('importFromChapterX', study.currentChapter().name)
+                ),
                 window.FileReader
                   ? h('input#chapter-pgn-file.form-control', {
                       attrs: {
@@ -326,7 +341,15 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   attrs: { disabled: gameOrPgn },
                 },
                 gameOrPgn
-                  ? [h('option', noarg('automatic'))]
+                  ? [
+                      h(
+                        'option',
+                        {
+                          attrs: { value: 'standard' },
+                        },
+                        noarg('automatic')
+                      ),
+                    ]
                   : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
               ),
             ]),

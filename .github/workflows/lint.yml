@@ -11,12 +11,23 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: '8.1'
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: yarn
-      - run: yarn install
-      - run: yarn run lint
-      - run: yarn run check-format
+          cache: pnpm
+      - uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+      - uses: github/codeql-action/analyze@v2
+      - run: pnpm install
+      - run: pnpm run lint
+      - run: pnpm run check-format

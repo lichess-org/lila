@@ -1,31 +1,25 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
-import scala.annotation.nowarn
-import scala.concurrent.duration._
-import views._
+import play.api.libs.json.*
+import play.api.mvc.*
+import views.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
-import lila.hub.LightTeam._
-import lila.memo.CacheApi._
-import lila.tournament.{ TournamentForm, VisibleTournaments, Tournament => Tour }
-import lila.user.{ User => UserModel }
+import lila.common.Json.given
+import lila.memo.CacheApi.*
+import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
+import lila.user.{ User as UserModel }
 
-final class Tournament(
-    env: Env,
-    apiC: => Api
-)(implicit
-    mat: akka.stream.Materializer
-) extends LilaController(env) {
+final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
+    extends LilaController(env):
 
   private def repo       = env.tournament.tournamentRepo
   private def api        = env.tournament.api
   private def jsonView   = env.tournament.jsonView
   private def forms      = env.tournament.forms
-  private def cachedTour = env.tournament.cached.tourCache byId _
+  private def cachedTour = env.tournament.cached.tourCache.byId
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
@@ -39,42 +33,42 @@ final class Tournament(
       }
   }
 
-  def home =
-    Open { implicit ctx =>
-      for {
-        (visible, scheduled) <- upcomingCache.getUnit
-        teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
-        allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
-        teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
-        scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
-        response <- negotiate(
-          html = for {
-            finished <- api.notableFinished
-            winners  <- env.tournament.winners.all
-            teamIds  <- ctx.userId.??(env.team.cached.teamIdsList)
-          } yield NoCache {
-            pageHit
-            Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
-          },
-          api = _ => Ok(scheduleJson).fuccess
-        )
-      } yield response
-    }
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Tournament.home)(serveHome(_))
+  private def serveHome(implicit ctx: Context) = NoBot {
+    for {
+      (visible, scheduled) <- upcomingCache.getUnit
+      teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
+      allTeamIds = (TeamId.from(env.featuredTeamsSetting.get().value) ++ teamIds).distinct
+      teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
+      scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
+      response <- negotiate(
+        html = for
+          finished <- api.notableFinished
+          winners  <- env.tournament.winners.all
+        yield {
+          pageHit
+          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson)).noCache
+        },
+        api = _ => Ok(scheduleJson).toFuccess
+      )
+    } yield response
+  }
 
-  def help(@nowarn("cat=unused") sysStr: Option[String]) =
+  def help =
     Open { implicit ctx =>
-      Ok(html.tournament.faq.page).fuccess
+      Ok(html.tournament.faq.page).toFuccess
     }
 
   def leaderboard =
     Open { implicit ctx =>
-      for {
+      for
         winners <- env.tournament.winners.all
         _       <- env.user.lightUserApi preloadMany winners.userIds
-      } yield Ok(html.tournament.leaderboard(winners))
+      yield Ok(html.tournament.leaderboard(winners))
     }
 
-  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
+  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
     tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
@@ -86,19 +80,19 @@ final class Tournament(
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
-  def show(id: String) =
+  def show(id: TourId) =
     Open { implicit ctx =>
       val page = getInt("page")
       cachedTour(id) flatMap { tourOption =>
         def loadChat(tour: Tour, json: JsObject) =
           canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
-            .findMine(lila.chat.Chat.Id(tour.id), ctx.me)
+            .findMine(ChatId(tour.id), ctx.me)
             .flatMap { c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds) inject c.some
             }
         negotiate(
           html = tourOption
-            .fold(tournamentNotFound.fuccess) { tour =>
+            .fold(tournamentNotFound.toFuccess) { tour =>
               for {
                 myInfo   <- ctx.me.?? { jsonView.fetchMyInfo(tour, _) }
                 verdicts <- api.getVerdicts(tour, ctx.me, getUserTeamIds, myInfo.isDefined)
@@ -108,12 +102,12 @@ final class Tournament(
                   page = page,
                   me = ctx.me,
                   getUserTeamIds = getUserTeamIds,
-                  getTeamName = env.team.getTeamName,
+                  getTeamName = env.team.getTeamName.apply,
                   playerInfoExt = none,
                   socketVersion = version.some,
                   partial = false,
                   withScores = true,
-                  myInfo = Preload(myInfo)
+                  myInfo = Preload[Option[MyInfo]](myInfo)
                 ).map(jsonView.addReloadEndpoint(_, tour, env.tournament.lilaHttp.handles))
                 chat <- loadChat(tour, json)
                 _ <- tour.teamBattle ?? { b =>
@@ -123,7 +117,7 @@ final class Tournament(
                 shieldOwner <- env.tournament.shieldApi currentOwner tour
               } yield {
                 env.tournament.lilaHttp.hit(tour)
-                Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
+                Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)).noCache
               }
             }
             .monSuccess(_.tournament.apiShowPartial(partial = false, HTTPRequest clientName ctx.req)),
@@ -131,7 +125,7 @@ final class Tournament(
             tourOption
               .fold(notFoundJson("No such tournament")) { tour =>
                 for {
-                  playerInfoExt <- get("playerInfo").?? { api.playerInfo(tour, _) }
+                  playerInfoExt <- getUserStr("playerInfo").map(_.id).?? { api.playerInfo(tour, _) }
                   socketVersion <- getBool("socketVersion").??(env.tournament version tour.id dmap some)
                   partial = getBool("partial")
                   json <- jsonView(
@@ -139,7 +133,7 @@ final class Tournament(
                     page = page,
                     me = ctx.me,
                     getUserTeamIds = getUserTeamIds,
-                    getTeamName = env.team.getTeamName,
+                    getTeamName = env.team.getTeamName.apply,
                     playerInfoExt = playerInfoExt,
                     socketVersion = socketVersion,
                     partial = partial,
@@ -148,14 +142,14 @@ final class Tournament(
                   chat <- !partial ?? loadChat(tour, json)
                 } yield Ok(json.add("chat" -> chat.map { c =>
                   lila.chat.JsonView.mobile(chat = c.chat)
-                }))
+                })).noCache
               }
               .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
-        ) dmap NoCache
+        )
       }
     }
 
-  def standing(id: String, page: Int) =
+  def standing(id: TourId, page: Int) =
     Open { implicit ctx =>
       OptionFuResult(cachedTour(id)) { tour =>
         JsonOk {
@@ -164,108 +158,93 @@ final class Tournament(
       }
     }
 
-  def pageOf(id: String, userId: String) =
+  def pageOf(id: TourId, userId: UserStr) =
     Open { implicit ctx =>
       OptionFuResult(cachedTour(id)) { tour =>
-        api.pageOf(tour, UserModel normalize userId) flatMap {
-          _ ?? { page =>
-            JsonOk {
-              env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
-            }
-          }
-        }
-      }
-    }
-
-  def player(tourId: String, userId: String) =
-    Action.async {
-      cachedTour(tourId) flatMap {
-        _ ?? { tour =>
+        api.pageOf(tour, userId.id) flatMapz { page =>
           JsonOk {
-            api.playerInfo(tour, userId) flatMap {
-              _ ?? { jsonView.playerInfoExtended(tour, _) }
-            }
+            env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
           }
         }
       }
     }
 
-  def teamInfo(tourId: String, teamId: TeamID) =
+  def player(tourId: TourId, userId: UserStr) =
+    Action.async {
+      cachedTour(tourId) flatMapz { tour =>
+        JsonOk {
+          api.playerInfo(tour, userId.id) flatMapz {
+            jsonView.playerInfoExtended(tour, _)
+          }
+        }
+      }
+    }
+
+  def teamInfo(tourId: TourId, teamId: TeamId) =
     Open { implicit ctx =>
-      cachedTour(tourId) flatMap {
-        _ ?? { tour =>
-          env.team.teamRepo mini teamId flatMap {
-            _ ?? { team =>
-              if (HTTPRequest isXhr ctx.req)
-                jsonView.teamInfo(tour, teamId) map { _ ?? JsonOk }
-              else
-                api.teamBattleTeamInfo(tour, teamId) map {
-                  _ ?? { info =>
-                    Ok(views.html.tournament.teamBattle.teamInfo(tour, team, info))
-                  }
-                }
+      cachedTour(tourId) flatMapz { tour =>
+        env.team.teamRepo mini teamId flatMapz { team =>
+          if (HTTPRequest isXhr ctx.req)
+            jsonView.teamInfo(tour, teamId) mapz JsonOk
+          else
+            api.teamBattleTeamInfo(tour, teamId) mapz { info =>
+              Ok(views.html.tournament.teamBattle.teamInfo(tour, team, info))
             }
-          }
         }
       }
     }
 
-  private val JoinLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+  private val JoinLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 30,
     duration = 10 minutes,
     key = "tournament.user.join"
   )
 
-  def join(id: String) =
+  def join(id: TourId) =
     AuthBody(parse.json) { implicit ctx => me =>
       NoLameOrBot {
         NoPlayban {
           JoinLimitPerUser(me.id) {
             val data = TournamentForm.TournamentJoin(
               password = ctx.body.body.\("p").asOpt[String],
-              team = ctx.body.body.\("team").asOpt[String]
+              team = ctx.body.body.\("team").asOpt[TeamId]
             )
             doJoin(id, data, me).dmap(_.error) map {
               case None        => jsonOkResult
               case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
             }
-          }(rateLimitedJson.fuccess)
+          }(rateLimitedJson.toFuccess)
         }
       }
     }
 
-  def apiJoin(id: String) =
+  def apiJoin(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
+      if (me.lame || me.isBot)
+        Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
       else
-        JoinLimitPerUser(me.id) {
-          val data = TournamentForm.joinForm
-            .bindFromRequest()
-            .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
-          doJoin(id, data, me) map { result =>
-            result.error match {
-              case None        => jsonOkResult
-              case Some(error) => BadRequest(Json.obj("error" -> error))
+        NoPlayban(me.id.some) {
+          JoinLimitPerUser(me.id) {
+            val data = TournamentForm.joinForm
+              .bindFromRequest()
+              .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
+            doJoin(id, data, me) map { result =>
+              result.error match
+                case None        => jsonOkResult
+                case Some(error) => BadRequest(Json.obj("error" -> error))
             }
-          }
-        }(rateLimitedJson.fuccess)
+          }(rateLimitedJson.toFuccess)
+        }
     }
 
-  private def doJoin(tourId: Tour.ID, data: TournamentForm.TournamentJoin, me: UserModel) =
+  private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin, me: UserModel) =
     data.team
       .?? { env.team.cached.isLeader(_, me.id) }
       .flatMap { isLeader =>
-        api.joinWithResult(
-          tourId,
-          me,
-          password = data.password,
-          teamId = data.team,
-          getUserTeamIds,
-          isLeader
-        )
+        api.joinWithResult(tourId, me, data = data, getUserTeamIds, isLeader)
       }
 
-  def pause(id: String) =
+  def pause(id: TourId) =
     Auth { implicit ctx => me =>
       OptionResult(cachedTour(id)) { tour =>
         api.selfPause(tour.id, me.id)
@@ -274,44 +253,40 @@ final class Tournament(
       }
     }
 
-  def apiWithdraw(id: String) =
+  def apiWithdraw(id: TourId) =
     ScopedBody(_.Tournament.Write) { _ => me =>
-      cachedTour(id) flatMap {
-        _ ?? { tour =>
-          api.selfPause(tour.id, me.id) inject jsonOkResult
-        }
+      cachedTour(id) flatMapz { tour =>
+        api.selfPause(tour.id, me.id) inject jsonOkResult
       }
     }
 
   def form =
     Auth { implicit ctx => me =>
-      NoLameOrBot {
+      NoBot {
         env.team.api.lightsByLeader(me.id) map { teams =>
           Ok(html.tournament.form.create(forms.create(me, teams), teams))
         }
       }
     }
 
-  def teamBattleForm(teamId: TeamID) =
+  def teamBattleForm(teamId: TeamId) =
     Auth { implicit ctx => me =>
-      NoLameOrBot {
+      NoBot {
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
-          env.team.api.leads(teamId, me.id) map {
-            _ ?? {
-              Ok(html.tournament.form.create(forms.create(me, teams, teamId.some), Nil))
-            }
+          env.team.api.leads(teamId, me.id) mapz {
+            Ok(html.tournament.form.create(forms.create(me, teams, teamId.some), Nil))
           }
         }
       }
     }
 
-  private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 240,
     duration = 24.hour,
     key = "tournament.user"
   )
 
-  private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.common.IpAddress](
     credits = 400,
     duration = 24.hour,
     key = "tournament.ip"
@@ -322,9 +297,7 @@ final class Tournament(
       isPrivate: Boolean,
       req: RequestHeader,
       fail: => Result
-  )(
-      create: => Fu[Result]
-  ): Fu[Result] = {
+  )(create: => Fu[Result]): Fu[Result] =
     val cost =
       if (isGranted(_.ManageTournament, me)) 2
       else if (
@@ -335,38 +308,36 @@ final class Tournament(
       ) 5
       else 20
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost, msg = me.username) {
+      CreateLimitPerIP(req.ipAddress, cost = cost, msg = me.username) {
         create
-      }(fail.fuccess)
-    }(fail.fuccess)
-  }
+      }(fail.toFuccess)
+    }(fail.toFuccess)
 
-  def create =
-    AuthBody { implicit ctx => me =>
-      NoLameOrBot {
-        env.team.api.lightsByLeader(me.id) flatMap { teams =>
-          implicit val req = ctx.body
-          negotiate(
-            html = forms
-              .create(me, teams)
-              .bindFromRequest()
-              .fold(
-                err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
-                setup =>
-                  rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)) {
-                    api.createTournament(setup, me, teams) map { tour =>
-                      Redirect {
-                        if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
-                        else routes.Tournament.show(tour.id)
-                      }.flashSuccess
-                    }
+  def create = AuthBody { implicit ctx => me =>
+    NoBot {
+      env.team.api.lightsByLeader(me.id) flatMap { teams =>
+        given play.api.mvc.Request[?] = ctx.body
+        negotiate(
+          html = forms
+            .create(me, teams)
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(html.tournament.form.create(err, teams)).toFuccess,
+              setup =>
+                rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)) {
+                  api.createTournament(setup, me, teams) map { tour =>
+                    Redirect {
+                      if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
+                      else routes.Tournament.show(tour.id)
+                    }.flashSuccess
                   }
-              ),
-            api = _ => doApiCreate(me)
-          )
-        }
+                }
+            ),
+          api = _ => doApiCreate(me)
+        )
       }
     }
+  }
 
   def apiCreate =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
@@ -374,7 +345,7 @@ final class Tournament(
       else doApiCreate(me)
     }
 
-  private def doApiCreate(me: UserModel)(implicit req: Request[_]): Fu[Result] =
+  private def doApiCreate(me: UserModel)(implicit req: Request[?]): Fu[Result] =
     env.team.api.lightsByLeader(me.id) flatMap { teams =>
       forms
         .create(me, teams)
@@ -390,21 +361,21 @@ final class Tournament(
                     none,
                     none,
                     getUserTeamIds = _ => fuccess(teams.map(_.id)),
-                    env.team.getTeamName,
+                    env.team.getTeamName.apply,
                     none,
                     none,
                     partial = false,
                     withScores = false
-                  )(reqLang) map { Ok(_) }
+                  )(using reqLang) map { Ok(_) }
                 }
               }
             }
         )
     }
 
-  def apiUpdate(id: String) =
+  def apiUpdate(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      implicit def lang = reqLang
+      given play.api.i18n.Lang = reqLang
       cachedTour(id) flatMap {
         _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) ?? { tour =>
           env.team.api.lightsByLeader(me.id) flatMap { teams =>
@@ -420,12 +391,12 @@ final class Tournament(
                       none,
                       none,
                       getUserTeamIds = _ => fuccess(teams.map(_.id)),
-                      env.team.getTeamName,
+                      env.team.getTeamName.apply,
                       none,
                       none,
                       partial = false,
                       withScores = true
-                    )(reqLang) map { Ok(_) }
+                    )(using reqLang) map { Ok(_) }
                   }
               )
           }
@@ -433,92 +404,82 @@ final class Tournament(
       }
     }
 
-  def apiTerminate(id: String) =
-    ScopedBody(_.Tournament.Write) { implicit req => me =>
-      cachedTour(id) flatMap {
-        _ ?? {
-          case tour if tour.createdBy == me.id || isGranted(_.ManageTournament, me) =>
-            api
-              .kill(tour)
-              .map(_ => jsonOkResult)
-          case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).fuccess
-        }
+  def apiTerminate(id: TourId) =
+    ScopedBody(_.Tournament.Write) { _ => me =>
+      cachedTour(id) flatMapz {
+        case tour if tour.createdBy == me.id || isGranted(_.ManageTournament, me) =>
+          api.kill(tour).inject(jsonOkResult)
+        case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
       }
     }
 
-  def teamBattleEdit(id: String) =
+  def teamBattleEdit(id: TourId) =
     Auth { implicit ctx => me =>
-      cachedTour(id) flatMap {
-        _ ?? {
-          case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
-            tour.teamBattle ?? { battle =>
-              env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
-                env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
-                  val form = lila.tournament.TeamBattle.DataForm.edit(
-                    teams.map { t =>
-                      s"""${t.id} "${t.name}" by ${env.user.lightUserApi
+      cachedTour(id) flatMapz {
+        case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
+          tour.teamBattle ?? { battle =>
+            env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
+              env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
+                val form = lila.tournament.TeamBattle.DataForm.edit(
+                  teams.map { t =>
+                    s"""${t.id} "${t.name}" by ${env.user.lightUserApi
                         .sync(t.createdBy)
                         .fold(t.createdBy)(_.name)}"""
-                    },
-                    battle.nbLeaders
-                  )
-                  Ok(html.tournament.teamBattle.edit(tour, form)).fuccess
-                }
+                  },
+                  battle.nbLeaders
+                )
+                Ok(html.tournament.teamBattle.edit(tour, form)).toFuccess
               }
             }
-          case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
-        }
+          }
+        case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
       }
     }
 
-  def teamBattleUpdate(id: String) =
+  def teamBattleUpdate(id: TourId) =
     AuthBody { implicit ctx => me =>
-      cachedTour(id) flatMap {
-        _ ?? {
-          case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
-            implicit val req = ctx.body
-            lila.tournament.TeamBattle.DataForm.empty
-              .bindFromRequest()
-              .fold(
-                err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
-                res =>
-                  api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
-                    Redirect(routes.Tournament.show(tour.id))
-              )
-          case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
-        }
+      cachedTour(id) flatMapz {
+        case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
+          given play.api.mvc.Request[?] = ctx.body
+          lila.tournament.TeamBattle.DataForm.empty
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(html.tournament.teamBattle.edit(tour, err)).toFuccess,
+              res =>
+                api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
+                  Redirect(routes.Tournament.show(tour.id))
+            )
+        case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
       }
     }
 
-  def apiTeamBattleUpdate(id: String) =
+  def apiTeamBattleUpdate(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      implicit def lang = reqLang
-      cachedTour(id) flatMap {
-        _ ?? {
-          case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
-            lila.tournament.TeamBattle.DataForm.empty
-              .bindFromRequest()
-              .fold(
-                newJsonFormError,
-                res =>
-                  api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) >> {
-                    cachedTour(tour.id) map (_ | tour) flatMap { tour =>
-                      jsonView(
-                        tour,
-                        none,
-                        none,
-                        getUserTeamIds = getUserTeamIds,
-                        env.team.getTeamName,
-                        none,
-                        none,
-                        partial = false,
-                        withScores = true
-                      )
-                    } map { Ok(_) }
-                  }
-              )
-          case _ => BadRequest(jsonError("Can't update that tournament.")).fuccess
-        }
+      given play.api.i18n.Lang = reqLang
+      cachedTour(id) flatMapz {
+        case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
+          lila.tournament.TeamBattle.DataForm.empty
+            .bindFromRequest()
+            .fold(
+              newJsonFormError,
+              res =>
+                api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) >> {
+                  cachedTour(tour.id) map (_ | tour) flatMap { tour =>
+                    jsonView(
+                      tour,
+                      none,
+                      none,
+                      getUserTeamIds = getUserTeamIds,
+                      env.team.getTeamName.apply,
+                      none,
+                      none,
+                      partial = false,
+                      withScores = true
+                    )
+                  } map { Ok(_) }
+                }
+            )
+        case _ => BadRequest(jsonError("Can't update that tournament.")).toFuccess
       }
     }
 
@@ -544,7 +505,7 @@ final class Tournament(
   def categShields(k: String) =
     Open { implicit ctx =>
       OptionFuOk(env.tournament.shieldApi.byCategKey(k)) { case (categ, awards) =>
-        env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+        env.user.lightUserApi preloadMany awards.map(_.owner) inject
           html.tournament.shields.byCateg(categ, awards)
       }
     }
@@ -566,7 +527,7 @@ final class Tournament(
       }
     }
 
-  def edit(id: String) =
+  def edit(id: TourId) =
     Auth { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         env.team.api.lightsByLeader(me.id) map { teams =>
@@ -576,45 +537,45 @@ final class Tournament(
       }
     }
 
-  def update(id: String) =
+  def update(id: TourId) =
     AuthBody { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
           forms
             .edit(me, teams, tour)
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.tournament.form.edit(tour, err, teams)).fuccess,
+              err => BadRequest(html.tournament.form.edit(tour, err, teams)).toFuccess,
               data => api.update(tour, data, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
             )
         }
       }
     }
 
-  def terminate(id: String) =
+  def terminate(id: TourId) =
     Auth { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
-          env.mod.logApi.terminateTournament(me.id, tour.name())
+          env.mod.logApi.terminateTournament(me.id into ModId, tour.name())
           Redirect(routes.Tournament.home)
         }
       }
     }
 
-  def byTeam(id: String) =
+  def byTeam(id: TeamId) =
     Action.async { implicit req =>
-      implicit val lang = reqLang
-      apiC.jsonStream {
+      given play.api.i18n.Lang = reqLang
+      apiC.jsonDownload {
         repo
           .byTeamCursor(id)
           .documentSource(getInt("max", req) | 100)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           .throttle(20, 1.second)
-      }.fuccess
+      }.toFuccess
     }
 
-  def battleTeams(id: String) =
+  def battleTeams(id: TourId) =
     Open { implicit ctx =>
       cachedTour(id) flatMap {
         _.filter(_.isTeamBattle) ?? { tour =>
@@ -625,35 +586,32 @@ final class Tournament(
       }
     }
 
-  private def WithEditableTournament(id: String, me: UserModel)(
+  private def WithEditableTournament(id: TourId, me: UserModel)(
       f: Tour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     cachedTour(id) flatMap {
       case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)
-      case Some(t) => Redirect(routes.Tournament.show(t.id)).fuccess
+      case Some(t) => Redirect(routes.Tournament.show(t.id)).toFuccess
       case _       => notFound
     }
 
-  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserModel.ID]](64, "tournament.streamers") {
+  private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](64, "tournament.streamers") {
     _.refreshAfterWrite(15.seconds)
       .maximumSize(256)
       .buildAsyncFuture { tourId =>
-        repo.isUnfinished(tourId) flatMap {
-          _ ?? {
-            env.streamer.liveStreamApi.all.flatMap {
-              _.streams
-                .map { stream =>
-                  env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
-                }
-                .sequenceFu
-                .dmap(_.flatten)
-            }
+        repo.isUnfinished(tourId) flatMapz {
+          env.streamer.liveStreamApi.all.flatMap {
+            _.streams
+              .map { stream =>
+                env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
+              }
+              .parallel
+              .dmap(_.flatten)
           }
         }
       }
   }
 
-  private def getUserTeamIds(user: UserModel): Fu[List[TeamID]] =
+  private def getUserTeamIds(user: UserModel): Fu[List[TeamId]] =
     env.team.cached.teamIdsList(user.id)
-}

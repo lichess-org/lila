@@ -1,6 +1,7 @@
-package lila
+package lila.security
 
-package object security extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[security] def logger = lila.log("security")
-}
+private val logger = lila.log("security")
+
+lazy val userAgentParser = org.uaparser.scala.Parser.default

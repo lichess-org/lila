@@ -1,0 +1,69 @@
+.puzzle-openings {
+  &__mine {
+    border-bottom: 1px solid $c-border;
+    background: $c-bg-zebra;
+    padding-top: 3vh;
+    h2 {
+      margin: 0 0 1em 0;
+    }
+  }
+
+  &__list {
+    display: grid;
+    margin: 0 0 3em var(--box-padding);
+    grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
+
+    @include breakpoint($mq-not-xx-small) {
+      grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+    }
+  }
+
+  &__link {
+    @extend %box-radius;
+
+    display: flex;
+    padding: 0.5em 0.7em 0.5em 1.5em;
+
+    &:hover {
+      background: mix($c-bg-box, $c-link, 90%);
+    }
+
+    &.opening-mine {
+      color: $c-brag;
+      font-weight: bold;
+      &:hover {
+        background: mix($c-bg-box, $c-brag, 80%);
+      }
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      &::before {
+        display: none;
+      }
+
+      padding-#{$start-direction}: 1em;
+    }
+
+    h3 {
+      font-weight: inherit;
+      font-size: 1.2em;
+      display: block;
+    }
+  }
+
+  &__tree__family {
+    h2 {
+      margin: 1em 0;
+    }
+  }
+
+  &__link em,
+  em {
+    @extend %roboto;
+
+    color: $c-font-dimmer;
+    font-size: 0.8em;
+    margin-#{$start-direction}: 0.7ch;
+    letter-spacing: -1px;
+  }
+}

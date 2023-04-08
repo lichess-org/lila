@@ -1,6 +1,6 @@
 package lila.tournament
 
-import lila.common.Heapsort.implicits._
+import lila.common.Heapsort.topN
 import lila.user.User
 
 case class Spotlight(
@@ -11,11 +11,11 @@ case class Spotlight(
     iconImg: Option[String] = None
 )
 
-object Spotlight {
+object Spotlight:
 
-  import Schedule.Freq._
+  import Schedule.Freq.*
 
-  implicit private val importanceOrdering = Ordering.by[Tournament, Int](_.schedule.??(_.freq.importance))
+  private given Ordering[Tournament] = Ordering.by[Tournament, Int](_.schedule.??(_.freq.importance))
 
   def select(tours: List[Tournament], user: Option[User], max: Int): List[Tournament] =
     user.fold(select(tours, max)) { select(tours, _, max) }
@@ -41,14 +41,13 @@ object Spotlight {
         user.perfs(tour.perfType).latest ?? {
           _.plusWeeks(weeks).isAfterNow
         }
-      sched.freq match {
+      sched.freq match
         case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
         case Daily | Eastern                      => playedSinceWeeks(2)
         case Weekly | Weekend                     => playedSinceWeeks(4)
         case Unique                               => playedSinceWeeks(4)
         case Monthly | Shield | Marathon | Yearly => true
         case ExperimentalMarathon                 => false
-      }
     }
 
   private def canMaybeJoinLimited(tour: Tournament, user: User): Boolean =
@@ -60,4 +59,3 @@ object Spotlight {
         c(user).accepted
       } &&
       tour.conditions.maxRating.fold(true)(_ maybe user)
-}

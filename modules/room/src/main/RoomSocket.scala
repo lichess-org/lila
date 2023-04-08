@@ -1,75 +1,61 @@
 package lila.room
 
-import lila.chat.{ BusChan, Chat, ChatApi, ChatTimeout, UserLine }
+import lila.chat.{ BusChan, ChatApi, ChatTimeout, UserLine }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ SyncActor, SyncActorMap }
 import lila.log.Logger
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
-import lila.user.User
+import lila.socket.{ SocketVersion, GetVersion }
+import lila.socket.RemoteSocket.{ Protocol as P, * }
+import lila.socket.Socket.{ makeMessage }
+import lila.common.Json.given
 
-import play.api.libs.json._
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
+import play.api.libs.json.*
 
-object RoomSocket {
+object RoomSocket:
 
-  case class RoomId(value: String) extends AnyVal with StringValue
+  type RoomsMap = SyncActorMap[RoomId, RoomState]
 
-  case class NotifyVersion[A: Writes](tpe: String, data: A, troll: Boolean = false) {
+  case class NotifyVersion[A: Writes](tpe: String, data: A, troll: Boolean = false):
     def msg = makeMessage(tpe, data)
-  }
 
-  final class RoomState(roomId: RoomId, send: Send)(implicit
-      ec: ExecutionContext
-  ) extends SyncActor {
+  final class RoomState(roomId: RoomId, send: Send)(using Executor) extends SyncActor:
 
     private var version = SocketVersion(0)
 
-    val process: SyncActor.Receive = {
+    val process: SyncActor.Receive =
       case GetVersion(promise) => promise success version
       case SetVersion(v)       => version = v
-      case nv: NotifyVersion[_] =>
-        version = version.inc
+      case nv: NotifyVersion[?] =>
+        version = version.incVersion
         send {
           val tell =
-            if (chatMsgs(nv.tpe)) Protocol.Out.tellRoomChat _
-            else Protocol.Out.tellRoomVersion _
+            if (chatMsgs(nv.tpe)) Protocol.Out.tellRoomChat
+            else Protocol.Out.tellRoomVersion
           tell(roomId, nv.msg, version, nv.troll)
         }
-    }
-    override def stop() = {
+    override def stop() =
       super.stop()
       send(Protocol.Out.stop(roomId))
-    }
-  }
 
-  def makeRoomMap(send: Send)(implicit
-      ec: ExecutionContext,
-      mode: play.api.Mode
-  ) =
-    new SyncActorMap(
-      mkActor = roomId =>
-        new RoomState(
-          RoomId(roomId),
-          send
-        ),
+  def makeRoomMap(send: Send)(using Executor) =
+    SyncActorMap[RoomId, RoomState](
+      mkActor = roomId => RoomState(roomId, send),
       accessTimeout = 5 minutes
     )
 
   def roomHandler(
-      rooms: SyncActorMap[RoomState],
+      rooms: RoomsMap,
       chat: ChatApi,
       logger: Logger,
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
-      localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None,
+      localTimeout: Option[(RoomId, UserId, UserId) => Fu[Boolean]] = None,
       chatBusChan: BusChan.Select
-  )(implicit ec: ExecutionContext): Handler =
+  )(using Executor): Handler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
         chat.userChat
           .write(
-            Chat.Id(roomId.value),
+            roomId into ChatId,
             userId,
             msg,
             publicSource(roomId)(PublicSource),
@@ -81,7 +67,7 @@ object RoomSocket {
           localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
             val scope = if (local) ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
             chat.userChat.timeout(
-              Chat.Id(roomId.value),
+              roomId into ChatId,
               modId,
               suspect,
               r,
@@ -93,55 +79,49 @@ object RoomSocket {
         }
     }: Handler) orElse minRoomHandler(rooms, logger)
 
-  def minRoomHandler(rooms: SyncActorMap[RoomState], logger: Logger): Handler = {
-    case Protocol.In.KeepAlives(roomIds) =>
-      roomIds foreach { roomId =>
-        rooms touchOrMake roomId.value
-      }
+  def minRoomHandler(rooms: RoomsMap, logger: Logger): Handler =
+    case Protocol.In.KeepAlives(roomIds) => roomIds foreach rooms.touchOrMake
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
     // rooms.killAll // apparently not
     case Protocol.In.SetVersions(versions) =>
       versions foreach { case (roomId, version) =>
-        rooms.tell(roomId, SetVersion(version))
+        rooms.tell(RoomId(roomId), SetVersion(version))
       }
-  }
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: SyncActorMap[RoomState], busChan: BusChan.Select) = {
-    import lila.chat.actorApi._
+  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select) =
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan) {
-      case ChatLine(id, line: UserLine) =>
-        rooms.tellIfPresent(id.value, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
-      case OnTimeout(id, userId) =>
-        rooms.tellIfPresent(id.value, NotifyVersion("chat_timeout", userId, troll = false))
-      case OnReinstate(id, userId) =>
-        rooms.tellIfPresent(id.value, NotifyVersion("chat_reinstate", userId, troll = false))
+      case lila.chat.ChatLine(id, line: UserLine) =>
+        rooms.tellIfPresent(id into RoomId, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
+      case lila.chat.OnTimeout(id, userId) =>
+        rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_timeout", userId, troll = false))
+      case lila.chat.OnReinstate(id, userId) =>
+        rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_reinstate", userId, troll = false))
     }
-  }
 
-  object Protocol {
+  object Protocol:
 
-    object In {
+    object In:
 
-      case class ChatSay(roomId: RoomId, userId: String, msg: String) extends P.In
-      case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String, text: String)
+      case class ChatSay(roomId: RoomId, userId: UserId, msg: String) extends P.In
+      case class ChatTimeout(roomId: RoomId, userId: UserId, suspect: UserId, reason: String, text: String)
           extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId])                    extends P.In
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
       case class SetVersions(versions: Iterable[(String, SocketVersion)]) extends P.In
 
       val reader: P.In.Reader = raw =>
-        raw.path match {
-          case "room/alives" => KeepAlives(P.In.commas(raw.args) map RoomId.apply).some
+        raw.path match
+          case "room/alives" => KeepAlives(P.In.commas(raw.args) map { RoomId(_) }).some
           case "chat/say" =>
             raw.get(3) { case Array(roomId, userId, msg) =>
-              ChatSay(RoomId(roomId), userId, msg).some
+              ChatSay(RoomId(roomId), UserId(userId), msg).some
             }
           case "chat/timeout" =>
             raw.get(5) { case Array(roomId, userId, suspect, reason, text) =>
-              ChatTimeout(RoomId(roomId), userId, suspect, reason, text).some
+              ChatTimeout(RoomId(roomId), UserId(userId), UserId(suspect), reason, text).some
             }
           case "tell/room/sri" =>
             raw.get(4) { case arr @ Array(roomId, _, _, _) =>
@@ -156,25 +136,20 @@ object RoomSocket {
               }
             }).some
           case _ => P.In.baseReader(raw)
-        }
-    }
 
-    object Out {
+    object Out:
 
       def tellRoom(roomId: RoomId, payload: JsObject) =
         s"tell/room $roomId ${Json stringify payload}"
       def tellRoomVersion(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
         s"tell/room/version $roomId $version ${P.Out.boolean(isTroll)} ${Json stringify payload}"
-      def tellRoomUser(roomId: RoomId, userId: User.ID, payload: JsObject) =
+      def tellRoomUser(roomId: RoomId, userId: UserId, payload: JsObject) =
         s"tell/room/user $roomId $userId ${Json stringify payload}"
-      def tellRoomUsers(roomId: RoomId, userIds: Iterable[User.ID], payload: JsObject) =
+      def tellRoomUsers(roomId: RoomId, userIds: Iterable[UserId], payload: JsObject) =
         s"tell/room/users $roomId ${P.Out.commas(userIds)} ${Json stringify payload}"
       def tellRoomChat(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
         s"tell/room/chat $roomId $version ${P.Out.boolean(isTroll)} ${Json stringify payload}"
       def stop(roomId: RoomId) =
         s"room/stop $roomId"
-    }
-  }
 
   case class SetVersion(version: SocketVersion)
-}

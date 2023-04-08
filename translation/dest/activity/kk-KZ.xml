@@ -27,12 +27,12 @@
     <item quantity="other">%1$s жүріс жасады</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">%1$s пошталық ойында</item>
-    <item quantity="other">%1$s пошталық ойында</item>
+    <item quantity="one">%1$s хат-хабарлы ойында</item>
+    <item quantity="other">%1$s хат-хабарлы ойында</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">%s пошталық ойынды бітірді</item>
-    <item quantity="other">%s пошталық ойынды бітірді</item>
+    <item quantity="one">%s хат-хабарлы ойынды аяғына жеткізді</item>
+    <item quantity="other">%s хат-хабарлы ойынды аяғына жеткізді</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s ойыншыға серік болып қосылды</item>

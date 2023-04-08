@@ -1,14 +1,13 @@
 package lila.relay
 
-import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.study.{ Chapter, Study }
-import lila.user.User
+import lila.study.Study
 
 case class RelayRound(
-    _id: RelayRound.Id,
+    _id: RelayRoundId,
     tourId: RelayTour.Id,
-    name: String,
+    name: RelayRoundName,
     sync: RelayRound.Sync,
     /* When it's planned to start */
     startsAt: Option[DateTime],
@@ -18,16 +17,15 @@ case class RelayRound(
      * sync.nextAt is used for actually synchronising */
     finished: Boolean,
     createdAt: DateTime
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
-  def studyId = Study.Id(id.value)
+  inline def studyId = id into StudyId
 
-  lazy val slug = {
-    val s = lila.common.String slugify name
+  lazy val slug =
+    val s = lila.common.String slugify name.value
     if (s.isEmpty) "-" else s
-  }
 
   def finish =
     copy(
@@ -43,17 +41,17 @@ case class RelayRound(
 
   def ensureStarted =
     copy(
-      startedAt = startedAt orElse DateTime.now.some
+      startedAt = startedAt orElse nowDate.some
     )
 
   def hasStarted        = startedAt.isDefined
-  def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter DateTime.now)
-  def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore DateTime.now)
+  def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter nowDate)
+  def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore nowDate)
 
   def shouldGiveUp =
     !hasStarted && (startsAt match {
-      case Some(at) => at.isBefore(DateTime.now minusHours 3)
-      case None     => createdAt.isBefore(DateTime.now minusDays 1)
+      case Some(at) => at.isBefore(nowDate minusHours 3)
+      case None     => createdAt.isBefore(nowDate minusDays 1)
     })
 
   def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
@@ -61,13 +59,10 @@ case class RelayRound(
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
 
   override def toString = s"""relay #$id "$name" $sync"""
-}
 
-object RelayRound {
+object RelayRound:
 
-  case class Id(value: String) extends AnyVal with StringValue
-
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+  def makeId = RelayRoundId(ThreadLocalRandom nextString 8)
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
@@ -75,18 +70,18 @@ object RelayRound {
       nextAt: Option[DateTime],        // when to run next sync
       delay: Option[Int],              // override time between two sync (rare)
       log: SyncLog
-  ) {
+  ):
 
     def hasUpstream = upstream.isDefined
 
     def renew =
-      if (hasUpstream) copy(until = DateTime.now.plusHours(1).some)
+      if (hasUpstream) copy(until = nowDate.plusHours(1).some)
       else pause
 
-    def ongoing = until ?? DateTime.now.isBefore
+    def ongoing = until ?? nowDate.isBefore
 
     def play =
-      if (hasUpstream) renew.copy(nextAt = nextAt orElse DateTime.now.plusSeconds(3).some)
+      if (hasUpstream) renew.copy(nextAt = nextAt orElse nowDate.plusSeconds(3).some)
       else pause
 
     def pause =
@@ -107,46 +102,35 @@ object RelayRound {
     def clearLog                     = copy(log = SyncLog.empty)
 
     override def toString = upstream.toString
-  }
 
-  object Sync {
-    sealed trait Upstream {
-      def asUrl: Option[UpstreamUrl] = this match {
+  object Sync:
+    sealed trait Upstream:
+      def asUrl: Option[UpstreamUrl] = this match
         case url: UpstreamUrl => url.some
         case _                => none
-      }
       def local = asUrl.fold(true)(_.isLocal)
-    }
-    case class UpstreamUrl(url: String) extends Upstream {
+    case class UpstreamUrl(url: String) extends Upstream:
       def isLocal = url.contains("://127.0.0.1") || url.contains("://[::1]") || url.contains("://localhost")
       def withRound =
-        url.split(" ", 2) match {
+        url.split(" ", 2) match
           case Array(u, round) => UpstreamUrl.WithRound(u, round.toIntOption)
           case _               => UpstreamUrl.WithRound(url, none)
-        }
-    }
-    object UpstreamUrl {
+    object UpstreamUrl:
       case class WithRound(url: String, round: Option[Int])
       val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
-    }
-    case class UpstreamIds(ids: List[lila.game.Game.ID]) extends Upstream
-  }
+    case class UpstreamIds(ids: List[GameId]) extends Upstream
 
-  trait AndTour {
+  trait AndTour:
     val round: RelayRound
     val tour: RelayTour
     def fullName = s"${tour.name} • ${round.name}"
     def path: String =
       s"/broadcast/${tour.slug}/${if (round.slug == tour.slug) "-" else round.slug}/${round.id}"
-    def path(chapterId: Chapter.Id): String = s"$path/$chapterId"
-  }
+    def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
 
-  case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour {
+  case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour:
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
-  }
 
-  case class WithTourAndStudy(relay: RelayRound, tour: RelayTour, study: Study) {
+  case class WithTourAndStudy(relay: RelayRound, tour: RelayTour, study: Study):
     def path     = WithTour(relay, tour).path
     def fullName = WithTour(relay, tour).fullName
-  }
-}

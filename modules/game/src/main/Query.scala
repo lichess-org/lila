@@ -1,20 +1,18 @@
 package lila.game
 
 import chess.Status
-import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-object Query {
+object Query:
 
-  import Game.{ BSONFields => F }
+  import Game.{ BSONFields as F }
 
   val rated: Bdoc = F.rated $eq true
 
-  def rated(u: String): Bdoc = user(u) ++ rated
+  def rated(u: UserId): Bdoc = user(u) ++ rated
 
   def status(s: Status) = F.status $eq s.id
 
@@ -22,13 +20,13 @@ object Query {
 
   val started: Bdoc = F.status $gte Status.Started.id
 
-  def started(u: String): Bdoc = user(u) ++ started
+  def started(u: UserId): Bdoc = user(u) ++ started
 
   val playable: Bdoc = F.status $lt Status.Aborted.id
 
   val mate: Bdoc = status(Status.Mate)
 
-  def draw(u: String): Bdoc = user(u) ++ finished ++ F.winnerId.$exists(false)
+  def draw(u: UserId): Bdoc = user(u) ++ finished ++ F.winnerId.$exists(false)
 
   val finished: Bdoc = F.status $gte Status.Mate.id
 
@@ -40,7 +38,8 @@ object Query {
 
   val frozen: Bdoc = F.status $gte Status.Mate.id
 
-  def imported(u: String): Bdoc = s"${F.pgnImport}.user" $eq u
+  def imported(u: UserId): Bdoc = s"${F.pgnImport}.user" $eq u
+  def importedSort: Bdoc        = $sort desc s"${F.pgnImport}.ca"
 
   val friend: Bdoc = s"${F.source}" $eq Source.Friend.id
 
@@ -48,22 +47,22 @@ object Query {
 
   def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory $exists c
 
-  def user(u: String): Bdoc = F.playerUids $eq u
-  def user(u: User): Bdoc   = F.playerUids $eq u.id
+  def user(u: UserId): Bdoc = F.playerUids $eq u
+  def user(u: User): Bdoc   = user(u.id)
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,
     "p1.ai" $exists false
   )
 
-  def nowPlaying(u: String) = $doc(F.playingUids -> u)
+  def nowPlaying(u: UserId) = $doc(F.playingUids -> u)
 
-  def recentlyPlaying(u: String) =
-    nowPlaying(u) ++ $doc(F.movedAt $gt DateTime.now.minusMinutes(5))
+  def recentlyPlaying(u: UserId) =
+    nowPlaying(u) ++ $doc(F.movedAt $gt nowDate.minusMinutes(5))
 
-  def nowPlayingVs(u1: String, u2: String) = $doc(F.playingUids $all List(u1, u2))
+  def nowPlayingVs(u1: UserId, u2: UserId) = $doc(F.playingUids $all List(u1, u2))
 
-  def nowPlayingVs(userIds: Iterable[String]) =
+  def nowPlayingVs(userIds: Iterable[UserId]) =
     $doc(
       F.playingUids $in userIds, // as to use the index
       s"${F.playingUids}.0" $in userIds,
@@ -71,9 +70,9 @@ object Query {
     )
 
   // use the us index
-  def win(u: String) = user(u) ++ $doc(F.winnerId -> u)
+  def win(u: UserId) = user(u) ++ $doc(F.winnerId -> u)
 
-  def loss(u: String) =
+  def loss(u: UserId) =
     user(u) ++ $doc(
       F.status $in Status.finishedWithWinner.map(_.id),
       F.winnerId -> $doc(
@@ -85,7 +84,7 @@ object Query {
   def opponents(u1: User, u2: User) =
     $doc(F.playerUids $all List(u1, u2).sortBy(_.count.game).map(_.id))
 
-  def opponents(userIds: Iterable[String]) =
+  def opponents(userIds: Iterable[UserId]) =
     $doc(
       F.playerUids $in userIds, // as to use the index
       s"${F.playerUids}.0" $in userIds,
@@ -99,11 +98,12 @@ object Query {
 
   def bothRatingsGreaterThan(v: Int) = $doc("p0.e" $gt v, "p1.e" $gt v)
 
-  def turnsGt(nb: Int) = F.turns $gt nb
+  def turnsGt(nb: Int)    = F.turns $gt nb
+  def turns(range: Range) = F.turns $inRange range
 
-  def checkable = F.checkAt $lt DateTime.now
+  def checkable = F.checkAt $lt nowDate
 
-  def checkableOld = F.checkAt $lt DateTime.now.minusHours(1)
+  def checkableOld = F.checkAt $lt nowDate.minusHours(1)
 
   def variant(v: chess.variant.Variant) =
     $doc(F.variant -> (if (v.standard) $exists(false) else $int(v.id)))
@@ -125,12 +125,11 @@ object Query {
     F.createdAt $gte d
 
   def createdBetween(since: Option[DateTime], until: Option[DateTime]): Bdoc =
-    (since, until) match {
+    (since, until) match
       case (Some(since), None)        => createdSince(since)
       case (None, Some(until))        => F.createdAt $lt until
       case (Some(since), Some(until)) => F.createdAt $gte since $lt until
       case _                          => $empty
-    }
 
   val notSimul = F.simulId $exists false
 
@@ -138,4 +137,3 @@ object Query {
   val sortChronological: Bdoc     = $sort asc F.createdAt
   val sortAntiChronological: Bdoc = $sort desc F.createdAt
   val sortMovedAtNoIndex: Bdoc    = $sort desc F.movedAt
-}

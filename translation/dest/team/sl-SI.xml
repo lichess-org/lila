@@ -14,6 +14,7 @@
   <string name="myTeams">Moje ekipe</string>
   <string name="noTeamFound">Ni najdenih ekip</string>
   <string name="joinTeam">Pridruži se ekipi</string>
+  <string name="onlyLeaderLeavesTeam">Pred odhodom dodajte novega vodjo ekipe ali zaprite ekipo.</string>
   <string name="quitTeam">Zapusti ekipo</string>
   <string name="manuallyReviewAdmissionRequests">Ročno preglejte zahteve za sprejem</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Če je polje potrjeno, bodo morali igralci napisati zahtevo za pridružitev ekipi, ki jo lahko zavrnete ali sprejmete.</string>
@@ -57,4 +58,5 @@
   <string name="upcomingTourns">Prihajajoči turnirji</string>
   <string name="completedTourns">Končani turnirji</string>
   <string name="declinedRequests">Zavrnjene zahteve</string>
+  <string name="teamPage">Ekipna stran</string>
 </resources>

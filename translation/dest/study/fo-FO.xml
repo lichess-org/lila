@@ -126,4 +126,13 @@
   <string name="deleteTheStudyChatHistory">Skal kjattsøgan í rannsóknini strikast? Til ber ikki at angra!</string>
   <string name="deleteStudy">Burturbein rannsókn</string>
   <string name="whereDoYouWantToStudyThat">Hvar vilt tú rannsaka hatta?</string>
+  <string name="goodMove">Góður leikur</string>
+  <string name="mistake">Mistak</string>
+  <string name="brilliantMove">Framúrskarandi leikur</string>
+  <string name="blunder">Bukkur</string>
+  <string name="interestingMove">Áhugaverdur leikur</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Ivasamur leikur</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einasti leikur</string>
+  <string name="whiteIsWinning">Hvítur stendur til at vinna</string>
+  <string name="blackIsWinning">Svartur stendur til at vinna</string>
 </resources>

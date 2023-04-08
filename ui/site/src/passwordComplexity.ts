@@ -12,7 +12,7 @@ export function addPasswordChangeListener(id: string): void {
 }
 
 function updatePasswordComplexityMeter(password: string): void {
-  const analysis = zxcvbn(password);
+  const analysis = zxcvbn(password, ['chess', 'lichess', 'lichess.org']);
   updateMeter(analysis.score);
 }
 
@@ -25,3 +25,5 @@ function updateMeter(score: number): void {
     (children[i] as HTMLElement).style.backgroundColor = i < score ? color : '';
   }
 }
+
+(window as any).passwordComplexity = { addPasswordChangeListener };

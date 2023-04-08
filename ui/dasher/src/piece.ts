@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 
 import * as xhr from 'common/xhr';
-import { Redraw, Open, bind, header } from './util';
+import { Redraw, bind, header, Close } from './util';
 
 type Piece = string;
 
@@ -20,7 +20,7 @@ export interface PieceCtrl {
   data: () => PieceDimData;
   trans: Trans;
   set(t: Piece): void;
-  open: Open;
+  close: Close;
 }
 
 export function ctrl(
@@ -28,7 +28,7 @@ export function ctrl(
   trans: Trans,
   dimension: () => keyof PieceData,
   redraw: Redraw,
-  open: Open
+  close: Close
 ): PieceCtrl {
   function dimensionData() {
     return data[dimension()];
@@ -50,7 +50,7 @@ export function ctrl(
         .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));
       redraw();
     },
-    open,
+    close: close,
   };
 }
 
@@ -58,7 +58,7 @@ export function view(ctrl: PieceCtrl): VNode {
   const d = ctrl.data();
 
   return h('div.sub.piece.' + ctrl.dimension(), [
-    header(ctrl.trans.noarg('pieceSet'), () => ctrl.open('links')),
+    header(ctrl.trans.noarg('pieceSet'), () => ctrl.close()),
     h('div.list', d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3'))),
   ]);
 }
@@ -93,6 +93,8 @@ function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
     $('body').removeClass(list.join(' ')).addClass(t);
   } else {
     const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-    sprite.href = sprite.href.replace(/\w+(\.external|)\.css/, t + '$1.css');
+    sprite.href = sprite.href.replace(/[\w-]+(\.external|)\.css/, t + '$1.css');
+    document.body.dataset.pieceSet = t;
   }
+  lichess.pubsub.emit('theme.change');
 }

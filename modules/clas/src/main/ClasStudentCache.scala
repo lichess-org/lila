@@ -1,41 +1,39 @@
 package lila.clas
 
-import akka.actor.Scheduler
 import akka.stream.Materializer
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
-import lila.memo.CacheApi
-import lila.user.User
+import lila.db.dsl.{ *, given }
 
-final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
-    ec: ExecutionContext,
+final class ClasStudentCache(colls: ClasColls)(using
+    ec: Executor,
     scheduler: Scheduler,
     mat: Materializer
-) {
+):
 
   private val falsePositiveRate = 0.00003
-  private var bloomFilter       = BloomFilter[User.ID](10, 0.1) // temporary empty filter
+  // Stick to [String], it does unsafe operation that don't play well with opaque types
+  private var bloomFilter: BloomFilter[String] =
+    BloomFilter[String](100, falsePositiveRate) // temporary empty filter
 
-  def isStudent(userId: User.ID) = bloomFilter mightContain userId
+  def isStudent(userId: UserId) = bloomFilter mightContain userId.value
 
-  def addStudent(userId: User.ID): Unit = bloomFilter add userId
+  def addStudent(userId: UserId): Unit = bloomFilter add userId.value
 
   private def rebuildBloomFilter(): Unit =
     colls.student.countAll foreach { count =>
-      val nextBloom = BloomFilter[User.ID](count + 1, falsePositiveRate)
+      val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
       colls.student
         .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
-        .cursor[Bdoc](ReadPreference.secondaryPreferred)
+        .cursor[Bdoc](temporarilyPrimary)
         .documentSource()
-        .toMat(Sink.fold[Int, Bdoc](0) { case (total, doc) =>
-          doc string "userId" foreach nextBloom.add
-          total + 1
+        .throttle(300, 1.second)
+        .toMat(Sink.fold[Int, Bdoc](0) { case (counter, doc) =>
+          if (counter % 500 == 0) logger.info(s"ClasStudentCache.rebuild $counter")
+          doc.string("userId") foreach nextBloom.add
+          counter + 1
         })(Keep.right)
         .run()
         .addEffect { nb =>
@@ -47,5 +45,4 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
         .unit
     }
 
-  scheduler.scheduleWithFixedDelay(23 seconds, 1 hour) { rebuildBloomFilter _ }.unit
-}
+  scheduler.scheduleWithFixedDelay(71.seconds, 24.hours) { (() => rebuildBloomFilter()) }.unit

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">ساخت توکن جدید</string>
+  <string name="tokenGrantsPermission">توکن اجازه دسترسی دیگران به اکانت شما را میدهد.</string>
+  <string name="carefullySelect">در انتخاب دسترسی های داده شده دقت کنید.</string>
+  <string name="tokenDescription">توضیحات توکن</string>
+  <string name="rememberTokenUse">میدانید این توکن برای چه کاربردی است</string>
+  <string name="whatTheTokenCanDo">انتخاب دسترسی های توکن:</string>
+  <string name="doNotShareIt">این توکن دسترسی به اکانت شما را فراهم میکند. با فرد دیگری به اشتراک گذاشته نشود!</string>
+  <string name="copyTokenNow">مطمعن شوید توکن را هم اکنون ذخیره کرده اید. در آینده دسترسی به آن امکان پذیر نیست!</string>
+  <string name="preferenceRead">خواندن تنظیمات</string>
+  <string name="preferenceWrite">ایجاد تنظیمات</string>
+  <string name="emailRead">خواندن ایمیل</string>
+  <string name="challengeRead">خواندن چالش های پیش رو</string>
+  <string name="challengeWrite">ارسال، پذیرش و رد چالش ها</string>
+  <string name="challengeBulk">ایجاد یکباره بازی های زیاد برای دیگر بازیکنان</string>
+  <string name="studyRead">درس های خصوصی و پخش ها را بخوانید</string>
+  <string name="studyWrite">ایجاد، به روز رسانی، حذف درس ها و پخش</string>
+  <string name="tournamentWrite">ایجاد، به روز رسانی، و پیوستن به مسابقات</string>
+  <string name="racerWrite">مسابقات پازل را ایجاد کنید و به آن بپیوندید</string>
+  <string name="puzzleRead">خواندن فعالیت پازل ها</string>
+  <string name="teamRead">اطلاعات تیم خصوصی را بخوانید</string>
+  <string name="teamWrite">پیوستن و ترک کردن تیم ها</string>
+  <string name="teamLead">مدیریت تیم های تحت رهبری شما: ارسال پیام ها، حذف اعضاء</string>
+  <string name="followRead">بازیکنان دنبال شده را بخوانید</string>
+  <string name="followWrite">سایر بازیکنان را دنبال و آنفالو کنید</string>
+  <string name="msgWrite">برای سایر بازیکنان پیام خصوصی بفرستید</string>
+  <string name="boardPlay">بازی با رابط کاربری</string>
+  <string name="botPlay">با api ربات بازی کنید</string>
+  <string name="engineRead">انجین خارجی خود را مشاهده و استفاده کنید</string>
+  <string name="engineWrite">ایجاد و به روز رسانی انجین خارجی</string>
+  <string name="webLogin">ایجاد بخش های تائید شده وبسایت (تضمین دسترسی کامل!)</string>
+  <string name="webMod">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
+</resources>

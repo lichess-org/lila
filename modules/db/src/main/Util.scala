@@ -1,10 +1,10 @@
 package lila.db
 
-import dsl._
+import dsl.*
 
-object Util {
+object Util:
 
-  def findNextId(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext): Fu[Int] =
+  def findNextId(coll: Coll)(using Executor): Fu[Int] =
     coll
       .find($empty, $id(true).some)
       .sort($sort desc "_id")
@@ -13,4 +13,3 @@ object Util {
         doc.getAsOpt[Int]("_id") map (1 +)
       } getOrElse 1
     }
-}

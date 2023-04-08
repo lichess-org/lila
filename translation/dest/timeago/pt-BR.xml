@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">agora há pouco</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">em %s segundo</item>
+    <item quantity="other">em %s segundos</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">em %s minuto</item>
+    <item quantity="other">em %s minutos</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">em %s hora</item>
+    <item quantity="other">em %s horas</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">em %s dia</item>
+    <item quantity="other">em %s dias</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">em %s semana</item>
+    <item quantity="other">em %s semanas</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">em %s mês</item>
+    <item quantity="other">em %s meses</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">em %s ano</item>
+    <item quantity="other">em %s anos</item>
+  </plurals>
+  <string name="rightNow">agora mesmo</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s segundo atrás</item>
+    <item quantity="other">%s segundos atrás</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minuto atrás</item>
+    <item quantity="other">%s minutos atrás</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s hora atrás</item>
+    <item quantity="other">%s horas atrás</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s dia atrás</item>
+    <item quantity="other">%s dias atrás</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s semana atrás</item>
+    <item quantity="other">%s semanas atrás</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s mês atrás</item>
+    <item quantity="other">%s meses atrás</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s ano atrás</item>
+    <item quantity="other">%s anos atrás</item>
+  </plurals>
+</resources>

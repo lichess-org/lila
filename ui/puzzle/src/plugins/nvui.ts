@@ -35,11 +35,10 @@ import throttle from 'common/throttle';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');
-const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default function (redraw: Redraw) {
+export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
@@ -52,7 +51,9 @@ export default function (redraw: Redraw) {
       const ground = ctrl.ground() || createGround(ctrl);
 
       return h(
-        `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
+        `main.puzzle.puzzle--nvui.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${
+          ctrl.streak ? '.puzzle--streak' : ''
+        }`,
         h('div.nvui', [
           h('h1', `Puzzle: ${ctrl.vm.pov} to play.`),
           h('h2', 'Puzzle info'),
@@ -156,7 +157,7 @@ export default function (redraw: Redraw) {
                   )
                 );
                 $buttons.on('keypress', positionJumpHandler());
-                $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+                $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
               }),
             },
             renderBoard(
@@ -180,19 +181,17 @@ export default function (redraw: Redraw) {
           ),
           h('h2', 'Settings'),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h3', 'Board Settings'),
+          h('h3', 'Board settings'),
           h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          ...(!ctrl.getData().replay && !ctrl.streak && ctrl.difficulty
-            ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
-            : []),
+          ...(!ctrl.getData().replay && !ctrl.streak ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
           h('h2', 'Keyboard shortcuts'),
           h('p', [
             'Left and right arrow keys or k and j: Navigate to the previous or next move.',
             h('br'),
-            'Up and down arrow keys or 0 and $: Jump to the first or last move.',
+            'Up and down arrow keys, or 0 and $, or home and end: Jump to the first or last move.',
           ]),
           h('h2', 'Commands'),
           h('p', [
@@ -207,7 +206,7 @@ export default function (redraw: Redraw) {
             commands.scan.help,
             h('br'),
           ]),
-          h('h2', 'Board Mode commands'),
+          h('h2', 'Board mode commands'),
           h('p', [
             'Use these commands when focused on the board itself.',
             h('br'),
@@ -242,7 +241,7 @@ export default function (redraw: Redraw) {
       );
     },
   };
-}
+};
 
 interface StepWithUci extends Tree.Node {
   uci: Uci;
@@ -285,8 +284,16 @@ function onSubmit(
       const uci = inputToLegalUci(input, ctrl.vm.node.fen, ground);
       if (uci) {
         ctrl.playUci(uci);
-        if (ctrl.vm.lastFeedback === 'fail') notify("That's not the move!");
-        else if (ctrl.vm.lastFeedback === 'win') notify('Success!');
+        switch (ctrl.vm.lastFeedback) {
+          case 'fail':
+            notify(ctrl.trans.noarg('notTheMove'));
+            break;
+          case 'good':
+            notify(ctrl.trans.noarg('bestMove'));
+            break;
+          case 'win':
+            notify(ctrl.trans.noarg('puzzleSuccess'));
+        }
       } else {
         notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
       }
@@ -363,7 +370,7 @@ function renderReplay(ctrl: Controller): string {
   const replay = ctrl.getData().replay;
   if (!replay) return '';
   const i = replay.i + (ctrl.vm.mode === 'play' ? 0 : 1);
-  return `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles: ${i} of ${replay.of}`;
+  return `Replaying ${ctrl.trans.noarg(ctrl.getData().angle.key)} puzzles: ${i} of ${replay.of}`;
 }
 
 function playActions(ctrl: Controller): VNode {

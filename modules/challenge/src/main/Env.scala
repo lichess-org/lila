@@ -1,13 +1,13 @@
 package lila.challenge
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import play.api.Configuration
-import scala.concurrent.duration._
 
-import lila.common.config._
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.common.config.*
+import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
@@ -25,17 +25,18 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     msgApi: lila.msg.MsgApi,
     baseUrl: BaseUrl
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
+)(using
+    ec: Executor,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler,
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer,
     mode: play.api.Mode
-) {
+):
 
   private val colls = wire[ChallengeColls]
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](challengeId)(GetVersion)
+    socket.rooms.ask[SocketVersion](RoomId(challengeId))(GetVersion.apply)
 
   private lazy val joiner = wire[ChallengeJoiner]
 
@@ -66,9 +67,7 @@ final class Env(
   system.scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis) { () =>
     bulk.tick.unit
   }
-}
 
-private class ChallengeColls(db: lila.db.Db) {
+private class ChallengeColls(db: lila.db.Db):
   val challenge = db(CollName("challenge"))
   val bulk      = db(CollName("challenge_bulk"))
-}

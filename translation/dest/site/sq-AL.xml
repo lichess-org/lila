@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Luani me një shok</string>
-  <string name="playWithTheMachine">Luani me kompjuterin</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë me ju, dërgojini këtë adresë</string>
-  <string name="gameOver">Loja Mbaroi</string>
+  <string name="playWithTheMachine">Luaj me kompjuterin</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë me ju, dërgojini këtë URL</string>
+  <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
   <string name="waiting">Në pritje</string>
   <string name="yourTurn">Radha juaj</string>
   <string name="aiNameLevelAiLevel">%1$s niveli %2$s</string>
   <string name="level">Niveli</string>
   <string name="strength">Vështirësia</string>
-  <string name="toggleTheChat">Hapni bisedën</string>
+  <string name="toggleTheChat">Shfaqni/Fshihni bisedën</string>
   <string name="chat">Bisedo</string>
   <string name="resign">Dorëzohu</string>
   <string name="checkmate">Shah mat</string>
@@ -21,8 +21,8 @@
   <string name="asBlack">me gurë të zinj</string>
   <string name="randomColor">Ngjyrë e rastësishme</string>
   <string name="createAGame">Krijo një lojë</string>
-  <string name="whiteIsVictorious">Fitoi i bardhi</string>
-  <string name="blackIsVictorious">Fitoi i ziu</string>
+  <string name="whiteIsVictorious">I bardhi është fitues</string>
+  <string name="blackIsVictorious">I ziu është fitues</string>
   <string name="youPlayTheWhitePieces">Ju luani me të bardhët</string>
   <string name="youPlayTheBlackPieces">Ju luani me të zinjtë</string>
   <string name="itsYourTurn">Është radha juaj!</string>
@@ -59,9 +59,11 @@
   <string name="depthX">Thellësia %s</string>
   <string name="usingServerAnalysis">Duke përdorur analizën e shërbyesit</string>
   <string name="loadingEngine">Po ngarkohet programi analizues …</string>
+  <string name="calculatingMoves">Po përllogariten lëvizje…</string>
+  <string name="engineFailed">Gabim në ngarkim mekanizmi</string>
   <string name="cloudAnalysis">Analiza cloud</string>
   <string name="goDeeper">Më thellë</string>
-  <string name="showThreat">Shiko rrezikun</string>
+  <string name="showThreat">Shfaq rrezikun</string>
   <string name="inLocalBrowser">në shfletues vendor</string>
   <string name="toggleLocalEvaluation">Aktivizoni/Çaktivizoni vlerësim vendor</string>
   <string name="promoteVariation">Promovoni variacion</string>
@@ -91,6 +93,7 @@
   </plurals>
   <string name="noGameFound">S’u gjet lojë</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ndoshta të përfshihen më tepër lojëra nga menuja e parapëlqimeve?</string>
+  <string name="openings">Hapje</string>
   <string name="openingExplorer">Eksplorues hapjesh</string>
   <string name="openingEndgameExplorer">Eksplorues hapjesh/mbylljesh loje</string>
   <string name="xOpeningExplorer">Eksploruesi i hapjeve %s</string>
@@ -109,7 +112,7 @@
   <string name="evaluationGauge">Matësi i vlerësimit</string>
   <string name="multipleLines">Disa shigjeta</string>
   <string name="cpus">Procesorë</string>
-  <string name="memory">Memorja</string>
+  <string name="memory">Kujtesë</string>
   <string name="infiniteAnalysis">Analizë e pafundme</string>
   <string name="removesTheDepthLimit">Heq kufirin e thellësisë dhe e mban të ngrohtë kompjuterin tuaj</string>
   <string name="blunder">Gafë</string>
@@ -151,6 +154,7 @@
   <string name="viewInFullSize">Shiheni në madhësi të plotë</string>
   <string name="logOut">Dilni</string>
   <string name="signIn">Hyni</string>
+  <string name="rememberMe">Mbamë të futur</string>
   <string name="youNeedAnAccountToDoThat">Ju nevojitet një llogari për ta bërë këtë</string>
   <string name="signUp">Regjistrohuni</string>
   <string name="computersAreNotAllowedToPlay">Kompjuterat dhe lojtarët e ndihmuar nga kompjuteri nuk lejohet të luajnë. Ju lutemi, mos merrni ndihmë nga motorë shahu, baza të dhënash, apo nga lojtarët e tjerë, kur jeni duke luajtur. Vini re gjithashtu se nuk nxitet krijimi i disa llogarive dhe se teprimi në krijimin e disa llogarive do të sjellë dëbim.</string>
@@ -191,12 +195,39 @@
   <string name="changeUsername">Ndryshoni emrin e përdoruesit</string>
   <string name="changeUsernameNotSame">Mund të bëhet vetëm ndryshim nga shkronjë e madhe në të vogël dhe anasjelltas. Për shembull, “neshatbishti” në “NeshatBishti”.</string>
   <string name="changeUsernameDescription">Ndryshoni emrin tuaj të përdoruesit. Kjo mund të bëhet vetëm një herë edhe ju lejohet vetëm të ndryshoni shkronja të vogla në të mëdha dhe anasjelltas te emri juaj i përdoruesit.</string>
+  <string name="signupUsernameHint">Sigurohuni se zgjidhni një emër përdoruesi të përshtatshëm për familje. S’mund ta ndryshoni më vonë dhe cilado llogari me emra përdoruesish të papërshtatshëm do të mbyllet!</string>
+  <string name="signupEmailHint">Do ta përdorim vetëm për ricaktim fjalëkalimi.</string>
   <string name="password">Fjalëkalim</string>
   <string name="changePassword">Ndryshoni fjalëkalimin</string>
   <string name="changeEmail">Ndryshoni email-in</string>
   <string name="email">Email</string>
   <string name="passwordReset">Ricaktim fjalëkalimi</string>
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
+  <string name="error.weakPassword">Ky fjalëkalim është tejet i rëndomtë dhe shumë i kollajtë të merret me mend.</string>
+  <string name="error.namePassword">Ju lutemi, mos përdorni si fjalëkalim tuajin emrin tuaj të përdoruesit.</string>
+  <string name="blankedPassword">Keni përdorur të njëjtin fjalëkalim si në një sajt tjetër dhe ai sajt është komprometuar. Për të garantuar sigurinë e llogarisë tuaj Lichess, na duhet t’ju caktojmë një fjalëkalim të ri. Faleminderit për mirëkuptimin.</string>
+  <string name="youAreLeavingLichess">Po ikni nga Lichess</string>
+  <string name="neverTypeYourPassword">Mos shtypni kurrë fjalëkalimin tuaj për në Lichess te një sajt tjetër!</string>
+  <string name="proceedToX">Vazhdo te %s</string>
+  <string name="passwordSuggestion">Mos caktoni si fjalëkalim diçka të sugjeruar nga dikush tjetër. Do ta përdorin për t’ju grabitur llogarinë tuaj.</string>
+  <string name="emailSuggestion">Mos caktoni si adresë email diçka të sugjeruar nga dikush tjetër. Do ta përdorin për t’ju grabitur llogarinë tuaj.</string>
+  <string name="emailConfirmHelp">Ndihmë për ripohim email-i</string>
+  <string name="emailConfirmNotReceived">S’e morët email-in tuaj të ripohimit, pas regjistrimit?</string>
+  <string name="whatSignupUsername">Ç’emër përdoruesi përdorët për t’u regjistruar?</string>
+  <string name="usernameNotFound">S’gjetëm dot ndonjë përdorues me këtë emër: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Mund të përdorni këtë emër përdoruesi për të krijuar një llogari të re</string>
+  <string name="emailSent">Kemi dërguar një email te %s.</string>
+  <string name="emailCanTakeSomeTime">Mund të duhet pak kohë që të mbërrijë.</string>
+  <string name="refreshInboxAfterFiveMinutes">Pritni 5 minuta dhe rifreksoni “Të marrët” tuaj</string>
+  <string name="checkSpamFolder">Shihni gjithashtu edhe te dosja juaj e të padëshiruarve, mund të përfundojë atje. Në ndodhtë kështu, i hiqni shenjën si i padëshiruar.</string>
+  <string name="emailForSignupHelp">Nëse gjithçka tjetër dështon, atëherë dërgonani këtë email:</string>
+  <string name="copyTextToEmail">Kopjoni dhe ngjitni tekstin më poshtë dhe dërgojeni te %s</string>
+  <string name="waitForSignupHelp">Do të lidhemi me ju së shpejti, për t’ju ndihmuar të plotësoni regjistrimin tuaj.</string>
+  <string name="accountConfirmed">Përdoruesi %s u ripohua me sukses.</string>
+  <string name="accountCanLogin">Mund të bëni hyrjen mu tani si %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">S’ju duhe një email ripohimi.</string>
+  <string name="accountClosed">Llogaria %s është mbyllur.</string>
+  <string name="accountRegisteredWithoutEmail">Llogaria %s qe regjistruar pa email.</string>
   <string name="rank">Renditje</string>
   <string name="rankX">Renditja: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -281,7 +312,7 @@
   <string name="exportGames">Eksporto lojërat</string>
   <string name="ratingRange">Shtrirja e vlerësimit</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dhuro %s sekondë</item>
+    <item quantity="one">Dhuro %s sekonda</item>
     <item quantity="other">Dhuro %s sekonda</item>
   </plurals>
   <string name="thisAccountViolatedTos">Kjo llogari ka shkelur Kushtet e Shërbimit të Lichess</string>
@@ -336,6 +367,7 @@
   <string name="siteDescription">Shërbyes shahu internetor falas. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, shokë ose kundërshtarë të rastësishëm.</string>
   <string name="xJoinedTeamY">%1$s u bë pjesë e ekipit %2$s</string>
   <string name="xCreatedTeamY">%1$s krijoi ekipin %2$s</string>
+  <string name="startedStreaming">filloi transmetim</string>
   <string name="xStartedStreaming">%s filloi transmetimin</string>
   <string name="averageElo">Vlerësimi mesatar</string>
   <string name="location">Vendndodhja</string>
@@ -344,6 +376,8 @@
   <string name="apply">Parashtroje</string>
   <string name="save">Ruaje</string>
   <string name="leaderboard">Tabelë klasifikimi</string>
+  <string name="screenshotCurrentPosition">Bëj foto ekrani të pozicionit të tanishëm</string>
+  <string name="gameAsGIF">GIF i lojës</string>
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
   <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
@@ -424,6 +458,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="tournamentIsStarting">Turneu po fillon</string>
   <string name="tournamentPairingsAreNowClosed">Çiftimet e turnet tani u mbyllën.</string>
   <string name="standByX">Mos u largoni nga %s, çiftimi i lojtarëve po bëhet, bëhuni gati!</string>
+  <string name="pause">Pauzë</string>
+  <string name="resume">Rifillo</string>
   <string name="youArePlaying">Po luani!</string>
   <string name="winRate">Përqindje fitoresh</string>
   <string name="berserkRate">Perqindja e berserkeve</string>
@@ -458,6 +494,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="socialMediaLinks">Lidhje mediash shoqërore</string>
   <string name="oneUrlPerLine">Një URL për rresht.</string>
   <string name="inlineNotation">Shënim brendazi</string>
+  <string name="savingMoves">Depozitim i përkohshëm i lëvizjeve</string>
+  <string name="savingMovesHelp">Po i depozitojmë variacionet tuaja në fshehtinën e shfletuesit.</string>
+  <string name="makeAStudy">Për ruajtje të sigurt dhe për ndarje me të tjerët, shihni mundësinë e krijimit të një studimi.</string>
+  <string name="clearSavedMoves">Spastroji lëvizjet</string>
   <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
   <string name="onlinePlayers">Lojtarë në linjë</string>
   <string name="activePlayers">Lojëtarë aktivë</string>
@@ -505,6 +545,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="blog">Blog</string>
   <string name="notes">Shënime</string>
   <string name="typePrivateNotesHere">Shkruani shënime private këtu</string>
+  <string name="writeAPrivateNoteAboutThisUser">Shkruani një shënim privat rreth këtij përdoruesi</string>
+  <string name="noNoteYet">Ende pa shënim</string>
   <string name="invalidUsernameOrPassword">Emër përdorues ose fjalëkalim i pavlefshëm</string>
   <string name="incorrectPassword">Fjalëkalim i pasaktë</string>
   <string name="invalidAuthenticationCode">Kod i pavlefshëm mirëfilltësimi</string>
@@ -561,6 +603,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="community">Bashkësia</string>
   <string name="tools">Mjete</string>
   <string name="increment">Hap</string>
+  <string name="error.unknown">Vlerë e pavlefshme</string>
   <string name="error.required">Kjo fushë është e domosdoshme</string>
   <string name="error.email">Kjo adresë email është e pavlefshme</string>
   <string name="error.email_acceptable">Kjo adresë email është e papranueshme. Ju lutemi, rikontrollojeni dhe riprovoni.</string>
@@ -571,6 +614,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="error.min">Duhet të jetë të paktën %s</string>
   <string name="error.max">Duhet të jetë e shumta %s</string>
   <string name="ifRatingIsPlusMinusX">Nëse vlerësimi është ± %s</string>
+  <string name="ifRegistered">Nëse jeni të regjistruar</string>
   <string name="onlyExistingConversations">Vetëm bisedat ekzistuese</string>
   <string name="onlyFriends">Vetëm shokë</string>
   <string name="menu">Menu</string>
@@ -615,10 +659,13 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="simulClockHint">Ujdisje Fisher për sahatin. Sa më shumë lojtarë pranoni, aq më shumë kohë mund t’ju nevojitet.</string>
   <string name="simulAddExtraTime">Ju mund të shtoni kohë shtesë për t\'i bërë ballë simultanes.</string>
   <string name="simulHostExtraTime">Kohë shtesë për organizatorin</string>
+  <string name="simulAddExtraTimePerPlayer">Shtoni kohë fillestare te sahati juaj për çdo lojtar që hyn në simultane.</string>
+  <string name="simulHostExtraTimePerPlayer">Kohë ekstra sahati organizatori për lojtar</string>
   <string name="lichessTournaments">Turne Lichess</string>
   <string name="tournamentFAQ">PBR për turne Arenë</string>
   <string name="timeBeforeTournamentStarts">Koha deri sa të fillojë turneu</string>
   <string name="averageCentipawnLoss">Humbja mesatare në centiushtar</string>
+  <string name="accuracy">Saktësi</string>
   <string name="keyboardShortcuts">Shkurtore tastiere</string>
   <string name="keyMoveBackwardOrForward">lëviz mbrapa/para</string>
   <string name="keyGoToStartOrEnd">shko në fillim/fund</string>
@@ -667,6 +714,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="kidMode">Mënyra për fëmijë</string>
   <string name="kidModeExplanation">Kjo është për sigurinë. Nën mënyrën për fëmijë, krejt komunikimet në sajt janë të çaktivizuara. Aktivizojeni këtë për fëmijët dhe nxënësit tuaj të shkollave, për t’i mbrojtur ata nga të tjerë përdorues të internetit.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Nën mënyrën për fëmijë, stemës së Lichess-it i vihet një ikonë %s, që ta dini se fëmijët tuaj janë të parrezik.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Llogaria juaj administrohet. Rreth heqjes së mënyrës “fëmijë” pyetni mëuesin tuaj të shahut.</string>
   <string name="enableKidMode">Aktivizo mënyrën për Fëmijë</string>
   <string name="disableKidMode">Çaktivizo mënyrën për Fëmijë</string>
   <string name="security">Siguri</string>
@@ -701,6 +749,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="light">I çelët</string>
   <string name="dark">I errët</string>
   <string name="transparent">I tejdukshëm</string>
+  <string name="deviceTheme">Temën e pajisjes</string>
   <string name="backgroundImageUrl">URL figure sfondi:</string>
   <string name="boardGeometry">Gjeometri fushe</string>
   <string name="boardTheme">Temë fushe</string>
@@ -729,6 +778,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="bestWasX">Më i miri ishte %s</string>
   <string name="youBrowsedAway">Levizja jote është shumë larg</string>
   <string name="resumePractice">Vazhdoni ushtrimin</string>
+  <string name="drawByFiftyMoves">Loja ka dalë barazim sipas rregullit të pesëdhjetë lëvizjeve.</string>
   <string name="theGameIsADraw">Loja është remi.</string>
   <string name="computerThinking">Kompjuteri po mendohet …</string>
   <string name="seeBestMove">Shihni lëvizjen më të mirë</string>
@@ -839,9 +889,12 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
 Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="coachManager">Trajner</string>
+  <string name="streamerManager">Përgjegjës transmetimesh</string>
   <string name="cancelTournament">Anulojeni turneun</string>
   <string name="tournDescription">Përshkrim turneu</string>
   <string name="tournDescriptionHelp">Ndonjë gjë e veçantë që dëshironi t’u thoni pjesëmarrësve? Përpiquni të jetë me pak fjalë. Mund të përdoren lidhje Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Lojërat vlerësohen
+dhe ndikojnë te vlerësimet e lojëtarëve</string>
   <string name="onlyMembersOfTeam">Vetëm pjesëmarrës të ekipit</string>
   <string name="noRestriction">Pa kufizim</string>
   <string name="minimumRatedGames">Lojëra të vlerësuara në minimum</string>
@@ -889,6 +942,8 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="youCantStartNewGame">S’mund të filloni një lojë të re pa mbaruar këtë lojë.</string>
   <string name="since">Që nga</string>
   <string name="until">Deri më</string>
+  <string name="lichessDbExplanation">Lojëra me vlerësim, marrë nga krejt lojëtarët e Lichess-it</string>
   <string name="switchSides">Ndërroni palët</string>
   <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Këshillat tona për organizim veprimtarish</string>
 </resources>

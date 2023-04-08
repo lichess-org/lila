@@ -4,13 +4,13 @@ package user
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
-object bots {
+object bots:
 
-  def apply(users: List[User])(implicit ctx: Context) = {
+  def apply(users: List[User])(implicit ctx: Context) =
 
     val title = s"${users.size} Online bots"
 
@@ -18,7 +18,7 @@ object bots {
 
     views.html.base.layout(
       title = title,
-      moreCss = frag(cssTag("slist"), cssTag("user.list")),
+      moreCss = frag(cssTag("slist"), cssTag("bot.list")),
       wrapClass = "full-screen-force"
     )(
       main(cls := "page-menu bots")(
@@ -27,14 +27,14 @@ object bots {
           case (featured, all) =>
             div(cls := "bots page-menu__content")(
               div(cls := "box bots__featured")(
-                div(cls := "box__top")(h1("Featured bots")),
+                h1(cls := "box__top")("Featured bots"),
                 botTable(featured)
               ),
               div(cls := "box")(
-                div(cls := "box__top")(
+                boxTop(
                   h1("Community bots"),
                   a(
-                    cls := "bots__about",
+                    cls  := "bots__about",
                     href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
                   )(
                     "About Lichess Bots"
@@ -46,52 +46,29 @@ object bots {
         }
       )
     )
-  }
 
-  private def botTable(users: List[User])(implicit ctx: Context) = table(cls := "slist slist-pad")(
-    tbody(
-      users map { u =>
-        tr(
-          td(userLink(u)),
+  private def botTable(users: List[User])(implicit ctx: Context) = div(cls := "bots__list")(
+    users map { u =>
+      div(cls := "bots__list__entry")(
+        div(cls := "bots__list__entry__desc")(
+          div(cls := "bots__list__entry__head")(
+            userLink(u),
+            ctx.pref.showRatings option div(cls := "bots__list__entry__rating")(
+              u.bestAny3Perfs.map { showPerfRating(u, _) }
+            )
+          ),
           u.profile
             .ifTrue(ctx.noKid)
             .ifTrue(!u.marks.troll || ctx.is(u))
             .flatMap(_.nonEmptyBio)
-            .map { bio =>
-              td(shorten(bio, 400))
-            } | td,
-          ctx.pref.showRatings option td(cls := "rating")(u.bestAny3Perfs.map {
-            showPerfRating(u, _)
-          }),
-          u.playTime.fold(td) { playTime =>
-            td(
-              p(
-                cls := "text",
-                dataIcon := "",
-                st.title := trans.tpTimeSpentPlaying.txt(showPeriod(playTime.totalPeriod))
-              )(showPeriod(playTime.totalPeriod)),
-              playTime.nonEmptyTvPeriod.map { tvPeriod =>
-                p(
-                  cls := "text",
-                  dataIcon := "",
-                  st.title := trans.tpTimeSpentOnTV.txt(showPeriod(tvPeriod))
-                )(showPeriod(tvPeriod))
-              }
-            )
-          },
-          if (ctx is u) td
-          else {
-            td(
-              a(
-                dataIcon := "",
-                cls := List("button button-empty text" -> true),
-                st.title := trans.challenge.challengeToPlay.txt(),
-                href := s"${routes.Lobby.home}?user=${u.username}#friend"
-              )(trans.play())
-            )
-          }
-        )
-      }
-    )
+            .map { bio => td(shorten(bio, 400)) }
+        ),
+        a(
+          dataIcon := "",
+          cls      := List("bots__list__entry__play button button-empty text" -> true),
+          st.title := trans.challenge.challengeToPlay.txt(),
+          href     := s"${routes.Lobby.home}?user=${u.username}#friend"
+        )(trans.play())
+      )
+    }
   )
-}

@@ -1,19 +1,14 @@
 package lila.event
 
-import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.memo.CacheApi._
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 import lila.user.User
 
-final class EventApi(
-    coll: Coll,
-    cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def promoteTo(req: RequestHeader): Fu[List[Event]] =
     promotable.getUnit map {
@@ -35,7 +30,7 @@ final class EventApi(
       .find(
         $doc(
           "enabled" -> true,
-          "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
+          "startsAt" $gt nowDate.minusDays(1) $lt nowDate.plusDays(1)
         )
       )
       .sort($sort asc "startsAt")
@@ -47,7 +42,7 @@ final class EventApi(
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).cursor[Event]().list(50)
 
-  def oneEnabled(id: String) = coll.byId[Event](id).map(_.filter(_.enabled))
+  def oneEnabled(id: String) = coll.byId[Event](id).dmap(_.filter(_.enabled))
 
   def one(id: String) = coll.byId[Event](id)
 
@@ -57,18 +52,16 @@ final class EventApi(
     }
 
   def update(old: Event, data: EventForm.Data, by: User): Fu[Int] =
-    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).map(_.n)
+    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).dmap(_.n)
 
   def createForm = EventForm.form
 
-  def create(data: EventForm.Data, userId: String): Fu[Event] = {
+  def create(data: EventForm.Data, userId: UserId): Fu[Event] =
     val event = data make userId
     coll.insert.one(event) >>- promotable.invalidateUnit() inject event
-  }
 
   def clone(old: Event) =
     old.copy(
       title = s"${old.title} (clone)",
-      startsAt = DateTime.now plusDays 7
+      startsAt = nowDate plusDays 7
     )
-}

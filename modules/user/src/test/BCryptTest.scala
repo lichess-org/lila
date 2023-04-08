@@ -10,18 +10,18 @@ class BCryptTest extends Specification {
   val pass    = "abc"
   val b64Hash = "$2a$06$If6bvum7DFjUnE9p2uDeDu0YHzrHM6tf.iqN8.yx.jNN1ILEf7h0i"
 
-  "bcrypt" should {
+  "bcrypt" >> {
     "accept correct pass" >> BCrypt.checkpw(pass, b64Hash)
     "reject bad password" >> !BCrypt.checkpw("", b64Hash)
 
     val salt = BCrypt.gensaltRaw
     "have uniq salts" >> { salt !== BCrypt.gensaltRaw }
 
-    "raw bytes" in {
+    "raw bytes" >> {
       val rawHash = BCrypt.hashpwRaw(pass.getBytes(UTF_8), 'a', 6, salt)
 
-      salt.size must_== 16
-      rawHash.size must_== 23
+      salt.size === 16
+      rawHash.size === 23
 
       import BCrypt.{ encode_base64 => bc64 }
       val bString = "$2a$06$" + bc64(salt) + bc64(rawHash)

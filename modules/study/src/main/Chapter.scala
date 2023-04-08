@@ -1,68 +1,68 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Tags }
-import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.format.UciPath
+import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
-import chess.{ Centis, Color }
-import org.joda.time.DateTime
+import chess.{ Ply, Centis, Color, Outcome }
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.User
 
 case class Chapter(
-    _id: Chapter.Id,
-    studyId: Study.Id,
-    name: Chapter.Name,
+    _id: StudyChapterId,
+    studyId: StudyId,
+    name: StudyChapterName,
     setup: Chapter.Setup,
     root: Node.Root,
     tags: Tags,
     order: Int,
-    ownerId: User.ID,
-    conceal: Option[Chapter.Ply] = None,
+    ownerId: UserId,
+    conceal: Option[Ply] = None,
     practice: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
     relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
     createdAt: DateTime
-) extends Chapter.Like {
+) extends Chapter.Like:
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
     f(root) map { newRoot =>
       copy(root = newRoot)
     }
 
-  def addNode(node: Node, path: Path, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
+  def addNode(node: Node, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
     updateRoot {
       _.withChildren(_.addNodeAt(node, path))
     } map {
       _.copy(relay = newRelay orElse relay)
     }
 
-  def setShapes(shapes: Shapes, path: Path): Option[Chapter] =
+  def setShapes(shapes: Shapes, path: UciPath): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
 
-  def setComment(comment: Comment, path: Path): Option[Chapter] =
+  def setComment(comment: Comment, path: UciPath): Option[Chapter] =
     updateRoot(_.setCommentAt(comment, path))
 
-  def setGamebook(gamebook: Gamebook, path: Path): Option[Chapter] =
+  def setGamebook(gamebook: Gamebook, path: UciPath): Option[Chapter] =
     updateRoot(_.setGamebookAt(gamebook, path))
 
-  def deleteComment(commentId: Comment.Id, path: Path): Option[Chapter] =
+  def deleteComment(commentId: Comment.Id, path: UciPath): Option[Chapter] =
     updateRoot(_.deleteCommentAt(commentId, path))
 
-  def toggleGlyph(glyph: Glyph, path: Path): Option[Chapter] =
+  def toggleGlyph(glyph: Glyph, path: UciPath): Option[Chapter] =
     updateRoot(_.toggleGlyphAt(glyph, path))
 
-  def setClock(clock: Option[Centis], path: Path): Option[Chapter] =
+  def setClock(clock: Option[Centis], path: UciPath): Option[Chapter] =
     updateRoot(_.setClockAt(clock, path))
 
-  def forceVariation(force: Boolean, path: Path): Option[Chapter] =
+  def forceVariation(force: Boolean, path: UciPath): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))
 
-  def opening: Option[FullOpening] =
-    if (!Variant.openingSensibleVariants(setup.variant)) none
-    else FullOpeningDB searchInFens root.mainline.map(_.fen)
+  def opening: Option[Opening] =
+    Variant.list.openingSensibleVariants(setup.variant) ??
+      OpeningDb.searchInFens(root.mainline.map(_.fen.opening))
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
@@ -71,14 +71,14 @@ case class Chapter(
       _id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )
 
   def metadata = Chapter.Metadata(
     _id = _id,
     name = name,
     setup = setup,
-    resultColor = tags.resultColor.isDefined option tags.resultColor,
+    outcome = tags.outcome.isDefined option tags.outcome,
     hasRelayPath = relay.exists(!_.path.isEmpty)
   )
 
@@ -93,99 +93,82 @@ case class Chapter(
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
-}
 
-object Chapter {
+object Chapter:
 
   // I've seen chapters with 35,000 nodes on prod.
   // It works but could be used for DoS.
   val maxNodes = 3000
 
-  case class Id(value: String) extends AnyVal with StringValue
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
-
-  case class Name(value: String) extends AnyVal with StringValue
-  implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
-
-  sealed trait Like {
-    val _id: Chapter.Id
-    val name: Chapter.Name
+  sealed trait Like:
+    val _id: StudyChapterId
+    val name: StudyChapterName
     val setup: Chapter.Setup
-    def id = _id
+    inline def id = _id
 
-    def initialPosition = Position.Ref(id, Path.root)
-  }
+    def initialPosition = Position.Ref(id, UciPath.root)
 
   case class Setup(
-      gameId: Option[lila.game.Game.ID],
+      gameId: Option[GameId],
       variant: Variant,
       orientation: Color,
       fromFen: Option[Boolean] = None
-  ) {
+  ):
     def isFromFen = ~fromFen
-  }
 
   case class Relay(
       index: Int, // game index in the source URL
-      path: Path,
+      path: UciPath,
       lastMoveAt: DateTime
-  ) {
+  ):
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
-  }
 
-  case class ServerEval(path: Path, done: Boolean)
+  case class ServerEval(path: UciPath, done: Boolean)
 
-  case class RelayAndTags(id: Id, relay: Relay, tags: Tags) {
+  case class RelayAndTags(id: StudyChapterId, relay: Relay, tags: Tags):
 
     def looksAlive =
-      tags.resultColor.isEmpty &&
+      tags.outcome.isEmpty &&
         relay.lastMoveAt.isAfter {
-          DateTime.now.minusMinutes {
+          nowDate.minusMinutes {
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
           }
         }
 
     def looksOver = !looksAlive
-  }
 
   case class Metadata(
-      _id: Id,
-      name: Name,
+      _id: StudyChapterId,
+      name: StudyChapterName,
       setup: Setup,
-      resultColor: Option[Option[Option[Color]]],
+      outcome: Option[Option[Outcome]],
       hasRelayPath: Boolean
-  ) extends Like {
+  ) extends Like:
 
-    def looksOngoing = resultColor.exists(_.isEmpty) && hasRelayPath
+    def looksOngoing = outcome.exists(_.isEmpty) && hasRelayPath
 
-    def resultStr: Option[String] = resultColor.map(_.fold("*")(chess.Color.showResult).replace("1/2", "½"))
-  }
+    def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
 
-  case class IdName(id: Id, name: Name)
+  case class IdName(id: StudyChapterId, name: StudyChapterName)
 
-  case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
-    def compare(that: Ply) = Integer.compare(value, that.value)
-  }
+  def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
 
-  def defaultName(order: Int) = Name(s"Chapter $order")
+  private val defaultNameRegex           = """Chapter \d+""".r
+  def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
-  private val defaultNameRegex = """Chapter \d+""".r
-  def isDefaultName(n: Name)   = n.value.isEmpty || defaultNameRegex.matches(n.value)
-
-  def fixName(n: Name) = Name(lila.common.String.fullCleanUp(n.value) take 80)
+  def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value) take 80)
 
   val idSize = 8
-
-  def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
+  def makeId = StudyChapterId(ThreadLocalRandom nextString idSize)
 
   def make(
-      studyId: Study.Id,
-      name: Name,
+      studyId: StudyId,
+      name: StudyChapterName,
       setup: Setup,
       root: Node.Root,
       tags: Tags,
       order: Int,
-      ownerId: User.ID,
+      ownerId: UserId,
       practice: Boolean,
       gamebook: Boolean,
       conceal: Option[Ply],
@@ -204,6 +187,5 @@ object Chapter {
       gamebook = gamebook option true,
       conceal = conceal,
       relay = relay,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )
-}

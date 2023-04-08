@@ -6,4 +6,6 @@
     <item quantity="other">Vaata kõiki %s vooru</item>
   </plurals>
   <string name="newSwiss">Uus Šveitsi turniir</string>
+  <string name="predefinedUsers">Luba ainult kindlatel kasutajatel liituda</string>
+  <string name="forbiddedUsers">Kui kasutajat ei ole siin nimekirjas, siis ei saa ta osaleda. Üks kasutajanimi iga rea kohta.</string>
 </resources>

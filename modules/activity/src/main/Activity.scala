@@ -1,10 +1,9 @@
 package lila.activity
 
-import activities._
+import activities.*
 import org.joda.time.Interval
 
-import lila.common.Day
-import lila.user.User
+import lila.common.LichessDay
 
 case class Activity(
     id: Activity.Id,
@@ -25,7 +24,7 @@ case class Activity(
     teams: Option[Teams] = None,
     swisses: Option[Swisses] = None,
     stream: Boolean = false
-) {
+):
 
   def date = id.day.toDate
 
@@ -51,18 +50,15 @@ case class Activity(
       swisses
     )
       .forall(_.isEmpty)
-}
 
-object Activity {
+object Activity:
 
   val recentNb = 7
 
-  case class Id(userId: User.ID, day: Day)
-  object Id {
-    def today(userId: User.ID) = Id(userId, Day.today)
-  }
+  case class Id(userId: UserId, day: LichessDay)
+  object Id:
+    def today(userId: UserId) = Id(userId, LichessDay.today)
 
-  case class WithUserId(activity: Activity, userId: User.ID)
+  case class WithUserId(activity: Activity, userId: UserId)
 
-  def make(userId: User.ID) = Activity(Id today userId)
-}
+  def make(userId: UserId) = Activity(Id today userId)

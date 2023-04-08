@@ -12,6 +12,7 @@
   <string name="myTeams">Mine lag</string>
   <string name="noTeamFound">Finn ikkje noko lag</string>
   <string name="joinTeam">Bli med i laget</string>
+  <string name="onlyLeaderLeavesTeam">Ver venleg og legg til ein ny lagleiar før du forlet eller stengjer laget.</string>
   <string name="quitTeam">Forlat laget</string>
   <string name="manuallyReviewAdmissionRequests">Gå manuelt gjennom førespurnader om opptak</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Om merka av må spelarane skriva ein førespurnad for å bli tatt opp som medlem i laget. Du avslår eller aksepterer førespurnaden.</string>
@@ -54,4 +55,5 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="completedTourns">Avslutta turneringar</string>
   <string name="declinedRequests">Avviste førespurnader</string>
   <string name="joinLichessVariantTeam">Meld deg på det offisielle %s-laget for hendingar og nyhende</string>
+  <string name="teamPage">Lagside</string>
 </resources>

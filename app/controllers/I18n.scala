@@ -1,15 +1,14 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.app._
-import lila.common.HTTPRequest
+import lila.app.{ given, * }
 
-final class I18n(env: Env) extends LilaController(env) {
+final class I18n(env: Env) extends LilaController(env):
 
-  private def toLang = lila.i18n.I18nLangPicker.byStr _
+  private def toLang = lila.i18n.I18nLangPicker.byStr
 
   private val form = Form(single("lang" -> text.verifying { code =>
     toLang(code).isDefined
@@ -17,7 +16,7 @@ final class I18n(env: Env) extends LilaController(env) {
 
   def select =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       form
         .bindFromRequest()
         .fold(
@@ -29,24 +28,21 @@ final class I18n(env: Env) extends LilaController(env) {
             } >> negotiate(
               html = {
                 val redir = Redirect {
-                  HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
-                    try {
+                  ctx.req.referer.fold(routes.Lobby.home.url) { str =>
+                    try
                       val pageUrl = new java.net.URL(str)
                       val path    = pageUrl.getPath
                       val query   = pageUrl.getQuery
                       if (query == null) path
                       else path + "?" + query
-                    } catch {
-                      case _: java.net.MalformedURLException => routes.Lobby.home.url
-                    }
+                    catch case _: java.net.MalformedURLException => routes.Lobby.home.url
                   }
                 }
                 if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
                 else redir
-              }.fuccess,
-              api = _ => Ok(Json.obj("lang" -> lang.code)).fuccess
+              }.toFuccess,
+              api = _ => Ok(Json.obj("lang" -> lang.code)).toFuccess
             )
           }
         )
     }
-}

@@ -13,6 +13,8 @@
   <string name="specialMoves">Posebne poteze</string>
   <string name="didYouLikeThisPuzzle">Ali ti je všeč šahovski problem?</string>
   <string name="voteToLoadNextOne">Glasujte za nalaganje naslednjega!</string>
+  <string name="upVote">Glas ZA uganko</string>
+  <string name="downVote">Glas PROTI uganki</string>
   <string name="yourPuzzleRatingWillNotChange">Vaša ocena uganke se ne bo spremenila. Upoštevajte, da uganke niso tekmovanje. Ocena pomaga izbrati najboljše uganke za vaše trenutno znanje.</string>
   <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega.</string>
   <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega.</string>
@@ -25,6 +27,11 @@
   <string name="keepGoing">Nadaljuj…</string>
   <string name="puzzleSuccess">Prenos uspešen!</string>
   <string name="puzzleComplete">Uganka rešena!</string>
+  <string name="byOpenings">Po otvoritvah</string>
+  <string name="puzzlesByOpenings">Uganke po otvoritvah</string>
+  <string name="openingsYouPlayedTheMost">Otvoritve, ki ste jih največ igrali v rangiranih igrah</string>
+  <string name="useFindInPage">Uporabite \"Poišči na strani\" v meniju brskalnika, da poiščete svoje najljubšo otvoritev!</string>
+  <string name="useCtrlF">Uporabite Ctrl+f, da najdete vašo najljubšo otvoritev!</string>
   <string name="notTheMove">To ni pravilna poteza!</string>
   <string name="trySomethingElse">Poskusite kakšno drugo potezo.</string>
   <string name="ratingX">Uvrstitev: %s</string>
@@ -57,6 +64,7 @@
   </plurals>
   <string name="example">Primer</string>
   <string name="addAnotherTheme">Dodaj novo temo</string>
+  <string name="nextPuzzle">Naslednja uganka</string>
   <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
   <string name="puzzleDashboard">Nadzorna plošča za uganke</string>
   <string name="improvementAreas">Področja izboljšav</string>

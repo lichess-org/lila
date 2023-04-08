@@ -62,6 +62,8 @@
   <string name="studyPgn">Studie PGN</string>
   <string name="downloadAllGames">Download alle partier</string>
   <string name="chapterPgn">Kapitel PGN</string>
+  <string name="copyChapterPgn">Kopier PGN</string>
+  <string name="copyChapterPgnDescription">Kopier kapitel-PGN til udklipsholder.</string>
   <string name="downloadGame">Download parti</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Nuværende kapitel URL</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Studie ikke fundet</string>
   <string name="editChapter">Rediger kapitel</string>
   <string name="newChapter">Nyt kapitel</string>
+  <string name="importFromChapterX">Import fra %s</string>
   <string name="orientation">Retning</string>
   <string name="analysisMode">Analysetilstand</string>
   <string name="pinnedChapterComment">Fastgjort kapitelkommentar</string>

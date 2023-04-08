@@ -1,41 +1,50 @@
 package lila.common
 
-import akka.actor._
-import scala.concurrent.duration._
+import akka.actor.*
+import java.util.concurrent.ConcurrentHashMap
+import scala.jdk.CollectionConverters.*
 
-// do NOT embed me in an actor
-// for it would likely create a memory leak
-final class Debouncer[A: Manifest](length: FiniteDuration, effect: A => Unit)(implicit
-    ec: scala.concurrent.ExecutionContext
-) extends Actor {
+final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
+    f: Id => Unit
+)(using
+    ec: Executor,
+    scheduler: Scheduler
+):
+  import Debouncer.*
 
-  private case object DelayEnd
+  private val debounces = new ConcurrentHashMap[Id, Queued](initialCapacity)
 
-  private var delayed: Option[A] = none
+  def push(id: Id): Unit = debounces
+    .compute(
+      id,
+      (_, prev) =>
+        Option(prev) match {
+          case None =>
+            f(id)
+            scheduler.scheduleOnce(duration) { runScheduled(id) }
+            Queued.Empty
+          case _ => Queued.Another
+        }
+    )
+    .unit
 
-  def ready: Receive = { case a: A =>
-    effect(a)
-    context.system.scheduler.scheduleOnce(length, self, DelayEnd)
-    context become delay
-  }
+  private def runScheduled(id: Id): Unit = debounces
+    .computeIfPresent(
+      id,
+      (_, queued) =>
+        if (queued == Queued.Another) {
+          f(id)
+          scheduler.scheduleOnce(duration) { runScheduled(id) }
+          Queued.Empty
+        } else nullToRemove
+    )
+    .unit
 
-  def delay: Receive = {
+  private[this] var nullToRemove: Queued = _
 
-    case a: A => delayed = a.some
+private object Debouncer:
 
-    case DelayEnd =>
-      context become ready
-      delayed foreach { a =>
-        self ! a
-        delayed = none
-      }
-  }
-
-  def receive = ready
-}
-
-object Debouncer {
-
-  sealed trait Nothing
-  object Nothing extends Nothing
-}
+  // can't use a boolean or int,
+  // the ConcurrentHashMap uses weird defaults instead of null for missing values
+  private enum Queued:
+    case Another, Empty

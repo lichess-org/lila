@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Bidak terdepan</string>
-  <string name="advancedPawnDescription">Sebuah pion mempromosikan atau mengancam untuk promosi adalah kunci sebuah taktik.</string>
+  <string name="advancedPawn">Pion terdepan</string>
+  <string name="advancedPawnDescription">Satu pion anda masuk kedalam posisi lawan, mungkin mengancam untuk promosi.</string>
   <string name="advantage">Keuntungan</string>
   <string name="advantageDescription">Raih kesempatan Anda untuk mendapatkan keuntungan yang besar. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Skakmat Anastasia</string>
-  <string name="anastasiaMateDescription">Bidak kuda dan benteng bekerja sama untuk menjebak raja lawan di antara sisi papan di satu sisi dan bidak persahabatan di sisi lain.</string>
+  <string name="anastasiaMateDescription">Kuda dan benteng bekerja sama untuk menjebak raja lawan di antara sisi papan dan bidak kawan di sisi lain.</string>
   <string name="arabianMate">Skakmat Arab</string>
   <string name="arabianMateDescription">Bidak kuda dan benteng bekerja sama untuk menjebak raja lawan di sudut papan.</string>
   <string name="attackingF2F7">Menyerang f2 atau f7</string>
@@ -14,8 +14,8 @@
   <string name="attractionDescription">Sebuah pertukaran atau pengorbanan yang mendorong atau memaksa bidak lawan ke kotak yang memungkinkan taktik tindak lanjut.</string>
   <string name="backRankMate">Mat Baris Terakhir</string>
   <string name="backRankMateDescription">Skakmat raja di kandang sendiri, ketika terjebak oleh bidaknya sendiri.</string>
-  <string name="bishopEndgame">Ending Gajah</string>
-  <string name="bishopEndgameDescription">Sebuah ending yang hanya Gajah dan bidak.</string>
+  <string name="bishopEndgame">Babak akhir gajah</string>
+  <string name="bishopEndgameDescription">Babak akhir dengan hanya gajah dan pion.</string>
   <string name="bodenMate">Skakmat Boden</string>
   <string name="bodenMateDescription">Dua bidak gajah yang menyerang dengan diagonal berselang-seling mengantarkan raja skakmat karena terhalang oleh bidaknya sendiri, biasanya benteng dan pion.</string>
   <string name="castling">Rokade</string>
@@ -24,8 +24,9 @@
   <string name="capturingDefenderDescription">Memakan bidak yang sangat penting untuk menjaga bidak lain, memungkinkan bagian yang sekarang tidak terlindungi untuk ditangkap pada langkah berikut.</string>
   <string name="crushing">Hancurkan</string>
   <string name="crushingDescription">Temukan kesalahan lawan untuk mendapat keuntungan yang besar. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate">Skak gajah ganda</string>
+  <string name="doubleBishopMate">Skakmat gajah ganda</string>
   <string name="dovetailMate">Skatmat Dovetail</string>
+  <string name="dovetailMateDescription">Menteri skakmat disebelah raja, yang dua petak melarikan dirinya terhambat oleh bidak kawan.</string>
   <string name="equality">Kesetaraan</string>
   <string name="equalityDescription">Kembali dari posisi kalah dan amankan seri atau posisi seimbang. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Serangan raja</string>
@@ -39,7 +40,11 @@
   <string name="discoveredAttackDescription">Menggerakan bidak(seperti kuda), yang sebelumnya memblokir serangan oleh bidak jarak jauh(seperti benteng) keluar dari bidak itu.</string>
   <string name="doubleCheck">Skak ganda</string>
   <string name="endgame">Akhir permainan</string>
+  <string name="enPassantDescription">Taktik melibatkan aturan \"en passant\", yang mana pion dapat makan pion lawan yang baru saja melangkah 2 petak awal.</string>
   <string name="fork">Fork</string>
+  <string name="hookMateDescription">Skakmat dengan benteng, kuda, dan pion serta satu pion lawan untuk membatasi pergerakan raja lawan.</string>
+  <string name="knightEndgame">Babak akhir kuda</string>
+  <string name="knightEndgameDescription">Babak akhir dengan hanya kuda dan pion.</string>
   <string name="long">Puzzle Panjang</string>
   <string name="longDescription">Tiga gerakan untuk menang.</string>
   <string name="master">Permainan master</string>
@@ -64,21 +69,25 @@
   <string name="oneMoveDescription">Teka-teki yang hanya satu gerakan panjang.</string>
   <string name="opening">Pembuka</string>
   <string name="openingDescription">Taktik selama fase pertama permainan.</string>
-  <string name="pawnEndgame">Pion permainan akhir</string>
+  <string name="pawnEndgame">Babak akhir pion</string>
+  <string name="pawnEndgameDescription">Babak akhir hanya dengan pion.</string>
   <string name="pin">Pin</string>
   <string name="pinDescription">Taktik meliputi pin, dimana bidak tidak dapat bergerak tanpa membuka serangan pada bidak yang bernilai lebih tinggi.</string>
   <string name="promotion">Promosi</string>
   <string name="promotionDescription">Promosi salah satu pion menjadi menteri atau bidak minor lainnya.</string>
-  <string name="queenEndgame">Ratu akhir permainan</string>
-  <string name="queenEndgameDescription">Permainan akhir hanya dengan menteri dan pion.</string>
+  <string name="queenEndgame">Babak akhir menteri</string>
+  <string name="queenEndgameDescription">Babak akhir hanya dengan menteri dan pion.</string>
   <string name="queenRookEndgame">Menteri dan Benteng</string>
   <string name="queenRookEndgameDescription">Permainan Akhir hanya dengan menteri, benteng, dan pion.</string>
   <string name="queensideAttack">Serangan sisi menteri</string>
+  <string name="queensideAttackDescription">Serangan raja lawan, setelah lawan rokade panjang.</string>
   <string name="quietMove">Gerakan tenang</string>
   <string name="rookEndgame">Permainan Akhir benteng</string>
+  <string name="rookEndgameDescription">Babak akhir dengan hanya benteng dan pion.</string>
   <string name="sacrifice">Sacrifice</string>
   <string name="short">Teka-teki pendek</string>
   <string name="shortDescription">Dua gerakan untuk menang.</string>
+  <string name="skewer">Tusukan</string>
   <string name="superGM">Permainan super GM</string>
   <string name="superGMDescription">Teka-teki dari permainan yang dimainkan oleh pemain terbaik di seluruh dunia.</string>
   <string name="trappedPiece">Bidak yang terperangkap</string>

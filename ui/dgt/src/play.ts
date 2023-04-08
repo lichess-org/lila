@@ -1,4 +1,4 @@
-import { Chess } from 'chessops/chess';
+import { Chess, normalizeMove, castlingSide } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { NormalMove } from 'chessops/types';
@@ -164,9 +164,7 @@ export default function (token: string) {
    *
    * @param {number} ms - The number of milliseconds to sleep
    */
-  function sleep(ms = 0) {
-    return new Promise(r => setTimeout(r, ms));
-  }
+  const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 
   /**
    * GET /api/account
@@ -344,7 +342,7 @@ export default function (token: string) {
               if (!verbose) console.clear();
               //Log game Summary
               //logGameSummary(data);
-              //Store game inmutable information on the gameInfoMap dictionary collection
+              //Store game immutable information on the gameInfoMap dictionary collection
               gameInfoMap.set(gameId, data);
               //Store game state on the gameStateMap dictionary collection
               gameStateMap.set(gameId, data.state);
@@ -530,7 +528,7 @@ export default function (token: string) {
         if (moves[i] != '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
           const uciMove = <NormalMove>parseUci(moves[i]);
-          const normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
+          const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
           if (normalizedMove && chess.isLegal(normalizedMove)) chess.play(normalizedMove);
         }
       }
@@ -568,7 +566,7 @@ export default function (token: string) {
           if (moves[i] != '') {
             //Make the new move
             const uciMove = <NormalMove>parseUci(moves[i]);
-            const normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
+            const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
               if (chess.turn == 'black')
@@ -1198,8 +1196,7 @@ export default function (token: string) {
         return true;
       }
       if (verbose) console.log('Moves look different. Check if this is a castling mismatch.');
-      const castlingSide = localBoard.castlingSide(moveObject);
-      if (lastMove.length > 2 && castlingSide) {
+      if (lastMove.length > 2 && castlingSide(localBoard, moveObject)) {
         //It was a castling so it still may be the same move
         if (lastMove.startsWith(uciMove.substring(0, 2))) {
           //it was the same starting position for the king

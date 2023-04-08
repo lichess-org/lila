@@ -18,6 +18,9 @@
 
   &__typing {
     color: $c-font-dim;
+    line-height: 0.9em;
+    min-height: 0.9em;
+    font-size: 0.9em;
   }
 
   &__content {
@@ -104,7 +107,9 @@
     @extend %video;
 
     &--game {
-      @extend %game-embed;
+      @extend %box-neat-force;
+      padding-bottom: 75%;
+      // @extend %game-embed;
     }
 
     &.not-found {

@@ -1,21 +1,22 @@
 package views.html.team
 
-import scala.util.chaining._
+import controllers.routes
+import scala.util.chaining.*
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.{ Markdown, MarkdownRender }
+import lila.team.Team
 
-import controllers.routes
+object bits:
 
-object bits {
+  import trans.team.*
 
-  import trans.team._
-
-  def link(teamId: lila.team.Team.ID): Frag =
+  def link(teamId: TeamId): Frag =
     a(href := routes.Team.show(teamId))(teamIdToName(teamId))
 
-  def link(team: lila.team.Team): Frag =
+  def link(team: Team): Frag =
     a(href := routes.Team.show(team.id))(team.name)
 
   def menu(currentTab: Option[String])(implicit ctx: Context) =
@@ -43,7 +44,15 @@ object bits {
       )
     }
 
-  private[team] def teamTr(t: lila.team.Team)(implicit ctx: Context) = {
+  private[team] object markdown:
+    private val renderer = new MarkdownRender(header = true, list = true, table = true)
+    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+      .expireAfterAccess(10 minutes)
+      .maximumSize(1024)
+      .build[Markdown, Html]()
+    def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))
+
+  private[team] def teamTr(t: Team)(using ctx: Context) =
     val isMine = isMyTeamSync(t.id)
     tr(cls := "paginated")(
       td(cls := "subject")(
@@ -58,7 +67,7 @@ object bits {
           t.name,
           ctx.userId.exists(t.leaders.contains) option em("leader")
         ),
-        shorten(t.description, 200)
+        ~t.intro: String
       ),
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
@@ -67,7 +76,6 @@ object bits {
         )
       )
     )
-  }
 
   private[team] def layout(
       title: String,
@@ -80,4 +88,3 @@ object bits {
       moreJs = frag(infiniteScrollTag, moreJs),
       openGraph = openGraph
     )(body)
-}

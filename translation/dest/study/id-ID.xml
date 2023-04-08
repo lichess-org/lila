@@ -59,6 +59,8 @@
   <string name="studyPgn">Studi PGN</string>
   <string name="downloadAllGames">Unduh semua permainan</string>
   <string name="chapterPgn">Bab PGN</string>
+  <string name="copyChapterPgn">Salin PGN</string>
+  <string name="copyChapterPgnDescription">Salin PGN ke clipboard.</string>
   <string name="downloadGame">Unduh permainan</string>
   <string name="studyUrl">URL studi</string>
   <string name="currentChapterUrl">URL Bab saat ini</string>
@@ -73,11 +75,13 @@
   <string name="studyNotFound">Studi tidak ditemukan</string>
   <string name="editChapter">Ubah bab</string>
   <string name="newChapter">Bab baru</string>
+  <string name="importFromChapterX">Impor dari %s</string>
   <string name="orientation">Orientasi</string>
   <string name="analysisMode">Mode analisa</string>
   <string name="pinnedChapterComment">Sematkan komentar bagian bab</string>
   <string name="saveChapter">Simpan bab</string>
   <string name="clearAnnotations">Hapus anotasi</string>
+  <string name="clearVariations">Hapus variasi</string>
   <string name="deleteChapter">Hapus bab</string>
   <string name="deleteThisChapter">Hapus bab ini? Ini tidak akan dapat mengulangkan kembali!</string>
   <string name="clearAllCommentsInThisChapter">Hapus semua komentar dan bentuk di bab ini?</string>
@@ -153,7 +157,10 @@
   <string name="prevChapter">Bab sebelumnya</string>
   <string name="studyActions">Pembelajaran</string>
   <string name="topics">Topik</string>
+  <string name="myTopics">Topik saya</string>
   <string name="popularTopics">Topik populer</string>
+  <string name="manageTopics">Kelola topik</string>
   <string name="back">Kembali</string>
   <string name="playAgain">Main lagi</string>
+  <string name="youCompletedThisLesson">Selamat. Anda telah menyelesaikan pelajaran ini.</string>
 </resources>

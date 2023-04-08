@@ -1,10 +1,12 @@
 .simul-list {
+  overflow: hidden;
   &__help {
     @extend %page-text-shadow !optional;
 
     color: $c-font-page;
     max-width: 350px;
-    margin: 9em $block-gap 0 0;
+    margin-top: 9em;
+    margin-#{$end-direction}: $block-gap;
 
     img {
       @extend %box-radius;

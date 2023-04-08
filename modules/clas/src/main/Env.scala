@@ -1,10 +1,12 @@
 package lila.clas
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 
-import lila.common.config._
+import lila.common.config.*
+import scala.annotation.nowarn
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
@@ -17,12 +19,12 @@ final class Env(
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler,
+)(using
+    ec: Executor,
+    scheduler: Scheduler,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
-) {
+):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
@@ -53,10 +55,8 @@ final class Env(
         promise completeWith matesCache.get(kid.id)
     }
   )
-}
 
-private class ClasColls(db: lila.db.Db) {
+private class ClasColls(db: lila.db.Db):
   val clas    = db(CollName("clas_clas"))
   val student = db(CollName("clas_student"))
   val invite  = db(CollName("clas_invite"))
-}

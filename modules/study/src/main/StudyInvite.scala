@@ -1,9 +1,7 @@
 package lila.study
 
-import scala.concurrent.duration._
-
-import lila.db.dsl._
-import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
+import lila.db.dsl.{ *, given }
+import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
@@ -15,9 +13,9 @@ final private class StudyInvite(
     notifyApi: NotifyApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
+  private val notifyRateLimit = lila.memo.RateLimit[UserId](
     credits = 500,
     duration = 1 day,
     key = "study.invite.user"
@@ -26,20 +24,20 @@ final private class StudyInvite(
   private val maxMembers = 30
 
   def apply(
-      byUserId: User.ID,
+      byUserId: UserId,
       study: Study,
-      invitedUsername: String,
-      getIsPresent: User.ID => Fu[Boolean]
+      invitedUsername: UserStr,
+      getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] =
     for {
       _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
-      inviter <- userRepo named byUserId orFail "No such inviter"
+      inviter <- userRepo byId byUserId orFail "No such inviter"
       _ <- (!study.isOwner(inviter.id) && !Granter(_.StudyAdmin)(inviter)) ?? fufail[Unit](
         "Only the study owner can invite"
       )
       invited <-
         userRepo
-          .named(invitedUsername)
+          .byId(invitedUsername)
           .map(
             _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
           ) orFail "No such invited"
@@ -48,7 +46,7 @@ final private class StudyInvite(
       _         <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")
       isPresent <- getIsPresent(invited.id)
       _ <-
-        if (isPresent) funit
+        if (isPresent || Granter(_.StudyAdmin)(inviter)) funit
         else
           prefApi.getPref(invited).map(_.studyInvite).flatMap {
             case Pref.StudyInvite.ALWAYS => funit
@@ -60,19 +58,23 @@ final private class StudyInvite(
       _ <- studyRepo.addMember(study, StudyMember make invited)
       shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
       rateLimitCost =
-        if (relation has Follow) 10
+        if (Granter(_.StudyAdmin)(inviter)) 1
+        else if (relation has Follow) 10
         else if (inviter.roles has "ROLE_COACH") 20
         else if (inviter.hasTitle) 20
         else if (inviter.perfs.bestRating >= 2000) 50
         else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
-        val notificationContent = InvitedToStudy(
-          InvitedToStudy.InvitedBy(inviter.id),
-          InvitedToStudy.StudyName(study.name.value),
-          InvitedToStudy.StudyId(study.id.value)
-        )
-        val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
-        notifyApi.addNotification(notification)
+        notifyApi
+          .notifyOne(
+            invited,
+            lila.notify.InvitedToStudy(
+              invitedBy = inviter.id,
+              studyName = study.name,
+              studyId = study.id
+            )
+          )
+          .void
       }(funit)
     } yield invited
 
@@ -80,9 +82,8 @@ final private class StudyInvite(
     studyRepo.coll {
       _.update
         .one(
-          $id(study.id.value),
+          $id(study.id),
           $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
-            $addToSet("uids"         -> user.id)
+            $addToSet("uids" -> user.id)
         )
     }.void
-}

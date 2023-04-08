@@ -12,6 +12,7 @@
   <string name="teachersX">Múinteoirí: %s</string>
   <string name="newClass">Rang nua</string>
   <string name="closeClass">Dún rang</string>
+  <string name="removedByX">Bainte ag %s</string>
   <string name="reopen">Athoscailt</string>
   <string name="removeStudent">Bain dalta</string>
   <string name="removedStudents">Bainte</string>
@@ -97,6 +98,9 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="variantXOverLastY">%1$s le %2$s lá anuas</string>
   <string name="winrate">Ráta buaite</string>
   <string name="na">N/B</string>
+  <string name="overview">Forbhreathnú</string>
+  <string name="news">Nuacht</string>
+  <string name="classNews">Nuacht an ranga</string>
   <string name="editNews">Cuir nuacht in eagar</string>
   <string name="notifyAllStudents">Cuir in iúl do gach dalta</string>
   <string name="nothingHere">Níl aon rud anseo, fós.</string>
@@ -104,4 +108,19 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="newsEdit2">Cuir an nuacht is déanaí ag an mbarr. Ná scrios nuacht roimhe seo.</string>
   <string name="newsEdit3">Scar nuacht le ---
 Beidh líne chothrománach le feiceáil.</string>
+  <string name="invite">Cuireadh</string>
+  <string name="youHaveBeenInvitedByX">Thug %s cuireadh duit.</string>
+  <string name="youAcceptedThisInvitation">Ghlac tú leis an gcuireadh seo.</string>
+  <string name="youDeclinedThisInvitation">Dhiúltaigh tú an gcuireadh seo.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">nó</string>
+  <string name="createMultipleAccounts">Cruthaigh cuntais Lichess iolracha ag an am céanna</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Is féidir leat %s freisin chun cuntais Lichess iolracha a chruthú ó liosta ainmneacha mic léinn.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">d\'úsáid as an bhfoirm seo</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tabhair faoi deara gur féidir suas le %1$s dalta a bheith i rang. Chun níos mó mac léinn a bhainistiú, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">cruthaigh ranganna breise</string>
+  <string name="studentsRealNamesOnePerLine">Ainmneacha ceart na mac léinn, ceann in aghaidh an líne</string>
+  <string name="xisNowAStudentOfTheClass">Is mac léinn den rang é %s anois</string>
+  <string name="anInvitationHasBeenSentToX">Tá cuireadh seolta chuig %s</string>
+  <string name="xAlreadyHasAPendingInvitation">Tá cuireadh ar feitheamh ag %s cheana féin</string>
+  <string name="xIsAKidAccountWarning">Is cuntas páiste é %1$s agus ní féidir leis do theachtaireacht a fháil. Caithfidh tú an cuiridh URL a thabhairt dóibh de lámh: %2$s</string>
 </resources>

@@ -7,7 +7,7 @@ import lila.game.actorApi.{ AbortedBy, FinishGame }
 import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserRepo }
-import lila.i18n.{ I18nKeys => trans, defaultLang }
+import lila.i18n.{ defaultLang, I18nKeys as trans }
 
 final private class Finisher(
     gameRepo: GameRepo,
@@ -19,11 +19,11 @@ final private class Finisher(
     crosstableApi: lila.game.CrosstableApi,
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
     recentTvGames: RecentTvGames
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  implicit private val chatLang = defaultLang
+  private given play.api.i18n.Lang = defaultLang
 
-  def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  def abort(pov: Pov)(using GameProxy): Fu[Events] =
     apply(pov.game, _.Aborted, None) >>- {
       getSocketStatus(pov.game) foreach { ss =>
         playban.abort(pov, ss.colorsOnGame)
@@ -31,38 +31,34 @@ final private class Finisher(
       Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
     }
 
-  def abortForce(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+  def abortForce(game: Game)(using GameProxy): Fu[Events] =
     apply(game, _.Aborted, None)
 
-  def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
+  def rageQuit(game: Game, winner: Option[Color])(using GameProxy): Fu[Events] =
     apply(game, _.Timeout, winner) >>-
       winner.foreach { color =>
         playban.rageQuit(game, !color)
       }
 
-  def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] =
-    if (
-      !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
-    ) {
+  def outOfTime(game: Game)(using GameProxy): Fu[Events] =
+    if (!game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt))
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
-
-    } else if (game.player(!game.player.color).isOfferingDraw) {
-      apply(game, _.Draw, None, Messenger.Persistent(trans.drawOfferAccepted.txt()).some)
-    } else {
+    else if (game.player(!game.player.color).isOfferingDraw)
+      apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
+    else
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
       apply(game, _.Outoftime, winner) >>-
         winner.foreach { w =>
           playban.flag(game, !w)
         }
-    }
 
-  def noStart(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+  def noStart(game: Game)(using GameProxy): Fu[Events] =
     game.playerWhoDidNotMove ?? { culprit =>
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
-      if (game.isMandatory) apply(game, _.NoStart, Some(!culprit.color))
-      else apply(game, _.Aborted, None, Messenger.Persistent("Game aborted by server").some)
+      if (game.isMandatory || game.metadata.hasRule(_.NoAbort)) apply(game, _.NoStart, Some(!culprit.color))
+      else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
     }
 
   def other(
@@ -70,93 +66,87 @@ final private class Finisher(
       status: Status.type => Status,
       winner: Option[Color],
       message: Option[Messenger.SystemMessage] = None
-  )(implicit proxy: GameProxy): Fu[Events] =
+  )(using GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
 
-  private def recordLagStats(game: Game): Unit =
-    for {
-      clock  <- game.clock
-      player <- clock.players.all
-      lt    = player.lag
-      stats = lt.lagStats
-      moves = lt.moves if moves > 4
-      sd <- stats.stdDev
-      mean        = stats.mean if mean > 0
-      uncompStats = lt.uncompStats
-      uncompAvg   = Math.round(10 * uncompStats.mean)
-      compEstStdErr <- lt.compEstStdErr
-      quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
-      compEstOvers = lt.compEstOvers.centis
-    } {
-      import lila.mon.round.move.{ lag => lRec }
-      lRec.mean.record(Math.round(10 * mean))
-      lRec.stdDev.record(Math.round(10 * sd))
-      // wikipedia.org/wiki/Coefficient_of_variation#Estimation
-      lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
-      lRec.uncomped(quotaStr).record(uncompAvg)
-      uncompStats.stdDev foreach { v =>
-        lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
-      }
-      lt.lagEstimator match {
-        case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
-      }
-      lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
-      lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
+  private def recordLagStats(game: Game) = for {
+    clock  <- game.clock
+    player <- clock.players.all
+    lt    = player.lag
+    stats = lt.lagStats
+    moves = lt.moves if moves > 4
+    sd <- stats.stdDev
+    mean        = stats.mean if mean > 0
+    uncompStats = lt.uncompStats
+    uncompAvg   = Math.round(10 * uncompStats.mean)
+    compEstStdErr <- lt.compEstStdErr
+    quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
+    compEstOvers = lt.compEstOvers.centis
+  } {
+    import lila.mon.round.move.{ lag as lRec }
+    lRec.mean.record(Math.round(10 * mean))
+    lRec.stdDev.record(Math.round(10 * sd))
+    // wikipedia.org/wiki/Coefficient_of_variation#Estimation
+    lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
+    lRec.uncomped(quotaStr).record(uncompAvg)
+    uncompStats.stdDev foreach { v =>
+      lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
     }
+    lt.lagEstimator match
+      case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
+    lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
+    lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
+  }
 
   private def apply(
-      game: Game,
+      prev: Game,
       makeStatus: Status.type => Status,
       winnerC: Option[Color],
       message: Option[Messenger.SystemMessage] = None
-  )(implicit proxy: GameProxy): Fu[Events] = {
+  )(using proxy: GameProxy): Fu[Events] =
     val status = makeStatus(Status)
-    val prog   = game.finish(status, winnerC)
+    val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
+    val game   = prog.game
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game
       .finish(
-        variant = game.variant.key,
+        variant = game.variant.key.value,
         source = game.source.fold("unknown")(_.name),
         speed = game.speed.name,
         mode = game.mode.name,
         status = status.name
       )
       .increment()
-    val g = prog.game
-    recordLagStats(g)
+    recordLagStats(game)
     proxy.save(prog) >>
       gameRepo.finish(
-        id = g.id,
+        id = game.id,
         winnerColor = winnerC,
-        winnerId = winnerC flatMap (g.player(_).userId),
+        winnerId = winnerC flatMap (game.player(_).userId),
         status = prog.game.status
       ) >>
       userRepo
-        .pair(
-          g.whitePlayer.userId,
-          g.blackPlayer.userId
-        )
-        .flatMap { case (whiteO, blackO) =>
-          val finish = FinishGame(g, whiteO, blackO)
+        .pair(game.whitePlayer.userId, game.blackPlayer.userId)
+        .flatMap { (whiteO, blackO) =>
+          val finish = FinishGame(game, whiteO, blackO)
           updateCountAndPerfs(finish) map { ratingDiffs =>
-            message foreach { messenger(g, _) }
-            gameRepo game g.id foreach { newGame =>
+            message foreach { messenger(game, _) }
+            gameRepo game game.id foreach { newGame =>
               newGame foreach proxy.setFinishedGame
-              val newFinish = finish.copy(game = newGame | g)
+              val newFinish = finish.copy(game = newGame | game)
               Bus.publish(newFinish, "finishGame")
               game.userIds foreach { userId =>
                 Bus.publish(newFinish, s"userFinishGame:$userId")
               }
             }
-            prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
+            List(lila.game.Event.EndData(game, ratingDiffs))
           }
         }
-  }
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {
-      import cats.implicits._
-      (finish.white, finish.black).mapN((_, _)) ?? { case (white, black) =>
+      import cats.syntax.all.*
+      (finish.white, finish.black).mapN((_, _)) ?? { (white, black) =>
         crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
       } zip
         (finish.white ?? incNbGames(finish.game)) zip
@@ -175,4 +165,3 @@ final private class Finisher(
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
         .void
     }
-}

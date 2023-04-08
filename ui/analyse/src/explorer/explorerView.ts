@@ -19,7 +19,7 @@ import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
-  function section(key: 'white' | 'black' | 'draws') {
+  const section = (key: 'white' | 'black' | 'draws') => {
     const percent = (move[key] * 100) / sum;
     return h(
       'span.' + key,
@@ -28,7 +28,7 @@ function resultBar(move: OpeningMoveStats): VNode {
       },
       percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : ''
     );
-  }
+  };
   return h('div.bar', ['white', 'draws', 'black'].map(section));
 }
 
@@ -93,11 +93,12 @@ function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   return '';
 }
 
-function showResult(winner?: Color): VNode {
-  if (winner === 'white') return h('result.white', '1-0');
-  if (winner === 'black') return h('result.black', '0-1');
-  return h('result.draws', '½-½');
-}
+const showResult = (winner?: Color): VNode =>
+  winner === 'white'
+    ? h('result.white', '1-0')
+    : winner === 'black'
+    ? h('result.black', '0-1')
+    : h('result.draws', '½-½');
 
 function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
@@ -169,11 +170,11 @@ function openGame(ctrl: AnalyseCtrl, gameId: string) {
 }
 
 function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
-  function send(insert: boolean) {
+  const send = (insert: boolean) => {
     ctrl.study!.explorerGame(game.id, insert);
     ctrl.explorer.gameMenu(null);
     ctrl.redraw();
-  }
+  };
   return h(
     'tr',
     {
@@ -231,8 +232,8 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
   );
 }
 
-function closeButton(ctrl: AnalyseCtrl): VNode {
-  return h(
+const closeButton = (ctrl: AnalyseCtrl): VNode =>
+  h(
     'button.button.button-empty.text',
     {
       attrs: dataIcon(''),
@@ -240,36 +241,49 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
     },
     ctrl.trans.noarg('close')
   );
-}
 
-function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
-  return h('div.data.empty', [
+const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
+  h('div.data.empty', [
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
-      ctrl.explorer.config.fullHouse()
-        ? null
-        : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
+      data?.queuePosition
+        ? h('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
+        : !ctrl.explorer.config.fullHouse()
+        ? h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu'))
+        : null,
     ]),
   ]);
-}
 
-function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
-  return h('div.data.empty', [
+const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
+  h('div.data.empty', [
     h('div.title', ctrl.trans.noarg('gameOver')),
     h('div.message', [h('i', { attrs: dataIcon('') }), h('h3', ctrl.trans.noarg(title)), closeButton(ctrl)]),
   ]);
-}
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
   const opening = data?.opening;
+  const title = opening ? `${opening.eco} ${opening.name}` : '';
   return h(
     'div.title',
     {
-      attrs: opening ? { title: opening && `${opening.eco} ${opening.name}` } : {},
+      attrs: opening ? { title } : {},
     },
-    opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)]
+    opening
+      ? [
+          h(
+            'a',
+            {
+              attrs: {
+                href: `/opening/${opening.name}`,
+                target: '_blank',
+              },
+            },
+            title
+          ),
+        ]
+      : [showTitle(ctrl, ctrl.data.game.variant)]
   );
 };
 
@@ -363,8 +377,10 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes
     );
   const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2021-11'),
+  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2022-10'),
     lichessDbExplanation = explorer.root.trans('lichessDbExplanation');
+  const data = explorer.current();
+  const queuePosition = data && isOpening(data) && data.queuePosition;
   return h('div.explorer-title', [
     db == 'masters'
       ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
@@ -381,7 +397,11 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
               h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
               ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
               explorer.isIndexing() && !explorer.config.data.open()
-                ? h('i.ddloader', { attrs: { title: 'Indexing...' } })
+                ? h('i.ddloader', {
+                    attrs: {
+                      title: queuePosition ? `Indexing ${queuePosition} other players first ...` : 'Indexing ...',
+                    },
+                  })
                 : undefined,
             ],
             explorer.root.trans('switchSides')

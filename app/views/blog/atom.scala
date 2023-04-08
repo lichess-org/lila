@@ -2,11 +2,11 @@ package views.html.blog
 
 import controllers.routes
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
-object atom {
+object atom:
 
   import views.html.base.atom.{ atomDate, category }
 
@@ -25,8 +25,8 @@ object atom {
         tag("published")(docDate(doc) map atomDate),
         tag("updated")(docDate(doc) map atomDate),
         link(
-          rel := "alternate",
-          tpe := "text/html",
+          rel  := "alternate",
+          tpe  := "text/html",
           href := s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug)}"
         ),
         tag("title")(doc.getText("blog.title")),
@@ -41,8 +41,8 @@ object atom {
             st.img(src := img.url).render
           },
           "<br>",
-          doc
-            .getHtml("blog.body", prismic.linkResolver)
+          Html
+            .from(doc.getHtml("blog.body", prismic.linkResolver))
             .map(lila.blog.Youtube.fixStartTimes)
             .map(lila.blog.BlogTransform.addProtocol)
         ),
@@ -53,4 +53,3 @@ object atom {
 
   def docDate(doc: io.prismic.Document) =
     doc getDate "blog.date" map (_.value.toDateTimeAtStartOfDay)
-}

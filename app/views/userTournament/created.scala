@@ -2,18 +2,18 @@ package views.html
 package userTournament
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.paginator.Paginator
 import lila.user.User
 
 import controllers.routes
 
-object created {
+object created:
 
   private val path = "created"
 
-  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(implicit ctx: Context) =
+  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using Context) =
     bits.layout(
       u = u,
       title = s"${u.username} recent tournaments",
@@ -50,4 +50,3 @@ object created {
           )
         )
     }
-}

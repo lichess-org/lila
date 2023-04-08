@@ -3,11 +3,11 @@ package views.html.lobby
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogPost
 
-object bits {
+object bits:
 
   val lobbyApp = div(cls := "lobby__app")(
     div(cls := "tabs-horiz")(span(nbsp)),
@@ -19,7 +19,7 @@ object bits {
       simuls: List[lila.simul.Simul],
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     frag(
       ctx.pref.showRatings option div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
@@ -64,48 +64,50 @@ object bits {
           )
         )
       ),
-      div(cls := "lobby__tournaments lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Tournament.home)(
-          h2(cls := "title text", dataIcon := "")(trans.openTournaments()),
-          span(cls := "more")(trans.more(), " »")
+      div(cls := "lobby__tournaments-simuls")(
+        div(cls := "lobby__tournaments lobby__box")(
+          a(cls := "lobby__box__top", href := routes.Tournament.home)(
+            h2(cls := "title text", dataIcon := "")(trans.openTournaments()),
+            span(cls := "more")(trans.more(), " »")
+          ),
+          div(cls := "enterable_list lobby__box__content")(
+            views.html.tournament.bits.enterable(tours)
+          )
         ),
-        div(cls := "enterable_list lobby__box__content")(
-          views.html.tournament.bits.enterable(tours)
-        )
-      ),
-      simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Simul.home)(
-          h2(cls := "title text", dataIcon := "")(trans.simultaneousExhibitions()),
-          span(cls := "more")(trans.more(), " »")
-        ),
-        div(cls := "enterable_list lobby__box__content")(
-          views.html.simul.bits.allCreated(simuls)
+        simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
+          a(cls := "lobby__box__top", href := routes.Simul.home)(
+            h2(cls := "title text", dataIcon := "")(trans.simultaneousExhibitions()),
+            span(cls := "more")(trans.more(), " »")
+          ),
+          div(cls := "enterable_list lobby__box__content")(
+            views.html.simul.bits.allCreated(simuls)
+          )
         )
       )
     )
 
-  def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(implicit
+  def lastPosts(lichess: Option[lila.blog.MiniPost], uposts: List[lila.ublog.UblogPost.PreviewPost])(using
       ctx: Context
   ): Frag =
     div(cls := "lobby__blog ublog-post-cards")(
       lichess map { post =>
         a(cls := "ublog-post-card ublog-post-card--link", href := routes.Blog.show(post.id, post.slug))(
           img(
-            src := post.image,
-            cls := "ublog-post-card__image",
-            widthA := UblogPost.thumbnail.Small.width,
+            src     := post.image,
+            cls     := "ublog-post-card__image",
+            widthA  := UblogPost.thumbnail.Small.width,
             heightA := UblogPost.thumbnail.Small.height
           ),
           span(cls := "ublog-post-card__content")(
             h2(cls := "ublog-post-card__title")(post.title),
-            semanticDate(post.date)(ctx.lang)(cls := "ublog-post-card__over-image")
+            semanticDate(post.date)(using ctx.lang)(cls := "ublog-post-card__over-image")
           )
         )
       },
       ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
     )
 
-  def showUnreadLichessMessage(implicit ctx: Context) =
+  def showUnreadLichessMessage =
     nopeInfo(
       cls := "unread-lichess-message",
       p("You have received a private message from Lichess."),
@@ -116,7 +118,7 @@ object bits {
       )
     )
 
-  def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
+  def playbanInfo(ban: lila.playban.TempBan)(using Context) =
     nopeInfo(
       h1(trans.sorry()),
       p(trans.weHadToTimeYouOutForAWhile()),
@@ -144,7 +146,7 @@ object bits {
       )
     )
 
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(implicit ctx: Context) =
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(using Context) =
     nopeInfo(
       h1(trans.hangOn()),
       p(trans.gameInProgress(strong(current.opponent))),
@@ -175,7 +177,7 @@ object bits {
       )
     )
 
-  def spotlight(e: lila.event.Event)(implicit ctx: Context) =
+  def spotlight(e: lila.event.Event)(using Context) =
     a(
       href := (if (e.isNow || !e.countdown) e.url else routes.Event.show(e.id).url),
       cls := List(
@@ -192,4 +194,3 @@ object bits {
         )
       )
     )
-}

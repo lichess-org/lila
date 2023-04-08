@@ -1,10 +1,9 @@
 package lila.plan
 
-import cats.implicits._
-import java.util.{ Currency, Locale }
-import scala.concurrent.ExecutionContext
+import cats.syntax.all.*
+import java.util.Currency
 
-case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money) {
+case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):
 
   val default = suggestions.lift(1) orElse suggestions.headOption getOrElse min
 
@@ -13,9 +12,8 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
 
   def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
   def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
-}
 
-final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext) {
+final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
 
   import currencyApi.{ EUR, USD }
 
@@ -30,7 +28,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionConte
     suggestions = List(5, 10, 20, 50).map(eur => Money(eur, EUR)),
     min = Money(1, EUR),
     max = Money(10000, EUR),
-    lifetime = Money(200, EUR)
+    lifetime = Money(250, EUR)
   )
 
   def pricingFor(currency: Currency): Fu[Option[PlanPricing]] =
@@ -38,12 +36,12 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionConte
     else if (currency == EUR) fuccess(eurPricing.some)
     else
       for {
-        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).sequenceFu.map(_.sequence)
+        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).parallel.map(_.sequence)
         suggestions = allSuggestions.map(_.distinct)
         min      <- convertAndRound(usdPricing.min, currency)
         max      <- convertAndRound(usdPricing.max, currency)
         lifetime <- convertAndRound(usdPricing.lifetime, currency)
-      } yield (suggestions, min, max, lifetime).mapN(PlanPricing)
+      } yield (suggestions, min, max, lifetime).mapN(PlanPricing.apply)
 
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 
@@ -56,9 +54,8 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionConte
     currencyApi.convert(money, to) map2 { case Money(amount, locale) =>
       Money(PlanPricingApi.nicelyRound(amount), locale)
     }
-}
 
-object PlanPricingApi {
+object PlanPricingApi:
 
   def nicelyRound(amount: BigDecimal): BigDecimal = {
     val double   = amount.toDouble
@@ -67,7 +64,7 @@ object PlanPricingApi {
     math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
   } atLeast 1
 
-  import play.api.libs.json._
+  import play.api.libs.json.*
   val pricingWrites = OWrites[PlanPricing] { p =>
     Json.obj(
       "currency"    -> p.currencyCode,
@@ -78,4 +75,3 @@ object PlanPricingApi {
       "suggestions" -> p.suggestions.map(_.amount)
     )
   }
-}

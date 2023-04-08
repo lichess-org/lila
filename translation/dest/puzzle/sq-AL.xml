@@ -13,6 +13,8 @@
   <string name="specialMoves">Lëvizje speciale</string>
   <string name="didYouLikeThisPuzzle">Ju pëlqeu ky ushtrim?</string>
   <string name="voteToLoadNextOne">Votojeni, që të ngarkohet pasuesi!</string>
+  <string name="upVote">Jepini një votë ushtrimit</string>
+  <string name="downVote">Hiqini një votë ushtrimit</string>
   <string name="yourPuzzleRatingWillNotChange">Vlerësimi juaj për ushtrimet nuk do të ndryshojë. Kini parasysh se ushtrimet nuk janë garë. Vlerësimi juaj ndihmon në përzgjedhjen e ushtrimeve më të mira për aftësitë tuaja të tanishme.</string>
   <string name="findTheBestMoveForWhite">Gjej lëvizjen më të mirë për të bardhin.</string>
   <string name="findTheBestMoveForBlack">Gjej lëvizjen më të mirë për të ziun.</string>
@@ -25,6 +27,10 @@
   <string name="keepGoing">Vazhdoni…</string>
   <string name="puzzleSuccess">Sukses!</string>
   <string name="puzzleComplete">Ushtrimi u plotësua!</string>
+  <string name="byOpenings">Sipas hapjesh</string>
+  <string name="openingsYouPlayedTheMost">Hapje që bëtë në lojërat më të vlerësuara</string>
+  <string name="useFindInPage">Që të gjeni hapen tuaj të parapëlqyer, përdorni “Gjej në faqe” te menuja e shfletuesit!</string>
+  <string name="useCtrlF">Që të gjeni hapjen tuaj të parapëlqyer, përdorni Ctrl+f!</string>
   <string name="notTheMove">S’është lëvizja e duhur!</string>
   <string name="trySomethingElse">Provoni diçka tjetër.</string>
   <string name="ratingX">Vlerësimi: %s</string>
@@ -51,6 +57,7 @@
   </plurals>
   <string name="example">Shembull</string>
   <string name="addAnotherTheme">Shtoni temë tjetër</string>
+  <string name="nextPuzzle">Ushtrimi pasues</string>
   <string name="jumpToNextPuzzleImmediately">Kalo menjëherë në ushtrimin pasues</string>
   <string name="puzzleDashboard">Pult Ushtrimesh</string>
   <string name="improvementAreas">Fusha përmirësimi</string>
@@ -64,6 +71,8 @@
   <string name="continueTheStreak">Vazhdoje raundin</string>
   <string name="newStreak">Raund i ri</string>
   <string name="fromMyGames">Nga lojërat e mia</string>
+  <string name="lookupOfPlayer">Kërkoni te ushtrime prej lojërave të një lojtari</string>
+  <string name="fromXGames">Ushtrime nga lojërat e %s</string>
   <string name="searchPuzzles">Kërkoni në ushtrime</string>
   <string name="fromMyGamesNone">S’keni ushtrime te baza e të dhënave, por Lichess-i prapë ju do fort.
 
@@ -81,4 +90,5 @@ Luani lojëra të shpejta dhe klasike, që të rriten shanset tuaja për të pas
   <string name="percentSolved">%s të zgjidhur</string>
   <string name="noPuzzlesToShow">S’ka gjë për shfaqje, shkoni e luani ca ushtrime, së pari!</string>
   <string name="improvementAreasDescription">Stërvituni me këto, që të optimizoni përparimin tuaj!</string>
+  <string name="strengthDescription">Dilni më mirë në këto tema</string>
 </resources>

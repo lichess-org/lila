@@ -1,10 +1,9 @@
 package lila.fishnet
 
-import chess.format.Uci
 import chess.{ Black, Clock, White }
-import scala.concurrent.duration._
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ Bus, Future, ThreadLocalRandom }
+import lila.common.{ Bus, LilaFuture }
 import lila.game.{ Game, GameRepo, UciMemo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.FishnetPlay
@@ -15,18 +14,18 @@ final class FishnetPlayer(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(using
+    ec: Executor,
+    scheduler: Scheduler
+):
 
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>
-      Future.delay(delayFor(game) | 0.millis) {
+      LilaFuture.delay(delayFor(game) | 0.millis) {
         openingBook(game, level) flatMap {
           case Some(move) =>
-            fuccess {
-              Bus.publish(Tell(game.id, FishnetPlay(move, game.playedTurns)), "roundSocket")
+            uciMemo sign game map { sign =>
+              Bus.publish(Tell(game.id.value, FishnetPlay(move, sign)), "roundSocket")
             }
           case None => makeWork(game, level) addEffect redis.request void
         }
@@ -36,7 +35,7 @@ final class FishnetPlayer(
     }
 
   private val delayFactor  = 0.011f
-  private val defaultClock = Clock(300, 0)
+  private val defaultClock = Clock(Clock.LimitSeconds(300), Clock.IncrementSeconds(0))
 
   private def delayFor(g: Game): Option[FiniteDuration] =
     if (!g.bothPlayersHaveMoved) 2.seconds.some
@@ -47,22 +46,22 @@ final class FishnetPlayer(
         totalTime = clock.estimateTotalTime.centis
         if totalTime > 20 * 100
         delay = (clock.remainingTime(pov.color).centis atMost totalTime) * delayFactor
-        accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
+        accel = 1 - ((g.ply.value - 20) atLeast 0 atMost 100) / 150f
         sleep = (delay * accel) atMost 500
         if sleep > 25
         millis     = sleep * 10
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
-        divided    = randomized / (if (g.turns > 9) 1 else 2)
-      } yield divided.millis
+        divided    = randomized / (if (g.ply > 9) 1 else 2)
+      } yield divided.toInt.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation playable true)
-      if (game.turns <= maxPlies) gameRepo.initialFen(game) zip uciMemo.get(game) map {
+      if (game.ply <= maxPlies) gameRepo.initialFen(game) zip uciMemo.get(game) map {
         case (initialFen, moves) =>
           Work.Move(
             _id = Work.makeId,
             game = Work.Game(
-              id = game.id,
+              id = game.id.value,
               initialFen = initialFen,
               studyId = none,
               variant = game.variant,
@@ -80,6 +79,5 @@ final class FishnetPlayer(
             }
           )
       }
-      else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
+      else fufail(s"[fishnet] Too many moves (${game.ply}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")
-}

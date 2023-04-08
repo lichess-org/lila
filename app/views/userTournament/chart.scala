@@ -2,20 +2,20 @@ package views.html
 package userTournament
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.user.User
 
-object chart {
+object chart:
 
-  def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(implicit ctx: Context) =
+  def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using Context) =
     bits.layout(
       u,
       title = s"${u.username} tournaments",
       path = "chart"
     ) {
       div(cls := "tournament-stats")(
-        h1(cls := "box__pad")(userLink(u, withOnline = true), " tournament stats"),
+        boxTop(h1(userLink(u, withOnline = true), " tournament stats")),
         p(cls := "box__pad")(
           "The rank avg is a percentage of your ranking. Lower is better.",
           br,
@@ -58,4 +58,3 @@ object chart {
         )
       )
     }
-}

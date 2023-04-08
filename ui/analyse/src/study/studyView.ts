@@ -1,26 +1,26 @@
-import { h, VNode } from 'snabbdom';
-import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
-import { iconTag, richHTML } from '../util';
-import { view as memberView } from './studyMembers';
-import { view as chapterView } from './studyChapters';
-import { view as chapterNewFormView } from './chapterNewForm';
-import { view as chapterEditFormView } from './chapterEditForm';
 import * as commentForm from './commentForm';
 import * as glyphForm from './studyGlyph';
+import * as practiceView from './practice/studyPracticeView';
+import AnalyseCtrl from '../ctrl';
+import { h, VNode } from 'snabbdom';
+import { iconTag, bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
+import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
+import { richHTML } from 'common/richText';
+import { rounds as relayTourRounds } from './relay/relayTourView';
+import { StudyCtrl, Tab, ToolTab } from './interfaces';
+import { view as chapterEditFormView } from './chapterEditForm';
+import { view as chapterNewFormView } from './chapterNewForm';
+import { view as chapterView } from './studyChapters';
+import { view as descView } from './description';
 import { view as inviteFormView } from './inviteForm';
-import { view as studyFormView } from './studyForm';
-import { view as studyShareView } from './studyShare';
+import { view as memberView } from './studyMembers';
 import { view as multiBoardView } from './multiBoard';
 import { view as notifView } from './notif';
+import { view as serverEvalView } from './serverEval';
+import { view as studyFormView } from './studyForm';
+import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
-import { view as serverEvalView } from './serverEval';
-import * as practiceView from './practice/studyPracticeView';
-import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { view as descView } from './description';
-import { rounds as relayTourRounds } from './relay/relayTourView';
-import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, Tab, ToolTab } from './interfaces';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -209,13 +209,13 @@ export function side(ctrl: StudyCtrl): VNode {
   const chaptersTab =
     tourShow && ctrl.looksNew() && !ctrl.members.canContribute()
       ? null
-      : makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
+      : makeTab('chapters', ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     tourTab,
     chaptersTab,
     !tourTab || ctrl.members.canContribute() || ctrl.data.admin
-      ? makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size()))
+      ? makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size()))
       : null,
     ctrl.members.isOwner()
       ? h(

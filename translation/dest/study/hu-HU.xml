@@ -62,6 +62,8 @@
   <string name="studyPgn">Lecke PGN</string>
   <string name="downloadAllGames">Összes játszma letöltése</string>
   <string name="chapterPgn">PGN a fejezetről</string>
+  <string name="copyChapterPgn">PGN másolása</string>
+  <string name="copyChapterPgnDescription">Fejezet PGN másolása.</string>
   <string name="downloadGame">Játszma letöltése</string>
   <string name="studyUrl">Tanulmány URL</string>
   <string name="currentChapterUrl">URL erre a fejezetre</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Tanulmány nem található</string>
   <string name="editChapter">Fejezet szerkesztése</string>
   <string name="newChapter">Új fejezet</string>
+  <string name="importFromChapterX">Importálás innen: %s</string>
   <string name="orientation">Szemszög</string>
   <string name="analysisMode">Elemzés típusa</string>
   <string name="pinnedChapterComment">Rögzített megjegyzés</string>

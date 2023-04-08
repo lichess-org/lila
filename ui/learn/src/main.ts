@@ -29,13 +29,13 @@ interface LearnServerOpts {
   i18n: I18nDict;
 }
 
-export default function (element: Element, { data, i18n }: LearnServerOpts) {
+export default (window as any).LichessLearn = function (element: Element, { data, i18n }: LearnServerOpts) {
   const _storage = storage(data);
 
   const opts: LearnOpts = {
     i18n,
     storage: _storage,
-    // Unititialized because we need to call mapSide to initialize opts.side,
+    // Uninitialized because we need to call mapSide to initialize opts.side,
     // and we need opts to call mapSide.
     side: 'uninitialized' as any,
     stageId: null,
@@ -61,4 +61,4 @@ export default function (element: Element, { data, i18n }: LearnServerOpts) {
   } as _mithril.MithrilRoutes<any>);
 
   return {};
-}
+};

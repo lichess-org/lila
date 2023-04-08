@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">ବ୍ୟକ୍ତିଗତ</string>
+  <string name="private">ଘରୋଇ</string>
   <string name="myStudies">ମୋର ଅଧ୍ୟୟନ</string>
   <string name="myPublicStudies">ମୋର ସାର୍ବଜନୀନ ଅଧ୍ୟୟନ</string>
+  <string name="myPrivateStudies">ମୋର ଘରୋଇ ଅଧ୍ୟୟନ</string>
   <string name="noneYet">ଏପର୍ଯ୍ୟନ୍ତ କିଛି ନୁହେଁ।</string>
   <string name="hot">ହଟ୍</string>
   <string name="dateAddedNewest">ଯୋଡ଼ାଯିବା ତାରିଖ (ସବୁଠୁ ନୂଆ)</string>
@@ -52,6 +53,7 @@
   <string name="studyNotFound">ଅଧ୍ୟୟନ ମିଳିଲା ନାହିଁ</string>
   <string name="editChapter">ଅଧ୍ୟାୟ ସମ୍ପାଦନା</string>
   <string name="newChapter">ନୂଆ ଅଧ୍ୟାୟ</string>
+  <string name="importFromChapterX">%s ରୁ ଆମଦାନୀ କରନ୍ତୁ</string>
   <string name="orientation">ଦିଗ</string>
   <string name="pinnedChapterComment">ପିନ୍ ହୋଇଥିବା ଅଧ୍ୟୟନ ମନ୍ତବ୍ୟ</string>
   <string name="saveChapter">ଅଧ୍ୟାୟ ସଞ୍ଚୟ କରନ୍ତୁ</string>

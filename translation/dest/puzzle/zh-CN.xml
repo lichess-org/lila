@@ -13,12 +13,15 @@
   <string name="specialMoves">特殊着法</string>
   <string name="didYouLikeThisPuzzle">你喜欢这道训练题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
+  <string name="upVote">赞</string>
+  <string name="downVote">踩</string>
   <string name="yourPuzzleRatingWillNotChange">您的谜题等级分将不会改变。请注意，解谜题不是比赛。计分有助于根据您当前水平选择最佳谜题。</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳着法</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
   <string name="puzzleId">谜题编号：%s</string>
   <string name="puzzleOfTheDay">每日一题</string>
+  <string name="dailyPuzzle">每日棋谜</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳走法！</string>
@@ -48,6 +51,7 @@
   </plurals>
   <string name="example">例子</string>
   <string name="addAnotherTheme">添加新的主题</string>
+  <string name="nextPuzzle">下一个谜题</string>
   <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
   <string name="puzzleDashboard">数据统计</string>
   <string name="improvementAreas">待提升</string>

@@ -1,11 +1,9 @@
 package lila.study
 
-import akka.stream.scaladsl._
-import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags }
-import chess.format.{ pgn => chessPgn }
+import akka.stream.scaladsl.*
+import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
+import chess.format.{ pgn as chessPgn }
 import org.joda.time.format.DateTimeFormat
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
@@ -16,23 +14,23 @@ final class PgnDump(
     annotator: lila.analyse.Annotator,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
-)(implicit ec: ExecutionContext) {
+)(using Executor):
 
-  import PgnDump._
+  import PgnDump.*
 
-  def apply(study: Study, flags: WithFlags): Source[String, _] =
+  def apply(study: Study, flags: WithFlags): Source[PgnStr, ?] =
     chapterRepo
       .orderedByStudySource(study.id)
       .throttle(16, 1 second)
       .mapAsync(1)(ofChapter(study, flags))
 
-  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[String] =
+  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
     chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
       val pgn = Pgn(
-        tags = makeTags(study, chapter),
-        turns = toTurns(chapter.root)(flags).toList,
+        tags = makeTags(study, chapter)(using flags),
+        turns = toTurns(chapter.root)(using flags).toList,
         initial = Initial(
-          chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+          chapter.root.comments.value.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
         )
       )
       annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
@@ -42,23 +40,21 @@ final class PgnDump(
 
   def ownerName(study: Study) = lightUserApi.sync(study.ownerId).fold(study.ownerId)(_.name)
 
-  def filename(study: Study): String = {
+  def filename(study: Study): String =
     val date = dateFormat.print(study.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
-  }
 
-  def filename(study: Study, chapter: Chapter): String = {
+  def filename(study: Study, chapter: Chapter): String =
     val date = dateFormat.print(chapter.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
-  }
 
-  private def chapterUrl(studyId: Study.Id, chapterId: Chapter.Id) =
+  private def chapterUrl(studyId: StudyId, chapterId: StudyChapterId) =
     s"${net.baseUrl}/study/$studyId/$chapterId"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
@@ -66,7 +62,7 @@ final class PgnDump(
   private def annotatorTag(study: Study) =
     Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
 
-  private def makeTags(study: Study, chapter: Chapter): Tags =
+  private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     Tags {
       val opening = chapter.opening
       val genTags = List(
@@ -77,13 +73,16 @@ final class PgnDump(
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
-        Tag(_.Result, "*") // required for SCID to import
-      ) ::: List(annotatorTag(study)) ::: (!chapter.root.fen.initial).??(
+        Tag(_.Result, "*"), // required for SCID to import
+        annotatorTag(study)
+      ) ::: (!chapter.root.fen.isInitial).??(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
         )
-      )
+      ) :::
+        flags.source.??(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
+        flags.orientation.??(List(Tag("Orientation", chapter.setup.orientation.name)))
       genTags
         .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
           if (tags.exists(t => tag.name == t.name)) tags
@@ -91,21 +90,26 @@ final class PgnDump(
         }
         .reverse
     }
-}
 
-object PgnDump {
+object PgnDump:
 
-  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean)
+  case class WithFlags(
+      comments: Boolean,
+      variations: Boolean,
+      clocks: Boolean,
+      source: Boolean,
+      orientation: Boolean
+  )
 
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
 
-  private def node2move(node: Node, variations: Variations)(implicit flags: WithFlags) =
+  private def node2move(node: Node, variations: Variations)(using flags: WithFlags) =
     chessPgn.Move(
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
-        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
+        node.comments.value.map(_.text.value) ::: shapeComment(node.shapes).toList
       },
       opening = none,
       result = none,
@@ -118,52 +122,49 @@ object PgnDump {
     )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
-  private def shapeComment(shapes: Shapes): Option[String] = {
+  private def shapeComment(shapes: Shapes): Option[String] =
     def render(as: String)(shapes: List[String]) =
-      shapes match {
+      shapes match
         case Nil    => ""
         case shapes => s"[%$as ${shapes.mkString(",")}]"
-      }
     val circles = render("csl") {
       shapes.value.collect { case Shape.Circle(brush, orig) =>
-        s"${brush.head.toUpper}$orig"
+        s"${brush.head.toUpper}${orig.key}"
       }
     }
     val arrows = render("cal") {
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
-        s"${brush.head.toUpper}$orig$dest"
+        s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
     }
     s"$circles$arrows".some.filter(_.nonEmpty)
-  }
 
-  def toTurn(first: Node, second: Option[Node], variations: Variations)(implicit flags: WithFlags) =
+  def toTurn(first: Node, second: Option[Node], variations: Variations)(using flags: WithFlags) =
     chessPgn.Turn(
-      number = first.fullMoveNumber,
+      number = first.fullMoveNumber.value,
       white = node2move(first, variations).some,
       black = second map { node2move(_, first.children.variations) }
     )
 
-  def toTurns(root: Node.Root)(implicit flags: WithFlags): Vector[chessPgn.Turn] =
+  def toTurns(root: Node.Root)(using flags: WithFlags): Vector[chessPgn.Turn] =
     toTurns(root.mainline, root.children.variations)
 
   def toTurns(
       line: Vector[Node],
       variations: Variations
-  )(implicit flags: WithFlags): Vector[chessPgn.Turn] = {
-    line match {
+  )(using flags: WithFlags): Vector[chessPgn.Turn] = {
+    line match
       case Vector() => Vector()
-      case first +: rest if first.ply % 2 == 0 =>
+      case first +: rest if first.ply.isEven =>
         chessPgn.Turn(
-          number = 1 + (first.ply - 1) / 2,
+          number = 1 + (first.ply.value - 1) / 2,
           white = none,
           black = node2move(first, variations).some
         ) +: toTurnsFromWhite(rest, first.children.variations)
       case l => toTurnsFromWhite(l, variations)
-    }
   }.filterNot(_.isEmpty)
 
-  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(implicit
+  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(using
       flags: WithFlags
   ): Vector[chessPgn.Turn] =
     line
@@ -179,4 +180,3 @@ object PgnDump {
       }
       ._2
       .reverse
-}

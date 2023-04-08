@@ -1,3 +1,3 @@
-package lila
+package lila.common
 
-package object common extends PackageObject
+export lila.Lila.{ *, given }

@@ -22,7 +22,7 @@ $recon-height: 2.5rem;
   color: $c-bad-over;
   position: fixed;
   bottom: 0;
-  left: 0;
+  #{$start-direction}: 0;
   height: $recon-height;
   padding: 0 1rem;
   border-top-right-radius: 3px;

@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
 
-import { Redraw, Open, bind, header } from './util';
+import { Redraw, bind, header, Close } from './util';
 
 type Theme = string;
 
@@ -20,7 +20,7 @@ export interface ThemeCtrl {
   data: () => ThemeDimData;
   trans: Trans;
   set(t: Theme): void;
-  open: Open;
+  close: Close;
 }
 
 export function ctrl(
@@ -28,7 +28,7 @@ export function ctrl(
   trans: Trans,
   dimension: () => keyof ThemeData,
   redraw: Redraw,
-  open: Open
+  close: Close
 ): ThemeCtrl {
   function dimensionData() {
     return data[dimension()];
@@ -41,7 +41,7 @@ export function ctrl(
     set(t: Theme) {
       const d = dimensionData();
       d.current = t;
-      applyTheme(t, d.list);
+      applyTheme(t, d.list, dimension() === 'd3');
       xhr
         .text('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
           body: xhr.form({ theme: t }),
@@ -50,7 +50,7 @@ export function ctrl(
         .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));
       redraw();
     },
-    open,
+    close,
   };
 }
 
@@ -58,7 +58,7 @@ export function view(ctrl: ThemeCtrl): VNode {
   const d = ctrl.data();
 
   return h('div.sub.theme.' + ctrl.dimension(), [
-    header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
+    header(ctrl.trans.noarg('boardTheme'), () => ctrl.close()),
     h('div.list', d.list.map(themeView(d.current, ctrl.set))),
   ]);
 }
@@ -76,6 +76,8 @@ function themeView(current: Theme, set: (t: Theme) => void) {
     );
 }
 
-function applyTheme(t: Theme, list: Theme[]) {
+function applyTheme(t: Theme, list: Theme[], is3d: boolean) {
   $('body').removeClass(list.join(' ')).addClass(t);
+  if (!is3d) document.body.dataset.boardTheme = t;
+  lichess.pubsub.emit('theme.change');
 }

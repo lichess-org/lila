@@ -39,7 +39,10 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   </plurals>
   <string name="thisIsPrivate">Ten turniej jest prywatny</string>
   <string name="shareUrl">Udostępnij ten URL innym aby dołączyli do: %s</string>
-  <string name="drawStreak">Seria remisów: gdy gracz ciągle remisuje na arenie, tylko pierwszy remis da punkt lub remisy trwające więcej niż %s ruchów. Seria remisów może zostać przerwana tylko przez zwycięstwo, a nie przez przegraną czy remis.</string>
+  <string name="drawStreakStandard">Seria remisów: punkty przyznawane są tylko za pierwszy remis w serii, oraz remisy, w których liczba posunięć była większa niż %s w partiach standardowych. Seria remisów może zostać przerwana tylko przez zwycięstwo, a nie przez porażkę.</string>
+  <string name="drawStreakVariants">Punkty za zremisowaną partię przyznawane są jeśli wykonano w niej minimalną liczbę posunięć, różną w zależności od wariantu. Poniższa tabela zawiera próg dla każdego wariantu.</string>
+  <string name="variant">Wariant</string>
+  <string name="minimumGameLength">Minimalna liczba posunięć</string>
   <string name="history">Historyczne areny</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Zobacz zespół</item>
@@ -55,4 +58,8 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="allowChatHelp">Pozwól graczom dyskutować na czacie</string>
   <string name="arenaStreaks">Serie aren</string>
   <string name="arenaStreaksHelp">Po dwóch zwycięstwach, kolejne zwycięstwa dają 4 punkty zamiast 2.</string>
+  <string name="noBerserkAllowed">Berserk niedozwolony</string>
+  <string name="noArenaStreaks">Bez premii za serię zwycięstw</string>
+  <string name="averagePerformance">Średni wynik</string>
+  <string name="averageScore">Średnia ocena</string>
 </resources>

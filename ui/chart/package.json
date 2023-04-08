@@ -5,21 +5,22 @@
   "description": "lichess.org chart",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0",
-    "@types/web": "^0",
-    "@types/highcharts": "=4.2.57",
-    "rollup": "^2",
-    "typescript": "^4.5"
-  },
   "dependencies": {
-    "chessops": "^0.10.5"
+    "@types/cash": "workspace:*",
+    "@types/highcharts": "=4.2.57",
+    "@types/lichess": "workspace:*",
+    "common": "workspace:*"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod",
-    "plugin-dev": "rollup --config --config-plugin",
-    "plugin-prod": "rollup --config --config-prod --config-plugin"
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "bundles": {
+      "src/ratingDistribution.ts": "chart.ratingDistribution",
+      "src/ratingHistory.ts": "chart.ratingHistory",
+      "src/game.ts": "chart.game"
+    }
   }
 }

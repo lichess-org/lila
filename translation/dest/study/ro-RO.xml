@@ -65,6 +65,8 @@
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="downloadAllGames">Descarcă toate partidele</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
+  <string name="copyChapterPgn">Copiază PGN</string>
+  <string name="copyChapterPgnDescription">Copiază în clipboard PGN pentru capitol.</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
@@ -79,11 +81,13 @@
   <string name="studyNotFound">Studiul nu a fost găsit</string>
   <string name="editChapter">Editează capitolul</string>
   <string name="newChapter">Capitol nou</string>
+  <string name="importFromChapterX">Importă din %s</string>
   <string name="orientation">Orientare</string>
   <string name="analysisMode">Tip de analiză</string>
   <string name="pinnedChapterComment">Comentariu fixat</string>
   <string name="saveChapter">Salvează capitolul</string>
   <string name="clearAnnotations">Curățați adnotările</string>
+  <string name="clearVariations">Curățați variațiile</string>
   <string name="deleteChapter">Ștergeți capitolul</string>
   <string name="deleteThisChapter">Ștergeți acest capitol? Nu există cale de întoarcere!</string>
   <string name="clearAllCommentsInThisChapter">Ștergeți toate comentariile, simbolurile și figurile desenate din acest capitol?</string>

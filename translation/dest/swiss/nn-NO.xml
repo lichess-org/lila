@@ -9,6 +9,10 @@
     <item quantity="one">%s runde</item>
     <item quantity="other">%s rundar</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s runde sveitsisk</item>
+    <item quantity="other">%s rundar sveitsisk</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Ein runde pr. dag</item>
     <item quantity="other">Ein runde kvar %s dag</item>
@@ -68,7 +72,7 @@ Spelarar som kjem til turneringa etter at den er starta vert godskrivne med berr
 Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet turneringa før den er ferdigspela. Det er ikkje å forvente at alle online-spelarar vil spele alle sine parti, og difor vil dei fleste Round Robin-turneringar verte feilaktige og urettvise. Det næraste ein kjem Round Robin-spel online er i sveitsarturneringar med svært mange rundar. I slike høve vil alle moglege parsamansetjingar verte spela før turneringa endar.</string>
   <string name="otherSystemsQ">Kva med andre turneringssystem?</string>
   <string name="otherSystemsA">Nett no går vi ikkje med planar om fleire turneringssystem enn dei som allereie finst på Lichess.</string>
-  <string name="swissDescription">I ein sveitsarturnering %1$s, er det ikkje sikkert at kvar deltakar spelar mot alle andre som deltek. Deltakarane møter ein motspelar i kvar runde og samansetjinga vert bestemt ved hjelp av eit regelsett som er laga slik at deltakarar med nærast mogleg poengtal, men slik at ingen møtest meir enn ein gon per turnering. Vinnar er den med det høgaste poengalet i alle rundene. Alle deltakarar spelar i alle rundane så lenge det er eit partal spelarar i runden</string>
+  <string name="swissDescription">I ein sveitsarturnering %1$s, er det ikkje sikkert at kvar deltakar spelar mot alle andre som deltek. Deltakarane møter ein motspelar i kvar runde og samansetjinga vert bestemt ved hjelp av eit regelsett som er slik at ein set saman deltakarar med nærast mogleg poengtal, men slik at ein berre møter same spelar ein gong i kvar turnering. Vinnar er den med det høgaste poengalet i alle rundene. Alle deltakarar deltek i alle rundane så sant det er eit partal spelarar i runden.</string>
   <string name="teamOnly">Sveitsarturneringar kan berre arrangeras av lagleiarar og kan berre spelas av lagmedlemer.           
 %1$s for å starte å spele i sveitsarturneriangar.</string>
   <string name="joinOrCreateTeam">Bli med eller opprett eit lag</string>
@@ -82,7 +86,7 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="numberOfGamesAsManyAsPossible">Så mange som kan spelas i den tildelte varigheita</string>
   <string name="numberOfGamesPreDefined">Bestemd på førehand, likt for alle spelarar</string>
   <string name="pairingSystem">System for parsamansetjing</string>
-  <string name="pairingSystemArena">Ein tilgjengeleg motspelar med tilvarande rating</string>
+  <string name="pairingSystemArena">Einkvar tilgjengeleg motspelar med tilvarande rating</string>
   <string name="pairingSystemSwiss">Beste samanstilling basert på poeng og uavgjortresultat (\"tie breaks\")</string>
   <string name="pairingWaitTime">Ventar på å finne motspelar</string>
   <string name="pairingWaitTimeArena">Snøgg: ventar ikkje på alle spelarane</string>
@@ -95,6 +99,12 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Ja, men talet på rundar kan verte redusert</string>
   <string name="streaksAndBerserk">Vinstrekkjer og Berserk</string>
-  <string name="similarToOTB">Svarande til turneringar over bordet (\"OTB\")</string>
+  <string name="similarToOTB">Tilsvarar brettsjakkturneringar (\"OTB\")</string>
   <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
+  <string name="predefinedUsers">Tillat berre førehandsbestemde brukarar å delta</string>
+  <string name="forbiddedUsers">Så sant denne lista ikkje er tom vil brukarar som ikkje er oppførde bli nekta å vera med. Eit brukarnamn per linje.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s runde sveitsisk</item>
+    <item quantity="other">%1$s / %2$s rundar sveitsisk</item>
+  </plurals>
 </resources>

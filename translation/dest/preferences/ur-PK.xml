@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">ترجیحات</string>
-  <string name="gameDisplay">بساط کی وضع قطع</string>
   <string name="pieceAnimation">مہروں کی حرکت</string>
   <string name="materialDifference">مہروں کا فرق</string>
   <string name="boardHighlights">آخری چال اور شہ بساط پر نمایاں کریں</string>

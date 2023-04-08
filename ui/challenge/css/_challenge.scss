@@ -1,7 +1,7 @@
 #challenge-app {
   @extend %box-radius-left, %dropdown-shadow;
   overflow: hidden;
-  right: 0;
+  #{$end-direction}: 0;
   width: 270px;
   text-align: center;
 
@@ -87,7 +87,7 @@
 
     button.decline {
       color: $c-bad;
-      border-right: none;
+      border-#{$end-direction}: none;
     }
 
     button:hover {
@@ -101,7 +101,8 @@
 
     .content {
       @extend %flex-between-nowrap;
-      padding: 0.5em 0.8em 0em 1em;
+      @include padding-direction(0.5em, 0.8em, 0, 1em);
+
       &__text {
         @extend %nowrap-ellipsis;
 
@@ -121,7 +122,7 @@
     }
 
     .head .user-link {
-      margin-left: -5px;
+      margin-#{$start-direction}: -5px;
     }
 
     .color-icon::before {

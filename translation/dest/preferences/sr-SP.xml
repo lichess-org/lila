@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Преференсе</string>
-  <string name="gameDisplay">Приказ игре</string>
   <string name="pieceAnimation">Aнимација фигура</string>
   <string name="materialDifference">Разлика у материјалу</string>
   <string name="boardHighlights">Осветли последњи потез и шах</string>

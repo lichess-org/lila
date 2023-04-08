@@ -12,6 +12,7 @@
   <string name="teachersX">المعلمون: %s</string>
   <string name="newClass">فصل جديد</string>
   <string name="closeClass">إغلاق الصف الدراسي</string>
+  <string name="removedByX">تمت إزالته من قبل %s</string>
   <string name="reopen">إعاده فتح</string>
   <string name="removeStudent">احذف طالب</string>
   <string name="removedStudents">مزال</string>
@@ -100,6 +101,9 @@
   <string name="variantXOverLastY">%1$s خلال آخر %2$s</string>
   <string name="winrate">نسبة الفوز</string>
   <string name="na">غير متوفر</string>
+  <string name="overview">نظرة عامة</string>
+  <string name="news">الأخبار</string>
+  <string name="classNews">أخبار الفصل</string>
   <string name="editNews">تعديل الأخبار</string>
   <string name="notifyAllStudents">إعلام جميع التلاميذ</string>
   <string name="nothingHere">لا يوجد شيء هنا, حتى الآن.</string>
@@ -107,4 +111,19 @@
   <string name="newsEdit2">إضافة الأخبار الأخيرة في الأعلى. لا تقم بحذف الأخبار السابقة.</string>
   <string name="newsEdit3">إفصل الأخبار ب ---
 سيعرض سطرا أفقيا.</string>
+  <string name="invite">دعوة</string>
+  <string name="youHaveBeenInvitedByX">لقد تمت دعوتك من قبل %s.</string>
+  <string name="youAcceptedThisInvitation">لقد قمت بقبول هذه الدعوة.</string>
+  <string name="youDeclinedThisInvitation">لقد رفضت هذه الدعوة.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">أو</string>
+  <string name="createMultipleAccounts">إنشاء حسابات Lichess متعددة في وقت واحد</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">يمكنك أيضا %s إنشاء حسابات Lichess متعددة من قائمة أسماء التلاميذ.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">استخدام هذا النموذج</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">لاحظ أن الفصل يمكن أن يحتوي على عدد يصل إلى %1$s طالب. لإدارة المزيد من الطلاب، %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">إنشاء المزيد من الصفوف</string>
+  <string name="studentsRealNamesOnePerLine">الأسماء الحقيقية للطلاب، واحد لكل سطر</string>
+  <string name="xisNowAStudentOfTheClass">%s هو طالب في الصف الدراسي</string>
+  <string name="anInvitationHasBeenSentToX">تم إرسال الدعوة الى %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s لديه دعوة معلقة بالفعل</string>
+  <string name="xIsAKidAccountWarning">%1$s حساب طفل ولا يمكنه استلام رسالتك. يجب أن تعطيهم عنوان URL للدعوة يدوياً: %2$s</string>
 </resources>

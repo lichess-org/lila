@@ -10,7 +10,7 @@ const getId = (el: EleLoose) => el.getAttribute('href')?.substring(1, 9);
 let isRequestPending = false;
 const finishedIdQueue: string[] = [];
 
-function requestReplacementGame() {
+const requestReplacementGame = () => {
   // Make sure to only make one request at a time.
   // This avoids getting copies of the same game to replace two different finished games.
   if (isRequestPending) return;
@@ -32,19 +32,18 @@ function requestReplacementGame() {
       })
       .then(done, done);
   });
-}
+};
 
-function done() {
+const done = () => {
   isRequestPending = false;
   requestReplacementGame();
-}
+};
 
-function onFinish(id: string) {
+const onFinish = (id: string) =>
   setTimeout(() => {
     finishedIdQueue.push(id);
     requestReplacementGame();
   }, 7000); // 7000 matches the rematch wait duration in /modules/tv/main/Tv.scala
-}
 
 lichess.load.then(() => {
   lichess.pubsub.on('socket.in.finish', ({ id }) => onFinish(id));

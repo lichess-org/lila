@@ -1,12 +1,10 @@
 package lila.chat
 
-import akka.actor.ActorSystem
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration.FiniteDuration
 
-import lila.common.config._
+import lila.common.config.*
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,
@@ -17,6 +15,7 @@ private case class ChatConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     netDomain: NetDomain,
@@ -26,13 +25,13 @@ final class Env(
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
+)(using
+    ec: Executor,
+    scheduler: Scheduler
+):
 
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
-  import config._
+  import config.*
 
   lazy val timeout = new ChatTimeout(
     coll = db(timeoutColl),
@@ -45,7 +44,6 @@ final class Env(
 
   lazy val panic = wire[ChatPanic]
 
-  system.scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery) { () =>
+  scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery) { () =>
     timeout.checkExpired foreach api.userChat.reinstate
   }
-}

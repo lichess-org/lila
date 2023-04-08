@@ -23,7 +23,7 @@ export default function (ctrl: DasherCtrl): VNode {
           h(
             'a.text',
             linkCfg(
-              '/account/preferences/game-display',
+              '/account/preferences/display',
               '',
               ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined
             ),
@@ -68,7 +68,7 @@ export default function (ctrl: DasherCtrl): VNode {
 
   const piece = h('button.sub', modeCfg(ctrl, 'piece'), noarg('pieceSet'));
 
-  const zenToggle = ctrl.opts.playing
+  const zenToggle = ctrl.opts.zenable
     ? h('div.zen.selector', [
         h(
           'button.text',

@@ -1,10 +1,10 @@
 package lila.memo
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
-import play.api.Configuration
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
+import play.api.{ ConfigLoader, Configuration }
 
-import lila.common.config._
+import lila.common.config.*
 
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,
@@ -14,21 +14,22 @@ final class MemoConfig(
 
 final class PicfitConfig(
     val collection: CollName,
-    val endpointGet: String,
-    val endpointPost: String,
+    val endpointGet: EndpointUrl,
+    val endpointPost: EndpointUrl,
     val secretKey: Secret
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     mode: play.api.Mode,
     db: lila.db.Db,
     ws: play.api.libs.ws.StandaloneWSClient
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(using Executor, Scheduler):
 
-  implicit val picfitLoader = AutoConfig.loader[PicfitConfig]
-  private val config        = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
+  given ConfigLoader[PicfitConfig] = AutoConfig.loader
+  private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
 
   lazy val configStore = wire[ConfigStore.Builder]
 
@@ -40,7 +41,6 @@ final class Env(
 
   lazy val mongoRateLimitApi = wire[MongoRateLimitApi]
 
-  lazy val picfitUrl = new lila.memo.PicfitUrl(config.picfit)
+  lazy val picfitUrl = lila.memo.PicfitUrl(config.picfit)
 
-  lazy val picfitApi = new PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
-}
+  lazy val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)

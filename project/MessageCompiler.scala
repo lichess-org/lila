@@ -50,7 +50,7 @@ object MessageCompiler {
                   case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
                   case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
                 }
-                s"""m.put(${toKey(e, db)},$translation)"""
+                s"""    m.put(${toKey(e, db)},$translation)"""
               case e if e.label == "plurals" =>
                 val items: Map[String, String] = e.child
                   .filter(_.label == "item")
@@ -58,7 +58,7 @@ object MessageCompiler {
                     ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
                   }
                   .toMap
-                s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
+                s"""    m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
             }
           } catch {
             case _: Exception => Nil
@@ -67,16 +67,15 @@ object MessageCompiler {
 
         s"""package lila.i18n
 
-${if (puts.exists(_ contains "new Plurals(")) "import I18nQuantity._" else ""}
+${if (puts.exists(_ contains "new Plurals(")) "import I18nQuantity.*" else ""}
 
 // format: OFF
 private object `$locale` {
 
-  def load: java.util.HashMap[MessageKey, Translation] = {
+  def load: java.util.HashMap[MessageKey, Translation] =
     val m = new java.util.HashMap[MessageKey, Translation](${puts.size + 1})
 ${puts mkString "\n"}
     m
-  }
 }
 """
       }

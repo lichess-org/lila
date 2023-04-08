@@ -60,14 +60,16 @@
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
   <string name="first">Первая</string>
-  <string name="previous">Предыдущая</string>
-  <string name="next">Следующая</string>
+  <string name="previous">Назад</string>
+  <string name="next">Дальше</string>
   <string name="last">Последняя</string>
   <string name="shareAndExport">Поделиться и экспортировать</string>
   <string name="cloneStudy">Клонировать</string>
   <string name="studyPgn">PGN студии</string>
   <string name="downloadAllGames">Скачать все партии</string>
   <string name="chapterPgn">PGN главы</string>
+  <string name="copyChapterPgn">Копировать PGN</string>
+  <string name="copyChapterPgnDescription">Скопировать PGN главы в буфер обмена.</string>
   <string name="downloadGame">Скачать партию</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
@@ -82,6 +84,7 @@
   <string name="studyNotFound">Студия не найдена</string>
   <string name="editChapter">Редактировать главу</string>
   <string name="newChapter">Новая глава</string>
+  <string name="importFromChapterX">Импорт из %s</string>
   <string name="orientation">Ориентация</string>
   <string name="analysisMode">Режим анализа</string>
   <string name="pinnedChapterComment">Закреплённый комментарий главы</string>

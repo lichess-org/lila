@@ -1,39 +1,37 @@
 package lila.study
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import chess.format.pgn.Tags
+import chess.format.UciPath
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.AsyncColl
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-final class ChapterRepo(val coll: AsyncColl)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
-) {
+final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materializer):
 
-  import BSONHandlers._
+  import BSONHandlers.{ writeNode, given }
 
-  def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll(_.byId[Chapter, Chapter.Id](id))
+  def byId(id: StudyChapterId): Fu[Option[Chapter]] = coll(_.byId[Chapter](id))
 
-  def studyIdOf(chapterId: Chapter.Id): Fu[Option[Study.Id]] =
-    coll(_.primitiveOne[Study.Id]($id(chapterId), "studyId"))
+  def studyIdOf(chapterId: StudyChapterId): Fu[Option[StudyId]] =
+    coll(_.primitiveOne[StudyId]($id(chapterId), "studyId"))
 
   def deleteByStudy(s: Study): Funit = coll(_.delete.one($studyId(s.id))).void
 
-  def deleteByStudyIds(ids: List[Study.Id]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
+  def deleteByStudyIds(ids: List[StudyId]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
 
-  def byIdAndStudy(id: Chapter.Id, studyId: Study.Id): Fu[Option[Chapter]] =
-    coll(_.byId[Chapter, Chapter.Id](id)).dmap { _.filter(_.studyId == studyId) }
+  def byIdAndStudy(id: StudyChapterId, studyId: StudyId): Fu[Option[Chapter]] =
+    coll(_.byId[Chapter](id)).dmap { _.filter(_.studyId == studyId) }
 
-  def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
+  def firstByStudy(studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.find($studyId(studyId)).sort($sort asc "order").one[Chapter])
 
-  private[study] def lastByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
+  private[study] def lastByStudy(studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.find($studyId(studyId)).sort($sort desc "order").one[Chapter])
 
-  def existsByStudy(studyId: Study.Id): Fu[Boolean] =
+  def existsByStudy(studyId: StudyId): Fu[Boolean] =
     coll(_ exists $studyId(studyId))
 
   private val metadataProjection =
@@ -44,15 +42,15 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       "tags"       -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
     ).some
 
-  def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =
+  def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =
     coll {
       _.find($studyId(studyId), metadataProjection)
         .sort($sort asc "order")
         .cursor[Chapter.Metadata]()
-        .list()
+        .list(300)
     }
 
-  def orderedByStudySource(studyId: Study.Id): Source[Chapter, _] =
+  def orderedByStudySource(studyId: StudyId): Source[Chapter, ?] =
     Source futureSource {
       coll map {
         _.find($studyId(studyId))
@@ -62,7 +60,7 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       }
     }
 
-  def byIdsSource(ids: Iterable[Chapter.Id]): Source[Chapter, _] =
+  def byIdsSource(ids: Iterable[StudyChapterId]): Source[Chapter, ?] =
     Source futureSource {
       coll map {
         _.find($inIds(ids))
@@ -72,95 +70,94 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
     }
 
   // loads all study chapters in memory!
-  def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
+  def orderedByStudy(studyId: StudyId): Fu[List[Chapter]] =
     coll {
       _.find($studyId(studyId))
         .sort($sort asc "order")
         .cursor[Chapter]()
-        .list()
+        .list(300)
     }
 
-  def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
+  def relaysAndTagsByStudyId(studyId: StudyId): Fu[List[Chapter.RelayAndTags]] =
     coll {
       _.find(
         $studyId(studyId),
         $doc("relay" -> true, "tags" -> true).some
       )
         .cursor[Bdoc]()
-        .list() map { docs =>
+        .list(300) map { docs =>
         for {
           doc   <- docs
-          id    <- doc.getAsOpt[Chapter.Id]("_id")
+          id    <- doc.getAsOpt[StudyChapterId]("_id")
           relay <- doc.getAsOpt[Chapter.Relay]("relay")
           tags  <- doc.getAsOpt[Tags]("tags")
         } yield Chapter.RelayAndTags(id, relay, tags)
       }
     }
 
-  def sort(study: Study, ids: List[Chapter.Id]): Funit =
+  def sort(study: Study, ids: List[StudyChapterId]): Funit =
     coll { c =>
       ids.zipWithIndex
         .map { case (id, index) =>
           c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
         }
-        .sequenceFu
+        .parallel
         .void
     }
 
-  def nextOrderByStudy(studyId: Study.Id): Fu[Int] =
+  def nextOrderByStudy(studyId: StudyId): Fu[Int] =
     coll(_.primitiveOne[Int]($studyId(studyId), $sort desc "order", "order")) dmap { ~_ + 1 }
 
-  def setConceal(chapterId: Chapter.Id, conceal: Chapter.Ply) =
+  def setConceal(chapterId: StudyChapterId, conceal: chess.Ply) =
     coll(_.updateField($id(chapterId), "conceal", conceal)).void
 
-  def removeConceal(chapterId: Chapter.Id) =
+  def removeConceal(chapterId: StudyChapterId) =
     coll(_.unsetField($id(chapterId), "conceal")).void
 
-  def setRelay(chapterId: Chapter.Id, relay: Chapter.Relay) =
+  def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
     coll(_.updateField($id(chapterId), "relay", relay)).void
 
-  def setRelayPath(chapterId: Chapter.Id, path: Path) =
+  def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
     coll(_.updateField($id(chapterId), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void
 
   def setShapes(shapes: lila.tree.Node.Shapes) =
-    setNodeValue(Node.BsonFields.shapes, shapes.value.nonEmpty option shapes) _
+    setNodeValue(Node.BsonFields.shapes, shapes.value.nonEmpty option shapes)
 
   def setComments(comments: lila.tree.Node.Comments) =
-    setNodeValue(Node.BsonFields.comments, comments.value.nonEmpty option comments) _
+    setNodeValue(Node.BsonFields.comments, comments.value.nonEmpty option comments)
 
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
-    setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook) _
+    setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook)
 
-  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty) _
+  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty)
 
-  def setClock(clock: Option[chess.Centis]) = setNodeValue(Node.BsonFields.clock, clock) _
+  def setClock(clock: Option[chess.Centis]) = setNodeValue(Node.BsonFields.clock, clock)
 
-  def forceVariation(force: Boolean) = setNodeValue(Node.BsonFields.forceVariation, force option true) _
+  def forceVariation(force: Boolean) = setNodeValue(Node.BsonFields.forceVariation, force option true)
 
   // insert node and its children
   // and sets the parent order field
-  def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: Path)(chapter: Chapter): Funit = {
+  def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: UciPath)(chapter: Chapter): Funit =
     val set = $doc(subTreeToBsonElements(parentPath, subTree)) ++ {
       (newParent.children.nodes.sizeIs > 1) ?? $doc(
         pathToField(parentPath, Node.BsonFields.order) -> newParent.children.nodes.map(_.id)
       )
     }
     coll(_.update.one($id(chapter.id), $set(set))).void
-  }
 
-  private def subTreeToBsonElements(parentPath: Path, subTree: Node): Vector[(String, Bdoc)] =
+  private def subTreeToBsonElements(parentPath: UciPath, subTree: Node): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ?? {
-      val path = parentPath + subTree
+      val path = parentPath + subTree.id
       subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)) appended {
         path.toDbField -> writeNode(subTree)
       }
     }
 
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
-  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit = {
+  def setChildren(children: Node.Children)(chapter: Chapter, path: UciPath): Funit =
 
     val set: Bdoc = {
       (children.nodes.sizeIs > 1) ?? $doc(
@@ -169,19 +166,21 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
     } ++ $doc(childrenTreeToBsonElements(path, children))
 
     coll(_.update.one($id(chapter.id), $set(set))).void
-  }
 
-  private def childrenTreeToBsonElements(parentPath: Path, children: Node.Children): Vector[(String, Bdoc)] =
+  private def childrenTreeToBsonElements(
+      parentPath: UciPath,
+      children: Node.Children
+  ): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ??
       children.nodes.flatMap { node =>
-        val path = parentPath + node
+        val path = parentPath + node.id
         childrenTreeToBsonElements(path, node.children) appended (path.toDbField -> writeNode(node))
       }
 
   private def setNodeValue[A: BSONWriter](
       field: String,
       value: Option[A]
-  )(chapter: Chapter, path: Path): Funit =
+  )(chapter: Chapter, path: UciPath): Funit =
     coll {
       _.updateOrUnsetField(
         $id(chapter.id) ++ $doc(path.toDbField $exists true),
@@ -192,12 +191,12 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
 
   private[study] def setNodeValues(
       chapter: Chapter,
-      path: Path,
+      path: UciPath,
       values: List[(String, Option[BSONValue])]
   ): Funit =
     values.collect { case (field, Some(v)) =>
       pathToField(path, field) -> v
-    } match {
+    } match
       case Nil => funit
       case sets =>
         coll {
@@ -208,16 +207,15 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
             )
             .void
         }
-    }
 
   // root.path.subField
-  private def pathToField(path: Path, subField: String): String = s"${path.toDbField}.$subField"
+  private def pathToField(path: UciPath, subField: String): String = s"${path.toDbField}.$subField"
 
   private[study] def idNamesByStudyIds(
-      studyIds: Seq[Study.Id],
+      studyIds: Seq[StudyId],
       nbChaptersPerStudy: Int
-  ): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
-    studyIds.nonEmpty ?? coll(
+  ): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
+    studyIds.nonEmpty ?? coll {
       _.find(
         $doc("studyId" $in studyIds),
         $doc("studyId" -> true, "_id" -> true, "name" -> true).some
@@ -225,21 +223,20 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
         .sort($sort asc "order")
         .cursor[Bdoc]()
         .list(nbChaptersPerStudy * studyIds.size)
-    )
+    }
       .map { docs =>
-        docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) { case (hash, doc) =>
-          doc.getAsOpt[Study.Id]("studyId").fold(hash) { studyId =>
-            hash get studyId match {
+        docs.foldLeft(Map.empty[StudyId, Vector[Chapter.IdName]]) { case (hash, doc) =>
+          doc.getAsOpt[StudyId]("studyId").fold(hash) { studyId =>
+            hash get studyId match
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
               case maybe =>
                 val chapters = ~maybe
                 hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
-            }
           }
         }
       }
 
-  def idNames(studyId: Study.Id): Fu[List[Chapter.IdName]] =
+  def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
     coll {
       _.find(
         $studyId(studyId),
@@ -253,9 +250,12 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
 
   private def readIdName(doc: Bdoc) =
     for {
-      id   <- doc.getAsOpt[Chapter.Id]("_id")
-      name <- doc.getAsOpt[Chapter.Name]("name")
+      id   <- doc.getAsOpt[StudyChapterId]("_id")
+      name <- doc.getAsOpt[StudyChapterName]("name")
     } yield Chapter.IdName(id, name)
+
+  def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
+    studyIds.nonEmpty ?? coll { _.primitive[Tags]("studyId" $in studyIds, "tags") }
 
   def startServerEval(chapter: Chapter) =
     coll {
@@ -272,15 +272,14 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
   def completeServerEval(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "serverEval.done", true)).void
 
-  def countByStudyId(studyId: Study.Id): Fu[Int] =
+  def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))
 
   def insert(s: Chapter): Funit = coll(_.insert one s).void
 
   def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c)).void
 
-  def delete(id: Chapter.Id): Funit = coll(_.delete.one($id(id))).void
-  def delete(c: Chapter): Funit     = delete(c.id)
+  def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
+  def delete(c: Chapter): Funit         = delete(c.id)
 
-  private def $studyId(id: Study.Id) = $doc("studyId" -> id)
-}
+  private def $studyId(id: StudyId) = $doc("studyId" -> id)

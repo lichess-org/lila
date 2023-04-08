@@ -2,24 +2,24 @@ package views.html
 package account
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object close {
+object close:
 
-  import trans.settings._
+  import trans.settings.*
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_], managed: Boolean)(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(using Context) =
     account.layout(
       title = s"${u.username} - ${closeAccount.txt()}",
       active = "close"
     ) {
       div(cls := "account box box-pad")(
-        h1(dataIcon := "", cls := "text")(closeAccount()),
+        boxTop(h1(cls := "text", dataIcon := "")(closeAccount())),
         if (managed)
-          p("Your account is managed, and cannot be closed.")
+          p(managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
             div(cls := "form-group")(closeAccountExplanation()),
@@ -38,4 +38,3 @@ object close {
           )
       )
     }
-}

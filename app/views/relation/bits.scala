@@ -4,45 +4,47 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.game.FavoriteOpponents
 import lila.relation.Related
 import lila.user.User
 
-object bits {
+object bits:
 
   def friends(u: User, pag: Paginator[Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.friends.txt()}")(
-      h1(
-        a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
-        trans.friends()
+      boxTop(
+        h1(
+          a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
+          trans.friends()
+        )
       ),
       pagTable(pag, routes.Relation.following(u.username))
     )
 
   def blocks(u: User, pag: Paginator[Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.blocks.pluralSameTxt(pag.nbResults)}")(
-      div(cls := "box__top")(
+      boxTop(
         h1(userLink(u, withOnline = false)),
-        div(cls := "actions")(
-          trans.blocks.pluralSame(pag.nbResults)
-        )
+        div(cls := "actions")(trans.blocks.pluralSame(pag.nbResults))
       ),
       pagTable(pag, routes.Relation.blocks())
     )
 
   def opponents(u: User, sugs: List[lila.relation.Related])(implicit ctx: Context) =
     layout(s"${u.username} • ${trans.favoriteOpponents.txt()}")(
-      h1(
-        a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
-        trans.favoriteOpponents(),
-        " (",
-        trans.nbGames.pluralSame(FavoriteOpponents.gameLimit),
-        ")"
+      boxTop(
+        h1(
+          a(href := routes.User.show(u.username), dataIcon := "", cls := "text"),
+          trans.favoriteOpponents(),
+          " (",
+          trans.nbGames.pluralSame(FavoriteOpponents.gameLimit),
+          ")"
+        )
       ),
-      table(cls := "slist")(
+      table(cls := "slist slist-pad")(
         tbody(
           if (sugs.nonEmpty) sugs.map { r =>
             tr(
@@ -76,7 +78,7 @@ object bits {
     }
 
   private def pagTable(pager: Paginator[Related], call: Call)(implicit ctx: Context) =
-    table(cls := "slist")(
+    table(cls := "slist slist-pad")(
       if (pager.nbResults > 0)
         tbody(cls := "infinite-scroll")(
           pager.currentPageResults.map { r =>
@@ -87,8 +89,7 @@ object bits {
               td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             )
           },
-          pagerNextTable(pager, np => addQueryParameter(call.url, "page", np))
+          pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )
       else tbody(tr(td(colspan := 2)(trans.none())))
     )
-}

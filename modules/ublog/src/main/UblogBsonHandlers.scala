@@ -1,37 +1,26 @@
 package lila.ublog
 
-import org.joda.time.DateTime
 import play.api.i18n.Lang
-import reactivemongo.api.bson._
-import scala.util.{ Success, Try }
+import reactivemongo.api.bson.*
 
-import lila.common.Iso
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-private object UblogBsonHandlers {
+private object UblogBsonHandlers:
 
-  import lila.memo.PicfitImage.imageIdBSONHandler
-  import UblogPost.{ LightPost, Likes, PreviewPost, Rank, Recorded, Views }
+  import UblogPost.{ LightPost, PreviewPost, Recorded }
 
-  implicit val blogIdHandler = tryHandler[UblogBlog.Id](
+  given BSONHandler[UblogBlog.Id] = tryHandler(
     { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },
     id => BSONString(id.full)
   )
-  implicit val blogBSONHandler = Macros.handler[UblogBlog]
+  given BSONDocumentHandler[UblogBlog] = Macros.handler
 
-  implicit val postIdBSONHandler = stringAnyValHandler[UblogPost.Id](_.value, UblogPost.Id)
-  implicit val topicBsonHandler  = stringAnyValHandler[UblogTopic](_.value, UblogTopic.apply)
-  implicit val topicsBsonHandler = implicitly[BSONReader[List[UblogTopic]]]
-    .afterRead(_.filter(t => UblogTopic.exists(t.value)))
-  implicit val langBsonHandler        = stringAnyValHandler[Lang](_.code, Lang.apply)
-  implicit val recordedBSONHandler    = Macros.handler[Recorded]
-  implicit val imageBSONHandler       = Macros.handler[UblogImage]
-  implicit val likesBSONHandler       = intAnyValHandler[Likes](_.value, Likes)
-  implicit val viewsBSONHandler       = intAnyValHandler[Views](_.value, Views)
-  implicit val rankBSONHandler        = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank, _.value))
-  implicit val postBSONHandler        = Macros.handler[UblogPost]
-  implicit val lightPostBSONHandler   = Macros.handler[LightPost]
-  implicit val previewPostBSONHandler = Macros.handler[PreviewPost]
+  given BSONHandler[Lang]                = stringAnyValHandler(_.code, Lang.apply)
+  given BSONDocumentHandler[Recorded]    = Macros.handler
+  given BSONDocumentHandler[UblogImage]  = Macros.handler
+  given BSONDocumentHandler[UblogPost]   = Macros.handler
+  given BSONDocumentHandler[LightPost]   = Macros.handler
+  given BSONDocumentHandler[PreviewPost] = Macros.handler
 
   val lightPostProjection = $doc("title" -> true)
   val previewPostProjection =
@@ -44,4 +33,3 @@ private object UblogBsonHandlers {
       "lived"   -> true,
       "topics"  -> true
     )
-}

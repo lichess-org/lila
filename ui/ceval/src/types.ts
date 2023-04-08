@@ -1,21 +1,19 @@
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
-import { StoredProp, StoredBooleanProp } from 'common/storage';
-
-export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue';
+import CevalCtrl from './ctrl';
+import { ExternalEngine } from './worker';
 
 export interface Eval {
   cp?: number;
   mate?: number;
 }
 
-export interface ProtocolOpts {
-  variant: VariantKey;
-  threads: false | (() => number | string);
-  hashSize: false | (() => number | string);
-}
-
 export interface Work {
+  variant: VariantKey;
+  threads: number;
+  hashSize: number | undefined;
+  stopRequested: boolean;
+
   path: string;
   maxDepth: number;
   multiPv: number;
@@ -25,13 +23,14 @@ export interface Work {
   currentFen: string;
   moves: string[];
   emit: (ev: Tree.LocalEval) => void;
-  stopRequested: boolean;
 }
 
 export interface EvalMeta {
   path: string;
   threatMode: boolean;
 }
+
+export type Redraw = () => void;
 
 export interface CevalOpts {
   storageKeyPrefix?: string;
@@ -41,7 +40,8 @@ export interface CevalOpts {
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
-  redraw: () => void;
+  redraw: Redraw;
+  externalEngines?: ExternalEngine[];
 }
 
 export interface Hovering {
@@ -58,40 +58,6 @@ export interface Started {
   path: string;
   steps: Step[];
   threatMode: boolean;
-}
-
-export interface CevalCtrl {
-  goDeeper(): void;
-  canGoDeeper(): boolean;
-  effectiveMaxDepth(): number;
-  technology: CevalTechnology;
-  downloadProgress: Prop<number>;
-  allowed: Prop<boolean>;
-  enabled: Prop<boolean>;
-  possible: boolean;
-  analysable: boolean;
-  isComputing(): boolean;
-  engineName(): string | undefined;
-  variant: Variant;
-  setHovering: (fen: string, uci?: string) => void;
-  setPvBoard: (pvBoard: PvBoard | null) => void;
-  multiPv: StoredProp<number>;
-  start: (path: string, steps: Step[], threatMode?: boolean) => void;
-  stop(): void;
-  threads: StoredProp<number> | undefined;
-  hashSize: StoredProp<number> | undefined;
-  maxThreads: number;
-  maxHashSize: number;
-  infinite: StoredBooleanProp;
-  supportsNnue: boolean;
-  enableNnue: StoredBooleanProp;
-  hovering: Prop<Hovering | null>;
-  pvBoard: Prop<PvBoard | null>;
-  toggle(): void;
-  curDepth(): number;
-  isDeeper(): boolean;
-  destroy(): void;
-  redraw(): void;
 }
 
 export interface ParentCtrl {

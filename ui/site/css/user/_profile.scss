@@ -12,7 +12,7 @@
     color: $c-bad;
 
     span {
-      margin-right: 0.2em;
+      margin-#{$end-direction}: 0.2em;
       font-size: 2.7em;
     }
   }
@@ -25,6 +25,7 @@
     flex: 1 1 58%;
     margin: -10px 0 -14px -8px;
     height: 350px;
+    direction: ltr;
 
     .spinner {
       width: 90px;
@@ -38,7 +39,7 @@
 
     flex: 1 0 300px;
     height: 332px;
-    border-left: $border;
+    border-#{$start-direction}: $border;
     overflow: hidden;
   }
 
@@ -53,15 +54,13 @@
     flex: 1 1 auto;
     padding: 0.8em;
     overflow: auto;
+
+    unicode-bidi: plaintext;
+    text-align: start;
   }
 
   .insight {
     @extend %flex-center-nowrap;
-
-    /* no point linking to insights on devices that can't properly display it */
-    @include breakpoint($mq-not-medium) {
-      display: none;
-    }
 
     flex: 0 0 auto;
     padding: 0.3em 1em;
@@ -80,7 +79,7 @@
 
     &::before {
       font-size: 2.5em;
-      margin-right: 1rem;
+      margin-#{$end-direction}: 1rem;
     }
 
     &:hover {
@@ -94,11 +93,18 @@
   .col2 {
     display: flex;
     flex-flow: row wrap;
+    + .col2 {
+      margin-top: 0.5em;
+    }
 
     > a {
       @extend %nowrap-ellipsis;
 
       flex: 0 0 50%;
+    }
+    > strong {
+      flex: 0 0 100%;
+      margin-bottom: 0.3em;
     }
   }
 

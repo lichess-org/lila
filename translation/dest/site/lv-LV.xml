@@ -60,6 +60,8 @@
   <string name="depthX">Dziļums %s</string>
   <string name="usingServerAnalysis">Izmanto servera analīzi</string>
   <string name="loadingEngine">Ielādē dzinēju...</string>
+  <string name="calculatingMoves">Aprēķina gājienus...</string>
+  <string name="engineFailed">Kļūda ielādējot dzinēju</string>
   <string name="cloudAnalysis">Mākoņanalīze</string>
   <string name="goDeeper">Dziļāka analīze</string>
   <string name="showThreat">Parādīt draudus</string>
@@ -94,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' ar noapaļošanu, balstīts uz pusgājienu skaita līdz nākamajam sitienam vai bandinieka gājienam</string>
   <string name="noGameFound">Neviena spēle nav atrasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
+  <string name="openings">Atklātnes</string>
   <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="openingEndgameExplorer">Atklātņu un beigu spēļu pārlūks</string>
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
@@ -163,6 +166,7 @@
   <string name="viewInFullSize">Skatīt pilnā izmērā</string>
   <string name="logOut">Izrakstīties</string>
   <string name="signIn">Pierakstīties</string>
+  <string name="rememberMe">Ierakstīties pastāvīgi</string>
   <string name="youNeedAnAccountToDoThat">Lai veiktu šo darbību, nepieciešams konts</string>
   <string name="signUp">Reģistrēties</string>
   <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmantojiet šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
@@ -206,12 +210,39 @@
   <string name="changeUsername">Mainīt lietotājvārdu</string>
   <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"jānisbērziņš\" var mainīt uz \"JānisBērziņš\".</string>
   <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai lielo burtu lietojumu lietotājvārdā.</string>
+  <string name="signupUsernameHint">Atcerieties izvēlēties pieklājīgu lietotājvārdu. To nav iespējams mainīt, un konti ar nepiedienīgiem lietotājvārdiem tiks slēgti!</string>
+  <string name="signupEmailHint">Mēs to izmantosim tikai paroles atiestatīšanai.</string>
   <string name="password">Parole</string>
   <string name="changePassword">Mainīt paroli</string>
   <string name="changeEmail">Mainīt e-pasta adresi</string>
   <string name="email">E-pasta adrese</string>
   <string name="passwordReset">Atiestatīt paroli</string>
   <string name="forgotPassword">Aizmirsāt paroli?</string>
+  <string name="error.weakPassword">Šī parole ir ļoti bieži izmantota, un viegli uzminama.</string>
+  <string name="error.namePassword">Lūdzu, neizmantojiet savu lietotājvārdu kā paroli.</string>
+  <string name="blankedPassword">Šī parole tikusi izmantota citā vietnē, kas tika kompromitēta. Lai nodrošinātu sava konta drošību, jums jāiestata jauna parole. Paldies par sapratni!</string>
+  <string name="youAreLeavingLichess">Jūs pārejat uz vietni ārpus Lichess</string>
+  <string name="neverTypeYourPassword">Nekad neievadiet savu Lichess paroli citā vietnē!</string>
+  <string name="proceedToX">Virzīties uz %s</string>
+  <string name="passwordSuggestion">Neizmantojiet paroli, ko ieteicis kāds cits. To var izmantot, lai gūtu piekļuvi jūsu kontam.</string>
+  <string name="emailSuggestion">Neizmantojiet e-pasta adresi, ko ieteicis kāds cits. To var izmantot, lai gūtu piekļuvi jūsu kontam.</string>
+  <string name="emailConfirmHelp">Palīdzība ar epasta apstiprinājumu</string>
+  <string name="emailConfirmNotReceived">Nesaņēmāt apstiprinājuma epastu pēc reģistrēšanās?</string>
+  <string name="whatSignupUsername">Kādu lietotājvārdu izmantojāt, kad reģistrējāties?</string>
+  <string name="usernameNotFound">Nevarējām atrast nevienu lietotāju ar šādu vārdu: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Varat izmantot šo lietotājvārdu jaunam kontam</string>
+  <string name="emailSent">Esam nosūtījuši epastu uz %s.</string>
+  <string name="emailCanTakeSomeTime">Iespējams, paies kāds laiks, līdz to saņemsiet.</string>
+  <string name="refreshInboxAfterFiveMinutes">Pagaidiet 5 minūtes, un atsvaidziniet savu epasta iesūtni.</string>
+  <string name="checkSpamFolder">Pārbaudiet arī mēstuļu nodalījumu – iespējams, mūsu ziņa tur nonākusi. Tādā gadījumā, lūdzu atzīmējiet, ka tā nav mēstule.</string>
+  <string name="emailForSignupHelp">Ja nekas cits neizdodas, nosūtiet mums šo epastu:</string>
+  <string name="copyTextToEmail">Kopējiet augšup esošo tekstu un sūtiet to %s</string>
+  <string name="waitForSignupHelp">Drīz mēs jums pievērsīsimies un palīdzēsim pabeigt reģistrāciju.</string>
+  <string name="accountConfirmed">Lietotājs %s ir veiksmīgi apstiprināts.</string>
+  <string name="accountCanLogin">Tagad varat ierakstīties kā %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Jums nav nepieciešams apstiprinājuma epasts.</string>
+  <string name="accountClosed">Lietotāja %s konts ir slēgts.</string>
+  <string name="accountRegisteredWithoutEmail">Konts %s tika reģistrēts bez epasta.</string>
   <string name="rank">Vieta</string>
   <string name="rankX">Vieta: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -220,9 +251,9 @@
     <item quantity="other">Rangs tiek atjaunots ik pēc %s minūtēm</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="zero">%s puzles</item>
-    <item quantity="one">%s puzle</item>
-    <item quantity="other">%s puzles</item>
+    <item quantity="zero">%s uzdevumi</item>
+    <item quantity="one">%s uzdevums</item>
+    <item quantity="other">%s uzdevumi</item>
   </plurals>
   <string name="gamesPlayed">Izspēlētās spēles</string>
   <plurals name="nbGamesWithYou">
@@ -366,6 +397,7 @@
   <string name="siteDescription">Bezmaksas šahs tiešsaistē. Spēlē šahu lakoniskā saskarnē tagad: bez reģistrācijas, reklāmām, vai papildus programmatūras! Spēlē pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="xJoinedTeamY">%1$s pievienojās komandai \"%2$s\"</string>
   <string name="xCreatedTeamY">%1$s izveidoja komandu \"%2$s\"</string>
+  <string name="startedStreaming">sāka straumēt</string>
   <string name="xStartedStreaming">%s sāka straumēt</string>
   <string name="averageElo">Vidējais reitings</string>
   <string name="location">Atrašanās vieta</string>
@@ -374,6 +406,8 @@
   <string name="apply">Apstiprināt</string>
   <string name="save">Saglabāt</string>
   <string name="leaderboard">Labāko spēlētāju saraksts</string>
+  <string name="screenshotCurrentPosition">Uzņemt pašreizējās pozīcijas attēlu</string>
+  <string name="gameAsGIF">Spēle GIF formātā</string>
   <string name="pasteTheFenStringHere">Ielīmējiet FEN tekstu šeit</string>
   <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
   <string name="orUploadPgnFile">Augšuplādēt PGN datni</string>
@@ -382,6 +416,7 @@
   <string name="toStudy">Izpētīt</string>
   <string name="importGame">Importēt spēli</string>
   <string name="importGameExplanation">Ielīmējiet spēles PGN, lai iegūtu pārskatāmu atkārtojumu, datoranalīzi, spēles sarunu un URL ar ko dalīties.</string>
+  <string name="importGameCaveat">Variācijas tiks izdzēstas. Lai tās paturētu, importē PGN izmantot izpētes rīku.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">%s importētas spēles</item>
     <item quantity="one">%s importēta spēles</item>
@@ -457,6 +492,8 @@
   <string name="tournamentIsStarting">Turnīrs sākas</string>
   <string name="tournamentPairingsAreNowClosed">Turnīra pārošana ir beigusies.</string>
   <string name="standByX">Lūdzu, uzgaidiet, %s, sapāro spēlētājus, esiet gatavs!</string>
+  <string name="pause">Pauzēt</string>
+  <string name="resume">Atsākt</string>
   <string name="youArePlaying">Jūs spēlējat!</string>
   <string name="winRate">Uzvaru attiecība</string>
   <string name="berserkRate">Dullo spēļu biežums</string>
@@ -491,6 +528,10 @@
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="oneUrlPerLine">Katrā rindā vienu URL.</string>
   <string name="inlineNotation">Iekļautā notācija</string>
+  <string name="savingMoves">Gājieni saglabāti īslaicīgi</string>
+  <string name="savingMovesHelp">Jūsu gājienu variācijas tiek glabātas pārlūka kešatmiņā.</string>
+  <string name="makeAStudy">Lai saglabātu un dalītos, varat izveidot izpēti.</string>
+  <string name="clearSavedMoves">Dzēst gājienus</string>
   <string name="previouslyOnLichessTV">Iepriekš pārraidīts Lichess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
@@ -539,6 +580,8 @@
   <string name="blog">Blogs</string>
   <string name="notes">Piezīmes</string>
   <string name="typePrivateNotesHere">Personīgās piezīmes rakstiet šeit</string>
+  <string name="writeAPrivateNoteAboutThisUser">Izveidot privātu piezīmi par šo lietotāju</string>
+  <string name="noNoteYet">Nav piezīmes</string>
   <string name="invalidUsernameOrPassword">Nepareizs lietotājvārds vai parole</string>
   <string name="incorrectPassword">Nepareiza parole</string>
   <string name="invalidAuthenticationCode">Nederīgs autentifikācijas kods</string>
@@ -597,6 +640,7 @@
   <string name="community">Kopiena</string>
   <string name="tools">Rīki</string>
   <string name="increment">Pieaugums</string>
+  <string name="error.unknown">Nederīga vērtība</string>
   <string name="error.required">Šis lauks ir obligāts</string>
   <string name="error.email">Šī e-pasta adrese nav derīga</string>
   <string name="error.email_acceptable">Šī e-pasta adrese nav pieņemama. Lūdzu pārbaudiet to un mēģiniet vēlreiz.</string>
@@ -653,10 +697,13 @@
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
   <string name="simulHostExtraTime">Papildu laiks vadītājam</string>
+  <string name="simulAddExtraTimePerPlayer">Pievienot papildu laiku jūsu pulkstenim par katru spēlētāju, kas pievienojas simultānseansam.</string>
+  <string name="simulHostExtraTimePerPlayer">Papildus laiks vadītājam par katru spēlētāju</string>
   <string name="lichessTournaments">Lichess turnīri</string>
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
   <string name="averageCentipawnLoss">Vidējais centibandinieka zudums</string>
+  <string name="accuracy">Precizitāte</string>
   <string name="keyboardShortcuts">Tastatūras saīsnes</string>
   <string name="keyMoveBackwardOrForward">pārvietoties uz priekšu/atpakaļ</string>
   <string name="keyGoToStartOrEnd">iet uz sākumu/beigām</string>
@@ -706,6 +753,7 @@
   <string name="kidMode">Bērnu režīms</string>
   <string name="kidModeExplanation">Runa ir par drošību. Bērnu režīmā jebkāda saziņa ir atspējota. Ieslēdziet šo režīmu, lai pasargātu savus bērnus un skolēnus no citiem interneta lietotājiem.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Bērnu režīmā Lichess logo tiek pievienota %s ikona, lai jūs zinātu, ka jūsu bērni ir drošībā.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Jūsu konts tiek pārvaldīts. Prasiet savam šaha skolotājam, ja vēlaties noņemt bērnu režīmu.</string>
   <string name="enableKidMode">Iespējot Bērnu režīmu</string>
   <string name="disableKidMode">Atspējot Bērnu režīmu</string>
   <string name="security">Drošība</string>
@@ -741,6 +789,7 @@
   <string name="light">Gaišs</string>
   <string name="dark">Tumšs</string>
   <string name="transparent">Caurspīdīgs</string>
+  <string name="deviceTheme">Saskaņot ar sistēmu</string>
   <string name="backgroundImageUrl">Fona attēla URL:</string>
   <string name="boardGeometry">Galdiņa ģeometrija</string>
   <string name="boardTheme">Galdiņa dizains</string>
@@ -770,6 +819,7 @@
   <string name="bestWasX">Labākais bija %s</string>
   <string name="youBrowsedAway">Aizvirzījāties prom</string>
   <string name="resumePractice">Atsākt treniņu</string>
+  <string name="drawByFiftyMoves">Spēle ir neizšķirta 50 gājienu noteikuma dēļ.</string>
   <string name="theGameIsADraw">Spēle ir neizšķirta.</string>
   <string name="computerThinking">Dators domā ...</string>
   <string name="seeBestMove">Rādīt labāko gājienu</string>
@@ -937,4 +987,5 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>
   <string name="switchSides">Mainīties ar pusēm</string>
   <string name="closingAccountWithdrawAppeal">Konta slēgšana atsauks jūsu iesniegumu</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Pasākumu organizēšanas ieteikumi</string>
 </resources>

@@ -1,11 +1,10 @@
 package lila.puzzle
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration._
 
-import lila.common.config._
+import lila.common.config.*
 import lila.db.AsyncColl
 
 @Module
@@ -17,20 +16,24 @@ private class PuzzleConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     renderer: lila.hub.actors.Renderer,
     historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
+    mongoCacheApi: lila.memo.MongoCache.Api,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
+)(using
+    ec: Executor,
     system: akka.actor.ActorSystem,
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer,
     mode: play.api.Mode
-) {
+):
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
@@ -56,6 +59,8 @@ final class Env(
 
   lazy val session: PuzzleSessionApi = wire[PuzzleSessionApi]
 
+  lazy val selector: PuzzleSelector = wire[PuzzleSelector]
+
   lazy val anon: PuzzleAnon = wire[PuzzleAnon]
 
   lazy val batch: PuzzleBatch = wire[PuzzleBatch]
@@ -76,13 +81,20 @@ final class Env(
 
   lazy val streak = wire[PuzzleStreakApi]
 
+  lazy val opening = wire[PuzzleOpeningApi]
+
+  private lazy val tagger = wire[PuzzleTagger]
+
+  scheduler.scheduleAtFixedRate(10 minutes, 1 day) { () =>
+    tagger.addAllMissing unit
+  }
+
   if (mode == play.api.Mode.Prod)
-    system.scheduler.scheduleAtFixedRate(1 hour, 1 hour) { () =>
+    scheduler.scheduleAtFixedRate(1 hour, 1 hour) { () =>
       pathApi.isStale foreach { stale =>
         if (stale) logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
       }
     }
-}
 
 final class PuzzleColls(
     val puzzle: AsyncColl,

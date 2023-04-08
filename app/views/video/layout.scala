@@ -1,12 +1,12 @@
 package views.html.video
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object layout {
+object layout:
 
   def apply(
       title: String,
@@ -20,7 +20,7 @@ object layout {
       wrapClass = "full-screen-force",
       openGraph = openGraph
     ) {
-      main(cls := "video page-menu")(
+      main(cls := "video page-menu force-ltr")(
         st.aside(cls := "page-menu__menu")(
           div(cls := "subnav")(
             control.tags.map { t =>
@@ -48,4 +48,3 @@ object layout {
         div(cls := "page-menu__content box")(body)
       )
     }
-}

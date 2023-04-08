@@ -12,6 +12,7 @@
   <string name="myTeams">تیم‌ های من</string>
   <string name="noTeamFound">تیمی پیدا نشد</string>
   <string name="joinTeam">پیوستن به تیم</string>
+  <string name="onlyLeaderLeavesTeam">لطفا قبل از ترک تیم یک رهبر جدید اضافه کنید، یا تیم را ببندید.</string>
   <string name="quitTeam">خروج از تیم</string>
   <string name="manuallyReviewAdmissionRequests">درخواستهای پذیرش را به صورت شخصی و دستی بررسی کنید</string>
   <string name="manuallyReviewAdmissionRequestsHelp">اگر انتخاب شود، بازیکنان نیاز خواهند داشت تا برای پیوستن به تیم یک درخواست بنویسند، که شما می‌توانید آن را قبول یا رد نمایید.</string>
@@ -28,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">درخواست عضویت شما توسط مسئول گروه بررسی خواهد شد.</string>
   <string name="beingReviewed">درخواست عضویت شما توسط مسئول گروه در حال بررسی می باشد.</string>
+  <string name="requestDeclined">درخواست عضویت شما توسط رهبر تیم رد شد.</string>
   <string name="subToTeamMessages">برای دریافت پیامهای تیم، نام‌نویسی کنید</string>
   <string name="teamBattle">مبارزه تیمی</string>
   <string name="teamBattleOverview">مبارزه ی چندین تیم، امتیاز هر بازیکن برای تیم اش حساب می شود</string>
@@ -51,4 +53,7 @@
   <string name="teamAlreadyExists">این تیم هم‌اکنون وجود دارد.</string>
   <string name="upcomingTourns">مسابقاتِ پیش رو</string>
   <string name="completedTourns">مسابقاتِ کامل شده</string>
+  <string name="declinedRequests">درخواست‌های رد شده</string>
+  <string name="joinLichessVariantTeam">برای دسترسی به اخبار و رویداد ها در تیم رسمی %s عضو شوید</string>
+  <string name="teamPage">صفحه تیم ها</string>
 </resources>

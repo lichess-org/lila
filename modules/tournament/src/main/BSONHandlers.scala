@@ -1,76 +1,65 @@
 package lila.tournament
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.format.FEN
+import chess.Clock.{ Config as ClockConfig }
+import chess.format.Fen
 import chess.Mode
 import chess.variant.Variant
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
 
-object BSONHandlers {
+object BSONHandlers:
 
-  implicit private[tournament] val statusBSONHandler = tryHandler[Status](
+  private[tournament] given BSONHandler[Status] = tryHandler(
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
     x => BSONInteger(x.id)
   )
 
-  implicit private[tournament] val scheduleFreqHandler = tryHandler[Schedule.Freq](
+  private[tournament] given BSONHandler[Schedule.Freq] = tryHandler(
     { case BSONString(v) => Schedule.Freq(v) toTry s"No such freq: $v" },
     x => BSONString(x.name)
   )
 
-  implicit private[tournament] val scheduleSpeedHandler = tryHandler[Schedule.Speed](
+  private[tournament] given BSONHandler[Schedule.Speed] = tryHandler(
     { case BSONString(v) => Schedule.Speed(v) toTry s"No such speed: $v" },
     x => BSONString(x.key)
   )
 
-  implicit val scheduleWriter = BSONWriter[Schedule](s =>
+  given BSONWriter[Schedule] = BSONWriter(s =>
     $doc(
       "freq"  -> s.freq,
       "speed" -> s.speed
     )
   )
 
-  implicit val tournamentClockBSONHandler = tryHandler[ClockConfig](
-    { case doc: BSONDocument =>
-      for {
-        limit <- doc.getAsTry[Int]("limit")
-        inc   <- doc.getAsTry[Int]("increment")
-      } yield ClockConfig(limit, inc)
-    },
-    c =>
-      BSONDocument(
-        "limit"     -> c.limitSeconds,
-        "increment" -> c.incrementSeconds
-      )
+  private given BSONHandler[chess.Clock.Config] = clockConfigHandler
+
+  private given BSONDocumentHandler[Spotlight] = Macros.handler
+
+  given BSONDocumentHandler[TeamBattle] = Macros.handler
+
+  private given BSONHandler[LeaderboardApi.Ratio] = BSONIntegerHandler.as(
+    i => LeaderboardApi.Ratio(i.toDouble / 100_000),
+    r => (r.value * 100_000).toInt
   )
 
-  implicit private val spotlightBSONHandler = Macros.handler[Spotlight]
+  import Condition.BSONHandlers.given
 
-  implicit val battleBSONHandler = Macros.handler[TeamBattle]
-
-  implicit private val leaderboardRatio =
-    BSONIntegerHandler.as[LeaderboardApi.Ratio](
-      i => LeaderboardApi.Ratio(i.toDouble / 100_000),
-      r => (r.value * 100_000).toInt
-    )
-
-  import Condition.BSONHandlers.AllBSONHandler
-
-  implicit val tournamentHandler = new BSON[Tournament] {
-    def reads(r: BSON.Reader) = {
-      val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
-      val position: Option[FEN] =
-        r.getO[FEN]("fen").filterNot(_.initial) orElse
-          r.strO("eco").flatMap(Thematic.byEco).map(_.fen) // for BC
+  given tourHandler: BSON[Tournament] with
+    def reads(r: BSON.Reader) =
+      val variant = Variant.idOrDefault(r.getO[Variant.Id]("variant"))
+      val position: Option[Fen.Opening] =
+        r.getO[Fen.Epd]("fen")
+          .map(_.opening: Fen.Opening)
+          .filter(_ != Fen.Opening.initial) orElse
+          r.getO[chess.opening.Eco]("eco").flatMap(Thematic.byEco).map(_.fen) // for BC
       val startsAt   = r date "startsAt"
       val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
-        id = r str "_id",
+        id = r.get[TourId]("_id"),
         name = r str "name",
         status = r.get[Status]("status"),
         clock = r.get[chess.Clock.Config]("clock"),
@@ -90,15 +79,14 @@ object BSONHandlers {
         } yield Schedule(freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
-        createdBy = r strO "createdBy" getOrElse lichessId,
+        createdBy = r.getO[UserId]("createdBy") | lichessId,
         startsAt = startsAt,
-        winnerId = r strO "winner",
-        featuredId = r strO "featured",
+        winnerId = r.getO[UserId]("winner"),
+        featuredId = r.getO[GameId]("featured"),
         spotlight = r.getO[Spotlight]("spotlight"),
         description = r strO "description",
         hasChat = r boolO "chat" getOrElse true
       )
-    }
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
         "_id"         -> o.id,
@@ -107,7 +95,7 @@ object BSONHandlers {
         "clock"       -> o.clock,
         "minutes"     -> o.minutes,
         "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"         -> o.position.map(_.value),
+        "fen"         -> o.position,
         "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"    -> o.password,
         "conditions"  -> o.conditions.ifNonEmpty,
@@ -125,21 +113,20 @@ object BSONHandlers {
         "description" -> o.description,
         "chat"        -> (!o.hasChat).option(false)
       )
-  }
 
-  implicit val playerBSONHandler = new BSON[Player] {
+  given BSON[Player] with
     def reads(r: BSON.Reader) =
       Player(
-        _id = r str "_id",
-        tourId = r str "tid",
-        userId = r str "uid",
-        rating = r int "r",
-        provisional = r boolD "pr",
+        _id = r.get[TourPlayerId]("_id"),
+        tourId = r.get("tid"),
+        userId = r.get("uid"),
+        rating = r.get("r"),
+        provisional = r yesnoD "pr",
         withdraw = r boolD "w",
         score = r intD "s",
         fire = r boolD "f",
         performance = r intD "e",
-        team = r strO "t"
+        team = r.getO[TeamId]("t")
       )
     def writes(w: BSON.Writer, o: Player) =
       $doc(
@@ -147,7 +134,7 @@ object BSONHandlers {
         "tid" -> o.tourId,
         "uid" -> o.userId,
         "r"   -> o.rating,
-        "pr"  -> w.boolO(o.provisional),
+        "pr"  -> w.yesnoO(o.provisional),
         "w"   -> w.boolO(o.withdraw),
         "s"   -> w.intO(o.score),
         "m"   -> o.magicScore,
@@ -155,16 +142,15 @@ object BSONHandlers {
         "e"   -> o.performance,
         "t"   -> o.team
       )
-  }
 
-  implicit val pairingHandler = new BSON[Pairing] {
-    def reads(r: BSON.Reader) = {
+  given pairingHandler: BSON[Pairing] with
+    def reads(r: BSON.Reader) =
       val users = r strsD "u"
-      val user1 = users.headOption err "tournament pairing first user"
-      val user2 = users lift 1 err "tournament pairing second user"
+      val user1 = UserId(users.headOption err "tournament pairing first user")
+      val user2 = UserId(users lift 1 err "tournament pairing second user")
       Pairing(
-        id = r str "_id",
-        tourId = r str "tid",
+        id = r.get[GameId]("_id"),
+        tourId = r.get[TourId]("tid"),
         status = chess.Status(r int "s") err "tournament pairing status",
         user1 = user1,
         user2 = user2,
@@ -176,7 +162,6 @@ object BSONHandlers {
         berserk1 = r.intO("b1").fold(r.boolD("b1"))(1 ==), // it used to be int = 0/1
         berserk2 = r.intO("b2").fold(r.boolD("b2"))(1 ==)
       )
-    }
     def writes(w: BSON.Writer, o: Pairing) =
       $doc(
         "_id" -> o.id,
@@ -188,21 +173,20 @@ object BSONHandlers {
         "b1"  -> w.boolO(o.berserk1),
         "b2"  -> w.boolO(o.berserk2)
       )
-  }
 
-  implicit val leaderboardEntryHandler = new BSON[LeaderboardApi.Entry] {
+  given BSON[LeaderboardApi.Entry] with
     def reads(r: BSON.Reader) =
       LeaderboardApi.Entry(
-        id = r str "_id",
-        userId = r str "u",
-        tourId = r str "t",
+        id = r.get("_id"),
+        userId = r.get("u"),
+        tourId = r.get("t"),
         nbGames = r int "g",
         score = r int "s",
-        rank = r int "r",
-        rankRatio = r.get[LeaderboardApi.Ratio]("w"),
+        rank = r.get("r"),
+        rankRatio = r.get("w"),
         freq = r intO "f" flatMap Schedule.Freq.byId,
         speed = r intO "p" flatMap Schedule.Speed.byId,
-        perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
+        perf = PerfType.byId get r.get("v") err "Invalid leaderboard perf",
         date = r date "d"
       )
 
@@ -220,8 +204,5 @@ object BSONHandlers {
         "v"   -> o.perf.id,
         "d"   -> w.date(o.date)
       )
-  }
 
-  import LeaderboardApi.ChartData.AggregationResult
-  implicit val leaderboardAggregationResultBSONHandler = Macros.handler[AggregationResult]
-}
+  given leaderboardAggResult: BSONDocumentHandler[LeaderboardApi.ChartData.AggregationResult] = Macros.handler

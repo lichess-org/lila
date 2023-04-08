@@ -18,12 +18,12 @@ interface Opts {
   swiss?: string;
 }
 
-export default function (opts: Opts): void {
+export default (window as any).UserComplete = function userComplete(opts: Opts): void {
   const debounced = debounce(
     (term: string) =>
       xhr
         .json(
-          xhr.url('/player/autocomplete', {
+          xhr.url('/api/player/autocomplete', {
             term,
             friend: opts.friend ? 1 : 0,
             tour: opts.tour,
@@ -66,4 +66,4 @@ export default function (opts: Opts): void {
     onSelect: opts.onSelect,
     regex: /^[a-z][\w-]{2,29}$/i,
   });
-}
+};

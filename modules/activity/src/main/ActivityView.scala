@@ -1,7 +1,7 @@
 package lila.activity
 
-import activities._
-import model._
+import activities.*
+import model.*
 import org.joda.time.Interval
 
 import lila.game.LightPov
@@ -9,7 +9,7 @@ import lila.practice.PracticeStudy
 import lila.simul.Simul
 import lila.study.Study
 import lila.swiss.Swiss
-import lila.tournament.LeaderboardApi.{ Entry => TourEntry }
+import lila.tournament.LeaderboardApi.{ Entry as TourEntry }
 import lila.ublog.UblogPost
 
 case class ActivityView(
@@ -22,7 +22,7 @@ case class ActivityView(
     practice: Option[Map[PracticeStudy, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
-    forumPosts: Option[Map[lila.forum.Topic, List[lila.forum.Post]]] = None,
+    forumPosts: Option[Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]]] = None,
     ublogPosts: Option[List[UblogPost.LightPost]] = None,
     corresMoves: Option[(Int, List[LightPov])] = None,
     corresEnds: Option[(Score, List[LightPov])] = None,
@@ -30,10 +30,10 @@ case class ActivityView(
     studies: Option[List[Study.IdName]] = None,
     teams: Option[Teams] = None,
     tours: Option[ActivityView.Tours] = None,
-    swisses: Option[List[(Swiss.IdName, Int)]] = None,
+    swisses: Option[List[(Swiss.IdName, Rank)]] = None,
     stream: Boolean = false,
     signup: Boolean = false
-) {
+):
   def isEmpty = !stream && List(
     games,
     puzzles,
@@ -53,12 +53,10 @@ case class ActivityView(
     tours,
     swisses
   ).forall(_.isEmpty)
-}
 
-object ActivityView {
+object ActivityView:
 
   case class Tours(
       nb: Int,
       best: List[TourEntry]
   )
-}

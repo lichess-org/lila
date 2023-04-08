@@ -60,8 +60,12 @@
   <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
+  <string name="youCanPasteThisInTheForumToEmbed">คุณสามารถวางลิงค์นี้ในฟอรั่ม Lichess หรือบล็อก Lichess ของคุณเพื่อฝังโค้ด</string>
   <string name="startAtInitialPosition">เริ่มที่ตำแหน่งตั้งต้น</string>
   <string name="startAtX">เริ่มที่ %s</string>
+  <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
+  <string name="readMoreAboutEmbedding">อ่านข้อมูลเกี่ยวกับการฝังโค้ดเพิ่มเติม</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">เฉพาะกรณีศึกษาสาธารณะเท่านั้นที่สามารถฝังโค้ดได้!</string>
   <string name="open">เปิด</string>
   <string name="xBroughtToYouByY">%1$s นำมาสู่คุณโดย %2$s</string>
   <string name="studyNotFound">ไม่พบกรณีศึกษา</string>

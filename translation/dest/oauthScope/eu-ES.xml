@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">APIrako sarbide-token pertsonala</string>
+  <string name="tokenGrantsPermission">Tokenak beste pertsona bati zure kontua erabiltzeko baimena ematen dio.</string>
+  <string name="carefullySelect">Ondo aukeratu zer egin dezakeen zure izenean.</string>
+  <string name="tokenDescription">Tokenaren deskribapena</string>
+  <string name="rememberTokenUse">Token hau zertarako den jakin dezazun</string>
+  <string name="whatTheTokenCanDo">Tokenak zure izenean zer egin dezakeen:</string>
+  <string name="doNotShareIt">Tokenak zure konturako sarbidea emango du. Ez partekatu inorekin!</string>
+  <string name="copyTokenNow">Kopiatu zure sarbide-token pertsonala orain. Ezingo duzu berriz ikusi!</string>
+  <string name="preferenceRead">Aukerak irakurri</string>
+  <string name="preferenceWrite">Aukerak idatzi</string>
+  <string name="emailRead">Eposta helbidea irakurri</string>
+  <string name="challengeRead">Datozen erronkak irakurri</string>
+  <string name="challengeWrite">Erronkak bidali, onartu eta ukatu</string>
+  <string name="challengeBulk">Beste jokalari batzuentzat hainbat partida aldi berean sortu</string>
+  <string name="studyRead">Azterlan pribatu eta zuzeneko emanaldiak irakurri</string>
+  <string name="studyWrite">Azterlanak eta zuzeneko emanaldiak sortu, eguneratu eta ezabatu</string>
+  <string name="tournamentWrite">Txapelketak sortu, eguneratu eta jokatu</string>
+  <string name="racerWrite">Ariketa lasterketak sortu eta egin</string>
+  <string name="puzzleRead">Egindako ariketen informazioa irakurri</string>
+  <string name="teamRead">Talde pribatuen informazioa irakurri</string>
+  <string name="teamWrite">Taldeetan sartu eta berauetatik irten</string>
+  <string name="teamLead">Zure taldeak kudeatu: mezu pribatuak bidali, kideak kanporatu</string>
+  <string name="followRead">Jarraitutako jokalariak irakurri</string>
+  <string name="followWrite">Beste jokalariak jarraitu edo jarraitzeari utzi</string>
+  <string name="msgWrite">Beste kideei mezu pribatuak bidali</string>
+  <string name="boardPlay">Taularen Apiarekin partidak jokatu</string>
+  <string name="botPlay">Roboten APIarekin partidak jokatu</string>
+  <string name="engineRead">Kanpoko motoreak ikusi eta erabili</string>
+  <string name="engineWrite">Kanpoko motoreak sortu eta eguneratu</string>
+  <string name="webLogin">Webguneko sesioak sortu (sarbide osoa ematen du!)</string>
+  <string name="webMod">Moderatzaileen tresnak erabili (dituzun baimenen barruan)</string>
+</resources>

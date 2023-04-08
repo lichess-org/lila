@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Sazlawlar</string>
+  <string name="closeAccount">Akkaunttı jabıw</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Akkauntıńız basqa adam tárepinen basqarılmaqta, jabıw múmkinshiligi joq.</string>
+  <string name="changedMindDoNotCloseAccount">Men pikirimdi ózgerttim, akkauntımdı óshirmeń</string>
+  <string name="thisAccountIsClosed">Akkaunt jabılǵan.</string>
+</resources>

@@ -7,9 +7,9 @@
   <string name="iCantLogIn">Мен кіре алмай отырмын</string>
   <string name="noConfirmationEmail">Маған растау хаты келген жоқ</string>
   <string name="forgotPassword">Мен құпиясөзімді ұмыттым</string>
-  <string name="forgotUsername">Мен тіркелгі атын ұмыттым</string>
+  <string name="forgotUsername">Мен тіркеулі атымды ұмыттым</string>
   <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, тіркелгіге кіре аласыз</string>
-  <string name="lost2FA">Мен екі сатылы анықтау кодтарын ала алмай отырмын</string>
+  <string name="lost2FA">Мен екі-сатылы сәйкестік-растау құлыпсөздерін жоғалттым</string>
   <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
   <string name="accountSupport">Маған тіркелгі жөнінде көмек керек</string>
   <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>
@@ -20,7 +20,7 @@
   <string name="wantReopen">Мен тіркелгімді қайта ашқым келеді</string>
   <string name="reopenOnThisPage">Сіз тіркелгіңізді осы парақшада қайта аша аласыз. Бұны бір рет қана істеуге болады.</string>
   <string name="doNotAskByEmailToReopen">Поштамен тіркелгіні қайта ашуды сұрамаңыз, біз оны орындамаймыз.</string>
-  <string name="wantChangeUsername">Мен тіркелгі атымды өзгерткім келеді</string>
+  <string name="wantChangeUsername">Мен тіркеулі атымды өзгерткім келеді</string>
   <string name="changeUsernameCase">Атыңыздың әріп үлкендігін өзгерту үшін осы парақшаны ашыңыз</string>
   <string name="cantChangeMore">Біз әріп үлкендігінен басқа ешбір өзгерту жасай алмаймыз. Техникалық себеппен бұл мүмкін емес.</string>
   <string name="orCloseAccount">Дегенмен, сіз бұл тіркелгіні жауып, жаңадан жасай аласыз.</string>
@@ -56,11 +56,11 @@
   <string name="errorPage">Ақаулық парақшасы</string>
   <string name="reportErrorPage">Ақаулық парақшасына тап болсаңыз, осында хабарлауыңызға болады:</string>
   <string name="banAppeal">Шектеуге не IP шектеуге қарсылық шағымы</string>
-  <string name="engineAppeal">Програм не чит марк</string>
+  <string name="engineAppeal">Есептеуіш не чит қолданды</string>
   <string name="sendAppealTo">Сіз өтінішті %s жібере аласыз.</string>
   <string name="falsePositives">Жалған әрекеттер кейде болып тұрады, ол үшін кешірім сұраймыз.</string>
   <string name="ifLegit">Егер сіздің қарсылық шағымыңыз әділ болса, біз шектеуді тез арада аламыз.</string>
-  <string name="accountLost">Бірақ, егер де сіз, шынымен, програм көмегіне жүгінген болсаңыз (бір рет болса да), тіркелгіңізбен қоштассаңыз болады.</string>
+  <string name="accountLost">Бірақ, егер де сіз, шынымен, есептеуіш көмегіне жүгінген болсаңыз (бір рет болса да), тіркелгіңізбен қоштассаңыз болады.</string>
   <string name="doNotDeny">Алдап ойнағаныңызды жасырмаңыз. Егер сіз жаңа тіркелгіге рұқсат аламын десеңіз, жасаған істі мойындап, оны қателік деп қабылдайтыныңызды көрсетіңіз.</string>
   <string name="otherRestriction">Басқа шектеу</string>
   <string name="collaboration">Ынтымақтастық, заңдылық, сауда-саттық</string>

@@ -1,18 +1,16 @@
 package lila.challenge
 
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 
-final class ChallengeForm {
+final class ChallengeForm:
 
   val decline = Form(
     mapping(
       "reason" -> optional(nonEmptyText)
-    )(DeclineData.apply _)(DeclineData.unapply _)
+    )(DeclineData.apply)(_.reason.some)
   )
 
-  case class DeclineData(reason: Option[String]) {
+  case class DeclineData(reason: Option[String]):
 
     def realReason = reason.fold(Challenge.DeclineReason.default)(Challenge.DeclineReason.apply)
-  }
-}

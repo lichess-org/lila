@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">зараз</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">праз %s секунду</item>
+    <item quantity="few">праз %s секунды</item>
+    <item quantity="many">праз %s секунд</item>
+    <item quantity="other">праз %s секунд</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">праз %s хвіліну</item>
+    <item quantity="few">праз %s хвіліны</item>
+    <item quantity="many">праз %s хвілін</item>
+    <item quantity="other">праз %s хвілін</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">праз %s гадзіну</item>
+    <item quantity="few">праз %s гадзіны</item>
+    <item quantity="many">праз %s гадзін</item>
+    <item quantity="other">праз %s гадзін</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">праз %s дзень</item>
+    <item quantity="few">праз %s дні</item>
+    <item quantity="many">праз %s дзён</item>
+    <item quantity="other">праз %s дзён</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">праз %s тыдзень</item>
+    <item quantity="few">праз %s тыдні</item>
+    <item quantity="many">праз %s тыдняў</item>
+    <item quantity="other">праз %s тыдняў</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">праз %s месяц</item>
+    <item quantity="few">праз %s месяцы</item>
+    <item quantity="many">праз %s месяцаў</item>
+    <item quantity="other">праз %s месяцаў</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">праз %s год</item>
+    <item quantity="few">праз %s гады</item>
+    <item quantity="many">праз %s гадоў</item>
+    <item quantity="other">праз %s гадоў</item>
+  </plurals>
+  <string name="rightNow">прама зараз</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s секунду таму</item>
+    <item quantity="few">%s секунды таму</item>
+    <item quantity="many">%s секунд таму</item>
+    <item quantity="other">%s секунд таму</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s хвіліну таму</item>
+    <item quantity="few">%s хвіліны таму</item>
+    <item quantity="many">%s хвілін таму</item>
+    <item quantity="other">%s хвілін таму</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s гадзіну таму</item>
+    <item quantity="few">%s гадзіны таму</item>
+    <item quantity="many">%s гадзін таму</item>
+    <item quantity="other">%s гадзін таму</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s дзень таму</item>
+    <item quantity="few">%s дні таму</item>
+    <item quantity="many">%s дзён таму</item>
+    <item quantity="other">%s дзён таму</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s тыдзень таму</item>
+    <item quantity="few">%s тыдні таму</item>
+    <item quantity="many">%s тыдняў таму</item>
+    <item quantity="other">%s тыдняў таму</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s месяц таму</item>
+    <item quantity="few">%s месяцы таму</item>
+    <item quantity="many">%s месяцаў таму</item>
+    <item quantity="other">%s месяцаў таму</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s год таму</item>
+    <item quantity="few">%s гады таму</item>
+    <item quantity="many">%s гадоў таму</item>
+    <item quantity="other">%s гадоў таму</item>
+  </plurals>
+</resources>

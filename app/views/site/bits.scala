@@ -1,13 +1,13 @@
 package views.html.site
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import controllers.routes
 
-object bits {
+object bits:
 
-  def getFishnet()(implicit ctx: Context) =
+  def getFishnet()(using Context) =
     views.html.base.layout(
       title = "fishnet API key request",
       csp = defaultCsp.withGoogleForm.some
@@ -15,7 +15,7 @@ object bits {
       main(
         iframe(
           src := "https://docs.google.com/forms/d/e/1FAIpQLSeGgDHgWGP0uobQknF92eCMXqebyNBTyzJoJqbeGjRezlbWOw/viewform?embedded=true",
-          style := "width:100%;height:1400px",
+          style          := "width:100%;height:1400px",
           st.frameborder := 0
         )(spinner)
       )
@@ -27,7 +27,7 @@ object bits {
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-eval' https://cdn.jsdelivr.net blob:; child-src blob:; connect-src https://raw.githubusercontent.com; img-src data: https://lichess.org https://lichess1.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src https://cdn.jsdelivr.net blob:; child-src blob:; connect-src https://raw.githubusercontent.com; img-src data: https://lichess.org https://lichess1.org;">
     <title>Lichess.org API reference</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>body { margin: 0; padding: 0; }</style>
@@ -39,12 +39,12 @@ object bits {
 </html>"""
     )
 
-  def errorPage(implicit ctx: Context) =
+  def errorPage(using Context) =
     views.html.base.layout(
       title = "Internal server error"
     ) {
       main(cls := "page-small box box-pad")(
-        h1("Something went wrong on this page"),
+        h1(cls := "box__top")("Something went wrong on this page"),
         p(
           "If the problem persists, please ",
           a(href := s"${routes.Main.contact}#help-error-page")("report the bug"),
@@ -53,17 +53,16 @@ object bits {
       )
     }
 
-  def ghost(implicit ctx: Context) =
+  def ghost(using Context) =
     views.html.base.layout(
       moreCss = cssTag("ghost"),
       title = "Deleted user"
     ) {
       main(cls := "page-small box box-pad page")(
-        h1("Deleted user"),
+        h1(cls := "box__top")("Deleted user"),
         div(
           p("This player account is gone!"),
           p("Nothing to see here, move along.")
         )
       )
     }
-}

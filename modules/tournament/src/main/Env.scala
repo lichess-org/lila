@@ -1,26 +1,17 @@
 package lila.tournament
 
-import akka.actor._
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
-import io.methvin.play.autoconfig._
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration._
 
-import lila.common.config._
-import lila.socket.Socket.{ GetVersion, SocketVersion }
-import lila.user.User
+import lila.common.config.*
+import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
-private class TournamentConfig(
-    @ConfigName("collection.tournament") val tournamentColl: CollName,
-    @ConfigName("collection.player") val playerColl: CollName,
-    @ConfigName("collection.pairing") val pairingColl: CollName,
-    @ConfigName("collection.leaderboard") val leaderboardColl: CollName
-)
-
-@Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -29,7 +20,6 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     proxyRepo: lila.round.GameProxyRepo,
-    renderer: lila.hub.actors.Renderer,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
@@ -39,26 +29,23 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem,
-    mat: akka.stream.Materializer,
-    idGenerator: lila.game.IdGenerator,
-    mode: play.api.Mode
-) {
-
-  private val config = appConfig.get[TournamentConfig]("tournament")(AutoConfig.loader)
-
-  private def scheduler = system.scheduler
+)(using scheduler: Scheduler)(using
+    Executor,
+    ActorSystem,
+    akka.stream.Materializer,
+    lila.game.IdGenerator,
+    play.api.Mode
+):
 
   lazy val forms = wire[TournamentForm]
 
-  lazy val tournamentRepo          = new TournamentRepo(db(config.tournamentColl), config.playerColl)
-  lazy val pairingRepo             = new PairingRepo(db(config.pairingColl))
-  lazy val playerRepo              = new PlayerRepo(db(config.playerColl))
-  private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))
+  private val playerColl           = CollName("tournament_player")
+  lazy val tournamentRepo          = TournamentRepo(db(CollName("tournament2")), playerColl)
+  lazy val pairingRepo             = PairingRepo(db(CollName("tournament_pairing")))
+  lazy val playerRepo              = PlayerRepo(db(playerColl))
+  private lazy val leaderboardRepo = LeaderboardRepo(db(CollName("tournament_leaderboard")))
 
-  lazy val cached: Cached = wire[Cached]
+  lazy val cached: TournamentCache = wire[TournamentCache]
 
   lazy val verify = wire[Condition.Verify]
 
@@ -73,6 +60,8 @@ final class Env(
   private lazy val duelStore = wire[DuelStore]
 
   private lazy val pause = wire[Pause]
+
+  private lazy val waitingUsers = wire[WaitingUsersApi]
 
   private lazy val socket = wire[TournamentSocket]
 
@@ -95,6 +84,8 @@ final class Env(
 
   lazy val crudApi = wire[crud.CrudApi]
 
+  lazy val crudForm = wire[crud.CrudForm]
+
   lazy val reloadEndpointSetting = settingStore[String](
     "tournamentReloadEndpoint",
     default = "/tournament/{id}",
@@ -113,7 +104,7 @@ final class Env(
 
   private lazy val autoPairing = wire[AutoPairing]
 
-  lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
+  lazy val getTourName = new GetTourName(cached.nameCache)
 
   wire[TournamentBusHandler]
 
@@ -132,28 +123,25 @@ final class Env(
   private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
   val lilaHttp            = wire[TournamentLilaHttp]
 
-  def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](tourId)(GetVersion)
+  def version(tourId: TourId): Fu[SocketVersion] =
+    socket.rooms.ask[SocketVersion](tourId into RoomId)(GetVersion.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
-  def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+  def hasUser(tourId: TourId, userId: UserId): Fu[Boolean] =
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
 
   def cli =
-    new lila.common.Cli {
-      def process = {
+    new lila.common.Cli:
+      def process =
         // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
         //   leaderboardIndexer.generateAll inject "Done!"
         case "tournament" :: "feature" :: id :: Nil =>
-          api.toggleFeaturing(id, true) inject "Done!"
+          api.toggleFeaturing(TourId(id), true) inject "Done!"
         case "tournament" :: "unfeature" :: id :: Nil =>
-          api.toggleFeaturing(id, false) inject "Done!"
+          api.toggleFeaturing(TourId(id), false) inject "Done!"
         case "tournament" :: "recompute" :: id :: Nil =>
-          api.recomputeEntireTournament(id) inject "Done!"
-      }
-    }
-}
+          api.recomputeEntireTournament(TourId(id)) inject "Done!"
 
 trait TournamentReloadDelay
 trait TournamentReloadEndpoint

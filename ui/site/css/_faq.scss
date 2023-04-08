@@ -50,7 +50,7 @@
 
   ol,
   ul {
-    margin-left: 2em;
+    margin-#{$start-direction}: 2em;
     margin-bottom: 1em;
   }
 

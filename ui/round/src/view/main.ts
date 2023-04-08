@@ -4,8 +4,6 @@ import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
 import stepwiseScroll from 'common/wheel';
 import { h, VNode } from 'snabbdom';
-import { plyStep } from '../round';
-import { read as readFen } from 'chessground/fen';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
@@ -13,14 +11,12 @@ import { renderMaterialDiffs } from 'game/view/material';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
-    cgState = ctrl.chessground && ctrl.chessground.state,
     topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color,
-    pieces = cgState ? cgState.pieces : readFen(plyStep(ctrl.data, ctrl.ply).fen),
     materialDiffs = renderMaterialDiffs(
       ctrl.data.pref.showCaptured,
       ctrl.flip ? ctrl.data.opponent.color : ctrl.data.player.color,
-      pieces,
+      ctrl.stepAt(ctrl.ply).fen,
       !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
       ctrl.data.steps,
       ctrl.ply
@@ -33,7 +29,7 @@ export function main(ctrl: RoundController): VNode {
           'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
           {
             hook:
-              'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
+              'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
                 ? undefined
                 : util.bind(
                     'wheel',
@@ -51,6 +47,7 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
+        ctrl.keyboardHelp ? keyboard.view(ctrl) : null,
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],

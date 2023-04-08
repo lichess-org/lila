@@ -22,4 +22,5 @@
   <string name="declineVariant">Most nincs kedvem ezt a variánst játszani.</string>
   <string name="declineNoBot">Nem fogadok el kihívást botoktól.</string>
   <string name="declineOnlyBot">Csak botoktól fogadok el kihívást.</string>
+  <string name="inviteLichessUser">Vagy hívj meg egy Lichess Felhasználót:</string>
 </resources>

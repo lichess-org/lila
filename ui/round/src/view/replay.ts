@@ -11,7 +11,7 @@ import { h, VNode } from 'snabbdom';
 import { Step, MaybeVNodes } from '../interfaces';
 
 const scrollMax = 99999,
-  moveTag = 'u8t',
+  moveTag = 'kwdb',
   indexTag = 'i5z',
   indexTagUC = indexTag.toUpperCase(),
   movesTag = 'l4x',
@@ -49,8 +49,8 @@ const renderDrawOffer = () =>
     '½?'
   );
 
-function renderMove(step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) {
-  return step
+const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
+  step
     ? h(
         moveTag,
         {
@@ -63,7 +63,6 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, drawOffers: Se
     : orEmpty
     ? h(moveTag, '…')
     : undefined;
-}
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
   let result: string | undefined;
@@ -79,7 +78,6 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         result = '½-½';
     }
   if (result || status.aborted(ctrl.data)) {
-    const winner = ctrl.data.game.winner;
     return h('div.result-wrap', [
       h('p.result', result || ''),
       h(
@@ -90,7 +88,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
             else setTimeout(() => ctrl.autoScroll(), 200);
           }),
         },
-        [viewStatus(ctrl), winner ? ' • ' + ctrl.noarg(winner + 'IsVictorious') : '']
+        viewStatus(ctrl)
       ),
     ]);
   }
@@ -101,7 +99,9 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
     firstPly = round.firstPly(ctrl.data),
     lastPly = round.lastPly(ctrl.data),
+    indexOffset = Math.trunc(firstPly / 2) + 1,
     drawPlies = new Set(ctrl.data.game.drawOffers || []);
+
   if (typeof lastPly === 'undefined') return [];
 
   const pairs: Array<Array<any>> = [];
@@ -115,7 +115,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const els: MaybeVNodes = [],
     curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
-    els.push(h(indexTag, i + 1 + ''));
+    els.push(h(indexTag, i + indexOffset + ''));
     els.push(renderMove(pairs[i][0], curPly, true, drawPlies));
     els.push(renderMove(pairs[i][1], curPly, false, drawPlies));
   }
@@ -148,6 +148,7 @@ function renderButtons(ctrl: RoundController) {
   const d = ctrl.data,
     firstPly = round.firstPly(d),
     lastPly = round.lastPly(d);
+
   return h(
     'div.buttons',
     {
@@ -212,8 +213,8 @@ function initMessage(ctrl: RoundController) {
     : null;
 }
 
-function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
-  return h('button.fbt', {
+const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
+  h('button.fbt', {
     attrs: {
       disabled: disabled,
       'data-icon': icon,
@@ -225,7 +226,6 @@ function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: 
       ctrl.redraw();
     }),
   });
-}
 
 export function render(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data,

@@ -1,10 +1,61 @@
+@import './filters';
+
+// formatting is also done in view.ts. if your changes aren't behaving as expected - check there!
 #insight {
+  --chart-height: 550px;
+  --header-height: 60px;
+  --drop-menu-width: 200px;
+
   > div {
-    display: grid;
-    grid-template-columns: minmax(280px, 15vw);
-    grid-template-rows: 60px;
-    grid-template-areas: 'side head' 'side main';
-    grid-gap: 0 $block-gap;
+    display: flex;
+  }
+
+  .view-tabs {
+    @extend %flex-center-nowrap;
+
+    align-items: flex-end;
+    border-bottom: 2px solid $c-border;
+    font-size: 1.6em;
+  }
+
+  .tab {
+    @extend %roboto;
+
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 0.5em 0.2em;
+    cursor: pointer;
+    position: relative;
+    color: $c-font-page;
+
+    @include transition(color, 0.25s);
+
+    min-width: 15%;
+
+    &::after {
+      content: '';
+      background: fade-out($c-accent, 0.4);
+      height: 2px;
+      position: absolute;
+      width: 96%;
+      #{$start-direction}: 2%;
+      bottom: -2px;
+
+      @include transition(all, 0.25s);
+
+      transform: scale(0);
+    }
+
+    &.active,
+    &:hover {
+      &::after {
+        transform: scale(1);
+      }
+    }
+
+    &.active {
+      color: $c-accent;
+    }
   }
 
   .crunching {
@@ -20,8 +71,8 @@
       @extend %abs-100, %flex-center;
 
       top: 0;
-      left: 0;
-      height: 550px;
+      #{$start-direction}: 0;
+      height: var(--chart-height);
       opacity: 0.7;
 
       svg {
@@ -46,7 +97,7 @@
   }
 
   .chart {
-    height: 550px;
+    height: var(--chart-height);
   }
 
   .loading .chart {
@@ -71,27 +122,23 @@
     opacity: 0.5;
   }
 
-  .left-side {
-    grid-area: side;
-  }
-
   header {
     @extend %box-radius-top;
-
+    @extend %flex-between;
+    padding: 0 1vw;
+    flex-wrap: nowrap;
+    height: var(--header-height);
     background: #333;
     color: #ddd;
-    height: 100%;
-    grid-area: head;
-
     h2 {
-      font-size: 2em;
-      line-height: 60px;
+      font-size: vmax;
+      line-height: var(--header-height);
     }
 
     h2::before {
-      font-size: 42px;
+      font-size: vmax;
       vertical-align: top;
-      line-height: 60px;
+      line-height: var(--header-height);
       margin: 0 10px;
     }
 
@@ -110,35 +157,47 @@
     background: $c-bg-box;
     border: $border;
     border-top: 0;
-    grid-area: main;
   }
 
   .axis-form {
-    float: right;
+    height: var(--header-height);
+    display: flex;
+    flex-flow: row nowrap;
+    flex: auto;
+    align-items: center;
+    justify-content: flex-end;
   }
 
   .axis-form .by {
-    padding: 0 20px;
+    margin: 0 8px;
+    @include breakpoint($mq-less-than-400) {
+      display: none;
+    }
   }
 
   .axis-form .ms-choice {
-    padding: 30px 10px;
+    padding: calc(var(--header-height) / 2) 10px;
+    @include breakpoint($mq-not-xx-small) {
+      padding-left: 2px;
+      padding-right: 2px;
+    }
     border-width: 0 1px;
     border-radius: 0;
     transition: 0.15s;
   }
 
   .axis-form .ms-choice span {
-    line-height: 60px;
+    line-height: var(--header-height);
     text-align: center;
   }
 
   .axis-form .ms-choice div {
-    top: 18px;
+    top: calc(var(--header-height) / 2 - 12px);
   }
 
   .axis-form .ms-drop {
     color: $c-font;
+    width: var(--drop-menu-width);
 
     ul > li label input {
       display: none;
@@ -150,52 +209,18 @@
     }
   }
 
+  .hscroll {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
   .panel-tabs {
     @extend %flex-center-nowrap;
 
     justify-content: center;
     align-items: flex-end;
     border-bottom: 2px solid $c-border;
-
-    .tab {
-      @extend %roboto;
-
-      flex: 1 1 auto;
-      text-align: center;
-      padding: 0.5em 0.2em;
-      cursor: pointer;
-      position: relative;
-      color: $c-font-page;
-
-      @include transition(color, 0.25s);
-
-      min-width: 15%;
-
-      &::after {
-        content: '';
-        background: fade-out($c-accent, 0.4);
-        height: 2px;
-        position: absolute;
-        width: 96%;
-        left: 2%;
-        bottom: -2px;
-
-        @include transition(all, 0.25s);
-
-        transform: scale(0);
-      }
-
-      &.active,
-      &:hover {
-        &::after {
-          transform: scale(1);
-        }
-      }
-
-      &.active {
-        color: $c-accent;
-      }
-    }
   }
 
   .presets {
@@ -233,66 +258,12 @@
     margin-bottom: 0.5em;
   }
 
-  .filters {
-    .box {
-      border-bottom-width: 0;
-    }
-
-    .box:last-child {
-      border-bottom-width: 1px;
-    }
-
-    .ms-parent {
-      display: block;
-    }
-
-    .ms-choice {
-      padding: 15px 10px;
-      border-width: 0 0 1px 0;
-
-      @include transition;
-    }
-
-    .ms-parent:last-child .ms-choice {
-      border-bottom: 0;
-    }
-
-    .ms-parent.selected .ms-choice {
-      $c-sel-ms-choice: fade-out($c-accent, 0.3);
-
-      background: linear-gradient(
-        to right,
-        $c-sel-ms-choice 0px,
-        $c-sel-ms-choice 5px,
-        rgba(0, 0, 0, 0) 5px,
-        rgba(0, 0, 0, 0) 100%
-      );
-    }
-
-    .ms-parent:hover .ms-choice {
-      background: mix($c-accent, $c-bg-box, 20%);
-    }
-
-    .ms-choice span {
-      text-align: right;
-      line-height: 30px;
-      background: none;
-    }
-
-    .ms-choice div {
-      top: 4px;
-    }
-
-    .ms-drop ul > li label input {
-      margin-right: 5px;
-      cursor: pointer;
-    }
-
-    .ms-drop {
-      margin-left: 99%;
-      top: 0;
-      left: 0;
-    }
+  .center-clear {
+    display: flex;
+    height: 20px;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
   }
 
   .ms-parent,
@@ -307,6 +278,8 @@
 
   .ms-drop {
     font-size: 0.9em;
+    max-height: calc(99vh - #{$site-header-height} - var(--header-height));
+    overflow-y: auto;
 
     ul {
       padding: 0;

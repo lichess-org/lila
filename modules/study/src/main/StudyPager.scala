@@ -1,20 +1,20 @@
 package lila.study
 
 import lila.common.paginator.Paginator
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.user.User
 
 final class StudyPager(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
   val maxPerPage                = lila.common.config.MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
 
-  import BSONHandlers._
+  import BSONHandlers.given
   import studyRepo.{
     selectLiker,
     selectMemberId,
@@ -81,7 +81,7 @@ final class StudyPager(
       page
     )
 
-  def byTopic(topic: StudyTopic, me: Option[User], order: Order, page: Int) = {
+  def byTopic(topic: StudyTopic, me: Option[User], order: Order, page: Int) =
     val onlyMine = me.ifTrue(order == Order.Mine)
     paginator(
       selectTopic(topic) ++ onlyMine.fold(accessSelect(me))(m => selectMemberId(m.id)),
@@ -90,7 +90,6 @@ final class StudyPager(
       page,
       hint = onlyMine.isDefined option $doc("uids" -> 1, "rank" -> -1)
     )
-  }
 
   private def accessSelect(me: Option[User]) =
     me.fold(selectPublic) { u =>
@@ -158,25 +157,20 @@ final class StudyPager(
         Study.WithChaptersAndLiked(study, chapters, liked(study.id))
       }
     }
-}
 
-sealed abstract class Order(val key: String, val name: I18nKey)
+enum Order(val key: String, val name: I18nKey):
 
-object Order {
-  case object Hot          extends Order("hot", trans.study.hot)
-  case object Newest       extends Order("newest", trans.study.dateAddedNewest)
-  case object Oldest       extends Order("oldest", trans.study.dateAddedOldest)
-  case object Updated      extends Order("updated", trans.study.recentlyUpdated)
-  case object Popular      extends Order("popular", trans.study.mostPopular)
-  case object Alphabetical extends Order("alphabetical", trans.study.alphabetical)
-  case object Mine         extends Order("mine", trans.study.myStudies)
+  case Hot          extends Order("hot", trans.study.hot)
+  case Newest       extends Order("newest", trans.study.dateAddedNewest)
+  case Oldest       extends Order("oldest", trans.study.dateAddedOldest)
+  case Updated      extends Order("updated", trans.study.recentlyUpdated)
+  case Popular      extends Order("popular", trans.study.mostPopular)
+  case Alphabetical extends Order("alphabetical", trans.study.alphabetical)
+  case Mine         extends Order("mine", trans.study.myStudies)
 
-  val default         = Hot
-  val all             = List(Hot, Newest, Oldest, Updated, Popular, Alphabetical)
-  val withoutSelector = all.filter(o => o != Oldest && o != Alphabetical)
-  val allWithMine     = Mine :: all
-  private val byKey: Map[String, Order] = allWithMine.map { o =>
-    o.key -> o
-  }.toMap
+object Order:
+  val default                   = Hot
+  val withoutMine               = values.filterNot(_ == Mine)
+  val withoutSelector           = withoutMine.filter(o => o != Oldest && o != Alphabetical)
+  private val byKey             = values.mapBy(_.key)
   def apply(key: String): Order = byKey.getOrElse(key, default)
-}

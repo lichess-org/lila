@@ -13,12 +13,15 @@
   <string name="specialMoves">Különleges lépések</string>
   <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
   <string name="voteToLoadNextOne">Szavazz egy újért cserébe!</string>
+  <string name="upVote">Tetszett</string>
+  <string name="downVote">Nem tetszett</string>
   <string name="yourPuzzleRatingWillNotChange">A feladvány értékelésed nem fog változni. Ne feledd, a feladványoknak nincs tétje. Az értékelésed csupán segít kiválasztani az aktuális szintednek legjobban megfelelőket.</string>
   <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését.</string>
   <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését.</string>
   <string name="toGetPersonalizedPuzzles">Személyre szóló feladványok:</string>
   <string name="puzzleId">%s. feladvány</string>
   <string name="puzzleOfTheDay">Napi feladvány</string>
+  <string name="dailyPuzzle">Napi feladvány</string>
   <string name="clickToSolve">Katt a megoldáshoz</string>
   <string name="goodMove">Jó lépés</string>
   <string name="bestMove">A legjobb lépés!</string>
@@ -50,7 +53,8 @@
     <item quantity="other">%s ponttal az értékszámod felett</item>
   </plurals>
   <string name="example">Példa</string>
-  <string name="addAnotherTheme">Új téma hozzáadása</string>
+  <string name="addAnotherTheme">Másik téma hozzáadása</string>
+  <string name="nextPuzzle">Következő feladvány</string>
   <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
   <string name="puzzleDashboard">Feladvány statisztika</string>
   <string name="improvementAreas">Fejleszthető témák</string>

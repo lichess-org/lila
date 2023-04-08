@@ -1,21 +1,27 @@
 package lila.user
 
-import play.api.data._
+import play.api.data.*
 import play.api.data.validation.Constraints
-import play.api.data.Forms._
+import play.api.data.Forms.*
 
-import User.ClearPassword
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.common.LameName
+import lila.common.Form.{ cleanNonEmptyText, cleanText, trim, into, given }
 
-final class UserForm(authenticator: Authenticator) {
+final class UserForm:
 
-  def username(user: User): Form[String] =
+  def username(user: User): Form[UserName] =
     Form(
       single(
-        "username" -> cleanNonEmptyText.verifying(
-          "changeUsernameNotSame",
-          name => name.toLowerCase == user.username.toLowerCase && name != user.username
-        )
+        "username" -> cleanNonEmptyText
+          .into[UserName]
+          .verifying(
+            "changeUsernameNotSame",
+            name => name.id == user.username.id && name != user.username
+          )
+          .verifying(
+            "usernameUnacceptable",
+            name => !LameName.hasTitle(name.value) || LameName.hasTitle(user.username.value)
+          )
       )
     ).fill(user.username)
 
@@ -35,51 +41,40 @@ final class UserForm(authenticator: Authenticator) {
       "cfcRating"  -> optional(number(min = 0, max = 3000)),
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
       "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
-    )(Profile.apply)(Profile.unapply)
+    )(Profile.apply)(unapply)
   )
 
   def profileOf(user: User) = profile fill user.profileOrDefault
 
   private def nameField = optional(cleanText(minLength = 1, maxLength = 20))
 
-  case class Passwd(
-      oldPasswd: String,
-      newPasswd1: String,
-      newPasswd2: String
-  ) {
-    def samePasswords = newPasswd1 == newPasswd2
-  }
-
-  def passwd(u: User)(implicit ec: scala.concurrent.ExecutionContext) =
-    authenticator loginCandidate u map { candidate =>
-      Form(
-        mapping(
-          "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
-          "newPasswd1" -> text(minLength = 2),
-          "newPasswd2" -> text(minLength = 2)
-        )(Passwd.apply)(Passwd.unapply).verifying("newPasswordsDontMatch", _.samePasswords)
-      )
-    }
-}
-
-object UserForm {
+object UserForm:
 
   val note = Form(
     mapping(
-      "text" -> cleanText(minLength = 3, maxLength = 2000),
-      "mod"  -> boolean,
-      "dox"  -> optional(boolean)
-    )(NoteData.apply)(NoteData.unapply)
+      "text"     -> cleanText(minLength = 3, maxLength = 2000),
+      "noteType" -> text
+    )((text, noteType) => NoteData(text, noteType == "mod" || noteType == "dox", noteType == "dox"))(_ =>
+      none
+    )
   )
 
-  case class NoteData(text: String, mod: Boolean, dox: Option[Boolean])
+  val apiNote = Form(
+    mapping(
+      "text" -> cleanText(minLength = 3, maxLength = 2000),
+      "mod"  -> boolean,
+      "dox"  -> default(boolean, false)
+    )(NoteData.apply)(unapply)
+  )
 
-  val title = Form(single("title" -> optional(nonEmptyText)))
+  case class NoteData(text: String, mod: Boolean, dox: Boolean)
+
+  val title = Form(single("title" -> optional(of[UserTitle])))
 
   lazy val historicalUsernameConstraints = Seq(
     Constraints minLength 2,
     Constraints maxLength 30,
     Constraints.pattern(regex = User.historicalUsernameRegex)
   )
-  lazy val historicalUsernameField = text.verifying(historicalUsernameConstraints: _*)
-}
+  lazy val historicalUsernameField =
+    trim(text).verifying(historicalUsernameConstraints*).into[UserStr]

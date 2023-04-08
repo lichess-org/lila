@@ -4,14 +4,14 @@ import play.api.data.Form
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.i18n.LangList
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.{ richText, safeJsonValue }
 
 import controllers.routes
 
-object edit {
+object edit:
 
   private val dataTab   = attr("data-tab")
   private val dataValue = attr("data-value")
@@ -29,9 +29,9 @@ object edit {
     }
   }
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit
+  def apply(c: lila.coach.Coach.WithUser, form: Form[?], reviews: lila.coach.CoachReview.Reviews)(using
       ctx: Context
-  ) = {
+  ) =
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
@@ -43,8 +43,8 @@ object edit {
           div(cls := "picture_wrap")(
             if (c.coach.hasPicture)
               a(
-                cls := "upload_picture",
-                href := routes.Coach.picture,
+                cls   := "upload_picture",
+                href  := routes.Coach.picture,
                 title := "Change/delete your profile picture"
               )(
                 picture.thumbnail(c, 250)
@@ -62,8 +62,8 @@ object edit {
             ),
             div(
               a(
-                href := routes.Coach.show(c.user.username),
-                cls := "button button-empty text",
+                href     := routes.Coach.show(c.user.username),
+                cls      := "button button-empty text",
                 dataIcon := ""
               )("Preview coach page")
             )
@@ -107,7 +107,7 @@ object edit {
                   half = true
                 )(
                   form3.input(_)(
-                    data("all") := jsonLanguages,
+                    data("all")   := jsonLanguages,
                     data("value") := c.coach.languages.mkString(",")
                   )
                 ),
@@ -193,5 +193,3 @@ object edit {
         )
       )
     )
-  }
-}

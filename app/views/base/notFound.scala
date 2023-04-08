@@ -2,12 +2,12 @@ package views.html
 package base
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object notFound {
+object notFound:
 
   def apply()(implicit ctx: Context) =
     layout(
@@ -30,10 +30,10 @@ object notFound {
         ),
         div(cls := "game")(
           iframe(
-            src := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
+            src            := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
             st.frameborder := 0,
-            widthA := 400,
-            heightA := 500
+            widthA         := 400,
+            heightA        := 500
           ),
           p(cls := "credits")(
             a(href := "https://github.com/Saturnyn/ChessPursuit")("ChessPursuit"),
@@ -43,4 +43,3 @@ object notFound {
         )
       )
     }
-}

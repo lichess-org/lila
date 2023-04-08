@@ -1,4 +1,4 @@
-import { Dests } from 'chessground/types';
+import { Dests, files } from 'chessground/types';
 import { sanWriter, SanToUci } from 'chess';
 import { KeyboardMove } from '../main';
 
@@ -8,6 +8,8 @@ const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
 const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
 const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
+// accept partial ICCF because submit runs on every keypress
+const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 
 interface Opts {
   input: HTMLInputElement;
@@ -20,7 +22,7 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-export default (opts: Opts) => {
+export default (window as any).LichessKeyboardMove = (opts: Opts) => {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
@@ -31,6 +33,9 @@ export default (opts: Opts) => {
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
+    if (v.match(iccfRegex)) {
+      v = iccfToUci(v);
+    }
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
     const selectedKey = opts.ctrl.hasSelected() || '';
     if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
@@ -80,9 +85,29 @@ export default (opts: Opts) => {
         readClocks(opts.ctrl.clock());
         clear();
       }
+    } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
+      if ('who' === v.toLowerCase()) {
+        readOpponentName();
+        clear();
+      }
     } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
       if ('draw' === v.toLowerCase()) {
         opts.ctrl.draw();
+        clear();
+      }
+    } else if (v.length > 0 && 'next'.startsWith(v.toLowerCase())) {
+      if ('next' === v.toLowerCase()) {
+        opts.ctrl.next?.();
+        clear();
+      }
+    } else if (v.length > 0 && 'upv'.startsWith(v.toLowerCase())) {
+      if ('upv' === v.toLowerCase()) {
+        opts.ctrl.vote?.(true);
+        clear();
+      }
+    } else if (v.length > 0 && 'downv'.startsWith(v.toLowerCase())) {
+      if ('downv' === v.toLowerCase()) {
+        opts.ctrl.vote?.(false);
         clear();
       }
     } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {
@@ -114,6 +139,14 @@ export default (opts: Opts) => {
     });
   };
 };
+
+function iccfToUci(v: string) {
+  const chars = v.split('');
+  if (chars[0]) chars[0] = files[parseInt(chars[0]) - 1];
+  if (chars[2]) chars[2] = 'kqrbn'[parseInt(chars[2])];
+
+  return chars.join('');
+}
 
 function makeBindings(opts: any, submit: Submit, clear: () => void) {
   window.Mousetrap.bind('enter', () => opts.input.focus());
@@ -193,6 +226,11 @@ function readClocks(clockCtrl: any | undefined) {
     return `${color} ${msg}`;
   });
   lichess.sound.say(msgs.join('. '));
+}
+
+function readOpponentName(): void {
+  const opponentName = document.querySelector('.ruser-top') as HTMLInputElement;
+  lichess.sound.say(opponentName.innerText.split('\n')[0]);
 }
 
 function simplePlural(nb: number, word: string) {

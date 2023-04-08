@@ -4,13 +4,13 @@ package tv
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
-object index {
+object index:
 
   def apply(
       channel: lila.tv.Tv.Channel,
@@ -19,7 +19,7 @@ object index {
       data: play.api.libs.json.JsObject,
       cross: Option[lila.game.Crosstable.WithMatchup],
       history: List[lila.game.Pov]
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.round.bits.layout(
       variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
@@ -27,11 +27,11 @@ object index {
         roundTag,
         embedJsUnsafeLoadThen(
           s"""LichessRound.boot(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "i18n" -> views.html.round.jsI18n(pov.game)
-            )
-          )})"""
+              Json.obj(
+                "data" -> data,
+                "i18n" -> views.html.round.jsI18n(pov.game)
+              )
+            )})"""
         )
       ),
       moreCss = cssTag("tv.single"),
@@ -44,14 +44,16 @@ object index {
           url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
         )
         .some,
-      robots = true
+      zenable = true,
+      robots = true,
+      withHrefLangs = lila.common.LangPath(routes.Tv.index).some
     )(
       main(cls := "round tv-single")(
         st.aside(cls := "round__side")(
           side.meta(pov),
           side.channels(channel, champions, "/tv")
         ),
-        views.html.round.bits.roundAppPreload(pov, controls = false),
+        views.html.round.bits.roundAppPreload(pov),
         div(cls := "round__underboard")(
           views.html.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(
@@ -63,4 +65,3 @@ object index {
         )
       )
     )
-}

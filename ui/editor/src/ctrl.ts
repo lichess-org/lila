@@ -4,7 +4,7 @@ import { Rules, Square } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
-import { Castles, setupPosition } from 'chessops/variant';
+import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
@@ -47,7 +47,7 @@ export default class EditorCtrl {
 
     window.Mousetrap.bind('f', () => {
       if (this.chessground) this.chessground.toggleOrientation();
-      redraw();
+      this.onChange();
     });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
@@ -56,6 +56,9 @@ export default class EditorCtrl {
     this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
 
     this.redraw = () => {};
+    if (!this.cfg.embed) {
+      this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
+    }
     this.setFen(this.initialFen);
     this.redraw = redraw;
   }
@@ -63,7 +66,7 @@ export default class EditorCtrl {
   onChange(): void {
     const fen = this.getFen();
     if (!this.cfg.embed) {
-      window.history.replaceState(null, '', this.makeEditorUrl(fen));
+      window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
     }
     this.options.onChange?.(fen);
     this.redraw();
@@ -96,14 +99,12 @@ export default class EditorCtrl {
   }
 
   getFen(): string {
-    return makeFen(this.getSetup(), { promoted: this.rules == 'crazyhouse' });
+    return makeFen(this.getSetup());
   }
 
   private getLegalFen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(
-      pos => {
-        return makeFen(pos.toSetup(), { promoted: pos.rules == 'crazyhouse' });
-      },
+      pos => makeFen(pos.toSetup()),
       _ => undefined
     );
   }
@@ -123,15 +124,16 @@ export default class EditorCtrl {
     };
   }
 
-  makeAnalysisUrl(legalFen: string): string {
+  makeAnalysisUrl(legalFen: string, orientation: Color = 'white'): string {
     const variant = this.rules === 'chess' ? '' : lichessVariant(this.rules) + '/';
-    return `/analysis/${variant}${urlFen(legalFen)}`;
+    return `/analysis/${variant}${urlFen(legalFen)}?color=${orientation}`;
   }
 
-  makeEditorUrl(fen: string): string {
-    if (fen === INITIAL_FEN && this.rules === 'chess') return this.cfg.baseUrl;
+  makeEditorUrl(fen: string, orientation: Color = 'white'): string {
+    if (fen === INITIAL_FEN && this.rules === 'chess' && orientation === 'white') return this.cfg.baseUrl;
     const variant = this.rules === 'chess' ? '' : '?variant=' + lichessVariant(this.rules);
-    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}`;
+    const orientationParam = variant ? `&color=${orientation}` : `?color=${orientation}`;
+    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}`;
   }
 
   bottomColor(): Color {
@@ -149,7 +151,7 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition = () => this.setFen(INITIAL_FEN);
+  startPosition = () => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
   clearBoard = () => this.setFen(EMPTY_FEN);
 

@@ -1,40 +1,36 @@
 package lila.user
 
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import reactivemongo.api.bson.*
 
 import lila.common.LightUser
-import lila.memo.CacheApi._
+import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.db.dsl._
+import lila.db.dsl.{ given, * }
 import User.{ LightCount, LightPerf }
 
 final class Cached(
     userRepo: UserRepo,
-    onlineUserIds: () => Set[User.ID],
+    onlineUserIds: lila.socket.OnlineIds,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(using Executor, Scheduler):
 
-  implicit private val LightUserBSONHandler  = Macros.handler[LightUser]
-  implicit private val LightPerfBSONHandler  = Macros.handler[LightPerf]
-  implicit private val LightCountBSONHandler = Macros.handler[LightCount]
+  private given BSONDocumentHandler[LightUser]  = Macros.handler
+  private given BSONDocumentHandler[LightPerf]  = Macros.handler
+  private given BSONDocumentHandler[LightCount] = Macros.handler
 
   val top10 = cacheApi.unit[Perfs.Leaderboards] {
     _.refreshAfterWrite(2 minutes)
       .buildAsyncFuture { _ =>
         rankingApi
           .fetchLeaderboard(10)
-          .withTimeout(2 minutes)
+          .withTimeout(2 minutes, "user.Cached.top10")
           .monSuccess(_.user.leaderboardCompute)
       }
   }
 
-  val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
+  val top200Perf = mongoCache[Perf.Id, List[User.LightPerf]](
     PerfType.leaderboardable.size,
     "user:top200:perf",
     19 minutes,
@@ -59,7 +55,7 @@ final class Cached(
             .map { perf =>
               rankingApi.topPerf(perf.id, 1)
             }
-            .sequenceFu
+            .parallel
             .dmap(_.flatten)
         }
       }
@@ -88,22 +84,20 @@ final class Cached(
 
   def getTop50Online = top50OnlineCache.getUnit
 
-  def rankingsOf(userId: User.ID): lila.rating.UserRankMap = rankingApi.weeklyStableRanking of userId
+  def rankingsOf(userId: UserId): lila.rating.UserRankMap = rankingApi.weeklyStableRanking of userId
 
-  private[user] val botIds = cacheApi.unit[Set[User.ID]] {
+  private[user] val botIds = cacheApi.unit[Set[UserId]] {
     _.refreshAfterWrite(10 minutes)
       .buildAsyncFuture(_ => userRepo.botIds)
   }
 
-  private def userIdsLikeFetch(text: String) =
+  private def userIdsLikeFetch(text: UserStr) =
     userRepo.userIdsLikeFilter(text, $empty, 12)
 
-  private val userIdsLikeCache = cacheApi[String, List[User.ID]](1024, "user.like") {
+  private val userIdsLikeCache = cacheApi[UserStr, List[UserId]](1024, "user.like") {
     _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
   }
 
-  def userIdsLike(text: String): Fu[List[User.ID]] = {
-    if (text.lengthIs < 5) userIdsLikeCache get text
+  def userIdsLike(text: UserStr): Fu[List[UserId]] =
+    if (text.value.lengthIs < 5) userIdsLikeCache get text
     else userIdsLikeFetch(text)
-  }
-}

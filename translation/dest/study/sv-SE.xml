@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Du är nu en åskådare</string>
   <string name="pgnTags">PGN taggar</string>
   <string name="like">Gilla</string>
+  <string name="unlike">Sluta gilla</string>
   <string name="newTag">Ny tag</string>
   <string name="commentThisPosition">Kommentera denna position</string>
   <string name="commentThisMove">Kommentera detta drag</string>
@@ -61,6 +62,8 @@
   <string name="studyPgn">Studiens PGN</string>
   <string name="downloadAllGames">Ladda ner alla partier</string>
   <string name="chapterPgn">Kapitel PGN</string>
+  <string name="copyChapterPgn">Kopiera PGN</string>
+  <string name="copyChapterPgnDescription">Kopiera kapitel-PGN till urklipp.</string>
   <string name="downloadGame">Ladda ner parti</string>
   <string name="studyUrl">Studiens URL</string>
   <string name="currentChapterUrl">Aktuell kapitel URL</string>
@@ -75,11 +78,13 @@
   <string name="studyNotFound">Studien kan inte hittas</string>
   <string name="editChapter">Redigera kapitel</string>
   <string name="newChapter">Nytt kapitel</string>
+  <string name="importFromChapterX">Importera från %s</string>
   <string name="orientation">Orientering</string>
   <string name="analysisMode">Analysläge</string>
   <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>
   <string name="saveChapter">Spara kapitlet</string>
   <string name="clearAnnotations">Rensa kommentarer</string>
+  <string name="clearVariations">Rensa variationer</string>
   <string name="deleteChapter">Ta bort kapitel</string>
   <string name="deleteThisChapter">Vill du ta bort hela studien? Detta går inte att ångra!</string>
   <string name="clearAllCommentsInThisChapter">Rensa alla kommentarer, symboler och former i detta kapitel?</string>
@@ -130,18 +135,37 @@
   <string name="whereDoYouWantToStudyThat">Var vill du studera detta?</string>
   <string name="goodMove">Bra drag</string>
   <string name="mistake">Misstag</string>
+  <string name="brilliantMove">Lysande drag</string>
   <string name="blunder">Blunder</string>
+  <string name="interestingMove">Intressant drag</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvivelaktigt drag</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Enda draget</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Likvärdig position</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Oklar position</string>
   <string name="whiteIsSlightlyBetter">Vit är något bättre</string>
   <string name="blackIsSlightlyBetter">Svart är något bättre</string>
   <string name="whiteIsBetter">Vit är bättre</string>
   <string name="blackIsBetter">Svart är bättre</string>
   <string name="whiteIsWinning">Vit vinner</string>
   <string name="blackIsWinning">Svart vinner</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Ny variant</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Utveckling</string>
   <string name="initiative">Initiativ</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Attack</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Motspel</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tidsproblem</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Med kompensation</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Med idén</string>
   <string name="nextChapter">Nästa kapitel</string>
   <string name="prevChapter">Föregående kapitel</string>
+  <string name="studyActions">Studie-alternativ</string>
+  <string name="topics">Ämnen</string>
+  <string name="myTopics">Mina ämnen</string>
+  <string name="popularTopics">Populära ämnen</string>
+  <string name="manageTopics">Hantera ämnen</string>
+  <string name="back">Tillbaka</string>
+  <string name="playAgain">Spela igen</string>
+  <string name="whatWouldYouPlay">Vad skulle du spela i denna position?</string>
+  <string name="youCompletedThisLesson">Grattis! Du har slutfört denna lektionen.</string>
 </resources>

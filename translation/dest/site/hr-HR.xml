@@ -60,6 +60,8 @@
   <string name="depthX">Dubina %s</string>
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
   <string name="loadingEngine">Učitavanje računalne analize...</string>
+  <string name="calculatingMoves">Kalkuliranje poteza...</string>
+  <string name="engineFailed">Greška pri učitavanju šahovskog programa</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
   <string name="showThreat">Pokaži prijetnju</string>
@@ -94,6 +96,7 @@
   <string name="dtzWithRounding">DTZ50\'\' sa zaokruživanjem, na temelju broja polupoteza do sljedećeg hvatanja ili poteza pješaka</string>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
+  <string name="openings">Otvaranja</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="openingEndgameExplorer">Proučavanje otvaranja i završnica</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
@@ -163,6 +166,7 @@
   <string name="viewInFullSize">Pogledaj u punoj veličini</string>
   <string name="logOut">Odjavi se</string>
   <string name="signIn">Prijavi se</string>
+  <string name="rememberMe">Zapamti me</string>
   <string name="youNeedAnAccountToDoThat">Za ovo trebaš korisnički račun</string>
   <string name="signUp">Registriraj se</string>
   <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
@@ -206,12 +210,39 @@
   <string name="changeUsername">Promijeni korisničko ime</string>
   <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Primjerice, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo možeš učiniti samo jednom i samo možeš promijeniti veličinu slova svog korisničkog imena.</string>
+  <string name="signupUsernameHint">Obavezno odaberite obiteljsko korisničko ime. Ne možete ga kasnije promijeniti i svi računi s neprikladnim korisničkim imenima bit će zatvoreni!</string>
+  <string name="signupEmailHint">Koristit ćemo ga samo za ponovno postavljanje lozinke.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijeni email</string>
   <string name="email">Email</string>
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
+  <string name="error.weakPassword">Ova je lozinka iznimno česta i previše je lako pogoditi.</string>
+  <string name="error.namePassword">Molimo nemojte koristiti svoje korisničko ime kao lozinku.</string>
+  <string name="blankedPassword">Koristili ste istu lozinku na drugom mjestu, a to je mjesto ugroženo. Kako bismo osigurali sigurnost vašeg Lichess računa, potrebno je da postavite novu lozinku. Hvala na razumijevanju.</string>
+  <string name="youAreLeavingLichess">Odlazite sa Lichess-a</string>
+  <string name="neverTypeYourPassword">Nikada nemojte upisivati svoju Lichess lozinku na drugom mjestu!</string>
+  <string name="proceedToX">Nastavite s %s</string>
+  <string name="passwordSuggestion">Ne postavljajte lozinku koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
+  <string name="emailSuggestion">Ne postavljajte adresu e-pošte koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
+  <string name="emailConfirmHelp">Pomoć oko potvrde e-pošte</string>
+  <string name="emailConfirmNotReceived">Niste primili svoju potvrdnu e-poštu nakon prijave?</string>
+  <string name="whatSignupUsername">Koje ste korisničko ime koristili za prijavu?</string>
+  <string name="usernameNotFound">Nismo mogli pronaći nijednog korisnika pod ovim imenom: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Ovo korisničko ime možete koristiti za stvaranje novog računa</string>
+  <string name="emailSent">Poslali smo email na %s.</string>
+  <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok stigne.</string>
+  <string name="refreshInboxAfterFiveMinutes">Pričekajte 5 minuta i osvježite pristiglu poštu.</string>
+  <string name="checkSpamFolder">Također provjerite svoju mapu neželjene pošte, mogla bi tamo završiti. Ako je tako, označite da nije spam.</string>
+  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošaljite nam ovu e-poruku:</string>
+  <string name="copyTextToEmail">Kopirajte i zalijepite gornji tekst i pošaljite ga %s</string>
+  <string name="waitForSignupHelp">Javit ćemo vam se uskoro kako bismo vam pomogli dovršiti registraciju.</string>
+  <string name="accountConfirmed">Korisnik %s je uspješno potvrđen.</string>
+  <string name="accountCanLogin">Možete se odmah prijaviti kao %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nije vam potrebna potvrdna e-pošta.</string>
+  <string name="accountClosed">Račun %s je zatvoren.</string>
+  <string name="accountRegisteredWithoutEmail">Račun %s je registriran bez e-pošte.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -366,6 +397,7 @@
   <string name="siteDescription">Besplatni internetski šah. Igraj odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igraj šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="xJoinedTeamY">%1$s se priključio timu %2$s</string>
   <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
+  <string name="startedStreaming">je započeo stream</string>
   <string name="xStartedStreaming">%s je započeo stream</string>
   <string name="averageElo">Prosječni rejting</string>
   <string name="location">Lokacija</string>
@@ -374,6 +406,8 @@
   <string name="apply">Primijeni</string>
   <string name="save">Spremi</string>
   <string name="leaderboard">Ljestvica</string>
+  <string name="screenshotCurrentPosition">Uslikaj trenutnu poziciju</string>
+  <string name="gameAsGIF">Igra u obliku GIF-a</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN niz ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
   <string name="orUploadPgnFile">Ili učitaj PGN datoteku</string>
@@ -458,6 +492,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
+  <string name="pause">Pauza</string>
+  <string name="resume">Nastavi</string>
   <string name="youArePlaying">Igraš!</string>
   <string name="winRate">Postotak pobjeda</string>
   <string name="berserkRate">Postotak berserka</string>
@@ -492,6 +528,10 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="socialMediaLinks">Linkovi društvenih mreža</string>
   <string name="oneUrlPerLine">Jedan URL po liniji.</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
+  <string name="savingMoves">Privremena pohrana poteza</string>
+  <string name="savingMovesHelp">Vaše varijacije uvijek spremamo u predmemoriju preglednika.</string>
+  <string name="makeAStudy">Za čuvanje i dijeljenje razmislite o izradi studije.</string>
+  <string name="clearSavedMoves">Očisti poteze</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
   <string name="activePlayers">Aktivni igrači</string>
@@ -540,6 +580,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="blog">Blog</string>
   <string name="notes">Zabilješke</string>
   <string name="typePrivateNotesHere">Upiši privatne zabilješke ovdje</string>
+  <string name="writeAPrivateNoteAboutThisUser">Napišite privatnu bilješku o ovom korisniku</string>
+  <string name="noNoteYet">Još nema bilješke</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
   <string name="incorrectPassword">Netočna lozinka</string>
   <string name="invalidAuthenticationCode">Nevažeći kôd autentičnosti</string>
@@ -598,6 +640,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
+  <string name="error.unknown">Nevažeća vrijednost</string>
   <string name="error.required">Ovo polje je obavezno</string>
   <string name="error.email">Ova email adresa je neispravna</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva. Molimo provjerite ju te pokušajte ponovo.</string>
@@ -608,6 +651,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="error.min">Mora biti veće ili jednako %s</string>
   <string name="error.max">Mora biti manje ili jednako %s</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
+  <string name="ifRegistered">Ako je registriran</string>
   <string name="onlyExistingConversations">Samo već postojeći razgovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Izbornik</string>
@@ -657,6 +701,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
   <string name="timeBeforeTournamentStarts">Vrijeme prije nego turnir započne</string>
   <string name="averageCentipawnLoss">Prosječni gubitak u stotim dijelovima pješaka</string>
+  <string name="accuracy">Preciznost</string>
   <string name="keyboardShortcuts">Kratice na tipkovnici</string>
   <string name="keyMoveBackwardOrForward">idi natrag/naprijed</string>
   <string name="keyGoToStartOrEnd">idi na početak/kraj</string>
@@ -706,6 +751,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="kidMode">Dječji način</string>
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Vaš račun je upravljan. Pitajte svog učitelja šaha o uklanjanju načina rada za djecu.</string>
   <string name="enableKidMode">Omogući dječji način</string>
   <string name="disableKidMode">Onemogući dječji način</string>
   <string name="security">Sigurnost</string>
@@ -741,6 +787,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="light">Svijetla</string>
   <string name="dark">Tamna</string>
   <string name="transparent">Prozirna</string>
+  <string name="deviceTheme">Tema uređaja</string>
   <string name="backgroundImageUrl">URL pozadinske slike:</string>
   <string name="boardGeometry">Geometrija ploče</string>
   <string name="boardTheme">Tema ploče</string>
@@ -770,6 +817,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="bestWasX">Najbolji potez je %s</string>
   <string name="youBrowsedAway">Odsurfali ste</string>
   <string name="resumePractice">Nastavi vježbu</string>
+  <string name="drawByFiftyMoves">Partija je neriješena po pravilu pedeset poteza.</string>
   <string name="theGameIsADraw">Partija završava remijem.</string>
   <string name="computerThinking">Kompjuter razmišlja ...</string>
   <string name="seeBestMove">Vidi najbolji potez</string>
@@ -937,4 +985,5 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Promijeni strane</string>
+  <string name="closingAccountWithdrawAppeal">Zatvaranje računa će povući vašu žalbu</string>
 </resources>

@@ -3,14 +3,13 @@ package views.html.team
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
-object declinedRequest {
+object declinedRequest:
 
-  def all(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser])(implicit ctx: Context) = {
+  def all(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser])(implicit ctx: Context) =
     val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
 
     views.html.base.layout(
@@ -22,12 +21,14 @@ object declinedRequest {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(
-            a(href := routes.Team.show(team.id))(
-              team.name
-            ),
-            " • ",
-            trans.team.declinedRequests()
+          boxTop(
+            h1(
+              a(href := routes.Team.show(team.id))(
+                team.name
+              ),
+              " • ",
+              trans.team.declinedRequests()
+            )
           ),
           pager,
           table(cls := "slist")(
@@ -35,16 +36,16 @@ object declinedRequest {
               requests.currentPageResults.map { request =>
                 tr(
                   td(userLink(request.user)),
-                  td(richText(request.message)),
+                  td(request.message),
                   td(momentFromNow(request.date)),
                   td(cls := "process")(
                     postForm(
-                      cls := "process-request",
+                      cls    := "process-request",
                       action := routes.Team.requestProcess(request.id)
                     )(
                       input(
-                        tpe := "hidden",
-                        name := "url",
+                        tpe   := "hidden",
+                        name  := "url",
                         value := routes.Team.declinedRequests(team.id, requests.currentPage)
                       ),
                       button(name := "process", cls := "button button-green", value := "accept")(
@@ -60,6 +61,3 @@ object declinedRequest {
         )
       )
     }
-  }
-
-}

@@ -27,7 +27,7 @@
 
       content: '';
       font-size: 2em;
-      margin-right: 0.4em;
+      @include margin-inline-end(0.4em);
     }
   }
 
@@ -46,7 +46,7 @@
     }
 
     &--suspect {
-      border-right: 10px solid $c-bg-zebra;
+      border-#{$end-direction}: 10px solid $c-bg-zebra;
     }
 
     img {
@@ -61,7 +61,7 @@
     margin-top: 2em;
 
     .button {
-      margin-right: 1em;
+      margin-#{$end-direction}: 1em;
     }
   }
 
@@ -76,8 +76,20 @@
     font-size: 1.2em;
   }
 
+  .root h2 {
+    padding: 0.7em;
+    text-align: center;
+    background: $c-good;
+    color: $c-good-over;
+  }
+
+  .marked .root h2 {
+    background: $c-bad;
+    color: $c-bad-over;
+  }
+
   .appeal-presets {
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
 
   &__rules {
@@ -85,6 +97,11 @@
     margin-top: 3em;
     padding: 2em 3em;
     background: $c-bg-zebra;
+
+    p {
+      unicode-bidi: normal;
+      display: flex;
+    }
   }
 
   @keyframes reveal {

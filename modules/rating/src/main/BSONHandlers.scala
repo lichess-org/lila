@@ -1,20 +1,18 @@
 package lila.rating
 
-import lila.db.dsl._
-import lila.common.Iso
+import lila.db.dsl.given
+import reactivemongo.api.bson.BSONHandler
 
-object BSONHandlers {
+object BSONHandlers:
 
-  implicit val perfTypeIdIso = Iso.int[PerfType](
-    from = id => PerfType.byId get id err s"Invalid perf type id $id",
-    to = pt => pt.id
-  )
+  given perfTypeIdHandler: BSONHandler[PerfType] =
+    summon[BSONHandler[Perf.Id]].as[PerfType](
+      id => PerfType.byId.get(id) err s"Unknown perf id $id",
+      _.id
+    )
 
-  implicit val perfTypeKeyIso = Iso.string[PerfType](
-    from = key => PerfType(key) err s"Invalid perf type key $key",
-    to = pt => pt.key
-  )
-
-  implicit val perfTypeIdHandler  = intIsoHandler(perfTypeIdIso)
-  implicit val perfTypeKeyHandler = stringIsoHandler(perfTypeKeyIso)
-}
+  given perfTypeKeyHandler: BSONHandler[PerfType] =
+    summon[BSONHandler[Perf.Key]].as[PerfType](
+      key => PerfType(key) err s"Unknown perf type $key",
+      _.key
+    )

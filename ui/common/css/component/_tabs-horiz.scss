@@ -36,7 +36,7 @@ $c-tabs-active: $c-accent !default;
       height: 2px;
       position: absolute;
       width: 96%;
-      left: 2%;
+      #{$start-direction}: 2%;
       bottom: -2px;
 
       @include transition(all, 0.25s);
@@ -57,6 +57,6 @@ $c-tabs-active: $c-accent !default;
   }
 
   .unread {
-    margin-left: 0.3em;
+    margin-#{$start-direction}: 0.3em;
   }
 }

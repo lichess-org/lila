@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">当前一轮链接</string>
   <string name="currentGameUrl">当前棋局链接</string>
   <string name="downloadAllRounds">下载所有棋局</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">确定删除该回合及其游戏。</string>
+  <string name="deleteAllGamesOfThisRound">删除此回合的所有游戏。源需要激活才能重新创建。</string>
 </resources>

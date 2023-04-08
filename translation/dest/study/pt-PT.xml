@@ -22,8 +22,8 @@
     <item quantity="other">%s capítulos</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s partida</item>
-    <item quantity="other">%s partidas</item>
+    <item quantity="one">%s Jogo</item>
+    <item quantity="other">%s Jogos</item>
   </plurals>
   <string name="addMembers">Adicionar membros</string>
   <plurals name="nbMembers">
@@ -62,6 +62,8 @@
   <string name="studyPgn">PGN do estudo</string>
   <string name="downloadAllGames">Descarregar todas as partidas</string>
   <string name="chapterPgn">PGN do capítulo</string>
+  <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyChapterPgnDescription">Copiar capítulo PGN para área de transferência.</string>
   <string name="downloadGame">Descarregar partida</string>
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Estudo não encontrado</string>
   <string name="editChapter">Editar capítulo</string>
   <string name="newChapter">Novo capítulo</string>
+  <string name="importFromChapterX">Importar de %s</string>
   <string name="orientation">Orientação</string>
   <string name="analysisMode">Modo de análise</string>
   <string name="pinnedChapterComment">Comentário de capítulo afixado</string>

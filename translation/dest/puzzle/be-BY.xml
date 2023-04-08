@@ -13,15 +13,17 @@
   <string name="specialMoves">Адмысловыя хады</string>
   <string name="didYouLikeThisPuzzle">Ці спадабалася задача?</string>
   <string name="voteToLoadNextOne">Прагаласуйце, каб перайсці да наступнай!</string>
-  <string name="yourPuzzleRatingWillNotChange">Ваш рэйтынг задач не зменіцца. Заўважце, што задачэ гэта не спаборніцтва. Рэйтынг дапамагае абіраць найлепшыя задачы для вашага сучаснага майстэрства.</string>
-  <string name="findTheBestMoveForWhite">Знайдзіце найлепшы ход за белых.</string>
-  <string name="findTheBestMoveForBlack">Знайдзіце найлепшы ход за чорных.</string>
+  <string name="upVote">Задача спадабалася</string>
+  <string name="downVote">Задача не спадабалася</string>
+  <string name="yourPuzzleRatingWillNotChange">Ваш рэйтынг задач не зменіцца. Заўважце, што задачы гэта не спаборніцтва. Рэйтынг дапамагае абіраць найлепшыя задачы для вашага бягучага ўзроўню.</string>
+  <string name="findTheBestMoveForWhite">Знайдзіце найлепшы ход белых.</string>
+  <string name="findTheBestMoveForBlack">Знайдзіце найлепшы ход чорных.</string>
   <string name="toGetPersonalizedPuzzles">Каб атрымаць персаналізаваныя задачы:</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>
   <string name="clickToSolve">Націсніце, каб рашыць</string>
   <string name="goodMove">Добры ход</string>
-  <string name="bestMove">Лепшы ход!</string>
+  <string name="bestMove">Найлепшы ход!</string>
   <string name="keepGoing">Працягвайце…</string>
   <string name="puzzleSuccess">Поспех!</string>
   <string name="puzzleComplete">Задача вырашана!</string>
@@ -57,6 +59,7 @@
   </plurals>
   <string name="example">Прыклад</string>
   <string name="addAnotherTheme">Дадаць іншую тэму</string>
+  <string name="nextPuzzle">Наступная задача</string>
   <string name="jumpToNextPuzzleImmediately">Адразу перайсці да наступнай задачы</string>
   <string name="puzzleDashboard">Панэль задач</string>
   <string name="improvementAreas">Напрамкі паляпшэння</string>
@@ -91,6 +94,6 @@
   </plurals>
   <string name="percentSolved">%s вырашана правільна</string>
   <string name="noPuzzlesToShow">Нічога няма, вырашыце некалькі задач спачатку!</string>
-  <string name="improvementAreasDescription">Трэніруйце гэта, каб атрымаць лепшы прагрэс!</string>
+  <string name="improvementAreasDescription">Трэніруйце гэта, каб палепшыць прагрэс!</string>
   <string name="strengthDescription">Найбольш атрымоўваюцца гэтыя тэмы</string>
 </resources>

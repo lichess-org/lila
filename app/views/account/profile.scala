@@ -2,28 +2,28 @@ package views.html
 package account
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import play.api.i18n.Lang
 
 import controllers.routes
 
-object profile {
+object profile:
 
   private def linksHelp()(implicit lang: Lang) = frag(
-    "Twitter, Facebook, GitHub, Chess.com, ...",
+    "Mastodon, Facebook, GitHub, Chess.com, ...",
     br,
     trans.oneUrlPerLine()
   )
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?])(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${trans.editProfile.txt()}",
       active = "editProfile"
     ) {
       div(cls := "account box box-pad")(
-        h1(trans.editProfile()),
-        standardFlash(),
+        h1(cls := "box__top")(trans.editProfile()),
+        standardFlash,
         postForm(cls := "form3", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
@@ -57,4 +57,3 @@ object profile {
         )
       )
     }
-}

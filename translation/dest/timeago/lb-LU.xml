@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">elo grad</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">an %s Sekonn</item>
+    <item quantity="other">an %s Sekonnen</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">an %s Minutt</item>
+    <item quantity="other">an %s Minutten</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">an %s Stonn</item>
+    <item quantity="other">an %s Stonnen</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">an %s Dag</item>
+    <item quantity="other">an %s Deeg</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">an %s Woch</item>
+    <item quantity="other">an %s Wochen</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">an %s Mount</item>
+    <item quantity="other">an %s Méint</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">an %s Joer</item>
+    <item quantity="other">an %s Joer</item>
+  </plurals>
+  <string name="rightNow">elo</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">virun %s Sekonn</item>
+    <item quantity="other">virun %s Sekonnen</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">virun %s Minutt</item>
+    <item quantity="other">virun %s Minutten</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">virun %s Stonn</item>
+    <item quantity="other">virun %s Stonnen</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">virun %s Dag</item>
+    <item quantity="other">virun %s Deeg</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">virun %s Woch</item>
+    <item quantity="other">virun %s Wochen</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">virun %s Mount</item>
+    <item quantity="other">virun %s Méint</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">virun %s Joer</item>
+    <item quantity="other">virun %s Joer</item>
+  </plurals>
+</resources>

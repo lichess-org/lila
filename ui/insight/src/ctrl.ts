@@ -1,12 +1,14 @@
-import throttle from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
-import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters } from './interfaces';
+import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters, ViewTab } from './interfaces';
+import { isLandscapeLayout } from './view';
 
 export default class {
   env: Env;
   ui: UI;
   user: EnvUser;
   own: boolean;
+  isUserAction = false;
   domElement: Element;
   redraw: () => void;
 
@@ -40,6 +42,7 @@ export default class {
       broken: false,
       answer: null,
       panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset',
+      view: isLandscapeLayout() ? 'combined' : 'presets',
     };
   }
 
@@ -52,53 +55,67 @@ export default class {
     this.redraw();
   }
 
+  setView(view: ViewTab) {
+    this.vm.view = view;
+    this.redraw();
+  }
+
   reset() {
     this.vm.metric = this.metrics[0];
     this.vm.dimension = this.dimensions[0];
     this.vm.filters = {};
   }
 
-  askQuestion = throttle(1000, () => {
-    if (!this.validCombinationCurrent()) this.reset();
-    this.pushState();
-    this.vm.loading = true;
-    this.vm.broken = false;
-    this.redraw();
-    setTimeout(() => {
-      xhr
-        .json(this.env.postUrl, {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            metric: this.vm.metric.key,
-            dimension: this.vm.dimension.key,
-            filters: this.vm.filters,
-          }),
-        })
-        .then(
-          (answer: Chart) => {
-            this.vm.answer = answer;
-            this.vm.loading = false;
-            this.redraw();
-          },
-          () => {
-            this.vm.loading = false;
-            this.vm.broken = true;
-            this.redraw();
-          }
+  askQuestion = throttlePromiseDelay(
+    () => 1000,
+    () => {
+      if (!this.validCombinationCurrent()) this.reset();
+      this.pushState();
+      this.vm.loading = true;
+      this.vm.broken = false;
+      this.redraw();
+      return new Promise<void>(resolve => {
+        setTimeout(
+          () =>
+            xhr
+              .json(this.env.postUrl, {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  metric: this.vm.metric.key,
+                  dimension: this.vm.dimension.key,
+                  filters: this.vm.filters,
+                }),
+              })
+              .then(
+                (answer: Chart) => {
+                  this.vm.answer = answer;
+                  this.vm.loading = false;
+                  if (this.isUserAction) this.vm.view = 'insights';
+                  this.isUserAction = false;
+                  this.redraw();
+                },
+                () => {
+                  this.isUserAction = false;
+                  this.vm.loading = false;
+                  this.vm.broken = true;
+                  this.redraw();
+                }
+              )
+              .finally(resolve),
+          1
         );
-    }, 1);
-  });
+      });
+    }
+  );
 
   makeUrl(dKey: string, mKey: string, filters: Filters) {
-    let url = [this.env.pageUrl, mKey, dKey].join('/');
-    const filtersStr = Object.keys(filters)
-      .map(function (filterKey) {
-        return filterKey + ':' + filters[filterKey].join(',');
-      })
+    const url = [this.env.pageUrl, mKey, dKey].join('/');
+    const filtersStr = Object.entries(filters)
+      .filter(([_, values]) => !!values)
+      .map(([name, values]) => name + ':' + values.join(','))
       .join('/');
-    if (filtersStr.length) url += '/' + filtersStr;
-    return url;
+    return filtersStr.length ? url + '/' + filtersStr : url;
   }
 
   makeCurrentUrl() {
@@ -133,6 +150,7 @@ export default class {
   }
 
   setFilter(dimensionKey: string, valueKeys: string[]) {
+    if (dimensionKey == 'period' && valueKeys[0] == '3650') valueKeys = []; // 10 years
     if (!valueKeys.length) delete this.vm.filters[dimensionKey];
     else this.vm.filters[dimensionKey] = valueKeys;
     this.askQuestion();
@@ -141,7 +159,11 @@ export default class {
   setQuestion(q: Question) {
     this.vm.dimension = this.findDimension(q.dimension)!;
     this.vm.metric = this.findMetric(q.metric)!;
-    this.vm.filters = q.filters;
+    this.vm.filters = {
+      ...q.filters,
+      variant: (this.vm.view === 'combined' && this.vm.filters.variant) || q.filters.variant,
+    };
+    this.isUserAction = true;
     this.askQuestion();
     $(this.domElement).find('select.ms').multipleSelect('open');
     setTimeout(() => {
@@ -155,6 +177,5 @@ export default class {
       this.askQuestion();
     }
   }
-
   // this.trans = lichess.trans(env.i18n);
 }

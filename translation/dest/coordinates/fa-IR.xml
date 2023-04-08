@@ -8,8 +8,12 @@
   <string name="mostChessCourses">بیشتر دروس و تمرینات شطرنج از نشانه های شطرنجی استفاده می کنند.</string>
   <string name="talkToYourChessFriends">خیلی آسان تر است که با دوستتان در مورد شطرنج صحبت کنید وقتی هر دوی شما \"زبان شطرنج\" را بلد باشید.</string>
   <string name="youCanAnalyseAGameMoreEffectively">شما می توانید به خوبی بازی های خود را بررسی کنید اگر نیازی برای جست و جو برای خانه ها نداشته باشید.</string>
-  <string name="aSquareNameAppears">نام یک خانه بر روی صحفه ضاهر می شود و شما باید بر روی ان کلیک کنید. شما 30 ثانیه وقت دارید تا هر چه می توانید امتیاز بگیرید!</string>
-  <string name="aSquareIsHighlighted">یک خانه روی صفحه نشان داده می شود و شما باید مختصات آن (مثلا e4) را وارد کنید. سی ثانیه زمان دارید که هرچقدر می توانید خانه ها را مشخص کنید!</string>
+  <string name="aCoordinateAppears">مختصات روی صفحه نمایش داده میشود و شما باید بر روی خانه مربوط کلیک کنید.</string>
+  <string name="aSquareIsHighlightedExplanation">شما باید مختصات خانه مشخص شده روی صفحه را وارد کنید.(مثلا \"e4\").</string>
+  <string name="youHaveThirtySeconds">30 ثانیه مهلت دارید تا هرچقدر که میتوانید پیش بروید!</string>
+  <string name="goAsLongAsYouWant">بدون محدودیت زمانی</string>
+  <string name="showCoordinates">نمایش مختصات</string>
+  <string name="showPieces">نمایش مهره ها</string>
   <string name="startTraining">شروع تمرین</string>
   <string name="findSquare">خانه را پیدا کنید</string>
   <string name="nameSquare">خانه را نام گذاری کنید</string>

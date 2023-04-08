@@ -1,0 +1,75 @@
+.analyse__puzzle {
+  margin-top: $block-gap;
+  a {
+    @extend %flex-center-nowrap;
+    text-transform: inherit;
+    text-align: $start-direction;
+    &::before {
+      font-size: 2.8em;
+    }
+  }
+}
+
+.advice-summary {
+  @extend %flex-column;
+
+  color: $c-font-page;
+  font-size: 0.9em;
+  line-height: 1.15em;
+  margin-top: 1em;
+
+  &__side > div {
+    display: flex;
+    i,
+    strong {
+      flex: 0 1 6ch;
+      text-align: center;
+    }
+    &.symbol {
+      cursor: pointer;
+    }
+    &.inaccuracy {
+      color: $c-inaccuracy;
+      &:hover {
+        color: c-clearer(saturate($c-inaccuracy, 100%), 40%);
+      }
+    }
+    &.mistake {
+      color: $c-mistake;
+      &:hover {
+        color: c-clearer($c-mistake, 40%);
+      }
+    }
+    &.blunder {
+      color: $c-blunder;
+      &:hover {
+        color: c-clearer(saturate($c-blunder, 100%), 40%);
+      }
+    }
+  }
+
+  .color-icon::before {
+    vertical-align: text-bottom;
+  }
+
+  .button {
+    margin: 0.6em 0;
+  }
+
+  @include breakpoint($mq-col1) {
+    flex-flow: row wrap;
+    justify-content: center;
+    padding-bottom: $block-gap;
+    border-bottom: $border;
+    margin: 0;
+
+    &__side {
+      flex: 0 0 calc(50% - #{$block-gap});
+      margin-#{$start-direction}: $block-gap;
+    }
+
+    > a {
+      order: 1;
+    }
+  }
+}

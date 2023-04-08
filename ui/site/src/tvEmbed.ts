@@ -1,6 +1,5 @@
 import { Chessground } from 'chessground';
 import * as miniGame from './component/mini-game';
-import loadClockWidget from './component/clock-widget';
 
 window.Chessground = Chessground;
 
@@ -12,7 +11,6 @@ function resize() {
 }
 
 window.onload = () => {
-  loadClockWidget();
   const findGame = () => document.getElementsByClassName('mini-game').item(0) as HTMLElement;
   const setup = () => miniGame.init(findGame());
   setup();

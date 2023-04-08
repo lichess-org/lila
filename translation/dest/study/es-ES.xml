@@ -62,6 +62,8 @@
   <string name="studyPgn">PGN del estudio</string>
   <string name="downloadAllGames">Descargar todas las partidas</string>
   <string name="chapterPgn">PGN del capítulo</string>
+  <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyChapterPgnDescription">Copiar PGN del capítulo al portapapeles.</string>
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL del estudio</string>
   <string name="currentChapterUrl">URL del capítulo actual</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">No se encontró el estudio</string>
   <string name="editChapter">Editar capítulo</string>
   <string name="newChapter">Capítulo nuevo</string>
+  <string name="importFromChapterX">Importar de %s</string>
   <string name="orientation">Orientación</string>
   <string name="analysisMode">Modo de análisis</string>
   <string name="pinnedChapterComment">Comentario fijo para el capítulo</string>

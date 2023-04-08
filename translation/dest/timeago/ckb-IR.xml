@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">ئێستا</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">لە %s چرکە</item>
+    <item quantity="other">لە %s چرکە</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">لە %s خولەک</item>
+    <item quantity="other">لە %s خولەک</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">لە %s کاژێر</item>
+    <item quantity="other">لە %s کاژێر</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">لە %s رۆژ</item>
+    <item quantity="other">لە %s رۆژ</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">لە %s هەفتە</item>
+    <item quantity="other">لە %s هەفتە</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">لە %s مانگ</item>
+    <item quantity="other">لە %s مانگ</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">لە %s ساڵ</item>
+    <item quantity="other">لە %s ساڵ</item>
+  </plurals>
+  <string name="rightNow">ئێستا</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s چرکە لەمەوبەر</item>
+    <item quantity="other">%s چرکە لەمەوبەر</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s خولەک لەمەوبەر</item>
+    <item quantity="other">%s خولەک لەمەوبەر</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s کاژێر لەمەوبەر</item>
+    <item quantity="other">%s کاژێر لەمەوبەر</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s رۆژ لەمەوبەر</item>
+    <item quantity="other">%s رۆژ لەمەوبەر</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s هەفتە لەمەوبەر</item>
+    <item quantity="other">%s هەفتە لەمەوبەر</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s مانگ لەمەوبەر</item>
+    <item quantity="other">%s مانگ لەمەوبەر</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s ساڵ لەمەوبەر</item>
+    <item quantity="other">%s ساڵ لەمەوبەر</item>
+  </plurals>
+</resources>

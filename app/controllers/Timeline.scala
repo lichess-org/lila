@@ -1,15 +1,15 @@
 package controllers
 
-import play.api.libs.json._
-import scala.concurrent.duration._
-import views._
+import play.api.libs.json.*
+import views.*
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config.Max
 import lila.common.HTTPRequest
-import lila.timeline.Entry.entryWrites
+import lila.common.Json.given
+import lila.timeline.Entry.given
 
-final class Timeline(env: Env) extends LilaController(env) {
+final class Timeline(env: Env) extends LilaController(env):
 
   def home =
     Auth { implicit ctx => me =>
@@ -26,11 +26,14 @@ final class Timeline(env: Env) extends LilaController(env) {
             } yield html.timeline.more(entries),
         _ =>
           for {
+            // Must be empty if nb is not given, because old versions of the
+            // mobile app that do not send nb are vulnerable to XSS in
+            // timeline entries.
             entries <- env.timeline.entryApi
-              .moreUserEntries(me.id, Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get())
+              .moreUserEntries(me.id, Max(getInt("nb") | 0 atMost env.apiTimelineSetting.get()))
             users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
-            userMap = users.view.map { u => u.id -> u }.toMap
-          } yield Ok(Json.obj("entries" -> entries, "users" -> userMap))
+            userMap = users.mapBy(_.id)
+          } yield Ok(Json.obj("entries" -> entries, "users" -> Json.toJsObject(userMap)))
       )
     }
 
@@ -38,4 +41,3 @@ final class Timeline(env: Env) extends LilaController(env) {
     Auth { implicit ctx => me =>
       env.timeline.unsubApi.set(channel, me.id, ~get("unsub") == "on")
     }
-}

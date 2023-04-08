@@ -1,25 +1,24 @@
 package views
 package html.tournament
 
-import chess.variant.{ FromPosition, Standard }
 import controllers.routes
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
-import lila.tournament.{ TeamBattle, Tournament, TournamentShield }
+import lila.tournament.{ TeamBattle, Tournament }
 
-object side {
+object side:
 
   private val separator = " • "
 
   def apply(
       tour: Tournament,
       verdicts: lila.tournament.Condition.All.WithVerdicts,
-      streamers: List[lila.user.User.ID],
-      shieldOwner: Option[TournamentShield.OwnerId],
+      streamers: List[UserId],
+      shieldOwner: Option[UserId],
       chat: Boolean
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     frag(
       div(cls := "tour__meta")(
         st.section(dataIcon := tour.perfType.iconChar.toString)(
@@ -36,7 +35,7 @@ object side {
               separator,
               tour.durationString
             ),
-            tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+            if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
             separator,
             "Arena",
             (isGranted(_.ManageTournament) || (ctx.userId
@@ -48,17 +47,17 @@ object side {
         ),
         tour.teamBattle map teamBattle(tour),
         tour.spotlight map { s =>
-          st.section(
+          st.section(cls := "description")(
             markdownLinksOrRichText(s.description),
             shieldOwner map { owner =>
               p(cls := "defender", dataIcon := "")(
                 "Defender:",
-                userIdLink(owner.value.some)
+                userIdLink(owner.some)
               )
             }
           )
         },
-        variantTeamLinks.get(tour.variant) filter { case (team, _) =>
+        variantTeamLinks.get(tour.variant.key) filter { (team, _) =>
           tour.createdBy == lila.user.User.lichessId || tour.conditions.teamMember.exists(_.teamId == team.id)
         } map { case (team, link) =>
           st.section(
@@ -97,23 +96,19 @@ object side {
             }
           )
         ),
-        tour.noBerserk option div(cls := "text", dataIcon := "")("No Berserk allowed"),
-        tour.noStreak option div(cls := "text", dataIcon := "")("No Arena streaks"),
+        tour.noBerserk option div(cls := "text", dataIcon := "")(trans.arena.noBerserkAllowed()),
+        tour.noStreak option div(cls := "text", dataIcon := "")(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
           tour.startsAt
         ),
         tour.startingPosition.map { pos =>
-          p(
-            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
-            separator,
-            views.html.base.bits.fenAnalysisLink(pos.fen)
-          )
+          p(a(href := pos.url)(pos.name))
         } orElse tour.position.map { fen =>
           p(
             "Custom position",
             separator,
-            views.html.base.bits.fenAnalysisLink(fen)
+            views.html.base.bits.fenAnalysisLink(fen into chess.format.Fen.Epd)
           )
         }
       ),
@@ -131,4 +126,3 @@ object side {
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag(""))
       )
     )
-}

@@ -1,16 +1,15 @@
 package lila.challenge
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
-import scala.concurrent.duration._
+import akka.stream.scaladsl.*
+import play.api.libs.json.*
 
 import lila.common.Bus
 
-final class ChallengeKeepAliveStream(api: ChallengeApi)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
-) {
-  def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, _] =
+final class ChallengeKeepAliveStream(api: ChallengeApi)(using
+    ec: Executor,
+    scheduler: Scheduler
+):
+  def apply(challenge: Challenge, initialJson: JsObject): Source[JsValue, ?] =
     Source(List(initialJson)) concat
       Source.queue[JsObject](1, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
         val keepAliveInterval = scheduler.scheduleWithFixedDelay(15 seconds, 15 seconds) { () =>
@@ -24,9 +23,8 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(implicit
           case Event.Cancel(c) if c.id == challenge.id    => completeWith("canceled")
           case Event.Decline(c) if c.id == challenge.id   => completeWith("declined")
         }
-        queue.watchCompletion().foreach { _ =>
+        queue.watchCompletion().addEffectAnyway {
           keepAliveInterval.cancel()
           Bus.unsubscribe(sub, "challenge")
         }
       }
-}

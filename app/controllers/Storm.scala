@@ -1,55 +1,57 @@
 package controllers
 
-import play.api.mvc._
+import play.api.mvc.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
+import lila.common.HTTPRequest
 
-final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
+final class Storm(env: Env) extends LilaController(env):
 
-  def home =
-    Open { implicit ctx =>
-      NoBot {
-        env.storm.selector.apply flatMap { puzzles =>
-          ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
-            NoCache {
-              Ok(
-                views.html.storm.home(
-                  env.storm.json(puzzles, ctx.me),
-                  env.storm.json.pref(ctx.pref),
-                  high
-                )
-              )
-            }
-          }
-        }
+  def home     = Open(serveHome(using _))
+  def homeLang = LangPage(routes.Storm.home)(serveHome(using _))
+  private def serveHome(using ctx: Context) = NoBot {
+    dataAndHighScore(ctx.me, ctx.pref.some) map { (data, high) =>
+      Ok(views.html.storm.home(data, high)).noCache
+    }
+  }
+
+  private def dataAndHighScore(me: Option[lila.user.User], pref: Option[lila.pref.Pref]) =
+    env.storm.selector.apply flatMap { puzzles =>
+      me.?? { u => env.storm.highApi.get(u.id) dmap some } map { high =>
+        env.storm.json(puzzles, me, pref) -> high
       }
     }
+
+  def apiGet = AnonOrScoped(_.Puzzle.Read) { _ => me =>
+    dataAndHighScore(me, none) map { (data, high) =>
+      import lila.storm.StormJson.given
+      JsonOk(data.add("high" -> high))
+    }
+  }
 
   def record =
-    OpenBody { implicit ctx =>
-      NoBot {
-        implicit val req = ctx.body
-        env.storm.forms.run
-          .bindFromRequest()
-          .fold(
-            _ => fuccess(none),
-            data => env.storm.dayApi.addRun(data, ctx.me)
-          ) map env.storm.json.newHigh map JsonOk
-      }
-    }
+    def doRecord(me: Option[lila.user.User], mobile: Boolean)(using Request[?]) =
+      env.storm.forms.run
+        .bindFromRequest()
+        .fold(
+          _ => fuccess(none),
+          data => env.storm.dayApi.addRun(data, me, mobile = mobile)
+        ) map env.storm.json.newHigh map JsonOk
+    OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write))(
+      open = ctx => NoBot { doRecord(ctx.me, mobile = false)(using ctx.body) }(using ctx),
+      scoped = req => me => doRecord(me.some, mobile = HTTPRequest.isLichessMobile(req))(using req)
+    )
 
   def dashboard(page: Int) =
     Auth { implicit ctx => me =>
       renderDashboardOf(me, page)
     }
 
-  def dashboardOf(username: String, page: Int) =
+  def dashboardOf(username: UserStr, page: Int) =
     Open { implicit ctx =>
-      env.user.repo.enabledNamed(username).flatMap {
-        _ ?? {
-          renderDashboardOf(_, page)
-        }
+      env.user.repo.enabledById(username).flatMapz {
+        renderDashboardOf(_, page)
       }
     }
 
@@ -60,8 +62,8 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       }
     }
 
-  def apiDashboardOf(username: String, days: Int) =
-    Open { implicit ctx =>
+  def apiDashboardOf(username: UserStr, days: Int) =
+    Open { _ =>
       lila.user.User.validateId(username) ?? { userId =>
         if (days < 0 || days > 365) notFoundJson("Invalid days parameter")
         else
@@ -71,4 +73,3 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
           }
       }
     }
-}

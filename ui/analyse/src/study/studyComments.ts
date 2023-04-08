@@ -1,7 +1,8 @@
 import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
+import { richHTML } from 'common/richText';
 import AnalyseCtrl from '../ctrl';
-import { nodeFullName, richHTML } from '../util';
+import { nodeFullName } from '../view/util';
 import { StudyCtrl } from './interfaces';
 
 export type AuthorObj = {
@@ -22,15 +23,10 @@ function authorDom(author: Author): string | VNode {
   );
 }
 
-export function isAuthorObj(author: Author): author is AuthorObj {
-  return typeof author === 'object';
-}
+export const isAuthorObj = (author: Author): author is AuthorObj => typeof author === 'object';
 
-export function authorText(author?: Author): string {
-  if (!author) return 'Unknown';
-  if (typeof author === 'string') return author;
-  return author.name;
-}
+export const authorText = (author?: Author): string =>
+  !author ? 'Unknown' : typeof author === 'string' ? author : author.name;
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
   if (!ctrl.node.comments) return;
@@ -41,13 +37,12 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
   if (!comments.length) return;
   return h(
     'div',
-    comments.map((comment: Tree.Comment) => {
+    comments.map(comment => {
       const by: Author = comment.by;
       const isMine = isAuthorObj(by) && by.id === ctrl.opts.userId;
       if (!includingMine && isMine) return;
-      const canDelete = isMine || study.members.isOwner();
       return h('div.study__comment.' + comment.id, [
-        canDelete && study.vm.mode.write
+        study.members.canContribute() && study.vm.mode.write
           ? h('a.edit', {
               attrs: {
                 'data-icon': '',

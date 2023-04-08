@@ -12,23 +12,23 @@
   ],
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/cash": "8.0.0",
-    "@types/lichess": "2.0.0",
-    "@types/web": "^0",
-    "rollup": "^2",
-    "typescript": "^4"
-  },
   "dependencies": {
+    "@types/cash": "workspace:*",
     "@types/chess.js": "=0.10.1",
+    "@types/lichess": "workspace:*",
     "chess.js": "github:ornicar/chess.js#learn",
-    "chessground": "^4.4",
-    "common": "2.0.0",
+    "chessground": "=4.4.2",
+    "common": "workspace:*",
     "mithril": "github:ornicar/mithril.js#lila-1"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "bundles": {
+      "src/main.ts": "learn"
+    }
   }
 }

@@ -1,55 +1,62 @@
 package lila.notify
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.Configuration
 
+import lila.db.dsl.Coll
 import lila.common.Bus
-import lila.common.config._
-
-private class NotifyConfig(
-    @ConfigName("collection.notify") val notifyColl: CollName
-)
+import lila.common.config.*
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
     getLightUserSync: lila.common.LightUser.GetterSync,
-    cacheApi: lila.memo.CacheApi
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
-
-  private val config = appConfig.get[NotifyConfig]("notify")(AutoConfig.loader)
+    cacheApi: lila.memo.CacheApi,
+    prefApi: lila.pref.PrefApi,
+    subsRepo: lila.relation.SubscriptionRepo
+)(using Executor, ActorSystem):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 
-  private lazy val repo = new NotificationRepo(coll = db(config.notifyColl))
+  val colls = NotifyColls(notif = db(CollName("notify")), pref = db(CollName("notify_pref")))
 
   private val maxPerPage = MaxPerPage(7)
 
+  private lazy val repo = wire[NotificationRepo]
+
   lazy val api = wire[NotifyApi]
 
+  val getAllows = GetNotifyAllows(api.prefs.allows)
+
   // api actor
-  Bus.subscribeFun("notify") {
-    case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
-      api.markAllRead(userIds.map(Notification.Notifies.apply)).unit
-    case lila.game.actorApi.CorresAlarmEvent(pov) =>
-      pov.player.userId ?? { userId =>
-        lila.game.Namer.playerText(pov.opponent)(getLightUser) foreach { opponent =>
-          api addNotification Notification.make(
-            Notification.Notifies(userId),
-            CorresAlarm(
-              gameId = pov.gameId,
-              opponent = opponent
+  Bus.subscribeFuns(
+    "notify" -> {
+      case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
+        api.markAllRead(userIds) unit
+      case lila.game.actorApi.CorresAlarmEvent(pov) =>
+        pov.player.userId ?? { userId =>
+          lila.game.Namer.playerText(pov.opponent)(using getLightUser) foreach { opponent =>
+            api notifyOne (
+              userId,
+              CorresAlarm(gameId = pov.gameId, opponent = opponent)
             )
-          )
+          }
         }
+    },
+    "streamStart" -> { case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
+      subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
+        api.notifyMany(subs, StreamStart(userId, streamerName))
       }
-  }
-}
+    }
+  )
+
+final class NotifyColls(val notif: Coll, val pref: Coll)
+
+private type GetNotifyAllowsType                   = (UserId, NotificationPref.Event) => Fu[Allows]
+opaque type GetNotifyAllows <: GetNotifyAllowsType = GetNotifyAllowsType
+object GetNotifyAllows extends TotalWrapper[GetNotifyAllows, GetNotifyAllowsType]

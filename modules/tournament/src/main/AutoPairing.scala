@@ -1,20 +1,19 @@
 package lila.tournament
 
 import chess.{ Black, Color, White }
-import scala.util.chaining._
 
-import lila.game.{ Game, Player => GamePlayer, GameRepo, Source }
-import lila.user.User
+import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
 
 final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
-    onStart: Game.ID => Unit
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    onStart: lila.round.OnStart
+)(using Executor):
 
-  def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] = {
-    val clock = tour.clock.toClock
+  def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
+    val clock                             = tour.clock.toClock
+    val fen: Option[chess.format.Fen.Epd] = tour.position.map(_ into chess.format.Fen.Epd)
     val game = Game
       .make(
         chess = chess
@@ -23,7 +22,7 @@ final class AutoPairing(
               if (tour.position.isEmpty) tour.variant
               else chess.variant.FromPosition
             },
-            fen = tour.position
+            fen = fen
           )
           .copy(clock = clock.some),
         whitePlayer = makePlayer(White, pairing.player1),
@@ -37,19 +36,17 @@ final class AutoPairing(
       .start
     (gameRepo insertDenormalized game) >>- {
       onStart(game.id)
+      import lila.rating.intZero
       duelStore.add(
         tour = tour,
         game = game,
-        p1 = usernameOf(pairing.player1.userId) -> ~game.whitePlayer.rating,
-        p2 = usernameOf(pairing.player2.userId) -> ~game.blackPlayer.rating,
+        p1 = usernameOf(pairing.player1) -> ~game.whitePlayer.rating,
+        p2 = usernameOf(pairing.player2) -> ~game.blackPlayer.rating,
         ranking = ranking
       )
     } inject game
-  }
 
   private def makePlayer(color: Color, player: Player) =
     GamePlayer.make(color, player.userId, player.rating, player.provisional)
 
-  private def usernameOf(userId: User.ID) =
-    lightUserApi.sync(userId).fold(userId)(_.name)
-}
+  private def usernameOf(player: Player) = lightUserApi.syncFallback(player.userId).name

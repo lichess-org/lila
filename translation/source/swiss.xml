@@ -6,7 +6,12 @@
     <item quantity="other">View all %s rounds</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s round</item>
     <item quantity="other">%s rounds</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s round Swiss</item>
+    <item quantity="other">%s rounds Swiss</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">One round per day</item>
@@ -71,7 +76,7 @@ The reason is that it has no fair way of dealing with people leaving the tournam
 The closest you can get to Round Robin online is to play a Swiss tournament with a very high number of rounds. Then all possible pairings will be played before the tournament ends.</string>
   <string name="otherSystemsQ">What about other tournament systems?</string>
   <string name="otherSystemsA">We don't plan to add more tournament systems to Lichess at the moment.</string>
-  <string name="swissDescription">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players."</string>
+  <string name="swissDescription">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players.</string>
   <string name="teamOnly">Swiss tournaments can only be created by team leaders, and can only be played by team members.           
 %1$s to start playing in swiss tournaments.</string>           
   <string name="joinOrCreateTeam">Join or create a team</string>
@@ -100,4 +105,6 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="streaksAndBerserk">Streaks and Berserk</string>
   <string name="similarToOTB">Similar to OTB tournaments</string>
   <string name="unlimitedAndFree">Unlimited and free</string>
+  <string name="predefinedUsers">Only allow pre-defined users to join</string>
+  <string name="forbiddedUsers">If this list is non-empty, then users absent from this list will be forbidden to join. One username per line.</string>
 </resources>

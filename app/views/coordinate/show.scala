@@ -1,17 +1,14 @@
 package views.html.coordinate
 
-import play.api.libs.json.Json
-
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
-import lila.pref.Pref.Color
-import play.api.i18n.Lang
 
 import controllers.routes
+import lila.common.LangPath
 
-object show {
+object show:
 
   def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
     views.html.base.layout(
@@ -21,8 +18,8 @@ object show {
         jsModule("coordinateTrainer"),
         embedJsUnsafeLoadThen(
           s"""LichessCoordinateTrainer(document.getElementById('trainer'), ${safeJsonValue(
-            bits.coordinateConfig(scoreOption)
-          )});"""
+              bits.coordinateConfig(scoreOption)
+            )});"""
         )
       ),
       openGraph = lila.app.ui
@@ -34,7 +31,8 @@ object show {
         )
         .some,
       zoomable = true,
-      playing = true
+      zenable = true,
+      withHrefLangs = LangPath(routes.Coordinate.home).some
     )(
       main(id := "trainer")(
         div(cls := "trainer")(
@@ -45,4 +43,3 @@ object show {
         )
       )
     )
-}

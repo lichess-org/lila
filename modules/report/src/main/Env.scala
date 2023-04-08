@@ -1,12 +1,11 @@
 package lila.report
 
-import akka.actor._
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration._
 
-import lila.common.config._
+import lila.common.config.*
 
 @Module
 private class ReportConfig(
@@ -16,6 +15,7 @@ private class ReportConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     domain: lila.common.config.NetDomain,
@@ -32,10 +32,11 @@ final class Env(
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
+)(using
+    ec: Executor,
+    system: ActorSystem,
+    scheduler: Scheduler
+):
 
   private val config = appConfig.get[ReportConfig]("report")(AutoConfig.loader)
 
@@ -46,15 +47,16 @@ final class Env(
   lazy val discordScoreThresholdSetting = ReportThresholds makeDiscordSetting settingStore
 
   private val thresholds = Thresholds(
-    score = scoreThresholdsSetting.get _,
-    discord = discordScoreThresholdSetting.get _
+    score = (() => scoreThresholdsSetting.get()),
+    discord = (() => discordScoreThresholdSetting.get())
   )
 
   lazy val forms = wire[ReportForm]
 
   private lazy val autoAnalysis = wire[AutoAnalysis]
 
-  private lazy val snoozer = new lila.memo.Snoozer[Report.SnoozeKey](cacheApi)
+  private given UserIdOf[Report.SnoozeKey] = _.snoozerId
+  private lazy val snoozer                 = new lila.memo.Snoozer[Report.SnoozeKey](cacheApi)
 
   lazy val api = wire[ReportApi]
 
@@ -75,11 +77,10 @@ final class Env(
 
   lila.common.Bus.subscribeFun("playban", "autoFlag") {
     case lila.hub.actorApi.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins).unit
-    case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text) =>
-      api.autoCommFlag(SuspectId(suspectId), resource, text).unit
+    case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text, critical) =>
+      api.autoCommFlag(SuspectId(suspectId), resource, text, critical).unit
   }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     api.inquiries.expire.unit
   }
-}

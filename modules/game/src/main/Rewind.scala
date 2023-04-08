@@ -1,22 +1,20 @@
 package lila.game
 
 import cats.data.Validated
-import chess.format.{ FEN, pgn => chessPgn }
-import org.joda.time.DateTime
+import chess.ErrorStr
+import chess.format.{ pgn as chessPgn, Fen }
 
-object Rewind {
+object Rewind:
 
-  private def createTags(fen: Option[FEN], game: Game) = {
+  private def createTags(fen: Option[Fen.Epd], game: Game) =
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))
     val fenTag     = fen.map(f => chessPgn.Tag(_.FEN, f.value))
-
     chessPgn.Tags(List(variantTag, fenTag).flatten)
-  }
 
-  def apply(game: Game, initialFen: Option[FEN]): Validated[String, Progress] =
+  def apply(game: Game, initialFen: Option[Fen.Epd]): Validated[ErrorStr, Progress] =
     chessPgn.Reader
       .movesWithSans(
-        moveStrs = game.pgnMoves,
+        sans = game.sans,
         op = sans => chessPgn.Sans(sans.value.dropRight(1)),
         tags = createTags(initialFen, game)
       )
@@ -28,18 +26,16 @@ object Rewind {
           clk.setRemainingTime(color, t)
         }
       }
-      def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
       val newGame = game.copy(
-        whitePlayer = rewindPlayer(game.whitePlayer),
-        blackPlayer = rewindPlayer(game.blackPlayer),
+        whitePlayer = game.whitePlayer.removeTakebackProposition,
+        blackPlayer = game.blackPlayer.removeTakebackProposition,
         chess = rewindedGame.copy(clock = newClock),
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
           BinaryFormat.moveTime.write(moveTimes.dropRight(1))
         },
         loadClockHistory = _ => game.clockHistory.map(_.update(!color, _.dropRight(1))),
-        movedAt = DateTime.now
+        movedAt = nowDate
       )
       Progress(game, newGame)
     }
-}

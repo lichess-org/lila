@@ -5,15 +5,15 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.swiss.{ Swiss, SwissCondition }
-import lila.swiss.SwissRound
+import lila.swiss.SwissRoundNumber
 import lila.common.paginator.Paginator
 import lila.swiss.SwissPairing
 
-object show {
+object show:
 
   private def fullName(s: Swiss) = s"${s.name} by ${teamIdToName(s.teamId)}"
 
@@ -22,9 +22,9 @@ object show {
       verdicts: SwissCondition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
-      streamers: List[lila.user.User.ID],
+      streamers: List[UserId],
       isLocalMod: Boolean
-  )(implicit ctx: Context): Frag = {
+  )(implicit ctx: Context): Frag =
     val isDirector       = ctx.userId.has(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
@@ -33,25 +33,25 @@ object show {
         jsModule("swiss"),
         hasScheduleInput option jsModule("flatpickr"),
         embedJsUnsafeLoadThen(s"""LichessSwiss.start(${safeJsonValue(
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> bits.jsI18n,
-              "userId" -> ctx.userId,
-              "chat" -> chatOption.map { c =>
-                chat.json(
-                  c.chat,
-                  name = trans.chatRoom.txt(),
-                  timeout = c.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
-                  localMod = isLocalMod
-                )
-              },
-              "showRatings" -> ctx.pref.showRatings
-            )
-            .add("schedule" -> hasScheduleInput)
-        )})""")
+            Json
+              .obj(
+                "data"   -> data,
+                "i18n"   -> bits.jsI18n,
+                "userId" -> ctx.userId,
+                "chat" -> chatOption.map { c =>
+                  chat.json(
+                    c.chat,
+                    name = trans.chatRoom.txt(),
+                    timeout = c.timeout,
+                    public = true,
+                    resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
+                    localMod = isLocalMod
+                  )
+                },
+                "showRatings" -> ctx.pref.showRatings
+              )
+              .add("schedule" -> hasScheduleInput)
+          )})""")
       ),
       moreCss = frag(
         cssTag("swiss.show"),
@@ -61,7 +61,7 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${fullName(s)}: ${s.variant.name} ${s.clock.show} #${s.id}",
-          url = s"$netBaseUrl${routes.Swiss.show(s.id.value).url}",
+          url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",
           description =
             s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
               s"organized by ${teamIdToName(s.teamId)}. " +
@@ -78,19 +78,20 @@ object show {
         div(cls := "swiss__main")(div(cls := "box"))
       )
     )
-  }
 
-  def round(s: Swiss, r: SwissRound.Number, pairings: Paginator[SwissPairing])(implicit ctx: Context) =
+  def round(s: Swiss, r: SwissRoundNumber, pairings: Paginator[SwissPairing])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${fullName(s)} • Round $r/${s.round}",
       moreCss = cssTag("swiss.show")
     ) {
       val pager = views.html.base.bits
-        .pagination(p => routes.Swiss.round(s.id.value, p).url, r.value, s.round.value, showPost = true)
+        .pagination(p => routes.Swiss.round(s.id, p).url, r.value, s.round.value, showPost = true)
       main(cls := "box swiss__round")(
-        h1(
-          a(href := routes.Swiss.show(s.id.value))(s.name),
-          s" • Round $r/${s.round}"
+        boxTop(
+          h1(
+            a(href := routes.Swiss.show(s.id))(s.name),
+            s" • Round $r/${s.round}"
+          )
         ),
         pager(cls := "pagination--top"),
         table(cls := "slist slist-pad")(
@@ -107,4 +108,3 @@ object show {
         pager(cls := "pagination--bottom")
       )
     }
-}

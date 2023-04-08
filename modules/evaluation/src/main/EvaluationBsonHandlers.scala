@@ -1,14 +1,13 @@
 package lila.evaluation
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.db.BSON
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-object EvaluationBsonHandlers {
+object EvaluationBsonHandlers:
 
-  implicit val playerFlagsHandler = new BSON[PlayerFlags] {
-
+  given BSON[PlayerFlags] with
     def reads(r: BSON.Reader): PlayerFlags =
       PlayerFlags(
         suspiciousErrorRate = r boolD "ser",
@@ -20,7 +19,6 @@ object EvaluationBsonHandlers {
         noFastMoves = r boolD "nfm",
         suspiciousHoldAlert = r boolD "sha"
       )
-
     def writes(w: BSON.Writer, o: PlayerFlags) =
       $doc(
         "ser"  -> w.boolO(o.suspiciousErrorRate),
@@ -32,17 +30,14 @@ object EvaluationBsonHandlers {
         "nfm"  -> w.boolO(o.noFastMoves),
         "sha"  -> w.boolO(o.suspiciousHoldAlert)
       )
-  }
 
-  implicit val GameAssessmentBSONHandler =
-    BSONIntegerHandler.as[GameAssessment](GameAssessment.orDefault, _.id)
+  given BSONHandler[GameAssessment] = BSONIntegerHandler.as[GameAssessment](GameAssessment.orDefault, _.id)
 
-  implicit val playerAssessmentHandler = new BSON[PlayerAssessment] {
-
+  given BSON[PlayerAssessment] with
     def reads(r: BSON.Reader): PlayerAssessment = PlayerAssessment(
       _id = r str "_id",
-      gameId = r str "gameId",
-      userId = r str "userId",
+      gameId = r.get[GameId]("gameId"),
+      userId = r.get[UserId]("userId"),
       color = chess.Color.fromWhite(r bool "white"),
       assessment = r.get[GameAssessment]("assessment"),
       date = r date "date",
@@ -63,7 +58,6 @@ object EvaluationBsonHandlers {
       flags = r.get[PlayerFlags]("flags"),
       tcFactor = r doubleO "tcFactor"
     )
-
     def writes(w: BSON.Writer, o: PlayerAssessment) =
       $doc(
         "_id"        -> o._id,
@@ -83,5 +77,3 @@ object EvaluationBsonHandlers {
         "mtStreak"   -> w.boolO(o.basics.mtStreak),
         "tcFactor"   -> o.tcFactor
       )
-  }
-}

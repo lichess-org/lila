@@ -14,7 +14,7 @@
 
   @include breakpoint($mq-topnav-hidden) {
     /* move away from hamburger */
-    margin-left: calc(0.5rem + #{$site-header-height});
+    margin-#{$start-direction}: calc(0.5rem + #{$site-header-height});
   }
 
   @include breakpoint($mq-site-header-tall) {
@@ -47,6 +47,6 @@
   .kiddo {
     color: $c-font-dimmer;
     font-weight: bold;
-    margin-right: 0.5em;
+    margin-#{$end-direction}: 0.5em;
   }
 }

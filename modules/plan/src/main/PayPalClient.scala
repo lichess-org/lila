@@ -1,47 +1,46 @@
 package lila.plan
 
-import play.api.libs.json._
-import play.api.libs.ws.DefaultBodyWritables._
-import play.api.libs.ws.JsonBodyReadables._
-import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.json.*
+import play.api.libs.ws.DefaultBodyWritables.*
+import play.api.libs.ws.DefaultBodyReadables.*
+import play.api.libs.ws.JsonBodyReadables.*
+import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.WSAuthScheme
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
-import scala.concurrent.duration._
 
 import lila.common.config
 import lila.common.WebService
+import lila.common.Json.given
 import lila.memo.CacheApi
 import lila.user.User
 import java.util.Currency
-import play.api.libs.ws.StandaloneWSRequest
 import play.api.i18n.Lang
+import play.api.ConfigLoader
 
 final private class PayPalClient(
     ws: StandaloneWSClient,
     config: PayPalClient.Config,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  import PayPalClient._
-  import JsonHandlers._
-  import JsonHandlers.payPal._
-  import WebService._
+  import PayPalClient.*
+  import JsonHandlers.payPal.given
+  import WebService.*
 
-  implicit private val moneyWrites = OWrites[Money] { money =>
+  given moneyWrites: OWrites[Money] = OWrites[Money] { money =>
     Json.obj(
       "currency_code" -> money.currencyCode,
       "value"         -> money.amount
     )
   }
 
-  private object path {
+  private object path:
     val orders                     = "v2/checkout/orders"
     def capture(id: PayPalOrderId) = s"$orders/$id/capture"
     val plans                      = "v1/billing/plans"
     val subscriptions              = "v1/billing/subscriptions"
     val token                      = "v1/oauth2/token"
     val events                     = "v1/notifications/webhooks-events"
-  }
 
   private val patronMonthProductId = "PATRON-MONTH"
 
@@ -70,7 +69,7 @@ final private class PayPalClient(
           "items" -> List(
             // TODO replace with product?
             Json.obj(
-              "name"        -> "One-time Patron",
+              "name" -> "One-time Patron",
               "description" -> "Support Lichess and get the Patron wings for one month. Will not renew automatically.",
               "unit_amount" -> data.checkout.money,
               "quantity"    -> 1
@@ -127,21 +126,24 @@ final private class PayPalClient(
   private val plansPerPage = 20
 
   def getPlans(page: Int = 1): Fu[List[PayPalPlan]] =
-    get(s"${path.plans}?product_id=$patronMonthProductId&page_size=$plansPerPage&page=$page") {
-      (__ \ "plans").read[List[PayPalPlan]]
-    }.flatMap { plans =>
-      if (plans.size == plansPerPage) getPlans(page + 1).map(plans ::: _)
-      else fuccess(plans)
-    }.map(_.filter(_.active))
+    val current = get[List[PayPalPlan]](
+      s"${path.plans}?product_id=$patronMonthProductId&page_size=$plansPerPage&page=$page"
+    )(using (__ \ "plans").read[List[PayPalPlan]])
+    current
+      .flatMap { (plans: List[PayPalPlan]) =>
+        if (plans.size == plansPerPage) getPlans(page + 1).map(plans ::: _)
+        else fuccess(plans)
+      }
+      .map(_.filter(_.active))
 
   def createPlan(currency: Currency): Fu[PayPalPlan] =
     postOne[PayPalPlan](
       path.plans,
       Json.obj(
-        "product_id"  -> patronMonthProductId,
-        "name"        -> s"Monthly Patron $currency",
+        "product_id" -> patronMonthProductId,
+        "name"       -> s"Monthly Patron $currency",
         "description" -> s"Support Lichess and get Patron wings. The subscription is renewed every month. Currency: $currency",
-        "status"      -> "ACTIVE",
+        "status" -> "ACTIVE",
         "billing_cycles" -> Json.arr(
           Json.obj(
             "frequency" -> Json.obj(
@@ -171,22 +173,19 @@ final private class PayPalClient(
       None
     }
 
-  private def get[A: Reads](url: String): Fu[A] = {
+  private def get[A: Reads](url: String): Fu[A] =
     logger.debug(s"GET $url")
     request(url) flatMap { _.get() flatMap response[A] }
-  }
 
   private def postOne[A: Reads](url: String, data: JsObject): Fu[A] = post[A](url, data)
 
-  private def post[A: Reads](url: String, data: JsObject): Fu[A] = {
+  private def post[A: Reads](url: String, data: JsObject): Fu[A] =
     logger.info(s"POST $url $data")
     request(url) flatMap { _.post(data) flatMap response[A] }
-  }
 
-  private def postOneNoResponse(url: String, data: JsObject): Funit = {
+  private def postOneNoResponse(url: String, data: JsObject): Funit =
     logger.info(s"POST $url $data")
     request(url) flatMap { _.post(data) } void
-  }
 
   private val logger = lila.plan.logger branch "payPal"
 
@@ -200,20 +199,18 @@ final private class PayPalClient(
   }
 
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
-    res.status match {
+    res.status match
       case 200 | 201 | 204 =>
-        (implicitly[Reads[A]] reads res.body[JsValue]).fold(
+        (summon[Reads[A]] reads res.body[JsValue]).fold(
           errs => fufail(new CantParseException(res.body[JsValue], JsError(errs))),
           fuccess
         )
       case 404 => fufail { new NotFoundException(res.status, s"[paypal] Not found") }
       case status if status >= 400 && status < 500 =>
-        (res.body[JsValue] \ "error" \ "message").asOpt[String] match {
+        (res.body[JsValue] \ "error" \ "message").asOpt[String] match
           case None        => fufail { new InvalidRequestException(status, res.body) }
           case Some(error) => fufail { new InvalidRequestException(status, error) }
-        }
       case status => fufail { new StatusException(status, s"[paypal] Response status: $status") }
-    }
 
   private val tokenCache = cacheApi.unit[AccessToken] {
     _.refreshAfterWrite(10 minutes).buildAsyncFuture { _ =>
@@ -222,22 +219,21 @@ final private class PayPalClient(
         .post(Map("grant_type" -> Seq("client_credentials")))
         .flatMap {
           case res if res.status != 200 =>
-            fufail(s"PayPal access token ${res.statusText} ${res.body take 200}")
+            fufail(s"PayPal access token ${res.statusText} ${res.body[String] take 200}")
           case res =>
-            (res.body[JsValue] \ "access_token").validate[String] match {
-              case JsError(err)        => fufail(s"PayPal access token ${err} ${res.body take 200}")
+            (res.body[JsValue] \ "access_token").validate[String] match
+              case JsError(err)        => fufail(s"PayPal access token ${err} ${res.body[String] take 200}")
               case JsSuccess(token, _) => fuccess(AccessToken(token))
-            }
         }
         .monSuccess(_.plan.paypalCheckout.fetchAccessToken)
     }
   }
 
-  private def debugInput(data: Seq[(String, Any)]) =
+  @annotation.nowarn
+  private def debugInput(data: Seq[(String, Matchable)]) =
     fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
-}
 
-object PayPalClient {
+object PayPalClient:
 
   case class AccessToken(value: String) extends StringValue
 
@@ -248,14 +244,13 @@ object PayPalClient {
   case class CantParseException(json: JsValue, err: JsError)
       extends PayPalException(s"[payPal] Can't parse $json --- ${err.errors}")
 
-  import io.methvin.play.autoconfig._
+  import lila.common.autoconfig.*
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
       @ConfigName("keys.secret") secretKey: config.Secret
   )
-  implicit private[plan] val productsLoader     = AutoConfig.loader[ProductIds]
-  implicit private[plan] val payPalConfigLoader = AutoConfig.loader[Config]
+  private[plan] given ConfigLoader[Config] = AutoConfig.loader
 
   def locale(lang: Lang): Option[String] =
     lang.locale.toString.some.filter(locales.contains)
@@ -945,4 +940,3 @@ object PayPalClient {
     "zh_ZM",
     "en_ZW"
   )
-}

@@ -1,11 +1,11 @@
 package lila.security
 
 import play.api.i18n.Lang
-import scalatags.Text.all._
+import scalatags.Text.all.*
 
-import lila.common.config._
+import lila.common.config.*
 import lila.common.EmailAddress
-import lila.i18n.I18nKeys.{ emails => trans }
+import lila.i18n.I18nKeys.{ emails as trans }
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
@@ -14,11 +14,11 @@ final class PasswordReset(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  import Mailer.html._
+  import Mailer.html.*
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener make user.id flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
       val url = s"$baseUrl/password/reset/confirm/$token"
@@ -43,11 +43,11 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.byId } map {
+    tokener read token flatMapz userRepo.byId map {
       _.filter(_.canFullyLogin)
     }
 
-  private val tokener = new StringToken[User.ID](
+  private val tokener = new StringToken[UserId](
     secret = tokenerSecret,
     getCurrentValue = id =>
       for {
@@ -55,4 +55,3 @@ ${trans.common_orPaste.txt()}"""),
         email <- userRepo email id
       } yield ~hash + email.fold("")(_.value)
   )
-}

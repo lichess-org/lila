@@ -5,12 +5,14 @@ import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
 import { Outcome, Move } from 'chessops/types';
 import { Prop } from 'common';
-import { StoredBooleanProp } from 'common/storage';
+import { StoredProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
 import { KeyboardMove } from 'keyboardMove';
+import * as Prefs from 'common/prefs';
+import perfIcons from 'common/perfIcons';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -29,6 +31,7 @@ export interface KeyboardController {
   flip(): void;
   flipped(): boolean;
   nextPuzzle(): void;
+  keyboardHelp: Prop<boolean>;
 }
 
 export type ThemeKey = string;
@@ -36,8 +39,6 @@ export interface AllThemes {
   dynamic: ThemeKey[];
   static: Set<ThemeKey>;
 }
-
-export type PuzzleDifficulty = 'easiest' | 'easier' | 'normal' | 'harder' | 'hardest';
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
@@ -64,12 +65,12 @@ export interface Controller extends KeyboardController {
   vote(v: boolean): void;
   voteTheme(theme: ThemeKey, v: boolean): void;
   pref: PuzzlePrefs;
-  difficulty?: PuzzleDifficulty;
+  settings: PuzzleSettings;
   userMove(orig: Key, dest: Key): void;
   promotion: PromotionCtrl;
-  autoNext: StoredBooleanProp;
+  autoNext: StoredProp<boolean>;
   autoNexting: () => boolean;
-  rated: StoredBooleanProp;
+  rated: StoredProp<boolean>;
   toggleRated: () => void;
   session: PuzzleSession;
   allThemes?: AllThemes;
@@ -89,6 +90,8 @@ export interface NvuiPlugin {
   render(ctrl: Controller): VNode;
 }
 
+export type ReplayEnd = PuzzleReplay;
+
 export interface Vm {
   path: Tree.Path;
   nodeList: Tree.Node[];
@@ -97,7 +100,7 @@ export interface Vm {
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
-  next: Deferred<PuzzleData>;
+  next: Deferred<PuzzleData | ReplayEnd>;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
@@ -110,13 +113,21 @@ export interface Vm {
   cgConfig: CgConfig;
   showComputer(): boolean;
   showAutoShapes(): boolean;
+  isDaily: boolean;
+}
+
+export type PuzzleDifficulty = 'easiest' | 'easier' | 'normal' | 'harder' | 'hardest';
+
+export interface PuzzleSettings {
+  difficulty: PuzzleDifficulty;
+  color?: Color;
 }
 
 export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
   i18n: I18nDict;
-  difficulty?: PuzzleDifficulty;
+  settings: PuzzleSettings;
   themes?: {
     dynamic: string;
     static: string;
@@ -138,21 +149,24 @@ export interface PuzzlePrefs {
   keyboardMove: boolean;
 }
 
-export interface Theme {
+export interface Angle {
   key: ThemeKey;
   name: string;
   desc: string;
   chapter?: string;
+  opening?: {
+    key: string;
+    name: string;
+  };
 }
 
 export interface PuzzleData {
   puzzle: Puzzle;
-  theme: Theme;
+  angle: Angle;
   game: PuzzleGame;
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
   streak?: string;
-  player: { color: Color };
 }
 
 export interface PuzzleReplay {
@@ -164,7 +178,7 @@ export interface PuzzleReplay {
 export interface PuzzleGame {
   id: string;
   perf: {
-    icon: string;
+    key: keyof typeof perfIcons;
     name: string;
   };
   rated: boolean;
@@ -197,7 +211,7 @@ export interface Puzzle {
 
 export interface PuzzleResult {
   round?: PuzzleRound;
-  next: PuzzleData;
+  next?: PuzzleData;
   replayComplete?: boolean;
 }
 

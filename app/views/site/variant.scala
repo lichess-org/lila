@@ -3,10 +3,10 @@ package html.site
 
 import controllers.routes
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object variant {
+object variant:
 
   def show(
       doc: io.prismic.Document,
@@ -19,7 +19,7 @@ object variant {
       title = s"${variant.name} • ${variant.title}",
       klass = "box-pad page variant"
     )(
-      h1(cls := "text", dataIcon := perfType.iconChar)(variant.name),
+      boxTop(h1(cls := "text", dataIcon := perfType.iconChar)(variant.name)),
       h2(cls := "headline")(variant.title),
       div(cls := "body")(raw(~doc.getHtml("variant.content", resolver)))
     )
@@ -32,7 +32,7 @@ object variant {
       title = "Lichess variants",
       klass = "variants"
     )(
-      h1("Lichess variants"),
+      h1(cls := "box__top")("Lichess variants"),
       div(cls := "body box__pad")(raw(~doc.getHtml("doc.content", resolver))),
       div(cls := "variants")(
         lila.rating.PerfType.variants map { pt =>
@@ -62,8 +62,8 @@ object variant {
         st.aside(cls := "page-menu__menu subnav")(
           lila.rating.PerfType.variants map { pt =>
             a(
-              cls := List("text" -> true, "active" -> active.has(pt)),
-              href := routes.Page.variant(pt.key),
+              cls      := List("text" -> true, "active" -> active.has(pt)),
+              href     := routes.Page.variant(pt.key),
               dataIcon := pt.iconChar
             )(pt.trans)
           }
@@ -71,4 +71,3 @@ object variant {
         div(cls := s"page-menu__content box $klass")(body)
       )
     )
-}

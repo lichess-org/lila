@@ -1,24 +1,22 @@
 package views.html
 package user
 
-import play.api.i18n.Lang
-
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.user.User
 
 import controllers.routes
 
-object list {
+object list:
 
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
       online: List[User],
       leaderboards: lila.user.Perfs.Leaderboards,
       nbAllTime: List[User.LightCount]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     views.html.base.layout(
       title = trans.players.txt(),
       moreCss = cssTag("user.list"),
@@ -68,7 +66,7 @@ object list {
       )
     }
 
-  private def tournamentWinners(winners: List[lila.tournament.Winner])(implicit ctx: Context) =
+  private def tournamentWinners(winners: List[lila.tournament.Winner])(using Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := "")(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
@@ -83,7 +81,7 @@ object list {
       })
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit ctx: Context) =
+  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.iconChar)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
@@ -96,9 +94,7 @@ object list {
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(implicit
-      ctx: Context
-  ) =
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(using Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users map { u =>
@@ -108,4 +104,3 @@ object list {
         )
       })
     )
-}

@@ -15,7 +15,7 @@ $c-bg-position-y: 2px;
   &__tracks {
     position: absolute;
     top: 0;
-    left: 0;
+    #{$start-direction}: 0;
   }
 
   &::before {
@@ -36,12 +36,12 @@ $c-bg-position-y: 2px;
       transform: translateX(0);
     }
     to {
-      transform: translateX(-101px);
+      transform: translateX(-101px * $transform-direction);
     }
   }
 
   &__tracks {
-    padding: 7px 0 7px 10px;
+    padding: 7px 10px;
     width: 100%;
   }
 
@@ -49,17 +49,18 @@ $c-bg-position-y: 2px;
     position: relative;
     height: $track-height;
     z-index: 1;
-    margin-right: 140px;
+    margin-#{$end-direction}: 140px;
   }
 
   &__score {
     @extend %flex-center;
+    direction: ltr;
     font-family: 'storm';
     font-size: 20px;
     justify-content: flex-end;
     position: absolute;
     top: 0;
-    right: -140px;
+    #{$end-direction}: -140px;
     color: #bbb;
     width: 3.8ch;
     padding-right: 0.8ch;
@@ -87,7 +88,7 @@ $c-bg-position-y: 2px;
     transition: transform 4s;
 
     &__name {
-      margin-left: 1ch;
+      margin-#{$start-direction}: 1ch;
       white-space: nowrap;
     }
 
@@ -99,11 +100,11 @@ $c-bg-position-y: 2px;
       font-size: $car-width;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
-      transform: translateX(0px);
+      transform: scaleX($transform-direction) translateX(0px);
       transition: all 0.9s ease-out;
 
       .racer__race__track--boost & {
-        transform: translateX(6px) scaleX(0.95) skewX(7deg) rotate(-3deg);
+        transform: translateX(6px) scaleX(0.95 * $transform-direction) skewX(7deg) rotate(-3deg);
         transition: all 0.15s ease-out;
         &::before {
           content: 'A';
@@ -112,13 +113,6 @@ $c-bg-position-y: 2px;
           bottom: 0.3em;
           font-size: 0.4em;
           animation: boost 0.1s ease-in infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          &::before {
-            animation: none;
-            transform: translateX(0%);
-            opacity: 1;
-          }
         }
       }
     }

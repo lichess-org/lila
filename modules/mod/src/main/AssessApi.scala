@@ -1,13 +1,11 @@
 package lila.mod
 
 import chess.{ Black, Color, White }
-import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.common.ThreadLocalRandom
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment }
 import lila.game.{ Game, Player, Pov, Source }
@@ -22,28 +20,28 @@ final class AssessApi(
     fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
     analysisRepo: AnalysisRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
+  private def bottomDate = nowDate.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
-  import lila.evaluation.EvaluationBsonHandlers._
-  import Analysis.analysisBSONHandler
+  import lila.evaluation.EvaluationBsonHandlers.given
+  import lila.analyse.AnalyseBsonHandlers.given
 
   private def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
 
-  def getPlayerAssessmentById(id: User.ID) =
+  def getPlayerAssessmentById(id: UserId) =
     assessRepo.coll.byId[PlayerAssessment](id)
 
-  private def getPlayerAssessmentsByUserId(userId: User.ID, nb: Int) =
+  private def getPlayerAssessmentsByUserId(userId: UserId, nb: Int) =
     assessRepo.coll
       .find($doc("userId" -> userId))
       .sort($sort desc "date")
-      .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
+      .cursor[PlayerAssessment](temporarilyPrimary)
       .list(nb)
 
   private def getPlayerAggregateAssessment(
-      userId: User.ID,
+      userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment]] =
     userRepo byId userId flatMap {
@@ -55,20 +53,20 @@ final class AssessApi(
     }
 
   def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
-    gameRepo gamesFromSecondary pag.playerAssessments.map(_.gameId) map {
+    gameRepo gamesTemporarilyFromPrimary pag.playerAssessments.map(_.gameId) map {
       PlayerAggregateAssessment.WithGames(pag, _)
     }
 
   private def buildMissing(povs: List[Pov]): Funit =
     assessRepo.coll
-      .distinctEasy[Game.ID, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}"))) flatMap {
+      .distinctEasy[GameId, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}"))) flatMap {
       existingIds =>
         val missing = povs collect {
           case pov if pov.game.metadata.analysed && !existingIds.contains(pov.gameId) => pov.gameId
         }
         missing.nonEmpty ??
           analysisRepo.coll
-            .idsMap[Analysis, Game.ID](missing)(_.id)
+            .idsMap[Analysis, GameId](missing)(x => GameId(x.id))
             .flatMap { ans =>
               povs
                 .flatMap { pov =>
@@ -79,7 +77,7 @@ final class AssessApi(
                     createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
                   }
                 }
-                .sequenceFu
+                .parallel
                 .void
             }
     }
@@ -89,42 +87,40 @@ final class AssessApi(
   ): Fu[List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]] =
     buildMissing(povs) >>
       assessRepo.coll
-        .idsMap[PlayerAssessment, Game.ID](
+        .idsMap[PlayerAssessment, String](
           ids = povs.map(p => s"${p.gameId}/${p.color.name}"),
-          readPreference = ReadPreference.secondaryPreferred
-        )(_.gameId)
+          readPreference = temporarilyPrimary
+        )(_.gameId.value)
         .flatMap { fulls =>
-          val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId))
+          val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId.value))
           gameRepo.holdAlert.povs(basicsPovs) map { holds =>
             povs map { pov =>
               pov -> {
-                fulls.get(pov.gameId) match {
+                fulls.get(pov.gameId.value) match
                   case Some(full) => Left(full)
                   case None       => Right(PlayerAssessment.makeBasics(pov, holds get pov.gameId))
-                }
               }
             }
           }
         }
 
   def getPlayerAggregateAssessmentWithGames(
-      userId: User.ID,
+      userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment.WithGames]] =
-    getPlayerAggregateAssessment(userId, nb) flatMap {
-      _ ?? { pag =>
-        withGames(pag) dmap some
-      }
+    getPlayerAggregateAssessment(userId, nb) flatMapz { pag =>
+      withGames(pag) dmap some
     }
 
   def refreshAssessOf(user: User): Funit =
     !user.isBot ??
       (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
-        (gs map { g =>
-          analysisRepo.byGame(g) flatMap {
-            _ ?? { onAnalysisReady(g, _, thenAssessUser = false) }
+        gs.map { g =>
+          analysisRepo.byGame(g) flatMapz {
+            onAnalysisReady(g, _, thenAssessUser = false)
           }
-        }).sequenceFu.void
+        }.parallel
+          .void
       }) >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
@@ -136,7 +132,7 @@ final class AssessApi(
         else if (game.mode.casual) false
         else if (Player.HoldAlert suspicious holdAlerts) true
         else if (game.isCorrespondence) false
-        else if (game.playedTurns < 40) false
+        else if (game.playedTurns < PlayerAssessment.minPlies) false
         else if (game.players exists consistentMoveTimes(game)) true
         else if (game.createdAt isBefore bottomDate) false
         else true
@@ -150,29 +146,30 @@ final class AssessApi(
       }
     }
 
-  def assessUser(userId: User.ID): Funit =
-    getPlayerAggregateAssessment(userId) flatMap {
-      _ ?? { playerAggregateAssessment =>
-        playerAggregateAssessment.action match {
-          case AccountAction.Engine | AccountAction.EngineAndBan =>
-            userRepo.getTitle(userId).flatMap {
-              case None =>
-                modApi
-                  .autoMark(SuspectId(userId), ModId.lichess, playerAggregateAssessment.reportText(3))
-              case Some(_) =>
-                fuccess {
-                  reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-                }
-            }
-          case AccountAction.Report(_) =>
-            fuccess {
-              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-            }
-          case AccountAction.Nothing =>
-            // reporter ! lila.hub.actorApi.report.Clean(userId)
-            funit
-        }
-      }
+  def assessUser(userId: UserId): Funit =
+    getPlayerAggregateAssessment(userId) flatMapz { playerAggregateAssessment =>
+      playerAggregateAssessment.action match
+        case AccountAction.Engine | AccountAction.EngineAndBan =>
+          userRepo.getTitle(userId).flatMap {
+            case None =>
+              modApi
+                .autoMark(
+                  SuspectId(userId),
+                  User.lichessId into ModId,
+                  playerAggregateAssessment.reportText(3)
+                )
+            case Some(_) =>
+              fuccess {
+                reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+              }
+          }
+        case AccountAction.Report(_) =>
+          fuccess {
+            reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+          }
+        case AccountAction.Nothing =>
+          // reporter ! lila.hub.actorApi.report.Clean(userId)
+          funit
     }
 
   private val assessableSources: Set[Source] =
@@ -181,9 +178,9 @@ final class AssessApi(
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent
 
-  def onGameReady(game: Game, white: User, black: User): Funit = {
+  def onGameReady(game: Game, white: User, black: User): Funit =
 
-    import AutoAnalysis.Reason._
+    import AutoAnalysis.Reason.*
 
     def manyBlurs(player: Player) =
       game.playerBlurPercent(player.color) >= 70
@@ -197,17 +194,15 @@ final class AssessApi(
       Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
-    def loserUserOption  = game.winnerColor.map(_.fold(black, white))
     def winnerNbGames =
       for {
         user     <- winnerUserOption
         perfType <- game.perfType
       } yield user.perfs(perfType).nb
 
-    def suspCoefVariation(c: Color) = {
+    def suspCoefVariation(c: Color) =
       val x = noFastCoefVariation(game player c)
       x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean())
-    }
     lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)
 
@@ -226,7 +221,7 @@ final class AssessApi(
       // give up on correspondence games
       else if (game.isCorrespondence) fuccess(none)
       // stop here for short games
-      else if (game.playedTurns < 36) fuccess(none)
+      else if (game.playedTurns < PlayerAssessment.minPlies) fuccess(none)
       // stop here for long games
       else if (game.playedTurns > 95) fuccess(none)
       // stop here for casual games
@@ -255,11 +250,7 @@ final class AssessApi(
           else none
         }
 
-    shouldAnalyse map {
-      _ ?? { reason =>
-        lila.mon.cheat.autoAnalysis(reason.toString).increment()
-        fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
-      }
+    shouldAnalyse mapz { reason =>
+      lila.mon.cheat.autoAnalysis(reason.toString).increment()
+      fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
     }
-  }
-}

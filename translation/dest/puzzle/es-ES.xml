@@ -13,18 +13,26 @@
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te ha gustado este ejercicio?</string>
   <string name="voteToLoadNextOne">¡Vota para pasar al siguiente!</string>
+  <string name="upVote">Votar positivamente el ejercicio</string>
+  <string name="downVote">Votar negativamente el ejercicio</string>
   <string name="yourPuzzleRatingWillNotChange">Tu puntuación de ejercicios no cambiará. Nota que los ejercicios no son una competición. La puntuación indica los ejercicios que se adecuan a tus habilidades.</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
   <string name="toGetPersonalizedPuzzles">Para conseguir ejercicios personalizados:</string>
   <string name="puzzleId">Ejercicio %s</string>
   <string name="puzzleOfTheDay">Ejercicio del día</string>
+  <string name="dailyPuzzle">Ejercicio del día</string>
   <string name="clickToSolve">Clic para resolver</string>
   <string name="goodMove">Buen movimiento</string>
   <string name="bestMove">¡El mejor movimiento!</string>
   <string name="keepGoing">Continúa…</string>
   <string name="puzzleSuccess">¡Bien!</string>
   <string name="puzzleComplete">¡Ejercicio terminado!</string>
+  <string name="byOpenings">Por aperturas</string>
+  <string name="puzzlesByOpenings">Ejercicios por aperturas</string>
+  <string name="openingsYouPlayedTheMost">Aperturas que más has jugado en partidas por puntos</string>
+  <string name="useFindInPage">¡Usa \"Encontrar en la página\" en el menú del navegador para encontrar tu apertura favorita!</string>
+  <string name="useCtrlF">¡Usa Ctrl+f para encontrar tu apertura favorita!</string>
   <string name="notTheMove">¡Ese no es el movimiento!</string>
   <string name="trySomethingElse">Prueba algo distinto.</string>
   <string name="ratingX">Puntuación: %s</string>
@@ -51,6 +59,7 @@
   </plurals>
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>
+  <string name="nextPuzzle">Siguiente ejercicio</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente ejercicio inmediatamente</string>
   <string name="puzzleDashboard">Panel de ejercicios</string>
   <string name="improvementAreas">Áreas de mejora</string>

@@ -52,4 +52,11 @@
   <string name="skipExplanation">از این حرکت چشم‌پوشی کنید تا ترکیب خود را حفظ نمایید! فقط یک بار در هر رقابت قابل استفاده است.</string>
   <string name="failedPuzzles">معماهای ناموفق</string>
   <string name="slowPuzzles">معماهای با سرعت کم</string>
+  <string name="skippedPuzzle">پازل قبلا رد شده است</string>
+  <string name="thisWeek">این هفته</string>
+  <string name="thisMonth">این ماه</string>
+  <string name="allTime">بهترین رکورد</string>
+  <string name="clickToReload">بارگذاری مجدد</string>
+  <string name="thisRunHasExpired">وقت به پایان رسیده است!</string>
+  <string name="thisRunWasOpenedInAnotherTab">در تب دیگری باز شده است!</string>
 </resources>

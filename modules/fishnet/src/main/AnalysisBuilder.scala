@@ -1,15 +1,13 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
-
+import chess.Ply
 import chess.format.Uci
+import chess.format.pgn.SanStr
 import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 
-final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor):
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
@@ -30,7 +28,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
       chess
         .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
         .fold(
-          fufail(_),
+          err => fufail(err.value),
           replay =>
             UciToPgn(
               replay,
@@ -40,7 +38,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
                 fk = !client.lichess option client.key.value,
-                date = DateTime.now
+                date = nowDate
               )
             ) match {
               case (analysis, errors) =>
@@ -73,24 +71,22 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
         }
     }
 
-  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
-    (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
+  private def makeInfos(
+      evals: List[Option[Evaluation]],
+      moves: List[Uci],
+      startedAtPly: Ply
+  ): List[Info] =
+    evals.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) =>
-        val variation = before.cappedPv match {
+        val variation = before.cappedPv match
           case first :: rest if first != move => first :: rest
           case _                              => Nil
-        }
         val best = variation.headOption
         val info = Info(
-          ply = index + 1 + startedAtPly,
-          eval = Eval(
-            after.score.cp,
-            after.score.mate,
-            best
-          ),
-          variation = variation.map(_.uci)
+          ply = startedAtPly + index + 1,
+          eval = Eval(after.score.cp, after.score.mate, best),
+          variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToPgn
         )
-        if (info.ply % 2 == 1) info.invert else info
-      case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)
+        if (info.ply.isOdd) info.invert else info
+      case ((_, _), index) => Info(startedAtPly + index + 1, Eval.empty, Nil)
     }
-}

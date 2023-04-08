@@ -1,44 +1,39 @@
 .flash {
+  @extend %flex-center-nowrap, %box-radius;
   margin: 1em 0 2em 0;
+  padding: 1em 2em;
+  background: $c-good;
+  color: $c-good-over;
+
+  &::before {
+    @extend %data-icon;
+
+    content: '';
+    @include margin-inline-end(1em);
+    font-size: 1.5em;
+  }
 
   &__content {
-    @extend %box-radius;
-
-    padding: 1em 2em;
-    background: $c-good;
-    color: $c-good-over;
-
-    &::before {
-      @extend %data-icon;
-
-      content: '';
-      margin-right: 1em;
-      font-size: 1.5em;
-    }
-
     a {
       color: $c-good-over;
+      unicode-bidi: plaintext;
     }
   }
 
-  &-warning .flash__content {
+  &-warning {
     background: $c-warn;
     color: $c-warn-over;
 
     &::before {
-      @extend %data-icon;
-
       content: '';
     }
   }
 
-  &-failure .flash__content {
+  &-failure {
     background: $c-bad;
     color: $c-bad-over;
 
     &::before {
-      @extend %data-icon;
-
       content: '';
     }
   }

@@ -3,11 +3,12 @@ package views.html
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.I18nKeys
+import lila.common.Json.given
 
-object chat {
+object chat:
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
@@ -15,8 +16,6 @@ object chat {
     ),
     div(cls := "mchat__content")
   )
-
-  import lila.chat.JsonView.writers.chatIdWrites
 
   def restrictedJson(
       chat: lila.chat.Chat.Restricted,
@@ -52,6 +51,7 @@ object chat {
       writeable: Boolean = true,
       restricted: Boolean = false,
       localMod: Boolean = false,
+      broadcastMod: Boolean = false,
       palantir: Boolean = false
   )(implicit ctx: Context) =
     Json
@@ -72,6 +72,7 @@ object chat {
         "public"    -> public,
         "permissions" -> Json
           .obj("local" -> (public && localMod))
+          .add("broadcast" -> (public && broadcastMod))
           .add("timeout" -> (public && isGranted(_.ChatTimeout)))
           .add("shadowban" -> (public && isGranted(_.Shadowban)))
       )
@@ -80,7 +81,10 @@ object chat {
       .add("timeout" -> timeout)
       .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value take 8))
       .add("noteAge" -> withNoteAge)
-      .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
+      .add(
+        "timeoutReasons" -> (!localMod && (isGranted(_.ChatTimeout) || isGranted(_.BroadcastTimeout)))
+          .option(lila.chat.JsonView.timeoutReasons)
+      )
 
   def i18n(withNote: Boolean)(implicit ctx: Context) =
     i18nOptionJsObject(
@@ -94,8 +98,7 @@ object chat {
 
   val spectatorsFrag =
     div(
-      cls := "chat__members none",
-      aria.live := "off",
+      cls           := "chat__members none",
+      aria.live     := "off",
       aria.relevant := "additions removals text"
     )
-}

@@ -1,8 +1,10 @@
 package lila.setup
 
-import chess.Mode
-import lila.lobby.Color
-import lila.lobby.{ Hook, Seek }
+import chess.{ Mode, Clock }
+import chess.variant.Variant
+
+import lila.common.Days
+import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.RatingRange
 import lila.user.User
 
@@ -10,12 +12,12 @@ case class HookConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
     time: Double,
-    increment: Int,
-    days: Int,
+    increment: Clock.IncrementSeconds,
+    days: Days,
     mode: Mode,
     color: Color,
     ratingRange: RatingRange
-) extends HumanConfig {
+) extends HumanConfig:
 
   def withinLimits(user: Option[User]): HookConfig =
     (for {
@@ -48,20 +50,19 @@ case class HookConfig(
     (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
 
   def withTimeModeString(tc: Option[String]) =
-    tc match {
+    tc match
       case Some("realTime")       => copy(timeMode = TimeMode.RealTime)
       case Some("correspondence") => copy(timeMode = TimeMode.Correspondence)
       case Some("unlimited")      => copy(timeMode = TimeMode.Unlimited)
       case _                      => this
-    }
 
   def hook(
       sri: lila.socket.Socket.Sri,
       user: Option[User],
       sid: Option[String],
-      blocking: Set[String]
+      blocking: lila.pool.Blocking
   ): Either[Hook, Option[Seek]] =
-    timeMode match {
+    timeMode match
       case TimeMode.RealTime =>
         val clock = justMakeClock
         Left(
@@ -89,7 +90,6 @@ case class HookConfig(
             ratingRange = ratingRange
           )
         })
-    }
 
   def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
 
@@ -103,15 +103,25 @@ case class HookConfig(
       mode = game.mode
     )
 
-  def withRatingRange(str: Option[String]) = copy(ratingRange = RatingRange orDefault str)
-}
+  def withRatingRange(ratingRange: String) = copy(ratingRange = RatingRange orDefault ratingRange)
+  def withRatingRange(rating: Option[IntRating], deltaMin: Option[String], deltaMax: Option[String]) =
+    copy(ratingRange = RatingRange.orDefault(rating, deltaMin, deltaMax))
 
-object HookConfig extends BaseHumanConfig {
+object HookConfig extends BaseHumanConfig:
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], e: Option[String], c: String) = {
+  def from(
+      v: Variant.Id,
+      tm: Int,
+      t: Double,
+      i: Clock.IncrementSeconds,
+      d: Days,
+      m: Option[Int],
+      e: Option[String],
+      c: String
+  ) =
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
-      variant = chess.variant.Variant(v) err s"Invalid game variant $v",
+      variant = chess.variant.Variant.orDefault(v),
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -120,7 +130,6 @@ object HookConfig extends BaseHumanConfig {
       ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
       color = Color(c) err s"Invalid color $c"
     )
-  }
 
   def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))
 
@@ -128,31 +137,31 @@ object HookConfig extends BaseHumanConfig {
     variant = variantDefault,
     timeMode = TimeMode.RealTime,
     time = 5d,
-    increment = 3,
-    days = 2,
+    increment = Clock.IncrementSeconds(3),
+    days = Days(2),
     mode = Mode.default,
     ratingRange = RatingRange.default,
     color = Color.default
   )
 
   import lila.db.BSON
-  import lila.db.dsl._
+  import lila.db.dsl.{ *, given }
 
-  implicit private[setup] val hookConfigBSONHandler = new BSON[HookConfig] {
+  private[setup] given BSON[HookConfig] with
 
     def reads(r: BSON.Reader): HookConfig =
       HookConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
+        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
-        increment = r int "i",
-        days = r int "d",
+        increment = r get "i",
+        days = r.get("d"),
         mode = Mode orDefault (r int "m"),
         color = Color.Random,
         ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default
       )
 
-    def writes(w: BSON.Writer, o: HookConfig) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: HookConfig) =
       $doc(
         "v"  -> o.variant.id,
         "tm" -> o.timeMode.id,
@@ -162,5 +171,3 @@ object HookConfig extends BaseHumanConfig {
         "m"  -> o.mode.id,
         "e"  -> o.ratingRange.toString
       )
-  }
-}

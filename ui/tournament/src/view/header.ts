@@ -4,17 +4,13 @@ import TournamentController from '../ctrl';
 import perfIcons from 'common/perfIcons';
 import { TournamentData } from '../interfaces';
 
-function startClock(time: number): Hooks {
-  return {
-    insert: vnode => $(vnode.elm as HTMLElement).clock({ time }),
-  };
-}
+const startClock = (time: number): Hooks => ({
+  insert: vnode => lichess.clockWidget(vnode.elm as HTMLElement, { time }),
+});
 
 const oneDayInSeconds = 60 * 60 * 24;
 
-function hasFreq(freq: 'shield' | 'marathon', d: TournamentData) {
-  return d.schedule?.freq === freq;
-}
+const hasFreq = (freq: 'shield' | 'marathon', d: TournamentData) => d.schedule?.freq === freq;
 
 function clock(d: TournamentData): VNode | undefined {
   if (d.isFinished) return;

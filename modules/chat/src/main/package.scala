@@ -1,8 +1,12 @@
-package lila
+package lila.chat
 
-package object chat extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[chat] def logger = lila.log("chat")
+private val logger = lila.log("chat")
 
-  private[chat] val systemUserId = "lichess"
-}
+case class ChatLine(chatId: ChatId, line: Line)
+case class RoundLine(line: Line, watcher: Boolean)
+case class Timeout(chatId: ChatId, mod: UserId, userId: UserId, reason: ChatTimeout.Reason, local: Boolean)
+
+case class OnTimeout(chatId: ChatId, userId: UserId)
+case class OnReinstate(chatId: ChatId, userId: UserId)

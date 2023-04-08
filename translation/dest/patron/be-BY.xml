@@ -56,7 +56,7 @@
     <item quantity="other">Спонсар Lichess на працягу %s месяцаў</item>
   </plurals>
   <string name="youSupportWith">Вы ахвяруеце lichess.org %s кожны месяц.</string>
-  <string name="tyvm">Дзякуй вялікі за дапамогу! Вы неверагодны!</string>
+  <string name="tyvm">Дзякуй вялікі за дапамогу! Вы неймаверны!</string>
   <string name="currentStatus">Бягучы статус</string>
   <string name="nextPayment">Наступны плацёж</string>
   <string name="youWillBeChargedXOnY">%2$s вы заплаціце %1$s.</string>
@@ -68,6 +68,7 @@
   <string name="xOrY">%1$s ці %2$s</string>
   <string name="decideHowMuch">Колькі каштуе Lichess, на вашу думку:</string>
   <string name="stopPayments">Адгукнуць картку і прыпыніць платяжы:</string>
+  <string name="stopPaymentsPayPal">Скасаваць падпіску PayPal і прыпыніць плацяжы:</string>
   <string name="noLongerSupport">Больш не падтрымліваць Lichess</string>
   <string name="viewOthers">Паглядзець іншых спонсараў Lichess</string>
   <string name="date">Дата</string>

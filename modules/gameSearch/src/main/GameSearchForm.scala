@@ -1,28 +1,28 @@
 package lila.gameSearch
 
 import chess.Mode
-import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
+import play.api.data.*
+import play.api.data.Forms.*
 import play.api.i18n.Lang
 
-import lila.common.Form._
+import lila.common.Form.*
 import lila.search.Range
+import lila.user.UserForm.historicalUsernameField
 
-final private[gameSearch] class GameSearchForm {
+final private[gameSearch] class GameSearchForm:
 
-  def search(implicit lang: Lang) = Form(
+  def search(using lang: Lang) = Form(
     mapping(
       "players" -> mapping(
-        "a"      -> optional(nonEmptyText),
-        "b"      -> optional(nonEmptyText),
-        "winner" -> optional(nonEmptyText),
-        "loser"  -> optional(nonEmptyText),
-        "white"  -> optional(nonEmptyText),
-        "black"  -> optional(nonEmptyText)
-      )(SearchPlayer.apply)(SearchPlayer.unapply),
+        "a"      -> optional(historicalUsernameField),
+        "b"      -> optional(historicalUsernameField),
+        "winner" -> optional(historicalUsernameField),
+        "loser"  -> optional(historicalUsernameField),
+        "white"  -> optional(historicalUsernameField),
+        "black"  -> optional(historicalUsernameField)
+      )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
-      "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id))),
+      "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id.value))),
       "source"      -> optional(numberIn(Query.sources)),
       "mode"        -> optional(numberIn(Query.modes)),
       "turnsMin"    -> optional(numberIn(Query.turns)),
@@ -39,7 +39,7 @@ final private[gameSearch] class GameSearchForm {
         "initMax" -> optional(numberIn(Query.clockInits)),
         "incMin"  -> optional(numberIn(Query.clockIncs)),
         "incMax"  -> optional(numberIn(Query.clockIncs))
-      )(SearchClock.apply)(SearchClock.unapply _),
+      )(SearchClock.apply)(unapply),
       "dateMin"  -> GameSearchForm.dateField,
       "dateMax"  -> GameSearchForm.dateField,
       "status"   -> optional(numberIn(Query.statuses)),
@@ -48,15 +48,13 @@ final private[gameSearch] class GameSearchForm {
         mapping(
           "field" -> stringIn(Sorting.fields),
           "order" -> stringIn(Sorting.orders)
-        )(SearchSort.apply)(SearchSort.unapply)
+        )(SearchSort.apply)(unapply)
       )
-    )(SearchData.apply)(SearchData.unapply _)
+    )(SearchData.apply)(unapply)
   ) fill SearchData()
-}
 
-private[gameSearch] object GameSearchForm {
+private[gameSearch] object GameSearchForm:
   val dateField = optional(ISODateOrTimestamp.isoDateOrTimestamp)
-}
 
 private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
@@ -79,7 +77,7 @@ private[gameSearch] case class SearchData(
     status: Option[Int] = None,
     analysed: Option[Int] = None,
     sort: Option[SearchSort] = None
-) {
+):
 
   def sortOrDefault = sort | SearchSort()
 
@@ -108,27 +106,24 @@ private[gameSearch] case class SearchData(
     )
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
-}
 
 private[gameSearch] case class SearchPlayer(
-    a: Option[String] = None,
-    b: Option[String] = None,
-    winner: Option[String] = None,
-    loser: Option[String] = None,
-    white: Option[String] = None,
-    black: Option[String] = None
-) {
+    a: Option[UserStr] = None,
+    b: Option[UserStr] = None,
+    winner: Option[UserStr] = None,
+    loser: Option[UserStr] = None,
+    white: Option[UserStr] = None,
+    black: Option[UserStr] = None
+):
 
-  lazy val cleanA = clean(a)
-  lazy val cleanB = clean(b)
+  lazy val cleanA = a.map(_.id)
+  lazy val cleanB = b.map(_.id)
   def cleanWinner = oneOf(winner)
   def cleanLoser  = oneOf(loser)
   def cleanWhite  = oneOf(white)
   def cleanBlack  = oneOf(black)
 
-  private def oneOf(s: Option[String]) = clean(s).filter(List(cleanA, cleanB).flatten.contains)
-  private def clean(s: Option[String]) = s map (_.trim.toLowerCase) filter (_.nonEmpty)
-}
+  private def oneOf(s: Option[UserStr]) = s.map(_.id).filter(List(cleanA, cleanB).flatten.contains)
 
 private[gameSearch] case class SearchSort(
     field: String = Sorting.default.f,

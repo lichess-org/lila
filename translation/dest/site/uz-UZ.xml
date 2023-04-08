@@ -59,6 +59,8 @@
   <string name="depthX">Fikrlash chuqurligi %s</string>
   <string name="usingServerAnalysis">Server tahlili qo\'llanilayabdi</string>
   <string name="loadingEngine">Mexanizmni yuklash ...</string>
+  <string name="calculatingMoves">Harakatlar hisoblanmoqda...</string>
+  <string name="engineFailed">\"Engine\"ni yuklashda xatolik yuz berdi</string>
   <string name="cloudAnalysis">\"Bulut\" tahlili</string>
   <string name="goDeeper">Yanada chuqurroq</string>
   <string name="showThreat">Tahdidni ko\'rsatish</string>
@@ -140,6 +142,7 @@
     <item quantity="one">%s o\'yinchi</item>
     <item quantity="other">%s o\'yinchilar</item>
   </plurals>
+  <string name="drawByMutualAgreement">O\'zaro kelishuv asosida durrang natija qayd etildi</string>
   <string name="currentGames">Joriy vaqtdagi o\'yinlar</string>
   <plurals name="nbGames">
     <item quantity="one">%s o\'yin</item>

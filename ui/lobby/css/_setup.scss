@@ -1,24 +1,21 @@
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
-.game-setup {
+.game-setup#modal-wrap {
   display: block;
-
-  #modal-wrap {
-    width: 30em;
-
-    > div {
-      padding: 0;
-    }
-  }
-
+  width: 30em;
   text-align: center;
+
+  > div {
+    padding: 0;
+    max-height: 96vh;
+  }
 
   h2 {
     margin: 1.5rem 0;
   }
 
-  form > div {
+  .setup-content > div {
     padding: 0.5em 1em;
   }
 
@@ -36,25 +33,26 @@ $c-slider: $c-setup;
     }
   }
 
-  .optional_config {
+  .optional-config {
     border-bottom: $border;
   }
 
-  .mode_choice {
-    margin-top: 1em;
-  }
-
-  .optional_config,
+  .optional-config,
   .ratings {
     background: $c-bg-zebra;
     border-top: $border;
   }
 
-  .label_select {
+  .mode-choice {
+    margin-top: 1em;
+  }
+
+  .label-select {
     @extend %flex-center;
 
     &.variant {
-      margin-bottom: 0.5em;
+      margin-bottom: 1em;
+      padding-bottom: 0;
     }
 
     label {
@@ -63,30 +61,29 @@ $c-slider: $c-setup;
     }
 
     select {
-      margin-left: 0.8em;
+      margin-#{$start-direction}: 0.8em;
       font-weight: bold;
     }
   }
 
-  .fen_position {
-    .board_editor {
-      display: block;
-      width: 50%;
-      margin: 0.5em auto 0 auto;
-    }
-
-    .fen_form {
-      @extend %flex-center-nowrap;
-    }
-
-    .fen_form input {
-      flex: 1 1 100%;
-    }
+  .fen__form {
+    @extend %flex-center-nowrap;
   }
 
-  #form3-fen.failure {
+  .fen__board {
+    display: block;
+    width: 50%;
+    margin: 0.5em auto 0 auto;
+  }
+
+  #fen-input {
+    flex: 1 1 100%;
+  }
+
+  .failure {
     background: mix($c-bg-box, $c-bad, 80%);
-    box-shadow: 0 0 13px $c-bad;
+    box-shadow: 0 0 13px 6px mix($c-bg-box, $c-bad, 80%);
+    border-radius: 0.5em;
   }
 
   .range {
@@ -98,8 +95,9 @@ $c-slider: $c-setup;
 
     input {
       font-size: 1.5em;
-      padding: 0.5em 0.5em 0 0.5em;
-      width: 100%;
+      margin-top: 0.5em;
+      padding: 0;
+      width: 90%;
     }
   }
 
@@ -120,10 +118,9 @@ $c-slider: $c-setup;
     padding: 1em;
     width: 100%;
     text-align: center;
-  }
-
-  .ratings div {
-    display: none;
+    strong {
+      margin-#{$end-direction}: 0.25em;
+    }
   }
 
   .color-submits {

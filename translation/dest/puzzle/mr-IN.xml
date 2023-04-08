@@ -28,12 +28,12 @@
   <string name="notTheMove">ही ती चाल नव्हे!</string>
   <string name="trySomethingElse">काही वेगळा प्रयत्न करा.</string>
   <string name="ratingX">मूल्यांकन: %s</string>
-  <string name="hidden">लपवलेला</string>
+  <string name="hidden">लपवले आहे</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s वेळा खेळला</item>
+    <item quantity="one">%s वेळा खेळले</item>
     <item quantity="other">%s वेळा खेळले</item>
   </plurals>
-  <string name="fromGameLink">%s खेळाकडून</string>
+  <string name="fromGameLink">%s खेळातून</string>
   <string name="continueTraining">प्रशिक्षण चालू ठेवा</string>
   <string name="difficultyLevel">अडचण स्तर</string>
   <string name="normal">साधारण</string>
@@ -52,11 +52,11 @@
   <string name="example">उदाहरण</string>
   <string name="addAnotherTheme">अजून एक विषय वाढवा</string>
   <string name="jumpToNextPuzzleImmediately">लगेच पुढचे कोडे सुरू करा</string>
-  <string name="puzzleDashboard">कोड्यांचा dashboard</string>
+  <string name="puzzleDashboard">कोड्यांचा माहितीफलक</string>
   <string name="improvementAreas">सुधारण्याचे क्षेत्र</string>
-  <string name="strengths">शक्ति</string>
+  <string name="strengths">सामर्थ्ये</string>
   <string name="history">कोड्यांचा इतिहास</string>
-  <string name="solved">सोडवलेले</string>
+  <string name="solved">सोडवली</string>
   <string name="failed">अयशस्वी झालेले</string>
   <string name="streakDescription">उत्तरोत्तर अवघड कोडी सोडवत चला आणि जिंकण्याची मालिका तयार करत चला. इथे वेळ मोजला जाणार नाही, त्यामुळे हवा तेवढा वेळ वापरा. एक चुकीची चाल खेळा आणि खेळ संपून जाईल! पण आपण प्रत्येक सत्रामध्ये एक चाल सोडून देऊ शकता.</string>
   <string name="yourStreakX">तुमची मालिका: %s</string>
@@ -69,18 +69,18 @@
   <string name="searchPuzzles">कोडी शोधा</string>
   <string name="fromMyGamesNone">डेटाबेस मध्ये आपली कोडी अजून नाहीत, तरीही आपण lichess चे आवडते आहात. 
 
-आपले कोडे निवडले जाण्याच्या संधि वाढवण्यासाठी रॅपिड आणि क्लासिकल खेळ खेळा!</string>
-  <string name="fromXGamesFound">%1$s कोडे %2$s यांच्या खेळात मिळाले</string>
-  <string name="puzzleDashboardDescription">प्रशिक्षण, विश्लेषण, सुधारणा</string>
+आपले कोडे निवडले जाण्याच्या संधी वाढवण्यासाठी रॅपिड आणि क्लासिकल खेळ खेळा!</string>
+  <string name="fromXGamesFound">%2$s यांच्या खेळात %1$s कोडी मिळाली</string>
+  <string name="puzzleDashboardDescription">सराव करा, विश्लेषण करा, प्रगती करा</string>
   <plurals name="nbPlayed">
-    <item quantity="one">%s खेळताहेत</item>
-    <item quantity="other">%s खेळताहेत</item>
+    <item quantity="one">%s खेळले</item>
+    <item quantity="other">%s खेळली</item>
   </plurals>
   <plurals name="nbToReplay">
-    <item quantity="one">%s परत खेळतील</item>
-    <item quantity="other">%s परत खेळतील</item>
+    <item quantity="one">%s परत सोडवा</item>
+    <item quantity="other">%s परत सोडवा</item>
   </plurals>
-  <string name="percentSolved">%s सोडवले</string>
+  <string name="percentSolved">%s सोडवली</string>
   <string name="noPuzzlesToShow">इथे काहीही दाखवू शकत नाही, आधी काही कोडी सोडवा!</string>
   <string name="improvementAreasDescription">आपली प्रगती साधण्यासाठी याचे प्रशिक्षण घ्या!</string>
   <string name="strengthDescription">आपण या विषयात सर्वोत्तम कामगिरी करता</string>

@@ -62,6 +62,8 @@
   <string name="studyPgn">PGN bestuderen</string>
   <string name="downloadAllGames">Download alle partijen</string>
   <string name="chapterPgn">Hoofdstuk PGN</string>
+  <string name="copyChapterPgn">PGN kopiëren</string>
+  <string name="copyChapterPgnDescription">Kopieer hoofdstuk PGN naar klembord.</string>
   <string name="downloadGame">Partij downloaden</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Studie niet gevonden</string>
   <string name="editChapter">Hoofdstuk bewerken</string>
   <string name="newChapter">Nieuw hoofdstuk</string>
+  <string name="importFromChapterX">Importeren van %s</string>
   <string name="orientation">Oriëntatie</string>
   <string name="analysisMode">Analysemodus</string>
   <string name="pinnedChapterComment">Vastgezet commentaar van het hoofdstuk</string>

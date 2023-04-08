@@ -4,7 +4,8 @@ import renderInteract from './interact';
 import renderMsgs from './msgs';
 import { Convo } from '../interfaces';
 import { h, VNode } from 'snabbdom';
-import { userName, bindMobileMousedown } from './util';
+import { userName } from './util';
+import { hookMobileMousedown } from 'common/mobile';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;
@@ -18,7 +19,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
         h('div.msg-app__convo__head__left', [
           h('span.msg-app__convo__head__back', {
             attrs: { 'data-icon': '' },
-            hook: bindMobileMousedown(ctrl.showSide),
+            hook: hookMobileMousedown(ctrl.showSide),
           }),
           h(
             'a.user-link.ulpt',
@@ -29,7 +30,10 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
                 offline: !user.online,
               },
             },
-            [h('i.line' + (user.id == 'lichess' ? '.moderator' : user.patron ? '.patron' : '')), ...userName(user)]
+            [
+              h('i.line' + (user.id == 'lichess' ? '.moderator' : user.patron ? '.patron' : '')),
+              h('span', userName(user)),
+            ]
           ),
         ]),
         h('div.msg-app__convo__head__actions', renderActions(ctrl, convo)),

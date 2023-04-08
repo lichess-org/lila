@@ -1,9 +1,10 @@
 package lila.bot
 
-import com.softwaremill.macwire._
+import com.softwaremill.macwire.*
 import lila.socket.IsOnline
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     chatApi: lila.chat.ChatApi,
     gameRepo: lila.game.GameRepo,
@@ -12,13 +13,7 @@ final class Env(
     isOfferingRematch: lila.round.IsOfferingRematch,
     spam: lila.security.Spam,
     isOnline: IsOnline
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
-) {
-
-  private def scheduler = system.scheduler
+)(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode):
 
   lazy val jsonView = wire[BotJsonView]
 
@@ -29,4 +24,3 @@ final class Env(
   lazy val onlineApiUsers: OnlineApiUsers = wire[OnlineApiUsers]
 
   val form = BotForm
-}

@@ -62,6 +62,8 @@
   <string name="studyPgn">Çalışma PGN\'si</string>
   <string name="downloadAllGames">Bütün oyunları indir</string>
   <string name="chapterPgn">Bölüm PGN\'si</string>
+  <string name="copyChapterPgn">PGN \'yi kopyala</string>
+  <string name="copyChapterPgnDescription">Bölüm PGN\'sini panoya kopyala.</string>
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Böyle bir çalışma bulunamadı</string>
   <string name="editChapter">Bölümü düzenle</string>
   <string name="newChapter">Yeni bölüm</string>
+  <string name="importFromChapterX">%s çalışmasından içe aktar</string>
   <string name="orientation">Tahta yönü</string>
   <string name="analysisMode">Analiz modu</string>
   <string name="pinnedChapterComment">Bölüm üzerine yorumlar</string>

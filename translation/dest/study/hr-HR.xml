@@ -65,6 +65,8 @@
   <string name="studyPgn">Studiraj PGN</string>
   <string name="downloadAllGames">Preuzmite sve igre</string>
   <string name="chapterPgn">PGN poglavlja</string>
+  <string name="copyChapterPgn">Kopiraj PGN</string>
+  <string name="copyChapterPgnDescription">Kopiraj PNG poglavlja u međuspremnik.</string>
   <string name="downloadGame">Preuzmi igru</string>
   <string name="studyUrl">Studiraj URL</string>
   <string name="currentChapterUrl">URL trenutnog poglavlja</string>
@@ -79,6 +81,7 @@
   <string name="studyNotFound">Studija nije pronađena</string>
   <string name="editChapter">Uredi poglavlje</string>
   <string name="newChapter">Novo poglavlje</string>
+  <string name="importFromChapterX">Unesi iz %s</string>
   <string name="orientation">Orijentacija</string>
   <string name="analysisMode">Tip analize</string>
   <string name="pinnedChapterComment">Stalni komentar na poglavlje</string>

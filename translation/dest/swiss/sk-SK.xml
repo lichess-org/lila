@@ -13,6 +13,12 @@
     <item quantity="many">%s kôl</item>
     <item quantity="other">%s kôl</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s kolo Švajčiarskeho systému</item>
+    <item quantity="few">%s kolá Švajčiarskeho systému</item>
+    <item quantity="many">%s kôl Švajčiarského systému</item>
+    <item quantity="other">%s kôl Švajčiarsky systém</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Jedno kolo za deň</item>
     <item quantity="few">Jedno kolo za %s dni</item>
@@ -47,21 +53,54 @@
   <string name="forbiddenPairings">Zakázané párovania</string>
   <string name="forbiddenPairingsHelp">Užívateľské mená hráčov, ktorí nesmú hrať spolu (napríklad súrodenci). Dve užívateľské mená na riadok, oddelené medzerou.</string>
   <string name="newSwiss">Nový turnaj švajčiarskym systémom</string>
+  <string name="swissVsArenaQ">Kedy použiť švajčiarsky systém namiesto arén?</string>
+  <string name="swissVsArenaA">V švajčiarskom systéme, všetci hráči hrajú rovnaký počet hier a proti sebe môžu hrať iba raz.
+Môže to byť dobrá voľba pre kluby a oficiálne turnaje.</string>
   <string name="pointsCalculationQ">Ako sa počítajú body?</string>
+  <string name="pointsCalculationA">Výhra ma hodnotu jedného bodu, remíza pol bodu, za prehru nie je žiaden bod.
+Ak hráč nemôže mať žiadneho súpera počas daného kola, automaticky sa mu pridelí jeden bod-priepustka.</string>
   <string name="tiebreaksCalculationQ">Ako sa počíta rovnosť bodov?</string>
   <string name="sonnebornBergerScore">Sonnenborg-Berger skóre</string>
+  <string name="tiebreaksCalculationA">Pomocou %s.
+Pridajte skóre každého súpera, ktorého hráč porazil. Potom pridajte polovicu skóre každého súpera, s ktorým hráč remizoval.</string>
+  <string name="pairingsQ">Ako sa rozhoduje o pároch?</string>
   <string name="dutchSystem">Holandský systém</string>
   <string name="FIDEHandbook">Príručka FIDE</string>
+  <string name="pairingsA">Pomocou %1$s, zavedeného %2$s v súlade s %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Čo sa stane ak má turnaj viac kôl ako hráčov?</string>
+  <string name="moreRoundsThanPlayersA">Ak sa vystriedali všetky možné páry, turnaj sa ukonči a víťaz bude vyhlásený.</string>
+  <string name="restrictedToTeamsQ">Prečo je to obmedzené iba na tímy?</string>
   <string name="restrictedToTeamsA">Švajčiarske turnaje neboli navrhnuté pre online šach. Od hráčov vyžadujú presnosť, odhodlanie a trpezlivosť.
 Myslíme si, že tieto podmienky je pravdepodobnejšie splniť v rámci tímu ako na globálnych turnajoch.</string>
+  <string name="numberOfByesQ">Koľko \"priepustiek\" môže hráč získať?</string>
+  <string name="numberOfByesA">Hráč dostane \"priepustku\" - jeden bod vždy keď mu nemôže byť pridelený súper. Okrem toho \"priepustka\" - s hodnotou pol bodu je pridelená keď sa hráč pripojí k turnaju neskoro.</string>
+  <string name="whatIfOneDoesntPlayQ">Čo sa stane v prípade, ak hráč nezahrá v hre?</string>
+  <string name="whatIfOneDoesntPlayA">Jeho hodiny budú odpočítavať pokiaľ sa mu neminie a neprehrá hru. 
+Potom systém stiahne hráča z turnaja, aby neprehral žiadne ďalšie hry.
+ Hráč sa môže znovu pripojiť kedykoľvek.</string>
+  <string name="lateJoinQ">Môžu sa hráči pripojiť aj po začatí?</string>
+  <string name="lateJoinA">Áno, hráči sa môžu pripojiť pokiaľ nezačala druhá polovica kôl; napr. pri 11-tich kolách sa môže hráč napojiť pred tým, ako začne 6. kolo, a pri 12-tich kolách sa môže pripojiť pred začiatkom 7 kola.
+Hráč, ktorý sa však pripojí neskoro, dostane iba 1 bod.</string>
+  <string name="willSwissReplaceArenasQ">Nahradí švajčiarsky systém turnaje v aréne?</string>
+  <string name="willSwissReplaceArenasA">Nie. Sú to iba doplnkové funkcie.</string>
   <string name="roundRobinQ">A čo kruhový turnaj?</string>
+  <string name="roundRobinA">Rady by sme, nanešťastie Round Robin nefunguje online.
+Dôvod je ten že neexistuje spôsob ako riešiť hráčov, ktorý sa odpoja skôr. Nemôžme očakávať, ževšetci hráči budu hrať všetky kolá. To sa proste nestane, a dôsledok by bol, že všetky turnaje by boli chybné a nespravodlivé, čo podkopáva dôvod, pre ktorý existujú. Najbližšie k Round Robin je švajčiarský systém s vysokým počtom kôl. V tom prípade sa vystriedajú všetci hráči navzájom.</string>
+  <string name="otherSystemsQ">A čo iné turnajové systémy?</string>
+  <string name="otherSystemsA">Momentálne neplánujeme pridať žiadne iné turnajové systémy na Lichess.</string>
+  <string name="swissDescription">V švajčiarskom systéme %1$s, nehrá zvyčajne každý s každým. Súťažiaci sa stretávajú v každom kole jeden na jedného, a sú spárovaní podľa určitých pravidiel, ktoré su vytvorené tak aby sa zaručilo že každý hra so súperom s podobným hodnotením, ale zaroveň nehra nikto s nikým viac ako raz. 
+Víťaz je súťažiaci s najvyšším počtom bodov, ktoré získal vo všetkých kolách. Všetci hrajú v každom kole pokiaľ nie je nepárny počet hŕačov.</string>
+  <string name="teamOnly">Turnaj so švajčiarskym systémom môže byť vytvorený iba lídrom tímu, a môžu sa ho zúčastniť iba hráči z daného tímu.           %1$s aby si mohol začať hrať švajčiarsky systém.</string>
   <string name="joinOrCreateTeam">Pripojiť sa alebo založiť družstvo</string>
   <string name="nowPlaying">Práve sa hrá</string>
   <string name="startingSoon">O chvíľu sa začína</string>
   <string name="comparison">Porovnanie</string>
   <string name="tournDuration">Trvanie turnaja</string>
   <string name="predefinedDuration">Predvolené trvanie v minútach</string>
+  <string name="durationUnknown">Zadefinovaný maximálny počet kôl, ale dĺžka neznáma</string>
   <string name="numberOfGames">Počet partií</string>
+  <string name="numberOfGamesAsManyAsPossible">Najviac, ako sa dá, v danom vyhradenom čase</string>
+  <string name="numberOfGamesPreDefined">Dohodnutý dopredu, rovnaký pre všetkých hráčov</string>
   <string name="pairingSystem">Systém párovania</string>
   <string name="pairingSystemArena">Akýkoľvek dostupný súper s podobným umiestnením</string>
   <string name="pairingSystemSwiss">Najlepšie párovanie na základe bodov a remíz</string>

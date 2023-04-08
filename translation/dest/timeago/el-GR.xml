@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">μόλις τώρα</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">σε %s δευτερόλεπτο</item>
+    <item quantity="other">σε %s δευτερόλεπτα</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">σε %s λεπτό</item>
+    <item quantity="other">σε %s λεπτά</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">σε %s ώρα</item>
+    <item quantity="other">σε %s ώρες</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">σε %s ημέρα</item>
+    <item quantity="other">σε %s ημέρες</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">σε %s εβδομάδα</item>
+    <item quantity="other">σε %s εβδομάδες</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">σε %s μήνα</item>
+    <item quantity="other">σε %s μήνες</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">σε %s έτος</item>
+    <item quantity="other">%s έτη</item>
+  </plurals>
+  <string name="rightNow">αυτή την στιγμή</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s δευτερόλεπτο πριν</item>
+    <item quantity="other">%s δευτερόλεπτα πριν</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s λεπτό πριν</item>
+    <item quantity="other">%s λεπτά πριν</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s ώρα πριν</item>
+    <item quantity="other">%s ώρες πριν</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s μέρα πριν</item>
+    <item quantity="other">%s ημέρες πριν</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s εβδομάδα πριν</item>
+    <item quantity="other">%s εβδομάδες πριν</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s μήνα πριν</item>
+    <item quantity="other">%s μήνες πριν</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s χρόνο πριν</item>
+    <item quantity="other">%s χρόνια πριν</item>
+  </plurals>
+</resources>

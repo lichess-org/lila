@@ -12,6 +12,7 @@
   <string name="myTeams">Nire taldeak</string>
   <string name="noTeamFound">Ez da talderik aurkitu</string>
   <string name="joinTeam">Taldean sartu</string>
+  <string name="onlyLeaderLeavesTeam">Gehitu taldeko kapitain berri bat zuk utzi aurretik edo bestela itxi taldea.</string>
   <string name="quitTeam">Taldetik atera</string>
   <string name="manuallyReviewAdmissionRequests">Eskuz egiaztatu sartzeko eskaerak</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Aukeratuta badago, taldera sartzeko eskaera bidali beharko da eta hori eskuz onartu edo baztertu beharko duzu.</string>
@@ -54,4 +55,5 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="completedTourns">Amaitutako txapelketak</string>
   <string name="declinedRequests">Ukatutako eskaerak</string>
   <string name="joinLichessVariantTeam">Sartu %s talde ofizialera, albiste eta txapelketen berri izateko</string>
+  <string name="teamPage">Taldearen orria</string>
 </resources>

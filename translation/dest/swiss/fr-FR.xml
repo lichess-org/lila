@@ -9,6 +9,10 @@
     <item quantity="one">%s rondes</item>
     <item quantity="other">%s rondes</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s rondes (système suisse)</item>
+    <item quantity="other">%s rondes (système suisse)</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Une ronde par jour</item>
     <item quantity="other">Une ronde tous les %s jours</item>
@@ -99,4 +103,10 @@ Pourquoi? Parce qu\'il n\'existe pas de façon équitable de résoudre le probl�
   <string name="streaksAndBerserk">Séries et Berserk</string>
   <string name="similarToOTB">Similaire aux tournois en personne</string>
   <string name="unlimitedAndFree">Illimité et gratuit</string>
+  <string name="predefinedUsers">Autoriser uniquement les utilisateurs prédéfinis à s\'inscrire</string>
+  <string name="forbiddedUsers">Si la liste n\'est pas vide, seuls les utilisateurs y figurant pourront s\'inscrire. Un nom d\'utilisateur par ligne.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s/%2$s ronde (système suisse)</item>
+    <item quantity="other">%1$s/%2$s rondes (système suisse)</item>
+  </plurals>
 </resources>

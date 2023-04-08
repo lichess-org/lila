@@ -1,20 +1,19 @@
 package views.html.mod
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
-import play.api.mvc.Call
 import lila.chat.UserChat
 import lila.chat.ChatTimeout
 
-object publicChat {
+object publicChat:
 
   def apply(
       tourChats: List[(lila.tournament.Tournament, UserChat)],
       swissChats: List[(lila.swiss.Swiss, UserChat)]
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.base.layout(
       title = "Public Chats",
       moreCss = cssTag("mod.publicChats"),
@@ -36,7 +35,7 @@ object publicChat {
               h2("Swiss Chats"),
               div(cls := "player_chats")(
                 swissChats.map { case (swiss, chat) =>
-                  div(cls := "game", dataChan := "swiss", dataRoom := swiss.id.value)(
+                  div(cls := "game", dataChan := "swiss", dataRoom := swiss.id)(
                     chatOf(swissTitle(swiss), chat)
                   )
                 }
@@ -59,7 +58,7 @@ object publicChat {
   private val dataRoom = attr("data-room")
   private val dataChan = attr("data-chan")
 
-  private def chatOf(titleFragment: Frag, chat: UserChat)(implicit ctx: Context) =
+  private def chatOf(titleFragment: Frag, chat: UserChat)(using Context) =
     frag(
       titleFragment,
       div(cls := "chat")(
@@ -70,7 +69,7 @@ object publicChat {
               "lichess" -> line.isLichess
             )
           )(
-            userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+            userIdLink(UserStr(line.author).id.some, withOnline = false, withTitle = false),
             " ",
             communication.highlightBad(line.text)
           )
@@ -79,11 +78,10 @@ object publicChat {
     )
 
   private def swissTitle(swiss: lila.swiss.Swiss) =
-    a(cls := "title", href := routes.Swiss.show(swiss.id.value))(swiss.name)
+    a(cls := "title", href := routes.Swiss.show(swiss.id))(swiss.name)
 
   private def tournamentTitle(tournament: lila.tournament.Tournament) =
     div(cls := "title-time")(
       a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name),
       span(cls := s"tournament-status ${tournament.status.name.toLowerCase}")(tournament.status.name)
     )
-}

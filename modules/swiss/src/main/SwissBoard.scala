@@ -1,46 +1,42 @@
 package lila.swiss
 
-import scala.concurrent.duration._
-
 import lila.common.LightUser
 import lila.game.Game
 
 private case class SwissBoard(
-    gameId: Game.ID,
+    gameId: GameId,
     white: SwissBoard.Player,
     black: SwissBoard.Player
 )
 
-private object SwissBoard {
-  case class Player(user: LightUser, rank: Int, rating: Int)
+private object SwissBoard:
+  case class Player(user: LightUser, rank: Rank, rating: IntRating)
   case class WithGame(board: SwissBoard, game: Game)
-}
 
 final private class SwissBoardApi(
     rankingApi: SwissRankingApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     gameProxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
   private val displayBoards = 6
 
   private val boardsCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[Swiss.Id, List[SwissBoard]]()
+    .build[SwissId, List[SwissBoard]]()
 
-  def apply(id: Swiss.Id): Fu[List[SwissBoard.WithGame]] =
+  def apply(id: SwissId): Fu[List[SwissBoard.WithGame]] =
     boardsCache.getIfPresent(id) ?? {
       _.map { board =>
         gameProxyRepo.game(board.gameId) map2 {
           SwissBoard.WithGame(board, _)
         }
-      }.sequenceFu
-        .dmap(_.flatten)
+      }.parallel.dmap(_.flatten)
     }
 
   def update(data: SwissScoring.Result): Funit =
-    data match {
+    data match
       case SwissScoring.Result(swiss, leaderboard, playerMap, pairings) =>
         rankingApi(swiss) map { ranks =>
           boardsCache
@@ -74,5 +70,3 @@ final private class SwissBoardApi(
                 }
             )
         }
-    }
-}

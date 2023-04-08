@@ -4,12 +4,14 @@ package html.plan
 import play.api.i18n.Lang
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object features {
+object features:
+
+  val engineFullName = "Stockfish 15.1 NNUE"
 
   def apply()(implicit ctx: Context) =
     views.html.base.layout(
@@ -27,6 +29,12 @@ object features {
         table(
           header(h1(dataIcon := "")("Website")),
           tbody(
+            tr(check)(
+              strong("Zero ads")
+            ),
+            tr(check)(
+              strong("No tracking")
+            ),
             tr(unlimited)(
               "Play and create ",
               a(href := routes.Tournament.home)("tournaments")
@@ -43,7 +51,9 @@ object features {
               a(href := routes.Page.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
             tr(custom(s"${lila.fishnet.FishnetLimiter.maxPerDay} per day"))(
-              "Deep Stockfish 14.1 server analysis"
+              "Deep ",
+              engineFullName,
+              " server analysis"
             ),
             tr(unlimited)(
               "Instant local Stockfish 14+ analysis (depth 99)"
@@ -117,17 +127,14 @@ object features {
               "Light/dark theme, custom boards, pieces and background"
             ),
             tr(check)(
-              strong("Zero ads")
-            ),
-            tr(check)(
-              strong("No tracking")
-            ),
-            tr(check)(
               strong("All features to come, forever")
             )
           ),
           header(h1(dataIcon := "")("Mobile")),
           tbody(
+            tr(check)(
+              strong("Zero ads, no tracking")
+            ),
             tr(unlimited)(
               "Online and offline games, with 8 variants"
             ),
@@ -151,9 +158,6 @@ object features {
             ),
             tr(check)(
               "iPhone & Android phones and tablets, landscape support"
-            ),
-            tr(check)(
-              strong("Zero ads, no tracking")
             ),
             tr(check)(
               strong("All features to come, forever")
@@ -209,4 +213,3 @@ object features {
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
   private val title = "Lichess features"
-}

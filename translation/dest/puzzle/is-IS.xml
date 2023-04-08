@@ -33,5 +33,9 @@
   <string name="hardest">Þyngst</string>
   <string name="example">Dæmi</string>
   <string name="addAnotherTheme">Bæta við annan þema</string>
+  <string name="nextPuzzle">Næsta þraut</string>
   <string name="jumpToNextPuzzleImmediately">Fara strax á næsta þraut</string>
+  <string name="strengths">Styrkleikar</string>
+  <string name="history">Þrautsaga</string>
+  <string name="puzzleDashboardDescription">Æfa, rýna, bæta</string>
 </resources>

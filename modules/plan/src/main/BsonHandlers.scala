@@ -1,44 +1,31 @@
 package lila.plan
 
 import java.util.Currency
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 
-private[plan] object BsonHandlers {
+private object BsonHandlers:
 
-  implicit val CurrencyBSONHandler = stringAnyValHandler[Currency](_.getCurrencyCode, Currency.getInstance)
-  implicit val MoneyBSONHandler    = Macros.handler[Money]
-  implicit val UsdBSONHandler      = lila.db.dsl.bigDecimalAnyValHandler[Usd](_.value, Usd)
+  given BSONHandler[Currency]      = stringAnyValHandler[Currency](_.getCurrencyCode, Currency.getInstance)
+  given BSONDocumentHandler[Money] = Macros.handler
 
-  implicit val StripeChargeIdBSONHandler = stringAnyValHandler[StripeChargeId](_.value, StripeChargeId)
-  implicit val StripeCustomerIdBSONHandler =
-    stringAnyValHandler[StripeCustomerId](_.value, StripeCustomerId)
+  given BSONHandler[PayPalOrderId] = stringAnyValHandler[PayPalOrderId](_.value, PayPalOrderId.apply)
+  given BSONHandler[PayPalPayerId] = stringAnyValHandler[PayPalPayerId](_.value, PayPalPayerId.apply)
+  given BSONHandler[PayPalSubscriptionId] =
+    stringAnyValHandler[PayPalSubscriptionId](_.value, PayPalSubscriptionId.apply)
 
-  implicit val PayPalOrderIdBSONHandler = stringAnyValHandler[PayPalOrderId](_.value, PayPalOrderId)
-  implicit val PayPalPayerIdBSONHandler = stringAnyValHandler[PayPalPayerId](_.value, PayPalPayerId)
-  implicit val PayPalSubIdBSONHandler =
-    stringAnyValHandler[PayPalSubscriptionId](_.value, PayPalSubscriptionId)
+  object PatronHandlers:
+    import Patron.*
+    given BSONDocumentHandler[PayPalLegacy]                   = Macros.handler
+    given payPalCheckout: BSONDocumentHandler[PayPalCheckout] = Macros.handler
+    given BSONDocumentHandler[Stripe]                         = Macros.handler
+    given BSONDocumentHandler[Free]                           = Macros.handler
+    given BSONDocumentHandler[Patron]                         = Macros.handler
 
-  object PatronHandlers {
-    import Patron._
-    implicit val PayPalEmailBSONHandler =
-      stringAnyValHandler[PayPalLegacy.Email](_.value, PayPalLegacy.Email)
-    implicit val PayPalLegacySubIdBSONHandler =
-      stringAnyValHandler[PayPalLegacy.SubId](_.value, PayPalLegacy.SubId)
-    implicit val PayPalLegacyBSONHandler   = Macros.handler[PayPalLegacy]
-    implicit val PayPalCheckoutBSONHandler = Macros.handler[PayPalCheckout]
-    implicit val StripeBSONHandler         = Macros.handler[Stripe]
-    implicit val FreeBSONHandler           = Macros.handler[Free]
-    implicit val UserIdBSONHandler         = stringAnyValHandler[UserId](_.value, UserId)
-    implicit val PatronBSONHandler         = Macros.handler[Patron]
-  }
-
-  object ChargeHandlers {
-    import Charge._
-    implicit val StripeBSONHandler         = Macros.handler[Stripe]
-    implicit val PayPalLegacyBSONHandler   = Macros.handler[PayPalLegacy]
-    implicit val PayPalCheckoutBSONHandler = Macros.handler[PayPalCheckout]
-    implicit val ChargeBSONHandler         = Macros.handler[Charge]
-  }
-}
+  object ChargeHandlers:
+    import Charge.*
+    import PatronHandlers.payPalCheckout
+    given BSONDocumentHandler[Stripe]       = Macros.handler
+    given BSONDocumentHandler[PayPalLegacy] = Macros.handler
+    given BSONDocumentHandler[Charge]       = Macros.handler

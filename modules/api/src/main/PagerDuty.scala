@@ -1,16 +1,11 @@
 package lila.api
 
-import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json.Json
-import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.hub.actorApi.Announce
-
-final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(using Executor):
 
   def lilaRestart(date: DateTime): Funit =
     (config.serviceId.nonEmpty && config.apiKey.value.nonEmpty) ??
@@ -50,4 +45,3 @@ final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDut
   private lazy val logger = lila.log("pagerDuty")
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
-}

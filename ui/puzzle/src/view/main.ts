@@ -1,4 +1,5 @@
 import * as control from '../control';
+import * as keyboard from '../keyboard';
 import * as side from './side';
 import theme from './theme';
 import chessground from './chessground';
@@ -6,14 +7,14 @@ import feedbackView from './feedback';
 import stepwiseScroll from 'common/wheel';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
-import { onInsert, bindMobileMousedown, bindNonPassive } from 'common/snabbdom';
+import { onInsert, bindNonPassive } from 'common/snabbdom';
+import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import { render as renderKeyboardMove } from 'keyboardMove';
+import * as Prefs from 'common/prefs';
 
-function renderAnalyse(ctrl: Controller): VNode {
-  return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
-}
+const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
@@ -100,7 +101,7 @@ export default function (ctrl: Controller): VNode {
         'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
         {
           hook:
-            'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
+            'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
               ? undefined
               : bindNonPassive(
                   'wheel',
@@ -134,6 +135,7 @@ export default function (ctrl: Controller): VNode {
       controls(ctrl),
       ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
+      ctrl.keyboardHelp() ? keyboard.view(ctrl) : null,
     ]
   );
 }

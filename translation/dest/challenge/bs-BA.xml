@@ -15,4 +15,5 @@
   <string name="declineLater">Ne odgovara mi ovaj trenutak; molim, izazovite me ponovo kasnije.</string>
   <string name="declineNoBot">Ne prihvatam izazove od botova.</string>
   <string name="declineOnlyBot">Prihvatam izazove samo od botova.</string>
+  <string name="inviteLichessUser">Ili pozovite korisnika Lichessa:</string>
 </resources>

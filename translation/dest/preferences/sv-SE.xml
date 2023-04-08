@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Inställningar</string>
-  <string name="gameDisplay">Spelutseende</string>
+  <string name="display">Visningsalternativ</string>
+  <string name="privacy">Sekretess</string>
+  <string name="notifications">Notifieringar</string>
   <string name="pieceAnimation">Pjäsanimation</string>
   <string name="materialDifference">Materialskillnad</string>
   <string name="boardHighlights">Brädmarkeringar (föregående drag och schack)</string>
@@ -12,6 +14,8 @@
   <string name="chessPieceSymbol">Schackpjäs-symbol</string>
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-läge</string>
+  <string name="showPlayerRatings">Visa spelarens rating</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Detta gör det möjligt att dölja all rating från webbplatsen, för att fokusera på schackspelet. Partiet kan fortfarande vara med rating, detta handlar bara om vad du får se.</string>
   <string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>
   <string name="onlyOnInitialPosition">Endast vid ursprunglig position</string>
   <string name="blindfoldChess">Blindschack (Osynliga pjäser)</string>
@@ -29,7 +33,8 @@
   <string name="premovesPlayingDuringOpponentTurn">Förhandsdrag (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="inCasualGamesOnly">Endast i icke rankade partier</string>
-  <string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>
+  <string name="promoteToQueenAutomatically">Promovera till drottning automatiskt</string>
+  <string name="explainPromoteToQueenAutomatically">Håll ner &lt;ctrl&gt; -tangenten medan du uppgraderar för att tillfälligt inaktivera automatisk förvandling</string>
   <string name="whenPremoving">Vid premove</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Begär remi automatiskt vid trefaldig upprepning</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">När återstående tid &lt; 30 sekunder</string>
@@ -45,4 +50,17 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Säg \"Bra parti, väl spelat\" vid förlust eller remi</string>
   <string name="yourPreferencesHaveBeenSaved">Dina inställningar har sparats.</string>
   <string name="scrollOnTheBoardToReplayMoves">Bläddra på tavlan för att spela upp rörelser</string>
+  <string name="correspondenceEmailNotification">Daglig e-postavisering som listar dina korrespondensspel</string>
+  <string name="notifyStreamStart">Strömmen går igång</string>
+  <string name="notifyInboxMsg">Nytt meddelande i inkorgen</string>
+  <string name="notifyForumMention">Forumkommentar nämner dig</string>
+  <string name="notifyInvitedStudy">Inbjudan till studier</string>
+  <string name="notifyGameEvent">Korrespondensspelsuppdateringar</string>
+  <string name="notifyChallenge">Utmaningar</string>
+  <string name="notifyTournamentSoon">Turneringen startar snart</string>
+  <string name="notifyTimeAlarm">Korrespondensklockans tid tar slut</string>
+  <string name="notifyBell">Spela upp ett klockljud vid ny avisering</string>
+  <string name="notifyPush">Enhetsnotifiering när du inte använder Lichess</string>
+  <string name="notifyWeb">Webbläsare</string>
+  <string name="notifyDevice">Enhet</string>
 </resources>

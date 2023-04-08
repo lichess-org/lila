@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Voltooi \'n wagwoord herstelling om jou tweede faktor te verwyder</string>
   <string name="accountSupport">Ek benodig rekening ondersteuning</string>
   <string name="wantTitle">Ek wil my skaaktitel sigbaar hê op Lichess</string>
-  <string name="visitTitleConfirmation">Om jou titel op jou Lichess profiel te wys en toegang te hê tot aanlyn toernooie vir spelers met titels, besoek die bevestigingsblad</string>
+  <string name="visitTitleConfirmation">Om jou titel op jou Lichess profiel te wys en toegang te hê tot Titel-Arena toernooie, besoek die bevestigingsblad</string>
   <string name="wantCloseAccount">Ek wil my rekening sluit</string>
   <string name="closeYourAccount">Jy kan jou rekening op hierdie blad sluit</string>
   <string name="doNotAskByEmail">Moet ons nie per e-pos vra om \'n rekening te sluit nie, ons gaan nie dit doen nie.</string>
@@ -52,6 +52,7 @@
   <string name="knightMate">Dit is moontlik om skaakmat te gee met net \'n ruiter of \'n loper as die opponent meer as \'n koning op die bord het.</string>
   <string name="noRatingPoints">Geen gradeeringspunte is toegeken nie</string>
   <string name="ratedGame">Maak seker dat jy \'n gegradeerde spel gespeel het. Vriendskaplike wedstryde beïnvloed nie jou gradeering nie.</string>
+  <string name="botRatingAbuse">In sekere gevalle wanneer teen \'n robot rekening gespeel word, sal `n gegraderings spel nie punte toegereken word nie as dit bepaal is dat die speler die robot misbruik vir graderings punte.</string>
   <string name="errorPage">Foutblad</string>
   <string name="reportErrorPage">As daar \'n foutblad opduik kan jy dit rapporteer:</string>
   <string name="banAppeal">Appéleer vir \'n ban of IP beperking</string>

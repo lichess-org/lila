@@ -12,7 +12,7 @@
       padding: 0 1.3em;
     }
 
-    body.playing.zen & {
+    body.zenable.zen & {
       visibility: hidden;
     }
   }
@@ -36,7 +36,7 @@
     }
 
     > :first-child {
-      margin-left: auto !important;
+      margin-#{$start-direction}: auto !important;
     }
   }
 
@@ -50,7 +50,7 @@
   }
 
   #{$index-tag} {
-    padding-right: 0.15em;
+    padding-#{$end-direction}: 0.15em;
   }
 
   #{$move-tag} {
@@ -93,14 +93,14 @@
     }
 
     strong {
-      margin-left: 0.5em;
+      margin-#{$start-direction}: 0.5em;
     }
 
     &::before {
-      margin-right: 0.3em;
+      margin-#{$end-direction}: 0.3em;
     }
 
-    body.playing.zen & {
+    body.zenable.zen & {
       visibility: hidden;
     }
   }

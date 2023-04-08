@@ -59,6 +59,8 @@
   <string name="depthX">Дълбочина %s</string>
   <string name="usingServerAnalysis">Използване на сървърен анализ</string>
   <string name="loadingEngine">Зареждане на програмата ...</string>
+  <string name="calculatingMoves">Изчисляване на ходовете...</string>
+  <string name="engineFailed">Грешка при зареждане на програмата</string>
   <string name="cloudAnalysis">Облачен анализ</string>
   <string name="goDeeper">По-детайлно</string>
   <string name="showThreat">Покажи заплаха</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' със закръгляне, базирано на броя полуходове до следващото вземане на фигура или преместване на пешка</string>
   <string name="noGameFound">Няма намерени игри</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Защо не включите повече игри в датабазата от менюто?</string>
+  <string name="openings">Дебюти</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
   <string name="openingEndgameExplorer">Изследовател на дебюти/ендшпили</string>
   <string name="xOpeningExplorer">%s датабаза</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Гледай на пълен екран</string>
   <string name="logOut">Излез</string>
   <string name="signIn">Влез</string>
+  <string name="rememberMe">Запомни ме</string>
   <string name="youNeedAnAccountToDoThat">Трябва Ви регистрация, за да направите това</string>
   <string name="signUp">Регистрирайте се</string>
   <string name="computersAreNotAllowedToPlay">Не е позволено използването на компютърна помощ. Моля не си помагайте с шах програми, архиви или други играчи по време на игра. Също, създаването на множество регистрации е силно непрепоръчително и ще се накаже с бан.</string>
@@ -195,12 +199,33 @@
   <string name="changeUsername">Промяна на потребителско име</string>
   <string name="changeUsernameNotSame">Единствено могат да се заменят малки с главни букви. Например, \"johndoe\" с \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промяна на потребителско име. Може да се извърши само веднъж и можете да сменяте единствено малки и главни букви.</string>
+  <string name="signupUsernameHint">Изберете прилично потребителско име. Няма да можете да го смените по-късно и всички регистрации с нецензурни имена биват затворени!</string>
+  <string name="signupEmailHint">Ще го използваме само за възстановяване на паролата.</string>
   <string name="password">Парола</string>
   <string name="changePassword">Промяна на паролата</string>
   <string name="changeEmail">Промяна на имейл</string>
   <string name="email">Имейл</string>
   <string name="passwordReset">Смяна на парола</string>
   <string name="forgotPassword">Забравена парола?</string>
+  <string name="youAreLeavingLichess">Напускате Lichess</string>
+  <string name="proceedToX">Продължи към %s</string>
+  <string name="emailConfirmHelp">Помощ за потвърждение на имейл</string>
+  <string name="emailConfirmNotReceived">Не сте получили имейл за потвърждение на регистрацията ви?</string>
+  <string name="whatSignupUsername">Кое потребителско име сте използвали, за да се регистрирате?</string>
+  <string name="usernameNotFound">Не успяхме да намерим потребител с това име: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Можете да използвате това потребителско име, за да създадете нов акаунт</string>
+  <string name="emailSent">Изпратихме имейл до %s.</string>
+  <string name="emailCanTakeSomeTime">Пристигането му може да отнеме известно време.</string>
+  <string name="refreshInboxAfterFiveMinutes">Изчакайте 5 минути и презаредете вашата поща.</string>
+  <string name="checkSpamFolder">Проверете и папката спам, може да попадне там. Ако е така, моля отбележете го като \"не спам\".</string>
+  <string name="emailForSignupHelp">Ако всичко останало се провали, изпратете ни този имейл:</string>
+  <string name="copyTextToEmail">Копирайте и поставете горния текст и го изпратете на %s</string>
+  <string name="waitForSignupHelp">Скоро ще се свържем с вас, за да ви помогнем да завършите регистрацията си.</string>
+  <string name="accountConfirmed">Потребителят %s е успешно потвърден.</string>
+  <string name="accountCanLogin">Сега можете да влезете в системата като %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Не е необходимо да получавате имейл за потвърждение.</string>
+  <string name="accountClosed">Регистрацията %s е закрита.</string>
+  <string name="accountRegisteredWithoutEmail">Акаунтът %s е регистриран без имейл.</string>
   <string name="rank">Класация</string>
   <string name="rankX">Класация: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -307,7 +332,7 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s казус</item>
-    <item quantity="other">%s изследвания</item>
+    <item quantity="other">%s казуси</item>
   </plurals>
   <string name="viewTournament">Виж турнира</string>
   <string name="backToTournament">Продължи турнира</string>
@@ -340,6 +365,7 @@
   <string name="siteDescription">Безплатна онлайн шах игра. Играй шах сега в изчистен интерфейс. Без нужда от регистрация, реклами или добавки. Играй шах с компютъра, с приятели или случайни противници.</string>
   <string name="xJoinedTeamY">%1$s се присъедини към отбор %2$s</string>
   <string name="xCreatedTeamY">%1$s създаде отбор %2$s</string>
+  <string name="startedStreaming">започна да излъчва</string>
   <string name="xStartedStreaming">%s започна излъчване</string>
   <string name="averageElo">Среден рейтинг на играчите</string>
   <string name="location">Местоположение</string>
@@ -348,6 +374,8 @@
   <string name="apply">Приложи</string>
   <string name="save">Запази</string>
   <string name="leaderboard">Водещи играчи</string>
+  <string name="screenshotCurrentPosition">Снимай тази позиция</string>
+  <string name="gameAsGIF">Запази като GIF</string>
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
   <string name="orUploadPgnFile">Или качете PGN файл</string>
@@ -427,6 +455,8 @@
   <string name="tournamentIsStarting">Турнирът започва</string>
   <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
   <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
+  <string name="pause">Пауза</string>
+  <string name="resume">Възобновяване</string>
   <string name="youArePlaying">Играете!</string>
   <string name="winRate">Успеваемост</string>
   <string name="berserkRate">Берсерк коефициент</string>
@@ -461,6 +491,10 @@
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>
   <string name="inlineNotation">Вградена нотация</string>
+  <string name="savingMoves">Временно съхранение на вариацията</string>
+  <string name="savingMovesHelp">Винаги съхраняваме вашите вариации в кеша на браузъра ви.</string>
+  <string name="makeAStudy">За съхранение и споделяне помислете за изготвяне на казус.</string>
+  <string name="clearSavedMoves">Изтрий ходовете</string>
   <string name="previouslyOnLichessTV">Приключили игри</string>
   <string name="onlinePlayers">Свързани играчи</string>
   <string name="activePlayers">Активни играчи</string>
@@ -508,6 +542,8 @@
   <string name="blog">Блог</string>
   <string name="notes">Белeжки</string>
   <string name="typePrivateNotesHere">Запишете лични бележки тук</string>
+  <string name="writeAPrivateNoteAboutThisUser">Напишете лична бележка относно този потребител</string>
+  <string name="noNoteYet">Още няма бележки</string>
   <string name="invalidUsernameOrPassword">Грешен потребител или парола</string>
   <string name="incorrectPassword">Неправилна парола</string>
   <string name="invalidAuthenticationCode">Не валиден код за удостоверяване</string>
@@ -564,6 +600,7 @@
   <string name="community">Общност</string>
   <string name="tools">Инструменти</string>
   <string name="increment">Прибавяне</string>
+  <string name="error.unknown">Невалидна стойност</string>
   <string name="error.required">Това поле е задължително</string>
   <string name="error.email">Този имейл адрес е невалиден</string>
   <string name="error.email_acceptable">Този имейл адрес е неприемлив. Моля проверете дали сте го въвели правилно и опитайте отново.</string>
@@ -574,6 +611,7 @@
   <string name="error.min">Трябва да е минимум %s</string>
   <string name="error.max">Трябва да е максимум %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
+  <string name="ifRegistered">Ако са регистрирани</string>
   <string name="onlyExistingConversations">Само съществуващи дискусии</string>
   <string name="onlyFriends">Само приятели</string>
   <string name="menu">Меню</string>
@@ -622,6 +660,7 @@
   <string name="tournamentFAQ">ЧЗВ относно състезанието</string>
   <string name="timeBeforeTournamentStarts">Време до началото на турнира</string>
   <string name="averageCentipawnLoss">Средна загуба в стотни на пешка</string>
+  <string name="accuracy">Точност</string>
   <string name="keyboardShortcuts">Клавиатурни комбинации</string>
   <string name="keyMoveBackwardOrForward">мести напред/назад</string>
   <string name="keyGoToStartOrEnd">към началото/края</string>
@@ -704,6 +743,7 @@
   <string name="light">Светъл</string>
   <string name="dark">Тъмен</string>
   <string name="transparent">Прозрачен</string>
+  <string name="deviceTheme">По подразбиране</string>
   <string name="backgroundImageUrl">URL адрес на изображението за фон:</string>
   <string name="boardGeometry">Геометрия на дъската</string>
   <string name="boardTheme">Дизайн на дъската</string>
@@ -732,6 +772,7 @@
   <string name="bestWasX">Най-добър ход е %s</string>
   <string name="youBrowsedAway">Навигирахте към друг изглед</string>
   <string name="resumePractice">Подновяване на упражнението</string>
+  <string name="drawByFiftyMoves">Играта е реми по правилото за петдесетте хода.</string>
   <string name="theGameIsADraw">Партията е реми.</string>
   <string name="computerThinking">Компютърът размишлява...</string>
   <string name="seeBestMove">Вижте най-добрия ход</string>
@@ -799,12 +840,12 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Промени</string>
-  <string name="rapid">Ускорен</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Класически</string>
   <string name="ultraBulletDesc">Изключително бързи игри: под 30 секунди</string>
   <string name="bulletDesc">Много бързи игри: под 3 минути</string>
   <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
-  <string name="rapidDesc">Ускорен шахмат: 8 до 25 минути</string>
+  <string name="rapidDesc">Ускорен (Rapid) шахмат: 8 до 25 минути</string>
   <string name="classicalDesc">Класически игри: над 25 минути</string>
   <string name="correspondenceDesc">Кореспондентски игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
@@ -894,4 +935,5 @@
   <string name="until">До</string>
   <string name="lichessDbExplanation">Игри с рейтинг измежду всички Lichess играчи</string>
   <string name="switchSides">Смени страната</string>
+  <string name="closingAccountWithdrawAppeal">Закриването на регистрацията Ви ще оттегли Вашето обжалване</string>
 </resources>

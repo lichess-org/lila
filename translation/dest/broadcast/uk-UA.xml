@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Передачі</string>
-  <string name="liveBroadcasts">Передачі онлайн турнірів</string>
-  <string name="newBroadcast">Нова передача наживо</string>
+  <string name="broadcasts">Трансляція</string>
+  <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
+  <string name="newBroadcast">Нова трансляція наживо</string>
   <string name="addRound">Додати тур</string>
   <string name="ongoing">Поточні</string>
   <string name="upcoming">Майбутні</string>
@@ -21,8 +21,10 @@
   <string name="credits">Вдячність джерелу</string>
   <string name="resetRound">Скинути цей тур</string>
   <string name="deleteRound">Видалити цей тур</string>
-  <string name="broadcastUrl">Посилання на передачу</string>
+  <string name="broadcastUrl">Посилання на трансляцію</string>
   <string name="currentRoundUrl">Посилання на поточний тур</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
   <string name="downloadAllRounds">Завантажити всі тури</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Видалити всі ігри цього раунду.</string>
+  <string name="deleteAllGamesOfThisRound">Видалити всі ігри цього раунду. Джерело має бути активним для того, щоб повторно відтворити його.</string>
 </resources>

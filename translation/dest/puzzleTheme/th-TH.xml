@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advantage">ความได้เปรียบ</string>
   <string name="advantageDescription">ชิงโอกาสได้เปรียบมาให้ได้ (200cp ≤ eval ≤ 600cp)</string>
   <string name="castling">การเข้าป้อม</string>
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>

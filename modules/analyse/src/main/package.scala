@@ -1,9 +1,6 @@
-package lila
+package lila.analyse
 
-package object analyse extends PackageObject {
+export lila.Lila.{ *, given }
 
-  type InfoAdvice  = (Info, Option[Advice])
-  type InfoAdvices = List[InfoAdvice]
-
-  type PgnMove = String
-}
+type InfoAdvice  = (Info, Option[Advice])
+type InfoAdvices = List[InfoAdvice]

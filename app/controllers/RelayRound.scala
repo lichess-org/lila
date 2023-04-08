@@ -1,29 +1,29 @@
 package controllers
 
 import play.api.data.Form
-import play.api.mvc._
-import scala.concurrent.duration._
+import play.api.mvc.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 
 // import lila.common.config.MaxPerSecond
-import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel, RelayRoundForm }
-import lila.user.{ User => UserModel }
-import views._
-import lila.common.HTTPRequest
+import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
+import lila.user.{ User as UserModel }
+import views.*
+import chess.format.pgn.PgnStr
+import scala.annotation.nowarn
 
 final class RelayRound(
     env: Env,
     studyC: => Study,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def form(tourId: String) =
-    Auth { implicit ctx => me =>
+    Auth { implicit ctx => _ =>
       NoLameOrBot {
         WithTourAndRoundsCanUpdate(tourId) { trs =>
-          Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).fuccess
+          Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).toFuccess
         }
       }
     }
@@ -39,7 +39,7 @@ final class RelayRound(
                 .create(trs)
                 .bindFromRequest()(ctx.body, formBinding)
                 .fold(
-                  err => BadRequest(html.relay.roundForm.create(err, tour)).fuccess,
+                  err => BadRequest(html.relay.roundForm.create(err, tour)).toFuccess,
                   setup =>
                     rateLimitCreation(
                       me,
@@ -56,41 +56,39 @@ final class RelayRound(
       scoped = req =>
         me =>
           NoLameOrBot(me) {
-            env.relay.api tourById TourModel.Id(tourId) flatMap {
-              _ ?? { tour =>
-                env.relay.api.withRounds(tour) flatMap { trs =>
-                  env.relay.roundForm
-                    .create(trs)
-                    .bindFromRequest()(req, formBinding)
-                    .fold(
-                      err => BadRequest(apiFormError(err)).fuccess,
-                      setup =>
-                        rateLimitCreation(me, req, rateLimited) {
-                          JsonOk {
-                            env.relay.api.create(setup, me, tour) map { round =>
-                              env.relay.jsonView.withUrl(round withTour tour)
-                            }
+            env.relay.api tourById TourModel.Id(tourId) flatMapz { tour =>
+              env.relay.api.withRounds(tour) flatMap { trs =>
+                env.relay.roundForm
+                  .create(trs)
+                  .bindFromRequest()(req, formBinding)
+                  .fold(
+                    err => BadRequest(apiFormError(err)).toFuccess,
+                    setup =>
+                      rateLimitCreation(me, req, rateLimited) {
+                        JsonOk {
+                          env.relay.api.create(setup, me, tour) map { round =>
+                            env.relay.jsonView.withUrl(round withTour tour)
                           }
                         }
-                    )
-                }
+                      }
+                  )
               }
             }
           }
     )
 
-  def edit(id: String) =
+  def edit(id: RelayRoundId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).fuccess
+        Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).toFuccess
       }
     }
 
-  def update(id: String) =
+  def update(id: RelayRoundId) =
     AuthOrScopedBody(_.Study.Write)(
       auth = implicit ctx =>
         me =>
-          doUpdate(id, me)(ctx.body) flatMap {
+          doUpdate(id, me)(using ctx.body) flatMap {
             case None => notFound
             case Some(res) =>
               res
@@ -98,11 +96,11 @@ final class RelayRound(
                   { case (old, err) => BadRequest(html.relay.roundForm.edit(old, err)) },
                   rt => Redirect(rt.path)
                 )
-                .fuccess
+                .toFuccess
           },
       scoped = req =>
         me =>
-          doUpdate(id, me)(req) map {
+          doUpdate(id, me)(using req) map {
             case None => NotFound(jsonError("No such broadcast"))
             case Some(res) =>
               res.fold(
@@ -112,30 +110,28 @@ final class RelayRound(
           }
     )
 
-  private def doUpdate(id: String, me: UserModel)(implicit
-      req: Request[_]
+  private def doUpdate(id: RelayRoundId, me: UserModel)(using
+      req: Request[?]
   ): Fu[Option[Either[(RoundModel.WithTour, Form[RelayRoundForm.Data]), RoundModel.WithTour]]] =
-    env.relay.api.byIdAndContributor(id, me) flatMap {
-      _ ?? { rt =>
-        env.relay.roundForm
-          .edit(rt.round)
-          .bindFromRequest()
-          .fold(
-            err => fuccess(Left(rt -> err)),
-            data =>
-              env.relay.api.update(rt.round) { data.update(_, me) }.dmap(_ withTour rt.tour) dmap Right.apply
-          ) dmap some
-      }
+    env.relay.api.byIdAndContributor(id, me) flatMapz { rt =>
+      env.relay.roundForm
+        .edit(rt.round)
+        .bindFromRequest()
+        .fold(
+          err => fuccess(Left(rt -> err)),
+          data =>
+            env.relay.api.update(rt.round) { data.update(_, me) }.dmap(_ withTour rt.tour) dmap Right.apply
+        ) dmap some
     }
 
-  def reset(id: String) =
+  def reset(id: RelayRoundId) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
         env.relay.api.reset(rt.round, me) inject Redirect(rt.path)
       }
     }
 
-  def show(ts: String, rs: String, id: String) =
+  def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read)(
       open = implicit ctx => {
         pageHit
@@ -149,61 +145,53 @@ final class RelayRound(
                 }
               }
             else env.study.api byIdWithChapter rt.round.studyId
-          sc flatMap { _ ?? { doShow(rt, _) } }
+          sc flatMapz { doShow(rt, _) }
         }
       },
       scoped = _ =>
         _ =>
-          env.relay.api.byIdWithTour(id) flatMap {
-            _ ?? { rt =>
-              env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
-                JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
-              }
+          env.relay.api.byIdWithTour(id) flatMapz { rt =>
+            env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
+              JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
             }
           }
     )
 
-  def pgn(ts: String, rs: String, id: String) = studyC.pgn(id)
-  def apiPgn(id: String)                      = studyC.apiPgn(id)
+  def pgn(@nowarn ts: String, @nowarn rs: String, id: StudyId) = studyC.pgn(id)
+  def apiPgn(id: StudyId)                                      = studyC.apiPgn(id)
 
-  def stream(id: String) = AnonOrScoped() { req => me =>
-    env.relay.api.byIdWithStudy(id) flatMap {
-      _ ?? { rt =>
-        studyC.CanView(rt.study, me) {
-          apiC
-            .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-              env.relay.pgnStream.streamRoundGames(rt)
-            ) { source =>
-              noProxyBuffer(Ok chunked source.keepAlive(60.seconds, () => " ") as pgnContentType)
-            }
-            .fuccess
-        }(Unauthorized.fuccess, Forbidden.fuccess)
-      }
+  def stream(id: RelayRoundId) = AnonOrScoped() { req => me =>
+    env.relay.api.byIdWithStudy(id) flatMapz { rt =>
+      studyC.CanView(rt.study, me) {
+        apiC.GlobalConcurrencyLimitPerIP
+          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)) { source =>
+            noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
+          }
+          .toFuccess
+      }(Unauthorized.toFuccess, Forbidden.toFuccess)
     }
   }
 
-  def chapter(ts: String, rs: String, id: String, chapterId: String) =
+  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
       WithRoundAndTour(ts, rs, id) { rt =>
-        env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMap {
-          _ ?? { doShow(rt, _) }
-        }
+        env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
       }
     }
 
-  def push(id: String) =
+  def push(id: RelayRoundId) =
     ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { req => me =>
       env.relay.api.byIdAndContributor(id, me) flatMap {
         case None     => notFoundJson()
-        case Some(rt) => env.relay.push(rt, req.body) inject jsonOkResult
+        case Some(rt) => env.relay.push(rt, PgnStr(req.body)) inject jsonOkResult
       }
     }
 
-  private def WithRoundAndTour(ts: String, rs: String, id: String)(
+  private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
-      if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).fuccess
+      if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).toFuccess
       else f(rt)
     }
 
@@ -216,21 +204,19 @@ final class RelayRound(
       f: TourModel.WithRounds => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     WithTour(id) { tour =>
-      ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMap {
-        _ ?? {
-          env.relay.api withRounds tour flatMap f
-        }
+      ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
+        env.relay.api withRounds tour flatMap f
       }
     }
 
-  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(implicit
+  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
       ctx: Context
   ): Fu[Result] =
     studyC.CanView(oldSc.study, ctx.me) {
       for {
         (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
-        data = env.relay.jsonView.makeData(
+        data <- env.relay.jsonView.makeData(
           rt.tour withRounds rounds.map(_.round),
           rt.round.id,
           studyData,
@@ -239,21 +225,18 @@ final class RelayRound(
         chat      <- studyC.chatOf(sc.study)
         sVersion  <- env.study.version(sc.study.id)
         streamers <- studyC.streamersOf(sc.study)
-      } yield EnableSharedArrayBuffer(
-        Ok(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
-      )
+      } yield Ok(
+        html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers)
+      ).enableSharedArrayBuffer
     }(studyC.privateUnauthorizedFu(oldSc.study), studyC.privateForbiddenFu(oldSc.study))
 
-  implicit private def makeRelayId(id: String): RoundModel.Id           = RoundModel.Id(id)
-  implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)
-
-  private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.user"
   )
 
-  private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.common.IpAddress](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.ip"
@@ -265,15 +248,13 @@ final class RelayRound(
       fail: => Result
   )(
       create: => Fu[Result]
-  ): Fu[Result] = {
+  ): Fu[Result] =
     val cost =
       if (isGranted(_.Relay, me)) 2
       else if (me.hasTitle || me.isVerified) 5
       else 10
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
+      CreateLimitPerIP(req.ipAddress, cost = cost) {
         create
-      }(fail.fuccess)
-    }(fail.fuccess)
-  }
-}
+      }(fail.toFuccess)
+    }(fail.toFuccess)

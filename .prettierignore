@@ -1,7 +1,8 @@
 /modules
 /app
 /project
-
+/local
+/pnpm-lock.yaml
 /public/css
 /public/piece-css
 /public/compiled

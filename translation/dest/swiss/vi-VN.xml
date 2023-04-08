@@ -8,6 +8,9 @@ Xem tất cả %s vòng đấu</item>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s vòng đấu</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="other">%s vòng Thụy Sĩ</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="other">Một vòng đấu hàng ngày
 Một vòng đấu cho %s ngày</item>
@@ -67,12 +70,38 @@ Người vào muộn sẽ chỉ được cộng 1 điểm \"bye\", kể cả n�
 Lý do là chúng không có một cách công bằng nào có thể giải quyết trường hợp có người chơi rời khỏi giải trước khi giải đấu kết thúc. Không thể mong đợi tất cả mọi người đều có thể chơi hết các ván đấu của họ trong một giải đấu online. Điều đó không thể xảy ra, và vì thế, hầu hết các giải đấu vòng tròn sẽ không hoạt động một cách công bằng, điều đó mâu thuẫn với lý do nó tồn tại ngay từ đầu.
 Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là một giải đấu hệ Thụy Sĩ có số ván đấu rất cao. Như vậy, tất cả các cặp đấu có thể xảy ra sẽ được chơi trước khi giải đấu kết thúc.</string>
   <string name="otherSystemsQ">Vậy còn những hệ thống giải đấu khác?</string>
+  <string name="otherSystemsA">Hiện tại chúng tôi vẫn chưa có ý định thêm các giải đấu khác vào hệ thống Lichess.</string>
+  <string name="swissDescription">Trong một giải đấu Thụy Sĩ %1$s, mỗi đấu thủ không nhất thiết phải đấu với tất cả những người tham gia khác. Các đấu thủ một đối một trong mỗi vòng và được ghép nối với nhau bằng cách sử dụng một bộ quy tắc được thiết kế để đảm bảo rằng mỗi đấu thủ sẽ đấu với các đối thủ có điểm số tương tự, nhưng không gặp lại cùng một đối thủ ở các vòng trước. Người chiến thắng là người có tổng điểm cao nhất sau tất cả các vòng. Mỗi vòng đấu tất cả các đấu thủ sẽ đều được chơi trừ khi số người chơi là số lẻ. \"</string>
+  <string name="teamOnly">Giải đấu Thụy Sĩ chỉ có thể được tạo bởi đội trưởng, và chỉ có thể được tham gia bởi các thành viên trong đội. %1$s để bắt đầu chơi trong các giải đấu Thụy Sĩ.</string>
   <string name="joinOrCreateTeam">Tham gia hoặc tạo một nhóm</string>
   <string name="nowPlaying">Đang chơi</string>
   <string name="startingSoon">Sắp bắt đầu</string>
   <string name="comparison">So sánh</string>
+  <string name="tournDuration">Khoảng thời gian của giải đấu</string>
+  <string name="predefinedDuration">Chọn trước khoảng thời gian theo phút</string>
+  <string name="durationUnknown">Chọn trước khoảng thời gian theo vòng, nhưng không xác định về thời gian</string>
   <string name="numberOfGames">Số lượng trò chơi</string>
+  <string name="numberOfGamesAsManyAsPossible">Số lượng tối đa ván đấu có thể chơi cho tới khi hết giờ</string>
+  <string name="numberOfGamesPreDefined">Giới hạn số ván, đồng đều cho tất cả người chơi</string>
   <string name="pairingSystem">Hệ thống bắt cặp</string>
+  <string name="pairingSystemArena">Bất kì đối thủ nào với thứ hạng tương tự</string>
+  <string name="pairingSystemSwiss">Xếp cặp dựa trên điểm và hệ số phụ</string>
+  <string name="pairingWaitTime">Đợi xếp cặp</string>
+  <string name="pairingWaitTimeArena">Nhanh: không đợi toàn bộ người chơi</string>
+  <string name="pairingWaitTimeSwiss">Chậm: đợi toàn bộ người chơi</string>
+  <string name="identicalPairing">Xếp cặp lặp lại</string>
+  <string name="possibleButNotConsecutive">Có thể, nhưng không liên tiếp</string>
+  <string name="identicalForbidden">Bị cấm</string>
+  <string name="lateJoin">Tham gia muộn</string>
+  <string name="lateJoinUntil">Cho phép nếu chưa vượt quá một nửa số vòng đấu</string>
   <string name="pause">Tạm dừng</string>
+  <string name="pauseSwiss">Cho phép nhưng phải giảm số vòng đấu</string>
   <string name="streaksAndBerserk">Streaks và Berserk</string>
+  <string name="similarToOTB">Tương tự các giải đấu OTB</string>
+  <string name="unlimitedAndFree">Không giới hạn và miễn phí</string>
+  <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
+  <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="other">%1$s / %2$s vòng Thụy Sĩ</item>
+  </plurals>
 </resources>

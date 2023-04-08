@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">ယခုလေးတင်</string>
+  <plurals name="inNbWeeks">
+    <item quantity="other">ရက်သတ္တ %s ပတ် ကြာပြီးလျှင်</item>
+  </plurals>
+  <string name="rightNow">ယခု</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="other">လွန်ခဲ့သော %s မိနစ်က</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="other">လွန်ခဲ့သော %s ရက်က</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">လွန်ခဲ့သေ ရက်သတ္တ %s ပတ်က</item>
+  </plurals>
+</resources>

@@ -31,7 +31,7 @@
   .img {
     flex: 0 0 42px;
     width: 44px;
-    margin: 0 0.5em 0 0.3em;
+    margin: 0 0.7em 0 0.4em;
   }
 
   i.img::before {
@@ -65,14 +65,14 @@
     font-size: 0.85em;
 
     time {
-      margin-left: 3px;
+      margin-#{$start-direction}: 3px;
     }
   }
 
   &.little {
     .img {
       flex: 0 0 40px;
-      margin: 0 0.5em 0 0.3em;
+      margin: 0 0.7em 0 0.4em;
 
       &::before {
         font-size: 40px;

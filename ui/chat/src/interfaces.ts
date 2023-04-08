@@ -56,6 +56,7 @@ export interface Line {
 
 export interface Permissions {
   local?: boolean;
+  broadcast?: boolean;
   timeout?: boolean;
   shadowban?: boolean;
 }
@@ -91,6 +92,7 @@ export interface ViewModel {
   enabled: boolean;
   placeholderKey: string;
   loading: boolean;
+  autofocus: boolean;
   timeout: boolean;
   writeable: boolean;
 }
@@ -113,14 +115,14 @@ export interface NoteCtrl {
 export interface ModerationOpts {
   reasons: ModerationReason[];
   permissions: Permissions;
+  resourceId: string;
   redraw: Redraw;
 }
 
 export interface ModerationCtrl {
   loading(): boolean;
   data(): ModerationData | undefined;
-  reasons: ModerationReason[];
-  permissions(): Permissions;
+  opts: ModerationOpts;
   open(line: HTMLElement): void;
   close(): void;
   timeout(reason: ModerationReason, text: string): void;

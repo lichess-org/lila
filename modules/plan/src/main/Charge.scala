@@ -1,23 +1,23 @@
 package lila.plan
 
-import org.joda.time.DateTime
-import cats.implicits._
+import cats.syntax.all.*
+import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.User
+import org.joda.time.DateTime
 
 case class Charge(
     _id: String, // random
-    userId: Option[User.ID],
-    giftTo: Option[User.ID] = none,
+    userId: Option[UserId],
+    giftTo: Option[UserId] = none,
     stripe: Option[Charge.Stripe] = none,
     payPal: Option[Charge.PayPalLegacy] = none,
-    payPalCheckout: Option[Charge.PayPalCheckout] = none,
+    payPalCheckout: Option[Patron.PayPalCheckout] = none,
     money: Money,
     usd: Usd,
     date: DateTime
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   def isPayPalLegacy   = payPal.nonEmpty
   def isPayPalCheckout = payPalCheckout.nonEmpty
@@ -30,21 +30,24 @@ case class Charge(
     else "???"
 
   def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }
-}
 
-object Charge {
+  def copyAsNew = copy(_id = Charge.makeId, date = DateTime.now)
+
+object Charge:
+
+  private def makeId = ThreadLocalRandom nextString 8
 
   def make(
-      userId: Option[User.ID],
-      giftTo: Option[User.ID],
+      userId: Option[UserId],
+      giftTo: Option[UserId],
       stripe: Option[Charge.Stripe] = none,
       payPal: Option[Charge.PayPalLegacy] = none,
-      payPalCheckout: Option[Charge.PayPalCheckout] = none,
+      payPalCheckout: Option[Patron.PayPalCheckout] = none,
       money: Money,
       usd: Usd
   ) =
     Charge(
-      _id = lila.common.ThreadLocalRandom nextString 8,
+      _id = makeId,
       userId = userId,
       giftTo = giftTo,
       stripe = stripe,
@@ -52,7 +55,7 @@ object Charge {
       payPalCheckout = payPalCheckout,
       money = money,
       usd = usd,
-      date = DateTime.now
+      date = nowDate
     )
 
   case class Stripe(
@@ -63,16 +66,9 @@ object Charge {
   case class PayPalLegacy(
       ip: Option[String],
       name: Option[String],
-      email: Option[String],
+      email: Option[Patron.PayPalLegacy.Email],
       txnId: Option[String],
-      subId: Option[String]
+      subId: Option[Patron.PayPalLegacy.SubId]
   )
 
-  case class PayPalCheckout(
-      orderId: PayPalOrderId,
-      payerId: PayPalPayerId,
-      subscriptionId: Option[PayPalSubscriptionId]
-  )
-
-  case class Gift(from: User.ID, to: User.ID, date: DateTime)
-}
+  case class Gift(from: UserId, to: UserId, date: DateTime)

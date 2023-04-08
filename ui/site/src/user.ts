@@ -1,21 +1,29 @@
 import * as xhr from 'common/xhr';
 import once from './component/once';
 import { hopscotch } from './component/assets';
+import { makeLinkPopups } from 'common/linkPopup';
 
-lichess.load.then(() => {
+export default (window as any).UserProfile = function (opts: { i18n: I18nDict }): void {
+  const trans = lichess.trans(opts.i18n);
+
+  makeLinkPopups($('.social_links'), trans);
+
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
     $zone.find('textarea')[0]?.focus();
     if ($zone.hasClass('loaded')) return;
     $zone.addClass('loaded');
     $noteToggle.find('strong').text('' + $zone.find('.note').length);
-    console.log('load', $zone);
-    $zone.find('form').on('submit', function (this: HTMLFormElement) {
-      xhr
-        .formToXhr(this)
-        .then(html => $zone.replaceWith(html))
-        .then(() => loadNoteZone())
-        .catch(() => alert('Invalid note, is it too short or too long?'));
+    $zone.find('.note-form button[type=submit]').on('click', function (this: HTMLButtonElement) {
+      $(this)
+        .parents('form')
+        .each((_, form: HTMLFormElement) =>
+          xhr
+            .formToXhr(form, this)
+            .then(html => $zone.replaceWith(html))
+            .then(() => loadNoteZone())
+            .catch(() => alert('Invalid note, is it too short or too long?'))
+        );
       return false;
     });
   };
@@ -82,4 +90,4 @@ lichess.load.then(() => {
       return false;
     });
   });
-});
+};

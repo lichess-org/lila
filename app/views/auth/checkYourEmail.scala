@@ -3,17 +3,17 @@ package views.html.auth
 import play.api.data.Form
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object checkYourEmail {
+object checkYourEmail:
 
   def apply(
       userEmail: Option[lila.security.EmailConfirm.UserEmail],
-      form: Option[Form[_]] = None
-  )(implicit ctx: Context) =
+      form: Option[Form[?]] = None
+  )(using ctx: Context) =
     views.html.base.layout(
       title = "Check your email",
       moreCss = cssTag("email-confirm")
@@ -21,7 +21,7 @@ object checkYourEmail {
       main(
         cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error" else "anim"}"
       )(
-        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
+        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
         p(trans.weHaveSentYouAnEmailClickTheLink()),
         h2("Not receiving it?"),
         ol(
@@ -33,11 +33,11 @@ object checkYourEmail {
               br,
               postForm(action := routes.Auth.fixEmail)(
                 input(
-                  id := "new-email",
+                  id  := "new-email",
                   tpe := "email",
                   required,
-                  name := "email",
-                  value := form.flatMap(_("email").value).getOrElse(email.value),
+                  name    := "email",
+                  value   := form.flatMap(_("email").value).getOrElse(email.value),
                   pattern := s"^((?!^${email.value}$$).)*$$"
                 ),
                 embedJsUnsafeLoadThen("""
@@ -73,4 +73,3 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
         )
       )
     }
-}

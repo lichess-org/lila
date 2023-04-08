@@ -9,6 +9,8 @@
   <string name="postBody">Tekst</string>
   <string name="drafts">Concepten</string>
   <string name="published">Gepubliceerd</string>
+  <string name="createBlogDiscussion">Reacties toestaan</string>
+  <string name="createBlogDiscussionHelp">Een forumbericht zal worden gemaakt waar mensen kunnen reageren op je bericht</string>
   <string name="publishOnYourBlog">Publiceren op blog</string>
   <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
   <plurals name="publishedNbBlogPosts">
@@ -33,4 +35,12 @@
   <string name="uploadAnImageForYourPost">Upload een afbeelding voor je bericht</string>
   <string name="imageAlt">Alternatieve tekst voor afbeelding</string>
   <string name="imageCredit">Foto</string>
+  <string name="deleteBlog">Deze blogpost definitief verwijderen</string>
+  <string name="deleteImage">Afbeelding verwijderen</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Het is veilig om afbeeldingen van de volgende websites te gebruiken: </string>
+  <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
+  <string name="useImagesYouMadeYourself">Je kunt ook afbeeldingen gebruiken die je zelf hebt gemaakt, foto\'s die je hebt gemaakt, screenshots van Lichess... alles waar geen auteursrechten van iemand anders op berusten.</string>
+  <string name="safeAndRespectfulContent">Plaats alleen veilige en respectvolle inhoud. Kopieer geen inhoud van iemand anders.</string>
+  <string name="inappropriateContentAccountClosed">Alles wat ongepast is kan sluiting van je account tot gevolg hebben.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Onze simpele tips om geweldige blogberichten te schrijven</string>
 </resources>

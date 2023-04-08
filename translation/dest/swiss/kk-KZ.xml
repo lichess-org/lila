@@ -9,6 +9,10 @@
     <item quantity="one">%s айналым</item>
     <item quantity="other">%s айналым</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">Швейцарлық ойынның %s кезеңі</item>
+    <item quantity="other">Швейцарлық ойынның %s кезеңі</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Күніне бір айналым</item>
     <item quantity="other">%s күнде бір айналым</item>
@@ -65,6 +69,42 @@
   <string name="willSwissReplaceArenasA">Жоқ, олар әр-түрлі жарыстар.</string>
   <string name="roundRobinQ">Round Robin туралы не дейсіз?</string>
   <string name="roundRobinA">Біз оны қосуға даяр едік, бірақ, өкінішке орай, Round Robin онлайн жұмыс істемейді.
-Негізгі қиындық мынада: жарыстан ерте шыққан қатысушыларды әділ түрде қадағалау мүмкін емес. Онлайн шарада барлық ойыншылар өзінің барлық ойындарын ойнайтынына сену қиын. Шындығында, олай болмайды, сондықтан бүкіл онлайн түріндегі Round Robin жарысы – ақаулы, әділсіз. Олай болса, осындай жарысты бастаудың да мәні жоқ.
+Негізгі қиындық мынада: жарыстан ерте шыққан қатысушыларды әділ түрде қадағалау мүмкін емес. Онлайн шарада барлық ойыншылар өзінің барлық ойындарын ойнайтынына сену қиын. Шындығында, олай болмайды, сондықтан бүкіл онлайн түріндегі Round Robin жарысы – жарымшыл, әділсіз. Олай болса, осындай жарысты бастаудың да мәні жоқ.
 Бірақ Швейцарлық жарысты барынша Round Robin жарысына ұқсатуға болады. Ол үшін айналым саны өте көп болуы керек. Сонда барлық мүмкін жұптасудан кейін жарыс аяқталады.</string>
+  <string name="otherSystemsQ">Басқа да жарыс тәртіптері туралы не дейсіз?</string>
+  <string name="otherSystemsA">Әзірге басқа жарыс тәртіптерін Лическе қосу ойымызда жоқ.</string>
+  <string name="swissDescription">Швейцарлық жарыста %1$s әр қатысушы қалғандардың барлығымен ойнап шығатынына кепіл жоқ. Әр ойында қатысушылар жекпе-жек ойнайды, оларды жұптау үшін ережелер жинағы жасалды. Ережеге сәйкес ойыншылардың дәрежелері шамалас, әрі алдында жұпталмаған болуы керек, Жеңімпаз болып бүкіл ойындарда қорытынды ұпайы көп ойыншы аталады. Егер ойыншылар саны тақ болмаса, барлық қатысушылар саны бірдей ойын ойнайды.</string>
+  <string name="teamOnly">Швейцарлық жарысты жасай алатын – тек топ жетекшісі, жарысқа қатыса алатындар – тек  топ мүшелері.           Швейцарлық жарыста ойнау үшін %1$s.</string>
+  <string name="joinOrCreateTeam">Топты жасау не қосылу</string>
+  <string name="nowPlaying">Қазір ойында</string>
+  <string name="startingSoon">Басталуға әзір</string>
+  <string name="comparison">Салыстырма</string>
+  <string name="tournDuration">Жарыс ұзақтығы</string>
+  <string name="predefinedDuration">Ұзақтығы белгіленген (минутпен)</string>
+  <string name="durationUnknown">Айналымдар саны белгіленген, бірақ ұзақтығы беймәлім</string>
+  <string name="numberOfGames">Ойын саны</string>
+  <string name="numberOfGamesAsManyAsPossible">Ұзақтығымен шектелген барынша көп</string>
+  <string name="numberOfGamesPreDefined">Алдын-ала келісіп белгіленген, барлық ойыншыларға бірдей</string>
+  <string name="pairingSystem">Жұптау жүйесі</string>
+  <string name="pairingSystemArena">Дәрежесі шамалас кез-келген қарсылас</string>
+  <string name="pairingSystemSwiss">Ұпай мен шешуші ойынға негізделген ең тиімді жұптау</string>
+  <string name="pairingWaitTime">Жұптау уақыты</string>
+  <string name="pairingWaitTimeArena">Тез: барлық ойыншыны күтпейді</string>
+  <string name="pairingWaitTimeSwiss">Баяу: барлық ойыншыны күтеді</string>
+  <string name="identicalPairing">Бірдеу жұптау</string>
+  <string name="possibleButNotConsecutive">Рұқсат, бірақ қатарынан емес</string>
+  <string name="identicalForbidden">Рұқсат емес</string>
+  <string name="lateJoin">Кешіге қосылу</string>
+  <string name="lateJoinUntil">Рұқсат, бірақ айналымдардың жартысы өтпегенше</string>
+  <string name="pause">Үзіліс</string>
+  <string name="pauseSwiss">Рұқсат, бірақ айналым саны азаяды</string>
+  <string name="streaksAndBerserk">Тізбектер мен Берсерк</string>
+  <string name="similarToOTB">Шынайы жарыстарға ұқсас</string>
+  <string name="unlimitedAndFree">Шектеусіз әрі тегін</string>
+  <string name="predefinedUsers">Тек алдын-ала бекітілген ойыншылар ғана қосыла алады</string>
+  <string name="forbiddedUsers">Егер де осы тізімде біреу көрсетілсе, тізімде жоқ ойыншылардың қосылуға руқсаты болмайды. Әр жолға – бір ойыншының аты.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">Швейцарлық ойынның %1$s / %2$s кезеңі</item>
+    <item quantity="other">Швейцарлық ойынның %1$s / %2$s кезеңі</item>
+  </plurals>
 </resources>

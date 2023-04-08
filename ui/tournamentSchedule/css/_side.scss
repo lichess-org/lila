@@ -61,7 +61,7 @@
 .scheduled {
   a {
     color: $c-font;
-    padding: 0.5em 0 0.5em 2.7em;
+    @include padding-direction(0.5em, 0, 0.5em, 2.7em);
     display: block;
     position: relative;
     line-height: 1.2;
@@ -71,11 +71,11 @@
     &:hover {
       @extend %box-radius;
 
-      padding-left: 3.2rem;
+      padding-#{$start-direction}: 3.2rem;
       background: mix($c-brag, $c-bg-page, 20%);
 
       &::before {
-        left: 0.5rem;
+        #{$start-direction}: 0.5rem;
       }
     }
   }
@@ -90,7 +90,7 @@
 
     position: absolute;
     top: 0.3rem;
-    left: 0;
+    #{$start-direction}: 0;
     font-size: 2.2em;
     opacity: 0.6;
     color: $c-brag;

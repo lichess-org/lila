@@ -1,5 +1,4 @@
 import { MsgData, Contact, Convo, Msg, LastMsg, Search, SearchResult, Typing, Pane, Redraw } from './interfaces';
-import notify from 'common/notification';
 import throttle from 'common/throttle';
 import * as network from './network';
 import { scroller } from './view/scroller';
@@ -111,14 +110,12 @@ export default class MsgCtrl {
       if (msg.user == this.data.convo?.user.id) {
         this.data.convo.msgs.unshift(msg);
         if (document.hasFocus()) redrawn = this.setRead();
-        else this.notify(contact, msg);
         this.receiveTyping(msg.user, true);
       }
       if (!redrawn) this.redraw();
     } else
       network.loadContacts().then(data => {
         this.data.contacts = data.contacts;
-        this.notify(this.findContact(msg.user)!, msg);
         this.redraw();
       });
   };
@@ -133,10 +130,6 @@ export default class MsgCtrl {
   private findContact = (userId: string): Contact | undefined => this.data.contacts.find(c => c.user.id == userId);
 
   private currentContact = (): Contact | undefined => this.data.convo && this.findContact(this.data.convo.user.id);
-
-  private notify = (contact: Contact, msg: Msg) => {
-    notify(() => `${contact.user.name}: ${msg.text}`);
-  };
 
   searchInput = (q: string) => {
     this.search.input = q;
@@ -186,8 +179,7 @@ export default class MsgCtrl {
     }
   };
 
-  reportableMsg = (): Msg | undefined =>
-    this.data.convo?.msgs.find(m => m.user != this.data.me.id && m.text.length > 2);
+  reportableMsg = (): Msg | undefined => this.data.convo?.msgs.find(m => m.user != this.data.me.id);
 
   block = () => {
     const userId = this.data.convo?.user.id;

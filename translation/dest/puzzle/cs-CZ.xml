@@ -13,6 +13,8 @@
   <string name="specialMoves">Speciální tahy</string>
   <string name="didYouLikeThisPuzzle">Líbila se vám tato hádanka?</string>
   <string name="voteToLoadNextOne">Hlasujte pro načtení dalšího!</string>
+  <string name="upVote">Dobrá úloha</string>
+  <string name="downVote">Špatná úloha</string>
   <string name="yourPuzzleRatingWillNotChange">Vaše hodnocení hádanky se nezmění. Hádanky nejsou soutěží. Hodnocení pomáhá vybírat nejlepší hádanky pro vaši aktuální dovednost.</string>
   <string name="findTheBestMoveForWhite">Najděte nejlepší tah za bílého.</string>
   <string name="findTheBestMoveForBlack">Najděte nejlepší tah za černého.</string>
@@ -45,6 +47,7 @@
   <string name="hardest">Nejtěžší</string>
   <string name="example">Příklad</string>
   <string name="addAnotherTheme">Přidat další téma</string>
+  <string name="nextPuzzle">Další úloha</string>
   <string name="jumpToNextPuzzleImmediately">Okamžitě přejít na další úlohu</string>
   <string name="puzzleDashboard">Shrnutí Vašeho řešení úloh</string>
   <string name="improvementAreas">Zlepšení pozice</string>

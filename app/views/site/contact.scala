@@ -1,26 +1,27 @@
 package views.html
 package site
 
+import controllers.appeal.routes.{ Appeal as appealRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object contact {
+object contact:
 
-  import trans.contact._
-  import views.html.base.navTree._
+  import trans.contact.*
+  import views.html.base.navTree.*
+  import views.html.base.navTree.Node.*
 
-  private lazy val contactEmailBase64 = lila.common.String.base64.encode(contactEmailInClear)
+  def contactEmailLinkEmpty(email: String = contactEmailInClear) =
+    a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
+  def contactEmailLink(email: String = contactEmailInClear)(using Context) =
+    contactEmailLinkEmpty(email)(trans.clickToRevealEmailAddress())
 
-  def contactEmailLinkEmpty =
-    a(cls := "contact-email-obfuscated", attr("data-email") := contactEmailBase64)
-  def contactEmailLink(implicit ctx: Context) =
-    contactEmailLinkEmpty(trans.clickToRevealEmailAddress())
-
-  private def reopenLeaf(prefix: String)(implicit ctx: Context) =
+  private def reopenLeaf(prefix: String)(using Context) =
     Leaf(
       s"$prefix-reopen",
       wantReopen(),
@@ -30,7 +31,7 @@ object contact {
       )
     )
 
-  private def howToReportBugs(implicit ctx: Context): Frag =
+  private def howToReportBugs(using Context): Frag =
     frag(
       ul(
         li(
@@ -49,7 +50,7 @@ object contact {
       p(howToReportBug())
     )
 
-  private def menu(implicit ctx: Context): Branch =
+  private def menu(using Context): Branch =
     Branch(
       "root",
       whatCanWeHelpYouWith(),
@@ -87,27 +88,7 @@ object contact {
               lost2FA(),
               p(a(href := routes.Auth.passwordReset)(doPasswordReset()), ".")
             ),
-            reopenLeaf("login"),
-            Leaf(
-              "dns",
-              "\"This site can’t be reached\"",
-              frag(
-                p("If you can't reach Lichess, and your browser says something like:"),
-                ul(
-                  li("This site can't be reached."),
-                  li(strong("lichess.org"), "’s server IP address could not be found."),
-                  li("We can’t connect to the server at lichess.org.")
-                ),
-                p("Then you have a ", strong("DNS issue"), "."),
-                p(
-                  "There's nothing we can do about it, but ",
-                  a("here's how you can fix it")(
-                    href := "https://www.wikihow.com/Fix-DNS-Server-Not-Responding-Problem"
-                  ),
-                  "."
-                )
-              )
-            )
+            reopenLeaf("login")
           )
         ),
         Branch(
@@ -155,7 +136,7 @@ object contact {
           wantReport(),
           frag(
             p(
-              a(href := routes.Report.form)(toReportAPlayerUseForm()),
+              a(href := reportRoutes.form)(toReportAPlayerUseForm()),
               "."
             ),
             p(
@@ -181,7 +162,7 @@ object contact {
               illegalPawnCapture(),
               frag(
                 p(calledEnPassant()),
-                p(a(href := "/learn#/15")(tryEnPassant()), ".")
+                p(a(href := "/learn#/15")(tryEnPassant()))
               )
             ),
             Leaf(
@@ -221,28 +202,10 @@ object contact {
             Leaf(
               "security",
               "Security vulnerability",
-              frag(
-                p("Please report security issues to ", contactEmailLink),
-                p(
-                  "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
-                  "Note that we do not currently pay cash bounties."
-                ),
-                p(
-                  "Vulnerabilities are relevant even when they are not directly exploitable, ",
-                  "for example XSS mitigated by CSP."
-                ),
-                p(
-                  "When doing your research, please minimize negative impact for other users. ",
-                  "As long as you keep this in mind, testing should not require prior coordination. ",
-                  "Avoid spamming, DDoS and volumetric attacks."
-                ),
-                p(
-                  "We believe transport encryption will probably be sufficient for all reports. ",
-                  "If you insist on using PGP, please clarify the nature of the message ",
-                  "in the plain-text subject and encrypt for ",
-                  a(href := "/.well-known/gpg.asc")("multiple recipients"),
-                  "."
-                )
+              p(
+                "Please refer to our ",
+                a(href := "https://github.com/lichess-org/lila/security/policy")("Security policy"),
+                "."
               )
             ),
             Leaf(
@@ -255,9 +218,20 @@ object contact {
             )
           )
         ),
+        Leaf(
+          "broadcast",
+          "I want to broadcast a tournament",
+          frag(
+            p(a(href := routes.RelayTour.help)("Learn how to make your own broadcasts on Lichess"), "."),
+            p(
+              "You can also contact the broadcast team about official broadcasts. ",
+              sendEmailAt(contactEmailLink("broadcast@lichess.org"))
+            )
+          )
+        ),
         frag(
           p(doNotMessageModerators()),
-          p(sendAppealTo(a(href := routes.Appeal.home)(netConfig.domain, routes.Appeal.home.url))),
+          p(sendAppealTo(a(href := appealRoutes.home)(netConfig.domain, appealRoutes.home.url))),
           p(
             falsePositives(),
             br,
@@ -334,7 +308,7 @@ object contact {
                 ),
                 p(
                   "Then send us an email at ",
-                  contactEmailLink,
+                  contactEmailLink(),
                   " to request the definitive erasure of all data linked to the account."
                 )
               )
@@ -352,7 +326,7 @@ object contact {
               "contact-other",
               noneOfTheAbove(),
               frag(
-                p(sendEmailAt(contactEmailLink)),
+                p(sendEmailAt(contactEmailLink())),
                 p(explainYourRequest())
               )
             )
@@ -363,7 +337,7 @@ object contact {
 
   val dmcaUrl = "/dmca"
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using Context) =
     page.layout(
       title = trans.contact.contact.txt(),
       active = "contact",
@@ -372,8 +346,7 @@ object contact {
       contentCls = "page box box-pad"
     )(
       frag(
-        h1(contactLichess()),
+        h1(cls := "box__top")(contactLichess()),
         div(cls := "nav-tree")(renderNode(menu, none))
       )
     )
-}

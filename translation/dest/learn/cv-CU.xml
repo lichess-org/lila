@@ -73,6 +73,7 @@
   <string name="outOfCheck">Шахран тухни</string>
   <string name="defendYourKing">Патшуна хӳтеле</string>
   <string name="outOfCheckIntro">Сана шах панӑ! Тара памалла йе тапӑнава сирмелле.</string>
+  <string name="escapeWithTheKing">Патшуна шах айӗнчен хӑтар!</string>
   <string name="mateInOne">Пӗр хусканури мат</string>
   <string name="defeatTheOpponentsKing">Тӑшман патшине ҫапса аркат</string>
   <string name="boardSetup">Тӑратса тухни</string>
@@ -87,7 +88,7 @@
   <string name="placeTheKing">Патшана вырнаҫтар! 
 Хайхин ҫарпуҫӗпе йунашарах.</string>
   <string name="pawnsFormTheFrontLine">Салтаксем малти лини йӗркелесе тӑраҫҫӗ.</string>
-  <string name="castling">Ылмашу</string>
+  <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Патшан уйрӑм хусканӑвӗ</string>
   <string name="castleKingSide">Кӗске ылмашу тӑвас тесе 
 патшуна икӗ клеткӑна куҫар!</string>

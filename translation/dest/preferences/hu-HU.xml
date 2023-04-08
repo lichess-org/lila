@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Testreszabás</string>
-  <string name="gameDisplay">Játék megjelenítése</string>
+  <string name="display">Megjelenés</string>
+  <string name="privacy">Adatvédelem</string>
+  <string name="notifications">Értesítések</string>
   <string name="pieceAnimation">Bábuk animációja</string>
   <string name="materialDifference">Bábuk közötti különbség</string>
-  <string name="boardHighlights">Kiemelés a táblán (utolsó lépés és sakk)</string>
+  <string name="boardHighlights">Kiemelések a táblán (utolsó lépés és sakk)</string>
   <string name="pieceDestinations">A figurák érkezési mezői (érvényes lépések és előre bevitt lépések)</string>
   <string name="boardCoordinates">Tábla koordináták (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lépéslista játék közben</string>
@@ -12,8 +14,8 @@
   <string name="chessPieceSymbol">Sakkbábu ikonja</string>
   <string name="pgnLetter">Betű (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mód</string>
-  <string name="showPlayerRatings">Játékosok Élő pontszámának megjelenítése</string>
-  <string name="explainShowPlayerRatings">Lehetővé teszi az értékszámok elrejtését az oldalon és segít a sakkra koncentrálni. A játszmák ettől függetlenül lehetnek értékeltek, ez csak a megjelenítésre vonatkozik.</string>
+  <string name="showPlayerRatings">Játékosok Glicko-2 pontszámának megjelenítése</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Lehetővé teszi az értékszámok elrejtését az oldalon és segít a sakkra koncentrálni. A játszmák ettől függetlenül lehetnek értékeltek, ez csak a megjelenítésre vonatkozik.</string>
   <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
   <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
   <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
@@ -47,6 +49,19 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Nyilak illesztése a szabályos lépésekhez</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">\"Good game, well played\" üzenet küldése döntetlen vagy vereség esetén</string>
   <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
-  <string name="scrollOnTheBoardToReplayMoves">Görgess a táblán a lépsek visszajátszásához</string>
+  <string name="scrollOnTheBoardToReplayMoves">Görgess a táblán a lépések visszajátszásához</string>
   <string name="correspondenceEmailNotification">Napi email értesítések a folyamatban lévő levelező játszmákról</string>
+  <string name="notifyStreamStart">Élő közvetítések</string>
+  <string name="notifyInboxMsg">Új üzenet</string>
+  <string name="notifyForumMention">Megemlítenek a fórumhozzászólásokban</string>
+  <string name="notifyInvitedStudy">Tanulmány meghívások</string>
+  <string name="notifyGameEvent">Levelező mérkőzések</string>
+  <string name="notifyChallenge">Kihívások</string>
+  <string name="notifyTournamentSoon">Hamarosan kezdődő versenyek</string>
+  <string name="notifyTimeAlarm">Levelező mérkőzés időkorlátjának lejárata</string>
+  <string name="notifyBell">Hangjelzések használata</string>
+  <string name="notifyPush">\'Push\' értesítések, ha nem vagy aktív Lichessen</string>
+  <string name="notifyWeb">Böngésző</string>
+  <string name="notifyDevice">Eszköz</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Értesítés hangja</string>
 </resources>

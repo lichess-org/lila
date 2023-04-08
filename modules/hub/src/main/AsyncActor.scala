@@ -3,27 +3,26 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.Promise
 
 /*
  * Sequential like an actor, but for async functions,
  * and using an atomic backend instead of akka actor.
  */
-abstract class AsyncActor(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Tellable {
+abstract class AsyncActor(using Executor) extends lila.common.Tellable:
 
-  import AsyncActor._
+  import AsyncActor.*
 
   // implement async behaviour here
   protected val process: ReceiveAsync
 
-  def !(msg: Any): Unit =
-    if (stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty) run(msg)
+  def !(msg: Matchable): Unit =
+    if (stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Matchable])(_ enqueue msg))).isEmpty)
+      run(msg)
 
-  def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
+  def ask[A](makeMsg: Promise[A] => Matchable): Fu[A] =
     val promise = Promise[A]()
     this ! makeMsg(promise)
     promise.future
-  }
 
   /*
    * Idle: None
@@ -32,28 +31,25 @@ abstract class AsyncActor(implicit ec: scala.concurrent.ExecutionContext) extend
    */
   private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
 
-  private[this] def run(msg: Any): Unit =
+  private[this] def run(msg: Matchable): Unit =
     process.applyOrElse(msg, AsyncActor.fallback) onComplete postRun
 
-  private[this] val postRun = (_: Any) =>
+  private[this] val postRun = (_: Matchable) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
-}
 
-object AsyncActor {
+object AsyncActor:
 
-  type ReceiveAsync = PartialFunction[Any, Fu[Any]]
+  type ReceiveAsync = PartialFunction[Matchable, Fu[Matchable]]
 
-  private type State = Option[Queue[Any]]
+  private type State = Option[Queue[Matchable]]
 
-  private val postRunUpdate = new UnaryOperator[State] {
+  private val postRunUpdate = new UnaryOperator[State]:
     override def apply(state: State): State =
       state flatMap { q =>
         if (q.isEmpty) None else Some(q.tail)
       }
-  }
 
-  private val fallback = { msg: Any =>
+  private val fallback = { (msg: Matchable) =>
     lila.log("asyncActor").warn(s"unhandled msg: $msg")
     funit
   }
-}

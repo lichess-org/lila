@@ -17,7 +17,7 @@ const showErrorThenReload = (error: string) => {
   location.assign('/patron');
 };
 
-export default function (stripePublicKey: string, pricing: Pricing) {
+export default (window as any).checkoutStart = function (stripePublicKey: string, pricing: Pricing) {
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
@@ -121,7 +121,7 @@ export default function (stripePublicKey: string, pricing: Pricing) {
   payPalOrderStart($checkout, pricing, getAmountToCharge);
   payPalSubscriptionStart($checkout, pricing, getAmountToCharge);
   stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
-}
+};
 
 const xhrFormData = ($checkout: Cash, amount: number) =>
   xhr.form({

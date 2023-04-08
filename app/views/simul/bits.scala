@@ -3,30 +3,30 @@ package views.html.simul
 import play.api.i18n.Lang
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object bits {
+object bits:
 
-  def link(simulId: lila.simul.Simul.ID): Frag =
+  def link(simulId: lila.simul.SimulId): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
-  def jsI18n()(implicit lang: Lang) = i18nJsObject(baseTranslations)
+  def jsI18n()(using Lang) = i18nJsObject(baseTranslations)
 
-  def notFound()(implicit ctx: Context) =
+  def notFound()(using Context) =
     views.html.base.layout(
       title = trans.noSimulFound.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(trans.noSimulFound()),
+        h1(cls := "box__top")(trans.noSimulFound()),
         p(trans.noSimulExplanation()),
         p(a(href := routes.Simul.home)(trans.returnToSimulHomepage()))
       )
     }
 
-  def homepageSpotlight(s: lila.simul.Simul)(implicit ctx: Context) =
+  def homepageSpotlight(s: lila.simul.Simul)(using Context) =
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little")(
       img(cls := "img icon", src := assetUrl("images/fire-silhouette.svg")),
       span(cls := "content")(
@@ -39,7 +39,7 @@ object bits {
       )
     )
 
-  def allCreated(simuls: Seq[lila.simul.Simul])(implicit lang: play.api.i18n.Lang) =
+  def allCreated(simuls: Seq[lila.simul.Simul])(using Lang) =
     table(cls := "slist")(
       simuls map { simul =>
         tr(
@@ -71,5 +71,4 @@ object bits {
     trans.by,
     trans.signIn,
     trans.mustBeInTeam
-  ).map(_.key)
-}
+  )

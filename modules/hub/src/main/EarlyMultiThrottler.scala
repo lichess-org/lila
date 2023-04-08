@@ -1,33 +1,32 @@
 package lila.hub
 
-import akka.actor._
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
+import akka.actor.*
 
 import lila.log.Logger
 
-/** Runs the work then waits cooldown
-  * only runs once at a time per id.
-  * Guarantees that work is ran as early as possible.
-  * Also saves work and runs it after cooldown.
+/** Runs the work then waits cooldown only runs once at a time per id. Guarantees that work is ran as early as
+  * possible. Also saves work and runs it after cooldown.
   */
-final class EarlyMultiThrottler(logger: Logger)(implicit ec: ExecutionContext, system: ActorSystem) {
+final class EarlyMultiThrottler[K](logger: Logger)(using
+    sr: StringRuntime[K],
+    ec: Executor,
+    system: ActorSystem
+):
 
   private val actor = system.actorOf(Props(new EarlyMultiThrottlerActor(logger)))
 
-  def apply(id: String, cooldown: FiniteDuration)(run: => Funit) =
-    actor ! EarlyMultiThrottlerActor.Work(id, run = () => run, cooldown)
-}
+  def apply(id: K, cooldown: FiniteDuration)(run: => Funit) =
+    actor ! EarlyMultiThrottlerActor.Work(sr(id), run = () => run, cooldown)
 
 // actor based implementation
-final private class EarlyMultiThrottlerActor(logger: Logger)(implicit ec: ExecutionContext) extends Actor {
+final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor) extends Actor:
 
-  import EarlyMultiThrottlerActor._
+  import EarlyMultiThrottlerActor.*
 
   var running = Set.empty[String]
   var planned = Map.empty[String, Work]
 
-  def receive: Receive = {
+  def receive: Receive =
 
     case work: Work if !running(work.id) =>
       execute(work) addEffectAnyway {
@@ -46,19 +45,16 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(implicit ec: Execut
       }
 
     case x => logger.branch("EarlyMultiThrottler").warn(s"Unsupported message $x")
-  }
 
-  implicit def system = context.system
+  given Scheduler = context.system.scheduler
 
   def execute(work: Work): Funit =
-    lila.common.Future.makeItLast(work.cooldown) { work.run() }
-}
+    lila.common.LilaFuture.makeItLast(work.cooldown) { work.run() }
 
-private object EarlyMultiThrottlerActor {
+private object EarlyMultiThrottlerActor:
   case class Work(
       id: String,
       run: () => Funit,
       cooldown: FiniteDuration // how long to wait after running, before next run
   )
   private case class Done(id: String)
-}

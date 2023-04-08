@@ -1,21 +1,20 @@
 package controllers
 
-import play.api.libs.json._
+import play.api.libs.json.*
 import scala.annotation.nowarn
 
 import lila.api.Context
-import lila.app._
-import lila.practice.JsonView._
+import lila.app.{ given, * }
+import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Study => StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
-import views._
+import views.*
 
 final class Practice(
     env: Env,
     userAnalysisC: => UserAnalysis
-) extends LilaController(env) {
+) extends LilaController(env):
 
   private val api = env.practice.api
 
@@ -23,24 +22,24 @@ final class Practice(
     Open { implicit ctx =>
       pageHit
       api.get(ctx.me) flatMap { up =>
-        NoCache(Ok(html.practice.index(up))).fuccess
+        Ok(html.practice.index(up)).noCache.toFuccess
       }
     }
 
   def show(
-      @nowarn("cat=unused") sectionId: String,
-      @nowarn("cat=unused") studySlug: String,
-      studyId: String
+      @nowarn sectionId: String,
+      @nowarn studySlug: String,
+      studyId: StudyId
   ) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
     }
 
   def showChapter(
-      @nowarn("cat=unused") sectionId: String,
-      @nowarn("cat=unused") studySlug: String,
-      studyId: String,
-      chapterId: String
+      @nowarn sectionId: String,
+      @nowarn studySlug: String,
+      studyId: StudyId,
+      chapterId: StudyChapterId
   ) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
@@ -57,46 +56,44 @@ final class Practice(
       api.structure.get.flatMap { struct =>
         struct.sections.find(_.id == sectionId).fold(notFound) { section =>
           select(section) ?? { study =>
-            Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).fuccess
+            Redirect(routes.Practice.show(section.id, study.slug, study.id)).toFuccess
           }
         }
       }
     }
 
   private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) =
-    analysisJson(us) map { case (analysisJson, studyJson) =>
-      NoCache(
-        EnableSharedArrayBuffer(
-          Ok(
-            html.practice.show(
-              us,
-              lila.practice.JsonView.JsData(
-                study = studyJson,
-                analysis = analysisJson,
-                practice = lila.practice.JsonView(us)
-              )
+    analysisJson(us) map { (analysisJson, studyJson) =>
+      Ok(
+        html.practice
+          .show(
+            us,
+            lila.practice.JsonView.JsData(
+              study = studyJson,
+              analysis = analysisJson,
+              practice = lila.practice.JsonView(us)
             )
           )
-        )
-      )
+      ).noCache.enableSharedArrayBuffer
+        .withCanonical(s"${us.url}/${us.study.chapter.id}")
     }
 
-  def chapter(studyId: String, chapterId: String) =
+  def chapter(studyId: StudyId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
-        analysisJson(us) map { case (analysisJson, studyJson) =>
+        analysisJson(us) map { (analysisJson, studyJson) =>
           JsonOk(
             Json.obj(
               "study"    -> studyJson,
               "analysis" -> analysisJson
             )
-          )
+          ).noCache
         }
-      } map NoCache
+      }
     }
 
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] =
-    us match {
+    us match
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
         env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
           val initialFen = chapter.root.fen.some
@@ -107,8 +104,7 @@ final class Practice(
               ctx.pref,
               initialFen,
               chapter.setup.orientation,
-              owner = false,
-              me = ctx.me
+              owner = false
             )
           val analysis = baseData ++ Json.obj(
             "treeParts" -> partitionTreeJsonWriter.writes {
@@ -118,9 +114,8 @@ final class Practice(
           )
           (analysis, studyJson)
         }
-    }
 
-  def complete(chapterId: String, nbMoves: Int) =
+  def complete(chapterId: StudyChapterId, nbMoves: Int) =
     Auth { implicit ctx => me =>
       api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
     }
@@ -131,7 +126,7 @@ final class Practice(
     }
 
   def config =
-    Auth { implicit ctx => _ =>
+    Secure(_.PracticeConfig) { implicit ctx => _ =>
       for {
         struct <- api.structure.get
         form   <- api.config.form
@@ -140,7 +135,7 @@ final class Practice(
 
   def configSave =
     SecureBody(_.PracticeConfig) { implicit ctx => me =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       api.config.form.flatMap { form =>
         FormFuResult(form) { err =>
           api.structure.get map { html.practice.config(_, err) }
@@ -151,7 +146,3 @@ final class Practice(
         }
       }
     }
-
-  implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
-  implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
-}

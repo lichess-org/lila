@@ -1,16 +1,14 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
-
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
 case class PuzzleStreak(ids: String, first: Puzzle)
 
-final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
 
-  import BsonHandlers._
+  import BsonHandlers.given
+  import lila.puzzle.PuzzlePath.sep
 
   def apply: Fu[Option[PuzzleStreak]] = current.get {}
 
@@ -34,7 +32,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
     2799 -> 21
   )
   private val poolSize = buckets.map(_._2).sum
-  private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
+  private val theme    = lila.puzzle.PuzzleTheme.mix.key
 
   private val current = cacheApi.unit[Option[PuzzleStreak]] {
     _.refreshAfterWrite(30 seconds)
@@ -42,16 +40,16 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
         colls
           .path {
             _.aggregateList(poolSize) { framework =>
-              import framework._
+              import framework.*
               Facet(
                 buckets.map { case (rating, nbPuzzles) =>
                   val (tier, samples, deviation) =
-                    if (rating > 2300) (PuzzleTier.Good, 5, 110) else (PuzzleTier.Top, 1, 85)
+                    if (rating > 2300) (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
                   rating.toString -> List(
                     Match(
                       $doc(
-                        "min" $lte f"${theme}_${tier}_${rating}%04d",
-                        "max" $gte f"${theme}_${tier}_${rating}%04d"
+                        "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
+                        "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
                       )
                     ),
                     Sample(samples),
@@ -60,24 +58,12 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
                     // ensure we have enough after filtering deviation
                     Sample(nbPuzzles * 4),
                     PipelineOperator(
-                      $doc(
-                        "$lookup" -> $doc(
-                          "from" -> colls.puzzle.name.value,
-                          "as"   -> "puzzle",
-                          "let"  -> $doc("id" -> "$ids"),
-                          "pipeline" -> $arr(
-                            $doc(
-                              "$match" -> $doc(
-                                "$expr" -> $doc(
-                                  "$and" -> $arr(
-                                    $doc("$eq"  -> $arr("$_id", "$$id")),
-                                    $doc("$lte" -> $arr("$glicko.d", deviation))
-                                  )
-                                )
-                              )
-                            )
-                          )
-                        )
+                      $lookup.pipeline(
+                        from = colls.puzzle,
+                        as = "puzzle",
+                        local = "ids",
+                        foreign = "_id",
+                        pipe = List($doc("$match" -> $doc("glicko.d" $lte deviation)))
                       )
                     ),
                     UnwindField("puzzle"),
@@ -89,10 +75,11 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
                 Project($doc("all" -> $doc("$setUnion" -> buckets.map(r => s"$$${r._1}")))),
                 UnwindField("all"),
                 ReplaceRootField("all"),
-                Sort(Ascending("glicko.r"))
+                Sort(Ascending("glicko.r")),
+                Limit(poolSize)
               )
             }.map {
-              _.flatMap(PuzzleBSONReader.readOpt)
+              _.flatMap(puzzleReader.readOpt)
             }
           }
           .mon(_.streak.selector.time)
@@ -105,22 +92,19 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
       }
   }
 
-  private def monitor(puzzles: List[Puzzle]): Unit = {
+  private def monitor(puzzles: List[Puzzle]): Unit =
     val nb = puzzles.size
     lila.mon.streak.selector.count.record(nb)
     if (nb < poolSize * 0.9)
       logger.warn(s"Streak selector wanted $poolSize puzzles, only got $nb")
-    if (nb > 1) {
+    if (nb > 1)
       val rest = puzzles.toVector drop 1
-      lila.common.Maths.mean(rest.map(_.glicko.intRating)) foreach { r =>
+      lila.common.Maths.mean(rest.map(_.glicko.intRating.value)) foreach { r =>
         lila.mon.streak.selector.rating.record(r.toInt).unit
       }
       (0 to poolSize by 10) foreach { i =>
         val slice = rest drop i take 10
-        lila.common.Maths.mean(slice.map(_.glicko.intRating)) foreach { r =>
+        lila.common.Maths.mean(slice.map(_.glicko.intRating.value)) foreach { r =>
           lila.mon.streak.selector.ratingSlice(i).record(r.toInt)
         }
       }
-    }
-  }
-}

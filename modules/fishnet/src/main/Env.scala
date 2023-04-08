@@ -1,16 +1,15 @@
 package lila.fishnet
 
-import akka.actor._
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import io.lettuce.core._
-import io.methvin.play.autoconfig._
+import akka.actor.*
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import io.lettuce.core.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
-import lila.common.config._
-import lila.game.Game
+import lila.common.config.*
 
 @Module
 private class FishnetConfig(
@@ -21,10 +20,12 @@ private class FishnetConfig(
     @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("move.plies") val movePlies: Int,
     @ConfigName("client_min_version") val clientMinVersion: String,
-    @ConfigName("redis.uri") val redisUri: String
+    @ConfigName("redis.uri") val redisUri: String,
+    val explorerEndpoint: String
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     uciMemo: lila.game.UciMemo,
@@ -37,11 +38,14 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
     sink: lila.analyse.Analyser,
+    userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
+)(using
+    ec: Executor,
+    system: ActorSystem,
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 
@@ -73,8 +77,8 @@ final class Env(
     analysisNodes = config.analysisNodes
   )
 
-  private lazy val socketExists: Game.ID => Fu[Boolean] = id =>
-    Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id, _))
+  private lazy val socketExists: GameId => Fu[Boolean] = id =>
+    Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id.value, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
 
@@ -86,18 +90,15 @@ final class Env(
 
   private lazy val openingBook: FishnetOpeningBook = wire[FishnetOpeningBook]
 
-  lazy val player = {
+  lazy val player =
     def mk = (plies: Int) => wire[FishnetPlayer]
     mk(config.movePlies)
-  }
 
   private val limiter = wire[FishnetLimiter]
 
   lazy val analyser = wire[Analyser]
 
   lazy val awaiter = wire[FishnetAwaiter]
-
-  lazy val aiPerfApi = wire[AiPerfApi]
 
   wire[Cleaner]
 
@@ -116,29 +117,28 @@ final class Env(
     name = config.actorName
   )
 
-  private def disable(username: String) =
-    repo toKey username flatMap { repo.enableClient(_, v = false) }
+  private def disable(keyOrUser: String) =
+    repo toKey keyOrUser flatMap { repo.enableClient(_, v = false) }
 
-  def cli =
-    new lila.common.Cli {
-      def process = {
-        case "fishnet" :: "client" :: "create" :: name :: Nil =>
-          val userId = name.toLowerCase
-          api.createClient(Client.UserId(userId)) map { client =>
-            Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
-            s"Created key: ${client.key.value} for: $userId"
-          }
-        case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-          repo toKey key flatMap repo.deleteClient inject "done!"
-        case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-          repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
-        case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
-      }
-    }
+  def cli = new lila.common.Cli:
+    def process =
+      case "fishnet" :: "client" :: "create" :: name :: Nil =>
+        userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)) flatMap {
+          case false => fuccess("User missing, closed, or banned")
+          case true =>
+            api.createClient(UserStr(name).id) map { client =>
+              Bus.publish(lila.hub.actorApi.fishnet.NewKey(client.userId, client.key.value), "fishnet")
+              s"Created key: ${client.key.value} for: $name"
+            }
+        }
+      case "fishnet" :: "client" :: "delete" :: key :: Nil =>
+        repo toKey key flatMap repo.deleteClient inject "done!"
+      case "fishnet" :: "client" :: "enable" :: key :: Nil =>
+        repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
+      case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId).unit
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId).unit
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId).unit
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId.value).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId.value).unit
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId.value).unit
   }
-}

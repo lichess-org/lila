@@ -1,23 +1,23 @@
 package views.html
 package study
 
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.study.Order
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.String.removeMultibyteSymbols
+import lila.study.{ Order, Study }
 
-import controllers.routes
+object bits:
 
-object bits {
-
-  def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) = {
+  def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) =
     val orders =
       if (active == "all") Order.withoutSelector
-      else if (active startsWith "topic") Order.allWithMine
-      else Order.all
+      else if (active startsWith "topic") Order.values
+      else Order.withoutMine
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
@@ -25,14 +25,13 @@ object bits {
         a(href := url(o.key), cls := (order == o).option("current"))(o.name())
       }
     )
-  }
 
   def newForm()(implicit ctx: Context) =
     postForm(cls := "new-study", action := routes.Study.create)(
       submitButton(cls := "button button-green", dataIcon := "", title := trans.study.createStudy.txt())
     )
 
-  def authLinks(active: String, order: lila.study.Order)(implicit ctx: Context) = {
+  def authLinks(active: String, order: Order)(implicit ctx: Context) =
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
       a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),
@@ -45,14 +44,13 @@ object bits {
       ),
       a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies())
     )
-  }
 
-  def widget(s: lila.study.Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) =
+  def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) =
     frag(
-      a(cls := "overlay", href := routes.Study.show(s.study.id.value), title := s.study.name.value),
+      a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
       div(cls := "top", dataIcon := "")(
         div(
-          tag(cls := "study-name")(s.study.name.value),
+          tag(cls := "study-name")(s.study.name),
           span(
             !s.study.isPublic option frag(
               iconTag("")(cls := "private", ariaTitle(trans.study.`private`.txt())),
@@ -71,12 +69,15 @@ object bits {
       div(cls := "body")(
         ol(cls := "chapters")(
           s.chapters.map { name =>
-            li(cls := "text", dataIcon := "")(name.value)
+            li(cls := "text", dataIcon := "")(
+              if (ctx.userId.exists(s.study.isMember)) name
+              else removeMultibyteSymbols(name.value)
+            )
           }
         ),
         ol(cls := "members")(
           s.study.members.members.values
-            .take(4)
+            .take(Study.previewNbMembers)
             .map { m =>
               li(cls := "text", dataIcon := (if (m.canContribute) "" else ""))(titleNameOrId(m.id))
             }
@@ -85,8 +86,7 @@ object bits {
       )
     )
 
-  def streamers(streamers: List[lila.user.User.ID])(implicit lang: Lang) =
+  def streamers(streamers: List[UserId])(implicit lang: Lang) =
     streamers.nonEmpty option div(cls := "context-streamers none")(
       streamers map views.html.streamer.bits.contextual
     )
-}

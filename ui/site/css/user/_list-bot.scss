@@ -1,0 +1,50 @@
+.bots {
+  .box {
+    margin-bottom: 2vh;
+  }
+
+  &__about {
+    margin-top: 1rem;
+  }
+
+  &__list {
+    &__entry {
+      @extend %flex-center-nowrap;
+      gap: $block-gap;
+
+      padding: 2em var(--box-padding);
+
+      &:nth-child(odd) {
+        background: $c-bg-zebra;
+      }
+
+      &__desc {
+        flex: 1 1 auto;
+      }
+
+      &__head {
+        @extend %flex-center;
+        justify-content: space-between;
+        margin-bottom: 1em;
+
+        .user-link {
+          font-size: 1.5em;
+          .utitle {
+            @extend %roboto;
+            font-weight: normal;
+          }
+        }
+      }
+
+      &__rating {
+        @extend %flex-center-nowrap;
+        gap: 1em;
+        color: $c-font-dim;
+      }
+
+      &__play {
+        padding: 2em;
+      }
+    }
+  }
+}

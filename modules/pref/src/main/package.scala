@@ -1,3 +1,3 @@
-package lila
+package lila.pref
 
-package object pref extends PackageObject
+export lila.Lila.{ *, given }

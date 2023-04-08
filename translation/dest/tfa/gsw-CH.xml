@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Zwei-Faktorä Autentifizierig</string>
+  <string name="twoFactorHelp">Mit de \"Zwei-Faktor Authentifizierig\" machsch dis Konto es Level sicherer.</string>
+  <string name="twoFactorApp">Inschtallier e App für d\'Zwei-Faktor-Authentifizierig, zum Bischpil andOTP für %1$s oder Google Authenticator für %2$s.</string>
+  <string name="scanTheCode">Scann dä QR Code mit dä App.</string>
+  <string name="enterPassword">Tipp dis Passwort ine und de Authentifizierigscode, wo vu de App generiert worde isch, zum Abschlüsse vu dere Irichtig. Künftig bruchsch, zum Amälde, jedesmal so en Code.</string>
+  <string name="ifYouCannotScanEnterX">Falls dä Code nicht einscannä chasch, tipp dä gheim Code %s i dini App.</string>
+  <string name="authenticationCode">Authentifizierigscode</string>
+  <string name="ifYouLoseAccess">Achtung: Wänn du de Zuegang zu dim Zwei-Faktor-Authentifizierigscode verlürsch, muesch dis Passwort per E-Mail zruggsetze!</string>
+  <string name="enableTwoFactor">Aktivier d\'Zwei-Faktor-Authentifizierig</string>
+  <string name="disableTwoFactor">Deaktivier d\'Zwei-Faktor-Authentifizierig</string>
+  <string name="twoFactorEnabled">Zwei-Faktor Authentifizierig isch aktiviert</string>
+  <string name="twoFactorDisable">Du benötigsch dis Passwort und en Authentifizierigscode us dinere Authentifizierigs-App, zum die Zwei-Faktor-Authentifizierig z\'deaktiviere.
+Wänn du de Zuegang zu dim Authentifizierigscode verlürsch, muesch dis Passwort au per E-Mail zruggsetze.</string>
+  <string name="openTwoFactorApp">Mach uf dim Grät d\'App für die zweischtufig Authentifizierig uf, det findsch din Authentifizierigscode, wo dini Identität beschtätigt.</string>
+  <string name="setupReminder">Bitte tue d\'Zwei-Faktore-Authentifizierig aktiviere und demit dis Konto uf - 
+https://lichess.org/account/twofactor - sichere! 
+Du häsch de Hiwis übercho, will du - mit dim Konto - bsunderi Funkzione usüebsch, z.B. als Teamleiter, als Trainer, als Lehrer oder Streamer.</string>
+</resources>

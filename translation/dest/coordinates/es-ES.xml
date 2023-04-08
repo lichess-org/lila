@@ -8,9 +8,13 @@
   <string name="mostChessCourses">La mayoría de los cursos y ejercicios de ajedrez usan la notación algebraica.</string>
   <string name="talkToYourChessFriends">Facilita la comunicación con otros jugadores, que también hablan el \"lenguaje del ajedrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Puedes analizar partidas de forma más eficiente si no tienes que andar buscando los nombres de los escaques.</string>
-  <string name="aSquareNameAppears">El nombre de un escaque aparece en la pantalla y debes hacer clic en el escaque correcto. ¡Tienes 30 segundos para identificar tantos escaques como puedas!</string>
-  <string name="aSquareIsHighlighted">Un escaque se resalta en el tablero y debes introducir su coordenada (ej. \"e4\"). ¡Tienes 30 segundos para marcar correctamente tantos escaques como sea posible!</string>
+  <string name="aCoordinateAppears">Una coordenada aparece en el tablero y debes hacer clic en la casilla correspondiente.</string>
+  <string name="aSquareIsHighlightedExplanation">Una casilla se resalta en el tablero y debes introducir su coordenada (por ejemplo, \"e4\").</string>
+  <string name="youHaveThirtySeconds">¡Tienes 30 segundos para marcar correctamente tantas casillas como sea posible!</string>
+  <string name="goAsLongAsYouWant">¡Tómate todo el tiempo que quieras, no hay límite de tiempo!</string>
+  <string name="showCoordinates">Mostrar coordenadas</string>
+  <string name="showPieces">Mostrar piezas</string>
   <string name="startTraining">Comenzar entrenamiento</string>
-  <string name="findSquare">Encontrar escaque</string>
-  <string name="nameSquare">Nombrar escaque</string>
+  <string name="findSquare">Encontrar casilla</string>
+  <string name="nameSquare">Nombrar casilla</string>
 </resources>

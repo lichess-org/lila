@@ -41,12 +41,17 @@
       margin: 0.7em 0;
     }
     .danger {
+      @extend %box-neat;
+      font-weight: bold;
+      color: $c-bad-over;
+      background: $c-bad;
+      padding: 0.3em 0.8em;
       &::before {
         @extend %data-icon;
-
-        margin-right: 0.2em;
-        content: '';
-        color: $c-bad;
+        font-size: 1.5em;
+        @include margin-inline-end(0.2em);
+        content: '';
+        color: $c-bad-over;
       }
     }
   }
@@ -61,6 +66,11 @@
     color: $c-font-dim;
     font-size: 0.9em;
     text-align: center;
+
+    .danger {
+      font-weight: bold;
+      color: $c-bad;
+    }
 
     strong {
       @extend %break-word;

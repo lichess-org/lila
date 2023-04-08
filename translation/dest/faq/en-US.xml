@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">other ways to help</string>
   <string name="areThereWebsitesBasedOnLichess">Are there websites based on Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+  <string name="keyboardShortcuts">What keyboard shortcuts are there?</string>
+  <string name="keyboardShortcutsExplanation">Some Lichess pages have keyboard shortcuts you can use. Try pressing the \'?\' key on a study, analysis, puzzle, or game page to list available keyboard shortcuts.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">When am I eligible for the automatic rating refund from cheaters?</string>
   <string name="ratingRefundExplanation">One minute after a player is marked, their 40 latest rated games in the last 3 days are taken. If you are their opponent in those games, you lost rating (because of a loss or a draw), and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game.
@@ -25,6 +27,8 @@
   <string name="howCanIBecomeModerator">How can I become a moderator?</string>
   <string name="youCannotApply">It is not possible to apply to become a moderator. If we see someone who we think would be good as a moderator, we will contact them directly.</string>
   <string name="isCorrespondenceDifferent">Is correspondence different from normal chess?</string>
+  <string name="pleaseReadFairPlayPage">For more information, please read our %s</string>
+  <string name="fairPlayPage">fair play page</string>
   <string name="youCanUseOpeningBookNoEngine">On Lichess, the main difference in rules for correspondence chess is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lichess does not.</string>
   <string name="gameplay">Gameplay</string>
   <string name="howBulletBlitzEtcDecided">How are Bullet, Blitz and other time controls decided?</string>
@@ -61,6 +65,7 @@ It is described in section 3.7 (d) of the %2$s:
 See the %3$s on this move for some practice with it.</string>
   <string name="goodIntroduction">good introduction</string>
   <string name="lichessTraining">Lichess training</string>
+  <string name="watchIMRosenCheckmate">Watch International Master Eric Rosen checkmate %s.</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
   <string name="threefoldRepetitionLowerCase">threefold repetition</string>

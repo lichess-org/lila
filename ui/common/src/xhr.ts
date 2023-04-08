@@ -60,7 +60,7 @@ export const script = (src: string): Promise<void> =>
 /* produce HTTP form data from a JS object */
 export const form = (data: any): FormData => {
   const formData = new FormData();
-  for (const k of Object.keys(data)) formData.append(k, data[k]);
+  for (const k of Object.keys(data)) if (defined(data[k])) formData.append(k, data[k]);
   return formData;
 };
 
@@ -73,12 +73,16 @@ export const url = (path: string, params: { [k: string]: string | number | boole
 };
 
 /* submit a form with XHR */
-export const formToXhr = (el: HTMLFormElement): Promise<string> => {
+export const formToXhr = (el: HTMLFormElement, submitter?: HTMLButtonElement): Promise<string> => {
   const action = el.getAttribute('action');
+  const body = new FormData(el);
+  if (submitter?.name && submitter?.value) {
+    body.set(submitter.name, submitter.value);
+  }
   return action
     ? text(action, {
         method: el.method,
-        body: new FormData(el),
+        body,
       })
     : Promise.reject(`Form has no action: ${el}`);
 };

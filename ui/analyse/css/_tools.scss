@@ -18,6 +18,9 @@
         line-height: 1.9em;
         background: mix($c-secondary, $c-bg-box, 40%);
         padding: 0 7px;
+        a {
+          font-weight: bold;
+        }
       }
     }
 
@@ -31,7 +34,7 @@
       button {
         @extend %button-none;
 
-        margin-left: 1em;
+        margin-#{$start-direction}: 1em;
         color: $c-link;
 
         &:hover {
@@ -89,7 +92,7 @@
       }
 
       &::before {
-        margin-right: 0.3em;
+        margin-#{$end-direction}: 0.3em;
       }
 
       &.highlighted {
@@ -124,9 +127,17 @@
       transition: visibility 0s;
     }
 
+    .persistence {
+      color: $c-good;
+      @include breakpoint($mq-not-xx-small) {
+        display: none;
+      }
+    }
+
     .active {
       margin-top: -3px;
       padding-top: 3px;
+      color: $c-good-over;
     }
 
     @include breakpoint($mq-col1) {

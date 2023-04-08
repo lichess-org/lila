@@ -1,4 +1,4 @@
-import throttle from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 import { json, form } from 'common/xhr';
 import SwissCtrl from './ctrl';
 import { isOutcome } from './util';
@@ -54,9 +54,9 @@ const readSheetMin = (str: string) =>
     : [];
 
 export default {
-  join: throttle(1000, join),
-  withdraw: throttle(1000, withdraw),
-  loadPage: throttle(1000, loadPage),
+  join: throttlePromiseDelay(() => 1000, join),
+  withdraw: throttlePromiseDelay(() => 1000, withdraw),
+  loadPage: throttlePromiseDelay(() => 1000, loadPage),
   loadPageOf,
   reloadNow: reload,
   playerInfo,

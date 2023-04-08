@@ -59,6 +59,8 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidor</string>
   <string name="loadingEngine">Cargando módulo ...</string>
+  <string name="calculatingMoves">Calculando movementos...</string>
+  <string name="engineFailed">Erro ao cargar motor no dispositivo local</string>
   <string name="cloudAnalysis">Análise na nube</string>
   <string name="goDeeper">Con máis detalle</string>
   <string name="showThreat">Amosar ameaza</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de movementos intermedios ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
+  <string name="openings">Aperturas</string>
   <string name="openingExplorer">Abrir o explorador</string>
   <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Ver a tamaño completo</string>
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
+  <string name="rememberMe">Lembrarme</string>
   <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
   <string name="signUp">Rexistrarse</string>
   <string name="computersAreNotAllowedToPlay">Non están permitidos os ordenadores ou os xogadores asistidos por eles. Por favor non te axudes de módulos de xadrez, bases de datos ou otros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión</string>
@@ -195,12 +199,39 @@
   <string name="changeUsername">Cambiar nome de usuario</string>
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
+  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario \"axeitado para a familia\" (family-friendly). Non poderás cambialo despois e calquera conta con nome de usuario inapropiado será cancelada!</string>
+  <string name="signupEmailHint">Só se usará para restablecer o contrasinal.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo electrónico</string>
   <string name="passwordReset">Cambiar contrasinal</string>
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
+  <string name="error.weakPassword">Ese contrasinal é extremadamente común e demasiado doado de adiviñar.</string>
+  <string name="error.namePassword">Por favor, non uses o teu usuario como contrasinal.</string>
+  <string name="blankedPassword">Empregaches o mesmo contrasinal noutro sitio e a seguridade dese sitio foi comprometida. Para confirmar a seguridade da túa conta de Lichess, necesitamos que indiques un novo contrasinal. Grazas e perdón polas molestias.</string>
+  <string name="youAreLeavingLichess">Estas abandoando Lichess</string>
+  <string name="neverTypeYourPassword">Nunca empregues o teu contrasinal de Lichess noutro sitio web!</string>
+  <string name="proceedToX">Redirixindo a %s</string>
+  <string name="passwordSuggestion">Non empregues un contrasinal suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
+  <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por alguén. Poden empregalo para roubar a túa conta.</string>
+  <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
+  <string name="emailConfirmNotReceived">Non recibiches correo de confirmación despois de rexistrarte?</string>
+  <string name="whatSignupUsername">Que nome de usuario quere empregar para rexistrarte?</string>
+  <string name="usernameNotFound">Non puidemos atopar nengún usuario/a con este nome: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Podes empregar este nome de usuario para crear unha nova conta</string>
+  <string name="emailSent">Enviámosche un correo a %s.</string>
+  <string name="emailCanTakeSomeTime">Pode tardar un tempo en chegar.</string>
+  <string name="refreshInboxAfterFiveMinutes">Agarda 5 minutos e refresca a túa caixa de correo.</string>
+  <string name="checkSpamFolder">Comproba tamén o teu buzón de spam, puido rematar aí. Se así foi, quítalle a marca de correo non desexado.</string>
+  <string name="emailForSignupHelp">Se todo falla, entón envíanos un correo:</string>
+  <string name="copyTextToEmail">Copia e pega o seguinte texto e envíao a %s</string>
+  <string name="waitForSignupHelp">Volveremos dentro de pouco para axudarche a completar o teu rexistro.</string>
+  <string name="accountConfirmed">O usuario %s foi confirmado correctamente.</string>
+  <string name="accountCanLogin">Agora podes loguearte como %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Non necesitas un correo de confirmación.</string>
+  <string name="accountClosed">A conta %s está pechada.</string>
+  <string name="accountRegisteredWithoutEmail">A conta %s foi rexistrada sen correo electrónico.</string>
   <string name="rank">Clasificación</string>
   <string name="rankX">Clasificación: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -340,6 +371,7 @@
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="xJoinedTeamY">%1$s uniuse ó equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creou o equipo %2$s</string>
+  <string name="startedStreaming">comezou emisión</string>
   <string name="xStartedStreaming">%s comenzou a emitir</string>
   <string name="averageElo">Puntuación media</string>
   <string name="location">Lugar</string>
@@ -348,6 +380,8 @@
   <string name="apply">Aplicar</string>
   <string name="save">Gardar</string>
   <string name="leaderboard">Líder do cadro</string>
+  <string name="screenshotCurrentPosition">Pantallazo da posición actual</string>
+  <string name="gameAsGIF">Xogo como GIF</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
   <string name="orUploadPgnFile">Ou sube un ficheiro PGN</string>
@@ -427,6 +461,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="tournamentIsStarting">O torneo vai comezar</string>
   <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo están pechados agora.</string>
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
+  <string name="pause">Pausa</string>
+  <string name="resume">Continuar</string>
   <string name="youArePlaying">Estás xogando!</string>
   <string name="winRate">Porcentaxe de victorias</string>
   <string name="berserkRate">Porcentaxe de berserk</string>
@@ -461,6 +497,10 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="socialMediaLinks">Enlaces ás redes sociais</string>
   <string name="oneUrlPerLine">Unha URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
+  <string name="savingMoves">Almaceamento temporal</string>
+  <string name="savingMovesHelp">Gardando as túas variacións na caché do navegador.</string>
+  <string name="makeAStudy">Para gardar e partillar, conviña crear un estudo.</string>
+  <string name="clearSavedMoves">Eliminar movementos</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
   <string name="onlinePlayers">Xogadores en liña</string>
   <string name="activePlayers">Xogadores activos</string>
@@ -508,6 +548,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe notas privadas aquí</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada acerca deste usuario/a</string>
+  <string name="noNoteYet">Sen notas aínda</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
   <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
@@ -564,6 +606,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
+  <string name="error.unknown">Valor non válido</string>
   <string name="error.required">Este campo é obrigatorio</string>
   <string name="error.email">Este enderezo de correo non é válido</string>
   <string name="error.email_acceptable">Este enderezo de correo non é aceptable. Por favor, volve a comprobala e téntao de novo.</string>
@@ -574,6 +617,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="error.min">Debe ser maior ou igual que %s</string>
   <string name="error.max">Debe ser menor ou igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
+  <string name="ifRegistered">Se está rexistrado/a</string>
   <string name="onlyExistingConversations">Só conversas existentes</string>
   <string name="onlyFriends">Só amigos</string>
   <string name="menu">Menú</string>
@@ -618,10 +662,13 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coa simultánea.</string>
   <string name="simulHostExtraTime">Tempo extra para o simultaneador</string>
+  <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reló por cada xogador que se una á simultánea.</string>
+  <string name="simulHostExtraTimePerPlayer">Tempo extra do anfitrión por cada xogador</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes sobre torneos</string>
   <string name="timeBeforeTournamentStarts">Tempo antes de que o torneo comece</string>
   <string name="averageCentipawnLoss">Pérdida de centipeóns media</string>
+  <string name="accuracy">Precisión</string>
   <string name="keyboardShortcuts">Atallos do teclado</string>
   <string name="keyMoveBackwardOrForward">mover atrás/adiante</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
@@ -670,6 +717,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">A túa conta é xestionada. Pregúntalle ao/á teu/túa mestre acerca de quitar o modo para nenos/as.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Desactivar modo infantil</string>
   <string name="security">Seguridade</string>
@@ -704,6 +752,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
+  <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">Url de imaxe de fondo:</string>
   <string name="boardGeometry">Xeometría do taboleiro</string>
   <string name="boardTheme">Tema do taboleiro</string>
@@ -732,6 +781,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="bestWasX">O mellor era %s</string>
   <string name="youBrowsedAway">Saíches da revisión</string>
   <string name="resumePractice">Continuar a prática</string>
+  <string name="drawByFiftyMoves">A partida rematou en táboas pola regra dos cincuenta movementos.</string>
   <string name="theGameIsADraw">A partida está en táboas.</string>
   <string name="computerThinking">Computadora pensando ...</string>
   <string name="seeBestMove">Ver o mellor movemento</string>
@@ -897,4 +947,5 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="lichessDbExplanation">Partidas por puntos de todos os xogadores/as de Lichess</string>
   <string name="switchSides">Cambiar de lado</string>
   <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Os nosos consellos para organizar eventos</string>
 </resources>

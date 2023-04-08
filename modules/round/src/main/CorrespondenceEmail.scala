@@ -1,22 +1,22 @@
 package lila.round
 
-import akka.stream.scaladsl._
+import akka.stream.scaladsl.*
 import org.joda.time.{ LocalTime, Period }
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
 import lila.common.LilaStream
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.mailer._
-import lila.pref.PrefApi
+import lila.hub.actorApi.mailer.*
+import lila.notify.NotifyColls
 import lila.user.UserRepo
 
-final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, prefApi: PrefApi)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
-) {
+final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, notifyColls: NotifyColls)(
+    using
+    Executor,
+    akka.stream.Materializer
+):
 
   private val (runAfter, runBefore) = (LocalTime parse "05:00", LocalTime parse "05:11")
 
@@ -34,12 +34,12 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
       .monSuccess(_.round.correspondenceEmail.time)
 
   private def opponentStream =
-    prefApi.coll
-      .aggregateWith(readPreference = ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+    notifyColls.pref
+      .aggregateWith(readPreference = temporarilyPrimary) { framework =>
+        import framework.*
         // hit partial index
         List(
-          Match($doc("corresEmailNotif" -> true)),
+          Match($doc("correspondenceEmail" -> true)),
           Project($id(true)),
           PipelineOperator(
             $lookup.pipeline(
@@ -66,9 +66,9 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
       }
       .documentSource()
       .mapConcat { doc =>
-        import lila.game.BSONHandlers._
+        import lila.game.BSONHandlers.given
         (for {
-          userId <- doc string "_id"
+          userId <- doc.getAsOpt[UserId]("_id")
           games  <- doc.getAsOpt[List[Game]]("games")
           povs = games
             .flatMap(Pov.ofUserId(_, userId))
@@ -84,4 +84,3 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           }
         } yield CorrespondenceOpponents(userId, opponents)).toList
       }
-}

@@ -8,12 +8,6 @@ export const justIcon = (icon: string): VNodeData => ({
   attrs: { 'data-icon': icon },
 });
 
-export const uci2move = (uci: string): cg.Key[] | undefined => {
-  if (!uci) return undefined;
-  if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
-  return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
-};
-
 export function parsePossibleMoves(dests?: EncodedDests): Dests {
   const dec = new Map();
   if (!dests) return dec;

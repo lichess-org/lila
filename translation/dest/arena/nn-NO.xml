@@ -31,7 +31,10 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   </plurals>
   <string name="thisIsPrivate">Dette er ein privat turnering</string>
   <string name="shareUrl">Gje andre spelarar denne URL-en så dei kan bli med: %s</string>
-  <string name="drawStreak">Remisrekke: ein spelar med ei ubroten rekke parti som endar remis i ein arena får berre poeng for den første remisen eller ved remisar etter meir enn%s trekk. Ei remisrekke kan berre brytas av ein siger, ikkje av eit nederlag eller ein remis.</string>
+  <string name="drawStreakStandard">Remisrekke: ein spelar med ei ubroten rekke parti som endar remis i ein arena får berre poeng for den første remisen eller ved remisar etter meir enn%s trekk. Ei remisrekke kan berre brytas av ein siger, ikkje av eit tap eller ein remis.</string>
+  <string name="drawStreakVariants">Antal trekk som ein må opp i for å få poeng i parti som endar i remis avheng av kva variant det er snakk om. Tabellen nedanfor syner grenseverdiane for kvar variant.</string>
+  <string name="variant">Variant</string>
+  <string name="minimumGameLength">Minste partilengd</string>
   <string name="history">Arena-historikk</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Vis laget</item>
@@ -45,4 +48,8 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="allowChatHelp">Lat spelarane diskutera i samtalerom</string>
   <string name="arenaStreaks">Arena-vinstrekkjer</string>
   <string name="arenaStreaksHelp">Etter to sigrar gjev seinara sigrar fire poeng i staden for to.</string>
+  <string name="noBerserkAllowed">Berserk er ikkje tillate</string>
+  <string name="noArenaStreaks">Ingen arena-strøymingar</string>
+  <string name="averagePerformance">Gjennomsnittleg prestasjon</string>
+  <string name="averageScore">Gjennomsnittleg poengsum</string>
 </resources>

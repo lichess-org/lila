@@ -1,10 +1,9 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
-import scala.concurrent.duration._
-
+import chess.Ply
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
+import lila.common.config.Max
 
 final class Analyser(
     repo: FishnetRepo,
@@ -13,24 +12,21 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(using Executor, Scheduler):
 
   val maxPlies = 300
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")
+    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, "fishnetAnalyser")
 
-  def apply(game: Game, sender: Work.Sender): Fu[Analyser.Result] =
-    (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
+  def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
+    (game.metadata.analysed ?? analysisRepo.exists(game.id.value)) flatMap {
       case true                  => fuccess(Analyser.Result.AlreadyAnalysed)
       case _ if !game.analysable => fuccess(Analyser.Result.NotAnalysable)
       case _ =>
         limiter(
           sender,
-          ignoreConcurrentCheck = false,
+          ignoreConcurrentCheck = ignoreConcurrentCheck,
           ownGame = game.userIds contains sender.userId
         ) flatMap { result =>
           result.ok ?? {
@@ -58,16 +54,16 @@ final class Analyser(
         }
     }
 
-  def apply(gameId: String, sender: Work.Sender): Fu[Analyser.Result] =
+  def apply(gameId: GameId, sender: Work.Sender): Fu[Analyser.Result] =
     gameRepo game gameId flatMap {
       _.fold[Fu[Analyser.Result]](fuccess(Analyser.Result.NoGame))(apply(_, sender))
     }
 
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
-    analysisRepo exists req.chapterId flatMap {
+    analysisRepo exists req.chapterId.value flatMap {
       case true => fuccess(Analyser.Result.NoChapter)
       case _ =>
-        import req._
+        import req.*
         val sender = Work.Sender(req.userId, none, mod = false, system = false)
         (if (req.unlimited) fuccess(Analyser.Result.Ok)
          else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)) flatMap { result =>
@@ -75,14 +71,14 @@ final class Analyser(
           result.ok ?? {
             val work = makeWork(
               game = Work.Game(
-                id = chapterId,
+                id = chapterId.value,
                 initialFen = initialFen,
                 studyId = studyId.some,
                 variant = variant,
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
               // if black moves first, use 1 as startPly so the analysis doesn't get reversed
-              startPly = initialFen.flatMap(_.color).??(_.fold(0, 1)),
+              startPly = Ply(initialFen.map(_.color).??(_.fold(0, 1))),
               sender = sender
             )
             workQueue {
@@ -101,21 +97,21 @@ final class Analyser(
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
+    gameRepo.initialFen(game) zip uciMemo.get(game) map { (initialFen, moves) =>
       makeWork(
         game = Work.Game(
-          id = game.id,
+          id = game.id.value,
           initialFen = initialFen,
           studyId = none,
           variant = game.variant,
           moves = moves take maxPlies mkString " "
         ),
-        startPly = game.chess.startedAtTurn,
+        startPly = game.chess.startedAtPly,
         sender = sender
       )
     }
 
-  private def makeWork(game: Work.Game, startPly: Int, sender: Work.Sender): Work.Analysis =
+  private def makeWork(game: Work.Game, startPly: Ply, sender: Work.Sender): Work.Analysis =
     Work.Analysis(
       _id = Work.makeId,
       sender = sender,
@@ -125,24 +121,19 @@ final class Analyser(
       lastTryByKey = none,
       acquired = none,
       skipPositions = Nil,
-      createdAt = DateTime.now
+      createdAt = nowDate
     )
-}
 
-object Analyser {
+object Analyser:
 
-  sealed abstract class Result(val error: Option[String]) {
+  enum Result(val error: Option[String]):
     def ok = error.isEmpty
-  }
-  object Result {
-    case object Ok                 extends Result(none)
-    case object NoGame             extends Result("Game not found".some)
-    case object NoChapter          extends Result("Chapter not found".some)
-    case object AlreadyAnalysed    extends Result("This game is already analysed".some)
-    case object NotAnalysable      extends Result("This game is not analysable".some)
-    case object ConcurrentAnalysis extends Result("You already have an ongoing requested analysis".some)
-    case object WeeklyLimit        extends Result("You have reached the weekly analysis limit".some)
-    case object DailyLimit         extends Result("You have reached the daily analysis limit".some)
-    case object DailyIpLimit       extends Result("You have reached the daily analysis limit on this IP".some)
-  }
-}
+    case Ok                 extends Result(none)
+    case NoGame             extends Result("Game not found".some)
+    case NoChapter          extends Result("Chapter not found".some)
+    case AlreadyAnalysed    extends Result("This game is already analysed".some)
+    case NotAnalysable      extends Result("This game is not analysable".some)
+    case ConcurrentAnalysis extends Result("You already have an ongoing requested analysis".some)
+    case WeeklyLimit        extends Result("You have reached the weekly analysis limit".some)
+    case DailyLimit         extends Result("You have reached the daily analysis limit".some)
+    case DailyIpLimit       extends Result("You have reached the daily analysis limit on this IP".some)

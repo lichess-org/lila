@@ -80,7 +80,7 @@ body {
   .about-side,
   .lobby__streams,
   .lobby__about {
-    margin-left: $block-gap;
+    margin-#{$start-direction}: $block-gap;
   }
 }
 
@@ -94,7 +94,7 @@ body {
   color: $c-font-dim;
   display: block;
   text-align: right;
-  margin-right: 1ch;
+  margin-#{$end-direction}: 1ch;
 }
 
 .now-playing {
@@ -145,7 +145,7 @@ body {
   &__thumb {
     position: absolute;
     top: -2px;
-    left: -2px;
+    #{$start-direction}: -2px;
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -156,7 +156,7 @@ body {
     cursor: pointer;
 
     body.dark & {
-      transform: translateX(18px);
+      transform: translateX($transform-direction * 18px);
     }
   }
 }

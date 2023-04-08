@@ -1,14 +1,14 @@
 package views.html.mod
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.{ Holder, User }
 import lila.security.Permission
 
 import controllers.routes
 
-object permissions {
+object permissions:
 
   def apply(u: User, me: Holder)(implicit ctx: Context) =
     views.html.base.layout(
@@ -20,8 +20,8 @@ object permissions {
     ) {
       val userPerms = Permission(u.roles)
       main(cls := "mod-permissions page-small box box-pad")(
-        h1(userLink(u), " permissions"),
-        standardFlash(),
+        boxTop(h1(userLink(u), " permissions")),
+        standardFlash,
         postForm(cls := "form3", action := routes.Mod.permissions(u.username))(
           p(cls := "granted")("In green, permissions enabled manually or by a package."),
           div(cls := "permission-list")(
@@ -63,4 +63,3 @@ object permissions {
         )
       )
     }
-}

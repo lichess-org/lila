@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">תו גישה אישי חדש ל-API</string>
+  <string name="tokenGrantsPermission">התו נותן לאנשים אחרים גישה להשתמש בחשבונך.</string>
+  <string name="carefullySelect">בחרו בזהירות מה ניתן לעשות בשמכם בחשבונכם.</string>
+  <string name="tokenDescription">תיאור התו</string>
+  <string name="rememberTokenUse">כדי שתזכרו למה הוא משמש</string>
+  <string name="whatTheTokenCanDo">מה ניתן לעשות עם התו בשמך:</string>
+  <string name="doNotShareIt">התו יתן גישה לחשבונך. בשום אופן אל תשתפו אותו עם אחרים!</string>
+  <string name="copyTokenNow">זכרו להעתיק את תו הגישה האישי שלכם עכשיו. לא תראו אותו שוב!</string>
+  <string name="preferenceRead">קריאת העדפות</string>
+  <string name="preferenceWrite">כתיבת העדפה</string>
+  <string name="emailRead">קריאת כתובת אימייל</string>
+  <string name="challengeRead">קריאת הזמנות ממתינות</string>
+  <string name="challengeWrite">שליחה, אישור ודחייה של הזמנות למשחק</string>
+  <string name="challengeBulk">יצירת מספר משחקים במקביל עבור שחקנים אחרים</string>
+  <string name="studyRead">קריאת לוחות למידה פרטיים והקרנות</string>
+  <string name="studyWrite">יצירה, עדכון ומחיקה של לוחות למידה והקרנות</string>
+  <string name="tournamentWrite">יצירה, עדכון והצטרפות לטורנירים</string>
+  <string name="racerWrite">יצירה והצטרפות למרוצי חידות</string>
+  <string name="puzzleRead">קריאה של פעילות החידות</string>
+  <string name="teamRead">קריאת מידע על קבוצות פרטיות</string>
+  <string name="teamWrite">הצטרפות, יצירה וניהול של קבוצות</string>
+  <string name="teamLead">ניהול קבוצות בהובלתך: שליחת הודעות פרטיות, העפת חברים</string>
+  <string name="followRead">קריאה של השחקנים ברשימת המעקב</string>
+  <string name="followWrite">מעקב וביטול מעקב אחר שחקנים אחרים</string>
+  <string name="msgWrite">שליחת הודעה פרטית לשחקנים אחרים</string>
+  <string name="boardPlay">יצירת משחקים עם ה־API של הלוח</string>
+  <string name="botPlay">יצירת משחקים עם ה־API של הבוטים</string>
+  <string name="engineRead">צפייה ושימוש במנוע החיצוני שלך</string>
+  <string name="engineWrite">יצירה ועדכון של מנוע חיצוני</string>
+  <string name="webLogin">יצירה של התחברות מאובטחת לאתרים (עם גישה מלאה)!</string>
+  <string name="webMod">שימוש בכלים של מנהלים (במסגרת ההרשאות שלך)</string>
+</resources>

@@ -23,12 +23,10 @@ body {
 
   &__board {
     grid-area: board;
-  }
 
-  .relay-tour {
-    grid-row-start: board;
-    grid-row-end: tools;
-    grid-column: board;
+    cg-container {
+      #{$end-direction}: 0;
+    }
   }
 
   &__tools {
@@ -47,8 +45,12 @@ body {
     }
   }
 
-  &__acpl {
-    grid-area: acpl;
+  &__round-training {
+    grid-area: round-training;
+  }
+
+  &__puzzle {
+    grid-area: puzzle;
   }
 
   .chat__members {
@@ -72,7 +74,7 @@ body {
     'controls'
     'tools'
     'side'
-    'acpl'
+    'round-training'
     'under'
     'chat'
     'uchat';
@@ -83,7 +85,7 @@ body {
     grid-template-areas:
       'board      gauge tools'
       'under      .     controls'
-      'under      .     acpl'
+      'under      .     round-training'
       'under      .     side'
       'chat       .     side'
       'uchat      .     side';
@@ -102,10 +104,6 @@ body {
     .eval-gauge {
       display: block;
     }
-
-    .relay-tour {
-      grid-row-end: under;
-    }
   }
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
@@ -119,7 +117,7 @@ body {
       'side    . board gauge tools'
       'chat    . board gauge tools'
       'uchat   . under .     controls'
-      'uchat   . under .     acpl';
+      'uchat   . under .     round-training';
 
     &__side {
       margin-top: 0;

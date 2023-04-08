@@ -18,6 +18,8 @@
   <string name="rule1">Sluit die sleutelwoord \"lichess.org\" in jou uitsendingstitel in wanneer jy op Lichss uitsaai.</string>
   <string name="rule2">Verwyder die sleutelwoord as jy nie-Lichess dinge uitsaai.</string>
   <string name="rule3">Lichess sal outomaties die uitsending opmerk en vir jou die volgende voordele gee:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lees ons %s om regverdige speel vir almal te verseker tydens jou uitsaaiing.</string>
+  <string name="streamingFairplayFAQ">uitsaaiings Regverdige spel FAQ</string>
   <string name="perks">Voordele om met die sleutelwoord uit te saai</string>
   <string name="perk1">Kry \'n vlam uitsaai ikoon op jou Lichess profiel.</string>
   <string name="perk2">Word na die bopunt van die aanbieders lys geneem.</string>
@@ -28,10 +30,7 @@
   <string name="pleaseFillIn">Vul asseblief jou uitsending inligting in en laai \'n prent op.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Sodra jy gereed is om as \'n Lichess aanbieder te verskyn, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">versoek hersiening deur \'n moderator</string>
-  <string name="anotherLanguage">Indien jou uitsending in \'n taal anders as Engels is, voeg die korrekte taal etiket (%s), in blokhakies aan die begin van die uitsending titel.
-Byvoorbeeld: Voeg \"[AF]\" vir Afrikaans, \"[RU]\" vir Russies, \"[FR]\" vir Frans, ens.
-Plaas dit in die uitsendingstitel in die Twitch of Youtube blad, nie in die Lichess uitsendings verstellings nie.
-As jou uitsending in Engels is, hoef daar nie \'n taal etiket bygevoeg te word nie.</string>
+  <string name="streamerLanguageSettings">Die Lichess uitsaaiingsblaai teiken jou gehoor met die voorsiende taal van jou uitsaaiings platform. Stel die versterkte taal vir jou skaak strome, in die uitsaaiings toepassing of diens wat jy gebruik.</string>
   <string name="twitchUsername">Jou Twitch gebruikersnaam of URL</string>
   <string name="optionalOrEmpty">Optioneel. Los leeg indien jy nie een het nie</string>
   <string name="youtubeChannel">Jou YouTube kanaal ID of URL</string>

@@ -9,6 +9,8 @@
   <string name="postBody">Corpo da publicação</string>
   <string name="drafts">Rascunhos</string>
   <string name="published">Publicado</string>
+  <string name="createBlogDiscussion">Ativar comentários</string>
+  <string name="createBlogDiscussionHelp">Será criado um tópico do fórum para as pessoas comentarem a sua publicação</string>
   <string name="publishOnYourBlog">Publicar no teu blog</string>
   <string name="publishHelp">Se for marcada, a publicação será listada no teu blog. Se não, ficará privada, nos teus rascunhos de publicações</string>
   <plurals name="publishedNbBlogPosts">
@@ -33,4 +35,12 @@
   <string name="uploadAnImageForYourPost">Enviar uma imagem para a sua publicação</string>
   <string name="imageAlt">Texto alternativo à imagem</string>
   <string name="imageCredit">Crédito da imagem</string>
+  <string name="deleteBlog">Eliminar esta publicação definitivamente</string>
+  <string name="deleteImage">Eliminar a imagem</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">É seguro utilizar imagens dos seguintes sites: </string>
+  <string name="selectPostTopics">Selecione os tópicos de que fala na sua publicação</string>
+  <string name="useImagesYouMadeYourself">Também pode utilizar imagens feita por si, fotografias que tirou, capturas de ecrã do Lichess... tudo o que não esteja protegido pelos direitos de autor por outra pessoa.</string>
+  <string name="safeAndRespectfulContent">Publique apenas conteúdo seguro e respeitoso. Não copie o conteúdo de outra pessoa.</string>
+  <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da sua conta.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">As nossas dicas simples para escrever ótimas publicações no blogue</string>
 </resources>

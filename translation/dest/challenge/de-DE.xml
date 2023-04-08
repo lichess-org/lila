@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Herausforderung abgelehnt</string>
   <string name="challengeAccepted">Herausforderung angenommen!</string>
   <string name="challengeCanceled">Herausforderung abgebrochen.</string>
-  <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen zu senden.</string>
+  <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen an diesen Benutzer zu senden.</string>
   <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
   <string name="xDoesNotAcceptChallenges">%s nimmt keine Herausforderungen an.</string>
   <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
@@ -22,4 +22,5 @@
   <string name="declineVariant">Ich bin derzeit nicht bereit, diese Variante zu spielen.</string>
   <string name="declineNoBot">Ich nehme keine Herausforderungen von Bots an.</string>
   <string name="declineOnlyBot">Ich nehme nur Herausforderungen von Bots an.</string>
+  <string name="inviteLichessUser">Oder lade einen Lichess-Benutzer ein:</string>
 </resources>

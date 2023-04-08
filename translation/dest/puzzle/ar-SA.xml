@@ -2,7 +2,7 @@
 <resources>
   <string name="puzzles">الألغاز</string>
   <string name="puzzleThemes">خصائص الألغاز</string>
-  <string name="recommended">موصى به</string>
+  <string name="recommended">مقترح</string>
   <string name="phases">مراحل</string>
   <string name="motifs">الأفكار الرئيسية</string>
   <string name="advanced">خيارات أعمق</string>
@@ -13,12 +13,15 @@
   <string name="specialMoves">نقلات مميزة</string>
   <string name="didYouLikeThisPuzzle">هل أعجبك هذا اللغز؟</string>
   <string name="voteToLoadNextOne">صوت لتبدأ الغز التالي!</string>
+  <string name="upVote">أعجبني اللغز</string>
+  <string name="downVote">لم يعجبني اللغز</string>
   <string name="yourPuzzleRatingWillNotChange">تقييم الألغاز الخاص بك لن يتغير. لاحظ أن الألغاز ليست مسابقة. التقييم يساعد على اختيار أفضل الألغاز لمهاراتك الحالية.</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض.</string>
   <string name="findTheBestMoveForBlack">جد أفضل نقلة للأسود.</string>
   <string name="toGetPersonalizedPuzzles">للحصول على ألغاز خاصة بك:</string>
   <string name="puzzleId">لغز %s</string>
   <string name="puzzleOfTheDay">لغز اليوم</string>
+  <string name="dailyPuzzle">اللغز اليومي</string>
   <string name="clickToSolve">انقر للحل</string>
   <string name="goodMove">نقلة جيدة</string>
   <string name="bestMove">أفضل نقلة!</string>
@@ -63,6 +66,7 @@
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">إضافة نوع آخر</string>
+  <string name="nextPuzzle">اللغز الموالي</string>
   <string name="jumpToNextPuzzleImmediately">انتقل للغز التالي مباشرة</string>
   <string name="puzzleDashboard">لوحة التحكم بالألغاز</string>
   <string name="improvementAreas">مناطق بحاجة لتحسين</string>

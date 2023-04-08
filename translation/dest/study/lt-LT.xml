@@ -68,6 +68,8 @@
   <string name="studyPgn">Studijos PGN</string>
   <string name="downloadAllGames">Atsisiųsti visus žaidimus</string>
   <string name="chapterPgn">Skyriaus PGN</string>
+  <string name="copyChapterPgn">Kopijuoti PGN</string>
+  <string name="copyChapterPgnDescription">Kopijuoti skyriaus PGN į iškarpinę.</string>
   <string name="downloadGame">Atsisiųsti žaidimą</string>
   <string name="studyUrl">Studijos URL</string>
   <string name="currentChapterUrl">Dabartinio skyriaus URL</string>
@@ -82,6 +84,7 @@
   <string name="studyNotFound">Studija nerasta</string>
   <string name="editChapter">Redaguoti skyrių</string>
   <string name="newChapter">Naujas skyrius</string>
+  <string name="importFromChapterX">Importuoti iš %s</string>
   <string name="orientation">Kryptis</string>
   <string name="analysisMode">Analizės režimas</string>
   <string name="pinnedChapterComment">Prisegtas skyriaus komentaras</string>

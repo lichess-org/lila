@@ -31,7 +31,7 @@
   <string name="equality">Изравняване</string>
   <string name="equalityDescription">Обрат от губеща позиция и постигане на равенство или равностойна позиция. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на царския фланг</string>
-  <string name="kingsideAttackDescription">Атака над противниковия цар след къса рокада.</string>
+  <string name="kingsideAttackDescription">Атака над противниковия цар след малка рокада.</string>
   <string name="clearance">Освобождаване на поле</string>
   <string name="clearanceDescription">Ход, често с темпо, който освобождава поле, вертикал или диагонал за последваща тактическа идея.</string>
   <string name="defensiveMove">Защитен ход</string>

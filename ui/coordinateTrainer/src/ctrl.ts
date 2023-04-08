@@ -1,22 +1,37 @@
 import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
+import { withEffect } from 'common';
+import { storedBooleanProp, storedProp } from 'common/storage';
 import { Api as CgApi } from 'chessground/api';
-import { ColorChoice, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
+import { ColorChoice, TimeControl, CoordinateTrainerConfig, InputMethod, Mode, ModeScores, Redraw } from './interfaces';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
 
-const newKey = (oldKey: Key | ''): Key => {
+const randomChoice = (max: number) => Math.floor(Math.random() * max);
+
+const newKey = (oldKey: Key | '', selectedFiles?: Set<Files>, selectedRanks?: Set<Ranks>): Key => {
+  const rand = randomChoice(2);
+  let files = 'abcdefgh'.split('') as Files[];
+  let rows = '12345678'.split('') as Ranks[];
+
+  if (selectedFiles?.size) {
+    files = files.filter((f: Files) => selectedFiles.has(f));
+  }
+  if (selectedRanks?.size) rows = rows.filter((r: Ranks) => selectedRanks.has(r));
+
   // disallow the previous coordinate's row or file from being selected
-  const files = 'abcdefgh'.replace(oldKey[0], '');
-  const rows = '12345678'.replace(oldKey[1], '');
-  return (files[Math.floor(Math.random() * files.length)] + rows[Math.floor(Math.random() * files.length)]) as Key;
+  // rand so we only change one of them
+  if (files.length > 1 && rand === 0) files = files.filter(f => f !== oldKey[0]);
+  if (rows.length > 1 && rand === 1) rows = rows.filter(r => r !== oldKey[1]);
+
+  return (files[randomChoice(files.length)] + rows[randomChoice(rows.length)]) as Key;
 };
 
-const targetSvg = `
+const targetSvg = (target: 'current' | 'next'): string => `
 <g transform="translate(50, 50)">
-  <rect class="current-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
+  <rect class="${target}-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
 </g>
 `;
 
@@ -25,54 +40,29 @@ const TICK_DELAY = 50;
 
 export default class CoordinateTrainerCtrl {
   chessground: CgApi | undefined;
-  colorChoice: ColorChoice;
-  config: CoordinateTrainerConfig;
-  coordinateInputMethod: InputMethod;
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
-  isAuth: boolean;
+  isAuth = document.body.hasAttribute('data-user');
   keyboardInput: HTMLInputElement;
-  mode: Mode;
-  modeScores: ModeScores;
+  modeScores: ModeScores = this.config.scores;
   nextKey: Key | '' = newKey('a1');
-  orientation: Color;
   playing = false;
-  redraw: Redraw;
   score = 0;
   timeAtStart: Date;
   timeLeft = DURATION;
-  trans: Trans;
+  trans: Trans = lichess.trans(this.config.i18n);
   wrong: boolean;
   wrongTimeout: number;
   zen: boolean;
 
-  constructor(config: CoordinateTrainerConfig, redraw: Redraw) {
-    this.config = config;
-    this.colorChoice = (lichess.storage.get('coordinateTrainer.colorChoice') as ColorChoice) || 'random';
-    this.orientation = orientationFromColorChoice(this.colorChoice);
-    this.modeScores = config.scores;
-
-    // Assume a smaller viewport means mobile, and default to buttons
-    const savedInputMethod = lichess.storage.get('coordinateTrainer.coordinateInputMethod');
-    if (savedInputMethod) this.coordinateInputMethod = savedInputMethod as InputMethod;
-    else this.coordinateInputMethod = window.innerWidth >= 980 ? 'text' : 'buttons';
-
-    this.isAuth = document.body.hasAttribute('data-user');
-    this.trans = lichess.trans(this.config.i18n);
-    this.redraw = redraw;
-
-    if (window.location.hash.length == 5) {
-      this.mode = window.location.hash === '#name' ? 'nameSquare' : 'findSquare';
-    } else {
-      this.mode = lichess.storage.get('coordinateTrainer.mode') === 'nameSquare' ? 'nameSquare' : 'findSquare';
-    }
-    this.saveMode();
-
-    const setZen = throttle(1000, zen =>
-      xhr.text('/pref/zen', {
-        method: 'post',
-        body: xhr.form({ zen: zen ? 1 : 0 }),
-      })
+  constructor(readonly config: CoordinateTrainerConfig, readonly redraw: Redraw) {
+    const setZen = throttlePromiseDelay(
+      () => 1000,
+      zen =>
+        xhr.text('/pref/zen', {
+          method: 'post',
+          body: xhr.form({ zen: zen ? 1 : 0 }),
+        })
     );
 
     lichess.pubsub.on('zen', () => {
@@ -89,38 +79,99 @@ export default class CoordinateTrainerCtrl {
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
   }
 
-  setMode = (m: Mode) => {
-    if (this.mode === m) return;
-    this.mode = m;
-    this.saveMode();
+  colorChoice = withEffect<ColorChoice>(
+    storedProp<ColorChoice>(
+      'coordinateTrainer.colorChoice',
+      'random',
+      str => str as ColorChoice,
+      v => v
+    ),
+    () => this.setOrientationFromColorChoice()
+  );
+
+  orientation = orientationFromColorChoice(this.colorChoice());
+
+  setOrientationFromColorChoice = () => {
+    this.orientation = orientationFromColorChoice(this.colorChoice());
+    if (this.chessground!.state.orientation !== this.orientation) this.chessground!.toggleOrientation();
+    this.redraw();
+  };
+
+  mode = withEffect<Mode>(
+    storedProp<Mode>(
+      'coordinateTrainer.mode',
+      window.location.hash === '#name' ? 'nameSquare' : 'findSquare',
+      str => str as Mode,
+      v => v
+    ),
+    () => this.onModeChange()
+  );
+
+  onModeChange = () => {
+    this.redraw();
     this.updateCharts();
-    this.redraw();
+    window.location.hash = `#${this.mode().substring(0, 4)}`;
   };
 
-  saveMode = () => {
-    window.location.hash = `#${this.mode.substring(0, 4)}`;
-    lichess.storage.set('coordinateTrainer.mode', this.mode);
+  selectionEnabled = withEffect<boolean>(storedBooleanProp('coordinateTrainer.selectionEnabled', false), this.redraw);
+
+  selectedFiles = new Set<Files>();
+  selectedRanks = new Set<Ranks>();
+
+  onFilesChange = (file: Files, on: boolean) => {
+    if (on) this.selectedFiles.add(file);
+    else this.selectedFiles.delete(file);
   };
 
-  setColorChoice = (c: ColorChoice) => {
-    if (this.colorChoice === c) return;
-    this.colorChoice = c;
-    this.setOrientation(orientationFromColorChoice(c));
-    lichess.storage.set('coordinateTrainer.colorChoice', this.colorChoice);
+  onRanksChange = (rank: Ranks, on: boolean) => {
+    if (on) this.selectedRanks.add(rank);
+    else this.selectedRanks.delete(rank);
   };
 
-  setOrientation = (o: Color) => {
-    this.orientation = o;
-    if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
-    this.redraw();
+  timeControl = withEffect(
+    storedProp<TimeControl>(
+      'coordinateTrainer.timeControl',
+      document.body.classList.contains('kid') ? 'untimed' : 'thirtySeconds',
+      str => str as TimeControl,
+      v => v
+    ),
+    this.redraw
+  );
+
+  timeDisabled = () => this.timeControl() === 'untimed';
+
+  showCoordinates = withEffect<boolean>(
+    storedBooleanProp('coordinateTrainer.showCoordinates', document.body.classList.contains('kid')),
+    (show: boolean) => this.onShowCoordinatesChange(show)
+  );
+
+  onShowCoordinatesChange = (show: boolean) => {
+    this.chessground?.set({ coordinates: show });
+    this.chessground?.redrawAll();
   };
 
-  toggleInputMethod = () => {
-    if (this.coordinateInputMethod === 'text') this.coordinateInputMethod = 'buttons';
-    else this.coordinateInputMethod = 'text';
-    this.redraw();
-    lichess.storage.set('coordinateTrainer.coordinateInputMethod', this.coordinateInputMethod);
+  showPieces = withEffect<boolean>(storedBooleanProp('coordinateTrainer.showPieces', true), () =>
+    this.onShowPiecesChange()
+  );
+
+  onShowPiecesChange = () => {
+    this.chessground?.set({ fen: this.boardFEN() });
+    this.chessground?.redrawAll();
   };
+
+  boardFEN = () => (this.showPieces() ? 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR' : '8/8/8/8/8/8/8/8');
+
+  coordinateInputMethod = withEffect(
+    storedProp<InputMethod>(
+      'coordinateTrainer.coordinateInputMethod',
+      window.innerWidth >= 980 ? 'text' : 'buttons',
+      str => str as InputMethod,
+      v => v
+    ),
+    this.redraw
+  );
+
+  toggleInputMethod = () => this.coordinateInputMethod(this.coordinateInputMethod() === 'text' ? 'buttons' : 'text');
 
   start = () => {
     this.playing = true;
@@ -134,15 +185,17 @@ export default class CoordinateTrainerCtrl {
     this.chessground?.redrawAll();
 
     // In case random is selected, recompute orientation
-    this.setOrientation(orientationFromColorChoice(this.colorChoice));
+    this.setOrientationFromColorChoice();
 
-    if (this.mode === 'nameSquare') this.keyboardInput.focus();
+    if (this.mode() === 'nameSquare') this.keyboardInput.focus();
 
     setTimeout(() => {
+      // Advance coordinates twice in order to get an entirely new set
+      this.advanceCoordinates();
+      this.advanceCoordinates();
+
       this.timeAtStart = new Date();
-      this.advanceCoordinates();
-      this.advanceCoordinates();
-      this.tick();
+      if (!this.timeDisabled()) this.tick();
     }, 1000);
   };
 
@@ -157,10 +210,14 @@ export default class CoordinateTrainerCtrl {
 
   advanceCoordinates = () => {
     this.currentKey = this.nextKey;
-    this.nextKey = newKey(this.nextKey);
+    if (this.selectionEnabled() === true) this.nextKey = newKey(this.nextKey, this.selectedFiles, this.selectedRanks);
+    else this.nextKey = newKey(this.nextKey);
 
-    if (this.mode === 'nameSquare')
-      this.chessground?.setShapes([{ orig: this.currentKey as Key, customSvg: targetSvg }]);
+    if (this.mode() === 'nameSquare')
+      this.chessground?.setShapes([
+        { orig: this.currentKey as Key, customSvg: targetSvg('current'), brush: '' },
+        { orig: this.nextKey as Key, customSvg: targetSvg('next'), brush: '' },
+      ]);
 
     this.redraw();
   };
@@ -168,30 +225,32 @@ export default class CoordinateTrainerCtrl {
   stop = () => {
     this.playing = false;
     this.wrong = false;
-    this.updateScoreList();
-    requestAnimationFrame(() => this.updateCharts());
-    this.redraw();
-    this.chessground?.setShapes([]);
-    this.chessground?.redrawAll();
 
-    if (this.mode === 'nameSquare') {
+    if (this.mode() === 'nameSquare') {
       this.keyboardInput.blur();
       this.keyboardInput.value = '';
     }
 
-    if (this.isAuth) {
-      xhr.text('/training/coordinate/score', {
-        method: 'post',
-        body: xhr.form({ mode: this.mode, color: this.orientation, score: this.score }),
-      });
+    if (this.timeControl() === 'thirtySeconds') {
+      this.updateScoreList();
+      if (this.isAuth)
+        xhr.text('/training/coordinate/score', {
+          method: 'post',
+          body: xhr.form({ mode: this.mode(), color: this.orientation, score: this.score }),
+        });
     }
+
+    this.chessground?.setShapes([]);
+    this.chessground?.redrawAll();
+    this.redraw();
   };
 
   updateScoreList = () => {
     // we only ever display the last 20 scores
-    const scoreList = this.modeScores[this.mode][this.orientation];
-    if (scoreList.length >= 20) this.modeScores[this.mode][this.orientation] = scoreList.slice(1, 20);
-    this.modeScores[this.mode][this.orientation].push(this.score);
+    const scoreList = this.modeScores[this.mode()][this.orientation];
+    if (scoreList.length >= 20) this.modeScores[this.mode()][this.orientation] = scoreList.slice(1, 20);
+    this.modeScores[this.mode()][this.orientation].push(this.score);
+    requestAnimationFrame(() => this.updateCharts());
   };
 
   updateCharts = () => {
@@ -205,10 +264,11 @@ export default class CoordinateTrainerCtrl {
   updateChart = (svgElement: SVGSVGElement, color: Color) => {
     const parent = svgElement.parentElement as HTMLDivElement;
     svgElement.setAttribute('width', `${parent.offsetWidth}px`);
-    sparkline(svgElement, this.modeScores[this.mode][color], { interactive: true });
+    sparkline(svgElement, this.modeScores[this.mode()][color], { interactive: true });
   };
 
-  hasModeScores = (): boolean => this.modeScores[this.mode].white.length + this.modeScores[this.mode].black.length > 0;
+  hasModeScores = (): boolean =>
+    this.modeScores[this.mode()].white.length + this.modeScores[this.mode()].black.length > 0;
 
   handleCorrect = () => {
     this.score++;
@@ -219,13 +279,16 @@ export default class CoordinateTrainerCtrl {
   handleWrong = () => {
     clearTimeout(this.wrongTimeout);
     this.wrong = true;
+    this.redraw();
+
     this.wrongTimeout = setTimeout(() => {
       this.wrong = false;
+      this.redraw();
     }, 500);
   };
 
   onChessgroundSelect = (key: Key) => {
-    if (!this.playing || this.mode !== 'findSquare') return;
+    if (!this.playing || this.mode() !== 'findSquare') return;
 
     if (key === this.currentKey) this.handleCorrect();
     else this.handleWrong();

@@ -13,6 +13,9 @@
   <string name="specialMoves">Հատուկ քայլեր</string>
   <string name="didYouLikeThisPuzzle">Հավանեցի՞ք խնդիրը։</string>
   <string name="voteToLoadNextOne">Քվեարկե՛ք և անցե՛ք հաջորդին։</string>
+  <string name="upVote">Խնդիրը հավանեցի</string>
+  <string name="downVote">Խնդիրը չհավանեցի</string>
+  <string name="yourPuzzleRatingWillNotChange">Խնդիրներ լուծելու Ձեր վարկանիշը չի փոփոխվի։ Խնդիրների լուծումը մրցություն չէ։ Վարկանիշը հնարավորություն է տալիս ավելի լավ ընտրել խնդիրները ըստ Ձեր մակարդակի։</string>
   <string name="findTheBestMoveForWhite">Գտե՛ք սպիտակների լավագույն քայլը։</string>
   <string name="findTheBestMoveForBlack">Գտե՛ք սևերի լավագույն քայլը։</string>
   <string name="toGetPersonalizedPuzzles">Անհատական խնդիրներ ստանալու համար.</string>
@@ -50,6 +53,7 @@
   </plurals>
   <string name="example">Օրինակ</string>
   <string name="addAnotherTheme">Ավելացնել այլ մոտիվ</string>
+  <string name="nextPuzzle">Հաջորդ խնդիրը</string>
   <string name="jumpToNextPuzzleImmediately">Անմիջապես անցնել հաջորդ խնդրին</string>
   <string name="puzzleDashboard">Խնդիրների վահանակ</string>
   <string name="improvementAreas">Թույլ կողմեր</string>
@@ -69,5 +73,16 @@
   <string name="fromMyGamesNone">Տվյալների բազայում Ձեր պարտիաներից խնդիրներ չկան, բայց Lichess-ը Ձեզ հետ հույսեր է կապում։ Խաղացե՛ք ավելի շատ արագ կամ դասական ժամակարգով պարտիաներ, և խնդիրներ ունեցող խաղացողների ցանկում հայտնվելու Ձեր հնարավորությունները կմեծանան։</string>
   <string name="fromXGamesFound">Գտնվել է %1$s խնդիր %2$s պարտիաներում</string>
   <string name="puzzleDashboardDescription">Մարզվե՛ք, վերլուծե՛ք, բարելավե՛ք</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s լուծված Է</item>
+    <item quantity="other">%s լուծված է</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s կրկնել</item>
+    <item quantity="other">%s կրկնել</item>
+  </plurals>
+  <string name="percentSolved">%s ճիշտ է</string>
   <string name="noPuzzlesToShow">Ոչինչ չկա, սկսելու համար լուծե՛ք մի քանի խնդիր։</string>
+  <string name="improvementAreasDescription">Մարզե՛ք այս թեմաները՝ Ձեր առաջընթացը բարելավելու համար։</string>
+  <string name="strengthDescription">Դուք ցուցադրում եք լավագույն արդյունքները այս թեմաներում</string>
 </resources>

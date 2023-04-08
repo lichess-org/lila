@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">sopas</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">in %s sekonde</item>
+    <item quantity="other">in %s sekondes</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">in %s minuut</item>
+    <item quantity="other">in %s minute</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">in %s uur</item>
+    <item quantity="other">in %s ure</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">in %s dag</item>
+    <item quantity="other">in %s dae</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">in %s week</item>
+    <item quantity="other">in %s weke</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">in %s maand</item>
+    <item quantity="other">in %s maande</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">in %s jaar</item>
+    <item quantity="other">in %s jare</item>
+  </plurals>
+  <string name="rightNow">nou</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s sekonde gelede</item>
+    <item quantity="other">%s sekondes gelede</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minuut gelede</item>
+    <item quantity="other">%s minute gelede</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s uur gelede</item>
+    <item quantity="other">%s ure gelede</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s dag gelede</item>
+    <item quantity="other">%s dae gelede</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s week gelede</item>
+    <item quantity="other">%s weke gelede</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s maand gelede</item>
+    <item quantity="other">%s maande gelede</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s jaar gelede</item>
+    <item quantity="other">%s jare gelede</item>
+  </plurals>
+</resources>

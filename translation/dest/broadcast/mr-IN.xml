@@ -24,4 +24,5 @@
   <string name="broadcastUrl">URL चे प्रसारण</string>
   <string name="currentRoundUrl">चालू फेरीचा URL</string>
   <string name="currentGameUrl">चालू खेळाचा URL</string>
+  <string name="downloadAllRounds">सर्व फेऱ्या डाउनलोड करा</string>
 </resources>

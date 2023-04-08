@@ -1,12 +1,10 @@
 package lila.relay
 
-import org.joda.time.DateTime
-
-case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal {
+case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal:
 
   def isOk = events.lastOption.exists(_.isOk)
 
-  def alwaysFails = events.sizeIs == SyncLog.historySize && events.forall(_.isKo)
+  def alwaysFails = events.sizeIs >= SyncLog.historySize && events.forall(_.isKo)
 
   def justTimedOut = events.lastOption.exists(_.isTimeout)
 
@@ -19,9 +17,8 @@ case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal {
         else events
       } :+ event
     )
-}
 
-object SyncLog {
+object SyncLog:
 
   val historySize = 5
 
@@ -31,11 +28,10 @@ object SyncLog {
       moves: Int,
       error: Option[String],
       at: DateTime
-  ) {
+  ):
     def isOk      = error.isEmpty
     def isKo      = error.nonEmpty
     def isTimeout = error has SyncResult.Timeout.getMessage
-  }
 
   def event(moves: Int, e: Option[Exception]) =
     Event(
@@ -44,6 +40,5 @@ object SyncLog {
         case _: java.util.concurrent.TimeoutException => "Request timeout"
         case e: Exception                             => e.getMessage take 100
       },
-      at = DateTime.now
+      at = nowDate
     )
-}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">sasa hivi</string>
+  <plurals name="inNbWeeks">
+    <item quantity="one">ndani ya wiki %s</item>
+    <item quantity="other">katika wiki %s zijazo</item>
+  </plurals>
+  <string name="rightNow">sasa hivi</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">sekunde %s zilizopita</item>
+    <item quantity="other">sekunde %s zilizopita</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">Dakika %s zilizopita</item>
+    <item quantity="other">Dakika %s zilizopita</item>
+  </plurals>
+</resources>

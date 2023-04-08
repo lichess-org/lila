@@ -1,17 +1,18 @@
 package views.html.mod
 
-import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-
+import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-object menu {
+import lila.api.Context
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+
+object menu:
 
   def apply(active: String)(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
       isGranted(_.SeeReport) option
-        a(cls := active.active("report"), href := routes.Report.list)("Reports"),
+        a(cls := active.active("report"), href := reportRoutes.list)("Reports"),
       isGranted(_.PublicChatView) option
         a(cls := active.active("public-chat"), href := routes.Mod.publicChat)("Public Chats"),
       isGranted(_.GamifyView) option
@@ -20,6 +21,8 @@ object menu {
         a(cls := active.active("queues"), href := routes.Mod.queues("month"))("Queues stats"),
       isGranted(_.GamifyView) option
         a(cls := active.active("gamify"), href := routes.Mod.gamify)("Hall of fame"),
+      isGranted(_.GamifyView) option
+        a(cls := active.active("log"), href := routes.Mod.log)("My logs"),
       isGranted(_.UserSearch) option
         a(cls := active.active("search"), href := routes.Mod.search)("Search users"),
       isGranted(_.SetEmail) option
@@ -48,4 +51,3 @@ object menu {
       isGranted(_.Cli) option
         a(cls := active.active("cli"), href := routes.Dev.cli)("CLI")
     )
-}

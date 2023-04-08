@@ -6,7 +6,7 @@
     <item quantity="one">ଖେଳ ଟିଏ ମିଳିଲା</item>
     <item quantity="other">%s ଖେଳଗୁଡିକ ମିଳିଲା</item>
   </plurals>
-  <string name="opponentName">ବିରୋଧୀ ନାମ</string>
+  <string name="opponentName">ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କ ନାମ</string>
   <string name="loser">ପରାଜିତ</string>
   <string name="from">ଠାରୁ</string>
   <string name="to">କୁ</string>

@@ -1,3 +1,3 @@
-package lila
+package lila.playban
 
-package object playban extends PackageObject
+export lila.Lila.{ *, given }

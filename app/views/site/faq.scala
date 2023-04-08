@@ -3,19 +3,19 @@ package html.site
 
 import controllers.routes
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object faq {
+object faq:
 
-  import trans.faq._
+  import trans.faq.*
 
   val fideHandbookUrl = "https://handbook.fide.com/chapter/E012018"
 
   private def question(id: String, title: String, answer: Frag*) =
     div(
       st.id := id,
-      cls := "question"
+      cls   := "question"
     )(
       h3(a(href := s"#$id")(title)),
       div(cls := "answer")(answer)
@@ -28,7 +28,7 @@ object faq {
       moreCss = cssTag("faq")
     ) {
       div(cls := "faq small-page box box-pad")(
-        h1(cls := "lichess_title")(frequentlyAskedQuestions()),
+        h1(cls := "box__top")(frequentlyAskedQuestions()),
         h2("Lichess"),
         question(
           "name",
@@ -76,6 +76,13 @@ object faq {
             li(a(href := "https://lidraughts.org")("lidraughts.org")),
             li(a(href := "https://playstrategy.org")("playstrategy.org")),
             li(a(href := "https://lishogi.org")("lishogi.org"))
+          )
+        ),
+        question(
+          "keyboard-shortcuts",
+          keyboardShortcuts.txt(),
+          p(
+            keyboardShortcutsExplanation()
           )
         ),
         h2(fairPlay()),
@@ -159,11 +166,11 @@ object faq {
             )
           ),
           p(
-            "Watch International Master Eric Rosen ",
-            a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")(
-              "checkmate en passant"
-            ),
-            "."
+            watchIMRosenCheckmate(
+              a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")(
+                "en passant"
+              )
+            )
           )
         ),
         question(
@@ -363,4 +370,3 @@ object faq {
         )
       )
     }
-}

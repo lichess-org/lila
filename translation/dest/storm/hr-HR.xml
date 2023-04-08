@@ -54,6 +54,7 @@
   <string name="skipExplanation">Preskočite ovaj potez da biste zadržali niz! Jedan preskok po utrci.</string>
   <string name="failedPuzzles">Krivo riješeni zadaci</string>
   <string name="slowPuzzles">Presporo riješeni zadaci</string>
+  <string name="skippedPuzzle">Preskočena zagonetka</string>
   <string name="thisWeek">Ovaj tjedan</string>
   <string name="thisMonth">Ovaj mjesec</string>
   <string name="allTime">Cijelo vrijeme</string>

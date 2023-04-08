@@ -1,18 +1,14 @@
 package lila.challenge
 
-import org.joda.time.DateTime
-import scala.annotation.nowarn
-
-import lila.common.config.Max
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 
-final private class ChallengeRepo(colls: ChallengeColls)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+final private class ChallengeRepo(colls: ChallengeColls)(using
+    ec: Executor
+):
 
-  import BSONHandlers._
-  import Challenge._
+  import BSONHandlers.given
+  import Challenge.*
 
   private val coll = colls.challenge
 
@@ -31,7 +27,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
     coll.insert.one(c) >> c.challengerUser.?? { challenger =>
       createdByChallengerId()(challenger.id).flatMap {
         case challenges if challenges.sizeIs <= maxOutgoing => funit
-        case challenges                                     => challenges.drop(maxOutgoing).map(_.id).map(remove).sequenceFu.void
+        case challenges => challenges.drop(maxOutgoing).map(_.id).map(remove).parallel.void
       }
     }
 
@@ -40,13 +36,13 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
   private def createdList(selector: Bdoc, max: Int): Fu[List[Challenge]] =
     coll.find(selectCreated ++ selector).sort($sort asc "createdAt").cursor[Challenge]().list(max)
 
-  def createdByChallengerId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] =
+  def createdByChallengerId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
     createdList($doc("challenger.id" -> userId), max)
 
-  def createdByDestId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] =
+  def createdByDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] =
     createdList($doc("destUser.id" -> userId), max)
 
-  def createdByPopularDestId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] = for {
+  def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for {
     realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l" $exists true), max)
     corres <- (realTime.sizeIs < max) ?? createdList(
       $doc($doc("destUser.id" -> userId), "timeControl.l" $exists false),
@@ -64,17 +60,17 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       )
       .void
 
-  private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
+  private[challenge] def allWithUserId(userId: UserId): Fu[List[Challenge]] =
     createdByChallengerId()(userId) zip createdByDestId()(userId) dmap { case (x, y) =>
       x ::: y
     }
 
   private def sameOrigAndDest(c: Challenge) =
-    ~(for {
+    ~(for
       challengerId <- c.challengerUserId
       destUserId   <- c.destUserId
       if c.active
-    } yield coll.one[Challenge](
+    yield coll.one[Challenge](
       selectCreated ++ $doc(
         "challenger.id" -> challengerId,
         "destUser.id"   -> destUserId
@@ -88,25 +84,23 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
     case None                                                 => insert(c)
   }
 
-  private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
+  private[challenge] def countCreatedByDestId(userId: UserId): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
 
-  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] = {
+  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll
       .find(
         $doc(
           "seenAt" $lt date,
           "status" -> Status.Created.id,
-          "timeControl" $exists true
+          "timeControl.l" $exists true
         )
       )
-      .hint(coll hint $doc("seenAt" -> 1)) // partial index
       .cursor[Challenge]()
       .list(max)
-  }
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
-    coll.list[Challenge]($doc("expiresAt" $lt DateTime.now), max)
+    coll.list[Challenge]("expiresAt" $lt nowDate, max)
 
   def setSeenAgain(id: Challenge.ID) =
     coll.update
@@ -115,7 +109,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
         $doc(
           "$set" -> $doc(
             "status"    -> Status.Created.id,
-            "seenAt"    -> DateTime.now,
+            "seenAt"    -> nowDate,
             "expiresAt" -> inTwoWeeks
           )
         )
@@ -123,7 +117,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       .void
 
   def setSeen(id: Challenge.ID) =
-    coll.updateField($id(id), "seenAt", DateTime.now).void
+    coll.updateField($id(id), "seenAt", nowDate).void
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_ plusHours 3))
   def cancel(challenge: Challenge)  = setStatus(challenge, Status.Canceled, Some(_ plusHours 3))
@@ -132,22 +126,19 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
       (reason != Challenge.DeclineReason.default) ??
         coll.updateField($id(challenge.id), "declineReason", reason).void
     }
-  def accept(challenge: Challenge) = setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
+  private[challenge] def accept(challenge: Challenge) =
+    setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
 
   def statusById(id: Challenge.ID) = coll.primitiveOne[Status]($id(id), "status")
 
-  private def setStatus(
-      challenge: Challenge,
-      status: Status,
-      expiresAt: Option[DateTime => DateTime]
-  ) =
+  private def setStatus(challenge: Challenge, status: Status, expiresAt: Option[DateTime => DateTime]) =
     coll.update
       .one(
-        selectCreated ++ $id(challenge.id),
+        selectCreatedOrOffline ++ $id(challenge.id),
         $doc(
           "$set" -> $doc(
             "status"    -> status.id,
-            "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(DateTime.now) }
+            "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(nowDate) }
           )
         )
       )
@@ -155,5 +146,5 @@ final private class ChallengeRepo(colls: ChallengeColls)(implicit
 
   private[challenge] def remove(id: Challenge.ID) = coll.delete.one($id(id)).void
 
-  private val selectCreated = $doc("status" -> Status.Created.id)
-}
+  private val selectCreated          = $doc("status" -> Status.Created)
+  private val selectCreatedOrOffline = $doc("status" $in List(Status.Created, Status.Offline))

@@ -9,6 +9,8 @@
   <string name="postBody">Lëndë postimi</string>
   <string name="drafts">Skica</string>
   <string name="published">Të publikuar</string>
+  <string name="createBlogDiscussion">Aktivizo komentet</string>
+  <string name="createBlogDiscussionHelp">Një temë do të krijohet në forum për të lejuar njerëzit të komentojnë postimin tuaj</string>
   <string name="publishOnYourBlog">Botojeni në blogun tuaj</string>
   <string name="publishHelp">Në iu vëntë shenjë, postimi do të shfaqet në blogun tuaj. Nëse jo, do të jetë privat, te postimet tuaja skicë</string>
   <plurals name="publishedNbBlogPosts">
@@ -32,4 +34,13 @@
   </plurals>
   <string name="uploadAnImageForYourPost">Ngarkoni një figurë për postimin tuaj</string>
   <string name="imageAlt">Tekst alternativ për figurën</string>
+  <string name="imageCredit">Kreditet e imazhit</string>
+  <string name="deleteBlog">Fshije këtë blog përgjithmonë</string>
+  <string name="deleteImage">Fshije figurën</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Është pa rrezik të përdoren figura nga sajtet vijues: </string>
+  <string name="selectPostTopics">Përzgjidhni subjektet që lidhen me postimin tuaj</string>
+  <string name="useImagesYouMadeYourself">Mund të përdorni edhe figura që i keni krijuar vetë, foto që keni bërë, foto ekrani nga Lichess-i… çfarëdo që s’është në të drejta kopjimi të dikujt tjetër.</string>
+  <string name="safeAndRespectfulContent">Ju lutemi, postoni vetëm lëndë të parrezik dhe të respektuar. Mos kopjoni lëndën e dikujt tjetër.</string>
+  <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
 </resources>

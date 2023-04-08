@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Token i ri personal përdorimi API</string>
+  <string name="tokenGrantsPermission">Një token u akordon personave të tjerë leje të përdorin llogarinë tuaj.</string>
+  <string name="carefullySelect">Përzgjidhni me kujdes ç’lejohet të bëjnë më këmbë tuajën.</string>
+  <string name="tokenDescription">Përshkrim token-i</string>
+  <string name="rememberTokenUse">Që të kujtoheni se për çfarë është ky token</string>
+  <string name="whatTheTokenCanDo">Ç’mund të bëhet përmes token-it më këmbë tuajën:</string>
+  <string name="doNotShareIt">Token-i do të akordojë hyrje te llogaria juaj. MOS ia jepni njeriu!</string>
+  <string name="copyTokenNow">Mos harroni ta kopjoni token-in tuaj të ri tani. S’do të jeni në gjendje ta shihni më prapë!</string>
+  <string name="preferenceRead">Parapëlqime leximi</string>
+  <string name="preferenceWrite">Parapëlqime shkrimi</string>
+  <string name="emailRead">Adresë email leximi</string>
+  <string name="challengeRead">Të lexojë sfida që vijnë</string>
+  <string name="challengeWrite">Të dërgojë, pranojë dhe hedhë poshtë sfida</string>
+  <string name="challengeBulk">Të krijojë disa lojëra njëherësh për lojtarë të tjerë</string>
+  <string name="studyRead">Të lexojë ushtrime dhe transmetime private</string>
+  <string name="studyWrite">Të krijojë, përditësojë, fshijë ushtrime dhe transmetime</string>
+  <string name="tournamentWrite">Të krijojë, përditësojë dhe marrë pjesë në turne</string>
+  <string name="teamRead">Të lexojë informacion privat ekipi</string>
+  <string name="teamWrite">Të marrë pjesë apo të braktisë ekipe</string>
+  <string name="teamLead">Të administrojë ekipe që drejtoni: të dërgojë mesazhe private, të përzërë anëtarë</string>
+  <string name="followRead">Të lexojë lojtarë të ndjekur</string>
+  <string name="followWrite">Të ndjekë dhe të heqë nga ndjekja lojtarë të tjerë</string>
+  <string name="msgWrite">Të dërgojë mesazhe private te lojtarë të tjerë</string>
+  <string name="boardPlay">Të luajë lojëra me API fushe</string>
+  <string name="botPlay">Të luajë lojëra me API roboti</string>
+  <string name="engineRead">Të shohë dhe të përdorë platforma tuajat të jashtme</string>
+  <string name="engineWrite">Të krijojë dhe përditësoje platforma të jashtme</string>
+  <string name="webLogin">Të krijojë sesioni të mirëfilltësuar të sajtit (të akordojë hyrje të plotë!)</string>
+  <string name="webMod">Të përdorë mjete moderatori (brenda kufijve të lejuar prej jush)</string>
+</resources>

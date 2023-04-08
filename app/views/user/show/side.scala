@@ -4,34 +4,34 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.user.User
 
-object side {
+object side:
 
   def apply(
       u: User,
       rankMap: lila.rating.UserRankMap,
       active: Option[lila.rating.PerfType]
-  )(implicit ctx: Context) = {
+  )(using ctx: Context) =
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
       perf.nonEmpty option showPerf(perf, perfType)
 
-    def showPerf(perf: lila.rating.Perf, perfType: PerfType) = {
+    def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
       val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
         dataIcon := perfType.iconChar,
-        title := perfType.desc,
+        title    := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
           "active" -> active.has(perfType)
         ),
         href := ctx.pref.showRatings.?? {
-          if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
-          else routes.User.perfStat(u.username, perfType.key).url.some
+          if (isPuzzle) routes.Puzzle.dashboard(30, "home", u.username.some).url
+          else routes.User.perfStat(u.username, perfType.key).url
         },
         span(
           h3(perfType.trans),
@@ -43,14 +43,14 @@ object side {
                 else
                   strong(
                     perf.glicko.intRating,
-                    perf.provisional option "?"
+                    perf.provisional.yes option "?"
                   ),
                 " ",
                 ratingProgress(perf.progress),
                 " "
               ),
               span(
-                if (perfType.key == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
+                if (perfType.key.value == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
                 else trans.nbGames.plural(perf.nb, perf.nb.localize)
               )
             ),
@@ -62,7 +62,6 @@ object side {
         ),
         ctx.pref.showRatings option iconTag("")
       )
-    }
 
     div(cls := "side sub-ratings")(
       (!u.lame || ctx.is(u) || isGranted(_.UserModView)) option frag(
@@ -85,14 +84,13 @@ object side {
           hr,
           showPerf(u.perfs.puzzle, PerfType.Puzzle),
           showStorm(u.perfs.storm, u),
-          showRacer(u.perfs.racer, u),
-          showStreak(u.perfs.streak, u)
+          showRacer(u.perfs.racer),
+          showStreak(u.perfs.streak)
         )
       )
     )
-  }
 
-  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
+  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Lang) =
     a(
       dataIcon := '',
       cls := List(
@@ -112,7 +110,7 @@ object side {
       iconTag("")
     )
 
-  private def showRacer(racer: lila.rating.Perf.Racer, user: User)(implicit lang: Lang) =
+  private def showRacer(racer: lila.rating.Perf.Racer)(using Lang) =
     a(
       dataIcon := '',
       cls := List(
@@ -132,7 +130,7 @@ object side {
       iconTag("")
     )
 
-  private def showStreak(streak: lila.rating.Perf.Streak, user: User)(implicit lang: Lang) =
+  private def showStreak(streak: lila.rating.Perf.Streak)(using Lang) =
     a(
       dataIcon := '',
       cls := List(
@@ -151,4 +149,3 @@ object side {
       ),
       iconTag("")
     )
-}

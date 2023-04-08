@@ -62,6 +62,8 @@
   <string name="studyPgn">PGN de l’estudi</string>
   <string name="downloadAllGames">Descarrega tots els jocs</string>
   <string name="chapterPgn">PGN del capítol</string>
+  <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyChapterPgnDescription">Copia el capítol PGN al porta-retalls.</string>
   <string name="downloadGame">Descarrega partida</string>
   <string name="studyUrl">URL de l’estudi</string>
   <string name="currentChapterUrl">URL del capítol actual</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">Estudi no trobat</string>
   <string name="editChapter">Editar capítol</string>
   <string name="newChapter">Nou capítol</string>
+  <string name="importFromChapterX">Importar de %s</string>
   <string name="orientation">Orientaciò</string>
   <string name="analysisMode">Mode d\'anàlisi</string>
   <string name="pinnedChapterComment">Comentari del capítol fixat</string>

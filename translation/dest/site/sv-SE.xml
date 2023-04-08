@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Vit</string>
   <string name="black">Svart</string>
+  <string name="asWhite">som vit</string>
+  <string name="asBlack">som svart</string>
   <string name="randomColor">Slumpvis färg</string>
   <string name="createAGame">Skapa ett parti</string>
   <string name="whiteIsVictorious">Vit har vunnit</string>
@@ -57,6 +59,8 @@
   <string name="depthX">Djup %s</string>
   <string name="usingServerAnalysis">Använder serveranalys</string>
   <string name="loadingEngine">Laddar schackmotor...</string>
+  <string name="calculatingMoves">Beräknar drag...</string>
+  <string name="engineFailed">Fel vid laddning av schackmotor</string>
   <string name="cloudAnalysis">Molnanalys</string>
   <string name="goDeeper">Sök djupare</string>
   <string name="showThreat">Visa hot</string>
@@ -90,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" med avrundning, baserat på antalet halvdrag till nästa slag eller bondedrag</string>
   <string name="noGameFound">Inget parti hittades</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
+  <string name="openings">Öppningar</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="openingEndgameExplorer">Öppning-/slutspelsutforskare</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
@@ -153,6 +158,7 @@
   <string name="viewInFullSize">Visa i full storlek</string>
   <string name="logOut">Logga ut</string>
   <string name="signIn">Logga in</string>
+  <string name="rememberMe">Håll mig inloggad</string>
   <string name="youNeedAnAccountToDoThat">Du behöver ett konto för att göra detta</string>
   <string name="signUp">Registrera dig</string>
   <string name="computersAreNotAllowedToPlay">Datorer och datorassisterade spelare tillåts inte spela. Vänligen, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar. Notera även att skapande av flera konton avrådes och skapande av överdrivet många konton leder till avstängning.</string>
@@ -181,6 +187,10 @@
     <item quantity="one">%s timme</item>
     <item quantity="other">%s timmar</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="other">%s minuter</item>
+  </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistik</string>
@@ -189,12 +199,39 @@
   <string name="changeUsername">Byt användarnamn</string>
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
+  <string name="signupUsernameHint">Se till att välja ett familjevänligt användarnamn. Du kan inte ändra det senare och alla konton med olämpliga användarnamn kommer att stängas!</string>
+  <string name="signupEmailHint">Vi kommer endast att använda den för att återställa lösenordet.</string>
   <string name="password">Lösenord</string>
   <string name="changePassword">Byt lösenord</string>
   <string name="changeEmail">Ändra e-postadress</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenordet?</string>
+  <string name="error.weakPassword">Detta lösenord är extremt vanligt, och alltför lätt att gissa.</string>
+  <string name="error.namePassword">Använd inte ditt användarnamn som lösenord.</string>
+  <string name="blankedPassword">Du har använt samma lösenord på en annan hemsida, och den hemsidan har blivit hackad. För att säkra ditt Lichesskonto måste du välja ett nytt lösenord. Tack för din förståelse.</string>
+  <string name="youAreLeavingLichess">Du lämnar Lichess</string>
+  <string name="neverTypeYourPassword">Skriv aldrig ditt Lichess-lösenord på en annan webbplats!</string>
+  <string name="proceedToX">Gå vidare till %s</string>
+  <string name="passwordSuggestion">Ange inte ett lösenord som föreslagits av någon annan. De kommer att använda det för att stjäla ditt konto.</string>
+  <string name="emailSuggestion">Ange inte en e-postadress som föreslagits av någon annan. De kommer att använda den för att stjäla ditt konto.</string>
+  <string name="emailConfirmHelp">Hjälp med e-postbekräftelse</string>
+  <string name="emailConfirmNotReceived">Har du inte fått din e-postbekräftelse efter att du registrerade dig?</string>
+  <string name="whatSignupUsername">Vilket användarnamn använde du för att registrera dig?</string>
+  <string name="usernameNotFound">Vi kunde inte hitta någon användare med namnet: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Du kan använda detta användarnamn för att skapa ett nytt konto</string>
+  <string name="emailSent">Vi har skickat ett mejl till %s.</string>
+  <string name="emailCanTakeSomeTime">Det kan ta en stund för det att komma.</string>
+  <string name="refreshInboxAfterFiveMinutes">Vänta 5 minuter och uppdatera din inkorg.</string>
+  <string name="checkSpamFolder">Kontrollera även din skräppost, det kan hamna där. I så fall, markera det som ej skräppost.</string>
+  <string name="emailForSignupHelp">Om allt annat misslyckas, skicka oss denna mejl:</string>
+  <string name="copyTextToEmail">Kopiera och klistra in den ovanstående texten och skicka den till %s</string>
+  <string name="waitForSignupHelp">Vi återkopplar snart och hjälper dig slutföra din registrering.</string>
+  <string name="accountConfirmed">Användaren %s är bekräftad.</string>
+  <string name="accountCanLogin">Du kan nu logga in som %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Du behöver inte en e-postbekräftelse.</string>
+  <string name="accountClosed">Kontot %s är stängt.</string>
+  <string name="accountRegisteredWithoutEmail">Kontot %s registrerades utan e-post.</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -225,7 +262,7 @@
   <string name="decline">Avböj</string>
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
-  <string name="finished">Avslutade</string>
+  <string name="finished">Slut</string>
   <string name="finishesX">slutar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
@@ -334,6 +371,7 @@
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="xJoinedTeamY">%1$s gick med i lag %2$s</string>
   <string name="xCreatedTeamY">%1$s skapade lag %2$s</string>
+  <string name="startedStreaming">började strömma</string>
   <string name="xStartedStreaming">%s började sända video</string>
   <string name="averageElo">Medelrating</string>
   <string name="location">Plats</string>
@@ -342,8 +380,11 @@
   <string name="apply">Använd</string>
   <string name="save">Spara</string>
   <string name="leaderboard">Topplista</string>
+  <string name="screenshotCurrentPosition">Ta en skärmdump på den aktuella positionen</string>
+  <string name="gameAsGIF">Spara som GIF</string>
   <string name="pasteTheFenStringHere">Klistra in FEN-koden här</string>
   <string name="pasteThePgnStringHere">Klistra in PGN-koden här</string>
+  <string name="orUploadPgnFile">Eller ladda upp en PGN-fil</string>
   <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="toStudy">Studera</string>
@@ -386,7 +427,7 @@
   </plurals>
   <string name="more">Visa mer</string>
   <string name="memberSince">Medlem sedan</string>
-  <string name="lastSeenActive">Aktiv %s</string>
+  <string name="lastSeenActive">Senast aktiv %s</string>
   <string name="player">Spelare</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
@@ -419,6 +460,8 @@
   <string name="tournamentIsStarting">Turneringen startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
+  <string name="pause">Pausa</string>
+  <string name="resume">Fortsätt</string>
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinstfrekvens</string>
   <string name="berserkRate">Berserkfrekvens</string>
@@ -451,12 +494,21 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagga</string>
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
+  <string name="oneUrlPerLine">En URL per rad.</string>
   <string name="inlineNotation">Visa notation</string>
+  <string name="savingMoves">Temporär lagring av drag. 
+Vi lagrar alltid dina drag i webbläsarens cache. Överväg att skapa en studie, för trygg förvaring och möjlighet att dela.
+
+För information, Lichess studier är en funktion som gör det möjligt för spelare att enkelt spara och spela igenom partier:
+https://lichess. org/study</string>
+  <string name="savingMovesHelp">Vi lagrar alltid dina variationer i din webbläsares cache.</string>
+  <string name="makeAStudy">För förvaring och delning, överväg att göra en studie.</string>
+  <string name="clearSavedMoves">Rensa schack drag</string>
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
   <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activePlayers">Mest aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
-  <string name="success">Rätt</string>
+  <string name="success">Slutfört</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spelas</item>
     <item quantity="other">%s partier spelas</item>
@@ -494,10 +546,13 @@
   <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
+  <string name="importedByX">Importerad av %s</string>
   <string name="thisTopicIsNowClosed">Det här ämnet är nu stängt.</string>
   <string name="blog">Blogg</string>
   <string name="notes">Anteckningar</string>
   <string name="typePrivateNotesHere">Skriv privata anteckningar här</string>
+  <string name="writeAPrivateNoteAboutThisUser">Skriv en privat anteckning om den här användaren</string>
+  <string name="noNoteYet">Ingen anteckning ännu</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
   <string name="incorrectPassword">Felaktigt lösenord</string>
   <string name="invalidAuthenticationCode">Ogiltig bekräftelsekod</string>
@@ -554,6 +609,7 @@
   <string name="community">Gemenskap</string>
   <string name="tools">Verktyg</string>
   <string name="increment">Tidstillägg</string>
+  <string name="error.unknown">Ogiltigt värde</string>
   <string name="error.required">Detta fält är obligatoriskt</string>
   <string name="error.email">Den här e-postadressen är ogiltig</string>
   <string name="error.email_acceptable">Oacceptabel e-postadress. Var vänlig dubbelkolla den och försök igen.</string>
@@ -564,6 +620,7 @@
   <string name="error.min">Måste vara minst %s</string>
   <string name="error.max">Måste vara högst %s</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
+  <string name="ifRegistered">Om registrerad</string>
   <string name="onlyExistingConversations">Endast befintliga konversationer</string>
   <string name="onlyFriends">Bara vänner</string>
   <string name="menu">Meny</string>
@@ -586,7 +643,7 @@
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en gratis (%2$s), oberoende och reklamfri schackserver med öppen källkod.</string>
   <string name="really">på riktigt</string>
-  <string name="contribute">Hjälp till</string>
+  <string name="contribute">Bidra</string>
   <string name="termsOfService">Användarvillkor</string>
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
@@ -612,6 +669,7 @@
   <string name="tournamentFAQ">Turnering: Vanliga frågor</string>
   <string name="timeBeforeTournamentStarts">Tid tills turneringen börjar</string>
   <string name="averageCentipawnLoss">Genomsnittligt förlorad hundradelsbonde</string>
+  <string name="accuracy">Precision</string>
   <string name="keyboardShortcuts">Snabbkommandon</string>
   <string name="keyMoveBackwardOrForward">bakåtdrag/framåtdrag</string>
   <string name="keyGoToStartOrEnd">gå till början/slut</string>
@@ -660,6 +718,7 @@
   <string name="kidMode">Barnsäkert läge</string>
   <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ditt konto hanteras. Fråga din schacklärare om att ta bort barnläget.</string>
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>
@@ -694,6 +753,7 @@
   <string name="light">Ljus</string>
   <string name="dark">Mörk</string>
   <string name="transparent">Genomskinlig</string>
+  <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">Bakgrundsbild URL:</string>
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>
@@ -722,6 +782,7 @@
   <string name="bestWasX">Bästa draget var %s</string>
   <string name="youBrowsedAway">Du scrollade iväg</string>
   <string name="resumePractice">Återuppta övning</string>
+  <string name="drawByFiftyMoves">Spelet är remi på grund av femtio drags regeln.</string>
   <string name="theGameIsADraw">Remiparti.</string>
   <string name="computerThinking">Datorn tänker...</string>
   <string name="seeBestMove">Visa det bästa draget</string>
@@ -785,6 +846,7 @@
   <string name="currentMatchScore">Nuvarande matchpoäng</string>
   <string name="agreementAssistance">Jag lovar att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller annan person).</string>
   <string name="agreementNice">Jag lovar att jag alltid kommer att vara respektfull mot andra spelare.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Jag godkänner att jag inte kommer att skapa flera konton (förutom av de skäl som anges i %s).</string>
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
@@ -882,4 +944,10 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Ge upp partiet</string>
   <string name="youCantStartNewGame">Du kan inte starta ett nytt parti förräm detta är klart.</string>
+  <string name="since">Sedan</string>
+  <string name="until">Tills</string>
+  <string name="lichessDbExplanation">Rankade spel från alla Lichess spelare</string>
+  <string name="switchSides">Växla sida</string>
+  <string name="closingAccountWithdrawAppeal">Att avsluta ditt konto kommer att dra tillbaka ditt överklagande</string>
+  <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
 </resources>

@@ -14,4 +14,6 @@
   <string name="twoFactorDisable">Du skal bruge adgangskode og en bekræftelseskode fra din godkendelsesapp for at deaktivere totrinsbekræftelse.
 Hvis du har mistet adgangen til dine bekræftelseskoder, kan du også lave en adgangskode-nulstilling via e-mail.</string>
   <string name="openTwoFactorApp">Åbn tofaktorgodkendelses-appen på din enhed for at se din godkendelseskode og bekræfte din identitet.</string>
+  <string name="setupReminder">Aktiver venligst totrinsbekræftelse for at sikre din konto på https://lichess.org/account/twofactor.
+Du har modtaget denne besked, fordi din konto har særlige ansvarsområder såsom holdleder, træner, lærer eller streamer</string>
 </resources>

@@ -1,4 +1,5 @@
 import modal from 'common/modal';
+import { loadDasher } from 'common/dasher';
 
 export function app(input: HTMLInputElement) {
   lichess.userComplete().then(uac => {
@@ -34,15 +35,7 @@ function command(q: string) {
   if (is('tv follow') && parts[1]) location.href = '/@/' + parts[1] + '/tv';
   else if (is('tv')) location.href = '/tv';
   else if (is('play challenge match') && parts[1]) location.href = '/?user=' + parts[1] + '#friend';
-  else if (is('light dark transp'))
-    lichess
-      .loadModule('dasher')
-      .then(() =>
-        window.LichessDasher(document.createElement('div'), {
-          playing: $('body').hasClass('playing'),
-        })
-      )
-      .then(dasher => dasher.subs.background.set(exec));
+  else if (is('light dark transp system')) loadDasher().then(dasher => dasher.subs.background.set(exec));
   else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
   else if (is('help')) help();
   else alert(`Unknown command: "${q}". Type /help for the list of commands`);
@@ -66,7 +59,7 @@ function help() {
       '<div><h3>Commands</h3>' +
         commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
         commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
-        commandHelp('/light /dark /transp', '', 'Change the background theme') +
+        commandHelp('/light /dark /transp /system', '', 'Change the background theme') +
         commandHelp('/stream', '<user>', 'Watch someone stream') +
         '<h3>Global hotkeys</h3>' +
         commandHelp('s', '', 'Search for a user') +
@@ -78,3 +71,5 @@ function help() {
     class: 'clinput-help',
   });
 }
+
+(window as any).LichessCli = { app }; // esbuild

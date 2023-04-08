@@ -24,7 +24,7 @@
 
     .history {
       td {
-        padding: 0.3rem 0.5rem 0.3rem 0;
+        @include padding-direction(0.3rem, 0.5rem, 0.3rem, 0);
       }
 
       table {
@@ -48,7 +48,7 @@
 
     .infos > * {
       display: inline-block;
-      margin-right: 5px;
+      margin-#{$end-direction}: 5px;
     }
 
     .timeout a {
@@ -60,7 +60,7 @@
 
       @include transition;
 
-      margin-left: -10px;
+      margin-#{$start-direction}: -10px;
     }
 
     .timeout a::before {
@@ -69,12 +69,12 @@
     }
 
     .timeout a:hover {
-      margin-left: 0;
+      margin-#{$start-direction}: 0;
     }
 
     .timeout a:hover::before {
       opacity: 1;
-      margin-right: 2px;
+      margin-#{$end-direction}: 2px;
     }
 
     .shadowban {

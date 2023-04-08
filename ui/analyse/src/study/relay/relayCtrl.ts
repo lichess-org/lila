@@ -1,14 +1,16 @@
 import { RelayData, LogEvent, RelayTourShow, RelaySync, RelayRound } from './interfaces';
-import { StudyChapter, StudyChapterRelay } from '../interfaces';
+import { RelayTab, StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
+import { prop } from 'common';
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
   clockInterval?: number;
   tourShow: RelayTourShow;
+  tab = prop<RelayTab>('overview');
 
   constructor(
     public id: string,
@@ -81,7 +83,10 @@ export default class RelayCtrl {
         this.redraw();
       }, 4500);
       this.redraw();
-      if (event.error) console.warn(`relay synchronisation error: ${event.error}`);
+      if (event.error) {
+        lichess.sound.play('wrapAround');
+        console.warn(`relay synchronisation error: ${event.error}`);
+      }
     },
   };
 

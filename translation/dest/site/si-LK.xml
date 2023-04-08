@@ -17,6 +17,8 @@
   <string name="stalemate">ජය පැරදුමෙන් තොර</string>
   <string name="white">සුදු</string>
   <string name="black">කළු</string>
+  <string name="asWhite">සුදු ‌‌ලෙස</string>
+  <string name="asBlack">කලු ලෙස</string>
   <string name="randomColor">අහඹු පැත්ත</string>
   <string name="createAGame">ක්‍රීඩාවක් නිර්මාණය කරන්න</string>
   <string name="whiteIsVictorious">සුදු ජයග්‍රාහී වේ</string>
@@ -57,6 +59,8 @@
   <string name="depthX">ගැඹුර %s</string>
   <string name="usingServerAnalysis">සර්වර් විශ්ලේෂණය භාවිතා කිරීම</string>
   <string name="loadingEngine">එන්ජිම පූරණය වේ ...</string>
+  <string name="calculatingMoves">ගණනය වෙමින්...</string>
+  <string name="engineFailed">lichess</string>
   <string name="cloudAnalysis">වලාකුළු විශ්ලේෂණය</string>
   <string name="goDeeper">ගැඹුරට යන්න</string>
   <string name="showThreat">තර්ජනය පෙන්වන්න</string>
@@ -90,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">මනාප ලැයිස්තුවේ තවත් සෙල්ලම් තිබිය හැක?</string>
+  <string name="openings">චෙස් විවෘත කිරීම්</string>
   <string name="openingExplorer">පටන්ගැනීම් ගවේෂකය</string>
   <string name="openingEndgameExplorer">විවෘත කිරීම/අවසන් ක්‍රීඩා ගවේෂක</string>
   <string name="xOpeningExplorer">%sපටන්ගැනීම් ගවේෂකය</string>
@@ -145,6 +150,7 @@
   <string name="viewInFullSize">විශාල කර පෙන්වන්න</string>
   <string name="logOut">වරන්න</string>
   <string name="signIn">පිවිසෙන්න</string>
+  <string name="rememberMe">මාව මගේ ගිණුමේ තබා ගන්න</string>
   <string name="youNeedAnAccountToDoThat">එය සිදු කිරීම සඳහා ඔබ පිවිසිය යුතුය</string>
   <string name="signUp">ලියාපදිංචි වන්න</string>
   <string name="computersAreNotAllowedToPlay">පරිගණක සහ පරිගණක ආධාරක ක්‍රීඩකයින්ට ක්‍රීඩා කිරීමට අවසර නැත. කරුණාකර චෙස් එන්ජින්, දත්ත සමුදායන් හෝ වෙනත් ක්‍රීඩකයන්ගෙන් සහය ලබා නොගන්න. බහුවිධ ගිණුම් සෑදීම දැඩි ලෙස තහනම් කර ඇති අතර අධික එය සදාකාලික තහනම් කිරීමක් හේතු වනු ඇති බව සලකන්න.</string>
@@ -181,12 +187,18 @@
   <string name="changeUsername">පරිශීලක නාමය වෙනස් කරන්න</string>
   <string name="changeUsernameNotSame">වෙනස් විය හැක්කේ අක්ෂරවල සිද්ධිය පමණි. උදාහරණයක් ලෙස \"ජොන්ඩෝ\" සිට \"ජෝන්ඩෝ\".</string>
   <string name="changeUsernameDescription">ඔබගේ පරිශීලක නාමය වෙනස් කරන්න. මෙය කළ හැක්කේ එක් වරක් පමණක් වන අතර ඔබේ පරිශීලක නාමයේ ඇති අකුරු වෙනස් කිරීමට ඔබට අවසර ඇත.</string>
+  <string name="signupUsernameHint">lichess</string>
+  <string name="signupEmailHint">sinhala</string>
   <string name="password">මුරපදය</string>
   <string name="changePassword">මුරපදය වෙනස් කරන්න</string>
   <string name="changeEmail">විද්‍යුත් තැපෑල වෙනස් කරන්න</string>
   <string name="email">ඊතැපෑල</string>
   <string name="passwordReset">මුරපදය වෙනස් කරන්න</string>
   <string name="forgotPassword">මුරපදය මතක නැහැ?</string>
+  <string name="error.weakPassword">sinhala</string>
+  <string name="error.namePassword">sinhala</string>
+  <string name="blankedPassword">sinhala</string>
+  <string name="youAreLeavingLichess">sinhala</string>
   <string name="rank">ශ්‍රේණිය</string>
   <string name="rankX">ශ්‍රේණිය %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -233,6 +245,8 @@
   <string name="inbox">එන ලිපි</string>
   <string name="chatRoom">කතාබස් පුවරුව</string>
   <string name="loginToChat">කතාබස් කිරීමට පුරනය වන්න</string>
+  <string name="youHaveBeenTimedOut">ඔබ චෙස් ගේම ගසනවා
+You are playing chess.</string>
   <string name="spectatorRoom">ප්‍රේක්ෂක කාමරය</string>
   <string name="composeMessage">පණිවිඩය රචනා කරන්න</string>
   <string name="subject">විෂයය</string>

@@ -3,14 +3,14 @@
 
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  #{$start-direction}: 0;
+  #{$end-direction}: 0;
   background: $c-bg-box;
   border-top: $border;
   padding: 0.7rem 2vw;
   z-index: z('tour-reminder');
 
   button {
-    margin-left: 1em;
+    margin-#{$start-direction}: 1em;
   }
 }

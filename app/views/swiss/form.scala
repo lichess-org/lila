@@ -4,15 +4,14 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.hub.LightTeam.TeamID
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ Swiss, SwissCondition, SwissForm }
 import lila.tournament.TournamentForm
 
-object form {
+object form:
 
-  def create(form: Form[_], teamId: TeamID)(implicit ctx: Context) =
+  def create(form: Form[?], teamId: TeamId)(using Context) =
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
@@ -21,22 +20,24 @@ object form {
       val fields = new SwissFields(form, none)
       main(cls := "page-small")(
         div(cls := "swiss__form tour__form box box-pad")(
-          h1(trans.swiss.newSwiss()),
+          h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
+            div(cls := "form-group")(
+              a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+                trans.ourEventTips()
+              )
+            ),
             form3.split(fields.name, fields.nbRounds),
-            form3.split(fields.rated, fields.variant),
+            form3.split(fields.description, fields.rated),
             fields.clock,
-            form3.split(fields.description, fields.position),
-            form3.split(
-              fields.roundInterval,
-              fields.startsAt
+            form3.split(fields.roundInterval, fields.startsAt),
+            advancedSettings(
+              form3.split(fields.variant, fields.position),
+              form3.split(fields.chatFor, fields.entryCode),
+              condition(form),
+              form3.split(fields.playYourGames, fields.allowList),
+              form3.split(fields.forbiddenPairings, fields.manualPairings)
             ),
-            form3.split(
-              fields.chatFor,
-              fields.entryCode
-            ),
-            condition(form, fields, swiss = none),
-            form3.split(fields.forbiddenPairings),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
@@ -47,7 +48,7 @@ object form {
       )
     }
 
-  def edit(swiss: Swiss, form: Form[_])(implicit ctx: Context) =
+  def edit(swiss: Swiss, form: Form[?])(using Context) =
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
@@ -56,29 +57,26 @@ object form {
       val fields = new SwissFields(form, swiss.some)
       main(cls := "page-small")(
         div(cls := "swiss__form box box-pad")(
-          h1("Edit ", swiss.name),
-          postForm(cls := "form3", action := routes.Swiss.update(swiss.id.value))(
+          h1(cls := "box__top")("Edit ", swiss.name),
+          postForm(cls := "form3", action := routes.Swiss.update(swiss.id))(
             form3.split(fields.name, fields.nbRounds),
-            form3.split(fields.rated, fields.variant),
+            form3.split(fields.description, fields.rated),
             fields.clock,
-            form3.split(fields.description, fields.position),
-            form3.split(
-              fields.roundInterval,
-              swiss.isCreated option fields.startsAt
+            form3.split(fields.roundInterval, swiss.isCreated option fields.startsAt),
+            advancedSettings(
+              form3.split(fields.variant, fields.position),
+              form3.split(fields.chatFor, fields.entryCode),
+              condition(form),
+              form3.split(fields.playYourGames, fields.allowList),
+              form3.split(fields.forbiddenPairings, fields.manualPairings)
             ),
-            form3.split(
-              fields.chatFor,
-              fields.entryCode
-            ),
-            condition(form, fields, swiss = swiss.some),
-            form3.split(fields.forbiddenPairings),
             form3.globalError(form),
             form3.actions(
-              a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
+              a(href := routes.Swiss.show(swiss.id))(trans.cancel()),
               form3.submit(trans.save(), icon = "".some)
             )
           ),
-          postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id.value))(
+          postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
             submitButton(dataIcon := "", cls := "text button button-red confirm")(
               trans.cancelTournament()
             )
@@ -87,7 +85,10 @@ object form {
       )
     }
 
-  private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
+  private def advancedSettings(settings: Frag*) =
+    details(summary("Advanced settings"), settings)
+
+  private def condition(form: Form[?])(using ctx: Context) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
@@ -111,9 +112,8 @@ object form {
         )
       )
     )
-}
 
-final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ctx: Context) {
+final private class SwissFields(form: Form[?], swiss: Option[Swiss])(using Context):
 
   private def disabledAfterStart = swiss.exists(!_.isCreated)
 
@@ -145,7 +145,8 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       form3.checkbox(
         form("rated"),
         trans.rated(),
-        help = trans.ratedFormHelp().some
+        help = trans.ratedFormHelp().some,
+        half = true
       ),
       st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
     )
@@ -222,4 +223,44 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       help = trans.swiss.forbiddenPairingsHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
-}
+
+  def manualPairings =
+    form3.group(
+      form("manualPairings"),
+      "Manual pairings in next round",
+      help = frag(
+        "Specify all pairings of the next round manually. One player pair per line. Example:",
+        br,
+        "PlayerA PlayerB",
+        br,
+        "PlayerC PlayerD",
+        br,
+        "To give a bye (1 point) to a player instead of a pairing, add a line like so:",
+        br,
+        "PlayerE 1",
+        br,
+        "Missing players will be considered absent and get zero points.",
+        br,
+        "Leave this field empty to let lichess create pairings automatically."
+      ).some,
+      half = true
+    )(form3.textarea(_)(rows := 4))
+
+  def allowList = form3.group(
+    form("conditions.allowList"),
+    trans.swiss.predefinedUsers(),
+    help = trans.swiss.forbiddedUsers().some,
+    half = true
+  )(form3.textarea(_)(rows := 4))
+
+  def playYourGames = frag(
+    form3.checkbox(
+      form("conditions.playYourGames"),
+      "Must have played their last swiss game",
+      help = frag(
+        "Only let players join if they have played their last swiss game. If they failed to show up in a recent swiss event, they won't be able to enter yours. This results in a better swiss experience for the players who actually show up."
+      ).some,
+      half = true
+    ),
+    form3.hidden(form("conditions.playYourGames"), "false".some) // hack to allow disabling berserk
+  )

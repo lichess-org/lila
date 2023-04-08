@@ -2,13 +2,13 @@ package views.html
 package account
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 import play.api.i18n.Lang
 
-object security {
+object security:
 
   def apply(
       u: lila.user.User,
@@ -16,14 +16,12 @@ object security {
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(implicit
-      ctx: Context
-  ) =
+  )(using Context) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security")(
         div(cls := "box")(
-          h1(trans.security()),
-          standardFlash(cls := "box__pad"),
+          h1(cls := "box__top")(trans.security()),
+          standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
               "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
@@ -52,13 +50,13 @@ object security {
       curSessionId: Option[String],
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(implicit lang: Lang) =
+  )(using Lang) =
     st.table(cls := "slist slist-pad")(
       sessions.map { s =>
         tr(
           td(cls := "icon")(
             span(
-              cls := curSessionId.map { cur => s"is-${if (cur == s.session.id) "gold" else "green"}" },
+              cls      := curSessionId.map { cur => s"is-${if (cur == s.session.id) "gold" else "green"}" },
               dataIcon := (if (s.session.isMobile) "" else "")
             )
           ),
@@ -93,7 +91,7 @@ object security {
               if (client.scopes.nonEmpty)
                 frag(
                   "Third party application with permissions: ",
-                  client.scopes.map(_.name).mkString(", ")
+                  client.scopes.map(_.name.txt()).mkString(", ")
                 )
               else
                 frag("Third party application using only public data.")
@@ -107,7 +105,7 @@ object security {
           ),
           td(
             postForm(action := routes.OAuth.revokeClient)(
-              input(tpe := "hidden", name := "origin", value := client.origin),
+              input(tpe        := "hidden", name             := "origin", value    := client.origin),
               submitButton(cls := "button button-red", title := "Revoke", dataIcon := "")
             )
           )
@@ -124,4 +122,3 @@ object security {
         )
       )
     )
-}

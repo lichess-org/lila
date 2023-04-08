@@ -55,7 +55,7 @@
     font-size: 1.3em;
 
     &.toggle-filter {
-      right: 0;
+      #{$end-direction}: 0;
     }
 
     @include transition;

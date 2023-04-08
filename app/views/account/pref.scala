@@ -2,51 +2,33 @@ package views.html
 package account
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.pref.PrefCateg
 
 import controllers.routes
 
-object pref {
-
-  import trans.preferences._
+object pref:
+  import bits.*
+  import trans.preferences.*
 
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
 
   private def setting(name: Frag, body: Frag) = st.section(h2(name), body)
 
-  private def radios(field: play.api.data.Field, options: Iterable[(Any, String)], prefix: String = "ir") =
-    st.group(cls := "radio")(
-      options.map { v =>
-        val id      = s"${field.id}_${v._1}"
-        val checked = field.value has v._1.toString
-        div(
-          input(
-            st.id := s"$prefix$id",
-            checked option st.checked,
-            tpe := "radio",
-            value := v._1.toString,
-            name := field.name
-          ),
-          label(`for` := s"$prefix$id")(v._2)
-        )
-      }.toList
-    )
-
-  def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(implicit
+  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using
       ctx: Context
   ) =
     account.layout(
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",
       active = categ.slug
     ) {
-      val booleanChoices = Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())
+      val booleanChoices = translatedBooleanIntChoices
       div(cls := "account box box-pad")(
-        h1(bits.categName(categ)),
+        h1(cls := "box__top")(bits.categName(categ)),
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
-          categFieldset(PrefCateg.GameDisplay, categ)(
+          categFieldset(PrefCateg.Display, categ)(
             setting(
               pieceAnimation(),
               radios(form("display.animation"), translatedAnimationChoices)
@@ -86,6 +68,15 @@ object pref {
             setting(
               blindfoldChess(),
               radios(form("display.blindfold"), translatedBlindfoldChoices)
+            ),
+            setting(
+              showPlayerRatings(),
+              frag(
+                radios(form("ratings"), booleanChoices),
+                div(cls := "help text shy", dataIcon := "")(
+                  explainShowPlayerRatings()
+                )
+              )
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(
@@ -144,12 +135,6 @@ object pref {
               castleByMovingTheKingTwoSquaresOrOntoTheRook(),
               radios(form("behavior.rookCastle"), translatedRookCastleChoices)
             ),
-            div(id := "correspondence-email-notif")(
-              setting(
-                correspondenceEmailNotification(),
-                radios(form("behavior.corresEmailNotif"), booleanChoices)
-              )
-            ),
             setting(
               inputMovesWithTheKeyboard(),
               radios(form("behavior.keyboardMove"), booleanChoices)
@@ -167,7 +152,7 @@ object pref {
               radios(form("behavior.scrollMoves"), booleanChoices)
             )
           ),
-          categFieldset(PrefCateg.Site, categ)(
+          categFieldset(PrefCateg.Privacy, categ)(
             setting(
               trans.letOtherPlayersFollowYou(),
               radios(form("follow"), booleanChoices)
@@ -185,25 +170,11 @@ object pref {
               radios(form("studyInvite"), translatedStudyInviteChoices)
             ),
             setting(
-              trans.receiveForumNotifications(),
-              radios(form("mention"), booleanChoices)
-            ),
-            setting(
               trans.shareYourInsightsData(),
               radios(form("insightShare"), translatedInsightShareChoices)
-            ),
-            setting(
-              showPlayerRatings(),
-              frag(
-                radios(form("ratings"), booleanChoices),
-                div(cls := "help text shy", dataIcon := "")(
-                  explainShowPlayerRatings()
-                )
-              )
             )
           ),
           p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())
         )
       )
     }
-}

@@ -1,14 +1,10 @@
 package lila.msg
 
-import org.joda.time.DateTime
-import scala.concurrent.duration._
-
 import lila.common.Bus
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.hub.actorApi.report.AutoFlag
 import lila.hub.actorApi.team.IsLeaderOf
-import lila.hub.actorApi.user.{ KidId, NonKidId }
 import lila.memo.RateLimit
 import lila.security.Granter
 import lila.shutup.Analyser
@@ -22,33 +18,34 @@ final private class MsgSecurity(
     relationApi: lila.relation.RelationApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(using
+    ec: Executor,
+    scheduler: Scheduler
+):
 
-  import BsonHandlers._
-  import MsgSecurity._
+  import BsonHandlers.given
+  import MsgSecurity.*
 
-  private object limitCost {
+  private object limitCost:
     val normal   = 25
     val verified = 5
     val hog      = 1
-    def apply(u: User.Contact) =
+    def apply(u: User.Contact): Int =
       if (u.isApiHog) hog
       else if (u.isVerified) verified
-      else if (u isDaysOld 3) normal
-      else if (u isHoursOld 12) normal * 2
-      else normal * 4
-  }
+      else if (u isDaysOld 30) normal
+      else if (u isDaysOld 7) normal * 2
+      else if (u isDaysOld 3) normal * 3
+      else if (u isHoursOld 12) normal * 4
+      else normal * 5
 
-  private val CreateLimitPerUser = new RateLimit[User.ID](
+  private val CreateLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 24 hour,
     key = "msg_create.user"
   )
 
-  private val ReplyLimitPerUser = new RateLimit[User.ID](
+  private val ReplyLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
     duration = 1 minute,
     key = "msg_reply.user"
@@ -56,21 +53,22 @@ final private class MsgSecurity(
 
   private val dirtSpamDedup = lila.memo.OnceEvery.hashCode[String](1 minute)
 
-  object can {
+  object can:
 
     def post(
         contacts: User.Contacts,
         rawText: String,
         isNew: Boolean,
         unlimited: Boolean = false
-    ): Fu[Verdict] = {
+    ): Fu[Verdict] =
       val text = rawText.trim
       if (text.isEmpty) fuccess(Invalid)
+      else if (contacts.orig.isLichess && !contacts.dest.isLichess) fuccess(Ok)
       else
         may.post(contacts, isNew) flatMap {
           case false => fuccess(Block)
           case _ =>
-            isLimited(contacts, isNew, unlimited) orElse
+            isLimited(contacts, isNew, unlimited, text) orElse
               isFakeTeamMessage(rawText, unlimited) orElse
               isSpam(text) orElse
               isTroll(contacts) orElse
@@ -86,31 +84,41 @@ final private class MsgSecurity(
           case Dirt =>
             if (dirtSpamDedup(text))
               Bus.publish(
-                AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
+                AutoFlag(
+                  contacts.orig.id,
+                  s"msg/${contacts.orig.id}/${contacts.dest.id}",
+                  text,
+                  Analyser.isCritical(text)
+                ),
                 "autoFlag"
               )
 
           case Spam =>
-            if (dirtSpamDedup(text))
+            if (dirtSpamDedup(text) && !contacts.orig.isTroll)
               logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
 
           case _ =>
         }
-    }
 
-    private def isLimited(contacts: User.Contacts, isNew: Boolean, unlimited: Boolean): Fu[Option[Verdict]] =
+    private def isLimited(
+        contacts: User.Contacts,
+        isNew: Boolean,
+        unlimited: Boolean,
+        text: String
+    ): Fu[Option[Verdict]] =
+      def limitWith(limiter: RateLimit[UserId]) =
+        val cost = limitCost(contacts.orig) * {
+          if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
+        }
+        limiter(contacts.orig.id, cost)(none)(Limit.some)
       if (unlimited) fuccess(none)
       else if (isNew) {
         isLeaderOf(contacts) >>| isTeacherOf(contacts)
       } map {
         case true => none
-        case _ =>
-          CreateLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
+        case _    => limitWith(CreateLimitPerUser)
       }
-      else
-        fuccess {
-          ReplyLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
-        }
+      else fuccess(limitWith(ReplyLimitPerUser))
 
     private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
       (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) ??
@@ -124,19 +132,16 @@ final private class MsgSecurity(
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) ??
-        !userRepo.isCreatedSince(user.id, DateTime.now.minusDays(30)) dmap { _ option Dirt }
-  }
+        !userRepo.isCreatedSince(user.id, nowDate.minusDays(30)) dmap { _ option Dirt }
 
-  object may {
+  object may:
 
-    def post(orig: User.ID, dest: User.ID, isNew: Boolean): Fu[Boolean] =
-      userRepo.contacts(orig, dest) flatMap {
-        _ ?? { post(_, isNew) }
-      }
+    def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
+      userRepo.contacts(orig, dest) flatMapz { post(_, isNew) }
 
     def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
-      fuccess(contacts.dest.id != User.lichessId) >>& {
-        fuccess(Granter.byRoles(_.ModMessage)(~contacts.orig.roles)) >>| {
+      fuccess(!contacts.dest.isLichess) >>& {
+        fuccess(Granter.byRoles(_.PublicMod)(~contacts.orig.roles)) >>| {
           !relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id) >>&
             (create(contacts) >>| reply(contacts)) >>&
             chatPanic.allowed(contacts.orig.id, userRepo.byId) >>&
@@ -162,27 +167,25 @@ final private class MsgSecurity(
       )
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
-      if (!isNew || !contacts.hasKid) fuTrue
+      import contacts.*
+      if (!isNew || !hasKid) fuTrue
       else
-        (contacts.orig.clasId, contacts.dest.clasId) match {
-          case (a: KidId, b: KidId)    => Bus.ask[Boolean]("clas") { AreKidsInSameClass(a, b, _) }
-          case (t: NonKidId, s: KidId) => isTeacherOf(t.id, s.id)
-          case (s: KidId, t: NonKidId) => isTeacherOf(t.id, s.id)
-          case _                       => fuFalse
-        }
-  }
+        (orig.isKid, dest.isKid) match
+          case (true, true)  => Bus.ask[Boolean]("clas") { AreKidsInSameClass(orig.id, dest.id, _) }
+          case (false, true) => isTeacherOf(orig.id, dest.id)
+          case (true, false) => isTeacherOf(dest.id, orig.id)
+          case _             => fuFalse
 
   private def isTeacherOf(contacts: User.Contacts): Fu[Boolean] =
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
-  private def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
+  private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
     Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: User.Contacts) =
     Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }
-}
 
-private object MsgSecurity {
+private object MsgSecurity:
 
   sealed trait Verdict
   sealed trait Reject                           extends Verdict
@@ -198,4 +201,3 @@ private object MsgSecurity {
   case object Limit           extends Reject
   case object Invalid         extends Reject
   case object BotUser         extends Reject
-}

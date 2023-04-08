@@ -5,17 +5,14 @@ package lila.db
  * Not thread safe: it can compute the future more than once every `expireAfterMillis`.
  * It's a deliberate design choice to improve performance
  * in the cases where accidental duplicate calls don't matter. */
-final private class SingleFutureCache[A](compute: () => Fu[A], expireAfterMillis: Int) {
+final private class SingleFutureCache[A](compute: () => Fu[A], expireAfterMillis: Int):
 
   private var current: Fu[A]  = fufail("SingleFutureCache.empty")
   private var expiresAt: Long = 0
 
-  def get: Fu[A] = {
+  def get: Fu[A] =
     val now = nowMillis
-    if (now > expiresAt) {
+    if (now > expiresAt)
       expiresAt = now + expireAfterMillis
       current = compute()
-    }
     current
-  }
-}

@@ -3,22 +3,22 @@ package views.html.search
 import play.api.data.Form
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
 import controllers.routes
 
-object user {
+object user:
 
-  import trans.search._
+  import trans.search.*
 
-  def apply(u: User, form: Form[_])(implicit ctx: Context) = {
+  def apply(u: User, form: Form[?])(implicit ctx: Context) =
     val commons = bits of form
-    import commons._
+    import commons.*
     st.form(
       noFollow,
-      cls := "search__form",
+      cls    := "search__form",
       action := routes.User.games(u.username, "search"),
       method := "GET"
     )(dataReqs)(
@@ -39,7 +39,7 @@ object user {
         tr(cls := "opponentName")(
           th(label(`for` := form3.id(form("players")("b")))(opponentName())),
           td(cls := "usernames")(
-            st.input(tpe := "hidden", value := u.id, name := "players.a"),
+            st.input(tpe                          := "hidden", value := u.id, name := "players.a"),
             form3.input(form("players")("b"))(tpe := "text")
           )
         ),
@@ -56,5 +56,3 @@ object user {
         )
       )
     )
-  }
-}

@@ -13,12 +13,15 @@
   <string name="specialMoves">Mutări speciale</string>
   <string name="didYouLikeThisPuzzle">Ți-a plăcut această problemă?</string>
   <string name="voteToLoadNextOne">Votează pentru a-l încărca pe următorul!</string>
+  <string name="upVote">Îmi place</string>
+  <string name="downVote">Vot negativ</string>
   <string name="yourPuzzleRatingWillNotChange">Evaluarea ta la puzzle-uri nu se va schimba. Iți amintim că puzzle-urile nu sunt o competiție. Evaluarea ajută la selectarea celor mai bune puzzle-uri care corespund nivelului tău.</string>
   <string name="findTheBestMoveForWhite">Găsiți cea mai bună mutare pentru alb.</string>
   <string name="findTheBestMoveForBlack">Găsiți cea mai bună mutare pentru negru.</string>
   <string name="toGetPersonalizedPuzzles">Pentru a primi probleme de șah personalizate:</string>
   <string name="puzzleId">Problema de șah %s</string>
   <string name="puzzleOfTheDay">Problema zilei</string>
+  <string name="dailyPuzzle">Puzzle Zilnic</string>
   <string name="clickToSolve">Dă click pentru a rezolva</string>
   <string name="goodMove">Mutare bună</string>
   <string name="bestMove">Cea mai bună mutare!</string>
@@ -54,6 +57,7 @@
   </plurals>
   <string name="example">Exemplu</string>
   <string name="addAnotherTheme">Adăugați o altă temă</string>
+  <string name="nextPuzzle">Puzzle-ul următor</string>
   <string name="jumpToNextPuzzleImmediately">Sari imediat la problema următoare</string>
   <string name="puzzleDashboard">Panoul de control pentru probleme de șah</string>
   <string name="improvementAreas">Zone de îmbunătățit</string>

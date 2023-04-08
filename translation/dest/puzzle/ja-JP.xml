@@ -13,18 +13,26 @@
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
   <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
+  <string name="upVote">上げ投票</string>
+  <string name="downVote">下げ投票</string>
   <string name="yourPuzzleRatingWillNotChange">あなたのレーティングは動きません。タクティクス問題は競技ではありません。レーティングは今のあなたのスキルに見合った問題を選ぶのに役立ちます。</string>
   <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
   <string name="toGetPersonalizedPuzzles">あなたに合わせた問題を解くには:</string>
   <string name="puzzleId">問題番号 %s</string>
   <string name="puzzleOfTheDay">本日の問題</string>
+  <string name="dailyPuzzle">本日の問題</string>
   <string name="clickToSolve">問題を解く</string>
   <string name="goodMove">好手</string>
   <string name="bestMove">最善手！</string>
   <string name="keepGoing">続ける…</string>
   <string name="puzzleSuccess">成功！</string>
   <string name="puzzleComplete">問題終了！</string>
+  <string name="byOpenings">オープニング別</string>
+  <string name="puzzlesByOpenings">オープニング別の問題</string>
+  <string name="openingsYouPlayedTheMost">レート戦でもっともよく使ったオープニング</string>
+  <string name="useFindInPage">ブラウザのページ内検索（Ctrl+F）を使えばお好きなオープニングが探せます。</string>
+  <string name="useCtrlF">Ctrl+F を使えばお好きなオープニングが探せます。</string>
   <string name="notTheMove">その手は違います！</string>
   <string name="trySomethingElse">別の手をどうぞ。</string>
   <string name="ratingX">レーティング: %s</string>
@@ -48,6 +56,7 @@
   </plurals>
   <string name="example">例</string>
   <string name="addAnotherTheme">別のテーマを追加</string>
+  <string name="nextPuzzle">次の問題</string>
   <string name="jumpToNextPuzzleImmediately">解いたらすぐ次の問題を読み込む</string>
   <string name="puzzleDashboard">問題成績データ</string>
   <string name="improvementAreas">改善ポイント</string>

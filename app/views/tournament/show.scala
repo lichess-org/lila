@@ -4,46 +4,45 @@ package tournament
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 import lila.tournament.Tournament
-import lila.user.User
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(
       tour: Tournament,
       verdicts: lila.tournament.Condition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
-      streamers: List[User.ID],
-      shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
-  )(implicit ctx: Context) =
+      streamers: List[UserId],
+      shieldOwner: Option[UserId]
+  )(using ctx: Context) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(
         jsModule("tournament"),
         embedJsUnsafeLoadThen(s"""LichessTournament(${safeJsonValue(
-          Json.obj(
-            "data"   -> data,
-            "i18n"   -> bits.jsI18n,
-            "userId" -> ctx.userId,
-            "chat" -> chatOption.map { c =>
-              chat.json(
-                c.chat,
-                name = trans.chatRoom.txt(),
-                timeout = c.timeout,
-                public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
-                localMod = ctx.userId has tour.createdBy
-              )
-            },
-            "showRatings" -> ctx.pref.showRatings
-          )
-        )})""")
+            Json.obj(
+              "data"   -> data,
+              "i18n"   -> bits.jsI18n(tour),
+              "userId" -> ctx.userId,
+              "chat" -> chatOption.map { c =>
+                chat.json(
+                  c.chat,
+                  name = trans.chatRoom.txt(),
+                  timeout = c.timeout,
+                  public = true,
+                  resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
+                  localMod = ctx.userId has tour.createdBy
+                )
+              },
+              "showRatings" -> ctx.pref.showRatings
+            )
+          )})""")
       ),
       moreCss = cssTag {
         if (tour.isTeamBattle) "tournament.show.team-battle"
@@ -65,9 +64,9 @@ object show {
       csp = defaultCsp.withLilaHttp.some
     )(
       main(cls := s"tour${tour.schedule
-        .?? { sched =>
-          s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
-        }}")(
+          .?? { sched =>
+            s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
+          }}")(
         st.aside(cls := "tour__side")(
           tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)
         ),
@@ -77,4 +76,3 @@ object show {
         )
       )
     )
-}

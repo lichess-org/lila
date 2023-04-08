@@ -1,15 +1,12 @@
 package lila.user
 
-import akka.actor._
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
 
-import lila.common.config._
-import lila.common.LightUser
+import lila.common.config.*
 import lila.db.dsl.Coll
 
 private class UserConfig(
@@ -22,7 +19,12 @@ private class UserConfig(
     @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
 )
 
+object A:
+  object B:
+    val foo = "bar"
+
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -31,32 +33,36 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem,
+)(using
+    ec: Executor,
+    scheduler: Scheduler,
     ws: StandaloneWSClient
-) {
+):
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
-  val repo = new UserRepo(db(config.collectionUser))
+  val repo = UserRepo(db(config.collectionUser))
 
   val lightUserApi: LightUserApi = wire[LightUserApi]
-  val lightUser                  = lightUserApi.async
-  val lightUserSync              = lightUserApi.sync
-  val isBotSync                  = new LightUser.IsBotSync(id => lightUserApi.sync(id).exists(_.isBot))
 
-  lazy val botIds     = new GetBotIds(() => cached.botIds.get {})
-  lazy val rankingsOf = new RankingsOf(cached.rankingsOf)
+  export lightUserApi.{
+    async as lightUser,
+    asyncFallback as lightUserFallback,
+    sync as lightUserSync,
+    syncFallback as lightUserSyncFallback,
+    isBotSync
+  }
+
+  lazy val botIds     = GetBotIds(() => cached.botIds.get {})
+  lazy val rankingsOf = RankingsOf(cached.rankingsOf)
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val noteApi = {
+  lazy val noteApi =
     def mk = (coll: Coll) => wire[NoteApi]
     mk(db(config.collectionNote))
-  }
 
-  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
+  lazy val trophyApi = TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
 
   private lazy val rankingColl = yoloDb(config.collectionRanking).failingSilently()
 
@@ -64,7 +70,7 @@ final class Env(
 
   lazy val cached: Cached = wire[Cached]
 
-  private lazy val passHasher = new PasswordHasher(
+  private lazy val passHasher = PasswordHasher(
     secret = config.passwordBPassSecret,
     logRounds = 10,
     hashTimer = res => lila.common.Chronometer.syncMon(_.user.auth.hashTime)(res)
@@ -87,4 +93,3 @@ final class Env(
       rankingApi.remove(userId).unit
     }
   )
-}

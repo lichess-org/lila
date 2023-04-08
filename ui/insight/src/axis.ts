@@ -7,8 +7,7 @@ const selectData = (onClick: (v: { value: string }) => void, getValue: () => str
   hook: {
     insert: vnode =>
       $(vnode.elm).multipleSelect({
-        width: '200px',
-        maxHeight: '400px',
+        width: 'var(--drop-menu-width)',
         single: true,
         onClick,
       }),
@@ -39,8 +38,8 @@ const option = (ctrl: Ctrl, item: Metric | Dimension, axis: 'metric' | 'dimensio
     item.name
   );
 
-export default function (ctrl: Ctrl) {
-  return h('div.axis-form', [
+export default function (ctrl: Ctrl, attrs: any = null) {
+  return h('div.axis-form', attrs, [
     h(
       'select.ms.metric',
       selectData(

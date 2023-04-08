@@ -23,8 +23,8 @@
   <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
-  <string name="youPlayTheWhitePieces">أنت تلعب القطع البيضاء</string>
-  <string name="youPlayTheBlackPieces">أنت تلعب القطع السوداء</string>
+  <string name="youPlayTheWhitePieces">أنت تلعب بالقطع البيضاء</string>
+  <string name="youPlayTheBlackPieces">أنت تلعب بالقطع السوداء</string>
   <string name="itsYourTurn">إنه دورك!</string>
   <string name="cheatDetected">ثم تحديد حالة غش</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
@@ -63,6 +63,8 @@
   <string name="depthX">عمق التحليل %s</string>
   <string name="usingServerAnalysis">استخدام تحليل الخادم</string>
   <string name="loadingEngine">تحميل المحرك...</string>
+  <string name="calculatingMoves">حساب النقلات...</string>
+  <string name="engineFailed">خطأ في تحميل المحرك</string>
   <string name="cloudAnalysis">تحليل سحابي</string>
   <string name="goDeeper">تحليل أعمق</string>
   <string name="showThreat">إظهار التهديد</string>
@@ -100,6 +102,7 @@
   <string name="dtzWithRounding">DTZ50\'\' مع تقريب ، استنادًا إلى عدد من نصف التحركات حتى التقاط أو نقل بياض التالي</string>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
+  <string name="openings">الافتتاح</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
@@ -187,6 +190,7 @@
   <string name="viewInFullSize">عرض بالحجم الكامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">دخول</string>
+  <string name="rememberMe">ابقني مسجل هنا</string>
   <string name="youNeedAnAccountToDoThat">تحتاج حسابا لهذا</string>
   <string name="signUp">تسجيل</string>
   <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب لأن ذلك قد يؤدي إلى الحظر من الموقع.</string>
@@ -223,6 +227,14 @@
     <item quantity="many">%s ساعة</item>
     <item quantity="other">%s ساعة</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="zero">%s دقائق</item>
+    <item quantity="one">%s دقائق</item>
+    <item quantity="two">%s دقيقة</item>
+    <item quantity="few">%s دقيقة</item>
+    <item quantity="many">%s دقيقة</item>
+    <item quantity="other">%s دقيقة</item>
+  </plurals>
   <string name="time">الوقت</string>
   <string name="rating">التقييم</string>
   <string name="ratingStats">احصائيات التقييم</string>
@@ -231,12 +243,39 @@
   <string name="changeUsername">تغيير اسم المستخدم</string>
   <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
   <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسم المستخدم الخاص بك مرة واحدة فقط, ويمكنك فقط تغيير حساسية الاحرف.</string>
+  <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم صديق للعائلة. لا يمكنك تغييره لاحقًا وأي حسابات تحتوي على أسماء مستخدمين غير ملائمة سيتم إغلاقها!</string>
+  <string name="signupEmailHint">سوف نستخدمه فقط لإعادة تعيين كلمة المرور.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
   <string name="email">البريد الإلكتروني</string>
   <string name="passwordReset">إعادة تعيين كلمة المرور</string>
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
+  <string name="error.weakPassword">كلمة المرور هذه ضعيفة للغاية, و يسهل تخمينها.</string>
+  <string name="error.namePassword">الرجاء عدم استخدام اسم المستخدم الخاص بك ككلمة المرور الخاصة بك.</string>
+  <string name="blankedPassword">لقد استخدمت نفس كلمة المرور في موقع آخر، وقد تعرض ذلك الموقع للخطر. لضمان سلامة حساب Lichess الخاص بك، نحن بحاجة منك إلى تعيين كلمة مرور جديدة. شكرا لتفهمك.</string>
+  <string name="youAreLeavingLichess">أنت تغادر Lichess</string>
+  <string name="neverTypeYourPassword">لا تكتب كلمة مرور Lichess الخاصة بك على موقع آخر!</string>
+  <string name="proceedToX">انتقل إلى %s</string>
+  <string name="passwordSuggestion">لا تقم بتعيين كلمة مرور مقترحة من قبل شخص آخر. سوف يستخدمونها لسرقة حسابك.</string>
+  <string name="emailSuggestion">لا تقم بتعيين عنوان بريد إلكتروني اقترحه شخص آخر. سوف يستخدمه لسرقة حسابك.</string>
+  <string name="emailConfirmHelp">المساعدة في تأكيد البريد الإلكتروني</string>
+  <string name="emailConfirmNotReceived">لم تستلم بريدك الإلكتروني للتأكيد بعد التسجيل؟</string>
+  <string name="whatSignupUsername">ما هو اسم المستخدم الذي استخدمته للتسجيل؟</string>
+  <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">يمكنك استخدام اسم المستخدم هذا لإنشاء حساب جديد</string>
+  <string name="emailSent">لقد أرسلنا رسالة بريد إلكتروني إلى %s.</string>
+  <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
+  <string name="refreshInboxAfterFiveMinutes">انتظر 5 دقائق وحدث بريدك الوارد.</string>
+  <string name="checkSpamFolder">تحقق ايضا من بريدك المهمل ربما وصل لهناك، اذا وجدت الرسالة هناك علمها ك\"غير مهمل\".</string>
+  <string name="emailForSignupHelp">اذا فشلت كل المحاولات ارسل لنا ايميل:</string>
+  <string name="copyTextToEmail">انسح النص اعلاه و ارسله للبريد التالي%s</string>
+  <string name="waitForSignupHelp">سنعود اليك قريباً لمساعدتك على اكمال التسجيل.</string>
+  <string name="accountConfirmed">المستخدم %s تم تأكيده بنجاح.</string>
+  <string name="accountCanLogin">يمكنك الان الدخول باسم %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">لا حاجة لتأكيد ايميلك.</string>
+  <string name="accountClosed">هذا الحساب%s مغلق.</string>
+  <string name="accountRegisteredWithoutEmail">هذا الحساب%s تم تسجيله بدون ايميل.</string>
   <string name="rank">المرتبة</string>
   <string name="rankX">الترتيب: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -436,6 +475,7 @@
   <string name="siteDescription">موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية</string>
   <string name="xJoinedTeamY">%1$s انضم لفريق %2$s</string>
   <string name="xCreatedTeamY">%1$s أنشأ فريق %2$s</string>
+  <string name="startedStreaming">بدأ البث</string>
   <string name="xStartedStreaming">%s بدأ يبث</string>
   <string name="averageElo">متوسط التقييم</string>
   <string name="location">الموقع</string>
@@ -444,13 +484,17 @@
   <string name="apply">قبول</string>
   <string name="save">حفظ</string>
   <string name="leaderboard">أفضل اللاعبين</string>
+  <string name="screenshotCurrentPosition">لقطة شاشة</string>
+  <string name="gameAsGIF">حفظ بصيغة GIF</string>
   <string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
+  <string name="orUploadPgnFile">أو حمل مِلف PGN</string>
   <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
   <string name="toStudy">دراسة</string>
   <string name="importGame">استورد مباراة</string>
   <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
+  <string name="importGameCaveat">سيتم محو التغييرات. للحفاظ عليها، يرجى استيراد PGN (تنسيق لعبة الشطرنج المحمول) عبر تبويب دراسة.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">مباراة مستوردة %s</item>
     <item quantity="one">مباراة مستوردة %s</item>
@@ -541,6 +585,8 @@
   <string name="tournamentIsStarting">بدأت المسابقة</string>
   <string name="tournamentPairingsAreNowClosed">إزواج البطولة مغلق الآن.</string>
   <string name="standByX">إستعد، يتم إزواج اللاعبين، تأهب يا %s!</string>
+  <string name="pause">الإيقاف المؤقت</string>
+  <string name="resume">استئناف</string>
   <string name="youArePlaying">أنت تلعب!</string>
   <string name="winRate">معدل الفوز</string>
   <string name="berserkRate">معدل المخاطرة</string>
@@ -575,6 +621,19 @@
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="oneUrlPerLine">رابط واحد لكل سطر</string>
   <string name="inlineNotation">تنسيق التدوين</string>
+  <string name="savingMoves">حفظ النقلات
+
+جزء من رسالة تحذيرية في حال لعبك لنقلات عند تحليل مباراة مكتملة.
+تقول:
+\'ذاكرة نقلات مؤقتة
+نحن دائماً نخزن تفريعاتك في cache المتصفح
+للتخزين الآمن و المشاركة، يمكنك إنشاء دراسة\'
+
+في السياق، دراسات ليتشيس هي ميزة تسمح للاعبين بتخزين و مراجعة المباريات بسهولة: 
+https://lichess. org/study</string>
+  <string name="savingMovesHelp">نحن دائماً نخزن تفريعاتك في ذاكرة التخزين المؤقت للمتصفح.</string>
+  <string name="makeAStudy">للحفظ الآمن و المشاركة، يمكنك إنشاء دراسة.</string>
+  <string name="clearSavedMoves">مسح النقلات</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبين متصلين</string>
   <string name="activePlayers">لاعبين نشطين</string>
@@ -621,10 +680,13 @@
   <string name="reportDescriptionHelp">الصق رابط المباراة (المباريات) واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. لا تقل فقط \"انهم يغشون\"، ولكن اشرح لنا سبب استنتاجك. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
   <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
   <string name="by">كتبها %s</string>
+  <string name="importedByX">استيراد \'%s\'</string>
   <string name="thisTopicIsNowClosed">هذا الموضوع مغلق الآن.</string>
   <string name="blog">المدونة</string>
   <string name="notes">ملاحظات</string>
   <string name="typePrivateNotesHere">اكتب الملاحظات الخاصة هنا</string>
+  <string name="writeAPrivateNoteAboutThisUser">كتابة ملاحظة خاصة عن هذا المستخدم</string>
+  <string name="noNoteYet">لا يوجد ملاحظة بعد</string>
   <string name="invalidUsernameOrPassword">اسم المستخدم خطأ أو كلمة المرور غير صحيحة</string>
   <string name="incorrectPassword">كلمة المرور غير صحيحة</string>
   <string name="invalidAuthenticationCode">رمز مصادقة غير صحيح</string>
@@ -689,6 +751,7 @@
   <string name="community">المجتمع</string>
   <string name="tools">أدوات</string>
   <string name="increment">الزيادة</string>
+  <string name="error.unknown">بيانات خاطئة</string>
   <string name="error.required">هذة الخانة ضرورية</string>
   <string name="error.email">هذا البريد الإلكتروني غير صحبح</string>
   <string name="error.email_acceptable">هذا البريد الالكتروني غير مقبول. رجاءً تحقق منه مرة أخرى و حاول مرة ثانية.</string>
@@ -699,6 +762,7 @@
   <string name="error.min">يجب أن يكون أكبر أو يساوي ل %s</string>
   <string name="error.max">يجب أن يكون أقل أو يساوي %s</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
+  <string name="ifRegistered">قيد التسجيل</string>
   <string name="onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
   <string name="menu">القائمة</string>
@@ -747,10 +811,13 @@
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
   <string name="simulHostExtraTime">التوقيت الإضافي لساعة المضيف</string>
+  <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
+  <string name="simulHostExtraTimePerPlayer">استضافة وقت إضافيًا لكل لاعب</string>
   <string name="lichessTournaments">مسابقات الموقع</string>
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
   <string name="averageCentipawnLoss">معدل الخسارة مقيمة ب 0.01 بيدق</string>
+  <string name="accuracy">الدقة</string>
   <string name="keyboardShortcuts">اختصارات لوحة المفاتيح</string>
   <string name="keyMoveBackwardOrForward">تحرك للخلف/للأمام</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>
@@ -803,6 +870,7 @@
   <string name="kidMode">موقع الأطفال</string>
   <string name="kidModeExplanation">هذا يتعلق بالأمان. في نمط الطفل، يتم تعطيل كافة اتصالات المواقع. تمكين هذا للأطفال والطلاب، لحمايتهم من مستخدمي الإنترنت الأخرين.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">في نمط الطفل، يكون لشعار ليتشيس رمز %s، لكي تعرف أن أطفالك آمنين.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">يتم إدارة حسابك. اسأل معلم الشطرنج الخاص بك عن رفع وضع الطفل.</string>
   <string name="enableKidMode">تمكين نمط الطفل</string>
   <string name="disableKidMode">تعطيل نمط الطفل</string>
   <string name="security">الأمان</string>
@@ -841,6 +909,7 @@
   <string name="light">فاتح</string>
   <string name="dark">داكن</string>
   <string name="transparent">شفّاف</string>
+  <string name="deviceTheme">مظهر الجهاز</string>
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
   <string name="boardGeometry">شكل الرقعة</string>
   <string name="boardTheme">مربعات الرقعة</string>
@@ -873,6 +942,7 @@
   <string name="bestWasX">النقلة الأفضل هي %s</string>
   <string name="youBrowsedAway">تصفحت نقلات مختلفة</string>
   <string name="resumePractice">استئناف التدريب</string>
+  <string name="drawByFiftyMoves">تم حسم هذا المباراة بالتعادل حسب قاعدة الخمسين حركة.</string>
   <string name="theGameIsADraw">المباراة تعادل.</string>
   <string name="computerThinking">الكمبيوتر يفكر ...</string>
   <string name="seeBestMove">شاهد افضل نقلة</string>
@@ -944,6 +1014,7 @@
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
   <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
   <string name="agreementNice">أوافق على أني سأكون محترم تجاه اللاعبين الأخرين.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">أوافق على أني لن أدخل بحسابات متعددة (إلا للأسباب المذكورة في %s).</string>
   <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
   <string name="searchOrStartNewDiscussion">البحث أو بدء محادثة جديدة</string>
   <string name="edit">تعديل</string>
@@ -1044,4 +1115,6 @@
   <string name="until">حتى</string>
   <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي Lichess</string>
   <string name="switchSides">تبديل جهة اللعب</string>
+  <string name="closingAccountWithdrawAppeal">إغلاق حسابك سوف تخسر تقدمك</string>
+  <string name="ourEventTips">نصائحنا لتنظيم الأحداث</string>
 </resources>

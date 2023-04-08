@@ -11,7 +11,7 @@ object LevenshteinTest {
   def check(a: String, b: String) = check0(a, b) && check0(b, a)
   def rndStr(r: Random, l: Int, sigma: Int): String = {
     val sb = new StringBuilder(l)
-    for (i <- 0 until l) sb.append((48 + r.nextInt(sigma)).toChar)
+    for (_ <- 0 until l) sb.append((48 + r.nextInt(sigma)).toChar)
     sb.result()
   }
   def rt(r: Random, l1: Int, l2: Int, sigma: Int) = {
@@ -21,7 +21,7 @@ object LevenshteinTest {
   }
   def mt(seed: Int, nt: Int, l: Int, sigma: Int) = {
     val r = new Random(seed)
-    (0 until nt).forall(i => {
+    (0 until nt).forall(_ => {
       rt(r, r.nextInt(l + 1), l, sigma)
     })
   }
@@ -29,14 +29,14 @@ object LevenshteinTest {
 
 class LevenshteinTest extends Specification {
   import LevenshteinTest.{ check, mt }
-  "Levenshtein" should {
-    "random" in {
+  "Levenshtein" >> {
+    "random" >> {
       mt(1, 1000, 10, 2) must beTrue
       mt(2, 1000, 10, 3) must beTrue
       mt(3, 10, 1000, 2) must beTrue
       mt(4, 10, 1000, 3) must beTrue
     }
-    "empty" in {
+    "empty" >> {
       Levenshtein.isLevenshteinDistanceLessThan("", "", 0) must beFalse
       Levenshtein.isLevenshteinDistanceLessThan("", "", 1) must beTrue
       Levenshtein.isLevenshteinDistanceLessThan("a", "", 1) must beFalse
@@ -44,7 +44,7 @@ class LevenshteinTest extends Specification {
       Levenshtein.isLevenshteinDistanceLessThan("a", "", 2) must beTrue
       Levenshtein.isLevenshteinDistanceLessThan("", "a", 2) must beTrue
     }
-    "hand" in {
+    "hand" >> {
       check("aba", "a") must beTrue
       check("abb", "a") must beTrue
       check("aab", "a") must beTrue

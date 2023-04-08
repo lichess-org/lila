@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Roghainnean</string>
-  <string name="gameDisplay">Dealbhachd na geama</string>
   <string name="pieceAnimation">Gluasachd nam pìosan</string>
   <string name="materialDifference">Eadar-dhealachadh de stuth</string>
   <string name="boardHighlights">Soillseachadh am bòrd (an gluasachd mu dheireadh agus caisg)</string>

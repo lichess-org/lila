@@ -1,25 +1,21 @@
 package views.html.user.show
 
+import controllers.report.routes.{ Report as reportRoutes }
+import controllers.routes
+
 import lila.api.Context
-import lila.app.mashup.UserInfo.Angle
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.mashup.UserInfo
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.user.User
 
-import controllers.routes
-
-object header {
+object header:
 
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
 
-  def apply(
-      u: User,
-      info: lila.app.mashup.UserInfo,
-      angle: lila.app.mashup.UserInfo.Angle,
-      social: lila.app.mashup.UserInfo.Social
-  )(implicit ctx: Context) =
+  def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
     frag(
       div(cls := "box__top user-show__header")(
         if (u.isPatron)
@@ -32,7 +28,7 @@ object header {
         div(
           cls := List(
             "trophies" -> true,
-            "packed"   -> (info.countTrophiesAndPerfCups > 7)
+            "packed"   -> (info.trophies.countTrophiesAndPerfCups > 7)
           )
         )(
           views.html.user.bits.perfTrophies(u, info.ranks),
@@ -40,17 +36,17 @@ object header {
           u.plan.active option
             a(
               href := routes.Plan.index,
-              cls := "trophy award patron icon3d",
+              cls  := "trophy award patron icon3d",
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)
         ),
-        u.disabled option span(cls := "closed")("CLOSED")
+        u.enabled.no option span(cls := "closed")("CLOSED")
       ),
       div(cls := "user-show__social")(
         div(cls := "number-menu")(
           u.noBot option a(
-            href := routes.UserTournament.path(u.username, "recent"),
-            cls := "nm-item tournament_stats",
+            href       := routes.UserTournament.path(u.username, "recent"),
+            cls        := "nm-item tournament_stats",
             dataToints := u.toints
           )(
             splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
@@ -59,13 +55,13 @@ object header {
             splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
           ),
           ctx.noKid option a(
-            cls := "nm-item",
+            cls  := "nm-item",
             href := routes.ForumPost.search("user:" + u.username, 1).url
           )(
             splitNumber(trans.nbForumPosts.pluralSame(info.nbForumPosts))
           ),
-          ctx.noKid && (info.ublog.isDefined || ctx.is(u)) option a(
-            cls := "nm-item",
+          ctx.noKid && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u)) option a(
+            cls  := "nm-item",
             href := routes.Ublog.index(u.username)
           )(
             splitNumber(s"${info.ublog.??(_.nbPosts)} blog posts")
@@ -76,13 +72,13 @@ object header {
         div(cls := "user-actions btn-rack")(
           (ctx is u) option frag(
             a(
-              cls := "btn-rack__btn",
+              cls  := "btn-rack__btn",
               href := routes.Account.profile,
               titleOrText(trans.editProfile.txt()),
               dataIcon := ""
             ),
             a(
-              cls := "btn-rack__btn",
+              cls  := "btn-rack__btn",
               href := routes.Relation.blocks(),
               titleOrText(trans.listBlockedPlayers.txt()),
               dataIcon := ""
@@ -90,13 +86,13 @@ object header {
           ),
           isGranted(_.UserModView) option
             a(
-              cls := "btn-rack__btn mod-zone-toggle",
+              cls  := "btn-rack__btn mod-zone-toggle",
               href := routes.User.mod(u.username),
               titleOrText("Mod zone (Hotkey: m)"),
               dataIcon := ""
             ),
           a(
-            cls := "btn-rack__btn",
+            cls  := "btn-rack__btn",
             href := routes.User.tv(u.username),
             titleOrText(trans.watchGames.txt()),
             dataIcon := ""
@@ -108,30 +104,30 @@ object header {
             blocked = social.blocked
           ),
           a(
-            cls := "btn-rack__btn",
+            cls  := "btn-rack__btn",
             href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
             titleOrText(trans.openingExplorer.txt()),
             dataIcon := ""
           ),
           a(
-            cls := "btn-rack__btn",
+            cls  := "btn-rack__btn",
             href := routes.User.download(u.username),
             titleOrText(trans.exportGames.txt()),
             dataIcon := ""
           ),
           (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
-            cls := "btn-rack__btn",
-            href := s"${routes.Report.form}?username=${u.username}",
+            cls      := "btn-rack__btn",
+            href     := s"${reportRoutes.form}?username=${u.username}",
             dataIcon := ""
           )
         )
       ),
       !ctx.is(u) option noteZone(u, social.notes),
       isGranted(_.UserModView) option div(cls := "mod-zone mod-zone-full none"),
-      standardFlash(),
+      standardFlash,
       angle match {
-        case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
+        case UserInfo.Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
         case _ =>
           val profile   = u.profileOrDefault
           val hideTroll = u.marks.troll && !ctx.is(u)
@@ -195,12 +191,14 @@ object header {
                     )
                   },
                   !hideTroll option div(cls := "social_links col2")(
+                    profile.actualLinks.nonEmpty option strong(trans.socialMediaLinks()),
                     profile.actualLinks.map { link =>
                       a(href := link.url, targetBlank, noFollow)(link.site.name)
                     }
                   ),
                   div(cls := "teams col2")(
-                    info.teamIds.sorted.map { t =>
+                    info.teamIds.nonEmpty option strong(trans.team.teams()),
+                    info.teamIds.sorted(stringOrdering).map { t =>
                       teamLink(t, withIcon = false)
                     }
                   )
@@ -224,7 +222,7 @@ object header {
           dataTab := "activity",
           cls := List(
             "nm-item to-activity" -> true,
-            "active"              -> (angle == Angle.Activity)
+            "active"              -> (angle == UserInfo.Angle.Activity)
           ),
           href := routes.User.show(u.username)
         )(trans.activity.activity()),
@@ -239,7 +237,7 @@ object header {
           trans.nbGames.plural(info.user.count.game, info.user.count.game.localize),
           info.nbs.playing > 0 option
             span(
-              cls := "unread",
+              cls   := "unread",
               title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
             )(
               info.nbs.playing
@@ -249,49 +247,48 @@ object header {
     )
 
   def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(cls := "note-zone")(
-    postForm(action := s"${routes.User.writeNote(u.username)}?note")(
+    postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
-        placeholder := "Write a private note about this user"
+        placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
       ),
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
-          submitButton(cls := "button")(trans.save()),
-          div(
-            div(form3.cmnToggle("note-mod", "mod", checked = true)),
-            label(`for` := "note-mod")("For moderators only")
+          submitButton(cls := "button", name := "noteType", value := "mod")("Save Mod Note"),
+          isGranted(_.Admin) option submitButton(cls := "button", name := "noteType", value := "dox")(
+            "Save Dox Note"
           ),
-          isGranted(_.Admin) option div(
-            div(form3.cmnToggle("note-dox", "dox", checked = false)),
-            label(`for` := "note-dox")("Doxing info")
-          )
+          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note")
         )
-      else
-        frag(
-          input(tpe := "hidden", name := "mod", value := "false"),
-          submitButton(cls := "button")(trans.save())
-        )
+      else submitButton(cls := "button", name := "noteType", value := "normal")(trans.save())
     ),
-    notes.isEmpty option div("No note yet"),
+    notes.isEmpty option div(trans.noNoteYet()),
     notes.map { note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
+        (note.mod && isGranted(_.Admin)) option postForm(
+          action := routes.User.setDoxNote(note._id, !note.dox)
+        )(
+          submitButton(
+            cls := "button-empty confirm button text"
+          )("Toggle Dox")
+        ),
         p(cls := "note__meta")(
           userIdLink(note.from.some),
           br,
           note.dox option "dox ",
-          momentFromNow(note.date),
+          if (isGranted(_.ModNote)) momentFromNowServer(note.date)
+          else momentFromNow(note.date),
           (ctx.me.exists(note.isFrom) && !note.mod) option frag(
             br,
             postForm(action := routes.User.deleteNote(note._id))(
               submitButton(
-                cls := "button-empty button-red confirm button text",
-                style := "float:right",
+                cls      := "button-empty button-red confirm button text",
+                style    := "float:right",
                 dataIcon := ""
-              )("Delete")
+              )(trans.delete())
             )
           )
         )
       )
     }
   )
-}

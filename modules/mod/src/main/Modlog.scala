@@ -1,94 +1,96 @@
 package lila.mod
 
-import org.joda.time.DateTime
-
-import lila.report.{ Mod, Suspect }
+import lila.report.{ ModId, Mod, Suspect }
 
 case class Modlog(
-    mod: String,
-    user: Option[String],
+    mod: ModId,
+    user: Option[UserId],
     action: String,
     details: Option[String] = None,
-    date: DateTime = DateTime.now
-) {
+    date: DateTime = nowDate,
+    index: Option[String] = None
+):
 
-  def isLichess = mod == lila.user.User.lichessId
+  def isLichess = mod is lila.user.User.lichessId
 
   def notable      = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess
 
   def gameId = details.ifTrue(action == Modlog.cheatDetected).??(_.split(' ').lift(1))
 
-  def showAction =
-    action match {
-      case Modlog.alt                 => "mark as alt"
-      case Modlog.unalt               => "un-mark as alt"
-      case Modlog.engine              => "mark as engine"
-      case Modlog.unengine            => "un-mark as engine"
-      case Modlog.booster             => "mark as booster"
-      case Modlog.unbooster           => "un-mark as booster"
-      case Modlog.deletePost          => "delete forum post"
-      case Modlog.disableTwoFactor    => "disable 2fa"
-      case Modlog.closeAccount        => "close account"
-      case Modlog.selfCloseAccount    => "self close account"
-      case Modlog.reopenAccount       => "reopen account"
-      case Modlog.openTopic           => "reopen topic"
-      case Modlog.closeTopic          => "close topic"
-      case Modlog.showTopic           => "show topic"
-      case Modlog.hideTopic           => "unfeature topic"
-      case Modlog.stickyTopic         => "sticky topic"
-      case Modlog.unstickyTopic       => "un-sticky topic"
-      case Modlog.postAsAnonMod       => "post as a lichess moderator"
-      case Modlog.editAsAnonMod       => "edit a lichess moderator post"
-      case Modlog.setTitle            => "set FIDE title"
-      case Modlog.removeTitle         => "remove FIDE title"
-      case Modlog.setEmail            => "set email address"
-      case Modlog.practiceConfig      => "update practice config"
-      case Modlog.deleteTeam          => "delete team"
-      case Modlog.disableTeam         => "disable team"
-      case Modlog.enableTeam          => "enable team"
-      case Modlog.terminateTournament => "terminate tournament"
-      case Modlog.chatTimeout         => "chat timeout"
-      case Modlog.troll               => "shadowban"
-      case Modlog.untroll             => "un-shadowban"
-      case Modlog.permissions         => "set permissions"
-      case Modlog.kickFromRankings    => "kick from rankings"
-      case Modlog.reportban           => "reportban"
-      case Modlog.unreportban         => "un-reportban"
-      case Modlog.rankban             => "rankban"
-      case Modlog.unrankban           => "un-rankban"
-      case Modlog.modMessage          => "send message"
-      case Modlog.coachReview         => "disapprove coach review"
-      case Modlog.cheatDetected       => "game lost by cheat detection"
-      case Modlog.cli                 => "run CLI command"
-      case Modlog.garbageCollect      => "garbage collect"
-      case Modlog.streamerDecline     => "decline streamer"
-      case Modlog.streamerList        => "list streamer"
-      case Modlog.streamerUnlist      => "unlist streamer"
-      case Modlog.streamerFeature     => "feature streamer"   // BC
-      case Modlog.streamerUnfeature   => "unfeature streamer" // BC
-      case Modlog.streamerTier        => "set streamer tier"
-      case Modlog.blogTier            => "set blog tier"
-      case Modlog.blogPostEdit        => "edit blog post"
-      case Modlog.teamKick            => "kick from team"
-      case Modlog.teamEdit            => "edited team"
-      case Modlog.appealPost          => "posted in appeal"
-      case Modlog.setKidMode          => "set kid mode"
-      case a                          => a
-    }
+  def indexAs(i: String) = copy(index = i.some)
 
-  override def toString = s"$mod $showAction ${~user} $details"
-}
+  def showAction = action match
+    case Modlog.alt                 => "mark as alt"
+    case Modlog.unalt               => "un-mark as alt"
+    case Modlog.engine              => "mark as engine"
+    case Modlog.unengine            => "un-mark as engine"
+    case Modlog.booster             => "mark as booster"
+    case Modlog.unbooster           => "un-mark as booster"
+    case Modlog.deletePost          => "delete forum post"
+    case Modlog.disableTwoFactor    => "disable 2fa"
+    case Modlog.closeAccount        => "close account"
+    case Modlog.selfCloseAccount    => "self close account"
+    case Modlog.reopenAccount       => "reopen account"
+    case Modlog.openTopic           => "reopen topic"
+    case Modlog.closeTopic          => "close topic"
+    case Modlog.showTopic           => "show topic"         // BC
+    case Modlog.hideTopic           => "unfeature topic"    // BC
+    case Modlog.stickyTopic         => "sticky topic"
+    case Modlog.unstickyTopic       => "un-sticky topic"
+    case Modlog.postAsAnonMod       => "post as a lichess moderator"
+    case Modlog.editAsAnonMod       => "edit a lichess moderator post"
+    case Modlog.setTitle            => "set FIDE title"
+    case Modlog.removeTitle         => "remove FIDE title"
+    case Modlog.setEmail            => "set email address"
+    case Modlog.practiceConfig      => "update practice config"
+    case Modlog.deleteTeam          => "delete team"
+    case Modlog.disableTeam         => "disable team"
+    case Modlog.enableTeam          => "enable team"
+    case Modlog.terminateTournament => "terminate tournament"
+    case Modlog.chatTimeout         => "chat timeout"
+    case Modlog.troll               => "shadowban"
+    case Modlog.untroll             => "un-shadowban"
+    case Modlog.permissions         => "set permissions"
+    case Modlog.kickFromRankings    => "kick from rankings"
+    case Modlog.reportban           => "reportban"
+    case Modlog.unreportban         => "un-reportban"
+    case Modlog.rankban             => "rankban"
+    case Modlog.unrankban           => "un-rankban"
+    case Modlog.modMessage          => "send message"
+    case Modlog.coachReview         => "disapprove coach review"
+    case Modlog.cheatDetected       => "game lost by cheat detection"
+    case Modlog.cli                 => "run CLI command"
+    case Modlog.garbageCollect      => "garbage collect"
+    case Modlog.streamerDecline     => "decline streamer"
+    case Modlog.streamerList        => "list streamer"
+    case Modlog.streamerUnlist      => "unlist streamer"
+    case Modlog.streamerFeature     => "feature streamer"   // BC
+    case Modlog.streamerUnfeature   => "unfeature streamer" // BC
+    case Modlog.streamerTier        => "set streamer tier"
+    case Modlog.blogTier            => "set blog tier"
+    case Modlog.blogPostEdit        => "edit blog post"
+    case Modlog.teamKick            => "kick from team"
+    case Modlog.teamEdit            => "edited team"
+    case Modlog.appealPost          => "posted in appeal"
+    case Modlog.setKidMode          => "set kid mode"
+    case Modlog.weakPassword        => "log in with weak password"
+    case Modlog.blankedPassword     => "log in with blanked password"
+    case a                          => a
 
-object Modlog {
+  override def toString = s"$mod $showAction $user $details"
+
+object Modlog:
 
   def make(mod: Mod, sus: Suspect, action: String, details: Option[String] = None): Modlog =
     Modlog(
-      mod = mod.user.id,
+      mod = mod.id,
       user = sus.user.id.some,
       action = action,
       details = details
     )
+
+  case class UserEntry(user: UserId, action: String, date: DateTime)
 
   val alt                 = "alt"
   val unalt               = "unalt"
@@ -143,4 +145,10 @@ object Modlog {
   val teamEdit            = "teamEdit"
   val appealPost          = "appealPost"
   val setKidMode          = "setKidMode"
-}
+  val weakPassword        = "weakPassword"
+  val blankedPassword     = "blankedPassword"
+
+  private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
+  def explain(e: Modlog) = (e.index has "team") ?? ~e.details match
+    case explainRegex(explain) => explain.some
+    case _                     => none

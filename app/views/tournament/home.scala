@@ -4,13 +4,14 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
+import lila.common.LangPath
 
-object home {
+object home:
 
   def apply(
       scheduled: List[Tournament],
@@ -26,11 +27,11 @@ object home {
         infiniteScrollTag,
         jsModule("tournament.schedule"),
         embedJsUnsafeLoadThen(s"""LichessTournamentSchedule(${safeJsonValue(
-          Json.obj(
-            "data" -> json,
-            "i18n" -> bits.jsI18n
-          )
-        )})""")
+            Json.obj(
+              "data" -> json,
+              "i18n" -> bits.scheduleJsI18n
+            )
+          )})""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -38,7 +39,8 @@ object home {
           title = trans.tournamentHomeTitle.txt(),
           description = trans.tournamentHomeDescription.txt()
         )
-        .some
+        .some,
+      withHrefLangs = LangPath(routes.Tournament.home).some
     ) {
       main(cls := "tour-home")(
         st.aside(cls := "tour-home__side")(
@@ -66,7 +68,7 @@ object home {
             br,
             a(href := routes.Tournament.history(Freq.Unique.name))(trans.arena.history()),
             br,
-            a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
+            a(href := routes.Tournament.help)(trans.tournamentFAQ())
           ),
           h2(trans.lichessTournaments()),
           div(cls := "scheduled")(
@@ -81,12 +83,12 @@ object home {
           )
         ),
         st.section(cls := "tour-home__schedule box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(trans.tournaments()),
             ctx.isAuth option div(cls := "box__top__actions")(
               a(
-                href := routes.Tournament.form,
-                cls := "button button-green text",
+                href     := routes.Tournament.form,
+                cls      := "button button-green text",
                 dataIcon := ""
               )(trans.createANewTournament())
             )
@@ -107,4 +109,3 @@ object home {
         )
       )
     }
-}

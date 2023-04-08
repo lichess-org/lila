@@ -9,7 +9,7 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
-  <string name="strength">강도</string>
+  <string name="strength">난이도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="chat">채팅</string>
   <string name="resign">기권</string>
@@ -21,8 +21,8 @@
   <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
   <string name="createAGame">새 게임 만들기</string>
-  <string name="whiteIsVictorious">백색 승리</string>
-  <string name="blackIsVictorious">흑색 승리</string>
+  <string name="whiteIsVictorious">백 승리</string>
+  <string name="blackIsVictorious">흑 승리</string>
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
   <string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
@@ -58,6 +58,8 @@
   <string name="depthX">%s 수까지 탐색</string>
   <string name="usingServerAnalysis">서버 분석 사용하기</string>
   <string name="loadingEngine">엔진 로드 중 ...</string>
+  <string name="calculatingMoves">수 계산 중...</string>
+  <string name="engineFailed">엔진 로딩 에러</string>
   <string name="cloudAnalysis">클라우드 분석</string>
   <string name="goDeeper">더 깊게 분석하기</string>
   <string name="showThreat">위험요소 표시하기</string>
@@ -87,13 +89,18 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s반수만에 체크메이트</item>
   </plurals>
+  <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\" 수치</string>
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
+  <string name="openings">오프닝</string>
   <string name="openingExplorer">오프닝 탐색기</string>
   <string name="openingEndgameExplorer">오프닝/엔드게임 탐색기</string>
   <string name="xOpeningExplorer">%s 오프닝 탐색기</string>
   <string name="winPreventedBy50MoveRule">50수 규칙에 의하여 승리가 불가능합니다.</string>
   <string name="lossSavedBy50MoveRule">50수 규칙에 의하여 패배가 불가능합니다.</string>
+  <string name="winOr50MovesByPriorMistake">승리 혹은 이전의 실수로 인한 50수 규칙 무승부</string>
+  <string name="lossOr50MovesByPriorMistake">패배 혹은 이전의 실수로 인한 50수 규칙 무승부</string>
+  <string name="unknownDueToRounding">DTZ 수치의 반올림 때문에 추천된 테이블베이스 라인을 따라야만 승리 및 패배가 보장됩니다.</string>
   <string name="allSet">모든 설정 완료!</string>
   <string name="importPgn">PGN 가져오기</string>
   <string name="delete">삭제</string>
@@ -101,18 +108,18 @@
   <string name="replayMode">게임 다시보기</string>
   <string name="realtimeReplay">실시간</string>
   <string name="byCPL">평가치변화</string>
-  <string name="openStudy">연구를 열기</string>
+  <string name="openStudy">연구를 시작하기</string>
   <string name="enable">활성화</string>
-  <string name="bestMoveArrow">화살표로 최상의 수 표시하기</string>
-  <string name="evaluationGauge">평가치를 표시</string>
-  <string name="multipleLines">해석 라인 수</string>
-  <string name="cpus">CPU 갯수</string>
+  <string name="bestMoveArrow">최선의 수 화살표</string>
+  <string name="evaluationGauge">평가치 게이지</string>
+  <string name="multipleLines">다중 분석 수</string>
+  <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
-  <string name="infiniteAnalysis">무한분석</string>
-  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
+  <string name="infiniteAnalysis">무한 분석</string>
+  <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
   <string name="blunder">심각한 실수</string>
   <string name="mistake">실수</string>
-  <string name="inaccuracy">잘못된 판단</string>
+  <string name="inaccuracy">사소한 실수</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
@@ -143,6 +150,7 @@
   <string name="viewInFullSize">크게 보기</string>
   <string name="logOut">로그아웃</string>
   <string name="signIn">로그인</string>
+  <string name="rememberMe">로그인 유지</string>
   <string name="youNeedAnAccountToDoThat">회원만이 접근할 수 있습니다.</string>
   <string name="signUp">회원 가입</string>
   <string name="computersAreNotAllowedToPlay">컴퓨터나 컴퓨터의 도움을 받는 플레이어는 대국이 금지되어 있습니다. 대국할 때 체스 엔진이나 관련 자료, 또는 주변 플레이어로부터 도움을 받지 마십시오. 또한, 다중 계정 사용은 권장하지 않으며 지나치게 많은 다중 계정을 사용할 시 계정이 차단될 수 있습니다.</string>
@@ -180,12 +188,39 @@
   <string name="changeUsername">사용자명 변경</string>
   <string name="changeUsernameNotSame">글자의 대소문자 변경만 가능합니다 예: \"johndoe\" to \"JohnDoe\".</string>
   <string name="changeUsernameDescription">닉네임 변경하기: 대/소문자의 변경만이 허용되며, 단 한번만 가능한 작업입니다.</string>
+  <string name="signupUsernameHint">사용자 이름이 어린이를 포함해 모두에게 적절한지 확인하세요. 나중에 변경할 수 없으며 부적절한 사용자 이름을 가진 계정은 폐쇄됩니다!</string>
+  <string name="signupEmailHint">비밀번호 초기화를 위해서만 사용됩니다.</string>
   <string name="password">비밀번호</string>
   <string name="changePassword">비밀번호 변경</string>
   <string name="changeEmail">메일 주소 변경</string>
   <string name="email">메일</string>
   <string name="passwordReset">비밀번호 초기화</string>
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
+  <string name="error.weakPassword">이 비밀번호는 매우 일반적이고 추측하기 쉽습니다.</string>
+  <string name="error.namePassword">사용자 아이디를 비밀번호로 사용하지 마세요.</string>
+  <string name="blankedPassword">다른 사이트에서 동일한 비밀번호를 사용했으며 해당 사이트가 유출된 경우. 라이선스 계정의 안전을 위해 새 비밀번호를 설정해 주셔야 합니다. 양해해 주셔서 감사합니다.</string>
+  <string name="youAreLeavingLichess">리체스에서 나갑니다</string>
+  <string name="neverTypeYourPassword">다른 사이트에서는 절대로 리체스 비밀번호를 입력하지 마세요!</string>
+  <string name="proceedToX">%s 진행</string>
+  <string name="passwordSuggestion">다른 사람이 제안한 비밀번호를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
+  <string name="emailSuggestion">다른 사람이 추천한 이메일 주소를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
+  <string name="emailConfirmHelp">이메일 확인 도움말</string>
+  <string name="emailConfirmNotReceived">가입 후 확인 이메일을 받지 못하셨나요?</string>
+  <string name="whatSignupUsername">가입할 때 어떤 사용자 이름을 사용하셨나요?</string>
+  <string name="usernameNotFound">사용자 이름을 찾을 수 없습니다: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">이 사용자 이름을 사용하여 새 계정을 만들 수 있습니다</string>
+  <string name="emailSent">%s로 이메일을 전송했습니다.</string>
+  <string name="emailCanTakeSomeTime">도착하는데 시간이 걸릴 수 있습니다.</string>
+  <string name="refreshInboxAfterFiveMinutes">5분 가량 기다린 후 이메일 수신함을 새로고침하세요.</string>
+  <string name="checkSpamFolder">또한 스펨메일함을 확인해주시고 스펨을 해제해주세요.</string>
+  <string name="emailForSignupHelp">모두 실패했다면 이곳으로 메일을 보내주세요:</string>
+  <string name="copyTextToEmail">위의 텍스트를 복사해서 %s로 보내주세요.</string>
+  <string name="waitForSignupHelp">가입을 완료할 수 있도록 빠르게 연락드리겠습니다.</string>
+  <string name="accountConfirmed">%s 사용자가 성공적으로 확인되었습니다.</string>
+  <string name="accountCanLogin">이제 %s로 로그인할 수 있습니다.</string>
+  <string name="accountConfirmationEmailNotNeeded">이메일 확인은 필요하지 않습니다.</string>
+  <string name="accountClosed">%s 계정은 폐쇄되었습니다.</string>
+  <string name="accountRegisteredWithoutEmail">%s 계정은 이메일 주소가 없이 등록되었습니다.</string>
   <string name="rank">순위</string>
   <string name="rankX">순위: %s등</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -310,6 +345,7 @@
   <string name="siteDescription">회원가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 구성의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.</string>
   <string name="xJoinedTeamY">%1$s(이)가 팀 %2$s에 가입했습니다.</string>
   <string name="xCreatedTeamY">%1$s(이)가 팀 %2$s(을)를 만들었습니다.</string>
+  <string name="startedStreaming">스트리밍 시작</string>
   <string name="xStartedStreaming">%s 님이 스트리밍을 시작했습니다</string>
   <string name="averageElo">평균 레이팅</string>
   <string name="location">주소</string>
@@ -318,6 +354,8 @@
   <string name="apply">적용</string>
   <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
+  <string name="screenshotCurrentPosition">스크린샷 찍기</string>
+  <string name="gameAsGIF">GIF로 저장하기</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
@@ -326,6 +364,7 @@
   <string name="toStudy">연구</string>
   <string name="importGame">게임 불러오기</string>
   <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
+  <string name="importGameCaveat">변형은 지워집니다. 변형을 유지하려면 스터디를 통해 PGN을 가져오세요.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">불러온 게임 %s개</item>
   </plurals>
@@ -391,6 +430,8 @@
   <string name="tournamentIsStarting">토너먼트가 곧 시작됩니다</string>
   <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 종료되었습니다.</string>
   <string name="standByX">%s 님, 현재 매칭중입니다. 준비하십시오!</string>
+  <string name="pause">일시 중지</string>
+  <string name="resume">재개</string>
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="berserkRate">버서크율</string>
@@ -425,6 +466,10 @@
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="oneUrlPerLine">한 줄에 1개 URL</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
+  <string name="savingMoves">임시 이동 저장</string>
+  <string name="savingMovesHelp">변동 사항들은 항상 당신의 브라우저 캐시에 저장됩니다.</string>
+  <string name="makeAStudy">안전하게 보관하고 공유하려면 스터디를 만들어 보세요.</string>
+  <string name="clearSavedMoves">저장된 움직임 삭제</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
@@ -466,10 +511,13 @@
   <string name="reportDescriptionHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요.</string>
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
   <string name="by">작성: %s</string>
+  <string name="importedByX">%s가 불러옴</string>
   <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
   <string name="typePrivateNotesHere">여기에 비밀 노트를 쓰세요</string>
+  <string name="writeAPrivateNoteAboutThisUser">이 사용자에 대한 비공개 메모를 작성하세요</string>
+  <string name="noNoteYet">아직 메모가 없습니다.</string>
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
   <string name="invalidAuthenticationCode">무효한 인증코드</string>
@@ -524,6 +572,7 @@
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
+  <string name="error.unknown">잘못된 값</string>
   <string name="error.required">필수 기입 사항입니다.</string>
   <string name="error.email">이메일 주소가 유효하지 않습니다</string>
   <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다. 다시 확인후 시도해주세요.</string>
@@ -534,6 +583,7 @@
   <string name="error.min">최소 %s자 이어야 합니다.</string>
   <string name="error.max">최대 %s자 이어야 합니다.</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
+  <string name="ifRegistered">가입된 사람만</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
@@ -581,6 +631,7 @@
   <string name="tournamentFAQ">아레나 토너먼트 FAQ</string>
   <string name="timeBeforeTournamentStarts">토너먼트 시작까지 시간</string>
   <string name="averageCentipawnLoss">평균 CP(centipawn) 손실</string>
+  <string name="accuracy">정확도</string>
   <string name="keyboardShortcuts">키보드 단축키</string>
   <string name="keyMoveBackwardOrForward">뒤로/앞으로 가기</string>
   <string name="keyGoToStartOrEnd">처음/끝으로 가기</string>
@@ -628,6 +679,7 @@
   <string name="kidMode">어린이 모드</string>
   <string name="kidModeExplanation">안전을 위해 그런것입니다. 아이 모드에서는 모든 통신이 비활성화됩니다. 당신의 아이들이나 학생들을 다른 인터넷 사용자들에서 보호하게 이 모드를 키십시오.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">아이 모드에서는 lichess 로고가 %s 아이콘이 뜨기 때문에 안심하셔도 됩니다.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">당신의 계정은 관리되고 있습니다. 아이 모드 해제에 대해서는 체스 선생님께 문의하세요.</string>
   <string name="enableKidMode">아이 모드 활성화하기</string>
   <string name="disableKidMode">아이 모드 비활성화하기</string>
   <string name="security">보안</string>
@@ -661,6 +713,7 @@
   <string name="light">밝게</string>
   <string name="dark">어둡게</string>
   <string name="transparent">투명하게</string>
+  <string name="deviceTheme">기기 테마</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
   <string name="boardGeometry">보드 모양</string>
   <string name="boardTheme">보드 테마</string>
@@ -688,6 +741,7 @@
   <string name="bestWasX">최선의 수는 %s</string>
   <string name="youBrowsedAway">중간에 그만두셨습니다</string>
   <string name="resumePractice">연습을 계속하기</string>
+  <string name="drawByFiftyMoves">게임이 50수 규칙에 의해 무승부가 되었습니다.</string>
   <string name="theGameIsADraw">무승부 게임입니다.</string>
   <string name="computerThinking">컴퓨터 생각 중…</string>
   <string name="seeBestMove">최상의 수 보기</string>
@@ -851,4 +905,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="until">까지</string>
   <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
   <string name="switchSides">색 바꾸기</string>
+  <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
 </resources>

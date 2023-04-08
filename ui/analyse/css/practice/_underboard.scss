@@ -31,7 +31,7 @@
   }
 
   span {
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
 
   &.ongoing {
@@ -69,7 +69,7 @@
       order: 1;
       flex: 1 0;
       cursor: pointer;
-      margin-left: 0.8em;
+      margin-#{$start-direction}: 0.8em;
     }
   }
 }

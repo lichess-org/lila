@@ -1,17 +1,20 @@
 package views.html.challenge
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge.Status
 
 import controllers.routes
 
-object mine {
+object mine:
 
-  def apply(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit
-      ctx: Context
-  ) = {
+  def apply(
+      c: lila.challenge.Challenge,
+      json: play.api.libs.json.JsObject,
+      error: Option[String],
+      color: Option[chess.Color]
+  )(implicit ctx: Context) =
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
@@ -29,8 +32,10 @@ object mine {
         c.status match {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
-              h1(if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()),
-              bits.details(c),
+              h1(cls := "box__top")(
+                if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()
+              ),
+              bits.details(c, color),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),
@@ -50,32 +55,32 @@ object mine {
                       br,
                       p(cls := "challenge-id-form")(
                         input(
-                          id := "challenge-id",
-                          cls := "copyable autoselect",
+                          id         := "challenge-id",
+                          cls        := "copyable autoselect",
                           spellcheck := "false",
                           readonly,
                           value := challengeLink,
-                          size := challengeLink.length
+                          size  := challengeLink.length
                         ),
                         button(
-                          title := "Copy URL",
-                          cls := "copy button",
-                          dataRel := "challenge-id",
+                          title    := "Copy URL",
+                          cls      := "copy button",
+                          dataRel  := "challenge-id",
                           dataIcon := ""
                         )
                       ),
                       p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                     ),
                     ctx.isAuth option div(
-                      h2(cls := "ninja-title", "Or invite a Lichess user:"),
+                      h2(cls := "ninja-title", trans.challenge.inviteLichessUser()),
                       br,
                       postForm(
-                        cls := "user-invite complete-parent",
+                        cls    := "user-invite complete-parent",
                         action := routes.Challenge.toFriend(c.id)
                       )(
                         input(
-                          name := "username",
-                          cls := "friend-autocomplete",
+                          name        := "username",
+                          cls         := "friend-autocomplete",
                           placeholder := trans.search.search.txt()
                         ),
                         error.map { badTag(_) }
@@ -86,37 +91,35 @@ object mine {
               c.notableInitialFen.map { fen =>
                 frag(
                   br,
-                  div(cls := "board-preview", views.html.board.bits.mini(fen, c.finalColor)(div))
+                  div(cls := "board-preview", views.html.board.bits.mini(fen.board, c.finalColor)(div))
                 )
               },
               !c.isOpen option cancelForm
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeDeclined()),
+              h1(cls := "box__top")(trans.challenge.challengeDeclined()),
               blockquote(cls := "challenge-reason pull-quote")(
                 p(c.anyDeclineReason.trans()),
                 footer(userIdLink(c.destUserId))
               ),
-              bits.details(c),
+              bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeAccepted()),
-              bits.details(c),
+              h1(cls := "box__top")(trans.challenge.challengeAccepted()),
+              bits.details(c, color),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
                 trans.joinTheGame()
               )
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1(trans.challenge.challengeCanceled()),
-              bits.details(c),
+              h1(cls := "box__top")(trans.challenge.challengeCanceled()),
+              bits.details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }
       )
     }
-  }
-}

@@ -3,13 +3,12 @@ package views.html.plan
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.plan.CurrencyApi.zeroDecimalCurrencies
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object indexPayPal {
+object indexPayPal:
 
-  import trans.patron._
+  import trans.patron.*
 
   private val dataForm = attr("data-form")
 
@@ -17,20 +16,21 @@ object indexPayPal {
       me: lila.user.User,
       patron: lila.plan.Patron,
       subscription: lila.plan.PayPalSubscription,
-      pricing: lila.plan.PlanPricing,
       gifts: List[lila.plan.Charge.Gift]
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(jsModule("plan"), embedJsUnsafeLoadThen("""plan.payPalStart()"""))
     ) {
       main(cls := "box box-pad plan")(
-        h1(
-          userLink(me),
-          " • ",
-          if (patron.isLifetime) strong(lifetimePatron())
-          else patronForMonths(me.plan.months)
+        boxTop(
+          h1(
+            userLink(me),
+            " • ",
+            if (patron.isLifetime) strong(lifetimePatron())
+            else patronForMonths(me.plan.months)
+          )
         ),
         table(cls := "all")(
           tbody(
@@ -91,4 +91,3 @@ object indexPayPal {
         )
       )
     }
-}

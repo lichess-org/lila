@@ -62,6 +62,8 @@
   <string name="depthX">Doimhneacht %s</string>
   <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>
   <string name="loadingEngine">Inneall ag lódáil...</string>
+  <string name="calculatingMoves">Bearta á ríomh...</string>
+  <string name="engineFailed">Earráid agus an t-inneall á lódáil</string>
   <string name="cloudAnalysis">Anailís scamaill</string>
   <string name="goDeeper">Téigh níos doimhne</string>
   <string name="showThreat">Taispeáin an bhagairt</string>
@@ -98,6 +100,7 @@
   <string name="dtzWithRounding">DTZ50\'\' le slánú, bunaithe ar líon na leathbheart go dtí an chéad ghabháil nó beart ceaithearnach</string>
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
+  <string name="openings">Oscailtí</string>
   <string name="openingExplorer">Ag oscailt taiscéalaí</string>
   <string name="openingEndgameExplorer">Taiscéalaí oscailte / deireadh an chluiche</string>
   <string name="xOpeningExplorer">%s ag oscailt taiscéalaí</string>
@@ -179,6 +182,7 @@
   <string name="viewInFullSize">Breathnaigh in lánmhéid</string>
   <string name="logOut">Logáil amach</string>
   <string name="signIn">Logáil isteach</string>
+  <string name="rememberMe">Coinnigh logáilte istigh mé</string>
   <string name="youNeedAnAccountToDoThat">Tá cuntas ag teastáil uait chun é sin a dhéanamh</string>
   <string name="signUp">Cláraigh</string>
   <string name="computersAreNotAllowedToPlay">Níl cead ag ríomhair agus imreoirí le cabhair ó ríomhairí imirt. Ná bí ag lorg cabhrach ó innill fichille, bunachair sonraí nó imreoirí eile agus tú ag imirt. Moltar go láidir gan iliomaid cuntais a chruthú agus is féidir cosc a chur ar úsáideoirí as an iomarca cuntais a chruthú.</string>
@@ -228,12 +232,31 @@
   <string name="changeUsername">Athraigh ainm úsáideora</string>
   <string name="changeUsernameNotSame">Ní féidir ach cás na litreacha a athrú. Mar shampla ó \"seanog\" go \"SeanOg\".</string>
   <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní cheadaítear duit ach cás na litreacha i d’ainm úsáideora a athrú.</string>
+  <string name="signupUsernameHint">Déan cinnte ainm úsáideora a oireann don teaghlach a roghnú. Ní féidir leat é a athrú ina dhiaidh agus dúnfar aon chuntais a bhfuil ainmneacha úsáideora míchuí orthu!</string>
+  <string name="signupEmailHint">Ní úsáidfimid é ach le haghaidh athshocrú pasfhocail.</string>
   <string name="password">Pasfhocal</string>
   <string name="changePassword">Athraigh pasfhocal</string>
   <string name="changeEmail">Athraigh do sheoladh ríomhphoist</string>
   <string name="email">Ríomhphost</string>
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">An ndearna tú dearmad ar do phasfhocal?</string>
+  <string name="emailConfirmHelp">Cabhair le deimhniú ríomhphoist</string>
+  <string name="emailConfirmNotReceived">Nach bhfuair tú do ríomhphost deimhnithe tar éis síniú suas?</string>
+  <string name="whatSignupUsername">Cén t-ainm úsáideora a d\'úsáid tú chun clárú?</string>
+  <string name="usernameNotFound">Níorbh fhéidir linn aon úsáideoir leis an ainm seo a aimsiú: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Is féidir leat an t-ainm úsáideora seo a úsáid chun cuntas nua a chruthú</string>
+  <string name="emailSent">Tá ríomhphost seolta againn chuig %s.</string>
+  <string name="emailCanTakeSomeTime">Féadfaidh sé roinnt ama le teacht.</string>
+  <string name="refreshInboxAfterFiveMinutes">Fan 5 nóiméad agus athnuachan ríomhphoist.</string>
+  <string name="checkSpamFolder">Seiceáil freisin d\'fhillteán turscair. Más ansin é marcáil nach turscar é.</string>
+  <string name="emailForSignupHelp">Má theipeann ar gach rud eile, seol an ríomhphost seo chugainn:</string>
+  <string name="copyTextToEmail">Cóipeáil agus greamaigh an téacs thuas agus seol chuig %s é</string>
+  <string name="waitForSignupHelp">Beimid ar ais chugat go luath chun cabhrú leat do chlárú a chur i gcrích.</string>
+  <string name="accountConfirmed">D\'éirigh leis an úsáideoir %s a dhearbhú.</string>
+  <string name="accountCanLogin">Is féidir leat logáil isteach anois mar %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Ní gá duit ríomhphost deimhnithe.</string>
+  <string name="accountClosed">Tá an cuntas %s dúnta.</string>
+  <string name="accountRegisteredWithoutEmail">Cláraíodh an cuntas %s gan ríomhphost.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rangú: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -418,6 +441,7 @@
   <string name="siteDescription">Freastalaí fichille saor in aisce. Imir ficheall i gcomhéadan glan. Níl aon fógraí agus ní chaithfear clárú nó plugin a úsáid. Imir ficheall leis an ríomhaire, le cairde nó céilí comhraic randamach.</string>
   <string name="xJoinedTeamY">chuaigh %1$s isteach i bhfoireann %2$s</string>
   <string name="xCreatedTeamY">Bhunaigh %1$s an fhoireann %2$s</string>
+  <string name="startedStreaming">thosaigh sruthú</string>
   <string name="xStartedStreaming">Thosaigh %s ag sruthú</string>
   <string name="averageElo">Meán rátáil</string>
   <string name="location">Láthair</string>
@@ -426,6 +450,8 @@
   <string name="apply">Deimhnigh</string>
   <string name="save">Sábháil</string>
   <string name="leaderboard">Clár ceann riain</string>
+  <string name="screenshotCurrentPosition">Seat an suíomh reatha</string>
+  <string name="gameAsGIF">Cluiche mar GIF</string>
   <string name="pasteTheFenStringHere">Greamaigh an téacs FEN anseo</string>
   <string name="pasteThePgnStringHere">Greamaigh an téacs PGN anseo</string>
   <string name="orUploadPgnFile">Nó treas a uaslódáil</string>
@@ -520,6 +546,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentIsStarting">Tá an comórtas ag tosú</string>
   <string name="tournamentPairingsAreNowClosed">Níl cluichí á socrú níos mó.</string>
   <string name="standByX">Bí réidh %s, ag roinnt imreoirí ina bpéirí, faigh faoi réir!</string>
+  <string name="pause">Cuir ar sos</string>
+  <string name="resume">Atosaigh</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
   <string name="berserkRate">Ráta Beirseirc</string>
@@ -554,6 +582,10 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="socialMediaLinks">Naisc chuig na meáin shóisialta</string>
   <string name="oneUrlPerLine">URL amháin an líne.</string>
   <string name="inlineNotation">Nodaireacht inlíne</string>
+  <string name="savingMoves">Stóráil beart sealadach</string>
+  <string name="savingMovesHelp">Bímid i gcónaí ag stóráil do chuid athruithe i dtaisce do bhrabhsálaí.</string>
+  <string name="makeAStudy">Ar mhaithe le slánú agus le roinnt, smaoinigh ar staidéar a dhéanamh.</string>
+  <string name="clearSavedMoves">Glan amach bearta</string>
   <string name="previouslyOnLichessTV">Roimhe seo ar Lichess TV</string>
   <string name="onlinePlayers">Imreoirí ar líne</string>
   <string name="activePlayers">Imreoirí gníomhacha</string>
@@ -604,6 +636,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="blog">Blag</string>
   <string name="notes">Nótaí</string>
   <string name="typePrivateNotesHere">Scríobh nótaí príobháideach anseo</string>
+  <string name="writeAPrivateNoteAboutThisUser">Scríobh nóta príobháideach faoin úsáideoir seo</string>
+  <string name="noNoteYet">Gan nóta fós</string>
   <string name="invalidUsernameOrPassword">Ainm úsáideora nó pasfhocal neamhbhailí</string>
   <string name="incorrectPassword">Pasfhocal mícheart</string>
   <string name="invalidAuthenticationCode">Cód fíordheimhnithe neamhbhailí</string>
@@ -666,6 +700,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="community">Pobal</string>
   <string name="tools">Uirlisí</string>
   <string name="increment">Incrimint</string>
+  <string name="error.unknown">Luach neamhbhailí</string>
   <string name="error.required">Tá an réimse seo riachtanach</string>
   <string name="error.email">Tá an seoladh ríomhphoist seo neamhbhailí</string>
   <string name="error.email_acceptable">Ní ghlactar leis an seoladh ríomhphoist seo. Déan é a sheiceáil faoi dhó le do thoil, agus bain triail eile as.</string>
@@ -676,6 +711,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
   <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="ifRatingIsPlusMinusX">Más é ±%s an rátáil</string>
+  <string name="ifRegistered">Má chláraítear</string>
   <string name="onlyExistingConversations">Comhráite láithreach amháin</string>
   <string name="onlyFriends">Cairde amháin</string>
   <string name="menu">Roghchlár</string>
@@ -727,6 +763,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentFAQ">Ceisteanna Coitianta Comórtais Airéine</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula dtosnaíonn an comórtas</string>
   <string name="averageCentipawnLoss">Meán chaillteanas ceithearnach sa lár</string>
+  <string name="accuracy">Cruinneas</string>
   <string name="keyboardShortcuts">Aicearraí méarchláir</string>
   <string name="keyMoveBackwardOrForward">bog siar/ar aghaidh</string>
   <string name="keyGoToStartOrEnd">téigh chuig tús/deireadh</string>
@@ -778,6 +815,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="kidMode">Mód páistí</string>
   <string name="kidModeExplanation">Baineann sé seo le sábháilteacht. I mód na bpáistí, tá gach cumarsáid múchta. Úsáid seo do pháistí agus daltaí scoile, chun iad a chosaint ó úsáideoirí idirlín eile.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I mód na bpáistí, faigheann an lógó Lichess íocón %s, ionas go mbeidh a fhios agat go bhfuil do pháistí sábháilte.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Tá do chuntas á bhainistiú. Iarr ar do mhúinteoir fichille faoi mhodh ardú na bpáistí.</string>
   <string name="enableKidMode">Cuir mód na bpáistí ar siúl</string>
   <string name="disableKidMode">Múch mód na bpáistí</string>
   <string name="security">Slándáil</string>
@@ -815,6 +853,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="light">Geal</string>
   <string name="dark">Dorcha</string>
   <string name="transparent">Trédhearcach</string>
+  <string name="deviceTheme">Téama gléas</string>
   <string name="backgroundImageUrl">URL íomhá chúlrá:</string>
   <string name="boardGeometry">Céimseata an chláir</string>
   <string name="boardTheme">Téama an chláir</string>
@@ -846,6 +885,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="bestWasX">Ba é %s ab fhearr</string>
   <string name="youBrowsedAway">Bhí tú ag brabhsáil in áit éigin eile</string>
   <string name="resumePractice">Atosaigh cleachtadh</string>
+  <string name="drawByFiftyMoves">Tá an cluiche cothrom leis an riail caoga beart.</string>
   <string name="theGameIsADraw">Cluiche cothrom.</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
   <string name="seeBestMove">Féach an beart is fearr</string>
@@ -1017,4 +1057,5 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="until">Go dtí</string>
   <string name="lichessDbExplanation">Cluichí rátáilte a sampláladh ó gach imreoir Lichess</string>
   <string name="switchSides">Athraigh taobhanna</string>
+  <string name="closingAccountWithdrawAppeal">Má dhúnann tú do chuntas tarraingeofar siar d’achomharc</string>
 </resources>

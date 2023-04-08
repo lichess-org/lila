@@ -1,23 +1,14 @@
 package lila.video
 
-import org.joda.time.DateTime
-import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
-import play.api.libs.ws.JsonBodyReadables._
-import scala.annotation.nowarn
-import scala.concurrent.Future
 
-final private class VideoSheet(
-    ws: StandaloneWSClient,
-    url: String,
-    api: VideoApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoApi)(using Executor):
 
-  import VideoSheet._
+  import VideoSheet.*
 
   def fetchAll: Fu[Int] =
     fetch flatMap { entries =>
-      lila.common.Future
+      lila.common.LilaFuture
         .linear(entries) { entry =>
           api.video
             .find(entry.youtubeId)
@@ -47,11 +38,10 @@ final private class VideoSheet(
                   ads = entry.ads,
                   startTime = entry.startTime,
                   metadata = Youtube.empty,
-                  createdAt = DateTime.now
+                  createdAt = nowDate
                 )
                 logger.info(s"sheet insert $video")
                 api.video.save(video)
-              case _ => funit
             }
             .recover { case e: Exception =>
               logger.warn("sheet update", e)
@@ -82,7 +72,7 @@ final private class VideoSheet(
             .flatMap { parsed =>
               for {
                 p <- parsed
-                entry <- p match {
+                entry <- p match
                   case List(id, author, title, target, tags, lang, ads, _, include, start, _, _) =>
                     val targets = target.split(';').map(_.trim).toList.flatMap(_.toIntOption)
                     Entry(
@@ -101,7 +91,6 @@ final private class VideoSheet(
                       ads = ads.trim == "yes"
                     ).some
                   case _ => none
-                }
                 if entry.include
                 if entry.lang == "en"
               } yield entry
@@ -110,9 +99,8 @@ final private class VideoSheet(
         }
       case res => fufail(s"[video sheet] fetch ${res.status}")
     }
-}
 
-object VideoSheet {
+object VideoSheet:
 
   case class Entry(
       youtubeId: String,
@@ -125,4 +113,3 @@ object VideoSheet {
       startTime: Int,
       ads: Boolean
   )
-}

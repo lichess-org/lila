@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">lon tenpo lili pini</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">lon tenpo Sekunta kama %s</item>
+    <item quantity="other">lon tenpo Sekunta kama %s</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">lon tenpo Minuta kama %s</item>
+    <item quantity="other">lon tenpo Minuta kama %s</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">lon tenpo Ola kama %s</item>
+    <item quantity="other">lon tenpo Ola kama %s</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">lon tenpo suno kama %s</item>
+    <item quantity="other">lon tenpo suno kama %s</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">lon tenpo esun kama %s</item>
+    <item quantity="other">lon tenpo esun kama %s</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">lon tenpo mun kama %s</item>
+    <item quantity="other">lon tenpo mun kama%s</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">lon tenpo sike kama %s</item>
+    <item quantity="other">lon tenpo sike kama %s</item>
+  </plurals>
+  <string name="rightNow">lon tenpo ni</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">lon tenpo Sekunta pini %s</item>
+    <item quantity="other">lon tenpo Sekunta pini %s</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">lon tenpo Minuta pini %s</item>
+    <item quantity="other">lon tenpo Minuta pini %s</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">lon tenpo Ola pini %s</item>
+    <item quantity="other">lon tenpo Ola pini %s</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">lon tenpo suno pini %s</item>
+    <item quantity="other">lon tenpo suno pini %s</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">lon tenpo esun pini %s</item>
+    <item quantity="other">lon tenpo esun pini %s</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">lon tenpo mun pini %s</item>
+    <item quantity="other">lon tenpo mun pini %s</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">lon tenpo sike pini %s</item>
+    <item quantity="other">lon tenpo sike pini %s</item>
+  </plurals>
+</resources>

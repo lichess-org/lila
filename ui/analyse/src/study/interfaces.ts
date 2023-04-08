@@ -45,6 +45,7 @@ export interface StudyCtrl {
   isChapterOwner(): boolean;
   canJumpTo(path: Tree.Path): boolean;
   onJump(): void;
+  onFlip(): void;
   withPosition<T>(obj: T): T & { ch: string; path: string };
   setPath(path: Tree.Path, node: Tree.Node): void;
   deleteNode(path: Tree.Path): void;
@@ -77,6 +78,7 @@ export interface StudyCtrl {
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
+export type RelayTab = 'overview' | 'schedule' | 'leaderboard';
 export type Visibility = 'public' | 'unlisted' | 'private';
 
 export interface StudyVm {
@@ -126,6 +128,7 @@ export interface StudySettings {
   computer: UserSelection;
   explorer: UserSelection;
   cloneable: UserSelection;
+  shareable: UserSelection;
   chat: UserSelection;
   sticky: boolean;
   description: boolean;
@@ -143,6 +146,7 @@ export interface Position {
 
 export interface StudyFeatures {
   cloneable: boolean;
+  shareable: boolean;
   chat: boolean;
   sticky: boolean;
 }

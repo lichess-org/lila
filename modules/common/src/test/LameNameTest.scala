@@ -1,13 +1,13 @@
 package lila.common
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.*
 
 class LameNameTest extends Specification {
 
-  def test = LameName.username _
+  def test(str: String) = LameName.username(UserName(str))
 
-  "disallow" should {
-    "separated titles" in {
+  "disallow" >> {
+    "separated titles" >> {
       test("fm-foo") must beTrue
       test("fm_foo") must beTrue
       test("wgm-foo") must beTrue
@@ -18,7 +18,7 @@ class LameNameTest extends Specification {
       test("nm_brianmatthews") must beTrue
       test("the_nm_brianmatthews") must beTrue
     }
-    "uppercase titles" in {
+    "uppercase titles" >> {
       test("GMfoo") must beTrue
       test("IMfoo") must beTrue
       test("WFMfoo") must beTrue
@@ -30,7 +30,7 @@ class LameNameTest extends Specification {
       test("BrianMatthewsNM") must beTrue
       test("TheGMBrianMatthews") must beTrue
     }
-    "gross" in {
+    "gross" >> {
       test("Shit") must beTrue
       test("Sh1t") must beTrue
       test("douchebag") must beTrue
@@ -41,8 +41,8 @@ class LameNameTest extends Specification {
       test("fuuckster") must beTrue
     }
   }
-  "allow" should {
-    "good stuff" in {
+  "allow" >> {
+    "good stuff" >> {
       test("joey") must beFalse
       test("gmfoo") must beFalse
       test("g-foo") must beFalse

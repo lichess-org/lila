@@ -24,7 +24,7 @@
   <string name="losingStreak">Паразаў запар</string>
   <string name="longestStreak">Найдаўжэйшая серыя: %s</string>
   <string name="currentStreak">Бягучая серыя: %s</string>
-  <string name="bestRated">Лепшыя рэйтынгавыя перамогі</string>
+  <string name="bestRated">Найлепшыя рэйтынгавыя перамогі</string>
   <string name="worstRated">Горшыя рэйтынгавыя паразы</string>
   <string name="gamesInARow">Гульняў сыграна запар</string>
   <string name="lessThanOneHour">Менш за гадзіну паміж гульнямі</string>

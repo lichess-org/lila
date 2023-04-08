@@ -28,7 +28,7 @@
 
   draw {
     @extend %roboto;
-    margin-left: 1ch;
+    margin-#{$start-direction}: 1ch;
     font-weight: normal;
   }
 }
@@ -133,7 +133,7 @@
 }
 
 %focus-shadow {
-  box-shadow: 0 0 12px $c-font-dim;
+  box-shadow: 0 0 12px $c-font-dimmer;
 }
 
 %zalgoverflow {
@@ -153,11 +153,15 @@
 }
 
 %box-padding {
-  padding: 5vh var(--box-padding);
+  padding: $box-padding-vert var(--box-padding);
 }
 
 %box-padding-horiz {
   padding: 0 var(--box-padding);
+}
+%box-margin-horiz {
+  margin-left: var(--box-padding);
+  margin-right: var(--box-padding);
 }
 
 %break-word {
@@ -207,7 +211,7 @@
   }
 }
 
-%game-embed {
+%study-embed {
   @include breakpoint($mq-not-xx-small) {
     padding-bottom: 160%;
   }
@@ -223,6 +227,7 @@
   speak: none;
   content: attr(data-icon);
   opacity: 0.9;
+  unicode-bidi: isolate;
 }
 
 %data-icon-top {
@@ -234,9 +239,9 @@
 %fullscreen-mask {
   position: fixed;
   top: 0;
-  left: 0;
+  #{$start-direction}: 0;
   bottom: 0;
-  right: 0;
+  #{$end-direction}: 0;
   background: $c-page-mask;
   z-index: z('fullscreen-mask');
 }
@@ -244,7 +249,7 @@
 %link-overlay {
   position: absolute;
   top: 0;
-  left: 0;
+  #{$start-direction}: 0;
   width: 100%;
   height: 100%;
   z-index: z('link-overlay');

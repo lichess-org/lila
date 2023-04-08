@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">পছন্দসমূহ</string>
-  <string name="gameDisplay">খেলার বোর্ড এর রূপ</string>
   <string name="pieceAnimation">গুটির অ্যানিমেশন</string>
   <string name="materialDifference">গুটির মধ্যে ব্যবধান</string>
   <string name="boardHighlights">বোর্ডের বৈশিষ্ট সমূহ (শেষ চাল এবং পরীক্ষা)</string>

@@ -54,9 +54,13 @@ lichess.load.then(() => {
 
       const $post = $(this).closest('.forum-post'),
         $form = $post.find('form.edit-post-form').toggle();
+      const $textarea = $form.find('textarea.edit-post-box');
+      $textarea.get(0)!.scrollIntoView();
 
       ($form[0] as HTMLFormElement).reset();
     });
+
+  const quoted = new Set<string>();
 
   $('.quote.button').on('click', function (this: HTMLButtonElement) {
     const $post = $(this).closest('.forum-post'),
@@ -66,15 +70,22 @@ lichess.load.then(() => {
       message = $post.find('.forum-post__message')[0] as HTMLElement,
       response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
 
-    let quote = message.innerText
+    let messageText = message.innerText;
+    const selection = window.getSelection();
+    if (selection && selection.anchorNode?.parentElement === message) messageText = selection.toString();
+
+    let quote = messageText
       .replace(/^(?:>.*)\n?|(?:@.+ said in #\d+:\n?)/gm, '')
       .trim()
       .split('\n')
       .map(line => '> ' + line)
       .join('\n');
     quote = `${author} said in ${anchor}:\n${quote}\n`;
-    response.value =
-      response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
+    if (!quoted.has(quote)) {
+      quoted.add(quote);
+      response.value =
+        response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
+    }
   });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
@@ -105,13 +116,13 @@ lichess.load.then(() => {
                   const forumParticipantCandidates = searchCandidates(term, participants);
 
                   if (forumParticipantCandidates.length != 0) {
-                    // We always prefer a match on the forum thread partcipants' usernames
+                    // We always prefer a match on the forum thread participants' usernames
                     callback(forumParticipantCandidates);
                   } else if (term.length >= 3) {
                     // We fall back to every site user after 3 letters of the username have been entered
                     // and there are no matches in the forum thread participants
                     xhr
-                      .json(xhr.url('/player/autocomplete', { term }), { cache: 'default' })
+                      .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
                       .then(candidateUsers => callback(searchCandidates(term, candidateUsers)));
                   } else {
                     callback([]);

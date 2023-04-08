@@ -18,6 +18,8 @@
   <string name="rule1">Sertakan kata kunci \"lichess.org\" dalam judul stream Anda saat Anda streaming di Lichess.</string>
   <string name="rule2">Hapus kata kunci saat Anda streaming hal-hal yang bukan Lichess.</string>
   <string name="rule3">Lichess akan mendeteksi stream Anda secara otomatis dan mengaktifkan fasilitas berikut:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Baca %s untuk menjaga sportivitas untuk semua orang saat anda streaming.</string>
+  <string name="streamingFairplayFAQ">pertanyaan umum streaming fairplay</string>
   <string name="perks">Manfaat streaming dengan kata kunci</string>
   <string name="perk1">Dapatkan ikon api streamer di profil Lichess Anda.</string>
   <string name="perk2">Masuk ke dalam list top streamer.</string>
@@ -28,7 +30,6 @@
   <string name="pleaseFillIn">Silakan isi informasi streamer Anda, dan unggah gambar.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kapan Anda siap terdaftar sebagai streamer Lichess, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">meminta tinjauan moderator</string>
-  <string name="anotherLanguage">Jika streaming Anda menggunakan bahasa lain selain bahasa Inggris, sertakan tag bahasa yang benar (%s), yang terlampir dalam tanda kurung siku, di awal judul streaming Anda. Sebagai contoh, sertakan \"[ID]\" untuk Indonesia, \"[RU]\" untuk Rusia, \"[TR]\" untuk Turki, \"[FR]\" untuk Perancis, dll. Letakkan di judul stream di halaman Twitch atau YouTube, bukan di pengaturan stream Lichess. Jika stream Anda dalam bahasa Inggris, tidak perlu menyertakan tag bahasa.</string>
   <string name="twitchUsername">Nama pengguna Twitch Anda atau URL</string>
   <string name="optionalOrEmpty">Opsional. Biarkan kosong jika tidak ada</string>
   <string name="youtubeChannel">Channel YouTube ID Anda atau URL</string>

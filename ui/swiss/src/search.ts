@@ -17,6 +17,9 @@ export function input(ctrl: TournamentController): VNode {
   return h(
     'div.search',
     h('input', {
+      attrs: {
+        spellcheck: 'false',
+      },
       hook: onInsert((el: HTMLInputElement) => {
         lichess.userComplete().then(uac => {
           uac({

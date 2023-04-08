@@ -31,6 +31,7 @@
   <string name="color">Barva</string>
   <string name="evaluation">Hodnocení počítače</string>
   <string name="maxNumber">Maximální počet</string>
+  <string name="maxNumberExplanation">Maximální počet partií, které se mají zobrazit</string>
   <string name="include">Zahrnout</string>
   <string name="descending">Sestupně</string>
   <string name="ascending">Vzestupně</string>

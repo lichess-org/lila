@@ -1,31 +1,33 @@
 package lila.lobby
 
 import chess.{ Mode, Speed }
-import org.joda.time.DateTime
-import play.api.libs.json._
-import play.api.i18n.Lang
+import chess.variant.Variant
+import play.api.libs.json.*
+import ornicar.scalalib.ThreadLocalRandom
 
+import lila.common.Days
+import lila.common.Json.given
 import lila.game.PerfPicker
-import lila.rating.RatingRange
+import lila.rating.{ Perf, RatingRange }
 import lila.user.User
 
 // correspondence chess, persistent
 case class Seek(
     _id: String,
-    variant: Int,
-    daysPerTurn: Option[Int],
+    variant: Variant.Id,
+    daysPerTurn: Option[Days],
     mode: Int,
     color: String,
     user: LobbyUser,
     ratingRange: String,
     createdAt: DateTime
-) {
+):
 
-  def id = _id
+  inline def id = _id
 
   val realColor = Color orDefault color
 
-  val realVariant = chess.variant.Variant orDefault variant
+  val realVariant = Variant.orDefault(variant)
 
   val realMode = Mode orDefault mode
 
@@ -56,60 +58,56 @@ case class Seek(
         "rating"   -> rating,
         "variant"  -> Json.obj("key" -> realVariant.key),
         "mode"     -> realMode.id,
-        "color"    -> chess.Color.fromName(color).??(_.name)
+        "color"    -> (chess.Color.fromName(color).??(_.name): String)
       )
       .add("days" -> daysPerTurn)
       .add("perf" -> perfType.map { pt =>
         Json.obj("key" -> pt.key)
       })
-      .add("provisional" -> perf.exists(_.provisional))
+      .add("provisional" -> perf.exists(_.provisional.yes))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
-}
 
-object Seek {
+object Seek:
 
   val idSize = 8
 
   def make(
       variant: chess.variant.Variant,
-      daysPerTurn: Option[Int],
+      daysPerTurn: Option[Days],
       mode: Mode,
       color: String,
       user: User,
       ratingRange: RatingRange,
-      blocking: Set[String]
-  ): Seek =
-    new Seek(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
-      variant = variant.id,
-      daysPerTurn = daysPerTurn,
-      mode = mode.id,
-      color = color,
-      user = LobbyUser.make(user, blocking),
-      ratingRange = ratingRange.toString,
-      createdAt = DateTime.now
-    )
+      blocking: lila.pool.Blocking
+  ): Seek = Seek(
+    _id = ThreadLocalRandom nextString idSize,
+    variant = variant.id,
+    daysPerTurn = daysPerTurn,
+    mode = mode.id,
+    color = color,
+    user = LobbyUser.make(user, blocking),
+    ratingRange = ratingRange.toString,
+    createdAt = nowDate
+  )
 
-  def renew(seek: Seek) =
-    new Seek(
-      _id = lila.common.ThreadLocalRandom nextString idSize,
-      variant = seek.variant,
-      daysPerTurn = seek.daysPerTurn,
-      mode = seek.mode,
-      color = seek.color,
-      user = seek.user,
-      ratingRange = seek.ratingRange,
-      createdAt = DateTime.now
-    )
+  def renew(seek: Seek) = Seek(
+    _id = ThreadLocalRandom nextString idSize,
+    variant = seek.variant,
+    daysPerTurn = seek.daysPerTurn,
+    mode = seek.mode,
+    color = seek.color,
+    user = seek.user,
+    ratingRange = seek.ratingRange,
+    createdAt = nowDate
+  )
 
-  import reactivemongo.api.bson._
-  import lila.db.BSON.BSONJodaDateTimeHandler
-  implicit val lobbyPerfBSONHandler =
-    BSONIntegerHandler.as[LobbyPerf](
-      b => LobbyPerf(b.abs, b < 0),
-      x => x.rating * (if (x.provisional) -1 else 1)
-    )
-  implicit private[lobby] val lobbyUserBSONHandler = Macros.handler[LobbyUser]
-  implicit private[lobby] val seekBSONHandler      = Macros.handler[Seek]
-}
+  import reactivemongo.api.bson.*
+  import lila.db.dsl.{ *, given }
+  given BSONHandler[LobbyPerf] = BSONIntegerHandler.as[LobbyPerf](
+    b => LobbyPerf(IntRating(b.abs), RatingProvisional(b < 0)),
+    x => x.rating.value * (if x.provisional.yes then -1 else 1)
+  )
+  private given BSONHandler[Map[Perf.Key, LobbyPerf]] = typedMapHandler[Perf.Key, LobbyPerf]
+  private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler
+  private[lobby] given BSONDocumentHandler[Seek]      = Macros.handler

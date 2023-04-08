@@ -1,37 +1,37 @@
 package lila.simul
 
+import ornicar.scalalib.ThreadLocalRandom
 import chess.Color
-import chess.format.FEN
+import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Speed }
-import org.joda.time.DateTime
+import chess.Speed
 
 import lila.rating.PerfType
 import lila.user.User
 
 case class Simul(
-    _id: Simul.ID,
+    _id: SimulId,
     name: String,
     status: SimulStatus,
     clock: SimulClock,
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
-    position: Option[FEN],
+    position: Option[Fen.Epd],
     createdAt: DateTime,
     estimatedStartAt: Option[DateTime] = None,
-    hostId: User.ID,
-    hostRating: Int,
+    hostId: UserId,
+    hostRating: IntRating,
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
     color: Option[String],
     text: String,
-    team: Option[String],
+    team: Option[TeamId],
     featurable: Option[Boolean]
-) {
-  def id = _id
+):
+  inline def id = _id
 
   def fullName = s"$name simul"
 
@@ -43,11 +43,11 @@ case class Simul(
 
   def isRunning = status == SimulStatus.Started
 
-  def hasApplicant(userId: String) = applicants.exists(_ is userId)
+  def hasApplicant(userId: UserId) = applicants.exists(_ is userId)
 
-  def hasPairing(userId: String) = pairings.exists(_ is userId)
+  def hasPairing(userId: UserId) = pairings.exists(_ is userId)
 
-  def hasUser(userId: String) = hasApplicant(userId) || hasPairing(userId)
+  def hasUser(userId: UserId) = hasApplicant(userId) || hasPairing(userId)
 
   def addApplicant(applicant: SimulApplicant) =
     Created {
@@ -56,12 +56,12 @@ case class Simul(
       else this
     }
 
-  def removeApplicant(userId: String) =
+  def removeApplicant(userId: UserId) =
     Created {
       copy(applicants = applicants.filterNot(_ is userId))
     }
 
-  def accept(userId: String, v: Boolean) =
+  def accept(userId: UserId, v: Boolean) =
     Created {
       copy(applicants = applicants map {
         case a if a is userId => a.copy(accepted = v)
@@ -69,7 +69,7 @@ case class Simul(
       })
     }
 
-  def removePairing(userId: String) =
+  def removePairing(userId: UserId) =
     copy(pairings = pairings.filterNot(_ is userId)).finishIfDone
 
   def nbAccepted = applicants.count(_.accepted)
@@ -79,15 +79,16 @@ case class Simul(
   def start =
     startable option copy(
       status = SimulStatus.Started,
-      startedAt = DateTime.now.some,
+      startedAt = nowDate.some,
       applicants = Nil,
+      clock = clock.adjustedForPlayers(nbAccepted),
       pairings = applicants collect {
         case a if a.accepted => SimulPairing(a.player)
       },
       hostSeenAt = none
     )
 
-  def updatePairing(gameId: String, f: SimulPairing => SimulPairing) =
+  def updatePairing(gameId: GameId, f: SimulPairing => SimulPairing) =
     copy(
       pairings = pairings collect {
         case p if p.gameId == gameId => f(p)
@@ -95,14 +96,14 @@ case class Simul(
       }
     ).finishIfDone
 
-  def ejectCheater(userId: String): Option[Simul] =
+  def ejectCheater(userId: UserId): Option[Simul] =
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
 
   private def finishIfDone =
     if (isStarted && pairings.forall(_.finished))
       copy(
         status = SimulStatus.Finished,
-        finishedAt = DateTime.now.some,
+        finishedAt = nowDate.some,
         hostGameId = none
       )
     else this
@@ -129,7 +130,7 @@ case class Simul(
 
   def hostColor: Option[Color] = color flatMap chess.Color.fromName
 
-  def setPairingHostColor(gameId: String, hostColor: chess.Color) =
+  def setPairingHostColor(gameId: GameId, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
@@ -139,12 +140,9 @@ case class Simul(
   def losses  = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
 
-  def pairingOf(userId: User.ID) = pairings.find(_ is userId)
-}
+  def pairingOf(userId: UserId) = pairings.find(_ is userId)
 
-object Simul {
-
-  type ID = String
+object Simul:
 
   case class OnStart(simul: Simul) extends AnyVal
 
@@ -153,41 +151,39 @@ object Simul {
       name: String,
       clock: SimulClock,
       variants: List[Variant],
-      position: Option[FEN],
+      position: Option[Fen.Epd],
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime],
-      team: Option[String],
+      team: Option[TeamId],
       featurable: Option[Boolean]
-  ): Simul =
-    Simul(
-      _id = lila.common.ThreadLocalRandom nextString 8,
-      name = name,
-      status = SimulStatus.Created,
-      clock = clock,
-      hostId = host.id,
-      hostRating = host.perfs.bestRatingIn {
-        variants.flatMap { variant =>
-          lila.game.PerfPicker.perfType(
-            speed = Speed(clock.config.some),
-            variant = variant,
-            daysPerTurn = none
-          )
-        } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
-      },
-      hostGameId = none,
-      createdAt = DateTime.now,
-      estimatedStartAt = estimatedStartAt,
-      variants = if (position.isDefined) List(chess.variant.Standard) else variants,
-      position = position,
-      applicants = Nil,
-      pairings = Nil,
-      startedAt = none,
-      finishedAt = none,
-      hostSeenAt = DateTime.now.some,
-      color = color.some,
-      text = text,
-      team = team,
-      featurable = featurable
-    )
-}
+  ): Simul = Simul(
+    _id = SimulId(ThreadLocalRandom nextString 8),
+    name = name,
+    status = SimulStatus.Created,
+    clock = clock,
+    hostId = host.id,
+    hostRating = host.perfs.bestRatingIn {
+      variants.flatMap { variant =>
+        lila.game.PerfPicker.perfType(
+          speed = Speed(clock.config.some),
+          variant = variant,
+          daysPerTurn = none
+        )
+      } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
+    },
+    hostGameId = none,
+    createdAt = nowDate,
+    estimatedStartAt = estimatedStartAt,
+    variants = if (position.isDefined) List(chess.variant.Standard) else variants,
+    position = position,
+    applicants = Nil,
+    pairings = Nil,
+    startedAt = none,
+    finishedAt = none,
+    hostSeenAt = nowDate.some,
+    color = color.some,
+    text = text,
+    team = team,
+    featurable = featurable
+  )

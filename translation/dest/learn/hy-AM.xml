@@ -79,7 +79,7 @@
   <string name="checkInOneGoal">Թիրախավորե՛ք մրցակցի արքային մեկ քայլով։</string>
   <string name="checkInOneComplete">Շնորհավորո՜ւմ ենք։ Դուք շախ հայտարարեցիք մրցակցին` ստիպելով պաշտպանել արքային։</string>
   <string name="outOfCheck">Ազատում շախից</string>
-  <string name="defendYourKing">Պաշտպանեք ձեր արքային</string>
+  <string name="defendYourKing">Պաշտպանեք ձեր արքան</string>
   <string name="outOfCheckIntro">Ձեզ շա՛խ։ Դուք պետք է հեռանաք կամ ծածկվեք գրոհից։</string>
   <string name="escapeWithTheKing">Արքան փախչո՜ւմ է։</string>
   <string name="theKingCannotEscapeButBlock">Արքան չի կարող հեռանալ, բայց դուք կարող եք պաշտպանել նրան։</string>
@@ -91,11 +91,83 @@
   <string name="defeatTheOpponentsKing">Ջախջախեք մրցակցի արքան</string>
   <string name="mateInOneIntro">Դուք կհաղթեք, եթե ձեր մրցակիցը չկարողանա պաշտպանվել շախից։</string>
   <string name="attackYourOpponentsKing">Գրոհե՛ք մրցակցի արքային այնպես, որ նրան հնարավոր չլինի պաշտպանել։</string>
+  <string name="mateInOneComplete">Շնորհավորո՛ւմ ենք։ Հենց այսպես էլ Դուք կհաղթեք պարտիաներում։</string>
+  <string name="intermediate">Միջին մակարդակ</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
   <string name="howTheGameStarts">Շախմատային պարտիայի սկիզբը</string>
+  <string name="boardSetupIntro">Մարտի պատրաստ երկու բանակները հանդիպել են դեմ առ դեմ։</string>
+  <string name="thisIsTheInitialPosition">Սա շախմատի սկզբնական դիրքն է։ Շարունակելու համար կատարեք որևէ քայլ։</string>
+  <string name="firstPlaceTheRooks">Սկզբում տեղադրեք նավակները։ Նրանք գտնվում են անկյուններում։</string>
+  <string name="thenPlaceTheKnights">Այնուհետև տեղադրեք ձիերը։ Նրանք գտնվում են նավակների կողքին։</string>
+  <string name="placeTheBishops">Տեղադրեք փղերը։ Նրանց տեղը ձիերի կողքին է։</string>
+  <string name="placeTheQueen">Տեղադրեք թագուհին։ Նա սիրում է իր գույնը։</string>
+  <string name="placeTheKing">Տեղադրեք արքան։ Նա կանգնում է թագուհու կողքին։</string>
+  <string name="pawnsFormTheFrontLine">Զինվորները խաղաքարերի առաջ շարվել են մեկ գծով։
+Շարունակելու համար կատարեք որևէ քայլ։</string>
+  <string name="boardSetupComplete">Շնորհավորո՜ւմ ենք։ Այժմ դուք գիտե՜ք, թե ինչպես պետք է շարեք խաղաքարերը շախմատի տախտակին։</string>
+  <string name="castling">Փոխատեղում</string>
+  <string name="theSpecialKingMove">Արքայի յուրահատուկ քայլ</string>
+  <string name="castlingIntro">Արքան տեղափոխեք ապահով տեղ, և նավակը դուրս բերեք մարտի։</string>
+  <string name="castleKingSide">Տեղաշարժեք ձեր արքան երկու վանդակ դեպի արքայական թևի նավակը՝ կարճ փոխատեղում կատարելու համար։</string>
+  <string name="castleQueenSide">Տեղաշարժեք ձեր արքան երկու վանդակ դեպի թագուհու թևի նավակը՝ երկար փոխատեղում կատարելու համար։</string>
+  <string name="theKnightIsInTheWay">Ձին արդեն ճանապարհ է ընկել։ Արեք ձիով քայլ, այնուհետև կատարեք կարճ փոխատեղում։</string>
+  <string name="castleKingSideMovePiecesFirst">Կարճ փոխատեղո՜ւմ։ Սկզբում պետք է դուրս բերեք խաղաքարերը։</string>
+  <string name="castleQueenSideMovePiecesFirst">Երկար փոխատեղո՜ւմ։ Սկզբում պետք է դուրս բերեք խաղաքարերը։</string>
+  <string name="youCannotCastleIfMoved">Դուք չեք կարող կատարել փոխատեղում, եթե դրան մասնակցող արքան կամ նավակը արդեն քայլել են։</string>
+  <string name="youCannotCastleIfAttacked">Դուք չեք կարող կատարել փոխատեղում, եթե փոխատեղման ճանապարհին արքան հայտնվում է շախի տակ։ Նախ պաշտպանեք ճանապարհը, ապա փոխատեղեք։</string>
+  <string name="findAWayToCastleKingSide">Գտե՛ք կարճ փոխատեղում կատարելու եղանակը։</string>
+  <string name="findAWayToCastleQueenSide">Գտե՛ք երկար փոխատեղում կատարելու եղանակը։</string>
+  <string name="castlingComplete">Շնորհավորո՜ւմ ենք։ Գրեթե բոլոր պարտիաներում պետք է կատարել փոխատեղում։</string>
   <string name="enPassant">Կողանցիկ հարված</string>
+  <string name="theSpecialPawnMove">Զինվորի յուրահատուկ քայլ</string>
+  <string name="enPassantIntro">Երբ մրցակցի զինվորը շարժվում է երկու վանդակ առաջ, Դուք կարող եք այն վերցնել, ասես այն առաջ է եկել մեկ վանդակ։</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Սևերի զինվորը հենց նոր երկու դաշտ առաջ եկավ։ Վերցրե՛ք այն կողանցիկ հարվածով։</string>
+  <string name="enPassantOnlyWorksImmediately">Զինվորը հնարավոր է վերցնել կողանցիկ հարվածով անմիջապես այդ զինվորով քայլ կատարելուց հետո։</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Կողանցիկ հարվածը հնարավոր է, եթե Ձեր զինվորը 5-րդ հորիզոնականում է։</string>
+  <string name="takeAllThePawnsEnPassant">Վերցրե՛ք բոլոր զինվորները կողանցիկ հարվածով։</string>
+  <string name="enPassantComplete">Շնորհավորո՜ւմ ենք։ Դուք արդեն կարող եք կատարել կողանցիկ հարված։</string>
   <string name="stalemate">Պատ</string>
   <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>
+  <string name="stalemateIntro">Եթե այն խաղացողը, որի քայլի հերթն է, անելու քայլ չունի, և նրա արքան շախի տակ չէ, այդ իրավիճակը կոչվում է  «պատ»։ Խաղն ավարտվում է ոչ-ոքի․ ոչ ոք չի հաղթել, ոչ ոք չի պարտվել։</string>
+  <string name="stalemateGoal">Պատ սևերին․
+- Սևերը քայլ անել չեն կարող։
+- Սևերի արքան շախի տակ չէ։</string>
+  <string name="stalemateComplete">Շնորհավորո՜ւմ ենք։ Ավելի լավ է ստանալ պատ, քան մատ։</string>
+  <string name="advanced">Առաջադեմ մակարդակ</string>
+  <string name="pieceValue">Խաղաքարերի արժեքը</string>
+  <string name="evaluatePieceStrength">Գնահատեք խաղաքարի ուժը</string>
+  <string name="pieceValueIntro">Բարձր շարժունակությամբ խաղաքարերն ունեն ավելի բարձր արժեք։
+Թագուհի = 9
+Նավակ = 5
+Փիղ = 3
+Ձի = 3
+Զինվոր = 1
+Արքան անգի՜ն է։ Նրա կորուստը նշանակում է պարտություն։</string>
+  <string name="queenOverBishop">Գրոհե՛ք ավելի բարձր արժեքով խաղաքարերը։
+Թագուհի &gt; Փիղ</string>
+  <string name="pieceValueExchange">Վերցրե՛ք ամենաարժեքավոր խաղաքարը։
+Մի՛ փոխանակեք արժեքավոր խաղաքարը պակաս արժեքավորի հետ։</string>
+  <string name="pieceValueLegal">Վերցրե՛ք 
+ամենաարժեքավոր խաղաքարը։
+Համոզվե՛ք, որ քայլը հնարավոր է։</string>
+  <string name="takeThePieceWithTheHighestValue">Գրոհե՛ք ավելի բարձր արժեքով խաղաքարերը։</string>
+  <string name="pieceValueComplete">Շնորհավորո՜ւմ ենք։ Դուք գիտեք խաղաքարերի արժեքները։
+Թագուհի = 9
+Նավակ = 5
+Փիղ = 3
+Ձի = 3
+Զինվոր = 1</string>
+  <string name="checkInTwo">Շախ երկու քայլից</string>
+  <string name="twoMovesToGiveCheck">Շախ հայտարարելու համար տրվում է երկու քայլ</string>
+  <string name="checkInTwoIntro">Գտե՛ք երկքայլանի կոմբինացիա, որպեսզի մրցակցի արքային շախ հայտարարեք։</string>
+  <string name="checkInTwoGoal">Երկու քայլում ստեղծե՛ք սպառնալիք մրցակցի արքային։</string>
+  <string name="checkInTwoComplete">Շնորհավորո՜ւմ ենք։ Դուք շախ հայտարարեցիք մրցակցին` ստիպելով պաշտպանել արքային։</string>
+  <string name="whatNext">Հետո՞</string>
+  <string name="youKnowHowToPlayChess">Դուք սովորեցիք շախմատ խաղալ, շնորհավորում ենք: Ցանկանո՞ւմ եք դառնալ ավելի ուժեղ խաղացող։</string>
+  <string name="register">Գրանցում</string>
+  <string name="getAFreeLichessAccount">Գրանցվե՛ք Lichess-ում անվճար</string>
+  <string name="practice">Զբաղվել, Պարապել</string>
+  <string name="learnCommonChessPositions">Ուսումնասիրեք  շախմատային ընդհանուր շախմատային դիրքերը</string>
   <string name="puzzles">Խնդիրներ</string>
   <string name="exerciseYourTacticalSkills">Մարզեք Ձեր մարտավարական ունակությունները</string>
   <string name="videos">Տեսանյութեր</string>
@@ -118,6 +190,7 @@
   <string name="rightOn">Հենց այդպե՛ս։</string>
   <string name="stageXComplete">%s դասը յուրացված է</string>
   <string name="next">Հաջորդը</string>
+  <string name="nextX">Հաջորդ: %s</string>
   <string name="backToMenu">Վերադառնալ ցանկ</string>
   <string name="puzzleFailed">Առաջադրանքը ձախողվե՛ց</string>
   <string name="retry">Կրկնել</string>

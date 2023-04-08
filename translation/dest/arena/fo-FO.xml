@@ -33,6 +33,5 @@ Telva skjótt, og far aftur til salin at telva fleiri talv og vinna fleiri stig.
   </plurals>
   <string name="thisIsPrivate">Hetta er ein privat kapping</string>
   <string name="shareUrl">Deil hetta URL, so at fólk kunnu taka lut: %s</string>
-  <string name="drawStreak">Remisrøð: Ein telvari, ið hevur eina óbrotna røð av javnleikum í eini arena, fær bert stig fyri fyrsta javnleikin ella fyri javnleikir aftaná fleiri enn %s leikir. Remisrøðin kann bert verða brotin av einum sigri; ikki av einum ósigri ella javnleiki.</string>
   <string name="history">Arenusøga</string>
 </resources>

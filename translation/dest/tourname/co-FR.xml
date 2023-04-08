@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Arena Rapida di l\'ore</string>
+  <string name="hourlyRapidArena">Arena Rapida di l\'ora</string>
   <string name="hourlyRapid">Ghjustra rapida di l\' ore</string>
-  <string name="hourlyXArena">Arena %s di l\'ore</string>
-  <string name="hourlyX">Grustra %s di l\'ore</string>
-  <string name="dailyRapidArena">Arena Rapida ghjurnaliera</string>
-  <string name="dailyRapid">Ghjustra Rapida ghjurnaliera</string>
-  <string name="dailyClassicalArena">Arena Classica ghjurnaliera</string>
-  <string name="dailyClassical">Ghjustra Classica ghjurnaliera</string>
-  <string name="dailyXArena">Arena %s ghjurnaliera</string>
-  <string name="dailyX">Ghjustra %s ghjurnaliera</string>
+  <string name="hourlyXArena">Arena %s di l\'ora</string>
+  <string name="hourlyX">Ghjustra %s di l\'ora</string>
+  <string name="dailyRapidArena">Arena Rapida cutidiana</string>
+  <string name="dailyRapid">Ghjustra Rapida cutidiana</string>
+  <string name="dailyClassicalArena">Arena Classica cutidiana</string>
+  <string name="dailyClassical">Ghjustra Classica cutidiana</string>
+  <string name="dailyXArena">Arena %s cutidiana</string>
+  <string name="dailyX">Ghjustra %s cutidiana</string>
   <string name="easternRapidArena">Arena Rapida di u Levante</string>
   <string name="easternRapid">Ghjustra Rapida di u Levante</string>
   <string name="easternClassicalArena">Arena Classica di u Levante</string>
   <string name="easternClassical">Ghjustra Classica di u Levante</string>
-  <string name="easternXArena">Arenua %s di u Levante</string>
+  <string name="easternXArena">Arena %s di u Levante</string>
   <string name="easternX">Ghjustra %s di u Levante</string>
   <string name="weeklyRapidArena">Arena Rapida settimanale</string>
   <string name="weeklyRapid">Ghjustra Rapida settimanale</string>

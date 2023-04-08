@@ -1,12 +1,10 @@
 package lila.security
 
-import scala.concurrent.duration._
-
 import com.github.blemale.scaffeine.Cache
 import lila.user.User
 import lila.common.config.NetDomain
 
-final class PromotionApi(domain: NetDomain) {
+final class PromotionApi(domain: NetDomain):
 
   def test(user: User)(text: String, prevText: Option[String] = None): Boolean =
     user.isVerified || user.isAdmin || {
@@ -20,17 +18,16 @@ final class PromotionApi(domain: NetDomain) {
       }
     }
 
-  def save(user: User, text: String): Unit = {
+  def save(user: User, text: String): Unit =
     val promotions = extract(text)
     if (promotions.nonEmpty) cache.put(user.id, ~cache.getIfPresent(user.id) ++ promotions)
-  }
 
   private type Id = String
 
-  private val cache: Cache[User.ID, Set[Id]] =
+  private val cache: Cache[UserId, Set[Id]] =
     lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(24 hours)
-      .build[User.ID, Set[Id]]()
+      .build[UserId, Set[Id]]()
 
   private lazy val regexes = List(
     s"$domain/team/([\\w-]+)",
@@ -55,4 +52,3 @@ final class PromotionApi(domain: NetDomain) {
 
   private def identify(text: String): List[String] =
     regexes.flatMap(_ findAllMatchIn text).map(_.matched)
-}

@@ -1,28 +1,27 @@
 package lila.msg
 
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
 import lila.common.LightUser
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.common.Bus
 import lila.hub.actorApi.clas.ClasMatesAndTeachers
-import lila.hub.actorApi.user.KidId
 
 final class MsgSearch(
     colls: MsgColls,
     userCache: lila.user.Cached,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(using ec: Executor, scheduler: Scheduler):
 
-  import BsonHandlers._
+  import BsonHandlers.given
 
   def apply(me: User, q: String): Fu[MsgSearch.Result] =
     if (me.kid) forKid(me, q)
     else
-      searchThreads(me, q) zip searchFriends(me, q) zip searchUsers(me, q) map {
+      searchThreads(me, q) zip UserStr.read(q).??(searchFriends(me, _)) zip searchUsers(UserStr(q)) map {
         case ((threads, friends), users) =>
           MsgSearch
             .Result(
@@ -34,9 +33,9 @@ final class MsgSearch(
 
   private def forKid(me: User, q: String): Fu[MsgSearch.Result] = for {
     threads  <- searchThreads(me, q)
-    allMates <- Bus.ask[Set[User.ID]]("clas") { ClasMatesAndTeachers(KidId(me.id), _) }
+    allMates <- Bus.ask[Set[UserId]]("clas") { ClasMatesAndTeachers(me.id, _) }
     lower   = q.toLowerCase
-    mateIds = allMates.view.filter(_ startsWith lower).toList take 15
+    mateIds = allMates.view.filter(_.value startsWith lower).toList take 15
     mates <- lightUserApi asyncMany mateIds
   } yield MsgSearch.Result(threads, mates.flatten, Nil)
 
@@ -63,18 +62,16 @@ final class MsgSearch(
       .cursor[MsgThread](ReadPreference.secondaryPreferred)
       .list(5)
 
-  private def searchFriends(me: User, q: String): Fu[List[LightUser]] =
+  private def searchFriends(me: User, q: UserStr): Fu[List[LightUser]] =
     relationApi.searchFollowedBy(me, q, 15) flatMap lightUserApi.asyncMany dmap (_.flatten)
 
-  private def searchUsers(me: User, q: String): Fu[List[LightUser]] =
+  private def searchUsers(q: UserStr): Fu[List[LightUser]] =
     userCache.userIdsLike(q) flatMap lightUserApi.asyncMany dmap (_.flatten)
-}
 
-object MsgSearch {
+object MsgSearch:
 
   case class Result(
       threads: List[MsgThread],
       friends: List[LightUser],
       users: List[LightUser]
   )
-}

@@ -1,12 +1,12 @@
 package lila.round
 
-import akka.actor._
-import akka.stream.scaladsl._
-import chess.format.Forsyth
-import play.api.libs.json._
+import akka.actor.*
+import akka.stream.scaladsl.*
+import chess.format.{ Fen, BoardFen }
+import play.api.libs.json.*
 
-import lila.common.Bus
-import lila.common.LightUser
+import lila.common.{ Bus, LightUser }
+import lila.common.Json.given
 import lila.game.actorApi.MoveGameEvent
 import lila.game.Game
 import lila.socket.Socket
@@ -14,9 +14,9 @@ import lila.socket.Socket
 final private class TvBroadcast(
     userJsonView: lila.user.JsonView,
     lightUserSync: LightUser.GetterSync
-) extends Actor {
+) extends Actor:
 
-  import TvBroadcast._
+  import TvBroadcast.*
 
   private var clients = Set.empty[Client]
 
@@ -24,14 +24,13 @@ final private class TvBroadcast(
 
   Bus.subscribe(self, "changeFeaturedGame")
 
-  implicit def system = context.dispatcher
+  given Executor = context.system.dispatcher
 
-  override def postStop() = {
+  override def postStop() =
     super.postStop()
     unsubscribeFromFeaturedId()
-  }
 
-  def receive = {
+  def receive =
 
     case TvBroadcast.Connect(compat) =>
       sender() ! Source
@@ -39,7 +38,7 @@ final private class TvBroadcast(
         .mapMaterializedValue { queue =>
           val client = Client(queue, compat)
           self ! Add(client)
-          queue.watchCompletion().foreach { _ =>
+          queue.watchCompletion().addEffectAnyway {
             self ! Remove(client)
           }
           featured ifFalse compat foreach { f =>
@@ -68,7 +67,7 @@ final private class TvBroadcast(
               .add("seconds" -> pov.game.clock.map(_.remainingTime(pov.color).roundSeconds))
           }
         ),
-        fen = Forsyth exportBoard pov.game.chess.board
+        fen = Fen write pov.game.situation
       )
       clients.foreach { client =>
         client.queue offer {
@@ -83,7 +82,7 @@ final private class TvBroadcast(
         "fen",
         Json
           .obj(
-            "fen" -> s"$fen ${game.turnColor.letter}",
+            "fen" -> fen,
             "lm"  -> move
           )
           .add("wc" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
@@ -93,27 +92,23 @@ final private class TvBroadcast(
       featured foreach { f =>
         featured = f.copy(fen = fen).some
       }
-  }
 
   def unsubscribeFromFeaturedId() =
     featured foreach { previous =>
       Bus.unsubscribe(self, MoveGameEvent makeChan previous.id)
     }
-}
 
-object TvBroadcast {
+object TvBroadcast:
 
-  type SourceType = Source[JsValue, _]
+  type SourceType = Source[JsValue, ?]
   type Queue      = SourceQueueWithComplete[JsValue]
 
-  case class Featured(id: Game.ID, data: JsObject, fen: String) {
+  case class Featured(id: GameId, data: JsObject, fen: Fen.Epd):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
     def socketMsg   = Socket.makeMessage("featured", dataWithFen)
-  }
 
   case class Connect(fromLichess: Boolean)
   case class Client(queue: Queue, fromLichess: Boolean)
 
   case class Add(c: Client)
   case class Remove(c: Client)
-}

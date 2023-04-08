@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Game => ChessGame, Situation }
+import chess.{ Game as ChessGame, Situation }
 
 import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ Game, PerfPicker, Player }
@@ -10,10 +10,10 @@ import lila.user.User
 final private class Biter(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
+)(using
+    ec: Executor,
     idGenerator: lila.game.IdGenerator
-) {
+):
 
   def apply(hook: Hook, sri: Sri, user: Option[LobbyUser]): Fu[JoinHook] =
     if (canJoin(hook, user)) join(hook, sri, user)
@@ -34,11 +34,10 @@ final private class Biter(
         blackUser = creatorColor.fold(userOption, ownerOption)
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
-    } yield {
+    } yield
       lila.mon.lobby.hook.join.increment()
       rememberIfFixedColor(hook.realColor, game)
       JoinHook(sri, hook, game, creatorColor)
-    }
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] =
     for {
@@ -51,10 +50,9 @@ final private class Biter(
         blackUser = creatorColor.fold(user.some, owner.some)
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
-    } yield {
+    } yield
       rememberIfFixedColor(seek.realColor, game)
       JoinSeek(user.id, seek, game, creatorColor)
-    }
 
   private def rememberIfFixedColor(color: Color, game: Game) =
     if (color != Color.Random)
@@ -65,14 +63,13 @@ final private class Biter(
       joinerUser: Option[User],
       color: Color
   ): Fu[chess.Color] =
-    color match {
+    color match
       case Color.Random =>
-        userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.fromWhite
+        userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map { chess.Color.fromWhite(_) }
       case Color.White => fuccess(chess.White)
       case Color.Black => fuccess(chess.Black)
-    }
 
-  private def makeGame(hook: Hook, whiteUser: Option[User], blackUser: Option[User]) = {
+  private def makeGame(hook: Hook, whiteUser: Option[User], blackUser: Option[User]) =
     val clock      = hook.clock.toClock
     val perfPicker = PerfPicker.mainOrDefault(chess.Speed(clock.config), hook.realVariant, none)
     Game
@@ -88,9 +85,8 @@ final private class Biter(
         pgnImport = None
       )
       .start
-  }
 
-  private def makeGame(seek: Seek, whiteUser: Option[User], blackUser: Option[User]) = {
+  private def makeGame(seek: Seek, whiteUser: Option[User], blackUser: Option[User]) =
     val perfPicker = PerfPicker.mainOrDefault(chess.Speed(none), seek.realVariant, seek.daysPerTurn)
     Game
       .make(
@@ -106,14 +102,13 @@ final private class Biter(
         pgnImport = None
       )
       .start
-  }
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
     hook.isAuth == user.isDefined && user.fold(true) { u =>
       u.lame == hook.lame &&
       !hook.userId.contains(u.id) &&
-      !hook.userId.??(u.blocking.contains) &&
-      !hook.user.??(_.blocking).contains(u.id) &&
+      !hook.userId.??(u.blocking.value.contains) &&
+      !hook.user.??(_.blocking).value.contains(u.id) &&
       hook.realRatingRange.fold(true) { range =>
         (hook.perfType map u.ratingAt) ?? range.contains
       }
@@ -122,12 +117,11 @@ final private class Biter(
   def canJoin(seek: Seek, user: LobbyUser): Boolean =
     seek.user.id != user.id &&
       (seek.realMode.casual || user.lame == seek.user.lame) &&
-      !(user.blocking contains seek.user.id) &&
-      !(seek.user.blocking contains user.id) &&
+      !(user.blocking.value contains seek.user.id) &&
+      !(seek.user.blocking.value contains user.id) &&
       seek.realRatingRange.fold(true) { range =>
         (seek.perfType map user.ratingAt) ?? range.contains
       }
 
   def showHookTo(hook: Hook, member: LobbySocket.Member): Boolean =
     hook.sri == member.sri || canJoin(hook, member.user)
-}

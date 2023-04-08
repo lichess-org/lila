@@ -12,6 +12,7 @@
   <string name="myTeams">Mes équipes</string>
   <string name="noTeamFound">Aucune équipe trouvée</string>
   <string name="joinTeam">Rejoindre l\'équipe</string>
+  <string name="onlyLeaderLeavesTeam">Ajoutez un nouveau chef d\'équipe avant de partir ou fermez l\'équipe.</string>
   <string name="quitTeam">Quitter l\'équipe</string>
   <string name="manuallyReviewAdmissionRequests">Examiner manuellement les demandes d\'admission</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Si coché, les joueurs devront rédiger une demande pour rejoindre l\'équipe, que vous pourrez refuser ou accepter.</string>
@@ -54,4 +55,5 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
   <string name="completedTourns">Tournois terminés</string>
   <string name="declinedRequests">Demandes refusées</string>
   <string name="joinLichessVariantTeam">Joignez-vous à l\'équipe officielle %s pour les actualités et les événements</string>
+  <string name="teamPage">Page d\'équipe</string>
 </resources>

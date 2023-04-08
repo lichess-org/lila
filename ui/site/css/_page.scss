@@ -27,7 +27,7 @@
     }
 
     li {
-      margin-left: 2em;
+      margin-#{$start-direction}: 2em;
     }
 
     h3 {

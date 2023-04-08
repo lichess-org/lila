@@ -6,7 +6,7 @@
 
 .is.text::before,
 .text[data-icon]::before {
-  margin-right: 0.4em;
+  @include margin-inline-end(0.4em);
 }
 
 .is-green::before {
@@ -19,4 +19,22 @@
 
 .is-gold::before {
   color: $c-brag;
+}
+
+// mirror arrow icons in RTL
+
+@if $direction == 'rtl' {
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''],
+  [data-icon=''] {
+    &:not(.no-mirror)::before {
+      display: inline-block;
+      transform: scaleX(-1);
+    }
+  }
 }

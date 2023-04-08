@@ -14,8 +14,8 @@ class FloodTest extends Specification {
   private val str = "Implementation uses dynamic programming (Wagner–Fischer algorithm)"
   private val msg = m(str)
 
-  "find duplicate" should {
-    "same" in {
+  "find duplicate" >> {
+    "same" >> {
       isDup(msg, Nil) must beFalse
       isDup(msg, List(m("foo"))) must beFalse
       isDup(msg, List(msg)) must beTrue
@@ -23,7 +23,7 @@ class FloodTest extends Specification {
       isDup(msg, List(m("foo"), msg, m("bar"))) must beTrue
       isDup(msg, List(m("foo"), m("bar"), msg)) must beFalse
     }
-    "levenshtein" in {
+    "levenshtein" >> {
       isDup(msg, List(m(s"$str!"))) must beTrue
       isDup(msg, List(m(s"-$str"))) must beTrue
       isDup(msg, List(m(s"$str!!"))) must beTrue

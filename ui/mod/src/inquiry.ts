@@ -18,13 +18,17 @@ lichess.load.then(() => {
   const loadNotes = () => {
     const $notes = $('#inquiry .notes');
     $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
-    $notes.find('form').on('submit', function (this: HTMLFormElement) {
-      xhr
-        .formToXhr(this)
-        .then(html => $notes.replaceWith(html))
-        .then(noteStore.remove)
-        .then(() => loadNotes())
-        .catch(() => alert('Invalid note, is it too short or too long?'));
+    $notes.find('form button[type=submit]').on('click', function (this: HTMLButtonElement) {
+      $(this)
+        .parents('form')
+        .each((_, form: HTMLFormElement) =>
+          xhr
+            .formToXhr(form, this)
+            .then(html => $notes.replaceWith(html))
+            .then(noteStore.remove)
+            .then(() => loadNotes())
+            .catch(() => alert('Invalid note, is it too short or too long?'))
+        );
       return false;
     });
   };
@@ -35,7 +39,7 @@ lichess.load.then(() => {
     $('body').toggleClass('no-inquiry');
   });
 
-  const nextStore = lichess.storage.makeBoolean('inquiry-auto-next');
+  const nextStore = lichess.storage.boolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
     $('#inquiry .switcher input').prop('checked', false);
@@ -54,13 +58,13 @@ lichess.load.then(() => {
       expandMentions(
         $(this)
           .html()
-          .replace(/(?:https:\/\/)?lichess\.org\/([\w\/:(&;)?=@\.]+)/gi, '<a href="/$1">lichess.org/$1</a>')
+          .replace(/(?:https:\/\/)?lichess\.org\/((?:[\w\/:(&;)=@-]|[?.]\w)+)/gi, '<a href="/$1">lichess.org/$1</a>')
       )
     );
   });
 
   $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
-    // Need to take username from the communcation page so that when being in inquiry for user A and checking communication of user B
+    // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B
     // the notes cannot be mistakenly attributed to user A.
     const username = $('#communication').find('.title').text().split(' ')[0];
     const message = $(this).find('.message').text();

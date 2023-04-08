@@ -1,29 +1,38 @@
 package lila.forum
 
-import lila.common.Future
-import lila.notify.NotifyApi
-import lila.notify.{ MentionedInThread, Notification }
-import lila.relation.RelationApi
-import lila.pref.PrefApi
-import lila.user.{ User, UserRepo }
+import lila.common.LilaFuture
+import lila.notify.MentionedInThread
 
 /** Notifier to inform users if they have been mentioned in a post
   *
-  * @param notifyApi Api for sending inbox messages
+  * @param notifyApi
+  *   Api for sending inbox messages
   */
 final class MentionNotifier(
-    userRepo: UserRepo,
-    notifyApi: NotifyApi,
-    relationApi: RelationApi,
-    prefApi: PrefApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    userRepo: lila.user.UserRepo,
+    notifyApi: lila.notify.NotifyApi,
+    relationApi: lila.relation.RelationApi,
+    prefApi: lila.pref.PrefApi
+)(using Executor):
 
-  def notifyMentionedUsers(post: Post, topic: Topic): Funit =
+  def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
-      filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
-        val mentionedBy   = MentionedInThread.MentionedBy(author)
-        val notifications = validUsers.map(createMentionNotification(post, topic, _, mentionedBy))
-        notifyApi.addNotifications(notifications)
+      filterValidUsers(extractMentionedUsers(post), author) flatMap { mentionedUsers =>
+        mentionedUsers
+          .map { user =>
+            notifyApi.notifyOne(
+              user,
+              lila.notify.MentionedInThread(
+                mentionedBy = author,
+                topicName = topic.name,
+                topidId = topic.id,
+                category = post.categId,
+                postId = post.id
+              )
+            )
+          }
+          .parallel
+          .void
       }
     }
 
@@ -31,39 +40,20 @@ final class MentionNotifier(
     * or block the mentioner from the returned list.
     */
   private def filterValidUsers(
-      candidates: Set[User.ID],
-      mentionedBy: User.ID
-  ): Fu[List[Notification.Notifies]] = {
+      candidates: Set[UserId],
+      mentionedBy: UserId
+  ): Fu[List[UserId]] =
     for {
       existingUsers <-
         userRepo
-          .existingUsernameIds(candidates take 10)
+          .filterExists(candidates take 10)
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
-      users            <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
-    } yield users.map(Notification.Notifies.apply)
-  }
+      users <- LilaFuture.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
+    } yield users
 
-  private def createMentionNotification(
-      post: Post,
-      topic: Topic,
-      mentionedUser: Notification.Notifies,
-      mentionedBy: MentionedInThread.MentionedBy
-  ): Notification = {
-    val notificationContent = MentionedInThread(
-      mentionedBy,
-      MentionedInThread.Topic(topic.name),
-      MentionedInThread.TopicId(topic.id),
-      MentionedInThread.Category(post.categId),
-      MentionedInThread.PostId(post.id)
-    )
-
-    Notification.make(mentionedUser, notificationContent)
-  }
-
-  private def extractMentionedUsers(post: Post): Set[User.ID] =
+  private def extractMentionedUsers(post: ForumPost): Set[UserId] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
-      (post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
+      (post.userId foldLeft m.map(_ group 1).map(u => UserStr(u).id).toSet) { _ - _ }
     }
-}

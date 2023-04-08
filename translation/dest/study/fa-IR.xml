@@ -62,6 +62,8 @@
   <string name="studyPgn">PGN درس</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="chapterPgn">PGN فصل</string>
+  <string name="copyChapterPgn">کپی کردن PGN</string>
+  <string name="copyChapterPgnDescription">کپی کردن فصل PGN.</string>
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>
   <string name="currentChapterUrl">URL فصل فعلی</string>
@@ -76,6 +78,7 @@
   <string name="studyNotFound">مطالعه یافت نشد</string>
   <string name="editChapter">ویرایش فصل</string>
   <string name="newChapter">وصل جدید</string>
+  <string name="importFromChapterX">وارد کردن از %s</string>
   <string name="orientation">جهت</string>
   <string name="analysisMode">حالت تجزیه تحلیل</string>
   <string name="pinnedChapterComment">نظر سنجاق شده درباره فصل</string>

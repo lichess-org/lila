@@ -3,6 +3,12 @@
   "include": ["src"],
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["lichess", "web", "cash"]
-  }
+    "rootDir": "src",
+    "types": ["lichess", "web", "cash"],
+    "declaration": true,
+    "inlineSourceMap": true,
+    "composite": true
+  },
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../palantir/tsconfig.json" }],
+  "isolatedModules": true
 }

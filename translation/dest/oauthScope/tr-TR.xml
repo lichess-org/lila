@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Yeni kişisel API erişimi jetonu</string>
+  <string name="tokenGrantsPermission">Bir jeton diğer insanlara hesabınızı kullanma izni verir.</string>
+  <string name="carefullySelect">Sizin adınıza ne yapmasına izin verildiğini dikkatlice seçin.</string>
+  <string name="tokenDescription">Jeton açıklaması</string>
+  <string name="rememberTokenUse">Jetonun ne için olduğunu hatırlaman için</string>
+  <string name="whatTheTokenCanDo">Jeton senin adına neler yapabilir:</string>
+  <string name="doNotShareIt">Jeton, hesabınıza erişim sağlayacaktır. Kimseyle PAYLAŞMAYIN!</string>
+  <string name="copyTokenNow">Yeni kişisel erişim jetonunuzu şimdi kopyaladığınızdan emin olun. Bir daha göremeyeceksin!</string>
+  <string name="preferenceRead">Oyun tercihleri ​​oku</string>
+  <string name="preferenceWrite">Oyun tercihlerini değiştir</string>
+  <string name="emailRead">E-posta adresini oku</string>
+  <string name="challengeRead">Gelen oyun tekliflerini oku</string>
+  <string name="challengeWrite">Maç teklifleri gönder, kabul et veya reddet</string>
+  <string name="challengeBulk">Diğer oyuncular için aynı anda birçok oyun oluştur</string>
+  <string name="studyRead">Özel çalışmaları ve yayınları okuyun</string>
+  <string name="studyWrite">Çalışmaları ve yayınları oluşturun, güncelleyin, silin</string>
+  <string name="tournamentWrite">Turnuvalar oluşturun, güncelleyin ve katılın</string>
+  <string name="racerWrite">Bulmaca yarışları oluşturun ve katılın</string>
+  <string name="puzzleRead">Bulmaca etkinliğini okuyun</string>
+  <string name="teamRead">Özel ekip bilgilerini okuyun</string>
+  <string name="teamWrite">Takımlara katıl ve ayrıl</string>
+  <string name="teamLead">Liderlik ettiğiniz ekipleri yönetin: PM\'ler gönderin, üyeleri atın</string>
+  <string name="followRead">Takip edilen oyuncuları oku</string>
+  <string name="followWrite">Diğer oyuncuları takip edin ve takibi bırakın</string>
+  <string name="msgWrite">Diğer oyunculara özel mesajlar gönderin</string>
+  <string name="boardPlay">Tahta api\'si ile oyunlar oynayın</string>
+  <string name="botPlay">Bot api\'si ile oyunlar oynayın</string>
+  <string name="engineRead">Harici motorlarınızı görüntüleyin ve kullanın</string>
+  <string name="engineWrite">Harici motorlar oluşturun ve güncelleyin</string>
+  <string name="webLogin">Kimliği doğrulanmış web sitesi oturumları oluşturun (tam erişim sağlar!)</string>
+  <string name="webMod">Moderatör araçlarını kullanın (izniniz dahilinde)</string>
+</resources>

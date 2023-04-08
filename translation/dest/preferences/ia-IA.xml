@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferentias</string>
-  <string name="gameDisplay">Presentation de joco</string>
   <string name="pieceAnimation">Animation de pecias</string>
   <string name="materialDifference">Differentia material</string>
   <string name="boardHighlights">Marcar le ultime movimento e chaco sur le tabuliero</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="keyboardInputCommands">Comenzi de la tastatură</string>
   <string name="performAMove">Efectuează o mutare</string>
   <string name="movePieceFromE2ToE4">Mută piesa de la e2 la e4</string>
   <string name="moveKnightToC3">Mută calul la c3</string>
@@ -9,6 +10,7 @@
   <string name="dropARookAtB4">Pune o tură la b4 (doar în varianta Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Oferă sau acceptă remiză</string>
   <string name="readOutClocks">Citește ceasurile</string>
+  <string name="readOutOpponentName">Citește numele adversarului</string>
   <string name="otherCommands">Alte comenzi</string>
   <string name="tips">Sfaturi</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Dacă notația de mai sus nu este cunoscută, aflați mai multe aici:</string>

@@ -108,7 +108,7 @@
   <string name="smotheredMate">Спёрты мат</string>
   <string name="smotheredMateDescription">Мат пастаўленны канём, калі заматаваны кароль не можа рухацца, бо акружаны (ці запёрты) сваімі фігурамі.</string>
   <string name="superGM">Партыі супергросмайстраў</string>
-  <string name="superGMDescription">Задачы з партый лепшых гульцоў у свеце.</string>
+  <string name="superGMDescription">Задачы з партый найлепшых гульцоў у свеце.</string>
   <string name="trappedPiece">Фігура ў пастцы</string>
   <string name="trappedPieceDescription">Фігура не можа пазбегнуць збіцця, бо абмежавана ў хадах.</string>
   <string name="underPromotion">Слабае пераўтварэнне</string>

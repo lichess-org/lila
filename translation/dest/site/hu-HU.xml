@@ -23,9 +23,9 @@
   <string name="createAGame">Játék létrehozása</string>
   <string name="whiteIsVictorious">Világos nyert</string>
   <string name="blackIsVictorious">Sötét nyert</string>
-  <string name="youPlayTheWhitePieces">Fehérrel fogsz játszani</string>
+  <string name="youPlayTheWhitePieces">Világossal fogsz játszani</string>
   <string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
-  <string name="itsYourTurn">Te következel</string>
+  <string name="itsYourTurn">Te következel!</string>
   <string name="cheatDetected">Csalás észlelve</string>
   <string name="kingInTheCenter">Király a centrumban</string>
   <string name="threeChecks">Három sakk</string>
@@ -37,12 +37,12 @@
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva tied a győzelem.</item>
-    <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="other">Ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
-  <string name="opponentLeftChoices">Úgy tűnik az ellenfél kilépett. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
+  <string name="opponentLeftChoices">Úgy tűnik, az ellenfél kilépett. Igényelhetsz győzelmet vagy döntetlent, esetleg várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
-  <string name="forceDraw">Döntetlen</string>
+  <string name="forceDraw">Döntetlen felajánlása</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki felkeresi ezt a címet, az lesz az ellenfeled.</string>
   <string name="whiteResigned">Világos feladta</string>
@@ -51,14 +51,16 @@
   <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
   <string name="whiteDidntMove">Világos nem lépett</string>
   <string name="blackDidntMove">Sötét nem lépett</string>
-  <string name="requestAComputerAnalysis">Számítógépes elemzés kérése</string>
+  <string name="requestAComputerAnalysis">Számítógépes elemzés</string>
   <string name="computerAnalysis">Számítógépes elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="computerAnalysisDisabled">Számítógépes elemzés letiltva</string>
   <string name="analysis">Elemzőtábla</string>
   <string name="depthX">%s mélység</string>
-  <string name="usingServerAnalysis">A szerver elemzését használja</string>
-  <string name="loadingEngine">Motor betöltése ...</string>
+  <string name="usingServerAnalysis">Szerver elemzés használata</string>
+  <string name="loadingEngine">Motor betöltése...</string>
+  <string name="calculatingMoves">Lépések kiszámítása...</string>
+  <string name="engineFailed">Hiba a motor betöltésekor</string>
   <string name="cloudAnalysis">Elemzés felhőben</string>
   <string name="goDeeper">Mélyebben</string>
   <string name="showThreat">Fenyegetés mutatása</string>
@@ -91,7 +93,8 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Több játszma bevétele a beállítások menüben?</string>
+  <string name="openings">Megnyitások</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
   <string name="openingEndgameExplorer">Megnyitás/végjáték böngésző</string>
   <string name="xOpeningExplorer">%s megnyitás böngésző</string>
@@ -106,17 +109,17 @@
   <string name="deleteThisImportedGame">Törlöd ezt az importált játszmát?</string>
   <string name="replayMode">Visszajátszás</string>
   <string name="realtimeReplay">Valós idejű</string>
-  <string name="byCPL">CPL-ek</string>
+  <string name="byCPL">CPL</string>
   <string name="openStudy">Tanulmány megnyitása</string>
-  <string name="enable">Bekapcsolva</string>
-  <string name="bestMoveArrow">Legjobb lépés nyíl</string>
+  <string name="enable">Engedélyezve</string>
+  <string name="bestMoveArrow">Legjobb lépés mutatása</string>
   <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
   <string name="multipleLines">Több változat</string>
   <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Nincs mélységkorlát és melegszik a számítógéped</string>
-  <string name="blunder">Durva hiba</string>
+  <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
   <plurals name="nbBlunders">
@@ -133,7 +136,7 @@
   </plurals>
   <string name="moveTimes">Lépésidők</string>
   <string name="flipBoard">Tábla megfordítása</string>
-  <string name="threefoldRepetition">Háromszori lépésismétlés</string>
+  <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="claimADraw">Döntetlen igénylése</string>
   <string name="offerDraw">Döntetlen felajánlása</string>
   <string name="draw">Döntetlen</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
   <string name="signIn">Bejelentkezés</string>
+  <string name="rememberMe">Maradjak bejelentkezve</string>
   <string name="youNeedAnAccountToDoThat">Ehhez szükséged van egy fiókra</string>
   <string name="signUp">Regisztráció</string>
   <string name="computersAreNotAllowedToPlay">Számítógépek és számítógép segítségét igénybe vevő játékosok nem játszhatnak. Kérünk játék közben ne vegyél igénybe segítséget sakk programoktól, adatbázisoktól, vagy más játékosoktól. Több fiók készítése és használata egyszerre az oldalról való kitiltást vonja maga után.</string>
@@ -195,12 +199,39 @@
   <string name="changeUsername">Felhasználónév váltás</string>
   <string name="changeUsernameNotSame">Csak a kis-nagy betűket cserélheted a névben. Pl. \"johndoe\" - \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Változtasd meg a felhasználó nevet. Ezt csak egyszer teheted meg és csak a kisbetű-nagybetű váltás engedélyezett a felhasználónévben.</string>
+  <string name="signupUsernameHint">Mindenképpen családbarát felhasználónevet válassz. Később már nem tudod megváltoztatni, a nem helyénvaló felhasználónevek fiókját zároljuk!</string>
+  <string name="signupEmailHint">Csak jelszó-visszaállításhoz használjuk.</string>
   <string name="password">Jelszó</string>
   <string name="changePassword">Jelszó megváltoztatása</string>
   <string name="changeEmail">E-mail cím megváltoztatása</string>
   <string name="email">E-mail cím</string>
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
+  <string name="error.weakPassword">Ez a jelszó rettentő gyakori, és túl könnyű kitalálni.</string>
+  <string name="error.namePassword">Kérjük ne használja a felhasználónevét a jelszavának.</string>
+  <string name="blankedPassword">Ugyanezt a jelszót már használta egy másik webhelyen, és az a webhely veszélybe került. A Lichess-fiókjának biztonsága érdekében új jelszót kell megadnia. Köszönjük megértését.</string>
+  <string name="youAreLeavingLichess">Elhagyja a Lichess-t</string>
+  <string name="neverTypeYourPassword">Soha ne írja be a Lichess jelszavát más oldalon!</string>
+  <string name="proceedToX">Tovább a(z) %s oldalra</string>
+  <string name="passwordSuggestion">Ne állítson be olyan jelszót, amit más ajánlott. Arra használhatják, hogy ellopják a fiókját.</string>
+  <string name="emailSuggestion">Ne állítson be olyan email címet, amit más ajánlott. Arra használhatják, hogy ellopják a fiókját.</string>
+  <string name="emailConfirmHelp">Segítség az e-mail megerősítéshez</string>
+  <string name="emailConfirmNotReceived">Nem kaptad meg a megerősítő e-mailt a regisztráció után?</string>
+  <string name="whatSignupUsername">Milyen felhasználónévvel regisztráltál?</string>
+  <string name="usernameNotFound">Nem találtunk ilyen nevű felhasználót: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Használhatod ezt a felhasználónevet új fiók létrehozásához</string>
+  <string name="emailSent">Üzenetet küldtünk a %s címre.</string>
+  <string name="emailCanTakeSomeTime">Eltarthat egy ideig, amíg megérkezik.</string>
+  <string name="refreshInboxAfterFiveMinutes">Várj 5 percet, és frissítsd az e-mail postafiókodat.</string>
+  <string name="checkSpamFolder">Kérlek ellenőrizd a levélszemét mappát is, talán oda kerül, ebben az esetben jelöld meg nem levélszemétként.</string>
+  <string name="emailForSignupHelp">Ha mindezek ellenére nem sikerül, küldj nekünk egy e-mailt:</string>
+  <string name="copyTextToEmail">Másold ki és illeszd be a fenti szöveget, és küld el a %s címre</string>
+  <string name="waitForSignupHelp">Rövid időn belül fel fogjuk venni veled a kapcsolatot a regisztrációd befejezéséhez.</string>
+  <string name="accountConfirmed">%s felhasználó sikeresen megerősítve.</string>
+  <string name="accountCanLogin">A %s felhasználói fiókkal most már bejelentkezhetsz.</string>
+  <string name="accountConfirmationEmailNotNeeded">Az e-mail címet nem szükséges megerősíteni.</string>
+  <string name="accountClosed">%s felhasználói fiók zárolva van.</string>
+  <string name="accountRegisteredWithoutEmail">A %s felhasználói fiók e-mail cím nélkül lett regisztrálva.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Helyezés: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -211,7 +242,7 @@
     <item quantity="one">%s feladvány</item>
     <item quantity="other">%s feladvány</item>
   </plurals>
-  <string name="gamesPlayed">Lejátszott játékok</string>
+  <string name="gamesPlayed">Lejátszott játszmák</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s játszma veled</item>
     <item quantity="other">%s játék veled</item>
@@ -219,7 +250,7 @@
   <string name="cancel">Mégse</string>
   <string name="whiteTimeOut">Világos ideje lejárt</string>
   <string name="blackTimeOut">Sötét ideje lejárt</string>
-  <string name="drawOfferSent">Döntetlen felajánlás elküldve</string>
+  <string name="drawOfferSent">Döntetlen felajánlva</string>
   <string name="drawOfferAccepted">Döntetlen elfogadva</string>
   <string name="drawOfferCanceled">Döntetlen ajánlás elvetve</string>
   <string name="whiteOffersDraw">Világos döntetlent ajánl</string>
@@ -229,10 +260,10 @@
   <string name="yourOpponentOffersADraw">Az ellenfeled döntetlent ajánl</string>
   <string name="accept">Elfogad</string>
   <string name="decline">Elutasít</string>
-  <string name="playingRightNow">Jelenlegi játék</string>
+  <string name="playingRightNow">Játszma folyamatban</string>
   <string name="eventInProgress">Éppen zajlik</string>
-  <string name="finished">Vége</string>
-  <string name="finishesX">vége %s</string>
+  <string name="finished">Befejezett</string>
+  <string name="finishesX">véget ér: %s</string>
   <string name="abortGame">Játszma elvetése</string>
   <string name="gameAborted">Játszma elvetve</string>
   <string name="standard">Hagyományos</string>
@@ -252,19 +283,19 @@
   <string name="viewRematch">Visszavágó megtekintése</string>
   <string name="confirmMove">Erősítsd meg a lépést</string>
   <string name="play">Játék</string>
-  <string name="inbox">Érkezett üzenetek</string>
+  <string name="inbox">Üzenetek</string>
   <string name="chatRoom">Csevegő</string>
   <string name="loginToChat">Jelentkezz be a csevegéshez</string>
   <string name="youHaveBeenTimedOut">Lenémítottak egy időre.</string>
   <string name="spectatorRoom">Figyelőszoba</string>
-  <string name="composeMessage">Üzenetírás</string>
+  <string name="composeMessage">Új üzenet</string>
   <string name="subject">Tárgy</string>
   <string name="send">Küldés</string>
   <string name="incrementInSeconds">Többletidő (másodpercben)</string>
   <string name="freeOnlineChess">Ingyenes Online Sakk</string>
   <plurals name="nbRated">
-    <item quantity="one">%s értékelt</item>
-    <item quantity="other">%s értékelt</item>
+    <item quantity="one">%s rangsorolt</item>
+    <item quantity="other">%s rangsorolt</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s győzelem</item>
@@ -292,10 +323,10 @@
   <string name="openingExplorerAndTablebase">Megnyitás- és állásböngésző</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
-  <string name="takebackPropositionSent">Visszalépéskérés elküldve</string>
-  <string name="takebackPropositionDeclined">Visszalépéskérés elutasítva</string>
-  <string name="takebackPropositionAccepted">Visszalépés kérése elfogadva</string>
-  <string name="takebackPropositionCanceled">Visszalépéskérés elvetve</string>
+  <string name="takebackPropositionSent">Visszalépés elküldve</string>
+  <string name="takebackPropositionDeclined">Visszalépés elutasítva</string>
+  <string name="takebackPropositionAccepted">Visszalépés elfogadva</string>
+  <string name="takebackPropositionCanceled">Visszalépés elvetve</string>
   <string name="yourOpponentProposesATakeback">Az ellenfeled vissza szeretne lépni</string>
   <string name="bookmarkThisGame">Játszma könyvjelzőzése</string>
   <string name="tournament">Verseny</string>
@@ -307,9 +338,9 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s tanulmány</item>
-    <item quantity="other">%s tanulmányok</item>
+    <item quantity="other">%s tanulmány</item>
   </plurals>
-  <string name="viewTournament">Verseny nézése</string>
+  <string name="viewTournament">Verseny megtekintése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
   <string name="thematic">Tematikus</string>
   <plurals name="moreThanNbRatedGames">
@@ -337,9 +368,10 @@
   <string name="mustBeInTeam">Csak %s tagoknak</string>
   <string name="youAreNotInTeam">Nem vagy a %s csapatban</string>
   <string name="backToGame">Vissza a játékhoz</string>
-  <string name="siteDescription">Ingyenes online sakk játék letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések és pluginek telepítése sem szükséges. Játssz a gép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
+  <string name="siteDescription">Ingyenes online sakkszerver letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések, sem telepítendő bővítmények. Játssz számítógép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
   <string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
+  <string name="startedStreaming">közvetítések kezdete</string>
   <string name="xStartedStreaming">%s elkezdte a közvetítést</string>
   <string name="averageElo">Átlag értékszám</string>
   <string name="location">Hely</string>
@@ -348,6 +380,8 @@
   <string name="apply">Mentés</string>
   <string name="save">Mentés</string>
   <string name="leaderboard">Ranglista</string>
+  <string name="screenshotCurrentPosition">Képernyőkép készítése a jelenlegi állásról</string>
+  <string name="gameAsGIF">Játszma GIF-ként</string>
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
   <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>
@@ -356,6 +390,7 @@
   <string name="toStudy">Tanulmány</string>
   <string name="importGame">Játszma importálása</string>
   <string name="importGameExplanation">Ha PGN formátumban adsz hozzá játszmát, visszanézheted a partit, elemezheted számítógéppel, chatelhetsz és linkkel meg tudod osztani másokkal.</string>
+  <string name="importGameCaveat">A változatok törölve lesznek, azonban ha a PGN-t tanulmányba importálod, megtarthatod őket.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importált játszma</item>
     <item quantity="other">%s Importált játszma</item>
@@ -364,13 +399,13 @@
   <string name="clickOnTheBoardToMakeYourMove">Kattints a táblára és lépj - innen tudjuk, hogy ember vagy.</string>
   <string name="captcha.fail">Kérünk, oldd meg a sakk captchát.</string>
   <string name="notACheckmate">Ez nem matt</string>
-  <string name="whiteCheckmatesInOneMove">Fehér következő lépésben mattot ad</string>
-  <string name="blackCheckmatesInOneMove">Fekete a következő lépésben mattot ad</string>
+  <string name="whiteCheckmatesInOneMove">Világos egy lépésben mattot ad</string>
+  <string name="blackCheckmatesInOneMove">Sötét egy lépésben mattot ad</string>
   <string name="retry">Újra</string>
   <string name="reconnecting">Újrakapcsolódás</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s barát érhető el</item>
-    <item quantity="other">%s barát érhető el</item>
+    <item quantity="one">%s elérhető barát</item>
+    <item quantity="other">%s elérhető barát</item>
   </plurals>
   <string name="favoriteOpponents">Kedvenc ellenfelek</string>
   <string name="follow">Követés</string>
@@ -410,24 +445,26 @@
   <string name="tournamentCalendar">Versenynaptár</string>
   <string name="conditionOfEntry">Nevezés feltétele:</string>
   <string name="advancedSettings">Haladó beállítások</string>
-  <string name="safeTournamentName">Válassz egy nagyon biztonságos nevet a versenynek.</string>
+  <string name="safeTournamentName">Válassz egy nevet a versenyednek.</string>
   <string name="inappropriateNameWarning">Akár a legkisebb pontatlanság is a fiókod zárolását eredményezheti.</string>
-  <string name="emptyTournamentName">Hagyd üresen, ha azt szeretnéd, hogy a verseny automatikusan kapjon nevet egy nagymesterről.</string>
+  <string name="emptyTournamentName">Hagyd üresen, ha azt szeretnéd, hogy a versenyed egy nagymesterről kapjon nevet.</string>
   <string name="recommendNotTouching">Azt javasoljuk, hogy ne változtass ezeken.</string>
-  <string name="fewerPlayers">Feltétel beállítása esetén kevesebb játékos lesz a versenyen.</string>
+  <string name="fewerPlayers">Követelmények beállítása esetén kevesebb játékos lesz a versenyen.</string>
   <string name="showAdvancedSettings">Haladó beállítások megjelenítése</string>
-  <string name="makePrivateTournament">Készíts privát tornát és a hozzáférést védd le jelszóval</string>
+  <string name="makePrivateTournament">A torna priváttá tétele a fenti jelszóval</string>
   <string name="join">Csatlakozás</string>
   <string name="withdraw">Visszavon</string>
-  <string name="points">Pontok</string>
+  <string name="points">Pont</string>
   <string name="wins">Győzelmek</string>
   <string name="losses">Vereségek</string>
-  <string name="createdBy">Készítette:</string>
+  <string name="createdBy">Készítette</string>
   <string name="tournamentIsStarting">A verseny kezdődik</string>
-  <string name="tournamentPairingsAreNowClosed">A verseny párosítások már lezárultak.</string>
+  <string name="tournamentPairingsAreNowClosed">A verseny párosításai lezárultak.</string>
   <string name="standByX">Állj készen %s, hamarosan ellenfelet kapsz!</string>
+  <string name="pause">Szünet</string>
+  <string name="resume">Folytatás</string>
   <string name="youArePlaying">Te következel!</string>
-  <string name="winRate">Nyerési arány</string>
+  <string name="winRate">Győzelmi arány</string>
   <string name="berserkRate">Berserk arány</string>
   <string name="performance">Teljesítmény</string>
   <string name="tournamentComplete">Verseny összefoglaló</string>
@@ -443,7 +480,7 @@
   <string name="endgamePositions">Végjáték állások</string>
   <string name="chess960StartPosition">Chess960 kezdőállás: %s</string>
   <string name="startPosition">Alapállás</string>
-  <string name="clearBoard">Üres tábla</string>
+  <string name="clearBoard">Tábla törlése</string>
   <string name="loadPosition">Állás betöltése</string>
   <string name="isPrivate">Privát</string>
   <string name="reportXToModerators">%s jelentése a moderátoroknak</string>
@@ -460,6 +497,10 @@
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="oneUrlPerLine">Egy URL soronként.</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
+  <string name="savingMoves">Átmeneti lépés tároló</string>
+  <string name="savingMovesHelp">A variációkat mindig a böngésző gyorsítótárában tároljuk.</string>
+  <string name="makeAStudy">A biztonság kedvéért és a későbbi megosztás lehetőségéért fontold meg egy tanulmány létrehozását.</string>
+  <string name="clearSavedMoves">Lépések törlése</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
   <string name="onlinePlayers">Online játékosok</string>
   <string name="activePlayers">Aktív játékosok</string>
@@ -507,6 +548,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Jegyzetek</string>
   <string name="typePrivateNotesHere">Ide írd a saját jegyzeteidet</string>
+  <string name="writeAPrivateNoteAboutThisUser">Jegyzet hozzáadása</string>
+  <string name="noNoteYet">Nincsenek jegyzetek</string>
   <string name="invalidUsernameOrPassword">Érvénytelen felhasználónév vagy jelszó</string>
   <string name="incorrectPassword">Hibás jelszó</string>
   <string name="invalidAuthenticationCode">Érvénytelen hitelesítő kód</string>
@@ -563,6 +606,7 @@
   <string name="community">Közösség</string>
   <string name="tools">Eszközök</string>
   <string name="increment">Többletidő</string>
+  <string name="error.unknown">Érvénytelen érték</string>
   <string name="error.required">A mező kitöltése kötelező</string>
   <string name="error.email">Ez az email cím érvénytelen</string>
   <string name="error.email_acceptable">A megadott email cím nem használható. Kérjük ellenőrizd és próbáld újra.</string>
@@ -573,6 +617,7 @@
   <string name="error.min">Nagyobbnak vagy egyenlőnek kell lennie mint %s</string>
   <string name="error.max">Kisebbnek vagy egyenlőnek kell lennie mint %s</string>
   <string name="ifRatingIsPlusMinusX">Ha a pontszám ± %s</string>
+  <string name="ifRegistered">Csak regisztrált</string>
   <string name="onlyExistingConversations">Csak megkezdett csevegések</string>
   <string name="onlyFriends">Csak ismerősöktől</string>
   <string name="menu">Menü</string>
@@ -584,7 +629,7 @@
     <item quantity="other">%s fórumbejegyzés</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Játékkal töltött idő: %s</string>
-  <string name="watchGames">Játszmák nézése</string>
+  <string name="watchGames">Játszmák megtekintése</string>
   <string name="tpTimeSpentOnTV">TV-n töltött idő: %s</string>
   <string name="watch">Néznivaló</string>
   <string name="videoLibrary">Videó könyvtár</string>
@@ -621,6 +666,7 @@
   <string name="tournamentFAQ">Aréna verseny GYIK</string>
   <string name="timeBeforeTournamentStarts">Kezdés ennyi perc múlva</string>
   <string name="averageCentipawnLoss">Átlagos gyalogveszteség</string>
+  <string name="accuracy">Pontosság</string>
   <string name="keyboardShortcuts">Billentyű kombinációk</string>
   <string name="keyMoveBackwardOrForward">lépj előre/hátra</string>
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
@@ -651,7 +697,7 @@
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
   <string name="readAboutOur">Itt olvashatók az %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess között</string>
+  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess szervere között</string>
   <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
   <string name="downloadRaw">Letöltés elemzés nélkül</string>
@@ -669,6 +715,7 @@
   <string name="kidMode">Gyereküzemmód</string>
   <string name="kidModeExplanation">A Gyereküzemmód a biztonságról szól. A mód bekapcsolásával az összes kommunikáció megszűnik a többi játékossal, így megvédheted a gyermekeid vagy a diákjaid a többi felhasználó elől.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Gyereküzemmódban a Lichess logón megjelenik egy %s ikon, így tudhatod, hogy gyermekeid biztonságos felületen játszanak.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">A felhasználói fiókodat a tanárod felügyeli. Kérd meg, hogy inaktiválja a gyerek módot.</string>
   <string name="enableKidMode">Gyereküzemmód bekapcsolása</string>
   <string name="disableKidMode">Gyereküzemmód kikapcsolása</string>
   <string name="security">Biztonság</string>
@@ -703,6 +750,7 @@
   <string name="light">Világos</string>
   <string name="dark">Sötét</string>
   <string name="transparent">Áttetsző</string>
+  <string name="deviceTheme">Operációs rendszer</string>
   <string name="backgroundImageUrl">Háttérkép URL címe:</string>
   <string name="boardGeometry">Tábla geometria</string>
   <string name="boardTheme">Tábla szín</string>
@@ -728,9 +776,10 @@
   </plurals>
   <string name="practiceWithComputer">Gyakorlás a géppel</string>
   <string name="anotherWasX">Ez is jó lett volna: %s</string>
-  <string name="bestWasX">Ez lett volna a legjobb lépés: %s</string>
+  <string name="bestWasX">Legjobb lépés: %s</string>
   <string name="youBrowsedAway">Elnavigáltál</string>
   <string name="resumePractice">Gyakorlás folytatása</string>
+  <string name="drawByFiftyMoves">Az 50 lépéses szabály értelmében a játszma döntetlen.</string>
   <string name="theGameIsADraw">A játék döntetlen.</string>
   <string name="computerThinking">A gép gondolkodik...</string>
   <string name="seeBestMove">A legjobb lépés mutatása</string>
@@ -743,12 +792,12 @@
   <string name="learnFromThisMistake">Tanulok a hibámból</string>
   <string name="skipThisMove">Lépés kihagyása</string>
   <string name="next">Tovább</string>
-  <string name="xWasPlayed">%s a lépés</string>
+  <string name="xWasPlayed">lépés: %s</string>
   <string name="findBetterMoveForWhite">Találj egy jobb lépést világosnak</string>
   <string name="findBetterMoveForBlack">Találj egy jobb lépést sötétnek</string>
   <string name="resumeLearning">Tanulás folytatása</string>
   <string name="youCanDoBetter">Van jobb lépés is</string>
-  <string name="tryAnotherMoveForWhite">Próbálj mást lépni fehérrel</string>
+  <string name="tryAnotherMoveForWhite">Próbálj mást lépni világossal</string>
   <string name="tryAnotherMoveForBlack">Próbálj mást lépni feketével</string>
   <string name="solution">Megoldás</string>
   <string name="waitingForAnalysis">Készül az analízis</string>
@@ -897,4 +946,5 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="lichessDbExplanation">A Lichess játékosok értékelt játszmáiból összeállítva</string>
   <string name="switchSides">Oldal megfordítása</string>
   <string name="closingAccountWithdrawAppeal">A fiókod lezárása visszavonja a fellebbezésed</string>
+  <string name="ourEventTips">Tippjeink események szervezéséhez</string>
 </resources>

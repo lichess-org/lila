@@ -19,13 +19,13 @@
 
   ol,
   ul {
-    padding-left: 0.5em;
+    padding-#{$start-direction}: 0.5em;
   }
 
   li ol,
   li ul {
     margin: 0;
-    padding-left: 2em;
+    padding-#{$start-direction}: 2em;
   }
 
   ol > li {
@@ -50,18 +50,18 @@
 
   h2 {
     &:not(:first-child) {
-      margin-top: 1.8em;
+      margin-top: calc(0.9 * #{$element-margin});
     }
     border-bottom: 1px solid $c-brag;
     line-height: 1.5em;
-    padding-bottom: 0.5em;
+    padding-bottom: calc(0.25 * #{$element-margin});
   }
 
   h3 {
     @include fluid-size('font-size', 18px, 27px);
 
     font-weight: bold;
-    margin: 1.6em 0 1em 0;
+    margin: calc(0.8 * #{$element-margin}) 0 calc(0.5 * #{$element-margin}) 0;
 
     &:first-child {
       margin-top: 0;
@@ -121,7 +121,7 @@
 @mixin rendered-markdown--quote {
   blockquote {
     color: $c-font-dim;
-    border-left: 0.3em solid $c-font-dimmer;
-    padding-left: 1em;
+    border-#{$start-direction}: 0.3em solid $c-font-dimmer;
+    padding-#{$start-direction}: 1em;
   }
 }

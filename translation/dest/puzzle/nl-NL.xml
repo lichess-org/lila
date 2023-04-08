@@ -13,18 +13,26 @@
   <string name="specialMoves">Speciale zetten</string>
   <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
   <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
+  <string name="upVote">Puzzel leuk vinden</string>
+  <string name="downVote">Puzzel niet leuk vinden</string>
   <string name="yourPuzzleRatingWillNotChange">Je puzzelrating zal niet veranderen: puzzels zijn geen competitie. De rating helpt bij het selecteren van de beste puzzels voor je huidige vaardigheid.</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
   <string name="toGetPersonalizedPuzzles">Om gepersonaliseerde puzzels te krijgen:</string>
   <string name="puzzleId">Puzzel %s</string>
   <string name="puzzleOfTheDay">Puzzel van de dag</string>
+  <string name="dailyPuzzle">Dagelijkse Puzzel</string>
   <string name="clickToSolve">Klik om op te lossen</string>
   <string name="goodMove">Goede zet</string>
   <string name="bestMove">Beste zet!</string>
   <string name="keepGoing">Ga zo door…</string>
   <string name="puzzleSuccess">Succes!</string>
   <string name="puzzleComplete">Puzzel voltooid!</string>
+  <string name="byOpenings">Per opening</string>
+  <string name="puzzlesByOpenings">Puzzels per opening</string>
+  <string name="openingsYouPlayedTheMost">Openingen die je het meest hebt gespeeld in partijen met rating</string>
+  <string name="useFindInPage">Gebruik \"In pagina zoeken\" in het browsermenu om je favoriete opening te vinden!</string>
+  <string name="useCtrlF">Gebruik Ctrl+F om je favoriete opening te vinden!</string>
   <string name="notTheMove">Dat is niet de juiste zet!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
   <string name="ratingX">Rating: %s</string>
@@ -51,6 +59,7 @@
   </plurals>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
+  <string name="nextPuzzle">Volgende puzzel</string>
   <string name="jumpToNextPuzzleImmediately">Ga direct door naar volgende puzzel</string>
   <string name="puzzleDashboard">Puzzeldashboard</string>
   <string name="improvementAreas">Verbeterpunten</string>

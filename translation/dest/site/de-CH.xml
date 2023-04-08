@@ -349,6 +349,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="apply">Aawändä</string>
   <string name="save">Schpeichere</string>
   <string name="leaderboard">Ranglischte</string>
+  <string name="screenshotCurrentPosition">En Screenshot vu de aktuelle Schtellig mache</string>
+  <string name="gameAsGIF">Schpiel als GIF</string>
   <string name="pasteTheFenStringHere">Füeg de FEN-Tegscht da ii</string>
   <string name="pasteThePgnStringHere">Füeg de PGN-Tegscht da ii</string>
   <string name="orUploadPgnFile">Oder lad e PGN-Datei ufe</string>
@@ -419,7 +421,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="showAdvancedSettings">Zeig die erwiterete Iischtellige</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
   <string name="join">Mach mit</string>
-  <string name="withdraw">Zruggzieh</string>
+  <string name="withdraw">Usstiige</string>
   <string name="points">Pünkt</string>
   <string name="wins">Sieg</string>
   <string name="losses">Niederlage</string>
@@ -427,6 +429,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="tournamentIsStarting">S\'Turniär fangt aa</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiil meh gschpillt.</string>
   <string name="standByX">Stand by %s, Paarige werded gmacht, mach dich bereit!</string>
+  <string name="pause" comment="pause&#10;When you are in an ongoing tournament, clicking this will temporarily stop you from getting into new games.">underbräche</string>
+  <string name="resume" comment="resume&#10;Allows you to resume playing in a tournament after you have paused your participation or navigated away from it.">wieder ischtiige</string>
   <string name="youArePlaying">Dis Schpiil fangt aa!</string>
   <string name="winRate">Gwünn Rate</string>
   <string name="berserkRate">Bärsärkratä</string>

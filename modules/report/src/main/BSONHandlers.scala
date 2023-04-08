@@ -1,18 +1,15 @@
 package lila.report
 
-import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.dsl._
-import reactivemongo.api.bson._
+import lila.db.dsl.{ *, given }
+import reactivemongo.api.bson.*
 
-object BSONHandlers {
+object BSONHandlers:
 
-  implicit val ReasonBSONHandler = isoHandler[Reason, String](Reason.reasonIso)
-  implicit val RoomBSONHandler   = isoHandler[Room, String](Room.roomIso)
-  import Report.{ Atom, Done, Inquiry, Score }
-  implicit val InquiryBSONHandler    = Macros.handler[Inquiry]
-  implicit val DoneBSONHandler       = Macros.handler[Done]
-  implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
-  implicit val ScoreIdBSONHandler    = doubleIsoHandler[Score](Report.scoreIso)
-  implicit val AtomBSONHandler       = Macros.handler[Atom]
-  implicit val ReportBSONHandler     = Macros.handler[Report]
-}
+  import Reason.given
+  import Room.given
+  given BSONHandler[Reason]                 = stringIsoHandler
+  given BSONHandler[Room]                   = stringIsoHandler
+  given BSONDocumentHandler[Report.Inquiry] = Macros.handler
+  given BSONDocumentHandler[Report.Done]    = Macros.handler
+  given BSONDocumentHandler[Report.Atom]    = Macros.handler
+  given BSONDocumentHandler[Report]         = Macros.handler

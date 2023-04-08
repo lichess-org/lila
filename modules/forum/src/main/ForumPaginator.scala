@@ -1,24 +1,25 @@
 package lila.forum
 
-import scala.concurrent.ExecutionContext
-
-import lila.common.paginator._
-import lila.db.dsl._
-import lila.db.paginator._
-import lila.user.User
 import reactivemongo.api.ReadPreference
+import lila.common.paginator.*
+import lila.db.dsl.{ *, given }
+import lila.db.paginator.Adapter
+import lila.user.User
 
 final class ForumPaginator(
-    topicRepo: TopicRepo,
-    postRepo: PostRepo,
-    config: ForumConfig
-)(implicit ec: ExecutionContext) {
+    topicRepo: ForumTopicRepo,
+    postRepo: ForumPostRepo,
+    config: ForumConfig,
+    textExpand: ForumTextExpand
+)(using Executor):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
-  def topicPosts(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
+  def topicPosts(topic: ForumTopic, page: Int, me: Option[User])(using
+      netDomain: lila.common.config.NetDomain
+  ): Fu[Paginator[ForumPost.WithFrag]] =
     Paginator(
-      new Adapter(
+      new Adapter[ForumPost](
         collection = postRepo.coll,
         selector = postRepo.forUser(me) selectTopic topic.id,
         projection = none,
@@ -26,12 +27,16 @@ final class ForumPaginator(
       ),
       currentPage = page,
       maxPerPage = config.postMaxPerPage
-    )
+    ).flatMap(_ mapFutureList textExpand.manyPosts)
 
-  def categTopics(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] =
+  def categTopics(
+      categ: ForumCateg,
+      forUser: Option[User],
+      page: Int
+  ): Fu[Paginator[TopicView]] =
     Paginator(
       currentPage = page,
-      maxPerPage = config.postMaxPerPage,
+      maxPerPage = config.topicMaxPerPage,
       adapter = new AdapterLike[TopicView] {
 
         def nbResults: Fu[Int] =
@@ -41,7 +46,7 @@ final class ForumPaginator(
         def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
           topicRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match(selector) -> List(
                 Sort(Descending("updatedAt")),
                 Skip(offset),
@@ -59,12 +64,11 @@ final class ForumPaginator(
             .map { docs =>
               for {
                 doc   <- docs
-                topic <- doc.asOpt[Topic]
-                post = doc.getAsOpt[List[Post]]("post").flatMap(_.headOption)
+                topic <- doc.asOpt[ForumTopic]
+                post = doc.getAsOpt[List[ForumPost]]("post").flatMap(_.headOption)
               } yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
             }
 
         private def selector = topicRepo.forUser(forUser) byCategNotStickyQuery categ
       }
     )
-}

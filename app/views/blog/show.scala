@@ -1,12 +1,12 @@
 package views.html.blog
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object show {
+object show:
 
   def apply(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
@@ -22,23 +22,24 @@ object show {
         )
         .some,
       moreCss = cssTag("blog"),
-      csp = bits.csp
+      csp = bits.csp.map(_.withInlineIconFont)
     )(
       main(cls := "page-menu page-small")(
         bits.menu(none, "lichess".some),
-        div(cls := s"blog page-menu__content box post ${~doc.getText("blog.cssClasses")}")(
-          h1(doc.getText("blog.title")),
+        div(cls := s"blog page-menu__content box post force-ltr ${~doc.getText("blog.cssClasses")}")(
+          h1(cls := "box__top")(doc.getText("blog.title")),
           bits.metas(doc),
           doc.getImage("blog.image", "main").map { img =>
             div(cls := "illustration")(st.img(src := img.url))
           },
           div(cls := "body expand-text")(
-            doc
-              .getHtml("blog.body", prismic.linkResolver)
+            Html
+              .from(doc.getHtml("blog.body", prismic.linkResolver))
               .map(lila.blog.Youtube.fixStartTimes)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
-              .map(raw)
+              .map(env.blog.api.expand)
+              .map(rawHtml)
           ),
           ctx.noKid option
             div(cls := "footer")(
@@ -46,7 +47,7 @@ object show {
                 (doc
                   .getDate("blog.date")
                   .exists(
-                    _.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2)
+                    _.value.toDateTimeAtStartOfDay isAfter nowDate.minusWeeks(2)
                   )) option
                   a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
                     "Discuss this blog post in the forum"
@@ -58,4 +59,3 @@ object show {
         )
       )
     )
-}

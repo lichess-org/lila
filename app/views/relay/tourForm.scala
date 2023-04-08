@@ -4,18 +4,18 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTourForm.Data
-import lila.relay.{ RelayRound, RelayTour }
+import lila.relay.RelayTour
 
-object tourForm {
+object tourForm:
 
-  import trans.broadcast._
+  import trans.broadcast.*
 
   def create(form: Form[Data])(implicit ctx: Context) =
     layout(newBroadcast.txt(), menu = "new".some)(
-      h1(newBroadcast()),
+      boxTop(h1(newBroadcast())),
       postForm(cls := "form3", action := routes.RelayTour.create)(
         inner(form),
         form3.actions(
@@ -27,7 +27,7 @@ object tourForm {
 
   def edit(t: RelayTour, form: Form[Data])(implicit ctx: Context) =
     layout(t.name, menu = none)(
-      h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(t.name)),
+      boxTop(h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(t.name))),
       postForm(cls := "form3", action := routes.RelayTour.update(t.id.value))(
         inner(form),
         form3.actions(
@@ -56,7 +56,7 @@ object tourForm {
     form3.group(form("name"), tournamentName())(form3.input(_)(autofocus)),
     form3.group(form("description"), tournamentDescription())(form3.textarea(_)(rows := 2)),
     form3.group(
-      form("markup"),
+      form("markdown"),
       fullDescription(),
       help = fullDescriptionHelp(
         a(
@@ -66,12 +66,31 @@ object tourForm {
         20000.localize
       ).some
     )(form3.textarea(_)(rows := 10)),
-    if (isGranted(_.Relay))
-      form3.group(
-        form("tier"),
-        raw("Official Lichess broadcast tier"),
-        help = raw("Feature on /broadcast - for admins only").some
-      )(form3.select(_, RelayTour.Tier.options))
-    else form3.hidden(form("tier"))
+    form3.split(
+      form3.checkbox(
+        form("autoLeaderboard"),
+        raw("Automatic leaderboard"),
+        help = raw("Compute and display a simple leaderboard based on game results").some,
+        half = true
+      ),
+      if (isGranted(_.Relay))
+        form3.group(
+          form("tier"),
+          raw("Official Lichess broadcast tier"),
+          help = raw("Feature on /broadcast - for admins only").some,
+          half = true
+        )(form3.select(_, RelayTour.Tier.options))
+      else form3.hidden(form("tier"))
+    ),
+    form3.group(
+      form("players"),
+      "Optional: replace player names and ratings",
+      help = frag(
+        "One line per player, formatted as such:",
+        pre("Original name; Replacement name; Optional replacement rating"),
+        "Example:",
+        pre("""DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764""")
+      ).some
+    )(form3.textarea(_)(rows := 3))
   )
-}

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Tercîh</string>
-  <string name="gameDisplay">Xuyanga lîstikê</string>
   <string name="pieceAnimation">Anîmasyona kabikan</string>
   <string name="materialDifference">Cudahiya kabikan</string>
   <string name="boardHighlights">Nîşankirinên texteyê (hemleya dawîn û kişkirin)</string>

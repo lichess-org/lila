@@ -1,9 +1,9 @@
 package lila.game
 
-import chess.format.Forsyth
-import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
-import chess.format.{ FEN, pgn => chessPgn }
-import chess.{ Centis, Color }
+import chess.format.Fen
+import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr }
+import chess.format.{ pgn as chessPgn }
+import chess.{ Centis, Color, Outcome }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
@@ -11,16 +11,16 @@ import lila.common.LightUser
 final class PgnDump(
     baseUrl: BaseUrl,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  import PgnDump._
+  import PgnDump.*
 
   def apply(
       game: Game,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen.Epd],
       flags: WithFlags,
-      teams: Option[Color.Map[String]] = None
-  ): Fu[Pgn] = {
+      teams: Option[Color.Map[TeamId]] = None
+  ): Fu[Pgn] =
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
     }
@@ -37,22 +37,21 @@ final class PgnDump(
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
-        val fenSituation = ts.fen flatMap Forsyth.<<<
+        val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
         makeTurns(
           flags keepDelayIf game.playable applyDelay {
-            if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
-            else game.pgnMoves
+            if (fenSituation.exists(_.situation.color.black)) SanStr("..") +: game.sans
+            else game.sans
           },
-          fenSituation.map(_.fullMoveNumber) | 1,
+          fenSituation.fold(1)(_.fullMoveNumber.value),
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
         )
       }
       Pgn(ts, turns)
     }
-  }
 
-  private def gameUrl(id: String) = s"$baseUrl/$id"
+  private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
     (game.whitePlayer.userId ?? lightUserApi.async) zip (game.blackPlayer.userId ?? lightUserApi.async)
@@ -67,8 +66,8 @@ final class PgnDump(
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
-  private def eventOf(game: Game) = {
-    val perf = game.perfType.fold("Standard")(_.trans(lila.i18n.defaultLang))
+  private def eventOf(game: Game) =
+    val perf = game.perfType.fold("Standard")(_.trans(using lila.i18n.defaultLang))
     game.tournamentId.map { id =>
       s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
     } orElse game.simulId.map { id =>
@@ -76,7 +75,6 @@ final class PgnDump(
     } getOrElse {
       s"${game.mode} $perf game"
     }
-  }
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
     p.ratingDiff.map { rd =>
@@ -85,11 +83,11 @@ final class PgnDump(
 
   def tags(
       game: Game,
-      initialFen: Option[FEN],
+      initialFen: Option[Fen.Epd],
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,
-      teams: Option[Color.Map[String]] = None
+      teams: Option[Color.Map[TeamId]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
       Tags {
@@ -99,7 +97,7 @@ final class PgnDump(
             _.Event,
             imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
           ).some,
-          Tag(_.Site, gameUrl(game.id)).some,
+          Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
           Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
           imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
           Tag(_.White, player(game.whitePlayer, wu)).some,
@@ -131,7 +129,7 @@ final class PgnDump(
           withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
           Tag(
             _.Termination, {
-              import chess.Status._
+              import chess.Status.*
               game.status match {
                 case Created | Started                             => "Unterminated"
                 case Aborted | NoStart                             => "Abandoned"
@@ -154,7 +152,7 @@ final class PgnDump(
     }
 
   private def makeTurns(
-      moves: Seq[String],
+      moves: Seq[SanStr],
       from: Int,
       clocks: Vector[Centis],
       startColor: Color
@@ -163,7 +161,7 @@ final class PgnDump(
       val clockOffset = startColor.fold(0, 1)
       chessPgn.Turn(
         number = index + from,
-        white = moves.headOption filter (".." !=) map { san =>
+        white = moves.headOption.filter(SanStr("..") != _) map { san =>
           chessPgn.Move(
             san = san,
             secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
@@ -177,9 +175,8 @@ final class PgnDump(
         }
       )
     } filterNot (_.isEmpty)
-}
 
-object PgnDump {
+object PgnDump:
 
   private val delayMovesBy         = 3
   private val delayKeepsFirstMoves = 5
@@ -193,16 +190,17 @@ object PgnDump {
       rating: Boolean = true,
       literate: Boolean = false,
       pgnInJson: Boolean = false,
-      delayMoves: Boolean = false
-  ) {
+      delayMoves: Boolean = false,
+      lastFen: Boolean = false,
+      accuracy: Boolean = false
+  ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =
-      if (!delayMoves) moves
+      if !delayMoves then moves
       else moves.take((moves.size - delayMovesBy) atLeast delayKeepsFirstMoves)
 
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
-  }
+
+    def requiresAnalysis = evals || accuracy
 
   def result(game: Game) =
-    if (game.finished) Color.showResult(game.winnerColor)
-    else "*"
-}
+    Outcome.showResult(game.finished option Outcome(game.winnerColor))

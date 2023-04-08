@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Conas is féidir liom a bheith i mo mhodhnóir?</string>
   <string name="youCannotApply">Ní féidir iarratas a dhéanamh chun bheith i do mhodhnóir. Má fheicimid duine a cheapfaimis a bheadh go maith mar mhodhnóir, rachaimid i dteagmháil leo go díreach.</string>
   <string name="isCorrespondenceDifferent">An bhfuil ficheall comhfhreagrais difriúil ó ghnáth-fhicheall?</string>
+  <string name="pleaseReadFairPlayPage">Le haghaidh tuilleadh eolais, léigh ár %s</string>
+  <string name="fairPlayPage">leathanach cothrom na Féinne</string>
   <string name="youCanUseOpeningBookNoEngine">Maidir le Lichess, is é an príomhdhifríocht sna rialacha maidir le fichille comhfhreagrais ná go gceadaítear leabhar oscailte. Tá cosc fós ar innill a úsáid agus beidh bratach ar chúnamh innill dá bharr. Cé go gceadaíonn ICCF úsáid innill i gcomhfhreagras, ní cheadaíonn Lichess.</string>
   <string name="gameplay">Imirt chomhoibritheach</string>
   <string name="howBulletBlitzEtcDecided">Conas a chinntear Bullet, Blitz agus rialuithe ama eile?</string>
@@ -77,6 +79,7 @@ suite. I nodaireacht fichille scríobhtar “ep”.
 Féach ar %3$s ar an mbeart seo le haghaidh cleachtadh leis.</string>
   <string name="goodIntroduction">réamhrá maith</string>
   <string name="lichessTraining">Traenáil Lichess</string>
+  <string name="watchIMRosenCheckmate">Féach ar marbhsháinn an Máistir Idirnáisiúnta Eric Rosen %s.</string>
   <string name="threefoldRepetition">Athshuíomh faoi thrí</string>
   <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 (d) de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">athshuíomh faoi thrí</string>

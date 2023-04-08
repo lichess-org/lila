@@ -1,16 +1,14 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
-import views._
+import play.api.libs.json.*
+import play.api.mvc.*
+import views.*
 
-import lila.app._
-import lila.i18n.I18nLangPicker
+import lila.app.{ *, given }
 import lila.api.Context
+import lila.common.Json.given
 
-final class Lobby(
-    env: Env
-) extends LilaController(env) {
+final class Lobby(env: Env) extends LilaController(env):
 
   private lazy val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
@@ -18,7 +16,7 @@ final class Lobby(
       "pools"   -> lila.pool.PoolList.json
     ),
     "assets" -> Json.obj(
-      "domain" -> env.net.assetDomain.value
+      "domain" -> env.net.assetDomain
     )
   )
 
@@ -35,35 +33,20 @@ final class Lobby(
       )
     }
 
-  private def redirectWithQueryString(path: String)(implicit req: RequestHeader) =
-    Redirect {
-      if (req.target.uriString contains "?") s"$path?${req.target.queryString}" else path
-    }
-
-  private def serveHtmlHome(implicit ctx: Context) =
+  private def serveHtmlHome(using ctx: Context) =
     env.pageCache { () =>
-      keyPages.homeHtml.dmap { html =>
-        NoCache(Ok(html))
+      keyPages.homeHtml.map { html =>
+        Ok(html).withCanonical("").noCache
       }
     } map env.lilaCookie.ensure(ctx.req)
 
-  def homeLang(langCode: String) =
-    Open { ctx =>
-      if (ctx.isAuth) redirectWithQueryString("/")(ctx.req).fuccess
-      else
-        I18nLangPicker.byHref(langCode) match {
-          case I18nLangPicker.NotFound    => notFound(ctx)
-          case I18nLangPicker.Redir(code) => redirectWithQueryString(s"/$code")(ctx.req).fuccess
-          case I18nLangPicker.Found(lang) =>
-            implicit val langCtx = ctx withLang lang
-            pageHit
-            serveHtmlHome
-        }
-    }
+  def homeLang(lang: String) =
+    staticRedirect(lang).map(Action.async(_)) getOrElse
+      LangPage("/")(serveHtmlHome(using _))(lang)
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
     reqToCtx(req) flatMap { ctx =>
-      keyPages.home(status)(ctx)
+      keyPages.home(status)(using ctx)
     }
 
   def seeks =
@@ -83,4 +66,3 @@ final class Lobby(
         Ok(html.timeline.entries(entries)).withHeaders(CACHE_CONTROL -> s"max-age=20")
       }
     }
-}

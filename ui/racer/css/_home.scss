@@ -40,17 +40,10 @@
         &::before {
           content: 'A';
           position: absolute;
-          left: -0.9em;
+          #{$start-direction}: -0.9em;
           bottom: 0.6em;
           font-size: 0.3em;
           animation: boost 0.1s ease-in infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          &::before {
-            animation: none;
-            transform: translateX(0%);
-            opacity: 1;
-          }
         }
       }
     }

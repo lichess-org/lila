@@ -2,35 +2,36 @@ package lila.fishnet
 
 import cats.data.Validated
 import cats.data.Validated.valid
-import cats.implicits._
-import chess.format.pgn.Dumper
+import cats.syntax.all.*
+import chess.format.pgn.{ Dumper, SanStr }
 import chess.format.Uci
-import chess.{ Drop, Move, Replay, Situation }
+import chess.{ Ply, Drop, Move, Replay, Situation }
+import chess.MoveOrDrop.*
 
-import lila.analyse.{ Analysis, Info, PgnMove }
+import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException
 
 // convert variations from UCI to PGN.
 // also drops extra variations
-private object UciToPgn {
+private object UciToPgn:
 
   type WithErrors[A] = (A, List[Exception])
 
-  def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
+  def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] =
 
-    val pliesWithAdviceAndVariation: Set[Int] = analysis.advices.view.collect {
+    val pliesWithAdviceAndVariation: Set[Ply] = analysis.advices.view.collect {
       case a if a.info.hasVariation => a.ply
-    } to Set
+    }.toSet
 
     val onlyMeaningfulVariations: List[Info] = analysis.infos map { info =>
       if (pliesWithAdviceAndVariation(info.ply)) info
       else info.dropVariation
     }
 
-    def uciToPgn(ply: Int, variation: List[String]): Validated[String, List[PgnMove]] =
+    def uciToPgn(ply: Ply, variation: List[String]): Validated[String, List[SanStr]] =
       for {
         situation <-
-          if (ply == replay.setup.startedAtTurn + 1) valid(replay.setup.situation)
+          if (ply == replay.setup.startedAtPly + 1) valid(replay.setup.situation)
           else replay moveAtPly ply map (_.fold(_.situationBefore, _.situationBefore)) toValid "No move found"
         ucis <- variation.map(Uci.apply).sequence toValid "Invalid UCI moves " + variation
         moves <-
@@ -50,12 +51,9 @@ private object UciToPgn {
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
       case ((infos, errs), info) =>
-        uciToPgn(info.ply, info.variation).fold(
+        uciToPgn(info.ply, SanStr raw info.variation).fold(
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
           pgn => (info.copy(variation = pgn) :: infos, errs)
         )
-    } match {
+    } match
       case (infos, errors) => analysis.copy(infos = infos.reverse) -> errors
-    }
-  }
-}

@@ -57,10 +57,10 @@
     <item quantity="other">Підписався на %s гравців</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Додано %s нового підписника</item>
-    <item quantity="few">Додано %s нових підписників</item>
-    <item quantity="many">Додано %s нових підписників</item>
-    <item quantity="other">Додано %s нових підписників</item>
+    <item quantity="one">Отримав %s нового підписника</item>
+    <item quantity="few">Отримав %s нових підписників</item>
+    <item quantity="many">Отримав %s нових підписників</item>
+    <item quantity="other">Отримав %s нових підписників</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Провів %s сеанс одночасної гри</item>

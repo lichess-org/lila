@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">xusto agora</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">en %s segundu</item>
+    <item quantity="other">en %s segundos</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">en %s minutu</item>
+    <item quantity="other">en %s minutos</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">en %s hora</item>
+    <item quantity="other">en %s hores</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">en %s día</item>
+    <item quantity="other">en %s díes</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">en %s selmana</item>
+    <item quantity="other">en %s selmanes</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">en %s mes</item>
+    <item quantity="other">en %s meses</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">en %s añu</item>
+    <item quantity="other">en %s años</item>
+  </plurals>
+  <string name="rightNow">xusto agora</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">fai %s segundu</item>
+    <item quantity="other">fai %s segundos</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">fai %s minutu</item>
+    <item quantity="other">fai %s minutos</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">fai %s hora</item>
+    <item quantity="other">fai %s hores</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">fai %s día</item>
+    <item quantity="other">fai %s díes</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">fai %s selmana</item>
+    <item quantity="other">fai %s selmanes</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">fai %s mes</item>
+    <item quantity="other">fai %s meses</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">fai %s añu</item>
+    <item quantity="other">fai %s años</item>
+  </plurals>
+</resources>

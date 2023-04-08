@@ -1,6 +1,6 @@
 import { makeSocket, SwissSocket } from './socket';
 import xhr from './xhr';
-import throttle from 'common/throttle';
+import { throttlePromiseDelay } from 'common/throttle';
 import { maxPerPage, myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 
@@ -143,15 +143,19 @@ export default class SwissCtrl {
 
   private reloadSoon = () => {
     if (!this.reloadSoonThrottle)
-      this.reloadSoonThrottle = throttle(Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)), () =>
-        xhr.reloadNow(this)
+      this.reloadSoonThrottle = throttlePromiseDelay(
+        () => Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
+        () => xhr.reloadNow(this)
       );
     this.reloadSoonThrottle();
   };
 
   private isIn = () => !!this.data.me && !this.data.me.absent;
 
-  private redrawNbRounds = () => $('.swiss__meta__round').text(`${this.data.round}/${this.data.nbRounds}`);
+  private redrawNbRounds = () =>
+    $('.swiss__meta__round').text(
+      this.trans.plural('nbRounds', this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`)
+    );
 
   private readData = (data: SwissData) => ({
     ...data,

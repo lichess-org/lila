@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">การตั้งค่า</string>
-  <string name="gameDisplay">การแสดงเกม</string>
   <string name="pieceAnimation">ความเร็วตัวหมาก</string>
   <string name="materialDifference">วัตถุที่มีต่างกัน</string>
   <string name="boardHighlights">สีเน้นบนกระดาน (ตาเดินล่าสุด และการรุก)</string>

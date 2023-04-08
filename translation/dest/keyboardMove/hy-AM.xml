@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Նավակը տեղափոխել b4 (Crazyhouse տարբերակում)</string>
   <string name="offerOrAcceptDraw">Առաջարկել կամ ընդունել ոչ-ոքի</string>
   <string name="readOutClocks">Իմանալ ժամացույցի ժամանակը</string>
+  <string name="readOutOpponentName">Արտաբերել մրցակցի անունը</string>
   <string name="otherCommands">Այլ հրահանգներ</string>
   <string name="tips">Խորհուրդներ</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Եթե վերը թվարկված քայլերն անհասկանալի են, դրանք ուսումնասիրեք այստեղ.</string>

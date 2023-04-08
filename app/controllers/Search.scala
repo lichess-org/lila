@@ -1,18 +1,18 @@
 package controllers
 
-import scala.concurrent.duration._
-import views._
+import views.*
 
 import play.api.i18n.Lang
 
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.IpAddress
+import lila.common.config
 
-final class Search(env: Env) extends LilaController(env) {
+final class Search(env: Env) extends LilaController(env):
 
   def searchForm(implicit lang: Lang) = env.gameSearch.forms.search
 
-  private val SearchRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val SearchRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 5.minutes,
     key = "search.games.ip"
@@ -28,15 +28,15 @@ final class Search(env: Env) extends LilaController(env) {
       env.game.cached.nbTotal flatMap { nbGames =>
         if (ctx.isAnon)
           negotiate(
-            html = Unauthorized(html.search.login(nbGames)).fuccess,
-            api = _ => Unauthorized(jsonError("Login required")).fuccess
+            html = Unauthorized(html.search.login(nbGames)).toFuccess,
+            api = _ => Unauthorized(jsonError("Login required")).toFuccess
           )
         else
-          OnlyHumans {
+          NoCrawlers {
             val page = p atLeast 1
-            Reasonable(page, 100) {
-              val cost         = scala.math.sqrt(page.toDouble).toInt
-              implicit def req = ctx.body
+            Reasonable(page, config.Max(100)) {
+              val cost                      = scala.math.sqrt(page.toDouble).toInt
+              given play.api.mvc.Request[?] = ctx.body
               def limited =
                 fuccess {
                   val form = searchForm
@@ -53,7 +53,7 @@ final class Search(env: Env) extends LilaController(env) {
                     html = searchForm
                       .bindFromRequest()
                       .fold(
-                        failure => BadRequest(html.search.index(failure, none, nbGames)).fuccess,
+                        failure => BadRequest(html.search.index(failure, none, nbGames)).toFuccess,
                         data =>
                           data.nonEmptyQuery ?? { query =>
                             env.gameSearch.paginator(query, page) map some
@@ -70,7 +70,7 @@ final class Search(env: Env) extends LilaController(env) {
                           _ =>
                             BadRequest {
                               jsonError("Could not process search query")
-                            }.fuccess,
+                            }.toFuccess,
                           data =>
                             data.nonEmptyQuery ?? { query =>
                               env.gameSearch.paginator(query, page) dmap some
@@ -80,7 +80,7 @@ final class Search(env: Env) extends LilaController(env) {
                                   Ok(_)
                                 }
                               case None =>
-                                BadRequest(jsonError("Could not process search query")).fuccess
+                                BadRequest(jsonError("Could not process search query")).toFuccess
                             } recover { _ =>
                               InternalServerError(
                                 jsonError("Sorry, we can't process that query at the moment")
@@ -94,4 +94,3 @@ final class Search(env: Env) extends LilaController(env) {
           }
       }
     }
-}

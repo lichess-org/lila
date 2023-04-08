@@ -2,7 +2,7 @@
   @extend %flex-center-nowrap, %break-word;
 
   border-bottom: $border;
-  padding: 2em var(--box-padding) 2em 0;
+  @include padding-direction(2em, var(--box-padding), 2em, 0);
   position: relative;
 
   @include transition;
@@ -20,7 +20,7 @@
     &::before {
       display: none;
     }
-    padding-left: var(--box-padding);
+    padding-#{$start-direction}: var(--box-padding);
   }
 
   &--active::before {
@@ -50,7 +50,7 @@
   p {
     margin: 0.5em 0 0 0;
     &:first-child {
-      margin-right: 1em;
+      margin-#{$end-direction}: 1em;
     }
   }
 

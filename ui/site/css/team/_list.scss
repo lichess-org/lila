@@ -15,6 +15,7 @@
 
     font-size: 1.5em;
     margin-bottom: 0.3em;
+    unicode-bidi: plaintext;
 
     &.mine {
       color: $c-brag;
@@ -28,7 +29,7 @@
       color: $c-primary-over;
       text-transform: uppercase;
       font-size: 0.9rem;
-      margin-left: 1em;
+      margin-#{$start-direction}: 1em;
     }
   }
 

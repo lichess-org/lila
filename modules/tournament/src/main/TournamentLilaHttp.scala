@@ -1,84 +1,56 @@
 package lila.tournament
 
-import akka.actor._
-import akka.stream.scaladsl._
-import com.softwaremill.tagging._
+import akka.stream.scaladsl.*
 import io.lettuce.core.RedisClient
-import play.api.libs.json._
+import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 
-import lila.common.LilaStream
-import lila.memo.SettingStore
+import lila.common.{ LilaScheduler, LilaStream }
+import lila.common.Json.given
 import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
 
 final class TournamentLilaHttp(
-    api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
-    cached: Cached,
+    cached: TournamentCache,
     duelStore: DuelStore,
     statsApi: TournamentStatsApi,
     jsonView: JsonView,
     pause: Pause,
     lightUserApi: lila.user.LightUserApi,
     redisClient: RedisClient
-)(implicit mat: akka.stream.Materializer, system: ActorSystem, ec: ExecutionContext) {
+)(using akka.stream.Materializer, Scheduler, Executor):
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
   def handledIds                = isOnLilaHttp.keys
   def hit(tour: Tournament) =
     if (tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
 
-  private val isOnLilaHttp = new ExpireSetMemo(3 hours)
-  private val hitCounter   = new FrequencyThreshold[Tournament.ID](10, 20 seconds)
+  private val isOnLilaHttp = ExpireSetMemo[TourId](3 hours)
+  private val hitCounter   = FrequencyThreshold[TourId](10, 20 seconds)
 
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
 
-  private val periodicSender = system.actorOf(Props(new Actor {
-
-    implicit def ec = context.dispatcher
-
-    override def preStart(): Unit = {
-      context setReceiveTimeout 20.seconds
-      context.system.scheduler.scheduleOnce(10 seconds, self, Tick).unit
-    }
-
-    case object Tick
-
-    def scheduleNext(): Unit =
-      context.system.scheduler.scheduleOnce(1 second, self, Tick).unit
-
-    def receive = {
-
-      case ReceiveTimeout =>
-        val msg = "tournament.lilaHttp timed out!"
-        logger.branch("lila-http").error(msg)
-        throw new RuntimeException(msg)
-
-      case Tick =>
-        tournamentRepo
-          .idsCursor(handledIds)
-          .documentSource()
-          .mapAsyncUnordered(4) { tour =>
-            if (tour.finishedSinceSeconds.exists(_ > 20)) isOnLilaHttp.remove(tour.id)
-            arenaFullJson(tour)
-          }
-          .map { json =>
-            val str = Json stringify json
-            lila.mon.tournament.lilaHttp.fullSize.record(str.size)
-            conn.async.publish(channel, str).unit
-          }
-          .toMat(LilaStream.sinkCount)(Keep.right)
-          .run()
-          .monSuccess(_.tournament.lilaHttp.tick)
-          .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_).unit)
-          .addEffectAnyway(scheduleNext())
-          .unit
-    }
-  }))
+  LilaScheduler("TournamentLilaHttp", _.Every(1 second), _.AtMost(30 seconds), _.Delay(14 seconds)) {
+    tournamentRepo
+      .idsCursor(handledIds)
+      .documentSource()
+      .mapAsyncUnordered(4) { tour =>
+        if (tour.finishedSinceSeconds.exists(_ > 20)) isOnLilaHttp.remove(tour.id)
+        arenaFullJson(tour)
+      }
+      .map { json =>
+        val str = Json stringify json
+        lila.mon.tournament.lilaHttp.fullSize.record(str.size)
+        conn.async.publish(channel, str).unit
+      }
+      .toMat(LilaStream.sinkCount)(Keep.right)
+      .run()
+      .monSuccess(_.tournament.lilaHttp.tick)
+      .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_).unit)
+      .void
+  }
 
   private def arenaFullJson(tour: Tournament): Fu[JsObject] = for {
     data  <- jsonView.cachableData get tour.id
@@ -96,7 +68,7 @@ final class TournamentLilaHttp(
           json <- playerJson(
             tour,
             sheet,
-            RankedPlayer(index.toInt + 1, player),
+            RankedPlayer(Rank(index.toInt + 1), player),
             streakable = tour.streakable
           )
         } yield json
@@ -108,9 +80,11 @@ final class TournamentLilaHttp(
   } yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
     .obj(
       "id" -> tour.id,
-      "ongoingUserGames" -> duelStore
-        .get(tour.id)
-        .?? { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") },
+      "ongoingUserGames" -> {
+        duelStore
+          .get(tour.id)
+          .?? { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") }: String
+      },
       "standing" -> fullStanding
     )
     .add("noStreak" -> tour.noStreak)
@@ -120,24 +94,22 @@ final class TournamentLilaHttp(
       sheet: arena.Sheet,
       rankedPlayer: RankedPlayer,
       streakable: Boolean
-  )(implicit ec: ExecutionContext): Fu[JsObject] = {
+  )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
-    lightUserApi async p.userId map { light =>
+    lightUserApi asyncFallback p.userId map { light =>
       Json
         .obj(
-          "name"   -> light.fold(p.userId)(_.name),
+          "name"   -> light.name,
           "rating" -> p.rating,
           "score"  -> p.score,
-          "sheet"  -> JsonView.scoresToString(sheet)
+          "sheet"  -> sheet.scoresToString
         )
-        .add("title" -> light.flatMap(_.title))
+        .add("title" -> light.title)
         .add("provisional" -> p.provisional)
         .add("withdraw" -> p.withdraw)
         .add("team" -> p.team)
         .add("fire" -> p.fire)
         .add("pause" -> {
-          p.withdraw ?? pause.remainingDelay(p.userId, tour).map(_.seconds)
+          p.withdraw ?? pause.remainingDelay(p.userId, tour)
         })
     }
-  }
-}

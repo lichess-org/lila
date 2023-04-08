@@ -10,6 +10,13 @@
   <string name="newAllTimeHighscore">Disoc\'h gwellañ a-viskoazh!</string>
   <string name="previousHighscoreWasX">Ho tisoc\'h gwellañ kent a oa %s</string>
   <string name="playAgain">C\'hoari c\'hoazh</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 frapad</item>
+    <item quantity="two">%s frapad</item>
+    <item quantity="few">%s frapad</item>
+    <item quantity="many">%s frapad</item>
+    <item quantity="other">%s frapad</item>
+  </plurals>
   <string name="highscoreX">Disoc\'h gwellañ: %s</string>
   <string name="score">Disoc\'h</string>
   <string name="moves">Taolioù</string>
@@ -41,4 +48,7 @@
   <string name="skip">tremen e-biou</string>
   <string name="skipHelp">Gallout a rit lammat un taol eus pep redadeg:</string>
   <string name="skipExplanation">Lammit war an taol-se evit derc\'hel ho kombo! Ur wech e pep redadeg hepken.</string>
+  <string name="thisWeek">Ar sizhun-mañ</string>
+  <string name="thisMonth">Ar miz-mañ</string>
+  <string name="allTime">A-viskoazh</string>
 </resources>

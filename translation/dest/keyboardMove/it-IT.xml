@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Piazza una torre in b4 (solo per la variante Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Offri o accetta una patta</string>
   <string name="readOutClocks">Leggi gli orologi ad alta voce</string>
+  <string name="readOutOpponentName">Leggi il nome dell\'avversario ad alta voce</string>
   <string name="otherCommands">Altri comandi</string>
   <string name="tips">Suggerimenti</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Se non sei familiare con la notazione usata, impara di più qui:</string>

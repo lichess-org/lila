@@ -2,15 +2,15 @@ package views.html.analyse
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.i18n.{ MessageKey, I18nKeys => trans }
-import views.html.board.{ userAnalysisI18n => board }
+import lila.app.templating.Environment.*
+import lila.i18n.{ I18nKeys as trans }
+import views.html.board.{ userAnalysisI18n as board }
 
-object jsI18n {
+object jsI18n:
 
-  def apply()(implicit lang: Lang) = i18nJsObject(i18nKeys)
+  def apply()(using Lang) = i18nJsObject(i18nKeys)
 
-  private val i18nKeys: Vector[MessageKey] = {
+  private val i18nKeys = {
     board.cevalWidget ++
       board.advantageChartTranslations ++
       board.explorerTranslations ++
@@ -49,12 +49,17 @@ object jsI18n {
         trans.nbMistakes,
         trans.nbBlunders,
         trans.averageCentipawnLoss,
+        trans.accuracy,
         trans.viewTheSolution,
         trans.youNeedAnAccountToDoThat,
         // action menu
         trans.menu,
         trans.toStudy,
         trans.inlineNotation,
+        trans.savingMoves,
+        trans.savingMovesHelp,
+        trans.makeAStudy,
+        trans.clearSavedMoves,
         trans.computerAnalysis,
         trans.enable,
         trans.bestMoveArrow,
@@ -89,6 +94,7 @@ object jsI18n {
         trans.resumePractice,
         trans.whiteWinsGame,
         trans.blackWinsGame,
+        trans.drawByFiftyMoves,
         trans.theGameIsADraw,
         trans.yourTurn,
         trans.computerThinking,
@@ -117,6 +123,5 @@ object jsI18n {
         trans.doItAgain,
         trans.reviewWhiteMistakes,
         trans.reviewBlackMistakes
-      ).map(_.key)
+      )
   }.distinct
-}

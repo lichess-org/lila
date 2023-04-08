@@ -30,4 +30,8 @@
     <item quantity="other">Lauk %s bréfskákum</item>
   </plurals>
   <string name="signedUp">Nýskráning á lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Gekk til liðs við %s</item>
+    <item quantity="other">Gekk til liðs við %s</item>
+  </plurals>
 </resources>

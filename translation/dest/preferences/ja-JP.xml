@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">設定</string>
-  <string name="gameDisplay">表示設定</string>
+  <string name="display">表示</string>
+  <string name="privacy">プライバシー</string>
+  <string name="notifications">通知</string>
   <string name="pieceAnimation">駒のアニメーション速度</string>
   <string name="materialDifference">駒の損得</string>
   <string name="boardHighlights">盤上のハイライト表示（最後の手、チェック）</string>
@@ -13,7 +15,7 @@
   <string name="pgnLetter">文字（K, Q, R, B, N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">集中モード</string>
   <string name="showPlayerRatings">レーティングを表示</string>
-  <string name="explainShowPlayerRatings">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="blindfoldChess">目隠しチェス</string>
@@ -49,4 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
   <string name="scrollOnTheBoardToReplayMoves">ボード上スクロールで手を再現</string>
   <string name="correspondenceEmailNotification">通信戦の対局をリストにした毎日のメール通知</string>
+  <string name="notifyStreamStart">配信を始めた時</string>
+  <string name="notifyInboxMsg">新しい着信メッセージ</string>
+  <string name="notifyForumMention">フォーラムであなたの名前が出た時</string>
+  <string name="notifyInvitedStudy">研究への招待</string>
+  <string name="notifyGameEvent">通信戦の進行状況</string>
+  <string name="notifyChallenge">挑戦が来た時</string>
+  <string name="notifyTournamentSoon">トーナメントが間もなく開始</string>
+  <string name="notifyTimeAlarm">通信戦の時間切迫</string>
+  <string name="notifyBell">Lichess にいる時にベル音</string>
+  <string name="notifyPush">Lichess にいない時にデバイスでの通知</string>
+  <string name="notifyWeb">ブラウザ</string>
+  <string name="notifyDevice">デバイス</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">ベル通知の音</string>
 </resources>

@@ -1,5 +1,6 @@
 #powerTip,
-#miniGame {
+#miniGame,
+#miniBoard {
   @extend %box-radius-force, %popup-shadow;
 
   width: 20rem;
@@ -10,10 +11,10 @@
   z-index: z('powertip');
 
   .mini-game__player {
-    padding: 3px 0.5em 0.3em 0.7em;
+    @include padding-direction(3px, 0.5em, 0.3em, 0.7em);
 
     &:first-child {
-      padding: 0.3em 0.5em 3px 0.7em;
+      @include padding-direction(0.3em, 0.5em, 3px, 0.7em);
     }
   }
 }
@@ -38,7 +39,7 @@
       }
 
       &__country {
-        margin-left: 0.5em;
+        margin-#{$start-direction}: 0.5em;
       }
 
       .user-link {
@@ -57,7 +58,7 @@
         font-size: 0.9em;
 
         img {
-          margin-right: 0.3em;
+          margin-#{$end-direction}: 0.3em;
         }
       }
     }
@@ -126,7 +127,8 @@
   }
 }
 
-#miniGame {
+#miniGame,
+#miniBoard {
   min-height: 262px;
 
   .spinner {

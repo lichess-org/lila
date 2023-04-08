@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="onlyLeaderLeavesTeam">သင် မထွက်မီ အသင်းခေါင်းဆောင် တစ်ဦး ထည့်ပေးပါ၊ သို့မဟုတ်လျှင် အသင်းကို ဖျက်သိမ်းလိုက်ပါ။</string>
   <plurals name="teamLeaders">
     <item quantity="other">အသင်းခေါင်းဆောင်</item>
   </plurals>

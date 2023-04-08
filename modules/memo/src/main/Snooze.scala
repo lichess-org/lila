@@ -1,27 +1,17 @@
 package lila.memo
 
-import scala.concurrent.duration._
+object Snooze:
 
-object Snooze {
+  enum Duration(val value: FiniteDuration, val name: String):
+    case TwentyMinutes extends Duration(20 minutes, "20 minutes")
+    case OneHour       extends Duration(1 hour, "one hour")
+    case ThreeHours    extends Duration(3 hours, "three hours")
+    case OneDay        extends Duration(1 day, "one day")
+    case NextDeploy    extends Duration(30 days, "until next deploy")
+  object Duration:
+    def apply(key: String) = Duration.values.find(_.toString == key)
 
-  sealed abstract class Duration(val value: FiniteDuration, val name: String)
-
-  object Duration {
-    case object TwentyMinutes extends Duration(20 minutes, "20 minutes")
-    case object OneHour       extends Duration(1 hour, "one hour")
-    case object ThreeHours    extends Duration(3 hours, "three hours")
-    case object OneDay        extends Duration(1 day, "one day")
-    case object NextDeploy    extends Duration(30 days, "until next deploy")
-    val all                = List(TwentyMinutes, OneHour, ThreeHours, OneDay, NextDeploy)
-    def apply(key: String) = all.find(_.toString == key)
-  }
-
-  trait Key {
-    val snoozerId: String
-  }
-}
-
-final class Snoozer[Key <: Snooze.Key](cacheApi: CacheApi) {
+final class Snoozer[Key](cacheApi: CacheApi)(using userIdOf: UserIdOf[Key]):
 
   private val store = cacheApi.notLoadingSync[Key, Snooze.Duration](256, "appeal.snooze")(
     _.expireAfter[Key, Snooze.Duration](
@@ -37,6 +27,5 @@ final class Snoozer[Key <: Snooze.Key](cacheApi: CacheApi) {
   def set(key: Key, duration: String): Unit =
     Snooze.Duration(duration) foreach { set(key, _) }
 
-  def snoozedKeysOf(snoozerId: String): Iterable[Key] =
-    store.asMap().keys.collect { case key if key.snoozerId == snoozerId => key }
-}
+  def snoozedKeysOf(snoozerId: UserId): Iterable[Key] =
+    store.asMap().keys.collect { case key if userIdOf(key) == snoozerId => key }

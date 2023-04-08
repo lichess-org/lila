@@ -1,37 +1,36 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
-import scala.annotation.nowarn
-import scala.util.chaining._
+import play.api.libs.json.*
+import play.api.mvc.*
+import scala.util.chaining.*
 import views.html
 
 import lila.api.AnnounceStore
 import lila.api.Context
-import lila.app._
-import lila.common.HTTPRequest
+import lila.app.{ given, * }
 import lila.security.SecurityForm.Reopen
-import lila.user.{ User => UserModel, TotpSecret, Holder }
+import lila.user.{ Holder, TotpSecret, User as UserModel }
+import lila.i18n.I18nLangPicker
 
 final class Account(
     env: Env,
     auth: Auth,
     apiC: => Api
-) extends LilaController(env) {
+) extends LilaController(env):
 
   def profile =
     Auth { implicit ctx => me =>
-      Ok(html.account.profile(me, env.user.forms profileOf me)).fuccess
+      Ok(html.account.profile(me, env.user.forms profileOf me)).toFuccess
     }
 
   def username =
     Auth { implicit ctx => me =>
-      Ok(html.account.username(me, env.user.forms usernameOf me)).fuccess
+      Ok(html.account.username(me, env.user.forms usernameOf me)).toFuccess
     }
 
   def profileApply =
     AuthBody { implicit ctx => me =>
-      implicit val req: Request[_] = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       FormFuResult(env.user.forms.profile) { err =>
         fuccess(html.account.profile(me, err))
       } { profile =>
@@ -52,14 +51,14 @@ final class Account(
 
   def usernameApply =
     AuthBody { implicit ctx => me =>
-      implicit val req: Request[_] = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       FormFuResult(env.user.forms.username(me)) { err =>
         fuccess(html.account.username(me, err))
       } { username =>
         env.user.repo
           .setUsernameCased(me.id, username) inject
           Redirect(routes.User show me.username).flashSuccess recover { case e =>
-            BadRequest(html.account.username(me, env.user.forms.username(me))).flashFailure(e.getMessage)
+            Redirect(routes.Account.username).flashFailure(e.getMessage)
           }
       }
     }
@@ -68,26 +67,26 @@ final class Account(
     Auth { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = _ => {
-          env.pref.api.getPref(me) zip
-            env.round.proxyRepo.urgentGames(me) zip
-            env.challenge.api.countInFor.get(me.id) zip
-            env.playban.api.currentBan(me.id) map { case (((prefs, povs), nbChallenges), playban) =>
-              Ok {
-                import lila.pref.JsonView._
-                env.user.jsonView.full(me, withOnline = true, withRating = ctx.pref.showRatings) ++ Json
-                  .obj(
-                    "prefs"        -> prefs,
-                    "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
-                    "nbChallenges" -> nbChallenges
-                  )
-                  .add("kid" -> me.kid)
-                  .add("troll" -> me.marks.troll)
-                  .add("playban" -> playban)
-                  .add("announce" -> AnnounceStore.get.map(_.json))
-              }.withHeaders(CACHE_CONTROL -> s"max-age=15")
-            }
-        }
+        api = _ =>
+          for {
+            povs         <- env.round.proxyRepo urgentGames me
+            nbChallenges <- env.challenge.api.countInFor get me.id
+            playban      <- env.playban.api currentBan me.id
+          } yield Ok {
+            import lila.pref.JsonView.given
+            env.user.jsonView
+              .full(me, withRating = ctx.pref.showRatings, withProfile = false) ++ Json
+              .obj(
+                "prefs"        -> ctx.pref,
+                "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
+                "nbChallenges" -> nbChallenges,
+                "online"       -> true
+              )
+              .add("kid" -> me.kid)
+              .add("troll" -> me.marks.troll)
+              .add("playban" -> playban)
+              .add("announce" -> AnnounceStore.get.map(_.json))
+          }.withHeaders(CACHE_CONTROL -> "max-age=15")
       )
     }
 
@@ -99,9 +98,21 @@ final class Account(
       )
     }
 
-  def apiMe =
+  val apiMe =
+    val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.account.user")
     Scoped() { req => me =>
-      env.api.userApi.extended(me, me.some, withFollows = apiC.userWithFollows(req)) dmap { JsonOk(_) }
+      rateLimit(me.id) {
+        env.api.userApi.extended(
+          me,
+          me.some,
+          withFollows = apiC.userWithFollows(req),
+          withTrophies = false
+        )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
+      }(
+        rateLimitedFu(
+          "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+        )
+      )
     }
 
   def apiNowPlaying =
@@ -122,7 +133,7 @@ final class Account(
         api = _ =>
           env.pref.api.getPref(me) map { prefs =>
             Ok {
-              import lila.pref.JsonView._
+              import lila.pref.JsonView.given
               lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
                 "coach" -> isGranted(_.Coach),
                 "prefs" -> prefs
@@ -134,16 +145,16 @@ final class Account(
 
   def passwd =
     Auth { implicit ctx => me =>
-      env.user.forms passwd me map { form =>
+      env.security.forms passwdChange me map { form =>
         Ok(html.account.passwd(form))
       }
     }
 
   def passwdApply =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req = ctx.body
-        env.user.forms passwd me flatMap { form =>
+      auth.HasherRateLimit(me.id, ctx.req) {
+        given play.api.mvc.Request[?] = ctx.body
+        env.security.forms passwdChange me flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.passwd(err))
           } { data =>
@@ -151,12 +162,13 @@ final class Account(
               refreshSessionId(me, Redirect(routes.Account.passwd).flashSuccess)
           }
         }
-      }(rateLimitedFu)
+      }
     }
 
-  private def refreshSessionId(me: UserModel, result: Result)(implicit ctx: Context): Fu[Result] =
+  private def refreshSessionId(me: UserModel, result: Result)(using ctx: Context): Fu[Result] =
     env.security.store.closeAllSessionsOf(me.id) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
+      env.push.unregisterDevices(me) >>
       env.security.api.saveAuthentication(me.id, ctx.mobileApiVersion) map { sessionId =>
         result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
       }
@@ -168,7 +180,7 @@ final class Account(
 
   def email =
     Auth { implicit ctx => me =>
-      if (getBool("check")) Ok(renderCheckYourEmail).fuccess
+      if (getBool("check")) Ok(renderCheckYourEmail).toFuccess
       else
         emailForm(me) map { form =>
           Ok(html.account.email(form))
@@ -177,10 +189,8 @@ final class Account(
 
   def apiEmail =
     Scoped(_.Email.Read) { _ => me =>
-      env.user.repo email me.id map {
-        _ ?? { email =>
-          JsonOk(Json.obj("email" -> email.value))
-        }
+      env.user.repo email me.id mapz { email =>
+        JsonOk(Json.obj("email" -> email.value))
       }
     }
 
@@ -189,15 +199,13 @@ final class Account(
 
   def emailApply =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req = ctx.body
-        env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
+      auth.HasherRateLimit(me.id, ctx.req) {
+        given play.api.mvc.Request[?] = ctx.body
+        env.security.forms.preloadEmailDns() >> emailForm(me).flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.email(err))
           } { data =>
-            val email = env.security.emailAddressValidator
-              .validate(data.realEmail) err s"Invalid email ${data.email}"
-            val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, email.acceptable)
+            val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
             auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
               env.security.emailChange.send(me, newUserEmail.email) inject
                 Redirect(routes.Account.email).flashSuccess {
@@ -206,46 +214,44 @@ final class Account(
             }(rateLimitedFu)
           }
         }
-      }(rateLimitedFu)
+      }
     }
 
   def emailConfirm(token: String) =
     Open { implicit ctx =>
-      env.security.emailChange.confirm(token) flatMap {
-        _ ?? { case (user, prevEmail) =>
-          (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
-            auth.authenticateUser(
-              user,
-              result =
-                if (prevEmail.exists(_.isNoReply))
-                  Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
-                else
-                  Some(_ => Redirect(routes.Account.email).flashSuccess)
-            )
-        }
+      env.security.emailChange.confirm(token) flatMapz { (user, prevEmail) =>
+        (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
+          auth.authenticateUser(
+            user,
+            remember = true,
+            result =
+              if (prevEmail.exists(_.isNoReply))
+                Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
+              else
+                Some(_ => Redirect(routes.Account.email).flashSuccess)
+          )
       }
     }
 
   def emailConfirmHelp =
     OpenBody { implicit ctx =>
-      import lila.security.EmailConfirm.Help._
-      ctx.me match {
+      import lila.security.EmailConfirm.Help.*
+      ctx.me match
         case Some(me) =>
-          Redirect(routes.User.show(me.username)).fuccess
+          Redirect(routes.User.show(me.username)).toFuccess
         case None if get("username").isEmpty =>
-          Ok(html.account.emailConfirmHelp(helpForm, none)).fuccess
+          Ok(html.account.emailConfirmHelp(helpForm, none)).toFuccess
         case None =>
-          implicit val req = ctx.body
+          given play.api.mvc.Request[?] = ctx.body
           helpForm
             .bindFromRequest()
             .fold(
-              err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
+              err => BadRequest(html.account.emailConfirmHelp(err, none)).toFuccess,
               username =>
                 getStatus(env.user.repo, username) map { status =>
                   Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
                 }
             )
-      }
     }
 
   def twoFactor =
@@ -262,8 +268,8 @@ final class Account(
 
   def setupTwoFactor =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req = ctx.body
+      auth.HasherRateLimit(me.id, ctx.req) {
+        given play.api.mvc.Request[?] = ctx.body
         env.security.forms.setupTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.twoFactor.setup(me, err))
@@ -272,13 +278,13 @@ final class Account(
               refreshSessionId(me, Redirect(routes.Account.twoFactor).flashSuccess)
           }
         }
-      }(rateLimitedFu)
+      }
     }
 
   def disableTwoFactor =
     AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req = ctx.body
+      auth.HasherRateLimit(me.id, ctx.req) {
+        given play.api.mvc.Request[?] = ctx.body
         env.security.forms.disableTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.twoFactor.disable(me, err))
@@ -287,7 +293,7 @@ final class Account(
               Redirect(routes.Account.twoFactor).flashSuccess
           }
         }
-      }(rateLimitedFu)
+      }
     }
 
   def close =
@@ -302,8 +308,8 @@ final class Account(
   def closeConfirm =
     AuthBody { implicit ctx => me =>
       NotManaged {
-        implicit val req = ctx.body
-        auth.HasherRateLimit(me.username, ctx.req) { _ =>
+        given play.api.mvc.Request[?] = ctx.body
+        auth.HasherRateLimit(me.id, ctx.req) {
           env.security.forms closeAccount me flatMap { form =>
             FormFuResult(form) { err =>
               fuccess(html.account.close(me, err, managed = false))
@@ -313,7 +319,7 @@ final class Account(
               }
             }
           }
-        }(rateLimitedFu)
+        }
       }
     }
 
@@ -327,27 +333,27 @@ final class Account(
     }
   def apiKid =
     Scoped(_.Preference.Read) { _ => me =>
-      JsonOk(Json.obj("kid" -> me.kid)).fuccess
+      JsonOk(Json.obj("kid" -> me.kid)).toFuccess
     }
 
   def kidPost =
     AuthBody { implicit ctx => me =>
       NotManaged {
-        implicit val req = ctx.body
+        given play.api.mvc.Request[?] = ctx.body
         env.security.forms toggleKid me flatMap { form =>
           form
             .bindFromRequest()
             .fold(
               err =>
                 negotiate(
-                  html = BadRequest(html.account.kid(me, err, managed = false)).fuccess,
-                  api = _ => BadRequest(errorsAsJson(err)).fuccess
+                  html = BadRequest(html.account.kid(me, err, managed = false)).toFuccess,
+                  api = _ => BadRequest(errorsAsJson(err)).toFuccess
                 ),
               _ =>
                 env.user.repo.setKid(me, getBool("v")) >>
                   negotiate(
-                    html = Redirect(routes.Account.kid).flashSuccess.fuccess,
-                    api = _ => jsonOkResult.fuccess
+                    html = Redirect(routes.Account.kid).flashSuccess.toFuccess,
+                    api = _ => jsonOkResult.toFuccess
                   )
             )
         }
@@ -356,10 +362,9 @@ final class Account(
 
   def apiKidPost =
     Scoped(_.Preference.Write) { req => me =>
-      getBoolOpt("v", req) match {
-        case None    => BadRequest(jsonError("Missing v parameter")).fuccess
+      getBoolOpt("v", req) match
+        case None    => BadRequest(jsonError("Missing v parameter")).toFuccess
         case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
-      }
     }
 
   private def currentSessionId(implicit ctx: Context) =
@@ -393,82 +398,78 @@ final class Account(
           env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
     }
 
-  private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(implicit
+  private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(using
       ctx: Context
   ) =
-    html.account.reopen.form(form.foldLeft(env.security.forms.reopen)(_ withForm _), msg)
+    env.security.forms.reopen map { baseForm =>
+      html.account.reopen.form(form.foldLeft(baseForm)(_ withForm _), msg)
+    }
 
   def reopen =
     Open { implicit ctx =>
       auth.RedirectToProfileIfLoggedIn {
-        Ok(renderReopen(none, none)).fuccess
+        renderReopen(none, none) map { Ok(_) }
       }
     }
 
   def reopenApply =
     OpenBody { implicit ctx =>
-      implicit val req = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.security.hcaptcha.verify() flatMap { captcha =>
         if (captcha.ok)
-          env.security.forms.reopen.form
-            .bindFromRequest()
-            .fold(
-              err => BadRequest(renderReopen(err.some, none)).fuccess,
-              data =>
-                env.security.reopen
-                  .prepare(data.username, data.realEmail, env.mod.logApi.closedByMod) flatMap {
-                  case Left((code, msg)) =>
-                    lila.mon.user.auth.reopenRequest(code).increment()
-                    BadRequest(renderReopen(none, msg.some)).fuccess
-                  case Right(user) =>
-                    auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
-                      lila.mon.user.auth.reopenRequest("success").increment()
-                      env.security.reopen.send(user, data.realEmail) inject Redirect(
-                        routes.Account.reopenSent(data.realEmail.value)
-                      )
-                    }(rateLimitedFu)
-                }
-            )
-        else BadRequest(renderReopen(none, none)).fuccess
+          env.security.forms.reopen flatMap {
+            _.form
+              .bindFromRequest()
+              .fold(
+                err => renderReopen(err.some, none) map { BadRequest(_) },
+                data =>
+                  env.security.reopen
+                    .prepare(data.username, data.email, env.mod.logApi.closedByMod) flatMap {
+                    case Left((code, msg)) =>
+                      lila.mon.user.auth.reopenRequest(code).increment()
+                      renderReopen(none, msg.some) map { BadRequest(_) }
+                    case Right(user) =>
+                      auth.MagicLinkRateLimit(user, data.email, ctx.req) {
+                        lila.mon.user.auth.reopenRequest("success").increment()
+                        env.security.reopen.send(user, data.email) inject Redirect(routes.Account.reopenSent)
+                      }(rateLimitedFu)
+                  }
+              )
+          }
+        else renderReopen(none, none) map { BadRequest(_) }
       }
     }
 
-  def reopenSent(@nowarn("cat=unused") email: String) =
-    Open { implicit ctx =>
-      fuccess {
-        Ok(html.account.reopen.sent)
-      }
+  def reopenSent = Open { implicit ctx =>
+    fuccess {
+      Ok(html.account.reopen.sent)
     }
+  }
 
-  def reopenLogin(token: String) =
-    Open { implicit ctx =>
-      env.security.reopen confirm token flatMap {
-        case None =>
-          lila.mon.user.auth.reopenConfirm("token_fail").increment()
-          notFound
-        case Some(user) =>
-          env.report.api.reopenReports(lila.report.Suspect(user)) >>
-            auth.authenticateUser(user) >>-
-            lila.mon.user.auth.reopenConfirm("success").increment().unit
-      }
+  def reopenLogin(token: String) = Open { implicit ctx =>
+    env.security.reopen confirm token flatMap {
+      case None =>
+        lila.mon.user.auth.reopenConfirm("token_fail").increment()
+        notFound
+      case Some(user) =>
+        env.report.api.reopenReports(lila.report.Suspect(user)) >>
+          auth.authenticateUser(user, remember = true) >>-
+          lila.mon.user.auth.reopenConfirm("success").increment().unit
     }
+  }
 
-  def data =
-    Auth { implicit ctx => me =>
-      val userId = get("user")
-        .map(lila.user.User.normalize)
-        .filter(id => me.id == id || isGranted(_.Impersonate)) | me.id
-      env.user.repo byId userId map {
-        _ ?? { user =>
-          if (getBool("text"))
-            apiC.GlobalConcurrencyLimitUser(me.id)(
-              env.api.personalDataExport(user)
-            ) { source =>
-              Ok.chunked(source.map(_ + "\n"))
-                .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
-            }
-          else Ok(html.account.bits.data(user))
+  def data = Auth { implicit ctx => me =>
+    val userId: UserId = getUserStr("user")
+      .map(_.id)
+      .filter(id => me == id || isGranted(_.Impersonate)) | me.id
+    env.user.repo byId userId mapz { user =>
+      if (getBool("text"))
+        apiC.GlobalConcurrencyLimitUser(me.id)(
+          env.api.personalDataExport(user)
+        ) { source =>
+          Ok.chunked(source.map(_ + "\n"))
+            .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
         }
-      }
+      else Ok(html.account.bits.data(user))
     }
-}
+  }

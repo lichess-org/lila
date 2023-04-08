@@ -2,17 +2,17 @@ package views.html
 package coach
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 
 import controllers.routes
 
-object show {
+object show:
 
-  import trans.coach._
+  import trans.coach.*
 
-  private def section(title: Frag, text: Option[lila.coach.CoachProfile.RichText]) =
+  private def section(title: Frag, text: Option[RichText]) =
     text.map { t =>
       st.section(
         h2(cls := "coach-show__title")(title),
@@ -26,7 +26,7 @@ object show {
       studies: Seq[lila.study.Study.WithChaptersAndLiked],
       posts: Seq[lila.ublog.UblogPost.PreviewPost],
       myReview: Option[lila.coach.CoachReview]
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context) =
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)
@@ -49,7 +49,7 @@ object show {
           a(cls := "button button-empty", href := routes.User.show(c.user.username))(
             viewXProfile(c.user.username)
           ),
-          if (ctx.me.exists(c.coach.is))
+          if (ctx.me.exists(_ is c.coach))
             frag(
               if (c.coach.listed.value) p("This page is now public.")
               else "This page is not public yet. ",
@@ -57,9 +57,9 @@ object show {
             )
           else
             a(
-              cls := "text button button-empty",
+              cls      := "text button button-empty",
               dataIcon := "",
-              href := s"${routes.Msg.convo(c.user.username)}"
+              href     := s"${routes.Msg.convo(c.user.username)}"
             )(sendPM()),
           ctx.me.exists(_.id != c.user.id) option review.form(c, myReview),
           review.list(coachReviews)
@@ -97,9 +97,9 @@ object show {
             div(cls := "list")(
               profile.youtubeUrls.map { url =>
                 iframe(
-                  widthA := "256",
-                  heightA := "192",
-                  src := url.value,
+                  widthA              := "256",
+                  heightA             := "192",
+                  src                 := url.value,
                   attr("frameborder") := "0",
                   frame.allowfullscreen
                 )
@@ -109,5 +109,3 @@ object show {
         )
       )
     }
-  }
-}

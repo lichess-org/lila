@@ -1,12 +1,10 @@
 package lila.streamer
 
-import org.joda.time.DateTime
-
-import lila.memo.{ PicfitImage, PicfitUrl }
+import lila.memo.PicfitImage
 import lila.user.User
 
 case class Streamer(
-    _id: Streamer.Id, // user ID
+    _id: Streamer.Id,
     listed: Streamer.Listed,
     approval: Streamer.Approval,
     picture: Option[PicfitImage.Id],
@@ -18,14 +16,13 @@ case class Streamer(
     seenAt: DateTime,         // last seen online
     liveAt: Option[DateTime], // last seen streaming
     createdAt: DateTime,
-    updatedAt: DateTime
-) {
+    updatedAt: DateTime,
+    lastStreamLang: Option[String] // valid 2 char language code or None
+):
 
-  def id = _id
+  inline def id = _id
 
-  def userId = _id.value
-
-  def is(user: User) = userId == user.id
+  def userId = id.userId
 
   def hasPicture = picture.isDefined
 
@@ -34,20 +31,21 @@ case class Streamer(
   def completeEnough = {
     twitch.isDefined || youTube.isDefined
   } && headline.isDefined && hasPicture
-}
 
-object Streamer {
+object Streamer:
+
+  given UserIdOf[Streamer] = _.id.userId
 
   val imageSize = 350
 
   def make(user: User) =
     Streamer(
-      _id = Id(user.id),
+      _id = user.id into Id,
       listed = Listed(true),
       approval = Approval(
         requested = false,
         granted = false,
-        ignored = false,
+        ignored = user.marks.troll,
         tier = 0,
         chatEnabled = true,
         lastGrantedAt = none
@@ -58,14 +56,19 @@ object Streamer {
       description = none,
       twitch = none,
       youTube = none,
-      seenAt = DateTime.now,
+      seenAt = nowDate,
       liveAt = none,
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      createdAt = nowDate,
+      updatedAt = nowDate,
+      lastStreamLang = none
     )
 
-  case class Id(value: User.ID)     extends AnyVal with StringValue
-  case class Listed(value: Boolean) extends AnyVal
+  opaque type Id = String
+  object Id extends OpaqueUserId[Id]
+
+  opaque type Listed = Boolean
+  object Listed extends YesNo[Listed]
+
   case class Approval(
       requested: Boolean,   // user requests a mod to approve
       granted: Boolean,     // a mod approved
@@ -74,54 +77,56 @@ object Streamer {
       chatEnabled: Boolean, // embed chat inside lichess
       lastGrantedAt: Option[DateTime]
   )
-  case class Name(value: String)        extends AnyVal with StringValue
-  case class Headline(value: String)    extends AnyVal with StringValue
-  case class Description(value: String) extends AnyVal with StringValue
+  opaque type Name = String
+  object Name extends OpaqueString[Name]
+  opaque type Headline = String
+  object Headline extends OpaqueString[Headline]
+  opaque type Description = String
+  object Description extends OpaqueString[Description]
 
-  case class Twitch(userId: String) {
+  case class Twitch(userId: String):
     def fullUrl = s"https://www.twitch.tv/$userId"
     def minUrl  = s"twitch.tv/$userId"
-  }
-  object Twitch {
+  object Twitch:
     private val UserIdRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
     private val UrlRegex    = ("""twitch\.tv/""" + UserIdRegex + "").r.unanchored
     // https://www.twitch.tv/chessnetwork
     def parseUserId(str: String): Option[String] =
-      str match {
+      str match
         case UserIdRegex(u) => u.some
         case UrlRegex(u)    => u.some
         case _              => none
-      }
-  }
 
-  case class YouTube(channelId: String) {
+  case class YouTube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String]):
     def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
     def minUrl  = s"youtube.com/channel/$channelId/live"
-  }
-  object YouTube {
+  object YouTube:
     private val ChannelIdRegex = """^([\w-]{24})$""".r
     private val UrlRegex       = """youtube\.com/channel/([\w-]{24})""".r.unanchored
     def parseChannelId(str: String): Option[String] =
-      str match {
+      str match
         case ChannelIdRegex(c) => c.some
         case UrlRegex(c)       => c.some
         case _                 => none
-      }
-  }
 
-  case class WithUser(streamer: Streamer, user: User) {
+  trait WithContext:
+    def streamer: Streamer
+    def user: User
+    def subscribed: Boolean
     def titleName = s"${user.title.fold("")(t => s"$t ")}${streamer.name}"
-  }
-  case class WithUserAndStream(streamer: Streamer, user: User, stream: Option[Stream]) {
-    def withoutStream = WithUser(streamer, user)
-    def titleName     = withoutStream.titleName
 
+  case class WithUser(streamer: Streamer, user: User, subscribed: Boolean = false) extends WithContext
+  case class WithUserAndStream(
+      streamer: Streamer,
+      user: User,
+      stream: Option[Stream],
+      subscribed: Boolean = false
+  ) extends WithContext:
     def redirectToLiveUrl: Option[String] =
       stream ?? { s =>
         streamer.twitch.ifTrue(s.twitch).map(_.fullUrl) orElse
           streamer.youTube.ifTrue(s.youTube).map(_.fullUrl)
       }
-  }
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean)
 
@@ -130,4 +135,3 @@ object Streamer {
   val tierChoices = (0 to maxTier).map(t => t -> t.toString)
 
   def canApply(u: User) = (u.count.game >= 15 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified
-}

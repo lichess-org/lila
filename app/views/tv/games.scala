@@ -3,12 +3,12 @@ package views.html.tv
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 
-object games {
+object games:
 
-  def apply(channel: lila.tv.Tv.Channel, povs: List[lila.game.Pov], champions: lila.tv.Tv.Champions)(implicit
+  def apply(channel: lila.tv.Tv.Channel, povs: List[lila.game.Pov], champions: lila.tv.Tv.Champions)(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -17,7 +17,7 @@ object games {
       moreJs = jsModule("tvGames")
     ) {
       main(
-        cls := "page-menu tv-games",
+        cls     := "page-menu tv-games",
         dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, "gameId", Nil)}"
       )(
         st.aside(cls := "page-menu__menu")(
@@ -28,4 +28,3 @@ object games {
         )
       )
     }
-}

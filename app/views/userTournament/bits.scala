@@ -2,14 +2,14 @@ package views.html
 package userTournament
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.user.User
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def best(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: Context) =
     layout(
@@ -61,4 +61,3 @@ object bits {
         div(cls := "page-menu__content box")(body)
       )
     }
-}

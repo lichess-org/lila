@@ -1,13 +1,13 @@
 package views.html.tournament
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TournamentShield
 
 import controllers.routes
 
-object shields {
+object shields:
 
   private val section = st.section(cls := "tournament-shields__item")
 
@@ -20,9 +20,9 @@ object shields {
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("shield"),
         div(cls := "page-menu__content box box-pad")(
-          h1("Tournament shields"),
+          h1(cls := "box__top")("Tournament shields"),
           div(cls := "tournament-shields")(
-            history.sorted.map { case (categ, awards) =>
+            history.sorted.map { (categ, awards) =>
               section(
                 h2(
                   a(href := routes.Tournament.categShields(categ.key))(
@@ -32,7 +32,7 @@ object shields {
                 ),
                 ol(awards.map { aw =>
                   li(
-                    userIdLink(aw.owner.value.some),
+                    userIdLink(aw.owner.some),
                     a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
                   )
                 })
@@ -51,19 +51,20 @@ object shields {
       main(cls := "page-menu page-small tournament-categ-shields")(
         views.html.user.bits.communityMenu("shield"),
         div(cls := "page-menu__content box")(
-          h1(
-            a(href := routes.Tournament.shields, dataIcon := "", cls := "text"),
-            categ.name,
-            " shields"
+          boxTop(
+            h1(
+              a(href := routes.Tournament.shields, dataIcon := "", cls := "text"),
+              categ.name,
+              " shields"
+            )
           ),
           ol(awards.map { aw =>
             li(
               span(cls := "shield-trophy")(categ.iconChar.toString),
-              userIdLink(aw.owner.value.some),
+              userIdLink(aw.owner.some),
               a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
             )
           })
         )
       )
     }
-}

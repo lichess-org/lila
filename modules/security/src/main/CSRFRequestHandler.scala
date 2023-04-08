@@ -2,7 +2,7 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 
-import lila.common.HTTPRequest._
+import lila.common.HTTPRequest.*
 import lila.common.config.NetConfig
 
 /* CSRF protection by using the HTTP origin header.
@@ -10,12 +10,12 @@ import lila.common.config.NetConfig
  * The origin header is set by the browser, and cannot be forged in cross-site requests.
  * Read along the code comments for details.
  */
-final class CSRFRequestHandler(net: NetConfig) {
+final class CSRFRequestHandler(net: NetConfig):
 
   /* Returns true if the request can be accepted
    * Returns false to reject the request with 403 Forbidden
    */
-  def check(req: RequestHeader): Boolean = {
+  def check(req: RequestHeader): Boolean =
     /* Cross origin XHR is not allowed by browsers,
      * therefore all XHR requests can be accepted
      */
@@ -28,7 +28,7 @@ final class CSRFRequestHandler(net: NetConfig) {
      * so we accept it */
     else if (appOrigin(req).isDefined) true
     else
-      origin(req) match {
+      origin(req) match
         case None =>
           /* The origin header is not set.
            * This can only happen with very old browsers,
@@ -36,10 +36,10 @@ final class CSRFRequestHandler(net: NetConfig) {
            * These old browsers cannot load Lichess because Lichess only support modern TLS.
            * All the browsers that can run Lichess nowadays set the origin header properly.
            * The absence of the origin header usually indicates a programmatic call (API or scrapping),
-           * so we let these requests through.
+           * which shouldn't be using non API POST endpoints.
            */
           monitor("missingOrigin", req)
-          true
+          false
         case Some(o) if isSubdomain(o) =>
           /* The origin header is set to the lichess domain, or a subdomain of it.
            * Since the request comes from Lichess, we accept it.
@@ -54,8 +54,6 @@ final class CSRFRequestHandler(net: NetConfig) {
            */
           monitor("forbidden", req)
           false
-      }
-  }
 
   private def monitor(tpe: String, req: RequestHeader) =
     lila.mon.http.csrfError(tpe, actionName(req), clientName(req)).increment()
@@ -67,4 +65,3 @@ final class CSRFRequestHandler(net: NetConfig) {
   // domain = "lichess.org"
   private def isSubdomain(origin: String) =
     origin.endsWith(subDomain) || origin.endsWith(topDomain)
-}

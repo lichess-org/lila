@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Shaxsiy sozlanmalar</string>
-  <string name="gameDisplay">O\'yin oynasi</string>
   <string name="pieceAnimation">Qism animatsiyalar</string>
   <string name="materialDifference">Materiallar farqi</string>
   <string name="boardHighlights">Doskadagi rang bilan ajratsih (oxirgi yurish va shoh)</string>

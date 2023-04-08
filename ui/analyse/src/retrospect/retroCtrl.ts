@@ -127,12 +127,10 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci!)) onWin();
-      // found in opening explorer
-      else if (node.comp) onWin();
-      // the computer solution line
-      else if (node.eval) onFail();
-      // the move that was played in the game
+      if (cur.openingUcis.includes(node.uci!)) onWin(); // found in opening explorer
+      else if (node.san?.endsWith('#')) onWin(); // checkmate ends the game
+      else if (node.comp) onWin(); // the computer solution line
+      else if (node.eval) onFail(); // the move that was played in the game
       else {
         feedback('eval');
         if (!root.ceval.enabled()) root.toggleCeval();
@@ -143,7 +141,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function isCevalReady(node: Tree.Node): boolean {
-    return node.ceval ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 7000) : false;
+    return node.ceval ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000) : false;
   }
 
   function checkCeval(): void {
@@ -152,7 +150,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (isCevalReady(node)) {
       const diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval!);
-      if (diff > -0.035) onWin();
+      if (diff > -0.04) onWin();
       else onFail();
     }
   }

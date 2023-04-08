@@ -6,17 +6,15 @@ import { opposite } from 'chessground/util';
 import { DrawModifiers, DrawShape } from 'chessground/draw';
 import AnalyseCtrl from './ctrl';
 
-function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
-  return {
-    orig: key,
-    piece: {
-      color,
-      role,
-      scale: 0.8,
-    },
-    brush: 'green',
-  };
-}
+const pieceDrop = (key: cg.Key, role: cg.Role, color: Color): DrawShape => ({
+  orig: key,
+  piece: {
+    color,
+    role,
+    scale: 0.8,
+  },
+  brush: 'green',
+});
 
 export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: DrawModifiers): DrawShape[] {
   if (uci === 'Current Position') return [];
@@ -75,7 +73,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (hovering && hovering.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
-    if (!hovering && parseInt(instance.multiPv())) {
+    if (!hovering && instance.multiPv()) {
       const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
@@ -128,6 +126,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         shapes = shapes.concat({
           orig: destSquare,
           customSvg: svg,
+          brush: '',
         });
       }
     }

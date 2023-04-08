@@ -27,7 +27,10 @@
   <string name="maxNumber">Jumlah maksimum</string>
   <string name="maxNumberExplanation">Jumlah maksimal permainan untuk kembali</string>
   <string name="include">Termasuk</string>
+  <string name="descending">Sortir turun</string>
+  <string name="ascending">Sortir naik</string>
   <plurals name="gamesFound">
     <item quantity="other">%s permainan ditemukan</item>
   </plurals>
+  <string name="ratingExplanation">Rating rata rata kedua pemain</string>
 </resources>

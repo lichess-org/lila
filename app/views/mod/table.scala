@@ -3,25 +3,22 @@ package views.html.mod
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object table {
+object table:
 
   private val dataSort = attr("data-sort")
 
-  def apply(users: List[lila.user.User])(implicit ctx: Context) = {
+  def apply(users: List[lila.user.User])(using Context) =
 
     val title = "All mods"
 
-    views.html.base.layout(
-      title = title,
-      moreCss = cssTag("mod.misc")
-    ) {
+    views.html.base.layout(title = title, moreCss = cssTag("mod.misc")):
       main(cls := "page-menu")(
         views.html.mod.menu("mods"),
         div(id := "mod_table", cls := "page-menu__content box")(
-          h1(title),
+          h1(cls := "box__top")(title),
           st.table(cls := "slist slist-pad sortable")(
             thead(
               tr(
@@ -46,6 +43,3 @@ object table {
           )
         )
       )
-    }
-  }
-}

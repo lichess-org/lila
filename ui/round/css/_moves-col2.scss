@@ -33,7 +33,7 @@
   #{$move-tag} {
     /* Edge 18: flex: 0 0 calc(100% * 5 / 12); causes wrap */
     flex: 0 0 41.666%;
-    padding-left: 0.7em;
+    padding-#{$start-direction}: 0.7em;
     cursor: pointer;
 
     &:hover {
@@ -56,7 +56,7 @@
     &::before {
       color: $c-font-dim;
       font-size: 3em;
-      margin-right: 12px;
+      margin-#{$end-direction}: 12px;
     }
   }
 

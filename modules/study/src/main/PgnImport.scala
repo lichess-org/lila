@@ -1,15 +1,16 @@
 package lila.study
 
 import cats.data.Validated
-import chess.Centis
-import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
-import chess.format.{ Forsyth, Uci, UciCharPair }
+import chess.{ Centis, ErrorStr }
+import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, Comment as ChessComment }
+import chess.format.{ Fen, Uci, UciCharPair }
+import chess.MoveOrDrop.*
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
-object PgnImport {
+object PgnImport:
 
   case class Result(
       root: Node.Root,
@@ -25,15 +26,15 @@ object PgnImport {
       statusText: String
   )
 
-  def apply(pgn: String, contributors: List[LightUser]): Validated[String, Result] =
+  def apply(pgn: PgnStr, contributors: List[LightUser]): Validated[ErrorStr, Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
-        parseComments(parsedPgn.initialPosition.comments, annotator) match {
+        parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, comments) =>
             val sans = parsedPgn.sans.value take Node.MAX_PLIES
             val root = Node.Root(
-              ply = replay.setup.turns,
+              ply = replay.setup.ply,
               fen = initialFen | game.variant.initialFen,
               check = replay.setup.situation.check,
               shapes = shapes,
@@ -54,7 +55,7 @@ object PgnImport {
               End(
                 status = status,
                 winner = game.winnerColor,
-                resultText = chess.Color.showResult(game.winnerColor),
+                resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
             }
@@ -70,39 +71,37 @@ object PgnImport {
               tags = PgnTags(parsedPgn.tags),
               end = end
             )
-        }
     }
 
   private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
     pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
-        c.name == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
+        c.name.value == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
       } map { c =>
         Comment.Author.User(c.id, c.titleName)
       } getOrElse Comment.Author.External(a)
     }
 
-  private def endComment(end: End): Comment = {
+  private def endComment(end: End): Comment =
     import lila.tree.Node.Comment
-    import end._
+    import end.*
     val text = s"$resultText $statusText"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
-  }
 
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
       _.metas.variations.flatMap { variation =>
-        makeNode(game, variation.value, annotator)
+        makeNode(game, variation.sans.value, annotator)
       }
     }
 
   private def parseComments(
-      comments: List[String],
+      comments: List[ChessComment],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Comments) =
     comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) { case ((shapes, clock, comments), txt) =>
-      CommentParser(txt) match {
+      CommentParser(txt) match
         case CommentParser.ParsedComment(s, c, str) =>
           (
             (shapes ++ s),
@@ -113,12 +112,11 @@ object PgnImport {
                 comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
             })
           )
-      }
     }
 
   private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
-    try {
-      sans match {
+    try
+      sans match
         case Nil => none
         case san :: rest =>
           san(prev.situation).fold(
@@ -131,9 +129,9 @@ object PgnImport {
                 case (shapes, clock, comments) =>
                   Node(
                     id = UciCharPair(uci),
-                    ply = game.turns,
+                    ply = game.ply,
                     move = Uci.WithSan(uci, sanStr),
-                    fen = Forsyth >> game,
+                    fen = Fen write game,
                     check = game.situation.check,
                     shapes = shapes,
                     comments = comments,
@@ -151,12 +149,10 @@ object PgnImport {
               }
             }
           )
-      }
-    } catch {
+    catch
       case _: StackOverflowError =>
         logger.warn(s"study PgnImport.makeNode StackOverflowError")
         None
-    }
 
   /*
    * Fix bad PGN like this one found on reddit:
@@ -164,7 +160,7 @@ object PgnImport {
    * where 7. c4 appears three times
    */
   private def removeDuplicatedChildrenFirstNode(children: Node.Children): Node.Children =
-    children.first match {
+    children.first match
       case Some(main) if children.variations.exists(_.id == main.id) =>
         Node.Children {
           main +: children.variations.flatMap { node =>
@@ -173,5 +169,3 @@ object PgnImport {
           }
         }
       case _ => children
-    }
-}

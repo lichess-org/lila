@@ -6,6 +6,7 @@ export interface Vm {
   broken: boolean;
   answer: Chart | null;
   panel: 'filter' | 'preset';
+  view: ViewTab;
 }
 
 export interface Env {
@@ -41,7 +42,7 @@ export type Filters = {
 export interface UI {
   dimensionCategs: Categ<Dimension>[];
   metricCategs: Categ<Metric>[];
-  presets: Preset[];
+  asMod?: boolean;
 }
 
 export interface Categ<T> {
@@ -49,7 +50,7 @@ export interface Categ<T> {
   items: T[];
 }
 
-interface Preset {
+export interface Preset {
   name: string;
   dimension: string;
   metric: string;
@@ -69,6 +70,8 @@ export interface Dimension extends Metric {
     name: string;
   }[];
 }
+
+export type ViewTab = 'combined' | 'presets' | 'filters' | 'insights';
 
 export interface Chart {
   question: Question;

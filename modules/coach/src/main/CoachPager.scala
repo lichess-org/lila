@@ -1,44 +1,43 @@
 package lila.coach
 
 import play.api.i18n.Lang
-import reactivemongo.api._
+import reactivemongo.api.*
 
 import lila.coach.CoachPager.Order.Alphabetical
 import lila.coach.CoachPager.Order.LichessRating
 import lila.coach.CoachPager.Order.Login
 import lila.coach.CoachPager.Order.NbReview
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl._
-import lila.db.paginator.Adapter
+import lila.db.dsl.{ *, given }
 import lila.security.Permission
 import lila.user.{ Country, User, UserMark, UserRepo }
 
 final class CoachPager(
     userRepo: UserRepo,
     coll: Coll
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
   val maxPerPage = lila.common.config.MaxPerPage(10)
 
-  import CoachPager._
-  import BsonHandlers._
+  import CoachPager.*
+  import BsonHandlers.given
 
   def apply(
       lang: Option[Lang],
       order: Order,
       country: Option[Country],
       page: Int
-  ): Fu[Paginator[Coach.WithUser]] = {
+  ): Fu[Paginator[Coach.WithUser]] =
     def selector = listableSelector ++ lang.?? { l => $doc("languages" -> l.code) }
 
     val adapter =
-      new AdapterLike[Coach.WithUser] {
+      new AdapterLike[Coach.WithUser]:
         def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
 
         def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
           coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
+              import framework.*
               Match(selector) -> List(
                 Sort(
                   order match {
@@ -83,40 +82,26 @@ final class CoachPager(
                 user  <- doc.getAsOpt[User]("_user")
               } yield Coach.WithUser(coach, user)
             }
-      }
 
     Paginator(
       adapter,
       currentPage = page,
       maxPerPage = maxPerPage
     )
-  }
 
   private val listableSelector = $doc(
-    "listed"    -> Coach.Listed(true),
-    "available" -> Coach.Available(true)
+    "listed"    -> Coach.Listed.Yes,
+    "available" -> Coach.Available.Yes
   )
 
-  private def withUsers(coaches: Seq[Coach]): Fu[Seq[Coach.WithUser]] =
-    userRepo.withColl {
-      _.optionsByOrderedIds[User, User.ID](coaches.map(_.id.value), none, ReadPreference.secondaryPreferred)(
-        _.id
-      )
-    } map { users =>
-      coaches zip users collect { case (coach, Some(user)) =>
-        Coach.WithUser(coach, user)
-      }
-    }
-}
-
-object CoachPager {
+object CoachPager:
 
   sealed abstract class Order(
       val key: String,
       val name: String
   )
 
-  object Order {
+  object Order:
     case object Login         extends Order("login", "Last login")
     case object LichessRating extends Order("rating", "Lichess rating")
     case object NbReview      extends Order("review", "User reviews")
@@ -125,5 +110,3 @@ object CoachPager {
     val default                   = Login
     val all                       = List(Login, LichessRating, NbReview, Alphabetical)
     def apply(key: String): Order = all.find(_.key == key) | default
-  }
-}

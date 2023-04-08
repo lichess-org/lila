@@ -7,7 +7,7 @@ import { PuzzleOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export default function (opts: PuzzleOpts): void {
+export default (window as any).LichessPuzzle = function (opts: PuzzleOpts): void {
   const element = document.querySelector('main.puzzle') as HTMLElement;
   const ctrl = makeCtrl(opts, redraw);
 
@@ -20,7 +20,7 @@ export default function (opts: PuzzleOpts): void {
   }
 
   menuHover();
-}
+};
 
 // that's for the rest of lichess to access chessground
 // without having to include it a second time

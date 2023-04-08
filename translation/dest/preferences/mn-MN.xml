@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Тохиргоо</string>
-  <string name="gameDisplay">Өргийг үзүүлэх байдал</string>
   <string name="pieceAnimation">Хөлгийн хөдөлгөөнийг амилуулах</string>
   <string name="materialDifference">Талуудын хөлгийн зөрүүг үзүүлэх</string>
   <string name="boardHighlights">Хийгдсэн нүүдлүүдийг тодотгох (сүүлчийн нүүдэл, мад, шаг)</string>

@@ -19,7 +19,7 @@ function result(win: boolean, stat: number): string {
 }
 
 const playerTitle = (player: Player) =>
-  h('h2', [h('span.rank', player.rank + '. '), renderPlayer(player, true, false, false)]);
+  h('h2', [player.rank ? h('span.rank', `${player.rank}. `) : '', renderPlayer(player, true, false, false)]);
 
 function setup(vnode: VNode) {
   const el = vnode.elm as HTMLElement,

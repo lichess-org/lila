@@ -74,6 +74,8 @@
   <string name="studyPgn">PGN الدراسة</string>
   <string name="downloadAllGames">حمل جميع الألعاب</string>
   <string name="chapterPgn">PGN الفصل</string>
+  <string name="copyChapterPgn">نسخ PGN</string>
+  <string name="copyChapterPgnDescription">نسخ فصل PGN إلى الحافظة.</string>
   <string name="downloadGame">حمل لعبة</string>
   <string name="studyUrl">رابط الدراسة</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>
@@ -88,11 +90,13 @@
   <string name="studyNotFound">لم يتم العثور على الدراسة</string>
   <string name="editChapter">تحرير الفصل</string>
   <string name="newChapter">فصل جديد</string>
+  <string name="importFromChapterX">استيراد من %s</string>
   <string name="orientation">اتجاه الرقعة</string>
   <string name="analysisMode">وضع التحليل</string>
   <string name="pinnedChapterComment">التعليق المثبت على الفصل</string>
   <string name="saveChapter">حفظ الفصل</string>
   <string name="clearAnnotations">مسح العلامات</string>
+  <string name="clearVariations">مسح اللاينات</string>
   <string name="deleteChapter">حذف الفصل</string>
   <string name="deleteThisChapter">هل تريد حذف الفصل ؟ لايمكنك التراجع عن ذلك لاحقاً!</string>
   <string name="clearAllCommentsInThisChapter">مسح جميع التعليقات والغلافات والأشكال المرسومة في هذا الفصل؟</string>

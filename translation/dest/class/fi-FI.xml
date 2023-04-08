@@ -25,7 +25,7 @@
   <string name="teachersOfTheClass">Luokan opettajat</string>
   <string name="addLichessUsernames">Kutsu käyttäjiä opettajiksi lisäämällä heidän Lichess-tunnuksensa. Yksi per rivi.</string>
   <string name="resetPassword">Nollaa salasana</string>
-  <string name="makeSureToCopy">Huolehdi nyt siitä, että kopioit tai kirjoitat ylös salasanasi. Et näe sitä enää toiste!</string>
+  <string name="makeSureToCopy">Huolehdi nyt siitä, että kopioit tai kirjoitat salasanasi talteen. Et näe sitä enää toiste!</string>
   <string name="passwordX">Salasana: %s</string>
   <string name="generateANewPassword">Luo oppilaalle uusi salasana</string>
   <string name="invitedToXByY">Kutsuttu %1$s-luokkaan (kutsuja: %2$s)</string>
@@ -64,8 +64,8 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="upgradeFromManaged">Korota hallinnoidusta itsenäiseksi</string>
   <string name="release">Vapauta</string>
   <string name="releaseTheAccount">Vapauta käyttäjätunnus, jotta oppilas voi hallita sitä itsenäisesti.</string>
-  <string name="releaseDesc1">Vapautettua käyttäjätiliä ei voi myöhemmin enää ottaa hallintaan. Oppilas voi itsenäisesti kytkeä lapsitilan pois päältä ja nollata salasanan.</string>
-  <string name="releaseDesc2">Oppilas pysyy luokassa senkin jälkeen, kun käyttäjätili on vapautettu.</string>
+  <string name="releaseDesc1">Vapautettua käyttäjätunnusta ei voi myöhemmin enää ottaa hallintaan. Oppilas voi itsenäisesti kytkeä lapsitilan pois päältä ja nollata salasanan.</string>
+  <string name="releaseDesc2">Oppilas pysyy luokassa senkin jälkeen, kun käyttäjätunnus on vapautettu.</string>
   <string name="realUniqueEmail">Oppilaan todellinen ja yksilöllinen sähköpostiosoite. Lähetämme siihen vahvistussähköpostilla linkin, jolla käyttäjätunnuksen voi vapauttaa.</string>
   <string name="closeStudent">Sulje tunnus</string>
   <string name="closeTheAccount">Sulje oppilaan tunnus pysyvästi.</string>
@@ -89,6 +89,7 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="variantXOverLastY">%1$s, viimeiset %2$s</string>
   <string name="winrate">Voittoprosentti</string>
   <string name="na">Ei saatavilla</string>
+  <string name="overview">Jäsenlista</string>
   <string name="news">Uutiset</string>
   <string name="classNews">Luokan uutiset</string>
   <string name="editNews">Muokkaa uutisia</string>

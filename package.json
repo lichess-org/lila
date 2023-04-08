@@ -18,65 +18,28 @@
   },
   "homepage": "https://lichess.org",
   "engines": {
-    "node": ">=10 <=17",
-    "yarn": "^1"
+    "node": ">=14 <=19",
+    "pnpm": "8.1"
   },
   "dependencies": {
-    "prettier": "2.5.1",
+    "@types/node": "^18.11.17",
+    "@types/web": "^0.0.84",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "ab": "https://github.com/lichess-org/ab-stub",
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "2.8.1",
+    "typescript": "^4.9.4",
     "xml2js": "0.4.23"
-  },
-  "devDependencies": {
-    "@types/web": "^0",
-    "@typescript-eslint/eslint-plugin": "^5.10.1",
-    "@typescript-eslint/parser": "^5.10.1",
-    "eslint": "^8.8.0",
-    "eslint-config-prettier": "^8.3.0",
-    "typescript": "^4"
   },
   "scripts": {
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "lint": "eslint . --ext .ts"
-  },
-  "workspaces": [
-    "ui",
-    "ui/analyse",
-    "ui/ceval",
-    "ui/challenge",
-    "ui/chat",
-    "ui/chess",
-    "ui/cli",
-    "ui/common",
-    "ui/chart",
-    "ui/coordinateTrainer",
-    "ui/dasher",
-    "ui/editor",
-    "ui/game",
-    "ui/keyboardMove",
-    "ui/nvui",
-    "ui/mod",
-    "ui/palantir",
-    "ui/insight",
-    "ui/learn",
-    "ui/lobby",
-    "ui/notify",
-    "ui/puzzle",
-    "ui/round",
-    "ui/serviceWorker",
-    "ui/simul",
-    "ui/site",
-    "ui/swiss",
-    "ui/tournament",
-    "ui/tournamentSchedule",
-    "ui/tournamentCalendar",
-    "ui/tree",
-    "ui/msg",
-    "ui/dgt",
-    "ui/puz",
-    "ui/storm",
-    "ui/racer",
-    "ui/@build/rollupProject",
-    "ui/@types/lichess",
-    "ui/@types/cash"
-  ]
+    "lint": "eslint . --ext .ts",
+    "journal": "journalctl --user -fu lila -o cat",
+    "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
+    "serverlog": "pnpm journal & pnpm metals",
+    "multilog": "pnpm serverlog & ui/build -w"
+  }
 }

@@ -7,7 +7,7 @@ package lila.common
 final class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V])(
     toK1: V => K1,
     toK2: V => K2
-) {
+):
 
   def values: Iterable[V] = index1.values
 
@@ -19,39 +19,35 @@ final class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V])(
 
   def key1s: Iterable[K1] = index1.keys
 
-  def updated(toAdd: V): MultiKeyMap[K1, K2, V] = {
+  def updated(toAdd: V): MultiKeyMap[K1, K2, V] =
     val (k1, k2) = (toK1(toAdd), toK2(toAdd))
     copy(
       index1 = index1.removed(k1).updated(k1, toAdd),
       index2 = index2.removed(k2).updated(k2, toAdd)
     )
-  }
 
-  def removed(toRemove: V): MultiKeyMap[K1, K2, V] = {
+  def removed(toRemove: V): MultiKeyMap[K1, K2, V] =
     val (k1, k2) = (toK1(toRemove), toK2(toRemove))
     copy(
       index1 = index1.removed(k1),
       index2 = index2.removed(k2)
     )
-  }
 
-  def removed(toRemove: Set[V]): MultiKeyMap[K1, K2, V] = {
+  def removed(toRemove: Set[V]): MultiKeyMap[K1, K2, V] =
     val (k1s, k2s) = (toRemove map toK1, toRemove map toK2)
     copy(
       index1 = index1 -- k1s,
       index2 = index2 -- k2s
     )
-  }
 
   def reset(newValues: Set[V]) = if (newValues == values) this else MultiKeyMap(newValues)(toK1, toK2)
 
   private def copy(index1: Map[K1, V], index2: Map[K2, V]) =
     new MultiKeyMap(index1, index2)(toK1, toK2)
-}
 
-object MultiKeyMap {
+object MultiKeyMap:
 
-  def apply[K1, K2, V](values: Set[V])(toK1: V => K1, toK2: V => K2) = {
+  def apply[K1, K2, V](values: Set[V])(toK1: V => K1, toK2: V => K2) =
     val (index1: Map[K1, V], index2: Map[K2, V]) =
       values.view.foldLeft((Map.empty[K1, V], Map.empty[K2, V])) { case ((i1, i2), value) =>
         (
@@ -60,5 +56,3 @@ object MultiKeyMap {
         )
       }
     new MultiKeyMap[K1, K2, V](index1, index2)(toK1, toK2)
-  }
-}

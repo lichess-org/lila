@@ -1,29 +1,26 @@
 package lila.round
 
-import org.joda.time.Period
-
 import lila.game.{ Game, PlayerRef, Pov }
-import lila.hub.actorApi.mailer._
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
     roundSocket: RoundSocket
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
-  def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
+  def game(gameId: GameId): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
 
-  def pov(gameId: Game.ID, user: lila.user.User): Fu[Option[Pov]] =
+  def pov(gameId: GameId, user: lila.user.User): Fu[Option[Pov]] =
     game(gameId) dmap { _ flatMap { Pov(_, user) } }
 
-  def pov(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
+  def pov(gameId: GameId, color: chess.Color): Fu[Option[Pov]] =
     game(gameId) dmap2 { Pov(_, color) }
 
-  def pov(fullId: Game.ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
+  def pov(fullId: GameFullId): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
     game(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
 
-  def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = roundSocket gameIfPresent gameId
+  def gameIfPresent(gameId: GameId): Fu[Option[Game]] = roundSocket gameIfPresent gameId
 
   // get the proxied version of the game
   def upgradeIfPresent(game: Game): Fu[Game] =
@@ -34,15 +31,15 @@ final class GameProxyRepo(
     upgradeIfPresent(pov.game).dmap(_ pov pov.color)
 
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]] =
-    games.map(upgradeIfPresent).sequenceFu
+    games.map(upgradeIfPresent).parallel
 
   // update the proxied game
-  def updateIfPresent = roundSocket.updateIfPresent _
+  def updateIfPresent = roundSocket.updateIfPresent
 
-  def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
+  def povIfPresent(gameId: GameId, color: chess.Color): Fu[Option[Pov]] =
     gameIfPresent(gameId) dmap2 { Pov(_, color) }
 
-  def povIfPresent(fullId: Game.ID): Fu[Option[Pov]] = povIfPresent(PlayerRef(fullId))
+  def povIfPresent(fullId: GameFullId): Fu[Option[Pov]] = povIfPresent(PlayerRef(fullId))
 
   def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
     gameIfPresent(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
@@ -51,14 +48,11 @@ final class GameProxyRepo(
     gameRepo urgentPovsUnsorted user flatMap {
       _.map { pov =>
         gameIfPresent(pov.gameId) dmap { _.fold(pov)(pov.withGame) }
-      }.sequenceFu map { povs =>
-        try {
-          povs sortWith Pov.priority
-        } catch {
+      }.parallel map { povs =>
+        try povs sortWith Pov.priority
+        catch
           case e: IllegalArgumentException =>
             lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)
             povs.sortBy(-_.game.movedAt.getSeconds)
-        }
       }
     }
-}

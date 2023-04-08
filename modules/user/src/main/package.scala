@@ -1,8 +1,5 @@
-package lila
+package lila.user
 
-package object user extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[user] def logger = lila.log("user")
-
-  type Trophies = List[Trophy]
-}
+private val logger = lila.log("user")

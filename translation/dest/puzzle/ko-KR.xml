@@ -13,12 +13,15 @@
   <string name="specialMoves">특수 행마</string>
   <string name="didYouLikeThisPuzzle">이 퍼즐이 괜찮았나요?</string>
   <string name="voteToLoadNextOne">다음 퍼즐을 위해 투표해주세요!</string>
+  <string name="upVote">퍼즐 추천</string>
+  <string name="downVote">퍼즐 비추천</string>
   <string name="yourPuzzleRatingWillNotChange">당신의 퍼즐 레이팅은 바뀌지 않을 것입니다. 퍼즐은 경쟁이 아니라는 걸 기억하세요. 레이팅은 당신의 현재 스킬에 맞는 퍼즐을 선택하도록 돕습니다.</string>
   <string name="findTheBestMoveForWhite">백의 최고의 수를 찾아보세요.</string>
   <string name="findTheBestMoveForBlack">흑의 최고의 수를 찾아보세요.</string>
   <string name="toGetPersonalizedPuzzles">개인화된 퍼즐을 위해선:</string>
   <string name="puzzleId">퍼즐 %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>
+  <string name="dailyPuzzle">일일 퍼즐</string>
   <string name="clickToSolve">퍼즐 풀기</string>
   <string name="goodMove">좋은 수 입니다.</string>
   <string name="bestMove">가장 좋은 수입니다!</string>
@@ -48,6 +51,7 @@
   </plurals>
   <string name="example">예시</string>
   <string name="addAnotherTheme">새 테마 추가</string>
+  <string name="nextPuzzle">다음 퍼즐</string>
   <string name="jumpToNextPuzzleImmediately">다음 퍼즐로 즉시 이동</string>
   <string name="puzzleDashboard">퍼즐 대시보드</string>
   <string name="improvementAreas">개선이 필요한 부분</string>

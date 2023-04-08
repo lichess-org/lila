@@ -12,6 +12,10 @@
     @extend %break-word-hard;
   }
 
+  .slist .subject {
+    unicode-bidi: plaintext;
+  }
+
   &.forum-categ {
     padding-bottom: 1rem;
 
@@ -36,5 +40,9 @@
     @extend %flex-between;
 
     margin-bottom: 1em;
+  }
+
+  .lpv,
+  .lpv--autostart {
   }
 }

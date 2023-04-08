@@ -13,7 +13,7 @@ $mq-col2: $mq-col2-uniboard;
   @include breakpoint($mq-col2) {
     padding: 3vh 2vw;
 
-    .playing.zen & {
+    .zenable.zen & {
       justify-content: space-evenly;
     }
   }
@@ -29,7 +29,7 @@ $mq-col2: $mq-col2-uniboard;
       height: 5rem;
       background-image: img-url('icons/tornado.svg');
       background-repeat: no-repeat;
-      margin-right: 1.5rem;
+      margin-#{$end-direction}: 1.5rem;
     }
   }
 
@@ -94,12 +94,14 @@ $mq-col2: $mq-col2-uniboard;
       font-family: 'storm';
       font-size: 5.5rem;
       color: $c-brag;
-      margin-right: 1rem;
+      margin-#{$end-direction}: 1rem;
       transition: text-shadow 0.1s;
     }
 
     .puz-mod-puzzle & {
-      text-shadow: 0 0 15px white;
+      @media (prefers-reduced-motion: no-preference) {
+        text-shadow: 0 0 15px white;
+      }
     }
   }
 }

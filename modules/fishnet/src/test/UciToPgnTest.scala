@@ -1,7 +1,8 @@
 package lila.fishnet
 
-import chess.Replay
-import chess.format.pgn.Reader
+import scala.language.implicitConversions
+import chess.{ Ply, Replay }
+import chess.format.pgn.{ SanStr, Reader }
 import org.specs2.mutable._
 
 import lila.analyse.{ Analysis, Info }
@@ -10,7 +11,9 @@ import lila.tree.Eval._
 
 final class UciToPgnTest extends Specification {
 
-  private val now = org.joda.time.DateTime.now
+  private given Conversion[Int, Ply] = Ply(_)
+
+  private val now = nowDate
 
   private def evenIncomplete(result: Reader.Result): Replay =
     result match {
@@ -18,8 +21,8 @@ final class UciToPgnTest extends Specification {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
-  "convert UCI analysis to PGN" should {
-    "work :)" in {
+  "convert UCI analysis to PGN" >> {
+    "work :)" >> {
       val uciAnalysis = Analysis(
         "ke5ssdgj",
         None,
@@ -29,7 +32,7 @@ final class UciToPgnTest extends Specification {
           Info(
             3,
             Eval(Some(Cp(22)), None, None),
-            List(
+            SanStr from List(
               "g1f3",
               "g8f6",
               "e2e3",
@@ -51,7 +54,19 @@ final class UciToPgnTest extends Specification {
           Info(
             6,
             Eval(Some(Cp(-80)), None, None),
-            List("g8f6", "e2e3", "c7c5", "g1f3", "b8c6", "b1c3", "c5d4", "e3d4", "f8e7", "f1e2", "f6e4")
+            SanStr from List(
+              "g8f6",
+              "e2e3",
+              "c7c5",
+              "g1f3",
+              "b8c6",
+              "b1c3",
+              "c5d4",
+              "e3d4",
+              "f8e7",
+              "f1e2",
+              "f6e4"
+            )
           ),
           Info(7, Eval(Some(Cp(-22)), None, None), List()),
           Info(8, Eval(Some(Cp(-64)), None, None), List()),
@@ -69,7 +84,7 @@ final class UciToPgnTest extends Specification {
           Info(
             20,
             Eval(Some(Cp(-113)), None, None),
-            List(
+            SanStr from List(
               "c8d7",
               "b1d2",
               "c6e7",
@@ -92,7 +107,7 @@ final class UciToPgnTest extends Specification {
           Info(
             21,
             Eval(Some(Cp(-42)), None, None),
-            List(
+            SanStr from List(
               "g5e4",
               "d5e4",
               "e1g1",
@@ -112,7 +127,7 @@ final class UciToPgnTest extends Specification {
           Info(
             22,
             Eval(Some(Cp(-535)), None, None),
-            List(
+            SanStr from List(
               "c8e6",
               "g5e4",
               "d5e4",
@@ -133,7 +148,7 @@ final class UciToPgnTest extends Specification {
           Info(
             23,
             Eval(Some(Cp(-296)), None, None),
-            List(
+            SanStr from List(
               "g5e4",
               "d5e4",
               "h2h4",
@@ -155,11 +170,11 @@ final class UciToPgnTest extends Specification {
               "g6g2"
             )
           ),
-          Info(24, Eval(None, Some(Mate(3)), None), List("d8h4", "e1e2", "h4f2", "e2d3", "c6b4")),
+          Info(24, Eval(None, Some(Mate(3)), None), SanStr from List("d8h4", "e1e2", "h4f2", "e2d3", "c6b4")),
           Info(
             25,
             Eval(Some(Cp(-935)), None, None),
-            List(
+            SanStr from List(
               "e1g1",
               "e6h3",
               "b1d2",
@@ -181,7 +196,7 @@ final class UciToPgnTest extends Specification {
           Info(
             27,
             Eval(Some(Cp(-2731)), None, None),
-            List(
+            SanStr from List(
               "g1g3",
               "h4h2",
               "d1f3",
@@ -204,7 +219,7 @@ final class UciToPgnTest extends Specification {
               "e8e3"
             )
           ),
-          Info(28, Eval(None, Some(Mate(2)), None), List("h4f2", "e2d3", "c6b4")),
+          Info(28, Eval(None, Some(Mate(2)), None), SanStr from List("h4f2", "e2d3", "c6b4")),
           Info(29, Eval(None, Some(Mate(-2)), None), List())
         ),
         0,
@@ -214,13 +229,16 @@ final class UciToPgnTest extends Specification {
 
       val pgn =
         "d4 d5 f3 e6 f4 g6 g3 Bg7 Nf3 Nf6 e3 O-O Bh3 Nc6 g4 h6 g5 hxg5 Nxg5 Ne4 Bxe6 fxe6 Nxe6 Bxe6 Rg1 Qh4+ Ke2 Qxh2+ Kd3 Nb4#"
-      val rep = Replay(pgn.split(' ').toList, None, chess.variant.Standard).map(evenIncomplete).toOption.get
+      val rep = Replay(SanStr from pgn.split(' ').toList, None, chess.variant.Standard)
+        .map(evenIncomplete)
+        .toOption
+        .get
       UciToPgn(rep, uciAnalysis) match {
         case (_, errs) => errs must beEmpty
       }
     }
-    "even in KotH" in {
-      val pgn = List(
+    "even in KotH" >> {
+      val pgn = SanStr from List(
         "e4",
         "e5",
         "d4",

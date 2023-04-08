@@ -6,18 +6,20 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "common": "2.0.0",
-    "snabbdom": "^3.3.1"
-  },
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0",
-    "@types/web": "^0",
-    "rollup": "^2",
-    "typescript": "^4"
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "chessground": "^8.3.7",
+    "common": "workspace:*",
+    "snabbdom": "^3.5.1"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "compile": "tsc",
+    "dev": "tsc",
+    "prod": "tsc"
+  },
+  "lichess": {
+    "bundles": {
+      "src/main.ts": "challenge"
+    }
   }
 }

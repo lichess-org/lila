@@ -3,19 +3,19 @@ package views.html
 import play.api.libs.json.Json
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.user.User
 import play.api.i18n.Lang
 
 import controllers.routes
 
-object insight {
+object insight:
 
   def index(
       u: User,
-      cache: lila.insight.InsightUser,
+      insightUser: lila.insight.InsightUser,
       prefId: Int,
       ui: play.api.libs.json.JsObject,
       question: play.api.libs.json.JsObject,
@@ -25,26 +25,24 @@ object insight {
       title = trans.insight.xChessInsights.txt(u.username),
       moreJs = frag(
         highchartsLatestTag,
-        jsAt("javascripts/vendor/jquery.min.js"),
-        jsAt("javascripts/vendor/multiple-select.min.js"),
         jsModule("insight"),
         jsTag("insight-refresh.js"),
         embedJsUnsafeLoadThen(
           s"""lichess.insight=LichessInsight(document.getElementById('insight'), ${safeJsonValue(
-            Json.obj(
-              "ui"              -> ui,
-              "initialQuestion" -> question,
-              "i18n"            -> Json.obj(),
-              "myUserId"        -> ctx.userId,
-              "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
-                "nbGames" -> cache.count,
-                "stale"   -> stale,
-                "shareId" -> prefId
-              )),
-              "pageUrl" -> routes.Insight.index(u.username).url,
-              "postUrl" -> routes.Insight.json(u.username).url
-            )
-          )})"""
+              Json.obj(
+                "ui"              -> ui,
+                "initialQuestion" -> question,
+                "i18n"            -> Json.obj(),
+                "myUserId"        -> ctx.userId,
+                "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
+                  "nbGames" -> insightUser.count,
+                  "stale"   -> stale,
+                  "shareId" -> prefId
+                )),
+                "pageUrl" -> routes.Insight.index(u.username).url,
+                "postUrl" -> routes.Insight.json(u.username).url
+              )
+            )})"""
         )
       ),
       moreCss = cssTag("insight")
@@ -59,7 +57,7 @@ object insight {
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        h1(cls := "text", dataIcon := "")(trans.insight.xChessInsights(u.username)),
+        boxTop(h1(cls := "text", dataIcon := "")(trans.insight.xChessInsights(u.username))),
         p(trans.insight.xHasNoChessInsights(userLink(u))),
         refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
@@ -88,4 +86,3 @@ object insight {
         p(strong(trans.insight.crunchingData()))
       )
     )
-}

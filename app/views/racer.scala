@@ -1,24 +1,25 @@
 package views.html
 
 import controllers.routes
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
-import lila.i18n.I18nKeys.{ storm => s }
-import lila.racer.RacerRace
+import lila.i18n.I18nKeys.{ storm as s }
 
-object racer {
+object racer:
 
-  def home(implicit ctx: Context) =
+  def home(using Context) =
     views.html.base.layout(
       moreCss = cssTag("racer-home"),
-      title = "Puzzle Racer"
+      title = "Puzzle Racer",
+      withHrefLangs = LangPath(routes.Racer.home).some
     ) {
       main(cls := "page page-small racer-home box box-pad")(
-        h1("Puzzle Racer"),
+        h1(cls := "box__top")("Puzzle Racer"),
         div(cls := "racer-home__buttons")(
           postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
             submitButton(cls := "button button-fat")(i(cls := "car")(0), s.joinPublicRace())
@@ -33,24 +34,20 @@ object racer {
       )
     }
 
-  def show(race: RacerRace, data: JsObject, pref: JsObject)(implicit ctx: Context) =
+  def show(data: JsObject)(using Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("racer")),
       moreJs = frag(
         jsModule("racer"),
         embedJsUnsafeLoadThen(
           s"""LichessRacer.start(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "pref" -> pref,
-              "i18n" -> i18nJsObject(i18nKeys)
-            )
-          )})"""
+              data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))
+            )})"""
         )
       ),
       title = "Puzzle Racer",
       zoomable = true,
-      playing = true,
+      zenable = true,
       chessground = false
     ) {
       main(
@@ -61,7 +58,7 @@ object racer {
       )
     }
 
-  private val i18nKeys = {
+  private val i18nKeys =
     List(
       s.score,
       s.combo,
@@ -83,7 +80,9 @@ object racer {
       s.skip,
       s.skipHelp,
       s.skipExplanation,
+      s.puzzlesPlayed,
+      s.failedPuzzles,
+      s.slowPuzzles,
+      s.skippedPuzzle,
       trans.flipBoard
-    ).map(_.key)
-  }
-}
+    )

@@ -1,44 +1,44 @@
 package lila.relay
 
-import org.joda.time.DateTime
-
 import chess.format.pgn.{ Tag, Tags }
+import chess.format.UciPath
 import lila.socket.Socket.Sri
-import lila.study._
+import lila.study.*
 
 final private class RelaySync(
     studyApi: StudyApi,
     multiboard: StudyMultiBoard,
     chapterRepo: ChapterRepo,
-    tourRepo: RelayTourRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
-
-  private type NbMoves = Int
+    tourRepo: RelayTourRepo,
+    leaderboard: RelayLeaderboardApi
+)(using Executor):
 
   def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
     studyApi byId rt.round.studyId orFail "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
-        RelayInputSanity(chapters, games) match {
-          case Some(fail) => fufail(fail.msg)
-          case None =>
-            lila.common.Future.linear(games) { game =>
-              findCorrespondingChapter(game, chapters, games.size) match {
-                case Some(chapter) => updateChapter(rt.tour, study, chapter, game)
+        RelayInputSanity(chapters, games) match
+          case Left(fail) => fufail(fail.msg)
+          case Right(games) =>
+            lila.common.LilaFuture.linear(games) { game =>
+              findCorrespondingChapter(game, chapters, games.size) match
+                case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
                 case None =>
-                  createChapter(study, game) flatMap { chapter =>
-                    chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                      studyApi.deleteChapter(study.id, initial.id) {
-                        actorApi.Who(study.ownerId, sri)
+                  chapterRepo.countByStudyId(study.id) flatMap {
+                    case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
+                    case _ =>
+                      createChapter(study, game) flatMap { chapter =>
+                        chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
+                          studyApi.deleteChapter(study.id, initial.id) {
+                            actorApi.Who(study.ownerId, sri)
+                          }
+                        } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
                       }
-                    } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size)
                   }
-              }
             } flatMap { chapterUpdates =>
-              val result = SyncResult.Ok(chapterUpdates.toList, games)
+              val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
               lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
               tourRepo.setSyncedNow(rt.tour) inject result
             }
-        }
       }
     }
 
@@ -63,16 +63,17 @@ final private class RelaySync(
       game: RelayGame
   ): Fu[SyncResult.ChapterResult] =
     updateChapterTags(tour, study, chapter, game) zip
-      updateChapterTree(study, chapter, game) map { case (tagUpdate, nbMoves) =>
+      updateChapterTree(study, chapter, game) map { (tagUpdate, nbMoves) =>
         SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
       }
 
-  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
+  private type NbMoves = Int
+  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     val who = actorApi.Who(chapter.ownerId, sri)
-    game.root.mainline.foldLeft(Path.root -> none[Node]) {
+    game.root.mainline.foldLeft(UciPath.root -> none[Node]) {
       case ((parentPath, None), gameNode) =>
-        val path = parentPath + gameNode
-        chapter.root.nodeAt(path) match {
+        val path = parentPath + gameNode.id
+        chapter.root.nodeAt(path) match
           case None => parentPath -> gameNode.some
           case Some(existing) =>
             gameNode.clock.filter(c => !existing.clock.has(c)) ?? { c =>
@@ -83,11 +84,10 @@ final private class RelaySync(
               )(who)
             }
             path -> none
-        }
       case (found, _) => found
-    } match {
+    } match
       case (path, newNode) =>
-        !Path.isMainline(chapter.root, path) ?? {
+        !path.isMainline(chapter.root) ?? {
           logger.info(s"Change mainline ${showSC(study, chapter)} $path")
           studyApi.promote(
             studyId = study.id,
@@ -95,36 +95,35 @@ final private class RelaySync(
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
-          lila.common.Future.fold(node.mainline.toList)(Position(chapter, path).ref) { case (position, n) =>
-            studyApi.addNode(
-              studyId = study.id,
-              position = position,
-              node = n,
-              opts = moveOpts.copy(clock = n.clock),
-              relay = Chapter
-                .Relay(
-                  index = game.index,
-                  path = position.path + n,
-                  lastMoveAt = DateTime.now
-                )
-                .some
-            )(who) inject position + n
+          lila.common.LilaFuture.fold(node.mainline.toList)(Position(chapter, path).ref) {
+            case (position, n) =>
+              studyApi.addNode(
+                studyId = study.id,
+                position = position,
+                node = n,
+                opts = moveOpts.copy(clock = n.clock),
+                relay = Chapter
+                  .Relay(
+                    index = game.index,
+                    path = position.path + n.id,
+                    lastMoveAt = nowDate
+                  )
+                  .some
+              )(who) inject position + n
           } inject {
             if (chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty)
               studyApi.reloadChapters(study)
             node.mainline.size
           }
         }
-    }
-  }
 
   private def updateChapterTags(
       tour: RelayTour,
       study: Study,
       chapter: Chapter,
       game: RelayGame
-  ): Fu[Boolean] = {
-    val gameTags = game.tags.value.foldLeft(Tags(Nil)) { case (newTags, tag) =>
+  ): Fu[Boolean] =
+    val gameTags = game.tags.value.foldLeft(Tags(Nil)) { (newTags, tag) =>
       if (!chapter.tags.value.has(tag)) newTags + tag
       else newTags
     }
@@ -133,7 +132,7 @@ final private class RelaySync(
       .filterNot(end => chapter.tags(_.Result).??(end.resultText ==))
       .map(end => Tag(_.Result, end.resultText))
     val tags = newEndTag.fold(gameTags)(gameTags + _)
-    val chapterNewTags = tags.value.foldLeft(chapter.tags) { case (chapterTags, tag) =>
+    val chapterNewTags = tags.value.foldLeft(chapter.tags) { (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
     }
     (chapterNewTags != chapter.tags) ?? {
@@ -144,14 +143,13 @@ final private class RelaySync(
         chapterId = chapter.id,
         tags = chapterNewTags
       )(actorApi.Who(chapter.ownerId, sri)) >> {
-        val newEnd = chapter.tags.resultColor.isEmpty && tags.resultColor.isDefined
+        val newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
         newEnd ?? onChapterEnd(tour, study, chapter)
       } inject true
     }
-  }
 
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
-    chapterRepo.setRelayPath(chapter.id, Path.root) >> {
+    chapterRepo.setRelayPath(chapter.id, UciPath.root) >> {
       (tour.official && chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
         studyId = study.id,
         chapterId = chapter.id,
@@ -161,6 +159,7 @@ final private class RelaySync(
     } >>- {
       multiboard.invalidate(study.id)
       studyApi.reloadChapters(study)
+      leaderboard invalidate tour.id
     }
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
@@ -173,7 +172,7 @@ final private class RelaySync(
       } orElse game.tags("board") getOrElse "?"
       val chapter = Chapter.make(
         studyId = study.id,
-        name = Chapter.Name(name),
+        name = StudyChapterName(name),
         setup = Chapter.Setup(
           none,
           game.variant,
@@ -190,7 +189,7 @@ final private class RelaySync(
           .Relay(
             index = game.index,
             path = game.root.mainlinePath,
-            lastMoveAt = DateTime.now
+            lastMoveAt = nowDate
           )
           .some
       )
@@ -211,25 +210,19 @@ final private class RelaySync(
 
   private def showSC(study: Study, chapter: Chapter) =
     s"#${study.id} chapter[${chapter.relay.fold("?")(_.index.toString)}]"
-}
 
-sealed trait SyncResult {
+sealed trait SyncResult:
   val reportKey: String
-}
-object SyncResult {
-  case class Ok(chapters: List[ChapterResult], games: RelayGames) extends SyncResult {
+object SyncResult:
+  case class Ok(chapters: List[ChapterResult], games: RelayGames) extends SyncResult:
     def nbMoves   = chapters.foldLeft(0)(_ + _.newMoves)
     val reportKey = "ok"
-  }
-  case object Timeout extends Exception with SyncResult {
+  case object Timeout extends Exception with SyncResult with util.control.NoStackTrace:
     val reportKey           = "timeout"
     override def getMessage = "In progress..."
-  }
-  case class Error(msg: String) extends SyncResult {
+  case class Error(msg: String) extends SyncResult:
     val reportKey = "error"
-  }
 
-  case class ChapterResult(id: Chapter.Id, tagUpdate: Boolean, newMoves: Int)
+  case class ChapterResult(id: StudyChapterId, tagUpdate: Boolean, newMoves: Int)
 
-  def busChannel(roundId: RelayRound.Id) = s"relaySyncResult:$roundId"
-}
+  def busChannel(roundId: RelayRoundId) = s"relaySyncResult:$roundId"

@@ -1,14 +1,14 @@
 package views.html.site
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 
-object lag {
+object lag:
 
-  import trans.lag._
+  import trans.lag.*
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using Context) =
     page.layout(
       title = "Is Lichess lagging?",
       active = "lag",
@@ -20,7 +20,7 @@ object lag {
       )
     ) {
       div(cls := "box box-pad lag")(
-        h1(
+        h1(cls := "box__top")(
           isLichessLagging(),
           span(cls := "answer short")(
             span(cls := "waiting")(measurementInProgressThreeDot()),
@@ -57,4 +57,3 @@ object lag {
         )
       )
     }
-}

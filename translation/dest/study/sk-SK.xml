@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Dátum pridania (najstaršie)</string>
   <string name="recentlyUpdated">Nedávno aktualizované</string>
   <string name="mostPopular">Najpopulárnejšie</string>
+  <string name="alphabetical">Abecedne</string>
   <string name="addNewChapter">Pridať novú kapitolu</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitola</item>
@@ -67,6 +68,8 @@
   <string name="studyPgn">PGN štúdie</string>
   <string name="downloadAllGames">Stiahnuť všetky partie</string>
   <string name="chapterPgn">PGN kapitoly</string>
+  <string name="copyChapterPgn">Kopírovať PGN</string>
+  <string name="copyChapterPgnDescription">Kopírovať kapitolu PGN do schránky.</string>
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
@@ -81,6 +84,7 @@
   <string name="studyNotFound">Štúdia sa nenašla</string>
   <string name="editChapter">Upraviť kapitolu</string>
   <string name="newChapter">Nová kapitola</string>
+  <string name="importFromChapterX">Importovať z %s</string>
   <string name="orientation">Orientácia</string>
   <string name="analysisMode">Mód analýzy</string>
   <string name="pinnedChapterComment">Pripnutý komentár ku kapitole</string>
@@ -135,6 +139,7 @@
   <string name="clearChat">Vymazať čet</string>
   <string name="deleteTheStudyChatHistory">Chcete vymazať históriu četu k tomuto učivu? Táto akcia sa nedá vrátit späť!</string>
   <string name="deleteStudy">Vymazať učivo</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Vymazať štúdiu? Už nieje cesta späť! Napíšte meno štúdie pre potvrdenie: %s</string>
   <string name="whereDoYouWantToStudyThat">Kde to chcete študovať?</string>
   <string name="goodMove">Dobrý ťah</string>
   <string name="mistake">Chyba</string>

@@ -20,14 +20,14 @@ a [mobile app](https://lichess.org/mobile),
 and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [130 languages](https://crowdin.com/project/lichess) thanks to the community.
 
-Lichess is written in [Scala 2.13](https://www.scala-lang.org/),
+Lichess is written in [Scala 3](https://www.scala-lang.org/),
 and relies on the [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](https://com-lihaoyi.github.io/scalatags/) is used for templating.
 Pure chess logic is contained in the [scalachess](https://github.com/lichess-org/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](https://akka.io).
 WebSocket connections are handled by a [separate server](https://github.com/lichess-org/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/lichess-org/fishnet) of donated servers.
-It uses [MongoDB](https://mongodb.org) to store more than 1.7 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
+It uses [MongoDB](https://www.mongodb.com) to store more than 1.7 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
 HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.org).
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
@@ -59,7 +59,7 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 | Name              | Version | Notes                                             |
 | ----------------- | ------- | ------------------------------------------------- |
 | Chromium / Chrome | last 10 | Full support                                      |
-| Firefox           | 61+     | Full support (fastest local analysis since FF 79) |
+| Firefox           | 63+     | Full support (fastest local analysis since FF 79) |
 | Edge              | 91+     | Full support (reasonable support for 17+)         |
 | Opera             | 55+     | Reasonable support                                |
 | Safari            | 11.1+   | Reasonable support                                |
@@ -72,6 +72,10 @@ For your own sake, please upgrade. Security and performance, think about it!
 Lila is licensed under the GNU Affero General Public License 3 or any later
 version at your choice with an exception for Highcharts. See [copying](https://github.com/lichess-org/lila/blob/master/COPYING.md) for
 details.
+
+## Production architecture (as of July 2022)
+
+![Lichess production server architecture diagram](https://raw.githubusercontent.com/lichess-org/lila/master/public/images/architecture.png)
 
 ## Credits
 

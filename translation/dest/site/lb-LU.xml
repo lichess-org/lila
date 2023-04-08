@@ -59,6 +59,8 @@
   <string name="depthX">Déift %s</string>
   <string name="usingServerAnalysis">Server Analyse gëtt benotzt</string>
   <string name="loadingEngine">Engine luet...</string>
+  <string name="calculatingMoves">Zich ginn gerechent...</string>
+  <string name="engineFailed">Feeler beim Lueden</string>
   <string name="cloudAnalysis">Cloud Analyse</string>
   <string name="goDeeper">Déift erhiewen</string>
   <string name="showThreat">Bedrohung weisen</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
   <string name="noGameFound">Keng Partie fonnt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
+  <string name="openings">Eröffnungen</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="openingEndgameExplorer">Eröffnungs-/Endspilldatenbank</string>
   <string name="xOpeningExplorer">%s -Eröffnungsdatenbank</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">An voller Gréisst ukucken</string>
   <string name="logOut">Ofmellen</string>
   <string name="signIn">Umellen</string>
+  <string name="rememberMe">Ageloggt bleiwen</string>
   <string name="youNeedAnAccountToDoThat">Du brauchs een Account fir dat ze maachen</string>
   <string name="signUp">Registréieren</string>
   <string name="computersAreNotAllowedToPlay">Ënnerstëtzung vun Schachprogrammen, Datenbanken oder aneren Spiller ass wärend enger Partie net erlaabt. Wannechgelift bedenkt och, dass d\'Creatioun vun puer Benotzerkonten ongären gesinn ass and d\'Missachtung vun dëser Reegel, bis op Kulanz vun der Ekipp, zum Ausschloss aller betraffenen Konten féiert.</string>
@@ -195,12 +199,36 @@
   <string name="changeUsername">Benotzernumm änneren</string>
   <string name="changeUsernameNotSame">Just Grouss-/Klengschreiwung kann geännert ginn. Zum Beispill \"johndoe\" zu \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Änner däin Benotzernumm. Dat kann just eemol gemaach ginn an just d\'Grouss-/Klengschreiwung vun den Buschtawen am Benotzernumm kann geännert ginn.</string>
+  <string name="signupUsernameHint">Wielt wannechgelifft een familienfrëndlechen Benotzernumm. Den Numm kann dono net méi geännert ginn an Accounts mat onugebruechten Benotzernimm ginn zougemaach!</string>
+  <string name="signupEmailHint">Mir benotzen se just fir Passwuert Resets.</string>
   <string name="password">Passwuert</string>
   <string name="changePassword">Passwuert änneren</string>
   <string name="changeEmail">Email änneren</string>
   <string name="email">Email</string>
   <string name="passwordReset">Passwuert zerécksetzen</string>
   <string name="forgotPassword">Passwuert vergiess?</string>
+  <string name="error.weakPassword">Dëst Passwuert ass extrem heefeg an einfach ze roden.</string>
+  <string name="error.namePassword">Wannechgelifft benotz net däin Benotzernumm als Passwuert.</string>
+  <string name="youAreLeavingLichess">Du verléiss Lichess</string>
+  <string name="neverTypeYourPassword">Gëff däin Lichess Passwuert nie ob enger anerer Säit an!</string>
+  <string name="proceedToX">Weider op %s</string>
+  <string name="emailConfirmHelp">Hëllef bei der Email Confirmatioun</string>
+  <string name="emailConfirmNotReceived">Huet dir keng Confirmatiouns Email kritt nom Umellen?</string>
+  <string name="whatSignupUsername">Mat wéiengem Benotzernumm huet dir iech ugemellt?</string>
+  <string name="usernameNotFound">Mir konnten keen Konto mat dësem Numm fannen: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Dir kënnt mat dësen Benotzernumm en neien Konto kreéieren</string>
+  <string name="emailSent">Mir hunn eng Email geschéckt un %s.</string>
+  <string name="emailCanTakeSomeTime">Et kéint kuerz daueren bis se ukënnt.</string>
+  <string name="refreshInboxAfterFiveMinutes">Waart 5 Minutten an aktualiséiert är Email Inbox.</string>
+  <string name="checkSpamFolder">Iwwerpréift och wannechgelift ären Spam Uerdner, falls se do ukënnt. Markéiert se an dësem Fall als net Spam.</string>
+  <string name="emailForSignupHelp">Falls et nach ëmmer net geet, schéckt eis dës Email:</string>
+  <string name="copyTextToEmail">Kopéiert an colléiert dësen Text an schéckt en un %s</string>
+  <string name="waitForSignupHelp">Mir wäerten iech sou schnell wéi méiglech äntferen an är Umellung komplétéieren.</string>
+  <string name="accountConfirmed">The Benotzer %s gouf mat Succès confirméiert.</string>
+  <string name="accountCanLogin">Dir kënnt iech elo aloggen als %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Dir braucht keng Confirmatiouns Email.</string>
+  <string name="accountClosed">De Konto %s ass zou.</string>
+  <string name="accountRegisteredWithoutEmail">De Konto %s gouf ouni Email registréiert.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -340,6 +368,7 @@
   <string name="siteDescription">Gratis Online Schach Server. Spill Schach an engem propperen Interface. Keng Registratioun, keng Reklammen, keen Plugin néideg. Spill Schach géint Computer, Frënn oder zoufälleg Géigner.</string>
   <string name="xJoinedTeamY">%1$s ass Ekipp %2$s beigetrueden</string>
   <string name="xCreatedTeamY">%1$s huet Ekipp %2$s gegrënnt</string>
+  <string name="startedStreaming">huet ugefang ze streamen</string>
   <string name="xStartedStreaming">%s huet en Stream gestart</string>
   <string name="averageElo">Duerchschnëttlech Wäertung</string>
   <string name="location">Standuert</string>
@@ -348,6 +377,8 @@
   <string name="apply">Uwenden</string>
   <string name="save">Späicheren</string>
   <string name="leaderboard">Ranglëscht</string>
+  <string name="screenshotCurrentPosition">Aktuell Positioun screenshotten</string>
+  <string name="gameAsGIF">Partie als GIF</string>
   <string name="pasteTheFenStringHere">FEN Text hei afügen</string>
   <string name="pasteThePgnStringHere">PGN Text hei afügen</string>
   <string name="orUploadPgnFile">Oder PGN Datei héichlueden</string>
@@ -426,6 +457,8 @@
   <string name="tournamentIsStarting">Den Turnéier geet lass</string>
   <string name="tournamentPairingsAreNowClosed">Turnéierpaarungen sin elo zou.</string>
   <string name="standByX">Turnéier-Paarungen lafen. Maach dech prett, %s!</string>
+  <string name="pause">Paus</string>
+  <string name="resume">Weider</string>
   <string name="youArePlaying">Deng Partie geet lass!</string>
   <string name="winRate">Gewënnrate</string>
   <string name="berserkRate">Berserkrate</string>
@@ -458,7 +491,12 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fändel</string>
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
+  <string name="oneUrlPerLine">Eng URL pro Zeil.</string>
   <string name="inlineNotation">Inline-Notatioun</string>
+  <string name="savingMoves">Temporär gespäichert Zich</string>
+  <string name="savingMovesHelp">Mir späicheren deng Varianten an dengem Browser Cache.</string>
+  <string name="makeAStudy">Fir Varianten laangfristeg ze haalen an ze deelen, consideréier eng Etüd ze kreéieren.</string>
+  <string name="clearSavedMoves">Zich läschen</string>
   <string name="previouslyOnLichessTV">Virdrun op Lichess TV</string>
   <string name="onlinePlayers">Online Spiller</string>
   <string name="activePlayers">Aktiv Spiller</string>
@@ -506,6 +544,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notten</string>
   <string name="typePrivateNotesHere">Schreiw hei deng privat Notten</string>
+  <string name="writeAPrivateNoteAboutThisUser">Schreiw eng privat Notiz iwwert dësen Benotzer</string>
+  <string name="noNoteYet">Nach keng Notiz</string>
   <string name="invalidUsernameOrPassword">Ongëltege Benotzernumm oder Passwuert</string>
   <string name="incorrectPassword">Inkorrekt Passwuert</string>
   <string name="invalidAuthenticationCode">Ongëltegen Authentifizéierungscode</string>
@@ -562,6 +602,7 @@
   <string name="community">Gemeinschaft</string>
   <string name="tools">Tools</string>
   <string name="increment">Inkrement</string>
+  <string name="error.unknown">Ongültegen Wäert</string>
   <string name="error.required">Dëst Feld ass obligatoresch</string>
   <string name="error.email">Dës Email ass ongëlteg</string>
   <string name="error.email_acceptable">Dës Email Adress ass net akzeptabel. Iwwerpréif se wannechgelift an probéier nach eng Kéier.</string>
@@ -572,6 +613,7 @@
   <string name="error.min">Muss mindestens %s sinn</string>
   <string name="error.max">Däerf maximal %s sinn</string>
   <string name="ifRatingIsPlusMinusX">Falls Wäertung ± %s</string>
+  <string name="ifRegistered">Wann registréiert</string>
   <string name="onlyExistingConversations">Just lafend Konversatiounen</string>
   <string name="onlyFriends">Just Frënn</string>
   <string name="menu">Menü</string>
@@ -620,6 +662,7 @@
   <string name="tournamentFAQ">Arena Turnéier FAQ</string>
   <string name="timeBeforeTournamentStarts">Zäit bis den Turnéier ufänkt</string>
   <string name="averageCentipawnLoss">Ø-Verloscht vun 1/100-Bauer p. Zuch</string>
+  <string name="accuracy">Prezisioun</string>
   <string name="keyboardShortcuts">Tastaturkürzel</string>
   <string name="keyMoveBackwardOrForward">zeréck/no fir beweegen</string>
   <string name="keyGoToStartOrEnd">bei Start/Schluss goen</string>
@@ -702,6 +745,7 @@
   <string name="light">Hell</string>
   <string name="dark">Däischter</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Mam Gerät synchroniséieren</string>
   <string name="backgroundImageUrl">URL vum Hannergrondbild:</string>
   <string name="boardGeometry">Briet Geometrie</string>
   <string name="boardTheme">Briet Design</string>
@@ -730,6 +774,7 @@
   <string name="bestWasX">Am Beschten war %s</string>
   <string name="youBrowsedAway">Du hues fortgebliedert</string>
   <string name="resumePractice">Übung fortsetzen</string>
+  <string name="drawByFiftyMoves">D\'Partie gouf duerch d\' 50 Zuch Reegel als Remis deklaréiert.</string>
   <string name="theGameIsADraw">D\'Partie ass Remis.</string>
   <string name="computerThinking">Computer iwwerleet ...</string>
   <string name="seeBestMove">Beschten Zuch gesinn</string>
@@ -793,6 +838,7 @@
   <string name="currentMatchScore">Aktuellen Match Score</string>
   <string name="agreementAssistance">Ech stëmmen zou dass ech zu kengem Zäitpunkt wärend mengen Partien Hëllef an Usproch huelen (duerch Computer, Buch, Datenbank oder eng aner Persoun).</string>
   <string name="agreementNice">Ech stëmmen zou dass ech aneren Spiller géigeniwwer ëmmer respektvoll agéieren wäert.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ech stëmmen zou dass ech net puer Konten kreéieren wäert (außer fir Zwecker genannt an den %s).</string>
   <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
   <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
@@ -894,4 +940,5 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">Gewäert Partien vun allen Lichess Spiller</string>
   <string name="switchSides">Faarf wiesselen</string>
+  <string name="closingAccountWithdrawAppeal">Däin Benotzerkonto zou ze maachen wäert och däin Asproch zeréckzéihen</string>
 </resources>

@@ -5,12 +5,11 @@ import scala.jdk.CollectionConverters._
 
 class TranslationTest extends Specification {
 
-  "translations" should {
-    "be valid" in {
+  "translations" >> {
+    "be valid" >> {
       val en     = Registry.all.get(defaultLang).get
       var tested = 0
-      val errors: List[String] = LangList.all.flatMap { case (l, name) =>
-        implicit val lang = l
+      val errors: List[String] = LangList.all.flatMap { case (lang, name) =>
         Registry.all.get(lang).get.asScala.toMap flatMap { case (k, v) =>
           try {
             val enTrans: String = en.get(k) match {
@@ -42,6 +41,14 @@ class TranslationTest extends Specification {
       println(s"$tested translations tested")
       if (errors.isEmpty) success
       else failure(errors mkString "\n")
+    }
+    "escape html" >> {
+      import play.api.i18n.Lang
+      import scalatags.Text.all.*
+      given lang: Lang = defaultLang
+      I18nKeys.depthX("string") === RawFrag("Depth string")
+      I18nKeys.depthX("<string>") === RawFrag("Depth &lt;string&gt;")
+      I18nKeys.depthX(Html("<html>")) === RawFrag("Depth &lt;html&gt;")
     }
   }
 

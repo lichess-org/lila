@@ -1,20 +1,21 @@
 package lila.oauth
 
-import scala.concurrent.duration._
-import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 
 import lila.common.Bearer
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 import reactivemongo.api.ReadPreference
+import lila.hub.actorApi.oauth.TokenRevoke
 
-final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: UserRepo)(implicit
-    ec: scala.concurrent.ExecutionContext
-) {
+final class AccessTokenApi(
+    coll: Coll,
+    cacheApi: lila.memo.CacheApi,
+    userRepo: UserRepo
+)(using Executor):
 
-  import OAuthScope.scopeHandler
-  import AccessToken.{ BSONFields => F }
+  import OAuthScope.given
+  import AccessToken.{ BSONFields as F, given }
 
   private def create(token: AccessToken): Fu[AccessToken] = coll.insert.one(token).inject(token)
 
@@ -27,7 +28,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
           plain = plain,
           userId = me.id,
           description = setup.description.some,
-          createdAt = DateTime.now().some,
+          createdAt = nowDate.some,
           scopes = setup.scopes.flatMap(OAuthScope.byKey.get).filterNot(_ == OAuthScope.Bot.Play && noBot),
           clientOrigin = None,
           expires = None
@@ -35,7 +36,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
       )
     }
 
-  def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] = {
+  def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] =
     val plain = Bearer.random()
     create(
       AccessToken(
@@ -43,21 +44,20 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
         plain = plain,
         userId = granted.userId,
         description = None,
-        createdAt = DateTime.now().some,
+        createdAt = nowDate.some,
         scopes = granted.scopes,
         clientOrigin = granted.redirectUri.clientOrigin.some,
-        expires = DateTime.now().plusMonths(12).some
+        expires = nowDate.plusMonths(12).some
       )
     )
-  }
 
   def adminChallengeTokens(
       setup: OAuthTokenForm.AdminChallengeTokensData,
       admin: User
-  ): Fu[Map[User.ID, AccessToken]] =
-    userRepo.enabledNameds(setup.usernames) flatMap { users =>
+  ): Fu[Map[UserId, AccessToken]] =
+    userRepo.enabledByIds(setup.usernames) flatMap { users =>
       val scope = OAuthScope.Challenge.Write
-      lila.common.Future
+      lila.common.LilaFuture
         .linear(users) { user =>
           coll.one[AccessToken](
             $doc(
@@ -73,10 +73,10 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
                 plain = plain,
                 userId = user.id,
                 description = s"Challenge admin: ${admin.username}".some,
-                createdAt = DateTime.now().some,
+                createdAt = nowDate.some,
                 scopes = List(scope),
                 clientOrigin = setup.description.some,
-                expires = Some(DateTime.now plusMonths 6)
+                expires = Some(nowDate plusMonths 6)
               )
             )
           } map { user.id -> _ }
@@ -115,7 +115,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
 
   def listClients(user: User, limit: Int): Fu[List[AccessTokenApi.Client]] =
     coll.aggregateList(limit) { framework =>
-      import framework._
+      import framework.*
       Match(
         $doc(
           F.userId       -> user.id,
@@ -127,14 +127,15 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
           F.usedAt -> MaxField(F.usedAt),
           F.scopes -> AddFieldToSet(F.scopes)
         ),
-        Sort(Descending(F.usedAt))
+        Sort(Descending(F.usedAt)),
+        Limit(limit)
       )
     } map { docs =>
       for {
         doc    <- docs
         origin <- doc.getAsOpt[String]("_id")
         usedAt = doc.getAsOpt[DateTime](F.usedAt)
-        scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)
+        scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)(using collectionReader)
       } yield AccessTokenApi.Client(origin, usedAt, scopes)
     }
 
@@ -146,7 +147,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
           F.userId -> user.id
         )
       )
-      .map(_ => invalidateCached(id))
+      .void >>- onRevoke(id)
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     coll
@@ -168,13 +169,12 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
               F.clientOrigin -> clientOrigin
             )
           )
-          .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(invalidateCached))
+          .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(onRevoke))
       }
 
-  def revoke(bearer: Bearer) = {
-    val id = AccessToken.Id.from(bearer)
-    coll.delete.one($id(id)).map(_ => invalidateCached(id))
-  }
+  def revoke(bearer: Bearer) =
+    val id = AccessToken.Id from bearer
+    coll.delete.one($id(id)) >>- onRevoke(id)
 
   def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 
@@ -196,20 +196,15 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
     }
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
-    coll.ext.findAndUpdate[AccessToken.ForAuth](
+    coll.findAndUpdateSimplified[AccessToken.ForAuth](
       selector = $id(id),
-      update = $set(F.usedAt -> DateTime.now()),
+      update = $set(F.usedAt -> nowDate),
       fields = AccessToken.forAuthProjection.some
     )
 
-  private def invalidateCached(id: AccessToken.Id): Unit =
+  private def onRevoke(id: AccessToken.Id): Unit =
     accessTokenCache.put(id, fuccess(none))
-}
+    lila.common.Bus.publish(TokenRevoke(id.value), "oauth")
 
-object AccessTokenApi {
-  case class Client(
-      origin: String,
-      usedAt: Option[DateTime],
-      scopes: List[OAuthScope]
-  )
-}
+object AccessTokenApi:
+  case class Client(origin: String, usedAt: Option[DateTime], scopes: List[OAuthScope])

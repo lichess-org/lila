@@ -2,7 +2,7 @@ import exportLichessGlobals from './site.lichess.globals';
 
 exportLichessGlobals();
 
-export default function (opts: any) {
+export default function embed(opts: any) {
   window.LichessAnalyse.start({
     ...opts,
     socketSend: () => {},
@@ -17,3 +17,5 @@ export default function (opts: any) {
       )
     );
 }
+
+(window as any).analyseEmbed = embed;

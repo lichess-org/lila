@@ -1,23 +1,20 @@
 package lila.report
 
-import org.joda.time.DateTime
-import scala.concurrent.duration._
-
 import lila.game.{ Game, GameRepo }
 
 final class AutoAnalysis(
     gameRepo: GameRepo,
     fishnet: lila.hub.actors.Fishnet
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(using
+    ec: Executor,
+    scheduler: Scheduler
+):
 
   def apply(candidate: Report.Candidate): Funit =
     if (candidate.isCheat) doItNow(candidate)
     else if (candidate.isPrint) fuccess {
       List(30, 90) foreach { minutes =>
-        system.scheduler.scheduleOnce(minutes minutes) { doItNow(candidate).unit }
+        scheduler.scheduleOnce(minutes minutes) { doItNow(candidate).unit }
       }
     }
     else funit
@@ -37,7 +34,7 @@ final class AutoAnalysis(
       gameRepo.lastGamesBetween(
         candidate.suspect.user,
         candidate.reporter.user,
-        DateTime.now.minusHours(2),
+        nowDate.minusHours(2),
         10
       ) dmap { as ++ _ }
     }
@@ -48,4 +45,3 @@ final class AutoAnalysis(
       .sortBy(-_.createdAt.getSeconds)
       .take(10)
   }
-}

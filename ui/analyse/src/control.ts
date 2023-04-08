@@ -7,17 +7,11 @@ export function next(ctrl: AnalyseCtrl): void {
   if (child) ctrl.userJumpIfCan(ctrl.path + child.id);
 }
 
-export function prev(ctrl: AnalyseCtrl): void {
-  ctrl.userJumpIfCan(treePath.init(ctrl.path));
-}
+export const prev = (ctrl: AnalyseCtrl): void => ctrl.userJumpIfCan(treePath.init(ctrl.path));
 
-export function last(ctrl: AnalyseCtrl): void {
-  ctrl.userJumpIfCan(treePath.fromNodeList(ctrl.mainline));
-}
+export const last = (ctrl: AnalyseCtrl): void => ctrl.userJumpIfCan(treePath.fromNodeList(ctrl.mainline));
 
-export function first(ctrl: AnalyseCtrl): void {
-  ctrl.userJump(treePath.root);
-}
+export const first = (ctrl: AnalyseCtrl): void => ctrl.userJump(treePath.root);
 
 export function enterVariation(ctrl: AnalyseCtrl): void {
   const child = ctrl.node.children[1];

@@ -1,5 +1,5 @@
 import { Prop } from 'common';
-import { StoredBooleanProp } from 'common/storage';
+import { StoredProp } from 'common/storage';
 
 export interface Goal {
   result: string;
@@ -43,5 +43,5 @@ export interface StudyPracticeCtrl {
   reset(): void;
   isWhite(): boolean;
   analysisUrl: Prop<string>;
-  autoNext: StoredBooleanProp;
+  autoNext: StoredProp<boolean>;
 }

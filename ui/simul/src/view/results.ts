@@ -8,7 +8,7 @@ export default function (ctrl: SimulCtrl) {
   return h('div.results', [
     h(
       'div',
-      trans(ctrl, 'nbPlaying', p => p.game.status < status.ids.mate)
+      trans(ctrl, 'nbPlaying', p => p.game.status < status.ids.aborted)
     ),
     h(
       'div',
@@ -36,4 +36,4 @@ const splitNumber = (s: string) => {
 };
 
 const trans = (ctrl: SimulCtrl, key: string, cond: (pairing: Pairing) => boolean) =>
-  splitNumber(ctrl.trans.plural(key, ctrl.data.pairings.filter(cond).length));
+  splitNumber(ctrl.trans.pluralSame(key, ctrl.data.pairings.filter(cond).length));

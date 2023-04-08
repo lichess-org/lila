@@ -1,52 +1,54 @@
 package lila.ublog
 
-import org.specs2.execute.Result
 import org.specs2.mutable.Specification
-import scalatags.Text.all._
 
-import lila.common.config
+import lila.common.Markdown
 
 class UblogMarkupTest extends Specification {
 
-  val m = new UblogMarkup(config.BaseUrl("https://lichess.org"), config.AssetBaseUrl("https://lichess1.org"))
+  val m = UblogMarkup
 
-  "backslashUnderscore" should {
-    "fix href" in {
+  "backslashUnderscore" >> {
+    "fix href" >> {
       m.unescapeUnderscoreInLinks(
-        """<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W\_i3NiJA">text</a></p>"""
-      ) must_==
-        """<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W_i3NiJA">text</a></p>"""
+        Html("""<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W\_i3NiJA">text</a></p>""")
+      ) ===
+        Html("""<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W_i3NiJA">text</a></p>""")
     }
-    "fix link text" in {
+    "fix link text" >> {
       m.unescapeUnderscoreInLinks(
-        """<p><a rel="nofollow noopener noreferrer" href="#">https://youtu.be/di6W\_i3NiJA</a></p>"""
-      ) must_==
-        """<p><a rel="nofollow noopener noreferrer" href="#">https://youtu.be/di6W_i3NiJA</a></p>"""
+        Html("""<p><a rel="nofollow noopener noreferrer" href="#">https://youtu.be/di6W\_i3NiJA</a></p>""")
+      ) ===
+        Html("""<p><a rel="nofollow noopener noreferrer" href="#">https://youtu.be/di6W_i3NiJA</a></p>""")
     }
-    "fix href and link text" in {
+    "fix href and link text" >> {
       m.unescapeUnderscoreInLinks(
-        """<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W\_i3NiJA">https://youtu.be/di6W\_i3NiJA</a></p>"""
-      ) must_==
-        """<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W_i3NiJA">https://youtu.be/di6W_i3NiJA</a></p>"""
+        Html(
+          """<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W\_i3NiJA">https://youtu.be/di6W\_i3NiJA</a></p>"""
+        )
+      ) ===
+        Html(
+          """<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W_i3NiJA">https://youtu.be/di6W_i3NiJA</a></p>"""
+        )
     }
   }
-  "fix AtUsername" in {
+  "fix AtUsername" >> {
     m.unescapeAtUsername(
-      """@test\_1234"""
-    ) must_==
-      """@test_1234"""
+      Markdown("""@test\_1234""")
+    ) ===
+      Markdown("""@test_1234""")
   }
 
-  "not break fine AtUsername" in {
+  "not break fine AtUsername" >> {
     m.unescapeAtUsername(
-      """@foo_bar"""
-    ) must_==
-      """@foo_bar"""
+      Markdown("""@foo_bar""")
+    ) ===
+      Markdown("""@foo_bar""")
   }
 
-  "fix mention in quote (which adds backslash escaping)" in {
-    m.unescapeAtUsername("""> \(By @neio\)""") must_== """> \(By @neio\)"""
-    m.unescapeAtUsername("""> \(By @neio_1\)""") must_== """> \(By @neio_1\)"""
-    m.unescapeAtUsername("""> \(By @neio\_1\)""") must_== """> \(By @neio_1\)"""
+  "fix mention in quote (which adds backslash escaping)" >> {
+    m.unescapeAtUsername(Markdown("""> \(By @neio\)""")) === Markdown("""> \(By @neio\)""")
+    m.unescapeAtUsername(Markdown("""> \(By @neio_1\)""")) === Markdown("""> \(By @neio_1\)""")
+    m.unescapeAtUsername(Markdown("""> \(By @neio\_1\)""")) === Markdown("""> \(By @neio_1\)""")
   }
 }

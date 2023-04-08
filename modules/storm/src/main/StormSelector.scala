@@ -1,9 +1,6 @@
 package lila.storm
 
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
-
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
 
@@ -11,14 +8,15 @@ import lila.puzzle.PuzzleColls
  * Be very careful when adjusting the selector.
  * Use the grafana average rating per slice chart.
  */
-final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
 
-  import StormBsonHandlers._
+  import StormBsonHandlers.given
+  import lila.puzzle.PuzzlePath.sep
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
-  private val tier         = lila.puzzle.PuzzleTier.Good.key
+  private val theme        = lila.puzzle.PuzzleTheme.mix.key
+  private val tier         = lila.puzzle.PuzzleTier.good.key
   private val maxDeviation = 85
 
   /* for path boundaries:
@@ -49,7 +47,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
         colls
           .path {
             _.aggregateList(poolSize) { framework =>
-              import framework._
+              import framework.*
               val fenColorRegex = $doc(
                 "$regexMatch" -> $doc(
                   "input" -> "$fen",
@@ -61,8 +59,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                   rating.toString -> List(
                     Match(
                       $doc(
-                        "min" $lte f"${theme}_${tier}_${rating}%04d",
-                        "max" $gte f"${theme}_${tier}_${rating}%04d"
+                        "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
+                        "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
                       )
                     ),
                     Sample(1),
@@ -71,29 +69,25 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     // ensure we have enough after filtering deviation & color
                     Sample(nbPuzzles * 7),
                     PipelineOperator(
-                      $doc(
-                        "$lookup" -> $doc(
-                          "from" -> colls.puzzle.name.value,
-                          "as"   -> "puzzle",
-                          "let"  -> $doc("id" -> "$ids"),
-                          "pipeline" -> $arr(
-                            $doc(
-                              "$match" -> $doc(
-                                "$expr" -> $doc(
-                                  "$and" -> $arr(
-                                    $doc("$eq"  -> $arr("$_id", "$$id")),
-                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-                                    fenColorRegex
-                                  )
-                                )
+                      $lookup.pipelineFull(
+                        from = colls.puzzle.name.value,
+                        as = "puzzle",
+                        let = $doc("id" -> "$ids"),
+                        pipe = List(
+                          $doc(
+                            "$match" -> $expr(
+                              $and(
+                                $doc("$eq"  -> $arr("$_id", "$$id")),
+                                $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+                                fenColorRegex
                               )
-                            ),
-                            $doc(
-                              "$project" -> $doc(
-                                "fen"    -> true,
-                                "line"   -> true,
-                                "rating" -> $doc("$toInt" -> "$glicko.r")
-                              )
+                            )
+                          ),
+                          $doc(
+                            "$project" -> $doc(
+                              "fen"    -> true,
+                              "line"   -> true,
+                              "rating" -> $doc("$toInt" -> "$glicko.r")
                             )
                           )
                         )
@@ -108,10 +102,11 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                 Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
                 UnwindField("all"),
                 ReplaceRootField("all"),
-                Sort(Ascending("rating"))
+                Sort(Ascending("rating")),
+                Limit(poolSize)
               )
             }.map {
-              _.flatMap(StormPuzzleBSONReader.readOpt)
+              _.flatMap(puzzleReader.readOpt)
             }
           }
           .mon(_.storm.selector.time)
@@ -121,22 +116,19 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
       }
   }
 
-  private def monitor(puzzles: Vector[StormPuzzle], poolSize: Int): Unit = {
+  private def monitor(puzzles: Vector[StormPuzzle], poolSize: Int): Unit =
     val nb = puzzles.size
     lila.mon.storm.selector.count.record(nb)
     if (nb < poolSize * 0.9)
       logger.warn(s"Selector wanted $poolSize puzzles, only got $nb")
-    if (nb > 1) {
+    if (nb > 1)
       val rest = puzzles.toVector drop 1
-      lila.common.Maths.mean(rest.map(_.rating)) foreach { r =>
+      lila.common.Maths.mean(IntRating raw rest.map(_.rating)) foreach { r =>
         lila.mon.storm.selector.rating.record(r.toInt).unit
       }
       (0 to poolSize by 10) foreach { i =>
         val slice = rest drop i take 10
-        lila.common.Maths.mean(slice.map(_.rating)) foreach { r =>
+        lila.common.Maths.mean(IntRating raw slice.map(_.rating)) foreach { r =>
           lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
         }
       }
-    }
-  }
-}

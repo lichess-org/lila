@@ -1,38 +1,32 @@
 package lila.tournament
 
-import akka.actor._
 import chess.StartingPosition
-import org.joda.time.DateTime
-import org.joda.time.DateTimeConstants._
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
-import scala.util.chaining._
+import scala.util.chaining.*
+import org.joda.time.DateTimeConstants.*
 
-import lila.common.{ AtMost, Every, LilaStream, ResilientScheduler }
+import lila.common.LilaScheduler
 
-final private class TournamentScheduler(
-    api: TournamentApi,
-    tournamentRepo: TournamentRepo
-)(implicit ec: ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
+final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Executor, Scheduler):
 
-  import Schedule.Freq._
-  import Schedule.Speed._
-  import Schedule.Plan
-  import chess.variant._
-
-  ResilientScheduler(every = Every(5 minutes), timeout = AtMost(1 minute), initialDelay = 1 minute) {
+  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
     tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
-      try {
-        val newTourns = allWithConflicts(DateTime.now).map(_.build)
-        val pruned    = pruneConflicts(dbScheds, newTourns)
+      try
+        val newTourns = TournamentScheduler.allWithConflicts().map(_.build)
+        val pruned    = TournamentScheduler.pruneConflicts(dbScheds, newTourns)
         tournamentRepo.insert(pruned).logFailure(logger)
-      } catch {
-        case e: org.joda.time.IllegalInstantException =>
+      catch
+        case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
           funit
-      }
     }
   }
+
+private object TournamentScheduler:
+
+  import Schedule.Freq.*
+  import Schedule.Speed.*
+  import Schedule.Plan
+  import chess.variant.*
 
   /* Month plan:
    * First week: Shield standard tournaments
@@ -47,22 +41,20 @@ final private class TournamentScheduler(
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] = {
+  private[tournament] def allWithConflicts(rightNow: DateTime = nowDate): List[Plan] =
     val today       = rightNow.withTimeAtStartOfDay
     val tomorrow    = rightNow plusDays 1
     val startOfYear = today.dayOfYear.withMinimumValue
 
-    class OfMonth(fromNow: Int) {
-      val firstDay = today.plusMonths(fromNow).dayOfMonth.withMinimumValue
-      val lastDay  = firstDay.dayOfMonth.withMaximumValue
-
+    class OfMonth(fromNow: Int):
+      val firstDay   = today.plusMonths(fromNow).dayOfMonth.withMinimumValue
+      val lastDay    = firstDay.dayOfMonth.withMaximumValue
       val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek - 1) % 7)
       val secondWeek = firstWeek plusDays 7
       val thirdWeek  = secondWeek plusDays 7
       val lastWeek   = lastDay.minusDays((lastDay.getDayOfWeek - 1) % 7)
-    }
-    val thisMonth = new OfMonth(0)
-    val nextMonth = new OfMonth(1)
+    val thisMonth = OfMonth(0)
+    val nextMonth = OfMonth(1)
 
     def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
     val nextMonday                 = nextDayOfWeek(1)
@@ -73,10 +65,9 @@ final private class TournamentScheduler(
     val nextSaturday               = nextDayOfWeek(6)
     val nextSunday                 = nextDayOfWeek(7)
 
-    def secondWeekOf(month: Int) = {
+    def secondWeekOf(month: Int) =
       val start = orNextYear(startOfYear.withMonthOfYear(month))
       start.plusDays(15 - start.getDayOfWeek)
-    }
 
     def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
     def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
@@ -84,10 +75,9 @@ final private class TournamentScheduler(
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
-    def opening(offset: Int) = {
+    def openingAt(offset: Int): StartingPosition =
       val positions = StartingPosition.featurable
       positions((today.getDayOfYear + offset) % positions.size)
-    }
 
     val farFuture = today plusMonths 7
 
@@ -107,7 +97,8 @@ final private class TournamentScheduler(
                 description = s"""
 We've had $yo great chess years together!
 
-Thank you all, you rock!"""
+Thank you all, you rock!""",
+                homepageHours = 24.some
               ).some
             )
           }
@@ -167,7 +158,8 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(THURSDAY)  -> RacingKings,
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Antichess,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> Atomic,
-            month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde
+            month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde,
+            month.lastWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
           ).flatMap { case (day, variant) =>
             at(day, 19) map { date =>
               Schedule(
@@ -317,22 +309,27 @@ Thank you all, you rock!"""
         at(today, 7) map { date =>
           Schedule(Eastern, Rapid, Standard, none, date pipe orTomorrow).plan
         }
-      ).flatten,
-      (if (isHalloween) // replace more thematic tournaments on halloween
-         List(
-           1  -> StartingPosition.presets.halloween,
-           5  -> StartingPosition.presets.frankenstein,
-           9  -> StartingPosition.presets.halloween,
-           13 -> StartingPosition.presets.frankenstein,
-           17 -> StartingPosition.presets.halloween,
-           21 -> StartingPosition.presets.frankenstein
-         )
-       else
-         List( // random opening replaces hourly 3 times a day
-           3  -> opening(offset = 2),
-           11 -> opening(offset = 1),
-           19 -> opening(offset = 0)
-         )).flatMap { case (hour, opening) =>
+      ).flatten, {
+        {
+          for
+            halloween    <- StartingPosition.presets.halloween
+            frankenstein <- StartingPosition.presets.frankenstein
+            if isHalloween // replace more thematic tournaments on halloween
+          yield List(
+            1  -> halloween,
+            5  -> frankenstein,
+            9  -> halloween,
+            13 -> frankenstein,
+            17 -> halloween,
+            21 -> frankenstein
+          )
+        } |
+          List( // random opening replaces hourly 3 times a day
+            3  -> openingAt(offset = 2),
+            11 -> openingAt(offset = 1),
+            19 -> openingAt(offset = 0)
+          )
+      }.flatMap { (hour, opening) =>
         List(
           at(today, hour) map { date =>
             Schedule(Hourly, Bullet, Standard, opening.fen.some, date pipe orTomorrow).plan
@@ -394,15 +391,17 @@ Thank you all, you rock!"""
               maxRating = Condition.MaxRating(perf, rating).some,
               minRating = none,
               titled = none,
-              teamMember = none
+              teamMember = none,
+              allowList = none
             )
             at(date, hour) ?? { date =>
+              import chess.Clock
               val finalDate = date plusHours hourDelay
               if (speed == Bullet)
                 List(
                   Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan,
                   Schedule(Hourly, speed, Standard, none, finalDate plusMinutes 30, conditions)
-                    .plan(_.copy(clock = chess.Clock.Config(60, 1)))
+                    .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
                 )
               else
                 List(
@@ -488,17 +487,14 @@ Thank you all, you rock!"""
         ).flatten
       }
     ).flatten filter { _.schedule.at isAfter rightNow }
-  }
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
-      .foldLeft(List[Tournament]()) { case (tourns, t) =>
+      .foldLeft(List[Tournament]()) { (tourns, t) =>
         if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
         else t :: tourns
       }
       .reverse
-
-  private case class ScheduleNowWith(dbScheds: List[Tournament])
 
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
     t.schedule exists { s =>
@@ -517,16 +513,8 @@ Thank you all, you rock!"""
     }
 
   private def at(day: DateTime, hour: Int, minute: Int = 0): Option[DateTime] =
-    try {
-      Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
-    } catch {
+    try Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
+    catch
       case e: Exception =>
         logger.error(s"failed to schedule one: ${e.getMessage}")
         None
-    }
-}
-
-private object TournamentScheduler {
-
-  case object ScheduleNow
-}

@@ -1,34 +1,33 @@
 package views.html
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
-object msg {
+object msg:
 
-  def home(json: JsObject)(implicit ctx: Context) =
+  def home(json: JsObject)(using Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       moreJs = frag(
         jsModule("msg"),
         embedJsUnsafeLoadThen(
           s"""LichessMsg(${safeJsonValue(
-            Json.obj(
-              "data" -> json,
-              "i18n" -> jsI18n
-            )
-          )})"""
+              Json.obj(
+                "data" -> json,
+                "i18n" -> i18nJsObject(i18nKeys)
+              )
+            )})"""
         )
       ),
-      title = "Lichess Inbox"
+      title = trans.inbox.txt(),
+      csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "box msg-app")
     }
-
-  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.inbox,
@@ -43,6 +42,9 @@ object msg {
     trans.friends,
     trans.discussions,
     trans.today,
-    trans.yesterday
-  ).map(_.key)
-}
+    trans.yesterday,
+    trans.youAreLeavingLichess,
+    trans.neverTypeYourPassword,
+    trans.cancel,
+    trans.proceedToX
+  )

@@ -11,14 +11,34 @@
     <item quantity="few">%s kruga</item>
     <item quantity="other">%s krugova</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s Švicarska partija</item>
+    <item quantity="few">%s Švicarske partije</item>
+    <item quantity="other">%s Švicarskih partija</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Jedno kolo dnevno</item>
     <item quantity="few">Jedno kolo svaka %s dana</item>
     <item quantity="other">Jedno kolo svakih %s dana</item>
   </plurals>
   <string name="roundsAreStartedManually">Kola se pokreću ručno</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekunda između kola</item>
+    <item quantity="few">%s sekunde između kola</item>
+    <item quantity="other">%s sekundi između kola</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuta između kola</item>
+    <item quantity="few">%s minute između kola</item>
+    <item quantity="other">%s minuta između kola</item>
+  </plurals>
   <string name="startingIn" comment="Displayed above a timer">Počinje za</string>
   <string name="nextRound">Slijedeće kolo</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Tekuća partija</item>
+    <item quantity="few">Tekuće partije</item>
+    <item quantity="other">Tekuće partije</item>
+  </plurals>
   <string name="tournStartDate">Turnir započinje za</string>
   <string name="numberOfRounds">Broj kola</string>
   <string name="numberOfRoundsHelp">Neparan broj kola omogućuje optimalni balans boja.</string>
@@ -32,6 +52,7 @@ To može biti dobra opcija za klubove i službene turnire.</string>
   <string name="pointsCalculationQ">Kako se rezultati računaju?</string>
   <string name="pointsCalculationA">Pobjeda vrijedi jedan bod, remi je pola boda, a gubitak nula bodova.
 Kad se igrač ne može upariti tijekom runde, on je odbačen i prima jedan bod.</string>
+  <string name="tiebreaksCalculationQ">Kako se računaju rezultati?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger rezultat</string>
   <string name="tiebreaksCalculationA">S %s.
 Dodajte rezultate svakog protivnika kojeg igrač pobijedi i polovicu rezultata svakog protivnika kojeg igrač izvuče.</string>
@@ -91,4 +112,11 @@ Najbliže što možete doći do Round Robina online je igrati švicarski turnir 
   <string name="streaksAndBerserk">Streaks i Berserk</string>
   <string name="similarToOTB">Slično OTB turnirima</string>
   <string name="unlimitedAndFree">Neograničeno i besplatno</string>
+  <string name="predefinedUsers">Dopustite pridruživanje samo unaprijed definiranim korisnicima</string>
+  <string name="forbiddedUsers">Ako ovaj popis nije prazan, korisnicima koji nisu na ovom popisu bit će zabranjeno pridruživanje. Jedno korisničko ime po retku.</string>
+  <plurals name="xOutOfYRoundsSwiss">
+    <item quantity="one">%1$s / %2$s Švicarska partija</item>
+    <item quantity="few">%1$s / %2$s Švicarske partije</item>
+    <item quantity="other">%1$s / %2$s Švicarskih partija</item>
+  </plurals>
 </resources>

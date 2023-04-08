@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">лемшто</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">через %s секунду</item>
+    <item quantity="few">через %s секунды</item>
+    <item quantity="other">через %s секунд</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">через %s минуту</item>
+    <item quantity="few">через %s минуты</item>
+    <item quantity="other">через %s минут</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">через %s годину</item>
+    <item quantity="few">через %s годины</item>
+    <item quantity="other">через %s годин</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">через %s динь</item>
+    <item quantity="few">через %s дні</item>
+    <item quantity="other">через %s днюв</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">через %s тыждень</item>
+    <item quantity="few">через %s тыждні</item>
+    <item quantity="other">через %s тыжднюв</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">через %s мїсяць</item>
+    <item quantity="few">через %s мїсяця</item>
+    <item quantity="other">через %s мїсяцюв</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">через %s гуд</item>
+    <item quantity="few">через %s гуда</item>
+    <item quantity="other">через %s годув</item>
+  </plurals>
+  <string name="rightNow">такой тепирь</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s секунда тепирь</item>
+    <item quantity="few">%s секунды тепирь</item>
+    <item quantity="other">%s секунд тепирь</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s минута тепирь</item>
+    <item quantity="few">%s минуты тепирь</item>
+    <item quantity="other">%s минут тепирь</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s годину тепирь</item>
+    <item quantity="few">%s годины тепирь</item>
+    <item quantity="other">%s годин тепирь</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s динь тепирь</item>
+    <item quantity="few">%s дні тепирь</item>
+    <item quantity="other">%s днюв тепирь</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s тыждень тепирь</item>
+    <item quantity="few">%s тыждня тепирь</item>
+    <item quantity="other">%s тыжднюв тепирь</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s мїсяць тепирь</item>
+    <item quantity="few">%s мїсяця тепирь</item>
+    <item quantity="other">%s мїсяцюв тепирь</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s гуд тепирь</item>
+    <item quantity="few">%s гуды тепирь</item>
+    <item quantity="other">%s гуд тепирь</item>
+  </plurals>
+</resources>

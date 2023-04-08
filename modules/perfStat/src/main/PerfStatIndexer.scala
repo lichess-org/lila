@@ -1,22 +1,22 @@
 package lila.perfStat
 
-import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
 
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.rating.PerfType
 import lila.user.User
+import lila.common.config.Max
 
 final class PerfStatIndexer(
     gameRepo: GameRepo,
     storage: PerfStatStorage
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(using
+    ec: Executor,
+    scheduler: Scheduler
+):
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 64, timeout = 10 seconds, name = "perfStatIndexer")
+    lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 10 seconds, name = "perfStatIndexer")
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
     workQueue {
@@ -47,15 +47,12 @@ final class PerfStatIndexer(
           addPov(Pov(game, player), userId)
         }
       }
-      .sequenceFu
+      .parallel
       .void
 
-  private def addPov(pov: Pov, userId: String): Funit =
+  private def addPov(pov: Pov, userId: UserId): Funit =
     pov.game.perfType ?? { perfType =>
-      storage.find(userId, perfType) flatMap {
-        _ ?? { perfStat =>
-          storage.update(perfStat, perfStat agg pov)
-        }
+      storage.find(userId, perfType) flatMapz { perfStat =>
+        storage.update(perfStat, perfStat agg pov)
       }
     }
-}

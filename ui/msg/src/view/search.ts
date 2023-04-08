@@ -3,7 +3,8 @@ import throttle from 'common/throttle';
 import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';
 import renderContacts from './contact';
-import { userName, userIcon, bindMobileMousedown } from './util';
+import { userName, userIcon } from './util';
+import { hookMobileMousedown } from 'common/mobile';
 
 export function renderInput(ctrl: MsgCtrl): VNode {
   return h('div.msg-app__side__search', [
@@ -65,7 +66,7 @@ function renderUser(ctrl: MsgCtrl, user: User): VNode {
     'div.msg-app__side__contact',
     {
       key: user.id,
-      hook: bindMobileMousedown(_ => ctrl.openConvo(user.id)),
+      hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
     },
     [
       userIcon(user, 'msg-app__side__contact__icon'),

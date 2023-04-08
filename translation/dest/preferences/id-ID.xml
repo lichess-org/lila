@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferensi</string>
-  <string name="gameDisplay">Tampilan Permainan</string>
+  <string name="display">Tampilan</string>
+  <string name="privacy">Privasi</string>
+  <string name="notifications">Notifikasi</string>
   <string name="pieceAnimation">Animasi Buah Catur</string>
   <string name="materialDifference">Perbedaan materi</string>
   <string name="boardHighlights">Tanda papan (langkah terakhir dan skak)</string>
@@ -31,6 +33,7 @@
   <string name="takebacksWithOpponentApproval">Langkah batal (dengan persetujuan lawan)</string>
   <string name="inCasualGamesOnly">Hanya pada permainan santai (tanpa di-rating)</string>
   <string name="promoteToQueenAutomatically">Otomatis promosikan Menteri</string>
+  <string name="explainPromoteToQueenAutomatically">Tahan tombol &lt;ctrl&gt; saat promosi untuk sementara membatalkan promosi otomatis</string>
   <string name="whenPremoving">Ketika pra-langkah</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Langsung Remis pada pengulangan ketiga kali</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ketika waktu tersisa &lt; 30 detik</string>
@@ -46,4 +49,11 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Ucapkan \"Good game, well played\" apabila kalah atau seri</string>
   <string name="yourPreferencesHaveBeenSaved">Preferensi telah disimpan.</string>
   <string name="scrollOnTheBoardToReplayMoves">Gulir pada papan untuk mengulang gerakan</string>
+  <string name="notifyStreamStart">Streamer memulai siaran</string>
+  <string name="notifyInboxMsg">Pesan masuk</string>
+  <string name="notifyChallenge">Tantangan</string>
+  <string name="notifyBell">Notifikasi bel didalam Lichess</string>
+  <string name="notifyWeb">Browser</string>
+  <string name="notifyDevice">Perangkat</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Suara pemberitahuan</string>
 </resources>

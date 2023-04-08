@@ -5,7 +5,10 @@ interface Opts {
   perfIndex: number;
 }
 
-export default async function (data: any, { singlePerfName, perfIndex }: Opts) {
+export default (window as any).LichessChartRatingHistory = async function (
+  data: any,
+  { singlePerfName, perfIndex }: Opts
+) {
   const oneDay = 86400000;
   function smoothDates(data: any[]) {
     if (!data.length) return [];
@@ -112,4 +115,4 @@ export default async function (data: any, { singlePerfName, perfIndex }: Opts) {
         }),
     });
   });
-}
+};

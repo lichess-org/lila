@@ -4,12 +4,12 @@ import com.typesafe.config.ConfigFactory
 import play.api.ConfigLoader
 import play.api.data.Form
 
-import lila.db.dsl._
+import lila.db.dsl.*
 
-final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(implicit
-    ec: scala.concurrent.ExecutionContext,
+final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(using
+    ec: Executor,
     loader: ConfigLoader[A]
-) {
+):
 
   private val mongoDocKey = "config"
 
@@ -30,11 +30,8 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
   }
 
   def parse(text: String): Either[List[String], A] =
-    try {
-      Right(loader.load(ConfigFactory.parseString(text)))
-    } catch {
-      case e: Exception => Left(List(e.getMessage))
-    }
+    try Right(loader.load(ConfigFactory.parseString(text)))
+    catch case e: Exception => Left(List(e.getMessage))
 
   def get: Fu[Option[A]] = cache.get(())
 
@@ -46,9 +43,9 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
         cache.put((), fuccess(a.some))
     }
 
-  def makeForm: Fu[Form[String]] = {
-    import play.api.data.Forms._
-    import play.api.data.validation._
+  def makeForm: Fu[Form[String]] =
+    import play.api.data.Forms.*
+    import play.api.data.validation.*
     val form = Form(
       single(
         "text" -> text.verifying(Constraint[String]("constraint.text_parsable") { t =>
@@ -62,17 +59,13 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
     rawText map {
       _.fold(form)(form.fill)
     }
-  }
-}
 
-object ConfigStore {
+object ConfigStore:
 
-  final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(implicit
-      ec: scala.concurrent.ExecutionContext
-  ) {
+  final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(using
+      Executor
+  ):
     private val coll = db(config.configColl)
 
     def apply[A: ConfigLoader](id: String, logger: lila.log.Logger) =
       new ConfigStore[A](coll, id, cacheApi, logger branch "configStore")
-  }
-}

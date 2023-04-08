@@ -4,21 +4,21 @@ package html.swiss
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
 import lila.swiss.{ Swiss, SwissCondition }
 
-object side {
+object side:
 
   private val separator = " • "
 
   def apply(
       s: Swiss,
       verdicts: SwissCondition.All.WithVerdicts,
-      streamers: List[lila.user.User.ID],
+      streamers: List[UserId],
       chat: Boolean
-  )(implicit
+  )(using
       ctx: Context
   ) =
     frag(
@@ -40,7 +40,7 @@ object side {
               a(href := routes.Swiss.home)("Swiss"),
               (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
                 " ",
-                a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag(""))
+                a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(""))
               )
             ),
             bits.showInterval(s)
@@ -50,12 +50,8 @@ object side {
           st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         s.looksLikePrize option views.html.tournament.bits.userPrizeDisclaimer(s.createdBy),
-        s.settings.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
-          div(
-            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
-            " • ",
-            views.html.base.bits.fenAnalysisLink(pos.fen)
-          )
+        s.settings.position.flatMap(p => lila.tournament.Thematic.byFen(p.opening)) map { pos =>
+          div(a(targetBlank, href := pos.url)(pos.name))
         } orElse s.settings.position.map { fen =>
           div(
             "Custom position • ",
@@ -83,7 +79,15 @@ object side {
                     "refused"   -> (ctx.isAuth && !v.verdict.accepted)
                   ),
                   title := v.verdict.reason.map(_(ctx.lang))
-                )(v.condition.name(s.perfType))
+                )(v.verdict match {
+                  case SwissCondition.RefusedUntil(until) =>
+                    frag(
+                      "Because you missed your last swiss game, you cannot enter a new swiss tournament until ",
+                      absClientDateTime(until),
+                      "."
+                    )
+                  case _ => v.condition.name(s.perfType)
+                })
               }
             )
           )
@@ -97,4 +101,3 @@ object side {
       ),
       chat option views.html.chat.frag
     )
-}

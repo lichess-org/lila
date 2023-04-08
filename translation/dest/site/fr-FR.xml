@@ -49,8 +49,8 @@
   <string name="blackResigned">Les Noirs abandonnent</string>
   <string name="whiteLeftTheGame">Les Blancs ont quitté la partie</string>
   <string name="blackLeftTheGame">Les Noirs ont quitté la partie</string>
-  <string name="whiteDidntMove">Les blancs n\'ont pas bougé</string>
-  <string name="blackDidntMove">Les noirs n\'ont pas bougé</string>
+  <string name="whiteDidntMove">Les Blancs n\'ont pas bougé</string>
+  <string name="blackDidntMove">Les Noirs n\'ont pas bougé</string>
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
@@ -59,6 +59,8 @@
   <string name="depthX">Profondeur %s</string>
   <string name="usingServerAnalysis">Analyse serveur en cours</string>
   <string name="loadingEngine">Chargement en cours...</string>
+  <string name="calculatingMoves">Calcul des coups...</string>
+  <string name="engineFailed">Erreur lors du chargement du moteur</string>
   <string name="cloudAnalysis">Analyse dans le cloud</string>
   <string name="goDeeper">Analyser plus profondément</string>
   <string name="showThreat">Voir la menace</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' arrondi, basé sur le nombre de demi-coups jusqu\'à la prochaine capture ou le prochain coup de pion</string>
   <string name="noGameFound">Aucune partie trouvée</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
+  <string name="openings">Ouvertures</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
   <string name="openingEndgameExplorer">Explorateur d\'ouvertures/de finales</string>
   <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
@@ -99,7 +102,7 @@
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
   <string name="winOr50MovesByPriorMistake">Victoire ou 50 coups par suite d\'une erreur</string>
   <string name="lossOr50MovesByPriorMistake">Défaite ou 50 coups par suite d\'une erreur</string>
-  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la table de finale a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondissement possible</string>
+  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la table de finale a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondissement possible de valeurs DTZ faisant partie de tables de finale Syzygy.</string>
   <string name="allSet">Tout est prêt !</string>
   <string name="importPgn">Importer le PGN</string>
   <string name="delete">Effacer</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Agrandir</string>
   <string name="logOut">Déconnexion</string>
   <string name="signIn">Connexion</string>
+  <string name="rememberMe">Se souvenir de moi</string>
   <string name="youNeedAnAccountToDoThat">Compte d\'utilisateur requis</string>
   <string name="signUp">S\'inscrire</string>
   <string name="computersAreNotAllowedToPlay">Les ordinateurs et les joueurs assistés par ordinateur ne sont pas autorisés à jouer. Veuillez ne pas vous aider de moteurs d\'analyse, de bases de données ou d\'autres joueurs pendant la partie. Notez également qu\'il est fortement déconseillé de créer plusieurs comptes. Le multi-compte excessif mènera à l\'exclusion.</string>
@@ -192,15 +196,42 @@
   <string name="ratingStats">Statistiques de classement</string>
   <string name="username">Nom d\'utilisateur</string>
   <string name="usernameOrEmail">Nom d\'utilisateur ou courriel</string>
-  <string name="changeUsername">Changer de nom d\'utilisateur</string>
+  <string name="changeUsername">Modifier le nom d\'utilisateur</string>
   <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
   <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seule la casse des lettres peut être modifiée.</string>
+  <string name="signupUsernameHint">Assurez-vous de choisir un nom d\'utilisateur convenable. Vous ne pourrez pas le modifier et tout nom d\'utilisateur inapproprié entraînera la fermeture du compte.</string>
+  <string name="signupEmailHint">Nous l\'utiliserons uniquement pour la réinitialisation du mot de passe.</string>
   <string name="password">Mot de passe</string>
   <string name="changePassword">Changer votre mot de passe</string>
   <string name="changeEmail">Changer votre courriel</string>
   <string name="email">Courriel</string>
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
+  <string name="error.weakPassword">Ce mot de passe très courant est trop facile à deviner.</string>
+  <string name="error.namePassword">N\'employez pas votre nom d\'utilisateur comme mot de passe.</string>
+  <string name="blankedPassword">Vous avez utilisé le même mot de passe sur un autre site, et ce site a été compromis. Pour assurer la sécurité de votre compte Lichess, vous devez établir un nouveau mot de passe. Merci de votre compréhension.</string>
+  <string name="youAreLeavingLichess">Vous quittez Lichess</string>
+  <string name="neverTypeYourPassword">N\'utilisez jamais votre mot de passe Lichess sur un autre site.</string>
+  <string name="proceedToX">Continuer vers %s</string>
+  <string name="passwordSuggestion">N\'utilisez pas un mot de passe suggéré par une autre personne. Elle pourrait l\'utiliser pour voler votre compte.</string>
+  <string name="emailSuggestion">N\'utilisez pas une adresse de courriel suggérée par une autre personne. Celle-ci pourrait l\'utiliser pour voler votre compte.</string>
+  <string name="emailConfirmHelp">Aide sur la confirmation par courriel</string>
+  <string name="emailConfirmNotReceived">Vous n\'avez pas reçu votre courriel de confirmation après votre inscription?</string>
+  <string name="whatSignupUsername">Avec quel nom d\'utilisateur vous êtes-vous inscrit?</string>
+  <string name="usernameNotFound">Nous n\'avons trouvé aucun utilisateur de ce nom : %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Vous pouvez utiliser ce nom d\'utilisateur pour créer un nouveau compte.</string>
+  <string name="emailSent">Nous avons envoyé un courriel à %s.</string>
+  <string name="emailCanTakeSomeTime">L\'arrivée du courriel peut prendre un peu de temps.</string>
+  <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
+  <string name="checkSpamFolder">Vérifiez aussi votre dossier de pourriel, il pourrait s\'y trouver. Si c\'est le cas, marquez-le comme non-pourriel.</string>
+  <string name="emailForSignupHelp">Si rien ne marche, envoyez-nous ce courriel :</string>
+  <string name="copyTextToEmail">Copiez et collez le texte ci-dessus et envoyez-le à %s</string>
+  <string name="waitForSignupHelp">Nous vous contacterons sous peu pour vous aider à compléter votre inscription.</string>
+  <string name="accountConfirmed">L\'inscription de l\'utilisateur %s a été confirmée avec succès.</string>
+  <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Vous n\'avez pas besoin d\'un courriel de confirmation.</string>
+  <string name="accountClosed">Le compte de %s est fermé.</string>
+  <string name="accountRegisteredWithoutEmail">Le compte %s a été enregistré sans courriel.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Classement : %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -340,7 +371,8 @@
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="xJoinedTeamY">%1$s a rejoint l\'équipe %2$s</string>
   <string name="xCreatedTeamY">%1$s a créé l\'équipe %2$s</string>
-  <string name="xStartedStreaming">%s a commencé une diffusion</string>
+  <string name="startedStreaming">a commencé une diffusion en direct</string>
+  <string name="xStartedStreaming">%s a commencé une diffusion en direct</string>
   <string name="averageElo">Classement moyen</string>
   <string name="location">Localisation</string>
   <string name="filterGames">Filtrer les parties</string>
@@ -348,6 +380,8 @@
   <string name="apply">Appliquer</string>
   <string name="save">Enregistrer</string>
   <string name="leaderboard">Classements</string>
+  <string name="screenshotCurrentPosition">Capture d\'écran de la position actuelle</string>
+  <string name="gameAsGIF">Enregistrer la partie en GIF</string>
   <string name="pasteTheFenStringHere">Coller le FEN ici</string>
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
   <string name="orUploadPgnFile">Ou téléverser un fichier PGN</string>
@@ -356,6 +390,7 @@
   <string name="toStudy">Étude</string>
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
+  <string name="importGameCaveat">Les variantes seront effacées. Pour les conserver, importez le PGN dans une étude.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partie importée</item>
     <item quantity="other">%s parties importées</item>
@@ -364,8 +399,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
   <string name="captcha.fail">Vous devez résoudre le diagramme d\'échecs.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
-  <string name="whiteCheckmatesInOneMove">Les blancs matent en un coup</string>
-  <string name="blackCheckmatesInOneMove">Les noirs matent en un coup</string>
+  <string name="whiteCheckmatesInOneMove">Les Blancs matent en un coup</string>
+  <string name="blackCheckmatesInOneMove">Les Noirs matent en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
   <plurals name="nbFriendsOnline">
@@ -426,6 +461,8 @@
   <string name="tournamentIsStarting">Le tournoi commence</string>
   <string name="tournamentPairingsAreNowClosed">Les appariements du tournoi sont maintenant terminés.</string>
   <string name="standByX">Appariements des joueurs, tenez-vous prêt %s !</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Reprendre</string>
   <string name="youArePlaying">Vous êtes en train de jouer !</string>
   <string name="winRate">Taux de victoires</string>
   <string name="berserkRate">Taux de berserk</string>
@@ -460,6 +497,10 @@
   <string name="socialMediaLinks">Liens des réseaux sociaux</string>
   <string name="oneUrlPerLine">Une URL par ligne.</string>
   <string name="inlineNotation">Notation en ligne</string>
+  <string name="savingMoves">Coups conservés temporairement</string>
+  <string name="savingMovesHelp">Vos variantes sont toujours conservées dans le cache de votre navigateur.</string>
+  <string name="makeAStudy">Pour conserver et partager vos analyses, créez une étude.</string>
+  <string name="clearSavedMoves">Supprimer les coups</string>
   <string name="previouslyOnLichessTV">Précédemment sur Lichess TV</string>
   <string name="onlinePlayers">Joueurs en ligne</string>
   <string name="activePlayers">Joueurs actifs</string>
@@ -507,6 +548,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notes</string>
   <string name="typePrivateNotesHere">Écrivez vos notes privées ici</string>
+  <string name="writeAPrivateNoteAboutThisUser">Écrire une note privée sur cet utilisateur</string>
+  <string name="noNoteYet">Aucune note</string>
   <string name="invalidUsernameOrPassword">Nom d\'utilisateur ou mot de passe invalide</string>
   <string name="incorrectPassword">Mot de passe incorrect</string>
   <string name="invalidAuthenticationCode">Code d\'authentification non valide</string>
@@ -548,7 +591,7 @@
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s joueur bloqué</item>
+    <item quantity="one">%s joueurs bloqués</item>
     <item quantity="other">%s joueurs bloqués</item>
   </plurals>
   <string name="listBlockedPlayers">Lister les joueurs que vous avez bloqués</string>
@@ -563,6 +606,7 @@
   <string name="community">Communauté</string>
   <string name="tools">Outils</string>
   <string name="increment">Incrément</string>
+  <string name="error.unknown">Valeur invalide</string>
   <string name="error.required">Ce champ est requis</string>
   <string name="error.email">Cette adresse courriel est invalide</string>
   <string name="error.email_acceptable">Cette adresse courriel est refusée. Double-cliquez dessus et réessayez.</string>
@@ -618,10 +662,13 @@
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
   <string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
+  <string name="simulAddExtraTimePerPlayer">Ajouter le temps initial à votre pendule pour chaque joueur participant à la simultanée</string>
+  <string name="simulHostExtraTimePerPlayer">Temps additionnel ajouté à la pendule de l\'hôte pour chaque joueur</string>
   <string name="lichessTournaments">Tournois Lichess</string>
   <string name="tournamentFAQ">FAQ des tournois</string>
   <string name="timeBeforeTournamentStarts">Temps restant avant le début du tournoi</string>
   <string name="averageCentipawnLoss">Perte moyenne en centipions</string>
+  <string name="accuracy">Précision</string>
   <string name="keyboardShortcuts">Raccourcis clavier</string>
   <string name="keyMoveBackwardOrForward">avancer/reculer</string>
   <string name="keyGoToStartOrEnd">aller au début/à la fin</string>
@@ -639,7 +686,7 @@
     <item quantity="one">%1$s joueur de %2$s cette semaine.</item>
     <item quantity="other">%1$s joueurs de %2$s cette semaine.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Votre classement en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s est meilleur que %2$s des joueurs de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
@@ -670,6 +717,7 @@
   <string name="kidMode">Mode enfants</string>
   <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les écoliers, afin de les protéger des autres utilisateurs.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dans le mode enfants, l\'icône %s se rajoute au logo lichess pour que vous sachiez que les enfants sont en sécurité.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Votre compte est géré. Demandez à votre professeur d\'échecs de désactiver le mode enfant.</string>
   <string name="enableKidMode">Activer le mode enfants</string>
   <string name="disableKidMode">Désactiver le mode enfants</string>
   <string name="security">Sécurité</string>
@@ -704,6 +752,7 @@
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Thème de l\'appareil</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
@@ -714,13 +763,13 @@
   <string name="usernamePrefixInvalid">Le nom d\'utilisateur doit commencer par une lettre.</string>
   <string name="usernameSuffixInvalid">Le nom d’utilisateur doit se terminer par une lettre ou un chiffre.</string>
   <string name="usernameCharsInvalid">Le nom d\'utilisateur doit contenir uniquement des lettres, des chiffres, des tirets.</string>
-  <string name="usernameUnacceptable">Nom d\'utilisateur refusé.</string>
+  <string name="usernameUnacceptable">Ce nom d\'utilisateur existe déjà ou est insultant.</string>
   <string name="playChessInStyle">Jouez aux échecs avec classe</string>
   <string name="chessBasics">Bases des échecs</string>
   <string name="coaches">Entraîneurs</string>
   <string name="invalidPgn">PGN non valide</string>
   <string name="invalidFen">FEN non valide</string>
-  <string name="custom">Personnalisé</string>
+  <string name="custom">Personnalisée</string>
   <string name="notifications">Notifications</string>
   <string name="perfRatingX">Classement : %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
@@ -729,17 +778,18 @@
   </plurals>
   <string name="practiceWithComputer">S\'entraîner avec un ordinateur</string>
   <string name="anotherWasX">Un autre était %s</string>
-  <string name="bestWasX">Meilleur était %s</string>
+  <string name="bestWasX">Le meilleur coup était %s</string>
   <string name="youBrowsedAway">Vous avez parcouru</string>
   <string name="resumePractice">Reprendre l\'entraînement</string>
+  <string name="drawByFiftyMoves">Cette partie est nulle en raison de la règle des cinquante coups.</string>
   <string name="theGameIsADraw">La partie est nulle.</string>
   <string name="computerThinking">L’ordinateur réfléchit ...</string>
   <string name="seeBestMove">Voir le meilleur coup</string>
   <string name="hideBestMove">Cacher le meilleur coup</string>
   <string name="getAHint">Obtenir un indice</string>
   <string name="evaluatingYourMove">Evaluation de votre coup ...</string>
-  <string name="whiteWinsGame">Les blancs gagnent</string>
-  <string name="blackWinsGame">Les noirs gagnent</string>
+  <string name="whiteWinsGame">Les Blancs gagnent</string>
+  <string name="blackWinsGame">Les Noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
   <string name="learnFromThisMistake">Apprendre de cette erreur</string>
   <string name="skipThisMove">Passer ce coup</string>
@@ -871,9 +921,9 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
   <string name="noChat">Aucun salon de discussion</string>
-  <string name="onlyTeamLeaders">Seulement les chefs d’équipe</string>
-  <string name="onlyTeamMembers">Seulement les membres des équipes</string>
-  <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
+  <string name="onlyTeamLeaders">Seulement les chefs de l\'équipe</string>
+  <string name="onlyTeamMembers">Seulement les membres de l\'équipe</string>
+  <string name="navigateMoveTree">Naviguer dans l\'arborescence</string>
   <string name="mouseTricks">Astuces pour la souris</string>
   <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
   <string name="toggleAllAnalysis">Activer/désactiver toutes les analyses</string>
@@ -891,11 +941,12 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="hangOn">Vous jouez déjà une partie!</string>
   <string name="gameInProgress">Vous avez une partie en cours avec %s.</string>
   <string name="abortTheGame">Annuler la partie</string>
-  <string name="resignTheGame">Rejoindre la partie</string>
+  <string name="resignTheGame">Abandonner la partie</string>
   <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
   <string name="since">De</string>
   <string name="until">À</string>
   <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
   <string name="switchSides">Changer de couleur</string>
   <string name="closingAccountWithdrawAppeal">Fermer votre compte annulera votre appel</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Nos conseils pour l\'organisation d\'événements</string>
 </resources>

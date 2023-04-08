@@ -2,37 +2,35 @@ package views.html
 
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.LangPath
 import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
 import lila.storm.{ StormDay, StormHigh }
 import lila.user.User
 
-object storm {
+object storm:
 
-  def home(data: JsObject, pref: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
+  def home(data: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
       moreJs = frag(
         jsModule("storm"),
         embedJsUnsafeLoadThen(
           s"""LichessStorm.start(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "pref" -> pref,
-              "i18n" -> i18nJsObject(i18nKeys)
-            )
-          )})"""
+              data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))
+            )})"""
         )
       ),
       title = "Puzzle Storm",
       zoomable = true,
-      playing = true,
-      chessground = false
+      zenable = true,
+      chessground = false,
+      withHrefLangs = LangPath(routes.Storm.home).some
     ) {
       main(
         div(cls := "storm storm-app storm--play")(
@@ -81,13 +79,15 @@ object storm {
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
-          h1(
-            !ctx.is(user) option frag(
-              userLink(user),
-              " • "
-            ),
-            "Puzzle Storm • ",
-            trans.storm.highscores()
+          boxTop(
+            h1(
+              !ctx.is(user) option frag(
+                userLink(user),
+                " • "
+              ),
+              "Puzzle Storm • ",
+              trans.storm.highscores()
+            )
           ),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
             renderHigh(high)
@@ -124,11 +124,11 @@ object storm {
               pagerNextTable(
                 history,
                 np =>
-                  addQueryParameter(
+                  addQueryParam(
                     if (ctx is user) routes.Storm.dashboard().url
                     else routes.Storm.dashboardOf(user.username).url,
                     "page",
-                    np
+                    np.toString
                   )
               )
             )
@@ -137,9 +137,9 @@ object storm {
       )
     )
 
-  private val i18nKeys = {
-    import lila.i18n.{ I18nKeys => trans }
-    import lila.i18n.I18nKeys.{ storm => s }
+  private val i18nKeys =
+    import lila.i18n.{ I18nKeys as trans }
+    import lila.i18n.I18nKeys.{ storm as s }
     List(
       s.moveToStart,
       s.puzzlesSolved,
@@ -170,6 +170,4 @@ object storm {
       s.thisRunHasExpired,
       s.thisRunWasOpenedInAnotherTab,
       trans.flipBoard
-    ).map(_.key)
-  }
-}
+    )

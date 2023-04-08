@@ -32,6 +32,7 @@ function scrollToMeButton(ctrl: TournamentController): VNode | undefined {
 export function renderPager(ctrl: TournamentController, pag: Pagination): MaybeVNodes {
   const enabled = !!pag.currentPageResults,
     page = ctrl.page;
+
   return pag.nbPages > -1
     ? [
         search.button(ctrl),

@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Jogar contra o computador</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
-  <string name="waitingForOpponent">Aguardando pelo adversário</string>
+  <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -18,10 +18,10 @@
   <string name="white">Brancas</string>
   <string name="black">Pretas</string>
   <string name="asWhite">como brancas</string>
-  <string name="asBlack">como pretas</string>
+  <string name="asBlack">com as pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
-  <string name="whiteIsVictorious">as brancas ganham</string>
+  <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">as pretas ganham</string>
   <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
   <string name="youPlayTheBlackPieces">Tu jogas com as peças pretas</string>
@@ -59,6 +59,8 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">A usar a análise do servidor</string>
   <string name="loadingEngine">A carregar o motor de jogo ...</string>
+  <string name="calculatingMoves">A calcular as jogadas...</string>
+  <string name="engineFailed">Erro ao carregar o motor</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
   <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
@@ -92,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\' com arredondamento, baseado no número de meios-movimentos até à próxima captura ou movimento de peão</string>
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
+  <string name="openings">Aberturas</string>
   <string name="openingExplorer">Explorador de aberturas</string>
   <string name="openingEndgameExplorer">Explorador de Aberturas/Finais de Jogos</string>
   <string name="xOpeningExplorer">Explorador de aberturas de %s</string>
@@ -155,6 +158,7 @@
   <string name="viewInFullSize">Ver em tela cheia</string>
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
+  <string name="rememberMe">Lembrar-me</string>
   <string name="youNeedAnAccountToDoThat">Precisas de uma conta para fazeres isso</string>
   <string name="signUp">Registar-se</string>
   <string name="computersAreNotAllowedToPlay">Computadores ou jogadores assistidos por computador não estão autorizados a jogar. Por favor não utilizes assistência de programas de xadrez, bases de dados ou outros jogadores enquanto estiveres a jogar. Além disso, a criação de contas múltiplas é fortemente desencorajada e a sua prática excessiva acarretará banimento.</string>
@@ -195,12 +199,39 @@
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só te é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
+  <string name="signupUsernameHint">Certifique-se que escolhe um nome de utilizador decoroso. Não poderá alterá-lo mais tarde e quaisquer contas com nomes de utilizador inapropriados serão fechadas!</string>
+  <string name="signupEmailHint">Só o usaremos para redefinir a palavra-passe.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
+  <string name="error.weakPassword">Esta senha é extremamente comum, e muito fácil de adivinhar.</string>
+  <string name="error.namePassword">Por favor, não usa o teu nome de utilizador como senha.</string>
+  <string name="blankedPassword">Utilizou a mesma palavra-passe noutro site, e esse site foi comprometido. Para garantir a segurança da sua conta Lichess, precisamos que redefina a palavra-passe. Obrigado pela compreensão.</string>
+  <string name="youAreLeavingLichess">Você está a sair do Lichess</string>
+  <string name="neverTypeYourPassword">Nunca escrevas a tua senha Lichess em outro site!</string>
+  <string name="proceedToX">Continuar para %s</string>
+  <string name="passwordSuggestion">Não uses uma senha sugerida por outra pessoa. Eles vão utilizar-la para roubar a tua conta.</string>
+  <string name="emailSuggestion">Não uses um email sugerida por outra pessoa. Eles vão utilizar-la para roubar a tua conta.</string>
+  <string name="emailConfirmHelp">Ajuda com a confirmação do endereço eletrónico</string>
+  <string name="emailConfirmNotReceived">Não recebeu no seu correio eletrónico uma mensagem de confirmação após o registo?</string>
+  <string name="whatSignupUsername">Que nome de utilizador usou para se registar?</string>
+  <string name="usernameNotFound">Não foi possível encontrar nenhum usuário com este nome: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Pode usar esse nome de utilizador para criar uma conta</string>
+  <string name="emailSent">Enviámos um correio eletrónico para %s.</string>
+  <string name="emailCanTakeSomeTime">Pode demorar algum tempo a chegar.</string>
+  <string name="refreshInboxAfterFiveMinutes">Aguarde 5 minutos e atualize a sua caixa de entrada de correio eletrónico.</string>
+  <string name="checkSpamFolder">Verifique também a sua pasta de “spam”, pode estar lá. Se sim, assinale como não “spam”.</string>
+  <string name="emailForSignupHelp">Se tudo falhar, então envie-nos este correio eletrónico:</string>
+  <string name="copyTextToEmail">Copie e cole o texto acima e envie-o para %s</string>
+  <string name="waitForSignupHelp">Nós entraremos brevemente em contacto para ajudá-lo a completar a inscrição.</string>
+  <string name="accountConfirmed">O utilizador %s foi confirmado com sucesso.</string>
+  <string name="accountCanLogin">Pode agora aceder como %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Não precisa de um endereço eletrónico de confirmação.</string>
+  <string name="accountClosed">A conta %s está encerrada.</string>
+  <string name="accountRegisteredWithoutEmail">A conta %s foi registada sem um endereço eletrónico.</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Posição: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -340,6 +371,7 @@
   <string name="siteDescription">Xadrez online gratuito. Joga xadrez numa interface simples. Sem registos, sem anúncios, sem plugins. Joga xadrez com o computador, amigos ou adversários aleatórios.</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipa %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipa %2$s</string>
+  <string name="startedStreaming">começou uma stream</string>
   <string name="xStartedStreaming">%s começou uma stream</string>
   <string name="averageElo">Pontuação média</string>
   <string name="location">Localização</string>
@@ -348,6 +380,8 @@
   <string name="apply">Aplicar</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Tabela de liderança</string>
+  <string name="screenshotCurrentPosition">Posição atual da captura de ecrã</string>
+  <string name="gameAsGIF">Jogo como GIF</string>
   <string name="pasteTheFenStringHere">Coloca a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Coloca a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou enviar um ficheiro PGN</string>
@@ -357,6 +391,7 @@
   <string name="importGame">Importar uma partida</string>
   <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição,
 análise de computador, sala de chat do jogo e link de partilha.</string>
+  <string name="importGameCaveat">As variações serão apagadas. Para mantê-las, importe o PGN através de um estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -427,6 +462,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
+  <string name="pause">Pausa</string>
+  <string name="resume">Continuar</string>
   <string name="youArePlaying">Estás a jogar!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa de partidas no modo frenético</string>
@@ -461,6 +498,10 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="oneUrlPerLine">Um URL por linha.</string>
   <string name="inlineNotation">Anotações em linha</string>
+  <string name="savingMoves">Armazenamento temporário da jogada</string>
+  <string name="savingMovesHelp">Guardamos as suas variações na cache do navegador.</string>
+  <string name="makeAStudy">Para guardar e partilhar, considere fazer um estudo.</string>
+  <string name="clearSavedMoves">Limpar jogadas</string>
   <string name="previouslyOnLichessTV">Anteriormente na TV Lichess</string>
   <string name="onlinePlayers">Jogadores online</string>
   <string name="activePlayers">Jogadores ativos</string>
@@ -508,6 +549,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escreve notas privadas aqui</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escreva uma nota privada sobre este utilizador</string>
+  <string name="noNoteYet">Ainda sem notas</string>
   <string name="invalidUsernameOrPassword">Nome de utilizador ou palavra-passe incorretos</string>
   <string name="incorrectPassword">Palavra-passe incorreta</string>
   <string name="invalidAuthenticationCode">Código de autenticação inválido</string>
@@ -564,6 +607,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
+  <string name="error.unknown">Valor inválido</string>
   <string name="error.required">Este campo tem de ser preenchido</string>
   <string name="error.email">Este endereço de e-mail é inválido</string>
   <string name="error.email_acceptable">Este endereço de e-mail não é aceitável. Por favor verifica-o e tenta outra vez.</string>
@@ -619,10 +663,13 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="simulClockHint">Configuração de incrementos no relógio. Quanto mais jogadores admitires, mais tempo poderás necessitar.</string>
   <string name="simulAddExtraTime">Podes acrescentar tempo adicional ao teu relógio, para te ajudar a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do anfitrião</string>
+  <string name="simulAddExtraTimePerPlayer">Adicione tempo inicial ao seu relógio para cada jogador que entra na simulação.</string>
+  <string name="simulHostExtraTimePerPlayer">Tempo extra de relógio por jogador</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
   <string name="tournamentFAQ">Perguntas frequentes sobre torneios em arena</string>
   <string name="timeBeforeTournamentStarts">Contagem decrescente para o início do torneio</string>
   <string name="averageCentipawnLoss">Perda média de centésimos de peão</string>
+  <string name="accuracy">Precisão</string>
   <string name="keyboardShortcuts">Atalhos do teclado</string>
   <string name="keyMoveBackwardOrForward">retroceder/avançar jogada</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
@@ -671,6 +718,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Iso é sobre segurança. No modo infantil, todas as comunicações do site ficam desactivadas. Activa esta opção para os teus filhos ou alunos, para protegê-los de outros utilizadores da internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">No modo criança, o logótipo do Lichess fica com um ícone %s para que saibas que as tuas crianças estão seguras.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">A sua conta é gerida. Peça ao seu professor de xadrez para retirar o modo infantil.</string>
   <string name="enableKidMode">Ativar o modo infantil</string>
   <string name="disableKidMode">Desativar o modo infantil</string>
   <string name="security">Segurança</string>
@@ -705,6 +753,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
+  <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
   <string name="boardGeometry">Geometria do tabuleiro</string>
   <string name="boardTheme">Estilo do tabuleiro</string>
@@ -733,6 +782,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="bestWasX">%s seria melhor</string>
   <string name="youBrowsedAway">Saíste</string>
   <string name="resumePractice">Continuar a prática</string>
+  <string name="drawByFiftyMoves">O jogo foi empatado de acordo com a regra dos cinquenta lances.</string>
   <string name="theGameIsADraw">O jogo é um empate.</string>
   <string name="computerThinking">Computador a pensar...</string>
   <string name="seeBestMove">Ver o melhor movimento</string>
@@ -899,4 +949,5 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="lichessDbExplanation">Jogos avaliados por amostragem de todos os jogadores Lichess</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar a sua conta anulará o seu apelo</string>
+  <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
 </resources>

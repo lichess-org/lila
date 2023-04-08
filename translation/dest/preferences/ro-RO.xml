@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferințe</string>
-  <string name="gameDisplay">Opțiuni de afișare în joc</string>
+  <string name="display">Afișare</string>
+  <string name="privacy">Confidențialitate</string>
+  <string name="notifications">Notificări</string>
   <string name="pieceAnimation">Animația piesei</string>
   <string name="materialDifference">Diferență de piese capturate</string>
   <string name="boardHighlights">Evidențiază pe tablă (ultima mutare și șahul)</string>
@@ -13,7 +15,7 @@
   <string name="pgnLetter">Literă (R, D, T, N, C)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modul Zen</string>
   <string name="showPlayerRatings">Arată evaluările jucătorului</string>
-  <string name="explainShowPlayerRatings">Acest lucru permite ascunderea tuturor ratingurilor de pe site, pentru a ajuta la concentrarea pe jocul de șah. Jocurile pot fi evaluate, această setare este doar despre ce se poate vedea.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Acest lucru permite ascunderea tuturor ratingurilor de pe site, pentru a ajuta la concentrarea pe jocul de șah. Jocurile pot fi evaluate, această setare este doar despre ce se poate vedea.</string>
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
@@ -49,4 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
   <string name="scrollOnTheBoardToReplayMoves">Derulează pe tablă pentru a rejuca mutările</string>
   <string name="correspondenceEmailNotification">Notificare zilnică prin email cu lista jocurilor prin corespondență</string>
+  <string name="notifyStreamStart">Un streamer e live</string>
+  <string name="notifyInboxMsg">Mesaj nou</string>
+  <string name="notifyForumMention">Un comentariu din forum vă menționează</string>
+  <string name="notifyInvitedStudy">Invitație la un studiu</string>
+  <string name="notifyGameEvent">Actualizări la jocurile prin corespondență</string>
+  <string name="notifyChallenge">Provocări</string>
+  <string name="notifyTournamentSoon">Turneul începe în curând</string>
+  <string name="notifyTimeAlarm">Timpul rămas la jocurile prin corespondenţă e scurt</string>
+  <string name="notifyBell">Notificare în Lichess</string>
+  <string name="notifyPush">Notificare dispozitiv când nu ești în Lichess</string>
+  <string name="notifyWeb">Navigator</string>
+  <string name="notifyDevice">Dispozitiv</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Sunet de notificare</string>
 </resources>

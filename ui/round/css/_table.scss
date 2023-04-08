@@ -33,6 +33,6 @@
 
   strong {
     font-size: 1rem;
-    margin-right: 0.3em;
+    margin-#{$end-direction}: 0.3em;
   }
 }

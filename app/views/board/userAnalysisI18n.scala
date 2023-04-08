@@ -2,17 +2,17 @@ package views.html.board
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment._
-import lila.i18n.{ MessageKey, I18nKeys => trans }
+import lila.app.templating.Environment.{ given, * }
+import lila.i18n.{ I18nKeys as trans }
 
-object userAnalysisI18n {
+object userAnalysisI18n:
 
   def apply(
       withCeval: Boolean = true,
       withExplorer: Boolean = true,
       withForecast: Boolean = false,
       withAdvantageChart: Boolean = false
-  )(implicit lang: Lang) =
+  )(using Lang) =
     i18nJsObject(
       baseTranslations ++ {
         withCeval ?? cevalTranslations
@@ -25,7 +25,7 @@ object userAnalysisI18n {
       }
     )
 
-  private val baseTranslations: Vector[MessageKey] = Vector(
+  private val baseTranslations = Vector(
     trans.analysis,
     trans.flipBoard,
     trans.backToGame,
@@ -59,6 +59,7 @@ object userAnalysisI18n {
     trans.computerAnalysis,
     trans.learnFromYourMistakes,
     trans.averageCentipawnLoss,
+    trans.accuracy,
     trans.viewTheSolution,
     // action menu
     trans.menu,
@@ -70,6 +71,10 @@ object userAnalysisI18n {
     trans.openStudy,
     trans.preferences.preferences,
     trans.inlineNotation,
+    trans.savingMoves,
+    trans.savingMovesHelp,
+    trans.makeAStudy,
+    trans.clearSavedMoves,
     trans.replayMode,
     trans.slow,
     trans.fast,
@@ -103,22 +108,24 @@ object userAnalysisI18n {
     // gamebook
     trans.puzzle.findTheBestMoveForWhite,
     trans.puzzle.findTheBestMoveForBlack
-  ).map(_.key)
+  )
 
-  val cevalWidget: Vector[MessageKey] = Vector(
+  val cevalWidget = Vector(
     // also uses gameOver
     trans.depthX,
     trans.usingServerAnalysis,
     trans.loadingEngine,
+    trans.calculatingMoves,
+    trans.engineFailed,
     trans.cloudAnalysis,
     trans.goDeeper,
     trans.showThreat,
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation,
     trans.computerAnalysisDisabled
-  ).map(_.key)
+  )
 
-  private val cevalTranslations: Vector[MessageKey] = cevalWidget ++ Vector(
+  private val cevalTranslations = cevalWidget ++ Vector(
     // ceval menu
     trans.computerAnalysis,
     trans.enable,
@@ -129,9 +136,9 @@ object userAnalysisI18n {
     trans.multipleLines,
     trans.cpus,
     trans.memory
-  ).map(_.key)
+  )
 
-  val explorerTranslations: Vector[MessageKey] = Vector(
+  val explorerTranslations = Vector(
     // also uses gameOver, checkmate, stalemate, draw, variantEnding
     trans.openingExplorerAndTablebase,
     trans.openingExplorer,
@@ -177,16 +184,16 @@ object userAnalysisI18n {
     trans.player,
     trans.asWhite,
     trans.asBlack
-  ).map(_.key)
+  )
 
-  private val forecastTranslations: Vector[MessageKey] = Vector(
+  private val forecastTranslations = Vector(
     trans.conditionalPremoves,
     trans.addCurrentVariation,
     trans.playVariationToCreateConditionalPremoves,
     trans.noConditionalPremoves,
     trans.playX,
     trans.andSaveNbPremoveLines
-  ).map(_.key)
+  )
 
   val advantageChartTranslations = Vector(
     trans.advantage,
@@ -194,13 +201,12 @@ object userAnalysisI18n {
     trans.opening,
     trans.middlegame,
     trans.endgame
-  ).map(_.key)
+  )
 
-  private val advantageTranslations: Vector[MessageKey] =
+  private val advantageTranslations =
     advantageChartTranslations ++
       Vector(
         trans.nbInaccuracies,
         trans.nbMistakes,
         trans.nbBlunders
-      ).map(_.key)
-}
+      )

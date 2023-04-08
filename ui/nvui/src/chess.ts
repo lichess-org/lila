@@ -255,7 +255,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
   return h(
     'div',
     ['white', 'black'].map(color => {
-      const lists: any = [];
+      const lists: string[][] = [];
       ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
         const keys = [];
         for (const [key, piece] of pieces) {
@@ -265,9 +265,9 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
       });
       return h('div', [
         h('h3', `${color} pieces`),
-        ...lists
+        lists
           .map(
-            (l: any) =>
+            l =>
               `${l[0]}: ${l
                 .slice(1)
                 .map((k: string) => renderKey(k, style))
@@ -366,13 +366,11 @@ export function renderBoard(
   return h(boardStyle === 'table' ? 'table.board-wrapper' : 'div.board-wrapper', ranks);
 }
 
-export function renderFile(f: string, style: Style): string {
-  return style === 'nato' ? nato[f] : style === 'anna' ? anna[f] : f;
-}
+export const renderFile = (f: string, style: Style): string =>
+  style === 'nato' ? nato[f] : style === 'anna' ? anna[f] : f;
 
-export function renderKey(key: string, style: Style): string {
-  return `${renderFile(key[0], style)} ${key[1]}`;
-}
+export const renderKey = (key: string, style: Style): string =>
+  style === 'nato' || style === 'anna' ? `${renderFile(key[0], style)} ${key[1]}` : `${key[0]}${key[1]}`;
 
 export function castlingFlavours(input: string): string {
   switch (input.toLowerCase().replace(/[-\s]+/g, '')) {
@@ -427,7 +425,7 @@ export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => voi
       const $promotionPiece = ev.key.toLowerCase();
       const $form = $moveBox.parent().parent();
       if (!$promotionPiece.match(/^[qnrb]$/)) {
-        $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bisho');
+        $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop');
         return false;
       }
       $moveBox.val($moveBox.val() + $promotionPiece);
@@ -523,7 +521,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
         $boardLive.text('Promote to? q for queen, n for knight, r for rook, b for bishop');
         return false;
       }
-      // this section depends on the form being the granparent of the input.move box.
+      // this section depends on the form being the grandparent of the input.move box.
       const $form = $moveBox.parent().parent();
       const $event = new Event('submit', {
         cancelable: true,
@@ -599,7 +597,7 @@ export function possibleMovesHandler(
 
     let rawMoves;
 
-    // possible ineffecient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
+    // possible inefficient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
     // if it is your turn
     if (turnColor() === yourColor) {
       rawMoves = moveable();
@@ -611,7 +609,7 @@ export function possibleMovesHandler(
           if (move) fromSetup.play(move);
         }
       });
-      // important to override whoes turn it is so only the users' own turns will show up
+      // important to override whose turn it is so only the users' own turns will show up
       fromSetup.turn = yourColor;
       rawMoves = chessgroundDests(fromSetup);
     }
@@ -669,7 +667,8 @@ export function inputToLegalUci(input: string, fen: string, chessground: Api): s
   } else if (input.match(uciPromotionRegex)) {
     uci = input.slice(0, -1);
     promotion = input.slice(-1).toLowerCase();
-  }
+  } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role == 'pawn')
+    promotion = 'q';
 
   if (legalUcis.includes(uci.toLowerCase())) return uci + promotion;
   else return;

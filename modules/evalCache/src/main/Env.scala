@@ -1,65 +1,26 @@
 package lila.evalCache
 
 import chess.variant.Variant
-import com.softwaremill.macwire._
-import com.softwaremill.tagging._
-import play.api.Configuration
+import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 
-import lila.common.Bus
 import lila.common.config.CollName
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
-import lila.socket.Socket.Sri
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
-    appConfig: Configuration,
-    userRepo: lila.user.UserRepo,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
-    cacheApi: lila.memo.CacheApi,
-    settingStore: lila.memo.SettingStore.Builder,
-    scheduler: akka.actor.Scheduler
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
-) {
+    cacheApi: lila.memo.CacheApi
+)(using Executor, Scheduler, play.api.Mode):
 
-  private lazy val coll = yoloDb(appConfig.get[CollName]("evalCache.collection.evalCache")).failingSilently()
-
-  private lazy val truster = wire[EvalCacheTruster]
-
-  lazy val enable = settingStore[Boolean](
-    "useCeval",
-    default = true,
-    text = "Enable cloud eval (disable in case of server trouble)".some
-  )
-
-  private lazy val upgrade = wire[EvalCacheUpgrade]
+  private lazy val coll = yoloDb(CollName("eval_cache")).failingSilently()
 
   lazy val api: EvalCacheApi = wire[EvalCacheApi]
 
-  private lazy val socketHandler = wire[EvalCacheSocketHandler]
-
-  // remote socket support
-  Bus.subscribeFun("remoteSocketIn:evalGet") { case TellSriIn(sri, _, msg) =>
-    msg obj "d" foreach { d =>
-      // TODO send once, let lila-ws distribute
-      socketHandler.evalGet(Sri(sri), d, res => Bus.publish(TellSriOut(sri, res), "remoteSocketOut"))
-    }
-  }
-  Bus.subscribeFun("remoteSocketIn:evalPut") { case TellSriIn(sri, Some(userId), msg) =>
-    msg obj "d" foreach { d =>
-      socketHandler.untrustedEvalPut(Sri(sri), userId, d)
-    }
-  }
-  // END remote socket support
-
-  def cli =
-    new lila.common.Cli {
-      def process = { case "eval-cache" :: "drop" :: variantKey :: fenParts =>
-        Variant(variantKey).fold(fufail[String]("Invalid variant")) { variant =>
-          api.drop(variant, chess.format.FEN(fenParts mkString " ")) inject "done!"
-        }
+  def cli = new lila.common.Cli:
+    def process = { case "eval-cache" :: "drop" :: variantKey :: fenParts =>
+      Variant(Variant.LilaKey(variantKey)).fold(fufail("Invalid variant")) { variant =>
+        api.drop(variant, chess.format.Fen.Epd(fenParts mkString " ")) inject
+          "Done, but the eval can stay in cache for up to 5 minutes"
       }
     }
-}

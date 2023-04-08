@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Nastavenia</string>
-  <string name="gameDisplay">Zobrazenie partie</string>
+  <string name="display">Zobrazenie</string>
+  <string name="privacy">Súkromie</string>
   <string name="pieceAnimation">Animácia figúrok</string>
   <string name="materialDifference">Materiálny rozdiel</string>
   <string name="boardHighlights">Zvýraznenie šachovnice (posledný ťah a šach)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
   <string name="inCasualGamesOnly">Iba pri priateľských partiách</string>
   <string name="promoteToQueenAutomatically">Automaticky premeniť pešiaka na dámu</string>
+  <string name="explainPromoteToQueenAutomatically">Pre dočasné vypnutie automatickej premeny podržte klávesu &lt;ctrl&gt; počas ťahu premeny</string>
   <string name="whenPremoving">Pri predťahu</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd</string>
@@ -47,4 +49,7 @@
   <string name="yourPreferencesHaveBeenSaved">Vaše nastavenia boli uložené.</string>
   <string name="scrollOnTheBoardToReplayMoves">Rolovaním po šachovnici prehrávať ťahy</string>
   <string name="correspondenceEmailNotification">Denný mailový výpis Vašich korešpondenčných partií</string>
+  <string name="notifyStreamStart">Streamer začal streamovať</string>
+  <string name="notifyInboxMsg">Nová správa</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Zvuk upozornenia</string>
 </resources>

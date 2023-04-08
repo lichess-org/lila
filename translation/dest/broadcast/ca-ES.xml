@@ -2,7 +2,7 @@
 <resources>
   <string name="broadcasts">Retransmissions</string>
   <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
-  <string name="newBroadcast">Noves retransmissions en directe</string>
+  <string name="newBroadcast">Nova retransmissió en directe</string>
   <string name="addRound">Afegir una ronda</string>
   <string name="ongoing">En curs</string>
   <string name="upcoming">Properes</string>
@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">URL actual de ronda</string>
   <string name="currentGameUrl">URL actual de joc</string>
   <string name="downloadAllRounds">Baixa totes les rondes</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Eliminar definitivament la ronda i les seves partides.</string>
+  <string name="deleteAllGamesOfThisRound">Eliminar totes les partides d\'aquesta ronda. L\'origen ha d\'estar actiu per a recrear-les.</string>
 </resources>

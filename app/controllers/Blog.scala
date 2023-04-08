@@ -2,10 +2,10 @@ package controllers
 
 import io.prismic.Document
 import org.apache.commons.lang3.StringUtils
-import play.api.mvc._
+import play.api.mvc.*
 
 import lila.api.Context
-import lila.app._
+import lila.app.{ given, * }
 import lila.blog.BlogApi
 import lila.common.config.MaxPerPage
 
@@ -13,9 +13,9 @@ final class Blog(
     env: Env,
     prismicC: Prismic
 )(implicit ws: play.api.libs.ws.StandaloneWSClient)
-    extends LilaController(env) {
+    extends LilaController(env):
 
-  import prismicC._
+  import prismicC.*
 
   private def blogApi = env.blog.api
 
@@ -57,16 +57,13 @@ final class Blog(
       }
     }
 
-  import scala.concurrent.duration._
-  import lila.memo.CacheApi._
+  import lila.memo.CacheApi.*
   private val atomCache = env.memo.cacheApi.unit[String] {
     _.refreshAfterWrite(30.minutes)
       .buildAsyncFuture { _ =>
         blogApi.masterContext flatMap { implicit prismic =>
-          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) map {
-            _ ?? { docs =>
-              views.html.blog.atom(docs).render
-            }
+          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) mapz { docs =>
+            views.html.blog.atom(docs).render
           }
         }
       }
@@ -117,25 +114,21 @@ final class Blog(
 
   def discuss(id: String) =
     WithPrismic { _ => implicit prismic =>
-      val categSlug = "general-chess-discussion"
+      val categId   = ForumCategId("general-chess-discussion")
       val topicSlug = s"blog-$id"
-      val redirect  = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
-      env.forum.topicRepo.existsByTree(categSlug, topicSlug) flatMap {
+      val redirect  = Redirect(routes.ForumTopic.show(categId.value, topicSlug))
+      env.forum.topicRepo.existsByTree(categId, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>
-          blogApi.one(prismic.api, none, id) flatMap {
-            _ ?? { doc =>
-              env.forum.categRepo.bySlug(categSlug) flatMap {
-                _ ?? { categ =>
-                  env.forum.topicApi.makeBlogDiscuss(
-                    categ = categ,
-                    slug = topicSlug,
-                    name = doc.getText("blog.title") | "New blog post",
-                    url = s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
-                  )
-                }
-              } inject redirect
-            }
+          blogApi.one(prismic.api, none, id) flatMapz { doc =>
+            env.forum.categRepo.byId(categId) flatMapz { categ =>
+              env.forum.topicApi.makeBlogDiscuss(
+                categ = categ,
+                slug = topicSlug,
+                name = doc.getText("blog.title") | "New blog post",
+                url = s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
+              )
+            } inject redirect
           }
       }
     }
@@ -153,7 +146,8 @@ final class Blog(
   )(implicit ctx: lila.api.Context) =
     document.collect {
       case document if document.slug == slug => fuccess(callback(Right(document)))
-      case document if document.slugs.exists(StringUtils.stripEnd(_, ".") == slug) =>
+      case document
+          if document.slugs
+            .exists(s => StringUtils.stripEnd(s, ".") == slug || s == StringUtils.stripEnd(slug, ".")) =>
         fuccess(callback(Left(document.slug)))
     } getOrElse notFound
-}

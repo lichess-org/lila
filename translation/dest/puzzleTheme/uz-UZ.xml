@@ -9,7 +9,9 @@
   <string name="attackingF2F7">f2 yoki f7 hujum</string>
   <string name="attraction">Jozibasi</string>
   <string name="backRankMateDescription">Qirolni rokirovkada turgan paytda, ya\'ni o\'z piyodalari bilan qurshab olingan paytda mot qilish.</string>
+  <string name="bishopEndgame">Filli o\'yin oxiri</string>
   <string name="bishopEndgameDescription">Faqatgina fillar va piyodalar bilan bo\'lgan endshpil.</string>
+  <string name="bodenMate">Bodenning mot qilish uslubi</string>
   <string name="bodenMateDescription">Ikki qarama-qarshi diagonal bo\'yicha hujum qilayotgan fillar, o\'zining piyodalari bilan to\'sib qo\'yilgan shohga mot berishadi.</string>
   <string name="castling">Rokirovka</string>
   <string name="castlingDescription">Qirolni xavfsiz joyga olib borish, va ruhni hujumga tayyorlash.</string>

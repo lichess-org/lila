@@ -28,7 +28,9 @@
     transition: color 0.1s;
 
     .puz-mod-move & {
-      color: $c-brag;
+      @media (prefers-reduced-motion: no-preference) {
+        color: $c-brag;
+      }
     }
   }
 
@@ -36,7 +38,7 @@
     display: flex;
     flex-flow: column;
     flex: 1 1 100%;
-    margin-left: 1em;
+    margin-#{$start-direction}: 1em;
   }
 
   &__bar {
@@ -56,7 +58,7 @@
 
       position: absolute;
       bottom: 0;
-      left: 0;
+      #{$start-direction}: 0;
       height: 100%;
     }
 
@@ -103,15 +105,16 @@
   &__levels {
     @extend %flex-center;
 
-    margin: 0.3em 0 0 -0.6em;
+    @include margin-direction(0.3em, 0, 0, -0.6em);
   }
 
   &__level {
     $c-level: $c-primary;
 
-    transform: skewX(-45deg);
+    direction: ltr;
+    transform: skewX(-45deg * $transform-direction);
     flex: 21% 0 0;
-    margin-right: 4%;
+    margin-#{$end-direction}: 4%;
     font-size: 0.9em;
     height: 1.5em;
     line-height: 1.5em;
@@ -122,7 +125,7 @@
     font-weight: bold;
 
     span {
-      transform: skewX(45deg);
+      transform: skewX(45deg * $transform-direction);
       display: block;
     }
 

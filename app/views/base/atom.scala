@@ -1,15 +1,12 @@
 package views.html.base
 
-import controllers.routes
-import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.mvc.Call
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.common.config.BaseUrl
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object atom {
+object atom:
 
   def apply[A](
       elems: Seq[A],
@@ -24,8 +21,8 @@ object atom {
         """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
       ),
       tag("id")(s"$netBaseUrl$htmlCall"),
-      link(rel := "alternate", tpe := "text/html", href := s"${netBaseUrl}$htmlCall"),
-      link(rel := "self", tpe := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
+      link(rel := "alternate", tpe := "text/html", href            := s"${netBaseUrl}$htmlCall"),
+      link(rel := "self", tpe      := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
       tag("title")(title),
       tag("updated")(updated map atomDate),
       elems.map { el =>
@@ -43,8 +40,7 @@ object atom {
 
   def category(term: String, label: String, scheme: Option[String] = None) =
     tag("category")(
-      termAttr := term,
-      labelAttr := label,
+      termAttr   := term,
+      labelAttr  := label,
       schemeAttr := scheme
     )
-}

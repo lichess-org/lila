@@ -23,6 +23,10 @@ $mq-col3: $mq-x-large;
     grid-area: board;
   }
 
+  svg.coords-svg {
+    grid-area: board;
+  }
+
   .table {
     grid-area: table;
   }

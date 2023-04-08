@@ -1,4 +1,4 @@
-@import '../../../common/css/base/scrollbar';
+@import '../../common/css/base/scrollbar';
 
 @import 'tab';
 @import 'members';
@@ -21,11 +21,14 @@
     &.note textarea {
       font-size: 0.9em;
       flex-grow: 1;
-      border: none;
+      border: 1px solid transparent;
       background-color: transparent;
       line-height: 1.7em;
       outline: none;
       resize: none;
+      &:focus {
+        border-color: $c-primary;
+      }
     }
   }
 

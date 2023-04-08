@@ -12,7 +12,7 @@ function list<T>(str: string, args: T[]): Array<string | T> {
     const singlePlaceholder = segments.indexOf('%s');
     if (singlePlaceholder !== -1) segments[singlePlaceholder] = args[0];
     else
-      for (let i = 0; 1 < args.length; i++) {
+      for (let i = 0; i < args.length; i++) {
         const placeholder = segments.indexOf('%' + (i + 1) + '$s');
         if (placeholder !== -1) segments[placeholder] = args[i];
       }
@@ -20,15 +20,19 @@ function list<T>(str: string, args: T[]): Array<string | T> {
   return segments;
 }
 
-export default function (i18n: I18nDict) {
+export const trans = (i18n: I18nDict) => {
   const trans: Trans = (key: I18nKey, ...args: Array<string | number>) => {
     const str = i18n[key];
     return str ? format(str, args) : key;
   };
-  trans.plural = function (key: I18nKey, count: number) {
+
+  trans.pluralSame = (key: I18nKey, count: number, ...args: Array<string | number>) =>
+    trans.plural(key, count, count, ...args);
+
+  trans.plural = function (key: I18nKey, count: number, ...args: Array<string | number>) {
     const pluralKey = `${key}:${lichess.quantity(count)}`;
     const str = i18n[pluralKey] || i18n[key];
-    return str ? format(str, Array.prototype.slice.call(arguments, 1)) : key;
+    return str ? format(str, args) : key;
   };
   // optimisation for translations without arguments
   trans.noarg = (key: I18nKey) => i18n[key] || key;
@@ -42,4 +46,6 @@ export default function (i18n: I18nDict) {
     return str ? list(str, args) : [key];
   };
   return trans;
-}
+};
+
+export const siteTrans = trans(lichess.siteI18n);

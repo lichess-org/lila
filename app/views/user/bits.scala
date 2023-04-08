@@ -3,19 +3,19 @@ package views.html.user
 import play.api.i18n.Lang
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
 import controllers.routes
 
-object bits {
+object bits:
 
   def communityMenu(active: String)(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
       a(
-        cls := active.active("ratings"),
+        cls  := active.active("ratings"),
         href := routes.User.ratingDistribution("blitz")
       )(
         trans.ratingStats()
@@ -38,12 +38,11 @@ object bits {
       val bars = (1 to 4).map { b =>
         s"""<i${if (v < b) " class=\"off\"" else ""}></i>"""
       } mkString ""
-      val title = v match {
+      val title = v match
         case 1 => "Poor connection"
         case 2 => "Decent connection"
         case 3 => "Good connection"
         case _ => "Excellent connection"
-      }
       s"""<signal title="$title" class="q$v">$bars</signal>"""
     }
 
@@ -67,4 +66,3 @@ object bits {
             img(src := assetUrl("images/trophy/Gold-Cup.png"))
           )
       }
-}

@@ -59,6 +59,8 @@
   <string name="depthX">मध्यमार्ग %s</string>
   <string name="usingServerAnalysis">सर्वर विश्लेषण का उपयोग किया जा रहा है</string>
   <string name="loadingEngine">इंजन लोड हो रहा है ...</string>
+  <string name="calculatingMoves">चालों की गणना की जा रही है...</string>
+  <string name="engineFailed">इंजन लोड करने में समस्या</string>
   <string name="cloudAnalysis">क्लाउड विश्लेषण</string>
   <string name="goDeeper">भीतर जाओ</string>
   <string name="showThreat">खतरे को दिखाएं</string>
@@ -117,7 +119,7 @@
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
   <string name="blunder">भयंकर गलती</string>
-  <string name="mistake">गलती</string>
+  <string name="mistake">ग़लती</string>
   <string name="inaccuracy">गलती</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s गंभीर गलती</item>
@@ -155,6 +157,7 @@
   <string name="viewInFullSize">पूर्ण आकर में देखें</string>
   <string name="logOut">खाते से निकास करें</string>
   <string name="signIn">खाते में प्रवेश करें</string>
+  <string name="rememberMe">मुझे लोग्ड इन रखें</string>
   <string name="youNeedAnAccountToDoThat">ऐसा करने के लिए आपको खाता खोलने की आवश्यकता है</string>
   <string name="signUp">खाता खोलें</string>
   <string name="computersAreNotAllowedToPlay">कंप्यूटर और कंप्यूटर-सहाय खिलाडियों  को खेलने की अनुमति नहीं है । कृपया शतरंज मशीनों, दस्तावेजों या किसी और खिलाडी की सहायता न लें। इस बात का भी ध्यान रखें कि एक से अधिक खाते खोलना बिलकुल भी प्रोत्साहित नहीं है और अतियाधिक खाते खोलने से आप पर प्रतिबन्ध लगा दिया जायेगा।</string>
@@ -195,12 +198,26 @@
   <string name="changeUsername">खाता नाम बदलें</string>
   <string name="changeUsernameNotSame">केवल अक्षरों का मामला बदल सकता है। उदाहरण के लिए \"johndoe\" से \"JohnDoe\"।</string>
   <string name="changeUsernameDescription">अपना उपयोगकर्ता नाम बदलें। यह केवल एक बार किया जा सकता है और आपको केवल अपने उपयोगकर्ता नाम के केस को बदलने की अनुमति है।</string>
+  <string name="signupUsernameHint">कृपया उचित यूज़रनेम ही चुनें। आप इसे बाद में बदल नहीं पाएंगे और अनुचित यूज़रनेम वाले कोई भी खाते बंद कर दिए जाएंगे।</string>
+  <string name="signupEmailHint">हम इस का इस्तेमाल सिर्फ़ पासवर्ड रीसेट के लिए करेंगे।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
   <string name="email">इ-मेल</string>
   <string name="passwordReset">पासवर्ड बदलें</string>
   <string name="forgotPassword">क्या आप अपना पासवर्ड भूल गए हैं?</string>
+  <string name="blankedPassword">आपने उसी पासवर्ड का उपयोग किसी अन्य साइट पर किया है, और उस साइट के साथ छेड़छाड़ की गई है। आपके लिचेस खाते की सुरक्षा सुनिश्चित करने के लिए, हम चाहते हैं कि आप एक नया पासवर्ड सेट करें। समझने के लिए धन्यवाद |</string>
+  <string name="youAreLeavingLichess">आप लिचेस छोड़ रहे हैं</string>
+  <string name="neverTypeYourPassword">अपना लिचेस पासवर्ड कभी भी किसी अन्य साइट पर न लिखें!</string>
+  <string name="emailConfirmHelp">ईमेल कन्फ़र्मेशन में सहायता</string>
+  <string name="emailConfirmNotReceived">साइन अप के बाद कन्फ़र्मेशन ईमेल नहीं मिला?</string>
+  <string name="whatSignupUsername">आपने साइन अप के लिए कौन से यूज़रनेम का इस्तेमाल किया?</string>
+  <string name="usernameNotFound">हमें %s नाम से कोई यूज़र नहीं मिला।</string>
+  <string name="usernameCanBeUsedForNewAccount">आप इस यूज़रनेम से नया खाता खोल सकते हैं|</string>
+  <string name="emailSent">हम ने %s को ईमेल भेजा है|</string>
+  <string name="accountCanLogin">आप अब %s से लॉग इन कर सकते हैं|</string>
+  <string name="accountConfirmationEmailNotNeeded">आप को कन्फ़र्मेशन ईमेल की ज़रुरत नहीं है|</string>
+  <string name="accountClosed">%s खाता बंद है.</string>
   <string name="rank">श्रेणी (रैंक)</string>
   <string name="rankX">रैंक: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -348,6 +365,8 @@
   <string name="apply">लागू करें</string>
   <string name="save">सहेजें</string>
   <string name="leaderboard">उच्च खिलाडी, अंक तालिका (लीडरबोर्ड)</string>
+  <string name="screenshotCurrentPosition">वर्तमान स्थिति का स्क्रीनशॉट</string>
+  <string name="gameAsGIF">GIF के रूप में सेव करें</string>
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
   <string name="orUploadPgnFile">या PGN अपलोड करे|</string>
@@ -426,6 +445,8 @@
   <string name="tournamentIsStarting">प्रतियोगित शुरू हो रही है</string>
   <string name="tournamentPairingsAreNowClosed">टूर्नामेंट जोड़ियां अब बंद हो गयी हैं।</string>
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
+  <string name="pause">ठहराव</string>
+  <string name="resume">फिर से शुरू करें</string>
   <string name="youArePlaying">आप खेल रहे हैं!</string>
   <string name="winRate">जीत दर</string>
   <string name="berserkRate">निडर की दर</string>
@@ -460,6 +481,10 @@
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="oneUrlPerLine">प्रति पंक्ति एक कड़ी</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
+  <string name="savingMoves">अस्थायी चाल भंडारण</string>
+  <string name="savingMovesHelp">हम आपकी विविधताओं को हमेशा आपके ब्राउज़र कैश में संग्रहीत कर रहे हैं।</string>
+  <string name="makeAStudy">सुरक्षित रखने और साझा करने के लिए, एक अध्ययन करने पर विचार करें।</string>
+  <string name="clearSavedMoves">चाल हटाओ</string>
   <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>
   <string name="onlinePlayers">ऑनलाइन खिलाड़ियों</string>
   <string name="activePlayers">सक्रिय  खिलाडी</string>
@@ -566,6 +591,7 @@
   <string name="community">समुदाय</string>
   <string name="tools">उपकरण</string>
   <string name="increment">वृद्धि</string>
+  <string name="error.unknown">अमान्य मूल्य</string>
   <string name="error.required">यह जानकारी जरुरी है</string>
   <string name="error.email">यह ई-मेल सही नहीं हैं</string>
   <string name="error.email_acceptable">यह ई-मेल स्वीकार नहीं की जा सकती है। कृप्या इसे पुनः जांच करके प्रयास करें।</string>
@@ -576,6 +602,7 @@
   <string name="error.min">कम से कम %s</string>
   <string name="error.max">%s से ज़्यादा नही।</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
+  <string name="ifRegistered">अगर पंजीकृत है</string>
   <string name="onlyExistingConversations">केवल मौजूदा वार्तालाप</string>
   <string name="onlyFriends">केवल दोस्त</string>
   <string name="menu">मेनू</string>
@@ -734,6 +761,7 @@
   <string name="bestWasX">सर्वश्रेष्ठ चाल %s थे</string>
   <string name="youBrowsedAway">आप किसी और वेबसाइट को गया</string>
   <string name="resumePractice">अभ्यास जारी रखें</string>
+  <string name="drawByFiftyMoves">खेल पचास चाल नियम की वजह से बराबरी में ख़त्म हुआ है.</string>
   <string name="theGameIsADraw">खेल ड्रॉ है ।</string>
   <string name="computerThinking">कंप्यूटर सोच...</string>
   <string name="seeBestMove">सर्वश्रेष्ठ चाल देखें</string>
@@ -797,6 +825,7 @@
   <string name="currentMatchScore">वर्तमान मैच का स्कोर</string>
   <string name="agreementAssistance">मैं मानता हूं कि मुझे अपने खेल के दौरान (शतरंज के कंप्यूटर, पुस्तक, डेटाबेस या किसी अन्य व्यक्ति से) सहायता प्राप्त नहीं होगी।</string>
   <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">मैं मानता हूं कि मैं एकाधिक खाते नहीं बना सकता (%s में बताए गए कारणों को छोड़कर)।</string>
   <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
   <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
   <string name="edit">संशोधन करें</string>
@@ -897,4 +926,5 @@
   <string name="until">दिनांक तक​</string>
   <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
   <string name="switchSides">पार्श्व बदलना</string>
+  <string name="closingAccountWithdrawAppeal">आपका खाता बंद करने से आपकी अपील वापस ले ली जाएगी</string>
 </resources>

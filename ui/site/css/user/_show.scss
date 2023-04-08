@@ -18,7 +18,7 @@
   /* this fixes profile overflow, but cuts out the trophies */
 
   .flash {
-    @extend %box-padding-horiz;
+    @extend %box-margin-horiz;
   }
 
   &__social {
@@ -41,7 +41,7 @@
     .relation-actions {
       @extend %flex-center-nowrap;
 
-      border-right: $border;
+      border-#{$end-direction}: $border;
     }
   }
 
@@ -104,7 +104,7 @@
     }
 
     .unread {
-      margin-left: 0.5em;
+      margin-#{$start-direction}: 0.5em;
     }
   }
 

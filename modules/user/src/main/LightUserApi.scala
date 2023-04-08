@@ -1,43 +1,40 @@
 package lila.user
 
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
-import scala.util.Success
+import reactivemongo.api.bson.*
 
 import lila.common.LightUser
-import lila.db.dsl._
+import lila.db.dsl.{ given, * }
 import lila.memo.{ CacheApi, Syncache }
-import User.{ BSONFields => F }
+import User.BSONFields as F
 
-final class LightUserApi(
-    repo: UserRepo,
-    cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor):
 
-  import LightUserApi._
-
-  val async = new LightUser.Getter(id =>
-    if (User isGhost id) fuccess(LightUser.ghost.some) else cache.async(id)
+  val async = LightUser.Getter(id => if (User isGhost id) fuccess(LightUser.ghost.some) else cache.async(id))
+  val asyncFallback = LightUser.GetterFallback(id =>
+    if (User isGhost id) fuccess(LightUser.ghost)
+    else cache.async(id).dmap(_ | LightUser.fallback(id into UserName))
   )
-  val sync = new LightUser.GetterSync(id => if (User isGhost id) LightUser.ghost.some else cache.sync(id))
+  val sync = LightUser.GetterSync(id => if (User isGhost id) LightUser.ghost.some else cache.sync(id))
+  val syncFallback = LightUser.GetterSyncFallback(id =>
+    if (User isGhost id) LightUser.ghost else cache.sync(id) | LightUser.fallback(id into UserName)
+  )
 
-  def syncFallback(id: User.ID)       = sync(id) | LightUser.fallback(id)
-  def asyncFallback(id: User.ID)      = async(id) dmap (_ | LightUser.fallback(id))
-  def asyncFallbackName(name: String) = async(User normalize name) dmap (_ | LightUser.fallback(name))
+  export cache.{ asyncMany, invalidate, preloadOne, preloadMany }
 
-  def asyncMany = cache.asyncMany _
+  def asyncFallbackName(name: UserName) = async(name.id).dmap(_ | LightUser.fallback(name))
 
-  def asyncManyFallback(ids: Seq[User.ID]): Fu[Seq[LightUser]] =
-    ids.map(asyncFallback).sequenceFu
+  def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]] =
+    ids.map(asyncFallback).parallel
 
-  def invalidate = cache invalidate _
+  def asyncManyOptions(ids: Seq[Option[UserId]]): Fu[Seq[Option[LightUser]]] =
+    ids.map(_ ?? async).parallel
 
-  def preloadOne                     = cache preloadOne _
-  def preloadMany                    = cache preloadMany _
+  val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
+
   def preloadUser(user: User)        = cache.set(user.id, user.light.some)
   def preloadUsers(users: Seq[User]) = users.foreach(preloadUser)
 
-  private val cache = cacheApi.sync[User.ID, Option[LightUser]](
+  private val cache = cacheApi.sync[UserId, Option[LightUser]](
     name = "user.light",
     initialCapacity = 1024 * 1024,
     compute = id =>
@@ -46,26 +43,21 @@ final class LightUserApi(
         repo.coll.find($id(id), projection).one[LightUser] recover {
           case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
         },
-    default = id => LightUser(id, id, None, isPatron = false).some,
-    strategy = Syncache.WaitAfterUptime(8 millis),
-    expireAfter = Syncache.ExpireAfterWrite(20 minutes)
+    default = id => LightUser(id, id into UserName, None, isPatron = false).some,
+    strategy = Syncache.Strategy.WaitAfterUptime(10 millis),
+    expireAfter = Syncache.ExpireAfter.Write(20 minutes)
   )
-}
 
-private object LightUserApi {
+  private given BSONDocumentReader[LightUser] with
+    def readDocument(doc: BSONDocument) =
+      doc.getAsTry[UserName](F.username) map { name =>
+        LightUser(
+          id = name.id,
+          name = name,
+          title = doc.getAsOpt[UserTitle](F.title),
+          isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
+        )
+      }
 
-  implicit val lightUserBSONReader = new BSONDocumentReader[LightUser] {
-
-    def readDocument(doc: BSONDocument) = for {
-      id   <- doc.getAsTry[String](F.id)
-      name <- doc.getAsTry[String](F.username)
-    } yield LightUser(
-      id = id,
-      name = name,
-      title = doc.string(F.title),
-      isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
-    )
-  }
-
-  val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some
-}
+  private val projection =
+    $doc(F.id -> false, F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some

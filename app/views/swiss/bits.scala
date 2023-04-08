@@ -1,34 +1,34 @@
 package views.html.swiss
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.{ I18nKeys => trans }
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.i18n.{ I18nKeys as trans }
 import lila.swiss.Swiss
 import play.api.i18n.Lang
 
 import controllers.routes
 
-object bits {
+object bits:
 
-  def link(swiss: Swiss): Frag      = link(swiss.id, swiss.name)
-  def link(swissId: Swiss.Id): Frag = link(swissId, idToName(swissId))
-  def link(swissId: Swiss.Id, name: String): Frag =
+  def link(swiss: Swiss): Frag     = link(swiss.id, swiss.name)
+  def link(swissId: SwissId): Frag = link(swissId, idToName(swissId))
+  def link(swissId: SwissId, name: String): Frag =
     a(
       dataIcon := "",
-      cls := "text",
-      href := routes.Swiss.show(swissId.value).url
+      cls      := "text",
+      href     := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: Swiss.Id): String = env.swiss.getName(id) getOrElse "Tournament"
+  def idToName(id: SwissId): String  = env.swiss.getName sync id getOrElse "Tournament"
   def iconChar(swiss: Swiss): String = swiss.perfType.iconChar.toString
 
-  def notFound()(implicit ctx: Context) =
+  def notFound()(using Context) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(trans.tournamentNotFound()),
+        h1(cls := "box__top")(trans.tournamentNotFound()),
         p(trans.tournamentDoesNotExist()),
         p(trans.tournamentMayHaveBeenCanceled()),
         br,
@@ -37,7 +37,7 @@ object bits {
       )
     }
 
-  def forTeam(swisses: List[Swiss])(implicit ctx: Context) =
+  def forTeam(swisses: List[Swiss])(using Context) =
     table(cls := "slist")(
       tbody(
         swisses map { s =>
@@ -49,7 +49,7 @@ object bits {
           )(
             td(cls := "icon")(iconTag(iconChar(s))),
             td(cls := "header")(
-              a(href := routes.Swiss.show(s.id.value))(
+              a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
                 span(cls := "setup")(
                   s.clock.show,
@@ -71,18 +71,17 @@ object bits {
       )
     )
 
-  def showInterval(s: Swiss)(implicit lang: Lang): Frag =
-    s.settings.dailyInterval match {
+  def showInterval(s: Swiss)(using Lang): Frag =
+    s.settings.dailyInterval match
       case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
       case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
       case None =>
         if (s.settings.intervalSeconds < 60)
           trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
-    }
 
-  def homepageSpotlight(s: Swiss)(implicit ctx: Context) =
-    a(href := routes.Swiss.show(s.id.value), cls := "tour-spotlight little")(
+  def homepageSpotlight(s: Swiss)(using Context) =
+    a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
       iconTag(iconChar(s))(cls := "img icon"),
       span(cls := "content")(
         span(cls := "name")(s.name, " Swiss"),
@@ -94,7 +93,7 @@ object bits {
       )
     )
 
-  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
+  def jsI18n(using Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.join,
@@ -117,6 +116,6 @@ object bits {
     trans.swiss.ongoingGames,
     trans.swiss.startingIn,
     trans.swiss.nextRound,
+    trans.swiss.nbRounds,
     trans.team.joinTeam
-  ).map(_.key)
-}
+  )

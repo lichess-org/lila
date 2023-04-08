@@ -1,25 +1,18 @@
 package lila.mod
 
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import play.api.libs.json._
-import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
+import play.api.libs.json.*
 import scala.util.Try
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.mod.ModActivity.{ dateFormat, Period }
 import lila.report.Room
 
 final class ModQueueStats(
     cacheApi: lila.memo.CacheApi,
     repo: ModQueueStatsRepo
-)(implicit
-    ec: ExecutionContext
-) {
+)(using Executor):
 
-  import ModQueueStats._
+  import ModQueueStats.*
 
   def apply(period: String): Fu[Result] =
     cache.get(Period(period))
@@ -40,8 +33,8 @@ final class ModQueueStats(
   private def compute(period: Period): Fu[Result] =
     repo.coll
       .find($doc("_id" $gte dateFormat.print(Period dateSince period)))
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list()
+      .cursor[Bdoc](temporarilyPrimary)
+      .listAll()
       .map { docs =>
         for {
           doc     <- docs
@@ -64,11 +57,14 @@ final class ModQueueStats(
             "common" -> Json.obj(
               "xaxis" -> days.map(_._1.getMillis)
             ),
-            "rooms" -> Room.all
-              .map { room =>
-                room.key -> room.name
+            "rooms" -> Room.values
+              .map { room => room.key -> room.name }
+              .appendedAll {
+                List(
+                  "appeal"   -> "Appeal",
+                  "streamer" -> "Streamer"
+                )
               }
-              .appended { ("appeal", "Appeal") }
               .map { case (roomKey, roomName) =>
                 Json.obj(
                   "name" -> roomName,
@@ -86,9 +82,8 @@ final class ModQueueStats(
           )
         )
       }
-}
 
-object ModQueueStats {
+object ModQueueStats:
 
   type Score = Int
   type Nb    = Int
@@ -96,4 +91,3 @@ object ModQueueStats {
   val scores = List[Score](20, 40, 60, 80)
 
   case class Result(period: Period, json: JsObject)
-}

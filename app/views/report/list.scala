@@ -1,14 +1,16 @@
 package views.html.report
 
 import controllers.routes
+import controllers.appeal.routes.{ Appeal as appealRoutes }
+import controllers.report.routes.{ Report as reportRoutes }
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
 import lila.user.Holder
 
-object list {
+object list:
 
   def apply(
       reports: List[lila.report.Report.WithSuspect],
@@ -45,7 +47,7 @@ object list {
                       span(cls := "head")(
                         reportScore(atom.score),
                         " ",
-                        userIdLink(atom.by.value.some),
+                        userIdLink(atom.by.userId.some),
                         " ",
                         momentFromNowOnce(atom.at)
                       ),
@@ -63,11 +65,11 @@ object list {
                   r.inquiry match {
                     case None =>
                       if (r.done.isDefined)
-                        postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
+                        postForm(action := reportRoutes.inquiry(r.id), cls := "reopen")(
                           submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
                         )
                       else
-                        postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
+                        postForm(action := reportRoutes.inquiry(r.id), cls := "inquiry")(
                           submitButton(dataIcon := "", cls := "button button-metal")
                         )
                     case Some(inquiry) =>
@@ -100,28 +102,31 @@ object list {
             i(cls := "icon"),
             span(cls := "tabs")(
               a(
-                href := routes.Report.listWithFilter("all"),
-                cls := List("active" -> (filter == "all"))
+                href := reportRoutes.listWithFilter("all"),
+                cls  := List("active" -> (filter == "all"))
               )(
                 "All",
                 scoreTag(scores.highest)
               ),
               ctx.me ?? { me =>
-                lila.report.Room.all.filter(lila.report.Room.isGrantedFor(Holder(me))).map { room =>
-                  a(
-                    href := routes.Report.listWithFilter(room.key),
-                    cls := List(
-                      "active"            -> (filter == room.key),
-                      s"room-${room.key}" -> true
+                lila.report.Room.values
+                  .filter(lila.report.Room.isGrantedFor(Holder(me)))
+                  .map { room =>
+                    a(
+                      href := reportRoutes.listWithFilter(room.key),
+                      cls := List(
+                        "active"            -> (filter == room.key),
+                        s"room-${room.key}" -> true
+                      )
+                    )(
+                      room.name,
+                      scores.get(room).filter(20 <=).map(scoreTag(_))
                     )
-                  )(
-                    room.name,
-                    scores.get(room).filter(20 <=).map(scoreTag(_))
-                  )
-                }
-              },
+                  }
+                  .toList
+              }: List[Frag],
               (appeals > 0 && isGranted(_.Appeals)) option a(
-                href := routes.Appeal.queue,
+                href := appealRoutes.queue,
                 cls := List(
                   "new"    -> true,
                   "active" -> (filter == "appeal")
@@ -141,4 +146,3 @@ object list {
         )
       )
     }
-}

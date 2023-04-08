@@ -59,6 +59,8 @@
   <string name="studyPgn">연구 PGN</string>
   <string name="downloadAllGames">모든 게임 다운로드</string>
   <string name="chapterPgn">챕터 PGN</string>
+  <string name="copyChapterPgn">PGN 복사</string>
+  <string name="copyChapterPgnDescription">클립보드에 챕터 PGN 복사</string>
   <string name="downloadGame">게임 다운로드</string>
   <string name="studyUrl">연구 URL</string>
   <string name="currentChapterUrl">현재 챕터 URL</string>
@@ -73,11 +75,13 @@
   <string name="studyNotFound">연구를 찾을 수 없습니다</string>
   <string name="editChapter">챕터 편집하기</string>
   <string name="newChapter">새 챕터</string>
+  <string name="importFromChapterX">%s에서 가져오기</string>
   <string name="orientation">방향</string>
   <string name="analysisMode">분석 모드</string>
   <string name="pinnedChapterComment">챕터 댓글 고정하기</string>
   <string name="saveChapter">챕터 저장</string>
   <string name="clearAnnotations">주석 지우기</string>
+  <string name="clearVariations">파생 초기화</string>
   <string name="deleteChapter">챕터 지우기</string>
   <string name="deleteThisChapter">이 챕터를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 기호를 지울까요?</string>

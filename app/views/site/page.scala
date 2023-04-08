@@ -3,47 +3,51 @@ package views.html.site
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object page {
+object page:
 
   def lone(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("page"),
-      title = ~doc.getText("doc.title")
+      title = ~doc.getText("doc.title"),
+      moreJs = doc.slugs.has("fair-play") option fairPlayJs
     ) {
-      main(cls := "page-small box box-pad page")(pageContent(doc, resolver))
+      main(cls := "page-small box box-pad page force-ltr")(pageContent(doc, resolver))
     }
 
-  def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
+  private def fairPlayJs(implicit ctx: Context) = embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
+})""")
+
+  def withMenu(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using
       ctx: Context
   ) =
     layout(
       title = ~doc.getText("doc.title"),
       active = active,
-      contentCls = "page box box-pad",
+      contentCls = "page box box-pad force-ltr",
       moreCss = cssTag("page")
     )(pageContent(doc, resolver))
 
   def pageContent(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver) = frag(
-    h1(doc.getText("doc.title")),
+    h1(cls := "box__top")(doc.getText("doc.title")),
     div(cls := "body")(
-      raw {
-        ~doc
-          .getHtml("doc.content", resolver)
-          .map(lila.blog.BlogTransform.markdown.apply)
-      }
+      Html
+        .from(doc.getHtml("doc.content", resolver))
+        .map(lila.blog.BlogTransform.markdown.apply)
+        .map(rawHtml)
     )
   )
 
-  def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = {
+  def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     val title = ~doc.getText("doc.title")
     layout(
       title = title,
       active = "source",
       moreCss = frag(cssTag("source")),
-      contentCls = "page",
+      contentCls = "page force-ltr",
       moreJs = embedJsUnsafeLoadThen(
         """$('#asset-version-date').text(lichess.info.date);
 $('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 12));
@@ -52,12 +56,12 @@ $('#asset-version-message').text(lichess.info.message);"""
     )(
       frag(
         st.section(cls := "box box-pad body")(
-          h1(title),
+          h1(cls := "box__top")(title),
           raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
         st.section(cls := "box")(
-          h1(id := "version")("lila version"),
+          h1(id := "version", cls := "box__top")("lila version"),
           table(cls := "slist slist-pad")(
             env.appVersionDate zip env.appVersionCommit zip env.appVersionMessage map {
               case ((date, commit), message) =>
@@ -84,26 +88,25 @@ $('#asset-version-message').text(lichess.info.message);"""
         st.section(cls := "box")(freeJs())
       )
     )
-  }
 
-  def webmasters(implicit ctx: Context) = {
+  def webmasters(implicit ctx: Context) =
     val parameters = frag(
       p("Parameters:"),
       ul(
         li(strong("theme"), ": ", lila.pref.Theme.all.map(_.name).mkString(", ")),
         li(strong("pieceSet"), ": ", lila.pref.PieceSet.all.map(_.name).mkString(", ")),
-        li(strong("bg"), ": light, dark")
+        li(strong("bg"), ": light, dark, system")
       )
     )
     layout(
       title = "Webmasters",
       active = "webmasters",
       moreCss = cssTag("page"),
-      contentCls = "page"
+      contentCls = "page force-ltr"
     )(
       frag(
-        div(cls := "box box-pad developers body")(
-          h1("HTTP API"),
+        st.section(cls := "box box-pad developers body")(
+          h1(cls := "box__top")("HTTP API"),
           p(
             raw(
               """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
@@ -111,16 +114,16 @@ $('#asset-version-message').text(lichess.info.message);"""
           )
         ),
         br,
-        div(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers body") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
-            h1(id := "embed-tv")("Embed Lichess TV in your site"),
+            h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site"),
             div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
-                id := "tv-embed-src",
-                cls := "copyable autoselect",
+                id    := "tv-embed-src",
+                cls   := "copyable autoselect",
                 value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "")
@@ -129,24 +132,24 @@ $('#asset-version-message').text(lichess.info.message);"""
           )
         },
         br,
-        div(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers body") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
-            h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
+            h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "center")(
               raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
             ),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
-                id := "puzzle-embed-src",
-                cls := "copyable autoselect",
+                id    := "puzzle-embed-src",
+                cls   := "copyable autoselect",
                 value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(
-                title := "Copy code",
-                cls := "copy button",
-                dataRel := "puzzle-embed-src",
+                title    := "Copy code",
+                cls      := "copy button",
+                dataRel  := "puzzle-embed-src",
                 dataIcon := ""
               )
             ),
@@ -160,10 +163,10 @@ $('#asset-version-message').text(lichess.info.message);"""
           )
         },
         br,
-        div(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers body") {
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
-            h1(id := "embed-study")("Embed a chess analysis in your site"),
+            h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site"),
             raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>"""),
             p(
               "Create ",
@@ -175,11 +178,11 @@ $('#asset-version-message').text(lichess.info.message);"""
           )
         },
         br,
-        div(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers body") {
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
-            h1("Embed a chess game in your site"),
-            raw(s"""<iframe src="/embed/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
+            h1(cls := "box__top")("Embed a chess game in your site"),
+            raw(s"""<iframe src="/embed/game/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
             p(
               raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """),
               "\"",
@@ -191,7 +194,6 @@ $('#asset-version-message').text(lichess.info.message);"""
         }
       )
     )
-  }
 
   def layout(
       title: String,
@@ -232,4 +234,3 @@ $('#asset-version-message').text(lichess.info.message);"""
         div(cls := s"page-menu__content $contentCls")(body)
       )
     }
-}

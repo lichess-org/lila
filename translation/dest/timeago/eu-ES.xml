@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">orain</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">segundo %sen</item>
+    <item quantity="other">%s segundotan</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">minutu %sen</item>
+    <item quantity="other">%s minututan</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">ordu %sen</item>
+    <item quantity="other">%s ordutan</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">egun %sen</item>
+    <item quantity="other">%s egunetan</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">aste %sen</item>
+    <item quantity="other">%s egunetan</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">hilabete %sen</item>
+    <item quantity="other">%s hilabetetan</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">urte %sen</item>
+    <item quantity="other">%s urtetan</item>
+  </plurals>
+  <string name="rightNow">orain</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">orain dela segundo %s</item>
+    <item quantity="other">orain dela %s segundo</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">orain dela minutu %s</item>
+    <item quantity="other">orain dela %s minutu</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">orain dela ordu %s</item>
+    <item quantity="other">orain dela %s ordu</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">orain dela egun %s</item>
+    <item quantity="other">orain dela %s egun</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">orain dela aste %s</item>
+    <item quantity="other">orain dela %s aste</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">orain dela hilabete %s</item>
+    <item quantity="other">orain dela %s hilabete</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">orain dela urte %s</item>
+    <item quantity="other">orain dela %s urte</item>
+  </plurals>
+</resources>

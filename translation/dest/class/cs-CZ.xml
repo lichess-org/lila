@@ -12,6 +12,7 @@
   <string name="teachersX">Učitelé: %s</string>
   <string name="newClass">Nová třída</string>
   <string name="closeClass">Zavřít třídu</string>
+  <string name="removedByX">Odstraněno uživatelem %s</string>
   <string name="reopen">Znovu otevřít</string>
   <string name="removeStudent">Odstranit studenta</string>
   <string name="removedStudents">Odstraněno</string>
@@ -94,6 +95,9 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="variantXOverLastY">%1$s za posledních %2$s</string>
   <string name="winrate">Podíl výher</string>
   <string name="na">N/A</string>
+  <string name="overview">Shrnutí</string>
+  <string name="news">Novinky</string>
+  <string name="classNews">Novinky třídy</string>
   <string name="editNews">Upravit novinky</string>
   <string name="notifyAllStudents">Upozornit všechny studenty</string>
   <string name="nothingHere">Zatím zde nic není.</string>
@@ -101,4 +105,19 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="newsEdit2">Přidejte poslední novinky nahoru. Neodstraňujte předchozí novinky.</string>
   <string name="newsEdit3">Oddělte zprávy ---
 Zobrazí se vodorovná čára.</string>
+  <string name="invite">Pozvat</string>
+  <string name="youHaveBeenInvitedByX">Byli jste pozváni uživatelem %s.</string>
+  <string name="youAcceptedThisInvitation">Přijali jste pozvánku.</string>
+  <string name="youDeclinedThisInvitation">Odmítli jste pozvánku.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">nebo</string>
+  <string name="createMultipleAccounts">Vytvořit více Lichess účtů najednou</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Můžete také %s a vytvořit více Lichess účtů ze seznamu jmen studentů.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">použít tento formulář</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Všimněte si, že třída může mít až %1$s studentů. Chcete-li spravovat více studentů, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">vytvořit více tříd</string>
+  <string name="studentsRealNamesOnePerLine">Skutečná jména studentů, jedno na řádek</string>
+  <string name="xisNowAStudentOfTheClass">%s je nyní student třídy</string>
+  <string name="anInvitationHasBeenSentToX">Pozvánka byla odeslána uživateli %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s již má pozvánku</string>
+  <string name="xIsAKidAccountWarning">%1$s je dětský účet a nemůže přijmout tvojí zprávu. Musíš mu dát URL adresu pozvánky sám:%2$s</string>
 </resources>

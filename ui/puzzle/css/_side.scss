@@ -22,7 +22,7 @@
 
       &::before {
         font-size: 3rem;
-        margin-right: 1vw;
+        margin-#{$end-direction}: 1vw;
       }
 
       &.puzzle {
@@ -46,8 +46,8 @@
 
     &__rating {
       strong {
-        display: block;
-        text-align: center;
+        @extend %flex-center;
+        justify-content: center;
         font-size: 3.5em;
       }
       &__casual {
@@ -59,7 +59,7 @@
 
     .rp {
       font-size: 1.3rem;
-      margin-left: 1ch;
+      margin-#{$start-direction}: 1ch;
 
       &.up {
         color: $c-good;
@@ -108,7 +108,7 @@
       @extend %flex-center-nowrap;
 
       .switch {
-        margin-right: 1em;
+        margin-#{$end-direction}: 1em;
       }
 
       label {
@@ -120,7 +120,7 @@
       margin-top: 2vmin;
 
       label {
-        margin-right: 1em;
+        margin-#{$end-direction}: 1em;
       }
 
       select {
@@ -131,6 +131,32 @@
     &__toggles {
       @extend %flex-between;
       margin-top: 2vmin;
+    }
+
+    &__color {
+      margin-top: 1.5vh;
+      i {
+        display: block;
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
+        background-repeat: no-repeat;
+        padding: 0;
+      }
+      .color-white i {
+        background-image: url(../piece/cburnett/wK.svg);
+      }
+
+      .color-random i {
+        background-image: url(../images/wbK.svg);
+      }
+
+      .color-black i {
+        background-image: url(../piece/cburnett/bK.svg);
+      }
+      .label.active {
+        background: mix($c-bg-box, $c-primary, 50%);
+      }
     }
   }
 
@@ -166,7 +192,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 0;
+        #{$start-direction}: 0;
         width: var(--p);
         background: mix($c-bg-page, $c-primary, 40%)
           linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
@@ -193,6 +219,18 @@
       font-size: 1.5em;
       margin-bottom: 0.6rem;
       text-transform: uppercase;
+      &.long {
+        font-size: 1.3em;
+        letter-spacing: 0px;
+      }
+    }
+
+    &--daily {
+      outline: 3px solid mix($c-bg-page, $c-good, 50%);
+      h2 {
+        margin: 0;
+        text-align: center;
+      }
     }
   }
 }
@@ -207,10 +245,10 @@
       @extend %flex-between;
 
       align-items: stretch;
-      margin-left: -0.5rem;
+      margin-#{$start-direction}: -0.5rem;
 
       a {
-        margin-left: 0.5rem;
+        margin-#{$start-direction}: 0.5rem;
         line-height: 2em;
       }
 

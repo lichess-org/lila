@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Предпочитания</string>
-  <string name="gameDisplay">Проява</string>
+  <string name="notifications">Известия</string>
   <string name="pieceAnimation">Движение на фигурите</string>
   <string name="materialDifference">Разлика в притежанието</string>
   <string name="boardHighlights">Осветяване на дъската (последен ход и шах)</string>
@@ -13,7 +13,7 @@
   <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Режим Zen</string>
   <string name="showPlayerRatings">Показване на рейтинга на играчите</string>
-  <string name="explainShowPlayerRatings">Това позволява скриването на всички рейтинги от уебсайта за да можете да се фокусирате само на шахмата. Игрите все още може да са с рейтинг; тази настройка променя само това което виждате.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Това позволява скриването на всички рейтинги от уебсайта за да можете да се фокусирате само на шахмата. Игрите все още може да са с рейтинг; тази настройка променя само това което виждате.</string>
   <string name="displayBoardResizeHandle">Показване на инструмента за промяна на размера на дъската</string>
   <string name="onlyOnInitialPosition">Само в началната позиция</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
@@ -49,4 +49,16 @@
   <string name="yourPreferencesHaveBeenSaved">Вашите предпочитания бяха записани.</string>
   <string name="scrollOnTheBoardToReplayMoves">За да прегледате ходовете, превъртете колелцето на мишката над дъската</string>
   <string name="correspondenceEmailNotification">Ежедневен имейл със списък на Вашите кореспондентски игри</string>
+  <string name="notifyStreamStart">Стриймър започва да излъчва</string>
+  <string name="notifyInboxMsg">Ново входящо съобщение</string>
+  <string name="notifyForumMention">Споменати сте във форум</string>
+  <string name="notifyInvitedStudy">Покана към казус</string>
+  <string name="notifyGameEvent">Известия от кореспондентски игри</string>
+  <string name="notifyChallenge">Предизвикателства</string>
+  <string name="notifyTournamentSoon">Турнирът започва скоро</string>
+  <string name="notifyTimeAlarm">Времето в кореспондентска игра изтича</string>
+  <string name="notifyBell">Звукови известия в Lichess</string>
+  <string name="notifyPush">Получаване на известия на устойството Ви когато не сте в Lichess</string>
+  <string name="notifyWeb">Браузър</string>
+  <string name="notifyDevice">Устройство</string>
 </resources>

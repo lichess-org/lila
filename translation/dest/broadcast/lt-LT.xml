@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Dabartinio raundo adresas</string>
   <string name="currentGameUrl">Dabartinio žaidimo adresas</string>
   <string name="downloadAllRounds">Atsisiųsti visus raundus</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Užtikrintai ištrinti raundą ir jo partijas.</string>
+  <string name="deleteAllGamesOfThisRound">Ištrinti visas partijas šiame raunde. Norint jas perkurti reikės aktyvaus šaltinio.</string>
 </resources>

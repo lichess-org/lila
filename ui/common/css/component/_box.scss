@@ -12,58 +12,30 @@ $vp-max-width: 1200px;
     @extend %box-padding;
 
     .box__top {
-      padding: 0 0 var(--box-padding) 0;
-      h1 {
-        margin-top: 0;
-      }
+      padding: 0 0 $box-padding-vert 0;
     }
   }
 
   &__top {
-    @extend %flex-between;
-
-    padding: calc(5vh - 1rem) var(--box-padding);
-
-    h1 {
-      margin: 0;
-    }
-
-    /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-    > h1,
-    > div,
-    > form {
-      margin-top: 1rem;
-    }
-
-    /* end of flex gutter hack */
+    @extend %box-padding, %flex-between;
+    gap: 1rem;
 
     &__actions {
       @extend %flex-wrap;
-
-      /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-      margin-left: -1rem;
-
-      > * {
-        margin-left: 1rem;
-      }
-
-      /* end of flex gutter hack */
 
       .button {
         @extend %flex-center;
       }
 
       > :not(:first-child) {
-        margin-left: 1rem;
+        margin-#{$start-direction}: 1rem;
       }
     }
   }
 
-  &:not(.box-pad) > h1 {
-    @extend %box-padding;
-
-    margin: 0;
-  }
+  // &:not(.box-pad) > h1 {
+  //   @extend %box-padding;
+  // }
 
   &__pad {
     @extend %box-padding-horiz;

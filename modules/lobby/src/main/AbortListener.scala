@@ -7,7 +7,7 @@ final private class AbortListener(
     gameRepo: lila.game.GameRepo,
     seekApi: SeekApi,
     lobbyActor: LobbySyncActor
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
   def apply(pov: Pov): Funit =
     (pov.game.isCorrespondence ?? recreateSeek(pov)) >>-
@@ -18,21 +18,18 @@ final private class AbortListener(
     if (
       pov.game.source
         .exists(s => s == Source.Lobby || s == Source.Pool) && !gameRepo.fixedColorLobbyCache.get(pov.game.id)
-    ) pov.game.userIds match {
+    ) pov.game.userIds match
       case List(u1, u2) =>
         userRepo.incColor(u1, -1)
         userRepo.incColor(u2, 1)
       case _ =>
-    }
 
   private def recreateSeek(pov: Pov): Funit =
     pov.player.userId ?? { aborterId =>
-      seekApi.findArchived(pov.gameId) flatMap {
-        _ ?? { seek =>
-          (seek.user.id != aborterId) ?? {
-            worthRecreating(seek) flatMap {
-              _ ?? seekApi.insert(Seek renew seek)
-            }
+      seekApi.findArchived(pov.gameId) flatMapz { seek =>
+        (seek.user.id != aborterId) ?? {
+          worthRecreating(seek) flatMapz {
+            seekApi.insert(Seek renew seek)
           }
         }
       }
@@ -41,7 +38,6 @@ final private class AbortListener(
   private def worthRecreating(seek: Seek): Fu[Boolean] =
     userRepo byId seek.user.id map {
       _ exists { u =>
-        u.enabled && !u.lame
+        u.enabled.yes && !u.lame
       }
     }
-}

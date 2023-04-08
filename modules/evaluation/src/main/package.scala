@@ -1,3 +1,3 @@
-package lila
+package lila.evaluation
 
-package object evaluation extends PackageObject
+export lila.Lila.{ *, given }

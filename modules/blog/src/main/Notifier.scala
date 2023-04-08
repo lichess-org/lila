@@ -8,7 +8,7 @@ import lila.timeline.EntryApi
 final private[blog] class Notifier(
     blogApi: BlogApi,
     timelineApi: EntryApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(using Executor):
 
   def apply(id: String): Funit =
     blogApi.prismicApi flatMap { prismicApi =>
@@ -22,4 +22,3 @@ final private[blog] class Notifier(
         BlogPost(id = post.id, slug = post.slug, title = title)
       }
     }
-}

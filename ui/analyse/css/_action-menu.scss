@@ -29,11 +29,11 @@
     }
 
     &:before {
-      right: 8px;
+      #{$end-direction}: 8px;
     }
 
     &:after {
-      left: 8px;
+      #{$start-direction}: 8px;
     }
   }
 
@@ -90,9 +90,10 @@
   }
 
   .setting {
+    @extend %flex-center-nowrap;
+
     flex: 0 0 auto;
     margin-top: $block-gap;
-    display: flex;
 
     label {
       flex: 4 1 auto;
@@ -100,19 +101,20 @@
       white-space: nowrap;
     }
 
+    .switch + label {
+      margin-#{$start-direction}: 1ch;
+    }
+
     input[type='range'] {
       flex: 1 4 auto;
-      padding: 0 0 0 1em;
+      padding: 0;
       height: 1.6em;
       width: 100%;
       margin: 0 1ch;
-
-      &[min='0'] {
-        padding: 0;
-      }
     }
 
     .range_value {
+      direction: ltr;
       flex: 0 0 auto;
       display: block;
       text-align: right;

@@ -1,6 +1,8 @@
 package lila.app
 package mashup
 
+import concurrent.duration.DurationInt
+
 import lila.forum.MiniForumPost
 import lila.team.{ Request, RequestRepo, RequestWithUser, Team, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
@@ -17,27 +19,28 @@ case class TeamInfo(
     forum: Option[List[MiniForumPost]],
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul]
-) {
+):
 
   def hasRequests = requests.nonEmpty
 
   def userIds = forum.??(_.flatMap(_.userId))
-}
 
-object TeamInfo {
-  case class AnyTour(any: Either[Tournament, Swiss]) extends AnyVal {
-    def isEnterable = any.fold(_.isEnterable, _.isEnterable)
-    def startsAt    = any.fold(_.startsAt, _.startsAt)
-    def isNowOrSoon = any.fold(_.isNowOrSoon, _.isNowOrSoon)
-    def nbPlayers   = any.fold(_.nbPlayers, _.nbPlayers)
-  }
-  def anyTour(tour: Tournament) = AnyTour(Left(tour))
-  def anyTour(swiss: Swiss)     = AnyTour(Right(swiss))
+object TeamInfo:
+  val pmAllCost    = 5
+  val pmAllCredits = 7
+  val pmAllDays    = 7
+  opaque type AnyTour = Either[Tournament, Swiss]
+  object AnyTour extends TotalWrapper[AnyTour, Either[Tournament, Swiss]]:
+    extension (e: AnyTour)
+      def isEnterable = e.fold(_.isEnterable, _.isEnterable)
+      def startsAt    = e.fold(_.startsAt, _.startsAt)
+      def isNowOrSoon = e.fold(_.isNowOrSoon, _.isNowOrSoon)
+      def nbPlayers   = e.fold(_.nbPlayers, _.nbPlayers)
+    def apply(tour: Tournament): AnyTour = Left(tour)
+    def apply(swiss: Swiss): AnyTour     = Right(swiss)
 
-  case class PastAndNext(past: List[AnyTour], next: List[AnyTour]) {
+  case class PastAndNext(past: List[AnyTour], next: List[AnyTour]):
     def nonEmpty = past.nonEmpty || next.nonEmpty
-  }
-}
 
 final class TeamInfoApi(
     api: TeamApi,
@@ -45,10 +48,21 @@ final class TeamInfoApi(
     tourApi: TournamentApi,
     swissApi: SwissApi,
     simulApi: SimulApi,
-    requestRepo: RequestRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    requestRepo: RequestRepo,
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi
+)(using Executor):
 
-  import TeamInfo._
+  import TeamInfo.*
+
+  lazy val pmAllLimiter = mongoRateLimitApi[TeamId](
+    "team.pm.all",
+    credits = pmAllCredits * pmAllCost,
+    duration = pmAllDays.days
+  )
+  def pmAllStatus(id: TeamId): Fu[(Int, DateTime)] =
+    pmAllLimiter.getSpent(id) map { entry =>
+      (pmAllCredits - entry.v / pmAllCost, entry.until)
+    }
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
     for {
@@ -75,11 +89,10 @@ final class TeamInfoApi(
       case (tours, swisses) =>
         PastAndNext(
           past = {
-            tours.past.map(anyTour) ::: swisses.past.map(anyTour)
+            tours.past.map(AnyTour(_)) ::: swisses.past.map(AnyTour(_))
           }.sortBy(-_.startsAt.getSeconds),
           next = {
-            tours.next.map(anyTour) ::: swisses.next.map(anyTour)
+            tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
           }.sortBy(_.startsAt.getSeconds)
         )
     }
-}

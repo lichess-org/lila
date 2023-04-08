@@ -1,20 +1,18 @@
 package lila.common
 
-import scala.concurrent.duration._
-import scala.concurrent.Promise
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.{ ActorRef, Scheduler }
 
-object Bus {
+object Bus:
 
-  case class Event(payload: Any, channel: String)
+  case class Event(payload: Matchable, channel: String)
   type Channel    = String
   type Subscriber = Tellable
 
-  def publish(payload: Any, channel: Channel): Unit = bus.publish(payload, channel)
+  def publish(payload: Matchable, channel: Channel): Unit = bus.publish(payload, channel)
 
-  def subscribe = bus.subscribe _
+  def subscribe = bus.subscribe
 
   def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable.Actor(ref), to)
 
@@ -22,18 +20,17 @@ object Bus {
   def subscribe(ref: ActorRef, to: Channel*)          = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
   def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
 
-  def subscribeFun(to: Channel*)(f: PartialFunction[Any, Unit]): Tellable = {
+  def subscribeFun(to: Channel*)(f: PartialFunction[Matchable, Unit]): Tellable =
     val t = lila.common.Tellable(f)
-    subscribe(t, to: _*)
+    subscribe(t, to*)
     t
-  }
 
-  def subscribeFuns(subscriptions: (Channel, PartialFunction[Any, Unit])*): Unit =
+  def subscribeFuns(subscriptions: (Channel, PartialFunction[Matchable, Unit])*): Unit =
     subscriptions foreach { case (channel, subscriber) =>
       subscribeFun(channel)(subscriber)
     }
 
-  def unsubscribe                               = bus.unsubscribe _
+  def unsubscribe                               = bus.unsubscribe
   def unsubscribe(ref: ActorRef, from: Channel) = bus.unsubscribe(Tellable.Actor(ref), from)
 
   def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) =
@@ -45,35 +42,29 @@ object Bus {
       bus.unsubscribe(Tellable.Actor(ref), _)
     }
 
-  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Any)(implicit
-      ec: scala.concurrent.ExecutionContext,
-      system: ActorSystem
-  ): Fu[A] = {
+  import lila.Lila.Executor
+  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Matchable)(using
+      ec: Executor,
+      scheduler: Scheduler
+  ): Fu[A] =
     val promise = Promise[A]()
     val msg     = makeMsg(promise)
     publish(msg, channel)
     promise.future
-      .withTimeout(
-        timeout,
-        Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
-      )
+      .withTimeout(timeout, s"Bus.ask $channel $msg")
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
-  }
 
-  private val bus = new EventBus[Any, Channel, Tellable](
+  private val bus = new EventBus[Matchable, Channel, Tellable](
     initialCapacity = 4096,
     publish = (tellable, event) => tellable ! event
   )
 
   def size = bus.size
 
-  case class AskTimeout(message: String) extends lila.base.LilaException
-}
-
 final private class EventBus[Event, Channel, Subscriber](
     initialCapacity: Int,
     publish: (Subscriber, Event) => Unit
-) {
+):
 
   import java.util.concurrent.ConcurrentHashMap
 
@@ -109,4 +100,3 @@ final private class EventBus[Event, Channel, Subscriber](
     }
 
   def size = entries.size
-}

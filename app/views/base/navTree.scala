@@ -2,31 +2,30 @@ package views.html
 package base
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.given
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
-object navTree {
+object navTree:
 
-  sealed trait Node {
+  enum Node:
     val id: String
     val name: Frag
-  }
-  case class Branch(id: String, name: Frag, children: List[Node], content: Option[Frag] = None) extends Node
-  case class Leaf(id: String, name: Frag, content: Frag)                                        extends Node
+    case Branch(id: String, name: Frag, children: List[Node], content: Option[Frag] = None)
+    case Leaf(id: String, name: Frag, content: Frag)
 
-  def renderNode(node: Node, parent: Option[Node])(implicit ctx: Context): Frag =
-    node match {
-      case Leaf(id, name, content) =>
+  def renderNode(node: Node, parent: Option[Node], forceLtr: Boolean = false)(implicit ctx: Context): Frag =
+    node match
+      case Node.Leaf(id, name, content) =>
         List(
           div(makeId(id), cls := "node leaf")(
-            h2(parent map goBack, name),
+            h2(parent.map(goBack(_, forceLtr)), name),
             div(cls := "content")(content)
           )
         )
-      case b @ Branch(id, name, children, content) =>
+      case b @ Node.Branch(id, name, children, content) =>
         frag(
           div(makeId(id), cls := s"node branch $id")(
-            h2(parent map goBack, name),
+            h2(parent.map(goBack(_, forceLtr)), name),
             content map { div(cls := "content")(_) },
             div(cls := "links")(
               children map { child =>
@@ -34,14 +33,17 @@ object navTree {
               }
             )
           ),
-          children map { renderNode(_, b.some) }
+          children map { renderNode(_, b.some, forceLtr) }
         )
-    }
 
   private def makeId(id: String) = st.id := s"help-$id"
 
   private def makeLink(id: String) = href := s"#help-$id"
 
-  private def goBack(parent: Node): Frag =
-    a(makeLink(parent.id), cls := "back", dataIcon := "", title := "Go back")
-}
+  private def goBack(parent: Node, forceLtr: Boolean): Frag =
+    a(
+      makeLink(parent.id),
+      cls      := List("back" -> true, "no-mirror" -> forceLtr),
+      dataIcon := "",
+      title    := "Go back"
+    )

@@ -2,11 +2,11 @@ package lila.app
 package http
 
 import akka.stream.Materializer
-import play.api.mvc._
+import play.api.mvc.*
 
 import lila.common.HTTPRequest
 
-final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter {
+final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
 
   private val httpMon     = lila.mon.http
   private val net         = env.net
@@ -14,13 +14,14 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
   private val logRequests = env.config.get[Boolean]("net.http.log")
 
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
-    if (HTTPRequest isAssets req) nextFilter(req) dmap { result =>
-      result.withHeaders(
-        "Service-Worker-Allowed"       -> "/",
-        "Cross-Origin-Embedder-Policy" -> "require-corp"
-      )
-    }
-    else {
+    if (HTTPRequest isAssets req)
+      nextFilter(req) dmap { result =>
+        result.withHeaders(
+          "Service-Worker-Allowed"       -> "/",
+          "Cross-Origin-Embedder-Policy" -> "require-corp" // for Stockfish worker
+        )
+      }
+    else
       val startTime = nowMillis
       redirectWrongDomain(req) map fuccess getOrElse {
         nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
@@ -28,16 +29,14 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
           result
         }
       }
-    }
 
-  private def monitoring(req: RequestHeader, startTime: Long, result: Result) = {
+  private def monitoring(req: RequestHeader, startTime: Long, result: Result) =
     val actionName = HTTPRequest actionName req
     val reqTime    = nowMillis - startTime
     val statusCode = result.header.status
     val client     = HTTPRequest clientName req
     httpMon.time(actionName, client, req.method, statusCode).record(reqTime)
     if (logRequests) logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
-  }
 
   private def redirectWrongDomain(req: RequestHeader): Option[Result] =
     (
@@ -50,7 +49,6 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
 
   private def addApiResponseHeaders(req: RequestHeader)(result: Result) =
     if (HTTPRequest.isApiOrApp(req))
-      result.withHeaders(ResponseHeaders.headersForApiOrApp(req): _*)
+      result.withHeaders(ResponseHeaders.headersForApiOrApp(req)*)
     else
       result
-}

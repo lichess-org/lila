@@ -1,12 +1,13 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
+import ornicar.scalalib.ThreadLocalRandom
 
-import chess.format.{ FEN, Uci }
+import chess.Ply
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import lila.common.IpAddress
 
-sealed trait Work {
+sealed trait Work:
   def _id: Work.Id
   def game: Work.Game
   def tries: Int
@@ -16,7 +17,7 @@ sealed trait Work {
 
   def skill: Client.Skill
 
-  def id = _id
+  inline def id = _id
 
   def acquiredAt                   = acquired.map(_.date)
   def acquiredByKey                = acquired.map(_.clientKey)
@@ -26,47 +27,42 @@ sealed trait Work {
   def canAcquire(client: Client)   = lastTryByKey.fold(true)(client.key !=)
 
   def acquiredBefore(date: DateTime) = acquiredAt.??(_ isBefore date)
-}
 
-object Work {
+object Work:
 
-  case class Id(value: String) extends AnyVal with StringValue
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   case class Acquired(
       clientKey: Client.Key,
-      userId: Client.UserId,
+      userId: UserId,
       date: DateTime
-  ) {
-
-    def ageInMillis = nowMillis - date.getMillis
-
+  ):
+    def ageInMillis       = nowMillis - date.getMillis
     override def toString = s"by $userId at $date"
-  }
 
   private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
-      initialFen: Option[FEN],
-      studyId: Option[String],
+      initialFen: Option[Fen.Epd],
+      studyId: Option[StudyId],
       variant: Variant,
       moves: String
-  ) {
+  ):
 
     def uciList: List[Uci] = ~(Uci readList moves)
-  }
 
   case class Sender(
-      userId: lila.user.User.ID,
+      userId: UserId,
       ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean
-  ) {
+  ):
 
     override def toString =
-      if (system) lila.user.User.lichessId
-      else userId
-  }
+      if (system) lila.user.User.lichessId.value
+      else userId.value
 
-  case class Clock(wtime: Int, btime: Int, inc: Int)
+  case class Clock(wtime: Int, btime: Int, inc: chess.Clock.IncrementSeconds)
 
   case class Move(
       _id: Work.Id, // random
@@ -79,13 +75,13 @@ object Work {
       _id: Work.Id, // random
       sender: Sender,
       game: Game,
-      startPly: Int,
+      startPly: Ply,
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
       skipPositions: List[Int],
       createdAt: DateTime
-  ) extends Work {
+  ) extends Work:
 
     def skill = Client.Skill.Analysis
 
@@ -94,7 +90,7 @@ object Work {
         acquired = Acquired(
           clientKey = client.key,
           userId = client.userId,
-          date = DateTime.now
+          date = nowDate
         ).some,
         lastTryByKey = client.key.some,
         tries = tries + 1
@@ -111,7 +107,5 @@ object Work {
 
     override def toString =
       s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"
-  }
 
-  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
-}
+  def makeId = Id(ThreadLocalRandom nextString 8)

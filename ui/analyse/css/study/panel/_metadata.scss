@@ -16,6 +16,7 @@
       @extend %ellipsis;
 
       padding: 0.7rem 0;
+      unicode-bidi: plaintext;
     }
 
     .credit {
@@ -25,7 +26,7 @@
     }
 
     .liking {
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
       font-weight: bold;
       cursor: pointer;
       opacity: 0.7;
@@ -46,7 +47,7 @@
     font-weight: bold;
     color: $c-font-dim;
     width: 1px;
-    padding: 0 0.3em 0 1em !important;
+    @include padding-direction(0, 0.3em, 0, 1em, true);
   }
 
   td {
@@ -56,7 +57,7 @@
   input,
   span {
     display: block;
-    padding: 0.6em 1em 0.6em 0.7em;
+    @include padding-direction(0.6em, 1em, 0.6em, 0.7em);
     line-height: 1.7;
   }
 
@@ -90,6 +91,7 @@
     background: mix($c-primary, $c-bg-box, 17%);
     padding: 0.2em 0.6em;
     margin: 0.2em;
+    unicode-bidi: plaintext;
   }
 
   .manage {

@@ -1,12 +1,13 @@
 package lila.relay
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.duration._
 
-import lila.common.config._
+import lila.common.config.*
 
+@Module
+@annotation.nowarn("msg=unused")
 final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
@@ -21,10 +22,12 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     irc: lila.irc.IrcApi,
     baseUrl: BaseUrl
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
+)(using
+    ec: Executor,
+    system: ActorSystem,
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   lazy val roundForm = wire[RelayRoundForm]
 
@@ -33,6 +36,8 @@ final class Env(
   private lazy val roundRepo = new RelayRoundRepo(db(CollName("relay")))
 
   private lazy val tourRepo = new RelayTourRepo(db(CollName("relay_tour")))
+
+  private lazy val leaderboard = wire[RelayLeaderboardApi]
 
   lazy val jsonView = wire[JsonView]
 
@@ -50,20 +55,24 @@ final class Env(
 
   private lazy val formatApi = wire[RelayFormatApi]
 
-  system.actorOf(Props(wire[RelayFetch]))
+  // start the sync scheduler
+  wire[RelayFetch]
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     api.autoStart >> api.autoFinishNotSyncing
     ()
   }
 
-  lila.common.Bus.subscribeFun("study", "relayToggle") {
-    case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId).unit
-    case lila.study.actorApi.RelayToggle(id, v, who) =>
+  lila.common.Bus.subscribeFuns(
+    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId, _) =>
+      api.onStudyRemove(studyId).unit
+    },
+    "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {
-        _ ?? {
-          api.requestPlay(RelayRound.Id(id.value), v)
-        }
+        _ ?? api.requestPlay(id into RelayRoundId, v)
       }
-  }
-}
+    },
+    "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
+      promise completeWith api.officialActive.get({}).map(_.exists(_.round.studyId == studyId))
+    }
+  )

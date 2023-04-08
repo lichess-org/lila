@@ -1,29 +1,27 @@
 package lila.event
 
-import org.joda.time.DateTime
 import play.api.i18n.Lang
-
-import lila.user.User
+import ornicar.scalalib.ThreadLocalRandom
 
 case class Event(
     _id: String,
     title: String,
     headline: String,
-    description: Option[String],
+    description: Option[Markdown],
     homepageHours: Double,
     url: String,
     lang: Lang,
     enabled: Boolean,
-    createdBy: Event.UserId,
+    createdBy: UserId,
     createdAt: DateTime,
-    updatedBy: Option[Event.UserId],
+    updatedBy: Option[UserId],
     updatedAt: Option[DateTime],
     startsAt: DateTime,
     finishesAt: DateTime,
-    hostedBy: Option[User.ID] = None,
+    hostedBy: Option[UserId] = None,
     icon: Option[String] = None,
     countdown: Boolean
-) {
+):
 
   def willStartLater = startsAt.isAfterNow
 
@@ -36,20 +34,16 @@ case class Event(
 
   def featureNow = featureSince.isBeforeNow && !isFinishedSoon
 
-  def isFinishedSoon = finishesAt.isBefore(DateTime.now plusMinutes 5)
+  def isFinishedSoon = finishesAt.isBefore(nowDate plusMinutes 5)
 
   def isFinished = finishesAt.isBeforeNow
 
   def isNow = startsAt.isBeforeNow && !isFinished
 
-  def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 10) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowDate plusMinutes 10) && !isFinished
 
-  def id = _id
-}
+  inline def id = _id
 
-object Event {
+object Event:
 
-  def makeId = lila.common.ThreadLocalRandom nextString 8
-
-  case class UserId(value: String) extends AnyVal
-}
+  def makeId = ThreadLocalRandom nextString 8

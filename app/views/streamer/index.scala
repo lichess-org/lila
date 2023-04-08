@@ -3,33 +3,32 @@ package views.html.streamer
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.paginator.Paginator
 
-object index {
+object index:
 
-  import trans.streamer._
+  import trans.streamer.*
 
   private val dataDedup = attr("data-dedup")
 
   def apply(
       live: List[lila.streamer.Streamer.WithUserAndStream],
-      pager: Paginator[lila.streamer.Streamer.WithUser],
+      pager: Paginator[lila.streamer.Streamer.WithContext],
       requests: Boolean
-  )(implicit ctx: Context) = {
+  )(using ctx: Context) =
 
     val title = if (requests) "Streamer approval requests" else lichessStreamers.txt()
 
-    def widget(s: lila.streamer.Streamer.WithUser, stream: Option[lila.streamer.Stream]) =
+    def widget(s: lila.streamer.Streamer.WithContext, stream: Option[lila.streamer.Stream]) =
       frag(
         if (requests) a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
-        else
-          bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
-        stream.isDefined option span(cls := "ribbon")(span(trans.streamer.live())),
+        else bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
+        stream.isDefined option span(cls := "live-ribbon")(span(trans.streamer.live())),
         picture.thumbnail(s.streamer, s.user),
         div(cls := "overview")(
-          h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
+          bits.streamerTitle(s),
           s.streamer.headline.map(_.value).map { d =>
             p(
               cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}"
@@ -46,7 +45,7 @@ object index {
           div(cls := "ats")(
             stream.map { s =>
               p(cls := "at")(
-                currentlyStreaming(strong(s.status))
+                currentlyStreaming(strong(s.cleanStatus))
               )
             } getOrElse frag(
               p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
@@ -54,25 +53,26 @@ object index {
                 p(cls := "at")(lastStream(momentFromNow(liveAt)))
               }
             )
-          )
+          ),
+          !requests option bits.subscribeButtonFor(s)
         )
       )
 
     views.html.base.layout(
       title = title,
       moreCss = cssTag("streamer.list"),
-      moreJs = infiniteScrollTag
+      moreJs = frag(infiniteScrollTag, jsModule("streamer"))
     ) {
       main(cls := "page-menu")(
         bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
-          h1(dataIcon := "", cls := "text")(title),
-          !requests option div(cls := "list live")(
+          boxTop(h1(dataIcon := "", cls := "text")(title)),
+          !requests option div(cls := "list force-ltr live")(
             live.map { s =>
-              st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
+              st.article(cls := "streamer")(widget(s, s.stream))
             }
           ),
-          div(cls := "list infinite-scroll")(
+          div(cls := "list force-ltr infinite-scroll")(
             (live.size % 2 == 1) option div(cls := "none"),
             pager.currentPageResults.map { s =>
               st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
@@ -80,15 +80,15 @@ object index {
             pagerNext(
               pager,
               np =>
-                addQueryParameter(
-                  addQueryParameter(routes.Streamer.index().url, "page", np),
-                  "requests",
-                  if (requests) 1 else 0
+                addQueryParams(
+                  routes.Streamer.index().url,
+                  Map(
+                    "page"     -> np.toString,
+                    "requests" -> (if requests then 1 else 0).toString
+                  )
                 )
             )
           )
         )
       )
     }
-  }
-}

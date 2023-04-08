@@ -2,17 +2,20 @@ import { attributesModule, classModule, init } from 'snabbdom';
 
 import Ctrl from './ctrl';
 import { Env } from './interfaces';
-import view from './view';
+import { view } from './view';
+import { registerMultipleSelect } from './multiple-select';
 
 const patch = init([classModule, attributesModule]);
 
-export default function (element: Element, opts: Env) {
+registerMultipleSelect();
+
+export default (window as any).LichessInsight = function (element: Element, opts: Env) {
   const ctrl = new Ctrl(opts, element, redraw);
 
   const blueprint = view(ctrl);
   let vnode = patch(element, blueprint);
 
-  // Wait until vnode has been intialized to call askQuestion because
+  // Wait until vnode has been initialized to call askQuestion because
   // askQuestion can call redraw
   ctrl.askQuestion();
 
@@ -21,4 +24,4 @@ export default function (element: Element, opts: Env) {
   }
 
   return ctrl;
-}
+};

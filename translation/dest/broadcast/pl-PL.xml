@@ -13,7 +13,7 @@
   <string name="tournamentDescription">Krótki opis turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
-  <string name="sourceUrlOrGameIds">Źródłowy URL, lub ID\'y gier</string>
+  <string name="sourceUrlOrGameIds">Źródłowy URL lub lista ID partii</string>
   <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="gameIdsHelp">Alternatywnie, możesz wprowadzić do 64 ID\'ów gier Lichess, oddzielonych spacjami.</string>
   <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>
@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Adres URL bieżącej rundy</string>
   <string name="currentGameUrl">Adres URL bieżącej partii</string>
   <string name="downloadAllRounds">Pobierz wszystkie rundy</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Ostatecznie usuń rundę i jej wszystkie partie.</string>
+  <string name="deleteAllGamesOfThisRound">Usuń wszystkie partie w tej rundzie. Źródło będzie musiało być aktywne, aby je odtworzyć.</string>
 </resources>

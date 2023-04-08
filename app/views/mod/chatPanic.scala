@@ -1,14 +1,14 @@
 package views.html.mod
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.*
 
 import controllers.routes
 
-object chatPanic {
+object chatPanic:
 
-  def apply(state: Option[org.joda.time.DateTime])(implicit ctx: Context) = {
+  def apply(state: Option[DateTime])(using Context) =
     val title = "Chat Panic"
     views.html.base.layout(
       title = title,
@@ -17,7 +17,7 @@ object chatPanic {
       main(cls := "page-menu")(
         views.html.mod.menu("panic"),
         div(id := "chat-panic", cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(cls := "box__top")(title),
           p(
             "When Chat Panic is enabled, restrictions apply to public chats (tournament, simul) and PM",
             br,
@@ -53,5 +53,3 @@ object chatPanic {
         )
       )
     }
-  }
-}

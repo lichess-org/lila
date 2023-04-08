@@ -15,7 +15,7 @@
   .meta {
     span {
       display: inline-block;
-      margin-right: 2em;
+      margin-#{$end-direction}: 2em;
     }
 
     margin-bottom: 1.4rem;
@@ -52,6 +52,7 @@
   [data-oembed] iframe {
     max-width: calc(100vw - 2 * var(--box-padding)) !important;
     margin: 30px auto !important;
+    color-scheme: normal;
   }
 
   &.post.no-icon .illustration {
@@ -132,11 +133,11 @@
     .embed {
       @extend %video;
 
-      &--game {
-        @extend %game-embed;
-      }
-
       margin: $block-gap auto;
+
+      &--study {
+        @extend %study-embed;
+      }
     }
   }
 
@@ -222,8 +223,6 @@
 }
 
 .blog-cards {
-  @extend %box-padding;
-
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
   grid-gap: 3vmin;

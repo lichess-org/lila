@@ -1,6 +1,5 @@
-package lila
+package lila.streamer
 
-package object streamer extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[streamer] def logger = lila.log("streamer")
-}
+private val logger = lila.log("streamer")

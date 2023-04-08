@@ -1,12 +1,12 @@
-import { prop, Prop } from 'common';
-import { textRaw as xhrTextRaw } from 'common/xhr';
-import { bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
 import { AnalyseSocketSend } from '../socket';
-import { iconTag, scrollTo, titleNameToId } from '../util';
-import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
+import { h, VNode } from 'snabbdom';
+import { iconTag, bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
 import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';
+import { prop, Prop, scrollTo } from 'common';
+import { titleNameToId } from '../view/util';
+import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
+import { textRaw as xhrTextRaw } from 'common/xhr';
 
 export interface StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
@@ -62,22 +62,13 @@ export function ctrl(opts: Opts): StudyMemberCtrl {
   let spectatorIds: string[] = [];
   const max = 30;
 
-  function owner() {
-    return dict()[opts.ownerId];
-  }
+  const owner = () => dict()[opts.ownerId];
 
-  function isOwner() {
-    return opts.myId === opts.ownerId || (opts.admin && canContribute());
-  }
+  const isOwner = () => opts.myId === opts.ownerId || (opts.admin && canContribute());
 
-  function myMember() {
-    return opts.myId ? dict()[opts.myId] : undefined;
-  }
+  const myMember = () => (opts.myId ? dict()[opts.myId] : undefined);
 
-  function canContribute(): boolean {
-    const m = myMember();
-    return !!m && m.role === 'w';
-  }
+  const canContribute = (): boolean => myMember()?.role === 'w';
 
   const inviteForm = inviteFormCtrl(opts.send, dict, () => opts.tab('members'), opts.redraw, opts.trans);
 
@@ -234,7 +225,7 @@ export function view(ctrl: StudyCtrl): VNode {
       'm-config',
       {
         key: member.user.id + '-config',
-        hook: onInsert(el => scrollTo($(el).parent('.members')[0] as HTMLElement, el)),
+        hook: onInsert(el => scrollTo($(el).parent('.study__members')[0] as HTMLElement, el)),
       },
       [
         h('div.role', [
@@ -301,7 +292,7 @@ export function view(ctrl: StudyCtrl): VNode {
             'div.add',
             {
               key: 'add',
-              hook: bind('click', members.inviteForm.toggle, ctrl.redraw),
+              hook: bind('click', members.inviteForm.toggle),
             },
             [h('div.left', [h('span.status', iconTag('')), h('div.user-link', ctrl.trans.noarg('addMembers'))])]
           )

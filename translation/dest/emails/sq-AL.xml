@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Ripohoni llogarinë tuaj në lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Që të aktivizoni llogarinë tuaj në Lichess, klikoni mbi lidhjen:</string>
-  <string name="emailConfirm_ignore">Nëse nuk jeni regjistruar me Lichess ju mund të injoroni këtë mesazh.</string>
+  <string name="emailConfirm_ignore">Nëse s’jeni regjistruar me Lichess, mund ta shpërfillni pa rrezik këtë mesazh.</string>
   <string name="passwordReset_subject">Rivendosni password-in tuaj në lichess.org. %s</string>
   <string name="passwordReset_intro">Morëm një kërkesë për ricaktim të fjalëkalimit për llogarinë tuaj.</string>
   <string name="passwordReset_clickOrIgnore">Nëse këtë kërkesë e bëtë ju, klikoni mbi lidhjen më poshtë. Nëse jo, mund ta shpërfillni këtë email.</string>

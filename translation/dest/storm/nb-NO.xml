@@ -52,6 +52,7 @@
   <string name="skipExplanation">Hopp over dette trekket for å bevare komboen din! Funker bare én gang for hvert løp.</string>
   <string name="failedPuzzles">Mislykkede sjakknøtter</string>
   <string name="slowPuzzles">Trege sjakknøtter</string>
+  <string name="skippedPuzzle">Sjakknøtt som ble hoppet over</string>
   <string name="thisWeek">Denne uken</string>
   <string name="thisMonth">Denne måneden</string>
   <string name="allTime">Noensinne</string>

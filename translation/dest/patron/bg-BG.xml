@@ -16,6 +16,7 @@
   <string name="thankYou">Благодарим Ви за дарението!</string>
   <string name="youHaveLifetime">Имате доживотен дарителски акаунт. Това е просто невероятно!</string>
   <string name="patronUntil">Имате дарителски акаунт до %s.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">Ако не бъде подновена, Вашата регистрация ще стане пак обикновена.</string>
   <string name="weAreNonProfit">Ние сме асоциация с нестопанска цел, защото вярваме че всеки трябва да има достъп до безплатна шахматна платформа на световно ниво.</string>
   <string name="weRelyOnSupport">Ние разчитаме на подкрепа от хора като вас за да направим това реалност. Ако се наслаждавате на Lichess, можете да ни подкрепите като станете Дарител!</string>
   <string name="lifetime">До живот</string>
@@ -28,6 +29,7 @@
   <string name="otherAmount">Друго</string>
   <string name="pleaseEnterAmountInX">Моля въведете сума в %s</string>
   <string name="withCreditCard">Кредитна карта</string>
+  <string name="logInToDonate">Влезте в профила си за да дарите</string>
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
   <string name="celebratedPatrons">Почетни Дарители, които правят Lichess възможен</string>
   <string name="whereMoneyGoes">Къде отиват парите от даренията?</string>
@@ -63,6 +65,7 @@
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Изберете колко ценен е Lichess за Вас:</string>
   <string name="stopPayments">Оттеглете кредитната си карта и спрете плащанията:</string>
+  <string name="stopPaymentsPayPal">Прекъсване на PayPal абонамента и спиране на плащанията:</string>
   <string name="noLongerSupport">Вече не подкрепям Lichess</string>
   <string name="viewOthers">Вижте другите Lichess Дарители</string>
   <string name="date">Дата</string>

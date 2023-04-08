@@ -20,7 +20,7 @@
   <string name="bodenMateDescription">To angribende løbere på krydsende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
-  <string name="capturingDefender">Tag forsvaren</string>
+  <string name="capturingDefender">Tag forsvareren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
@@ -55,7 +55,7 @@
   <string name="hookMateDescription">Skakmat med tårn, springer og bonde, som sammen med en fjendtlig bonde hindrer modstanderens konge i at undslippe.</string>
   <string name="interference">Obstruktion</string>
   <string name="interferenceDescription">Flytte en brik ind mellem to af modstanderens brikker, så den ene eller begge er uden forsvar, såsom en springer på et forsvaret felt mellem to tårne.</string>
-  <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzo">Mellemtræk</string>
   <string name="intermezzoDescription">I stedet for at spille det forventede træk foretages først et andet træk, som udgør en umiddelbar trussel, som modstanderen må besvare. Også kendt som \"Zwischenzug\" eller \"In between\".</string>
   <string name="knightEndgame">Springerslutspil</string>
   <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>
@@ -120,8 +120,8 @@
   <string name="zugzwang">Træktvang</string>
   <string name="zugzwangDescription">Modstanderen har begrænsede muligheder for træk, og ethvert træk vil forværre positionen.</string>
   <string name="healthyMix">Sund blanding</string>
-  <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du skal forvente. Så du skal være klar til hvad som helst! Ligesom i rigtige spil.</string>
-  <string name="playerGames">Spiller partier</string>
+  <string name="healthyMixDescription">Lidt af hvert. Du kan ikke vide, hvad du skal forvente, så du skal være klar til alt! Præcis som i rigtige spil.</string>
+  <string name="playerGames">Spiller-partier</string>
   <string name="playerGamesDescription">Find opgaver lavet ud fra dine egne partier eller fra en anden spillers partier.</string>
   <string name="puzzleDownloadInformation">Disse opgaver er i offentligt domæne og kan downloades fra %s.</string>
 </resources>

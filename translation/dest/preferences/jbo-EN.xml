@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">lo se nelrai</string>
-  <string name="gameDisplay">kelfoi selvistai</string>
   <string name="pieceAnimation">keldai muvdu bo nilsutra</string>
   <string name="materialDifference">lo se marji cu pei cenba</string>
   <string name="boardHighlights">keirta\'o selbasna</string>

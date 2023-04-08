@@ -9,6 +9,8 @@
   <string name="postBody">Contenu de l’article</string>
   <string name="drafts">Brouillons</string>
   <string name="published">Publié</string>
+  <string name="createBlogDiscussion">Activer les commentaires</string>
+  <string name="createBlogDiscussionHelp">Un sujet sera créé dans le forum pour permettre aux gens de commenter votre message.</string>
   <string name="publishOnYourBlog">Publier sur votre blogue</string>
   <string name="publishHelp">Si coché, l’article sera listé sur votre blogue. Sinon, il restera privé dans vos brouillons</string>
   <plurals name="publishedNbBlogPosts">
@@ -33,4 +35,12 @@
   <string name="uploadAnImageForYourPost">Téléverser une image pour votre publication</string>
   <string name="imageAlt">Description de l\'image</string>
   <string name="imageCredit">Source de l\'image</string>
+  <string name="deleteBlog">Supprimer définitivement ce message</string>
+  <string name="deleteImage">Supprimer l\'image</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Il est sécuritaire d\'utiliser des images des sites Web suivants : </string>
+  <string name="selectPostTopics">Choisir les sujets de votre message</string>
+  <string name="useImagesYouMadeYourself">Vous pouvez également utiliser des images que vous avez faites vous-même, des photos que vous avez prises, des captures d\'écran de Lichess... tout ce qui n\'est pas protégé par des droits d\'auteur.</string>
+  <string name="safeAndRespectfulContent">Veuillez ne publier que du contenu sûr et respectueux. Ne copiez pas le contenu de quelqu\'un d\'autre.</string>
+  <string name="inappropriateContentAccountClosed">Toute conduite inappropriée peut aboutir à la fermeture de votre compte.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Conseils pratiques pour rédiger de bons messages</string>
 </resources>

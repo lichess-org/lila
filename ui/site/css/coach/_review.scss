@@ -11,7 +11,7 @@
   &__disclaimer {
     color: $c-font-dimmer;
     font-size: 0.9rem;
-    margin-left: 0.5rem;
+    margin-#{$start-direction}: 0.5rem;
     vertical-align: top;
   }
 }
@@ -33,7 +33,7 @@
   .top .user-link {
     @extend %ellipsis;
 
-    margin-left: -4px;
+    margin-#{$start-direction}: -4px;
   }
 
   .content {

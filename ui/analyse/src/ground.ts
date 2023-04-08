@@ -6,9 +6,10 @@ import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';
 import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
+import * as Prefs from 'common/prefs';
 
-export function render(ctrl: AnalyseCtrl): VNode {
-  return h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
+export const render = (ctrl: AnalyseCtrl): VNode =>
+  h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
       insert: vnode => {
         ctrl.chessground = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl));
@@ -19,7 +20,6 @@ export function render(ctrl: AnalyseCtrl): VNode {
       destroy: _ => ctrl.chessground.destroy(),
     },
   });
-}
 
 export function promote(ground: CgApi, key: Key, role: cg.Role) {
   const piece = ground.state.pieces.get(key);
@@ -51,7 +51,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     orientation: ctrl.bottomColor(),
     coordinates: pref.coords !== Prefs.Coords.Hidden && !ctrl.embed,
     addPieceZIndex: pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     viewOnly: !!ctrl.embed,
     movable: {
       free: false,
@@ -84,7 +84,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     drawable: {
       enabled: !ctrl.embed,
       eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
-      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0',
+      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: pref.highlight,

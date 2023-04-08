@@ -14,13 +14,13 @@
       color: $c-font-dim;
       font-weight: bold;
       font-size: 1.1em;
-      margin-right: 1rem;
+      margin-#{$end-direction}: 1rem;
     }
 
     a.author--op {
       @extend %box-radius;
       padding: 0.2em;
-      padding-right: 0.8em;
+      padding-#{$end-direction}: 0.8em;
       background: mix($c-primary, $c-bg-box, 12%);
     }
 
@@ -32,7 +32,7 @@
     }
 
     time {
-      margin-right: 1em;
+      margin-#{$end-direction}: 1em;
     }
 
     .delete {
@@ -60,7 +60,7 @@
     }
 
     &.postip {
-      margin-left: 1rem;
+      margin-#{$start-direction}: 1rem;
       max-width: 50vw;
       overflow: hidden;
       display: none;
@@ -98,14 +98,23 @@
     margin-top: 1em;
     margin-bottom: 1em;
 
+    text-align: start;
+
+    .lpv {
+      margin: $block-gap auto;
+    }
+
     .embed:not(img) {
       @extend %video;
 
       margin: $block-gap auto;
+    }
+    .embed--study {
+      @extend %study-embed;
+    }
 
-      &.embed--game {
-        @extend %game-embed;
-      }
+    .twitter-tweet {
+      color-scheme: normal;
     }
 
     .hidden-quotes {
@@ -119,9 +128,10 @@
     }
 
     blockquote {
-      padding-left: 0.5em;
+      padding: 0.3em 0.7em;
       border-left: 0.3em solid;
-      margin: 0.3em;
+      unicode-bidi: plaintext;
+      position: relative;
     }
   }
 
@@ -131,7 +141,7 @@
   }
 
   .edit-buttons a {
-    margin-right: 1em;
+    margin-#{$end-direction}: 1em;
   }
 
   .edit-post-form {

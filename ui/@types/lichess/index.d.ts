@@ -6,8 +6,8 @@ interface Lichess {
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
-  powertip: any;
-  widget: any;
+  powertip: LichessPowertip;
+  clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   loadCss(path: string): void;
@@ -34,6 +34,7 @@ interface Lichess {
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
 
+  siteI18n: I18nDict;
   trans(i18n: I18nDict): Trans;
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
@@ -59,7 +60,6 @@ interface Lichess {
   };
 
   timeago(date: number | Date): string;
-  timeagoLocale(a: number, b: number, c: number): any;
   dateFormat: () => (date: Date) => string;
 
   // misc
@@ -67,7 +67,6 @@ interface Lichess {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
-  movetimeChart: any;
   playMusic(): any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
@@ -79,6 +78,14 @@ type I18nKey = string;
 type RedirectTo = string | { url: string; cookie: Cookie };
 
 type UserComplete = (opts: UserCompleteOpts) => void;
+
+interface LichessPowertip {
+  watchMouse(): void;
+  manualGameIn(parent: HTMLElement): void;
+  manualGame(el: HTMLElement): void;
+  manualUser(el: HTMLElement): void;
+  manualUserIn(parent: HTMLElement): void;
+}
 
 interface UserCompleteOpts {
   input: HTMLInputElement;
@@ -134,6 +141,7 @@ interface Trans {
   (key: string, ...args: Array<string | number>): string;
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
+  pluralSame(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): Array<string | T>;
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
 }
@@ -148,7 +156,7 @@ interface Pubsub {
 
 interface LichessStorageHelper {
   make(k: string): LichessStorage;
-  makeBoolean(k: string): LichessBooleanStorage;
+  boolean(k: string): LichessBooleanStorage;
   get(k: string): string | null;
   set(k: string, v: string): void;
   fire(k: string, v?: string): void;
@@ -165,6 +173,7 @@ interface LichessStorage {
 
 interface LichessBooleanStorage {
   get(): boolean;
+  getOrDefault(defaultValue: boolean): boolean;
   set(v: boolean): void;
   toggle(): void;
 }
@@ -242,22 +251,14 @@ interface Window {
   readonly LichessFlatpickr: (element: Element, opts: any) => any;
   readonly LichessNotify: (element: any, opts: any) => any;
   readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: any, opts: any) => any;
+  readonly LichessDasher: (element: any) => any;
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
   readonly LichessRoundNvui?: Nvui;
-  readonly LichessAnalyseNvui?: Nvui;
   readonly LichessPuzzleNvui?: Nvui;
-  readonly LichessChartGame: {
-    acpl: {
-      (data: any, mainline: any[], trans: Trans, el: HTMLElement): Promise<void>;
-      update?(data: any, mainline: any[]): void;
-    };
-    movetime: {
-      (data: any, trans: Trans, hunter: boolean): Promise<void>;
-      render?(): void;
-    };
+  readonly LichessAnalyseNvui?: (ctrl: any) => {
+    render(): any;
   };
   readonly LichessChartRatingHistory?: any;
   readonly LichessKeyboardMove?: any;
@@ -268,6 +269,10 @@ interface Window {
   readonly Sortable: any;
   readonly Peer: any;
   readonly Highcharts: any;
+  readonly LilaLpv: {
+    autostart(): void;
+    loadPgnAndStart(el: HTMLElement, url: string, opts: any): Promise<void>;
+  };
 
   readonly Palantir: unknown;
   readonly passwordComplexity: unknown;
@@ -280,6 +285,7 @@ interface Study {
   userId?: string | null;
   isContrib?: boolean;
   isOwner?: boolean;
+  closeActionMenu?(): void;
   setTab(tab: string): void;
 }
 
@@ -316,8 +322,10 @@ declare type VariantKey =
 declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
 
 declare type Perf =
+  | 'ultraBullet'
   | 'bullet'
   | 'blitz'
+  | 'rapid'
   | 'classical'
   | 'correspondence'
   | 'chess960'
@@ -350,7 +358,7 @@ interface Variant {
 interface Paginator<A> {
   currentPage: number;
   maxPerPage: number;
-  currentPageResults: Array<A>;
+  currentPageResults: A[];
   nbResults: number;
   previousPage?: number;
   nextPage?: number;
@@ -370,8 +378,8 @@ declare namespace Tree {
   }
   export interface CloudEval extends ClientEvalBase {
     cloud: true;
-    maxDepth: undefined;
-    millis: undefined;
+    maxDepth?: undefined;
+    millis?: undefined;
   }
   export interface LocalEval extends ClientEvalBase {
     cloud?: false;
@@ -488,7 +496,6 @@ interface CashStatic {
 
 interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
-  clock: any;
 }
 
 declare namespace PowerTip {
@@ -509,44 +516,6 @@ declare namespace PowerTip {
     manual?: boolean;
     openEvents?: string[];
     closeEvents?: string[];
-  }
-}
-
-declare namespace Prefs {
-  const enum Coords {
-    Hidden = 0,
-    Inside = 1,
-    Outside = 2,
-  }
-
-  const enum AutoQueen {
-    Never = 1,
-    OnPremove = 2,
-    Always = 3,
-  }
-
-  const enum ShowClockTenths {
-    Never = 0,
-    Below10Secs = 1,
-    Always = 2,
-  }
-
-  const enum ShowResizeHandle {
-    Never = 0,
-    OnlyAtStart = 1,
-    Always = 2,
-  }
-
-  const enum MoveEvent {
-    Click = 0,
-    Drag = 1,
-    ClickOrDrag = 2,
-  }
-
-  const enum Replay {
-    Never = 0,
-    OnlySlowGames = 1,
-    Always = 2,
   }
 }
 

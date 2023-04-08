@@ -1,13 +1,11 @@
 package lila.timeline
 
-import org.joda.time.DateTime
-import play.api.libs.json._
-import reactivemongo.api.bson._
-import scala.util.{ Failure, Success, Try }
+import play.api.libs.json.*
+import reactivemongo.api.bson.*
 
-import lila.common.Json.jodaWrites
-import lila.db.dsl._
-import lila.hub.actorApi.timeline._
+import lila.common.Json.given
+import lila.db.dsl.{ *, given }
+import lila.hub.actorApi.timeline.*
 
 case class Entry(
     _id: BSONObjectID,
@@ -15,9 +13,9 @@ case class Entry(
     chan: Option[String],
     data: Bdoc,
     date: DateTime
-) {
+):
 
-  import Entry._
+  import Entry.*
 
   def similarTo(other: Entry) = typ == other.typ && data == other.data
 
@@ -26,17 +24,16 @@ case class Entry(
   def userIds = decode.??(_.userIds)
 
   def okForKid = decode.??(_.okForKid)
-}
 
-object Entry {
+object Entry:
 
-  case class ForUsers(entry: Entry, userIds: List[String])
+  case class ForUsers(entry: Entry, userIds: List[UserId])
 
   private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
 
   private[timeline] def make(data: Atom): Entry = {
-    import atomBsonHandlers._
-    data match {
+    import atomBsonHandlers.given
+    data match
       case d: Follow        => "follow"          -> toBson(d)
       case d: TeamJoin      => "team-join"       -> toBson(d)
       case d: TeamCreate    => "team-create"     -> toBson(d)
@@ -52,28 +49,26 @@ object Entry {
       case d: BlogPost      => "blog-post"       -> toBson(d)
       case d: UblogPostLike => "ublog-post-like" -> toBson(d)
       case d: StreamStart   => "stream-start"    -> toBson(d)
-    }
-  } match {
+  } match
     case (typ, bson) =>
-      new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, DateTime.now)
-  }
+      new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowDate)
 
-  object atomBsonHandlers {
-    implicit val followHandler        = Macros.handler[Follow]
-    implicit val teamJoinHandler      = Macros.handler[TeamJoin]
-    implicit val teamCreateHandler    = Macros.handler[TeamCreate]
-    implicit val forumPostHandler     = Macros.handler[ForumPost]
-    implicit val ublogPostHandler     = Macros.handler[UblogPost]
-    implicit val tourJoinHandler      = Macros.handler[TourJoin]
-    implicit val gameEndHandler       = Macros.handler[GameEnd]
-    implicit val simulCreateHandler   = Macros.handler[SimulCreate]
-    implicit val simulJoinHandler     = Macros.handler[SimulJoin]
-    implicit val studyLikeHandler     = Macros.handler[StudyLike]
-    implicit val planStartHandler     = Macros.handler[PlanStart]
-    implicit val planRenewHandler     = Macros.handler[PlanRenew]
-    implicit val blogPostHandler      = Macros.handler[BlogPost]
-    implicit val ublogPostLikeHandler = Macros.handler[UblogPostLike]
-    implicit val streamStartHandler   = Macros.handler[StreamStart]
+  object atomBsonHandlers:
+    given followHandler: BSONDocumentHandler[Follow]               = Macros.handler
+    given teamJoinHandler: BSONDocumentHandler[TeamJoin]           = Macros.handler
+    given teamCreateHandler: BSONDocumentHandler[TeamCreate]       = Macros.handler
+    given forumPostHandler: BSONDocumentHandler[ForumPost]         = Macros.handler
+    given ublogPostHandler: BSONDocumentHandler[UblogPost]         = Macros.handler
+    given tourJoinHandler: BSONDocumentHandler[TourJoin]           = Macros.handler
+    given gameEndHandler: BSONDocumentHandler[GameEnd]             = Macros.handler
+    given simulCreateHandler: BSONDocumentHandler[SimulCreate]     = Macros.handler
+    given simulJoinHandler: BSONDocumentHandler[SimulJoin]         = Macros.handler
+    given studyLikeHandler: BSONDocumentHandler[StudyLike]         = Macros.handler
+    given planStartHandler: BSONDocumentHandler[PlanStart]         = Macros.handler
+    given planRenewHandler: BSONDocumentHandler[PlanRenew]         = Macros.handler
+    given blogPostHandler: BSONDocumentHandler[BlogPost]           = Macros.handler
+    given ublogPostLikeHandler: BSONDocumentHandler[UblogPostLike] = Macros.handler
+    given streamStartHandler: BSONDocumentHandler[StreamStart]     = Macros.handler
 
     val handlers = Map(
       "follow"          -> followHandler,
@@ -92,9 +87,8 @@ object Entry {
       "ublog-post-like" -> ublogPostLikeHandler,
       "stream-start"    -> streamStartHandler
     )
-  }
 
-  object atomJsonWrite {
+  object atomJsonWrite:
     val followWrite        = Json.writes[Follow]
     val teamJoinWrite      = Json.writes[TeamJoin]
     val teamCreateWrite    = Json.writes[TeamCreate]
@@ -110,7 +104,7 @@ object Entry {
     val blogPostWrite      = Json.writes[BlogPost]
     val ublogPostLikeWrite = Json.writes[UblogPostLike]
     val streamStartWrite   = Json.writes[StreamStart]
-    implicit val atomWrite = Writes[Atom] {
+    given Writes[Atom] = Writes {
       case d: Follow        => followWrite writes d
       case d: TeamJoin      => teamJoinWrite writes d
       case d: TeamCreate    => teamCreateWrite writes d
@@ -127,16 +121,14 @@ object Entry {
       case d: UblogPostLike => ublogPostLikeWrite writes d
       case d: StreamStart   => streamStartWrite writes d
     }
-  }
 
-  implicit val EntryBSONHandler = Macros.handler[Entry]
+  given BSONDocumentHandler[Entry] = Macros.handler
 
-  implicit val entryWrites = OWrites[Entry] { e =>
-    import atomJsonWrite._
+  given OWrites[Entry] = OWrites { e =>
+    import atomJsonWrite.given
     Json.obj(
       "type" -> e.typ,
       "data" -> e.decode,
       "date" -> e.date
     )
   }
-}

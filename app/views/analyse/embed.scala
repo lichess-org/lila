@@ -1,53 +1,43 @@
 package views.html.analyse
 
-import controllers.routes
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.Json
 
-import lila.app.templating.Environment._
+import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.ui.EmbedConfig.given
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
+import chess.format.pgn.PgnStr
 
-object embed {
+object embed:
 
-  import EmbedConfig.implicits._
-
-  def apply(pov: lila.game.Pov, data: JsObject)(implicit config: EmbedConfig) =
+  def lpv(pgn: PgnStr, orientation: Option[chess.Color])(using config: EmbedConfig) =
     views.html.base.embed(
-      title = replay titleOf pov,
-      cssModule = "analyse.embed"
+      title = "Lichess PGN viewer",
+      cssModule = "lpv.embed"
     )(
-      div(cls := "is2d")(
-        main(cls := "analyse")
-      ),
-      footer {
-        val url = routes.Round.watcher(pov.gameId, pov.color.name)
-        frag(
-          div(cls := "left")(
-            a(targetBlank, href := url)(h1(titleGame(pov.game))),
-            " ",
-            em("brought to you by ", a(targetBlank, href := netBaseUrl)(netConfig.domain))
-          ),
-          a(targetBlank, cls := "open", href := url)("Open")
-        )
-      },
-      views.html.base.layout.lichessJsObject(config.nonce)(config.lang),
-      depsTag,
-      jsModule("analysisBoard.embed"),
-      analyseTag,
-      embedJsUnsafeLoadThen(
-        s"""analyseEmbed(${safeJsonValue(
-          Json.obj(
-            "data"  -> data,
-            "embed" -> true,
-            "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
-          )
-        )})""",
+      div(cls := "is2d")(div(pgn)),
+      jsModule("lpv.embed"),
+      embedJsUnsafe(
+        s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(document.body.firstChild.firstChild,${safeJsonValue(
+            Json
+              .obj(
+                "i18n" -> i18nJsObject(lpvI18n)
+              )
+              .add("orientation", orientation.map(_.name))
+          )})})""",
         config.nonce
       )
     )
 
-  def notFound(implicit config: EmbedConfig) =
+  val lpvI18n = List(
+    trans.flipBoard,
+    trans.analysis,
+    trans.practiceWithComputer,
+    trans.download
+  )
+
+  def notFound(using EmbedConfig) =
     views.html.base.embed(
       title = "404 - Game not found",
       cssModule = "analyse.embed"
@@ -56,4 +46,3 @@ object embed {
         h1("Game not found")
       )
     )
-}

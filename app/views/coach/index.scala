@@ -5,16 +5,17 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.user.Countries
 import lila.user.Country
+import lila.common.LangPath
 
-object index {
+object index:
 
-  import trans.coach._
+  import trans.coach.*
 
   def apply(
       pager: Paginator[lila.coach.Coach.WithUser],
@@ -23,13 +24,14 @@ object index {
       langCodes: Set[String],
       countryCodes: Set[String],
       country: Option[Country]
-  )(implicit
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(
       title = lichessCoaches.txt(),
       moreCss = cssTag("coach"),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
+      withHrefLangs = LangPath(routes.Coach.all(1)).some
     ) {
       val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
         .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)
@@ -52,7 +54,7 @@ object index {
           )
         ),
         div(cls := "coach-list__main coach-main box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(lichessCoaches()),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
@@ -62,7 +64,7 @@ object index {
                   .map { case (code, name) =>
                     a(
                       href := routes.Coach.search(code, order.key, country.fold("all")(_.code)),
-                      cls := (code == lang.fold("all")(_.code)).option("current")
+                      cls  := (code == lang.fold("all")(_.code)).option("current")
                     )(name)
                   }
               ),
@@ -73,7 +75,7 @@ object index {
                   .map { case (code, name) =>
                     a(
                       href := routes.Coach.search(lang.fold("all")(_.code), order.key, code),
-                      cls := (code == country.fold("all")(_.code)).option("current")
+                      cls  := (code == country.fold("all")(_.code)).option("current")
                     )(name)
                   }
               ),
@@ -83,7 +85,7 @@ object index {
                 lila.coach.CoachPager.Order.all map { o =>
                   a(
                     href := routes.Coach.search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
-                    cls := (order == o).option("current")
+                    cls  := (order == o).option("current")
                   )(
                     o.name
                   )
@@ -100,14 +102,13 @@ object index {
             pagerNext(
               pager,
               np =>
-                addQueryParameter(
+                addQueryParam(
                   routes.Coach.search(lang.fold("all")(_.code), order.key, country.fold("all")(_.code)).url,
                   "page",
-                  np
+                  np.toString
                 )
             )
           )
         )
       )
     }
-}

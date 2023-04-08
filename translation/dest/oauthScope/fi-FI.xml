@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Uusi henkilökohtainen sovellusliittymän (APIn) käyttöoikeustietue</string>
+  <string name="tokenGrantsPermission">Tietue antaa muille ihmisille luvan käyttää tunnustasi.</string>
+  <string name="carefullySelect">Valitse huolellisesti, mitä sillä saa tehdä sinun puolestasi.</string>
+  <string name="tokenDescription">Tietueen kuvaus</string>
+  <string name="rememberTokenUse">Muistutukseksi siitä, mihin tietuetta käytetään</string>
+  <string name="whatTheTokenCanDo">Mitä tietueella saa tehdä puolestasi:</string>
+  <string name="doNotShareIt">Tietue antaa käyttöoikeuden tunnukseesi. Älä anna sitä kenellekään muulle!</string>
+  <string name="copyTokenNow">Huolehdi nyt siitä, että kopioit uuden henkilökohtaisen käyttöoikeustietueesi talteen. Et näe sitä enää toiste!</string>
+  <string name="preferenceRead">Lue asetukset</string>
+  <string name="preferenceWrite">Kirjoita asetukset</string>
+  <string name="emailRead">Lue sähköpostiosoite</string>
+  <string name="challengeRead">Lue saapuvat haasteet</string>
+  <string name="challengeWrite">Lähetä, hyväksy ja hylkää haasteita</string>
+  <string name="challengeBulk">Luo samalla kertaa monta peliä toisille pelaajille</string>
+  <string name="studyRead">Lue yksityiset tutkielmat ja lähetykset</string>
+  <string name="studyWrite">Luo, päivitä ja poista tutkielmia ja lähetyksiä</string>
+  <string name="tournamentWrite">Luo ja päivitä turnauksia ja osallistu turnauksiin</string>
+  <string name="racerWrite">Luo tehtäväkilpa-ajoja ja osallistu niihin</string>
+  <string name="puzzleRead">Lue tehtävien ratkaisuhistoria</string>
+  <string name="teamRead">Lue yksityisen joukkueen tiedot</string>
+  <string name="teamWrite">Liity joukkueeseen, poistu joukkueesta ja hallitse joukkuetta</string>
+  <string name="teamLead">Hallitse johtamiasi joukkueita: lähetä yksityisviestejä, erota jäseniä</string>
+  <string name="followRead">Lue seuratut pelaajat</string>
+  <string name="followWrite">Seuraa muita pelaajia ja lopeta pelaajien seuraaminen</string>
+  <string name="msgWrite">Lähetä yksityisviesti muille pelaajille</string>
+  <string name="boardPlay">Pelaa pelejä lauta-sovellusliittymän (board API) kautta</string>
+  <string name="botPlay">Pelaa pelejä botti-sovellusliittymän (bot API) kautta</string>
+  <string name="engineRead">Katso ja käytä ulkoista tietokonettasi</string>
+  <string name="engineWrite">Luo ja päivitä ulkoinen tietokone</string>
+  <string name="webLogin">Luo todennettuja sivustoistuntoja (antaa täydet käyttöoikeudet!)</string>
+  <string name="webMod">Käytä moderaattorityökaluja (omien käyttöoikeuksiesi rajoissa)</string>
+</resources>

@@ -15,21 +15,55 @@ export interface PropWithEffect<T> extends Prop<T> {}
 // like mithril prop but with type safety
 export const prop = <A>(initialValue: A): Prop<A> => {
   let value = initialValue;
-  const fun = function (v: A | undefined) {
+  return (v?: A) => {
     if (defined(v)) value = v;
     return value;
   };
-  return fun as Prop<A>;
 };
 
 export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): PropWithEffect<A> => {
   let value = initialValue;
-  const fun = function (v: A | undefined) {
+  return (v?: A) => {
     if (defined(v)) {
       value = v;
       effect(v);
     }
     return value;
   };
-  return fun as PropWithEffect<A>;
+};
+
+export const withEffect =
+  <T>(prop: Prop<T>, effect: (v: T) => void): PropWithEffect<T> =>
+  (v?: T) => {
+    let returnValue;
+    if (defined(v)) {
+      returnValue = prop(v);
+      effect(v);
+    } else returnValue = prop();
+    return returnValue;
+  };
+
+export interface Toggle extends PropWithEffect<boolean> {
+  toggle(): void;
+}
+
+export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
+  const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
+  prop.toggle = () => prop(!prop());
+  return prop;
+};
+
+// Only computes a value once. The computed value must not be undefined.
+export const memoize = <A>(compute: () => A): (() => A) => {
+  let computed: A;
+  return () => {
+    if (computed === undefined) computed = compute();
+    return computed;
+  };
+};
+
+export const scrollToInnerSelector = (el: HTMLElement, selector: string) => scrollTo(el, el.querySelector(selector));
+
+export const scrollTo = (el: HTMLElement, target: HTMLElement | null) => {
+  if (target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
 };

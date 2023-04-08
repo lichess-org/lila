@@ -39,7 +39,9 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   </plurals>
   <string name="thisIsPrivate">Ky është një turne privat</string>
   <string name="shareUrl">Jepeni këtë URL që të lejoni persona të marrin pjesë: %s</string>
-  <string name="drawStreak">Seri barazimesh: Kur një lojtar ka barazime njëri pas tjetrit në një turne arenë,vetëm barazimi i parë do t’i japë një pikë, ose barazime në ndeshje që zgjasin më tepër se %s lëvizje. Seria e barazimeve mund të ndërpritet vetëm nga një fitore, jo nga një humbje apo një barazim.</string>
+  <string name="drawStreakVariants">Për dhënie pikësh, kohëzgjatja minimum e lojës për lojëra që dalin barazimvaret nga varianti. Tabela më poshtë paraqet pragun për çdo variant.</string>
+  <string name="variant">Variant</string>
+  <string name="minimumGameLength">Kohëzgjatje minimum e lojës</string>
   <string name="history">Historik Arene</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Shihni ekipin</item>
@@ -52,4 +54,6 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="allowBerserkHelp">Lejoni lojtarët të përgjysmojnë kohën e tyre për të fituar një pikë shtesë</string>
   <string name="allowChatHelp">Lejoni lojtarët të diskutojnë në një dhomë bisedash</string>
   <string name="arenaStreaksHelp">Pas 2 fitoresh, fitoret pasuese sjellin 4 pikë, në vend se 2.</string>
+  <string name="averagePerformance">Mesatare rezultatesh</string>
+  <string name="averageScore">Pikë mesatarisht</string>
 </resources>

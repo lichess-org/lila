@@ -1,72 +1,71 @@
 package lila.oauth
 
-sealed abstract class OAuthScope(val key: String, val name: String) {
+import lila.i18n.I18nKey
+import lila.i18n.I18nKeys.{ oauthScope as trans }
+
+sealed abstract class OAuthScope(val key: String, val name: I18nKey):
   override def toString = s"Scope($key)"
-}
 
-object OAuthScope {
+object OAuthScope:
 
-  object Preference {
-    case object Read  extends OAuthScope("preference:read", "Read preferences")
-    case object Write extends OAuthScope("preference:write", "Write preferences")
-  }
+  object Preference:
+    case object Read  extends OAuthScope("preference:read", lila.i18n.I18nKeys.oauthScope.preferenceRead)
+    case object Write extends OAuthScope("preference:write", trans.preferenceWrite)
 
-  object Email {
-    case object Read extends OAuthScope("email:read", "Read email address")
-  }
+  object Email:
+    case object Read extends OAuthScope("email:read", trans.emailRead)
 
-  object Challenge {
-    case object Read  extends OAuthScope("challenge:read", "Read incoming challenges")
-    case object Write extends OAuthScope("challenge:write", "Create, accept, decline challenges")
-    case object Bulk  extends OAuthScope("challenge:bulk", "Create many games at once for other players")
-  }
+  object Challenge:
+    case object Read  extends OAuthScope("challenge:read", trans.challengeRead)
+    case object Write extends OAuthScope("challenge:write", trans.challengeWrite)
+    case object Bulk  extends OAuthScope("challenge:bulk", trans.challengeBulk)
 
-  object Study {
-    case object Read  extends OAuthScope("study:read", "Read private studies and broadcasts")
-    case object Write extends OAuthScope("study:write", "Create, update, delete studies and broadcasts")
-  }
+  object Study:
+    case object Read  extends OAuthScope("study:read", trans.studyRead)
+    case object Write extends OAuthScope("study:write", trans.studyWrite)
 
-  object Tournament {
-    case object Write extends OAuthScope("tournament:write", "Create, update and join tournaments")
-  }
+  object Tournament:
+    case object Write extends OAuthScope("tournament:write", trans.tournamentWrite)
 
-  object Puzzle {
-    case object Read extends OAuthScope("puzzle:read", "Read puzzle activity")
-  }
+  object Racer:
+    case object Write extends OAuthScope("racer:write", trans.racerWrite)
 
-  object Team {
-    case object Read  extends OAuthScope("team:read", "Read private team information")
-    case object Write extends OAuthScope("team:write", "Join, leave, and manage teams")
-  }
+  object Puzzle:
+    case object Read  extends OAuthScope("puzzle:read", trans.puzzleRead)
+    case object Write extends OAuthScope("puzzle:write", I18nKey("Solve puzzles"))
 
-  object Follow {
-    case object Write extends OAuthScope("follow:write", "Follow and unfollow other players")
-  }
+  object Team:
+    case object Read  extends OAuthScope("team:read", trans.teamRead)
+    case object Write extends OAuthScope("team:write", trans.teamWrite)
+    case object Lead  extends OAuthScope("team:lead", trans.teamLead)
 
-  object Msg {
-    case object Write extends OAuthScope("msg:write", "Send private messages to other players")
-  }
+  object Follow:
+    case object Read  extends OAuthScope("follow:read", trans.followRead)
+    case object Write extends OAuthScope("follow:write", trans.followWrite)
 
-  object Board {
-    case object Play extends OAuthScope("board:play", "Play games with the board API")
-  }
+  object Msg:
+    case object Write extends OAuthScope("msg:write", trans.msgWrite)
 
-  object Bot {
-    case object Play extends OAuthScope("bot:play", "Play games with the bot API")
-  }
+  object Board:
+    case object Play extends OAuthScope("board:play", trans.boardPlay)
 
-  object Web {
-    case object Login
-        extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")
-    case object Mod
-        extends OAuthScope("web:mod", "Use moderator tools (within the bounds of your permissions)")
-  }
+  object Bot:
+    case object Play extends OAuthScope("bot:play", trans.botPlay)
+
+  object Engine:
+    case object Read  extends OAuthScope("engine:read", trans.engineRead)
+    case object Write extends OAuthScope("engine:write", trans.engineWrite)
+
+  object Web:
+    case object Login  extends OAuthScope("web:login", trans.webLogin)
+    case object Socket extends OAuthScope("web:socket", I18nKey("Official Lichess mobile app"))
+    case object Mod    extends OAuthScope("web:mod", trans.webMod)
 
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
 
   type Selector = OAuthScope.type => OAuthScope
 
-  val all = List(
+  val all: List[OAuthScope] = List(
     Preference.Read,
     Preference.Write,
     Email.Read,
@@ -76,29 +75,51 @@ object OAuthScope {
     Study.Read,
     Study.Write,
     Tournament.Write,
+    Racer.Write,
     Puzzle.Read,
+    Puzzle.Write,
     Team.Read,
     Team.Write,
+    Team.Lead,
+    Follow.Read,
     Follow.Write,
     Msg.Write,
     Board.Play,
     Bot.Play,
+    Engine.Read,
+    Engine.Write,
     Web.Login,
+    Web.Socket,
     Web.Mod
   )
 
-  val byKey: Map[String, OAuthScope] = all.map { s =>
-    s.key -> s
-  } toMap
+  val classified: List[(I18nKey, List[OAuthScope])] = List(
+    I18nKey("User account")    -> List(Email.Read, Preference.Read, Preference.Write, Web.Mod),
+    I18nKey("Interactions")    -> List(Follow.Read, Follow.Write, Msg.Write),
+    I18nKey("Play games")      -> List(Challenge.Read, Challenge.Write, Challenge.Bulk, Tournament.Write),
+    I18nKey("Teams")           -> List(Team.Read, Team.Write, Team.Lead),
+    I18nKey("Puzzles")         -> List(Puzzle.Read, Racer.Write),
+    I18nKey("Studies")         -> List(Study.Read, Study.Write),
+    I18nKey("External play")   -> List(Board.Play, Bot.Play),
+    I18nKey("External engine") -> List(Engine.Read, Engine.Write)
+  )
+
+  val dangerList: Set[OAuthScope] = Set(
+    Team.Lead,
+    Web.Login,
+    Web.Mod,
+    Msg.Write
+  )
+
+  val byKey: Map[String, OAuthScope] = all.mapBy(_.key)
 
   def keyList(scopes: Iterable[OAuthScope]) = scopes.map(_.key) mkString ", "
 
   def select(selectors: Iterable[OAuthScope.type => OAuthScope]) = selectors.map(_(OAuthScope)).toList
 
-  import reactivemongo.api.bson._
-  import lila.db.dsl._
-  implicit private[oauth] val scopeHandler = tryHandler[OAuthScope](
+  import reactivemongo.api.bson.*
+  import lila.db.dsl.*
+  private[oauth] given BSONHandler[OAuthScope] = tryHandler[OAuthScope](
     { case b: BSONString => OAuthScope.byKey.get(b.value) toTry s"No such scope: ${b.value}" },
     s => BSONString(s.key)
   )
-}

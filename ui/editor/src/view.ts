@@ -233,7 +233,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
-                    ctrl.redraw();
+                    ctrl.onChange();
                   },
                 },
               },
@@ -245,7 +245,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: {
                   'data-icon': '',
                   rel: 'nofollow',
-                  ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen) } : {}),
+                  ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) } : {}),
                 },
                 class: {
                   button: true,
@@ -310,7 +310,8 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
       h('strong', 'FEN'),
       h('input.copyable', {
         attrs: {
-          spellcheck: false,
+          spellcheck: 'false',
+          enterkeyhint: 'done',
         },
         props: {
           value: fen,
@@ -331,6 +332,12 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
             el.value = ctrl.getFen();
             el.setCustomValidity('');
           },
+          keypress(e) {
+            const el = e.target as HTMLInputElement;
+            if (e.key === 'Enter') {
+              el.blur();
+            }
+          },
         },
       }),
     ]),
@@ -339,8 +346,8 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
       h('input.copyable.autoselect', {
         attrs: {
           readonly: true,
-          spellcheck: false,
-          value: ctrl.makeEditorUrl(fen),
+          spellcheck: 'false',
+          value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()),
         },
       }),
     ]),

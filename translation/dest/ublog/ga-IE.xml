@@ -9,6 +9,8 @@
   <string name="postBody">Postáil corpthéacs</string>
   <string name="drafts">Dréachtaí</string>
   <string name="published">Foilsithe</string>
+  <string name="createBlogDiscussion">Cumasaigh tuairimí</string>
+  <string name="createBlogDiscussionHelp">Cruthófar topaic fóraim chun go bhféadfaidh daoine trácht a dhéanamh ar do phostáil</string>
   <string name="publishOnYourBlog">Foilsigh ar do bhlag féin</string>
   <string name="publishHelp">Má dhéantar seiceáil air, liostálfar an postáil ar do bhlag. Mura bhfuil, beidh sé príobháideach, i do dhréachtphostáil</string>
   <plurals name="publishedNbBlogPosts">
@@ -42,4 +44,12 @@
   <string name="uploadAnImageForYourPost">Uaslódáil íomhá do do phost</string>
   <string name="imageAlt">Íomhá téacs malartach</string>
   <string name="imageCredit">Íomhá creidiúna</string>
+  <string name="deleteBlog">Scrios an blagphost seo go cinntitheach</string>
+  <string name="deleteImage">Scrios an íomhá</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Tá sé sábháilte íomhánna a úsáid ó na suíomhanna gréasáin seo a leanas: </string>
+  <string name="selectPostTopics">Roghnaigh na hábhair a bhaineann le do phostáil</string>
+  <string name="useImagesYouMadeYourself">Is féidir leat freisin úsáid a bhaint as íomhánna a rinne tú féin, pictiúir a ghlac tú, scáilghraif de Lichess... rud ar bith nach bhfuil cóipcheart ag duine éigin eile.</string>
+  <string name="safeAndRespectfulContent">Ná postáil ach ábhar atá sábháilte agus measúil. Ná cóipeáil ábhar duine eile.</string>
+  <string name="inappropriateContentAccountClosed">D\'fhéadfadh aon rud míchuí do chuntas a dhúnadh.</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ár leideanna simplí chun postálacha blag iontacha a scríobh</string>
 </resources>

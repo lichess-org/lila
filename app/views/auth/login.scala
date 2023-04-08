@@ -4,36 +4,47 @@ package auth
 import play.api.data.Form
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
-object login {
+object login:
 
-  import trans.tfa._
+  import trans.tfa.*
 
-  def apply(form: Form[_], referrer: Option[String])(implicit ctx: Context) =
+  def apply(form: Form[?], referrer: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signIn.txt(),
       moreJs = frag(
         jsModule("login"),
         embedJsUnsafeLoadThen("""loginSignup.loginStart()""")
       ),
-      moreCss = cssTag("auth")
+      moreCss = cssTag("auth"),
+      withHrefLangs = lila.common.LangPath(routes.Auth.login).some
     ) {
+      def addReferrer(url: String): String = referrer.fold(url) {
+        addQueryParam(url, "referrer", _)
+      }
       main(cls := "auth auth-login box box-pad")(
-        h1(trans.signIn()),
+        h1(cls := "box__top")(trans.signIn()),
         postForm(
-          cls := "form3",
-          action := s"${routes.Auth.authenticate}${referrer.?? { ref =>
-            s"?referrer=${urlencode(ref)}"
-          }}"
+          cls    := "form3",
+          action := addReferrer(routes.Auth.authenticate.url)
         )(
           div(cls := "one-factor")(
-            form3.globalError(form),
+            if form.globalError.exists(_.messages.contains("blankedPassword")) then
+              div(cls := "auth-login__blanked")(
+                p(trans.blankedPassword()),
+                a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(trans.passwordReset())
+              )
+            else form3.globalError(form),
             auth.bits.formFields(form("username"), form("password"), none, register = false),
-            form3.submit(trans.signIn(), icon = none)
+            form3.submit(trans.signIn(), icon = none),
+            label(cls := "login-remember")(
+              input(name := "remember", value := "true", tpe := "checkbox", checked),
+              trans.rememberMe()
+            )
           ),
           div(cls := "two-factor none")(
             form3.group(
@@ -48,10 +59,9 @@ object login {
           )
         ),
         div(cls := "alternative")(
-          a(href := routes.Auth.signup)(trans.signUp()),
+          a(href := addReferrer(langHref(routes.Auth.signup)))(trans.signUp()),
           a(href := routes.Auth.passwordReset)(trans.passwordReset()),
           a(href := routes.Auth.magicLink)("Log in by email")
         )
       )
     }
-}

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Ustawienia</string>
-  <string name="gameDisplay">Widok partii</string>
+  <string name="display">Wyświetlanie</string>
+  <string name="privacy">Ochrona danych</string>
+  <string name="notifications">Powiadomienia</string>
   <string name="pieceAnimation">Animacja ruchu bierek</string>
   <string name="materialDifference">Przewaga materialna</string>
   <string name="boardHighlights">Wyróżnienie pól szachownicy (ostatni ruch i szach)</string>
@@ -13,7 +15,7 @@
   <string name="pgnLetter">Litery (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Tryb Zen</string>
   <string name="showPlayerRatings">Pokaż rankingi gracza</string>
-  <string name="explainShowPlayerRatings">Pozwala to ukryć wszystkie rankingi na stronie internetowej, aby pomóc skupić się na szachach. Gry nadal mogą być oceniane, to dotyczy tylko tego, co możesz zobaczyć.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Pozwala to ukryć wszystkie rankingi na stronie internetowej, aby pomóc skupić się na szachach. Gry nadal mogą być oceniane, to dotyczy tylko tego, co możesz zobaczyć.</string>
   <string name="displayBoardResizeHandle">Pokaż uchwyt od zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="blindfoldChess">Gra na ślepo (niewidoczne bierki)</string>
@@ -49,4 +51,17 @@
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="scrollOnTheBoardToReplayMoves">Przewiń myszką, aby powtórzyć ruchy</string>
   <string name="correspondenceEmailNotification">Codzienne powiadomienia mailowe z listą Twoich partii korespondencyjnych</string>
+  <string name="notifyStreamStart">Streamer jest na żywo</string>
+  <string name="notifyInboxMsg">Nowa wiadomość</string>
+  <string name="notifyForumMention">Wspomniano o Tobie w komentarzu na forum</string>
+  <string name="notifyInvitedStudy">Zaproszenie do wspólnego opracowania</string>
+  <string name="notifyGameEvent">Zdarzenie w partii korespondencyjnej</string>
+  <string name="notifyChallenge">Wyzwania</string>
+  <string name="notifyTournamentSoon">Turniej rozpocznie się wkrótce</string>
+  <string name="notifyTimeAlarm">Czas w partii korespondencyjnej dobiega końca</string>
+  <string name="notifyBell">Powiadomienie dźwiękowe gdy jesteś zalogowany na Lichess</string>
+  <string name="notifyPush">Powiadomienie na urządzenie, gdy nie jesteś zalogowany na Lichess</string>
+  <string name="notifyWeb">Przeglądarka</string>
+  <string name="notifyDevice">Urządzenie</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Dźwięk powiadomień</string>
 </resources>

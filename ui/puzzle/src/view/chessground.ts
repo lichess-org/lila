@@ -3,6 +3,7 @@ import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
+import * as Prefs from 'common/prefs';
 
 export default function (ctrl: Controller): VNode {
   return h('div.cg-wrap', {
@@ -23,7 +24,7 @@ export function makeConfig(ctrl: Controller): CgConfig {
     lastMove: opts.lastMove,
     coordinates: ctrl.pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: ctrl.pref.is3d,
-    addDimensionsCssVars: true,
+    addDimensionsCssVarsTo: document.body,
     movable: {
       free: false,
       color: opts.movable!.color,
@@ -49,7 +50,7 @@ export function makeConfig(ctrl: Controller): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0',
+      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: ctrl.pref.highlight,

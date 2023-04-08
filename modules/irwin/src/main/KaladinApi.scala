@@ -1,32 +1,22 @@
 package lila.irwin
 
 import chess.Speed
-import com.softwaremill.tagging._
-import org.joda.time.DateTime
-import reactivemongo.api.bson._
+import reactivemongo.api.bson.*
 import reactivemongo.api.Cursor
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
 
 import lila.db.AsyncColl
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
-import lila.report.Mod
-import lila.report.ModId
-import lila.report.Report
-import lila.report.Reporter
-import lila.report.{ Suspect }
-import lila.tournament.Tournament
-import lila.tournament.TournamentTop
-import lila.user.Holder
-import lila.user.User
-import lila.user.UserRepo
+import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
+import lila.user.{ User, Holder, UserRepo }
 import lila.report.SuspectId
+import lila.common.config.Max
 
 final class KaladinApi(
-    coll: AsyncColl @@ KaladinColl,
+    coll: AsyncColl,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
@@ -35,19 +25,16 @@ final class KaladinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(using Executor, Scheduler):
 
-  import BSONHandlers._
+  import BSONHandlers.given
 
   lazy val thresholds = IrwinThresholds.makeSetting("kaladin", settingStore)
 
   private val workQueue =
-    new lila.hub.AsyncActorSequencer(maxSize = 512, timeout = 2 minutes, name = "kaladinApi")
+    lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 2 minutes, name = "kaladinApi")
 
-  private def sequence[A](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
+  private def sequence[A <: Matchable](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
     workQueue { coll(_.byId[KaladinUser](user.id.value)) flatMap f }
 
   def get(user: User): Fu[Option[KaladinUser]] =
@@ -68,7 +55,7 @@ final class KaladinApi(
   } yield KaladinUser.Dashboard(completed ::: queued)
 
   def modRequest(user: Suspect, by: Holder) =
-    request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, ModId(by.id))
+    request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, by.id into ModId)
 
   def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot ??
     sequence(user) { prev =>
@@ -98,16 +85,16 @@ final class KaladinApi(
         .flatMap { docs =>
           docs.nonEmpty ?? {
             coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
-              lila.common.Future.applySequentially(docs)(readResponse)
+              lila.common.LilaFuture.applySequentially(docs)(readResponse)
           }
         }
         .void
     }
 
   private def readResponse(user: KaladinUser): Funit = user.response ?? { res =>
-    res.pred match {
+    res.pred match
       case Some(pred) =>
-        markOrReport(user, res, pred) >>- {
+        markOrReport(user, pred) >>- {
           notification(user)
           lila.mon.mod.kaladin.activation.record(pred.percent).unit
         }
@@ -117,14 +104,13 @@ final class KaladinApi(
             lila.mon.mod.kaladin.error(err).increment().unit
           }
         }
-    }
   }
 
-  private def markOrReport(user: KaladinUser, res: KaladinUser.Response, pred: KaladinUser.Pred): Funit = {
+  private def markOrReport(user: KaladinUser, pred: KaladinUser.Pred): Funit =
 
     def sendReport = for {
       suspect <- getSuspect(user.suspectId.value)
-      kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod
+      kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod.apply
       _ <- reportApi.create(
         Report
           .Candidate(
@@ -140,14 +126,13 @@ final class KaladinApi(
       userRepo.hasTitle(user.id) flatMap {
         case true => sendReport
         case false =>
-          modApi.autoMark(user.suspectId, ModId.kaladin, pred.note) >>-
+          modApi.autoMark(user.suspectId, User.kaladinId into ModId, pred.note) >>-
             lila.mon.mod.kaladin.mark.increment().unit
       }
     else if (pred.percent >= thresholds.get().report) sendReport
     else funit
-  }
 
-  object notification {
+  object notification:
 
     private var subs = Map.empty[SuspectId, Set[ModId]]
 
@@ -157,22 +142,18 @@ final class KaladinApi(
     private[KaladinApi] def apply(user: KaladinUser): Funit =
       subs.get(user.suspectId) ?? { modIds =>
         subs = subs - user.suspectId
-        import lila.notify.{ KaladinDone, Notification }
         modIds
           .map { modId =>
-            notifyApi.addNotification(
-              Notification.make(Notification.Notifies(modId.value), KaladinDone(user.suspectId.value))
-            )
+            notifyApi.notifyOne(modId, lila.notify.KaladinDone(user.suspectId.value))
           }
-          .sequenceFu
+          .parallel
           .void
       }
-  }
 
   private[irwin] def monitorQueued: Funit =
     coll {
       _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
-        import framework._
+        import framework.*
         Match($doc("response.at" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
       }
         .map { res =>
@@ -188,23 +169,23 @@ final class KaladinApi(
       }
     }
 
-  private object hasEnoughRecentMoves {
+  private object hasEnoughRecentMoves:
     private val minMoves = 1050
-    private case class Counter(blitz: Int, rapid: Int) {
+    private case class Counter(blitz: Int, rapid: Int):
       def add(nb: Int, speed: Speed) =
         if (speed == Speed.Blitz) copy(blitz = blitz + nb)
         else if (speed == Speed.Rapid) copy(rapid = rapid + nb)
         else this
       def isEnough = blitz >= minMoves || rapid >= minMoves
-    }
-    private val cache = cacheApi[User.ID, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
+    private val cache = cacheApi[UserId, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
       _.expireAfterWrite(1 hour).buildAsyncFuture(userId =>
         {
           import lila.game.Query
-          import lila.game.Game.{ BSONFields => F }
+          import lila.game.Game.{ BSONFields as F }
+          import lila.db.ByteArray.given
           gameRepo.coll
             .find(
-              Query.user(userId) ++ Query.rated ++ Query.createdSince(DateTime.now minusMonths 6),
+              Query.user(userId) ++ Query.rated ++ Query.createdSince(nowDate minusMonths 6),
               $doc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPreference.secondaryPreferred)
@@ -226,21 +207,19 @@ final class KaladinApi(
     }
     def apply(u: Suspect): Fu[Boolean] =
       fuccess(u.user.perfs.blitz.nb + u.user.perfs.rapid.nb > 30) >>& cache.get(u.id.value)
-  }
 
   private[irwin] def autoRequest(requester: KaladinUser.Requester)(user: Suspect) =
     request(user, requester)
 
   private[irwin] def tournamentLeaders(suspects: List[Suspect]): Funit =
-    lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TournamentLeader))
+    lila.common.LilaFuture.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TournamentLeader))
 
   private[irwin] def topOnline(suspects: List[Suspect]): Funit =
-    lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TopOnline))
+    lila.common.LilaFuture.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TopOnline))
 
-  private def getSuspect(suspectId: User.ID) =
-    userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect
+  private def getSuspect(suspectId: UserId) =
+    userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
   lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>
     getSuspect(userId) flatMap autoRequest(KaladinUser.Requester.Report) unit
   }
-}

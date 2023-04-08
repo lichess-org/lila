@@ -25,6 +25,8 @@
   <string name="howCanIBecomeModerator">Hur kan jag bli moderator?</string>
   <string name="youCannotApply">Det går inte att ansöka om att bli moderator. Om vi ser någon som vi tror skulle vara bra som moderator, kommer vi att kontakta dem direkt.</string>
   <string name="isCorrespondenceDifferent">Är korrespondens annorlunda än vanlig schack?</string>
+  <string name="pleaseReadFairPlayPage">För mer information, läs vår %s</string>
+  <string name="fairPlayPage">sida om Rent Spel</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess är den största skillnaden i regler för korrespondensschack att en öppningsbok är tillåten. Användande av schackdatorer är fortfarande förbjudet och kommer att resultera i att man flaggas för datorstöd. Även om ICCF tillåter schackdatorer i korrespondens, så gör inte Lichess det.</string>
   <string name="gameplay">Spelet</string>
   <string name="howBulletBlitzEtcDecided">Hur bestäms Bullet, Blixt och andra tidskontroller?</string>
@@ -61,6 +63,7 @@ Den beskrivs i avsnitt 3. (d) av %2$s:
 Se %3$s för detta drag för lite övning med det.</string>
   <string name="goodIntroduction">bra introduktion</string>
   <string name="lichessTraining">Lichess träning</string>
+  <string name="watchIMRosenCheckmate">Se International Master Eric Rosen göra schackmatt %s.</string>
   <string name="threefoldRepetition">Dragupprepning</string>
   <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">dragupprepning</string>

@@ -2,7 +2,7 @@ import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { option } from '../util';
+import { option } from '../view/util';
 import { StudyChapter, StudyCtrl } from './interfaces';
 import { looksLikeLichessGame } from './studyChapters';
 
@@ -16,7 +16,7 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
   return h('input', {
     key: value, // force to redraw on change, to visibly update the input value
     attrs: {
-      spellcheck: false,
+      spellcheck: 'false',
       value,
     },
     hook: onInsert<HTMLInputElement>(el => {
@@ -30,9 +30,7 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
   });
 }
 
-function fixed(text: string) {
-  return h('span', text);
-}
+const fixed = (text: string) => h('span', text);
 
 let selectedType: string;
 

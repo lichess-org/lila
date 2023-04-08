@@ -1,18 +1,19 @@
 package lila.api
 
-import akka.actor._
-import com.softwaremill.macwire._
+import akka.actor.*
+import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
-import scala.concurrent.duration._
 
 import lila.chat.GetLinkCheck
 import lila.common.Bus
-import lila.common.config._
+import lila.common.config.*
 import lila.hub.actorApi.Announce
+import lila.hub.actorApi.lpv.*
 import lila.user.User
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     net: NetConfig,
@@ -60,17 +61,20 @@ final class Env(
     mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,
     val mode: Mode
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
+)(using
+    ec: Executor,
     system: ActorSystem,
-    scheduler: Scheduler
-) {
+    scheduler: Scheduler,
+    materializer: akka.stream.Materializer
+):
 
   val config = ApiConfig loadFrom appConfig
-  import config.{ apiToken, pagerDuty => pagerDutyConfig }
-  import net.{ baseUrl, domain }
+  export config.{ apiToken, pagerDuty as pagerDutyConfig }
+  export net.{ baseUrl, domain }
 
   lazy val pgnDump: PgnDump = wire[PgnDump]
+
+  lazy val textLpvExpand = wire[TextLpvExpand]
 
   lazy val userApi = wire[UserApi]
 
@@ -103,21 +107,29 @@ final class Env(
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start())
+  if (mode == Mode.Prod) scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
   private lazy val linkCheck = wire[LinkCheck]
 
   private lazy val pagerDuty = wire[PagerDuty]
 
-  Bus.subscribeFun("chatLinkCheck", "announce") {
-    case GetLinkCheck(line, source, promise)                   => promise completeWith linkCheck(line, source)
-    case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit
-  }
+  Bus.subscribeFuns(
+    "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>
+      promise completeWith linkCheck(line, source)
+    },
+    "announce" -> {
+      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit
+    },
+    "lpv" -> {
+      case GamePgnsFromText(text, p)      => p completeWith textLpvExpand.gamePgnsFromText(text)
+      case LpvLinkRenderFromText(text, p) => p completeWith textLpvExpand.linkRenderFromText(text)
+    }
+  )
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-    lila.mon.bus.classifiers.update(lila.common.Bus.size)
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+    lila.mon.bus.classifiers.update(lila.common.Bus.size).unit
+    lila.mon.jvm.threads()
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
     userEnv.repo.setSeenAt(User.lichessId)
   }
-}

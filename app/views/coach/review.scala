@@ -3,20 +3,20 @@ package views.html.coach
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 
-object review {
+object review:
 
-  import trans.coach._
+  import trans.coach.*
 
   def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
       h2(
         studentReviews(reviews.list.size),
         iconTag("")(
-          cls := "coach-show__reviews__disclaimer",
+          cls      := "coach-show__reviews__disclaimer",
           st.title := "Comments are approved by the coach. Negative comments are reviewed by moderators."
         )
       ),
@@ -30,7 +30,7 @@ object review {
           isGranted(_.DisapproveCoachReview) option
             postForm(cls := "disapprove", action := routes.Coach.modReview(r.id))(
               submitButton(
-                cls := "button button-empty button-red button-thin confirm",
+                cls   := "button button-empty button-red button-thin confirm",
                 title := "Instructs the coach to reject the review, or to ask the author to rephrase it."
               )("Disapprove")
             )
@@ -52,8 +52,8 @@ object review {
         textarea(
           name := "text",
           required,
-          minlength := 3,
-          maxlength := 2000,
+          minlength   := 3,
+          maxlength   := 2000,
           placeholder := describeExperienceWith.txt(c.user.realNameOrUsername)
         )(mine.map(_.text)),
         submitButton(cls := "button")(trans.apply())
@@ -77,4 +77,3 @@ object review {
           star(selected.exists(s.<=) option (cls := "rate-selected"))
         }
       )
-}

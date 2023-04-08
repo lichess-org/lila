@@ -30,6 +30,7 @@
   <string name="otherAmount">Ostali</string>
   <string name="pleaseEnterAmountInX">Molimo unesite iznos u Američkim dolarima (%s)</string>
   <string name="withCreditCard">Kreditna Kartica</string>
+  <string name="logInToDonate">Prijavite se za donaciju</string>
   <string name="weAreSmallTeam">Mi smo maleni tim, stoga vaša podrška čini veliku razliku!</string>
   <string name="celebratedPatrons">Proslavljeni pokrovitelji koji omogućuju postojanje Lichess-a</string>
   <string name="whereMoneyGoes">Kamo novac odlazi?</string>
@@ -43,7 +44,9 @@ Zatim, plaćamo programera s punim radnim vremenom: %s, osnivača Lichess-a.</st
 Ili možete %s.</string>
   <string name="contactSupport">kontaktirati Lichess podršku</string>
   <string name="otherMethods">Da li postoje neke druge metode doniranja?</string>
+  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess je registriran kod %s.</string>
   <string name="bankTransfers">Mi takođe prihvaćamo i bankovne transfere</string>
+  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Napominjemo da će samo gornji obrazac za donaciju dodijeliti status pokrovitelja.</string>
   <string name="patronFeatures">Da li su neke značajke rezervirane samo za pokrovitelje?</string>
   <string name="noPatronFeatures">Ne, jer je Lichess u potpunosti besplatan, zauvijek i za sve. To je naše obećanje.
 Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom profilu.</string>
@@ -66,6 +69,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="xOrY">%1$s ili %2$s</string>
   <string name="decideHowMuch">Odlučite koliko Vam vrijedi Lichess:</string>
   <string name="stopPayments">Povucite kreditnu karticu i zaustavite plaćanja:</string>
+  <string name="stopPaymentsPayPal">Otkaži PayPal pretplatu i zaustavi isplate:</string>
   <string name="noLongerSupport">Više ne podržava Lichess</string>
   <string name="viewOthers">Pogledajte ostale Lichess Pokrovitelje</string>
   <string name="date">Datum</string>

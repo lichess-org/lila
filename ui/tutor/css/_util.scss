@@ -1,0 +1,44 @@
+.tutor {
+  @include breakpoint($mq-subnav-side) {
+    .subnav {
+      width: 22ch;
+      .subnav__subitem {
+        margin-left: 1em;
+      }
+      .subnav__subitem2 {
+        margin-left: 2em;
+        letter-spacing: 0px;
+      }
+    }
+  }
+
+  &__pad {
+    padding: 0 var(--box-padding) $box-padding-vert var(--box-padding);
+  }
+
+  &__concept {
+    @extend %flex-center-nowrap;
+    i {
+      position: relative;
+      font-size: 0.8em;
+      margin-left: 1ch;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+        &::after {
+          @extend %box-neat, %popup-shadow;
+          font-size: 1rem;
+          background: $c-bg-popup;
+          bottom: 100%;
+          content: attr(data-title);
+          display: block;
+          left: 0%;
+          padding: 0.8em 1.5em;
+          width: 300px;
+          position: absolute;
+          z-index: z('powertip');
+        }
+      }
+    }
+  }
+}

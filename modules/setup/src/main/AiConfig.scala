@@ -1,8 +1,10 @@
 package lila.setup
 
-import chess.format.FEN
-import scala.concurrent.ExecutionContext
+import chess.format.Fen
+import chess.Clock
+import chess.variant.Variant
 
+import lila.common.Days
 import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
@@ -11,13 +13,13 @@ case class AiConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
     time: Double,
-    increment: Int,
-    days: Int,
+    increment: Clock.IncrementSeconds,
+    days: Days,
     level: Int,
     color: Color,
-    fen: Option[FEN] = None
+    fen: Option[Fen.Epd] = None
 ) extends Config
-    with Positional {
+    with Positional:
 
   val strictFen = true
 
@@ -51,14 +53,23 @@ case class AiConfig(
 
   def pov(user: Option[User])(implicit idGenerator: IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
-  def timeControlFromPosition = variant != chess.variant.FromPosition || time >= 1
-}
+  def timeControlFromPosition =
+    timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1
 
-object AiConfig extends BaseConfig {
+object AiConfig extends BaseConfig:
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, level: Int, c: String, fen: Option[FEN]) =
+  def from(
+      v: Variant.Id,
+      tm: Int,
+      t: Double,
+      i: Clock.IncrementSeconds,
+      d: Days,
+      level: Int,
+      c: String,
+      fen: Option[Fen.Epd]
+  ) =
     new AiConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = chess.variant.Variant.orDefault(v),
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -72,8 +83,8 @@ object AiConfig extends BaseConfig {
     variant = variantDefault,
     timeMode = TimeMode.Unlimited,
     time = 5d,
-    increment = 8,
-    days = 2,
+    increment = Clock.IncrementSeconds(8),
+    days = Days(2),
     level = 1,
     color = Color.default
   )
@@ -85,23 +96,23 @@ object AiConfig extends BaseConfig {
   }
 
   import lila.db.BSON
-  import lila.db.dsl._
+  import lila.db.dsl.{ *, given }
 
-  implicit private[setup] val aiConfigBSONHandler = new BSON[AiConfig] {
+  private[setup] given BSON[AiConfig] with
 
     def reads(r: BSON.Reader): AiConfig =
       AiConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
-        timeMode = TimeMode orDefault (r int "tm"),
+        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
+        timeMode = TimeMode.orDefault(r int "tm"),
         time = r double "t",
-        increment = r int "i",
-        days = r int "d",
+        increment = r get "i",
+        days = r.get("d"),
         level = r int "l",
         color = Color.White,
-        fen = r.getO[FEN]("f").filter(_.value.nonEmpty)
+        fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
       )
 
-    def writes(w: BSON.Writer, o: AiConfig) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: AiConfig) =
       $doc(
         "v"  -> o.variant.id,
         "tm" -> o.timeMode.id,
@@ -111,5 +122,3 @@ object AiConfig extends BaseConfig {
         "l"  -> o.level,
         "f"  -> o.fen
       )
-  }
-}

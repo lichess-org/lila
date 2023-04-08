@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Баптаулар</string>
-  <string name="gameDisplay">Ойын көрінісі</string>
+  <string name="display">Көрініс</string>
+  <string name="privacy">Құпиялық</string>
+  <string name="notifications">Хабарламалар</string>
   <string name="pieceAnimation">Тастар анимациясы</string>
   <string name="materialDifference">Тас мөлшерінің айырмашылығы</string>
   <string name="boardHighlights">Жүріс ізін көрсету (кейінгі жүріс пен шах)</string>
@@ -13,7 +15,7 @@
   <string name="pgnLetter">Әріптер (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Оқшау көрініс</string>
   <string name="showPlayerRatings">Ойыншылардың рейтингін көрсету</string>
-  <string name="explainShowPlayerRatings">Шахматқа назарды күшейту үшін бұл бүкіл сайттағы рейтингтерді жасырады. Бағалау тәртібіне еш әсері жоқ, жай сыртқы көрінісі басқаша болады.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Шахматқа назарды күшейту үшін бұл бүкіл сайттағы рейтингтерді жасырады. Бағалау тәртібіне еш әсері жоқ, жай сыртқы көрінісі басқаша болады.</string>
   <string name="displayBoardResizeHandle">Тақтаны үлкейту тұтқасын көрсету</string>
   <string name="onlyOnInitialPosition">Тек бастапқы күйде ғана</string>
   <string name="blindfoldChess">Бүркемелі шахмат (көрінбейтін тастар)</string>
@@ -37,8 +39,8 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Үш реттік қайталану болса, автоматты түрде тепе-теңдік жариялау</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 секунд қалғанда</string>
   <string name="moveConfirmation">Жүрісті растау</string>
-  <string name="inCorrespondenceGames">Хат алмасып ойнағанда</string>
-  <string name="correspondenceAndUnlimited">Хат алмасып және шексіз уақытпен</string>
+  <string name="inCorrespondenceGames">Хат-хабарлы ойындарда</string>
+  <string name="correspondenceAndUnlimited">Хат-хабарлы мен уақыты шексіз</string>
   <string name="confirmResignationAndDrawOffers">Берілу мен тепе-теңдік ұсынысын растау</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Бекіну әдісі</string>
   <string name="castleByMovingTwoSquares">Патшаны екі шаршы жүру</string>
@@ -48,4 +50,18 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Жеңіліс не тепе-теңдіктен кейін \"Жақсы ойын, қызық болды\" деп айту</string>
   <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
   <string name="scrollOnTheBoardToReplayMoves">Тақта бетінде тіңтуір айналдырумен жүрістерді қайта көрсету</string>
+  <string name="correspondenceEmailNotification">Хат-хабарлы ойындарыңыз туралы күнде поштаңызға ескертпе жіберу</string>
+  <string name="notifyStreamStart">Стрим басталды</string>
+  <string name="notifyInboxMsg">Жаңа хабар</string>
+  <string name="notifyForumMention">Форумда сіз туралы айтты</string>
+  <string name="notifyInvitedStudy">Зерттеуге шақырды</string>
+  <string name="notifyGameEvent">Хат-хабарлы ойын барысы</string>
+  <string name="notifyChallenge">Шақырулар</string>
+  <string name="notifyTournamentSoon">Жарыс жақында басталады</string>
+  <string name="notifyTimeAlarm">Хат-хабарлы ойын уақыты бітер алдында</string>
+  <string name="notifyBell">Личестегі қоңыраулы ескерту</string>
+  <string name="notifyPush">Құрылғының ескертуі, Личестен тыс кезіңізде</string>
+  <string name="notifyWeb">Браузер</string>
+  <string name="notifyDevice">Құрылғы</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Қоңыраулы ескерту</string>
 </resources>

@@ -62,7 +62,7 @@ function normalView(ctrl: Ctrl) {
     h(
       'div.mchat__content.' + active,
       active === 'note' && ctrl.note
-        ? [noteView(ctrl.note)]
+        ? [noteView(ctrl.note, ctrl.vm.autofocus)]
         : ctrl.plugin && active === ctrl.plugin.tab.key
         ? [ctrl.plugin.view()]
         : discussionView(ctrl)
@@ -70,8 +70,8 @@ function normalView(ctrl: Ctrl) {
   ];
 }
 
-function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
-  return h(
+const renderTab = (ctrl: Ctrl, tab: Tab, active: Tab) =>
+  h(
     'div.mchat__tab.' + tab,
     {
       attrs: { role: 'tab' },
@@ -80,7 +80,6 @@ function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
     },
     tabName(ctrl, tab)
   );
-}
 
 function tabName(ctrl: Ctrl, tab: Tab) {
   if (tab === 'discussion')

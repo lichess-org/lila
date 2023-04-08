@@ -37,12 +37,15 @@
 
   .playing input {
     vertical-align: middle;
-    margin-right: 3px;
+    margin-#{$end-direction}: 3px;
   }
 
   .now-playing {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    @include breakpoint($mq-x-small) {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
     a {
       @extend %box-radius;
@@ -82,7 +85,7 @@
       white-space: nowrap;
 
       span {
-        margin-left: 0.5em;
+        margin-#{$start-direction}: 0.5em;
       }
     }
 

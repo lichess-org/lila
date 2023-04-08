@@ -2,7 +2,7 @@ package lila.i18n
 
 import play.api.i18n.Lang
 
-object LangList {
+object LangList:
 
   val all = Map(
     Lang("en", "GB")  -> "English",
@@ -17,11 +17,11 @@ object LangList {
     Lang("br", "FR")  -> "brezhoneg",
     Lang("bs", "BA")  -> "bosanski",
     Lang("ca", "ES")  -> "Català, valencià",
+    Lang("co", "FR")  -> "corsu",
     Lang("cs", "CZ")  -> "čeština",
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
     Lang("cy", "GB")  -> "Cymraeg",
     Lang("da", "DK")  -> "Dansk",
-    Lang("de", "CH")  -> "Schwizerdütsch",
     Lang("de", "DE")  -> "Deutsch",
     Lang("el", "GR")  -> "Ελληνικά",
     Lang("en", "US")  -> "English (US)",
@@ -38,6 +38,7 @@ object LangList {
     Lang("ga", "IE")  -> "Gaeilge",
     Lang("gd", "GB")  -> "Gàidhlig",
     Lang("gl", "ES")  -> "Galego",
+    Lang("gsw", "CH") -> "Schwizerdütsch",
     Lang("gu", "IN")  -> "ગુજરાતી",
     Lang("he", "IL")  -> "עִבְרִית",
     Lang("hi", "IN")  -> "हिन्दी, हिंदी",
@@ -113,7 +114,7 @@ object LangList {
   def removeRegion(lang: Lang): Lang =
     defaultRegions.get(lang.language) | lang
 
-  private lazy val popular: List[Lang] = {
+  private lazy val popular: List[Lang] =
     // 26/04/2020 based on db.user4.aggregate({$sortByCount:'$lang'}).toArray()
     val langs =
       "en-US en-GB ru-RU es-ES tr-TR fr-FR de-DE pt-BR it-IT pl-PL ar-SA fa-IR nl-NL id-ID nb-NO el-GR sv-SE uk-UA cs-CZ vi-VN sr-SP hr-HR hu-HU pt-PT he-IL fi-FI ca-ES da-DK ro-RO zh-CN bg-BG sk-SK ko-KR az-AZ ja-JP sl-SI lt-LT ka-GE mn-MN bs-BA hy-AM zh-TW lv-LV et-EE th-TH gl-ES sq-AL eu-ES hi-IN mk-MK uz-UZ be-BY ms-MY bn-BD is-IS af-ZA nn-NO ta-IN as-IN la-LA kk-KZ tl-PH mr-IN eo-UY gu-IN ky-KG kn-IN ml-IN cy-GB no-NO fo-FO zu-ZA jv-ID ga-IE ur-PK ur-IN te-IN sw-KE am-ET ia-IA sa-IN si-LK ps-AF mg-MG kmr-TR ne-NP tk-TM fy-NL pa-PK br-FR tt-RU cv-CU tg-TJ tp-TP yo-NG frp-IT pi-IN my-MM pa-IN kab-DZ io-EN gd-GB jbo-EN io-IO ckb-IR ceb-PH an-ES"
@@ -122,7 +123,6 @@ object LangList {
         .zipWithIndex
         .toMap
     all.keys.toList.sortBy(l => langs.getOrElse(l, Int.MaxValue))
-  }
 
   lazy val popularNoRegion: List[Lang] = popular.collect {
     case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
@@ -142,4 +142,18 @@ object LangList {
     }
     .toList
     .sortBy(_._1)
-}
+
+  private val rtlCache = scala.collection.mutable.AnyRefMap.empty[Lang, Boolean]
+
+  def isRTL(lang: Lang): Boolean =
+    rtlCache.getOrElseUpdate(
+      lang,
+      lang.locale
+        .getDisplayName(lang.locale)
+        .headOption
+        .map(_.getDirectionality)
+        .exists { dir =>
+          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
+          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
+        }
+    )

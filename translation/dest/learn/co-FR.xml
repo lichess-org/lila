@@ -5,7 +5,7 @@
   <string name="menu">Listinu</string>
   <string name="progressX">Prugressi: %s</string>
   <string name="resetMyProgress">Ricumincià a prugressione</string>
-  <string name="youWillLoseAllYourProgress">Avete da perde tutta a vostr prugressione!</string>
+  <string name="youWillLoseAllYourProgress">Avete da perde a vostra prugressione!</string>
   <string name="play">ghjucate!</string>
   <string name="chessPieces">E pezze</string>
   <string name="theRook">A torra</string>
@@ -13,12 +13,12 @@
   <string name="rookIntro">A torra hè una pezza putenta putenta. Site prontu à ammaestrà la?</string>
   <string name="rookGoal">Clicheghja nantu à a torra pè move la sin\' à a stella!</string>
   <string name="grabAllTheStars">Cogli tutte e stelle!</string>
-  <string name="theFewerMoves">Menu colpi ghjucarete, più piglierate punti!</string>
+  <string name="theFewerMoves">Menu colpi ghjucarete, più averete punti!</string>
   <string name="useTwoRooks">Aduprate duie torre pè esse più rapidu!</string>
   <string name="rookComplete">Felicitazione! Ammaestrate a torra avà.</string>
   <string name="theBishop">L\' alfieru</string>
   <string name="itMovesDiagonally">Si tramuta in diagunale</string>
-  <string name="bishopIntro">Dopu avemu da amparà cumu si maneghja l\' alfieru!</string>
+  <string name="bishopIntro">Avemu da amparà cumu si maneghja l\' alfieru!</string>
   <string name="youNeedBothBishops">Ci hè un alfieru nantu à e cantarelle bianche è unu nantu à e cantarelle nere. Avete bisognu di i dui!</string>
   <string name="bishopComplete">Felicitazione! Sapete move l\' alfieru.</string>
   <string name="theQueen">A dama</string>
@@ -32,7 +32,7 @@
   <string name="lastOne">L\' ultima!</string>
   <string name="kingComplete">Avà pudete cummandà u cummandante!</string>
   <string name="theKnight">U cavallu</string>
-  <string name="itMovesInAnLShape">Si move cum\' un L</string>
+  <string name="itMovesInAnLShape">Si move cum\'è u L</string>
   <string name="knightIntro">Hè una sfida pè voi. U cavallu hè... una chjocca.</string>
   <string name="knightsHaveAFancyWay">U cavallu pò saltà tuttu intornu à ellu!</string>
   <string name="knightsCanJumpOverObstacles">U cavallu pò saltà sopra à l\' ostaculi! 
@@ -41,13 +41,13 @@ Scappa è raccogli e stelle!</string>
   <string name="thePawn">U pedinu</string>
   <string name="itMovesForwardOnly">Move soltantu davanti</string>
   <string name="pawnIntro">I pedini sò debuli, ma inseme anu una vera putenza.</string>
-  <string name="pawnsMoveOneSquareOnly">Movenu solu d\' una cantarella. 
+  <string name="pawnsMoveOneSquareOnly">I pedini movenu soltantu d\' una cantarella. 
 Ma ghjunti ch\' elli sò nantu à l\' ultima filare di a scacchera, ponu esse trasfurmati in una pezza putenta!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">A spessu, u megliu hè di prumove lu in dama. 
 Ma certe volte, un cavallu pò esse praticu assai!</string>
   <string name="pawnsMoveForward">I pedini movenu davanti à elli, 
-ma catturanu in diagunale!</string>
-  <string name="captureThenPromote">Cattura, pò prumovi!</string>
+ma chjappanu un pezza in diagunale!</string>
+  <string name="captureThenPromote">Chjappa, pò prumovi!</string>
   <string name="useAllThePawns">Adopra tutti i pedini!
 Prumove ùn hè necessariu quì.</string>
   <string name="aPawnOnTheSecondRank">Un pedinu pò avanza di diue cantarelle quandu ellu hè nantu à so cantarella iniziale!</string>
@@ -65,10 +65,10 @@ Prumove ùn hè necessariu quì.</string>
   <string name="takeTheBlackPieces">Pigliate e pezze nere!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Pigliate e pezze nere!
 Ma ùn perdite e vostre.</string>
-  <string name="captureComplete">Felicitazione! Sapete avà cumu si catturanu e pezze!</string>
+  <string name="captureComplete">Felicitazione! Sapete avà cumu si chjappanu e pezze!</string>
   <string name="protection">Prutegge</string>
   <string name="keepYourPiecesSafe">Assicurà e so pezze</string>
-  <string name="protectionIntro">Truvate e pezze attacate da l\' aversariu, pò difendite le!</string>
+  <string name="protectionIntro">Truvate e pezze attaccate da l\' aversariu, pò difendite le!</string>
   <string name="protectionComplete">Felicitazione! Una pezza ch\' ùn perdite hè una pezza guadagnata!</string>
   <string name="escape">Site minacciatu!
 Truvate una risposta à a minaccia!</string>
@@ -77,13 +77,13 @@ ma pudete difende!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Ùn lasciate lu piglià
 mancu una pezza senza difesa!</string>
   <string name="combat">Battaglia</string>
-  <string name="captureAndDefendPieces">Catturate è difendite e pezze</string>
+  <string name="captureAndDefendPieces">Chjappate è difendite e pezze</string>
   <string name="combatIntro">Un bonu cumbattente sà attacà è difende!</string>
   <string name="combatComplete">Felicitazione! Sapete avà cumu battaglià cù e pezze!</string>
   <string name="checkInOne">Scaccu in un colpu</string>
-  <string name="attackTheOpponentsKing">Attacate u rè uppostu</string>
-  <string name="checkInOneIntro">Pè fà un scaccu à u vostru aversariu, attacate u so rè. Li tocca à difende lu!</string>
-  <string name="checkInOneGoal">Mirate u rè uppostu 
+  <string name="attackTheOpponentsKing">Attaccate u rè uppostu</string>
+  <string name="checkInOneIntro">Pè fà un scaccu à u vostru aversariu, attaccate u so rè. Li tocca à difende lu!</string>
+  <string name="checkInOneGoal">Minacciate u rè uppostu 
 in un colpu!</string>
   <string name="checkInOneComplete">Felicitazione! Avete fattu scaccu à u vostru aversariu, sfurzendu lu à difende u so rè!</string>
   <string name="outOfCheck">Difende u scaccu</string>
@@ -125,7 +125,7 @@ Si mette accantu à a dama.</string>
   <string name="pawnsFormTheFrontLine">I pedini formanu a linea di fronte.
 Ghjoca un colpu pè cuntinuà.</string>
   <string name="boardSetupComplete">Felicitazione! Cunnuscite avà l\' accunciamentu di a scacchera.</string>
-  <string name="castling">Arrucamentu</string>
+  <string name="castling">Arruccamentu</string>
   <string name="theSpecialKingMove">U move speciale di u rè</string>
   <string name="castlingIntro">Mettite u vostru rè à l\' aggrottu, è sviluppate e vostre torre pè l\' attaccu!</string>
   <string name="castleKingSide">Muvite u vostru rè di duie canterelle pè fà l\' arruccamentu minò!</string>
@@ -153,7 +153,7 @@ Pigliate lu passendu.</string>
   <string name="enPassantComplete">Felicitazione! Pudete avà piglià i pedini passendu.</string>
   <string name="stalemate">Pattu</string>
   <string name="theGameIsADraw">A partita hè patta</string>
-  <string name="stalemateIntro">Quandu un ghjucatore in pò più ghjucà un colpu regulare, ma chì u so rè ùn hè scaccu, hè un pattu. A partita hè patta, ùn ci hè nè vincitore, nè perditore.</string>
+  <string name="stalemateIntro">Quandu un ghjucadore in pò più ghjucà un colpu regulare, ma chì u so rè ùn hè scaccu, hè un pattu. A partita hè patta, ùn ci hè nè vincitore, nè perditore.</string>
   <string name="stalemateGoal">Pè fà un pattu à i neri:
 - I neri ùn ponu move inlocu
 -Ùn ci hè scaccu.</string>
@@ -187,7 +187,7 @@ Pedinu = 1</string>
   <string name="checkInTwoGoal">Minaccia u rè uppostu in dui colpi!</string>
   <string name="checkInTwoComplete">Felicitazione! Avete fattu scaccu à u vostru aversariu, sfurzendu lu à difende u so rè!</string>
   <string name="whatNext">A seguita?</string>
-  <string name="youKnowHowToPlayChess">Sapete cumu ghjucà à i scacchi, felicitazione! Vulete diventa un ghjucatore aggalabatu?</string>
+  <string name="youKnowHowToPlayChess">Sapete cumu ghjucà à i scacchi, felicitazione! Vulete diventa un ghjucadore aggalabatu?</string>
   <string name="register">Arregistrà</string>
   <string name="getAFreeLichessAccount">Creà un contu Lichess di rigalu</string>
   <string name="practice">Praticà</string>
@@ -196,11 +196,11 @@ Pedinu = 1</string>
   <string name="exerciseYourTacticalSkills">Migliurate e vostre cumpetenze tattiche</string>
   <string name="videos">Filmetti</string>
   <string name="watchInstructiveChessVideos">Fighjulà filmetti pè amparà i scacchi</string>
-  <string name="playPeople">Ghjucà cù d\' altri ghjucatori</string>
+  <string name="playPeople">Ghjucà cù d\' altri ghjucadori</string>
   <string name="opponentsFromAroundTheWorld">Aversarii di u mondu sanu</string>
   <string name="playMachine">Ghjucà contru à l\' urdinatore</string>
   <string name="testYourSkillsWithTheComputer">Testate e vostre cumpetenze di pettu à l\' urdinatore</string>
-  <string name="letsGo">Ademu ci!</string>
+  <string name="letsGo">Andemu ci!</string>
   <string name="stageX">Tappa %s</string>
   <string name="awesome">Geniale!</string>
   <string name="excellent">Eccellente!</string>
@@ -214,7 +214,8 @@ Pedinu = 1</string>
   <string name="rightOn">Ghjustu!</string>
   <string name="stageXComplete">Tappa %s finita</string>
   <string name="next">Prossima</string>
-  <string name="backToMenu">Vultà versu u listinu</string>
+  <string name="nextX">Prossimu: %s</string>
+  <string name="backToMenu">Vultà si ne versu u listinu</string>
   <string name="puzzleFailed">Prublemu mancatu!</string>
-  <string name="retry">Pruvà da torna</string>
+  <string name="retry">Prova da torna</string>
 </resources>

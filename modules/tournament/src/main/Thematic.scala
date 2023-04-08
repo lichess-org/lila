@@ -1,19 +1,14 @@
 package lila.tournament
 
 import chess.StartingPosition
-import chess.format.FEN
+import chess.opening.Eco
+import chess.format.Fen
 
-object Thematic {
+object Thematic:
 
-  def byFen(fen: FEN): Option[StartingPosition] = fenIndex get fen.value
+  def byFen(fen: Fen.Opening): Option[StartingPosition] = fenIndex get fen
 
-  def byEco = ecoIndexForBc.get _
+  def byEco = ecoIndexForBc.get
 
-  private lazy val fenIndex: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
-    p.fen.value -> p
-  }.toMap
-
-  private lazy val ecoIndexForBc: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
-    p.eco -> p
-  }.toMap
-}
+  private lazy val fenIndex: Map[Fen.Opening, StartingPosition] = StartingPosition.all.mapBy(_.fen)
+  private lazy val ecoIndexForBc: Map[Eco, StartingPosition]    = StartingPosition.all.mapBy(_.eco)

@@ -7,15 +7,16 @@
   <string name="kingsideCastle">Короткая рокировка</string>
   <string name="queensideCastle">Длинная рокировка</string>
   <string name="promoteC8ToQueen">Превратить в ферзя на c8</string>
-  <string name="dropARookAtB4">Поставить ладью на b4 (в варианте Crazyhouse)</string>
+  <string name="dropARookAtB4">Выставить ладью на b4 (в варианте Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Предложить или принять ничью</string>
-  <string name="readOutClocks">Узнать время на часах</string>
+  <string name="readOutClocks">Проговорить время на часах</string>
+  <string name="readOutOpponentName">Проговорить имя противника</string>
   <string name="otherCommands">Другие команды</string>
   <string name="tips">Советы</string>
-  <string name="ifTheAboveMoveNotationIsUnfamiliar">Если перечисленные выше ходы непонятны, изучите их тут:</string>
-  <string name="includingAXToIndicateACapture">Включая «x» чтобы указать возможное взятие</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Если нотация команд непонятна, изучите её по ссылке:</string>
+  <string name="includingAXToIndicateACapture">Добавлять «x» для указания взятия необязательно</string>
   <string name="bothTheLetterOAndTheDigitZero">И букву «o», и цифру «0» можно использовать для рокировки</string>
-  <string name="ifItIsLegalToCastleBothWays">Если доступны обе рокировки, используйте Ввод для короткой рокировки</string>
+  <string name="ifItIsLegalToCastleBothWays">Если доступны обе рокировки, используйте «Ввод» для короткой рокировки</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Регистр имеет значение только в случаях, когда надо отличить слона (B) от пешки b</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">Для предходов просто введите новую команду до того, как наступит ваш ход</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Для предхода просто введите новую команду до того как наступит ваш ход</string>
 </resources>

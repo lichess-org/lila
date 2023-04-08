@@ -230,6 +230,7 @@
   <string name="rightOn">ঠিক উপরে!</string>
   <string name="stageXComplete">সম্পূর্ণ %s ধাপ</string>
   <string name="next">পরবর্তী</string>
+  <string name="nextX">এরপরঃ %s</string>
   <string name="backToMenu">মেনুতে ফিরে যান</string>
   <string name="puzzleFailed">ধাঁধা ব্যর্থ!</string>
   <string name="retry">পুনারয় চেষ্টা করুন</string>

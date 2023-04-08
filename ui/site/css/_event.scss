@@ -4,7 +4,7 @@
 
     .img {
       font-size: 6em;
-      margin-right: 3rem;
+      margin-#{$end-direction}: 3rem;
     }
 
     > div {

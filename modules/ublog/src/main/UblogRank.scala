@@ -1,39 +1,35 @@
 package lila.ublog
 
-import akka.stream.scaladsl._
-import cats.implicits._
-import com.softwaremill.tagging._
-import org.joda.time.DateTime
+import akka.stream.scaladsl.*
+import cats.syntax.all.*
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api._
-import scala.concurrent.ExecutionContext
+import reactivemongo.api.*
 
-import lila.db.dsl._
+import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
-import lila.memo.SettingStore
 import lila.user.User
 
 final class UblogRank(
     colls: UblogColls,
     timeline: lila.hub.actors.Timeline
-)(implicit ec: ExecutionContext, mat: akka.stream.Materializer) {
+)(using Executor, akka.stream.Materializer):
 
-  import UblogBsonHandlers._
+  import UblogBsonHandlers.given
 
-  private def selectLiker(userId: User.ID) = $doc("likers" -> userId)
+  private def selectLiker(userId: UserId) = $doc("likers" -> userId)
 
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
 
-  def like(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
+  def like(postId: UblogPostId, user: User, v: Boolean): Fu[UblogPost.Likes] =
     colls.post.update.one(
       $id(postId),
       if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
     ) flatMap { res =>
       colls.post
         .aggregateOne() { framework =>
-          import framework._
+          import framework.*
           Match($id(postId)) -> List(
             PipelineOperator($lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")),
             UnwindField("blog"),
@@ -50,16 +46,16 @@ final class UblogRank(
           )
         }
         .map { docOption =>
-          for {
+          for
             doc      <- docOption
-            id       <- doc.getAsOpt[UblogPost.Id]("_id")
+            id       <- doc.getAsOpt[UblogPostId]("_id")
             likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
             topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
             liveAt   <- doc.getAsOpt[DateTime]("at")
-            tier     <- doc int "tier"
+            tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
             language <- doc.getAsOpt[Lang]("language")
             title    <- doc string "title"
-          } yield (id, topics, likes, liveAt, tier, language, title)
+          yield (id, topics, likes, liveAt, tier, language, title)
         }
         .flatMap {
           case None                                                     => fuccess(UblogPost.Likes(0))
@@ -82,9 +78,7 @@ final class UblogRank(
     }
 
   def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
-    colls.blog.byId[UblogBlog](blogId.full) flatMap {
-      _ ?? recomputeRankOfAllPostsOfBlog
-    }
+    colls.blog.byId[UblogBlog](blogId.full) flatMapz recomputeRankOfAllPostsOfBlog
 
   def recomputeRankOfAllPostsOfBlog(blog: UblogBlog): Funit =
     colls.post
@@ -93,8 +87,8 @@ final class UblogRank(
         $doc("topics" -> true, "likes" -> true, "lived" -> true, "language" -> true).some
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list() flatMap { docs =>
-      lila.common.Future.applySequentially(docs) { doc =>
+      .list(500) flatMap { docs =>
+      lila.common.LilaFuture.applySequentially(docs) { doc =>
         (
           doc.string("_id"),
           doc.getAsOpt[List[UblogTopic]]("topics"),
@@ -120,7 +114,7 @@ final class UblogRank(
       .run()
       .map(nb => println(s"Recomputed rank of $nb blogs"))
 
-  def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.Rank] =
+  def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.RankDate] =
     post.lived map { lived =>
       computeRank(post.topics, post.likes, lived.at, post.language, blog.tier)
     }
@@ -131,12 +125,11 @@ final class UblogRank(
       liveAt: DateTime,
       language: Lang,
       tier: UblogBlog.Tier
-  ) = UblogPost.Rank {
-    import UblogBlog.Tier._
+  ) = UblogPost.RankDate {
+    import UblogBlog.Tier.*
     if (tier < LOW) liveAt minusMonths 3
     else
       liveAt plusHours {
-
         val tierBase = 24 * (tier match {
           case LOW    => -30
           case NORMAL => 0
@@ -154,4 +147,3 @@ final class UblogRank(
         (tierBase + likesBonus + topicsBonus + langBonus).toInt
       }
   }
-}

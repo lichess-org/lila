@@ -16,6 +16,11 @@ const setupFilter = () => {
   $(form)
     .find('select')
     .on('change', () => form.submit());
+  $(form)
+    .find('input')
+    .on('keydown', e => {
+      if (e.code === 'Enter') form.submit();
+    });
 };
 
 const setupTable = () => {

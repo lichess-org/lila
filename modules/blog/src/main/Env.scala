@@ -1,9 +1,8 @@
 package lila.blog
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.*
 import play.api.Configuration
-import scala.concurrent.duration.FiniteDuration
 
 private class BlogConfig(
     @ConfigName("prismic.api_url") val apiUrl: String,
@@ -12,14 +11,12 @@ private class BlogConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     timelineApi: lila.timeline.EntryApi,
     cacheApi: lila.memo.CacheApi
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    ws: play.api.libs.ws.StandaloneWSClient
-) {
+)(using Executor, Scheduler, play.api.libs.ws.StandaloneWSClient):
 
   private val config = appConfig.get[BlogConfig]("blog")(AutoConfig.loader)
 
@@ -28,4 +25,3 @@ final class Env(
   private lazy val notifier = wire[Notifier]
 
   lazy val lastPostCache = wire[LastPostCache]
-}

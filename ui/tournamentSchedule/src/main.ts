@@ -8,7 +8,7 @@ const patch = init([classModule, attributesModule]);
 
 dragscroll; // required to include the dependency :( :( :(
 
-export default function (opts: Opts) {
+export default (window as any).LichessTournamentSchedule = function (opts: Opts) {
   lichess.StrongSocket.defaultParams.flag = 'tournament';
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
@@ -35,7 +35,7 @@ export default function (opts: Opts) {
     };
     redraw();
   });
-}
+};
 
 function update(prevs: Tournament[], news: Tournament[]) {
   // updates ignore team tournaments (same for all)

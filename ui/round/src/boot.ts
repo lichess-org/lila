@@ -6,8 +6,7 @@ import { TourPlayer } from 'game';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
 
 export default function (opts: RoundOpts): void {
-  const element = document.querySelector('.round__app') as HTMLElement,
-    data: RoundData = opts.data;
+  const data = opts.data;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
   lichess.socket = new lichess.StrongSocket(data.url.socket, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
@@ -19,10 +18,12 @@ export default function (opts: RoundOpts): void {
         if (data.tv && data.tv.channel == o.channel) lichess.reload();
         else
           $('.tv-channels .' + o.channel + ' .champion').html(
-            o.player ? [o.player.title, o.player.name, o.player.rating].filter(x => x).join('&nbsp') : 'Anonymous'
+            o.player
+              ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : ''].filter(x => x).join('&nbsp')
+              : 'Anonymous'
           );
       },
-      end() {
+      endData() {
         xhr.text(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
           const $html = $(html),
             $meta = $html.find('.game__meta');
@@ -42,21 +43,21 @@ export default function (opts: RoundOpts): void {
     },
   });
 
-  function startTournamentClock() {
+  const startTournamentClock = () => {
     if (data.tournament)
       $('.game__tournament .clock').each(function (this: HTMLElement) {
-        $(this).clock({
+        lichess.clockWidget(this, {
           time: parseFloat($(this).data('time')),
         });
       });
-  }
-  function getPresetGroup(d: RoundData) {
+  };
+  const getPresetGroup = (d: RoundData) => {
     if (d.player.spectator) return;
     if (d.steps.length < 4) return 'start';
     else if (d.game.status.id >= 30) return 'end';
     return;
-  }
-  opts.element = element;
+  };
+  opts.element = document.querySelector('.round__app') as HTMLElement;
   opts.socketSend = lichess.socket.send;
 
   const round: RoundApi = (window.LichessRound as RoundMain).app(opts);
@@ -85,4 +86,9 @@ export default function (opts: RoundOpts): void {
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0) history.replaceState(null, '', '/' + data.game.id);
   $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
   lichess.storage.make('reload-round-tabs').listen(lichess.reload);
+
+  if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {
+    alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
+    lichess.socket.destroy();
+  }
 }

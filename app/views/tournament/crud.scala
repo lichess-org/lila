@@ -5,13 +5,13 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
 import lila.tournament.{ Tournament, TournamentForm }
 
-object crud {
+object crud:
 
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
       body: Frag
@@ -30,41 +30,41 @@ object crud {
       )
     }
 
-  def create(form: Form[_])(implicit ctx: Context) =
+  def create(form: Form[?])(implicit ctx: Context) =
     layout(
       title = "New tournament",
       css = "mod.form"
     ) {
       div(cls := "crud page-menu__content box box-pad")(
-        h1("New tournament"),
+        h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form, none))
       )
     }
 
-  def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?])(implicit ctx: Context) =
     layout(
       title = tour.name(),
       css = "mod.form"
     ) {
       div(cls := "crud edit page-menu__content box box-pad")(
-        div(cls := "box__top")(
+        boxTop(
           h1(
             a(href := routes.Tournament.show(tour.id))(tour.name()),
             " ",
             span("Created by ", titleNameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
           ),
           st.form(
-            cls := "box__top__actions",
+            cls    := "box__top__actions",
             action := routes.TournamentCrud.cloneT(tour.id),
             method := "get"
           )(form3.submit("Clone", "".some)(cls := "button-green button-empty"))
         ),
-        standardFlash(),
+        standardFlash,
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form, tour.some))
       )
     }
 
-  private def inForm(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) =
+  private def inForm(form: Form[?], tour: Option[Tournament])(implicit ctx: Context) =
     frag(
       form3.split(
         form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
@@ -86,11 +86,21 @@ object crud {
         )(form3.input(_, typ = "number")),
         form3.group(form("image"), raw("Custom icon"), half = true)(form3.select(_, CrudForm.imageChoices))
       ),
-      form3.group(
-        form("headline"),
-        raw("Homepage headline"),
-        help = raw("Keep it VERY short, so it fits on homepage").some
-      )(form3.input(_)),
+      form3.split(
+        form3.group(
+          form("headline"),
+          raw("Homepage headline"),
+          help = raw("Keep it VERY short, so it fits on homepage").some,
+          half = true
+        )(form3.input(_)),
+        form3.group(
+          form("id"),
+          raw("Tournament ID (in the URL)"),
+          help =
+            raw("An 8-letter unique tournament ID, can't be changed after the tournament is created.").some,
+          half = true
+        )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
+      ),
       form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
         form3.textarea(_)(rows := 6)
       ),
@@ -129,7 +139,7 @@ object crud {
       evenMoreJs = infiniteScrollTag
     ) {
       div(cls := "crud page-menu__content box")(
-        div(cls := "box__top")(
+        boxTop(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
             a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "")
@@ -168,4 +178,3 @@ object crud {
         )
       )
     }
-}

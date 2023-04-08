@@ -1,10 +1,9 @@
-package lila
+package lila.blog
 
-package object blog extends PackageObject {
+export lila.Lila.{ *, given }
 
-  private[blog] def logger = lila.log("blog")
+private val logger = lila.log("blog")
 
-  lazy val thisYear = org.joda.time.DateTime.now.getYear
+lazy val thisYear = nowDate.getYear
 
-  lazy val allYears = (thisYear to 2014 by -1).toList
-}
+lazy val allYears = (thisYear to 2014 by -1).toList

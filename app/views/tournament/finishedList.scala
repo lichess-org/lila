@@ -1,13 +1,13 @@
 package views.html.tournament
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.Tournament
 
 import controllers.routes
 
-object finishedList {
+object finishedList:
 
   def apply(finished: List[Tournament])(implicit ctx: Context): Tag =
     tbody(finished map apply)
@@ -36,10 +36,9 @@ object finishedList {
           if (t.variant.exotic) t.variant.name else t.perfType.trans,
           t.position.isDefined option frag(" • ", trans.thematic()),
           " • ",
-          t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+          if t.mode.rated then trans.ratedTournament() else trans.casualTournament(),
           " • ",
           t.durationString
         )
       )
     )
-}

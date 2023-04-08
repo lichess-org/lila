@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="movePieceFromE2ToE4">Presuň figúrku z e2 na e4</string>
+  <string name="kingsideCastle">Malá rošáda</string>
+  <string name="queensideCastle">Veľká rošáda</string>
+  <string name="offerOrAcceptDraw">Ponúknutie alebo prijatie remízy</string>
+  <string name="readOutOpponentName">Prečítať meno súpera</string>
+  <string name="tips">Rady</string>
+</resources>

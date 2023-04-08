@@ -25,4 +25,6 @@
   <string name="currentRoundUrl">Pašreizējā raunda URL</string>
   <string name="currentGameUrl">Pašreizējās spēles URL</string>
   <string name="downloadAllRounds">Lejupielādēt visus raundus</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Neatgriezeniski dzēst raundu un tā spēles.</string>
+  <string name="deleteAllGamesOfThisRound">Izdzēst visas šī raunda spēles. To atjaunošanai būs nepieciešams aktīvs avots.</string>
 </resources>

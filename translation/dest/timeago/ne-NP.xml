@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">भर्खरै</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s सेकेण्डमा</item>
+    <item quantity="other">%s सेकेण्डमा</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s मिनेटमा</item>
+    <item quantity="other">%s मिनेटमा</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s घण्टामा</item>
+    <item quantity="other">%s घण्टामा</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s दिनमा</item>
+    <item quantity="other">%s दिनमा</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s हप्तामा</item>
+    <item quantity="other">%s हप्तामा</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s महिनामा</item>
+    <item quantity="other">%s महिनामा</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s वर्षमा</item>
+    <item quantity="other">%s वर्षमा</item>
+  </plurals>
+  <string name="rightNow">ठिक अहिले</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s सेकेन्ड अघि</item>
+    <item quantity="other">%s सेकेन्ड अघि</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s मिनेट अघि</item>
+    <item quantity="other">%s मिनेट अघि</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s घण्टा अघि</item>
+    <item quantity="other">%s घण्टा अघि</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s दिन अघि</item>
+    <item quantity="other">%s दिन अघि</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s हप्ता अघि</item>
+    <item quantity="other">%s हप्ता अघि</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s महिना अघि</item>
+    <item quantity="other">%s महिना अघि</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s वर्ष अघि</item>
+    <item quantity="other">%s वर्ष अघि</item>
+  </plurals>
+</resources>

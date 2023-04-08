@@ -1,6 +1,7 @@
 import config from '../config';
 import RacerCtrl from '../ctrl';
 import renderClock from 'puz/view/clock';
+import renderHistory from 'puz/view/history';
 import { MaybeVNodes, bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { playModifiers, renderCombo } from 'puz/view/util';
@@ -17,7 +18,12 @@ export default function (ctrl: RacerCtrl): VNode {
         [`racer--${ctrl.status()}`]: true,
       },
     },
-    [renderRace(ctrl), renderBoard(ctrl), h('div.puz-side', selectScreen(ctrl))]
+    [
+      renderBoard(ctrl),
+      h('div.puz-side', selectScreen(ctrl)),
+      renderRace(ctrl),
+      ctrl.status() === 'post' && ctrl.run.history.length > 0 ? renderHistory(ctrl) : null,
+    ]
   );
 }
 
@@ -140,7 +146,7 @@ const renderLink = (ctrl: RacerCtrl) =>
     h('div', [
       h(`input#racer-url-${ctrl.race.id}.copyable.autoselect`, {
         attrs: {
-          spellcheck: false,
+          spellcheck: 'false',
           readonly: 'readonly',
           value: `${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`,
         },

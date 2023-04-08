@@ -4,14 +4,13 @@ import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import java.nio.ByteBuffer
 import org.apache.commons.codec.binary.Base32
-import reactivemongo.api.bson._
-
-import lila.common.SecureRandom
+import reactivemongo.api.bson.*
+import ornicar.scalalib.SecureRandom
 
 import User.TotpToken
 
-case class TotpSecret(secret: Array[Byte]) extends AnyVal {
-  import TotpSecret._
+case class TotpSecret(secret: Array[Byte]) extends AnyVal:
+  import TotpSecret.*
 
   override def toString = "TotpSecret(****)"
 
@@ -31,27 +30,23 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
       otpString(ByteBuffer.wrap(hash).getInt(offset) & 0x7fffffff)
     }
 
-  def verify(token: TotpToken): Boolean = {
+  def verify(token: TotpToken): Boolean =
     val period = System.currentTimeMillis / 30000
     skewList.exists(skew => totp(period + skew) == token)
-  }
-}
 
-object TotpSecret {
+object TotpSecret:
   // clock skews in rough order of likelihood
   private val skewList = List(0, -1, 1, -2, 2, -3, 3)
 
-  private def otpString(otp: Int) = {
+  private def otpString(otp: Int) =
     val s = (otp % 1000000).toString
     "0" * (6 - s.length) + s
-  }
 
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
   def random = TotpSecret(SecureRandom.nextBytes(20))
 
-  private[user] val totpSecretBSONHandler = lila.db.dsl.quickHandler[TotpSecret](
+  private[user] given BSONHandler[TotpSecret] = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
   )
-}

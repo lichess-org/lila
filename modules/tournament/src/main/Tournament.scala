@@ -1,26 +1,26 @@
 package lila.tournament
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.format.FEN
+import chess.Clock.Config as ClockConfig
+import chess.format.Fen
 import chess.{ Mode, Speed }
-import org.joda.time.{ DateTime, Duration, Interval }
+import org.joda.time.{ Duration, Interval }
 import play.api.i18n.Lang
-import scala.util.chaining._
+import scala.util.chaining.*
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.GreatPlayer
-import lila.common.ThreadLocalRandom
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
 
 case class Tournament(
-    id: Tournament.ID,
+    id: TourId,
     name: String,
     status: Status,
     clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
-    position: Option[FEN],
+    position: Option[Fen.Opening],
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
@@ -30,14 +30,14 @@ case class Tournament(
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
-    createdBy: User.ID,
+    createdBy: UserId,
     startsAt: DateTime,
-    winnerId: Option[User.ID] = None,
-    featuredId: Option[String] = None,
+    winnerId: Option[UserId] = None,
+    featuredId: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
     hasChat: Boolean = true
-) {
+):
 
   def isCreated   = status == Status.Created
   def isStarted   = status == Status.Started
@@ -48,13 +48,11 @@ case class Tournament(
 
   def isTeamBattle = teamBattle.isDefined
 
-  def name(full: Boolean = true)(implicit lang: Lang): String = {
-    import lila.i18n.I18nKeys.tourname._
+  def name(full: Boolean = true)(using Lang): String =
     if (isMarathon || isUnique) name
-    else if (isTeamBattle && full) xTeamBattle.txt(name)
+    else if (isTeamBattle && full) lila.i18n.I18nKeys.tourname.xTeamBattle.txt(name)
     else if (isTeamBattle) name
     else schedule.fold(if (full) s"$name Arena" else name)(_.name(full))
-  }
 
   def isMarathon =
     schedule.map(_.freq) exists {
@@ -78,7 +76,7 @@ case class Tournament(
 
   def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
 
-  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds / 2, 120))
+  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
 
   def isStillWorthEntering =
     isMarathonOrUnique || {
@@ -91,21 +89,20 @@ case class Tournament(
 
   def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 15
 
-  def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
 
-  def isDistant = startsAt.isAfter(DateTime.now plusDays 1)
+  def isDistant = startsAt.isAfter(nowDate plusDays 1)
 
-  def duration = new Duration(minutes * 60 * 1000)
+  def duration = Duration(minutes * 60 * 1000)
 
-  def interval = new Interval(startsAt, duration)
+  def interval = Interval(startsAt, duration)
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 
   def similarTo(other: Tournament) =
-    (schedule, other.schedule) match {
+    (schedule, other.schedule) match
       case (Some(s1), Some(s2)) if s1 similarTo s2 => true
       case _                                       => false
-    }
 
   def speed = Speed(clock)
 
@@ -143,24 +140,28 @@ case class Tournament(
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
-  override def toString = s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $clock, $nbPlayers players"
-}
+  def estimateNumberOfGamesOneCanPlay: Double =
+    // There are 2 players, and they don't always use all their time (0.8)
+    // add 15 seconds for pairing delay
+    val estimatedGameSeconds: Double = clock.estimateTotalSeconds * 2 * 0.8 + 15
+    (minutes * 60) / estimatedGameSeconds
+
+  override def toString =
+    s"$id $startsAt ${name()(using defaultLang)} $minutes minutes, $clock, $nbPlayers players"
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
 
-object Tournament {
-
-  type ID = String
+object Tournament:
 
   val minPlayers = 2
 
   def make(
-      by: Either[User.ID, User],
+      by: Either[UserId, User],
       name: Option[String],
       clock: ClockConfig,
       minutes: Int,
       variant: chess.variant.Variant,
-      position: Option[FEN],
+      position: Option[Fen.Opening],
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,
@@ -174,14 +175,14 @@ object Tournament {
     Tournament(
       id = makeId,
       name = name | (position match {
-        case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.shortName)
+        case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.name.value)
         case None      => GreatPlayer.randomName
       }),
       status = Status.Created,
       clock = clock,
       minutes = minutes,
       createdBy = by.fold(identity, _.id),
-      createdAt = DateTime.now,
+      createdAt = nowDate,
       nbPlayers = 0,
       variant = variant,
       position = position,
@@ -192,7 +193,7 @@ object Tournament {
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startDate | DateTime.now.plusMinutes(waitMinutes),
+      startsAt = startDate | nowDate.plusMinutes(waitMinutes),
       description = description,
       hasChat = hasChat
     )
@@ -200,12 +201,12 @@ object Tournament {
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
       id = makeId,
-      name = sched.name(full = false)(defaultLang),
+      name = sched.name(full = false)(using defaultLang),
       status = Status.Created,
       clock = Schedule clockFor sched,
       minutes = minutes,
       createdBy = User.lichessId,
-      createdAt = DateTime.now,
+      createdAt = nowDate,
       nbPlayers = 0,
       variant = sched.variant,
       position = sched.position,
@@ -215,21 +216,17 @@ object Tournament {
       startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
     )
 
-  def tournamentUrl(tourId: String): String = s"https://lichess.org/tournament/$tourId"
+  def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"
 
-  def makeId = ThreadLocalRandom nextString 8
+  def makeId = TourId(ThreadLocalRandom nextString 8)
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 
-  sealed abstract class JoinResult(val error: Option[String]) {
+  enum JoinResult(val error: Option[String]):
     def ok = error.isEmpty
-  }
-  object JoinResult {
-    case object Ok             extends JoinResult(none)
-    case object WrongEntryCode extends JoinResult("Wrong entry code".some)
-    case object Paused         extends JoinResult("Your pause is not over yet".some)
-    case object Verdicts       extends JoinResult("Tournament restrictions".some)
-    case object MissingTeam    extends JoinResult("Missing team".some)
-    case object Nope           extends JoinResult("Couldn't join for some reason?".some)
-  }
-}
+    case Ok             extends JoinResult(none)
+    case WrongEntryCode extends JoinResult("Wrong entry code".some)
+    case Paused         extends JoinResult("Your pause is not over yet".some)
+    case Verdicts       extends JoinResult("Tournament restrictions".some)
+    case MissingTeam    extends JoinResult("Missing team".some)
+    case Nope           extends JoinResult("Couldn't join for some reason?".some)

@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { MaybeVNodes } from '../interfaces';
+import { MaybeVNodes } from 'common/snabbdom';
 
 export function tds(bits: MaybeVNodes): MaybeVNodes {
   return bits.map(function (bit) {

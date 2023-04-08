@@ -13,6 +13,7 @@ $span-width: 1.7em;
     line-height: 1;
     margin: 0.5em 0;
     align-self: center;
+    unicode-bidi: plaintext;
   }
 
   > div {
@@ -31,7 +32,7 @@ $span-width: 1.7em;
       color: $c-link;
       font-weight: bold;
       height: auto;
-      margin-right: 0.4em;
+      margin-#{$end-direction}: 0.4em;
       opacity: 0.8;
     }
 
@@ -40,7 +41,7 @@ $span-width: 1.7em;
       align-self: center;
       font-size: 0.9em;
       white-space: nowrap;
-      margin-right: 0.7rem;
+      margin-#{$end-direction}: 0.7rem;
     }
   }
 

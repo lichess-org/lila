@@ -8,6 +8,9 @@
   <string name="mostChessCourses">Kebanyakan program catur dan latihan menggunakan notasi aljabar secara ekstensif.</string>
   <string name="talkToYourChessFriends">Itu membuatnya lebih mudah untuk berbicara dengan teman-teman catur Anda, karena Anda berdua memahami \"bahasa catur\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Anda dapat menganalisis permainan lebih efektif jika Anda tidak perlu untuk mencari nama-nama kotak.</string>
-  <string name="aSquareNameAppears">Nama kotak muncul di papan dan Anda harus klik di kotak yang benar. Anda memiliki waktu 30 detik untuk mengenali kotak sebanyak mungkin!</string>
+  <string name="showCoordinates">Tampilkan koordinat</string>
+  <string name="showPieces">Tampilkan buah</string>
   <string name="startTraining">Mulai latihan</string>
+  <string name="findSquare">Cari petak</string>
+  <string name="nameSquare">Menamai petak</string>
 </resources>

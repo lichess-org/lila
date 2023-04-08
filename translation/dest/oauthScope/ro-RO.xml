@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="newAccessToken">Token personal de acces API</string>
+  <string name="tokenGrantsPermission">Un token acordă altor persoane permisiunea de a vă utiliza contul.</string>
+  <string name="carefullySelect">Selectați cu atenție ce este permis în numele dvs.</string>
+  <string name="tokenDescription">Descrierea tokenului</string>
+  <string name="rememberTokenUse">Ca să vă amintiți scopul tokenului</string>
+  <string name="whatTheTokenCanDo">Ce poate face tokenul în numele tău:</string>
+  <string name="doNotShareIt">Tokenul va permite accesul la contul tău. NU îl partaja cu nimeni!</string>
+  <string name="copyTokenNow">Nu uitați să copiați acum noul token de acces personal. Nu îl veți mai putea vedea din nou!</string>
+  <string name="preferenceRead">Citește preferințele</string>
+  <string name="preferenceWrite">Scrieți preferința</string>
+  <string name="emailRead">Citește adresa de e-mail</string>
+  <string name="challengeRead">Citește provocările primite</string>
+  <string name="challengeWrite">Trimite, acceptă și respinge provocările</string>
+  <string name="challengeBulk">Creează multe jocuri simultan pentru alți jucători</string>
+  <string name="studyRead">Citește studii și difuzări private</string>
+  <string name="studyWrite">Creează, actualizează, șterge studii și difuzări</string>
+  <string name="tournamentWrite">Creează, actualizează și alătură-te turneelor</string>
+  <string name="racerWrite">Creează și alătură-te curselor de probleme</string>
+  <string name="puzzleRead">Citește activitatea legată de probleme</string>
+  <string name="teamRead">Citește informațiile private legate de echipă</string>
+  <string name="teamWrite">Alătură-te, părăsește sau condu o echipă</string>
+  <string name="teamLead">Gestionați echipele pe care le conduceți: trimiteți mesaje personale, dați afară membrii</string>
+  <string name="followRead">Citește jucători urmăriți</string>
+  <string name="followWrite">Urmărește sau nu mai urmări alți jucători</string>
+  <string name="msgWrite">Trimite mesaj privat altor jucători</string>
+  <string name="boardPlay">Joacă jocuri folosind API-ul pentru tablă</string>
+  <string name="botPlay">Joacă jocuri folosind API-ul pentru bot</string>
+  <string name="engineRead">Vizualizați și folosiți motorul extern</string>
+  <string name="engineWrite">Creează și actualizează motorul extern</string>
+  <string name="webLogin">Creează sesiuni autentificate pentru website (acordă acces deplin!)</string>
+  <string name="webMod">Utilizează instrumente de moderator (în limitele permisiunilor dumneavoastră)</string>
+</resources>

@@ -30,7 +30,10 @@
   </plurals>
   <string name="thisIsPrivate">これはプライベートのトーナメントです</string>
   <string name="shareUrl">誰もが参加できるようにシェアして: %s</string>
-  <string name="drawStreak">連続ドロー：ドローが連続した場合、手数が%s手を超えたゲームしかポイントが得られません（最初のドローは手数を問わない）。連続ドローが途切れるのは勝った時だけで、負けでは途切れたことになりません。</string>
+  <string name="drawStreakStandard">連続ドロー：ドローが続いた場合、ポイントが得られるのは最初のドローと、その後はスタンダード持時間で手数が %s 手を超えたゲームだけです。連続ドローが途切れるのは勝った時だけで、負けでは途切れたことになりません。</string>
+  <string name="drawStreakVariants">ドローでポイントが得られる手数の下限はバリアントごとに違います。下の表をご覧ください。</string>
+  <string name="variant">バリアント</string>
+  <string name="minimumGameLength">最小手数</string>
   <string name="history">過去のアリーナ</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">%s チームを表示</item>
@@ -43,4 +46,8 @@
   <string name="allowChatHelp">チャットルームでの会話を認める</string>
   <string name="arenaStreaks">連勝ボーナスあり</string>
   <string name="arenaStreaksHelp">2 連勝すると以降の勝ちは 2 ではなく 4 ポイントになる。</string>
+  <string name="noBerserkAllowed">バーサークなし</string>
+  <string name="noArenaStreaks">連勝ボーナスなし</string>
+  <string name="averagePerformance">平均パフォーマンス</string>
+  <string name="averageScore">平均スコア</string>
 </resources>

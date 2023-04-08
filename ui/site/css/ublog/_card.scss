@@ -2,7 +2,7 @@
   &-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
-    grid-gap: 3vmin;
+    grid-gap: 2em;
   }
   &-card {
     @extend %box-neat-force;
@@ -12,6 +12,8 @@
     background: $c-bg-zebra;
     color: $c-font;
     position: relative;
+    direction: ltr;
+    text-align: left;
 
     &--link:hover {
       box-shadow: 0 0 5px $c-link, 0 0 20px $c-link;
@@ -20,7 +22,8 @@
     &__over-image {
       position: absolute;
       top: 0;
-      padding: 0.2em 0.5em 0.3em 0.5em;
+      @include padding-direction(0.2em, 0.5em, 0.3em, 0.5em);
+
       @if $theme-dark {
         background: rgba(0, 0, 0, 0.65);
         color: #ddd;
@@ -33,11 +36,11 @@
       opacity: 1;
     }
     time {
-      left: 0;
+      #{$start-direction}: 0;
       border-radius: 0 0 $box-radius-size 0;
     }
     .user-link {
-      right: 0;
+      #{$end-direction}: 0;
       border-radius: 0 0 0 $box-radius-size;
     }
 

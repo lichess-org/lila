@@ -1,3 +1,5 @@
+export {}; // for tsc isolatedModules
+
 function generateSearchParams(): string {
   const searchParams = new URLSearchParams();
 

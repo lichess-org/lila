@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Praepositiones</string>
-  <string name="gameDisplay">Ludus cosmeticus</string>
   <string name="pieceAnimation">Scacci motabiles</string>
   <string name="materialDifference">Discrimen materiei</string>
   <string name="boardHighlights">Designanda in tabula (motus ultimus et matus)</string>

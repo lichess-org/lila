@@ -8,7 +8,7 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, Position, Redraw } from '../interfaces';
+import { Step, Position, Redraw, NvuiPlugin } from '../interfaces';
 import * as game from 'game';
 import {
   renderSan,
@@ -37,11 +37,11 @@ import { commands } from 'nvui/command';
 import { throttled } from '../sound';
 
 const selectSound = throttled('select');
-const wrapSound = throttled('wrapAround');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export default function (redraw: Redraw) {
+// esbuild
+export default (window as any).LichessRoundNvui = function (redraw: Redraw): NvuiPlugin {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
@@ -55,8 +55,16 @@ export default function (redraw: Redraw) {
   lichess.pubsub.on('round.suggestion', notify.set);
 
   return {
+    premoveInput: '',
+    playPremove(ctrl: RoundController) {
+      const nvui = ctrl.nvui!;
+      nvui.submitMove?.(true);
+      nvui.premoveInput = '';
+    },
+    submitMove: undefined,
     render(ctrl: RoundController): VNode {
       const d = ctrl.data,
+        nvui = ctrl.nvui!,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
         variantNope =
@@ -133,7 +141,8 @@ export default function (redraw: Redraw) {
                       const $form = $(el as HTMLFormElement),
                         $input = $form.find('.move').val('');
                       $input[0]!.focus();
-                      $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
+                      nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
+                      $form.on('submit', () => nvui.submitMove?.());
                     }),
                   },
                   [
@@ -201,7 +210,7 @@ export default function (redraw: Redraw) {
                   )
                 );
                 $buttons.on('keypress', positionJumpHandler());
-                $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+                $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
               }),
             },
             renderBoard(
@@ -226,7 +235,7 @@ export default function (redraw: Redraw) {
           // h('p', takes(ctrl.data.steps.map(data => data.fen))),
           h('h2', 'Settings'),
           h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h3', 'Board Settings'),
+          h('h3', 'Board settings'),
           h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
@@ -254,7 +263,7 @@ export default function (redraw: Redraw) {
             'takeback: Offer or accept take back.',
             h('br'),
           ]),
-          h('h2', 'Board Mode commands'),
+          h('h2', 'Board mode commands'),
           h('p', [
             'Use these commands when focused on the board itself.',
             h('br'),
@@ -289,19 +298,39 @@ export default function (redraw: Redraw) {
       );
     },
   };
-}
+};
 
-function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
-  return () => {
-    let input = castlingFlavours(($input.val() as string).trim());
-    if (isShortCommand(input)) input = '/' + input;
-    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
-    else {
-      const d = ctrl.data,
-        uci = inputToLegalUci(input, plyStep(d, ctrl.ply).fen, ctrl.chessground);
-      if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
-      else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
+function createSubmitHandler(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
+  return (submitStoredPremove = false) => {
+    const nvui = ctrl.nvui!;
+
+    if (submitStoredPremove && nvui.premoveInput === '') return false;
+    if (!submitStoredPremove && $input.val() === '') {
+      if (nvui.premoveInput !== '') {
+        // if this is not a premove submission, the input is empty, and we have a stored premove, clear it
+        nvui.premoveInput = '';
+        notify('Cleared premove');
+      } else notify('Invalid move');
+      return false;
     }
+
+    let input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
+
+    // commands may be submitted with or without a leading /
+    if (isShortCommand(input)) input = '/' + input;
+    if (input[0] === '/') {
+      onCommand(ctrl, notify, input.slice(1), style());
+      $input.val('');
+      return false;
+    }
+
+    const uci = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
+    if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
+    else if (ctrl.data.player.color !== ctrl.data.game.player) {
+      // if it is not the user's turn, store this input as a premove
+      nvui.premoveInput = input;
+      notify(`Will attempt to premove: ${input}. Enter to cancel`);
+    } else notify(`Invalid move: ${input}`);
     $input.val('');
     return false;
   };
@@ -341,8 +370,10 @@ function anyClock(ctrl: RoundController, position: Position) {
 function renderMoves(steps: Step[], style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
-    if (s.ply & 1) res.push(Math.ceil(s.ply / 2) + ' ');
-    res.push(renderSan(s.san, s.uci, style) + ', ');
+    let str = '';
+    if (s.ply & 1) str += Math.ceil(s.ply / 2) + ' ';
+    str += renderSan(s.san, s.uci, style) + ', ';
+    res.push(str);
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;

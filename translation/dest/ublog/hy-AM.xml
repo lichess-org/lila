@@ -9,6 +9,8 @@
   <string name="postBody">Գրառման տեքստ</string>
   <string name="drafts">Սևագրեր</string>
   <string name="published">Հրապարակված</string>
+  <string name="createBlogDiscussion">Միացնել մեկնաբանությունները</string>
+  <string name="createBlogDiscussionHelp">Ֆորումի թեման կստեղծվի՝ այնտեղ մեկնաբանություններ թողնելու հնարավորությամբ</string>
   <string name="publishOnYourBlog">Հրապարակել ձեր բլոգում</string>
   <string name="publishHelp">Եթե այս նշումն առկա է, գրառումը կերևա ձեր բլոգում։ Հակառակ դեպքում այն կլինի անձնական` ձեր գրառումների սևագրերի մեջ</string>
   <plurals name="publishedNbBlogPosts">
@@ -28,4 +30,12 @@
     <item quantity="one">Դիտել մեկ գրառում</item>
     <item quantity="other">Դիտել բոլոր %s գրառումները</item>
   </plurals>
+  <string name="deleteBlog">Բլոգի այս գրությունը հեռացնել վերջնականապես</string>
+  <string name="deleteImage">Ջնջել պատկերը</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Անվտանգ է օգտագործել պատկերները հետևյալ կայքերից.</string>
+  <string name="selectPostTopics">Ընտրեք այն թեմաները, որոնց մասին է Ձեր գրառումը</string>
+  <string name="useImagesYouMadeYourself">Կարող եք օգտագործել նաև Ձեր ստեղծած նկարները, ձեր արած լուսանկարները, Lichess-ի սքրինշոթները... այն ամենը, ինչը հեղինակային իրավունքով պաշտպանված չէ:</string>
+  <string name="safeAndRespectfulContent">Խնդրում ենք հրապարակել միայն անվտանգ և հարգելի բովանդակություն։ Մի՛ պատճենեք ուրիշի բովանդակությունը։</string>
+  <string name="inappropriateContentAccountClosed">Ցանկացած անպատշաճ գործողություն կարող է հանգեցնել  Ձեր հաշվի փակմանը:</string>
+  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Բլոգում գերազանց հաղորդագրություններ գրելու մեր պարզ խորհուրդները</string>
 </resources>

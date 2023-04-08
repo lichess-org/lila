@@ -1,21 +1,24 @@
 package controllers
 
-import lila.app._
+import play.api.mvc.Result
 
-final class Coordinate(env: Env) extends LilaController(env) {
+import lila.api.Context
+import lila.app.{ given, * }
 
-  def home =
-    Open { implicit ctx =>
-      ctx.userId ?? { userId =>
-        env.coordinate.api getScore userId map (_.some)
-      } map { score =>
-        views.html.coordinate.show(score)
-      }
+final class Coordinate(env: Env) extends LilaController(env):
+
+  def home     = Open(serveHome(_))
+  def homeLang = LangPage(routes.Coordinate.home)(serveHome(_))
+  private def serveHome(implicit ctx: Context): Fu[Result] =
+    ctx.userId ?? { userId =>
+      env.coordinate.api getScore userId map (_.some)
+    } map { score =>
+      views.html.coordinate.show(score)
     }
 
   def score =
     AuthBody { implicit ctx => me =>
-      implicit val body = ctx.body
+      given play.api.mvc.Request[?] = ctx.body
       env.coordinate.forms.score
         .bindFromRequest()
         .fold(
@@ -23,4 +26,3 @@ final class Coordinate(env: Env) extends LilaController(env) {
           data => env.coordinate.api.addScore(me.id, data.mode, data.color, data.score) inject Ok(())
         )
     }
-}

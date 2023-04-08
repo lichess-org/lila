@@ -1,10 +1,8 @@
 package lila.common
 
-import org.joda.time.DateTime
+object Uptime:
 
-object Uptime {
-
-  val startedAt       = DateTime.now
+  val startedAt       = nowDate
   val startedAtMillis = nowMillis
 
   def seconds = nowSeconds - startedAt.getSeconds
@@ -14,4 +12,3 @@ object Uptime {
 
   def startedSinceSeconds(seconds: Int) =
     startedAtMillis < (nowMillis - (seconds * 1000))
-}

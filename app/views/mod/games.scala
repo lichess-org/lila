@@ -1,20 +1,21 @@
 package views.html.mod
 
 import controllers.GameMod
-import scala.util.chaining._
 import controllers.routes
 import play.api.data.Form
+import scala.util.chaining.*
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
-import lila.user.User
-import lila.tournament.LeaderboardApi.TourEntry
+import lila.rating.PerfType
 import lila.swiss.Swiss
+import lila.tournament.LeaderboardApi.TourEntry
+import lila.user.User
 
-object games {
+object games:
 
   private val sortNoneTh = th(attr("data-sort-method") := "none")
 
@@ -23,8 +24,8 @@ object games {
       filterForm: Form[GameMod.Filter],
       games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
-      swisses: Seq[(Swiss.IdName, Int)]
-  )(implicit
+      swisses: Seq[(Swiss.IdName, Rank)]
+  )(using
       ctx: Context
   ) =
     views.html.base.layout(
@@ -33,17 +34,18 @@ object games {
       moreJs = jsModule("mod.games")
     ) {
       main(cls := "mod-games box")(
-        div(cls := "box__top")(
+        boxTop(
           h1(userLink(user, params = "?mod"), " games"),
           div(cls := "box__top__actions")(
             form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(
-              form3.input(filterForm("opponents"))(placeholder := "Opponents"),
+              form3.input(filterForm("opponents"))(placeholder  := "Opponents"),
+              form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
-                filterForm("speed"),
-                chess.Speed.all.map { s =>
-                  s.key -> s.name
+                filterForm("perf"),
+                PerfType.nonPuzzle.map { p =>
+                  p.key -> p.trans
                 },
-                "Time control".some
+                "Variant".some
               ),
               form3.select(
                 filterForm("arena"),
@@ -61,7 +63,7 @@ object games {
               form3.select(
                 filterForm("swiss"),
                 swisses.map { case (swiss, rank) =>
-                  swiss.id.value -> s"rank ${rank} / ${swiss.name}"
+                  swiss.id -> s"rank ${rank} / ${swiss.name}"
                 },
                 s"${swisses.size} swiss".some,
                 disabled = swisses.isEmpty
@@ -71,8 +73,8 @@ object games {
         ),
         postForm(action := routes.GameMod.post(user.id), cls := "mod-games__analysis-form")(
           isGranted(_.UserEvaluate) option submitButton(
-            cls := "button button-empty button-thin",
-            name := "action",
+            cls   := "button button-empty button-thin",
+            name  := "action",
             value := "analyse"
           )(
             "Analyse selected"
@@ -85,8 +87,8 @@ object games {
               tr(
                 sortNoneTh(
                   input(
-                    tpe := "checkbox",
-                    name := s"game[]",
+                    tpe      := "checkbox",
+                    name     := s"game[]",
                     st.value := "all"
                   )
                 ),
@@ -102,17 +104,17 @@ object games {
               )
             ),
             tbody(
-              games.fold(_.map(_ -> None), _.map({ case (pov, ass) => pov -> Some(ass) })).map {
+              games.fold(_.map(_ -> None), _.map { case (pov, ass) => pov -> Some(ass) }).map {
                 case (pov, assessment) =>
                   tr(
                     td(cls := pov.game.analysable.option("input"))(
                       pov.game.analysable option input(
-                        tpe := "checkbox",
-                        name := s"game[]",
+                        tpe      := "checkbox",
+                        name     := s"game[]",
                         st.value := pov.gameId
                       )
                     ),
-                    td(dataSort := ~pov.opponent.rating)(
+                    td(dataSort := pov.opponent.rating.fold(0)(_.value))(
                       playerLink(pov.opponent, withDiff = false)
                     ),
                     td(
@@ -125,19 +127,19 @@ object games {
                       },
                       shortClockName(pov.game)
                     ),
-                    td(dataSort := ~pov.game.tournamentId)(
+                    td(dataSort := pov.game.tournamentId.??(_.value))(
                       pov.game.tournamentId map { tourId =>
                         a(
                           dataIcon := "",
-                          href := routes.Tournament.show(tourId).url,
-                          title := tournamentIdToName(tourId)
+                          href     := routes.Tournament.show(tourId).url,
+                          title    := tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId map { swissId =>
                         a(
                           dataIcon := "",
-                          href := routes.Swiss.show(swissId).url,
-                          title := s"Swiss #${swissId}"
+                          href     := routes.Swiss.show(swissId).url,
+                          title    := s"Swiss #${swissId}"
                         )
                       }
                     ),
@@ -188,4 +190,3 @@ object games {
         )
       )
     }
-}

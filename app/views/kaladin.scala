@@ -1,22 +1,21 @@
 package views.html
 
 import lila.api.Context
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
+import lila.app.templating.Environment.{ given, * }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 import lila.irwin.KaladinUser
 
-object kaladin {
+object kaladin:
 
-  private def predClass(pred: KaladinUser.Pred) = pred.percent match {
+  private def predClass(pred: KaladinUser.Pred) = pred.percent match
     case p if p < 30 => "green"
     case p if p < 60 => "yellow"
     case p if p < 80 => "orange"
     case _           => "red"
-  }
 
-  def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(implicit ctx: Context) =
+  def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(using Context) =
     views.html.base.layout(
       title = "Kaladin dashboard",
       moreCss = cssTag("mod.misc")
@@ -24,7 +23,7 @@ object kaladin {
       main(cls := "page-menu")(
         mod.menu("kaladin"),
         div(cls := "kaladin page-menu__content box")(
-          div(cls := "box__top")(
+          boxTop(
             h1(
               "Kaladin status: ",
               if (dashboard.seenRecently) span(cls := "up")("Operational")
@@ -40,7 +39,7 @@ object kaladin {
             div(cls := "box__top__actions")(
               a(
                 href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
-                cls := "button button-empty"
+                cls  := "button button-empty"
               )("Monitoring")
             )
           ),
@@ -90,7 +89,7 @@ object kaladin {
       )
     }
 
-  def report(response: lila.irwin.KaladinUser.Response)(implicit ctx: Context): Frag =
+  def report(response: lila.irwin.KaladinUser.Response): Frag =
     div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
       header(
         span(cls := "title")(
@@ -120,4 +119,3 @@ object kaladin {
         )
       }
     )
-}

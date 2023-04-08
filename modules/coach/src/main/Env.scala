@@ -1,12 +1,11 @@
 package lila.coach
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import com.softwaremill.macwire.*
+import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
-import scala.concurrent.duration._
 
-import lila.common.config._
-import lila.security.Permission
+import lila.common.config.*
+import akka.actor.ActorSystem
 
 @Module
 final private class CoachConfig(
@@ -15,6 +14,7 @@ final private class CoachConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
@@ -22,7 +22,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(using Executor, ActorSystem):
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 
@@ -58,4 +58,3 @@ final class Env(
         black ?? api.setRating
       }.unit
   }
-}

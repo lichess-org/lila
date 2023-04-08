@@ -1,27 +1,28 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms._
-import scala.concurrent.duration._
-import scala.util.chaining._
+import play.api.data.*
+import play.api.data.Forms.{ list as formList, * }
+import scala.util.chaining.*
 
 import lila.api.Context
 import lila.api.GameApiV2
-import lila.app._
+import lila.app.{ given, * }
 import lila.common.config
-import lila.db.dsl._
+import lila.common.Form.{ stringIn, given }
+import lila.db.dsl.{ *, given }
+import lila.rating.{ Perf, PerfType }
 import lila.user.Holder
 
-final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
+final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
 
-  import GameMod._
+  import GameMod.*
 
-  def index(username: String) =
-    SecureBody(_.GamesModView) { implicit ctx => me =>
-      OptionFuResult(env.user.repo named username) { user =>
-        implicit def req = ctx.body
-        val form         = filterForm.bindFromRequest()
-        val filter       = form.fold(_ => emptyFilter, identity)
+  def index(username: UserStr) =
+    SecureBody(_.GamesModView) { implicit ctx => _ =>
+      OptionFuResult(env.user.repo byId username) { user =>
+        given play.api.mvc.Request[?] = ctx.body
+        val form                      = filterForm.bindFromRequest()
+        val filter                    = form.fold(_ => emptyFilter, identity)
         env.tournament.leaderboardApi.recentByUser(user, 1) zip
           env.activity.read.recentSwissRanks(user.id) zip
           fetchGames(user, filter) flatMap { case ((arenas, swisses), povs) =>
@@ -36,33 +37,31 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       }
     }
 
-  private def fetchGames(user: lila.user.User, filter: Filter) = {
+  private def fetchGames(user: lila.user.User, filter: Filter) =
     val select = toDbSelect(filter) ++ lila.game.Query.finished
-    filter.realSpeed
-      .fold(env.game.gameRepo.recentPovsByUserFromSecondary(user, nbGames, select)) { speed =>
-        import akka.stream.scaladsl._
-        env.game.gameRepo
-          .recentGamesByUserFromSecondaryCursor(user, select)
-          .documentSource(10_000)
-          .filter(_.speed == speed)
-          .take(nbGames)
-          .mapConcat { g => lila.game.Pov(g, user).toList }
-          .toMat(Sink.seq)(Keep.right)
-          .run()
-          .map(_.toList)
+    import akka.stream.scaladsl.*
+    env.game.gameRepo
+      .recentGamesByUserFromSecondaryCursor(user, select)
+      .documentSource(10_000)
+      .filter { game =>
+        filter.perf.fold(true)(game.perfKey ==)
       }
-  }
+      .take(filter.nbGames)
+      .mapConcat { lila.game.Pov(_, user).toList }
+      .toMat(Sink.seq)(Keep.right)
+      .run()
+      .map(_.toList)
 
-  def post(username: String) =
+  def post(username: UserStr) =
     SecureBody(_.GamesModView) { implicit ctx => me =>
-      OptionFuResult(env.user.repo named username) { user =>
-        implicit val body = ctx.body
+      OptionFuResult(env.user.repo byId username) { user =>
+        given play.api.mvc.Request[?] = ctx.body
         actionForm
           .bindFromRequest()
           .fold(
-            err => BadRequest(err.toString).fuccess,
+            err => BadRequest(err.toString).toFuccess,
             {
-              case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).fuccess
+              case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).toFuccess
               case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
                 multipleAnalysis(me, gameIds)
               case _ => notFound
@@ -71,7 +70,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       }
     }
 
-  private def multipleAnalysis(me: Holder, gameIds: Seq[lila.game.Game.ID])(implicit ctx: Context) =
+  private def multipleAnalysis(me: Holder, gameIds: Seq[GameId])(implicit ctx: Context) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
         env.fishnet
@@ -85,10 +84,10 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
             )
           )
           .void
-      }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
+      }.parallel >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
     } inject NoContent
 
-  private def downloadPgn(user: lila.user.User, gameIds: Seq[lila.game.Game.ID]) =
+  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId]) =
     Ok.chunked {
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(
@@ -102,39 +101,35 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
     }.pipe(asAttachmentStream(s"lichess_mod_${user.username}_${gameIds.size}_games.pgn"))
       .as(pgnContentType)
 
-  private def guessSwisses(user: lila.user.User): Fu[Seq[lila.swiss.Swiss]] = fuccess(Nil)
-}
-
-object GameMod {
-
-  val nbGames = 100
+object GameMod:
 
   case class Filter(
       arena: Option[String],
       swiss: Option[String],
-      speed: Option[String],
-      opponents: Option[String]
-  ) {
-    def opponentIds: List[lila.user.User.ID] =
-      (~opponents)
-        .take(800)
-        .replace(",", " ")
-        .split(' ')
-        .view
-        .flatMap(_.trim.some.filter(_.nonEmpty))
-        .filter(lila.user.User.couldBeUsername)
-        .map(lila.user.User.normalize)
-        .toList
-        .distinct
-    def realSpeed = speed.flatMap(k => chess.Speed.all.find(_.key == k))
-  }
+      perf: Option[Perf.Key],
+      opponents: Option[String],
+      nbGamesOpt: Option[Int]
+  ):
+    def opponentIds: List[UserId] = UserStr
+      .from {
+        (~opponents)
+          .take(800)
+          .replace(",", " ")
+          .split(' ')
+          .map(_.trim)
+      }
+      .flatMap(lila.user.User.validateId)
+      .toList
+      .distinct
 
-  val emptyFilter = Filter(none, none, none, none)
+    def nbGames = nbGamesOpt | 100
+
+  val emptyFilter = Filter(none, none, none, none, none)
 
   def toDbSelect(filter: Filter): Bdoc =
     lila.game.Query.notSimul ++
-      filter.realSpeed.?? { speed =>
-        lila.game.Query.clock(speed != chess.Speed.Correspondence)
+      filter.perf.?? { perf =>
+        lila.game.Query.clock(perf != PerfType.Correspondence.key)
       } ++ filter.arena.?? { id =>
         $doc(lila.game.Game.BSONFields.tournamentId -> id)
       } ++ filter.swiss.?? { id =>
@@ -148,18 +143,18 @@ object GameMod {
   val filterForm =
     Form(
       mapping(
-        "arena"     -> optional(nonEmptyText),
-        "swiss"     -> optional(nonEmptyText),
-        "speed"     -> optional(nonEmptyText),
-        "opponents" -> optional(nonEmptyText)
-      )(Filter.apply)(Filter.unapply _)
+        "arena"      -> optional(nonEmptyText),
+        "swiss"      -> optional(nonEmptyText),
+        "perf"       -> optional(of[Perf.Key]),
+        "opponents"  -> optional(nonEmptyText),
+        "nbGamesOpt" -> optional(number(min = 1, max = 500))
+      )(Filter.apply)(unapply)
     )
 
   val actionForm =
     Form(
       tuple(
-        "game"   -> list(nonEmptyText),
-        "action" -> optional(lila.common.Form.stringIn(Set("pgn", "analyse")))
+        "game"   -> formList(of[GameId]),
+        "action" -> optional(stringIn(Set("pgn", "analyse")))
       )
     )
-}

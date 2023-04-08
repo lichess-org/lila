@@ -61,6 +61,8 @@
   <string name="depthX">Глыбіня %s</string>
   <string name="usingServerAnalysis">Выкарыстоўваецца серверны аналіз</string>
   <string name="loadingEngine">Загрузка рухавічка...</string>
+  <string name="calculatingMoves">Пралічваем хады...</string>
+  <string name="engineFailed">Памылка закрузкі рухавіка</string>
   <string name="cloudAnalysis">Воблачны аналіз</string>
   <string name="goDeeper">Паглыбіць</string>
   <string name="showThreat">Паказваць пагрозы</string>
@@ -96,6 +98,7 @@
   <string name="dtzWithRounding">DTZ50\'\' з акругленнем, заснавана на колькасці паўходаў да наступнага ўзяцця ці ходу пешкі</string>
   <string name="noGameFound">Не знойдзена гульняў</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
+  <string name="openings">Дэбюты</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
   <string name="openingEndgameExplorer">Даследчык дэбютаў/эндшпіляў</string>
   <string name="xOpeningExplorer">Аналіз дэбюту %s</string>
@@ -113,7 +116,7 @@
   <string name="byCPL">Цікавае</string>
   <string name="openStudy">Адкрыць навучанне</string>
   <string name="enable">Уключыць</string>
-  <string name="bestMoveArrow">Паказваць лепшы ход</string>
+  <string name="bestMoveArrow">Паказваць стрэлкай найлепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
   <string name="multipleLines">Дадатковыя хады</string>
   <string name="cpus">Працэсары</string>
@@ -400,6 +403,8 @@
   <string name="apply">Ужыць</string>
   <string name="save">Захаваць</string>
   <string name="leaderboard">Лепшыя гульцы</string>
+  <string name="screenshotCurrentPosition">Зрабіць здымак экрана з бягучай пазіцыяй</string>
+  <string name="gameAsGIF">Партыя ў фармаце GIF</string>
   <string name="pasteTheFenStringHere">Устаўце сюды радок у фармаце FEN</string>
   <string name="pasteThePgnStringHere">Устаўце сюды радок у фармаце PGN</string>
   <string name="orUploadPgnFile">Або загрузіце PGN файл</string>
@@ -488,6 +493,8 @@
   <string name="tournamentIsStarting">Турнір пачынаецца</string>
   <string name="tournamentPairingsAreNowClosed">Лёсаванне турніру скончана.</string>
   <string name="standByX">%s, ідзе лёсаванне. Напагатове!</string>
+  <string name="pause">Паўза</string>
+  <string name="resume">Працягнуць</string>
   <string name="youArePlaying">Вы ў гульні!</string>
   <string name="winRate">Працэнт перамог</string>
   <string name="berserkRate">Шаленства</string>
@@ -522,6 +529,7 @@
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="oneUrlPerLine">Адзін URL на радок.</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
+  <string name="clearSavedMoves">Ачысціць хады</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activePlayers">Актыўныя гульцы</string>
@@ -589,9 +597,9 @@
   <string name="letOtherPlayersInviteYouToStudy">Дазволіць іншым гульцам запрасіць вас на даследаванне</string>
   <string name="sound">Гук</string>
   <string name="none">Няма</string>
-  <string name="fast">Хутка</string>
-  <string name="normal">Нармальна</string>
-  <string name="slow">Павольна</string>
+  <string name="fast">Хуткая</string>
+  <string name="normal">Сярэдняя</string>
+  <string name="slow">Павольная</string>
   <string name="insideTheBoard">Унутры дошкі</string>
   <string name="outsideTheBoard">Па-за дошкай</string>
   <string name="onSlowGames">У павольных гульнях</string>
@@ -631,6 +639,7 @@
   <string name="community">Супольнасць</string>
   <string name="tools">Інструменты</string>
   <string name="increment">Прырост</string>
+  <string name="error.unknown">Недапушчальнае значэнне</string>
   <string name="error.required">Абавязковае поле</string>
   <string name="error.email">Гэта немагчымы адрас электронай пошты</string>
   <string name="error.email_acceptable">Гэты адрас электроннай пошты непрымальны. Калі ласка, пераправерце і паспрабуйце зноўку.</string>
@@ -692,6 +701,7 @@
   <string name="tournamentFAQ">Частыя пытанні пра турніры арэны</string>
   <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
   <string name="averageCentipawnLoss">У сярэднім страчана сотых пешкі</string>
+  <string name="accuracy">Дакладнасць</string>
   <string name="keyboardShortcuts">Скароты</string>
   <string name="keyMoveBackwardOrForward">на ход уперад/наперад</string>
   <string name="keyGoToStartOrEnd">да пачатку/канцу</string>
@@ -734,7 +744,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
   <string name="analysisShapesHowTo">Каб маляваць стрэлкі і кружкі на дошцы, карыстайцеся Shift + ЛКМ або ПКМ.</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
-  <string name="receiveForumNotifications">Атрымоўваць паведамленні, пры згадванні на форуме</string>
+  <string name="receiveForumNotifications">Атрымоўваць апавяшчэнні, пры згадванні на форуме</string>
   <string name="shareYourInsightsData">Дзяліцца вашым шахматнымі аналітычнымі данымі</string>
   <string name="withNobody">Ні з кім</string>
   <string name="withFriends">З сябрамі</string>
@@ -805,13 +815,14 @@
   </plurals>
   <string name="practiceWithComputer">Трэніроўка з камп’ютарам</string>
   <string name="anotherWasX">Таксама можна: %s</string>
-  <string name="bestWasX">Лепшы ход: %s</string>
+  <string name="bestWasX">Найлепшы ход %s</string>
   <string name="youBrowsedAway">Вы выйшлі з прагляду</string>
   <string name="resumePractice">Працягнуць трэніроўку</string>
+  <string name="drawByFiftyMoves">Партыя была згуляна ўнічыю па правілу пяцідзесяці хадоў.</string>
   <string name="theGameIsADraw">Гульня скончылася ўнічыю.</string>
   <string name="computerThinking">Камп’ютар думае...</string>
-  <string name="seeBestMove">Паказаць лепшы ход</string>
-  <string name="hideBestMove">Схаваць лепшы ход</string>
+  <string name="seeBestMove">Паказаць найлепшы ход</string>
+  <string name="hideBestMove">Схаваць найлепшы ход</string>
   <string name="getAHint">Атрымаць падказку</string>
   <string name="evaluatingYourMove">Ацэнка вашага ходу...</string>
   <string name="whiteWinsGame">Белыя перамаглі</string>
@@ -846,9 +857,9 @@
   <string name="opening">Дэбют</string>
   <string name="middlegame">Мітальшпіль</string>
   <string name="endgame">Эндшпіль</string>
-  <string name="conditionalPremoves">Хады на апярэджанне пры ўмове</string>
+  <string name="conditionalPremoves">Умоўныя хады на апярэджанне</string>
   <string name="addCurrentVariation">Дадаць бягучы варыянт</string>
-  <string name="playVariationToCreateConditionalPremoves">Згуляйце варыянт, каб стварыць умову для хода на апярэджанне</string>
+  <string name="playVariationToCreateConditionalPremoves">Згуляйце варыянт, каб стварыць умоўныя ходы на апярэджанне</string>
   <string name="noConditionalPremoves">Хады на апярэджанне без умоў</string>
   <string name="playX">Згуляць %s</string>
   <plurals name="andSaveNbPremoveLines">

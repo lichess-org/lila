@@ -24,4 +24,7 @@
   <string name="broadcastUrl">Link za prenos</string>
   <string name="currentRoundUrl">Link za trenutno kolo</string>
   <string name="currentGameUrl">Link za trenutnu partiju</string>
+  <string name="downloadAllRounds">Skinite sve runde</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Definitivno izbrišite ovo kolo i partije u njemu.</string>
+  <string name="deleteAllGamesOfThisRound">Izbrišite sve partije iz ovog kola. Izvor mora biti aktivan da biste ih mogli ponovo kreirati.</string>
 </resources>
