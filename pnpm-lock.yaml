@@ -31,9 +31,12 @@ importers:
       typescript:
         specifier: ^4.9.4
         version: 4.9.4
+
+  bin:
+    dependencies:
       xml2js:
-        specifier: 0.4.23
-        version: 0.4.23
+        specifier: ^0.5.0
+        version: 0.5.0
 
   ui:
     dependencies:
@@ -6087,8 +6090,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /xml2js@0.4.23:
-    resolution: {integrity: sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==}
+  /xml2js@0.5.0:
+    resolution: {integrity: sha512-drPFnkQJik/O+uPKpqSgr22mpuFHqKdbS835iAQrUC73L2F5WkboIRd63ai/2Yg6I1jzifPFKH2NTK+cfglkIA==}
     engines: {node: '>=4.0.0'}
     dependencies:
       sax: 1.2.4
