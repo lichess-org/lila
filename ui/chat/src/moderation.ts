@@ -42,15 +42,17 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     opts,
     open,
     close,
-    timeout(reason: ModerationReason, text: string) {
+    async timeout(reason: ModerationReason, text: string) {
       if (data) {
         const body = {
           userId: data.id,
           reason: reason.key,
           text,
         };
-        if (new URLSearchParams(window.location.search).get('mod') === 'true') timeout(opts.resourceId, body);
-        else lichess.pubsub.emit('socket.send', 'timeout', body);
+        if (new URLSearchParams(window.location.search).get('mod') === 'true') {
+          await timeout(opts.resourceId, body);
+          window.location.reload(); // to load new state since it won't be sent over the socket
+        } else lichess.pubsub.emit('socket.send', 'timeout', body);
       }
       close();
       opts.redraw();

@@ -27,7 +27,7 @@ export const timeout = (
   }
 ) => {
   const [chan, roomId] = resourceId.split('/');
-  text(`/mod/public-chat/timeout`, {
+  return text(`/mod/public-chat/timeout`, {
     method: 'post',
     body: form({
       ...body,
