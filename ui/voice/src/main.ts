@@ -7,12 +7,9 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { type Entry } from './interfaces';
 import { VoiceMoveCtrl } from './voiceMove';
 import * as xhr from 'common/xhr';
-import { toggle } from 'common';
 
 export { makeVoiceMove } from './voiceMove';
 export { type RootCtrl, type VoiceMove } from './interfaces';
-
-const settingsToggle = toggle(false);
 
 export function renderVoiceMove(ctrl: VoiceMoveCtrl, isPuzzle: boolean) {
   const rec = storedBooleanProp('voice.listening', false);
@@ -45,11 +42,11 @@ export function renderVoiceMove(ctrl: VoiceMoveCtrl, isPuzzle: boolean) {
       }),
       h('button#voice-settings-button', {
         attrs: { role: 'button', ...dataIcon('') },
-        class: { active: settingsToggle() },
-        hook: bind('click', () => settingsToggle.toggle(), ctrl.root.redraw),
+        class: { active: ctrl.showSettings() },
+        hook: bind('click', () => ctrl.showSettings.toggle(), ctrl.root.redraw),
       }),
     ]),
-    settingsToggle() ? voiceSettings(ctrl) : null,
+    ctrl.showSettings() ? voiceSettings(ctrl) : null,
     ctrl.showHelp() ? helpModal(ctrl) : null,
   ]);
 }
@@ -105,9 +102,9 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
       ),
     ]),
     h('div.voice-setting', [
-      h('label', { attrs: { for: 'lang' } }, 'Language'),
+      h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
       h(
-        'select#lang',
+        'select#voice-lang',
         {
           attrs: { name: 'lang' },
           hook: bind('change', e => ctrl.langPref((e.target as HTMLSelectElement).value)),

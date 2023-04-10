@@ -4,7 +4,7 @@ import {
   storedStringPropWithEffect,
   storedIntProp,
 } from 'common/storage';
-import { propWithEffect, PropWithEffect } from 'common';
+import { propWithEffect, PropWithEffect, toggle, Toggle } from 'common';
 import { Api as CgApi } from 'chessground/api';
 import { Role } from 'chessground/types';
 import * as cs from 'chess';
@@ -40,6 +40,7 @@ export class VoiceMoveCtrl implements VoiceMove {
   MAX_CHOICES = 8; // don't use brushes.length
 
   showHelp: PropWithEffect<boolean>;
+  showSettings: Toggle;
   clarityPref = storedIntProp('voice.clarity', 0);
   colorsPref = storedBooleanPropWithEffect('voice.useColors', true, _ => this.setPartialVocabulary());
   timerPref = storedIntPropWithEffect('voice.timer', 3, _ => this.setPartialVocabulary());
@@ -48,6 +49,7 @@ export class VoiceMoveCtrl implements VoiceMove {
 
   constructor(root: RootCtrl, fen: string) {
     this.showHelp = propWithEffect(false, root.redraw);
+    this.showSettings = toggle(false, root.redraw);
     this.root = root;
     this.cg = this.root.chessground;
     for (const [color, brush] of brushes) this.cg.state.drawable.brushes[`v-${color}`] = brush;
