@@ -95,12 +95,10 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
         'span',
         ['Colors', 'Numbers'].map(pref =>
           h(
-            `div#${pref}.choice.${ctrl.colorsPref() === (pref === 'Colors') ? 'selected' : ''}`,
+            `div#${pref}.choice`,
             {
-              hook: bind('click', () => {
-                ['Colors', 'Numbers'].map(x => $(`#${x}`).toggleClass('selected'));
-                ctrl.colorsPref(pref === 'Colors');
-              }),
+              class: { selected: ctrl.colorsPref() === (pref === 'Colors') },
+              hook: bind('click', () => ctrl.colorsPref(pref === 'Colors'), ctrl.root.redraw),
             },
             [h('label', pref)]
           )
