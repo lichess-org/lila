@@ -68,6 +68,7 @@ $c-recording-hover: hsl(6, 100%, if($theme == 'light', 40%, 60%));
 #voice-settings {
   @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
   position: absolute;
+  border-top: 2px solid $c-primary;
   z-index: z(mz-menu);
   width: 100%;
   background: $c-bg-popup;
@@ -98,50 +99,14 @@ $c-recording-hover: hsl(6, 100%, if($theme == 'light', 40%, 60%));
 
   .range_value {
     direction: ltr;
-    width: 15%;
-    //flex: 0 0 auto;
-    display: block;
+    flex: 0 0 15%;
     text-align: left;
   }
 }
 
 .voice-choices {
-  display: flex;
-  justify-content: space-between;
-  flex-flow: row nowrap;
-  align-items: center;
-
-  .choice {
-    @extend %metal, %box-radius;
-    cursor: pointer;
-    margin: 0 0 0 4px;
-    padding: 8px 10px;
-    flex: initial;
-    display: inline-block;
-    text-align: center;
-    border: 1px;
-
-    @if $theme-light {
-      background: linear-gradient(hsl(0deg, 0%, 92%) 0%, hsl(0deg, 0%, 86%) 100%);
-    } @else if $theme == 'dark' {
-      background: linear-gradient(hsl(0deg, 0%, 27%) 0%, hsl(0deg, 0%, 19%) 100%);
-    } @else {
-      background: hsla(0deg, 0%, 50%, 0.3);
-    }
-    label {
-      pointer-events: none;
-    }
-    @media (hover: hover) {
-      &:not(.selected):hover {
-        color: lighten($c-font, 20%);
-        box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
-      }
-    }
-  }
-  .selected {
-    cursor: default;
-    pointer-events: none;
-    color: white;
-    background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
+  @extend %flex-between;
+  .active {
+    @extend %active-primary;
   }
 }

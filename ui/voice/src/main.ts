@@ -95,15 +95,15 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
     h('div.voice-choices', [
       'Label with',
       h(
-        'span',
+        'span.btn-rack',
         ['Colors', 'Numbers'].map(pref =>
           h(
-            `div.choice`,
+            `span.btn-rack__btn`,
             {
-              class: { selected: ctrl.colorsPref() === (pref === 'Colors') },
+              class: { active: ctrl.colorsPref() === (pref === 'Colors') },
               hook: bind('click', () => ctrl.colorsPref(pref === 'Colors'), ctrl.root.redraw),
             },
-            [h('label', pref)]
+            [pref]
           )
         )
       ),
