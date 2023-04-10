@@ -18,7 +18,7 @@
     "chart.js": "=3.9.1",
     "chess": "workspace:*",
     "chessground": "^8.3.7",
-    "chessops": "^0.12.7,
+    "chessops": "^0.12.7",
     "common": "workspace:*",
     "keyboardMove": "workspace:*",
     "voice": "workspace:*",
