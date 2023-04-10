@@ -120,10 +120,4 @@
   <string name="unlimitedAndFree">Без обмежень та безкоштовно</string>
   <string name="predefinedUsers">Брати участь можуть лише попередньо визначені користувачі</string>
   <string name="forbiddedUsers">Якщо цей список не порожній, то користувачам, відсутнім у цьому списку, буде заборонено приєднуватися. Одне ім\'я користувача на рядок.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s раунд за швейцарською системою</item>
-    <item quantity="few">%1$s / %2$s раунди за швейцарською системою</item>
-    <item quantity="many">%1$s / %2$s раундів за швейцарською системою</item>
-    <item quantity="other">%1$s / %2$s раундів за швейцарською системою</item>
-  </plurals>
 </resources>

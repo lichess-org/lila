@@ -107,8 +107,4 @@ Det nærmeste man kommer en alle-mot-alle-turnering på nett, er å spille en sv
   <string name="unlimitedAndFree">Ubegrenset og gratis</string>
   <string name="predefinedUsers">Tillat bare forhåndsbestemte brukere å delta</string>
   <string name="forbiddedUsers">Hvis denne listen ikke er tom, vil brukere som ikke er på listen, ikke få delta. Ett brukernavn pr. linje.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s sveitserrunde</item>
-    <item quantity="other">%1$s / %2$s sveitserrunder</item>
-  </plurals>
 </resources>

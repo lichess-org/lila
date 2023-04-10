@@ -106,8 +106,4 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
   <string name="predefinedUsers">Csak engedélyezett játékosok csatlakozhatnak</string>
   <string name="forbiddedUsers">Amennyiben a lista nem üres, úgy a listán nem szereplő játékosok nem csatlakozhatnak. Soronként egy felhasználónév.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s Svájci típusú kör</item>
-    <item quantity="other">%1$s /%2$s Svájci típusú körök</item>
-  </plurals>
 </resources>

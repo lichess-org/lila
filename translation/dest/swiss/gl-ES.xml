@@ -105,8 +105,4 @@ O formato máis próximo a un torneo online de todos contra todos é un torneo s
   <string name="unlimitedAndFree">Ilimitado e libre</string>
   <string name="predefinedUsers">Só permitir xogar a usuario predefinidos</string>
   <string name="forbiddedUsers">Se esta lista non está baleira, os usuarios que non estean nela non poderán unirse. Un usuario por liña.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s ronda Suiza</item>
-    <item quantity="other">%1$s / %2$s rondas Suizas</item>
-  </plurals>
 </resources>
