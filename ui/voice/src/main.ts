@@ -18,24 +18,30 @@ export function renderVoiceMove(ctrl: VoiceMoveCtrl, isPuzzle: boolean) {
 
   return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
     h('div#voice-status-row', [
-      h('button#microphone-button', {
-        class: { enabled: lichess.mic!.isListening, busy: lichess.mic!.isBusy },
-        attrs: { role: 'button', ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
-        hook: onInsert(el => {
-          el.addEventListener('click', _ => {
-            if (!rtfm()) {
-              setTimeout(() =>
-                alert(`Read the help page (the 'i' button) before using your microphone to make moves.`)
-              );
-              rtfm(true);
-            }
-            rec(!(lichess.mic?.isListening || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
-          });
-          if (rec() && !lichess.mic?.isListening) setTimeout(() => el.dispatchEvent(new Event('click')));
-        }),
-      }),
+      h(
+        'button#microphone-button',
+        {
+          class: { enabled: lichess.mic!.isListening, busy: lichess.mic!.isBusy },
+          attrs: { role: 'button', title: 'Toggle voice control' },
+          hook: onInsert(el => {
+            el.addEventListener('click', _ => {
+              if (!rtfm()) {
+                setTimeout(() =>
+                  alert(`Read the help page (the 'i' button) before using your microphone to make moves.`)
+                );
+                rtfm(true);
+              }
+              rec(!(lichess.mic?.isListening || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
+            });
+            if (rec() && !lichess.mic?.isListening) setTimeout(() => el.dispatchEvent(new Event('click')));
+          }),
+        },
+        h('span.microphone-icon', {
+          attrs: { ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
+        })
+      ),
       h('span#voice-status', {
-        hook: onInsert(el => lichess.mic?.addListener('moveInput', txt => (el.innerText = txt || 'some placeholder'))),
+        hook: onInsert(el => lichess.mic?.addListener('moveInput', txt => (el.innerText = txt))),
       }),
       h('button#voice-help-button', {
         attrs: { role: 'button', ...dataIcon('') },
