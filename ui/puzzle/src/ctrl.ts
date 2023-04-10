@@ -92,7 +92,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);
-    const root = {
+    const makeRoot = () => ({
       data: {
         game: { variant: { key: 'standard' } },
         player: { color: vm.pov },
@@ -105,10 +105,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       next: nextPuzzle,
       vote,
       solve: viewSolution,
-    };
-    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(root as RootCtrl, this.vm.node.fen);
+    });
+    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(makeRoot() as RootCtrl, this.vm.node.fen);
     if (opts.pref.keyboardMove)
-      this.keyboardMove = keyboardMove = makeKeyboardMove(root as RootController, { fen: this.vm.node.fen });
+      this.keyboardMove = keyboardMove = makeKeyboardMove(makeRoot() as RootController, { fen: this.vm.node.fen });
     requestAnimationFrame(() => this.redraw());
   }
 
