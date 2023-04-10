@@ -96,8 +96,4 @@
   <string name="unlimitedAndFree">Անսահմանափակ և անվճար</string>
   <string name="predefinedUsers">Թույլատրել միայն թվարկված խաղացողների մասնակցությունը</string>
   <string name="forbiddedUsers">Եթե ցանկը դատարկ չէ, ապա կարող են մասնակցել միայն ցանկում եղած խաղացողները։ Յուրաքանչյուր տողում՝ մեկ խաղացող։</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s խաղափուլ շվեյցարական մրցակարգով</item>
-    <item quantity="other">%1$s / %2$s խաղափուլ շվեյցարական մրցակարգով</item>
-  </plurals>
 </resources>

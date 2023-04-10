@@ -104,8 +104,4 @@
   <string name="unlimitedAndFree">بدون محدودیت و رایگان</string>
   <string name="predefinedUsers">تنها کاربران از پیش تعریف شده اجازه ورود دارند</string>
   <string name="forbiddedUsers">اگر این لیست خالی نیست، بنابراین کاربرانی که در لیست نیستند امکان ورود ندارند. یک نام کاربری در هر خط.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s از %2$s دور سوئیسی</item>
-    <item quantity="other">%1$s از %2$s دور سوئیسی</item>
-  </plurals>
 </resources>
