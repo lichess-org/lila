@@ -4,5 +4,8 @@
   <string name="goodMove">Bonum spatium</string>
   <string name="bestMove">Optimum spatium!</string>
   <string name="hidden">conditus</string>
+  <string name="easier">Facilior</string>
+  <string name="easiest">Facillimus</string>
+  <string name="harder">Difficilior</string>
   <string name="example">Exemplum</string>
 </resources>
