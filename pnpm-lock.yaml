@@ -117,6 +117,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -153,6 +156,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -318,6 +324,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -501,6 +510,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -561,6 +573,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -588,6 +603,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -621,6 +639,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -786,6 +807,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
