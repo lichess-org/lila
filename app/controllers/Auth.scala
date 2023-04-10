@@ -114,15 +114,15 @@ final class Auth(
                 api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
               ),
             (login, pass) =>
-              LoginRateLimit(login.normalize, ctx.req) { chargeIpLimiter =>
-                env.security.pwned(pass) foreach { _ ?? chargeIpLimiter() }
+              LoginRateLimit(login.normalize, ctx.req) { chargeLimiters =>
+                env.security.pwned(pass) foreach { _ ?? chargeLimiters() }
                 val isEmail  = EmailAddress.isValid(login.value)
                 val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
                 api.loadLoginForm(login) flatMap {
                   _.bindFromRequest()
                     .fold(
                       err => {
-                        chargeIpLimiter()
+                        chargeLimiters()
                         lila.mon.security.login
                           .attempt(isEmail, stuffing = stuffing, result = false)
                           .increment()
