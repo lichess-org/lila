@@ -4,7 +4,7 @@ import { storedBooleanProp } from 'common/storage';
 import { rangeConfig } from 'common/controls';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { type VoiceMove, type Entry } from './interfaces';
+import { type Entry } from './interfaces';
 import { VoiceMoveCtrl } from './voiceMove';
 import * as xhr from 'common/xhr';
 import { toggle } from 'common';
@@ -14,8 +14,7 @@ export { type RootCtrl, type VoiceMove } from './interfaces';
 
 const settingsToggle = toggle(false);
 
-export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
-  const ctrl = inCtrl as VoiceMoveCtrl;
+export function renderVoiceMove(ctrl: VoiceMoveCtrl, isPuzzle: boolean) {
   const rec = storedBooleanProp('voice.listening', false);
   const rtfm = storedBooleanProp('voice.rtfm', false);
 
