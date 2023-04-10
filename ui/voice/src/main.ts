@@ -7,6 +7,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { type Entry } from './interfaces';
 import { VoiceMoveCtrl } from './voiceMove';
 import * as xhr from 'common/xhr';
+import { onClickAway } from 'common';
 
 export { makeVoiceMove } from './voiceMove';
 export { type RootCtrl, type VoiceMove } from './interfaces';
@@ -52,7 +53,7 @@ export function renderVoiceMove(ctrl: VoiceMoveCtrl, isPuzzle: boolean) {
 }
 
 function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
-  return h('div#voice-settings', [
+  return h('div#voice-settings', { hook: onInsert(onClickAway(() => ctrl.showSettings(false))) }, [
     h('div.voice-setting', [
       h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
       h('input#voice-clarity', {
