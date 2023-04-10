@@ -63,11 +63,11 @@ export class VoiceMoveCtrl implements VoiceMove {
 
   get supportedLangs(): [string, string][] {
     return [
-      ['en', 'English'] /*,
+      ['en', 'English'],
       ['fr', 'Français'],
       ['de', 'Deutsch'],
       ['tr', 'Türkçe'],
-      ['vi', 'Tiếng Việt'],*/,
+      ['vi', 'Tiếng Việt'],
     ];
   }
 
