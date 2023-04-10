@@ -101,8 +101,4 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="unlimitedAndFree">Sınırsız ve ücretsiz</string>
   <string name="predefinedUsers">Sadece önceden belirlenen oyuncular katılabilir</string>
   <string name="forbiddedUsers">Eğer bu liste boş değilse, listede adı yer almayan kullanıcıların katılması yasaklanacaktır. Her satır için bir kullanıcı adı.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s tur İsviçre sistemi</item>
-    <item quantity="other">%1$s / %2$s tur İsviçre sistemi</item>
-  </plurals>
 </resources>

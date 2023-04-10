@@ -103,8 +103,4 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
   <string name="predefinedUsers">Tillat berre førehandsbestemde brukarar å delta</string>
   <string name="forbiddedUsers">Så sant denne lista ikkje er tom vil brukarar som ikkje er oppførde bli nekta å vera med. Eit brukarnamn per linje.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s runde sveitsisk</item>
-    <item quantity="other">%1$s / %2$s rundar sveitsisk</item>
-  </plurals>
 </resources>

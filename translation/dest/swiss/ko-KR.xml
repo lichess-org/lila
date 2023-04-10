@@ -100,7 +100,4 @@
   <string name="unlimitedAndFree">무제한/무료인가</string>
   <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
   <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="other">%1$s / %2$s 라운드 스위스</item>
-  </plurals>
 </resources>

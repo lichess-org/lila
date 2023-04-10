@@ -101,7 +101,4 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="unlimitedAndFree">Không giới hạn và miễn phí</string>
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="other">%1$s / %2$s vòng Thụy Sĩ</item>
-  </plurals>
 </resources>
