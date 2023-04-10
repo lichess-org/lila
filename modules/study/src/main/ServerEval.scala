@@ -9,7 +9,7 @@ import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.security.Granter
 import lila.tree.Node.Comment
 import lila.user.{ User, UserRepo }
-import lila.{ tree as T }
+import lila.tree.{ Node, Root, Branch }
 import lila.db.dsl.bsonWriteOpt
 
 object ServerEval:
@@ -78,8 +78,8 @@ object ServerEval:
                     } >> {
                       import BSONHandlers.given
                       import lila.db.dsl.given
-                      import Node.{ BsonFields as F }
-                      ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
+                      import lila.study.Node.{ BsonFields as F }
+                      ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
                         chapterRepo
                           .setNodeValues(
                             chapter,
@@ -87,7 +87,7 @@ object ServerEval:
                             List(
                               F.score -> info.eval.score
                                 .ifTrue {
-                                  node.score.isEmpty ||
+                                  node.eval.isEmpty ||
                                   advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
                                 }
                                 .flatMap(bsonWriteOpt),
@@ -135,7 +135,7 @@ object ServerEval:
         initialFen = chapter.root.fen.some
       )
 
-    private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
+    private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
       chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant) match
         case (_, games, error) =>
           error foreach { e => logger.info(e.value) }
@@ -143,12 +143,12 @@ object ServerEval:
             case Nil => none
             case (g, m) :: rest =>
               rest
-                .foldLeft[Node](makeBranch(g, m)) { case (node, (g, m)) =>
+                .foldLeft[Branch](makeBranch(g, m)) { case (node, (g, m)) =>
                   makeBranch(g, m) addChild node
                 } some
 
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
-      Node(
+      Branch(
         id = UciCharPair(m.uci),
         ply = g.ply,
         move = m,
@@ -156,11 +156,10 @@ object ServerEval:
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
         clock = none,
-        children = Node.emptyChildren,
         forceVariation = false
       )
 
-  case class Progress(chapterId: StudyChapterId, tree: T.Root, analysis: JsObject, division: chess.Division)
+  case class Progress(chapterId: StudyChapterId, tree: Root, analysis: JsObject, division: chess.Division)
 
   def toJson(chapter: Chapter, analysis: Analysis) =
     lila.analyse.JsonView.bothPlayers(chapter.root.ply, analysis)

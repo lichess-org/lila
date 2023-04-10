@@ -4,6 +4,7 @@ import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
 import lila.socket.Socket.Sri
 import lila.study.*
+import lila.tree.Branch
 
 final private class RelaySync(
     studyApi: StudyApi,
@@ -70,7 +71,7 @@ final private class RelaySync(
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     val who = actorApi.Who(chapter.ownerId, sri)
-    game.root.mainline.foldLeft(UciPath.root -> none[Node]) {
+    game.root.mainline.foldLeft(UciPath.root -> none[Branch]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode.id
         chapter.root.nodeAt(path) match

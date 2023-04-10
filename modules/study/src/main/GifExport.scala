@@ -7,6 +7,7 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.base.LilaInvalid
+import lila.tree.Node
 
 final class GifExport(
     ws: StandaloneWSClient,
@@ -30,7 +31,7 @@ final class GifExport(
             chapter.tags(_.Black),
             chapter.tags(_.BlackElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
-          "frames" -> framesRec(chapter.root +: chapter.root.mainline, Json.arr()),
+          "frames" -> framesRec(chapter.root :: chapter.root.mainline, Json.arr()),
           "theme"  -> theme.|("brown"),
           "piece"  -> piece.|("cburnett")
         )
@@ -44,7 +45,7 @@ final class GifExport(
     }
 
   @annotation.tailrec
-  private def framesRec(nodes: Vector[RootOrNode], arr: JsArray): JsArray =
+  private def framesRec(nodes: List[Node], arr: JsArray): JsArray =
     nodes match
       case node +: tail =>
         framesRec(
