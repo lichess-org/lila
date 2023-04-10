@@ -66,7 +66,7 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
           max: 2,
           step: 1,
         },
-        hook: rangeConfig(ctrl.clarityPref, (val: number) => {
+        hook: rangeConfig(ctrl.clarityPref, val => {
           ctrl.clarityPref(val);
           ctrl.root.redraw();
         }),
@@ -82,7 +82,7 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
           max: 5,
           step: 1,
         },
-        hook: rangeConfig(ctrl.timerPref, (val: number) => {
+        hook: rangeConfig(ctrl.timerPref, val => {
           ctrl.timerPref(val);
           ctrl.root.redraw();
         }),
@@ -95,7 +95,7 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
         'span',
         ['Colors', 'Numbers'].map(pref =>
           h(
-            `div#${pref}.choice`,
+            `div.choice`,
             {
               class: { selected: ctrl.colorsPref() === (pref === 'Colors') },
               hook: bind('click', () => ctrl.colorsPref(pref === 'Colors'), ctrl.root.redraw),
