@@ -1,7 +1,5 @@
-$c-settings-bg: if($theme == 'transp', rgba(38, 36, 33, 0.9), $c-bg-high);
 $c-recording: hsl(6, 86%, 50%);
 $c-recording-hover: hsl(6, 100%, if($theme == 'light', 40%, 60%));
-$gap: max($block-gap, 16px);
 
 #voice-control {
   position: relative;
@@ -9,7 +7,7 @@ $gap: max($block-gap, 16px);
 #voice-status-row {
   @extend %box-neat, %flex-center-nowrap;
   background: $c-bg-box;
-  padding: 0 0.2em;
+  padding-left: 0.2em;
   #voice-control.puz & {
     background: $c-bg-zebra;
   }
@@ -55,24 +53,16 @@ $gap: max($block-gap, 16px);
 }
 
 #voice-settings {
-  @extend %box-radius;
+  @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
   position: absolute;
-  z-index: 10;
+  z-index: z(mz-menu);
   width: 100%;
-  top: 40;
-  left: 0;
-  border-top: 2px solid $c-primary;
-  background: $c-settings-bg;
-  padding-top: $gap;
-  > div {
-    padding: 0 $gap $gap;
-  }
-  user-select: none;
+  background: $c-bg-popup;
+  gap: 1.5em;
+  padding: 1.5em;
 }
 .voice-setting {
   @extend %flex-center-nowrap;
-
-  flex: 0 0 auto;
 
   label {
     flex: 4 1 auto;
