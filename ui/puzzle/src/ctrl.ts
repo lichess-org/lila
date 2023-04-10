@@ -346,7 +346,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       if (streak && win) streak.onComplete(true, res.next);
     }
     redraw();
-    if (!next) lichess.redirect('/training/dashboard/30/dashboard');
+    if (!next) {
+      lichess.redirect(`/training/dashboard/${data.replay?.days}`);
+    }
   }
 
   const isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
