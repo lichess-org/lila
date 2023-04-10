@@ -7,9 +7,12 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { type VoiceMove, type Entry } from './interfaces';
 import { VoiceMoveCtrl } from './voiceMove';
 import * as xhr from 'common/xhr';
+import { toggle } from 'common';
 
 export { makeVoiceMove } from './voiceMove';
 export { type RootCtrl, type VoiceMove } from './interfaces';
+
+const settingsToggle = toggle(false);
 
 export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
   const ctrl = inCtrl as VoiceMoveCtrl;
@@ -43,10 +46,11 @@ export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
       }),
       h('button#voice-settings-button', {
         attrs: { role: 'button', ...dataIcon('') },
-        hook: bind('click', toggleSettings.bind(undefined, true)),
+        class: { active: settingsToggle() },
+        hook: bind('click', () => settingsToggle.toggle(), ctrl.root.redraw),
       }),
     ]),
-    voiceSettings(ctrl),
+    settingsToggle() ? voiceSettings(ctrl) : null,
     ctrl.showHelp() ? helpModal(ctrl) : null,
   ]);
 }
@@ -125,31 +129,6 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
       ),
     ]),
   ]);
-}
-
-let lastPointerDown = -1;
-document.addEventListener('pointerdown', e => (lastPointerDown = e.timeStamp));
-
-function toggleSettings(onButton: boolean) {
-  const settingsButton = $('#voice-settings-button');
-  const settingsPane = $('#voice-settings');
-
-  function onPointerUp(e: PointerEvent) {
-    const el = e.target as Element;
-    if (settingsPane.get(0)?.contains(el) || settingsButton.get(0)?.contains(el) || e.timeStamp - lastPointerDown > 500)
-      return;
-    toggleSettings(false);
-    document.removeEventListener('pointerup', onPointerUp);
-  }
-  // TODO - keyboard nav, nvui, use blur, something something
-  document.removeEventListener('pointerup', onPointerUp);
-
-  if (onButton || settingsButton.hasClass('active')) settingsButton.toggleClass('active');
-  if (settingsButton.hasClass('active')) {
-    settingsPane.show();
-
-    setTimeout(() => document.addEventListener('pointerup', onPointerUp));
-  } else settingsPane.hide();
 }
 
 function helpModal(ctrl: VoiceMoveCtrl) {
