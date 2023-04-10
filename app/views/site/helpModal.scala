@@ -145,7 +145,7 @@ object helpModal:
         )
       )
     )
-  def voiceMove(implicit lang: Lang) =
+  def voiceMove(using Lang) =
     import trans.keyboardMove.*
     frag(
       h2("Voice commands"),
