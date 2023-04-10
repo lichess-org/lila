@@ -4,14 +4,10 @@ $c-recording: hsl(6, 86%, 50%);
 $c-recording-hover: hsl(6, 100%, if($theme == 'light', 40%, 60%));
 $c-off: if($theme== 'transp', #aaa, gray);
 $c-off-hover: if($theme == 'light', #444, if($theme== 'transp', #ddd, #aaa));
-$c-rounds-status-bar-bg: if($theme == 'transp', hsla(0, 0%, 0%, 0.7), transparent);
 $gap: max($block-gap, 16px);
 
-#status-row {
+#voice-status-row {
   @extend %flex-between-nowrap;
-  min-height: 40px;
-  padding: 0 8px;
-  font-size: 14px;
   font-weight: bold;
   user-select: none;
   a {
@@ -88,14 +84,13 @@ $gap: max($block-gap, 16px);
 }
 
 #voice-control {
-  display: block;
+  @extend %box-neat;
   position: relative;
-  background-color: $c-rounds-status-bar-bg;
+  background: $c-bg-box;
+  padding: 0 0.6em;
   &.puz {
-    border-bottom: 1px solid if($theme == 'light', $c-border, $c-bg-box);
     background: $c-bg;
   }
-  border-radius: 3px 3px 0 0;
 }
 
 #voice-settings {

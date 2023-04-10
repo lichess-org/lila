@@ -17,7 +17,7 @@ export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
   const rtfm = storedBooleanProp('voice.rtfm', false);
 
   return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
-    h('span#status-row', [
+    h('div#voice-status-row', [
       h('a#voice-help-button', {
         attrs: { role: 'button', ...dataIcon('') },
         hook: bind('click', () => ctrl.showHelp(true)),
