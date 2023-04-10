@@ -5,8 +5,11 @@ import { RecognizerOpts } from '../interfaces';
 const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
 const BUF_SIZE = 8192;
 
+// Based on the original implementation by Sam 'Spammy' Ezeh who found Vosk-browser and first
+// got it working in lichess.
+//
 // do not touch this unless you are familiar with vosk-browser, emscripten, the vosk api,
-// and kaldi. don't try to clean it up.
+// and kaldi.
 class Recognizer {
   kaldi: KaldiRecognizer;
   node: ScriptProcessorNode;

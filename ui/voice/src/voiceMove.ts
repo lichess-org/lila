@@ -13,6 +13,9 @@ import { RootCtrl, VoiceMove, Entry, Grammar, Partials } from './interfaces';
 import { coloredArrows, numberedArrows, timerShape, brushes } from './arrows';
 import { findTransforms, movesTo, pushMap, spreadMap, spread, getSpread, remove, type Transform } from './util';
 
+// Based on the original implementation by Sam 'Spammy' Ezeh who found Vosk-browser and first
+// got it working in lichess.
+//
 // For an overview, see the README.md in ui/voice/@build
 
 export const makeVoiceMove = (root: RootCtrl, fen: string) => new VoiceMoveCtrl(root, fen);
