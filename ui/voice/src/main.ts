@@ -27,7 +27,7 @@ export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
       }),
       h('a#microphone-button', {
         class: { enabled: lichess.mic!.isListening, busy: lichess.mic!.isBusy },
-        attrs: { role: 'button', ...dataIcon(lichess.mic?.isBusy ? '' : '') },
+        attrs: { role: 'button', ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
         hook: onInsert(el => {
           el.addEventListener('click', _ => {
             if (!rtfm()) {
