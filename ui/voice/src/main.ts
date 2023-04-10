@@ -58,8 +58,8 @@ export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
 function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
   return h('div#voice-settings', [
     h('div.voice-setting', [
-      h('label', { attrs: { for: 'clarity' } }, 'Clarity'),
-      h('input#clarity', {
+      h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
+      h('input#voice-clarity', {
         attrs: {
           type: 'range',
           min: 0,
@@ -74,8 +74,8 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
       h('div.range_value', ['Fuzzy', 'Average', 'Clear'][ctrl.clarityPref()]),
     ]),
     h('div.voice-setting', [
-      h('label', { attrs: { for: 'timer' } }, 'Timer'),
-      h('input#timer', {
+      h('label', { attrs: { for: 'voice-timer' } }, 'Timer'),
+      h('input#voice-timer', {
         attrs: {
           type: 'range',
           min: 0,
