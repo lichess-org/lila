@@ -98,7 +98,4 @@
   <string name="unlimitedAndFree">无限制并免费</string>
   <string name="predefinedUsers">仅允许预定义的用户加入</string>
   <string name="forbiddedUsers">如果这个列表是非空的，则此列表中缺少的用户将被禁止加入。每行一个用户名。</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="other">%1$s/%2$s 回合瑞士锦标赛</item>
-  </plurals>
 </resources>
