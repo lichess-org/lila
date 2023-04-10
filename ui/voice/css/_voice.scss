@@ -1,59 +1,42 @@
-$c-bg: if($theme == 'light', $c-bg-zebra, $c-bg-low);
 $c-settings-bg: if($theme == 'transp', rgba(38, 36, 33, 0.9), $c-bg-high);
 $c-recording: hsl(6, 86%, 50%);
 $c-recording-hover: hsl(6, 100%, if($theme == 'light', 40%, 60%));
-$c-off: if($theme== 'transp', #aaa, gray);
-$c-off-hover: if($theme == 'light', #444, if($theme== 'transp', #ddd, #aaa));
 $gap: max($block-gap, 16px);
 
+#voice-control {
+  position: relative;
+}
 #voice-status-row {
-  @extend %flex-between-nowrap;
-  font-weight: bold;
+  @extend %box-neat, %flex-center-nowrap;
+  background: $c-bg-box;
+  padding: 0 0.2em;
+  #voice-control.puz & {
+    background: $c-bg-zebra;
+  }
   user-select: none;
-  a {
-    text-align: center;
+  > button {
+    @extend %button-none;
+    color: $c-font-dim;
+    padding: 0.2rem 0.5rem;
+    &:hover {
+      color: $c-font;
+    }
   }
 }
 
 #voice-status {
-  color: $c-font-dim;
-  width: 100%;
-  margin: 0;
-  text-align: center;
-}
-
-#voice-help-button {
-  cursor: pointer;
-  color: $c-off;
-  margin: 4px;
-  font-size: 16px;
-  line-height: 22px;
-  &:hover {
-    color: $c-off-hover;
-  }
+  flex: 1 1 auto;
 }
 
 #microphone-button {
   font-family: 'lichess';
-  cursor: pointer;
-  margin: 4px;
-  color: $c-off;
-  width: 34px;
-  line-height: 22px;
-  font-size: 22px;
-  border-width: 0 1px 0 1px;
+  font-size: 1.6em;
+  border-width: 0 1px;
   border-radius: 0.25em;
   border-style: solid;
   border-color: transparent;
   font-weight: bold;
-  text-align: center;
-  &:hover {
-    color: $c-off-hover;
-  }
-  &.busy {
-    font-size: 16px;
-  }
-  &.enabled {
+  & {
     color: $c-recording;
     animation: pulseBorderRed 1s;
     animation-iteration-count: infinite;
@@ -64,123 +47,99 @@ $gap: max($block-gap, 16px);
 }
 
 #voice-settings-button {
-  cursor: pointer;
-  margin-top: 4px;
-  padding: 4px 4px 8px;
-  color: $c-off;
   font-size: 18px;
-  border-radius: 3px 3px 0 0;
-  line-height: 22px;
-  width: 48px;
-  @media (hover: hover) {
-    &:hover {
-      color: $c-primary;
-    }
-  }
   &.active {
     color: white;
     background-color: $c-primary;
   }
 }
 
-#voice-control {
-  @extend %box-neat;
-  position: relative;
-  background: $c-bg-box;
-  padding: 0 0.6em;
-  &.puz {
-    background: $c-bg;
-  }
-}
-
 #voice-settings {
+  @extend %box-radius;
   position: absolute;
   z-index: 10;
   width: 100%;
   top: 40;
   left: 0;
   border-top: 2px solid $c-primary;
-  border-bottom: 1px solid $c-off;
-  border-radius: 3px;
   background: $c-settings-bg;
   padding-top: $gap;
   > div {
     padding: 0 $gap $gap;
   }
   user-select: none;
+}
+.voice-setting {
+  @extend %flex-center-nowrap;
 
-  .setting {
-    @extend %flex-center-nowrap;
+  flex: 0 0 auto;
 
-    flex: 0 0 auto;
-
-    label {
-      flex: 4 1 auto;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .switch + label {
-      margin-#{$start-direction}: 1ch;
-    }
-
-    input[type='range'] {
-      cursor: pointer;
-      flex: 1 4 auto;
-      padding: 0;
-      height: 1.6em;
-      width: 100%;
-      margin: 0 1ch;
-    }
-
-    .range_value {
-      direction: ltr;
-      width: 15%;
-      //flex: 0 0 auto;
-      display: block;
-      text-align: left;
-    }
+  label {
+    flex: 4 1 auto;
+    cursor: pointer;
+    white-space: nowrap;
   }
 
-  .choices {
-    display: flex;
-    justify-content: space-between;
-    flex-flow: row nowrap;
-    align-items: center;
+  .switch + label {
+    margin-#{$start-direction}: 1ch;
+  }
 
-    .choice {
-      @extend %metal, %box-radius;
-      cursor: pointer;
-      margin: 0 0 0 4px;
-      padding: 8px 10px;
-      flex: initial;
-      display: inline-block;
-      text-align: center;
-      border: 1px;
+  input[type='range'] {
+    cursor: pointer;
+    flex: 1 4 auto;
+    padding: 0;
+    height: 1.6em;
+    width: 100%;
+    margin: 0 1ch;
+  }
 
-      @if $theme-light {
-        background: linear-gradient(hsl(0deg, 0%, 92%) 0%, hsl(0deg, 0%, 86%) 100%);
-      } @else if $theme == 'dark' {
-        background: linear-gradient(hsl(0deg, 0%, 27%) 0%, hsl(0deg, 0%, 19%) 100%);
-      } @else {
-        background: hsla(0deg, 0%, 50%, 0.3);
-      }
-      label {
-        pointer-events: none;
-      }
-      @media (hover: hover) {
-        &:not(.selected):hover {
-          color: lighten($c-font, 20%);
-          box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
-        }
-      }
+  .range_value {
+    direction: ltr;
+    width: 15%;
+    //flex: 0 0 auto;
+    display: block;
+    text-align: left;
+  }
+}
+
+.voice-choices {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  .choice {
+    @extend %metal, %box-radius;
+    cursor: pointer;
+    margin: 0 0 0 4px;
+    padding: 8px 10px;
+    flex: initial;
+    display: inline-block;
+    text-align: center;
+    border: 1px;
+
+    @if $theme-light {
+      background: linear-gradient(hsl(0deg, 0%, 92%) 0%, hsl(0deg, 0%, 86%) 100%);
+    } @else if $theme == 'dark' {
+      background: linear-gradient(hsl(0deg, 0%, 27%) 0%, hsl(0deg, 0%, 19%) 100%);
+    } @else {
+      background: hsla(0deg, 0%, 50%, 0.3);
     }
-    .selected {
-      cursor: default;
+    label {
       pointer-events: none;
-      color: white;
-      background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
     }
+    @media (hover: hover) {
+      &:not(.selected):hover {
+        color: lighten($c-font, 20%);
+        box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
+      }
+    }
+  }
+  .selected {
+    cursor: default;
+    pointer-events: none;
+    color: white;
+    background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
   }
 }
 

@@ -18,14 +18,7 @@ export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
 
   return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
     h('div#voice-status-row', [
-      h('a#voice-help-button', {
-        attrs: { role: 'button', ...dataIcon('') },
-        hook: bind('click', () => ctrl.showHelp(true)),
-      }),
-      h('p#voice-status', {
-        hook: onInsert(el => lichess.mic?.addListener('moveInput', txt => (el.innerText = txt))),
-      }),
-      h('a#microphone-button', {
+      h('button#microphone-button', {
         class: { enabled: lichess.mic!.isListening, busy: lichess.mic!.isBusy },
         attrs: { role: 'button', ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
         hook: onInsert(el => {
@@ -41,7 +34,14 @@ export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
           if (rec() && !lichess.mic?.isListening) setTimeout(() => el.dispatchEvent(new Event('click')));
         }),
       }),
-      h('a#voice-settings-button', {
+      h('span#voice-status', {
+        hook: onInsert(el => lichess.mic?.addListener('moveInput', txt => (el.innerText = txt || 'some placeholder'))),
+      }),
+      h('button#voice-help-button', {
+        attrs: { role: 'button', ...dataIcon('') },
+        hook: bind('click', () => ctrl.showHelp(true)),
+      }),
+      h('button#voice-settings-button', {
         attrs: { role: 'button', ...dataIcon('') },
         hook: bind('click', toggleSettings.bind(undefined, true)),
       }),
@@ -52,85 +52,79 @@ export function renderVoiceMove(inCtrl: VoiceMove, isPuzzle: boolean) {
 }
 
 function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
-  return h(
-    'div#voice-settings',
-    {
-      attrs: { style: 'display: none' },
-    },
-    [
-      h('div.setting', [
-        h('label', { attrs: { for: 'clarity' } }, 'Clarity'),
-        h('input#clarity', {
-          attrs: {
-            type: 'range',
-            min: 0,
-            max: 2,
-            step: 1,
-          },
-          hook: rangeConfig(ctrl.clarityPref, (val: number) => {
-            ctrl.clarityPref(val);
-            ctrl.root.redraw();
-          }),
+  return h('div#voice-settings', [
+    h('div.voice-setting', [
+      h('label', { attrs: { for: 'clarity' } }, 'Clarity'),
+      h('input#clarity', {
+        attrs: {
+          type: 'range',
+          min: 0,
+          max: 2,
+          step: 1,
+        },
+        hook: rangeConfig(ctrl.clarityPref, (val: number) => {
+          ctrl.clarityPref(val);
+          ctrl.root.redraw();
         }),
-        h('div.range_value', ['Fuzzy', 'Average', 'Clear'][ctrl.clarityPref()]),
-      ]),
-      h('div.setting', [
-        h('label', { attrs: { for: 'timer' } }, 'Timer'),
-        h('input#timer', {
-          attrs: {
-            type: 'range',
-            min: 0,
-            max: 5,
-            step: 1,
-          },
-          hook: rangeConfig(ctrl.timerPref, (val: number) => {
-            ctrl.timerPref(val);
-            ctrl.root.redraw();
-          }),
+      }),
+      h('div.range_value', ['Fuzzy', 'Average', 'Clear'][ctrl.clarityPref()]),
+    ]),
+    h('div.voice-setting', [
+      h('label', { attrs: { for: 'timer' } }, 'Timer'),
+      h('input#timer', {
+        attrs: {
+          type: 'range',
+          min: 0,
+          max: 5,
+          step: 1,
+        },
+        hook: rangeConfig(ctrl.timerPref, (val: number) => {
+          ctrl.timerPref(val);
+          ctrl.root.redraw();
         }),
-        h('div.range_value', ['Off', '2s', '2.5s', '3s', '4s', '5s'][ctrl.timerPref()]),
-      ]),
-      h('div.choices', [
-        'Label with',
-        h(
-          'span',
-          ['Colors', 'Numbers'].map(pref =>
-            h(
-              `div#${pref}.choice.${ctrl.colorsPref() === (pref === 'Colors') ? 'selected' : ''}`,
-              {
-                hook: bind('click', () => {
-                  ['Colors', 'Numbers'].map(x => $(`#${x}`).toggleClass('selected'));
-                  ctrl.colorsPref(pref === 'Colors');
-                }),
-              },
-              [h('label', pref)]
-            )
+      }),
+      h('div.range_value', ['Off', '2s', '2.5s', '3s', '4s', '5s'][ctrl.timerPref()]),
+    ]),
+    h('div.voice-choices', [
+      'Label with',
+      h(
+        'span',
+        ['Colors', 'Numbers'].map(pref =>
+          h(
+            `div#${pref}.choice.${ctrl.colorsPref() === (pref === 'Colors') ? 'selected' : ''}`,
+            {
+              hook: bind('click', () => {
+                ['Colors', 'Numbers'].map(x => $(`#${x}`).toggleClass('selected'));
+                ctrl.colorsPref(pref === 'Colors');
+              }),
+            },
+            [h('label', pref)]
           )
-        ),
-      ]),
-      h('div.setting', [
-        h('label', { attrs: { for: 'lang' } }, 'Language'),
-        h(
-          'select#lang',
-          {
-            attrs: { name: 'lang' },
-            hook: bind('change', e => ctrl.langPref((e.target as HTMLSelectElement).value)),
-          },
-          [
-            ...ctrl.supportedLangs.map(l =>
-              h(
-                'option',
-                {
-                  attrs: l[0] === ctrl.lang ? { value: l[0], selected: '' } : { value: l[0] },
-                },
-                l[1]
-              )
-            ),
-          ]
-        ),
-      ]),
-    ]
-  );
+        )
+      ),
+    ]),
+    h('div.voice-setting', [
+      h('label', { attrs: { for: 'lang' } }, 'Language'),
+      h(
+        'select#lang',
+        {
+          attrs: { name: 'lang' },
+          hook: bind('change', e => ctrl.langPref((e.target as HTMLSelectElement).value)),
+        },
+        [
+          ...ctrl.supportedLangs.map(l =>
+            h(
+              'option',
+              {
+                attrs: l[0] === ctrl.lang ? { value: l[0], selected: '' } : { value: l[0] },
+              },
+              l[1]
+            )
+          ),
+        ]
+      ),
+    ]),
+  ]);
 }
 
 let lastPointerDown = -1;
