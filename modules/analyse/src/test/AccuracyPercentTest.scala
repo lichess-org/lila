@@ -1,7 +1,7 @@
 package lila.analyse
 import org.specs2.mutable.Specification
 
-import chess.Color
+import chess.{ ByColor, Color }
 import lila.tree.Eval.Cp
 
 class AccuracyPercentTest extends Specification {

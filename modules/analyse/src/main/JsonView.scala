@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.{ Ply, Color }
+import chess.{ Ply, Color, ByColor }
 import play.api.libs.json.*
 
 import lila.game.Game

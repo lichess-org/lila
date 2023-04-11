@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Color, Speed }
+import chess.{ ByColor, Color, Speed }
 
 import lila.rating.glicko2
 import lila.game.{ Game, GameRepo, PerfPicker, RatingDiffs }
@@ -61,12 +61,10 @@ final class PerfsUpdater(
             val perfsW                      = mkPerfs(ratingsW, white -> black, game)
             val perfsB                      = mkPerfs(ratingsB, black -> white, game)
             def intRatingLens(perfs: Perfs) = mainPerf(perfs).glicko.intRating
-            val ratingDiffs = Color
-              .Map(
-                intRatingLens(perfsW) - intRatingLens(white.perfs),
-                intRatingLens(perfsB) - intRatingLens(black.perfs)
-              )
-              .map(_ into IntRatingDiff)
+            val ratingDiffs = ByColor(
+              intRatingLens(perfsW) - intRatingLens(white.perfs),
+              intRatingLens(perfsB) - intRatingLens(black.perfs)
+            ).map(_ into IntRatingDiff)
             gameRepo.setRatingDiffs(game.id, ratingDiffs) zip
               userRepo.setPerfs(white, perfsW, white.perfs) zip
               userRepo.setPerfs(black, perfsB, black.perfs) zip

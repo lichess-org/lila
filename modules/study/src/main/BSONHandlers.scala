@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Square, PromotableRole, Role, Outcome, Ply, Check }
+import chess.{ Centis, ByColor, Square, PromotableRole, Role, Outcome, Ply, Check }
 import reactivemongo.api.bson.*
 import scala.util.Success
 
@@ -82,19 +82,20 @@ object BSONHandlers:
   given BSONDocumentHandler[Gamebook] = Macros.handler
 
   private given BSON[Crazyhouse.Data] with
-    private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
+    private def writePocket(p: Crazyhouse.Pocket) =
+      p.values.flatMap { (role, nb) => List.fill(nb)(role.forsyth) }.mkString
     private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
     def reads(r: Reader) =
       Crazyhouse.Data(
-        promoted = r.getsD[Square]("o").toSet,
-        pockets = Crazyhouse.Pockets(
+        promoted = chess.bitboard.Bitboard(r.getsD[Square]("o")),
+        pockets = ByColor(
           white = readPocket(r.strD("w")),
           black = readPocket(r.strD("b"))
         )
       )
     def writes(w: Writer, s: Crazyhouse.Data) =
       $doc(
-        "o" -> w.listO(s.promoted.toList),
+        "o" -> w.listO(s.promoted.squares),
         "w" -> w.strO(writePocket(s.pockets.white)),
         "b" -> w.strO(writePocket(s.pockets.black))
       )

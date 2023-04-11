@@ -1,6 +1,6 @@
 package lila.tutor
 
-import chess.Color
+import chess.{ ByColor, Color }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

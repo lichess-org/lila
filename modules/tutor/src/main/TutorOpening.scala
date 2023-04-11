@@ -1,6 +1,6 @@
 package lila.tutor
 
-import chess.Color
+import chess.{ ByColor, Color }
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
