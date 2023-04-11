@@ -246,22 +246,22 @@ object Form:
 
   object ISODate:
     val pattern                           = "yyyy-MM-dd"
-    val mapping                           = localDate(pattern)
+    val mapping: Mapping[LocalDate]       = localDate(pattern)
     given formatter: Formatter[LocalDate] = localDateFormat(pattern)
   object ISODateTime:
     val pattern                               = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    val mapping                               = localDateTime(pattern)
+    val mapping: Mapping[LocalDateTime]       = localDateTime(pattern)
     given formatter: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
   object ISOInstant:
-    val mapping                         = ISODateTime.mapping.transform(_.instant, _.dateTime)
+    val mapping: Mapping[Instant]       = ISODateTime.mapping.transform(_.instant, _.dateTime)
     given formatter: Formatter[Instant] = ISODateTime.formatter.transform(_.instant, _.dateTime)
   object PrettyDateTime:
     val pattern                               = "yyyy-MM-dd HH:mm"
-    val mapping                               = localDateTime(pattern)
+    val mapping: Mapping[LocalDateTime]       = localDateTime(pattern)
     given formatter: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
   object PrettyInstant:
-    val mapping              = PrettyDateTime.mapping.transform(_.instant, _.dateTime)
-    given Formatter[Instant] = PrettyDateTime.formatter.transform(_.instant, _.dateTime)
+    val mapping: Mapping[Instant] = PrettyDateTime.mapping.transform(_.instant, _.dateTime)
+    given Formatter[Instant]      = PrettyDateTime.formatter.transform(_.instant, _.dateTime)
   object Timestamp:
     val formatter: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) =
@@ -275,7 +275,7 @@ object Form:
           .left
           .map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
       def unbind(key: String, value: Instant) = Map(key -> value.toMillis.toString)
-    val mapping = of[Instant](formatter)
+    val mapping: Mapping[Instant] = of[Instant](formatter)
   object ISODateOrTimestamp:
     val formatter: Formatter[LocalDate] = new:
       def bind(key: String, data: Map[String, String]) =
@@ -287,4 +287,4 @@ object Form:
       def bind(key: String, data: Map[String, String]) =
         ISOInstant.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
       def unbind(key: String, value: Instant) = ISOInstant.formatter.unbind(key, value)
-    val mapping = of[Instant](formatter)
+    val mapping: Mapping[Instant] = of[Instant](formatter)
