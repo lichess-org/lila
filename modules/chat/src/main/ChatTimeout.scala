@@ -89,7 +89,7 @@ object ChatTimeout:
   val form = Form(
     mapping(
       "roomId" -> of[RoomId],
-      "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss", "study")),
+      "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss", "team", "study")),
       "userId" -> lila.user.UserForm.historicalUsernameField,
       "reason" -> nonEmptyText,
       "text"   -> nonEmptyText

@@ -347,8 +347,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }
     redraw();
     if (!next) {
-      alert('No more puzzles available! Try another theme.');
-      lichess.redirect('/training/themes');
+      if (data.replay) {
+        lichess.redirect(`/training/dashboard/${data.replay.days}`);
+      } else {
+        alert('No more puzzles available! Try another theme.');
+        lichess.redirect('/training/themes');
+      }
     }
   }
 

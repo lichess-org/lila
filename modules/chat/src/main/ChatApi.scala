@@ -158,6 +158,7 @@ final class ChatApi(
           busChan = data.chan match {
             case "tournament" => _.Tournament
             case "swiss"      => _.Swiss
+            case "team"       => _.Team
             case _            => _.Study
           }
         )
