@@ -3,6 +3,7 @@
   <string name="preferences">Nastavenia</string>
   <string name="display">Zobrazenie</string>
   <string name="privacy">Súkromie</string>
+  <string name="notifications">Upozornenia</string>
   <string name="pieceAnimation">Animácia figúrok</string>
   <string name="materialDifference">Materiálny rozdiel</string>
   <string name="boardHighlights">Zvýraznenie šachovnice (posledný ťah a šach)</string>
@@ -49,7 +50,17 @@
   <string name="yourPreferencesHaveBeenSaved">Vaše nastavenia boli uložené.</string>
   <string name="scrollOnTheBoardToReplayMoves">Rolovaním po šachovnici prehrávať ťahy</string>
   <string name="correspondenceEmailNotification">Denný mailový výpis Vašich korešpondenčných partií</string>
-  <string name="notifyStreamStart">Streamer začal streamovať</string>
+  <string name="notifyStreamStart">Streamer začal vysielať</string>
   <string name="notifyInboxMsg">Nová správa</string>
+  <string name="notifyForumMention">V komentári na fóre sa o Vás píše</string>
+  <string name="notifyInvitedStudy">Pozvánka do štúdie</string>
+  <string name="notifyGameEvent">Aktualizácie korešpondenčných partií</string>
+  <string name="notifyChallenge">Výzvy</string>
+  <string name="notifyTournamentSoon">Onedlho začínajúci turnaj</string>
+  <string name="notifyTimeAlarm">Dochádza čas v korešpondenčnej partii</string>
+  <string name="notifyBell">Upozornenie zvončekom v rámci Lichess-u</string>
+  <string name="notifyPush">Upozornenie zariadenia v čase keď nie ste na Lichess-e</string>
+  <string name="notifyWeb">Prehliadač</string>
+  <string name="notifyDevice">Zariadenie</string>
   <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Zvuk upozornenia</string>
 </resources>
