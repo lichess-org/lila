@@ -98,7 +98,7 @@
   <string name="dtzWithRounding">DTZ50\" so zaokrúhlením, vychádzajúci s počtu polťahov až do najbližšieho brania alebo ťahu pešiakom</string>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
-  <string name="openings">Otváranie</string>
+  <string name="openings">Otvorenia</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="openingEndgameExplorer">Prieskumník otvorení/koncoviek</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
