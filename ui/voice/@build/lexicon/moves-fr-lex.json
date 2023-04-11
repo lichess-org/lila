@@ -7,7 +7,7 @@
   "entries": [
     { "in": "a", "tok": "a", "tags": [ "file", "move" ] },
     { "in": "b", "tok": "b", "tags": [ "file", "move" ] },
-    { "in": "c", "tok": "c", "tags": [ "file", "move" ] },
+    { "in": "ç", "tok": "c", "tags": [ "file", "move" ] },
     { "in": "d", "tok": "d", "tags": [ "file", "move" ] },
     { "in": "e", "tok": "e", "tags": [ "file", "move" ] },
     { "in": "f", "tok": "f", "tags": [ "file", "move" ] },

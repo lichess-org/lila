@@ -221,8 +221,6 @@ declare namespace Voice {
     readonly status: string; // errors, progress, or the most recent voice command
     readonly lang: string; // defaults to 'en'
 
-    //readonly grammar: Entry[]; // optionally fetched during initialization
-
     addListener: (id: string, listener: Listener, mode?: ListenMode) => void;
     removeListener: (id: string) => void;
 

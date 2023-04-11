@@ -235,3 +235,9 @@ object PrefForm:
       "zen" -> text.verifying(Set("0", "1") contains _)
     )
   )
+
+  val voice = Form(
+    single(
+      "voice" -> text.verifying(Set("0", "1") contains _)
+    )
+  )

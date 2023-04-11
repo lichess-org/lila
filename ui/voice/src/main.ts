@@ -129,6 +129,23 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
         ]
       ),
     ]),
+    $('body').data('user')
+      ? h(
+          'a.button',
+          {
+            attrs: {
+              title:
+                'Click here to remove the microphone from your UI.\nIt can be re-enabled in Preferences -> Display',
+            },
+            hook: bind('click', () =>
+              xhr
+                .text('/pref/voice', { method: 'post', body: xhr.form({ voice: '0' }) })
+                .then(() => window.location.reload())
+            ),
+          },
+          'Hide voice controls'
+        )
+      : null,
   ]);
 }
 

@@ -90,8 +90,9 @@ case class Pref(
         SoundSet.allByKey get value map { s =>
           copy(soundSet = s.key)
         }
-      case "zen" => copy(zen = if (value == "1") 1 else 0).some
-      case _     => none
+      case "zen"   => copy(zen = if (value == "1") 1 else 0).some
+      case "voice" => copy(voice = if (value == "1") 1 else 0).some
+      case _       => none
 
   def animationMillis: Int =
     animation match
@@ -453,7 +454,7 @@ object Pref:
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
-    voice = Voice.NO,
+    voice = Voice.YES,
     zen = Zen.NO,
     ratings = Ratings.YES,
     rookCastle = RookCastle.YES,
