@@ -12,7 +12,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Challenge(
-    _id: String,
+    _id: Challenge.Id,
     status: Challenge.Status,
     variant: Variant,
     initialFen: Option[Fen.Epd],
@@ -110,7 +110,8 @@ case class Challenge(
 
 object Challenge:
 
-  type ID = String
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
 
   enum Status(val id: Int):
     val name = Status.this.toString.toLowerCase

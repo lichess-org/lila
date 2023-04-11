@@ -132,7 +132,9 @@ final class Round(
                 Redirect(routes.Round.watcher(gameId, pov.color.name)).toFuccess
               case _ => Redirect(routes.Round.watcher(gameId, "white")).toFuccess
           }
-        case None => userC.tryRedirect(gameId into UserStr) getOrElse challengeC.showId(gameId)
+        case None =>
+          userC.tryRedirect(gameId into UserStr) getOrElse
+            challengeC.showId(gameId into lila.challenge.Challenge.Id)
       }
     }
 
