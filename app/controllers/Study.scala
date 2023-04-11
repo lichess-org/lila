@@ -72,7 +72,7 @@ final class Study(
   def byOwner(username: UserStr, order: String, page: Int) =
     Open { implicit ctx =>
       env.user.repo.byId(username).flatMap {
-        _.fold(notFound(ctx)) { owner =>
+        _.fold(notFound) { owner =>
           env.study.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
             preloadMembers(pag) >> negotiate(
               html = Ok(html.study.list.byOwner(pag, Order(order), owner)).toFuccess,
