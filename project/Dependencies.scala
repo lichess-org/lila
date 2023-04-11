@@ -14,7 +14,7 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.3.0"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.3.1"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.5"
   val chess       = "org.lichess"                  %% "scalachess"                      % "14.9.0"

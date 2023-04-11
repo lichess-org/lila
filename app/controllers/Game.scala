@@ -125,7 +125,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" format nowInstant
+  private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
   def apiExportByUserImportedGames(username: UserStr) =
     AuthOrScoped()(

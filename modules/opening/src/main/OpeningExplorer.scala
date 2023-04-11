@@ -78,7 +78,7 @@ final private class OpeningExplorer(
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(
         params ::: List(
-          "until" -> dateFormat.format(nowInstant.minusDays(45))
+          "until" -> dateFormat.print(nowInstant.minusDays(45))
         )*
       )
       .withRequestTimeout(requestTimeout)

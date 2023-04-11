@@ -155,7 +155,7 @@ final class SwissApi(
           mongo.swiss.updateField($id(old.id), "nextRoundAt", date).void >>- {
             import java.time.format.{ DateTimeFormatter, FormatStyle }
             val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
-            val showDate  = formatter format date
+            val showDate  = formatter print date
             systemChat(swiss.id, s"Round ${swiss.round.value + 1} scheduled at $showDate UTC")
           }
         else funit

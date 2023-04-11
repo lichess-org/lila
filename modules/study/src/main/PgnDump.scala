@@ -42,14 +42,14 @@ final class PgnDump(
   def ownerName(study: Study) = lightUserApi.sync(study.ownerId).fold(study.ownerId)(_.name)
 
   def filename(study: Study): String =
-    val date = dateFormatter.format(study.createdAt)
+    val date = dateFormatter.print(study.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
 
   def filename(study: Study, chapter: Chapter): String =
-    val date = dateFormatter.format(chapter.createdAt)
+    val date = dateFormatter.print(chapter.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_$date",
       ""
@@ -67,8 +67,8 @@ final class PgnDump(
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
-        Tag(_.UTCDate, Tag.UTCDate.format.format(chapter.createdAt)),
-        Tag(_.UTCTime, Tag.UTCTime.format.format(chapter.createdAt)),
+        Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
+        Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),

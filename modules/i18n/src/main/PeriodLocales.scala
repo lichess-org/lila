@@ -23,4 +23,4 @@ object PeriodLocales:
     periodFormatter print JodaPeriod(period).normalizedStandard(periodType)
 
   def showDuration(duration: Duration)(using Lang): String =
-    periodFormatter print JodaPeriod(duration).normalizedStandard(periodType)
+    periodFormatter print JodaPeriod(duration.toMillis).normalizedStandard(periodType)

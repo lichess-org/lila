@@ -27,7 +27,7 @@ object AnnounceStore:
         Try {
           val msg     = rest mkString " "
           val date    = nowInstant plusSeconds Duration(s"$length $unit").toSeconds.toInt
-          val isoDate = isoDateTimeFormatter format date
+          val isoDate = isoDateTimeFormatter print date
           val json    = Json.obj("msg" -> msg, "date" -> isoDate)
           Announce(msg, date, json)
         }.toOption

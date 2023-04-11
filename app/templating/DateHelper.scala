@@ -39,16 +39,14 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
     )
 
   def showInstantUTC(instant: Instant)(using Lang): String =
-    dateTimeFormatter format instant
+    dateTimeFormatter print instant
 
   def showDate(instant: Instant)(using lang: Lang): String =
-    if (lang.language == "ar") dateFormatter.format(instant.date).replaceAll("\u200f", "")
-    else dateFormatter format instant.date
+    if (lang.language == "ar") dateFormatter.print(instant.date).replaceAll("\u200f", "")
+    else dateFormatter print instant.date
 
-  def showEnglishDate(instant: Instant): String =
-    englishDateFormatter format instant.dateTime
-  def showEnglishInstant(instant: Instant): String =
-    englishDateTimeFormatter format instant.dateTime
+  def showEnglishDate(instant: Instant): String    = englishDateFormatter print instant
+  def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter print instant
 
   def semanticDate(instant: Instant)(using Lang): Tag =
     timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
@@ -56,7 +54,7 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
 
-  def isoDateTime(instant: Instant): String = isoDateTimeFormatter format instant.dateTime.atOffset(utcZone)
+  def isoDateTime(instant: Instant): String = isoDateTimeFormatter print instant
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 

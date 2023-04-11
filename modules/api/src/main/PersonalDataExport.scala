@@ -236,4 +236,4 @@ final class PersonalDataExport(
   import java.time.format.{ DateTimeFormatter, FormatStyle }
   private val englishDateTimeFormatter =
     DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
-  private def textDate(date: Instant) = englishDateTimeFormatter format date
+  private def textDate(date: Instant) = englishDateTimeFormatter print date

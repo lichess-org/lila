@@ -159,7 +159,7 @@ object SwissJson:
       .obj(
         "id"        -> swiss.id,
         "createdBy" -> swiss.createdBy,
-        "startsAt"  -> isoDateTimeFormatter.format(swiss.startsAt),
+        "startsAt"  -> isoDateTimeFormatter.print(swiss.startsAt),
         "name"      -> swiss.name,
         "clock"     -> swiss.clock,
         "variant"   -> swiss.variant.key,
@@ -175,7 +175,7 @@ object SwissJson:
       )
       .add("nextRound" -> swiss.nextRoundAt.map { next =>
         Json.obj(
-          "at" -> isoDateTimeFormatter.format(next),
+          "at" -> isoDateTimeFormatter.print(next),
           "in" -> (next.toSeconds - nowSeconds).toInt.atLeast(0)
         )
       })

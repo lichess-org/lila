@@ -42,7 +42,7 @@ final private class TutorBuilder(
         lap    <- chrono.lap
         report <- Future fromTry lap.result
         doc = bsonWriteObjTry(report).get ++ $doc(
-          "_id"    -> s"${report.user}:${dateFormatter format report.at}",
+          "_id"    -> s"${report.user}:${dateFormatter print report.at}",
           "millis" -> lap.millis
         )
         _ <- colls.report.insert.one(doc).void

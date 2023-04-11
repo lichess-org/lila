@@ -93,7 +93,7 @@ final class JsonView(
           .obj(
             "id"        -> tour.id,
             "createdBy" -> tour.createdBy,
-            "startsAt"  -> isoDateTimeFormatter.format(tour.startsAt),
+            "startsAt"  -> isoDateTimeFormatter.print(tour.startsAt),
             "system"    -> "arena", // BC
             "fullName"  -> tour.name(),
             "minutes"   -> tour.minutes,

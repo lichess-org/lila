@@ -321,6 +321,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           html = forms
             .create(me, teams)
             .bindFromRequest()
+            .pp
             .fold(
               err => BadRequest(html.tournament.form.create(err, teams)).toFuccess,
               setup =>
