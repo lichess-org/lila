@@ -347,10 +347,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }
     redraw();
     if (!next) {
-      if (!data.replay) {
+      if (data.replay) {
+        lichess.redirect(`/training/dashboard/${data.replay.days}`);
+      } else {
         alert('No more puzzles available! Try another theme.');
+        lichess.redirect('/training/themes');
       }
-      lichess.redirect(`/training/dashboard/${data.replay?.days}`);
     }
   }
 
