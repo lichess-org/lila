@@ -31,8 +31,11 @@ importers:
       typescript:
         specifier: ^4.9.4
         version: 4.9.4
+
+  bin:
+    dependencies:
       xml2js:
-        specifier: 0.5.0
+        specifier: ^0.5.0
         version: 0.5.0
 
   ui:
