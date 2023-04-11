@@ -17,8 +17,8 @@ trait AnaAny:
 
 // TODO StudyChapterId, UciPath
 case class AnaMove(
-    orig: chess.Pos,
-    dest: chess.Pos,
+    orig: chess.Square,
+    dest: chess.Square,
     variant: Variant,
     fen: Fen.Epd,
     path: UciPath,
@@ -53,8 +53,8 @@ object AnaMove:
     import chess.variant.Variant
     for
       d    <- o obj "d"
-      orig <- d str "orig" flatMap { chess.Pos.fromKey(_) }
-      dest <- d str "dest" flatMap { chess.Pos.fromKey(_) }
+      orig <- d str "orig" flatMap { chess.Square.fromKey(_) }
+      dest <- d str "dest" flatMap { chess.Square.fromKey(_) }
       fen  <- d.get[Fen.Epd]("fen")
       path <- d.get[UciPath]("path")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))

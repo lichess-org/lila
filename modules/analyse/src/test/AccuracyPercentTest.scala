@@ -7,7 +7,7 @@ import lila.tree.Eval.Cp
 class AccuracyPercentTest extends Specification {
 
   import AccuracyPercent._
-  type AccMap = Color.Map[AccuracyPercent]
+  type AccMap = ByColor[AccuracyPercent]
 
   "game accuracy" >> {
 

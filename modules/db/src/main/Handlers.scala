@@ -179,10 +179,10 @@ trait Handlers:
     { case (a, b) => BSONArray(a, b) }
   )
 
-  given NoDbHandler[chess.Pos] with {} // no default opaque handler for chess.Pos
+  given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
 
-  def chessPosKeyHandler: BSONHandler[chess.Pos] = tryHandler(
-    { case BSONString(str) => chess.Pos.fromKey(str) toTry s"No such key $str" },
+  def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
+    { case BSONString(str) => chess.Square.fromKey(str) toTry s"No such key $str" },
     pos => BSONString(pos.key)
   )
 

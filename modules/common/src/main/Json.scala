@@ -95,4 +95,4 @@ object Json:
       .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))
   }
 
-  given NoJsonHandler[chess.Pos] with {}
+  given NoJsonHandler[chess.Square] with {}

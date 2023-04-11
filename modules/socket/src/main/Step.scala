@@ -1,7 +1,7 @@
 package lila.socket
 
 import chess.format.{ Fen, Uci }
-import chess.{ Check, Ply, Pos }
+import chess.{ Check, Ply, Square }
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
 
@@ -11,8 +11,8 @@ case class Step(
     fen: Fen.Epd,
     check: Check,
     // None when not computed yet
-    dests: Option[Map[Pos, List[Pos]]],
-    drops: Option[List[Pos]],
+    dests: Option[Map[Square, List[Square]]],
+    drops: Option[List[Square]],
     crazyData: Option[Crazyhouse.Data]
 ):
   // who's color plays next
@@ -24,12 +24,10 @@ object Step:
 
   // TODO copied from lila.game
   // put all that shit somewhere else
-  given OWrites[Crazyhouse.Pocket] = OWrites { v =>
+  private given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
-      Crazyhouse.storableRoles.flatMap { role =>
-        Some(v.roles.count(role ==)).filter(0 <).map { count =>
-          role.name -> JsNumber(count)
-        }
+      v.values.collect {
+        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
       }
     )
   }

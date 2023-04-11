@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Pos, PromotableRole, Role, Outcome, Ply, Check }
+import chess.{ Centis, Square, PromotableRole, Role, Outcome, Ply, Check }
 import reactivemongo.api.bson.*
 import scala.util.Success
 
@@ -16,14 +16,14 @@ import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 
 object BSONHandlers:
 
-  private given BSONHandler[Pos] = chessPosKeyHandler
+  private given BSONHandler[Square] = chessPosKeyHandler
 
   given BSON[Shape] with
     def reads(r: Reader) =
       val brush = r str "b"
-      r.getO[Pos]("p") map { pos =>
+      r.getO[Square]("p") map { pos =>
         Shape.Circle(brush, pos)
-      } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
+      } getOrElse Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d"))
     def writes(@annotation.nowarn w: Writer, t: Shape) =
       t match
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
@@ -86,7 +86,7 @@ object BSONHandlers:
     private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
     def reads(r: Reader) =
       Crazyhouse.Data(
-        promoted = r.getsD[Pos]("o").toSet,
+        promoted = r.getsD[Square]("o").toSet,
         pockets = Crazyhouse.Pockets(
           white = readPocket(r.strD("w")),
           black = readPocket(r.strD("b"))

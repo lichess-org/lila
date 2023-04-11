@@ -167,7 +167,7 @@ case class Game(
 
   // apply a move
   def update(
-      game: ChessGame, // new chess position
+      game: ChessGame, // new chess.Position
       moveOrDrop: MoveOrDrop,
       blur: Boolean = false
   ): Progress =

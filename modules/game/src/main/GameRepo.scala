@@ -313,7 +313,7 @@ final class GameRepo(val coll: Coll)(using Executor):
         holdAlertProjection
       ) map {
         _.fold(Player.HoldAlert.emptyMap) { doc =>
-          Color.Map(white = holdAlertOf(doc, chess.White), black = holdAlertOf(doc, chess.Black))
+          chess.ByColor(holdAlertOf(doc, _))
         }
       }
 

@@ -19,7 +19,7 @@ case class TutorPerfReport(
     conversion: TutorBothValueOptions[GoodPercent],
     globalClock: TutorBothValueOptions[ClockPercent],
     clockUsage: TutorBothValueOptions[ClockPercent],
-    openings: Color.Map[TutorColorOpenings],
+    openings: ByColor[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
 ):

@@ -68,11 +68,11 @@ for x in xs:
   def fromAnalysisAndPov(pov: Game.SideAndStart, analysis: Analysis): List[AccuracyPercent] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
 
-  def gameAccuracy(startColor: Color, analysis: Analysis): Option[Color.Map[AccuracyPercent]] =
+  def gameAccuracy(startColor: Color, analysis: Analysis): Option[ByColor[AccuracyPercent]] =
     gameAccuracy(startColor, analysis.infos.map(_.eval).flatMap(_.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
-  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[Color.Map[AccuracyPercent]] =
+  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[ByColor[AccuracyPercent]] =
     val allWinPercents      = (Cp.initial :: cps) map WinPercent.fromCentiPawns
     val windowSize          = (cps.size / 10) atLeast 2 atMost 8
     val allWinPercentValues = WinPercent raw allWinPercents
@@ -113,4 +113,4 @@ for x in xs:
     for
       wa <- colorAccuracy(Color.white)
       ba <- colorAccuracy(Color.black)
-    yield Color.Map(wa, ba)
+    yield ByColor(wa, ba)

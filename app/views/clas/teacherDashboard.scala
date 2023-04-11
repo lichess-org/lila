@@ -186,7 +186,7 @@ object teacherDashboard:
       students: List[Student.WithUser],
       basicCompletion: Map[UserId, Int],
       practiceCompletion: Map[UserId, Int],
-      coordScores: Map[UserId, chess.Color.Map[Int]]
+      coordScores: Map[UserId, chess.ByColor[Int]]
   )(using Context) =
     layout(c, students, "progress")(
       progressHeader(c, none),
@@ -203,7 +203,7 @@ object teacherDashboard:
             ),
             tbody(
               students.sortBy(_.user.username.value).map { case s @ Student.WithUser(_, user) =>
-                val coord = coordScores.getOrElse(user.id, chess.Color.Map(0, 0))
+                val coord = coordScores.getOrElse(user.id, chess.ByColor(0, 0))
                 tr(
                   studentTd(c, s),
                   td(dataSort := basicCompletion.getOrElse(user.id, 0))(
