@@ -118,7 +118,7 @@
     opacity: 0;
   }
   #help-engine-deny:target form {
-    animation: 20s reveal;
+    animation: 20s reveal !important; // play even with "prefers-reduced-motion: reduce"
     animation-fill-mode: forwards;
   }
 

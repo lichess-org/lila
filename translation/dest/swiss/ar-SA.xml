@@ -135,12 +135,4 @@
   <string name="unlimitedAndFree">غير محدود و مجاني</string>
   <string name="predefinedUsers">السماح فقط للمستخدمين المحددين مسبقاً بالانضمام</string>
   <string name="forbiddedUsers">إذا كانت هذه القائمة غير فارغة، فسيتم منع أسماء المستخدمين المتغيبين من هذه القائمة من الانضمام. اسم مستخدم واحد لكل سطر.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="zero">%1$s/%2$s جولة سويسرية</item>
-    <item quantity="one">%1$s/%2$s جولة سويسرية</item>
-    <item quantity="two">%1$s/%2$s جولة سويسرية</item>
-    <item quantity="few">%1$s/%2$s جولة سويسرية</item>
-    <item quantity="many">%1$s/%2$s جولة سويسرية</item>
-    <item quantity="other">%1$s/%2$s جولة سويسرية</item>
-  </plurals>
 </resources>

@@ -8,8 +8,4 @@
   <string name="pairingWaitTimeArena">ଦ୍ରୁତ: ସମସ୍ତ ଖେଳାଳିଙ୍କ ପାଇଁ ଅପେକ୍ଷା କରେ ନାହିଁ</string>
   <string name="pairingWaitTimeSwiss">ଧୀର: ସମସ୍ତ ଖେଳାଳିଙ୍କ ପାଇଁ ଅପେକ୍ଷା କରେ</string>
   <string name="identicalForbidden">ନିଷିଦ୍ଧ</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s ରାଉଣ୍ଡ ସ୍ୱିସ୍</item>
-    <item quantity="other">%1$s / %2$s ରାଉଣ୍ଡ ସ୍ୱିସ୍</item>
-  </plurals>
 </resources>

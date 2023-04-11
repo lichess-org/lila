@@ -15,6 +15,7 @@ given gameFull: Conversion[String, GameFullId]                           = GameF
 given gameAny: Conversion[String, GameAnyId]                             = GameAnyId(_)
 given Conversion[String, StudyId]                                        = StudyId(_)
 given Conversion[String, StudyChapterId]                                 = StudyChapterId(_)
+given Conversion[String, lila.study.Order]                               = lila.study.Order(_)
 given Conversion[String, PuzzleId]                                       = PuzzleId(_)
 given Conversion[String, SimulId]                                        = SimulId(_)
 given Conversion[String, SwissId]                                        = SwissId(_)

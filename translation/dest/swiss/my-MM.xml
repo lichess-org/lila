@@ -10,7 +10,4 @@
   <string name="newSwiss">ဆွစ်စနစ် ပြိုင်ပွဲ အသစ် ပြုလုပ်ရန်</string>
   <string name="pairingWaitTimeArena">အမြန် - ကစားသမားကို မစောင့်ပါ</string>
   <string name="pairingWaitTimeSwiss">အနှေး - ကစားသမား အားလုံးကို စောင့်သည်</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="other">ပွဲစဉ် %2$s ခုပါ sပတ်လည်စနစ်မှ ပွဲစဉ်အမှတ် %1$s</item>
-  </plurals>
 </resources>

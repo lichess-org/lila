@@ -105,8 +105,4 @@ Pourquoi? Parce qu\'il n\'existe pas de façon équitable de résoudre le probl�
   <string name="unlimitedAndFree">Illimité et gratuit</string>
   <string name="predefinedUsers">Autoriser uniquement les utilisateurs prédéfinis à s\'inscrire</string>
   <string name="forbiddedUsers">Si la liste n\'est pas vide, seuls les utilisateurs y figurant pourront s\'inscrire. Un nom d\'utilisateur par ligne.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s/%2$s ronde (système suisse)</item>
-    <item quantity="other">%1$s/%2$s rondes (système suisse)</item>
-  </plurals>
 </resources>

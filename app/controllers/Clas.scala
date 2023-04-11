@@ -103,7 +103,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def WithClassAny(id: ClasId, me: lila.user.User)(
       forTeacher: => Fu[Result],
       forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
-      orDefault: Context => Fu[Result] = notFound(_)
+      orDefault: Context => Fu[Result] = notFound(using _)
   )(using ctx: Context): Fu[Result] =
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       case true => forTeacher
