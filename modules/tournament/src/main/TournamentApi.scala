@@ -111,21 +111,17 @@ final class TournamentApi(
       tour: Tournament,
       data: TeamBattle.DataForm.Setup,
       filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
-  ): Funit =
-    filterExistingTeamIds(data.potentialTeamIds.filterNot(TeamBattle.blacklist.contains)) flatMap { teamIds =>
+  ): Funit = for
+    formTeamIds <- filterExistingTeamIds(data.potentialTeamIds.filterNot(TeamBattle.blacklist.contains))
+    teamIds <-
       if !tour.isCreated
-      then playerRepo.teamsWithPlayers(tour.id).map(_ ++ teamIds).map(_ take TeamBattle.maxTeams)
-      else fuccess(teamIds)
-    } flatMap { teamIds =>
-      tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders)) >> {
-        tour.isCreated ?? {
-          playerRepo.removeNotInTeams(tour.id, teamIds) >> updateNbPlayers(tour.id)
-        }
-      } >>- {
-        cached.tourCache.clear(tour.id)
-        socket.reload(tour.id)
-      }
-    }
+      then playerRepo.teamsWithPlayers(tour.id).map(_ ++ formTeamIds).map(_ take TeamBattle.maxTeams)
+      else fuccess(formTeamIds)
+    _ <- tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
+    _ <- tour.isCreated ?? { playerRepo.removeNotInTeams(tour.id, teamIds) >> updateNbPlayers(tour.id) }
+  yield
+    cached.tourCache.clear(tour.id)
+    socket.reload(tour.id)
 
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.TeamInfo]] =
     tour.teamBattle.exists(_ teams teamId) ?? cached.teamInfo.get(tour.id -> teamId)
