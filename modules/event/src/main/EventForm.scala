@@ -4,8 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
 
-import lila.common.Form.UTCDate.*
-import lila.common.Form.{ stringIn, into }
+import lila.common.Form.{ stringIn, into, PrettyDate }
 import lila.i18n.LangList
 import lila.user.User
 
@@ -31,8 +30,8 @@ object EventForm:
       "url"           -> nonEmptyText,
       "lang"          -> text.verifying(l => LangList.allChoices.exists(_._1 == l)),
       "enabled"       -> boolean,
-      "startsAt"      -> utcDate,
-      "finishesAt"    -> utcDate,
+      "startsAt"      -> PrettyDate.prettyDate,
+      "finishesAt"    -> PrettyDate.prettyDate,
       "hostedBy"      -> optional(lila.user.UserForm.historicalUsernameField),
       "icon"          -> stringIn(icon.choices),
       "countdown"     -> boolean

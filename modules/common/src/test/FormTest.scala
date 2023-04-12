@@ -1,6 +1,8 @@
 package lila.common
 
 import org.specs2.mutable.*
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import play.api.data._
 import play.api.data.format._
 import play.api.data.format.Formats._
@@ -10,6 +12,35 @@ import play.api.data.validation._
 import lila.common.Form._
 
 class FormTest extends Specification {
+
+  "format dates" should {
+    // val date = java.time.LocalDateTime.of(2023, 4, 12, 10, 0, 15, 337)
+    val date = new DateTime(2023, 4, 12, 11, 1, 15, 337, DateTimeZone.UTC)
+    "iso datetime" in {
+      val mapping = single("t" -> lila.common.Form.ISODateTime.isoDateTime)
+      mapping.unbind(date) === Map("t" -> "2023-04-12T11:01:15.337+0000")
+    }
+    "iso date" in {
+      val mapping = single("t" -> lila.common.Form.ISODate.isoDate)
+      mapping.unbind(date) === Map("t" -> "2023-04-12")
+    }
+    "pretty date" in {
+      val mapping = single("t" -> lila.common.Form.PrettyDate.prettyDate)
+      mapping.unbind(date) === Map("t" -> "2023-04-12 11:01")
+    }
+    "timestamp" in {
+      val mapping = single("t" -> lila.common.Form.Timestamp.timestamp)
+      mapping.unbind(date) === Map("t" -> "1681297275337")
+    }
+    "iso datetime or timestamp" in {
+      val mapping = single("t" -> lila.common.Form.ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)
+      mapping.unbind(date) === Map("t" -> "2023-04-12T11:01:15.337+0000")
+    }
+    "iso date or timestamp" in {
+      val mapping = single("t" -> lila.common.Form.ISODateOrTimestamp.isoDateOrTimestamp)
+      mapping.unbind(date) === Map("t" -> "2023-04-12")
+    }
+  }
 
   "parse dates" should {
     "iso datetime" in {
