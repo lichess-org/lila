@@ -109,7 +109,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
         $doc(
           "$set" -> $doc(
             "status"    -> Status.Created.id,
-            "seenAt"    -> nowDate,
+            "seenAt"    -> nowInstant,
             "expiresAt" -> inTwoWeeks
           )
         )
