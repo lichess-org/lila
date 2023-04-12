@@ -113,7 +113,8 @@ final class TournamentApi(
       filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
   ): Funit =
     filterExistingTeamIds(data.potentialTeamIds.filterNot(TeamBattle.blacklist.contains)) flatMap { teamIds =>
-      if !tour.isCreated then playerRepo.teamsWithPlayers(tour.id) map { _ ++ teamIds }
+      if !tour.isCreated
+      then playerRepo.teamsWithPlayers(tour.id).map(_ ++ teamIds).map(_ take TeamBattle.maxTeams)
       else fuccess(teamIds)
     } flatMap { teamIds =>
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders)) >> {
