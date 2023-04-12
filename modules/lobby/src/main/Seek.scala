@@ -20,7 +20,7 @@ case class Seek(
     color: String,
     user: LobbyUser,
     ratingRange: String,
-    createdAt: DateTime
+    createdAt: Instant
 ):
 
   inline def id = _id
@@ -88,7 +88,7 @@ object Seek:
     color = color,
     user = LobbyUser.make(user, blocking),
     ratingRange = ratingRange.toString,
-    createdAt = nowDate
+    createdAt = nowInstant
   )
 
   def renew(seek: Seek) = Seek(
@@ -99,7 +99,7 @@ object Seek:
     color = seek.color,
     user = seek.user,
     ratingRange = seek.ratingRange,
-    createdAt = nowDate
+    createdAt = nowInstant
   )
 
   import reactivemongo.api.bson.*

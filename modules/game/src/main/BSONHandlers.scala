@@ -7,6 +7,7 @@ import chess.{
   CheckCount,
   Clock,
   Color,
+  ByColor,
   Game as ChessGame,
   History as ChessHistory,
   Mode,
@@ -49,20 +50,22 @@ object BSONHandlers:
           val (white, black) = {
             r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
           }.partition(_ is chess.White)
-          Pockets(
+          ByColor(
             white = Pocket(white.map(_.role)),
             black = Pocket(black.map(_.role))
           )
         },
-        promoted = r.str("t").view.flatMap(chess.Pos.fromChar(_)).to(Set)
+        promoted = chess.bitboard.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
       )
     def writes(@nowarn w: BSON.Writer, o: Crazyhouse.Data) =
+      def roles(color: Color) = o.pockets(color).values.flatMap { (role, nb) =>
+        List.fill(nb)(role)
+      }
       BSONDocument(
         "p" -> {
-          o.pockets.white.roles.map(_.forsythUpper).mkString +
-            o.pockets.black.roles.map(_.forsyth).mkString
+          roles(chess.White).map(_.forsythUpper).mkString + roles(chess.Black).map(_.forsyth).mkString
         },
-        "t" -> o.promoted.map(_.asChar).mkString
+        "t" -> o.promoted.squares.map(_.asChar).mkString
       )
 
   private[game] given gameDrawOffersHandler: BSONHandler[GameDrawOffers] = tryHandler[GameDrawOffers](
@@ -270,7 +273,7 @@ object BSONHandlers:
       times = history(color)
     yield BinaryFormat.clockHistory.writeSide(clk.limit, times, flagged has color)
 
-  private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) =
+  private[game] def clockBSONReader(since: Instant, whiteBerserk: Boolean, blackBerserk: Boolean) =
     new BSONReader[Color => Clock]:
       def readTry(bson: BSONValue): Try[Color => Clock] =
         bson match
@@ -280,7 +283,7 @@ object BSONHandlers:
             }
           case b => lila.db.BSON.handlerBadType(b)
 
-  private[game] def clockBSONWrite(since: DateTime, clock: Clock) =
+  private[game] def clockBSONWrite(since: Instant, clock: Clock) =
     byteArrayHandler writeTry {
       BinaryFormat clock since write clock
     }

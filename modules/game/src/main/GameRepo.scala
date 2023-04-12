@@ -269,7 +269,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       .sort(Query.sortAntiChronological)
       .one[Game]
 
-  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowDate)
+  def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowInstant)
 
   def setAnalysed(id: GameId): Funit  = coll.updateField($id(id), F.analysed, true).void
   def setUnanalysed(id: GameId): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
@@ -313,7 +313,7 @@ final class GameRepo(val coll: Coll)(using Executor):
         holdAlertProjection
       ) map {
         _.fold(Player.HoldAlert.emptyMap) { doc =>
-          Color.Map(white = holdAlertOf(doc, chess.White), black = holdAlertOf(doc, chess.Black))
+          chess.ByColor(holdAlertOf(doc, _))
         }
       }
 
@@ -408,7 +408,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
-      F.checkAt     -> checkInHours.map(nowDate.plusHours),
+      F.checkAt     -> checkInHours.map(nowInstant.plusHours(_)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll.insert.one(bson) addFailureEffect {
@@ -418,10 +418,10 @@ final class GameRepo(val coll: Coll)(using Executor):
   def removeRecentChallengesOf(userId: UserId) =
     coll.delete.one(
       Query.created ++ Query.friend ++ Query.user(userId) ++
-        Query.createdSince(nowDate minusHours 1)
+        Query.createdSince(nowInstant minusHours 1)
     )
 
-  def setCheckAt(g: Game, at: DateTime) =
+  def setCheckAt(g: Game, at: Instant) =
     coll.updateField($id(g.id), F.checkAt, at).void
 
   def unsetCheckAt(id: GameId): Funit =
@@ -510,7 +510,7 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def getOptionPgn(id: GameId): Fu[Option[Vector[SanStr]]] = game(id).dmap2(_.sans)
 
-  def lastGameBetween(u1: UserId, u2: UserId, since: DateTime): Fu[Option[Game]] =
+  def lastGameBetween(u1: UserId, u2: UserId, since: Instant): Fu[Option[Game]] =
     coll.one[Game](
       $doc(
         F.playerUids $all List(u1, u2),
@@ -518,7 +518,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       )
     )
 
-  def lastGamesBetween(u1: User, u2: User, since: DateTime, nb: Int): Fu[List[Game]] =
+  def lastGamesBetween(u1: User, u2: User, since: Instant, nb: Int): Fu[List[Game]] =
     List(u1, u2).forall(_.count.game > 0) ??
       coll.secondaryPreferred.list[Game](
         $doc(

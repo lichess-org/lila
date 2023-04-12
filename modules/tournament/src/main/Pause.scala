@@ -35,7 +35,7 @@ final private class Pause:
 
   def remainingDelay(userId: UserId, tour: Tournament): Option[Delay] =
     cache getIfPresent userId flatMap { record =>
-      val seconds = record.pausedAt.getSeconds - nowSeconds + delayOf(record, tour).value
+      val seconds = record.pausedAt.toSeconds - nowSeconds + delayOf(record, tour).value
       seconds > 1 option Delay(seconds.toInt)
     }
 
@@ -44,13 +44,13 @@ final private class Pause:
 
 object Pause:
 
-  case class Record(pauses: Int, pausedAt: DateTime):
+  case class Record(pauses: Int, pausedAt: Instant):
     def add =
       copy(
         pauses = pauses + 1,
-        pausedAt = nowDate
+        pausedAt = nowInstant
       )
-  val newRecord = Record(1, nowDate)
+  val newRecord = Record(1, nowInstant)
 
   // pause counter of a player
   opaque type Delay = Int

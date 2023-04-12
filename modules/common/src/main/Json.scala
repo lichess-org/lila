@@ -80,7 +80,7 @@ object Json:
     JsResult.fromTry(UserStr.read(str) toTry s"Invalid username: $str")
   }
 
-  given Writes[DateTime] = writeAs(_.getMillis)
+  given Writes[Instant] = writeAs(_.toMillis)
 
   given Writes[chess.Color] = writeAs(_.name)
 
@@ -95,4 +95,4 @@ object Json:
       .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))
   }
 
-  given NoJsonHandler[chess.Pos] with {}
+  given NoJsonHandler[chess.Square] with {}

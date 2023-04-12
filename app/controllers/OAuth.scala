@@ -93,7 +93,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                       "token_type"   -> "Bearer",
                       "access_token" -> token.plain
                     )
-                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
+                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
                 )
               }
             case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
@@ -115,7 +115,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                       "access_token"  -> token.plain,
                       "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
                     )
-                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
+                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
                 )
               }
             case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess

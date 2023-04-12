@@ -38,8 +38,8 @@ case class Game(
     binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
     bookmarks: Int = 0,
-    createdAt: DateTime = nowDate,
-    movedAt: DateTime = nowDate,
+    createdAt: Instant = nowInstant,
+    movedAt: Instant = nowInstant,
     metadata: Metadata
 ):
 
@@ -109,7 +109,7 @@ case class Game(
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    movedAt.getSeconds - createdAt.getSeconds match
+    movedAt.toSeconds - createdAt.toSeconds match
       case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
       case seconds                           => seconds.toInt.some
 
@@ -119,12 +119,12 @@ case class Game(
       case _              => l
 
   def moveTimes(color: Color): Option[List[Centis]] = {
-    for {
+    for
       clk <- clock
       inc = clk.incrementOf(color)
       history <- clockHistory
       clocks = history(color)
-    } yield Centis(0) :: {
+    yield Centis(0) :: {
       val pairs = clocks.iterator zip clocks.iterator.drop(1)
 
       // We need to determine if this color's last clock had inc applied.
@@ -138,11 +138,11 @@ case class Game(
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (playedTurns >= history.size) == (color != turnColor)
 
-      pairs map { case (first, second) =>
+      pairs map { (first, second) =>
         {
           val d = first - second
           if (pairs.hasNext || !noLastInc) d + inc else d
-        } nonNeg
+        }.nonNeg
       } toList
     }
   } orElse binaryMoveTimes.map { binary =>
@@ -152,11 +152,10 @@ case class Game(
     everyOther(mts.toList)
   }
 
-  def moveTimes: Option[Vector[Centis]] =
-    for {
-      a <- moveTimes(startColor)
-      b <- moveTimes(!startColor)
-    } yield Sequence.interleave(a, b)
+  def moveTimes: Option[Vector[Centis]] = for
+    a <- moveTimes(startColor)
+    b <- moveTimes(!startColor)
+  yield Sequence.interleave(a, b)
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
@@ -168,7 +167,7 @@ case class Game(
 
   // apply a move
   def update(
-      game: ChessGame, // new chess position
+      game: ChessGame, // new chess.Position
       moveOrDrop: MoveOrDrop,
       blur: Boolean = false
   ): Progress =
@@ -195,12 +194,12 @@ case class Game(
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
-          } :+ Centis.ofLong(nowCentis - movedAt.getCentis).nonNeg
+          } :+ Centis.ofLong(nowCentis - movedAt.toCentis).nonNeg
         }
       },
       loadClockHistory = _ => newClockHistory,
       status = game.situation.status | status,
-      movedAt = nowDate
+      movedAt = nowInstant
     )
 
     val state = Event.State(
@@ -264,7 +263,7 @@ case class Game(
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
       val increment   = days.value * 24 * 60 * 60
-      val secondsLeft = (movedAt.getSeconds + increment - nowSeconds).toInt max 0
+      val secondsLeft = (movedAt.toSeconds + increment - nowSeconds).toInt max 0
       CorrespondenceClock(
         increment = increment,
         whiteTime = turnColor.fold(secondsLeft, increment).toFloat,
@@ -484,7 +483,7 @@ case class Game(
 
   def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
 
-  def correspondenceGiveTime = Progress(this, copy(movedAt = nowDate))
+  def correspondenceGiveTime = Progress(this, copy(movedAt = nowInstant))
 
   def estimateClockTotalTime = clock.map(_.estimateTotalSeconds)
 
@@ -519,7 +518,7 @@ case class Game(
 
   def timeBeforeExpiration: Option[Centis] =
     expirable option {
-      Centis.ofMillis(movedAt.getMillis - nowMillis + timeForFirstMove.millis).nonNeg
+      Centis.ofMillis(movedAt.toMillis - nowMillis + timeForFirstMove.millis).nonNeg
     }
 
   def playerWhoDidNotMove: Option[Player] = {
@@ -545,9 +544,9 @@ case class Game(
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
 
-  def olderThan(seconds: Int) = movedAt isBefore nowDate.minusSeconds(seconds)
+  def olderThan(seconds: Int) = movedAt isBefore nowInstant.minusSeconds(seconds)
 
-  def justCreated = createdAt isAfter nowDate.minusSeconds(1)
+  def justCreated = createdAt isAfter nowInstant.minusSeconds(1)
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
@@ -607,7 +606,7 @@ case class Game(
 
   def setAnalysed = copy(metadata = metadata.copy(analysed = true))
 
-  def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
+  def secondsSinceCreation = (nowSeconds - createdAt.toSeconds).toInt
 
   def drawReason =
     if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
@@ -672,7 +671,7 @@ object Game:
     chess.variant.Horde
   )
 
-  val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
+  val hordeWhitePawnsSince = instantOf(2015, 4, 11, 10, 0)
 
   def isOldHorde(game: Game) =
     game.variant == chess.variant.Horde &&
@@ -692,10 +691,10 @@ object Game:
   val tokenSize    = 4
 
   val unplayedHours = 24
-  def unplayedDate  = nowDate minusHours unplayedHours
+  def unplayedDate  = nowInstant minusHours unplayedHours
 
   val abandonedDays = Days(21)
-  def abandonedDate = nowDate minusDays abandonedDays.value
+  def abandonedDate = nowInstant minusDays abandonedDays.value
 
   def strToIdOpt(str: String): Option[GameId]        = strToId(str).some.filter(validId)
   inline def strToId(str: String): GameId            = GameId(str take gameIdSize)
@@ -738,7 +737,7 @@ object Game:
       daysPerTurn: Option[Days] = None,
       rules: Set[GameRule] = Set.empty
   ): NewGame =
-    val createdAt = nowDate
+    val createdAt = nowInstant
     NewGame(
       Game(
         id = IdGenerator.uncheckedGame,

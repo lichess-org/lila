@@ -178,7 +178,7 @@ object games:
                         }
                       case _ => frag(td, td)
                     },
-                    td(dataSort := pov.game.movedAt.getSeconds.toString)(
+                    td(dataSort := pov.game.movedAt.toSeconds.toString)(
                       a(href := routes.Round.watcher(pov.gameId, pov.color.name), cls := "glpt")(
                         momentFromNowServerText(pov.game.movedAt)
                       )

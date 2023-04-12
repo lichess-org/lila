@@ -33,13 +33,13 @@ final class AppealApi(
               AppealMsg(
                 by = me.id,
                 text = text,
-                at = nowDate
+                at = nowInstant
               )
             ),
             status = Appeal.Status.Unread,
-            createdAt = nowDate,
-            updatedAt = nowDate,
-            firstUnrepliedAt = nowDate
+            createdAt = nowInstant,
+            updatedAt = nowInstant,
+            firstUnrepliedAt = nowInstant
           )
         coll.insert.one(appeal) inject appeal
       case Some(prev) =>

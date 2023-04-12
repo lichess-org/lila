@@ -300,7 +300,7 @@ final class ReportApi(
         selector,
         $set(
           "open" -> false,
-          "done" -> Report.Done(by, nowDate)
+          "done" -> Report.Done(by, nowInstant)
         ) ++ (unsetInquiry ?? $unset("inquiry")),
         multi = true
       )
@@ -425,7 +425,7 @@ final class ReportApi(
       "atoms.by",
       $doc(
         "user" -> sus.user.id,
-        "atoms.0.at" $gt nowDate.minusDays(3)
+        "atoms.0.at" $gt nowInstant.minusDays(3)
       ),
       ReadPreference.secondaryPreferred
     ) dmap (_ filterNot ReporterId.lichess.==)
@@ -511,7 +511,7 @@ final class ReportApi(
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
-      "atoms.0.at" $gt nowDate.minusDays(7),
+      "atoms.0.at" $gt nowInstant.minusDays(7),
       "user"   -> suspect.value,
       "reason" -> reason
     )
@@ -580,7 +580,7 @@ final class ReportApi(
               .updateField(
                 $id(r.id),
                 "inquiry",
-                Report.Inquiry(mod.user.id, nowDate)
+                Report.Inquiry(mod.user.id, nowInstant)
               )
               .void
           }
@@ -623,7 +623,7 @@ final class ReportApi(
               ) scored Report.Score(0),
               none
             )
-            .copy(inquiry = Report.Inquiry(mod.user.id, nowDate).some)
+            .copy(inquiry = Report.Inquiry(mod.user.id, nowInstant).some)
           coll.insert.one(report) inject report
         }
       }
@@ -632,7 +632,7 @@ final class ReportApi(
       workQueue {
         val selector = $doc(
           "inquiry.mod" $exists true,
-          "inquiry.seenAt" $lt nowDate.minusMinutes(20)
+          "inquiry.seenAt" $lt nowInstant.minusMinutes(20)
         )
         coll.delete.one(selector ++ $doc("text" -> Report.spontaneousText)) >>
           coll.update.one(selector, $unset("inquiry"), multi = true).void

@@ -3,7 +3,6 @@ package lila.tournament
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
-import org.joda.time.{ Duration, Interval }
 import play.api.i18n.Lang
 import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -29,9 +28,9 @@ case class Tournament(
     noStreak: Boolean = false,
     schedule: Option[Schedule],
     nbPlayers: Int,
-    createdAt: DateTime,
+    createdAt: Instant,
     createdBy: UserId,
-    startsAt: DateTime,
+    startsAt: Instant,
     winnerId: Option[UserId] = None,
     featuredId: Option[GameId] = None,
     spotlight: Option[Spotlight] = None,
@@ -72,9 +71,9 @@ case class Tournament(
 
   def finishesAt = startsAt plusMinutes minutes
 
-  def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
+  def secondsToStart = (startsAt.toSeconds - nowSeconds).toInt atLeast 0
 
-  def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
+  def secondsToFinish = (finishesAt.toSeconds - nowSeconds).toInt atLeast 0
 
   def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
 
@@ -83,19 +82,19 @@ case class Tournament(
       secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
     }
 
-  def finishedSinceSeconds: Option[Long] = isFinished option (nowSeconds - finishesAt.getSeconds)
+  def finishedSinceSeconds: Option[Long] = isFinished option (nowSeconds - finishesAt.toSeconds)
 
   def isRecentlyFinished = finishedSinceSeconds.exists(_ < 30 * 60)
 
-  def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 15
+  def isRecentlyStarted = isStarted && (nowSeconds - startsAt.toSeconds) < 15
 
-  def isNowOrSoon = startsAt.isBefore(nowDate plusMinutes 15) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowInstant plusMinutes 15) && !isFinished
 
-  def isDistant = startsAt.isAfter(nowDate plusDays 1)
+  def isDistant = startsAt.isAfter(nowInstant plusDays 1)
 
-  def duration = Duration(minutes * 60 * 1000)
+  def duration = java.time.Duration.ofMinutes(minutes)
 
-  def interval = Interval(startsAt, duration)
+  def interval = TimeInterval(startsAt, duration)
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 
@@ -165,7 +164,7 @@ object Tournament:
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,
-      startDate: Option[DateTime],
+      startDate: Option[Instant],
       berserkable: Boolean,
       streakable: Boolean,
       teamBattle: Option[TeamBattle],
@@ -182,7 +181,7 @@ object Tournament:
       clock = clock,
       minutes = minutes,
       createdBy = by.fold(identity, _.id),
-      createdAt = nowDate,
+      createdAt = nowInstant,
       nbPlayers = 0,
       variant = variant,
       position = position,
@@ -193,7 +192,7 @@ object Tournament:
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startDate | nowDate.plusMinutes(waitMinutes),
+      startsAt = startDate | nowInstant.plusMinutes(waitMinutes),
       description = description,
       hasChat = hasChat
     )
@@ -206,14 +205,14 @@ object Tournament:
       clock = Schedule clockFor sched,
       minutes = minutes,
       createdBy = User.lichessId,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       nbPlayers = 0,
       variant = sched.variant,
       position = sched.position,
       mode = Mode.Rated,
       conditions = sched.conditions,
       schedule = Some(sched),
-      startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
+      startsAt = sched.at.instant plusSeconds ThreadLocalRandom.nextInt(60)
     )
 
   def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"

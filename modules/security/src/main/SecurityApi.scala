@@ -175,7 +175,7 @@ final class SecurityApi(
       "user",
       $doc(
         field -> value,
-        "date" $gt nowDate.minusYears(1)
+        "date" $gt nowInstant.minusYears(1)
       ),
       ReadPreference.secondaryPreferred
     )

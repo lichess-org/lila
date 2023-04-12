@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.Color
+import chess.{ ByColor, Color }
 
 import lila.common.Maths
 import lila.game.Game
@@ -57,10 +57,10 @@ for x in xs:
     alignedEvals
       .grouped(2)
       .collect { case List(e1, e2) =>
-        for {
+        for
           before <- WinPercent.fromEval(e1)
           after  <- WinPercent.fromEval(e2)
-        } yield AccuracyPercent.fromWinPercents(before, after)
+        yield AccuracyPercent.fromWinPercents(before, after)
       }
       .flatten
       .toList
@@ -68,11 +68,11 @@ for x in xs:
   def fromAnalysisAndPov(pov: Game.SideAndStart, analysis: Analysis): List[AccuracyPercent] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
 
-  def gameAccuracy(startColor: Color, analysis: Analysis): Option[Color.Map[AccuracyPercent]] =
+  def gameAccuracy(startColor: Color, analysis: Analysis): Option[ByColor[AccuracyPercent]] =
     gameAccuracy(startColor, analysis.infos.map(_.eval).flatMap(_.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
-  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[Color.Map[AccuracyPercent]] =
+  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[ByColor[AccuracyPercent]] =
     val allWinPercents      = (Cp.initial :: cps) map WinPercent.fromCentiPawns
     val windowSize          = (cps.size / 10) atLeast 2 atMost 8
     val allWinPercentValues = WinPercent raw allWinPercents
@@ -97,7 +97,7 @@ for x in xs:
     //   println(s"$eval $color ${weight.toInt} ${acc.toInt}")
     // }
 
-    def colorAccuracy(color: Color) = for {
+    def colorAccuracy(color: Color) = for
       weighted <- Maths.weightedMean {
         weightedAccuracies collect {
           case (weightedAccuracy, c) if c == color => weightedAccuracy
@@ -108,9 +108,9 @@ for x in xs:
           case ((accuracy, _), c) if c == color => accuracy
         }
       }
-    } yield AccuracyPercent((weighted + harmonic) / 2)
+    yield AccuracyPercent((weighted + harmonic) / 2)
 
     for
       wa <- colorAccuracy(Color.white)
       ba <- colorAccuracy(Color.black)
-    yield Color.Map(wa, ba)
+    yield ByColor(wa, ba)

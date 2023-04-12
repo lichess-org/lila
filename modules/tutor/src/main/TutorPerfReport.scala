@@ -1,7 +1,7 @@
 package lila.tutor
 
 import cats.data.NonEmptyList
-import chess.Color
+import chess.{ ByColor, Color }
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
@@ -19,7 +19,7 @@ case class TutorPerfReport(
     conversion: TutorBothValueOptions[GoodPercent],
     globalClock: TutorBothValueOptions[ClockPercent],
     clockUsage: TutorBothValueOptions[ClockPercent],
-    openings: Color.Map[TutorColorOpenings],
+    openings: ByColor[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
 ):

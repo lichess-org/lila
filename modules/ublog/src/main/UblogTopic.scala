@@ -62,7 +62,7 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
                       "$filter" -> $doc(
                         "input" -> $doc("$slice" -> $arr("$posts", 4)),
                         "as"    -> "post",
-                        "cond"  -> $doc("$gt" -> $arr("$$post.rank", nowDate))
+                        "cond"  -> $doc("$gt" -> $arr("$$post.rank", nowInstant))
                       )
                     )
                   )

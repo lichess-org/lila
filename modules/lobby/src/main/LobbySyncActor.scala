@@ -22,7 +22,7 @@ final private class LobbySyncActor(
 
   private val hookRepo = new HookRepo
 
-  private var remoteDisconnectAllAt = nowDate
+  private var remoteDisconnectAllAt = nowInstant
 
   private var socket: SyncActor = SyncActor.stub
 
@@ -90,7 +90,7 @@ final private class LobbySyncActor(
       socket ! msg
       socket ! RemoveSeek(seek.id)
 
-    case LeaveAll => remoteDisconnectAllAt = nowDate
+    case LeaveAll => remoteDisconnectAllAt = nowInstant
 
     case Tick(promise) =>
       hookRepo.truncateIfNeeded()
@@ -107,7 +107,7 @@ final private class LobbySyncActor(
 
     case WithPromise(Sris(sris), promise) =>
       poolApi socketIds Sris(sris)
-      val fewSecondsAgo = nowDate minusSeconds 5
+      val fewSecondsAgo = nowInstant minusSeconds 5
       if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks {
         hookRepo
           .notInSris(sris)

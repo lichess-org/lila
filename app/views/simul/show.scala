@@ -106,7 +106,7 @@ object show:
             sim.estimatedStartAt map { d =>
               frag(
                 br,
-                absClientDateTime(d)
+                absClientInstant(d)
               )
             }
           ),

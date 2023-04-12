@@ -29,8 +29,7 @@ object BuildSettings {
       alleycats,
       play.api,
       chess,
-      scalalib,
-      jodaTime
+      scalalib
     )
 
   def module(

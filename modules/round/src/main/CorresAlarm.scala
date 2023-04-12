@@ -20,8 +20,8 @@ final private class CorresAlarm(
 
   private case class Alarm(
       _id: GameId,
-      ringsAt: DateTime, // when to notify the player
-      expiresAt: DateTime
+      ringsAt: Instant, // when to notify the player
+      expiresAt: Instant
   )
 
   private given BSONDocumentHandler[Alarm] = Macros.handler
@@ -36,14 +36,14 @@ final private class CorresAlarm(
         game.bothPlayersHaveMoved ?? {
           game.playableCorrespondenceClock ?? { clock =>
             val remainingTime = clock remainingTime game.turnColor
-            val ringsAt       = nowDate.plusSeconds(remainingTime.toInt * 8 / 10)
+            val ringsAt       = nowInstant.plusSeconds(remainingTime.toInt * 8 / 10)
             coll.update
               .one(
                 $id(game.id),
                 Alarm(
                   _id = game.id,
                   ringsAt = ringsAt,
-                  expiresAt = nowDate.plusSeconds(remainingTime.toInt * 2)
+                  expiresAt = nowInstant.plusSeconds(remainingTime.toInt * 2)
                 ),
                 upsert = true
               )
@@ -56,7 +56,7 @@ final private class CorresAlarm(
 
   LilaScheduler("CorresAlarm", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)) {
     coll
-      .find($doc("ringsAt" $lt nowDate))
+      .find($doc("ringsAt" $lt nowInstant))
       .cursor[Alarm]()
       .documentSource(200)
       .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id))

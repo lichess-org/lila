@@ -26,7 +26,7 @@ final class UserApi(
     net: NetConfig
 )(using Executor):
 
-  def one(u: User, joinedAt: Option[DateTime] = None): JsObject = {
+  def one(u: User, joinedAt: Option[Instant] = None): JsObject = {
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
   }.add("joinedTeamAt", joinedAt)

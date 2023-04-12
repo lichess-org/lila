@@ -117,7 +117,7 @@ final private class RelayFetch(
           }
       rt.round.withSync {
         _.copy(
-          nextAt = nowDate plusSeconds {
+          nextAt = nowInstant plusSeconds {
             seconds atLeast {
               if (rt.round.sync.log.justTimedOut) 10 else 2
             }
