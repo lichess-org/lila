@@ -245,23 +245,23 @@ object Form:
     m.verifying("The date must be set in the future", _.isAfterNow)
 
   object ISODate:
-    val pattern                           = "yyyy-MM-dd"
-    val mapping: Mapping[LocalDate]       = localDate(pattern)
-    given formatter: Formatter[LocalDate] = localDateFormat(pattern)
+    val pattern                        = "yyyy-MM-dd"
+    given format: Formatter[LocalDate] = localDateFormat(pattern)
+    val mapping: Mapping[LocalDate]    = of[LocalDate] as format
   object ISODateTime:
-    val pattern                               = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    val mapping: Mapping[LocalDateTime]       = localDateTime(pattern)
-    given formatter: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
+    val pattern                            = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    given format: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
+    val mapping: Mapping[LocalDateTime]    = of[LocalDateTime] as format
   object ISOInstant:
-    val mapping: Mapping[Instant]       = ISODateTime.mapping.transform(_.instant, _.dateTime)
-    given formatter: Formatter[Instant] = ISODateTime.formatter.transform(_.instant, _.dateTime)
+    given format: Formatter[Instant] = ISODateTime.format.transform(_.instant, _.dateTime)
+    val mapping: Mapping[Instant]    = of[Instant] as format
   object PrettyDateTime:
-    val pattern                               = "yyyy-MM-dd HH:mm"
-    val mapping: Mapping[LocalDateTime]       = localDateTime(pattern)
-    given formatter: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
+    val pattern                            = "yyyy-MM-dd HH:mm"
+    given format: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
+    val mapping: Mapping[LocalDateTime]    = of[LocalDateTime] as format
   object PrettyInstant:
-    val mapping: Mapping[Instant] = PrettyDateTime.mapping.transform(_.instant, _.dateTime)
-    given Formatter[Instant]      = PrettyDateTime.formatter.transform(_.instant, _.dateTime)
+    given format: Formatter[Instant] = PrettyDateTime.format.transform(_.instant, _.dateTime)
+    val mapping: Mapping[Instant]    = of[Instant] as format
   object Timestamp:
     val formatter: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) =
@@ -279,12 +279,12 @@ object Form:
   object ISODateOrTimestamp:
     val formatter: Formatter[LocalDate] = new:
       def bind(key: String, data: Map[String, String]) =
-        ISODate.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data).map(_.date)
-      def unbind(key: String, value: LocalDate) = ISODate.formatter.unbind(key, value)
+        ISODate.format.bind(key, data) orElse Timestamp.formatter.bind(key, data).map(_.date)
+      def unbind(key: String, value: LocalDate) = ISODate.format.unbind(key, value)
     val mapping = of[LocalDate](formatter)
   object ISOInstantOrTimestamp:
     val formatter: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) =
-        ISOInstant.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
-      def unbind(key: String, value: Instant) = ISOInstant.formatter.unbind(key, value)
+        ISOInstant.format.bind(key, data) orElse Timestamp.formatter.bind(key, data)
+      def unbind(key: String, value: Instant) = ISOInstant.format.unbind(key, value)
     val mapping: Mapping[Instant] = of[Instant](formatter)
