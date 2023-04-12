@@ -254,7 +254,7 @@ object Form:
       def localDateTimeParse(data: String) = java.time.LocalDateTime.parse(data, formatter)
       def bind(key: String, data: Map[String, String]) =
         parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
-      def unbind(key: String, value: LocalDateTime) = Map(key -> value.format(formatter))
+      def unbind(key: String, value: LocalDateTime) = Map(key -> formatter.print(value))
     val mapping: Mapping[LocalDateTime] = of[LocalDateTime] as format
   object ISOInstant:
     given format: Formatter[Instant] = ISODateTime.format.transform(_.instant, _.dateTime)
