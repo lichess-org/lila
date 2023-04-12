@@ -43,9 +43,9 @@
 یا شما می‌توانید %s.</string>
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
   <string name="otherMethods">روشهای دیگر برای کمک مالی؟</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">لیچس در %s ثبت شده است.</string>
+  <string name="lichessIsRegisteredWith">لیچس در %s ثبت شده است.</string>
   <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">لطفاً توجه داشته باشید که دستیابی به وضعیت پاترون (حامی) تنها از طریق فرم کمک بالا امکان‌پذیر است.</string>
+  <string name="onlyDonationFromAbove">لطفاً توجه داشته باشید که دستیابی به وضعیت پاترون (حامی) تنها از طریق فرم کمک بالا امکان‌پذیر است.</string>
   <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>
   <string name="noPatronFeatures">نه، چرا که Lichess کاملاً رایگان است، برای همیشه، و برای همه. این یک تعهد و قول است.
 با این حال، پشتیبان‌ها با یک آیکون کاربری جدید و زیبا، حقوقی برای فخرفروشی و پز دادن دریافت می‌کنند.</string>
