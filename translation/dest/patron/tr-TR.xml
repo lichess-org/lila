@@ -44,9 +44,9 @@ Bununla birlikte, Lichess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı
 Veya %s.</string>
   <string name="contactSupport">Lichess destek masasıyla iletişime geçin</string>
   <string name="otherMethods">Farklı bir bağış yapma yolu var mı?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess %s programına kayıtlıdır.</string>
+  <string name="lichessIsRegisteredWith">Lichess %s programına kayıtlıdır.</string>
   <string name="bankTransfers">Banka havalesini de kabul ediyoruz</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Lütfen yalnızca yukarıdaki bağış formunun Kullanıcı statüsünü vereceğini unutmayın.</string>
+  <string name="onlyDonationFromAbove">Lütfen yalnızca yukarıdaki bağış formunun Kullanıcı statüsünü vereceğini unutmayın.</string>
   <string name="patronFeatures">Destekçilere özel ayrıcalıklar var mı?</string>
   <string name="noPatronFeatures">Hayır çünkü Lichess herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
 
