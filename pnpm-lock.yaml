@@ -19,6 +19,9 @@ importers:
       ab:
         specifier: https://github.com/lichess-org/ab-stub
         version: github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       eslint:
         specifier: ^8.30.0
         version: 8.30.0
@@ -117,9 +120,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -156,9 +156,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -180,9 +177,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -231,9 +225,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -264,9 +255,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       lichess-pgn-viewer:
         specifier: ^1.5.5
         version: 1.5.5
@@ -291,9 +279,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -336,9 +321,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -357,9 +339,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -399,9 +378,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -444,9 +420,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -531,9 +504,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -558,9 +528,6 @@ importers:
       chartjs-adapter-date-fns:
         specifier: '=2.0.1'
         version: 2.0.1(chart.js@3.9.1)
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -597,9 +564,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -627,9 +591,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -660,9 +621,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -690,9 +648,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -732,9 +687,6 @@ importers:
       chat:
         specifier: workspace:*
         version: link:../chat
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -780,9 +732,6 @@ importers:
       chat:
         specifier: workspace:*
         version: link:../chat
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -834,9 +783,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -861,9 +807,6 @@ importers:
       chat:
         specifier: workspace:*
         version: link:../chat
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -885,9 +828,6 @@ importers:
       chat:
         specifier: workspace:*
         version: link:../chat
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -954,9 +894,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
