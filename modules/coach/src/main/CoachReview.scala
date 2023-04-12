@@ -9,9 +9,9 @@ case class CoachReview(
     score: Int,
     text: String,
     approved: Boolean,
-    createdAt: DateTime,
-    updatedAt: DateTime,
-    moddedAt: Option[DateTime] = None // a mod disapproved it
+    createdAt: Instant,
+    updatedAt: Instant,
+    moddedAt: Option[Instant] = None // a mod disapproved it
 ):
 
   inline def id = _id

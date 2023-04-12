@@ -66,7 +66,7 @@ object admin:
       form: Form[?],
       tours: List[lila.tournament.Tournament],
       unsubs: Int,
-      limiter: (Int, DateTime)
+      limiter: (Int, Instant)
   )(using ctx: Context) =
     views.html.base.layout(
       title = s"${t.name} • ${messageAllMembers.txt()}",

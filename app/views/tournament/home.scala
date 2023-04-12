@@ -76,7 +76,7 @@ object home:
               tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>
                 a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
                   strong(tour.name(full = false)),
-                  momentFromNow(s.at)
+                  momentFromNow(s.at.instant)
                 )
               }
             }

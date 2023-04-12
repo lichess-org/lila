@@ -7,7 +7,7 @@ case class Analysis(
     studyId: Option[StudyId],
     infos: List[Info],
     startPly: Ply,
-    date: DateTime,
+    date: Instant,
     fk: Option[Analysis.FishnetKey]
 ):
 

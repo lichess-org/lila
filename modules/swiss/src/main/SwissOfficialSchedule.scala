@@ -42,7 +42,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
   private def daySchedule = (0 to 47).toList.flatMap(i => schedule.lift(i % schedule.length))
 
   def generate: Funit =
-    val dayStart = nowDate.plusDays(3).withTimeAtStartOfDay
+    val dayStart = nowInstant.plusDays(3).withTimeAtStartOfDay
     daySchedule.zipWithIndex
       .map { (config, position) =>
         val hour    = position / 2
@@ -58,7 +58,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
         if (res.exists(identity)) cache.featuredInTeam.invalidate(lichessTeamId)
       }
 
-  private def makeSwiss(config: Config, startAt: DateTime) =
+  private def makeSwiss(config: Config, startAt: Instant) =
     Swiss(
       _id = Swiss.makeId,
       name = config.name,
@@ -67,7 +67,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       round = SwissRoundNumber(0),
       nbPlayers = 0,
       nbOngoing = 0,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       createdBy = lila.user.User.lichessId,
       teamId = lichessTeamId,
       nextRoundAt = startAt.some,

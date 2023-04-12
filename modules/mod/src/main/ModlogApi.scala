@@ -321,7 +321,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
-        "date" $gte nowDate.minusMonths(6)
+        "date" $gte nowInstant.minusMonths(6)
       )
     )
 
@@ -331,7 +331,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
         "user"   -> userId,
         "action" -> Modlog.modMessage,
         $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
-        "date" $gte nowDate.minusMonths(6)
+        "date" $gte nowInstant.minusMonths(6)
       )
     )
 

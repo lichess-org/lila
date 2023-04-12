@@ -8,7 +8,7 @@ import controllers.routes
 
 object chatPanic:
 
-  def apply(state: Option[DateTime])(using Context) =
+  def apply(state: Option[Instant])(using Context) =
     val title = "Chat Panic"
     views.html.base.layout(
       title = title,

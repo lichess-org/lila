@@ -6,13 +6,10 @@ import scala.jdk.CollectionConverters.*
 
 final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     f: Id => Unit
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
   import Debouncer.*
 
-  private val debounces = new ConcurrentHashMap[Id, Queued](initialCapacity)
+  private val debounces = ConcurrentHashMap[Id, Queued](initialCapacity)
 
   def push(id: Id): Unit = debounces
     .compute(

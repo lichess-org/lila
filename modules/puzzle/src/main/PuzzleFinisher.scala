@@ -51,7 +51,7 @@ final private[puzzle] class PuzzleFinisher(
         id = PuzzleRound.Id(user.id, id),
         win = win,
         fixedAt = none,
-        date = nowDate
+        date = nowInstant
       ) -> user.perfs.puzzle
     } dmap some
     else
@@ -59,7 +59,7 @@ final private[puzzle] class PuzzleFinisher(
         api.round.find(user, id) zip api.puzzle.find(id) flatMap {
           case (_, None) => fuccess(none)
           case (prevRound, Some(puzzle)) =>
-            val now = nowDate
+            val now = nowInstant
             val (round, newPuzzleGlicko, userPerf) = prevRound match
               case Some(prev) =>
                 (

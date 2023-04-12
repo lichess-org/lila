@@ -8,7 +8,7 @@ import lila.common.config.BaseUrl
 import lila.common.EmailAddress
 import lila.hub.actorApi.msg.SystemMsg
 import lila.hub.actorApi.mailer.CorrespondenceOpponent
-import lila.i18n.PeriodLocales.showPeriod
+import lila.i18n.PeriodLocales.showDuration
 import lila.i18n.I18nKeys.emails as trans
 import lila.user.{ User, UserRepo }
 import lila.base.LilaException
@@ -217,7 +217,7 @@ $disableSettingNotice $disableLink"""
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:") { remainingTime =>
-      s"You have ${showPeriod(remainingTime)} remaining in your game with $opponentName:"
+      s"You have ${showDuration(remainingTime)} remaining in your game with $opponentName:"
     }
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =

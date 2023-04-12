@@ -17,10 +17,10 @@ final private[video] class Youtube(
 
   import Youtube.*
 
-  private given Reads[Snippet]               = Json.reads[Snippet]
-  private given Reads[Statistics]            = Json.reads[Statistics]
-  private given Reads[ContentDetails]        = Json.reads[ContentDetails]
-  private val readEntry: Reads[Entry]        = Json.reads[Entry]
+  private given Reads[Snippet]               = Json.reads
+  private given Reads[Statistics]            = Json.reads
+  private given Reads[ContentDetails]        = Json.reads
+  private val readEntry: Reads[Entry]        = Json.reads
   private val readEntries: Reads[Seq[Entry]] = (__ \ "items").read(Reads seq readEntry)
 
   def updateAll: Funit =
@@ -36,7 +36,7 @@ final private[video] class Youtube(
                 description = entry.snippet.description,
                 duration = Some(entry.contentDetails.seconds),
                 publishedAt = entry.snippet.publishedAt.flatMap { at =>
-                  scala.util.Try { new DateTime(at) }.toOption
+                  scala.util.Try { java.time.Instant.parse(at) }.toOption
                 }
               )
             )
@@ -75,7 +75,7 @@ object Youtube:
       likes: Int,
       description: Option[String],
       duration: Option[Int], // in seconds
-      publishedAt: Option[DateTime]
+      publishedAt: Option[Instant]
   )
 
   private[video] case class Entry(
@@ -95,7 +95,5 @@ object Youtube:
       likeCount: String
   )
 
-  private val iso8601Formatter = org.joda.time.format.ISOPeriodFormat.standard()
-
   private[video] case class ContentDetails(duration: String):
-    def seconds: Int = iso8601Formatter.parsePeriod(duration).toStandardSeconds.getSeconds
+    def seconds: Int = java.time.Duration.parse(duration).getSeconds().toInt

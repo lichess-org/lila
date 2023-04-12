@@ -41,7 +41,7 @@ private object UciToPgn:
                 move.situationAfter -> (Left(move) :: moves)
               }
             case (Validated.Valid((sit, moves)), uci: Uci.Drop) =>
-              sit.drop(uci.role, uci.pos).leftMap(e => s"ply $ply $e") map { drop =>
+              sit.drop(uci.role, uci.square).leftMap(e => s"ply $ply $e") map { drop =>
                 drop.situationAfter -> (Right(drop) :: moves)
               }
             case (failure, _) => failure

@@ -106,7 +106,7 @@ final class PuzzleDashboardApi(
           "fixes"  -> Sum(countField("f")),
           "rating" -> AvgField("puzzle.rating")
         )
-        Match($doc("u" -> userId, "d" $gt nowDate.minusDays(days))) -> List(
+        Match($doc("u" -> userId, "d" $gt nowInstant.minusDays(days))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
           PipelineOperator(

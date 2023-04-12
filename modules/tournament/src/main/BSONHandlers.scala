@@ -72,11 +72,11 @@ object BSONHandlers:
         teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r boolD "noBerserk",
         noStreak = r boolD "noStreak",
-        schedule = for {
+        schedule = for
           doc   <- r.getO[Bdoc]("schedule")
           freq  <- doc.getAsOpt[Schedule.Freq]("freq")
           speed <- doc.getAsOpt[Schedule.Speed]("speed")
-        } yield Schedule(freq, speed, variant, position, startsAt, conditions),
+        yield Schedule(freq, speed, variant, position, startsAt.dateTime, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
         createdBy = r.getO[UserId]("createdBy") | lichessId,

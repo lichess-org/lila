@@ -1,6 +1,5 @@
 package views.html.base
 
-import org.joda.time.format.ISODateTimeFormat
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.*
@@ -13,7 +12,7 @@ object atom:
       htmlCall: Call,
       atomCall: Call,
       title: String,
-      updated: Option[DateTime]
+      updated: Option[Instant]
   )(elem: A => Frag) =
     frag(
       raw("""<?xml version="1.0" encoding="utf-8"?>"""),
@@ -31,8 +30,7 @@ object atom:
       raw("</feed>")
     )
 
-  private val atomDateFormatter        = ISODateTimeFormat.dateTime
-  def atomDate(date: DateTime): String = atomDateFormatter print date
+  def atomDate(date: Instant): String = isoDateTimeFormatter print date
 
   private val termAttr   = attr("term")
   private val labelAttr  = attr("label")

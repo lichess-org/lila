@@ -11,7 +11,7 @@ object Quote:
 
   def one(seed: String) = all(new Random(seed.hashCode).nextInt(all.size))
 
-  // courtesy of http://www.chess-poster.com/english/notes_and_facts/chess_quotes.htm
+  // courtesy of http://www.chess.Squareter.com/english/notes_and_facts/chess_quotes.htm
   // and other various sources
   val all = Vector(
     new Quote("When you see a good move, look for a better one.", "Emanuel Lasker"),
@@ -92,7 +92,7 @@ object Quote:
     new Quote("Chess is mental torture.", "Garry Kasparov"),
     new Quote("Many have become chess masters, no one has become the master of chess.", "Siegbert Tarrasch"),
     new Quote(
-      "The most important feature of the chess position is the activity of the pieces. This is absolutely fundamental in all phases of the game: Opening, Middlegame and especially Endgame. The primary constraint on a piece’s activity is the pawn structure.",
+      "The most important feature of the chess.Position is the activity of the pieces. This is absolutely fundamental in all phases of the game: Opening, Middlegame and especially Endgame. The primary constraint on a piece’s activity is the pawn structure.",
       "Michael Stean"
     ),
     new Quote(
@@ -338,7 +338,7 @@ object Quote:
     ),
     new Quote("Castle early and often.", "Rob Sillars"),
     new Quote(
-      "I believe that chess possesses a magic that is also a help in advanced age. A rheumatic knee is forgotten during a game of chess and other events can seem quite unimportant in comparison with a catastrophe on the chessboard.",
+      "I believe that chess.Squaresesses a magic that is also a help in advanced age. A rheumatic knee is forgotten during a game of chess and other events can seem quite unimportant in comparison with a catastrophe on the chessboard.",
       "Vlastimil Hort"
     ),
     new Quote(

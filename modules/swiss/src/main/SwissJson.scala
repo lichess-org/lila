@@ -1,6 +1,5 @@
 package lila.swiss
 
-import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
@@ -155,14 +154,12 @@ final class SwissJson(
 
 object SwissJson:
 
-  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
-
   private def swissJsonBase(swiss: Swiss) =
     Json
       .obj(
         "id"        -> swiss.id,
         "createdBy" -> swiss.createdBy,
-        "startsAt"  -> formatDate(swiss.startsAt),
+        "startsAt"  -> isoDateTimeFormatter.print(swiss.startsAt),
         "name"      -> swiss.name,
         "clock"     -> swiss.clock,
         "variant"   -> swiss.variant.key,
@@ -178,8 +175,8 @@ object SwissJson:
       )
       .add("nextRound" -> swiss.nextRoundAt.map { next =>
         Json.obj(
-          "at" -> formatDate(next),
-          "in" -> (next.getSeconds - nowSeconds).toInt.atLeast(0)
+          "at" -> isoDateTimeFormatter.print(next),
+          "in" -> (next.toSeconds - nowSeconds).toInt.atLeast(0)
         )
       })
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)

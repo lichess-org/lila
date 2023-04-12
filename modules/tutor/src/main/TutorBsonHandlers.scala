@@ -1,6 +1,6 @@
 package lila.tutor
 
-import chess.Color
+import chess.{ ByColor, Color }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -15,10 +15,10 @@ private object TutorBsonHandlers:
   given BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
   given BSONHandler[GoodPercent]    = percentAsIntHandler[GoodPercent]
 
-  given [A](using handler: BSONHandler[A]): BSONHandler[Color.Map[A]] =
+  given [A](using handler: BSONHandler[A]): BSONHandler[ByColor[A]] =
     summon[BSONHandler[Map[String, A]]]
-      .as[Color.Map[A]](
-        doc => Color.Map(doc("w"), doc("b")),
+      .as[ByColor[A]](
+        doc => ByColor(doc("w"), doc("b")),
         map => Map("w" -> map.white, "b" -> map.black)
       )
 

@@ -38,7 +38,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
                 fk = !client.lichess option client.key.value,
-                date = nowDate
+                date = nowInstant
               )
             ) match {
               case (analysis, errors) =>

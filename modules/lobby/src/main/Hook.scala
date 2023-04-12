@@ -21,7 +21,7 @@ case class Hook(
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
-    createdAt: DateTime,
+    createdAt: Instant,
     boardApi: Boolean
 ):
 
@@ -130,6 +130,6 @@ object Hook:
       user = user map { LobbyUser.make(_, blocking) },
       sid = sid,
       ratingRange = ratingRange.toString,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       boardApi = boardApi
     )

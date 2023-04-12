@@ -3,7 +3,6 @@ package lila.storm
 import play.api.libs.json.*
 
 import lila.user.User
-import org.joda.time.format.DateTimeFormat
 import lila.pref.Pref
 
 final class StormJson(sign: StormSign):
@@ -38,10 +37,10 @@ object StormJson:
 
   given OWrites[StormHigh] = Json.writes
 
-  private val dateFormat = DateTimeFormat forPattern "Y/M/d"
+  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "Y/M/d"
 
   given Writes[StormDay.Id] = Writes { id =>
-    JsString(dateFormat print id.day.toDate)
+    JsString(dateFormatter print id.day.toDate)
   }
   given OWrites[StormDay] = Json.writes
 

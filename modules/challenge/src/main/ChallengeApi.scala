@@ -44,8 +44,8 @@ final class ChallengeApi(
 
   export repo.byId
 
-  def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
-  def activeByIdBy(id: Challenge.ID, orig: User)  = repo.byIdBy(id, orig).dmap(_.filter(_.active))
+  def activeByIdFor(id: Challenge.Id, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
+  def activeByIdBy(id: Challenge.Id, orig: User)  = repo.byIdBy(id, orig).dmap(_.filter(_.active))
 
   val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor") {
     _.expireAfterAccess(15 minutes)
@@ -67,7 +67,7 @@ final class ChallengeApi(
 
   private def offline(c: Challenge) = repo.offline(c) >>- uncacheAndNotify(c)
 
-  private[challenge] def ping(id: Challenge.ID): Funit =
+  private[challenge] def ping(id: Challenge.Id): Funit =
     repo statusById id flatMap {
       case Some(Status.Created) => repo setSeen id
       case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _ foreach uncacheAndNotify }
@@ -151,7 +151,7 @@ final class ChallengeApi(
         .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =
-    repo.realTimeUnseenSince(nowDate minusSeconds 20, max = 50).flatMap { cs =>
+    repo.realTimeUnseenSince(nowInstant minusSeconds 20, max = 50).flatMap { cs =>
       lila.common.LilaFuture.applySequentially(cs)(offline).void
     } >>
       repo.expired(50).flatMap { cs =>
@@ -167,7 +167,7 @@ final class ChallengeApi(
     c.challengerUserId ?? notifyUser.apply
     socketReload(c.id)
 
-  private def socketReload(id: Challenge.ID): Unit =
+  private def socketReload(id: Challenge.Id): Unit =
     socket.foreach(_ reload id)
 
   private object notifyUser:

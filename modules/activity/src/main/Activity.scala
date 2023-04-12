@@ -1,7 +1,6 @@
 package lila.activity
 
 import activities.*
-import org.joda.time.Interval
 
 import lila.common.LichessDay
 
@@ -28,7 +27,7 @@ case class Activity(
 
   def date = id.day.toDate
 
-  def interval = new Interval(date, date plusDays 1)
+  def interval = TimeInterval(date, date plusDays 1)
 
   def isEmpty =
     !stream && List(

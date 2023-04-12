@@ -14,7 +14,7 @@ object JsonApi:
   sealed trait Request:
     val fishnet: Request.Fishnet
 
-    def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, nowDate)
+    def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, nowInstant)
 
   object Request:
 

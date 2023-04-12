@@ -131,7 +131,7 @@ final class JsonView(
           .add("possibleDrops" -> possibleDrops(pov))
           .add("expiration" -> game.expirable.option {
             Json.obj(
-              "idleMillis"   -> (nowMillis - game.movedAt.getMillis),
+              "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
               "millisToMove" -> game.timeForFirstMove.millis
             )
           })

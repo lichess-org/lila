@@ -26,7 +26,7 @@ final class IrcApi(
       case _               => ZulipClient.stream.mod.adminGeneral
     noteApi
       .byUserForMod(user.id)
-      .map(_.headOption.filter(_.date isAfter nowDate.minusMinutes(5)))
+      .map(_.headOption.filter(_.date isAfter nowInstant.minusMinutes(5)))
       .flatMap {
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
@@ -187,7 +187,7 @@ final class IrcApi(
 
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
-      buffer.head.date.isBefore(nowDate.minusHours(12)) ?? {
+      buffer.head.date.isBefore(nowInstant.minusHours(12)) ?? {
         val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.cents).sum
         val patrons =

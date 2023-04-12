@@ -148,7 +148,7 @@ final class FishnetApi(
       skill = Skill.Analysis,
       instance = None,
       enabled = true,
-      createdAt = nowDate
+      createdAt = nowInstant
     )
     repo addClient client inject client
 

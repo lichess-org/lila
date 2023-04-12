@@ -538,13 +538,13 @@ object RoundAsyncActor:
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
 
-  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]):
+  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[Instant]):
 
-    def decline = TakebackSituation(nbDeclined + 1, nowDate.some)
+    def decline = TakebackSituation(nbDeclined + 1, nowInstant.some)
 
     def delaySeconds = (math.pow(nbDeclined min 10, 2) * 10).toInt
 
-    def offerable = lastDeclined.fold(true) { _ isBefore nowDate.minusSeconds(delaySeconds) }
+    def offerable = lastDeclined.fold(true) { _ isBefore nowInstant.minusSeconds(delaySeconds) }
 
     def reset = takebackSituationZero.zero
 

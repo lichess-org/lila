@@ -77,13 +77,6 @@ trait LilaLibraryExtensions extends LilaTypes:
     def seconds(name: String): Int             = config.getDuration(name, TimeUnit.SECONDS).toInt
     def duration(name: String): FiniteDuration = millis(name).millis
 
-  extension (date: DateTime)
-    def getSeconds: Long                   = date.getMillis / 1000
-    def getCentis: Long                    = date.getMillis / 10
-    def toNow                              = org.joda.time.Duration(date, org.joda.time.DateTime.now)
-    def atMost(other: DateTime): DateTime  = if other.isBefore(date) then other else date
-    def atLeast(other: DateTime): DateTime = if other.isAfter(date) then other else date
-
   extension [A](v: Try[A])
 
     def fold[B](fe: Exception => B, fa: A => B): B =

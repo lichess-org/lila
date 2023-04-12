@@ -43,7 +43,7 @@ final class BookmarkApi(
 
   def toggle(gameId: GameId, userId: UserId): Funit =
     exists(gameId, userId) flatMap { e =>
-      (if (e) remove(gameId, userId) else add(gameId, userId, nowDate)) inject !e
+      (if (e) remove(gameId, userId) else add(gameId, userId, nowInstant)) inject !e
     } flatMap { bookmarked =>
       val inc = if (bookmarked) 1 else -1
       gameRepo.incBookmarks(gameId, inc) >> gameProxyRepo.updateIfPresent(gameId)(
@@ -55,7 +55,7 @@ final class BookmarkApi(
 
   def gamePaginatorByUser(user: User, page: Int) = paginator.byUser(user, page)
 
-  private def add(gameId: GameId, userId: UserId, date: DateTime): Funit =
+  private def add(gameId: GameId, userId: UserId, date: Instant): Funit =
     coll.insert
       .one(
         $doc(

@@ -121,7 +121,7 @@ final class Analyser(
       lastTryByKey = none,
       acquired = none,
       skipPositions = Nil,
-      createdAt = nowDate
+      createdAt = nowInstant
     )
 
 object Analyser:
