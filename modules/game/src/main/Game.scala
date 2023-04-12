@@ -513,9 +513,11 @@ case class Game(
     }
 
   def expirable =
-    !bothPlayersHaveMoved && source.exists(Source.expirable.contains) && playable && nonAi && clock.exists(
-      !_.isRunning
-    )
+    !bothPlayersHaveMoved &&
+      (source.exists(Source.expirable.contains) || metadata.hasRule(_.Expirable)) &&
+      playable &&
+      nonAi &&
+      clock.exists(!_.isRunning)
 
   def timeBeforeExpiration: Option[Centis] =
     expirable option {

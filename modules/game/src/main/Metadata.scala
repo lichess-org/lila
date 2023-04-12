@@ -52,7 +52,7 @@ object GameDrawOffers:
   val empty = GameDrawOffers(Set.empty, Set.empty)
 
 enum GameRule:
-  case NoAbort, NoRematch, NoGiveTime, NoClaimWin
+  case NoAbort, NoRematch, NoGiveTime, NoClaimWin, Expirable
   val key = lila.common.String lcfirst toString
 object GameRule:
   val byKey = values.mapBy(_.key)
