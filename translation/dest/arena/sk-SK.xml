@@ -37,9 +37,10 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   </plurals>
   <string name="thisIsPrivate">Toto je uzavretý turnaj</string>
   <string name="shareUrl">Zdieľaním tejto adresy umožníte ľuďom účasť v turnaji: %s</string>
-  <string name="drawStreakStandard">Séria remíz: Ak hráč v aréne remízuje viackrát po sebe, bod sa udelí iba za prvú remízu alebo za remízy, ktoré trvajú viac ako %s ťahov. Séria remíz môže byť prerušená iba výhrou, nie prehrou alebo remízou.</string>
+  <string name="drawStreakStandard">Séria remíz: Keď hráč v aréne remizuje viackrát po sebe, bod sa udelí iba za prvú remízu alebo za remízy v štandardných partiách, ktoré trvajú viac ako %s ťahov. Séria remíz môže byť prerušená iba výhrou, nie prehrou alebo remízou.</string>
+  <string name="drawStreakVariants">Minimálna dĺžka partie, za ktorú sa udeľujú body, sa líši podľa variantu. V nasledujúcej tabuľke sú uvedené hraničné hodnoty pre jednotlivé varianty.</string>
   <string name="variant">Variant</string>
-  <string name="minimumGameLength">Minimálna dĺžka hry</string>
+  <string name="minimumGameLength">Minimálna dĺžka partie</string>
   <string name="history">História zápasov v aréne</string>
   <string name="newTeamBattle">Nový tímový súboj</string>
   <string name="noBerserkAllowed">Besnenie zakázané</string>
