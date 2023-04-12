@@ -9,6 +9,7 @@ import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Field, FormError, Mapping, Form => PlayForm }
 import play.api.data.validation as V
 import scala.util.Try
+import java.time.LocalDate
 
 object Form:
 
@@ -248,9 +249,13 @@ object Form:
     given format: Formatter[LocalDate] = localDateFormat(pattern)
     val mapping: Mapping[LocalDate]    = of[LocalDate] as format
   object ISODateTime:
-    val pattern                            = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    given format: Formatter[LocalDateTime] = localDateTimeFormat(pattern, utcZone)
-    val mapping: Mapping[LocalDateTime]    = of[LocalDateTime] as format
+    given format: Formatter[LocalDateTime] = new:
+      val formatter                        = isoInstantFormatter
+      def localDateTimeParse(data: String) = java.time.LocalDateTime.parse(data, formatter)
+      def bind(key: String, data: Map[String, String]) =
+        parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
+      def unbind(key: String, value: LocalDateTime) = Map(key -> value.format(formatter))
+    val mapping: Mapping[LocalDateTime] = of[LocalDateTime] as format
   object ISOInstant:
     given format: Formatter[Instant] = ISODateTime.format.transform(_.instant, _.dateTime)
     val mapping: Mapping[Instant]    = of[Instant] as format
