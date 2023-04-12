@@ -38,7 +38,6 @@ private object JsonHandlers:
     given Reads[StripeSessionWithIntent]     = Json.reads
 
   object payPal:
-    import play.api.libs.json.JodaReads.given
     given Reads[PayPalPayerId]             = Reads.of[String].map(PayPalPayerId.apply)
     given Reads[PayPalOrderId]             = Reads.of[String].map(PayPalOrderId.apply)
     given Reads[PayPalSubscriptionId]      = Reads.of[String].map(PayPalSubscriptionId.apply)

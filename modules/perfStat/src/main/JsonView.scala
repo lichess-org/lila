@@ -1,6 +1,5 @@
 package lila.perfStat
 
-import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
@@ -46,9 +45,8 @@ object JsonView:
 
   import lila.rating.Glicko.given
 
-  private val isoFormatter = ISODateTimeFormat.dateTime
-  private given Writes[DateTime] = Writes { d =>
-    JsString(isoFormatter print d)
+  private given Writes[Instant] = Writes { d =>
+    JsString(isoDateTimeFormatter print d)
   }
   given OWrites[User] = OWrites { u =>
     Json.obj("name" -> u.username)

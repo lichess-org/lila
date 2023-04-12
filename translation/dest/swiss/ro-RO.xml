@@ -114,9 +114,4 @@ Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu e
   <string name="unlimitedAndFree">Nelimitat și gratuit</string>
   <string name="predefinedUsers">Permite doar utilizatorilor predefiniți să se alăture</string>
   <string name="forbiddedUsers">Dacă această listă nu este goală, atunci utilizatorii care nu apar în această listă nu vor putea să se alăture. Un nume de utilizator pe linie.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">Runda %1$s / %2$s sistem elvețian</item>
-    <item quantity="few">Runda %1$s / %2$s sistem elvețian</item>
-    <item quantity="other">Runda %1$s / %2$s sistem elvețian</item>
-  </plurals>
 </resources>

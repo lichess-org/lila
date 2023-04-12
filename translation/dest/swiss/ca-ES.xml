@@ -107,8 +107,4 @@ El més a prop que pots arribar a un emparellament de tots contra tots en línia
   <string name="unlimitedAndFree">Il·limitat i gratuït</string>
   <string name="predefinedUsers">Permet només entrar usuaris predefinits</string>
   <string name="forbiddedUsers">Si aquesta llista no es buida els noms d\'usuaris que no estan a la llista no podran entrar al torneig. Un nom d\'usuari per línia.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">Suís, %1$s de %2$s ronda</item>
-    <item quantity="other">Suís, %1$s de %2$s rondes</item>
-  </plurals>
 </resources>

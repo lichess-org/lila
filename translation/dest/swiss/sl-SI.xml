@@ -70,10 +70,4 @@ Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezult
   <string name="pauseSwiss">Da, vendar se lahko zmanjša število krogov</string>
   <string name="predefinedUsers">Dovoli pridružitev samo vnaprej določenim uporabnikom</string>
   <string name="forbiddedUsers">Če ta seznam ni prazen, se bo uporabniškim imenom, ki niso na tem seznamu, prepovedano pridružiti. Eno uporabniško ime na vrstico.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s krog tekmovanja po švicarskem sistemu</item>
-    <item quantity="two">%1$s / %2$s kroga tekmovanja po švicarskem sistemu</item>
-    <item quantity="few">%1$s / %2$s krogi tekmovanja po švicarskem sistemu</item>
-    <item quantity="other">%1$s / %2$s krogov tekmovanja po švicarskem sistemu</item>
-  </plurals>
 </resources>

@@ -13,7 +13,7 @@ case class Schedule(
     speed: Schedule.Speed,
     variant: Variant,
     position: Option[Fen.Opening],
-    at: DateTime,
+    at: LocalDateTime,
     conditions: Condition.All = Condition.All.empty
 ):
 
@@ -126,7 +126,7 @@ case class Schedule(
   def plan                                  = Schedule.Plan(this, None)
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
-  override def toString = s"$freq $variant $speed $conditions $at"
+  override def toString = s"$freq ${variant.key} ${speed.key} $conditions ${at.instant}"
 
 object Schedule:
 
@@ -136,7 +136,7 @@ object Schedule:
       speed = Speed fromClock tour.clock,
       variant = tour.variant,
       position = tour.position,
-      at = tour.startsAt
+      at = tour.startsAt.dateTime
     )
 
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]):
@@ -289,8 +289,8 @@ object Schedule:
       case (Unique, _, _) => 60 * 6
 
   private val standardIncHours         = Set(1, 7, 13, 19)
-  private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
-  private def zhInc(s: Schedule)       = s.at.getHourOfDay % 2 == 0
+  private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
+  private def zhInc(s: Schedule)       = s.at.getHour % 2 == 0
 
   private given Conversion[Int, LimitSeconds]     = LimitSeconds(_)
   private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)

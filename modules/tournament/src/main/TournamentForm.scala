@@ -90,7 +90,7 @@ final class TournamentForm:
         else numberIn(minuteChoices)
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-      "startDate"   -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+      "startDate"   -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
       "variant"     -> optional(text.verifying(v => guessVariant(v).isDefined)),
       "position"    -> optional(lila.common.Form.fen.playableStrict),
       "mode"        -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
@@ -165,7 +165,7 @@ private[tournament] case class TournamentSetup(
     clockIncrement: IncrementSeconds,
     minutes: Int,
     waitMinutes: Option[Int],
-    startDate: Option[DateTime],
+    startDate: Option[Instant],
     variant: Option[String],
     position: Option[Fen.Epd],
     mode: Option[Int], // deprecated, use rated

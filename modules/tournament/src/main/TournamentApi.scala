@@ -656,7 +656,7 @@ final class TournamentApi(
     }
 
   def calendar: Fu[List[Tournament]] =
-    val from = nowDate.minusDays(1)
+    val from = nowInstant.minusDays(1)
     tournamentRepo.calendar(from = from, to = from plusYears 1)
 
   def history(freq: Schedule.Freq, page: Int): Fu[Paginator[Tournament]] =

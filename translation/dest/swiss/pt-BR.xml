@@ -107,8 +107,4 @@ O mais próximo que se pode ter de um round robin online, é jogar um torneio su
   <string name="unlimitedAndFree">Ilimitado e gratuito</string>
   <string name="predefinedUsers">Permitir apenas usuários predefinidos</string>
   <string name="forbiddedUsers">Se a lista não estiver vazia, usuários não listados não poderão entrar no torneio. Um usuário por linha.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s rodada de %2$s</item>
-    <item quantity="other">%1$s rodadas de %2$s</item>
-  </plurals>
 </resources>

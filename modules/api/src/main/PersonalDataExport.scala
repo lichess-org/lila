@@ -2,7 +2,6 @@ package lila.api
 
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
-import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
 
 import lila.db.dsl.{ *, given }
@@ -234,5 +233,7 @@ final class PersonalDataExport(
 
   private def textTitle(t: String) = s"\n${"=" * t.length}\n$t\n${"=" * t.length}\n"
 
-  private val englishDateTimeFormatter = DateTimeFormat forStyle "MS"
-  private def textDate(date: DateTime) = englishDateTimeFormatter print date
+  import java.time.format.{ DateTimeFormatter, FormatStyle }
+  private val englishDateTimeFormatter =
+    DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+  private def textDate(date: Instant) = englishDateTimeFormatter print date

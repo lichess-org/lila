@@ -5,8 +5,8 @@ import lila.study.Chapter
 case class PracticeProgress(
     _id: UserId,
     chapters: PracticeProgress.ChapterNbMoves,
-    createdAt: DateTime,
-    updatedAt: DateTime
+    createdAt: Instant,
+    updatedAt: Instant
 ):
 
   import PracticeProgress.NbMoves
@@ -21,7 +21,7 @@ case class PracticeProgress(
       chapters = chapters - chapterId + {
         chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
       },
-      updatedAt = nowDate
+      updatedAt = nowInstant
     )
 
   def countDone(chapterIds: List[StudyChapterId]): Int =
@@ -47,8 +47,8 @@ object PracticeProgress:
     PracticeProgress(
       _id = id,
       chapters = Map.empty,
-      createdAt = nowDate,
-      updatedAt = nowDate
+      createdAt = nowInstant,
+      updatedAt = nowInstant
     )
 
   def anon = empty(UserId("anon"))

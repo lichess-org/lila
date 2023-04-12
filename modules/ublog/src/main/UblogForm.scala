@@ -83,7 +83,7 @@ object UblogForm:
         image = none,
         live = false,
         discuss = Option(false),
-        created = UblogPost.Recorded(user.id, nowDate),
+        created = UblogPost.Recorded(user.id, nowInstant),
         updated = none,
         lived = none,
         likes = UblogPost.Likes(1),
@@ -102,8 +102,8 @@ object UblogForm:
         topics = topics ?? UblogTopic.fromStrList,
         live = live,
         discuss = Option(discuss),
-        updated = UblogPost.Recorded(user.id, nowDate).some,
-        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowDate))
+        updated = UblogPost.Recorded(user.id, nowInstant).some,
+        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
       )
 
   val tier = Form(

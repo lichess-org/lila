@@ -175,7 +175,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
         import cats.syntax.all.*
         (m.get(w), m.get(b)).mapN((_, _)) ?? { case (wt, bt) =>
-          TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
+          TeamBattle.TeamVs(chess.ByColor(wt, bt)).some
         }
       }
     }

@@ -104,8 +104,4 @@ Round Robin bat jokatzeko modurik hurbilena txanda asko dituen Txapelketa suitza
   <string name="unlimitedAndFree">Mugagabea eta doan</string>
   <string name="predefinedUsers">Aurrez definitutako erabiltzaileei bakarrik utzi sartzen</string>
   <string name="forbiddedUsers">Zerrenda hau hutsik ez badago, zerrendan ez dauden jokalariak ezingo dira txapelketara sartu. Erabiltzaile-izen bat lerro bakoitzean.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">Txapelketa suitzarra %1$s / %2$s txanda</item>
-    <item quantity="other">Txapelketa suitzarra %1$s / %2$s txanda</item>
-  </plurals>
 </resources>

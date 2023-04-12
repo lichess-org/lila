@@ -11,7 +11,7 @@ case class Winner(
     tourId: TourId,
     userId: UserId,
     tourName: String,
-    date: DateTime
+    date: Instant
 )
 
 case class FreqWinners(
@@ -22,9 +22,9 @@ case class FreqWinners(
 ):
 
   lazy val top: Option[Winner] =
-    daily.filter(_.date isAfter nowDate.minusHours(2)) orElse
-      weekly.filter(_.date isAfter nowDate.minusDays(1)) orElse
-      monthly.filter(_.date isAfter nowDate.minusDays(3)) orElse
+    daily.filter(_.date isAfter nowInstant.minusHours(2)) orElse
+      weekly.filter(_.date isAfter nowInstant.minusDays(1)) orElse
+      monthly.filter(_.date isAfter nowInstant.minusDays(3)) orElse
       yearly orElse monthly orElse weekly orElse daily
 
   def userIds = List(yearly, monthly, weekly, daily).flatten.map(_.userId)
@@ -66,7 +66,7 @@ final class WinnersApi(
   private given BSONHandler[Map[Variant.LilaKey, FreqWinners]] = typedMapHandler[Variant.LilaKey, FreqWinners]
   private given BSONDocumentHandler[AllWinners]                = Macros.handler
 
-  private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] =
+  private def fetchLastFreq(freq: Freq, since: Instant): Fu[List[Tournament]] =
     tournamentRepo.coll
       .find(
         $doc(
@@ -91,12 +91,12 @@ final class WinnersApi(
 
   private def fetchAll: Fu[AllWinners] =
     for {
-      yearlies  <- fetchLastFreq(Freq.Yearly, nowDate.minusYears(1))
-      monthlies <- fetchLastFreq(Freq.Monthly, nowDate.minusMonths(2))
-      weeklies  <- fetchLastFreq(Freq.Weekly, nowDate.minusWeeks(2))
-      dailies   <- fetchLastFreq(Freq.Daily, nowDate.minusDays(2))
-      elites    <- fetchLastFreq(Freq.Weekend, nowDate.minusWeeks(3))
-      marathons <- fetchLastFreq(Freq.Marathon, nowDate.minusMonths(13))
+      yearlies  <- fetchLastFreq(Freq.Yearly, nowInstant.minusYears(1))
+      monthlies <- fetchLastFreq(Freq.Monthly, nowInstant.minusMonths(2))
+      weeklies  <- fetchLastFreq(Freq.Weekly, nowInstant.minusWeeks(2))
+      dailies   <- fetchLastFreq(Freq.Daily, nowInstant.minusDays(2))
+      elites    <- fetchLastFreq(Freq.Weekend, nowInstant.minusWeeks(3))
+      marathons <- fetchLastFreq(Freq.Marathon, nowInstant.minusMonths(13))
     } yield
       def standardFreqWinners(speed: Speed): FreqWinners =
         FreqWinners(

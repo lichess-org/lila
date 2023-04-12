@@ -16,7 +16,7 @@ object activity:
     div(cls := "activity")(
       as.toSeq filterNot (_.isEmpty) map { a =>
         st.section(
-          h2(semanticDate(a.interval.getStart)),
+          h2(semanticDate(a.interval.start)),
           div(cls := "entries")(
             a.patron map renderPatron,
             a.practice map renderPractice,

@@ -1,6 +1,5 @@
 package lila.swiss
 
-import org.joda.time.format.DateTimeFormat
 import play.api.i18n.Lang
 
 import lila.i18n.I18nKeys as trans
@@ -20,19 +19,19 @@ object SwissCondition:
     def apply(user: User, perf: PerfType): SwissCondition.Verdict
 
   type GetMaxRating   = PerfType => Fu[IntRating]
-  type GetBannedUntil = UserId => Fu[Option[DateTime]]
+  type GetBannedUntil = UserId => Fu[Option[Instant]]
 
   enum Verdict(val accepted: Boolean, val reason: Option[Lang => String]):
     case Accepted                         extends Verdict(true, none)
     case Refused(because: Lang => String) extends Verdict(false, because.some)
-    case RefusedUntil(until: DateTime)    extends Verdict(false, none)
+    case RefusedUntil(until: Instant)    extends Verdict(false, none)
   export Verdict.*
 
   case class WithVerdict(condition: SwissCondition, verdict: Verdict)
 
   case object PlayYourGames extends SwissCondition:
     def name(perf: PerfType)(using lang: Lang) = "Play your games"
-    def withBan(bannedUntil: Option[DateTime]) = withVerdict {
+    def withBan(bannedUntil: Option[Instant]) = withVerdict {
       bannedUntil.fold[Verdict](Accepted)(RefusedUntil.apply)
     }
 

@@ -17,7 +17,7 @@ object home:
       withHrefLangs = lila.common.LangPath(routes.Swiss.home).some
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
-        h1(cls := "box__top")("Swiss tournaments"),
+        h1(cls := "box__top")(trans.swiss.swissTournaments()),
         renderList(trans.swiss.nowPlaying.txt())(featured.started),
         renderList(trans.swiss.startingSoon.txt())(featured.created),
         div(cls := "swiss-home__infos")(
@@ -58,11 +58,9 @@ object home:
             ),
             td(cls := "infos")(
               span(cls := "rounds")(
-                if (s.isStarted)
-                  trans.swiss.xOutOfYRoundsSwiss
-                    .plural(s.settings.nbRounds, s.round.value, s.settings.nbRounds)
-                else
-                  trans.swiss.xRoundsSwiss.pluralSame(s.settings.nbRounds)
+                if s.isStarted then
+                  trans.swiss.nbRounds.plural(s.settings.nbRounds, s"${s.round}/${s.settings.nbRounds}")
+                else trans.swiss.nbRounds.pluralSame(s.settings.nbRounds)
               ),
               span(cls := "setup")(
                 s.clock.show,

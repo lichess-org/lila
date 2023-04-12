@@ -12,7 +12,7 @@ final class TeamMemberStream(
     userRepo: UserRepo
 )(using Executor, akka.stream.Materializer):
 
-  def apply(team: Team, perSecond: MaxPerSecond): Source[(User, DateTime), ?] =
+  def apply(team: Team, perSecond: MaxPerSecond): Source[(User, Instant), ?] =
     idsBatches(team, perSecond)
       .mapAsync(1) { members =>
         userRepo.usersFromSecondary(members.map(_._1)).map(_ zip members.map(_._2))
@@ -28,7 +28,7 @@ final class TeamMemberStream(
       team: Team,
       perSecond: MaxPerSecond,
       selector: Bdoc = $empty
-  ): Source[Seq[(UserId, DateTime)], ?] =
+  ): Source[Seq[(UserId, Instant)], ?] =
     memberRepo.coll
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true, "date" -> true).some)
       .sort($sort desc "date")
@@ -36,5 +36,5 @@ final class TeamMemberStream(
       .cursor[Bdoc](temporarilyPrimary)
       .documentSource()
       .grouped(perSecond.value)
-      .map(_.flatMap(u => u.getAsOpt[UserId]("user").zip(u.getAsOpt[DateTime]("date"))))
+      .map(_.flatMap(u => u.getAsOpt[UserId]("user").zip(u.getAsOpt[Instant]("date"))))
       .throttle(1, 1 second)

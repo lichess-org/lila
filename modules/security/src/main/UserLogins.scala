@@ -108,7 +108,7 @@ final class UserLoginsApi(
               "fp" $in fpSet
             ),
             "user" $ne user.id,
-            "date" $gt nowDate.minusYears(1)
+            "date" $gt nowInstant.minusYears(1)
           )
         ) -> List(
           GroupField("user")(
@@ -182,7 +182,7 @@ object UserLogins:
   // assumes all is sorted by most recent first
   def distinctRecent[V](all: List[Dated[V]]): scala.collection.View[Dated[V]] =
     all
-      .foldLeft(Map.empty[V, DateTime]) {
+      .foldLeft(Map.empty[V, Instant]) {
         case (acc, Dated(v, _)) if acc.contains(v) => acc
         case (acc, Dated(v, date))                 => acc + (v -> date)
       }

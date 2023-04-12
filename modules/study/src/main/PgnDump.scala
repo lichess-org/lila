@@ -3,7 +3,7 @@ package lila.study
 import akka.stream.scaladsl.*
 import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
 import chess.format.{ pgn as chessPgn }
-import org.joda.time.format.DateTimeFormat
+import scala.concurrent.duration.*
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
@@ -36,19 +36,20 @@ final class PgnDump(
       annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
     }
 
-  private val fileR = """[\s,]""".r
+  private val fileR         = """[\s,]""".r
+  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy.MM.dd"
 
   def ownerName(study: Study) = lightUserApi.sync(study.ownerId).fold(study.ownerId)(_.name)
 
   def filename(study: Study): String =
-    val date = dateFormat.print(study.createdAt)
+    val date = dateFormatter.print(study.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
 
   def filename(study: Study, chapter: Chapter): String =
-    val date = dateFormat.print(chapter.createdAt)
+    val date = dateFormatter.print(chapter.createdAt)
     fileR.replaceAllIn(
       s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_$date",
       ""
@@ -56,8 +57,6 @@ final class PgnDump(
 
   private def chapterUrl(studyId: StudyId, chapterId: StudyChapterId) =
     s"${net.baseUrl}/study/$studyId/$chapterId"
-
-  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
 
   private def annotatorTag(study: Study) =
     Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
@@ -139,20 +138,20 @@ object PgnDump:
     }
     s"$circles$arrows".some.filter(_.nonEmpty)
 
-  def toTurn(first: Node, second: Option[Node], variations: Variations)(using flags: WithFlags) =
+  def toTurn(first: Node, second: Option[Node], variations: Variations)(using WithFlags) =
     chessPgn.Turn(
       number = first.fullMoveNumber.value,
       white = node2move(first, variations).some,
       black = second map { node2move(_, first.children.variations) }
     )
 
-  def toTurns(root: Node.Root)(using flags: WithFlags): Vector[chessPgn.Turn] =
+  def toTurns(root: Node.Root)(using WithFlags): Vector[chessPgn.Turn] =
     toTurns(root.mainline, root.children.variations)
 
   def toTurns(
       line: Vector[Node],
       variations: Variations
-  )(using flags: WithFlags): Vector[chessPgn.Turn] = {
+  )(using WithFlags): Vector[chessPgn.Turn] = {
     line match
       case Vector() => Vector()
       case first +: rest if first.ply.isEven =>
@@ -164,9 +163,7 @@ object PgnDump:
       case l => toTurnsFromWhite(l, variations)
   }.filterNot(_.isEmpty)
 
-  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(using
-      flags: WithFlags
-  ): Vector[chessPgn.Turn] =
+  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(using WithFlags): Vector[chessPgn.Turn] =
     line
       .grouped(2)
       .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case ((variations, turns), pair) =>

@@ -133,7 +133,7 @@ final class UblogPaginator(
                           $and(
                             $doc("$in" -> $arr(s"$$created.by", "$$users")),
                             $doc("$eq" -> $arr("$live", true)),
-                            $doc("$gt" -> $arr("$lived.at", nowDate.minusMonths(3)))
+                            $doc("$gt" -> $arr("$lived.at", nowInstant.minusMonths(3)))
                           )
                         )
                       ),

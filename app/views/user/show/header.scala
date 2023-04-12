@@ -184,9 +184,9 @@ object header:
                   ),
                   u.playTime.map { playTime =>
                     frag(
-                      p(trans.tpTimeSpentPlaying(showPeriod(playTime.totalPeriod))),
-                      playTime.nonEmptyTvPeriod.map { tvPeriod =>
-                        p(trans.tpTimeSpentOnTV(showPeriod(tvPeriod)))
+                      p(trans.tpTimeSpentPlaying(showDuration(playTime.totalDuration))),
+                      playTime.nonEmptyTvDuration.map { tvDuration =>
+                        p(trans.tpTimeSpentOnTV(showDuration(tvDuration)))
                       }
                     )
                   },

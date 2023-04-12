@@ -66,10 +66,10 @@ object Sheet:
 
   opaque type Version = Int
   object Version:
-    val V1: Version        = 1
-    val V2: Version        = 2
-    private val v2date     = new DateTime(2020, 4, 21, 0, 0, 0)
-    def of(date: DateTime) = if (date isBefore v2date) V1 else V2
+    val V1: Version       = 1
+    val V2: Version       = 2
+    private val v2date    = instantOf(2020, 4, 21, 0, 0)
+    def of(date: Instant) = if date isBefore v2date then V1 else V2
 
   opaque type Streakable <: Boolean = Boolean
   object Streakable:

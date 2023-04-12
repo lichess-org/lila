@@ -13,7 +13,7 @@ final class UciToPgnTest extends Specification {
 
   private given Conversion[Int, Ply] = Ply(_)
 
-  private val now = nowDate
+  private val now = nowInstant
 
   private def evenIncomplete(result: Reader.Result): Replay =
     result match {

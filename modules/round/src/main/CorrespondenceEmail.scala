@@ -1,7 +1,7 @@
 package lila.round
 
 import akka.stream.scaladsl.*
-import org.joda.time.{ LocalTime, Period }
+import java.time.{ LocalTime, Duration }
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.Bus
@@ -78,7 +78,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           opponents = povs map { pov =>
             CorrespondenceOpponent(
               pov.opponent.userId,
-              pov.remainingSeconds.map(remainingSeconds => new Period(remainingSeconds * 1000L)),
+              pov.remainingSeconds.map(s => Duration.ofSeconds(s.toLong)),
               pov.game.id
             )
           }

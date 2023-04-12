@@ -21,7 +21,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
           "p256dh"    -> subscription.p256dh,
           "aes128gcm" -> subscription.aes128gcm,
           "aesgcm"    -> subscription.aesgcm,
-          "seenAt"    -> nowDate
+          "seenAt"    -> nowInstant
         ),
         upsert = true
       )

@@ -1,7 +1,7 @@
 package lila.game
 
 import cats.syntax.all.*
-import chess.{ Ply, Color }
+import chess.{ Ply, Color, ByColor }
 
 import lila.user.User
 
@@ -58,10 +58,9 @@ case class Player(
   def isProposingTakeback = proposeTakebackAt > 0
 
   def nameSplit: Option[(String, Option[Int])] =
-    name map {
+    name map:
       case Player.nameSplitRegex(n, r) => n.trim -> r.toIntOption
       case n                           => n      -> none
-    }
 
   def before(other: Player) =
     ((rating, id), (other.rating, other.id)) match
@@ -70,11 +69,11 @@ case class Player(
       case ((None, _), (Some(_), _))              => false
       case ((_, a), (_, b))                       => a.value < b.value
 
-  def ratingAfter = rating map (_ + ~ratingDiff)
+  def ratingAfter = rating.map(_ + ~ratingDiff)
 
   def stableRating = rating ifFalse provisional.value
 
-  def stableRatingAfter = stableRating map (_ + ~ratingDiff)
+  def stableRatingAfter = stableRating.map(_ + ~ratingDiff)
 
   def light = LightPlayer(color, aiLevel, userId, rating, ratingDiff, provisional, berserk)
 
@@ -135,8 +134,8 @@ object Player:
   case class HoldAlert(ply: Ply, mean: Int, sd: Int):
     def suspicious = HoldAlert.suspicious(ply)
   object HoldAlert:
-    type Map = Color.Map[Option[HoldAlert]]
-    val emptyMap: Map                 = Color.Map(none, none)
+    type Map = ByColor[Option[HoldAlert]]
+    val emptyMap: Map                 = ByColor(none, none)
     def suspicious(ply: Ply): Boolean = ply >= 16 && ply <= 40
     def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
 

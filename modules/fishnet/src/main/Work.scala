@@ -13,7 +13,7 @@ sealed trait Work:
   def tries: Int
   def lastTryByKey: Option[Client.Key]
   def acquired: Option[Work.Acquired]
-  def createdAt: DateTime
+  def createdAt: Instant
 
   def skill: Client.Skill
 
@@ -26,7 +26,7 @@ sealed trait Work:
   def nonAcquired                  = !isAcquired
   def canAcquire(client: Client)   = lastTryByKey.fold(true)(client.key !=)
 
-  def acquiredBefore(date: DateTime) = acquiredAt.??(_ isBefore date)
+  def acquiredBefore(date: Instant) = acquiredAt.??(_ isBefore date)
 
 object Work:
 
@@ -36,9 +36,9 @@ object Work:
   case class Acquired(
       clientKey: Client.Key,
       userId: UserId,
-      date: DateTime
+      date: Instant
   ):
-    def ageInMillis       = nowMillis - date.getMillis
+    def ageInMillis       = nowMillis - date.toMillis
     override def toString = s"by $userId at $date"
 
   private[fishnet] case class Game(
@@ -80,7 +80,7 @@ object Work:
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
       skipPositions: List[Int],
-      createdAt: DateTime
+      createdAt: Instant
   ) extends Work:
 
     def skill = Client.Skill.Analysis
@@ -90,7 +90,7 @@ object Work:
         acquired = Acquired(
           clientKey = client.key,
           userId = client.userId,
-          date = nowDate
+          date = nowInstant
         ).some,
         lastTryByKey = client.key.some,
         tries = tries + 1
