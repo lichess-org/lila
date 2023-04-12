@@ -14,9 +14,4 @@
   <string name="streaksAndBerserk">Pruge i Berzerk</string>
   <string name="predefinedUsers">Dozvolite pridruživanje samo unaprijed određenim korisnicima</string>
   <string name="forbiddedUsers">Ako ovaj spisak nije prazan, onda će korisnicima kojih nema na njemu biti zabranjeno da se pridruže. Jedno korisničko ime po retku.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s kola po švicarskom sistemu</item>
-    <item quantity="few">%1$s / %2$s kola po švicarskom sistemu</item>
-    <item quantity="other">%1$s / %2$s kola po švicarskom sistemu</item>
-  </plurals>
 </resources>

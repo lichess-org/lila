@@ -22,8 +22,7 @@
   "dependencies": {
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
-    "chessground": "^8.3.7",
-    "chessops": "^0.12.5",
+    "chessops": "^0.12.7",
     "common": "workspace:*",
     "snabbdom": "^3.5.1"
   },

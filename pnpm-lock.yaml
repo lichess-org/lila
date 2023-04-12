@@ -19,6 +19,9 @@ importers:
       ab:
         specifier: https://github.com/lichess-org/ab-stub
         version: github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
+      chessground:
+        specifier: ^8.3.7
+        version: 8.3.7
       eslint:
         specifier: ^8.30.0
         version: 8.30.0
@@ -31,9 +34,12 @@ importers:
       typescript:
         specifier: ^4.9.4
         version: 4.9.4
+
+  bin:
+    dependencies:
       xml2js:
-        specifier: 0.4.23
-        version: 0.4.23
+        specifier: ^0.5.0
+        version: 0.5.0
 
   ui:
     dependencies:
@@ -114,12 +120,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -153,12 +156,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -177,9 +177,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -228,9 +225,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -261,9 +255,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       lichess-pgn-viewer:
         specifier: ^1.5.5
         version: 1.5.5
@@ -288,9 +279,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -322,8 +310,8 @@ importers:
         specifier: workspace:*
         version: link:../@types/lichess
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
 
   ui/editor:
     dependencies:
@@ -333,12 +321,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -354,9 +339,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -396,9 +378,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -441,9 +420,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -528,12 +504,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -555,9 +528,6 @@ importers:
       chartjs-adapter-date-fns:
         specifier: '=2.0.1'
         version: 2.0.1(chart.js@3.9.1)
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -594,12 +564,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -624,12 +591,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -657,12 +621,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -687,9 +648,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -729,9 +687,6 @@ importers:
       chat:
         specifier: workspace:*
         version: link:../chat
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -777,9 +732,6 @@ importers:
       chat:
         specifier: workspace:*
         version: link:../chat
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -831,12 +783,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
-        specifier: ^0.12.5
-        version: 0.12.5
+        specifier: ^0.12.7
+        version: 0.12.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -858,9 +807,6 @@ importers:
       chat:
         specifier: workspace:*
         version: link:../chat
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -882,9 +828,6 @@ importers:
       chat:
         specifier: workspace:*
         version: link:../chat
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -951,9 +894,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       common:
         specifier: workspace:*
         version: link:../common
@@ -3463,8 +3403,8 @@ packages:
     resolution: {integrity: sha512-5CIuml9i6XpucZiYSIy4QB8OAqh3gsWaxyfnAYk+7C6PK34DFslI5dqWaWSrk/KtNEdQnmEfa8mqAn4tVsTiZA==}
     dev: false
 
-  /chessops@0.12.5:
-    resolution: {integrity: sha512-CZFLKCJmJuZP5duoRtTVWq3g+C14CszYHPpb7xiBiZpjn46uoYVMmt/QIYaHhOydSFcyyJgHB3iE5qHo1y5A3Q==}
+  /chessops@0.12.7:
+    resolution: {integrity: sha512-ylWwKOudgTNJCDq7vx/Rs9fkZwPB3CEk0AJ8NtAfEYOoA3DGRQdS/Z/oQRsnQvs92rUu0yEobn4ZIPzLh8y9/w==}
     dependencies:
       '@badrap/result': 0.2.13
     dev: false
@@ -5001,7 +4941,7 @@ packages:
     dependencies:
       '@types/node': 18.11.18
       chessground: 8.3.7
-      chessops: 0.12.5
+      chessops: 0.12.7
       snabbdom: 3.5.1
     dev: false
 
@@ -6087,8 +6027,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /xml2js@0.4.23:
-    resolution: {integrity: sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==}
+  /xml2js@0.5.0:
+    resolution: {integrity: sha512-drPFnkQJik/O+uPKpqSgr22mpuFHqKdbS835iAQrUC73L2F5WkboIRd63ai/2Yg6I1jzifPFKH2NTK+cfglkIA==}
     engines: {node: '>=4.0.0'}
     dependencies:
       sax: 1.2.4

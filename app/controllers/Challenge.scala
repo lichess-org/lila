@@ -8,7 +8,7 @@ import views.html
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
-import lila.challenge.Challenge.ID
+import lila.challenge.Challenge.{ Id as ChallengeId }
 import lila.common.{ Bearer, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.OAuthScope
@@ -44,12 +44,12 @@ final class Challenge(
       }
     }
 
-  def show(id: String, @annotation.nowarn _color: Option[String]) =
+  def show(id: ChallengeId, @annotation.nowarn _color: Option[String]) =
     Open { implicit ctx =>
       showId(id)
     }
 
-  protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
+  protected[controllers] def showId(id: ChallengeId)(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
@@ -93,7 +93,7 @@ final class Challenge(
     challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
       !challenge.challengerUserId.??(orig => me.exists(_ is orig))
 
-  def accept(id: ID, color: Option[String]) =
+  def accept(id: ChallengeId, color: Option[String]) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
         val cc = color flatMap chess.Color.fromName
@@ -107,7 +107,7 @@ final class Challenge(
               ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
             case invalid =>
               negotiate(
-                html = Redirect(routes.Round.watcher(c.id, cc.fold("white")(_.name))).toFuccess,
+                html = Redirect(routes.Round.watcher(c.id.value, cc.fold("white")(_.name))).toFuccess,
                 api = _ =>
                   notFoundJson(invalid match {
                     case Validated.Invalid(err) => err
@@ -118,10 +118,10 @@ final class Challenge(
       }
     }
 
-  def apiAccept(id: ID) =
+  def apiAccept(id: ChallengeId) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
       def tryRematch =
-        env.bot.player.rematchAccept(GameId(id), me) flatMap {
+        env.bot.player.rematchAccept(id into GameId, me) flatMap {
           case true => jsonOkResult.toFuccess
           case _    => notFoundJson()
         }
@@ -138,9 +138,9 @@ final class Challenge(
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
       res: Result
-  )(implicit ctx: Context): Fu[Result] =
+  )(using Context): Fu[Result] =
     cond ?? {
-      env.game.gameRepo.game(GameId(c.id)).map {
+      env.game.gameRepo.game(c.id into GameId).map {
         _ map { game =>
           env.lilaCookie.cookie(
             AnonCookie.name,
@@ -154,7 +154,7 @@ final class Challenge(
       cookieOption.fold(res) { res.withCookies(_) }
     }
 
-  def decline(id: ID) =
+  def decline(id: ChallengeId) =
     AuthBody { implicit ctx => _ =>
       OptionFuResult(api byId id) { c =>
         given play.api.mvc.Request[?] = ctx.body
@@ -167,12 +167,12 @@ final class Challenge(
           )
       }
     }
-  def apiDecline(id: ID) =
+  def apiDecline(id: ChallengeId) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       given play.api.i18n.Lang = reqLang
       api.activeByIdFor(id, me) flatMap {
         case None =>
-          env.bot.player.rematchDecline(GameId(id), me) flatMap {
+          env.bot.player.rematchDecline(id into GameId, me) flatMap {
             case true => jsonOkResult.toFuccess
             case _    => notFoundJson()
           }
@@ -186,7 +186,7 @@ final class Challenge(
       }
     }
 
-  def cancel(id: ID) =
+  def cancel(id: ChallengeId) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
         if (isMine(c)) api cancel c
@@ -194,7 +194,7 @@ final class Challenge(
       }
     }
 
-  def apiCancel(id: ID) =
+  def apiCancel(id: ChallengeId) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req => me =>
       api.activeByIdBy(id, me) flatMap {
         case Some(c) => api.cancel(c) inject jsonOkResult
@@ -205,13 +205,13 @@ final class Challenge(
               import lila.hub.actorApi.map.Tell
               import lila.hub.actorApi.round.Abort
               import lila.round.actorApi.round.AbortForce
-              env.game.gameRepo game GameId(id) dmap {
+              env.game.gameRepo game id.into(GameId) dmap {
                 _ flatMap { Pov.ofUserId(_, me.id) }
               } flatMapz { p =>
                 env.round.proxyRepo.upgradeIfPresent(p) dmap some
               } flatMap {
                 case Some(pov) if pov.game.abortableByUser =>
-                  lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
+                  lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
                   jsonOkResult.toFuccess
                 case Some(pov) if pov.game.playable =>
                   Bearer.from(get("opponentToken", req)) match
@@ -219,7 +219,7 @@ final class Challenge(
                     case Some(bearer) =>
                       env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
                         case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
-                          lila.common.Bus.publish(Tell(id, AbortForce), "roundSocket")
+                          lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                           jsonOkResult
                         case Right(_)  => BadRequest(jsonError("Not the opponent token"))
                         case Left(err) => BadRequest(jsonError(err.message))
@@ -270,7 +270,7 @@ final class Challenge(
     ("slow", 40 * 5, 1.day)
   )
 
-  def toFriend(id: String) =
+  def toFriend(id: ChallengeId) =
     AuthBody { implicit ctx => _ =>
       NoBot {
         import play.api.data.*

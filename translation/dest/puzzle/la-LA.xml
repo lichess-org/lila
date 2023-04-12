@@ -3,6 +3,12 @@
   <string name="puzzles">Exercitii</string>
   <string name="goodMove">Bonum spatium</string>
   <string name="bestMove">Optimum spatium!</string>
+  <string name="byOpenings">Initiis</string>
+  <string name="puzzlesByOpenings">Problemae Initiis</string>
   <string name="hidden">conditus</string>
+  <string name="easier">Facilior</string>
+  <string name="easiest">Facillimus</string>
+  <string name="harder">Difficilior</string>
+  <string name="hardest">Difficillimus</string>
   <string name="example">Exemplum</string>
 </resources>

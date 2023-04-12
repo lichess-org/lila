@@ -106,8 +106,4 @@ Die rede hiervoor is dat, daar nie \'n goeie manier is om situasies te hanteer w
   <string name="unlimitedAndFree">Onbeperk en verniet</string>
   <string name="predefinedUsers">Laat slegs vooraf-gestelde gebruikers om aan te sluit</string>
   <string name="forbiddedUsers">As die lys nie leeg is nie, dan sal die gebruikers wat afwesig van die lys is verbied word om aan te sluit. Een gebruiker per lyn.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s rondte Switsers</item>
-    <item quantity="other">%1$s / %2$s rondtes Switsers</item>
-  </plurals>
 </resources>

@@ -110,10 +110,4 @@
   <string name="unlimitedAndFree">לא מוגבל וחינמי</string>
   <string name="predefinedUsers">אפשרו רק לשחקנים מוגדרים מראש להצטרף</string>
   <string name="forbiddedUsers">אם תמלא/י את הרשימה הזאת, משתמשים שלא יופיעו בה לא יורשו להצטרף. כתבו שם משתמש אחד בכל שורה.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">סבב %1$s / %2$s כבר שוחק</item>
-    <item quantity="two">%1$s / %2$s סבבים כבר שוחקו</item>
-    <item quantity="many">%1$s / %2$s סבבים כבר שוחקו</item>
-    <item quantity="other">%1$s / %2$s סבבים כבר שוחקו</item>
-  </plurals>
 </resources>

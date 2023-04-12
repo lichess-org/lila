@@ -98,7 +98,7 @@
   <string name="dtzWithRounding">DTZ50\" so zaokrúhlením, vychádzajúci s počtu polťahov až do najbližšieho brania alebo ťahu pešiakom</string>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
-  <string name="openings">Otváranie</string>
+  <string name="openings">Otvorenia</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="openingEndgameExplorer">Prieskumník otvorení/koncoviek</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
@@ -230,7 +230,7 @@
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="error.weakPassword">Toto heslo je veľmi bežné, a ľahké na uhádnutie.</string>
-  <string name="error.namePassword">Zadajte prihlasovacie meno a heslo.</string>
+  <string name="error.namePassword">Prosím, nepoužívajte Vaše prihlasovacie meno ako Vaše heslo!</string>
   <string name="blankedPassword">Na inej stránke ste použili rovnaké heslo a táto stránka bola napadnutá. Aby sme zaistili bezpečnosť Vášho účtu Lichess, je potrebné aby ste si nastavili nové heslo. Ďakujeme Vám za pochopenie.</string>
   <string name="youAreLeavingLichess">Odchádzate z Lichessu</string>
   <string name="neverTypeYourPassword">Nikdy nepoužívajte vaše Lichess heslo na inom webe!</string>
@@ -613,7 +613,7 @@
   <string name="notes">Poznámky</string>
   <string name="typePrivateNotesHere">Sem píšte súkromné správy</string>
   <string name="writeAPrivateNoteAboutThisUser">Napíšte súkromnú poznámku o tomto používateľovi</string>
-  <string name="noNoteYet">Zatiaľ žiadne</string>
+  <string name="noNoteYet">Zatiaľ žiadna poznámka</string>
   <string name="invalidUsernameOrPassword">Nesprávne meno alebo heslo</string>
   <string name="incorrectPassword">Nesprávne heslo</string>
   <string name="invalidAuthenticationCode">Neplatný overovací kód</string>
@@ -789,7 +789,7 @@
   <string name="kidMode">Detský režim</string>
   <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je pod kotrolou. Opýtajte sa učiteľa okolo odstránenia detského módu.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je spravovaný niekým iným. Opýtajte sa svojho učiteľa šachu na zrušenie detského režimu.</string>
   <string name="enableKidMode">Povoliť detský režim</string>
   <string name="disableKidMode">Vypnúť detský režim</string>
   <string name="security">Zabezpečenie</string>
@@ -1027,5 +1027,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
   <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
-  <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naše tipy ohľadom organizovania podujatí</string>
 </resources>
