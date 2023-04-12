@@ -12,6 +12,7 @@
   <string name="teachersX">Učitelia: %s</string>
   <string name="newClass">Nová trieda</string>
   <string name="closeClass">Uzavrieť triedu</string>
+  <string name="removedByX">Boli ste odstránení používateľom %s</string>
   <string name="reopen">Znovu otvoriť</string>
   <string name="removeStudent">Odstrániť študenta</string>
   <string name="removedStudents">Odstránené</string>
@@ -45,6 +46,7 @@ Heslo: %3$s</string>
   <string name="createDesc2">Nevyžaduje sa e-mailová adresa. Heslo sa vygeneruje automaticky. Vy následne heslo zašlete študentovi aby sa mohol prihlásiť.</string>
   <string name="createDesc3">Dôležité: študent nesmie mať viacero účtov.</string>
   <string name="createDesc4">Ak už účet má, použite pozývací formulár.</string>
+  <string name="createStudentWarning">Vytvárajte účty len pre skutočných študentov! Nepoužívajte na vytvorenie viacerých účtov pre seba! Dostali by ste zákaz.</string>
   <string name="lichessUsername">Lichess užívateľské meno</string>
   <string name="generateANewUsername">Vygenerovať nové užívateľské meno</string>
   <string name="welcomeToClass">Vitaj na kurze: %s.
@@ -68,6 +70,9 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="releaseDesc2">Študent ostane v triede po uvoľnení jeho účtu.</string>
   <string name="realUniqueEmail">Skutočná, unikátna email adresa študenta. Pošleme na ňu potvrdzovací email s linkom na uvoľnenie účtu.</string>
   <string name="closeStudent">Zrušiť účet</string>
+  <string name="closeTheAccount">Natrvalo zrušiť študentský účet.</string>
+  <string name="closeDesc1">Študent už nikdy nebude môcť používať tento účet. Zrušenie účtu je konečné. Uistite sa, že tomu študent rozumie a súhlasí s tým.</string>
+  <string name="closeDesc2">Namiesto toho môžete dať študentovi nad účtom kontrolu, aby ho mohol naďalej používať.</string>
   <string name="teachers">Učitelia</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učiteľ</item>
@@ -90,6 +95,9 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="variantXOverLastY">%1$s za posledných %2$s</string>
   <string name="winrate">Pomer výhier</string>
   <string name="na">Nedostupné</string>
+  <string name="overview">Prehľad</string>
+  <string name="news">Novinky</string>
+  <string name="classNews">Novinky triedy</string>
   <string name="editNews">Upraviť novinky</string>
   <string name="notifyAllStudents">Poslať notifikáciu všetkým študentom</string>
   <string name="nothingHere">Nič tu nie je, zatiaľ.</string>
