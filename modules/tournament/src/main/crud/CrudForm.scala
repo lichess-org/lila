@@ -13,7 +13,7 @@ final class CrudForm(repo: TournamentRepo):
 
   import CrudForm.*
   import TournamentForm.*
-  import lila.common.Form.UTCDate.*
+  import lila.common.Form.PrettyDate.*
 
   def apply(tour: Option[Tournament]) = Form(
     mapping(
@@ -25,7 +25,7 @@ final class CrudForm(repo: TournamentRepo):
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> typeIn(Variant.list.all.map(_.id).toSet),
       "position"       -> optional(lila.common.Form.fen.playableStrict),
-      "date"           -> utcDate,
+      "date"           -> prettyDate,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
       "description"    -> nonEmptyText,

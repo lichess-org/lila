@@ -248,9 +248,9 @@ object Form:
       nowDate.isBefore(_)
     )
 
-  object UTCDate:
+  object PrettyDate:
     val dateTimePattern       = "yyyy-MM-dd HH:mm"
-    val utcDate               = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    val prettyDate            = jodaDate(dateTimePattern, DateTimeZone.UTC)
     given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   object ISODateTime:
     val dateTimePattern       = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -260,7 +260,7 @@ object Form:
   object ISODate:
     val datePattern           = "yyyy-MM-dd"
     val formatter             = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
-    val isoDateTime           = jodaDate(datePattern, DateTimeZone.UTC)
+    val isoDate               = jodaDate(datePattern, DateTimeZone.UTC)
     given Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(datePattern)
   object Timestamp:
     val formatter = new Formatter[DateTime]:
