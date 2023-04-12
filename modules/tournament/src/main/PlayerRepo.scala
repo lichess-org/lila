@@ -187,6 +187,9 @@ final class PlayerRepo(coll: Coll)(using Executor):
   def remove(tourId: TourId, userId: UserId) =
     coll.delete.one(selectTourUser(tourId, userId)).void
 
+  def removeNotInTeams(tourId: TourId, teamIds: Set[TeamId]) =
+    coll.delete.one(selectTour(tourId) ++ $doc("t" $nin teamIds)).void
+
   def existsActive(tourId: TourId, userId: UserId) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
 
@@ -339,6 +342,8 @@ final class PlayerRepo(coll: Coll)(using Executor):
         field = "uid"
       )
     }
+
+  def teamsWithPlayers(tourId: TourId): Fu[Set[TeamId]] = coll.distinctEasy[TeamId, Set]("t", selectTour(tourId))
 
   private[tournament] def sortedCursor(
       tournamentId: TourId,
