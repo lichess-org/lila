@@ -468,7 +468,7 @@ final class Team(
                   html = Redirect(routes.Team.mine).flashSuccess.toFuccess,
                   api = _ => jsonOkResult.toFuccess
                 )
-          }(ctx),
+          },
       scoped = _ =>
         me =>
           api team id flatMap {

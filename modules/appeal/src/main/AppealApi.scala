@@ -67,12 +67,12 @@ final class AppealApi(
         exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
       },
       ascending = true,
-      nb = 30
+      nb = 50
     ) flatMap { unreads =>
       fetchQueue(
         selector = $doc("status" $ne Appeal.Status.Unread.key),
         ascending = false,
-        nb = 40 - unreads.size
+        nb = 60 - unreads.size
       ) map { unreads ::: _ }
     }
 

@@ -3,7 +3,7 @@ import { bind } from 'common/snabbdom';
 import userLink from 'common/userLink';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
 import { numberFormat } from 'common/number';
-import { userModInfo, flag } from './xhr';
+import { userModInfo, flag, timeout } from './xhr';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -42,13 +42,18 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     opts,
     open,
     close,
-    timeout(reason: ModerationReason, text: string) {
-      data &&
-        lichess.pubsub.emit('socket.send', 'timeout', {
+    async timeout(reason: ModerationReason, text: string) {
+      if (data) {
+        const body = {
           userId: data.id,
           reason: reason.key,
           text,
-        });
+        };
+        if (new URLSearchParams(window.location.search).get('mod') === 'true') {
+          await timeout(opts.resourceId, body);
+          window.location.reload(); // to load new state since it won't be sent over the socket
+        } else lichess.pubsub.emit('socket.send', 'timeout', body);
+      }
       close();
       opts.redraw();
     },
