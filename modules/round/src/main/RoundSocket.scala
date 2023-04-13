@@ -2,7 +2,7 @@ package lila.round
 
 import actorApi.*
 import actorApi.round.*
-import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
+import akka.actor.{ Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*
