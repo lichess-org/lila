@@ -41,7 +41,7 @@ final class ChallengeApi(
     doCreate(c) >>- by.foreach(u => openCreatedBy.put(c.id, u.id)) inject true
 
   private val openCreatedBy =
-    cacheApi.notLoadingSync[Challenge.Id, UserId](512, "challenge.open.by") {
+    cacheApi.notLoadingSync[Id, UserId](512, "challenge.open.by") {
       _.expireAfterWrite(1 hour).build()
     }
 
@@ -51,18 +51,20 @@ final class ChallengeApi(
       Bus.publish(Event.Create(c), "challenge")
     }
 
+  def isOpenBy(id: Id, maker: User) = openCreatedBy.getIfPresent(id).contains(maker.id)
+
   export repo.byId
 
-  def activeByIdFor(id: Challenge.Id, dest: User): Future[Option[Challenge]] =
+  def activeByIdFor(id: Id, dest: User): Future[Option[Challenge]] =
     repo.byIdFor(id, dest).dmap(_.filter(_.active))
-  def activeByIdBy(id: Challenge.Id, maker: User): Future[Option[Challenge]] =
+  def activeByIdBy(id: Id, maker: User): Future[Option[Challenge]] =
     repo
       .byId(id)
       .dmap(_.filter { c =>
         c.active && c.challenger.match
-          case Challenger.Registered(orig, _) if maker is orig                      => true
-          case Challenger.Open if openCreatedBy.getIfPresent(id).contains(maker.id) => true
-          case _                                                                    => false
+          case Challenger.Registered(orig, _) if maker is orig => true
+          case Challenger.Open if isOpenBy(id, maker)          => true
+          case _                                               => false
       })
 
   val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor") {
@@ -85,7 +87,7 @@ final class ChallengeApi(
 
   private def offline(c: Challenge) = repo.offline(c) >>- uncacheAndNotify(c)
 
-  private[challenge] def ping(id: Challenge.Id): Funit =
+  private[challenge] def ping(id: Id): Funit =
     repo statusById id flatMap {
       case Some(Status.Created) => repo setSeen id
       case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _ foreach uncacheAndNotify }
@@ -185,7 +187,7 @@ final class ChallengeApi(
     c.challengerUserId ?? notifyUser.apply
     socketReload(c.id)
 
-  private def socketReload(id: Challenge.Id): Unit =
+  private def socketReload(id: Id): Unit =
     socket.foreach(_ reload id)
 
   private object notifyUser:

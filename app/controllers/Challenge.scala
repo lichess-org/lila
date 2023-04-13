@@ -215,7 +215,6 @@ final class Challenge(
                   jsonOkResult.toFuccess
                 case Some(pov) if pov.game.playable =>
                   Bearer.from(get("opponentToken", req)) match
-                    case None => BadRequest(jsonError("The game can no longer be aborted")).toFuccess
                     case Some(bearer) =>
                       env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
                         case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
@@ -224,6 +223,12 @@ final class Challenge(
                         case Right(_)  => BadRequest(jsonError("Not the opponent token"))
                         case Left(err) => BadRequest(jsonError(err.message))
                       }
+                    case None if api.isOpenBy(id, me) =>
+                      if pov.game.abortable then
+                        lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
+                        jsonOkResult.toFuccess
+                      else BadRequest(jsonError("The game can no longer be aborted")).toFuccess
+                    case None => BadRequest(jsonError("Missing opponentToken")).toFuccess
                 case _ => notFoundJson()
               }
           }
