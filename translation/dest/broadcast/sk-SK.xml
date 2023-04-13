@@ -11,7 +11,7 @@
   <string name="roundNumber">Číslo kola</string>
   <string name="tournamentName">Názov turnaja</string>
   <string name="tournamentDescription">Krátky popis turnaja</string>
-  <string name="fullDescription">Dlhý popis udalosti</string>
+  <string name="fullDescription">Úplný popis turnaja</string>
   <string name="fullDescriptionHelp">Voliteľný dlhý popis vysielania. %1$s je dostupný. Dĺžka musí byť menej ako %2$s znakov.</string>
   <string name="sourceUrlOrGameIds">Zdrojová URL alebo ID partií</string>
   <string name="sourceUrlHelp">URL, ktorú bude Lichess kontrolovať, aby získal aktualizácie PGN. Musí byť verejne prístupná z internetu.</string>
