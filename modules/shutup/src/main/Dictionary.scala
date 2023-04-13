@@ -325,7 +325,6 @@ gerizekal[iı]
 göt
 ibne
 ka[sş]ar
-mal
 oç+
 [ou]r[ou]s[pb]u( ([çc]o[çc]u[ğg]?u|evlad[ıi]))?
 piç(lik)?
