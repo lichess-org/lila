@@ -43,9 +43,9 @@ Llavors paguem a un desenvolupador a temps complert: %s, el fundador de Lichess.
 O pots %s.</string>
   <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
   <string name="otherMethods">Hi ha altres mètodes de donació?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess està registrat amb %s.</string>
+  <string name="lichessIsRegisteredWith">Lichess està registrat amb %s.</string>
   <string name="bankTransfers">També acceptem transferències bancàries</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Tingueu en compte que només les donacions del formulari superior atorguen l\'estatus de Patró.</string>
+  <string name="onlyDonationFromAbove">Tingueu en compte que només les donacions del formulari superior atorguen l\'estatus de Patró.</string>
   <string name="patronFeatures">Es reserven algunes funcions per als Patrons?</string>
   <string name="noPatronFeatures">No, perquè Lichess es totalment gratuït, per sempre i per a tots. És una promesa.
 Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.</string>
