@@ -42,9 +42,9 @@
 또는 %s를 할 수 있습니다.</string>
   <string name="contactSupport">Lichess 지원팀에 문의</string>
   <string name="otherMethods">다른 기부 방법이 있나요?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess는 %s에 등록되어 있습니다.</string>
+  <string name="lichessIsRegisteredWith">Lichess는 %s에 등록되어 있습니다.</string>
   <string name="bankTransfers">계좌 이체도 가능합니다</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">위의 기부 양식으로만 후원자 자격을 부여한다는 점에 유의하세요.</string>
+  <string name="onlyDonationFromAbove">위의 기부 양식으로만 후원자 자격을 부여한다는 점에 유의하세요.</string>
   <string name="patronFeatures">후원자 전용 기능도 있나요?</string>
   <string name="noPatronFeatures">아니오. 약속드립니다. Lichess는 완전히, 영원히, 모두에게 무료입니다.
 하지만 후원자들은 새롭고 멋진 프로필 아이콘을 자랑할 수 있습니다.</string>

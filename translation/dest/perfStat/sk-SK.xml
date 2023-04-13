@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s štatistiky</string>
   <string name="viewTheGames">Zobraziť hry</string>
-  <string name="provisional">dočasný</string>
+  <string name="provisional">provizórny</string>
   <string name="notEnoughRatedGames">Na zaistenie spoľahlivého ratingu sa neodohralo dosť hodnotených hier.</string>
   <string name="progressOverLastXGames">Postup počas posledných %s hier:</string>
   <string name="ratingDeviation">Odchýlka ratingu: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Nižšia hodnota znamená, že rating je stabilnejší. Hodnota vyššia ako %1$s znamená, že rating sa považuje za provizórny. Ak chcete byť zaradení do rebríčka, táto hodnota by mala byť nižšia ako %2$s (štandardný šach) alebo %3$s (varianty).</string>
   <string name="totalGames">Celkový počet hier</string>
   <string name="ratedGames">Hodnotené hry</string>
   <string name="tournamentGames">Turnajové hry</string>

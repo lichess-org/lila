@@ -41,4 +41,5 @@
   <string name="raceYourFriends">Pretekajte sa s priateľmi</string>
   <string name="skipHelp">Počas každých pretekov môžete raz vynechať ťah:</string>
   <string name="skipExplanation">Vynechajte tento ťah aby ste neprišli o kombo! Je možné len raz počas pretekov.</string>
+  <string name="skippedPuzzle">Preskočené úlohy</string>
 </resources>

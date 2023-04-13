@@ -43,9 +43,9 @@ Dann bezahlen wir einen Vollzeit-Entwickler: %s, den Gründer von Lichess.</stri
 Oder du kannst %s.</string>
   <string name="contactSupport">den Lichess Support kontaktieren</string>
   <string name="otherMethods">Andere Möglichkeiten um zu spenden?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess ist bei %s registriert.</string>
+  <string name="lichessIsRegisteredWith">Lichess ist bei %s registriert.</string>
   <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Bitte beachte, dass dir ausschließlich obiges Spendenformular den Patron-Status gewährt.</string>
+  <string name="onlyDonationFromAbove">Bitte beachte, dass dir ausschließlich obiges Spendenformular den Patron-Status gewährt.</string>
   <string name="patronFeatures">Gibt es zusätzliche Funktionen für Unterstützer?</string>
   <string name="noPatronFeatures">Nein, denn Lichess ist komplett kostenlos, für immer und für alle. Das ist ein Versprechen.
 Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzugeben.</string>
