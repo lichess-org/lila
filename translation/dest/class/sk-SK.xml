@@ -106,4 +106,10 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="newsEdit3">Oddelujte novinky s ---
 To zobrazí horizontálnu čiaru.</string>
   <string name="invite">Pozvať</string>
+  <string name="youHaveBeenInvitedByX">Boli ste pozvaní užívateľom %s.</string>
+  <string name="youAcceptedThisInvitation">Pozvanie ste prijali.</string>
+  <string name="youDeclinedThisInvitation">Pozvanie ste odmietli.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">alebo</string>
+  <string name="createMultipleAccounts">Vytvoriť viacero Lichess účtov naraz</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">použiť tento formulár</string>
 </resources>
