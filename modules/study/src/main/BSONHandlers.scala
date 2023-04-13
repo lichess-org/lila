@@ -213,7 +213,6 @@ object BSONHandlers:
           F.glyphs   -> r.glyphs.nonEmpty,
           F.score    -> r.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
           F.clock    -> r.clock,
-          // TODO we probably need to have access to the variant to set the opening correctly
           F.crazy -> r.crazyData
         )
       }

@@ -7,7 +7,6 @@ import lila.tree.Root
 import lila.tree.Node.Comment
 import chess.Outcome
 
-// TODO move to lila.tree ?
 private object GameToRoot:
 
   def apply(game: Game, initialFen: Option[Fen.Epd], withClocks: Boolean): Root =
