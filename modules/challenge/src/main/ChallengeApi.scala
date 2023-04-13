@@ -34,18 +34,36 @@ final class ChallengeApi(
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] =
     isLimitedByMaxPlaying(c) flatMap {
-      case true => fuFalse
-      case false =>
-        repo.insertIfMissing(c) >>- {
-          uncacheAndNotify(c)
-          Bus.publish(Event.Create(c), "challenge")
-        } inject true
+      if _ then fuFalse else doCreate(c) inject true
+    }
+
+  def createOpen(c: Challenge, by: Option[User]): Fu[Boolean] =
+    doCreate(c) >>- by.foreach(u => openCreatedBy.put(c.id, u.id)) inject true
+
+  private val openCreatedBy =
+    cacheApi.notLoadingSync[Challenge.Id, UserId](512, "challenge.open.by") {
+      _.expireAfterWrite(1 hour).build()
+    }
+
+  private def doCreate(c: Challenge) =
+    repo.insertIfMissing(c) >>- {
+      uncacheAndNotify(c)
+      Bus.publish(Event.Create(c), "challenge")
     }
 
   export repo.byId
 
-  def activeByIdFor(id: Challenge.Id, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
-  def activeByIdBy(id: Challenge.Id, orig: User)  = repo.byIdBy(id, orig).dmap(_.filter(_.active))
+  def activeByIdFor(id: Challenge.Id, dest: User): Future[Option[Challenge]] =
+    repo.byIdFor(id, dest).dmap(_.filter(_.active))
+  def activeByIdBy(id: Challenge.Id, maker: User): Future[Option[Challenge]] =
+    repo
+      .byId(id)
+      .dmap(_.filter { c =>
+        c.active && c.challenger.match
+          case Challenger.Registered(orig, _) if maker is orig                      => true
+          case Challenger.Open if openCreatedBy.getIfPresent(id).contains(maker.id) => true
+          case _                                                                    => false
+      })
 
   val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor") {
     _.expireAfterAccess(15 minutes)

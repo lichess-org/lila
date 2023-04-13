@@ -158,8 +158,7 @@ object Chapter:
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value) take 80)
 
-  val idSize = 8
-  def makeId = StudyChapterId(ThreadLocalRandom nextString idSize)
+  def makeId = StudyChapterId(ThreadLocalRandom nextString 8)
 
   def make(
       studyId: StudyId,

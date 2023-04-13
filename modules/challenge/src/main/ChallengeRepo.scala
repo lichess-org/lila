@@ -18,8 +18,6 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   def byIdFor(id: Challenge.Id, dest: lila.user.User) =
     coll.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
-  def byIdBy(id: Challenge.Id, orig: lila.user.User) =
-    coll.find($id(id) ++ $doc("challenger.id" -> orig.id)).one[Challenge]
 
   def exists(id: Challenge.Id) = coll.countSel($id(id)).dmap(0 <)
 

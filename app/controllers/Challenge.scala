@@ -314,11 +314,11 @@ final class Challenge(
               env.user.repo enabledById username flatMap {
                 case None => JsonBadRequest(jsonError(s"No such user: $username")).toFuccess
                 case Some(destUser) =>
-                  val cost = if (me.isApiHog) 0 else if (destUser.isBot) 1 else 5
-                  BotChallengeIpRateLimit(req.ipAddress, cost = if (me.isBot) 1 else 0) {
+                  val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
+                  BotChallengeIpRateLimit(req.ipAddress, cost = if me.isBot then 1 else 0) {
                     ChallengeUserRateLimit(me.id, cost = cost) {
                       val challenge = makeOauthChallenge(config, me, destUser)
-                      config.acceptByToken match {
+                      config.acceptByToken match
                         case Some(strToken) =>
                           apiChallengeAccept(destUser, challenge, strToken)(me, config.message)
                         case _ =>
@@ -329,7 +329,7 @@ final class Challenge(
                               ).toFuccess
                             case _ =>
                               env.challenge.api create challenge map {
-                                case true =>
+                                if _ then
                                   val json = env.challenge.jsonView
                                     .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
                                   if (config.keepAliveStream)
@@ -337,11 +337,9 @@ final class Challenge(
                                       apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
                                     )
                                   else JsonOk(json)
-                                case false =>
-                                  JsonBadRequest(jsonError("Challenge not created"))
+                                else JsonBadRequest(jsonError("Challenge not created"))
                               }
                           }
-                      }
                     }(rateLimitedFu)
                   }(rateLimitedFu)
               }
@@ -369,7 +367,7 @@ final class Challenge(
       dest: UserModel,
       challenge: lila.challenge.Challenge,
       strToken: String
-  )(managedBy: lila.user.User, message: Option[Template])(using req: RequestHeader) =
+  )(managedBy: lila.user.User, message: Option[Template])(using req: RequestHeader): Fu[Result] =
     env.oAuth.server.auth(
       Bearer(strToken),
       List(lila.oauth.OAuthScope.Challenge.Write),
@@ -395,42 +393,41 @@ final class Challenge(
       )
     }
 
-  def openCreate =
-    Action.async { implicit req =>
-      given play.api.i18n.Lang = reqLang
-      env.setup.forms.api.open
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(apiFormError(err)).toFuccess,
-          config =>
-            ChallengeIpRateLimit(req.ipAddress) {
-              import lila.challenge.Challenge.*
-              val challenge = lila.challenge.Challenge.make(
-                variant = config.variant,
-                initialFen = config.position,
-                timeControl = TimeControl.make(config.clock, config.days),
-                mode = chess.Mode(config.rated),
-                color = "random",
-                challenger = Challenger.Open,
-                destUser = none,
-                rematchOf = none,
-                name = config.name,
-                openToUserIds = config.userIds,
-                rules = config.rules
-              )
-              (env.challenge.api create challenge) map {
-                case true =>
-                  JsonOk(
-                    env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
-                      "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
-                      "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
-                    )
+  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { implicit req => me =>
+    given play.api.i18n.Lang = reqLang
+    env.setup.forms.api.open
+      .bindFromRequest()
+      .fold(
+        err => BadRequest(apiFormError(err)).toFuccess,
+        config =>
+          ChallengeIpRateLimit(req.ipAddress) {
+            import lila.challenge.Challenge.*
+            val challenge = lila.challenge.Challenge.make(
+              variant = config.variant,
+              initialFen = config.position,
+              timeControl = TimeControl.make(config.clock, config.days),
+              mode = chess.Mode(config.rated),
+              color = "random",
+              challenger = Challenger.Open,
+              destUser = none,
+              rematchOf = none,
+              name = config.name,
+              openToUserIds = config.userIds,
+              rules = config.rules
+            )
+            env.challenge.api.createOpen(challenge, me) map {
+              case true =>
+                JsonOk(
+                  env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
+                    "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
+                    "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
                   )
-                case false => BadRequest(jsonError("Challenge not created"))
-              }
-            }(rateLimitedFu).dmap(_ as JSON)
-        )
-    }
+                )
+              case false => BadRequest(jsonError("Challenge not created"))
+            }
+          }(rateLimitedFu).dmap(_ as JSON)
+      )
+  }
 
   def offerRematchForGame(gameId: GameId) =
     Auth { implicit ctx => me =>
