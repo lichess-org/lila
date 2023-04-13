@@ -2,7 +2,7 @@ package views.html.base
 
 import controllers.routes
 import play.api.libs.json.Json
-import scala.language.reflectiveCalls
+import scala.reflect.Selectable.reflectiveSelectable
 
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
