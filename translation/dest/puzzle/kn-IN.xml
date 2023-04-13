@@ -39,13 +39,13 @@
   <string name="normal">ಸಾಧಾರಣ</string>
   <string name="easier">ಸುಲಭ</string>
   <string name="easiest">ಅತೀ ಸುಲಭ</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">ನಿಮ್ಮ ಒಗಟು ಧಾರಣೆಯಿಂದ ಒಂದು ಅಂಕ ಕೆಳಗೆ ಇದೆ</item>
     <item quantity="other">ನಿಮ್ಮ ಒಗಟು ಧಾರಣೆಗಿಂತ %s ಅಂಕಗಳು ಕೆಳಗೆ ಇದೆ</item>
   </plurals>
   <string name="harder">ಕ್ಲಿಷ್ಟ</string>
   <string name="hardest">ಅತೀ ಕ್ಲಿಷ್ಟ</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">ನಿಮ್ಮ ಒಗಟು ಧಾರಣೆಗಿಂತ ಒಂದು ಅಂಕ ಮೇಲೆ ಇದೆ</item>
     <item quantity="other">ನಿಮ್ಮ ಒಗಟು ಧಾರಣೆಗಿಂತ %s ಅಂಕಗಳು ಮೇಲೆ ಇದೆ</item>
   </plurals>
