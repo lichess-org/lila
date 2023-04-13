@@ -567,7 +567,7 @@
   <string name="socialMediaLinks">Посилання на соціальні мережі</string>
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
-  <string name="savingMoves">Тимчасове сховище для переїзду</string>
+  <string name="savingMoves">Тимчасове сховище ходів</string>
   <string name="savingMovesHelp">Ми завжди зберігаємо ваші варіанти в кеші браузера.</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
   <string name="clearSavedMoves">Очистити ходи</string>
@@ -1034,5 +1034,5 @@
   <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Наші поради щодо організації подій</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Наші поради щодо організації подій</string>
 </resources>
