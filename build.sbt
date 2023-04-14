@@ -11,7 +11,7 @@ lazy val root = Project("lila", file("."))
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
-/* .settings(scalacOptions ++= Seq("-Wunused:all")) */
+  .settings(scalacOptions ++= Seq("-deprecation"))
 
 organization         := "org.lichess"
 Compile / run / fork := true
