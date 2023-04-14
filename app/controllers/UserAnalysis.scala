@@ -57,16 +57,6 @@ final class UserAnalysis(
       }
     }
 
-  def engineSelection(engineId: String) =
-    Open { implicit ctx =>
-      val pov         = makePov(none, Standard)
-      val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
-      env.api.roundApi
-        .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me) map { data =>
-        Ok(html.board.userAnalysis(data, pov, engineId = engineId.some)).enableSharedArrayBuffer
-      }
-    }
-
   private[controllers] def makePov(fen: Option[Fen.Epd], variant: Variant): Pov =
     makePov {
       fen.filter(_.value.nonEmpty).flatMap {

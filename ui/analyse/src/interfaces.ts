@@ -154,7 +154,6 @@ export interface AnalyseOpts {
   };
   wiki?: boolean;
   inlinePgn?: string;
-  engineId?: string;
   externalEngineEndpoint: string;
 }
 

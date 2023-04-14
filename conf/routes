@@ -191,7 +191,6 @@ GET   /$lang<\w\w\w?>/racer             controllers.Racer.homeLang(lang)
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/pgn/*pgn               controllers.UserAnalysis.pgn(pgn)
-GET   /analysis/engine/*something      controllers.UserAnalysis.engineSelection(something)
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something)
 GET   /analysis                        controllers.UserAnalysis.index
 

@@ -156,8 +156,9 @@ export default class AnalyseCtrl {
 
     keyboard.bind(this);
 
-    if (opts.engineId) {
-      this.getCeval().selectedEngine(opts.engineId);
+    const urlEngine = new URLSearchParams(location.search).get('engine');
+    if (urlEngine) {
+      this.getCeval().selectedEngine(urlEngine);
       if (!this.ceval.enabled()) this.toggleCeval();
     }
 
