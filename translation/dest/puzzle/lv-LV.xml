@@ -43,14 +43,14 @@
   <string name="normal">Parasta</string>
   <string name="easier">Vieglāka</string>
   <string name="easiest">Visvieglākā</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="zero">%s punktu zem jūsu uzdevumu reitinga</item>
     <item quantity="one">%s punkts zem jūsu pužļu reitinga</item>
     <item quantity="other">%s punkti zem jūsu uzdevumu reitinga</item>
   </plurals>
   <string name="harder">Grūtāka</string>
   <string name="hardest">Visgrūtākā</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="zero">%s punktu virs jūsu uzdevumu reitinga</item>
     <item quantity="one">%s punkts virs jūsu uzdevumu reitinga</item>
     <item quantity="other">%s punkti virs jūsu uzdevumu reitinga</item>

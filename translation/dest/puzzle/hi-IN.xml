@@ -41,13 +41,13 @@
   <string name="normal">समान्य</string>
   <string name="easier">आसान</string>
   <string name="easiest">सबसे आसान</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">पहीली की गणना मे से एक अंक नीचे</item>
     <item quantity="other">पहेली की गणना मे से %s अंक नीचे</item>
   </plurals>
   <string name="harder">कठिन</string>
   <string name="hardest">सबसे कठिन</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">पहेली की गणना मे से एक अंक नीचे</item>
     <item quantity="other">पहेली की गणना मे से %s अंक नीचे</item>
   </plurals>
