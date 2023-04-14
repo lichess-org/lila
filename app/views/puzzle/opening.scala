@@ -51,7 +51,7 @@ object opening:
       )
     )
 
-  private[puzzle] def listOf(families: List[PuzzleOpening.FamilyWithCount])(implicit ctx: Context) =
+  private[puzzle] def listOf(families: List[PuzzleOpening.FamilyWithCount])(using Context) =
     div(cls := "puzzle-openings__list")(families map { fam =>
       a(cls := "puzzle-openings__link", href := routes.Puzzle.show(fam.family.key.value))(
         h3(
@@ -61,10 +61,8 @@ object opening:
       )
     })
 
-  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(using
-      ctx: Context
-  ) =
-    openings map { case (fam, openings) =>
+  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(using Context) =
+    openings map { (fam, openings) =>
       div(cls := "puzzle-openings__tree__family")(
         h2(
           familyLink(fam.family, mine),
@@ -93,11 +91,11 @@ object opening:
     dataFen := family.full.map(_.fen)
   )(href := routes.Puzzle.show(family.key.value))(family.name)
 
-  def orderSelect(order: Order)(implicit ctx: Context) =
+  def orderSelect(order: Order)(using Context) =
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
-      Order.values.map { o =>
+      Order.list.map { o =>
         a(href := routes.Puzzle.openings(o.key), cls := (order == o).option("current"))(o.name())
       }
     )

@@ -170,7 +170,8 @@ enum Order(val key: String, val name: I18nKey):
 
 object Order:
   val default                   = Hot
-  val withoutMine               = values.filterNot(_ == Mine)
+  val list                      = values.toList
+  val withoutMine               = list.filterNot(_ == Mine)
   val withoutSelector           = withoutMine.filter(o => o != Oldest && o != Alphabetical)
-  private val byKey             = values.mapBy(_.key)
+  private val byKey             = list.mapBy(_.key)
   def apply(key: String): Order = byKey.getOrElse(key, default)

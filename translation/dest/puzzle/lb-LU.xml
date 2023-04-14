@@ -41,13 +41,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Méi einfach</string>
   <string name="easiest">Einfachst</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Ee Punkt ënner denger Aufgabebewärtung</item>
     <item quantity="other">%s Punkten ënner denger Aufgabebewärtung</item>
   </plurals>
   <string name="harder">Méi schwéier</string>
   <string name="hardest">Schwéierst</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Ee Punkt iwwer denger Aufgabebewärtung</item>
     <item quantity="other">%s Punkten iwwer denger Aufgabebewärtung</item>
   </plurals>

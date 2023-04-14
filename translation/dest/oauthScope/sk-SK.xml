@@ -29,6 +29,6 @@
   <string name="botPlay">Hrať partie s API botom</string>
   <string name="engineRead">Zobrazovať a používať vlastné externé motory</string>
   <string name="engineWrite">Vytvárať a aktualizovať externé motory</string>
-  <string name="webLogin">Vytváranie overených relácií webovej lokality (udeľuje úplný prístup!)</string>
+  <string name="webLogin">Vytvoriť overené webové pripojenia (udeľuje úplný prístup!)</string>
   <string name="webMod">Používať nástroje moderátora (v rámci Vášho povolenia)</string>
 </resources>

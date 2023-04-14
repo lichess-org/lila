@@ -61,7 +61,9 @@
   <string name="history">História úloh</string>
   <string name="solved">vyriešené</string>
   <string name="failed">zlyhané</string>
+  <string name="streakDescription">Riešte postupne ťažšie úlohy a dosiahnite nepretržitú sériu správnych riešení. Nie sú tu žiadne hodiny, takže sa neponáhľajte. Stačí jeden nesprávny ťah a séria sa končí! V každej sérii je však môžete jeden ťah vynechať.</string>
   <string name="yourStreakX">Vaša séria výhier: %s</string>
+  <string name="streakSkipExplanation">Preskočte tento ťah, aby ste neprerušili sériu! Funguje len raz za sériu.</string>
   <string name="continueTheStreak">Pokračovať v sérii výhier</string>
   <string name="newStreak">Nová séria výhier</string>
   <string name="fromMyGames">Z mojich partií</string>

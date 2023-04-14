@@ -370,6 +370,21 @@ body.no-inquiry {
     }
   }
 
+  .view-games {
+    > span {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      text-align: center;
+    }
+    a {
+      display: block;
+      padding: 0.5em 1.3em;
+      text-transform: initial;
+      text-align: left;
+    }
+  }
+
   .history li {
     @extend %nowrap-ellipsis;
 
