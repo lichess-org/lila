@@ -322,6 +322,7 @@ beyinsiz
 bok yedin
 ezik
 gerizekal[iı]
+göt
 ibne
 ka[sş]ar
 oç+
@@ -343,6 +344,7 @@ cancer
 (kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
 g?kys
 k y s
+ky5
 nigg?[ae]r
 rap(ed?|e?ing)
 """)
