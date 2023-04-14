@@ -93,11 +93,11 @@ object opening:
     dataFen := family.full.map(_.fen)
   )(href := routes.Puzzle.show(family.key.value))(family.name)
 
-  def orderSelect(order: Order)(implicit ctx: Context) =
+  def orderSelect(order: Order)(using Context) =
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
-      Order.values.map { o =>
+      Order.list.map { o =>
         a(href := routes.Puzzle.openings(o.key), cls := (order == o).option("current"))(o.name())
       }
     )

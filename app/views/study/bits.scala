@@ -16,12 +16,12 @@ object bits:
   def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) =
     val orders =
       if (active == "all") Order.withoutSelector
-      else if (active startsWith "topic") Order.values
+      else if (active startsWith "topic") Order.list
       else Order.withoutMine
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
-      orders map { o =>
+      orders.map { o =>
         a(href := url(o.key), cls := (order == o).option("current"))(o.name())
       }
     )
