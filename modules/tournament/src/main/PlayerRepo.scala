@@ -343,7 +343,8 @@ final class PlayerRepo(coll: Coll)(using Executor):
       )
     }
 
-  def teamsWithPlayers(tourId: TourId): Fu[Set[TeamId]] = coll.distinctEasy[TeamId, Set]("t", selectTour(tourId))
+  def teamsWithPlayers(tourId: TourId): Fu[Set[TeamId]] =
+    coll.distinctEasy[TeamId, Set]("t", selectTour(tourId))
 
   private[tournament] def sortedCursor(
       tournamentId: TourId,

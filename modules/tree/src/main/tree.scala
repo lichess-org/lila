@@ -6,28 +6,28 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.{ Ply, Square, Check }
-import chess.variant.{Variant, Crazyhouse}
+import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.{ *, given }
 
-import Node.{Comments, Comment, Gamebook, Shapes}
+import Node.{ Comments, Comment, Gamebook, Shapes }
 
 //opaque type not working due to cyclic ref try again later
 // either we decide that branches strictly represent all the children from a node
-// with the first being the mainline, OR we just use it as an List with extra functionalities 
+// with the first being the mainline, OR we just use it as an List with extra functionalities
 case class Branches(nodes: List[Branch]) extends AnyVal:
   def first      = nodes.headOption
   def variations = nodes.drop(1)
-  def isEmpty = nodes.isEmpty
-  def nonEmpty = !isEmpty
+  def isEmpty    = nodes.isEmpty
+  def nonEmpty   = !isEmpty
 
   def ::(b: Branch) = Branches(b :: nodes)
   def :+(b: Branch) = Branches(nodes :+ b)
 
   def get(id: UciCharPair): Option[Branch] = nodes.find(_.id == id)
-  def hasNode(id: UciCharPair): Boolean = nodes.exists(_.id == id)
+  def hasNode(id: UciCharPair): Boolean    = nodes.exists(_.id == id)
 
   def getNodeAndIndex(id: UciCharPair): Option[(Branch, Int)] =
     nodes.zipWithIndex.collectFirst {
@@ -66,8 +66,8 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def deleteNodeAt(path: UciPath): Option[Branches] =
     path.split flatMap {
       case (head, p) if p.isEmpty && hasNode(head) => Branches(nodes.filterNot(_.id == head)).some
-      case (_, p) if p.isEmpty                 => none
-      case (head, tail)                        => updateChildren(head, _.deleteNodeAt(tail))
+      case (_, p) if p.isEmpty                     => none
+      case (head, tail)                            => updateChildren(head, _.deleteNodeAt(tail))
     }
 
   def promoteToMainlineAt(path: UciPath): Option[Branches] =
@@ -79,8 +79,6 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
             Branches(promoted :: nodes.filterNot(node ==))
           }
         }
-        
-
 
   def promoteUpAt(path: UciPath): Option[(Branches, Boolean)] =
     path.split match
@@ -103,10 +101,9 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
     }
 
   def updateAllWith(op: Branch => Branch): Branches =
-      Branches(nodes.map { n =>
-        op(n.copy(children = n.children.updateAllWith(op)))
-      })
-    
+    Branches(nodes.map { n =>
+      op(n.copy(children = n.children.updateAllWith(op)))
+    })
 
   def update(child: Branch): Branches =
     Branches(nodes.map {
@@ -115,7 +112,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
     })
 
   def updateWith(id: UciCharPair, op: Branch => Option[Branch]): Option[Branches] =
-   get(id) flatMap op map update
+    get(id) flatMap op map update
 
   def updateChildren(id: UciCharPair, f: Branches => Option[Branches]): Option[Branches] =
     updateWith(id, _ withChildren f)
@@ -149,8 +146,8 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
 object Branches:
   // already included by `TotalWrapper`?
-  //def apply(branches: List[Branch]): Branches = branches
-  val empty: Branches = Branches(Nil)
+  // def apply(branches: List[Branch]): Branches = branches
+  val empty: Branches  = Branches(Nil)
   given Zero[Branches] = Zero(empty)
 
 sealed trait Node:
@@ -208,14 +205,14 @@ case class Root(
   def forceVariation = false
 
   // def addChild(branch: Branch)     = copy(children = children :+ branch)
-  def addChild(child: Branch) = copy(children = children addNode child)
+  def addChild(child: Branch)      = copy(children = children addNode child)
   def prependChild(branch: Branch) = copy(children = branch :: children)
-  def dropFirstChild               = copy(children = if (children.isEmpty) children else Branches(children.variations))
+  def dropFirstChild = copy(children = if (children.isEmpty) children else Branches(children.variations))
 
   def withChildren(f: Branches => Option[Branches]) =
-      f(children) map { newChildren =>
-        copy(children = newChildren)
-      }
+    f(children) map { newChildren =>
+      copy(children = newChildren)
+    }
 
   def withoutChildren = copy(children = Branches.empty)
 
@@ -274,20 +271,20 @@ case class Root(
   def lastMainlinePly = mainline.lastOption.fold(Ply(0))(_.ply)
 
   def lastMainlinePlyOf(path: UciPath) =
-      mainline
-        .zip(path.computeIds)
-        .takeWhile { (node, id) => node.id == id }
-        .lastOption
-        .fold(Ply(0)) { (node, _) => node.ply }
+    mainline
+      .zip(path.computeIds)
+      .takeWhile { (node, id) => node.id == id }
+      .lastOption
+      .fold(Ply(0)) { (node, _) => node.ply }
 
   def mainlinePath = UciPath.fromIds(mainline.map(_.id))
 
   def lastMainlineNode: Node = children.lastMainlineNode getOrElse this
 
   def takeMainlineWhile(f: Branch => Boolean) =
-      if children.first.isDefined
-      then copy(children = children.takeMainlineWhile(f))
-      else this
+    if children.first.isDefined
+    then copy(children = children.takeMainlineWhile(f))
+    else this
 
   override def toString = "ROOT"
 
@@ -297,7 +294,7 @@ object Root:
       ply = Ply(0),
       fen = variant.initialFen,
       check = Check.No,
-      crazyData = variant.crazyhouse option Crazyhouse.Data.init,
+      crazyData = variant.crazyhouse option Crazyhouse.Data.init
     )
 
 case class Branch(
@@ -335,18 +332,18 @@ case class Branch(
     }
   def withoutChildren = copy(children = Branches.empty)
 
-  def addChild(branch: Branch): Branch = copy(children = children :+ branch)
+  def addChild(branch: Branch): Branch   = copy(children = children :+ branch)
   def withClock(centis: Option[Centis])  = copy(clock = centis)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
-  
-  def isCommented = comments.value.nonEmpty
+
+  def isCommented                          = comments.value.nonEmpty
   def setComment(comment: Comment)         = copy(comments = comments set comment)
   def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
   def deleteComments                       = copy(comments = Comments.empty)
 
   def setGamebook(gamebook: Gamebook) = copy(gamebook = gamebook.some)
-  def setShapes(s: Shapes) = copy(shapes = s)
-  def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
+  def setShapes(s: Shapes)            = copy(shapes = s)
+  def toggleGlyph(glyph: Glyph)       = copy(glyphs = glyphs toggle glyph)
 
   def updateMainlineLast(f: Branch => Branch): Branch =
     children.first.fold(f(this)) { main =>
@@ -365,8 +362,8 @@ case class Branch(
       children = children.first.fold(Branches.empty) { child => Branches(List(child.clearVariations)) }
     )
 
-  def prependChild(branch: Branch)     = copy(children = branch :: children)
-  def dropFirstChild                   = copy(children = if (children.isEmpty) children else Branches(children.variations))
+  def prependChild(branch: Branch) = copy(children = branch :: children)
+  def dropFirstChild = copy(children = if (children.isEmpty) children else Branches(children.variations))
 
   def setComp = copy(comp = true)
 

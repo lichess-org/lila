@@ -5,7 +5,7 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Ply, Check, variant }
 import org.specs2.mutable._
 
-import lila.tree.{Branch, Branches, Root}
+import lila.tree.{ Branch, Branches, Root }
 
 class PgnDumpTest extends Specification {
 

@@ -213,7 +213,7 @@ object BSONHandlers:
           F.glyphs   -> r.glyphs.nonEmpty,
           F.score    -> r.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
           F.clock    -> r.clock,
-          F.crazy -> r.crazyData
+          F.crazy    -> r.crazyData
         )
       }
     )
