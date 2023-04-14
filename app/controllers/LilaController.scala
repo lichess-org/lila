@@ -46,7 +46,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val rateLimitedFu              = rateLimited.toFuccess
   protected def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
 
-  implicit protected def LilaFunitToResult(funit: Funit)(using req: RequestHeader): Fu[Result] =
+  implicit protected def LilaFunitToResult(@nowarn funit: Funit)(using req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)
@@ -164,7 +164,7 @@ abstract private[controllers] class LilaController(val env: Env)
   private def handleAuth(f: Context => UserModel => Fu[Result], req: RequestHeader): Fu[Result] =
     CSRF(req) {
       reqToCtx(req) flatMap { ctx =>
-        ctx.me.fold(authenticationFailed(ctx))(f(ctx))
+        ctx.me.fold(authenticationFailed(using ctx))(f(ctx))
       }
     }
 
@@ -175,7 +175,7 @@ abstract private[controllers] class LilaController(val env: Env)
     Action.async(parser) { req =>
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
-          ctx.me.fold(authenticationFailed(ctx))(f(ctx))
+          ctx.me.fold(authenticationFailed(using ctx))(f(ctx))
         }
       }
     }
@@ -323,7 +323,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NoShadowban[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     if (ctx.me.exists(_.marks.troll)) notFound else a
 
-  protected def NoPlayban(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  protected def NoPlayban(a: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.userId.??(env.playban.api.currentBan) flatMap {
       _.fold(a) { ban =>
         negotiate(
@@ -345,7 +345,7 @@ abstract private[controllers] class LilaController(val env: Env)
     ) as JSON
   }
 
-  protected def NoCurrentGame(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  protected def NoCurrentGame(a: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.??(env.preloader.currentGameMyTurn) flatMap {
       _.fold(a) { current =>
         negotiate(
@@ -362,7 +362,7 @@ abstract private[controllers] class LilaController(val env: Env)
       }
     }
 
-  protected def NoPlaybanOrCurrent(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  protected def NoPlaybanOrCurrent(a: => Fu[Result])(using ctx: Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
 
   protected def JsonOk(body: JsValue): Result             = Ok(body) as JSON
@@ -387,7 +387,7 @@ abstract private[controllers] class LilaController(val env: Env)
         op
       )
 
-  protected def FormFuResult[A, B: Writeable: ContentTypeOf](
+  protected def FormFuResult[A, B: Writeable](
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[?]) =
     form
@@ -399,45 +399,45 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def FuRedirect(fua: Fu[Call]) = fua map { Redirect(_) }
 
-  protected def OptionOk[A, B: Writeable: ContentTypeOf](
+  protected def OptionOk[A, B: Writeable](
       fua: Fu[Option[A]]
-  )(op: A => B)(implicit ctx: Context): Fu[Result] =
+  )(op: A => B)(using ctx: Context): Fu[Result] =
     OptionFuOk(fua) { a =>
       fuccess(op(a))
     }
 
-  protected def OptionFuOk[A, B: Writeable: ContentTypeOf](
+  protected def OptionFuOk[A, B: Writeable](
       fua: Fu[Option[A]]
-  )(op: A => Fu[B])(implicit ctx: Context) =
-    fua flatMap { _.fold(notFound(ctx))(a => op(a) dmap { Ok(_) }) }
+  )(op: A => Fu[B])(using ctx: Context) =
+    fua flatMap { _.fold(notFound(using ctx))(a => op(a) dmap { Ok(_) }) }
 
-  protected def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(implicit ctx: Context) =
+  protected def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(using ctx: Context) =
     fua flatMap {
-      _.fold(notFound(ctx))(a =>
+      _.fold(notFound)(a =>
         op(a) map { b =>
           Redirect(b)
         }
       )
     }
 
-  protected def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A => Fu[String])(implicit ctx: Context) =
+  protected def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A => Fu[String])(using ctx: Context) =
     fua flatMap {
-      _.fold(notFound(ctx))(a =>
+      _.fold(notFound)(a =>
         op(a) map { b =>
           Redirect(b)
         }
       )
     }
 
-  protected def OptionResult[A](fua: Fu[Option[A]])(op: A => Result)(implicit ctx: Context) =
+  protected def OptionResult[A](fua: Fu[Option[A]])(op: A => Result)(using ctx: Context) =
     OptionFuResult(fua) { a =>
       fuccess(op(a))
     }
 
-  protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(implicit ctx: Context) =
-    fua flatMap { _.fold(notFound(ctx))(a => op(a)) }
+  protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[Result])(using ctx: Context) =
+    fua flatMap { _.fold(notFound)(op) }
 
-  def notFound(implicit ctx: Context): Fu[Result] =
+  def notFound(using ctx: Context): Fu[Result] =
     negotiate(
       html =
         if (HTTPRequest isSynchronousHttp ctx.req) fuccess(renderNotFound(ctx))
@@ -457,18 +457,18 @@ abstract private[controllers] class LilaController(val env: Env)
     err ++ Json.obj("error" -> err)
 
   protected def notFoundReq(req: RequestHeader): Fu[Result] =
-    reqToCtx(req) flatMap (x => notFound(x))
+    reqToCtx(req).flatMap(notFound(using _))
 
   protected def isGranted(permission: Permission.Selector, user: UserModel): Boolean =
     Granter(permission(Permission))(user)
 
-  protected def isGranted(permission: Permission.Selector)(implicit ctx: Context): Boolean =
+  protected def isGranted(permission: Permission.Selector)(using ctx: Context): Boolean =
     isGranted(permission(Permission))
 
-  protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
+  protected def isGranted(permission: Permission)(using ctx: Context): Boolean =
     ctx.me ?? Granter(permission)
 
-  protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
+  protected def authenticationFailed(using ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess {
         Redirect(
@@ -485,7 +485,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
 
-  protected def authorizationFailed(implicit ctx: Context): Fu[Result] =
+  protected def authorizationFailed(using ctx: Context): Fu[Result] =
     negotiate(
       html = if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
         Forbidden(views.html.site.message.authFailed)
@@ -497,9 +497,9 @@ abstract private[controllers] class LilaController(val env: Env)
     negotiate(
       html = fuccess(Results.Forbidden("Authorization failed")),
       api = _ => fuccess(forbiddenJsonResult)
-    )(req)
+    )(using req)
 
-  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit
+  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(using
       req: RequestHeader
   ): Fu[Result] =
     lila.api.Mobile.Api
@@ -510,14 +510,14 @@ abstract private[controllers] class LilaController(val env: Env)
       .dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    restoreUser(req) flatMap { case (d, impersonatedBy) =>
+    restoreUser(req) flatMap { (d, impersonatedBy) =>
       val lang = getAndSaveLang(req, d.map(_.user))
       val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
       pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
     }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
-    restoreUser(req) flatMap { case (d, impersonatedBy) =>
+    restoreUser(req) flatMap { (d, impersonatedBy) =>
       val lang = getAndSaveLang(req, d.map(_.user))
       val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
       pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
@@ -531,7 +531,7 @@ abstract private[controllers] class LilaController(val env: Env)
   private def pageDataBuilder(ctx: UserContext, hasFingerPrint: Boolean): Fu[PageData] =
     val isPage = HTTPRequest isSynchronousHttp ctx.req
     val nonce  = isPage option Nonce.random
-    ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(ctx)))) { me =>
+    ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(using ctx)))) { me =>
       env.pref.api.getPref(me, ctx.req) zip {
         if (isPage)
           env.user.lightUserApi preloadUser me
@@ -550,7 +550,7 @@ abstract private[controllers] class LilaController(val env: Env)
           nbChallenges,
           nbNotifications,
           pref,
-          blindMode = blindMode(ctx),
+          blindMode = blindMode(using ctx),
           hasFingerprint = hasFingerPrint,
           hasClas = isGranted(_.Teacher, me) || env.clas.studentCache.isStudent(me.id),
           inquiry = inquiry,
@@ -559,7 +559,7 @@ abstract private[controllers] class LilaController(val env: Env)
       }
     }
 
-  private def blindMode(implicit ctx: UserContext) =
+  private def blindMode(using ctx: UserContext) =
     ctx.req.cookies.get(env.api.config.accessibility.blindCookieName) ?? { c =>
       c.value.nonEmpty && c.value == env.api.config.accessibility.hash
     }
@@ -592,12 +592,12 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").toFuccess
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
-    if (csrfCheck(req)) f else csrfForbiddenResult
+    if csrfCheck(req) then f else csrfForbiddenResult
 
-  protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
+  protected def XhrOnly(res: => Fu[Result])(using ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound
 
-  protected def XhrOrRedirectHome(res: => Fu[Result])(implicit ctx: Context) =
+  protected def XhrOrRedirectHome(res: => Fu[Result])(using ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res
     else Redirect(routes.Lobby.home).toFuccess
 
@@ -616,8 +616,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def NotManaged(result: => Fu[Result])(using ctx: Context) =
     ctx.me.??(env.clas.api.student.isManaged) flatMap {
-      case true => notFound
-      case _    => result
+      if _ then notFound else result
     }
 
   private val jsonGlobalErrorRenamer =
@@ -679,7 +678,7 @@ abstract private[controllers] class LilaController(val env: Env)
       else
         import I18nLangPicker.ByHref
         I18nLangPicker.byHref(langCode, ctx.req) match
-          case ByHref.NotFound => notFound(ctx)
+          case ByHref.NotFound => notFound(using ctx)
           case ByHref.Redir(code) =>
             redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")(ctx.req).toFuccess
           case ByHref.Refused(_) => redirectWithQueryString(path)(ctx.req).toFuccess

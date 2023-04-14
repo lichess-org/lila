@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.Centis
-import chess.Pos
+import chess.Square
 import chess.format.pgn.{ Comment as ChessComment }
 import lila.common.Maths
 import lila.tree.Node.{ Shape, Shapes }
@@ -72,7 +72,7 @@ private[study] object CommentParser:
         val circles = str.split(',').toList.map(_.trim).flatMap { c =>
           for {
             color <- c.headOption
-            pos   <- Pos fromKey c.drop(1)
+            pos   <- Square fromKey c.drop(1)
           } yield Shape.Circle(toBrush(color), pos)
         }
         Shapes(circles) -> circlesRemoveRegex.replaceAllIn(comment, "").trim
@@ -84,8 +84,8 @@ private[study] object CommentParser:
         val arrows = str.split(',').toList.flatMap { c =>
           for {
             color <- c.headOption
-            orig  <- Pos fromKey c.slice(1, 3)
-            dest  <- Pos fromKey c.slice(3, 5)
+            orig  <- Square fromKey c.slice(1, 3)
+            dest  <- Square fromKey c.slice(3, 5)
           } yield Shape.Arrow(toBrush(color), orig, dest)
         }
         Shapes(arrows) -> arrowsRemoveRegex.replaceAllIn(comment, "").trim

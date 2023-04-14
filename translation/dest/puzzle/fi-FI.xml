@@ -28,6 +28,11 @@
   <string name="keepGoing">Jatka…</string>
   <string name="puzzleSuccess">Onnistui!</string>
   <string name="puzzleComplete">Tehtävä ratkaistu!</string>
+  <string name="byOpenings">Avausryhmitys</string>
+  <string name="puzzlesByOpenings">Tehtäviä avausten mukaan ryhmitettyinä</string>
+  <string name="openingsYouPlayedTheMost">Pisteytetyissä peleissä eniten pelaamasi avaukset</string>
+  <string name="useFindInPage">Löydä lempiavauksesi valitsemalla selaimen valikosta \"Etsi sivulta\"!</string>
+  <string name="useCtrlF">Löydä lempiavauksesi painamalla Ctrl+F!</string>
   <string name="notTheMove">Tuo siirto se ei ole!</string>
   <string name="trySomethingElse">Kokeile jotain muuta.</string>
   <string name="ratingX">Vahvuusluku: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Keskitaso</string>
   <string name="easier">Helpompi</string>
   <string name="easiest">Helpoin</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Yhden pisteen matalampi tehtävävahvuusluku kuin sinulla</item>
     <item quantity="other">%s pistettä matalampi tehtävävahvuusluku kuin sinulla</item>
   </plurals>
   <string name="harder">Vaikeampi</string>
   <string name="hardest">Vaikein</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Yhden pisteen korkeampi tehtävävahvuusluku kuin sinulla</item>
     <item quantity="other">%s pistettä korkeampi tehtävävahvuusluku kuin sinulla</item>
   </plurals>

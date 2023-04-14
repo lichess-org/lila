@@ -28,6 +28,11 @@
   <string name="keepGoing">続ける…</string>
   <string name="puzzleSuccess">成功！</string>
   <string name="puzzleComplete">問題終了！</string>
+  <string name="byOpenings">オープニング別</string>
+  <string name="puzzlesByOpenings">オープニング別の問題</string>
+  <string name="openingsYouPlayedTheMost">レート戦でもっともよく使ったオープニング</string>
+  <string name="useFindInPage">ブラウザのページ内検索（Ctrl+F）を使えばお好きなオープニングが探せます。</string>
+  <string name="useCtrlF">Ctrl+F を使えばお好きなオープニングが探せます。</string>
   <string name="notTheMove">その手は違います！</string>
   <string name="trySomethingElse">別の手をどうぞ。</string>
   <string name="ratingX">レーティング: %s</string>
@@ -41,12 +46,12 @@
   <string name="normal">通常</string>
   <string name="easier">易しい</string>
   <string name="easiest">非常に易しい</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="other">あなたのレーティングより %s 点下</item>
   </plurals>
   <string name="harder">難しい</string>
   <string name="hardest">非常に難しい</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="other">あなたのレーティングより %s 点上</item>
   </plurals>
   <string name="example">例</string>

@@ -63,4 +63,5 @@
   <string name="notifyPush">Gailuko jakinarazpena Lichessen ez zaudenean</string>
   <string name="notifyWeb">Nabigatzailea</string>
   <string name="notifyDevice">Gailua</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Kanpaiaren jakinarazpen soinua</string>
 </resources>

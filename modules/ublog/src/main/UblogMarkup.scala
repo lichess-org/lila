@@ -4,8 +4,7 @@ import java.util.regex.Matcher
 import play.api.Mode
 
 import lila.common.config
-import lila.common.{ Bus, Chronometer, Markdown, MarkdownRender }
-import lila.game.Game
+import lila.common.{ Bus, Markdown, MarkdownRender }
 import lila.hub.actorApi.lpv.GamePgnsFromText
 import lila.memo.CacheApi
 

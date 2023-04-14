@@ -13,7 +13,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
 
   def generateSessionId() = SecureRandom nextString 22
 
-  def session(name: String, value: String, remember: Boolean = true)(using req: RequestHeader): Cookie =
+  def session(name: String, value: String, remember: Boolean = true)(using RequestHeader): Cookie =
     withSession(remember) { s =>
       s + (name -> value)
     }

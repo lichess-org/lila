@@ -3,7 +3,7 @@ package lila.tv
 import akka.pattern.{ ask as actorAsk }
 import play.api.libs.json.Json
 
-import lila.common.{ Bus, LightUser }
+import lila.common.Bus
 import lila.common.Json.given
 import lila.game.{ Game, Pov }
 import lila.hub.SyncActor

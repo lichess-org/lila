@@ -19,11 +19,10 @@ final class SimulApi(
     gameRepo: GameRepo,
     onGameStart: lila.round.OnStart,
     socket: SimulSocket,
-    renderer: lila.hub.actors.Renderer,
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler):
 
   private val workQueue = lila.hub.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
@@ -266,5 +265,5 @@ final class SimulApi(
 
   private object publish:
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer   = new Debouncer[Unit](5 seconds, 1)(_ => Bus.publish(siteMessage, "sendToFlag"))
+    private val debouncer   = Debouncer[Unit](5 seconds, 1)(_ => Bus.publish(siteMessage, "sendToFlag"))
     def apply()             = debouncer.push(()).unit

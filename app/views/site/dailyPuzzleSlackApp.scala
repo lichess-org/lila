@@ -1,13 +1,13 @@
 package views.html.site
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
+import lila.api.Context
+import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
 
 object dailyPuzzleSlackApp:
 
-  def apply()(implicit ctx: Context) =
+  def apply()(using Context) =
     views.html.base.layout(
       title = "Daily Chess Puzzle by Lichess (Slack App)",
       moreCss = cssTag("page")

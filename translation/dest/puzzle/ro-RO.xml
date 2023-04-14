@@ -43,14 +43,14 @@
   <string name="normal">Normal</string>
   <string name="easier">Mai ușor</string>
   <string name="easiest">Cel mai ușor</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Un punct sub ratingul tău de puzzle-uri</item>
     <item quantity="few">%s puncte sub ratingul tău de puzzle-uri</item>
     <item quantity="other">%s de puncte sub ratingul tău de puzzle-uri</item>
   </plurals>
   <string name="harder">Mai Greu</string>
   <string name="hardest">Cel mai greu</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Un punct deasupra ratingului tău de puzzle-uri</item>
     <item quantity="few">%s puncte deasupra ratingului tău de puzzle-uri</item>
     <item quantity="other">%s de puncte deasupra ratingului tău de puzzle-uri</item>

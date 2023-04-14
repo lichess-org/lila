@@ -1,31 +1,29 @@
 package lila.plan
 
-import lila.user.User
-
 case class Patron(
     _id: UserId,
     stripe: Option[Patron.Stripe] = none,
     payPal: Option[Patron.PayPalLegacy] = none,
     payPalCheckout: Option[Patron.PayPalCheckout] = none,
     free: Option[Patron.Free] = none,
-    expiresAt: Option[DateTime] = none,
+    expiresAt: Option[Instant] = none,
     lifetime: Option[Boolean] = None,
-    lastLevelUp: Option[DateTime] = None
+    lastLevelUp: Option[Instant] = None
 ):
 
   inline def id     = _id
   inline def userId = _id
 
-  def canLevelUp = lastLevelUp.exists(_.isBefore(nowDate.minusDays(25)))
+  def canLevelUp = lastLevelUp.exists(_.isBefore(nowInstant.minusDays(25)))
 
   def levelUpIfPossible =
     copy(
-      lastLevelUp = if (canLevelUp) Some(nowDate) else lastLevelUp orElse Some(nowDate)
+      lastLevelUp = if canLevelUp then nowInstant.some else lastLevelUp orElse nowInstant.some
     )
 
   def expireInOneMonth: Patron =
     copy(
-      expiresAt = nowDate.plusMonths(1).plusDays(1).some
+      expiresAt = nowInstant.plusMonths(1).plusDays(1).some
     )
 
   def expireInOneMonth(cond: Boolean): Patron =
@@ -68,7 +66,7 @@ object Patron:
   case class PayPalLegacy(
       email: Option[PayPalLegacy.Email],
       subId: Option[PayPalLegacy.SubId],
-      lastCharge: DateTime
+      lastCharge: Instant
   ):
     def renew = subId.isDefined
   object PayPalLegacy:
@@ -77,4 +75,4 @@ object Patron:
     opaque type SubId = String
     object SubId extends OpaqueString[SubId]
 
-  case class Free(at: DateTime, by: Option[UserId])
+  case class Free(at: Instant, by: Option[UserId])

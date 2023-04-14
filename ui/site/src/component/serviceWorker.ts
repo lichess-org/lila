@@ -34,7 +34,13 @@ export default async function () {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(newSub),
+          body: JSON.stringify({
+            ...newSub.toJSON(),
+            encodings: {
+              aes128gcm: PushManager.supportedContentEncodings.includes('aes128gcm'),
+              aesgcm: PushManager.supportedContentEncodings.includes('aesgcm'),
+            },
+          }),
         });
         if (res.ok && !res.redirected) store.set('' + Date.now());
         else newSub.unsubscribe();

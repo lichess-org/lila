@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.{ Centis, Color }
+import chess.{ Centis, Color, ByColor }
 import reactivemongo.api.bson.*
 
 import lila.common.config
@@ -11,7 +11,7 @@ import lila.user.User
 
 case class InsightPerfStats(
     rating: MeanRating,
-    nbGames: Color.Map[Int],
+    nbGames: ByColor[Int],
     time: FiniteDuration
 ):
   def totalNbGames = nbGames.white + nbGames.black
@@ -73,7 +73,7 @@ final class InsightPerfStatsApi(
           ids <- doc.getAsOpt[List[String]]("ids")
           gameIds = ids map { Game.strToId(_) }
         } yield pt -> InsightPerfStats.WithGameIds(
-          InsightPerfStats(MeanRating(ra.toInt), Color.Map(nw, nb), t.toDuration),
+          InsightPerfStats(MeanRating(ra.toInt), ByColor(nw, nb), t.toDuration),
           gameIds
         )
       }.map(_.toMap)

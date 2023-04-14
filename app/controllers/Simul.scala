@@ -5,7 +5,6 @@ import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.simul.{ Simul as Sim }
 
@@ -189,7 +188,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   def edit(id: SimulId) =
     Auth { implicit ctx => me =>
-      WithEditableSimul(id, me) { simul =>
+      WithEditableSimul(id) { simul =>
         env.team.api.lightsByLeader(me.id) map { teams =>
           Ok(html.simul.form.edit(forms.edit(me, teams, simul), teams, simul))
         }
@@ -198,7 +197,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   def update(id: SimulId) =
     AuthBody { implicit ctx => me =>
-      WithEditableSimul(id, me) { simul =>
+      WithEditableSimul(id) { simul =>
         given play.api.mvc.Request[?] = ctx.body
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
           forms
@@ -219,9 +218,7 @@ final class Simul(env: Env) extends LilaController(env):
       case _                                                                       => fuccess(Unauthorized)
     }
 
-  private def WithEditableSimul(id: SimulId, me: lila.user.User)(
-      f: Sim => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using Context): Fu[Result] =
     AsHost(id) { sim =>
       if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).toFuccess
       else f(sim)

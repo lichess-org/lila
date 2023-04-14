@@ -41,7 +41,7 @@ case class UserRecord(
       case 1 | 2 => 5
       case _     => 4
 
-  def bannable(accountCreationDate: DateTime): Option[TempBan] = {
+  def bannable(accountCreationDate: Instant): Option[TempBan] = {
     rageSitRecidive || {
       outcomes.lastOption.exists(_ != Outcome.Good) && {
         // too many bad overall
@@ -63,11 +63,11 @@ case class UserRecord(
       }
     }
 
-case class TempBan(date: DateTime, mins: Int):
+case class TempBan(date: Instant, mins: Int):
 
   def endsAt = date plusMinutes mins
 
-  def remainingSeconds: Int = (endsAt.getSeconds - nowSeconds).toInt atLeast 0
+  def remainingSeconds: Int = (endsAt.toSeconds - nowSeconds).toInt atLeast 0
 
   def remainingMinutes: Int = (remainingSeconds / 60) atLeast 1
 
@@ -79,7 +79,7 @@ object TempBan:
 
   private def make(minutes: Int) =
     TempBan(
-      nowDate,
+      nowInstant,
       minutes atMost 3 * 24 * 60
     )
 
@@ -90,10 +90,10 @@ object TempBan:
     *   - 0 - 3 days: linear scale from 3x to 1x
     *   - >3 days quick drop off Account less than 3 days old --> 2x the usual time
     */
-  def make(bans: Vector[TempBan], accountCreationDate: DateTime): TempBan =
+  def make(bans: Vector[TempBan], accountCreationDate: Instant): TempBan =
     make {
       (bans.lastOption ?? { prev =>
-        prev.endsAt.toNow.getStandardHours.toSaturatedInt match {
+        prev.endsAt.toNow.toHours.toSaturatedInt match {
           case h if h < 72 => prev.mins * (132 - h) / 60
           case h           => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
         }

@@ -662,6 +662,8 @@
   <string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
   <string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>
   <string name="simulHostExtraTime">Időbónusz</string>
+  <string name="simulAddExtraTimePerPlayer">A beállított idő hozzáadása az órádhoz minden szimultánhoz csatlakozó játékos után.</string>
+  <string name="simulHostExtraTimePerPlayer">Játékosonként extra idő az órához</string>
   <string name="lichessTournaments">Lichess versenyek</string>
   <string name="tournamentFAQ">Aréna verseny GYIK</string>
   <string name="timeBeforeTournamentStarts">Kezdés ennyi perc múlva</string>
@@ -946,4 +948,5 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="lichessDbExplanation">A Lichess játékosok értékelt játszmáiból összeállítva</string>
   <string name="switchSides">Oldal megfordítása</string>
   <string name="closingAccountWithdrawAppeal">A fiókod lezárása visszavonja a fellebbezésed</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Tippjeink események szervezéséhez</string>
 </resources>

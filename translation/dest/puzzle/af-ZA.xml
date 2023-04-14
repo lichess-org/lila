@@ -28,6 +28,11 @@
   <string name="keepGoing">Hou aan…</string>
   <string name="puzzleSuccess">Sukses!</string>
   <string name="puzzleComplete">Raaisel voltooid!</string>
+  <string name="byOpenings">Vir openinge</string>
+  <string name="puzzlesByOpenings">Raaisels vir openinge</string>
+  <string name="openingsYouPlayedTheMost">Openinge wat jy die meeste in gradeerde spelle speel</string>
+  <string name="useFindInPage">Gebruik die \"Find in page\" in die blaaier se gids om jou gunsteling opening te vind!</string>
+  <string name="useCtrlF">Gebruik Ctrl+f om jou gensteling opening te vind!</string>
   <string name="notTheMove">Dit is nie die skuif nie!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
   <string name="ratingX">Gradering: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Normaal</string>
   <string name="easier">Makliker</string>
   <string name="easiest">Maklikste</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Een punt onder jou raaisel gradering</item>
     <item quantity="other">%s punte onder jou raaisel gradering</item>
   </plurals>
   <string name="harder">Moeiliker</string>
   <string name="hardest">Moeilikste</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Een punt bo jou raaisel gradering</item>
     <item quantity="other">%s punt bo jou raaisel gradering</item>
   </plurals>
@@ -73,7 +78,7 @@
   <string name="searchPuzzles">Soek raaisels</string>
   <string name="fromMyGamesNone">Jy het geen raaisels in die databasis nie, maar Lichess waardeer steeds jou.
 
-Speel snel en klasieke spelle om jou kanse te verhoog dat een van jou eie raaisels bygevoeg word!</string>
+Speel snel en klassieke spelle om jou kanse te verhoog dat een van jou eie raaisels bygevoeg word!</string>
   <string name="fromXGamesFound">%1$s raaisels gevind in %2$s se spelle</string>
   <string name="puzzleDashboardDescription">Oefen, analiseer, verbeter</string>
   <plurals name="nbPlayed">

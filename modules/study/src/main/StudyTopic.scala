@@ -7,7 +7,6 @@ import lila.common.LilaFuture
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import lila.common.Iso
 import lila.common.config.Max
 
 opaque type StudyTopic = String

@@ -28,6 +28,11 @@
   <string name="keepGoing">Continúa…</string>
   <string name="puzzleSuccess">Feito!</string>
   <string name="puzzleComplete">Crebacabezas terminado!</string>
+  <string name="byOpenings">Por aperturas</string>
+  <string name="puzzlesByOpenings">Exercicios por aperturas</string>
+  <string name="openingsYouPlayedTheMost">Aperturas que máis xogaches en partidas puntuables</string>
+  <string name="useFindInPage">Usa \"Encontrar na páxina\" no menú do navegador para atopar a túa apertura favorita!</string>
+  <string name="useCtrlF">Usa Ctrl+f para atopar a túa apertura favorita!</string>
   <string name="notTheMove">Ese non é o movemento!</string>
   <string name="trySomethingElse">Proba outra cosa.</string>
   <string name="ratingX">Puntuación: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Máis fácil</string>
   <string name="easiest">O máis fácil</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">%s puntos por debaixo da túa puntuación de exercicios</item>
     <item quantity="other">%s puntos por debaixo da túa puntuación de exercicios</item>
   </plurals>
   <string name="harder">Máis difícil</string>
   <string name="hardest">O máis difícil</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Un punto por riba da túa puntuación de exercicios</item>
     <item quantity="other">%s puntos por riba da túa puntuación de exercicios</item>
   </plurals>

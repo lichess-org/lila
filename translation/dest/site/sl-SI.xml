@@ -731,6 +731,8 @@
   <string name="simulClockHint">Fischerjeva nastavitev ure. Več igralcev kot sprejmeš, več časa boš morda potreboval.</string>
   <string name="simulAddExtraTime">Uri lahko dodaš več časa v pomoč pri igranju simultanke.</string>
   <string name="simulHostExtraTime">Dodaten čas za gostitelja</string>
+  <string name="simulAddExtraTimePerPlayer">Dodajte začetni čas svoji uri za vsakega igralca, ki se pridruži simultanki.</string>
+  <string name="simulHostExtraTimePerPlayer">Gostite dodatni čas na igralca</string>
   <string name="lichessTournaments">Lichess turnirji</string>
   <string name="tournamentFAQ">Turnirji - odgovori na pogosta vprašanja</string>
   <string name="timeBeforeTournamentStarts">Čas do začetka turnirja</string>
@@ -1025,4 +1027,5 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="lichessDbExplanation">Rangirane igre, vzorčene od vseh igralcev Lichess</string>
   <string name="switchSides">Zamenjaj strani</string>
   <string name="closingAccountWithdrawAppeal">Z zaprtjem računa bo vaša pritožba umaknjena</string>
+  <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
 </resources>

@@ -9,6 +9,7 @@ import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.memo.CacheApi
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,

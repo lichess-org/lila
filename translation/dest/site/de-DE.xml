@@ -662,6 +662,8 @@
   <string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
   <string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
   <string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
+  <string name="simulAddExtraTimePerPlayer">Füge deiner Uhr für jeden Spieler, der deinem Simultan beitritt, zu Beginn zusätzliche Bedenkzeit hinzu.</string>
+  <string name="simulHostExtraTimePerPlayer">Zusätzliche Bedenkzeit je Spieler für den Ausrichter</string>
   <string name="lichessTournaments">Lichess Turniere</string>
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
@@ -946,4 +948,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="lichessDbExplanation">Aus gewerteten Partien aller Lichess-Spieler</string>
   <string name="switchSides">andere Farbe</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Unsere Tipps für die Organisation von Veranstaltungen</string>
 </resources>

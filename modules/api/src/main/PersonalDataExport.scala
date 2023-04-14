@@ -2,11 +2,8 @@ package lila.api
 
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
-import org.joda.time.format.DateTimeFormat
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
-import lila.chat.Chat
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.streamer.Streamer
@@ -25,8 +22,7 @@ final class PersonalDataExport(
     ublogApi: lila.ublog.UblogApi,
     streamerApi: lila.streamer.StreamerApi,
     coachApi: lila.coach.CoachApi,
-    picfitUrl: lila.memo.PicfitUrl,
-    mongoCacheApi: lila.memo.MongoCache.Api
+    picfitUrl: lila.memo.PicfitUrl
 )(using Executor, Materializer):
 
   private val lightPerSecond = 60
@@ -237,5 +233,7 @@ final class PersonalDataExport(
 
   private def textTitle(t: String) = s"\n${"=" * t.length}\n$t\n${"=" * t.length}\n"
 
-  private val englishDateTimeFormatter = DateTimeFormat forStyle "MS"
-  private def textDate(date: DateTime) = englishDateTimeFormatter print date
+  import java.time.format.{ DateTimeFormatter, FormatStyle }
+  private val englishDateTimeFormatter =
+    DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+  private def textDate(date: Instant) = englishDateTimeFormatter print date

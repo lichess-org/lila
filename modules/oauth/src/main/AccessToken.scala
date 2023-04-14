@@ -2,23 +2,21 @@ package lila.oauth
 
 import reactivemongo.api.bson.*
 import com.roundeights.hasher.Algo
-import ornicar.scalalib.SecureRandom
 
 import lila.common.Bearer
-import lila.user.User
 
 case class AccessToken(
     id: AccessToken.Id,
     plain: Bearer,
     userId: UserId,
-    createdAt: Option[DateTime],
+    createdAt: Option[Instant],
     description: Option[String], // for personal access tokens
-    usedAt: Option[DateTime] = None,
+    usedAt: Option[Instant] = None,
     scopes: List[OAuthScope],
     clientOrigin: Option[String],
-    expires: Option[DateTime]
+    expires: Option[Instant]
 ):
-  def isBrandNew = createdAt.exists(nowDate.minusSeconds(5).isBefore)
+  def isBrandNew = createdAt.exists(nowInstant.minusSeconds(5).isBefore)
 
   def isDangerous = scopes.exists(OAuthScope.dangerList.contains)
 
@@ -68,15 +66,15 @@ object AccessToken:
         id = r.get[Id](id),
         plain = r.get[Bearer](plain),
         userId = r.get[UserId](userId),
-        createdAt = r.getO[DateTime](createdAt),
+        createdAt = r.getO[Instant](createdAt),
         description = r strO description,
-        usedAt = r.getO[DateTime](usedAt),
+        usedAt = r.getO[Instant](usedAt),
         scopes = r.get[List[OAuthScope]](scopes),
         clientOrigin = r strO clientOrigin,
-        expires = r.getO[DateTime](expires)
+        expires = r.getO[Instant](expires)
       )
 
-    def writes(w: BSON.Writer, o: AccessToken) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: AccessToken) =
       $doc(
         id           -> o.id,
         plain        -> o.plain,

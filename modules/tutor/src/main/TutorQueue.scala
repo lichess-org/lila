@@ -4,7 +4,6 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import com.softwaremill.tagging.*
 
-import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, LightUserApi }
 import lila.common.config.Max
@@ -46,14 +45,14 @@ final private class TutorQueue(
 
   def enqueue(user: User): Fu[Status] = workQueue {
     colls.queue.insert
-      .one($doc(F.id -> user.id, F.requestedAt -> nowDate))
+      .one($doc(F.id -> user.id, F.requestedAt -> nowInstant))
       .recover(lila.db.ignoreDuplicateKey)
       .void >> fetchStatus(user)
   }
 
   def next: Fu[List[Next]] =
     colls.queue.find($empty).sort($sort asc F.requestedAt).cursor[Next]().list(parallelism.get())
-  def start(userId: UserId): Funit  = colls.queue.updateField($id(userId), F.startedAt, nowDate).void
+  def start(userId: UserId): Funit  = colls.queue.updateField($id(userId), F.startedAt, nowInstant).void
   def remove(userId: UserId): Funit = colls.queue.delete.one($id(userId)).void
 
   def waitingGames(user: User): Fu[List[(Pov, PgnStr)]] = for
@@ -71,7 +70,7 @@ final private class TutorQueue(
   }
 
   private def fetchStatus(user: User): Fu[Status] =
-    colls.queue.primitiveOne[DateTime]($id(user.id), F.requestedAt) flatMap {
+    colls.queue.primitiveOne[Instant]($id(user.id), F.requestedAt) flatMap {
       _.fold(fuccess(NotInQueue)) { at =>
         for
           position    <- colls.queue.countSel($doc(F.requestedAt $lte at))
@@ -87,7 +86,7 @@ object TutorQueue:
   case class InQueue(position: Int, avgDuration: FiniteDuration) extends Status:
     def eta = avgDuration * position
 
-  case class Next(_id: UserId, startedAt: Option[DateTime]):
+  case class Next(_id: UserId, startedAt: Option[Instant]):
     def userId = _id
   object Next:
     given BSONDocumentReader[Next] = Macros.reader

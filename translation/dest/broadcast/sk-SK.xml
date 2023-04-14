@@ -11,19 +11,20 @@
   <string name="roundNumber">Číslo kola</string>
   <string name="tournamentName">Názov turnaja</string>
   <string name="tournamentDescription">Krátky popis turnaja</string>
-  <string name="fullDescription">Dlhý popis udalosti</string>
+  <string name="fullDescription">Úplný popis turnaja</string>
   <string name="fullDescriptionHelp">Voliteľný dlhý popis vysielania. %1$s je dostupný. Dĺžka musí byť menej ako %2$s znakov.</string>
   <string name="sourceUrlOrGameIds">Zdrojová URL alebo ID partií</string>
-  <string name="sourceUrlHelp">URL, ktorý Liches bude kontrolovať pre získanie PGN aktualizácií. Musí byť verejne dostupný z internetu.</string>
+  <string name="sourceUrlHelp">URL, ktorú bude Lichess kontrolovať, aby získal aktualizácie PGN. Musí byť verejne prístupná z internetu.</string>
   <string name="gameIdsHelp">Prípadne môžete zadať až 64 ID Lichess partií oddelených medzerami.</string>
   <string name="startDate">Dátum a čas začiatku, vo vašej časovej zóne</string>
   <string name="startDateHelp">Voliteľné, ak viete kedy sa udalosť začne</string>
-  <string name="credits">Kreditujte zdroj</string>
+  <string name="credits">Uveďte zdroj</string>
   <string name="resetRound">Resetovať toto kolo</string>
   <string name="deleteRound">Vymazať toto kolo</string>
   <string name="broadcastUrl">Adresa URL pre sledovanie</string>
   <string name="currentRoundUrl">Adresa URL aktuálneho kola</string>
   <string name="currentGameUrl">Adresa URL aktuálnej partie</string>
   <string name="downloadAllRounds">Stiahnuť všetky kolá</string>
-  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Definitívne vymazať kolo a hry tohto kola.</string>
+  <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Definitívne vymazať kolo a partie tohto kola.</string>
+  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round. &quot;Source&quot; refers to the broadcasting source, usually an URL pointing to a PGN file which is continuously updated by the tournament organizers and polled by Lichess to get new moves. The button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source the next time it is polled by Lichess.">Vymazať všetky partie tohto kola. K opätovnému vytvoreniu partií bude potrebné aby bol zdroj aktívny.</string>
 </resources>

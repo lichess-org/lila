@@ -1,8 +1,5 @@
 package lila.puzzle
 
-import scala.util.chaining.*
-import chess.Color
-
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -33,9 +30,9 @@ final class PuzzleSelector(
       )
       .mon(_.puzzle.selector.user.time(angle.key))
 
-  private def findNextPuzzleFor(user: User, angle: PuzzleAngle, retries: Int = 0): Fu[Puzzle] =
+  private def findNextPuzzleFor(user: User, angle: PuzzleAngle, retries: Int): Fu[Puzzle] =
     sessionApi
-      .continueOrCreateSessionFor(user, angle)
+      .continueOrCreateSessionFor(user, angle, canFlush = retries == 0)
       .flatMap { session =>
         import NextPuzzleResult.*
 
@@ -45,7 +42,7 @@ final class PuzzleSelector(
             s"No puzzle path for ${user.id} $angle $tier" flatMap { pathId =>
               val newSession = session.switchTo(pathId)
               sessionApi.set(user, newSession)
-              findNextPuzzleFor(user, angle, retries = retries + 1)
+              findNextPuzzleFor(user, angle, retries = withRetries + 1)
             }
 
         def serveAndMonitor(puzzle: Puzzle) =
@@ -66,7 +63,7 @@ final class PuzzleSelector(
             case PuzzleMissing(id) =>
               logger.warn(s"Puzzle missing: $id")
               sessionApi.set(user, session.next)
-              findNextPuzzleFor(user, angle, retries)
+              findNextPuzzleFor(user, angle, retries + 1)
             case PuzzleAlreadyPlayed(_) if retries < 5 =>
               sessionApi.set(user, session.next)
               findNextPuzzleFor(user, angle, retries = retries + 1)

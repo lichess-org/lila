@@ -2,7 +2,7 @@ package views.html.mod
 
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
@@ -39,14 +39,14 @@ object gamify:
           ),
           table(cls := "slist slist-pad history")(
             tbody(
-              history.headOption.filterNot(_.date.getMonthOfYear == 12).map { h =>
+              history.headOption.filter(_.date.getMonthValue != 12).map { h =>
                 yearHeader(h.date.getYear)
               },
               history.map { h =>
                 frag(
-                  h.date.getMonthOfYear == 12 option yearHeader(h.date.getYear),
+                  h.date.getMonthValue == 12 option yearHeader(h.date.getYear),
                   tr(
-                    th(h.date.monthOfYear.getAsText),
+                    th(h.date.getMonth.getDisplayName(java.time.format.TextStyle.FULL, ctx.lang.locale)),
                     th(userIdLink(h.champion.modId.some, withOnline = false)),
                     td(cls := "score")(h.champion.score.localize),
                     td(h.champion.action.localize),

@@ -7,7 +7,6 @@ import lila.common.config.MaxPerPage
 import lila.common.Maths
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
-import lila.db.paginator.Adapter
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
 
@@ -25,12 +24,12 @@ final class LeaderboardApi(
 
   def bestByUser(user: User, page: Int) = paginator(user, page, sortBest = true)
 
-  def timeRange(userId: UserId, range: (DateTime, DateTime)): Fu[List[Entry]] =
+  def timeRange(userId: UserId, range: TimeInterval): Fu[List[Entry]] =
     repo.coll
       .find(
         $doc(
           "u" -> userId,
-          "d" $gt range._1 $lt range._2
+          "d" $gt range.start $lt range.end
         )
       )
       .sort($sort desc "d")
@@ -67,7 +66,7 @@ final class LeaderboardApi(
         }
       }
 
-  def getAndDeleteRecent(userId: UserId, since: DateTime): Fu[List[TourId]] =
+  def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] =
     repo.coll.list[Entry](
       $doc(
         "u" -> userId,
@@ -134,7 +133,7 @@ object LeaderboardApi:
       freq: Option[Schedule.Freq],
       speed: Option[Schedule.Speed],
       perf: PerfType,
-      date: DateTime
+      date: Instant
   )
 
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]):

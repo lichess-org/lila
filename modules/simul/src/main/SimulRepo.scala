@@ -6,7 +6,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private[simul] class SimulRepo(val coll: Coll)(using Executor):
 
@@ -29,7 +28,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
         wins = r boolO "wins",
         hostColor = r.strO("hostColor").flatMap(chess.Color.fromName) | chess.White
       )
-    def writes(w: BSON.Writer, o: SimulPairing) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: SimulPairing) =
       $doc(
         "player"    -> o.player,
         "gameId"    -> o.gameId,
@@ -80,8 +79,8 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .find(
         // hits partial index hostSeenAt_-1
         createdSelect ++ featurableSelect ++ $doc(
-          "hostSeenAt" $gte nowDate.minusSeconds(12),
-          "createdAt" $gte nowDate.minusHours(1)
+          "hostSeenAt" $gte nowInstant.minusSeconds(12),
+          "createdAt" $gte nowInstant.minusHours(1)
         )
       )
       .sort(createdSort)
@@ -138,7 +137,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
     coll.update
       .one(
         $id(simul.id),
-        $set("hostSeenAt" -> nowDate)
+        $set("hostSeenAt" -> nowInstant)
       )
       .void
 
@@ -153,6 +152,6 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
   def cleanup =
     coll.delete.one(
       createdSelect ++ $doc(
-        "createdAt" -> $doc("$lt" -> (nowDate minusMinutes 60))
+        "createdAt" -> $doc("$lt" -> (nowInstant minusMinutes 60))
       )
     )

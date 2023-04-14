@@ -663,6 +663,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="simulClockHint">Modello Fischer Clock. Più giocatori sfidi, più tempo ti potrebbe servire.</string>
   <string name="simulAddExtraTime">Puoi aggiungere più tempo al tuo orologio per far fronte alla simultanea.</string>
   <string name="simulHostExtraTime">Tempo aggiuntivo del simultaneista</string>
+  <string name="simulAddExtraTimePerPlayer">Aggiungi del tempo al tuo orologio per ogni giocatore che si unisce alla simultanea.</string>
+  <string name="simulHostExtraTimePerPlayer">Tempo extra per il simultaneista per ciascun giocatore</string>
   <string name="lichessTournaments">Tornei Lichess</string>
   <string name="tournamentFAQ">Domande frequenti sui tornei</string>
   <string name="timeBeforeTournamentStarts">Tempo prima dell\'inizio del torneo</string>
@@ -947,4 +949,5 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="lichessDbExplanation">Partite classificate di tutti i giocatori di Lichess</string>
   <string name="switchSides">Cambia colore</string>
   <string name="closingAccountWithdrawAppeal">Se cancelli il tuo account il tuo appello sarà ritirato</string>
+  <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
 </resources>

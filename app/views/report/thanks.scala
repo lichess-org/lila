@@ -1,8 +1,6 @@
 package views.html.report
 
-import scala.annotation.nowarn
-
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -14,7 +12,6 @@ object thanks:
 
     val title = "Thanks for the report"
 
-    @nowarn("msg=possible missing interpolator")
     val moreJs = embedJsUnsafeLoadThen("""
 $('button.report-block').one('click', function() {
 const $button = $(this);

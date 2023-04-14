@@ -1,15 +1,11 @@
 package lila.opening
 
-import chess.format.{ Fen, Uci }
 import chess.format.pgn.SanStr
 import chess.opening.Opening
 import com.softwaremill.tagging.*
-import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-
-import lila.game.Game
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
@@ -76,13 +72,13 @@ final private class OpeningExplorer(
         none
       }
 
-  private val dateFormat = DateTimeFormat.forPattern("yyyy-MM")
+  private val dateFormat = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM")
 
   private def historyOf(params: List[(String, String)]): Fu[PopularityHistoryAbsolute] =
     ws.url(s"$explorerEndpoint/lichess/history")
       .withQueryStringParameters(
         params ::: List(
-          "until" -> dateFormat.print(nowDate.minusDays(45))
+          "until" -> dateFormat.print(nowInstant.minusDays(45))
         )*
       )
       .withRequestTimeout(requestTimeout)

@@ -175,6 +175,7 @@ GET   /storm                            controllers.Storm.home
 POST  /storm                            controllers.Storm.record
 GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?= 1)
 GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username, page: Int ?= 1)
+GET   /api/storm                        controllers.Storm.apiGet
 GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username, days: Int ?= 30)
 GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang)
 
@@ -355,7 +356,7 @@ POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(i
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id)
 POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id)
 GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id)
-GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
+GET   /tournament/help                        controllers.Tournament.help
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
 GET   /tournament/shields/:categ              controllers.Tournament.categShields(categ)
@@ -384,7 +385,7 @@ POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id)
 GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id, page: Int)
 GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id, user)
 GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id, user)
-POST  /swiss/$id<\w{8}>/schedule-next-round   controllers.Swiss.scheduleNextRound(id)
+POST  /api/swiss/$id<\w{8}>/schedule-next-round controllers.Swiss.scheduleNextRound(id)
 GET   /$lang<\w\w\w?>/swiss                   controllers.Swiss.homeLang(lang)
 
 # Simul
@@ -523,7 +524,7 @@ GET   /auth/token/:token               controllers.Auth.loginWithToken(token)
 POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token, referrer: Option[String])
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
-GET   /auth/magic-link/sent/:email     controllers.Auth.magicLinkSent(email)
+GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
 GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token)
 
 # Mod
@@ -761,7 +762,7 @@ POST  /account/twofactor/setup         controllers.Account.setupTwoFactor
 POST  /account/twofactor/disable       controllers.Account.disableTwoFactor
 GET   /account/reopen                  controllers.Account.reopen
 POST  /account/reopen/send             controllers.Account.reopenApply
-GET   /account/reopen/sent/:email      controllers.Account.reopenSent(email)
+GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
 # App BC

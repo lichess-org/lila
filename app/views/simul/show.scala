@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -68,13 +68,24 @@ object show:
               ),
               trans.simulHostExtraTime(),
               ": ",
-              pluralize("minute", sim.clock.hostExtraMinutes),
+              pluralize("minute", sim.clock.hostExtraMinutes.value),
               br,
-              trans.hostColorX(sim.color match {
+              sim.clock.hostExtraTimePerPlayerForDisplay.map { time =>
+                frag(
+                  trans.simulHostExtraTimePerPlayer(),
+                  ": ",
+                  time match
+                    case Left(minutes)  => pluralize("minute", minutes.value)
+                    case Right(seconds) => pluralize("second", seconds.value)
+                  ,
+                  br
+                )
+              },
+              trans.hostColorX(sim.color match
                 case Some("white") => trans.white()
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
-              }),
+              ),
               sim.position.flatMap(p => lila.tournament.Thematic.byFen(p.opening)) map { pos =>
                 frag(br, a(targetBlank, href := pos.url)(pos.name))
               } orElse sim.position.map { fen =>
@@ -95,7 +106,7 @@ object show:
             sim.estimatedStartAt map { d =>
               frag(
                 br,
-                absClientDateTime(d)
+                absClientInstant(d)
               )
             }
           ),

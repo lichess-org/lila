@@ -2,7 +2,6 @@ package lila.game
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class CrosstableApi(
     coll: Coll,
@@ -80,7 +79,7 @@ final class CrosstableApi(
                 F.score1 -> inc1,
                 F.score2 -> inc2
               ) ++ $set(
-                F.lastPlayed -> nowDate
+                F.lastPlayed -> nowInstant
               ),
               upsert = true
             )

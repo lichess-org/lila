@@ -4,7 +4,6 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
-import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.game.GameRepo
 import lila.rating.Perf
 import lila.tree
@@ -16,7 +15,7 @@ final class JsonView(
     gameRepo: GameRepo
 )(using Executor):
 
-  import JsonView.{ *, given }
+  import JsonView.*
 
   def apply(
       puzzle: Puzzle,
@@ -133,7 +132,7 @@ final class JsonView(
 
   object bc:
 
-    def apply(puzzle: Puzzle, user: Option[User])(using Lang): Fu[JsObject] =
+    def apply(puzzle: Puzzle, user: Option[User]): Fu[JsObject] =
       gameJson(
         gameId = puzzle.gameId,
         plies = puzzle.initialPly,
@@ -147,7 +146,7 @@ final class JsonView(
           .add("user" -> user.map(_.perfs.puzzle.intRating).map(userJson))
       }
 
-    def batch(puzzles: Seq[Puzzle], user: Option[User])(using Lang): Fu[JsObject] = for {
+    def batch(puzzles: Seq[Puzzle], user: Option[User]): Fu[JsObject] = for {
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
       jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
         gameJson.noCacheBc(game, puzzle.initialPly) map { gameJson =>

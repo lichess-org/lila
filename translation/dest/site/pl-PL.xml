@@ -202,7 +202,7 @@
     <item quantity="other">%s dni</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">godzina</item>
+    <item quantity="one">%s godzina</item>
     <item quantity="few">%s godziny</item>
     <item quantity="many">%s godzin</item>
     <item quantity="other">%s godzin</item>
@@ -732,6 +732,8 @@
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
   <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
+  <string name="simulAddExtraTimePerPlayer">Dodaj początkowy czas do zegara dla każdego gracza dołączającego do symultany.</string>
+  <string name="simulHostExtraTimePerPlayer">Dodatkowy czas dla symultanisty za każdego gracza</string>
   <string name="lichessTournaments">Turnieje Lichess</string>
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
@@ -1025,4 +1027,5 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>
   <string name="switchSides">Zmień kolor</string>
   <string name="closingAccountWithdrawAppeal">Zamknięcie konta spowoduje wycofanie Twojego odwołania</string>
+  <string name="ourEventTips">Nasze wskazówki dotyczące organizacji wydarzeń</string>
 </resources>

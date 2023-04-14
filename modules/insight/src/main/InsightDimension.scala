@@ -1,12 +1,9 @@
 package lila.insight
 
-import chess.format.Fen
-import chess.opening.OpeningDb
 import chess.{ Color, Role }
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import scalatags.Text.all.*
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
@@ -29,7 +26,6 @@ object InsightDimension:
   import BSONHandlers.given
   import InsightPosition.*
   import InsightEntry.{ BSONFields as F }
-  import lila.analyse.AnalyseBsonHandlers.given
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period
@@ -328,7 +324,7 @@ object InsightDimension:
 
   def valueJson[X](d: InsightDimension[X])(v: X)(using lang: Lang): JsValue =
     d match
-      case Date                    => JsNumber(v.min.getSeconds)
+      case Date                    => JsNumber(v.min.toSeconds)
       case Period                  => JsString(v.toString)
       case Perf                    => JsString(v.trans)
       case Phase                   => JsString(v.name)

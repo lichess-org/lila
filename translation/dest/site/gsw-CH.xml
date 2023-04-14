@@ -391,7 +391,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="toStudy">Schtudie</string>
   <string name="importGame">Partie importiere</string>
   <string name="importGameExplanation">Füeg e Schpiel-PGN i, für Zuegriff uf Schpielwiderholig, Computeranalyse, Chat und e teilbari URL.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">d\'Variazione werded glöscht. Zums b\'halte, muesch d\'PGN mit ere Schtudie importiere.</string>
+  <string name="importGameCaveat">d\'Variazione werded glöscht. Zums b\'halte, muesch d\'PGN mit ere Schtudie importiere.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partie</item>
     <item quantity="other">%s importierti Partie</item>
@@ -671,6 +671,8 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Zit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir Extrazit geh, dass du z\'rächt chunsch.</string>
   <string name="simulHostExtraTime">Extrazit Simultanschpiller</string>
+  <string name="simulAddExtraTimePerPlayer">Gib für jede Schpiller, wo am Simultan teilnimmt, bi dinere Uhr Zit dezue</string>
+  <string name="simulHostExtraTimePerPlayer">Für jede Schpiller zuesätzlichi Zit addiere</string>
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Zit bis s\'Turnier afangt</string>
@@ -956,4 +958,5 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="lichessDbExplanation">Gwerteti Schpiel vu allne Lichess Schpiller</string>
   <string name="switchSides">Farb wächsle</string>
   <string name="closingAccountWithdrawAppeal">Wänn du dis Konto schlüssisch, ziehsch du au din Ischpruch zrugg</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Eusi Tipps, fürs Organisiere vu Events</string>
 </resources>

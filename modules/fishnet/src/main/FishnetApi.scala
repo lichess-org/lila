@@ -6,7 +6,6 @@ import scala.util.{ Failure, Success, Try }
 import Client.Skill
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 import lila.common.config.Max
 import lila.base.LilaNoStackTrace
 
@@ -149,7 +148,7 @@ final class FishnetApi(
       skill = Skill.Analysis,
       instance = None,
       enabled = true,
-      createdAt = nowDate
+      createdAt = nowInstant
     )
     repo addClient client inject client
 

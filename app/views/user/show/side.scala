@@ -3,7 +3,7 @@ package views.html.user.show
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
@@ -15,7 +15,7 @@ object side:
       u: User,
       rankMap: lila.rating.UserRankMap,
       active: Option[lila.rating.PerfType]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
       perf.nonEmpty option showPerf(perf, perfType)
@@ -84,13 +84,13 @@ object side:
           hr,
           showPerf(u.perfs.puzzle, PerfType.Puzzle),
           showStorm(u.perfs.storm, u),
-          showRacer(u.perfs.racer, u),
-          showStreak(u.perfs.streak, u)
+          showRacer(u.perfs.racer),
+          showStreak(u.perfs.streak)
         )
       )
     )
 
-  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
+  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Lang) =
     a(
       dataIcon := '',
       cls := List(
@@ -110,7 +110,7 @@ object side:
       iconTag("")
     )
 
-  private def showRacer(racer: lila.rating.Perf.Racer, user: User)(implicit lang: Lang) =
+  private def showRacer(racer: lila.rating.Perf.Racer)(using Lang) =
     a(
       dataIcon := '',
       cls := List(
@@ -130,7 +130,7 @@ object side:
       iconTag("")
     )
 
-  private def showStreak(streak: lila.rating.Perf.Streak, user: User)(implicit lang: Lang) =
+  private def showStreak(streak: lila.rating.Perf.Streak)(using Lang) =
     a(
       dataIcon := '',
       cls := List(

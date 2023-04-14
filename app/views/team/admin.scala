@@ -5,7 +5,7 @@ import play.api.data.Field
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -66,7 +66,7 @@ object admin:
       form: Form[?],
       tours: List[lila.tournament.Tournament],
       unsubs: Int,
-      limiter: (Int, DateTime)
+      limiter: (Int, Instant)
   )(using ctx: Context) =
     views.html.base.layout(
       title = s"${t.name} • ${messageAllMembers.txt()}",

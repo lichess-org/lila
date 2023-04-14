@@ -28,6 +28,11 @@
   <string name="keepGoing">Hãy tiếp tục…</string>
   <string name="puzzleSuccess">Thành công!</string>
   <string name="puzzleComplete">Hoàn thành thế cờ!</string>
+  <string name="byOpenings">Theo khai cuộc</string>
+  <string name="puzzlesByOpenings">Cờ thế theo khai cuộc</string>
+  <string name="openingsYouPlayedTheMost">Khai cuộc bạn thường chơi trong ván đấu xếp hạng</string>
+  <string name="useFindInPage">Dùng \"tìm kiếm trong trang\" trên trình duyệt để tìm khai cuộc yêu thích!</string>
+  <string name="useCtrlF">Dùng Ctrl+f để tìm khai cuộc yêu thích!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
   <string name="trySomethingElse">Hãy thử nước đi khác.</string>
   <string name="ratingX">Hệ số: %s</string>
@@ -41,12 +46,12 @@
   <string name="normal">Bình thường</string>
   <string name="easier">Dễ hơn</string>
   <string name="easiest">Dễ nhất</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="other">%s điểm dưới xếp hạng cờ thế của bạn</item>
   </plurals>
   <string name="harder">Khó hơn</string>
   <string name="hardest">Khó nhất</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="other">%s điểm trên xếp hạng cờ thế của bạn</item>
   </plurals>
   <string name="example">Ví dụ</string>

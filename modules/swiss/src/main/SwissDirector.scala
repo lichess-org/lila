@@ -1,11 +1,9 @@
 package lila.swiss
 
 import chess.{ Black, Color, White }
-import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.user.User
 
 final private class SwissDirector(
     mongo: SwissMongo,
@@ -49,11 +47,11 @@ final private class SwissDirector(
                   $unset("nextRoundAt", "settings.mp") ++ $set(
                     "round"       -> swiss.round,
                     "nbOngoing"   -> pairings.size,
-                    "lastRoundAt" -> nowDate
+                    "lastRoundAt" -> nowInstant
                   )
                 )
                 .void
-            date = nowDate
+            date = nowInstant
             byes = pendings.collect { case Left(bye) => bye.player }
             _ <- SwissPlayer.fields { f =>
               mongo.player.update

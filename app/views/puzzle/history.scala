@@ -3,7 +3,7 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -13,7 +13,7 @@ import lila.user.User
 
 object history:
 
-  def apply(user: User, page: Int, pager: Paginator[PuzzleSession])(implicit ctx: Context) =
+  def apply(user: User, pager: Paginator[PuzzleSession])(using ctx: Context) =
     val title =
       if (ctx is user) trans.puzzle.history.txt()
       else s"${user.username} ${trans.puzzle.history.txt()}"

@@ -20,8 +20,8 @@
   <string name="keyboardShortcutsExplanation">Niektoré Lichess stránky majú k dispozícii klávesové skratky. Vyskúšajte stlačiť kláves \'?\' na stránke so štúdiou, analýzou, šachovou úlohou alebo partiou a zobrazí sa zoznam dostupných klávesových skratiek.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kedy mám právo na automatické vrátenie ratingu od podvodníkov?</string>
-  <string name="ratingRefundExplanation">Jednu minútu po označení hráča sa zoberie jeho 40 hodnotených hier počas posledných troch dní. Ak ste v týchto hrách ich oponentom, stratili ste hodnotenie (kvôli prehre alebo remíze) a vaše hodnotenie nebolo predbežné, upraví sa váš rating. Úprava ratingu je obmedzená na základe vášho maximálneho hodnotenia a pokroku v hodnotení po skončení hry.
-(Napríklad, ak sa vaš rating po týchto hrách výrazne zvýšil, nemusí vám byť vrátený žiadnz alebo len časť.) Vrátenie nikdy nepresiahne 150 bodov.</string>
+  <string name="ratingRefundExplanation">Minútu po označení hráča sa pozrieme na jeho posledných 40 hodnotených partií za posledné 3 dni. Ak ste boli jeho súperom v týchto partiách, stratili ste rating (z dôvodu prehry alebo remízy) a Váš rating nebol provizórny, vrátime Vám ho. Výška vráteného ratingu je obmedzená Váším maximálnym ratingom a pohybom Vášho ratingu po tejto partii.
+(Napríklad, ak sa Váš rating po tejto partii výrazne zvýšil, je možné, že Vám bude vrátený len čiastočne alebo vôbec). Maximálna výška vráteného ratingu je 150 bodov.</string>
   <string name="preventLeavingGameWithoutResigning">Čo sa robí s hráčmi, ktorí odchádzajú z hry bez rezignácie?</string>
   <string name="leavingGameWithoutResigningExplanation">Ak váš súper často prerušuje / opúšťa hry, dostane \"herný ban\", čo znamená, že má dočasne zakázané hrať hry. Toto nie je verejne uvedené v ich profile. Ak toto správanie bude pokračovať, dĺžka herného banu sa zvýši - a dlhšie správanie tohto druhu môže viesť k uzavretiu účtu.</string>
   <string name="howCanIBecomeModerator">Ako sa môžem stať moderátorom?</string>
@@ -65,6 +65,7 @@ Je to opísané v časti 3.7(d) z %2$s:
 Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="goodIntroduction">dobrý úvod</string>
   <string name="lichessTraining">Lichess tréning</string>
+  <string name="watchIMRosenCheckmate">Sledujte ako medzinárocný majster Eric Rosen matuje ťahom %s!</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
   <string name="threefoldRepetitionExplanation">Ak sa pozícia objaví trikrát, hráči môžu reklamovať remízu %1$s. Lichess uplatňuje oficiálne pravidlá FIDE, ako je opísané v článku 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojnásobným opakovaním pozície</string>
@@ -114,9 +115,9 @@ Systém je v zásade 90% istý, že vaše hodnotenie je niekde medzi 800 a 2200.
 Je potrebné poznamenať, že s pribúdajúcim časom sa bude interval spoľahlivosti zvyšovať. To vám umožní rýchlejšie získavať / strácať body, aby ste zodpovedali akýmkoľvek zmenám vo svojej úrovni schopností za ten čas.</string>
   <string name="whatIsProvisionalRating">Prečo má niekto otáznik (?) vedľa ratingu?</string>
   <string name="provisionalRatingExplanation">Otáznik znamená, že rating je provizórny. Je to spôsobené:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Hráč ešte nedokončil dostatočný počet hodnotených hier proti %1$s v kategórii ratingu.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Hráč ešte nedohral dostatočný počet hodnotených partií proti %1$s v danej kategórii hodnotenia.</string>
   <string name="similarOpponents">súperi podobnej sily</string>
-  <string name="notPlayedRecently">Hráč nehral dosť súčasných hier. V závislosti od počtu hier, ktoré ste hrali, môže trvať asi rok nečinnosti, kým sa vaše hodnotenie stane predbežným.</string>
+  <string name="notPlayedRecently">Hráč neodohral v poslednej dobe dostatok partií. V závislosti od počtu odohraných partií môže trvať približne rok nečinnosti, kým sa Vaše hodnotenie opäť stane provizórnym.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkrétne to znamená, že odchýlka Glicko-2 je väčšia ako 110. Odchýlka je úroveň dôveryhodnosti systému v rating. Čím je odchýlka nižšia, tým je rating stabilnejší.</string>
   <string name="howDoLeaderoardsWork">Ako fungujú umiestnenia a rebríčky?</string>
   <string name="inOrderToAppearsYouMust">Aby ste sa dostali do %1$s, musíte:</string>

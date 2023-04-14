@@ -1,8 +1,6 @@
 package lila.puzzle
 
-import reactivemongo.api.*
-
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.memo.CacheApi
 
 final private class PuzzleCountApi(

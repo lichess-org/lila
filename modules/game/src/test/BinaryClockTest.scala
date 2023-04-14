@@ -9,7 +9,7 @@ import lila.db.ByteArray
 class BinaryClockTest extends Specification {
 
   val _0_                  = "00000000"
-  val since                = nowDate.minusHours(1)
+  val since                = nowInstant.minusHours(1)
   def writeBytes(c: Clock) = BinaryFormat.clock(since) write c
   def readBytes(bytes: ByteArray, berserk: Boolean = false): Clock =
     (BinaryFormat.clock(since).read(bytes, berserk, false))(White)

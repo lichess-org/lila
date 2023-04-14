@@ -27,7 +27,6 @@
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
     "@types/dom-screen-wake-lock": "1.0.0",
-    "chessground": "^8.3.7",
     "lichess-pgn-viewer": "^1.5.5",
     "snabbdom": "^3.5.1",
     "tablesort": "^5.3.0"

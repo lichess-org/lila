@@ -19,11 +19,11 @@ private object LoginToken:
   def makeTokener(secret: Secret, lifetime: FiniteDuration)(using Executor) =
     new StringToken[UserId](
       secret = secret,
-      getCurrentValue = _ => fuccess(DateStr toStr nowDate),
+      getCurrentValue = _ => fuccess(DateStr toStr nowInstant),
       currentValueHashSize = none,
       valueChecker = StringToken.ValueChecker.Custom(v =>
         fuccess {
-          DateStr.toDate(v) exists nowDate.minusSeconds(lifetime.toSeconds.toInt).isBefore
+          DateStr.toInstant(v) exists nowInstant.minus(lifetime).isBefore
         }
       )
     )

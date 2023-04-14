@@ -15,12 +15,10 @@ final class Signup(
     api: SecurityApi,
     ipTrust: IpTrust,
     forms: SecurityForm,
-    emailAddressValidator: EmailAddressValidator,
     emailConfirm: EmailConfirm,
     hcaptcha: Hcaptcha,
     authenticator: lila.user.Authenticator,
     userRepo: lila.user.UserRepo,
-    irc: lila.irc.IrcApi,
     disposableEmailAttempt: DisposableEmailAttempt,
     netConfig: NetConfig
 )(using Executor):
@@ -172,10 +170,13 @@ final class Signup(
   private def signupRateLimit(id: UserId, suspIp: Boolean, captched: Boolean)(
       f: => Fu[Signup.Result]
   )(using req: RequestHeader): Fu[Signup.Result] =
-    val cost = (if suspIp then 2 else 1) * (if captched then 1 else 2)
+    val ipCost = (if suspIp then 2 else 1) * (if captched then 1 else 2)
     PasswordHasher
-      .rateLimit[Signup.Result](enforce = netConfig.rateLimit, ipCost = cost)(id into UserIdOrEmail, req) {
-        _ => signupRateLimitPerIP(HTTPRequest ipAddress req, cost = cost)(f)(rateLimitDefault)
+      .rateLimit[Signup.Result](enforce = netConfig.rateLimit, userCost = 1, ipCost = ipCost)(
+        id into UserIdOrEmail,
+        req
+      ) { _ =>
+        signupRateLimitPerIP(HTTPRequest ipAddress req, cost = ipCost)(f)(rateLimitDefault)
       }(rateLimitDefault)
 
   private def logSignup(

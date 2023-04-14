@@ -6,7 +6,6 @@ import lila.game.{ Game, Pov }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage
-import lila.user.User
 import lila.common.Json.given
 
 final private class SimulSocket(
@@ -14,10 +13,7 @@ final private class SimulSocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(using
-    ec: Executor,
-    mode: play.api.Mode
-):
+)(using Executor):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
     rooms.tell(simulId into RoomId, NotifyVersion("hostGame", gameId.value))

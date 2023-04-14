@@ -3,7 +3,7 @@ package views.html.tournament
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -68,7 +68,7 @@ object home:
             br,
             a(href := routes.Tournament.history(Freq.Unique.name))(trans.arena.history()),
             br,
-            a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
+            a(href := routes.Tournament.help)(trans.tournamentFAQ())
           ),
           h2(trans.lichessTournaments()),
           div(cls := "scheduled")(
@@ -76,7 +76,7 @@ object home:
               tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>
                 a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
                   strong(tour.name(full = false)),
-                  momentFromNow(s.at)
+                  momentFromNow(s.at.instant)
                 )
               }
             }

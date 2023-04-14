@@ -7,6 +7,7 @@ import lila.report.Report
 import lila.appeal.Appeal
 import chess.variant.Variant
 import lila.clas.{ Clas, ClasInvite }
+import lila.challenge.Challenge
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
@@ -15,6 +16,7 @@ given gameFull: Conversion[String, GameFullId]                           = GameF
 given gameAny: Conversion[String, GameAnyId]                             = GameAnyId(_)
 given Conversion[String, StudyId]                                        = StudyId(_)
 given Conversion[String, StudyChapterId]                                 = StudyChapterId(_)
+given Conversion[String, lila.study.Order]                               = lila.study.Order(_)
 given Conversion[String, PuzzleId]                                       = PuzzleId(_)
 given Conversion[String, SimulId]                                        = SimulId(_)
 given Conversion[String, SwissId]                                        = SwissId(_)
@@ -24,12 +26,13 @@ given Conversion[String, RelayRoundId]                                   = Relay
 given Conversion[String, UblogPostId]                                    = UblogPostId(_)
 given Conversion[String, ForumCategId]                                   = ForumCategId(_)
 given Conversion[String, ForumTopicId]                                   = ForumTopicId(_)
+given Conversion[String, ForumPostId]                                    = ForumPostId(_)
+given challengeId: Conversion[String, Challenge.Id]                      = Challenge.Id(_)
 given appealId: Conversion[String, Appeal.Id]                            = Appeal.Id(_)
 given reportId: Conversion[String, Report.Id]                            = Report.Id(_)
 given clasId: Conversion[String, Clas.Id]                                = Clas.Id(_)
 given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
 given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
-given Conversion[String, ForumPostId]                                    = ForumPostId(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr from _
 given perfKey: Conversion[String, Perf.Key]                              = Perf.Key(_)
@@ -65,6 +68,7 @@ object ReverseRouterConversions:
   given Conversion[UserId, UserStr]                                  = _ into UserStr
   given Conversion[ForumCategId, String]                             = _.value
   given Conversion[ForumTopicId, String]                             = _.value
+  given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
   given reportIdConv: Conversion[Report.Id, String]                  = _.value
   given postIdConv: Conversion[ForumPostId, String]                  = _.value

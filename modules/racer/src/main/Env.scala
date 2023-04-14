@@ -4,11 +4,10 @@ import com.softwaremill.macwire.*
 
 import lila.common.LightUser
 import lila.db.AsyncColl
-import lila.storm.StormJson
-import lila.storm.StormSelector
-import lila.storm.StormSign
+import lila.storm.{ StormJson, StormSelector, StormSign }
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     selector: StormSelector,
     puzzleColls: lila.puzzle.PuzzleColls,
@@ -19,13 +18,9 @@ final class Env(
     lightUserGetter: LightUser.GetterSyncFallback,
     remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mode: play.api.Mode
-):
+)(using Executor, Scheduler, play.api.Mode):
 
-  private lazy val colls = new RacerColls(puzzle = puzzleColls.puzzle)
+  private lazy val colls = RacerColls(puzzle = puzzleColls.puzzle)
 
   lazy val api = wire[RacerApi]
 

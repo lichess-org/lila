@@ -15,11 +15,13 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
       .one(
         $id(sessionId),
         $doc(
-          "userId"   -> user.id,
-          "endpoint" -> subscription.endpoint,
-          "auth"     -> subscription.auth,
-          "p256dh"   -> subscription.p256dh,
-          "seenAt"   -> nowDate
+          "userId"    -> user.id,
+          "endpoint"  -> subscription.endpoint,
+          "auth"      -> subscription.auth,
+          "p256dh"    -> subscription.p256dh,
+          "aes128gcm" -> subscription.aes128gcm,
+          "aesgcm"    -> subscription.aesgcm,
+          "seenAt"    -> nowInstant
         ),
         upsert = true
       )
@@ -33,7 +35,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
 
   private[push] def getSubscriptions(max: Int)(userId: UserId): Fu[List[WebSubscription]] =
     coll
-      .find($doc("userId" -> userId), $doc("endpoint" -> true, "auth" -> true, "p256dh" -> true).some)
+      .find($doc("userId" -> userId))
       .sort($doc("seenAt" -> -1))
       .cursor[WebSubscription](ReadPreference.secondaryPreferred)
       .list(max)

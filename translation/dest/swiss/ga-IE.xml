@@ -129,11 +129,4 @@ Is é an ceann is gaire is féidir leat a fháil ar Round Robin ar líne ná com
   <string name="unlimitedAndFree">Neamhtheoranta agus saor in aisce</string>
   <string name="predefinedUsers">Ná lig ach d\'úsáideoirí réamhshainithe páirt a ghlacadh</string>
   <string name="forbiddedUsers">Mura bhfuil an liosta seo folamh, beidh cosc ar úsáideoirí atá as láthair ón liosta seo a bheith páirteach ann. Ainm úsáideora amháin in aghaidh an líne.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s babhta Swiss</item>
-    <item quantity="two">%1$s / %2$s bhabhta Swiss</item>
-    <item quantity="few">%1$s / %2$s mbabhta Swiss</item>
-    <item quantity="many">%1$s / %2$s babhta Swiss</item>
-    <item quantity="other">%1$s / %2$s babhta Swiss</item>
-  </plurals>
 </resources>

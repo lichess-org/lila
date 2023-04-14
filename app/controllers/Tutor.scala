@@ -13,7 +13,7 @@ import lila.common.LilaOpeningFamily
 final class Tutor(env: Env) extends LilaController(env):
 
   def home =
-    Secure(_.Beta) { implicit ctx => holder =>
+    Secure(_.Beta) { _ => holder =>
       Redirect(routes.Tutor.user(holder.user.username)).toFuccess
     }
 
@@ -22,17 +22,17 @@ final class Tutor(env: Env) extends LilaController(env):
   }
 
   def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.perf(report, perf, me)).toFuccess: Fu[Result]
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.perf(perf, me)).toFuccess: Fu[Result]
   }
 
   def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.openings(report, perf, me)).toFuccess
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.openings(perf, me)).toFuccess
   }
 
   def opening(username: UserStr, perf: Perf.Key, colName: String, opName: String) =
-    TutorPerfPage(username, perf) { implicit ctx => me => report => perf =>
+    TutorPerfPage(username, perf) { implicit ctx => me => _ => perf =>
       chess.Color
         .fromName(colName)
         .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).toFuccess) { color =>
@@ -41,28 +41,28 @@ final class Tutor(env: Env) extends LilaController(env):
             .flatMap(perf.openings(color).find)
             .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).toFuccess) { family =>
               env.puzzle.opening.find(family.family.key) map { puzzle =>
-                Ok(views.html.tutor.opening(report, perf, family, color, me, puzzle))
+                Ok(views.html.tutor.opening(perf, family, color, me, puzzle))
               }
             }
         }
     }
 
   def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.skills(report, perf, me)).toFuccess
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.skills(perf, me)).toFuccess
   }
 
   def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.phases(report, perf, me)).toFuccess
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.phases(perf, me)).toFuccess
   }
 
   def time(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => report => perf =>
-      Ok(views.html.tutor.time(report, perf, me)).toFuccess
+    implicit ctx => me => _ => perf =>
+      Ok(views.html.tutor.time(perf, me)).toFuccess
   }
 
-  def refresh(username: UserStr) = TutorPageAvailability(username) { ctx => user => availability =>
+  def refresh(username: UserStr) = TutorPageAvailability(username) { _ => user => availability =>
     env.tutor.api.request(user, availability) >> redirHome(user)
   }
 

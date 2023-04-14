@@ -4,6 +4,7 @@ import com.softwaremill.macwire.*
 import lila.socket.IsOnline
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     chatApi: lila.chat.ChatApi,
     gameRepo: lila.game.GameRepo,
@@ -12,12 +13,7 @@ final class Env(
     isOfferingRematch: lila.round.IsOfferingRematch,
     spam: lila.security.Spam,
     isOnline: IsOnline
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    scheduler: Scheduler,
-    mode: play.api.Mode
-):
+)(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode):
 
   lazy val jsonView = wire[BotJsonView]
 

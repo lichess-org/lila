@@ -1,22 +1,12 @@
 package views.html.tutor
 
-import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json.*
 import scalatags.Text
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
-import lila.tutor.{
-  Rating,
-  TutorBothValueOptions,
-  TutorBothValuesAvailable,
-  TutorFullReport,
-  TutorNumber,
-  ValueCount
-}
+import lila.tutor.{ TutorBothValueOptions, TutorBothValuesAvailable, TutorNumber }
 
 object grade:
 
@@ -24,7 +14,7 @@ object grade:
       c: TutorConcept,
       metricOptions: TutorBothValueOptions[A],
       titleTag: Text.Tag = h3
-  )(using Lang): Option[Tag] =
+  ): Option[Tag] =
     metricOptions.asAvailable map { metric =>
       div(cls := "tutor-grade")(
         titleTag(cls := "tutor-grade__name")(concept show c),

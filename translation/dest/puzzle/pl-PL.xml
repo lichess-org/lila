@@ -28,6 +28,11 @@
   <string name="keepGoing">Kontynuuj…</string>
   <string name="puzzleSuccess">Sukces!</string>
   <string name="puzzleComplete">Zadanie zakończone!</string>
+  <string name="byOpenings">Według otwarć</string>
+  <string name="puzzlesByOpenings">Zadania według otwarć</string>
+  <string name="openingsYouPlayedTheMost">Najczęściej grane otwarcia w partiach rankingowych</string>
+  <string name="useFindInPage">Użyj \"Znajdź na stronie\" w menu przeglądarki, aby znaleźć swoje ulubione otwarcie!</string>
+  <string name="useCtrlF">Użyj Ctrl+f, aby znaleźć swoje ulubione otwarcie!</string>
   <string name="notTheMove">To nie jest właściwy ruch!</string>
   <string name="trySomethingElse">Spróbuj czegoś innego.</string>
   <string name="ratingX">Ranking: %s</string>
@@ -44,7 +49,7 @@
   <string name="normal">Normalny</string>
   <string name="easier">Łatwy</string>
   <string name="easiest">Bardzo łatwy</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Jeden punkt poniżej Twojej oceny łamigłówki</item>
     <item quantity="few">%s punkty poniżej Twojego rankingu w rozwiązywaniu zadań</item>
     <item quantity="many">%s punktów poniżej Twojego rankingu w rozwiązywaniu zadań</item>
@@ -52,7 +57,7 @@
   </plurals>
   <string name="harder">Trudny</string>
   <string name="hardest">Bardzo trudny</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Jeden punkt powyżej Twojej oceny łamigłówki</item>
     <item quantity="few">%s punkty powyżej Twojego rankingu w rozwiązywaniu zadań</item>
     <item quantity="many">%s punktów powyżej Twojego rankingu w rozwiązywaniu zadań</item>

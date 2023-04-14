@@ -28,6 +28,11 @@
   <string name="keepGoing">Fortsett…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Oppgåva er fullført!</string>
+  <string name="byOpenings">Etter opningar</string>
+  <string name="puzzlesByOpenings">Oppgåver etter opningar</string>
+  <string name="openingsYouPlayedTheMost">Opningar du spelte mest av i rangerte parti</string>
+  <string name="useFindInPage">Bruk \"Finn side\" i nettlesarmenyen for å finne den opninga du spelar mest!</string>
+  <string name="useCtrlF">Bruk Ctrl+f for å finne den opninga du spelar mest!</string>
   <string name="notTheMove">Det er ikkje rett trekk!</string>
   <string name="trySomethingElse">Prøv noko anna.</string>
   <string name="ratingX">Rating: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Middels</string>
   <string name="easier">Enklare</string>
   <string name="easiest">Enklast</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Eitt poeng under problemløysar-ratinga di</item>
     <item quantity="other">%s poeng under problemløysar-ratinga di</item>
   </plurals>
   <string name="harder">Vanskelegare</string>
   <string name="hardest">Vanskelegast</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Eitt poeng over problemløysar-ratinga di</item>
     <item quantity="other">%s poeng over problemløysar-ratinga di</item>
   </plurals>

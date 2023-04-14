@@ -1,6 +1,5 @@
 package lila.mailer
 
-import org.joda.time.Period
 import play.api.i18n.Lang
 import scala.util.chaining.*
 import scalatags.Text.all.*
@@ -9,7 +8,7 @@ import lila.common.config.BaseUrl
 import lila.common.EmailAddress
 import lila.hub.actorApi.msg.SystemMsg
 import lila.hub.actorApi.mailer.CorrespondenceOpponent
-import lila.i18n.PeriodLocales.showPeriod
+import lila.i18n.PeriodLocales.showDuration
 import lila.i18n.I18nKeys.emails as trans
 import lila.user.{ User, UserRepo }
 import lila.base.LilaException
@@ -53,8 +52,7 @@ The Lichess team"""
       user        <- userRepo byId username orFail s"No such user $username"
       emailOption <- userRepo email user.id
       title       <- fuccess(user.title) orFail "User doesn't have a title!"
-      body = alsoSendAsPrivateMessage(user) { lang =>
-        given Lang = lang
+      body = alsoSendAsPrivateMessage(user) { _ =>
         s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
@@ -219,11 +217,10 @@ $disableSettingNotice $disableLink"""
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:") { remainingTime =>
-      s"You have ${showPeriod(remainingTime)} remaining in your game with $opponentName:"
+      s"You have ${showDuration(remainingTime)} remaining in your game with $opponentName:"
     }
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
-    given Lang = userLang(user)
     body(userLang(user)) tap { txt =>
       lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
     }

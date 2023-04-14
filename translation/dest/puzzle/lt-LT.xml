@@ -28,6 +28,11 @@
   <string name="keepGoing">Toliau…</string>
   <string name="puzzleSuccess">Pavyko!</string>
   <string name="puzzleComplete">Užduotis išspręsta!</string>
+  <string name="byOpenings">Pagal debiutus</string>
+  <string name="puzzlesByOpenings">Galvosūkiai pagal debiutus</string>
+  <string name="openingsYouPlayedTheMost">Debiutai, kuriuos žaidėte paskutinėse reitinguotose partijose</string>
+  <string name="useFindInPage">Naudokite \"Rasti puslapyje\" savo naršyklės meniu norėdami rasti savo mėgiamiausią debiutą!</string>
+  <string name="useCtrlF">Naudokite Ctrl+f norėdami rasti savo mėgiamiausią debiutą!</string>
   <string name="notTheMove">Ne toks ėjimas!</string>
   <string name="trySomethingElse">Bandykite kitką.</string>
   <string name="ratingX">Reitingas: %s</string>
@@ -44,7 +49,7 @@
   <string name="normal">Įprastas</string>
   <string name="easier">Lengvesnis</string>
   <string name="easiest">Lengviausias</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Vienu tašku aukščiau jūsų užduočių reitingo</item>
     <item quantity="few">%s taškais aukščiau jūsų užduočių reitingo</item>
     <item quantity="many">%s taško aukščiau jūsų užduočių reitingo</item>
@@ -52,7 +57,7 @@
   </plurals>
   <string name="harder">Sunkesnis</string>
   <string name="hardest">Sunkiausias</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Vienu tašku aukščiau jūsų užduočių reitingo</item>
     <item quantity="few">%s taškais aukščiau jūsų užduočių reitingo</item>
     <item quantity="many">%s taško aukščiau jūsų užduočių reitingo</item>

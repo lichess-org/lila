@@ -30,8 +30,8 @@ final class ChatTimeout(
               "mod"       -> mod.id,
               "user"      -> user.id,
               "reason"    -> reason,
-              "createdAt" -> nowDate,
-              "expiresAt" -> nowDate.plusSeconds(duration.toSeconds.toInt)
+              "createdAt" -> nowInstant,
+              "expiresAt" -> nowInstant.plusSeconds(duration.toSeconds.toInt)
             )
           ) inject true
     }
@@ -51,7 +51,7 @@ final class ChatTimeout(
   def checkExpired: Fu[List[Reinstate]] =
     coll.list[Reinstate](
       $doc(
-        "expiresAt" $lt nowDate
+        "expiresAt" $lt nowInstant
       )
     ) flatMap {
       case Nil  => fuccess(Nil)
@@ -79,7 +79,7 @@ object ChatTimeout:
   case class Reinstate(_id: String, chat: ChatId, user: UserId)
   given BSONDocumentReader[Reinstate] = Macros.reader
 
-  case class UserEntry(mod: UserId, reason: Reason, createdAt: DateTime)
+  case class UserEntry(mod: UserId, reason: Reason, createdAt: Instant)
   given BSONDocumentReader[UserEntry] = Macros.reader
 
   enum Scope:
@@ -89,7 +89,7 @@ object ChatTimeout:
   val form = Form(
     mapping(
       "roomId" -> of[RoomId],
-      "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss", "study")),
+      "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss", "team", "study")),
       "userId" -> lila.user.UserForm.historicalUsernameField,
       "reason" -> nonEmptyText,
       "text"   -> nonEmptyText

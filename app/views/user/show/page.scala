@@ -3,7 +3,7 @@ package views.html.user.show
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.mashup.UserInfo
 import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment.{ given, * }

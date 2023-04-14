@@ -3,9 +3,6 @@ package lila.plan
 import cats.syntax.all.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.User
-import org.joda.time.DateTime
-
 case class Charge(
     _id: String, // random
     userId: Option[UserId],
@@ -15,7 +12,7 @@ case class Charge(
     payPalCheckout: Option[Patron.PayPalCheckout] = none,
     money: Money,
     usd: Usd,
-    date: DateTime
+    date: Instant
 ):
 
   inline def id = _id
@@ -32,7 +29,7 @@ case class Charge(
 
   def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }
 
-  def copyAsNew = copy(_id = Charge.makeId, date = DateTime.now)
+  def copyAsNew = copy(_id = Charge.makeId, date = nowInstant)
 
 object Charge:
 
@@ -56,7 +53,7 @@ object Charge:
       payPalCheckout = payPalCheckout,
       money = money,
       usd = usd,
-      date = nowDate
+      date = nowInstant
     )
 
   case class Stripe(
@@ -72,4 +69,4 @@ object Charge:
       subId: Option[Patron.PayPalLegacy.SubId]
   )
 
-  case class Gift(from: UserId, to: UserId, date: DateTime)
+  case class Gift(from: UserId, to: UserId, date: Instant)

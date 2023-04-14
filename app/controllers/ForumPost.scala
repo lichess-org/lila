@@ -5,7 +5,6 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.msg.MsgPreset
-import router.ReverseRouterConversions.postIdConv
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 

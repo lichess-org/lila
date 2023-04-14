@@ -34,7 +34,7 @@ final class AutoAnalysis(
       gameRepo.lastGamesBetween(
         candidate.suspect.user,
         candidate.reporter.user,
-        nowDate.minusHours(2),
+        nowInstant.minusHours(2),
         10
       ) dmap { as ++ _ }
     }
@@ -42,6 +42,6 @@ final class AutoAnalysis(
     _.filter { g =>
       g.analysable && !g.metadata.analysed
     }.distinct
-      .sortBy(-_.createdAt.getSeconds)
+      .sortBy(-_.createdAt.toSeconds)
       .take(10)
   }

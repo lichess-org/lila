@@ -3,7 +3,7 @@ package lila.hub
 import com.github.blemale.scaffeine.LoadingCache
 import com.github.benmanes.caffeine.cache.RemovalCause
 
-final class SyncActorMap[Id: StringRuntime, T <: SyncActor](
+final class SyncActorMap[Id, T <: SyncActor](
     mkActor: Id => T,
     accessTimeout: FiniteDuration
 ):
@@ -20,6 +20,7 @@ final class SyncActorMap[Id: StringRuntime, T <: SyncActor](
 
   def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 
+  @annotation.nowarn
   private[this] val actors: LoadingCache[Id, T] =
     lila.common.LilaCache.scaffeine
       .expireAfterAccess(accessTimeout)

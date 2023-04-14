@@ -4,12 +4,12 @@ import akka.pattern.ask
 import play.api.data.*, Forms.*
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.annotation.nowarn
 import views.*
 
 import lila.api.Context
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
+import scala.annotation.nowarn
 
 final class Main(
     env: Env,
@@ -208,7 +208,7 @@ Allow: /
         }
     }
 
-  def legacyQaQuestion(id: Int, slug: String) =
+  def legacyQaQuestion(id: Int, @nowarn slug: String) =
     Open { _ =>
       MovedPermanently {
         val faq = routes.Main.faq.url
@@ -234,4 +234,4 @@ Allow: /
       }.toFuccess
     }
 
-  def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
+  def devAsset(@nowarn v: String, path: String, file: String) = assetsC.at(path, file)

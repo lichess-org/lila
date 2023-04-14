@@ -1,7 +1,5 @@
 package lila.tournament
 
-import akka.stream.scaladsl.*
-import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -11,7 +9,7 @@ final private class LeaderboardIndexer(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     leaderboardRepo: LeaderboardRepo
-)(using Executor, akka.stream.Materializer):
+)(using Executor):
 
   import LeaderboardApi.*
   import BSONHandlers.given

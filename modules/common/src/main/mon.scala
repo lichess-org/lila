@@ -517,7 +517,6 @@ object mon:
         )
       )
     val fetch            = counter("game.fetch.count").withoutTags()
-    val fetchLight       = counter("game.fetchLight.count").withoutTags()
     val loadClockHistory = counter("game.loadClockHistory.count").withoutTags()
     object pgn:
       def encode(format: String) = timer("game.pgn.encode").withTag("format", format)

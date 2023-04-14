@@ -20,7 +20,6 @@ final private[round] class Drawer(
   def autoThreefold(game: Game): Fu[Option[Pov]] = game.drawable ??
     Pov(game)
       .map { pov =>
-        import Pref.PrefZero
         if (game.playerHasOfferedDrawRecently(pov.color)) fuccess(pov.some)
         else
           pov.player.userId ?? { uid => prefApi.getPref(uid, _.autoThreefold) } map { autoThreefold =>

@@ -3,7 +3,7 @@ package html.swiss
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
@@ -83,7 +83,7 @@ object side:
                   case SwissCondition.RefusedUntil(until) =>
                     frag(
                       "Because you missed your last swiss game, you cannot enter a new swiss tournament until ",
-                      absClientDateTime(until),
+                      absClientInstant(until),
                       "."
                     )
                   case _ => v.condition.name(s.perfType)
@@ -94,7 +94,7 @@ object side:
         else br,
         small(trans.by(userIdLink(s.createdBy.some))),
         br,
-        absClientDateTime(s.startsAt)
+        absClientInstant(s.startsAt)
       ),
       streamers.nonEmpty option div(cls := "context-streamers")(
         streamers map views.html.streamer.bits.contextual

@@ -19,10 +19,7 @@ import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
 import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
 
-final class RemoteSocket(
-    redisClient: RedisClient,
-    shutdown: CoordinatedShutdown
-)(using Executor, Scheduler):
+final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown)(using Executor, Scheduler):
 
   import RemoteSocket.*, Protocol.*
 
@@ -116,8 +113,8 @@ final class RemoteSocket(
   }
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
-    def apply(msg: String)               = if (!stopping) super.send(channel, msg).unit
-    def sticky(_id: String, msg: String) = apply(msg)
+    def apply(msg: String)                                  = if (!stopping) super.send(channel, msg).unit
+    def sticky(@annotation.nowarn _id: String, msg: String) = apply(msg)
 
   final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
       extends Sender:

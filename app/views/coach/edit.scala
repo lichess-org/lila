@@ -3,7 +3,7 @@ package views.html.coach
 import play.api.data.Form
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.i18n.LangList
 import lila.app.ui.ScalatagsTemplate.{ *, given }

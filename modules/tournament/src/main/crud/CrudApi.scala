@@ -28,7 +28,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       minutes = tour.minutes,
       variant = tour.variant.id,
       position = tour.position.map(_ into Fen.Epd),
-      date = tour.startsAt,
+      date = tour.startsAt.dateTime,
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.??(_.headline),
       description = tour.spotlight.??(_.description),
@@ -51,7 +51,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
   def clone(old: Tournament) =
     old.copy(
       name = s"${old.name} (clone)",
-      startsAt = nowDate plusDays 7
+      startsAt = nowInstant plusDays 7
     )
 
   def paginator(page: Int)(using Executor) =
@@ -93,7 +93,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       clock = clock,
       minutes = minutes,
       variant = realVariant,
-      startsAt = date,
+      startsAt = date.instant,
       schedule = Schedule(
         freq = Schedule.Freq.Unique,
         speed = Schedule.Speed.fromClock(clock),

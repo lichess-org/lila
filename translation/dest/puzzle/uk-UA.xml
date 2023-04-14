@@ -28,6 +28,11 @@
   <string name="keepGoing">Продовжуйте...</string>
   <string name="puzzleSuccess">Успіх!</string>
   <string name="puzzleComplete">Задача вирішена!</string>
+  <string name="byOpenings">За дебютами</string>
+  <string name="puzzlesByOpenings">Задачі за дебютами</string>
+  <string name="openingsYouPlayedTheMost">Дебюти, які ви грали найбільше в рейтингових іграх</string>
+  <string name="useFindInPage">Використайте \"Знайти на сторінці\" в меню браузера, щоб знайти свій улюблений дебют!</string>
+  <string name="useCtrlF">Використайте Ctrl+F, щоб знайти свій улюблений дебют!</string>
   <string name="notTheMove">Поганий хід!</string>
   <string name="trySomethingElse">Спробуйте щось інше.</string>
   <string name="ratingX">Рейтинг: %s</string>
@@ -44,7 +49,7 @@
   <string name="normal">Нормальний</string>
   <string name="easier">Легший</string>
   <string name="easiest">Найлегший</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">На один бал нижче вашого рейтингу в задачах</item>
     <item quantity="few">%s бали нижче вашого рейтингу в задачах</item>
     <item quantity="many">%s балів нижче вашого рейтингу в задачах</item>
@@ -52,7 +57,7 @@
   </plurals>
   <string name="harder">Складніше</string>
   <string name="hardest">Найскладніший</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Один бал вище вашого рейтингу в задачах</item>
     <item quantity="few">%s бали вище вашого рейтингу в задачах</item>
     <item quantity="many">%s балів вище вашого рейтингу в задачах</item>
@@ -68,7 +73,7 @@
   <string name="history">Історія задач</string>
   <string name="solved">вирішено</string>
   <string name="failed">невирішено</string>
-  <string name="streakDescription">Вирішуйте щораз важчі задачі та створюйте серію перемог. Обмеження часу немає, тому не поспішайте. Один хибний хід, і гру закінчено! Але Ви можете проминути один хід за сесію.</string>
+  <string name="streakDescription">Вирішуйте щораз важчі задачі та створюйте серію перемог. Обмеження часу немає, тому не поспішайте. Один хибний хід, і гра закінчена! Але ви можете пропустити один хід за сесію.</string>
   <string name="yourStreakX">Ваша серія: %s</string>
   <string name="streakSkipExplanation">Пропустіть цей хід, щоб зберегти Вашу серію! Але лише один раз за сесію.</string>
   <string name="continueTheStreak">Продовжити серію</string>

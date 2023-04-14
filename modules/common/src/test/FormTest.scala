@@ -6,11 +6,86 @@ import play.api.data.format._
 import play.api.data.format.Formats._
 import play.api.data.Forms._
 import play.api.data.validation._
-import scalatags.Text.all._
 
 import lila.common.Form._
 
 class FormTest extends Specification {
+
+  "format dates" should {
+    val date = java.time.LocalDateTime.of(2023, 4, 12, 11, 1, 15, 337_000_000)
+    "iso datetime" in {
+      val mapping = single("t" -> lila.common.Form.ISODateTime.mapping)
+      mapping.unbind(date) === Map("t" -> "2023-04-12T11:01:15.337Z")
+    }
+    "iso date" in {
+      val mapping = single("t" -> lila.common.Form.ISODate.mapping)
+      mapping.unbind(date.date) === Map("t" -> "2023-04-12")
+    }
+    "pretty datetime" in {
+      val mapping = single("t" -> lila.common.Form.PrettyDateTime.mapping)
+      mapping.unbind(date) === Map("t" -> "2023-04-12 11:01")
+    }
+    "timestamp" in {
+      val mapping = single("t" -> lila.common.Form.Timestamp.mapping)
+      mapping.unbind(date.instant) === Map("t" -> "1681297275337")
+    }
+    "iso datetime or timestamp" in {
+      val mapping = single("t" -> lila.common.Form.ISOInstantOrTimestamp.mapping)
+      mapping.unbind(date.instant) === Map("t" -> "2023-04-12T11:01:15.337Z")
+    }
+    "iso date or timestamp" in {
+      val mapping = single("t" -> lila.common.Form.ISODateOrTimestamp.mapping)
+      mapping.unbind(date.date) === Map("t" -> "2023-04-12")
+    }
+  }
+
+  "parse dates" should {
+    "iso datetime" in {
+      val mapping = single("t" -> lila.common.Form.ISODateTime.mapping)
+      mapping.bind(Map("t" -> "2023-04-25T10:00:00.000Z")) must beRight
+      mapping.bind(Map("t" -> "2017-01-01T12:34:56Z")) must beRight
+      mapping.bind(Map("t" -> "2017-01-01T12:34:56")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01")) must beLeft
+    }
+    "iso date" in {
+      val mapping = single("t" -> lila.common.Form.ISODate.mapping)
+      mapping.bind(Map("t" -> "2017-01-01")) must beRight
+      mapping.bind(Map("t" -> "2023-04-25T10:00:00.000Z")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01T12:34:56Z")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01T12:34:56")) must beLeft
+    }
+    "pretty date" in {
+      val mapping = single("t" -> lila.common.Form.PrettyDateTime.mapping)
+      mapping.bind(Map("t" -> "2017-01-01 23:11")) must beRight
+      mapping.bind(Map("t" -> "2023-04-25T10:00:00.000Z")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01T12:34:56Z")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01")) must beLeft
+    }
+    "timestamp" in {
+      val mapping = single("t" -> lila.common.Form.Timestamp.mapping)
+      mapping.bind(Map("t" -> "1483228800000")) must beRight
+      mapping.bind(Map("t" -> "2017-01-01 23:11")) must beLeft
+      mapping.bind(Map("t" -> "2023-04-25T10:00:00.000Z")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01T12:34:56Z")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01")) must beLeft
+    }
+    "iso instant or timestamp" in {
+      val mapping = single("t" -> lila.common.Form.ISOInstantOrTimestamp.mapping)
+      mapping.bind(Map("t" -> "1483228800000")) must beRight
+      mapping.bind(Map("t" -> "2023-04-25T10:00:00.000Z")) must beRight
+      mapping.bind(Map("t" -> "2017-01-01 23:11")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01T12:34:56Z")) must beRight
+      mapping.bind(Map("t" -> "2017-01-01")) must beLeft
+    }
+    "iso date or timestamp" in {
+      val mapping = single("t" -> lila.common.Form.ISODateOrTimestamp.mapping)
+      mapping.bind(Map("t" -> "1483228800000")) must beRight
+      mapping.bind(Map("t" -> "2017-01-01")) must beRight
+      mapping.bind(Map("t" -> "2023-04-25T10:00:00.000Z")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01 23:11")) must beLeft
+      mapping.bind(Map("t" -> "2017-01-01T12:34:56Z")) must beLeft
+    }
+  }
 
   "trim" >> {
     "apply before validation" >> {

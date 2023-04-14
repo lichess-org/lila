@@ -1,16 +1,13 @@
 package lila.db
 
 import cats.data.NonEmptyList
-import chess.format.Fen
-import chess.opening.OpeningFamily
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Failure, Success, Try, NotGiven }
 
 import lila.common.Iso.*
-import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress, Days }
-import scala.collection.Factory
+import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 
 trait Handlers:
 
@@ -26,9 +23,13 @@ trait Handlers:
   given userIdOfWriter[U, T](using idOf: UserIdOf[U], writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(idOf(u))
 
-  given dateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
-    { case v: BSONDateTime => new DateTime(v.value) },
-    v => BSONDateTime(v.getMillis)
+  given dateTimeHandler: BSONHandler[LocalDateTime] = quickHandler[LocalDateTime](
+    { case v: BSONDateTime => millisToDateTime(v.value) },
+    v => BSONDateTime(v.toMillis)
+  )
+  given instantHandler: BSONHandler[Instant] = quickHandler[Instant](
+    { case v: BSONDateTime => millisToInstant(v.value) },
+    v => BSONDateTime(v.toMillis)
   )
 
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] = new:
@@ -61,19 +62,19 @@ trait Handlers:
   // def ratioAsIntHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
   //   doubleAsIntHandler(to, from, ratioBsonMultiplier)
 
-  def floatIsoHandler[A](implicit iso: FloatIso[A]): BSONHandler[A] =
+  def floatIsoHandler[A](using iso: FloatIso[A]): BSONHandler[A] =
     BSONFloatHandler.as[A](iso.from, iso.to)
   def floatAnyValHandler[A](to: A => Float, from: Float => A): BSONHandler[A] =
-    floatIsoHandler(Iso(from, to))
+    floatIsoHandler(using Iso(from, to))
 
-  def bigDecimalIsoHandler[A](implicit iso: BigDecimalIso[A]): BSONHandler[A] =
+  def bigDecimalIsoHandler[A](using iso: BigDecimalIso[A]): BSONHandler[A] =
     BSONDecimalHandler.as[A](iso.from, iso.to)
 
   def bigDecimalAnyValHandler[A](to: A => BigDecimal, from: BigDecimal => A): BSONHandler[A] =
-    bigDecimalIsoHandler(Iso(from, to))
+    bigDecimalIsoHandler(using Iso(from, to))
 
-  def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] =
-    dateTimeHandler.as[A](iso.from, iso.to)
+  def instantIsoHandler[A](using iso: Iso[Instant, A]): BSONHandler[A] =
+    instantHandler.as[A](iso.from, iso.to)
 
   def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new:
     def readTry(bson: BSONValue) =
@@ -151,7 +152,7 @@ trait Handlers:
   //   def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
-    def writeTry(n: BSONNull.type) = Success(BSONNull)
+    def writeTry(@annotation.nowarn("msg=unused") n: BSONNull.type) = Success(BSONNull)
 
   given BSONHandler[IpAddress] = stringIsoHandler
 
@@ -178,10 +179,10 @@ trait Handlers:
     { case (a, b) => BSONArray(a, b) }
   )
 
-  given NoDbHandler[chess.Pos] with {} // no default opaque handler for chess.Pos
+  given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
 
-  def chessPosKeyHandler: BSONHandler[chess.Pos] = tryHandler(
-    { case BSONString(str) => chess.Pos.fromKey(str) toTry s"No such key $str" },
+  def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
+    { case BSONString(str) => chess.Square.fromKey(str) toTry s"No such key $str" },
     pos => BSONString(pos.key)
   )
 

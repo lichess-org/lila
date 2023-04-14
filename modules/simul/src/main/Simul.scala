@@ -18,14 +18,14 @@ case class Simul(
     pairings: List[SimulPairing],
     variants: List[Variant],
     position: Option[Fen.Epd],
-    createdAt: DateTime,
-    estimatedStartAt: Option[DateTime] = None,
+    createdAt: Instant,
+    estimatedStartAt: Option[Instant] = None,
     hostId: UserId,
     hostRating: IntRating,
     hostGameId: Option[String], // game the host is focusing on
-    startedAt: Option[DateTime],
-    finishedAt: Option[DateTime],
-    hostSeenAt: Option[DateTime],
+    startedAt: Option[Instant],
+    finishedAt: Option[Instant],
+    hostSeenAt: Option[Instant],
     color: Option[String],
     text: String,
     team: Option[TeamId],
@@ -79,8 +79,9 @@ case class Simul(
   def start =
     startable option copy(
       status = SimulStatus.Started,
-      startedAt = nowDate.some,
+      startedAt = nowInstant.some,
       applicants = Nil,
+      clock = clock.adjustedForPlayers(nbAccepted),
       pairings = applicants collect {
         case a if a.accepted => SimulPairing(a.player)
       },
@@ -102,7 +103,7 @@ case class Simul(
     if (isStarted && pairings.forall(_.finished))
       copy(
         status = SimulStatus.Finished,
-        finishedAt = nowDate.some,
+        finishedAt = nowInstant.some,
         hostGameId = none
       )
     else this
@@ -153,7 +154,7 @@ object Simul:
       position: Option[Fen.Epd],
       color: String,
       text: String,
-      estimatedStartAt: Option[DateTime],
+      estimatedStartAt: Option[Instant],
       team: Option[TeamId],
       featurable: Option[Boolean]
   ): Simul = Simul(
@@ -172,7 +173,7 @@ object Simul:
       } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
     },
     hostGameId = none,
-    createdAt = nowDate,
+    createdAt = nowInstant,
     estimatedStartAt = estimatedStartAt,
     variants = if (position.isDefined) List(chess.variant.Standard) else variants,
     position = position,
@@ -180,7 +181,7 @@ object Simul:
     pairings = Nil,
     startedAt = none,
     finishedAt = none,
-    hostSeenAt = nowDate.some,
+    hostSeenAt = nowInstant.some,
     color = color.some,
     text = text,
     team = team,

@@ -35,7 +35,7 @@ object Rewind:
           BinaryFormat.moveTime.write(moveTimes.dropRight(1))
         },
         loadClockHistory = _ => game.clockHistory.map(_.update(!color, _.dropRight(1))),
-        movedAt = nowDate
+        movedAt = nowInstant
       )
       Progress(game, newGame)
     }

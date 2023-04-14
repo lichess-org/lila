@@ -31,7 +31,7 @@ final class Firewall(
       coll.update
         .one(
           $id(ip),
-          $doc("_id" -> ip, "date" -> nowDate),
+          $doc("_id" -> ip, "date" -> nowInstant),
           upsert = true
         )
         .void

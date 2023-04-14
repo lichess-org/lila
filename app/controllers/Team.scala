@@ -75,10 +75,8 @@ final class Team(
       }
     }
 
-  private def renderTeam(team: TeamModel, page: Int = 1, requestModView: Boolean = false)(using
-      ctx: Context
-  ) =
-    for {
+  private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: Context) =
+    for
       info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
       members <- paginator.teamMembers(team, page)
       log     <- (requestModView && isGranted(_.ManageTeam)).??(env.mod.logApi.teamLog(team.id))
@@ -91,11 +89,11 @@ final class Team(
         team.leaders.toList ::: info.userIds ::: chat.??(_.chat.userIds)
       }
       version <- hasChat ?? env.team.version(team.id).dmap(some)
-    } yield Ok(html.team.show(team, members, info, chat, version, requestModView, log))
+    yield Ok(html.team.show(team, members, info, chat, version, requestModView, log))
       .withCanonical(routes.Team.show(team.id))
 
-  private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean = false)(
-      implicit ctx: Context
+  private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
+      ctx: Context
   ): Boolean =
     team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
@@ -470,7 +468,7 @@ final class Team(
                   html = Redirect(routes.Team.mine).flashSuccess.toFuccess,
                   api = _ => jsonOkResult.toFuccess
                 )
-          }(ctx),
+          },
       scoped = _ =>
         me =>
           api team id flatMap {
@@ -608,7 +606,7 @@ final class Team(
     }
 
   def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) =
-    Scoped(_.Team.Lead) { req => me =>
+    Scoped(_.Team.Lead) { _ => me =>
       WithOwnedTeamEnabledApi(teamId, me) { team =>
         api request lila.team.Request.makeId(team.id, userId.id) flatMap {
           case None      => fuccess(ApiResult.ClientError("No such team join request"))

@@ -13,10 +13,10 @@ case class Streamer(
     description: Option[Streamer.Description],
     twitch: Option[Streamer.Twitch],
     youTube: Option[Streamer.YouTube],
-    seenAt: DateTime,         // last seen online
-    liveAt: Option[DateTime], // last seen streaming
-    createdAt: DateTime,
-    updatedAt: DateTime,
+    seenAt: Instant,         // last seen online
+    liveAt: Option[Instant], // last seen streaming
+    createdAt: Instant,
+    updatedAt: Instant,
     lastStreamLang: Option[String] // valid 2 char language code or None
 ):
 
@@ -56,10 +56,10 @@ object Streamer:
       description = none,
       twitch = none,
       youTube = none,
-      seenAt = nowDate,
+      seenAt = nowInstant,
       liveAt = none,
-      createdAt = nowDate,
-      updatedAt = nowDate,
+      createdAt = nowInstant,
+      updatedAt = nowInstant,
       lastStreamLang = none
     )
 
@@ -75,7 +75,7 @@ object Streamer:
       ignored: Boolean,     // further requests are ignored
       tier: Int,            // homepage featuring tier
       chatEnabled: Boolean, // embed chat inside lichess
-      lastGrantedAt: Option[DateTime]
+      lastGrantedAt: Option[Instant]
   )
   opaque type Name = String
   object Name extends OpaqueString[Name]

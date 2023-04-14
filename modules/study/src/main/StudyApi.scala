@@ -6,7 +6,7 @@ import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 
-import lila.chat.{ Chat, ChatApi }
+import lila.chat.ChatApi
 import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
@@ -24,14 +24,10 @@ final class StudyApi(
     explorerGameHandler: ExplorerGame,
     topicApi: StudyTopicApi,
     lightUserApi: lila.user.LightUserApi,
-    scheduler: Scheduler,
     chatApi: ChatApi,
     timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester
-)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
-):
+)(using Executor, akka.stream.Materializer):
 
   import sequencer.*
 

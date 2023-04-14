@@ -1,10 +1,10 @@
 package lila.app
 package templating
 
-import chess.{ Board, Color, Pos }
+import chess.{ Board, Color, Square }
 import lila.api.Context
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov
 
 trait ChessgroundHelper:
@@ -14,14 +14,14 @@ trait ChessgroundHelper:
   private val cgBoard     = tag("cg-board")
   val cgWrapContent       = cgContainer(cgBoard)
 
-  def chessground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(using ctx: Context): Frag =
+  def chessground(board: Board, orient: Color, lastMove: List[Square] = Nil)(using ctx: Context): Frag =
     wrap {
       cgBoard {
         raw {
           if (ctx.pref.is3d) ""
           else
-            def top(p: Pos)  = orient.fold(7 - p.rank.index, p.rank.index) * 12.5
-            def left(p: Pos) = orient.fold(p.file.index, 7 - p.file.index) * 12.5
+            def top(p: Square)  = orient.fold(7 - p.rank.index, p.rank.index) * 12.5
+            def left(p: Square) = orient.fold(p.file.index, 7 - p.file.index) * 12.5
             val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
               s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
             } mkString ""

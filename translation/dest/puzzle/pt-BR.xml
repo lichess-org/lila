@@ -28,6 +28,11 @@
   <string name="keepGoing">Continue…</string>
   <string name="puzzleSuccess">Sucesso!</string>
   <string name="puzzleComplete">Quebra-cabeças concluído!</string>
+  <string name="byOpenings">Por abertura</string>
+  <string name="puzzlesByOpenings">Quebra-cabeças por abertura</string>
+  <string name="openingsYouPlayedTheMost">Aberturas que você mais jogou em partidas valendo pontos</string>
+  <string name="useFindInPage">Use a ferramenta \"Encontrar na página\" do navegador para encontrar sua abertura favorita!</string>
+  <string name="useCtrlF">Aperte Ctrl + F para encontrar sua abertura favorita!</string>
   <string name="notTheMove">O movimento não é este!</string>
   <string name="trySomethingElse">Tente algo diferente.</string>
   <string name="ratingX">Rating: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Fácil</string>
   <string name="easiest">Muito fácil</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Um ponto abaixo da sua classificação de quebra-cabeças</item>
     <item quantity="other">%s pontos abaixo da sua classificação de quebra-cabeças</item>
   </plurals>
   <string name="harder">Difícil</string>
   <string name="hardest">Muito difícil</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Um ponto acima da sua classificação de quebra-cabeças</item>
     <item quantity="other">%s pontos acima da sua classificação de quebra-cabeças</item>
   </plurals>

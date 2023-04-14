@@ -113,7 +113,7 @@ object BinaryFormat:
             Clock(
               config = config,
               color = color,
-              players = Color.Map(
+              players = ByColor(
                 ClockPlayer
                   .withConfig(config)
                   .copy(berserk = whiteBerserk)
@@ -153,7 +153,7 @@ object BinaryFormat:
       (if (limit % 60 == 0) limit / 60 else limit / 15 + 180).toByte
 
   object clock:
-    def apply(start: DateTime) = new clock(Timestamp(start.getMillis))
+    def apply(start: Instant) = new clock(Timestamp(start.toMillis))
 
     def readConfig(ba: ByteArray): Option[Clock.Config] =
       ba.value match
@@ -171,7 +171,7 @@ object BinaryFormat:
         case (acc, (true, p))  => acc + (1 << (3 - p))
       }
 
-      def posInt(pos: Pos): Int = (pos.file.index << 3) + pos.rank.index
+      def posInt(pos: Square): Int = (pos.file.index << 3) + pos.rank.index
       val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { case (o, d) =>
         (posInt(o) << 6) + posInt(d)
       }
@@ -186,20 +186,20 @@ object BinaryFormat:
       CastleLastMove(
         castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
         lastMove = for {
-          orig <- Pos.at((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
-          dest <- Pos.at((b2 & 63) >> 3, b2 & 7)
-          if orig != Pos.A1 || dest != Pos.A1
+          orig <- Square.at((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
+          dest <- Square.at((b2 & 63) >> 3, b2 & 7)
+          if orig != Square.A1 || dest != Square.A1
         } yield Uci.Move(orig, dest)
       )
 
   object piece:
 
-    private val groupedPos = Pos.all grouped 2 collect { case List(p1, p2) =>
+    private val groupedPos = Square.all grouped 2 collect { case List(p1, p2) =>
       (p1, p2)
     } toArray
 
     def write(pieces: PieceMap): ByteArray =
-      def posInt(pos: Pos): Int =
+      def posInt(pos: Square): Int =
         (pieces get pos).fold(0) { piece =>
           piece.color.fold(0, 8) + roleToInt(piece.role)
         }
@@ -216,7 +216,7 @@ object BinaryFormat:
           Piece(Color.fromWhite((int & 8) == 0), role)
         }
       val pieceInts = ba.value flatMap splitInts
-      (Pos.all zip pieceInts).view
+      (Square.all zip pieceInts).view
         .flatMap { case (pos, int) =>
           intPiece(int) map (pos -> _)
         }
@@ -266,18 +266,18 @@ object BinaryFormat:
 
     private val arrIndexes = 0 to 1
     private val bitIndexes = 0 to 7
-    private val whiteStd   = Set(Pos.A1, Pos.H1)
-    private val blackStd   = Set(Pos.A8, Pos.H8)
+    private val whiteStd   = Set(Square.A1, Square.H1)
+    private val blackStd   = Set(Square.A8, Square.H8)
 
     def read(ba: ByteArray) =
-      var set = Set.empty[Pos]
+      var set = Set.empty[Square]
       arrIndexes.foreach { i =>
         val int = ba.value(i).toInt
         if (int != 0)
           if (int == -127) set = if (i == 0) whiteStd else set ++ blackStd
           else
             bitIndexes.foreach { j =>
-              if (bitAt(int, j) == 1) set = set + Pos.at(7 - j, 7 * i).get
+              if (bitAt(int, j) == 1) set = set + Square.at(7 - j, 7 * i).get
             }
       }
       UnmovedRooks(set)

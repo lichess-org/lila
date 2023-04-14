@@ -21,12 +21,18 @@
   <string name="toGetPersonalizedPuzzles">Ariketa pertsonalizatuak lortzeko:</string>
   <string name="puzzleId">%s ariketa</string>
   <string name="puzzleOfTheDay">Eguneko ariketa</string>
+  <string name="dailyPuzzle">Eguneroko ariketa</string>
   <string name="clickToSolve">Ebazteko klik egin</string>
   <string name="goodMove">Jokaldi ona</string>
   <string name="bestMove">Jokaldi onena!</string>
   <string name="keepGoing">Jarraitu…</string>
   <string name="puzzleSuccess">Zorionak!</string>
   <string name="puzzleComplete">Ariketa osatuta!</string>
+  <string name="byOpenings">Hasieraka</string>
+  <string name="puzzlesByOpenings">Hasierakako ariketak</string>
+  <string name="openingsYouPlayedTheMost">Gehien jokatu dituzun hasierak</string>
+  <string name="useFindInPage">Erabili zure nabigatzaileko \"Bilatu orrian\" funtzioa zure hasiera gogokoena bilatzeko!</string>
+  <string name="useCtrlF">Erabili Ctrl+f zure hasiera gogokoena bilatzeko!</string>
   <string name="notTheMove">Hori ez zen jokaldia!</string>
   <string name="trySomethingElse">Saiatu beste batekin.</string>
   <string name="ratingX">Sailkapena: %s</string>
@@ -41,13 +47,13 @@
   <string name="normal">Arrunta</string>
   <string name="easier">Erraza</string>
   <string name="easiest">Errazena</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Ariketen zure puntuazioa baino puntu bat beherago</item>
     <item quantity="other">Ariketen zure puntuazioa baino %s puntu beherago</item>
   </plurals>
   <string name="harder">Zaila</string>
   <string name="hardest">Zailena</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Ariketen zure puntuazioa baino puntu bat gorago</item>
     <item quantity="other">Ariketen zure puntuazioa baino %s puntu gorago</item>
   </plurals>

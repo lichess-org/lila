@@ -91,10 +91,10 @@ case object Glicko:
   val maxRatingDelta = 700
 
   val tau    = 0.75d
-  val system = glicko2.RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
+  val system = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    system.previewDeviation(p.toRating, new DateTime, reverse)
+    system.previewDeviation(p.toRating, nowInstant, reverse)
   } atLeast minDeviation atMost maxDeviation
 
   given BSONDocumentHandler[Glicko] = new BSON[Glicko]:
@@ -116,7 +116,6 @@ case object Glicko:
   import play.api.libs.json.{ OWrites, Json }
   given OWrites[Glicko] =
     import lila.common.Maths.roundDownAt
-    import lila.common.Json.given
     OWrites { p =>
       Json
         .obj(

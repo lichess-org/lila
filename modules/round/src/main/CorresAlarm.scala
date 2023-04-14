@@ -20,8 +20,8 @@ final private class CorresAlarm(
 
   private case class Alarm(
       _id: GameId,
-      ringsAt: DateTime, // when to notify the player
-      expiresAt: DateTime
+      ringsAt: Instant, // when to notify the player
+      expiresAt: Instant
   )
 
   private given BSONDocumentHandler[Alarm] = Macros.handler
@@ -33,40 +33,41 @@ final private class CorresAlarm(
   Bus.subscribeFun("moveEventCorres") { case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, true, _) =>
     proxyGame(move.gameId) foreach {
       _ foreach { game =>
-        game.bothPlayersHaveMoved ?? {
-          game.playableCorrespondenceClock ?? { clock =>
-            val remainingTime = clock remainingTime game.turnColor
-            val ringsAt       = nowDate.plusSeconds(remainingTime.toInt * 8 / 10)
-            coll.update
-              .one(
-                $id(game.id),
-                Alarm(
-                  _id = game.id,
-                  ringsAt = ringsAt,
-                  expiresAt = nowDate.plusSeconds(remainingTime.toInt * 2)
-                ),
-                upsert = true
-              )
-              .void
-          }
+        game.playableCorrespondenceClock.ifTrue(game.bothPlayersHaveMoved) ?? { clock =>
+          val remainingSeconds = clock remainingTime game.turnColor
+          val ringsAt          = nowInstant.plusSeconds(remainingSeconds.toInt * 8 / 10)
+          coll.update
+            .one(
+              $id(game.id),
+              Alarm(
+                _id = game.id,
+                ringsAt = ringsAt,
+                expiresAt = nowInstant.plusSeconds(remainingSeconds.toInt * 2)
+              ),
+              upsert = true
+            )
+            .void
         }
       }
     }
   }
 
   LilaScheduler("CorresAlarm", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)) {
+    def deleteAlarm(id: GameId) = coll.delete.one($id(id)).void
     coll
-      .find($doc("ringsAt" $lt nowDate))
+      .find($doc("ringsAt" $lt nowInstant))
       .cursor[Alarm]()
       .documentSource(200)
-      .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id))
-      .via(LilaStream.collect)
-      .mapAsyncUnordered(4) { game =>
-        val pov = Pov(game, game.turnColor)
-        pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
-          case true  => // already looking at the game
-          case false => Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
-        } >> coll.delete.one($id(game.id))
+      .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id).map(alarm -> _))
+      .mapAsyncUnordered(4) {
+        case (_, Some(game)) =>
+          val pov = Pov.ofCurrentTurn(game)
+          deleteAlarm(game.id) zip
+            pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
+              case true  => // already looking at the game
+              case false => Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
+            }
+        case (alarm, None) => deleteAlarm(alarm._id)
       }
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()

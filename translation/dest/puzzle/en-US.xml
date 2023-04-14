@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Puzzles</string>
+  <string name="puzzles">Chess Puzzles</string>
   <string name="puzzleThemes">Puzzle themes</string>
   <string name="recommended">Recommended</string>
   <string name="phases">Phases</string>
@@ -28,6 +28,11 @@
   <string name="keepGoing">Keep going…</string>
   <string name="puzzleSuccess">Success!</string>
   <string name="puzzleComplete">Puzzle complete!</string>
+  <string name="byOpenings">By openings</string>
+  <string name="puzzlesByOpenings">Puzzles by openings</string>
+  <string name="openingsYouPlayedTheMost">Openings you played the most in rated games</string>
+  <string name="useFindInPage">Use \"Find in page\" in the browser menu to find your favorite opening!</string>
+  <string name="useCtrlF">Use Ctrl+f to find your favorite opening!</string>
   <string name="notTheMove">That\'s not the move!</string>
   <string name="trySomethingElse">Try something else.</string>
   <string name="ratingX">Rating: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Easier</string>
   <string name="easiest">Easiest</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">One point below your puzzle rating</item>
     <item quantity="other">%s points below your puzzle rating</item>
   </plurals>
   <string name="harder">Harder</string>
   <string name="hardest">Hardest</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">One point above your puzzle rating</item>
     <item quantity="other">%s points above your puzzle rating</item>
   </plurals>

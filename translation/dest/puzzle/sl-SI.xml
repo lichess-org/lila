@@ -27,6 +27,11 @@
   <string name="keepGoing">Nadaljuj…</string>
   <string name="puzzleSuccess">Prenos uspešen!</string>
   <string name="puzzleComplete">Uganka rešena!</string>
+  <string name="byOpenings">Po otvoritvah</string>
+  <string name="puzzlesByOpenings">Uganke po otvoritvah</string>
+  <string name="openingsYouPlayedTheMost">Otvoritve, ki ste jih največ igrali v rangiranih igrah</string>
+  <string name="useFindInPage">Uporabite \"Poišči na strani\" v meniju brskalnika, da poiščete svoje najljubšo otvoritev!</string>
+  <string name="useCtrlF">Uporabite Ctrl+f, da najdete vašo najljubšo otvoritev!</string>
   <string name="notTheMove">To ni pravilna poteza!</string>
   <string name="trySomethingElse">Poskusite kakšno drugo potezo.</string>
   <string name="ratingX">Uvrstitev: %s</string>
@@ -43,7 +48,7 @@
   <string name="normal">Običajno</string>
   <string name="easier">Lažje</string>
   <string name="easiest">Najlažje</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Ena točka pod ratingom uganke</item>
     <item quantity="two">%s točki pod ratingom uganke</item>
     <item quantity="few">%s točke pod ratingom uganke</item>
@@ -51,7 +56,7 @@
   </plurals>
   <string name="harder">Težje</string>
   <string name="hardest">Najtežje</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Ena točka nad ratingom uganke</item>
     <item quantity="two">%s točki nad ratingom uganke</item>
     <item quantity="few">%s točke nad ratingom uganke</item>

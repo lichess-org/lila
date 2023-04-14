@@ -28,6 +28,11 @@
   <string name="keepGoing">המשיכו…</string>
   <string name="puzzleSuccess">כל הכבוד!</string>
   <string name="puzzleComplete">החידה הושלמה!</string>
+  <string name="byOpenings">לפי פתיחות</string>
+  <string name="puzzlesByOpenings">חידות לפי פתיחות</string>
+  <string name="openingsYouPlayedTheMost">הפתיחות הנפוצות שלך במשחקים מדורגים</string>
+  <string name="useFindInPage">השתמשו ב״חיפוש בעמוד״ בדפדפן כדי למצוא את הפתיחה המועדפת עליכם!</string>
+  <string name="useCtrlF">השתמשו ב-ctrl+F כדי למצוא את הפתיחה המועדפת עליכם!</string>
   <string name="notTheMove">זה לא המהלך!</string>
   <string name="trySomethingElse">נסו משהו אחר.</string>
   <string name="ratingX">דירוג: %s</string>
@@ -44,7 +49,7 @@
   <string name="normal">רגיל</string>
   <string name="easier">קל יותר</string>
   <string name="easiest">מאוד קל</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">נקודה %s מתחת לדירוג החידות שלך</item>
     <item quantity="two">%s נקודות מתחת לדירוג החידות שלך</item>
     <item quantity="many">%s נקודות מתחת לדירוג החידות שלך</item>
@@ -52,7 +57,7 @@
   </plurals>
   <string name="harder">קשה יותר</string>
   <string name="hardest">מאוד קשה</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">נקודה %s מעל לדירוג החידות שלך</item>
     <item quantity="two">נקודה 1 מתחת לדירוג הפזלים שלך</item>
     <item quantity="many">%s נקודות מעל לדירוג החידות שלך</item>

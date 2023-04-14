@@ -8,12 +8,12 @@ import lila.socket.RemoteSocket.{ Protocol as P, * }
 final private class ChallengeSocket(
     api: ChallengeApi,
     remoteSocketApi: lila.socket.RemoteSocket
-)(using Executor, play.api.Mode):
+)(using Executor):
 
   import ChallengeSocket.*
 
-  def reload(challengeId: Challenge.ID): Unit =
-    rooms.tell(RoomId(challengeId), NotifyVersion("reload", JsNull))
+  def reload(challengeId: Challenge.Id): Unit =
+    rooms.tell(challengeId into RoomId, NotifyVersion("reload", JsNull))
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply
 
@@ -35,9 +35,9 @@ object ChallengeSocket:
 
     object In:
 
-      case class OwnerPings(ids: Iterable[String]) extends P.In
+      case class OwnerPings(ids: Iterable[Challenge.Id]) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match
-          case "challenge/pings" => OwnerPings(P.In.commas(raw.args)).some
+          case "challenge/pings" => OwnerPings(Challenge.Id from P.In.commas(raw.args)).some
           case _                 => RP.In.reader(raw)

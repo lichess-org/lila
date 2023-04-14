@@ -131,7 +131,7 @@ final class Report(
     }
 
   def snooze(id: ReportId, dur: String) =
-    SecureBody(_.SeeReport) { implicit ctx => me =>
+    SecureBody(_.SeeReport) { _ => me =>
       api.snooze(me, id, dur) map {
         _.fold(Redirect(routes.Report.list))(onInquiryStart)
       }

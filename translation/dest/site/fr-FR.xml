@@ -390,7 +390,7 @@
   <string name="toStudy">Étude</string>
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Les variantes seront effacées. Pour les conserver, importez le PGN dans une étude.</string>
+  <string name="importGameCaveat">Les variantes seront effacées. Pour les conserver, importez le PGN dans une étude.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partie importée</item>
     <item quantity="other">%s parties importées</item>
@@ -662,6 +662,8 @@
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
   <string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
+  <string name="simulAddExtraTimePerPlayer">Ajouter le temps initial à votre pendule pour chaque joueur participant à la simultanée</string>
+  <string name="simulHostExtraTimePerPlayer">Temps additionnel ajouté à la pendule de l\'hôte pour chaque joueur</string>
   <string name="lichessTournaments">Tournois Lichess</string>
   <string name="tournamentFAQ">FAQ des tournois</string>
   <string name="timeBeforeTournamentStarts">Temps restant avant le début du tournoi</string>
@@ -946,4 +948,5 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
   <string name="switchSides">Changer de couleur</string>
   <string name="closingAccountWithdrawAppeal">Fermer votre compte annulera votre appel</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Nos conseils pour l\'organisation d\'événements</string>
 </resources>

@@ -46,7 +46,7 @@ trait RequestGetter:
     get(name, req) flatMap (_.toLongOption)
 
   protected def getTimestamp(name: String, req: RequestHeader) =
-    getLong(name, req) map { new DateTime(_) }
+    getLong(name, req) map millisToInstant
 
   protected def getBool(name: String)(using UserContext): Boolean =
     (getInt(name) exists trueish) || (get(name) exists trueish)

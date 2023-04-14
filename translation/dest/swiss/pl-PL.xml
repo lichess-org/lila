@@ -121,10 +121,4 @@ Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajca
   <string name="unlimitedAndFree">Bez ograniczeń i opłat</string>
   <string name="predefinedUsers">Zezwalaj na dołączenie do turnieju tylko wstępnie zdefiniowanym użytkownikom</string>
   <string name="forbiddedUsers">Jeśli ta lista nie jest pusta, nazwy użytkowników nieobecne na niej nie będą mogły dołączyć do turnieju. Jedna nazwa użytkownika na linię.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s runda z %2$s</item>
-    <item quantity="few">%1$s runda z %2$s</item>
-    <item quantity="many">%1$s runda z %2$s</item>
-    <item quantity="other">%1$s runda z %2$s</item>
-  </plurals>
 </resources>

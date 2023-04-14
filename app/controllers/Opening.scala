@@ -1,12 +1,10 @@
 package controllers
 
-import play.api.libs.json.Json
 import play.api.mvc.*
 import views.html
 
-import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, LilaOpeningFamily }
+import lila.common.HTTPRequest
 import lila.opening.OpeningQuery.queryFromUrl
 
 final class Opening(env: Env) extends LilaController(env):

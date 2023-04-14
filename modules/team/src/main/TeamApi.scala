@@ -1,8 +1,7 @@
 package lila.team
 
-import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json, Reads }
-import reactivemongo.api.{ Cursor, ReadPreference }
+import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 import scala.util.Try
 
@@ -16,6 +15,7 @@ import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
 import lila.security.Granter
+import java.time.Period
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -124,7 +124,7 @@ final class TeamApi(
     }
 
   def countCreatedRecently(me: User): Fu[Int] =
-    teamRepo.countCreatedSince(me.id, Period weeks 1)
+    teamRepo.countCreatedSince(me.id, Period.ofWeeks(1))
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
     requestRepo.findActiveByTeam(team.id, 50) flatMap requestsWithUsers

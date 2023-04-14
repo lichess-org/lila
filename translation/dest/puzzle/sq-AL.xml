@@ -27,6 +27,10 @@
   <string name="keepGoing">Vazhdoni…</string>
   <string name="puzzleSuccess">Sukses!</string>
   <string name="puzzleComplete">Ushtrimi u plotësua!</string>
+  <string name="byOpenings">Sipas hapjesh</string>
+  <string name="openingsYouPlayedTheMost">Hapje që bëtë në lojërat më të vlerësuara</string>
+  <string name="useFindInPage">Që të gjeni hapen tuaj të parapëlqyer, përdorni “Gjej në faqe” te menuja e shfletuesit!</string>
+  <string name="useCtrlF">Që të gjeni hapjen tuaj të parapëlqyer, përdorni Ctrl+f!</string>
   <string name="notTheMove">S’është lëvizja e duhur!</string>
   <string name="trySomethingElse">Provoni diçka tjetër.</string>
   <string name="ratingX">Vlerësimi: %s</string>
@@ -41,13 +45,13 @@
   <string name="normal">Normale</string>
   <string name="easier">Më e lehtë</string>
   <string name="easiest">Më e lehta</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Një pikë nën vlerësimin tuaj në ushtrime</item>
     <item quantity="other">%s pikë nën vlerësimin tuaj në ushtrime</item>
   </plurals>
   <string name="harder">Më e vështirë</string>
   <string name="hardest">Më e vështira</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Një pikë mbi vlerësimin tuaj në ushtrime</item>
     <item quantity="other">%s pikë mbi vlerësimin tuaj në ushtrime</item>
   </plurals>

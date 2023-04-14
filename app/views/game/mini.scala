@@ -4,7 +4,7 @@ import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
@@ -46,18 +46,18 @@ object mini:
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov, withRating = true)(defaultLang),
+      renderPlayer(!pov, withRating = true)(using defaultLang),
       cgWrap,
-      renderPlayer(pov, withRating = true)(defaultLang)
+      renderPlayer(pov, withRating = true)(using defaultLang)
     )
 
   def renderState(pov: Pov) =
     dataState := s"${Fen writeBoardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
-  private def renderPlayer(pov: Pov, withRating: Boolean)(implicit lang: Lang) =
+  private def renderPlayer(pov: Pov, withRating: Boolean)(using Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
-        playerUsername(pov.player, withRating = false),
+        playerUsername(pov.player.light, withRating = false),
         withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       if (pov.game.finished) renderResult(pov)

@@ -106,8 +106,4 @@ Un modo per simulare un Round Robin online è giocare un torneo svizzero con un 
   <string name="unlimitedAndFree">Illimitato e gratuito</string>
   <string name="predefinedUsers">Permetti solo a degli utenti prefissati di partecipare</string>
   <string name="forbiddedUsers">Se questa lista non è vuota, gli utenti che non compaiono in questa lista non potranno partecipare. Un nome utente per ogni linea.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s turno a sistema svizzero</item>
-    <item quantity="other">%1$s / %2$s turni a sistema svizzero</item>
-  </plurals>
 </resources>

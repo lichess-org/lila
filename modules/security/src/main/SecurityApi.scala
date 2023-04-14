@@ -7,13 +7,12 @@ import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.annotation.nowarn
 import ornicar.scalalib.SecureRandom
 
-import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.common.Form.into
 import lila.db.dsl.{ *, given }
-import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ User, UserRepo }
 
@@ -24,10 +23,9 @@ final class SecurityApi(
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
-    emailValidator: EmailAddressValidator,
     oAuthServer: lila.oauth.OAuthServer,
     tor: Tor
-)(using ec: Executor, system: akka.actor.ActorSystem, mode: Mode):
+)(using ec: Executor, mode: Mode):
 
   val AccessUri = "access_uri"
 
@@ -177,7 +175,7 @@ final class SecurityApi(
       "user",
       $doc(
         field -> value,
-        "date" $gt nowDate.minusYears(1)
+        "date" $gt nowInstant.minusYears(1)
       ),
       ReadPreference.secondaryPreferred
     )
@@ -196,7 +194,7 @@ final class SecurityApi(
     def authenticate(sessionId: SessionId): Option[UserId] =
       sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
 
-    def saveAuthentication(userId: UserId)(implicit req: RequestHeader): Fu[SessionId] =
+    def saveAuthentication(userId: UserId): Fu[SessionId] =
       val sessionId = s"$prefix${SecureRandom nextString 22}"
       store.put(sessionId, userId)
       logger.info(s"Appeal login by $userId")

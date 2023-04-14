@@ -3,7 +3,6 @@ package lila.oauth
 import cats.data.Validated
 import reactivemongo.api.bson.*
 import lila.db.dsl.*
-import lila.user.User
 
 final class AuthorizationApi(val coll: Coll)(using Executor):
   import AuthorizationApi.{ BSONFields as F, PendingAuthorization, PendingAuthorizationBSONHandler }
@@ -18,7 +17,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
         request.redirectUri,
         request.challenge,
         request.scopes,
-        nowDate.plusSeconds(120)
+        nowInstant.plusSeconds(120)
       )
     ) inject code
 
@@ -30,7 +29,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
         pending <- doc
           .result[PendingAuthorization]
           .toValid(Protocol.Error.AuthorizationCodeInvalid)
-          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowDate))
+          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowInstant))
           .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
           .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
         _ <- pending.challenge match
@@ -65,7 +64,7 @@ private object AuthorizationApi:
       redirectUri: Protocol.RedirectUri,
       challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
       scopes: List[OAuthScope],
-      expires: DateTime
+      expires: Instant
   )
 
   import lila.db.BSON
@@ -84,10 +83,10 @@ private object AuthorizationApi:
           case None                     => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
         },
         scopes = r.get[List[OAuthScope]](F.scopes),
-        expires = r.get[DateTime](F.expires)
+        expires = r.get[Instant](F.expires)
       )
 
-    def writes(w: BSON.Writer, o: PendingAuthorization) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: PendingAuthorization) =
       $doc(
         F.hashedCode         -> o.hashedCode,
         F.clientId           -> o.clientId.value,

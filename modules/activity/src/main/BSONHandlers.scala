@@ -4,15 +4,9 @@ import reactivemongo.api.bson.*
 import scala.util.Success
 
 import lila.common.{ Iso, LichessDay }
-import lila.common.Iso.given
 import lila.db.dsl.{ *, given }
-import lila.rating.BSONHandlers.perfTypeKeyHandler
 import lila.rating.{ Perf, PerfType }
-import lila.study.BSONHandlers.given
-import lila.study.Study
-import lila.swiss.BsonHandlers.given
-import lila.swiss.Swiss
-import lila.user.User
+import scala.annotation.nowarn
 
 private object BSONHandlers:
 
@@ -68,16 +62,16 @@ private object BSONHandlers:
   private[activity] given BSONHandler[Games] = typedMapHandlerIso[PerfType, Score].as(Games(_), _.value)
 
   given lila.db.BSON[Storm] with
-    def reads(r: lila.db.BSON.Reader)            = Storm(r.intD("r"), r.intD("s"))
-    def writes(w: lila.db.BSON.Writer, s: Storm) = BSONDocument("r" -> s.runs, "s" -> s.score)
+    def reads(r: lila.db.BSON.Reader)                    = Storm(r.intD("r"), r.intD("s"))
+    def writes(@nowarn w: lila.db.BSON.Writer, s: Storm) = BSONDocument("r" -> s.runs, "s" -> s.score)
 
   given lila.db.BSON[Racer] with
-    def reads(r: lila.db.BSON.Reader)            = Racer(r.intD("r"), r.intD("s"))
-    def writes(w: lila.db.BSON.Writer, r: Racer) = BSONDocument("r" -> r.runs, "s" -> r.score)
+    def reads(r: lila.db.BSON.Reader)                    = Racer(r.intD("r"), r.intD("s"))
+    def writes(@nowarn w: lila.db.BSON.Writer, r: Racer) = BSONDocument("r" -> r.runs, "s" -> r.score)
 
   given lila.db.BSON[Streak] with
-    def reads(r: lila.db.BSON.Reader)             = Streak(r.intD("r"), r.intD("s"))
-    def writes(w: lila.db.BSON.Writer, r: Streak) = BSONDocument("r" -> r.runs, "s" -> r.score)
+    def reads(r: lila.db.BSON.Reader)                     = Streak(r.intD("r"), r.intD("s"))
+    def writes(@nowarn w: lila.db.BSON.Writer, r: Streak) = BSONDocument("r" -> r.runs, "s" -> r.score)
 
   given BSONHandler[Learn] = typedMapHandler[LearnStage, Int].as(Learn(_), _.value)
 
@@ -94,15 +88,15 @@ private object BSONHandlers:
         in = r.getO[FollowList]("i").filterNot(_.isEmpty),
         out = r.getO[FollowList]("o").filterNot(_.isEmpty)
       )
-    def writes(w: lila.db.BSON.Writer, o: Follows) =
+    def writes(@annotation.nowarn w: lila.db.BSON.Writer, o: Follows) =
       BSONDocument(
         "i" -> o.in,
         "o" -> o.out
       )
 
   given lila.db.BSON[SwissRank] with
-    def reads(r: lila.db.BSON.Reader)                = SwissRank(SwissId(r.str("i")), Rank(r.intD("r")))
-    def writes(w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
+    def reads(r: lila.db.BSON.Reader) = SwissRank(SwissId(r.str("i")), Rank(r.intD("r")))
+    def writes(@nowarn w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
 
   object ActivityFields:
     val id         = "_id"
@@ -149,7 +143,7 @@ private object BSONHandlers:
       stream = r.getD[Boolean](stream)
     )
 
-    def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
+    def writes(@annotation.nowarn w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
       id         -> o.id,
       games      -> o.games,
       forumPosts -> o.forumPosts,

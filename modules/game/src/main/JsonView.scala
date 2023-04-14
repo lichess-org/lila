@@ -10,7 +10,7 @@ import lila.common.LightUser
 
 final class JsonView(rematches: Rematches):
 
-  import JsonView.{ *, given }
+  import JsonView.given
 
   def base(game: Game, initialFen: Option[Fen.Epd]) =
     Json
@@ -118,10 +118,8 @@ object JsonView:
 
   given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
-      Crazyhouse.storableRoles.flatMap { role =>
-        Some(v.roles.count(role ==)).filter(0 <).map { count =>
-          role.name -> JsNumber(count)
-        }
+      v.values.collect {
+        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
       }
     )
   }

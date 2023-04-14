@@ -2,7 +2,7 @@ package views.html.user
 
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.{ Perf, PerfType }
@@ -161,7 +161,7 @@ object perfStat:
             ),
             count.seconds > 0 option tr(cls := "full")(
               th(timeSpentPlaying()),
-              td(colspan := "2")(showPeriod(count.period))
+              td(colspan := "2")(showDuration(count.duration))
             )
           )
         )
@@ -206,7 +206,7 @@ object perfStat:
       case Some(r) =>
         div(
           h2(title(strong(tag(color)(r.int)))),
-          a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at))
+          a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientInstant(r.at))
         )
       case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
 
@@ -220,10 +220,10 @@ object perfStat:
     s.from match
       case Some(from) =>
         fromXToY(
-          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientDateTime(from.at)),
+          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientInstant(from.at)),
           s.to match {
             case Some(to) =>
-              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientDateTime(to.at))
+              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientInstant(to.at))
             case None => now()
           }
         )
@@ -273,7 +273,7 @@ object perfStat:
               td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td(
                 a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.username}")(
-                  absClientDateTime(r.at)
+                  absClientInstant(r.at)
                 )
               )
             )
@@ -316,7 +316,7 @@ object perfStat:
   private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit lang: Lang): Frag =
     div(
       div(cls := "streak")(
-        h3(title(showPeriod(s.period))),
+        h3(title(showDuration(s.duration))),
         fromTo(s)
       )
     )

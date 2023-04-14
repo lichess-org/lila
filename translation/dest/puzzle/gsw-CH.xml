@@ -28,6 +28,11 @@
   <string name="keepGoing">Blib dra…</string>
   <string name="puzzleSuccess">Korräkt!</string>
   <string name="puzzleComplete">Ufgab abgschlosse!</string>
+  <string name="byOpenings">Nach Eröffnige</string>
+  <string name="puzzlesByOpenings">Ufgabe nach Eröffnige</string>
+  <string name="openingsYouPlayedTheMost">Dini meischt-gschpillte Eröffnige, i gwertete Partie</string>
+  <string name="useFindInPage">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
+  <string name="useCtrlF">Find dini bevorzugti Eröffnig mit Ctrl+F !</string>
   <string name="notTheMove">Das isch nöd de Zug!</string>
   <string name="trySomethingElse">Probier öppis Anders.</string>
   <string name="ratingX">Wertig: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Eifacher</string>
   <string name="easiest">Am eifachschte</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">1 Punkt under dinere Ufgabe Wertig</item>
     <item quantity="other">%s Pünkt under dinere Ufgabe Wertig</item>
   </plurals>
   <string name="harder">Schwieriger</string>
   <string name="hardest">Am schwierigschte</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">1 Punkt über dinere Ufgabe Wertig</item>
     <item quantity="other">%s Pünkt über diinere Ufgabe Wertig</item>
   </plurals>

@@ -19,7 +19,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] val scheduledSelect      = $doc("schedule" $exists true)
   private def forTeamSelect(id: TeamId)        = $doc("forTeams" -> id)
   private def forTeamsSelect(ids: Seq[TeamId]) = $doc("forTeams" $in ids)
-  private def sinceSelect(date: DateTime)      = $doc("startsAt" $gt date)
+  private def sinceSelect(date: Instant)       = $doc("startsAt" $gt date)
   private def variantSelect(variant: Variant) =
     if (variant.standard) $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
@@ -129,7 +129,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     (nb > 0) ?? coll
       .find(
         forTeamSelect(teamId) ++ enterableSelect ++ $doc(
-          "startsAt" $gt nowDate.minusDays(1)
+          "startsAt" $gt nowInstant.minusDays(1)
         )
       )
       .sort($sort asc "startsAt")
@@ -191,7 +191,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   private def startingSoonSelect(aheadMinutes: Int) =
     createdSelect ++
-      $doc("startsAt" $lt (nowDate plusMinutes aheadMinutes))
+      $doc("startsAt" $lt (nowInstant plusMinutes aheadMinutes))
 
   def scheduledCreated(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.list[Tournament](startingSoonSelect(aheadMinutes) ++ scheduledSelect)
@@ -211,11 +211,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   private[tournament] def shouldStartCursor =
     coll
-      .find($doc("startsAt" $lt nowDate) ++ createdSelect)
+      .find($doc("startsAt" $lt nowInstant) ++ createdSelect)
       .batchSize(1)
       .cursor[Tournament]()
 
-  private[tournament] def soonStarting(from: DateTime, to: DateTime, notIds: Iterable[TourId]) =
+  private[tournament] def soonStarting(from: Instant, to: Instant, notIds: Iterable[TourId]) =
     coll
       .find(createdSelect ++ $doc("nbPlayers" $gt 0, "startsAt" $gt from $lt to, "_id" $nin notIds))
       .cursor[Tournament]()
@@ -228,7 +228,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   private def canShowOnHomepage(tour: Tournament): Boolean =
     tour.schedule exists { schedule =>
-      tour.startsAt isBefore nowDate.plusMinutes {
+      tour.startsAt isBefore nowInstant.plusMinutes {
         import Schedule.Freq.*
         val base = schedule.freq match
           case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)((_: Int) * 60)
@@ -245,7 +245,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     scheduledStillWorthEntering zip scheduledCreated(crud.CrudForm.maxHomepageHours * 60) map {
       case (started, created) =>
         (started ::: created)
-          .sortBy(_.startsAt.getSeconds)
+          .sortBy(_.startsAt.toSeconds)
           .foldLeft(List.empty[Tournament]) {
             case (acc, tour) if !canShowOnHomepage(tour)     => acc
             case (acc, tour) if acc.exists(_ similarTo tour) => acc
@@ -292,7 +292,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         .reverse
     }
 
-  def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime): Fu[List[Tournament]] =
+  def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: Instant): Fu[List[Tournament]] =
     coll
       .find(
         finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ $doc(
@@ -307,7 +307,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   def lastFinishedDaily(variant: Variant): Fu[Option[Tournament]] =
     coll
       .find(
-        finishedSelect ++ sinceSelect(nowDate minusDays 1) ++ variantSelect(variant) ++
+        finishedSelect ++ sinceSelect(nowInstant minusDays 1) ++ variantSelect(variant) ++
           $doc("schedule.freq" -> Schedule.Freq.Daily.name)
       )
       .sort($sort desc "startsAt")
@@ -343,7 +343,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   def remove(tour: Tournament) = coll.delete.one($id(tour.id))
 
-  def calendar(from: DateTime, to: DateTime): Fu[List[Tournament]] =
+  def calendar(from: Instant, to: Instant): Fu[List[Tournament]] =
     coll
       .find(
         $doc(

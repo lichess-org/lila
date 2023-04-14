@@ -112,7 +112,7 @@ object AiConfig extends BaseConfig:
         fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
       )
 
-    def writes(w: BSON.Writer, o: AiConfig) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: AiConfig) =
       $doc(
         "v"  -> o.variant.id,
         "tm" -> o.timeMode.id,

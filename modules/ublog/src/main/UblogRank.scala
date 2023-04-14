@@ -2,14 +2,12 @@ package lila.ublog
 
 import akka.stream.scaladsl.*
 import cats.syntax.all.*
-import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
-import lila.memo.SettingStore
 import lila.user.User
 
 final class UblogRank(
@@ -53,7 +51,7 @@ final class UblogRank(
             id       <- doc.getAsOpt[UblogPostId]("_id")
             likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
             topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
-            liveAt   <- doc.getAsOpt[DateTime]("at")
+            liveAt   <- doc.getAsOpt[Instant]("at")
             tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
             language <- doc.getAsOpt[Lang]("language")
             title    <- doc string "title"
@@ -124,7 +122,7 @@ final class UblogRank(
   private def computeRank(
       topics: List[UblogTopic],
       likes: UblogPost.Likes,
-      liveAt: DateTime,
+      liveAt: Instant,
       language: Lang,
       tier: UblogBlog.Tier
   ) = UblogPost.RankDate {

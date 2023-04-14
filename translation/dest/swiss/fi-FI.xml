@@ -106,8 +106,4 @@ Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauk
   <string name="unlimitedAndFree">Rajoittamaton ja ilmainen</string>
   <string name="predefinedUsers">Vain ennalta valitut pelaajat saavat osallistua</string>
   <string name="forbiddedUsers">Jos lista ei ole tyhjä, turnaukseen ei voi osallistua kukaan muu kuin listalla luetellut pelaajat. Yksi käyttäjätunnus riviä kohden.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s kierroksesta sveitsiläisellä järjestelmällä</item>
-    <item quantity="other">%1$s / %2$s kierroksesta sveitsiläisellä järjestelmällä</item>
-  </plurals>
 </resources>

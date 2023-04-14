@@ -1,9 +1,9 @@
 package views.html.search
 
-import org.joda.time.format.DateTimeFormat
 import play.api.data.Form
 import play.api.i18n.Lang
 import scala.util.chaining.*
+import java.time.format.DateTimeFormatter
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -13,10 +13,10 @@ private object bits:
 
   import trans.search.*
 
-  private val dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+  private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
   private val dateMin       = "2011-01-01"
   private def dateMinMax: List[Modifier] =
-    List(min := dateMin, max := dateFormatter.print(nowDate.plusDays(1)))
+    List(min := dateMin, max := dateFormatter.print(nowInstant.plusDays(1)))
 
   final class SearchForm(form: Form[?])(implicit lang: Lang):
 

@@ -6,7 +6,7 @@ import play.api.data.Forms.*
 import scala.util.Try
 import scala.util.chaining.*
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
+import lila.common.Form.{ cleanText, into }
 import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
@@ -15,7 +15,7 @@ import lila.user.User
 final class RelayRoundForm:
 
   import RelayRoundForm.*
-  import lila.common.Form.ISODateTimeOrTimestamp
+  import lila.common.Form.ISOInstantOrTimestamp
 
   val roundMapping =
     mapping(
@@ -24,7 +24,7 @@ final class RelayRoundForm:
         cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
-      "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
+      "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
@@ -53,14 +53,14 @@ object RelayRoundForm:
     cleanUrl(source).isDefined || toGameIds(source).isDefined
 
   private def cleanUrl(source: String): Option[String] =
-    for {
+    for
       url <- Try(URL.parse(source)).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       // prevent common mistakes (not for security)
       if !blocklist.exists(subdomain(host, _))
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
-    } yield url.toString.stripSuffix("/")
+    yield url.toString.stripSuffix("/")
 
   private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
 
@@ -88,7 +88,7 @@ object RelayRoundForm:
       name: RelayRoundName,
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
-      startsAt: Option[DateTime] = None,
+      startsAt: Option[Instant] = None,
       throttle: Option[Int] = None
   ):
 
@@ -127,7 +127,7 @@ object RelayRoundForm:
         tourId = tour.id,
         name = name,
         sync = makeSync(user),
-        createdAt = nowDate,
+        createdAt = nowInstant,
         finished = false,
         startsAt = startsAt,
         startedAt = none

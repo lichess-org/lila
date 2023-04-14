@@ -4,7 +4,7 @@ import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
@@ -37,7 +37,7 @@ object search:
               value       := form("q").value
             )
           ),
-          userTable(mod, users, eraseButton = isGranted(_.CloseAccount))
+          userTable(mod, users, eraseButton = isGranted(_.GdprErase))
         )
       )
     }
@@ -224,7 +224,7 @@ object search:
             if (Granter.canViewAltUsername(mod, u))
               td(
                 userLink(u, withBestRating = true, params = "?mod"),
-                (isGranted(_.Admin) && isGranted(_.SetEmail)) option
+                isGranted(_.Admin) option
                   email(emails.strList.mkString(", "))
               )
             else td,

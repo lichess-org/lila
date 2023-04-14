@@ -98,7 +98,7 @@
   <string name="dtzWithRounding">DTZ50\" so zaokrúhlením, vychádzajúci s počtu polťahov až do najbližšieho brania alebo ťahu pešiakom</string>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
-  <string name="openings">Otváranie</string>
+  <string name="openings">Otvorenia</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="openingEndgameExplorer">Prieskumník otvorení/koncoviek</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
@@ -230,7 +230,7 @@
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="error.weakPassword">Toto heslo je veľmi bežné, a ľahké na uhádnutie.</string>
-  <string name="error.namePassword">Zadajte prihlasovacie meno a heslo.</string>
+  <string name="error.namePassword">Prosím, nepoužívajte Vaše prihlasovacie meno ako Vaše heslo!</string>
   <string name="blankedPassword">Na inej stránke ste použili rovnaké heslo a táto stránka bola napadnutá. Aby sme zaistili bezpečnosť Vášho účtu Lichess, je potrebné aby ste si nastavili nové heslo. Ďakujeme Vám za pochopenie.</string>
   <string name="youAreLeavingLichess">Odchádzate z Lichessu</string>
   <string name="neverTypeYourPassword">Nikdy nepoužívajte vaše Lichess heslo na inom webe!</string>
@@ -238,22 +238,22 @@
   <string name="passwordSuggestion">Nepoužívajte heslo ktoré, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
   <string name="emailSuggestion">Nepoužívajte e-mail, ktorý, vám dal niekto iný. Mohol by vám ukradnúť účet.</string>
   <string name="emailConfirmHelp">Pomoc s overením e-mailu</string>
-  <string name="emailConfirmNotReceived">Nedostali ste váš konfirmačný email po registrácii?</string>
-  <string name="whatSignupUsername">Aké používateľske meno ste použili pri registrácii?</string>
+  <string name="emailConfirmNotReceived">Nedostali ste Váš overovací email po registrácii?</string>
+  <string name="whatSignupUsername">Aké používateľské meno ste použili na registráciu?</string>
   <string name="usernameNotFound">Nepodarilo sa nám nájsť používateľa s týmto menom: %s.</string>
-  <string name="usernameCanBeUsedForNewAccount">Môžte použiť toto meno pre registráciu</string>
-  <string name="emailSent">Poslali sme vám e-mail na adresu %s.</string>
-  <string name="emailCanTakeSomeTime">Bude to trvať nejaký čas kým to príde.</string>
-  <string name="refreshInboxAfterFiveMinutes">Vyčkajte 5 minút a obnovte vašu mailovú schránku.</string>
-  <string name="checkSpamFolder">Prosím skontrolujte tiež priečinok so spamom či tam nieje. Ak je označte ho, že nieje spam.</string>
-  <string name="emailForSignupHelp">Ak zlyhá všetko ostatné, zašlite nám tento email:</string>
-  <string name="copyTextToEmail">Skopírujte a prilepte vyššie uvedený text a pošlite ho na %s</string>
-  <string name="waitForSignupHelp">Čoskoro sa vám ozveme, aby sme vám pomohli dokončiť registráciu.</string>
+  <string name="usernameCanBeUsedForNewAccount">Toto meno je možné na vytvorenie nového účtu použiť</string>
+  <string name="emailSent">Na adresu %s sme poslali email.</string>
+  <string name="emailCanTakeSomeTime">Môže chvíľu trvať kým príde.</string>
+  <string name="refreshInboxAfterFiveMinutes">Počkajte 5 minút a obnovte si emailovú schránku!</string>
+  <string name="checkSpamFolder">Skontrolujte si aj priečinok s nevyžiadanou poštou, je možné, že sa dostal tam. Ak sa tak stalo, zrušte označenie emailu ako nevyžiadanej pošty.</string>
+  <string name="emailForSignupHelp">Ak všetko ostatné zlyhá, pošlite nám tento email:</string>
+  <string name="copyTextToEmail">Skopírujte a vložte uvedený text a pošlite ho na adresu %s</string>
+  <string name="waitForSignupHelp">Čoskoro sa Vám ozveme, aby sme Vám pomohli dokončiť registráciu.</string>
   <string name="accountConfirmed">Používateľ %s je úspešne potvrdený.</string>
   <string name="accountCanLogin">Teraz sa môžete prihlásiť ako %s.</string>
-  <string name="accountConfirmationEmailNotNeeded">Nové heslo vám bolo odoslané.</string>
+  <string name="accountConfirmationEmailNotNeeded">Potvrdzovací e-mail nepotrebujete.</string>
   <string name="accountClosed">Účet %s je zrušený.</string>
-  <string name="accountRegisteredWithoutEmail">Účet %s bol zaregistrovaný bez mailovej adresy.</string>
+  <string name="accountRegisteredWithoutEmail">Účet %s bol zaregistrovaný bez emailovej adresy.</string>
   <string name="rank">Poradie</string>
   <string name="rankX">Poradie: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -613,7 +613,7 @@
   <string name="notes">Poznámky</string>
   <string name="typePrivateNotesHere">Sem píšte súkromné správy</string>
   <string name="writeAPrivateNoteAboutThisUser">Napíšte súkromnú poznámku o tomto používateľovi</string>
-  <string name="noNoteYet">Zatiaľ žiadne</string>
+  <string name="noNoteYet">Zatiaľ žiadna poznámka</string>
   <string name="invalidUsernameOrPassword">Nesprávne meno alebo heslo</string>
   <string name="incorrectPassword">Nesprávne heslo</string>
   <string name="invalidAuthenticationCode">Neplatný overovací kód</string>
@@ -732,6 +732,8 @@
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
+  <string name="simulAddExtraTimePerPlayer">Za každého hráča, ktorý sa pripojí k simultánke, navýšiť čas na Vašich hodinách o počiatočný čas partie.</string>
+  <string name="simulHostExtraTimePerPlayer">Navýšiť čas na hodinách za každého hráča</string>
   <string name="lichessTournaments">Lichess turnaje</string>
   <string name="tournamentFAQ">Často kladené otázky pre turnajovú arénu</string>
   <string name="timeBeforeTournamentStarts">Čas do štartu turnaja</string>
@@ -787,12 +789,12 @@
   <string name="kidMode">Detský režim</string>
   <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je pod kotrolou. Opýtajte sa učiteľa okolo odstránenia detského módu.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je spravovaný niekým iným. Opýtajte sa svojho učiteľa šachu na zrušenie detského režimu.</string>
   <string name="enableKidMode">Povoliť detský režim</string>
   <string name="disableKidMode">Vypnúť detský režim</string>
   <string name="security">Zabezpečenie</string>
   <string name="sessions">Pripojenia</string>
-  <string name="revokeAllSessions">odobrať všetky relácie</string>
+  <string name="revokeAllSessions">zrušiť všetky pripojenia</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
   <string name="asFreeAsLichess">Slobodný ako lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Vytvorené z lásky k šachom, nie pre peniaze</string>
@@ -855,7 +857,7 @@
   <string name="bestWasX">Najlepší ťah bol %s</string>
   <string name="youBrowsedAway">Precvičovanie prerušené</string>
   <string name="resumePractice">Pokračovať v precvičovaní</string>
-  <string name="drawByFiftyMoves">Hra bola ukončená remízou podľa pravidla 50 ťahov.</string>
+  <string name="drawByFiftyMoves">Partia bola ukončená remízou podľa pravidla 50 ťahov.</string>
   <string name="theGameIsADraw">Hra skončila remízou.</string>
   <string name="computerThinking">Počítač premýšľa...</string>
   <string name="seeBestMove">Ukázať najlepší ťah</string>
@@ -1025,4 +1027,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
   <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naše tipy ohľadom organizovania podujatí</string>
 </resources>

@@ -450,7 +450,7 @@
   <string name="importGame">Імпортувати гру</string>
   <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
+  <string name="importGameCaveat">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпортована гра</item>
     <item quantity="few">%s імпортованих гри</item>
@@ -567,7 +567,7 @@
   <string name="socialMediaLinks">Посилання на соціальні мережі</string>
   <string name="oneUrlPerLine">Одне посилання на рядок.</string>
   <string name="inlineNotation">Вбудована нотація</string>
-  <string name="savingMoves">Тимчасове сховище для переїзду</string>
+  <string name="savingMoves">Тимчасове сховище ходів</string>
   <string name="savingMovesHelp">Ми завжди зберігаємо ваші варіанти в кеші браузера.</string>
   <string name="makeAStudy">Щоб зберегти та поділитися, подумайте про проведення дослідження.</string>
   <string name="clearSavedMoves">Очистити ходи</string>
@@ -740,6 +740,8 @@
   <string name="simulClockHint">Налаштування годинника Фішера. Чим більше учасників, тим більше часу Вам знадобиться.</string>
   <string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>
   <string name="simulHostExtraTime">Додатковий час організатора</string>
+  <string name="simulAddExtraTimePerPlayer">Додавайте початковий час до вашого годинника для кожного гравця, що приєднується до сеансу.</string>
+  <string name="simulHostExtraTimePerPlayer">Додатковий час для організатора за гравця</string>
   <string name="lichessTournaments">Турніри Lichess</string>
   <string name="tournamentFAQ">ЧаПи про турнір Арена</string>
   <string name="timeBeforeTournamentStarts">Час до початку турніру</string>
@@ -900,7 +902,7 @@
     <item quantity="other">%s секунд</item>
   </plurals>
   <string name="opening">Дебют</string>
-  <string name="middlegame">Міттельшпіль</string>
+  <string name="middlegame">Мітельшпіль</string>
   <string name="endgame">Ендшпіль</string>
   <string name="conditionalPremoves">Умовні ходи на випередження</string>
   <string name="addCurrentVariation">Додати поточний варіант</string>
@@ -1032,4 +1034,5 @@
   <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Наші поради щодо організації подій</string>
 </resources>

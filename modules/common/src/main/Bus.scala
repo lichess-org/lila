@@ -2,8 +2,7 @@ package lila.common
 
 import scala.jdk.CollectionConverters.*
 
-import akka.actor.{ ActorRef, ActorSystem, Scheduler }
-import lila.base.LilaTimeout
+import akka.actor.{ ActorRef, Scheduler }
 
 object Bus:
 

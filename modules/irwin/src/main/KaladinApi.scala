@@ -11,7 +11,6 @@ import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
-import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ User, Holder, UserRepo }
 import lila.report.SuspectId
 import lila.common.config.Max
@@ -95,7 +94,7 @@ final class KaladinApi(
   private def readResponse(user: KaladinUser): Funit = user.response ?? { res =>
     res.pred match
       case Some(pred) =>
-        markOrReport(user, res, pred) >>- {
+        markOrReport(user, pred) >>- {
           notification(user)
           lila.mon.mod.kaladin.activation.record(pred.percent).unit
         }
@@ -107,7 +106,7 @@ final class KaladinApi(
         }
   }
 
-  private def markOrReport(user: KaladinUser, res: KaladinUser.Response, pred: KaladinUser.Pred): Funit =
+  private def markOrReport(user: KaladinUser, pred: KaladinUser.Pred): Funit =
 
     def sendReport = for {
       suspect <- getSuspect(user.suspectId.value)
@@ -143,7 +142,6 @@ final class KaladinApi(
     private[KaladinApi] def apply(user: KaladinUser): Funit =
       subs.get(user.suspectId) ?? { modIds =>
         subs = subs - user.suspectId
-        import lila.notify.{ KaladinDone, Notification }
         modIds
           .map { modId =>
             notifyApi.notifyOne(modId, lila.notify.KaladinDone(user.suspectId.value))
@@ -187,7 +185,7 @@ final class KaladinApi(
           import lila.db.ByteArray.given
           gameRepo.coll
             .find(
-              Query.user(userId) ++ Query.rated ++ Query.createdSince(nowDate minusMonths 6),
+              Query.user(userId) ++ Query.rated ++ Query.createdSince(nowInstant minusMonths 6),
               $doc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPreference.secondaryPreferred)

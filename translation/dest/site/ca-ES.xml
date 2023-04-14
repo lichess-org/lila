@@ -390,7 +390,7 @@
   <string name="toStudy">Estudi</string>
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Al enganxar el PGN d\'una partida, s\'obté una repetició navegable, una anàlisi per ordinador, un xat de joc i una URL per compartir.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
+  <string name="importGameCaveat">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>
@@ -662,6 +662,8 @@
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
   <string name="simulHostExtraTime">Temps extra per a l\'amfitrió</string>
+  <string name="simulAddExtraTimePerPlayer">Afegir temps inicial al vostre rellotge per cada jugador que entri a la simultània.</string>
+  <string name="simulHostExtraTimePerPlayer">Temps extra de l\'amfitrió per jugador</string>
   <string name="lichessTournaments">Tornejos de Lichess</string>
   <string name="tournamentFAQ">Torneig Arena: Preguntes Més Freqüents</string>
   <string name="timeBeforeTournamentStarts">Temps per a què comenci el torneig</string>
@@ -946,4 +948,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>
   <string name="switchSides">Canviar de banda</string>
   <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
+  <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
 </resources>

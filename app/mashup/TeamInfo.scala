@@ -59,7 +59,7 @@ final class TeamInfoApi(
     credits = pmAllCredits * pmAllCost,
     duration = pmAllDays.days
   )
-  def pmAllStatus(id: TeamId): Fu[(Int, DateTime)] =
+  def pmAllStatus(id: TeamId): Fu[(Int, Instant)] =
     pmAllLimiter.getSpent(id) map { entry =>
       (pmAllCredits - entry.v / pmAllCost, entry.until)
     }
@@ -90,9 +90,9 @@ final class TeamInfoApi(
         PastAndNext(
           past = {
             tours.past.map(AnyTour(_)) ::: swisses.past.map(AnyTour(_))
-          }.sortBy(-_.startsAt.getSeconds),
+          }.sortBy(-_.startsAt.toSeconds),
           next = {
             tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
-          }.sortBy(_.startsAt.getSeconds)
+          }.sortBy(_.startsAt.toSeconds)
         )
     }

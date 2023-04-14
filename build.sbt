@@ -11,6 +11,7 @@ lazy val root = Project("lila", file("."))
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
+  .settings(scalacOptions ++= Seq("-deprecation"))
 
 organization         := "org.lichess"
 Compile / run / fork := true
@@ -80,7 +81,7 @@ lazy val api = module("api",
 
 lazy val i18n = module("i18n",
   Seq(common, db, hub),
-  specs2.bundle ++ Seq(scalatags)
+  specs2.bundle ++ Seq(scalatags, jodaTime)
 ).settings(
   Compile / sourceGenerators += Def.task {
     MessageCompiler(
@@ -150,14 +151,14 @@ lazy val evaluation = module("evaluation",
 lazy val common = module("common",
   Seq(),
   Seq(
-    scalalib, galimatias, chess, 
+    scalalib, galimatias, chess,
     kamon.core, scalatags, scaffeine, apacheText
   ) ++ specs2.bundle ++ reactivemongo.bundle ++ flexmark.bundle
 )
 
 lazy val rating = module("rating",
   Seq(common, db, memo, i18n),
-  reactivemongo.bundle ++ specs2.bundle 
+  reactivemongo.bundle ++ specs2.bundle
 )
 
 lazy val perfStat = module("perfStat",
@@ -382,7 +383,7 @@ lazy val mailer = module("mailer",
 
 lazy val plan = module("plan",
   Seq(common, user, security),
-  Seq(play.jsonJoda) ++ specs2.bundle ++ reactivemongo.bundle
+  specs2.bundle ++ reactivemongo.bundle
 )
 
 lazy val relation = module("relation",

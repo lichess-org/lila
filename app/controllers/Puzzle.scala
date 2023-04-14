@@ -13,7 +13,6 @@ import lila.app.{ given, * }
 import lila.common.ApiVersion
 import lila.common.Json.given
 import lila.common.config.MaxPerSecond
-import lila.i18n.I18nLangPicker
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme, PuzzleDifficulty }
 import lila.user.{ User as UserModel }
@@ -21,6 +20,8 @@ import lila.common.LangPath
 import play.api.i18n.Lang
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
+
+  private val cookieDifficulty = "puz-diff"
 
   private def renderJson(
       puzzle: Puz,
@@ -109,11 +110,14 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   ): Fu[Option[Puz]] =
     ctx.me match
       case Some(me) =>
-        color.?? { env.puzzle.session.setAngleAndColor(me, angle, _) } >>
+        ctx.req.session.get(cookieDifficulty).flatMap(PuzzleDifficulty.find).?? {
+          env.puzzle.session.setDifficulty(me, _)
+        } >>
+          color.?? { env.puzzle.session.setAngleAndColor(me, angle, _) } >>
           env.puzzle.selector.nextPuzzleFor(me, angle)
       case None => env.puzzle.anon.getOneFor(angle, ~color)
 
-  private def redirectNoPuzzle(using Context) =
+  private def redirectNoPuzzle =
     Redirect(routes.Puzzle.themes).flashFailure("No more puzzles available! Try another theme.").toFuccess
 
   def complete(angleStr: String, id: PuzzleId) =
@@ -157,13 +161,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 env.puzzle.api.puzzle.find(streakNextId) flatMap {
                   case None => fuccess(Json.obj("streakComplete" -> true))
                   case Some(puzzle) =>
-                    for {
+                    for
                       score <- data.streakScore
                       if data.win.no
                       if score > 0
                       _ = lila.mon.streak.run.score(ctx.isAuth.toString).record(score)
                       userId <- ctx.userId
-                    } setStreakResult(userId, score)
+                    do setStreakResult(userId, score)
                     renderJson(puzzle, angle) map { nextJson =>
                       Json.obj("next" -> nextJson)
                     }
@@ -261,7 +265,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def apiStreakResult(score: Int) =
-    ScopedBody(_.Puzzle.Write) { req => me =>
+    ScopedBody(_.Puzzle.Write) { _ => me =>
       if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
         lila.mon.streak.run.score("mobile").record(score)
         setStreakResult(me.id, score)
@@ -308,6 +312,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             diff =>
               PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
                 Redirect(routes.Puzzle.show(theme))
+                  .withCookies(env.lilaCookie.session(cookieDifficulty, diff))
           )
       }
     }
@@ -462,7 +467,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     DashboardPage(u) { implicit ctx => user =>
       Reasonable(page) {
         env.puzzle.history(user, page) map { history =>
-          Ok(views.html.puzzle.history(user, page, history))
+          Ok(views.html.puzzle.history(user, history))
         }
       }
     }
@@ -527,10 +532,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   /* Mobile API: select a bunch of puzzles for offline use */
-  def mobileBcBatchSelect = Auth { implicit ctx => me =>
+  def mobileBcBatchSelect = Auth { implicit ctx => _ =>
     negotiate(
       html = notFound,
-      api = v => {
+      api = _ => {
         val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
         env.puzzle.batch.nextFor(ctx.me, PuzzleDifficulty.default, nb) flatMap { puzzles =>
           env.puzzle.jsonView.bc.batch(puzzles, ctx.me)
@@ -543,7 +548,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def mobileBcBatchSolve = AuthBody(parse.json) { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = v => {
+      api = _ => {
         import lila.puzzle.PuzzleForm.bc.*
         import lila.puzzle.PuzzleWin
         ctx.body.body
@@ -574,7 +579,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     AuthBody { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = v => {
+        api = _ => {
           given play.api.mvc.Request[?] = ctx.body
           env.puzzle.forms.bc.vote
             .bindFromRequest()

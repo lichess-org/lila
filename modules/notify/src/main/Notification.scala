@@ -5,7 +5,6 @@ import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero
 
 import lila.common.paginator.Paginator
-import lila.user.User
 import lila.notify.Notification.*
 
 sealed abstract class NotificationContent(val key: String)
@@ -87,7 +86,7 @@ private[notify] case class Notification(
     notifies: UserId,
     content: NotificationContent,
     read: NotificationRead,
-    createdAt: DateTime
+    createdAt: Instant
 ):
   def to = notifies
 
@@ -108,4 +107,4 @@ object Notification:
   def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
     val idSize = 8
     val id     = ThreadLocalRandom nextString idSize
-    Notification(id, userIdOf(to), content, NotificationRead(false), nowDate)
+    Notification(id, userIdOf(to), content, NotificationRead(false), nowInstant)

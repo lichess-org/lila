@@ -3,7 +3,7 @@ package lila.game
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr }
 import chess.format.{ pgn as chessPgn }
-import chess.{ Centis, Color, Outcome }
+import chess.{ Centis, Color, ByColor, Outcome }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
@@ -19,7 +19,7 @@ final class PgnDump(
       game: Game,
       initialFen: Option[Fen.Epd],
       flags: WithFlags,
-      teams: Option[Color.Map[TeamId]] = None
+      teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn] =
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
@@ -87,7 +87,7 @@ final class PgnDump(
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,
-      teams: Option[Color.Map[TeamId]] = None
+      teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
       Tags {

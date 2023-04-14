@@ -15,15 +15,13 @@ final private class BookmarkConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     gameProxyRepo: lila.round.GameProxyRepo
-)(using
-    ec: Executor,
-    system: ActorSystem
-):
+)(using ec: Executor, system: ActorSystem):
 
   private val config = appConfig.get[BookmarkConfig]("bookmark")(AutoConfig.loader)
 

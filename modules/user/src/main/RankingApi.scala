@@ -9,12 +9,11 @@ import lila.memo.CacheApi.*
 import lila.rating.{ Glicko, Perf, PerfType }
 
 final class RankingApi(
-    userRepo: UserRepo,
     coll: AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor):
 
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
@@ -34,7 +33,7 @@ final class RankingApi(
             "rating"    -> perf.intRating,
             "prog"      -> perf.progress,
             "stable"    -> perf.rankable(PerfType variantOf perfType),
-            "expiresAt" -> nowDate.plusDays(7)
+            "expiresAt" -> nowInstant.plusDays(7)
           ),
           upsert = true
         )

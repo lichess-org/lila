@@ -40,7 +40,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         $doc(
           "$push" -> $doc(
             "revisions" -> $doc(
-              "$each"     -> List(Revision(Markdown(text), by.id, nowDate)),
+              "$each"     -> List(Revision(Markdown(text), by.id, nowInstant)),
               "$position" -> 0,
               "$slice"    -> 30
             )
@@ -107,7 +107,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
               $id(key),
               $set(
                 "popularity"   -> popularity,
-                "popularityAt" -> nowDate
+                "popularityAt" -> nowInstant
               ),
               upsert = true
             )
@@ -118,7 +118,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
 object OpeningWiki:
 
-  case class Revision(text: Markdown, by: UserId, at: DateTime)
+  case class Revision(text: Markdown, by: UserId, at: Instant)
 
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 

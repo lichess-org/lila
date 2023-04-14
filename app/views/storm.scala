@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
@@ -15,18 +15,14 @@ import lila.user.User
 
 object storm:
 
-  def home(data: JsObject, pref: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
+  def home(data: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
       moreJs = frag(
         jsModule("storm"),
         embedJsUnsafeLoadThen(
           s"""LichessStorm.start(${safeJsonValue(
-              Json.obj(
-                "data" -> data,
-                "pref" -> pref,
-                "i18n" -> i18nJsObject(i18nKeys)
-              )
+              data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))
             )})"""
         )
       ),

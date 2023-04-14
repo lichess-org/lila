@@ -12,7 +12,6 @@ import lila.app.{ given, * }
 import lila.user.Holder
 import lila.clas.ClasInvite
 import lila.clas.Clas.{ Id => ClasId }
-import router.ReverseRouterConversions.clasInviteIdConv
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -23,7 +22,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           case _ if getBool("home") => renderHome
           case None                 => renderHome
           case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
-            env.clas.api.clas.of(me, closed = getBool("closed")) map { classes =>
+            env.clas.api.clas.of(me) map { classes =>
               Ok(views.html.clas.clas.teacherIndex(classes, getBool("closed")))
             }
           case Some(me) =>
@@ -104,7 +103,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def WithClassAny(id: ClasId, me: lila.user.User)(
       forTeacher: => Fu[Result],
       forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
-      orDefault: Context => Fu[Result] = notFound(_)
+      orDefault: Context => Fu[Result] = notFound(using _)
   )(using ctx: Context): Fu[Result] =
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       case true => forTeacher
@@ -545,8 +544,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     }
 
   def studentClosePost(id: ClasId, username: UserStr) =
-    SecureBody(_.Teacher) { implicit ctx => me =>
-      WithClassAndStudents(me, id) { (clas, students) =>
+    SecureBody(_.Teacher) { _ => me =>
+      WithClassAndStudents(me, id) { (clas, _) =>
         WithStudent(clas, username) { s =>
           if (s.student.managed)
             env.clas.api.student.closeAccount(s) >>

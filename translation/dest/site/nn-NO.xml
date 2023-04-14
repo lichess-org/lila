@@ -213,6 +213,8 @@
   <string name="youAreLeavingLichess">Du forlèt Lichess</string>
   <string name="neverTypeYourPassword">Skriv aldri Lichess-passordet på ei anna webside!</string>
   <string name="proceedToX">Fortsett til %s</string>
+  <string name="passwordSuggestion">Ikkje bruk passord føreslått av andre. Dei kan bruka det til å stela kontoen din.</string>
+  <string name="emailSuggestion">Ikkje bruk ein e-postadresse føreslått av andre. Dei kan bruka det til å stela kontoen din.</string>
   <string name="emailConfirmHelp">Hjelp med å stadfesta e-posten</string>
   <string name="emailConfirmNotReceived">Mottok du ikkje stadfesting på e-post etter at du registrerte deg?</string>
   <string name="whatSignupUsername">Kva var brukarnamnet du registrerte deg med?</string>
@@ -661,6 +663,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="simulClockHint">Fischer klokkesett. Jo fleire spelarar du tar med, jo meir tid kan du trengje.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på di eiga klokka for å makte simultanframsyninga.</string>
   <string name="simulHostExtraTime">Ekstra tid for simultanoppvisaren</string>
+  <string name="simulAddExtraTimePerPlayer">Legg ekstra tenketid til klokka di for kvar spelar som melder seg på simultanspelet.</string>
+  <string name="simulHostExtraTimePerPlayer">Ekstra tenketid som simultanverten får for kvar spelar</string>
   <string name="lichessTournaments">Lichess-turnering</string>
   <string name="tournamentFAQ">Spørsmål og svar knytta til arenaturnering</string>
   <string name="timeBeforeTournamentStarts">Tid til turneringa startar</string>
@@ -945,4 +949,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="lichessDbExplanation">Rangerte parti samla inn frå alle Lichess-spelarar</string>
   <string name="switchSides">Byt side</string>
   <string name="closingAccountWithdrawAppeal">Dersom du stenger kontoen din vil protesten din bli trekt attende</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Tips for å organisere arrangement</string>
 </resources>

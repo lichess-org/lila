@@ -124,7 +124,7 @@ object Monitor:
 
     work.acquiredAt foreach { acquiredAt =>
       lila.mon.fishnet.queueTime(if (work.sender.system) "system" else "user").record {
-        acquiredAt.getMillis - work.createdAt.getMillis
+        acquiredAt.toMillis - work.createdAt.toMillis
       }
     }
 

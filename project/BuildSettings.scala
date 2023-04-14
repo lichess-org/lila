@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.2.2"
+  val globalScalaVersion = "3.3.0-RC3"
 
   val shadedMongo = !System.getProperty("os.arch").toLowerCase.startsWith("aarch")
   if (shadedMongo) println("--- shaded native reactivemongo ---")
@@ -29,8 +29,7 @@ object BuildSettings {
       alleycats,
       play.api,
       chess,
-      scalalib,
-      jodaTime
+      scalalib
     )
 
   def module(
@@ -57,6 +56,7 @@ object BuildSettings {
     "-language:postfixOps",
     "-language:implicitConversions",
     "-Xtarget:12"
+    // "-Wunused:all"
   )
 
   val srcMain = Seq(

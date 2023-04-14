@@ -697,6 +697,8 @@
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
   <string name="simulHostExtraTime">Papildu laiks vadītājam</string>
+  <string name="simulAddExtraTimePerPlayer">Pievienot papildu laiku jūsu pulkstenim par katru spēlētāju, kas pievienojas simultānseansam.</string>
+  <string name="simulHostExtraTimePerPlayer">Papildus laiks vadītājam par katru spēlētāju</string>
   <string name="lichessTournaments">Lichess turnīri</string>
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
@@ -985,4 +987,5 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>
   <string name="switchSides">Mainīties ar pusēm</string>
   <string name="closingAccountWithdrawAppeal">Konta slēgšana atsauks jūsu iesniegumu</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Pasākumu organizēšanas ieteikumi</string>
 </resources>

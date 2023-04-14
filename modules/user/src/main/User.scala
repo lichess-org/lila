@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
-import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONHandler, Macros }
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 case class User(
     id: UserId,
@@ -17,8 +17,8 @@ case class User(
     toints: Int = 0,
     playTime: Option[User.PlayTime],
     title: Option[UserTitle] = None,
-    createdAt: DateTime,
-    seenAt: Option[DateTime],
+    createdAt: Instant,
+    seenAt: Option[Instant],
     kid: Boolean,
     lang: Option[String],
     plan: Plan,
@@ -65,7 +65,7 @@ case class User(
 
   lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
-  def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).getMillis).millis
+  def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).toMillis).millis
 
   def everLoggedIn = seenAt.??(createdAt !=)
 
@@ -113,7 +113,7 @@ case class User(
 
   def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
-  def createdSinceDays(days: Int) = createdAt isBefore nowDate.minusDays(days)
+  def createdSinceDays(days: Int) = createdAt isBefore nowInstant.minusDays(days)
 
   def isBot = title has Title.BOT
   def noBot = !isBot
@@ -210,25 +210,25 @@ object User:
       kid: Option[Boolean],
       marks: Option[UserMarks],
       roles: Option[List[String]],
-      createdAt: DateTime
+      createdAt: Instant
   ):
     def id                     = _id
     def isKid                  = ~kid
     def isTroll                = marks.exists(_.troll)
     def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-    def isDaysOld(days: Int)   = createdAt isBefore nowDate.minusDays(days)
-    def isHoursOld(hours: Int) = createdAt isBefore nowDate.minusHours(hours)
+    def isDaysOld(days: Int)   = createdAt isBefore nowInstant.minusDays(days)
+    def isHoursOld(hours: Int) = createdAt isBefore nowInstant.minusHours(hours)
     def isLichess              = _id == User.lichessId
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
     def userIds = List(orig.id, dest.id)
 
   case class PlayTime(total: Int, tv: Int):
-    import org.joda.time.Period
-    def totalPeriod      = new Period(total * 1000L)
-    def tvPeriod         = new Period(tv * 1000L)
-    def nonEmptyTvPeriod = (tv > 0) option tvPeriod
+    import java.time.Duration
+    def totalDuration      = Duration.ofSeconds(total)
+    def tvDuration         = Duration.ofSeconds(tv)
+    def nonEmptyTvDuration = tv > 0 option tvDuration
   given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
   // what existing usernames are like
@@ -286,13 +286,11 @@ object User:
   import lila.db.BSON
   import lila.db.dsl.{ *, given }
   import Plan.given
-  import Title.given
 
   given BSONDocumentHandler[User] = new BSON[User]:
 
     import BSONFields.*
     import UserMark.given
-    import Title.given
     import Count.given
     import Profile.given
     import Perfs.given

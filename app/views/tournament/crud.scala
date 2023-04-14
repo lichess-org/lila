@@ -4,7 +4,7 @@ package tournament
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -169,7 +169,7 @@ object crud:
                 td(tour.variant.name),
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
-                td(showDateTimeUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
+                td(showInstantUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := "", title := "View on site"))
               )
             },

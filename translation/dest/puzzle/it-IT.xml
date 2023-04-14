@@ -28,6 +28,11 @@
   <string name="keepGoing">Continua così…</string>
   <string name="puzzleSuccess">Risolto!</string>
   <string name="puzzleComplete">Problema completato!</string>
+  <string name="byOpenings">Per apertura</string>
+  <string name="puzzlesByOpenings">Puzzle ordinati per apertura</string>
+  <string name="openingsYouPlayedTheMost">Aperture che hai giocato di più nelle partite classificate</string>
+  <string name="useFindInPage">Usa \"Trova nella pagina\" nel menu del browser per trovare la tua apertura preferita!</string>
+  <string name="useCtrlF">Usa Ctrl+F per trovare la tua apertura preferita!</string>
   <string name="notTheMove">Non è la mossa esatta!</string>
   <string name="trySomethingElse">Prova qualcos\'altro.</string>
   <string name="ratingX">Punteggio: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Normale</string>
   <string name="easier">Facile</string>
   <string name="easiest">Facilissimo</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Un punto al di sotto del tuo punteggio per i problemi</item>
     <item quantity="other">%s punti al di sotto del tuo punteggio per i problemi</item>
   </plurals>
   <string name="harder">Difficile</string>
   <string name="hardest">Difficilissimo</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Un punto al di sopra del tuo punteggio per i problemi</item>
     <item quantity="other">%s punti al di sopra del tuo punteggio per i problemi</item>
   </plurals>

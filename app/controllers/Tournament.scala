@@ -2,14 +2,12 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.annotation.nowarn
 import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.common.Json.given
-import lila.hub.LightTeam.*
 import lila.memo.CacheApi.*
 import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
 import lila.user.{ User as UserModel }
@@ -45,11 +43,10 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
       scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
       response <- negotiate(
-        html = for {
+        html = for
           finished <- api.notableFinished
           winners  <- env.tournament.winners.all
-          teamIds  <- ctx.userId.??(env.team.cached.teamIdsList)
-        } yield {
+        yield {
           pageHit
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson)).noCache
         },
@@ -58,20 +55,20 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     } yield response
   }
 
-  def help(sysStr: Option[String]) =
+  def help =
     Open { implicit ctx =>
       Ok(html.tournament.faq.page).toFuccess
     }
 
   def leaderboard =
     Open { implicit ctx =>
-      for {
+      for
         winners <- env.tournament.winners.all
         _       <- env.user.lightUserApi preloadMany winners.userIds
-      } yield Ok(html.tournament.leaderboard(winners))
+      yield Ok(html.tournament.leaderboard(winners))
     }
 
-  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
+  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
     tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
@@ -300,9 +297,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       isPrivate: Boolean,
       req: RequestHeader,
       fail: => Result
-  )(
-      create: => Fu[Result]
-  ): Fu[Result] =
+  )(create: => Fu[Result]): Fu[Result] =
     val cost =
       if (isGranted(_.ManageTournament, me)) 2
       else if (
@@ -410,7 +405,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
 
   def apiTerminate(id: TourId) =
-    ScopedBody(_.Tournament.Write) { implicit req => me =>
+    ScopedBody(_.Tournament.Write) { _ => me =>
       cachedTour(id) flatMapz {
         case tour if tour.createdBy == me.id || isGranted(_.ManageTournament, me) =>
           api.kill(tour).inject(jsonOkResult)

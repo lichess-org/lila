@@ -6,7 +6,6 @@ import reactivemongo.api.ReadPreference
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi
 import lila.user.User
 
 object PuzzleHistory:
@@ -71,7 +70,7 @@ object PuzzleHistory:
       }
       .reverse
 
-final class PuzzleHistoryApi(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
+final class PuzzleHistoryApi(colls: PuzzleColls)(using Executor):
 
   import PuzzleHistory.*
 

@@ -25,7 +25,7 @@ final class AccountClosure(
     appealApi: lila.appeal.AppealApi,
     activityWrite: lila.activity.ActivityWriteApi,
     email: lila.mailer.AutomaticEmail
-)(using Executor, Scheduler):
+)(using Executor):
 
   Bus.subscribeFuns(
     "garbageCollect" -> { case lila.hub.actorApi.security.GarbageCollect(userId) =>
@@ -34,34 +34,33 @@ final class AccountClosure(
     "rageSitClose" -> { case lila.hub.actorApi.playban.RageSitClose(userId) => lichessClose(userId).unit }
   )
 
-  def close(u: User, by: Holder): Funit =
-    for {
-      playbanned <- playbanApi.hasCurrentBan(u.id)
-      selfClose = u.id == by.id
-      modClose  = !selfClose && Granter(_.CloseAccount)(by.user)
-      badApple  = u.lameOrTrollOrAlt || modClose
-      _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
-      _       <- relationApi.unfollowAll(u.id)
-      _       <- rankingApi.remove(u.id)
-      teamIds <- teamApi.quitAllOnAccountClosure(u.id)
-      _       <- challengeApi.removeByUserId(u.id)
-      _       <- tournamentApi.withdrawAll(u)
-      _       <- swissApi.withdrawAll(u, teamIds)
-      _       <- planApi.cancel(u).recoverDefault
-      _       <- seekApi.removeByUser(u)
-      _       <- securityStore.closeAllSessionsOf(u.id)
-      _       <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
-      _       <- pushEnv.unregisterDevices(u)
-      _       <- streamerApi.demote(u.id)
-      reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
-      _ <-
-        if (selfClose) modLogApi.selfCloseAccount(u.id, reports)
-        else modLogApi.closeAccount(by.id into ModId, u.id)
-      _ <- appealApi.onAccountClose(u)
-      _ <- u.marks.troll ?? relationApi.fetchFollowing(u.id).flatMap {
-        activityWrite.unfollowAll(u, _)
-      }
-    } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
+  def close(u: User, by: Holder): Funit = for
+    playbanned <- playbanApi.hasCurrentBan(u.id)
+    selfClose = u.id == by.id
+    modClose  = !selfClose && Granter(_.CloseAccount)(by.user)
+    badApple  = u.lameOrTrollOrAlt || modClose
+    _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
+    _       <- relationApi.unfollowAll(u.id)
+    _       <- rankingApi.remove(u.id)
+    teamIds <- teamApi.quitAllOnAccountClosure(u.id)
+    _       <- challengeApi.removeByUserId(u.id)
+    _       <- tournamentApi.withdrawAll(u)
+    _       <- swissApi.withdrawAll(u, teamIds)
+    _       <- planApi.cancel(u).recoverDefault
+    _       <- seekApi.removeByUser(u)
+    _       <- securityStore.closeAllSessionsOf(u.id)
+    _       <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
+    _       <- pushEnv.unregisterDevices(u)
+    _       <- streamerApi.demote(u.id)
+    reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
+    _ <-
+      if (selfClose) modLogApi.selfCloseAccount(u.id, reports)
+      else modLogApi.closeAccount(by.id into ModId, u.id)
+    _ <- appealApi.onAccountClose(u)
+    _ <- u.marks.troll ?? relationApi.fetchFollowing(u.id).flatMap {
+      activityWrite.unfollowAll(u, _)
+    }
+  yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   private def lichessClose(userId: UserId) =
     userRepo.lichessAnd(userId) flatMapz { (lichess, user) => close(user, lichess) }

@@ -4,7 +4,7 @@ package tournament
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
@@ -26,6 +26,11 @@ object form:
             else trans.createANewTournament()
           ),
           postForm(cls := "form3", action := routes.Tournament.create)(
+            div(cls := "form-group")(
+              a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+                trans.ourEventTips()
+              )
+            ),
             form3.globalError(form),
             fields.name,
             form3.split(fields.rated, fields.variant),

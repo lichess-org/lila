@@ -11,10 +11,9 @@ import lila.tree.Eval._
 
 final class UciToPgnTest extends Specification {
 
-  private given Conversion[String, SanStr] = SanStr(_)
-  private given Conversion[Int, Ply]       = Ply(_)
+  private given Conversion[Int, Ply] = Ply(_)
 
-  private val now = nowDate
+  private val now = nowInstant
 
   private def evenIncomplete(result: Reader.Result): Replay =
     result match {

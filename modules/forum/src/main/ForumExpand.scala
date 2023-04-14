@@ -4,7 +4,6 @@ import scalatags.Text.all.{ raw, Frag }
 
 import lila.base.RawHtml
 import lila.common.config
-import lila.common.String.html.richText
 
 final class ForumTextExpand(using Executor, Scheduler):
 

@@ -2,13 +2,12 @@ package lila.tournament
 
 import chess.format.Fen
 import com.softwaremill.tagging.*
-import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }
-import lila.game.{ Game, LightPov }
+import lila.game.LightPov
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
@@ -94,7 +93,7 @@ final class JsonView(
           .obj(
             "id"        -> tour.id,
             "createdBy" -> tour.createdBy,
-            "startsAt"  -> formatDate(tour.startsAt),
+            "startsAt"  -> isoDateTimeFormatter.print(tour.startsAt),
             "system"    -> "arena", // BC
             "fullName"  -> tour.name(),
             "minutes"   -> tour.minutes,
@@ -162,11 +161,11 @@ final class JsonView(
     }
 
   def playerInfoExtended(tour: Tournament, info: PlayerInfoExt): Fu[JsObject] =
-    for {
+    for
       ranking <- cached ranking tour
       sheet   <- cached.sheet(tour, info.userId)
       user    <- lightUserApi.asyncFallback(info.userId)
-    } yield info match
+    yield info match
       case PlayerInfoExt(_, player, povs) =>
         val isPlaying = povs.headOption.??(_.game.playable)
         val povScores: List[(LightPov, Option[arena.Sheet.Score])] = povs zip {
@@ -188,7 +187,7 @@ final class JsonView(
             .add("provisional" -> player.provisional)
             .add("withdraw" -> player.withdraw)
             .add("team" -> player.team),
-          "pairings" -> povScores.map { case (pov, score) =>
+          "pairings" -> povScores.map { (pov, score) =>
             Json
               .obj(
                 "id"     -> pov.gameId,
@@ -542,8 +541,6 @@ object JsonView:
       .obj()
       .add("scores", withScores option s.scoresToString)
       .add("fire", streakFire && s.isOnFire)
-
-  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
   private[tournament] def scheduleJson(s: Schedule) =
     Json.obj(

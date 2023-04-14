@@ -6,10 +6,9 @@ import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
-import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
+import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.config
 import lila.db.dsl.{ *, given }
 
 case class PicfitImage(
@@ -20,9 +19,8 @@ case class PicfitImage(
     rel: String,
     name: String,
     size: Int, // in bytes
-    createdAt: DateTime
+    createdAt: Instant
 ):
-
   inline def id = _id
 
 object PicfitImage:
@@ -61,7 +59,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
             rel = rel,
             name = part.filename,
             size = part.fileSize.toInt,
-            createdAt = nowDate
+            createdAt = nowInstant
           )
           picfitServer.store(image, part) >>
             deleteByRel(image.rel) >>

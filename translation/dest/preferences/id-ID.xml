@@ -52,6 +52,8 @@
   <string name="notifyStreamStart">Streamer memulai siaran</string>
   <string name="notifyInboxMsg">Pesan masuk</string>
   <string name="notifyChallenge">Tantangan</string>
+  <string name="notifyBell">Notifikasi bel didalam Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Perangkat</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Suara pemberitahuan</string>
 </resources>

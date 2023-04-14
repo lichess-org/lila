@@ -28,6 +28,11 @@
   <string name="keepGoing">Devam et...</string>
   <string name="puzzleSuccess">Başarılı!</string>
   <string name="puzzleComplete">Bulmaca tamamlandı!</string>
+  <string name="byOpenings">Açılışlardan</string>
+  <string name="puzzlesByOpenings">Açılışlardan bulmacalar</string>
+  <string name="openingsYouPlayedTheMost">Dereceli oyunlarda en çok oynadığınız açılışlar</string>
+  <string name="useFindInPage">Favori açılışlarınızı bulmak için tarayıcı menüsündeki \" Sayfa içinde bul\" seçeneğini kullanın!</string>
+  <string name="useCtrlF">Favori açılışınızı bulmak bulmak için Ctrl+f kısayolunu kullanın!</string>
   <string name="notTheMove">Olmadı!</string>
   <string name="trySomethingElse">Başka bir şey dene.</string>
   <string name="ratingX">Puan: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Kolay</string>
   <string name="easiest">Çok kolay</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Bulmaca puanınızın bir puan altında</item>
     <item quantity="other">Bulmaca puanınızın %s puan altında</item>
   </plurals>
   <string name="harder">Zor</string>
   <string name="hardest">Çok zor</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Bulmaca puanınızdan bir puan yüksek</item>
     <item quantity="other">Bulmaca puanınızdan %s puan yüksek</item>
   </plurals>

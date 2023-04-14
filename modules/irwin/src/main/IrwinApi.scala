@@ -9,7 +9,6 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
-import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ Holder, User, UserRepo }
 
 final class IrwinApi(
@@ -123,7 +122,7 @@ final class IrwinApi(
         Query.rated ++
         Query.user(suspect.id.value) ++
         Query.turnsGt(20) ++
-        Query.createdSince(nowDate minusMonths 6)
+        Query.createdSince(nowInstant minusMonths 6)
 
     private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[(Game, Analysis)]] =
       gameRepo.coll
@@ -151,7 +150,6 @@ final class IrwinApi(
     private[IrwinApi] def apply(report: IrwinReport): Funit =
       subs.get(report.suspectId) ?? { modIds =>
         subs = subs - report.suspectId
-        import lila.notify.{ IrwinDone, Notification }
         modIds
           .map { modId =>
             notifyApi.notifyOne(modId, lila.notify.IrwinDone(report.suspectId.value))

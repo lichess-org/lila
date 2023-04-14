@@ -1,16 +1,12 @@
 package lila.puzzle
 
-import org.joda.time.Days
-
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final private class PuzzleTrustApi(colls: PuzzleColls)(using Executor):
 
-  import BsonHandlers.*
-
   def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Option[Int]] = {
-    val w = base(user, round) + {
+    val w = base(user) + {
       // more trust when vote != win
       if (vote == round.win.value) -2 else 2
     }
@@ -28,11 +24,11 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(using Executor):
     }.dmap(w +)
   }.dmap(_.some.filter(0 <))
 
-  def theme(user: User, round: PuzzleRound, theme: PuzzleTheme.Key, vote: Boolean): Fu[Option[Int]] =
-    fuccess(base(user, round))
+  def theme(user: User): Fu[Option[Int]] =
+    fuccess(base(user))
       .dmap(_.some.filter(0 <))
 
-  private def base(user: User, round: PuzzleRound): Int = {
+  private def base(user: User): Int = {
     seniorityBonus(user) +
       ratingBonus(user) +
       titleBonus(user) +
@@ -46,7 +42,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(using Executor):
   // 1 year = 3.46
   // 2 years = 4.89
   private def seniorityBonus(user: User) =
-    math.sqrt(Days.daysBetween(user.createdAt, nowDate).getDays.toDouble / 30) atMost 5
+    math.sqrt(daysBetween(user.createdAt, nowInstant).toDouble / 30) atMost 5
 
   private def titleBonus(user: User) = user.hasTitle ?? 20
 

@@ -391,7 +391,7 @@
   <string name="importGame">Ойынды жүктеп салу</string>
   <string name="importGameExplanation">Ойынның PGN-ын салыңыз.
 Бұл ойынды қайта көру, компьютерлік талдау, чат пен бөліспелі URL-ға жол ашады.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Вариациялар жойылады. Оларды сақтау үшін зерттеу арқылы PGN импорттаңыз.</string>
+  <string name="importGameCaveat">Вариациялар жойылады. Оларды сақтау үшін зерттеу арқылы PGN импорттаңыз.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын салынды</item>
     <item quantity="other">%s ойын салынды</item>

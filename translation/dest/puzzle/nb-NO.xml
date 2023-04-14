@@ -28,6 +28,11 @@
   <string name="keepGoing">Fortsett…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Ferdigknekt nøtt!</string>
+  <string name="byOpenings">Etter åpninger</string>
+  <string name="puzzlesByOpenings">Sjakknøtter etter åpninger</string>
+  <string name="openingsYouPlayedTheMost">Åpningene du spiller mest av i ratede partier</string>
+  <string name="useFindInPage">Bruk søkefunksjonen i nettleseren for å finne favorittåpningen din!</string>
+  <string name="useCtrlF">Bruk Ctrl+f for å finne favorittåpningen din!</string>
   <string name="notTheMove">Det der er ikke trekket!</string>
   <string name="trySomethingElse">Prøv noe annet.</string>
   <string name="ratingX">Rating: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Vanlig</string>
   <string name="easier">Lettere</string>
   <string name="easiest">Lettest</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Ett poeng under sjakknøttratingen din</item>
     <item quantity="other">%s poeng under sjakknøttratingen din</item>
   </plurals>
   <string name="harder">Vanskelig</string>
   <string name="hardest">Vanskeligst</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Ett poeng over sjakknøttratingen din</item>
     <item quantity="other">%s poeng over sjakknøttratingen din</item>
   </plurals>

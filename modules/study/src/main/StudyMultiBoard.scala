@@ -1,7 +1,7 @@
 package lila.study
 
 import BSONHandlers.given
-import chess.Color
+import chess.{ ByColor, Color }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
@@ -101,7 +101,6 @@ final class StudyMultiBoard(
         }
 
   import lila.common.Json.given
-  import JsonView.given
 
   given Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
     Json
@@ -132,13 +131,13 @@ object StudyMultiBoard:
 
     case class Player(name: String, title: Option[String], rating: Option[Int])
 
-    type Players = Color.Map[Player]
+    type Players = ByColor[Player]
 
     def players(tags: Tags): Option[Players] =
       for {
         wName <- tags(_.White)
         bName <- tags(_.Black)
-      } yield Color.Map(
+      } yield ByColor(
         white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo) flatMap (_.toIntOption)),
         black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo) flatMap (_.toIntOption))
       )

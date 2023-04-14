@@ -3,9 +3,9 @@ package practice
 
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
 object show:

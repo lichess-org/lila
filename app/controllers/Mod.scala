@@ -5,17 +5,16 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 import play.api.mvc.*
-import scala.annotation.nowarn
 import views.*
 
 import lila.api.{ BodyContext, Context }
 import lila.app.{ given, * }
-import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
-import lila.user.{ Holder, Title, User as UserModel }
+import lila.user.{ Holder, User as UserModel }
+import scala.annotation.nowarn
 
 final class Mod(
     env: Env,
@@ -382,7 +381,7 @@ final class Mod(
     }
 
   def queues(period: String) =
-    Secure(_.GamifyView) { implicit ctx => me =>
+    Secure(_.GamifyView) { implicit ctx => _ =>
       env.mod.queueStats(period) map { stats =>
         Ok(html.mod.queueStats(stats))
       }
@@ -400,7 +399,7 @@ final class Mod(
     }
 
   def gdprErase(username: UserStr) =
-    Secure(_.CloseAccount) { _ => me =>
+    Secure(_.GdprErase) { _ => me =>
       val res = Redirect(routes.User.show(username.value))
       env.api.accountClosure.closeThenErase(username, me) map {
         case Right(msg) => res flashSuccess msg
@@ -543,7 +542,7 @@ final class Mod(
   def presets(group: String) =
     Secure(_.Presets) { implicit ctx => _ =>
       env.mod.presets.get(group).fold(notFound) { setting =>
-        Ok(html.mod.presets(group, setting, setting.form)).toFuccess
+        Ok(html.mod.presets(group, setting.form)).toFuccess
       }
     }
 
@@ -554,7 +553,7 @@ final class Mod(
         setting.form
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.mod.presets(group, setting, err)).toFuccess,
+            err => BadRequest(html.mod.presets(group, err)).toFuccess,
             v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
           )
       }
@@ -568,7 +567,7 @@ final class Mod(
     }
 
   def apiUserLog(username: UserStr) =
-    SecureScoped(_.ModLog) { implicit req => me =>
+    SecureScoped(_.ModLog) { _ => me =>
       import lila.common.Json.given
       env.user.repo byId username flatMapz { user =>
         for
@@ -616,6 +615,7 @@ final class Mod(
 
   private def actionResult(
       username: UserStr
-  )(ctx: Context)(user: Holder)(res: Any) =
-    if (HTTPRequest isSynchronousHttp ctx.req) fuccess(redirect(username))
+  )(ctx: Context)(@nowarn user: Holder)(@nowarn res: Any) =
+    if HTTPRequest.isSynchronousHttp(ctx.req)
+    then fuccess(redirect(username))
     else userC.renderModZoneActions(username)(ctx)

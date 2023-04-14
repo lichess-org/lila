@@ -26,7 +26,7 @@ trait CaptchedForm:
   def withCaptcha[A](form: Form[A])(using Executor): Fu[(Form[A], Captcha)] =
     anyCaptcha map (form -> _)
 
-  import scala.language.reflectiveCalls
+  import scala.reflect.Selectable.reflectiveSelectable
   def validateCaptcha(data: CaptchedData) =
     getCaptcha(data.gameId).await(2 seconds, "getCaptcha") valid data.move.trim.toLowerCase
 

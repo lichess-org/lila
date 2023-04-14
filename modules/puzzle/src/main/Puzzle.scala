@@ -5,7 +5,6 @@ import chess.format.{ Fen, Uci }
 import chess.Ply
 
 import lila.rating.Glicko
-import lila.common.Iso
 
 case class Puzzle(
     id: PuzzleId,

@@ -2,8 +2,8 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONHandler, BSONNull, Macros }
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
+import reactivemongo.api.ReadPreference
 import scala.concurrent.blocking
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
@@ -25,8 +25,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           .one[Bdoc]
           .map {
             _.flatMap { doc =>
-              if (doc.getAsOpt[DateTime]("date").fold(true)(_ isBefore nowDate.minusHours(12)))
-                coll.updateFieldUnchecked($id(id), "date", nowDate)
+              if (doc.getAsOpt[Instant]("date").fold(true)(_ isBefore nowInstant.minusHours(12)))
+                coll.updateFieldUnchecked($id(id), "date", nowInstant)
               doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
             }
           }
@@ -63,7 +63,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
           "user" -> userId,
           "ip"   -> HTTPRequest.ipAddress(req),
           "ua"   -> HTTPRequest.userAgent(req).fold("?")(_.value),
-          "date" -> nowDate,
+          "date" -> nowInstant,
           "up"   -> up,
           "api"  -> apiVersion,
           "fp"   -> fp.flatMap(FingerHash.from)
@@ -136,7 +136,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
       .find(
         $doc(
           "user" -> user.id,
-          "date" $gt (user.createdAt atLeast nowDate.minusYears(1))
+          "date" $gt (user.createdAt atLeast nowInstant.minusYears(1))
         ),
         $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true).some
       )
@@ -205,23 +205,21 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
 
   private[security] def recentByIpExists(ip: IpAddress, since: FiniteDuration): Fu[Boolean] =
     coll.secondaryPreferred.exists(
-      $doc("ip" -> ip, "date" -> $gt(nowDate minusMinutes since.toMinutes.toInt))
+      $doc("ip" -> ip, "date" -> $gt(nowInstant minusMinutes since.toMinutes.toInt))
     )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     FingerHash.from(fp) ?? { hash =>
       coll.secondaryPreferred.exists(
-        $doc("fp" -> hash, "date" -> $gt(nowDate minusDays 7))
+        $doc("fp" -> hash, "date" -> $gt(nowInstant minusDays 7))
       )
     }
 
 object Store:
 
-  case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: DateTime):
+  case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: Instant):
     def datedIp = Dated(ip, date)
     def datedFp = fp.map { Dated(_, date) }
     def datedUa = Dated(ua, date)
 
-  import FingerHash.given
-  import UserAgent.given
   given BSONDocumentReader[Info] = Macros.reader[Info]

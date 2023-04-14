@@ -33,13 +33,13 @@ final class AppealApi(
               AppealMsg(
                 by = me.id,
                 text = text,
-                at = nowDate
+                at = nowInstant
               )
             ),
             status = Appeal.Status.Unread,
-            createdAt = nowDate,
-            updatedAt = nowDate,
-            firstUnrepliedAt = nowDate
+            createdAt = nowInstant,
+            updatedAt = nowInstant,
+            firstUnrepliedAt = nowInstant
           )
         coll.insert.one(appeal) inject appeal
       case Some(prev) =>
@@ -67,12 +67,12 @@ final class AppealApi(
         exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
       },
       ascending = true,
-      nb = 30
+      nb = 50
     ) flatMap { unreads =>
       fetchQueue(
         selector = $doc("status" $ne Appeal.Status.Unread.key),
         ascending = false,
-        nb = 40 - unreads.size
+        nb = 60 - unreads.size
       ) map { unreads ::: _ }
     }
 

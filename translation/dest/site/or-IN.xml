@@ -192,10 +192,10 @@
   <string name="more">ଅଧିକ</string>
   <string name="player">ଖେଳାଳି</string>
   <string name="createANewTournament">ଏକ ନୂଆ ଟୁର୍ନାମେଣ୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
-  <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
+  <string name="advancedSettings">ଵିକଶିତ ସେଟିଂ</string>
   <string name="recommendNotTouching">ଏଗୁଡ଼ିକୁ ସ୍ପର୍ଶ ନକରିବାକୁ ଆମେ ସୁପାରିଶ କରୁ।</string>
   <string name="fewerPlayers">ଯଦି ଆପଣ ପ୍ରବେଶ ଆବଶ୍ୟକତାକୁ ସେଟ୍ କରନ୍ତି, ତେବେ ଆପଣଙ୍କ ଟୁର୍ନାମେଣ୍ଟରେ କମ୍ ଖେଳାଳି ରହିବେ।</string>
-  <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
+  <string name="showAdvancedSettings">ଵିକଶିତ ସେଟିଂ ଦେଖାଅ</string>
   <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
   <string name="isPrivate">ଘରୋଇ</string>
   <string name="profileCompletion">ପ୍ରୋଫାଇଲ୍ ସମାପ୍ତି: %s</string>

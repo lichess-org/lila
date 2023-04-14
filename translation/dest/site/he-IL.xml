@@ -442,7 +442,7 @@
   <string name="toStudy">הפכו ללוח למידה</string>
   <string name="importGame">ייבוא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>
+  <string name="importGameCaveat">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">משחק מיובא %s</item>
     <item quantity="two">%s משחקים מיובאים</item>
@@ -732,6 +732,8 @@
   <string name="simulClockHint">התקנת שעון של פישר. ככל שתשחק/י נגד יותר שחקנים, כך תזדקק/י ליותר זמן.</string>
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
   <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>
+  <string name="simulAddExtraTimePerPlayer">הוספת זמן לשעון שלך בכל פעם שמצטרף/ת שחקן/ית למשחק הסימולטני.</string>
+  <string name="simulHostExtraTimePerPlayer">זמן נוסף למארח/ת עבור כל שחקן/ית שמצטרף/ת</string>
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
@@ -1027,4 +1029,5 @@
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
   <string name="switchSides">הפוך צד</string>
   <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
+  <string name="ourEventTips">הטיפים שלנו לארגון אירועים</string>
 </resources>

@@ -22,7 +22,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     }
 
   def landing =
-    Auth { implicit ctx => me =>
+    Auth { implicit ctx => _ =>
       if (ctx.isAppealUser || isGranted(_.Appeals))
         pageHit
         OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
@@ -69,7 +69,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   def show(username: UserStr) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        getModData(me, appeal, suspect) map { modData =>
+        getModData(me, suspect) map { modData =>
           Ok(html.appeal.discussion.show(appeal, form, modData))
         }
       }
@@ -83,7 +83,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
           .bindFromRequest()
           .fold(
             err =>
-              getModData(me, appeal, suspect) map { modData =>
+              getModData(me, suspect) map { modData =>
                 BadRequest(html.appeal.discussion.show(appeal, err, modData))
               },
             text =>
@@ -97,16 +97,14 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       }
     }
 
-  private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(using
-      Context
-  ) =
-    for {
+  private def getModData(me: lila.user.Holder, suspect: Suspect)(using Context) =
+    for
       users      <- env.security.userLogins(suspect.user, 100)
       logins     <- userC.loginsTableData(suspect.user, users, 100)
       appeals    <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
       inquiry    <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
       markedByMe <- env.mod.logApi.wasMarkedBy(me.id into ModId, suspect.user.id)
-    } yield html.appeal.discussion.ModData(
+    yield html.appeal.discussion.ModData(
       mod = me,
       suspect = suspect,
       presets = getPresets,
@@ -119,7 +117,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def mute(username: UserStr) =
     Secure(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
+      asMod(username) { (appeal, _) =>
         env.appeal.api.toggleMute(appeal) >>
           env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)
@@ -128,14 +126,14 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def sendToZulip(username: UserStr) =
     Secure(_.SendToZulip) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
+      asMod(username) { (_, suspect) =>
         env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
       }
     }
 
   def snooze(username: UserStr, dur: String) =
     Secure(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
+      asMod(username) { (appeal, _) =>
         env.appeal.api.snooze(me.user, appeal.id, dur)
         env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)

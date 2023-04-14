@@ -7,6 +7,7 @@ import play.api.Configuration
 import lila.common.config.*
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,

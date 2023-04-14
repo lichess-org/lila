@@ -3,7 +3,7 @@ package lila.storm
 import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LichessDay }
 import lila.common.paginator.Paginator
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.user.UserRepo
@@ -55,10 +55,14 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
   import StormDay.*
   import StormBsonHandlers.given
 
-  def addRun(data: StormForm.RunData, user: Option[User]): Fu[Option[StormHigh.NewHigh]] =
+  def addRun(
+      data: StormForm.RunData,
+      user: Option[User],
+      mobile: Boolean
+  ): Fu[Option[StormHigh.NewHigh]] =
     lila.mon.storm.run.score(user.isDefined).record(data.score).unit
     user ?? { u =>
-      if (sign.check(u, ~data.signed))
+      if (mobile || sign.check(u, ~data.signed))
         Bus.publish(lila.hub.actorApi.puzzle.StormRun(u.id, data.score), "stormRun")
         highApi get u.id flatMap { prevHigh =>
           val todayId = Id today u.id

@@ -3,9 +3,9 @@ package lila.shutup
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ given, * }
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 import lila.hub.actorApi.shutup.PublicSource
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 final class ShutupApi(
     coll: Coll,

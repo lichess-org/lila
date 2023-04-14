@@ -1,19 +1,16 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json.*
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
+import lila.api.Context
+import lila.app.templating.Environment.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LilaOpeningFamily
 import lila.insight.InsightPosition
-import lila.tutor.{ TutorFullReport, TutorOpeningFamily, TutorPerfReport }
+import lila.tutor.{ TutorOpeningFamily, TutorPerfReport }
 
 object opening:
 
   def apply(
-      full: TutorFullReport.Available,
       perfReport: TutorPerfReport,
       report: TutorOpeningFamily,
       as: chess.Color,
@@ -21,7 +18,6 @@ object opening:
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
   )(using Context) =
     bits.layout(
-      full,
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
       menu = frag(
         perfReport.openings(as).families map { family =>

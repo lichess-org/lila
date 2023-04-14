@@ -3,7 +3,7 @@ package lila.puzzle
 import chess.Color
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.memo.CacheApi
 
 final class PuzzleAnon(

@@ -662,6 +662,8 @@
   <string name="simulClockHint">Configuração de acréscimos no relógio. Quanto mais jogadores admitir, mais tempo pode necessitar.</string>
   <string name="simulAddExtraTime">Você pode acrescentar tempo adicional a seu relógio, para ajudá-lo a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do simultanista</string>
+  <string name="simulAddExtraTimePerPlayer">Adicionar tempo inicial ao seu relógio por cada jogador adversário que entrar na simultânea.</string>
+  <string name="simulHostExtraTimePerPlayer">Tempo adicional do simultanista por jogador</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
   <string name="tournamentFAQ">Perguntas Frequentes sobre torneios no estilo Arena</string>
   <string name="timeBeforeTournamentStarts">Contagem regressiva para início do torneio</string>
@@ -945,4 +947,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="lichessDbExplanation">Amostra de partidas rankeadas de todos os jogadores do Lichess</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar sua conta anulará seu apelo</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Nossas dicas para organização de eventos</string>
 </resources>

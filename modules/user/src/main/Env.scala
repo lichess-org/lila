@@ -7,7 +7,6 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
-import lila.common.LightUser
 import lila.db.dsl.Coll
 
 private class UserConfig(
@@ -25,6 +24,7 @@ object A:
     val foo = "bar"
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,

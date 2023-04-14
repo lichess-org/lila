@@ -4,7 +4,6 @@ import alleycats.Zero
 import play.api.data.FormError
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.annotation.nowarn
 import views.*
 
 import lila.api.Context
@@ -115,15 +114,15 @@ final class Auth(
                 api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).toFuccess
               ),
             (login, pass) =>
-              LoginRateLimit(login.normalize, ctx.req) { chargeIpLimiter =>
-                env.security.pwned(pass) foreach { _ ?? chargeIpLimiter() }
+              LoginRateLimit(login.normalize, ctx.req) { chargeLimiters =>
+                env.security.pwned(pass) foreach { _ ?? chargeLimiters() }
                 val isEmail  = EmailAddress.isValid(login.value)
                 val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
                 api.loadLoginForm(login) flatMap {
                   _.bindFromRequest()
                     .fold(
                       err => {
-                        chargeIpLimiter()
+                        chargeLimiters()
                         lila.mon.security.login
                           .attempt(isEmail, stuffing = stuffing, result = false)
                           .increment()
@@ -221,7 +220,7 @@ final class Auth(
                   fuccess {
                     Redirect(routes.Auth.checkYourEmail) withCookies
                       lila.security.EmailConfirm.cookie
-                        .make(env.lilaCookie, user, email)(ctx.req)
+                        .make(env.lilaCookie, user, email)(using ctx.req)
                   }
                 case Signup.Result.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
@@ -289,7 +288,7 @@ final class Auth(
                           env.security.emailConfirm.send(user, newUserEmail.email) inject {
                             Redirect(routes.Auth.checkYourEmail) withCookies
                               lila.security.EmailConfirm.cookie
-                                .make(env.lilaCookie, user, newUserEmail.email)(ctx.req)
+                                .make(env.lilaCookie, user, newUserEmail.email)(using ctx.req)
                           }
                       }(rateLimitedFu)
                   }
@@ -462,12 +461,12 @@ final class Auth(
                         MagicLinkRateLimit(user, storedEmail, ctx.req) {
                           lila.mon.user.auth.magicLinkRequest("success").increment()
                           env.security.magicLink.send(user, storedEmail) inject Redirect(
-                            routes.Auth.magicLinkSent(storedEmail.value)
+                            routes.Auth.magicLinkSent
                           )
                         }(rateLimitedFu)
                       case _ =>
                         lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                        Redirect(routes.Auth.magicLinkSent(data.email.value)).toFuccess
+                        Redirect(routes.Auth.magicLinkSent).toFuccess
                     }
                 )
             }
@@ -477,7 +476,7 @@ final class Auth(
       }
     }
 
-  def magicLinkSent(email: String) =
+  def magicLinkSent =
     Open { implicit ctx =>
       fuccess {
         Ok(html.auth.bits.magicLinkSent)
@@ -541,7 +540,7 @@ final class Auth(
         }
     }
 
-  def loginWithTokenPost(token: String, referrer: Option[String]) =
+  def loginWithTokenPost(token: String, @annotation.nowarn referrer: Option[String]) =
     Open { implicit ctx =>
       if (ctx.isAuth) Redirect(getReferrer).toFuccess
       else

@@ -2,11 +2,10 @@ package lila.timeline
 
 import akka.actor.*
 
-import lila.common.config.Max
 import lila.hub.actorApi.timeline.Propagation
 import lila.hub.actorApi.timeline.{ Atom, Propagate, ReloadTimelines }
 import lila.security.Permission
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 final private[timeline] class TimelinePush(
     relationApi: lila.relation.RelationApi,

@@ -43,9 +43,9 @@ Verder betaal ons \'n voltydse sagteware ontwikkelaar: %s, die stigter van Liceh
 Of jy kan %s.</string>
   <string name="contactSupport">Lichess ondersteuning kontak</string>
   <string name="otherMethods">Ander donasie metodes?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess is by %s geregistreer.</string>
+  <string name="lichessIsRegisteredWith">Lichess is by %s geregistreer.</string>
   <string name="bankTransfers">Ons aanvaar ook bank oordragte</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Let asb. daarop dat slegs die donasievorm hierbo gebruik mag word vir Patron-status.</string>
+  <string name="onlyDonationFromAbove">Let asb. daarop dat slegs die donasievorm hierbo gebruik mag word vir Patron-status.</string>
   <string name="patronFeatures">Is sekere kenmerke net vir Beskermhere voorbehou?</string>
   <string name="noPatronFeatures">Nee, want Lichess is heeltemal gratis, vir ewig en vir almal. Dis \'n belofte.
 Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>

@@ -11,6 +11,7 @@ import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourM
 import lila.user.{ User as UserModel }
 import views.*
 import chess.format.pgn.PgnStr
+import scala.annotation.nowarn
 
 final class RelayRound(
     env: Env,
@@ -19,7 +20,7 @@ final class RelayRound(
 ) extends LilaController(env):
 
   def form(tourId: String) =
-    Auth { implicit ctx => me =>
+    Auth { implicit ctx => _ =>
       NoLameOrBot {
         WithTourAndRoundsCanUpdate(tourId) { trs =>
           Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).toFuccess
@@ -156,8 +157,8 @@ final class RelayRound(
           }
     )
 
-  def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
-  def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
+  def pgn(@nowarn ts: String, @nowarn rs: String, id: StudyId) = studyC.pgn(id)
+  def apiPgn(id: StudyId)                                      = studyC.apiPgn(id)
 
   def stream(id: RelayRoundId) = AnonOrScoped() { req => me =>
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
@@ -186,9 +187,9 @@ final class RelayRound(
       }
     }
 
-  private def WithRoundAndTour(ts: String, rs: String, id: RelayRoundId)(
+  private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
       if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).toFuccess
       else f(rt)

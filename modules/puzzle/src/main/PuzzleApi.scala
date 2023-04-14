@@ -99,8 +99,8 @@ final class PuzzleApi(
                 F.vote     -> ((up - down).toFloat / (up + down))
               ) ++ {
                 (newVote <= -100 && doc
-                  .getAsOpt[DateTime](F.day)
-                  .exists(_ isAfter nowDate.minusDays(1))) ??
+                  .getAsOpt[Instant](F.day)
+                  .exists(_ isAfter nowInstant.minusDays(1))) ??
                   $unset(F.day)
               }
             )
@@ -133,14 +133,9 @@ final class PuzzleApi(
               fuccess($unset(F.themes, F.puzzle).some)
             else
               vote match
-                case None =>
-                  fuccess(
-                    $set(
-                      F.themes -> newThemes
-                    ).some
-                  )
+                case None => fuccess($set(F.themes -> newThemes).some)
                 case Some(v) =>
-                  trustApi.theme(user, round, theme, v) map2 { weight =>
+                  trustApi.theme(user) map2 { weight =>
                     $set(
                       F.themes -> newThemes,
                       F.puzzle -> id,
