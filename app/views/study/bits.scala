@@ -13,7 +13,7 @@ import lila.study.{ Order, Study }
 
 object bits:
 
-  def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) =
+  def orderSelect(order: Order, active: String, url: String => Call)(using Context) =
     val orders =
       if (active == "all") Order.withoutSelector
       else if (active startsWith "topic") Order.list
@@ -26,12 +26,12 @@ object bits:
       }
     )
 
-  def newForm()(implicit ctx: Context) =
+  def newForm()(using Context) =
     postForm(cls := "new-study", action := routes.Study.create)(
       submitButton(cls := "button button-green", dataIcon := "", title := trans.study.createStudy.txt())
     )
 
-  def authLinks(active: String, order: Order)(implicit ctx: Context) =
+  def authLinks(active: String, order: Order)(using Context) =
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
       a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),
@@ -45,7 +45,7 @@ object bits:
       a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies())
     )
 
-  def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) =
+  def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: Context) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
       div(cls := "top", dataIcon := "")(
