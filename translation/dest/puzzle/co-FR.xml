@@ -41,13 +41,13 @@
   <string name="normal">Nurmale</string>
   <string name="easier">Faciule</string>
   <string name="easiest">Faciule faciule</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Un puntu sottu à a vostra classifica di</item>
     <item quantity="other">%s punti sottu à a vostra classifica di</item>
   </plurals>
   <string name="harder">Difficiule</string>
   <string name="hardest">Difficiule difficiule</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Un puntu sopra à a vostra classifica di</item>
     <item quantity="other">%s punti sopra à a vostra classifica di</item>
   </plurals>

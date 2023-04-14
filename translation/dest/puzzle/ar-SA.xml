@@ -46,7 +46,7 @@
   <string name="normal">عادي</string>
   <string name="easier">سهل</string>
   <string name="easiest">سهل جدًا</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="zero">نقطة واحدة أقل من تقييمك في الألغاز</item>
     <item quantity="one">نقطة واحدة أقل من تقييمك في الألغاز</item>
     <item quantity="two">%s نقطة أقل من تقييمك في الألغاز</item>
@@ -56,7 +56,7 @@
   </plurals>
   <string name="harder">أصعب</string>
   <string name="hardest">صعب جدًا</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="zero">نقطة واحدة أعلى من تقييمك في الألغاز</item>
     <item quantity="one">نقطة واحدة أعلى من تقييمك في الألغاز</item>
     <item quantity="two">%s نقطة أعلى من تقييمك في الألغاز</item>

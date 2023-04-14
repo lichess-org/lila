@@ -39,13 +39,13 @@
   <string name="normal">Κανονικό</string>
   <string name="easier">Εύκολο</string>
   <string name="easiest">Πολύ εύκολο</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Έναν πόντο κάτω από τη βαθμολογία γρίφων σας</item>
     <item quantity="other">%s πόντους κάτω από τη βαθμολογία γρίφων σας</item>
   </plurals>
   <string name="harder">Δύσκολο</string>
   <string name="hardest">Πολύ δύσκολο</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Έναν πόντο πάνω από την βαθμολογία γρίφων σας</item>
     <item quantity="other">%s πόντους πάνω από την βαθμολογία γρίφων σας</item>
   </plurals>

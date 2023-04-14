@@ -38,13 +38,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Daha asan</string>
   <string name="easiest">Ən asan</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Sizin tapmaca reytinqinizdən bir bal aşağı</item>
     <item quantity="other">Sizin tapmaca reytinqinizdən %s bal aşağı</item>
   </plurals>
   <string name="harder">Daha çətin</string>
   <string name="hardest">Ən çətin</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Sizin tapmaca reytinqinizdən bir bal yuxarı</item>
     <item quantity="other">Sizin tapmaca reytinqinizdən %s bal yuxarı</item>
   </plurals>
