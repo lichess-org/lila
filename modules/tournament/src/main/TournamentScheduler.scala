@@ -390,11 +390,7 @@ Thank you all, you rock!""",
             )
             val finalWhen = when plusHours hourDelay
             if (speed == Bullet)
-              List(
-                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan,
-                Schedule(Hourly, speed, Standard, none, finalWhen plusMinutes 30, conditions)
-                  .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
-              )
+              planHourlyBulletLimited(speed, finalWhen, conditions, rating)
             else
               List(
                 Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan
@@ -473,6 +469,20 @@ Thank you all, you rock!""",
           )
       }
     ).flatten.filter(_.schedule.at.instant.isAfter(rightNow))
+
+  private def planBulletWithIncrement(schedule: Schedule): Schedule.Plan = {
+    import chess.Clock
+    schedule.plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
+  }
+
+  // schedule consecutive semi-hourly events (for U1300, no faster than 1+1)
+  private def planHourlyBulletLimited(speed: Schedule.Speed, finalWhen: LocalDateTime, conditions: Condition.All, rating: Int): List[Schedule.Plan] = {
+      val schedule = Schedule(Hourly, speed, Standard, none, finalWhen, conditions)
+      List(
+        if (rating < 1500) planBulletWithIncrement(schedule) else schedule.plan,
+        planBulletWithIncrement(Schedule(Hourly, speed, Standard, none, finalWhen plusMinutes 30, conditions))
+      )
+    }
 
   private def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
