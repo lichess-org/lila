@@ -472,16 +472,36 @@ final class Study(
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
-      env.study.api.byIdWithChapter(id, chapterId) flatMap {
-        _.fold(notFound) { case WithChapter(study, chapter) =>
-          CanView(study, ctx.me) {
-            env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter) map { pgn =>
-              Ok(pgn.toString)
-                .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
-                .as(pgnContentType)
-            }
-          }(privateUnauthorizedFu(study), privateForbiddenFu(study))
-        }
+      doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)(using ctx.req, ctx.me)
+    }
+
+  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) =
+    AnonOrScoped(_.Study.Read) { req => me =>
+      doChapterPgn(
+        id,
+        chapterId,
+        fuccess(NotFound(jsonError("Study or chapter not found"))),
+        _ => fuccess(privateUnauthorizedJson),
+        _ => fuccess(privateForbiddenJson)
+      )(using req, me)
+    }
+
+  private def doChapterPgn(
+      id: StudyId,
+      chapterId: StudyChapterId,
+      studyNotFound: => Fu[Result],
+      studyUnauthorized: StudyModel => Fu[Result],
+      studyForbidden: StudyModel => Fu[Result]
+  )(using req: RequestHeader, me: Option[lila.user.User]) =
+    env.study.api.byIdWithChapter(id, chapterId) flatMap {
+      _.fold(studyNotFound) { case WithChapter(study, chapter) =>
+        CanView(study, me) {
+          env.study.pgnDump.ofChapter(study, requestPgnFlags(req))(chapter) map { pgn =>
+            Ok(pgn.toString)
+              .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
+              .as(pgnContentType)
+          }
+        }(studyUnauthorized(study), studyForbidden(study))
       }
     }
 

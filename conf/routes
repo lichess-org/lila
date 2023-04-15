@@ -230,6 +230,7 @@ GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang)
 GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
+GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1)
