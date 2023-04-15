@@ -455,12 +455,12 @@ final class Study(
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req => me =>
     env.study.api.byId(id).map {
-      _.fold(NotFound(jsonError("Study not found"))) { study =>
+      _.fold(studyNotFoundText) { study =>
         PgnRateLimitPerIp(req.ipAddress, msg = id) {
           CanView(study, me) {
             doPgn(study, req)
-          }(privateUnauthorizedJson, privateForbiddenJson)
-        }(rateLimitedJson)
+          }(privateUnauthorizedText, privateForbiddenText)
+        }(rateLimited)
       }
     }
   }
@@ -480,9 +480,9 @@ final class Study(
       doChapterPgn(
         id,
         chapterId,
-        fuccess(NotFound(jsonError("Study or chapter not found"))),
-        _ => fuccess(privateUnauthorizedJson),
-        _ => fuccess(privateForbiddenJson)
+        fuccess(studyNotFoundText),
+        _ => fuccess(privateUnauthorizedText),
+        _ => fuccess(privateForbiddenText)
       )(using req, me)
     }
 
@@ -600,6 +600,7 @@ final class Study(
     }
   }
 
+  def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using Context) =
     negotiate(
@@ -607,12 +608,16 @@ final class Study(
       api = _ => fuccess(privateUnauthorizedJson)
     )
 
+  def privateForbiddenText = Forbidden("This study is now private")
   def privateForbiddenJson = Forbidden(jsonError("This study is now private"))
   def privateForbiddenFu(study: StudyModel)(using Context) =
     negotiate(
       html = fuccess(Forbidden(html.site.message.privateStudy(study))),
       api = _ => fuccess(privateForbiddenJson)
     )
+
+  def studyNotFoundText = NotFound("Study or chapter not found")
+  def studyNotFoundJson = NotFound(jsonError("Study or chapter not found"))
 
   def CanView[A](study: StudyModel, me: Option[lila.user.User])(
       f: => A
