@@ -68,17 +68,29 @@ final class RelayApi(
       tourRepo.setActive(tourId, _)
     }
 
-  def activeTourNextRound(tour: RelayTour): Fu[Option[RelayRound]] = tour.active ??
-    roundRepo.coll
-      .find($doc("tourId" -> tour.id, "finished" -> false))
-      .sort(roundRepo.sort.chrono)
-      .one[RelayRound]
-
-  def tourLastRound(tour: RelayTour): Fu[Option[RelayRound]] =
-    roundRepo.coll
-      .find($doc("tourId" -> tour.id))
-      .sort($doc("startedAt" -> -1, "startsAt" -> -1))
-      .one[RelayRound]
+  object defaultRoundToShow:
+    export cache.get
+    private val cache =
+      cacheApi[RelayTour.Id, Option[RelayRound]](32, "relay.lastAndNextRounds") {
+        _.expireAfterWrite(3 seconds)
+          .buildAsyncFuture { tourId =>
+            val last = roundRepo.coll
+              .find($doc("tourId" -> tourId))
+              .sort($doc("startedAt" -> -1, "startsAt" -> -1))
+              .one[RelayRound]
+            val next = roundRepo.coll
+              .find($doc("tourId" -> tourId, "finished" -> false))
+              .sort(roundRepo.sort.chrono)
+              .one[RelayRound]
+            last zip next map {
+              case (Some(last), Some(next)) =>
+                if next.startsAt.exists(_ isBefore nowInstant.plusHours(1))
+                then next.some
+                else last.some
+              case (last, next) => last orElse next
+            }
+          }
+      }
 
   private var spotlightCache: List[RelayTour.ActiveWithNextRound] = Nil
 
