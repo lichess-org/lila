@@ -117,6 +117,14 @@ final class RelayApi(
               round <- doc.getAsOpt[RelayRound]("round")
             yield RelayTour.ActiveWithNextRound(tour, round)
           }
+          .map {
+            _.sortBy: t =>
+              (
+                !t.ongoing,                                      // ongoing tournaments first
+                0 - ~t.tour.tier,                                // then by tier
+                t.round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
+              )
+          }
           .addEffect { trs =>
             spotlightCache = trs
               .filter(_.tour.tier.has(RelayTour.Tier.BEST))

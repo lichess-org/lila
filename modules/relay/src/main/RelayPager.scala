@@ -41,11 +41,11 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
               )
             }
             .map { docs =>
-              for {
+              for
                 doc   <- docs
                 tour  <- doc.asOpt[RelayTour]
                 round <- doc.getAsOpt[RelayRound]("round")
-              } yield RelayTour.WithLastRound(tour, round)
+              yield RelayTour.WithLastRound(tour, round)
             }
       },
       currentPage = page,
