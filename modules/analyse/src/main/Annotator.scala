@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn, PgnStr }
+import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn, PgnStr, Comment }
 import chess.opening.*
 import chess.{ Color, Status }
 
@@ -26,7 +26,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
       pgn.updatePly(
         info.ply,
         move => {
-          val comment = info.cp
+          val comment = Comment from info.cp
             .map(_.pawns.toString)
             .orElse(info.mate.map(m => s"#${m.value}"))
             .map(c => s"[%eval $c]")
@@ -69,7 +69,10 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
     if (drawOffers.isEmpty) pgn
     else
       drawOffers.normalizedPlies.foldLeft(pgn) { (pgn, ply) =>
-        pgn.updatePly(ply, move => move.copy(comments = s"${!ply.color} offers draw" :: move.comments))
+        pgn.updatePly(
+          ply,
+          move => move.copy(comments = Comment(s"${!ply.color} offers draw") :: move.comments)
+        )
       }
 
   private def makeVariation(advice: Advice): List[Turn] =

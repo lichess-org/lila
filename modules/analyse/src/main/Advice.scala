@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.pgn.Glyph
+import chess.format.pgn.{ Comment, Glyph }
 import lila.tree.Eval.*
 import scala.util.chaining.*
 
@@ -11,20 +11,21 @@ sealed trait Advice:
 
   export info.{ ply, prevPly, prevMoveNumber, color, cp, mate }
 
-  def makeComment(withEval: Boolean, withBestMove: Boolean): String =
+  def makeComment(withEval: Boolean, withBestMove: Boolean): Comment = Comment {
     withEval.??(evalComment ?? { c =>
       s"($c) "
     }) +
-      (this match {
+      this.match {
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
-      }) + "." + {
+      } + "." + {
         withBestMove ?? {
           info.variation.headOption ?? { move =>
             s" $move was best."
           }
         }
       }
+  }
 
   def evalComment: Option[String] = {
     List(prev.evalComment, info.evalComment).flatten mkString " → "

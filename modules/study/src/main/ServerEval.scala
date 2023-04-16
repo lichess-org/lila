@@ -95,7 +95,7 @@ object ServerEval:
                                 .map { adv =>
                                   node.comments + Comment(
                                     Comment.Id.make,
-                                    Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
+                                    adv.makeComment(withEval = false, withBestMove = true) into Comment.Text,
                                     Comment.Author.Lichess
                                   )
                                 }

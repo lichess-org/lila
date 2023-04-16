@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr }
+import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr, Comment }
 import chess.format.{ pgn as chessPgn }
 import scala.concurrent.duration.*
 
@@ -30,7 +30,7 @@ final class PgnDump(
         tags = makeTags(study, chapter)(using flags),
         turns = toTurns(chapter.root)(using flags).toList,
         initial = Initial(
-          chapter.root.comments.value.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+          chapter.root.comments.value.map(_.text into Comment) ::: shapeComment(chapter.root.shapes).toList
         )
       )
       annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
@@ -108,7 +108,7 @@ object PgnDump:
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
-        node.comments.value.map(_.text.value) ::: shapeComment(node.shapes).toList
+        node.comments.value.map(_.text into Comment) ::: shapeComment(node.shapes).toList
       },
       opening = none,
       result = none,
@@ -121,7 +121,7 @@ object PgnDump:
     )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
-  private def shapeComment(shapes: Shapes): Option[String] =
+  private def shapeComment(shapes: Shapes): Option[Comment] =
     def render(as: String)(shapes: List[String]) =
       shapes match
         case Nil    => ""
@@ -136,7 +136,7 @@ object PgnDump:
         s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
     }
-    s"$circles$arrows".some.filter(_.nonEmpty)
+    Comment from s"$circles$arrows".some.filter(_.nonEmpty)
 
   def toTurn(first: Node, second: Option[Node], variations: Variations)(using WithFlags) =
     chessPgn.Turn(
