@@ -122,9 +122,10 @@ object inquiry:
                 "Hunter game list"
               ),
               boostOpponents(in.report, in.allReports, in.user) map { opponents =>
-                a(cls := "fbt", href := s"$searchUrl?opponents=${opponents.toList mkString ", "}")(
-                  "With these opponents"
-                )
+                a(
+                  cls  := "fbt",
+                  href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}"
+                )("With these opponents")
               }
             )
           )
