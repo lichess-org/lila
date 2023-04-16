@@ -73,6 +73,6 @@ final class Env(
       }
     },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
-      promise completeWith api.officialActive.get({}).map(_.exists(_.round.studyId == studyId))
+      promise completeWith api.isOfficial(studyId)
     }
   )
