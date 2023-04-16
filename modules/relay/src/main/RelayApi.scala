@@ -11,7 +11,7 @@ import scala.util.chaining.*
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyMultiBoard, StudyRepo }
+import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.security.Granter
 import lila.user.User
 
@@ -148,6 +148,18 @@ final class RelayApi(
           }
       }
   }
+
+  def isOfficial(id: StudyId): Fu[Boolean] =
+    roundRepo.coll
+      .aggregateOne() { framework =>
+        import framework._
+        Match($id(id)) -> List(
+          PipelineOperator(tourRepo lookup "tourId"),
+          UnwindField("tour"),
+          PipelineOperator($doc("$replaceWith" -> $doc("tier" -> "$tour.tier")))
+        )
+      }
+      .map(_.exists(_.getAsOpt[Int]("tier").isDefined))
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
 
