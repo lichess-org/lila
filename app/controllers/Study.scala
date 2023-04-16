@@ -455,12 +455,12 @@ final class Study(
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req => me =>
     env.study.api.byId(id).map {
-      _.fold(NotFound(jsonError("Study not found"))) { study =>
+      _.fold(studyNotFoundText) { study =>
         PgnRateLimitPerIp(req.ipAddress, msg = id) {
           CanView(study, me) {
             doPgn(study, req)
-          }(privateUnauthorizedJson, privateForbiddenJson)
-        }(rateLimitedJson)
+          }(privateUnauthorizedText, privateForbiddenText)
+        }(rateLimited)
       }
     }
   }
@@ -472,16 +472,36 @@ final class Study(
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) =
     Open { implicit ctx =>
-      env.study.api.byIdWithChapter(id, chapterId) flatMap {
-        _.fold(notFound) { case WithChapter(study, chapter) =>
-          CanView(study, ctx.me) {
-            env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter) map { pgn =>
-              Ok(pgn.toString)
-                .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
-                .as(pgnContentType)
-            }
-          }(privateUnauthorizedFu(study), privateForbiddenFu(study))
-        }
+      doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)(using ctx.req, ctx.me)
+    }
+
+  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) =
+    AnonOrScoped(_.Study.Read) { req => me =>
+      doChapterPgn(
+        id,
+        chapterId,
+        fuccess(studyNotFoundText),
+        _ => fuccess(privateUnauthorizedText),
+        _ => fuccess(privateForbiddenText)
+      )(using req, me)
+    }
+
+  private def doChapterPgn(
+      id: StudyId,
+      chapterId: StudyChapterId,
+      studyNotFound: => Fu[Result],
+      studyUnauthorized: StudyModel => Fu[Result],
+      studyForbidden: StudyModel => Fu[Result]
+  )(using req: RequestHeader, me: Option[lila.user.User]) =
+    env.study.api.byIdWithChapter(id, chapterId) flatMap {
+      _.fold(studyNotFound) { case WithChapter(study, chapter) =>
+        CanView(study, me) {
+          env.study.pgnDump.ofChapter(study, requestPgnFlags(req))(chapter) map { pgn =>
+            Ok(pgn.toString)
+              .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
+              .as(pgnContentType)
+          }
+        }(studyUnauthorized(study), studyForbidden(study))
       }
     }
 
@@ -580,6 +600,7 @@ final class Study(
     }
   }
 
+  def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using Context) =
     negotiate(
@@ -587,12 +608,16 @@ final class Study(
       api = _ => fuccess(privateUnauthorizedJson)
     )
 
+  def privateForbiddenText = Forbidden("This study is now private")
   def privateForbiddenJson = Forbidden(jsonError("This study is now private"))
   def privateForbiddenFu(study: StudyModel)(using Context) =
     negotiate(
       html = fuccess(Forbidden(html.site.message.privateStudy(study))),
       api = _ => fuccess(privateForbiddenJson)
     )
+
+  def studyNotFoundText = NotFound("Study or chapter not found")
+  def studyNotFoundJson = NotFound(jsonError("Study or chapter not found"))
 
   def CanView[A](study: StudyModel, me: Option[lila.user.User])(
       f: => A

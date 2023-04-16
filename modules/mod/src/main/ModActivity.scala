@@ -31,14 +31,11 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
     ).buildAsyncFuture((compute).tupled)
   }
 
-  private val maxDocs = 10_1000
+  private val maxDocs = 10_000
 
   private def compute(who: Who, period: Period): Fu[Result] =
     repo.coll
-      .aggregateList(
-        maxDocs = maxDocs,
-        readPreference = temporarilyPrimary
-      ) { framework =>
+      .aggregateList(maxDocs = maxDocs, readPreference = temporarilyPrimary) { framework =>
         import framework.*
         def dateToString(field: String): Bdoc =
           $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))
@@ -61,10 +58,9 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           $doc(
             "human" -> true,
             "date" $gt Period.dateSince(period)
-          ) ++ (who match
+          ) ++ who.match
             case Who.Me(userId) => $doc("mod" -> userId)
             case Who.Team       => $empty
-          )
         ) -> List(
           Group($arr(dateToString("date"), "$action"))("nb" -> SumAll),
           PipelineOperator(
@@ -105,7 +101,9 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           who,
           period,
           data.toList.sortBy(_._1).reverse.flatMap { (date, row) =>
-            Try(java.time.LocalDateTime.parse(date, dateFormat)).toOption map { _.instant -> row }
+            Try(java.time.LocalDate.parse(date, dateFormat)).toOption map {
+              _.atStartOfDay.instant -> row
+            }
           }
         )
       }
