@@ -31,14 +31,11 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
     ).buildAsyncFuture((compute).tupled)
   }
 
-  private val maxDocs = 10_1000
+  private val maxDocs = 10_000
 
   private def compute(who: Who, period: Period): Fu[Result] =
     repo.coll
-      .aggregateList(
-        maxDocs = maxDocs,
-        readPreference = temporarilyPrimary
-      ) { framework =>
+      .aggregateList(maxDocs = maxDocs, readPreference = temporarilyPrimary) { framework =>
         import framework.*
         def dateToString(field: String): Bdoc =
           $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))
