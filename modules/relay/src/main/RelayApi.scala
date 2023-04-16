@@ -159,7 +159,7 @@ final class RelayApi(
           PipelineOperator($doc("$replaceWith" -> $doc("tier" -> "$tour.tier")))
         )
       }
-      .map(_.exists(_.getAsOpt[Int]("tier").isDefined))
+      .map(_.exists(_.contains("tier")))
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
 
