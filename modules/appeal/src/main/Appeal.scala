@@ -42,9 +42,9 @@ case class Appeal(
 
   def canAddMsg: Boolean =
     val recentWithoutMod = msgs.foldLeft(Vector.empty[AppealMsg]) {
-      case (_, msg) if isByMod(msg)                           => Vector.empty
+      case (_, msg) if isByMod(msg)                              => Vector.empty
       case (acc, msg) if msg.at isAfter nowInstant.minusWeeks(1) => acc :+ msg
-      case (acc, _)                                           => acc
+      case (acc, _)                                              => acc
     }
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
     recentSize < Appeal.maxLength

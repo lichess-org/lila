@@ -66,8 +66,8 @@ object RelayRound:
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
-      until: Option[Instant],         // sync until then; resets on move
-      nextAt: Option[Instant],        // when to run next sync
+      until: Option[Instant],          // sync until then; resets on move
+      nextAt: Option[Instant],         // when to run next sync
       delay: Option[Int],              // override time between two sync (rare)
       log: SyncLog
   ):

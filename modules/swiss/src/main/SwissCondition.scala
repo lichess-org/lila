@@ -24,7 +24,7 @@ object SwissCondition:
   enum Verdict(val accepted: Boolean, val reason: Option[Lang => String]):
     case Accepted                         extends Verdict(true, none)
     case Refused(because: Lang => String) extends Verdict(false, because.some)
-    case RefusedUntil(until: Instant)    extends Verdict(false, none)
+    case RefusedUntil(until: Instant)     extends Verdict(false, none)
   export Verdict.*
 
   case class WithVerdict(condition: SwissCondition, verdict: Verdict)
