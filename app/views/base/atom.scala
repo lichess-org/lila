@@ -4,6 +4,7 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import java.time.LocalDate
 
 object atom:
 
@@ -31,6 +32,8 @@ object atom:
     )
 
   def atomDate(date: Instant): String = isoDateTimeFormatter print date
+  def atomDate(date: LocalDate): String =
+    java.time.format.DateTimeFormatter.ISO_DATE.withZone(utcZone) print date
 
   private val termAttr   = attr("term")
   private val labelAttr  = attr("label")
