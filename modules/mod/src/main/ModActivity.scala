@@ -58,10 +58,9 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           $doc(
             "human" -> true,
             "date" $gt Period.dateSince(period)
-          ) ++ (who match
+          ) ++ who.match
             case Who.Me(userId) => $doc("mod" -> userId)
             case Who.Team       => $empty
-          )
         ) -> List(
           Group($arr(dateToString("date"), "$action"))("nb" -> SumAll),
           PipelineOperator(
@@ -102,7 +101,9 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           who,
           period,
           data.toList.sortBy(_._1).reverse.flatMap { (date, row) =>
-            Try(java.time.LocalDateTime.parse(date, dateFormat)).toOption map { _.instant -> row }
+            Try(java.time.LocalDate.parse(date, dateFormat)).toOption map {
+              _.atStartOfDay.instant -> row
+            }
           }
         )
       }
