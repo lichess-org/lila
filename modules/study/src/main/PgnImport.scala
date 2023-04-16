@@ -8,12 +8,13 @@ import chess.MoveOrDrop.*
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
+import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
 object PgnImport:
 
   case class Result(
-      root: Node.Root,
+      root: Root,
       variant: chess.variant.Variant,
       tags: Tags,
       end: Option[End]
@@ -33,7 +34,7 @@ object PgnImport:
         parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, comments) =>
             val sans = parsedPgn.sans.value take Node.MAX_PLIES
-            val root = Node.Root(
+            val root = Root(
               ply = replay.setup.ply,
               fen = initialFen | game.variant.initialFen,
               check = replay.setup.situation.check,
@@ -42,13 +43,13 @@ object PgnImport:
               glyphs = Glyphs.empty,
               clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
-              children = Node.Children {
+              children = Branches {
                 val variations = makeVariations(sans, replay.setup, annotator)
-                makeNode(
+                makeBranch(
                   prev = replay.setup,
                   sans = sans,
                   annotator = annotator
-                ).fold(variations)(_ :: variations).toVector
+                ).fold(variations)(_ :: variations)
               }
             )
             val end: Option[End] = (game.finished option game.status).map { status =>
@@ -84,7 +85,6 @@ object PgnImport:
     }
 
   private def endComment(end: End): Comment =
-    import lila.tree.Node.Comment
     import end.*
     val text = s"$resultText $statusText"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
@@ -92,7 +92,7 @@ object PgnImport:
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
       _.metas.variations.flatMap { variation =>
-        makeNode(game, variation.sans.value, annotator)
+        makeBranch(game, variation.sans.value, annotator)
       }
     }
 
@@ -114,7 +114,11 @@ object PgnImport:
           )
     }
 
-  private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
+  private def makeBranch(
+      prev: chess.Game,
+      sans: List[San],
+      annotator: Option[Comment.Author]
+  ): Option[Branch] =
     try
       sans match
         case Nil => none
@@ -127,7 +131,7 @@ object PgnImport:
               val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
               parseComments(san.metas.comments, annotator) match {
                 case (shapes, clock, comments) =>
-                  Node(
+                  Branch(
                     id = UciCharPair(uci),
                     ply = game.ply,
                     move = Uci.WithSan(uci, sanStr),
@@ -140,8 +144,8 @@ object PgnImport:
                     clock = clock,
                     children = removeDuplicatedChildrenFirstNode {
                       val variations = makeVariations(rest, game, annotator)
-                      Node.Children {
-                        makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
+                      Branches {
+                        makeBranch(game, rest, annotator).fold(variations)(_ :: variations)
                       }
                     },
                     forceVariation = false
@@ -159,13 +163,14 @@ object PgnImport:
    * 7. c4 (7. c4 Nf6) (7. c4 dxc4) 7... cxd4
    * where 7. c4 appears three times
    */
-  private def removeDuplicatedChildrenFirstNode(children: Node.Children): Node.Children =
+  // TODO this could probably be refactored better or moved to scalachess
+  private def removeDuplicatedChildrenFirstNode(children: Branches): Branches =
     children.first match
       case Some(main) if children.variations.exists(_.id == main.id) =>
-        Node.Children {
+        Branches {
           main +: children.variations.flatMap { node =>
             if (node.id == main.id) node.children.nodes
-            else Vector(node)
+            else List(node)
           }
         }
       case _ => children

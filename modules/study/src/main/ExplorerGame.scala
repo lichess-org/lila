@@ -5,6 +5,7 @@ import scala.util.chaining.*
 import chess.format.{ Fen, UciPath }
 import chess.format.pgn.Parser
 import lila.game.{ Game, Namer }
+import lila.tree.{ Branch, Root, Node }
 import lila.tree.Node.Comment
 
 final private class ExplorerGame(
@@ -40,9 +41,9 @@ final private class ExplorerGame(
 
   private def compareFens(a: Fen.Epd, b: Fen.Epd) = a.simple == b.simple
 
-  private def merge(fromNode: RootOrNode, fromPath: UciPath, game: Node.Root): Option[(Node, UciPath)] =
+  private def merge(fromNode: Node, fromPath: UciPath, game: Root): Option[(Branch, UciPath)] =
     val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)) drop 1
-    val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Node])) {
+    val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Branch])) {
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode.id
         if (fromNode.children.nodeAt(nextPath).isDefined) (nextPath, none)
