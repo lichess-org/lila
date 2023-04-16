@@ -52,7 +52,8 @@ object PgnImport:
               glyphs = Glyphs.empty,
               clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
-              children = parsedPgn.tree.map(makeBranches(replay.setup, _, annotator)).getOrElse(Branches.empty)
+              children =
+                parsedPgn.tree.pp.map(makeBranches(replay.setup, _, annotator).pp).getOrElse(Branches.empty)
             )
             val end: Option[End] = (game.finished option game.status).map { status =>
               End(
@@ -115,8 +116,9 @@ object PgnImport:
       annotator: Option[Comment.Author]
   ): Branches =
     // TODO: add removeDuplicatedChildrenFirstNode logic
-    val variations = node.variations.flatMap(makeBranch(prev, _, annotator))
-    Branches(node.child.flatMap(makeBranch(prev, _, annotator)).fold(variations)(_ +: variations))
+    // TODO: parsedPgn.sans.value take Node.MAX_PLIES
+    val variations = node.variations.flatMap(makeBranch(prev, _, annotator).pp).pp
+    Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations))
 
   private def makeBranch(
       prev: chess.Game,
@@ -144,7 +146,7 @@ object PgnImport:
                   comments = comments,
                   glyphs = node.value.metas.glyphs,
                   crazyData = game.situation.board.crazyData,
-                  children = makeBranches(game, node, annotator)
+                  children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
                 ).some
             }
           }
