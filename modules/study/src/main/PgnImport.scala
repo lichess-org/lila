@@ -77,7 +77,7 @@ object PgnImport:
     pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
-        c.name.value == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
+        c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
       } map { c =>
         Comment.Author.User(c.id, c.titleName)
       } getOrElse Comment.Author.External(a)
