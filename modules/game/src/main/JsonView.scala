@@ -49,6 +49,7 @@ final class JsonView(rematches: Rematches):
         "color"    -> pov.color.name,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,
+        "status"   -> pov.game.status,
         "variant" -> Json.obj(
           "key"  -> pov.game.variant.key,
           "name" -> pov.game.variant.name
@@ -71,6 +72,7 @@ final class JsonView(rematches: Rematches):
       .add("tournamentId" -> pov.game.tournamentId)
       .add("swissId" -> pov.game.swissId)
       .add("orientation" -> pov.game.variant.racingKings.option(chess.White))
+      .add("winner" -> pov.game.winnerColor)
 
   def player(p: Player, user: Option[LightUser]) =
     Json

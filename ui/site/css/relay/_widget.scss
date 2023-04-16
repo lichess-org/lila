@@ -1,3 +1,6 @@
+$c-active: $c-primary;
+$c-ongoing: $c-accent;
+
 .relay-widget {
   @extend %flex-center-nowrap, %break-word;
 
@@ -24,18 +27,33 @@
   }
 
   &--active::before {
-    color: mix($c-link, $c-bg-box, 80%);
+    color: mix($c-active, $c-bg-box, 80%);
+  }
+  &--ongoing::before {
+    color: mix($c-ongoing, $c-bg-box, 80%);
   }
 
   &:hover {
-    background: mix($c-link, $c-bg-box, 10%);
+    background: mix($c-active, $c-bg-box, 10%);
     h2 {
       @include transition;
-      color: $c-link;
+      color: $c-active;
     }
 
     &--active::before {
-      color: mix($c-link, $c-bg-box, 100%);
+      color: mix($c-active, $c-bg-box, 100%);
+    }
+  }
+
+  &--ongoing {
+    &:hover {
+      background: mix($c-ongoing, $c-bg-box, 10%);
+      h2 {
+        color: mix($c-ongoing, $c-font-clearer, 80%);
+      }
+      &::before {
+        color: mix($c-ongoing, $c-bg-box, 100%);
+      }
     }
   }
 
@@ -59,6 +77,9 @@
     &__meta {
       white-space: nowrap;
       text-align: right;
+      .relay-widget--ongoing & {
+        color: $c-ongoing;
+      }
     }
   }
 
@@ -75,7 +96,10 @@
       @extend %box-neat;
       border: 3px solid $c-border;
       &.relay-widget--active {
-        border-color: $c-primary;
+        border-color: $c-active;
+      }
+      &.relay-widget--ongoing {
+        border-color: $c-ongoing;
       }
     }
   }

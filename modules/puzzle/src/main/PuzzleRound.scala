@@ -2,7 +2,7 @@ package lila.puzzle
 
 case class PuzzleRound(
     id: PuzzleRound.Id,
-    win: PuzzleWin,            // last result
+    win: PuzzleWin,           // last result
     fixedAt: Option[Instant], // date of first-replaying lost puzzle and winning it
     date: Instant,            // date of first playing the puzzle
     vote: Option[Int] = None,

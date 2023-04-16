@@ -54,4 +54,8 @@ Xoga rápido e volta ao lobby para xogar máis partidas e gañar máis puntos.</
   <string name="allowChatHelp">Deixa ás xogadoras falar nunha sala de chat</string>
   <string name="arenaStreaks">Racha de victorias no Torneo</string>
   <string name="arenaStreaksHelp">Despois de 2 victorias, as seguintes victorias consecutivas dan 4 pontos en lugar de 2.</string>
+  <string name="noBerserkAllowed">Non está permitido o Berserk</string>
+  <string name="noArenaStreaks">Arena sen secuencias de vitorias</string>
+  <string name="averagePerformance">Rendemento medio</string>
+  <string name="averageScore">Puntuación media</string>
 </resources>

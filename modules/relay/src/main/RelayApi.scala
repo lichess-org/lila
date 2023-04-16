@@ -11,7 +11,7 @@ import scala.util.chaining.*
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyMultiBoard, StudyRepo }
+import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.security.Granter
 import lila.user.User
 
@@ -68,17 +68,29 @@ final class RelayApi(
       tourRepo.setActive(tourId, _)
     }
 
-  def activeTourNextRound(tour: RelayTour): Fu[Option[RelayRound]] = tour.active ??
-    roundRepo.coll
-      .find($doc("tourId" -> tour.id, "finished" -> false))
-      .sort(roundRepo.sort.chrono)
-      .one[RelayRound]
-
-  def tourLastRound(tour: RelayTour): Fu[Option[RelayRound]] =
-    roundRepo.coll
-      .find($doc("tourId" -> tour.id))
-      .sort($doc("startedAt" -> -1, "startsAt" -> -1))
-      .one[RelayRound]
+  object defaultRoundToShow:
+    export cache.get
+    private val cache =
+      cacheApi[RelayTour.Id, Option[RelayRound]](32, "relay.lastAndNextRounds") {
+        _.expireAfterWrite(3 seconds)
+          .buildAsyncFuture { tourId =>
+            val last = roundRepo.coll
+              .find($doc("tourId" -> tourId))
+              .sort($doc("startedAt" -> -1, "startsAt" -> -1))
+              .one[RelayRound]
+            val next = roundRepo.coll
+              .find($doc("tourId" -> tourId, "finished" -> false))
+              .sort(roundRepo.sort.chrono)
+              .one[RelayRound]
+            last zip next map {
+              case (Some(last), Some(next)) =>
+                if next.startsAt.exists(_ isBefore nowInstant.plusHours(1))
+                then next.some
+                else last.some
+              case (last, next) => last orElse next
+            }
+          }
+      }
 
   private var spotlightCache: List[RelayTour.ActiveWithNextRound] = Nil
 
@@ -136,6 +148,18 @@ final class RelayApi(
           }
       }
   }
+
+  def isOfficial(id: StudyId): Fu[Boolean] =
+    roundRepo.coll
+      .aggregateOne() { framework =>
+        import framework._
+        Match($id(id)) -> List(
+          PipelineOperator(tourRepo lookup "tourId"),
+          UnwindField("tour"),
+          PipelineOperator($doc("$replaceWith" -> $doc("tier" -> "$tour.tier")))
+        )
+      }
+      .map(_.exists(_.contains("tier")))
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
 

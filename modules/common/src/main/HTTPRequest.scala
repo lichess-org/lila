@@ -47,7 +47,7 @@ object HTTPRequest:
   }
 
   val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isFirefox108Plus = UaMatcher("""Firefox/(?:10[8-9]|1[1-9]\d)""")
+  val isFirefox112Plus = UaMatcher("""Firefox/(?:11[2-9]|1[2-9]\d)""")
   val isMobile         = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   val isLichessMobile  = UaMatcher("""Lichess Mobile/""")
 

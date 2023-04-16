@@ -27,7 +27,14 @@ object tour:
           boxTop(h1(liveBroadcasts())),
           st.section(
             active.map { tr =>
-              div(cls := s"relay-widget relay-widget--active ${tierClass(tr.tour)}", dataIcon := "")(
+              div(
+                cls := List(
+                  "relay-widget relay-widget--active" -> true,
+                  tierClass(tr.tour)                  -> true,
+                  "relay-widget--ongoing"             -> tr.ongoing
+                ),
+                dataIcon := ""
+              )(
                 a(cls := "overlay", href := tr.path),
                 div(
                   h2(tr.tour.name),
@@ -36,7 +43,8 @@ object tour:
                     p(cls := "relay-widget__info__meta")(
                       strong(tr.round.name),
                       br,
-                      if (tr.ongoing) trans.playingRightNow()
+                      if tr.ongoing
+                      then trans.playingRightNow()
                       else tr.round.startsAt.map(momentFromNow(_))
                     )
                   )

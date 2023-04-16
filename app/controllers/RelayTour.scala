@@ -113,21 +113,17 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def redirectOrApiTour(@nowarn("msg=unused") slug: String, anyId: String) = Open { implicit ctx =>
-    env.relay.api byIdWithTour RelayRoundId(anyId) flatMap {
-      case Some(rt) => Redirect(rt.path).toFuccess // BC old broadcast URLs
-      case None =>
-        env.relay.api tourById TourModel.Id(anyId) flatMapz { tour =>
-          render.async {
-            case Accepts.Json() =>
-              JsonOk {
-                env.relay.api.withRounds(tour) map { trs =>
-                  env.relay.jsonView(trs, withUrls = true)
-                }
-              }
-            case _ => redirectToTour(tour)
+  def redirectOrApiTour(@nowarn("msg=unused") slug: String, id: TourModel.Id) = Open { implicit ctx =>
+    env.relay.api tourById id flatMapz { tour =>
+      render.async {
+        case Accepts.Json() =>
+          JsonOk {
+            env.relay.api.withRounds(tour) map { trs =>
+              env.relay.jsonView(trs, withUrls = true)
+            }
           }
-        }
+        case _ => redirectToTour(tour)
+      }
     }
   }
 
@@ -154,7 +150,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     }
 
   private def redirectToTour(tour: TourModel)(using ctx: Context): Fu[Result] =
-    env.relay.api.activeTourNextRound(tour) orElse env.relay.api.tourLastRound(tour) flatMap {
+    env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
       case None =>
         ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
           Redirect(routes.RelayRound.form(tour.id.value)).toFuccess
@@ -162,14 +158,12 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       case Some(round) => Redirect(round.withTour(tour).path).toFuccess
     }
 
-  private def WithTour(id: TourModel.Id)(
-      f: TourModel => Fu[Result]
-  )(using Context): Fu[Result] =
+  private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById id)(f)
 
-  private def WithTourCanUpdate(id: TourModel.Id)(
-      f: TourModel => Fu[Result]
-  )(using ctx: Context): Fu[Result] =
+  private def WithTourCanUpdate(
+      id: TourModel.Id
+  )(f: TourModel => Fu[Result])(using ctx: Context): Fu[Result] =
     WithTour(id) { tour =>
       ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz f(tour)
     }

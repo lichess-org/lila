@@ -5,7 +5,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite, uciToMove } from 'chessground/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
+import { StudyCtrl, ChapterPreview, Position } from './interfaces';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -17,7 +17,7 @@ export class MultiBoardCtrl {
 
   addNode = (pos: Position, node: Tree.Node) => {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
-    if (cp && cp.playing) {
+    if (cp?.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
       this.redraw();
@@ -131,11 +131,7 @@ function pagerButton(text: string, icon: string, click: () => void, enable: bool
 function makePreview(study: StudyCtrl) {
   return (preview: ChapterPreview) => {
     const contents = preview.players
-      ? [
-          makePlayer(preview.players[opposite(preview.orientation)]),
-          makeCg(preview),
-          makePlayer(preview.players[preview.orientation]),
-        ]
+      ? [makePlayer(preview, opposite(preview.orientation)), makeCg(preview), makePlayer(preview, preview.orientation)]
       : [h('div.name', preview.name), makeCg(preview)];
     return h(
       'a.' + preview.id,
@@ -151,11 +147,19 @@ function makePreview(study: StudyCtrl) {
   };
 }
 
-function makePlayer(player: ChapterPreviewPlayer): VNode {
-  return h('span.player', [
-    player.title ? `${player.title} ${player.name}` : player.name,
-    player.rating && h('span', '' + player.rating),
-  ]);
+function makePlayer(preview: ChapterPreview, color: Color): VNode | undefined {
+  const player = preview.players && preview.players[color];
+  const result = preview.outcome && preview.outcome.split('-')[color === 'white' ? 0 : 1];
+  return (
+    player &&
+    h('span.player', [
+      h('span', [
+        result && h('result', result.replace('1/2', '½')),
+        player.title ? `${player.title} ${player.name}` : player.name,
+      ]),
+      player.rating && h('rating', '' + player.rating),
+    ])
+  );
 }
 
 function makeCg(preview: ChapterPreview): VNode {

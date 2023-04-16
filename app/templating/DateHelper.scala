@@ -4,7 +4,7 @@ package templating
 import java.util.concurrent.ConcurrentHashMap
 import play.api.i18n.Lang
 import java.time.format.{ FormatStyle, DateTimeFormatter }
-import java.time.{ Duration, Period }
+import java.time.{ Duration, Period, LocalDate }
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.PeriodLocales
@@ -42,14 +42,20 @@ trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
     dateTimeFormatter print instant
 
   def showDate(instant: Instant)(using lang: Lang): String =
-    if (lang.language == "ar") dateFormatter.print(instant.date).replaceAll("\u200f", "")
-    else dateFormatter print instant.date
+    showDate(instant.date)
+
+  def showDate(date: LocalDate)(using lang: Lang): String =
+    if (lang.language == "ar") dateFormatter.print(date).replaceAll("\u200f", "")
+    else dateFormatter print date
 
   def showEnglishDate(instant: Instant): String    = englishDateFormatter print instant
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter print instant
 
   def semanticDate(instant: Instant)(using Lang): Tag =
     timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
+
+  def semanticDate(date: LocalDate)(using Lang): Tag =
+    timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
 
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
