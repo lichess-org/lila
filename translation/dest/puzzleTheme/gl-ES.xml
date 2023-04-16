@@ -39,14 +39,14 @@
   <string name="deflection">Desviación</string>
   <string name="deflectionDescription">Un movemento que distrae unha peza rival dunha tarefa que desempeña, como a protección dunha casa chave.</string>
   <string name="discoveredAttack">Ataque descuberto</string>
-  <string name="discoveredAttackDescription">Mover unha peza que previamente bloqueaba un ataque doutra peza de longo alcance, por exemplo un cabalo fora do camiño dunha torre.</string>
+  <string name="discoveredAttackDescription">Mover unha peza que previamente bloqueaba o ataque doutra peza de longo alcance (por exemplo un cabalo fora do camiño dunha torre).</string>
   <string name="doubleCheck">Xaque dobre</string>
   <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza en movemento como a desvelada atacan ao rei do opoñente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Táctica durante a derradeira fase do xogo.</string>
-  <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o pasou por alto usando o seu movemento inicial de dúas casillas.</string>
+  <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o pasou por alto usando o seu movemento inicial de dúas casas.</string>
   <string name="exposedKing">Rei exposto</string>
-  <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa a seu arredor, a miúdo conducindo a xaque mate.</string>
+  <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa a seu redor, a miúdo conducindo a xaque mate.</string>
   <string name="fork">Pinza</string>
   <string name="forkDescription">Movemento no que a peza movida ataca a dúas pezas opoñentes á vez.</string>
   <string name="hangingPiece">Peza colgada</string>
