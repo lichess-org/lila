@@ -432,15 +432,8 @@
   <string name="apply">Застосувати</string>
   <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
-  <string name="screenshotCurrentPosition">Скріншот поточної позиції
- 
-скріншот CurrentPosition
-
-Скріншот тут використовується як дієслово.
-Завантажити/поділитися зображенням поточної позиції.
-Файл</string>
-  <string name="gameAsGIF">Завантажте анімований GIF, що показує всю гру.
-Файл: Веб-сайт і додаток - найважливіші рядки</string>
+  <string name="screenshotCurrentPosition">Скріншот поточної позиції</string>
+  <string name="gameAsGIF">Зберегти як GIF</string>
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
   <string name="orUploadPgnFile">Або завантажте PGN файл</string>
