@@ -6,6 +6,7 @@ import chess.format.{ pgn as chessPgn }
 import scala.concurrent.duration.*
 
 import lila.common.String.slugify
+import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Shape, Shapes }
 
 final class PgnDump(
@@ -28,7 +29,7 @@ final class PgnDump(
     chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
       val pgn = Pgn(
         tags = makeTags(study, chapter)(using flags),
-        turns = toTurns(chapter.root)(using flags).toList,
+        turns = toTurns(chapter.root)(using flags),
         initial = Initial(
           chapter.root.comments.value.map(_.text into Comment) ::: shapeComment(chapter.root.shapes).toList
         )
@@ -100,10 +101,10 @@ object PgnDump:
       orientation: Boolean
   )
 
-  private type Variations = Vector[Node]
-  private val noVariations: Variations = Vector.empty
+  private type Variations = List[Branch]
+  private val noVariations: Variations = Nil
 
-  private def node2move(node: Node, variations: Variations)(using flags: WithFlags) =
+  private def branch2move(node: Branch, variations: Variations)(using flags: WithFlags) =
     chessPgn.Move(
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
@@ -114,7 +115,7 @@ object PgnDump:
       result = none,
       variations = flags.variations ?? {
         variations.view.map { child =>
-          toTurns(child.mainline, noVariations).toList
+          toTurns(child.mainline, noVariations)
         }.toList
       },
       secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
@@ -138,41 +139,44 @@ object PgnDump:
     }
     Comment from s"$circles$arrows".some.filter(_.nonEmpty)
 
-  def toTurn(first: Node, second: Option[Node], variations: Variations)(using WithFlags) =
+  def toTurn(first: Branch, second: Option[Branch], variations: Variations)(using flags: WithFlags) =
     chessPgn.Turn(
-      number = first.fullMoveNumber.value,
-      white = node2move(first, variations).some,
-      black = second map { node2move(_, first.children.variations) }
+      number = first.ply.fullMoveNumber.value,
+      white = branch2move(first, variations).some,
+      black = second map { branch2move(_, first.children.variations) }
     )
 
-  def toTurns(root: Node.Root)(using WithFlags): Vector[chessPgn.Turn] =
+  def toTurns(root: Root)(using flags: WithFlags): List[chessPgn.Turn] =
     toTurns(root.mainline, root.children.variations)
 
   def toTurns(
-      line: Vector[Node],
+      line: List[Branch],
       variations: Variations
-  )(using WithFlags): Vector[chessPgn.Turn] = {
+  )(using flags: WithFlags): List[chessPgn.Turn] = {
     line match
-      case Vector() => Vector()
-      case first +: rest if first.ply.isEven =>
+      case Nil => Nil
+      case head :: tail if head.ply.isEven =>
         chessPgn.Turn(
-          number = 1 + (first.ply.value - 1) / 2,
+          number = 1 + (head.ply.value - 1) / 2,
           white = none,
-          black = node2move(first, variations).some
-        ) +: toTurnsFromWhite(rest, first.children.variations)
+          black = branch2move(head, variations).some
+        ) :: toTurnsFromWhite(tail, head.children.variations)
       case l => toTurnsFromWhite(l, variations)
   }.filterNot(_.isEmpty)
 
-  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(using WithFlags): Vector[chessPgn.Turn] =
+  def toTurnsFromWhite(line: List[Branch], variations: Variations)(using
+      flags: WithFlags
+  ): List[chessPgn.Turn] =
     line
       .grouped(2)
-      .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case ((variations, turns), pair) =>
+      .foldLeft(variations -> List.empty[chessPgn.Turn]) { case ((variations, turns), pair) =>
         pair.headOption.fold(variations -> turns) { first =>
           pair
             .lift(1)
             .getOrElse(first)
             .children
-            .variations -> (toTurn(first, pair lift 1, variations) +: turns)
+            .variations
+            -> (toTurn(first, pair lift 1, variations) :: turns)
         }
       }
       ._2

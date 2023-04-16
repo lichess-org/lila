@@ -14,6 +14,7 @@ import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ makeMessage, Sri }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
+import lila.tree.Branch
 
 final private class StudySocket(
     api: StudyApi,
@@ -232,7 +233,7 @@ final private class StudySocket(
           api.addNode(
             studyId,
             Position.Ref(chapterId, m.path),
-            Node.fromBranch(branch) withClock opts.clock,
+            branch withClock opts.clock,
             opts
           )(who)
         }
@@ -258,7 +259,7 @@ final private class StudySocket(
   def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
   def addNode(
       pos: Position.Ref,
-      node: Node,
+      node: Branch,
       variant: chess.variant.Variant,
       sticky: Boolean,
       relay: Option[Chapter.Relay],

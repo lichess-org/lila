@@ -13,7 +13,7 @@ case class RelayTour(
     createdAt: Instant,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
-    syncedAt: Option[Instant],   // last time a round was synced
+    syncedAt: Option[Instant],    // last time a round was synced
     autoLeaderboard: Boolean = true,
     players: Option[RelayPlayers] = None
 ):

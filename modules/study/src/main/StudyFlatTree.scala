@@ -1,25 +1,25 @@
 package lila.study
 
-import BSONHandlers.{ readNode, writeNode }
-import Node.Children
+import BSONHandlers.{ readBranch, writeBranch }
 
 import lila.common.Chronometer
 import lila.db.dsl.{ *, given }
 import chess.format.UciPath
+import lila.tree.{ Root, Branch, Branches }
 
 private object StudyFlatTree:
 
   private case class FlatNode(path: UciPath, data: Bdoc):
     val depth = path.depth
 
-    def toNodeWithChildren(children: Option[Children]): Option[Node] =
-      path.lastId.flatMap { readNode(data, _) }.map {
-        _.copy(children = children | Node.emptyChildren)
+    def toNodeWithChildren(children: Option[Branches]): Option[Branch] =
+      path.lastId.flatMap { readBranch(data, _) }.map {
+        _.copy(children = children | Branches.empty)
       }
 
   object reader:
 
-    def rootChildren(flatTree: Bdoc): Children =
+    def rootChildren(flatTree: Bdoc): Branches =
       Chronometer.syncMon(_.study.tree.read) {
         traverse {
           flatTree.elements.toList
@@ -31,30 +31,30 @@ private object StudyFlatTree:
         }
       }
 
-    private def traverse(children: List[FlatNode]): Children =
+    private def traverse(children: List[FlatNode]): Branches =
       children
-        .foldLeft(Map.empty[UciPath, Children]) { (roots, flat) =>
+        .foldLeft(Map.empty[UciPath, Branches]) { (roots, flat) =>
           // assumes that node has a greater depth than roots (sort beforehand)
           flat.toNodeWithChildren(roots get flat.path).fold(roots) { node =>
             roots.removed(flat.path).updatedWith(flat.path.parent) {
-              case None           => Children(Vector(node)).some
+              case None           => Branches(List(node)).some
               case Some(siblings) => siblings.addNode(node).some
             }
           }
         }
-        .get(UciPath.root) | Node.emptyChildren
+        .get(UciPath.root) | Branches.empty
 
   object writer:
 
-    def rootChildren(root: Node.Root): Vector[(String, Bdoc)] =
+    def rootChildren(root: Root): List[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write) {
         root.children.nodes.flatMap { traverse(_, UciPath.root) }
       }
 
-    private def traverse(node: Node, parentPath: UciPath): Vector[(String, Bdoc)] =
+    private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES) ?? {
         val path = parentPath + node.id
         node.children.nodes.flatMap {
           traverse(_, path)
-        } appended (UciPathDb.encodeDbKey(path) -> writeNode(node))
+        } appended (UciPathDb.encodeDbKey(path) -> writeBranch(node))
       }
