@@ -24,14 +24,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="2560"
-     inkscape:window-height="1409"
+     inkscape:window-height="1375"
      id="namedview9"
      showgrid="false"
      inkscape:zoom="8.8305852"
      inkscape:cx="12.403899"
      inkscape:cy="2.242389"
-     inkscape:window-x="2560"
-     inkscape:window-y="0"
+     inkscape:window-x="0"
+     inkscape:window-y="40"
      inkscape:window-maximized="1"
      inkscape:current-layer="g906" />
   <defs
@@ -57,15 +57,15 @@
        style="fill:#ffffff;fill-opacity:1;stroke-width:0.09651081;stroke-miterlimit:4;stroke-dasharray:none"
        id="g906">
       <path
-         id="path886-5"
-         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.38604324;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 6.5422048,294.17824 c 1.077612,0 1.124675,0.85728 1.124675,1.49455 H 2.068755 c 0,-0.64896 0.046562,-1.49455 1.1241734,-1.49455 z" />
-      <path
          id="path928"
          d="m 6.5450765,294.14914 h -3.343627 c 0.045517,-1.2674 1.4568508,-1.94112 1.5210504,-2.55258 0.0642,-0.61147 -0.2233379,-0.76895 -0.2233379,-0.76895 0,0 -0.1969848,0.73497 -0.4481245,0.8852 -0.2511397,0.15023 -0.8356341,0.29141 -0.8356341,0.29141 0,0 -0.410123,0.36999 -0.6518627,0.34423 -0.2417397,-0.0258 -0.4485779,-0.60307 -0.4485779,-0.60307 l 0.8208338,-1.30638 0.4158706,-0.92604 0.3924165,-0.42785 0.1681707,-0.62837 0.4724825,0.55264 c 2.6012524,0 3.1652544,3.35147 2.1603396,5.13976 z"
          style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.38604324;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccsccccccccc" />
+      <path
+         id="path886-5"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.38604324;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 6.5422048,294.17824 c 1.077612,0 1.124675,0.85728 1.124675,1.49455 H 2.068755 c 0,-0.64896 0.046562,-1.49455 1.1241734,-1.49455 z" />
     </g>
   </g>
 </svg>
