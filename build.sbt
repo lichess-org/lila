@@ -159,7 +159,7 @@ lazy val common = module("common",
 lazy val rating = module("rating",
   Seq(common, db, memo, i18n),
   reactivemongo.bundle ++ tests.bundle
-).dependsOn(common % "compile->compile;test->test")
+).dependsOn(common % "test->test")
 
 lazy val perfStat = module("perfStat",
   Seq(common, db, user, game, rating),
@@ -334,7 +334,7 @@ lazy val challenge = module("challenge",
 lazy val study = module("study",
   Seq(common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
-).dependsOn(common % "compile->compile;test->test")
+).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
   Seq(common, study),
