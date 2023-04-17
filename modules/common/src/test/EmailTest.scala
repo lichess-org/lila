@@ -1,36 +1,35 @@
 package lila.common
 
-import org.specs2.mutable.*
+class EmailTest extends munit.FunSuite:
 
-class EmailTest extends Specification {
-
-  "normalize" >> {
-    "handle gmail" >> {
-      EmailAddress("Hello.World+suffix1+suffix2@gmail.com").normalize === NormalizedEmailAddress(
-        "helloworld@gmail.com"
-      )
-      EmailAddress("foo.bar@googlemail.com").normalize === NormalizedEmailAddress("foobar@googlemail.com")
-    }
-    "lowercase emails" >> {
-      EmailAddress("aBcDeFG@HOTMAIL.cOM").normalize === NormalizedEmailAddress("abcdefg@hotmail.com")
-    }
+  test("normalize gmail") {
+    assertEquals(
+      EmailAddress("Hello.World+suffix1+suffix2@gmail.com").normalize,
+      NormalizedEmailAddress("helloworld@gmail.com")
+    )
+    assertEquals(
+      EmailAddress("foo.bar@googlemail.com").normalize,
+      NormalizedEmailAddress("foobar@googlemail.com")
+    )
+  }
+  test("lowercase emails") {
+    assertEquals(
+      EmailAddress("aBcDeFG@HOTMAIL.cOM").normalize,
+      NormalizedEmailAddress("abcdefg@hotmail.com")
+    )
   }
 
-  "from" >> {
-    "accept valid addresses" >> {
-      EmailAddress.from("Hello.World+suffix1+suffix2@gmail.com") must beSome
-      EmailAddress.from("kebab-case@example.com") must beSome
-      EmailAddress.from("snake_case@example.com") must beSome
-      EmailAddress.from("_leading.underscore@example.com") must beSome
-      EmailAddress.from("trailing.dash-@example.com") must beSome
-    }
-    "reject invalid addresses" >> {
-      EmailAddress.from(".leading.dot@example.com") must beNone
-      EmailAddress.from("trailing.dot.@example.com") must beNone
-      EmailAddress.from("underscore.in@domain_name.com") must beNone
-      EmailAddress.from("consecutive..dots@example.com") must beNone
-      EmailAddress.from("invalid<character@example.com") must beNone
-    }
+  test("accept valid addresses") {
+    assert(EmailAddress.from("Hello.World+suffix1+suffix2@gmail.com").isDefined)
+    assert(EmailAddress.from("kebab-case@example.com").isDefined)
+    assert(EmailAddress.from("snake_case@example.com").isDefined)
+    assert(EmailAddress.from("_leading.underscore@example.com").isDefined)
+    assert(EmailAddress.from("trailing.dash-@example.com").isDefined)
   }
-
-}
+  test("reject invalid addresses") {
+    assertEquals(EmailAddress.from(".leading.dot@example.com"), None)
+    assertEquals(EmailAddress.from("trailing.dot.@example.com"), None)
+    assertEquals(EmailAddress.from("underscore.in@domain_name.com"), None)
+    assertEquals(EmailAddress.from("consecutive..dots@example.com"), None)
+    assertEquals(EmailAddress.from("invalid<character@example.com"), None)
+  }
