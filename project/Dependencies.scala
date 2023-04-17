@@ -29,17 +29,16 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.3.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.91.Final" classifier s"$os-$arch"
-  val scalatest   = "org.scalatest"              %% "scalatest"    % "3.2.11" % Test
+  val munit       = "org.scalameta"              %% "munit"        % "1.0.0-M7" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"    % "0.14.0"
   val apacheText  = "org.apache.commons"          % "commons-text" % "1.10.0"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
   val breeze      = "org.scalanlp"               %% "breeze"       % "2.1.0"
 
-  object specs2 {
-    val version = "5.2.0"
-    val core    = "org.specs2" %% "specs2-core" % version  % Test
-    val cats    = "org.specs2" %% "specs2-cats" % "4.19.2" % Test
-    val bundle  = Seq(core, cats)
+  object tests {
+    val specs2 = "org.specs2" %% "specs2-core" % "5.2.0"  % Test
+    val cats   = "org.specs2" %% "specs2-cats" % "4.19.2" % Test
+    val bundle = Seq(specs2, cats, munit)
   }
 
   object flexmark {
