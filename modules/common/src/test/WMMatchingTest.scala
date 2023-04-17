@@ -34,10 +34,10 @@ class WMMatchingTest extends munit.FunSuite {
     }
     def score(l: List[(Int, Int)]): (Int, Int) = (l.length, l.map(t => pairScore(t._1, t._2).head).sum)
     def checkScore(ans: (Int, Int)): Boolean   = res == ans
-    assert(WMMatching(v, pairScore) match {
+    assert(WMMatching(v, pairScore) match
       case Success(l) => checkScore(score(l))
       case Failure(_) => false
-    })
+    )
   }
 
   test("create S-blossom and use it for augmentation") {

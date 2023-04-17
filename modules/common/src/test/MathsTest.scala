@@ -4,8 +4,6 @@ class MathsTest extends munit.FunSuite {
 
   import lila.common.Maths._
 
-  def isCloseTo(a: Double, b: Double, delta: Double) = (a - b).abs <= delta
-
   test("standard deviation empty collection") {
     assertEquals(standardDeviation(Nil), None)
   }
