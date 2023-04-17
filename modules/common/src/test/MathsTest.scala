@@ -2,7 +2,7 @@ package lila.common
 
 class MathsTest extends munit.FunSuite {
 
-  import lila.common.Maths._
+  import lila.common.Maths.*
 
   test("standard deviation empty collection") {
     assertEquals(standardDeviation(Nil), None)
