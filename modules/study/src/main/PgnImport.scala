@@ -2,7 +2,17 @@ package lila.study
 
 import cats.data.Validated
 import chess.{ Centis, ErrorStr }
-import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, Comment as ChessComment }
+import chess.format.pgn.{
+  Dumper,
+  Glyphs,
+  ParsedPgn,
+  San,
+  Tags,
+  PgnStr,
+  PgnNodeData,
+  Comment as ChessComment,
+  Node as PgnNode
+}
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*
 
@@ -33,7 +43,6 @@ object PgnImport:
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, comments) =>
-            val sans = parsedPgn.sans.value take Node.MAX_PLIES
             val root = Root(
               ply = replay.setup.ply,
               fen = initialFen | game.variant.initialFen,
@@ -43,14 +52,8 @@ object PgnImport:
               glyphs = Glyphs.empty,
               clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
-              children = Branches {
-                val variations = makeVariations(sans, replay.setup, annotator)
-                makeBranch(
-                  prev = replay.setup,
-                  sans = sans,
-                  annotator = annotator
-                ).fold(variations)(_ :: variations)
-              }
+              children =
+                parsedPgn.tree.pp.map(makeBranches(replay.setup, _, annotator).pp).getOrElse(Branches.empty)
             )
             val end: Option[End] = (game.finished option game.status).map { status =>
               End(
@@ -89,13 +92,6 @@ object PgnImport:
     val text = s"$resultText $statusText"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
 
-  private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
-    sans.headOption.?? {
-      _.metas.variations.flatMap { variation =>
-        makeBranch(game, variation.sans.value, annotator)
-      }
-    }
-
   private def parseComments(
       comments: List[ChessComment],
       annotator: Option[Comment.Author]
@@ -114,45 +110,47 @@ object PgnImport:
           )
     }
 
+  private def makeBranches(
+      prev: chess.Game,
+      node: PgnNode[PgnNodeData],
+      annotator: Option[Comment.Author]
+  ): Branches =
+    // TODO: add removeDuplicatedChildrenFirstNode logic
+    // TODO: parsedPgn.sans.value take Node.MAX_PLIES
+    val variations = node.variations.flatMap(makeBranch(prev, _, annotator).pp).pp
+    Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations))
+
   private def makeBranch(
       prev: chess.Game,
-      sans: List[San],
+      node: PgnNode[PgnNodeData],
       annotator: Option[Comment.Author]
   ): Option[Branch] =
     try
-      sans match
-        case Nil => none
-        case san :: rest =>
-          san(prev.situation).fold(
-            _ => none, // illegal move; stop here.
-            moveOrDrop => {
-              val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
-              val uci    = moveOrDrop.fold(_.toUci, _.toUci)
-              val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
-              parseComments(san.metas.comments, annotator) match {
-                case (shapes, clock, comments) =>
-                  Branch(
-                    id = UciCharPair(uci),
-                    ply = game.ply,
-                    move = Uci.WithSan(uci, sanStr),
-                    fen = Fen write game,
-                    check = game.situation.check,
-                    shapes = shapes,
-                    comments = comments,
-                    glyphs = san.metas.glyphs,
-                    crazyData = game.situation.board.crazyData,
-                    clock = clock,
-                    children = removeDuplicatedChildrenFirstNode {
-                      val variations = makeVariations(rest, game, annotator)
-                      Branches {
-                        makeBranch(game, rest, annotator).fold(variations)(_ :: variations)
-                      }
-                    },
-                    forceVariation = false
-                  ).some
-              }
+      node.value
+        .san(prev.situation)
+        .fold(
+          _ => none, // illegal move; stop here.
+          moveOrDrop => {
+            val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
+            val uci    = moveOrDrop.fold(_.toUci, _.toUci)
+            val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
+            parseComments(node.value.metas.comments, annotator) match {
+              case (shapes, clock, comments) =>
+                Branch(
+                  id = UciCharPair(uci),
+                  ply = game.ply,
+                  move = Uci.WithSan(uci, sanStr),
+                  fen = Fen write game,
+                  check = game.situation.check,
+                  shapes = shapes,
+                  comments = comments,
+                  glyphs = node.value.metas.glyphs,
+                  crazyData = game.situation.board.crazyData,
+                  children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
+                ).some
             }
-          )
+          }
+        )
     catch
       case _: StackOverflowError =>
         logger.warn(s"study PgnImport.makeNode StackOverflowError")

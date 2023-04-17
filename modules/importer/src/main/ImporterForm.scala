@@ -27,6 +27,7 @@ final class ImporterForm:
 
 object ImporterForm:
 
+  // TODO: verify if we need this?
   def catchOverflow(f: () => Validated[ErrorStr, Preprocessed]): Validated[ErrorStr, Preprocessed] = try f()
   catch
     case e: RuntimeException if e.getMessage contains "StackOverflowError" =>
