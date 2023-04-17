@@ -1,14 +1,14 @@
 package lila.tournament
-import org.specs2.mutable.*
 
 import Schedule.Plan
 
-class SchedulerTest extends Specification:
+class SchedulerTest extends munit.FunSuite:
   def schedulesAt(date: Instant) =
     TournamentScheduler.allWithConflicts(date).map(_.schedule).map(_.toString)
-  "scheduler" should:
-    "morning" in:
-      schedulesAt(instantOf(2023, 4, 5, 9, 11)) === List(
+  test("morning"):
+    assertEquals(
+      schedulesAt(instantOf(2023, 4, 5, 9, 11)),
+      List(
         """Unique standard rapid All(None,None,None,None,None,None) 2023-06-20T12:00:00Z""",
         """Yearly standard classical All(None,None,None,None,None,None) 2023-05-19T17:00:00Z""",
         """Yearly standard hyperBullet All(None,None,None,None,None,None) 2023-06-17T17:00:00Z""",
@@ -226,8 +226,11 @@ class SchedulerTest extends Specification:
         """Hourly racingKings superBlitz All(None,None,None,None,None,None) 2023-04-05T14:00:00Z""",
         """Hourly threeCheck blitz All(None,None,None,None,None,None) 2023-04-05T15:00:00Z"""
       )
-    "evening" in:
-      schedulesAt(instantOf(2023, 3, 31, 21, 58)) === List(
+    )
+  test("evening"):
+    assertEquals(
+      schedulesAt(instantOf(2023, 3, 31, 21, 58)),
+      List(
         """Unique standard rapid All(None,None,None,None,None,None) 2023-06-20T12:00:00Z""",
         """Yearly standard rapid All(None,None,None,None,None,None) 2023-04-13T17:00:00Z""",
         """Yearly standard classical All(None,None,None,None,None,None) 2023-05-19T17:00:00Z""",
@@ -420,8 +423,11 @@ class SchedulerTest extends Specification:
         """Hourly threeCheck bullet All(None,None,None,None,None,None) 2023-04-01T03:00:00Z""",
         """Hourly threeCheck bullet All(None,None,None,None,None,None) 2023-04-01T03:30:00Z"""
       )
-    "end of year" in:
-      schedulesAt(instantOf(2022, 12, 31, 21, 43)) === List(
+    )
+  test("end of year"):
+    assertEquals(
+      schedulesAt(instantOf(2022, 12, 31, 21, 43)),
+      List(
         """Unique standard rapid All(None,None,None,None,None,None) 2023-06-20T12:00:00Z""",
         """Yearly standard bullet All(None,None,None,None,None,None) 2023-01-09T17:00:00Z""",
         """Yearly standard superBlitz All(None,None,None,None,None,None) 2023-02-14T17:00:00Z""",
@@ -614,3 +620,4 @@ class SchedulerTest extends Specification:
         """Hourly threeCheck bullet All(None,None,None,None,None,None) 2023-01-01T03:00:00Z""",
         """Hourly threeCheck bullet All(None,None,None,None,None,None) 2023-01-01T03:30:00Z"""
       )
+    )

@@ -334,7 +334,7 @@ lazy val challenge = module("challenge",
 lazy val study = module("study",
   Seq(common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
-)
+).dependsOn(common % "compile->compile;test->test")
 
 lazy val relay = module("relay",
   Seq(common, study),
