@@ -1,5 +1,4 @@
 package lila.tournament
-import org.specs2.mutable.*
 
 object ColorHistoryTest {
   def apply(s: String): ColorHistory = {

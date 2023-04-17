@@ -36,9 +36,7 @@ object Dependencies {
   val breeze      = "org.scalanlp"               %% "breeze"       % "2.1.0"
 
   object tests {
-    val specs2 = "org.specs2" %% "specs2-core" % "5.2.0"  % Test
-    val cats   = "org.specs2" %% "specs2-cats" % "4.19.2" % Test
-    val bundle = Seq(specs2, cats, munit)
+    val bundle = Seq(munit)
   }
 
   object flexmark {

@@ -1,7 +1,5 @@
 package lila.common
 
-import org.specs2.mutable.*
-
 class IpAddressTest extends munit.FunSuite {
 
   test("iso ipv4") {
