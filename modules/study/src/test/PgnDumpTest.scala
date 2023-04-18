@@ -5,6 +5,8 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Ply, Check, variant }
 import Node.*
 
+import lila.tree.{ Branch, Branches, Root }
+
 class PgnDumpTest extends lila.common.LilaTest {
 
   given PgnDump.WithFlags    = PgnDump.WithFlags(true, true, true, false, false)
@@ -12,8 +14,8 @@ class PgnDumpTest extends lila.common.LilaTest {
 
   val P = PgnDump
 
-  def node(ply: Ply, uci: String, san: String, children: Children = emptyChildren) =
-    Node(
+  def node(ply: Ply, uci: String, san: String, children: Branches = Branches.empty) =
+    Branch(
       id = UciCharPair(Uci(uci).get),
       ply = ply,
       move = Uci.WithSan(Uci(uci).get, SanStr(san)),
@@ -25,18 +27,18 @@ class PgnDumpTest extends lila.common.LilaTest {
       forceVariation = false
     )
 
-  def children(nodes: Node*) = Children(nodes.toVector)
+  def children(nodes: Branch*) = Branches(nodes.toList)
 
-  val root = Node.Root.default(variant.Standard)
+  val root = Root.default(variant.Standard)
 
   test("empty") {
-    assertEquals(P.toTurns(root), Vector.empty)
+    assertEquals(P.toTurns(root), Nil)
   }
 
   test("one move") {
     val tree = root.copy(children = children(node(1, "e2e4", "e4")))
     assertMatch(P.toTurns(tree)) {
-      case Vector(Turn(1, Some(move), None)) if move.san.value == "e4" && move.variations.isEmpty => true
+      case List(Turn(1, Some(move), None)) if move.san.value == "e4" && move.variations.isEmpty => true
     }
   }
   test("one move and variation") {
@@ -47,7 +49,7 @@ class PgnDumpTest extends lila.common.LilaTest {
       )
     )
     assertMatch(P.toTurns(tree)) {
-      case Vector(Turn(1, Some(move), None)) if move.san.value == "e4" =>
+      case List(Turn(1, Some(move), None)) if move.san.value == "e4" =>
         move.variations.matchZero:
           case List(List(Turn(1, Some(move), None))) =>
             move.san.value == "Nf3" && move.variations.isEmpty
@@ -68,7 +70,7 @@ class PgnDumpTest extends lila.common.LilaTest {
       )
     )
     assertMatch(P.toTurns(tree)) {
-      case Vector(Turn(1, Some(white), Some(black)))
+      case List(Turn(1, Some(white), Some(black)))
           if white.san.value == "e4" &&
             black.san.value == "d5" &&
             black.variations.isEmpty =>
@@ -95,13 +97,12 @@ class PgnDumpTest extends lila.common.LilaTest {
     assertEquals(P.toTurns(tree).mkString(" ").toString, "1. e4 (1. Nf3) 1... d5 (1... Nf6)")
 
     assertMatch(P.toTurns(tree)) {
-      case Vector(Turn(1, Some(white), Some(black))) if white.san.value == "e4" && black.san.value == "d5" =>
+      case List(Turn(1, Some(white), Some(black))) if white.san.value == "e4" && black.san.value == "d5" =>
         white.variations.matchZero { case List(List(Turn(1, Some(move), None))) =>
           move.san.value == "Nf3" && move.variations.isEmpty
         } && black.variations.matchZero { case List(List(Turn(1, None, Some(move)))) =>
           move.san.value == "Nf6" && move.variations.isEmpty
         }
-      }
     }
   }
   test("more moves and variations") {
@@ -154,7 +155,7 @@ class PgnDumpTest extends lila.common.LilaTest {
       "1. e4 (1. Nf3 a6 (1... b6 2. c4)) 1... d5 (1... Nf6 2. h4) 2. a3 (2. b3)"
     )
 
-    assertMatch(P.toTurns(tree)) { case Vector(Turn(1, Some(w1), Some(b1)), Turn(2, Some(w2), None)) =>
+    assertMatch(P.toTurns(tree)) { case List(Turn(1, Some(w1), Some(b1)), Turn(2, Some(w2), None)) =>
       w1.san.value == "e4" &&
       w1.variations.matchZero { case List(List(Turn(1, Some(w), Some(b)))) =>
         w.san.value == "Nf3" &&

@@ -22,14 +22,11 @@ import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import cats.data.Validated
-import org.specs2.matcher.Matcher
-import org.specs2.matcher.ValidatedMatchers
-import org.specs2.mutable.Specification
 import scala.language.implicitConversions
 
 import lila.tree.{ Branch, Branches, Root }
 
-class PgnImportTest extends Specification with ValidatedMatchers:
+class PgnImportTest extends lila.common.LilaTest:
 
   import PgnImport.*
 
@@ -46,12 +43,10 @@ class PgnImportTest extends Specification with ValidatedMatchers:
 
   val user = LightUser(UserId("aaaa"), UserName("Annotator"), None, false)
 
-  "apply" should {
-    "valid pgn" in {
+  test("valid pgn") {
 
-      val x: Validated[ErrorStr, Result] = PgnImport(pgn, List(user))
-      x must beValid.like { (parsed: Result) =>
-        parsed.tags must beEqualTo(Tags.empty)
-      }
+    val x: Validated[ErrorStr, Result] = PgnImport(pgn, List(user))
+    assertMatch(x) { case Validated.Valid(parsed: Result) =>
+      parsed.tags == Tags.empty
     }
   }
