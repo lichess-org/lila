@@ -51,7 +51,7 @@
   <string name="whiteLeftTheGame">Bijeli je napustio partiju</string>
   <string name="blackLeftTheGame">Crni je napustio partiju</string>
   <string name="whiteDidntMove">Bijeli igrač nije odigrao potez</string>
-  <string name="blackDidntMove">Crni igač nije odigrao potez</string>
+  <string name="blackDidntMove">Crni nije odigrao potez</string>
   <string name="requestAComputerAnalysis">Zatraži računalnu analizu</string>
   <string name="computerAnalysis">Računalna analiza</string>
   <string name="computerAnalysisAvailable">Dostupna računalna analiza</string>
@@ -210,7 +210,7 @@
   <string name="changeUsername">Promijeni korisničko ime</string>
   <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Primjerice, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo možeš učiniti samo jednom i samo možeš promijeniti veličinu slova svog korisničkog imena.</string>
-  <string name="signupUsernameHint">Obavezno odaberite obiteljsko korisničko ime. Ne možete ga kasnije promijeniti i svi računi s neprikladnim korisničkim imenima bit će zatvoreni!</string>
+  <string name="signupUsernameHint">Obavezno odaberi obiteljsko korisničko ime. Ne možeš ga kasnije promijeniti i svi računi s neprikladnim korisničkim imenima bit će zatvoreni!</string>
   <string name="signupEmailHint">Koristit ćemo ga samo za ponovno postavljanje lozinke.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
@@ -219,28 +219,28 @@
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="error.weakPassword">Ova je lozinka iznimno česta i previše je lako pogoditi.</string>
-  <string name="error.namePassword">Molimo nemojte koristiti svoje korisničko ime kao lozinku.</string>
-  <string name="blankedPassword">Koristili ste istu lozinku na drugom mjestu, a to je mjesto ugroženo. Kako bismo osigurali sigurnost vašeg Lichess računa, potrebno je da postavite novu lozinku. Hvala na razumijevanju.</string>
+  <string name="error.namePassword">Molimo da ne koristitiš svoje korisničko ime kao lozinku.</string>
+  <string name="blankedPassword">Koristio si istu lozinku na drugom mjestu, a to je mjesto ugroženo. Kako bismo osigurali sigurnost tvoga Lichess računa, potrebno je da postaviš novu lozinku. Hvala na razumijevanju.</string>
   <string name="youAreLeavingLichess">Odlazite sa Lichess-a</string>
   <string name="neverTypeYourPassword">Nikada nemojte upisivati svoju Lichess lozinku na drugom mjestu!</string>
-  <string name="proceedToX">Nastavite s %s</string>
-  <string name="passwordSuggestion">Ne postavljajte lozinku koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
-  <string name="emailSuggestion">Ne postavljajte adresu e-pošte koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
+  <string name="proceedToX">Nastavi s %s</string>
+  <string name="passwordSuggestion">Ne postavljaj lozinku koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
+  <string name="emailSuggestion">Ne postavljaj adresu e-pošte koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
   <string name="emailConfirmHelp">Pomoć oko potvrde e-pošte</string>
-  <string name="emailConfirmNotReceived">Niste primili svoju potvrdnu e-poštu nakon prijave?</string>
-  <string name="whatSignupUsername">Koje ste korisničko ime koristili za prijavu?</string>
+  <string name="emailConfirmNotReceived">Nisi primo svoju potvrdnu e-poštu nakon prijave?</string>
+  <string name="whatSignupUsername">Koje si korisničko ime koristio za prijavu?</string>
   <string name="usernameNotFound">Nismo mogli pronaći nijednog korisnika pod ovim imenom: %s.</string>
-  <string name="usernameCanBeUsedForNewAccount">Ovo korisničko ime možete koristiti za stvaranje novog računa</string>
+  <string name="usernameCanBeUsedForNewAccount">Ovo korisničko ime možeš koristiti za stvaranje novog računa</string>
   <string name="emailSent">Poslali smo email na %s.</string>
   <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok stigne.</string>
-  <string name="refreshInboxAfterFiveMinutes">Pričekajte 5 minuta i osvježite pristiglu poštu.</string>
-  <string name="checkSpamFolder">Također provjerite svoju mapu neželjene pošte, mogla bi tamo završiti. Ako je tako, označite da nije spam.</string>
-  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošaljite nam ovu e-poruku:</string>
-  <string name="copyTextToEmail">Kopirajte i zalijepite gornji tekst i pošaljite ga %s</string>
-  <string name="waitForSignupHelp">Javit ćemo vam se uskoro kako bismo vam pomogli dovršiti registraciju.</string>
+  <string name="refreshInboxAfterFiveMinutes">Pričekaj 5 minuta i osvježi stranicu pristigle pošte.</string>
+  <string name="checkSpamFolder">Također provjeri svoju mapu neželjene pošte jer bi mogla i tamo završiti. Ako je tako, označi ju da nije spam.</string>
+  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošalji nam ovu e-poruku:</string>
+  <string name="copyTextToEmail">Kopiraj i zalijepi gornji tekst i pošalji ga %s</string>
+  <string name="waitForSignupHelp">Javit ćemo ti se uskoro kako bismo ti pomogli dovršiti tvoju registraciju.</string>
   <string name="accountConfirmed">Korisnik %s je uspješno potvrđen.</string>
-  <string name="accountCanLogin">Možete se odmah prijaviti kao %s.</string>
-  <string name="accountConfirmationEmailNotNeeded">Nije vam potrebna potvrdna e-pošta.</string>
+  <string name="accountCanLogin">Možeš se odmah prijaviti kao %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nije ti potrebna potvrdna e-pošta.</string>
   <string name="accountClosed">Račun %s je zatvoren.</string>
   <string name="accountRegisteredWithoutEmail">Račun %s je registriran bez e-pošte.</string>
   <string name="rank">Rang</string>
@@ -417,6 +417,7 @@
   <string name="importGame">Uvezi partiju</string>
   <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
 računalnu analizu, chat partije i URL za dijeljenje.</string>
+  <string name="importGameCaveat">Varijacije će biti obrisane. Da bi ih sačuvao, uvezi PGN preko studije.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezene partije</item>
@@ -697,6 +698,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primiš, više vremena bit će ti potrebno.</string>
   <string name="simulAddExtraTime">Možeš dodati dodatno vrijeme na svoj sat da ti pomogne savladati simultanku.</string>
   <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
+  <string name="simulAddExtraTimePerPlayer">Dodaj početno vrijeme svom satu za svakog igrača koji se pridruži simultanki.</string>
+  <string name="simulHostExtraTimePerPlayer">Održi dodatno vrijeme po igraču</string>
   <string name="lichessTournaments">Lichess turniri</string>
   <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
   <string name="timeBeforeTournamentStarts">Vrijeme prije nego turnir započne</string>
@@ -986,4 +989,5 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Promijeni strane</string>
   <string name="closingAccountWithdrawAppeal">Zatvaranje računa će povući vašu žalbu</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naši savjeti za organizaciju događaja</string>
 </resources>
