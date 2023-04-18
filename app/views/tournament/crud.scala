@@ -104,6 +104,11 @@ object crud:
       form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
         form3.textarea(_)(rows := 6)
       ),
+      form3.checkbox(
+        form("rated"),
+        trans.rated(),
+        help = trans.ratedFormHelp().some
+      ),
       form3.split(
         form3.group(form("variant"), raw("Variant"), half = true) { f =>
           form3.select(f, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
