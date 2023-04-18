@@ -134,11 +134,6 @@ object JsonView:
       perfType.key.value -> perfWrites.writes(u.perfs(perfType))
     })
 
-  def ratingMap(u: User): JsObject =
-    Writes
-      .keyMapWrites[Perf.Key, Int, Map]
-      .writes(u.perfs.perfsMap.view.mapValues(_.intRating.value).toMap)
-
   def notes(ns: List[Note])(using lightUser: LightUserApi) =
     lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray(
       ns.map { note =>

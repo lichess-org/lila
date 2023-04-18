@@ -203,7 +203,7 @@ export default class SetupController {
 
   ratingRange = (): string => {
     if (!this.root.data.ratingMap) return '';
-    const rating = this.root.data.ratingMap[this.selectedPerf()];
+    const rating = this.root.data.ratingMap[this.selectedPerf()].rating;
     return `${rating + this.ratingMin()}-${rating + this.ratingMax()}`;
   };
 
