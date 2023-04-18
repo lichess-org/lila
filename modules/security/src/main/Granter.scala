@@ -40,3 +40,5 @@ object Granter:
       (is(_.BoostHunter)(mod) && user.marks.boost) ||
       (is(_.Shusher)(mod) && user.marks.troll)
     }
+
+  def canCloseAlt(mod: Holder) = apply(_.CloseAccount)(mod.user) && apply(_.ViewPrintNoIP)(mod.user)
