@@ -15,4 +15,5 @@
   <string name="voteToLoadNextOne">Проголосуйте і ідіт дале!</string>
   <string name="upVote">Облюбовати завданку</string>
   <string name="downVote">Не полюбила ся завданка</string>
+  <string name="puzzleOfTheDay">Задача дня</string>
 </resources>

@@ -30,12 +30,12 @@ final class I18n(env: Env) extends LilaController(env):
                 val redir = Redirect {
                   ctx.req.referer.fold(routes.Lobby.home.url) { str =>
                     try
-                      val pageUrl = new java.net.URL(str)
+                      val pageUrl = new java.net.URI(str).parseServerAuthority().toURL()
                       val path    = pageUrl.getPath
                       val query   = pageUrl.getQuery
                       if (query == null) path
                       else path + "?" + query
-                    catch case _: java.net.MalformedURLException => routes.Lobby.home.url
+                    catch case _: Exception => routes.Lobby.home.url
                   }
                 }
                 if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
