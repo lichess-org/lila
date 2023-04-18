@@ -134,20 +134,6 @@ object JsonView:
       perfType.key.value -> perfWrites.writes(u.perfs(perfType))
     })
 
-  def ratingMap(u: User): JsObject =
-    Writes
-      .keyMapWrites[Perf.Key, JsObject, Map]
-      .writes(
-        u.perfs.perfsMap.view
-          .mapValues(perf => {
-            Json.obj(
-              "rating"        -> perf.intRating.value,
-              "isProvisional" -> perf.glicko.provisional
-            )
-          })
-          .toMap
-      )
-
   def notes(ns: List[Note])(using lightUser: LightUserApi) =
     lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray(
       ns.map { note =>
