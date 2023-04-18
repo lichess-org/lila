@@ -48,12 +48,13 @@ object PieceSet extends PieceSetObject:
     PieceSet("governor"),
     PieceSet("dubrovny"),
     PieceSet("icpieces"),
+    PieceSet("mpchess"),
+    PieceSet("kiwen-suwi"),
     PieceSet("horsey"),
     PieceSet("anarcandy"),
     PieceSet("shapes"),
     PieceSet("letter"),
-    PieceSet("disguised"),
-    PieceSet("kiwen-suwi")
+    PieceSet("disguised")
   )
 
 object PieceSet3d extends PieceSetObject:
