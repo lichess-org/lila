@@ -88,7 +88,7 @@ export interface LobbyData {
 
 export interface RatingWithProvisional {
   rating: number;
-  isProvisional: boolean;
+  prov?: boolean;
 }
 
 export interface NowPlaying {

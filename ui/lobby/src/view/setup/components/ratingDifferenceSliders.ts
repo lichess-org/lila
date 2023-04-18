@@ -6,7 +6,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
 
   const { trans, setupCtrl } = ctrl;
   const selectedPerf = ctrl.setupCtrl.selectedPerf();
-  const isProvisional = ctrl.data.ratingMap[selectedPerf].isProvisional;
+  const isProvisional = !!ctrl.data.ratingMap[selectedPerf].prov;
   const disabled = isProvisional ? '.disabled' : '';
 
   return h(
@@ -14,8 +14,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
     {
       attrs: isProvisional
         ? {
-            title:
-              'Your rating is still provisional, play some games! Rating range around an inaccurate rating is meaningless',
+            title: 'Your rating is still provisional, play some rated games to use the rating range.',
           }
         : undefined,
     },
