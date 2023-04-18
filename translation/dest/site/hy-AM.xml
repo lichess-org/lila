@@ -206,8 +206,14 @@
   <string name="email">Էլ. փոստ</string>
   <string name="passwordReset">Վերականգնել գաղտնաբառը</string>
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
+  <string name="error.weakPassword">Այդ գաղտնաբառը շատ տարածված է, և այն չափազանց հեշտ է գուշակել։</string>
+  <string name="error.namePassword">Խնդրում ենք՝ Ձեր մասնակցային անունը մի՛ օգտագործեք որպես գաղտնաբառ։</string>
+  <string name="blankedPassword">Նույն գաղտնաբառը Դուք օգտագործել եք այլ կայքում, իսկ այդ կայքը վարկաբեկվել է։ Այժմ Lichess-ի Ձեր մասնակցային հաշվի անվտանգության համար անհրաժեշտ է սահմանել նոր գաղտնաբառ։ Շնորհակալություն ըմբռնումով մոտենալու համար։</string>
   <string name="youAreLeavingLichess">Դուք լքում եք Lichess-ը</string>
   <string name="neverTypeYourPassword">Երբեք մի՛ մուտքագրեք Lichess-ի գաղտնաբառը այլ կայքերում։</string>
+  <string name="proceedToX">Անցնել %s</string>
+  <string name="passwordSuggestion">Մի՛ ընտրեք այլ անձանց առաջարկած գաղտնաբառը։ Նրանք դրա օգնությամբ կգողանան Ձեր մասնակցային հաշիվը։</string>
+  <string name="emailSuggestion">Մի՛ ընտրեք այլ անձանց առաջարկած էլեկտրոնային փոստի հասցեն։ Նրանք դրա օգնությամբ կգողանան Ձեր մասնակցային հաշիվը։</string>
   <string name="emailConfirmHelp">Օգնություն էլեկտրոնային փոստի հաստատման հարցում</string>
   <string name="emailConfirmNotReceived">Գրանցվելուց հետո էլփոստին չե՞ք ստացել հաստատման նամակը:</string>
   <string name="whatSignupUsername">Ի՞նչ օգտանուն եք ընտրել գրանցվելու համար:</string>
@@ -364,6 +370,7 @@
   <string name="siteDescription">Անվճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
   <string name="xCreatedTeamY">%1$s ստեղծած թիմ %2$s</string>
+  <string name="startedStreaming">սկսել է հեռարձակումը</string>
   <string name="xStartedStreaming">%s-ն ուղիղ եթերում է</string>
   <string name="averageElo">Միջին ELO</string>
   <string name="location">Տեղակայումը</string>
@@ -382,6 +389,7 @@
   <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>
   <string name="importGameExplanation">Տեղադրեք պարտիայի գրառումը PGN ձևաչափով, և հնարավորություն կստանաք վերախաղարկելու պարտիան, կատարելու համակարգչային վերլուծություն, շփվելու զրուցարանում և կիսվելու այդ պարտիայի հղումով։</string>
+  <string name="importGameCaveat">Տարբերակները կհեռացվեն։ Դրանք պահպանելու համար, PGN-ը տեղափոխեք ստուդիա։</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ներմուծված խաղեր</item>
     <item quantity="other">%s ներմուծված խաղեր</item>
@@ -911,4 +919,5 @@
   <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
   <string name="switchSides">Փոխել կողմը</string>
   <string name="closingAccountWithdrawAppeal">Ձեր մասնակցային հաշվի փակումը կչեղարկի Ձեր դիմումը</string>
+  <string name="ourEventTips">Մեր խորհուրդները միջոցառումներ կազմակերպելու հարցում</string>
 </resources>

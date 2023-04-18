@@ -217,7 +217,11 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       open = all.filter(_.open)
-      _ <- doProcessReport($inIds(all.filter(_.open).map(_.id)), User.lichessId into ModId)
+      _ <- doProcessReport(
+        $inIds(all.filter(_.open).map(_.id)),
+        User.lichessId into ModId,
+        unsetInquiry = false
+      )
     } yield open
 
   def reopenReports(suspect: Suspect): Funit =
@@ -273,41 +277,31 @@ final class ReportApi(
 
   def byId(id: Report.Id) = coll.byId[Report](id)
 
-  def process(mod: Mod, reportId: Report.Id): Funit =
-    for {
-      report  <- byId(reportId) orFail s"no such report $reportId"
-      suspect <- getSuspect(report.user) orFail s"No such suspect $report"
-      rooms = Set(Room(report.reason))
-      res <- process(mod, suspect, rooms, reportId.some)
-    } yield res
+  def process(mod: Mod, report: Report): Funit =
+    accuracy.invalidate($id(report.id)) >>
+      doProcessReport($id(report.id), mod.id, unsetInquiry = true).void >>-
+      maxScoreCache.invalidateUnit() >>-
+      lila.mon.mod.report.close.increment().unit
 
-  def process(mod: Mod, sus: Suspect, rooms: Set[Room], reportId: Option[Report.Id] = None): Funit =
-    inquiries
-      .ofModId(mod.user.id)
-      .dmap(_.filter(_.user == sus.user.id))
-      .flatMap { inquiry =>
-        val relatedSelector = $doc(
-          "user" -> sus.user.id,
-          "room" $in rooms,
-          "open" -> true
-        )
-        val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
-          $or($id(id), relatedSelector)
-        }
-        accuracy.invalidate(reportSelector) >>
-          doProcessReport(reportSelector, mod.id).void >>-
-          maxScoreCache.invalidateUnit() >>-
-          lila.mon.mod.report.close.increment().unit
-      }
+  def autoProcess(mod: ModId, sus: Suspect, rooms: Set[Room]): Funit = {
+    val selector = $doc(
+      "user" -> sus.user.id,
+      "room" $in rooms,
+      "open" -> true
+    )
+    doProcessReport(selector, mod, unsetInquiry = true).void >>-
+      maxScoreCache.invalidateUnit() >>-
+      lila.mon.mod.report.close.increment().unit
+  }
 
-  private def doProcessReport(selector: Bdoc, by: ModId): Funit =
+  private def doProcessReport(selector: Bdoc, by: ModId, unsetInquiry: Boolean): Funit =
     coll.update
       .one(
         selector,
         $set(
           "open" -> false,
-          "done" -> Report.Done(by, nowDate)
-        ) ++ $unset("inquiry"),
+          "done" -> Report.Done(by, nowInstant)
+        ) ++ (unsetInquiry ?? $unset("inquiry")),
         multi = true
       )
       .void
@@ -431,7 +425,7 @@ final class ReportApi(
       "atoms.by",
       $doc(
         "user" -> sus.user.id,
-        "atoms.0.at" $gt nowDate.minusDays(3)
+        "atoms.0.at" $gt nowInstant.minusDays(3)
       ),
       ReadPreference.secondaryPreferred
     ) dmap (_ filterNot ReporterId.lichess.==)
@@ -517,7 +511,7 @@ final class ReportApi(
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
-      "atoms.0.at" $gt nowDate.minusDays(7),
+      "atoms.0.at" $gt nowInstant.minusDays(7),
       "user"   -> suspect.value,
       "reason" -> reason
     )
@@ -586,7 +580,7 @@ final class ReportApi(
               .updateField(
                 $id(r.id),
                 "inquiry",
-                Report.Inquiry(mod.user.id, nowDate)
+                Report.Inquiry(mod.user.id, nowInstant)
               )
               .void
           }
@@ -629,7 +623,7 @@ final class ReportApi(
               ) scored Report.Score(0),
               none
             )
-            .copy(inquiry = Report.Inquiry(mod.user.id, nowDate).some)
+            .copy(inquiry = Report.Inquiry(mod.user.id, nowInstant).some)
           coll.insert.one(report) inject report
         }
       }
@@ -638,7 +632,7 @@ final class ReportApi(
       workQueue {
         val selector = $doc(
           "inquiry.mod" $exists true,
-          "inquiry.seenAt" $lt nowDate.minusMinutes(20)
+          "inquiry.seenAt" $lt nowInstant.minusMinutes(20)
         )
         coll.delete.one(selector ++ $doc("text" -> Report.spontaneousText)) >>
           coll.update.one(selector, $unset("inquiry"), multi = true).void

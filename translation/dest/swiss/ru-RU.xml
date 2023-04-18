@@ -13,7 +13,7 @@
     <item quantity="many">%s туров</item>
     <item quantity="other">%s туров</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s раунд по Швейцарской системе</item>
     <item quantity="few">%s раунда по Швейцарской системе</item>
     <item quantity="many">%s раундов по Швейцарской системе</item>
@@ -119,10 +119,4 @@
   <string name="unlimitedAndFree">Неограниченно и бесплатно</string>
   <string name="predefinedUsers">Разрешить участие только перечисленным игрокам</string>
   <string name="forbiddedUsers">Если список не пустой, тогда только игроки из списка смогут участвовать. По одному игроку в строке.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s раунд по Швейцарской системе</item>
-    <item quantity="few">%1$s / %2$s раунда по Швейцарской системе</item>
-    <item quantity="many">%1$s / %2$s раундов по Швейцарской системе</item>
-    <item quantity="other">%1$s / %2$s раундов по Швейцарской системе</item>
-  </plurals>
 </resources>

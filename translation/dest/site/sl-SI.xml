@@ -231,10 +231,29 @@
   <string name="forgotPassword">Ste pozabili geslo?</string>
   <string name="error.weakPassword">To geslo je zelo pogosto in ga je prelahko uganiti.</string>
   <string name="error.namePassword">Prosimo, ne uporabljajte svojega uporabniškega imena kot gesla.</string>
+  <string name="blankedPassword">Isto geslo ste uporabili na drugem spletnem mestu in to spletno mesto je bilo prizadeto. Da bi zagotovili varnost vašega računa Lichess, morate določiti novo geslo. Zahvaljujemo se vam za razumevanje.</string>
   <string name="youAreLeavingLichess">Zapuščate Lichess</string>
   <string name="neverTypeYourPassword">Nikoli ne vnesite svojega gesla za Lichess na drugem mestu!</string>
+  <string name="proceedToX">Nadaljujte na %s</string>
   <string name="passwordSuggestion">Ne nastavite gesla, ki ga predlaga nekdo drug. Uporabili ga bodo za krajo vašega računa.</string>
   <string name="emailSuggestion">Ne nastavite e-poštnega naslova, ki ga predlaga nekdo drug. Uporabili ga bodo za krajo vašega računa.</string>
+  <string name="emailConfirmHelp">Pomoč za potrditev naslova elektronske pošte</string>
+  <string name="emailConfirmNotReceived">Niste prejeli potrditvenega e-poštnega sporočila po prijavi?</string>
+  <string name="whatSignupUsername">S katerim uporabniškim imenom ste se prijavili?</string>
+  <string name="usernameNotFound">Nismo našli nobenega uporabnika s tem imenom: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">To uporabniško ime lahko uporabite za ustvarjanje novega računa</string>
+  <string name="emailSent">Na naslov %s smo poslali e-poštno sporočilo.</string>
+  <string name="emailCanTakeSomeTime">Do prihoda lahko preteče nekaj časa.</string>
+  <string name="refreshInboxAfterFiveMinutes">Počakajte 5 minut in osvežite e-poštni predal.</string>
+  <string name="checkSpamFolder">Preverite tudi mapo za neželeno pošto, morda se znajde tam. Če je tako, jo označite kot zaželeno.</string>
+  <string name="emailForSignupHelp">Če vse drugo ne uspe, nam pošljite to e-poštno sporočilo:</string>
+  <string name="copyTextToEmail">Kopirajte in prilepite zgornje besedilo ter ga pošljite na naslov %s</string>
+  <string name="waitForSignupHelp">Kmalu vas bomo kontaktirali in vam pomagali dokončati prijavo.</string>
+  <string name="accountConfirmed">Uporabnik %s je uspešno potrjen.</string>
+  <string name="accountCanLogin">Zdaj se lahko prijavite kot %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Ne potrebujete potrditvenega e-poštnega sporočila.</string>
+  <string name="accountClosed">Račun %s je zaprt.</string>
+  <string name="accountRegisteredWithoutEmail">Račun %s je bil registriran brez e-pošte.</string>
   <string name="rank">Uvrstitev</string>
   <string name="rankX">Uvrstitev: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -404,6 +423,7 @@
   <string name="siteDescription">Brezplačni internetni šah. Igraj šah na enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.</string>
   <string name="xJoinedTeamY">%1$s se je pridružil ekipi %2$s</string>
   <string name="xCreatedTeamY">%1$s je ustvaril ekipo %2$s</string>
+  <string name="startedStreaming">je pričel s prenosom</string>
   <string name="xStartedStreaming">%s je pričel z prenosom</string>
   <string name="averageElo">Povprečen rating</string>
   <string name="location">Lokacija</string>
@@ -412,6 +432,8 @@
   <string name="apply">Uporabi</string>
   <string name="save">Shrani</string>
   <string name="leaderboard">Lestvica</string>
+  <string name="screenshotCurrentPosition">Zajemi sliko trenutne pozicije</string>
+  <string name="gameAsGIF">Partija kot GIF</string>
   <string name="pasteTheFenStringHere">Prilepi FEN niz sem</string>
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
   <string name="orUploadPgnFile">Ali pa naložite datoteko PGN</string>
@@ -536,6 +558,10 @@
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="oneUrlPerLine">En URL na vrstico.</string>
   <string name="inlineNotation">Dodatna notacija</string>
+  <string name="savingMoves">Začasno shranjevanje potez</string>
+  <string name="savingMovesHelp">Vaše poteze vedno shranjujemo v predpomnilnik vašega brskalnika.</string>
+  <string name="makeAStudy">Za varno shranjevanje in deljenje razmislite o tem, da bi naredili študijo.</string>
+  <string name="clearSavedMoves">Počisti poteze</string>
   <string name="previouslyOnLichessTV">Nazadnje na Lichess TV</string>
   <string name="onlinePlayers">Prijavljeni igralci</string>
   <string name="activePlayers">Aktivni igralci</string>
@@ -580,6 +606,7 @@
   <string name="reportDescriptionHelp">Prilepite povezave do igre (ali iger) in pojasnite kaj je narobe z obnašanjem uporabnika. Ne napišite samo \"uporabnik goljufa\" temveč pojasnite zakaj mislite tako. Prijava bo obdelana hitreje če bo napisana v angleščini.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
+  <string name="importedByX">Uvozil je %s</string>
   <string name="thisTopicIsNowClosed">Tema je zaprta</string>
   <string name="blog">Blog</string>
   <string name="notes">Beležke</string>
@@ -657,6 +684,7 @@
   <string name="error.min">Biti mora vsaj %s</string>
   <string name="error.max">Mora biti največ %s</string>
   <string name="ifRatingIsPlusMinusX">Če je rating ± %s</string>
+  <string name="ifRegistered">Registrirani</string>
   <string name="onlyExistingConversations">Samo obstoječi pogovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Meni</string>
@@ -703,6 +731,8 @@
   <string name="simulClockHint">Fischerjeva nastavitev ure. Več igralcev kot sprejmeš, več časa boš morda potreboval.</string>
   <string name="simulAddExtraTime">Uri lahko dodaš več časa v pomoč pri igranju simultanke.</string>
   <string name="simulHostExtraTime">Dodaten čas za gostitelja</string>
+  <string name="simulAddExtraTimePerPlayer">Dodajte začetni čas svoji uri za vsakega igralca, ki se pridruži simultanki.</string>
+  <string name="simulHostExtraTimePerPlayer">Gostite dodatni čas na igralca</string>
   <string name="lichessTournaments">Lichess turnirji</string>
   <string name="tournamentFAQ">Turnirji - odgovori na pogosta vprašanja</string>
   <string name="timeBeforeTournamentStarts">Čas do začetka turnirja</string>
@@ -826,6 +856,7 @@
   <string name="bestWasX">Najboljša poteza je bila %s</string>
   <string name="youBrowsedAway">Odtavali ste</string>
   <string name="resumePractice">Nadaljujte vadbo</string>
+  <string name="drawByFiftyMoves">Igra je bila remi po pravilu petdesetih potez.</string>
   <string name="theGameIsADraw">Rezultat partije je remi.</string>
   <string name="computerThinking">Računalnik razmišlja...</string>
   <string name="seeBestMove">Poglej najboljšo potezo</string>
@@ -995,4 +1026,6 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Rangirane igre, vzorčene od vseh igralcev Lichess</string>
   <string name="switchSides">Zamenjaj strani</string>
+  <string name="closingAccountWithdrawAppeal">Z zaprtjem računa bo vaša pritožba umaknjena</string>
+  <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
 </resources>

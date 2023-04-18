@@ -1,9 +1,6 @@
 package lila.round
 
-import org.joda.time.Period
-
 import lila.game.{ Game, PlayerRef, Pov }
-import lila.hub.actorApi.mailer.*
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
@@ -56,6 +53,6 @@ final class GameProxyRepo(
         catch
           case e: IllegalArgumentException =>
             lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)
-            povs.sortBy(-_.game.movedAt.getSeconds)
+            povs.sortBy(-_.game.movedAt.toSeconds)
       }
     }

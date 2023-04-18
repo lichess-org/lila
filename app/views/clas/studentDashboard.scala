@@ -1,7 +1,7 @@
 package views.html.clas
 
 import controllers.routes
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
@@ -74,7 +74,7 @@ object studentDashboard:
         )
       ),
       tbody(
-        students.sortBy(-_.user.seenAt.??(_.getMillis)).map { case Student.WithUser(student, user) =>
+        students.sortBy(-_.user.seenAt.??(_.toMillis)).map { case Student.WithUser(student, user) =>
           tr(
             td(
               userLink(

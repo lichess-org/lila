@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Clock, Mode, Speed }
 import chess.variant.Variant
-import play.api.i18n.Lang
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -22,7 +21,7 @@ case class Hook(
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
-    createdAt: DateTime,
+    createdAt: Instant,
     boardApi: Boolean
 ):
 
@@ -131,6 +130,6 @@ object Hook:
       user = user map { LobbyUser.make(_, blocking) },
       sid = sid,
       ratingRange = ratingRange.toString,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       boardApi = boardApi
     )

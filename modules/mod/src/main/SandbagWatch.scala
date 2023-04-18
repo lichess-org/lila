@@ -6,8 +6,6 @@ import com.github.blemale.scaffeine.Cache
 import lila.game.Game
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.report.ReportApi
-import lila.mod.ModlogApi
-import lila.user.User
 
 final private class SandbagWatch(
     messenger: MsgApi,
@@ -20,11 +18,11 @@ final private class SandbagWatch(
 
   private val messageOnceEvery = lila.memo.OnceEvery[UserId](1 hour)
 
-  def apply(game: Game): Unit = for {
+  def apply(game: Game): Unit = for
     loser <- game.loser.map(_.color)
     if game.rated && !game.fromApi
     userId <- game.userIds
-  }
+  do
     (records getIfPresent userId, outcomeOf(game, loser, userId)) match
       case (None, Good)         =>
       case (Some(record), Good) => setRecord(userId, record + Good, game)

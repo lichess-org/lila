@@ -5,22 +5,17 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.*
-import lila.common.Strings
-import lila.memo.SettingStore.Strings.*
 import lila.user.UserRepo
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     net: NetConfig,
     userRepo: UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     lightUser: lila.user.LightUserApi
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler
-):
+)(using Executor, ActorSystem, Scheduler):
   private val baseUrl = net.baseUrl
   import Mailer.given
 

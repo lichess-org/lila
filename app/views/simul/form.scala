@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
@@ -111,6 +111,16 @@ object form:
         )(
           form3.select(_, clockExtraChoices)
         ),
+        form3.group(
+          form("clockExtraPerPlayer"),
+          trans.simulHostExtraTimePerPlayer(),
+          help = trans.simulAddExtraTimePerPlayer().some,
+          half = true
+        )(
+          form3.select(_, clockExtraPerPlayerChoices)
+        )
+      ),
+      form3.split(
         form3.group(form("color"), trans.simulHostcolor(), half = true)(
           form3.select(_, colorChoices)
         )

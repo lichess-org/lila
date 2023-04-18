@@ -1,6 +1,6 @@
 package views.html.oAuth.token
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -23,7 +23,7 @@ object index:
         standardFlash.map(div(cls := "box__pad")(_)),
         p(cls := "box__pad force-ltr")(
           "You can make OAuth requests without going through the ",
-          a(href := s"${routes.Api.index}#section/Authentication")("authorization code flow"),
+          a(href := s"${routes.Api.index}#section/Introduction/Authentication")("authorization code flow"),
           ".",
           br,
           br,

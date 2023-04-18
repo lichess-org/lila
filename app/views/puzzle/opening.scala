@@ -3,12 +3,12 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.puzzle.PuzzleOpening.Order
-import lila.puzzle.{ Puzzle, PuzzleAngle, PuzzleOpening, PuzzleOpeningCollection, PuzzleTheme }
+import lila.puzzle.{ PuzzleOpening, PuzzleOpeningCollection }
 
 object opening:
 
@@ -16,7 +16,7 @@ object opening:
       ctx: Context
   ) =
     views.html.base.layout(
-      title = "Puzzles by openings",
+      title = trans.puzzle.puzzlesByOpenings.txt(),
       moreCss = cssTag("puzzle.page"),
       moreJs = jsModule("puzzle.opening")
     )(
@@ -24,20 +24,20 @@ object opening:
         bits.pageMenu("openings", ctx.me),
         div(cls := "page-menu__content box")(
           boxTop(
-            h1("Puzzles by openings"),
+            h1(trans.puzzle.puzzlesByOpenings()),
             orderSelect(order)
           ),
           mine.isEmpty option frag(
             p(cls := "help help-touchscreen")(
-              iconTag("", "Use \"Find in page\" in the browser menu to find your favourite opening!")
+              iconTag("", trans.puzzle.useFindInPage())
             ),
-            p(cls := "help help-keyboard")(iconTag("", "Use Ctrl+f to find your favourite opening!"))
+            p(cls := "help help-keyboard")(iconTag("", trans.puzzle.useCtrlF()))
           ),
           div(cls := "puzzle-themes")(
             div(cls := "puzzle-openings")(
               mine.filter(_.families.nonEmpty) map { m =>
                 div(cls := "puzzle-openings__mine")(
-                  h2("Openings you played the most in rated games"),
+                  h2(trans.puzzle.openingsYouPlayedTheMost()),
                   div(cls := "puzzle-openings__list")(m.families take 12 map {
                     familyLink(_, mine)(cls := "puzzle-openings__link")
                   })
@@ -51,7 +51,7 @@ object opening:
       )
     )
 
-  private[puzzle] def listOf(families: List[PuzzleOpening.FamilyWithCount])(implicit ctx: Context) =
+  private[puzzle] def listOf(families: List[PuzzleOpening.FamilyWithCount])(using Context) =
     div(cls := "puzzle-openings__list")(families map { fam =>
       a(cls := "puzzle-openings__link", href := routes.Puzzle.show(fam.family.key.value))(
         h3(
@@ -61,10 +61,8 @@ object opening:
       )
     })
 
-  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(using
-      ctx: Context
-  ) =
-    openings map { case (fam, openings) =>
+  private def treeOf(openings: PuzzleOpening.TreeList, mine: Option[PuzzleOpening.Mine])(using Context) =
+    openings map { (fam, openings) =>
       div(cls := "puzzle-openings__tree__family")(
         h2(
           familyLink(fam.family, mine),
@@ -93,11 +91,11 @@ object opening:
     dataFen := family.full.map(_.fen)
   )(href := routes.Puzzle.show(family.key.value))(family.name)
 
-  def orderSelect(order: Order)(implicit ctx: Context) =
+  def orderSelect(order: Order)(using Context) =
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
-      Order.values.map { o =>
+      Order.list.map { o =>
         a(href := routes.Puzzle.openings(o.key), cls := (order == o).option("current"))(o.name())
       }
     )

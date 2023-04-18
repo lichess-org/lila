@@ -7,6 +7,7 @@ import lila.common.config.*
 import lila.oauth.OAuthServer
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
@@ -14,11 +15,7 @@ final class Env(
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
     oauthServer: OAuthServer
-)(using
-    ec: Executor,
-    mat: akka.stream.Materializer,
-    idGenerator: lila.game.IdGenerator
-):
+)(using Executor, akka.stream.Materializer, lila.game.IdGenerator):
 
   lazy val forms = SetupForm
 

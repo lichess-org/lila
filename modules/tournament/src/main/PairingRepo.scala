@@ -9,7 +9,6 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.user.User
 
 final class PairingRepo(coll: Coll)(using Executor, Materializer):
 
@@ -167,7 +166,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   def insert(pairings: List[Pairing]) =
     coll.insert.many {
       pairings.map { p =>
-        pairingHandler.write(p) ++ $doc("d" -> nowDate)
+        pairingHandler.write(p) ++ $doc("d" -> nowInstant)
       }
     }.void
 

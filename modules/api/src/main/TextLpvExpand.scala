@@ -1,11 +1,10 @@
 package lila.api
 
 import chess.format.pgn.Pgn
-import play.api.Mode
 import scalatags.Text.all.*
 
 import lila.analyse.AnalysisRepo
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 import lila.memo.CacheApi
 import chess.format.pgn.PgnStr
 
@@ -34,7 +33,7 @@ final class TextLpvExpand(
         pgnCache.get(GameId(id)) map2 { matched -> _ }
       }
       .parallel
-      .map(_.flatten.toMap) map { matches => (url: String, text: String) =>
+      .map(_.flatten.toMap) map { matches => (url, _) =>
       matches
         .get(url)
         .map { pgn =>
@@ -65,9 +64,6 @@ final class TextLpvExpand(
 
   private val notGames =
     Set("training", "analysis", "insights", "practice", "features", "password", "streamer", "timeline")
-
-  private def lichessPgnViewer(game: Game.WithInitialFen, pgn: Pgn): Frag =
-    div(cls := "lpv", attr("data-pgn") := pgn.toString)
 
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)

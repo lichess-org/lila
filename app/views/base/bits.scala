@@ -43,7 +43,7 @@ z-index: 99;
 
   val connectLinks =
     div(cls := "connect-links")(
-      a(href := "https://mastodon.online/@lichess", targetBlank)("Mastodon"),
+      a(href := "https://mastodon.online/@lichess", targetBlank, rel := "me")("Mastodon"),
       a(href := "https://twitter.com/lichess", targetBlank, noFollow)("Twitter"),
       a(href := "https://discord.gg/lichess", targetBlank, noFollow)("Discord"),
       a(href := "https://www.youtube.com/c/LichessDotOrg", targetBlank, noFollow)("YouTube"),
@@ -71,9 +71,6 @@ z-index: 99;
       if (page < nbPages) a(rel := "next", href         := url(page + 1), dataIcon := "")
       else span(cls             := "disabled", dataIcon := "")
     )
-
-  private def sliding(pager: Paginator[?], length: Int, showPost: Boolean): List[Option[Int]] =
-    sliding(pager.currentPage, pager.nbPages, length, showPost)
 
   private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] =
     val fromPage = 1 max (page - length)

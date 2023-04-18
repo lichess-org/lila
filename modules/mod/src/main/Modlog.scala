@@ -7,7 +7,7 @@ case class Modlog(
     user: Option[UserId],
     action: String,
     details: Option[String] = None,
-    date: DateTime = nowDate,
+    date: Instant = nowInstant,
     index: Option[String] = None
 ):
 
@@ -74,6 +74,8 @@ case class Modlog(
     case Modlog.teamEdit            => "edited team"
     case Modlog.appealPost          => "posted in appeal"
     case Modlog.setKidMode          => "set kid mode"
+    case Modlog.weakPassword        => "log in with weak password"
+    case Modlog.blankedPassword     => "log in with blanked password"
     case a                          => a
 
   override def toString = s"$mod $showAction $user $details"
@@ -88,7 +90,7 @@ object Modlog:
       details = details
     )
 
-  case class UserEntry(user: UserId, action: String, date: DateTime)
+  case class UserEntry(user: UserId, action: String, date: Instant)
 
   val alt                 = "alt"
   val unalt               = "unalt"
@@ -143,6 +145,8 @@ object Modlog:
   val teamEdit            = "teamEdit"
   val appealPost          = "appealPost"
   val setKidMode          = "setKidMode"
+  val weakPassword        = "weakPassword"
+  val blankedPassword     = "blankedPassword"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = (e.index has "team") ?? ~e.details match

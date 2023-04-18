@@ -1,7 +1,6 @@
 package controllers
 
 import akka.stream.scaladsl.*
-import play.api.data.Form
 import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json.*
@@ -27,8 +26,7 @@ final class User(
     env: Env,
     roundC: => Round,
     gameC: => Game,
-    modC: => Mod,
-    puzzleC: => Puzzle
+    modC: => Mod
 ) extends LilaController(env):
 
   import env.relation.{ api as relationApi }
@@ -297,7 +295,7 @@ final class User(
 
   def apiList = Action.async {
     env.user.cached.top10.get {} map { leaderboards =>
-      given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+      import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
       JsonOk(leaderboards)
     }
@@ -315,7 +313,13 @@ final class User(
 
   def topNbApi(nb: Int, perfKey: Perf.Key) =
     Action.async {
-      topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
+      if nb == 1 && perfKey == Perf.Key("standard") then
+        env.user.cached.top10.get {} map { leaderboards =>
+          import env.user.jsonView.lightPerfIsOnlineWrites
+          import lila.user.JsonView.leaderboardStandardTopOneWrites
+          JsonOk(leaderboards)
+        }
+      else topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
     }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
@@ -415,18 +419,23 @@ final class User(
           .map(view.showRageSitAndPlaybans)
 
         val actions = env.user.repo.isErased(user) map { erased =>
-          html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(holder.user))
+          html.user.mod.actions(
+            user,
+            emails,
+            erased,
+            env.mod.presets.getPmPresets(holder.user)
+          )
         }
+
         val userLoginsFu = env.security.userLogins(user, nbOthers)
-        val others = for {
+        val others = for
           userLogins <- userLoginsFu
           appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
           data       <- loginsTableData(user, userLogins, nbOthers)
-        } yield html.user.mod.otherUsers(holder, user, data, appeals)
+        yield html.user.mod.otherUsers(holder, user, data, appeals)
 
         val identification = userLoginsFu map { logins =>
-          Granter.is(_.ViewPrintNoIP)(holder) ??
-            html.user.mod.identification(holder, user, logins)
+          Granter.is(_.ViewPrintNoIP)(holder) ?? html.user.mod.identification(logins)
         }
 
         val kaladin = isGranted(_.MarkEngine) ?? env.irwin.kaladinApi.get(user).map {
@@ -463,7 +472,14 @@ final class User(
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
-          Ok(html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(ctx.me)))
+          Ok(
+            html.user.mod.actions(
+              user,
+              emails,
+              erased,
+              env.mod.presets.getPmPresets(ctx.me)
+            )
+          )
         }
     }
 
@@ -488,7 +504,7 @@ final class User(
     }
 
   def apiReadNote(username: UserStr) =
-    Scoped() { implicit req => me =>
+    Scoped() { _ => me =>
       env.user.repo byId username flatMapz {
         env.socialInfo.fetchNotes(_, me) flatMap {
           lila.user.JsonView.notes(_)(using lightUserApi)

@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">דרכים אחרות לעזור</string>
   <string name="areThereWebsitesBasedOnLichess">האם ישנם אתרים המבוססים על ליצ\'ס?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">כן. ליצ\'ס אכן עורר השראה לאתרי קוד פתוח אחרים המשתמשים באתר שלנו %1$s, %2$s, או %3$s.</string>
+  <string name="keyboardShortcuts">באילו קיצורי מקלדת ניתן להשתמש?</string>
+  <string name="keyboardShortcutsExplanation">בחלק מהעמודים בליצ׳ס ישנם קיצורי מקלדת שאפשר להשתמש בהם. לחצו על מקש ה-׳?׳ בלוח למידה, בלוח הניתוחים, בחידה או במשחק כדי לקבל רשימה של קיצורי המקלדת הזמינים.</string>
   <string name="fairPlay">משחק הוגן</string>
   <string name="whenAmIEligibleRatinRefund">מתי אני זכאי/ת להחזר דירוג אוטומטי מהפסד לרמאים?</string>
   <string name="ratingRefundExplanation">דקה לאחר סימון שחקן/ית, 40 המשחקים המדורגים האחרונים מ-3 הימים האחרונים נבחנים. אם היית היריב/ה של השחקן/ית במשחקים הללו, איבדת דירוג (בגלל הפסד או תיקו) והדירוג שלך לא היה זמני, תקבל/י החזר דירוג. ההחזר מחושב על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.

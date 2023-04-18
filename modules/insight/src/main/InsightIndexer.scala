@@ -8,13 +8,12 @@ import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 import lila.common.config.Max
 
 final private class InsightIndexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
-    userRepo: UserRepo,
     storage: InsightStorage
 )(using Executor, Scheduler, akka.stream.Materializer):
 
@@ -67,7 +66,7 @@ final private class InsightIndexer(
         .sort(Query.sortChronological)
         .one[Game](readPreference = ReadPreference.secondaryPreferred)
 
-  private def computeFrom(user: User, from: DateTime): Funit =
+  private def computeFrom(user: User, from: Instant): Funit =
     storage nbByPerf user.id flatMap { nbs =>
       var nbByPerf = nbs
       def toEntry(game: Game): Fu[Option[InsightEntry]] =

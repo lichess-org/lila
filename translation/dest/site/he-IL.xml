@@ -231,8 +231,10 @@
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="error.weakPassword">הסיסמה הזו נפוצה ביותר וקלה מדי לניחוש.</string>
   <string name="error.namePassword">נא לא להשתמש בשם המשתמש בתור הסיסמה.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">את/ה עוזב/ת את Lichess</string>
+  <string name="blankedPassword">השתמשת בסיסמה שלך באתר אחר, ויתכן שהיא מועדת לפריצה. כדי להגן על חשבונך בליצ׳ס, עליך להגדיר סיסמה חדשה. תודה על ההבנה.</string>
+  <string name="youAreLeavingLichess">את/ה עוזב/ת את Lichess</string>
   <string name="neverTypeYourPassword">לעולם אל תקלידו את סיסמתכם בליצ׳ס באף אתר אחר!</string>
+  <string name="proceedToX">מעבר ל-%s</string>
   <string name="passwordSuggestion">אל תשתמשו בסיסמה שהציע לכם אדם אחר. הוא ישתמש בה כדי לגנוב את חשבונכם!</string>
   <string name="emailSuggestion">אל תשמשו בכתובת מייל שהציע אדם אחר. הוא ישתמש בה כדי לגנוב את חשבונכם.</string>
   <string name="emailConfirmHelp">עזרה עם אימייל האישור</string>
@@ -440,6 +442,7 @@
   <string name="toStudy">הפכו ללוח למידה</string>
   <string name="importGame">ייבוא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
+  <string name="importGameCaveat">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">משחק מיובא %s</item>
     <item quantity="two">%s משחקים מיובאים</item>
@@ -552,7 +555,7 @@
   <string name="lastName">שם משפחה</string>
   <string name="biography">ביוגרפיה</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">מדינה או דגל</string>
-  <string name="thankYou">תודה רבה!</string>
+  <string name="thankYou">תודות מקרב לב</string>
   <string name="socialMediaLinks">קישורים לרשתות חברתיות</string>
   <string name="oneUrlPerLine">שורה עבור כל כתובת.</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
@@ -707,7 +710,7 @@
   <string name="aboutX">על אודות %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s הוא שרת שחמט חינמי (%2$s), חופשי, עם קוד פחוח וללא פרסומות.</string>
   <string name="really">באמת</string>
-  <string name="contribute">לתרום</string>
+  <string name="contribute">תרומה ומעורבות</string>
   <string name="termsOfService">תנאים לשימוש באתר</string>
   <string name="sourceCode">קוד המקור</string>
   <string name="simultaneousExhibitions">משחקים סימולטניים</string>
@@ -729,6 +732,8 @@
   <string name="simulClockHint">התקנת שעון של פישר. ככל שתשחק/י נגד יותר שחקנים, כך תזדקק/י ליותר זמן.</string>
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
   <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>
+  <string name="simulAddExtraTimePerPlayer">הוספת זמן לשעון שלך בכל פעם שמצטרף/ת שחקן/ית למשחק הסימולטני.</string>
+  <string name="simulHostExtraTimePerPlayer">זמן נוסף למארח/ת עבור כל שחקן/ית שמצטרף/ת</string>
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
@@ -762,7 +767,7 @@
   <string name="glicko2Rating">דירוג Glicko-2</string>
   <string name="checkYourEmail">נא לבדוק את הדוא״ל שלך</string>
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק במייל כדי להפעיל את חשבונך.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את המייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם את/ה לא מוצא/ת את המייל, חפש/י במקומות אחרים, כגון דואר זבל, ספאם או תיקיות אחרות.</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל כדי לאפס את הסיסמה.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">על ידי הרשמה, את/ה מסכים/ה ל%s.</string>
   <string name="readAboutOur">קראו את %s.</string>
@@ -1024,4 +1029,5 @@
   <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
   <string name="switchSides">הפוך צד</string>
   <string name="closingAccountWithdrawAppeal">סגירת החשבון תבטל את פנייתך</string>
+  <string name="ourEventTips">הטיפים שלנו לארגון אירועים</string>
 </resources>

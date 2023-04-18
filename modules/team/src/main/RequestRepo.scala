@@ -19,6 +19,9 @@ final class RequestRepo(val coll: Coll)(using Executor):
   def findActiveByTeam(teamId: TeamId, nb: Int): Fu[List[Request]] =
     coll.list[Request](teamActiveQuery(teamId), nb)
 
+  def findDeclinedByTeam(teamId: TeamId, nb: Int): Fu[List[Request]] =
+    coll.list[Request](teamDeclinedQuery(teamId), nb)
+
   def findActiveByTeams(teamIds: List[TeamId]): Fu[List[Request]] =
     teamIds.nonEmpty ?? coll.list[Request](teamsActiveQuery(teamIds))
 

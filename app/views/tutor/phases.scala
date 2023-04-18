@@ -1,19 +1,17 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json.*
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
+import lila.api.Context
+import lila.app.templating.Environment.given
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.{ TutorFullReport, TutorPerfReport }
-import lila.insight.Phase
+import lila.tutor.TutorPerfReport
 import lila.insight.InsightPosition
 
 object phases:
 
-  def apply(full: TutorFullReport.Available, report: TutorPerfReport, user: lila.user.User)(using Context) =
-    bits.layout(full, menu = perf.menu(full, user, report, "phases"))(
+  def apply(report: TutorPerfReport, user: lila.user.User)(using Context) =
+    bits.layout(menu = perf.menu(user, report, "phases"))(
       cls := "tutor__phases box",
       boxTop(
         h1(

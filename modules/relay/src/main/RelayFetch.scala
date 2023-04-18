@@ -117,7 +117,7 @@ final private class RelayFetch(
           }
       rt.round.withSync {
         _.copy(
-          nextAt = nowDate plusSeconds {
+          nextAt = nowInstant plusSeconds {
             seconds atLeast {
               if (rt.round.sync.log.justTimedOut) 10 else 2
             }
@@ -227,7 +227,7 @@ final private class RelayFetch(
       str  <- httpGet(url)
       json <- Future(Json parse str) // Json.parse throws exceptions (!)
       data <-
-        implicitly[Reads[A]]
+        summon[Reads[A]]
           .reads(json)
           .fold(
             err => fufail(s"Invalid JSON from $url: $err"),

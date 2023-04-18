@@ -3,21 +3,21 @@ package views.html.opening
 import cats.data.NonEmptyList
 import chess.opening.{ OpeningKey, Opening }
 import controllers.routes
-import play.api.libs.json.{ JsArray, Json, JsObject }
+import play.api.libs.json.Json
 import play.api.mvc.Call
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.opening.OpeningQuery.Query
-import lila.opening.{ NameSection, OpeningConfig, OpeningExplored, OpeningPage, OpeningQuery, ResultCounts }
+import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
 object bits:
 
   def beta = span(cls := "opening__beta")("BETA")
 
-  def whatsNext(page: OpeningPage)(using Context): Option[Tag] =
+  def whatsNext(page: OpeningPage): Option[Tag] =
     page.explored.map { explored =>
       div(cls := "opening__nexts")(
         explored.next.map { next =>

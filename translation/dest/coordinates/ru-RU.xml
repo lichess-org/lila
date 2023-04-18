@@ -8,8 +8,8 @@
   <string name="mostChessCourses">В большинстве шахматных курсов и упражнений широко используется шахматная нотация.</string>
   <string name="talkToYourChessFriends">Вам будет проще общаться с другом-шахматистом, если вы оба будете понимать «язык шахмат».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Анализировать игры гораздо проще, когда не тратится время на поиск полей по их координатам.</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">Координаты появляются на доске, и вам нужно отметить соответствующее им поле.</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">Поле подсвечивается на доске, и вам нужно ввести его координаты (например, «e4»).</string>
+  <string name="aCoordinateAppears">Координаты появляются на доске, и вам нужно отметить соответствующее им поле.</string>
+  <string name="aSquareIsHighlightedExplanation">Поле подсвечивается на доске, и вам нужно ввести его координаты (например, «e4»).</string>
   <string name="youHaveThirtySeconds">У вас есть 30 секунд на то, чтобы правильно отметить как можно больше полей!</string>
   <string name="goAsLongAsYouWant">Продвиньтесь так далеко, как сможете. Время не ограничено!</string>
   <string name="showCoordinates">Показывать координаты</string>

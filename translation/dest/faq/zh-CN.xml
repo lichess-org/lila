@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">其它的帮助方式</string>
   <string name="areThereWebsitesBasedOnLichess">是否有基于 Lichess 的网站？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess 确实激励了其他使用我们的 %1$s、%2$s 或 %3$s 的开源站点。</string>
+  <string name="keyboardShortcuts">都有哪些键盘快捷键？</string>
+  <string name="keyboardShortcutsExplanation">部分页面可以使用键盘快捷键。你可以尝试在研讨，分析，谜题，或对局界面按下 \'?\' 键，这样会列出你可以使用的快捷键。</string>
   <string name="fairPlay">公平竞争</string>
   <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还等级分？</string>
   <string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天的40个最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，而且你的等级分不是暂时的，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。
@@ -63,7 +65,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 请查看 %3$s 以练习这个着法。</string>
   <string name="goodIntroduction">不错的介绍</string>
   <string name="lichessTraining">Lichess 训练</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">观看国际大师Eric Rosen将死%s。</string>
+  <string name="watchIMRosenCheckmate">观看国际大师Eric Rosen将死%s。</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lichess执行FIDE官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
   <string name="threefoldRepetitionLowerCase">三次重复局面</string>

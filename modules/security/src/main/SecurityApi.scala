@@ -7,13 +7,12 @@ import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
-import scala.annotation.nowarn
 import ornicar.scalalib.SecureRandom
 
-import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.common.Form.into
 import lila.db.dsl.{ *, given }
-import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ User, UserRepo }
 
@@ -24,14 +23,9 @@ final class SecurityApi(
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
-    emailValidator: EmailAddressValidator,
     oAuthServer: lila.oauth.OAuthServer,
     tor: Tor
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    mode: Mode
-):
+)(using ec: Executor, mode: Mode):
 
   val AccessUri = "access_uri"
 
@@ -40,16 +34,10 @@ final class SecurityApi(
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
   lazy val loginForm = Form {
-    val form = tuple(
+    tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping
     )
-    if mode == Mode.Prod then
-      form.verifying(
-        "This password is too easy to guess. Request a password reset email.",
-        (login, pass) => !PasswordCheck.isWeak(pass, login.value)
-      )
-    else form
   }
   def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
 
@@ -66,12 +54,17 @@ final class SecurityApi(
         case Success(user) => (user.username into UserStrOrEmail, ClearPassword(""), none).some
         case _             => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
-        t match {
+        t match
           case Success(_) => FormValid
           case InvalidUsernameOrPassword =>
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
+          case BlankedPassword =>
+            Invalid(Seq(ValidationError("blankedPassword")))
+          case WeakPassword =>
+            Invalid(
+              Seq(ValidationError("This password is too easy to guess. Request a password reset email."))
+            )
           case err => Invalid(Seq(ValidationError(err.toString)))
-        }
       })
     )
 
@@ -82,12 +75,20 @@ final class SecurityApi(
   } map loadedLoginForm
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-      _str: UserStrOrEmail,
+      login: UserStrOrEmail,
       password: ClearPassword,
       token: Option[String]
   ): LoginCandidate.Result =
-    candidate.fold[LoginCandidate.Result](LoginCandidate.Result.InvalidUsernameOrPassword) {
-      _(User.PasswordAndToken(password, token map User.TotpToken.apply))
+    import LoginCandidate.Result.*
+    candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword) { c =>
+      val result = c(User.PasswordAndToken(password, token map User.TotpToken.apply))
+      if result == BlankedPassword then
+        lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
+        BlankedPassword
+      else if mode == Mode.Prod && result.success && PasswordCheck.isWeak(password, login.value) then
+        lila.common.Bus.publish(c.user, "loginWithWeakPassword")
+        WeakPassword
+      else result
     }
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
@@ -174,7 +175,7 @@ final class SecurityApi(
       "user",
       $doc(
         field -> value,
-        "date" $gt nowDate.minusYears(1)
+        "date" $gt nowInstant.minusYears(1)
       ),
       ReadPreference.secondaryPreferred
     )
@@ -193,7 +194,7 @@ final class SecurityApi(
     def authenticate(sessionId: SessionId): Option[UserId] =
       sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
 
-    def saveAuthentication(userId: UserId)(implicit req: RequestHeader): Fu[SessionId] =
+    def saveAuthentication(userId: UserId): Fu[SessionId] =
       val sessionId = s"$prefix${SecureRandom nextString 22}"
       store.put(sessionId, userId)
       logger.info(s"Appeal login by $userId")

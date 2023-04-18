@@ -1,6 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
+import scala.annotation.nowarn
 
 private enum I18nQuantity:
   case Zero, One, Two, Few, Many, Other
@@ -10,7 +11,7 @@ private enum I18nQuantity:
  * https://github.com/populov/android-i18n-plurals/tree/master/library/src/main/java/com/seppius/i18n/plurals
  *
  * Removed: boilerplate, lag, shi
- * Added: type safety, tp, io, ia
+ * Added: type safety and more languages
  */
 private object I18nQuantity:
 
@@ -107,7 +108,7 @@ private object I18nQuantity:
       else if (c == 2) Two
       else Other
 
-    def none(c: Count) = Other
+    def none(@nowarn c: Count) = Other
 
   import selectors.*
 
@@ -120,7 +121,7 @@ private object I18nQuantity:
 
       case "cs" | "sk" => czech
 
-      case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan
+      case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" | "ry" => balkan
 
       case "lv" => latvian
 

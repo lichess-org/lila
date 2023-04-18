@@ -14,7 +14,7 @@
   <string name="challengeRead">Pročitajte dolazne izazove</string>
   <string name="challengeWrite">Napišite dolazne izazove</string>
   <string name="challengeBulk">Kreirajte mnogo igara odjednom za druge igrače</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Čitajte privatne studije i emisije</string>
+  <string name="studyRead">Čitajte privatne studije i emisije</string>
   <string name="studyWrite">Kreirajte, ažurirajte, brišite studije i emisije</string>
   <string name="tournamentWrite">Kreirajte, ažurirajte i pridružite se turnirima</string>
   <string name="racerWrite">Kreirajte i pridružite se utrkama u problemima</string>

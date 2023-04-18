@@ -1,14 +1,12 @@
 package views.html.relay
 
-import play.api.mvc.Call
-
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 import controllers.routes
-import lila.relay.{ RelayRound, RelayTour }
+import lila.relay.RelayTour
 
 object tour:
 
@@ -29,7 +27,14 @@ object tour:
           boxTop(h1(liveBroadcasts())),
           st.section(
             active.map { tr =>
-              div(cls := s"relay-widget relay-widget--active ${tierClass(tr.tour)}", dataIcon := "")(
+              div(
+                cls := List(
+                  "relay-widget relay-widget--active" -> true,
+                  tierClass(tr.tour)                  -> true,
+                  "relay-widget--ongoing"             -> tr.ongoing
+                ),
+                dataIcon := ""
+              )(
                 a(cls := "overlay", href := tr.path),
                 div(
                   h2(tr.tour.name),
@@ -38,7 +43,8 @@ object tour:
                     p(cls := "relay-widget__info__meta")(
                       strong(tr.round.name),
                       br,
-                      if (tr.ongoing) trans.playingRightNow()
+                      if tr.ongoing
+                      then trans.playingRightNow()
                       else tr.round.startsAt.map(momentFromNow(_))
                     )
                   )
@@ -81,17 +87,6 @@ object tour:
         )
       )
     }
-
-  private def layout(title: String, active: String)(body: Modifier*)(using Context) =
-    views.html.base.layout(
-      title = title,
-      moreCss = cssTag("relay.index")
-    )(
-      main(cls := "page-small page-menu")(
-        pageMenu(active),
-        body
-      )
-    )
 
   def pageMenu(menu: String)(using Context) =
     st.nav(cls := "page-menu__menu subnav")(

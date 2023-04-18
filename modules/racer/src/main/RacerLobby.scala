@@ -2,7 +2,7 @@ package lila.racer
 
 import lila.common.config.Max
 
-final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: Scheduler):
+final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: akka.actor.Scheduler):
 
   def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue {
     currentRace flatMap {

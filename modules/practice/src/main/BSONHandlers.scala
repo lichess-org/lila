@@ -3,7 +3,6 @@ package lila.practice
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.study.Chapter
 import lila.common.Iso
 
 object BSONHandlers:

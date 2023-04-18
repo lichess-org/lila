@@ -9,9 +9,9 @@ import play.api.Configuration
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
-import lila.user.User
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -20,7 +20,6 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     proxyRepo: lila.round.GameProxyRepo,
-    renderer: lila.hub.actors.Renderer,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,

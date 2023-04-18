@@ -220,8 +220,10 @@
   <string name="forgotPassword">Ți-ai uitat parola?</string>
   <string name="error.weakPassword">Această parolă este extrem de comună şi prea uşor de ghicit.</string>
   <string name="error.namePassword">Te rugăm să nu folosești numele tău de utilizator ca parolă.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Părăsești Lichess</string>
+  <string name="blankedPassword">Ați folosit aceeași parolă pe un alt site, iar acest site a fost compromis. Pentru a asigura siguranța contului dvs. Lichess, trebuie să setați o parolă nouă. Vă mulțumim pentru înțelegere.</string>
+  <string name="youAreLeavingLichess">Părăsești Lichess</string>
   <string name="neverTypeYourPassword">Nu introduceți niciodată parola Lichess pe un alt site!</string>
+  <string name="proceedToX">Continuă către %s</string>
   <string name="passwordSuggestion">Nu seta o parolă sugerată de altcineva. O vor folosi pentru a vă fura contul.</string>
   <string name="emailSuggestion">Nu setați o adresă de e-mail sugerată de altcineva. O vor folosi pentru a vă fura contul.</string>
   <string name="emailConfirmHelp">Ajutor cu confirmarea adresei de email</string>
@@ -414,6 +416,7 @@
   <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>
   <string name="importGameExplanation">Copiați o partidă în format PGN pentru a putea apoi sa o rejucati, sa cereti o analiză a computerului, sa folositi functia de chat și sa obtineti un URL pentru distribuire.</string>
+  <string name="importGameCaveat">Variațiile vor fi șterse. Pentru a le păstra, importați PGN-ul printr-un studiu.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partidă importată</item>
     <item quantity="few">%s partide importate</item>
@@ -983,4 +986,5 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>
   <string name="switchSides">Întoarce tabla</string>
   <string name="closingAccountWithdrawAppeal">Închiderea contului dvs. vă va retrage apelul</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Sfaturile noastre pentru organizarea evenimentelor</string>
 </resources>

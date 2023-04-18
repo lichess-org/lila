@@ -4,7 +4,7 @@ import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.Opening
-import chess.{ Ply, Pos, Check }
+import chess.{ Ply, Square, Check }
 import chess.variant.Crazyhouse
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
@@ -16,8 +16,8 @@ sealed trait Node:
   def fen: Fen.Epd
   def check: Check
   // None when not computed yet
-  def dests: Option[Map[Pos, List[Pos]]]
-  def drops: Option[List[Pos]]
+  def dests: Option[Map[Square, List[Square]]]
+  def drops: Option[List[Square]]
   def eval: Option[Eval]
   def shapes: Node.Shapes
   def comments: Node.Comments
@@ -47,8 +47,8 @@ case class Root(
     fen: Fen.Epd,
     check: Check,
     // None when not computed yet
-    dests: Option[Map[Pos, List[Pos]]] = None,
-    drops: Option[List[Pos]] = None,
+    dests: Option[Map[Square, List[Square]]] = None,
+    drops: Option[List[Square]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
@@ -76,8 +76,8 @@ case class Branch(
     fen: Fen.Epd,
     check: Check,
     // None when not computed yet
-    dests: Option[Map[Pos, List[Pos]]] = None,
-    drops: Option[List[Pos]] = None,
+    dests: Option[Map[Square, List[Square]]] = None,
+    drops: Option[List[Square]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
@@ -103,8 +103,8 @@ case class Branch(
 object Node:
 
   enum Shape:
-    case Circle(brush: Shape.Brush, orig: Pos)
-    case Arrow(brush: Shape.Brush, orig: Pos, dest: Pos)
+    case Circle(brush: Shape.Brush, orig: Square)
+    case Arrow(brush: Shape.Brush, orig: Square, dest: Square)
   object Shape:
     type Brush = String
 
@@ -175,10 +175,8 @@ object Node:
   // put all that shit somewhere else
   private given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
-      Crazyhouse.storableRoles.flatMap { role =>
-        Some(v.roles.count(role ==)).filter(0 <).map { count =>
-          role.name -> JsNumber(count)
-        }
+      v.values.collect {
+        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
       }
     )
   }
@@ -193,7 +191,7 @@ object Node:
     )
   }
 
-  private given Writes[Pos] = Writes[Pos] { p =>
+  private given Writes[Square] = Writes[Square] { p =>
     JsString(p.key)
   }
   private val shapeCircleWrites = Json.writes[Shape.Circle]
@@ -285,7 +283,7 @@ object Node:
           sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
     }
 
-  def destString(dests: Map[Pos, List[Pos]]): String =
+  def destString(dests: Map[Square, List[Square]]): String =
     val sb    = new java.lang.StringBuilder(80)
     var first = true
     dests foreach { (orig, dests) =>
@@ -296,7 +294,7 @@ object Node:
     }
     sb.toString
 
-  given Writes[Map[Pos, List[Pos]]] = Writes { dests =>
+  given Writes[Map[Square, List[Square]]] = Writes { dests =>
     JsString(destString(dests))
   }
 

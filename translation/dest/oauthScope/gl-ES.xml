@@ -14,7 +14,7 @@
   <string name="challengeRead">Ve desafíos entrantes</string>
   <string name="challengeWrite">Envía, acepta e rexeita desafíos</string>
   <string name="challengeBulk">Crear varias partidas á vez para outros xogadores</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Le estudos privados e transmisións</string>
+  <string name="studyRead">Le estudos privados e transmisións</string>
   <string name="studyWrite">Crea, actualiza, borra estudos e transmisións</string>
   <string name="tournamentWrite">Crea, actualiza e xoga torneos</string>
   <string name="racerWrite">Crea e xoga exercicios de carreiras</string>

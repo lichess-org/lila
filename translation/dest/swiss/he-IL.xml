@@ -13,7 +13,7 @@
     <item quantity="many">%s סבבים</item>
     <item quantity="other">%s סבבים</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">טורניר שוויצרי עם סבב %s</item>
     <item quantity="two">טורניר שוויצרי עם %s סבבים</item>
     <item quantity="many">טורניר שוויצרי עם %s סבבים</item>
@@ -110,10 +110,4 @@
   <string name="unlimitedAndFree">לא מוגבל וחינמי</string>
   <string name="predefinedUsers">אפשרו רק לשחקנים מוגדרים מראש להצטרף</string>
   <string name="forbiddedUsers">אם תמלא/י את הרשימה הזאת, משתמשים שלא יופיעו בה לא יורשו להצטרף. כתבו שם משתמש אחד בכל שורה.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">סבב %1$s / %2$s כבר שוחק</item>
-    <item quantity="two">%1$s / %2$s סבבים כבר שוחקו</item>
-    <item quantity="many">%1$s / %2$s סבבים כבר שוחקו</item>
-    <item quantity="other">%1$s / %2$s סבבים כבר שוחקו</item>
-  </plurals>
 </resources>

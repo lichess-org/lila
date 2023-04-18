@@ -198,8 +198,10 @@
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="error.weakPassword">Mật khẩu này quá phổ biến, và quá dễ đoán.</string>
   <string name="error.namePassword">Vui lòng không sử dụng tên đăng nhập làm mật khẩu.</string>
+  <string name="blankedPassword">Bạn đã sử dụng cùng một mật khẩu trên một trang web khác và trang web đó đã bị xâm nhập. Để đảm bảo an toàn cho tài khoản Lichess của bạn, chúng tôi cần bạn đặt mật khẩu mới. Cảm ơn bạn vì đã thông cảm.</string>
   <string name="youAreLeavingLichess">Bạn đang thoát Lichess</string>
   <string name="neverTypeYourPassword">Không bao giờ nhập mật khẩu Lichess của bạn trên bất kì trang web nào khác!</string>
+  <string name="proceedToX">Chuyển tới trang %s</string>
   <string name="passwordSuggestion">Đừng sử dụng mật khẩu được đề xuất bởi người khác. Họ có thể có ý đồ đánh cắp tài khoản của bạn.</string>
   <string name="emailSuggestion">Đừng đặt địa chỉ email được gợi ý bởi người khác. Họ có thể dùng nó để đánh cắp tài khoản của bạn.</string>
   <string name="emailConfirmHelp">Hỗ trợ việc xác nhận qua email</string>
@@ -362,6 +364,7 @@
   <string name="toStudy">Nghiên cứu</string>
   <string name="importGame">Nhập ván cờ</string>
   <string name="importGameExplanation">Dán PGN của ván đấu để xem lại trên trình duyệt, phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL có thể chia sẻ được.</string>
+  <string name="importGameCaveat">Các biến thể sẽ bị xóa. Để giữ chúng, hãy nhập PGN thông qua một nghiên cứu.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s các ván cờ đã nhập</item>
   </plurals>

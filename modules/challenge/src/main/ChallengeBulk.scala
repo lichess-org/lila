@@ -1,9 +1,7 @@
 package lila.challenge
 
-import akka.actor.ActorSystem
 import akka.stream.scaladsl.*
-import chess.format.Fen
-import chess.{ Situation, Speed }
+import chess.Speed
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
@@ -27,8 +25,7 @@ final class ChallengeBulkApi(
 )(using
     ec: Executor,
     mat: akka.stream.Materializer,
-    scheduler: Scheduler,
-    mode: play.api.Mode
+    scheduler: Scheduler
 ):
 
   import lila.game.BSONHandlers.given
@@ -56,16 +53,16 @@ final class ChallengeBulkApi(
 
   def startClocks(id: String, me: User): Fu[Boolean] =
     coll
-      .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", nowDate)
+      .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", nowInstant)
       .map(_.n == 1)
 
   def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
     coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
-      val nbGames = bulks.map(_.games.size).sum
-      if (bulks.sizeIs >= 10) fuccess(Left("Already too many bulks queued"))
-      else if (bulks.map(_.games.size).sum >= 1000) fuccess(Left("Already too many games queued"))
-      else if (bulks.exists(_ collidesWith bulk))
-        fuccess(Left("A bulk containing the same players is scheduled at the same time"))
+      if bulks.sizeIs >= 10 then fuccess(Left("Already too many bulks queued"))
+      else if bulks.map(_.games.size).sum >= 1000
+      then fuccess(Left("Already too many games queued"))
+      else if bulks.exists(_ collidesWith bulk)
+      then fuccess(Left("A bulk containing the same players is scheduled at the same time"))
       else coll.insert.one(bulk) inject Right(bulk)
     }
   }
@@ -74,14 +71,14 @@ final class ChallengeBulkApi(
     checkForPairing >> checkForClocks
 
   private def checkForPairing: Funit =
-    coll.one[ScheduledBulk]($doc("pairAt" $lte nowDate, "pairedAt" $exists false)) flatMapz { bulk =>
+    coll.one[ScheduledBulk]($doc("pairAt" $lte nowInstant, "pairedAt" $exists false)) flatMapz { bulk =>
       workQueue(bulk.by) {
         makePairings(bulk).void
       }
     }
 
   private def checkForClocks: Funit =
-    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowDate, "pairedAt" $exists true)) flatMapz { bulk =>
+    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz { bulk =>
       workQueue(bulk.by) {
         startClocksNow(bulk)
       }
@@ -134,6 +131,6 @@ final class ChallengeBulkApi(
         lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(nb).unit
       } >> {
       if (bulk.startClocksAt.isDefined)
-        coll.updateField($id(bulk._id), "pairedAt", nowDate)
+        coll.updateField($id(bulk._id), "pairedAt", nowInstant)
       else coll.delete.one($id(bulk._id))
     }.void

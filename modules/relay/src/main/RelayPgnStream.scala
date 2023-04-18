@@ -1,9 +1,8 @@
 package lila.relay
 
 import akka.stream.scaladsl.*
-import org.joda.time.format.DateTimeFormat
 
-import lila.study.{ Chapter, ChapterRepo, PgnDump, Study, StudyRepo }
+import lila.study.{ ChapterRepo, PgnDump, StudyRepo }
 import lila.common.Bus
 import chess.format.pgn.PgnStr
 
@@ -30,11 +29,11 @@ final class RelayPgnStream(
     source = false,
     orientation = false
   )
-  private val fileR      = """[\s,]""".r
-  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
+  private val fileR         = """[\s,]""".r
+  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy.MM.dd"
 
   def filename(tour: RelayTour): String =
-    val date = dateFormat.print(tour.syncedAt | tour.createdAt)
+    val date = dateFormatter.print(tour.syncedAt | tour.createdAt)
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
   def streamRoundGames(rt: RelayRound.WithTourAndStudy): Source[PgnStr, ?] = {

@@ -2,10 +2,9 @@ package lila.study
 
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.format.Fen
-import chess.variant.{ Crazyhouse, Variant }
-import lila.chat.{ Chat, ChatApi }
+import chess.variant.Variant
+import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
-import lila.user.User
 import chess.Color
 
 final private class ChapterMaker(

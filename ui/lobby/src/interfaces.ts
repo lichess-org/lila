@@ -96,6 +96,7 @@ export interface NowPlaying {
   gameId: string;
   fen: Fen;
   color: Color;
+  orientation?: Color;
   lastMove: string;
   variant: {
     key: string;

@@ -3,7 +3,7 @@ package views.html.user.show
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.mashup.UserInfo
 import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment.{ given, * }
@@ -109,7 +109,9 @@ object page:
 
   private val i18nKeys = List(
     trans.youAreLeavingLichess,
-    trans.neverTypeYourPassword
+    trans.neverTypeYourPassword,
+    trans.cancel,
+    trans.proceedToX
   )
 
   private val dataUsername = attr("data-username")

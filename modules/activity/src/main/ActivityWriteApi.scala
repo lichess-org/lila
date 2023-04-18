@@ -5,7 +5,6 @@ import reactivemongo.api.bson.*
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.study.Study
 import lila.user.User
 
 final class ActivityWriteApi(
@@ -26,7 +25,7 @@ final class ActivityWriteApi(
     } yield update(userId) { a =>
       val setGames = !game.isCorrespondence ?? $doc(
         ActivityFields.games -> a.games.orDefault
-          .add(pt, Score.make(game wonBy player.color, RatingProg make player))
+          .add(pt, Score.make(game wonBy player.color, RatingProg make player.light))
       )
       val setCorres = game.hasCorrespondenceClock ?? $doc(
         ActivityFields.corres -> a.corres.orDefault.add(game.id, moved = false, ended = true)
@@ -83,7 +82,7 @@ final class ActivityWriteApi(
     $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
   }
 
-  def plan(userId: UserId, months: Int) = update(userId) { a =>
+  def plan(userId: UserId, months: Int) = update(userId) { _ =>
     $doc(ActivityFields.patron -> Patron(months))
   }
 

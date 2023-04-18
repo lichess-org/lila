@@ -2,15 +2,15 @@
 <resources>
   <string name="playWithAFriend">Schpill mit eme Fründ</string>
   <string name="playWithTheMachine">Schpill mit em Computer</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille iilade - schick die URL</string>
   <string name="gameOver">Schpiil verbii</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
-  <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s Schtufe %2$s</string>
   <string name="level">Schtufe</string>
   <string name="strength">Schpillstärchi</string>
-  <string name="toggleTheChat">Chat a und abschalte</string>
+  <string name="toggleTheChat">Chat aa und abschalte</string>
   <string name="chat">Chat</string>
   <string name="resign">Ufgeh</string>
   <string name="checkmate">Schachmatt</string>
@@ -210,8 +210,10 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="forgotPassword">Passwort vergässe?</string>
   <string name="error.weakPassword">So es Passwort isch extrem hüfig und liecht z\'knacke!</string>
   <string name="error.namePassword">Nimm bitte nöd din Benutzername als Passwort!</string>
+  <string name="blankedPassword">Du häsch das Passwort scho uf ere andere Website benutzt und ebe die Site isch kompromitiert worde. (was immer das heisst) Um d\'Sicherheit vu dim Lichess-Konto z\'gewähre, muesch es nois Passwort kreiere. Mir danked dir für dis Verschtändnis.</string>
   <string name="youAreLeavingLichess">Du verlahsch jetzt Lichess</string>
   <string name="neverTypeYourPassword">Benutz dis Lichess-Passwort nie uf andere Website!</string>
+  <string name="proceedToX">Witer zu %s</string>
   <string name="passwordSuggestion">Setz keis Passwort, wo dir e anderi Person vorgschlage hät. Suscht chan dis Konto gschtohle werde.</string>
   <string name="emailSuggestion">Setz kei E-Mail-Adrässe, wo dir e anderi Person vorgschlage hät. Suscht chan dis Konto gschtohle werde.</string>
   <string name="emailConfirmHelp">Hilf bi de E-Mail Beschtätigung</string>
@@ -247,7 +249,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Partie mit dir</item>
   </plurals>
   <string name="cancel">Abbräche</string>
-  <string name="whiteTimeOut">Wiss hät d\'Zit überschritte</string>
+  <string name="whiteTimeOut">Wiss hät d\'Ziit überschritte</string>
   <string name="blackTimeOut">Schwarz hät d\'Zit überschritte</string>
   <string name="drawOfferSent">Remis-Agebot gsändet</string>
   <string name="drawOfferAccepted">Remis-Agebot akzeptiert</string>
@@ -389,6 +391,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="toStudy">Schtudie</string>
   <string name="importGame">Partie importiere</string>
   <string name="importGameExplanation">Füeg e Schpiel-PGN i, für Zuegriff uf Schpielwiderholig, Computeranalyse, Chat und e teilbari URL.</string>
+  <string name="importGameCaveat">d\'Variazione werded glöscht. Zums b\'halte, muesch d\'PGN mit ere Schtudie importiere.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partie</item>
     <item quantity="other">%s importierti Partie</item>
@@ -668,6 +671,8 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Zit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir Extrazit geh, dass du z\'rächt chunsch.</string>
   <string name="simulHostExtraTime">Extrazit Simultanschpiller</string>
+  <string name="simulAddExtraTimePerPlayer">Gib für jede Schpiller, wo am Simultan teilnimmt, bi dinere Uhr Zit dezue</string>
+  <string name="simulHostExtraTimePerPlayer">Für jede Schpiller zuesätzlichi Zit addiere</string>
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Zit bis s\'Turnier afangt</string>
@@ -953,4 +958,5 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="lichessDbExplanation">Gwerteti Schpiel vu allne Lichess Schpiller</string>
   <string name="switchSides">Farb wächsle</string>
   <string name="closingAccountWithdrawAppeal">Wänn du dis Konto schlüssisch, ziehsch du au din Ischpruch zrugg</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Eusi Tipps, fürs Organisiere vu Events</string>
 </resources>

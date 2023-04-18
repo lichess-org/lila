@@ -4,16 +4,13 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 import lila.irc.IrcApi
 import lila.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.{ Holder, User, UserRepo }
+import lila.user.{ User, UserRepo }
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using
-    Executor
-):
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(using Executor):
 
   private def coll = repo.coll
 
@@ -34,7 +31,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     add {
       Modlog(mod.id, streamerId.some, Modlog.streamerTier, v.toString.some)
     }
-  def blogTier(mod: Mod, sus: Suspect, blogId: String, tier: String) =
+  def blogTier(mod: Mod, sus: Suspect, tier: String) =
     add {
       Modlog.make(mod, sus, Modlog.blogTier, tier.some)
     }
@@ -72,6 +69,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
     add {
       Modlog(mod, kid.some, Modlog.setKidMode)
     }
+
+  def loginWithBlankedPassword(user: UserId) = add {
+    Modlog(User.lichessId into ModId, user.some, Modlog.blankedPassword)
+  }
+
+  def loginWithWeakPassword(user: UserId) = add {
+    Modlog(User.lichessId into ModId, user.some, Modlog.weakPassword)
+  }
 
   def disableTwoFactor(mod: ModId, user: UserId) =
     add {
@@ -316,7 +321,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
-        "date" $gte nowDate.minusMonths(6)
+        "date" $gte nowInstant.minusMonths(6)
       )
     )
 
@@ -326,7 +331,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
         "user"   -> userId,
         "action" -> Modlog.modMessage,
         $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
-        "date" $gte nowDate.minusMonths(6)
+        "date" $gte nowInstant.minusMonths(6)
       )
     )
 

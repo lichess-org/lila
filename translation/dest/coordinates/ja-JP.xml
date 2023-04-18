@@ -8,8 +8,8 @@
   <string name="mostChessCourses">チェスの講座、問題はほとんど「代数式」という記譜法を使っています。</string>
   <string name="talkToYourChessFriends">またチェスの友人と話をするのも簡単になります。双方がいわば「チェス語」を理解しているからです。</string>
   <string name="youCanAnalyseAGameMoreEffectively">このマスはどこか、いちいち探すことがなくなれば、ゲームの検討も効率よくできます。</string>
-  <string name="aCoordinateAppears" comment="aCoordinateAppears&#10;&#10;Description for the 'Find square' mode of Coordinate training: https://lichess.org/training/coordinate#find">ボード上にマスの名前が表示されるので、そのマスをクリックしてください。</string>
-  <string name="aSquareIsHighlightedExplanation" comment="aSquareIsHighlightedExplanation&#10;&#10;Description for the 'Name square' mode of Coordinate training: https://lichess.org/training/coordinate#name">ボード上にハイライト表示されるマスの座標（たとえば「e4」）を入力してください。</string>
+  <string name="aCoordinateAppears">ボード上にマスの名前が表示されるので、そのマスをクリックしてください。</string>
+  <string name="aSquareIsHighlightedExplanation">ボード上にハイライト表示されるマスの座標（たとえば「e4」）を入力してください。</string>
   <string name="youHaveThirtySeconds">30 秒の間にできるだけ多くのマスを正しくクリック！</string>
   <string name="goAsLongAsYouWant">じっくりどうぞ、時間制限なしです！</string>
   <string name="showCoordinates">座標を表示</string>

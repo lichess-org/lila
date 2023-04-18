@@ -2,7 +2,6 @@ package lila.mod
 
 import chess.{ Black, Color, White }
 import reactivemongo.api.bson.*
-import reactivemongo.api.ReadPreference
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.analyse.{ Analysis, AnalysisRepo }
@@ -23,7 +22,7 @@ final class AssessApi(
     analysisRepo: AnalysisRepo
 )(using Executor):
 
-  private def bottomDate = nowDate.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
+  private def bottomDate = nowInstant.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
   import lila.evaluation.EvaluationBsonHandlers.given
   import lila.analyse.AnalyseBsonHandlers.given
@@ -195,7 +194,6 @@ final class AssessApi(
       Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
-    def loserUserOption  = game.winnerColor.map(_.fold(black, white))
     def winnerNbGames =
       for {
         user     <- winnerUserOption

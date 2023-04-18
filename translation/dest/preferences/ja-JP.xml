@@ -15,7 +15,7 @@
   <string name="pgnLetter">文字（K, Q, R, B, N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">集中モード</string>
   <string name="showPlayerRatings">レーティングを表示</string>
-  <string name="explainShowPlayerRatings">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="blindfoldChess">目隠しチェス</string>
@@ -63,4 +63,5 @@
   <string name="notifyPush">Lichess にいない時にデバイスでの通知</string>
   <string name="notifyWeb">ブラウザ</string>
   <string name="notifyDevice">デバイス</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">ベル通知の音</string>
 </resources>

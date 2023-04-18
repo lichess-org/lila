@@ -4,11 +4,9 @@ import reactivemongo.api.ReadPreference
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 
-final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
-    ec: Executor
-):
+final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using Executor):
 
   import BSONHandlers.given
 
@@ -43,11 +41,11 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
               )
             }
             .map { docs =>
-              for {
+              for
                 doc   <- docs
                 tour  <- doc.asOpt[RelayTour]
                 round <- doc.getAsOpt[RelayRound]("round")
-              } yield RelayTour.WithLastRound(tour, round)
+              yield RelayTour.WithLastRound(tour, round)
             }
       },
       currentPage = page,

@@ -196,8 +196,13 @@
   <string name="email">电子邮箱</string>
   <string name="passwordReset">密码重置</string>
   <string name="forgotPassword">忘记密码？</string>
+  <string name="error.weakPassword">这个密码太常见了，而且很容易猜到。</string>
+  <string name="error.namePassword">请不要把密码设为用户名。</string>
   <string name="youAreLeavingLichess">您正在离开Lichess</string>
   <string name="neverTypeYourPassword">永远不要在其他网站输入您的Lichess密码 ！</string>
+  <string name="proceedToX">前往 %s</string>
+  <string name="passwordSuggestion">不要使用他人建议的密码，他们会用此密码盗取您的账号。</string>
+  <string name="emailSuggestion">不要使用其他人提供的电子邮件地址。他们有可能使用它来盗取您的帐户。</string>
   <string name="emailConfirmHelp">协助邮件确认</string>
   <string name="emailConfirmNotReceived">注册后没有收到确认邮件？</string>
   <string name="whatSignupUsername">您想用什么用户名注册？</string>
@@ -339,6 +344,7 @@
   <string name="siteDescription">界面简洁的免费在线国际象棋平台。免注册，无广告，无需插件。与电脑，朋友或随机对手一起对战吧！</string>
   <string name="xJoinedTeamY">%1$s加入%2$s队</string>
   <string name="xCreatedTeamY">%1$s组建%2$s队</string>
+  <string name="startedStreaming">开始直播</string>
   <string name="xStartedStreaming">%s 开始直播</string>
   <string name="averageElo">平均等级分</string>
   <string name="location">所在地</string>
@@ -508,6 +514,7 @@
   <string name="blog">博客</string>
   <string name="notes">备注</string>
   <string name="typePrivateNotesHere">输入关于该用户的个人备注</string>
+  <string name="noNoteYet">暂无笔记</string>
   <string name="invalidUsernameOrPassword">用户名或密码错误</string>
   <string name="incorrectPassword">密码错误</string>
   <string name="invalidAuthenticationCode">无效的验证码</string>
@@ -669,6 +676,7 @@
   <string name="kidMode">儿童模式</string>
   <string name="kidModeExplanation">安全第一。在儿童模式下，站内信无法使用。为了保护您的孩子和学生免受其他用户伤害，请启用儿童模式。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">在儿童模式下，Lichess标志前有%s图标。出现该图标您就知道您的孩子是安全的。</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">您的账号处于托管中，可以请您的老师解除少儿模式。</string>
   <string name="enableKidMode">打开儿童模式</string>
   <string name="disableKidMode">关闭儿童模式</string>
   <string name="security">安全</string>

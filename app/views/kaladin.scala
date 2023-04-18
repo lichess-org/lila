@@ -1,6 +1,6 @@
 package views.html
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -15,7 +15,7 @@ object kaladin:
     case p if p < 80 => "orange"
     case _           => "red"
 
-  def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(implicit ctx: Context) =
+  def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(using Context) =
     views.html.base.layout(
       title = "Kaladin dashboard",
       moreCss = cssTag("mod.misc")
@@ -89,7 +89,7 @@ object kaladin:
       )
     }
 
-  def report(response: lila.irwin.KaladinUser.Response)(implicit ctx: Context): Frag =
+  def report(response: lila.irwin.KaladinUser.Response): Frag =
     div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
       header(
         span(cls := "title")(

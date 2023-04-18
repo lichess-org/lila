@@ -13,7 +13,6 @@ final class CrudForm(repo: TournamentRepo):
 
   import CrudForm.*
   import TournamentForm.*
-  import lila.common.Form.UTCDate.*
 
   def apply(tour: Option[Tournament]) = Form(
     mapping(
@@ -25,11 +24,12 @@ final class CrudForm(repo: TournamentRepo):
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> typeIn(Variant.list.all.map(_.id).toSet),
       "position"       -> optional(lila.common.Form.fen.playableStrict),
-      "date"           -> utcDate,
+      "date"           -> PrettyDateTime.mapping,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
       "description"    -> nonEmptyText,
       "conditions"     -> Condition.DataForm.all(Nil),
+      "rated"          -> boolean,
       "berserkable"    -> boolean,
       "streakable"     -> boolean,
       "teamBattle"     -> boolean,
@@ -46,12 +46,13 @@ final class CrudForm(repo: TournamentRepo):
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
     position = none,
-    date = nowDate plusDays 7,
+    date = nowDateTime plusDays 7,
     image = "",
     headline = "",
     description = "",
     conditions = Condition.DataForm.AllSetup.default,
     berserkable = true,
+    rated = true,
     streakable = true,
     teamBattle = false,
     hasChat = true
@@ -70,11 +71,12 @@ object CrudForm:
       minutes: Int,
       variant: Variant.Id,
       position: Option[Fen.Epd],
-      date: DateTime,
+      date: LocalDateTime,
       image: String,
       headline: String,
       description: String,
       conditions: Condition.DataForm.AllSetup,
+      rated: Boolean,
       berserkable: Boolean,
       streakable: Boolean,
       teamBattle: Boolean,

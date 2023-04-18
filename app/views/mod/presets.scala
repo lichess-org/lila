@@ -2,16 +2,15 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.memo.SettingStore
 import play.api.data.Form
 import lila.mod.ModPresets
 
 object presets:
 
-  def apply(group: String, setting: SettingStore[ModPresets], form: Form[?])(implicit ctx: Context) =
+  def apply(group: String, form: Form[?])(using Context) =
     views.html.base.layout(
       title = s"$group presets",
       moreCss = frag(cssTag("mod.misc"), cssTag("form3"))

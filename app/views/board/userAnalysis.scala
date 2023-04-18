@@ -4,7 +4,7 @@ import play.api.libs.json.{ JsObject, Json }
 
 import chess.variant.{ Variant, FromPosition, Crazyhouse }
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -48,7 +48,7 @@ object userAnalysis:
         .OpenGraph(
           title = "Chess analysis board",
           url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
-          description = "Analyse chess positions and variations on an interactive chess board"
+          description = "Analyse chess.Positions and variations on an interactive chess board"
         )
         .some,
       zoomable = true

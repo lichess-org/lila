@@ -14,7 +14,7 @@ final class JsonView(
     isOnline: lila.socket.IsOnline
 ):
 
-  import Challenge.{ *, given }
+  import Challenge.*
 
   private given OWrites[Challenger.Registered] = OWrites { r =>
     val light = getLightUser(r.id)
@@ -60,7 +60,7 @@ final class JsonView(
         "variant"    -> c.variant,
         "rated"      -> c.mode.rated,
         "speed"      -> c.speed.key,
-        "timeControl" -> (c.timeControl match {
+        "timeControl" -> c.timeControl.match
           case TimeControl.Clock(clock) =>
             Json.obj(
               "type"      -> "clock",
@@ -74,7 +74,7 @@ final class JsonView(
               "daysPerTurn" -> d
             )
           case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
-        }),
+        ,
         "color"      -> c.colorChoice.toString.toLowerCase,
         "finalColor" -> c.finalColor.toString.toLowerCase,
         "perf" -> Json.obj(
@@ -86,6 +86,7 @@ final class JsonView(
       .add("direction" -> direction.map(_.name))
       .add("initialFen" -> c.initialFen)
       .add("declineReason" -> c.declineReason.map(_.trans.txt()))
+      .add("declineReasonKey" -> c.declineReason.map(_.key))
       .add("open" -> c.open)
       .add("rules" -> c.nonEmptyRules)
 

@@ -2,32 +2,34 @@ package lila.tournament
 
 import chess.StartingPosition
 import scala.util.chaining.*
-import org.joda.time.DateTimeConstants.*
+import java.time.{ LocalDate, LocalDateTime }
+import java.time.Month.*
+import java.time.DayOfWeek.*
+import java.time.temporal.TemporalAdjusters
 
-import lila.common.{ LilaScheduler, LilaStream }
+import lila.common.LilaScheduler
 
-final private class TournamentScheduler(
-    api: TournamentApi,
-    tournamentRepo: TournamentRepo
-)(using ec: Executor, scheduler: Scheduler, mat: akka.stream.Materializer):
+final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Executor, Scheduler):
+
+  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
+    tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
+      try
+        val newTourns = TournamentScheduler.allWithConflicts().map(_.build)
+        val pruned    = TournamentScheduler.pruneConflicts(dbScheds, newTourns)
+        tournamentRepo.insert(pruned).logFailure(logger)
+      catch
+        case e: Exception =>
+          logger.error(s"failed to schedule all: ${e.getMessage}")
+          funit
+    }
+  }
+
+private object TournamentScheduler:
 
   import Schedule.Freq.*
   import Schedule.Speed.*
   import Schedule.Plan
   import chess.variant.*
-
-  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)) {
-    tournamentRepo.scheduledUnfinished flatMap { dbScheds =>
-      try
-        val newTourns = allWithConflicts(nowDate).map(_.build)
-        val pruned    = pruneConflicts(dbScheds, newTourns)
-        tournamentRepo.insert(pruned).logFailure(logger)
-      catch
-        case e: org.joda.time.IllegalInstantException =>
-          logger.error(s"failed to schedule all: ${e.getMessage}")
-          funit
-    }
-  }
 
   /* Month plan:
    * First week: Shield standard tournaments
@@ -42,47 +44,51 @@ final private class TournamentScheduler(
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] =
-    val today       = rightNow.withTimeAtStartOfDay
-    val tomorrow    = rightNow plusDays 1
-    val startOfYear = today.dayOfYear.withMinimumValue
+  def allWithConflicts(rightNow: Instant = nowInstant): List[Plan] =
+    val today       = rightNow.date
+    val tomorrow    = today plusDays 1
+    val startOfYear = today.withDayOfYear(1)
 
     class OfMonth(fromNow: Int):
-      val firstDay   = today.plusMonths(fromNow).dayOfMonth.withMinimumValue
-      val lastDay    = firstDay.dayOfMonth.withMaximumValue
-      val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek - 1) % 7)
+      val firstDay   = today.plusMonths(fromNow).withDayOfMonth(1)
+      val lastDay    = firstDay.adjust(TemporalAdjusters.lastDayOfMonth)
+      val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek.getValue - 1) % 7)
       val secondWeek = firstWeek plusDays 7
       val thirdWeek  = secondWeek plusDays 7
-      val lastWeek   = lastDay.minusDays((lastDay.getDayOfWeek - 1) % 7)
+      val lastWeek   = lastDay.minusDays((lastDay.getDayOfWeek.getValue - 1) % 7)
     val thisMonth = OfMonth(0)
     val nextMonth = OfMonth(1)
 
-    def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
-    val nextMonday                 = nextDayOfWeek(1)
-    val nextTuesday                = nextDayOfWeek(2)
-    val nextWednesday              = nextDayOfWeek(3)
-    val nextThursday               = nextDayOfWeek(4)
-    val nextFriday                 = nextDayOfWeek(5)
-    val nextSaturday               = nextDayOfWeek(6)
-    val nextSunday                 = nextDayOfWeek(7)
+    def nextDayOfWeek(n: Int) = today.plusDays((n + 7 - today.getDayOfWeek.getValue) % 7)
+    val nextMonday            = nextDayOfWeek(1)
+    val nextTuesday           = nextDayOfWeek(2)
+    val nextWednesday         = nextDayOfWeek(3)
+    val nextThursday          = nextDayOfWeek(4)
+    val nextFriday            = nextDayOfWeek(5)
+    val nextSaturday          = nextDayOfWeek(6)
+    val nextSunday            = nextDayOfWeek(7)
 
-    def secondWeekOf(month: Int) =
-      val start = orNextYear(startOfYear.withMonthOfYear(month))
-      start.plusDays(15 - start.getDayOfWeek)
+    def secondWeekOf(month: java.time.Month): LocalDate =
+      val start = orNextYear(startOfYear.withMonth(month.getValue).atStartOfDay).date
+      start.plusDays(15 - start.getDayOfWeek.getValue)
 
-    def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
-    def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
-    def orNextYear(date: DateTime) = if (date isBefore rightNow) date plusYears 1 else date
+    def orTomorrow(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date plusDays 1 else date
+    def orNextWeek(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date plusWeeks 1 else date
+    def orNextYear(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date plusYears 1 else date
 
-    val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
+    val isHalloween = today.getDayOfMonth == 31 && today.getMonth == OCTOBER
 
     def openingAt(offset: Int): StartingPosition =
       val positions = StartingPosition.featurable
       positions((today.getDayOfYear + offset) % positions.size)
 
-    val farFuture = today plusMonths 7
+    val farFuture = today.plusMonths(7).atStartOfDay
 
-    val birthday = new DateTime(2010, 6, 20, 12, 0, 0)
+    val birthday = LocalDate.of(2010, 6, 20)
+
+    extension (date: LocalDate)
+      def withDayOfWeek(day: java.time.DayOfWeek): LocalDate =
+        date.adjust(TemporalAdjusters.nextOrSame(day))
 
     // all dates UTC
     List(
@@ -118,7 +124,7 @@ Thank you all, you rock!""",
         secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY)    -> Rapid,
         secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY)     -> Classical,
         secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> HyperBullet
-      ).flatMap { case (day, speed) =>
+      ).flatMap { (day, speed) =>
         at(day, 17) filter farFuture.isAfter map { date =>
           Schedule(Yearly, speed, Standard, none, date).plan
         }
@@ -132,7 +138,7 @@ Thank you all, you rock!""",
         secondWeekOf(JUNE).withDayOfWeek(TUESDAY)      -> Atomic,
         secondWeekOf(JULY).withDayOfWeek(WEDNESDAY)    -> Horde,
         secondWeekOf(AUGUST).withDayOfWeek(THURSDAY)   -> ThreeCheck
-      ).flatMap { case (day, variant) =>
+      ).flatMap { (day, variant) =>
         at(day, 17) filter farFuture.isAfter map { date =>
           Schedule(Yearly, SuperBlitz, variant, none, date).plan
         }
@@ -147,7 +153,7 @@ Thank you all, you rock!""",
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
-          ).flatMap { case (day, speed) =>
+          ).flatMap { (day, speed) =>
             at(day, 17) map { date =>
               Schedule(Monthly, speed, Standard, none, date).plan
             }
@@ -161,7 +167,7 @@ Thank you all, you rock!""",
             month.lastWeek.withDayOfWeek(SATURDAY)  -> Atomic,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
-          ).flatMap { case (day, variant) =>
+          ).flatMap { (day, variant) =>
             at(day, 19) map { date =>
               Schedule(
                 Monthly,
@@ -180,7 +186,7 @@ Thank you all, you rock!""",
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical,
             month.firstWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
             month.firstWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
-          ).flatMap { case (day, speed) =>
+          ).flatMap { (day, speed) =>
             at(day, 16) map { date =>
               Schedule(Shield, speed, Standard, none, date) plan {
                 _.copy(
@@ -199,7 +205,7 @@ Thank you all, you rock!""",
             month.thirdWeek.withDayOfWeek(FRIDAY)    -> Atomic,
             month.thirdWeek.withDayOfWeek(SATURDAY)  -> Horde,
             month.thirdWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
-          ).flatMap { case (day, variant) =>
+          ).flatMap { (day, variant) =>
             at(day, 16) map { date =>
               Schedule(Shield, Blitz, variant, none, date) plan {
                 _.copy(
@@ -218,7 +224,7 @@ Thank you all, you rock!""",
         nextThursday  -> Rapid,
         nextFriday    -> Classical,
         nextSaturday  -> HyperBullet
-      ).flatMap { case (day, speed) =>
+      ).flatMap { (day, speed) =>
         at(day, 17) map { date =>
           Schedule(Weekly, speed, Standard, none, date pipe orNextWeek).plan
         }
@@ -232,7 +238,7 @@ Thank you all, you rock!""",
         nextSaturday  -> Atomic,
         nextSunday    -> Horde,
         nextSunday    -> Chess960
-      ).flatMap { case (day, variant) =>
+      ).flatMap { (day, variant) =>
         at(day, 19) map { date =>
           Schedule(
             Weekly,
@@ -246,7 +252,7 @@ Thank you all, you rock!""",
       List( // week-end elite tournaments!
         nextSaturday -> SuperBlitz,
         nextSunday   -> Bullet
-      ).flatMap { case (day, speed) =>
+      ).flatMap { (day, speed) =>
         at(day, 17) map { date =>
           Schedule(Weekend, speed, Standard, none, date pipe orNextWeek).plan
         }
@@ -347,45 +353,32 @@ Thank you all, you rock!""",
         ).flatten
       },
       // hourly standard tournaments!
-      (-1 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, HyperBullet, Standard, none, date).plan
-          },
-          at(date, hour, 30) map { date =>
-            Schedule(Hourly, UltraBullet, Standard, none, date).plan
-          },
-          at(date, hour) map { date =>
-            Schedule(Hourly, Bullet, Standard, none, date).plan
-          },
-          at(date, hour, 30) map { date =>
-            Schedule(Hourly, Bullet, Standard, none, date).plan
-          },
-          at(date, hour) map { date =>
-            Schedule(Hourly, SuperBlitz, Standard, none, date).plan
-          },
-          at(date, hour) map { date =>
-            Schedule(Hourly, Blitz, Standard, none, date).plan
-          },
-          at(date, hour) collect {
-            case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, none, date).plan
+      (-1 to 6).toList
+        .flatMap { hourDelta =>
+          val when = atTopOfHour(rightNow, hourDelta)
+          List(
+            Schedule(Hourly, HyperBullet, Standard, none, when),
+            Schedule(Hourly, UltraBullet, Standard, none, when withMinute 30),
+            Schedule(Hourly, Bullet, Standard, none, when),
+            Schedule(Hourly, Bullet, Standard, none, when withMinute 30),
+            Schedule(Hourly, SuperBlitz, Standard, none, when),
+            Schedule(Hourly, Blitz, Standard, none, when)
+          ) ::: {
+            (when.getHour % 2 == 0) ?? List(Schedule(Hourly, Rapid, Standard, none, when))
           }
-        ).flatten
-      },
+        }
+        .map(_.plan),
       // hourly limited tournaments!
       (-1 to 6).toList
         .flatMap { hourDelta =>
-          val date = rightNow plusHours hourDelta
-          val hour = date.getHourOfDay
-          val speed = hour % 4 match {
+          val when = atTopOfHour(rightNow, hourDelta)
+          val speed = when.getHour % 4 match
             case 0 => Bullet
             case 1 => SuperBlitz
             case 2 => Blitz
             case _ => Rapid
-          }
-          List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { case (rating, hourDelay) =>
+          List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { (rating, hourDelay) =>
+            import chess.Clock
             val perf = Schedule.Speed toPerfType speed
             val conditions = Condition.All(
               nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
@@ -395,20 +388,17 @@ Thank you all, you rock!""",
               teamMember = none,
               allowList = none
             )
-            at(date, hour) ?? { date =>
-              import chess.Clock
-              val finalDate = date plusHours hourDelay
-              if (speed == Bullet)
-                List(
-                  Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan,
-                  Schedule(Hourly, speed, Standard, none, finalDate plusMinutes 30, conditions)
-                    .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
-                )
-              else
-                List(
-                  Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan
-                )
-            }
+            val finalWhen = when plusHours hourDelay
+            if (speed == Bullet)
+              List(
+                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan,
+                Schedule(Hourly, speed, Standard, none, finalWhen plusMinutes 30, conditions)
+                  .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
+              )
+            else
+              List(
+                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan
+              )
           }
         }
         .map {
@@ -418,78 +408,73 @@ Thank you all, you rock!""",
         },
       // hourly crazyhouse/chess960/KingOfTheHill tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
-        val speed = hour % 7 match {
+        val when = atTopOfHour(rightNow, hourDelta)
+        val speed = when.getHour % 7 match
           case 0     => HippoBullet
           case 1 | 4 => Bullet
           case 2 | 5 => SuperBlitz
           case 3 | 6 => Blitz
-        }
-        val variant = hour % 3 match {
+        val variant = when.getHour % 3 match
           case 0 => Chess960
           case 1 => KingOfTheHill
           case _ => Crazyhouse
-        }
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, speed, variant, none, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 17) HyperBullet else Bullet, variant, none, date).plan
-          }
-        ).flatten
+        List(Schedule(Hourly, speed, variant, none, when).plan) :::
+          (speed == Bullet) ?? List(
+            Schedule(
+              Hourly,
+              if when.getHour == 17 then HyperBullet else Bullet,
+              variant,
+              none,
+              when plusMinutes 30
+            ).plan
+          )
       },
       // hourly atomic/antichess variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
-        val speed = hour % 7 match {
+        val when = atTopOfHour(rightNow, hourDelta)
+        val speed = when.getHour % 7 match
           case 0 | 4 => Blitz
           case 1     => HippoBullet
           case 2 | 5 => Bullet
           case 3 | 6 => SuperBlitz
-        }
-        val variant = if (hour % 2 == 0) Atomic else Antichess
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, speed, variant, none, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, none, date).plan
-          }
-        ).flatten
+        val variant = if when.getHour % 2 == 0 then Atomic else Antichess
+        List(Schedule(Hourly, speed, variant, none, when).plan) :::
+          (speed == Bullet) ?? List(
+            Schedule(
+              Hourly,
+              if when.getHour == 18 then HyperBullet else Bullet,
+              variant,
+              none,
+              when plusMinutes 30
+            ).plan
+          )
       },
       // hourly threecheck/horde/racing variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
-        val speed = hour % 7 match {
+        val when = atTopOfHour(rightNow, hourDelta)
+        val speed = when.getHour % 7 match
           case 0 | 4 => SuperBlitz
           case 1 | 5 => Blitz
           case 2     => HippoBullet
           case 3 | 6 => Bullet
-        }
-        val variant = hour % 3 match {
+        val variant = when.getHour % 3 match
           case 0 => ThreeCheck
           case 1 => Horde
           case _ => RacingKings
-        }
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, speed, variant, none, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 19) HyperBullet else Bullet, variant, none, date).plan
-          }
-        ).flatten
+        List(Schedule(Hourly, speed, variant, none, when).plan) :::
+          (speed == Bullet) ?? List(
+            Schedule(
+              Hourly,
+              if when.getHour == 19 then HyperBullet else Bullet,
+              variant,
+              none,
+              when plusMinutes 30
+            ).plan
+          )
       }
-    ).flatten filter { _.schedule.at isAfter rightNow }
+    ).flatten.filter(_.schedule.at.instant.isAfter(rightNow))
 
-  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
+  private def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
       .foldLeft(List[Tournament]()) { (tourns, t) =>
         if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
@@ -497,12 +482,10 @@ Thank you all, you rock!""",
       }
       .reverse
 
-  private case class ScheduleNowWith(dbScheds: List[Tournament])
-
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
     t.schedule exists { s =>
       ts exists { t2 =>
-        t.variant == t2.variant && (t2.schedule ?? {
+        t.variant == t2.variant && t2.schedule.?? {
           // prevent daily && weekly on the same day
           case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameSpeed(s2) => s sameDay s2
           case s2 =>
@@ -511,17 +494,16 @@ Thank you all, you rock!""",
                 s.hasMaxRating ||  // overlapping same rating limit
                 s.similarSpeed(s2) // overlapping similar
             ) && s.similarConditions(s2) && t.overlaps(t2)
-        })
+        }
       }
     }
 
-  private def at(day: DateTime, hour: Int, minute: Int = 0): Option[DateTime] =
-    try Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
+  private def atTopOfHour(rightNow: Instant, hourDelta: Int): LocalDateTime =
+    rightNow.plusHours(hourDelta).dateTime.withMinute(0)
+
+  private def at(day: LocalDate, hour: Int, minute: Int = 0): Option[LocalDateTime] =
+    try Some(day.atStartOfDay plusHours hour plusMinutes minute)
     catch
       case e: Exception =>
-        logger.error(s"failed to schedule one: ${e.getMessage}")
+        logger.error("failed to schedule", e)
         None
-
-private object TournamentScheduler:
-
-  case object ScheduleNow

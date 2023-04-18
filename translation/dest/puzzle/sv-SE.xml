@@ -27,6 +27,10 @@
   <string name="keepGoing">Fortsätt…</string>
   <string name="puzzleSuccess">Rätt!</string>
   <string name="puzzleComplete">Problemet klart!</string>
+  <string name="byOpenings">Efter öppningar</string>
+  <string name="puzzlesByOpenings">Schackproblem efter öppningar</string>
+  <string name="openingsYouPlayedTheMost">Öppningar som du spelade mest i rankade partier</string>
+  <string name="useCtrlF">Använd Ctrl+f för att hitta din favoritöppning!</string>
   <string name="notTheMove">Det är inte rätt drag!</string>
   <string name="trySomethingElse">Prova något annat.</string>
   <string name="ratingX">Rating: %s</string>
@@ -41,13 +45,13 @@
   <string name="normal">Normal</string>
   <string name="easier">Lättare</string>
   <string name="easiest">Lättaste</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">En poäng under ditt pusselbetyg</item>
     <item quantity="other">%s poäng under ditt pusselbetyg</item>
   </plurals>
   <string name="harder">Svårare</string>
   <string name="hardest">Svåraste</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">En poäng över ditt pusselbetyg</item>
     <item quantity="other">%s poäng över ditt pusselbetyg</item>
   </plurals>

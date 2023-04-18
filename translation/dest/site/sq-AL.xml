@@ -205,8 +205,10 @@
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
   <string name="error.weakPassword">Ky fjalëkalim është tejet i rëndomtë dhe shumë i kollajtë të merret me mend.</string>
   <string name="error.namePassword">Ju lutemi, mos përdorni si fjalëkalim tuajin emrin tuaj të përdoruesit.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Po ikni nga Lichess</string>
+  <string name="blankedPassword">Keni përdorur të njëjtin fjalëkalim si në një sajt tjetër dhe ai sajt është komprometuar. Për të garantuar sigurinë e llogarisë tuaj Lichess, na duhet t’ju caktojmë një fjalëkalim të ri. Faleminderit për mirëkuptimin.</string>
+  <string name="youAreLeavingLichess">Po ikni nga Lichess</string>
   <string name="neverTypeYourPassword">Mos shtypni kurrë fjalëkalimin tuaj për në Lichess te një sajt tjetër!</string>
+  <string name="proceedToX">Vazhdo te %s</string>
   <string name="passwordSuggestion">Mos caktoni si fjalëkalim diçka të sugjeruar nga dikush tjetër. Do ta përdorin për t’ju grabitur llogarinë tuaj.</string>
   <string name="emailSuggestion">Mos caktoni si adresë email diçka të sugjeruar nga dikush tjetër. Do ta përdorin për t’ju grabitur llogarinë tuaj.</string>
   <string name="emailConfirmHelp">Ndihmë për ripohim email-i</string>
@@ -657,6 +659,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="simulClockHint">Ujdisje Fisher për sahatin. Sa më shumë lojtarë pranoni, aq më shumë kohë mund t’ju nevojitet.</string>
   <string name="simulAddExtraTime">Ju mund të shtoni kohë shtesë për t\'i bërë ballë simultanes.</string>
   <string name="simulHostExtraTime">Kohë shtesë për organizatorin</string>
+  <string name="simulAddExtraTimePerPlayer">Shtoni kohë fillestare te sahati juaj për çdo lojtar që hyn në simultane.</string>
+  <string name="simulHostExtraTimePerPlayer">Kohë ekstra sahati organizatori për lojtar</string>
   <string name="lichessTournaments">Turne Lichess</string>
   <string name="tournamentFAQ">PBR për turne Arenë</string>
   <string name="timeBeforeTournamentStarts">Koha deri sa të fillojë turneu</string>
@@ -941,4 +945,5 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="lichessDbExplanation">Lojëra me vlerësim, marrë nga krejt lojëtarët e Lichess-it</string>
   <string name="switchSides">Ndërroni palët</string>
   <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Këshillat tona për organizim veprimtarish</string>
 </resources>

@@ -9,7 +9,6 @@ final private class Expiration(
     notifier: PlanNotifier
 )(using Executor):
 
-  import BsonHandlers.given
   import BsonHandlers.PatronHandlers.given
 
   def run: Funit =
@@ -30,7 +29,7 @@ final private class Expiration(
   private def getExpired =
     patronColl.list[Patron](
       $doc(
-        "expiresAt" $lt nowDate,
+        "expiresAt" $lt nowInstant,
         "lifetime" $ne true
       ),
       50

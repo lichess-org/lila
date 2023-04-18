@@ -50,6 +50,10 @@ final class PrefApi(
   def getPref(user: User, req: RequestHeader): Fu[Pref] =
     getPref(user) dmap RequestPref.queryParamOverride(req)
 
+  def getPref(user: Option[User], req: RequestHeader): Fu[Pref] = user match
+    case Some(u) => getPref(u) dmap RequestPref.queryParamOverride(req)
+    case None    => fuccess(RequestPref.fromRequest(req))
+
   def followable(userId: UserId): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(userId), "follow") map (_ | Pref.default.follow)
 

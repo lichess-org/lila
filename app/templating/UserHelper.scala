@@ -9,9 +9,9 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ Title, User }
+import lila.user.User
 
-trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with NumberHelper =>
+trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
 
   def ratingProgress(progress: IntRatingDiff): Option[Frag] =
     if (progress > 0) goodTag(cls := "rp")(progress).some
@@ -281,8 +281,8 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   def describeUser(user: User)(using lang: Lang) =
     val name      = user.titleUsername
     val nbGames   = user.count.game
-    val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
-    val currentRating = user.perfs.bestPerf ?? { case (pt, perf) =>
+    val createdAt = showEnglishDate(user.createdAt)
+    val currentRating = user.perfs.bestPerf ?? { (pt, perf) =>
       s" Current ${pt.trans} rating: ${perf.intRating}."
     }
     s"$name played $nbGames games since $createdAt.$currentRating"

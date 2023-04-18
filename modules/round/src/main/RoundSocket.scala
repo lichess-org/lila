@@ -2,12 +2,12 @@ package lila.round
 
 import actorApi.*
 import actorApi.round.*
-import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
+import akka.actor.{ Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*
 
-import lila.chat.{ BusChan, Chat }
+import lila.chat.BusChan
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.common.Json.given
 import lila.game.{ Event, Game, Pov }
@@ -19,7 +19,6 @@ import lila.hub.AsyncActorConcMap
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.{ Socket, SocketVersion, SocketSend }
-import lila.user.User
 import reactivemongo.api.Cursor
 
 final class RoundSocket(
@@ -30,11 +29,7 @@ final class RoundSocket(
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
     shutdown: CoordinatedShutdown
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
 
   import RoundSocket.*
 

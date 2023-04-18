@@ -116,14 +116,14 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         case _ => notFoundJson("No such command")
 
   def boardCommandGet(cmd: String) =
-    ScopedBody(_.Board.Play) { implicit req => me =>
+    ScopedBody(_.Board.Play) { _ => me =>
       cmd.split('/') match
         case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id), me)(getChat)
         case _                         => notFoundJson("No such command")
     }
 
   def botCommandGet(cmd: String) =
-    ScopedBody(_.Bot.Play) { implicit req => me =>
+    ScopedBody(_.Bot.Play) { _ => me =>
       cmd.split('/') match
         case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id), me)(getChat)
         case _                         => notFoundJson("No such command")
@@ -179,11 +179,11 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   def botOnlineApi =
     Action { (req: RequestHeader) =>
-      apiC.jsonStream {
+      apiC.jsonDownload {
         env.user.repo
           .botsByIdsCursor(env.bot.onlineApiUsers.get)
           .documentSource(getInt("nb", req) | Int.MaxValue)
           .throttle(50, 1 second)
           .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
-      }(req)
+      }(using req)
     }

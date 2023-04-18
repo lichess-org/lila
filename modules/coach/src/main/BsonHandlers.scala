@@ -2,7 +2,7 @@ package lila.coach
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.given
 
 private object BsonHandlers:
 

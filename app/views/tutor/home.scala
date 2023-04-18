@@ -2,19 +2,16 @@ package views.html.tutor
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Heapsort.given
-import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
-import lila.tutor.TutorCompare.given
+import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.user.User
-import lila.insight.Phase
 
 object home:
 
   def apply(full: TutorFullReport.Available, user: User)(using Context) =
-    bits.layout(full, menu = menu(full, user, none))(
+    bits.layout(menu = menu(full, user, none))(
       cls := "tutor__home box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       if (full.report.perfs.isEmpty) empty.mascotSaysInsufficient

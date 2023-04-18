@@ -1,6 +1,6 @@
 package lila.clas
 
-import org.joda.time.Period
+import java.time.Duration
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -36,7 +36,7 @@ case class StudentProgress(
 ):
   def ratingProgress = (rating._2 - rating._1) into IntRatingDiff
   def winRate        = if (nb > 0) wins * 100 / nb else 0
-  def period         = Period(millis)
+  def duration       = Duration.ofMillis(millis)
 
 final class ClasProgressApi(
     gameRepo: GameRepo,
@@ -83,7 +83,7 @@ final class ClasProgressApi(
         Match(
           $doc(
             PuzzleRound.BSONFields.user $in userIds,
-            PuzzleRound.BSONFields.date $gt nowDate.minusDays(days)
+            PuzzleRound.BSONFields.date $gt nowInstant.minusDays(days)
           )
         ) -> List(
           GroupField("u")(
@@ -124,7 +124,7 @@ final class ClasProgressApi(
         Match(
           $doc(
             F.playerUids $in userIds,
-            Query.createdSince(nowDate minusDays days),
+            Query.createdSince(nowInstant minusDays days),
             F.perfType -> perfType.id
           )
         ) -> List(

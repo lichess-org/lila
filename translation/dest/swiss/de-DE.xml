@@ -9,7 +9,7 @@
     <item quantity="one">%s Runde</item>
     <item quantity="other">%s Runden</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s Runde Schweizer System</item>
     <item quantity="other">%s Runden Schweizer System</item>
   </plurals>
@@ -104,8 +104,4 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
   <string name="predefinedUsers">Nur vordefinierten Benutzern erlauben beizutreten</string>
   <string name="forbiddedUsers">Falls diese Liste nicht leer ist, können nicht aufgeführte Benutzer nicht teilnehmen. Ein Benutzername pro Zeile.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s Runden Schweizer System</item>
-    <item quantity="other">%1$s / %2$s Runden Schweizer System</item>
-  </plurals>
 </resources>

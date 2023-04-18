@@ -51,7 +51,7 @@
       @extend %box-radius;
 
       color: $c-font;
-      padding: 0.4em;
+      padding: 0.5em;
 
       @include transition(background);
 
@@ -79,13 +79,18 @@
     }
 
     .player {
-      @extend %flex-between-nowrap;
+      @extend %flex-between-nowrap, %roboto;
+      gap: 0.5em;
 
       height: 1.5em;
       white-space: nowrap;
 
-      span {
-        margin-#{$start-direction}: 0.5em;
+      result {
+        font-weight: bold;
+        margin-#{$end-direction}: 0.5em;
+      }
+      rating {
+        font-size: 0.9em;
       }
     }
 

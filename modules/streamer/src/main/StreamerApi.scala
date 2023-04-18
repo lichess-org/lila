@@ -60,7 +60,7 @@ final class StreamerApi(
   def setSeenAt(user: User): Funit =
     cache.listedIds.getUnit flatMap { ids =>
       ids.contains(user.id into Streamer.Id) ??
-        coll.update.one($id(user.id), $set("seenAt" -> nowDate)).void
+        coll.update.one($id(user.id), $set("seenAt" -> nowInstant)).void
     }
 
   def setLangLiveNow(streams: List[Stream]): Funit =
@@ -70,7 +70,7 @@ final class StreamerApi(
         update.element(
           q = $id(s.streamer.id),
           u = $set(
-            "liveAt"         -> nowDate,
+            "liveAt"         -> nowInstant,
             "lastStreamLang" -> Lang.get(s.lang).map(_.language)
           )
         )
@@ -86,7 +86,7 @@ final class StreamerApi(
       streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
     } inject modChange(prev, streamer)
 
-  private def modChange(current: Streamer, prev: Streamer): Streamer.ModChange =
+  private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
     val list = prev.approval.granted != current.approval.granted option current.approval.granted
     ~list ?? notifyApi.notifyOne(
       current,
@@ -151,7 +151,7 @@ final class StreamerApi(
         $doc(
           "liveAt" $exists false,
           "approval.granted" -> true,
-          "approval.lastGrantedAt" $lt nowDate.minusWeeks(1)
+          "approval.lastGrantedAt" $lt nowInstant.minusWeeks(1)
         ),
         $set(
           "approval.granted" -> false,

@@ -1,18 +1,15 @@
 package lila.tournament
 
 import akka.stream.scaladsl.*
-import com.softwaremill.tagging.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
 import reactivemongo.api.ReadPreference
 
 import lila.common.{ LilaScheduler, LilaStream }
 import lila.common.Json.given
-import lila.memo.SettingStore
 import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
 
 final class TournamentLilaHttp(
-    api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     cached: TournamentCache,

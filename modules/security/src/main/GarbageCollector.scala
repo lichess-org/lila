@@ -27,7 +27,7 @@ final class GarbageCollector(
 
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
-    if (user.createdAt.isAfter(nowDate minusDays 3))
+    if (user.createdAt.isAfter(nowInstant minusDays 3))
       val ip = HTTPRequest ipAddress req
       scheduler
         .scheduleOnce(6 seconds) {
@@ -83,8 +83,8 @@ final class GarbageCollector(
 
   private def badOtherAccounts(accounts: List[User]): Option[List[User]] =
     val others = accounts
-      .sortBy(-_.createdAt.getSeconds)
-      .takeWhile(_.createdAt.isAfter(nowDate minusDays 10))
+      .sortBy(-_.createdAt.toMillis)
+      .takeWhile(_.createdAt.isAfter(nowInstant minusDays 10))
       .take(4)
     (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.enabled.no)) option others
 

@@ -2,14 +2,14 @@ package views.html.tournament
 
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.api.Context
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
 object calendar:
 
-  def apply(json: play.api.libs.json.JsObject)(implicit ctx: Context) =
+  def apply(json: play.api.libs.json.JsObject)(using Context) =
     views.html.base.layout(
       title = "Tournament calendar",
       moreJs = frag(

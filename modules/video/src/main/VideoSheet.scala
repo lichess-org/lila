@@ -1,15 +1,8 @@
 package lila.video
 
-import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.libs.ws.JsonBodyReadables.*
-import scala.annotation.nowarn
 
-final private class VideoSheet(
-    ws: StandaloneWSClient,
-    url: String,
-    api: VideoApi
-)(using Executor):
+final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoApi)(using Executor):
 
   import VideoSheet.*
 
@@ -45,7 +38,7 @@ final private class VideoSheet(
                   ads = entry.ads,
                   startTime = entry.startTime,
                   metadata = Youtube.empty,
-                  createdAt = nowDate
+                  createdAt = nowInstant
                 )
                 logger.info(s"sheet insert $video")
                 api.video.save(video)

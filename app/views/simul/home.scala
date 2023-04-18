@@ -1,8 +1,8 @@
 package views.html.simul
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 
 import controllers.routes
 
@@ -13,7 +13,7 @@ object home:
       opens: List[lila.simul.Simul],
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.base.layout(
       moreCss = cssTag("simul.list"),
       moreJs = embedJsUnsafeLoadThen(s"""

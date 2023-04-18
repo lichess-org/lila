@@ -1,9 +1,8 @@
 package lila.opening
 
-import chess.format.pgn.{ Pgn, San, SanStr }
+import chess.format.pgn.{ Pgn, SanStr }
 import chess.format.{ Fen, OpeningFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
-import chess.Speed
 
 import lila.game.Game
 
@@ -91,7 +90,7 @@ object OpeningPage:
                 m.san,
                 uci,
                 fen,
-                query.copy(replay = query.replay addMove Left(move)),
+                query.copy(replay = query.replay addMove move),
                 result,
                 (result.sum * 100d / exp.movesSum),
                 opening,

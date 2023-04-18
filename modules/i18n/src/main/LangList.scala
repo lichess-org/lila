@@ -80,6 +80,7 @@ object LangList:
     Lang("pt", "BR")  -> "Português (BR)",
     Lang("ro", "RO")  -> "Română",
     Lang("ru", "RU")  -> "русский язык",
+    Lang("ry", "UA")  -> "Русинська бисїда",
     Lang("sa", "IN")  -> "संस्कृत",
     Lang("sk", "SK")  -> "slovenčina",
     Lang("sl", "SI")  -> "slovenščina",

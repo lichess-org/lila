@@ -3,15 +3,13 @@ package relay
 
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given
-
-import controllers.routes
 
 object show:
 
@@ -21,7 +19,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
       streamers: List[UserId]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     views.html.base.layout(
       title = rt.fullName,
       moreCss = cssTag("analyse.relay"),

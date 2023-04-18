@@ -198,8 +198,10 @@
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
   <string name="error.weakPassword">このパスワードはありふれすぎていて簡単に破られます。</string>
   <string name="error.namePassword">パスワードはユーザー名と同じにしないでください。</string>
+  <string name="blankedPassword">あなたは別のサイトで同じパスワードを使用し、そのサイトは侵入を受けています。 Lichess アカウントの安全性のため、新しいパスワードを設定してください。ご理解に感謝します。</string>
   <string name="youAreLeavingLichess">Lichess から移動します</string>
   <string name="neverTypeYourPassword">別のサイトで同じパスワードを使わないで！</string>
+  <string name="proceedToX">%s に移動する</string>
   <string name="passwordSuggestion">他の人が提案したパスワードは使わないように。アカウントが乗っ取られるかもしれません。</string>
   <string name="emailSuggestion">他の人が提案したメールアドレスは使わないように。アカウントが乗っ取られるかもしれません。</string>
   <string name="emailConfirmHelp">確認メールについてのヘルプ</string>
@@ -247,7 +249,7 @@
   <string name="playingRightNow">対局中</string>
   <string name="eventInProgress">対局中</string>
   <string name="finished">終了したトーナメント</string>
-  <string name="finishesX">終了まで %s</string>
+  <string name="finishesX">終了は %s</string>
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
   <string name="standard">スタンダード</string>
@@ -363,6 +365,7 @@
   <string name="importGame">棋譜をインポート</string>
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
+  <string name="importGameCaveat">変化手順は消えます。残したい場合は研究を経由して PGN をインポートしてください。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s 局をインポート</item>
   </plurals>
@@ -625,12 +628,14 @@
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
+  <string name="simulAddExtraTimePerPlayer">同時対局の参加者 1 人につき何分の形で自分の持時間を増やせます。</string>
+  <string name="simulHostExtraTimePerPlayer">ホスト延長時間（人数比例）</string>
   <string name="lichessTournaments">Lichess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
   <string name="averageCentipawnLoss">平均センチポーン差</string>
   <string name="accuracy">正確度</string>
-  <string name="keyboardShortcuts">キーボード・ショートカット</string>
+  <string name="keyboardShortcuts">ショートカットキー</string>
   <string name="keyMoveBackwardOrForward">手を戻す/進める</string>
   <string name="keyGoToStartOrEnd">最初/最後に戻る</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
@@ -904,4 +909,5 @@
   <string name="lichessDbExplanation">Lichess 全プレイヤーのレート戦が対象</string>
   <string name="switchSides">色変更</string>
   <string name="closingAccountWithdrawAppeal">アカウントを閉鎖すると異議申立ても取り下げになります</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">チェスイベント開催のアドバイス</string>
 </resources>

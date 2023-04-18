@@ -8,12 +8,12 @@ import play.api.Configuration
 import lila.common.config.*
 import lila.user.UserRepo
 
-@Module
 private class ShutupConfig(
     @ConfigName("collection.shutup") val shutupColl: CollName,
     @ConfigName("actor.name") val actorName: String
 )
 
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     reporter: lila.hub.actors.Report,
@@ -21,10 +21,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Db
-)(using
-    ec: Executor,
-    system: ActorSystem
-):
+)(using ec: Executor, system: ActorSystem):
 
   private val config = appConfig.get[ShutupConfig]("shutup")(AutoConfig.loader)
 

@@ -10,15 +10,14 @@ import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.{ User, UserRepo }
 import chess.Mode
 import lila.common.config.Max
+import lila.puzzle.PuzzleForm.batch.Solution
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
     colls: PuzzleColls
-)(using ec: Executor, scheduler: Scheduler, mode: play.api.Mode):
-
-  import BsonHandlers.given
+)(using ec: Executor, scheduler: Scheduler):
 
   private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
     maxSize = Max(64),
@@ -26,6 +25,19 @@ final private[puzzle] class PuzzleFinisher(
     timeout = 5 seconds,
     name = "puzzle.finish"
   )
+
+  def batch(me: User, angle: PuzzleAngle, solutions: List[Solution]): Fu[List[(PuzzleRound, IntRatingDiff)]] =
+    lila.common.LilaFuture
+      .fold(solutions)((me.perfs.puzzle, List.empty[(PuzzleRound, IntRatingDiff)])) {
+        case ((perf, rounds), sol) =>
+          apply(sol.id, angle, me, sol.win, sol.mode) map {
+            case Some((round, newPerf)) =>
+              val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
+              (newPerf, (round, rDiff) :: rounds)
+            case None => (perf, rounds)
+          }
+      }
+      .map { (_, rounds) => rounds.reverse }
 
   def apply(
       id: PuzzleId,
@@ -39,7 +51,7 @@ final private[puzzle] class PuzzleFinisher(
         id = PuzzleRound.Id(user.id, id),
         win = win,
         fixedAt = none,
-        date = nowDate
+        date = nowInstant
       ) -> user.perfs.puzzle
     } dmap some
     else
@@ -47,7 +59,7 @@ final private[puzzle] class PuzzleFinisher(
         api.round.find(user, id) zip api.puzzle.find(id) flatMap {
           case (_, None) => fuccess(none)
           case (prevRound, Some(puzzle)) =>
-            val now = nowDate
+            val now = nowInstant
             val (round, newPuzzleGlicko, userPerf) = prevRound match
               case Some(prev) =>
                 (

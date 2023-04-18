@@ -18,8 +18,7 @@
     "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
     "@badrap/result": "^0.2.13",
-    "chessground": "^8.3.7",
-    "chessops": "^0.12.5",
+    "chessops": "^0.12.7",
     "idb-keyval": "^6.2.0",
     "snabbdom": "^3.5.1",
     "common": "workspace:*"

@@ -1,6 +1,6 @@
 package views.html.tournament
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKeys as trans }
@@ -34,7 +34,7 @@ object bits:
             )
           ),
           tour.schedule.fold(td) { s =>
-            td(momentFromNow(s.at))
+            td(momentFromNow(s.at.instant))
           },
           td(tour.durationString),
           td(dataIcon := "", cls := "text")(tour.nbPlayers)

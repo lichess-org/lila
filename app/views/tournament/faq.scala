@@ -1,7 +1,7 @@
 package views.html
 package tournament
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -70,15 +70,11 @@ object faq:
             td(30)
           ),
           tr(
-            td("Crazyhouse, King of the Hill"),
-            td(25)
-          ),
-          tr(
-            td("Antichess, Racing Kings"),
+            td("Antichess, Crazyhouse, King of the Hill"),
             td(20)
           ),
           tr(
-            td("Three check, Atomic"),
+            td("Three check, Atomic, Racing Kings"),
             td(10)
           )
         )

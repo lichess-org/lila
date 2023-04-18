@@ -1,7 +1,6 @@
 package lila.study
 
-import chess.format.{ Fen, Uci }
-import chess.Pos
+import chess.Square
 import play.api.libs.json.*
 import scala.util.chaining.*
 
@@ -15,7 +14,7 @@ final class JsonView(
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
 
-  import JsonView.{ *, given }
+  import JsonView.given
 
   def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
 
@@ -102,7 +101,7 @@ final class JsonView(
         "settings"           -> s.settings,
         "visibility"         -> s.visibility,
         "createdAt"          -> s.createdAt,
-        "secondsSinceUpdate" -> (nowSeconds - s.updatedAt.getSeconds).toInt,
+        "secondsSinceUpdate" -> (nowSeconds - s.updatedAt.toSeconds).toInt,
         "from"               -> s.from,
         "likes"              -> s.likes
       )
@@ -113,14 +112,12 @@ object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  import Study.given
-
   given OWrites[Study.IdName] = OWrites { s =>
     Json.obj("id" -> s._id, "name" -> s.name)
   }
 
-  private given Reads[Pos] = Reads { v =>
-    (v.asOpt[String] flatMap { Pos.fromKey(_) }).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
+  private given Reads[Square] = Reads { v =>
+    (v.asOpt[String] flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   }
   private[study] given Writes[Sri]              = writeAs(_.value)
   private[study] given Writes[Study.Visibility] = writeAs(_.key)
@@ -138,8 +135,8 @@ object JsonView:
       .flatMap { o =>
         for
           brush <- o str "brush"
-          orig  <- o.get[Pos]("orig")
-        yield o.get[Pos]("dest") match
+          orig  <- o.get[Square]("orig")
+        yield o.get[Square]("dest") match
           case Some(dest) => Shape.Arrow(brush, orig, dest)
           case _          => Shape.Circle(brush, orig)
       }

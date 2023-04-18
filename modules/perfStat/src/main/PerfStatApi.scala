@@ -2,7 +2,6 @@ package lila.perfStat
 
 import lila.rating.{ Perf, PerfType, UserRankMap }
 import lila.security.Granter
-import lila.user.User
 import lila.user.{ LightUserApi, RankingApi, RankingsOf, User, UserRepo }
 
 case class PerfStatData(

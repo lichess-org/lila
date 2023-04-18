@@ -1,6 +1,6 @@
 package lila.common
 
-import akka.actor.{ ActorSystem, Scheduler }
+import akka.actor.Scheduler
 import scala.collection.BuildFrom
 import scala.concurrent.{ Future as ScalaFu, Promise }
 import scala.concurrent.duration.FiniteDuration
@@ -8,28 +8,22 @@ import lila.Lila.Fu
 
 object LilaFuture:
 
-  def fold[T, R](
-      list: List[T]
-  )(zero: R)(op: (R, T) => Fu[R])(using Executor): Fu[R] =
+  def fold[T, R](list: List[T])(acc: R)(op: (R, T) => Fu[R])(using Executor): Fu[R] =
     list match
       case head :: rest =>
-        op(zero, head) flatMap { res =>
+        op(acc, head) flatMap { res =>
           fold(rest)(res)(op)
         }
-      case Nil => fuccess(zero)
+      case Nil => fuccess(acc)
 
-  def lazyFold[T, R](
-      futures: LazyList[Fu[T]]
-  )(zero: R)(op: (R, T) => R)(using Executor): Fu[R] =
-    LazyList.cons.unapply(futures).fold(fuccess(zero)) { case (future, rest) =>
+  def lazyFold[T, R](futures: LazyList[Fu[T]])(acc: R)(op: (R, T) => R)(using Executor): Fu[R] =
+    LazyList.cons.unapply(futures).fold(fuccess(acc)) { (future, rest) =>
       future flatMap { f =>
-        lazyFold(rest)(op(zero, f))(op)
+        lazyFold(rest)(op(acc, f))(op)
       }
     }
 
-  def filter[A](
-      list: List[A]
-  )(f: A => Fu[Boolean])(using Executor): Fu[List[A]] =
+  def filter[A](list: List[A])(f: A => Fu[Boolean])(using Executor): Fu[List[A]] =
     ScalaFu
       .sequence {
         list.map { element =>
@@ -45,7 +39,7 @@ object LilaFuture:
 
   def linear[A, B, M[B] <: Iterable[B]](
       in: M[A]
-  )(f: A => Fu[B])(implicit cbf: BuildFrom[M[A], B, M[B]], ec: Executor): Fu[M[B]] =
+  )(f: A => Fu[B])(using cbf: BuildFrom[M[A], B, M[B]], ec: Executor): Fu[M[B]] =
     in.foldLeft(fuccess(cbf.newBuilder(in))) { (fr, a) =>
       fr flatMap { r =>
         f(a).dmap(r += _)

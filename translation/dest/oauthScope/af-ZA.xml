@@ -14,7 +14,7 @@
   <string name="challengeRead">Lees aankomende uitdagings</string>
   <string name="challengeWrite">Stuur, aanvaar en weier uitdagings</string>
   <string name="challengeBulk">Skep vele spelle op een slag vir ander spelers</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lees privaat studies en uitsaaiings</string>
+  <string name="studyRead">Lees privaat studies en uitsaaiings</string>
   <string name="studyWrite">Skep, opdateer, skrap studies en uitsaaiings</string>
   <string name="tournamentWrite">Skep, opdateer, en sluit aan toernooie</string>
   <string name="racerWrite">Skep en sluit aan by raaisel reisies</string>

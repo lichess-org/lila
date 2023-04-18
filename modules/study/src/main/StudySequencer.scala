@@ -8,7 +8,7 @@ import lila.common.config.Max
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler):
 
   private val workQueue = AsyncActorSequencers[StudyId](
     maxSize = Max(64),

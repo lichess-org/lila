@@ -22,10 +22,7 @@ final class RelayLeaderboardApi(
     roundRepo: RelayRoundRepo,
     chapterRepo: ChapterRepo,
     cacheApi: CacheApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
 
   import BSONHandlers.given
 
@@ -34,7 +31,7 @@ final class RelayLeaderboardApi(
   }
 
   private val invalidateDebouncer =
-    new lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, compute(id)))
+    lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, compute(id)))
 
   def invalidate(id: RelayTour.Id) = invalidateDebouncer push id
 
@@ -42,31 +39,30 @@ final class RelayLeaderboardApi(
     _.expireAfterWrite(10 minutes).buildAsyncFuture(compute)
   }
 
-  private def compute(id: RelayTour.Id): Fu[RelayLeaderboard] = for {
+  private def compute(id: RelayTour.Id): Fu[RelayLeaderboard] = for
     tour     <- tourRepo.coll.byId[RelayTour](id) orFail s"No such relay tour $id"
     roundIds <- roundRepo.idsByTourOrdered(tour)
     tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_ into StudyId))
-    players = tags.foldLeft(Map.empty[String, (Double, Int, Option[Int], Option[String])]) {
-      case (lead, game: Tags) =>
-        chess.Color.all.foldLeft(lead) { case (lead, color) =>
-          game(color.name).fold(lead) { name =>
-            val (score, played) = game.outcome.fold((0d, 0)) {
-              case Outcome(None)                            => (0.5, 1)
-              case Outcome(Some(winner)) if winner == color => (1d, 1)
-              case _                                        => (0d, 1)
-            }
-            val rating = game(s"${color}Elo").flatMap(_.toIntOption)
-            val title  = game(s"${color}Title")
-            lead.getOrElse(name, (0d, 0, none, none)) match
-              case (prevScore, prevPlayed, prevRating, prevTitle) =>
-                lead.updated(
-                  name,
-                  (prevScore + score, prevPlayed + played, rating orElse prevRating, title orElse prevTitle)
-                )
+    players = tags.foldLeft(Map.empty[String, (Double, Int, Option[Int], Option[String])]) { (lead, game) =>
+      chess.Color.all.foldLeft(lead) { case (lead, color) =>
+        game(color.name).fold(lead) { name =>
+          val (score, played) = game.outcome.fold((0d, 0)) {
+            case Outcome(None)                            => (0.5, 1)
+            case Outcome(Some(winner)) if winner == color => (1d, 1)
+            case _                                        => (0d, 1)
           }
+          val rating = game(s"${color}Elo").flatMap(_.toIntOption)
+          val title  = game(s"${color}Title")
+          lead.getOrElse(name, (0d, 0, none, none)) match
+            case (prevScore, prevPlayed, prevRating, prevTitle) =>
+              lead.updated(
+                name,
+                (prevScore + score, prevPlayed + played, rating orElse prevRating, title orElse prevTitle)
+              )
         }
+      }
     }
-  } yield RelayLeaderboard {
+  yield RelayLeaderboard {
     players.toList.sortBy(-_._2._1) map { case (name, (score, played, rating, title)) =>
       val fullName = title.fold(name)(t => s"$t $name")
       RelayLeaderboard.Player(fullName, score, played, rating)

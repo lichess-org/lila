@@ -2,7 +2,7 @@ package views
 package html.site
 
 import controllers.routes
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -76,6 +76,13 @@ object faq:
             li(a(href := "https://lidraughts.org")("lidraughts.org")),
             li(a(href := "https://playstrategy.org")("playstrategy.org")),
             li(a(href := "https://lishogi.org")("lishogi.org"))
+          )
+        ),
+        question(
+          "keyboard-shortcuts",
+          keyboardShortcuts.txt(),
+          p(
+            keyboardShortcutsExplanation()
           )
         ),
         h2(fairPlay()),

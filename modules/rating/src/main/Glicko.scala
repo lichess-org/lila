@@ -61,7 +61,7 @@ case class Glicko(
 
 case object Glicko:
 
-  val minRating = IntRating(600)
+  val minRating = IntRating(400)
   val maxRating = IntRating(4000)
 
   val minDeviation              = 45
@@ -91,10 +91,10 @@ case object Glicko:
   val maxRatingDelta = 700
 
   val tau    = 0.75d
-  val system = glicko2.RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
+  val system = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    system.previewDeviation(p.toRating, new DateTime, reverse)
+    system.previewDeviation(p.toRating, nowInstant, reverse)
   } atLeast minDeviation atMost maxDeviation
 
   given BSONDocumentHandler[Glicko] = new BSON[Glicko]:
@@ -112,6 +112,18 @@ case object Glicko:
         "d" -> w.double(o.deviation),
         "v" -> w.double(o.volatility)
       )
+
+  import play.api.libs.json.{ OWrites, Json }
+  given OWrites[Glicko] =
+    import lila.common.Maths.roundDownAt
+    OWrites { p =>
+      Json
+        .obj(
+          "rating"    -> roundDownAt(p.rating, 2),
+          "deviation" -> roundDownAt(p.deviation, 2)
+        )
+        .add("provisional" -> p.provisional)
+    }
 
   sealed abstract class Result:
     def negate: Result

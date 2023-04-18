@@ -8,7 +8,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.{ given, * }
 import lila.common.config.NetConfig
-import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import Stream.YouTube
 

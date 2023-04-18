@@ -4,7 +4,7 @@ package tournament
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -104,6 +104,11 @@ object crud:
       form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
         form3.textarea(_)(rows := 6)
       ),
+      form3.checkbox(
+        form("rated"),
+        trans.rated(),
+        help = trans.ratedFormHelp().some
+      ),
       form3.split(
         form3.group(form("variant"), raw("Variant"), half = true) { f =>
           form3.select(f, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
@@ -169,7 +174,7 @@ object crud:
                 td(tour.variant.name),
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
-                td(showDateTimeUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
+                td(showInstantUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := "", title := "View on site"))
               )
             },

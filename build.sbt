@@ -11,6 +11,7 @@ lazy val root = Project("lila", file("."))
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
+  .settings(scalacOptions ++= Seq("-deprecation"))
 
 organization         := "org.lichess"
 Compile / run / fork := true
@@ -50,7 +51,7 @@ libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
 ) ++ {
   if (shadedMongo) Seq(reactivemongo.shaded)
   else Seq.empty // until reactivemongo includes aarch_64 kqueue versions
-} ++ specs2.bundle
+} ++ tests.bundle
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
@@ -72,7 +73,7 @@ lazy val moduleCPDeps = moduleRefs map { sbt.ClasspathDependency(_, None) }
 
 lazy val api = module("api",
   moduleCPDeps,
-  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle ++ specs2.bundle
+  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 ).settings(
   Runtime / aggregate := false,
   Test / aggregate := true  // Test <: Runtime
@@ -80,7 +81,7 @@ lazy val api = module("api",
 
 lazy val i18n = module("i18n",
   Seq(common, db, hub),
-  specs2.bundle ++ Seq(scalatags)
+  tests.bundle ++ Seq(scalatags, jodaTime)
 ).settings(
   Compile / sourceGenerators += Def.task {
     MessageCompiler(
@@ -94,7 +95,7 @@ lazy val i18n = module("i18n",
 
 lazy val puzzle = module("puzzle",
   Seq(common, memo, hub, history, db, user, rating, pref, tree, game),
-  reactivemongo.bundle ++ specs2.bundle
+  reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val storm = module("storm",
@@ -134,31 +135,31 @@ lazy val coordinate = module("coordinate",
 
 lazy val blog = module("blog",
   Seq(common, memo, timeline),
-  Seq(prismic) ++ specs2.bundle ++ reactivemongo.bundle
+  Seq(prismic) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val ublog = module("ublog",
   Seq(common, memo, timeline, irc),
-  Seq(bloomFilter) ++ specs2.bundle ++ reactivemongo.bundle
+  Seq(bloomFilter) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val evaluation = module("evaluation",
   Seq(common, hub, db, user, game, analyse),
-  specs2.bundle ++ reactivemongo.bundle
+  tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val common = module("common",
   Seq(),
   Seq(
-    scalalib, galimatias, chess, 
+    scalalib, galimatias, chess,
     kamon.core, scalatags, scaffeine, apacheText
-  ) ++ specs2.bundle ++ reactivemongo.bundle ++ flexmark.bundle
+  ) ++ tests.bundle ++ reactivemongo.bundle ++ flexmark.bundle
 )
 
 lazy val rating = module("rating",
   Seq(common, db, memo, i18n),
-  reactivemongo.bundle ++ specs2.bundle 
-)
+  reactivemongo.bundle ++ tests.bundle
+).dependsOn(common % "test->test")
 
 lazy val perfStat = module("perfStat",
   Seq(common, db, user, game, rating),
@@ -177,7 +178,7 @@ lazy val db = module("db",
 
 lazy val memo = module("memo",
   Seq(common, db),
-  Seq(scaffeine, scalatest, akka.testkit) ++ reactivemongo.bundle ++ playWs.bundle
+  Seq(scaffeine) ++ reactivemongo.bundle ++ playWs.bundle
 )
 
 lazy val search = module("search",
@@ -212,12 +213,12 @@ lazy val mod = module("mod",
 
 lazy val user = module("user",
   Seq(common, memo, db, hub, rating, socket),
-  Seq(hasher, galimatias) ++ specs2.bundle ++ playWs.bundle ++ reactivemongo.bundle
+  Seq(hasher, galimatias) ++ tests.bundle ++ playWs.bundle ++ reactivemongo.bundle
 )
 
 lazy val game = module("game",
   Seq(common, memo, db, hub, user, chat),
-  Seq(compression) ++ specs2.bundle ++ reactivemongo.bundle
+  Seq(compression) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val gameSearch = module("gameSearch",
@@ -237,7 +238,7 @@ lazy val bot = module("bot",
 
 lazy val analyse = module("analyse",
   Seq(common, hub, game, user, notifyModule, evalCache),
-  specs2.bundle ++ reactivemongo.bundle
+  tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val round = module("round",
@@ -267,7 +268,7 @@ lazy val setup = module("setup",
 
 lazy val importer = module("importer",
   Seq(common, game, round),
-  specs2.bundle ++ reactivemongo.bundle
+  tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val insight = module("insight",
@@ -277,17 +278,17 @@ lazy val insight = module("insight",
 
 lazy val tutor = module("tutor",
   Seq(common, game, user, analyse, round, insight),
-  specs2.bundle ++ reactivemongo.bundle
+  tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val opening = module("opening",
   Seq(common, memo, game),
-  specs2.bundle
+  tests.bundle
 )
 
 lazy val tournament = module("tournament",
   Seq(common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room),
-  Seq(scalatags, lettuce) ++ specs2.bundle ++ reactivemongo.bundle
+  Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val swiss = module("swiss",
@@ -302,7 +303,7 @@ lazy val simul = module("simul",
 
 lazy val fishnet = module("fishnet",
   Seq(common, game, analyse, db, evalCache),
-  Seq(lettuce) ++ specs2.bundle ++ reactivemongo.bundle
+  Seq(lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val irwin = module("irwin",
@@ -317,23 +318,23 @@ lazy val oauth = module("oauth",
 
 lazy val security = module("security",
   Seq(common, hub, db, user, i18n, irc, oauth, mailer),
-  Seq(maxmind, hasher, uaparser) ++ specs2.bundle ++ reactivemongo.bundle
+  Seq(maxmind, hasher, uaparser) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val shutup = module("shutup",
   Seq(common, db, hub, game, relation),
-  specs2.bundle ++ reactivemongo.bundle
+  tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val challenge = module("challenge",
   Seq(common, db, hub, setup, game, relation, pref, socket, room, msg),
-  Seq(scalatags, lettuce) ++ specs2.bundle ++ reactivemongo.bundle
+  Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val study = module("study",
   Seq(common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n, room),
-  Seq(scalatags, lettuce) ++ specs2.bundle ++ reactivemongo.bundle
-)
+  Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
+).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
   Seq(common, study),
@@ -382,7 +383,7 @@ lazy val mailer = module("mailer",
 
 lazy val plan = module("plan",
   Seq(common, user, security),
-  Seq(play.jsonJoda) ++ specs2.bundle ++ reactivemongo.bundle
+  tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val relation = module("relation",

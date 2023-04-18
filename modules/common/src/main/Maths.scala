@@ -7,10 +7,10 @@ import ornicar.scalalib.ThreadLocalRandom
 
 object Maths:
 
-  def mean[T](a: Iterable[T])(implicit n: Numeric[T]): Option[Double] =
+  def mean[T](a: Iterable[T])(using n: Numeric[T]): Option[Double] =
     a.nonEmpty option (n.toDouble(a.sum) / a.size)
 
-  def median[T: ClassTag](a: Iterable[T])(implicit n: Numeric[T]): Option[Double] =
+  def median[T: ClassTag](a: Iterable[T])(using n: Numeric[T]): Option[Double] =
     a.nonEmpty option {
       val arr = a.toArray
       Sorting.stableSort(arr)
@@ -70,3 +70,6 @@ object Maths:
         } / a.size
       }
     }
+
+  def isCloseTo[T](a: T, b: T, delta: Double)(using n: Numeric[T]) =
+    (n.toDouble(a) - n.toDouble(b)).abs <= delta

@@ -5,16 +5,15 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import lila.common.autoconfig.{ *, given }
-import play.api.{ ConfigLoader, Configuration }
+import play.api.Configuration
 
 import lila.common.config.*
-import lila.common.{ Bus, Strings, Uptime }
+import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
 import lila.memo.SettingStore
-import lila.user.User
 import scala.util.matching.Regex
 
 @Module
@@ -25,6 +24,7 @@ private class RoundConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -52,6 +52,7 @@ final class Env(
     ircApi: lila.irc.IrcApi,
     settingStore: lila.memo.SettingStore.Builder,
     ratingFactors: () => lila.rating.RatingFactors,
+    notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
 )(using
     ec: Executor,

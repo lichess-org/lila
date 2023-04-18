@@ -156,6 +156,12 @@ export default class AnalyseCtrl {
 
     keyboard.bind(this);
 
+    const urlEngine = new URLSearchParams(location.search).get('engine');
+    if (urlEngine) {
+      this.getCeval().selectedEngine(urlEngine);
+      if (!this.ceval.enabled()) this.toggleCeval();
+    }
+
     lichess.pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
@@ -887,8 +893,9 @@ export default class AnalyseCtrl {
   closeTools = () => {
     if (this.retro) this.retro = undefined;
     if (this.practice) this.togglePractice();
-    if (this.explorer.enabled()) this.toggleExplorer();
+    if (this.explorer.enabled()) this.explorer.toggle();
     this.persistence?.toggleOpen(false);
+    this.actionMenu(false);
   };
 
   toggleRetro = (): void => {
@@ -901,11 +908,9 @@ export default class AnalyseCtrl {
   };
 
   toggleExplorer = (): void => {
-    if (this.explorer.enabled()) this.explorer.toggle();
-    else if (this.explorer.allowed()) {
-      this.closeTools();
-      this.explorer.toggle();
-    }
+    const wasOpen = this.explorer.enabled() && !this.actionMenu();
+    this.closeTools();
+    if (!wasOpen && this.explorer.allowed()) this.explorer.toggle();
   };
 
   togglePractice = () => {

@@ -22,7 +22,6 @@ final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
     gameJsonView: lila.game.JsonView,
-    tournamentRepo: lila.tournament.TournamentRepo,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
     swissApi: lila.swiss.SwissApi,
@@ -167,7 +166,7 @@ final class GameApiV2(
                 (
                   playerTeams.get(pairing.user1),
                   playerTeams.get(pairing.user2)
-                ) mapN chess.Color.Map.apply[TeamId]
+                ) mapN chess.ByColor.apply[TeamId]
               )
             }
           }
@@ -294,11 +293,10 @@ final class GameApiV2(
           .player(p, user)
           .add(
             "analysis" -> analysisOption.flatMap(
-              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy = none)
+              analysisJson.player(g.pov(p.color).sideAndStart)(_, accuracy)
             )
           )
           .add("team" -> teams.map(_(p.color)))
-          .add("accuracy" -> accuracy.map(_(p.color)).map(_.toInt))
       })
     )
     .add("initialFen" -> initialFen)
@@ -353,8 +351,8 @@ object GameApiV2:
       user: User,
       vs: Option[User],
       format: Format,
-      since: Option[DateTime] = None,
-      until: Option[DateTime] = None,
+      since: Option[Instant] = None,
+      until: Option[Instant] = None,
       max: Option[Int] = None,
       rated: Option[Boolean] = None,
       perfType: Set[lila.rating.PerfType],

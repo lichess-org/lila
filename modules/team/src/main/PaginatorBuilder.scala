@@ -78,13 +78,13 @@ final private[team] class PaginatorBuilder(
             .cursor[Bdoc]()
             .list(length)
         userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
-        dates   = docs.flatMap(_.getAsOpt[DateTime]("date"))
+        dates   = docs.flatMap(_.getAsOpt[Instant]("date"))
         users <- lightUserApi asyncManyFallback userIds
       } yield users.zip(dates) map TeamMember.UserAndDate.apply
 
   def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
     Paginator(
-      adapter = new DeclinedRequestAdapter(team),
+      adapter = DeclinedRequestAdapter(team),
       page,
       maxRequestsPerPage
     )

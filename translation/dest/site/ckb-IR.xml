@@ -209,7 +209,7 @@
   <string name="forgotPassword">وشەی نهێنیت لەبیر کردووە?</string>
   <string name="error.weakPassword">ئەم وشەی نهێنییە لەڕادەبەدەر باو و ئاساییە، و زۆر ئاسانە بۆ پێشبینیکردن.</string>
   <string name="error.namePassword">تکایە ناوی بەکارهێنەرەکەت وەک وشەی نهێنی بەکارمەهێنە.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">تۆ دەردەچیت لە لیچێس</string>
+  <string name="youAreLeavingLichess">تۆ دەردەچیت لە لیچێس</string>
   <string name="neverTypeYourPassword">هەرگیز وشەی نهێنی لیچێسەکەت لە سایتێکی تردا مەنووسە!</string>
   <string name="passwordSuggestion">وشەیەکی نهێنی دامەنێ کە کەسێکی تر پێشنیاری کردبێت. بۆ دزینی ئەکاونتەکەت بەکاری دەهێنن.</string>
   <string name="emailSuggestion">ناونیشانی ئیمەیڵێک دامەنێ کە کەسێکی تر پێشنیاری کردبێت. بۆ دزینی ئەکاونتەکەت بەکاری دەهێنن.</string>

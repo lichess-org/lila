@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">altri modi per aiutare</string>
   <string name="areThereWebsitesBasedOnLichess">Ci sono siti web basati su Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sì. Lichess ha ispirato altri siti open-source che usano il nostro %1$s, le nostre %2$s e il nostro %3$s.</string>
+  <string name="keyboardShortcuts">Quali scorciatoie da tastiera sono disponibili?</string>
+  <string name="keyboardShortcutsExplanation">Alcune pagine di Lichess hanno delle scorciatoie da tastiera che puoi usare. Prova a premere il tasto \'?\' sulle pagine di studi, analisi, puzzle, o partite per avere una lista delle scorciatoie da tastiera.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Quando posso beneficiare del rimborso automatico del punteggio perso contro chi imbroglia?</string>
   <string name="ratingRefundExplanation">Un minuto dopo aver individuato un giocatore che imbroglia, vengono considerate le ultime 40 partite classificate negli ultimi 3 giorni. Se sei il loro avversario in una di quelle partite, hai perso punteggio (a causa di una sconfitta o un pareggio) e il tuo punteggio non era provvisorio, otterrai un rimborso del punteggio. Il rimborso è limitato in base al punteggio massimo e al progresso del tuo punteggio dopo la partita.
@@ -63,7 +65,7 @@ Nota che può essere possibile dare scacco matto con un solo cavallo o alfiere s
 Vedi l\'%3$s su questa mossa per fare un po\' di pratica con essa.</string>
   <string name="goodIntroduction">buona introduzione</string>
   <string name="lichessTraining">Allenamento Lichess</string>
-  <string name="watchIMRosenCheckmate" comment="watchIMRosenCheckmate&#10;&#10;%s is the text 'en passant'. It links to this video: https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/">Guarda il Maestro Internazionale Eric Rosen mentre fa scacco matto \"%s\".</string>
+  <string name="watchIMRosenCheckmate">Guarda il Maestro Internazionale Eric Rosen mentre fa scacco matto \"%s\".</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
   <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triplice ripetizione</string>

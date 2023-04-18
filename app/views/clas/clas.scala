@@ -4,16 +4,15 @@ import controllers.clas.routes.{ Clas as clasRoutes }
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.clas.ClasForm.ClasData
-import controllers.routes
 
 object clas:
 
-  def home(implicit ctx: Context) =
+  def home(using Context) =
     views.html.base.layout(
       moreCss = frag(
         cssTag("page"),
@@ -41,7 +40,7 @@ object clas:
       )
     }
 
-  def teacherIndex(classes: List[Clas], closed: Boolean)(implicit ctx: Context) =
+  def teacherIndex(classes: List[Clas], closed: Boolean)(using Context) =
     val (active, archived) = classes.partition(_.isActive)
     val (current, others)  = if (closed) (archived, active) else (active, archived)
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
@@ -70,7 +69,7 @@ object clas:
       )
     )
 
-  def studentIndex(classes: List[Clas])(implicit ctx: Context) =
+  def studentIndex(classes: List[Clas])(using Context) =
     bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       boxTop(h1(trans.clas.lichessClasses())),
@@ -100,14 +99,14 @@ object clas:
       )
     )
 
-  def create(form: Form[ClasData])(implicit ctx: Context) =
+  def create(form: Form[ClasData])(using Context) =
     bits.layout(trans.clas.newClass.txt(), Right("newClass"))(
       cls := "box-pad",
       h1(cls := "box__top")(trans.clas.newClass()),
       innerForm(form, none)
     )
 
-  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(implicit ctx: Context) =
+  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(using Context) =
     teacherDashboard.layout(c, students, "edit")(
       div(cls := "box-pad")(
         innerForm(form, c.some),
@@ -123,7 +122,7 @@ object clas:
       )
     )
 
-  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(implicit ctx: Context) =
+  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(using Context) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
@@ -145,7 +144,7 @@ object clas:
       )
     )
 
-  private def innerForm(form: Form[ClasData], clas: Option[Clas])(implicit ctx: Context) =
+  private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: Context) =
     postForm(cls := "form3", action := clas.fold(clasRoutes.create)(c => clasRoutes.update(c.id.value)))(
       form3.globalError(form),
       form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),

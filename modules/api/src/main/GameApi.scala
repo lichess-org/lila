@@ -132,7 +132,7 @@ final private[api] class GameApi(
       playing: Option[Boolean],
       analysed: Option[Boolean],
       withFlags: WithFlags,
-      since: DateTime,
+      since: Instant,
       nb: MaxPerPage,
       page: Int
   ): Fu[JsObject] =

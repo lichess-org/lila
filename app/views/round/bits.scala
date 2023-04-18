@@ -5,7 +5,7 @@ import chess.variant.{ Crazyhouse, Variant }
 import controllers.routes
 import scala.util.chaining.*
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Pov }
@@ -125,7 +125,7 @@ object bits:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.game.side(
       pov,
       (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
@@ -135,7 +135,7 @@ object bits:
       bookmarked = bookmarked
     )
 
-  def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
+  def roundAppPreload(pov: Pov)(using Context) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(chessground(pov)),
       div(cls := "col1-rmoves-preload")

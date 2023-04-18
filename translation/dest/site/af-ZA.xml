@@ -209,8 +209,10 @@
   <string name="forgotPassword">Wagwoord vergeet?</string>
   <string name="error.weakPassword">Hierdie wagwoord is besonder algemeen en maklik om te raai.</string>
   <string name="error.namePassword">Moenie jou gebruikernaam as wagwoord gebruik nie.</string>
+  <string name="blankedPassword">Jy het die selfde wagwoord op \'n ander webwerf gebruik, en die wagwoord was ontbloot. Om die veiligheid van jou Lichess rekening te verseker, moet ons jou wagwoord vervang. Dankie vir jou samewerking.</string>
   <string name="youAreLeavingLichess">Jy verlaat Lichess</string>
   <string name="neverTypeYourPassword">Moenie jou Lichess wagwoord ooit op \'n ander werf intik nie!</string>
+  <string name="proceedToX">Gaan na %s</string>
   <string name="passwordSuggestion">Moenie \'n wagwoord gebruik wat deur iemand anders voorgestel is nie. Dit kan gebruik word om jou rekening te steel.</string>
   <string name="emailSuggestion">Moenie \'n epos-adres gebruik wat deur iemand anders voorgestel is nie. Dit kan gebruik word om jou rekening te steel.</string>
   <string name="emailConfirmHelp">Hulp met e-posbevestiging</string>
@@ -389,6 +391,7 @@
   <string name="importGame">Voer spel in</string>
   <string name="importGameExplanation">Plak \'n wedstryd PGN om dit deursoekbaar te herspeel,
 rekenaar analise, kletskamer en deelbare URL te kry.</string>
+  <string name="importGameCaveat">Variasies sal uitgevee word. Voer die PGN in d.m.v. \'n studie om hulle te behou.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ingevoerde spel</item>
     <item quantity="other">%s het spelle ingetrek</item>
@@ -660,6 +663,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="simulClockHint">Fischer Klok stelling. Hoe meer spelers wat jy aanvat, hoe meer tyd kan jy benodig.</string>
   <string name="simulAddExtraTime">Jy kan ekstra tyd by jou klok sit om jou te help om die simul te hanteer.</string>
   <string name="simulHostExtraTime">Gasheer ekstra kloktyd</string>
+  <string name="simulAddExtraTimePerPlayer">Voeg begintyd by jou klok vir elke speler wat die simul aansluit.</string>
+  <string name="simulHostExtraTimePerPlayer">Gasheer ekstra tyd per speller</string>
   <string name="lichessTournaments">Lichess toernooie</string>
   <string name="tournamentFAQ">Arena toernooi Vrae</string>
   <string name="timeBeforeTournamentStarts">Tydsduur tot aanvang van toernooi</string>
@@ -944,4 +949,5 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="lichessDbExplanation">Gegradeerde spelle gekies uit alle Lichess-spelers</string>
   <string name="switchSides">Ruil kante</string>
   <string name="closingAccountWithdrawAppeal">Sluiting van jou rekening beteken terugtrekking van jou appèl</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Ons wenke om gebeurtenisse te organiseer</string>
 </resources>

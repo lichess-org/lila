@@ -218,6 +218,14 @@
   <string name="email">E-pasta adrese</string>
   <string name="passwordReset">Atiestatīt paroli</string>
   <string name="forgotPassword">Aizmirsāt paroli?</string>
+  <string name="error.weakPassword">Šī parole ir ļoti bieži izmantota, un viegli uzminama.</string>
+  <string name="error.namePassword">Lūdzu, neizmantojiet savu lietotājvārdu kā paroli.</string>
+  <string name="blankedPassword">Šī parole tikusi izmantota citā vietnē, kas tika kompromitēta. Lai nodrošinātu sava konta drošību, jums jāiestata jauna parole. Paldies par sapratni!</string>
+  <string name="youAreLeavingLichess">Jūs pārejat uz vietni ārpus Lichess</string>
+  <string name="neverTypeYourPassword">Nekad neievadiet savu Lichess paroli citā vietnē!</string>
+  <string name="proceedToX">Virzīties uz %s</string>
+  <string name="passwordSuggestion">Neizmantojiet paroli, ko ieteicis kāds cits. To var izmantot, lai gūtu piekļuvi jūsu kontam.</string>
+  <string name="emailSuggestion">Neizmantojiet e-pasta adresi, ko ieteicis kāds cits. To var izmantot, lai gūtu piekļuvi jūsu kontam.</string>
   <string name="emailConfirmHelp">Palīdzība ar epasta apstiprinājumu</string>
   <string name="emailConfirmNotReceived">Nesaņēmāt apstiprinājuma epastu pēc reģistrēšanās?</string>
   <string name="whatSignupUsername">Kādu lietotājvārdu izmantojāt, kad reģistrējāties?</string>
@@ -408,6 +416,7 @@
   <string name="toStudy">Izpētīt</string>
   <string name="importGame">Importēt spēli</string>
   <string name="importGameExplanation">Ielīmējiet spēles PGN, lai iegūtu pārskatāmu atkārtojumu, datoranalīzi, spēles sarunu un URL ar ko dalīties.</string>
+  <string name="importGameCaveat">Variācijas tiks izdzēstas. Lai tās paturētu, importē PGN izmantot izpētes rīku.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">%s importētas spēles</item>
     <item quantity="one">%s importēta spēles</item>
@@ -688,6 +697,8 @@
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
   <string name="simulHostExtraTime">Papildu laiks vadītājam</string>
+  <string name="simulAddExtraTimePerPlayer">Pievienot papildu laiku jūsu pulkstenim par katru spēlētāju, kas pievienojas simultānseansam.</string>
+  <string name="simulHostExtraTimePerPlayer">Papildus laiks vadītājam par katru spēlētāju</string>
   <string name="lichessTournaments">Lichess turnīri</string>
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
@@ -976,4 +987,5 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>
   <string name="switchSides">Mainīties ar pusēm</string>
   <string name="closingAccountWithdrawAppeal">Konta slēgšana atsauks jūsu iesniegumu</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Pasākumu organizēšanas ieteikumi</string>
 </resources>

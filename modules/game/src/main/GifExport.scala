@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
-import chess.variant.Variant
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
@@ -56,49 +55,51 @@ final class GifExport(
         .stream() pipe upstreamResponse(s"pov ${pov.game.id}")
 
   def gameThumbnail(game: Game, theme: String, piece: String): Fu[Source[ByteString, ?]] =
-    val query = List(
-      "fen"         -> (Fen write game.chess).value,
-      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(using lightUserApi.sync),
-      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(using lightUserApi.sync),
-      "orientation" -> game.naturalOrientation.name
-    ) ::: List(
-      game.lastMoveKeys.map { "lastMove" -> _ },
-      game.situation.checkSquare.map { "check" -> _.key },
-      some("theme" -> theme),
-      some("piece" -> piece)
-    ).flatten
     lightUserApi.preloadMany(game.userIds) >>
-      ws.url(s"$url/image.gif")
-        .withMethod("GET")
-        .withQueryStringParameters(query*)
-        .stream() pipe upstreamResponse(s"gameThumbnail ${game.id}")
+      thumbnail(
+        situation = game.chess.situation,
+        white = Namer.playerTextBlocking(game.whitePlayer, withRating = true)(using lightUserApi.sync).some,
+        black = Namer.playerTextBlocking(game.blackPlayer, withRating = true)(using lightUserApi.sync).some,
+        orientation = game.naturalOrientation,
+        lastMove = game.history.lastMove,
+        theme = theme,
+        piece = piece,
+        description = s"gameThumbnail ${game.id}"
+      )
 
   def thumbnail(
-      fen: Fen.Epd,
-      lastMove: Option[Uci],
+      situation: Situation,
+      white: Option[String] = None,
+      black: Option[String] = None,
       orientation: Color,
-      variant: Variant,
+      lastMove: Option[Uci],
       theme: String,
-      piece: String
+      piece: String,
+      description: String
   ): Fu[Source[ByteString, ?]] =
-    val query = List(
-      "fen"         -> fen.value,
-      "orientation" -> orientation.name
-    ) ::: List(
-      lastMove.map { lm => "lastMove" -> lm.uci },
-      Fen.read(variant, fen).flatMap(_.checkSquare.map { "check" -> _.key }),
-      some("theme" -> theme),
-      some("piece" -> piece)
-    ).flatten
     ws.url(s"$url/image.gif")
       .withMethod("GET")
-      .withQueryStringParameters(query*)
-      .stream() pipe upstreamResponse(s"thumbnail $fen")
+      .withQueryStringParameters(
+        List(
+          "fen"         -> Fen.write(situation).value,
+          "orientation" -> orientation.name,
+          "theme"       -> theme,
+          "piece"       -> piece
+        ) ::: List(
+          white.map { "white" -> _ },
+          black.map { "black" -> _ },
+          lastMove.map { lm => "lastMove" -> lm.uci },
+          situation.checkSquare.map { "check" -> _.key }
+        ).flatten*
+      )
+      .stream() pipe upstreamResponse(description)
 
-  private def upstreamResponse(name: String)(res: Fu[StandaloneWSResponse]): Fu[Source[ByteString, ?]] =
+  private def upstreamResponse(
+      description: String
+  )(res: Fu[StandaloneWSResponse]): Fu[Source[ByteString, ?]] =
     res flatMap {
       case res if res.status != 200 =>
-        logger.warn(s"GifExport $name ${res.status}")
+        logger.warn(s"GifExport $description ${res.status}")
         fufail(GifExport.UpstreamStatus(res.status))
       case res => fuccess(res.bodyAsSource)
     }

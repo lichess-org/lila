@@ -209,8 +209,10 @@
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="error.weakPassword">A senha é extremamente comum e fácil de adivinhar.</string>
   <string name="error.namePassword">Não utilize seu nome de usuário como senha.</string>
+  <string name="blankedPassword">Você usou a mesma senha em outro site, e esse site foi comprometido. Para garantir a segurança da sua conta no Lichess, você precisa criar uma nova senha. Agradecemos sua compreensão.</string>
   <string name="youAreLeavingLichess">Você vai sair do Lichess</string>
   <string name="neverTypeYourPassword">Nunca digite sua senha do Lichess em outro site!</string>
+  <string name="proceedToX">Ir para %s</string>
   <string name="passwordSuggestion">Não coloque uma senha sugerida por outra pessoa, porque ela poderá roubar sua conta.</string>
   <string name="emailSuggestion">Não coloque um endereço de email sugerido por outra pessoa, porque ela poderá roubar sua conta.</string>
   <string name="emailConfirmHelp">Ajuda com confirmação por e-mail</string>
@@ -388,6 +390,7 @@
   <string name="toStudy">Estudo</string>
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Após colar uma partida em PGN você poderá revisá-la interativamente, consultar uma análise de computador, utilizar o chat e compartilhar um link.</string>
+  <string name="importGameCaveat">As variantes serão apagadas. Para salvá-las, importe o PGN em um estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s de partidas importadas</item>
     <item quantity="other">%s de partidas importadas</item>
@@ -659,6 +662,8 @@
   <string name="simulClockHint">Configuração de acréscimos no relógio. Quanto mais jogadores admitir, mais tempo pode necessitar.</string>
   <string name="simulAddExtraTime">Você pode acrescentar tempo adicional a seu relógio, para ajudá-lo a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do simultanista</string>
+  <string name="simulAddExtraTimePerPlayer">Adicionar tempo inicial ao seu relógio por cada jogador adversário que entrar na simultânea.</string>
+  <string name="simulHostExtraTimePerPlayer">Tempo adicional do simultanista por jogador</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
   <string name="tournamentFAQ">Perguntas Frequentes sobre torneios no estilo Arena</string>
   <string name="timeBeforeTournamentStarts">Contagem regressiva para início do torneio</string>
@@ -942,4 +947,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="lichessDbExplanation">Amostra de partidas rankeadas de todos os jogadores do Lichess</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar sua conta anulará seu apelo</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Nossas dicas para organização de eventos</string>
 </resources>

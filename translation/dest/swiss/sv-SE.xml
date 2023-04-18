@@ -9,7 +9,7 @@
     <item quantity="one">%s rundor</item>
     <item quantity="other">%s rundor</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s rond schweiziskt</item>
     <item quantity="other">%s ronder schweiziskt</item>
   </plurals>
@@ -105,8 +105,4 @@ Sen anslutna spelare får en frirond/poäng, även om de missat flera ronder.</s
   <string name="unlimitedAndFree">Obegränsad och gratis</string>
   <string name="predefinedUsers">Tillåt endast fördefinierade användare att gå med</string>
   <string name="forbiddedUsers">Om denna lista är icke-tom kommer användarnamn som inte finns i denna lista att förbjudas att gå med. Ett användarnamn per rad.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s av %2$s rond schweiziskt</item>
-    <item quantity="other">%1$s av %2$s ronder schweiziskt</item>
-  </plurals>
 </resources>

@@ -220,8 +220,12 @@
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="error.weakPassword">Ova lozinka izuzetno je česta i prelahka za pogađanje.</string>
   <string name="error.namePassword">Molimo da ne upotrebljavate Vaše korisničko ime kao lozinku.</string>
+  <string name="blankedPassword">Upotrijebili ste istu lozinku na drugom sajtu, a taj je sajt kompromitiran. Da bismo omogućili sigurnost Vašeg računa na Lichessu, trebate postaviti novu lozinku. Hvala na razumijevanju.</string>
   <string name="youAreLeavingLichess">Napuštate Lichess</string>
   <string name="neverTypeYourPassword">Nikada nemojte unijeti Vašu lozinku za Lichess na nekom drugom sajtu!</string>
+  <string name="proceedToX">Idite na %s</string>
+  <string name="passwordSuggestion">Nemojte postavljati lozinku koju je predložio netko drugi. Mogu je iskoristiti za krađu vašeg računa.</string>
+  <string name="emailSuggestion">Nemojte postavljati e-mail adresu koju je predložio netko drugi. Mogu je iskoristiti za krađu vašeg računa.</string>
   <string name="emailConfirmHelp">Pomoć za potvrdu e-pošte</string>
   <string name="emailConfirmNotReceived">Niste primili e-poštu za potvrdu nakon prijavljivanja?</string>
   <string name="whatSignupUsername">Koje ste korisničko ime upotrijebili za prijavu?</string>
@@ -413,6 +417,7 @@
   <string name="importGame">Unesite partiju</string>
   <string name="importGameExplanation">Kada zalijepite PGN neke partije, dobijate reprizu partije koju možete detaljno pregledati, 
 računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
+  <string name="importGameCaveat">Varijante će biti izbrisane. Da ih sačuvate, uvezite PGN posredstvom studije.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s unesena partija</item>
     <item quantity="few">%s unesenih partija</item>
@@ -693,6 +698,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primite, više će Vam vremena trebati.</string>
   <string name="simulAddExtraTime">Možete dodati više vremena na svoj sat kako bi Vam to pomoglo tokom igranja simultanke.</string>
   <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
+  <string name="simulAddExtraTimePerPlayer">Dodajte početno vrijeme na Vaš sat za svakog igrača koji se pridruži simultanci.</string>
+  <string name="simulHostExtraTimePerPlayer">Dodatno vrijeme po igraču za domaćina simultanke</string>
   <string name="lichessTournaments">Lichess turniri</string>
   <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
   <string name="timeBeforeTournamentStarts">Vrijeme do početka turnira</string>
@@ -983,4 +990,5 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Zamijenite strane</string>
   <string name="closingAccountWithdrawAppeal">Zatvaranje Vašeg računa povući će Vašu žalbu</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naši savjeti za organiziranje događajâ</string>
 </resources>

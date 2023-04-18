@@ -1,10 +1,9 @@
 package views.html
 package oAuth
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.user.User
 import lila.oauth.AuthorizationRequest
 import lila.oauth.OAuthScope
@@ -19,7 +18,7 @@ object authorize:
     src := assetUrl("images/icons/linked-rings.png")
   )
 
-  def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(implicit ctx: Context) =
+  def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using Context) =
     val isDanger           = prompt.maybeScopes.exists(OAuthScope.dangerList.contains)
     val buttonClass        = s"button${isDanger ?? " button-red confirm text"}"
     val buttonDelay        = if (isDanger) 5000 else 2000

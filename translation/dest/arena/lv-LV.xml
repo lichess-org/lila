@@ -59,4 +59,8 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="allowChatHelp">Ļaut spēlētājiem izmantot sarunu istabu</string>
   <string name="arenaStreaks">Arēnas uzvaru sērija</string>
   <string name="arenaStreaksHelp">Pēc 2 uzvarām, secīgās uzvaras piešķirs 4 punktus nevis 2.</string>
+  <string name="noBerserkAllowed">\"Dullās\" spēles nav atļautas</string>
+  <string name="noArenaStreaks">Arēnas uzvaru sērijas atspējotas</string>
+  <string name="averagePerformance">Vidējais sniegums</string>
+  <string name="averageScore">Vidējais rezultāts</string>
 </resources>

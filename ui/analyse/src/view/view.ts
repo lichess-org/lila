@@ -1,13 +1,13 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
-import { bind, bindNonPassive, MaybeVNode, MaybeVNodes, onInsert, dataIcon, iconTag } from 'common/snabbdom';
+import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon, iconTag } from 'common/snabbdom';
 import { bindMobileMousedown, isMobile } from 'common/mobile';
-import { getPlayer, playable } from 'game';
+import { playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
-import { h, VNode } from 'snabbdom';
+import { h, VNode, VNodeChildren } from 'snabbdom';
 import { path as treePath } from 'tree';
 import { render as trainingView } from './roundTraining';
 import { studyButton, view as actionMenu } from './actionMenu';
@@ -314,7 +314,7 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
 
 export default function (deps?: typeof studyDeps) {
   function renderResult(ctrl: AnalyseCtrl): VNode[] {
-    const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
+    const render = (result: string, status: VNodeChildren) => [h('div.result', result), h('div.status', status)];
     if (ctrl.data.game.status.id >= 30) {
       let result;
       switch (ctrl.data.game.winner) {
@@ -327,11 +327,7 @@ export default function (deps?: typeof studyDeps) {
         default:
           result = '½-½';
       }
-      const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
-      return render(result, [
-        statusView(ctrl),
-        winner ? ' • ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
-      ]);
+      return render(result, statusView(ctrl));
     } else if (ctrl.study) {
       const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
       if (!result || result === '*') return [];

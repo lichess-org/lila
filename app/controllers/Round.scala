@@ -132,7 +132,9 @@ final class Round(
                 Redirect(routes.Round.watcher(gameId, pov.color.name)).toFuccess
               case _ => Redirect(routes.Round.watcher(gameId, "white")).toFuccess
           }
-        case None => userC.tryRedirect(gameId into UserStr) getOrElse challengeC.showId(gameId)
+        case None =>
+          userC.tryRedirect(gameId into UserStr) getOrElse
+            challengeC.showId(gameId into lila.challenge.Challenge.Id)
       }
     }
 
@@ -339,7 +341,7 @@ final class Round(
     }
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) =
-    Scoped(_.Challenge.Write) { implicit req => me =>
+    Scoped(_.Challenge.Write) { _ => me =>
       import lila.round.actorApi.round.Moretime
       if (seconds < 1 || seconds > 86400) BadRequest.toFuccess
       else

@@ -7,15 +7,11 @@ import lila.common.{ Bus, LightUser }
 import lila.common.config.Max
 
 final class RacerApi(
-    colls: RacerColls,
     selector: StormSelector,
     userRepo: UserRepo,
     cacheApi: CacheApi,
     lightUser: LightUser.GetterSyncFallback
-)(implicit
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
 
   import RacerRace.Id
 
@@ -47,7 +43,7 @@ final class RacerApi(
         .make(
           owner = player,
           puzzles = puzzles.grouped(2).flatMap(_.headOption).toList,
-          countdownSeconds = 5
+          countdownSeconds = countdownSeconds
         )
       store.put(race.id, race)
       lila.mon.racer.race(lobby = race.isLobby).increment()

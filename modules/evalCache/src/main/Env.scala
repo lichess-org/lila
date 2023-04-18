@@ -7,6 +7,7 @@ import com.softwaremill.tagging.*
 import lila.common.config.CollName
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi

@@ -2,9 +2,9 @@ package views.html
 
 import play.api.libs.json.*
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 
 object msg:
@@ -44,5 +44,7 @@ object msg:
     trans.today,
     trans.yesterday,
     trans.youAreLeavingLichess,
-    trans.neverTypeYourPassword
+    trans.neverTypeYourPassword,
+    trans.cancel,
+    trans.proceedToX
   )

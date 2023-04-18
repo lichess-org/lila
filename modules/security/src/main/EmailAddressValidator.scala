@@ -43,7 +43,7 @@ final class EmailAddressValidator(
     e.domain.map(_.lower).fold(fuccess(Result.DomainMissing))(validateDomain)
 
   private[security] def validateDomain(domain: Domain.Lower): Fu[Result] =
-    if DisposableEmailDomain.whitelisted(domain) then fuccess(Result.Passlist)
+    if DisposableEmailDomain.whitelisted(domain into Domain) then fuccess(Result.Passlist)
     else if disposable(domain into Domain) then fuccess(Result.Blocklist)
     else
       dnsApi.mx(domain).flatMap { domains =>
@@ -85,8 +85,8 @@ final class EmailAddressValidator(
     }
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize, nowDate.minusWeeks(1)).dmap(_ >= 2) >>|
-      userRepo.countRecentByPrevEmail(email.normalize, nowDate.minusMonths(1)).dmap(_ >= 4)
+    userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusWeeks(1)).dmap(_ >= 2) >>|
+      userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusMonths(1)).dmap(_ >= 4)
 
 object EmailAddressValidator:
   enum Result(val error: Option[String]):
@@ -94,12 +94,11 @@ object EmailAddressValidator:
     case Passlist      extends Result(none)
     case Alright       extends Result(none)
     case DomainMissing extends Result("The email address domain is missing.".some) // no translation needed
-    case Blocklist
-        extends Result("Disposable email addresses cannot be used for password recovery (Blocklist).".some)
-    case DnsMissing extends Result("This email domain doesn't seem to work (missing MX DNS)".some)
-    case DnsTimeout extends Result("This email domain doesn't seem to work (timeout MX DNS)".some)
+    case Blocklist     extends Result("Cannot use disposable email addresses (Blocklist).".some)
+    case DnsMissing    extends Result("This email domain doesn't seem to work (missing MX DNS)".some)
+    case DnsTimeout    extends Result("This email domain doesn't seem to work (timeout MX DNS)".some)
     case DnsBlocklist
         extends Result(
-          "Disposable email addresses cannot be used for password recovery (DNS blocklist).".some
+          "Cannot use disposable email addresses (DNS blocklist).".some
         )
     case Reputation extends Result("This email domain has a poor reputation and cannot be used.".some)

@@ -1,10 +1,8 @@
 package lila.activity
 
-import org.joda.time.Interval
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.Iso
 import lila.common.Json.{ *, given }
 import lila.game.LightPov
 import lila.rating.PerfType
@@ -22,8 +20,8 @@ final class JsonView(
 ):
 
   private object Writers:
-    given OWrites[Interval] = OWrites { i =>
-      Json.obj("start" -> i.getStart, "end" -> i.getEnd)
+    given OWrites[TimeInterval] = OWrites { i =>
+      Json.obj("start" -> i.start, "end" -> i.end)
     }
     given Writes[PerfType]   = writeAs(_.key)
     given Writes[RatingProg] = Json.writes
@@ -68,13 +66,15 @@ final class JsonView(
         "score"    -> Score(s.wins, s.losses, s.draws, none)
       )
     }
-    given OWrites[lila.game.Player] = OWrites { p =>
+    given lightPlayerWrites: OWrites[lila.game.LightPlayer] = OWrites { p =>
       Json
         .obj()
         .add("aiLevel" -> p.aiLevel)
         .add("user" -> p.userId)
         .add("rating" -> p.rating)
     }
+    given OWrites[lila.game.Player] = lightPlayerWrites.contramap(_.light)
+
     given OWrites[LightPov] = OWrites { p =>
       Json.obj(
         "id"       -> p.game.id,

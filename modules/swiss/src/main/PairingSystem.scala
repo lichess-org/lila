@@ -6,9 +6,9 @@ import java.io.File
 import scala.concurrent.blocking
 import scala.sys.process.*
 
-final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, executable: String)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
+final private class PairingSystem(trf: SwissTrf, executable: String)(using
+    Executor,
+    akka.stream.Materializer
 ):
 
   def apply(swiss: Swiss): Fu[List[SwissPairing.ByeOrPending]] =

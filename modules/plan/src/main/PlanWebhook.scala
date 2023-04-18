@@ -4,7 +4,6 @@ import play.api.libs.json.*
 
 final class PlanWebhook(api: PlanApi)(using Executor):
 
-  import JsonHandlers.given
   import JsonHandlers.stripe.given
   import JsonHandlers.payPal.given
 
@@ -18,15 +17,14 @@ final class PlanWebhook(api: PlanApi)(using Executor):
         log.warn(s"Forged $js")
         funit
       case Some(event) =>
-        import JsonHandlers.stripe.*
-        ~(for {
+        ~(for
           id   <- event str "id"
           name <- event str "type"
           data <- (event \ "data" \ "object").asOpt[JsObject]
-        } yield {
+        yield
           lila.mon.plan.webhook("stripe", name).increment()
           log.debug(s"$name $id ${Json.stringify(data).take(100)}")
-          name match {
+          name match
             case "customer.subscription.deleted" =>
               val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
               api.stripe onSubscriptionDeleted sub
@@ -34,13 +32,11 @@ final class PlanWebhook(api: PlanApi)(using Executor):
               val charge = data.asOpt[StripeCharge] err s"Invalid charge $data"
               api.stripe onCharge charge
             case _ => funit
-          }
-        })
+        )
     }
 
   def payPal(js: JsValue): Funit =
     def log = logger branch "payPal.webhook"
-    import JsonHandlers.payPal.*
     js.get[PayPalEventId]("id") ?? api.payPal.getEvent flatMap {
       case None =>
         log.warn(s"Forged event ${js str "id"} ${Json stringify js take 2000}")
@@ -55,7 +51,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
             Json
               .fromJson[PayPalCapture](event.resource)
               .fold(
-                err => {
+                _ => {
                   log.error(s"Unreadable PayPalCapture ${Json stringify event.resource take 2000}")
                   funit
                 },
@@ -68,7 +64,7 @@ final class PlanWebhook(api: PlanApi)(using Executor):
             Json
               .fromJson[PayPalSale](event.resource)
               .fold(
-                err => {
+                _ => {
                   log.error(s"Unreadable PayPalSale ${Json stringify event.resource take 2000}")
                   funit
                 },

@@ -4,14 +4,12 @@ import play.api.data.*
 import play.api.data.Forms.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, stringIn, into, given }
+import lila.common.Form.{ cleanNonEmptyText, stringIn, into, given }
 import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
 import play.api.i18n.Lang
 
-final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(using
-    Executor
-) extends lila.hub.CaptchedForm:
+final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.CaptchedForm:
 
   import UblogForm.*
 
@@ -85,7 +83,7 @@ object UblogForm:
         image = none,
         live = false,
         discuss = Option(false),
-        created = UblogPost.Recorded(user.id, nowDate),
+        created = UblogPost.Recorded(user.id, nowInstant),
         updated = none,
         lived = none,
         likes = UblogPost.Likes(1),
@@ -104,8 +102,8 @@ object UblogForm:
         topics = topics ?? UblogTopic.fromStrList,
         live = live,
         discuss = Option(discuss),
-        updated = UblogPost.Recorded(user.id, nowDate).some,
-        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowDate))
+        updated = UblogPost.Recorded(user.id, nowInstant).some,
+        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
       )
 
   val tier = Form(

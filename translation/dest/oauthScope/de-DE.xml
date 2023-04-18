@@ -8,13 +8,13 @@
   <string name="whatTheTokenCanDo">Was der Zugangsschlüssel in deinem Namen tun kann:</string>
   <string name="doNotShareIt">Der Zugangsschlüssel wird Zugriff auf dein Konto ermöglichen. Teile ihn mit NIEMANDEM!</string>
   <string name="copyTokenNow">Stelle sicher, dass du deinen persönlichen Zugangsschlüssel jetzt kopierst. Du wirst ihn nicht erneut sehen können!</string>
-  <string name="preferenceRead">Lesevoreinstellungen</string>
-  <string name="preferenceWrite">Schreibvoreinstellungen</string>
+  <string name="preferenceRead">Einstellungen lesen</string>
+  <string name="preferenceWrite">Einstellungen ändern</string>
   <string name="emailRead">E-Mail-Adresse lesen</string>
   <string name="challengeRead">Eingehende Herausforderungen lesen</string>
   <string name="challengeWrite">Herausforderungen senden, akzeptieren und ablehnen</string>
   <string name="challengeBulk">Erstelle für andere Spieler viele Partien auf einmal</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Private Studien und Übertragungen lesen</string>
+  <string name="studyRead">Private Studien und Übertragungen lesen</string>
   <string name="studyWrite">Erstelle, aktualisiere und lösche Studien und Übertragungen</string>
   <string name="tournamentWrite">Erstelle, aktualisiere und trete Turnieren bei</string>
   <string name="racerWrite">Erstelle und trete Aufgaben-Rennen bei</string>

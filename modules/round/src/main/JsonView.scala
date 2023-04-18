@@ -8,7 +8,7 @@ import scala.math
 
 import lila.common.{ ApiVersion, LightUser }
 import lila.common.Json.given
-import lila.game.JsonView.{ *, given }
+import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
@@ -23,11 +23,10 @@ final class JsonView(
     takebacker: Takebacker,
     moretimer: Moretimer,
     divider: lila.game.Divider,
-    evalCache: lila.evalCache.EvalCacheApi,
     isOfferingRematch: IsOfferingRematch
 )(using Executor):
 
-  import JsonView.{ *, given }
+  import JsonView.*
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
@@ -132,7 +131,7 @@ final class JsonView(
           .add("possibleDrops" -> possibleDrops(pov))
           .add("expiration" -> game.expirable.option {
             Json.obj(
-              "idleMillis"   -> (nowMillis - game.movedAt.getMillis),
+              "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
               "millisToMove" -> game.timeForFirstMove.millis
             )
           })
@@ -245,7 +244,6 @@ final class JsonView(
       initialFen: Option[Fen.Epd],
       orientation: chess.Color,
       owner: Boolean,
-      me: Option[User],
       division: Option[chess.Division] = None
   ) =
     import pov.*

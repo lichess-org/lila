@@ -7,15 +7,14 @@ import lila.common.config.*
 import lila.user.UserRepo
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     colls: lila.puzzle.PuzzleColls,
     cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
-)(using
-    ec: Executor
-):
+)(using Executor):
 
   private lazy val dayColl = db(CollName("storm_day"))
 

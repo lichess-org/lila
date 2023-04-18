@@ -1,9 +1,8 @@
 package lila.app
 package templating
 
-import chess.format.Fen
 import play.api.i18n.Lang
-import ui.ScalatagsTemplate.{ *, given }
+import ui.ScalatagsTemplate.*
 
 trait StringHelper { self: I18nHelper with NumberHelper =>
 

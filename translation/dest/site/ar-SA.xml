@@ -23,8 +23,8 @@
   <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
-  <string name="youPlayTheWhitePieces">أنت تلعب القطع البيضاء</string>
-  <string name="youPlayTheBlackPieces">أنت تلعب القطع السوداء</string>
+  <string name="youPlayTheWhitePieces">أنت تلعب بالقطع البيضاء</string>
+  <string name="youPlayTheBlackPieces">أنت تلعب بالقطع السوداء</string>
   <string name="itsYourTurn">إنه دورك!</string>
   <string name="cheatDetected">ثم تحديد حالة غش</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
@@ -251,6 +251,14 @@
   <string name="email">البريد الإلكتروني</string>
   <string name="passwordReset">إعادة تعيين كلمة المرور</string>
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
+  <string name="error.weakPassword">كلمة المرور هذه ضعيفة للغاية, و يسهل تخمينها.</string>
+  <string name="error.namePassword">الرجاء عدم استخدام اسم المستخدم الخاص بك ككلمة المرور الخاصة بك.</string>
+  <string name="blankedPassword">لقد استخدمت نفس كلمة المرور في موقع آخر، وقد تعرض ذلك الموقع للخطر. لضمان سلامة حساب Lichess الخاص بك، نحن بحاجة منك إلى تعيين كلمة مرور جديدة. شكرا لتفهمك.</string>
+  <string name="youAreLeavingLichess">أنت تغادر Lichess</string>
+  <string name="neverTypeYourPassword">لا تكتب كلمة مرور Lichess الخاصة بك على موقع آخر!</string>
+  <string name="proceedToX">انتقل إلى %s</string>
+  <string name="passwordSuggestion">لا تقم بتعيين كلمة مرور مقترحة من قبل شخص آخر. سوف يستخدمونها لسرقة حسابك.</string>
+  <string name="emailSuggestion">لا تقم بتعيين عنوان بريد إلكتروني اقترحه شخص آخر. سوف يستخدمه لسرقة حسابك.</string>
   <string name="emailConfirmHelp">المساعدة في تأكيد البريد الإلكتروني</string>
   <string name="emailConfirmNotReceived">لم تستلم بريدك الإلكتروني للتأكيد بعد التسجيل؟</string>
   <string name="whatSignupUsername">ما هو اسم المستخدم الذي استخدمته للتسجيل؟</string>
@@ -486,6 +494,7 @@
   <string name="toStudy">دراسة</string>
   <string name="importGame">استورد مباراة</string>
   <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
+  <string name="importGameCaveat">سيتم محو التغييرات. للحفاظ عليها، يرجى استيراد PGN (تنسيق لعبة الشطرنج المحمول) عبر تبويب دراسة.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">مباراة مستوردة %s</item>
     <item quantity="one">مباراة مستوردة %s</item>
@@ -802,6 +811,8 @@ https://lichess. org/study</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
   <string name="simulHostExtraTime">التوقيت الإضافي لساعة المضيف</string>
+  <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
+  <string name="simulHostExtraTimePerPlayer">استضافة وقت إضافيًا لكل لاعب</string>
   <string name="lichessTournaments">مسابقات الموقع</string>
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
@@ -859,6 +870,7 @@ https://lichess. org/study</string>
   <string name="kidMode">موقع الأطفال</string>
   <string name="kidModeExplanation">هذا يتعلق بالأمان. في نمط الطفل، يتم تعطيل كافة اتصالات المواقع. تمكين هذا للأطفال والطلاب، لحمايتهم من مستخدمي الإنترنت الأخرين.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">في نمط الطفل، يكون لشعار ليتشيس رمز %s، لكي تعرف أن أطفالك آمنين.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">يتم إدارة حسابك. اسأل معلم الشطرنج الخاص بك عن رفع وضع الطفل.</string>
   <string name="enableKidMode">تمكين نمط الطفل</string>
   <string name="disableKidMode">تعطيل نمط الطفل</string>
   <string name="security">الأمان</string>
@@ -1104,4 +1116,5 @@ https://lichess. org/study</string>
   <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي Lichess</string>
   <string name="switchSides">تبديل جهة اللعب</string>
   <string name="closingAccountWithdrawAppeal">إغلاق حسابك سوف تخسر تقدمك</string>
+  <string name="ourEventTips">نصائحنا لتنظيم الأحداث</string>
 </resources>

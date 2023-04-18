@@ -209,8 +209,10 @@
   <string name="forgotPassword">Unohditko salasanasi?</string>
   <string name="error.weakPassword">Tämä salasana on erittäin yleinen ja liian helppo arvata.</string>
   <string name="error.namePassword">Älä laita salasanaksesi käyttäjänimeäsi.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Olet poistumassa Lichessistä</string>
+  <string name="blankedPassword">Olet käyttänyt samaa salasanaa toisella sivustolla, ja kyseinen sivusto on vaarantunut. Sinun on asetettava uusi salasana Lichess-tunnuksesi turvallisuuden varmistamiseksi. Kiitokset ymmärtäväisyydestäsi.</string>
+  <string name="youAreLeavingLichess">Olet poistumassa Lichessistä</string>
   <string name="neverTypeYourPassword">Älä koskaan kirjoita Lichess-salasanaasi toiselle sivustolle!</string>
+  <string name="proceedToX">Siirry %s</string>
   <string name="passwordSuggestion">Älä ota käyttöön jonkun toisen ehdottamaa salasanaa. Hän voi varastaa sen avulla käyttäjätunnuksesi.</string>
   <string name="emailSuggestion">Älä ota käyttöön jonkun toisen ehdottamaa sähköpostiosoitetta. Hän voi varastaa sen avulla käyttäjätunnuksesi.</string>
   <string name="emailConfirmHelp">Apua sähköpostin vahvistamiseen</string>
@@ -388,6 +390,7 @@
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
   <string name="importGameExplanation">Liitä pelin PGN, niin voit selata peliä ja saat sille tietokoneanalyysin, keskusteluhuoneen sekä URL:n, jonka voit jakaa.</string>
+  <string name="importGameCaveat">Muunnelmat poistetaan. Jos haluat säilyttää ne, tuo PGN ensin tutkielmaan.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>
@@ -659,6 +662,8 @@
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
   <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
+  <string name="simulAddExtraTimePerPlayer">Lisää alussa kelloosi aikaa jokaista simultaaniin liittyvää pelaajaa kohden.</string>
+  <string name="simulHostExtraTimePerPlayer">Lisää jokaista pelaajaa kohden isännän kelloon lisää aikaa</string>
   <string name="lichessTournaments">Lichessin turnaukset</string>
   <string name="tournamentFAQ">Areenaturnausten FAQ</string>
   <string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
@@ -943,4 +948,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="lichessDbExplanation">Lichessin kaikkien pelaajien pisteytetyt pelit</string>
   <string name="switchSides">Vaihda puolta</string>
   <string name="closingAccountWithdrawAppeal">Jos suljet tunnuksesi, valituksesi raukeaa</string>
+  <string name="ourEventTips">Meidän vinkkimme tapahtumien järjestämiseen</string>
 </resources>

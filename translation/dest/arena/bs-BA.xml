@@ -57,4 +57,8 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
   <string name="allowChatHelp">Igrači mogu diskutovati u chat room-u</string>
   <string name="arenaStreaks">Nizovi u Areni</string>
   <string name="arenaStreaksHelp">Nakon dvije uzastopne pobjede, dalje uzastopne pobjede donose 4 poena umjesto 2.</string>
+  <string name="noBerserkAllowed">Nije dopuštena taktika Berserk</string>
+  <string name="noArenaStreaks">Nije dopušteno ostvarivanje niza pobjeda u areni</string>
+  <string name="averagePerformance">Prosječna izvedba</string>
+  <string name="averageScore">Prosječan rezultat</string>
 </resources>

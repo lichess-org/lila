@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
+import chess.Clock.{ LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
 
@@ -20,8 +20,8 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
   private val rapidInc       = Config("Rapid Increment", 7, IncrementSeconds(2), 7, 8)
   private val blitzInc       = Config("Blitz Increment", 5, IncrementSeconds(2), 10, 12)
   private val superblitzInc  = Config("SuperBlitz Increment", 3, IncrementSeconds(1), 12, 12)
-  private val bulletInc      = Config("Bullet", 1, IncrementSeconds(1), 20, 15)
-  private val hyperbulletInc = Config("HyperBullet", 0, IncrementSeconds(1), 20, 15)
+  private val bulletInc      = Config("Bullet Increment", 1, IncrementSeconds(1), 20, 15)
+  private val hyperbulletInc = Config("HyperBullet Increment", 0, IncrementSeconds(1), 20, 15)
 
   // length must divide 48 (schedule starts at 0AM)
   // so either 3, 4, 6, 8, 12, 24
@@ -36,12 +36,13 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
     bulletInc,
     blitz,
     hyperbulletInc,
-    superblitz
+    superblitz,
+    rapidInc
   )
   private def daySchedule = (0 to 47).toList.flatMap(i => schedule.lift(i % schedule.length))
 
   def generate: Funit =
-    val dayStart = nowDate.plusDays(3).withTimeAtStartOfDay
+    val dayStart = nowInstant.plusDays(3).withTimeAtStartOfDay
     daySchedule.zipWithIndex
       .map { (config, position) =>
         val hour    = position / 2
@@ -57,7 +58,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
         if (res.exists(identity)) cache.featuredInTeam.invalidate(lichessTeamId)
       }
 
-  private def makeSwiss(config: Config, startAt: DateTime) =
+  private def makeSwiss(config: Config, startAt: Instant) =
     Swiss(
       _id = Swiss.makeId,
       name = config.name,
@@ -66,7 +67,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       round = SwissRoundNumber(0),
       nbPlayers = 0,
       nbOngoing = 0,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       createdBy = lila.user.User.lichessId,
       teamId = lichessTeamId,
       nextRoundAt = startAt.some,

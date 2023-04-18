@@ -9,10 +9,9 @@ import play.api.data.Forms.*
 import play.api.libs.json.Json
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.*
 import lila.common.{ Bearer, Days, Template }
-import lila.game.{ Game, GameRule, IdGenerator }
-import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
+import lila.game.{ GameRule, IdGenerator }
+import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.User
 
 object SetupBulk:
@@ -25,8 +24,8 @@ object SetupBulk:
       clock: Option[Clock.Config],
       days: Option[Days],
       rated: Boolean,
-      pairAt: Option[DateTime],
-      startClocksAt: Option[DateTime],
+      pairAt: Option[Instant],
+      startClocksAt: Option[Instant],
       message: Option[Template],
       rules: Set[GameRule],
       fen: Option[Fen.Epd] = None
@@ -43,7 +42,7 @@ object SetupBulk:
 
   private def timestampInNearFuture = longNumber(
     min = 0,
-    max = nowDate.plusDays(1).getMillis
+    max = nowInstant.plusDays(1).toMillis
   )
 
   def form = Form[BulkFormData](
@@ -79,8 +78,8 @@ object SetupBulk:
           clock,
           days,
           rated,
-          pairTs.map { new DateTime(_) },
-          clockTs.map { new DateTime(_) },
+          pairTs map millisToInstant,
+          clockTs map millisToInstant,
           message map Template.apply,
           ~rules,
           fen
@@ -125,12 +124,12 @@ object SetupBulk:
       variant: Variant,
       clock: Either[Clock.Config, Days],
       mode: Mode,
-      pairAt: DateTime,
-      startClocksAt: Option[DateTime],
-      scheduledAt: DateTime,
+      pairAt: Instant,
+      startClocksAt: Option[Instant],
+      scheduledAt: Instant,
       message: Option[Template],
       rules: Set[GameRule] = Set.empty,
-      pairedAt: Option[DateTime] = None,
+      pairedAt: Option[Instant] = None,
       fen: Option[Fen.Epd] = None
   ):
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
@@ -228,8 +227,8 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost    = nbGames * (if (me.isVerified || me.isApiHog) 1 else 3)
-            rateLimit[Fu[Result]](me.id, cost = nbGames) {
+            val cost    = nbGames * (if me.isVerified || me.isApiHog then 1 else 3)
+            rateLimit[Fu[Result]](me.id, cost = cost) {
               lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames).unit
               idGenerator
                 .games(nbGames)
@@ -249,11 +248,11 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                     data.variant,
                     data.clockOrDays,
                     Mode(data.rated),
-                    pairAt = data.pairAt | nowDate,
+                    pairAt = data.pairAt | nowInstant,
                     startClocksAt = data.startClocksAt,
                     message = data.message,
                     rules = data.rules,
-                    scheduledAt = nowDate,
+                    scheduledAt = nowInstant,
                     fen = data.fen
                   )
                 }

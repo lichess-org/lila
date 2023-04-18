@@ -3,7 +3,7 @@ package views.html.base
 import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -50,7 +50,7 @@ object topnav:
         )
       },
       st.section(
-        linkTitle(routes.Practice.index.url, trans.learnMenu()),
+        linkTitle(routes.Learn.index.url, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
             a(href := langHref(routes.Learn.index))(trans.chessBasics()),

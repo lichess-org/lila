@@ -1,7 +1,7 @@
 package lila.study
 
 import BSONHandlers.given
-import chess.Color
+import chess.{ ByColor, Color, Outcome }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
@@ -39,7 +39,7 @@ final class StudyMultiBoard(
 
   private def fetch(studyId: StudyId, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](
-      new ChapterPreviewAdapter(studyId, playing),
+      ChapterPreviewAdapter(studyId, playing),
       currentPage = page,
       maxPerPage = maxPerPage
     )
@@ -80,7 +80,7 @@ final class StudyMultiBoard(
           }
         }
         .map { r =>
-          for {
+          for
             doc  <- r
             id   <- doc.getAsOpt[StudyChapterId]("_id")
             name <- doc.getAsOpt[StudyChapterName]("name")
@@ -89,19 +89,19 @@ final class StudyMultiBoard(
             fen  <- node.getAsOpt[Fen.Epd]("fen")
             lastMove = node.getAsOpt[Uci]("uci")
             tags     = comp.getAsOpt[Tags]("tags")
-          } yield ChapterPreview(
+          yield ChapterPreview(
             id = id,
             name = name,
             players = tags flatMap ChapterPreview.players,
             orientation = doc.getAsOpt[Color]("orientation") | Color.White,
             fen = fen,
             lastMove = lastMove,
-            playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*")
+            playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*"),
+            outcome = tags.flatMap(_.outcome)
           )
         }
 
-  import lila.common.Json.given
-  import JsonView.given
+  import lila.common.Json.{ writeAs, given }
 
   given Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
     Json
@@ -114,6 +114,8 @@ final class StudyMultiBoard(
     Json.obj("white" -> players.white, "black" -> players.black)
   }
 
+  given Writes[Outcome] = writeAs(_.toString)
+
   given Writes[ChapterPreview] = Json.writes
 
 object StudyMultiBoard:
@@ -125,20 +127,21 @@ object StudyMultiBoard:
       orientation: Color,
       fen: Fen.Epd,
       lastMove: Option[Uci],
-      playing: Boolean
+      playing: Boolean,
+      outcome: Option[Outcome]
   )
 
   object ChapterPreview:
 
     case class Player(name: String, title: Option[String], rating: Option[Int])
 
-    type Players = Color.Map[Player]
+    type Players = ByColor[Player]
 
     def players(tags: Tags): Option[Players] =
-      for {
+      for
         wName <- tags(_.White)
         bName <- tags(_.Black)
-      } yield Color.Map(
-        white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo) flatMap (_.toIntOption)),
-        black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo) flatMap (_.toIntOption))
+      yield ByColor(
+        white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo).flatMap(_.toIntOption)),
+        black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo).flatMap(_.toIntOption))
       )

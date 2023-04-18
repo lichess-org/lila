@@ -13,6 +13,12 @@
     <item quantity="many">%s турів</item>
     <item quantity="other">%s турів</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s раунд за швейцарською системою</item>
+    <item quantity="few">%s раунди за швейцарською системою</item>
+    <item quantity="many">%s раундів за швейцарською системою</item>
+    <item quantity="other">%s раундів за швейцарською системою</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Один тур за день</item>
     <item quantity="few">Один тур за %s дні</item>

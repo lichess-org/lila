@@ -30,6 +30,7 @@
   <string name="pleaseFillIn">스트리머 정보를 채우고 사진을 업로드해주세요.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 스트리머가 될 준비가 되셨다면, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">운영진 검토 요청을 해주세요.</string>
+  <string name="streamerLanguageSettings">체스 스트리머 페이지에서는 내 스트리밍 플랫폼에서 제공하는 언어로 시청자를 타겟팅합니다. 생방송에 사용하는 앱 또는 서비스에서 체스 스트림의 기본 언어를 올바르게 설정하세요.</string>
   <string name="twitchUsername">트위치 유저네임 또는 URL</string>
   <string name="optionalOrEmpty">선택. 없는 경우 비워둡니다</string>
   <string name="youtubeChannel">유튜브 채널 ID 또는 URL</string>

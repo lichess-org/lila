@@ -211,6 +211,7 @@
   <string name="error.namePassword">Wannechgelifft benotz net däin Benotzernumm als Passwuert.</string>
   <string name="youAreLeavingLichess">Du verléiss Lichess</string>
   <string name="neverTypeYourPassword">Gëff däin Lichess Passwuert nie ob enger anerer Säit an!</string>
+  <string name="proceedToX">Weider op %s</string>
   <string name="emailConfirmHelp">Hëllef bei der Email Confirmatioun</string>
   <string name="emailConfirmNotReceived">Huet dir keng Confirmatiouns Email kritt nom Umellen?</string>
   <string name="whatSignupUsername">Mat wéiengem Benotzernumm huet dir iech ugemellt?</string>

@@ -54,4 +54,8 @@
   <string name="allowChatHelp">플레이어가 채팅방에서 토론할 수 있습니다</string>
   <string name="arenaStreaks">아레나 연승</string>
   <string name="arenaStreaksHelp">2승 이후 추가로 연승을 하면 2점이 아니라 4점을 얻습니다.</string>
+  <string name="noBerserkAllowed">버서크 모드 허용 안함</string>
+  <string name="noArenaStreaks">아레나 연승 없음</string>
+  <string name="averagePerformance">평균 성과</string>
+  <string name="averageScore">평균 점수</string>
 </resources>

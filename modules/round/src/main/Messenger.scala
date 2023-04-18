@@ -1,9 +1,8 @@
 package lila.round
 
-import lila.chat.{ Chat, ChatApi, ChatTimeout }
+import lila.chat.{ ChatApi, ChatTimeout }
 import lila.game.Game
 import lila.hub.actorApi.shutup.PublicSource
-import lila.user.User
 
 final class Messenger(api: ChatApi):
 

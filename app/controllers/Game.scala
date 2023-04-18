@@ -1,6 +1,6 @@
 package controllers
 
-import org.joda.time.format.DateTimeFormat
+import java.time.format.DateTimeFormatter
 import play.api.mvc.*
 import scala.util.chaining.*
 
@@ -10,10 +10,7 @@ import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel }
 
-final class Game(
-    env: Env,
-    apiC: => Api
-) extends LilaController(env):
+final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def bookmark(gameId: GameId) =
     Auth { implicit ctx => me =>
@@ -128,7 +125,7 @@ final class Game(
       }
     }
 
-  private def fileDate = DateTimeFormat forPattern "yyyy-MM-dd" print nowDate
+  private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
   def apiExportByUserImportedGames(username: UserStr) =
     AuthOrScoped()(
@@ -159,10 +156,8 @@ final class Game(
         perSecond = MaxPerSecond(30),
         playerFile = get("players", req)
       )
-      apiC
-        .GlobalConcurrencyLimitPerIP(req.ipAddress)(
-          env.api.gameApiV2.exportByIds(config)
-        ) { source =>
+      apiC.GlobalConcurrencyLimitPerIP
+        .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)) { source =>
           noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
         }
         .toFuccess

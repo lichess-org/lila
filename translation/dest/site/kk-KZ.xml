@@ -209,8 +209,10 @@
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="error.weakPassword">Осындай құпиясөз қолданыста көп, оны табу оңайға соғады.</string>
   <string name="error.namePassword">Құпиясөз ретінде өз тіркеулі атыңызды жазбаңыз.</string>
-  <string name="youAreLeavingLichess" comment="youAreLeavingLichess&#10;Appears when opening a different website through Lichess.">Сіз Личес-тен шыққалы тұрсыз</string>
+  <string name="blankedPassword">Бұл құпиясөзді сіз басқа сайтта қолданғансыз. Сол сайт құпиясөзді сақтай алмай жария етті. Сондықтан Личес тіркелгіңізді қорғау мақсатында сізден жаңа құпиясөзді орнатуды сұраймыз.</string>
+  <string name="youAreLeavingLichess">Сіз Личес-тен шыққалы тұрсыз</string>
   <string name="neverTypeYourPassword">Личестегі құпиясөзіңізді басқа сайттарда қолданбаңыз!</string>
+  <string name="proceedToX">%s -ға өтіп кету</string>
   <string name="passwordSuggestion">Басқа біреу ұсынған құпиясөзді қолданбаңыз. Ол адам тіркелгіңізді ұрлауы мүмкін.</string>
   <string name="emailSuggestion">Басқа біреу ұсынған пошта мекенжайын қолданбаңыз. Ол адам тіркелгіңізді ұрлауы мүмкін.</string>
   <string name="emailConfirmHelp">Поштаны растау туралы көмек</string>
@@ -389,6 +391,7 @@
   <string name="importGame">Ойынды жүктеп салу</string>
   <string name="importGameExplanation">Ойынның PGN-ын салыңыз.
 Бұл ойынды қайта көру, компьютерлік талдау, чат пен бөліспелі URL-ға жол ашады.</string>
+  <string name="importGameCaveat">Вариациялар жойылады. Оларды сақтау үшін зерттеу арқылы PGN импорттаңыз.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын салынды</item>
     <item quantity="other">%s ойын салынды</item>

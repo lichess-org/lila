@@ -1,19 +1,17 @@
 package lila.swiss
 
-import chess.Clock.{ Config as ClockConfig, LimitMinutes, LimitSeconds, IncrementSeconds }
+import chess.Clock.{ Config as ClockConfig, LimitSeconds, IncrementSeconds }
 import chess.Speed
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.data.validation
-import play.api.data.validation.Constraint
 import play.api.Mode
 
 import lila.common.Form.{ *, given }
 import lila.user.User
 
-final class SwissForm(implicit mode: Mode):
+final class SwissForm(using mode: Mode):
 
   import SwissForm.*
 
@@ -26,7 +24,7 @@ final class SwissForm(implicit mode: Mode):
           "increment" -> number(min = 0, max = 120).into[IncrementSeconds]
         )(ClockConfig.apply)(unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
-        "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+        "startsAt"      -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
         "variant"       -> optional(typeIn(Variant.list.all.map(_.key).toSet)),
         "rated"         -> optional(boolean),
         "nbRounds"      -> number(min = minRounds, max = 100),
@@ -61,7 +59,7 @@ final class SwissForm(implicit mode: Mode):
     form(user) fill SwissData(
       name = none,
       clock = ClockConfig(LimitSeconds(180), IncrementSeconds(0)),
-      startsAt = Some(nowDate plusSeconds {
+      startsAt = Some(nowInstant plusSeconds {
         if (mode == Mode.Prod) 60 * 10 else 20
       }),
       variant = Variant.default.key.some,
@@ -98,7 +96,7 @@ final class SwissForm(implicit mode: Mode):
   def nextRound =
     Form(
       single(
-        "date" -> inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)
+        "date" -> inTheFuture(ISOInstantOrTimestamp.mapping)
       )
     )
 
@@ -161,7 +159,7 @@ object SwissForm:
   case class SwissData(
       name: Option[String],
       clock: ClockConfig,
-      startsAt: Option[DateTime],
+      startsAt: Option[Instant],
       variant: Option[Variant.LilaKey],
       rated: Option[Boolean],
       nbRounds: Int,
@@ -175,7 +173,7 @@ object SwissForm:
       manualPairings: Option[String]
   ):
     def realVariant  = Variant.orDefault(variant)
-    def realStartsAt = startsAt | nowDate.plusMinutes(10)
+    def realStartsAt = startsAt | nowInstant.plusMinutes(10)
     def realChatFor  = chatFor | Swiss.ChatFor.default
     def realRoundInterval =
       (roundInterval | Swiss.RoundInterval.auto) match

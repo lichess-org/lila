@@ -3,7 +3,6 @@ package lila.notify
 import reactivemongo.api.bson.ElementProducer
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private class NotificationRepo(colls: NotifyColls)(using Executor):
 
@@ -40,10 +39,10 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
     hasFresh(to, tpe = "privateMessage", criteria = "content.user" -> from.value, matchUnreadSince(3.days))
 
   private def matchSince(since: Duration) =
-    $doc("createdAt" $gt nowDate.minus(since.toMillis))
+    $doc("createdAt" $gt nowInstant.minus(since))
 
   private def matchUnreadSince(unreadSince: Duration) =
-    $doc("read" -> false, "createdAt" $gt nowDate.minus(unreadSince.toMillis))
+    $doc("read" -> false, "createdAt" $gt nowInstant.minus(unreadSince))
 
   private def matchRecentOrUnreadSince(since: Duration) =
     $or(matchSince(10.minutes), matchUnreadSince(since))

@@ -33,7 +33,7 @@
   <string name="variantEnding">Variantafslutning</string>
   <string name="newOpponent">Ny modstander</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt parti</string>
-  <string name="joinTheGame">Deltag i spillet</string>
+  <string name="joinTheGame">Deltag i partiet</string>
   <string name="whitePlays">Hvid i trækket</string>
   <string name="blackPlays">Sort i trækket</string>
   <plurals name="opponentLeftCounter">
@@ -198,7 +198,7 @@
   <string name="usernameOrEmail">Brugernavn eller e-mail</string>
   <string name="changeUsername">Ændr brugernavn</string>
   <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"bentlarsen\" til \"BentLarsen\".</string>
-  <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
+  <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang, og du kan kun ændre størrelsen på bogstaverne i dit brugernavn.</string>
   <string name="signupUsernameHint">Sørg for at vælge et familievenligt brugernavn. Du kan ikke ændre det senere, og alle konti med upassende brugernavne vil blive lukket!</string>
   <string name="signupEmailHint">Vi vil kun bruge det til nulstilling af adgangskode.</string>
   <string name="password">Adgangskode</string>
@@ -209,8 +209,10 @@
   <string name="forgotPassword">Glemt adgangskode?</string>
   <string name="error.weakPassword">Denne adgangskode er ekstremt almindelig og for let at gætte.</string>
   <string name="error.namePassword">Brug ikke dit brugernavn som din adgangskode.</string>
+  <string name="blankedPassword">Du har brugt den samme adgangskode på et andet websted, og dette websted er blevet kompromitteret. For at sikre din Lichess-konto skal du angive en ny adgangskode. Tak for din forståelse.</string>
   <string name="youAreLeavingLichess">Du forlader Lichess</string>
   <string name="neverTypeYourPassword">Indtast aldrig din Lichess-adgangskode på et andet websted!</string>
+  <string name="proceedToX">Fortsæt til %s</string>
   <string name="passwordSuggestion">Angiv ikke en adgangskode, som er foreslået af en anden person. De vil bruge den til at stjæle din konto.</string>
   <string name="emailSuggestion">Angiv ikke en e-mailadresse, som er foreslået af en anden person. De vil bruge den til at stjæle din konto.</string>
   <string name="emailConfirmHelp">Hjælp med bekræftelse af e-mail</string>
@@ -388,6 +390,7 @@
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
+  <string name="importGameCaveat">Variationer vil blive slettet. Hvis du vil beholde dem, skal du importere PGN\'en via et studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importerede spil</item>
     <item quantity="other">%s importerede spil</item>
@@ -449,7 +452,7 @@
   <string name="fewerPlayers">Hvis du stiller betingelser for deltagelse, vil din turnering have færre spillere.</string>
   <string name="showAdvancedSettings">Vis avancerede Indstillinger</string>
   <string name="makePrivateTournament">Gør turneringen privat og begræns adgang med en adgangskode</string>
-  <string name="join">Tilmeld</string>
+  <string name="join">Deltag</string>
   <string name="withdraw">Frameld</string>
   <string name="points">Points</string>
   <string name="wins">Gevinster</string>
@@ -544,7 +547,7 @@
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
   <string name="blog">Blog</string>
   <string name="notes">Noter</string>
-  <string name="typePrivateNotesHere">Skriv private noter her</string>
+  <string name="typePrivateNotesHere">Lav private noter her</string>
   <string name="writeAPrivateNoteAboutThisUser">Skriv en privat note om denne bruger</string>
   <string name="noNoteYet">Ingen note endnu</string>
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
@@ -659,6 +662,8 @@
   <string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
   <string name="simulHostExtraTime">Ekstra tid til værtsuret</string>
+  <string name="simulAddExtraTimePerPlayer">Læg den indledende tid til dit ur igen for hver spiller, der melder sig til simultanspillet.</string>
+  <string name="simulHostExtraTimePerPlayer">Ekstra tid på arrangørens ur pr. spiller</string>
   <string name="lichessTournaments">Lichess-turneringer</string>
   <string name="tournamentFAQ">Arenaturnering FAQ</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
@@ -943,4 +948,5 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="lichessDbExplanation">Ratede partier indsamlet fra alle Lichess-spillere</string>
   <string name="switchSides">Skift side</string>
   <string name="closingAccountWithdrawAppeal">Hvis du lukker din konto, vil din appel blive trukket tilbage</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Tips til organisering af begivenheder</string>
 </resources>

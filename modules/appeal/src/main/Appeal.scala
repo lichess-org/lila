@@ -8,11 +8,11 @@ case class Appeal(
     @Key("_id") id: Appeal.Id,
     msgs: Vector[AppealMsg],
     status: Appeal.Status, // from the moderators POV
-    createdAt: DateTime,
-    updatedAt: DateTime,
+    createdAt: Instant,
+    updatedAt: Instant,
     // date of first player message without a mod reply
     // https://github.com/lichess-org/lila/issues/7564
-    firstUnrepliedAt: DateTime
+    firstUnrepliedAt: Instant
 ):
 
   inline def userId = id.userId
@@ -26,25 +26,25 @@ case class Appeal(
     val msg = AppealMsg(
       by = by.id,
       text = text,
-      at = nowDate
+      at = nowInstant
     )
     copy(
       msgs = msgs :+ msg,
-      updatedAt = nowDate,
+      updatedAt = nowInstant,
       status =
         if (isByMod(msg) && isUnread) Appeal.Status.Read
         else if (!isByMod(msg) && isRead) Appeal.Status.Unread
         else status,
       firstUnrepliedAt =
-        if (isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead) nowDate
+        if (isByMod(msg) || msgs.lastOption.exists(isByMod) || isRead) nowInstant
         else firstUnrepliedAt
     )
 
   def canAddMsg: Boolean =
     val recentWithoutMod = msgs.foldLeft(Vector.empty[AppealMsg]) {
-      case (_, msg) if isByMod(msg)                           => Vector.empty
-      case (acc, msg) if msg.at isAfter nowDate.minusWeeks(1) => acc :+ msg
-      case (acc, _)                                           => acc
+      case (_, msg) if isByMod(msg)                              => Vector.empty
+      case (acc, msg) if msg.at isAfter nowInstant.minusWeeks(1) => acc :+ msg
+      case (acc, _)                                              => acc
     }
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
     recentSize < Appeal.maxLength
@@ -92,5 +92,5 @@ object Appeal:
 case class AppealMsg(
     by: UserId,
     text: String,
-    at: DateTime
+    at: Instant
 )

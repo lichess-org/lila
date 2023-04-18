@@ -71,7 +71,7 @@
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
-  <string name="variantLoss">Varyant yenilgisi</string>
+  <string name="variantLoss">Kayıp devam yolu</string>
   <string name="variantWin">Kazanç devam yolu</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
@@ -89,7 +89,7 @@
   <string name="masterDbExplanation">%2$s yılından %3$s yılına kadar %1$s+ FIDE puanına sahip oyuncular tarafından tahta üzerinde oynanmış 2 milyon oyun</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s yarım hamle sonra mat</item>
-    <item quantity="other">%s yarım hamle sonra mat</item>
+    <item quantity="other">%s yarım hamlede mat</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\', bir sonraki yakalama veya piyon hamlesine kadar olan yarım hamle sayısına dayalı yuvarlama ile</string>
   <string name="noGameFound">Oyun bulunamadı</string>
@@ -209,8 +209,10 @@
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="error.weakPassword">Bu parola son derece yaygın, ve tahmin etmesi çok kolay.</string>
   <string name="error.namePassword">Lütfen kullanıcı adınızı parolanız olarak kullanmayın.</string>
+  <string name="blankedPassword">Aynı şifreyi başka bir site üzerinde kullandınız, ve o sitenin güvenliği ihlal edildi. Lichess hesabınızın güvenliğini sağlayabilmek için yeni bir şifre belirlemeniz gerekiyor. Anlayışınız için teşekkürler.</string>
   <string name="youAreLeavingLichess">Lichess\'ten ayrılıyorsunuz</string>
   <string name="neverTypeYourPassword">Lichess parolanızı asla başka bir site içerisinde yazmayın!</string>
+  <string name="proceedToX">%s adresine devam et</string>
   <string name="passwordSuggestion">Başkaları tarafından önerilen bir parolayı kullanmayın. Bunu hesabınızı çalmak için kullanacaklardır.</string>
   <string name="emailSuggestion">Başkaları tarafından önerilen bir e-posta adresi kullanmayın. Bunu hesabınızı çalmak için kullanacaklardır.</string>
   <string name="emailConfirmHelp">E-posta onayı için yardım</string>
@@ -388,6 +390,7 @@
   <string name="toStudy">Çalışma oluştur</string>
   <string name="importGame">Oyun yükle</string>
   <string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
+  <string name="importGameCaveat">Varyasyonlar silinecek. Varyasyonları saklamak için bir çalışma aracılığıyla PGN\'yi içe aktarın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
@@ -502,7 +505,7 @@
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Dikkat, oyun puanlı ama suresizdir.</string>
-  <string name="success">Başarı</string>
+  <string name="success">Başarılı</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Şu anda %s oyun oynanıyor</item>
     <item quantity="other">Şu anda %s oyun oynanıyor</item>
@@ -659,6 +662,8 @@
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
   <string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>
   <string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
+  <string name="simulAddExtraTimePerPlayer">Eş zamanlı gösteriye katılan her oyuncu için saatinize başlangıç süresi ekleyin.</string>
+  <string name="simulHostExtraTimePerPlayer">Ev sahibi, katılan her oyuncu için ekstra süre alır</string>
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
   <string name="timeBeforeTournamentStarts">Turnuvaya kalan süre</string>
@@ -941,4 +946,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
   <string name="switchSides">Renk değiştir</string>
   <string name="closingAccountWithdrawAppeal">Hesabınızı kapatırsanız başvurunuz geri çekilecektir</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Etkinlik düzenlemek için ipuçlarımız</string>
 </resources>

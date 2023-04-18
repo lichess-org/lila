@@ -3,7 +3,7 @@ package views.html
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
@@ -115,11 +115,11 @@ object event:
                   )
                 ),
                 td(
-                  showDateTimeUTC(e.startsAt),
+                  showInstantUTC(e.startsAt),
                   momentFromNow(e.startsAt)
                 ),
                 td(
-                  showDateTimeUTC(e.finishesAt),
+                  showInstantUTC(e.finishesAt),
                   momentFromNow(e.finishesAt)
                 ),
                 td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := ""))

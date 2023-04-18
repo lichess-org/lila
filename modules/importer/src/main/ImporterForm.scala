@@ -1,7 +1,7 @@
 package lila.importer
 
 import cats.data.Validated
-import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader, Tag, TagType, Tags }
+import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
 import chess.{ Color, Mode, Outcome, Replay, Status, ErrorStr }
 import play.api.data.*
@@ -10,6 +10,7 @@ import scala.util.chaining.*
 
 import lila.game.*
 import lila.common.Form.into
+import chess.format.pgn.Sans
 
 final class ImporterForm:
 
@@ -41,8 +42,6 @@ case class Preprocessed(
 
 case class ImportData(pgn: PgnStr, analyse: Option[String]):
 
-  private type TagPicker = Tag.type => TagType
-
   private val maxPlies = 600
 
   private def evenIncomplete(result: Reader.Result): Replay =
@@ -55,7 +54,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
       Parser.full(pgn) map { parsed =>
         Reader.fullWithSans(
           parsed,
-          sans => sans.copy(value = sans.value take maxPlies)
+          _.map(_ take maxPlies)
         ) pipe evenIncomplete pipe { case replay @ Replay(setup, _, state) =>
           val initBoard    = parsed.tags.fen flatMap Fen.read map (_.board)
           val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.isInitial)
@@ -77,7 +76,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
           } map Fen.write
 
           val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-            case Some("normal")                          => Status.Resign
+            case Some("normal")                          => game.situation.status | Status.Resign
             case Some("abandoned")                       => Status.Aborted
             case Some("time forfeit")                    => Status.Outoftime
             case Some("rules infraction")                => Status.Cheat

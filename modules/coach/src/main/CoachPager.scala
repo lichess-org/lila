@@ -9,7 +9,6 @@ import lila.coach.CoachPager.Order.Login
 import lila.coach.CoachPager.Order.NbReview
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
-import lila.db.paginator.Adapter
 import lila.security.Permission
 import lila.user.{ Country, User, UserMark, UserRepo }
 
@@ -94,17 +93,6 @@ final class CoachPager(
     "listed"    -> Coach.Listed.Yes,
     "available" -> Coach.Available.Yes
   )
-
-  private def withUsers(coaches: Seq[Coach]): Fu[Seq[Coach.WithUser]] =
-    userRepo.withColl {
-      _.optionsByOrderedIds[User, UserId](coaches.map(_.id.userId), none, ReadPreference.secondaryPreferred)(
-        _.id
-      )
-    } map { users =>
-      coaches zip users collect { case (coach, Some(user)) =>
-        Coach.WithUser(coach, user)
-      }
-    }
 
 object CoachPager:
 

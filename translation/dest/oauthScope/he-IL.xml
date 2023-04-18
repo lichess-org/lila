@@ -14,7 +14,7 @@
   <string name="challengeRead">קריאת הזמנות ממתינות</string>
   <string name="challengeWrite">שליחה, אישור ודחייה של הזמנות למשחק</string>
   <string name="challengeBulk">יצירת מספר משחקים במקביל עבור שחקנים אחרים</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">קריאת לוחות למידה פרטיים והקרנות</string>
+  <string name="studyRead">קריאת לוחות למידה פרטיים והקרנות</string>
   <string name="studyWrite">יצירה, עדכון ומחיקה של לוחות למידה והקרנות</string>
   <string name="tournamentWrite">יצירה, עדכון והצטרפות לטורנירים</string>
   <string name="racerWrite">יצירה והצטרפות למרוצי חידות</string>

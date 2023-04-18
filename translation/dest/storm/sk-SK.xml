@@ -10,6 +10,12 @@
   <string name="newAllTimeHighscore">Nové celkové najvyššie skóre!</string>
   <string name="previousHighscoreWasX">Predchádzajúce najvyššie skóre bolo %s</string>
   <string name="playAgain">Hrať znova</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 pokus</item>
+    <item quantity="few">%s pokusy</item>
+    <item quantity="many">%s pokusov</item>
+    <item quantity="other">%s pokusov</item>
+  </plurals>
   <string name="highscoreX">Najvyššie skóre: %s</string>
   <string name="score">Skóre</string>
   <string name="moves">Počet ťahov</string>
@@ -39,6 +45,8 @@
   <string name="createNewGame">Vytvoriť nové preteky</string>
   <string name="joinPublicRace">Zapojiť sa do verejných pretekov</string>
   <string name="raceYourFriends">Pretekajte sa s priateľmi</string>
+  <string name="skip">preskočiť</string>
   <string name="skipHelp">Počas každých pretekov môžete raz vynechať ťah:</string>
   <string name="skipExplanation">Vynechajte tento ťah aby ste neprišli o kombo! Je možné len raz počas pretekov.</string>
+  <string name="skippedPuzzle">Preskočené úlohy</string>
 </resources>

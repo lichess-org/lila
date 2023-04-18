@@ -6,9 +6,8 @@ import controllers.routes
 import play.api.i18n.Lang
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.{ Game, Namer, Player, Pov }
+import lila.game.{ Game, Namer, Player, LightPlayer, Pov }
 import lila.i18n.{ defaultLang, I18nKeys as trans }
-import lila.user.Title
 import lila.common.LightUser
 
 trait GameHelper:
@@ -83,8 +82,8 @@ trait GameHelper:
 
   def modeNameNoCtx(mode: Mode): String = modeName(mode)(using defaultLang)
 
-  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true)(using
-      lang: Lang
+  def playerUsername(player: LightPlayer, withRating: Boolean = true, withTitle: Boolean = true)(using
+      Lang
   ): Frag =
     player.aiLevel.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](trans.anonymous.txt()) { (user: LightUser) =>
@@ -124,33 +123,74 @@ trait GameHelper:
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
+    given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
       case None =>
         val klass = cssClass.??(" " + _)
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match {
-            case (Some(level), _) => aiNameFrag(level)(using ctx.lang)
+            case (Some(level), _) => aiNameFrag(level)
             case (_, Some(name))  => name
-            case _                => trans.anonymous()(using ctx.lang)
+            case _                => trans.anonymous()
           },
           player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
           statusIcon
         )
       case Some(user) =>
         frag(
-          (if (link) a else span) (
+          (if link then a else span) (
             cls                               := userClass(user.id, cssClass, withOnline),
             (if link then href else dataHref) := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
-            withOnline option frag(lineIcon(user)(using ctx.lang), " "),
-            playerUsername(player, withRating && ctx.pref.showRatings)(using ctx.lang),
+            withOnline option frag(lineIcon(user), " "),
+            playerUsername(player.light, withRating && ctx.pref.showRatings),
             (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
             engine option span(
               cls   := "tos_violation",
-              title := trans.thisAccountViolatedTos.txt()(using ctx.lang)
+              title := trans.thisAccountViolatedTos.txt()
+            )
+          ),
+          statusIcon
+        )
+
+  def lightPlayerLink(
+      player: LightPlayer,
+      cssClass: Option[String] = None,
+      withOnline: Boolean = true,
+      withRating: Boolean = true,
+      withDiff: Boolean = true,
+      engine: Boolean = false,
+      withBerserk: Boolean = false,
+      mod: Boolean = false,
+      link: Boolean = true
+  )(using ctx: Context): Frag =
+    given Lang     = ctx.lang
+    val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
+    player.userId.flatMap(lightUser) match
+      case None =>
+        val klass = cssClass.??(" " + _)
+        span(cls := s"user-link$klass")(
+          player.aiLevel.fold(trans.anonymous())(aiNameFrag),
+          player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
+          statusIcon
+        )
+      case Some(user) =>
+        frag(
+          (if link then a else span) (
+            cls                               := userClass(user.id, cssClass, withOnline),
+            (if link then href else dataHref) := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
+          )(
+            withOnline option frag(lineIcon(user), " "),
+            playerUsername(player, withRating && ctx.pref.showRatings),
+            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
+              frag(" ", showRatingDiff(d))
+            },
+            engine option span(
+              cls   := "tos_violation",
+              title := trans.thisAccountViolatedTos.txt()
             )
           ),
           statusIcon
@@ -222,7 +262,7 @@ trait GameHelper:
       }
   }.toString
 
-  def gameLink(pov: Pov)(using ctx: Context): String = gameLink(pov.game, pov.color)
+  def gameLink(pov: Pov)(using Context): String = gameLink(pov.game, pov.color)
 
   def challengeTitle(c: lila.challenge.Challenge)(using ctx: Context) =
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
@@ -240,7 +280,7 @@ trait GameHelper:
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(using ctx: Context) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

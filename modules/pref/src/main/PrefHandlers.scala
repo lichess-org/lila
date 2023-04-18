@@ -53,7 +53,7 @@ private object PrefHandlers:
         tags = r.getD("tags", Pref.default.tags)
       )
 
-    def writes(w: BSON.Writer, o: Pref) =
+    def writes(@annotation.nowarn w: BSON.Writer, o: Pref) =
       $doc(
         "_id"           -> o._id,
         "bg"            -> o.bg,

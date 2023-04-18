@@ -3,6 +3,7 @@ package lila.security
 import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all.*
+import scala.annotation.nowarn
 
 import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
@@ -22,9 +23,10 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(using lang: Lang) = userRepo setEmailConfirmed user.id void
+  def send(user: User, @nowarn email: EmailAddress)(using @nowarn lang: Lang) =
+    userRepo setEmailConfirmed user.id void
 
-  def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
+  def confirm(@nowarn token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 
 final class EmailConfirmMailer(
     userRepo: UserRepo,
@@ -99,7 +101,7 @@ object EmailConfirm:
     val name        = "email_confirm"
     private val sep = ":"
 
-    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie =
+    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(using RequestHeader): Cookie =
       lilaCookie.session(
         name = name,
         value = s"${user.username}$sep${email.value}"
@@ -113,7 +115,6 @@ object EmailConfirm:
       }
 
   import play.api.mvc.RequestHeader
-  import alleycats.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
@@ -135,7 +136,7 @@ object EmailConfirm:
     key = "email.confirms.email"
   )
 
-  def rateLimit[A: Zero](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
+  def rateLimit[A](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
     rateLimitPerUser(userEmail.username.id, cost = 1) {
       rateLimitPerEmail(userEmail.email.value, cost = 1) {
         rateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
@@ -155,7 +156,6 @@ object EmailConfirm:
       case EmailSent(name: UserName, email: EmailAddress)
 
     import play.api.data.*
-    import play.api.data.validation.Constraints
     import play.api.data.Forms.*
 
     val helpForm = Form(

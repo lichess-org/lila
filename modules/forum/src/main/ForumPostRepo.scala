@@ -63,7 +63,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def allByUserCursor(user: User): AkkaStreamCursor[ForumPost] =
     coll
       .find($doc("userId" -> user.id))
-      .cursor[ForumPost](ReadPreference.secondaryPreferred)
+      .cursor[ForumPost](temporarilyPrimary)
 
   def countByCateg(categ: ForumCateg): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
@@ -88,7 +88,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def findDuplicate(post: ForumPost): Fu[Option[ForumPost]] =
     coll.one[ForumPost](
       $doc(
-        "createdAt" $gt nowDate.minusHours(1),
+        "createdAt" $gt nowInstant.minusHours(1),
         "userId" -> post.userId,
         "text"   -> post.text
       )

@@ -5,17 +5,16 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 import play.api.mvc.*
-import scala.annotation.nowarn
 import views.*
 
 import lila.api.{ BodyContext, Context }
 import lila.app.{ given, * }
-import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
-import lila.user.{ Holder, Title, User as UserModel }
+import lila.user.{ Holder, User as UserModel }
+import scala.annotation.nowarn
 
 final class Mod(
     env: Env,
@@ -31,30 +30,27 @@ final class Mod(
   def alt(username: UserStr, v: Boolean) =
     OAuthModBody(_.CloseAccount) { me =>
       withSuspect(username) { sus =>
-        for {
-          inquiry <- env.report.api.inquiries ofModId me.id
-          _       <- modApi.setAlt(me, sus, v)
-          _       <- (v && sus.user.enabled.yes) ?? env.api.accountClosure.close(sus.user, me)
-          _       <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
-        } yield (inquiry, sus).some
+        for
+          _ <- modApi.setAlt(me, sus, v)
+          _ <- (v && sus.user.enabled.yes) ?? env.api.accountClosure.close(sus.user, me)
+          _ <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
+        yield sus.some
       }
     }(ctx =>
-      me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me =>
       withSuspect(username) { sus =>
-        for {
-          inquiry <- env.report.api.inquiries ofModId me.id
-          _       <- modApi.setEngine(me, sus, v)
-        } yield (inquiry, sus).some
+        for _ <- modApi.setEngine(me, sus, v)
+        yield sus.some
       }
     }(ctx =>
-      me => { case (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
@@ -78,47 +74,41 @@ final class Mod(
   def booster(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkBooster) { me =>
       withSuspect(username) { prev =>
-        for {
-          inquiry <- env.report.api.inquiries ofModId me.id
-          suspect <- modApi.setBoost(me, prev, v)
-        } yield (inquiry, suspect).some
+        for suspect <- modApi.setBoost(me, prev, v)
+        yield suspect.some
       }
     }(ctx =>
-      me => { (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
   def troll(username: UserStr, v: Boolean) =
     OAuthModBody(_.Shadowban) { me =>
       withSuspect(username) { prev =>
-        for {
-          inquiry <- env.report.api.inquiries ofModId me.id
-          suspect <- modApi.setTroll(me, prev, v)
-        } yield (inquiry, suspect).some
+        for suspect <- modApi.setTroll(me, prev, v)
+        yield suspect.some
       }
     }(ctx =>
-      me => { (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
   def warn(username: UserStr, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
       env.mod.presets.getPmPresets(me.user).named(subject) ?? { preset =>
-        withSuspect(username) { prev =>
-          for {
-            inquiry <- env.report.api.inquiries ofModId me.id
-            suspect <- modApi.setTroll(me, prev, prev.user.marks.troll)
-            _       <- env.msg.api.systemPost(suspect.user.id, preset.text)
-            _       <- env.mod.logApi.modMessage(me.id into ModId, suspect.user.id, preset.name)
-            _       <- preset.isNameClose ?? env.irc.api.nameClosePreset(suspect.user.username)
-          } yield (inquiry, suspect).some
+        withSuspect(username) { suspect =>
+          for
+            _ <- env.msg.api.systemPost(suspect.user.id, preset.text)
+            _ <- env.mod.logApi.modMessage(me.id into ModId, suspect.user.id, preset.name)
+            _ <- preset.isNameClose ?? env.irc.api.nameClosePreset(suspect.user.username)
+          yield suspect.some
         }
       }
     }(ctx =>
-      me => { (inquiry, suspect) =>
-        reportC.onInquiryClose(inquiry, me, suspect.some)(using ctx)
+      me => { suspect =>
+        reportC.onModAction(me, suspect)(using ctx)
       }
     )
 
@@ -391,7 +381,7 @@ final class Mod(
     }
 
   def queues(period: String) =
-    Secure(_.GamifyView) { implicit ctx => me =>
+    Secure(_.GamifyView) { implicit ctx => _ =>
       env.mod.queueStats(period) map { stats =>
         Ok(html.mod.queueStats(stats))
       }
@@ -399,17 +389,17 @@ final class Mod(
 
   def search =
     SecureBody(_.UserSearch) { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      val f                         = UserSearch.form
-      f.bindFromRequest()
+      given Request[?] = ctx.body
+      UserSearch.form
+        .bindFromRequest()
         .fold(
           err => BadRequest(html.mod.search(me, err, Nil)).toFuccess,
-          query => env.mod.search(query) map { html.mod.search(me, f.fill(query), _) }
+          query => env.mod.search(query) map { html.mod.search(me, UserSearch.form.fill(query), _) }
         )
     }
 
   def gdprErase(username: UserStr) =
-    Secure(_.CloseAccount) { _ => me =>
+    Secure(_.GdprErase) { _ => me =>
       val res = Redirect(routes.User.show(username.value))
       env.api.accountClosure.closeThenErase(username, me) map {
         case Right(msg) => res flashSuccess msg
@@ -425,12 +415,12 @@ final class Mod(
   def print(fh: String) =
     SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
       val hash = FingerHash(fh)
-      for {
+      for
         uids       <- env.security.api recentUserIdsByFingerHash hash
         users      <- env.user.repo usersFromSecondary uids.reverse
         withEmails <- env.user.repo withEmails users
         uas        <- env.security.api.printUas(hash)
-      } yield Ok(html.mod.search.print(me, hash, withEmails, uas, env.security.printBan blocks hash))
+      yield Ok(html.mod.search.print(me, hash, withEmails, uas, env.security.printBan blocks hash))
     }
 
   def printBan(v: Boolean, fh: String) =
@@ -446,12 +436,12 @@ final class Mod(
     SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
       given lila.mod.IpRender.RenderIp = env.mod.ipRender(me)
       env.mod.ipRender.decrypt(ip) ?? { address =>
-        for {
+        for
           uids       <- env.security.api recentUserIdsByIp address
           users      <- env.user.repo usersFromSecondary uids.reverse
           withEmails <- env.user.repo withEmails users
           uas        <- env.security.api.ipUas(address)
-        } yield Ok(html.mod.search.ip(me, address, withEmails, uas, env.security.firewall blocksIp address))
+        yield Ok(html.mod.search.ip(me, address, withEmails, uas, env.security.firewall blocksIp address))
       }
     }
 
@@ -488,7 +478,7 @@ final class Mod(
 
   def savePermissions(username: UserStr) =
     SecureBody(_.ChangePermission) { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
+      given Request[?] = ctx.body
       import lila.security.Permission
       OptionFuResult(env.user.repo byId username) { user =>
         Form(
@@ -552,18 +542,18 @@ final class Mod(
   def presets(group: String) =
     Secure(_.Presets) { implicit ctx => _ =>
       env.mod.presets.get(group).fold(notFound) { setting =>
-        Ok(html.mod.presets(group, setting, setting.form)).toFuccess
+        Ok(html.mod.presets(group, setting.form)).toFuccess
       }
     }
 
   def presetsUpdate(group: String) =
     SecureBody(_.Presets) { implicit ctx => _ =>
-      given play.api.mvc.Request[?] = ctx.body
+      given Request[?] = ctx.body
       env.mod.presets.get(group).fold(notFound) { setting =>
         setting.form
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.mod.presets(group, setting, err)).toFuccess,
+            err => BadRequest(html.mod.presets(group, err)).toFuccess,
             v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
           )
       }
@@ -577,7 +567,7 @@ final class Mod(
     }
 
   def apiUserLog(username: UserStr) =
-    SecureScoped(_.ModLog) { implicit req => me =>
+    SecureScoped(_.ModLog) { _ => me =>
       import lila.common.Json.given
       env.user.repo byId username flatMapz { user =>
         for
@@ -597,7 +587,7 @@ final class Mod(
       }
     }
 
-  private def withSuspect[A](username: UserStr)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =
+  private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
@@ -625,6 +615,7 @@ final class Mod(
 
   private def actionResult(
       username: UserStr
-  )(ctx: Context)(user: Holder)(res: Any) =
-    if (HTTPRequest isSynchronousHttp ctx.req) fuccess(redirect(username))
+  )(ctx: Context)(@nowarn user: Holder)(@nowarn res: Any) =
+    if HTTPRequest.isSynchronousHttp(ctx.req)
+    then fuccess(redirect(username))
     else userC.renderModZoneActions(username)(ctx)

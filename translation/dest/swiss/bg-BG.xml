@@ -9,7 +9,7 @@
     <item quantity="one">%s рунд</item>
     <item quantity="other">%s рунда</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s рунд по швейцарската система</item>
     <item quantity="other">%s рунда по швейцарската система</item>
   </plurals>
@@ -76,8 +76,4 @@
   <string name="unlimitedAndFree">Неограничено и безплатно</string>
   <string name="predefinedUsers">Позволете само на определени играчи да участват</string>
   <string name="forbiddedUsers">Само играчите от този списък ще могат да участват, освен ако списъкът е празен. Въведете само по едно потребителско име на ред.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s рунд по швейцарската система</item>
-    <item quantity="other">%1$s / %2$s рунда по швейцарската система</item>
-  </plurals>
 </resources>

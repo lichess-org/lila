@@ -58,7 +58,7 @@ object Query:
   def nowPlaying(u: UserId) = $doc(F.playingUids -> u)
 
   def recentlyPlaying(u: UserId) =
-    nowPlaying(u) ++ $doc(F.movedAt $gt nowDate.minusMinutes(5))
+    nowPlaying(u) ++ $doc(F.movedAt $gt nowInstant.minusMinutes(5))
 
   def nowPlayingVs(u1: UserId, u2: UserId) = $doc(F.playingUids $all List(u1, u2))
 
@@ -101,9 +101,9 @@ object Query:
   def turnsGt(nb: Int)    = F.turns $gt nb
   def turns(range: Range) = F.turns $inRange range
 
-  def checkable = F.checkAt $lt nowDate
+  def checkable = F.checkAt $lt nowInstant
 
-  def checkableOld = F.checkAt $lt nowDate.minusHours(1)
+  def checkableOld = F.checkAt $lt nowInstant.minusHours(1)
 
   def variant(v: chess.variant.Variant) =
     $doc(F.variant -> (if (v.standard) $exists(false) else $int(v.id)))
@@ -121,10 +121,10 @@ object Query:
   val notFromPosition: Bdoc =
     F.variant $ne chess.variant.FromPosition.id
 
-  def createdSince(d: DateTime): Bdoc =
+  def createdSince(d: Instant): Bdoc =
     F.createdAt $gte d
 
-  def createdBetween(since: Option[DateTime], until: Option[DateTime]): Bdoc =
+  def createdBetween(since: Option[Instant], until: Option[Instant]): Bdoc =
     (since, until) match
       case (Some(since), None)        => createdSince(since)
       case (None, Some(until))        => F.createdAt $lt until

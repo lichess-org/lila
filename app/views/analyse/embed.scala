@@ -1,12 +1,11 @@
 package views.html.analyse
 
-import controllers.routes
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.EmbedConfig
 import lila.app.ui.EmbedConfig.given
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 import chess.format.pgn.PgnStr
 

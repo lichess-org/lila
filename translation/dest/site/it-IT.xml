@@ -209,8 +209,10 @@
   <string name="forgotPassword">Password dimenticata?</string>
   <string name="error.weakPassword">Questa password è estremamente comune e troppo facile da indovinare.</string>
   <string name="error.namePassword">Sei pregato di non utilizzare il tuo nome utente come password.</string>
+  <string name="blankedPassword">Hai usato la stessa password su un altro sito e quel sito è stato violato. Per garantire la sicurezza del tuo account Lichess, abbiamo bisogno che imposti una nuova password. Grazie per la tua comprensione.</string>
   <string name="youAreLeavingLichess">Stai uscendo da Lichess</string>
   <string name="neverTypeYourPassword">Non digitare mai la tua password di Lichess su un altro sito!</string>
+  <string name="proceedToX">Procedi su %s</string>
   <string name="passwordSuggestion">Non impostare una password suggerita da qualcun altro. La utilizzeranno per rubare il tuo profilo.</string>
   <string name="emailSuggestion">Non impostare un indirizzo email suggerito da qualcun altro. Lo utilizzeranno per rubare il tuo profilo.</string>
   <string name="emailConfirmHelp">Aiuto per la conferma dell\'email</string>
@@ -237,8 +239,8 @@
     <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s tattica</item>
-    <item quantity="other">%s tattiche</item>
+    <item quantity="one">%s problema</item>
+    <item quantity="other">%s problemi</item>
   </plurals>
   <string name="gamesPlayed">Partite giocate</string>
   <plurals name="nbGamesWithYou">
@@ -389,6 +391,7 @@
   <string name="importGame">Importa partita</string>
   <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai rivederla,
 analizzarla con il computer, commentarla in chat, e condividerla tramite un indirizzo URL.</string>
+  <string name="importGameCaveat">Le varianti saranno cancellate. Per salvarle, importa il PGN in uno studio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partita importata</item>
     <item quantity="other">%s partite importate</item>
@@ -510,7 +513,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
   <string name="autoSwitch">Cambia automaticamente</string>
-  <string name="puzzles">Tattiche</string>
+  <string name="puzzles">Problemi</string>
   <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>
@@ -660,6 +663,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="simulClockHint">Modello Fischer Clock. Più giocatori sfidi, più tempo ti potrebbe servire.</string>
   <string name="simulAddExtraTime">Puoi aggiungere più tempo al tuo orologio per far fronte alla simultanea.</string>
   <string name="simulHostExtraTime">Tempo aggiuntivo del simultaneista</string>
+  <string name="simulAddExtraTimePerPlayer">Aggiungi del tempo al tuo orologio per ogni giocatore che si unisce alla simultanea.</string>
+  <string name="simulHostExtraTimePerPlayer">Tempo extra per il simultaneista per ciascun giocatore</string>
   <string name="lichessTournaments">Tornei Lichess</string>
   <string name="tournamentFAQ">Domande frequenti sui tornei</string>
   <string name="timeBeforeTournamentStarts">Tempo prima dell\'inizio del torneo</string>
@@ -944,4 +949,5 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="lichessDbExplanation">Partite classificate di tutti i giocatori di Lichess</string>
   <string name="switchSides">Cambia colore</string>
   <string name="closingAccountWithdrawAppeal">Se cancelli il tuo account il tuo appello sarà ritirato</string>
+  <string name="ourEventTips">I nostri consigli per organizzare eventi</string>
 </resources>

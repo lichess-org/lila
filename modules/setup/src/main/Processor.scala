@@ -1,7 +1,6 @@
 package lila.setup
 
 import lila.common.Bus
-import lila.common.config.Max
 import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Seek
@@ -14,19 +13,19 @@ final private[setup] class Processor(
     onStart: lila.round.OnStart
 )(using ec: Executor, idGenerator: IdGenerator):
 
-  def ai(config: AiConfig)(using ctx: UserContext): Fu[Pov] = for {
+  def ai(config: AiConfig)(using ctx: UserContext): Fu[Pov] = for
     pov <- config pov ctx.me
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
     _ <- pov.game.player.isAi ?? fishnetPlayer(pov.game)
-  } yield pov
+  yield pov
 
-  def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = for {
+  def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = for
     pov <- config pov me.some
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
     _ <- pov.game.player.isAi ?? fishnetPlayer(pov.game)
-  } yield pov
+  yield pov
 
   def hook(
       configBase: HookConfig,

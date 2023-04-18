@@ -232,6 +232,7 @@ export interface ChapterPreview {
   fen: string;
   lastMove?: string;
   playing: boolean;
+  outcome?: '1-0' | '0-1' | '1/2-1/2';
 }
 
 export interface ChapterPreviewPlayer {

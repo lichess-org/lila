@@ -20,7 +20,7 @@ final private class Cleaner(
   private def analysisTimeout(plies: Int) = plies * Cleaner.timeoutPerPly + 3.seconds
   private def analysisTimeoutBase         = analysisTimeout(20)
 
-  private def durationAgo(d: FiniteDuration) = nowDate.minusSeconds(d.toSeconds.toInt)
+  private def durationAgo(d: FiniteDuration) = nowInstant.minusSeconds(d.toSeconds.toInt)
 
   private def cleanAnalysis: Funit =
     analysisColl

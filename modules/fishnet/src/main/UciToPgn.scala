@@ -6,6 +6,7 @@ import cats.syntax.all.*
 import chess.format.pgn.{ Dumper, SanStr }
 import chess.format.Uci
 import chess.{ Ply, Drop, Move, Replay, Situation }
+import chess.MoveOrDrop.*
 
 import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException
@@ -40,7 +41,7 @@ private object UciToPgn:
                 move.situationAfter -> (Left(move) :: moves)
               }
             case (Validated.Valid((sit, moves)), uci: Uci.Drop) =>
-              sit.drop(uci.role, uci.pos).leftMap(e => s"ply $ply $e") map { drop =>
+              sit.drop(uci.role, uci.square).leftMap(e => s"ply $ply $e") map { drop =>
                 drop.situationAfter -> (Right(drop) :: moves)
               }
             case (failure, _) => failure

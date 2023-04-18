@@ -14,7 +14,7 @@
   <string name="challengeRead">Datozen erronkak irakurri</string>
   <string name="challengeWrite">Erronkak bidali, onartu eta ukatu</string>
   <string name="challengeBulk">Beste jokalari batzuentzat hainbat partida aldi berean sortu</string>
-  <string name="studyRead" comment="studyRead&#10;&#10;Gives access to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Azterlan pribatu eta zuzeneko emanaldiak irakurri</string>
+  <string name="studyRead">Azterlan pribatu eta zuzeneko emanaldiak irakurri</string>
   <string name="studyWrite">Azterlanak eta zuzeneko emanaldiak sortu, eguneratu eta ezabatu</string>
   <string name="tournamentWrite">Txapelketak sortu, eguneratu eta jokatu</string>
   <string name="racerWrite">Ariketa lasterketak sortu eta egin</string>

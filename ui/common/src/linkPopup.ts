@@ -8,10 +8,10 @@ export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector =
 export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   const url = new URL(a.href);
   if (isPassList(url)) return true;
-  lichess.loadCssPath('linkPopup');
-  modal({
-    content: $(
-      `<div class="link-popup">
+  lichess.loadCssPath('linkPopup').then(() =>
+    modal({
+      content: $(
+        `<div class="link-popup">
         <div class="link-popup__content">
           <div class="link-popup__content__title">
             <h2>${trans('youAreLeavingLichess')}</h2>
@@ -19,15 +19,18 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
           </div>
         </div>
         <div class="link-popup__actions">
-          <a class="cancel">Cancel</a>
-          <a href="${a.href}" target="_blank" class="button button-red button-no-upper">Proceed to ${url.host}</a>
+          <button class="cancel button-link" type="button">${trans('cancel')}</button>
+          <a href="${a.href}" target="_blank" class="button button-red button-no-upper">
+            ${trans('proceedToX', url.host)}
+          </a>
         </div>
       </div>`
-    ),
-    onInsert($wrap) {
-      $wrap.find('.cancel').on('click', modal.close);
-    },
-  });
+      ),
+      onInsert($wrap) {
+        $wrap.find('.cancel').on('click', modal.close);
+      },
+    })
+  );
   return false;
 };
 

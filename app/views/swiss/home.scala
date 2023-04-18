@@ -3,7 +3,7 @@ package views.html.swiss
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
@@ -17,7 +17,7 @@ object home:
       withHrefLangs = lila.common.LangPath(routes.Swiss.home).some
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
-        h1(cls := "box__top")("Swiss tournaments"),
+        h1(cls := "box__top")(trans.swiss.swissTournaments()),
         renderList(trans.swiss.nowPlaying.txt())(featured.started),
         renderList(trans.swiss.startingSoon.txt())(featured.created),
         div(cls := "swiss-home__infos")(
@@ -58,11 +58,9 @@ object home:
             ),
             td(cls := "infos")(
               span(cls := "rounds")(
-                if (s.isStarted)
-                  trans.swiss.xOutOfYRoundsSwiss
-                    .plural(s.settings.nbRounds, s.round.value, s.settings.nbRounds)
-                else
-                  trans.swiss.xRoundsSwiss.pluralSame(s.settings.nbRounds)
+                if s.isStarted then
+                  trans.swiss.nbRounds.plural(s.settings.nbRounds, s"${s.round}/${s.settings.nbRounds}")
+                else trans.swiss.nbRounds.pluralSame(s.settings.nbRounds)
               ),
               span(cls := "setup")(
                 s.clock.show,
@@ -144,7 +142,7 @@ object home:
     )
   )
 
-  private def faqEntry(title: Frag, content: Frag)(using Lang) =
+  private def faqEntry(title: Frag, content: Frag) =
     div(cls := "faq")(
       i("?"),
       p(strong(title), content)

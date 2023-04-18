@@ -3,7 +3,6 @@ package lila.studySearch
 import akka.actor.*
 import akka.stream.scaladsl.*
 import chess.format.pgn.Tag
-import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.*
 
 import lila.hub.LateMultiThrottler
@@ -11,6 +10,7 @@ import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
 import lila.tree.Node.Comments
 import lila.common.Json.given
+import java.time.LocalDate
 
 final class StudySearchApi(
     client: ESClient,
@@ -105,7 +105,7 @@ final class StudySearchApi(
     client match
       case c: ESClientHttp =>
         {
-          val sinceOption: Either[Unit, Option[DateTime]] =
+          val sinceOption: Either[Unit, Option[LocalDate]] =
             if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
           val since = sinceOption match
             case Right(None) => sys error "Missing since date argument"
@@ -137,7 +137,6 @@ final class StudySearchApi(
         } >> client.refresh
       case _ => funit
 
-  private def parseDate(str: String): Option[DateTime] =
-    val datePattern   = "yyyy-MM-dd"
-    val dateFormatter = DateTimeFormat forPattern datePattern
-    scala.util.Try(dateFormatter parseDateTime str).toOption
+  private def parseDate(str: String): Option[LocalDate] =
+    val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
+    scala.util.Try(java.time.LocalDate.parse(str, dateFormatter)).toOption

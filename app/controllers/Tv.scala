@@ -111,14 +111,14 @@ final class Tv(
       import akka.pattern.ask
       import lila.round.TvBroadcast
       import play.api.libs.EventSource
-      val bc = getBool("bc", req)
-      env.round.tvBroadcast ? TvBroadcast.Connect(bc) mapTo
-        manifest[TvBroadcast.SourceType] map { source =>
-          if (bc)
-            Ok.chunked(source via EventSource.flow log "Tv.feed")
-              .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
-          else apiC.sourceToNdJson(source)
-        }
+      val bc   = getBool("bc", req)
+      val ctag = summon[scala.reflect.ClassTag[TvBroadcast.SourceType]]
+      env.round.tvBroadcast ? TvBroadcast.Connect(bc) mapTo ctag map { source =>
+        if bc then
+          Ok.chunked(source via EventSource.flow log "Tv.feed")
+            .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+        else apiC.sourceToNdJson(source)
+      }
     }
 
   def frame =

@@ -51,7 +51,7 @@
   <string name="newTag">תג חדש</string>
   <string name="commentThisPosition">הערה לגבי העמדה</string>
   <string name="commentThisMove">הערה לגבי המסע</string>
-  <string name="annotateWithGlyphs">השתמש בסימנים מוסכמים</string>
+  <string name="annotateWithGlyphs">השתמשו בסימנים מוסכמים כדי להגיב על מהלכים</string>
   <string name="theChapterIsTooShortToBeAnalysed">פרק זה קצר מכדי להצדיק ניתוח.</string>
   <string name="onlyContributorsCanRequestAnalysis">רק תורמי לוח הלמידה יכולים לבקש ניתוח ממוחשב.</string>
   <string name="getAFullComputerAnalysis">קבל/י ניתוח צד־שרת מלא של המסעים העיקריים (mainline).</string>

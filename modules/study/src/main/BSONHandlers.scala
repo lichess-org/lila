@@ -3,11 +3,10 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Color, Pos, PromotableRole, Role, Outcome, Ply, Check }
+import chess.{ Centis, ByColor, Square, PromotableRole, Role, Outcome, Ply, Check }
 import reactivemongo.api.bson.*
 import scala.util.Success
 
-import lila.common.Iso
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
@@ -17,15 +16,15 @@ import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 
 object BSONHandlers:
 
-  private given BSONHandler[Pos] = chessPosKeyHandler
+  private given BSONHandler[Square] = chessPosKeyHandler
 
   given BSON[Shape] with
     def reads(r: Reader) =
       val brush = r str "b"
-      r.getO[Pos]("p") map { pos =>
+      r.getO[Square]("p") map { pos =>
         Shape.Circle(brush, pos)
-      } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
-    def writes(w: Writer, t: Shape) =
+      } getOrElse Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d"))
+    def writes(@annotation.nowarn w: Writer, t: Shape) =
       t match
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
         case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
@@ -83,19 +82,20 @@ object BSONHandlers:
   given BSONDocumentHandler[Gamebook] = Macros.handler
 
   private given BSON[Crazyhouse.Data] with
-    private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
+    private def writePocket(p: Crazyhouse.Pocket) =
+      p.values.flatMap { (role, nb) => List.fill(nb)(role.forsyth) }.mkString
     private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
     def reads(r: Reader) =
       Crazyhouse.Data(
-        promoted = r.getsD[Pos]("o").toSet,
-        pockets = Crazyhouse.Pockets(
+        promoted = chess.bitboard.Bitboard(r.getsD[Square]("o")),
+        pockets = ByColor(
           white = readPocket(r.strD("w")),
           black = readPocket(r.strD("b"))
         )
       )
     def writes(w: Writer, s: Crazyhouse.Data) =
       $doc(
-        "o" -> w.listO(s.promoted.toList),
+        "o" -> w.listO(s.promoted.squares),
         "w" -> w.strO(writePocket(s.pockets.white)),
         "b" -> w.strO(writePocket(s.pockets.black))
       )

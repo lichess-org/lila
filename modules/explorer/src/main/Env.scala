@@ -6,6 +6,7 @@ import play.api.Configuration
 case class InternalEndpoint(value: String) extends AnyVal with StringValue
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
@@ -24,17 +25,4 @@ final class Env(
     appConfig.get[String]("explorer.internal_endpoint")
   }
 
-  private lazy val indexer: ExplorerIndexer = wire[ExplorerIndexer]
-
   lazy val importer = wire[ExplorerImporter]
-
-  lazy val indexFlowSetting = settingStore[Boolean](
-    "explorerIndexFlow",
-    default = false,
-    text = "Explorer: index new games as soon as they complete".some
-  )
-
-  lila.common.Bus.subscribeFun("finishGame") {
-    case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted && indexFlowSetting.get() =>
-      indexer(game).unit
-  }

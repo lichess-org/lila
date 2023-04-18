@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">תרמו</string>
-  <string name="donateAsX">תרמו כ%s</string>
+  <string name="donateAsX">תרומה כ־%s</string>
   <string name="lichessPatron">תומך/ת ליצ\'ס</string>
   <string name="freeAccount">חשבון חינמי</string>
   <string name="becomePatron">הפכו לתומך/ת של ליצ\'ס</string>
@@ -58,13 +58,13 @@
     <item quantity="many">תומך ליצ\'ס ל%s חודשים</item>
     <item quantity="other">תומך ליצ\'ס ל%s חודשים</item>
   </plurals>
-  <string name="youSupportWith">אתה תומך ב־lichess.org עם %s בחודש.</string>
+  <string name="youSupportWith">את/ה תומכ/ת ב־lichess.org עם תרומה של %s בחודש.</string>
   <string name="tyvm">תודה רבה מאוד על העזרה שלך. את/ה תותח/ית!</string>
   <string name="currentStatus">סטטוס נוכחי</string>
   <string name="nextPayment">התשלום הבא</string>
   <string name="youWillBeChargedXOnY">את/ה תחויב/י ב%1$s ב%2$s.</string>
   <string name="makeAdditionalDonation">תרמו תרומה נוספת עכשיו</string>
-  <string name="giftPatronWings">תנו במתנה כנפי תורם לשחקן/ית</string>
+  <string name="giftPatronWings">מתן כנפי תורם/ת לשחקן/ית</string>
   <string name="update">עדכן</string>
   <string name="changeMonthlyAmount">שנה את הסכום החודשי (%s)</string>
   <string name="cancelSupport">בטלו את תמיכתכם</string>

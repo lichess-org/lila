@@ -1,60 +1,54 @@
 package lila.common
 
-import org.specs2.mutable.*
+class LameNameTest extends munit.FunSuite {
 
-class LameNameTest extends Specification {
+  def isLame(str: String) = LameName.username(UserName(str))
 
-  def test(str: String) = LameName.username(UserName(str))
-
-  "disallow" >> {
-    "separated titles" >> {
-      test("fm-foo") must beTrue
-      test("fm_foo") must beTrue
-      test("wgm-foo") must beTrue
-      test("wcm_foo") must beTrue
-      test("gmFoobar") must beTrue
-      test("gm007") must beTrue
-      test("GmFoo") must beTrue
-      test("nm_brianmatthews") must beTrue
-      test("the_nm_brianmatthews") must beTrue
-    }
-    "uppercase titles" >> {
-      test("GMfoo") must beTrue
-      test("IMfoo") must beTrue
-      test("WFMfoo") must beTrue
-      test("WIMfoo") must beTrue
-      test("1Mfoo") must beTrue
-      test("BriaNMatthews") must beTrue
-      test("NMBrianMatthews") must beTrue
-      test("BrianMatthews_NM") must beTrue
-      test("BrianMatthewsNM") must beTrue
-      test("TheGMBrianMatthews") must beTrue
-    }
-    "gross" >> {
-      test("Shit") must beTrue
-      test("Sh1t") must beTrue
-      test("douchebag") must beTrue
-      test("d0uchebag") must beTrue
-      test("urcunt-blah") must beTrue
-      test("urcuntblah") must beTrue
-      test("fuckster") must beTrue
-      test("fuuckster") must beTrue
-    }
+  test("disallow separated titles") {
+    assertEquals(isLame("fm-foo"), true)
+    assertEquals(isLame("fm_foo"), true)
+    assertEquals(isLame("wgm-foo"), true)
+    assertEquals(isLame("wcm_foo"), true)
+    assertEquals(isLame("gmFoobar"), true)
+    assertEquals(isLame("gm007"), true)
+    assertEquals(isLame("GmFoo"), true)
+    assertEquals(isLame("nm_brianmatthews"), true)
+    assertEquals(isLame("the_nm_brianmatthews"), true)
   }
-  "allow" >> {
-    "good stuff" >> {
-      test("joey") must beFalse
-      test("gmfoo") must beFalse
-      test("g-foo") must beFalse
-      test("g_foo") must beFalse
-      test("g-foo") must beFalse
-      test("agm-foo") must beFalse
-      test("atf90") must beFalse
-      test("a_b") must beFalse
-      test("BRIANMATTHEWS") must beFalse
-      test("BrianMatthews") must beFalse
-      test("BrianMatthewsnm") must beFalse
-      test("TheGMBRianMatthews") must beFalse
-    }
+  test("disallow uppercase titles") {
+    assertEquals(isLame("GMfoo"), true)
+    assertEquals(isLame("IMfoo"), true)
+    assertEquals(isLame("WFMfoo"), true)
+    assertEquals(isLame("WIMfoo"), true)
+    assertEquals(isLame("1Mfoo"), true)
+    assertEquals(isLame("BriaNMatthews"), true)
+    assertEquals(isLame("NMBrianMatthews"), true)
+    assertEquals(isLame("BrianMatthews_NM"), true)
+    assertEquals(isLame("BrianMatthewsNM"), true)
+    assertEquals(isLame("TheGMBrianMatthews"), true)
+  }
+  test("disallow gross") {
+    assertEquals(isLame("Shit"), true)
+    assertEquals(isLame("Sh1t"), true)
+    assertEquals(isLame("douchebag"), true)
+    assertEquals(isLame("d0uchebag"), true)
+    assertEquals(isLame("urcunt-blah"), true)
+    assertEquals(isLame("urcuntblah"), true)
+    assertEquals(isLame("fuckster"), true)
+    assertEquals(isLame("fuuckster"), true)
+  }
+  test("allow good stuff") {
+    assertEquals(isLame("joey"), false)
+    assertEquals(isLame("gmfoo"), false)
+    assertEquals(isLame("g-foo"), false)
+    assertEquals(isLame("g_foo"), false)
+    assertEquals(isLame("g-foo"), false)
+    assertEquals(isLame("agm-foo"), false)
+    assertEquals(isLame("atf90"), false)
+    assertEquals(isLame("a_b"), false)
+    assertEquals(isLame("BRIANMATTHEWS"), false)
+    assertEquals(isLame("BrianMatthews"), false)
+    assertEquals(isLame("BrianMatthewsnm"), false)
+    assertEquals(isLame("TheGMBRianMatthews"), false)
   }
 }

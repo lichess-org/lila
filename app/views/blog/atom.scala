@@ -5,6 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
+import java.time.LocalDate
 
 object atom:
 
@@ -18,7 +19,7 @@ object atom:
       htmlCall = routes.Blog.index(),
       atomCall = routes.Blog.atom,
       title = "lichess.org blog",
-      updated = pager.currentPageResults.headOption flatMap docDate
+      updated = pager.currentPageResults.headOption.flatMap(docDate).map(_.atStartOfDay.instant)
     ) { doc =>
       frag(
         tag("id")(s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug)}"),
@@ -51,5 +52,5 @@ object atom:
       )
     }
 
-  def docDate(doc: io.prismic.Document) =
-    doc getDate "blog.date" map (_.value.toDateTimeAtStartOfDay)
+  def docDate(doc: io.prismic.Document): Option[LocalDate] =
+    doc getDate "blog.date" map (_.value)

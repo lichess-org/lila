@@ -15,7 +15,7 @@
   <string name="pgnLetter">Літера (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Режим Дзен</string>
   <string name="showPlayerRatings">Показувати рейтинги гравців</string>
-  <string name="explainShowPlayerRatings">Дозволяє приховувати всі рейтинги з сайту, щоб допомогти зосередитись на шахах. Ігри все ще рейтингові, це лише для того, щоб його не бачити.</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Дозволяє приховувати всі рейтинги з сайту, щоб допомогти зосередитись на шахах. Ігри все ще рейтингові, це лише для того, щоб його не бачити.</string>
   <string name="displayBoardResizeHandle">Показати інструмент для зміни розміру дошки</string>
   <string name="onlyOnInitialPosition">Лише в початковій позиції</string>
   <string name="blindfoldChess">Шахи наосліп (невидимі фігури)</string>
@@ -44,10 +44,10 @@
   <string name="confirmResignationAndDrawOffers">Підтверджувати повернення ходу та пропозиції нічий</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Спосіб рокіровки</string>
   <string name="castleByMovingTwoSquares">Перемістити короля на два поля</string>
-  <string name="castleByMovingOntoTheRook">Перемістити короля на клітинку, яка межує з турою</string>
+  <string name="castleByMovingOntoTheRook">Перемістити короля на поле, що межує з турою</string>
   <string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Стрілки лише для можливих ходів</string>
-  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Писати в чат \"Хороша гра, гарно зіграно\" після поразки або нічиєї</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Писати в чат \"Хороша гра, добре зіграно\" після поразки або нічиєї</string>
   <string name="yourPreferencesHaveBeenSaved">Ваші налаштування збережено.</string>
   <string name="scrollOnTheBoardToReplayMoves">Прокрутіть колесом миші на дошці, для того щоб відтворити ходи</string>
   <string name="correspondenceEmailNotification">Щоденне сповіщення на електронну пошту зі списком ваших заочних ігор</string>
@@ -63,4 +63,5 @@
   <string name="notifyPush">Сповіщення на пристрої коли ви не на Lichess</string>
   <string name="notifyWeb">Браузер</string>
   <string name="notifyDevice">Пристрій</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Звук сповіщення</string>
 </resources>

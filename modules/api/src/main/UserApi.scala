@@ -3,7 +3,6 @@ package lila.api
 import play.api.libs.json.*
 
 import lila.common.config.*
-import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.user.{ Trophy, User }
 import lila.rating.{ PerfType, UserRankMap }
 import play.api.i18n.Lang
@@ -15,7 +14,6 @@ final class UserApi(
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
-    playBanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
@@ -28,7 +26,7 @@ final class UserApi(
     net: NetConfig
 )(using Executor):
 
-  def one(u: User, joinedAt: Option[DateTime] = None): JsObject = {
+  def one(u: User, joinedAt: Option[Instant] = None): JsObject = {
     addStreaming(jsonView.full(u, withRating = true, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
   }.add("joinedTeamAt", joinedAt)

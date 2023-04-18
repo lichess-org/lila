@@ -1,12 +1,8 @@
 package lila.tutor
 
-import akka.stream.scaladsl.*
 import chess.Color
 
-import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
-import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.insight.{
   Answer as InsightAnswer,
   Cluster,
@@ -14,10 +10,7 @@ import lila.insight.{
   Insight,
   InsightApi,
   InsightDimension,
-  InsightMetric,
-  InsightPerfStats,
   InsightPerfStatsApi,
-  Phase,
   Question
 }
 import lila.rating.PerfType
@@ -39,13 +32,13 @@ final private class TutorBuilder(
 
   val maxTime = fishnet.maxTime + 5.minutes
 
-  def apply(userId: UserId): Fu[Option[TutorFullReport]] = for {
+  def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
     user     <- userRepo byId userId orFail s"No such user $userId"
     hasFresh <- hasFreshReport(user)
     report <- !hasFresh ?? {
       val chrono = lila.common.Chronometer.lapTry(produce(user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
-      for {
+      for
         lap    <- chrono.lap
         report <- Future fromTry lap.result
         doc = bsonWriteObjTry(report).get ++ $doc(
@@ -53,11 +46,11 @@ final private class TutorBuilder(
           "millis" -> lap.millis
         )
         _ <- colls.report.insert.one(doc).void
-      } yield report.some
+      yield report.some
     }
-  } yield report
+  yield report
 
-  private def produce(user: User): Fu[TutorFullReport] = for {
+  private def produce(user: User): Fu[TutorFullReport] = for
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
     perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor buildSegment "perf-stats")
@@ -68,17 +61,17 @@ final private class TutorBuilder(
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
     perfs <- (tutorUsers.toNel ?? TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
-  } yield TutorFullReport(user.id, nowDate, perfs)
+  yield TutorFullReport(user.id, nowInstant, perfs)
 
   private[tutor] def eligiblePerfTypesOf(user: User) =
     PerfType.standardWithUltra.filter { pt =>
-      user.perfs(pt).latest.exists(_ isAfter nowDate.minusMonths(12))
+      user.perfs(pt).latest.exists(_ isAfter nowInstant.minusMonths(12))
     }
 
   private def hasFreshReport(user: User): Fu[Boolean] = colls.report.exists(
     $doc(
       TutorFullReport.F.user -> user.id,
-      TutorFullReport.F.at $gt nowDate.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
+      TutorFullReport.F.at $gt nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
     )
   )
 
@@ -93,7 +86,7 @@ final private class TutorBuilder(
               TutorFullReport.F.perfs -> $doc(
                 "$elemMatch" -> $doc("perf" -> pt.id, "stats.rating" -> rating)
               ),
-              TutorFullReport.F.at $gt nowDate.minusMonths(1) // index hit
+              TutorFullReport.F.at $gt nowInstant.minusMonths(1) // index hit
             ),
             $doc(s"${TutorFullReport.F.perfs}.$$" -> true)
           )
@@ -114,7 +107,7 @@ final private class TutorBuilder(
         }
       }
 
-  private val dateFormatter = org.joda.time.format.DateTimeFormat forPattern "yyyy-MM-dd"
+  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
 
 private object TutorBuilder:
 

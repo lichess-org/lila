@@ -2,7 +2,6 @@ package lila.storm
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.user.User
 
 case class StormHigh(day: Int, week: Int, month: Int, allTime: Int):
 

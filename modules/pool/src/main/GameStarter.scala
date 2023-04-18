@@ -2,7 +2,7 @@ package lila.pool
 
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 import lila.common.config.Max
 
 final private class GameStarter(

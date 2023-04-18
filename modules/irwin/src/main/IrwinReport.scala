@@ -1,6 +1,6 @@
 package lila.irwin
 
-import lila.game.{ Game, Pov }
+import lila.game.Pov
 import lila.report.SuspectId
 
 case class IrwinReport(
@@ -8,7 +8,7 @@ case class IrwinReport(
     activation: Int, // 0 = clean, 100 = cheater
     games: List[IrwinReport.GameReport],
     owner: String, // thread sending the report, for monitoring
-    date: DateTime
+    date: Instant
 ):
 
   inline def userId    = _id
@@ -57,4 +57,4 @@ object IrwinReport:
 
     def lastSeenAt = recent.headOption.map(_.date)
 
-    def seenRecently = lastSeenAt.??(nowDate.minusMinutes(15).isBefore)
+    def seenRecently = lastSeenAt.??(nowInstant.minusMinutes(15).isBefore)

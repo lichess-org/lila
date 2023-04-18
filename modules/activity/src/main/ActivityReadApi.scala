@@ -1,17 +1,14 @@
 package lila.activity
 
-import org.joda.time.Interval
 import play.api.i18n.Lang
 
 import lila.common.Heapsort
 import lila.db.AsyncCollFailingSilently
-import lila.db.dsl.{ *, given }
-import lila.forum.ForumCateg
+import lila.db.dsl.*
 import lila.game.LightPov
 import lila.practice.PracticeStructure
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi
-import lila.ublog.UblogPost
 import lila.user.User
 
 final class ActivityReadApi(
@@ -53,13 +50,13 @@ final class ActivityReadApi(
       _ <- preloadAll(views)
     } yield addSignup(u.createdAt, views)
 
-  private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for {
+  private def preloadAll(views: Seq[ActivityView])(using lang: Lang) = for
     _ <- lightUserApi.preloadMany(views.flatMap(_.follows.??(_.allUserIds)))
     _ <- getTourName.preload(views.flatMap(_.tours.??(_.best.map(_.tourId))))
-  } yield ()
+  yield ()
 
   private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
-    for {
+    for
       allForumPosts <- a.forumPosts ?? { p =>
         forumPostApi
           .liteViewsByIds(p.value)
@@ -116,7 +113,7 @@ final class ActivityReadApi(
           }
           .dmap(_.filter(_.nonEmpty))
       tours <- a.games.exists(_.hasNonCorres) ?? {
-        val dateRange = a.date -> a.date.plusDays(1)
+        val dateRange = TimeInterval(a.date, a.date.plusDays(1))
         tourLeaderApi
           .timeRange(a.id.userId, dateRange)
           .dmap { entries =>
@@ -134,8 +131,7 @@ final class ActivityReadApi(
           .?? { swisses =>
             toSwissesView(swisses.value).dmap(_.some.filter(_.nonEmpty))
           }
-
-    } yield ActivityView(
+    yield ActivityView(
       interval = a.interval,
       games = a.games,
       puzzles = a.puzzles,
@@ -178,14 +174,14 @@ final class ActivityReadApi(
         }
       }
 
-  private def addSignup(at: DateTime, recent: Vector[ActivityView]) =
+  private def addSignup(at: Instant, recent: Vector[ActivityView]) =
     val (found, views) = recent.foldLeft(false -> Vector.empty[ActivityView]) {
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.sizeIs < Activity.recentNb && nowDate.minusDays(8).isBefore(at))
+    if (!found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at))
       views :+ ActivityView(
-        interval = Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
+        interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true
       )
     else views

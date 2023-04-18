@@ -5,12 +5,12 @@ import play.api.Mode
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
-import lila.common.{ Bus, Iso, Uptime }
+import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Player, Pov, Source }
+import lila.game.{ Game, Pov, Source }
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.NoteApi
-import lila.user.{ User, UserRepo }
+import lila.user.{ UserRepo }
 
 final class PlaybanApi(
     coll: Coll,
@@ -27,8 +27,6 @@ final class PlaybanApi(
   )
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
-
-  private case class Blame(player: Player, outcome: Outcome)
 
   private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
@@ -76,7 +74,7 @@ final class PlaybanApi(
     def sitting: Option[Funit] =
       for {
         userId <- game.player(flaggerColor).userId
-        seconds = nowSeconds - game.movedAt.getSeconds
+        seconds = nowSeconds - game.movedAt.toSeconds
         if unreasonableTime.exists(seconds >= _)
       } yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>-
         feedback.sitting(Pov(game, flaggerColor)) >>
@@ -128,7 +126,7 @@ final class PlaybanApi(
             .map { c =>
               (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)
             }
-            .exists(_ < nowSeconds - game.movedAt.getSeconds)
+            .exists(_ < nowSeconds - game.movedAt.toSeconds)
             .option {
               save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source) >>-
                 feedback.sitting(Pov(game, loser.color)) >>
@@ -230,7 +228,7 @@ final class PlaybanApi(
     } yield ()
   }.void logFailure lila.log("playban")
 
-  private def legiferate(record: UserRecord, accCreatedAt: DateTime, source: Option[Source]): Fu[UserRecord] =
+  private def legiferate(record: UserRecord, accCreatedAt: Instant, source: Option[Source]): Fu[UserRecord] =
     record
       .bannable(accCreatedAt)
       .ifFalse(record.banInEffect)

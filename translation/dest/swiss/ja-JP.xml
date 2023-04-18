@@ -7,7 +7,7 @@
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s ラウンド</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="xRoundsSwiss&#10;%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="other">%s R スイス式</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
@@ -100,7 +100,4 @@
   <string name="unlimitedAndFree">無制限で無料</string>
   <string name="predefinedUsers">事前に指定したユーザーだけが参加できる</string>
   <string name="forbiddedUsers">このリストにユーザー名を入力すると、それ以外のユーザーは参加できません。1 行ごとに 1 人です。</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="other">%1$s / %2$s R スイス式</item>
-  </plurals>
 </resources>
