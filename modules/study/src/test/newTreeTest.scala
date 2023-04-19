@@ -123,9 +123,16 @@ class NewTreeTest extends lila.common.LilaTest:
         newRoot.metas.crazyData
       )
 
+  given Conversion[String, PgnStr] = PgnStr(_)
+  given Conversion[PgnStr, String] = _.value
+
   val pgn = """
   { Root comment }
 1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move }) 1... e6?! { e6 is a naughty move } *
   """
 
-  // test("valid tree -> newTree conversion") {}
+  test("valid tree -> newTree conversion") {
+    val x = PgnImport(pgn, Nil).toOption.get
+    val newRoot = NewRootC.fromRoot(x.root)
+    assertEquals(newRoot.toRoot, x.root)
+  }
