@@ -19,7 +19,8 @@ final class RelayRoundForm:
 
   val roundMapping =
     mapping(
-      "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
+      "name"    -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
+      "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
       "syncUrl" -> optional {
         cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
       },
@@ -36,7 +37,11 @@ final class RelayRoundForm:
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
   }.fill(
-    Data(name = RelayRoundName(s"Round ${trs.rounds.size + 1}"), syncUrlRound = Some(trs.rounds.size + 1))
+    Data(
+      name = RelayRoundName(s"Round ${trs.rounds.size + 1}"),
+      caption = none,
+      syncUrlRound = Some(trs.rounds.size + 1)
+    )
   )
 
   def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
@@ -86,6 +91,7 @@ object RelayRoundForm:
 
   case class Data(
       name: RelayRoundName,
+      caption: Option[RelayRound.Caption],
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
       startsAt: Option[Instant] = None,
@@ -101,6 +107,7 @@ object RelayRoundForm:
     def update(relay: RelayRound, user: User) =
       relay.copy(
         name = name,
+        caption = caption,
         sync = makeSync(user) pipe { sync =>
           if (relay.sync.playing) sync.play else sync
         },
@@ -126,6 +133,7 @@ object RelayRoundForm:
         _id = RelayRound.makeId,
         tourId = tour.id,
         name = name,
+        caption = caption,
         sync = makeSync(user),
         createdAt = nowInstant,
         finished = false,
@@ -138,6 +146,7 @@ object RelayRoundForm:
     def make(relay: RelayRound) =
       Data(
         name = relay.name,
+        caption = relay.caption,
         syncUrl = relay.sync.upstream map {
           case url: RelayRound.Sync.UpstreamUrl => url.withRound.url
           case RelayRound.Sync.UpstreamIds(ids) => ids mkString " "
