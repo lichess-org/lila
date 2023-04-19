@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
 import lila.simul.Simul
 import lila.simul.SimulForm
+import lila.simul.SimulCondition
 
 object form:
 
@@ -138,6 +139,14 @@ object form:
           help =
             trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
         )(form3.input(_))
+      ),
+      form3.split(
+        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
+          form3.select(_, SimulCondition.DataForm.minRatingChoices)
+        ),
+        form3.group(form("conditions.minRating.perf"), frag("In variant"), half = true)(
+          form3.select(_, SimulCondition.DataForm.perfChoices)
+        )
       ),
       form3.group(
         form("estimatedStartAt"),

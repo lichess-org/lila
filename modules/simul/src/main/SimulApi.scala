@@ -53,7 +53,8 @@ final class SimulApi(
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
       team = setup.team,
-      featurable = some(~setup.featured && me.canBeFeatured)
+      featurable = some(~setup.featured && me.canBeFeatured),
+      conditions = setup.conditions.all
     )
     repo.create(simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
@@ -69,7 +70,8 @@ final class SimulApi(
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
       team = setup.team,
-      featurable = some(~setup.featured && me.canBeFeatured)
+      featurable = some(~setup.featured && me.canBeFeatured),
+      conditions = setup.conditions.all
     )
     repo.update(simul) >>- publish() inject simul
 

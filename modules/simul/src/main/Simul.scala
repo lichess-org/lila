@@ -29,7 +29,8 @@ case class Simul(
     color: Option[String],
     text: String,
     team: Option[TeamId],
-    featurable: Option[Boolean]
+    featurable: Option[Boolean],
+    conditions: SimulCondition.All
 ):
   inline def id = _id
 
@@ -156,7 +157,8 @@ object Simul:
       text: String,
       estimatedStartAt: Option[Instant],
       team: Option[TeamId],
-      featurable: Option[Boolean]
+      featurable: Option[Boolean],
+      conditions: SimulCondition.All
   ): Simul = Simul(
     _id = SimulId(ThreadLocalRandom nextString 8),
     name = name,
@@ -185,5 +187,6 @@ object Simul:
     color = color.some,
     text = text,
     team = team,
-    featurable = featurable
+    featurable = featurable,
+    conditions = conditions
   )
