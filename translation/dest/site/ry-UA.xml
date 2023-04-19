@@ -369,6 +369,7 @@
   <string name="youAreNotInTeam">Вы не у дружині %s</string>
   <string name="backToGame">Вернути ся од бавцї</string>
   <string name="siteDescription">Задарні онлайн шахматы. Бавте у шахматы такой тепирь у легкому інтерфейсови без рекламы. Не треба реґістрації тай стерьханя проґрамы. Бавте против компютора, цімборами вадь трафными противниками.</string>
+  <string name="averageElo">Середньый рейтінґ</string>
   <string name="location">Полога</string>
   <string name="filterGames">Філтер бавок</string>
   <string name="reset">Зверичи</string>
@@ -571,6 +572,7 @@
   <string name="invalidPgn">Недобрый PGN</string>
   <string name="invalidFen">Недобрый FEN</string>
   <string name="custom">Своя бавка</string>
+  <string name="perfRatingX">Рейтiнґ: %s</string>
   <string name="bestWasX">Лїпшым быв %s</string>
   <string name="next">Дале</string>
   <string name="solution">Одвіт</string>
@@ -603,11 +605,14 @@
   <string name="subscribe">Подписати ся</string>
   <string name="unsubscribe">Одписати ся</string>
   <string name="lostAgainstTOSViolator">Вы прыйграли, тому тко нарушив правила Lichess</string>
+  <string name="refundXpointsTimeControlY">Верненя: %1$s %2$s рейтінґовых балув.</string>
   <string name="download">Стерьхати</string>
   <string name="welcome">Вітаєме!</string>
   <string name="lichessPatronInfo">Lichess - то незысковоє ай докус задарноє проґрамноє застаченя из одкрытым зачаточным кодом. 
 Вшыткі кельтункы, розробкы ай контент ся фінанзувут лем бо вы нас поддіржуєте.</string>
   <string name="tournDescriptionHelp">Хочете дашто уповісти хосновачам? Будьте курті у свойих словах. Приступні одкликованя у форматови Markdown:[name](https://url)</string>
+  <string name="minimumRating">Мінімум рейтінґу</string>
+  <string name="maximumWeeklyRating">Максімум тыждньвого рейтінґу</string>
   <string name="onlyTitledHelp">Мусай мати офіціалный шахматный статус бы бавити</string>
   <string name="positionInputHelp">Уведіт добрый шор FEN, обы кажда бавка ся зачинала из такої позіції.
 То фунґує лем на прості бавкы, а не варіанты.
