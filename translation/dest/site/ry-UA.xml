@@ -425,6 +425,7 @@
   <string name="list">Ліста</string>
   <string name="graph">Ґрафік</string>
   <string name="required">Мусайно.</string>
+  <string name="openTournaments">Одкрыті турніры</string>
   <string name="duration">Триманя</string>
   <string name="winner">Побідник</string>
   <string name="standing">Турнірна табела</string>
@@ -455,6 +456,7 @@
   </plurals>
   <string name="autoSwitch">Автопереміна</string>
   <string name="puzzles">Задачі</string>
+  <string name="tournamentWinners">Уграчі турнірув</string>
   <string name="name">Имня</string>
   <string name="description">Опис</string>
   <string name="descPrivateHelp">Текст, котрый будут відїти лем участникы дружины. Кідь покладено, публічный опис помінят ся вшыткым участникам дружины.</string>
