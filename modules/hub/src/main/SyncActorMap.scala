@@ -20,7 +20,6 @@ final class SyncActorMap[Id, T <: SyncActor](
 
   def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 
-  @annotation.nowarn
   private[this] val actors: LoadingCache[Id, T] =
     lila.common.LilaCache.scaffeine
       .expireAfterAccess(accessTimeout)
