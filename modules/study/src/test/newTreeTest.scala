@@ -57,6 +57,27 @@ class NewTreeTest extends lila.common.LilaTest:
         branch.move,
         MetasC.fromNode(branch)
       )
+  extension (newBranch: NewBranch)
+    def toBranch(children: List[NewTree]): Branch = Branch(
+      newBranch.id,
+      newBranch.metas.ply,
+      newBranch.move,
+      newBranch.metas.fen,
+      newBranch.metas.check,
+      newBranch.metas.dests,
+      newBranch.metas.drops,
+      newBranch.metas.eval,
+      newBranch.metas.shapes,
+      newBranch.metas.comments,
+      newBranch.metas.gamebook,
+      newBranch.metas.glyphs,
+      Branches(children.map(_.toBranch)),
+      newBranch.metas.opening,
+      newBranch.metas.comp,
+      newBranch.metas.clock,
+      newBranch.metas.crazyData,
+      newBranch.metas.forceVariation
+    )
   // extension (newBranch: NewBranch)
 
   // Convertor
@@ -77,27 +98,10 @@ class NewTreeTest extends lila.common.LilaTest:
         variations = branch.children.variations.map(NewTreeC.fromBranch)
       )
   extension (newTree: NewTree)
-    def toBranch: Branch = Branch(
-      newTree.value.id,
-      newTree.value.metas.ply,
-      newTree.value.move,
-      newTree.value.metas.fen,
-      newTree.value.metas.check,
-      newTree.value.metas.dests,
-      newTree.value.metas.drops,
-      newTree.value.metas.eval,
-      newTree.value.metas.shapes,
-      newTree.value.metas.comments,
-      newTree.value.metas.gamebook,
-      newTree.value.metas.glyphs,
-      Branches(newTree.children.map(_.toBranch)),
-      newTree.value.metas.opening,
-      newTree.value.metas.comp,
-      newTree.value.metas.clock,
-      newTree.value.metas.crazyData,
-      newTree.value.metas.forceVariation
+    def toBranch: Branch = newTree.value.toBranch(newTree.children)
+    def toBranches: Branches = Branches(
+      newTree.value.toBranch(newTree.children) :: newTree.variations.map(_.toBranch)
     )
-
   // Convertor
   object NewRootC:
     def fromRoot(root: Root) =
@@ -115,7 +119,7 @@ class NewTreeTest extends lila.common.LilaTest:
         newRoot.metas.comments,
         newRoot.metas.gamebook,
         newRoot.metas.glyphs,
-        Branches(newRoot.tree.mainLineAndVariations.map(_.toBranch)),
+        newRoot.tree.toBranches,
         newRoot.metas.opening,
         newRoot.metas.clock,
         newRoot.metas.crazyData
@@ -135,6 +139,12 @@ class NewTreeTest extends lila.common.LilaTest:
     assertEquals(newRoot.tree.mainLine.map(_.move.san.value), List("e4"))
   }
 
+  test("tree <-> newTree first move") {
+    val x       = PgnImport("1. e4 *", Nil).toOption.get
+    val newRoot = NewRootC.fromRoot(x.root)
+    assertEquals(newRoot.toRoot, x.root)
+  }
+
   test("valid tree -> newTree first move with variation") {
     val x       = PgnImport("1. e4 (1. d4??) *", Nil).toOption.get
     val newRoot = NewRootC.fromRoot(x.root)
@@ -152,8 +162,8 @@ class NewTreeTest extends lila.common.LilaTest:
     }
   }
 
-  // test("valid tree -> newTree conversion") {
-  //   val x = PgnImport(pgn, Nil).toOption.get
-  //   val newRoot = NewRootC.fromRoot(x.root)
-  //   assertEquals(newRoot.toRoot, x.root)
-  // }
+  test("valid tree <-> newTree more realistic conversion") {
+    val x       = PgnImport(pgn, Nil).toOption.get
+    val newRoot = NewRootC.fromRoot(x.root)
+    assertEquals(newRoot.toRoot, x.root)
+  }
