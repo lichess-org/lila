@@ -231,7 +231,7 @@ object IrcApi:
     def printLink(print: String)                = lichessLink(s"/mod/print/$print", print)
     def ipLink(ip: String)                      = lichessLink(s"/mod/ip/$ip", ip)
     def userNotesLink(name: UserName)           = lichessLink(s"/@/$name?notes", "notes")
-    def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
+    def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
     def linkifyUsers(msg: String) = userRegex matcher msg replaceAll (m => userLink(UserName(m.group(1))))
     val postReplace               = lichessLink("/forum/$1", "$1")
     def linkifyPosts(msg: String) = postRegex matcher msg replaceAll postReplace

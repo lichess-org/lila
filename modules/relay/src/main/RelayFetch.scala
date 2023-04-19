@@ -77,14 +77,14 @@ final private class RelayFetch(
             }
         }
         .recover { case e: Exception =>
-          (e match {
+          e.match {
             case SyncResult.Timeout =>
               if (rt.tour.official) logger.info(s"Sync timeout ${rt.round}")
               SyncResult.Timeout
             case _ =>
               if (rt.tour.official) logger.info(s"Sync error ${rt.round} ${e.getMessage take 80}")
               SyncResult.Error(e.getMessage)
-          }) -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
+          } -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
         }
         .map { case (result, newRelay) =>
           afterSync(result, newRelay withTour rt.tour)
@@ -160,12 +160,11 @@ final private class RelayFetch(
           .compute(
             url,
             (_, v) =>
-              Option(v) match {
+              Option(v) match
                 case Some(GamesSeenBy(games, seenBy)) if !seenBy(rt.round.id) =>
                   GamesSeenBy(games, seenBy + rt.round.id)
                 case _ =>
                   GamesSeenBy(doFetchUrl(url, RelayFetch.maxChapters(rt.tour)), Set(rt.round.id))
-              }
           )
           .games
     }
@@ -193,16 +192,18 @@ final private class RelayFetch(
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap { round =>
           round.pairings.zipWithIndex
-            .map { case (pairing, i) =>
+            .map { (pairing, i) =>
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
-              (gameDoc.format match {
-                case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
-                case RelayFormat.DocFormat.Json =>
-                  httpGetJson[GameJson](gameDoc.url).recover { case _: Exception =>
-                    GameJson(moves = Nil, result = none)
-                  } map { _.toPgn(pairing.tags) }
-              }) map (number -> _)
+              gameDoc.format
+                .match {
+                  case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
+                  case RelayFormat.DocFormat.Json =>
+                    httpGetJson[GameJson](gameDoc.url).recover { case _: Exception =>
+                      GameJson(moves = Nil, result = none)
+                    } map { _.toPgn(pairing.tags) }
+                }
+                .map(number -> _)
             }
             .parallel
             .map { results =>
@@ -223,17 +224,14 @@ final private class RelayFetch(
   private def httpGetPgn(url: URL): Fu[PgnStr] = PgnStr from httpGet(url)
 
   private def httpGetJson[A: Reads](url: URL): Fu[A] =
-    for {
+    for
       str  <- httpGet(url)
       json <- Future(Json parse str) // Json.parse throws exceptions (!)
       data <-
         summon[Reads[A]]
           .reads(json)
-          .fold(
-            err => fufail(s"Invalid JSON from $url: $err"),
-            fuccess
-          )
-    } yield data
+          .fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
+    yield data
 
 private object RelayFetch:
 
@@ -249,27 +247,18 @@ private object RelayFetch:
         lname: Option[String],
         title: Option[String]
     ):
-      def fullName =
-        some {
-          List(fname, mname, lname).flatten mkString " "
-        }.filter(_.nonEmpty)
+      def fullName = some {
+        List(fname, mname, lname).flatten mkString " "
+      }.filter(_.nonEmpty)
     case class RoundJsonPairing(white: PairingPlayer, black: PairingPlayer, result: String):
       import chess.format.pgn.*
       def tags =
         Tags(
           List(
-            white.fullName map { v =>
-              Tag(_.White, v)
-            },
-            white.title map { v =>
-              Tag(_.WhiteTitle, v)
-            },
-            black.fullName map { v =>
-              Tag(_.Black, v)
-            },
-            black.title map { v =>
-              Tag(_.BlackTitle, v)
-            },
+            white.fullName map { Tag(_.White, _) },
+            white.title map { Tag(_.WhiteTitle, _) },
+            black.fullName map { Tag(_.Black, _) },
+            black.title map { Tag(_.BlackTitle, _) },
             Tag(_.Result, result).some
           ).flatten
         )

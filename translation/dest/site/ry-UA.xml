@@ -448,6 +448,11 @@
   <string name="savingMovesHelp">Мы сокотиме ваші варіанты у кешови вашого браузера.</string>
   <string name="clearSavedMoves">Захарити ходы</string>
   <string name="success">Успіх</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s бавка ся бавит</item>
+    <item quantity="few">%s бавкы ся бавлят</item>
+    <item quantity="other">%s бавок ся бавлят</item>
+  </plurals>
   <string name="autoSwitch">Автопереміна</string>
   <string name="puzzles">Задачі</string>
   <string name="name">Имня</string>
@@ -549,6 +554,7 @@
     <item quantity="few">Приступно на %s бисїдох!</item>
     <item quantity="other">Приступно на %s бисїдох!</item>
   </plurals>
+  <string name="quickPairing">Шіковна партія</string>
   <string name="lobby">Чекарня</string>
   <string name="anonymous">Анонім</string>
   <string name="language">Бисїда</string>

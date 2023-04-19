@@ -2,7 +2,7 @@
 <resources>
   <string name="newAccessToken">Новий персональний токен доступу до API</string>
   <string name="tokenGrantsPermission">Токен дає іншим людям дозвіл на використання вашого облікового запису.</string>
-  <string name="carefullySelect">Обережно оберіть те, що дозволено робити від вашого імені.</string>
+  <string name="carefullySelect">Уважно оберіть те, що дозволено робити від вашого імені.</string>
   <string name="tokenDescription">Опис токену</string>
   <string name="rememberTokenUse">Пам\'ятайте для чого цей токен</string>
   <string name="whatTheTokenCanDo">Що токен може робити від вашого імені:</string>
@@ -14,8 +14,8 @@
   <string name="challengeRead">Переглядати вхідні виклики</string>
   <string name="challengeWrite">Створювати, приймати та відхиляти виклики</string>
   <string name="challengeBulk">Створювати декілька ігор з іншими гравцями одночасно</string>
-  <string name="studyRead">Переглядати інформацію про приватні студії та трансляції</string>
-  <string name="studyWrite">Створювати, поновлювати та видаляти студії й трансляції</string>
+  <string name="studyRead">Переглядати інформацію про приватні дослідження та трансляції</string>
+  <string name="studyWrite">Створювати, поновлювати та видаляти дослідження й трансляції</string>
   <string name="tournamentWrite">Створювати, поновлювати й брати участь у турнірах</string>
   <string name="racerWrite">Створювати та приєднуватись до пазлових перегонів</string>
   <string name="puzzleRead">Переглядати активність по задачах</string>

@@ -29,6 +29,7 @@ final class CrudForm(repo: TournamentRepo):
       "headline"       -> text(minLength = 5, maxLength = 30),
       "description"    -> nonEmptyText,
       "conditions"     -> Condition.DataForm.all(Nil),
+      "rated"          -> boolean,
       "berserkable"    -> boolean,
       "streakable"     -> boolean,
       "teamBattle"     -> boolean,
@@ -51,6 +52,7 @@ final class CrudForm(repo: TournamentRepo):
     description = "",
     conditions = Condition.DataForm.AllSetup.default,
     berserkable = true,
+    rated = true,
     streakable = true,
     teamBattle = false,
     hasChat = true
@@ -74,6 +76,7 @@ object CrudForm:
       headline: String,
       description: String,
       conditions: Condition.DataForm.AllSetup,
+      rated: Boolean,
       berserkable: Boolean,
       streakable: Boolean,
       teamBattle: Boolean,

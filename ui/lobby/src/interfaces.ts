@@ -82,8 +82,13 @@ export interface LobbyData {
   me?: LobbyMe;
   nbNowPlaying: number;
   nowPlaying: NowPlaying[];
-  ratingMap: Record<Perf, number> | null;
+  ratingMap: Record<Perf, RatingWithProvisional> | null;
   counters: { members: number; rounds: number };
+}
+
+export interface RatingWithProvisional {
+  rating: number;
+  prov?: boolean;
 }
 
 export interface NowPlaying {
