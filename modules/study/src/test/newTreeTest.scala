@@ -117,7 +117,7 @@ class NewTreeTest extends lila.common.LilaTest:
         newRoot.metas.comments,
         newRoot.metas.gamebook,
         newRoot.metas.glyphs,
-        Branches(newRoot.tree.mainlineAndVariations.map(_.toBranch)),
+        Branches(newRoot.tree.mainLineAndVariations.map(_.toBranch)),
         newRoot.metas.opening,
         newRoot.metas.clock,
         newRoot.metas.crazyData
