@@ -7,47 +7,31 @@ import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEdit
 import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
 import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, StudyCtrl, TagArray } from './interfaces';
 
-export interface StudyChaptersCtrl {
+export default class StudyChaptersCtrl {
   newForm: StudyChapterNewFormCtrl;
   editForm: StudyChapterEditFormCtrl;
   list: Prop<StudyChapterMeta[]>;
-  get(id: string): StudyChapterMeta | undefined;
-  size(): number;
-  sort(ids: string[]): void;
-  firstChapterId(): string;
-  toggleNewForm(): void;
-  localPaths: LocalPaths;
-}
+  localPaths: LocalPaths = {};
 
-export function ctrl(
-  initChapters: StudyChapterMeta[],
-  send: StudySocketSend,
-  setTab: () => void,
-  chapterConfig: (id: string) => Promise<StudyChapterConfig>,
-  root: AnalyseCtrl
-): StudyChaptersCtrl {
-  const list: Prop<StudyChapterMeta[]> = prop(initChapters);
+  constructor(
+    initChapters: StudyChapterMeta[],
+    readonly send: StudySocketSend,
+    setTab: () => void,
+    chapterConfig: (id: string) => Promise<StudyChapterConfig>,
+    root: AnalyseCtrl
+  ) {
+    this.list = prop(initChapters);
+    this.newForm = chapterNewForm(send, this.list, setTab, root);
+    this.editForm = chapterEditForm(send, chapterConfig, root.trans, root.redraw);
+  }
 
-  const newForm = chapterNewForm(send, list, setTab, root);
-  const editForm = chapterEditForm(send, chapterConfig, root.trans, root.redraw);
-
-  const localPaths: LocalPaths = {};
-
-  return {
-    newForm,
-    editForm,
-    list,
-    get: (id: string) => list().find(c => c.id === id),
-    size: () => list().length,
-    sort(ids) {
-      send('sortChapters', ids);
-    },
-    firstChapterId: () => list()[0].id,
-    toggleNewForm() {
-      if (newForm.vm.open || list().length < 64) newForm.toggle();
-      else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
-    },
-    localPaths,
+  get = (id: string) => this.list().find(c => c.id === id);
+  size = () => this.list().length;
+  sort = (ids: string[]) => this.send('sortChapters', ids);
+  firstChapterId = () => this.list()[0].id;
+  toggleNewForm = () => {
+    if (this.newForm.vm.open || this.list().length < 64) this.newForm.toggle();
+    else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
   };
 }
 

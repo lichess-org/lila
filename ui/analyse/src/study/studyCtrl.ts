@@ -5,7 +5,6 @@ import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
-import { ctrl as chapterCtrl } from './studyChapters';
 import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
@@ -45,6 +44,7 @@ import { StudySocketSendParams } from '../socket';
 import { Opening } from '../explorer/interfaces';
 import { storedMap, storedBooleanProp } from 'common/storage';
 import { opposite } from 'chessops/util';
+import StudyChaptersCtrl from './studyChapters';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -130,7 +130,7 @@ export default function (
     trans: ctrl.trans,
   });
 
-  const chapters = chapterCtrl(
+  const chapters = new StudyChaptersCtrl(
     data.chapters,
     send,
     () => vm.tab('chapters'),

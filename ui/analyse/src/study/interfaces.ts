@@ -4,7 +4,7 @@ import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import { StudyChaptersCtrl } from './studyChapters';
+import StudyChaptersCtrl from './studyChapters';
 import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
