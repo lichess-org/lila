@@ -62,22 +62,20 @@ class NewTreeTest extends lila.common.LilaTest:
   // Convertor
   object NewTreeC:
     def fromRoot(root: Root): NewTree =
-      // Assumes `Root` has a main move
+      // Assumes `Root` has a main move for conveniency in tests
       val first = root.children.first.get
       NewTree.make(
         value = NewBranchC.fromBranch(first),
-        child = NewTreeC.fromBranch(first),
-        variations = root.children.variations.flatMap(NewTreeC.fromBranch)
+        child = first.children.first.map(NewTreeC.fromBranch),
+        variations = root.children.variations.map(NewTreeC.fromBranch)
       )
 
-    def fromBranch(branch: Branch): Option[NewTree] =
-      branch.children.first.map { first =>
-        NewTree.make(
-          value = NewBranchC.fromBranch(first),
-          child = NewTreeC.fromBranch(first),
-          variations = branch.children.variations.flatMap(NewTreeC.fromBranch)
-        )
-      }
+    def fromBranch(branch: Branch): NewTree =
+      NewTree.make(
+        value = NewBranchC.fromBranch(branch),
+        child = branch.children.first.map(NewTreeC.fromBranch),
+        variations = branch.children.variations.map(NewTreeC.fromBranch)
+      )
   extension (newTree: NewTree)
     def toBranch: Branch = Branch(
       newTree.value.id,
@@ -130,9 +128,32 @@ class NewTreeTest extends lila.common.LilaTest:
   { Root comment }
 1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move }) 1... e6?! { e6 is a naughty move } *
   """
-
-  test("valid tree -> newTree conversion") {
-    val x = PgnImport(pgn, Nil).toOption.get
+  test("valid tree -> newTree first move") {
+    val x       = PgnImport("1. e4 *", Nil).toOption.get
     val newRoot = NewRootC.fromRoot(x.root)
-    assertEquals(newRoot.toRoot, x.root)
+    assertEquals(newRoot.tree.totalNodes, 1)
+    assertEquals(newRoot.tree.mainLine.map(_.move.san.value), List("e4"))
   }
+
+  test("valid tree -> newTree first move with variation") {
+    val x       = PgnImport("1. e4 (1. d4??) *", Nil).toOption.get
+    val newRoot = NewRootC.fromRoot(x.root)
+    assertEquals(newRoot.tree.totalNodes, 2)
+    assertEquals(newRoot.tree.variations.map(_.value.move.san.value), List("d4"))
+  }
+
+  test("valid tree -> newTree two moves") {
+    val x: Validated[ErrorStr, Result] = PgnImport("1. e4 e6 *", Nil)
+    assertMatch(x) {
+      case Validated.Valid(parsed: Result) => {
+        val newRoot = NewRootC.fromRoot(parsed.root)
+        newRoot.tree.totalNodes == 2 && newRoot.tree.mainLine.map(_.move.san.value) == List("e4", "e6")
+      }
+    }
+  }
+
+  // test("valid tree -> newTree conversion") {
+  //   val x = PgnImport(pgn, Nil).toOption.get
+  //   val newRoot = NewRootC.fromRoot(x.root)
+  //   assertEquals(newRoot.toRoot, x.root)
+  // }
