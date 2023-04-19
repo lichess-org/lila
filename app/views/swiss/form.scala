@@ -11,7 +11,7 @@ import lila.tournament.TournamentForm
 
 object form:
 
-  def create(form: Form[?], teamId: TeamId)(using Context) =
+  def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using Context) =
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
@@ -48,7 +48,7 @@ object form:
       )
     }
 
-  def edit(swiss: Swiss, form: Form[?])(using Context) =
+  def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using Context) =
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
@@ -88,7 +88,7 @@ object form:
   private def advancedSettings(settings: Frag*) =
     details(summary("Advanced settings"), settings)
 
-  private def condition(form: Form[?])(using ctx: Context) =
+  private def condition(form: Form[SwissForm.SwissData])(using ctx: Context) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
@@ -113,7 +113,7 @@ object form:
       )
     )
 
-final private class SwissFields(form: Form[?], swiss: Option[Swiss])(using Context):
+final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[Swiss])(using Context):
 
   private def disabledAfterStart = swiss.exists(!_.isCreated)
 
