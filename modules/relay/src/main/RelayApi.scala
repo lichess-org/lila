@@ -25,7 +25,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi
-)(using ec: Executor, mat: akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given
@@ -317,7 +317,8 @@ final class RelayApi(
       }
       .documentSource(nb)
 
-    (activeStream concat inactiveStream)
+    activeStream
+      .concat(inactiveStream)
       .mapConcat { doc =>
         doc
           .asOpt[RelayTour]
