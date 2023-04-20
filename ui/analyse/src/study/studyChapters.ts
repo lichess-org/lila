@@ -26,7 +26,6 @@ export default class StudyChaptersCtrl {
   }
 
   get = (id: string) => this.list().find(c => c.id === id);
-  size = () => this.list().length;
   sort = (ids: string[]) => this.send('sortChapters', ids);
   firstChapterId = () => this.list()[0].id;
   toggleNewForm = () => {

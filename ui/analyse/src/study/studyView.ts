@@ -209,7 +209,7 @@ export function side(ctrl: StudyCtrl): VNode {
   const chaptersTab =
     tourShow && ctrl.looksNew() && !ctrl.members.canContribute()
       ? null
-      : makeTab('chapters', ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
+      : makeTab('chapters', ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length));
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     tourTab,
