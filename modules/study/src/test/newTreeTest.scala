@@ -86,14 +86,14 @@ class NewTreeTest extends lila.common.LilaTest:
     def fromRoot(root: Root): NewTree =
       // Assumes `Root` has a main move for conveniency in tests
       val first = root.children.first.get
-      NewTree.make(
+      NewTree(
         value = NewBranchC.fromBranch(first),
         child = first.children.first.map(NewTreeC.fromBranch),
         variations = root.children.variations.map(NewTreeC.fromBranch)
       )
 
     def fromBranch(branch: Branch): NewTree =
-      NewTree.make(
+      NewTree(
         value = NewBranchC.fromBranch(branch),
         child = branch.children.first.map(NewTreeC.fromBranch),
         variations = branch.children.variations.map(NewTreeC.fromBranch)

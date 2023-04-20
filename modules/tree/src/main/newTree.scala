@@ -45,7 +45,7 @@ type NewTree = pgn.Node[NewBranch]
 
 object NewTree:
   // default case class constructor not working with type alias?
-  def make(value: NewBranch, child: Option[NewTree], variations: List[NewTree]) =
+  def apply(value: NewBranch, child: Option[NewTree], variations: List[NewTree]) =
     pgn.Node[NewBranch](value, child, variations)
 
 case class NewRoot(metas: Metas, tree: NewTree)
