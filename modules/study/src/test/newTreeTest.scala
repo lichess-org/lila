@@ -57,6 +57,7 @@ class NewTreeTest extends lila.common.LilaTest:
         branch.move,
         MetasC.fromNode(branch)
       )
+
   extension (newBranch: NewBranch)
     def toBranch(children: List[NewTree]): Branch = Branch(
       newBranch.id,
@@ -106,6 +107,7 @@ class NewTreeTest extends lila.common.LilaTest:
   object NewRootC:
     def fromRoot(root: Root) =
       NewRoot(MetasC.fromNode(root), NewTreeC.fromRoot(root))
+
   extension (newRoot: NewRoot)
     def toRoot =
       Root(
@@ -150,16 +152,15 @@ class NewTreeTest extends lila.common.LilaTest:
     val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.totalNodes, 2)
     assertEquals(newRoot.tree.variations.map(_.value.move.san.value), List("d4"))
+    assertEquals(newRoot.toRoot, x.root)
   }
 
   test("valid tree -> newTree two moves") {
-    val x: Validated[ErrorStr, Result] = PgnImport("1. e4 e6 *", Nil)
-    assertMatch(x) {
-      case Validated.Valid(parsed: Result) => {
-        val newRoot = NewRootC.fromRoot(parsed.root)
-        newRoot.tree.totalNodes == 2 && newRoot.tree.mainLine.map(_.move.san.value) == List("e4", "e6")
-      }
-    }
+    val x       = PgnImport("1. e4 e6 *", Nil).toOption.get
+    val newRoot = NewRootC.fromRoot(x.root)
+    assertEquals(newRoot.tree.totalNodes, 2)
+    assertEquals(newRoot.tree.mainLine.map(_.move.san.value), List("e4", "e6"))
+    assertEquals(newRoot.toRoot, x.root)
   }
 
   test("valid tree <-> newTree more realistic conversion") {
