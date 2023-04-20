@@ -74,20 +74,28 @@ final class RelayApi(
       cacheApi[RelayTour.Id, Option[RelayRound]](16, "relay.lastAndNextRounds") {
         _.expireAfterWrite(5 seconds)
           .buildAsyncFuture { tourId =>
-            val last = roundRepo.coll
-              .find($doc("tourId" -> tourId))
-              .sort($doc("startedAt" -> -1, "startsAt" -> -1))
+            val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
+            val lastStarted = roundRepo.coll
+              .find($doc("tourId" -> tourId, "startedAt" $exists true))
+              .sort($doc("startedAt" -> -1))
               .one[RelayRound]
             val next = roundRepo.coll
               .find($doc("tourId" -> tourId, "finished" -> false))
-              .sort(roundRepo.sort.chrono)
+              .sort(chronoSort)
               .one[RelayRound]
-            last zip next map {
-              case (Some(last), Some(next)) =>
-                if next.startsAt.exists(_ isBefore nowInstant.plusHours(1))
-                then next.some
-                else last.some
-              case (last, next) => last orElse next
+            lastStarted zip next flatMap {
+              case (None, _) => // no round started yet, show the first one
+                roundRepo.coll
+                  .find($doc("tourId" -> tourId))
+                  .sort(chronoSort)
+                  .one[RelayRound]
+              case (Some(last), Some(next)) => // show the next one if it's less than an hour away
+                fuccess:
+                  if next.startsAt.exists(_ isBefore nowInstant.plusHours(1))
+                  then next.some
+                  else last.some
+              case (Some(last), None) =>
+                fuccess(last.some)
             }
           }
       }
