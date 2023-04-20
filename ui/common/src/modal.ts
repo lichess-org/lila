@@ -17,12 +17,14 @@ interface SnabModal extends BaseModal {
   onClose(): void;
 }
 
+const overlayId = 'modal-overlay';
+
 export default function modal(opts: Modal) {
   modal.close();
   const $wrap = $(
     '<div id="modal-wrap"><span class="close" role="button" aria-label="Close" data-icon="" tabindex="0"></span></div>'
   );
-  const $overlay = $(`<div id="modal-overlay" class="${opts.class}">`);
+  const $overlay = $(`<div id="${overlayId}" class="${opts.class}">`);
   if (!opts.noClickAway) $overlay.on('click', modal.close);
   $('<a href="#"></a>').appendTo($overlay); // guard against focus escaping to window chrome
   $wrap.appendTo($overlay);
@@ -40,7 +42,7 @@ export default function modal(opts: Modal) {
 
 modal.close = () => {
   $('body').removeClass('overlayed');
-  $('#modal-overlay').each(function (this: HTMLElement) {
+  $(`#${overlayId}`).each(function (this: HTMLElement) {
     if (modal.onClose) modal.onClose();
     $(this).remove();
   });
@@ -52,14 +54,12 @@ modal.onClose = undefined as (() => void) | undefined;
 export function snabModal(opts: SnabModal): VNode {
   const close = opts.onClose!;
   return h(
-    'div#modal-overlay',
+    `div#${overlayId}`,
     opts.noClickAway
       ? {}
       : {
           hook: bind('click', (event: MouseEvent) => {
-            if (event.target === document.querySelector('div#modal-overlay')) {
-              close();
-            }
+            if ((event.target as HTMLElement).id == overlayId) close();
           }),
         },
     [
