@@ -51,7 +51,11 @@ modal.onClose = undefined as (() => void) | undefined;
 
 export function snabModal(opts: SnabModal): VNode {
   const close = opts.onClose!;
-  return h('div#modal-overlay', opts.noClickAway ? {} : { hook: bind('click', close) }, [
+  return h('div#modal-overlay', opts.noClickAway ? {} : { hook: bind('mousedown', (event: MouseEvent) => {
+    if (event.target === document.querySelector('div#modal-overlay')) {
+      close();
+    }
+  }) }, [
     h(
       'div#modal-wrap.' + opts.class,
       {
