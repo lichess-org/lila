@@ -45,8 +45,7 @@ class NewTreeTest extends lila.common.LilaTest:
         node.opening,
         node.comp,
         node.clock,
-        node.crazyData,
-        node.forceVariation
+        node.crazyData
       )
 
   // Convertor
@@ -55,7 +54,8 @@ class NewTreeTest extends lila.common.LilaTest:
       NewBranch(
         branch.id,
         branch.move,
-        MetasC.fromNode(branch)
+        MetasC.fromNode(branch),
+        branch.forceVariation
       )
 
   extension (newBranch: NewBranch)
@@ -77,7 +77,7 @@ class NewTreeTest extends lila.common.LilaTest:
       newBranch.metas.comp,
       newBranch.metas.clock,
       newBranch.metas.crazyData,
-      newBranch.metas.forceVariation
+      newBranch.forceVariation
     )
   // extension (newBranch: NewBranch)
 
