@@ -53,7 +53,7 @@ object PgnImport:
               clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
               children =
-                parsedPgn.tree.pp.map(makeBranches(replay.setup, _, annotator).pp).getOrElse(Branches.empty)
+                parsedPgn.tree.map(makeBranches(replay.setup, _, annotator)).getOrElse(Branches.empty)
             )
             val end: Option[End] = (game.finished option game.status).map { status =>
               End(
@@ -117,7 +117,7 @@ object PgnImport:
   ): Branches =
     // TODO: add removeDuplicatedChildrenFirstNode logic
     // TODO: parsedPgn.sans.value take Node.MAX_PLIES
-    val variations = node.variations.flatMap(makeBranch(prev, _, annotator).pp).pp
+    val variations = node.variations.flatMap(makeBranch(prev, _, annotator))
     Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations))
 
   private def makeBranch(
