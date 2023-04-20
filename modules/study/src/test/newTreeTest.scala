@@ -43,7 +43,6 @@ class NewTreeTest extends lila.common.LilaTest:
         node.gamebook,
         node.glyphs,
         node.opening,
-        node.comp,
         node.clock,
         node.crazyData
       )
@@ -54,8 +53,9 @@ class NewTreeTest extends lila.common.LilaTest:
       NewBranch(
         branch.id,
         branch.move,
-        MetasC.fromNode(branch),
-        branch.forceVariation
+        branch.comp,
+        branch.forceVariation,
+        MetasC.fromNode(branch)
       )
 
   extension (newBranch: NewBranch)
@@ -74,7 +74,7 @@ class NewTreeTest extends lila.common.LilaTest:
       newBranch.metas.glyphs,
       Branches(children.map(_.toBranch)),
       newBranch.metas.opening,
-      newBranch.metas.comp,
+      newBranch.comp,
       newBranch.metas.clock,
       newBranch.metas.crazyData,
       newBranch.forceVariation
