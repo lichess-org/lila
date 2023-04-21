@@ -21,7 +21,11 @@ export const ratingView = (ctrl: LobbyController): MaybeVNode => {
         : [
             ...ctrl.trans.vdom(
               'perfRatingX',
-              h('strong', { attrs: { 'data-icon': perfOrSpeed.icon } }, data.ratingMap[selectedPerf].rating)
+              h(
+                'strong',
+                { attrs: { 'data-icon': perfOrSpeed.icon } },
+                data.ratingMap[selectedPerf].rating + (data.ratingMap[selectedPerf].prov ? '?' : '')
+              )
             ),
             perfOrSpeed.name,
           ]
