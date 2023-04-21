@@ -45,6 +45,7 @@ import { Opening } from '../explorer/interfaces';
 import { storedMap, storedBooleanProp } from 'common/storage';
 import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
+import { SearchCtrl } from './studySearch';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -195,6 +196,8 @@ export default function (
   );
 
   const serverEval = new ServerEval(ctrl, () => vm.chapterId);
+
+  const search = new SearchCtrl(data.name, chapters.list, setChapter, redraw);
 
   const topics: TopicsCtrl = topicsCtrl(
     topics => send('setTopics', topics),
@@ -616,6 +619,7 @@ export default function (
     studyDesc,
     chapterDesc,
     topics,
+    search,
     vm,
     relay,
     multiBoard,

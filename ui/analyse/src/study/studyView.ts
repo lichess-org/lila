@@ -21,6 +21,7 @@ import { view as studyFormView } from './studyForm';
 import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
+import { view as searchView } from './studySearch';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -268,6 +269,7 @@ export function overboard(ctrl: StudyCtrl) {
   if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
   if (ctrl.topics.open()) return topicsFormView(ctrl.topics, ctrl.members.myId);
   if (ctrl.form.open()) return studyFormView(ctrl.form);
+  if (ctrl.search.open()) return searchView(ctrl.search);
   return undefined;
 }
 
