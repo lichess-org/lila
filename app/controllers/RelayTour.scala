@@ -14,13 +14,20 @@ import lila.common.config
 
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
-  def index(page: Int) =
+  def index(page: Int, q: String) =
     Open { implicit ctx =>
       Reasonable(page, config.Max(20)) {
-        for
-          active <- (page == 1).??(env.relay.api.officialActive.get({}))
-          pager  <- env.relay.pager.inactive(page)
-        yield Ok(html.relay.tour.index(active, pager))
+        q.trim.take(100).some.filter(_.nonEmpty) match
+          case Some(query) =>
+            env.relay.pager
+              .search(query, page)
+              .map: pager =>
+                Ok(html.relay.tour.search(pager, query))
+          case None =>
+            for
+              active <- (page == 1).??(env.relay.api.officialActive.get({}))
+              pager  <- env.relay.pager.inactive(page)
+            yield Ok(html.relay.tour.index(active, pager))
       }
     }
 

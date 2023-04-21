@@ -5,49 +5,80 @@ import reactivemongo.api.ReadPreference
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.*
+import lila.relay.RelayTour.WithLastRound
 
 final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using Executor):
 
   import BSONHandlers.given
 
-  def inactive(page: Int): Fu[Paginator[RelayTour.WithLastRound]] =
+  private val maxPerPage = MaxPerPage(20)
+
+  def inactive(page: Int): Fu[Paginator[WithLastRound]] =
     Paginator(
-      adapter = new AdapterLike[RelayTour.WithLastRound] {
+      adapter = new AdapterLike[WithLastRound] {
 
         def nbResults: Fu[Int] = fuccess(9999)
 
-        def slice(offset: Int, length: Int): Fu[List[RelayTour.WithLastRound]] =
+        def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework.*
-              Match(tourRepo.selectors.officialInactive) -> List(
-                Sort(Descending("syncedAt")),
-                PipelineOperator(
-                  $lookup.pipeline(
-                    from = roundRepo.coll,
-                    as = "round",
-                    local = "_id",
-                    foreign = "tourId",
-                    pipe = List(
-                      $doc("$sort"      -> roundRepo.sort.start),
-                      $doc("$limit"     -> 1),
-                      $doc("$addFields" -> $doc("sync.log" -> $arr()))
-                    )
-                  )
-                ),
-                UnwindField("round"),
-                Skip(offset),
-                Limit(length)
-              )
+              Match(tourRepo.selectors.officialInactive) -> {
+                List(Sort(Descending("syncedAt"))) ::: aggregateRound(framework) ::: List(
+                  Skip(offset),
+                  Limit(length)
+                )
+              }
             }
-            .map { docs =>
-              for
-                doc   <- docs
-                tour  <- doc.asOpt[RelayTour]
-                round <- doc.getAsOpt[RelayRound]("round")
-              yield RelayTour.WithLastRound(tour, round)
-            }
+            .map(readToursWithRounds)
       },
       currentPage = page,
-      maxPerPage = MaxPerPage(20)
+      maxPerPage = maxPerPage
     )
+
+  def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
+    Paginator(
+      adapter = new AdapterLike[WithLastRound] {
+
+        private val selector = $doc("$text" -> $doc("$search" -> query))
+
+        def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
+
+        def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
+          tourRepo.coll
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+              import framework.*
+              Match(selector) -> {
+                List(Sort(Descending("tier"), Descending("syncedAt"), Descending("createdAt"))) :::
+                  aggregateRound(framework) :::
+                  List(Skip(offset), Limit(length))
+              }
+            }
+            .map(readToursWithRounds)
+      },
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
+
+  private def aggregateRound(framework: tourRepo.coll.AggregationFramework.type) = List(
+    framework.PipelineOperator(
+      $lookup.pipeline(
+        from = roundRepo.coll,
+        as = "round",
+        local = "_id",
+        foreign = "tourId",
+        pipe = List(
+          $doc("$sort"      -> roundRepo.sort.start),
+          $doc("$limit"     -> 1),
+          $doc("$addFields" -> $doc("sync.log" -> $arr()))
+        )
+      )
+    ),
+    framework.UnwindField("round")
+  )
+
+  private def readToursWithRounds(docs: List[Bdoc]): List[WithLastRound] = for
+    doc   <- docs
+    tour  <- doc.asOpt[RelayTour]
+    round <- doc.getAsOpt[RelayRound]("round")
+  yield WithLastRound(tour, round)
