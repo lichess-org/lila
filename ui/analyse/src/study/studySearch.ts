@@ -12,7 +12,7 @@ export class SearchCtrl {
   constructor(
     readonly studyName: string,
     readonly chapters: Prop<StudyChapterMeta[]>,
-    readonly rootSetChapter: (id: String) => void,
+    readonly rootSetChapter: (id: string) => void,
     readonly redraw: Redraw
   ) {
     this.open = propWithEffect(true, redraw);
