@@ -588,7 +588,7 @@ final class Team(
     Action.async {
       import env.team.jsonView.given
       JsonOk {
-        api teamsOf username flatMap { teams =>
+        api.joinedTeamsOfUserAsSeenBy(username, None) flatMap { teams =>
           env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
         }
       }
