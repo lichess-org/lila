@@ -38,24 +38,6 @@ object tour:
       )
     }
 
-  def search(pager: Paginator[RelayTour.WithLastRound], query: String = "")(using Context) =
-    views.html.base.layout(
-      title = liveBroadcasts.txt(),
-      moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
-    ) {
-      main(cls := "relay-index page-menu")(
-        pageMenu("index"),
-        div(cls := "page-menu__content box")(
-          boxTop(
-            h1(liveBroadcasts()),
-            searchForm(query)
-          ),
-          renderPager(pager, query)
-        )
-      )
-    }
-
   def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(using
       Context
   ) =
@@ -114,5 +96,6 @@ object tour:
     st.section(cls := "infinite-scroll")(
       pager.currentPageResults map { tr =>
         renderWidget(tr, ongoing = _ => false)(cls := "paginated")
-      }
+      },
+      pagerNext(pager, routes.RelayTour.index(_, query).url)
     )

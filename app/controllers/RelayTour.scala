@@ -22,7 +22,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
             env.relay.pager
               .search(query, page)
               .map: pager =>
-                Ok(html.relay.tour.search(pager, query))
+                Ok(html.relay.tour.index(Nil, pager, query))
           case None =>
             for
               active <- (page == 1).??(env.relay.api.officialActive.get({}))
