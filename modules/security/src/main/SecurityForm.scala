@@ -115,12 +115,6 @@ final class SecurityForm(
     )
   )
 
-  def newPasswordFor(user: User) = Form(
-    single(
-      "password" -> newPasswordFieldFor(user)
-    )
-  )
-
   case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String):
     def samePasswords = newPasswd1 == newPasswd2
 
