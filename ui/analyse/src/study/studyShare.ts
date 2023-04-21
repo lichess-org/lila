@@ -151,9 +151,14 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 },
                 hook: bind('click', async event => {
                   const pgn = await xhrText(`/study/${studyId}/${ctrl.chapter().id}.pgn`);
-                  await navigator.clipboard.writeText(pgn);
-                  (event.target as HTMLElement).setAttribute('data-icon', '');
-                  setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
+                  const iconFeedback = (success: boolean) => {
+                    (event.target as HTMLElement).setAttribute('data-icon', success ? '' : '');
+                    setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
+                  };
+                  navigator.clipboard.writeText(pgn).then(
+                    () => iconFeedback(true),
+                    () => iconFeedback(false)
+                  );
                 }),
               },
               ctrl.trans.noarg('copyChapterPgn')
