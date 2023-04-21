@@ -58,7 +58,7 @@ export function snabModal(opts: SnabModal): VNode {
     opts.noClickAway
       ? {}
       : {
-          hook: bind('click', (event: MouseEvent) => {
+          hook: bind('mousedown', (event: MouseEvent) => {
             if ((event.target as HTMLElement).id == overlayId) close();
           }),
         },
