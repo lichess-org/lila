@@ -20,6 +20,7 @@ import { StudyFormCtrl } from './studyForm';
 import { StudyMemberCtrl } from './studyMembers';
 import { Opening } from '../explorer/interfaces';
 import { StudySocketSendParams } from '../socket';
+import { SearchCtrl } from './studySearch';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -40,6 +41,7 @@ export interface StudyCtrl {
   tags: TagsCtrl;
   studyDesc: DescriptionCtrl;
   chapterDesc: DescriptionCtrl;
+  search: SearchCtrl;
   toggleLike(): void;
   position(): Position;
   isChapterOwner(): boolean;
