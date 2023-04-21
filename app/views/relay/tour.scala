@@ -31,7 +31,7 @@ object tour:
             searchForm(query)
           ),
           st.section(
-            active.map { renderWidget(_, ongoing = true) }
+            active.map { renderWidget(_, ongoing = _.ongoing) }
           ),
           renderPager(pager, query)
         )
@@ -81,13 +81,13 @@ object tour:
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))("About broadcasts")
     )
 
-  private def renderWidget(tr: RelayRound.AndTour, ongoing: Boolean)(using Context) =
+  private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
     div(
       cls := List(
         "relay-widget"                                        -> true,
-        " relay-widget--active"                               -> tr.tour.active,
         s"tour-tier--${tr.tour.tier | RelayTour.Tier.NORMAL}" -> true,
-        "relay-widget--ongoing"                               -> ongoing
+        "relay-widget--active"                                -> tr.tour.active,
+        "relay-widget--ongoing"                               -> ongoing(tr)
       ),
       dataIcon := ""
     )(
@@ -97,11 +97,8 @@ object tour:
         div(cls := "relay-widget__info")(
           p(tr.tour.description),
           p(cls := "relay-widget__info__meta")(
-            strong(tr.round.name),
-            br,
-            if ongoing
-            then trans.playingRightNow()
-            else tr.round.startsAt.map(momentFromNow(_))
+            tr.tour.active option frag(strong(tr.round.name), br),
+            if ongoing(tr) then trans.playingRightNow() else tr.round.startsAt.map(momentFromNow(_))
           )
         )
       )
@@ -116,6 +113,6 @@ object tour:
   private def renderPager(pager: Paginator[WithLastRound], query: String)(using Context) =
     st.section(cls := "infinite-scroll")(
       pager.currentPageResults map { tr =>
-        renderWidget(tr, ongoing = false)(cls := "paginated")
+        renderWidget(tr, ongoing = _ => false)(cls := "paginated")
       }
     )

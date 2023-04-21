@@ -40,7 +40,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
     Paginator(
       adapter = new AdapterLike[WithLastRound] {
 
-        private val selector = $doc("$text" -> $doc("$search" -> query))
+        private val selector = $doc("tier" $exists true, "$text" -> $doc("$search" -> query))
 
         def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
 
