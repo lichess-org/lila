@@ -125,9 +125,6 @@ final class TeamApi(
         }
     }
 
-  def joinedTeamsOfUserAsSeenBy[U: UserIdOf](member: U, viewer: Option[User]): Fu[List[Team]] =
-    joinedTeamIdsOfUserAsSeenBy(member, viewer) flatMap teamsByIds
-
   def countCreatedRecently(me: User): Fu[Int] =
     teamRepo.countCreatedSince(me.id, Period.ofWeeks(1))
 
