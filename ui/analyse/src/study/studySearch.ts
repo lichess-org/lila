@@ -15,7 +15,7 @@ export class SearchCtrl {
     readonly rootSetChapter: (id: string) => void,
     readonly redraw: Redraw
   ) {
-    this.open = propWithEffect(true, redraw);
+    this.open = propWithEffect(false, () => this.query(''));
     lichess.pubsub.on('study.search.open', () => this.open(true));
   }
 
@@ -46,7 +46,6 @@ export class SearchCtrl {
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 
 export function view(ctrl: SearchCtrl) {
-  if (!ctrl.open()) return;
   const cleanQuery = ctrl.cleanQuery();
   const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
   return snabModal({

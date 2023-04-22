@@ -197,7 +197,7 @@ export default function (
 
   const serverEval = new ServerEval(ctrl, () => vm.chapterId);
 
-  const search = new SearchCtrl(data.name, chapters.list, setChapter, redraw);
+  const search = new SearchCtrl(relay?.fullRoundName() || data.name, chapters.list, setChapter, redraw);
 
   const topics: TopicsCtrl = topicsCtrl(
     topics => send('setTopics', topics),
