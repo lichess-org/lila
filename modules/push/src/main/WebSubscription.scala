@@ -3,9 +3,7 @@ package lila.push
 case class WebSubscription(
     endpoint: String,
     auth: String,
-    p256dh: String,
-    aes128gcm: Option[Boolean],
-    aesgcm: Option[Boolean]
+    p256dh: String
 )
 
 object WebSubscription:
@@ -17,9 +15,7 @@ object WebSubscription:
   given webSubscriptionReads: Reads[WebSubscription] = (
     (__ \ "endpoint").read[String] and
       (__ \ "keys" \ "auth").read[String] and
-      (__ \ "keys" \ "p256dh").read[String] and
-      (__ \ "encodings" \ "aes128gcm").readNullable[Boolean] and
-      (__ \ "encodings" \ "aesgcm").readNullable[Boolean]
+      (__ \ "keys" \ "p256dh").read[String]
   )(WebSubscription.apply)
 
   given webSubscriptionReader: BSONDocumentReader[WebSubscription] = Macros.reader[WebSubscription]
