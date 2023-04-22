@@ -1,6 +1,5 @@
 package lila.i18n
 
-import java.util.Locale
 import org.joda.time.format.{ PeriodFormat, PeriodFormatter }
 import org.joda.time.{ DurationFieldType, PeriodType, Period as JodaPeriod }
 import play.api.i18n.Lang

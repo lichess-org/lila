@@ -114,6 +114,13 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
     pagerButton(ctrl.trans.noarg('next'), '', ctrl.nextPage, page < pager.nbPages, ctrl),
     pagerButton(ctrl.trans.noarg('last'), '', ctrl.lastPage, page < pager.nbPages, ctrl),
+    h('button.fbt', {
+      attrs: {
+        'data-icon': '',
+        title: 'Search',
+      },
+      hook: bind('click', () => lichess.pubsub.emit('study.search.open')),
+    }),
   ]);
 }
 

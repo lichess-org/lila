@@ -207,6 +207,13 @@
   <string name="email">Ηλ. ταχυδρομείο</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
+  <string name="error.weakPassword">Αυτός ο κωδικός πρόσβασης είναι εξαιρετικά συνηθισμένος και πολύ εύκολος να μαντέψει.</string>
+  <string name="error.namePassword">Παρακαλώ μην χρησιμοποιείτε το όνομα χρήστη σας ως κωδικό πρόσβασής σας.</string>
+  <string name="blankedPassword">Έχετε χρησιμοποιήσει τον ίδιο κωδικό πρόσβασης σε άλλη ιστοσελίδα και εκείνη η ιστοσελίδα έχει παραβιαστεί. Για να διασφαλίσετε την ασφάλεια του λογαριασμού σας στο Lichess θα πρέπει να ορίσετε ένα νέο κωδικό πρόσβασης. Σας ευχαριστούμε για την κατανόησή.</string>
+  <string name="youAreLeavingLichess">Φεύγετε από το Lichess</string>
+  <string name="neverTypeYourPassword">Ποτέ μην πληκτρολογήσετε τον κωδικό σας από το Lichess σε άλλον ιστότοπο!</string>
+  <string name="proceedToX">Μεταβείτε στο %s</string>
+  <string name="passwordSuggestion">Μην ορίσετε τον κωδικό πρόσβασης που σας πρότεινε κάποιος άλλος. Θα χρησιμοποιηθεί για να κλαπεί ο λογαριασμός σας.</string>
   <string name="emailConfirmHelp">Βοήθεια για την επιβεβαίωση email</string>
   <string name="emailConfirmNotReceived">Δε λάβατε το email επιβεβαίωσης μετά την εγγραφή;</string>
   <string name="whatSignupUsername">Τι όνομα χρήστη χρησιμοποιήσατε για να εγγραφείτε;</string>

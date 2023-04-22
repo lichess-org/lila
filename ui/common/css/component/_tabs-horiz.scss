@@ -5,7 +5,6 @@ $c-tabs-active: $c-accent !default;
 
   justify-content: center;
   align-items: flex-end;
-  border-bottom: 2px solid $c-border;
   user-select: none;
 
   @include breakpoint($mq-not-xx-small) {
@@ -13,15 +12,16 @@ $c-tabs-active: $c-accent !default;
   }
 
   span {
-    @extend %roboto;
+    @extend %roboto, %nowrap-hidden;
 
     flex: 1 1 auto;
     text-align: center;
     padding: 0.5em 0.2em;
     cursor: pointer;
     position: relative;
+    border-bottom: 2px solid transparent;
 
-    @include transition(color, 0.25s);
+    transition: color 0.25s, border-color 0.25s;
 
     min-width: 15%;
     letter-spacing: -0.5px;
@@ -30,29 +30,21 @@ $c-tabs-active: $c-accent !default;
       letter-spacing: inherit;
     }
 
-    &::after {
-      content: '';
-      background: fade-out($c-tabs-active, 0.3);
-      height: 2px;
-      position: absolute;
-      width: 96%;
-      #{$start-direction}: 2%;
-      bottom: -2px;
-
-      @include transition(all, 0.25s);
-
-      transform: scale(0);
-    }
-
     &.active,
     &:hover {
-      &::after {
-        transform: scale(1);
-      }
+      color: $c-font-clear;
+      border-color: $c-tabs-active;
     }
 
     &.active {
       color: $c-tabs-active;
+    }
+
+    &.narrow {
+      padding-left: 0;
+      padding-right: 0;
+      flex: 0 3 auto;
+      min-width: 10%;
     }
   }
 

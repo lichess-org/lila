@@ -8,6 +8,7 @@ case class RelayRound(
     _id: RelayRoundId,
     tourId: RelayTour.Id,
     name: RelayRoundName,
+    caption: Option[RelayRound.Caption],
     sync: RelayRound.Sync,
     /* When it's planned to start */
     startsAt: Option[Instant],
@@ -63,6 +64,9 @@ case class RelayRound(
 object RelayRound:
 
   def makeId = RelayRoundId(ThreadLocalRandom nextString 8)
+
+  opaque type Caption = String
+  object Caption extends OpaqueString[Caption]
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
