@@ -117,7 +117,7 @@ object discussion:
           )
         },
         as.left.exists(_.markedByMe) option div(dataIcon := "", cls := "marked-by-me text")(
-          "You have marked this user. Appeal should be handled by another moderator"
+          "You have marked this user. The appeal should be handled by a different moderator"
         ),
         if (as.isRight && !appeal.canAddMsg) p("Please wait for a moderator to reply.")
         else
@@ -158,7 +158,7 @@ object discussion:
       form3.globalError(form),
       form3.group(
         form("text"),
-        if (isNew) "Create an appeal" else "Add something to the appeal",
+        if (isNew) "Create an appeal" else "Add something to your case",
         help = !isGranted(_.Appeals) option frag("Please be concise. Maximum 1000 chars.")
       )(f => form3.textarea(f.copy(constraints = Seq.empty))(rows := 6, maxlength := Appeal.maxLengthClient)),
       presets.map { ps =>
