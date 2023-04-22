@@ -77,7 +77,7 @@ object PgnImport:
             )
     }
 
-  private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
+  def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
     pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
@@ -87,12 +87,12 @@ object PgnImport:
       } getOrElse Comment.Author.External(a)
     }
 
-  private def endComment(end: End): Comment =
+  def endComment(end: End): Comment =
     import end.*
     val text = s"$resultText $statusText"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
 
-  private def parseComments(
+  def parseComments(
       comments: List[ChessComment],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Comments) =

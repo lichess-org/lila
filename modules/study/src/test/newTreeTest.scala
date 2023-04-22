@@ -159,6 +159,6 @@ class NewTreeTest extends lila.common.LilaTest:
   test("valid tree <-> newTree more realistic conversion"):
     PgnFixtures.all foreach { pgn =>
       val x       = PgnImport(pgn, Nil).toOption.get
-      val newRoot = NewRootC.fromRoot(x.root)
+      val newRoot = NewPgnImport(pgn, Nil).toOption.get.root.pp
       assertEquals(newRoot.toRoot, x.root)
     }
