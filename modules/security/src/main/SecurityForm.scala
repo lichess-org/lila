@@ -1,5 +1,6 @@
 package lila.security
 
+import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
@@ -16,7 +17,7 @@ final class SecurityForm(
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
     hcaptcha: Hcaptcha
-)(using Executor):
+)(using ec: Executor, mode: play.api.Mode):
 
   import SecurityForm.*
 
@@ -94,7 +95,7 @@ final class SecurityForm(
           "agreement" -> agreement,
           "fp"        -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
-          .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
+          .verifying(PasswordCheck.errorSame, x => mode != Mode.Prod || x.password != x.username.value)
       )
     )
 
@@ -104,7 +105,7 @@ final class SecurityForm(
         "password" -> newPasswordField,
         "email"    -> emailField
       )(MobileSignupData.apply)(_ => None)
-        .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
+        .verifying(PasswordCheck.errorSame, x => mode != Mode.Prod || x.password != x.username.value)
     )
 
   def passwordReset(implicit req: RequestHeader) = hcaptcha.form(
@@ -112,12 +113,6 @@ final class SecurityForm(
       mapping(
         "email" -> sendableEmail // allow unacceptable emails for BC
       )(PasswordReset.apply)(_ => None)
-    )
-  )
-
-  def newPasswordFor(user: User) = Form(
-    single(
-      "password" -> newPasswordFieldFor(user)
     )
   )
 
