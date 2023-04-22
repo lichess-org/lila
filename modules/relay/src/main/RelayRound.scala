@@ -3,6 +3,7 @@ package lila.relay
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.study.Study
+import lila.common.Seconds
 
 case class RelayRound(
     _id: RelayRoundId,
@@ -72,7 +73,7 @@ object RelayRound:
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
       until: Option[Instant],          // sync until then; resets on move
       nextAt: Option[Instant],         // when to run next sync
-      delay: Option[Int],              // override time between two sync (rare)
+      period: Option[Seconds],         // override time between two sync (rare)
       log: SyncLog
   ):
 
