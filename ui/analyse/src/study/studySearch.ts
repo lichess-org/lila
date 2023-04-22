@@ -1,6 +1,6 @@
 import { Prop, propWithEffect } from 'common';
 import { snabModal } from 'common/modal';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudyChapterMeta } from './interfaces';
@@ -32,15 +32,23 @@ export class SearchCtrl {
     this.query('');
   };
 
+  setFirstChapter = () => {
+    const c = this.results()[0];
+    if (c) this.setChapter(c.id);
+  };
+
   private tokenize = (c: StudyChapterMeta) => c.name.toLowerCase().split(' ');
 
   private match = (q: string) => (c: StudyChapterMeta) =>
     q.includes(' ') ? c.name.toLowerCase().includes(q) : this.tokenize(c).some(t => t.startsWith(q));
 }
 
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+
 export function view(ctrl: SearchCtrl) {
   if (!ctrl.open()) return;
   const cleanQuery = ctrl.cleanQuery();
+  const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
   return snabModal({
     class: 'study-search',
     onClose() {
@@ -49,8 +57,9 @@ export function view(ctrl: SearchCtrl) {
     content: [
       h('input', {
         attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
-        hook: bind('input', (e: KeyboardEvent) => {
-          ctrl.query((e.target as HTMLInputElement).value.trim());
+        hook: onInsert((el: HTMLInputElement) => {
+          el.addEventListener('input', (e: KeyboardEvent) => ctrl.query((e.target as HTMLInputElement).value.trim()));
+          el.addEventListener('keydown', (e: KeyboardEvent) => e.key == 'Enter' && ctrl.setFirstChapter());
         }),
       }),
       h(
@@ -66,11 +75,11 @@ export function view(ctrl: SearchCtrl) {
               h(
                 'h3',
                 {
-                  hook: cleanQuery
+                  hook: highlightRegex
                     ? {
                         insert(vnode: VNode) {
                           const el = vnode.elm as HTMLElement;
-                          el.innerHTML = c.name.replace(new RegExp(cleanQuery, 'gi'), '<high>$&</high>');
+                          el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
                         },
                       }
                     : {},
