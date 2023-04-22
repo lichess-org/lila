@@ -10,17 +10,20 @@ import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given
+import lila.simul.{ Simul, SimulCondition }
 
 object show:
 
   def apply(
-      sim: lila.simul.Simul,
+      sim: Simul,
       socketVersion: SocketVersion,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
-      team: Option[lila.team.Team]
+      team: Option[lila.team.Team],
+      verdicts: SimulCondition.All.WithVerdicts
   )(implicit ctx: Context) =
+    val userIsHost = ctx.userId has sim.hostId
     views.html.base.layout(
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
@@ -39,7 +42,7 @@ object show:
                   timeout = c.timeout,
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-                  localMod = ctx.userId has sim.hostId
+                  localMod = userIsHost
                 )
               },
               "showRatings" -> ctx.pref.showRatings
@@ -59,7 +62,7 @@ object show:
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
                     trans.casual(),
-                    (isGranted(_.ManageSimul) || ctx.userId.has(sim.hostId)) && sim.isCreated option frag(
+                    (isGranted(_.ManageSimul) || userIsHost) && sim.isCreated option frag(
                       " • ",
                       a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(""))
                     )
@@ -96,6 +99,30 @@ object show:
                 )
               }
             ),
+            if (verdicts.relevant)
+              st.section(
+                dataIcon := !userIsHost option (if ctx.isAuth && verdicts.accepted then "" else ""),
+                cls := List(
+                  "conditions" -> true,
+                  "accepted"   -> (ctx.isAuth && !userIsHost && verdicts.accepted),
+                  "refused"    -> (ctx.isAuth && !userIsHost && !verdicts.accepted)
+                )
+              )(
+                div(
+                  verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
+                  verdicts.list map { v =>
+                    p(
+                      cls := List(
+                        "condition" -> true,
+                        "accepted"  -> (ctx.isAuth && !userIsHost && v.verdict.accepted),
+                        "refused"   -> (ctx.isAuth && !userIsHost && !v.verdict.accepted)
+                      ),
+                      title := !userIsHost option v.verdict.reason.map(_(ctx.lang))
+                    )(v.condition.name)
+                  }
+                )
+              )
+            else br,
             trans.by(userIdLink(sim.hostId.some)),
             team map { t =>
               frag(

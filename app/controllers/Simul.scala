@@ -6,7 +6,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.simul.{ Simul as Sim }
+import lila.simul.{ Simul as Sim, SimulCondition }
 
 final class Simul(env: Env) extends LilaController(env):
 
@@ -48,6 +48,7 @@ final class Simul(env: Env) extends LilaController(env):
       env.simul.repo find id flatMap {
         _.fold[Fu[Result]](simulNotFound.toFuccess) { sim =>
           for {
+            verdicts <- SimulCondition.verify(sim, ctx.me)
             team    <- sim.team ?? env.team.api.team
             version <- env.simul.version(sim.id)
             json <- env.simul.jsonView(
@@ -68,7 +69,7 @@ final class Simul(env: Env) extends LilaController(env):
               env.user.lightUserApi.preloadMany(c.chat.userIds)
             }
             stream <- env.streamer.liveStreamApi one sim.hostId
-          } yield html.simul.show(sim, version, json, chat, stream, team)
+          } yield html.simul.show(sim, version, json, chat, stream, team, verdicts)
         }
       } dmap (_.noCache)
     }
