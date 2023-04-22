@@ -2,7 +2,7 @@ package lila.tree
 
 import alleycats.Zero
 import chess.Centis
-import chess.format.pgn
+import chess.format.pgn.{ Node as ChessNode }
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
@@ -41,11 +41,25 @@ case class NewBranch(
     metas: Metas
 )
 
-type NewTree = pgn.Node[NewBranch]
+type NewTree = ChessNode[NewBranch]
 
 object NewTree:
   // default case class constructor not working with type alias?
-  def apply(value: NewBranch, child: Option[NewTree], variations: List[NewTree]) =
-    pgn.Node[NewBranch](value, child, variations)
+  def apply(value: NewBranch, child: Option[NewTree], variation: Option[NewTree]) =
+    ChessNode(value, child, variation)
+
+  extension [A](xs: List[ChessNode[A]])
+    def toVariations: Option[ChessNode[A]] =
+      xs.reverse.foldLeft(none[ChessNode[A]])((acc, x) => x.copy(variation = acc).some)
+
+    def toChild: Option[ChessNode[A]] =
+      xs.reverse.foldLeft(none[ChessNode[A]])((acc, x) => x.copy(child = acc).some)
+
+  extension [A](xs: List[A])
+    def toVariations[B](f: A => ChessNode[B]) =
+      xs.reverse.foldLeft(none[ChessNode[B]])((acc, x) => f(x).copy(variation = acc).some)
+
+    def toChild[B](f: A => ChessNode[B]) =
+      xs.reverse.foldLeft(none[ChessNode[B]])((acc, x) => f(x).copy(child = acc).some)
 
 case class NewRoot(metas: Metas, tree: NewTree)

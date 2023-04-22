@@ -28,6 +28,7 @@ import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, N
 class NewTreeTest extends lila.common.LilaTest:
 
   import PgnImport.*
+  import lila.tree.NewTree.*
 
   object MetasC:
     def fromNode(node: Node) =
@@ -89,14 +90,14 @@ class NewTreeTest extends lila.common.LilaTest:
       NewTree(
         value = NewBranchC.fromBranch(first),
         child = first.children.first.map(NewTreeC.fromBranch),
-        variations = root.children.variations.map(NewTreeC.fromBranch)
+        variation = root.children.variations.toVariations(fromBranch)
       )
 
     def fromBranch(branch: Branch): NewTree =
       NewTree(
         value = NewBranchC.fromBranch(branch),
         child = branch.children.first.map(NewTreeC.fromBranch),
-        variations = branch.children.variations.map(NewTreeC.fromBranch)
+        variation = branch.children.variations.toVariations(fromBranch)
       )
   extension (newTree: NewTree)
     def toBranch: Branch = newTree.value.toBranch(newTree.children)
