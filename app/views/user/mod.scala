@@ -230,7 +230,7 @@ object mod:
         then "Definitely erase everything about this user"
         else "This user has some history, only admins can erase"
       },
-      disabled := !allowed
+      !allowed option disabled
     )("GDPR erasure")
 
   def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
