@@ -54,6 +54,12 @@ $c-tabs-active: $c-accent !default;
     &.active {
       color: $c-tabs-active;
     }
+
+    &.narrow {
+      padding-left: 0;
+      padding-right: 0;
+      flex: 0 3 auto;
+    }
   }
 
   .unread {

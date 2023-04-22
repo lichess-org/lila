@@ -218,7 +218,7 @@ export function side(ctrl: StudyCtrl): VNode {
     !tourTab || ctrl.members.canContribute() || ctrl.data.admin
       ? makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size()))
       : null,
-    h('span.search', {
+    h('span.search.narrow', {
       attrs: {
         'data-icon': '',
         title: 'Search',
@@ -226,14 +226,10 @@ export function side(ctrl: StudyCtrl): VNode {
       hook: bind('click', () => ctrl.search.open(true)),
     }),
     ctrl.members.isOwner()
-      ? h(
-          'span.more',
-          {
-            attrs: { role: 'tab' },
-            hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
-          },
-          [iconTag('')]
-        )
+      ? h('span.more.narrow', {
+          attrs: { 'data-icon': '' },
+          hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
+        })
       : null,
   ]);
 
