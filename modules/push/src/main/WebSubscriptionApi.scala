@@ -15,11 +15,11 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
       .one(
         $id(sessionId),
         $doc(
-          "userId"    -> user.id,
-          "endpoint"  -> subscription.endpoint,
-          "auth"      -> subscription.auth,
-          "p256dh"    -> subscription.p256dh,
-          "seenAt"    -> nowInstant
+          "userId"   -> user.id,
+          "endpoint" -> subscription.endpoint,
+          "auth"     -> subscription.auth,
+          "p256dh"   -> subscription.p256dh,
+          "seenAt"   -> nowInstant
         ),
         upsert = true
       )
