@@ -5,7 +5,7 @@ import BSONHandlers.{ readBranch, writeBranch }
 import lila.common.Chronometer
 import lila.db.dsl.{ *, given }
 import chess.format.UciPath
-import lila.tree.{ Root, Branch, Branches }
+import lila.tree.{ Root, Branch, Branches, NewTree, NewRoot }
 
 private object StudyFlatTree:
 
@@ -31,6 +31,8 @@ private object StudyFlatTree:
         }
       }
 
+    def newRootChildren(flatTree: Bdoc): Option[NewTree] = ???
+
     private def traverse(children: List[FlatNode]): Branches =
       children
         .foldLeft(Map.empty[UciPath, Branches]) { (roots, flat) =>
@@ -50,6 +52,8 @@ private object StudyFlatTree:
       Chronometer.syncMon(_.study.tree.write) {
         root.children.nodes.flatMap { traverse(_, UciPath.root) }
       }
+
+    def newRootChildren(root: NewRoot): List[(String, Bdoc)] = ???
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES) ?? {
