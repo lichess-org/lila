@@ -225,7 +225,7 @@ object BSONHandlers:
       }
     )
 
-  private[study] def writeNewBranch(n: NewBranch, order: Option[UciCharPair]) =
+  private[study] def writeNewBranch(n: NewBranch, order: Option[List[UciCharPair]]) =
     import Node.{ BsonFields as F }
     val w = new Writer
     $doc(

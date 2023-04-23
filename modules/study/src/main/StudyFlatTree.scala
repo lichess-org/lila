@@ -1,5 +1,6 @@
 package lila.study
 
+import cats.syntax.all.*
 import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
 
 import lila.common.Chronometer
@@ -7,6 +8,8 @@ import lila.db.dsl.{ *, given }
 import chess.format.UciPath
 import lila.tree.{ Root, Branch, Branches, NewTree, NewRoot }
 import lila.tree.NewTree.addVariation
+import chess.format.UciCharPair
+import lila.tree.NewBranch
 
 private object StudyFlatTree:
 
@@ -36,7 +39,6 @@ private object StudyFlatTree:
       }
 
     def newRoot(flatTree: Bdoc): Option[NewTree] =
-      println("newRootChildren")
       Chronometer.syncMon(_.study.tree.read) {
         traverseN {
           flatTree.elements.toList
@@ -60,7 +62,7 @@ private object StudyFlatTree:
           }
         }
         .get(UciPath.root)
-         | Branches.empty
+        | Branches.empty
 
     private def traverseN(xs: List[FlatNode]): Option[NewTree] =
       if xs.isEmpty then None
@@ -81,7 +83,17 @@ private object StudyFlatTree:
         root.children.nodes.flatMap { traverse(_, UciPath.root) }
       }
 
-    def newRootChildren(root: NewRoot): List[(String, Bdoc)] = ???
+    def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
+      Chronometer.syncMon(_.study.tree.write):
+        root.tree match
+          case None => Nil
+          case Some(tree) =>
+            tree.foldLeft(List[(String, Bdoc)]())((acc, branch) => acc :+ writeBranch_(branch))
+
+    private def writeBranch_(branch: NewBranch) =
+      val order = branch.path.computeIds.size > 1 option
+        branch.path.computeIds.toList
+      UciPathDb.encodeDbKey(branch.path) -> writeNewBranch(branch, order)
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES) ?? {
