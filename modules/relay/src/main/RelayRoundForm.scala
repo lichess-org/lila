@@ -125,7 +125,7 @@ object RelayRoundForm:
         },
         until = none,
         nextAt = none,
-        delay = period ifTrue Granter(_.Relay)(user),
+        period = period ifTrue Granter(_.Relay)(user),
         log = SyncLog.empty
       )
 
@@ -154,5 +154,5 @@ object RelayRoundForm:
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
-        period = relay.sync.delay
+        period = relay.sync.period
       )
