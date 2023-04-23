@@ -52,5 +52,4 @@ From today's game, We can learn that it is crucial to manage our time correctly.
 
   """
 
-  // val all = List(pgn, pgn2, wcc2023Game7)
-  val all = List(pgn) //, pgn2, wcc2023Game7)
+  val all = List(pgn, pgn2, wcc2023Game7)
