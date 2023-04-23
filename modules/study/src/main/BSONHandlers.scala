@@ -165,41 +165,43 @@ object BSONHandlers:
     )
 
   // shallow read, as not reading children
-  private[study] def readNewBranch(doc: Bdoc, id: UciCharPair, path: UciPath): Option[NewBranch] =
-    import Node.{ BsonFields as F }
-    for {
-      ply <- doc.getAsOpt[Ply](F.ply)
-      uci <- doc.getAsOpt[Uci](F.uci)
-      san <- doc.getAsOpt[SanStr](F.san)
-      fen <- doc.getAsOpt[Fen.Epd](F.fen)
-      check          = ~doc.getAsOpt[Check](F.check)
-      shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
-      comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
-      gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
-      glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
-      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
-      clock          = doc.getAsOpt[Centis](F.clock)
-      crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
-      forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
-    } yield NewBranch(
-      id = id,
-      path = path,
-      // TODO we probably need to have access to the variant to set the opening correctly
-      forceVariation = forceVariation,
-      move = Uci.WithSan(uci, san),
-      metas = Metas(
-        ply = ply,
-        fen = fen,
-        check = check,
-        shapes = shapes,
-        comments = comments,
-        gamebook = gamebook,
-        glyphs = glyphs,
-        eval = eval,
-        clock = clock,
-        crazyData = crazyData
+  private[study] def readNewBranch(doc: Bdoc, path: UciPath): Option[NewBranch] =
+    path.lastId.flatMap { id =>
+      import Node.{ BsonFields as F }
+      for {
+        ply <- doc.getAsOpt[Ply](F.ply)
+        uci <- doc.getAsOpt[Uci](F.uci)
+        san <- doc.getAsOpt[SanStr](F.san)
+        fen <- doc.getAsOpt[Fen.Epd](F.fen)
+        check          = ~doc.getAsOpt[Check](F.check)
+        shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
+        comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
+        gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
+        glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
+        eval           = doc.getAsOpt[Score](F.score).map(_.eval)
+        clock          = doc.getAsOpt[Centis](F.clock)
+        crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
+        forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
+      } yield NewBranch(
+        id = id,
+        path = path,
+        // TODO we probably need to have access to the variant to set the opening correctly
+        forceVariation = forceVariation,
+        move = Uci.WithSan(uci, san),
+        metas = Metas(
+          ply = ply,
+          fen = fen,
+          check = check,
+          shapes = shapes,
+          comments = comments,
+          gamebook = gamebook,
+          glyphs = glyphs,
+          eval = eval,
+          clock = clock,
+          crazyData = crazyData
+        )
       )
-    )
+    }
 
   private[study] def writeBranch(n: Branch) =
     import Node.{ BsonFields as F }
@@ -296,7 +298,7 @@ object BSONHandlers:
           clock = r.getO[Centis](F.clock),
           crazyData = r.getO[Crazyhouse.Data](F.crazy)
         ),
-        tree = StudyFlatTree.reader.newRootChildren(fullReader.doc)
+        tree = StudyFlatTree.reader.newRoot(fullReader.doc)
       )
     def writes(w: Writer, r: NewRoot) = $doc(
       StudyFlatTree.writer.newRootChildren(r) appended {
@@ -308,9 +310,9 @@ object BSONHandlers:
           F.comments -> r.metas.comments.value.nonEmpty.option(r.metas.comments),
           F.gamebook -> r.metas.gamebook,
           F.glyphs   -> r.metas.glyphs.nonEmpty,
-          F.score    -> r.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
-          F.clock    -> r.metas.clock,
-          F.crazy    -> r.metas.crazyData
+          F.score -> r.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+          F.clock -> r.metas.clock,
+          F.crazy -> r.metas.crazyData
         )
       }
     )

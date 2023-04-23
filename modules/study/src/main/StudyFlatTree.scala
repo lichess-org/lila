@@ -1,11 +1,12 @@
 package lila.study
 
-import BSONHandlers.{ readBranch, writeBranch }
+import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
 
 import lila.common.Chronometer
 import lila.db.dsl.{ *, given }
 import chess.format.UciPath
 import lila.tree.{ Root, Branch, Branches, NewTree, NewRoot }
+import lila.tree.NewTree.addVariation
 
 private object StudyFlatTree:
 
@@ -16,6 +17,9 @@ private object StudyFlatTree:
       path.lastId.flatMap { readBranch(data, _) }.map {
         _.copy(children = children | Branches.empty)
       }
+
+    def toNodeWithChildren1(child: Option[NewTree]): Option[NewTree] =
+      readNewBranch(data, path).map(NewTree(_, child, None))
 
   object reader:
 
@@ -31,25 +35,44 @@ private object StudyFlatTree:
         }
       }
 
-    def newRootChildren(flatTree: Bdoc): Option[NewTree] = ???
+    def newRoot(flatTree: Bdoc): Option[NewTree] =
+      println("newRootChildren")
+      Chronometer.syncMon(_.study.tree.read) {
+        traverseN {
+          flatTree.elements.toList
+            .collect {
+              case el if el.name != UciPathDb.rootDbKey =>
+                FlatNode(UciPathDb.decodeDbKey(el.name), el.value.asOpt[Bdoc].get)
+            }
+            .sortBy(-_.depth)
+        }
+      }
 
     private def traverse(children: List[FlatNode]): Branches =
-      children.pp
+      children
         .foldLeft(Map.empty[UciPath, Branches]) { (roots, flat) =>
           // assumes that node has a greater depth than roots (sort beforehand)
-          flat.pp.toNodeWithChildren(roots.pp get flat.path).fold(roots) { node =>
+          flat.toNodeWithChildren(roots get flat.path).fold(roots) { node =>
             roots.removed(flat.path).updatedWith(flat.path.parent) {
               case None           => Branches(List(node)).some
               case Some(siblings) => siblings.addNode(node).some
             }
           }
         }
-        .get(UciPath.root).pp | Branches.empty
+        .get(UciPath.root)
+         | Branches.empty
 
-    // private def traverseN(children: List[FlatNode]): Option[NewTree] =
-    //   children
-    //     .foldLeft(none[NewTree]) { (roots, flat) =>
-    //     }
+    private def traverseN(xs: List[FlatNode]): Option[NewTree] =
+      if xs.isEmpty then None
+      else
+        xs.foldLeft(Map.empty[UciPath, NewTree]) { (roots, flat) =>
+          flat.toNodeWithChildren1(roots.get(flat.path)).fold(roots) { node =>
+            roots.removed(flat.path).updatedWith(flat.path.parent) {
+              case None           => node.some
+              case Some(siblings) => siblings.addVariation(node).some
+            }
+          }
+        }.get(UciPath.root)
 
   object writer:
 

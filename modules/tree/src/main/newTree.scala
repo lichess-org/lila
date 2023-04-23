@@ -78,10 +78,10 @@ object NewTree:
     // this only look at the child or variations and not the whole tree
     // TODO: refactor to getChildOrVariation
     def get(id: UciCharPair): Option[NewTree] = ???
-      // if newTree.child.exists(_.value.id == id) then
-      //   newTree.child
-      // else variation.
-      //
+    // if newTree.child.exists(_.value.id == id) then
+    //   newTree.child
+    // else variation.
+    //
 
     // faulty implementation, this should only look at the child or variation and not the whole tree
     def hasNode(id: UciCharPair): Boolean =
@@ -95,6 +95,12 @@ object NewTree:
         newTree.child.flatMap(_.nodeAt(rest)) orElse
           newTree.variation.flatMap(_.nodeAt(rest)) orElse
           (if (head == newTree.value.id) newTree.some else none)
+
+    // TODO: merge two nodes if they have the same id
+    def addVariation(variation: NewTree): NewTree =
+      newTree.copy(variation = newTree.variation.fold(variation)(_.addVariation(variation)).some)
+
+    def merge(n: NewTree): NewTree = ???
 
 case class NewRoot(metas: Metas, tree: Option[NewTree]):
   override def toString = s"$tree"

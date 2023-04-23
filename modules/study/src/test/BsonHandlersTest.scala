@@ -37,12 +37,25 @@ class BsonHandlersTest extends lila.common.LilaTest:
   given Conversion[PgnStr, String] = _.value
   given Conversion[Bdoc, Reader]   = Reader(_)
 
-  val bson = summon[BSON[Root]]
-  val w    = new Writer
+  import Helpers.*
 
-  test("write.read == identity"):
+  val treeBson    = summon[BSON[Root]]
+  val newTreeBson = summon[BSON[NewRoot]]
+
+  val w = new Writer
+
+  test("old tree writes.reads == identity"):
     PgnFixtures.all.foreach { pgn =>
       val x = PgnImport(pgn, Nil).toOption.get.root
-      val y = bson.reads(bson.writes(w, x))
+      val y = treeBson.reads(treeBson.writes(w, x))
       assertEquals(x, y)
+    }
+
+  test("NewTree.reads.Tree.writes) == identity"):
+    PgnFixtures.all.foreach { pgn =>
+      val x       = PgnImport(pgn, Nil).toOption.get.root
+      val bdoc    = treeBson.writes(w, x)
+      val y       = newTreeBson.reads(bdoc.pp)
+      val oldRoot = NewRootC.fromRoot(x)
+      assertEquals(oldRoot.cleanup, y.cleanup)
     }
