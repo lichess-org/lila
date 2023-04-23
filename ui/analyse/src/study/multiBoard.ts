@@ -155,13 +155,10 @@ const makePreview = (study: StudyCtrl) => {
           },
           postpatch(old, vnode) {
             if (old.data!.fen !== preview.fen) {
-              lichess.miniGame.update(
-                vnode.elm as HTMLElement,
-                {
-                  lm: preview.lastMove!,
-                  fen: preview.fen,
-                }
-              );
+              lichess.miniGame.update(vnode.elm as HTMLElement, {
+                lm: preview.lastMove!,
+                fen: preview.fen,
+              });
             }
             vnode.data!.fen = preview.fen;
           },
