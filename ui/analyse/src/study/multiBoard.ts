@@ -161,7 +161,7 @@ const makePreview = (study: StudyCtrl) => {
                 {
                   lm: preview.lastMove!,
                   fen: preview.fen,
-                } as any
+                }
               );
             }
             vnode.data!.fen = preview.fen;
