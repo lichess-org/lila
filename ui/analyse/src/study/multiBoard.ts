@@ -1,4 +1,3 @@
-//import * as domData from 'common/data';
 import debounce from 'common/debounce';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
