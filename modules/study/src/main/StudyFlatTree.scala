@@ -34,17 +34,22 @@ private object StudyFlatTree:
     def newRootChildren(flatTree: Bdoc): Option[NewTree] = ???
 
     private def traverse(children: List[FlatNode]): Branches =
-      children
+      children.pp
         .foldLeft(Map.empty[UciPath, Branches]) { (roots, flat) =>
           // assumes that node has a greater depth than roots (sort beforehand)
-          flat.toNodeWithChildren(roots get flat.path).fold(roots) { node =>
+          flat.pp.toNodeWithChildren(roots.pp get flat.path).fold(roots) { node =>
             roots.removed(flat.path).updatedWith(flat.path.parent) {
               case None           => Branches(List(node)).some
               case Some(siblings) => siblings.addNode(node).some
             }
           }
         }
-        .get(UciPath.root) | Branches.empty
+        .get(UciPath.root).pp | Branches.empty
+
+    // private def traverseN(children: List[FlatNode]): Option[NewTree] =
+    //   children
+    //     .foldLeft(none[NewTree]) { (roots, flat) =>
+    //     }
 
   object writer:
 

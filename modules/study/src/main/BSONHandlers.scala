@@ -308,9 +308,9 @@ object BSONHandlers:
           F.comments -> r.metas.comments.value.nonEmpty.option(r.metas.comments),
           F.gamebook -> r.metas.gamebook,
           F.glyphs   -> r.metas.glyphs.nonEmpty,
-          F.score -> r.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
-          F.clock -> r.metas.clock,
-          F.crazy -> r.metas.crazyData
+          F.score    -> r.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+          F.clock    -> r.metas.clock,
+          F.crazy    -> r.metas.crazyData
         )
       }
     )

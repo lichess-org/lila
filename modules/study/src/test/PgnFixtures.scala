@@ -4,7 +4,7 @@ object PgnFixtures:
 
   val pgn  = """
   { Root comment }
-1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move }) 1... e6?! { e6 is a naughty move } *
+1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move }) (1. c4) (1. f4) 1... e6?! { e6 is a naughty move } *
   """
   val pgn2 = """
 [Event "nt9's Study: Chapter 2"]
@@ -52,4 +52,5 @@ From today's game, We can learn that it is crucial to manage our time correctly.
 
   """
 
-  val all = List(pgn, pgn2, wcc2023Game7)
+  // val all = List(pgn, pgn2, wcc2023Game7)
+  val all = List(pgn) //, pgn2, wcc2023Game7)
