@@ -157,5 +157,6 @@ object RelayRoundForm:
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
-        period = relay.sync.period
+        period = relay.sync.period,
+        delay = relay.sync.delay
       )

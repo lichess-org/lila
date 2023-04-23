@@ -108,9 +108,11 @@ object roundForm:
         )(form3.input(_, typ = "number")),
         isGranted(_.Relay) option
           form3.group(
-            form("throttle"),
-            raw("Throttle in seconds"),
-            help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some,
+            form("period"),
+            raw("Period in seconds"),
+            help = raw(
+              "Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers."
+            ).some,
             half = true
           )(form3.input(_, typ = "number"))
       ),
