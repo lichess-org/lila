@@ -287,7 +287,7 @@ case class Root(
     then copy(children = children.takeMainlineWhile(f))
     else this
 
-  override def toString = "ROOT"
+  override def toString = s"$children"
 
 object Root:
   def default(variant: Variant) =
@@ -383,7 +383,7 @@ case class Branch(
       forceVariation = n.forceVariation || forceVariation
     )
 
-  override def toString = s"$ply.${move.san}"
+  override def toString = s"$ply.${move.san} (Branches: $children)"
 
 object Node:
 
@@ -403,9 +403,7 @@ object Node:
   object Comment:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
-      // TODO: REVERT THIS
-      // def make = Id(ThreadLocalRandom nextString 4)
-      def make = Id("id")
+      def make = Id(ThreadLocalRandom nextString 4)
     private val metaReg = """\[%[^\]]++\]""".r
     opaque type Text = String
     object Text extends OpaqueString[Text]:

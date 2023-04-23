@@ -68,7 +68,9 @@ object NewPgnImport:
               if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
               else
                 end.map(PgnImport.endComment).fold(root) { comment =>
-                  root.copy(tree = root.tree.map(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment))))
+                  root
+                    .focus(_.tree.some)
+                    .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
                 }
             Result(
               root = root,

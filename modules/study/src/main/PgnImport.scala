@@ -52,8 +52,7 @@ object PgnImport:
               glyphs = Glyphs.empty,
               clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
-              children =
-                parsedPgn.tree.map(makeBranches(replay.setup, _, annotator)).getOrElse(Branches.empty)
+              children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, _, annotator))
             )
             val end: Option[End] = (game.finished option game.status).map { status =>
               End(

@@ -21,7 +21,7 @@ object PgnFixtures:
 *
   """
 
-  val wcc2023Game7 ="""
+  val wcc2023Game7 = """
 
 [Event "World Chess Championship: Game 7: Nepomniachtchi,I - Ding,Liren"]
 [Site "https://lichess.org/study/QQO3VI7X/BVXdcDe4"]

@@ -1,5 +1,6 @@
 package lila.study
 
+import monocle.syntax.all.*
 import cats.syntax.all.*
 import chess.{ Centis, ErrorStr }
 import chess.format.pgn.{
@@ -61,7 +62,7 @@ class NewTreeTest extends lila.common.LilaTest:
       )
 
   extension (newBranch: NewBranch)
-    def toBranch(children: List[NewTree]): Branch = Branch(
+    def toBranch(children: Option[NewTree]): Branch = Branch(
       newBranch.id,
       newBranch.metas.ply,
       newBranch.move,
@@ -74,7 +75,7 @@ class NewTreeTest extends lila.common.LilaTest:
       newBranch.metas.comments,
       newBranch.metas.gamebook,
       newBranch.metas.glyphs,
-      Branches(children.map(_.toBranch)),
+      children.fold(Branches.empty)(_.toBranches),
       newBranch.metas.opening,
       newBranch.comp,
       newBranch.metas.clock,
@@ -89,22 +90,31 @@ class NewTreeTest extends lila.common.LilaTest:
       root.children.first.map(first =>
         NewTree(
           value = NewBranchC.fromBranch(first),
-          child = first.children.first.map(NewTreeC.fromBranch),
-          variation = root.children.variations.toVariations(fromBranch)
+          child = first.children.first.map(NewTreeC.fromBranch(_, first.children.variations)),
+          variation = root.children.variations.toVariations(toVariation)
         )
       )
 
-    def fromBranch(branch: Branch): NewTree =
+    def fromBranch(branch: Branch, variations: List[Branch]): NewTree =
       NewTree(
         value = NewBranchC.fromBranch(branch),
-        child = branch.children.first.map(NewTreeC.fromBranch),
-        variation = branch.children.variations.toVariations(fromBranch)
+        child = branch.children.first.map(NewTreeC.fromBranch(_, branch.children.variations)),
+        variation = variations.toVariations(toVariation)
       )
+
+    def toVariation(branch: Branch): NewTree =
+      NewTree(
+        value = NewBranchC.fromBranch(branch),
+        child = branch.children.first.map(NewTreeC.fromBranch(_, branch.children.variations)),
+        variation = None
+      )
+
   extension (newTree: NewTree)
-    def toBranch: Branch = newTree.value.toBranch(newTree.children)
-    def toBranches: Branches = Branches(
-      newTree.value.toBranch(newTree.children) :: newTree.variations.map(_.toBranch)
-    )
+    def toBranch: Branch = newTree.value.toBranch(newTree.child)
+    def toBranches: Branches =
+      val variations = newTree.variations.map(_.toBranch)
+      Branches(newTree.value.toBranch(newTree.child) :: variations)
+
   // Convertor
   object NewRootC:
     def fromRoot(root: Root) =
@@ -157,11 +167,38 @@ class NewTreeTest extends lila.common.LilaTest:
   }
 
   test("valid tree <-> newTree more realistic conversion"):
+    PgnFixtures.all.foreach: pgn =>
+      val x       = PgnImport(pgn, Nil).toOption.get.pp
+      val newRoot = NewRootC.fromRoot(x.root).pp
+      assertEquals(newRoot.toRoot, x.root)
+
+  test("PgnImport works"):
     PgnFixtures.all foreach { pgn =>
       val x = PgnImport(pgn, Nil).toOption.get
       val y = NewPgnImport(pgn, Nil).toOption.get
       assertEquals(y.end, x.end)
       assertEquals(y.variant, x.variant)
       assertEquals(y.tags, x.tags)
-      assertEquals(y.root.toRoot, x.root)
+      val oldRoot = NewRootC.fromRoot(x.root).cleanup
+      assertEquals(y.root.cleanup, oldRoot)
     }
+
+  extension (comments: Comments)
+    def cleanup: Comments =
+      Comments(comments.value.map(_.copy(id = Comment.Id("i"))))
+
+  extension (node: NewBranch)
+    def cleanup: NewBranch =
+      node
+        .focus(_.metas.comments)
+        .modify(_.cleanup)
+        .focus(_.path)
+        .replace(UciPath.root)
+
+  extension (root: NewRoot)
+    def cleanup: NewRoot =
+      root
+        .focus(_.tree.some)
+        .modify(_.map(_.cleanup))
+        .focus(_.metas.comments)
+        .modify(_.cleanup)
