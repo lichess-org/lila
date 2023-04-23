@@ -27,7 +27,8 @@ final class RelayRoundForm:
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
-      "period"       -> optional(number(min = 2, max = 60).into[Seconds])
+      "period"       -> optional(number(min = 2, max = 60).into[Seconds]),
+      "delay"        -> optional(number(min = 0, max = 1800).into[Seconds]) // don't increase the max
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
@@ -96,7 +97,8 @@ object RelayRoundForm:
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
       startsAt: Option[Instant] = None,
-      period: Option[Seconds] = None
+      period: Option[Seconds] = None,
+      delay: Option[Seconds] = None
   ):
 
     def requiresRound = syncUrl exists RelayRound.Sync.UpstreamUrl.LccRegex.matches
@@ -125,7 +127,8 @@ object RelayRoundForm:
         },
         until = none,
         nextAt = none,
-        delay = period ifTrue Granter(_.Relay)(user),
+        period = period ifTrue Granter(_.Relay)(user),
+        delay = delay,
         log = SyncLog.empty
       )
 
@@ -154,5 +157,5 @@ object RelayRoundForm:
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
-        period = relay.sync.delay
+        period = relay.sync.period
       )

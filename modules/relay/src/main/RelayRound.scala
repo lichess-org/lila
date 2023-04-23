@@ -74,6 +74,7 @@ object RelayRound:
       until: Option[Instant],          // sync until then; resets on move
       nextAt: Option[Instant],         // when to run next sync
       period: Option[Seconds],         // override time between two sync (rare)
+      delay: Option[Seconds],          // add delay between the source and the study
       log: SyncLog
   ):
 
