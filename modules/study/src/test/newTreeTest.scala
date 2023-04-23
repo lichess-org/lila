@@ -136,7 +136,7 @@ class NewTreeTest extends lila.common.LilaTest:
     val x       = PgnImport("1. e4 *", Nil).toOption.get
     val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.get.size, 1L)
-    assertEquals(newRoot.tree.get.mainLine.map(_.move.san.value), List("e4"))
+    assertEquals(newRoot.tree.get.mainline.map(_.move.san.value), List("e4"))
     assertEquals(newRoot.toRoot, x.root)
   }
 
@@ -152,13 +152,16 @@ class NewTreeTest extends lila.common.LilaTest:
     val x       = PgnImport("1. e4 e6 *", Nil).toOption.get
     val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.get.size, 2L)
-    assertEquals(newRoot.tree.get.mainLine.map(_.move.san.value), List("e4", "e6"))
+    assertEquals(newRoot.tree.get.mainline.map(_.move.san.value), List("e4", "e6"))
     assertEquals(newRoot.toRoot, x.root)
   }
 
   test("valid tree <-> newTree more realistic conversion"):
     PgnFixtures.all foreach { pgn =>
-      val x       = PgnImport(pgn, Nil).toOption.get
-      val newRoot = NewPgnImport(pgn, Nil).toOption.get.root.pp
-      assertEquals(newRoot.toRoot, x.root)
+      val x = PgnImport(pgn, Nil).toOption.get
+      val y = NewPgnImport(pgn, Nil).toOption.get
+      assertEquals(y.end, x.end)
+      assertEquals(y.variant, x.variant)
+      assertEquals(y.tags, x.tags)
+      assertEquals(y.root.toRoot, x.root)
     }

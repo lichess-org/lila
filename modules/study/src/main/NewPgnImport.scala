@@ -1,6 +1,7 @@
 package lila.study
 
 import cats.data.Validated
+import monocle.syntax.all.*
 import chess.{ Centis, ErrorStr }
 import chess.format.pgn.{
   Dumper,
@@ -63,12 +64,12 @@ object NewPgnImport:
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
             }
-            // val commented =
-            //   if (root.mainline.lastOption.??(_.isCommented)) root
-            //   else
-            //     end.map(endComment).fold(root) { comment =>
-            //       root updateMainlineLast { _.setComment(comment) }
-            //     }
+            val commented =
+              if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
+              else
+                end.map(PgnImport.endComment).fold(root) { comment =>
+                  root.copy(tree = root.tree.map(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment))))
+                }
             Result(
               root = root,
               variant = game.variant,

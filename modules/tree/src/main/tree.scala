@@ -142,6 +142,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
     this.first map { first =>
       first.children.lastMainlineNode | first
     }
+
   override def toString = nodes.mkString(", ")
 
 object Branches:
@@ -402,7 +403,9 @@ object Node:
   object Comment:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
-      def make = Id(ThreadLocalRandom nextString 4)
+      // TODO: REVERT THIS
+      // def make = Id(ThreadLocalRandom nextString 4)
+      def make = Id("id")
     private val metaReg = """\[%[^\]]++\]""".r
     opaque type Text = String
     object Text extends OpaqueString[Text]:

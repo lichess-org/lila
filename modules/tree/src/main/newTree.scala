@@ -74,9 +74,6 @@ object NewTree:
     def mainlineNodeList: List[NewTree] = newTree.dropFirstChild :: newTree.child
       .fold(List.empty[NewTree])(_.mainlineNodeList)
 
-    def lastMainlineNode: Option[NewTree] =
-      newTree.child.fold(newTree.some)(_.lastMainlineNode)
-
     // this only look at the child or variations and not the whole tree
     // TODO: refactor to getChildOrVariation
     def get(id: UciCharPair): Option[NewTree] = ???

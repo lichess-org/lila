@@ -64,7 +64,7 @@ object PgnImport:
               )
             }
             val commented =
-              if (root.mainline.lastOption.??(_.isCommented)) root
+              if root.mainline.lastOption.??(_.isCommented) then root
               else
                 end.map(endComment).fold(root) { comment =>
                   root updateMainlineLast { _.setComment(comment) }
