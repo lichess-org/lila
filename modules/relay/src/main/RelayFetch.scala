@@ -111,7 +111,7 @@ final private class RelayFetch(
             .filterNot(_ contains "Found an empty PGN")
             .foreach { irc.broadcastError(rt.round.id.value, rt.fullName, _) }
           Seconds(60)
-        else rt.round.sync.delay | Seconds(if upstream.local then 3 else 6)
+        else rt.round.sync.period | Seconds(if upstream.local then 3 else 6)
       rt.round.withSync {
         _.copy(
           nextAt = nowInstant plusSeconds {
@@ -144,7 +144,7 @@ final private class RelayFetch(
           gameProxy.upgradeIfPresent flatMap
           gameRepo.withInitialFens flatMap { games =>
             if (games.size == ids.size)
-              games.map { case (game, fen) =>
+              games.map { (game, fen) =>
                 pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
               }.parallel dmap MultiPgn.apply
             else
