@@ -45,7 +45,7 @@ export const initAll = (parent?: HTMLElement) => {
   if (ids.length) StrongSocket.firstConnect.then(send => send('startWatching', ids.join(' ')));
 };
 
-export const update = (node: HTMLElement, data: MiniBoardUpdate) => {
+export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
   const $el = $(node),
     lm = data.lm,
     cg = domData.get(node.querySelector('.cg-wrap')!, 'chessground');
