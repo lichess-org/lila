@@ -3,4 +3,21 @@
   <string name="xBlog">Blogo de %s</string>
   <string name="newPost">Nova afiŝo</string>
   <string name="editYourBlogPost">Redakti vian blogafiŝon</string>
+  <string name="saveDraft">Konservi malneton</string>
+  <string name="postTitle">Afiŝtitolo</string>
+  <string name="postIntro">Afiŝenkonduko</string>
+  <string name="postBody">Afiŝenhavo</string>
+  <string name="drafts">Malnetoj</string>
+  <string name="published">Eldonita</string>
+  <string name="createBlogDiscussion">Ebligi komentojn</string>
+  <plurals name="nbViews">
+    <item quantity="one">Unu vido</item>
+    <item quantity="other">%s vidoj</item>
+  </plurals>
+  <string name="xPublishedY">%1$s eldonis %2$s</string>
+  <string name="thisPostIsPublished">Tiu afiŝo estas eldonita</string>
+  <string name="thisIsADraft">Tiu estas malneto</string>
+  <string name="latestBlogPosts">Plej novaj blogafiŝoj</string>
+  <string name="imageAlt">Alternativa teksto de bildo</string>
+  <string name="deleteImage">Forigi la bildon</string>
 </resources>
