@@ -3,13 +3,6 @@ import * as domData from 'common/data';
 import clockWidget from './clock-widget';
 import StrongSocket from './socket';
 
-interface UpdateData {
-  lm: string;
-  fen: string;
-  wc?: number;
-  bc?: number;
-}
-
 const fenColor = (fen: string) => (fen.indexOf(' b') > 0 ? 'black' : 'white');
 
 export const init = (node: HTMLElement) => {
@@ -52,7 +45,7 @@ export const initAll = (parent?: HTMLElement) => {
   if (ids.length) StrongSocket.firstConnect.then(send => send('startWatching', ids.join(' ')));
 };
 
-export const update = (node: HTMLElement, data: UpdateData) => {
+export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
   const $el = $(node),
     lm = data.lm,
     cg = domData.get(node.querySelector('.cg-wrap')!, 'chessground');

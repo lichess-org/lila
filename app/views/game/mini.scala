@@ -22,33 +22,36 @@ object mini:
       ownerLink: Boolean = false,
       tv: Boolean = false,
       withLink: Boolean = true
-  )(implicit ctx: Context): Tag =
+  )(using ctx: Context): Tag =
+    renderMini(
+      pov,
+      withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
+      showRatings = ctx.pref.showRatings
+    )
+
+  def noCtx(pov: Pov, tv: Boolean = false): Tag =
+    val link = if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
+    renderMini(pov, link.url.some)(using
+      defaultLang
+    )
+
+  private def renderMini(
+      pov: Pov,
+      link: Option[String] = None,
+      showRatings: Boolean = true
+  )(using Lang): Tag =
     val game   = pov.game
     val isLive = game.isBeingPlayed
-    val tag    = if (withLink) a else span
+    val tag    = if (link.isDefined) a else span
     tag(
-      href     := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
+      href     := link,
       cls      := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov, withRating = ctx.pref.showRatings),
+      renderPlayer(!pov, withRating = showRatings),
       cgWrap,
-      renderPlayer(pov, withRating = ctx.pref.showRatings)
-    )
-
-  def noCtx(pov: Pov, tv: Boolean = false): Tag =
-    val game   = pov.game
-    val isLive = game.isBeingPlayed
-    a(
-      href := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
-      cls := s"mini-game mini-game-${game.id} mini-game--init is2d ${isLive ?? "mini-game--live"} ${game.variant.key}",
-      dataLive := isLive.option(game.id),
-      renderState(pov)
-    )(
-      renderPlayer(!pov, withRating = true)(using defaultLang),
-      cgWrap,
-      renderPlayer(pov, withRating = true)(using defaultLang)
+      renderPlayer(pov, withRating = showRatings)
     )
 
   def renderState(pov: Pov) =
