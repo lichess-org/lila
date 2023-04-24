@@ -74,17 +74,9 @@ object NewTree:
     def color                           = newTree.value.metas.ply.color
     def mainlineNodeList: List[NewTree] = newTree.dropFirstChild :: newTree.child.??(_.mainlineNodeList)
 
-    // this only look at the child or variations and not the whole tree
-    // TODO: refactor to getChildOrVariation
-    def get(id: UciCharPair): Option[NewTree] = ???
-    // if newTree.child.exists(_.value.id == id) then
-    //   newTree.child
-    // else variation.
-    //
+    def getChild(id: UciCharPair): Option[NewTree] = newTree.children.find(_.value.id == id)
 
-    // faulty implementation, this should only look at the child or variation and not the whole tree
-    def hasNode(id: UciCharPair): Boolean =
-      get(id).nonEmpty
+    def hasChild(id: UciCharPair): Boolean = newTree.children.exists(_.value.id == id)
 
     def variationsWithIndex: List[(NewTree, Int)] =
       newTree.variation.fold(List.empty[(NewTree, Int)])(_.variations.zipWithIndex)
