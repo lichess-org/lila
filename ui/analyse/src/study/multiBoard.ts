@@ -134,44 +134,38 @@ function pagerButton(text: string, icon: string, click: () => void, enable: bool
   });
 }
 
-const makePreview = (study: StudyCtrl) => {
-  return (preview: ChapterPreview) => {
-    return h(
-      `a.${preview.id}.mini-game.mini-game-${preview.id}.mini-game--init.is2d`,
-      {
-        attrs: {
-          'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
-          'data-live': preview.id,
+const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
+  h(
+    `a.mini-game.mini-game-${preview.id}.mini-game--init.is2d`,
+    {
+      attrs: {
+        'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
+        'data-live': preview.id,
+      },
+      class: {
+        active: !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow.active,
+      },
+      hook: {
+        insert(vnode) {
+          const el = vnode.elm as HTMLElement;
+          lichess.miniGame.init(el);
+          vnode.data!.fen = preview.fen;
+          el.addEventListener('mousedown', _ => study.setChapter(preview.id));
         },
-        class: {
-          active: !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow.active,
-        },
-        hook: {
-          insert(vnode) {
-            const el = vnode.elm as HTMLElement;
-            lichess.miniGame.init(el);
-            vnode.data!.fen = preview.fen;
-            el.addEventListener('mousedown', _ => study.setChapter(preview.id));
-          },
-          postpatch(old, vnode) {
-            if (old.data!.fen !== preview.fen) {
-              lichess.miniGame.update(vnode.elm as HTMLElement, {
-                lm: preview.lastMove!,
-                fen: preview.fen,
-              });
-            }
-            vnode.data!.fen = preview.fen;
-          },
+        postpatch(old, vnode) {
+          if (old.data!.fen !== preview.fen) {
+            lichess.miniGame.update(vnode.elm as HTMLElement, {
+              lm: preview.lastMove!,
+              fen: preview.fen,
+            });
+          }
+          vnode.data!.fen = preview.fen;
         },
       },
-      [
-        boardPlayer(preview, opposite(preview.orientation)),
-        h('span.cg-wrap'),
-        boardPlayer(preview, preview.orientation),
-      ]
-    );
-  };
-};
+    },
+    [boardPlayer(preview, opposite(preview.orientation)), h('span.cg-wrap'), boardPlayer(preview, preview.orientation)]
+  );
+
 const userName = (u: ChapterPreviewPlayer) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
 
 function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefined {
