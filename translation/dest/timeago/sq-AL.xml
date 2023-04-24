@@ -39,23 +39,23 @@
     <item quantity="other">para %s minutave</item>
   </plurals>
   <plurals name="nbHoursAgo">
-    <item quantity="one">para %s ore</item>
+    <item quantity="one">%s orë më parë</item>
     <item quantity="other">para %s orëve</item>
   </plurals>
   <plurals name="nbDaysAgo">
-    <item quantity="one">para %s dite</item>
+    <item quantity="one">%s ditë më parë</item>
     <item quantity="other">para %s ditëve</item>
   </plurals>
   <plurals name="nbWeeksAgo">
-    <item quantity="one">para %s jave</item>
+    <item quantity="one">%s javë më parë</item>
     <item quantity="other">para %s jave</item>
   </plurals>
   <plurals name="nbMonthsAgo">
-    <item quantity="one">para %s muaji</item>
+    <item quantity="one">%s muaj më parë</item>
     <item quantity="other">para %s muajve</item>
   </plurals>
   <plurals name="nbYearsAgo">
-    <item quantity="one">para %s viti</item>
+    <item quantity="one">%s vit më parë</item>
     <item quantity="other">para %s viteve</item>
   </plurals>
 </resources>
