@@ -140,7 +140,6 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
     {
       attrs: {
         'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
-        'data-live': preview.id,
       },
       class: {
         active: !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow.active,
