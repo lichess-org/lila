@@ -4,9 +4,9 @@
   <string name="newPost">Nova afiŝo</string>
   <string name="editYourBlogPost">Redakti vian blogafiŝon</string>
   <string name="saveDraft">Konservi malneton</string>
-  <string name="postTitle">Afiŝtitolo</string>
-  <string name="postIntro">Afiŝenkonduko</string>
-  <string name="postBody">Afiŝenhavo</string>
+  <string name="postTitle">Afiŝa titolo</string>
+  <string name="postIntro">Afiŝa enkonduko</string>
+  <string name="postBody">Afiŝa enhavo</string>
   <string name="drafts">Malnetoj</string>
   <string name="published">Eldonita</string>
   <string name="createBlogDiscussion">Ebligi komentojn</string>
