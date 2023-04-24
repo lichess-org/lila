@@ -2,7 +2,7 @@ package lila.tree
 
 import alleycats.Zero
 import monocle.syntax.all.*
-import chess.Centis
+import chess.{ Centis, HasId }
 import chess.format.pgn.{ Node as ChessNode }
 import chess.format.pgn.Node.*
 import chess.format.pgn.{ Glyph, Glyphs }
@@ -70,6 +70,9 @@ case class NewBranch(
       forceVariation = n.forceVariation || forceVariation
     )
 
+object NewBranch:
+  given HasId[NewBranch, UciCharPair] = _.id
+
 type NewTree = ChessNode[NewBranch]
 
 object NewTree:
@@ -106,11 +109,13 @@ object NewTree:
     def variationsWithIndex: List[(NewTree, Int)] =
       newTree.variation.fold(List.empty[(NewTree, Int)])(_.variations.zipWithIndex)
 
-    def nodeAt(path: UciPath): Option[NewTree] =
-      path.split.flatMap: (head, rest) =>
-        newTree.child.flatMap(_.nodeAt(rest)) orElse
-          newTree.variation.flatMap(_.nodeAt(rest)) orElse:
-          head == newTree.value.id option newTree
+    // def addNodeAt(node: NewTree): Option[NewTree] =
+    //   node.value.path.split match
+    //     case Nil => newTree.addChild(node)
+    //     case head :: rest =>
+    //       newTree.child.flatMap(_.addNodeAt(rest, node)) orElse
+    //         newTree.variation.flatMap(_.addNodeAt(rest, node)) orElse:
+    //         head == newTree.value.id option newTree.addChild(node)
 
     // TODO: merge two nodes if they have the same id
     def addVariation(variation: NewTree): NewTree =
