@@ -77,28 +77,5 @@
         box-shadow: none;
       }
     }
-
-    .player {
-      @extend %flex-between-nowrap, %roboto;
-      gap: 0.5em;
-
-      height: 1.5em;
-      white-space: nowrap;
-
-      result {
-        font-weight: bold;
-        margin-#{$end-direction}: 0.5em;
-      }
-      rating {
-        font-size: 0.9em;
-      }
-    }
-
-    .name {
-      @extend %flex-center;
-
-      justify-content: center;
-      height: 3em;
-    }
   }
 }
