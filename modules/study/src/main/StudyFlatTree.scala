@@ -27,28 +27,24 @@ private object StudyFlatTree:
   object reader:
 
     def rootChildren(flatTree: Bdoc): Branches =
-      Chronometer.syncMon(_.study.tree.read) {
-        traverse {
+      Chronometer.syncMon(_.study.tree.read):
+        traverse:
           flatTree.elements.toList
             .collect {
               case el if el.name != UciPathDb.rootDbKey =>
                 FlatNode(UciPathDb.decodeDbKey(el.name), el.value.asOpt[Bdoc].get)
             }
             .sortBy(-_.depth)
-        }
-      }
 
     def newRoot(flatTree: Bdoc): Option[NewTree] =
-      Chronometer.syncMon(_.study.tree.read) {
-        traverseN {
+      Chronometer.syncMon(_.study.tree.read):
+        traverseN:
           flatTree.elements.toList
             .collect {
               case el if el.name != UciPathDb.rootDbKey =>
                 FlatNode(UciPathDb.decodeDbKey(el.name), el.value.asOpt[Bdoc].get)
             }
             .sortBy(-_.depth)
-        }
-      }
 
     private def traverse(children: List[FlatNode]): Branches =
       children
@@ -61,12 +57,10 @@ private object StudyFlatTree:
             }
           }
         }
-        .get(UciPath.root)
-        | Branches.empty
+        .get(UciPath.root) | Branches.empty
 
     private def traverseN(xs: List[FlatNode]): Option[NewTree] =
-      if xs.isEmpty then None
-      else
+      xs.nonEmpty ??
         xs.foldLeft(Map.empty[UciPath, NewTree]) { (roots, flat) =>
           flat.toNodeWithChildren1(roots.get(flat.path)).fold(roots) { node =>
             roots.removed(flat.path).updatedWith(flat.path.parent) {
@@ -79,16 +73,14 @@ private object StudyFlatTree:
   object writer:
 
     def rootChildren(root: Root): List[(String, Bdoc)] =
-      Chronometer.syncMon(_.study.tree.write) {
+      Chronometer.syncMon(_.study.tree.write):
         root.children.nodes.flatMap { traverse(_, UciPath.root) }
-      }
 
     def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write):
-        root.tree match
-          case None => Nil
-          case Some(tree) =>
-            tree.foldLeft(List[(String, Bdoc)]())((acc, branch) => acc :+ writeBranch_(branch))
+        root.tree ?? {
+          _.foldLeft(List.empty)((acc, branch) => acc :+ writeBranch_(branch))
+        }
 
     private def writeBranch_(branch: NewBranch) =
       val order = branch.path.computeIds.size > 1 option

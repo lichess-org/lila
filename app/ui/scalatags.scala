@@ -9,7 +9,6 @@ import scalatags.Text.{ Aggregate, Cap }
 
 import lila.api.Context
 import lila.user.Title
-import lila.tree.{ Root, Branch, Branches }
 
 // collection of lila attrs
 trait ScalatagsAttrs:

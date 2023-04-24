@@ -132,7 +132,7 @@ object BSONHandlers:
   // shallow read, as not reading children
   private[study] def readBranch(doc: Bdoc, id: UciCharPair): Option[Branch] =
     import Node.{ BsonFields as F }
-    for {
+    for
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
@@ -146,7 +146,7 @@ object BSONHandlers:
       clock          = doc.getAsOpt[Centis](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
-    } yield Branch(
+    yield Branch(
       id = id,
       ply = ply,
       move = Uci.WithSan(uci, san),
@@ -166,42 +166,41 @@ object BSONHandlers:
 
   // shallow read, as not reading children
   private[study] def readNewBranch(doc: Bdoc, path: UciPath): Option[NewBranch] =
-    path.lastId.flatMap { id =>
-      import Node.{ BsonFields as F }
-      for {
-        ply <- doc.getAsOpt[Ply](F.ply)
-        uci <- doc.getAsOpt[Uci](F.uci)
-        san <- doc.getAsOpt[SanStr](F.san)
-        fen <- doc.getAsOpt[Fen.Epd](F.fen)
-        check          = ~doc.getAsOpt[Check](F.check)
-        shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
-        comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
-        gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
-        glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
-        eval           = doc.getAsOpt[Score](F.score).map(_.eval)
-        clock          = doc.getAsOpt[Centis](F.clock)
-        crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
-        forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
-      } yield NewBranch(
-        id = id,
-        path = path,
-        // TODO we probably need to have access to the variant to set the opening correctly
-        forceVariation = forceVariation,
-        move = Uci.WithSan(uci, san),
-        metas = Metas(
-          ply = ply,
-          fen = fen,
-          check = check,
-          shapes = shapes,
-          comments = comments,
-          gamebook = gamebook,
-          glyphs = glyphs,
-          eval = eval,
-          clock = clock,
-          crazyData = crazyData
-        )
+    import Node.{ BsonFields as F }
+    for
+      id  <- path.lastId
+      ply <- doc.getAsOpt[Ply](F.ply)
+      uci <- doc.getAsOpt[Uci](F.uci)
+      san <- doc.getAsOpt[SanStr](F.san)
+      fen <- doc.getAsOpt[Fen.Epd](F.fen)
+      check          = ~doc.getAsOpt[Check](F.check)
+      shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
+      comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
+      gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
+      glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
+      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
+      clock          = doc.getAsOpt[Centis](F.clock)
+      crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
+      forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
+    yield NewBranch(
+      id = id,
+      path = path,
+      // TODO we probably need to have access to the variant to set the opening correctly
+      forceVariation = forceVariation,
+      move = Uci.WithSan(uci, san),
+      metas = Metas(
+        ply = ply,
+        fen = fen,
+        check = check,
+        shapes = shapes,
+        comments = comments,
+        gamebook = gamebook,
+        glyphs = glyphs,
+        eval = eval,
+        clock = clock,
+        crazyData = crazyData
       )
-    }
+    )
 
   private[study] def writeBranch(n: Branch) =
     import Node.{ BsonFields as F }

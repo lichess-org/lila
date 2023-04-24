@@ -70,10 +70,9 @@ object NewTree:
   def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
 
   extension (newTree: NewTree)
-    def dropFirstChild = newTree.copy(child = None)
-    def color          = newTree.value.metas.ply.color
-    def mainlineNodeList: List[NewTree] = newTree.dropFirstChild :: newTree.child
-      .fold(List.empty[NewTree])(_.mainlineNodeList)
+    def dropFirstChild                  = newTree.copy(child = None)
+    def color                           = newTree.value.metas.ply.color
+    def mainlineNodeList: List[NewTree] = newTree.dropFirstChild :: newTree.child.??(_.mainlineNodeList)
 
     // this only look at the child or variations and not the whole tree
     // TODO: refactor to getChildOrVariation
@@ -93,8 +92,8 @@ object NewTree:
     def nodeAt(path: UciPath): Option[NewTree] =
       path.split.flatMap: (head, rest) =>
         newTree.child.flatMap(_.nodeAt(rest)) orElse
-          newTree.variation.flatMap(_.nodeAt(rest)) orElse
-          (if (head == newTree.value.id) newTree.some else none)
+          newTree.variation.flatMap(_.nodeAt(rest)) orElse:
+          head == newTree.value.id option newTree
 
     // TODO: merge two nodes if they have the same id
     def addVariation(variation: NewTree): NewTree =
