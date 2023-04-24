@@ -13,6 +13,8 @@
   <string name="specialMoves">Specialaj movoj</string>
   <string name="didYouLikeThisPuzzle">Ĉu vi ŝatis la puzlon?</string>
   <string name="voteToLoadNextOne">Voĉdonu por iri al la venonta puzlo!</string>
+  <string name="upVote">Supren voĉdoni puzlo</string>
+  <string name="downVote">Malsupren voĉdoni puzlo</string>
   <string name="findTheBestMoveForWhite">Trovu la plej bonan movon por blanko.</string>
   <string name="findTheBestMoveForBlack">Trovu la plej bonan movon por nigro.</string>
   <string name="puzzleId">Puzlo %s</string>
