@@ -55,6 +55,8 @@ final class Env(
 
   private lazy val formatApi = wire[RelayFormatApi]
 
+  private lazy val delay = wire[RelayDelay]
+
   // start the sync scheduler
   wire[RelayFetch]
 
