@@ -320,37 +320,47 @@ case class Branch(
     forceVariation: Boolean = false // cannot be mainline
 ) extends Node:
 
+  // TODO: tbd
   def idOption   = Some(id)
   def moveOption = Some(move)
 
   // NOT `Branches` as it does not represent one mainline move and variations
   // but only mainline moves
+  // DONE: Node
   def mainline: List[Branch] = this :: children.first.??(_.mainline)
 
+  // TODO: tbd
   def withChildren(f: Branches => Option[Branches]) =
     f(children) map { newChildren =>
       copy(children = newChildren)
     }
+
+  // TODO: tbd
   def withoutChildren = copy(children = Branches.empty)
 
+  // TODO: split into addChild and addVariation
   def addChild(branch: Branch): Branch   = copy(children = children :+ branch)
+
+  // DONE, NewBranch
   def withClock(centis: Option[Centis])  = copy(clock = centis)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
 
+  // DONE, NewBranch
   def isCommented                          = comments.value.nonEmpty
   def setComment(comment: Comment)         = copy(comments = comments set comment)
   def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
   def deleteComments                       = copy(comments = Comments.empty)
-
   def setGamebook(gamebook: Gamebook) = copy(gamebook = gamebook.some)
   def setShapes(s: Shapes)            = copy(shapes = s)
   def toggleGlyph(glyph: Glyph)       = copy(glyphs = glyphs toggle glyph)
 
+  // DONE, Node
   def updateMainlineLast(f: Branch => Branch): Branch =
     children.first.fold(f(this)) { main =>
       copy(children = children.update(main updateMainlineLast f))
     }
 
+  // DONE, NewBranch
   def clearAnnotations =
     copy(
       comments = Comments(Nil),
@@ -358,14 +368,18 @@ case class Branch(
       glyphs = Glyphs.empty
     )
 
+  // Done, NewTree
   def clearVariations: Branch =
     copy(
       children = children.first.fold(Branches.empty) { child => Branches(List(child.clearVariations)) }
     )
 
+  // Use `copy(child = child)` instead
   def prependChild(branch: Branch) = copy(children = branch :: children)
+  // DONE
   def dropFirstChild = copy(children = if (children.isEmpty) children else Branches(children.variations))
 
+  // DONE, NewBranch
   def setComp = copy(comp = true)
 
   def merge(n: Branch): Branch =
