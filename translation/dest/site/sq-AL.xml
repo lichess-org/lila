@@ -34,7 +34,7 @@
   <string name="newOpponent">Kundërshtar i ri</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Kundërshtari juaj dëshiron të luajë lojë të re me ju</string>
   <string name="joinTheGame">Hyni në lojë</string>
-  <string name="whitePlays">Radha e të Bardhit</string>
+  <string name="whitePlays">I bardhi luan</string>
   <string name="blackPlays">Radha e të Ziut</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Kundërshtari juaj la lojën. Mund të kërkoni fitoren pas %s sekondash.</item>
@@ -44,7 +44,7 @@
   <string name="forceResignation">Kërko fitoren</string>
   <string name="forceDraw">Shpalle barazim</string>
   <string name="talkInChat">Ju lutem jini të sjellshëm në bisedë!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Personi i parë që do hapë këtë adresë do të luajë me ju.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Personi i parë që do të vijë në këtë URL do të luajë me ju.</string>
   <string name="whiteResigned">I bardhi u dorëzua</string>
   <string name="blackResigned">I ziu u dorëzua</string>
   <string name="whiteLeftTheGame">I bardhi e la lojën</string>
@@ -55,7 +55,7 @@
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="computerAnalysisAvailable">Analiza kompjuterike është gati</string>
   <string name="computerAnalysisDisabled">Analiza kompjuterike u çaktivizua</string>
-  <string name="analysis">Analiza</string>
+  <string name="analysis">Bordi i analizës</string>
   <string name="depthX">Thellësia %s</string>
   <string name="usingServerAnalysis">Duke përdorur analizën e shërbyesit</string>
   <string name="loadingEngine">Po ngarkohet programi analizues …</string>
@@ -91,6 +91,7 @@
     <item quantity="one">Mat në %s gjysmë lëvizje</item>
     <item quantity="other">Mat në %s gjysmë lëvizje</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' me rrumbullakim, bazuar në numrin e gjysmë-lëvizjeve deri në kapjen ose lëvizjen tjetër të pengut</string>
   <string name="noGameFound">S’u gjet lojë</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ndoshta të përfshihen më tepër lojëra nga menuja e parapëlqimeve?</string>
   <string name="openings">Hapje</string>
@@ -99,6 +100,9 @@
   <string name="xOpeningExplorer">Eksploruesi i hapjeve %s</string>
   <string name="winPreventedBy50MoveRule">Fitore e parandaluar nga rregulli i 50 lëvizjeve</string>
   <string name="lossSavedBy50MoveRule">Humbje e parandaluar nga rregulli i 50 lëvizjeve</string>
+  <string name="winOr50MovesByPriorMistake">Fitore ose 50 lëvizje me gabim të mëparshëm</string>
+  <string name="lossOr50MovesByPriorMistake">Humbje ose 50 lëvizje me gabim të mëparshëm</string>
+  <string name="unknownDueToRounding">Fitorja/humbja garantohet vetëm nëse vija e rekomanduar e bazës së tavolinës është ndjekur që nga kapja e fundit ose lëvizja e pengut, për shkak të rrumbullakimit të mundshëm të vlerave të DTZ në bazat e tabelave Syzygy.</string>
   <string name="allSet">Gjithçka gati!</string>
   <string name="importPgn">Importo PGN</string>
   <string name="delete">Fshije</string>
@@ -110,7 +114,7 @@
   <string name="enable">Aktivizoje</string>
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
   <string name="evaluationGauge">Matësi i vlerësimit</string>
-  <string name="multipleLines">Disa shigjeta</string>
+  <string name="multipleLines">Linja të shumta</string>
   <string name="cpus">Procesorë</string>
   <string name="memory">Kujtesë</string>
   <string name="infiniteAnalysis">Analizë e pafundme</string>
@@ -306,13 +310,13 @@
     <item quantity="other">%s barazime</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s duke luajtur</item>
+    <item quantity="one">%s po luan</item>
     <item quantity="other">%s duke luajtur</item>
   </plurals>
   <string name="exportGames">Eksporto lojërat</string>
   <string name="ratingRange">Shtrirja e vlerësimit</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dhuro %s sekonda</item>
+    <item quantity="one">Jep %s sekondë</item>
     <item quantity="other">Dhuro %s sekonda</item>
   </plurals>
   <string name="thisAccountViolatedTos">Kjo llogari ka shkelur Kushtet e Shërbimit të Lichess</string>
@@ -388,6 +392,7 @@
   <string name="importGameExplanation">Ngjitni një PGN loje, që të merrni një përsëritje
 të lojës në shfletues, analizë kompjuterike, bisedë
 loje dhe URL për ta ndarë me të tjerë.</string>
+  <string name="importGameCaveat">Variacionet do të fshihen. Për t\'i mbajtur ato, importoni PGN përmes një studimi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lojë e importuar</item>
     <item quantity="other">%s lojëra të importuara</item>
