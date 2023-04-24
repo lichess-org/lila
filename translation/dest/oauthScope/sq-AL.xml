@@ -22,13 +22,13 @@
   <string name="teamRead">Lexoni informacionin e ekipit privat</string>
   <string name="teamWrite">Bashkohuni dhe largohuni nga ekipet</string>
   <string name="teamLead">Menaxhoni skuadrat që drejtoni: dërgoni PM, goditni anëtarët</string>
-  <string name="followRead">Të lexojë lojtarë të ndjekur</string>
-  <string name="followWrite">Të ndjekë dhe të heqë nga ndjekja lojtarë të tjerë</string>
-  <string name="msgWrite">Të dërgojë mesazhe private te lojtarë të tjerë</string>
-  <string name="boardPlay">Të luajë lojëra me API fushe</string>
-  <string name="botPlay">Të luajë lojëra me API roboti</string>
-  <string name="engineRead">Të shohë dhe të përdorë platforma tuajat të jashtme</string>
-  <string name="engineWrite">Të krijojë dhe përditësoje platforma të jashtme</string>
-  <string name="webLogin">Të krijojë sesioni të mirëfilltësuar të sajtit (të akordojë hyrje të plotë!)</string>
-  <string name="webMod">Të përdorë mjete moderatori (brenda kufijve të lejuar prej jush)</string>
+  <string name="followRead">Lexoni lojtarët e ndjekur</string>
+  <string name="followWrite">Ndiqni dhe anuloni lojtarët e tjerë</string>
+  <string name="msgWrite">Dërgoni mesazhe private te lojtarët e tjerë</string>
+  <string name="boardPlay">Luaj lojëra me API të tabelës</string>
+  <string name="botPlay">Luaj lojëra me API-në e robotëve</string>
+  <string name="engineRead">Shikoni dhe përdorni motorët tuaj të jashtëm</string>
+  <string name="engineWrite">Krijoni dhe përditësoni motorë të jashtëm</string>
+  <string name="webLogin">Krijoni sesione të vërtetuara në websajt (ju jep hyrje të plotë!)</string>
+  <string name="webMod">Përdorni mjetet e moderatorit (brenda kufijve të lejes suaj)</string>
 </resources>
