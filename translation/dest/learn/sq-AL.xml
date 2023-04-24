@@ -65,24 +65,24 @@ Nuk ka nevojë të promovohet.</string>
   <string name="itNowPromotesToAStrongerPiece">Tani promovohet në një figurë më të fortë.</string>
   <string name="selectThePieceYouWant">Zgjidhni figuren që dëshironi!</string>
   <string name="fundamentals">Bazat</string>
-  <string name="capture">Marrje</string>
+  <string name="capture">Kapni</string>
   <string name="takeTheEnemyPieces">Merrni figurat e kundërshtarit</string>
-  <string name="captureIntro">Identifikoni figurat e pambrojtura të kundërshtarit dhe merrini ato!</string>
-  <string name="takeTheBlackPieces">Merrni figurat e të ziut!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Merrni figurat e të ziut!
+  <string name="captureIntro">Identifikoni figurat e pambrojtura të kundërshtarit dhe merrni ato!</string>
+  <string name="takeTheBlackPieces">Merr figurat e zeza!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Merrni figurat e zeza!
 Dhe mos i humbni tuajat.</string>
-  <string name="captureComplete">Urime! Tani dini si të luftoni me figura të shahut!</string>
+  <string name="captureComplete">Urime! Tani ju dini si të luftoni me figura të shahut!</string>
   <string name="protection">Mbrojtja</string>
-  <string name="keepYourPiecesSafe">Mbajini të parrezik figurat tuaja</string>
-  <string name="protectionIntro">Identifikoni figurat që kundërshtari po i sulmon dhe mbrojini ato!</string>
-  <string name="protectionComplete">Urime! Një figurë që s’e humbni, është figurë që e fitoni!</string>
-  <string name="escape">Po sulmoheni!
-Shpëtoni nga rreziku!</string>
-  <string name="noEscape">S’ka shpëtim,
-por mund të mbroheni!</string>
+  <string name="keepYourPiecesSafe">Mbani figurat tuaja të sigurta</string>
+  <string name="protectionIntro">Identifikoni figurat që sulmon kundërshtari juaj dhe mbrojini ato!</string>
+  <string name="protectionComplete">Urime! Një figure që nuk e humbet është një figure që e fitoni!</string>
+  <string name="escape">Ju jeni nën sulm!
+Shpëtoni kërcënimit!</string>
+  <string name="noEscape">Nuk ka shpëtim,
+por ju mund të mbroheni!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Mos i lini të marrin
-cilëndo figurë të pambrojtur!</string>
-  <string name="combat">Ndeshuni</string>
+çdo figure të  pambrojtur!</string>
+  <string name="combat">Betejë</string>
   <string name="captureAndDefendPieces">Merrni dhe mbroni figura</string>
   <string name="combatIntro">Një luftëtar i mirë i di të dyja, si të sulmojë dhe si të mbrohet!</string>
   <string name="combatComplete">Urime! Dini si të luftoni me figura të shahut!</string>
