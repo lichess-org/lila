@@ -144,7 +144,7 @@ final private class RelayFetch(
           gameProxy.upgradeIfPresent flatMap
           gameRepo.withInitialFens flatMap { games =>
             if (games.size == ids.size)
-              games.map { case (game, fen) =>
+              games.map { (game, fen) =>
                 pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
               }.parallel dmap MultiPgn.apply
             else
