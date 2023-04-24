@@ -9,7 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 
 import lila.base.LilaInvalid
-import lila.common.LilaScheduler
+import lila.common.{ Seconds, LilaScheduler }
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.round.GameProxyRepo
@@ -101,7 +101,7 @@ final private class RelayFetch(
 
   private def continueRelay(rt: RelayRound.WithTour): RelayRound =
     rt.round.sync.upstream.fold(rt.round) { upstream =>
-      val seconds =
+      val seconds: Seconds =
         if (rt.round.sync.log.alwaysFails)
           rt.round.sync.log.events.lastOption
             .filterNot(_.isTimeout)
@@ -110,17 +110,14 @@ final private class RelayFetch(
             .filterNot(_ contains "Cannot parse moves")
             .filterNot(_ contains "Found an empty PGN")
             .foreach { irc.broadcastError(rt.round.id.value, rt.fullName, _) }
-          60
-        else
-          rt.round.sync.delay getOrElse {
-            if (upstream.local) 3 else 6
-          }
+          Seconds(60)
+        else rt.round.sync.period | Seconds(if upstream.local then 3 else 6)
       rt.round.withSync {
         _.copy(
           nextAt = nowInstant plusSeconds {
-            seconds atLeast {
-              if (rt.round.sync.log.justTimedOut) 10 else 2
-            }
+            seconds.atLeast {
+              if rt.round.sync.log.justTimedOut then 10 else 2
+            }.value
           } some
         )
       }
@@ -147,7 +144,7 @@ final private class RelayFetch(
           gameProxy.upgradeIfPresent flatMap
           gameRepo.withInitialFens flatMap { games =>
             if (games.size == ids.size)
-              games.map { case (game, fen) =>
+              games.map { (game, fen) =>
                 pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
               }.parallel dmap MultiPgn.apply
             else

@@ -12,7 +12,7 @@ import chess.format.pgn.Tag.Date
 
 trait DateHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
-  export PeriodLocales.{ showPeriod, showDuration }
+  export PeriodLocales.showDuration
 
   private val dateTimeStyle = "MS"
   private val dateStyle     = "M-"

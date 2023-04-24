@@ -11,6 +11,7 @@ import lila.game.Game
 import lila.security.Granter
 import lila.study.Study
 import lila.user.User
+import lila.common.Seconds
 
 final class RelayRoundForm:
 
@@ -26,7 +27,7 @@ final class RelayRoundForm:
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
-      "throttle"     -> optional(number(min = 2, max = 60))
+      "period"       -> optional(number(min = 2, max = 60).into[Seconds])
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
@@ -95,7 +96,7 @@ object RelayRoundForm:
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
       startsAt: Option[Instant] = None,
-      throttle: Option[Int] = None
+      period: Option[Seconds] = None
   ):
 
     def requiresRound = syncUrl exists RelayRound.Sync.UpstreamUrl.LccRegex.matches
@@ -124,7 +125,7 @@ object RelayRoundForm:
         },
         until = none,
         nextAt = none,
-        delay = throttle ifTrue Granter(_.Relay)(user),
+        period = period ifTrue Granter(_.Relay)(user),
         log = SyncLog.empty
       )
 
@@ -153,5 +154,5 @@ object RelayRoundForm:
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
-        throttle = relay.sync.delay
+        period = relay.sync.period
       )
