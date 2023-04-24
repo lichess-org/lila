@@ -181,7 +181,7 @@ function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefin
 
 const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const player = preview.players && preview.players[color];
-  const result = preview.outcome && preview.outcome.split('-')[color === 'white' ? 0 : 1];
+  const result = preview.outcome?.split('-')[color === 'white' ? 0 : 1];
   return h('span.mini-game__player', [
     h('span.mini-game__user', [renderPlayer(player)]),
     result && h('span.mini-game__result', result.replace('1/2', '½')),
