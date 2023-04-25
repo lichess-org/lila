@@ -13,7 +13,7 @@ import { initialSfen, parseSfen } from 'shogiops/sfen';
 import { NormalMove, Piece, Role, isDrop } from 'shogiops/types';
 import { defined, makeSquareName, makeUsi, opposite, parseSquareName, parseUsi, squareDist } from 'shogiops/util';
 import { Chushogi } from 'shogiops/variant/chushogi';
-import { unpromote } from 'shogiops/variant/util';
+import { handRoles, promotableOnDrop, promote, unpromote } from 'shogiops/variant/util';
 import * as blur from './blur';
 import * as cevalSub from './cevalSub';
 import { ClockController } from './clock/clockCtrl';
@@ -166,7 +166,6 @@ export default class RoundController {
     if (this.data.steps.length <= 1) return;
     const usis = this.data.steps.slice(1).map(s => s.usi!),
       movesNotation: MoveNotation[] = makeNotationLine(
-        this.data.pref.notation,
         this.data.game.initialSfen || initialSfen(this.data.game.variant.key),
         this.data.game.variant.key,
         usis
@@ -186,11 +185,16 @@ export default class RoundController {
     if (this.data.game.variant.key === 'chushogi') return this.onChushogiMove(orig, dest, prom, meta);
 
     // to update hand immediately and not wait on apiMove
-    if (meta.captured)
+    if (meta.captured) {
+      const role = meta.captured.role as Role;
+      let unpromotedRole = handRoles(this.data.game.variant.key).includes(role)
+        ? role
+        : unpromote(this.data.game.variant.key)(role) || role;
       this.shogiground.addToHand({
-        role: unpromote(this.data.game.variant.key)(meta.captured.role as Role) || meta.captured.role,
+        role: unpromotedRole,
         color: opposite(meta.captured.color),
       });
+    }
     const usi = orig + dest + (prom ? '+' : '');
     this.sendUsi(usi, meta);
   };
@@ -392,12 +396,7 @@ export default class RoundController {
           const m_step = d.steps[d.steps.length - 1];
           const prev_step = d.steps[d.steps.length - 2];
           if (m_step && prev_step && m_step.usi) {
-            const moveNotation = makeNotation(
-              this.data.pref.notation,
-              prev_step.sfen,
-              this.data.game.variant.key,
-              m_step.usi
-            );
+            const moveNotation = makeNotation(prev_step.sfen, this.data.game.variant.key, m_step.usi);
             txt = opponent + '\nplayed ' + moveNotation + '.\n' + txt;
           }
         }
@@ -480,7 +479,7 @@ export default class RoundController {
         ply: lastStep.ply + 1,
         sfen: o.sfen,
         usi: o.usi,
-        notation: makeNotation(d.pref.notation, lastStep.sfen, d.game.variant.key, o.usi!, lastStep.usi),
+        notation: makeNotation(lastStep.sfen, d.game.variant.key, o.usi!, lastStep.usi),
         check: o.check,
       };
     d.steps.push(step);
