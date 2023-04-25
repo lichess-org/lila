@@ -15,14 +15,6 @@ private object bits {
   def sfenInput(form: Form[_], strict: Boolean, validSfen: Option[lila.setup.ValidSfen])(implicit
       ctx: Context
   ) = {
-    val handicapChoices: List[SelectChoice] =
-      List(
-        ("", trans.selectHandicap.txt(), None),
-        (shogi.StartingPosition.initial.sfen.value, "平手 - Even", Some("default"))
-      ) ++
-        shogi.StartingPosition.handicaps.positions.map { v =>
-          (v.sfen.value, v.fullName, None)
-        }
     val positionChoices: List[SelectChoice] =
       List(
         ("default", trans.default.txt(), None),
@@ -37,7 +29,7 @@ private object bits {
       div(cls := "sfen_position_wrap")(
         div(cls := "handicap label_select")(
           renderLabel(form("handicap"), trans.handicap.txt()),
-          renderSelect(form("handicap"), handicapChoices, (a, _) => a == "default"),
+          renderSelect(form("handicap"), Nil, (a, _) => a == "default"),
           a(
             cls      := "button button-empty",
             dataIcon := "",
