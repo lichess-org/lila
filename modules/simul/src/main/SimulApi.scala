@@ -227,8 +227,8 @@ final class SimulApi(
           game1 = Game.make(
             shogi = shogi
               .Game(
-                Some(pairing.player.variant),
-                simul.position
+                simul.position,
+                pairing.player.variant
               )
               .copy(clock = clock.start.some),
             initialSfen = simul.position,

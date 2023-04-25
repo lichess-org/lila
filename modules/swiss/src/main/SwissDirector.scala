@@ -84,8 +84,8 @@ final private class SwissDirector(
       .make(
         shogi = shogi
           .Game(
-            variantOption = Some(swiss.variant),
-            sfen = None
+            None,
+            swiss.variant
           )
           .copy(
             clock = swiss.clock.toClock.some

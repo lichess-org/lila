@@ -62,7 +62,7 @@ trait Positional { self: Config =>
       sf.toSituationPlus(variant).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
     }
 
-  def makeGame = ShogiGame(variant.some, sfen).withClock(makeClock.map(_.toClock))
+  def makeGame = ShogiGame(sfen, variant).withClock(makeClock.map(_.toClock))
 
 }
 

@@ -3,22 +3,17 @@ package lila.game
 import org.joda.time.DateTime
 import cats.data.Validated
 
-import shogi.format.{ Reader, Tag, Tags }
+import shogi.format.{ Reader, Tags }
 
 object Rewind {
-
-  private def createTags(game: Game) = {
-    val variantTag = Some(Tag(_.Variant, game.variant.name))
-    val sfenTag    = game.initialSfen.map(sf => Tag(_.Sfen, sf.value))
-
-    Tags(List(variantTag, sfenTag).flatten)
-  }
 
   def apply(game: Game): Validated[String, Progress] =
     Reader
       .fromUsi(
         usis = game.usiMoves.dropRight(1),
-        tags = createTags(game)
+        initialSfen = game.initialSfen,
+        variant = game.variant,
+        tags = Tags.empty
       )
       .valid
       .map { replay =>

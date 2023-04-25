@@ -15,7 +15,7 @@ case class AnaUsi(
 ) {
 
   def node: Validated[String, Node] = {
-    shogi.Game(variant.some, sfen.some)(usi) map { game =>
+    shogi.Game(sfen.some, variant)(usi) map { game =>
       Node(
         id = UsiCharPair(usi, variant),
         ply = game.plies,

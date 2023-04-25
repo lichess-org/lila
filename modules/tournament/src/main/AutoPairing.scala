@@ -25,8 +25,8 @@ final class AutoPairing(
       .make(
         shogi = shogi
           .Game(
-            variantOption = Some(tour.variant),
-            sfen = tour.position
+            tour.position,
+            tour.variant
           )
           .copy(clock = clock.some),
         initialSfen = tour.position,

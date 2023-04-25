@@ -36,8 +36,8 @@ final class NotationDump(
         chapter.root.shapes
       ).toList
     )
-    if (flags.csa && variant.standard) Csa(tags, moves, initial)
-    else Kif(tags, moves, initial)
+    if (flags.csa && variant.standard) Csa(moves, chapter.root.sfen.some, initial, tags)
+    else Kif(moves, chapter.root.sfen.some, variant, initial, tags)
   }
 
   private val fileR = """[\s,]""".r
@@ -73,24 +73,14 @@ final class NotationDump(
 
   private def makeTags(study: Study, chapter: Chapter): Tags =
     Tags {
-      val opening = chapter.opening
-      val genTags = List(
+      List(
         Tag(_.Event, s"${study.name} - ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
-        Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.Annotator, ownerName(study))
-      ) ::: (!chapter.root.sfen.initialOf(chapter.setup.variant)) ?? (
-        List(
-          Tag(_.Sfen, chapter.root.sfen.value)
-        )
-      )
-      opening
-        .fold(genTags)(o => Tag(_.Opening, o.japanese) :: genTags)
-        .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
-          if (tags.exists(t => tag.name == t.name)) tags
-          else tag :: tags
-        }
-        .reverse
+      ).foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
+        if (tags.exists(t => tag.name == t.name)) tags
+        else tag :: tags
+      }.reverse
     }
 }
 
@@ -108,6 +98,13 @@ object NotationDump {
   private val noVariations: Variations = Vector.empty
 
   private def shapeComment(shapes: Shapes): Option[String] = {
+    def renderBrush(brush: String): Char =
+      brush match {
+        case "alternative0" | "red"    => 'R'
+        case "alternative1" | "blue"   => 'B'
+        case "alternative2" | "yellow" => 'Y'
+        case _                         => 'G'
+      }
     def render(as: String)(shapes: List[String]) =
       shapes match {
         case Nil    => ""
@@ -126,17 +123,17 @@ object NotationDump {
 
     val circles = render("csl") {
       shapes.value.collect { case Shape.Circle(brush, orig, None) =>
-        s"${brush.head.toUpper}${writePosOrPiece(orig)}"
+        s"${renderBrush(brush)}${writePosOrPiece(orig)}"
       }
     }
     val pieces = render("cpl") {
       shapes.value.collect { case Shape.Circle(brush, Left(orig), Some(piece)) =>
-        s"${brush.head.toUpper}${orig.key}${pieceLetter(piece)}"
+        s"${renderBrush(brush)}${orig.key}${pieceLetter(piece)}"
       }
     }
     val arrows = render("cal") {
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
-        s"${brush.head.toUpper}${writePosOrPiece(orig)}${writePosOrPiece(dest)}"
+        s"${renderBrush(brush)}${writePosOrPiece(orig)}${writePosOrPiece(dest)}"
       }
     }
     s"$circles$arrows$pieces".some.filter(_.nonEmpty)

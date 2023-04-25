@@ -61,7 +61,10 @@ final class NotationDump(
         else if (game.drawn && game.variant.chushogi) "引き分け".some
         else
           Kif.createTerminationMove(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
-      val notation = if (flags.csa) Csa(ts, moves) else Kif(ts, moves)
+      val notation =
+        if (flags.csa && game.variant.standard)
+          Csa(moves, game.initialSfen, shogi.format.Initial.empty, ts)
+        else Kif(moves, game.initialSfen, game.variant, shogi.format.Initial.empty, ts)
       if (game.finished) {
         terminationMove.fold(
           notation.updateLastPly(
@@ -111,8 +114,6 @@ final class NotationDump(
           Tag(_.Site, gameUrl(game.id)),
           Tag(_.Sente, player(game.sentePlayer, sente)),
           Tag(_.Gote, player(game.gotePlayer, gote)),
-          Tag(_.Sfen, (game.initialSfen | game.variant.initialSfen).value),
-          Tag(_.Variant, game.variant.name.capitalize),
           Tag(
             _.Event,
             imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
@@ -131,7 +132,7 @@ final class NotationDump(
               Tag(_.Start, dateAndTime(game.createdAt)),
               Tag(_.End, dateAndTime(game.movedAt)),
               if (csa)
-                Tag.timeControlCsa(game.clock.map(_.config))
+                Tag.timeControlCsa(game.clock.map(_.config)) // todo
               else
                 Tag.timeControlKif(game.clock.map(_.config))
             )
