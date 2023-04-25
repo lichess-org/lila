@@ -3,10 +3,10 @@ package lila.relay
 import akka.actor.*
 import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
+import com.github.benmanes.caffeine.cache.Cache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient
-import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 
 import lila.base.LilaInvalid
 import lila.common.{ Seconds, LilaScheduler }
@@ -15,12 +15,14 @@ import lila.memo.CacheApi
 import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
+import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 
 final private class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
     irc: lila.irc.IrcApi,
     formatApi: RelayFormatApi,
+    delayer: RelayDelay,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo,
@@ -86,7 +88,7 @@ final private class RelayFetch(
               SyncResult.Error(e.getMessage)
           } -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
         }
-        .map { case (result, newRelay) =>
+        .map { (result, newRelay) =>
           afterSync(result, newRelay withTour rt.tour)
         }
 
@@ -123,9 +125,6 @@ final private class RelayFetch(
       }
     }
 
-  import com.github.benmanes.caffeine.cache.Cache
-  import RelayFetch.GamesSeenBy
-
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
     clocks = true,
     moves = true,
@@ -151,28 +150,12 @@ final private class RelayFetch(
               throw LilaInvalid(
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
               )
-          } flatMap RelayFetch.multiPgnToGames.apply
+          } flatMap {
+            RelayFetch.multiPgnToGames(_).future
+          }
       case url: UpstreamUrl =>
-        cache.asMap
-          .compute(
-            url,
-            (_, v) =>
-              Option(v) match
-                case Some(GamesSeenBy(games, seenBy)) if !seenBy(rt.round.id) =>
-                  GamesSeenBy(games, seenBy + rt.round.id)
-                case _ =>
-                  GamesSeenBy(doFetchUrl(url, RelayFetch.maxChapters(rt.tour)), Set(rt.round.id))
-          )
-          .games
+        delayer(url, rt, doFetchUrl)
     }
-
-  // The goal of this is to make sure that an upstream used by several broadcast
-  // is only pulled from as many times as necessary, and not more.
-  private val cache: Cache[UpstreamUrl, GamesSeenBy] = CacheApi.scaffeineNoScheduler
-    .initialCapacity(4)
-    .maximumSize(32)
-    .build[UpstreamUrl, GamesSeenBy]()
-    .underlying
 
   private def doFetchUrl(upstream: UpstreamUrl, max: Int): Fu[RelayGames] =
     import RelayFetch.DgtJson.*
@@ -207,7 +190,7 @@ final private class RelayFetch(
               MultiPgn(results.sortBy(_._1).map(_._2))
             }
         }
-    } flatMap RelayFetch.multiPgnToGames.apply
+    } flatMap { RelayFetch.multiPgnToGames(_).future }
 
   private def httpGet(url: URL): Fu[String] =
     ws.url(url.toString)
@@ -231,8 +214,6 @@ final private class RelayFetch(
     yield data
 
 private object RelayFetch:
-
-  case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[RelayRoundId])
 
   def maxChapters(tour: RelayTour) =
     lila.study.Study.maxChapters * (if (tour.official) 2 else 1)
@@ -279,7 +260,7 @@ private object RelayFetch:
 
     import scala.util.{ Failure, Success, Try }
 
-    def apply(multiPgn: MultiPgn): Fu[Vector[RelayGame]] =
+    def apply(multiPgn: MultiPgn): Try[Vector[RelayGame]] =
       multiPgn.value
         .foldLeft[Try[(Vector[RelayGame], Int)]](Success(Vector.empty -> 0)) {
           case (Success((acc, index)), pgn) =>
@@ -290,8 +271,7 @@ private object RelayFetch:
             }
           case (acc, _) => acc
         }
-        .future
-        .dmap(_._1)
+        .map(_._1)
 
     private val pgnCache: LoadingCache[PgnStr, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
       .expireAfterAccess(2 minutes)

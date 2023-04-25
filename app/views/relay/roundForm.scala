@@ -98,6 +98,14 @@ object roundForm:
           help = startDateHelp().some,
           half = true
         )(form3.flatpickr(_, minDate = None)),
+        form3.group(
+          form("delay"),
+          raw("Delay in seconds"),
+          help = raw(
+            "Optional, how long to delay moves coming from the source."
+          ).some,
+          half = true
+        )(form3.input(_, typ = "number")),
         isGranted(_.Relay) option
           form3.group(
             form("period"),
