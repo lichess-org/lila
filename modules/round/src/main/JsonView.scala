@@ -153,7 +153,6 @@ final class JsonView(
             "game" -> gameJsonView(game)
               .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
               .add("division" -> withFlags.division.option(divider(game)))
-              .add("opening" -> game.opening)
               .add("importedBy" -> game.notationImport.flatMap(_.user)),
             "clock"          -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock,
@@ -214,7 +213,6 @@ final class JsonView(
           .obj(
             "id"            -> gameId,
             "variant"       -> game.variant,
-            "opening"       -> game.opening,
             "initialSfen"   -> (game.initialSfen | game.variant.initialSfen),
             "sfen"          -> game.shogi.toSfen,
             "plies"         -> game.plies,

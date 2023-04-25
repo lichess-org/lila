@@ -25,7 +25,7 @@ final class NotationDump(
   ): Fu[Notation] = {
     val tagsFuture =
       if (flags.tags)
-        tags(game, withOpening = flags.opening, csa = flags.csa, teams = teams)
+        tags(game, csa = flags.csa, teams = teams)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val moves = flags.moves ?? {
@@ -100,7 +100,6 @@ final class NotationDump(
 
   def tags(
       game: Game,
-      withOpening: Boolean,
       csa: Boolean,
       teams: Option[Color.Map[String]] = None
   ): Fu[Tags] =
@@ -137,11 +136,7 @@ final class NotationDump(
                 Tag.timeControlKif(game.clock.map(_.config))
             )
           }
-        } ::: (withOpening && game.opening.isDefined) ?? (
-          List(
-            Tag(_.Opening, game.opening.fold("")(_.opening.japanese))
-          )
-        )
+        }
       }
     }
 }
@@ -154,7 +149,6 @@ object NotationDump {
       moves: Boolean = true,
       tags: Boolean = true,
       evals: Boolean = true,
-      opening: Boolean = true,
       literate: Boolean = false,
       shiftJis: Boolean = false,
       notationInJson: Boolean = false,

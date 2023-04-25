@@ -66,7 +66,6 @@ export interface Game {
   initialSfen?: string;
   importedBy?: string;
   division?: Division;
-  opening?: Opening;
   perf: string;
   rated?: boolean;
 }

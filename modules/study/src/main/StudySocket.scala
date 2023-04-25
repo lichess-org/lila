@@ -5,7 +5,6 @@ import cats.data.Validated
 import actorApi.Who
 import shogi.Centis
 import shogi.format.{ Glyph, Glyphs }
-import shogi.opening.FullOpeningDB
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -262,7 +261,7 @@ final private class StudySocket(
 
   import JsonView._
   import jsonView.membersWrites
-  import lila.tree.Node.{ clockWrites, commentWriter, glyphsWriter, openingWriter, shapesWrites }
+  import lila.tree.Node.{ clockWrites, commentWriter, glyphsWriter, shapesWrites }
   private type SendToStudy = Study.Id => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
@@ -287,9 +286,6 @@ final private class StudySocket(
           "n" -> JsonView.defaultNodeJsonWriter.writes(node),
           "p" -> pos,
           "w" -> who,
-          "o" -> shogi.variant.Variant.openingSensibleVariants(variant) ?? {
-            FullOpeningDB findBySfen node.sfen
-          },
           "s" -> sticky
         )
         .add("relay", relay)

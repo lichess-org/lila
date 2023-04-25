@@ -117,7 +117,7 @@ final private class ChapterMaker(
       userId: User.ID
   ): Fu[Chapter] =
     for {
-      tags <- notationDump.tags(game, withOpening = true, csa = false)
+      tags <- notationDump.tags(game, csa = false)
       name <- {
         if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply

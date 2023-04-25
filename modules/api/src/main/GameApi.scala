@@ -232,7 +232,6 @@ final private[api] class GameApi(
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
         "moves"    -> withFlags.moves.option(g.usiMoves.map(_.usi) mkString " "),
-        "opening"  -> withFlags.opening.??(g.opening),
         "sfens" -> (withFlags.sfens && g.finished) ?? {
           shogi.Replay
             .situations(
@@ -256,7 +255,6 @@ object GameApi {
       analysis: Boolean = false,
       moves: Boolean = false,
       sfens: Boolean = false,
-      opening: Boolean = false,
       moveTimes: Boolean = false,
       blurs: Boolean = false,
       token: Option[String] = none

@@ -126,7 +126,7 @@ final class UserAnalysis(
           apiVersion,
           tv = none,
           analysis,
-          withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true)
+          withFlags = WithFlags(division = true, clocks = true, movetimes = true)
         ) map { data =>
           Ok(data.add("crosstable", crosstable))
         }

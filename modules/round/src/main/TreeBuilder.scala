@@ -4,7 +4,6 @@ import shogi.Centis
 import shogi.format.Glyphs
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ UciToUsi, Usi, UsiCharPair }
-import shogi.opening._
 import shogi.variant.Variant
 import JsonView.WithFlags
 import lila.analyse.{ Advice, Analysis, Info }
@@ -12,8 +11,7 @@ import lila.tree._
 
 object TreeBuilder {
 
-  private type Ply       = Int
-  private type OpeningOf = Sfen => Option[FullOpening]
+  private type Ply = Int
 
   private def makeEval(info: Info) =
     Eval(
@@ -31,11 +29,8 @@ object TreeBuilder {
     shogi.Replay.gamesWhileValid(game.usiMoves, game.initialSfen, game.variant) match {
       case (gamesWithInit, error) =>
         error foreach logShogiError(game.id)
-        val init  = gamesWithInit.head
-        val games = gamesWithInit.tail
-        val openingOf: OpeningOf =
-          if (withFlags.opening && Variant.openingSensibleVariants(game.variant)) FullOpeningDB.findBySfen
-          else _ => None
+        val init                = gamesWithInit.head
+        val games               = gamesWithInit.tail
         val sfen                = init.toSfen
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
         val advices: Map[Ply, Advice] = analysis.??(
@@ -49,7 +44,6 @@ object TreeBuilder {
           ply = init.plies,
           sfen = sfen,
           check = init.situation.check,
-          opening = openingOf(sfen),
           clock = withFlags.clocks ?? game.clock.map { c =>
             Centis.ofSeconds(c.limitSeconds)
           },
@@ -65,7 +59,6 @@ object TreeBuilder {
             usi = usi,
             sfen = sfen,
             check = g.situation.check,
-            opening = openingOf(sfen),
             clock = withClocks flatMap (_ lift (g.plies - init.plies - 1)),
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
@@ -81,7 +74,7 @@ object TreeBuilder {
           )
           advices.get(g.plies + 1).flatMap { adv =>
             games.lift(index - 1).map { fromGame =>
-              withAnalysisChild(game.id, branch, game.variant, fromGame.toSfen, openingOf)(adv.info)
+              withAnalysisChild(game.id, branch, game.variant, fromGame.toSfen)(adv.info)
             }
           } getOrElse branch
         }
@@ -99,8 +92,7 @@ object TreeBuilder {
       id: String,
       root: Branch,
       variant: Variant,
-      fromSfen: Sfen,
-      openingOf: OpeningOf
+      fromSfen: Sfen
   )(info: Info): Branch = {
     def makeBranch(g: shogi.Game, usi: Usi) = {
       val sfen = g.toSfen
@@ -110,7 +102,6 @@ object TreeBuilder {
         usi = usi,
         sfen = sfen,
         check = g.situation.check,
-        opening = openingOf(sfen),
         eval = none
       )
     }

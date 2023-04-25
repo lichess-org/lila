@@ -154,7 +154,6 @@ final class Game(
       tags = getBoolOpt("tags", req) | true,
       clocks = getBoolOpt("clocks", req) | extended,
       evals = getBoolOpt("evals", req) | extended,
-      opening = getBoolOpt("opening", req) | extended,
       literate = getBoolOpt("literate", req) | false,
       shiftJis = getBoolOpt("shiftJis", req) | false,
       notationInJson = getBoolOpt("notationInJson", req) | false

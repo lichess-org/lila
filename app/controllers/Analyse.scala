@@ -61,8 +61,7 @@ final class Analyse(
                 withFlags = WithFlags(
                   movetimes = true,
                   clocks = true,
-                  division = true,
-                  opening = true
+                  division = true
                 )
               ) map { data =>
                 EnableSharedArrayBuffer(
@@ -93,7 +92,7 @@ final class Analyse(
           env.api.roundApi.embed(
             pov,
             lila.api.Mobile.Api.currentVersion,
-            withFlags = WithFlags(opening = true)
+            withFlags = WithFlags()
           ) map { data =>
             Ok(html.analyse.embed(pov, data))
           }

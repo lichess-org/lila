@@ -3,7 +3,6 @@ package lila.game
 import shogi.Color.{ Gote, Sente }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.opening.{ FullOpening, FullOpeningDB }
 import shogi.variant.Variant
 import shogi.{ Centis, Clock, Color, Game => ShogiGame, Mode, Speed, StartingPosition, Status }
 import lila.common.Sequence
@@ -590,10 +589,6 @@ case class Game(
     copy(
       shogi = shogi.copy(plies = 0, startedAtPly = 0)
     )
-
-  lazy val opening: Option[FullOpening.AtPly] =
-    if (fromPosition || !Variant.openingSensibleVariants(variant)) none
-    else FullOpeningDB search usiMoves
 
   def synthetic = id == Game.syntheticId
 

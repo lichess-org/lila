@@ -111,14 +111,6 @@ object JsonView {
     )
   }
 
-  implicit val openingWriter: OWrites[shogi.opening.FullOpening.AtPly] = OWrites { o =>
-    Json.obj(
-      "japanese" -> o.opening.japanese,
-      "english"  -> o.opening.english,
-      "ply"      -> o.ply
-    )
-  }
-
   implicit val divisionWriter: OWrites[shogi.Division] = OWrites { o =>
     Json.obj(
       "middle" -> o.middle,

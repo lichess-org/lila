@@ -156,7 +156,7 @@ final private[api] class RoundApi(
   ) =
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {
-        withTree(pov, analysis = none, WithFlags(opening = true)) {
+        withTree(pov, analysis = none, WithFlags()) {
           jsonView.userAnalysisJson(pov, pref, orientation, owner = owner, me = me)
         }
       }
@@ -168,7 +168,7 @@ final private[api] class RoundApi(
       orientation: shogi.Color,
       me: Option[User]
   ) =
-    withTree(pov, analysis = none, WithFlags(opening = true))(
+    withTree(pov, analysis = none, WithFlags())(
       jsonView.userAnalysisJson(pov, pref, orientation, owner = false, me = me)
     )
 

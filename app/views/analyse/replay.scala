@@ -15,8 +15,7 @@ import controllers.routes
 object replay {
 
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
-    s"${playerText(pov.game.sentePlayer)} vs ${playerText(pov.game.gotePlayer)}: ${pov.game.opening
-        .fold(trans.analysis.txt())(_.opening.ecoName)}"
+    s"${playerText(pov.game.sentePlayer)} vs ${playerText(pov.game.gotePlayer)}: ${trans.analysis.txt()}"
 
   private def playerName(p: Player): String =
     (p.aiLevel

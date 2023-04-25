@@ -18,7 +18,7 @@ final private class Joiner(
         c.challengerUserId.??(userRepo.byId) flatMap { challengerUser =>
           val shogiGame =
             shogi
-              .Game(c.variant.some, c.initialSfen)
+              .Game(c.initialSfen, c.variant)
               .withClock(c.clock.map(_.config.toClock))
           val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)
           val game = Game
