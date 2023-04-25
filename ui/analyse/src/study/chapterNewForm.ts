@@ -32,6 +32,7 @@ export interface StudyChapterNewFormCtrl {
     tab: StoredProp<string>;
     editor: any;
     editorSfen: Prop<Sfen | null>;
+    editorVariant: Prop<VariantKey | null>;
   };
   open(): void;
   openInitial(): void;
@@ -56,6 +57,7 @@ export function ctrl(
     tab: storedProp('study.form.tab', 'init'),
     editor: null,
     editorSfen: prop(null),
+    editorVariant: prop(null),
   };
 
   function loadVariants() {
@@ -155,9 +157,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           hook: bindSubmit(e => {
             const o: any = {
               sfen: fieldValue(e, 'sfen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorSfen() : null),
+              variant: (ctrl.vm.tab() === 'edit' && ctrl.vm.editorVariant()) || fieldValue(e, 'variant'),
               isDefaultName: isDefaultName,
             };
-            'name game variant notation orientation mode'.split(' ').forEach(field => {
+            'name game notation orientation mode'.split(' ').forEach(field => {
               o[field] = fieldValue(e, field);
             });
             ctrl.submit(o);
@@ -215,7 +218,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         data.embed = true;
                         data.options = {
                           orientation: currentChapter.setup.orientation,
-                          onChange: ctrl.vm.editorSfen,
+                          onChange: (sfen, variant) => {
+                            ctrl.vm.editorSfen(sfen);
+                            ctrl.vm.editorVariant(variant);
+                          },
                         };
                         ctrl.vm.editor = window['LishogiEditor'](vnode.elm as HTMLElement, data);
                         ctrl.vm.editorSfen(ctrl.vm.editor.getSfen());

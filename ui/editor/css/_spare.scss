@@ -6,7 +6,7 @@
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
   &-top {
     grid-area: spare-top;
-    margin-bottom: 2vh;
+    margin-bottom: 2.5vh;
   }
   &-bottom {
     grid-area: spare-bottom;
@@ -66,6 +66,10 @@
 
 .board-editor.variant-minishogi .spare .no-square {
   flex: 0 0 calc(100% / 7);
+}
+
+.board-editor.variant-kyotoshogi .spare .no-square {
+  flex: 0 0 calc(100% / 6);
 }
 
 .board-editor.variant-chushogi .spare .no-square {

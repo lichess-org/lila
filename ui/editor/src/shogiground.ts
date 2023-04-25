@@ -16,7 +16,8 @@ export function renderBoard(ctrl: EditorCtrl): VNode {
 }
 
 export function renderHand(ctrl: EditorCtrl, pos: 'top' | 'bottom'): VNode {
-  return h(`div.sg-hand-wrap.hand-${pos}`, {
+  // inlined because we don't want to apply board-layout css
+  return h(`div.sg-hand-wrap.hand-${pos}.inlined`, {
     hook: {
       insert: vnode => {
         ctrl.shogiground.attach({
@@ -38,8 +39,8 @@ export function makeConfig(ctrl: EditorCtrl): SgConfig {
     orientation: ctrl.options.orientation || 'sente',
     coordinates: {
       enabled: !ctrl.data.embed,
-      files: notationFiles(ctrl.data.pref.notation),
-      ranks: notationRanks(ctrl.data.pref.notation),
+      files: notationFiles(),
+      ranks: notationRanks(),
     },
     hands: {
       roles: handRoles(ctrl.data.variant),

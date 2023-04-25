@@ -3,23 +3,11 @@ package controllers
 import shogi.format.forsyth.Sfen
 import shogi.variant.{ Standard, Variant }
 import shogi.Situation
-import play.api.libs.json._
 
 import lila.app._
 import views._
-import lila.common.Json._
 
 final class Editor(env: Env) extends LilaController(env) {
-
-  private lazy val positionsJson = lila.common.String.html.safeJsonValue {
-    JsArray(shogi.StartingPosition.all map { p =>
-      Json.obj(
-        "japanese" -> p.japanese,
-        "english"  -> p.english,
-        "sfen"     -> p.sfen
-      )
-    })
-  }
 
   def index = load("", Standard)
 

@@ -16,7 +16,8 @@
     'hand-bot'
     'spare-bottom'
     'tools'
-    'copyables';
+    'copyables'
+    'add-controls';
 
   @include breakpoint($mq-x-small) {
     grid-template-columns: minmax(30vmin, $board-width) 3vmin minmax(220px, $side-width);
@@ -29,7 +30,7 @@
       'spare-bottom . tools'
       'spare-bottom . hand-bot'
       '.            . .    '
-      'copyables    . .    ';
+      'copyables    . add-controls';
 
     &.variant-chushogi {
       grid-template-areas:
@@ -40,8 +41,8 @@
         '.            . tools'
         'spare-bottom spare-bottom spare-bottom'
         'spare-bottom spare-bottom spare-bottom'
-        '.            . .    '
-        'copyables    . .    ';
+        '.            . .     '
+        'copyables    . add-controls';
     }
   }
 }

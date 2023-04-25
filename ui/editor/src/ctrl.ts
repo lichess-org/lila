@@ -9,7 +9,7 @@ import {
   forsythToRole,
   initialSfen,
   makeBoardSfen,
-  makeHands,
+  makeHandsSfen,
   makeSfen,
   parseBoardSfen,
   parseHands,
@@ -20,14 +20,13 @@ import { Role, Rules, Setup } from 'shogiops/types';
 import { toBW } from 'shogiops/util';
 import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variant/util';
 import { defaultPosition } from 'shogiops/variant/variant';
-import { EditorData, EditorOptions, EditorState, OpeningPosition, Redraw, Selected } from './interfaces';
+import { EditorData, EditorOptions, EditorState, Redraw, Selected } from './interfaces';
 import { makeConfig } from './shogiground';
 
 export default class EditorCtrl {
   data: EditorData;
   options: EditorOptions;
   trans: Trans;
-  extraPositions: OpeningPosition[];
   shogiground: SgApi;
   redraw: Redraw;
 
@@ -49,16 +48,6 @@ export default class EditorCtrl {
     this.shogiground = Shogiground(makeConfig(this));
 
     this.selected = prop('pointer');
-    this.extraPositions = [
-      {
-        sfen: 'start',
-        english: this.trans('startPosition'),
-      },
-      {
-        sfen: 'prompt',
-        english: this.trans('loadPosition'),
-      },
-    ];
 
     window.Mousetrap.bind('f', (e: Event) => {
       e.preventDefault();
@@ -71,7 +60,7 @@ export default class EditorCtrl {
 
     this.redraw = () => {};
     if (!this.setSfen(data.sfen)) {
-      alert('Invalid SFEN');
+      alert(this.trans.noarg('invalidSfen'));
       this.startPosition();
     }
     this.redraw = redraw;
@@ -84,7 +73,7 @@ export default class EditorCtrl {
     const cur = this.selected();
     if (typeof cur !== 'string' && this.shogiground)
       this.shogiground.selectPiece({ color: cur[0], role: cur[1] }, true);
-    this.options.onChange && this.options.onChange(sfen);
+    this.options.onChange?.(sfen, this.rules);
     this.redraw();
   }
 
@@ -113,7 +102,7 @@ export default class EditorCtrl {
     return [
       makeBoardSfen(this.rules, setup.board),
       toBW(setup.turn),
-      makeHands(this.rules, setup.hands),
+      makeHandsSfen(this.rules, setup.hands),
       Math.max(1, Math.min(this.moveNumber, 9999)),
     ].join(' ');
   }
@@ -199,7 +188,7 @@ export default class EditorCtrl {
   }
 
   setHands(hands: Hands): void {
-    if (this.shogiground) this.shogiground.set({ sfen: { hands: makeHands(this.rules, hands) } });
+    if (this.shogiground) this.shogiground.set({ sfen: { hands: makeHandsSfen(this.rules, hands) } });
     this.onChange();
   }
 
@@ -310,12 +299,12 @@ export default class EditorCtrl {
   }
 
   addToHand(c: Color, r: Role, reload: boolean = false): void {
-    const unpromotedRole = unpromote(this.rules)(r);
+    const unpromotedRole = handRoles(this.rules).includes(r) ? r : unpromote(this.rules)(r);
     this.shogiground.addToHand({ color: c, role: unpromotedRole || r });
     if (reload) this.onChange();
   }
   removeFromHand(c: Color, r: Role, reload: boolean = false): void {
-    const unpromotedRole = unpromote(this.rules)(r);
+    const unpromotedRole = handRoles(this.rules).includes(r) ? r : unpromote(this.rules)(r);
     const piece = { color: c, role: unpromotedRole || r };
     this.shogiground.removeFromHand(piece);
     // unselect if we no loger have piece in hand

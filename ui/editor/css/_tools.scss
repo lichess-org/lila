@@ -16,13 +16,10 @@
     .metadata {
       @extend %box-neat;
       background: $c-bg-box;
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       white-space: nowrap;
       .color {
-        margin-bottom: 1em;
-      }
-      .piece-counter {
-        white-space: normal;
+        margin-top: 0.5rem;
       }
     }
     .actions {
@@ -31,8 +28,29 @@
       .button {
         @extend %page-link !optional;
         width: 100%;
+        padding: 0.75em 1em;
         text-align: left;
       }
+    }
+  }
+  .additional-controls {
+    @extend %box-neat;
+    background: $c-bg-box;
+    padding: 0.75rem 1rem;
+    grid-area: add-controls;
+    margin-top: 2rem;
+    div.positions {
+      margin-bottom: 0.5rem;
+      select {
+        @extend %page-link !optional;
+        width: 100%;
+        &.positions option:checked {
+          font-style: italic;
+        }
+      }
+    }
+    .piece-counter {
+      white-space: normal;
     }
   }
 }

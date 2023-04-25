@@ -1,11 +1,5 @@
 import { Role, Rules } from 'shogiops/types';
 
-export interface OpeningPosition {
-  japanese?: string;
-  english: string;
-  sfen: string;
-}
-
 export interface EditorData {
   baseUrl: string;
   sfen: string;
@@ -13,13 +7,12 @@ export interface EditorData {
   options?: EditorOptions;
   pref: any;
   embed: boolean;
-  positions?: OpeningPosition[];
   i18n: any;
 }
 
 export interface EditorOptions {
   orientation?: Color;
-  onChange?: (sfen: string) => void;
+  onChange?: (sfen: string, variant: VariantKey) => void;
 }
 
 export interface EditorState {
