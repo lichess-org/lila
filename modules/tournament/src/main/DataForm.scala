@@ -2,7 +2,7 @@ package lila.tournament
 
 import cats.implicits._
 import shogi.format.forsyth.Sfen
-import shogi.{ Mode, StartingPosition }
+import shogi.Mode
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
@@ -160,12 +160,6 @@ object DataForm {
   val waitMinutes       = Seq(1, 2, 3, 5, 10, 15, 20, 30, 45, 60)
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
   val waitMinuteDefault = 5
-
-  val positions = StartingPosition.allWithInitial.map(_.sfen)
-  val positionChoices = StartingPosition.allWithInitial.map { p =>
-    p.sfen -> p.fullName
-  }
-  val positionDefault = StartingPosition.initial.sfen
 
   val validVariants =
     List(Standard, Minishogi, Chushogi, Annanshogi, Kyotoshogi)

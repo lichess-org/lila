@@ -6,7 +6,7 @@ import play.api.libs.json._
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ UciToUsi, Usi }
 import shogi.variant.Variant
-import shogi.StartingPosition
+import shogi.Handicap
 
 import lila.common.{ IpAddress, Maths }
 import lila.common.Json._
@@ -246,7 +246,7 @@ object JsonApi {
       if (
         variant.standard && Some(sfen)
           .filterNot(_.initialOf(variant))
-          .fold(true)(StartingPosition isHandicap _)
+          .fold(true)(sfen => Handicap.isHandicap(sfen, variant))
       ) None
       else Some("fairy")
 

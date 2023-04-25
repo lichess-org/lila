@@ -73,8 +73,8 @@ case class Schedule(
         case (_, Some(max))         => s"<${max.rating} ${speed.name}"
       }
     else if (variant.standard) {
-      val n = position.flatMap(Thematic.bySfen).fold(speed.name) { pos =>
-        s"${pos.shortName} ${speed.name}"
+      val n = position.flatMap(sfen => Thematic.bySfen(sfen, variant)).fold(speed.name) { pos =>
+        s"${pos.fullName} ${speed.name}"
       }
       if (full) xArena.txt(n) else n
     } else

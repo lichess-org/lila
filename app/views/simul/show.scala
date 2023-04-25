@@ -80,14 +80,16 @@ object show {
                 }
                 case _ => trans.randomColor()
               }),
-              sim.position.flatMap(lila.tournament.Thematic.bySfen) map { pos =>
+              (for {
+                sfen     <- sim.position
+                variant  <- sim.variants.headOption
+                handicap <- lila.tournament.Thematic.bySfen(sfen, variant)
+              } yield (handicap)) map { h =>
                 frag(
                   br,
-                  a(target := "_blank", rel := "noopener", href := pos.url)(
-                    strong(pos.japanese),
-                    " ",
-                    pos.english
-                  ),
+                  strong(h.japanese),
+                  " ",
+                  h.english,
                   " • ",
                   views.html.base.bits.sfenAnalysisLink(pos.sfen)
                 )

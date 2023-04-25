@@ -118,7 +118,7 @@ final class JsonView(
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
-          .add("position" -> tour.position.ifTrue(full).map(positionJson))
+          .add("position" -> tour.position.ifTrue(full).map(sfen => positionJson(sfen, tour.variant)))
           .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
@@ -512,14 +512,13 @@ object JsonView {
     )
   }
 
-  private[tournament] def positionJson(sfen: Sfen): JsObject =
-    Thematic.bySfen(sfen) match {
+  private[tournament] def positionJson(sfen: Sfen, variant: shogi.variant.Variant): JsObject =
+    Thematic.bySfen(sfen, variant) match {
       case Some(pos) =>
         Json
           .obj(
             "japanese" -> pos.japanese,
             "english"  -> pos.english,
-            "wikiPath" -> pos.wikiPath,
             "sfen"     -> pos.sfen
           )
       case None =>

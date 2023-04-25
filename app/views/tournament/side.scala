@@ -91,7 +91,7 @@ object side {
         ),
         tour.startingPosition.map { pos =>
           p(
-            a(targetBlank, href := pos.url)(strong(pos.japanese), " ", pos.english),
+            frag(strong(pos.japanese), s"(${pos.english})),
             separator,
             views.html.base.bits.sfenAnalysisLink(pos.sfen)
           )

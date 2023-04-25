@@ -137,7 +137,7 @@ case class Tournament(
 
   def nonLishogiCreatedBy = (createdBy != User.lishogiId) option createdBy
 
-  def startingPosition = position flatMap Thematic.bySfen
+  def startingPosition = position.flatMap(sfen => Thematic.bySfen(sfen, variant))
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
@@ -172,7 +172,7 @@ object Tournament {
     Tournament(
       id = makeId,
       name = name | (position match {
-        case Some(pos) => Thematic.bySfen(pos).fold("Custom position")(_.shortName)
+        case Some(pos) => Thematic.bySfen(pos, variant).fold("Custom position")(_.fullName)
         case None      => Animal.randomName
       }),
       status = Status.Created,

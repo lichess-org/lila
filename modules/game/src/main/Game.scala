@@ -4,7 +4,7 @@ import shogi.Color.{ Gote, Sente }
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import shogi.{ Centis, Clock, Color, Game => ShogiGame, Mode, Speed, StartingPosition, Status }
+import shogi.{ Centis, Clock, Color, Game => ShogiGame, Handicap, Mode, Speed, Status }
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -97,8 +97,8 @@ case class Game(
 
   def hasChat = !isTournament && !isSimul && nonAi
 
-  // Only for defined handicaps in shogi/StartingPosition
-  lazy val isHandicap: Boolean = initialSfen.fold(false)(StartingPosition isHandicap _)
+  // Only for defined handicaps in shogi/Handicap.scala
+  lazy val isHandicap: Boolean = initialSfen.fold(false)(sfen => Handicap.isHandicap(sfen, variant))
 
   // we can't rely on the clock,
   // because if moretime was given,
