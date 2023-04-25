@@ -83,9 +83,9 @@ por ju mund të mbroheni!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Mos i lini të marrin
 çdo figure të  pambrojtur!</string>
   <string name="combat">Betejë</string>
-  <string name="captureAndDefendPieces">Merrni dhe mbroni figura</string>
-  <string name="combatIntro">Një luftëtar i mirë i di të dyja, si të sulmojë dhe si të mbrohet!</string>
-  <string name="combatComplete">Urime! Dini si të luftoni me figura të shahut!</string>
+  <string name="captureAndDefendPieces">Kapni dhe mbroni figurat</string>
+  <string name="combatIntro">Një luftëtar i mirë njeh edhe sulmin edhe mbrojtjen!</string>
+  <string name="combatComplete">Urime! Ju dini si të luftoni me figura të shahut!</string>
   <string name="checkInOne">Shah me një lëvizje</string>
   <string name="attackTheOpponentsKing">Sulmoni mbretin e kundërshtarit</string>
   <string name="checkInOneIntro">Për t’i dhënë shah kundërshtarit, sulmojini mbretin. Duhet ta mbrojnë!</string>
