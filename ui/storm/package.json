@@ -20,8 +20,8 @@
   "dependencies": {
     "common": "2.0.0",
     "puz": "2.0.0",
-    "shogiground": "^0.7.0",
-    "shogiops": "^0.11.0",
+    "shogiground": "^0.7.1",
+    "shogiops": "^0.14.1",
     "snabbdom": "^3.5.1"
   },
   "scripts": {
