@@ -90,8 +90,11 @@ body {
         padding-right: 0.25rem;
       }
     }
-    &:nth-child(even) {
-      border-left: $border;
+    &:nth-child(odd) {
+      border-right: $border;
+    }
+    &:nth-child(n+3) {
+      border-top: $border;
     }
   }
 }
