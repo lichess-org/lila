@@ -51,9 +51,5 @@ $board-squeeze: minmax(50vmin, $col3-uniboard-width);
 $square-9-squeeze: minmax(calc(50vmin / 9), $square-9);
 $col3-uniboard-table-no-hands-squeeze: minmax(100px, 320px);
 
-$minishogi: calc(
-  (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9 * 5
-);
-
 $hand-gap: 2vmin;
 $gauge-gap: 2vmin;

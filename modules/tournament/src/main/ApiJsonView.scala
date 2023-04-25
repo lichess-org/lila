@@ -46,9 +46,8 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
         "fullName"  -> tour.name(),
         "nbPlayers" -> tour.nbPlayers,
         "variant" -> Json.obj(
-          "key"   -> tour.variant.key,
-          "short" -> tour.variant.shortName,
-          "name"  -> tour.variant.name
+          "key"  -> tour.variant.key,
+          "name" -> tour.variant.name
         ),
         "startsAt"   -> tour.startsAt,
         "finishesAt" -> tour.finishesAt,

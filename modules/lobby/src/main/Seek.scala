@@ -55,9 +55,8 @@ case class Seek(
         "username" -> user.username,
         "rating"   -> rating,
         "variant" -> Json.obj(
-          "key"   -> realVariant.key,
-          "short" -> realVariant.shortName,
-          "name"  -> realVariant.name
+          "key"  -> realVariant.key,
+          "name" -> realVariant.name
         ),
         "mode"  -> realMode.id,
         "days"  -> daysPerTurn,

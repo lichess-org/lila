@@ -8,8 +8,6 @@ import lila.user.User
 
 final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import BsonHandlers._
-
   def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Option[Int]] = {
     val w = base(user) + {
       // more trust when vote != win

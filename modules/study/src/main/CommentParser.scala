@@ -91,9 +91,9 @@ private[study] object CommentParser {
 
   private def toBrush(color: Char): Shape.Brush =
     color match {
-      case 'G' => "green"
       case 'R' => "red"
+      case 'B' => "blue"
       case 'Y' => "yellow"
-      case _   => "blue"
+      case _   => "green"
     }
 }
