@@ -1,4 +1,6 @@
 import { defined } from 'common/common';
+import { isDrop, parseUsi } from 'shogiops';
+import { parseSfen } from 'shogiops/sfen';
 import { Work } from './types';
 
 const minDepth = 6;
@@ -88,7 +90,10 @@ export class Protocol {
             if (parts[i + 1] === 'lowerbound' || parts[i + 1] === 'upperbound') evalType = parts[++i];
             break;
           case 'pv':
-            moves = parts.slice(++i);
+            moves =
+              this.work.variant === 'kyotoshogi'
+                ? parts.slice(++i).map(usi => (usi.includes('-') ? usi.slice(0, -1) + '+' : usi))
+                : parts.slice(++i);
             i = parts.length;
             break;
         }
@@ -177,13 +182,69 @@ export class Protocol {
       this.setOption('USI_Hash', this.work.hashSize || 16);
       this.setOption('MultiPV', this.work.multiPv);
 
-      this.send(['position sfen', this.work.initialSfen, 'moves', ...this.work.moves].join(' '));
+      const command =
+        this.work.variant === 'kyotoshogi'
+          ? this.kyotoFormat(this.work.initialSfen, this.work.moves)
+          : ['position sfen', this.work.initialSfen, 'moves', ...this.work.moves].join(' ');
+      console.info(command);
+      this.send(command);
       this.send(
         this.work.maxDepth >= 99
           ? `go depth ${maxSearchPlies}` // 'go infinite' would not finish even if entire tree search completed
           : 'go movetime 90000'
       );
     }
+  }
+
+  kyotoFormat(sfen: Sfen, moves: string[]): string {
+    // fairy expects something like this: p+nks+l/5/5/L+S1N+P/+LSK+NP
+    // while we have this: pgkst/5/5/LB1NR/TSKGP
+    const mappingBoard: Record<string, string> = {
+      g: '+n',
+      G: '+N',
+      t: '+l',
+      T: '+L',
+      b: '+s',
+      B: '+S',
+      r: '+p',
+      R: '+P',
+    };
+    // fairy wants PNLS
+    // we have PGTS
+    const mappingHand: Record<string, string> = {
+      g: 'n',
+      G: 'N',
+      t: 'l',
+      T: 'L',
+    };
+    const regexBoard = new RegExp(Object.keys(mappingBoard).join('|'), 'g');
+    function transformString(sfen: string, mapping: Record<string, string>) {
+      return sfen.replace(regexBoard, match => mapping[match]);
+    }
+
+    // + if going to piece marked with +
+    // - otherwise
+    let uMoves: string[] = [];
+    const pos = parseSfen('kyotoshogi', sfen, false).unwrap();
+    moves.forEach(usi => {
+      const move = parseUsi(usi)!;
+      if (isDrop(move) || !move.promotion) uMoves.push(usi);
+      else {
+        const roleChar = pos.board.getRole(move.from)![0],
+          fairyUsi = mappingBoard[roleChar]?.includes('+') ? usi.slice(0, -1) + '-' : usi;
+
+        uMoves.push(fairyUsi);
+      }
+      pos.play(move);
+    });
+
+    const splitSfen = sfen.split(' ');
+    return (
+      `position sfen ${transformString(splitSfen[0], mappingBoard)} ${splitSfen[1] || 'b'} ${transformString(
+        splitSfen[2] || '-',
+        mappingHand
+      )} moves ` + uMoves.join(' ')
+    );
   }
 
   compute(nextWork: Work | undefined): void {
