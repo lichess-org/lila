@@ -57,6 +57,7 @@ piece.dragon.sente,
       .sg-wrap.orientation-gote piece.dragon.gote,
       .hand-bottom piece.dragon.gote,
       .spare-bottom piece.dragon.gote {background-image:url('/assets/piece/orangain/0RY.svg')}
+.variant-kyotoshogi piece.tokin.sente, .variant-kyotoshogi .sg-wrap.orientation-sente piece.tokin.sente, .variant-kyotoshogi .sg-wrap.orientation-gote piece.tokin.gote, .variant-kyotoshogi .hand-bottom piece.tokin.gote, .variant-kyotoshogi .spare-bottom piece.tokin.gote {background-image:url('/assets/piece/orangain/k_0TO.svg')}
 piece.tokin.sente,
       .sg-wrap.orientation-sente piece.tokin.sente,
       .sg-wrap.orientation-gote piece.tokin.gote,
@@ -126,6 +127,7 @@ piece.dragon.gote,
       .sg-wrap.orientation-gote piece.dragon.sente,
       .hand-top piece.dragon,
       .spare-top piece.dragon.sente {background-image:url('/assets/piece/orangain/1RY.svg')}
+.variant-kyotoshogi piece.tokin.gote, .variant-kyotoshogi .sg-wrap.orientation-sente piece.tokin.gote, .variant-kyotoshogi .sg-wrap.orientation-gote piece.tokin.sente, .variant-kyotoshogi .hand-top piece.tokin, .variant-kyotoshogi .spare-top piece.tokin.sente {background-image:url('/assets/piece/orangain/k_1TO.svg')}
 piece.tokin.gote,
       .sg-wrap.orientation-sente piece.tokin.gote,
       .sg-wrap.orientation-gote piece.tokin.sente,
