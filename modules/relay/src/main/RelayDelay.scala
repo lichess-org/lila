@@ -17,19 +17,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
       rt: RelayRound.WithTour,
       doFetchUrl: (UpstreamUrl, Int) => Fu[RelayGames]
   ): Fu[RelayGames] =
-    dedupCache.asMap
-      .compute(
-        url,
-        (_, v) =>
-          Option(v) match
-            case Some(GamesSeenBy(games, seenBy)) if !seenBy(rt.round.id) =>
-              GamesSeenBy(games, seenBy + rt.round.id)
-            case _ =>
-              val futureGames = doFetchUrl(url, RelayFetch.maxChapters(rt.tour)).addEffect:
-                store.putIfNew(url, _)
-              GamesSeenBy(futureGames, Set(rt.round.id))
-      )
-      .games
+    dedupCache(url, rt.round, () => doFetchUrl(url, RelayFetch.maxChapters(rt.tour)))
       .flatMap: latest =>
         rt.round.sync.delay match
           case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
@@ -37,11 +25,28 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
   // The goal of this is to make sure that an upstream used by several broadcast
   // is only pulled from as many times as necessary, and not more.
-  private val dedupCache: Cache[UpstreamUrl, GamesSeenBy] = CacheApi.scaffeineNoScheduler
-    .initialCapacity(8)
-    .maximumSize(32)
-    .build[UpstreamUrl, GamesSeenBy]()
-    .underlying
+  private object dedupCache:
+
+    private val cache = CacheApi.scaffeineNoScheduler
+      .initialCapacity(8)
+      .maximumSize(32)
+      .build[UpstreamUrl, GamesSeenBy]()
+      .underlying
+
+    def apply(url: UpstreamUrl, round: RelayRound, doFetch: () => Fu[RelayGames]) =
+      cache.asMap
+        .compute(
+          url,
+          (_, v) =>
+            Option(v) match
+              case Some(GamesSeenBy(games, seenBy)) if !seenBy(round.id) =>
+                GamesSeenBy(games, seenBy + round.id)
+              case _ =>
+                val futureGames = doFetch().addEffect:
+                  store.putIfNew(url, _)
+                GamesSeenBy(futureGames, Set(round.id))
+        )
+        .games
 
   private object store:
 
@@ -50,7 +55,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
     def putIfNew(upstream: UpstreamUrl, games: RelayGames): Funit =
       val newPgn = RelayGame.iso.from(games).toPgnStr
-      getLatestPgn(upstream).flatMap:
+      getPgn(upstream, Seconds(0)).flatMap:
         case Some(latestPgn) if latestPgn == newPgn => funit
         case _ =>
           val doc = $doc("_id" -> idOf(upstream, nowInstant), "at" -> nowInstant, "pgn" -> newPgn)
@@ -60,8 +65,6 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
     def get(upstream: UpstreamUrl, delay: Seconds): Fu[Option[RelayGames]] =
       getPgn(upstream, delay).map2: pgn =>
         RelayGame.iso.to(MultiPgn.split(pgn, 999))
-
-    private def getLatestPgn(upstream: UpstreamUrl): Fu[Option[PgnStr]] = getPgn(upstream, Seconds(0))
 
     private def getPgn(upstream: UpstreamUrl, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
