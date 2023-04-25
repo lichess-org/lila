@@ -110,7 +110,7 @@ final private class Rematcher(
   private def returnGame(pov: Pov): Fu[Game] =
     for {
       users <- userRepo byIds pov.game.userIds
-      shogiGame = ShogiGame(pov.game.variant.some, pov.game.initialSfen)
+      shogiGame = ShogiGame(pov.game.initialSfen, pov.game.variant)
         .copy(clock = pov.game.clock map { c =>
           Clock(c.config)
         })

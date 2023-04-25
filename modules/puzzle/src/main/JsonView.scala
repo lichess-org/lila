@@ -197,7 +197,8 @@ final class JsonView(
     )
 
     private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
-      val init     = shogi.Game(none, puzzle.sfenAfterInitialMove.some).withPlies(puzzle.initialPly + 1)
+      val init =
+        shogi.Game(puzzle.sfenAfterInitialMove.some, shogi.variant.Standard).withPlies(puzzle.initialPly + 1)
       val solution = puzzle.gameId.fold(puzzle.line.toList)(_ => puzzle.line.tail)
       val (_, branchList) = solution.foldLeft[(shogi.Game, List[tree.Branch])]((init, Nil)) {
         case ((prev, branches), usi) =>

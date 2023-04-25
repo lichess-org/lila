@@ -99,7 +99,9 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
       Reader
         .fromUsi(
           moves.dropRight(1),
-          tags = Tags.empty
+          none,
+          shogi.variant.Standard,
+          Tags.empty
         )
         .valid
         .map(_.state)
