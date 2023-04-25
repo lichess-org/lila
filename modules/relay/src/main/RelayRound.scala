@@ -107,6 +107,8 @@ object RelayRound:
     def addLog(event: SyncLog.Event) = copy(log = log add event)
     def clearLog                     = copy(log = SyncLog.empty)
 
+    def hasDelay = delay.exists(_.value > 0)
+
     override def toString = upstream.toString
 
   object Sync:

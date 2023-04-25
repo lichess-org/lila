@@ -3,7 +3,6 @@ package lila.relay
 import lila.relay.RelayRound.Sync.UpstreamUrl
 import lila.memo.CacheApi
 import lila.common.Seconds
-import com.github.benmanes.caffeine.cache.Cache
 import lila.db.dsl.{ *, given }
 import lila.study.MultiPgn
 import chess.format.pgn.PgnStr
@@ -23,7 +22,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
           case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
           case _                        => fuccess(latest)
 
-  // The goal of this is to make sure that an upstream used by several broadcast
+  // makes sure that an upstream used by several broadcasts
   // is only pulled from as many times as necessary, and not more.
   private object dedupCache:
 
@@ -42,8 +41,8 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
               case Some(GamesSeenBy(games, seenBy)) if !seenBy(round.id) =>
                 GamesSeenBy(games, seenBy + round.id)
               case _ =>
-                val futureGames = doFetch().addEffect:
-                  store.putIfNew(url, _)
+                val futureGames = doFetch().addEffect: games =>
+                  if round.sync.hasDelay then store.putIfNew(url, games)
                 GamesSeenBy(futureGames, Set(round.id))
         )
         .games
