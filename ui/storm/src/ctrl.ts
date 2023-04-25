@@ -9,7 +9,7 @@ import { getNow, puzzlePov, sound } from 'puz/util';
 import { Shogiground } from 'shogiground';
 import { Api as SgApi } from 'shogiground/api';
 import { Move, Piece, Role, isDrop, isNormal } from 'shogiops/types';
-import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
+import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
 import { pieceForcePromote } from 'shogiops/variant/util';
 import config from './config';
 import { StormData, StormOpts, StormPrefs, StormRecap, StormVm } from './interfaces';
@@ -83,15 +83,15 @@ export default class StormCtrl {
   userDrop = (piece: Piece, dest: Key): void => {
     const move = {
       role: piece.role,
-      to: parseSquare(dest)!,
+      to: parseSquareName(dest)!,
     };
     this.finishMoveOrDrop(move);
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: boolean): void => {
     const move = {
-      from: parseSquare(orig)!,
-      to: parseSquare(dest)!,
+      from: parseSquareName(orig)!,
+      to: parseSquareName(dest)!,
       promotion: !!promotion,
     };
     this.finishMoveOrDrop(move);

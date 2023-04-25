@@ -3,7 +3,7 @@ import { Api as SgApi } from 'shogiground/api';
 import { DrawShape } from 'shogiground/draw';
 import { opposite } from 'shogiground/util';
 import { isDrop } from 'shogiops/types';
-import { makeSquare, parseUsi } from 'shogiops/util';
+import { makeSquareName, parseUsi } from 'shogiops/util';
 import { Vm } from './interfaces';
 
 interface Opts {
@@ -24,13 +24,13 @@ function makeAutoShapesFromUsi(
   if (isDrop(move))
     return [
       {
-        orig: makeSquare(move.to),
-        dest: makeSquare(move.to),
+        orig: makeSquareName(move.to),
+        dest: makeSquareName(move.to),
         brush,
       },
       {
-        orig: makeSquare(move.to),
-        dest: makeSquare(move.to),
+        orig: makeSquareName(move.to),
+        dest: makeSquareName(move.to),
         piece: {
           role: move.role,
           color: color,
@@ -42,8 +42,8 @@ function makeAutoShapesFromUsi(
   else {
     return [
       {
-        orig: makeSquare(move.from),
-        dest: makeSquare(move.to),
+        orig: makeSquareName(move.from),
+        dest: makeSquareName(move.to),
         brush: brush,
         description: move.promotion ? '+' : undefined,
       },

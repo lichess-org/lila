@@ -4,7 +4,7 @@ import { Piece } from 'shogiground/types';
 import { opposite } from 'shogiground/util';
 import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
 import { Role } from 'shogiops/types';
-import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
+import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
 import * as categories from './categories';
 import * as ground from './ground';
 import { Category, LearnOpts, Redraw, Stage, Vm } from './interfaces';
@@ -216,12 +216,12 @@ export default class LearnCtrl {
   }
 
   onUserMove(orig: Key, dest: Key, promotion: boolean): void {
-    const usi = makeUsi({ from: parseSquare(orig), to: parseSquare(dest), promotion });
+    const usi = makeUsi({ from: parseSquareName(orig), to: parseSquareName(dest), promotion });
     this.applyUserMoveOrDrop(usi);
   }
 
   onUserDrop(piece: Piece, key: Key, _promotion: boolean): void {
-    const usi = makeUsi({ role: piece.role as Role, to: parseSquare(key) });
+    const usi = makeUsi({ role: piece.role as Role, to: parseSquareName(key) });
     this.applyUserMoveOrDrop(usi);
   }
 

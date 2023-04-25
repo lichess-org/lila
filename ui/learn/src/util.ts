@@ -1,7 +1,7 @@
 import throttle from 'common/throttle';
 import { forsythToPiece, parseSfen } from 'shogiops/sfen';
 import { Piece } from 'shogiops/types';
-import { opposite, parseSquare, parseUsi } from 'shogiops/util';
+import { opposite, parseSquareName, parseUsi } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
 import { Level, Scenario, UsiWithColor } from './interfaces';
 
@@ -20,7 +20,7 @@ export function currentPosition(level: Level, usiCList: UsiWithColor[] = [], ign
 
   if (!ignoreObstacles && obstacles)
     for (const obstacle of obstacles) {
-      shogi.board.set(parseSquare(obstacle), { role: 'pawn', color: opposite(level.color) });
+      shogi.board.set(parseSquareName(obstacle), { role: 'pawn', color: opposite(level.color) });
     }
 
   for (const uc of usiCList) {

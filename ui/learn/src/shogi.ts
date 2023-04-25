@@ -1,7 +1,7 @@
 import { DropDests, MoveDests } from 'shogiground/types';
 import { SquareSet } from 'shogiops/squareSet';
 import { NormalMove, PieceName, Square } from 'shogiops/types';
-import { makeSquare, makeUsi, opposite } from 'shogiops/util';
+import { makeSquareName, makeUsi, opposite } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
 import { fullSquareSet, handRoles } from 'shogiops/variant/util';
 
@@ -15,8 +15,8 @@ export function illegalShogigroundMoveDests(pos: Position): MoveDests {
   });
   for (const [from, squares] of illegalDests) {
     if (squares.nonEmpty()) {
-      const d = Array.from(squares, s => makeSquare(s));
-      result.set(makeSquare(from), d);
+      const d = Array.from(squares, s => makeSquareName(s));
+      result.set(makeSquareName(from), d);
     }
   }
   return result;
@@ -41,7 +41,7 @@ export function illegalShogigroundDropDests(pos: Position): DropDests {
       let squares = notOccuppied;
       if (role === 'pawn' || role === 'lance' || role === 'knight') squares = squares.diff(backrank(pos.turn));
       if (role === 'knight') squares = squares.diff(secondBackrank(pos.turn));
-      const d: Key[] = Array.from(squares, s => makeSquare(s));
+      const d: Key[] = Array.from(squares, s => makeSquareName(s));
       result.set(pieceName, d);
     } else result.set(pieceName, []);
   }

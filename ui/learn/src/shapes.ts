@@ -3,7 +3,7 @@ import { opposite } from 'shogiground/util';
 import { attacks } from 'shogiops/attacks';
 import { SquareSet } from 'shogiops/squareSet';
 import { Piece } from 'shogiops/types';
-import { makeSquare, parseSquare } from 'shogiops/util';
+import { makeSquareName, parseSquareName } from 'shogiops/util';
 import { Level, Shape, UsiWithColor, VmEvaluation } from './interfaces';
 import { findCaptures, inCheck } from './shogi';
 import { currentPosition } from './util';
@@ -87,15 +87,17 @@ export function checkShapes(level: Level, usiCList: UsiWithColor[]): DrawShape[]
     const kingSq = pos.board.pieces(sideInCheck, 'king').singleSquare();
     pos.turn = opposite(sideInCheck);
     const kingAttacks = findCaptures(pos);
-    return kingAttacks.filter(m => m.to === kingSq).map(m => arrow(makeSquare(m.from), makeSquare(m.to), 'red'));
+    return kingAttacks
+      .filter(m => m.to === kingSq)
+      .map(m => arrow(makeSquareName(m.from), makeSquareName(m.to), 'red'));
   } else return [];
 }
 
 export function pieceMovesHighlihts(piece: Piece, key: Key): SquareHighlight[] {
   const keys: Key[] = [],
-    squares = attacks(piece, parseSquare(key), SquareSet.empty());
+    squares = attacks(piece, parseSquareName(key), SquareSet.empty());
   for (const s of squares) {
-    keys.push(makeSquare(s));
+    keys.push(makeSquareName(s));
   }
   return keys.map(k => {
     return { key: k, className: 'help' };

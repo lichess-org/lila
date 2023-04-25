@@ -1,7 +1,7 @@
 import resizeHandle from 'common/resize';
 import { Config as SgConfig } from 'shogiground/config';
 //mport { Role } from 'shogiops/types';
-//mport { parseSquare } from 'shogiops/util';
+//mport { parseSquareName } from 'shogiops/util';
 //mport { pieceCanPromote, pieceInDeadZone, promote } from 'shogiops/variant/util';
 import { PuzPrefs, UserDrop, UserMove } from '../interfaces';
 
@@ -32,13 +32,13 @@ export function makeConfig(opts: SgConfig, pref: PuzPrefs, userMove: UserMove, u
     //    const piece = ctrl.shogiground.state.pieces.get(orig);
     //    return (
     //      !!piece &&
-    //      pieceCanPromote(ctrl.data.game.variant.key)(piece, parseSquare(orig)!, parseSquare(dest)!) &&
-    //      !pieceInDeadZone(ctrl.data.game.variant.key)(piece, parseSquare(dest)!)
+    //      pieceCanPromote(ctrl.data.game.variant.key)(piece, parseSquareName(orig)!, parseSquareName(dest)!) &&
+    //      !pieceInDeadZone(ctrl.data.game.variant.key)(piece, parseSquareName(dest)!)
     //    );
     //  },
     //  forceMovePromotion: (orig: Key, dest: Key) => {
     //    const piece = ctrl.shogiground.state.pieces.get(orig);
-    //    return !!piece && pieceInDeadZone(ctrl.data.game.variant.key)(piece, parseSquare(dest)!);
+    //    return !!piece && pieceInDeadZone(ctrl.data.game.variant.key)(piece, parseSquareName(dest)!);
     //  },
     //},
     draggable: {

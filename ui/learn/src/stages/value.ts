@@ -1,4 +1,4 @@
-import { parseSquare, parseUsi } from 'shogiops/util';
+import { parseSquareName, parseUsi } from 'shogiops/util';
 import { colorOn, extinct, not, pieceOn, scenarioFailure, scenarioSuccess } from '../assert';
 import { IncompleteLevel, IncompleteStage, Level, UsiWithColor } from '../interfaces';
 import { createLevel } from '../level';
@@ -38,7 +38,7 @@ const levels: IncompleteLevel[] = [
     success: extinct('gote'),
     failure: (_level: Level, usiCList: UsiWithColor[]) => {
       const dests = usiCList.map(uc => parseUsi(uc.usi)!.to),
-        targets = ['7g', '5g', '5d', '7h', '4f', '6d', '4g'].map(sq => parseSquare(sq)!);
+        targets = ['7g', '5g', '5d', '7h', '4f', '6d', '4g'].map(sq => parseSquareName(sq)!);
       for (const d of dests) {
         if (targets[0] === d) targets.shift();
         else if (targets.includes(d)) return true;

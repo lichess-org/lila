@@ -1,6 +1,6 @@
 import { Piece } from 'shogiground/types';
 import { samePiece } from 'shogiground/util';
-import { opposite, parseSquare, parseUsi } from 'shogiops/util';
+import { opposite, parseSquareName, parseUsi } from 'shogiops/util';
 import { Assertion, Level, UsiWithColor } from './interfaces';
 import { findCapture, findUnprotectedCapture } from './shogi';
 import { currentPosition } from './util';
@@ -21,7 +21,7 @@ export function obstaclesCaptured(level: Level, usiCList: UsiWithColor[]): boole
   const obstacles = level.obstacles;
   if (!obstacles) return true;
 
-  return obstacles.every(ob => usiCList.some(uc => parseUsi(uc.usi)!.to === parseSquare(ob)!));
+  return obstacles.every(ob => usiCList.some(uc => parseUsi(uc.usi)!.to === parseSquareName(ob)!));
 }
 
 export function scenarioSuccess(level: Level, usiCList: UsiWithColor[]): boolean {
@@ -70,7 +70,7 @@ export function anyCapture(level: Level, usiCList: UsiWithColor[]): boolean {
 export function pieceOn(piece: Piece, key: Key): Assertion {
   return (level: Level, usiCList: UsiWithColor[]) => {
     const shogi = currentPosition(level, usiCList);
-    const boardPiece = shogi.board.get(parseSquare(key));
+    const boardPiece = shogi.board.get(parseSquareName(key));
     return !!boardPiece && samePiece(piece, boardPiece);
   };
 }
@@ -78,7 +78,7 @@ export function pieceOn(piece: Piece, key: Key): Assertion {
 export function colorOn(color: Color, key: Key): Assertion {
   return (level: Level, usiCList: UsiWithColor[]) => {
     const shogi = currentPosition(level, usiCList);
-    const boardColor = shogi.board.getColor(parseSquare(key));
+    const boardColor = shogi.board.getColor(parseSquareName(key));
     return !!boardColor && color === boardColor;
   };
 }

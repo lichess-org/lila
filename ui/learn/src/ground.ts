@@ -3,7 +3,7 @@ import { Config } from 'shogiground/config';
 import { Drawable, SquareHighlight } from 'shogiground/draw';
 import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
 import { Piece, Role, isDrop } from 'shogiops/types';
-import { makeSquare, parseSquare, parseUsi } from 'shogiops/util';
+import { makeSquareName, parseSquareName, parseUsi } from 'shogiops/util';
 import { pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
 import LearnCtrl from './ctrl';
 import { Level, UsiWithColor } from './interfaces';
@@ -32,13 +32,13 @@ export function initConfig(ctrl: LearnCtrl): Config {
         const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
         return (
           !!piece &&
-          pieceCanPromote('standard')(piece, parseSquare(orig)!, parseSquare(dest)!, undefined) &&
-          !pieceForcePromote('standard')(piece, parseSquare(dest)!)
+          pieceCanPromote('standard')(piece, parseSquareName(orig)!, parseSquareName(dest)!, undefined) &&
+          !pieceForcePromote('standard')(piece, parseSquareName(dest)!)
         );
       },
       forceMovePromotion: (orig: Key, dest: Key) => {
         const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
-        return !!piece && pieceForcePromote('standard')(piece, parseSquare(dest)!);
+        return !!piece && pieceForcePromote('standard')(piece, parseSquareName(dest)!);
       },
     },
     predroppable: {
@@ -109,7 +109,7 @@ export function destsAndCheck(level: Level, usiCList: UsiWithColor[]): Config {
 export function createDrawable(level: Level, usiCList: UsiWithColor[] = []): Partial<Drawable> {
   const obastacles: SquareHighlight[] = [],
     usis = usiCList.map(uc => uc.usi),
-    dests = usis.map(u => makeSquare(parseUsi(u)!.to)),
+    dests = usis.map(u => makeSquareName(parseUsi(u)!.to)),
     drawShapes = level.drawShapes && level.drawShapes(level, usiCList),
     squares = level.squareHighlights && level.squareHighlights(level, usiCList);
 
@@ -127,8 +127,8 @@ export function createDrawable(level: Level, usiCList: UsiWithColor[] = []): Par
 export function playUsi(ctrl: LearnCtrl, usiC: UsiWithColor): void {
   const moveOrDrop = parseUsi(usiC.usi)!;
   if (isDrop(moveOrDrop)) {
-    ctrl.shogiground.drop({ role: moveOrDrop.role, color: usiC.color }, makeSquare(moveOrDrop.to));
+    ctrl.shogiground.drop({ role: moveOrDrop.role, color: usiC.color }, makeSquareName(moveOrDrop.to));
   } else {
-    ctrl.shogiground.move(makeSquare(moveOrDrop.from), makeSquare(moveOrDrop.to), moveOrDrop.promotion);
+    ctrl.shogiground.move(makeSquareName(moveOrDrop.from), makeSquareName(moveOrDrop.to), moveOrDrop.promotion);
   }
 }

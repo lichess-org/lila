@@ -9,7 +9,7 @@ import { Config as SgConfig } from 'shogiground/config';
 import { shogigroundDropDests, shogigroundMoveDests, usiToSquareNames } from 'shogiops/compat';
 import { makeSfen, parseSfen } from 'shogiops/sfen';
 import { Move, Outcome, Piece, Role } from 'shogiops/types';
-import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
+import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
 import { Shogi } from 'shogiops/variant/shogi';
 import { TreeWrapper, build as treeBuild, ops as treeOps, path as treePath } from 'tree';
 import computeAutoShapes from './autoShape';
@@ -149,8 +149,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function playUserMove(orig: Key, dest: Key, promotion: boolean): void {
     sendMove({
-      from: parseSquare(orig)!,
-      to: parseSquare(dest)!,
+      from: parseSquareName(orig)!,
+      to: parseSquareName(dest)!,
       promotion,
     });
   }
@@ -158,7 +158,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function playUserDrop(piece: Piece, dest: Key): void {
     sendMove({
       role: piece.role as Role,
-      to: parseSquare(dest)!,
+      to: parseSquareName(dest)!,
     });
   }
 

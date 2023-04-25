@@ -2,7 +2,7 @@ import { notationFiles, notationRanks } from 'common/notation';
 import resizeHandle from 'common/resize';
 import { Config as SgConfig } from 'shogiground/config';
 import { Piece, Role } from 'shogiops/types';
-import { parseSquare } from 'shogiops/util';
+import { parseSquareName } from 'shogiops/util';
 import { pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
 import { VNode, h } from 'snabbdom';
 import { Controller } from '../interfaces';
@@ -65,13 +65,13 @@ function makeConfig(ctrl: Controller): SgConfig {
         const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
         return (
           !!piece &&
-          pieceCanPromote('standard')(piece, parseSquare(orig)!, parseSquare(dest)!, undefined) &&
-          !pieceForcePromote('standard')(piece, parseSquare(dest)!)
+          pieceCanPromote('standard')(piece, parseSquareName(orig)!, parseSquareName(dest)!, undefined) &&
+          !pieceForcePromote('standard')(piece, parseSquareName(dest)!)
         );
       },
       forceMovePromotion: (orig: Key, dest: Key) => {
         const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
-        return !!piece && pieceForcePromote('standard')(piece, parseSquare(dest)!);
+        return !!piece && pieceForcePromote('standard')(piece, parseSquareName(dest)!);
       },
     },
     draggable: {
