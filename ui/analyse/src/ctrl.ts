@@ -349,6 +349,8 @@ export default class AnalyseCtrl {
         check: $.noop,
       };
 
+  private captureRegex = /[a-z]/gi;
+
   private onChange: () => void = throttle(300, () => {
     li.pubsub.emit('analysis.change', this.node.sfen, this.path, this.onMainline ? this.node.ply : false);
   });
@@ -571,16 +573,10 @@ export default class AnalyseCtrl {
     if (!newPath) return this.redraw();
     const parent = this.tree.nodeAtPath(path);
     if (node.usi) {
-      node.notation = makeNotation(
-        this.data.pref.notation,
-        parent.sfen,
-        this.data.game.variant.key,
-        node.usi,
-        parent.usi
-      );
+      node.notation = makeNotation(parent.sfen, this.data.game.variant.key, node.usi, parent.usi);
       node.capture =
-        (parent.sfen.split(' ')[0].match(/[a-z]/gi) || []).length >
-        (node.sfen.split(' ')[0].match(/[a-z]/gi) || []).length;
+        (parent.sfen.split(' ')[0].match(this.captureRegex) || []).length >
+        (node.sfen.split(' ')[0].match(this.captureRegex) || []).length;
     }
     this.jump(newPath);
     this.redraw();
@@ -651,11 +647,15 @@ export default class AnalyseCtrl {
   };
 
   private initNotation = (): void => {
-    const notation = this.data.pref.notation,
-      variant = this.data.game.variant.key;
+    const variant = this.data.game.variant.key,
+      captureRegex = this.captureRegex;
     function update(node: Tree.Node, prev?: Tree.Node) {
-      if (prev && node.usi && !node.notation)
-        node.notation = makeNotation(notation, prev.sfen, variant, node.usi, prev.usi);
+      if (prev && node.usi && !node.notation) {
+        node.notation = makeNotation(prev.sfen, variant, node.usi, prev.usi);
+        node.capture =
+          (prev.sfen.split(' ')[0].match(captureRegex) || []).length >
+          (node.sfen.split(' ')[0].match(captureRegex) || []).length;
+      }
       node.children.forEach(c => update(c, node));
     }
     update(this.tree.root);
