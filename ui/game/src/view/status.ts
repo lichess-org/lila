@@ -1,12 +1,7 @@
 import { Status } from '../interfaces';
 import { transWithColorName } from 'common/colorName';
 
-export default function status(
-  trans: Trans,
-  status: Status,
-  winner: Color | undefined,
-  initialSfen: Sfen | undefined
-): string {
+export default function status(trans: Trans, status: Status, winner: Color | undefined, isHandicap: boolean): string {
   const noarg = trans.noarg;
   switch (status.name) {
     case 'started':
@@ -17,7 +12,7 @@ export default function status(
       return noarg('checkmate');
     case 'resign':
       return winner
-        ? transWithColorName(trans, 'xResigned', winner === 'sente' ? 'gote' : 'sente', initialSfen)
+        ? transWithColorName(trans, 'xResigned', winner === 'sente' ? 'gote' : 'sente', isHandicap)
         : noarg('finished');
     case 'stalemate':
       return noarg('stalemate');
@@ -31,7 +26,7 @@ export default function status(
       switch (winner) {
         case 'sente':
         case 'gote':
-          return transWithColorName(trans, 'xLeftTheGame', winner === 'sente' ? 'gote' : 'sente', initialSfen);
+          return transWithColorName(trans, 'xLeftTheGame', winner === 'sente' ? 'gote' : 'sente', isHandicap);
         default:
           return noarg('draw');
       }
@@ -41,7 +36,7 @@ export default function status(
       return noarg('timeOut');
     case 'noStart':
       return winner
-        ? transWithColorName(trans, 'xDidntMove', winner === 'sente' ? 'gote' : 'sente', initialSfen)
+        ? transWithColorName(trans, 'xDidntMove', winner === 'sente' ? 'gote' : 'sente', isHandicap)
         : noarg('finished');
     case 'cheat':
       return noarg('cheatDetected');
