@@ -32,7 +32,7 @@
       @extend %move-notation;
       display: inline-block; // takes whole height - easier to hover then
       margin-left: 6px;
-      .notation-2 & {
+      body[data-notation="2"] & {
         margin-left: 4px; // special case, because '同　' makes it harder to read  ☗同　銀 ☖２六歩 ☗５二金右
       }
     }
