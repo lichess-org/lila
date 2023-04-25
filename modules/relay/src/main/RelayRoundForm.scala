@@ -28,7 +28,9 @@ final class RelayRoundForm:
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
       "period"       -> optional(number(min = 2, max = 60).into[Seconds]),
-      "delay"        -> optional(number(min = 0, max = 1800).into[Seconds]) // don't increase the max
+      "delay" -> optional(
+        number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]
+      ) // don't increase the max
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
