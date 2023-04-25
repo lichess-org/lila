@@ -38,7 +38,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   // The goal of this is to make sure that an upstream used by several broadcast
   // is only pulled from as many times as necessary, and not more.
   private val dedupCache: Cache[UpstreamUrl, GamesSeenBy] = CacheApi.scaffeineNoScheduler
-    .initialCapacity(4)
+    .initialCapacity(8)
     .maximumSize(32)
     .build[UpstreamUrl, GamesSeenBy]()
     .underlying
