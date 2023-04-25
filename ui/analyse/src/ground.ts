@@ -77,8 +77,8 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
     },
     coordinates: {
       enabled: pref.coords !== 0 && !ctrl.embed,
-      files: notationFiles(pref.notation),
-      ranks: notationRanks(pref.notation),
+      files: notationFiles(),
+      ranks: notationRanks(),
     },
     events: {
       move: ctrl.userMove,

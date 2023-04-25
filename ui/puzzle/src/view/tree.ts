@@ -148,7 +148,7 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
 export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval;
   return [
-    renderNotation(ctx, node),
+    renderNotation(node),
     puzzleGlyph(ctx, node),
     ev &&
       (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) ? renderEval('#' + ev.mate) : undefined),
@@ -168,14 +168,12 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
       attrs: { p: path },
       class: classes,
     },
-    [renderIndex(node.ply, true), renderNotation(ctx, node), puzzleGlyph(ctx, node)]
+    [renderIndex(node.ply, true), renderNotation(node), puzzleGlyph(ctx, node)]
   );
 }
 
-function renderNotation(ctx: Ctx, node: Tree.Node): VNode {
-  const colorIcon = notationsWithColor.includes(ctx.ctrl.data.pref.notation)
-    ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote')
-    : '';
+function renderNotation(node: Tree.Node): VNode {
+  const colorIcon = notationsWithColor() ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : '';
   return h('span' + colorIcon, node.notation);
 }
 

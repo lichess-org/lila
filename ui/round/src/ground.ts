@@ -30,8 +30,8 @@ export function makeConfig(ctrl: RoundController): Config {
     checks: variant === 'chushogi' && posRes?.isOk ? checksSquareNames(posRes.value) : step.check,
     coordinates: {
       enabled: data.pref.coords !== 0,
-      files: notationFiles(data.pref.notation),
-      ranks: notationRanks(data.pref.notation),
+      files: notationFiles(),
+      ranks: notationRanks(),
     },
     highlight: {
       lastDests: data.pref.highlightLastDests,

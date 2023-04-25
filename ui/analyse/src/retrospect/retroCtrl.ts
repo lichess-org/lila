@@ -10,7 +10,6 @@ export interface RetroCtrl {
   isSolving(): boolean;
   trans: Trans;
   [key: string]: any;
-  notation: number;
   variant: VariantKey;
   initialSfen: Sfen | undefined;
   offset: number;
@@ -211,7 +210,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     noarg: root.trans.noarg,
     node: () => root.node,
     redraw,
-    notation: root.data.pref.notation,
     variant: root.data.game.variant.key,
     initialSfen: root.data.game.initialSfen,
     offset: root.plyOffset(),

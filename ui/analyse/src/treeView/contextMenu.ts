@@ -82,7 +82,7 @@ function view(opts: Opts, coords: Coords): VNode {
       },
     },
     [
-      h('p.title', nodeFullName(node, opts.root.data.pref.notation)),
+      h('p.title', nodeFullName(node)),
       onMainline ? null : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
       onMainline || cantChangeMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
       onMainline && cantChangeMainline ? null : action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),

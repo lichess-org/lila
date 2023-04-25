@@ -1,4 +1,4 @@
-import { Notation, notationsWithColor } from 'common/notation';
+import { notationsWithColor } from 'common/notation';
 import { dataIcon } from 'common/snabbdom';
 import { Hooks, h } from 'snabbdom';
 
@@ -18,14 +18,11 @@ export function iconTag(icon: string) {
   return h('i', { attrs: dataIcon(icon) });
 }
 
-export function nodeFullName(node: Tree.Node, notation: Notation) {
+export function nodeFullName(node: Tree.Node) {
   if (node.notation)
     return h('span', [
       node.ply + '. ',
-      h(
-        'span' + (notationsWithColor.includes(notation) ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : ''),
-        node.notation
-      ),
+      h('span' + (notationsWithColor() ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : ''), node.notation),
     ]);
   return h('span', 'Initial position');
 }

@@ -52,9 +52,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function initiate(fromData: PuzzleData): void {
     data = fromData;
-    tree = data.game.moves
-      ? treeBuild(usiToTree(data.game.moves.split(' '), opts.pref.notation))
-      : treeBuild(sfenToTree(data.game.sfen!));
+    tree = data.game.moves ? treeBuild(usiToTree(data.game.moves.split(' '))) : treeBuild(sfenToTree(data.game.sfen!));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play';
     vm.next = defer();
@@ -170,7 +168,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     const parent = tree.nodeAtPath(path),
       lastMove = parent.usi ? parseUsi(parent.usi) : undefined,
       capture = pos.board.get(move.to),
-      notationMove = makeNotationWithPosition(opts.pref.notation, pos, move, lastMove);
+      notationMove = makeNotationWithPosition(pos, move, lastMove);
     pos.play(move);
     addNode(
       {
@@ -284,7 +282,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       storageKeyPrefix: 'puzzle',
       multiPvDefault: 3,
       variant: {
-        short: 'Std',
         name: 'Standard',
         key: 'standard',
       },
@@ -397,7 +394,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function viewSolution(): void {
     sendResult(false);
     vm.mode = 'view';
-    mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov, opts.pref.notation);
+    mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov);
     reorderChildren(vm.initialPath, true);
 
     // try and play the solution next move

@@ -16,7 +16,6 @@ export interface Ctx {
   ctrl: AnalyseCtrl;
   showComputer: boolean;
   showGlyphs: boolean;
-  notation: number;
   variant: VariantKey;
   showEval: boolean;
   truncateComments: boolean;
@@ -129,14 +128,7 @@ export function usiToNotation(ctx: Ctx, node: Tree.Node, parentPath: Tree.Path, 
             !node.usi && useParentNode ? refNode.sfen.replace(/ (b|w) /, ' ' + toBW(textPlyColor) + ' ') : refNode.sfen, // for initial node
           moveOrDrop = match[2] && parseUsi(match[2]), // to make sure we have valid usi
           notation =
-            moveOrDrop &&
-            makeNotation(
-              ctx.ctrl.data.pref.notation,
-              refSfen,
-              ctx.ctrl.data.game.variant.key,
-              makeUsi(moveOrDrop),
-              refNode.usi
-            );
+            moveOrDrop && makeNotation(refSfen, ctx.ctrl.data.game.variant.key, makeUsi(moveOrDrop), refNode.usi);
         if (notation) text = text.replace(mText, notation);
         else text = text.replace(mText, 'Invalid move');
       }

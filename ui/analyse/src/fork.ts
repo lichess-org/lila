@@ -90,7 +90,6 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
           },
           renderIndexAndMove(
             {
-              notation: root.data.pref.notation,
               variant: root.data.game.variant.key,
               withDots: true,
               showEval: root.showComputer(),

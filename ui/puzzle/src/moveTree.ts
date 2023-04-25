@@ -1,4 +1,4 @@
-import { Notation, makeNotationWithPosition } from 'common/notation';
+import { makeNotationWithPosition } from 'common/notation';
 import { initialSfen, makeSfen, parseSfen } from 'shogiops/sfen';
 import { Move } from 'shogiops/types';
 import { makeUsi, parseUsi } from 'shogiops/util';
@@ -7,7 +7,7 @@ import { Shogi } from 'shogiops/variant/shogi';
 import { TreeWrapper } from 'tree';
 import { scalashogiCharPair } from './util';
 
-export function usiToTree(usis: Usi[], notation: Notation): Tree.Node {
+export function usiToTree(usis: Usi[]): Tree.Node {
   const pos = Shogi.default();
   const root: Tree.Node = {
     ply: 0,
@@ -19,7 +19,7 @@ export function usiToTree(usis: Usi[], notation: Notation): Tree.Node {
   usis.forEach((usi, i) => {
     const move = parseUsi(usi)!,
       captured = pos.board.has(move.to),
-      notationMove = makeNotationWithPosition(notation, pos, move, pos.lastMove);
+      notationMove = makeNotationWithPosition(pos, move, pos.lastMove);
     pos.play(move);
     const nextNode = makeNode(pos, move, notationMove, captured, i + 1);
     current.children.push(nextNode);
@@ -38,13 +38,7 @@ export function sfenToTree(sfen: string): Tree.Node {
   } as Tree.Node;
 }
 
-export function mergeSolution(
-  root: TreeWrapper,
-  initialPath: Tree.Path,
-  solution: Usi[],
-  pov: Color,
-  notation: Notation
-): void {
+export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solution: Usi[], pov: Color): void {
   const initialNode = root.nodeAtPath(initialPath),
     pos = parseSfen('standard', initialNode.sfen, false).unwrap(),
     fromPly = initialNode.ply;
@@ -52,7 +46,7 @@ export function mergeSolution(
   const nodes = solution.map((usi, i) => {
     const move = parseUsi(usi)!,
       captured = pos.board.has(move.to),
-      notationMove = makeNotationWithPosition(notation, pos, move, pos.lastMove);
+      notationMove = makeNotationWithPosition(pos, move, pos.lastMove);
     pos.play(move);
     const node = makeNode(pos, move, notationMove, captured, fromPly + i + 1);
     if ((pov == 'sente') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';

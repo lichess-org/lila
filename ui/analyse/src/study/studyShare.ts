@@ -13,7 +13,6 @@ interface StudyShareCtrl {
   withPly: Prop<boolean>;
   relay: boolean;
   cloneable: boolean;
-  notation: number;
   offset: number;
   gameId?: string;
   redraw: () => void;
@@ -23,7 +22,6 @@ interface StudyShareCtrl {
 function fromPly(ctrl: StudyShareCtrl): VNode {
   const renderedMove = renderIndexAndMove(
     {
-      notation: ctrl.notation,
       variant: ctrl.chapter().variant,
       withDots: true,
       showEval: false,
@@ -57,7 +55,6 @@ export function ctrl(
   currentNode: () => Tree.Node,
   relay: boolean,
   redraw: () => void,
-  notation: number,
   offset: number,
   trans: Trans
 ): StudyShareCtrl {
@@ -72,7 +69,6 @@ export function ctrl(
     withPly,
     relay,
     cloneable: data.features.cloneable,
-    notation: notation,
     redraw,
     trans,
     offset,

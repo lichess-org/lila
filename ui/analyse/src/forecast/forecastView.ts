@@ -1,4 +1,4 @@
-import { Notation, makeNotation, makeNotationLine, notationsWithColor } from 'common/notation';
+import { makeNotation, makeNotationLine, notationsWithColor } from 'common/notation';
 import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
@@ -14,9 +14,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
     return fc.length > 1;
   });
   const initialSfen = firstNode.sfen,
-    moveNotation =
-      firstNode.notation ||
-      makeNotation(ctrl.data.pref.notation, initialSfen, ctrl.data.game.variant.key, cNodes[0].usi);
+    moveNotation = firstNode.notation || makeNotation(initialSfen, ctrl.data.game.variant.key, cNodes[0].usi);
   return h(
     'button.on-my-turn.button.text',
     {
@@ -51,12 +49,12 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
   );
 }
 
-function renderNodesHtml(nodes: ForecastStep[], notation: Notation): MaybeVNodes {
+function renderNodesHtml(nodes: ForecastStep[]): MaybeVNodes {
   if (!nodes[0]) return [];
   if (!nodes[0].usi) nodes = nodes.slice(1);
   if (!nodes[0]) return [];
   const tags: MaybeVNodes = [],
-    addColorIcon = notationsWithColor.includes(notation);
+    addColorIcon = notationsWithColor();
 
   nodes.forEach((node, index) => {
     const colorIcon = addColorIcon ? ('.color-icon.' + (node.ply % 2) ? 'gote' : 'sente') : '';
@@ -83,7 +81,6 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           fctrl.list().map(function (nodes, i) {
             const par = parentNode(ctrl, nodes[0].ply),
               notations = makeNotationLine(
-                ctrl.data.pref.notation,
                 par.sfen,
                 ctrl.data.game.variant.key,
                 nodes.map(n => n.usi),
@@ -100,7 +97,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   hook: bind('click', _ => fctrl.removeIndex(i), ctrl.redraw),
                   attrs: { 'data-icon': 'L', type: 'button' },
                 }),
-                h('moves-notation', renderNodesHtml(nodes, ctrl.data.pref.notation)),
+                h('moves-notation', renderNodesHtml(nodes)),
               ]
             );
           })
@@ -116,7 +113,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
             isCandidate
               ? h('span', [
                   h('span', ctrl.trans.noarg('addCurrentVariation')),
-                  h('moves-notation', renderNodesHtml(cNodes, ctrl.data.pref.notation)),
+                  h('moves-notation', renderNodesHtml(cNodes)),
                 ])
               : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
           ]

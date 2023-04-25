@@ -19,7 +19,7 @@ $(function () {
     var color;
     var startAt, score;
     var wrongTimeout;
-    const notation = $('.notation-0')[0] ? 0 : $('.notation-1')[0] ? 1 : $('.notation-2')[0] ? 2 : 3;
+    var notationPref = parseInt(document.body.dataset.notation || '0');
 
     $board.removeClass('preload');
     var showColor = function () {
@@ -173,7 +173,7 @@ $(function () {
         8: 'h',
         9: 'i',
       };
-      switch (notation) {
+      switch (notationPref) {
         // 11
         case 0:
         case 1:

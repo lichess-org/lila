@@ -273,16 +273,7 @@ export default function (
     return ctrl.node;
   }
 
-  const share = shareCtrl(
-    data,
-    currentChapter,
-    currentNode,
-    !!relay,
-    redraw,
-    ctrl.data.pref.notation,
-    ctrl.plyOffset(),
-    ctrl.trans
-  );
+  const share = shareCtrl(data, currentChapter, currentNode, !!relay, redraw, ctrl.plyOffset(), ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
@@ -360,13 +351,7 @@ export default function (
         sticky = d.s;
       const parent = ctrl.tree.nodeAtPath(position.path);
       if (node.usi) {
-        node.notation = makeNotation(
-          ctrl.data.pref.notation,
-          parent.sfen,
-          ctrl.data.game.variant.key,
-          node.usi,
-          parent.usi
-        );
+        node.notation = makeNotation(parent.sfen, ctrl.data.game.variant.key, node.usi, parent.usi);
         node.capture =
           (parent.sfen.split(' ')[0].match(/[a-z]/gi) || []).length >
           (node.sfen.split(' ')[0].match(/[a-z]/gi) || []).length;

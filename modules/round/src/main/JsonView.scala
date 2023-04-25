@@ -87,8 +87,7 @@ final class JsonView(
                 "replay"            -> pref.replay,
                 "clockTenths"       -> pref.clockTenths,
                 "clockCountdown"    -> pref.clockCountdown,
-                "moveEvent"         -> pref.moveEvent,
-                "notation"          -> pref.notation
+                "moveEvent"         -> pref.moveEvent
               )
               .add("clockSound" -> pref.clockSound)
               .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
@@ -178,8 +177,7 @@ final class JsonView(
                 "replay"            -> pref.replay,
                 "clockTenths"       -> pref.clockTenths,
                 "clockCountdown"    -> pref.clockCountdown,
-                "moveEvent"         -> pref.moveEvent,
-                "notation"          -> pref.notation
+                "moveEvent"         -> pref.moveEvent
               )
               .add("highlightLastDests" -> pref.highlightLastDests)
               .add("highlightCheck" -> pref.highlightCheck)
@@ -240,8 +238,7 @@ final class JsonView(
             "animationDuration" -> animationMillis(pov, pref),
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
-            "resizeHandle"      -> pref.resizeHandle,
-            "notation"          -> pref.notation
+            "resizeHandle"      -> pref.resizeHandle
           )
           .add("highlightLastDests" -> pref.highlightLastDests)
           .add("highlightCheck" -> pref.highlightCheck)
@@ -273,7 +270,6 @@ final class JsonView(
 object JsonView {
 
   case class WithFlags(
-      opening: Boolean = false,
       movetimes: Boolean = false,
       division: Boolean = false,
       clocks: Boolean = false,

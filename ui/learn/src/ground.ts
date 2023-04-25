@@ -49,8 +49,8 @@ export function initConfig(ctrl: LearnCtrl): Config {
     },
     coordinates: {
       enabled: true,
-      files: notationFiles(ctrl.pref.notation),
-      ranks: notationRanks(ctrl.pref.notation),
+      files: notationFiles(),
+      ranks: notationRanks(),
     },
     drawable: {
       enabled: true,

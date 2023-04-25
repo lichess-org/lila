@@ -140,7 +140,6 @@ export interface Pref {
   replay: 0 | 1 | 2;
   submitMove: boolean;
   resizeHandle: 0 | 1 | 2;
-  notation: number;
 }
 
 export type MoveMetadata = Partial<SgMoveMetadata>;

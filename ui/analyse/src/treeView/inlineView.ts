@@ -106,9 +106,7 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-    colorIcon = notationsWithColor.includes(ctx.ctrl.data.pref.notation)
-      ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote')
-      : '',
+    colorIcon = notationsWithColor() ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : '',
     content: MaybeVNodes = [
       node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true) : null,
       h('move-notation' + colorIcon, node.notation),
@@ -130,7 +128,6 @@ export default function (ctrl: AnalyseCtrl): VNode {
     truncateComments: false,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    notation: ctrl.data.pref.notation,
     variant: ctrl.data.game.variant.key,
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),

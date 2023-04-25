@@ -111,7 +111,6 @@ export interface PuzzlePrefs {
     duration: number;
   };
   blindfold: boolean;
-  notation: number;
 }
 
 export interface Theme {

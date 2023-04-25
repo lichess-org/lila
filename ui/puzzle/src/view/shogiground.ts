@@ -44,8 +44,8 @@ function makeConfig(ctrl: Controller): SgConfig {
     lastDests: opts.lastDests,
     coordinates: {
       enabled: ctrl.pref.coords !== 0,
-      files: notationFiles(ctrl.pref.notation),
-      ranks: notationRanks(ctrl.pref.notation),
+      files: notationFiles(),
+      ranks: notationRanks(),
     },
     movable: {
       free: false,
