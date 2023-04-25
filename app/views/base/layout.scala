@@ -191,6 +191,7 @@ object layout {
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   private val dataColorName     = attr("data-color-name")
+  private val dataNotation      = attr("data-notation")
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataPieceSet              = attr("data-piece-set")
@@ -255,7 +256,7 @@ object layout {
         ),
         st.body(
           cls := List(
-            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.notation}" -> true,
+            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass}" -> true,
             s"grid-width-${ctx.pref.customThemeOrDefault.gridWidth}" -> ctx.pref.isUsingCustomTheme,
             s"board-layout-${ctx.pref.boardLayout}"                  -> (ctx.pref.boardLayout != 0),
             "clear-hands"                                            -> ctx.pref.clearHands,
@@ -278,6 +279,7 @@ object layout {
           dataPieceSet      := ctx.currentPieceSet.name,
           dataChuPieceSet   := ctx.currentChuPieceSet.name,
           dataAnnounce      := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          dataNotation      := ctx.pref.notation.toString,
           dataColorName     := ctx.pref.colorName.toString,
           style             := cssVariables(zoomable)
         )(
