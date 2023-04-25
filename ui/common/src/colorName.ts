@@ -1,5 +1,3 @@
-import { isHandicap } from './handicaps';
-
 export const enum ColorName {
   Lang,
   SenteJP,
@@ -9,14 +7,13 @@ export const enum ColorName {
 
 const colorNamePref = parseInt(document.body.dataset.colorName || '0');
 
-export function transWithColorName(trans: Trans, key: I18nKey, color: Color, initialSfen: Sfen | undefined): string {
-  const res = trans(key, colorName(trans.noarg, color, initialSfen));
+export function transWithColorName(trans: Trans, key: I18nKey, color: Color, isHandicap: boolean): string {
+  const res = trans(key, colorName(trans.noarg, color, isHandicap));
   return capitalizeFirstLetter(res);
 }
 
-export function colorName(noarg: TransNoArg, color: Color, initialSfen: Sfen | undefined): string {
-  const handicap = initialSfen && isHandicap(initialSfen);
-  return handicap ? handicapColorName(noarg, color) : standardColorName(noarg, color);
+export function colorName(noarg: TransNoArg, color: Color, isHandicap: boolean): string {
+  return isHandicap ? handicapColorName(noarg, color) : standardColorName(noarg, color);
 }
 
 export function standardColorName(noarg: TransNoArg, color: Color): string {
