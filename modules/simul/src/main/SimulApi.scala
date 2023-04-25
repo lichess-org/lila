@@ -13,6 +13,7 @@ import lila.socket.SendToFlag
 import lila.user.{ User, UserRepo }
 import lila.common.config.Max
 import lila.common.Json.given
+import lila.hub.LeaderTeam
 
 final class SimulApi(
     userRepo: UserRepo,
@@ -42,7 +43,7 @@ final class SimulApi(
       }
   }
 
-  def create(setup: SimulForm.Setup, me: User): Fu[Simul] =
+  def create(setup: SimulForm.Setup, me: User, teams: Seq[LeaderTeam]): Fu[Simul] =
     val simul = Simul.make(
       name = setup.name,
       clock = setup.clock,
@@ -52,15 +53,14 @@ final class SimulApi(
       color = setup.color,
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
-      team = setup.team,
       featurable = some(~setup.featured && me.canBeFeatured),
-      conditions = setup.conditions.all
+      conditions = setup.conditions.convert(teams.map(_.pair).toSet)
     )
     repo.create(simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
 
-  def update(prev: Simul, setup: SimulForm.Setup, me: User): Fu[Simul] =
+  def update(prev: Simul, setup: SimulForm.Setup, me: User, teams: Seq[LeaderTeam]): Fu[Simul] =
     val simul = prev.copy(
       name = setup.name,
       clock = setup.clock,
@@ -69,35 +69,40 @@ final class SimulApi(
       color = setup.color.some,
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
-      team = setup.team,
       featurable = some(~setup.featured && me.canBeFeatured),
-      conditions = setup.conditions.all
+      conditions = setup.conditions.convert(teams.map(_.pair).toSet)
     )
     repo.update(simul) >>- publish() inject simul
 
   def addApplicant(
       simulId: SimulId,
       user: User,
-      isInTeam: TeamId => Boolean,
+      getUserTeams: SimulCondition.GetUserTeams,
+      getMaxRating: SimulCondition.GetMaxRating,
       variantKey: Variant.LilaKey
   ): Funit =
-    WithSimul(repo.findCreated, simulId) { simul =>
-      if (simul.nbAccepted < Game.maxPlayingRealtime && simul.team.forall(isInTeam))
-        timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
-        Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
-          simul addApplicant SimulApplicant.make(
-            SimulPlayer.make(
-              user,
-              variant,
-              PerfPicker.mainOrDefault(
-                speed = chess.Speed(simul.clock.config.some),
-                variant = variant,
-                daysPerTurn = none
-              )(user.perfs)
-            )
-          )
-        }
-      else simul
+    workQueue(simulId) {
+      repo.findCreated(simulId) mapz { simul =>
+        if simul.nbAccepted < Game.maxPlayingRealtime then
+          simul.conditions.verify(user, getUserTeams, getMaxRating) map { verdict =>
+            if verdict.accepted then
+              timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
+              val newSimul = Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
+                simul addApplicant SimulApplicant.make(
+                  SimulPlayer.make(
+                    user,
+                    variant,
+                    PerfPicker.mainOrDefault(
+                      speed = chess.Speed(simul.clock.config.some),
+                      variant = variant,
+                      daysPerTurn = none
+                    )(user.perfs)
+                  )
+                )
+              }
+              repo.update(newSimul) >>- socket.reload(newSimul.id) >>- publish()
+          }
+      }
     }
 
   def removeApplicant(simulId: SimulId, user: User): Funit =

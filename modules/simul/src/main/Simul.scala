@@ -28,7 +28,6 @@ case class Simul(
     hostSeenAt: Option[Instant],
     color: Option[String],
     text: String,
-    team: Option[TeamId],
     featurable: Option[Boolean],
     conditions: SimulCondition.All
 ):
@@ -156,7 +155,6 @@ object Simul:
       color: String,
       text: String,
       estimatedStartAt: Option[Instant],
-      team: Option[TeamId],
       featurable: Option[Boolean],
       conditions: SimulCondition.All
   ): Simul = Simul(
@@ -186,7 +184,6 @@ object Simul:
     hostSeenAt = nowInstant.some,
     color = color.some,
     text = text,
-    team = team,
     featurable = featurable,
     conditions = conditions
   )

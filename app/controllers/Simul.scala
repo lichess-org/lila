@@ -43,33 +43,26 @@ final class Simul(env: Env) extends LilaController(env):
       env.simul.repo.allStarted zip
       env.simul.repo.allFinishedFeaturable(20)
 
+  private def verify(sim: Sim, me: Option[lila.user.User]) =
+    me match
+      case None       => fuccess(sim.conditions.accepted)
+      case Some(user) => sim.conditions.verify(user, getUserTeams, getMaxRating)
+
   def show(id: SimulId) =
     Open { implicit ctx =>
       env.simul.repo find id flatMap {
         _.fold[Fu[Result]](simulNotFound.toFuccess) { sim =>
           for {
-            verdicts <- SimulCondition.verify(sim, ctx.me)
-            team    <- sim.team ?? env.team.api.team
-            version <- env.simul.version(sim.id)
-            json <- env.simul.jsonView(
-              sim,
-              team.map { t =>
-                lila.simul.SimulTeam(
-                  t.id,
-                  t.name,
-                  ctx.userId exists {
-                    env.team.api.syncBelongsTo(t.id, _)
-                  }
-                )
-              }
-            )
+            verdicts <- verify(sim, ctx.me)
+            version  <- env.simul.version(sim.id)
+            json     <- env.simul.jsonView(sim, verdicts)
             chat <-
               canHaveChat(sim) ?? env.chat.api.userChat.cached.findMine(sim.id into ChatId, ctx.me).map(some)
             _ <- chat ?? { c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds)
             }
             stream <- env.streamer.liveStreamApi one sim.hostId
-          } yield html.simul.show(sim, version, json, chat, stream, team, verdicts)
+          } yield html.simul.show(sim, version, json, chat, stream, verdicts)
         }
       } dmap (_.noCache)
     }
@@ -78,7 +71,7 @@ final class Simul(env: Env) extends LilaController(env):
     ctx.noKid && ctx.noBot &&                     // no public chats for kids or bots
       ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
         env.chat.panic.allowed
-      } && simul.team.fold(true) { teamId =>
+      } && simul.conditions.teamMember.map(_.teamId).fold(true) { teamId =>
         ctx.userId exists {
           env.team.api.syncBelongsTo(teamId, _) || isGranted(_.ChatTimeout)
         }
@@ -159,7 +152,7 @@ final class Simul(env: Env) extends LilaController(env):
                   BadRequest(html.simul.form.create(err, teams))
                 },
               setup =>
-                env.simul.api.create(setup, me) map { simul =>
+                env.simul.api.create(setup, me, teams) map { simul =>
                   Redirect(routes.Simul.show(simul.id))
                 }
             )
@@ -170,11 +163,9 @@ final class Simul(env: Env) extends LilaController(env):
   def join(id: SimulId, variant: chess.variant.Variant.LilaKey) =
     Auth { implicit ctx => implicit me =>
       NoLameOrBot {
-        env.team.cached.teamIds(me.id) flatMap { teamIds =>
-          env.simul.api.addApplicant(id, me, teamIds.contains, variant) inject {
-            if (HTTPRequest isXhr ctx.req) jsonOkResult
-            else Redirect(routes.Simul.show(id))
-          }
+        env.simul.api.addApplicant(id, me, getUserTeams, getMaxRating, variant) inject {
+          if (HTTPRequest isXhr ctx.req) jsonOkResult
+          else Redirect(routes.Simul.show(id))
         }
       }
     }
@@ -206,7 +197,7 @@ final class Simul(env: Env) extends LilaController(env):
             .bindFromRequest()
             .fold(
               err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
-              data => env.simul.api.update(simul, data, me) inject Redirect(routes.Simul.show(id))
+              data => env.simul.api.update(simul, data, me, teams) inject Redirect(routes.Simul.show(id))
             )
         }
       }
@@ -224,3 +215,8 @@ final class Simul(env: Env) extends LilaController(env):
       if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).toFuccess
       else f(sim)
     }
+
+  private val getUserTeams: SimulCondition.GetUserTeams =
+    (user: lila.user.User) => env.team.cached.teamIdsSet(user.id)
+
+  private val getMaxRating: SimulCondition.GetMaxRating = env.history.api.lastWeekTopRating.apply

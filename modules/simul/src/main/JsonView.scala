@@ -13,13 +13,11 @@ final class JsonView(
     isOnline: lila.socket.IsOnline
 )(using Executor):
 
-  private given Writes[SimulTeam] = Json.writes
-
   private def fetchGames(simul: Simul): Fu[List[Game]] =
     if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
     else simul.gameIds.map(proxyRepo.game).parallel.dmap(_.flatten)
 
-  def apply(simul: Simul, team: Option[SimulTeam]): Fu[JsObject] =
+  def apply(simul: Simul, verdicts: SimulCondition.All.WithVerdicts): Fu[JsObject] =
     for
       games      <- fetchGames(simul)
       lightHost  <- getLightUser(simul.hostId)
@@ -32,10 +30,10 @@ final class JsonView(
       pairings = pairingOptions.flatten
     yield baseSimul(simul, lightHost) ++ Json
       .obj(
+        "canJoin"    -> verdicts.accepted,
         "applicants" -> applicants,
         "pairings"   -> pairings
       )
-      .add("team", team)
       .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id.value)))
 
   def apiJson(simul: Simul): Fu[JsObject] =

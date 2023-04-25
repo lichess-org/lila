@@ -20,7 +20,6 @@ object show:
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
-      team: Option[lila.team.Team],
       verdicts: SimulCondition.All.WithVerdicts
   )(implicit ctx: Context) =
     val userIsHost = ctx.userId has sim.hostId
@@ -124,12 +123,6 @@ object show:
               )
             else br,
             trans.by(userIdLink(sim.hostId.some)),
-            team map { t =>
-              frag(
-                br,
-                trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
-              )
-            },
             sim.estimatedStartAt map { d =>
               frag(
                 br,

@@ -56,7 +56,7 @@ final class Env(
   }
 
   val featurable = new SimulIsFeaturable((simul: Simul) =>
-    simul.team.isEmpty && featureLimiter(simul.hostId)(true)(false)
+    simul.conditions.teamMember.isEmpty && featureLimiter(simul.hostId)(true)(false)
   )
 
   private val featureLimiter = lila.memo.RateLimit[UserId](

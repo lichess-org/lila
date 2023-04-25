@@ -70,7 +70,6 @@ object SimulForm:
       color = colorDefault,
       text = "",
       estimatedStartAt = none,
-      team = none,
       featured = host.hasTitle.some,
       conditions = SimulCondition.DataForm.AllSetup.default
     )
@@ -87,7 +86,6 @@ object SimulForm:
       color = simul.color | "random",
       text = simul.text,
       estimatedStartAt = simul.estimatedStartAt,
-      team = simul.team,
       featured = simul.featurable,
       conditions = SimulCondition.DataForm.AllSetup(simul.conditions)
     )
@@ -107,9 +105,8 @@ object SimulForm:
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
-        "team"             -> optional(of[TeamId].verifying(id => teams.exists(_.id == id))),
         "featured"         -> optional(boolean),
-        "conditions"       -> SimulCondition.DataForm.all
+        "conditions"       -> SimulCondition.DataForm.all(teams.map(_.id).toSet)
       )(Setup.apply)(unapply)
         .verifying("Invalid host extra time.", _.clock.valid)
     )
@@ -127,7 +124,6 @@ object SimulForm:
       color: String,
       text: String,
       estimatedStartAt: Option[Instant] = None,
-      team: Option[TeamId],
       featured: Option[Boolean],
       conditions: SimulCondition.DataForm.AllSetup
   ):
