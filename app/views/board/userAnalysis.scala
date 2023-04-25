@@ -51,7 +51,7 @@ object userAnalysis {
         pov.game.synthetic option st.aside(cls := "analyse__side")(
           views.html.base.bits.mselect(
             "analyse-variant",
-            span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
+            span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(variantName(pov.game.variant)),
             shogi.variant.Variant.all.map { v =>
               a(
                 dataIcon := iconByVariant(v),

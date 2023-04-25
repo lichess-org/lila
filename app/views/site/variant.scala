@@ -16,10 +16,10 @@ object variant {
   )(implicit ctx: Context) =
     layout(
       active = perfType.some,
-      title = s"${variant.name} • ${variant.title}",
+      title = s"${variantName(variant)} • ${variant.title}",
       klass = "box-pad page variant"
     )(
-      h1(cls := "text", dataIcon := perfType.iconChar)(variant.name),
+      h1(cls := "text", dataIcon := perfType.iconChar)(variantName(variant)),
       h2(cls := "headline")(variant.title),
       div(cls := "body")(raw(~doc.getHtml("variant.content", resolver)))
     )
@@ -43,7 +43,7 @@ object variant {
             dataIcon := pt.iconChar
           )(
             span(
-              h2(variant.name),
+              h2(variantName(variant)),
               h3(cls := "headline")(variant.title)
             )
           )

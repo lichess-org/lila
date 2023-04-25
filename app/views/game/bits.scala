@@ -83,7 +83,7 @@ object bits {
       link(
         href = routes.Page.variant(variant.key, none).url,
         title = variant.title,
-        name = variant.name.toUpperCase
+        name = variantName(variant)
       )
     else
       perfType match {

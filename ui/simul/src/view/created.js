@@ -217,7 +217,7 @@ module.exports = function (ctrl) {
           {
             'data-variant': variant.key,
           },
-          variant.name
+          ctrl.trans(variant.key)
         );
       })
     ),
