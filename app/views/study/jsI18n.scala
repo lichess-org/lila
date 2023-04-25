@@ -131,7 +131,25 @@ object jsI18n {
       nbMembers,
       trans.rematch,
       trans.backToGame,
-      trans.newOpponent
+      trans.newOpponent,
+      startTag,
+      endTag,
+      siteTag,
+      eventTag,
+      timeControlTag,
+      xEloTag,
+      xTitleTag,
+      xTeamTag,
+      openingTag,
+      resultTag,
+      problemNameTag,
+      problemIdTag,
+      dateOfPublicationTag,
+      composerTag,
+      publicationTag,
+      collectionTag,
+      lengthTag,
+      prizeTag
     ).map(_.key)
   }
 }
