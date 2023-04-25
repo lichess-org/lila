@@ -88,21 +88,21 @@ por ju mund të mbroheni!</string>
   <string name="combatComplete">Urime! Ju dini si të luftoni me figura të shahut!</string>
   <string name="checkInOne">Shah me një lëvizje</string>
   <string name="attackTheOpponentsKing">Sulmoni mbretin e kundërshtarit</string>
-  <string name="checkInOneIntro">Për t’i dhënë shah kundërshtarit, sulmojini mbretin. Duhet ta mbrojnë!</string>
+  <string name="checkInOneIntro">Për të kontrolluar kundërshtarin tuaj, sulmoni mbretin e tij. Ai duhet ta mbrojë atë!</string>
   <string name="checkInOneGoal">Synoni mbretin e kundërshtarit
-me një lëvizje!</string>
-  <string name="checkInOneComplete">Urime! I dhatë shah kundërshtarit, duke e detyruar të mbrojë mbretin e vet!</string>
-  <string name="outOfCheck">Dalje nga shahu</string>
+në një lëvizje!</string>
+  <string name="checkInOneComplete">Urime! Ju kontrolluat kundërshtarin tuaj, duke e detyruar atë ta mbrojë mbretin e tij!</string>
+  <string name="outOfCheck">Jashtë kontrollit</string>
   <string name="defendYourKing">Mbroni mbretin tuaj</string>
-  <string name="outOfCheckIntro">Jeni shah! Duhet t’i ikni, ose të bllokoni sulmin.</string>
-  <string name="escapeWithTheKing">Shpëtoni me mbretin!</string>
-  <string name="theKingCannotEscapeButBlock">Mbreti s’mund të ikë,
-por mund ta bllokoni sulmin!</string>
-  <string name="youCanGetOutOfCheckByTaking">Mund t’i shpëtoni shahut 
-duke ngrënë figurën sulmuese.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Kali po ju jep shah
-përmes mbrojtjes tuaj!</string>
-  <string name="escapeOrBlock">Shpëtoni me mbretin
+  <string name="outOfCheckIntro">Ju jeni në shah ! Ju duhet të shpëtoni ose të bllokoni sulmin.</string>
+  <string name="escapeWithTheKing">Ik me mbretin!</string>
+  <string name="theKingCannotEscapeButBlock">Mbreti nuk mund të shpëtojë,
+por ju mund të bllokoni sulmin!</string>
+  <string name="youCanGetOutOfCheckByTaking">Mund të dilni nga shahu
+duke marrë pjesën sulmuese.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ky kali po ju jep shah 
+përmes mbrojtjeve tuaja!</string>
+  <string name="escapeOrBlock">Ik me mbretin
 ose bllokoni sulmin!</string>
   <string name="outOfCheckComplete">Urime! Mbreti juaj s’mund të hahet kurrë, sigurohuni q mbroheni nga shahet!</string>
   <string name="mateInOne">Mat me një lëvizje</string>
@@ -120,33 +120,33 @@ i çdo loje shahu!
 Që të vazhdohet, bëni një lëvizje.</string>
   <string name="firstPlaceTheRooks">Sa pari vendosni torret!
 Ato shkojnë në cep.</string>
-  <string name="thenPlaceTheKnights">Mandej vendosni kuajt!
-Ata përbri torreve.</string>
-  <string name="placeTheBishops">Vendosni oficerët!
-Këta vihen përbri kuajve.</string>
-  <string name="placeTheQueen">Vendosni mbretëreshën!
-Vihet në katror të njëjtë me ngjyrën e saj.</string>
-  <string name="placeTheKing">Vendosni mbretin!
-Mu në krah të mbretëreshës.</string>
-  <string name="pawnsFormTheFrontLine">Ushtarët formojnë vijën e parë.
-Bëni një lëvizje, për të vazhduar.</string>
-  <string name="boardSetupComplete">Urime! Dini si të vendosni gurët e shahut.</string>
+  <string name="thenPlaceTheKnights">Pastaj vendosni kuajt!
+Ata shkojnë pranë topave.</string>
+  <string name="placeTheBishops">Vendos llanferat!
+Ata shkojnë pranë kuajve.</string>
+  <string name="placeTheQueen">Vendos mbretëreshën!
+Ajo shkon në ngjyrën e saj.</string>
+  <string name="placeTheKing">Vendose mbretin!
+Pranë mbretëreshës së tij.</string>
+  <string name="pawnsFormTheFrontLine">Piunat formojnë vijën e parë.
+Bëni ndonjë lëvizje për të vazhduar.</string>
+  <string name="boardSetupComplete">Urime! Ju e dini se si të vendosni tabelën e shahut.</string>
   <string name="castling">Rokada</string>
   <string name="theSpecialKingMove">Lëvizja e veçantë e mbretit</string>
-  <string name="castlingIntro">Siguroni mbretin dhe fusni torren në sulm!</string>
+  <string name="castlingIntro">Sillni mbretin tuaj në vend të sigurtë dhe vendoseni topin tuaj për sulm!</string>
   <string name="castleKingSide">Lëvizeni mbretin dy kuti
 për të bërë rokadë të vogël!</string>
   <string name="castleQueenSide">Lëvizeni mbretin dy kuti
 për të bërë rokadë të madhe!</string>
   <string name="theKnightIsInTheWay">Kali bllokon rrugën!
 Lëvizeni, mandej bëni rokadë të vogël.</string>
-  <string name="castleKingSideMovePiecesFirst">Bëni rokadë të vogël!
-Së pari, duhet të lëvizni figura.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokada nga ana e mbretit!
+Së pari ju duhet të hiqni figurat.</string>
   <string name="castleQueenSideMovePiecesFirst">Bëni rokadë të vogël!
 Së pari, duhet të lëvizni figura.</string>
-  <string name="youCannotCastleIfMoved">S’mund të bëni rokadë
-nëse është lëvizur mbreti,
-ose është lëvizur torreja.</string>
+  <string name="youCannotCastleIfMoved">Nuk mund të bësh Rokaden nëse
+mbreti tashmë ka lëvizur
+ose Topi tashmë ka lëvizur.</string>
   <string name="youCannotCastleIfAttacked">S’mund të bëni rokadë, nëse
 mbretit i zihet rruga gjatë rokadës.
 Bllokoni shahun, mandej bëni rokadën!</string>
@@ -155,7 +155,7 @@ për të bërë rokadë të vogël!</string>
   <string name="findAWayToCastleQueenSide">Gjeni një mënyrë
 për të bërë rokadë të madhe!</string>
   <string name="castlingComplete">Urime! Duhet, thuajse përherë, të bëni rokadë në një lojë.</string>
-  <string name="enPassant">Prerja e ushtarit</string>
+  <string name="enPassant">Në kalim</string>
   <string name="theSpecialPawnMove">Lëvizja e veçantë e ushtarit</string>
   <string name="enPassantIntro">Nëse ushtari i kundërshtarit lëvizi dy kuti, mund ta hani njësoj sikur të kish lëvizur vetëm një kuti.</string>
   <string name="blackJustMovedThePawnByTwoSquares">I ziu sapo lëvizi ushtarin
