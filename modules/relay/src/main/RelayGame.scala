@@ -24,6 +24,8 @@ case class RelayGame(
 
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
 
+  def resetToSetup = copy(root = root.withoutChildren, end = None)
+
   lazy val looksLikeLichess = tags(_.Site) exists { site =>
     RelayGame.lichessDomains exists { domain =>
       site startsWith s"https://$domain/"

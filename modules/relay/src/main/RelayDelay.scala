@@ -32,7 +32,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
       .games
       .flatMap: latest =>
         rt.round.sync.delay match
-          case Some(delay) if delay > 0 => store.get(url, delay).map(_ | Vector.empty)
+          case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
           case _                        => fuccess(latest)
 
   // The goal of this is to make sure that an upstream used by several broadcast
