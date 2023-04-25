@@ -11,3 +11,5 @@ export function renderEval(e: number): string {
 export function cubicRegressionEval(x: number): number {
   return 1 + 0.4505495 * x + 1.284439 * Math.pow(10, -16) * Math.pow(x, 2) + 0.5494505 * Math.pow(x, 3);
 }
+
+export const unsupportedVariants: VariantKey[] = ['chushogi', 'annanshogi'];

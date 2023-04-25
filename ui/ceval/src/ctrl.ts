@@ -8,6 +8,7 @@ import { Position } from 'shogiops/variant/position';
 import { defaultPosition } from 'shogiops/variant/variant';
 import { Cache } from './cache';
 import { CevalCtrl, CevalOpts, CevalTechnology, Hovering, PvBoard, Started, Step, Work } from './types';
+import { unsupportedVariants } from './util';
 import { povChances } from './winningChances';
 import { AbstractWorker, ThreadedWasmWorker } from './worker';
 
@@ -92,7 +93,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const pos = opts.initialSfen
     ? parseSfen(opts.variant.key, opts.initialSfen, false)
     : Result.ok(defaultPosition(opts.variant.key));
-  const analysable = pos.isOk && opts.variant.key !== 'chushogi';
+  const analysable = pos.isOk && !unsupportedVariants.includes(opts.variant.key);
 
   // select nnue > hce > none
   const useYaneuraou = opts.variant.key === 'standard' && (!analysable || isStandardMaterial(pos.value)),
