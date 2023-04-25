@@ -107,7 +107,9 @@ Thank you all, you rock!"""
         }
       },
       List( // yearly variant tournaments!
-        secondWeekOf(JANUARY).withDayOfWeek(WEDNESDAY) -> Minishogi
+        secondWeekOf(JANUARY).withDayOfWeek(WEDNESDAY) -> Minishogi,
+        secondWeekOf(JUNE).withDayOfWeek(WEDNESDAY)    -> Annanshogi,
+        secondWeekOf(AUGUST).withDayOfWeek(WEDNESDAY)  -> Kyotoshogi
       ).flatMap { case (day, variant) =>
         at(day, 17) filter farFuture.isAfter map { date =>
           Schedule(Yearly, SuperBlitz, variant, none, date).plan
@@ -127,7 +129,9 @@ Thank you all, you rock!"""
             }
           },
           List( // monthly variant tournaments!
-            month.lastWeek.withDayOfWeek(MONDAY) -> Minishogi
+            month.lastWeek.withDayOfWeek(MONDAY)    -> Minishogi,
+            month.lastWeek.withDayOfWeek(TUESDAY)   -> Annanshogi,
+            month.lastWeek.withDayOfWeek(WEDNESDAY) -> Kyotoshogi
           ).flatMap { case (day, variant) =>
             at(day, 19) map { date =>
               Schedule(Monthly, SuperBlitz, variant, none, date).plan

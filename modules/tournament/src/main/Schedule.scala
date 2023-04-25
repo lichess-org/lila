@@ -260,7 +260,7 @@ object Schedule {
       case (Daily | Eastern, _, Rapid | Classical) => 180
       case (Daily | Eastern, _, _)                 => 75
 
-      case (Weekly, Minishogi, _)                          => 60
+      case (Weekly, Minishogi | Kyotoshogi, _)             => 60
       case (Weekly, _, UltraBullet | HyperBullet | Bullet) => 60 * 1 + 30
       case (Weekly, _, SuperBlitz | Blitz)                 => 60 * 2
       case (Weekly, _, HyperRapid | Rapid)                 => 60 * 3
@@ -272,13 +272,13 @@ object Schedule {
       case (Weekend, _, Rapid)                              => 60 * 3
       case (Weekend, _, Classical)                          => 60 * 4
 
-      case (Monthly, Minishogi, _)            => 60 * 2
-      case (Monthly, _, UltraBullet)          => 60 * 2
-      case (Monthly, _, HyperBullet | Bullet) => 60 * 3
-      case (Monthly, _, SuperBlitz | Blitz)   => 60 * 3 + 30
-      case (Monthly, _, HyperRapid)           => 60 * 4
-      case (Monthly, _, Rapid)                => 60 * 5
-      case (Monthly, _, Classical)            => 60 * 6
+      case (Monthly, Minishogi | Kyotoshogi, _) => 60 * 2
+      case (Monthly, _, UltraBullet)            => 60 * 2
+      case (Monthly, _, HyperBullet | Bullet)   => 60 * 3
+      case (Monthly, _, SuperBlitz | Blitz)     => 60 * 3 + 30
+      case (Monthly, _, HyperRapid)             => 60 * 4
+      case (Monthly, _, Rapid)                  => 60 * 5
+      case (Monthly, _, Classical)              => 60 * 6
 
       case (Shield, _, UltraBullet)          => 60 * 1 + 30
       case (Shield, _, HyperBullet | Bullet) => 60 * 2
@@ -287,7 +287,7 @@ object Schedule {
       case (Shield, _, Rapid)                => 60 * 6
       case (Shield, _, Classical)            => 60 * 8
 
-      case (Yearly, Minishogi, _)                          => 60 * 2
+      case (Yearly, Minishogi | Kyotoshogi, _)             => 60 * 2
       case (Yearly, _, UltraBullet | HyperBullet | Bullet) => 60 * 2
       case (Yearly, _, SuperBlitz | Blitz)                 => 60 * 3
       case (Yearly, _, HyperRapid)                         => 60 * 4
