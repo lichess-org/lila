@@ -12,15 +12,14 @@ import controllers.routes
 object editor {
 
   def apply(
-      sit: shogi.Situation,
-      positionsJson: String
+      sit: shogi.Situation
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafe(
-          s"""var data=${safeJsonValue(jsData(sit))};data.positions=$positionsJson;
+          s"""var data=${safeJsonValue(jsData(sit))};
 LishogiEditor(document.getElementById('board-editor'), data);"""
         )
       ),
@@ -58,8 +57,7 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
           "moveEvent"          -> ctx.pref.moveEvent,
           "resizeHandle"       -> ctx.pref.resizeHandle,
           "highlightLastDests" -> ctx.pref.highlightLastDests,
-          "squareOverlay"      -> ctx.pref.squareOverlay,
-          "notation"           -> ctx.pref.notation
+          "squareOverlay"      -> ctx.pref.squareOverlay
         ),
       "i18n" -> i18nJsObject(i18nKeyes)
     )
@@ -75,6 +73,7 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
     trans.boardEditor,
     trans.startPosition,
     trans.clearBoard,
+    trans.invalidSfen,
     trans.fillXHand,
     trans.flipBoard,
     trans.loadPosition,
@@ -86,6 +85,11 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
     trans.playWithTheMachine,
     trans.playWithAFriend,
     trans.analysis,
-    trans.toStudy
+    trans.toStudy,
+    trans.standard,
+    trans.minishogi,
+    trans.chushogi,
+    trans.annanshogi,
+    trans.kyotoshogi
   ).map(_.key)
 }

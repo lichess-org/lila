@@ -32,8 +32,7 @@ final class Editor(env: Env) extends LilaController(env) {
         val situation = readSfen(decodedSfen, variant.some)
         Ok(
           html.board.editor(
-            situation,
-            positionsJson
+            situation
           )
         )
       }
