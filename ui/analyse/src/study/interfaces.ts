@@ -164,6 +164,7 @@ export interface StudyChapter {
   name: string;
   ownerId: string;
   setup: StudyChapterSetup;
+  initialSfen: Sfen;
   tags: TagArray[];
   practice: boolean;
   conceal?: number;

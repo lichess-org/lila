@@ -44,10 +44,11 @@ final class JsonView(
           "chapters" -> chapters.map(chapterMetadataWrites.writes),
           "chapter" -> Json
             .obj(
-              "id"      -> currentChapter.id,
-              "ownerId" -> currentChapter.ownerId,
-              "setup"   -> currentChapter.setup,
-              "tags"    -> currentChapter.tags,
+              "id"          -> currentChapter.id,
+              "ownerId"     -> currentChapter.ownerId,
+              "setup"       -> currentChapter.setup,
+              "tags"        -> currentChapter.tags,
+              "initialSfen" -> currentChapter.root.sfen,
               "features" -> Json.obj(
                 "computer" -> allowed(study.settings.computer),
                 "explorer" -> allowed(study.settings.explorer)
