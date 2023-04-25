@@ -73,10 +73,12 @@ object JsonView:
   given OWrites[SyncLog.Event] = Json.writes
 
   private given OWrites[RelayRound.Sync] = OWrites { s =>
-    Json.obj(
-      "ongoing" -> s.ongoing,
-      "log"     -> s.log.events
-    ) ++
+    Json
+      .obj(
+        "ongoing" -> s.ongoing,
+        "log"     -> s.log.events
+      )
+      .add("delay" -> s.delay) ++
       s.upstream.?? {
         case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
         case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)

@@ -150,7 +150,9 @@ final private class RelayFetch(
               throw LilaInvalid(
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
               )
-          } flatMap RelayFetch.multiPgnToGames.apply
+          } flatMap {
+            RelayFetch.multiPgnToGames(_).future
+          }
       case url: UpstreamUrl =>
         delayer(url, rt, doFetchUrl)
     }
@@ -188,7 +190,7 @@ final private class RelayFetch(
               MultiPgn(results.sortBy(_._1).map(_._2))
             }
         }
-    } flatMap RelayFetch.multiPgnToGames.apply
+    } flatMap { RelayFetch.multiPgnToGames(_).future }
 
   private def httpGet(url: URL): Fu[String] =
     ws.url(url.toString)
@@ -258,7 +260,7 @@ private object RelayFetch:
 
     import scala.util.{ Failure, Success, Try }
 
-    def apply(multiPgn: MultiPgn): Fu[Vector[RelayGame]] =
+    def apply(multiPgn: MultiPgn): Try[Vector[RelayGame]] =
       multiPgn.value
         .foldLeft[Try[(Vector[RelayGame], Int)]](Success(Vector.empty -> 0)) {
           case (Success((acc, index)), pgn) =>
@@ -269,8 +271,7 @@ private object RelayFetch:
             }
           case (acc, _) => acc
         }
-        .future
-        .dmap(_._1)
+        .map(_._1)
 
     private val pgnCache: LoadingCache[PgnStr, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
       .expireAfterAccess(2 minutes)
