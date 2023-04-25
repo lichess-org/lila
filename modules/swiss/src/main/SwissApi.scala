@@ -4,6 +4,7 @@ import akka.stream.scaladsl.*
 import alleycats.Zero
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -145,24 +146,20 @@ final class SwissApi(
 
   def scheduleNextRound(swiss: Swiss, date: Instant): Funit =
     Sequencing(swiss.id)(cache.swissCache.notFinishedById) { old =>
-      (!old.settings.manualRounds).?? {
-        mongo.swiss
+      for
+        _ <- !old.settings.manualRounds ?? mongo.swiss
           .updateField($id(old.id), "settings.i", Swiss.RoundInterval.manual)
           .void
-      } >> {
-        if (old.isCreated) mongo.swiss.updateField($id(old.id), "startsAt", date).void
-        else if (old.isStarted && old.nbOngoing == 0)
+        _ <- old.isCreated ?? mongo.swiss.updateField($id(old.id), "startsAt", date).void
+        _ <- (!old.isFinished && old.nbOngoing == 0) ??
           mongo.swiss.updateField($id(old.id), "nextRoundAt", date).void >>- {
-            import java.time.format.{ DateTimeFormatter, FormatStyle }
             val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
             val showDate  = formatter print date
             systemChat(swiss.id, s"Round ${swiss.round.value + 1} scheduled at $showDate UTC")
           }
-        else funit
-      } >>- {
+      yield
         cache.swissCache clear swiss.id
         socket.reload(swiss.id)
-      }
     }
 
   def verdicts(swiss: Swiss, me: Option[User]): Fu[SwissCondition.All.WithVerdicts] =
