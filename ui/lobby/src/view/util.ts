@@ -15,5 +15,7 @@ export const perfIcons = {
   Rapid: '#',
   Minishogi: ',',
   Chushogi: '(',
+  Annanshogi: '',
+  Kyotoshogi: '',
   Correspondence: ';',
 };

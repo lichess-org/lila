@@ -133,10 +133,14 @@ export default class Setup {
 
   private ratingKey = (variantId: string, realTime: boolean, timeSum: number): string => {
     switch (variantId) {
-      case '3':
-        return 'chushogi';
       case '2':
         return 'minishogi';
+      case '3':
+        return 'chushogi';
+      case '4':
+        return 'annanshogi';
+      case '5':
+        return 'kyotoshogi';
       default:
         if (realTime) {
           if (timeSum < 60) return 'ultraBullet';
@@ -145,6 +149,21 @@ export default class Setup {
           else if (timeSum < 1500) return 'rapid';
           else return 'classical';
         } else return 'correspondence';
+    }
+  };
+
+  private idToRules = (id: number): VariantKey => {
+    switch (id) {
+      case 2:
+        return 'minishogi';
+      case 3:
+        return 'chushogi';
+      case 4:
+        return 'annanshogi';
+      case 5:
+        return 'kyotoshogi';
+      default:
+        return 'standard';
     }
   };
 

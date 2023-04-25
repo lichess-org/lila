@@ -5,8 +5,8 @@ import { Config } from 'shogiground/config';
 import { checksSquareNames, usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole, parseSfen, roleToForsyth } from 'shogiops/sfen';
 import { Piece, Role } from 'shogiops/types';
-import { makeSquare, parseSquare } from 'shogiops/util';
-import { handRoles, pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
+import { makeSquareName, parseSquareName } from 'shogiops/util';
+import { handRoles, pieceCanPromote, pieceForcePromote, promotableOnDrop, promote } from 'shogiops/variant/util';
 import { h } from 'snabbdom';
 import RoundController from './ctrl';
 import { RoundData } from './interfaces';
@@ -41,10 +41,10 @@ export function makeConfig(ctrl: RoundController): Config {
       move: hooks.onMove,
       drop: hooks.onDrop,
       unselect: (key: Key) => {
-        if (ctrl.lionFirstMove && ctrl.lionFirstMove.to === parseSquare(key)) {
+        if (ctrl.lionFirstMove && ctrl.lionFirstMove.to === parseSquareName(key)) {
           const from = ctrl.lionFirstMove.from,
             to = ctrl.lionFirstMove.to;
-          hooks.onUserMove(makeSquare(from), makeSquare(to), false, { premade: false });
+          hooks.onUserMove(makeSquareName(from), makeSquareName(to), false, { premade: false });
         }
       },
       insert(elements) {
@@ -79,13 +79,16 @@ export function makeConfig(ctrl: RoundController): Config {
           capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
         return (
           !!piece &&
-          pieceCanPromote(variant)(piece, parseSquare(orig)!, parseSquare(dest)!, capture) &&
-          !pieceForcePromote(variant)(piece, parseSquare(dest)!)
+          pieceCanPromote(variant)(piece, parseSquareName(orig)!, parseSquareName(dest)!, capture) &&
+          !pieceForcePromote(variant)(piece, parseSquareName(dest)!)
         );
+      },
+      dropPromotionDialog(piece) {
+        return promotableOnDrop(variant)(piece as Piece);
       },
       forceMovePromotion: (orig: Key, dest: Key) => {
         const piece = ctrl.shogiground.state.pieces.get(orig) as Piece | undefined;
-        return !!piece && pieceForcePromote(variant)(piece, parseSquare(dest)!);
+        return !!piece && pieceForcePromote(variant)(piece, parseSquareName(dest)!);
       },
     },
     forsyth: {

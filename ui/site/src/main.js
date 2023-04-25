@@ -342,6 +342,8 @@
           ? []
           : variant === 'minishogi'
           ? ['rook', 'bishop', 'gold', 'silver', 'pawn']
+          : variant === 'kyotoshogi'
+          ? ['tokin', 'gold', 'silver', 'pawn']
           : ['rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn'];
       var config = {
         coordinates: false,

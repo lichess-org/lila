@@ -125,33 +125,42 @@ sg-hand-wrap {
       flex: 1 0 20%;
     }
   }
+  &.r-4 {
+    width: 100%;
+    padding-bottom: calc(100% / 4 / 11 * 12 + 1px);
+    margin-left: 0;
+    sg-hand sg-hp-wrap piece {
+      flex: 1 0 25%;
+    }
+  }
 }
 
 .board-layout-1 {
   @include breakpoint($mq-col2-uniboard) {
-    main:not(#board-editor) {
-      .sg-hand-wrap:not(sg-hand-wrap) {
-        padding-bottom: unset;
-        width: 100%;
-        height: calc(100% / 9 * 7);
+    .sg-hand-wrap:not(.inlined) {
+      padding-bottom: unset;
+      width: 100%;
+      height: calc(100% / 9 * 7);
+      sg-hand {
+        flex-direction: column-reverse;
+        background-image: none;
+        background-color: transparent;
+        border: none;
+        sg-hp-wrap {
+          width: 100%;
+        }
+      }
+      &.hand-bottom {
+        align-self: flex-end;
         sg-hand {
-          flex-direction: column-reverse;
-          background-image: none;
-          background-color: transparent;
-          border: none;
-          sg-hp-wrap {
-            width: 100%;
-          }
+          flex-direction: column;
         }
-        &.hand-bottom {
-          align-self: flex-end;
-          sg-hand {
-            flex-direction: column;
-          }
-        }
-        &.r-5 {
-          height: calc(100% / 9 * 5);
-        }
+      }
+      &.r-5 {
+        height: calc(100% / 9 * 5);
+      }
+      &.r-4 {
+        height: calc(100% / 9 * 4);
       }
     }
   }

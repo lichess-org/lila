@@ -20,7 +20,7 @@ import {
 } from 'shogiops/compat';
 import { parseSfen } from 'shogiops/sfen';
 import { NormalMove, Outcome, Piece } from 'shogiops/types';
-import { makeSquare, makeUsi, opposite, parseSquare, squareDist } from 'shogiops/util';
+import { makeSquareName, makeUsi, opposite, parseSquareName, squareDist } from 'shogiops/util';
 import { Chushogi } from 'shogiops/variant/chushogi';
 import { Position, PositionError } from 'shogiops/variant/position';
 import { TreeWrapper, build as makeTree, ops as treeOps, path as treePath } from 'tree';
@@ -47,6 +47,7 @@ import { StudyPracticeCtrl } from './study/practice/interfaces';
 import makeStudy from './study/studyCtrl';
 import { TreeView, ctrl as treeViewCtrl } from './treeView/treeView';
 import * as util from './util';
+import { promotableOnDrop, promote } from 'shogiops/variant/util';
 
 const li = window.lishogi;
 
@@ -471,8 +472,11 @@ export default class AnalyseCtrl {
       encodeURIComponent(sfen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  userDrop = (piece: Piece, key: Key): void => {
-    const usi = makeUsi({ role: piece.role, to: parseSquare(key) });
+  userDrop = (piece: Piece, key: Key, prom: boolean): void => {
+    let role = piece.role;
+    if (prom && promotableOnDrop(this.data.game.variant.key)(piece))
+      role = promote(this.data.game.variant.key)(role) || role;
+    const usi = makeUsi({ role: role, to: parseSquareName(key) });
     this.justPlayedUsi = usi;
     this.sound.move();
     this.sendUsi(usi);
@@ -504,14 +508,14 @@ export default class AnalyseCtrl {
     this.sound[!!capture ? 'capture' : 'move']();
 
     const posRes = this.position(this.node),
-      piece = posRes.isOk && posRes.value.board.get(parseSquare(orig))!;
+      piece = posRes.isOk && posRes.value.board.get(parseSquareName(orig))!;
     if (
       piece &&
       this.lionFirstMove === undefined &&
-      squareDist(parseSquare(orig), parseSquare(dest)) === 1 &&
+      squareDist(parseSquareName(orig), parseSquareName(dest)) === 1 &&
       (['lion', 'lionpromoted'].includes(piece.role) ||
-        (piece.role === 'eagle' && eagleLionAttacks(parseSquare(orig), piece.color).has(parseSquare(dest))) ||
-        (piece.role === 'falcon' && falconLionAttacks(parseSquare(orig), piece.color).has(parseSquare(dest))))
+        (piece.role === 'eagle' && eagleLionAttacks(parseSquareName(orig), piece.color).has(parseSquareName(dest))) ||
+        (piece.role === 'falcon' && falconLionAttacks(parseSquareName(orig), piece.color).has(parseSquareName(dest))))
     ) {
       const pos = posRes.value as Chushogi;
       this.shogiground.set({
@@ -527,14 +531,14 @@ export default class AnalyseCtrl {
       });
       this.shogiground.selectSquare(dest, false, true);
       this.lionFirstMove = {
-        from: parseSquare(orig),
-        to: parseSquare(dest),
+        from: parseSquareName(orig),
+        to: parseSquareName(dest),
       };
     } else {
-      const hadMid = this.lionFirstMove !== undefined && makeSquare(this.lionFirstMove.to) !== dest;
+      const hadMid = this.lionFirstMove !== undefined && makeSquareName(this.lionFirstMove.to) !== dest;
       const move: NormalMove = {
-        from: hadMid ? this.lionFirstMove!.from : parseSquare(orig),
-        to: parseSquare(dest),
+        from: hadMid ? this.lionFirstMove!.from : parseSquareName(orig),
+        to: parseSquareName(dest),
         promotion: prom,
         midStep: hadMid ? this.lionFirstMove!.to : undefined,
       };

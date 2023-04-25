@@ -1,6 +1,9 @@
+// todo - make these translatable
 const variantConfirms = {
-  minishogi: 'This is mini shogi, same rules but smaller board.',
+  minishogi: 'This is minishogi, same rules but smaller board.',
   chushogi: 'This is chushogi, the most popular large board shogi variant.',
+  annanshogi: 'This is annan shogi, pieces move like the friendly piece behind them.',
+  kyotoshogi: 'This is kyoto shogi, small board and promotions on every turn.',
 };
 
 function storageKey(key) {

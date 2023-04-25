@@ -319,6 +319,8 @@ object User {
   private val secondRow: List[PerfType] = List(
     PerfType.UltraBullet,
     PerfType.Minishogi,
-    PerfType.Chushogi
+    PerfType.Chushogi,
+    PerfType.Annanshogi,
+    PerfType.Kyotoshogi
   )
 }

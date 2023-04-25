@@ -6,8 +6,14 @@ import { DrawShape } from 'shogiground/draw';
 import * as sg from 'shogiground/types';
 import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
 import { Piece, Role } from 'shogiops/types';
-import { makeSquare, parseSquare } from 'shogiops/util';
-import { handRoles, pieceCanPromote, pieceForcePromote, promote as shogiPromote } from 'shogiops/variant/util';
+import { makeSquareName, parseSquareName } from 'shogiops/util';
+import {
+  handRoles,
+  pieceCanPromote,
+  pieceForcePromote,
+  promotableOnDrop,
+  promote as shogiPromote,
+} from 'shogiops/variant/util';
 import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 
@@ -78,10 +84,10 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
       move: ctrl.userMove,
       drop: ctrl.userDrop,
       unselect: (key: Key) => {
-        if (ctrl.lionFirstMove && ctrl.lionFirstMove.to === parseSquare(key)) {
+        if (ctrl.lionFirstMove && ctrl.lionFirstMove.to === parseSquareName(key)) {
           const from = ctrl.lionFirstMove.from,
             to = ctrl.lionFirstMove.to;
-          ctrl.userMove(makeSquare(from), makeSquare(to), false, undefined);
+          ctrl.userMove(makeSquareName(from), makeSquareName(to), false, undefined);
         }
       },
       insert(boardEls?: sg.BoardElements, _handEls?: sg.HandElements) {
@@ -112,13 +118,16 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
           capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
         return (
           !!piece &&
-          pieceCanPromote(variant)(piece, parseSquare(orig)!, parseSquare(dest)!, capture) &&
-          !pieceForcePromote(variant)(piece, parseSquare(dest)!)
+          pieceCanPromote(variant)(piece, parseSquareName(orig)!, parseSquareName(dest)!, capture) &&
+          !pieceForcePromote(variant)(piece, parseSquareName(dest)!)
         );
+      },
+      dropPromotionDialog(piece) {
+        return promotableOnDrop(variant)(piece as Piece);
       },
       forceMovePromotion: (orig: Key, dest: Key) => {
         const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
-        return !!piece && pieceForcePromote(variant)(piece, parseSquare(dest)!);
+        return !!piece && pieceForcePromote(variant)(piece, parseSquareName(dest)!);
       },
     },
     forsyth: {

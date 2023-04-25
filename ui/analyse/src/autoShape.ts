@@ -2,7 +2,7 @@ import { winningChances } from 'ceval';
 import { DrawShape } from 'shogiground/draw';
 import { opposite } from 'shogiground/util';
 import { Role, isDrop } from 'shogiops/types';
-import { makeSquare, parseUsi } from 'shogiops/util';
+import { makeSquareName, parseUsi } from 'shogiops/util';
 import AnalyseCtrl from './ctrl';
 
 function pieceDrop(
@@ -29,12 +29,12 @@ export function makeShapesFromUsi(
   brush: 'engine' | 'engineAlt' | 'engineThreat' | 'engineThreatAlt'
 ): DrawShape[] {
   const move = parseUsi(usi)!;
-  const to = makeSquare(move.to);
+  const to = makeSquareName(move.to);
   if (isDrop(move)) return [{ orig: to, dest: to, brush }, pieceDrop(to, move.role, color, brush)];
 
   return [
     {
-      orig: makeSquare(move.from),
+      orig: makeSquareName(move.from),
       dest: to,
       description: move.promotion ? '+' : undefined,
       brush,
@@ -56,8 +56,8 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         const move = parseUsi(hint.usi)!;
         return [
           {
-            orig: isDrop(move) ? { color, role: move.role } : makeSquare(move.from),
-            dest: isDrop(move) ? { color, role: move.role } : makeSquare(move.from),
+            orig: isDrop(move) ? { color, role: move.role } : makeSquareName(move.from),
+            dest: isDrop(move) ? { color, role: move.role } : makeSquareName(move.from),
             brush: 'engine',
           },
         ];
@@ -111,8 +111,8 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         move = parseUsi(usi);
       if (svg && move) {
         shapes = shapes.concat({
-          orig: makeSquare(move.to),
-          dest: makeSquare(move.to),
+          orig: makeSquareName(move.to),
+          dest: makeSquareName(move.to),
           customSvg: svg,
           brush: '',
         });

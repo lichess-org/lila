@@ -56,6 +56,8 @@ final class RatingChartApi(
             Correspondence,
             Minishogi,
             Chushogi,
+            Annanshogi,
+            Kyotoshogi,
             Puzzle,
             UltraBullet
           ) map { pt =>

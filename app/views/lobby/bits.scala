@@ -115,6 +115,14 @@ object bits {
 
   private def variantNameTag(variant: Variant)(implicit ctx: Context): Frag =
     variant match {
+      case Kyotoshogi =>
+        h3(dataIcon := "")(
+          s"${trans.kyotoshogi.txt()}${if (ctx.lang.language == "en") " (京都将棋)" else ""}"
+        )
+      case Annanshogi =>
+        h3(dataIcon := "")(
+          s"${trans.annanshogi.txt()}${if (ctx.lang.language == "en") " (安南将棋)" else ""}"
+        )
       case Chushogi =>
         h3(dataIcon := "(")(
           s"${trans.chushogi.txt()}${if (ctx.lang.language == "en") " (中将棋)" else ""}"

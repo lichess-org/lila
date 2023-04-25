@@ -11,7 +11,7 @@ import { eagleLionAttacks, falconLionAttacks } from 'shogiops/attacks';
 import { checksSquareNames, shogigroundSecondLionStep, usiToSquareNames } from 'shogiops/compat';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
 import { NormalMove, Piece, Role, isDrop } from 'shogiops/types';
-import { defined, makeSquare, makeUsi, opposite, parseSquare, parseUsi, squareDist } from 'shogiops/util';
+import { defined, makeSquareName, makeUsi, opposite, parseSquareName, parseUsi, squareDist } from 'shogiops/util';
 import { Chushogi } from 'shogiops/variant/chushogi';
 import { unpromote } from 'shogiops/variant/util';
 import * as blur from './blur';
@@ -195,23 +195,25 @@ export default class RoundController {
     this.sendUsi(usi, meta);
   };
 
-  private onUserDrop = (piece: Piece, key: Key, _prom: boolean, meta: sg.MoveMetadata) => {
+  private onUserDrop = (piece: Piece, key: Key, prom: boolean, meta: sg.MoveMetadata) => {
     if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedMove)) li.ab.drop(this, meta);
-
-    const usi = makeUsi({ role: piece.role, to: parseSquare(key) });
+    let role = piece.role;
+    if (prom && promotableOnDrop(this.data.game.variant.key)(piece))
+      role = promote(this.data.game.variant.key)(role) || role;
+    const usi = makeUsi({ role: role, to: parseSquareName(key) });
     this.sendUsi(usi, meta);
   };
 
   private onChushogiMove = (orig: Key, dest: Key, prom: boolean, meta: sg.MoveMetadata) => {
     const posRes = parseSfen(this.data.game.variant.key, this.stepAt(this.ply).sfen, false),
-      piece = posRes.isOk && posRes.value.board.get(parseSquare(orig))!;
+      piece = posRes.isOk && posRes.value.board.get(parseSquareName(orig))!;
     if (
       piece &&
       this.lionFirstMove === undefined &&
-      squareDist(parseSquare(orig), parseSquare(dest)) === 1 &&
+      squareDist(parseSquareName(orig), parseSquareName(dest)) === 1 &&
       (['lion', 'lionpromoted'].includes(piece.role) ||
-        (piece.role === 'eagle' && eagleLionAttacks(parseSquare(orig), piece.color).has(parseSquare(dest))) ||
-        (piece.role === 'falcon' && falconLionAttacks(parseSquare(orig), piece.color).has(parseSquare(dest))))
+        (piece.role === 'eagle' && eagleLionAttacks(parseSquareName(orig), piece.color).has(parseSquareName(dest))) ||
+        (piece.role === 'falcon' && falconLionAttacks(parseSquareName(orig), piece.color).has(parseSquareName(dest))))
     ) {
       const pos = posRes.value as Chushogi;
       this.shogiground.set({
@@ -227,14 +229,14 @@ export default class RoundController {
       });
       this.shogiground.selectSquare(dest, false, true);
       this.lionFirstMove = {
-        from: parseSquare(orig),
-        to: parseSquare(dest),
+        from: parseSquareName(orig),
+        to: parseSquareName(dest),
       };
     } else {
-      const hadMid = this.lionFirstMove !== undefined && makeSquare(this.lionFirstMove.to) !== dest;
+      const hadMid = this.lionFirstMove !== undefined && makeSquareName(this.lionFirstMove.to) !== dest;
       const move: NormalMove = {
-        from: hadMid ? this.lionFirstMove!.from : parseSquare(orig),
-        to: parseSquare(dest),
+        from: hadMid ? this.lionFirstMove!.from : parseSquareName(orig),
+        to: parseSquareName(dest),
         promotion: prom,
         midStep: hadMid ? this.lionFirstMove!.to : undefined,
       };
@@ -305,7 +307,7 @@ export default class RoundController {
       };
     }
     const move = s.usi && parseUsi(s.usi),
-      capture = isForwardStep && move && this.shogiground.state.pieces.get(makeSquare(move.to));
+      capture = isForwardStep && move && this.shogiground.state.pieces.get(makeSquareName(move.to));
     this.shogiground.set(config);
     if (s.usi && isForwardStep) {
       if (capture) sound.capture();

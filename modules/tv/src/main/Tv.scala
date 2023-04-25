@@ -134,6 +134,21 @@ object Tv {
           secondsSinceLastMove = 60 * 6,
           filters = Seq(variant(V.Chushogi))
         )
+
+    case object Annanshogi
+        extends Channel(
+          name = V.Annanshogi.name,
+          icon = P.Annanshogi.iconChar.toString,
+          secondsSinceLastMove = 60,
+          filters = Seq(variant(V.Annanshogi))
+        )
+    case object Kyotoshogi
+        extends Channel(
+          name = V.Kyotoshogi.name,
+          icon = P.Kyotoshogi.iconChar.toString,
+          secondsSinceLastMove = 30,
+          filters = Seq(variant(V.Kyotoshogi))
+        )
     case object Bot
         extends Channel(
           name = "Bot",
@@ -157,6 +172,8 @@ object Tv {
       UltraBullet,
       Minishogi,
       Chushogi,
+      Annanshogi,
+      Kyotoshogi,
       Bot,
       Computer
     )

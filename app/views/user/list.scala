@@ -55,7 +55,9 @@ object list {
               userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some),
               tournamentWinners(tourneyWinners),
               userTopPerf(leaderboards.minishogi, PerfType.Minishogi),
-              userTopPerf(leaderboards.chushogi, PerfType.Chushogi)
+              userTopPerf(leaderboards.chushogi, PerfType.Chushogi),
+              userTopPerf(leaderboards.annanshogi, PerfType.Annanshogi),
+              userTopPerf(leaderboards.kyotoshogi, PerfType.Kyotoshogi)
             )
           )
         )

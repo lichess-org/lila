@@ -104,6 +104,24 @@ object PerfType {
         iconChar = '('
       )
 
+  case object Annanshogi
+      extends PerfType(
+        14,
+        key = "annanshogi",
+        name = shogi.variant.Annanshogi.name,
+        title = shogi.variant.Annanshogi.title,
+        iconChar = ''
+      )
+
+  case object Kyotoshogi
+      extends PerfType(
+        15,
+        key = "kyotoshogi",
+        name = shogi.variant.Kyotoshogi.name,
+        title = shogi.variant.Kyotoshogi.title,
+        iconChar = ''
+      )
+
   case object Puzzle
       extends PerfType(
         20,
@@ -123,6 +141,8 @@ object PerfType {
     Standard,
     Minishogi,
     Chushogi,
+    Annanshogi,
+    Kyotoshogi,
     Puzzle
   )
   val byKey = all map { p =>
@@ -151,7 +171,9 @@ object PerfType {
     Classical,
     Correspondence,
     Minishogi,
-    Chushogi
+    Chushogi,
+    Annanshogi,
+    Kyotoshogi
   )
   val leaderboardable: List[PerfType] = List(
     Bullet,
@@ -161,23 +183,29 @@ object PerfType {
     UltraBullet,
     Correspondence,
     Minishogi,
-    Chushogi
+    Chushogi,
+    Annanshogi,
+    Kyotoshogi
   )
-  val variants: List[PerfType] = List(Minishogi, Chushogi)
+  val variants: List[PerfType] = List(Minishogi, Chushogi, Annanshogi, Kyotoshogi)
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
   def variantOf(pt: PerfType): shogi.variant.Variant =
     pt match {
-      case Chushogi  => shogi.variant.Chushogi
-      case Minishogi => shogi.variant.Minishogi
-      case _         => shogi.variant.Standard
+      case Kyotoshogi => shogi.variant.Kyotoshogi
+      case Annanshogi => shogi.variant.Annanshogi
+      case Chushogi   => shogi.variant.Chushogi
+      case Minishogi  => shogi.variant.Minishogi
+      case _          => shogi.variant.Standard
     }
 
   def byVariant(variant: shogi.variant.Variant): Option[PerfType] =
     variant match {
-      case shogi.variant.Chushogi  => Chushogi.some
-      case shogi.variant.Minishogi => Minishogi.some
-      case _                       => none
+      case shogi.variant.Kyotoshogi => Kyotoshogi.some
+      case shogi.variant.Annanshogi => Annanshogi.some
+      case shogi.variant.Chushogi   => Chushogi.some
+      case shogi.variant.Minishogi  => Minishogi.some
+      case _                        => none
     }
 
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view
@@ -206,10 +234,13 @@ object PerfType {
       case Puzzle         => I18nKeys.puzzles.txt()
       case Minishogi      => I18nKeys.minishogi.txt()
       case Chushogi       => I18nKeys.chushogi.txt()
+      case Annanshogi     => I18nKeys.annanshogi.txt()
+      case Kyotoshogi     => I18nKeys.kyotoshogi.txt()
       case pt             => pt.name
     }
 
-  val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle, Minishogi, Chushogi)
+  val translated: Set[PerfType] =
+    Set(Rapid, Classical, Correspondence, Puzzle, Minishogi, Chushogi, Annanshogi, Kyotoshogi)
 
   def desc(pt: PerfType)(implicit lang: Lang): String =
     pt match {

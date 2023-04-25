@@ -70,9 +70,15 @@ object Config extends BaseConfig
 
 trait BaseConfig {
   val variantDefault = shogi.variant.Standard
-  val variants       = List(shogi.variant.Standard.id, shogi.variant.Minishogi.id, shogi.variant.Chushogi.id)
+  val variants = List(
+    shogi.variant.Standard.id,
+    shogi.variant.Minishogi.id,
+    shogi.variant.Chushogi.id,
+    shogi.variant.Annanshogi.id,
+    shogi.variant.Kyotoshogi.id
+  )
   val aiVariants =
-    List(shogi.variant.Standard.id, shogi.variant.Minishogi.id)
+    List(shogi.variant.Standard.id, shogi.variant.Minishogi.id, shogi.variant.Kyotoshogi.id)
 
   val speeds = Speed.all.map(_.id)
 

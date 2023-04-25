@@ -15,7 +15,9 @@ private object Mappings {
   val boardApiVariants = Set(
     V.Standard.key,
     V.Minishogi.key,
-    V.Chushogi.key
+    V.Chushogi.key,
+    V.Annanshogi.key,
+    V.Kyotoshogi.key
   )
   val boardApiVariantKeys      = text.verifying(boardApiVariants contains _)
   val time                     = of[Double].verifying(HookConfig validateTime _)
