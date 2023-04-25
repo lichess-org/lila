@@ -75,7 +75,9 @@ $c-ongoing: $c-accent;
   &__info {
     @extend %flex-between-nowrap;
     &__meta {
-      white-space: nowrap;
+      @extend %break-word-hard, %ellipsis;
+      flex: 1 0 20%;
+      max-height: 5em;
       text-align: right;
       .relay-widget--ongoing & {
         color: $c-ongoing;

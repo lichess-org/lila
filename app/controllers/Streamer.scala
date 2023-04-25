@@ -194,9 +194,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def onYouTubeVideo = Action.async(parse.tolerantXml) { req =>
-    env.streamer.ytApi
-      .onVideo((req.body \ "entry" \ "channelId").text, (req.body \ "entry" \ "videoId").text)
-    fuccess(Ok)
+    val channel = (req.body \ "entry" \ "channelId").text
+    val video   = (req.body \ "entry" \ "videoId").text
+    lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
+    env.streamer.ytApi.onVideo(channel, video) inject Ok
   }
 
   def youTubePubSubChallenge = Action.async(parse.empty) { req =>
