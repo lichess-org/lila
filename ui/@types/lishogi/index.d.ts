@@ -244,7 +244,6 @@ declare type Ply = number;
 interface Variant {
   key: VariantKey;
   name: string;
-  short: string;
   title?: string;
 }
 

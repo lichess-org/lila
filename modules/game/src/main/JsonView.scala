@@ -79,9 +79,8 @@ object JsonView {
 
   implicit val variantWriter: OWrites[shogi.variant.Variant] = OWrites { v =>
     Json.obj(
-      "key"   -> v.key,
-      "name"  -> v.name,
-      "short" -> v.shortName
+      "key"  -> v.key,
+      "name" -> v.name
     )
   }
 
