@@ -13,7 +13,7 @@ import lila.app._
 import lila.game.Pov
 import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
 import lila.round.JsonView.WithFlags
-import lila.study.JsonView.kifTagsWrites
+import lila.study.JsonView.tagsWrites
 import views._
 
 final class UserAnalysis(

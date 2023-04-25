@@ -134,7 +134,7 @@ final private class ChapterMaker(
         endStatus = Chapter.EndStatus(game.status, game.winnerColor).some
       ),
       root = root,
-      tags = KifTags(tags),
+      tags = StudyTags(tags),
       order = order,
       ownerId = userId,
       practice = data.isPractice,

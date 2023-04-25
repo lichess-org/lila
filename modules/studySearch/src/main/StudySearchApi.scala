@@ -66,8 +66,7 @@ final class StudySearchApi(
       Fields.public -> s.study.isPublic
     )
 
-  private val relevantKifTags: Set[shogi.format.TagType] = Set(
-    Tag.Variant,
+  private val relevantStudyTags: Set[shogi.format.TagType] = Set(
     Tag.Event,
     Tag.Sente,
     Tag.Gote,
@@ -81,7 +80,7 @@ final class StudySearchApi(
 
   private def chapterText(c: Chapter): List[String] = {
     nodeText(c.root) :: c.tags.value.collect {
-      case Tag(name, value) if relevantKifTags.contains(name) => value
+      case Tag(name, value) if relevantStudyTags.contains(name) => value
     } ::: extraText(c)
   }
 
@@ -90,6 +89,7 @@ final class StudySearchApi(
       c.isPractice option "practice",
       c.isConceal option "conceal puzzle",
       c.isGamebook option "lesson",
+      !c.setup.variant.standard option c.setup.variant.name,
       c.description
     ).flatten
 

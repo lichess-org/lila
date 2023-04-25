@@ -4,7 +4,7 @@ import scala.util.chaining._
 
 import shogi.format.{ Tag, TagType, Tags }
 
-object KifTags {
+object StudyTags {
 
   def apply(tags: Tags): Tags =
     tags pipe filterRelevant pipe removeContradictingTermination pipe sort
@@ -55,7 +55,7 @@ object KifTags {
     )
   }
 
-  val typesToString = sortedTypes.map(_.kifName) mkString ","
+  val typesToString = sortedTypes.map(_.name) mkString ","
 
   private val relevantTypeSet: Set[TagType] = sortedTypes.toSet
 

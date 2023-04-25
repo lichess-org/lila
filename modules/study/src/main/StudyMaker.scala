@@ -98,7 +98,7 @@ final private class StudyMaker(
       ownerId: User.ID
   ): Fu[List[Chapter]] =
     for {
-      tags <- notationDump.tags(pov.game, withOpening = true, csa = false)
+      tags <- notationDump.tags(pov.game, csa = false)
       name <- Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async)
       roots = makeRoots(pov)
       chapters = roots.zipWithIndex.map { case (r, i) =>
@@ -114,7 +114,7 @@ final private class StudyMaker(
               ((roots.size - 1) == i) option Chapter.EndStatus(pov.game.status, pov.game.winnerColor)
           ),
           root = r,
-          tags = KifTags(tags),
+          tags = StudyTags(tags),
           order = 1,
           ownerId = ownerId,
           practice = false,

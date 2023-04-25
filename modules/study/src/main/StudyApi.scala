@@ -454,7 +454,7 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, setTag.chapterId) { case Study.WithChapter(study, chapter) =>
       logger.info(s"setTag $studyId $setTag")
       Contribute(who.u, study) {
-        doSetTags(study, chapter, KifTags(chapter.tags + setTag.tag), who)
+        doSetTags(study, chapter, StudyTags(chapter.tags + setTag.tag), who)
       }
     }
 
@@ -469,7 +469,7 @@ final class StudyApi(
     val chapter = oldChapter.copy(tags = tags)
     (chapter.tags != oldChapter.tags) ?? {
       chapterRepo.setTagsFor(chapter) >> {
-        KifTags.setRootClockFromTags(chapter) ?? { c =>
+        StudyTags.setRootClockFromTags(chapter) ?? { c =>
           doSetClock(Study.WithChapter(study, c), Position(c, Path.root).ref, c.root.clock)(who)
         }
       } >>-

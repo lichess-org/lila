@@ -62,7 +62,7 @@ object NotationImport {
             Result(
               root = root,
               variant = game.variant,
-              tags = KifTags(parsedNotation.tags), // tags in studies are kif format even for CSA
+              tags = StudyTags(parsedNotation.tags), // tags in studies are kif format even for CSA
               end = end
             )
         }
