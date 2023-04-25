@@ -1,5 +1,5 @@
 import { defined } from 'common/common';
-import { handicaps } from 'common/handicaps';
+import { isHandicap } from 'shogiops/handicaps';
 import { initialSfen } from 'shogiops/sfen';
 import AnalyseCtrl from './ctrl';
 import { AnalyseData } from './interfaces';
@@ -81,7 +81,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const engineName =
       ctrl.data.game.initialSfen &&
       ctrl.data.game.initialSfen !== initialSfen('standard') &&
-      !handicaps.includes(ctrl.data.game.initialSfen)
+      !isHandicap({ sfen: ctrl.data.game.initialSfen, rules: ctrl.data.game.variant.key })
         ? 'Fairy Stockfish'
         : 'YaneuraOu V7';
     return `<div id="acpl-chart-loader"><span>${engineName}<br>server analysis</span>${li.spinnerHtml}</div>`;
@@ -107,7 +107,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if (panel == 'move-times' && !li.movetimeChart)
       try {
         li.loadScript('javascripts/chart/movetime.js').then(function () {
-          li.movetimeChart(data, ctrl.trans, data.pref.notation);
+          li.movetimeChart(data, ctrl.trans);
         });
       } catch (e) {}
     if (panel == 'computer-analysis' && $('#acpl-chart').length) setTimeout(startAdvantageChart, 200);

@@ -8,6 +8,7 @@ import stepwiseScroll from 'common/wheel';
 import { playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
+import { isHandicap } from 'shogiops/handicaps';
 import { parseSfen } from 'shogiops/sfen';
 import { VNode, h } from 'snabbdom';
 import { path as treePath } from 'tree';
@@ -41,20 +42,18 @@ import { studyAdvancedButton } from './viewModal';
 const li = window.lishogi;
 
 function renderResult(ctrl: AnalyseCtrl): MaybeVNode {
+  const handicap = isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen });
   const render = (status: String, winner?: Color) =>
-    h('div.status', [
-      status,
-      winner ? ', ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, ctrl.data.game.initialSfen) : null,
-    ]);
+    h('div.status', [status, winner ? ', ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, handicap) : null]);
   if (ctrl.data.game.status.id >= 30) {
-    const status = statusView(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, ctrl.data.game.initialSfen);
+    const status = statusView(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, handicap);
     return render(status, ctrl.data.game.winner);
   } else if (ctrl.study && ctrl.study.data.chapter.setup.endStatus) {
     const status = statusView(
       ctrl.trans,
       ctrl.study.data.chapter.setup.endStatus.status,
       ctrl.study.data.chapter.setup.endStatus.winner,
-      ctrl.data.game.initialSfen
+      handicap
     );
     return render(status, ctrl.study.data.chapter.setup.endStatus.winner);
   } else return null;

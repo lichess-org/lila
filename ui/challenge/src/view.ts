@@ -38,6 +38,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
+    const trans = ctrl.trans();
     return h(
       'div.challenge.' + dir + '.c-' + c.id,
       {
@@ -50,7 +51,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
           h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
           h(
             'span.desc',
-            [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • ')
+            [trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), trans(c.variant.key)].join(' • ')
           ),
         ]),
         h('i', {

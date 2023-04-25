@@ -1,6 +1,7 @@
 import { transWithColorName } from 'common/colorName';
 import { bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
+import { isHandicap } from 'shogiops/handicaps';
 import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { renderIndexAndMove } from '../moveView';
@@ -65,7 +66,6 @@ const feedback = {
                 'move',
                 renderIndexAndMove(
                   {
-                    notation: ctrl.notation,
                     variant: ctrl.variant,
                     withDots: true,
                     showGlyphs: true,
@@ -77,7 +77,15 @@ const feedback = {
               )
             )
           ),
-          h('em', transWithColorName(ctrl.trans, 'findBetterMoveForX', ctrl.color, ctrl.initialSfen)),
+          h(
+            'em',
+            transWithColorName(
+              ctrl.trans,
+              'findBetterMoveForX',
+              ctrl.color,
+              isHandicap({ rules: ctrl.variant, sfen: ctrl.initialSfen })
+            )
+          ),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -109,7 +117,15 @@ const feedback = {
         h('div.icon', '✗'),
         h('div.instruction', [
           h('strong', ctrl.noarg('youCanDoBetter')),
-          h('em', transWithColorName(ctrl.trans, 'tryAnotherMoveForX', ctrl.color, ctrl.initialSfen)),
+          h(
+            'em',
+            transWithColorName(
+              ctrl.trans,
+              'tryAnotherMoveForX',
+              ctrl.color,
+              isHandicap({ rules: ctrl.variant, sfen: ctrl.initialSfen })
+            )
+          ),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -140,7 +156,6 @@ const feedback = {
                   'strong',
                   renderIndexAndMove(
                     {
-                      notation: ctrl.notation,
                       variant: ctrl.variant,
                       withDots: true,
                       showEval: false,
@@ -175,7 +190,8 @@ const feedback = {
           h('div.player', [h('div.icon', spinner()), h('div.instruction', ctrl.noarg('waitingForAnalysis'))])
         ),
       ];
-    const nothing = !ctrl.completion()[1];
+    const nothing = !ctrl.completion()[1],
+      handicap = isHandicap({ rules: ctrl.variant, sfen: ctrl.initialSfen });
     return [
       h('div.player', [
         h('div.no-square', h('piece.king.' + ctrl.color)),
@@ -183,8 +199,8 @@ const feedback = {
           h(
             'em',
             nothing
-              ? transWithColorName(ctrl.trans, 'noMistakesFoundForX', ctrl.color, ctrl.initialSfen)
-              : transWithColorName(ctrl.trans, 'doneReviewingXMistakes', ctrl.color, ctrl.initialSfen)
+              ? transWithColorName(ctrl.trans, 'noMistakesFoundForX', ctrl.color, handicap)
+              : transWithColorName(ctrl.trans, 'doneReviewingXMistakes', ctrl.color, handicap)
           ),
           h('div.choices.end', [
             nothing
@@ -201,7 +217,7 @@ const feedback = {
               {
                 hook: bind('click', ctrl.flip),
               },
-              transWithColorName(ctrl.trans, 'reviewXMistakes', ctrl.color, ctrl.initialSfen)
+              transWithColorName(ctrl.trans, 'reviewXMistakes', ctrl.color, handicap)
             ),
           ]),
         ]),

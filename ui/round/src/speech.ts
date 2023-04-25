@@ -2,6 +2,7 @@ import viewStatus from 'game/view/status';
 import { transWithColorName } from 'common/colorName';
 import RoundController from './ctrl';
 import { Step } from './interfaces';
+import { isHandicap } from 'shogiops/handicaps';
 
 export function setup(ctrl: RoundController) {
   window.lishogi.pubsub.on('speech.enabled', onSpeechChange(ctrl));
@@ -17,12 +18,13 @@ function onSpeechChange(ctrl: RoundController) {
 }
 
 export function status(ctrl: RoundController) {
-  const s = viewStatus(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, ctrl.data.game.initialSfen);
+  const handicap = isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen }),
+    s = viewStatus(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, handicap);
   if (s === 'playingRightNow') window.LishogiSpeech!.step(ctrl.stepAt(ctrl.ply), false);
   else {
     withSpeech(_ => window.lishogi.sound.say({ en: s, jp: s }, false));
     const w = ctrl.data.game.winner,
-      text = w && transWithColorName(ctrl.trans, 'xIsVictorious', w, ctrl.data.game.initialSfen);
+      text = w && transWithColorName(ctrl.trans, 'xIsVictorious', w, handicap);
     if (text) withSpeech(_ => window.lishogi.sound.say({ en: text, jp: text }, false));
   }
 }

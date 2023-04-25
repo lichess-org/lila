@@ -1,5 +1,6 @@
 import { transWithColorName } from 'common/colorName';
 import { MaybeVNodes, bind } from 'common/snabbdom';
+import { isHandicap } from 'shogiops/handicaps';
 import { Outcome } from 'shogiops/types';
 import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -45,7 +46,18 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
     h('div.instruction', [
       h('strong', root.trans.noarg(end.winner ? 'checkmate' : 'draw')),
       end.winner
-        ? h('em', h('color', transWithColorName(root.trans, 'xWinsGame', end.winner, root.data.game.initialSfen)))
+        ? h(
+            'em',
+            h(
+              'color',
+              transWithColorName(
+                root.trans,
+                'xWinsGame',
+                end.winner,
+                isHandicap({ rules: root.data.game.variant.key, sfen: root.data.game.initialSfen })
+              )
+            )
+          )
         : h('em', root.trans.noarg('theGameIsADraw')),
     ]),
   ]);

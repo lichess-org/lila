@@ -11,6 +11,7 @@ import RoundController from '../ctrl';
 import { RoundData } from '../interfaces';
 import * as round from '../round';
 import * as util from '../util';
+import { isHandicap } from 'shogiops/handicaps';
 
 const scrollMax = 99999,
   moveTag = 'm2';
@@ -42,7 +43,8 @@ function plyOffset(ctrl: RoundController): number {
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
   if (status.finished(ctrl.data) || status.aborted(ctrl.data)) {
-    const winner = ctrl.data.game.winner;
+    const winner = ctrl.data.game.winner,
+      handicap = isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen });
     return h('div.result-wrap', [
       h(
         'p.status',
@@ -53,8 +55,8 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
           }),
         },
         [
-          viewStatus(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, ctrl.data.game.initialSfen),
-          winner ? ' • ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, ctrl.data.game.initialSfen) : '',
+          viewStatus(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, handicap),
+          winner ? ' • ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, handicap) : '',
         ]
       ),
     ]);
@@ -70,13 +72,14 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const curMove = ctrl.ply - (ctrl.data.game.startedAtPly || 0) + (ctrl.data.game.startedAtMove ?? 1) - 1;
 
   steps.slice(1).forEach((s, i) => {
-    const moveNumber = i + (ctrl.data.game.startedAtMove ?? 1),
-      useColorIcon = notationsWithColor.includes(ctrl.data.pref.notation);
+    const moveNumber = i + (ctrl.data.game.startedAtMove ?? 1);
     els.push(h('index', moveNumber));
     els.push(
       h(
         moveTag +
-          (useColorIcon ? '.color-icon.' + ((i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'gote' : 'sente') : ''),
+          (notationsWithColor()
+            ? '.color-icon.' + ((i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'gote' : 'sente')
+            : ''),
         {
           class: { active: moveNumber === curMove },
         },
@@ -170,7 +173,12 @@ function initMessage(d: RoundData, trans: Trans) {
   return game.playable(d) && d.game.plies === 0 && !d.player.spectator
     ? h('div.message', util.justIcon(''), [
         h('div', [
-          transWithColorName(trans, 'youPlayAsX', d.player.color, d.game.initialSfen),
+          transWithColorName(
+            trans,
+            'youPlayAsX',
+            d.player.color,
+            isHandicap({ rules: d.game.variant.key, sfen: d.game.initialSfen })
+          ),
           ...(d.player.color === 'sente' ? [h('br'), h('strong', trans.noarg('itsYourTurn'))] : []),
         ]),
       ])

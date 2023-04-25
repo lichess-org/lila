@@ -27,15 +27,11 @@ function stats(data: TournamentData, trans: Trans): VNode {
       numberRow(noarg('gamesPlayed'), data.stats.games),
       numberRow(noarg('movesPlayed'), data.stats.moves),
       numberRow(
-        transWithColorName(trans, 'xWins', 'sente', undefined),
+        transWithColorName(trans, 'xWins', 'sente', false),
         [data.stats.senteWins, data.stats.games],
         'percent'
       ),
-      numberRow(
-        transWithColorName(trans, 'xWins', 'gote', undefined),
-        [data.stats.goteWins, data.stats.games],
-        'percent'
-      ),
+      numberRow(transWithColorName(trans, 'xWins', 'gote', false), [data.stats.goteWins, data.stats.games], 'percent'),
       numberRow(noarg('draws'), [data.stats.draws, data.stats.games], 'percent'),
     ];
 

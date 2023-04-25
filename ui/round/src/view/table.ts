@@ -2,6 +2,7 @@ import { colorName, transWithColorName } from 'common/colorName';
 import { MaybeVNodes } from 'common/snabbdom';
 import * as game from 'game';
 import * as status from 'game/status';
+import { isHandicap } from 'shogiops/handicaps';
 import { h } from 'snabbdom';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
@@ -20,7 +21,11 @@ function renderPlayer(ctrl: RoundController, position: Position) {
     ? h('div.user-link.online.ruser.ruser-' + position, [
         h(`div.player-color.${player.color}`, {
           attrs: {
-            title: colorName(ctrl.trans.noarg, player.color, ctrl.data.game.initialSfen),
+            title: colorName(
+              ctrl.trans.noarg,
+              player.color,
+              isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen })
+            ),
           },
         }),
         h('i.line'),
@@ -108,7 +113,12 @@ function whosTurn(ctrl: RoundController, color: Color, position: Position) {
       ? h(
           'div.rclock-turn__text',
           d.player.spectator
-            ? transWithColorName(ctrl.trans, 'xPlays', d.game.player, d.game.initialSfen)
+            ? transWithColorName(
+                ctrl.trans,
+                'xPlays',
+                d.game.player,
+                isHandicap({ rules: d.game.variant.key, sfen: d.game.initialSfen })
+              )
             : ctrl.trans(d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent')
         )
       : null,

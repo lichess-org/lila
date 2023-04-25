@@ -27,7 +27,7 @@ function initial(ctrl: Controller): VNode {
     h('div.player', [
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('yourTurn')),
-        h('em', transWithColorName(ctrl.trans, 'findTheBestMoveForX', ctrl.vm.pov, undefined)),
+        h('em', transWithColorName(ctrl.trans, 'findTheBestMoveForX', ctrl.vm.pov, false)),
       ]),
     ]),
     viewSolution(ctrl),

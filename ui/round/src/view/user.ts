@@ -1,5 +1,6 @@
 import { colorName } from 'common/colorName';
 import { Player } from 'game';
+import { isHandicap } from 'shogiops/handicaps';
 import { h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
@@ -34,7 +35,11 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           `div.player-color.${player.color}`,
           {
             attrs: {
-              title: colorName(ctrl.trans.noarg, player.color, ctrl.data.game.initialSfen),
+              title: colorName(
+                ctrl.trans.noarg,
+                player.color,
+                isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen })
+              ),
             },
           },
           []
@@ -89,7 +94,11 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         `div.player-color.${player.color}`,
         {
           attrs: {
-            title: colorName(ctrl.trans.noarg, player.color, ctrl.data.game.initialSfen),
+            title: colorName(
+              ctrl.trans.noarg,
+              player.color,
+              isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen })
+            ),
           },
         },
         []

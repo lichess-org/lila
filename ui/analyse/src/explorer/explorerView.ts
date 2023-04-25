@@ -378,7 +378,7 @@ function show(ctrl: AnalyseCtrl) {
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
   if (variant.key === 'standard') return ctrl.trans.noarg('openingExplorer');
-  return ctrl.trans('xOpeningExplorer', variant.name);
+  return ctrl.trans('xOpeningExplorer', ctrl.trans(variant.key));
 }
 
 function showConfig(ctrl: AnalyseCtrl): VNode {
