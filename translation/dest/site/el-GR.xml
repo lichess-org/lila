@@ -663,6 +663,8 @@
   <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
   <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να βοηθηθείτε.</string>
   <string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
+  <string name="simulAddExtraTimePerPlayer">Προσθήκη χρόνου στο ρολόι κάθε παίκτη που συνδέεται στο σιμουλτανέ.</string>
+  <string name="simulHostExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου ανά παίκτη</string>
   <string name="lichessTournaments">Πρωταθλήματα lichess</string>
   <string name="tournamentFAQ">Τεκμηρίωση πρωταθλημάτων τύπου αρένας</string>
   <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το πρωτάθλημα</string>
@@ -779,6 +781,7 @@
   <string name="bestWasX">Το καλύτερο ήταν %s</string>
   <string name="youBrowsedAway">Απομακρυνθήκατε</string>
   <string name="resumePractice">Συνεχίσετε την πρακτική</string>
+  <string name="drawByFiftyMoves">Ισοπαλία λόγω του κανόνα των 50 κινήσεων.</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη.</string>
   <string name="computerThinking">Ο υπολογιστής σκέφτεται ...</string>
   <string name="seeBestMove">Δείτε την καλύτερη κίνηση</string>
