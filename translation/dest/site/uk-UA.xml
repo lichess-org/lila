@@ -60,13 +60,13 @@
   <string name="analysis">Аналіз</string>
   <string name="depthX">Глибина %s</string>
   <string name="usingServerAnalysis">Використовуючи комп\'ютерний аналіз</string>
-  <string name="loadingEngine">Готування рушія...</string>
-  <string name="calculatingMoves">Обчислення ходів...</string>
+  <string name="loadingEngine">Завантаження рушія...</string>
+  <string name="calculatingMoves">Розрахунок ходів...</string>
   <string name="engineFailed">Помилка завантаження рушія</string>
   <string name="cloudAnalysis">Хмарний аналіз</string>
   <string name="goDeeper">Ще глибше</string>
   <string name="showThreat">Показати загрозу</string>
-  <string name="inLocalBrowser">на комп\'ютері</string>
+  <string name="inLocalBrowser">у браузері</string>
   <string name="toggleLocalEvaluation">Включити аналіз на комп\'ютері</string>
   <string name="promoteVariation">Зробити варіант головним</string>
   <string name="makeMainLine">Зробити цей варіант основним</string>
