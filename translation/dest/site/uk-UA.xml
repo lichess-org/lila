@@ -68,13 +68,13 @@
   <string name="showThreat">Показати загрозу</string>
   <string name="inLocalBrowser">у браузері</string>
   <string name="toggleLocalEvaluation">Включити аналіз на комп\'ютері</string>
-  <string name="promoteVariation">Зробити варіант головним</string>
-  <string name="makeMainLine">Зробити цей варіант основним</string>
+  <string name="promoteVariation">Підвищити рівень</string>
+  <string name="makeMainLine">Зробити варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
-  <string name="forceVariation">Зробити основним</string>
+  <string name="forceVariation">Зробити варіантом</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
-  <string name="variantWin">Переможний варіант</string>
+  <string name="variantWin">Виграш у варіанті</string>
   <string name="insufficientMaterial">Недостатньо матеріалу</string>
   <string name="pawnMove">Хід пішака</string>
   <string name="capture">Взяття</string>
@@ -88,7 +88,7 @@
   <string name="averageRatingX">Середній рейтинг %s</string>
   <string name="recentGames">Останні ігри</string>
   <string name="topGames">Кращі ігри</string>
-  <string name="masterDbExplanation">Два мільйони ігор за дошкою %1$s+ гравців FIDE з рейтингом від %2$s до %3$s</string>
+  <string name="masterDbExplanation">Ігор за дошкою гравців FIDE з рейтингом %1$s+ з %2$s по %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s напівхід</item>
     <item quantity="few">Мат в %s напівходи</item>
