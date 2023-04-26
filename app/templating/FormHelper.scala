@@ -173,7 +173,7 @@ trait FormHelper { self: I18nHelper =>
           cls   := "form-control"
         )(disabled option (st.disabled := true))(validationModifiers(field))(
           default map { option(value := "")(_) },
-          options.toSeq map { case (value, name) =>
+          options.toSeq map { (value, name) =>
             option(
               st.value := value.toString,
               field.value.has(value.toString) option selected

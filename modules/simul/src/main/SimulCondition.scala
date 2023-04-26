@@ -120,17 +120,16 @@ object SimulCondition:
     import play.api.data.Forms.*
     import lila.common.Form.{ *, given }
     val perfKeys = PerfType.nonPuzzle.map(_.key)
-    def perfChoices(using lang: Lang) =
+    def perfChoices(using Lang) =
       PerfType.nonPuzzle.map { pt =>
         pt.key -> pt.trans
       }
     case class RatingSetup(perf: Option[Perf.Key], rating: Option[Int]):
-      def convert[A](f: (PerfType, Int) => A): Option[A] =
-        for {
-          perf     <- perf
-          perfType <- PerfType(perf)
-          rating   <- rating
-        } yield f(perfType, rating)
+      def convert[A](f: (PerfType, Int) => A): Option[A] = for
+        perf     <- perf
+        perfType <- PerfType(perf)
+        rating   <- rating
+      yield f(perfType, rating)
 
     val maxRatings =
       List(2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1100, 1000, 900, 800)
