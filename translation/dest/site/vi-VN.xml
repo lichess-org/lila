@@ -627,6 +627,8 @@
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian cho đồng hồ của bạn để đấu cờ đồng loạt dễ hơn.</string>
   <string name="simulHostExtraTime">Thời gian thêm cho người chủ trì</string>
+  <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu vào đồng hồ của bạn cho mỗi người chơi tham gia mô phỏng.</string>
+  <string name="simulHostExtraTimePerPlayer">Thêm thời gian cho người chủ trì cho mỗi người tham gia trận cờ đồng loạt</string>
   <string name="lichessTournaments">Các giải đấu Lichess</string>
   <string name="tournamentFAQ">Các câu hỏi thường gặp về giải đấu đấu trường (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
@@ -905,4 +907,5 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="lichessDbExplanation">Các ván đấu tính Elo được lấy từ tất cả các kỳ thủ trên Lichess</string>
   <string name="switchSides">Đổi bên</string>
   <string name="closingAccountWithdrawAppeal">Việc đóng tài khoản sẽ rút lại kháng nghị của bạn</string>
+  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
 </resources>
