@@ -635,7 +635,8 @@ object Game {
 
   val analysableVariants: Set[Variant] = Set(
     shogi.variant.Standard,
-    shogi.variant.Minishogi
+    shogi.variant.Minishogi,
+    shogi.variant.Kyotoshogi
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
