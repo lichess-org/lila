@@ -10,6 +10,7 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
+import lila.gathering.Condition
 
 object BSONHandlers:
 

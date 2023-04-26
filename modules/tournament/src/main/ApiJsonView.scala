@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.LightUserApi
+import lila.gathering.Condition
 
 final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
 

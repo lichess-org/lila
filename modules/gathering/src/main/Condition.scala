@@ -1,4 +1,4 @@
-package lila.tournament
+package lila.gathering
 
 import play.api.i18n.Lang
 
@@ -30,7 +30,7 @@ object Condition:
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond:
-    def name(using lang: Lang) = "Only titled players"
+    def name(using Lang) = "Only titled players"
     def apply(user: User) =
       if (user.title.exists(_ != Title.LM) && user.noBot) Accepted
       else Refused(l => name(using l))
@@ -38,23 +38,21 @@ object Condition:
   case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition with FlatCond:
 
     def apply(user: User) =
-      if (user.hasTitle) Accepted
+      if user.hasTitle then Accepted
       else
         perf match
           case Some(p) if user.perfs(p).nb >= nb => Accepted
           case Some(p) =>
-            Refused { lang =>
+            Refused: lang =>
               val missing = nb - user.perfs(p).nb
               trans.needNbMorePerfGames.pluralTxt(missing, missing, p.trans(using lang))(using lang)
-            }
           case None if user.count.rated >= nb => Accepted
           case None =>
-            Refused { lang =>
+            Refused: lang =>
               val missing = nb - user.count.rated
               trans.needNbMoreGames.pluralSameTxt(missing)(using lang)
-            }
 
-    def name(using lang: Lang) =
+    def name(using Lang) =
       perf match
         case None    => trans.moreThanNbRatedGames.pluralSameTxt(nb)
         case Some(p) => trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, p.trans)
@@ -200,9 +198,9 @@ object Condition:
     ): Fu[All.WithVerdicts] =
       all.withRejoinVerdicts(user, getUserTeamIds)
     def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamId]])(
-        tour: Tournament
+        conditions: Condition.All
     )(using Executor): Fu[Boolean] =
-      apply(tour.conditions, user, getUserTeamIds).dmap(_.accepted)
+      apply(conditions, user, getUserTeamIds).dmap(_.accepted)
 
   object BSONHandlers:
     import reactivemongo.api.bson.*
