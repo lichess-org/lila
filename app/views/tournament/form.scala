@@ -37,7 +37,7 @@ object form:
             fields.clock,
             form3.split(fields.minutes, fields.waitMinutes),
             form3.split(fields.description(true), fields.startPosition),
-            fieldset(cls := "conditions")(
+            form3.fieldset(trans.advancedSettings())(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
                 condition(form, fields, auto = true, teams = leaderTeams, tour = none),
@@ -78,7 +78,7 @@ object form:
             ),
             form3.split(fields.description(true), fields.startPosition),
             form3.globalError(form),
-            fieldset(cls := "conditions")(
+            form3.fieldset(trans.advancedSettings())(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
                 condition(form, fields, auto = true, teams = myTeams, tour = tour.some)
@@ -293,7 +293,6 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(implicit
     )(form3.flatpickr(_))
   def advancedSettings =
     frag(
-      legend(trans.advancedSettings()),
       errMsg(form("conditions")),
       p(
         strong(dataIcon := "", cls := "text")(trans.recommendNotTouching()),

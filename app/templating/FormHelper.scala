@@ -241,6 +241,9 @@ trait FormHelper { self: I18nHelper =>
         div(cls := "form-group is-invalid")(error(err))
       }
 
+    def fieldset(legend: Frag): Tag =
+      st.fieldset(cls := "form-fieldset")(st.legend(legend))
+
     private val dataEnableTime = attr("data-enable-time")
     private val dataTime24h    = attr("data-time_24h")
     private val dataMinDate    = attr("data-mindate")

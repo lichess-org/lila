@@ -76,85 +76,92 @@ object form:
           small(cls := "form-help")(trans.inappropriateNameWarning())
         )
       },
-      form3.group(form("variant"), trans.simulVariantsHint()) { f =>
-        frag(
-          div(cls := "variants")(
-            views.html.setup.filter.renderCheckboxes(
-              form,
-              "variants",
-              translatedVariantChoicesWithVariants,
-              checks = form.value
-                .map(_.variants.map(_.toString))
-                .getOrElse(simul.??(_.variants.map(_.id.toString)))
-                .toSet
+      form3.fieldset("Games")(
+        form3.group(form("variant"), trans.simulVariantsHint()) { f =>
+          frag(
+            div(cls := "variants")(
+              views.html.setup.filter.renderCheckboxes(
+                form,
+                "variants",
+                translatedVariantChoicesWithVariants,
+                checks = form.value
+                  .map(_.variants.map(_.toString))
+                  .getOrElse(simul.??(_.variants.map(_.id.toString)))
+                  .toSet
+              )
+            ),
+            errMsg(f)
+          )
+        },
+        form3.split(
+          form3.group(
+            form("position"),
+            trans.startPosition(),
+            klass = "position",
+            half = true,
+            help = trans
+              .positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt()))
+              .some
+          )(form3.input(_)),
+          form3.group(form("color"), trans.simulHostcolor(), half = true)(
+            form3.select(_, colorChoices)
+          )
+        )
+      ),
+      form3.fieldset("Clock")(
+        form3.split(
+          form3.group(
+            form("clockTime"),
+            trans.clockInitialTime(),
+            help = trans.simulClockHint().some,
+            half = true
+          )(form3.select(_, clockTimeChoices)),
+          form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
+            form3.select(_, clockIncrementChoices)
+          )
+        ),
+        form3.split(
+          form3.group(
+            form("clockExtra"),
+            trans.simulHostExtraTime(),
+            help = trans.simulAddExtraTime().some,
+            half = true
+          )(
+            form3.select(_, clockExtraChoices)
+          ),
+          form3.group(
+            form("clockExtraPerPlayer"),
+            trans.simulHostExtraTimePerPlayer(),
+            help = trans.simulAddExtraTimePerPlayer().some,
+            half = true
+          )(
+            form3.select(_, clockExtraPerPlayerChoices)
+          )
+        )
+      ),
+      form3.fieldset("Entry conditions")(
+        form3.split(
+          teams.nonEmpty option
+            form3.group(form("conditions.team"), trans.onlyMembersOfTeam(), half = true)(
+              form3.select(_, List(("", trans.noRestriction.txt())) ::: teams.map(_.pair))
             )
+        ),
+        form3.split(
+          form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
+            form3.select(_, SimulCondition.DataForm.minRatingChoices)
           ),
-          errMsg(f)
-        )
-      },
-      form3.split(
-        form3.group(
-          form("clockTime"),
-          trans.clockInitialTime(),
-          help = trans.simulClockHint().some,
-          half = true
-        )(form3.select(_, clockTimeChoices)),
-        form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
-          form3.select(_, clockIncrementChoices)
-        )
-      ),
-      form3.split(
-        form3.group(
-          form("clockExtra"),
-          trans.simulHostExtraTime(),
-          help = trans.simulAddExtraTime().some,
-          half = true
-        )(
-          form3.select(_, clockExtraChoices)
+          form3.group(form("conditions.minRating.perf"), frag("In variant"), half = true)(
+            form3.select(_, SimulCondition.DataForm.perfChoices)
+          )
         ),
-        form3.group(
-          form("clockExtraPerPlayer"),
-          trans.simulHostExtraTimePerPlayer(),
-          help = trans.simulAddExtraTimePerPlayer().some,
-          half = true
-        )(
-          form3.select(_, clockExtraPerPlayerChoices)
-        )
-      ),
-      form3.split(
-        form3.group(form("color"), trans.simulHostcolor(), half = true)(
-          form3.select(_, colorChoices)
-        )
-      ),
-      form3.split(
-        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
-          form3.select(_, SimulCondition.DataForm.minRatingChoices)
-        ),
-        form3.group(form("conditions.minRating.perf"), frag("In variant"), half = true)(
-          form3.select(_, SimulCondition.DataForm.perfChoices)
-        )
-      ),
-      form3.split(
-        form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
-          form3.select(_, SimulCondition.DataForm.maxRatingChoices)
-        ),
-        form3.group(form("conditions.maxRating.perf"), frag("In variant"), half = true)(
-          form3.select(_, SimulCondition.DataForm.perfChoices)
-        )
-      ),
-      form3.split(
-        teams.nonEmpty option
-          form3.group(form("conditions.team"), trans.onlyMembersOfTeam(), half = true)(
-            form3.select(_, List(("", trans.noRestriction.txt())) ::: teams.map(_.pair))
+        form3.split(
+          form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
+            form3.select(_, SimulCondition.DataForm.maxRatingChoices)
           ),
-        form3.group(
-          form("position"),
-          trans.startPosition(),
-          klass = "position",
-          half = true,
-          help =
-            trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
-        )(form3.input(_))
+          form3.group(form("conditions.maxRating.perf"), frag("In variant"), half = true)(
+            form3.select(_, SimulCondition.DataForm.perfChoices)
+          )
+        )
       ),
       form3.group(
         form("estimatedStartAt"),
