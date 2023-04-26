@@ -16,7 +16,7 @@ object created:
   def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using Context) =
     bits.layout(
       u = u,
-      title = s"${u.username} recent tournaments",
+      title = s"${u.username} created tournaments",
       path = path,
       moreJs = infiniteScrollTag
     ) {
