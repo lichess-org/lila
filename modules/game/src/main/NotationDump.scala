@@ -25,7 +25,14 @@ final class NotationDump(
   ): Fu[Notation] = {
     val tagsFuture =
       if (flags.tags)
-        tags(game, csa = flags.csa, teams = teams)
+        tags(
+          game,
+          if (flags.csa && game.variant.standard)
+            Tag.timeControlCsa(game.clock.map(_.config))
+          else
+            Tag.timeControlKif(game.clock.map(_.config)),
+          teams = teams
+        )
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val moves = flags.moves ?? {
@@ -52,7 +59,7 @@ final class NotationDump(
         }
       }
       val terminationMove =
-        if (flags.csa)
+        if (flags.csa && game.variant.standard)
           Csa.createTerminationMove(
             game.status,
             game.winnerColor.fold(false)(_ == game.turnColor),
@@ -103,7 +110,7 @@ final class NotationDump(
 
   def tags(
       game: Game,
-      csa: Boolean,
+      timeControlTag: Tag,
       teams: Option[Color.Map[String]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (sente, gote) =>
@@ -131,10 +138,7 @@ final class NotationDump(
             List(
               Tag(_.Start, dateAndTime(game.createdAt)),
               Tag(_.End, dateAndTime(game.movedAt)),
-              if (csa)
-                Tag.timeControlCsa(game.clock.map(_.config)) // todo
-              else
-                Tag.timeControlKif(game.clock.map(_.config))
+              timeControlTag
             )
           }
         }

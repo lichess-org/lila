@@ -117,7 +117,7 @@ final private class ChapterMaker(
       userId: User.ID
   ): Fu[Chapter] =
     for {
-      tags <- notationDump.tags(game, csa = false)
+      tags <- notationDump.tags(game, shogi.format.Tag(_.TimeControl, game.clock.fold("")(_.config.show)))
       name <- {
         if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply

@@ -98,7 +98,10 @@ final private class StudyMaker(
       ownerId: User.ID
   ): Fu[List[Chapter]] =
     for {
-      tags <- notationDump.tags(pov.game, csa = false)
+      tags <- notationDump.tags(
+        pov.game,
+        shogi.format.Tag(_.TimeControl, pov.game.clock.fold("")(_.config.show))
+      )
       name <- Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async)
       roots = makeRoots(pov)
       chapters = roots.zipWithIndex.map { case (r, i) =>
