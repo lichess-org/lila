@@ -1,5 +1,7 @@
+import { colorName, transWithColorName } from 'common/colorName';
 import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
+import { isHandicap } from 'shogiops/handicaps';
 import { VNode, h, thunk } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { option } from '../util';
@@ -33,10 +35,16 @@ let selectedType: string;
 
 type TagRow = (string | VNode)[];
 
-function renderKifTags(chapter: StudyChapter, submit, types: string[], trans: Trans): VNode {
+function renderTags(chapter: StudyChapter, submit, types: string[], trans: Trans): VNode {
   let rows: TagRow[] = [];
-  const wantedTags = chapter.tags.filter(t => !unwantedTags.includes(t[0]));
-  rows = rows.concat(wantedTags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]));
+  const wantedTags = chapter.tags.filter(t => !unwantedTags.includes(t[0])),
+    handicap = isHandicap({ rules: chapter.setup.variant.key, sfen: chapter.initialSfen });
+  rows = rows.concat(
+    wantedTags.map(tag => [
+      translateTag(trans, tag[0], handicap),
+      submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1]),
+    ])
+  );
   if (submit) {
     const existingTypes = wantedTags.map(t => t[0]);
     rows.push([
@@ -62,7 +70,7 @@ function renderKifTags(chapter: StudyChapter, submit, types: string[], trans: Tr
           ...types
             .filter(t => !unwantedTags.includes(t))
             .map(t => {
-              if (!existingTypes.includes(t)) return option(t, '', t);
+              if (!existingTypes.includes(t)) return option(t, '', translateTag(trans, t, handicap));
               return undefined;
             }),
         ]
@@ -113,8 +121,22 @@ export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
 function doRender(root: StudyCtrl): VNode {
   return h(
     'div',
-    renderKifTags(root.tags.getChapter(), root.vm.mode.write && root.tags.submit, root.tags.types, root.trans)
+    renderTags(root.tags.getChapter(), root.vm.mode.write && root.tags.submit, root.tags.types, root.trans)
   );
+}
+
+function translateTag(trans: Trans, tag: string, handicap: boolean): string {
+  const transformString = str => `${str[0].toLowerCase()}${str.slice(1)}`;
+  if (tag === 'Sente' || tag === 'Gote') {
+    return colorName(trans.noarg, tag.toLowerCase() as Color, handicap);
+  } else if (tag.startsWith('Sente') || tag.startsWith('Gote')) {
+    return transWithColorName(
+      trans,
+      (tag.replace(/^(Sente|Gote)/, 'x') + 'Tag') as I18nKey,
+      tag.startsWith('Sente') ? 'sente' : 'gote',
+      handicap
+    );
+  } else return trans.noarg((transformString(tag) + 'Tag') as I18nKey);
 }
 
 export function view(root: StudyCtrl): VNode {
