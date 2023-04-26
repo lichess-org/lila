@@ -161,6 +161,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 attrs: {
                   'data-icon': '',
                   title: ctrl.trans.noarg('copyChapterPgnDescription'),
+                  href: `#`,
                 },
                 hook: bind('click', async event => {
                   const iconFeedback = (success: boolean) => {
