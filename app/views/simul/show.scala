@@ -91,7 +91,7 @@ object show {
                   " ",
                   h.english,
                   " • ",
-                  views.html.base.bits.sfenAnalysisLink(pos.sfen)
+                  views.html.base.bits.sfenAnalysisLink(h.sfen)
                 )
               } orElse sim.position.map { sfen =>
                 frag(
