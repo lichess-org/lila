@@ -56,7 +56,7 @@ object SwissCondition:
     def name(perf: PerfType)(using lang: Lang) =
       trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, perf.trans)
 
-  case class MaxRating(rating: Int) extends SwissCondition:
+  case class MaxRating(rating: IntRating) extends SwissCondition:
 
     def apply(perf: PerfType, getMaxRating: GetMaxRating)(
         user: User
@@ -84,7 +84,7 @@ object SwissCondition:
 
     def name(perf: PerfType)(using lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
 
-  case class MinRating(rating: Int) extends SwissCondition with FlatCond:
+  case class MinRating(rating: IntRating) extends SwissCondition with FlatCond:
 
     def apply(user: User, perf: PerfType) =
       if (user.perfs(perf).provisional.yes) Refused { lang =>
@@ -193,28 +193,27 @@ object SwissCondition:
         pt.key -> pt.trans
       }
     val nbRatedGames = Vector(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
-    val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
+    val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}").map:
       case (0, _) => (0, "No restriction")
       case x      => x
-    }
     val nbRatedGame = mapping(
       "nb" -> number(min = 0, max = ~nbRatedGames.lastOption)
     )(NbRatedGame.apply)(_.nb.some)
-    case class RatingSetup(rating: Option[Int]):
+    case class RatingSetup(rating: Option[IntRating]):
       def actualRating = rating.filter(r => r > 600 && r < 3000)
     val maxRatings =
       List(2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1100, 1000, 900, 800)
     val maxRatingChoices = ("", "No restriction") ::
       options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
-      "rating" -> optional(numberIn(maxRatings))
+      "rating" -> optional(numberIn(maxRatings).into[IntRating])
     )(RatingSetup.apply)(_.rating.some)
     val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
       2400, 2500, 2600)
     val minRatingChoices = ("", "No restriction") ::
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
-      "rating" -> optional(numberIn(minRatings))
+      "rating" -> optional(numberIn(minRatings).into[IntRating])
     )(RatingSetup.apply)(_.rating.some)
     def all =
       mapping(

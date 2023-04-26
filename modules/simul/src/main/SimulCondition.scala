@@ -22,7 +22,7 @@ object SimulCondition:
 
   case class WithVerdict(condition: SimulCondition, verdict: Verdict)
 
-  case class MaxRating(perf: PerfType, rating: Int) extends SimulCondition:
+  case class MaxRating(perf: PerfType, rating: IntRating) extends SimulCondition:
     def verify(user: User, getMaxRating: GetMaxRating)(using Executor): Fu[Verdict] =
       if (user.perfs(perf).provisional.yes) fuccess(Refused { lang =>
         given Lang = lang
@@ -44,7 +44,7 @@ object SimulCondition:
 
     def name(using lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
 
-  case class MinRating(perf: PerfType, rating: Int) extends SimulCondition:
+  case class MinRating(perf: PerfType, rating: IntRating) extends SimulCondition:
     def verify(user: User): Fu[Verdict] =
       if (user.perfs(perf).provisional.yes) fuccess(Refused { lang =>
         given Lang = lang
@@ -124,8 +124,8 @@ object SimulCondition:
       PerfType.nonPuzzle.map { pt =>
         pt.key -> pt.trans
       }
-    case class RatingSetup(perf: Option[Perf.Key], rating: Option[Int]):
-      def convert[A](f: (PerfType, Int) => A): Option[A] = for
+    case class RatingSetup(perf: Option[Perf.Key], rating: Option[IntRating]):
+      def convert[A](f: (PerfType, IntRating) => A): Option[A] = for
         perf     <- perf
         perfType <- PerfType(perf)
         rating   <- rating
@@ -137,7 +137,7 @@ object SimulCondition:
       options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
       "perf"   -> optional(of[Perf.Key].verifying(perfKeys.contains)),
-      "rating" -> optional(numberIn(maxRatings))
+      "rating" -> optional(numberIn(maxRatings).into[IntRating])
     )(RatingSetup.apply)(unapply)
     val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
       2400, 2500, 2600)
@@ -145,7 +145,7 @@ object SimulCondition:
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
       "perf"   -> optional(of[Perf.Key].verifying(perfKeys.contains)),
-      "rating" -> optional(numberIn(minRatings))
+      "rating" -> optional(numberIn(minRatings).into[IntRating])
     )(RatingSetup.apply)(unapply)
     def all(teams: Set[TeamId]) =
       mapping(

@@ -350,16 +350,17 @@ object Schedule:
 
         case _ => 0
 
-      val minRating = (s.freq, s.variant) match
-        case (Weekend, chess.variant.Crazyhouse) => 2100
-        case (Weekend, _)                        => 2200
-        case _                                   => 0
+      val minRating = IntRating:
+        (s.freq, s.variant) match
+          case (Weekend, chess.variant.Crazyhouse) => 2100
+          case (Weekend, _)                        => 2200
+          case _                                   => 0
 
       Condition.All(
         nbRatedGame = nbRatedGame.some.filter(0 <).map {
           Condition.NbRatedGame(s.perfType.some, _)
         },
-        minRating = minRating.some.filter(0 <).map {
+        minRating = minRating.some.filter(_ > 0).map {
           Condition.MinRating(s.perfType, _)
         },
         maxRating = none,

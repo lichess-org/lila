@@ -377,7 +377,7 @@ Thank you all, you rock!""",
             case 1 => SuperBlitz
             case 2 => Blitz
             case _ => Rapid
-          List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { (rating, hourDelay) =>
+          List(1300, 1500, 1700, 2000).map(IntRating(_)).zipWithIndex.flatMap { (rating, hourDelay) =>
             import chess.Clock
             val perf = Schedule.Speed toPerfType speed
             val conditions = Condition.All(

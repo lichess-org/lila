@@ -61,9 +61,9 @@ object Condition:
 
   abstract trait RatingCondition:
     val perf: PerfType
-    val rating: Int
+    val rating: IntRating
 
-  case class MaxRating(perf: PerfType, rating: Int) extends Condition with RatingCondition:
+  case class MaxRating(perf: PerfType, rating: IntRating) extends Condition with RatingCondition:
 
     def apply(
         getMaxRating: GetMaxRating
@@ -88,7 +88,10 @@ object Condition:
 
     def name(using lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
 
-  case class MinRating(perf: PerfType, rating: Int) extends Condition with RatingCondition with FlatCond:
+  case class MinRating(perf: PerfType, rating: IntRating)
+      extends Condition
+      with RatingCondition
+      with FlatCond:
 
     def apply(user: User) =
       if (user.perfs(perf).provisional.yes) Refused { lang =>
@@ -273,21 +276,21 @@ object Condition:
         )
     object NbRatedGameSetup:
       def apply(x: NbRatedGame): NbRatedGameSetup = NbRatedGameSetup(x.perf.map(_.key), x.nb)
-    case class RatingSetup(perf: Option[Perf.Key], rating: Option[Int]):
+    case class RatingSetup(perf: Option[Perf.Key], rating: Option[IntRating]):
       def actualRating = rating.filter(r => r > 600 && r < 3000)
-      def convert[A](tourPerf: PerfType)(f: (PerfType, Int) => A): Option[A] =
+      def convert[A](tourPerf: PerfType)(f: (PerfType, IntRating) => A): Option[A] =
         actualRating map { r =>
           f(perf.flatMap(PerfType.apply) | tourPerf, r)
         }
     object RatingSetup:
-      def apply(v: (Option[PerfType], Option[Int])): RatingSetup = RatingSetup(v._1.map(_.key), v._2)
+      def apply(v: (Option[PerfType], Option[IntRating])): RatingSetup = RatingSetup(v._1.map(_.key), v._2)
     val maxRatings =
       List(2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1100, 1000, 900, 800)
     val maxRatingChoices = ("", "No restriction") ::
       options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
       "perf"   -> optional(of[Perf.Key].verifying(perfKeys.contains)),
-      "rating" -> optional(numberIn(maxRatings))
+      "rating" -> optional(numberIn(maxRatings).into[IntRating])
     )(RatingSetup.apply)(unapply)
     val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
       2400, 2500, 2600)
@@ -295,7 +298,7 @@ object Condition:
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
       "perf"   -> optional(of[Perf.Key].verifying(perfKeys.contains)),
-      "rating" -> optional(numberIn(minRatings))
+      "rating" -> optional(numberIn(minRatings).into[IntRating])
     )(RatingSetup.apply)(unapply)
     def teamMember(leaderTeams: List[LeaderTeam]) =
       mapping(
