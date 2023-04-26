@@ -87,7 +87,9 @@ body {
       font-size: 1.2rem;
       color: $c-font;
       &::before {
-        padding-right: 0.25rem;
+        float: left;
+        padding-left: 0.75rem;
+        color: $c-primary;
       }
     }
     &:nth-child(odd) {
