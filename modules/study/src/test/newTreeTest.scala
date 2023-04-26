@@ -39,7 +39,7 @@ class NewTreeTest extends lila.common.LilaTest:
     val x       = PgnImport("1. e4 *", Nil).toOption.get
     val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.get.size, 1L)
-    assertEquals(newRoot.tree.get.mainline.map(_.move.san.value), List("e4"))
+    assertEquals(newRoot.tree.get.mainline.map(sanStr), List("e4"))
     assertEquals(newRoot.toRoot, x.root)
   }
 
@@ -47,7 +47,7 @@ class NewTreeTest extends lila.common.LilaTest:
     val x       = PgnImport("1. e4 (1. d4??) *", Nil).toOption.get
     val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.get.size, 2L)
-    assertEquals(newRoot.tree.get.variations.map(_.value.move.san.value), List("d4"))
+    assertEquals(newRoot.tree.get.variations.map(sanStr), List("d4"))
     assertEquals(newRoot.toRoot, x.root)
   }
 
@@ -55,7 +55,7 @@ class NewTreeTest extends lila.common.LilaTest:
     val x       = PgnImport("1. e4 e6 *", Nil).toOption.get
     val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.get.size, 2L)
-    assertEquals(newRoot.tree.get.mainline.map(_.move.san.value), List("e4", "e6"))
+    assertEquals(newRoot.tree.get.mainline.map(sanStr), List("e4", "e6"))
     assertEquals(newRoot.toRoot, x.root)
   }
 
@@ -75,4 +75,3 @@ class NewTreeTest extends lila.common.LilaTest:
       val oldRoot = NewRootC.fromRoot(x.root).cleanup
       assertEquals(y.root.cleanup, oldRoot)
     }
-

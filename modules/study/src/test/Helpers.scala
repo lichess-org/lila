@@ -155,3 +155,5 @@ object Helpers:
         .modify(_.map(_.cleanup))
         .focus(_.metas.comments)
         .modify(_.cleanup)
+
+  def sanStr(node: PgnNode[NewBranch]): String = node.value.move.san.value
