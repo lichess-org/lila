@@ -156,6 +156,20 @@ object Permission:
         "Shusher"
       )
 
+  case object EmailAnswerer
+      extends Permission(
+        "EMAIL_ANSWERER",
+        List(
+          LichessTeam,
+          UserSearch,
+          CloseAccount,
+          GdprErase,
+          SetEmail,
+          DisableTwoFactor
+        ),
+        "Email answerer"
+      )
+
   case object Admin
       extends Permission(
         "ADMIN",
@@ -284,6 +298,7 @@ object Permission:
       BoostHunter,
       CheatHunter,
       Shusher,
+      EmailAnswerer,
       Admin,
       SuperAdmin
     )

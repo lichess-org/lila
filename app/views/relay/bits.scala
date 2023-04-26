@@ -18,7 +18,7 @@ object bits:
       span(cls := "content")(
         span(cls := "name")(tr.tour.name),
         span(cls := "more")(
-          tr.round.name,
+          tr.round.caption.fold(tr.round.name.value)(_.value),
           " • ",
           if tr.round.hasStarted
           then trans.eventInProgress()

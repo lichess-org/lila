@@ -378,7 +378,8 @@ final class UserRepo(val coll: Coll)(using Executor):
       coll.update
         .one(
           $id(id) ++ $doc(F.email $exists false),
-          $doc("$rename" -> $doc(F.prevEmail -> F.email))
+          $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
+            $doc("$unset" -> $doc(F.eraseAt -> true))
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))

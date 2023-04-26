@@ -233,7 +233,7 @@ GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
 
 # Relay
-GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1)
+GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar

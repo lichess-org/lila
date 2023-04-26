@@ -27,7 +27,7 @@ private case class PuzzleSession(
       settings.difficulty == other.settings.difficulty &&
       settings.color == other.settings.color
 
-  override def toString = s"$path:$positionInPath"
+  override def toString = s"$path:$positionInPath($settings)"
 
 case class PuzzleSettings(
     difficulty: PuzzleDifficulty,

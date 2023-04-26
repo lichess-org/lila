@@ -1,20 +1,19 @@
 package lila.tutor
 
-import org.specs2.mutable.Specification
-
 import lila.rating.Perf
 
-class GlickoTest extends Specification {
+class GlickoTest extends munit.FunSuite {
 
-  "glicko" >> {
-    "work for arbitrary outcomes" >> {
+  test("glicko for arbitrary outcomes") {
+    assertEquals(
       TutorGlicko.scoresRating(
         Perf.default,
         List(
           (1400, 0.8f),
           (1700, 0.6f)
         )
-      ) === 1669
-    }
+      ),
+      1669
+    )
   }
 }

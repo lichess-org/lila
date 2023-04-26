@@ -2,7 +2,7 @@ package lila.tournament
 package crud
 
 import scala.util.chaining.*
-import chess.Clock
+import chess.{ Clock, Mode }
 import chess.format.Fen
 
 import lila.common.config.MaxPerPage
@@ -34,6 +34,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       description = tour.spotlight.??(_.description),
       conditions = Condition.DataForm.AllSetup(tour.conditions),
       berserkable = !tour.noBerserk,
+      rated = tour.isRated,
       streakable = tour.streakable,
       teamBattle = tour.isTeamBattle,
       hasChat = tour.hasChat
@@ -93,6 +94,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       clock = clock,
       minutes = minutes,
       variant = realVariant,
+      mode = if (data.rated) Mode.Rated else Mode.Casual,
       startsAt = date.instant,
       schedule = Schedule(
         freq = Schedule.Freq.Unique,

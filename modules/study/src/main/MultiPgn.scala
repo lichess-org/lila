@@ -2,7 +2,9 @@ package lila.study
 
 import chess.format.pgn.PgnStr
 
-case class MultiPgn(value: List[PgnStr]) extends AnyVal
+case class MultiPgn(value: List[PgnStr]) extends AnyVal:
+
+  def toPgnStr = PgnStr(value mkString "\n\n")
 
 object MultiPgn:
 

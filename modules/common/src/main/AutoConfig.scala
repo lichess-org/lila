@@ -35,7 +35,6 @@ object AutoConfig:
 
   inline def loader[T] = ${ impl[T] }
 
-  @annotation.nowarn("msg=unused")
   private def impl[T](using Quotes)(using tpe: Type[T]) =
     import quotes.reflect.*
 

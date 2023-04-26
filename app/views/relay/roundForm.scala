@@ -72,7 +72,12 @@ object roundForm:
         )
       ),
       form3.globalError(form),
-      form3.group(form("name"), roundName())(form3.input(_)(autofocus)),
+      form3.split(
+        form3.group(form("name"), roundName(), half = true)(form3.input(_)(autofocus)),
+        t.official option form3.group(form("caption"), "Homepage caption", half = true)(
+          form3.input(_)
+        )
+      ),
       form3.group(
         form("syncUrl"),
         sourceUrlOrGameIds(),
@@ -93,11 +98,21 @@ object roundForm:
           help = startDateHelp().some,
           half = true
         )(form3.flatpickr(_, minDate = None)),
+        form3.group(
+          form("delay"),
+          raw("Delay in seconds"),
+          help = raw(
+            "Optional, how long to delay moves coming from the source."
+          ).some,
+          half = true
+        )(form3.input(_, typ = "number")),
         isGranted(_.Relay) option
           form3.group(
-            form("throttle"),
-            raw("Throttle in seconds"),
-            help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some,
+            form("period"),
+            raw("Period in seconds"),
+            help = raw(
+              "Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers."
+            ).some,
             half = true
           )(form3.input(_, typ = "number"))
       ),

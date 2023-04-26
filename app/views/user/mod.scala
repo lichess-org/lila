@@ -71,7 +71,7 @@ object mod:
         }
       ),
       div(cls := "btn-rack")(
-        isGranted(_.CloseAccount) option {
+        canCloseAlt option {
           postForm(
             action := routes.Mod.alt(u.username, !u.marks.alt),
             title  := "Preemptively close unauthorized alt.",
@@ -162,15 +162,7 @@ object mod:
               title  := "Re-activates this account.",
               cls    := "xhr"
             )(submitButton(cls := "btn-rack__btn active")("Closed")),
-            isGranted(_.GdprErase) option postForm(
-              action := routes.Mod.gdprErase(u.username),
-              cls    := "gdpr-erasure"
-            )(
-              submitButton(
-                cls   := "btn-rack__btn confirm",
-                title := "Definitely erase everything about this user"
-              )("GDPR erasure")
-            )
+            isGranted(_.GdprErase) option gdprEraseForm(u)
           )
       ),
       div(cls := "btn-rack")(
@@ -207,7 +199,7 @@ object mod:
           )
         )
       },
-      isGranted(_.Admin) ?? frag(
+      isGranted(_.SetEmail) ?? frag(
         postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
           st.input(
             tpe         := "email",
@@ -222,6 +214,24 @@ object mod:
         }
       )
     )
+
+  private def gdprEraseForm(u: User)(using Context) =
+    postForm(
+      action := routes.Mod.gdprErase(u.username),
+      cls    := "gdpr-erasure"
+    )(gdprEraseButton(u)(cls := "btn-rack__btn confirm"))
+
+  def gdprEraseButton(u: User)(using Context) =
+    val allowed = u.marks.clean || isGranted(_.Admin)
+    submitButton(
+      cls := !allowed option "disabled",
+      title := {
+        if allowed
+        then "Definitely erase everything about this user"
+        else "This user has some history, only admins can erase"
+      },
+      !allowed option disabled
+    )("GDPR erasure")
 
   def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
     frag(
@@ -548,8 +558,8 @@ object mod:
   private val clean: Frag     = iconTag("")
   private val reportban       = iconTag("")
   private val notesText       = iconTag("")
-  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None) =
-    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(momentFromNowServerText(_, false)))(content)
+  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
+    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
 
   def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(
@@ -645,7 +655,7 @@ object mod:
               },
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
-              isGranted(_.CloseAccount) option td(
+              canCloseAlt option td(
                 !o.marks.alt option button(
                   cls  := "button button-empty button-thin button-red mark-alt",
                   href := routes.Mod.alt(o.id, !o.marks.alt)

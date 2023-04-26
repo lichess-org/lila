@@ -3,11 +3,13 @@ package lila.relay
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.study.Study
+import lila.common.Seconds
 
 case class RelayRound(
     _id: RelayRoundId,
     tourId: RelayTour.Id,
     name: RelayRoundName,
+    caption: Option[RelayRound.Caption],
     sync: RelayRound.Sync,
     /* When it's planned to start */
     startsAt: Option[Instant],
@@ -64,11 +66,15 @@ object RelayRound:
 
   def makeId = RelayRoundId(ThreadLocalRandom nextString 8)
 
+  opaque type Caption = String
+  object Caption extends OpaqueString[Caption]
+
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
       until: Option[Instant],          // sync until then; resets on move
       nextAt: Option[Instant],         // when to run next sync
-      delay: Option[Int],              // override time between two sync (rare)
+      period: Option[Seconds],         // override time between two sync (rare)
+      delay: Option[Seconds],          // add delay between the source and the study
       log: SyncLog
   ):
 
@@ -100,6 +106,8 @@ object RelayRound:
 
     def addLog(event: SyncLog.Event) = copy(log = log add event)
     def clearLog                     = copy(log = SyncLog.empty)
+
+    def hasDelay = delay.exists(_.value > 0)
 
     override def toString = upstream.toString
 

@@ -456,11 +456,13 @@ final class Study(
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req => me =>
     env.study.api.byId(id).map {
       _.fold(studyNotFoundText) { study =>
-        PgnRateLimitPerIp(req.ipAddress, msg = id) {
-          CanView(study, me) {
-            doPgn(study, req)
-          }(privateUnauthorizedText, privateForbiddenText)
-        }(rateLimited)
+        if req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
+        else
+          PgnRateLimitPerIp(req.ipAddress, msg = id) {
+            CanView(study, me) {
+              doPgn(study, req)
+            }(privateUnauthorizedText, privateForbiddenText)
+          }(rateLimited)
       }
     }
   }
@@ -469,6 +471,9 @@ final class Study(
     Ok.chunked(env.study.pgnDump(study, requestPgnFlags(req)))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
+      .withDateHeaders(studyLastModified(study))
+
+  private def studyLastModified(s: StudyModel) = LAST_MODIFIED -> s.updatedAt.atZone(utcZone)
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) =
     Open { implicit ctx =>

@@ -39,8 +39,9 @@ final class ModQueueStats(
         for
           doc     <- docs
           dateStr <- doc.string("_id")
-          date    <- Try(java.time.LocalDateTime.parse(dateStr, dateFormat)).toOption.map(_.instant)
-          data    <- doc.getAsOpt[List[Bdoc]]("data")
+          date <- Try(java.time.LocalDate.parse(dateStr, dateFormat)).toOption
+            .map(_.atStartOfDay.instant)
+          data <- doc.getAsOpt[List[Bdoc]]("data")
         yield date -> {
           for
             entry <- data

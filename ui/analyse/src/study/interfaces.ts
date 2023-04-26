@@ -4,7 +4,7 @@ import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import { StudyChaptersCtrl } from './studyChapters';
+import StudyChaptersCtrl from './studyChapters';
 import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
@@ -20,6 +20,7 @@ import { StudyFormCtrl } from './studyForm';
 import { StudyMemberCtrl } from './studyMembers';
 import { Opening } from '../explorer/interfaces';
 import { StudySocketSendParams } from '../socket';
+import { SearchCtrl } from './studySearch';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -40,6 +41,7 @@ export interface StudyCtrl {
   tags: TagsCtrl;
   studyDesc: DescriptionCtrl;
   chapterDesc: DescriptionCtrl;
+  search: SearchCtrl;
   toggleLike(): void;
   position(): Position;
   isChapterOwner(): boolean;
