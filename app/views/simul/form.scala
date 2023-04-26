@@ -147,7 +147,7 @@ object form:
             form3.select(_, SimulCondition.DataForm.minRatingChoices)
           ),
           form3.group(form("conditions.minRating.perf"), frag("In variant"), half = true)(
-            form3.select(_, SimulCondition.DataForm.perfChoices)
+            form3.select(_, SimulCondition.DataForm.perfChoices, default = "".some)
           )
         ),
         form3.split(
@@ -155,7 +155,7 @@ object form:
             form3.select(_, SimulCondition.DataForm.maxRatingChoices)
           ),
           form3.group(form("conditions.maxRating.perf"), frag("In variant"), half = true)(
-            form3.select(_, SimulCondition.DataForm.perfChoices)
+            form3.select(_, SimulCondition.DataForm.perfChoices, default = "".some)
           )
         )
       ),
