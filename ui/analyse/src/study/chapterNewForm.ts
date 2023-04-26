@@ -312,7 +312,9 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 },
                 notVariantTab
                   ? [h('option', noarg('automatic'))]
-                  : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
+                  : ctrl.vm.variants.map(v =>
+                      option(v.key, currentChapter.setup.variant.key, ctrl.root.trans.noarg(v.key))
+                    )
               ),
             ]),
             h('div.form-group.form-half', [

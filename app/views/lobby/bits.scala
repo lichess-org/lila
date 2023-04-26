@@ -131,7 +131,7 @@ object bits {
         h3(dataIcon := ",")(
           s"${trans.minishogi.txt()}${if (ctx.lang.language == "en") " (5五将棋)" else ""}"
         )
-      case _ => trans.standard.txt()
+      case _ => trans.shogi.txt()
     }
 
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = {

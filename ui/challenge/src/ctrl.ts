@@ -5,12 +5,12 @@ import * as xhr from './xhr';
 const li = window.lishogi;
 
 export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
-  let trans = (key: string) => key;
+  let trans: Trans;
   let redirecting = false;
 
   function update(d: ChallengeData) {
     data = d;
-    if (d.i18n) trans = li.trans(d.i18n).noarg;
+    trans = li.trans(d.i18n || {});
     opts.setCount(countActiveIn());
     notifyNew();
   }

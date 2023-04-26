@@ -94,6 +94,13 @@ final class JsonView(
     trans.accept,
     trans.decline,
     trans.viewInFullSize,
-    trans.cancel
+    trans.cancel,
+    trans.unlimited,
+    trans.nbDays,
+    trans.standard,
+    trans.minishogi,
+    trans.chushogi,
+    trans.annanshogi,
+    trans.kyotoshogi
   ).map(_.key)
 }

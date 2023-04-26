@@ -134,7 +134,7 @@ trait SetupHelper { self: I18nHelper =>
   private val encodeId = (v: Variant) => v.id.toString
 
   private def variantTuple(encode: Variant => String)(variant: Variant)(implicit lang: Lang) =
-    (encode(variant), variantName(variant), variant.title.some) // todo
+    (encode(variant), variantName(variant), variant.title.some)
 
   def standardChoice(implicit lang: Lang): SelectChoice =
     standardChoice(encodeId)

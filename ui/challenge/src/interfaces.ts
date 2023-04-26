@@ -8,7 +8,7 @@ export interface ChallengeOpts {
 export interface Ctrl {
   update(data: ChallengeData): void;
   data(): ChallengeData;
-  trans(): (key: string) => string;
+  trans(): Trans;
   decline(id: string): void;
   cancel(id: string): void;
   onRedirect(): void;

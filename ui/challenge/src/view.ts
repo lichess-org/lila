@@ -51,7 +51,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
           h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
           h(
             'span.desc',
-            [trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), trans(c.variant.key)].join(' • ')
+            [trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl, trans), trans(c.variant.key)].join(' • ')
           ),
         ]),
         h('i', {
@@ -119,12 +119,12 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
   ];
 }
 
-function timeControl(c: TimeControl): string {
+function timeControl(c: TimeControl, trans: Trans): string {
   switch (c.type) {
     case 'unlimited':
-      return 'Unlimited';
+      return trans.noarg('unlimited');
     case 'correspondence':
-      return c.daysPerTurn + ' days';
+      return trans.plural('nbDays', c.daysPerTurn || 0);
     case 'clock':
       return c.show || '-';
   }
