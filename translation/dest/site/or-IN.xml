@@ -225,7 +225,7 @@
   <string name="typePrivateNotesHere">ଘରୋଇ ନୋଟ୍ ଏଠାରେ ଟାଇପ୍ କରନ୍ତୁ</string>
   <string name="writeAPrivateNoteAboutThisUser">ଏହି ଉପଭୋକ୍ତାଙ୍କ ଵିଷୟରେ ଏକ ଘରୋଇ ନୋଟ୍ ଲେଖନ୍ତୁ</string>
   <string name="invalidUsernameOrPassword">ଅଵୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍‌ୱର୍ଡ଼</string>
-  <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍‌ୱର୍ଡ଼</string>
+  <string name="incorrectPassword">ଭୁଲ ପାସ୍‌ୱର୍ଡ଼</string>
   <string name="currentPassword">ଏବେକାର ପାସ୍‌ୱର୍ଡ଼</string>
   <string name="newPassword">ନୂଆ ପାସ୍‌ୱର୍ଡ଼</string>
   <string name="newPasswordAgain">ନୂଆ ପାସ୍‌ୱର୍ଡ଼ (ପୁନଃ)</string>
@@ -259,7 +259,7 @@
   <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="accuracy">ସଠିକତା</string>
   <string name="newTournament">ନୂଆ ଟୁର୍ନାମେଣ୍ଟ</string>
-  <string name="weHaveSentYouAnEmailTo">ଆମେ %s କୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍‌ୱର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କ୍‌କୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
+  <string name="weHaveSentYouAnEmailTo">ଆମେ %sକୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍‌ୱର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କ୍‌କୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
   <string name="security">ସୁରକ୍ଷା</string>
   <string name="viewTheSolution">ସମାଧାନ ଦେଖନ୍ତୁ</string>
