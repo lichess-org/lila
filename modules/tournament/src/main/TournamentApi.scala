@@ -14,6 +14,7 @@ import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.LeaderTeam
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.user.{ User, UserRepo }
+import lila.gathering.Condition
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -31,7 +32,7 @@ final class TournamentApi(
     roundSocket: lila.round.RoundSocket,
     trophyApi: lila.user.TrophyApi,
     colorHistoryApi: ColorHistoryApi,
-    verify: Condition.Verify,
+    verify: TournamentCondition.Verify,
     duelStore: DuelStore,
     pause: Pause,
     waitingUsers: WaitingUsersApi,
@@ -267,7 +268,7 @@ final class TournamentApi(
       me: Option[User],
       getUserTeamIds: User => Fu[List[TeamId]],
       playerExists: Boolean
-  ): Fu[Condition.All.WithVerdicts] =
+  ): Fu[Condition.WithVerdicts] =
     me match
       case None => fuccess(tour.conditions.accepted)
       case Some(user) =>

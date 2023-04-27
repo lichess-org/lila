@@ -13,6 +13,8 @@ import lila.memo.SettingStore
 import lila.rating.PerfType
 import lila.socket.{ SocketVersion, given }
 import lila.user.{ LightUserApi, User }
+import lila.gathering.Condition
+import lila.gathering.ConditionHandlers
 
 final class JsonView(
     lightUserApi: LightUserApi,
@@ -24,7 +26,7 @@ final class JsonView(
     shieldApi: TournamentShieldApi,
     cacheApi: lila.memo.CacheApi,
     proxyRepo: lila.round.GameProxyRepo,
-    verify: Condition.Verify,
+    verify: TournamentCondition.Verify,
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
     pause: Pause,
@@ -32,7 +34,7 @@ final class JsonView(
 )(using Executor):
 
   import JsonView.{ *, given }
-  import Condition.JSONHandlers.given
+  import lila.gathering.ConditionHandlers.JSONHandlers.given
   private given Ordering[TeamId] = stringOrdering
 
   def apply(
@@ -106,7 +108,7 @@ final class JsonView(
           .add("berserkable" -> tour.berserkable)
           .add("noStreak" -> tour.noStreak)
           .add("position" -> tour.position.ifTrue(full).map(positionJson))
-          .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
+          .add("verdicts" -> verdicts.map(ConditionHandlers.JSONHandlers.verdictsFor(_, lang)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
           .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id.value)))

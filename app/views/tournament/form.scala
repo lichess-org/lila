@@ -8,11 +8,12 @@ import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
-import lila.tournament.{ Condition, Tournament, TournamentForm }
+import lila.tournament.{ Tournament, TournamentForm }
+import lila.gathering.{ Condition, ConditionForm }
 
 object form:
 
-  def create(form: Form[?], leaderTeams: List[LeaderTeam])(implicit ctx: Context) =
+  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using Context) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -55,7 +56,7 @@ object form:
       )
     }
 
-  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using Context) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -112,9 +113,7 @@ object form:
       auto: Boolean,
       teams: List[LeaderTeam],
       tour: Option[Tournament]
-  )(using
-      ctx: Context
-  ) =
+  )(using ctx: Context) =
     frag(
       form3.split(
         fields.entryCode,
@@ -131,28 +130,28 @@ object form:
       ),
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
-          form3.select(_, Condition.DataForm.nbRatedGameChoices)
+          form3.select(_, ConditionForm.nbRatedGameChoices)
         ),
         autoField(auto, form("conditions.nbRatedGame.perf")) { field =>
           form3.group(field, frag("In variant"), half = true)(
-            form3.select(_, ("", "Any") :: Condition.DataForm.perfChoices)
+            form3.select(_, ("", "Any") :: ConditionForm.perfChoices)
           )
         }
       ),
       form3.split(
         form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
-          form3.select(_, Condition.DataForm.minRatingChoices)
+          form3.select(_, ConditionForm.minRatingChoices)
         ),
         autoField(auto, form("conditions.minRating.perf")) { field =>
-          form3.group(field, frag("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
+          form3.group(field, frag("In variant"), half = true)(form3.select(_, ConditionForm.perfChoices))
         }
       ),
       form3.split(
         form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
-          form3.select(_, Condition.DataForm.maxRatingChoices)
+          form3.select(_, ConditionForm.maxRatingChoices)
         ),
         autoField(auto, form("conditions.maxRating.perf")) { field =>
-          form3.group(field, frag("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
+          form3.group(field, frag("In variant"), half = true)(form3.select(_, ConditionForm.perfChoices))
         }
       ),
       form3.split(
@@ -203,7 +202,7 @@ object form:
       tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
 
-final private class TourFields(form: Form[?], tour: Option[Tournament])(implicit ctx: Context):
+final private class TourFields(form: Form[?], tour: Option[Tournament])(using Context):
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 

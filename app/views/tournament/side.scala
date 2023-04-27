@@ -14,7 +14,7 @@ object side:
 
   def apply(
       tour: Tournament,
-      verdicts: lila.tournament.Condition.All.WithVerdicts,
+      verdicts: lila.gathering.Condition.WithVerdicts,
       streamers: List[UserId],
       shieldOwner: Option[UserId],
       chat: Boolean
@@ -88,11 +88,11 @@ object side:
                   "refused"   -> (ctx.isAuth && !v.verdict.accepted)
                 ),
                 title := v.verdict.reason.map(_(ctx.lang))
-              )(v.condition match {
-                case lila.tournament.Condition.TeamMember(teamId, teamName) =>
+              )(v.condition match
+                case lila.gathering.Condition.TeamMember(teamId, teamName) =>
                   trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
                 case c => c.name
-              })
+              )
             }
           )
         ),

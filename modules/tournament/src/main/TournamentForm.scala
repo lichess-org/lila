@@ -14,6 +14,7 @@ import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
 import lila.hub.LightTeam.*
 import lila.user.User
+import lila.gathering.{ Condition, ConditionForm }
 
 final class TournamentForm:
 
@@ -32,7 +33,7 @@ final class TournamentForm:
       password = None,
       mode = none,
       rated = true.some,
-      conditions = Condition.DataForm.AllSetup.default,
+      conditions = TournamentCondition.form.AllSetup.default,
       teamBattleByTeam = teamBattleId,
       berserkable = true.some,
       streakable = true.some,
@@ -53,7 +54,7 @@ final class TournamentForm:
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
-      conditions = Condition.DataForm.AllSetup(tour.conditions),
+      conditions = TournamentCondition.form.AllSetup(tour.conditions),
       teamBattleByTeam = none,
       berserkable = tour.berserkable.some,
       streakable = tour.streakable.some,
@@ -96,7 +97,7 @@ final class TournamentForm:
       "mode"        -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
       "rated"       -> optional(boolean),
       "password"    -> optional(cleanNonEmptyText),
-      "conditions"  -> Condition.DataForm.all(leaderTeams),
+      "conditions"  -> TournamentCondition.form.all(leaderTeams),
       "teamBattleByTeam" -> optional(of[TeamId].verifying(id => leaderTeams.exists(_.id == id))),
       "berserkable"      -> optional(boolean),
       "streakable"       -> optional(boolean),
@@ -171,7 +172,7 @@ private[tournament] case class TournamentSetup(
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
-    conditions: Condition.DataForm.AllSetup,
+    conditions: TournamentCondition.form.AllSetup,
     teamBattleByTeam: Option[TeamId],
     berserkable: Option[Boolean],
     streakable: Option[Boolean],

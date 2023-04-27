@@ -8,6 +8,7 @@ import chess.variant.Variant
 import chess.format.Fen
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import lila.common.Form.{ given, * }
+import lila.gathering.{ Condition, ConditionForm }
 
 final class CrudForm(repo: TournamentRepo):
 
@@ -28,7 +29,7 @@ final class CrudForm(repo: TournamentRepo):
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
       "description"    -> nonEmptyText,
-      "conditions"     -> Condition.DataForm.all(Nil),
+      "conditions"     -> TournamentCondition.form.all(Nil),
       "rated"          -> boolean,
       "berserkable"    -> boolean,
       "streakable"     -> boolean,
@@ -50,7 +51,7 @@ final class CrudForm(repo: TournamentRepo):
     image = "",
     headline = "",
     description = "",
-    conditions = Condition.DataForm.AllSetup.default,
+    conditions = TournamentCondition.form.AllSetup.default,
     berserkable = true,
     rated = true,
     streakable = true,
@@ -75,7 +76,7 @@ object CrudForm:
       image: String,
       headline: String,
       description: String,
-      conditions: Condition.DataForm.AllSetup,
+      conditions: TournamentCondition.form.AllSetup,
       rated: Boolean,
       berserkable: Boolean,
       streakable: Boolean,

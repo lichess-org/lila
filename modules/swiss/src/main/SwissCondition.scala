@@ -204,14 +204,14 @@ object SwissCondition:
     val maxRatings =
       List(2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1100, 1000, 900, 800)
     val maxRatingChoices = ("", "No restriction") ::
-      options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
+      options(maxRatings, "Max rating of %d").toList.map { (k, v) => k.toString -> v }
     val maxRating = mapping(
       "rating" -> optional(numberIn(maxRatings).into[IntRating])
     )(RatingSetup.apply)(_.rating.some)
     val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
       2400, 2500, 2600)
     val minRatingChoices = ("", "No restriction") ::
-      options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
+      options(minRatings, "Min rating of %d").toList.map { (k, v) => k.toString -> v }
     val minRating = mapping(
       "rating" -> optional(numberIn(minRatings).into[IntRating])
     )(RatingSetup.apply)(_.rating.some)

@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.tournament.BSONHandlers.given
+import lila.gathering.{ Condition, ConditionForm }
 
 final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 
@@ -32,7 +33,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.??(_.headline),
       description = tour.spotlight.??(_.description),
-      conditions = Condition.DataForm.AllSetup(tour.conditions),
+      conditions = TournamentCondition.form.AllSetup(tour.conditions),
       berserkable = !tour.noBerserk,
       rated = tour.isRated,
       streakable = tour.streakable,

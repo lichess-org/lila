@@ -7,6 +7,7 @@ import play.api.i18n.Lang
 
 import lila.i18n.I18nKeys
 import lila.rating.PerfType
+import lila.gathering.Condition
 
 case class Schedule(
     freq: Schedule.Freq,
@@ -14,10 +15,10 @@ case class Schedule(
     variant: Variant,
     position: Option[Fen.Opening],
     at: LocalDateTime,
-    conditions: Condition.All = Condition.All.empty
+    conditions: TournamentCondition.All = TournamentCondition.All.empty
 ):
 
-  def name(full: Boolean = true)(using lang: Lang): String =
+  def name(full: Boolean = true)(using Lang): String =
     import Schedule.Freq.*
     import Schedule.Speed.*
     import lila.i18n.I18nKeys.tourname.*
@@ -191,7 +192,7 @@ object Schedule:
   enum Speed(val id: Int):
     val name = Speed.this.toString
     val key  = lila.common.String lcfirst name
-    def trans(using lang: Lang): String = this match
+    def trans(using Lang): String = this match
       case Speed.Rapid     => I18nKeys.rapid.txt()
       case Speed.Classical => I18nKeys.classical.txt()
       case _               => name
@@ -356,7 +357,7 @@ object Schedule:
           case (Weekend, _)                        => 2200
           case _                                   => 0
 
-      Condition.All(
+      TournamentCondition.All(
         nbRatedGame = nbRatedGame.some.filter(0 <).map {
           Condition.NbRatedGame(s.perfType.some, _)
         },
