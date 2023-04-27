@@ -41,11 +41,7 @@ case class RelayRound(
       sync = sync.play
     )
 
-  def ensureStarted =
-    copy(
-      startedAt = startedAt orElse nowInstant.some
-    )
-
+  def ensureStarted     = copy(startedAt = startedAt orElse nowInstant.some)
   def hasStarted        = startedAt.isDefined
   def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter nowInstant)
   def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore nowInstant)
@@ -129,14 +125,17 @@ object RelayRound:
     case class UpstreamIds(ids: List[GameId]) extends Upstream
 
   trait AndTour:
-    val round: RelayRound
     val tour: RelayTour
-    def fullName = s"${tour.name} • ${round.name}"
+    def display: RelayRound
+    def link: RelayRound
+    def fullName = s"${tour.name} • ${display.name}"
     def path: String =
-      s"/broadcast/${tour.slug}/${if (round.slug == tour.slug) "-" else round.slug}/${round.id}"
+      s"/broadcast/${tour.slug}/${if (link.slug == tour.slug) "-" else link.slug}/${link.id}"
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
 
   case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour:
+    def display                 = round
+    def link                    = round
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
 
   case class WithTourAndStudy(relay: RelayRound, tour: RelayTour, study: Study):

@@ -90,7 +90,7 @@ async function writePgnClipboard(url: string): Promise<void> {
     return navigator.clipboard.writeText(pgn);
   } else {
     const clipboardItem = new ClipboardItem({
-      'text/plain': xhrText(url).then(pgn => new Blob([pgn])),
+      'text/plain': xhrText(url).then(pgn => new Blob([pgn], { type: 'text/plain' })),
     });
     return navigator.clipboard.write([clipboardItem]);
   }
@@ -161,6 +161,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 attrs: {
                   'data-icon': '',
                   title: ctrl.trans.noarg('copyChapterPgnDescription'),
+                  tabindex: '0',
                 },
                 hook: bind('click', async event => {
                   const iconFeedback = (success: boolean) => {
@@ -169,7 +170,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   };
                   writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`).then(
                     () => iconFeedback(true),
-                    () => iconFeedback(false)
+                    err => {
+                      console.log(err);
+                      iconFeedback(false);
+                    }
                   );
                 }),
               },

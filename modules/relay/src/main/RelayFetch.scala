@@ -96,7 +96,6 @@ final private class RelayFetch(
     result match
       case result: SyncResult.Ok if result.nbMoves == 0 => continueRelay(rt)
       case result: SyncResult.Ok =>
-        continueRelay(rt)
         lila.mon.relay.moves(rt.tour.official, rt.round.slug).increment(result.nbMoves)
         continueRelay(rt.round.ensureStarted.resume withTour rt.tour)
       case _ => continueRelay(rt)

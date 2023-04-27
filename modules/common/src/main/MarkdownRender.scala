@@ -137,7 +137,8 @@ object MarkdownRender:
         "i.ibb.co",
         "i.postimg.cc",
         "xkcd.com",
-        "lichess1.org"
+        "lichess1.org",
+        "images.prismic.io"
       )
     private def whitelistedSrc(src: String): Option[String] = for
       url <- Try(URL.parse(src)).toOption
