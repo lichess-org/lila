@@ -115,6 +115,12 @@ export default function (
 
   const startTour = () => tours.study(ctrl);
 
+  const setTab = (tab: Tab) => {
+    relay?.tourShow.disable();
+    vm.tab(tab);
+    redraw();
+  };
+
   const members = memberCtrl({
     initDict: data.members,
     myId: practiceData ? undefined : ctrl.opts.userId,
@@ -134,7 +140,7 @@ export default function (
   const chapters = new StudyChaptersCtrl(
     data.chapters,
     send,
-    () => vm.tab('chapters'),
+    () => setTab('chapters'),
     chapterId => xhr.chapterConfig(data.id, chapterId),
     ctrl
   );
@@ -608,6 +614,7 @@ export default function (
   return {
     data,
     form,
+    setTab,
     members,
     chapters,
     notif,

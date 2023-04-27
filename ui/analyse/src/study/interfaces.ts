@@ -27,6 +27,7 @@ export interface StudyCtrl {
   currentChapter(): StudyChapterMeta;
   socketHandler(t: string, d: any): boolean;
   vm: StudyVm;
+  setTab(tab: Tab): void;
   relay?: RelayCtrl;
   multiBoard: MultiBoardCtrl;
   form: StudyFormCtrl;
