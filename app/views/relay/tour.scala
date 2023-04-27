@@ -14,7 +14,7 @@ object tour:
   import trans.broadcast.*
 
   def index(
-      active: List[RelayTour.ActiveWithNextRound],
+      active: List[RelayTour.ActiveWithSomeRounds],
       pager: Paginator[RelayTour.WithLastRound],
       query: String = ""
   )(using Context) =
@@ -79,8 +79,8 @@ object tour:
         div(cls := "relay-widget__info")(
           p(tr.tour.description),
           p(cls := "relay-widget__info__meta")(
-            tr.tour.active option frag(strong(tr.round.name), br),
-            if ongoing(tr) then trans.playingRightNow() else tr.round.startsAt.map(momentFromNow(_))
+            tr.tour.active option frag(strong(tr.display.name), br),
+            if ongoing(tr) then trans.playingRightNow() else tr.display.startsAt.map(momentFromNow(_))
           )
         )
       )
