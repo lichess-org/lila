@@ -10,7 +10,7 @@ import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
 import { ctrl as glyphFormCtrl, GlyphCtrl } from './studyGlyph';
 import { ctrl as studyFormCtrl } from './studyForm';
-import { ctrl as topicsCtrl, TopicsCtrl } from './topics';
+import TopicsCtrl from './topics';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
@@ -205,7 +205,7 @@ export default function (
 
   const search = new SearchCtrl(relay?.fullRoundName() || data.name, chapters.list, setChapter, redraw);
 
-  const topics: TopicsCtrl = topicsCtrl(
+  const topics: TopicsCtrl = new TopicsCtrl(
     topics => send('setTopics', topics),
     () => data.topics || [],
     ctrl.trans,

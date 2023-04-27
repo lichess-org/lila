@@ -10,7 +10,7 @@ import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
 import { CommentForm } from './commentForm';
-import { TopicsCtrl } from './topics';
+import TopicsCtrl from './topics';
 import RelayCtrl from './relay/relayCtrl';
 import ServerEval from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';

@@ -1,5 +1,5 @@
 import type Tagify from '@yaireo/tagify';
-import { prop, Prop } from 'common';
+import { prop } from 'common';
 import { snabModal } from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
@@ -7,32 +7,15 @@ import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudyCtrl, Topic } from './interfaces';
 
-export interface TopicsCtrl {
-  open: Prop<boolean>;
-  getTopics(): Topic[];
-  save(data: string[]): void;
-  trans: Trans;
-  redraw: Redraw;
-}
+export default class TopicsCtrl {
+  open = prop(false);
 
-export function ctrl(
-  save: (data: string[]) => void,
-  getTopics: () => Topic[],
-  trans: Trans,
-  redraw: Redraw
-): TopicsCtrl {
-  const open = prop(false);
-
-  return {
-    open,
-    getTopics,
-    save(data: string[]) {
-      save(data);
-      open(false);
-    },
-    trans,
-    redraw,
-  };
+  constructor(
+    readonly save: (data: string[]) => void,
+    readonly getTopics: () => Topic[],
+    readonly trans: Trans,
+    readonly redraw: Redraw
+  ) {}
 }
 
 export const view = (ctrl: StudyCtrl): VNode =>
