@@ -73,7 +73,10 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
         {
           hook: bindSubmit(_ => {
             const tags = tagify?.value;
-            tags && ctrl.save(tags.map(t => t.value));
+            if (tags) {
+              ctrl.save(tags.map(t => t.value));
+              ctrl.open(false);
+            }
           }, ctrl.redraw),
         },
         [
