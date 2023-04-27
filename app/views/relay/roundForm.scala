@@ -102,7 +102,7 @@ object roundForm:
           form("delay"),
           raw("Delay in seconds"),
           help = raw(
-            "Optional, how long to delay moves coming from the source."
+            "Optional, how long to delay moves coming from the source"
           ).some,
           half = true
         )(form3.input(_, typ = "number")),

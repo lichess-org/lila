@@ -41,11 +41,7 @@ case class RelayRound(
       sync = sync.play
     )
 
-  def ensureStarted =
-    copy(
-      startedAt = startedAt orElse nowInstant.some
-    )
-
+  def ensureStarted     = copy(startedAt = startedAt orElse nowInstant.some)
   def hasStarted        = startedAt.isDefined
   def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter nowInstant)
   def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore nowInstant)
