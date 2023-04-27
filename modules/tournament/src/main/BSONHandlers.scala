@@ -48,7 +48,7 @@ object BSONHandlers:
   )
 
   import lila.gathering.ConditionHandlers.BSONHandlers.given
-  import TournamentCondition.given
+  import TournamentCondition.bsonHandler
 
   given tourHandler: BSON[Tournament] with
     def reads(r: BSON.Reader) =

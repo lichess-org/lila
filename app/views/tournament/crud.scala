@@ -10,6 +10,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
 import lila.tournament.{ Tournament, TournamentForm }
+import lila.gathering.GatheringClock
 
 object crud:
 
@@ -117,10 +118,10 @@ object crud:
       ),
       form3.split(
         form3.group(form("clockTime"), raw("Clock time"), half = true)(
-          form3.select(_, TournamentForm.clockTimeChoices)
+          form3.select(_, GatheringClock.timeChoices)
         ),
         form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-          form3.select(_, TournamentForm.clockIncrementChoices)
+          form3.select(_, GatheringClock.incrementChoices)
         )
       ),
       form3.split(

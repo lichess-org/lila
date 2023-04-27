@@ -14,17 +14,18 @@ import lila.common.Form.{ *, given }
 import lila.hub.LeaderTeam
 import lila.hub.LightTeam.*
 import lila.user.User
-import lila.gathering.{ Condition, ConditionForm }
+import lila.gathering.{ Condition, GatheringClock }
 
 final class TournamentForm:
 
   import TournamentForm.*
+  import GatheringClock.*
 
   def create(user: User, leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamId] = None) =
     form(user, leaderTeams, none) fill TournamentSetup(
       name = teamBattleId.isEmpty option user.titleUsername,
-      clockTime = clockTimeDefault,
-      clockIncrement = clockIncrementDefault,
+      clockTime = timeDefault,
+      clockIncrement = incrementDefault,
       minutes = minuteDefault,
       waitMinutes = waitMinuteDefault.some,
       startDate = none,
@@ -84,8 +85,8 @@ final class TournamentForm:
   private def makeMapping(user: User, leaderTeams: List[LeaderTeam]) =
     mapping(
       "name"           -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
-      "clockTime"      -> numberInDouble(clockTimeChoices),
-      "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
+      "clockTime"      -> numberInDouble(timeChoices),
+      "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes" -> {
         if (lila.security.Granter(_.ManageTournament)(user)) number
         else numberIn(minuteChoices)
@@ -112,22 +113,6 @@ final class TournamentForm:
 object TournamentForm:
 
   import chess.variant.*
-
-  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ {
-    (2 to 8 by 1) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  }.map(_.toDouble)
-  val clockTimeDefault = 2d
-  private def formatLimit(l: Double) =
-    Clock.Config(LimitSeconds((l * 60).toInt), IncrementSeconds(0)).limitString + {
-      if (l <= 1) " minute" else " minutes"
-    }
-  val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
-
-  val clockIncrements = IncrementSeconds from {
-    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  }
-  val clockIncrementDefault = IncrementSeconds(0)
-  val clockIncrementChoices = options(IncrementSeconds raw clockIncrements, "%d second{s}")
 
   val minutes       = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
   val minuteDefault = 45

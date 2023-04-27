@@ -7,7 +7,9 @@ import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
-import lila.swiss.{ Swiss, SwissCondition }
+import lila.swiss.Swiss
+import lila.gathering.Condition
+import lila.gathering.Condition.WithVerdicts
 
 object side:
 
@@ -15,12 +17,10 @@ object side:
 
   def apply(
       s: Swiss,
-      verdicts: SwissCondition.All.WithVerdicts,
+      verdicts: WithVerdicts,
       streamers: List[UserId],
       chat: Boolean
-  )(using
-      ctx: Context
-  ) =
+  )(using ctx: Context) =
     frag(
       div(cls := "swiss__meta")(
         st.section(dataIcon := s.perfType.iconChar.toString)(
@@ -61,8 +61,7 @@ object side:
         teamLink(s.teamId),
         if (verdicts.relevant)
           st.section(
-            dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
-                         else ""),
+            dataIcon := (if (ctx.isAuth && verdicts.accepted) "" else ""),
             cls := List(
               "conditions" -> true,
               "accepted"   -> (ctx.isAuth && verdicts.accepted),
@@ -80,7 +79,7 @@ object side:
                   ),
                   title := v.verdict.reason.map(_(ctx.lang))
                 )(v.verdict match {
-                  case SwissCondition.RefusedUntil(until) =>
+                  case Condition.RefusedUntil(until) =>
                     frag(
                       "Because you missed your last swiss game, you cannot enter a new swiss tournament until ",
                       absClientInstant(until),

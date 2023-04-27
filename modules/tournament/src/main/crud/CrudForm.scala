@@ -8,20 +8,21 @@ import chess.variant.Variant
 import chess.format.Fen
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import lila.common.Form.{ given, * }
-import lila.gathering.{ Condition, ConditionForm }
+import lila.gathering.{ Condition, GatheringClock }
 
 final class CrudForm(repo: TournamentRepo):
 
   import CrudForm.*
   import TournamentForm.*
+  import GatheringClock.*
 
   def apply(tour: Option[Tournament]) = Form(
     mapping(
       "id"             -> id[TourId](8, tour.map(_.id))(repo.exists),
       "name"           -> text(minLength = 3, maxLength = 40),
       "homepageHours"  -> number(min = 0, max = maxHomepageHours),
-      "clockTime"      -> numberInDouble(clockTimeChoices),
-      "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
+      "clockTime"      -> numberInDouble(timeChoices),
+      "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> typeIn(Variant.list.all.map(_.id).toSet),
       "position"       -> optional(lila.common.Form.fen.playableStrict),
@@ -42,8 +43,8 @@ final class CrudForm(repo: TournamentRepo):
     id = Tournament.makeId,
     name = "",
     homepageHours = 0,
-    clockTime = clockTimeDefault,
-    clockIncrement = clockIncrementDefault,
+    clockTime = timeDefault,
+    clockIncrement = incrementDefault,
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
     position = none,

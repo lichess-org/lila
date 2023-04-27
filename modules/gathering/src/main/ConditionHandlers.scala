@@ -3,6 +3,7 @@ package lila.gathering
 import lila.gathering.Condition.*
 import play.api.i18n.Lang
 import lila.rating.PerfType
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 object ConditionHandlers:
 
@@ -14,12 +15,9 @@ object ConditionHandlers:
     given BSONDocumentHandler[NbRatedGame] = Macros.handler
     given BSONDocumentHandler[MaxRating]   = Macros.handler
     given BSONDocumentHandler[MinRating]   = Macros.handler
-    given BSONHandler[Titled.type] = quickHandler(
-      { case _: BSONValue => Titled },
-      _ => BSONBoolean(true)
-    )
-    given BSONDocumentHandler[TeamMember] = Macros.handler
-    given BSONDocumentHandler[AllowList]  = Macros.handler
+    given BSONHandler[Titled.type]         = ifPresentHandler(Titled)
+    given BSONDocumentHandler[TeamMember]  = Macros.handler
+    given BSONDocumentHandler[AllowList]   = Macros.handler
 
   object JSONHandlers:
     import lila.common.Json.given
@@ -31,8 +29,13 @@ object ConditionHandlers:
           Json.obj(
             "condition" -> cond.name(pt),
             "verdict" -> verd.match
-              case Refused(reason) => reason(lang)
               case Accepted        => JsString("ok")
+              case Refused(reason) => reason(lang)
+              case RefusedUntil(until) =>
+                val date = DateTimeFormatter
+                  .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+                  .withLocale(lang.toLocale)
+                s"Because you missed your last swiss game, you cannot enter a new swiss tournament until $date"
           )
         },
         "accepted" -> verdicts.accepted

@@ -6,8 +6,9 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.swiss.{ Swiss, SwissCondition, SwissForm }
+import lila.swiss.{ Swiss, SwissForm }
 import lila.tournament.TournamentForm
+import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
 
@@ -92,7 +93,7 @@ object form:
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
-          form3.select(_, SwissCondition.DataForm.nbRatedGameChoices)
+          form3.select(_, ConditionForm.nbRatedGameChoices)
         ),
         (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
           form3.checkbox(
@@ -105,10 +106,10 @@ object form:
       ),
       form3.split(
         form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
-          form3.select(_, SwissCondition.DataForm.minRatingChoices)
+          form3.select(_, ConditionForm.minRatingChoices)
         ),
         form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
-          form3.select(_, SwissCondition.DataForm.maxRatingChoices)
+          form3.select(_, ConditionForm.maxRatingChoices)
         )
       )
     )
@@ -164,7 +165,7 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
         form3.select(_, SwissForm.clockLimitChoices, disabled = disabledAfterStart)
       ),
       form3.group(form("clock.increment"), trans.clockIncrement(), half = true)(
-        form3.select(_, TournamentForm.clockIncrementChoices, disabled = disabledAfterStart)
+        form3.select(_, GatheringClock.incrementChoices, disabled = disabledAfterStart)
       )
     )
   def roundInterval =

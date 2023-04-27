@@ -9,7 +9,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
 import lila.tournament.{ Tournament, TournamentForm }
-import lila.gathering.{ Condition, ConditionForm }
+import lila.gathering.{ Condition, ConditionForm, GatheringClock }
 
 object form:
 
@@ -238,10 +238,10 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using Co
   def clock =
     form3.split(
       form3.group(form("clockTime"), trans.clockInitialTime(), half = true)(
-        form3.select(_, TournamentForm.clockTimeChoices, disabled = disabledAfterStart)
+        form3.select(_, GatheringClock.timeChoices, disabled = disabledAfterStart)
       ),
       form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
-        form3.select(_, TournamentForm.clockIncrementChoices, disabled = disabledAfterStart)
+        form3.select(_, GatheringClock.incrementChoices, disabled = disabledAfterStart)
       )
     )
   def minutes =

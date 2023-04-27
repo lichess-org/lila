@@ -17,6 +17,7 @@ import lila.game.{ Game, Pov }
 import lila.round.actorApi.round.QuietFlag
 import lila.user.{ User, UserRepo }
 import lila.common.config.Max
+import lila.gathering.Condition.WithVerdicts
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -74,7 +75,7 @@ final class SwissApi(
         chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval,
         password = data.password,
-        conditions = data.conditions.all,
+        conditions = data.conditions,
         forbiddenPairings = ~data.forbiddenPairings,
         manualPairings = ~data.manualPairings
       )
@@ -106,7 +107,7 @@ final class SwissApi(
               if (data.roundInterval.isDefined) data.realRoundInterval
               else old.settings.roundInterval,
             password = data.password,
-            conditions = data.conditions.all,
+            conditions = data.conditions,
             forbiddenPairings = ~data.forbiddenPairings,
             manualPairings = ~data.manualPairings
           )
@@ -162,10 +163,9 @@ final class SwissApi(
         socket.reload(swiss.id)
     }
 
-  def verdicts(swiss: Swiss, me: Option[User]): Fu[SwissCondition.All.WithVerdicts] =
-    me match
-      case None       => fuccess(swiss.settings.conditions.accepted)
-      case Some(user) => verify(swiss, user)
+  def verdicts(swiss: Swiss, me: Option[User]): Fu[WithVerdicts] = me match
+    case None       => fuccess(swiss.settings.conditions.accepted)
+    case Some(user) => verify(swiss, user)
 
   def join(id: SwissId, me: User, isInTeam: TeamId => Boolean, password: Option[String]): Fu[Boolean] =
     Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>

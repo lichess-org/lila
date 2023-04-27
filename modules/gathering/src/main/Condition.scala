@@ -7,7 +7,7 @@ import lila.rating.PerfType
 import lila.user.{ Title, User }
 import lila.hub.LightTeam.TeamName
 
-sealed trait Condition:
+trait Condition:
 
   def name(perf: PerfType)(using Lang): String
 
@@ -22,9 +22,11 @@ object Condition:
   type GetMaxRating   = PerfType => Fu[IntRating]
   type GetUserTeamIds = User => Fu[List[TeamId]]
 
-  sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
-  case object Accepted                        extends Verdict(true, none)
-  case class Refused(because: Lang => String) extends Verdict(false, because.some)
+  enum Verdict(val accepted: Boolean, val reason: Option[Lang => String]):
+    case Accepted                         extends Verdict(true, none)
+    case Refused(because: Lang => String) extends Verdict(false, because.some)
+    case RefusedUntil(until: Instant)     extends Verdict(false, none)
+  export Verdict.*
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 

@@ -38,15 +38,7 @@ object TournamentCondition:
         case c             => fuccess(WithVerdict(c, Accepted))
       }.parallel dmap WithVerdicts.apply
 
-    def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
-    def sameMinRating(other: All) = minRating.map(_.rating) == other.minRating.map(_.rating)
-    def sameRatings(other: All)   = sameMaxRating(other) && sameMinRating(other)
-
     def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
-
-    def validRatings = (minRating, maxRating) match
-      case (Some(min), Some(max)) => min.rating < max.rating
-      case _                      => true
 
   object All:
     val empty             = All(none, none, none, none, none, none)
@@ -79,6 +71,6 @@ object TournamentCondition:
       apply(conditions, user, perfType, getTeams).dmap(_.accepted)
 
   import reactivemongo.api.bson.*
-  given BSONDocumentHandler[All] =
+  given bsonHandler: BSONDocumentHandler[All] =
     import lila.gathering.ConditionHandlers.BSONHandlers.given
     Macros.handler
