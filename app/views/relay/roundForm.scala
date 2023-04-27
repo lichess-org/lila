@@ -101,8 +101,10 @@ object roundForm:
         form3.group(
           form("delay"),
           raw("Delay in seconds"),
-          help = raw(
-            "Optional, how long to delay moves coming from the source"
+          help = frag(
+            "Optional, how long to delay moves coming from the source.",
+            br,
+            "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
           ).some,
           half = true
         )(form3.input(_, typ = "number")),
