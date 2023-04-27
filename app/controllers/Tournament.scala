@@ -385,7 +385,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               .fold(
                 newJsonFormError,
                 data =>
-                  api.apiUpdate(tour, data, teams) flatMap { tour =>
+                  api.apiUpdate(tour, data) flatMap { tour =>
                     jsonView(
                       tour,
                       none,
@@ -547,7 +547,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             .bindFromRequest()
             .fold(
               err => BadRequest(html.tournament.form.edit(tour, err, teams)).toFuccess,
-              data => api.update(tour, data, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
+              data => api.update(tour, data) inject Redirect(routes.Tournament.show(id)).flashSuccess
             )
         }
       }

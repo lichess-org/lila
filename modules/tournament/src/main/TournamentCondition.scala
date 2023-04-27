@@ -44,15 +44,12 @@ object TournamentCondition:
 
     def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
 
+    def validRatings = (minRating, maxRating) match
+      case (Some(min), Some(max)) => min.rating < max.rating
+      case _                      => true
+
   object All:
-    val empty = All(
-      nbRatedGame = none,
-      maxRating = none,
-      minRating = none,
-      titled = none,
-      teamMember = none,
-      allowList = none
-    )
+    val empty             = All(none, none, none, none, none, none)
     given zero: Zero[All] = Zero(empty)
 
   object form:
@@ -64,52 +61,10 @@ object TournamentCondition:
         "nbRatedGame" -> optional(nbRatedGame),
         "maxRating"   -> optional(maxRating),
         "minRating"   -> optional(minRating),
-        "titled"      -> optional(boolean),
+        "titled"      -> titled,
         "teamMember"  -> optional(teamMember(leaderTeams)),
         "allowList"   -> optional(allowList)
-      )(AllSetup.apply)(unapply).verifying("Invalid ratings", _.validRatings)
-
-    case class AllSetup(
-        nbRatedGame: Option[NbRatedGame],
-        maxRating: Option[MaxRating],
-        minRating: Option[MinRating],
-        titled: Option[Boolean],
-        teamMember: Option[TeamMemberSetup],
-        allowList: Option[String]
-    ):
-
-      def validRatings = (minRating, maxRating) match
-        case (Some(min), Some(max)) => min.rating < max.rating
-        case _                      => true
-
-      def convert(teams: Map[TeamId, TeamName]) =
-        All(
-          nbRatedGame,
-          maxRating,
-          minRating,
-          ~titled option Titled,
-          teamMember.flatMap(_ convert teams),
-          allowList = allowList map AllowList.apply
-        )
-
-    object AllSetup:
-      val default = AllSetup(
-        nbRatedGame = none,
-        maxRating = none,
-        minRating = none,
-        titled = none,
-        teamMember = none,
-        allowList = none
-      )
-      def apply(all: All): AllSetup =
-        AllSetup(
-          nbRatedGame = all.nbRatedGame,
-          maxRating = all.maxRating,
-          minRating = all.minRating,
-          titled = all.titled has Titled option true,
-          teamMember = all.teamMember.map(TeamMemberSetup.apply),
-          allowList = all.allowList.map(_.value)
-        )
+      )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   final class Verify(historyApi: HistoryApi)(using Executor):
 

@@ -33,7 +33,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.??(_.headline),
       description = tour.spotlight.??(_.description),
-      conditions = TournamentCondition.form.AllSetup(tour.conditions),
+      conditions = tour.conditions,
       berserkable = !tour.noBerserk,
       rated = tour.isRated,
       streakable = tour.streakable,

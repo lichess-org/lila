@@ -9,6 +9,7 @@ import lila.hub.LeaderTeam
 import lila.hub.LightTeam.TeamName
 import lila.gathering.Condition.*
 import lila.common.Form.{ *, given }
+import play.api.data.Mapping
 
 object ConditionForm:
 
@@ -41,16 +42,17 @@ object ConditionForm:
     "rating" -> numberIn(minRatings).into[IntRating]
   )(MinRating.apply)(_.rating.some)
 
-  def teamMember(leaderTeams: List[LeaderTeam]) =
+  val titled: Mapping[Option[Titled.type]] =
+    optional(boolean).transform(_.contains(true) option Titled, _.isDefined option true)
+
+  def teamMember(leaderTeams: List[LeaderTeam]): Mapping[TeamMember] =
     mapping(
-      "teamId" -> optional(of[TeamId].verifying(id => leaderTeams.exists(_.id == id)))
-    )(TeamMemberSetup.apply)(_.teamId.some)
+      "teamId" -> of[TeamId].verifying(id => leaderTeams.exists(_.id == id))
+    )(id => TeamMember(id, leaderTeams.find(_.id == id).err(s"Team $id not found").name))(_.teamId.some)
 
-  case class TeamMemberSetup(teamId: Option[TeamId]):
-    def convert(teams: Map[TeamId, TeamName]): Option[TeamMember] =
-      teamId flatMap { id =>
-        teams.get(id) map { TeamMember(id, _) }
-      }
-
-  object TeamMemberSetup:
-    def apply(x: TeamMember): TeamMemberSetup = TeamMemberSetup(x.teamId.some)
+  def allowList =
+    nonEmptyText(maxLength = 100_1000)
+      .transform[String](_.replace(',', '\n'), identity)
+      .transform[String](_.linesIterator.map(_.trim).filter(_.nonEmpty).distinct mkString "\n", identity)
+      .verifying("5000 usernames max", _.count('\n' == _) <= 5_000)
+      .transform(AllowList(_), _.value)

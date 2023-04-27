@@ -70,9 +70,7 @@ final class TournamentApi(
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
       description = setup.description,
       hasChat = setup.hasChat | true
-    ) pipe { tour =>
-      tour.copy(conditions = setup.conditions.convert(leaderTeams.view.map(_.pair).toMap))
-    }
+    )
     tournamentRepo.insert(tour) >> {
       setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).?? { teamId =>
         tournamentRepo.setForTeam(tour.id, teamId).void
@@ -88,21 +86,15 @@ final class TournamentApi(
       )
     } inject tour
 
-  def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] =
-    updateTour(old, data, data updateAll old, leaderTeams)
+  def update(old: Tournament, data: TournamentSetup): Fu[Tournament] =
+    updateTour(old, data, data updateAll old)
 
-  def apiUpdate(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] =
-    updateTour(old, data, data updatePresent old, leaderTeams)
+  def apiUpdate(old: Tournament, data: TournamentSetup): Fu[Tournament] =
+    updateTour(old, data, data updatePresent old)
 
-  private def updateTour(
-      old: Tournament,
-      data: TournamentSetup,
-      tour: Tournament,
-      leaderTeams: List[LeaderTeam]
-  ): Fu[Tournament] =
+  private def updateTour(old: Tournament, data: TournamentSetup, tour: Tournament): Fu[Tournament] =
     val finalized = tour.copy(
       conditions = data.conditions
-        .convert(leaderTeams.view.map(_.pair).toMap)
         .copy(teamMember = old.conditions.teamMember), // can't change that
       mode = if (tour.position.isDefined) chess.Mode.Casual else tour.mode
     )

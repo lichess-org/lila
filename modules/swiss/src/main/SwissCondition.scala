@@ -226,6 +226,12 @@ object SwissCondition:
       )(AllSetup.apply)(unapply)
         .verifying("Invalid ratings", _.validRatings)
 
+    def allowList =
+      nonEmptyText(maxLength = 100_1000)
+        .transform[String](_.replace(',', '\n'), identity)
+        .transform[String](_.linesIterator.map(_.trim).filter(_.nonEmpty).distinct mkString "\n", identity)
+        .verifying("5000 usernames max", _.count('\n' == _) <= 5_000)
+
     case class AllSetup(
         nbRatedGame: Option[NbRatedGame],
         maxRating: RatingSetup,
