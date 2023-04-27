@@ -382,8 +382,8 @@ Thank you all, you rock!""",
             import chess.Clock
             val perf = Schedule.Speed toPerfType speed
             val conditions = TournamentCondition.All(
-              nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
-              maxRating = Condition.MaxRating(perf, rating).some,
+              nbRatedGame = Condition.NbRatedGame(20).some,
+              maxRating = Condition.MaxRating(rating).some,
               minRating = none,
               titled = none,
               teamMember = none,

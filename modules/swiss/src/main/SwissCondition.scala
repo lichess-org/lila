@@ -30,7 +30,7 @@ object SwissCondition:
   case class WithVerdict(condition: SwissCondition, verdict: Verdict)
 
   case object PlayYourGames extends SwissCondition:
-    def name(perf: PerfType)(using lang: Lang) = "Play your games"
+    def name(perf: PerfType)(using Lang) = "Play your games"
     def withBan(bannedUntil: Option[Instant]) = withVerdict {
       bannedUntil.fold[Verdict](Accepted)(RefusedUntil.apply)
     }

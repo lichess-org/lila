@@ -34,7 +34,7 @@ final class JsonView(
 )(using Executor):
 
   import JsonView.{ *, given }
-  import lila.gathering.ConditionHandlers.JSONHandlers.given
+  import lila.gathering.ConditionHandlers.JSONHandlers.{ *, given }
   private given Ordering[TeamId] = stringOrdering
 
   def apply(
@@ -73,7 +73,7 @@ final class JsonView(
           case (None, _)                                   => fuccess(tour.conditions.accepted.some)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
           case (Some(user), Some(_)) => verify.rejoin(tour.conditions, user, getUserTeamIds) map some
-          case (Some(user), None)    => verify(tour.conditions, user, getUserTeamIds) map some
+          case (Some(user), None)    => verify(tour.conditions, user, tour.perfType, getUserTeamIds) map some
       }
       stats       <- statsApi(tour)
       shieldOwner <- full.?? { shieldApi currentOwner tour }
@@ -108,7 +108,7 @@ final class JsonView(
           .add("berserkable" -> tour.berserkable)
           .add("noStreak" -> tour.noStreak)
           .add("position" -> tour.position.ifTrue(full).map(positionJson))
-          .add("verdicts" -> verdicts.map(ConditionHandlers.JSONHandlers.verdictsFor(_, lang)))
+          .add("verdicts" -> verdicts.map(verdictsFor(_, tour.perfType)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
           .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id.value)))

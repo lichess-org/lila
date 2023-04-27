@@ -116,8 +116,4 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       noStreak = !data.streakable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
       hasChat = data.hasChat
-    ) pipe { tour =>
-      tour.copy(conditions =
-        data.conditions.convert(tour.perfType, Map.empty)
-      ) // the CRUD form doesn't support team restrictions so Map.empty is fine
-    }
+    )

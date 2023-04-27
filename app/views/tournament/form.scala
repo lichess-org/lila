@@ -102,11 +102,6 @@ object form:
       )
     }
 
-  private def autoField(auto: Boolean, field: Field)(visible: Field => Frag) =
-    frag(
-      if (auto) form3.hidden(field) else visible(field)
-    )
-
   def condition(
       form: Form[?],
       fields: TourFields,
@@ -131,28 +126,15 @@ object form:
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
           form3.select(_, ConditionForm.nbRatedGameChoices)
-        ),
-        autoField(auto, form("conditions.nbRatedGame.perf")) { field =>
-          form3.group(field, frag("In variant"), half = true)(
-            form3.select(_, ("", "Any") :: ConditionForm.perfChoices)
-          )
-        }
+        )
       ),
       form3.split(
         form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
           form3.select(_, ConditionForm.minRatingChoices)
         ),
-        autoField(auto, form("conditions.minRating.perf")) { field =>
-          form3.group(field, frag("In variant"), half = true)(form3.select(_, ConditionForm.perfChoices))
-        }
-      ),
-      form3.split(
         form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
           form3.select(_, ConditionForm.maxRatingChoices)
-        ),
-        autoField(auto, form("conditions.maxRating.perf")) { field =>
-          form3.group(field, frag("In variant"), half = true)(form3.select(_, ConditionForm.perfChoices))
-        }
+        )
       ),
       form3.split(
         form3.group(

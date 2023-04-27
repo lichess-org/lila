@@ -2,6 +2,7 @@ package lila.gathering
 
 import lila.gathering.Condition.*
 import play.api.i18n.Lang
+import lila.rating.PerfType
 
 object ConditionHandlers:
 
@@ -24,29 +25,23 @@ object ConditionHandlers:
     import lila.common.Json.given
     import play.api.libs.json.*
 
-    def verdictsFor(verdicts: WithVerdicts, lang: Lang) =
+    def verdictsFor(verdicts: WithVerdicts, pt: PerfType)(using lang: Lang) =
       Json.obj(
         "list" -> verdicts.list.map { case WithVerdict(cond, verd) =>
           Json.obj(
-            "condition" -> cond.name(using lang),
-            "verdict" -> (verd match
+            "condition" -> cond.name(pt),
+            "verdict" -> verd.match
               case Refused(reason) => reason(lang)
               case Accepted        => JsString("ok")
-            )
           )
         },
         "accepted" -> verdicts.accepted
       )
 
     given OWrites[Condition.RatingCondition] = OWrites { r =>
-      Json.obj(
-        "perf"   -> r.perf.key,
-        "rating" -> r.rating
-      )
+      Json.obj("rating" -> r.rating)
     }
 
     given OWrites[Condition.NbRatedGame] = OWrites { r =>
-      Json
-        .obj("nb" -> r.nb)
-        .add("perf" -> r.perf.map(_.key))
+      Json.obj("nb" -> r.nb)
     }

@@ -91,7 +91,7 @@ object side:
               )(v.condition match
                 case lila.gathering.Condition.TeamMember(teamId, teamName) =>
                   trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
-                case c => c.name
+                case c => c.name(tour.perfType)
               )
             }
           )

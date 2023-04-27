@@ -21,11 +21,12 @@ object TournamentCondition:
   ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, teamMember, allowList)):
 
     def withVerdicts(
-        getMaxRating: GetMaxRating
-    )(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using Executor): Fu[WithVerdicts] =
+        getMaxRating: GetMaxRating,
+        getUserTeamIds: User => Fu[List[TeamId]]
+    )(user: User, perfType: PerfType)(using Executor): Fu[WithVerdicts] =
       list.map {
-        case c: MaxRating  => c(getMaxRating)(user) map c.withVerdict
-        case c: FlatCond   => fuccess(c withVerdict c(user))
+        case c: MaxRating  => c(getMaxRating)(user, perfType) map c.withVerdict
+        case c: FlatCond   => fuccess(c withVerdict c(user, perfType))
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
       }.parallel dmap WithVerdicts.apply
 
@@ -61,32 +62,31 @@ object TournamentCondition:
     def all(leaderTeams: List[LeaderTeam]) =
       mapping(
         "nbRatedGame" -> optional(nbRatedGame),
-        "maxRating"   -> maxRating,
-        "minRating"   -> minRating,
+        "maxRating"   -> optional(maxRating),
+        "minRating"   -> optional(minRating),
         "titled"      -> optional(boolean),
         "teamMember"  -> optional(teamMember(leaderTeams)),
         "allowList"   -> optional(allowList)
       )(AllSetup.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
     case class AllSetup(
-        nbRatedGame: Option[NbRatedGameSetup],
-        maxRating: RatingSetup,
-        minRating: RatingSetup,
+        nbRatedGame: Option[NbRatedGame],
+        maxRating: Option[MaxRating],
+        minRating: Option[MinRating],
         titled: Option[Boolean],
         teamMember: Option[TeamMemberSetup],
         allowList: Option[String]
     ):
 
-      def validRatings =
-        (minRating.actualRating, maxRating.actualRating) match
-          case (Some(min), Some(max)) => min < max
-          case _                      => true
+      def validRatings = (minRating, maxRating) match
+        case (Some(min), Some(max)) => min.rating < max.rating
+        case _                      => true
 
-      def convert(perf: PerfType, teams: Map[TeamId, TeamName]) =
+      def convert(teams: Map[TeamId, TeamName]) =
         All(
-          nbRatedGame.flatMap(_ convert perf),
-          maxRating.convert(perf)(MaxRating.apply),
-          minRating.convert(perf)(MinRating.apply),
+          nbRatedGame,
+          maxRating,
+          minRating,
           ~titled option Titled,
           teamMember.flatMap(_ convert teams),
           allowList = allowList map AllowList.apply
@@ -95,17 +95,17 @@ object TournamentCondition:
     object AllSetup:
       val default = AllSetup(
         nbRatedGame = none,
-        maxRating = RatingSetup(none, none),
-        minRating = RatingSetup(none, none),
+        maxRating = none,
+        minRating = none,
         titled = none,
         teamMember = none,
         allowList = none
       )
       def apply(all: All): AllSetup =
         AllSetup(
-          nbRatedGame = all.nbRatedGame.map(NbRatedGameSetup.apply),
-          maxRating = RatingSetup(all.maxRating.map(_.perf.key), all.maxRating.map(_.rating)),
-          minRating = RatingSetup(all.minRating.map(_.perf.key), all.minRating.map(_.rating)),
+          nbRatedGame = all.nbRatedGame,
+          maxRating = all.maxRating,
+          minRating = all.minRating,
           titled = all.titled has Titled option true,
           teamMember = all.teamMember.map(TeamMemberSetup.apply),
           allowList = all.allowList.map(_.value)
@@ -113,15 +113,15 @@ object TournamentCondition:
 
   final class Verify(historyApi: HistoryApi)(using Executor):
 
-    def apply(all: All, user: User, getTeams: GetUserTeamIds): Fu[WithVerdicts] =
+    def apply(all: All, user: User, perfType: PerfType, getTeams: GetUserTeamIds): Fu[WithVerdicts] =
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
-      all.withVerdicts(getMaxRating)(user, getTeams)
+      all.withVerdicts(getMaxRating, getTeams)(user, perfType)
 
     def rejoin(all: All, user: User, getTeams: GetUserTeamIds): Fu[WithVerdicts] =
       all.withRejoinVerdicts(user, getTeams)
 
-    def canEnter(user: User, getTeams: GetUserTeamIds)(conditions: All): Fu[Boolean] =
-      apply(conditions, user, getTeams).dmap(_.accepted)
+    def canEnter(user: User, perfType: PerfType, getTeams: GetUserTeamIds)(conditions: All): Fu[Boolean] =
+      apply(conditions, user, perfType, getTeams).dmap(_.accepted)
 
   import reactivemongo.api.bson.*
   given BSONDocumentHandler[All] =

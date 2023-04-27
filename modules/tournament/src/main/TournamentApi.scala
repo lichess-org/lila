@@ -71,7 +71,7 @@ final class TournamentApi(
       description = setup.description,
       hasChat = setup.hasChat | true
     ) pipe { tour =>
-      tour.copy(conditions = setup.conditions.convert(tour.perfType, leaderTeams.view.map(_.pair).toMap))
+      tour.copy(conditions = setup.conditions.convert(leaderTeams.view.map(_.pair).toMap))
     }
     tournamentRepo.insert(tour) >> {
       setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).?? { teamId =>
@@ -102,7 +102,7 @@ final class TournamentApi(
   ): Fu[Tournament] =
     val finalized = tour.copy(
       conditions = data.conditions
-        .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
+        .convert(leaderTeams.view.map(_.pair).toMap)
         .copy(teamMember = old.conditions.teamMember), // can't change that
       mode = if (tour.position.isDefined) chess.Mode.Casual else tour.mode
     )
@@ -273,7 +273,7 @@ final class TournamentApi(
       case None => fuccess(tour.conditions.accepted)
       case Some(user) =>
         if (tour.isStarted && playerExists) verify.rejoin(tour.conditions, user, getUserTeamIds)
-        else verify(tour.conditions, user, getUserTeamIds)
+        else verify(tour.conditions, user, tour.perfType, getUserTeamIds)
 
   private[tournament] def join(
       tourId: TourId,

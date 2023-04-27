@@ -9,7 +9,7 @@ import lila.hub.LightTeam.TeamName
 
 sealed trait Condition:
 
-  def name(using Lang): String
+  def name(perf: PerfType)(using Lang): String
 
   def withVerdict(verdict: Condition.Verdict) = Condition.WithVerdict(this, verdict)
 
@@ -17,7 +17,7 @@ object Condition:
 
   trait FlatCond:
 
-    def apply(user: User): Condition.Verdict
+    def apply(user: User, perf: PerfType): Condition.Verdict
 
   type GetMaxRating   = PerfType => Fu[IntRating]
   type GetUserTeamIds = User => Fu[List[TeamId]]
@@ -29,83 +29,66 @@ object Condition:
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond:
-    def name(using Lang) = "Only titled players"
-    def apply(user: User) =
-      if (user.title.exists(_ != Title.LM) && user.noBot) Accepted
-      else Refused(l => name(using l))
+    def name(pt: PerfType)(using Lang) = "Only titled players"
+    def apply(user: User, pt: PerfType) =
+      if user.title.exists(_ != Title.LM) && user.noBot
+      then Accepted
+      else Refused(name(pt)(using _))
 
-  case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition with FlatCond:
+  case class NbRatedGame(nb: Int) extends Condition with FlatCond:
 
-    def apply(user: User) =
+    def apply(user: User, pt: PerfType) =
       if user.hasTitle then Accepted
+      else if user.perfs(pt).nb >= nb then Accepted
       else
-        perf match
-          case Some(p) if user.perfs(p).nb >= nb => Accepted
-          case Some(p) =>
-            Refused: lang =>
-              val missing = nb - user.perfs(p).nb
-              trans.needNbMorePerfGames.pluralTxt(missing, missing, p.trans(using lang))(using lang)
-          case None if user.count.rated >= nb => Accepted
-          case None =>
-            Refused: lang =>
-              val missing = nb - user.count.rated
-              trans.needNbMoreGames.pluralSameTxt(missing)(using lang)
+        Refused: lang =>
+          val missing = nb - user.perfs(pt).nb
+          trans.needNbMorePerfGames.pluralTxt(missing, missing, pt.trans(using lang))(using lang)
 
-    def name(using Lang) =
-      perf match
-        case None    => trans.moreThanNbRatedGames.pluralSameTxt(nb)
-        case Some(p) => trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, p.trans)
+    def name(pt: PerfType)(using Lang) =
+      trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
 
   abstract trait RatingCondition:
-    val perf: PerfType
     val rating: IntRating
 
-  case class MaxRating(perf: PerfType, rating: IntRating) extends Condition with RatingCondition:
+  case class MaxRating(rating: IntRating) extends Condition with RatingCondition:
 
-    def apply(
-        getMaxRating: GetMaxRating
-    )(user: User)(using Executor): Fu[Verdict] =
-      if (user.perfs(perf).provisional.yes) fuccess(Refused { lang =>
-        trans.yourPerfRatingIsProvisional.txt(perf.trans(using lang))(using lang)
+    def apply(getMaxRating: GetMaxRating)(user: User, pt: PerfType)(using Executor): Fu[Verdict] =
+      if (user.perfs(pt).provisional.yes) fuccess(Refused { lang =>
+        trans.yourPerfRatingIsProvisional.txt(pt.trans(using lang))(using lang)
       })
-      else if (user.perfs(perf).intRating > rating) fuccess(Refused { lang =>
-        trans.yourPerfRatingIsTooHigh.txt(perf.trans(using lang), user.perfs(perf).intRating)(using lang)
+      else if (user.perfs(pt).intRating > rating) fuccess(Refused { lang =>
+        trans.yourPerfRatingIsTooHigh.txt(pt.trans(using lang), user.perfs(pt).intRating)(using lang)
       })
       else
-        getMaxRating(perf) map {
+        getMaxRating(pt).map:
           case r if r <= rating => Accepted
           case r =>
             Refused { lang =>
-              trans.yourTopWeeklyPerfRatingIsTooHigh.txt(perf.trans(using lang), r)(using lang)
+              trans.yourTopWeeklyPerfRatingIsTooHigh.txt(pt.trans(using lang), r)(using lang)
             }
-        }
 
-    def maybe(user: User): Boolean =
-      user.perfs(perf).provisional.no && user.perfs(perf).intRating <= rating
+    def maybe(user: User, pt: PerfType): Boolean =
+      user.perfs(pt).provisional.no && user.perfs(pt).intRating <= rating
 
-    def name(using lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
+    def name(pt: PerfType)(using lang: Lang) = trans.ratedLessThanInPerf.txt(rating, pt.trans)
 
-  case class MinRating(perf: PerfType, rating: IntRating)
-      extends Condition
-      with RatingCondition
-      with FlatCond:
+  case class MinRating(rating: IntRating) extends Condition with RatingCondition with FlatCond:
 
-    def apply(user: User) =
-      if (user.perfs(perf).provisional.yes) Refused { lang =>
-        trans.yourPerfRatingIsProvisional.txt(perf.trans(using lang))(using lang)
+    def apply(user: User, pt: PerfType) =
+      if (user.perfs(pt).provisional.yes) Refused { lang =>
+        trans.yourPerfRatingIsProvisional.txt(pt.trans(using lang))(using lang)
       }
-      else if (user.perfs(perf).intRating < rating) Refused { lang =>
-        trans.yourPerfRatingIsTooLow.txt(perf.trans(using lang), user.perfs(perf).intRating)(using lang)
+      else if (user.perfs(pt).intRating < rating) Refused { lang =>
+        trans.yourPerfRatingIsTooLow.txt(pt.trans(using lang), user.perfs(pt).intRating)(using lang)
       }
       else Accepted
 
-    def name(using lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
+    def name(pt: PerfType)(using Lang) = trans.ratedMoreThanInPerf.txt(rating, pt.trans)
 
   case class TeamMember(teamId: TeamId, teamName: TeamName) extends Condition:
-    def name(using lang: Lang) = trans.mustBeInTeam.txt(teamName)
-    def apply(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
-        Executor
-    ) =
+    def name(pt: PerfType)(using lang: Lang) = trans.mustBeInTeam.txt(teamName)
+    def apply(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using Executor) =
       getUserTeamIds(user) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
         else
@@ -120,12 +103,12 @@ object Condition:
 
     private def allowAnyTitledUser = segments contains "%titled"
 
-    def apply(user: User): Condition.Verdict =
+    def apply(user: User, pt: PerfType): Condition.Verdict =
       if (segments contains user.id.value) Accepted
       else if (allowAnyTitledUser && user.hasTitle) Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
 
-    def name(using lang: Lang) = "Fixed line-up"
+    def name(pt: PerfType)(using Lang) = "Fixed line-up"
 
   case class WithVerdicts(list: List[WithVerdict]) extends AnyVal:
     def relevant = list.nonEmpty

@@ -358,12 +358,8 @@ object Schedule:
           case _                                   => 0
 
       TournamentCondition.All(
-        nbRatedGame = nbRatedGame.some.filter(0 <).map {
-          Condition.NbRatedGame(s.perfType.some, _)
-        },
-        minRating = minRating.some.filter(_ > 0).map {
-          Condition.MinRating(s.perfType, _)
-        },
+        nbRatedGame = nbRatedGame.some.filter(0 <) map Condition.NbRatedGame.apply,
+        minRating = minRating.some.filter(_ > 0) map Condition.MinRating.apply,
         maxRating = none,
         titled = none,
         teamMember = none,
