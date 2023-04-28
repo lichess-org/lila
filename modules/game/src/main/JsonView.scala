@@ -65,6 +65,7 @@ final class JsonView(rematches: Rematches):
               .playerTextBlocking(pov.opponent, withRating = false)
           )
           .add("rating" -> pov.opponent.rating)
+          .add("ratingDiff" -> pov.opponent.ratingDiff)
           .add("ai" -> pov.opponent.aiLevel),
         "isMyTurn" -> pov.isMyTurn
       )
@@ -73,6 +74,7 @@ final class JsonView(rematches: Rematches):
       .add("swissId" -> pov.game.swissId)
       .add("orientation" -> pov.game.variant.racingKings.option(chess.White))
       .add("winner" -> pov.game.winnerColor)
+      .add("ratingDiff" -> pov.player.ratingDiff)
 
   def player(p: Player, user: Option[LightUser]) =
     Json
