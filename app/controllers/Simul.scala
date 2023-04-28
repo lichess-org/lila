@@ -187,15 +187,16 @@ final class Simul(env: Env) extends LilaController(env):
     AuthBody { implicit ctx => me =>
       WithEditableSimul(id) { simul =>
         given play.api.mvc.Request[?] = ctx.body
-        env.team.api.lightsByLeader(me.id) flatMap { teams =>
-          forms
-            .edit(me, teams, simul)
-            .bindFromRequest()
-            .fold(
-              err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
-              data => env.simul.api.update(simul, data, me, teams) inject Redirect(routes.Simul.show(id))
-            )
-        }
+        env.team.api
+          .lightsByLeader(me.id)
+          .flatMap: teams =>
+            forms
+              .edit(me, teams, simul)
+              .bindFromRequest()
+              .fold(
+                err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
+                data => env.simul.api.update(simul, data, me, teams) inject Redirect(routes.Simul.show(id))
+              )
       }
     }
 

@@ -69,33 +69,7 @@ object side:
           st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
-        verdicts.relevant option st.section(
-          dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
-                       else ""),
-          cls := List(
-            "conditions" -> true,
-            "accepted"   -> (ctx.isAuth && verdicts.accepted),
-            "refused"    -> (ctx.isAuth && !verdicts.accepted)
-          )
-        )(
-          div(
-            verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
-            verdicts.list map { v =>
-              p(
-                cls := List(
-                  "condition" -> true,
-                  "accepted"  -> (ctx.isAuth && v.verdict.accepted),
-                  "refused"   -> (ctx.isAuth && !v.verdict.accepted)
-                ),
-                title := v.verdict.reason.map(_(ctx.lang))
-              )(v.condition match
-                case lila.gathering.Condition.TeamMember(teamId, teamName) =>
-                  trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
-                case c => c.name(tour.perfType)
-              )
-            }
-          )
-        ),
+        views.html.gathering.verdicts(verdicts, tour.perfType),
         tour.noBerserk option div(cls := "text", dataIcon := "")(trans.arena.noBerserkAllowed()),
         tour.noStreak option div(cls := "text", dataIcon := "")(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),

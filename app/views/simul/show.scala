@@ -9,8 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.socket.SocketVersion
-import lila.socket.SocketVersion.given
-import lila.simul.{ Simul, SimulCondition }
+import lila.simul.Simul
 import lila.gathering.Condition
 
 object show:
@@ -99,30 +98,7 @@ object show:
                 )
               }
             ),
-            if verdicts.relevant
-            then
-              st.section(
-                dataIcon := !userIsHost option (if ctx.isAuth && verdicts.accepted then "" else ""),
-                cls := List(
-                  "conditions" -> true,
-                  "accepted"   -> (ctx.isAuth && !userIsHost && verdicts.accepted),
-                  "refused"    -> (ctx.isAuth && !userIsHost && !verdicts.accepted)
-                )
-              ):
-                div(
-                  verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
-                  verdicts.list map { v =>
-                    p(
-                      cls := List(
-                        "condition" -> true,
-                        "accepted"  -> (ctx.isAuth && !userIsHost && v.verdict.accepted),
-                        "refused"   -> (ctx.isAuth && !userIsHost && !v.verdict.accepted)
-                      ),
-                      title := !userIsHost option v.verdict.reason.map(_(ctx.lang))
-                    )(v.condition.name(sim.mainPerfType))
-                  }
-                )
-            else br,
+            views.html.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
             trans.by(userIdLink(sim.hostId.some)),
             sim.estimatedStartAt.map: d =>
               frag(br, absClientInstant(d))

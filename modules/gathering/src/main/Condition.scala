@@ -106,6 +106,6 @@ object Condition:
       else Refused { _ => "Your name is not in the tournament line-up." }
     def name(pt: PerfType)(using Lang) = "Fixed line-up"
 
-  case class WithVerdicts(list: List[WithVerdict]) extends AnyVal:
-    def relevant = list.nonEmpty
+  case class WithVerdicts(list: List[WithVerdict]):
+    export list.nonEmpty
     def accepted = list.forall(_.verdict.accepted)

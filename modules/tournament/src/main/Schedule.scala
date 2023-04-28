@@ -332,7 +332,7 @@ object Schedule:
     s.copy(conditions = conditionFor(s))
 
   private[tournament] def conditionFor(s: Schedule) =
-    if (s.conditions.relevant) s.conditions
+    if s.conditions.nonEmpty then s.conditions
     else
       import Freq.*, Speed.*
 

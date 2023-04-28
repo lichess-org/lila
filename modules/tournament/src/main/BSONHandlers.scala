@@ -100,7 +100,7 @@ object BSONHandlers:
         "fen"         -> o.position,
         "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"    -> o.password,
-        "conditions"  -> o.conditions.relevant.option(o.conditions),
+        "conditions"  -> o.conditions.nonEmpty.option(o.conditions),
         "teamBattle"  -> o.teamBattle,
         "noBerserk"   -> w.boolO(o.noBerserk),
         "noStreak"    -> w.boolO(o.noStreak),

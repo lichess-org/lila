@@ -106,7 +106,7 @@ object BsonHandlers:
         "c"  -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
         "i"  -> s.roundInterval.toSeconds.toInt,
         "p"  -> s.password,
-        "o"  -> s.conditions.relevant.option(s.conditions),
+        "o"  -> s.conditions.nonEmpty.option(s.conditions),
         "fp" -> s.forbiddenPairings.some.filter(_.nonEmpty),
         "mp" -> s.manualPairings.some.filter(_.nonEmpty)
       )

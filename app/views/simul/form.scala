@@ -139,7 +139,7 @@ object form:
       form3.fieldset("Entry conditions")(
         form3.split(
           teams.nonEmpty option
-            form3.group(form("conditions.team"), trans.onlyMembersOfTeam(), half = true)(
+            form3.group(form("conditions.team.teamId"), trans.onlyMembersOfTeam(), half = true)(
               form3.select(_, List(("", trans.noRestriction.txt())) ::: teams.map(_.pair))
             )
         ),
