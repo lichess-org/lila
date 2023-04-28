@@ -19,7 +19,7 @@ object form:
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
     ) {
-      val fields = new TourFields(form, none)
+      val fields = TourFields(form, none)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")(
@@ -41,7 +41,7 @@ object form:
             form3.fieldset(trans.advancedSettings())(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
-                condition(form, fields, auto = true, teams = leaderTeams, tour = none),
+                conditionFields(form, fields, teams = leaderTeams, tour = none),
                 fields.startDate
               )
             ),
@@ -62,7 +62,7 @@ object form:
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
     ) {
-      val fields = new TourFields(form, tour.some)
+      val fields = TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")("Edit ", tour.name()),
@@ -82,7 +82,7 @@ object form:
             form3.fieldset(trans.advancedSettings())(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
-                condition(form, fields, auto = true, teams = myTeams, tour = tour.some)
+                conditionFields(form, fields, teams = myTeams, tour = tour.some)
               )
             ),
             form3.actions(
@@ -102,39 +102,36 @@ object form:
       )
     }
 
-  def condition(
+  def conditionFields(
       form: Form[?],
       fields: TourFields,
-      auto: Boolean,
       teams: List[LeaderTeam],
       tour: Option[Tournament]
   )(using ctx: Context) =
     frag(
       form3.split(
         fields.entryCode,
-        (auto && tour.isEmpty && teams.nonEmpty) option {
+        tour.isEmpty && teams.nonEmpty option {
           val baseField = form("conditions.teamMember.teamId")
-          val field = ctx.req.queryString get "team" flatMap (_.headOption) match {
-            case None       => baseField
-            case Some(team) => baseField.copy(value = team.some)
-          }
-          form3.group(field, trans.onlyMembersOfTeam(), half = true)(
+          val field = ctx.req.queryString
+            .get("team")
+            .flatMap(_.headOption)
+            .foldLeft(baseField): (field, team) =>
+              field.copy(value = team.some)
+          form3.group(field, trans.onlyMembersOfTeam(), half = true):
             form3.select(_, List(("", trans.noRestriction.txt())) ::: teams.map(_.pair))
-          )
         }
       ),
       form3.split(
-        form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
+        form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true):
           form3.select(_, ConditionForm.nbRatedGameChoices)
-        )
       ),
       form3.split(
-        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
+        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true):
           form3.select(_, ConditionForm.minRatingChoices)
-        ),
-        form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
+        ,
+        form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true):
           form3.select(_, ConditionForm.maxRatingChoices)
-        )
       ),
       form3.split(
         form3.group(

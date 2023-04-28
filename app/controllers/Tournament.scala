@@ -320,17 +320,18 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           html = forms
             .create(me, teams)
             .bindFromRequest()
+            .pp
             .fold(
               err => BadRequest(html.tournament.form.create(err, teams)).toFuccess,
               setup =>
-                rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)) {
-                  api.createTournament(setup, me, teams) map { tour =>
-                    Redirect {
-                      if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
-                      else routes.Tournament.show(tour.id)
-                    }.flashSuccess
-                  }
-                }
+                rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)):
+                  api
+                    .createTournament(setup, me, teams)
+                    .map: tour =>
+                      Redirect {
+                        if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
+                        else routes.Tournament.show(tour.id)
+                      }.flashSuccess
             ),
           api = _ => doApiCreate(me)
         )

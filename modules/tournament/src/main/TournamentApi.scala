@@ -55,23 +55,25 @@ final class TournamentApi(
       leaderTeams: List[LeaderTeam],
       andJoin: Boolean = true
   ): Fu[Tournament] =
-    val tour = Tournament.make(
-      by = Right(me),
-      name = setup.name,
-      clock = setup.clockConfig,
-      minutes = setup.minutes,
-      waitMinutes = setup.waitMinutes | TournamentForm.waitMinuteDefault,
-      startDate = setup.startDate,
-      mode = setup.realMode,
-      password = setup.password,
-      variant = setup.realVariant,
-      position = setup.realPosition,
-      berserkable = (setup.berserkable | true) && !setup.timeControlPreventsBerserk,
-      streakable = setup.streakable | true,
-      teamBattle = setup.teamBattleByTeam map TeamBattle.init,
-      description = setup.description,
-      hasChat = setup.hasChat | true
-    )
+    val tour = Tournament
+      .make(
+        by = Right(me),
+        name = setup.name,
+        clock = setup.clockConfig,
+        minutes = setup.minutes,
+        waitMinutes = setup.waitMinutes | TournamentForm.waitMinuteDefault,
+        startDate = setup.startDate,
+        mode = setup.realMode,
+        password = setup.password,
+        variant = setup.realVariant,
+        position = setup.realPosition,
+        berserkable = (setup.berserkable | true) && !setup.timeControlPreventsBerserk,
+        streakable = setup.streakable | true,
+        teamBattle = setup.teamBattleByTeam map TeamBattle.init,
+        description = setup.description,
+        hasChat = setup.hasChat | true
+      )
+      .copy(conditions = setup.conditions)
     tournamentRepo.insert(tour) >> {
       setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).?? { teamId =>
         tournamentRepo.setForTeam(tour.id, teamId).void
@@ -96,7 +98,7 @@ final class TournamentApi(
     val finalized = tour.copy(
       conditions = data.conditions
         .copy(teamMember = old.conditions.teamMember), // can't change that
-      mode = if (tour.position.isDefined) chess.Mode.Casual else tour.mode
+      mode = if tour.position.isDefined then chess.Mode.Casual else tour.mode
     )
     tournamentRepo.update(finalized) >>- cached.tourCache.clear(tour.id) inject finalized
 

@@ -41,7 +41,7 @@ object SwissCondition:
     def similar(other: All) = sameRatings(other) && titled == other.titled
 
   object All:
-    val empty             = All(none, none, none, none, none, none)
+    val empty             = All(none, none, none, none, none, PlayYourGames.some)
     given zero: Zero[All] = Zero(empty)
 
   final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi):
