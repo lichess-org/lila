@@ -41,14 +41,13 @@ final class JsonView(
       tour: Tournament,
       page: Option[Int],
       me: Option[User],
-      getUserTeamIds: User => Fu[List[TeamId]],
       getTeamName: TeamId => Option[String],
       playerInfoExt: Option[PlayerInfoExt],
       socketVersion: Option[SocketVersion],
       partial: Boolean,
       withScores: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none
-  )(using lang: Lang): Fu[JsObject] =
+  )(using lang: Lang, getUserTeamIds: Condition.GetUserTeamIds): Fu[JsObject] =
     for {
       data   <- cachableData get tour.id
       myInfo <- myInfo.orLoad(me ?? { fetchMyInfo(tour, _) })
@@ -72,8 +71,8 @@ final class JsonView(
         (me, myInfo) match
           case (None, _)                                   => fuccess(tour.conditions.accepted.some)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
-          case (Some(user), Some(_)) => verify.rejoin(tour.conditions, user, getUserTeamIds) map some
-          case (Some(user), None)    => verify(tour.conditions, user, tour.perfType, getUserTeamIds) map some
+          case (Some(user), Some(_))                       => verify.rejoin(tour.conditions, user) map some
+          case (Some(user), None) => verify(tour.conditions, user, tour.perfType) map some
       }
       stats       <- statsApi(tour)
       shieldOwner <- full.?? { shieldApi currentOwner tour }

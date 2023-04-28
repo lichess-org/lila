@@ -19,18 +19,20 @@ object TournamentCondition:
       allowList: Option[AllowList]
   ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, teamMember, allowList)):
 
-    def withVerdicts(
+    def withVerdicts(user: User, perfType: PerfType)(using
+        ex: Executor,
         getMaxRating: GetMaxRating,
-        getUserTeamIds: User => Fu[List[TeamId]]
-    )(user: User, perfType: PerfType)(using Executor): Fu[WithVerdicts] =
+        getUserTeamIds: GetUserTeamIds
+    ): Fu[WithVerdicts] =
       list.map {
         case c: MaxRating  => c(getMaxRating)(user, perfType) map c.withVerdict
         case c: FlatCond   => fuccess(c withVerdict c(user, perfType))
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
       }.parallel dmap WithVerdicts.apply
 
-    def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamId]])(using
-        Executor
+    def withRejoinVerdicts(user: User)(using
+        ex: Executor,
+        getUserTeamIds: GetUserTeamIds
     ): Fu[WithVerdicts] =
       list.map {
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
@@ -59,15 +61,17 @@ object TournamentCondition:
 
   final class Verify(historyApi: HistoryApi)(using Executor):
 
-    def apply(all: All, user: User, perfType: PerfType, getTeams: GetUserTeamIds): Fu[WithVerdicts] =
-      val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
-      all.withVerdicts(getMaxRating, getTeams)(user, perfType)
+    def apply(all: All, user: User, perfType: PerfType)(using getTeams: GetUserTeamIds): Fu[WithVerdicts] =
+      given GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
+      all.withVerdicts(user, perfType)
 
-    def rejoin(all: All, user: User, getTeams: GetUserTeamIds): Fu[WithVerdicts] =
-      all.withRejoinVerdicts(user, getTeams)
+    def rejoin(all: All, user: User)(using getTeams: GetUserTeamIds): Fu[WithVerdicts] =
+      all.withRejoinVerdicts(user)
 
-    def canEnter(user: User, perfType: PerfType, getTeams: GetUserTeamIds)(conditions: All): Fu[Boolean] =
-      apply(conditions, user, perfType, getTeams).dmap(_.accepted)
+    def canEnter(user: User, perfType: PerfType)(conditions: All)(using
+        getTeams: GetUserTeamIds
+    ): Fu[Boolean] =
+      apply(conditions, user, perfType).dmap(_.accepted)
 
   import reactivemongo.api.bson.*
   given bsonHandler: BSONDocumentHandler[All] =
