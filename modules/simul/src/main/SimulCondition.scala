@@ -29,7 +29,6 @@ object SimulCondition:
 
   object All:
     val empty = All(none, none, none)
-    val zero  = Zero(empty)
 
   object form:
     import play.api.data.Forms.*
@@ -37,9 +36,9 @@ object SimulCondition:
     import lila.gathering.ConditionForm.*
     def all(leaderTeams: List[LeaderTeam]) =
       mapping(
-        "maxRating" -> optional(maxRating),
-        "minRating" -> optional(minRating),
-        "team"      -> optional(teamMember(leaderTeams))
+        "maxRating" -> maxRating,
+        "minRating" -> minRating,
+        "team"      -> teamMember(leaderTeams)
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   import reactivemongo.api.bson.*

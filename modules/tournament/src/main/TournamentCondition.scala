@@ -51,12 +51,12 @@ object TournamentCondition:
     import lila.gathering.ConditionForm.*
     def all(leaderTeams: List[LeaderTeam]) =
       mapping(
-        "nbRatedGame" -> optional(nbRatedGame),
-        "maxRating"   -> optional(maxRating),
-        "minRating"   -> optional(minRating),
+        "nbRatedGame" -> nbRatedGame,
+        "maxRating"   -> maxRating,
+        "minRating"   -> minRating,
         "titled"      -> titled,
-        "teamMember"  -> optional(teamMember(leaderTeams)),
-        "allowList"   -> optional(allowList)
+        "teamMember"  -> teamMember(leaderTeams),
+        "allowList"   -> allowList
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   final class Verify(historyApi: HistoryApi)(using Executor):

@@ -24,7 +24,7 @@ object SwissCondition:
       minRating: Option[MinRating],
       titled: Option[Titled.type],
       allowList: Option[AllowList],
-      playYourGames: Option[PlayYourGames.type] = PlayYourGames.some
+      playYourGames: Option[PlayYourGames.type]
   ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, allowList, playYourGames)):
 
     def withVerdicts(
@@ -41,8 +41,8 @@ object SwissCondition:
     def similar(other: All) = sameRatings(other) && titled == other.titled
 
   object All:
-    val empty             = All(none, none, none, none, none, PlayYourGames.some)
-    given zero: Zero[All] = Zero(empty)
+    val empty       = All(none, none, none, none, none, PlayYourGames.some)
+    given Zero[All] = Zero(empty)
 
   final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi):
     def apply(swiss: Swiss, user: User)(using Executor): Fu[WithVerdicts] =
@@ -57,11 +57,11 @@ object SwissCondition:
 
     def all =
       mapping(
-        "nbRatedGame" -> optional(nbRatedGame),
-        "maxRating"   -> optional(maxRating),
-        "minRating"   -> optional(minRating),
+        "nbRatedGame" -> nbRatedGame,
+        "maxRating"   -> maxRating,
+        "minRating"   -> minRating,
         "titled"      -> titled,
-        "allowList"   -> optional(allowList),
+        "allowList"   -> allowList,
         "playYourGames" -> optional(boolean)
           .transform(_.contains(true) option PlayYourGames, _.isDefined option true)
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
