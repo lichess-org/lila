@@ -27,6 +27,7 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     onGameStart: lila.round.OnStart,
     cacheApi: lila.memo.CacheApi,
+    historyApi: lila.history.HistoryApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
@@ -41,6 +42,8 @@ final class Env(
   private lazy val simulColl = db(config.simulColl)
 
   lazy val repo: SimulRepo = wire[SimulRepo]
+
+  lazy val verify = wire[SimulCondition.Verify]
 
   lazy val api: SimulApi = wire[SimulApi]
 

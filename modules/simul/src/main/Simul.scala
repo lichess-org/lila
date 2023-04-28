@@ -110,14 +110,16 @@ case class Simul(
 
   def gameIds = pairings.map(_.gameId)
 
-  def perfTypes: List[lila.rating.PerfType] =
-    variants.flatMap { variant =>
+  def perfTypes: List[PerfType] =
+    variants.flatMap: variant =>
       lila.game.PerfPicker.perfType(
         speed = Speed(clock.config.some),
         variant = variant,
         daysPerTurn = none
       )
-    }
+
+  def mainPerfType =
+    perfTypes.find(pt => PerfType.variantOf(pt).standard) orElse perfTypes.headOption getOrElse PerfType.Rapid
 
   def applicantRatio = s"${applicants.count(_.accepted)}/${applicants.size}"
 

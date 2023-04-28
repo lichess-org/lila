@@ -11,6 +11,7 @@ import lila.common.Json.given
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given
 import lila.simul.{ Simul, SimulCondition }
+import lila.gathering.Condition
 
 object show:
 
@@ -20,8 +21,8 @@ object show:
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
-      verdicts: SimulCondition.All.WithVerdicts
-  )(implicit ctx: Context) =
+      verdicts: Condition.WithVerdicts
+  )(using ctx: Context) =
     val userIsHost = ctx.userId has sim.hostId
     views.html.base.layout(
       moreCss = cssTag("simul.show"),
@@ -48,7 +49,7 @@ object show:
             )
           )})""")
       )
-    ) {
+    ):
       main(cls := "simul")(
         st.aside(cls := "simul__side")(
           div(cls := "simul__meta")(
@@ -98,7 +99,8 @@ object show:
                 )
               }
             ),
-            if (verdicts.relevant)
+            if verdicts.relevant
+            then
               st.section(
                 dataIcon := !userIsHost option (if ctx.isAuth && verdicts.accepted then "" else ""),
                 cls := List(
@@ -106,7 +108,7 @@ object show:
                   "accepted"   -> (ctx.isAuth && !userIsHost && verdicts.accepted),
                   "refused"    -> (ctx.isAuth && !userIsHost && !verdicts.accepted)
                 )
-              )(
+              ):
                 div(
                   verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
                   verdicts.list map { v =>
@@ -117,18 +119,13 @@ object show:
                         "refused"   -> (ctx.isAuth && !userIsHost && !v.verdict.accepted)
                       ),
                       title := !userIsHost option v.verdict.reason.map(_(ctx.lang))
-                    )(v.condition.name)
+                    )(v.condition.name(sim.mainPerfType))
                   }
                 )
-              )
             else br,
             trans.by(userIdLink(sim.hostId.some)),
-            sim.estimatedStartAt map { d =>
-              frag(
-                br,
-                absClientInstant(d)
-              )
-            }
+            sim.estimatedStartAt.map: d =>
+              frag(br, absClientInstant(d))
           ),
           stream.map { s =>
             views.html.streamer.bits.contextual(s.streamer.userId)
@@ -137,4 +134,3 @@ object show:
         ),
         div(cls := "simul__main box")(spinner)
       )
-    }

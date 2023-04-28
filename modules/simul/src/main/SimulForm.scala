@@ -71,7 +71,7 @@ object SimulForm:
       text = "",
       estimatedStartAt = none,
       featured = host.hasTitle.some,
-      conditions = SimulCondition.DataForm.AllSetup.default
+      conditions = SimulCondition.All.empty
     )
 
   def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
@@ -87,7 +87,7 @@ object SimulForm:
       text = simul.text,
       estimatedStartAt = simul.estimatedStartAt,
       featured = simul.featurable,
-      conditions = SimulCondition.DataForm.AllSetup(simul.conditions)
+      conditions = simul.conditions
     )
 
   private def baseForm(host: User, teams: List[LeaderTeam]) =
@@ -106,7 +106,7 @@ object SimulForm:
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
         "featured"         -> optional(boolean),
-        "conditions"       -> SimulCondition.DataForm.all(teams.map(_.id).toSet)
+        "conditions"       -> SimulCondition.form.all(teams)
       )(Setup.apply)(unapply)
         .verifying("Invalid host extra time.", _.clock.valid)
     )
@@ -125,9 +125,8 @@ object SimulForm:
       text: String,
       estimatedStartAt: Option[Instant] = None,
       featured: Option[Boolean],
-      conditions: SimulCondition.DataForm.AllSetup
+      conditions: SimulCondition.All
   ):
-
     def clock =
       SimulClock(
         config = Clock.Config(LimitSeconds(clockTime.value * 60), clockIncrement),

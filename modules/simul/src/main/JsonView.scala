@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import lila.common.LightUser
 import lila.common.Json.given
 import lila.game.{ Game, GameRepo }
+import lila.gathering.Condition.WithVerdicts
 
 final class JsonView(
     gameRepo: GameRepo,
@@ -17,24 +18,23 @@ final class JsonView(
     if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
     else simul.gameIds.map(proxyRepo.game).parallel.dmap(_.flatten)
 
-  def apply(simul: Simul, verdicts: SimulCondition.All.WithVerdicts): Fu[JsObject] =
-    for
-      games      <- fetchGames(simul)
-      lightHost  <- getLightUser(simul.hostId)
-      applicants <- simul.applicants.sortBy(-_.player.rating.value).map(applicantJson).parallel
-      pairingOptions <-
-        simul.pairings
-          .sortBy(-_.player.rating.value)
-          .map(pairingJson(games, simul.hostId))
-          .parallel
-      pairings = pairingOptions.flatten
-    yield baseSimul(simul, lightHost) ++ Json
-      .obj(
-        "canJoin"    -> verdicts.accepted,
-        "applicants" -> applicants,
-        "pairings"   -> pairings
-      )
-      .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id.value)))
+  def apply(simul: Simul, verdicts: WithVerdicts): Fu[JsObject] = for
+    games      <- fetchGames(simul)
+    lightHost  <- getLightUser(simul.hostId)
+    applicants <- simul.applicants.sortBy(-_.player.rating.value).map(applicantJson).parallel
+    pairingOptions <-
+      simul.pairings
+        .sortBy(-_.player.rating.value)
+        .map(pairingJson(games, simul.hostId))
+        .parallel
+    pairings = pairingOptions.flatten
+  yield baseSimul(simul, lightHost) ++ Json
+    .obj(
+      "canJoin"    -> verdicts.accepted,
+      "applicants" -> applicants,
+      "pairings"   -> pairings
+    )
+    .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id.value)))
 
   def apiJson(simul: Simul): Fu[JsObject] =
     getLightUser(simul.hostId) map { lightHost =>

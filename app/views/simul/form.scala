@@ -10,6 +10,7 @@ import lila.hub.LeaderTeam
 import lila.simul.Simul
 import lila.simul.SimulForm
 import lila.simul.SimulCondition
+import lila.gathering.ConditionForm
 
 object form:
 
@@ -144,18 +145,10 @@ object form:
         ),
         form3.split(
           form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
-            form3.select(_, SimulCondition.DataForm.minRatingChoices)
+            form3.select(_, ConditionForm.minRatingChoices)
           ),
-          form3.group(form("conditions.minRating.perf"), frag("In variant"), half = true)(
-            form3.select(_, SimulCondition.DataForm.perfChoices, default = "".some)
-          )
-        ),
-        form3.split(
           form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
-            form3.select(_, SimulCondition.DataForm.maxRatingChoices)
-          ),
-          form3.group(form("conditions.maxRating.perf"), frag("In variant"), half = true)(
-            form3.select(_, SimulCondition.DataForm.perfChoices, default = "".some)
+            form3.select(_, ConditionForm.maxRatingChoices)
           )
         )
       ),

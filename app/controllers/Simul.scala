@@ -43,17 +43,12 @@ final class Simul(env: Env) extends LilaController(env):
       env.simul.repo.allStarted zip
       env.simul.repo.allFinishedFeaturable(20)
 
-  private def verify(sim: Sim, me: Option[lila.user.User]) =
-    me match
-      case None       => fuccess(sim.conditions.accepted)
-      case Some(user) => sim.conditions.verify(user, getUserTeams, getMaxRating)
-
   def show(id: SimulId) =
     Open { implicit ctx =>
       env.simul.repo find id flatMap {
         _.fold[Fu[Result]](simulNotFound.toFuccess) { sim =>
-          for {
-            verdicts <- verify(sim, ctx.me)
+          for
+            verdicts <- env.simul.api.getVerdicts(sim, ctx.me)
             version  <- env.simul.version(sim.id)
             json     <- env.simul.jsonView(sim, verdicts)
             chat <-
@@ -62,7 +57,7 @@ final class Simul(env: Env) extends LilaController(env):
               env.user.lightUserApi.preloadMany(c.chat.userIds)
             }
             stream <- env.streamer.liveStreamApi one sim.hostId
-          } yield html.simul.show(sim, version, json, chat, stream, verdicts)
+          yield html.simul.show(sim, version, json, chat, stream, verdicts)
         }
       } dmap (_.noCache)
     }
@@ -162,12 +157,13 @@ final class Simul(env: Env) extends LilaController(env):
 
   def join(id: SimulId, variant: chess.variant.Variant.LilaKey) =
     Auth { implicit ctx => implicit me =>
-      NoLameOrBot {
-        env.simul.api.addApplicant(id, me, getUserTeams, getMaxRating, variant) inject {
-          if (HTTPRequest isXhr ctx.req) jsonOkResult
-          else Redirect(routes.Simul.show(id))
-        }
-      }
+      NoLameOrBot:
+        env.simul.api
+          .addApplicant(id, me, variant)
+          .inject:
+            if (HTTPRequest isXhr ctx.req)
+            then jsonOkResult
+            else Redirect(routes.Simul.show(id))
     }
 
   def withdraw(id: SimulId) =
@@ -203,20 +199,16 @@ final class Simul(env: Env) extends LilaController(env):
       }
     }
 
-  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    env.simul.repo.find(simulId) flatMap {
+  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
+    env.simul.repo.find(simulId).flatMap {
       case None                                                                    => notFound
       case Some(simul) if ctx.userId.has(simul.hostId) || isGranted(_.ManageSimul) => f(simul)
       case _                                                                       => fuccess(Unauthorized)
     }
 
   private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using Context): Fu[Result] =
-    AsHost(id) { sim =>
-      if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).toFuccess
+    AsHost(id): sim =>
+      if (sim.isStarted) then Redirect(routes.Simul.show(sim.id)).toFuccess
       else f(sim)
-    }
 
-  private val getUserTeams: SimulCondition.GetUserTeams =
-    (user: lila.user.User) => env.team.cached.teamIdsSet(user.id)
-
-  private val getMaxRating: SimulCondition.GetMaxRating = env.history.api.lastWeekTopRating.apply
+  private given lila.gathering.Condition.GetUserTeamIds = user => env.team.cached.teamIdsList(user.id)
