@@ -15,9 +15,8 @@ object SwissCondition:
 
   case object PlayYourGames extends Condition:
     def name(perf: PerfType)(using Lang) = "Play your games"
-    def withBan(bannedUntil: Option[Instant]) = withVerdict {
+    def withBan(bannedUntil: Option[Instant]) = withVerdict:
       bannedUntil.fold[Verdict](Accepted)(RefusedUntil.apply)
-    }
 
   case class All(
       nbRatedGame: Option[NbRatedGame],
@@ -56,23 +55,19 @@ object SwissCondition:
     import lila.common.Form.*
     import lila.gathering.ConditionForm.*
 
-    val playYourGames =
-      optional(boolean).transform(_.contains(true) option PlayYourGames, _.isDefined option true)
-
     def all =
       mapping(
-        "nbRatedGame"   -> optional(nbRatedGame),
-        "maxRating"     -> optional(maxRating),
-        "minRating"     -> optional(minRating),
-        "titled"        -> titled,
-        "allowList"     -> optional(allowList),
-        "playYourGames" -> playYourGames
-      )(All.apply)(unapply)
-        .verifying("Invalid ratings", _.validRatings)
+        "nbRatedGame" -> optional(nbRatedGame),
+        "maxRating"   -> optional(maxRating),
+        "minRating"   -> optional(minRating),
+        "titled"      -> titled,
+        "allowList"   -> optional(allowList),
+        "playYourGames" -> optional(boolean)
+          .transform(_.contains(true) option PlayYourGames, _.isDefined option true)
+      )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   import reactivemongo.api.bson.*
   given bsonHandler: BSONDocumentHandler[All] =
     import lila.gathering.ConditionHandlers.BSONHandlers.given
-    import lila.db.dsl.ifPresentHandler
-    given BSONHandler[PlayYourGames.type] = ifPresentHandler(PlayYourGames)
+    given BSONHandler[PlayYourGames.type] = lila.db.dsl.ifPresentHandler(PlayYourGames)
     Macros.handler

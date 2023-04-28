@@ -5,95 +5,24 @@ import play.api.i18n.Lang
 import lila.i18n.I18nKeys as trans
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
-import lila.hub.LightTeam.TeamName
-
-sealed trait SimulCondition:
-  def name(using lang: Lang): String
-  def withVerdict(verdict: SimulCondition.Verdict) = SimulCondition.WithVerdict(this, verdict)
+import lila.gathering.{ Condition, ConditionList }
+import lila.gathering.Condition.*
 
 object SimulCondition:
-  type GetUserTeams = User => Fu[Set[TeamId]]
-  type GetMaxRating = (User, PerfType) => Fu[IntRating]
-
-  enum Verdict(val accepted: Boolean, val reason: Option[Lang => String]):
-    case Accepted                         extends Verdict(true, none)
-    case Refused(because: Lang => String) extends Verdict(false, because.some)
-  export Verdict.*
-
-  case class WithVerdict(condition: SimulCondition, verdict: Verdict)
-
-  case class MaxRating(perf: PerfType, rating: IntRating) extends SimulCondition:
-    def verify(user: User, getMaxRating: GetMaxRating)(using Executor): Fu[Verdict] =
-      if (user.perfs(perf).provisional.yes) fuccess(Refused { lang =>
-        given Lang = lang
-        trans.yourPerfRatingIsProvisional.txt(perf.trans)
-      })
-      else if (user.perfs(perf).intRating > rating) fuccess(Refused { lang =>
-        given Lang = lang
-        trans.yourPerfRatingIsTooHigh.txt(perf.trans, user.perfs(perf).intRating)
-      })
-      else
-        getMaxRating(user, perf) map {
-          case r if r <= rating => Accepted
-          case r =>
-            Refused { lang =>
-              given Lang = lang
-              trans.yourTopWeeklyPerfRatingIsTooHigh.txt(perf.trans, r)
-            }
-        }
-
-    def name(using lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
-
-  case class MinRating(perf: PerfType, rating: IntRating) extends SimulCondition:
-    def verify(user: User): Fu[Verdict] =
-      if (user.perfs(perf).provisional.yes) fuccess(Refused { lang =>
-        given Lang = lang
-        trans.yourPerfRatingIsProvisional.txt(perf.trans)
-      })
-      else if (user.perfs(perf).intRating < rating) fuccess(Refused { lang =>
-        given Lang = lang
-        trans.yourPerfRatingIsTooLow.txt(perf.trans, user.perfs(perf).intRating)
-      })
-      else fuccess(Accepted)
-
-    def name(using lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
-
-  case class TeamMember(teamId: TeamId, teamName: TeamName) extends SimulCondition:
-    def verify(user: User, getUserTeams: GetUserTeams)(using Executor): Fu[Verdict] =
-      getUserTeams(user) map { userTeams =>
-        if (userTeams contains teamId) Accepted
-        else
-          Refused { lang =>
-            given Lang = lang
-            trans.youAreNotInTeam.txt(teamName)
-          }
-      }
-    def name(using lang: Lang) = trans.mustBeInTeam.txt(teamName)
 
   case class All(
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
       teamMember: Option[TeamMember]
-  ):
-    lazy val nontrivial = Seq(maxRating, minRating, teamMember).flatten
+  ) extends ConditionList(List(maxRating, minRating, teamMember)):
 
-    def relevant = nontrivial.nonEmpty
-
-    def accepted = All.WithVerdicts(nontrivial.map { WithVerdict(_, Accepted) })
-
-    def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
-    def sameMinRating(other: All) = minRating.map(_.rating) == other.minRating.map(_.rating)
-    def sameRatings(other: All)   = sameMaxRating(other) && sameMinRating(other)
-
-    def isRatingLimited = maxRating.isDefined || minRating.isDefined
-
-    def verify(user: User, getUserTeams: GetUserTeams, getMaxRating: GetMaxRating)(using
+    def verify(user: User, pt: PerfType, getUserTeams: GetUserTeams, getMaxRating: GetMaxRating)(using
         Executor
     ): Fu[All.WithVerdicts] =
-      nontrivial.map {
-        case c: MaxRating  => c.verify(user, getMaxRating) map c.withVerdict
-        case c: MinRating  => c.verify(user) map c.withVerdict
-        case c: TeamMember => c.verify(user, getUserTeams) map c.withVerdict
+      list.map {
+        case c: MaxRating  => c(getMaxRating)(user, pt) map c.withVerdict
+        case c: MinRating  => fuccess(c(user, pt).withVerdict)
+        case c: TeamMember => c(user, getUserTeams) map c.withVerdict
       }.parallel dmap All.WithVerdicts.apply
 
   object All:

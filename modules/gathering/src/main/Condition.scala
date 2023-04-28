@@ -38,7 +38,6 @@ object Condition:
       else Refused(name(pt)(using _))
 
   case class NbRatedGame(nb: Int) extends Condition with FlatCond:
-
     def apply(user: User, pt: PerfType) =
       if user.hasTitle then Accepted
       else if user.perfs(pt).nb >= nb then Accepted
@@ -46,7 +45,6 @@ object Condition:
         Refused: lang =>
           val missing = nb - user.perfs(pt).nb
           trans.needNbMorePerfGames.pluralTxt(missing, missing, pt.trans(using lang))(using lang)
-
     def name(pt: PerfType)(using Lang) =
       trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
 
@@ -100,16 +98,12 @@ object Condition:
       }
 
   case class AllowList(value: String) extends Condition with FlatCond:
-
-    private lazy val segments = value.linesIterator.map(_.trim.toLowerCase).toSet
-
+    private lazy val segments      = value.linesIterator.map(_.trim.toLowerCase).toSet
     private def allowAnyTitledUser = segments contains "%titled"
-
     def apply(user: User, pt: PerfType): Condition.Verdict =
       if (segments contains user.id.value) Accepted
       else if (allowAnyTitledUser && user.hasTitle) Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
-
     def name(pt: PerfType)(using Lang) = "Fixed line-up"
 
   case class WithVerdicts(list: List[WithVerdict]) extends AnyVal:

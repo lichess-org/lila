@@ -6,7 +6,6 @@ import lila.user.User
 import lila.history.HistoryApi
 import lila.hub.LeaderTeam
 import lila.rating.PerfType
-import lila.hub.LightTeam.TeamName
 import alleycats.Zero
 
 object TournamentCondition:
