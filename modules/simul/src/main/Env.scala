@@ -27,6 +27,7 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     onGameStart: lila.round.OnStart,
     cacheApi: lila.memo.CacheApi,
+    historyApi: lila.history.HistoryApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
@@ -42,6 +43,8 @@ final class Env(
 
   lazy val repo: SimulRepo = wire[SimulRepo]
 
+  lazy val verify = wire[SimulCondition.Verify]
+
   lazy val api: SimulApi = wire[SimulApi]
 
   lazy val jsonView = wire[JsonView]
@@ -56,7 +59,7 @@ final class Env(
   }
 
   val featurable = new SimulIsFeaturable((simul: Simul) =>
-    simul.team.isEmpty && featureLimiter(simul.hostId)(true)(false)
+    simul.conditions.teamMember.isEmpty && featureLimiter(simul.hostId)(true)(false)
   )
 
   private val featureLimiter = lila.memo.RateLimit[UserId](

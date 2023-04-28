@@ -3,6 +3,7 @@ package lila.swiss
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
+import lila.gathering.Condition.NbRatedGame
 
 final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(using
     Executor
@@ -81,8 +82,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
         position = none,
         roundInterval = SwissForm.autoInterval(config.clock),
         password = none,
-        conditions = SwissCondition
-          .All(nbRatedGame = SwissCondition.NbRatedGame(config.minGames).some, none, none, none, none),
+        conditions = SwissCondition.All.empty.copy(nbRatedGame = NbRatedGame(config.minGames).some),
         forbiddenPairings = "",
         manualPairings = ""
       )

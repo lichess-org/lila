@@ -47,7 +47,7 @@ final class Env(
 
   lazy val cached: TournamentCache = wire[TournamentCache]
 
-  lazy val verify = wire[Condition.Verify]
+  lazy val verify = wire[TournamentCondition.Verify]
 
   lazy val winners: WinnersApi = wire[WinnersApi]
 

@@ -11,6 +11,7 @@ import lila.common.GreatPlayer
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
+import lila.gathering.Condition
 
 case class Tournament(
     id: TourId,
@@ -22,7 +23,7 @@ case class Tournament(
     position: Option[Fen.Opening],
     mode: Mode,
     password: Option[String] = None,
-    conditions: Condition.All,
+    conditions: TournamentCondition.All,
     teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
     noStreak: Boolean = false,
@@ -173,10 +174,10 @@ object Tournament:
   ) =
     Tournament(
       id = makeId,
-      name = name | (position match {
+      name = name | position.match
         case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.name.value)
         case None      => GreatPlayer.randomName
-      }),
+      ,
       status = Status.Created,
       clock = clock,
       minutes = minutes,
@@ -187,7 +188,7 @@ object Tournament:
       position = position,
       mode = mode,
       password = password,
-      conditions = Condition.All.empty,
+      conditions = TournamentCondition.All.empty,
       teamBattle = teamBattle,
       noBerserk = !berserkable,
       noStreak = !streakable,

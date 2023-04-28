@@ -8,10 +8,11 @@ import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.swiss.{ Swiss, SwissCondition }
+import lila.swiss.Swiss
 import lila.swiss.SwissRoundNumber
 import lila.common.paginator.Paginator
 import lila.swiss.SwissPairing
+import lila.gathering.Condition.WithVerdicts
 
 object show:
 
@@ -19,7 +20,7 @@ object show:
 
   def apply(
       s: Swiss,
-      verdicts: SwissCondition.All.WithVerdicts,
+      verdicts: WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],

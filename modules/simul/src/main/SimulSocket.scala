@@ -21,7 +21,7 @@ final private class SimulSocket(
   def reload(simulId: SimulId): Unit =
     repo find simulId foreach {
       _ foreach { simul =>
-        jsonView(simul, none) foreach { obj =>
+        jsonView(simul, simul.conditions.accepted) foreach { obj =>
           rooms.tell(simulId into RoomId, NotifyVersion("reload", obj))
         }
       }

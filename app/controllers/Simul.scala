@@ -6,7 +6,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.simul.{ Simul as Sim }
+import lila.simul.{ Simul as Sim, SimulCondition }
 
 final class Simul(env: Env) extends LilaController(env):
 
@@ -47,28 +47,17 @@ final class Simul(env: Env) extends LilaController(env):
     Open { implicit ctx =>
       env.simul.repo find id flatMap {
         _.fold[Fu[Result]](simulNotFound.toFuccess) { sim =>
-          for {
-            team    <- sim.team ?? env.team.api.team
-            version <- env.simul.version(sim.id)
-            json <- env.simul.jsonView(
-              sim,
-              team.map { t =>
-                lila.simul.SimulTeam(
-                  t.id,
-                  t.name,
-                  ctx.userId exists {
-                    env.team.api.syncBelongsTo(t.id, _)
-                  }
-                )
-              }
-            )
+          for
+            verdicts <- env.simul.api.getVerdicts(sim, ctx.me)
+            version  <- env.simul.version(sim.id)
+            json     <- env.simul.jsonView(sim, verdicts)
             chat <-
               canHaveChat(sim) ?? env.chat.api.userChat.cached.findMine(sim.id into ChatId, ctx.me).map(some)
             _ <- chat ?? { c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds)
             }
             stream <- env.streamer.liveStreamApi one sim.hostId
-          } yield html.simul.show(sim, version, json, chat, stream, team)
+          yield html.simul.show(sim, version, json, chat, stream, verdicts)
         }
       } dmap (_.noCache)
     }
@@ -77,7 +66,7 @@ final class Simul(env: Env) extends LilaController(env):
     ctx.noKid && ctx.noBot &&                     // no public chats for kids or bots
       ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
         env.chat.panic.allowed
-      } && simul.team.fold(true) { teamId =>
+      } && simul.conditions.teamMember.map(_.teamId).fold(true) { teamId =>
         ctx.userId exists {
           env.team.api.syncBelongsTo(teamId, _) || isGranted(_.ChatTimeout)
         }
@@ -158,7 +147,7 @@ final class Simul(env: Env) extends LilaController(env):
                   BadRequest(html.simul.form.create(err, teams))
                 },
               setup =>
-                env.simul.api.create(setup, me) map { simul =>
+                env.simul.api.create(setup, me, teams) map { simul =>
                   Redirect(routes.Simul.show(simul.id))
                 }
             )
@@ -168,14 +157,13 @@ final class Simul(env: Env) extends LilaController(env):
 
   def join(id: SimulId, variant: chess.variant.Variant.LilaKey) =
     Auth { implicit ctx => implicit me =>
-      NoLameOrBot {
-        env.team.cached.teamIds(me.id) flatMap { teamIds =>
-          env.simul.api.addApplicant(id, me, teamIds.contains, variant) inject {
-            if (HTTPRequest isXhr ctx.req) jsonOkResult
+      NoLameOrBot:
+        env.simul.api
+          .addApplicant(id, me, variant)
+          .inject:
+            if (HTTPRequest isXhr ctx.req)
+            then jsonOkResult
             else Redirect(routes.Simul.show(id))
-          }
-        }
-      }
     }
 
   def withdraw(id: SimulId) =
@@ -199,27 +187,29 @@ final class Simul(env: Env) extends LilaController(env):
     AuthBody { implicit ctx => me =>
       WithEditableSimul(id) { simul =>
         given play.api.mvc.Request[?] = ctx.body
-        env.team.api.lightsByLeader(me.id) flatMap { teams =>
-          forms
-            .edit(me, teams, simul)
-            .bindFromRequest()
-            .fold(
-              err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
-              data => env.simul.api.update(simul, data, me) inject Redirect(routes.Simul.show(id))
-            )
-        }
+        env.team.api
+          .lightsByLeader(me.id)
+          .flatMap: teams =>
+            forms
+              .edit(me, teams, simul)
+              .bindFromRequest()
+              .fold(
+                err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
+                data => env.simul.api.update(simul, data, me, teams) inject Redirect(routes.Simul.show(id))
+              )
       }
     }
 
-  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    env.simul.repo.find(simulId) flatMap {
+  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
+    env.simul.repo.find(simulId).flatMap {
       case None                                                                    => notFound
       case Some(simul) if ctx.userId.has(simul.hostId) || isGranted(_.ManageSimul) => f(simul)
       case _                                                                       => fuccess(Unauthorized)
     }
 
   private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using Context): Fu[Result] =
-    AsHost(id) { sim =>
-      if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).toFuccess
+    AsHost(id): sim =>
+      if (sim.isStarted) then Redirect(routes.Simul.show(sim.id)).toFuccess
       else f(sim)
-    }
+
+  private given lila.gathering.Condition.GetUserTeamIds = user => env.team.cached.teamIdsList(user.id)
