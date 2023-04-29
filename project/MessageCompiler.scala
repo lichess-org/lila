@@ -89,7 +89,7 @@ import scala.collection.immutable.Map;
 $fullMapImports
 public final class $underLocale {
 public static final HashMap<String, Translation> load() {
-HashMap<String, Translation> m = new HashMap<String, Translation>(${puts.size + 1});
+HashMap<String, Translation> m = new HashMap<String, Translation>(${puts.size + 1}, 1);
 ${puts mkString "\n"}
 return m;
 }
@@ -122,9 +122,9 @@ import play.api.i18n.Lang
 // format: OFF
 private object Registry {
 
-  val all = Map[Lang, java.util.HashMap[MessageKey, Translation]](\n$content)
+  val all = Map[Lang, MessageMap](\n$content)
 
-  val default: java.util.HashMap[MessageKey, Translation] = all(defaultLang)
+  val default: MessageMap = all(defaultLang)
 
   val langs: Set[Lang] = all.keys.toSet
 }
