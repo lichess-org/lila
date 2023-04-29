@@ -1,5 +1,6 @@
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
+import { Prop, Toggle } from 'common';
 
 export interface RootCtrl {
   chessground: CgApi;
@@ -16,6 +17,13 @@ export interface RootCtrl {
 }
 
 export interface VoiceMove {
+  showHelp: Prop<boolean>;
+  showSettings: Toggle;
+  clarityPref: Prop<number>;
+  timerPref: Prop<number>;
+  colorsPref: Prop<boolean>;
+  langPref: Prop<string>;
+  allPhrases: () => [string, string][];
   update(fen: string, yourMove?: boolean): void;
   opponentRequest(request: string, callback: (v: boolean) => void): void;
 }

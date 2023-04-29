@@ -24,7 +24,7 @@ import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
-import { makeVoiceMove } from 'voice';
+import { makeVoiceMove, VoiceMove } from 'voice';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
@@ -46,7 +46,6 @@ import {
   Position,
   NvuiPlugin,
 } from './interfaces';
-import { VoiceMoveCtrl } from 'voice/src/voiceMove';
 
 interface GoneBerserk {
   white?: boolean;
@@ -64,7 +63,7 @@ export default class RoundController {
   trans: Trans;
   noarg: TransNoArg;
   keyboardMove?: KeyboardMove;
-  voiceMove?: VoiceMoveCtrl;
+  voiceMove?: VoiceMove;
   moveOn: MoveOn;
   promotion: PromotionCtrl;
 

@@ -29,7 +29,8 @@
   },
   "lichess": {
     "bundles": {
-      "src/plugins/vosk.ts": "input.vosk"
+      "src/plugins/vosk.ts": "voice.vosk",
+      "src/plugins/voiceMove.ts": "voice.move"
     },
     "copy": [
       {

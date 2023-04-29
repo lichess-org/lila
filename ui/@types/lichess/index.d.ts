@@ -296,6 +296,7 @@ interface Window {
   };
   readonly LichessChartRatingHistory?: any;
   readonly LichessKeyboardMove?: any;
+  readonly LichessVoiceMove?: any;
   readonly LichessVoicePlugin: { mic: Voice.Microphone; vosk: any };
   readonly stripeHandler: any;
   readonly Stripe: any;

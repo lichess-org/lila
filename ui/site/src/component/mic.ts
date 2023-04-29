@@ -165,7 +165,7 @@ export const mic =
         ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${this.initGrammar.name}.json`))
         : Promise.resolve();
       const audioAsync = this.initAudio();
-      await lichess.loadModule('input.vosk');
+      await lichess.loadModule('voice.vosk');
       await downloadAsync;
       await this.vosk.initModel(modelUrl, this.lang);
       this.initGrammar?.callback(await grammarAsync);

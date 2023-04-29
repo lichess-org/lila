@@ -11,9 +11,9 @@ import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
 import { KeyboardMove } from 'keyboardMove';
+import { VoiceMove } from 'voice';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
-import { VoiceMoveCtrl } from 'voice/src/voiceMove';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -77,7 +77,7 @@ export interface Controller extends KeyboardController {
   allThemes?: AllThemes;
   showRatings: boolean;
   keyboardMove?: KeyboardMove;
-  voiceMove?: VoiceMoveCtrl;
+  voiceMove?: VoiceMove;
 
   streak?: PuzzleStreak;
   skip(): void;

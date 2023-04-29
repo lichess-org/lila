@@ -4,15 +4,23 @@ import { storedBooleanProp } from 'common/storage';
 import { rangeConfig } from 'common/controls';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { type Entry } from './interfaces';
-import { VoiceMoveCtrl } from './voiceMove';
+import { Entry, VoiceMove, RootCtrl } from './interfaces';
 import * as xhr from 'common/xhr';
 import { onClickAway } from 'common';
 
-export { makeVoiceMove } from './voiceMove';
+let moveCtrl: VoiceMove; // globals. not just a bad idea, it's the law!
+
+const supportedLangs = [
+  ['en', 'English'] /*
+  ['fr', 'Français'],
+  ['de', 'Deutsch'],
+  ['tr', 'Türkçe'],
+  ['vi', 'Tiếng Việt'],*/,
+];
+
 export { type RootCtrl, type VoiceMove } from './interfaces';
 
-export function renderVoiceMove(ctrl: VoiceMoveCtrl, isPuzzle: boolean) {
+export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
   const rec = storedBooleanProp('voice.listening', false);
   const rtfm = storedBooleanProp('voice.rtfm', false);
 
@@ -45,21 +53,53 @@ export function renderVoiceMove(ctrl: VoiceMoveCtrl, isPuzzle: boolean) {
       }),
       h('button#voice-help-button', {
         attrs: { role: 'button', ...dataIcon('') },
-        hook: bind('click', () => ctrl.showHelp(true)),
+        hook: bind('click', () => moveCtrl.showHelp(true)),
       }),
       h('button#voice-settings-button', {
         attrs: { role: 'button', ...dataIcon('') },
-        class: { active: ctrl.showSettings() },
-        hook: bind('click', () => ctrl.showSettings.toggle(), ctrl.root.redraw),
+        class: { active: moveCtrl?.showSettings() },
+        hook: bind('click', () => moveCtrl.showSettings.toggle(), redraw),
       }),
     ]),
-    ctrl.showSettings() ? voiceSettings(ctrl) : null,
-    ctrl.showHelp() ? helpModal(ctrl) : null,
+    moveCtrl?.showSettings() ? voiceSettings(redraw) : null,
+    moveCtrl?.showHelp() ? helpModal() : null,
   ]);
 }
 
-function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
-  return h('div#voice-settings', { hook: onInsert(onClickAway(() => ctrl.showSettings(false))) }, [
+export function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
+  lichess.loadModule('voice.move').then(() => {
+    moveCtrl = window.LichessVoiceMove(ctrl, fen);
+  });
+  // this shim lets the UI build without the async voiceMove module
+  return {
+    update: fen => moveCtrl?.update(fen),
+    opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),
+    get showHelp() {
+      return moveCtrl?.showHelp;
+    },
+    get showSettings() {
+      return moveCtrl?.showSettings;
+    },
+    get clarityPref() {
+      return moveCtrl?.clarityPref;
+    },
+    get timerPref() {
+      return moveCtrl?.timerPref;
+    },
+    get colorsPref() {
+      return moveCtrl?.colorsPref;
+    },
+    get langPref() {
+      return moveCtrl?.langPref;
+    },
+    get allPhrases() {
+      return moveCtrl?.allPhrases;
+    },
+  };
+}
+
+function voiceSettings(redraw: () => void): VNode {
+  return h('div#voice-settings', { hook: onInsert(onClickAway(() => moveCtrl.showSettings(false))) }, [
     h('div.voice-setting', [
       h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
       h('input#voice-clarity', {
@@ -69,12 +109,12 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
           max: 2,
           step: 1,
         },
-        hook: rangeConfig(ctrl.clarityPref, val => {
-          ctrl.clarityPref(val);
-          ctrl.root.redraw();
+        hook: rangeConfig(moveCtrl.clarityPref, val => {
+          moveCtrl.clarityPref(val);
+          redraw();
         }),
       }),
-      h('div.range_value', ['Fuzzy', 'Average', 'Clear'][ctrl.clarityPref()]),
+      h('div.range_value', ['Fuzzy', 'Average', 'Clear'][moveCtrl.clarityPref()]),
     ]),
     h('div.voice-setting', [
       h('label', { attrs: { for: 'voice-timer' } }, 'Timer'),
@@ -85,12 +125,12 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
           max: 5,
           step: 1,
         },
-        hook: rangeConfig(ctrl.timerPref, val => {
-          ctrl.timerPref(val);
-          ctrl.root.redraw();
+        hook: rangeConfig(moveCtrl.timerPref, val => {
+          moveCtrl.timerPref(val);
+          redraw();
         }),
       }),
-      h('div.range_value', ['Off', '2s', '2.5s', '3s', '4s', '5s'][ctrl.timerPref()]),
+      h('div.range_value', ['Off', '2s', '2.5s', '3s', '4s', '5s'][moveCtrl.timerPref()]),
     ]),
     h('div.voice-choices', [
       'Label with',
@@ -100,8 +140,8 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
           h(
             `span.btn-rack__btn`,
             {
-              class: { active: ctrl.colorsPref() === (pref === 'Colors') },
-              hook: bind('click', () => ctrl.colorsPref(pref === 'Colors'), ctrl.root.redraw),
+              class: { active: moveCtrl.colorsPref() === (pref === 'Colors') },
+              hook: bind('click', () => moveCtrl.colorsPref(pref === 'Colors'), redraw),
             },
             [pref]
           )
@@ -114,14 +154,14 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
         'select#voice-lang',
         {
           attrs: { name: 'lang' },
-          hook: bind('change', e => ctrl.langPref((e.target as HTMLSelectElement).value)),
+          hook: bind('change', e => moveCtrl.langPref((e.target as HTMLSelectElement).value)),
         },
         [
-          ...ctrl.supportedLangs.map(l =>
+          ...supportedLangs.map(l =>
             h(
               'option',
               {
-                attrs: l[0] === ctrl.lang ? { value: l[0], selected: '' } : { value: l[0] },
+                attrs: l[0] === moveCtrl.langPref() ? { value: l[0], selected: '' } : { value: l[0] },
               },
               l[1]
             )
@@ -149,15 +189,15 @@ function voiceSettings(ctrl: VoiceMoveCtrl): VNode {
   ]);
 }
 
-function helpModal(ctrl: VoiceMoveCtrl) {
+function helpModal() {
   return snabModal({
     class: `voice-move-help`,
     content: [h('div.scrollable', spinner())],
-    onClose: () => ctrl.showHelp(false),
+    onClose: () => moveCtrl.showHelp(false),
     onInsert: async el => {
       const [, grammar, html] = await Promise.all([
         lichess.loadCssPath('voiceMove.help'),
-        xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/moves-${ctrl.lang}.json`)),
+        xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/moves-${moveCtrl.langPref()}.json`)),
         xhr.text(xhr.url(`/help/voice-move`, {})),
       ]);
       // using lexicon instead of crowdin translations for moves/commands
@@ -174,7 +214,7 @@ function helpModal(ctrl: VoiceMoveCtrl) {
       });
       el.find('#all-phrases-button').on('click', () => {
         let html = '<table id="big-table"><tbody>';
-        const all = ctrl.allPhrases().sort((a, b) => a[0].localeCompare(b[0]));
+        const all = moveCtrl.allPhrases().sort((a, b) => a[0].localeCompare(b[0]));
         const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
         const rows = Math.ceil(all.length / cols);
         for (let row = 0; row < rows; row++) {

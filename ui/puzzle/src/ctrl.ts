@@ -24,8 +24,7 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { makeVoiceMove, RootCtrl as VoiceRoot } from 'voice';
-import { VoiceMoveCtrl } from 'voice/src/voiceMove';
+import { makeVoiceMove, VoiceMove, RootCtrl as VoiceRoot } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, RootController as KeyboardRoot } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
@@ -89,7 +88,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   let keyboardMove: KeyboardMove | undefined;
-  let voiceMove: VoiceMoveCtrl | undefined;
+  let voiceMove: VoiceMove | undefined;
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);

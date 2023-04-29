@@ -99,3 +99,16 @@ export type Transform = {
   to: string; // zero or more tokens, (empty string for erasure)
   at: number; // index (unused now, previously for breadcrumbs)
 };
+
+export const src = (uci: Uci) => uci.slice(0, 2) as Key;
+export const dest = (uci: Uci) => uci.slice(2, 4) as Key;
+
+export const promo = (uci: Uci) =>
+  ({
+    P: 'pawn',
+    N: 'knight',
+    B: 'bishop',
+    R: 'rook',
+    Q: 'queen',
+    K: 'king',
+  }[uci.slice(4, 5).toUpperCase()]);
