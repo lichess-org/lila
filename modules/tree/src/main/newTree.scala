@@ -80,35 +80,10 @@ object NewTree:
   def apply(value: NewBranch, child: Option[NewTree], variation: Option[NewTree]) =
     ChessNode(value, child, variation)
 
-  extension [A](xs: List[ChessNode[A]])
-    def toVariations: Option[ChessNode[A]] =
-      xs.reverse.foldLeft(none[ChessNode[A]])((acc, x) => x.copy(variation = acc).some)
-
-    def toChild: Option[ChessNode[A]] =
-      xs.reverse.foldLeft(none[ChessNode[A]])((acc, x) => x.copy(child = acc).some)
-
-  extension [A](xs: List[A])
-    def toVariations[B](f: A => ChessNode[B]) =
-      xs.reverse.foldLeft(none[ChessNode[B]])((acc, x) => f(x).copy(variation = acc).some)
-
-    def toChild[B](f: A => ChessNode[B]) =
-      xs.reverse.foldLeft(none[ChessNode[B]])((acc, x) => f(x).copy(child = acc).some)
-
   // Optional for the first node with the given id
   def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
 
   extension (newTree: NewTree)
-    def dropFirstChild                  = newTree.copy(child = None)
-    def color                           = newTree.value.metas.ply.color
-    def mainlineNodeList: List[NewTree] = newTree.dropFirstChild :: newTree.child.??(_.mainlineNodeList)
-
-    def getChild(id: UciCharPair): Option[NewTree] = newTree.childAndVariations.find(_.value.id == id)
-
-    def hasChild(id: UciCharPair): Boolean = newTree.childAndVariations.exists(_.value.id == id)
-
-    def variationsWithIndex: List[(NewTree, Int)] =
-      newTree.variation.fold(List.empty[(NewTree, Int)])(_.variations.zipWithIndex)
-
     // def addNodeAt(node: NewTree): Option[NewTree] =
     //   node.value.path.split match
     //     case Nil => newTree.addChild(node)
@@ -120,9 +95,6 @@ object NewTree:
     // TODO: merge two nodes if they have the same id
     def addVariation(variation: NewTree): NewTree =
       newTree.copy(variation = newTree.variation.mergeVariations(variation.some))
-
-    def clearVariations: NewTree =
-      newTree.copy(variation = None)
 
     def merge(n: NewTree): NewTree =
       newTree.copy(
