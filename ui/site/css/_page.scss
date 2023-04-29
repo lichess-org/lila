@@ -1,5 +1,7 @@
 .page {
   .body {
+    @include rendered-markdown--code;
+
     font-size: 1.1em;
     overflow-wrap: anywhere;
 
