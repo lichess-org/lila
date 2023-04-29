@@ -10,7 +10,8 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
   return (ctrl: SimulCtrl) => {
     const candidates = ctrl.candidates().sort(byName),
       accepted = ctrl.accepted().sort(byName),
-      isHost = ctrl.createdByMe();
+      isHost = ctrl.createdByMe(),
+      canJoin = ctrl.data.canJoin;
     const variantIconFor = (a: Applicant) => {
       const variant = ctrl.data.variants.find(v => a.variant == v.key);
       return (
@@ -39,15 +40,14 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                   ctrl.trans('withdraw')
                 )
               : h(
-                  'a.button.text' + (ctrl.teamBlock() ? '.disabled' : ''),
+                  'a.button.text' + (canJoin ? '' : '.disabled'),
                   {
                     attrs: {
-                      disabled: ctrl.teamBlock(),
+                      disabled: !canJoin,
                       'data-icon': '',
                     },
-                    hook: ctrl.teamBlock()
-                      ? {}
-                      : bind('click', () => {
+                    hook: canJoin
+                      ? bind('click', () => {
                           if (ctrl.data.variants.length === 1) xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                           else {
                             modal({
@@ -60,11 +60,10 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                               },
                             });
                           }
-                        }),
+                        })
+                      : {},
                   },
-                  ctrl.teamBlock() && ctrl.data.team
-                    ? ctrl.trans('mustBeInTeam', ctrl.data.team.name)
-                    : ctrl.trans('join')
+                  ctrl.trans('join')
                 )
             : h(
                 'a.button.text',

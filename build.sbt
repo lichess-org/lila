@@ -58,7 +58,7 @@ lazy val modules = Seq(
   msg, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
-  importer, tournament, simul, relation, report, pref,
+  importer, gathering, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push, appeal, mailer,
   playban, insight, perfStat, irc, quote, challenge,
@@ -286,18 +286,23 @@ lazy val opening = module("opening",
   tests.bundle
 )
 
+lazy val gathering = module("gathering",
+  Seq(common, user, rating, history),
+  Seq.empty
+)
+
 lazy val tournament = module("tournament",
-  Seq(common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room),
+  Seq(common, hub, socket, gathering, game, round, security, chat, memo, quote, history, notifyModule, i18n, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val swiss = module("swiss",
-  Seq(common, hub, socket, game, round, security, chat, memo, quote, i18n, room),
+  Seq(common, hub, socket, gathering, game, round, security, chat, memo, quote, i18n, room),
   Seq(scalatags, lettuce) ++ reactivemongo.bundle
 )
 
 lazy val simul = module("simul",
-  Seq(common, hub, socket, game, round, chat, memo, quote, room),
+  Seq(common, hub, socket, gathering, game, round, chat, memo, quote, room),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 

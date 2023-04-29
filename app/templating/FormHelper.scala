@@ -173,7 +173,7 @@ trait FormHelper { self: I18nHelper =>
           cls   := "form-control"
         )(disabled option (st.disabled := true))(validationModifiers(field))(
           default map { option(value := "")(_) },
-          options.toSeq map { case (value, name) =>
+          options.toSeq map { (value, name) =>
             option(
               st.value := value.toString,
               field.value.has(value.toString) option selected
@@ -240,6 +240,9 @@ trait FormHelper { self: I18nHelper =>
       form.globalError map { err =>
         div(cls := "form-group is-invalid")(error(err))
       }
+
+    def fieldset(legend: Frag): Tag =
+      st.fieldset(cls := "form-fieldset")(st.legend(legend))
 
     private val dataEnableTime = attr("data-enable-time")
     private val dataTime24h    = attr("data-time_24h")

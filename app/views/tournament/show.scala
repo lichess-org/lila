@@ -15,7 +15,7 @@ object show:
 
   def apply(
       tour: Tournament,
-      verdicts: lila.tournament.Condition.All.WithVerdicts,
+      verdicts: lila.gathering.Condition.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],

@@ -14,6 +14,7 @@ import lila.memo.CacheApi
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.security.Granter
 import lila.user.User
+import lila.relay.RelayTour.ActiveWithSomeRounds
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -100,11 +101,11 @@ final class RelayApi(
           }
       }
 
-  private var spotlightCache: List[RelayTour.ActiveWithNextRound] = Nil
+  private var spotlightCache: List[RelayTour.ActiveWithSomeRounds] = Nil
 
-  def spotlight = spotlightCache
+  def spotlight: List[ActiveWithSomeRounds] = spotlightCache
 
-  val officialActive = cacheApi.unit[List[RelayTour.ActiveWithNextRound]] {
+  val officialActive = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]] {
     _.refreshAfterWrite(5 seconds)
       .buildAsyncFuture { _ =>
         tourRepo.coll
@@ -130,30 +131,34 @@ final class RelayApi(
               Limit(40)
             )
           }
-          .map { docs =>
+          .map: docs =>
             for
               doc   <- docs
               tour  <- doc.asOpt[RelayTour]
               round <- doc.getAsOpt[RelayRound]("round")
-            yield RelayTour.ActiveWithNextRound(tour, round)
-          }
-          .map {
-            _.sortBy: t =>
+            yield (tour, round)
+          .map:
+            _.sortBy: (tour, round) =>
               (
-                !t.ongoing,                                      // ongoing tournaments first
-                0 - ~t.tour.tier,                                // then by tier
-                t.round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
+                !round.startedAt.isDefined,                    // ongoing tournaments first
+                0 - ~tour.tier,                                // then by tier
+                round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
               )
-          }
-          .addEffect { trs =>
+          .flatMap:
+            _.map: (tour, round) =>
+              defaultRoundToShow
+                .get(tour.id)
+                .map: link =>
+                  RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round)
+            .parallel
+          .addEffect: trs =>
             spotlightCache = trs
               .filter(_.tour.tier.has(RelayTour.Tier.BEST))
-              .filterNot(_.round.finished)
+              .filterNot(_.display.finished)
               .filter { tr =>
-                tr.round.hasStarted || tr.round.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
+                tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
               }
               .take(2)
-          }
       }
   }
 

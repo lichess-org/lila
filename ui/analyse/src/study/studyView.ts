@@ -170,18 +170,11 @@ export function side(ctrl: StudyCtrl): VNode {
 
   const makeTab = (key: Tab, name: string) =>
     h(
-      'span.' + key,
+      `span.${key}`,
       {
         class: { active: !tourShow?.active && activeTab === key },
         attrs: { role: 'tab' },
-        hook: bind(
-          'mousedown',
-          () => {
-            tourShow?.disable();
-            ctrl.vm.tab(key);
-          },
-          ctrl.redraw
-        ),
+        hook: bind('mousedown', () => ctrl.setTab(key)),
       },
       name
     );

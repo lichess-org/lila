@@ -11,6 +11,7 @@ import lila.common.Json.given
 import lila.memo.CacheApi.*
 import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
 import lila.user.{ User as UserModel }
+import lila.gathering.Condition.GetUserTeamIds
 
 final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
     extends LilaController(env):
@@ -95,13 +96,12 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             .fold(tournamentNotFound.toFuccess) { tour =>
               for {
                 myInfo   <- ctx.me.?? { jsonView.fetchMyInfo(tour, _) }
-                verdicts <- api.getVerdicts(tour, ctx.me, getUserTeamIds, myInfo.isDefined)
+                verdicts <- api.getVerdicts(tour, ctx.me, myInfo.isDefined)
                 version  <- env.tournament.version(tour.id)
                 json <- jsonView(
                   tour = tour,
                   page = page,
                   me = ctx.me,
-                  getUserTeamIds = getUserTeamIds,
                   getTeamName = env.team.getTeamName.apply,
                   playerInfoExt = none,
                   socketVersion = version.some,
@@ -132,7 +132,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     tour = tour,
                     page = page,
                     me = ctx.me,
-                    getUserTeamIds = getUserTeamIds,
                     getTeamName = env.team.getTeamName.apply,
                     playerInfoExt = playerInfoExt,
                     socketVersion = socketVersion,
@@ -241,7 +240,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     data.team
       .?? { env.team.cached.isLeader(_, me.id) }
       .flatMap { isLeader =>
-        api.joinWithResult(tourId, me, data = data, getUserTeamIds, isLeader)
+        api.joinWithResult(tourId, me, data = data, isLeader)
       }
 
   def pause(id: TourId) =
@@ -321,17 +320,18 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           html = forms
             .create(me, teams)
             .bindFromRequest()
+            .pp
             .fold(
               err => BadRequest(html.tournament.form.create(err, teams)).toFuccess,
               setup =>
-                rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)) {
-                  api.createTournament(setup, me, teams) map { tour =>
-                    Redirect {
-                      if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
-                      else routes.Tournament.show(tour.id)
-                    }.flashSuccess
-                  }
-                }
+                rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)):
+                  api
+                    .createTournament(setup, me, teams)
+                    .map: tour =>
+                      Redirect {
+                        if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
+                        else routes.Tournament.show(tour.id)
+                      }.flashSuccess
             ),
           api = _ => doApiCreate(me)
         )
@@ -360,13 +360,12 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     tour,
                     none,
                     none,
-                    getUserTeamIds = _ => fuccess(teams.map(_.id)),
                     env.team.getTeamName.apply,
                     none,
                     none,
                     partial = false,
                     withScores = false
-                  )(using reqLang) map { Ok(_) }
+                  )(using reqLang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
                 }
               }
             }
@@ -385,18 +384,17 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               .fold(
                 newJsonFormError,
                 data =>
-                  api.apiUpdate(tour, data, teams) flatMap { tour =>
+                  api.apiUpdate(tour, data) flatMap { tour =>
                     jsonView(
                       tour,
                       none,
                       none,
-                      getUserTeamIds = _ => fuccess(teams.map(_.id)),
                       env.team.getTeamName.apply,
                       none,
                       none,
                       partial = false,
                       withScores = true
-                    )(using reqLang) map { Ok(_) }
+                    )(using reqLang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
                   }
               )
           }
@@ -469,7 +467,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                       tour,
                       none,
                       none,
-                      getUserTeamIds = getUserTeamIds,
                       env.team.getTeamName.apply,
                       none,
                       none,
@@ -547,7 +544,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             .bindFromRequest()
             .fold(
               err => BadRequest(html.tournament.form.edit(tour, err, teams)).toFuccess,
-              data => api.update(tour, data, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
+              data => api.update(tour, data) inject Redirect(routes.Tournament.show(id)).flashSuccess
             )
         }
       }
@@ -613,5 +610,4 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
   }
 
-  private def getUserTeamIds(user: UserModel): Fu[List[TeamId]] =
-    env.team.cached.teamIdsList(user.id)
+  private given GetUserTeamIds = user => env.team.cached.teamIdsList(user.id)

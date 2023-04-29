@@ -103,7 +103,7 @@ private object LinkCheck:
       def teamId = value.conditions.teamMember.map(_.teamId)
     case class SimulSource(value: Simul) extends FullSource:
       def owners = Set(value.hostId)
-      def teamId = value.team
+      def teamId = value.conditions.teamMember.map(_.teamId)
     case class SwissSource(value: Swiss) extends FullSource:
       def owners = Set(value.createdBy)
       def teamId = value.teamId.some

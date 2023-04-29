@@ -37,6 +37,10 @@ main.has-relay-tour {
       @extend %roboto;
       font-size: 1.2em;
     }
+    &.ongoing {
+      background: mix($c-accent, $c-bg-box, 10%);
+      color: $c-accent;
+    }
   }
 
   .study__multiboard {

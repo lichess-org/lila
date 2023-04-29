@@ -10,7 +10,7 @@ import lila.i18n.I18nKeys.{ oauthScope as ot }
 
 object create:
 
-  def apply(form: Form[lila.oauth.OAuthTokenForm.Data], me: lila.user.User)(implicit ctx: Context) =
+  def apply(form: Form[lila.oauth.OAuthTokenForm.Data], me: lila.user.User)(using Context) =
 
     val title = ot.newAccessToken
 

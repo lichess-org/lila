@@ -122,7 +122,7 @@ object Preload:
       tours: List[Tournament],
       swiss: Option[Swiss],
       events: List[Event],
-      relays: List[lila.relay.RelayTour.ActiveWithNextRound],
+      relays: List[lila.relay.RelayTour.ActiveWithSomeRounds],
       simuls: List[Simul],
       featured: Option[Game],
       leaderboard: List[User.LightPerf],

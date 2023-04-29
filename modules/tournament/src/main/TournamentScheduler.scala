@@ -8,6 +8,7 @@ import java.time.DayOfWeek.*
 import java.time.temporal.TemporalAdjusters
 
 import lila.common.LilaScheduler
+import lila.gathering.Condition
 
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using Executor, Scheduler):
 
@@ -377,12 +378,12 @@ Thank you all, you rock!""",
             case 1 => SuperBlitz
             case 2 => Blitz
             case _ => Rapid
-          List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { (rating, hourDelay) =>
+          List(1300, 1500, 1700, 2000).map(IntRating(_)).zipWithIndex.flatMap { (rating, hourDelay) =>
             import chess.Clock
             val perf = Schedule.Speed toPerfType speed
-            val conditions = Condition.All(
-              nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
-              maxRating = Condition.MaxRating(perf, rating).some,
+            val conditions = TournamentCondition.All(
+              nbRatedGame = Condition.NbRatedGame(20).some,
+              maxRating = Condition.MaxRating(rating).some,
               minRating = none,
               titled = none,
               teamMember = none,
