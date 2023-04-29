@@ -112,7 +112,7 @@ private object I18nQuantity:
   import selectors.*
 
   private val langMap: Map[Language, Selector] = LangList.all.map { (lang, _) =>
-    lang.language -> (lang.language match {
+    lang.language -> lang.language.match {
 
       case "fr" | "ff" | "kab" | "co" | "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" |
           "nso" | "ti" | "wa" =>
@@ -148,5 +148,5 @@ private object I18nQuantity:
         selectors.none
 
       case _ => default
-    })
+    }
   }

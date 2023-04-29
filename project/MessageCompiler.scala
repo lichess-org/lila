@@ -51,36 +51,48 @@ object MessageCompiler {
                   case None          => s"""new Simple(\"$safe\")"""
                   case Some(escaped) => s"""new Escaped(\"$safe\",\"$escaped\")"""
                 }
-                s"""    m.put(${toKey(e, db)},$translation);"""
+                s"""m.put(${toKey(e, db)},$translation);"""
               case e if e.label == "plurals" =>
-                val items: Map[String, String] = e.child
+                val allItems: Map[String, String] = e.child
                   .filter(_.label == "item")
                   .map { i =>
                     ucfirst(i.\("@quantity").toString) -> s"""\"${escape(i.text)}\""""
                   }
                   .toMap
-                s"""    m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}));"""
+                val otherValue = allItems.get("Other")
+                val default    = allItems.head
+                val items = allItems.filter {
+                  case pair if pair == default          => true
+                  case ("Other", v)                     => v != default._2
+                  case (_, v) if v == default._2        => false
+                  case (_, v) if otherValue.contains(v) => false
+                  case _                                => true
+                }
+                s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}));"""
             }
           } catch {
             case _: Exception => Nil
           }
         }
 
-        s"""package lila.i18n;
+        val fullMapImports =
+          if (puts.exists(_.contains("ScalaRunTime$")))
+            """import scala.Predef$;
+import scala.Tuple2;
+import scala.Tuple2$;
+import scala.runtime.ScalaRunTime$;"""
+          else ""
 
+        s"""package lila.i18n;
 import java.util.HashMap;
 import scala.collection.immutable.Map;
-import scala.Predef$$;
-import scala.Tuple2;
-import scala.Tuple2$$;
-import scala.runtime.ScalaRunTime$$;
-
+$fullMapImports
 public final class $underLocale {
-	public static final HashMap<String, Translation> load() {
-		HashMap<String, Translation> m = new HashMap<String, Translation>(${puts.size + 1});
+public static final HashMap<String, Translation> load() {
+HashMap<String, Translation> m = new HashMap<String, Translation>(${puts.size + 1});
 ${puts mkString "\n"}
-    return m;
-  }
+return m;
+}
 }
 """
       }
@@ -148,8 +160,7 @@ private object Registry {
         """Tuple2$.MODULE$.apply""" + s"""(I18nQuantity$$.$k, $v)"""
       } mkString ","
       """(Map)Predef$.MODULE$.Map().apply(ScalaRunTime$.MODULE$.wrapRefArray(new Tuple2[]{""" + mapItems + """}))"""
-    }
-    else
+    } else
       s"""new Map.Map${items.size}<I18nQuantity, String>(${items.map { case (k, v) =>
           s"I18nQuantity$$.$k,$v"
         } mkString ","})"""
@@ -161,10 +172,10 @@ private object Registry {
       var i  = 0
       while (i < s.length) {
         s.charAt(i) match {
-          case '<' => sb append "&lt;"
-          case '>' => sb append "&gt;"
-          case '&' => sb append "&amp;"
-          // case '"'  => sb append "&quot;"
+          case '<'  => sb append "&lt;"
+          case '>'  => sb append "&gt;"
+          case '&'  => sb append "&amp;"
+          case '"'  => sb append "&quot;"
           case '\'' => sb append "&#39;"
           case '\r' => ()
           case '\n' => sb append "<br />"
@@ -172,7 +183,7 @@ private object Registry {
         }
         i += 1
       }
-      sb.toString
+      sb.toString.replace("\\&quot;", "&quot;")
     }
     else None
 
