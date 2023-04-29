@@ -16,8 +16,8 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ Zen</string>
   <string name="showPlayerRatings">Hiện xếp hạng của người chơi</string>
   <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">Cài đặt này cho phép ẩn toàn bộ xếp hạng từ trang web, giúp tập trung vào ván cờ. Ván đấu vẫn có thể tính xếp hạng, điều này chỉ là về những thứ bạn muốn nhìn thấy.</string>
-  <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
-  <string name="onlyOnInitialPosition">Chỉ ở vị trí khởi tạo</string>
+  <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ của bàn cờ</string>
+  <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">đồng hồ chuyên dụng</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
@@ -49,7 +49,7 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Tự kéo mũi tên vào ô của nước đi hợp lệ</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Tự động nhắn \"Good game, well played\" (một ván cờ tốt, chơi hay lắm) sau khi hòa hoặc thua</string>
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
-  <string name="scrollOnTheBoardToReplayMoves">Cuộn trên bảng ghi vị trí để xem lại các nước đi</string>
+  <string name="scrollOnTheBoardToReplayMoves">Cuộn trên bàn cờ để xem lại các nước đi</string>
   <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả những ván đấu qua thư</string>
   <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
   <string name="notifyInboxMsg">Cuộc trò chuyện mới</string>
