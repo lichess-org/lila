@@ -51,15 +51,24 @@ object MessageCompiler {
                   case None          => s"""new Simple(\"$safe\")"""
                   case Some(escaped) => s"""new Escaped(\"$safe\",\"$escaped\")"""
                 }
-                s"""    m.put(${toKey(e, db)},$translation);"""
+                s"""m.put(${toKey(e, db)},$translation);"""
               case e if e.label == "plurals" =>
-                val items: Map[String, String] = e.child
+                val allItems: Map[String, String] = e.child
                   .filter(_.label == "item")
                   .map { i =>
                     ucfirst(i.\("@quantity").toString) -> s"""\"${escape(i.text)}\""""
                   }
                   .toMap
-                s"""    m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}));"""
+                val otherValue = allItems.get("Other")
+                val default    = allItems.head
+                val items = allItems.filter {
+                  case pair if pair == default          => true
+                  case ("Other", v)                     => v != default._2
+                  case (_, v) if v == default._2        => false
+                  case (_, v) if otherValue.contains(v) => false
+                  case _                                => true
+                }
+                s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}));"""
             }
           } catch {
             case _: Exception => Nil
@@ -79,11 +88,11 @@ import java.util.HashMap;
 import scala.collection.immutable.Map;
 $fullMapImports
 public final class $underLocale {
-	public static final HashMap<String, Translation> load() {
-		HashMap<String, Translation> m = new HashMap<String, Translation>(${puts.size + 1});
+public static final HashMap<String, Translation> load() {
+HashMap<String, Translation> m = new HashMap<String, Translation>(${puts.size + 1});
 ${puts mkString "\n"}
-    return m;
-  }
+return m;
+}
 }
 """
       }
