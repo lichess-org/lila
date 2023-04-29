@@ -1,4 +1,4 @@
-package lila.common
+package lila.api
 
 import ornicar.scalalib.SecureRandom
 
