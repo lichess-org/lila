@@ -172,10 +172,10 @@ private object Registry {
       var i  = 0
       while (i < s.length) {
         s.charAt(i) match {
-          case '<' => sb append "&lt;"
-          case '>' => sb append "&gt;"
-          case '&' => sb append "&amp;"
-          // case '"'  => sb append "&quot;"
+          case '<'  => sb append "&lt;"
+          case '>'  => sb append "&gt;"
+          case '&'  => sb append "&amp;"
+          case '"'  => sb append "&quot;"
           case '\'' => sb append "&#39;"
           case '\r' => ()
           case '\n' => sb append "<br />"
@@ -183,7 +183,7 @@ private object Registry {
         }
         i += 1
       }
-      sb.toString
+      sb.toString.replace("\\&quot;", "&quot;")
     }
     else None
 
