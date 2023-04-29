@@ -3,6 +3,7 @@
   <string name="preferences">Προτιμήσεις</string>
   <string name="display">Εμφάνιση</string>
   <string name="privacy">Απόρρητο</string>
+  <string name="notifications">Ειδοποιήσεις</string>
   <string name="pieceAnimation">Κίνηση πιονιών</string>
   <string name="materialDifference">Διαφορά υλικού</string>
   <string name="boardHighlights">Φωτισμός σκακιέρας (τελευταία κίνηση και σαχ)</string>
