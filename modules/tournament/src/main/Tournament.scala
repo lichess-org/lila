@@ -7,11 +7,10 @@ import play.api.i18n.Lang
 import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.GreatPlayer
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
-import lila.gathering.Condition
+import lila.gathering.{ GreatPlayer, Condition }
 
 case class Tournament(
     id: TourId,

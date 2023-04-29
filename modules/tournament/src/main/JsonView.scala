@@ -6,15 +6,14 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }
+import lila.common.{ LightUser, Preload, Uptime }
 import lila.game.LightPov
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
 import lila.socket.{ SocketVersion, given }
 import lila.user.{ LightUserApi, User }
-import lila.gathering.Condition
-import lila.gathering.ConditionHandlers
+import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 
 final class JsonView(
     lightUserApi: LightUserApi,

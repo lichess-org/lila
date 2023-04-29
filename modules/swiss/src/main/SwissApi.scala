@@ -11,12 +11,13 @@ import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
 import lila.common.config.MaxPerSecond
-import lila.common.{ Bus, GreatPlayer, LightUser }
+import lila.common.{ Bus, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.round.actorApi.round.QuietFlag
 import lila.user.{ User, UserRepo }
 import lila.common.config.Max
+import lila.gathering.GreatPlayer
 import lila.gathering.Condition.WithVerdicts
 
 final class SwissApi(

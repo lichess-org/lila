@@ -1,4 +1,4 @@
-package lila.common
+package lila.gathering
 
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -603,9 +603,8 @@ object GreatPlayer:
   )
 
   private val size = all.size
-  private val names: Vector[String] = all.view.map { case (k, _) =>
-    k
-  }.toVector
+  private val names: Vector[String] =
+    all.view.map { (k, _) => k }.toVector
 
   def randomName: String = names(ThreadLocalRandom nextInt size)
 
