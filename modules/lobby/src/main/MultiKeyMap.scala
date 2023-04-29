@@ -1,10 +1,10 @@
-package lila.common
+package lila.lobby
 
 /* Immutable map where each value has 2 independant keys.
  * Kind of like a DB entry with 2 *unique* indexes.
  * loosely inspired from https://github.com/joshlemer/MultiIndex
  */
-final class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V])(
+final private class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V])(
     toK1: V => K1,
     toK2: V => K2
 ):
@@ -45,7 +45,7 @@ final class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V])(
   private def copy(index1: Map[K1, V], index2: Map[K2, V]) =
     new MultiKeyMap(index1, index2)(toK1, toK2)
 
-object MultiKeyMap:
+private object MultiKeyMap:
 
   def apply[K1, K2, V](values: Set[V])(toK1: V => K1, toK2: V => K2) =
     val (index1: Map[K1, V], index2: Map[K2, V]) =

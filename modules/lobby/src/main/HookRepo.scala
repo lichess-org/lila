@@ -1,6 +1,6 @@
 package lila.lobby
 
-import lila.common.{ Heapsort, MultiKeyMap }
+import lila.common.Heapsort
 import lila.socket.Socket.Sri
 import scala.collection.View
 
