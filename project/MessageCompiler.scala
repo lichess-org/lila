@@ -66,15 +66,18 @@ object MessageCompiler {
           }
         }
 
-        s"""package lila.i18n;
+        val fullMapImports =
+          if (puts.exists(_.contains("ScalaRunTime$")))
+            """import scala.Predef$;
+import scala.Tuple2;
+import scala.Tuple2$;
+import scala.runtime.ScalaRunTime$;"""
+          else ""
 
+        s"""package lila.i18n;
 import java.util.HashMap;
 import scala.collection.immutable.Map;
-import scala.Predef$$;
-import scala.Tuple2;
-import scala.Tuple2$$;
-import scala.runtime.ScalaRunTime$$;
-
+$fullMapImports
 public final class $underLocale {
 	public static final HashMap<String, Translation> load() {
 		HashMap<String, Translation> m = new HashMap<String, Translation>(${puts.size + 1});
@@ -148,8 +151,7 @@ private object Registry {
         """Tuple2$.MODULE$.apply""" + s"""(I18nQuantity$$.$k, $v)"""
       } mkString ","
       """(Map)Predef$.MODULE$.Map().apply(ScalaRunTime$.MODULE$.wrapRefArray(new Tuple2[]{""" + mapItems + """}))"""
-    }
-    else
+    } else
       s"""new Map.Map${items.size}<I18nQuantity, String>(${items.map { case (k, v) =>
           s"I18nQuantity$$.$k,$v"
         } mkString ","})"""
