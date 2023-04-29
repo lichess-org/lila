@@ -16,13 +16,14 @@ object Maths:
       Sorting.stableSort(arr)
       val size = arr.length
       val mid  = size / 2
-      if (size % 2 == 0) n.toDouble(arr(mid) + arr(mid - 1)) / 2
+      if size % 2 == 0
+      then n.toDouble(arr(mid) + arr(mid - 1)) / 2
       else n.toDouble(arr(mid))
     }
 
   def harmonicMean(a: Iterable[Double]): Option[Double] =
     a.nonEmpty option {
-      a.size / a.foldLeft(0d) { case (acc, v) => acc + 1 / Math.max(1, v) }
+      a.size / a.foldLeft(0d) { (acc, v) => acc + 1 / Math.max(1, v) }
     }
 
   def weightedMean(a: Iterable[(Double, Double)]): Option[Double] =
@@ -31,10 +32,10 @@ object Maths:
         case (v, w) => w != 0 option v / w
     }
 
-  def arithmeticAndHarmonicMean(a: Iterable[Double]): Option[Double] = for {
+  def arithmeticAndHarmonicMean(a: Iterable[Double]): Option[Double] = for
     arithmetic <- mean(a)
     harmonic   <- harmonicMean(a)
-  } yield (arithmetic + harmonic) / 2
+  yield (arithmetic + harmonic) / 2
 
   def roundAt(n: Double, p: Int): BigDecimal =
     BigDecimal(n).setScale(p, BigDecimal.RoundingMode.HALF_UP)
@@ -64,11 +65,10 @@ object Maths:
   // using population variance
   def standardDeviation(a: Iterable[Double]): Option[Double] =
     mean(a) map { mean =>
-      Math.sqrt {
-        a.foldLeft(0d) { case (sum, x) =>
+      Math.sqrt:
+        a.foldLeft(0d) { (sum, x) =>
           sum + Math.pow(x - mean, 2)
         } / a.size
-      }
     }
 
   def isCloseTo[T](a: T, b: T, delta: Double)(using n: Numeric[T]) =

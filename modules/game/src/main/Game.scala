@@ -21,7 +21,7 @@ import chess.{
 
 import chess.MoveOrDrop.fold
 
-import lila.common.{ Days, Sequence }
+import lila.common.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
 import lila.rating.PerfType.Classical
@@ -155,7 +155,7 @@ case class Game(
   def moveTimes: Option[Vector[Centis]] = for
     a <- moveTimes(startColor)
     b <- moveTimes(!startColor)
-  yield Sequence.interleave(a, b)
+  yield interleave(a, b)
 
   def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
@@ -837,10 +837,20 @@ case class ClockHistory(
 
   // first state is of the color that moved first.
   def bothClockStates(firstMoveBy: Color): Vector[Centis] =
-    Sequence.interleave(
+    interleave(
       firstMoveBy.fold(white, black),
       firstMoveBy.fold(black, white)
     )
 
 enum DrawReason:
   case MutualAgreement, FiftyMoves, ThreefoldRepetition, InsufficientMaterial
+
+private def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
+  val iterA   = a.iterator
+  val iterB   = b.iterator
+  val builder = Vector.newBuilder[A]
+  while (iterA.hasNext && iterB.hasNext)
+    builder += iterA.next() += iterB.next()
+  builder ++= iterA ++= iterB
+
+  builder.result()

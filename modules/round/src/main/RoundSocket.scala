@@ -38,7 +38,7 @@ final class RoundSocket(
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket") { () =>
     stopping = true
     rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map { nb =>
-      Lilakka.logger.info(s"$nb round asyncActors have stopped")
+      Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
     }
   }
 
@@ -88,28 +88,26 @@ final class RoundSocket(
     }
     roundActor
 
-  private def tellRound(gameId: GameId, msg: Any): Unit = rounds.tell(gameId, msg)
-
   private val roundHandler: Handler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
-      tellRound(Game fullToId fullId, HumanPlay(Game takePlayerId fullId, uci, blur, lag, none))
+      rounds.tell(Game fullToId fullId, HumanPlay(Game takePlayerId fullId, uci, blur, lag, none))
     case Protocol.In.PlayerDo(fullId, tpe) if !stopping =>
       tpe match
-        case "moretime"     => tellRound(Game fullToId fullId, Moretime(Game takePlayerId fullId))
-        case "rematch-yes"  => tellRound(Game fullToId fullId, RematchYes(Game takePlayerId fullId))
-        case "rematch-no"   => tellRound(Game fullToId fullId, RematchNo(Game takePlayerId fullId))
-        case "takeback-yes" => tellRound(Game fullToId fullId, TakebackYes(Game takePlayerId fullId))
-        case "takeback-no"  => tellRound(Game fullToId fullId, TakebackNo(Game takePlayerId fullId))
-        case "draw-yes"     => tellRound(Game fullToId fullId, DrawYes(Game takePlayerId fullId))
-        case "draw-no"      => tellRound(Game fullToId fullId, DrawNo(Game takePlayerId fullId))
-        case "draw-claim"   => tellRound(Game fullToId fullId, DrawClaim(Game takePlayerId fullId))
-        case "resign"       => tellRound(Game fullToId fullId, Resign(Game takePlayerId fullId))
-        case "resign-force" => tellRound(Game fullToId fullId, ResignForce(Game takePlayerId fullId))
-        case "draw-force"   => tellRound(Game fullToId fullId, DrawForce(Game takePlayerId fullId))
-        case "abort"        => tellRound(Game fullToId fullId, Abort(Game takePlayerId fullId))
-        case "outoftime"    => tellRound(Game fullToId fullId, QuietFlag) // mobile app BC
+        case "moretime"     => rounds.tell(Game fullToId fullId, Moretime(Game takePlayerId fullId))
+        case "rematch-yes"  => rounds.tell(Game fullToId fullId, RematchYes(Game takePlayerId fullId))
+        case "rematch-no"   => rounds.tell(Game fullToId fullId, RematchNo(Game takePlayerId fullId))
+        case "takeback-yes" => rounds.tell(Game fullToId fullId, TakebackYes(Game takePlayerId fullId))
+        case "takeback-no"  => rounds.tell(Game fullToId fullId, TakebackNo(Game takePlayerId fullId))
+        case "draw-yes"     => rounds.tell(Game fullToId fullId, DrawYes(Game takePlayerId fullId))
+        case "draw-no"      => rounds.tell(Game fullToId fullId, DrawNo(Game takePlayerId fullId))
+        case "draw-claim"   => rounds.tell(Game fullToId fullId, DrawClaim(Game takePlayerId fullId))
+        case "resign"       => rounds.tell(Game fullToId fullId, Resign(Game takePlayerId fullId))
+        case "resign-force" => rounds.tell(Game fullToId fullId, ResignForce(Game takePlayerId fullId))
+        case "draw-force"   => rounds.tell(Game fullToId fullId, DrawForce(Game takePlayerId fullId))
+        case "abort"        => rounds.tell(Game fullToId fullId, Abort(Game takePlayerId fullId))
+        case "outoftime"    => rounds.tell(Game fullToId fullId, QuietFlag) // mobile app BC
         case t              => logger.warn(s"Unhandled round socket message: $t")
-    case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
+    case Protocol.In.Flag(gameId, color, fromPlayerId) => rounds.tell(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
       gameIfPresent(id) foreach {
         _ foreach {
@@ -126,15 +124,15 @@ final class RoundSocket(
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {
         case (gameId, Some(on)) =>
-          tellRound(gameId, on)
+          rounds.tell(gameId, on)
           terminationDelay cancel gameId
         case (gameId, _) =>
           if (rounds exists gameId) terminationDelay schedule gameId
       }
-    case Protocol.In.Bye(fullId) => tellRound(Game fullToId fullId, ByePlayer(Game takePlayerId fullId))
+    case Protocol.In.Bye(fullId) => rounds.tell(Game fullToId fullId, ByePlayer(Game takePlayerId fullId))
     case RP.In.TellRoomSri(_, P.In.TellSri(_, _, tpe, _)) =>
       logger.warn(s"Unhandled round socket message: $tpe")
-    case hold: Protocol.In.HoldAlert => tellRound(Game fullToId hold.fullId, hold)
+    case hold: Protocol.In.HoldAlert => rounds.tell(Game fullToId hold.fullId, hold)
     case r: Protocol.In.SelfReport   => Bus.publish(r, "selfReport")
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")
@@ -202,12 +200,11 @@ final class RoundSocket(
     }
   }
 
-  scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
+  scheduler.scheduleWithFixedDelay(25 seconds, tickInterval): () =>
     rounds.tellAll(RoundAsyncActor.Tick)
-  }
-  scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
+
+  scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds): () =>
     lila.mon.round.asyncActorCount.update(rounds.size).unit
-  }
 
   private val terminationDelay = TerminationDelay(scheduler, 1 minute, finishRound)
 
@@ -433,13 +430,12 @@ object RoundSocket:
       terminations
         .compute(
           gameId,
-          (id, canc) => {
+          (id, canc) =>
             Option(canc).foreach(_.cancel())
             scheduler.scheduleOnce(duration) {
               terminations remove id
               terminate(id)
             }
-          }
         )
         .unit
 
