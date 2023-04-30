@@ -59,6 +59,7 @@
   <string name="depthX">sona pi tawa kama: %s</string>
   <string name="usingServerAnalysis">kepeken sona tan ilo pana</string>
   <string name="loadingEngine">ilo sona li kama...</string>
+  <string name="engineFailed">kepeken pakala e sona ilo</string>
   <string name="cloudAnalysis">sona tan ilo sona ante</string>
   <string name="goDeeper">o alasa e sona sin</string>
   <string name="showThreat">o lukin e nasin moli</string>
@@ -92,6 +93,7 @@
   <string name="dtzWithRounding">nanpa «DTZ50\'\'» pi ante \"sike\" (tan mute tawa ni: anpa ijo anu tawa pi jan utala li kama)</string>
   <string name="noGameFound">musi ala li lon</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">sina ken alasa e musi ante kepeken lipu wile.</string>
+  <string name="openings">open</string>
   <string name="openingExplorer">ilo open</string>
   <string name="openingEndgameExplorer">ilo open anu ilo pini</string>
   <string name="xOpeningExplorer">ilo open pi nasin %s</string>
@@ -203,6 +205,7 @@
   <string name="email">nimi pi lipu toki linluwi</string>
   <string name="passwordReset">weka sona la o ante e nimi open len</string>
   <string name="forgotPassword">sina sona ala e nimi open len sina anu seme?</string>
+  <string name="error.namePassword">o kepeken ala e nimi tawa nimi awen a.</string>
   <string name="youAreLeavingLichess">sina tawa tan lipu Lichess</string>
   <string name="proceedToX">o tawa lipu %s</string>
   <string name="emailConfirmNotReceived">sina pali e lipu jan. taso sina kama ala jo e lipu toki tan mi mute?</string>
@@ -212,6 +215,7 @@
   <string name="emailSent">mi mute li pini pana e lipu toki tawa %s.</string>
   <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
   <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
+  <string name="copyTextToEmail">jasima en pana e sitelen sewi, en pana tawa %s</string>
   <string name="rank">nanpa</string>
   <string name="rankX">nanpa: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -576,6 +580,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="community">kulupu</string>
   <string name="tools">ilo musi</string>
   <string name="increment">tenpo poka</string>
+  <string name="error.unknown">nanpa ike</string>
   <string name="error.required">sina wile sitelen lon ma ni</string>
   <string name="error.email">nimi e-mail ni li ike</string>
   <string name="error.email_acceptable">nimi e-mail ni li ike. o lukin e ona, o pali lon tenpo sin.</string>
@@ -586,6 +591,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="error.min">ona li wile %s anu mute</string>
   <string name="error.max">ona li wile %s anu lili</string>
   <string name="ifRatingIsPlusMinusX">nanpa wawa ona li lon poka %s pi nanpa wawa sina</string>
+  <string name="ifRegistered">la lipu jan pali</string>
   <string name="onlyExistingConversations">toki pi tenpo ni taso</string>
   <string name="onlyFriends">jan pona taso</string>
   <string name="menu">lipu open</string>
