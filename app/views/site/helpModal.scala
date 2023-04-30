@@ -203,11 +203,11 @@ object helpModal:
           tbody(
             header(performAMove()),
             row(frag(voice("e,4"), br, phonetic("e,4")), "Move to e4 or select a piece there"),
-            row(voice("K"), "Move my knight or capture a knight"),
+            row(voice("N"), "Move my knight or capture a knight"),
             row(frag(voice("B,h,6"), br, phonetic("B,h,6")), "Move bishop to h6"),
             row(voice("Q,x,R"), "Take rook with queen"),
             row(
-              frag(voice("c,8,=,K"), br, phonetic("c,8,K")),
+              frag(voice("c,8,=,N"), br, phonetic("c,8,N")),
               "Move c8 promote to knight"
             ),
             row(voice("castle"), "castle (either side)"),
