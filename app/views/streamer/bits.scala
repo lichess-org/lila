@@ -71,9 +71,14 @@ object bits:
       )
     }
 
-  def contextual(userId: UserId)(implicit lang: Lang): Frag =
+  def contextual(streamers: List[UserId])(using Lang): Option[Tag] =
+    streamers.nonEmpty option div(cls := "context-streamers")(
+      streamers map contextual
+    )
+
+  def contextual(userId: UserId)(using Lang): Tag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
-      xIsStreaming(titleNameOrId(userId))
+      xIsStreaming(strong(titleNameOrId(userId)))
     )
 
   def rules(implicit lang: Lang) =

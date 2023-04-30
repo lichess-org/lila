@@ -64,8 +64,6 @@ object side:
         br,
         absClientInstant(s.startsAt)
       ),
-      streamers.nonEmpty option div(cls := "context-streamers")(
-        streamers map views.html.streamer.bits.contextual
-      ),
+      views.html.streamer.bits.contextual(streamers),
       chat option views.html.chat.frag
     )
