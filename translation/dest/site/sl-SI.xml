@@ -45,7 +45,7 @@
   <string name="opponentLeftChoices">Nasprotnik je zapustil igro. Vsili predajo ali počakaj nanj.</string>
   <string name="forceResignation">Prijavi zmago</string>
   <string name="forceDraw">Prijavi remi</string>
-  <string name="talkInChat">Prosimo bodite prijazni v klepetu!</string>
+  <string name="talkInChat">Prosimo, bodite prijazni v klepetu!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">S teboj bo igrala prva oseba, ki pride na ta naslov.</string>
   <string name="whiteResigned">Beli je predal</string>
   <string name="blackResigned">Črni je predal</string>
