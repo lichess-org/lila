@@ -14,6 +14,7 @@ import lila.memo.CacheApi
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.security.Granter
 import lila.user.User
+import lila.relay.RelayTour.ActiveWithSomeRounds
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -25,7 +26,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi
-)(using ec: Executor, mat: akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given
@@ -71,32 +72,40 @@ final class RelayApi(
   object defaultRoundToShow:
     export cache.get
     private val cache =
-      cacheApi[RelayTour.Id, Option[RelayRound]](32, "relay.lastAndNextRounds") {
-        _.expireAfterWrite(3 seconds)
+      cacheApi[RelayTour.Id, Option[RelayRound]](16, "relay.lastAndNextRounds") {
+        _.expireAfterWrite(5 seconds)
           .buildAsyncFuture { tourId =>
-            val last = roundRepo.coll
-              .find($doc("tourId" -> tourId))
-              .sort($doc("startedAt" -> -1, "startsAt" -> -1))
+            val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
+            val lastStarted = roundRepo.coll
+              .find($doc("tourId" -> tourId, "startedAt" $exists true))
+              .sort($doc("startedAt" -> -1))
               .one[RelayRound]
             val next = roundRepo.coll
               .find($doc("tourId" -> tourId, "finished" -> false))
-              .sort(roundRepo.sort.chrono)
+              .sort(chronoSort)
               .one[RelayRound]
-            last zip next map {
-              case (Some(last), Some(next)) =>
-                if next.startsAt.exists(_ isBefore nowInstant.plusHours(1))
-                then next.some
-                else last.some
-              case (last, next) => last orElse next
+            lastStarted zip next flatMap {
+              case (None, _) => // no round started yet, show the first one
+                roundRepo.coll
+                  .find($doc("tourId" -> tourId))
+                  .sort(chronoSort)
+                  .one[RelayRound]
+              case (Some(last), Some(next)) => // show the next one if it's less than an hour away
+                fuccess:
+                  if next.startsAt.exists(_ isBefore nowInstant.plusHours(1))
+                  then next.some
+                  else last.some
+              case (Some(last), None) =>
+                fuccess(last.some)
             }
           }
       }
 
-  private var spotlightCache: List[RelayTour.ActiveWithNextRound] = Nil
+  private var spotlightCache: List[RelayTour.ActiveWithSomeRounds] = Nil
 
-  def spotlight = spotlightCache
+  def spotlight: List[ActiveWithSomeRounds] = spotlightCache
 
-  val officialActive = cacheApi.unit[List[RelayTour.ActiveWithNextRound]] {
+  val officialActive = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]] {
     _.refreshAfterWrite(5 seconds)
       .buildAsyncFuture { _ =>
         tourRepo.coll
@@ -122,30 +131,34 @@ final class RelayApi(
               Limit(40)
             )
           }
-          .map { docs =>
+          .map: docs =>
             for
               doc   <- docs
               tour  <- doc.asOpt[RelayTour]
               round <- doc.getAsOpt[RelayRound]("round")
-            yield RelayTour.ActiveWithNextRound(tour, round)
-          }
-          .map {
-            _.sortBy: t =>
+            yield (tour, round)
+          .map:
+            _.sortBy: (tour, round) =>
               (
-                !t.ongoing,                                      // ongoing tournaments first
-                0 - ~t.tour.tier,                                // then by tier
-                t.round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
+                !round.startedAt.isDefined,                    // ongoing tournaments first
+                0 - ~tour.tier,                                // then by tier
+                round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
               )
-          }
-          .addEffect { trs =>
+          .flatMap:
+            _.map: (tour, round) =>
+              defaultRoundToShow
+                .get(tour.id)
+                .map: link =>
+                  RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round)
+            .parallel
+          .addEffect: trs =>
             spotlightCache = trs
               .filter(_.tour.tier.has(RelayTour.Tier.BEST))
-              .filterNot(_.round.finished)
+              .filterNot(_.display.finished)
               .filter { tr =>
-                tr.round.hasStarted || tr.round.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
+                tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
               }
               .take(2)
-          }
       }
   }
 
@@ -317,7 +330,8 @@ final class RelayApi(
       }
       .documentSource(nb)
 
-    (activeStream concat inactiveStream)
+    activeStream
+      .concat(inactiveStream)
       .mapConcat { doc =>
         doc
           .asOpt[RelayTour]

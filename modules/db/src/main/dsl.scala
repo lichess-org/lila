@@ -295,9 +295,6 @@ trait dsl:
 
     def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       $regex(s"^$value", options)
-
-    def $endsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
-      $regex(s"$value$$", options)
   }
 
   trait ArrayOperators { self: ElementBuilder =>

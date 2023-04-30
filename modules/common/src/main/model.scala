@@ -79,6 +79,9 @@ case class Template(value: String) extends AnyVal
 opaque type Days = Int
 object Days extends OpaqueInt[Days]
 
+opaque type Seconds = Int
+object Seconds extends OpaqueInt[Seconds]
+
 case class Preload[A](value: Option[A]) extends AnyVal:
   def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)
 object Preload:

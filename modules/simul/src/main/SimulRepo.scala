@@ -37,6 +37,8 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
         "hostColor" -> o.hostColor.name
       )
 
+  import SimulCondition.bsonHandler
+
   private given BSONDocumentHandler[Simul] = Macros.handler
 
   private val createdSelect  = $doc("status" -> SimulStatus.Created.id)

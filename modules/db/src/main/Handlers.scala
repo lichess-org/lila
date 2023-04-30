@@ -121,6 +121,8 @@ trait Handlers:
   def typedMapHandlerIso[K, V: BSONHandler](using keyIso: StringIso[K]) =
     stringMapHandler[V].as[Map[K, V]](_.mapKeys(keyIso.from), _.mapKeys(keyIso.to))
 
+  def ifPresentHandler[A](a: A) = quickHandler({ case BSONBoolean(true) => a }, _ => BSONBoolean(true))
+
   given [T: BSONHandler]: BSONHandler[NonEmptyList[T]] =
     def listWriter = BSONWriter.collectionWriter[T, List[T]]
     def listReader = collectionReader[List, T]
@@ -152,7 +154,7 @@ trait Handlers:
   //   def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
-    def writeTry(@annotation.nowarn("msg=unused") n: BSONNull.type) = Success(BSONNull)
+    def writeTry(n: BSONNull.type) = Success(BSONNull)
 
   given BSONHandler[IpAddress] = stringIsoHandler
 

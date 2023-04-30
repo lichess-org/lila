@@ -3,7 +3,7 @@ package lila.api
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 
-import lila.common.{ HTTPRequest, Nonce }
+import lila.common.HTTPRequest
 import lila.pref.Pref
 import lila.user.{ BodyUserContext, HeaderUserContext, UserContext }
 import lila.notify.Notification.UnreadCount

@@ -26,14 +26,14 @@ object Dependencies {
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.16.1"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.3.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.4.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.91.Final" classifier s"$os-$arch"
-  val munit       = "org.scalameta"              %% "munit"        % "1.0.0-M7" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"    % "0.14.0"
-  val apacheText  = "org.apache.commons"          % "commons-text" % "1.10.0"
-  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
-  val breeze      = "org.scalanlp"               %% "breeze"       % "2.1.0"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.92.Final" classifier s"$os-$arch"
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M7" % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.14.0"
+  val apacheText  = "org.apache.commons"          % "commons-text"  % "1.10.0"
+  val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
+  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
 
   object tests {
     val bundle = Seq(munit)
@@ -57,7 +57,7 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val driver = "org.reactivemongo" %% "reactivemongo"               % "1.1.0-RC7"
+    val driver = "org.reactivemongo" %% "reactivemongo"               % "1.1.0-RC9"
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC9"
     val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"1.1.0-RC6-$os-x86-64"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"

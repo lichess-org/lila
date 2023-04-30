@@ -12,19 +12,24 @@ export const ratingView = (ctrl: LobbyController): MaybeVNode => {
   const perfOrSpeed: { key: string; icon: string; name: string } | undefined =
     variants.find(({ key }) => key === selectedPerf) || speeds.find(({ key }) => key === selectedPerf);
 
-  return (
-    perfOrSpeed &&
-    h(
+  if (perfOrSpeed) {
+    const perfIconAttrs = { attrs: { 'data-icon': perfOrSpeed.icon } };
+    return h(
       'div.ratings',
       opts.hideRatings
-        ? [h('i', { attrs: { 'data-icon': perfOrSpeed.icon } }), perfOrSpeed.name]
+        ? [h('i', perfIconAttrs), perfOrSpeed.name]
         : [
             ...ctrl.trans.vdom(
               'perfRatingX',
-              h('strong', { attrs: { 'data-icon': perfOrSpeed.icon } }, data.ratingMap[selectedPerf].rating)
+              h(
+                'strong',
+                perfIconAttrs,
+                data.ratingMap[selectedPerf].rating + (data.ratingMap[selectedPerf].prov ? '?' : '')
+              )
             ),
             perfOrSpeed.name,
           ]
-    )
-  );
+    );
+  }
+  return undefined;
 };

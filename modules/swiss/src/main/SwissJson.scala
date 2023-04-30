@@ -3,12 +3,14 @@ package lila.swiss
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.{ GreatPlayer, LightUser }
+import lila.common.LightUser
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.quote.Quote.given
 import lila.socket.{ SocketVersion, given }
 import lila.user.{ User, UserRepo }
+import lila.gathering.Condition.WithVerdicts
+import lila.gathering.GreatPlayer
 
 final class SwissJson(
     mongo: SwissMongo,
@@ -35,7 +37,7 @@ final class SwissJson(
       swiss: Swiss,
       me: Option[User],
       isInTeam: Boolean,
-      verdicts: SwissCondition.All.WithVerdicts,
+      verdicts: WithVerdicts,
       reqPage: Option[Int] = None, // None = focus on me
       socketVersion: Option[SocketVersion] = None,
       playerInfo: Option[SwissPlayer.ViewExt] = None

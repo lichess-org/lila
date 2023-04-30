@@ -77,13 +77,16 @@ object Appeal:
   import play.api.data.Forms.*
 
   val form =
-    Form[String](
+    Form(
       single("text" -> lila.common.Form.cleanNonEmptyText(minLength = 2, maxLength = maxLength))
     )
 
   val modForm =
-    Form[String](
-      single("text" -> lila.common.Form.cleanNonEmptyText)
+    Form(
+      tuple(
+        "text"    -> lila.common.Form.cleanNonEmptyText,
+        "process" -> boolean
+      )
     )
 
   private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Appeal.Id)

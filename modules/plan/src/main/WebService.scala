@@ -1,6 +1,6 @@
-package lila.common
+package lila.plan
 
-object WebService:
+private object WebService:
 
   def fixInput(in: Seq[(String, Matchable)]): Seq[(String, String)] =
     in flatMap {

@@ -60,4 +60,18 @@ class MarkdownTest extends munit.FunSuite {
       )
     )
   }
+  test("markdown image whitelist pass") {
+    assertEquals(
+      render(Markdown("![image](https://lichess1.org/image.png)")),
+      Html("""<p><img src="https://lichess1.org/image.png" alt="image" /></p>
+""")
+    )
+  }
+  test("markdown image whitelist block") {
+    assertEquals(
+      render(Markdown("![image](https://evil.com/image.png)")),
+      Html("""<p><a href="https://evil.com/image.png" rel="nofollow noopener noreferrer">image</a></p>
+""")
+    )
+  }
 }

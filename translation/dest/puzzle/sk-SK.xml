@@ -82,6 +82,9 @@
   <string name="lookupOfPlayer">Vyhľadávanie úloh z partií hráča</string>
   <string name="fromXGames">Úlohy z partí hráča %s</string>
   <string name="searchPuzzles">Hľadať úlohy</string>
+  <string name="fromMyGamesNone">Nemáte v databáze žiadne úlohy z vlastných partií, ale Lichess Vás má aj tak veľmi rád.
+
+Hrajte rapid a klasické partie, aby ste zvýšili svoje šance na pridanie úlohy z Vašej vlastnej partie!</string>
   <string name="fromXGamesFound">%1$s úloh nájdených v %2$s partiách</string>
   <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte sa</string>
   <plurals name="nbPlayed">

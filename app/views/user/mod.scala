@@ -230,7 +230,7 @@ object mod:
         then "Definitely erase everything about this user"
         else "This user has some history, only admins can erase"
       },
-      disabled := !allowed
+      !allowed option disabled
     )("GDPR erasure")
 
   def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
@@ -558,8 +558,8 @@ object mod:
   private val clean: Frag     = iconTag("")
   private val reportban       = iconTag("")
   private val notesText       = iconTag("")
-  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None) =
-    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(momentFromNowServerText(_, false)))(content)
+  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
+    if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
 
   def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">פאזלים</string>
-  <string name="puzzleThemes">נושאי החידות</string>
+  <string name="puzzleThemes">חידות נושאיות</string>
   <string name="recommended">מומלץ</string>
   <string name="phases">שלבים</string>
   <string name="motifs">מוטיבים</string>

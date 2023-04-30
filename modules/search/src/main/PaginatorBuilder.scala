@@ -12,14 +12,11 @@ final class PaginatorBuilder[A, Q: Writes](
 
   def apply(query: Q, page: Int): Fu[Paginator[A]] =
     Paginator(
-      adapter = new ESAdapter(query),
+      adapter = new AdapterLike[A]:
+        def nbResults = searchApi count query
+        def slice(offset: Int, length: Int) =
+          searchApi.search(query, From(offset), Size(length))
+      ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
-
-  final private class ESAdapter(query: Q) extends AdapterLike[A]:
-
-    def nbResults = searchApi count query
-
-    def slice(offset: Int, length: Int) =
-      searchApi.search(query, From(offset), Size(length))

@@ -58,10 +58,10 @@ lazy val modules = Seq(
   msg, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
-  importer, tournament, simul, relation, report, pref,
+  importer, gathering, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push, appeal, mailer,
-  playban, insight, perfStat, irc, quote, challenge,
+  playban, insight, perfStat, irc, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
@@ -106,11 +106,6 @@ lazy val storm = module("storm",
 lazy val racer = module("racer",
   Seq(common, memo, hub, puzzle, storm, db, user, pref, tree, room),
   reactivemongo.bundle
-)
-
-lazy val quote = module("quote",
-  Seq(),
-  Seq(play.json)
 )
 
 lazy val video = module("video",
@@ -273,7 +268,7 @@ lazy val importer = module("importer",
 
 lazy val insight = module("insight",
   Seq(common, game, user, analyse, relation, pref, socket, round, security),
-  Seq(scalatags, breeze) ++ reactivemongo.bundle
+  Seq(scalatags, apacheMath) ++ reactivemongo.bundle
 )
 
 lazy val tutor = module("tutor",
@@ -286,18 +281,23 @@ lazy val opening = module("opening",
   tests.bundle
 )
 
+lazy val gathering = module("gathering",
+  Seq(common, user, rating, history),
+  Seq.empty
+)
+
 lazy val tournament = module("tournament",
-  Seq(common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room),
+  Seq(common, hub, socket, gathering, game, round, security, chat, memo, history, notifyModule, i18n, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val swiss = module("swiss",
-  Seq(common, hub, socket, game, round, security, chat, memo, quote, i18n, room),
+  Seq(common, hub, socket, gathering, game, round, security, chat, memo, i18n, room),
   Seq(scalatags, lettuce) ++ reactivemongo.bundle
 )
 
 lazy val simul = module("simul",
-  Seq(common, hub, socket, game, round, chat, memo, quote, room),
+  Seq(common, hub, socket, gathering, game, round, chat, memo, room),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 

@@ -33,7 +33,7 @@ final class SwissForm(using mode: Mode):
         "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
         "roundInterval" -> optional(numberIn(roundIntervals)),
         "password"      -> optional(cleanNonEmptyText),
-        "conditions"    -> SwissCondition.DataForm.all,
+        "conditions"    -> SwissCondition.form.all,
         "forbiddenPairings" -> optional(
           cleanNonEmptyText.verifying(
             s"Maximum forbidden pairings: ${Swiss.maxForbiddenPairings}",
@@ -70,7 +70,7 @@ final class SwissForm(using mode: Mode):
       chatFor = Swiss.ChatFor.default.some,
       roundInterval = Swiss.RoundInterval.auto.some,
       password = None,
-      conditions = SwissCondition.DataForm.AllSetup.default,
+      conditions = SwissCondition.All.empty,
       forbiddenPairings = none,
       manualPairings = none
     )
@@ -88,7 +88,7 @@ final class SwissForm(using mode: Mode):
       chatFor = s.settings.chatFor.some,
       roundInterval = s.settings.roundInterval.toSeconds.toInt.some,
       password = s.settings.password,
-      conditions = SwissCondition.DataForm.AllSetup(s.settings.conditions),
+      conditions = s.settings.conditions,
       forbiddenPairings = s.settings.forbiddenPairings.some.filter(_.nonEmpty),
       manualPairings = s.settings.manualPairings.some.filter(_.nonEmpty)
     )
@@ -168,7 +168,7 @@ object SwissForm:
       chatFor: Option[Int],
       roundInterval: Option[Int],
       password: Option[String],
-      conditions: SwissCondition.DataForm.AllSetup,
+      conditions: SwissCondition.All,
       forbiddenPairings: Option[String],
       manualPairings: Option[String]
   ):

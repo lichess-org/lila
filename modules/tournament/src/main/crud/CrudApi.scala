@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.tournament.BSONHandlers.given
+import lila.gathering.{ Condition, ConditionForm }
 
 final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 
@@ -32,7 +33,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.??(_.headline),
       description = tour.spotlight.??(_.description),
-      conditions = Condition.DataForm.AllSetup(tour.conditions),
+      conditions = tour.conditions,
       berserkable = !tour.noBerserk,
       rated = tour.isRated,
       streakable = tour.streakable,
@@ -115,8 +116,4 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       noStreak = !data.streakable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
       hasChat = data.hasChat
-    ) pipe { tour =>
-      tour.copy(conditions =
-        data.conditions.convert(tour.perfType, Map.empty)
-      ) // the CRUD form doesn't support team restrictions so Map.empty is fine
-    }
+    )

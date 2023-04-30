@@ -24,7 +24,8 @@ object MessageCompiler {
       compileTo: File,
       dbs: List[String]
   ): File = {
-    val scalaFile = compileTo / s"$locale.scala"
+    val underLocale = locale.replace("-", "_")
+    val javaFile    = compileTo / s"$underLocale.java"
     val xmlFiles =
       if (locale == "en-GB") dbs.map { db =>
         db -> (sourceDir / s"$db.xml")
@@ -35,11 +36,11 @@ object MessageCompiler {
         }
 
     val isNew = xmlFiles.exists { case (_, file) =>
-      !isFileEmpty(file) && file.lastModified > scalaFile.lastModified
+      !isFileEmpty(file) && file.lastModified > javaFile.lastModified
     }
-    if (!isNew) scalaFile
+    if (!isNew) javaFile
     else
-      printToFile(scalaFile) {
+      printToFile(javaFile) {
         val puts = xmlFiles flatMap { case (db, file) =>
           try {
             val xml = XML.loadFile(file)
@@ -47,35 +48,53 @@ object MessageCompiler {
               case e if e.label == "string" =>
                 val safe = escape(e.text)
                 val translation = escapeHtmlOption(safe) match {
-                  case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
-                  case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
+                  case None          => s"""new Simple(\"$safe\")"""
+                  case Some(escaped) => s"""new Escaped(\"$safe\",\"$escaped\")"""
                 }
-                s"""    m.put(${toKey(e, db)},$translation)"""
+                s"""m.put(${toKey(e, db)},$translation);"""
               case e if e.label == "plurals" =>
-                val items: Map[String, String] = e.child
+                val allItems: Map[String, String] = e.child
                   .filter(_.label == "item")
                   .map { i =>
-                    ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
+                    ucfirst(i.\("@quantity").toString) -> s"""\"${escape(i.text)}\""""
                   }
                   .toMap
-                s"""    m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
+                val otherValue = allItems.get("Other")
+                val default    = allItems.head
+                val items = allItems.filter {
+                  case pair if pair == default          => true
+                  case ("Other", v)                     => v != default._2
+                  case (_, v) if v == default._2        => false
+                  case (_, v) if otherValue.contains(v) => false
+                  case _                                => true
+                }
+                s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}));"""
             }
           } catch {
             case _: Exception => Nil
           }
         }
 
-        s"""package lila.i18n
+        val loadFactor      = 0.75
+        val initialCapacity = (puts.size / loadFactor).toInt + 1
+        val fullMapImports =
+          if (puts.exists(_.contains("ScalaRunTime$")))
+            """import scala.Predef$;
+import scala.Tuple2;
+import scala.Tuple2$;
+import scala.runtime.ScalaRunTime$;"""
+          else ""
 
-${if (puts.exists(_ contains "new Plurals(")) "import I18nQuantity.*" else ""}
-
-// format: OFF
-private object `$locale` {
-
-  def load: java.util.HashMap[MessageKey, Translation] =
-    val m = new java.util.HashMap[MessageKey, Translation](${puts.size + 1})
+        s"""package lila.i18n;
+import java.util.HashMap;
+import scala.collection.immutable.Map;
+$fullMapImports
+public final class $underLocale {
+public static final HashMap<String, Translation> load() {
+HashMap<String, Translation> m = new HashMap<String, Translation>($initialCapacity, ${loadFactor}f);
 ${puts mkString "\n"}
-    m
+return m;
+}
 }
 """
       }
@@ -96,7 +115,7 @@ ${puts mkString "\n"}
   private def writeRegistry(destDir: File, locales: Iterable[String]) =
     printToFile(destDir / "Registry.scala") {
       val content = locales.map { locale =>
-        s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
+        s"""Lang("${locale.replace("-", "\",\"")}")->${locale.replace("-", "_")}.load()"""
       } mkString ",\n"
       s"""package lila.i18n
 
@@ -105,9 +124,9 @@ import play.api.i18n.Lang
 // format: OFF
 private object Registry {
 
-  val all = Map[Lang, java.util.HashMap[MessageKey, Translation]](\n$content)
+  val all = Map[Lang, MessageMap](\n$content)
 
-  val default: java.util.HashMap[MessageKey, Translation] = all(defaultLang)
+  val default: MessageMap = all(defaultLang)
 
   val langs: Set[Lang] = all.keys.toSet
 }
@@ -120,18 +139,33 @@ private object Registry {
     if (db == "site") s""""${e.\("@name")}""""
     else s""""$db:${e.\("@name")}""""
 
-  private def quote(msg: String) = s"""""\"$msg""\""""
+  private val doubleUserBackslashRegex = """(\\.)""".r
 
-  private def escape(str: String) = {
-    // is someone trying to inject scala code?
-    if (str contains "\"\"\"") sys error s"Skipped translation: $str"
-    // crowdin escapes ' and " with \, and encodes &. We'll do it at runtime instead.
-    else str.replace("\\'", "'").replace("\\\"", "\"")
-  }
+  private def doubleUserBackslash(str: String) =
+    doubleUserBackslashRegex.replaceAllIn(
+      str,
+      m => (if (Set("""\"""", """\n""")(m.group(1))) "\\" else "\\\\\\") + m.group(1)
+    )
+
+  private def escape(str: String) =
+    doubleUserBackslash(
+      str
+        .replace("\\\"", "\"") // remove \" escaping, which is not always present
+        .replace("\\'", "'")
+        .replace("\"", "\\\"") // escape " for sure
+        .replace("\n", "\\n")
+    )
 
   private def pluralMap(items: Map[String, String]): String =
-    if (items.size > 4) s"""Map(${items.map { case (k, v) => s"$k->$v" } mkString ","})"""
-    else s"""new Map.Map${items.size}(${items.map { case (k, v) => s"$k,$v" } mkString ","})"""
+    if (items.size > 4) {
+      val mapItems = items.map { case (k, v) =>
+        """Tuple2$.MODULE$.apply""" + s"""(I18nQuantity$$.$k, $v)"""
+      } mkString ","
+      """(Map)Predef$.MODULE$.Map().apply(ScalaRunTime$.MODULE$.wrapRefArray(new Tuple2[]{""" + mapItems + """}))"""
+    } else
+      s"""new Map.Map${items.size}<I18nQuantity, String>(${items.map { case (k, v) =>
+          s"I18nQuantity$$.$k,$v"
+        } mkString ","})"""
 
   private val badChars = """[<>&"'\r\n]""".r.pattern
   private def escapeHtmlOption(s: String): Option[String] =
@@ -151,7 +185,7 @@ private object Registry {
         }
         i += 1
       }
-      sb.toString
+      sb.toString.replace("\\&quot;", "&quot;")
     }
     else None
 

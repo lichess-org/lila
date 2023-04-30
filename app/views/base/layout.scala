@@ -4,13 +4,13 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ AnnounceStore, Context }
+import lila.api.{ Nonce, AnnounceStore, Context }
 import lila.app.templating.Environment.{ given, * }
+import lila.app.ContentSecurityPolicy
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.base.StringUtils.escapeHtmlRaw
-import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
-import lila.common.{ ContentSecurityPolicy, Nonce }
+import lila.common.LangPath
 
 object layout:
 

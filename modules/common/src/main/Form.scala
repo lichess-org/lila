@@ -235,12 +235,6 @@ object Form:
         .stringFormatter[List[String]](_ mkString sep, _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
     )
 
-  def allowList =
-    nonEmptyText(maxLength = 100_1000)
-      .transform[String](_.replace(',', '\n'), identity)
-      .transform[String](_.linesIterator.map(_.trim).filter(_.nonEmpty).distinct mkString "\n", identity)
-      .verifying("5000 usernames max", _.count('\n' == _) <= 5_000)
-
   def inTheFuture(m: Mapping[Instant]) =
     m.verifying("The date must be set in the future", _.isAfterNow)
 

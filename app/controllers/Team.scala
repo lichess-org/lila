@@ -584,15 +584,14 @@ final class Team(
       }
     }
 
-  def apiTeamsOf(username: UserStr) =
-    Action.async {
-      import env.team.jsonView.given
-      JsonOk {
-        api teamsOf username flatMap { teams =>
-          env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
-        }
+  def apiTeamsOf(username: UserStr) = AnonOrScoped() { _ => me =>
+    import env.team.jsonView.given
+    JsonOk {
+      api.joinedTeamIdsOfUserAsSeenBy(username, me) flatMap api.teamsByIds flatMap { teams =>
+        env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
       }
     }
+  }
 
   def apiRequests(teamId: TeamId) =
     Scoped(_.Team.Read) { req => me =>

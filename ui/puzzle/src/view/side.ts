@@ -226,7 +226,7 @@ export function config(ctrl: Controller): MaybeVNode {
       ]),
       h('label', { attrs: { for: autoNextId } }, noarg('jumpToNextPuzzleImmediately')),
     ]),
-    data.replay || ctrl.streak ? null : renderDifficultyForm(ctrl),
+    !data.user || data.replay || ctrl.streak ? null : renderDifficultyForm(ctrl),
     h('div.puzzle__side__config__toggles', [
       h(
         'a.puzzle__side__config__zen.button.button-empty',
