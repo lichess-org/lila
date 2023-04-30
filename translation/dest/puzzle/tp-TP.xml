@@ -13,11 +13,14 @@
   <string name="specialMoves">tawa suli</string>
   <string name="didYouLikeThisPuzzle">musi lili ni li pona ala pona tawa sina?</string>
   <string name="voteToLoadNextOne">sina wile e musi lili sin la, o pilin e nena pi pilin sina!</string>
+  <string name="upVote">musi lili pona</string>
+  <string name="downVote">musi lili ike</string>
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
   <string name="puzzleId">musi lili # %s</string>
   <string name="puzzleOfTheDay">musi lili pi tenpo suno ni</string>
+  <string name="dailyPuzzle">tenpo suno musi lili</string>
   <string name="clickToSolve">o pini e musi lili</string>
   <string name="goodMove">tawa pona</string>
   <string name="bestMove">tawa pi pona #1!</string>
@@ -42,6 +45,7 @@
   <string name="hardest">suli mute</string>
   <string name="example">ona li sama ni:</string>
   <string name="addAnotherTheme">o sin e kulupu ante</string>
+  <string name="nextPuzzle">musi lili kama</string>
   <string name="jumpToNextPuzzleImmediately">musi lili li pini la, o pana e musi sin lon tenpo sama</string>
   <string name="puzzleDashboard">lipu sona pi musi lili</string>
   <string name="improvementAreas">wan musi sina pi wawa lili</string>
@@ -49,7 +53,9 @@
   <string name="history">musi lili pi tenpo pini</string>
   <string name="solved">pini pona</string>
   <string name="failed">pini ike</string>
+  <string name="fromMyGames">tawa mi musi</string>
   <string name="fromXGames">musi lili tan musi pi jan %s</string>
+  <string name="searchPuzzles">alasa e musi lili</string>
   <string name="fromXGamesFound">musi lili %1$s tan musi %2$s</string>
   <plurals name="nbPlayed">
     <item quantity="one">sina musi e musi lili %s</item>
