@@ -19,6 +19,8 @@
   <string name="preventLeavingGameWithoutResigning">sina seme tawa ni: jan li weka ni tawa musi: ona li toki ala e \"mi anpa\"?</string>
   <string name="howCanIBecomeModerator">nasin seme la mi ken kama jan sewi?</string>
   <string name="isCorrespondenceDifferent">musi pi tenpo suli li sama ala musi pi ante ala, anu seme?</string>
+  <string name="pleaseReadFairPlayPage">tawa sona suli, o lukin mi %s</string>
+  <string name="fairPlayPage">lipu musi sama</string>
   <string name="gameplay">musi</string>
   <string name="whatVariantsCanIplay">mi ken musi e musi ante seme?</string>
   <string name="lichessSupportChessAnd">sina ken musi e nasin pi ante ala e %1$s.</string>
@@ -42,5 +44,6 @@
   <string name="wayOfBerserkExplanation">jan \"hiimgosu\" li kama jo e nimi wawa ni tan ni: ona li pini pona e musi ale lon %s kepeken nasin pi tenpo lili.</string>
   <string name="aHourlyBulletTournament">utala musi pi nasin Bullet pi tenpo Ola</string>
   <string name="lichessRatings">nanpa wawa pi ilo Lichess</string>
+  <string name="ratingLeaderboards">lipu nanpa wawa</string>
   <string name="howToThreeDots">...nasin seme?</string>
 </resources>
