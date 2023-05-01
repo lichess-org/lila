@@ -2,6 +2,7 @@ import { Result } from '@badrap/result';
 import { CevalCtrl, EvalMeta, ctrl as cevalCtrl, isEvalBetter } from 'ceval';
 import { Prop, defined, prop } from 'common/common';
 import { makeNotation } from 'common/notation';
+import { getPerfIcon } from 'common/perfIcons';
 import { StoredBooleanProp, storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as game from 'game';
@@ -454,6 +455,13 @@ export default class AnalyseCtrl {
       data: { notation },
       success: (data: AnalyseData) => {
         this.reloadData(data, false);
+        const $selSpan = $('.mselect__label span'),
+          icon = getPerfIcon(data.game.variant.key)!;
+        $selSpan.attr('data-icon', icon);
+        $selSpan.text(this.trans.noarg(data.game.variant.key));
+        $('nav.mselect__list a').each(function (this: HTMLElement) {
+          $(this).toggleClass('current', $(this).data('icon') === icon);
+        });
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
         this.redraw();
       },
