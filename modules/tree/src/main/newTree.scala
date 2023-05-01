@@ -159,6 +159,21 @@ object NewTree:
 case class NewRoot(metas: Metas, tree: Option[NewTree]):
   import NewRoot.*
 
+  export metas.{
+    ply,
+    fen,
+    check,
+    dests,
+    drops,
+    eval,
+    shapes,
+    comments,
+    gamebook,
+    glyphs,
+    opening,
+    clock,
+    crazyData
+  }
   def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
 
   def addNodeAt(path: UciPath, node: NewTree): Option[NewRoot] =
@@ -183,6 +198,8 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def isEmpty = tree.isEmpty
 
   def size = tree.fold(0)(_.size)
+
+  def mainlinePath = tree.fold(UciPath.root)(x => UciPath.fromIds(x.mainlinePath.toIterable))
 
   override def toString = s"$tree"
 

@@ -87,13 +87,14 @@ final class PgnDump(
     }
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
-    val root = chapter.root
+    given WithFlags = flags
+    val root               = chapter.root
     val pgn = Pgn(
       tags = makeTags(study, chapter)(using flags),
       initial = Initial(
         chapter.root.comments.value.map(_.text into Comment) ::: shapeComment(chapter.root.shapes).toList
       ),
-      rootToTree(root)(using flags)
+      root.tree.map(treeToTree)
     )
     annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
 
@@ -112,9 +113,6 @@ object PgnDump:
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branch2move) else tree.mapMainline(branch2move)
-
-  def rootToTree(root: Root)(using flags: WithFlags): Option[PgnTree] =
-    NewTree(root).map(treeToTree(_)(using flags))
 
   private def branch2move(node: NewBranch)(using flags: WithFlags) =
     chessPgn.Move(

@@ -40,7 +40,7 @@ object ServerEval:
               variant = chapter.setup.variant,
               moves = chess.format
                 .UciDump(
-                  moves = chapter.root.mainline.map(_.move.san),
+                  moves = chapter.root.mainlineValues.map(_.move.san),
                   initialFen = chapter.root.fen.some,
                   variant = chapter.setup.variant,
                   force960Notation = true
@@ -67,7 +67,7 @@ object ServerEval:
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
               lila.common.LilaFuture
-                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(UciPath.root) {
+                .fold(chapter.root.mainlineValues.zip(analysis.infoAdvices).toList)(UciPath.root) {
                   case (path, (node, (info, advOpt))) =>
                     chapter.root.nodeAt(path).flatMap { parent =>
                       analysisLine(parent, chapter.setup.variant, info) map { subTree =>
