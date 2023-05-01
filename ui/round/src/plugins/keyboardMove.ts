@@ -2,7 +2,7 @@ import { DropDests, MoveDests } from 'shogiground/types';
 import { Board } from 'shogiops';
 import { parseSfen, roleToForsyth } from 'shogiops/sfen';
 import { PieceName, Role } from 'shogiops/types';
-import { parsePieceName, parseSquare } from 'shogiops/util';
+import { parsePieceName, parseSquareName } from 'shogiops/util';
 import { KeyboardMove } from '../keyboardMove';
 
 // TODO
@@ -151,7 +151,7 @@ function alpha(coordinate: string): Key {
 function createExtendedUsi(board: Board, dests: MoveDests, dropDests: DropDests): string[] {
   const eUsis: string[] = [];
   for (const [orig, d] of dests) {
-    const role = board.get(parseSquare(orig))?.role as Role,
+    const role = board.get(parseSquareName(orig))?.role as Role,
       roleStr = role && roleToForsyth('standard')(role);
     if (roleStr) {
       d.forEach(dest => eUsis.push(roleStr + orig + dest));

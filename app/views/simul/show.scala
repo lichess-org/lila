@@ -57,7 +57,7 @@ object show {
                 div(
                   span(cls := "clock")(sim.clock.config.show),
                   div(cls := "setup")(
-                    sim.variants.map(_.name).mkString(", "),
+                    sim.variants.map(v => variantName(v)).mkString(", "),
                     " • ",
                     trans.casual(),
                     (isGranted(_.ManageSimul) || ctx.userId.has(sim.hostId)) && sim.isCreated option frag(

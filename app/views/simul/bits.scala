@@ -51,11 +51,11 @@ object bits {
       }
     )
 
-  private[simul] def setup(sim: lila.simul.Simul) =
+  private[simul] def setup(sim: lila.simul.Simul)(implicit lang: play.api.i18n.Lang) =
     span(cls := List("setup" -> true, "rich" -> sim.variantRich))(
       sim.clock.config.show,
       " • ",
-      sim.variants.map(_.name).mkString(", ")
+      sim.variants.map(v => variantName(v)).mkString(", ")
     )
 
   private val baseTranslations = Vector(
@@ -70,6 +70,11 @@ object bits {
     trans.nbLosses,
     trans.by,
     trans.signIn,
-    trans.mustBeInTeam
+    trans.mustBeInTeam,
+    trans.standard,
+    trans.minishogi,
+    trans.chushogi,
+    trans.annanshogi,
+    trans.kyotoshogi
   ).map(_.key)
 }

@@ -83,6 +83,11 @@ object bits {
     trans.averageOpponent,
     trans.ratedTournament,
     trans.casualTournament,
-    trans.password
+    trans.password,
+    trans.standard,
+    trans.minishogi,
+    trans.chushogi,
+    trans.annanshogi,
+    trans.kyotoshogi
   ).map(_.key)
 }

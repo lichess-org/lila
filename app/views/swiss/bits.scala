@@ -105,6 +105,11 @@ object bits {
     trans.performance,
     trans.standByX,
     trans.averageOpponent,
-    trans.tournamentComplete
+    trans.tournamentComplete,
+    trans.standard,
+    trans.minishogi,
+    trans.chushogi,
+    trans.annanshogi,
+    trans.kyotoshogi
   ).map(_.key)
 }
