@@ -38,7 +38,7 @@ final class PgnDump(
         )
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
-      val turns = flags.moves ?? {
+      val tree = flags.moves ?? {
         val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
         makeTree(
           flags keepDelayIf game.playable applyDelay {
@@ -50,7 +50,7 @@ final class PgnDump(
           game.startColor
         )
       }
-      Pgn(ts, Initial.empty, turns)
+      Pgn(ts, Initial.empty, tree)
     }
 
   private def gameUrl(id: GameId) = s"$baseUrl/$id"

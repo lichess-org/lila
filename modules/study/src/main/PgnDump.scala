@@ -116,7 +116,6 @@ object PgnDump:
   def rootToTree(root: Root)(using flags: WithFlags): Option[PgnTree] =
     NewTree(root).map(treeToTree(_)(using flags))
 
-
   private def branch2move(node: NewBranch)(using flags: WithFlags) =
     chessPgn.Move(
       node.ply,
