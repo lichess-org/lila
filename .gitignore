@@ -39,6 +39,7 @@ ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
 yarn-error.log
+dependency-graph.png
 
 RUNNING_PID
 
