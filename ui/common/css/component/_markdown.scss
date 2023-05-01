@@ -94,8 +94,8 @@
 }
 
 @mixin rendered-markdown--code {
-  $c-code-bg: #111;
-  $c-code-font: #ccc;
+  $c-code-bg: $c-bg-zebra;
+  $c-code-font: $c-font-clear;
   code {
     @extend %box-radius;
     font-family: monospace;
@@ -108,7 +108,7 @@
 
   pre {
     @extend %box-neat;
-    background: hsl(226, 16%, 15%);
+    background: $c-code-bg;
     padding: 1em 1.5em;
     line-height: 1.4em;
     code {
