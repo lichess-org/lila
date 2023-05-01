@@ -7,7 +7,7 @@ import chess.variant.Variant
 import chess.{ Ply, Centis, Color, Outcome }
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.tree.{ Root, Branch, Branches }
+import lila.tree.{ Root, Branch, Branches, NewBranch, NewRoot, NewTree }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 
 case class Chapter(
@@ -15,7 +15,7 @@ case class Chapter(
     studyId: StudyId,
     name: StudyChapterName,
     setup: Chapter.Setup,
-    root: Root,
+    root: NewRoot,
     tags: Tags,
     order: Int,
     ownerId: UserId,
@@ -28,44 +28,42 @@ case class Chapter(
     createdAt: Instant
 ) extends Chapter.Like:
 
-  def updateRoot(f: Root => Option[Root]) =
+  def updateRoot(f: NewRoot => Option[NewRoot]) =
     f(root) map { newRoot =>
       copy(root = newRoot)
     }
 
-  def addNode(node: Branch, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
-    updateRoot {
-      _.withChildren(_.addNodeAt(node, path))
-    } map {
+  def addNode(node: NewTree, path: UciPath, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
+    updateRoot(_.addNodeAt(path, node)) map {
       _.copy(relay = newRelay orElse relay)
     }
 
   def setShapes(shapes: Shapes, path: UciPath): Option[Chapter] =
-    updateRoot(_.setShapesAt(shapes, path))
+    updateRoot(_.modifyWithParentPathMetas(path, _.copy(shapes = shapes)))
 
   def setComment(comment: Comment, path: UciPath): Option[Chapter] =
-    updateRoot(_.setCommentAt(comment, path))
+    updateRoot(_.modifyWithParentPathMetas(path, _.setComment(comment)))
 
   def setGamebook(gamebook: Gamebook, path: UciPath): Option[Chapter] =
-    updateRoot(_.setGamebookAt(gamebook, path))
+    updateRoot(_.modifyWithParentPathMetas(path, _.copy(gamebook = gamebook.some)))
 
   def deleteComment(commentId: Comment.Id, path: UciPath): Option[Chapter] =
-    updateRoot(_.deleteCommentAt(commentId, path))
+    updateRoot(_.modifyWithParentPathMetas(path, _.deleteComment(commentId)))
 
   def toggleGlyph(glyph: Glyph, path: UciPath): Option[Chapter] =
-    updateRoot(_.toggleGlyphAt(glyph, path))
+    updateRoot(_.modifyWithParentPathMetas(path, _.toggleGlyph(glyph)))
 
   def setClock(clock: Option[Centis], path: UciPath): Option[Chapter] =
-    updateRoot(_.setClockAt(clock, path))
+    updateRoot(_.modifyWithParentPathMetas(path, _.copy(clock = clock)))
 
   def forceVariation(force: Boolean, path: UciPath): Option[Chapter] =
-    updateRoot(_.forceVariationAt(force, path))
+    updateRoot(_.modifyWithParentPath(path, _.copy(forceVariation = force)))
 
   def opening: Option[Opening] =
     Variant.list.openingSensibleVariants(setup.variant) ??
-      OpeningDb.searchInFens(root.mainline.map(_.fen.opening))
+      OpeningDb.searchInFens(root.mainlineValues.map(_.metas.fen.opening))
 
-  def isEmptyInitial = order == 1 && root.children.isEmpty
+  def isEmptyInitial = order == 1 && root.isEmpty
 
   def cloneFor(study: Study) =
     copy(
@@ -89,11 +87,11 @@ case class Chapter(
 
   def withoutChildren = copy(root = root.withoutChildren)
 
-  def withoutChildrenIfPractice = if (isPractice) copy(root = root.withoutChildren) else this
+  def withoutChildrenIfPractice = if isPractice then copy(root = root.withoutChildren) else this
 
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 
-  def isOverweight = root.children.countRecursive >= Chapter.maxNodes
+  def isOverweight = root.size >= Chapter.maxNodes
 
 object Chapter:
 
@@ -165,7 +163,7 @@ object Chapter:
       studyId: StudyId,
       name: StudyChapterName,
       setup: Setup,
-      root: Root,
+      root: NewRoot,
       tags: Tags,
       order: Int,
       ownerId: UserId,

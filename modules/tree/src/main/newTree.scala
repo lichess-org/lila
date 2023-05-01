@@ -1,6 +1,7 @@
 package lila.tree
 
 import alleycats.Zero
+import cats.syntax.all.*
 import monocle.syntax.all.*
 import chess.{ Centis, HasId }
 import chess.{ Node as ChessNode, Variation }
@@ -16,6 +17,9 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.Json.{ *, given }
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
+import chess.Mergeable
+import chess.Tree
+import scala.annotation.targetName
 
 case class Metas(
     ply: Ply,
@@ -33,7 +37,11 @@ case class Metas(
     clock: Option[Centis],
     crazyData: Option[Crazyhouse.Data]
     // TODO, add support for variationComments
-)
+):
+  def setComment(comment: Comment) = copy(comments = comments.set(comment))
+  def deleteComment(comment: Comment.Id) =
+    copy(comments = comments.delete(comment))
+  def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
 
 case class NewBranch(
     id: UciCharPair,
@@ -44,17 +52,31 @@ case class NewBranch(
     forceVariation: Boolean,
     metas: Metas
 ):
-  export metas.{ ply, fen, check, dests, drops, eval, shapes, comments, gamebook, glyphs, opening, clock, crazyData }
+  export metas.{
+    ply,
+    fen,
+    check,
+    dests,
+    drops,
+    eval,
+    shapes,
+    comments,
+    gamebook,
+    glyphs,
+    opening,
+    clock,
+    crazyData
+  }
   override def toString                    = s"$ply, $id, ${move.uci}"
   def withClock(centis: Option[Centis])    = this.focus(_.metas.clock).set(centis)
   def withForceVariation(force: Boolean)   = copy(forceVariation = force)
   def isCommented                          = metas.comments.value.nonEmpty
-  def setComment(comment: Comment)         = this.focus(_.metas.comments).modify(_.set(comment))
-  def deleteComment(commentId: Comment.Id) = this.focus(_.metas.comments).modify(_.delete(commentId))
+  def setComment(comment: Comment)         = this.focus(_.metas).modify(_.setComment(comment))
+  def deleteComment(commentId: Comment.Id) = this.focus(_.metas).modify(_.deleteComment(commentId))
   def deleteComments                       = this.focus(_.metas.comments).set(Comments.empty)
   def setGamebook(gamebook: Gamebook)      = this.focus(_.metas.gamebook).set(gamebook.some)
   def setShapes(s: Shapes)                 = this.focus(_.metas.shapes).set(s)
-  def toggleGlyph(glyph: Glyph)            = this.focus(_.metas.glyphs).modify(_ toggle glyph)
+  def toggleGlyph(glyph: Glyph)            = this.focus(_.metas).modify(_.toggleGlyph(glyph))
   def clearAnnotations = this.focus(_.metas).modify(_.copy(shapes = Shapes.empty, glyphs = Glyphs.empty))
   def setComp          = copy(comp = true)
   def merge(n: NewBranch): NewBranch =
@@ -73,6 +95,7 @@ case class NewBranch(
 
 object NewBranch:
   given HasId[NewBranch, UciCharPair] = _.id
+  given Mergeable[NewBranch]          = _.merge(_)
 
 type NewTree = ChessNode[NewBranch]
 
@@ -133,28 +156,35 @@ object NewTree:
   // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
 
-  extension (newTree: NewTree)
-    // def addNodeAt(node: NewTree): Option[NewTree] =
-    //   node.value.path.split match
-    //     case Nil => newTree.addChild(node)
-    //     case head :: rest =>
-    //       newTree.child.flatMap(_.addNodeAt(rest, node)) orElse
-    //         newTree.variation.flatMap(_.addNodeAt(rest, node)) orElse:
-    //         head == newTree.value.id option newTree.addChild(node)
+case class NewRoot(metas: Metas, tree: Option[NewTree]):
+  import NewRoot.*
 
-    // TODO: merge two nodes if they have the same id
-    // def addVariation(variation: NewTree): NewTree =
-    //   newTree.copy(variation = newTree.variation.mergeVariations(variation.some))
+  def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
 
-    def addVariation(variation: Variation[NewBranch]): NewTree =
-      newTree.copy(variations = newTree.variations :+ variation)
+  def addNodeAt(path: UciPath, node: NewTree): Option[NewRoot] =
+    if tree.isEmpty && path.isEmpty then copy(tree = node.some).some
+    else tree.flatMap(_.addNodeAt(path.ids)(node)).map(x => copy(tree = x.some))
 
-    def merge(n: NewTree): NewTree =
-      newTree.copy(
-        value = newTree.value.merge(n.value),
-        child = newTree.child orElse n.child, // TODO: verify logic
-        variations = newTree.variations ::: n.variations
+  def modifyWithParentPathMetas(path: UciPath, f: Metas => Metas): Option[NewRoot] =
+    if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
+    else
+      tree.flatMap(
+        _.modifyWithParentPath(path.ids, _.focus(_.value.metas).modify(f)).map(x => copy(tree = x.some))
       )
 
-case class NewRoot(metas: Metas, tree: Option[NewTree]):
+  def modifyWithParentPath(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
+    if tree.isEmpty && path.isEmpty then this.some
+    else
+      tree.flatMap(
+        _.modifyWithParentPath(path.ids, x => x.copy(value = f(x.value))).map(x => copy(tree = x.some))
+      )
+  def withoutChildren: NewRoot = copy(tree = None)
+
+  def isEmpty = tree.isEmpty
+
+  def size = tree.fold(0)(_.size)
+
   override def toString = s"$tree"
+
+object NewRoot:
+  extension (path: UciPath) def ids = path.computeIds.toList
