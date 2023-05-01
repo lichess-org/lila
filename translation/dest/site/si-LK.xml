@@ -320,10 +320,6 @@ You are playing chess.</string>
     <item quantity="one">ඔබ තව %1$s %2$s අගයන ලද ක්‍රීඩාවක් ක්‍රීඩා කිරීමට අවශ්‍යයි</item>
     <item quantity="other">ඔබ තව %1$s %2$s අගයන ලද ක්‍රීඩාවක් ක්‍රීඩා කිරීමට අවශ්‍යයි</item>
   </plurals>
-  <plurals name="needNbMoreGames">
-    <item quantity="one">ඔබ තව %1$s %2$s අගයන ලද ක්‍රීඩාවක් ක්‍රීඩා කිරීමට අවශ්‍යයි</item>
-    <item quantity="other">ඔබ තව %1$s %2$s අගයන ලද ක්‍රීඩාවක් ක්‍රීඩා කිරීමට අවශ්‍යයි</item>
-  </plurals>
   <string name="yourPerfRatingIsProvisional">ඔබගේ %s ශ්‍රේණිගත කිරීම තාවකාලිකයි</string>
   <string name="yourPerfRatingIsTooHigh">ඔබේ %1$s ඇගයීම (%2$s) ඉතා ඉහළයි</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">ඔබේ ඉහළම සතිපතා %1$s ඇගයීම (%2$s) ඉතා ඉහළය</string>
@@ -337,7 +333,6 @@ You are playing chess.</string>
   <string name="xJoinedTeamY">%1$s කණ්ඩායමට %2$s එක් විය</string>
   <string name="xCreatedTeamY">%1$s කණ්ඩායම %2$s සාදන ලදී</string>
   <string name="startedStreaming">streaming ආරම්භ විය</string>
-  <string name="xStartedStreaming">streaming ආරම්භ විය</string>
   <string name="averageElo">සාමාන්ය ශ්රේණිගත කිරීම</string>
   <string name="location">ස්ථානය</string>
   <string name="filterGames">පෙරහන් games</string>
