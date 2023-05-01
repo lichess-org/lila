@@ -84,6 +84,30 @@ function chushogiForsythToRole(str) {
       return;
   }
 }
+function kyotoshogiForsythToRole(str) {
+  switch (str.toLowerCase()) {
+    case 'k':
+      return 'king';
+    case 'p':
+      return 'pawn';
+    case 'r':
+      return 'rook';
+    case 's':
+      return 'silver';
+    case 'b':
+      return 'bishop';
+    case 'g':
+      return 'gold';
+    case 'n':
+      return 'knight';
+    case 't':
+      return 'tokin';
+    case 'l':
+      return 'lance';
+    default:
+      return;
+  }
+}
 
 function loadChushogiPieceSprite() {
   if (!document.getElementById('chu-piece-sprite')) {
@@ -115,7 +139,12 @@ function parseSfen($elem) {
         hands: { inlined: true },
         lastDests: dropOrMove,
         forsyth: {
-          fromForsyth: variant === 'chushogi' ? chushogiForsythToRole : undefined,
+          fromForsyth:
+            variant === 'chushogi'
+              ? chushogiForsythToRole
+              : variant === 'kytotoshogi'
+              ? kyotoshogiForsythToRole
+              : undefined,
         },
       };
     if (variant === 'chushogi') loadChushogiPieceSprite();

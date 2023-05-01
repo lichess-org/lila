@@ -318,6 +318,31 @@
     }
   }
 
+  function kyotoshogiForsythToRole(str) {
+    switch (str.toLowerCase()) {
+      case 'k':
+        return 'king';
+      case 'p':
+        return 'pawn';
+      case 'r':
+        return 'rook';
+      case 's':
+        return 'silver';
+      case 'b':
+        return 'bishop';
+      case 'g':
+        return 'gold';
+      case 'n':
+        return 'knight';
+      case 't':
+        return 'tokin';
+      case 'l':
+        return 'lance';
+      default:
+        return;
+    }
+  }
+
   lishogi.parseSfen = function ($elem) {
     if (!window.Shogiground)
       return setTimeout(function () {
@@ -357,7 +382,12 @@
         lastDests: lastDests,
         drawable: { enabled: false, visible: false },
         forsyth: {
-          fromForsyth: variant === 'chushogi' ? chushogiForsythToRole : undefined,
+          fromForsyth:
+            variant === 'chushogi'
+              ? chushogiForsythToRole
+              : variant === 'kyotoshogi'
+              ? kyotoshogiForsythToRole
+              : undefined,
         },
       };
       if (color) config.orientation = color;
