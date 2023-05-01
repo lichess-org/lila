@@ -128,7 +128,7 @@ function positions(ctrl: EditorCtrl, state: EditorState): VNode {
           },
           `- ${ctrl.trans.noarg('boardEditor')}  -`
         ),
-        optgroup(ctrl.trans.noarg('handicaps'), findHandicaps({ rules: ctrl.rules })!.map(position2option)),
+        optgroup(ctrl.trans.noarg('handicaps'), findHandicaps({ rules: ctrl.rules }).map(position2option)),
       ]
     ),
   ]);

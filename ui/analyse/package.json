@@ -31,7 +31,7 @@
     "game": "2.0.0",
     "nvui": "2.0.0",
     "shogiground": "^0.7.1",
-    "shogiops": "^0.14.1",
+    "shogiops": "^0.14.2",
     "snabbdom": "^3.5.1",
     "tree": "2.0.0"
   },

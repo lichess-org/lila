@@ -419,7 +419,7 @@ export default class Setup {
         return `<option ${selected ? 'selected ' : ''}value="${value}">${name}</option>`;
       };
       const rules = this.idToRules($variantSelect.val()),
-        handicaps = findHandicaps({ rules })!,
+        handicaps = findHandicaps({ rules }),
         options = handicaps
           .map(h => {
             return buildOption(h.sfen, `${h.japaneseName} (${h.englishName})`);
