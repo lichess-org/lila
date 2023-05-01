@@ -205,6 +205,7 @@
   <string name="email">nimi pi lipu toki linluwi</string>
   <string name="passwordReset">weka sona la o ante e nimi open len</string>
   <string name="forgotPassword">sina sona ala e nimi open len sina anu seme?</string>
+  <string name="error.weakPassword">sina nimi awen wawa lili.</string>
   <string name="error.namePassword">o kepeken ala e nimi tawa nimi awen a.</string>
   <string name="youAreLeavingLichess">sina tawa tan lipu Lichess</string>
   <string name="proceedToX">o tawa lipu %s</string>
@@ -216,6 +217,7 @@
   <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
   <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
   <string name="copyTextToEmail">jasima en pana e sitelen sewi, en pana tawa %s</string>
+  <string name="accountClosed">lipu jan %s lon ala.</string>
   <string name="rank">nanpa</string>
   <string name="rankX">nanpa: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
