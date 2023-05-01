@@ -662,6 +662,8 @@
   <string name="simulClockHint">Fischer-засичане на времето. Колкото повече играчи приемеш, толкова повече време ти е нужно.</string>
   <string name="simulAddExtraTime">Можеш да си прибавиш време, за да се справиш с предизвикателството.</string>
   <string name="simulHostExtraTime">Допълнително време</string>
+  <string name="simulAddExtraTimePerPlayer">Добавете начално време на Вашия часовник за всеки играч, който се присъедини към сеанса.</string>
+  <string name="simulHostExtraTimePerPlayer">Допълнително време на организатора за всеки играч</string>
   <string name="lichessTournaments">Lichess състезания</string>
   <string name="tournamentFAQ">ЧЗВ относно състезанието</string>
   <string name="timeBeforeTournamentStarts">Време до началото на турнира</string>
