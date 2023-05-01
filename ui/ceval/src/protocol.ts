@@ -1,7 +1,8 @@
 import { defined } from 'common/common';
-import { isDrop, parseUsi } from 'shogiops';
+import { DropMove, isDrop, makeUsi, parseUsi } from 'shogiops';
 import { parseSfen } from 'shogiops/sfen';
 import { Work } from './types';
+import { promote } from 'shogiops/variant/util';
 
 const minDepth = 6;
 const maxSearchPlies = 245;
@@ -90,10 +91,7 @@ export class Protocol {
             if (parts[i + 1] === 'lowerbound' || parts[i + 1] === 'upperbound') evalType = parts[++i];
             break;
           case 'pv':
-            moves =
-              this.work.variant === 'kyotoshogi'
-                ? parts.slice(++i).map(usi => (usi.includes('-') ? usi.slice(0, -1) + '+' : usi))
-                : parts.slice(++i);
+            moves = this.work.variant === 'kyotoshogi' ? this.fromFairyKyotoFormat(parts.slice(++i)) : parts.slice(++i);
             i = parts.length;
             break;
         }
@@ -184,7 +182,7 @@ export class Protocol {
 
       const command =
         this.work.variant === 'kyotoshogi'
-          ? this.kyotoFormat(this.work.initialSfen, this.work.moves)
+          ? this.toFairyKyotoFormat(this.work.initialSfen, this.work.moves)
           : ['position sfen', this.work.initialSfen, 'moves', ...this.work.moves].join(' ');
       console.info(command);
       this.send(command);
@@ -196,7 +194,7 @@ export class Protocol {
     }
   }
 
-  kyotoFormat(sfen: Sfen, moves: string[]): string {
+  toFairyKyotoFormat(sfen: Sfen, moves: string[]): string {
     // fairy expects something like this: p+nks+l/5/5/L+S1N+P/+LSK+NP
     // while we have this: pgkst/5/5/LB1NR/TSKGP
     const mappingBoard: Record<string, string> = {
@@ -217,24 +215,30 @@ export class Protocol {
       t: 'l',
       T: 'L',
     };
-    const regexBoard = new RegExp(Object.keys(mappingBoard).join('|'), 'g');
     function transformString(sfen: string, mapping: Record<string, string>) {
-      return sfen.replace(regexBoard, match => mapping[match]);
+      return sfen
+        .split('')
+        .map(c => mapping[c] || c)
+        .join('');
     }
 
-    // + if going to piece marked with +
-    // - otherwise
     let uMoves: string[] = [];
     const pos = parseSfen('kyotoshogi', sfen, false).unwrap();
     moves.forEach(usi => {
       const move = parseUsi(usi)!;
-      if (isDrop(move) || !move.promotion) uMoves.push(usi);
-      else {
+      // G*3b -> +N*3b
+      if (isDrop(move)) {
+        const roleChar = usi[0],
+          uUsi = (mappingBoard[roleChar] || roleChar) + usi.slice(1);
+        uMoves.push(uUsi);
+      }
+      // 5e4d+ -> 5e4d-, if necessary
+      else if (move.promotion) {
         const roleChar = pos.board.getRole(move.from)![0],
           fairyUsi = mappingBoard[roleChar]?.includes('+') ? usi.slice(0, -1) + '-' : usi;
 
         uMoves.push(fairyUsi);
-      }
+      } else uMoves.push(usi);
       pos.play(move);
     });
 
@@ -245,6 +249,20 @@ export class Protocol {
         mappingHand
       )} moves ` + uMoves.join(' ')
     );
+  }
+
+  fromFairyKyotoFormat(moves: string[]): Usi[] {
+    return moves.map(usi => {
+      // +N*3b -> G*3b
+      if (usi[0] === '+') {
+        const dropUnpromoted = parseUsi(usi.slice(1)) as DropMove,
+          promotedRole = promote('kyotoshogi')(dropUnpromoted.role)!;
+        return makeUsi({ role: promotedRole, to: dropUnpromoted.to });
+      }
+      // 5e4d- -> 5e4d+
+      else if (usi.includes('-')) return usi.slice(0, -1) + '+';
+      else return usi;
+    });
   }
 
   compute(nextWork: Work | undefined): void {

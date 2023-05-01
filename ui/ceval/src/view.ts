@@ -3,7 +3,7 @@ import { makeNotationLineWithPosition, notationsWithColor } from 'common/notatio
 import stepwiseScroll from 'common/wheel';
 import { Config } from 'shogiground/config';
 import { usiToSquareNames } from 'shogiops/compat';
-import { makeSfen, parseSfen } from 'shogiops/sfen';
+import { forsythToRole, makeSfen, parseSfen, roleToForsyth } from 'shogiops/sfen';
 import { Move } from 'shogiops/types';
 import { makeUsi, opposite, parseUsi } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
@@ -478,6 +478,10 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     hands: {
       roles: handRoles(instance.variant.key),
       inlined: true,
+    },
+    forsyth: {
+      fromForsyth: forsythToRole(instance.variant.key),
+      toForsyth: roleToForsyth(instance.variant.key),
     },
     lastDests: usiToSquareNames(usi),
     orientation,
