@@ -62,8 +62,8 @@ private object RelayGame:
           gs.view.map { g =>
             Pgn(
               tags = g.tags,
-              turns = lila.study.PgnDump.toTurns(g.root).toList,
-              initial = Initial.empty
+              initial = Initial.empty,
+              lila.study.PgnDump.rootToTree(g.root)
             ).render
           }.toList
         },

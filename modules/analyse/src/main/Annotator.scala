@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn, PgnStr, Comment }
+import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, PgnStr, Comment }
 import chess.opening.*
 import chess.{ Color, Status }
 
@@ -23,16 +23,12 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
 
   def addEvals(p: Pgn, analysis: Analysis): Pgn =
     analysis.infos.foldLeft(p) { (pgn, info) =>
-      pgn.updatePly(
-        info.ply,
-        move => {
-          val comment = Comment from info.cp
-            .map(_.pawns.toString)
-            .orElse(info.mate.map(m => s"#${m.value}"))
-            .map(c => s"[%eval $c]")
-          move.copy(comments = comment.toList ::: move.comments)
-        }
-      )
+      pgn
+        .updatePly(
+          info.ply,
+          move => move.copy(comments = info.pgnComment.toList ::: move.comments)
+        )
+        .getOrElse(pgn)
     }
 
   def toPgnString(pgn: Pgn): PgnStr = PgnStr {
@@ -49,36 +45,32 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
 
   private def annotateOpening(opening: Option[Opening.AtPly])(p: Pgn) =
     opening.fold(p) { o =>
-      p.updatePly(o.ply, _.copy(opening = s"${o.opening.eco} ${o.opening.name}".some))
+      p.updatePly(o.ply, _.copy(opening = s"${o.opening.eco} ${o.opening.name}".some)).getOrElse(p)
     }
 
+  // add advices into mainline
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
     advices.foldLeft(p) { (pgn, advice) =>
-      pgn.updatePly(
-        advice.ply,
-        move =>
-          move.copy(
-            glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-            comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments,
-            variations = makeVariation(advice) :: Nil
-          )
-      )
+      pgn
+        .updatePly(
+          advice.ply,
+          move =>
+            move.copy(
+              glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
+              comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments
+            )
+        )
+        .getOrElse(pgn)
     }
 
   private def annotateDrawOffers(pgn: Pgn, drawOffers: GameDrawOffers): Pgn =
-    if (drawOffers.isEmpty) pgn
+    if drawOffers.isEmpty then pgn
     else
       drawOffers.normalizedPlies.foldLeft(pgn) { (pgn, ply) =>
-        pgn.updatePly(
-          ply,
-          move => move.copy(comments = Comment(s"${!ply.color} offers draw") :: move.comments)
-        )
+        pgn
+          .updatePly(
+            ply,
+            move => move.copy(comments = Comment(s"${!ply.color} offers draw") :: move.comments)
+          )
+          .getOrElse(pgn)
       }
-
-  private def makeVariation(advice: Advice): List[Turn] =
-    Turn.fromMoves(
-      advice.info.variation take 20 map { san =>
-        Move(san)
-      },
-      advice.ply
-    )

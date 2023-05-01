@@ -6,10 +6,10 @@ import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
 import lila.common.Chronometer
 import lila.db.dsl.{ *, given }
 import chess.format.UciPath
-import lila.tree.{ Root, Branch, Branches, NewTree, NewRoot }
-import lila.tree.NewTree.addVariation
+import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
 import chess.format.UciCharPair
-import lila.tree.NewBranch
+import lila.tree.NewTree.*
+import chess.Variation
 
 private object StudyFlatTree:
 
@@ -22,7 +22,7 @@ private object StudyFlatTree:
       }
 
     def toNodeWithChildren1(child: Option[NewTree]): Option[NewTree] =
-      readNewBranch(data, path).map(NewTree(_, child, None))
+      readNewBranch(data, path).map(NewTree(_, child, Nil))
 
   object reader:
 
@@ -65,7 +65,7 @@ private object StudyFlatTree:
           flat.toNodeWithChildren1(roots.get(flat.path)).fold(roots) { node =>
             roots.removed(flat.path).updatedWith(flat.path.parent) {
               case None           => node.some
-              case Some(siblings) => siblings.addVariation(node).some
+              case Some(siblings) => siblings.addVariation(node.toVariation).some
             }
           }
         }.get(UciPath.root)

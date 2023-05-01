@@ -1,18 +1,8 @@
 package lila.study
 
 import cats.data.Validated
-import chess.{ Centis, ErrorStr }
-import chess.format.pgn.{
-  Dumper,
-  Glyphs,
-  ParsedPgn,
-  San,
-  Tags,
-  PgnStr,
-  PgnNodeData,
-  Comment as ChessComment,
-  Node as PgnNode
-}
+import chess.{ Centis, ErrorStr, Node as PgnNode }
+import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*
 
@@ -116,7 +106,7 @@ object PgnImport:
   ): Branches =
     // TODO: add removeDuplicatedChildrenFirstNode logic
     // TODO: parsedPgn.sans.value take Node.MAX_PLIES
-    val variations = node.variations.flatMap(makeBranch(prev, _, annotator))
+    val variations = node.variations.flatMap(x => makeBranch(prev, x.toNode, annotator))
     Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations))
 
   private def makeBranch(

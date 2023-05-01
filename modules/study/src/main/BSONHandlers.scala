@@ -331,6 +331,7 @@ object BSONHandlers:
   given BSONDocumentHandler[Chapter.Relay]                         = Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval]                    = Macros.handler
   given BSONDocumentHandler[Chapter]                               = Macros.handler
+  given BSONDocumentHandler[NewChapter]                            = Macros.handler
 
   given BSONHandler[Position.Ref] = tryHandler(
     { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },

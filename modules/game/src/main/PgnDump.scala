@@ -1,12 +1,13 @@
 package lila.game
 
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr }
+import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
 import chess.format.{ pgn as chessPgn }
 import chess.{ Centis, Color, ByColor, Outcome }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
+import chess.format.pgn.Initial
 
 final class PgnDump(
     baseUrl: BaseUrl,
@@ -48,7 +49,7 @@ final class PgnDump(
           game.startColor
         )
       }
-      Pgn(ts, turns)
+      Pgn(ts, Initial.empty, turns)
     }
 
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
@@ -156,25 +157,32 @@ final class PgnDump(
       from: Int,
       clocks: Vector[Centis],
       startColor: Color
-  ): List[chessPgn.Turn] =
-    (moves grouped 2).zipWithIndex.toList map { case (moves, index) =>
-      val clockOffset = startColor.fold(0, 1)
-      chessPgn.Turn(
-        number = index + from,
-        white = moves.headOption.filter(SanStr("..") != _) map { san =>
-          chessPgn.Move(
-            san = san,
-            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
-          )
-        },
-        black = moves lift 1 map { san =>
-          chessPgn.Move(
-            san = san,
-            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
-          )
-        }
-      )
-    } filterNot (_.isEmpty)
+  ): Option[PgnTree] = ???
+
+  // private def makeTurns(
+  //     moves: Seq[SanStr],
+  //     from: Int,
+  //     clocks: Vector[Centis],
+  //     startColor: Color
+  // ): List[chessPgn.Turn] =
+  //   (moves grouped 2).zipWithIndex.toList map { case (moves, index) =>
+  //     val clockOffset = startColor.fold(0, 1)
+  //     chessPgn.Turn(
+  //       number = index + from,
+  //       white = moves.headOption.filter(SanStr("..") != _) map { san =>
+  //         chessPgn.Move(
+  //           san = san,
+  //           secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+  //         )
+  //       },
+  //       black = moves lift 1 map { san =>
+  //         chessPgn.Move(
+  //           san = san,
+  //           secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+  //         )
+  //       }
+  //     )
+  //   } filterNot (_.isEmpty)
 
 object PgnDump:
 

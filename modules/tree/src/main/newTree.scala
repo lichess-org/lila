@@ -3,8 +3,8 @@ package lila.tree
 import alleycats.Zero
 import monocle.syntax.all.*
 import chess.{ Centis, HasId }
-import chess.format.pgn.{ Node as ChessNode }
-import chess.format.pgn.Node.*
+import chess.{ Node as ChessNode, Variation }
+import chess.Node.*
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
@@ -44,6 +44,7 @@ case class NewBranch(
     forceVariation: Boolean,
     metas: Metas
 ):
+  export metas.{ ply, fen, check, dests, drops, eval, shapes, comments, gamebook, glyphs, opening, clock, crazyData }
   override def toString                    = s"$id, ${move.uci}"
   def withClock(centis: Option[Centis])    = this.focus(_.metas.clock).set(centis)
   def withForceVariation(force: Boolean)   = copy(forceVariation = force)
@@ -77,11 +78,60 @@ type NewTree = ChessNode[NewBranch]
 
 object NewTree:
   // default case class constructor not working with type alias?
-  def apply(value: NewBranch, child: Option[NewTree], variation: Option[NewTree]) =
-    ChessNode(value, child, variation)
+  def apply(value: NewBranch, child: Option[NewTree], variations: List[Variation[NewBranch]]) =
+    ChessNode(value, child, variations)
+
+  def apply(root: Root): Option[NewTree] =
+    root.children.first.map(first =>
+      NewTree(
+        value = fromBranch(first),
+        child = first.children.first.map(fromBranch(_, first.children.variations)),
+        variations = root.children.variations.map(toVariation)
+      )
+    )
+
+  def fromBranch(branch: Branch, variations: List[Branch]): NewTree =
+    NewTree(
+      value = fromBranch(branch),
+      child = branch.children.first.map(fromBranch(_, branch.children.variations)),
+      variations = variations.map(toVariation)
+    )
+
+  def toVariation(branch: Branch): Variation[NewBranch] =
+    Variation(
+      value = fromBranch(branch),
+      child = branch.children.first.map(fromBranch(_, branch.children.variations))
+    )
+
+  def fromBranch(branch: Branch): NewBranch =
+    NewBranch(
+      branch.id,
+      UciPath.root,
+      branch.move,
+      branch.comp,
+      branch.forceVariation,
+      fromNode(branch)
+    )
+
+  def fromNode(node: Node) =
+    Metas(
+      node.ply,
+      node.fen,
+      node.check,
+      node.dests,
+      node.drops,
+      node.eval,
+      node.shapes,
+      node.comments,
+      node.gamebook,
+      node.glyphs,
+      node.opening,
+      node.clock,
+      node.crazyData
+    )
 
   // Optional for the first node with the given id
-  def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
+  // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
 
   extension (newTree: NewTree)
     // def addNodeAt(node: NewTree): Option[NewTree] =
@@ -93,14 +143,17 @@ object NewTree:
     //         head == newTree.value.id option newTree.addChild(node)
 
     // TODO: merge two nodes if they have the same id
-    def addVariation(variation: NewTree): NewTree =
-      newTree.copy(variation = newTree.variation.mergeVariations(variation.some))
+    // def addVariation(variation: NewTree): NewTree =
+    //   newTree.copy(variation = newTree.variation.mergeVariations(variation.some))
+
+    def addVariation(variation: Variation[NewBranch]): NewTree =
+      newTree.copy(variations = newTree.variations :+ variation)
 
     def merge(n: NewTree): NewTree =
       newTree.copy(
         value = newTree.value.merge(n.value),
         child = newTree.child orElse n.child, // TODO: verify logic
-        variation = newTree.variation.mergeVariations(n.variation)
+        variations = newTree.variations ::: n.variations
       )
 
 case class NewRoot(metas: Metas, tree: Option[NewTree]):

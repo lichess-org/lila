@@ -101,7 +101,7 @@ object Chapter:
   // It works but could be used for DoS.
   val maxNodes = 3000
 
-  sealed trait Like:
+  trait Like:
     val _id: StudyChapterId
     val name: StudyChapterName
     val setup: Chapter.Setup

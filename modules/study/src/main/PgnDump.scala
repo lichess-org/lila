@@ -1,13 +1,15 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr, Comment }
+import cats.syntax.all.*
+import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
 import chess.format.{ pgn as chessPgn }
 import scala.concurrent.duration.*
 
 import lila.common.String.slugify
-import lila.tree.{ Root, Branch, Branches }
+import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
 import lila.tree.Node.{ Shape, Shapes }
+import lila.analyse.Analysis
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -27,14 +29,7 @@ final class PgnDump(
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
     chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
-      val pgn = Pgn(
-        tags = makeTags(study, chapter)(using flags),
-        turns = toTurns(chapter.root)(using flags),
-        initial = Initial(
-          chapter.root.comments.value.map(_.text into Comment) ::: shapeComment(chapter.root.shapes).toList
-        )
-      )
-      annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
+      ofChapter(study, flags)(chapter, analysis)
     }
 
   private val fileR         = """[\s,]""".r
@@ -91,6 +86,17 @@ final class PgnDump(
         .reverse
     }
 
+  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
+    val root = chapter.root
+    val pgn = Pgn(
+      tags = makeTags(study, chapter)(using flags),
+      initial = Initial(
+        chapter.root.comments.value.map(_.text into Comment) ::: shapeComment(chapter.root.shapes).toList
+      ),
+      rootToTree(root)(using flags)
+    )
+    annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
+
 object PgnDump:
 
   case class WithFlags(
@@ -104,22 +110,73 @@ object PgnDump:
   private type Variations = List[Branch]
   private val noVariations: Variations = Nil
 
-  private def branch2move(node: Branch, variations: Variations)(using flags: WithFlags) =
+  def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree = ???
+  def rootToTree(root: Root)(using flags: WithFlags): Option[PgnTree] =
+    NewTree(root).map(treeToTree(_)(using flags))
+
+  // def ofChapter(
+  //     annotator: lila.analyse.Annotator,
+  //     chapter: Chapter,
+  //     tags: Tags,
+  //     analysis: Option[Analysis],
+  //     flags: WithFlags
+  // ): PgnStr =
+  //   val pgn = Pgn(
+  //     tags = tags,
+  //     turns = toTurns(chapter.root)(using flags),
+  //     initial = Initial(
+  //       chapter.root.comments.value.map(_.text into Comment) ::: shapeComment(chapter.root.shapes).toList
+  //     )
+  //   )
+  //   annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
+
+  // def ofChapter(
+  //     annotator: lila.analyse.Annotator,
+  //     chapter: NewChapter,
+  //     tags: Tags,
+  //     analysis: Option[Analysis],
+  //     flags: WithFlags
+  // ): PgnStr =
+  //   val initial = Initial(
+  //     chapter.root.metas.comments.value.map(_.text into Comment) ::: shapeComment(
+  //       chapter.root.metas.shapes
+  //     ).toList
+  //   )
+  //   // chapter.root.tree.mapWithIndex()
+  //   ???
+
+  private def treeToPgn(tree: NewTree)(using flags: WithFlags): PgnTree =
+    if flags.variations then tree.map(branch2move) else tree.mapMainline(branch2move)
+
+  private def branch2move(node: NewBranch)(using flags: WithFlags) =
     chessPgn.Move(
+      node.ply,
       san = node.move.san,
-      glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
+      glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
         node.comments.value.map(_.text into Comment) ::: shapeComment(node.shapes).toList
       },
       opening = none,
       result = none,
-      variations = flags.variations ?? {
-        variations.view.map { child =>
-          toTurns(child.mainline, noVariations)
-        }.toList
-      },
       secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
     )
+
+  // private def branch2move(node: Branch, variations: Variations)(using flags: WithFlags) =
+  //   chessPgn.Move(
+  //     san = node.move.san,
+  //     glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
+  //     comments = flags.comments ?? {
+  //       node.comments.value.map(_.text into Comment) ::: shapeComment(node.shapes).toList
+  //     },
+  //     opening = none,
+  //     result = none,
+  //     variations = flags.variations ?? {
+  //       variations.view.map { child =>
+  //         toTurns(child.mainline, noVariations)
+  //       }.toList
+  //     },
+  //     secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
+  //   )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[Comment] =
@@ -139,45 +196,45 @@ object PgnDump:
     }
     Comment from s"$circles$arrows".some.filter(_.nonEmpty)
 
-  def toTurn(first: Branch, second: Option[Branch], variations: Variations)(using flags: WithFlags) =
-    chessPgn.Turn(
-      number = first.ply.fullMoveNumber.value,
-      white = branch2move(first, variations).some,
-      black = second map { branch2move(_, first.children.variations) }
-    )
+  // def toTurn(first: Branch, second: Option[Branch], variations: Variations)(using flags: WithFlags) =
+  //   chessPgn.Turn(
+  //     number = first.ply.fullMoveNumber.value,
+  //     white = branch2move(first, variations).some,
+  //     black = second map { branch2move(_, first.children.variations) }
+  //   )
 
-  def toTurns(root: Root)(using flags: WithFlags): List[chessPgn.Turn] =
-    toTurns(root.mainline, root.children.variations)
+  // def toTurns(root: Root)(using flags: WithFlags): List[chessPgn.Turn] =
+  //   toTurns(root.mainline, root.children.variations)
 
-  def toTurns(
-      line: List[Branch],
-      variations: Variations
-  )(using flags: WithFlags): List[chessPgn.Turn] = {
-    line match
-      case Nil => Nil
-      case head :: tail if head.ply.isEven =>
-        chessPgn.Turn(
-          number = 1 + (head.ply.value - 1) / 2,
-          white = none,
-          black = branch2move(head, variations).some
-        ) :: toTurnsFromWhite(tail, head.children.variations)
-      case l => toTurnsFromWhite(l, variations)
-  }.filterNot(_.isEmpty)
+  // def toTurns(
+  //     line: List[Branch],
+  //     variations: Variations
+  // )(using flags: WithFlags): List[chessPgn.Turn] = {
+  //   line match
+  //     case Nil => Nil
+  //     case head :: tail if head.ply.isEven =>
+  //       chessPgn.Turn(
+  //         number = 1 + (head.ply.value - 1) / 2,
+  //         white = none,
+  //         black = branch2move(head, variations).some
+  //       ) :: toTurnsFromWhite(tail, head.children.variations)
+  //     case l => toTurnsFromWhite(l, variations)
+  // }.filterNot(_.isEmpty)
 
-  def toTurnsFromWhite(line: List[Branch], variations: Variations)(using
-      flags: WithFlags
-  ): List[chessPgn.Turn] =
-    line
-      .grouped(2)
-      .foldLeft(variations -> List.empty[chessPgn.Turn]) { case ((variations, turns), pair) =>
-        pair.headOption.fold(variations -> turns) { first =>
-          pair
-            .lift(1)
-            .getOrElse(first)
-            .children
-            .variations
-            -> (toTurn(first, pair lift 1, variations) :: turns)
-        }
-      }
-      ._2
-      .reverse
+  // def toTurnsFromWhite(line: List[Branch], variations: Variations)(using
+  //     flags: WithFlags
+  // ): List[chessPgn.Turn] =
+  //   line
+  //     .grouped(2)
+  //     .foldLeft(variations -> List.empty[chessPgn.Turn]) { case ((variations, turns), pair) =>
+  //       pair.headOption.fold(variations -> turns) { first =>
+  //         pair
+  //           .lift(1)
+  //           .getOrElse(first)
+  //           .children
+  //           .variations
+  //           -> (toTurn(first, pair lift 1, variations) :: turns)
+  //       }
+  //     }
+  //     ._2
+  //     .reverse

@@ -3,7 +3,7 @@ package lila.analyse
 import cats.syntax.all.*
 import chess.Ply
 import chess.format.Uci
-import chess.format.pgn.SanStr
+import chess.format.pgn.{ SanStr, Comment }
 
 import lila.tree.Eval
 
@@ -36,7 +36,14 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
     mate map { m =>
       s"Mate in ${math.abs(m.value)}"
     }
+  // advise comment
   def evalComment: Option[String] = cpComment orElse mateComment
+
+  // pgn comment
+  def pgnComment = Comment from cp
+    .map(_.pawns.toString)
+    .orElse(mate.map(m => s"#${m.value}"))
+    .map(c => s"[%eval $c]")
 
   def isEmpty = cp.isEmpty && mate.isEmpty
 

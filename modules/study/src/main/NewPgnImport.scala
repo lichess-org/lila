@@ -2,7 +2,7 @@ package lila.study
 
 import cats.data.Validated
 import monocle.syntax.all.*
-import chess.{ Centis, ErrorStr }
+import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{
   Dumper,
   Glyphs,
@@ -12,8 +12,7 @@ import chess.format.pgn.{
   Tags,
   PgnStr,
   PgnNodeData,
-  Comment as ChessComment,
-  Node as PgnNode
+  Comment as ChessComment
 }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
