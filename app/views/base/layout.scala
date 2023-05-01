@@ -125,17 +125,17 @@ object layout:
 
   private def allNotifications(using ctx: Context) =
     spaceless(s"""<div>
-  <a id="challenge-toggle" class="toggle link">
+  <button id="challenge-toggle" class="toggle link">
     <span title="${trans.challenge.challenges
         .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
-  </a>
+  </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
-  <a id="notify-toggle" class="toggle link">
+  <button id="notify-toggle" class="toggle link">
     <span title="${trans.notifications
         .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
-  </a>
+  </button>
   <div id="notify-app" class="dropdown"></div>
 </div>""")
 

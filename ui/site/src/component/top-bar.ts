@@ -19,7 +19,7 @@ export default function () {
     document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked)
   );
 
-  $('#top').on('click', 'a.toggle', function (this: HTMLElement) {
+  $('#top').on('click', 'button.toggle, a.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
     pubsub.emit('top.toggle.' + this.id);
