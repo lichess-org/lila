@@ -53,6 +53,8 @@
   <string name="history">musi lili pi tenpo pini</string>
   <string name="solved">pini pona</string>
   <string name="failed">pini ike</string>
+  <string name="continueTheStreak">o awen e nanpa</string>
+  <string name="newStreak">nanpa sin</string>
   <string name="fromMyGames">tawa mi musi</string>
   <string name="fromXGames">musi lili tan musi pi jan %s</string>
   <string name="searchPuzzles">alasa e musi lili</string>
