@@ -28,7 +28,7 @@ final class ErrorHandler(
         val errorCtx = lila.api.Context.error(
           req,
           lila.i18n.defaultLang,
-          HTTPRequest.isSynchronousHttp(req) option lila.common.Nonce.random
+          HTTPRequest.isSynchronousHttp(req) option lila.api.Nonce.random
         )
         InternalServerError(views.html.site.bits.errorPage(using errorCtx))
       else InternalServerError("Sorry, something went wrong.")

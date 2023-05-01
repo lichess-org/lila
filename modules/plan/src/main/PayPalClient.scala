@@ -9,7 +9,6 @@ import play.api.libs.ws.WSAuthScheme
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
 import lila.common.config
-import lila.common.WebService
 import lila.common.Json.given
 import lila.memo.CacheApi
 import lila.user.User

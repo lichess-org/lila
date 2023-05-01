@@ -10,14 +10,13 @@ import play.api.mvc.*
 import scala.annotation.nowarn
 import scalatags.Text.Frag
 
-import lila.api.{ BodyContext, Context, HeaderContext, PageData }
+import lila.api.{ BodyContext, Context, HeaderContext, PageData, Nonce }
 import lila.app.{ *, given }
-import lila.common.{ ApiVersion, HTTPRequest, Nonce }
+import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 import lila.user.{ Holder, User as UserModel, UserContext }
-import lila.common.config
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController

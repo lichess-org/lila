@@ -1,4 +1,4 @@
-package lila.common
+package lila.lobby
 
 class MultiKeyMapTest extends munit.FunSuite {
 
