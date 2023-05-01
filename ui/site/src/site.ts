@@ -74,17 +74,6 @@ lichess.load.then(() => {
       }, 200);
     });
 
-    if (window.matchMedia('(max-width: 650px)').matches) {
-      $('table.slist')
-        .css('min-width', '640px')
-        .each(function (this: HTMLTableElement) {
-          const container = document.createElement('div');
-          container.style.overflowX = 'auto';
-          container.style.maxWidth = '100vw';
-          this.replaceWith(container);
-          container.appendChild(this);
-        });
-    }
     powertip.watchMouse();
 
     setTimeout(() => {

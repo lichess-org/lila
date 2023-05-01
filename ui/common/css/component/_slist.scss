@@ -2,6 +2,10 @@
   width: 100%;
   border-bottom: $border;
 
+  @include breakpoint($mq-not-x-small) {
+    min-width: 640px;
+  }
+
   thead {
     @extend %metal, %roboto;
 
@@ -55,4 +59,9 @@
       background: none;
     }
   }
+}
+
+.slist-wrapper {
+  overflow-x: auto;
+  max-width: 100vw;
 }
