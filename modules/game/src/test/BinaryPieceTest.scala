@@ -1,7 +1,7 @@
 package lila.game
 
-import chess._
-import chess.Square._
+import chess.*
+import chess.Square.*
 
 import lila.db.ByteArray
 import chess.variant.Standard
