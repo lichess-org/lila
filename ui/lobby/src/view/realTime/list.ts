@@ -1,9 +1,10 @@
 import { bind } from 'common/snabbdom';
+import { getPerfIcon } from 'common/perfIcons';
 import { h } from 'snabbdom';
 import LobbyController from '../../ctrl';
 import * as hookRepo from '../../hookRepo';
 import { Hook } from '../../interfaces';
-import { perfIcons, tds } from '../util';
+import { tds } from '../util';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
   const noarg = ctrl.trans.noarg;
@@ -33,7 +34,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       h(
         'span',
         {
-          attrs: { 'data-icon': perfIcons[hook.perf] },
+          attrs: { 'data-icon': getPerfIcon(hook.perf)! },
         },
         noarg(hook.ra ? 'rated' : 'casual')
       ),

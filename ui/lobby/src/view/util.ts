@@ -6,16 +6,3 @@ export function tds(bits: MaybeVNodes): MaybeVNodes {
     return h('td', [bit]);
   });
 }
-
-export const perfIcons = {
-  Blitz: ')',
-  UltraBullet: '{',
-  Bullet: 'T',
-  Classical: '+',
-  Rapid: '#',
-  Minishogi: ',',
-  Chushogi: '(',
-  Annanshogi: '',
-  Kyotoshogi: '',
-  Correspondence: ';',
-};

@@ -1,8 +1,8 @@
 import { bind } from 'common/snabbdom';
+import { getPerfIcon } from 'common/perfIcons';
 import { VNode, h } from 'snabbdom';
 import LobbyController from '../../ctrl';
 import { Hook } from '../../interfaces';
-import { perfIcons } from '../util';
 
 function percents(v) {
   return v + '%';
@@ -42,7 +42,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
   return h('span#' + hook.id + '.' + klass, {
     key: hook.id,
     attrs: {
-      'data-icon': perfIcons[hook.perf],
+      'data-icon': getPerfIcon(hook.perf)!,
       style: `bottom:${percents(bottom)};left:${percents(left)}`,
     },
     hook: {
@@ -87,7 +87,7 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   }
   html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
-  html += '<i data-icon="' + perfIcons[hook.perf] + '"> ' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</i>';
+  html += '<i data-icon="' + getPerfIcon(hook.perf) + '"> ' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</i>';
   html += '</div>';
   html += '</div>';
   return html;
