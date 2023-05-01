@@ -32,7 +32,8 @@ class PgnDumpTest extends lila.common.LilaTest {
 
   val root = Root.default(variant.Standard)
 
-  def rootToPgn(root: Root) = P.rootToTree(root)(using PgnDump.WithFlags(true, true, true, false, false))
+  def rootToPgn(root: Root) = P
+    .rootToTree(root)(using PgnDump.WithFlags(true, true, true, false, false))
     .fold("")(_.render)
 
   test("empty") {
