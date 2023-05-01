@@ -1,7 +1,7 @@
 package lila.study
 
 import cats.syntax.all.*
-import chess.{ Centis, ErrorStr }
+import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{
   Dumper,
   Glyphs,
@@ -11,7 +11,6 @@ import chess.format.pgn.{
   PgnStr,
   PgnNodeData,
   Comment as ChessComment,
-  Node as PgnNode
 }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*

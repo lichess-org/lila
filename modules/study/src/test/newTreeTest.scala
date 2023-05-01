@@ -2,7 +2,7 @@ package lila.study
 
 import monocle.syntax.all.*
 import cats.syntax.all.*
-import chess.{ Centis, ErrorStr }
+import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{
   Dumper,
   Glyphs,
@@ -11,8 +11,7 @@ import chess.format.pgn.{
   Tags,
   PgnStr,
   PgnNodeData,
-  Comment as ChessComment,
-  Node as PgnNode
+  Comment as ChessComment
 }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
@@ -37,7 +36,7 @@ class NewTreeTest extends lila.common.LilaTest:
 
   test("valid tree -> newTree first move") {
     val x       = PgnImport("1. e4 *", Nil).toOption.get
-    val newRoot = NewTree(x.root)
+    val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.get.size, 1L)
     assertEquals(newRoot.tree.get.mainline.map(sanStr), List("e4"))
     assertEquals(newRoot.toRoot, x.root)
@@ -45,7 +44,7 @@ class NewTreeTest extends lila.common.LilaTest:
 
   test("valid tree -> newTree first move with variation") {
     val x       = PgnImport("1. e4 (1. d4??) *", Nil).toOption.get
-    val newRoot = NewTree(x.root)
+    val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.get.size, 2L)
     assertEquals(newRoot.tree.get.variations.map(sanStr), List("d4"))
     assertEquals(newRoot.toRoot, x.root)
@@ -53,7 +52,7 @@ class NewTreeTest extends lila.common.LilaTest:
 
   test("valid tree -> newTree two moves") {
     val x       = PgnImport("1. e4 e6 *", Nil).toOption.get
-    val newRoot = NewTree(x.root)
+    val newRoot = NewRootC.fromRoot(x.root)
     assertEquals(newRoot.tree.get.size, 2L)
     assertEquals(newRoot.tree.get.mainline.map(sanStr), List("e4", "e6"))
     assertEquals(newRoot.toRoot, x.root)
@@ -62,7 +61,7 @@ class NewTreeTest extends lila.common.LilaTest:
   test("valid tree <-> newTree more realistic conversion"):
     PgnFixtures.all.foreach: pgn =>
       val x       = PgnImport(pgn, Nil).toOption.get
-      val newRoot = NewTree(x.root)
+      val newRoot = NewRootC.fromRoot(x.root)
       assertEquals(newRoot.toRoot, x.root)
 
   test("PgnImport works"):

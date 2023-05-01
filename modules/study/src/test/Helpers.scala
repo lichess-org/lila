@@ -2,7 +2,7 @@ package lila.study
 
 import monocle.syntax.all.*
 import cats.syntax.all.*
-import chess.{ Centis, ErrorStr }
+import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{
   Dumper,
   Glyphs,
@@ -11,8 +11,7 @@ import chess.format.pgn.{
   Tags,
   PgnStr,
   PgnNodeData,
-  Comment as ChessComment,
-  Node as PgnNode
+  Comment as ChessComment
 }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
@@ -25,21 +24,14 @@ import scala.language.implicitConversions
 
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
 import chess.Variation
+import chess.Tree
 
 object Helpers:
   import lila.tree.NewTree.*
 
-  // Convertor
-  object NewBranchC:
-    def fromBranch(branch: Branch) =
-      NewBranch(
-        branch.id,
-        UciPath.root,
-        branch.move,
-        branch.comp,
-        branch.forceVariation,
-        MetasC.fromNode(branch)
-      )
+  object NewRootC:
+    def fromRoot(root: Root) =
+      NewRoot(NewTree.fromNode(root), NewTree(root))
 
   extension (newBranch: NewBranch)
     def toBranch(children: Option[NewTree]): Branch = Branch(
@@ -67,7 +59,7 @@ object Helpers:
   extension (newTree: NewTree)
     def toBranch: Branch = newTree.value.toBranch(newTree.child)
     def toBranches: Branches =
-      val variations = newTree.variations.map(_.toBranch)
+      val variations = newTree.variations.map(_.toNode.toBranch)
       Branches(newTree.value.toBranch(newTree.child) :: variations)
 
   extension (newRoot: NewRoot)
@@ -109,4 +101,4 @@ object Helpers:
         .focus(_.metas.comments)
         .modify(_.cleanup)
 
-  def sanStr(node: PgnNode[NewBranch]): String = node.value.move.san.value
+  def sanStr(node: Tree[NewBranch]): String = node.value.move.san.value

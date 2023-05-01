@@ -45,7 +45,7 @@ case class NewBranch(
     metas: Metas
 ):
   export metas.{ ply, fen, check, dests, drops, eval, shapes, comments, gamebook, glyphs, opening, clock, crazyData }
-  override def toString                    = s"$id, ${move.uci}"
+  override def toString                    = s"$ply, $id, ${move.uci}"
   def withClock(centis: Option[Centis])    = this.focus(_.metas.clock).set(centis)
   def withForceVariation(force: Boolean)   = copy(forceVariation = force)
   def isCommented                          = metas.comments.value.nonEmpty
