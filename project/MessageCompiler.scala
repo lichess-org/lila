@@ -75,6 +75,8 @@ object MessageCompiler {
           }
         }
 
+        val loadFactor      = 0.75
+        val initialCapacity = (puts.size / loadFactor).toInt + 1
         val fullMapImports =
           if (puts.exists(_.contains("ScalaRunTime$")))
             """import scala.Predef$;
@@ -89,7 +91,7 @@ import scala.collection.immutable.Map;
 $fullMapImports
 public final class $underLocale {
 public static final HashMap<String, Translation> load() {
-HashMap<String, Translation> m = new HashMap<String, Translation>(${puts.size + 1}, 1);
+HashMap<String, Translation> m = new HashMap<String, Translation>($initialCapacity, ${loadFactor}f);
 ${puts mkString "\n"}
 return m;
 }
