@@ -18,7 +18,7 @@ object lag:
         highchartsMoreTag,
         jsTag("lag.js")
       )
-    ) {
+    ):
       div(cls := "box box-pad lag")(
         h1(cls := "box__top")(
           isLichessLagging(),
@@ -56,4 +56,3 @@ object lag:
           )
         )
       )
-    }

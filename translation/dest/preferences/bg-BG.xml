@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Предпочитания</string>
+  <string name="display">Изглед</string>
+  <string name="privacy">Поверителност</string>
   <string name="notifications">Известия</string>
   <string name="pieceAnimation">Движение на фигурите</string>
   <string name="materialDifference">Разлика в притежанието</string>
@@ -61,4 +63,5 @@
   <string name="notifyPush">Получаване на известия на устойството Ви когато не сте в Lichess</string>
   <string name="notifyWeb">Браузър</string>
   <string name="notifyDevice">Устройство</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Мелодия за известия</string>
 </resources>

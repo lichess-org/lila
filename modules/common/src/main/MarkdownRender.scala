@@ -2,7 +2,7 @@ package lila.common
 
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.vladsch.flexmark.ext.tables.TablesExtension
+import com.vladsch.flexmark.ext.tables.{ TablesExtension, TableBlock }
 import com.vladsch.flexmark.html.{
   AttributeProvider,
   HtmlRenderer,
@@ -26,6 +26,7 @@ import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import io.mola.galimatias.URL
 import java.util.Arrays
+import scala.collection.Set
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
 import com.vladsch.flexmark.util.misc.Extension
@@ -45,7 +46,9 @@ final class MarkdownRender(
 ):
 
   private val extensions = java.util.ArrayList[Extension]()
-  if (table) extensions.add(TablesExtension.create())
+  if (table)
+    extensions.add(TablesExtension.create())
+    extensions.add(MarkdownRender.tableWrapperExtension)
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink)
     extensions.add(AutolinkExtension.create())
@@ -271,3 +274,19 @@ object MarkdownRender:
       if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK)
         attributes.replaceValue("rel", rel).unit
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href"))).unit
+
+  private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory(
+      new NodeRendererFactory:
+        override def apply(options: DataHolder) = new NodeRenderer:
+          override def getNodeRenderingHandlers() = Set(
+            new NodeRenderingHandler(
+              classOf[TableBlock],
+              (node: TableBlock, context: NodeRendererContext, html: HtmlWriter) =>
+                html.withAttr().attr("class", "slist-wrapper").tag("div")
+                context.delegateRender();
+                html.tag("/div")
+            )
+          ).asJava
+    )
