@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">A página do streamer Lichess visa o seu público com o idioma fornecido pela sua plataforma de streaming. Defina o idioma padrão correto para os seus streams de xadrez no aplicativo ou serviço usado para transmitir.</string>
   <string name="twitchUsername">O teu nome de utilizador ou link na Twitch</string>
   <string name="optionalOrEmpty">Opcional. Deixa em branco se não existir</string>
+  <string name="youTubeChannelId">O seu ID de canal do YouTube</string>
   <string name="streamerName">O teu nome de streamer no Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Mantem-no curto: %s carácter no máximo</item>
