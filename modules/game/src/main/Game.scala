@@ -522,8 +522,8 @@ case class Game(
     }
 
   def playerWhoDidNotMove: Option[Player] = {
-    if playedTurns == Ply(0) then player(startColor).some
-    else if playedTurns == Ply(1) then player(!startColor).some
+    if playedTurns == Ply.initial then player(startColor).some
+    else if playedTurns == Ply.initial.next then player(!startColor).some
     else none
   } filterNot { player => winnerColor contains player.color }
 
@@ -588,7 +588,7 @@ case class Game(
   def pgnImport   = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def resetTurns = copy(chess = chess.copy(ply = Ply(0), startedAtPly = Ply(0)))
+  def resetTurns = copy(chess = chess.copy(ply = Ply.initial, startedAtPly = Ply.initial))
 
   lazy val opening: Option[Opening.AtPly] =
     (!fromPosition && Variant.list.openingSensibleVariants(variant)) ?? OpeningDb.search(sans)

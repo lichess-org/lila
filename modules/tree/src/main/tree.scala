@@ -269,14 +269,14 @@ case class Root(
   // but only mainline moves
   lazy val mainline: List[Branch] = children.first.??(_.mainline)
 
-  def lastMainlinePly = mainline.lastOption.fold(Ply(0))(_.ply)
+  def lastMainlinePly = mainline.lastOption.fold(Ply.initial)(_.ply)
 
   def lastMainlinePlyOf(path: UciPath) =
     mainline
       .zip(path.computeIds)
       .takeWhile { (node, id) => node.id == id }
       .lastOption
-      .fold(Ply(0)) { (node, _) => node.ply }
+      .fold(Ply.initial) { (node, _) => node.ply }
 
   def mainlinePath = UciPath.fromIds(mainline.map(_.id))
 
@@ -292,7 +292,7 @@ case class Root(
 object Root:
   def default(variant: Variant) =
     Root(
-      ply = Ply(0),
+      ply = Ply.initial,
       fen = variant.initialFen,
       check = Check.No,
       crazyData = variant.crazyhouse option Crazyhouse.Data.init
@@ -339,7 +339,7 @@ case class Branch(
   def withoutChildren = copy(children = Branches.empty)
 
   // TODO: split into addChild and addVariation
-  def addChild(branch: Branch): Branch   = copy(children = children :+ branch)
+  def addChild(branch: Branch): Branch = copy(children = children :+ branch)
 
   // DONE, NewBranch
   def withClock(centis: Option[Centis])  = copy(clock = centis)
@@ -350,9 +350,9 @@ case class Branch(
   def setComment(comment: Comment)         = copy(comments = comments set comment)
   def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
   def deleteComments                       = copy(comments = Comments.empty)
-  def setGamebook(gamebook: Gamebook) = copy(gamebook = gamebook.some)
-  def setShapes(s: Shapes)            = copy(shapes = s)
-  def toggleGlyph(glyph: Glyph)       = copy(glyphs = glyphs toggle glyph)
+  def setGamebook(gamebook: Gamebook)      = copy(gamebook = gamebook.some)
+  def setShapes(s: Shapes)                 = copy(shapes = s)
+  def toggleGlyph(glyph: Glyph)            = copy(glyphs = glyphs toggle glyph)
 
   // DONE, Node
   def updateMainlineLast(f: Branch => Branch): Branch =

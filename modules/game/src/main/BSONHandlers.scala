@@ -113,7 +113,7 @@ object BSONHandlers:
             HalfMoveClock from sans.reverse
               .indexWhere(san => san.value.contains("x") || san.value.headOption.exists(_.isLower))
               .some
-              .filter(0 <= _)
+              .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
             pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),

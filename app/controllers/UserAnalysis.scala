@@ -57,7 +57,7 @@ final class UserAnalysis(
     makePov {
       fen.filter(_.value.nonEmpty).flatMap {
         Fen.readWithMoveNumber(variant, _)
-      } | Situation.AndFullMoveNumber(Situation(variant), FullMoveNumber(1))
+      } | Situation.AndFullMoveNumber(Situation(variant), FullMoveNumber.initial)
     }
 
   private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =

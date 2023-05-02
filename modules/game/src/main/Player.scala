@@ -13,7 +13,7 @@ case class Player(
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
-    proposeTakebackAt: Ply = Ply(0), // ply when takeback was proposed
+    proposeTakebackAt: Ply = Ply.initial, // ply when takeback was proposed
     userId: Option[UserId] = None,
     rating: Option[IntRating] = None,
     ratingDiff: Option[IntRatingDiff] = None,
@@ -53,7 +53,7 @@ case class Player(
 
   def proposeTakeback(ply: Ply) = copy(proposeTakebackAt = ply)
 
-  def removeTakebackProposition = copy(proposeTakebackAt = Ply(0))
+  def removeTakebackProposition = copy(proposeTakebackAt = Ply.initial)
 
   def isProposingTakeback = proposeTakebackAt > 0
 
