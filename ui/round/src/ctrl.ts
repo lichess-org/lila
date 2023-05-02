@@ -46,6 +46,7 @@ import {
   Position,
   NvuiPlugin,
 } from './interfaces';
+import { Toggle, toggle } from 'common';
 
 interface GoneBerserk {
   white?: boolean;
@@ -70,6 +71,7 @@ export default class RoundController {
   ply: number;
   firstSeconds = true;
   flip = false;
+  menu: Toggle = toggle(false);
   loading = false;
   loadingTimeout: number;
   redirecting = false;

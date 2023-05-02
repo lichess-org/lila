@@ -157,15 +157,17 @@ function renderButtons(ctrl: RoundController) {
         e => {
           const target = e.target as HTMLElement;
           const ply = parseInt(target.getAttribute('data-ply') || '');
-          if (!isNaN(ply)) ctrl.userJump(ply);
-          else {
-            const action =
-              target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-            if (action === 'flip') {
-              if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-              else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
-              else ctrl.flipNow();
-            }
+          if (!isNaN(ply)) {
+            ctrl.userJump(ply);
+            return;
+          }
+
+          const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+          if (action === 'menu') ctrl.menu.toggle();
+          else if (action === 'flip') {
+            if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+            else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
+            else ctrl.flipNow();
           }
         },
         ctrl.redraw
@@ -186,7 +188,7 @@ function renderButtons(ctrl: RoundController) {
         ['', ctrl.ply + 1],
         ['', lastPly],
       ].map((b, i) => {
-        const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+        const enabled = ctrl.ply !== b[1] && (b[1] as number) >= firstPly && (b[1] as number) <= lastPly;
         return h('button.fbt', {
           class: { glowing: i === 3 && ctrl.isLate() },
           attrs: {
@@ -196,9 +198,27 @@ function renderButtons(ctrl: RoundController) {
           },
         });
       }),
-      analysisButton(ctrl) || h('div.noop'),
+      // TODO: readd this button
+      // analysisButton(ctrl) || h('div.noop'),
+      h(
+        'button.fbt.menu-button',
+        {
+          class: { active: ctrl.menu() },
+          attrs: {
+            // TODO: translation
+            title: ctrl.noarg('menu'),
+            'data-act': 'menu',
+            'data-icon': '',
+          },
+        },
+        [h('div.notification'), h('div.ring')]
+      ),
     ]
   );
+}
+
+function renderMenu(ctrl: RoundController) {
+  return h('div.menu', 'testing');
 }
 
 function initMessage(ctrl: RoundController) {
@@ -259,6 +279,7 @@ export function render(ctrl: RoundController): VNode | undefined {
     ? undefined
     : h(rmovesTag, [
         renderButtons(ctrl),
+        h('div.menu-anchor', ctrl.menu() ? renderMenu(ctrl) : undefined),
         initMessage(ctrl) ||
           (isCol1()
             ? h('div.col1-moves', [

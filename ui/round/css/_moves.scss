@@ -28,6 +28,74 @@
     }
   }
 
+  .menu-button {
+    position: relative;
+  }
+
+  .notification {
+    position: absolute;
+    top: 0;
+    bottom: 40%;
+    right: 0;
+    left: 40%;
+    margin: auto;
+
+    border-radius: 50%;
+    width: 7px;
+    height: 7px;
+    background: red;
+  }
+
+  .ring {
+    position: absolute;
+    top: 0;
+    bottom: 40%;
+    right: 0;
+    left: 40%;
+    margin: auto;
+
+    border: 3px solid red;
+    border-radius: 30px;
+    width: 25px;
+    height: 25px;
+    animation: pulsate 5s ease-out infinite;
+    // -webkit-animation-iteration-count: infinite;
+    opacity: 0;
+  }
+
+  @keyframes pulsate {
+    0% {
+      -webkit-transform: scale(0.1, 0.1);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    20% {
+      -webkit-transform: scale(1.2, 1.2);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: scale(1.2, 1.2);
+      opacity: 0;
+    }
+  }
+
+  .menu-anchor {
+    position: relative;
+  }
+
+  .menu {
+    @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+    position: absolute;
+    border-top: 2px solid $c-secondary;
+    z-index: z(mz-menu);
+    width: 100%;
+    background: $c-bg-popup;
+    gap: 1.5em;
+    padding: 1.5em;
+  }
+
   .fbt,
   .noop {
     padding: 5px 0;
