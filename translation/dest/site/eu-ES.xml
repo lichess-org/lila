@@ -947,5 +947,5 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="lichessDbExplanation">Lichesseko jokalari guztien artetik aukeratutako partidetatik aterata</string>
   <string name="switchSides">Aldatu kolorea</string>
   <string name="closingAccountWithdrawAppeal">Kontua ixten baduzu, zure kexa bertan behera geldituko da</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Txapelketak antolatzeko gure aholkuak</string>
+  <string name="ourEventTips">Txapelketak antolatzeko gure aholkuak</string>
 </resources>
