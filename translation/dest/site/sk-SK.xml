@@ -1027,5 +1027,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
   <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naše tipy ohľadom organizovania podujatí</string>
+  <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
 </resources>
