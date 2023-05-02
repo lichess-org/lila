@@ -948,5 +948,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="lichessDbExplanation">Partidas por puntos de todos los jugadores de Lichess</string>
   <string name="switchSides">Cambiar color</string>
   <string name="closingAccountWithdrawAppeal">Cerrar tu cuenta retirará tu apelación</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Nuestros consejos para organizar eventos</string>
+  <string name="ourEventTips">Nuestros consejos para organizar eventos</string>
 </resources>
