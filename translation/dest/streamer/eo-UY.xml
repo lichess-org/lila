@@ -18,6 +18,7 @@
   <string name="perk3">Sciigu viajn Lichess sekvantojn.</string>
   <string name="twitchUsername">Via uzantnomo aŭ URL de Twitch</string>
   <string name="optionalOrEmpty">Laŭvola. Lasu malplena se neniu</string>
+  <string name="youTubeChannelId">La ID de via YouTube kanalo</string>
   <plurals name="keepItShort">
     <item quantity="one">Estu mallonga: maksimume %s presliteroj</item>
     <item quantity="other">Estu mallonga: maksimume %s presliteroj</item>
