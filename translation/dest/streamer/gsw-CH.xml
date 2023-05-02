@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">D\'Lichess-Streamer-Site richtet sich a ihres Publikum mit dere Schprach, wo vu dinere Streaming-Platform bereit gschtellt wird. Wähl die richtig Schtandard-Schprach, für dini Schach-Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändsch.</string>
   <string name="twitchUsername">Din Twitch-Benutzername oder d\'URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
+  <string name="youTubeChannelId">Dini YouTube-Kanal-ID</string>
   <string name="streamerName">Din Streamername uf Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Churz fasse: Maximal %s Zeiche</item>
