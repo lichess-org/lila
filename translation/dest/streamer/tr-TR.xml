@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Lichess yayıncı sayfası yayın platformunuz tarafından sunulan dile göre izleyici kitlenizi hedefler. Yayınlarınız için kullandığınız uygulama veya servis üzerinde satranç yayınlarınızın varsayılan dilini doğru ayarlayın.</string>
   <string name="twitchUsername">Twitch kullanıcı adınız veya kanal bağlantınız</string>
   <string name="optionalOrEmpty">İsteğe bağlı. Yoksa boş bırakın</string>
+  <string name="youTubeChannelId">Youtube kanal kimliğiniz</string>
   <string name="streamerName">Lichess üzerindeki yayıncı isminiz</string>
   <plurals name="keepItShort">
     <item quantity="one">Kısa tutun: En fazla %s karakter</item>
