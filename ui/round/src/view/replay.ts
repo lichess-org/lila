@@ -9,6 +9,8 @@ import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
 import { Step, MaybeVNodes } from '../interfaces';
+import { ToggleSettings } from 'common/controls';
+import { toggle } from 'common/controls';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -217,8 +219,34 @@ function renderButtons(ctrl: RoundController) {
   );
 }
 
+const ctrlToggle = (t: ToggleSettings, ctrl: RoundController) => toggle(t, ctrl.trans, ctrl.redraw);
+
 function renderMenu(ctrl: RoundController) {
-  return h('div.menu', 'testing');
+  return h('div.menu', [
+    ctrlToggle(
+      {
+        name: 'Enable voice input',
+        title: 'Enable voice input',
+        id: 'voice',
+        checked: ctrl.voiceMoveEnabled(),
+        disabled: false,
+        change: ctrl.voiceMoveEnabled,
+      },
+      ctrl
+    ),
+    // TODO: toggle for keyboard move
+    // ctrlToggle(
+    //   {
+    //     name: 'Enable voice input',
+    //     title: 'Enable voice input',
+    //     id: 'voice',
+    //     checked: ctrl.voiceEnabled(),
+    //     disabled: false,
+    //     change: ctrl.voiceEnabled,
+    //   },
+    //   ctrl
+    // ),
+  ]);
 }
 
 function initMessage(ctrl: RoundController) {
