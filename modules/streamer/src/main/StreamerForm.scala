@@ -24,7 +24,7 @@ object StreamerForm:
           .verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)
       ),
       "youTube" -> optional(
-        text.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)
+        text.verifying("Invalid YouTube channel ID", s => Streamer.YouTube.parseChannelId(s).isDefined)
       ),
       "listed" -> of[Listed],
       "approval" -> optional(

@@ -32,7 +32,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">požádal moderátora o schválení</string>
   <string name="twitchUsername">Vaše uživatelské jméno na Twitch nebo URL</string>
   <string name="optionalOrEmpty">Nepovinné. Ponechte prázdné, pokud nemáte</string>
-  <string name="youtubeChannel">ID nebo URL adresa vašeho YouTube kanálu</string>
   <string name="streamerName">Vaše jméno streamera na Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Krátce: nejvýše %s znak</item>

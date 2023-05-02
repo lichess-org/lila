@@ -33,7 +33,6 @@
   <string name="streamerLanguageSettings">Lichess tiešraides lapa nosaka mērķauditoriju pēc valodas, ko norāda jūsu straumēšanas platforma. Iestatiet pareizo valodu savām tiešraidēm programmā vai pakalpojumā, ko izmantojat tiešraidei.</string>
   <string name="twitchUsername">Jūsu Twitch lietotājvārds vai URL</string>
   <string name="optionalOrEmpty">Neobligāti. Ja nav, atstājiet tukšu</string>
-  <string name="youtubeChannel">Jūsu YouTube kanāla ID vai URL</string>
   <string name="streamerName">Jūsu straumētāja vārds Lichess</string>
   <plurals name="keepItShort">
     <item quantity="zero">Ierobežojiet garumu: ne vairāk kā %s rakstzīmes</item>
