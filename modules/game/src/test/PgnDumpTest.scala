@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.*
-import chess.format.pgn.SanStr
+import chess.format.pgn.{ Move, SanStr }
 import chess.format.pgn.PgnTree.*
 import cats.syntax.all.*
 
@@ -9,12 +9,33 @@ class PgnDumpTest extends munit.FunSuite:
 
   def assertPgnDump(pgn: String) =
     val sanStrs = pgn.split(' ').toList.map(SanStr(_))
-    val output  = PgnDump.makeTree(sanStrs, 0, Vector.empty, Color.White).fold("")(_.render)
+    val output  = PgnDump.makeTree(sanStrs, Ply.initial, Vector.empty, Color.White).fold("")(_.render)
     val clean   = output.split(' ').grouped(3).map(_.tail).flatten.mkString(" ") // remove ply number
     assertEquals(clean, pgn)
 
   test("roundtrip pgns"):
     raws.foreach(assertPgnDump(_))
+
+  test("pgn from a ply"):
+    assertEquals(
+      PgnDump
+        .makeTree("e5 Ke2 Ke7".split(' ').toList.map(SanStr(_)), Ply(3), Vector.empty, Color.White)
+        .get,
+      Node(
+        Move(Ply(3), SanStr("e5")),
+        Some(
+          Node(
+            Move(Ply(4), SanStr("Ke2")),
+            Some(
+              Node(
+                Move(Ply(5), SanStr("Ke7")),
+                None
+              )
+            )
+          )
+        )
+      )
+    )
 
   val raws = List(
     "e3 Nc6 d4 Nf6 c3 e5 dxe5 Nxe5 Bb5 a6 Ba4 b5 Bb3 d5 e4 dxe4 f4 Qxd1+ Kxd1 Nd3 Be3 Ng4 Bd4 Ngf2+ Bxf2 Nxf2+ Ke1 Nxh1 Bd5 Ra7 Bc6+ Kd8 Bxe4 Bd6 g3 Re8 Nd2 f5 Ne2 fxe4 Kf1 e3 Kg2 exd2 Rxh1 Bb7+ Kf2 Bc5+ Kf1 d1=Q#",

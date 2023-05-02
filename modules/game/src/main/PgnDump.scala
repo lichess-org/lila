@@ -3,7 +3,7 @@ package lila.game
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
 import chess.format.{ pgn as chessPgn }
-import chess.{ Centis, Color, ByColor, Outcome, Ply }
+import chess.{ Centis, Color, ByColor, Outcome, Ply, FullMoveNumber }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
@@ -45,7 +45,7 @@ final class PgnDump(
             if (fenSituation.exists(_.situation.color.black)) SanStr("..") +: game.sans
             else game.sans
           },
-          fenSituation.fold(1)(_.fullMoveNumber.value),
+          fenSituation.fold(Ply.initial)(_.ply),
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
         )
@@ -91,7 +91,7 @@ final class PgnDump(
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] =
-    gameLightUsers(game) map { case (wu, bu) =>
+    gameLightUsers(game) map { (wu, bu) =>
       Tags {
         val importedDate = imported.flatMap(_.tags(_.Date))
         List[Option[Tag]](
@@ -132,14 +132,13 @@ final class PgnDump(
           Tag(
             _.Termination, {
               import chess.Status.*
-              game.status match {
+              game.status match
                 case Created | Started                             => "Unterminated"
                 case Aborted | NoStart                             => "Abandoned"
                 case Timeout | Outoftime                           => "Time forfeit"
                 case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
                 case Cheat                                         => "Rules infraction"
                 case UnknownFinish                                 => "Unknown"
-              }
             }
           ).some
         ).flatten ::: customStartPosition(game.variant).??(
@@ -160,15 +159,15 @@ object PgnDump:
 
   def makeTree(
       moves: Seq[SanStr],
-      from: Int,
+      from: Ply,
       clocks: Vector[Centis],
       startColor: Color
   ): Option[PgnTree] =
     val clockOffset = startColor.fold(0, 1)
     def f(san: SanStr, index: Int) = chessPgn.Move(
-      ply = Ply(index + from),
+      ply = from + index,
       san = san,
-      secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+      secondsLeft = clocks.lift(index * 2 - clockOffset).map(_.roundSeconds)
     )
     Node.build(moves.zipWithIndex, f)
 
