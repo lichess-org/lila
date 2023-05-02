@@ -59,6 +59,7 @@
   <string name="depthX">sona pi tawa kama: %s</string>
   <string name="usingServerAnalysis">kepeken sona tan ilo pana</string>
   <string name="loadingEngine">ilo sona li kama...</string>
+  <string name="calculatingMoves">mi pali e tawa...</string>
   <string name="engineFailed">kepeken pakala e sona ilo</string>
   <string name="cloudAnalysis">sona tan ilo sona ante</string>
   <string name="goDeeper">o alasa e sona sin</string>
@@ -444,6 +445,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tournamentIsStarting">musi li open</string>
   <string name="tournamentPairingsAreNowClosed">mi pini pali e linja tawa jan musi pi utala musi ni.</string>
   <string name="standByX">jan %s o, mi lukin e jan musi ante tawa sina. o awen!</string>
+  <string name="pause">o tawa ala</string>
   <string name="resume">o awen</string>
   <string name="youArePlaying">sina musi lon tenpo ni!</string>
   <string name="winRate">pini pona</string>
