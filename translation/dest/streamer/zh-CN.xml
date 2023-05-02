@@ -33,7 +33,6 @@
   <string name="streamerLanguageSettings">Lichess流页面以您的流媒体平台提供的语言为您的观众对象。 在应用程序中设置您的国际象棋流的正确默认语言或您用于广播的服务。</string>
   <string name="twitchUsername">您的 Twitch 用户名或 URL</string>
   <string name="optionalOrEmpty">可选。如果没有则留空</string>
-  <string name="youtubeChannel">您的 YouTube 频道 ID 或 URL</string>
   <string name="streamerName">Lichess上您的主播名字</string>
   <plurals name="keepItShort">
     <item quantity="other">不超过 %s 个字符</item>

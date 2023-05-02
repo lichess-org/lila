@@ -33,7 +33,6 @@
   <string name="streamerLanguageSettings">Díríonn leathanach sruthlóra Lichess ar do lucht féachana leis an teanga a sholáthraíonn d’ardán sruthú. Socraigh an teanga réamhshocraithe cheart do do shruthanna fichille san aip nó seirbhís a úsáideann tú chun craoladh.</string>
   <string name="twitchUsername">D\'ainm úsáideora nó URL Twitch</string>
   <string name="optionalOrEmpty">Roghnach. Fág folamh mura bhfuil ceann ann</string>
-  <string name="youtubeChannel">Do ID cainéal nó URL YouTube</string>
   <string name="streamerName">D\'ainm sruthú ar Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Coinnigh gearr é: %s carachtar uas</item>

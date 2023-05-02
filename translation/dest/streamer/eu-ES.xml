@@ -33,7 +33,6 @@
   <string name="streamerLanguageSettings">Lichess streamerraren orriak zure audientzia du helburu zure streaming plataformak ematen duen hizkuntzarekin. Ezarri zure xake emanaldien hizkuntza emanaldiak egiteko erabiltzen duzun app edo zerbitzuan.</string>
   <string name="twitchUsername">Zure Twitch erabiltzeaile-izena edo URLa</string>
   <string name="optionalOrEmpty">Hautazkoa. Utzi hutsik ez baduzu</string>
-  <string name="youtubeChannel">Zure YouTube kanalaren IDa edo URL</string>
   <string name="streamerName">Zure streamer izena Lichessen</string>
   <plurals name="keepItShort">
     <item quantity="one">Laburra izan dadila: gehienez karaktere %s</item>
