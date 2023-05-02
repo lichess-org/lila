@@ -10,7 +10,7 @@
     <item quantity="other">%s rondas</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s ronda suiza</item>
+    <item quantity="one">%s ronda del suizo</item>
     <item quantity="other">%s rondas suizas</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
