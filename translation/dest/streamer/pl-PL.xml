@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Lichess używa informacji o języku, jaki dostarcza mu Twoja platforma streamingowa, aby dotrzeć do Twoich docelowych odbiorców. Ustaw prawidłowy język transmisji w aplikacji lub serwisie, którego używasz do streamowania.</string>
   <string name="twitchUsername">Twoja nazwa użytkownika lub adres URL na Twitch</string>
   <string name="optionalOrEmpty">Opcjonalne. Jeśli brak, pozostaw puste</string>
+  <string name="youTubeChannelId">Twój identyfikator kanału YouTube</string>
   <string name="streamerName">Twoja nazwa streamera na Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Zachowaj zwięzłość: maksymalnie %s znak</item>
