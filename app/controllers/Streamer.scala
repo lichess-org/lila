@@ -196,7 +196,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def onYouTubeVideo = Action.async(parse.tolerantXml) { req =>
     val channel = (req.body \ "entry" \ "channelId").text
     val video   = (req.body \ "entry" \ "videoId").text
-    lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
+    if channel.nonEmpty && video.nonEmpty
+    then lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
+    else lila.log("streamer").warn(s"onYouTubeVideo $video on channel $channel ${req.body}")
     env.streamer.ytApi.onVideo(channel, video) inject Ok
   }
 
