@@ -105,7 +105,7 @@ final private class Rematcher(
           castles = situation.fold(Castles.init)(_.situation.board.history.castles)
         )
       )
-      ply = situation.fold(Ply(0))(_.ply)
+      ply = situation.fold(Ply.initial)(_.ply)
       sloppy = Game.make(
         chess = ChessGame(
           situation = Situation(
