@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Предпочитания</string>
+  <string name="display">Изглед</string>
+  <string name="privacy">Поверителност</string>
   <string name="notifications">Известия</string>
   <string name="pieceAnimation">Движение на фигурите</string>
   <string name="materialDifference">Разлика в притежанието</string>

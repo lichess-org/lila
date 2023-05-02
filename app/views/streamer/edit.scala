@@ -205,7 +205,7 @@ object edit:
                   )(form3.input(_)),
                   form3.group(
                     form("youTube"),
-                    youtubeChannel(),
+                    youTubeChannelId(),
                     help = optionalOrEmpty().some,
                     half = true
                   )(form3.input(_))

@@ -32,7 +32,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">मॉडरेटर समीक्षा का अनुरोध करें</string>
   <string name="twitchUsername">आपका Twitch उपयोगकर्ता नाम या URL</string>
   <string name="optionalOrEmpty">वैकल्पिक। खाली छोड़ दो अगर कोई नहीं है</string>
-  <string name="youtubeChannel">आपका YouTube चैनल आईडी या URL</string>
   <string name="streamerName">लिचेस पर आपका स्ट्रीमर नाम</string>
   <plurals name="keepItShort">
     <item quantity="one">इसे छोटा रखें:%s अक्षर अधिकतम</item>

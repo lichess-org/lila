@@ -1605,7 +1605,7 @@ object I18nKeys:
     val `streamerLanguageSettings` = I18nKey("streamer:streamerLanguageSettings")
     val `twitchUsername` = I18nKey("streamer:twitchUsername")
     val `optionalOrEmpty` = I18nKey("streamer:optionalOrEmpty")
-    val `youtubeChannel` = I18nKey("streamer:youtubeChannel")
+    val `youTubeChannelId` = I18nKey("streamer:youTubeChannelId")
     val `streamerName` = I18nKey("streamer:streamerName")
     val `visibility` = I18nKey("streamer:visibility")
     val `whenApproved` = I18nKey("streamer:whenApproved")

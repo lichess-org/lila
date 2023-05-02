@@ -2,7 +2,7 @@
 <resources>
   <string name="preferences">偏好设置</string>
   <string name="display">显示</string>
-  <string name="privacy">隐私</string>
+  <string name="privacy">隐私设置</string>
   <string name="notifications">通知</string>
   <string name="pieceAnimation">棋子动画</string>
   <string name="materialDifference">子力差距</string>
@@ -14,9 +14,9 @@
   <string name="chessPieceSymbol">国际象棋件符号</string>
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
-  <string name="showPlayerRatings">显示玩家等级分</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">该选项可在全站内隐藏显示等级分，使你可以专注在下棋本身。对局依旧会影响等级分，只是不显示而已。</string>
-  <string name="displayBoardResizeHandle">展示棋盘大小调整柄</string>
+  <string name="showPlayerRatings">显示等级分</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">该选项可在网站内隐藏等级分，使你可以专注于下棋本身。对局依旧会影响等级分，但不会向你显示。</string>
+  <string name="displayBoardResizeHandle">调整棋盘大小</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="blindfoldChess">盲棋(看不见棋子)</string>
   <string name="chessClock">棋钟</string>

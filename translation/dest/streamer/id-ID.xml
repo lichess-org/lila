@@ -32,7 +32,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">meminta tinjauan moderator</string>
   <string name="twitchUsername">Nama pengguna Twitch Anda atau URL</string>
   <string name="optionalOrEmpty">Opsional. Biarkan kosong jika tidak ada</string>
-  <string name="youtubeChannel">Channel YouTube ID Anda atau URL</string>
   <string name="streamerName">Nama streamer Anda di Lichess</string>
   <plurals name="keepItShort">
     <item quantity="other">Usahakan pendek: maksimal %s karakter</item>
