@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">La pàgina de comunicadors de Lichess es dirigeix al públic amb el mateix idioma que el que dona la vostra plataforma de vídeo en temps real. Establiu l\'idioma correcte de les vostres directes d\'escacs a l\'aplicació o servei que utilitzeu per comunicar.</string>
   <string name="twitchUsername">El teu nom d\'usuari o URL de Twitch</string>
   <string name="optionalOrEmpty">Opcional. Deixa-ho en blanc si no hi ha</string>
+  <string name="youTubeChannelId">L\'ID del vostre canal de YouTube</string>
   <string name="streamerName">El teu nom de retransmissor a Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Mantingues-ho breu: màxim %s caràcters</item>

@@ -826,7 +826,7 @@
   <string name="light">בהיר</string>
   <string name="dark">כהה</string>
   <string name="transparent">שקוף</string>
-  <string name="deviceTheme">עיצוב המכשיר</string>
+  <string name="deviceTheme">לפי הגדרות המכשיר</string>
   <string name="backgroundImageUrl">כתובת תמונת רקע (URL):</string>
   <string name="boardGeometry">תצוגת הלוח</string>
   <string name="boardTheme">עיצוב הלוח</string>

@@ -944,5 +944,5 @@
   <string name="lichessDbExplanation">Игри с рейтинг измежду всички Lichess играчи</string>
   <string name="switchSides">Смени страната</string>
   <string name="closingAccountWithdrawAppeal">Закриването на регистрацията Ви ще оттегли Вашето обжалване</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Нашите съвети за организиране на събития</string>
+  <string name="ourEventTips">Нашите съвети за организиране на събития</string>
 </resources>

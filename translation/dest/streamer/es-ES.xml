@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">La página de presentador de Lichess se dirige a tu audiencia con el idioma proporcionado por tu plataforma de transmisión. Establece el idioma predeterminado correcto para tus transmisiones de ajedrez en la aplicación o el servicio que uses para retransmitir.</string>
   <string name="twitchUsername">Tu nombre de usuario o URL de Twitch</string>
   <string name="optionalOrEmpty">Opcional. Déjalo vacío si no hay ninguno</string>
+  <string name="youTubeChannelId">El ID de tu canal de YouTube</string>
   <string name="streamerName">Tu nombre de presentador en Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Se breve: máximo %s carácter</item>

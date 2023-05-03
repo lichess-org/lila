@@ -946,5 +946,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
   <string name="switchSides">Renk değiştir</string>
   <string name="closingAccountWithdrawAppeal">Hesabınızı kapatırsanız başvurunuz geri çekilecektir</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Etkinlik düzenlemek için ipuçlarımız</string>
+  <string name="ourEventTips">Etkinlik düzenlemek için ipuçlarımız</string>
 </resources>

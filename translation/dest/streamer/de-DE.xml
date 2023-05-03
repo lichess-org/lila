@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Die Lichess-Streamer-Seite richtet sich an dein Publikum mit der Sprache deiner Streaming-Plattform. Lege die richtige Standardsprache für deine Schach-Streams in der App oder dem Dienst, welchen du für die Übertragung verwenden, fest.</string>
   <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen, falls nicht verfügbar</string>
+  <string name="youTubeChannelId">Deine YouTube-Kanal-ID</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Kurz fassen: Maximal %s Zeichen</item>

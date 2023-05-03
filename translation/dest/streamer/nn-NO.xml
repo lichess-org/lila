@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Strøymingssida til Lichess rettar seg mot det publikumet med same språket som strøymingsplatformen tilbyr. Oppgje det riktige standardspråket for sjakkstrøymingane dine i appen eller tenesta du brukar for å kringkaste.</string>
   <string name="twitchUsername">Brukarnamnet ditt eller URLen din på Twitch</string>
   <string name="optionalOrEmpty">Valfri. Kan vera tom</string>
+  <string name="youTubeChannelId">ID til YouTube-kanalen din</string>
   <string name="streamerName">Strøymarnamn på Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Maksimum %s teikn</item>
