@@ -69,21 +69,6 @@
     }
   }
 
-  .menu-anchor {
-    position: relative;
-  }
-
-  .menu {
-    @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
-    position: absolute;
-    border-top: 2px solid $c-secondary;
-    z-index: z(mz-menu);
-    width: 100%;
-    background: $c-bg-popup;
-    gap: 1.5em;
-    padding: 1.5em;
-  }
-
   .fbt,
   .noop {
     padding: 5px 0;

@@ -9,8 +9,7 @@ import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
 import { Step, MaybeVNodes } from '../interfaces';
-import { ToggleSettings } from 'common/controls';
-import { toggle } from 'common/controls';
+import { ToggleSettings, toggle } from 'common/controls';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -213,7 +212,7 @@ function renderButtons(ctrl: RoundController) {
             'data-icon': '',
           },
         },
-        [h('div.notification'), h('div.ring')]
+        h('div.notification')
       ),
     ]
   );
@@ -223,6 +222,7 @@ const ctrlToggle = (t: ToggleSettings, ctrl: RoundController) => toggle(t, ctrl.
 
 function renderMenu(ctrl: RoundController) {
   return h('div.menu', [
+    h('h2', 'Move input'),
     ctrlToggle(
       {
         name: 'Enable voice input',
