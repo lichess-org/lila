@@ -7,6 +7,7 @@ package lila.shutup
 private object Dictionary:
 
   def en = dict("""
+(burn|die) in hell
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
 (f|ph)agg?([oi]t|)
 (kill|hang|neck) my ?self
@@ -31,6 +32,7 @@ blumpkin
 bollock
 boner
 boob
+bozo
 braindea?d
 bugger
 buk?kake
@@ -129,6 +131,7 @@ shagg?(e?d|)
 shemale
 shit(z|e|y|ty|bag|)
 sissy
+skank
 slag
 slave
 slut
