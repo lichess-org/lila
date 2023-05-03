@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Centis, Color, Ply, Node as ChessNode }
+import chess.{ Centis, Color, Ply, Node as ChessNode, Variation }
 import chess.format.pgn.{ Comment, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.*
@@ -81,8 +81,8 @@ object TreeBuilder:
               withAnalysisChild(game.id, node, game.variant, Fen write fromGame, openingOf)(adv.info)
             }
           } getOrElse node
-
-        ChessNode.buildWithNode(games.zipWithIndex) { case ((g, m), i) => makeNode(i + 1, g, m) }
+        val tree = ChessNode.buildWithNode(games.zipWithIndex, { case ((g, m), i) => makeNode(i + 1, g, m) })
+        root.withTree(tree)
 
   private def makeLichessComment(c: Comment) =
     Node.Comment(

@@ -213,6 +213,8 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
         _.modifyWithParentPath(path.ids, x => x.copy(value = f(x.value))).map(x => copy(tree = x.some))
       )
   def withoutChildren: NewRoot = copy(tree = None)
+  def withTree(t: Option[NewTree]): NewRoot =
+    copy(tree = t)
 
   def isEmpty = tree.isEmpty
 
@@ -234,3 +236,6 @@ object NewRoot:
   def default(variant: Variant)                        = NewRoot(Metas.default(variant), None)
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
   extension (path: UciPath) def ids                    = path.computeIds.toList
+
+  def minimalNodeJsonWriter = makeNodeJsonWriter(alwaysChildren = false)
+  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] = ???
