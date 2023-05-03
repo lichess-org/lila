@@ -68,7 +68,7 @@ $mq-picture: $mq-medium;
   }
 
   .overview {
-    margin: 20px 10px 0 2.5vw;
+    margin: 20px 10px 10px 2.5vw;
     display: flex;
     flex: auto;
     flex-flow: column;
@@ -110,5 +110,10 @@ $mq-picture: $mq-medium;
       margin-#{$end-direction}: 0.4em;
       opacity: 0.7;
     }
+  }
+  .streamer-footer{
+    @extend%flex-wrap;
+    align-items: center;
+    gap: 3em;
   }
 }

@@ -110,7 +110,7 @@ object bits:
   def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang): Option[Tag] =
     ctx.isAuth option {
       val id = s"streamer-subscribe-${s.streamer.userId}"
-      label(cls := "streamer-subscribe button button-metal")(
+      label(cls := "streamer-subscribe")(
         `for`          := id,
         data("action") := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}"
       )(
@@ -124,3 +124,7 @@ object bits:
         trans.subscribe()
       )
     }
+  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang) =
+    span(cls := "streamer-profile")(
+      userLink(s.user)
+    )

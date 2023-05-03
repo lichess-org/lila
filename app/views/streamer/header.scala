@@ -62,6 +62,9 @@ object header:
             }
           )
         ),
-        !modView option bits.subscribeButtonFor(s)
+        div(cls := "streamer-footer")(
+          !modView option bits.subscribeButtonFor(s),
+          bits.streamerProfile(s)
+        )
       )
     )
