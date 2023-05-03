@@ -38,7 +38,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       html.relay.tour.page(doc, resolver, menu)
     }
 
-  def form = Auth { implicit ctx => _ =>
+  def form = Auth { ctx ?=> _ =>
     NoLameOrBot {
       Ok(html.relay.tourForm.create(env.relay.tourForm.create)).toFuccess
     }
@@ -80,7 +80,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def edit(id: TourModel.Id) = Auth { implicit ctx => _ =>
+  def edit(id: TourModel.Id) = Auth { ctx ?=> _ =>
     WithTourCanUpdate(id) { tour =>
       Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).toFuccess
     }

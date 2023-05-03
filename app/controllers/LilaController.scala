@@ -67,15 +67,16 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous and authenticated requests */
   protected def Open(f: Context ?=> Fu[Result]): Action[Unit] =
-    OpenOf(parse.empty)(f(using _))
+    OpenOf(parse.empty)(f)
 
-  protected def OpenOf[A](parser: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
-    Action.async(parser)(handleOpen(f, _))
+  protected def OpenOf[A](parser: BodyParser[A])(f: Context ?=> Fu[Result]): Action[A] =
+    Action.async(parser)(handleOpen(f(using _), _))
 
   /* Anonymous and authenticated requests, with a body */
   protected def OpenBody(f: BodyContext[?] ?=> Fu[Result]): Action[AnyContent] =
     OpenBodyOf(parse.anyContent)(f(using _))
 
+  /* Anonymous and authenticated requests, with a body */
   protected def OpenBodyOf[A](parser: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(parser) { req =>
       CSRF(req) {
@@ -168,12 +169,12 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   /* Authenticated requests */
-  protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
+  protected def Auth(f: Context ?=> UserModel => Fu[Result]): Action[Unit] =
     Auth(parse.empty)(f)
 
   /* Authenticated requests */
-  protected def Auth[A](parser: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
-    Action.async(parser) { handleAuth(f, _) }
+  protected def Auth[A](parser: BodyParser[A])(f: Context ?=> UserModel => Fu[Result]): Action[A] =
+    Action.async(parser) { handleAuth(f(using _), _) }
 
   private def handleAuth(f: Context => UserModel => Fu[Result], req: RequestHeader): Fu[Result] =
     CSRF(req) {
@@ -208,14 +209,13 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def Secure[A](
       parser: BodyParser[A]
   )(perm: Permission)(f: Context => Holder => Fu[Result]): Action[A] =
-    Auth(parser) { implicit ctx => me =>
+    Auth(parser) { me =>
       if (isGranted(perm)) f(ctx)(Holder(me)) else authorizationFailed
     }
 
-  protected def SecureF(s: UserModel => Boolean)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
-    Auth(parse.anyContent) { implicit ctx => me =>
-      if (s(me)) f(ctx)(me) else authorizationFailed
-    }
+  protected def SecureF(s: UserModel => Boolean)(f: Context ?=> UserModel => Fu[Result]): Action[AnyContent] =
+    Auth(parse.anyContent): me =>
+      if s(me) then f(me) else authorizationFailed
 
   /* Authenticated requests requiring certain permissions, with a body */
   protected def SecureBody[A](
@@ -430,7 +430,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def OptionOk[A, B: Writeable](
       fua: Fu[Option[A]]
-  )(op: A => B)(using ctx: Context): Fu[Result] =
+  )(op: A => B)(using Context): Fu[Result] =
     OptionFuOk(fua) { a =>
       fuccess(op(a))
     }
@@ -701,9 +701,9 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val ndJsonContentType = "application/x-ndjson"
   protected val csvContentType    = "text/csv"
 
-  protected def LangPage(call: Call)(f: Context => Fu[Result])(langCode: String): Action[Unit] =
+  protected def LangPage(call: Call)(f: Context ?=> Fu[Result])(langCode: String): Action[Unit] =
     LangPage(call.url)(f)(langCode)
-  protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String): Action[Unit] = Open:
+  protected def LangPage(path: String)(f: Context ?=> Fu[Result])(langCode: String): Action[Unit] = Open:
     if ctx.isAuth
     then redirectWithQueryString(path)(ctx.req).toFuccess
     else
@@ -716,7 +716,7 @@ abstract private[controllers] class LilaController(val env: Env)
         case ByHref.Found(lang) =>
           val langCtx = ctx withLang lang
           pageHit(langCtx)
-          f(langCtx)
+          f(using langCtx)
 
   protected def redirectWithQueryString(path: String)(req: RequestHeader) =
     Redirect:

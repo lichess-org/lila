@@ -98,21 +98,20 @@ final class Round(
           Ok(Json.obj("next" -> next.map(_.fullId)))
         }
 
-  def next(gameId: GameId) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.round.proxyRepo game gameId) { currentGame =>
-        otherPovs(currentGame) map getNext(currentGame) map {
-          _ orElse Pov(currentGame, me)
-        } flatMap {
-          case Some(next) => renderPlayer(next)
-          case None =>
-            fuccess(Redirect(currentGame.simulId match {
-              case Some(simulId) => routes.Simul.show(simulId)
-              case None          => routes.Round.watcher(gameId, "white")
-            }))
-        }
+  def next(gameId: GameId) = Auth { ctx ?=> me =>
+    OptionFuResult(env.round.proxyRepo game gameId) { currentGame =>
+      otherPovs(currentGame) map getNext(currentGame) map {
+        _ orElse Pov(currentGame, me)
+      } flatMap {
+        case Some(next) => renderPlayer(next)
+        case None =>
+          fuccess(Redirect(currentGame.simulId match {
+            case Some(simulId) => routes.Simul.show(simulId)
+            case None          => routes.Round.watcher(gameId, "white")
+          }))
       }
     }
+  }
 
   def watcher(gameId: GameId, color: String) = Open:
     proxyPov(gameId, color) flatMap {
@@ -284,10 +283,9 @@ final class Round(
         )
     }
 
-  def readNote(gameId: GameId) =
-    Auth { _ => me =>
-      env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
-    }
+  def readNote(gameId: GameId) = Auth { _ ?=> me =>
+    env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
+  }
 
   def continue(id: GameId, mode: String) = Open:
     OptionResult(env.game.gameRepo game id): game =>

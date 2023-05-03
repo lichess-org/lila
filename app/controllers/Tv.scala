@@ -16,9 +16,9 @@ final class Tv(
 ) extends LilaController(env):
 
   def index     = Open(serveIndex)
-  def indexLang = LangPage(routes.Tv.index)(serveIndex(using _))
-  private def serveIndex(using Context) =
-    serveChannel(lila.tv.Tv.Channel.Best.key)
+  def indexLang = LangPage(routes.Tv.index)(serveIndex)
+
+  private def serveIndex(using Context) = serveChannel(lila.tv.Tv.Channel.Best.key)
 
   def onChannel(chanKey: String) = Open(serveChannel(chanKey))
 

@@ -28,7 +28,7 @@ final class Ublog(env: Env) extends LilaController(env):
               Ok(html.ublog.blog(user, blog, posts))
             }
 
-  def drafts(username: UserStr, page: Int) = Auth { implicit ctx => me =>
+  def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me =>
     NotForKids {
       if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).toFuccess
       else
@@ -77,7 +77,7 @@ final class Ublog(env: Env) extends LilaController(env):
           }
       }
 
-  def form(username: UserStr) = Auth { implicit ctx => me =>
+  def form(username: UserStr) = Auth { ctx ?=> me =>
     NotForKids {
       if (env.ublog.api.canBlog(me))
         if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).toFuccess
@@ -163,7 +163,7 @@ final class Ublog(env: Env) extends LilaController(env):
       }
     }
 
-  def like(id: UblogPostId, v: Boolean) = Auth { implicit ctx => me =>
+  def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> me =>
     NoBot {
       NotForKids {
         env.ublog.rank.like(id, me, v) map { likes =>
@@ -227,7 +227,7 @@ final class Ublog(env: Env) extends LilaController(env):
       }
     }
 
-  def friends(page: Int) = Auth { implicit ctx => me =>
+  def friends(page: Int) = Auth { ctx ?=> me =>
     NotForKids {
       Reasonable(page, config.Max(10)) {
         env.ublog.paginator.liveByFollowed(me, page) map { posts =>
@@ -272,7 +272,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def liked(page: Int) = Auth { implicit ctx => _ =>
+  def liked(page: Int) = Auth { ctx ?=> _ =>
     NotForKids {
       Reasonable(page, config.Max(15)) {
         ctx.me ?? { me =>

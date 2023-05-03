@@ -122,13 +122,12 @@ final class Team(
       }
     }
 
-  def edit(id: TeamId) =
-    Auth { implicit ctx => me =>
-      WithOwnedTeamEnabled(id) { team =>
-        env.msg.twoFactorReminder(me.id) inject
-          html.team.form.edit(team, forms edit team)
-      }
+  def edit(id: TeamId) = Auth { ctx ?=> me =>
+    WithOwnedTeamEnabled(id) { team =>
+      env.msg.twoFactorReminder(me.id) inject
+        html.team.form.edit(team, forms edit team)
     }
+  }
 
   def update(id: TeamId) =
     AuthBody { implicit ctx => me =>
@@ -144,12 +143,11 @@ final class Team(
       }
     }
 
-  def kickForm(id: TeamId) =
-    Auth { implicit ctx => _ =>
-      WithOwnedTeamEnabled(id) { team =>
-        Ok(html.team.admin.kick(team, forms.members)).toFuccess
-      }
+  def kickForm(id: TeamId) = Auth { ctx ?=> _ =>
+    WithOwnedTeamEnabled(id) { team =>
+      Ok(html.team.admin.kick(team, forms.members)).toFuccess
     }
+  }
 
   def kick(id: TeamId) =
     AuthBody { implicit ctx => me =>
@@ -188,12 +186,11 @@ final class Team(
       }
     }
 
-  def leadersForm(id: TeamId) =
-    Auth { implicit ctx => _ =>
-      WithOwnedTeamEnabled(id) { team =>
-        Ok(html.team.admin.leaders(team, forms leaders team)).toFuccess
-      }
+  def leadersForm(id: TeamId) = Auth { ctx ?=> _ =>
+    WithOwnedTeamEnabled(id) { team =>
+      Ok(html.team.admin.leaders(team, forms leaders team)).toFuccess
     }
+  }
 
   def leaders(id: TeamId) =
     AuthBody { implicit ctx => me =>
@@ -238,14 +235,13 @@ final class Team(
       } inject Redirect(routes.Team show id).flashSuccess
     }
 
-  def form =
-    Auth { implicit ctx => me =>
-      LimitPerWeek(me) {
-        forms.anyCaptcha map { captcha =>
-          Ok(html.team.form.create(forms.create, captcha))
-        }
+  def form = Auth { ctx ?=> me =>
+    LimitPerWeek(me) {
+      forms.anyCaptcha map { captcha =>
+        Ok(html.team.form.create(forms.create, captcha))
       }
     }
+  }
 
   private val OneAtATime = new lila.memo.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
@@ -276,22 +272,20 @@ final class Team(
     }
   }
 
-  def mine =
-    Auth { implicit ctx => me =>
-      api mine me map {
-        html.team.list.mine(_)
-      }
+  def mine = Auth { ctx ?=> me =>
+    api mine me map {
+      html.team.list.mine(_)
     }
+  }
 
   private def tooManyTeams(me: UserModel)(implicit ctx: Context) =
     api mine me map html.team.list.mine map { BadRequest(_) }
 
-  def leader =
-    Auth { implicit ctx => me =>
-      env.team.teamRepo enabledTeamsByLeader me.id map {
-        html.team.list.ledByMe(_)
-      }
+  def leader = Auth { ctx ?=> me =>
+    env.team.teamRepo enabledTeamsByLeader me.id map {
+      html.team.list.ledByMe(_)
     }
+  }
 
   def join(id: TeamId) =
     AuthOrScopedBody(_.Team.Write)(
@@ -366,19 +360,17 @@ final class Team(
       scoped = req => me => doSub(req, me) inject jsonOkResult
     )
 
-  def requests =
-    Auth { implicit ctx => me =>
-      import lila.memo.CacheApi.*
-      env.team.cached.nbRequests invalidate me.id
-      api requestsWithUsers me map { html.team.request.all(_) }
-    }
+  def requests = Auth { ctx ?=> me =>
+    import lila.memo.CacheApi.*
+    env.team.cached.nbRequests invalidate me.id
+    api requestsWithUsers me map { html.team.request.all(_) }
+  }
 
-  def requestForm(id: TeamId) =
-    Auth { implicit ctx => me =>
-      OptionFuOk(api.requestable(id, me)) { team =>
-        fuccess(html.team.request.requestForm(team, forms.request(team)))
-      }
+  def requestForm(id: TeamId) = Auth { ctx ?=> me =>
+    OptionFuOk(api.requestable(id, me)) { team =>
+      fuccess(html.team.request.requestForm(team, forms.request(team)))
     }
+  }
 
   def requestCreate(id: TeamId) =
     AuthBody { implicit ctx => me =>
@@ -423,14 +415,13 @@ final class Team(
       }
     }
 
-  def declinedRequests(id: TeamId, page: Int) =
-    Auth { implicit ctx => _ =>
-      WithOwnedTeamEnabled(id) { team =>
-        paginator.declinedRequests(team, page) map { requests =>
-          Ok(html.team.declinedRequest.all(team, requests))
-        }
+  def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ =>
+    WithOwnedTeamEnabled(id) { team =>
+      paginator.declinedRequests(team, page) map { requests =>
+        Ok(html.team.declinedRequest.all(team, requests))
       }
     }
+  }
 
   def quit(id: TeamId) =
     AuthOrScoped(_.Team.Write)(
@@ -480,19 +471,17 @@ final class Team(
           }
     }
 
-  def pmAll(id: TeamId) =
-    Auth { implicit ctx => _ =>
-      WithOwnedTeamEnabled(id) { team =>
-        renderPmAll(team, forms.pmAll)
-      }
+  def pmAll(id: TeamId) = Auth { ctx ?=> _ =>
+    WithOwnedTeamEnabled(id) { team =>
+      renderPmAll(team, forms.pmAll)
     }
+  }
 
-  private def renderPmAll(team: TeamModel, form: Form[?])(implicit ctx: Context) =
-    for {
-      tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
-      unsubs  <- env.team.cached.unsubs.get(team.id)
-      limiter <- env.teamInfo.pmAllStatus(team.id)
-    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
+  private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
+    tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+    unsubs  <- env.team.cached.unsubs.get(team.id)
+    limiter <- env.teamInfo.pmAllStatus(team.id)
+  yield Ok(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
 
   def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(

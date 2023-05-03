@@ -59,7 +59,7 @@ final class Main(
       html.site.lag()
 
   def mobile     = Open(serveMobile)
-  def mobileLang = LangPage(routes.Main.mobile)(serveMobile(using _))
+  def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
   private def serveMobile(using Context) =
     pageHit

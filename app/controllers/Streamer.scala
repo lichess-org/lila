@@ -93,17 +93,16 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         env.streamer.api.sameChannels(streamer) map some
     }
 
-  def edit =
-    Auth { implicit ctx => _ =>
-      AsStreamer { s =>
-        env.msg.twoFactorReminder(s.user.id) >>
-          env.streamer.liveStreamApi.of(s).flatMap { sws =>
-            modData(s.streamer) map { forMod =>
-              Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)).noCache
-            }
+  def edit = Auth { ctx ?=> _ =>
+    AsStreamer { s =>
+      env.msg.twoFactorReminder(s.user.id) >>
+        env.streamer.liveStreamApi.of(s).flatMap { sws =>
+          modData(s.streamer) map { forMod =>
+            Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)).noCache
           }
-      }
+        }
     }
+  }
 
   def editApply =
     AuthBody { implicit ctx => me =>
@@ -147,12 +146,11 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def picture =
-    Auth { implicit ctx => _ =>
-      AsStreamer { s =>
-        Ok(html.streamer.picture(s)).noCache.toFuccess
-      }
+  def picture = Auth { ctx ?=> _ =>
+    AsStreamer { s =>
+      Ok(html.streamer.picture(s)).noCache.toFuccess
     }
+  }
 
   private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "streamer.image.ip"

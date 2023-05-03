@@ -41,8 +41,7 @@ final class Study(
           )
         }
 
-  def homeLang =
-    LangPage(routes.Study.allDefault())(allResults(Order.Hot, 1)(using _))
+  def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.Hot, 1))
 
   def allDefault(page: Int) = all(Order.Hot, page)
 
@@ -78,59 +77,54 @@ final class Study(
                 api = _ => apiStudies(pag)
               )
 
-  def mine(order: Order, page: Int) =
-    Auth { implicit ctx => me =>
-      env.study.pager.mine(me, order, page) flatMap { pag =>
-        preloadMembers(pag) >> negotiate(
-          html = env.study.topicApi.userTopics(me.id) map { topics =>
-            Ok(html.study.list.mine(pag, order, me, topics))
-          },
-          api = _ => apiStudies(pag)
-        )
-      }
+  def mine(order: Order, page: Int) = Auth { ctx ?=> me =>
+    env.study.pager.mine(me, order, page) flatMap { pag =>
+      preloadMembers(pag) >> negotiate(
+        html = env.study.topicApi.userTopics(me.id) map { topics =>
+          Ok(html.study.list.mine(pag, order, me, topics))
+        },
+        api = _ => apiStudies(pag)
+      )
     }
+  }
 
-  def minePublic(order: Order, page: Int) =
-    Auth { implicit ctx => me =>
-      env.study.pager.minePublic(me, order, page) flatMap { pag =>
-        preloadMembers(pag) >> negotiate(
-          html = Ok(html.study.list.minePublic(pag, order, me)).toFuccess,
-          api = _ => apiStudies(pag)
-        )
-      }
+  def minePublic(order: Order, page: Int) = Auth { ctx ?=> me =>
+    env.study.pager.minePublic(me, order, page) flatMap { pag =>
+      preloadMembers(pag) >> negotiate(
+        html = Ok(html.study.list.minePublic(pag, order, me)).toFuccess,
+        api = _ => apiStudies(pag)
+      )
     }
+  }
 
-  def minePrivate(order: Order, page: Int) =
-    Auth { implicit ctx => me =>
-      env.study.pager.minePrivate(me, order, page) flatMap { pag =>
-        preloadMembers(pag) >> negotiate(
-          html = Ok(html.study.list.minePrivate(pag, order, me)).toFuccess,
-          api = _ => apiStudies(pag)
-        )
-      }
+  def minePrivate(order: Order, page: Int) = Auth { ctx ?=> me =>
+    env.study.pager.minePrivate(me, order, page) flatMap { pag =>
+      preloadMembers(pag) >> negotiate(
+        html = Ok(html.study.list.minePrivate(pag, order, me)).toFuccess,
+        api = _ => apiStudies(pag)
+      )
     }
+  }
 
-  def mineMember(order: Order, page: Int) =
-    Auth { implicit ctx => me =>
-      env.study.pager.mineMember(me, order, page) flatMap { pag =>
-        preloadMembers(pag) >> negotiate(
-          html = env.study.topicApi.userTopics(me.id) map { topics =>
-            Ok(html.study.list.mineMember(pag, order, me, topics))
-          },
-          api = _ => apiStudies(pag)
-        )
-      }
+  def mineMember(order: Order, page: Int) = Auth { ctx ?=> me =>
+    env.study.pager.mineMember(me, order, page) flatMap { pag =>
+      preloadMembers(pag) >> negotiate(
+        html = env.study.topicApi.userTopics(me.id) map { topics =>
+          Ok(html.study.list.mineMember(pag, order, me, topics))
+        },
+        api = _ => apiStudies(pag)
+      )
     }
+  }
 
-  def mineLikes(order: Order, page: Int) =
-    Auth { implicit ctx => me =>
-      env.study.pager.mineLikes(me, order, page) flatMap { pag =>
-        preloadMembers(pag) >> negotiate(
-          html = Ok(html.study.list.mineLikes(pag, order)).toFuccess,
-          api = _ => apiStudies(pag)
-        )
-      }
+  def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me =>
+    env.study.pager.mineLikes(me, order, page) flatMap { pag =>
+      preloadMembers(pag) >> negotiate(
+        html = Ok(html.study.list.mineLikes(pag, order)).toFuccess,
+        api = _ => apiStudies(pag)
+      )
     }
+  }
 
   def byTopic(name: String, order: Order, page: Int) = Open:
     lila.study.StudyTopic fromStr name match
@@ -298,22 +292,20 @@ final class Study(
       }
     }
 
-  def delete(id: StudyId) =
-    Auth { _ => me =>
-      env.study.api.byIdAndOwnerOrAdmin(id, me) flatMapz { study =>
-        env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
-          case None       => Redirect(routes.Study.mine("hot"))
-          case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-        }
+  def delete(id: StudyId) = Auth { _ ?=> me =>
+    env.study.api.byIdAndOwnerOrAdmin(id, me) flatMapz { study =>
+      env.study.api.delete(study) >> env.relay.api.deleteRound(id into RelayRoundId).map {
+        case None       => Redirect(routes.Study.mine("hot"))
+        case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
       }
     }
+  }
 
-  def clearChat(id: StudyId) =
-    Auth { _ => me =>
-      env.study.api.isOwnerOrAdmin(id, me) flatMapz {
-        env.chat.api.userChat.clear(id into ChatId)
-      } inject Redirect(routes.Study.show(id))
-    }
+  def clearChat(id: StudyId) = Auth { _ ?=> me =>
+    env.study.api.isOwnerOrAdmin(id, me) flatMapz {
+      env.chat.api.userChat.clear(id into ChatId)
+    } inject Redirect(routes.Study.show(id))
+  }
 
   def importPgn(id: StudyId) =
     AuthBody { implicit ctx => me =>
@@ -385,14 +377,13 @@ final class Study(
   private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
     fuccess(NotFound(html.study.embed.notFound))
 
-  def cloneStudy(id: StudyId) =
-    Auth { implicit ctx => _ =>
-      OptionFuResult(env.study.api.byId(id)) { study =>
-        CanView(study, ctx.me) {
-          Ok(html.study.clone(study)).toFuccess
-        }(privateUnauthorizedFu(study), privateForbiddenFu(study))
-      }
+  def cloneStudy(id: StudyId) = Auth { ctx ?=> _ =>
+    OptionFuResult(env.study.api.byId(id)) { study =>
+      CanView(study, ctx.me) {
+        Ok(html.study.clone(study)).toFuccess
+      }(privateUnauthorizedFu(study), privateForbiddenFu(study))
     }
+  }
 
   private val CloneLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 3,
@@ -406,21 +397,20 @@ final class Study(
     key = "study.clone.ip"
   )
 
-  def cloneApply(id: StudyId) =
-    Auth { implicit ctx => me =>
-      val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
-      CloneLimitPerUser(me.id, cost = cost) {
-        CloneLimitPerIP(ctx.ip, cost = cost) {
-          OptionFuResult(env.study.api.byId(id)) { prev =>
-            CanView(prev, me.some) {
-              env.study.api.clone(me, prev) map { study =>
-                Redirect(routes.Study.show((study | prev).id))
-              }
-            }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
-          }
-        }(rateLimitedFu)
+  def cloneApply(id: StudyId) = Auth { ctx ?=> me =>
+    val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
+    CloneLimitPerUser(me.id, cost = cost) {
+      CloneLimitPerIP(ctx.ip, cost = cost) {
+        OptionFuResult(env.study.api.byId(id)) { prev =>
+          CanView(prev, me.some) {
+            env.study.api.clone(me, prev) map { study =>
+              Redirect(routes.Study.show((study | prev).id))
+            }
+          }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
+        }
       }(rateLimitedFu)
-    }
+    }(rateLimitedFu)
+  }
 
   private val PgnRateLimitPerIp = lila.memo.RateLimit[IpAddress](
     credits = 31,

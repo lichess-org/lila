@@ -508,14 +508,13 @@ final class User(
       env.user.noteApi.write(user, data.text, me, isMod, isMod && data.dox) >> f(user)
     }
 
-  def deleteNote(id: String) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.user.noteApi.byId(id)) { note =>
-        (note.isFrom(me) && !note.mod) ?? {
-          env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
-        }
+  def deleteNote(id: String) = Auth { ctx ?=> me =>
+    OptionFuResult(env.user.noteApi.byId(id)) { note =>
+      (note.isFrom(me) && !note.mod) ?? {
+        env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
       }
     }
+  }
 
   def setDoxNote(id: String, dox: Boolean) =
     Secure(_.Admin) { implicit ctx => _ =>
@@ -526,28 +525,27 @@ final class User(
       }
     }
 
-  def opponents =
-    Auth { implicit ctx => me =>
-      getUserStr("u")
-        .ifTrue(isGranted(_.BoostHunter))
-        .??(env.user.repo.byId)
-        .map(_ | me)
-        .flatMap { user =>
-          for {
-            ops         <- env.game.favoriteOpponents(user.id)
-            followables <- env.pref.api.followables(ops map (_._1.id))
-            relateds <-
-              ops
-                .zip(followables)
-                .map { case ((u, nb), followable) =>
-                  relationApi.fetchRelation(user.id, u.id) map {
-                    lila.relation.Related(u, nb.some, followable, _)
-                  }
+  def opponents = Auth { ctx ?=> me =>
+    getUserStr("u")
+      .ifTrue(isGranted(_.BoostHunter))
+      .??(env.user.repo.byId)
+      .map(_ | me)
+      .flatMap { user =>
+        for {
+          ops         <- env.game.favoriteOpponents(user.id)
+          followables <- env.pref.api.followables(ops map (_._1.id))
+          relateds <-
+            ops
+              .zip(followables)
+              .map { case ((u, nb), followable) =>
+                relationApi.fetchRelation(user.id, u.id) map {
+                  lila.relation.Related(u, nb.some, followable, _)
                 }
-                .parallel
-          } yield html.relation.bits.opponents(user, relateds)
-        }
-    }
+              }
+              .parallel
+        } yield html.relation.bits.opponents(user, relateds)
+      }
+  }
 
   def perfStat(username: UserStr, perfKey: Perf.Key) = Open:
     env.perfStat.api
@@ -618,10 +616,9 @@ final class User(
         }
       case _ => notFound
 
-  def myself =
-    Auth { _ => me =>
-      fuccess(Redirect(routes.User.show(me.username)))
-    }
+  def myself = Auth { _ ?=> me =>
+    fuccess(Redirect(routes.User.show(me.username)))
+  }
 
   def redirect(username: UserStr) = Open:
     staticRedirect(username.value) | {

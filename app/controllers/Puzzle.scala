@@ -89,7 +89,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def home = Open(serveHome)
 
-  def homeLang = LangPage(routes.Puzzle.home.url)(serveHome(using _))
+  def homeLang = LangPage(routes.Puzzle.home.url)(serveHome)
 
   private def serveHome(using Context) = NoBot:
     val angle = PuzzleAngle.mix
@@ -220,7 +220,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
 
   def streak     = Open(serveStreak)
-  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak(using _))
+  def streakLang = LangPage(routes.Puzzle.streak)(serveStreak)
 
   private def serveStreak(using ctx: Context) = NoBot:
     streakJsonAndPuzzle.mapz: (json, puzzle) =>
@@ -304,7 +304,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def themes     = Open(serveThemes)
-  def themesLang = LangPage(routes.Puzzle.themes)(serveThemes(using _))
+  def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
   private def serveThemes(using Context) =
     env.puzzle.api.angles map { all =>
@@ -326,7 +326,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def show(angleOrId: String) = Open(serveShow(angleOrId))
   def showLang(lang: String, angleOrId: String) =
-    LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId)(using _))(lang)
+    LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId))(lang)
 
   private def serveShow(angleOrId: String)(using ctx: Context) = NoBot:
     val langPath = LangPath(routes.Puzzle.show(angleOrId)).some
@@ -414,32 +414,30 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def replay(days: Int, themeKey: PuzzleTheme.Key) =
-    Auth { implicit ctx => me =>
-      val theme         = PuzzleTheme.findOrMix(themeKey)
-      val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
-      env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
-        case None =>
-          Redirect(routes.Puzzle.dashboard(days, "home", none)).toFuccess
-        case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
-      }
+  def replay(days: Int, themeKey: PuzzleTheme.Key) = Auth { ctx ?=> me =>
+    val theme         = PuzzleTheme.findOrMix(themeKey)
+    val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
+    env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
+      case None =>
+        Redirect(routes.Puzzle.dashboard(days, "home", none)).toFuccess
+      case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
     }
+  }
 
-  def mobileHistory(page: Int) =
-    Auth { implicit ctx => me =>
-      negotiate(
-        html = notFound,
-        _ => {
-          import lila.puzzle.JsonView.given
-          Reasonable(page) {
-            env.puzzle.history(me, page) map { historyPaginator =>
-              Ok(lila.common.paginator.PaginatorJson(historyPaginator))
-            }
+  def mobileHistory(page: Int) = Auth { ctx ?=> me =>
+    negotiate(
+      html = notFound,
+      _ => {
+        import lila.puzzle.JsonView.given
+        Reasonable(page) {
+          env.puzzle.history(me, page) map { historyPaginator =>
+            Ok(lila.common.paginator.PaginatorJson(historyPaginator))
           }
         }
-      )
+      }
+    )
 
-    }
+  }
 
   def history(page: Int, u: Option[UserStr]) =
     DashboardPage(u) { implicit ctx => user =>
@@ -505,7 +503,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
 
   /* Mobile API: select a bunch of puzzles for offline use */
-  def mobileBcBatchSelect = Auth { implicit ctx => _ =>
+  def mobileBcBatchSelect = Auth { ctx ?=> _ =>
     negotiate(
       html = notFound,
       api = _ => {
@@ -570,8 +568,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def help = Open:
     Ok(html.site.keyboardHelpModal.puzzle).toFuccess
 
-  private def DashboardPage(username: Option[UserStr])(f: Context => UserModel => Fu[Result]) =
-    Auth { implicit ctx => me =>
+  private def DashboardPage(username: Option[UserStr])(f: Context => UserModel => Fu[Result]) = Auth {
+    ctx ?=> me =>
       username
         .??(env.user.repo.byId)
         .flatMapz { user =>
@@ -582,4 +580,4 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         }
         .dmap(_ | me)
         .flatMap(f(ctx))
-    }
+  }

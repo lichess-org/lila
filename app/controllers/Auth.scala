@@ -84,7 +84,7 @@ final class Auth(
       }
 
   def login     = Open(serveLogin)
-  def loginLang = LangPage(routes.Auth.login)(serveLogin(using _))
+  def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private def serveLogin(using ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
@@ -169,7 +169,7 @@ final class Auth(
       ).dmap(_.withCookies(env.lilaCookie.newSession))
 
   // mobile app BC logout with GET
-  def logoutGet = Auth { implicit ctx => _ =>
+  def logoutGet = Auth { _ ?=> _ =>
     negotiate(
       html = Ok(html.auth.bits.logout()).toFuccess,
       api = _ => {
@@ -180,11 +180,10 @@ final class Auth(
   }
 
   def signup     = Open(serveSignup)
-  def signupLang = LangPage(routes.Auth.signup)(serveSignup(using _))
-  private def serveSignup(using Context) =
-    NoTor:
-      forms.signup.website.map: form =>
-        Ok(html.auth.signup(form))
+  def signupLang = LangPage(routes.Auth.signup)(serveSignup)
+  private def serveSignup(using Context) = NoTor:
+    forms.signup.website.map: form =>
+      Ok(html.auth.signup(form))
 
   private def authLog(user: String, email: String, msg: String) =
     lila.log("auth").info(s"$user $email $msg")
@@ -306,21 +305,20 @@ final class Auth(
       ) map authenticateCookie(sessionId, remember = true)
     } recoverWith authRecovery
 
-  def setFingerPrint(fp: String, ms: Int) =
-    Auth { ctx => me =>
-      lila.mon.http.fingerPrint.record(ms)
-      api
-        .setFingerPrint(ctx.req, FingerPrint(fp))
-        .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMapz { hash =>
-        !me.lame ?? (for
-          otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
-          _ <- (otherIds.sizeIs >= 2) ?? env.user.repo.countLameOrTroll(otherIds).flatMap {
-            case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.id)
-            case _                                        => funit
-          }
-        yield ())
-      } inject NoContent
-    }
+  def setFingerPrint(fp: String, ms: Int) = Auth { ctx ?=> me =>
+    lila.mon.http.fingerPrint.record(ms)
+    api
+      .setFingerPrint(ctx.req, FingerPrint(fp))
+      .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMapz { hash =>
+      !me.lame ?? (for
+        otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
+        _ <- (otherIds.sizeIs >= 2) ?? env.user.repo.countLameOrTroll(otherIds).flatMap {
+          case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.id)
+          case _                                        => funit
+        }
+      yield ())
+    } inject NoContent
+  }
 
   private def renderPasswordReset(form: Option[play.api.data.Form[PasswordReset]], fail: Boolean)(using
       ctx: Context
@@ -487,11 +485,10 @@ final class Auth(
     then Redirect(getReferrer).toFuccess
     else
       Firewall:
-        consumingToken(token) { user =>
+        consumingToken(token): user =>
           env.security.loginToken.generate(user) map { newToken =>
             Ok(html.auth.bits.tokenLoginConfirmation(user, newToken, get("referrer")))
           }
-        }
 
   def loginWithTokenPost(token: String, @annotation.nowarn referrer: Option[String]) =
     Open:

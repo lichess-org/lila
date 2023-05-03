@@ -49,18 +49,16 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
     }
 
-  def authorizeApply =
-    Auth { implicit ctx => me =>
-      withPrompt { prompt =>
-        prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
-          case Validated.Valid(authorized) =>
-            env.oAuth.authorizationApi.create(authorized) map { code =>
-              SeeOther(authorized.redirectUrl(code))
-            }
-          case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
-        }
+  def authorizeApply = Auth { _ ?=> me =>
+    withPrompt: prompt =>
+      prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
+        case Validated.Valid(authorized) =>
+          env.oAuth.authorizationApi.create(authorized) map { code =>
+            SeeOther(authorized.redirectUrl(code))
+          }
+        case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
       }
-    }
+  }
 
   private val accessTokenRequestForm =
     import lila.oauth.Protocol.*

@@ -9,12 +9,12 @@ import lila.common.HTTPRequest
 final class Storm(env: Env) extends LilaController(env):
 
   def home     = Open(serveHome)
-  def homeLang = LangPage(routes.Storm.home)(serveHome(using _))
-  private def serveHome(using ctx: Context) = NoBot {
+  def homeLang = LangPage(routes.Storm.home)(serveHome)
+
+  private def serveHome(using ctx: Context) = NoBot:
     dataAndHighScore(ctx.me, ctx.pref.some) map { (data, high) =>
       Ok(views.html.storm.home(data, high)).noCache
     }
-  }
 
   private def dataAndHighScore(me: Option[lila.user.User], pref: Option[lila.pref.Pref]) =
     env.storm.selector.apply flatMap { puzzles =>
@@ -43,10 +43,9 @@ final class Storm(env: Env) extends LilaController(env):
       scoped = req => me => doRecord(me.some, mobile = HTTPRequest.isLichessMobile(req))(using req)
     )
 
-  def dashboard(page: Int) =
-    Auth { implicit ctx => me =>
-      renderDashboardOf(me, page)
-    }
+  def dashboard(page: Int) = Auth { ctx ?=> me =>
+    renderDashboardOf(me, page)
+  }
 
   def dashboardOf(username: UserStr, page: Int) = Open:
     env.user.repo.enabledById(username).flatMapz {

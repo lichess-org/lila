@@ -24,7 +24,7 @@ final class Swiss(
   private def swissNotFound(using Context) = NotFound(html.swiss.bits.notFound())
 
   def home     = Open(serveHome)
-  def homeLang = LangPage(routes.Swiss.home)(serveHome(using _))
+  def homeLang = LangPage(routes.Swiss.home)(serveHome)
 
   private def serveHome(using Context) = NoBot {
     ctx.userId.??(env.team.cached.teamIdsList) flatMap
@@ -108,34 +108,30 @@ final class Swiss(
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMapz f
 
-  def form(teamId: TeamId) =
-    Auth { implicit ctx => me =>
-      NoLameOrBot {
-        CheckTeamLeader(teamId) {
-          Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).toFuccess
-        }
+  def form(teamId: TeamId) = Auth { ctx ?=> me =>
+    NoLameOrBot {
+      CheckTeamLeader(teamId) {
+        Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).toFuccess
       }
     }
+  }
 
-  def create(teamId: TeamId) =
-    AuthBody { implicit ctx => me =>
-      NoLameOrBot {
-        CheckTeamLeader(teamId) {
-          env.swiss.forms
-            .create(me)
-            .bindFromRequest()(ctx.body, formBinding)
-            .fold(
-              err => BadRequest(html.swiss.form.create(err, teamId)).toFuccess,
-              data =>
-                tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
-                  env.swiss.api.create(data, me, teamId) map { swiss =>
-                    Redirect(routes.Swiss.show(swiss.id))
-                  }
+  def create(teamId: TeamId) = AuthBody { implicit ctx => me =>
+    NoLameOrBot:
+      CheckTeamLeader(teamId):
+        env.swiss.forms
+          .create(me)
+          .bindFromRequest()(ctx.body, formBinding)
+          .fold(
+            err => BadRequest(html.swiss.form.create(err, teamId)).toFuccess,
+            data =>
+              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
+                env.swiss.api.create(data, me, teamId) map { swiss =>
+                  Redirect(routes.Swiss.show(swiss.id))
                 }
-            )
-        }
-      }
-    }
+              }
+          )
+  }
 
   def apiCreate(teamId: TeamId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
@@ -195,26 +191,24 @@ final class Swiss(
       }
     }
 
-  def withdraw(id: SwissId) =
-    Auth { implicit ctx => me =>
-      env.swiss.api.withdraw(id, me.id) >>
-        negotiate(
-          html = Redirect(routes.Swiss.show(id)).toFuccess,
-          api = _ => fuccess(jsonOkResult)
-        )
-    }
+  def withdraw(id: SwissId) = Auth { ctx ?=> me =>
+    env.swiss.api.withdraw(id, me.id) >>
+      negotiate(
+        html = Redirect(routes.Swiss.show(id)).toFuccess,
+        api = _ => fuccess(jsonOkResult)
+      )
+  }
 
   def apiWithdraw(id: SwissId) =
     ScopedBody(_.Tournament.Write) { _ => me =>
       env.swiss.api.withdraw(id, me.id) inject jsonOkResult
     }
 
-  def edit(id: SwissId) =
-    Auth { implicit ctx => me =>
-      WithEditableSwiss(id, me) { swiss =>
-        Ok(html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss))).toFuccess
-      }
+  def edit(id: SwissId) = Auth { ctx ?=> me =>
+    WithEditableSwiss(id, me) { swiss =>
+      Ok(html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss))).toFuccess
     }
+  }
 
   def update(id: SwissId) =
     AuthBody { implicit ctx => me =>
@@ -273,12 +267,10 @@ final class Swiss(
       scoped = req => doSchedule(using req)
     )
 
-  def terminate(id: SwissId) =
-    Auth { _ => me =>
-      WithEditableSwiss(id, me) { swiss =>
-        env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
-      }
-    }
+  def terminate(id: SwissId) = Auth { _ ?=> me =>
+    WithEditableSwiss(id, me): swiss =>
+      env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
+  }
 
   def standing(id: SwissId, page: Int) =
     Action.async {

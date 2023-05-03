@@ -24,12 +24,10 @@ final class Challenge(
 
   def api = env.challenge.api
 
-  def all =
-    Auth { implicit ctx => me =>
-      XhrOrRedirectHome {
-        api allFor me.id map env.challenge.jsonView.apply map JsonOk
-      }
-    }
+  def all = Auth { ctx ?=> me =>
+    XhrOrRedirectHome:
+      api allFor me.id map env.challenge.jsonView.apply map JsonOk
+  }
 
   def apiList =
     ScopedBody(_.Challenge.Read) { implicit req => me =>
@@ -427,20 +425,17 @@ final class Challenge(
       )
   }
 
-  def offerRematchForGame(gameId: GameId) =
-    Auth { implicit ctx => me =>
-      NoBot {
-        OptionFuResult(env.game.gameRepo game gameId) { g =>
-          Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.repo.byId flatMapz { opponent =>
-            env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
-              case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d)).toFuccess
-              case _ =>
-                api.offerRematchForGame(g, me) map {
-                  case true => jsonOkResult
-                  case _    => BadRequest(jsonError("Sorry, couldn't create the rematch."))
-                }
-            }
+  def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me =>
+    NoBot:
+      OptionFuResult(env.game.gameRepo game gameId): g =>
+        Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.repo.byId flatMapz { opponent =>
+          env.challenge.granter.isDenied(me.some, opponent, g.perfType) flatMap {
+            case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d)).toFuccess
+            case _ =>
+              api.offerRematchForGame(g, me) map {
+                case true => jsonOkResult
+                case _    => BadRequest(jsonError("Sorry, couldn't create the rematch."))
+              }
           }
         }
-      }
-    }
+  }

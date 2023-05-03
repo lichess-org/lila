@@ -15,7 +15,8 @@ final class Simul(env: Env) extends LilaController(env):
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
   def home     = Open(serveHome)
-  def homeLang = LangPage(routes.Simul.home)(serveHome(using _))
+  def homeLang = LangPage(routes.Simul.home)(serveHome)
+
   private def serveHome(using ctx: Context) = NoBot {
     pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
@@ -76,16 +77,15 @@ final class Simul(env: Env) extends LilaController(env):
     AsHost(simulId): simul =>
       env.simul.api start simul.id inject jsonOkResult
 
-  def abort(simulId: SimulId) =
-    Auth { implicit ctx => me =>
-      AsHost(simulId) { simul =>
-        env.simul.api abort simul.id inject {
-          if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id into ModId, simul.fullName)
-          if (HTTPRequest isXhr ctx.req) jsonOkResult
-          else Redirect(routes.Simul.home)
-        }
+  def abort(simulId: SimulId) = Auth { ctx ?=> me =>
+    AsHost(simulId) { simul =>
+      env.simul.api abort simul.id inject {
+        if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id into ModId, simul.fullName)
+        if (HTTPRequest isXhr ctx.req) jsonOkResult
+        else Redirect(routes.Simul.home)
       }
     }
+  }
 
   def accept(simulId: SimulId, userId: UserStr) = Open:
     AsHost(simulId): simul =>
@@ -104,7 +104,7 @@ final class Simul(env: Env) extends LilaController(env):
           text => env.simul.api.setText(simul.id, text) inject jsonOkResult
         )
 
-  def form = Auth { implicit ctx => me =>
+  def form = Auth { ctx ?=> me =>
     NoLameOrBot {
       env.team.api.lightsByLeader(me.id) map { teams =>
         Ok(html.simul.form.create(forms.create(me, teams), teams))
@@ -133,33 +133,30 @@ final class Simul(env: Env) extends LilaController(env):
     }
   }
 
-  def join(id: SimulId, variant: chess.variant.Variant.LilaKey) =
-    Auth { implicit ctx => implicit me =>
-      NoLameOrBot:
-        env.simul.api
-          .addApplicant(id, me, variant)
-          .inject:
-            if (HTTPRequest isXhr ctx.req)
-            then jsonOkResult
-            else Redirect(routes.Simul.show(id))
-    }
+  def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> implicit me =>
+    NoLameOrBot:
+      env.simul.api
+        .addApplicant(id, me, variant)
+        .inject:
+          if (HTTPRequest isXhr ctx.req)
+          then jsonOkResult
+          else Redirect(routes.Simul.show(id))
+  }
 
-  def withdraw(id: SimulId) =
-    Auth { implicit ctx => me =>
-      env.simul.api.removeApplicant(id, me) inject {
-        if (HTTPRequest isXhr ctx.req) jsonOkResult
-        else Redirect(routes.Simul.show(id))
+  def withdraw(id: SimulId) = Auth { ctx ?=> me =>
+    env.simul.api.removeApplicant(id, me) inject {
+      if (HTTPRequest isXhr ctx.req) jsonOkResult
+      else Redirect(routes.Simul.show(id))
+    }
+  }
+
+  def edit(id: SimulId) = Auth { ctx ?=> me =>
+    WithEditableSimul(id) { simul =>
+      env.team.api.lightsByLeader(me.id) map { teams =>
+        Ok(html.simul.form.edit(forms.edit(me, teams, simul), teams, simul))
       }
     }
-
-  def edit(id: SimulId) =
-    Auth { implicit ctx => me =>
-      WithEditableSimul(id) { simul =>
-        env.team.api.lightsByLeader(me.id) map { teams =>
-          Ok(html.simul.form.edit(forms.edit(me, teams, simul), teams, simul))
-        }
-      }
-    }
+  }
 
   def update(id: SimulId) =
     AuthBody { implicit ctx => me =>

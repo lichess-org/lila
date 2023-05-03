@@ -157,19 +157,18 @@ final class Mod(
       }
     }(actionResult(username))
 
-  def impersonate(username: UserStr) =
-    Auth { implicit ctx => me =>
-      if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess {
-        env.mod.impersonate.stop(me)
-        Redirect(routes.User.show(me.username))
-      }
-      else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId))
-        OptionFuRedirect(env.user.repo byId username) { user =>
-          env.mod.impersonate.start(me, user)
-          fuccess(routes.User.show(user.username))
-        }
-      else notFound
+  def impersonate(username: UserStr) = Auth { _ ?=> me =>
+    if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess {
+      env.mod.impersonate.stop(me)
+      Redirect(routes.User.show(me.username))
     }
+    else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId))
+      OptionFuRedirect(env.user.repo byId username) { user =>
+        env.mod.impersonate.start(me, user)
+        fuccess(routes.User.show(user.username))
+      }
+    else notFound
+  }
 
   def setTitle(username: UserStr) =
     SecureBody(_.SetTitle) { implicit ctx => me =>

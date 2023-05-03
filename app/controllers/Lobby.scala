@@ -39,7 +39,7 @@ final class Lobby(env: Env) extends LilaController(env):
 
   def homeLang(lang: String) =
     staticRedirect(lang).map(Action.async(_)) getOrElse
-      LangPage("/")(serveHtmlHome(using _))(lang)
+      LangPage("/")(serveHtmlHome)(lang)
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
     reqToCtx(req) flatMap { ctx =>
@@ -55,9 +55,9 @@ final class Lobby(env: Env) extends LilaController(env):
         }
     )
 
-  def timeline =
-    Auth { implicit ctx => me =>
-      env.timeline.entryApi.userEntries(me.id) map { entries =>
+  def timeline = Auth { _ ?=> me =>
+    env.timeline.entryApi
+      .userEntries(me.id)
+      .map: entries =>
         Ok(html.timeline.entries(entries)).withHeaders(CACHE_CONTROL -> s"max-age=20")
-      }
-    }
+  }

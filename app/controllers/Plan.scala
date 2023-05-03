@@ -293,16 +293,15 @@ final class Plan(env: Env) extends LilaController(env):
       }(rateLimitedFu)
     }
 
-  def payPalCapture(orderId: String) =
-    Auth { implicit ctx => me =>
-      CaptureRateLimit(ctx.ip) {
-        (get("sub") map PayPalSubscriptionId.apply match {
-          case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
-          case Some(subId) =>
-            env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
-        }) inject jsonOkResult
-      }(rateLimitedFu)
-    }
+  def payPalCapture(orderId: String) = Auth { ctx ?=> me =>
+    CaptureRateLimit(ctx.ip) {
+      (get("sub") map PayPalSubscriptionId.apply match {
+        case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
+        case Some(subId) =>
+          env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
+      }) inject jsonOkResult
+    }(rateLimitedFu)
+  }
 
   // deprecated
   def payPalIpn =

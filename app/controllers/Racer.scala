@@ -12,7 +12,8 @@ import play.api.libs.json.Json
 final class Racer(env: Env) extends LilaController(env):
 
   def home     = Open(serveHome)
-  def homeLang = LangPage(routes.Racer.home)(serveHome(using _))
+  def homeLang = LangPage(routes.Racer.home)(serveHome)
+
   private def serveHome(using Context) = NoBot:
     Ok(html.racer.home).toFuccess
 

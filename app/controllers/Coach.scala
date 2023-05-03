@@ -13,14 +13,14 @@ final class Coach(env: Env) extends LilaController(env):
   private def api = env.coach.api
 
   def homeLang =
-    LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1)(_))
+    LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1))
 
   def all(page: Int) = search("all", CoachPager.Order.Login.key, "all", page)
 
   def search(l: String, o: String, c: String, page: Int) = Open:
     searchResults(l, o, c, page)
 
-  private def searchResults(l: String, o: String, c: String, page: Int)(implicit ctx: Context) =
+  private def searchResults(l: String, o: String, c: String, page: Int)(using Context) =
     pageHit
     val order   = CoachPager.Order(o)
     val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)

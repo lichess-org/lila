@@ -18,24 +18,19 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       enforce = env.net.rateLimit.value
     )
 
-  def form(categId: ForumCategId) =
-    Auth { implicit ctx => me =>
-      NoBot {
-        NotForKids {
-          OptionFuOk(env.forum.categRepo byId categId) { categ =>
-            categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
-              forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me, inOwnTeam), _) }
-            }
+  def form(categId: ForumCategId) = Auth { _ ?=> me =>
+    NoBot:
+      NotForKids:
+        OptionFuOk(env.forum.categRepo byId categId): categ =>
+          categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+            forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me, inOwnTeam), _) }
           }
-        }
-      }
-    }
+  }
 
   def create(categId: ForumCategId) =
     AuthBody { implicit ctx => me =>
-      NoBot {
-        CategGrantWrite(categId) {
-          given play.api.mvc.Request[?] = ctx.body
+      NoBot:
+        CategGrantWrite(categId):
           OptionFuResult(env.forum.categRepo byId categId) { categ =>
             categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
               forms
@@ -55,8 +50,6 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                 )
             }
           }
-        }
-      }
     }
 
   def show(categId: ForumCategId, slug: String, page: Int) = Open:
@@ -83,32 +76,25 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         yield res
       }
 
-  def close(categId: ForumCategId, slug: String) =
-    Auth { implicit ctx => me =>
-      TopicGrantModBySlug(categId, me, slug) {
-        OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)) { case (categ, topic, pag) =>
-          topicApi.toggleClose(categ, topic, Holder(me)) inject
-            routes.ForumTopic.show(categId, slug, pag.nbPages)
-        }
-      }
-    }
+  def close(categId: ForumCategId, slug: String) = Auth { _ ?=> me =>
+    TopicGrantModBySlug(categId, me, slug):
+      OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)): (categ, topic, pag) =>
+        topicApi.toggleClose(categ, topic, Holder(me)) inject
+          routes.ForumTopic.show(categId, slug, pag.nbPages)
+  }
 
-  def sticky(categId: ForumCategId, slug: String) =
-    Auth { implicit ctx => me =>
-      CategGrantMod(categId) {
-        OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)) { case (categ, topic, pag) =>
-          topicApi.toggleSticky(categ, topic, Holder(me)) inject
-            routes.ForumTopic.show(categId, slug, pag.nbPages)
-        }
-      }
-    }
+  def sticky(categId: ForumCategId, slug: String) = Auth { _ ?=> me =>
+    CategGrantMod(categId):
+      OptionFuRedirect(topicApi.show(categId, slug, 1, ctx.me)): (categ, topic, pag) =>
+        topicApi.toggleSticky(categ, topic, Holder(me)) inject
+          routes.ForumTopic.show(categId, slug, pag.nbPages)
+  }
 
   /** Returns a list of the usernames of people participating in a forum topic conversation
     */
-  def participants(topicId: ForumTopicId) =
-    Auth { _ => _ =>
-      for {
-        userIds   <- postApi allUserIds topicId
-        usernames <- env.user.repo usernamesByIds userIds
-      } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
-    }
+  def participants(topicId: ForumTopicId) = Auth { _ ?=> _ =>
+    for
+      userIds   <- postApi allUserIds topicId
+      usernames <- env.user.repo usernamesByIds userIds
+    yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
+  }

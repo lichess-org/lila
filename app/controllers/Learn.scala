@@ -13,9 +13,9 @@ final class Learn(env: Env) extends LilaController(env):
   import lila.learn.JSONHandlers.given
 
   def index     = Open(serveIndex)
-  def indexLang = LangPage(routes.Learn.index)(serveIndex(using _))
+  def indexLang = LangPage(routes.Learn.index)(serveIndex)
 
-  private def serveIndex(using ctx: Context) = NoBot {
+  private def serveIndex(using ctx: Context) = NoBot:
     pageHit
     ctx.me
       .?? { me =>
@@ -24,15 +24,13 @@ final class Learn(env: Env) extends LilaController(env):
       .map { progress =>
         Ok(html.learn.index(progress))
       }
-  }
 
-  private val scoreForm = Form(
+  private val scoreForm = Form:
     mapping(
       "stage" -> nonEmptyText,
       "level" -> number,
       "score" -> number
     )(Tuple3.apply)(unapply)
-  )
 
   def score =
     AuthBody { implicit ctx => me =>

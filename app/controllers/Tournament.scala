@@ -35,7 +35,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def home     = Open(serveHome)
-  def homeLang = LangPage(routes.Tournament.home)(serveHome(using _))
+  def homeLang = LangPage(routes.Tournament.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
     for
@@ -223,14 +223,13 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         api.joinWithResult(tourId, me, data = data, isLeader)
       }
 
-  def pause(id: TourId) =
-    Auth { implicit ctx => me =>
-      OptionResult(cachedTour(id)) { tour =>
-        api.selfPause(tour.id, me.id)
-        if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
-        else Redirect(routes.Tournament.show(tour.id))
-      }
+  def pause(id: TourId) = Auth { ctx ?=> me =>
+    OptionResult(cachedTour(id)) { tour =>
+      api.selfPause(tour.id, me.id)
+      if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
+      else Redirect(routes.Tournament.show(tour.id))
     }
+  }
 
   def apiWithdraw(id: TourId) =
     ScopedBody(_.Tournament.Write) { _ => me =>
@@ -239,25 +238,23 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def form =
-    Auth { implicit ctx => me =>
-      NoBot {
-        env.team.api.lightsByLeader(me.id) map { teams =>
-          Ok(html.tournament.form.create(forms.create(me, teams), teams))
-        }
+  def form = Auth { ctx ?=> me =>
+    NoBot {
+      env.team.api.lightsByLeader(me.id) map { teams =>
+        Ok(html.tournament.form.create(forms.create(me, teams), teams))
       }
     }
+  }
 
-  def teamBattleForm(teamId: TeamId) =
-    Auth { implicit ctx => me =>
-      NoBot {
-        env.team.api.lightsByLeader(me.id) flatMap { teams =>
-          env.team.api.leads(teamId, me.id) mapz {
-            Ok(html.tournament.form.create(forms.create(me, teams, teamId.some), Nil))
-          }
+  def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me =>
+    NoBot {
+      env.team.api.lightsByLeader(me.id) flatMap { teams =>
+        env.team.api.leads(teamId, me.id) mapz {
+          Ok(html.tournament.form.create(forms.create(me, teams, teamId.some), Nil))
         }
       }
     }
+  }
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 240,
@@ -391,28 +388,27 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def teamBattleEdit(id: TourId) =
-    Auth { implicit ctx => me =>
-      cachedTour(id) flatMapz {
-        case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
-          tour.teamBattle ?? { battle =>
-            env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
-              env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
-                val form = lila.tournament.TeamBattle.DataForm.edit(
-                  teams.map { t =>
-                    s"""${t.id} "${t.name}" by ${env.user.lightUserApi
-                        .sync(t.createdBy)
-                        .fold(t.createdBy)(_.name)}"""
-                  },
-                  battle.nbLeaders
-                )
-                Ok(html.tournament.teamBattle.edit(tour, form)).toFuccess
-              }
+  def teamBattleEdit(id: TourId) = Auth { ctx ?=> me =>
+    cachedTour(id) flatMapz {
+      case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
+        tour.teamBattle ?? { battle =>
+          env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
+            env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
+              val form = lila.tournament.TeamBattle.DataForm.edit(
+                teams.map { t =>
+                  s"""${t.id} "${t.name}" by ${env.user.lightUserApi
+                      .sync(t.createdBy)
+                      .fold(t.createdBy)(_.name)}"""
+                },
+                battle.nbLeaders
+              )
+              Ok(html.tournament.teamBattle.edit(tour, form)).toFuccess
             }
           }
-        case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
-      }
+        }
+      case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
     }
+  }
 
   def teamBattleUpdate(id: TourId) =
     AuthBody { implicit ctx => me =>
@@ -494,15 +490,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def edit(id: TourId) =
-    Auth { implicit ctx => me =>
-      WithEditableTournament(id, me) { tour =>
-        env.team.api.lightsByLeader(me.id) map { teams =>
-          val form = forms.edit(me, teams, tour)
-          Ok(html.tournament.form.edit(tour, form, teams))
-        }
+  def edit(id: TourId) = Auth { ctx ?=> me =>
+    WithEditableTournament(id, me) { tour =>
+      env.team.api.lightsByLeader(me.id) map { teams =>
+        val form = forms.edit(me, teams, tour)
+        Ok(html.tournament.form.edit(tour, form, teams))
       }
     }
+  }
 
   def update(id: TourId) =
     AuthBody { implicit ctx => me =>
@@ -520,15 +515,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }
     }
 
-  def terminate(id: TourId) =
-    Auth { implicit ctx => me =>
-      WithEditableTournament(id, me) { tour =>
-        api kill tour inject {
-          env.mod.logApi.terminateTournament(me.id into ModId, tour.name())
-          Redirect(routes.Tournament.home)
-        }
+  def terminate(id: TourId) = Auth { ctx ?=> me =>
+    WithEditableTournament(id, me) { tour =>
+      api kill tour inject {
+        env.mod.logApi.terminateTournament(me.id into ModId, tour.name())
+        Redirect(routes.Tournament.home)
       }
     }
+  }
 
   def byTeam(id: TeamId) =
     Action.async { implicit req =>

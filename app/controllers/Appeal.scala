@@ -15,25 +15,23 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def modForm(using Context)  = lila.appeal.Appeal.modForm
   private def userForm(using Context) = lila.appeal.Appeal.form
 
-  def home =
-    Auth { implicit ctx => me =>
-      renderAppealOrTree(me) map { Ok(_) }
-    }
+  def home = Auth { _ ?=> me =>
+    renderAppealOrTree(me) map { Ok(_) }
+  }
 
-  def landing =
-    Auth { implicit ctx => _ =>
-      if (ctx.isAppealUser || isGranted(_.Appeals))
-        pageHit
-        OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
-          views.html.site.page.lone(doc, resolver)
-        }
-      else notFound
-    }
+  def landing = Auth { ctx ?=> _ =>
+    if (ctx.isAppealUser || isGranted(_.Appeals))
+      pageHit
+      OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
+        views.html.site.page.lone(doc, resolver)
+      }
+    else notFound
+  }
 
   private def renderAppealOrTree(
       me: lila.user.User,
       err: Option[Form[String]] = None
-  )(implicit ctx: Context) = env.appeal.api mine me flatMap {
+  )(using Context) = env.appeal.api mine me flatMap {
     case None =>
       env.playban.api.currentBan(me.id).dmap(_.isDefined) map {
         html.appeal.tree(me, _)
@@ -43,7 +41,6 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def post =
     AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
       userForm
         .bindFromRequest()
         .fold(

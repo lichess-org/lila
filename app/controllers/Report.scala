@@ -146,23 +146,22 @@ final class Report(
       }
     }
 
-  def form =
-    Auth { implicit ctx => _ =>
-      getUserStr("username") ?? env.user.repo.byId flatMap { user =>
-        if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
-        else
-          env.report.forms.createWithCaptcha map { case (form, captcha) =>
-            val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
-              case (Some(u), Some(pid)) =>
-                form.fill(
-                  lila.report
-                    .ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", GameId(""), "")
-                )
-              case _ => form
-            Ok(html.report.form(filledForm, user, captcha))
-          }
-      }
+  def form = Auth { ctx ?=> _ =>
+    getUserStr("username") ?? env.user.repo.byId flatMap { user =>
+      if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
+      else
+        env.report.forms.createWithCaptcha map { case (form, captcha) =>
+          val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
+            case (Some(u), Some(pid)) =>
+              form.fill(
+                lila.report
+                  .ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", GameId(""), "")
+              )
+            case _ => form
+          Ok(html.report.form(filledForm, user, captcha))
+        }
     }
+  }
 
   def create =
     AuthBody { implicit ctx => implicit me =>
@@ -199,11 +198,10 @@ final class Report(
         )
     }
 
-  def thanks =
-    Auth { implicit ctx => me =>
-      ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>
-        env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
-          html.report.thanks(reported.id, blocked)
-        }
+  def thanks = Auth { ctx ?=> me =>
+    ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>
+      env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
+        html.report.thanks(reported.id, blocked)
       }
     }
+  }

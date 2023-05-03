@@ -101,10 +101,9 @@ final class Practice(
           (analysis, studyJson)
         }
 
-  def complete(chapterId: StudyChapterId, nbMoves: Int) =
-    Auth { implicit ctx => me =>
-      api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
-    }
+  def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me =>
+    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
+  }
 
   def reset =
     AuthBody { _ => me =>
