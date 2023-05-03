@@ -471,7 +471,9 @@ abstract private[controllers] class LilaController(val env: Env)
     negotiate(
       html = fuccess {
         Redirect(
-          if (HTTPRequest.isClosedLoginPath(ctx.req)) routes.Auth.login else routes.Auth.signup
+          if HTTPRequest.isClosedLoginPath(ctx.req)
+          then routes.Auth.login
+          else routes.Auth.signup
         ) withCookies env.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)
       },
       api = _ =>
@@ -486,10 +488,10 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def authorizationFailed(using ctx: Context): Fu[Result] =
     negotiate(
-      html = if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
-        Forbidden(views.html.site.message.authFailed)
-      }
-      else fuccess(Results.Forbidden("Authorization failed")),
+      html =
+        if HTTPRequest.isSynchronousHttp(ctx.req)
+        then Forbidden(views.html.site.message.authFailed).toFuccess
+        else Results.Forbidden("Authorization failed").toFuccess,
       api = _ => fuccess(forbiddenJsonResult)
     )
   protected def authorizationFailed(req: RequestHeader): Fu[Result] =
