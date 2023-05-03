@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Сторінка стримера Lichess націлена на глядачів за мовою, наданою вашою стримінговою платформою. Встановіть правильну мову за замовчуванням для ваших шахових трансляцій в додатку чи сервісі, який ви використовуєте для трансляцій.</string>
   <string name="twitchUsername">Ваше ім\'я користувача Twitch або посилання</string>
   <string name="optionalOrEmpty">За бажанням. Залиште порожнім, якщо немає</string>
+  <string name="youTubeChannelId">ID вашого YouTube каналу</string>
   <string name="streamerName">Ваше ім\'я для трансляцій на Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Скоротіть: максимум %s символ</item>

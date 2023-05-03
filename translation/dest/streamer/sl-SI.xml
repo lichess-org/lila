@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Lichessova stran streamerja je namenjena vašemu občinstvu v jeziku, ki ga zagotavlja vaša platforma za pretakanje. V aplikaciji ali storitvi, ki jo uporabljate za oddajanje, nastavite pravilen privzeti jezik za svoje šahovske prenose.</string>
   <string name="twitchUsername">Vaše Twitch uporabniško ime ali URL</string>
   <string name="optionalOrEmpty">Neobvezno. Pustite prazno, če ga ni</string>
+  <string name="youTubeChannelId">ID vašega kanala YouTube</string>
   <string name="streamerName">Vaše ime kot voditelj prenosa na Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Naj bo kratko: največ %s znak</item>

@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">De Lichess streamerpagina toont je publiek de taal die wordt verstrekt door je streamingplatform. Stel de juiste standaardtaal in voor je schaakstreams in de app of service die je gebruikt om te streamen.</string>
   <string name="twitchUsername">Je Twitch gebruikersnaam of website</string>
   <string name="optionalOrEmpty">Optioneel. Laat leeg indien geen</string>
+  <string name="youTubeChannelId">Jouw YouTubekanaal-ID</string>
   <string name="streamerName">Je streamer naam op Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Houd het kort: maximaal %s tekens</item>

@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">עמוד השדרנים של ליצ׳ס מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
   <string name="twitchUsername">שם המשתמש או כתובת הTwitch שלכם</string>
   <string name="optionalOrEmpty">אופציונאלי. אם אין, השאירו את השדה ריק</string>
+  <string name="youTubeChannelId">המזהה (ID) של ערוץ ה-YouTube שלך</string>
   <string name="streamerName">השם שלכם כשדרנים בליצ׳ס</string>
   <plurals name="keepItShort">
     <item quantity="one">עד תו %s</item>

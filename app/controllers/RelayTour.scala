@@ -14,32 +14,28 @@ import lila.common.config
 
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
-  def index(page: Int, q: String) =
-    Open { implicit ctx =>
-      Reasonable(page, config.Max(20)) {
-        q.trim.take(100).some.filter(_.nonEmpty) match
-          case Some(query) =>
-            env.relay.pager
-              .search(query, page)
-              .map: pager =>
-                Ok(html.relay.tour.index(Nil, pager, query))
-          case None =>
-            for
-              active <- (page == 1).??(env.relay.api.officialActive.get({}))
-              pager  <- env.relay.pager.inactive(page)
-            yield Ok(html.relay.tour.index(active, pager))
-      }
+  def index(page: Int, q: String) = Open:
+    Reasonable(page, config.Max(20)) {
+      q.trim.take(100).some.filter(_.nonEmpty) match
+        case Some(query) =>
+          env.relay.pager
+            .search(query, page)
+            .map: pager =>
+              Ok(html.relay.tour.index(Nil, pager, query))
+        case None =>
+          for
+            active <- (page == 1).??(env.relay.api.officialActive.get({}))
+            pager  <- env.relay.pager.inactive(page)
+          yield Ok(html.relay.tour.index(active, pager))
     }
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
 
-  private def page(bookmark: String, menu: String) =
-    Open { implicit ctx =>
-      pageHit
-      OptionOk(prismicC getBookmark bookmark) { case (doc, resolver) =>
-        html.relay.tour.page(doc, resolver, menu)
-      }
+  private def page(bookmark: String, menu: String) = Open:
+    pageHit
+    OptionOk(prismicC getBookmark bookmark) { (doc, resolver) =>
+      html.relay.tour.page(doc, resolver, menu)
     }
 
   def form = Auth { implicit ctx => _ =>
@@ -120,9 +116,9 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def redirectOrApiTour(@nowarn("msg=unused") slug: String, id: TourModel.Id) = Open { implicit ctx =>
+  def redirectOrApiTour(@nowarn("msg=unused") slug: String, id: TourModel.Id) = Open:
     env.relay.api tourById id flatMapz { tour =>
-      render.async {
+      render.async:
         case Accepts.Json() =>
           JsonOk {
             env.relay.api.withRounds(tour) map { trs =>
@@ -130,31 +126,26 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
             }
           }
         case _ => redirectToTour(tour)
+    }
+
+  def pgn(id: TourModel.Id) = Action.async: req =>
+    env.relay.api tourById id mapz { tour =>
+      apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
+        env.relay.pgnStream.exportFullTour(tour)
+      ) { source =>
+        asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn")(
+          Ok chunked source as pgnContentType
+        )
       }
     }
+
+  def apiIndex = Action.async { implicit req =>
+    apiC.jsonDownload {
+      env.relay.api
+        .officialTourStream(MaxPerSecond(20), getInt("nb", req) | 20)
+        .map(env.relay.jsonView.apply(_, withUrls = true))
+    }.toFuccess
   }
-
-  def pgn(id: TourModel.Id) =
-    Action.async { req =>
-      env.relay.api tourById id mapz { tour =>
-        apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
-          env.relay.pgnStream.exportFullTour(tour)
-        ) { source =>
-          asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn")(
-            Ok chunked source as pgnContentType
-          )
-        }
-      }
-    }
-
-  def apiIndex =
-    Action.async { implicit req =>
-      apiC.jsonDownload {
-        env.relay.api
-          .officialTourStream(MaxPerSecond(20), getInt("nb", req) | 20)
-          .map(env.relay.jsonView.apply(_, withUrls = true))
-      }.toFuccess
-    }
 
   private def redirectToTour(tour: TourModel)(using ctx: Context): Fu[Result] =
     env.relay.api.defaultRoundToShow.get(tour.id) flatMap {

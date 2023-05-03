@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">A Lichess közvetítői oldala a közvetítő platformod nyelvi beállításait használja, ezért a közvetítésed alapértelmezett nyelvét ott tudod beállítani.</string>
   <string name="twitchUsername">Twitch felhasználóneved vagy URL</string>
   <string name="optionalOrEmpty">Nem kötelező. Hagyd üresen, ha nincs</string>
+  <string name="youTubeChannelId">YouTube csatornád azonosítója</string>
   <string name="streamerName">Közvetítői neved a Lichess-en</string>
   <plurals name="keepItShort">
     <item quantity="one">Legyen rövid: legfeljebb %s karakter</item>

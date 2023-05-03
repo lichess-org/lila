@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Pagina de streamer Lichess țintește publicul tău cu limba furnizată de platforma ta de streaming. Setați limba implicită corectă pentru fluxurile de șah din aplicația sau serviciul pe care îl utilizați pentru difuzare.</string>
   <string name="twitchUsername">Numele tău de utilizator Twitch sau URL-ul</string>
   <string name="optionalOrEmpty">Opțional. Lasă liber dacă niciunul</string>
+  <string name="youTubeChannelId">ID-ul canalului dvs YouTube</string>
   <string name="streamerName">Numele tău de streamer pe Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Ține-o scurt: maxim %s caracter</item>

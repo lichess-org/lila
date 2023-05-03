@@ -197,62 +197,54 @@ final class Account(
   def renderCheckYourEmail(implicit ctx: Context) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
-  def emailApply =
-    AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) {
-        given play.api.mvc.Request[?] = ctx.body
-        env.security.forms.preloadEmailDns() >> emailForm(me).flatMap { form =>
-          FormFuResult(form) { err =>
-            fuccess(html.account.email(err))
-          } { data =>
-            val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
-            auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
-              env.security.emailChange.send(me, newUserEmail.email) inject
-                Redirect(routes.Account.email).flashSuccess {
-                  lila.i18n.I18nKeys.checkYourEmail.txt()
-                }
-            }(rateLimitedFu)
-          }
+  def emailApply = AuthBody { implicit ctx => me =>
+    auth.HasherRateLimit(me.id, ctx.req):
+      env.security.forms.preloadEmailDns() >> emailForm(me).flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.email(err))
+        } { data =>
+          val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
+          auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+            env.security.emailChange.send(me, newUserEmail.email) inject
+              Redirect(routes.Account.email).flashSuccess {
+                lila.i18n.I18nKeys.checkYourEmail.txt()
+              }
+          }(rateLimitedFu)
         }
       }
+  }
+
+  def emailConfirm(token: String) = Open:
+    env.security.emailChange.confirm(token) flatMapz { (user, prevEmail) =>
+      (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
+        auth.authenticateUser(
+          user,
+          remember = true,
+          result =
+            if (prevEmail.exists(_.isNoReply))
+              Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
+            else
+              Some(_ => Redirect(routes.Account.email).flashSuccess)
+        )
     }
 
-  def emailConfirm(token: String) =
-    Open { implicit ctx =>
-      env.security.emailChange.confirm(token) flatMapz { (user, prevEmail) =>
-        (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
-          auth.authenticateUser(
-            user,
-            remember = true,
-            result =
-              if (prevEmail.exists(_.isNoReply))
-                Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
-              else
-                Some(_ => Redirect(routes.Account.email).flashSuccess)
+  def emailConfirmHelp = OpenBody:
+    import lila.security.EmailConfirm.Help.*
+    ctx.me match
+      case Some(me) =>
+        Redirect(routes.User.show(me.username)).toFuccess
+      case None if get("username").isEmpty =>
+        Ok(html.account.emailConfirmHelp(helpForm, none)).toFuccess
+      case None =>
+        helpForm
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(html.account.emailConfirmHelp(err, none)).toFuccess,
+            username =>
+              getStatus(env.user.repo, username) map { status =>
+                Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
+              }
           )
-      }
-    }
-
-  def emailConfirmHelp =
-    OpenBody { implicit ctx =>
-      import lila.security.EmailConfirm.Help.*
-      ctx.me match
-        case Some(me) =>
-          Redirect(routes.User.show(me.username)).toFuccess
-        case None if get("username").isEmpty =>
-          Ok(html.account.emailConfirmHelp(helpForm, none)).toFuccess
-        case None =>
-          given play.api.mvc.Request[?] = ctx.body
-          helpForm
-            .bindFromRequest()
-            .fold(
-              err => BadRequest(html.account.emailConfirmHelp(err, none)).toFuccess,
-              username =>
-                getStatus(env.user.repo, username) map { status =>
-                  Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
-                }
-            )
-    }
 
   def twoFactor =
     Auth { implicit ctx => me =>
@@ -405,48 +397,42 @@ final class Account(
       html.account.reopen.form(form.foldLeft(baseForm)(_ withForm _), msg)
     }
 
-  def reopen =
-    Open { implicit ctx =>
-      auth.RedirectToProfileIfLoggedIn {
-        renderReopen(none, none) map { Ok(_) }
-      }
+  def reopen = Open:
+    auth.RedirectToProfileIfLoggedIn:
+      renderReopen(none, none) map { Ok(_) }
+
+  def reopenApply = OpenBody:
+    env.security.hcaptcha.verify() flatMap { captcha =>
+      if (captcha.ok)
+        env.security.forms.reopen flatMap {
+          _.form
+            .bindFromRequest()
+            .fold(
+              err => renderReopen(err.some, none) map { BadRequest(_) },
+              data =>
+                env.security.reopen
+                  .prepare(data.username, data.email, env.mod.logApi.closedByMod) flatMap {
+                  case Left((code, msg)) =>
+                    lila.mon.user.auth.reopenRequest(code).increment()
+                    renderReopen(none, msg.some) map { BadRequest(_) }
+                  case Right(user) =>
+                    auth.MagicLinkRateLimit(user, data.email, ctx.req) {
+                      lila.mon.user.auth.reopenRequest("success").increment()
+                      env.security.reopen.send(user, data.email) inject Redirect(
+                        routes.Account.reopenSent
+                      )
+                    }(rateLimitedFu)
+                }
+            )
+        }
+      else renderReopen(none, none) map { BadRequest(_) }
     }
 
-  def reopenApply =
-    OpenBody { implicit ctx =>
-      given play.api.mvc.Request[?] = ctx.body
-      env.security.hcaptcha.verify() flatMap { captcha =>
-        if (captcha.ok)
-          env.security.forms.reopen flatMap {
-            _.form
-              .bindFromRequest()
-              .fold(
-                err => renderReopen(err.some, none) map { BadRequest(_) },
-                data =>
-                  env.security.reopen
-                    .prepare(data.username, data.email, env.mod.logApi.closedByMod) flatMap {
-                    case Left((code, msg)) =>
-                      lila.mon.user.auth.reopenRequest(code).increment()
-                      renderReopen(none, msg.some) map { BadRequest(_) }
-                    case Right(user) =>
-                      auth.MagicLinkRateLimit(user, data.email, ctx.req) {
-                        lila.mon.user.auth.reopenRequest("success").increment()
-                        env.security.reopen.send(user, data.email) inject Redirect(routes.Account.reopenSent)
-                      }(rateLimitedFu)
-                  }
-              )
-          }
-        else renderReopen(none, none) map { BadRequest(_) }
-      }
-    }
-
-  def reopenSent = Open { implicit ctx =>
-    fuccess {
+  def reopenSent = Open:
+    fuccess:
       Ok(html.account.reopen.sent)
-    }
-  }
 
-  def reopenLogin(token: String) = Open { implicit ctx =>
+  def reopenLogin(token: String) = Open:
     env.security.reopen confirm token flatMap {
       case None =>
         lila.mon.user.auth.reopenConfirm("token_fail").increment()
@@ -456,7 +442,6 @@ final class Account(
           auth.authenticateUser(user, remember = true) >>-
           lila.mon.user.auth.reopenConfirm("success").increment().unit
     }
-  }
 
   def data = Auth { implicit ctx => me =>
     val userId: UserId = getUserStr("user")

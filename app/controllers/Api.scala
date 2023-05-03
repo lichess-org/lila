@@ -455,9 +455,9 @@ final class Api(
   }
 
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) =
-    Open { ctx =>
+    Open:
       js(ctx) map toHttp
-    }
+
   def ApiRequest(js: RequestHeader => Fu[ApiResult]) =
     Action.async { req =>
       js(req) map toHttp

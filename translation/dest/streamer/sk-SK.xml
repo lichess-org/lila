@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Stránka streamera Lichess oslovuje publikum prostredníctvom jazyka, ktorý poskytuje streamovacia platforma. Nastavte správny predvolený jazyk pre svoje šachové streamy v aplikácii alebo službe, ktorú používate na vysielanie.</string>
   <string name="twitchUsername">Vaše Twitch používateľské meno alebo link</string>
   <string name="optionalOrEmpty">Voliteľné. Vynechajte, ak nemáte žiadne</string>
+  <string name="youTubeChannelId">ID Vášho YouTube kanála</string>
   <string name="streamerName">Vaše streamerské meno na Lichessi</string>
   <string name="visibility">Viditeľnosť na streamerskej stránke</string>
   <string name="whenApproved">Ak budete schválený moderátormi</string>

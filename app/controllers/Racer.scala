@@ -11,11 +11,10 @@ import play.api.libs.json.Json
 
 final class Racer(env: Env) extends LilaController(env):
 
-  def home     = Open(serveHome(_))
-  def homeLang = LangPage(routes.Racer.home)(serveHome(_))
-  private def serveHome(implicit ctx: Context) = NoBot {
+  def home     = Open(serveHome)
+  def homeLang = LangPage(routes.Racer.home)(serveHome(using _))
+  private def serveHome(using Context) = NoBot:
     Ok(html.racer.home).toFuccess
-  }
 
   def create =
     WithPlayerId { _ => playerId =>
@@ -64,14 +63,11 @@ final class Racer(env: Env) extends LilaController(env):
       }
     }
 
-  private def WithPlayerId(f: Context => RacerPlayer.Id => Fu[Result]): Action[Unit] =
-    Open { implicit ctx =>
-      NoBot {
-        ctx.req.sid map { env.racer.api.playerId(_, ctx.me) } match
-          case Some(id) => f(ctx)(id)
-          case None =>
-            env.lilaCookie.ensureAndGet(ctx.req) { sid =>
-              f(ctx)(env.racer.api.playerId(sid, none))
-            }
-      }
-    }
+  private def WithPlayerId(f: Context => RacerPlayer.Id => Fu[Result]) = Open:
+    NoBot:
+      ctx.req.sid map { env.racer.api.playerId(_, ctx.me) } match
+        case Some(id) => f(ctx)(id)
+        case None =>
+          env.lilaCookie.ensureAndGet(ctx.req) { sid =>
+            f(ctx)(env.racer.api.playerId(sid, none))
+          }
