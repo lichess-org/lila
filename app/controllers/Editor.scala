@@ -31,41 +31,25 @@ final class Editor(env: Env) extends LilaController(env):
 
   def index = load("")
 
-  def load(urlFen: String) =
-    Open { implicit ctx =>
-      val fen: Option[Fen.Epd] = lila.common.String
-        .decodeUriPath(urlFen)
-        .filter(_.nonEmpty)
-        .map(Fen.Epd.clean)
-      fuccess {
-        Ok(
-          html.board.editor(
-            fen,
-            positionsJson,
-            endgamePositionsJson
-          )
-        )
-      }
-    }
+  def load(urlFen: String) = Open:
+    val fen: Option[Fen.Epd] = lila.common.String
+      .decodeUriPath(urlFen)
+      .filter(_.nonEmpty)
+      .map(Fen.Epd.clean)
+    Ok(
+      html.board.editor(fen, positionsJson, endgamePositionsJson)
+    ).toFuccess
 
-  def data =
-    Open { implicit ctx =>
-      fuccess {
-        JsonOk(
-          html.board.editor.jsData()
-        )
-      }
-    }
+  def data = Open:
+    fuccess:
+      JsonOk(html.board.editor.jsData())
 
-  def game(id: GameId) =
-    Open { implicit ctx =>
-      OptionResult(env.game.gameRepo game id) { game =>
-        Redirect {
-          if (game.playable) routes.Round.watcher(game.id, "white").url
-          else editorUrl(get("fen").fold(Fen.write(game.chess))(Fen.Epd.clean), game.variant)
-        }
-      }
-    }
+  def game(id: GameId) = Open:
+    OptionResult(env.game.gameRepo game id): game =>
+      Redirect:
+        if game.playable
+        then routes.Round.watcher(game.id, "white").url
+        else editorUrl(get("fen").fold(Fen.write(game.chess))(Fen.Epd.clean), game.variant)
 
   private[controllers] def editorUrl(fen: Fen.Epd, variant: Variant): String =
     if (fen == Fen.initial && variant.standard) routes.Editor.index.url

@@ -17,38 +17,32 @@ final class Coach(env: Env) extends LilaController(env):
 
   def all(page: Int) = search("all", CoachPager.Order.Login.key, "all", page)
 
-  def search(l: String, o: String, c: String, page: Int) =
-    Open { implicit ctx =>
-      searchResults(l, o, c, page)
-    }
+  def search(l: String, o: String, c: String, page: Int) = Open:
+    searchResults(l, o, c, page)
 
   private def searchResults(l: String, o: String, c: String, page: Int)(implicit ctx: Context) =
     pageHit
     val order   = CoachPager.Order(o)
     val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)
     val country = (c != "all") ?? Countries.info(c)
-    for {
+    for
       langCodes    <- env.coach.api.allLanguages
       countryCodes <- env.coach.api.allCountries
       pager        <- env.coach.pager(lang, order, country, page)
-    } yield Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
+    yield Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
 
-  def show(username: UserStr) =
-    Open { implicit ctx =>
-      OptionFuResult(api find username) { c =>
-        WithVisibleCoach(c) {
-          for {
-            stu      <- env.study.api.publicByIds(c.coach.profile.studyIds)
-            studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
-            posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
-            reviews  <- api.reviews.approvedByCoach(c.coach)
-            myReview <- ctx.me.?? { api.reviews.find(_, c.coach) }
-          } yield
-            lila.mon.coach.pageView.profile(c.coach.id.value).increment()
-            Ok(html.coach.show(c, reviews, studies, posts, myReview))
-        }
-      }
-    }
+  def show(username: UserStr) = Open:
+    OptionFuResult(api find username): c =>
+      WithVisibleCoach(c):
+        for
+          stu      <- env.study.api.publicByIds(c.coach.profile.studyIds)
+          studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
+          posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
+          reviews  <- api.reviews.approvedByCoach(c.coach)
+          myReview <- ctx.me.?? { api.reviews.find(_, c.coach) }
+        yield
+          lila.mon.coach.pageView.profile(c.coach.id.value).increment()
+          Ok(html.coach.show(c, reviews, studies, posts, myReview))
 
   def review(username: UserStr) =
     AuthBody { implicit ctx => me =>

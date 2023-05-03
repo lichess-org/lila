@@ -56,22 +56,25 @@ abstract private[controllers] class LilaController(val env: Env)
   given Conversion[RequestHeader, Lang]    = I18nLangPicker(_)
   given lila.common.config.NetDomain       = env.net.domain
 
+  inline def ctx(using it: Context) = it // `ctx` is shorter and nicer than `summon[Context]`
+  given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
+
   // we can't move to `using` yet, because we can't do `Open { using ctx =>`
   implicit def ctxLang(using ctx: Context): Lang                   = ctx.lang
   implicit def ctxReq(using ctx: Context): RequestHeader           = ctx.req
   implicit def reqConfig(using req: RequestHeader): ui.EmbedConfig = ui.EmbedConfig(req)
   def reqLang(using req: RequestHeader): Lang                      = I18nLangPicker(req)
 
-  protected def Open(f: Context => Fu[Result]): Action[Unit] =
-    Open(parse.empty)(f)
+  protected def Open(f: Context ?=> Fu[Result]): Action[Unit] =
+    OpenOf(parse.empty)(f(using _))
 
-  protected def Open[A](parser: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
+  protected def OpenOf[A](parser: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(parser)(handleOpen(f, _))
 
-  protected def OpenBody(f: BodyContext[?] => Fu[Result]): Action[AnyContent] =
-    OpenBody(parse.anyContent)(f)
+  protected def OpenBody(f: BodyContext[?] ?=> Fu[Result]): Action[AnyContent] =
+    OpenBodyOf(parse.anyContent)(f(using _))
 
-  protected def OpenBody[A](parser: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
+  protected def OpenBodyOf[A](parser: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(parser) { req =>
       CSRF(req) {
         reqToCtx(req) flatMap f
@@ -109,10 +112,10 @@ abstract private[controllers] class LilaController(val env: Env)
       open: BodyContext[A] => Fu[Result],
       scoped: Request[A] => UserModel => Fu[Result]
   ): Action[A] =
-    Action.async(parser) { req =>
-      if (HTTPRequest isOAuth req) ScopedBody(parser)(selectors)(scoped)(req)
-      else OpenBody(parser)(open)(req)
-    }
+    Action.async(parser): req =>
+      if HTTPRequest.isOAuth(req)
+      then ScopedBody(parser)(selectors)(scoped)(req)
+      else OpenBodyOf(parser)(open)(req)
 
   protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
       f: RequestHeader => Option[UserModel] => Fu[Result]
@@ -673,26 +676,26 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def LangPage(call: Call)(f: Context => Fu[Result])(langCode: String): Action[Unit] =
     LangPage(call.url)(f)(langCode)
-  protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String): Action[Unit] =
-    Open { ctx =>
-      if (ctx.isAuth) redirectWithQueryString(path)(ctx.req).toFuccess
-      else
-        import I18nLangPicker.ByHref
-        I18nLangPicker.byHref(langCode, ctx.req) match
-          case ByHref.NotFound => notFound(using ctx)
-          case ByHref.Redir(code) =>
-            redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")(ctx.req).toFuccess
-          case ByHref.Refused(_) => redirectWithQueryString(path)(ctx.req).toFuccess
-          case ByHref.Found(lang) =>
-            val langCtx = ctx withLang lang
-            pageHit(langCtx)
-            f(langCtx)
-    }
+  protected def LangPage(path: String)(f: Context => Fu[Result])(langCode: String): Action[Unit] = Open:
+    if ctx.isAuth
+    then redirectWithQueryString(path)(ctx.req).toFuccess
+    else
+      import I18nLangPicker.ByHref
+      I18nLangPicker.byHref(langCode, ctx.req) match
+        case ByHref.NotFound => notFound(using ctx)
+        case ByHref.Redir(code) =>
+          redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")(ctx.req).toFuccess
+        case ByHref.Refused(_) => redirectWithQueryString(path)(ctx.req).toFuccess
+        case ByHref.Found(lang) =>
+          val langCtx = ctx withLang lang
+          pageHit(langCtx)
+          f(langCtx)
 
   protected def redirectWithQueryString(path: String)(req: RequestHeader) =
-    Redirect {
-      if (req.target.uriString contains "?") s"$path?${req.target.queryString}" else path
-    }
+    Redirect:
+      if req.target.uriString.contains("?")
+      then s"$path?${req.target.queryString}"
+      else path
 
   protected val movedMap: Map[String, String] = Map(
     "swag" -> "https://shop.spreadshirt.com/lichess-org",

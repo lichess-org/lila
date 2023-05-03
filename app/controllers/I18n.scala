@@ -14,35 +14,30 @@ final class I18n(env: Env) extends LilaController(env):
     toLang(code).isDefined
   }))
 
-  def select =
-    OpenBody { implicit ctx =>
-      given play.api.mvc.Request[?] = ctx.body
-      form
-        .bindFromRequest()
-        .fold(
-          _ => notFound,
-          code => {
-            val lang = toLang(code) err "Universe is collapsing"
-            ctx.me.filterNot(_.lang contains lang.code).?? {
-              env.user.repo.setLang(_, lang)
-            } >> negotiate(
-              html = {
-                val redir = Redirect {
-                  ctx.req.referer.fold(routes.Lobby.home.url) { str =>
-                    try
-                      val pageUrl = new java.net.URI(str).parseServerAuthority().toURL()
-                      val path    = pageUrl.getPath
-                      val query   = pageUrl.getQuery
-                      if (query == null) path
-                      else path + "?" + query
-                    catch case _: Exception => routes.Lobby.home.url
-                  }
+  def select = OpenBody:
+    form
+      .bindFromRequest()
+      .fold(
+        _ => notFound,
+        code =>
+          val lang = toLang(code) err "Universe is collapsing"
+          ctx.me.filterNot(_.lang contains lang.code).?? {
+            env.user.repo.setLang(_, lang)
+          } >> negotiate(
+            html = {
+              val redir = Redirect:
+                ctx.req.referer.fold(routes.Lobby.home.url) { str =>
+                  try
+                    val pageUrl = new java.net.URI(str).parseServerAuthority().toURL()
+                    val path    = pageUrl.getPath
+                    val query   = pageUrl.getQuery
+                    if (query == null) path
+                    else path + "?" + query
+                  catch case _: Exception => routes.Lobby.home.url
                 }
-                if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
-                else redir
-              }.toFuccess,
-              api = _ => Ok(Json.obj("lang" -> lang.code)).toFuccess
-            )
-          }
-        )
-    }
+              if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
+              else redir
+            }.toFuccess,
+            api = _ => Ok(Json.obj("lang" -> lang.code)).toFuccess
+          )
+      )

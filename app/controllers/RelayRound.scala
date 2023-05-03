@@ -172,11 +172,9 @@ final class RelayRound(
     }
   }
 
-  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
-    Open { implicit ctx =>
-      WithRoundAndTour(ts, rs, id) { rt =>
-        env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
-      }
+  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) = Open:
+    WithRoundAndTour(ts, rs, id) { rt =>
+      env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
     }
 
   def push(id: RelayRoundId) =

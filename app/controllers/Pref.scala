@@ -72,23 +72,20 @@ final class Pref(env: Env) extends LilaController(env):
         )
     }
 
-  def set(name: String) =
-    OpenBody { implicit ctx =>
-      if (name == "zoom") Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
-      else if (name == "agreement")
-        ctx.me ?? api.agree inject {
-          if (HTTPRequest.isXhr(ctx.req)) NoContent else Redirect(routes.Lobby.home)
-        }
-      else
-        given play.api.mvc.Request[?] = ctx.body
-        (setters get name) ?? { case (form, fn) =>
-          FormResult(form) { v =>
-            fn(v, ctx) map { cookie =>
-              Ok(()).withCookies(cookie)
-            }
+  def set(name: String) = OpenBody:
+    if name == "zoom"
+    then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
+    else if (name == "agreement") then
+      ctx.me ?? api.agree inject {
+        if (HTTPRequest.isXhr(ctx.req)) NoContent else Redirect(routes.Lobby.home)
+      }
+    else
+      (setters get name) ?? { (form, fn) =>
+        FormResult(form): v =>
+          fn(v, ctx) map { cookie =>
+            Ok(()).withCookies(cookie)
           }
-        }
-    }
+      }
 
   private lazy val setters = Map(
     "theme"      -> (forms.theme      -> save("theme")),
