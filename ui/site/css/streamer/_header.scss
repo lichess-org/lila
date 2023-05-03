@@ -130,7 +130,7 @@
   z-index: z('link-overlay');
 }
 
-.streamer-profile{
+.streamer-profile {
   z-index: z('link-overlay');
 }
 
@@ -142,7 +142,7 @@
   }
 }
 
-.streamer-footer{
+.streamer-footer {
   @extend%flex-wrap;
   align-items: center;
   gap: 3em;
