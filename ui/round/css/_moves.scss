@@ -36,47 +36,35 @@
     position: absolute;
     top: 0;
     bottom: 40%;
-    right: 0;
     left: 40%;
+    right: 0;
     margin: auto;
-
-    border-radius: 50%;
     width: 7px;
     height: 7px;
+    border-radius: 50%;
     background: red;
   }
 
-  .ring {
+  .notification::after {
     position: absolute;
-    top: 0;
-    bottom: 40%;
-    right: 0;
-    left: 40%;
-    margin: auto;
-
-    border: 3px solid red;
-    border-radius: 30px;
-    width: 25px;
-    height: 25px;
-    animation: pulsate 5s ease-out infinite;
-    // -webkit-animation-iteration-count: infinite;
-    opacity: 0;
+    top: 0px;
+    left: 0px;
+    width: 7px;
+    height: 7px;
+    border-radius: inherit;
+    background: red;
+    animation: 1.5s ease-out 0s infinite pulse;
+    opacity: 0.2;
+    content: '';
   }
 
-  @keyframes pulsate {
+  @keyframes pulse {
     0% {
-      -webkit-transform: scale(0.1, 0.1);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    20% {
-      -webkit-transform: scale(1.2, 1.2);
-      opacity: 0;
+      transform: scale3d(1, 1, 1);
+      opacity: 0.7;
     }
     100% {
-      -webkit-transform: scale(1.2, 1.2);
+      transform: scale3d(4, 4, 4);
       opacity: 0;
     }
   }
