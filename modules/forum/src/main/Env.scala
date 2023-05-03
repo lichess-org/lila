@@ -12,6 +12,7 @@ import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.relation.RelationApi
 import lila.user.User
+import lila.ask.AskApi
 
 @Module
 final private class ForumConfig(
@@ -37,7 +38,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    askApi: AskApi
 )(using
     ec: Executor,
     scheduler: Scheduler,

@@ -51,9 +51,11 @@ final class Ublog(env: Env) extends LilaController(env):
                 env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
                   ctx.me.??(env.ublog.rank.liked(post)) zip
                   ctx.userId.??(env.relation.api.fetchFollows(_, user.id)) zip
-                  env.ublog.markup(post) map { case (((others, liked), followed), markup) =>
+                  env.ublog.markup(post) flatMap { case (((others, liked), followed), markup) =>
                     val viewedPost = env.ublog.viewCounter(post, ctx.ip)
-                    Ok(html.ublog.post(user, blog, viewedPost, markup, others, liked, followed))
+                    env.ask.api.asksIn(post.markdown.value) map { asks =>
+                      Ok(html.ublog.post(user, blog, viewedPost, markup, others, liked, followed, asks))
+                    }
                   }
             }
           }
@@ -128,8 +130,14 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def edit(id: UblogPostId) = AuthBody { implicit ctx => me =>
     NotForKids {
-      OptionOk(env.ublog.api.findByUserBlogOrAdmin(id, me)) { post =>
-        html.ublog.form.edit(post, env.ublog.form.edit(post))
+      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
+        if (!lila.ask.AskApi.hasAskId(post.markdown.value))
+          fuccess(Ok(html.ublog.form.edit(post, env.ublog.form.edit(post))))
+        else // avoid copying post unless we have to
+          env.ask.api.unfreezeAsync(post.markdown.value) map { text =>
+            val editable = post.copy(markdown = lila.common.Markdown(text))
+            Ok(html.ublog.form.edit(editable, env.ublog.form.edit(editable)))
+          }
       }
     }
   }

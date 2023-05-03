@@ -54,6 +54,7 @@ object Permission:
   case object PublicMod        extends Permission("PUBLIC_MOD", "Mod badge")
   case object Developer        extends Permission("DEVELOPER", "Developer badge")
   case object ContentTeam      extends Permission("CONTENT_TEAM", "Content Team badge")
+  case object Pollster         extends Permission("POLLSTER", "Create polls")
   case object Coach            extends Permission("COACH", "Is a coach")
   case object Teacher          extends Permission("TEACHER", "Is a class teacher")
   case object ModNote          extends Permission("MOD_NOTE", "Mod notes")
@@ -77,7 +78,10 @@ object Permission:
   case object LichessTeam
       extends Permission(
         "LICHESS_TEAM",
-        List(Prismic),
+        List(
+          Prismic,
+          Pollster
+        ),
         "Lichess team"
       )
 
@@ -268,6 +272,7 @@ object Permission:
       StudyAdmin,
       PracticeConfig,
       PuzzleCurator,
+      Pollster,
       OpeningWiki,
       Presets
     ),
@@ -307,7 +312,7 @@ object Permission:
   lazy val all: Set[Permission] = categorized.flatMap { (_, perms) => perms }.toSet
 
   lazy val nonModPermissions: Set[Permission] =
-    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
+    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ContentTeam, Pollster, ApiHog, Relay)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 

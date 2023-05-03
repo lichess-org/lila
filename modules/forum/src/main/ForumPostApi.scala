@@ -3,6 +3,7 @@ package lila.forum
 import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 
+import lila.ask.AskApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
@@ -21,7 +22,8 @@ final class ForumPostApi(
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    detectLanguage: DetectLanguage
+    detectLanguage: DetectLanguage,
+    askApi: AskApi
 )(using Executor):
 
   import BSONHandlers.given
@@ -36,10 +38,11 @@ final class ForumPostApi(
       val publicMod = MasterGranter(_.PublicMod)(me)
       val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
       val anonMod   = modIcon && !publicMod
+      val frozen    = askApi.freeze(spam.replace(data.text), me)
       val post = ForumPost.make(
         topicId = topic.id,
         userId = !anonMod option me.id,
-        text = spam.replace(data.text),
+        text = frozen.text,
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
@@ -51,7 +54,8 @@ final class ForumPostApi(
         case _ =>
           postRepo.coll.insert.one(post) >>
             topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
-            categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+            categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>
+            askApi.commit(frozen, s"/forum/redirect/post/${post._id}".some) >>- {
               !categ.quiet ?? (indexer ! InsertPost(post))
               promotion.save(me, post.text)
               shutup ! {
@@ -78,12 +82,14 @@ final class ForumPostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost = post.editPost(nowInstant, spam replace newText)
-          (newPost.text != post.text).?? {
-            postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
-              logAnonPost(user.id, newPost, edit = true)
-            } >>- promotion.save(user, newPost.text)
-          } inject newPost
+          askApi.freezeAsync(spam replace newText, user) flatMap { frozen =>
+            val newPost = post.editPost(nowInstant, frozen.text)
+            (newPost.text != post.text).?? {
+              postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
+                logAnonPost(user.id, newPost, edit = true)
+              } >>- promotion.save(user, newPost.text)
+            } inject newPost
+          }
       }
     }
 
@@ -164,7 +170,7 @@ final class ForumPostApi(
             postId = post.id,
             topicName = topic.name,
             userId = post.userId,
-            text = post.text take 200,
+            text = post.cleanTake(200),
             createdAt = post.createdAt
           )
         }

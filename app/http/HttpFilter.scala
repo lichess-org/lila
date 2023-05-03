@@ -13,6 +13,8 @@ final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
   private val logger      = lila.log("http")
   private val logRequests = env.config.get[Boolean]("net.http.log")
 
+  private val coep = "Cross-Origin-Embedder-Policy"
+
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if (HTTPRequest isAssets req)
       nextFilter(req) dmap { result =>
@@ -36,7 +38,12 @@ final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
     val statusCode = result.header.status
     val client     = HTTPRequest clientName req
     httpMon.time(actionName, client, req.method, statusCode).record(reqTime)
-    if (logRequests) logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
+    if (logRequests && actionName != "Fishnet.status") {
+      val ip = req.headers
+        .get("x-real-ip")
+        .getOrElse(req.headers.get("x-forwarded-for").getOrElse(req.remoteAddress));
+      logger.info(s"${ip} $client - $statusCode $req $actionName ${reqTime}ms")
+    }
 
   private def redirectWrongDomain(req: RequestHeader): Option[Result] =
     (

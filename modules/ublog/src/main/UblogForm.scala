@@ -71,13 +71,13 @@ object UblogForm:
 
     def realLanguage = language flatMap Lang.get
 
-    def create(user: User) =
+    def create(user: User, updated: Markdown) =
       UblogPost(
         id = UblogPostId(ThreadLocalRandom nextString 8),
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,
-        markdown = markdown,
+        markdown = updated,
         language = LangList.removeRegion(realLanguage.orElse(user.realLang) | defaultLang),
         topics = topics ?? UblogTopic.fromStrList,
         image = none,
@@ -88,13 +88,14 @@ object UblogForm:
         lived = none,
         likes = UblogPost.Likes(1),
         views = UblogPost.Views(0)
+        // askCookie = updated.cookie
       )
 
-    def update(user: User, prev: UblogPost) =
+    def update(user: User, prev: UblogPost, updated: Markdown) =
       prev.copy(
         title = title,
         intro = intro,
-        markdown = markdown,
+        markdown = updated,
         image = prev.image.map { i =>
           i.copy(alt = imageAlt, credit = imageCredit)
         },

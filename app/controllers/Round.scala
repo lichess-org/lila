@@ -359,5 +359,5 @@ final class Round(
 
   def help =
     Open { implicit ctx =>
-      Ok(html.site.keyboardHelpModal.round).toFuccess
+      Ok(html.site.helpModal.round).toFuccess
     }

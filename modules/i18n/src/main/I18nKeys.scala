@@ -136,6 +136,7 @@ object I18nKeys:
   val `games` = I18nKey("games")
   val `forum` = I18nKey("forum")
   val `xPostedInForumY` = I18nKey("xPostedInForumY")
+  val `askConcluded` = I18nKey("askConcluded")
   val `latestForumPosts` = I18nKey("latestForumPosts")
   val `players` = I18nKey("players")
   val `friends` = I18nKey("friends")

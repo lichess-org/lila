@@ -19,12 +19,17 @@ object post:
       markup: Frag,
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
-      followed: Boolean
+      followed: Boolean,
+      asks: Iterable[Option[lila.ask.Ask]]
   )(using ctx: Context) =
     views.html.base.layout(
-      moreCss = cssTag("ublog"),
+      moreCss = frag(
+        cssTag("ublog"),
+        cssTag("ask")
+      ),
       moreJs = frag(
         jsModule("expandText"),
+        jsModule("ask"),
         ctx.isAuth option jsModule("ublog")
       ),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
@@ -110,7 +115,9 @@ object post:
             }
           ),
           strong(cls := "ublog-post__intro")(post.intro),
-          div(cls := "ublog-post__markup expand-text")(markup),
+          div(cls := "ublog-post__markup expand-text", role := "document")(
+            views.html.ask.render(markup, asks)
+          ),
           div(cls := "ublog-post__footer")(
             post.live && ~post.discuss option a(
               href     := routes.Ublog.discuss(post.id),

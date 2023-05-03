@@ -99,7 +99,8 @@ final class Pref(env: Env) extends LilaController(env):
     "bg"         -> (forms.bg         -> save("bg")),
     "bgImg"      -> (forms.bgImg      -> save("bgImg")),
     "is3d"       -> (forms.is3d       -> save("is3d")),
-    "zen"        -> (forms.zen        -> save("zen"))
+    "zen"        -> (forms.zen        -> save("zen")),
+    "voice"      -> (forms.voice      -> save("voice"))
   )
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =

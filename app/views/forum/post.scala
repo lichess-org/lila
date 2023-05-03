@@ -7,6 +7,7 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ask.AskApi.Frozen
 import lila.forum.ForumPost
 
 object post:
@@ -37,8 +38,8 @@ object post:
       canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean
-  )(using ctx: Context) = postWithFrag match
-    case ForumPost.WithFrag(post, body) =>
+  )(implicit ctx: Context) = postWithFrag match
+    case ForumPost.WithFrag(post, body, asks) =>
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg) option div(
@@ -104,9 +105,9 @@ object post:
           ),
           a(cls := "anchor", href := url)(s"#${post.number}")
         ),
-        p(cls := "forum-post__message expand-text")(
-          if (post.erased) "<Comment deleted by user>"
-          else body
+        div(cls := "forum-post__message expand-text", role := "document")(
+          if (post.erased) p("<Comment deleted by user>")
+          else views.html.ask.render(body, asks)
         ),
         !post.erased option reactions(post, canReact),
         ctx.me.exists(post.shouldShowEditForm) option
@@ -117,7 +118,7 @@ object post:
               cls            := "post-text-area edit-post-box",
               minlength      := 3,
               required
-            )(post.text),
+            )(env.ask.api.unfreeze(post.text, asks)),
             div(cls := "edit-buttons")(
               a(
                 cls   := "edit-post-cancel",

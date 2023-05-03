@@ -164,7 +164,7 @@ lichess.load.then(() => {
     return parsed.href;
   }
 
-  const as: Candidate[] = Array.from(document.querySelectorAll('.expand-text a'))
+  const as: Candidate[] = Array.from(document.querySelectorAll('.expand-text > a'))
     .map((el: HTMLAnchorElement) => {
       const parsed = parseLink(el);
       if (!parsed) return false;

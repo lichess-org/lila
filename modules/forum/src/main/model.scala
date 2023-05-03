@@ -42,7 +42,7 @@ case class PostView(
     categ: ForumCateg
 ):
 
-  def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
+  def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.cleanTake(80)
 
 object PostView:
   case class WithReadPerm(view: PostView, canRead: Boolean)

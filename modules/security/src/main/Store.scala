@@ -8,7 +8,7 @@ import scala.concurrent.blocking
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.user.{ User, UserMark, UserMarks }
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
     ec: Executor
@@ -30,6 +30,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
               doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
             }
           }
+
       }
   }
 

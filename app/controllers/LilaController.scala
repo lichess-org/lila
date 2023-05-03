@@ -99,7 +99,6 @@ abstract private[controllers] class LilaController(val env: Env)
     CSRF(req) {
       reqToCtx(req) flatMap f
     }
-
   // protected def OpenOrScopedBody(selectors: OAuthScope.Selector*)(
   //     open: BodyContext[_] => Fu[Result],
   //     scoped: Request[_] => UserModel => Fu[Result]

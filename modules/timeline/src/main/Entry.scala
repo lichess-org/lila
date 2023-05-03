@@ -38,6 +38,7 @@ object Entry:
       case d: TeamJoin      => "team-join"       -> toBson(d)
       case d: TeamCreate    => "team-create"     -> toBson(d)
       case d: ForumPost     => "forum-post"      -> toBson(d)
+      case d: AskConcluded  => "ask-concluded"   -> toBson(d)
       case d: UblogPost     => "ublog-post"      -> toBson(d)
       case d: TourJoin      => "tour-join"       -> toBson(d)
       case d: GameEnd       => "game-end"        -> toBson(d)
@@ -58,6 +59,7 @@ object Entry:
     given teamJoinHandler: BSONDocumentHandler[TeamJoin]           = Macros.handler
     given teamCreateHandler: BSONDocumentHandler[TeamCreate]       = Macros.handler
     given forumPostHandler: BSONDocumentHandler[ForumPost]         = Macros.handler
+    given askConcludedHandler: BSONDocumentHandler[AskConcluded]   = Macros.handler
     given ublogPostHandler: BSONDocumentHandler[UblogPost]         = Macros.handler
     given tourJoinHandler: BSONDocumentHandler[TourJoin]           = Macros.handler
     given gameEndHandler: BSONDocumentHandler[GameEnd]             = Macros.handler
@@ -75,6 +77,7 @@ object Entry:
       "team-join"       -> teamJoinHandler,
       "team-create"     -> teamCreateHandler,
       "forum-post"      -> forumPostHandler,
+      "ask-concluded"   -> askConcludedHandler,
       "ublog-post"      -> ublogPostHandler,
       "tour-join"       -> tourJoinHandler,
       "game-end"        -> gameEndHandler,
@@ -93,6 +96,7 @@ object Entry:
     val teamJoinWrite      = Json.writes[TeamJoin]
     val teamCreateWrite    = Json.writes[TeamCreate]
     val forumPostWrite     = Json.writes[ForumPost]
+    val askConcludedWrite  = Json.writes[AskConcluded]
     val ublogPostWrite     = Json.writes[UblogPost]
     val tourJoinWrite      = Json.writes[TourJoin]
     val gameEndWrite       = Json.writes[GameEnd]
@@ -109,6 +113,7 @@ object Entry:
       case d: TeamJoin      => teamJoinWrite writes d
       case d: TeamCreate    => teamCreateWrite writes d
       case d: ForumPost     => forumPostWrite writes d
+      case d: AskConcluded  => askConcludedWrite writes d
       case d: UblogPost     => ublogPostWrite writes d
       case d: TourJoin      => tourJoinWrite writes d
       case d: GameEnd       => gameEndWrite writes d

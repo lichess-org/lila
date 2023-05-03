@@ -1,0 +1,42 @@
+{
+  "name": "voice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "lichess.org voice rec",
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "T-Bone Duplexus",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@jest/globals": "^29.3.1",
+    "@types/audioworklet": "^0.0.36",
+    "@types/cash": "workspace:*",
+    "@types/lichess": "workspace:*",
+    "chess": "workspace:*",
+    "common": "workspace:*",
+    "snabbdom": "^3.5.1",
+    "vosk-browser": "^0.0.8"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc",
+    "post-disabled": "cp dist/plugins/voskWorklet.js ../../public/compiled"
+  },
+  "lichess": {
+    "bundles": {
+      "src/plugins/vosk.ts": "voice.vosk",
+      "src/plugins/voiceMove.ts": "voice.move"
+    },
+    "copy": [
+      {
+        "src": "grammar",
+        "dest": "../../public/compiled"
+      }
+    ]
+  }
+}

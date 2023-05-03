@@ -72,7 +72,7 @@ final class LilaComponents(
 
   given ActorSystem = actorSystem
 
-  implicit lazy val httpClient: StandaloneWSClient =
+  given StandaloneWSClient =
     import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
     import play.api.libs.ws.WSConfigParser
     import play.api.libs.ws.ahc.{ AhcConfigBuilder, AhcWSClientConfigParser, StandaloneAhcWSClient }
@@ -99,6 +99,7 @@ final class LilaComponents(
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
   lazy val appealC: appeal.Appeal         = wire[appeal.Appeal]
+  lazy val ask: Ask                       = wire[Ask]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
   lazy val playApi: PlayApi               = wire[PlayApi]

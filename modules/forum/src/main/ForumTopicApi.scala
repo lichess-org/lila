@@ -23,6 +23,7 @@ final private class ForumTopicApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
+    askApi: lila.ask.AskApi,
     cacheApi: CacheApi
 )(using Executor):
 
@@ -67,6 +68,7 @@ final private class ForumTopicApi(
       me: User
   ): Fu[ForumTopic] =
     topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
+      val frozen = askApi.freeze(spam.replace(data.post.text), me)
       val topic = ForumTopic.make(
         categId = categ.slug,
         slug = slug,
@@ -78,18 +80,20 @@ final private class ForumTopicApi(
         topicId = topic.id,
         userId = me.id.some,
         troll = me.marks.troll,
-        text = spam.replace(data.post.text),
+        text = frozen.text,
         lang = lang map (_.language),
         number = 1,
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+        // askCookie = updated.cookie
       )
       findDuplicate(topic) flatMap {
         case Some(dup) => fuccess(dup)
         case None =>
           postRepo.coll.insert.one(post) >>
             topicRepo.coll.insert.one(topic withPost post) >>
-            categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+            categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>
+            askApi.commit(frozen, s"/forum/redirect/post/${post._id}".some) >>- {
               !categ.quiet ?? (indexer ! InsertPost(post))
               promotion.save(me, post.text)
               shutup ! {

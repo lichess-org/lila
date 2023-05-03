@@ -1,13 +1,14 @@
 package controllers
 
 import play.api.libs.json.*
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ enLang, I18nKeys as trans, I18nLangPicker, LangList }
 
-final class Dasher(env: Env) extends LilaController(env):
+final class Dasher(env: Env)(using StandaloneWSClient) extends LilaController(env):
 
   private val translationsBase = List(
     trans.networkLagBetweenYouAndLichess,
@@ -51,12 +52,21 @@ final class Dasher(env: Env) extends LilaController(env):
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )
 
+  private lazy val galleryJson: Fu[Option[JsValue]] =
+    summon[StandaloneWSClient]
+      .url(s"${env.net.assetBaseUrl}/assets/images/background/gallery.json")
+      .get()
+      .map {
+        case res if res.status == 200 => Json.parse(res.body).some
+        case _                        => None
+      }
+
   def get =
     Open { implicit ctx =>
       negotiate(
         html = notFound,
         api = _ =>
-          ctx.me.??(env.streamer.api.isPotentialStreamer) map { isStreamer =>
+          ctx.me.??(env.streamer.api.isPotentialStreamer).zip(galleryJson) map { case (isStreamer, gallery) =>
             Ok {
               Json.obj(
                 "user" -> ctx.me.map(_.light),
@@ -70,10 +80,12 @@ final class Dasher(env: Env) extends LilaController(env):
                     s"${set.key} ${set.name}"
                   }
                 ),
-                "background" -> Json.obj(
-                  "current" -> lila.pref.Pref.Bg.asString.get(ctx.pref.bg),
-                  "image"   -> ctx.pref.bgImgOrDefault
-                ),
+                "background" -> Json
+                  .obj(
+                    "current" -> lila.pref.Pref.Bg.asString.get(ctx.pref.bg),
+                    "image"   -> ctx.pref.bgImgOrDefault
+                  )
+                  .add("gallery" -> gallery),
                 "board" -> Json.obj(
                   "is3d" -> ctx.pref.is3d
                 ),

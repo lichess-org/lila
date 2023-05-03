@@ -105,7 +105,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
         pub = ctrl.opts.public;
 
       if (txt === '')
-        $('.keyboard-move input').each(function (this: HTMLInputElement) {
+        $('.input-move input').each(function (this: HTMLInputElement) {
           this.focus();
         });
       else {
