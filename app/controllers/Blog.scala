@@ -134,16 +134,13 @@ final class Blog(
     }
 
   private def WithPrismic(f: Context => BlogApi.Context => Fu[Result]): Action[Unit] =
-    Open { ctx =>
-      blogApi context ctx.req flatMap { prismic =>
-        f(ctx)(prismic)
-      }
-    }
+    Open:
+      blogApi context ctx.req flatMap f(ctx)
 
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[Document], slug: String)(
       callback: Either[String, Document] => Result
-  )(implicit ctx: lila.api.Context) =
+  )(using lila.api.Context) =
     document.collect {
       case document if document.slug == slug => fuccess(callback(Right(document)))
       case document

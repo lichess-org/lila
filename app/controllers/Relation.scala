@@ -117,36 +117,29 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def following(username: UserStr, page: Int) =
-    Open { implicit ctx =>
-      Reasonable(page, config.Max(20)) {
-        OptionFuResult(env.user.repo byId username) { user =>
-          RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
-            negotiate(
-              html = {
-                if (ctx.is(user) || isGranted(_.CloseAccount))
-                  Ok(html.relation.bits.friends(user, pag)).toFuccess
-                else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).toFuccess)
-              },
-              api = _ => Ok(jsonRelatedPaginator(pag)).toFuccess
-            )
+  def following(username: UserStr, page: Int) = Open:
+    Reasonable(page, config.Max(20)):
+      OptionFuResult(env.user.repo byId username): user =>
+        RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
+          negotiate(
+            html =
+              if ctx.is(user) || isGranted(_.CloseAccount)
+              then Ok(html.relation.bits.friends(user, pag)).toFuccess
+              else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).toFuccess),
+            api = _ => Ok(jsonRelatedPaginator(pag)).toFuccess
+          )
+        }
+
+  def followers(username: UserStr, page: Int) = Open:
+    negotiate(
+      html = notFound,
+      api = _ =>
+        Reasonable(page, config.Max(20)) {
+          RelatedPager(api.followersPaginatorAdapter(username.id), page) flatMap { pag =>
+            Ok(jsonRelatedPaginator(pag)).toFuccess
           }
         }
-      }
-    }
-
-  def followers(username: UserStr, page: Int) =
-    Open { implicit ctx =>
-      negotiate(
-        html = notFound,
-        api = _ =>
-          Reasonable(page, config.Max(20)) {
-            RelatedPager(api.followersPaginatorAdapter(username.id), page) flatMap { pag =>
-              Ok(jsonRelatedPaginator(pag)).toFuccess
-            }
-          }
-      )
-    }
+    )
 
   def apiFollowing = Scoped(_.Follow.Read) { implicit req => me =>
     apiC.jsonDownload {

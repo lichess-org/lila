@@ -13,20 +13,17 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   export env.streamer.api
 
-  def index(page: Int) =
-    Open { implicit ctx =>
-      NoBot {
-        ctx.noKid ?? {
-          pageHit
-          val requests = getBool("requests") && isGranted(_.Streamers)
-          for {
-            liveStreams <- env.streamer.liveStreamApi.all
-            live        <- api.withUsers(liveStreams, ctx.me.map(_.id))
-            pager       <- env.streamer.pager.get(page, liveStreams, ctx.me.map(_.id), requests)
-          } yield Ok(html.streamer.index(live, pager, requests))
-        }
+  def index(page: Int) = Open:
+    NoBot:
+      ctx.noKid ?? {
+        pageHit
+        val requests = getBool("requests") && isGranted(_.Streamers)
+        for
+          liveStreams <- env.streamer.liveStreamApi.all
+          live        <- api.withUsers(liveStreams, ctx.me.map(_.id))
+          pager       <- env.streamer.pager.get(page, liveStreams, ctx.me.map(_.id), requests)
+        yield Ok(html.streamer.index(live, pager, requests))
       }
-    }
 
   def featured = Action.async { implicit req =>
     env.streamer.liveStreamApi.all
@@ -62,28 +59,20 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def show(username: UserStr) =
-    Open { implicit ctx =>
-      OptionFuResult(api.forSubscriber(username, ctx.me)) { s =>
-        WithVisibleStreamer(s) {
-          for
-            sws      <- env.streamer.liveStreamApi of s
-            activity <- env.activity.read.recentAndPreload(sws.user)
-          yield Ok(html.streamer.show(sws, activity))
-        }
-      }
-    }
+  def show(username: UserStr) = Open:
+    OptionFuResult(api.forSubscriber(username, ctx.me)): s =>
+      WithVisibleStreamer(s):
+        for
+          sws      <- env.streamer.liveStreamApi of s
+          activity <- env.activity.read.recentAndPreload(sws.user)
+        yield Ok(html.streamer.show(sws, activity))
 
-  def redirect(username: UserStr) =
-    Open { implicit ctx =>
-      OptionFuResult(api.forSubscriber(username, ctx.me)) { s =>
-        WithVisibleStreamer(s) {
-          env.streamer.liveStreamApi of s map { sws =>
-            Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)
-          }
+  def redirect(username: UserStr) = Open:
+    OptionFuResult(api.forSubscriber(username, ctx.me)): s =>
+      WithVisibleStreamer(s):
+        env.streamer.liveStreamApi of s map { sws =>
+          Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)
         }
-      }
-    }
 
   def create =
     AuthBody { implicit ctx => me =>

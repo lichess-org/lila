@@ -45,9 +45,8 @@ final class Challenge(
     }
 
   def show(id: ChallengeId, @annotation.nowarn _color: Option[String]) =
-    Open { implicit ctx =>
+    Open:
       showId(id)
-    }
 
   protected[controllers] def showId(id: ChallengeId)(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
@@ -93,30 +92,27 @@ final class Challenge(
     challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
       !challenge.challengerUserId.??(orig => me.exists(_ is orig))
 
-  def accept(id: ChallengeId, color: Option[String]) =
-    Open { implicit ctx =>
-      OptionFuResult(api byId id) { c =>
-        val cc = color flatMap chess.Color.fromName
-        isForMe(c, ctx.me) ?? api
-          .accept(c, ctx.me, ctx.req.sid, cc)
-          .flatMap {
-            case Validated.Valid(Some(pov)) =>
-              negotiate(
-                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).toFuccess,
-                api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
-              ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
-            case invalid =>
-              negotiate(
-                html = Redirect(routes.Round.watcher(c.id.value, cc.fold("white")(_.name))).toFuccess,
-                api = _ =>
-                  notFoundJson(invalid match {
-                    case Validated.Invalid(err) => err
-                    case _                      => "The challenge has already been accepted"
-                  })
-              )
-          }
-      }
-    }
+  def accept(id: ChallengeId, color: Option[String]) = Open:
+    OptionFuResult(api byId id): c =>
+      val cc = color flatMap chess.Color.fromName
+      isForMe(c, ctx.me) ?? api
+        .accept(c, ctx.me, ctx.req.sid, cc)
+        .flatMap {
+          case Validated.Valid(Some(pov)) =>
+            negotiate(
+              html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).toFuccess,
+              api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
+            ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
+          case invalid =>
+            negotiate(
+              html = Redirect(routes.Round.watcher(c.id.value, cc.fold("white")(_.name))).toFuccess,
+              api = _ =>
+                notFoundJson(invalid match {
+                  case Validated.Invalid(err) => err
+                  case _                      => "The challenge has already been accepted"
+                })
+            )
+        }
 
   def apiAccept(id: ChallengeId) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
@@ -187,12 +183,9 @@ final class Challenge(
     }
 
   def cancel(id: ChallengeId) =
-    Open { implicit ctx =>
-      OptionFuResult(api byId id) { c =>
-        if (isMine(c)) api cancel c
-        else notFound
-      }
-    }
+    Open:
+      OptionFuResult(api byId id): c =>
+        if isMine(c) then api cancel c else notFound
 
   def apiCancel(id: ChallengeId) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req => me =>

@@ -34,10 +34,8 @@ final class Insight(env: Env) extends LilaController(env):
       scoped = _ => me => AccessibleApi(username)(me.some)(jsonStatus)
     )
 
-  def path(username: UserStr, metric: String, dimension: String, filters: String) =
-    Open { implicit ctx =>
-      Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
-    }
+  def path(username: UserStr, metric: String, dimension: String, filters: String) = Open:
+    Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
 
   private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(using
       ctx: Context
