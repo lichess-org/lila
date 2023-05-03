@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Analyzes module dependencies in build.sbt
 # Outputs all and essential dependencies for each module to stdout
