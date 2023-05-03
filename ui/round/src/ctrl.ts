@@ -73,6 +73,7 @@ export default class RoundController {
   flip = false;
   menu: Toggle = toggle(false);
   voiceMoveEnabled: Toggle;
+  keyboardMoveEnabled: Toggle;
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -139,6 +140,7 @@ export default class RoundController {
     this.transientMove = new TransientMove(this.socket);
 
     this.voiceMoveEnabled = toggle(d.pref.voiceMove, v => xhr.setPreference('voice', v ? '1' : '0'));
+    this.keyboardMoveEnabled = toggle(d.pref.keyboardMove, v => xhr.setPreference('keyboardMove', v ? '1' : '0'));
 
     this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;

@@ -234,18 +234,17 @@ function renderMenu(ctrl: RoundController) {
       },
       ctrl
     ),
-    // TODO: toggle for keyboard move
-    // ctrlToggle(
-    //   {
-    //     name: 'Enable voice input',
-    //     title: 'Enable voice input',
-    //     id: 'voice',
-    //     checked: ctrl.voiceEnabled(),
-    //     disabled: false,
-    //     change: ctrl.voiceEnabled,
-    //   },
-    //   ctrl
-    // ),
+    ctrlToggle(
+      {
+        name: 'Enable keyboard input',
+        title: 'Enable keyboard input',
+        id: 'keyboard',
+        checked: ctrl.keyboardMoveEnabled(),
+        disabled: false,
+        change: ctrl.keyboardMoveEnabled,
+      },
+      ctrl
+    ),
   ]);
 }
 
