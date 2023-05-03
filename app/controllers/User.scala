@@ -36,21 +36,19 @@ final class User(
   def tv(username: UserStr) = Open:
     OptionFuResult(env.user.repo byId username): user =>
       currentlyPlaying(user) orElse lastPlayed(user) flatMap {
-        _.fold(fuccess(Redirect(routes.User.show(username.value)))) { pov =>
-          ctx.me ifFalse pov.game.bothPlayersHaveMoved flatMap { Pov(pov.game, _) } match
+        _.fold(fuccess(Redirect(routes.User.show(username.value)))): pov =>
+          ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
             case Some(mine) => Redirect(routes.Round.player(mine.fullId)).toFuccess
             case _          => roundC.watch(pov, userTv = user.some)
-        }
       }
 
   def tvExport(username: UserStr) =
-    Action.async { req =>
+    Action.async: req =>
       env.game.cached.lastPlayedPlayingId(username.id) orElse
         env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
           case None         => NotFound("No ongoing game").toFuccess
           case Some(gameId) => gameC.exportGame(gameId, req)
         }
-    }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
