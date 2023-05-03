@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Faqja e transmetuesit Lichess aplikon për publikun tuaj gjuhën e dhënë nga platforma juaj e transmetimit. Caktoni gjuhën e saktë parazgjedhje për transmetime shahu nga ju, te aplikacioni apo shërbimi që përdorni për të transmetuar.</string>
   <string name="twitchUsername">Emër përdoruesi ose URL-ja juaj Twitch</string>
   <string name="optionalOrEmpty">Opsionale. Lëreni të zbrazët, në mos pastë</string>
+  <string name="youTubeChannelId">ID-ja e kanalit tuaj YouTube</string>
   <string name="streamerName">Emri i transmetuesit tuaj në Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Bjerini shkurt: %s shenjë e shumta</item>
