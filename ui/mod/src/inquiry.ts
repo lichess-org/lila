@@ -9,7 +9,7 @@ lichess.load.then(() => {
   if (username != usernameNoteStore.get()) noteStore.remove();
   usernameNoteStore.set(username);
   const noteTextArea = $('#inquiry .notes').find('textarea')[0] as HTMLTextAreaElement;
-  const syncNoteValue = () => noteTextArea.value = noteStore.get() || '';
+  const syncNoteValue = () => (noteTextArea.value = noteStore.get() || '');
   let hasSeenNonEmptyNoteWarning = false;
 
   $('#inquiry .notes').on('mouseenter', () => {
@@ -35,7 +35,7 @@ lichess.load.then(() => {
     });
   };
   loadNotes();
-  const flashNotes = (warning: boolean = false) => {
+  const flashNotes = (warning = false) => {
     const flashClass = warning ? 'note-flash warning' : 'note-flash';
     const notes = $('#inquiry .notes > span').addClass(flashClass);
     setTimeout(() => notes.removeClass(flashClass), 100);
@@ -61,7 +61,7 @@ lichess.load.then(() => {
     if (noteStore.get() && !hasSeenNonEmptyNoteWarning) {
       event!.preventDefault();
       const readTime = 1000;
-      setTimeout(() => hasSeenNonEmptyNoteWarning = true, readTime);
+      setTimeout(() => (hasSeenNonEmptyNoteWarning = true), readTime);
       flashNotes(true);
       syncNoteValue();
       const $noteDiv = $($('#inquiry .notes').find('div')[0]);
