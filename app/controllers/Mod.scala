@@ -567,7 +567,7 @@ final class Mod(
     }
 
   def apiUserLog(username: UserStr) =
-    SecureScoped(_.ModLog) { _ => me =>
+    SecureOrScoped(_.ModLog) { _ => me =>
       import lila.common.Json.given
       env.user.repo byId username flatMapz { user =>
         for
