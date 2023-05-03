@@ -88,7 +88,7 @@ final class PgnDump(
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
     given WithFlags = flags
-    val root               = chapter.root
+    val root        = chapter.root
     val pgn = Pgn(
       tags = makeTags(study, chapter)(using flags),
       initial = Initial(

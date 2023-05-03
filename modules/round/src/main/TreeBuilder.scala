@@ -1,13 +1,15 @@
 package lila.round
 
-import chess.{ Centis, Color, Ply }
+import chess.{ Centis, Color, Ply, Node as ChessNode }
 import chess.format.pgn.{ Comment, Glyphs }
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.*
 import chess.variant.Variant
 import JsonView.WithFlags
 import lila.analyse.{ Advice, Analysis, Info }
-import lila.tree.*
+import lila.tree.{ NewBranch, NewRoot, NewTree, Eval, Metas }
+import lila.tree.Node
+import chess.Tree
 
 object TreeBuilder:
 
@@ -20,7 +22,7 @@ object TreeBuilder:
       analysis: Option[Analysis],
       initialFen: Fen.Epd,
       withFlags: WithFlags
-  ): Root =
+  ): NewRoot =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
     val drawOfferPlies                     = game.drawOffers.normalizedPlies
     chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
@@ -32,7 +34,7 @@ object TreeBuilder:
         val fen                       = Fen write init
         val infos: Vector[Info]       = analysis.??(_.infos.toVector)
         val advices: Map[Ply, Advice] = analysis.??(_.advices.mapBy(_.ply))
-        val root = Root(
+        val metas = Metas(
           ply = init.ply,
           fen = fen,
           check = init.situation.check,
@@ -43,42 +45,44 @@ object TreeBuilder:
           crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
         )
-        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) =
+        val root = NewRoot(metas, None)
+        def makeNode(index: Int, g: chess.Game, m: Uci.WithSan) =
           val fen    = Fen write g
           val info   = infos lift (index - 1)
           val advice = advices get g.ply
-          val branch = Branch(
+          val branch = NewBranch(
             id = UciCharPair(m.uci),
-            ply = g.ply,
+            path = UciPath.root, // TODO: fix or remove path
             move = m,
-            fen = fen,
-            check = g.situation.check,
-            opening = openingOf(fen),
-            clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)),
-            crazyData = g.situation.board.crazyData,
-            eval = info map makeEval,
-            glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
-            comments = Node.Comments {
-              drawOfferPlies(g.ply)
-                .option(makeLichessComment(Comment(s"${!g.ply.color} offers draw")))
-                .toList :::
-                advice
-                  .map(_.makeComment(withEval = false, withBestMove = true))
-                  .toList
-                  .map(makeLichessComment)
-            }
+            metas = Metas(
+              ply = g.ply,
+              fen = fen,
+              check = g.situation.check,
+              opening = openingOf(fen),
+              clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)),
+              crazyData = g.situation.board.crazyData,
+              eval = info map makeEval,
+              glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
+              comments = Node.Comments {
+                drawOfferPlies(g.ply)
+                  .option(makeLichessComment(Comment(s"${!g.ply.color} offers draw")))
+                  .toList :::
+                  advice
+                    .map(_.makeComment(withEval = false, withBestMove = true))
+                    .toList
+                    .map(makeLichessComment)
+              }
+            )
           )
+
+          val node = ChessNode(branch, None, Nil)
           advices.get(g.ply + 1).flatMap { adv =>
             games.lift(index - 1).map { case (fromGame, _) =>
-              withAnalysisChild(game.id, branch, game.variant, Fen write fromGame, openingOf)(adv.info)
+              withAnalysisChild(game.id, node, game.variant, Fen write fromGame, openingOf)(adv.info)
             }
-          } getOrElse branch
-        games.zipWithIndex.reverse match
-          case Nil => root
-          case ((g, m), i) :: rest =>
-            root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>
-              makeBranch(i + 1, g, m) prependChild node
-            }
+          } getOrElse node
+
+        ChessNode.buildWithNode(games.zipWithIndex) { case ((g, m), i) => makeNode(i + 1, g, m) }
 
   private def makeLichessComment(c: Comment) =
     Node.Comment(
@@ -89,34 +93,31 @@ object TreeBuilder:
 
   private def withAnalysisChild(
       id: GameId,
-      root: Branch,
+      root: NewTree,
       variant: Variant,
       fromFen: Fen.Epd,
       openingOf: OpeningOf
-  )(info: Info): Branch =
-    def makeBranch(g: chess.Game, m: Uci.WithSan) =
+  )(info: Info): NewTree =
+    def makeBranch(g: chess.Game, m: Uci.WithSan): NewBranch =
       val fen = Fen write g
-      Branch(
-        id = UciCharPair(m.uci),
+      val metas = Metas(
         ply = g.ply,
-        move = m,
         fen = fen,
         check = g.situation.check,
         opening = openingOf(fen),
         crazyData = g.situation.board.crazyData,
         eval = none
       )
+      NewBranch(
+        id = UciCharPair(m.uci),
+        path = UciPath.root, // TODO: fix or remove path
+        move = m,
+        metas = metas
+      )
     chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match
       case (_, games, error) =>
         error foreach logChessError(id)
-        games.reverse match
-          case Nil => root
-          case (g, m) :: rest =>
-            root addChild rest
-              .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
-                makeBranch(g, m) addChild node
-              }
-              .setComp
+        Variation.build(games, makeBranch).fold(root)(root.addVariation)
 
   private val logChessError = (id: GameId) =>
     (err: chess.ErrorStr) =>

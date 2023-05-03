@@ -6,7 +6,7 @@ import chess.variant.Variant
 import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
 import chess.Color
-import lila.tree.{ Root, Branch, Branches }
+import lila.tree.{ Root, Branch, NewBranch, NewRoot, Branches }
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,
@@ -39,7 +39,7 @@ final private class ChapterMaker(
   private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- PgnImport(pgn, contributors.flatten).toFuture recoverWith { case e: Exception =>
+      parsed <- NewPgnImport(pgn, contributors.flatten).toFuture recoverWith { case e: Exception =>
         fufail(ValidationException(e.getMessage))
       }
     } yield Chapter.make(
@@ -68,27 +68,20 @@ final private class ChapterMaker(
       conceal = data.isConceal option parsed.root.ply
     )
 
-  private def resolveOrientation(data: Data, root: Root, tags: Tags = Tags.empty): Color =
+  private def resolveOrientation(data: Data, root: NewRoot, tags: Tags = Tags.empty): Color =
     data.orientation match
       case Orientation.Fixed(color)    => color
       case _ if tags.outcome.isDefined => Color.white
-      case _ if data.isGamebook        => !root.lastMainlineNode.color
-      case _                           => root.lastMainlineNode.color
+      case _ if data.isGamebook        => !root.lastMainlineMetasOrRoots.color
+      case _                           => root.lastMainlineMetasOrRoots.color
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
     val (root, isFromFen) =
-      data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
-        case Some(sit) =>
-          Root(
-            ply = sit.ply,
-            fen = Fen write sit,
-            check = sit.situation.check,
-            clock = none,
-            crazyData = sit.situation.board.crazyData,
-            children = Branches.empty
-          ) -> true
-        case None => Root.default(variant) -> false
+      data.fen
+        .filterNot(_.isInitial)
+        .flatMap(Fen.readWithMoveNumber(variant, _))
+        .fold(NewRoot.default(variant) -> false)(NewRoot(_) -> true)
     Chapter.make(
       studyId = study.id,
       name = data.name,
@@ -161,13 +154,13 @@ final private class ChapterMaker(
       game: Game,
       pgnOpt: Option[PgnStr],
       initialFen: Option[Fen.Epd]
-  ): Fu[Root] =
+  ): Fu[NewRoot] =
     initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { goodFen =>
       pgnOpt
         .filter(_.value.nonEmpty)
-        .flatMap(PgnImport(_, Nil).toOption)
+        .flatMap(NewPgnImport(_, Nil).toOption)
         .map(_.root)
         .getOrElse(GameToRoot(game, goodFen, withClocks = true))
     }

@@ -3,22 +3,20 @@ package lila.study
 import chess.format.Fen
 import lila.game.Game
 import lila.round.JsonView.WithFlags
-import lila.tree.Root
 import lila.tree.Node.Comment
 import chess.Outcome
+import lila.tree.NewRoot
 
 private object GameToRoot:
 
-  def apply(game: Game, initialFen: Option[Fen.Epd], withClocks: Boolean): Root =
-    val root = lila.round.TreeBuilder(
+  def apply(game: Game, initialFen: Option[Fen.Epd], withClocks: Boolean): NewRoot =
+    val root: NewRoot = lila.round.TreeBuilder(
       game = game,
       analysis = none,
       initialFen = initialFen | game.variant.initialFen,
       withFlags = WithFlags(clocks = withClocks)
     )
-    endComment(game).fold(root) { comment =>
-      root updateMainlineLast { _.setComment(comment) }
-    }
+    endComment(game).fold(root)(comment => root.modifyLastMainlineOrRoot(_.setComment(comment)))
 
   private def endComment(game: Game) =
     game.finished option {

@@ -3,12 +3,11 @@ package lila.game
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
 import chess.format.{ pgn as chessPgn }
-import chess.{ Centis, Color, ByColor, Outcome, Ply, FullMoveNumber }
+import chess.{ Centis, Color, ByColor, Outcome, Ply, FullMoveNumber, Node as ChessNode }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
 import chess.format.pgn.Initial
-import chess.Tree
 
 final class PgnDump(
     baseUrl: BaseUrl,
@@ -169,7 +168,7 @@ object PgnDump:
       san = san,
       secondsLeft = clocks.lift(index * 2 - clockOffset).map(_.roundSeconds)
     )
-    Tree.build(moves.zipWithIndex, f)
+    ChessNode.build(moves.zipWithIndex, f)
 
   case class WithFlags(
       clocks: Boolean = true,
