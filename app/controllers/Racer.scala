@@ -24,15 +24,14 @@ final class Racer(env: Env) extends LilaController(env):
       }
     }
 
-  def apiCreate = Scoped(_.Racer.Write) { _ => me =>
+  def apiCreate = Scoped(_.Racer.Write) { _ ?=> me =>
     me.noBot ?? {
       env.racer.api.createAndJoin(RacerPlayer.Id.User(me.id)) map { raceId =>
-        JsonOk(
+        JsonOk:
           Json.obj(
             "id"  -> raceId.value,
             "url" -> s"${env.net.baseUrl}${routes.Racer.show(raceId.value)}"
           )
-        )
       }
     }
   }

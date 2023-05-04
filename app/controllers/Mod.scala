@@ -68,16 +68,14 @@ final class Mod(
           data => env.chat.api.userChat.publicTimeout(data, me)
         )
     SecureOrScopedBody(_.ChatTimeout)(
-      secure = ctx ?=> me => doTimeout(me),
-      scoped = req => me => doTimeout(me)(using req)
+      secure = _ ?=> doTimeout,
+      scoped = _ ?=> doTimeout
     )
 
   def booster(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkBooster) { me =>
-      withSuspect(username) { prev =>
-        for suspect <- modApi.setBoost(me, prev, v)
-        yield suspect.some
-      }
+      withSuspect(username): prev =>
+        modApi.setBoost(me, prev, v).map(some)
     }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
 
   def troll(username: UserStr, v: Boolean) =
@@ -514,33 +512,30 @@ final class Mod(
           )
   }
 
-  def eventStream =
-    Scoped() { req => me =>
-      IfGranted(_.Admin, req, me) {
-        noProxyBuffer(Ok.chunked(env.mod.stream())).toFuccess
-      }
-    }
+  def eventStream = Scoped() { req ?=> me =>
+    IfGranted(_.Admin, req, me):
+      noProxyBuffer(Ok.chunked(env.mod.stream())).toFuccess
+  }
 
-  def apiUserLog(username: UserStr) =
-    SecureOrScoped(_.ModLog) { _ => me =>
-      import lila.common.Json.given
-      env.user.repo byId username flatMapz { user =>
-        for
-          logs      <- env.mod.logApi.userHistory(user.id)
-          notes     <- env.socialInfo.fetchNotes(user, me.user)
-          notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
-        yield JsonOk(
-          Json.obj(
-            "logs" -> Json.arr(logs.map { log =>
-              Json
-                .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
-                .add("details", log.details)
-            }),
-            "notes" -> notesJson
-          )
+  def apiUserLog(username: UserStr) = SecureOrScoped(_.ModLog) { _ ?=> me =>
+    import lila.common.Json.given
+    env.user.repo byId username flatMapz { user =>
+      for
+        logs      <- env.mod.logApi.userHistory(user.id)
+        notes     <- env.socialInfo.fetchNotes(user, me.user)
+        notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
+      yield JsonOk(
+        Json.obj(
+          "logs" -> Json.arr(logs.map { log =>
+            Json
+              .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
+              .add("details", log.details)
+          }),
+          "notes" -> notesJson
         )
-      }
+      )
     }
+  }
 
   private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
@@ -550,7 +545,7 @@ final class Mod(
   ): Action[Unit] =
     SecureOrScoped(perm)(
       secure = ctx ?=> me => f(ctx.req)(me) flatMapz secure(ctx)(me),
-      scoped = req =>
+      scoped = req ?=>
         me =>
           f(req)(me).flatMap:
             _.isDefined ?? fuccess(jsonOkResult)
@@ -560,7 +555,7 @@ final class Mod(
   ): Action[AnyContent] =
     SecureOrScopedBody(perm)(
       secure = ctx ?=> me => f(me) flatMapz secure(ctx)(me),
-      scoped = _ =>
+      scoped = _ ?=>
         me =>
           f(me).flatMap:
             _.isDefined ?? fuccess(jsonOkResult)

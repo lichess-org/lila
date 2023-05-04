@@ -50,8 +50,8 @@ final class Api(
         )(using lang) map toApiResult map toHttp
       }(rateLimitedFu)
     OpenOrScoped()(
-      ctx => get(ctx.req, ctx.me, ctx.lang),
-      req => me => get(req, me.some, me.realLang | reqLang(using req))
+      ctx ?=> get(ctx.req, ctx.me, ctx.lang),
+      req ?=> me => get(req, me.some, me.realLang | reqLang(using req))
     )
 
   private[controllers] def userWithFollows(req: RequestHeader) =
@@ -218,7 +218,7 @@ final class Api(
     }
 
   def tournamentGames(id: TourId) =
-    AnonOrScoped() { req => me =>
+    AnonOrScoped() { req ?=> me =>
       env.tournament.tournamentRepo byId id flatMapz { tour =>
         val onlyUserId = getUserStr("player", req).map(_.id)
         val config = GameApiV2.ByTournamentConfig(
@@ -289,26 +289,25 @@ final class Api(
       }
     }
 
-  def swissGames(id: SwissId) =
-    AnonOrScoped() { req => me =>
-      env.swiss.cache.swissCache byId id flatMapz { swiss =>
-        val config = GameApiV2.BySwissConfig(
-          swissId = swiss.id,
-          format = GameApiV2.Format byRequest req,
-          flags = gameC.requestPgnFlags(req, extended = false),
-          perSecond = gamesPerSecond(me),
-          player = getUserStr("player", req).map(_.id)
-        )
-        GlobalConcurrencyLimitPerIP
-          .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)) { source =>
-            val filename = env.api.gameApiV2.filename(swiss, config.format)
-            Ok.chunked(source)
-              .pipe(asAttachmentStream(filename))
-              .as(gameC gameContentType config)
-          }
-          .toFuccess
-      }
+  def swissGames(id: SwissId) = AnonOrScoped() { req ?=> me =>
+    env.swiss.cache.swissCache byId id flatMapz { swiss =>
+      val config = GameApiV2.BySwissConfig(
+        swissId = swiss.id,
+        format = GameApiV2.Format byRequest req,
+        flags = gameC.requestPgnFlags(req, extended = false),
+        perSecond = gamesPerSecond(me),
+        player = getUserStr("player", req).map(_.id)
+      )
+      GlobalConcurrencyLimitPerIP
+        .download(req.ipAddress)(env.api.gameApiV2.exportBySwiss(config)) { source =>
+          val filename = env.api.gameApiV2.filename(swiss, config.format)
+          Ok.chunked(source)
+            .pipe(asAttachmentStream(filename))
+            .as(gameC gameContentType config)
+        }
+        .toFuccess
     }
+  }
 
   private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond(
     30 + me.isDefined.??(20) + me.exists(_.isVerified).??(40)
@@ -329,40 +328,36 @@ final class Api(
     }
   }
 
-  def gamesByUsersStream =
-    AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      val max = me.fold(300) { u => if (u == lila.user.User.lichess4545Id) 900 else 500 }
-      withIdsFromReqBody[UserId](req, max, id => UserStr.read(id).map(_.id)) { ids =>
-        GlobalConcurrencyLimitPerIP.events(req.ipAddress)(
-          addKeepAlive(
-            env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
-          )
-        )(sourceToNdJsonOption)
-      }.toFuccess
-    }
+  def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)() { req ?=> me =>
+    val max = me.fold(300) { u => if u == lila.user.User.lichess4545Id then 900 else 500 }
+    withIdsFromReqBody[UserId](req, max, id => UserStr.read(id).map(_.id)) { ids =>
+      GlobalConcurrencyLimitPerIP.events(req.ipAddress)(
+        addKeepAlive:
+          env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
+      )(sourceToNdJsonOption)
+    }.toFuccess
+  }
 
-  def gamesByIdsStream(streamId: String) =
-    AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToIdOpt) { ids =>
-        GlobalConcurrencyLimitPerIP.events(req.ipAddress)(
-          addKeepAlive(
-            env.game.gamesByIdsStream(
-              streamId,
-              initialIds = ids,
-              maxGames = if me.isDefined then 5_000 else 1_000
-            )
+  def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)() { req ?=> me =>
+    withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToIdOpt) { ids =>
+      GlobalConcurrencyLimitPerIP.events(req.ipAddress)(
+        addKeepAlive(
+          env.game.gamesByIdsStream(
+            streamId,
+            initialIds = ids,
+            maxGames = if me.isDefined then 5_000 else 1_000
           )
-        )(sourceToNdJsonOption)
-      }.toFuccess
-    }
+        )
+      )(sourceToNdJsonOption)
+    }.toFuccess
+  }
 
-  def gamesByIdsStreamAddIds(streamId: String) =
-    AnonOrScopedBody(parse.tolerantText)() { req => me =>
-      withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToIdOpt) { ids =>
-        env.game.gamesByIdsStream.addGameIds(streamId, ids)
-        jsonOkResult
-      }.toFuccess
-    }
+  def gamesByIdsStreamAddIds(streamId: String) = AnonOrScopedBody(parse.tolerantText)() { req ?=> me =>
+    withIdsFromReqBody[GameId](req, gamesByIdsMax(me), lila.game.Game.strToIdOpt) { ids =>
+      env.game.gamesByIdsStream.addGameIds(streamId, ids)
+      jsonOkResult
+    }.toFuccess
+  }
 
   private def gamesByIdsMax(me: Option[lila.user.User]) =
     me.fold(500) { u => if (u == lila.user.User.challengermodeId) 10_000 else 1000 }
@@ -395,7 +390,7 @@ final class Api(
 
   val eventStream =
     val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.stream.event.user")
-    Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>
+    Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me =>
       rateLimit(me.id) {
         env.round.proxyRepo.urgentGames(me) flatMap { povs =>
           env.challenge.api.createdByDestId(me.id) map { challenges =>
@@ -403,9 +398,8 @@ final class Api(
           }
         }
       }(
-        rateLimitedFu(
+        rateLimitedFu:
           "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
-        )
       )
     }
 

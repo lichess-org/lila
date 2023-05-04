@@ -28,24 +28,22 @@ final class Challenge(
       api allFor me.id map env.challenge.jsonView.apply map JsonOk
   }
 
-  def apiList =
-    ScopedBody(_.Challenge.Read) { implicit req => me =>
-      given play.api.i18n.Lang = reqLang
-      api.allFor(me.id, 300) map { all =>
-        JsonOk(
-          Json.obj(
-            "in"  -> all.in.map(env.challenge.jsonView.apply(lila.challenge.Direction.In.some)),
-            "out" -> all.out.map(env.challenge.jsonView.apply(lila.challenge.Direction.Out.some))
-          )
+  def apiList = ScopedBody(_.Challenge.Read) { req ?=> me =>
+    given play.api.i18n.Lang = reqLang
+    api.allFor(me.id, 300) map { all =>
+      JsonOk:
+        Json.obj(
+          "in"  -> all.in.map(env.challenge.jsonView.apply(lila.challenge.Direction.In.some)),
+          "out" -> all.out.map(env.challenge.jsonView.apply(lila.challenge.Direction.Out.some))
         )
-      }
     }
+  }
 
   def show(id: ChallengeId, @annotation.nowarn _color: Option[String]) =
     Open:
       showId(id)
 
-  protected[controllers] def showId(id: ChallengeId)(implicit ctx: Context): Fu[Result] =
+  protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
@@ -112,7 +110,7 @@ final class Challenge(
         }
 
   def apiAccept(id: ChallengeId) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me =>
       def tryRematch =
         env.bot.player.rematchAccept(id into GameId, me) flatMap {
           case true => jsonOkResult.toFuccess
@@ -158,70 +156,68 @@ final class Challenge(
         )
     }
   }
-  def apiDecline(id: ChallengeId) =
-    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
-      given play.api.i18n.Lang = reqLang
-      api.activeByIdFor(id, me) flatMap {
-        case None =>
-          env.bot.player.rematchDecline(id into GameId, me) flatMap {
-            case true => jsonOkResult.toFuccess
-            case _    => notFoundJson()
-          }
-        case Some(c) =>
-          env.challenge.forms.decline
-            .bindFromRequest()
-            .fold(
-              newJsonFormError,
-              data => api.decline(c, data.realReason) inject jsonOkResult
-            )
-      }
+  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
+    given play.api.i18n.Lang = reqLang
+    api.activeByIdFor(id, me) flatMap {
+      case None =>
+        env.bot.player.rematchDecline(id into GameId, me) flatMap {
+          case true => jsonOkResult.toFuccess
+          case _    => notFoundJson()
+        }
+      case Some(c) =>
+        env.challenge.forms.decline
+          .bindFromRequest()
+          .fold(
+            newJsonFormError,
+            data => api.decline(c, data.realReason) inject jsonOkResult
+          )
     }
+  }
 
   def cancel(id: ChallengeId) =
     Open:
       OptionFuResult(api byId id): c =>
         if isMine(c) then api cancel c else notFound
 
-  def apiCancel(id: ChallengeId) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req => me =>
-      api.activeByIdBy(id, me) flatMap {
-        case Some(c) => api.cancel(c) inject jsonOkResult
-        case None =>
-          api.activeByIdFor(id, me) flatMap {
-            case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default) inject jsonOkResult
-            case None =>
-              import lila.hub.actorApi.map.Tell
-              import lila.hub.actorApi.round.Abort
-              import lila.round.actorApi.round.AbortForce
-              env.game.gameRepo game id.into(GameId) dmap {
-                _ flatMap { Pov.ofUserId(_, me.id) }
-              } flatMapz { p =>
-                env.round.proxyRepo.upgradeIfPresent(p) dmap some
-              } flatMap {
-                case Some(pov) if pov.game.abortableByUser =>
-                  lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
-                  jsonOkResult.toFuccess
-                case Some(pov) if pov.game.playable =>
-                  Bearer.from(get("opponentToken", req)) match
-                    case Some(bearer) =>
-                      env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
-                        case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
-                          lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
-                          jsonOkResult
-                        case Right(_)  => BadRequest(jsonError("Not the opponent token"))
-                        case Left(err) => BadRequest(jsonError(err.message))
-                      }
-                    case None if api.isOpenBy(id, me) =>
-                      if pov.game.abortable then
+  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
+    api.activeByIdBy(id, me) flatMap {
+      case Some(c) => api.cancel(c) inject jsonOkResult
+      case None =>
+        api.activeByIdFor(id, me) flatMap {
+          case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default) inject jsonOkResult
+          case None =>
+            import lila.hub.actorApi.map.Tell
+            import lila.hub.actorApi.round.Abort
+            import lila.round.actorApi.round.AbortForce
+            env.game.gameRepo game id.into(GameId) dmap {
+              _ flatMap { Pov.ofUserId(_, me.id) }
+            } flatMapz { p =>
+              env.round.proxyRepo.upgradeIfPresent(p) dmap some
+            } flatMap {
+              case Some(pov) if pov.game.abortableByUser =>
+                lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
+                jsonOkResult.toFuccess
+              case Some(pov) if pov.game.playable =>
+                Bearer.from(get("opponentToken", req)) match
+                  case Some(bearer) =>
+                    env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
+                      case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
                         lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
-                        jsonOkResult.toFuccess
-                      else BadRequest(jsonError("The game can no longer be aborted")).toFuccess
-                    case None => BadRequest(jsonError("Missing opponentToken")).toFuccess
-                case _ => notFoundJson()
-              }
-          }
-      }
+                        jsonOkResult
+                      case Right(_)  => BadRequest(jsonError("Not the opponent token"))
+                      case Left(err) => BadRequest(jsonError(err.message))
+                    }
+                  case None if api.isOpenBy(id, me) =>
+                    if pov.game.abortable then
+                      lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
+                      jsonOkResult.toFuccess
+                    else BadRequest(jsonError("The game can no longer be aborted")).toFuccess
+                  case None => BadRequest(jsonError("Missing opponentToken")).toFuccess
+              case _ => notFoundJson()
+            }
+        }
     }
+  }
 
   def apiStartClocks(id: GameId) =
     Action.async { req =>
@@ -291,51 +287,50 @@ final class Challenge(
       }
   }
 
-  def apiCreate(username: UserStr) =
-    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
-      given play.api.i18n.Lang = reqLang
-      !me.is(username) ?? env.setup.forms.api
-        .user(me)
-        .bindFromRequest()
-        .fold(
-          newJsonFormError,
-          config =>
-            ChallengeIpRateLimit(req.ipAddress, cost = if (me.isApiHog) 0 else 1) {
-              env.user.repo enabledById username flatMap {
-                case None => JsonBadRequest(jsonError(s"No such user: $username")).toFuccess
-                case Some(destUser) =>
-                  val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
-                  BotChallengeIpRateLimit(req.ipAddress, cost = if me.isBot then 1 else 0) {
-                    ChallengeUserRateLimit(me.id, cost = cost) {
-                      val challenge = makeOauthChallenge(config, me, destUser)
-                      config.acceptByToken match
-                        case Some(strToken) =>
-                          apiChallengeAccept(destUser, challenge, strToken)(me, config.message)
-                        case _ =>
-                          env.challenge.granter.isDenied(me.some, destUser, config.perfType) flatMap {
-                            case Some(denied) =>
-                              JsonBadRequest(
-                                jsonError(lila.challenge.ChallengeDenied.translated(denied))
-                              ).toFuccess
-                            case _ =>
-                              env.challenge.api create challenge map {
-                                if _ then
-                                  val json = env.challenge.jsonView
-                                    .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                                  if (config.keepAliveStream)
-                                    apiC.sourceToNdJsonOption(
-                                      apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
-                                    )
-                                  else JsonOk(json)
-                                else JsonBadRequest(jsonError("Challenge not created"))
-                              }
-                          }
-                    }(rateLimitedFu)
+  def apiCreate(username: UserStr) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
+    given play.api.i18n.Lang = reqLang
+    !me.is(username) ?? env.setup.forms.api
+      .user(me)
+      .bindFromRequest()
+      .fold(
+        newJsonFormError,
+        config =>
+          ChallengeIpRateLimit(req.ipAddress, cost = if (me.isApiHog) 0 else 1) {
+            env.user.repo enabledById username flatMap {
+              case None => JsonBadRequest(jsonError(s"No such user: $username")).toFuccess
+              case Some(destUser) =>
+                val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
+                BotChallengeIpRateLimit(req.ipAddress, cost = if me.isBot then 1 else 0) {
+                  ChallengeUserRateLimit(me.id, cost = cost) {
+                    val challenge = makeOauthChallenge(config, me, destUser)
+                    config.acceptByToken match
+                      case Some(strToken) =>
+                        apiChallengeAccept(destUser, challenge, strToken)(me, config.message)
+                      case _ =>
+                        env.challenge.granter.isDenied(me.some, destUser, config.perfType) flatMap {
+                          case Some(denied) =>
+                            JsonBadRequest(
+                              jsonError(lila.challenge.ChallengeDenied.translated(denied))
+                            ).toFuccess
+                          case _ =>
+                            env.challenge.api create challenge map {
+                              if _ then
+                                val json = env.challenge.jsonView
+                                  .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
+                                if (config.keepAliveStream)
+                                  apiC.sourceToNdJsonOption(
+                                    apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
+                                  )
+                                else JsonOk(json)
+                              else JsonBadRequest(jsonError("Challenge not created"))
+                            }
+                        }
                   }(rateLimitedFu)
-              }
-            }(rateLimitedFu)
-        )
-    }
+                }(rateLimitedFu)
+            }
+          }(rateLimitedFu)
+      )
+  }
 
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
     import lila.challenge.Challenge.*
@@ -383,7 +378,7 @@ final class Challenge(
       )
     }
 
-  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { implicit req => me =>
+  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { req ?=> me =>
     given play.api.i18n.Lang = reqLang
     env.setup.forms.api.open
       .bindFromRequest()
@@ -406,14 +401,13 @@ final class Challenge(
               rules = config.rules
             )
             env.challenge.api.createOpen(challenge, me) map {
-              case true =>
-                JsonOk(
+              if _ then
+                JsonOk:
                   env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
                     "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
                     "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
                   )
-                )
-              case false => BadRequest(jsonError("Challenge not created"))
+              else BadRequest(jsonError("Challenge not created"))
             }
           }(rateLimitedFu).dmap(_ as JSON)
       )

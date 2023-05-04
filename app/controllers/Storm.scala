@@ -23,11 +23,10 @@ final class Storm(env: Env) extends LilaController(env):
       }
     }
 
-  def apiGet = AnonOrScoped(_.Puzzle.Read) { _ => me =>
-    dataAndHighScore(me, none) map { (data, high) =>
+  def apiGet = AnonOrScoped(_.Puzzle.Read) { _ ?=> me =>
+    dataAndHighScore(me, none).map: (data, high) =>
       import lila.storm.StormJson.given
       JsonOk(data.add("high" -> high))
-    }
   }
 
   def record =
@@ -39,8 +38,8 @@ final class Storm(env: Env) extends LilaController(env):
           data => env.storm.dayApi.addRun(data, me, mobile = mobile)
         ) map env.storm.json.newHigh map JsonOk
     OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write))(
-      open = ctx => NoBot { doRecord(ctx.me, mobile = false)(using ctx.body) }(using ctx),
-      scoped = req => me => doRecord(me.some, mobile = HTTPRequest.isLichessMobile(req))(using req)
+      open = ctx ?=> NoBot { doRecord(ctx.me, mobile = false)(using ctx.body) },
+      scoped = req ?=> me => doRecord(me.some, mobile = HTTPRequest.isLichessMobile(req))
     )
 
   def dashboard(page: Int) = Auth { ctx ?=> me =>

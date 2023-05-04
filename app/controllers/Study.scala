@@ -421,7 +421,7 @@ final class Study(
       }
     }(rateLimitedFu)
 
-  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req => me =>
+  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
     env.study.api.byId(id).map {
       _.fold(studyNotFoundText) { study =>
         if req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
@@ -446,16 +446,15 @@ final class Study(
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)(using ctx.req, ctx.me)
 
-  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) =
-    AnonOrScoped(_.Study.Read) { req => me =>
-      doChapterPgn(
-        id,
-        chapterId,
-        fuccess(studyNotFoundText),
-        _ => fuccess(privateUnauthorizedText),
-        _ => fuccess(privateForbiddenText)
-      )(using req, me)
-    }
+  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
+    doChapterPgn(
+      id,
+      chapterId,
+      fuccess(studyNotFoundText),
+      _ => fuccess(privateUnauthorizedText),
+      _ => fuccess(privateForbiddenText)
+    )(using req, me)
+  }
 
   private def doChapterPgn(
       id: StudyId,

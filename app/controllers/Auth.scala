@@ -468,15 +468,13 @@ final class Auth(
       )
     }
 
-  def makeLoginToken =
-    AuthOrScoped(_.Web.Login)(
-      _ => loginTokenFor,
-      req =>
-        user => {
-          lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient req}")
-          loginTokenFor(user)
-        }
-    )
+  def makeLoginToken = AuthOrScoped(_.Web.Login)(
+    _ ?=> loginTokenFor,
+    req ?=>
+      user =>
+        lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient req}")
+        loginTokenFor(user)
+  )
 
   def loginWithToken(token: String) = Open:
     if ctx.isAuth

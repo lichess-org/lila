@@ -72,21 +72,19 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def apiFollow(userId: UserStr) =
-    Scoped(_.Follow.Write) { _ => me =>
-      FollowLimitPerUser(me.id) {
-        api.reachedMaxFollowing(me.id) flatMap {
-          case true =>
-            fuccess {
+  def apiFollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me =>
+    FollowLimitPerUser(me.id) {
+      api
+        .reachedMaxFollowing(me.id)
+        .flatMap:
+          if _ then
+            fuccess:
               ApiResult.ClientError(
                 lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value).text
               )
-            }
-          case _ =>
-            api.follow(me.id, userId.id).recoverDefault inject ApiResult.Done
-        }
-      }(fuccess(ApiResult.Limited)) map apiC.toHttp
-    }
+          else api.follow(me.id, userId.id).recoverDefault inject ApiResult.Done
+    }(fuccess(ApiResult.Limited)) map apiC.toHttp
+  }
 
   def unfollow(username: UserStr) = Auth { ctx ?=> me =>
     FollowingUser(me, username) { user =>
@@ -94,12 +92,11 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def apiUnfollow(userId: UserStr) =
-    Scoped(_.Follow.Write) { _ => me =>
-      FollowLimitPerUser[Fu[ApiResult]](me.id) {
-        api.unfollow(me.id, userId.id) inject ApiResult.Done
-      }(fuccess(ApiResult.Limited)) map apiC.toHttp
-    }
+  def apiUnfollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me =>
+    FollowLimitPerUser[Fu[ApiResult]](me.id) {
+      api.unfollow(me.id, userId.id) inject ApiResult.Done
+    }(fuccess(ApiResult.Limited)) map apiC.toHttp
+  }
 
   def block(username: UserStr) = Auth { ctx ?=> me =>
     FollowingUser(me, username) { user =>
@@ -137,7 +134,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         }
     )
 
-  def apiFollowing = Scoped(_.Follow.Read) { implicit req => me =>
+  def apiFollowing = Scoped(_.Follow.Read) { req ?=> me =>
     apiC.jsonDownload {
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))

@@ -53,14 +53,14 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         }
     }
 
-  def exportByUser(username: UserStr) =
-    OpenOrScoped()(
-      open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
-      scoped = req => me => handleExport(username, me.some, req, oauth = true)
-    )
+  def exportByUser(username: UserStr) = OpenOrScoped()(
+    open = ctx ?=> handleExport(username, ctx.me, ctx.req, oauth = false),
+    scoped = req ?=> me => handleExport(username, me.some, req, oauth = true)
+  )
 
-  def apiExportByUser(username: UserStr) =
-    AnonOrScoped() { req => me => handleExport(username, me, req, oauth = me.isDefined) }
+  def apiExportByUser(username: UserStr) = AnonOrScoped() { req ?=> me =>
+    handleExport(username, me, req, oauth = me.isDefined)
+  }
 
   private def handleExport(
       username: UserStr,
@@ -126,8 +126,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiExportByUserImportedGames(username: UserStr) =
     AuthOrScoped()(
-      auth = ctx => me => handleExportByUserImportedGames(username, me, ctx.req),
-      scoped = req => me => handleExportByUserImportedGames(username, me, req)
+      auth = ctx ?=> me => handleExportByUserImportedGames(username, me, ctx.req),
+      scoped = req ?=> me => handleExportByUserImportedGames(username, me, req)
     )
 
   private def handleExportByUserImportedGames(username: UserStr, me: lila.user.User, req: RequestHeader) =

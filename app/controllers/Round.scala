@@ -315,22 +315,21 @@ final class Round(
       html.game.mini(_)
     )
 
-  def apiAddTime(anyId: GameAnyId, seconds: Int) =
-    Scoped(_.Challenge.Write) { _ => me =>
-      import lila.round.actorApi.round.Moretime
-      if (seconds < 1 || seconds > 86400) BadRequest.toFuccess
-      else
-        env.round.proxyRepo.game(lila.game.Game anyToId anyId) flatMap {
-          _.flatMap { Pov(_, me) }.?? { pov =>
-            env.round.moretimer.isAllowedIn(pov.game) map {
-              case true =>
-                env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
-                jsonOkResult
-              case false => BadRequest(jsonError("This game doesn't allow giving time"))
-            }
+  def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me =>
+    import lila.round.actorApi.round.Moretime
+    if (seconds < 1 || seconds > 86400) BadRequest.toFuccess
+    else
+      env.round.proxyRepo.game(lila.game.Game anyToId anyId) flatMap {
+        _.flatMap { Pov(_, me) }.?? { pov =>
+          env.round.moretimer.isAllowedIn(pov.game) map {
+            if _ then
+              env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
+              jsonOkResult
+            else BadRequest(jsonError("This game doesn't allow giving time"))
           }
         }
-    }
+      }
+  }
 
   def help = Open:
     Ok(html.site.keyboardHelpModal.round).toFuccess

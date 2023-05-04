@@ -117,12 +117,11 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
     }
 
-  def tokenRevoke =
-    Scoped() { implicit req => _ =>
-      HTTPRequest.bearer(req) ?? { token =>
-        env.oAuth.tokenApi.revoke(token) inject NoContent
-      }
+  def tokenRevoke = Scoped() { req ?=> _ =>
+    HTTPRequest.bearer(req) ?? { token =>
+      env.oAuth.tokenApi.revoke(token) inject NoContent
     }
+  }
 
   private val revokeClientForm = Form(single("origin" -> text))
 
@@ -135,20 +134,19 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def challengeTokens =
-    ScopedBody(_.Web.Mod) { implicit req => me =>
-      if (isGranted(_.ApiChallengeAdmin, me))
-        lila.oauth.OAuthTokenForm.adminChallengeTokens
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(apiFormError(err)).toFuccess,
-            data =>
-              env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
-                JsonOk(tokens.view.mapValues(_.plain).toMap)
-              }
-          )
-      else Unauthorized(jsonError("Missing permission")).toFuccess
-    }
+  def challengeTokens = ScopedBody(_.Web.Mod) { req ?=> me =>
+    if isGranted(_.ApiChallengeAdmin, me) then
+      lila.oauth.OAuthTokenForm.adminChallengeTokens
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(apiFormError(err)).toFuccess,
+          data =>
+            env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
+              JsonOk(tokens.view.mapValues(_.plain).toMap)
+            }
+        )
+    else Unauthorized(jsonError("Missing permission")).toFuccess
+  }
 
   private val testTokenRateLimit = lila.memo.RateLimit[IpAddress](
     credits = 10_000,

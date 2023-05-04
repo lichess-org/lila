@@ -111,7 +111,7 @@ final class Analyse(
       }
     }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(implicit ctx: Context) =
+  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using Context) =
     (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
@@ -127,14 +127,14 @@ final class Analyse(
       }
     }
 
-  private def replayBot(pov: Pov)(implicit ctx: Context) =
-    for {
+  private def replayBot(pov: Pov)(using Context) =
+    for
       initialFen <- env.game.gameRepo initialFen pov.gameId
       analysis   <- env.analyse.analyser get pov.game
       simul      <- pov.game.simulId ?? env.simul.repo.find
       crosstable <- env.game.crosstableApi.withMatchup(pov.game)
       pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
-    } yield Ok(
+    yield Ok(
       html.analyse.replayBot(
         pov,
         initialFen,
@@ -144,58 +144,53 @@ final class Analyse(
       )
     )
 
-  def externalEngineList =
-    ScopedBody(_.Engine.Read) { _ => me =>
-      env.analyse.externalEngine.list(me) map { list =>
-        JsonOk(JsArray(list map lila.analyse.ExternalEngine.jsonWrites.writes))
+  def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me =>
+    env.analyse.externalEngine.list(me) map { list =>
+      JsonOk(JsArray(list map lila.analyse.ExternalEngine.jsonWrites.writes))
+    }
+  }
+
+  def externalEngineShow(id: String) = ScopedBody(_.Engine.Read) { _ ?=> me =>
+    env.analyse.externalEngine.find(me, id) map {
+      _.fold(notFoundJsonSync()) { engine =>
+        JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
       }
     }
+  }
 
-  def externalEngineShow(id: String) =
-    ScopedBody(_.Engine.Read) { _ => me =>
-      env.analyse.externalEngine.find(me, id) map {
-        _.fold(notFoundJsonSync()) { engine =>
-          JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-        }
-      }
+  def externalEngineCreate = ScopedBody(_.Engine.Write) { req ?=> me =>
+    HTTPRequest.bearer(req) ?? { bearer =>
+      val tokenId = AccessToken.Id from bearer
+      lila.analyse.ExternalEngine.form
+        .bindFromRequest()
+        .fold(
+          err => newJsonFormError(err)(using me.realLang | reqLang),
+          data =>
+            env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
+              Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+            }
+        )
     }
+  }
 
-  def externalEngineCreate =
-    ScopedBody(_.Engine.Write) { implicit req => me =>
-      HTTPRequest.bearer(req) ?? { bearer =>
-        val tokenId = AccessToken.Id from bearer
+  def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { req ?=> me =>
+    env.analyse.externalEngine.find(me, id) flatMap {
+      _.fold(notFoundJson()) { engine =>
         lila.analyse.ExternalEngine.form
           .bindFromRequest()
           .fold(
             err => newJsonFormError(err)(using me.realLang | reqLang),
             data =>
-              env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
-                Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+              env.analyse.externalEngine.update(engine, data) map { engine =>
+                JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
               }
           )
       }
     }
+  }
 
-  def externalEngineUpdate(id: String) =
-    ScopedBody(_.Engine.Write) { implicit req => me =>
-      env.analyse.externalEngine.find(me, id) flatMap {
-        _.fold(notFoundJson()) { engine =>
-          lila.analyse.ExternalEngine.form
-            .bindFromRequest()
-            .fold(
-              err => newJsonFormError(err)(using me.realLang | reqLang),
-              data =>
-                env.analyse.externalEngine.update(engine, data) map { engine =>
-                  JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-                }
-            )
-        }
-      }
+  def externalEngineDelete(id: String) = ScopedBody(_.Engine.Write) { _ ?=> me =>
+    env.analyse.externalEngine.delete(me, id) map {
+      if _ then jsonOkResult else notFoundJsonSync()
     }
-
-  def externalEngineDelete(id: String) =
-    ScopedBody(_.Engine.Write) { _ => me =>
-      env.analyse.externalEngine.delete(me, id) map { res =>
-        if (res) jsonOkResult else notFoundJsonSync()
-      }
-    }
+  }

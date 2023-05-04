@@ -443,7 +443,7 @@ final class User(
         }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
-  protected[controllers] def renderModZoneActions(username: UserStr)(implicit ctx: Context) =
+  protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
@@ -476,24 +476,22 @@ final class User(
       )
   }
 
-  def apiReadNote(username: UserStr) =
-    Scoped() { _ => me =>
-      env.user.repo byId username flatMapz {
-        env.socialInfo.fetchNotes(_, me) flatMap {
-          lila.user.JsonView.notes(_)(using lightUserApi)
-        } map JsonOk
-      }
+  def apiReadNote(username: UserStr) = Scoped() { _ ?=> me =>
+    env.user.repo byId username flatMapz {
+      env.socialInfo.fetchNotes(_, me) flatMap {
+        lila.user.JsonView.notes(_)(using lightUserApi)
+      } map JsonOk
     }
+  }
 
-  def apiWriteNote(username: UserStr) =
-    ScopedBody() { implicit req => me =>
-      lila.user.UserForm.apiNote
-        .bindFromRequest()
-        .fold(
-          jsonFormErrorDefaultLang,
-          data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
-        )
-    }
+  def apiWriteNote(username: UserStr) = ScopedBody() { req ?=> me =>
+    lila.user.UserForm.apiNote
+      .bindFromRequest()
+      .fold(
+        jsonFormErrorDefaultLang,
+        data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
+      )
+  }
 
   private def doWriteNote(
       username: UserStr,

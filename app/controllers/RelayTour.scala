@@ -61,7 +61,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                   }
               )
       ,
-      scoped = req =>
+      scoped = req ?=>
         me =>
           NoLameOrBot(me):
             env.relay.tourForm.create
@@ -97,7 +97,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                   env.relay.api.tourUpdate(tour, setup, me) inject
                     Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
               ),
-      scoped = implicit req =>
+      scoped = _ ?=>
         me =>
           env.relay.api tourById id flatMapz { tour =>
             env.relay.api.canUpdate(me, tour) flatMapz {

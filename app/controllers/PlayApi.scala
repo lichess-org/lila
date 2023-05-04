@@ -14,22 +14,21 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   // bot endpoints
 
-  def botGameStream(id: GameAnyId) =
-    Scoped(_.Bot.Play) { implicit req => me =>
-      WithPovAsBot(id, me) { impl.gameStream(me, _) }
-    }
+  def botGameStream(id: GameAnyId) = Scoped(_.Bot.Play) { req ?=> me =>
+    WithPovAsBot(id, me) { impl.gameStream(me, _) }
+  }
 
-  def botMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) =
-    Scoped(_.Bot.Play) { _ => me =>
-      WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
-    }
+  def botMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ ?=> me =>
+    WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
+  }
 
-  def botCommand(cmd: String) =
-    ScopedBody(_.Bot.Play) { implicit req => me =>
-      if cmd == "account/upgrade" then
-        env.user.repo.isManaged(me.id) flatMap {
-          case true => notFoundJson()
-          case _ =>
+  def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { req ?=> me =>
+    if cmd == "account/upgrade" then
+      env.user.repo
+        .isManaged(me.id)
+        .flatMap:
+          if _ then notFoundJson()
+          else
             env.tournament.api.withdrawAll(me) >>
               env.team.cached.teamIdsList(me.id).flatMap { env.swiss.api.withdrawAll(me, _) } >>
               env.user.repo.setBot(me) >>
@@ -39,28 +38,24 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
               toResult recover { case lila.base.LilaInvalid(msg) =>
                 BadRequest(jsonError(msg))
               }
-        }
-      else impl.command(me, cmd)(WithPovAsBot)
-    }
+    else impl.command(me, cmd)(WithPovAsBot)
+  }
 
   // board endpoints
 
-  def boardGameStream(id: GameAnyId) =
-    Scoped(_.Board.Play) { implicit req => me =>
-      WithPovAsBoard(id, me) { impl.gameStream(me, _) }
-    }
+  def boardGameStream(id: GameAnyId) = Scoped(_.Board.Play) { req ?=> me =>
+    WithPovAsBoard(id, me) { impl.gameStream(me, _) }
+  }
 
   def boardMove(id: GameAnyId, uci: String, offeringDraw: Option[Boolean]) =
-    Scoped(_.Board.Play) { _ => me =>
-      WithPovAsBoard(id, me) {
+    Scoped(_.Board.Play) { _ ?=> me =>
+      WithPovAsBoard(id, me):
         impl.move(me, _, uci, offeringDraw)
-      }
     }
 
-  def boardCommandPost(cmd: String) =
-    ScopedBody(_.Board.Play) { implicit req => me =>
-      impl.command(me, cmd)(WithPovAsBoard)
-    }
+  def boardCommandPost(cmd: String) = ScopedBody(_.Board.Play) { req ?=> me =>
+    impl.command(me, cmd)(WithPovAsBoard)
+  }
 
   // common code for bot & board APIs
   private object impl:
@@ -115,19 +110,17 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
           }
         case _ => notFoundJson("No such command")
 
-  def boardCommandGet(cmd: String) =
-    ScopedBody(_.Board.Play) { _ => me =>
-      cmd.split('/') match
-        case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id), me)(getChat)
-        case _                         => notFoundJson("No such command")
-    }
+  def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me =>
+    cmd.split('/') match
+      case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id), me)(getChat)
+      case _                         => notFoundJson("No such command")
+  }
 
-  def botCommandGet(cmd: String) =
-    ScopedBody(_.Bot.Play) { _ => me =>
-      cmd.split('/') match
-        case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id), me)(getChat)
-        case _                         => notFoundJson("No such command")
-    }
+  def botCommandGet(cmd: String) = ScopedBody(_.Bot.Play) { _ ?=> me =>
+    cmd.split('/') match
+      case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id), me)(getChat)
+      case _                         => notFoundJson("No such command")
+  }
 
   private def getChat(pov: Pov) =
     env.chat.api.userChat.find(ChatId(pov.game.id)) map lila.chat.JsonView.boardApi map JsonOk

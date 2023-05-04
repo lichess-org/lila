@@ -73,12 +73,11 @@ final class Dev(env: Env) extends LilaController(env):
       )
   }
 
-  def command =
-    ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { implicit req => me =>
-      lila.security.Granter(_.Cli)(me) ?? {
-        runAs(me.id, req.body) map { Ok(_) }
-      }
+  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { req ?=> me =>
+    lila.security.Granter(_.Cli)(me) ?? {
+      runAs(me.id, req.body) map { Ok(_) }
     }
+  }
 
   private def runAs(user: UserId, command: String): Fu[String] =
     env.mod.logApi.cli(user into ModId, command) >>
