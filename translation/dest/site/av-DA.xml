@@ -9,4 +9,23 @@
   <string name="stalemate">Пат</string>
   <string name="white">ХъахӀаб</string>
   <string name="black">ЧӀегӀераб</string>
+  <string name="whiteIsVictorious">ХъахӀал бергьана</string>
+  <string name="blackIsVictorious">ЧӀегӀерал бергьана</string>
+  <string name="threeChecks">Лъабго шах</string>
+  <string name="newOpponent">ЦӀияв дандеяв</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Дур дандеясе цӀидасан бокьун буго мунгун хӀазе</string>
+  <string name="whitePlays">ХъахӀазул ин</string>
+  <string name="blackPlays">ЧӀегӀеразул ин</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
+    <item quantity="other">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
+  </plurals>
+  <string name="forceResignation">Бергьенлъи лъазабизе</string>
+  <string name="computerAnalysis">Компьютерил анализ</string>
+  <string name="delete">Хвезабизе</string>
+  <string name="enable">Биччазе</string>
+  <string name="edit">Хисизе</string>
+  <string name="rapid">Рапид</string>
+  <string name="important">КӀвар буго</string>
+  <string name="switchSides">Рахъ хизисе</string>
 </resources>
