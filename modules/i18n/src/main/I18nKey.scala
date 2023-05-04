@@ -27,6 +27,6 @@ object I18nKey:
     def pluralTxt(count: Count, args: Any*)(using lang: Lang): String =
       Translator.txt.plural(key, count, args, lang)
 
-    def pluralSameTxt(count: Int)(using Lang): String = pluralTxt(count, count)
+    def pluralSameTxt(count: Long)(using Lang): String = pluralTxt(count, count)
 
   end extension
