@@ -36,23 +36,13 @@ final class Mod(
           _ <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
         yield sus.some
       }
-    }(ctx =>
-      me => { suspect =>
-        reportC.onModAction(me, suspect)(using ctx)
-      }
-    )
+    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
 
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me =>
-      withSuspect(username) { sus =>
-        for _ <- modApi.setEngine(me, sus, v)
-        yield sus.some
-      }
-    }(ctx =>
-      me => { suspect =>
-        reportC.onModAction(me, suspect)(using ctx)
-      }
-    )
+      withSuspect(username): sus =>
+        modApi.setEngine(me, sus, v) inject sus.some
+    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
 
   def publicChat = Secure(_.PublicChatView) { ctx ?=> _ =>
     env.mod.publicChat.all.map: (tournamentsAndChats, swissesAndChats) =>
@@ -76,14 +66,14 @@ final class Mod(
     OAuthModBody(_.MarkBooster) { me =>
       withSuspect(username): prev =>
         modApi.setBoost(me, prev, v).map(some)
-    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
+    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
 
   def troll(username: UserStr, v: Boolean) =
     OAuthModBody(_.Shadowban) { me =>
       withSuspect(username): prev =>
         for suspect <- modApi.setTroll(me, prev, v)
         yield suspect.some
-    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
+    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
 
   def warn(username: UserStr, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
@@ -96,7 +86,7 @@ final class Mod(
           yield suspect.some
         }
       }
-    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
+    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
 
   def kid(username: UserStr) =
     OAuthMod(_.SetKidMode) { _ => me =>
@@ -491,7 +481,7 @@ final class Mod(
     env.chat.panic.set(v)
     env.irc.api.chatPanic(me, v)
     fuccess(().some)
-  }(_ => _ => _ => Redirect(routes.Mod.chatPanic).toFuccess)
+  }(_ ?=> _ => _ => Redirect(routes.Mod.chatPanic).toFuccess)
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ =>
     env.mod.presets
@@ -541,20 +531,20 @@ final class Mod(
     env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
-      secure: Context => Holder => A => Fu[Result]
+      secure: Context ?=> Holder => A => Fu[Result]
   ): Action[Unit] =
     SecureOrScoped(perm)(
-      secure = ctx ?=> me => f(ctx.req)(me) flatMapz secure(ctx)(me),
+      secure = ctx ?=> me => f(ctx.req)(me) flatMapz secure(me),
       scoped = req ?=>
         me =>
           f(req)(me).flatMap:
             _.isDefined ?? fuccess(jsonOkResult)
     )
   private def OAuthModBody[A](perm: Permission.Selector)(f: Holder => Fu[Option[A]])(
-      secure: BodyContext[?] => Holder => A => Fu[Result]
+      secure: BodyContext[?] ?=> Holder => A => Fu[Result]
   ): Action[AnyContent] =
     SecureOrScopedBody(perm)(
-      secure = ctx ?=> me => f(me) flatMapz secure(ctx)(me),
+      secure = ctx ?=> me => f(me) flatMapz secure(me),
       scoped = _ ?=>
         me =>
           f(me).flatMap:
@@ -563,7 +553,7 @@ final class Mod(
 
   private def actionResult(
       username: UserStr
-  )(ctx: Context)(@nowarn user: Holder)(@nowarn res: Any) =
+  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: Context) =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then fuccess(redirect(username))
-    else userC.renderModZoneActions(username)(ctx)
+    else userC.renderModZoneActions(username)
