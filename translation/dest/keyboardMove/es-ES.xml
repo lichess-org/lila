@@ -3,13 +3,13 @@
   <string name="keyboardInputCommands">Comandos de entrada de teclado</string>
   <string name="performAMove">Realizar un movimiento</string>
   <string name="movePieceFromE2ToE4">Mover pieza de e2 a e4</string>
-  <string name="moveKnightToC3">Mover caballo a c3</string>
+  <string name="moveKnightToC3">Mover el caballo a c3</string>
   <string name="kingsideCastle">Enroque corto</string>
   <string name="queensideCastle">Enroque largo</string>
   <string name="promoteC8ToQueen">Promocionar c8 a dama</string>
   <string name="dropARookAtB4">Colocar una torre en b4 (solo variante Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Ofrecer o aceptar tablas</string>
-  <string name="readOutClocks">Leer relojes</string>
+  <string name="readOutClocks">Leer los relojes</string>
   <string name="readOutOpponentName">Leer el nombre del oponente</string>
   <string name="otherCommands">Otros comandos</string>
   <string name="tips">Sugerencias</string>
