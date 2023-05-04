@@ -31,11 +31,9 @@ abstract private[controllers] class LilaController(val env: Env)
   given Executor           = env.executor
   given Scheduler          = env.scheduler
 
-  protected given Zero[Result] = Zero(Results.NotFound)
-
-  protected given Conversion[Frag, Result]    = Ok(_)
-  protected given Conversion[Int, ApiVersion] = ApiVersion(_)
-  protected given formBinding: FormBinding    = parse.formBinding(parse.DefaultMaxTextLength)
+  protected given Zero[Result]             = Zero(Results.NotFound)
+  protected given Conversion[Frag, Result] = Ok(_)
+  protected given formBinding: FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
 
   protected val keyPages                   = KeyPages(env)
   protected val renderNotFound             = keyPages.notFound
@@ -51,19 +49,16 @@ abstract private[controllers] class LilaController(val env: Env)
       api = _ => fuccess(jsonOkResult)
     )
 
-  given Conversion[Context, Lang]          = _.lang
-  given Conversion[Context, RequestHeader] = _.req
-  given Conversion[RequestHeader, Lang]    = I18nLangPicker(_)
-  given lila.common.config.NetDomain       = env.net.domain
+  given lila.common.config.NetDomain = env.net.domain
 
   inline def ctx(using it: Context) = it // `ctx` is shorter and nicer than `summon[Context]`
-  given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
 
-  // we can't move to `using` yet, because we can't do `Open { using ctx =>`
-  implicit def ctxLang(using ctx: Context): Lang                   = ctx.lang
-  implicit def ctxReq(using ctx: Context): RequestHeader           = ctx.req
-  implicit def reqConfig(using req: RequestHeader): ui.EmbedConfig = ui.EmbedConfig(req)
-  def reqLang(using req: RequestHeader): Lang                      = I18nLangPicker(req)
+  given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
+  given (using ctx: Context): Lang                                 = ctx.lang
+  given (using ctx: Context): RequestHeader                        = ctx.req
+  given (using req: RequestHeader): ui.EmbedConfig                 = ui.EmbedConfig(req)
+
+  def reqLang(using req: RequestHeader): Lang = I18nLangPicker(req)
 
   /* Anonymous and authenticated requests */
   protected def Open(f: Context ?=> Fu[Result]): Action[Unit] =
@@ -691,9 +686,8 @@ abstract private[controllers] class LilaController(val env: Env)
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")(ctx.req).toFuccess
         case ByHref.Refused(_) => redirectWithQueryString(path)(ctx.req).toFuccess
         case ByHref.Found(lang) =>
-          val langCtx = ctx withLang lang
-          pageHit(langCtx)
-          f(using langCtx)
+          pageHit(ctx.req)
+          f(using ctx.withLang(lang))
 
   protected def redirectWithQueryString(path: String)(req: RequestHeader) =
     Redirect:

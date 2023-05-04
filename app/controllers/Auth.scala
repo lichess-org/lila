@@ -37,12 +37,11 @@ final class Auth(
       }
     }
 
-  private def getReferrerOption(implicit ctx: Context): Option[String] =
-    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse ctxReq.session.get(
-      api.AccessUri
-    )
+  private def getReferrerOption(using ctx: Context): Option[String] =
+    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
+      ctx.req.session.get(api.AccessUri)
 
-  private def getReferrer(implicit ctx: Context): String = getReferrerOption | routes.Lobby.home.url
+  private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
   def authenticateUser(u: UserModel, remember: Boolean, result: Option[String => Result] = None)(using
       ctx: Context
@@ -169,13 +168,12 @@ final class Auth(
       ).dmap(_.withCookies(env.lilaCookie.newSession))
 
   // mobile app BC logout with GET
-  def logoutGet = Auth { _ ?=> _ =>
+  def logoutGet = Auth { ctx ?=> _ =>
     negotiate(
       html = Ok(html.auth.bits.logout()).toFuccess,
-      api = _ => {
-        ctxReq.session get api.sessionIdKey foreach env.security.store.delete
+      api = _ =>
+        ctx.req.session get api.sessionIdKey foreach env.security.store.delete
         Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).toFuccess
-      }
     )
   }
 

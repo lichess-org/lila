@@ -245,7 +245,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
     NotForKids:
       Reasonable(page, config.Max(8)):
-        pageHit(ctx)
+        pageHit(ctx.req)
         env.ublog.paginator.liveByCommunity(l, page) map { posts =>
           Ok(html.ublog.index.community(l, posts))
         }

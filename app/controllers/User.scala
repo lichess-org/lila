@@ -113,7 +113,7 @@ final class User(
               )(using reqBody, formBinding, reqLang)
               _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
               _ <- env.tournament.cached.nameCache preloadMany {
-                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
               }
               notes <- ctx.me ?? { me =>
                 env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me.id)
@@ -243,7 +243,7 @@ final class User(
         )(using ctx.body, formBinding, reqLang)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
-          pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+          pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
         }
         _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       yield pag
