@@ -407,17 +407,9 @@ abstract private[controllers] class LilaController(val env: Env)
       _.fold(notFoundJson())(a => fuccess(JsonOk(a)))
     }
 
-  protected def FormResult[A](form: Form[A])(op: A => Fu[Result])(using req: Request[?]): Fu[Result] =
-    form
-      .bindFromRequest()
-      .fold(
-        form => fuccess(BadRequest(form.errors mkString "\n")),
-        op
-      )
-
   protected def FormFuResult[A, B: Writeable](
       form: Form[A]
-  )(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[?]) =
+  )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using req: Request[?]) =
     form
       .bindFromRequest()
       .fold(

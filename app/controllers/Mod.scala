@@ -80,11 +80,7 @@ final class Mod(
         for suspect <- modApi.setBoost(me, prev, v)
         yield suspect.some
       }
-    }(ctx =>
-      me => { suspect =>
-        reportC.onModAction(me, suspect)(using ctx)
-      }
-    )
+    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
 
   def troll(username: UserStr, v: Boolean) =
     OAuthModBody(_.Shadowban) { me =>
@@ -104,11 +100,7 @@ final class Mod(
           yield suspect.some
         }
       }
-    }(ctx =>
-      me => { suspect =>
-        reportC.onModAction(me, suspect)(using ctx)
-      }
-    )
+    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
 
   def kid(username: UserStr) =
     OAuthMod(_.SetKidMode) { _ => me =>
