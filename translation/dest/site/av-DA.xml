@@ -21,11 +21,24 @@
     <item quantity="other">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
   </plurals>
   <string name="forceResignation">Бергьенлъи лъазабизе</string>
+  <string name="whiteDidntMove">ХъахӀал инчӀо</string>
+  <string name="blackDidntMove">ЧӀегӀерал инчӀо</string>
   <string name="computerAnalysis">Компьютерил анализ</string>
+  <string name="deleteFromHere">Гьаниса хвезабизе</string>
+  <string name="move">Ин</string>
+  <string name="close">Къазе</string>
+  <string name="noGameFound">ХӀаял ратичӀо</string>
   <string name="delete">Хвезабизе</string>
+  <string name="openStudy">ЦӀехрех рагьизе</string>
   <string name="enable">Биччазе</string>
+  <string name="mistake">ГъалатӀ</string>
   <string name="edit">Хисизе</string>
   <string name="rapid">Рапид</string>
   <string name="important">КӀвар буго</string>
+  <string name="subscribe">Нахъвилълъине</string>
+  <string name="unsubscribe">Навилълъин нахъе бахъизе</string>
+  <string name="invitedYouToX">мун \"%1$s\"-ялде ахӀана.</string>
+  <string name="download">РещтӀинабизе</string>
+  <string name="welcome">ЛъикӀ щварав!</string>
   <string name="switchSides">Рахъ хизисе</string>
 </resources>
