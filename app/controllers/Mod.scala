@@ -36,13 +36,13 @@ final class Mod(
           _ <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
         yield sus.some
       }
-    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
+    }(reportC.onModAction)
 
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me =>
       withSuspect(username): sus =>
         modApi.setEngine(me, sus, v) inject sus.some
-    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
+    }(reportC.onModAction)
 
   def publicChat = Secure(_.PublicChatView) { ctx ?=> _ =>
     env.mod.publicChat.all.map: (tournamentsAndChats, swissesAndChats) =>
@@ -66,14 +66,14 @@ final class Mod(
     OAuthModBody(_.MarkBooster) { me =>
       withSuspect(username): prev =>
         modApi.setBoost(me, prev, v).map(some)
-    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
+    }(reportC.onModAction)
 
   def troll(username: UserStr, v: Boolean) =
     OAuthModBody(_.Shadowban) { me =>
       withSuspect(username): prev =>
         for suspect <- modApi.setTroll(me, prev, v)
         yield suspect.some
-    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
+    }(reportC.onModAction)
 
   def warn(username: UserStr, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
@@ -86,7 +86,7 @@ final class Mod(
           yield suspect.some
         }
       }
-    }(_ ?=> me => suspect => reportC.onModAction(me, suspect))
+    }(reportC.onModAction)
 
   def kid(username: UserStr) =
     OAuthMod(_.SetKidMode) { _ => me =>
