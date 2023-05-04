@@ -155,6 +155,9 @@ Allow: /
   def keyboardMoveHelp = Open:
     Ok(html.site.helpModal.keyboardMove).toFuccess
 
+  def voiceMoveHelp = Open:
+    Ok(html.site.helpModal.voiceMove).toFuccess
+
   def movedPermanently(to: String) = Action:
     MovedPermanently(to)
 
