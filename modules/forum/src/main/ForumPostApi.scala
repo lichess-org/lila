@@ -197,8 +197,7 @@ final class ForumPostApi(
         "userId",
         $doc(
           "topicId" -> topic.id,
-          "number" $gt (newPostNumber - 10),
-          "createdAt" $gt nowInstant.minusDays(5)
+          "number" $gt (newPostNumber - 20)
         ),
         ReadPreference.secondaryPreferred
       )
