@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">musi kiwen</string>
+  <string name="challenges">musi utala</string>
   <string name="challengeToPlay">wile musi</string>
   <string name="challengeDeclined">ona li wile ala musi</string>
   <string name="challengeAccepted">ona li wile musi a!</string>
@@ -22,4 +22,5 @@
   <string name="declineVariant">mi wile ala musi kepeken nasin ni lon tenpo ni.</string>
   <string name="declineNoBot">mi wile ala e ni: jan ilo li utala musi e mi.</string>
   <string name="declineOnlyBot">mi wile e ni: jan ilo li utala musi e mi.</string>
+  <string name="inviteLichessUser">anu tawa e jan ilo Lichess:</string>
 </resources>

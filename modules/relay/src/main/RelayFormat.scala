@@ -10,9 +10,7 @@ import lila.study.MultiPgn
 import lila.memo.CacheApi
 import lila.memo.CacheApi.*
 
-final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(using
-    ec: Executor
-):
+final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(using Executor):
 
   import RelayFormat.*
   import RelayRound.Sync.UpstreamUrl

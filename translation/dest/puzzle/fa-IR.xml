@@ -46,13 +46,13 @@
   <string name="normal">معمولی</string>
   <string name="easier">اسان تر</string>
   <string name="easiest">آسان‌ترین</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
     <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
   </plurals>
   <string name="harder">سخت تر</string>
   <string name="hardest">سخت‌ترین</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">یک امتیاز بالاتر از امتیاز شما در معماها</item>
     <item quantity="other">%s امتیاز بالاتر از امتیاز شما در معماها</item>
   </plurals>

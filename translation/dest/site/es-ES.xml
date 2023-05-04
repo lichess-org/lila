@@ -60,7 +60,7 @@
   <string name="usingServerAnalysis">Usando análisis del servidor</string>
   <string name="loadingEngine">Cargando el motor...</string>
   <string name="calculatingMoves">Calculando movimientos...</string>
-  <string name="engineFailed">Error al cargar el motor</string>
+  <string name="engineFailed">Error al cargar el módulo</string>
   <string name="cloudAnalysis">Análisis en el servidor</string>
   <string name="goDeeper">Aumentar la profundidad del análisis</string>
   <string name="showThreat">Mostrar amenaza</string>
@@ -207,16 +207,16 @@
   <string name="email">Correo</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
-  <string name="error.weakPassword">Esta contraseña es extremadamente común, y muy fácil de adivinar.</string>
-  <string name="error.namePassword">Por favor, no uses tu nombre de usuario como contraseña.</string>
+  <string name="error.weakPassword">Esta contraseña es extremadamente común y fácil de adivinar.</string>
+  <string name="error.namePassword">Por favor, no use su nombre de usuario como contraseña.</string>
   <string name="blankedPassword">Has utilizado la misma contraseña en otro sitio, y ese sitio se ha visto comprometido. Para garantizar la seguridad de tu cuenta en Lichess, necesitamos que establezcas una nueva contraseña. Gracias por tu comprensión.</string>
   <string name="youAreLeavingLichess">Estás saliendo de Lichess</string>
   <string name="neverTypeYourPassword">¡Nunca escribas tu contraseña de Lichess en otro sitio!</string>
   <string name="proceedToX">Ir a %s</string>
-  <string name="passwordSuggestion">No establezcas una contraseña sugerida por otra persona. La usarán para robar tu cuenta.</string>
+  <string name="passwordSuggestion">No establezca una contraseña sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailSuggestion">No establezcas una dirección de correo electrónico sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailConfirmHelp">Ayuda con confirmación de correo electrónico</string>
-  <string name="emailConfirmNotReceived">¿No recibiste tu correo de confirmación después de registrarte?</string>
+  <string name="emailConfirmNotReceived">¿No recibió un correo de confirmación después de registrarte?</string>
   <string name="whatSignupUsername">¿Qué nombre de usuario utilizaste para registrarte?</string>
   <string name="usernameNotFound">No pudimos encontrar ningún usuario con este nombre: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Puedes usar este nombre de usuario para crear una nueva cuenta</string>
@@ -228,7 +228,7 @@
   <string name="copyTextToEmail">Copiar y pegar el texto de arriba y enviarlo a %s</string>
   <string name="waitForSignupHelp">Volveremos contigo dentro de poco para ayudarte a completar tu registro.</string>
   <string name="accountConfirmed">El usuario %s fue confirmado con éxito.</string>
-  <string name="accountCanLogin">Puedes iniciar sesión ahora como %s.</string>
+  <string name="accountCanLogin">Ya puedes iniciar sesión ahora como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No necesitas un correo de confirmación.</string>
   <string name="accountClosed">La cuenta %s está cerrada.</string>
   <string name="accountRegisteredWithoutEmail">La cuenta %s fue registrada sin un correo.</string>
@@ -381,7 +381,7 @@
   <string name="save">Guardar</string>
   <string name="leaderboard">Clasificación</string>
   <string name="screenshotCurrentPosition">Hacer captura de pantalla de la posición actual</string>
-  <string name="gameAsGIF">GIF de la partida</string>
+  <string name="gameAsGIF">Guardar partida en formato GIF</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>

@@ -19,7 +19,7 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
           "featurable" -> true,
           "settings.i" $lte 600 // hits the partial index
         ) ++ $doc(
-          "startsAt" $gt nowDate.plusMinutes(10) $lt nowDate.plusMinutes(11),
+          "startsAt" $gt nowInstant.plusMinutes(10) $lt nowInstant.plusMinutes(11),
           "_id" $nin doneMemo.keys
         )
       )

@@ -28,6 +28,11 @@
   <string name="keepGoing">Продължи…</string>
   <string name="puzzleSuccess">Успех!</string>
   <string name="puzzleComplete">Задачата е решена!</string>
+  <string name="byOpenings">По дебюти</string>
+  <string name="puzzlesByOpenings">Задачи по дебюти</string>
+  <string name="openingsYouPlayedTheMost">Дебюти, които сте играли най-много в игри с рейтинг</string>
+  <string name="useFindInPage">Използвайте \"Намери на страницата\" в менюто на браузера за да намерите любимия си дебют!</string>
+  <string name="useCtrlF">Използвайте Ctrl+f за да намерите любимия си дебют!</string>
   <string name="notTheMove">Това не е верният ход!</string>
   <string name="trySomethingElse">Опитайте нещо друго.</string>
   <string name="ratingX">Рейтинг: %s</string>
@@ -42,13 +47,13 @@
   <string name="normal">Средно</string>
   <string name="easier">По-лесно</string>
   <string name="easiest">Най-лесно</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Една точка под Вашия рейтинг на задачите</item>
     <item quantity="other">%s точки под Вашия рейтинг на задачите</item>
   </plurals>
   <string name="harder">По-трудно</string>
   <string name="hardest">Най-трудно</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Една точка над Вашия рейтинг на задачите</item>
     <item quantity="other">%s точки над Вашия рейтинг на задачите</item>
   </plurals>

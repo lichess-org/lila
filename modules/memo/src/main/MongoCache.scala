@@ -16,7 +16,7 @@ final class MongoCache[K, V: BSONHandler] private (
     val coll: Coll
 )(using Executor):
 
-  private case class Entry(_id: String, v: V, e: DateTime)
+  private case class Entry(_id: String, v: V, e: Instant)
 
   private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
@@ -29,7 +29,7 @@ final class MongoCache[K, V: BSONHandler] private (
           .flatMap { v =>
             coll.update.one(
               $id(dbKey),
-              Entry(dbKey, v, nowDate.plusSeconds(dbTtl.toSeconds.toInt)),
+              Entry(dbKey, v, nowInstant.plus(dbTtl)),
               upsert = true
             ) inject v
           }

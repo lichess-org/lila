@@ -2,7 +2,7 @@ package lila.tournament
 package crud
 
 import scala.util.chaining.*
-import chess.Clock
+import chess.{ Clock, Mode }
 import chess.format.Fen
 
 import lila.common.config.MaxPerPage
@@ -11,6 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.tournament.BSONHandlers.given
+import lila.gathering.{ Condition, ConditionForm }
 
 final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 
@@ -28,12 +29,13 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       minutes = tour.minutes,
       variant = tour.variant.id,
       position = tour.position.map(_ into Fen.Epd),
-      date = tour.startsAt,
+      date = tour.startsAt.dateTime,
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.??(_.headline),
       description = tour.spotlight.??(_.description),
-      conditions = Condition.DataForm.AllSetup(tour.conditions),
+      conditions = tour.conditions,
       berserkable = !tour.noBerserk,
+      rated = tour.isRated,
       streakable = tour.streakable,
       teamBattle = tour.isTeamBattle,
       hasChat = tour.hasChat
@@ -51,7 +53,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
   def clone(old: Tournament) =
     old.copy(
       name = s"${old.name} (clone)",
-      startsAt = nowDate plusDays 7
+      startsAt = nowInstant plusDays 7
     )
 
   def paginator(page: Int)(using Executor) =
@@ -93,7 +95,8 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       clock = clock,
       minutes = minutes,
       variant = realVariant,
-      startsAt = date,
+      mode = if (data.rated) Mode.Rated else Mode.Casual,
+      startsAt = date.instant,
       schedule = Schedule(
         freq = Schedule.Freq.Unique,
         speed = Schedule.Speed.fromClock(clock),
@@ -113,8 +116,4 @@ final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
       noStreak = !data.streakable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
       hasChat = data.hasChat
-    ) pipe { tour =>
-      tour.copy(conditions =
-        data.conditions.convert(tour.perfType, Map.empty)
-      ) // the CRUD form doesn't support team restrictions so Map.empty is fine
-    }
+    )

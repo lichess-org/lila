@@ -24,7 +24,7 @@ object StreamerForm:
           .verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)
       ),
       "youTube" -> optional(
-        text.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)
+        text.verifying("Invalid YouTube channel ID", s => Streamer.YouTube.parseChannelId(s).isDefined)
       ),
       "listed" -> of[Listed],
       "approval" -> optional(
@@ -81,7 +81,7 @@ object StreamerForm:
         twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
         youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId)),
         listed = listed,
-        updatedAt = nowDate
+        updatedAt = nowInstant
       )
       newStreamer.copy(
         approval = approval.map(_.resolve) match {
@@ -95,7 +95,7 @@ object StreamerForm:
               },
               ignored = m.ignored && !m.granted,
               chatEnabled = m.chat,
-              lastGrantedAt = m.granted.option(nowDate) orElse streamer.approval.lastGrantedAt
+              lastGrantedAt = m.granted.option(nowInstant) orElse streamer.approval.lastGrantedAt
             )
           case _ =>
             streamer.approval.copy(

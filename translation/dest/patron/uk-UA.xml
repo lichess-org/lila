@@ -45,9 +45,9 @@
 Або ви можете %s.</string>
   <string name="contactSupport">зв\'язатися з підтримкою Lichess</string>
   <string name="otherMethods">Інші методи підтримки?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess зареєстровано через %s.</string>
+  <string name="lichessIsRegisteredWith">Lichess зареєстровано через %s.</string>
   <string name="bankTransfers">Ми також приймаємо банківські перекази</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Будь ласка, зверніть увагу, що статус Патрона надаватимуть тільки внески, зроблені за формою вище.</string>
+  <string name="onlyDonationFromAbove">Будь ласка, зверніть увагу, що статус Патрона надаватимуть тільки внески, зроблені за формою вище.</string>
   <string name="patronFeatures">Чи є функції, зарезервовані лише для Покровителів?</string>
   <string name="noPatronFeatures">Ні, тому що Lichess повністю безкоштовний, назавжди і для всіх. Це обіцянка.
 Тим не менш, Покровителі отримують нову класну іконку профілю.</string>

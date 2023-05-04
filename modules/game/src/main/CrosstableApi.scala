@@ -79,7 +79,7 @@ final class CrosstableApi(
                 F.score1 -> inc1,
                 F.score2 -> inc2
               ) ++ $set(
-                F.lastPlayed -> nowDate
+                F.lastPlayed -> nowInstant
               ),
               upsert = true
             )

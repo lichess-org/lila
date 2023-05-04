@@ -53,6 +53,6 @@ final class GameProxyRepo(
         catch
           case e: IllegalArgumentException =>
             lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)
-            povs.sortBy(-_.game.movedAt.getSeconds)
+            povs.sortBy(-_.game.movedAt.toSeconds)
       }
     }

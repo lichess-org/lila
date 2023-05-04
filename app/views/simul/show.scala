@@ -9,18 +9,20 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.socket.SocketVersion
-import lila.socket.SocketVersion.given
+import lila.simul.Simul
+import lila.gathering.Condition
 
 object show:
 
   def apply(
-      sim: lila.simul.Simul,
+      sim: Simul,
       socketVersion: SocketVersion,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
-      team: Option[lila.team.Team]
-  )(implicit ctx: Context) =
+      verdicts: Condition.WithVerdicts
+  )(using ctx: Context) =
+    val userIsHost = ctx.userId has sim.hostId
     views.html.base.layout(
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
@@ -39,14 +41,14 @@ object show:
                   timeout = c.timeout,
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-                  localMod = ctx.userId has sim.hostId
+                  localMod = userIsHost
                 )
               },
               "showRatings" -> ctx.pref.showRatings
             )
           )})""")
       )
-    ) {
+    ):
       main(cls := "simul")(
         st.aside(cls := "simul__side")(
           div(cls := "simul__meta")(
@@ -59,7 +61,7 @@ object show:
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
                     trans.casual(),
-                    (isGranted(_.ManageSimul) || ctx.userId.has(sim.hostId)) && sim.isCreated option frag(
+                    (isGranted(_.ManageSimul) || userIsHost) && sim.isCreated option frag(
                       " • ",
                       a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(""))
                     )
@@ -96,19 +98,10 @@ object show:
                 )
               }
             ),
+            views.html.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
             trans.by(userIdLink(sim.hostId.some)),
-            team map { t =>
-              frag(
-                br,
-                trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
-              )
-            },
-            sim.estimatedStartAt map { d =>
-              frag(
-                br,
-                absClientDateTime(d)
-              )
-            }
+            sim.estimatedStartAt.map: d =>
+              frag(br, absClientInstant(d))
           ),
           stream.map { s =>
             views.html.streamer.bits.contextual(s.streamer.userId)
@@ -117,4 +110,3 @@ object show:
         ),
         div(cls := "simul__main box")(spinner)
       )
-    }

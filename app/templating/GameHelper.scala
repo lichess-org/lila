@@ -262,7 +262,7 @@ trait GameHelper:
       }
   }.toString
 
-  def gameLink(pov: Pov)(using ctx: Context): String = gameLink(pov.game, pov.color)
+  def gameLink(pov: Pov)(using Context): String = gameLink(pov.game, pov.color)
 
   def challengeTitle(c: lila.challenge.Challenge)(using ctx: Context) =
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
@@ -280,7 +280,7 @@ trait GameHelper:
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(using ctx: Context) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

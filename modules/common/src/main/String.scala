@@ -28,12 +28,11 @@ object String:
   def addQueryParam(url: String, key: String, value: String): String = addQueryParams(url, Map(key -> value))
   def addQueryParams(url: String, params: Map[String, String]): String =
     if params.isEmpty then url
-    else {
+    else
       val queryString = params // we could encode the key, and we should, but is it really necessary?
         .map { (key, value) => s"$key=${urlencode(value)}" }
         .mkString("&")
       s"$url${if url.contains("?") then "&" else "?"}$queryString"
-    }
 
   def removeChars(str: String, isRemoveable: Int => Boolean): String =
     if str.chars.anyMatch(isRemoveable(_)) then str.filterNot(isRemoveable(_)) else str
@@ -77,11 +76,10 @@ object String:
       .normalize(
         ordinalRegex.replaceAllIn(
           str,
-          _.group(0)(0) match {
+          _.group(0)(0) match
             case 'º' | '°' => "\u0001".toString
             case 'ª'       => '\u0002'.toString
             case '½'       => '\u0003'.toString
-          }
         ),
         Normalizer.Form.NFKC
       )
@@ -145,22 +143,20 @@ object String:
     def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using
         config.NetDomain
     ): Frag =
-      raw {
+      raw:
         val withLinks = RawHtml.addLinks(rawText, expandImg)
         if (nl2br) RawHtml.nl2br(withLinks.value) else withLinks
-      }
 
     def nl2brUnsafe(text: String): Frag =
-      raw {
+      raw:
         RawHtml.nl2br(text)
-      }
 
     def nl2br(text: String): Frag = nl2brUnsafe(escapeHtmlRaw(text))
 
     def escapeHtml(h: Html): RawFrag =
-      raw {
+      raw:
         Html(escapeHtmlRaw(h.value))
-      }
+
     def unescapeHtml(html: Html): Html =
       html.map(org.apache.commons.text.StringEscapeUtils.unescapeHtml4)
 

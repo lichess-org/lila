@@ -123,6 +123,7 @@
   &-correspondence .time {
     font-size: 1.6em;
     letter-spacing: inherit;
+    direction: $direction;
 
     @include breakpoint($mq-col2) {
       line-height: 1.5em;

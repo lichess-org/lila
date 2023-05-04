@@ -10,6 +10,7 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
+import lila.gathering.Condition
 
 object BSONHandlers:
 
@@ -46,7 +47,8 @@ object BSONHandlers:
     r => (r.value * 100_000).toInt
   )
 
-  import Condition.BSONHandlers.given
+  import lila.gathering.ConditionHandlers.BSONHandlers.given
+  import TournamentCondition.bsonHandler
 
   given tourHandler: BSON[Tournament] with
     def reads(r: BSON.Reader) =
@@ -57,7 +59,7 @@ object BSONHandlers:
           .filter(_ != Fen.Opening.initial) orElse
           r.getO[chess.opening.Eco]("eco").flatMap(Thematic.byEco).map(_.fen) // for BC
       val startsAt   = r date "startsAt"
-      val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
+      val conditions = r.getD[TournamentCondition.All]("conditions")
       Tournament(
         id = r.get[TourId]("_id"),
         name = r str "name",
@@ -68,15 +70,15 @@ object BSONHandlers:
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         password = r.strO("password"),
-        conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty,
+        conditions = conditions,
         teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r boolD "noBerserk",
         noStreak = r boolD "noStreak",
-        schedule = for {
+        schedule = for
           doc   <- r.getO[Bdoc]("schedule")
           freq  <- doc.getAsOpt[Schedule.Freq]("freq")
           speed <- doc.getAsOpt[Schedule.Speed]("speed")
-        } yield Schedule(freq, speed, variant, position, startsAt, conditions),
+        yield Schedule(freq, speed, variant, position, startsAt.dateTime, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
         createdBy = r.getO[UserId]("createdBy") | lichessId,
@@ -98,7 +100,7 @@ object BSONHandlers:
         "fen"         -> o.position,
         "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"    -> o.password,
-        "conditions"  -> o.conditions.ifNonEmpty,
+        "conditions"  -> o.conditions.nonEmpty.option(o.conditions),
         "teamBattle"  -> o.teamBattle,
         "noBerserk"   -> w.boolO(o.noBerserk),
         "noStreak"    -> w.boolO(o.noStreak),

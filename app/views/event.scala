@@ -115,11 +115,11 @@ object event:
                   )
                 ),
                 td(
-                  showDateTimeUTC(e.startsAt),
+                  showInstantUTC(e.startsAt),
                   momentFromNow(e.startsAt)
                 ),
                 td(
-                  showDateTimeUTC(e.finishesAt),
+                  showInstantUTC(e.finishesAt),
                   momentFromNow(e.finishesAt)
                 ),
                 td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := ""))

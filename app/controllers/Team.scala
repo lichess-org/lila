@@ -23,74 +23,58 @@ final class Team(
   private def api       = env.team.api
   private def paginator = env.team.paginator
 
-  def all(page: Int) =
-    Open { implicit ctx =>
-      Reasonable(page) {
-        paginator popularTeams page map {
-          html.team.list.all(_)
-        }
+  def all(page: Int) = Open:
+    Reasonable(page):
+      paginator popularTeams page map {
+        html.team.list.all(_)
       }
+
+  def home(page: Int) = Open:
+    ctx.me.??(api.hasTeams) map {
+      case true  => Redirect(routes.Team.mine)
+      case false => Redirect(routes.Team.all(page))
     }
 
-  def home(page: Int) =
-    Open { implicit ctx =>
-      ctx.me.??(api.hasTeams) map {
-        case true  => Redirect(routes.Team.mine)
-        case false => Redirect(routes.Team.all(page))
-      }
-    }
+  def show(id: TeamId, page: Int, mod: Boolean) = Open:
+    Reasonable(page):
+      OptionFuResult(api team id) { renderTeam(_, page, mod) }
 
-  def show(id: TeamId, page: Int, mod: Boolean) =
-    Open { implicit ctx =>
-      Reasonable(page) {
-        OptionFuResult(api team id) { renderTeam(_, page, mod) }
-      }
-    }
-
-  def members(id: TeamId, page: Int) =
-    Open { implicit ctx =>
-      Reasonable(page, config.Max(50)) {
-        OptionFuResult(api teamEnabled id) { team =>
-          val canSee =
-            fuccess(team.publicMembers || isGranted(_.ManageTeam)) >>| ctx.userId.?? {
-              api.belongsTo(team.id, _)
-            }
-          canSee flatMap {
-            case true =>
-              paginator.teamMembersWithDate(team, page) map {
-                html.team.members(team, _)
-              }
-            case false => authorizationFailed
+  def members(id: TeamId, page: Int) = Open:
+    Reasonable(page, config.Max(50)):
+      OptionFuResult(api teamEnabled id): team =>
+        val canSee =
+          fuccess(team.publicMembers || isGranted(_.ManageTeam)) >>| ctx.userId.?? {
+            api.belongsTo(team.id, _)
           }
+        canSee flatMap {
+          case true =>
+            paginator.teamMembersWithDate(team, page) map {
+              html.team.members(team, _)
+            }
+          case false => authorizationFailed
         }
-      }
-    }
 
-  def search(text: String, page: Int) =
-    OpenBody { implicit ctx =>
-      Reasonable(page) {
-        if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
-        else
-          env.teamSearch(text, page) map { html.team.list.search(text, _) }
-      }
-    }
+  def search(text: String, page: Int) = OpenBody:
+    Reasonable(page):
+      if text.trim.isEmpty
+      then paginator popularTeams page map { html.team.list.all(_) }
+      else env.teamSearch(text, page) map { html.team.list.search(text, _) }
 
-  private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: Context) =
-    for
-      info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
-      members <- paginator.teamMembers(team, page)
-      log     <- (requestModView && isGranted(_.ManageTeam)).??(env.mod.logApi.teamLog(team.id))
-      hasChat = canHaveChat(team, info, requestModView)
-      chat <-
-        hasChat ?? env.chat.api.userChat.cached
-          .findMine(ChatId(team.id), ctx.me)
-          .map(some)
-      _ <- env.user.lightUserApi preloadMany {
-        team.leaders.toList ::: info.userIds ::: chat.??(_.chat.userIds)
-      }
-      version <- hasChat ?? env.team.version(team.id).dmap(some)
-    yield Ok(html.team.show(team, members, info, chat, version, requestModView, log))
-      .withCanonical(routes.Team.show(team.id))
+  private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: Context) = for
+    info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
+    members <- paginator.teamMembers(team, page)
+    log     <- (requestModView && isGranted(_.ManageTeam)).??(env.mod.logApi.teamLog(team.id))
+    hasChat = canHaveChat(team, info, requestModView)
+    chat <-
+      hasChat ?? env.chat.api.userChat.cached
+        .findMine(ChatId(team.id), ctx.me)
+        .map(some)
+    _ <- env.user.lightUserApi preloadMany {
+      team.leaders.toList ::: info.userIds ::: chat.??(_.chat.userIds)
+    }
+    version <- hasChat ?? env.team.version(team.id).dmap(some)
+  yield Ok(html.team.show(team, members, info, chat, version, requestModView, log))
+    .withCanonical(routes.Team.show(team.id))
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
       ctx: Context
@@ -131,22 +115,19 @@ final class Team(
       }
     }
 
-  def tournaments(teamId: TeamId) =
-    Open { implicit ctx =>
-      api teamEnabled teamId flatMapz { team =>
-        env.teamInfo.tournaments(team, 30, 30) map { tours =>
-          Ok(html.team.tournaments.page(team, tours))
-        }
+  def tournaments(teamId: TeamId) = Open:
+    api teamEnabled teamId flatMapz { team =>
+      env.teamInfo.tournaments(team, 30, 30) map { tours =>
+        Ok(html.team.tournaments.page(team, tours))
       }
     }
 
-  def edit(id: TeamId) =
-    Auth { implicit ctx => me =>
-      WithOwnedTeamEnabled(id) { team =>
-        env.msg.twoFactorReminder(me.id) inject
-          html.team.form.edit(team, forms edit team)
-      }
+  def edit(id: TeamId) = Auth { ctx ?=> me =>
+    WithOwnedTeamEnabled(id) { team =>
+      env.msg.twoFactorReminder(me.id) inject
+        html.team.form.edit(team, forms edit team)
     }
+  }
 
   def update(id: TeamId) =
     AuthBody { implicit ctx => me =>
@@ -162,12 +143,11 @@ final class Team(
       }
     }
 
-  def kickForm(id: TeamId) =
-    Auth { implicit ctx => _ =>
-      WithOwnedTeamEnabled(id) { team =>
-        Ok(html.team.admin.kick(team, forms.members)).toFuccess
-      }
+  def kickForm(id: TeamId) = Auth { ctx ?=> _ =>
+    WithOwnedTeamEnabled(id) { team =>
+      Ok(html.team.admin.kick(team, forms.members)).toFuccess
     }
+  }
 
   def kick(id: TeamId) =
     AuthBody { implicit ctx => me =>
@@ -206,12 +186,11 @@ final class Team(
       }
     }
 
-  def leadersForm(id: TeamId) =
-    Auth { implicit ctx => _ =>
-      WithOwnedTeamEnabled(id) { team =>
-        Ok(html.team.admin.leaders(team, forms leaders team)).toFuccess
-      }
+  def leadersForm(id: TeamId) = Auth { ctx ?=> _ =>
+    WithOwnedTeamEnabled(id) { team =>
+      Ok(html.team.admin.leaders(team, forms leaders team)).toFuccess
     }
+  }
 
   def leaders(id: TeamId) =
     AuthBody { implicit ctx => me =>
@@ -256,14 +235,13 @@ final class Team(
       } inject Redirect(routes.Team show id).flashSuccess
     }
 
-  def form =
-    Auth { implicit ctx => me =>
-      LimitPerWeek(me) {
-        forms.anyCaptcha map { captcha =>
-          Ok(html.team.form.create(forms.create, captcha))
-        }
+  def form = Auth { ctx ?=> me =>
+    LimitPerWeek(me) {
+      forms.anyCaptcha map { captcha =>
+        Ok(html.team.form.create(forms.create, captcha))
       }
     }
+  }
 
   private val OneAtATime = new lila.memo.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
@@ -294,22 +272,20 @@ final class Team(
     }
   }
 
-  def mine =
-    Auth { implicit ctx => me =>
-      api mine me map {
-        html.team.list.mine(_)
-      }
+  def mine = Auth { ctx ?=> me =>
+    api mine me map {
+      html.team.list.mine(_)
     }
+  }
 
   private def tooManyTeams(me: UserModel)(implicit ctx: Context) =
     api mine me map html.team.list.mine map { BadRequest(_) }
 
-  def leader =
-    Auth { implicit ctx => me =>
-      env.team.teamRepo enabledTeamsByLeader me.id map {
-        html.team.list.ledByMe(_)
-      }
+  def leader = Auth { ctx ?=> me =>
+    env.team.teamRepo enabledTeamsByLeader me.id map {
+      html.team.list.ledByMe(_)
     }
+  }
 
   def join(id: TeamId) =
     AuthOrScopedBody(_.Team.Write)(
@@ -384,19 +360,17 @@ final class Team(
       scoped = req => me => doSub(req, me) inject jsonOkResult
     )
 
-  def requests =
-    Auth { implicit ctx => me =>
-      import lila.memo.CacheApi.*
-      env.team.cached.nbRequests invalidate me.id
-      api requestsWithUsers me map { html.team.request.all(_) }
-    }
+  def requests = Auth { ctx ?=> me =>
+    import lila.memo.CacheApi.*
+    env.team.cached.nbRequests invalidate me.id
+    api requestsWithUsers me map { html.team.request.all(_) }
+  }
 
-  def requestForm(id: TeamId) =
-    Auth { implicit ctx => me =>
-      OptionFuOk(api.requestable(id, me)) { team =>
-        fuccess(html.team.request.requestForm(team, forms.request(team)))
-      }
+  def requestForm(id: TeamId) = Auth { ctx ?=> me =>
+    OptionFuOk(api.requestable(id, me)) { team =>
+      fuccess(html.team.request.requestForm(team, forms.request(team)))
     }
+  }
 
   def requestCreate(id: TeamId) =
     AuthBody { implicit ctx => me =>
@@ -441,14 +415,13 @@ final class Team(
       }
     }
 
-  def declinedRequests(id: TeamId, page: Int) =
-    Auth { implicit ctx => _ =>
-      WithOwnedTeamEnabled(id) { team =>
-        paginator.declinedRequests(team, page) map { requests =>
-          Ok(html.team.declinedRequest.all(team, requests))
-        }
+  def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ =>
+    WithOwnedTeamEnabled(id) { team =>
+      paginator.declinedRequests(team, page) map { requests =>
+        Ok(html.team.declinedRequest.all(team, requests))
       }
     }
+  }
 
   def quit(id: TeamId) =
     AuthOrScoped(_.Team.Write)(
@@ -468,7 +441,7 @@ final class Team(
                   html = Redirect(routes.Team.mine).flashSuccess.toFuccess,
                   api = _ => jsonOkResult.toFuccess
                 )
-          }(ctx),
+          },
       scoped = _ =>
         me =>
           api team id flatMap {
@@ -498,19 +471,17 @@ final class Team(
           }
     }
 
-  def pmAll(id: TeamId) =
-    Auth { implicit ctx => _ =>
-      WithOwnedTeamEnabled(id) { team =>
-        renderPmAll(team, forms.pmAll)
-      }
+  def pmAll(id: TeamId) = Auth { ctx ?=> _ =>
+    WithOwnedTeamEnabled(id) { team =>
+      renderPmAll(team, forms.pmAll)
     }
+  }
 
-  private def renderPmAll(team: TeamModel, form: Form[?])(implicit ctx: Context) =
-    for {
-      tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
-      unsubs  <- env.team.cached.unsubs.get(team.id)
-      limiter <- env.teamInfo.pmAllStatus(team.id)
-    } yield Ok(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
+  private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
+    tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+    unsubs  <- env.team.cached.unsubs.get(team.id)
+    limiter <- env.teamInfo.pmAllStatus(team.id)
+  yield Ok(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
 
   def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(
@@ -556,43 +527,37 @@ final class Team(
       }
     }
 
-  def apiShow(id: TeamId) =
-    Open { ctx =>
-      JsonOptionOk {
-        api teamEnabled id flatMapz { team =>
-          for
-            joined    <- ctx.userId.?? { api.belongsTo(id, _) }
-            requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
-          yield {
-            env.team.jsonView.teamWrites.writes(team) ++ Json
-              .obj(
-                "joined"    -> joined,
-                "requested" -> requested
-              )
-          }.some
-        }
+  def apiShow(id: TeamId) = Open:
+    JsonOptionOk:
+      api teamEnabled id flatMapz { team =>
+        for
+          joined    <- ctx.userId.?? { api.belongsTo(id, _) }
+          requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
+        yield {
+          env.team.jsonView.teamWrites.writes(team) ++ Json
+            .obj(
+              "joined"    -> joined,
+              "requested" -> requested
+            )
+        }.some
       }
-    }
 
-  def apiSearch(text: String, page: Int) =
-    Action.async {
-      import env.team.jsonView.given
-      import lila.common.paginator.PaginatorJson.given
-      JsonOk {
-        if (text.trim.isEmpty) paginator popularTeams page
-        else env.teamSearch(text, page)
-      }
-    }
+  def apiSearch(text: String, page: Int) = Action.async:
+    import env.team.jsonView.given
+    import lila.common.paginator.PaginatorJson.given
+    JsonOk:
+      if text.trim.isEmpty
+      then paginator popularTeams page
+      else env.teamSearch(text, page)
 
-  def apiTeamsOf(username: UserStr) =
-    Action.async {
-      import env.team.jsonView.given
-      JsonOk {
-        api teamsOf username flatMap { teams =>
-          env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
-        }
+  def apiTeamsOf(username: UserStr) = AnonOrScoped() { _ => me =>
+    import env.team.jsonView.given
+    JsonOk {
+      api.joinedTeamIdsOfUserAsSeenBy(username, me) flatMap api.teamsByIds flatMap { teams =>
+        env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
       }
     }
+  }
 
   def apiRequests(teamId: TeamId) =
     Scoped(_.Team.Read) { req => me =>

@@ -34,9 +34,12 @@ importers:
       typescript:
         specifier: ^4.9.4
         version: 4.9.4
+
+  bin:
+    dependencies:
       xml2js:
-        specifier: 0.4.23
-        version: 0.4.23
+        specifier: ^0.5.0
+        version: 0.5.0
 
   ui:
     dependencies:
@@ -117,9 +120,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -156,9 +156,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -324,9 +321,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -510,9 +504,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -573,9 +564,6 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -603,9 +591,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -639,9 +624,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -807,9 +789,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
       chessops:
         specifier: ^0.12.7
         version: 0.12.7
@@ -6096,8 +6075,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /xml2js@0.4.23:
-    resolution: {integrity: sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==}
+  /xml2js@0.5.0:
+    resolution: {integrity: sha512-drPFnkQJik/O+uPKpqSgr22mpuFHqKdbS835iAQrUC73L2F5WkboIRd63ai/2Yg6I1jzifPFKH2NTK+cfglkIA==}
     engines: {node: '>=4.0.0'}
     dependencies:
       sax: 1.2.4

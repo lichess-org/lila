@@ -166,7 +166,7 @@ final class GameApiV2(
                 (
                   playerTeams.get(pairing.user1),
                   playerTeams.get(pairing.user2)
-                ) mapN chess.Color.Map.apply[TeamId]
+                ) mapN chess.ByColor.apply[TeamId]
               )
             }
           }
@@ -351,8 +351,8 @@ object GameApiV2:
       user: User,
       vs: Option[User],
       format: Format,
-      since: Option[DateTime] = None,
-      until: Option[DateTime] = None,
+      since: Option[Instant] = None,
+      until: Option[Instant] = None,
       max: Option[Int] = None,
       rated: Option[Boolean] = None,
       perfType: Set[lila.rating.PerfType],

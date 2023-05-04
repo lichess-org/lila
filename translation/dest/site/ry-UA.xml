@@ -369,6 +369,7 @@
   <string name="youAreNotInTeam">Вы не у дружині %s</string>
   <string name="backToGame">Вернути ся од бавцї</string>
   <string name="siteDescription">Задарні онлайн шахматы. Бавте у шахматы такой тепирь у легкому інтерфейсови без рекламы. Не треба реґістрації тай стерьханя проґрамы. Бавте против компютора, цімборами вадь трафными противниками.</string>
+  <string name="averageElo">Середньый рейтінґ</string>
   <string name="location">Полога</string>
   <string name="filterGames">Філтер бавок</string>
   <string name="reset">Зверичи</string>
@@ -425,6 +426,7 @@
   <string name="list">Ліста</string>
   <string name="graph">Ґрафік</string>
   <string name="required">Мусайно.</string>
+  <string name="openTournaments">Одкрыті турніры</string>
   <string name="duration">Триманя</string>
   <string name="winner">Побідник</string>
   <string name="standing">Турнірна табела</string>
@@ -448,8 +450,14 @@
   <string name="savingMovesHelp">Мы сокотиме ваші варіанты у кешови вашого браузера.</string>
   <string name="clearSavedMoves">Захарити ходы</string>
   <string name="success">Успіх</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s бавка ся бавит</item>
+    <item quantity="few">%s бавкы ся бавлят</item>
+    <item quantity="other">%s бавок ся бавлят</item>
+  </plurals>
   <string name="autoSwitch">Автопереміна</string>
   <string name="puzzles">Задачі</string>
+  <string name="tournamentWinners">Уграчі турнірув</string>
   <string name="name">Имня</string>
   <string name="description">Опис</string>
   <string name="descPrivateHelp">Текст, котрый будут відїти лем участникы дружины. Кідь покладено, публічный опис помінят ся вшыткым участникам дружины.</string>
@@ -549,6 +557,7 @@
     <item quantity="few">Приступно на %s бисїдох!</item>
     <item quantity="other">Приступно на %s бисїдох!</item>
   </plurals>
+  <string name="quickPairing">Шіковна партія</string>
   <string name="lobby">Чекарня</string>
   <string name="anonymous">Анонім</string>
   <string name="language">Бисїда</string>
@@ -563,6 +572,7 @@
   <string name="invalidPgn">Недобрый PGN</string>
   <string name="invalidFen">Недобрый FEN</string>
   <string name="custom">Своя бавка</string>
+  <string name="perfRatingX">Рейтiнґ: %s</string>
   <string name="bestWasX">Лїпшым быв %s</string>
   <string name="next">Дале</string>
   <string name="solution">Одвіт</string>
@@ -595,11 +605,14 @@
   <string name="subscribe">Подписати ся</string>
   <string name="unsubscribe">Одписати ся</string>
   <string name="lostAgainstTOSViolator">Вы прыйграли, тому тко нарушив правила Lichess</string>
+  <string name="refundXpointsTimeControlY">Верненя: %1$s %2$s рейтінґовых балув.</string>
   <string name="download">Стерьхати</string>
   <string name="welcome">Вітаєме!</string>
   <string name="lichessPatronInfo">Lichess - то незысковоє ай докус задарноє проґрамноє застаченя из одкрытым зачаточным кодом. 
 Вшыткі кельтункы, розробкы ай контент ся фінанзувут лем бо вы нас поддіржуєте.</string>
   <string name="tournDescriptionHelp">Хочете дашто уповісти хосновачам? Будьте курті у свойих словах. Приступні одкликованя у форматови Markdown:[name](https://url)</string>
+  <string name="minimumRating">Мінімум рейтінґу</string>
+  <string name="maximumWeeklyRating">Максімум тыждньвого рейтінґу</string>
   <string name="onlyTitledHelp">Мусай мати офіціалный шахматный статус бы бавити</string>
   <string name="positionInputHelp">Уведіт добрый шор FEN, обы кажда бавка ся зачинала из такої позіції.
 То фунґує лем на прості бавкы, а не варіанты.
@@ -607,10 +620,33 @@
 Лишіт поле пустым, бы бавкы зачинали ся из простої позіції.</string>
   <string name="simulFeaturedHelp">Указовати ваш сеанс на %s. Выключіт для личных сеансув.</string>
   <string name="markdownAvailable">%s приступный для росшыреного форматованя.</string>
+  <string name="inYourLocalTimezone">У вашому часовому поясі</string>
+  <string name="tournChat">Турнірный чет</string>
   <string name="noChat">Без чета</string>
+  <string name="onlyTeamLeaders">Лем лідеры дружины</string>
+  <string name="onlyTeamMembers">Лем участникы дружины</string>
+  <string name="navigateMoveTree">Переход по ходам</string>
+  <string name="mouseTricks">Кываня мыши</string>
+  <string name="toggleLocalAnalysis">Уключити компюторный аналіз</string>
+  <string name="toggleAllAnalysis">Уключити компюторный аналіз (и серверный)</string>
+  <string name="playComputerMove">Зограти лїпшый компюторный ход</string>
+  <string name="analysisOptions">Можности аналізу</string>
+  <string name="focusChat">Перейти у чет</string>
+  <string name="showHelpDialog">Указати оболок помочи</string>
+  <string name="reopenYourAccount">Переодкрыти свуй акаунт</string>
   <string name="closedAccountChangedMind">Кідь сьте закрыли свуй акаунт, а з того часу сьте передумали, є у вас лем єдна можность го вернути.</string>
+  <string name="onlyWorksOnce">Се мож учинити лем раз.</string>
   <string name="cantDoThisTwice">Кідь другый раз закрыєте акаунт, уже го не вернете.</string>
+  <string name="emailAssociatedToaccount">Адрес почты, приязаный од сьому акаунтови</string>
+  <string name="sentEmailWithLink">Мы загнали вам письмо из одкликованьом.</string>
+  <string name="tournamentEntryCode">Код турніра</string>
   <string name="hangOn">Чекайте!</string>
+  <string name="gameInProgress">Тепирь бавите из %s.</string>
+  <string name="abortTheGame">Одмінити бавку</string>
+  <string name="resignTheGame">Здати ся</string>
+  <string name="youCantStartNewGame">Не мож зачати нову бавку, закідь ся не кончила ся.</string>
   <string name="since">Из</string>
   <string name="until">До</string>
+  <string name="lichessDbExplanation">Рейтінґові партії вшыткых бавлячув Lichess</string>
+  <string name="switchSides">Перемінити бук</string>
 </resources>

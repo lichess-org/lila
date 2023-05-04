@@ -13,20 +13,17 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   export env.streamer.api
 
-  def index(page: Int) =
-    Open { implicit ctx =>
-      NoBot {
-        ctx.noKid ?? {
-          pageHit
-          val requests = getBool("requests") && isGranted(_.Streamers)
-          for {
-            liveStreams <- env.streamer.liveStreamApi.all
-            live        <- api.withUsers(liveStreams, ctx.me.map(_.id))
-            pager       <- env.streamer.pager.get(page, liveStreams, ctx.me.map(_.id), requests)
-          } yield Ok(html.streamer.index(live, pager, requests))
-        }
+  def index(page: Int) = Open:
+    NoBot:
+      ctx.noKid ?? {
+        pageHit
+        val requests = getBool("requests") && isGranted(_.Streamers)
+        for
+          liveStreams <- env.streamer.liveStreamApi.all
+          live        <- api.withUsers(liveStreams, ctx.me.map(_.id))
+          pager       <- env.streamer.pager.get(page, liveStreams, ctx.me.map(_.id), requests)
+        yield Ok(html.streamer.index(live, pager, requests))
       }
-    }
 
   def featured = Action.async { implicit req =>
     env.streamer.liveStreamApi.all
@@ -62,28 +59,20 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def show(username: UserStr) =
-    Open { implicit ctx =>
-      OptionFuResult(api.forSubscriber(username, ctx.me)) { s =>
-        WithVisibleStreamer(s) {
-          for
-            sws      <- env.streamer.liveStreamApi of s
-            activity <- env.activity.read.recentAndPreload(sws.user)
-          yield Ok(html.streamer.show(sws, activity))
-        }
-      }
-    }
+  def show(username: UserStr) = Open:
+    OptionFuResult(api.forSubscriber(username, ctx.me)): s =>
+      WithVisibleStreamer(s):
+        for
+          sws      <- env.streamer.liveStreamApi of s
+          activity <- env.activity.read.recentAndPreload(sws.user)
+        yield Ok(html.streamer.show(sws, activity))
 
-  def redirect(username: UserStr) =
-    Open { implicit ctx =>
-      OptionFuResult(api.forSubscriber(username, ctx.me)) { s =>
-        WithVisibleStreamer(s) {
-          env.streamer.liveStreamApi of s map { sws =>
-            Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)
-          }
+  def redirect(username: UserStr) = Open:
+    OptionFuResult(api.forSubscriber(username, ctx.me)): s =>
+      WithVisibleStreamer(s):
+        env.streamer.liveStreamApi of s map { sws =>
+          Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)
         }
-      }
-    }
 
   def create =
     AuthBody { implicit ctx => me =>
@@ -104,17 +93,16 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         env.streamer.api.sameChannels(streamer) map some
     }
 
-  def edit =
-    Auth { implicit ctx => _ =>
-      AsStreamer { s =>
-        env.msg.twoFactorReminder(s.user.id) >>
-          env.streamer.liveStreamApi.of(s).flatMap { sws =>
-            modData(s.streamer) map { forMod =>
-              Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)).noCache
-            }
+  def edit = Auth { ctx ?=> _ =>
+    AsStreamer { s =>
+      env.msg.twoFactorReminder(s.user.id) >>
+        env.streamer.liveStreamApi.of(s).flatMap { sws =>
+          modData(s.streamer) map { forMod =>
+            Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)).noCache
           }
-      }
+        }
     }
+  }
 
   def editApply =
     AuthBody { implicit ctx => me =>
@@ -158,12 +146,11 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def picture =
-    Auth { implicit ctx => _ =>
-      AsStreamer { s =>
-        Ok(html.streamer.picture(s)).noCache.toFuccess
-      }
+  def picture = Auth { ctx ?=> _ =>
+    AsStreamer { s =>
+      Ok(html.streamer.picture(s)).noCache.toFuccess
     }
+  }
 
   private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "streamer.image.ip"
@@ -194,9 +181,12 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def onYouTubeVideo = Action.async(parse.tolerantXml) { req =>
-    env.streamer.ytApi
-      .onVideo((req.body \ "entry" \ "channelId").text, (req.body \ "entry" \ "videoId").text)
-    fuccess(Ok)
+    val channel = (req.body \ "entry" \ "channelId").text
+    val video   = (req.body \ "entry" \ "videoId").text
+    if channel.nonEmpty && video.nonEmpty
+    then lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
+    else lila.log("streamer").warn(s"onYouTubeVideo $video on channel $channel ${req.body}")
+    env.streamer.ytApi.onVideo(channel, video) inject Ok
   }
 
   def youTubePubSubChallenge = Action.async(parse.empty) { req =>

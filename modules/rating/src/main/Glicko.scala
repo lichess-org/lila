@@ -81,8 +81,8 @@ case object Glicko:
   val default = Glicko(1500d, maxDeviation, defaultVolatility)
 
   // managed is for students invited to a class
-  val defaultManaged       = Glicko(1100d, 400d, defaultVolatility)
-  val defaultManagedPuzzle = Glicko(1000d, 400d, defaultVolatility)
+  val defaultManaged       = Glicko(800d, 400d, defaultVolatility)
+  val defaultManagedPuzzle = Glicko(800d, 400d, defaultVolatility)
 
   // bot accounts (usually a stockfish instance)
   val defaultBot = Glicko(2000d, maxDeviation, defaultVolatility)
@@ -94,7 +94,7 @@ case object Glicko:
   val system = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    system.previewDeviation(p.toRating, new DateTime, reverse)
+    system.previewDeviation(p.toRating, nowInstant, reverse)
   } atLeast minDeviation atMost maxDeviation
 
   given BSONDocumentHandler[Glicko] = new BSON[Glicko]:

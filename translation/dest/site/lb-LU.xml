@@ -941,4 +941,5 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="lichessDbExplanation">Gewäert Partien vun allen Lichess Spiller</string>
   <string name="switchSides">Faarf wiesselen</string>
   <string name="closingAccountWithdrawAppeal">Däin Benotzerkonto zou ze maachen wäert och däin Asproch zeréckzéihen</string>
+  <string name="ourEventTips">Eis Tipps fir d\'Organiséieren vun Turnéier</string>
 </resources>

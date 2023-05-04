@@ -101,7 +101,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
             "settings"    -> s.settings,
             "visibility"  -> s.visibility,
             "description" -> ~s.description,
-            "updatedAt"   -> nowDate
+            "updatedAt"   -> nowInstant
           )
         )
     }.void
@@ -111,7 +111,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       _.update
         .one(
           $id(s.id),
-          $set("topics" -> s.topics, "updatedAt" -> nowDate)
+          $set("topics" -> s.topics, "updatedAt" -> nowInstant)
         )
     }.void
 
@@ -132,13 +132,13 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           $id(studyId),
           $set(
             "position"  -> position,
-            "updatedAt" -> nowDate
+            "updatedAt" -> nowInstant
           )
         )
     ).void
 
   def updateNow(s: Study): Funit =
-    coll.map(_.updateFieldUnchecked($id(s.id), "updatedAt", nowDate))
+    coll.map(_.updateFieldUnchecked($id(s.id), "updatedAt", nowInstant))
 
   def addMember(study: Study, member: StudyMember): Funit =
     coll {
@@ -233,7 +233,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           ~(for {
             id        <- doc.getAsOpt[StudyId]("_id")
             likes     <- doc.getAsOpt[Study.Likes](F.likes)
-            createdAt <- doc.getAsOpt[DateTime](F.createdAt)
+            createdAt <- doc.getAsOpt[Instant](F.createdAt)
           } yield coll {
             _.update
               .one(
@@ -247,7 +247,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] def isAdminMember(study: Study, userId: UserId): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ $doc(s"members.$userId.admin" -> true)))
 
-  private def countLikes(studyId: StudyId): Fu[Option[(Study.Likes, DateTime)]] =
+  private def countLikes(studyId: StudyId): Fu[Option[(Study.Likes, Instant)]] =
     coll {
       _.aggregateWith[Bdoc]() { framework =>
         import framework.*
@@ -266,6 +266,6 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       for {
         doc       <- docOption
         likes     <- doc.getAsOpt[Study.Likes](F.likes)
-        createdAt <- doc.getAsOpt[DateTime](F.createdAt)
+        createdAt <- doc.getAsOpt[Instant](F.createdAt)
       } yield likes -> createdAt
     }

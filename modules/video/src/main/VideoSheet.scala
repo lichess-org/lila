@@ -38,7 +38,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
                   ads = entry.ads,
                   startTime = entry.startTime,
                   metadata = Youtube.empty,
-                  createdAt = nowDate
+                  createdAt = nowInstant
                 )
                 logger.info(s"sheet insert $video")
                 api.video.save(video)

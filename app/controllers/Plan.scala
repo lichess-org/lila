@@ -27,52 +27,44 @@ final class Plan(env: Env) extends LilaController(env):
 
   private val logger = lila.log("plan")
 
-  def index =
-    Open { implicit ctx =>
-      pageHit
-      ctx.me.fold(indexAnon) { me =>
-        import lila.plan.PlanApi.SyncResult.*
-        env.plan.api.sync(me) flatMap {
-          case ReloadUser => Redirect(routes.Plan.index).toFuccess
-          case Synced(Some(patron), None, None) =>
-            env.user.repo email me.id flatMap { email =>
-              renderIndex(email, patron.some)
-            }
-          case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(me, patron, stripeCus)
-          case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(me, patron, payPalSub)
-          case _                                        => indexFreeUser(me)
-        }
+  def index = Open:
+    pageHit
+    ctx.me.fold(indexAnon): me =>
+      import lila.plan.PlanApi.SyncResult.*
+      env.plan.api.sync(me) flatMap {
+        case ReloadUser => Redirect(routes.Plan.index).toFuccess
+        case Synced(Some(patron), None, None) =>
+          env.user.repo email me.id flatMap { email =>
+            renderIndex(email, patron.some)
+          }
+        case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(me, patron, stripeCus)
+        case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(me, patron, payPalSub)
+        case _                                        => indexFreeUser(me)
       }
-    }
 
-  def list =
-    Open { implicit ctx =>
-      ctx.me.fold(Redirect(routes.Plan.index).toFuccess) { me =>
-        import lila.plan.PlanApi.SyncResult.*
-        env.plan.api.sync(me) flatMap {
-          case ReloadUser            => Redirect(routes.Plan.list).toFuccess
-          case Synced(Some(_), _, _) => indexFreeUser(me)
-          case _                     => Redirect(routes.Plan.index).toFuccess
-        }
+  def list = Open:
+    ctx.me.fold(Redirect(routes.Plan.index).toFuccess): me =>
+      import lila.plan.PlanApi.SyncResult.*
+      env.plan.api.sync(me) flatMap {
+        case ReloadUser            => Redirect(routes.Plan.list).toFuccess
+        case Synced(Some(_), _, _) => indexFreeUser(me)
+        case _                     => Redirect(routes.Plan.index).toFuccess
       }
-    }
 
-  private def indexAnon(implicit ctx: Context) = renderIndex(email = none, patron = none)
+  private def indexAnon(using Context) = renderIndex(email = none, patron = none)
 
-  private def indexFreeUser(me: UserModel)(implicit ctx: Context) =
-    env.user.repo email me.id flatMap { email =>
-      renderIndex(email, patron = none)
-    }
+  private def indexFreeUser(me: UserModel)(using Context) =
+    env.user.repo email me.id flatMap { renderIndex(_, patron = none) }
 
   private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(using
       Context
   ): Fu[Result] =
-    for {
+    for
       recentIds <- env.plan.api.recentChargeUserIds
       bestIds   <- env.plan.api.topPatronUserIds
       _         <- env.user.lightUserApi.preloadMany(recentIds ::: bestIds)
       pricing   <- env.plan.priceApi.pricingOrDefault(myCurrency)
-    } yield Ok(
+    yield Ok(
       html.plan.index(
         stripePublicKey = env.plan.stripePublicKey,
         payPalPublicKey = env.plan.payPalPublicKey,
@@ -115,13 +107,10 @@ final class Plan(env: Env) extends LilaController(env):
         ctx.lang
       )
 
-  def features =
-    Open { implicit ctx =>
-      pageHit
-      fuccess {
-        html.plan.features()
-      }
-    }
+  def features = Open:
+    pageHit
+    fuccess:
+      html.plan.features()
 
   def switch =
     AuthBody { implicit ctx => me =>
@@ -142,25 +131,19 @@ final class Plan(env: Env) extends LilaController(env):
       env.plan.api.cancel(me) inject Redirect(routes.Plan.index)
     }
 
-  def thanks =
-    Open { implicit ctx =>
-      // wait for the payment data from stripe or paypal
-      lila.common.LilaFuture.delay(2.seconds) {
-        for {
-          patron   <- ctx.me ?? env.plan.api.userPatron
-          customer <- patron ?? env.plan.api.stripe.patronCustomer
-          gift     <- ctx.me ?? env.plan.api.recentGiftFrom
-        } yield Ok(html.plan.thanks(patron, customer, gift))
-      }
-    }
+  def thanks = Open:
+    // wait for the payment data from stripe or paypal
+    lila.common.LilaFuture.delay(2.seconds):
+      for
+        patron   <- ctx.me ?? env.plan.api.userPatron
+        customer <- patron ?? env.plan.api.stripe.patronCustomer
+        gift     <- ctx.me ?? env.plan.api.recentGiftFrom
+      yield Ok(html.plan.thanks(patron, customer, gift))
 
-  def webhook =
-    Action.async(parse.json) { req =>
-      if (req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG"))
-        env.plan.webhook.payPal(req.body) inject Ok("kthxbye")
-      else
-        env.plan.webhook.stripe(req.body) inject Ok("kthxbye")
-    }
+  def webhook = Action.async(parse.json): req =>
+    if req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG")
+    then env.plan.webhook.payPal(req.body) inject Ok("kthxbye")
+    else env.plan.webhook.stripe(req.body) inject Ok("kthxbye")
 
   import lila.plan.StripeClient.{ StripeException, CantUseException }
   def badStripeApiCall: PartialFunction[Throwable, Result] = {
@@ -176,7 +159,7 @@ final class Plan(env: Env) extends LilaController(env):
       customerId: StripeCustomerId,
       giftTo: Option[UserModel]
   )(using ctx: Context) = {
-    for {
+    for
       isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
       data = CreateStripeSession(
         customerId,
@@ -190,7 +173,7 @@ final class Plan(env: Env) extends LilaController(env):
         ip = ctx.ip
       )
       session <- env.plan.api.stripe.createSession(data, me)
-    } yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
+    yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
   }.recover(badStripeApiCall)
 
   def switchStripePlan(user: UserModel, money: Money) =
@@ -310,16 +293,15 @@ final class Plan(env: Env) extends LilaController(env):
       }(rateLimitedFu)
     }
 
-  def payPalCapture(orderId: String) =
-    Auth { implicit ctx => me =>
-      CaptureRateLimit(ctx.ip) {
-        (get("sub") map PayPalSubscriptionId.apply match {
-          case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
-          case Some(subId) =>
-            env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
-        }) inject jsonOkResult
-      }(rateLimitedFu)
-    }
+  def payPalCapture(orderId: String) = Auth { ctx ?=> me =>
+    CaptureRateLimit(ctx.ip) {
+      (get("sub") map PayPalSubscriptionId.apply match {
+        case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
+        case Some(subId) =>
+          env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
+      }) inject jsonOkResult
+    }(rateLimitedFu)
+  }
 
   // deprecated
   def payPalIpn =

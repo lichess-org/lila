@@ -47,7 +47,7 @@ object HTTPRequest:
   }
 
   val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isFirefox108Plus = UaMatcher("""Firefox/(?:10[8-9]|1[1-9]\d)""")
+  val isFirefox112Plus = UaMatcher("""Firefox/(?:11[2-9]|1[2-9]\d)""")
   val isMobile         = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   val isLichessMobile  = UaMatcher("""Lichess Mobile/""")
 
@@ -120,10 +120,11 @@ object HTTPRequest:
   private def isGameExport(req: RequestHeader) =
     "^/@/[\\w-]{2,30}/download$".r.matches(req.path) ||
       "^/(api/games/user|games/export)/[\\w-]{2,30}($|/.+)".r.matches(req.path)
-  private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r matches req.path
+  private def isStudyExport(req: RequestHeader)  = "^/study/by/[\\w-]{2,30}/export.pgn$".r matches req.path
+  private def isAccountClose(req: RequestHeader) = req.path == "/account/close"
 
   def isClosedLoginPath(req: RequestHeader) =
-    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req)
+    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccountClose(req)
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers

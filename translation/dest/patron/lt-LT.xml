@@ -45,9 +45,9 @@ Po to sumokame pilno etato programuotojui ir Lichess įkūrėjui: %s.</string>
 Arba galite %s.</string>
   <string name="contactSupport">susisiekti su Lichess pagalba</string>
   <string name="otherMethods">Kiti būdai paremti?</string>
-  <string name="lichessIsRegisteredWith" comment="lichessIsRegisteredWith&#10;&#10;%s is Benevity (a non-profit matching programme).&#10;The text links to Lichess's Benevity page, https://causes.benevity.org/causes/250-5789375887401_bf01">Lichess registruotas su %s.</string>
+  <string name="lichessIsRegisteredWith">Lichess registruotas su %s.</string>
   <string name="bankTransfers">Mes taip pat priimame banko pervedimus</string>
-  <string name="onlyDonationFromAbove" comment="onlyDonationFromAbove&#10;&#10;Explains to players that if they want to have the Patron wings on their profile, they need to donate through lichess.org/patron directly and not through the other methods available (Benevity and bank transfers, as of the time of writing).">Norime pabrėžti, kad tik parama suteikta pasinaudojus aukščiau esančia forma suteikia Rėmėjo statusą.</string>
+  <string name="onlyDonationFromAbove">Norime pabrėžti, kad tik parama suteikta pasinaudojus aukščiau esančia forma suteikia Rėmėjo statusą.</string>
   <string name="patronFeatures">Ar yra funkcijų, kurios prieinamos tik Rėmėjams?</string>
   <string name="noPatronFeatures">Ne, kadangi Lichess visiškai ir visada nemokamas ir visiems. Tai yra mūsų pažadas.
 Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.</string>

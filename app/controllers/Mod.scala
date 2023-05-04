@@ -157,19 +157,18 @@ final class Mod(
       }
     }(actionResult(username))
 
-  def impersonate(username: UserStr) =
-    Auth { implicit ctx => me =>
-      if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess {
-        env.mod.impersonate.stop(me)
-        Redirect(routes.User.show(me.username))
-      }
-      else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId))
-        OptionFuRedirect(env.user.repo byId username) { user =>
-          env.mod.impersonate.start(me, user)
-          fuccess(routes.User.show(user.username))
-        }
-      else notFound
+  def impersonate(username: UserStr) = Auth { _ ?=> me =>
+    if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess {
+      env.mod.impersonate.stop(me)
+      Redirect(routes.User.show(me.username))
     }
+    else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId))
+      OptionFuRedirect(env.user.repo byId username) { user =>
+        env.mod.impersonate.start(me, user)
+        fuccess(routes.User.show(user.username))
+      }
+    else notFound
+  }
 
   def setTitle(username: UserStr) =
     SecureBody(_.SetTitle) { implicit ctx => me =>
@@ -389,12 +388,12 @@ final class Mod(
 
   def search =
     SecureBody(_.UserSearch) { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      val f                         = UserSearch.form
-      f.bindFromRequest()
+      given Request[?] = ctx.body
+      UserSearch.form
+        .bindFromRequest()
         .fold(
           err => BadRequest(html.mod.search(me, err, Nil)).toFuccess,
-          query => env.mod.search(query) map { html.mod.search(me, f.fill(query), _) }
+          query => env.mod.search(query) map { html.mod.search(me, UserSearch.form.fill(query), _) }
         )
     }
 
@@ -415,12 +414,12 @@ final class Mod(
   def print(fh: String) =
     SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
       val hash = FingerHash(fh)
-      for {
+      for
         uids       <- env.security.api recentUserIdsByFingerHash hash
         users      <- env.user.repo usersFromSecondary uids.reverse
         withEmails <- env.user.repo withEmails users
         uas        <- env.security.api.printUas(hash)
-      } yield Ok(html.mod.search.print(me, hash, withEmails, uas, env.security.printBan blocks hash))
+      yield Ok(html.mod.search.print(me, hash, withEmails, uas, env.security.printBan blocks hash))
     }
 
   def printBan(v: Boolean, fh: String) =
@@ -436,12 +435,12 @@ final class Mod(
     SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
       given lila.mod.IpRender.RenderIp = env.mod.ipRender(me)
       env.mod.ipRender.decrypt(ip) ?? { address =>
-        for {
+        for
           uids       <- env.security.api recentUserIdsByIp address
           users      <- env.user.repo usersFromSecondary uids.reverse
           withEmails <- env.user.repo withEmails users
           uas        <- env.security.api.ipUas(address)
-        } yield Ok(html.mod.search.ip(me, address, withEmails, uas, env.security.firewall blocksIp address))
+        yield Ok(html.mod.search.ip(me, address, withEmails, uas, env.security.firewall blocksIp address))
       }
     }
 
@@ -478,7 +477,7 @@ final class Mod(
 
   def savePermissions(username: UserStr) =
     SecureBody(_.ChangePermission) { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
+      given Request[?] = ctx.body
       import lila.security.Permission
       OptionFuResult(env.user.repo byId username) { user =>
         Form(
@@ -548,7 +547,7 @@ final class Mod(
 
   def presetsUpdate(group: String) =
     SecureBody(_.Presets) { implicit ctx => _ =>
-      given play.api.mvc.Request[?] = ctx.body
+      given Request[?] = ctx.body
       env.mod.presets.get(group).fold(notFound) { setting =>
         setting.form
           .bindFromRequest()
@@ -567,7 +566,7 @@ final class Mod(
     }
 
   def apiUserLog(username: UserStr) =
-    SecureScoped(_.ModLog) { _ => me =>
+    SecureOrScoped(_.ModLog) { _ => me =>
       import lila.common.Json.given
       env.user.repo byId username flatMapz { user =>
         for

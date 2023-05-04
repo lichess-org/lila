@@ -45,11 +45,11 @@ object bits:
 
   private[blog] def metas(
       doc: io.prismic.Document
-  )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
+  )(using ctx: Context, prismic: lila.blog.BlogApi.Context) =
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>
-          span(cls := "text", dataIcon := "")(semanticDate(date.value.toDateTimeAtStartOfDay))
+          span(cls := "text", dataIcon := "")(semanticDate(date.value))
         },
         doc.getText("blog.author").map { author =>
           span(cls := "text", dataIcon := "")(richText(author))

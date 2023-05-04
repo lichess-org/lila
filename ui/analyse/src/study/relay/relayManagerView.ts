@@ -68,8 +68,9 @@ function renderLog(ctrl: RelayCtrl) {
 }
 
 function stateOn(ctrl: RelayCtrl) {
-  const url = ctrl.data.sync?.url;
-  const ids = ctrl.data.sync?.ids;
+  const sync = ctrl.data.sync,
+    url = sync?.url,
+    ids = sync?.ids;
   return h(
     'div.state.on.clickable',
     {
@@ -80,7 +81,11 @@ function stateOn(ctrl: RelayCtrl) {
       h(
         'div',
         url
-          ? ['Connected to source', h('br'), url.replace(/https?:\/\//, '')]
+          ? [
+              sync.delay ? `Connected with ${sync.delay}s delay` : 'Connected to source',
+              h('br'),
+              url.replace(/https?:\/\//, ''),
+            ]
           : ids
           ? ['Connected to', h('br'), ids.length, ' game(s)']
           : []

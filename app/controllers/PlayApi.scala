@@ -170,20 +170,16 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
           case Some(pov) => f(pov)
     }
 
-  def botOnline =
-    Open { implicit ctx =>
-      env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
-        Ok(views.html.user.bots(users))
-      }
+  def botOnline = Open:
+    env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
+      Ok(views.html.user.bots(users))
     }
 
-  def botOnlineApi =
-    Action { (req: RequestHeader) =>
-      apiC.jsonDownload {
-        env.user.repo
-          .botsByIdsCursor(env.bot.onlineApiUsers.get)
-          .documentSource(getInt("nb", req) | Int.MaxValue)
-          .throttle(50, 1 second)
-          .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
-      }(using req)
-    }
+  def botOnlineApi = Action: (req: RequestHeader) =>
+    apiC.jsonDownload {
+      env.user.repo
+        .botsByIdsCursor(env.bot.onlineApiUsers.get)
+        .documentSource(getInt("nb", req) | Int.MaxValue)
+        .throttle(50, 1 second)
+        .map { env.user.jsonView.full(_, withRating = true, withProfile = true) }
+    }(using req)

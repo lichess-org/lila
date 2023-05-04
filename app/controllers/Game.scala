@@ -1,6 +1,6 @@
 package controllers
 
-import org.joda.time.format.DateTimeFormat
+import java.time.format.DateTimeFormatter
 import play.api.mvc.*
 import scala.util.chaining.*
 
@@ -10,31 +10,25 @@ import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel }
 
-final class Game(
-    env: Env,
-    apiC: => Api
-) extends LilaController(env):
+final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
-  def bookmark(gameId: GameId) =
-    Auth { implicit ctx => me =>
-      env.bookmark.api.toggle(gameId, me.id)
-    }
+  def bookmark(gameId: GameId) = Auth { _ ?=> me =>
+    env.bookmark.api.toggle(gameId, me.id)
+  }
 
-  def delete(gameId: GameId) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.game.gameRepo game gameId) { game =>
-        if (game.pgnImport.flatMap(_.user) ?? (me.id.==))
-          env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-          (env.game.gameRepo remove game.id) >>
-            (env.analyse.analysisRepo remove game.id) >>
-            env.game.cached.clearNbImportedByCache(me.id) inject
-            Redirect(routes.User.show(me.username))
-        else
-          fuccess {
-            Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
-          }
-      }
-    }
+  def delete(gameId: GameId) = Auth { _ ?=> me =>
+    OptionFuResult(env.game.gameRepo game gameId): game =>
+      if game.pgnImport.flatMap(_.user).has(me.id)
+      then
+        env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+        (env.game.gameRepo remove game.id) >>
+          (env.analyse.analysisRepo remove game.id) >>
+          env.game.cached.clearNbImportedByCache(me.id) inject
+          Redirect(routes.User.show(me.username))
+      else
+        fuccess:
+          Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
+  }
 
   def exportOne(id: GameAnyId) = Action.async { exportGame(GameModel anyToId id, _) }
 
@@ -128,7 +122,7 @@ final class Game(
       }
     }
 
-  private def fileDate = DateTimeFormat forPattern "yyyy-MM-dd" print nowDate
+  private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
   def apiExportByUserImportedGames(username: UserStr) =
     AuthOrScoped()(

@@ -10,6 +10,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
 import lila.tournament.{ Tournament, TournamentForm }
+import lila.gathering.GatheringClock
 
 object crud:
 
@@ -104,6 +105,11 @@ object crud:
       form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
         form3.textarea(_)(rows := 6)
       ),
+      form3.checkbox(
+        form("rated"),
+        trans.rated(),
+        help = trans.ratedFormHelp().some
+      ),
       form3.split(
         form3.group(form("variant"), raw("Variant"), half = true) { f =>
           form3.select(f, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
@@ -112,10 +118,10 @@ object crud:
       ),
       form3.split(
         form3.group(form("clockTime"), raw("Clock time"), half = true)(
-          form3.select(_, TournamentForm.clockTimeChoices)
+          form3.select(_, GatheringClock.timeChoices)
         ),
         form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-          form3.select(_, TournamentForm.clockIncrementChoices)
+          form3.select(_, GatheringClock.incrementChoices)
         )
       ),
       form3.split(
@@ -129,7 +135,7 @@ object crud:
         )
       ),
       h2("Entry requirements"),
-      tournament.form.condition(form, new TourFields(form, tour), auto = false, Nil, tour),
+      tournament.form.conditionFields(form, TourFields(form, tour), Nil, tour),
       form3.action(form3.submit(trans.apply()))
     )
 
@@ -169,7 +175,7 @@ object crud:
                 td(tour.variant.name),
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
-                td(showDateTimeUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
+                td(showInstantUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := "", title := "View on site"))
               )
             },

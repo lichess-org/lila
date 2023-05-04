@@ -11,7 +11,7 @@ case class Client(
     skill: Client.Skill,               // what can this client do
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
-    createdAt: DateTime
+    createdAt: Instant
 ):
 
   def key = _id
@@ -41,7 +41,7 @@ object Client:
     skill = Skill.All,
     instance = None,
     enabled = true,
-    createdAt = nowDate
+    createdAt = nowInstant
   )
 
   opaque type Key = String
@@ -51,7 +51,7 @@ object Client:
   opaque type Python = String
   object Python extends OpaqueString[Python]
 
-  case class Instance(version: Version, ip: IpAddress, seenAt: DateTime):
+  case class Instance(version: Version, ip: IpAddress, seenAt: Instant):
 
     def update(i: Instance): Option[Instance] =
       if (i.version != version) i.some
@@ -63,7 +63,7 @@ object Client:
 
   object Instance:
 
-    def recentSince = nowDate.minusMinutes(15)
+    def recentSince = nowInstant.minusMinutes(15)
 
   enum Skill:
     case Move

@@ -42,6 +42,7 @@ ui/voice/@build/crowdv
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
+yarn-error.log
 
 RUNNING_PID
 

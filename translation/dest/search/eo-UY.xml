@@ -25,10 +25,15 @@
   <string name="analysis">Analizo</string>
   <string name="onlyAnalysed">Nur ludoj, kie disponeblas komputila analizo</string>
   <string name="color">Koloro</string>
+  <string name="evaluation">Takso</string>
+  <string name="maxNumber">Maksimuma nombro</string>
+  <string name="maxNumberExplanation">La maksimuma nombro de ludoj por reveni</string>
+  <string name="include">Inkludi</string>
   <string name="descending">Malkreskante</string>
   <string name="ascending">Kreskante</string>
   <plurals name="gamesFound">
     <item quantity="one">%s trovita ludo</item>
     <item quantity="other">%s trovitaj ludoj</item>
   </plurals>
+  <string name="ratingExplanation">La meza rango de ambaŭ ludantoj</string>
 </resources>

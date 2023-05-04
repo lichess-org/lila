@@ -24,7 +24,7 @@ case class InsightEntry(
     ratingDiff: IntRatingDiff,
     analysed: Boolean,
     provisional: Boolean,
-    date: DateTime
+    date: Instant
 )
 
 case object InsightEntry:

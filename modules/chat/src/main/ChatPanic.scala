@@ -4,7 +4,7 @@ import lila.user.User
 
 final class ChatPanic:
 
-  private var until: Option[DateTime] = none
+  private var until: Option[Instant] = none
 
   def allowed(u: User): Boolean =
     !enabled || {
@@ -27,7 +27,7 @@ final class ChatPanic:
 
   def start() =
     logger.warn("Chat Panic enabled")
-    until = nowDate.plusMinutes(180).some
+    until = nowInstant.plusMinutes(180).some
 
   def stop() =
     logger.warn("Chat Panic disabled")

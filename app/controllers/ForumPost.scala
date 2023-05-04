@@ -17,20 +17,19 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     )
 
   def search(text: String, page: Int) =
-    OpenBody { implicit ctx =>
-      NotForKids {
-        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).toFuccess
+    OpenBody:
+      NotForKids:
+        if text.trim.isEmpty
+        then Redirect(routes.ForumCateg.index).toFuccess
         else
-          for {
+          for
             paginator <- env.forumSearch(text, page, ctx.troll)
             posts <- paginator.mapFutureResults(post =>
               access.isGrantedRead(post.categ.id) map { canRead =>
                 lila.forum.PostView.WithReadPerm(post, canRead)
               }
             )
-          } yield html.forum.search(text, posts)
-      }
-    }
+          yield html.forum.search(text, posts)
 
   def create(categId: ForumCategId, slug: String, page: Int) =
     AuthBody { implicit ctx => me =>
@@ -119,19 +118,15 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       }
     }
 
-  def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) =
-    Auth { implicit ctx => me =>
-      CategGrantWrite(categId) {
-        postApi.react(categId, id, me, reaction, v) mapz { post =>
-          Ok(views.html.forum.post.reactions(post, canReact = true))
-        }
+  def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me =>
+    CategGrantWrite(categId):
+      postApi.react(categId, id, me, reaction, v) mapz { post =>
+        Ok(views.html.forum.post.reactions(post, canReact = true))
       }
-    }
+  }
 
-  def redirect(id: ForumPostId) =
-    Open { implicit ctx =>
-      OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
-        val call = routes.ForumTopic.show(categ, topic, page)
-        Redirect(s"$call#$number").withCanonical(call)
-      }
+  def redirect(id: ForumPostId) = Open:
+    OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
+      val call = routes.ForumTopic.show(categ, topic, page)
+      Redirect(s"$call#$number").withCanonical(call)
     }

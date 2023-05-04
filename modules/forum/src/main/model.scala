@@ -55,7 +55,7 @@ case class MiniForumPost(
     topicName: String,
     userId: Option[UserId],
     text: String,
-    createdAt: DateTime
+    createdAt: Instant
 )
 
 case class PostUrlData(categ: ForumCategId, topicSlug: String, page: Int, number: Int)

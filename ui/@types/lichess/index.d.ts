@@ -49,7 +49,7 @@ interface Lichess {
   miniGame: {
     init(node: HTMLElement): string | null;
     initAll(parent?: HTMLElement): void;
-    update(node: HTMLElement, data: GameUpdate): void;
+    update(node: HTMLElement, data: MiniGameUpdateData): void;
     finish(node: HTMLElement, win?: Color): void;
   };
   ab?: any;
@@ -518,8 +518,7 @@ declare namespace Tree {
   export interface Shape {}
 }
 
-interface GameUpdate {
-  id: string;
+interface MiniGameUpdateData {
   fen: Fen;
   lm: Uci;
   wc?: number;

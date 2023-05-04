@@ -10,10 +10,10 @@ case class RelayTour(
     description: String,
     markup: Option[Markdown] = None,
     ownerId: UserId,
-    createdAt: DateTime,
+    createdAt: Instant,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
-    syncedAt: Option[DateTime],   // last time a round was synced
+    syncedAt: Option[Instant],    // last time a round was synced
     autoLeaderboard: Boolean = true,
     players: Option[RelayPlayers] = None
 ):
@@ -54,9 +54,12 @@ object RelayTour:
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
-  case class ActiveWithNextRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour:
-    def ongoing = round.startedAt.isDefined
+  case class ActiveWithSomeRounds(tour: RelayTour, display: RelayRound, link: RelayRound)
+      extends RelayRound.AndTour:
+    def ongoing = display.startedAt.isDefined
 
-  case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour
+  case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour:
+    def link    = round
+    def display = round
 
   def makeId = Id(ThreadLocalRandom nextString 8)

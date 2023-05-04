@@ -19,14 +19,13 @@ final class RelayRound(
     apiC: => Api
 ) extends LilaController(env):
 
-  def form(tourId: String) =
-    Auth { implicit ctx => _ =>
-      NoLameOrBot {
-        WithTourAndRoundsCanUpdate(tourId) { trs =>
-          Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).toFuccess
-        }
+  def form(tourId: String) = Auth { ctx ?=> _ =>
+    NoLameOrBot {
+      WithTourAndRoundsCanUpdate(tourId) { trs =>
+        Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).toFuccess
       }
     }
+  }
 
   def create(tourId: String) =
     AuthOrScopedBody(_.Study.Write)(
@@ -77,12 +76,11 @@ final class RelayRound(
           }
     )
 
-  def edit(id: RelayRoundId) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).toFuccess
-      }
+  def edit(id: RelayRoundId) = Auth { ctx ?=> me =>
+    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
+      Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).toFuccess
     }
+  }
 
   def update(id: RelayRoundId) =
     AuthOrScopedBody(_.Study.Write)(
@@ -124,12 +122,11 @@ final class RelayRound(
         ) dmap some
     }
 
-  def reset(id: RelayRoundId) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        env.relay.api.reset(rt.round, me) inject Redirect(rt.path)
-      }
+  def reset(id: RelayRoundId) = Auth { ctx ?=> me =>
+    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
+      env.relay.api.reset(rt.round, me) inject Redirect(rt.path)
     }
+  }
 
   def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read)(
@@ -172,11 +169,9 @@ final class RelayRound(
     }
   }
 
-  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
-    Open { implicit ctx =>
-      WithRoundAndTour(ts, rs, id) { rt =>
-        env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
-      }
+  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) = Open:
+    WithRoundAndTour(ts, rs, id) { rt =>
+      env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
     }
 
   def push(id: RelayRoundId) =

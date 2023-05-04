@@ -12,7 +12,7 @@ import lila.common.Json.given
 
 case class AnaDrop(
     role: chess.Role,
-    pos: chess.Pos,
+    pos: chess.Square,
     variant: Variant,
     fen: Fen.Epd,
     path: UciPath,
@@ -46,7 +46,7 @@ object AnaDrop:
     for
       d    <- o obj "d"
       role <- d str "role" flatMap chess.Role.allByName.get
-      pos  <- d str "pos" flatMap { chess.Pos.fromKey(_) }
+      pos  <- d str "pos" flatMap { chess.Square.fromKey(_) }
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Epd]("fen")
       path <- d.get[UciPath]("path")

@@ -15,18 +15,24 @@
   <string name="voteToLoadNextOne">Ocijeni i prijeđi na sljedeći zadatak!</string>
   <string name="upVote">Glasaj za zagonetku</string>
   <string name="downVote">Glasaj protiv zagonetke</string>
-  <string name="yourPuzzleRatingWillNotChange">Vaš rejting zadataka se neće promjeniti. Imajte na umu da rješavanje zadaka nije natjecanje. Rejting prvenstveno pomaže u odabiru najboljih zadataka za Vaš trenutni nivo vještine.</string>
+  <string name="yourPuzzleRatingWillNotChange">Tvoj rejting zadataka se neće promjeniti. Imaj na umu da rješavanje zadaka nije natjecanje. Rejting prvenstveno pomaže u odabiru najboljih zadataka za tvoj trenutni nivo vještine.</string>
   <string name="findTheBestMoveForWhite">Pronađi najbolji potez za bijelog.</string>
   <string name="findTheBestMoveForBlack">Pronađi najbolji potez za crnog.</string>
   <string name="toGetPersonalizedPuzzles">Za personalizirane zadatke:</string>
   <string name="puzzleId">Zadatak %s</string>
   <string name="puzzleOfTheDay">Zadatak dana</string>
+  <string name="dailyPuzzle">Dnevna zagonetka</string>
   <string name="clickToSolve">Klikni za rješenje</string>
   <string name="goodMove">Dobar potez</string>
   <string name="bestMove">Najbolji potez!</string>
   <string name="keepGoing">Nastavi…</string>
   <string name="puzzleSuccess">Uspješno obavljeno!</string>
   <string name="puzzleComplete">Zadatak riješen!</string>
+  <string name="byOpenings">Prema otvaranjima</string>
+  <string name="puzzlesByOpenings">Zagonetke prema otvaranjima</string>
+  <string name="openingsYouPlayedTheMost">Otvaranje koje si najviše igrao u rangiranim igrama</string>
+  <string name="useFindInPage">Koristi \"Pronađi na stranici\" u izborniku preglednika da bi pronašao svoje omiljeno otvaranje!</string>
+  <string name="useCtrlF">Koristi Ctrl+f da bi pronašao svoje omiljeno otvaranje!</string>
   <string name="notTheMove">Netočan odgovor!</string>
   <string name="trySomethingElse">Pokušaj nešto drugo.</string>
   <string name="ratingX">Rejting: %s</string>
@@ -42,14 +48,14 @@
   <string name="normal">Srednje</string>
   <string name="easier">Lakše</string>
   <string name="easiest">Najlakše</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">%s bod ispod tvog rejtinga iz zadataka</item>
     <item quantity="few">%s bodova ispod tvog rejtinga iz zadataka</item>
     <item quantity="other">%s bodova ispod tvog rejtinga iz zadataka</item>
   </plurals>
   <string name="harder">Teže</string>
   <string name="hardest">Najteže</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">%s bod iznad tvog rejtinga iz zadataka</item>
     <item quantity="few">%s bodova iznad tvog rejtinga iz zadataka</item>
     <item quantity="other">%s bodova iznad tvog rejtinga iz zadataka</item>

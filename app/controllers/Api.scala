@@ -208,13 +208,12 @@ final class Api(
           tour = tour,
           page = page.some,
           me = none,
-          getUserTeamIds = _ => fuccess(Nil),
           getTeamName = env.team.getTeamName.apply,
           playerInfoExt = none,
           socketVersion = none,
           partial = false,
           withScores = true
-        )(using reqLang) map some
+        )(using reqLang, _ => fuccess(Nil)) map some
       } map toApiResult
     }
 
@@ -456,9 +455,9 @@ final class Api(
   }
 
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) =
-    Open { ctx =>
+    Open:
       js(ctx) map toHttp
-    }
+
   def ApiRequest(js: RequestHeader => Fu[ApiResult]) =
     Action.async { req =>
       js(req) map toHttp

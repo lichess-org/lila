@@ -10,7 +10,7 @@ case class RacerRace(
     players: List[RacerPlayer],
     puzzles: List[StormPuzzle],
     countdownSeconds: Int,
-    startsAt: Option[DateTime],
+    startsAt: Option[Instant],
     rematch: Option[RacerRace.Id]
 ):
 
@@ -34,9 +34,9 @@ case class RacerRace(
 
   def startCountdown: Option[RacerRace] =
     startsAt.isEmpty && players.size > (if (isLobby) 2 else 1) option
-      copy(startsAt = nowDate.plusSeconds(countdownSeconds).some)
+      copy(startsAt = nowInstant.plusSeconds(countdownSeconds).some)
 
-  def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)
+  def startsInMillis = startsAt.map(d => d.toMillis - nowMillis)
 
   def hasStarted = startsInMillis.exists(_ <= 0)
 

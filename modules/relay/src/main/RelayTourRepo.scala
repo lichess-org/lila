@@ -5,7 +5,7 @@ import lila.db.dsl.{ *, given }
 final private class RelayTourRepo(val coll: Coll)(using Executor):
 
   def setSyncedNow(tour: RelayTour): Funit =
-    coll.updateField($id(tour.id), "syncedAt", nowDate).void
+    coll.updateField($id(tour.id), "syncedAt", nowInstant).void
 
   def setActive(tourId: RelayTour.Id, active: Boolean): Funit =
     coll.updateField($id(tourId), "active", active).void

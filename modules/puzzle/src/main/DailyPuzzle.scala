@@ -43,7 +43,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def findCurrent =
     colls.puzzle {
-      _.find($doc(F.day $gt nowDate.minusDays(1)))
+      _.find($doc(F.day $gt nowInstant.minusDays(1)))
         .sort($sort desc F.day)
         .one[Puzzle]
     }
@@ -98,7 +98,7 @@ final private[puzzle] class DailyPuzzle(
       .flatMap { docOpt =>
         docOpt.flatMap(puzzleReader.readOpt) ?? { puzzle =>
           colls.puzzle {
-            _.updateField($id(puzzle.id), F.day, nowDate)
+            _.updateField($id(puzzle.id), F.day, nowInstant)
           } inject puzzle.some
         }
       }

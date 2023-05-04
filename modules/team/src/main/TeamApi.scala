@@ -1,6 +1,5 @@
 package lila.team
 
-import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json, Reads }
 import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
@@ -16,6 +15,7 @@ import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
 import lila.security.Granter
+import java.time.Period
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -104,9 +104,11 @@ final class TeamApi(
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
-  def joinedTeamsOfUserAsSeenBy(member: User, viewer: Option[User]): Fu[List[TeamId]] =
+  def joinedTeamIdsOfUserAsSeenBy[U](member: U, viewer: Option[User])(using
+      userIdOf: UserIdOf[U]
+  ): Fu[List[TeamId]] =
     cached
-      .teamIdsList(member.id)
+      .teamIdsList(userIdOf(member))
       .map(_.take(lila.team.Team.maxJoinCeiling)) flatMap { allIds =>
       if (viewer.exists(_ is member) || viewer.exists(Granter(_.UserModView))) fuccess(allIds)
       else
@@ -124,7 +126,7 @@ final class TeamApi(
     }
 
   def countCreatedRecently(me: User): Fu[Int] =
-    teamRepo.countCreatedSince(me.id, Period weeks 1)
+    teamRepo.countCreatedSince(me.id, Period.ofWeeks(1))
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
     requestRepo.findActiveByTeam(team.id, 50) flatMap requestsWithUsers
@@ -219,9 +221,10 @@ final class TeamApi(
   } recover lila.db.ignoreDuplicateKey
 
   def teamsOf(username: UserStr) =
-    cached.teamIdsList(username.id) flatMap {
-      teamRepo.coll.byIds[Team, TeamId](_, ReadPreference.secondaryPreferred)
-    }
+    cached.teamIdsList(username.id) flatMap teamsByIds
+
+  def teamsByIds(ids: List[TeamId]) =
+    teamRepo.coll.byIds[Team, TeamId](ids, ReadPreference.secondaryPreferred)
 
   def quit(team: Team, userId: UserId): Funit =
     memberRepo.remove(team.id, userId) flatMap { res =>

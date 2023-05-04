@@ -49,6 +49,7 @@ final class JsonView(rematches: Rematches):
         "color"    -> pov.color.name,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,
+        "status"   -> pov.game.status,
         "variant" -> Json.obj(
           "key"  -> pov.game.variant.key,
           "name" -> pov.game.variant.name
@@ -64,6 +65,7 @@ final class JsonView(rematches: Rematches):
               .playerTextBlocking(pov.opponent, withRating = false)
           )
           .add("rating" -> pov.opponent.rating)
+          .add("ratingDiff" -> pov.opponent.ratingDiff)
           .add("ai" -> pov.opponent.aiLevel),
         "isMyTurn" -> pov.isMyTurn
       )
@@ -71,6 +73,8 @@ final class JsonView(rematches: Rematches):
       .add("tournamentId" -> pov.game.tournamentId)
       .add("swissId" -> pov.game.swissId)
       .add("orientation" -> pov.game.variant.racingKings.option(chess.White))
+      .add("winner" -> pov.game.winnerColor)
+      .add("ratingDiff" -> pov.player.ratingDiff)
 
   def player(p: Player, user: Option[LightUser]) =
     Json
@@ -118,10 +122,8 @@ object JsonView:
 
   given OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
-      Crazyhouse.storableRoles.flatMap { role =>
-        Some(v.roles.count(role ==)).filter(0 <).map { count =>
-          role.name -> JsNumber(count)
-        }
+      v.values.collect {
+        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
       }
     )
   }

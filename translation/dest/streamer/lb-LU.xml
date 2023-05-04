@@ -22,6 +22,7 @@
   <string name="streamingFairplayFAQ">Streaming Fairplay FAQ</string>
   <string name="perks">Virdeeler fir Streaming mat engem Stéchwuert</string>
   <string name="twitchUsername">Twitch Benotzernumm oder URL</string>
+  <string name="youTubeChannelId">Deng YouTube-Kanal-ID</string>
   <string name="headline">Iwwerschrëft</string>
   <string name="longDescription">Laang Beschreiwung</string>
   <string name="xStreamerPicture">%s Streamer Bild</string>

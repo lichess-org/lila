@@ -32,13 +32,9 @@ export default class SimulCtrl {
   };
 
   reload = (data: SimulData) => {
-    this.data = {
-      ...data,
-      team: this.data.team, // reload data does not contain the team anymore
-    };
+    this.data = data;
   };
 
-  teamBlock = () => !!this.data.team && !this.data.team.isIn;
   createdByMe = () => this.opts.userId === this.data.host.id;
   candidates = () => this.data.applicants.filter(a => !a.accepted);
   accepted = () => this.data.applicants.filter(a => a.accepted);

@@ -8,28 +8,30 @@ import chess.variant.Variant
 import chess.format.Fen
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import lila.common.Form.{ given, * }
+import lila.gathering.{ Condition, GatheringClock }
 
 final class CrudForm(repo: TournamentRepo):
 
   import CrudForm.*
   import TournamentForm.*
-  import lila.common.Form.UTCDate.*
+  import GatheringClock.*
 
   def apply(tour: Option[Tournament]) = Form(
     mapping(
       "id"             -> id[TourId](8, tour.map(_.id))(repo.exists),
       "name"           -> text(minLength = 3, maxLength = 40),
       "homepageHours"  -> number(min = 0, max = maxHomepageHours),
-      "clockTime"      -> numberInDouble(clockTimeChoices),
-      "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
+      "clockTime"      -> numberInDouble(timeChoices),
+      "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> typeIn(Variant.list.all.map(_.id).toSet),
       "position"       -> optional(lila.common.Form.fen.playableStrict),
-      "date"           -> utcDate,
+      "date"           -> PrettyDateTime.mapping,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
       "description"    -> nonEmptyText,
-      "conditions"     -> Condition.DataForm.all(Nil),
+      "conditions"     -> TournamentCondition.form.all(Nil),
+      "rated"          -> boolean,
       "berserkable"    -> boolean,
       "streakable"     -> boolean,
       "teamBattle"     -> boolean,
@@ -41,17 +43,18 @@ final class CrudForm(repo: TournamentRepo):
     id = Tournament.makeId,
     name = "",
     homepageHours = 0,
-    clockTime = clockTimeDefault,
-    clockIncrement = clockIncrementDefault,
+    clockTime = timeDefault,
+    clockIncrement = incrementDefault,
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
     position = none,
-    date = nowDate plusDays 7,
+    date = nowDateTime plusDays 7,
     image = "",
     headline = "",
     description = "",
-    conditions = Condition.DataForm.AllSetup.default,
+    conditions = TournamentCondition.All.empty,
     berserkable = true,
+    rated = true,
     streakable = true,
     teamBattle = false,
     hasChat = true
@@ -70,11 +73,12 @@ object CrudForm:
       minutes: Int,
       variant: Variant.Id,
       position: Option[Fen.Epd],
-      date: DateTime,
+      date: LocalDateTime,
       image: String,
       headline: String,
       description: String,
-      conditions: Condition.DataForm.AllSetup,
+      conditions: TournamentCondition.All,
+      rated: Boolean,
       berserkable: Boolean,
       streakable: Boolean,
       teamBattle: Boolean,

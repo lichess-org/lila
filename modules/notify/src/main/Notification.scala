@@ -86,7 +86,7 @@ private[notify] case class Notification(
     notifies: UserId,
     content: NotificationContent,
     read: NotificationRead,
-    createdAt: DateTime
+    createdAt: Instant
 ):
   def to = notifies
 
@@ -107,4 +107,4 @@ object Notification:
   def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
     val idSize = 8
     val id     = ThreadLocalRandom nextString idSize
-    Notification(id, userIdOf(to), content, NotificationRead(false), nowDate)
+    Notification(id, userIdOf(to), content, NotificationRead(false), nowInstant)

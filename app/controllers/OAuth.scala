@@ -37,34 +37,28 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       case Validated.Invalid(error) =>
         BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).toFuccess
 
-  def authorize =
-    Open { implicit ctx =>
-      withPrompt { prompt =>
-        fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
-          Ok {
-            html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")
-          }
-        })
-      }
-    }
+  def authorize = Open:
+    withPrompt: prompt =>
+      fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
+        Ok:
+          html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")
+      })
 
   def legacyAuthorize =
     Action { (req: RequestHeader) =>
       MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
     }
 
-  def authorizeApply =
-    Auth { implicit ctx => me =>
-      withPrompt { prompt =>
-        prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
-          case Validated.Valid(authorized) =>
-            env.oAuth.authorizationApi.create(authorized) map { code =>
-              SeeOther(authorized.redirectUrl(code))
-            }
-          case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
-        }
+  def authorizeApply = Auth { _ ?=> me =>
+    withPrompt: prompt =>
+      prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
+        case Validated.Valid(authorized) =>
+          env.oAuth.authorizationApi.create(authorized) map { code =>
+            SeeOther(authorized.redirectUrl(code))
+          }
+        case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
       }
-    }
+  }
 
   private val accessTokenRequestForm =
     import lila.oauth.Protocol.*
@@ -93,7 +87,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                       "token_type"   -> "Bearer",
                       "access_token" -> token.plain
                     )
-                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
+                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
                 )
               }
             case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
@@ -115,7 +109,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
                       "access_token"  -> token.plain,
                       "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
                     )
-                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
+                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
                 )
               }
             case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess

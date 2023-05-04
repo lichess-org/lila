@@ -349,8 +349,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }
     redraw();
     if (!next) {
-      alert('No more puzzles available! Try another theme.');
-      lichess.redirect('/training/themes');
+      if (!data.replay) {
+        alert('No more puzzles available! Try another theme.');
+        lichess.redirect('/training/themes');
+      }
     }
   }
 
@@ -365,8 +367,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       if (isPuzzleData(n)) {
         initiate(n);
         redraw();
-      } else lichess.redirect(`/training/dashboard/${n.days}`);
+      }
     });
+
+    if (data.replay && vm.round === undefined) {
+      lichess.redirect(`/training/dashboard/${data.replay.days}`);
+    }
 
     if (!streak && !data.replay) {
       const path = router.withLang(`/training/${data.angle.key}`);

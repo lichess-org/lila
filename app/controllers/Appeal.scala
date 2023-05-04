@@ -6,46 +6,42 @@ import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.report.Suspect
+import lila.report.{ Suspect, Mod }
 import play.api.data.Form
 
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
     extends LilaController(env):
 
-  private def form(implicit ctx: Context) =
-    if (isGranted(_.Appeals)) lila.appeal.Appeal.modForm
-    else lila.appeal.Appeal.form
+  private def modForm(using Context)  = lila.appeal.Appeal.modForm
+  private def userForm(using Context) = lila.appeal.Appeal.form
 
-  def home =
-    Auth { implicit ctx => me =>
-      renderAppealOrTree(me) map { Ok(_) }
-    }
+  def home = Auth { _ ?=> me =>
+    renderAppealOrTree(me) map { Ok(_) }
+  }
 
-  def landing =
-    Auth { implicit ctx => _ =>
-      if (ctx.isAppealUser || isGranted(_.Appeals))
-        pageHit
-        OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
-          views.html.site.page.lone(doc, resolver)
-        }
-      else notFound
-    }
+  def landing = Auth { ctx ?=> _ =>
+    if (ctx.isAppealUser || isGranted(_.Appeals))
+      pageHit
+      OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
+        views.html.site.page.lone(doc, resolver)
+      }
+    else notFound
+  }
 
   private def renderAppealOrTree(
       me: lila.user.User,
       err: Option[Form[String]] = None
-  )(implicit ctx: Context) = env.appeal.api mine me flatMap {
+  )(using Context) = env.appeal.api mine me flatMap {
     case None =>
       env.playban.api.currentBan(me.id).dmap(_.isDefined) map {
         html.appeal.tree(me, _)
       }
-    case Some(a) => fuccess(html.appeal.discussion(a, me, err | form))
+    case Some(a) => fuccess(html.appeal.discussion(a, me, err | userForm))
   }
 
   def post =
     AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      form
+      userForm
         .bindFromRequest()
         .fold(
           err => renderAppealOrTree(me, err.some) map { BadRequest(_) },
@@ -70,7 +66,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         getModData(me, suspect) map { modData =>
-          Ok(html.appeal.discussion.show(appeal, form, modData))
+          Ok(html.appeal.discussion.show(appeal, modForm, modData))
         }
       }
     }
@@ -79,20 +75,28 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     SecureBody(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         given play.api.mvc.Request[?] = ctx.body
-        form
+        modForm
           .bindFromRequest()
           .fold(
             err =>
               getModData(me, suspect) map { modData =>
                 BadRequest(html.appeal.discussion.show(appeal, err, modData))
               },
-            text =>
+            { case (text, process) =>
               for {
                 _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
                 preset = getPresets.findLike(text)
                 _ <- env.appeal.api.reply(text, appeal, me, preset.map(_.name))
                 _ <- env.mod.logApi.appealPost(me.id into ModId, suspect.user.id)
-              } yield Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions")
+                result <-
+                  if (process) {
+                    env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
+                      Redirect(routes.Appeal.queue)
+                  } else {
+                    fuccess(Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions"))
+                  }
+              } yield result
+            }
           )
       }
     }
@@ -119,7 +123,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, _) =>
         env.appeal.api.toggleMute(appeal) >>
-          env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
+          env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)
       }
     }
@@ -135,7 +139,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, _) =>
         env.appeal.api.snooze(me.user, appeal.id, dur)
-        env.report.api.inquiries.toggle(lila.report.Mod(me.user), Right(appeal.userId)) inject
+        env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
           Redirect(routes.Appeal.queue)
       }
     }

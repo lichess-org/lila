@@ -47,13 +47,13 @@
   <string name="normal">Middels</string>
   <string name="easier">Enklare</string>
   <string name="easiest">Enklast</string>
-  <plurals name="nbPointsBelowYourPuzzleRating">
+  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
     <item quantity="one">Eitt poeng under problemløysar-ratinga di</item>
     <item quantity="other">%s poeng under problemløysar-ratinga di</item>
   </plurals>
   <string name="harder">Vanskelegare</string>
   <string name="hardest">Vanskelegast</string>
-  <plurals name="nbPointsAboveYourPuzzleRating">
+  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
     <item quantity="one">Eitt poeng over problemløysar-ratinga di</item>
     <item quantity="other">%s poeng over problemløysar-ratinga di</item>
   </plurals>

@@ -24,7 +24,7 @@ case class Chapter(
     description: Option[String] = None,
     relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
-    createdAt: DateTime
+    createdAt: Instant
 ) extends Chapter.Like:
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
@@ -71,7 +71,7 @@ case class Chapter(
       _id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
-      createdAt = nowDate
+      createdAt = nowInstant
     )
 
   def metadata = Chapter.Metadata(
@@ -119,9 +119,9 @@ object Chapter:
   case class Relay(
       index: Int, // game index in the source URL
       path: UciPath,
-      lastMoveAt: DateTime
+      lastMoveAt: Instant
   ):
-    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
+    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.toSeconds).toInt
 
   case class ServerEval(path: UciPath, done: Boolean)
 
@@ -130,7 +130,7 @@ object Chapter:
     def looksAlive =
       tags.outcome.isEmpty &&
         relay.lastMoveAt.isAfter {
-          nowDate.minusMinutes {
+          nowInstant.minusMinutes {
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
           }
         }
@@ -158,8 +158,7 @@ object Chapter:
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value) take 80)
 
-  val idSize = 8
-  def makeId = StudyChapterId(ThreadLocalRandom nextString idSize)
+  def makeId = StudyChapterId(ThreadLocalRandom nextString 8)
 
   def make(
       studyId: StudyId,
@@ -187,5 +186,5 @@ object Chapter:
       gamebook = gamebook option true,
       conceal = conceal,
       relay = relay,
-      createdAt = nowDate
+      createdAt = nowInstant
     )

@@ -15,28 +15,25 @@ import lila.clas.Clas.{ Id => ClasId }
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
-  def index =
-    Open { implicit ctx =>
-      NoBot {
-        ctx.me match
-          case _ if getBool("home") => renderHome
-          case None                 => renderHome
-          case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
-            env.clas.api.clas.of(me) map { classes =>
-              Ok(views.html.clas.clas.teacherIndex(classes, getBool("closed")))
-            }
-          case Some(me) =>
-            (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
-              case true =>
-                env.clas.api.student.clasIdsOfUser(me.id) flatMap
-                  env.clas.api.clas.byIds map {
-                    case List(single) => redirectTo(single)
-                    case many         => Ok(views.html.clas.clas.studentIndex(many))
-                  }
-              case _ => renderHome
-            }
-      }
-    }
+  def index = Open:
+    NoBot:
+      ctx.me match
+        case _ if getBool("home") => renderHome
+        case None                 => renderHome
+        case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
+          env.clas.api.clas.of(me) map { classes =>
+            Ok(views.html.clas.clas.teacherIndex(classes, getBool("closed")))
+          }
+        case Some(me) =>
+          (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
+            case true =>
+              env.clas.api.student.clasIdsOfUser(me.id) flatMap
+                env.clas.api.clas.byIds map {
+                  case List(single) => redirectTo(single)
+                  case many         => Ok(views.html.clas.clas.studentIndex(many))
+                }
+            case _ => renderHome
+          }
 
   def teacher(username: UserStr) = Secure(_.Admin) { implicit ctx => _ =>
     env.user.repo byId username flatMapz { teacher =>
@@ -72,38 +69,36 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
     env.user.lightUserApi.preloadUsers(students.map(_.user))
 
-  def show(id: ClasId) =
-    Auth { implicit ctx => me =>
-      WithClassAny(id, me)(
-        forTeacher = WithClass(Holder(me), id) { clas =>
-          env.msg.twoFactorReminder(me.id) >>
-            env.clas.api.student.activeWithUsers(clas) map { students =>
-              preloadStudentUsers(students)
-              views.html.clas.teacherDashboard.overview(clas, students)
-            }
-        },
-        forStudent = (clas, students) =>
-          env.clas.api.clas.teachers(clas) map { teachers =>
+  def show(id: ClasId) = Auth { ctx ?=> me =>
+    WithClassAny(id, me)(
+      forTeacher = WithClass(Holder(me), id): clas =>
+        env.msg.twoFactorReminder(me.id) >>
+          env.clas.api.student.activeWithUsers(clas) map { students =>
             preloadStudentUsers(students)
-            Ok(views.html.clas.studentDashboard(clas, env.clas.markup(clas), teachers, students))
+            views.html.clas.teacherDashboard.overview(clas, students)
           },
-        orDefault = _ =>
-          if (isGranted(_.UserModView))
-            env.clas.api.clas.byId(id) flatMapz { clas =>
-              env.clas.api.student.allWithUsers(clas) flatMap { students =>
-                env.user.repo.withEmails(students.map(_.user)) map { users =>
-                  Ok(html.mod.search.clas(Holder(me), clas, users))
-                }
+      forStudent = (clas, students) =>
+        env.clas.api.clas.teachers(clas) map { teachers =>
+          preloadStudentUsers(students)
+          Ok(views.html.clas.studentDashboard(clas, env.clas.markup(clas), teachers, students))
+        },
+      orDefault = _ =>
+        if (isGranted(_.UserModView))
+          env.clas.api.clas.byId(id) flatMapz { clas =>
+            env.clas.api.student.allWithUsers(clas) flatMap { students =>
+              env.user.repo.withEmails(students.map(_.user)) map { users =>
+                Ok(html.mod.search.clas(Holder(me), clas, users))
               }
             }
-          else notFound
-      )
-    }
+          }
+        else notFound
+    )
+  }
 
   private def WithClassAny(id: ClasId, me: lila.user.User)(
       forTeacher: => Fu[Result],
       forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
-      orDefault: Context => Fu[Result] = notFound(_)
+      orDefault: Context => Fu[Result] = notFound(using _)
   )(using ctx: Context): Fu[Result] =
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       case true => forTeacher
@@ -574,12 +569,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       case _ if ctx.hasClas     => fuTrue
       case Some(me)             => !env.mod.logApi.wasUnteachered(me.id)
 
-  def invitation(id: lila.clas.ClasInvite.Id) =
-    Auth { implicit ctx => me =>
-      OptionOk(env.clas.api.invite.view(id, me)) { (invite, clas) =>
-        views.html.clas.invite.show(clas, invite)
-      }
-    }
+  def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me =>
+    OptionOk(env.clas.api.invite.view(id, me)): (invite, clas) =>
+      views.html.clas.invite.show(clas, invite)
+  }
 
   def invitationAccept(id: ClasInvite.Id) =
     AuthBody { implicit ctx => me =>

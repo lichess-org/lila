@@ -70,8 +70,8 @@ object SimulForm:
       color = colorDefault,
       text = "",
       estimatedStartAt = none,
-      team = none,
-      featured = host.hasTitle.some
+      featured = host.hasTitle.some,
+      conditions = SimulCondition.All.empty
     )
 
   def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
@@ -86,8 +86,8 @@ object SimulForm:
       color = simul.color | "random",
       text = simul.text,
       estimatedStartAt = simul.estimatedStartAt,
-      team = simul.team,
-      featured = simul.featurable
+      featured = simul.featurable,
+      conditions = simul.conditions
     )
 
   private def baseForm(host: User, teams: List[LeaderTeam]) =
@@ -104,9 +104,9 @@ object SimulForm:
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
-        "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "team"             -> optional(of[TeamId].verifying(id => teams.exists(_.id == id))),
-        "featured"         -> optional(boolean)
+        "estimatedStartAt" -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
+        "featured"         -> optional(boolean),
+        "conditions"       -> SimulCondition.form.all(teams)
       )(Setup.apply)(unapply)
         .verifying("Invalid host extra time.", _.clock.valid)
     )
@@ -123,11 +123,10 @@ object SimulForm:
       position: Option[Fen.Epd],
       color: String,
       text: String,
-      estimatedStartAt: Option[DateTime] = None,
-      team: Option[TeamId],
-      featured: Option[Boolean]
+      estimatedStartAt: Option[Instant] = None,
+      featured: Option[Boolean],
+      conditions: SimulCondition.All
   ):
-
     def clock =
       SimulClock(
         config = Clock.Config(LimitSeconds(clockTime.value * 60), clockIncrement),

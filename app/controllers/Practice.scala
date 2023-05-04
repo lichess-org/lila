@@ -18,32 +18,22 @@ final class Practice(
 
   private val api = env.practice.api
 
-  def index =
-    Open { implicit ctx =>
-      pageHit
-      api.get(ctx.me) flatMap { up =>
-        Ok(html.practice.index(up)).noCache.toFuccess
-      }
+  def index = Open:
+    pageHit
+    api.get(ctx.me) flatMap { up =>
+      Ok(html.practice.index(up)).noCache.toFuccess
     }
 
-  def show(
-      @nowarn sectionId: String,
-      @nowarn studySlug: String,
-      studyId: StudyId
-  ) =
-    Open { implicit ctx =>
-      OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
-    }
+  def show(@nowarn sectionId: String, @nowarn studySlug: String, studyId: StudyId) = Open:
+    OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
 
   def showChapter(
       @nowarn sectionId: String,
       @nowarn studySlug: String,
       studyId: StudyId,
       chapterId: StudyChapterId
-  ) =
-    Open { implicit ctx =>
-      OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
-    }
+  ) = Open:
+    OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
 
   def showSection(sectionId: String) =
     redirectTo(sectionId)(_.studies.headOption)
@@ -51,18 +41,16 @@ final class Practice(
   def showStudySlug(sectionId: String, studySlug: String) =
     redirectTo(sectionId)(_.studies.find(_.slug == studySlug))
 
-  private def redirectTo(sectionId: String)(select: PracticeSection => Option[PracticeStudy]) =
-    Open { implicit ctx =>
-      api.structure.get.flatMap { struct =>
-        struct.sections.find(_.id == sectionId).fold(notFound) { section =>
+  private def redirectTo(sectionId: String)(select: PracticeSection => Option[PracticeStudy]) = Open:
+    api.structure.get.flatMap: struct =>
+      struct.sections
+        .find(_.id == sectionId)
+        .fold(notFound): section =>
           select(section) ?? { study =>
             Redirect(routes.Practice.show(section.id, study.slug, study.id)).toFuccess
           }
-        }
-      }
-    }
 
-  private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) =
+  private def showUserPractice(us: lila.practice.UserStudy)(using Context) =
     analysisJson(us) map { (analysisJson, studyJson) =>
       Ok(
         html.practice
@@ -78,17 +66,15 @@ final class Practice(
         .withCanonical(s"${us.url}/${us.study.chapter.id}")
     }
 
-  def chapter(studyId: StudyId, chapterId: StudyChapterId) =
-    Open { implicit ctx =>
-      OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
-        analysisJson(us) map { (analysisJson, studyJson) =>
-          JsonOk(
-            Json.obj(
-              "study"    -> studyJson,
-              "analysis" -> analysisJson
-            )
-          ).noCache
-        }
+  def chapter(studyId: StudyId, chapterId: StudyChapterId) = Open:
+    OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
+      analysisJson(us) map { (analysisJson, studyJson) =>
+        JsonOk(
+          Json.obj(
+            "study"    -> studyJson,
+            "analysis" -> analysisJson
+          )
+        ).noCache
       }
     }
 
@@ -115,10 +101,9 @@ final class Practice(
           (analysis, studyJson)
         }
 
-  def complete(chapterId: StudyChapterId, nbMoves: Int) =
-    Auth { implicit ctx => me =>
-      api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
-    }
+  def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me =>
+    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
+  }
 
   def reset =
     AuthBody { _ => me =>

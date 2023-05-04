@@ -1,6 +1,5 @@
 package lila.api
 
-import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json.Json
 import scala.util.Try
 
@@ -27,8 +26,8 @@ object AnnounceStore:
       case length :: unit :: rest =>
         Try {
           val msg     = rest mkString " "
-          val date    = nowDate plusSeconds Duration(s"$length $unit").toSeconds.toInt
-          val isoDate = ISODateTimeFormat.dateTime print date
+          val date    = nowInstant plusSeconds Duration(s"$length $unit").toSeconds.toInt
+          val isoDate = isoDateTimeFormatter print date
           val json    = Json.obj("msg" -> msg, "date" -> isoDate)
           Announce(msg, date, json)
         }.toOption
@@ -36,4 +35,4 @@ object AnnounceStore:
     })
     get
 
-  def cancel = Announce("", nowDate, Json.obj())
+  def cancel = Announce("", nowInstant, Json.obj())
