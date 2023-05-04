@@ -5,6 +5,8 @@ import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { fixCrazySan } from 'chess';
+import { scalachessCharPair } from 'chessops/compat';
+import { parseUci } from 'chessops';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];
@@ -63,6 +65,19 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               'div.entry.text',
               {
                 attrs: dataIcon(''),
+                hook: bind(
+                  'click',
+                  () => {
+                    const path = [];
+                    for (const node of nodes) {
+                      const move = parseUci(node.uci);
+                      if (!move) return;
+                      path.push(scalachessCharPair(move));
+                    }
+                    ctrl.userJump(`/?WG${path.join('')}`);
+                  },
+                  ctrl.redraw
+                ),
               },
               [
                 h('button.del', {

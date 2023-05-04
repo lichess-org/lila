@@ -28,6 +28,12 @@
   .entry {
     @extend %flex-center-nowrap;
 
+    cursor: pointer;
+    &:hover {
+      background: $c-primary;
+      color: $c-primary-over;
+    }
+
     @include padding-direction(0.7em, 0.1em, 0.7em, 0.6em);
 
     margin-#{$start-direction}: -0.1em;
