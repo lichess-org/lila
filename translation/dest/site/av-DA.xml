@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="playWithAFriend">Гьудулгун хӀазе</string>
+  <string name="playWithTheMachine">Компьютергун хӀазе</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Щивалиго ахӀизе, гьаб бухьен кье</string>
+  <string name="level">Даража</string>
+  <string name="strength">Гуч</string>
+  <string name="checkmate">Мат</string>
+  <string name="stalemate">Пат</string>
+  <string name="white">ХъахӀаб</string>
+  <string name="black">ЧӀегӀераб</string>
+</resources>

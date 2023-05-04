@@ -42,6 +42,7 @@
   <string name="raceComplete">Závod ukončen!</string>
   <string name="spectating">Sledování</string>
   <string name="joinTheRace">Připojte se k závodu!</string>
+  <string name="startTheRace">Zahájit závod</string>
   <string name="yourRankX">Pořadí v závodu: %s</string>
   <string name="waitForRematch">Počkejte na další kolo</string>
   <string name="nextRace">Další závod</string>
@@ -60,4 +61,6 @@
   <string name="thisMonth">Tento měsíc</string>
   <string name="allTime">Za celou dobu</string>
   <string name="clickToReload">Kliknutím obnovte</string>
+  <string name="thisRunHasExpired">Tento závod byl již smazán!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Váš závod byl otevřen na další stránce!</string>
 </resources>
