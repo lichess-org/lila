@@ -2,7 +2,7 @@ package controllers
 
 import cats.data.Validated
 import play.api.libs.json.Json
-import play.api.mvc.{ Request, Result }
+import play.api.mvc.{ RequestHeader, Result }
 import views.html
 
 import lila.api.Context
@@ -15,7 +15,6 @@ import lila.oauth.OAuthScope
 import lila.setup.ApiConfig
 import lila.socket.SocketVersion
 import lila.user.{ User as UserModel }
-import play.api.mvc.RequestHeader
 
 final class Challenge(
     env: Env,
@@ -148,19 +147,17 @@ final class Challenge(
       cookieOption.fold(res) { res.withCookies(_) }
     }
 
-  def decline(id: ChallengeId) =
-    AuthBody { implicit ctx => _ =>
-      OptionFuResult(api byId id) { c =>
-        given play.api.mvc.Request[?] = ctx.body
-        isForMe(c, ctx.me) ??
-          api.decline(
-            c,
-            env.challenge.forms.decline
-              .bindFromRequest()
-              .fold(_ => ChallengeModel.DeclineReason.default, _.realReason)
-          )
-      }
+  def decline(id: ChallengeId) = AuthBody { ctx ?=> _ =>
+    OptionFuResult(api byId id) { c =>
+      isForMe(c, ctx.me) ??
+        api.decline(
+          c,
+          env.challenge.forms.decline
+            .bindFromRequest()
+            .fold(_ => ChallengeModel.DeclineReason.default, _.realReason)
+        )
     }
+  }
   def apiDecline(id: ChallengeId) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       given play.api.i18n.Lang = reqLang
@@ -266,36 +263,33 @@ final class Challenge(
     ("slow", 40 * 5, 1.day)
   )
 
-  def toFriend(id: ChallengeId) =
-    AuthBody { implicit ctx => _ =>
-      NoBot {
-        import play.api.data.*
-        import play.api.data.Forms.*
-        given Request[?] = ctx.body
-        OptionFuResult(api byId id) { c =>
-          if (isMine(c))
-            Form(single("username" -> lila.user.UserForm.historicalUsernameField))
-              .bindFromRequest()
-              .fold(
-                _ => funit,
-                username =>
-                  ChallengeIpRateLimit(ctx.ip) {
-                    env.user.repo byId username flatMap {
-                      case None                       => Redirect(routes.Challenge.show(c.id)).toFuccess
-                      case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).toFuccess
-                      case Some(dest) =>
-                        env.challenge.granter.isDenied(ctx.me, dest, c.perfType.some) flatMap {
-                          case Some(denied) =>
-                            showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
-                          case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
-                        }
-                    }
-                  }(rateLimitedFu)
-              )
-          else notFound
-        }
+  def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ =>
+    NoBot:
+      import play.api.data.*
+      import play.api.data.Forms.*
+      OptionFuResult(api byId id) { c =>
+        if (isMine(c))
+          Form(single("username" -> lila.user.UserForm.historicalUsernameField))
+            .bindFromRequest()
+            .fold(
+              _ => funit,
+              username =>
+                ChallengeIpRateLimit(ctx.ip) {
+                  env.user.repo byId username flatMap {
+                    case None                       => Redirect(routes.Challenge.show(c.id)).toFuccess
+                    case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id)).toFuccess
+                    case Some(dest) =>
+                      env.challenge.granter.isDenied(ctx.me, dest, c.perfType.some) flatMap {
+                        case Some(denied) =>
+                          showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
+                        case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
+                      }
+                  }
+                }(rateLimitedFu)
+            )
+        else notFound
       }
-    }
+  }
 
   def apiCreate(username: UserStr) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>

@@ -126,16 +126,14 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   private val revokeClientForm = Form(single("origin" -> text))
 
-  def revokeClient =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      revokeClientForm
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest.toFuccess,
-          origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
-        )
-    }
+  def revokeClient = AuthBody { ctx ?=> me =>
+    revokeClientForm
+      .bindFromRequest()
+      .fold(
+        _ => BadRequest.toFuccess,
+        origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
+      )
+  }
 
   def challengeTokens =
     ScopedBody(_.Web.Mod) { implicit req => me =>

@@ -459,25 +459,23 @@ final class User(
         }
     }
 
-  def writeNote(username: UserStr) =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      lila.user.UserForm.note
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(err.errors.toString).toFuccess,
-          data =>
-            doWriteNote(username, me, data)(user =>
-              if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
-                Ok(views.html.mod.inquiry.noteZone(user, notes))
+  def writeNote(username: UserStr) = AuthBody { ctx ?=> me =>
+    lila.user.UserForm.note
+      .bindFromRequest()
+      .fold(
+        err => BadRequest(err.errors.toString).toFuccess,
+        data =>
+          doWriteNote(username, me, data)(user =>
+            if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+              Ok(views.html.mod.inquiry.noteZone(user, notes))
+            }
+            else
+              env.socialInfo.fetchNotes(user, me) map { notes =>
+                Ok(views.html.user.show.header.noteZone(user, notes))
               }
-              else
-                env.socialInfo.fetchNotes(user, me) map { notes =>
-                  Ok(views.html.user.show.header.noteZone(user, notes))
-                }
-            )
-        )
-    }
+          )
+      )
+  }
 
   def apiReadNote(username: UserStr) =
     Scoped() { _ => me =>

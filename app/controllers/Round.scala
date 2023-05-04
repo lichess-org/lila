@@ -270,18 +270,16 @@ final class Round(
             Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
         }
 
-  def writeNote(gameId: GameId) =
-    AuthBody { implicit ctx => me =>
-      import play.api.data.Forms.*
-      import play.api.data.*
-      given play.api.mvc.Request[?] = ctx.body
-      Form(single("text" -> text))
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(BadRequest),
-          text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
-        )
-    }
+  def writeNote(gameId: GameId) = AuthBody { ctx ?=> me =>
+    import play.api.data.Forms.*
+    import play.api.data.*
+    Form(single("text" -> text))
+      .bindFromRequest()
+      .fold(
+        _ => fuccess(BadRequest),
+        text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
+      )
+  }
 
   def readNote(gameId: GameId) = Auth { _ ?=> me =>
     env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }

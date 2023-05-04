@@ -179,23 +179,20 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     key = "tournament.user.join"
   )
 
-  def join(id: TourId) =
-    AuthBody(parse.json) { implicit ctx => me =>
-      NoLameOrBot {
-        NoPlayban {
-          JoinLimitPerUser(me.id) {
-            val data = TournamentForm.TournamentJoin(
-              password = ctx.body.body.\("p").asOpt[String],
-              team = ctx.body.body.\("team").asOpt[TeamId]
-            )
-            doJoin(id, data, me).dmap(_.error) map {
-              case None        => jsonOkResult
-              case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
-            }
-          }(rateLimitedJson.toFuccess)
-        }
-      }
-    }
+  def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me =>
+    NoLameOrBot:
+      NoPlayban:
+        JoinLimitPerUser(me.id) {
+          val data = TournamentForm.TournamentJoin(
+            password = ctx.body.body.\("p").asOpt[String],
+            team = ctx.body.body.\("team").asOpt[TeamId]
+          )
+          doJoin(id, data, me).dmap(_.error) map {
+            case None        => jsonOkResult
+            case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
+          }
+        }(rateLimitedJson.toFuccess)
+  }
 
   def apiJoin(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
@@ -289,31 +286,29 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       }(fail.toFuccess)
     }(fail.toFuccess)
 
-  def create = AuthBody { implicit ctx => me =>
-    NoBot {
-      env.team.api.lightsByLeader(me.id) flatMap { teams =>
-        given play.api.mvc.Request[?] = ctx.body
-        negotiate(
-          html = forms
-            .create(me, teams)
-            .bindFromRequest()
-            .pp
-            .fold(
-              err => BadRequest(html.tournament.form.create(err, teams)).toFuccess,
-              setup =>
-                rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)):
-                  api
-                    .createTournament(setup, me, teams)
-                    .map: tour =>
-                      Redirect {
-                        if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
-                        else routes.Tournament.show(tour.id)
-                      }.flashSuccess
-            ),
-          api = _ => doApiCreate(me)
-        )
-      }
-    }
+  def create = AuthBody { ctx ?=> me =>
+    NoBot:
+      env.team.api
+        .lightsByLeader(me.id)
+        .flatMap: teams =>
+          negotiate(
+            html = forms
+              .create(me, teams)
+              .bindFromRequest()
+              .fold(
+                err => BadRequest(html.tournament.form.create(err, teams)).toFuccess,
+                setup =>
+                  rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)):
+                    api
+                      .createTournament(setup, me, teams)
+                      .map: tour =>
+                        Redirect {
+                          if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
+                          else routes.Tournament.show(tour.id)
+                        }.flashSuccess
+              ),
+            api = _ => doApiCreate(me)
+          )
   }
 
   def apiCreate =
@@ -410,22 +405,20 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
   }
 
-  def teamBattleUpdate(id: TourId) =
-    AuthBody { implicit ctx => me =>
-      cachedTour(id) flatMapz {
-        case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
-          given play.api.mvc.Request[?] = ctx.body
-          lila.tournament.TeamBattle.DataForm.empty
-            .bindFromRequest()
-            .fold(
-              err => BadRequest(html.tournament.teamBattle.edit(tour, err)).toFuccess,
-              res =>
-                api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
-                  Redirect(routes.Tournament.show(tour.id))
-            )
-        case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
-      }
-    }
+  def teamBattleUpdate(id: TourId) = AuthBody { ctx ?=> me =>
+    cachedTour(id).flatMapz:
+      case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
+        given play.api.mvc.Request[?] = ctx.body
+        lila.tournament.TeamBattle.DataForm.empty
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(html.tournament.teamBattle.edit(tour, err)).toFuccess,
+            res =>
+              api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
+                Redirect(routes.Tournament.show(tour.id))
+          )
+      case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
+  }
 
   def apiTeamBattleUpdate(id: TourId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
@@ -499,21 +492,18 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
   }
 
-  def update(id: TourId) =
-    AuthBody { implicit ctx => me =>
-      WithEditableTournament(id, me) { tour =>
-        given play.api.mvc.Request[?] = ctx.body
-        env.team.api.lightsByLeader(me.id) flatMap { teams =>
-          forms
-            .edit(me, teams, tour)
-            .bindFromRequest()
-            .fold(
-              err => BadRequest(html.tournament.form.edit(tour, err, teams)).toFuccess,
-              data => api.update(tour, data) inject Redirect(routes.Tournament.show(id)).flashSuccess
-            )
-        }
+  def update(id: TourId) = AuthBody { ctx ?=> me =>
+    WithEditableTournament(id, me): tour =>
+      env.team.api.lightsByLeader(me.id) flatMap { teams =>
+        forms
+          .edit(me, teams, tour)
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(html.tournament.form.edit(tour, err, teams)).toFuccess,
+            data => api.update(tour, data) inject Redirect(routes.Tournament.show(id)).flashSuccess
+          )
       }
-    }
+  }
 
   def terminate(id: TourId) = Auth { ctx ?=> me =>
     WithEditableTournament(id, me) { tour =>

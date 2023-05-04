@@ -29,10 +29,10 @@ final class RelayRound(
 
   def create(tourId: String) =
     AuthOrScopedBody(_.Study.Write)(
-      auth = implicit ctx =>
+      auth = ctx ?=>
         me =>
-          NoLameOrBot {
-            WithTourAndRoundsCanUpdate(tourId) { trs =>
+          NoLameOrBot:
+            WithTourAndRoundsCanUpdate(tourId): trs =>
               val tour = trs.tour
               env.relay.roundForm
                 .create(trs)
@@ -50,8 +50,7 @@ final class RelayRound(
                       }
                     }
                 )
-            }
-          },
+      ,
       scoped = req =>
         me =>
           NoLameOrBot(me) {
@@ -84,7 +83,7 @@ final class RelayRound(
 
   def update(id: RelayRoundId) =
     AuthOrScopedBody(_.Study.Write)(
-      auth = implicit ctx =>
+      auth = ctx ?=>
         me =>
           doUpdate(id, me)(using ctx.body) flatMap {
             case None => notFound

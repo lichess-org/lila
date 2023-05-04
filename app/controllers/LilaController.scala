@@ -154,13 +154,13 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and oauth requests with a body */
   protected def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
-      auth: BodyContext[?] => UserModel => Fu[Result],
+      auth: BodyContext[?] ?=> UserModel => Fu[Result],
       scoped: Request[?] => UserModel => Fu[Result]
   ): Action[AnyContent] = AuthOrScopedBody(parse.anyContent)(selectors)(auth, scoped)
 
   /* Authenticated and oauth requests with a body */
   protected def AuthOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
-      auth: BodyContext[A] => UserModel => Fu[Result],
+      auth: BodyContext[A] ?=> UserModel => Fu[Result],
       scoped: Request[A] => UserModel => Fu[Result]
   ): Action[A] =
     Action.async(parser) { req =>
@@ -184,18 +184,15 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   /* Authenticated requests with a body */
-  protected def AuthBody(f: BodyContext[?] => UserModel => Fu[Result]): Action[AnyContent] =
+  protected def AuthBody(f: BodyContext[?] ?=> UserModel => Fu[Result]): Action[AnyContent] =
     AuthBody(parse.anyContent)(f)
 
   /* Authenticated requests with a body */
-  protected def AuthBody[A](parser: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
-    Action.async(parser) { req =>
-      CSRF(req) {
-        reqToCtx(req) flatMap { ctx =>
-          ctx.me.fold(authenticationFailed(using ctx))(f(ctx))
-        }
-      }
-    }
+  protected def AuthBody[A](parser: BodyParser[A])(f: BodyContext[A] ?=> UserModel => Fu[Result]): Action[A] =
+    Action.async(parser): req =>
+      CSRF(req):
+        reqToCtx(req).flatMap: ctx =>
+          ctx.me.fold(authenticationFailed(using ctx))(f(using ctx))
 
   /* Authenticated requests requiring certain permissions */
   protected def Secure(perm: Permission.Selector)(f: Context => Holder => Fu[Result]): Action[AnyContent] =
@@ -221,8 +218,10 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def SecureBody[A](
       parser: BodyParser[A]
   )(perm: Permission)(f: BodyContext[A] => Holder => Fu[Result]): Action[A] =
-    AuthBody(parser) { implicit ctx => me =>
-      if (isGranted(perm)) f(ctx)(Holder(me)) else authorizationFailed
+    AuthBody(parser) { ctx ?=> me =>
+      if isGranted(perm)
+      then f(ctx)(Holder(me))
+      else authorizationFailed
     }
 
   /* Authenticated requests requiring certain permissions, with a body */

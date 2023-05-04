@@ -39,15 +39,14 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     case Some(a) => fuccess(html.appeal.discussion(a, me, err | userForm))
   }
 
-  def post =
-    AuthBody { implicit ctx => me =>
-      userForm
-        .bindFromRequest()
-        .fold(
-          err => renderAppealOrTree(me, err.some) map { BadRequest(_) },
-          text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
-        )
-    }
+  def post = AuthBody { ctx ?=> me =>
+    userForm
+      .bindFromRequest()
+      .fold(
+        err => renderAppealOrTree(me, err.some) map { BadRequest(_) },
+        text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
+      )
+  }
 
   def queue =
     Secure(_.Appeals) { implicit ctx => me =>

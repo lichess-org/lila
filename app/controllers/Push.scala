@@ -13,13 +13,12 @@ final class Push(env: Env) extends LilaController(env):
     env.push.unregisterDevices(me)
   }
 
-  def webSubscribe =
-    AuthBody(parse.json) { implicit ctx => me =>
-      val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
-      ctx.body.body
-        .validate[WebSubscription]
-        .fold(
-          err => BadRequest(err.toString).toFuccess,
-          data => env.push.webSubscriptionApi.subscribe(me, data, currentSessionId) inject NoContent
-        )
-    }
+  def webSubscribe = AuthBody(parse.json) { ctx ?=> me =>
+    val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
+    ctx.body.body
+      .validate[WebSubscription]
+      .fold(
+        err => BadRequest(err.toString).toFuccess,
+        data => env.push.webSubscriptionApi.subscribe(me, data, currentSessionId) inject NoContent
+      )
+  }

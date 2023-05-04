@@ -26,40 +26,36 @@ final class Account(
     Ok(html.account.username(me, env.user.forms usernameOf me)).toFuccess
   }
 
-  def profileApply =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      FormFuResult(env.user.forms.profile) { err =>
-        fuccess(html.account.profile(me, err))
-      } { profile =>
-        profile.bio
-          .exists(env.security.spam.detect)
-          .option("profile.bio" -> ~profile.bio)
-          .orElse {
-            profile.links
-              .exists(env.security.spam.detect)
-              .option("profile.links" -> ~profile.links)
-          }
-          .?? { case (resource, text) =>
-            env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-          } >> env.user.repo.setProfile(me.id, profile) inject
-          Redirect(routes.User show me.username).flashSuccess
-      }
+  def profileApply = AuthBody { _ ?=> me =>
+    FormFuResult(env.user.forms.profile) { err =>
+      fuccess(html.account.profile(me, err))
+    } { profile =>
+      profile.bio
+        .exists(env.security.spam.detect)
+        .option("profile.bio" -> ~profile.bio)
+        .orElse {
+          profile.links
+            .exists(env.security.spam.detect)
+            .option("profile.links" -> ~profile.links)
+        }
+        .?? { case (resource, text) =>
+          env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
+        } >> env.user.repo.setProfile(me.id, profile) inject
+        Redirect(routes.User show me.username).flashSuccess
     }
+  }
 
-  def usernameApply =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      FormFuResult(env.user.forms.username(me)) { err =>
-        fuccess(html.account.username(me, err))
-      } { username =>
-        env.user.repo
-          .setUsernameCased(me.id, username) inject
-          Redirect(routes.User show me.username).flashSuccess recover { case e =>
-            Redirect(routes.Account.username).flashFailure(e.getMessage)
-          }
-      }
+  def usernameApply = AuthBody { _ ?=> me =>
+    FormFuResult(env.user.forms.username(me)) { err =>
+      fuccess(html.account.username(me, err))
+    } { username =>
+      env.user.repo
+        .setUsernameCased(me.id, username) inject
+        Redirect(routes.User show me.username).flashSuccess recover { case e =>
+          Redirect(routes.Account.username).flashFailure(e.getMessage)
+        }
     }
+  }
 
   def info = Auth { _ ?=> me =>
     negotiate(
@@ -144,20 +140,18 @@ final class Account(
     }
   }
 
-  def passwdApply =
-    AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) {
-        given play.api.mvc.Request[?] = ctx.body
-        env.security.forms passwdChange me flatMap { form =>
-          FormFuResult(form) { err =>
-            fuccess(html.account.passwd(err))
-          } { data =>
-            env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1)) >>
-              refreshSessionId(me, Redirect(routes.Account.passwd).flashSuccess)
-          }
+  def passwdApply = AuthBody { ctx ?=> me =>
+    auth.HasherRateLimit(me.id, ctx.req) {
+      env.security.forms passwdChange me flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.passwd(err))
+        } { data =>
+          env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1)) >>
+            refreshSessionId(me, Redirect(routes.Account.passwd).flashSuccess)
         }
       }
     }
+  }
 
   private def refreshSessionId(me: UserModel, result: Result)(using ctx: Context): Fu[Result] =
     env.security.store.closeAllSessionsOf(me.id) >>
@@ -190,7 +184,7 @@ final class Account(
   def renderCheckYourEmail(implicit ctx: Context) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
-  def emailApply = AuthBody { implicit ctx => me =>
+  def emailApply = AuthBody { ctx ?=> me =>
     auth.HasherRateLimit(me.id, ctx.req):
       env.security.forms.preloadEmailDns() >> emailForm(me).flatMap { form =>
         FormFuResult(form) { err =>
@@ -250,35 +244,29 @@ final class Account(
       }
   }
 
-  def setupTwoFactor =
-    AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) {
-        given play.api.mvc.Request[?] = ctx.body
-        env.security.forms.setupTwoFactor(me) flatMap { form =>
-          FormFuResult(form) { err =>
-            fuccess(html.account.twoFactor.setup(me, err))
-          } { data =>
-            env.user.repo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
-              refreshSessionId(me, Redirect(routes.Account.twoFactor).flashSuccess)
-          }
+  def setupTwoFactor = AuthBody { ctx ?=> me =>
+    auth.HasherRateLimit(me.id, ctx.req):
+      env.security.forms.setupTwoFactor(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.twoFactor.setup(me, err))
+        } { data =>
+          env.user.repo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
+            refreshSessionId(me, Redirect(routes.Account.twoFactor).flashSuccess)
         }
       }
-    }
+  }
 
-  def disableTwoFactor =
-    AuthBody { implicit ctx => me =>
-      auth.HasherRateLimit(me.id, ctx.req) {
-        given play.api.mvc.Request[?] = ctx.body
-        env.security.forms.disableTwoFactor(me) flatMap { form =>
-          FormFuResult(form) { err =>
-            fuccess(html.account.twoFactor.disable(me, err))
-          } { _ =>
-            env.user.repo.disableTwoFactor(me.id) inject
-              Redirect(routes.Account.twoFactor).flashSuccess
-          }
+  def disableTwoFactor = AuthBody { ctx ?=> me =>
+    auth.HasherRateLimit(me.id, ctx.req):
+      env.security.forms.disableTwoFactor(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.twoFactor.disable(me, err))
+        } { _ =>
+          env.user.repo.disableTwoFactor(me.id) inject
+            Redirect(routes.Account.twoFactor).flashSuccess
         }
       }
-    }
+  }
 
   def close = Auth { _ ?=> me =>
     env.clas.api.student.isManaged(me) flatMap { managed =>
@@ -288,23 +276,20 @@ final class Account(
     }
   }
 
-  def closeConfirm =
-    AuthBody { implicit ctx => me =>
-      NotManaged {
-        given play.api.mvc.Request[?] = ctx.body
-        auth.HasherRateLimit(me.id, ctx.req) {
-          env.security.forms closeAccount me flatMap { form =>
-            FormFuResult(form) { err =>
-              fuccess(html.account.close(me, err, managed = false))
-            } { _ =>
-              env.api.accountClosure.close(me, Holder(me)) inject {
+  def closeConfirm = AuthBody { ctx ?=> me =>
+    NotManaged:
+      auth.HasherRateLimit(me.id, ctx.req):
+        env.security.forms closeAccount me flatMap { form =>
+          FormFuResult(form) { err =>
+            fuccess(html.account.close(me, err, managed = false))
+          } { _ =>
+            env.api.accountClosure
+              .close(me, Holder(me))
+              .inject:
                 Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
-              }
-            }
           }
         }
-      }
-    }
+  }
 
   def kid = Auth { _ ?=> me =>
     env.clas.api.student.isManaged(me) flatMap { managed =>
@@ -318,29 +303,26 @@ final class Account(
       JsonOk(Json.obj("kid" -> me.kid)).toFuccess
     }
 
-  def kidPost =
-    AuthBody { implicit ctx => me =>
-      NotManaged {
-        given play.api.mvc.Request[?] = ctx.body
-        env.security.forms toggleKid me flatMap { form =>
-          form
-            .bindFromRequest()
-            .fold(
-              err =>
+  def kidPost = AuthBody { ctx ?=> me =>
+    NotManaged:
+      env.security.forms toggleKid me flatMap { form =>
+        form
+          .bindFromRequest()
+          .fold(
+            err =>
+              negotiate(
+                html = BadRequest(html.account.kid(me, err, managed = false)).toFuccess,
+                api = _ => BadRequest(errorsAsJson(err)).toFuccess
+              ),
+            _ =>
+              env.user.repo.setKid(me, getBool("v")) >>
                 negotiate(
-                  html = BadRequest(html.account.kid(me, err, managed = false)).toFuccess,
-                  api = _ => BadRequest(errorsAsJson(err)).toFuccess
-                ),
-              _ =>
-                env.user.repo.setKid(me, getBool("v")) >>
-                  negotiate(
-                    html = Redirect(routes.Account.kid).flashSuccess.toFuccess,
-                    api = _ => jsonOkResult.toFuccess
-                  )
-            )
-        }
+                  html = Redirect(routes.Account.kid).flashSuccess.toFuccess,
+                  api = _ => jsonOkResult.toFuccess
+                )
+          )
       }
-    }
+  }
 
   def apiKidPost =
     Scoped(_.Preference.Write) { req => me =>

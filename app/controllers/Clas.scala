@@ -550,16 +550,15 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       }
     }
 
-  def becomeTeacher =
-    AuthBody { implicit ctx => me =>
-      couldBeTeacher flatMap {
-        case true =>
-          val perm = lila.security.Permission.Teacher.dbKey
-          (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
-            Redirect(routes.Clas.index)
-        case _ => notFound
-      }
+  def becomeTeacher = AuthBody { ctx ?=> me =>
+    couldBeTeacher flatMap {
+      case true =>
+        val perm = lila.security.Permission.Teacher.dbKey
+        (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
+          Redirect(routes.Clas.index)
+      case _ => notFound
     }
+  }
 
   private def couldBeTeacher(using ctx: Context) =
     ctx.me match
@@ -574,23 +573,21 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       views.html.clas.invite.show(clas, invite)
   }
 
-  def invitationAccept(id: ClasInvite.Id) =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      Form(single("v" -> boolean))
-        .bindFromRequest()
-        .fold(
-          _ => Redirect(routes.Clas.invitation(id)).toFuccess,
-          v => {
-            if (v) env.clas.api.invite.accept(id, me) mapz { student =>
-              redirectTo(student.clasId)
-            }
-            else
-              env.clas.api.invite.decline(id) inject
-                Redirect(routes.Clas.invitation(id))
+  def invitationAccept(id: ClasInvite.Id) = AuthBody { ctx ?=> me =>
+    Form(single("v" -> boolean))
+      .bindFromRequest()
+      .fold(
+        _ => Redirect(routes.Clas.invitation(id)).toFuccess,
+        v => {
+          if (v) env.clas.api.invite.accept(id, me) mapz { student =>
+            redirectTo(student.clasId)
           }
-        )
-    }
+          else
+            env.clas.api.invite.decline(id) inject
+              Redirect(routes.Clas.invitation(id))
+        }
+      )
+  }
 
   def invitationRevoke(id: lila.clas.ClasInvite.Id) =
     Secure(_.Teacher) { _ => me =>

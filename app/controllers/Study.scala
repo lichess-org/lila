@@ -250,38 +250,33 @@ final class Study(
     .dmap(some)
     .mon(_.chat.fetch("study"))
 
-  def createAs =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      lila.study.StudyForm.importGame.form
-        .bindFromRequest()
-        .fold(
-          _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
-          data =>
-            for {
-              owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
-              contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
-              res <-
-                if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
-                else {
-                  val back = HTTPRequest.referer(ctx.req) orElse
-                    data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
-                  Ok(html.study.create(data, owner, contrib, back)).toFuccess
-                }
-            } yield res
-        )
-    }
+  def createAs = AuthBody { ctx ?=> me =>
+    lila.study.StudyForm.importGame.form
+      .bindFromRequest()
+      .fold(
+        _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
+        data =>
+          for
+            owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
+            contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
+            res <-
+              if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
+              else
+                val back = HTTPRequest.referer(ctx.req) orElse
+                  data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
+                Ok(html.study.create(data, owner, contrib, back)).toFuccess
+          yield res
+      )
+  }
 
-  def create =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      lila.study.StudyForm.importGame.form
-        .bindFromRequest()
-        .fold(
-          _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
-          data => createStudy(data, me)
-        )
-    }
+  def create = AuthBody { ctx ?=> me =>
+    lila.study.StudyForm.importGame.form
+      .bindFromRequest()
+      .fold(
+        _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
+        data => createStudy(data, me)
+      )
+  }
 
   private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(using
       ctx: Context
@@ -307,24 +302,22 @@ final class Study(
     } inject Redirect(routes.Study.show(id))
   }
 
-  def importPgn(id: StudyId) =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      get("sri") ?? { sri =>
-        lila.study.StudyForm.importPgn.form
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            data =>
-              env.study.api.importPgns(
-                id,
-                data.toChapterDatas,
-                sticky = data.sticky,
-                ctx.pref.showRatings
-              )(Who(me.id, lila.socket.Socket.Sri(sri)))
-          )
-      }
+  def importPgn(id: StudyId) = AuthBody { ctx ?=> me =>
+    get("sri") ?? { sri =>
+      lila.study.StudyForm.importPgn.form
+        .bindFromRequest()
+        .fold(
+          jsonFormError,
+          data =>
+            env.study.api.importPgns(
+              id,
+              data.toChapterDatas,
+              sticky = data.sticky,
+              ctx.pref.showRatings
+            )(Who(me.id, lila.socket.Socket.Sri(sri)))
+        )
     }
+  }
 
   def admin(id: StudyId) =
     Secure(_.StudyAdmin) { ctx => me =>
@@ -548,18 +541,16 @@ final class Study(
         Ok(html.study.topic.index(popular, mine, form))
       }
 
-  def setTopics =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      lila.study.StudyForm.topicsForm
-        .bindFromRequest()
-        .fold(
-          _ => Redirect(routes.Study.topics).toFuccess,
-          topics =>
-            env.study.topicApi.userTopics(me, topics) inject
-              Redirect(routes.Study.topics)
-        )
-    }
+  def setTopics = AuthBody { ctx ?=> me =>
+    lila.study.StudyForm.topicsForm
+      .bindFromRequest()
+      .fold(
+        _ => Redirect(routes.Study.topics).toFuccess,
+        topics =>
+          env.study.topicApi.userTopics(me, topics) inject
+            Redirect(routes.Study.topics)
+      )
+  }
 
   def staffPicks = Open:
     pageHit

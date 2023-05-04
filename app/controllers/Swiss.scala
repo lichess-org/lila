@@ -116,7 +116,7 @@ final class Swiss(
     }
   }
 
-  def create(teamId: TeamId) = AuthBody { implicit ctx => me =>
+  def create(teamId: TeamId) = AuthBody { ctx ?=> me =>
     NoLameOrBot:
       CheckTeamLeader(teamId):
         env.swiss.forms
@@ -164,12 +164,10 @@ final class Swiss(
       }
     }
 
-  def join(id: SwissId) =
-    AuthBody { implicit ctx => me =>
-      NoLameOrBot {
-        doJoin(me, id, bodyPassword(ctx.body))
-      }
-    }
+  def join(id: SwissId) = AuthBody { ctx ?=> me =>
+    NoLameOrBot:
+      doJoin(me, id, bodyPassword(ctx.body))
+  }
 
   def apiJoin(id: SwissId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
@@ -210,19 +208,16 @@ final class Swiss(
     }
   }
 
-  def update(id: SwissId) =
-    AuthBody { implicit ctx => me =>
-      WithEditableSwiss(id, me) { swiss =>
-        given play.api.mvc.Request[?] = ctx.body
-        env.swiss.forms
-          .edit(me, swiss)
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(html.swiss.form.edit(swiss, err)).toFuccess,
-            data => env.swiss.api.update(swiss.id, data) inject Redirect(routes.Swiss.show(id))
-          )
-      }
-    }
+  def update(id: SwissId) = AuthBody { ctx ?=> me =>
+    WithEditableSwiss(id, me): swiss =>
+      env.swiss.forms
+        .edit(me, swiss)
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(html.swiss.form.edit(swiss, err)).toFuccess,
+          data => env.swiss.api.update(swiss.id, data) inject Redirect(routes.Swiss.show(id))
+        )
+  }
 
   def apiUpdate(id: SwissId) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
@@ -263,7 +258,7 @@ final class Swiss(
         )
     }
     AuthOrScopedBody(_.Tournament.Write)(
-      auth = ctx => doSchedule(using ctx.body),
+      auth = ctx ?=> doSchedule(using ctx.body),
       scoped = req => doSchedule(using req)
     )
 

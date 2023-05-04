@@ -163,40 +163,36 @@ final class Report(
     }
   }
 
-  def create =
-    AuthBody { implicit ctx => implicit me =>
-      given play.api.mvc.Request[?] = ctx.body
-      env.report.forms.create
-        .bindFromRequest()
-        .fold(
-          err =>
-            getUserStr("username") ?? env.user.repo.byId flatMap { user =>
-              env.report.forms.anyCaptcha map { captcha =>
-                BadRequest(html.report.form(err, user, captcha))
-              }
-            },
-          data =>
-            if data.user.id == me.id then notFound
-            else
-              api.create(data, Reporter(me)) inject
-                Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
-        )
-    }
-
-  def flag =
-    AuthBody { implicit ctx => implicit me =>
-      given play.api.mvc.Request[?] = ctx.body
-      env.report.forms.flag
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest.toFuccess,
-          data =>
-            env.user.repo byId data.username flatMapz { user =>
-              if (user == me) BadRequest.toFuccess
-              else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
+  def create = AuthBody { ctx ?=> implicit me =>
+    env.report.forms.create
+      .bindFromRequest()
+      .fold(
+        err =>
+          getUserStr("username") ?? env.user.repo.byId flatMap { user =>
+            env.report.forms.anyCaptcha map { captcha =>
+              BadRequest(html.report.form(err, user, captcha))
             }
-        )
-    }
+          },
+        data =>
+          if data.user.id == me.id then notFound
+          else
+            api.create(data, Reporter(me)) inject
+              Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
+      )
+  }
+
+  def flag = AuthBody { ctx ?=> implicit me =>
+    env.report.forms.flag
+      .bindFromRequest()
+      .fold(
+        _ => BadRequest.toFuccess,
+        data =>
+          env.user.repo byId data.username flatMapz { user =>
+            if (user == me) BadRequest.toFuccess
+            else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
+          }
+      )
+  }
 
   def thanks = Auth { ctx ?=> me =>
     ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>

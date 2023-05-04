@@ -27,30 +27,29 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           }
   }
 
-  def create(categId: ForumCategId) =
-    AuthBody { implicit ctx => me =>
-      NoBot:
-        CategGrantWrite(categId):
-          OptionFuResult(env.forum.categRepo byId categId) { categ =>
-            categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
-              forms
-                .topic(me, inOwnTeam)
-                .bindFromRequest()
-                .fold(
-                  err =>
-                    forms.anyCaptcha map { captcha =>
-                      BadRequest(html.forum.topic.form(categ, err, captcha))
-                    },
-                  data =>
-                    CreateRateLimit(ctx.ip) {
-                      topicApi.makeTopic(categ, data, me) map { topic =>
-                        Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
-                      }
-                    }(rateLimitedFu)
-                )
-            }
+  def create(categId: ForumCategId) = AuthBody { ctx ?=> me =>
+    NoBot:
+      CategGrantWrite(categId):
+        OptionFuResult(env.forum.categRepo byId categId) { categ =>
+          categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+            forms
+              .topic(me, inOwnTeam)
+              .bindFromRequest()
+              .fold(
+                err =>
+                  forms.anyCaptcha map { captcha =>
+                    BadRequest(html.forum.topic.form(categ, err, captcha))
+                  },
+                data =>
+                  CreateRateLimit(ctx.ip) {
+                    topicApi.makeTopic(categ, data, me) map { topic =>
+                      Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
+                    }
+                  }(rateLimitedFu)
+              )
           }
-    }
+        }
+  }
 
   def show(categId: ForumCategId, slug: String, page: Int) = Open:
     NotForKids:

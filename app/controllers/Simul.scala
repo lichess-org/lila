@@ -112,25 +112,24 @@ final class Simul(env: Env) extends LilaController(env):
     }
   }
 
-  def create = AuthBody { implicit ctx => implicit me =>
-    NoLameOrBot {
-      given play.api.mvc.Request[?] = ctx.body
-      env.team.api.lightsByLeader(me.id) flatMap { teams =>
-        forms
-          .create(me, teams)
-          .bindFromRequest()
-          .fold(
-            err =>
-              env.team.api.lightsByLeader(me.id) map { teams =>
-                BadRequest(html.simul.form.create(err, teams))
-              },
-            setup =>
-              env.simul.api.create(setup, me, teams) map { simul =>
-                Redirect(routes.Simul.show(simul.id))
-              }
-          )
-      }
-    }
+  def create = AuthBody { ctx ?=> me =>
+    NoLameOrBot:
+      env.team.api
+        .lightsByLeader(me.id)
+        .flatMap: teams =>
+          forms
+            .create(me, teams)
+            .bindFromRequest()
+            .fold(
+              err =>
+                env.team.api.lightsByLeader(me.id) map { teams =>
+                  BadRequest(html.simul.form.create(err, teams))
+                },
+              setup =>
+                env.simul.api.create(setup, me, teams) map { simul =>
+                  Redirect(routes.Simul.show(simul.id))
+                }
+            )
   }
 
   def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> implicit me =>
@@ -158,22 +157,19 @@ final class Simul(env: Env) extends LilaController(env):
     }
   }
 
-  def update(id: SimulId) =
-    AuthBody { implicit ctx => me =>
-      WithEditableSimul(id) { simul =>
-        given play.api.mvc.Request[?] = ctx.body
-        env.team.api
-          .lightsByLeader(me.id)
-          .flatMap: teams =>
-            forms
-              .edit(me, teams, simul)
-              .bindFromRequest()
-              .fold(
-                err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
-                data => env.simul.api.update(simul, data, me, teams) inject Redirect(routes.Simul.show(id))
-              )
-      }
-    }
+  def update(id: SimulId) = AuthBody { ctx ?=> me =>
+    WithEditableSimul(id): simul =>
+      env.team.api
+        .lightsByLeader(me.id)
+        .flatMap: teams =>
+          forms
+            .edit(me, teams, simul)
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(html.simul.form.edit(err, teams, simul)).toFuccess,
+              data => env.simul.api.update(simul, data, me, teams) inject Redirect(routes.Simul.show(id))
+            )
+  }
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
     env.simul.repo.find(simulId).flatMap {

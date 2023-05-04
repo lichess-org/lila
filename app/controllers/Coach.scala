@@ -44,34 +44,30 @@ final class Coach(env: Env) extends LilaController(env):
           lila.mon.coach.pageView.profile(c.coach.id.value).increment()
           Ok(html.coach.show(c, reviews, studies, posts, myReview))
 
-  def review(username: UserStr) =
-    AuthBody { implicit ctx => me =>
-      OptionFuResult(api find username) { c =>
-        NoBot {
-          WithVisibleCoach(c) {
-            given play.api.mvc.Request[?] = ctx.body
-            lila.coach.CoachReviewForm.form
-              .bindFromRequest()
-              .fold(
-                _ => Redirect(routes.Coach.show(c.user.username)).toFuccess,
-                data => {
-                  if (data.score < 4 && !me.marks.reportban)
-                    env.report.api.create(
-                      lila.report.Report.Candidate(
-                        reporter = lila.report.Reporter(me),
-                        suspect = lila.report.Suspect(c.user),
-                        reason = lila.report.Reason.Other,
-                        text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}"
-                      )
+  def review(username: UserStr) = AuthBody { ctx ?=> me =>
+    OptionFuResult(api find username) { c =>
+      NoBot:
+        WithVisibleCoach(c):
+          lila.coach.CoachReviewForm.form
+            .bindFromRequest()
+            .fold(
+              _ => Redirect(routes.Coach.show(c.user.username)).toFuccess,
+              data => {
+                if (data.score < 4 && !me.marks.reportban)
+                  env.report.api.create(
+                    lila.report.Report.Candidate(
+                      reporter = lila.report.Reporter(me),
+                      suspect = lila.report.Suspect(c.user),
+                      reason = lila.report.Reason.Other,
+                      text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}"
                     )
-                  api.reviews.add(me, c.coach, data) inject
-                    Redirect(routes.Coach.show(c.user.username))
-                }
-              )
-          }
-        }
-      }
+                  )
+                api.reviews.add(me, c.coach, data) inject
+                  Redirect(routes.Coach.show(c.user.username))
+              }
+            )
     }
+  }
 
   def approveReview(id: String) =
     SecureBody(_.Coach) { implicit ctx => me =>

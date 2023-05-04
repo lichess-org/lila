@@ -105,17 +105,16 @@ final class Practice(
     api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
   }
 
-  def reset =
-    AuthBody { _ => me =>
-      api.progress.reset(me) inject Redirect(routes.Practice.index)
-    }
+  def reset = AuthBody { _ ?=> me =>
+    api.progress.reset(me) inject Redirect(routes.Practice.index)
+  }
 
   def config =
     Secure(_.PracticeConfig) { implicit ctx => _ =>
-      for {
+      for
         struct <- api.structure.get
         form   <- api.config.form
-      } yield Ok(html.practice.config(struct, form))
+      yield Ok(html.practice.config(struct, form))
     }
 
   def configSave =

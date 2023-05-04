@@ -100,8 +100,8 @@ final class Ublog(env: Env) extends LilaController(env):
     key = "ublog.create.user"
   )
 
-  def create = AuthBody { implicit ctx => me =>
-    NotForKids {
+  def create = AuthBody { ctx ?=> me =>
+    NotForKids:
       env.ublog.form.create
         .bindFromRequest()(ctx.body, formBinding)
         .fold(
@@ -117,19 +117,16 @@ final class Ublog(env: Env) extends LilaController(env):
               }
             }(rateLimitedFu)
         )
-    }
   }
 
-  def edit(id: UblogPostId) = AuthBody { implicit ctx => me =>
-    NotForKids {
-      OptionOk(env.ublog.api.findByUserBlogOrAdmin(id, me)) { post =>
+  def edit(id: UblogPostId) = AuthBody { ctx ?=> me =>
+    NotForKids:
+      OptionOk(env.ublog.api.findByUserBlogOrAdmin(id, me)): post =>
         html.ublog.form.edit(post, env.ublog.form.edit(post))
-      }
-    }
   }
 
-  def update(id: UblogPostId) = AuthBody { implicit ctx => me =>
-    NotForKids {
+  def update(id: UblogPostId) = AuthBody { ctx ?=> me =>
+    NotForKids:
       env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { prev =>
         env.ublog.form
           .edit(prev)
@@ -143,10 +140,9 @@ final class Ublog(env: Env) extends LilaController(env):
               }
           )
       }
-    }
   }
 
-  def delete(id: UblogPostId) = AuthBody { implicit ctx => me =>
+  def delete(id: UblogPostId) = AuthBody { ctx ?=> me =>
     env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
       env.ublog.api.delete(post) >>
         logModAction(post, "delete") inject
@@ -207,34 +203,31 @@ final class Ublog(env: Env) extends LilaController(env):
     ("slow", 60, 1.day)
   )
 
-  def image(id: UblogPostId) =
-    AuthBody(parse.multipartFormData) { implicit ctx => me =>
-      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
-        ctx.body.body.file("image") match
-          case Some(image) =>
-            ImageRateLimitPerIp(ctx.ip) {
-              env.ublog.api.uploadImage(me, post, image) map { newPost =>
-                Ok(html.ublog.form.formImage(newPost))
-              } recover { case e: Exception =>
-                BadRequest(e.getMessage)
-              }
-            }(rateLimitedFu)
-          case None =>
-            env.ublog.api.deleteImage(post) flatMap { newPost =>
-              logModAction(newPost, "delete image") inject
-                Ok(html.ublog.form.formImage(newPost))
+  def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+    env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
+      ctx.body.body.file("image") match
+        case Some(image) =>
+          ImageRateLimitPerIp(ctx.ip) {
+            env.ublog.api.uploadImage(me, post, image) map { newPost =>
+              Ok(html.ublog.form.formImage(newPost))
+            } recover { case e: Exception =>
+              BadRequest(e.getMessage)
             }
-      }
+          }(rateLimitedFu)
+        case None =>
+          env.ublog.api.deleteImage(post) flatMap { newPost =>
+            logModAction(newPost, "delete image") inject
+              Ok(html.ublog.form.formImage(newPost))
+          }
     }
+  }
 
-  def friends(page: Int) = Auth { ctx ?=> me =>
-    NotForKids {
-      Reasonable(page, config.Max(10)) {
+  def friends(page: Int) = Auth { _ ?=> me =>
+    NotForKids:
+      Reasonable(page, config.Max(10)):
         env.ublog.paginator.liveByFollowed(me, page) map { posts =>
           Ok(html.ublog.index.friends(posts))
         }
-      }
-    }
   }
 
   def communityLang(language: String, page: Int = 1) = Open:
@@ -314,8 +307,8 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
-  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(implicit ctx: Context) =
+  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGranted(_.ModerateBlog) || isBlogVisible(user, blog)
 
-  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(implicit ctx: Context) =
+  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: Context) =
     canViewBlogOf(user, blog) && (ctx.is(user) || post.live)

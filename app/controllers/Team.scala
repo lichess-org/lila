@@ -129,19 +129,16 @@ final class Team(
     }
   }
 
-  def update(id: TeamId) =
-    AuthBody { implicit ctx => me =>
-      WithOwnedTeamEnabled(id) { team =>
-        given play.api.mvc.Request[?] = ctx.body
-        forms
-          .edit(team)
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(html.team.form.edit(team, err)).toFuccess,
-            data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
-          )
-      }
-    }
+  def update(id: TeamId) = AuthBody { ctx ?=> me =>
+    WithOwnedTeamEnabled(id): team =>
+      forms
+        .edit(team)
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(html.team.form.edit(team, err)).toFuccess,
+          data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
+        )
+  }
 
   def kickForm(id: TeamId) = Auth { ctx ?=> _ =>
     WithOwnedTeamEnabled(id) { team =>
@@ -149,15 +146,12 @@ final class Team(
     }
   }
 
-  def kick(id: TeamId) =
-    AuthBody { implicit ctx => me =>
-      WithOwnedTeamEnabled(id) { team =>
-        given play.api.mvc.Request[?] = ctx.body
-        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).parallel } inject Redirect(
-          routes.Team.show(team.id)
-        ).flashSuccess
-      }
-    }
+  def kick(id: TeamId) = AuthBody { ctx ?=> me =>
+    WithOwnedTeamEnabled(id): team =>
+      forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).parallel } inject Redirect(
+        routes.Team.show(team.id)
+      ).flashSuccess
+  }
 
   private val ApiKickRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
     key = "team.kick.api.ip",
@@ -192,17 +186,14 @@ final class Team(
     }
   }
 
-  def leaders(id: TeamId) =
-    AuthBody { implicit ctx => me =>
-      WithOwnedTeamEnabled(id) { team =>
-        given play.api.mvc.Request[?] = ctx.body
-        forms.leaders(team).bindFromRequest().value ?? {
-          api.setLeaders(team, _, me, isGranted(_.ManageTeam))
-        } inject Redirect(
-          routes.Team.show(team.id)
-        ).flashSuccess
-      }
-    }
+  def leaders(id: TeamId) = AuthBody { ctx ?=> me =>
+    WithOwnedTeamEnabled(id): team =>
+      forms.leaders(team).bindFromRequest().value ?? {
+        api.setLeaders(team, _, me, isGranted(_.ManageTeam))
+      } inject Redirect(
+        routes.Team.show(team.id)
+      ).flashSuccess
+  }
 
   def close(id: TeamId) =
     SecureBody(_.ManageTeam) { implicit ctx => me =>
@@ -219,21 +210,19 @@ final class Team(
       }
     }
 
-  def disable(id: TeamId) =
-    AuthBody { implicit ctx => me =>
-      WithOwnedTeamEnabled(id) { team =>
-        given play.api.mvc.Request[?] = ctx.body
-        forms.explain
-          .bindFromRequest()
-          .fold(
-            _ => funit,
-            explain =>
-              api.toggleEnabled(team, me, explain) >> {
-                env.mod.logApi.toggleTeam(me.id into ModId, team.id, team.enabled, explain)
-              }
-          )
-      } inject Redirect(routes.Team show id).flashSuccess
-    }
+  def disable(id: TeamId) = AuthBody { ctx ?=> me =>
+    WithOwnedTeamEnabled(id) { team =>
+      forms.explain
+        .bindFromRequest()
+        .fold(
+          _ => funit,
+          explain =>
+            api.toggleEnabled(team, me, explain) >> {
+              env.mod.logApi.toggleTeam(me.id into ModId, team.id, team.enabled, explain)
+            }
+        )
+    } inject Redirect(routes.Team show id).flashSuccess
+  }
 
   def form = Auth { ctx ?=> me =>
     LimitPerWeek(me) {
@@ -248,13 +237,12 @@ final class Team(
     ttl = 10.minutes,
     maxConcurrency = 1
   )
-  def create = AuthBody { implicit ctx => implicit me =>
-    OneAtATime(me.id, rateLimitedFu) {
+  def create = AuthBody { ctx ?=> me =>
+    OneAtATime(me.id, rateLimitedFu):
       api hasJoinedTooManyTeams me flatMap { tooMany =>
         if (tooMany) tooManyTeams(me)
         else
-          LimitPerWeek(me) {
-            given play.api.mvc.Request[?] = ctx.body
+          LimitPerWeek(me):
             forms.create
               .bindFromRequest()
               .fold(
@@ -267,9 +255,7 @@ final class Team(
                     Redirect(routes.Team.show(team.id)).flashSuccess
                   }
               )
-          }
       }
-    }
   }
 
   def mine = Auth { ctx ?=> me =>
@@ -289,40 +275,39 @@ final class Team(
 
   def join(id: TeamId) =
     AuthOrScopedBody(_.Team.Write)(
-      auth = implicit ctx =>
+      auth = ctx ?=>
         me =>
-          api.teamEnabled(id) flatMapz { team =>
-            OneAtATime(me.id, rateLimitedFu) {
-              api hasJoinedTooManyTeams me flatMap { tooMany =>
-                if (tooMany)
-                  negotiate(
-                    html = tooManyTeams(me),
-                    api = _ => BadRequest(jsonError("You have joined too many teams")).toFuccess
-                  )
-                else
-                  negotiate(
-                    html = webJoin(team, me, request = none, password = none),
-                    api = _ => {
-                      given play.api.mvc.Request[?] = ctx.body
-                      forms
-                        .apiRequest(team)
-                        .bindFromRequest()
-                        .fold(
-                          newJsonFormError,
-                          setup =>
-                            api.join(team, me, setup.message, setup.password) flatMap {
-                              case Requesting.Joined => jsonOkResult.toFuccess
-                              case Requesting.NeedRequest =>
-                                BadRequest(jsonError("This team requires confirmation.")).toFuccess
-                              case Requesting.NeedPassword =>
-                                BadRequest(jsonError("This team requires a password.")).toFuccess
-                            }
-                        )
-                    }
-                  )
-              }
-            }
-          },
+          api
+            .teamEnabled(id)
+            .flatMapz: team =>
+              OneAtATime(me.id, rateLimitedFu):
+                api hasJoinedTooManyTeams me flatMap { tooMany =>
+                  if (tooMany)
+                    negotiate(
+                      html = tooManyTeams(me),
+                      api = _ => BadRequest(jsonError("You have joined too many teams")).toFuccess
+                    )
+                  else
+                    negotiate(
+                      html = webJoin(team, me, request = none, password = none),
+                      api = _ =>
+                        forms
+                          .apiRequest(team)
+                          .bindFromRequest()
+                          .fold(
+                            newJsonFormError,
+                            setup =>
+                              api.join(team, me, setup.message, setup.password) flatMap {
+                                case Requesting.Joined => jsonOkResult.toFuccess
+                                case Requesting.NeedRequest =>
+                                  BadRequest(jsonError("This team requires confirmation.")).toFuccess
+                                case Requesting.NeedPassword =>
+                                  BadRequest(jsonError("This team requires a password.")).toFuccess
+                              }
+                          )
+                    )
+                }
+      ,
       scoped = implicit req =>
         me =>
           api.team(id) flatMapz { team =>
@@ -356,7 +341,7 @@ final class Team(
         .bindFromRequest()(req, formBinding)
         .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
     AuthOrScopedBody(_.Team.Write)(
-      auth = ctx => me => doSub(ctx.body, me) inject jsonOkResult,
+      auth = ctx ?=> me => doSub(ctx.body, me) inject jsonOkResult,
       scoped = req => me => doSub(req, me) inject jsonOkResult
     )
 
@@ -372,24 +357,21 @@ final class Team(
     }
   }
 
-  def requestCreate(id: TeamId) =
-    AuthBody { implicit ctx => me =>
-      OptionFuResult(api.requestable(id, me)) { team =>
-        given play.api.mvc.Request[?] = ctx.body
-        forms
-          .request(team)
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(html.team.request.requestForm(team, err)).toFuccess,
-            setup =>
-              if (team.open) webJoin(team, me, request = none, password = setup.password)
-              else
-                setup.message ?? { msg =>
-                  api.createRequest(team, me, msg) inject Redirect(routes.Team.show(team.id)).flashSuccess
-                }
-          )
-      }
-    }
+  def requestCreate(id: TeamId) = AuthBody { ctx ?=> me =>
+    OptionFuResult(api.requestable(id, me)): team =>
+      forms
+        .request(team)
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(html.team.request.requestForm(team, err)).toFuccess,
+          setup =>
+            if (team.open) webJoin(team, me, request = none, password = setup.password)
+            else
+              setup.message ?? { msg =>
+                api.createRequest(team, me, msg) inject Redirect(routes.Team.show(team.id)).flashSuccess
+              }
+        )
+  }
 
   private def webJoin(team: TeamModel, me: UserModel, request: Option[String], password: Option[String]) =
     api.join(team, me, request = request, password = password) flatMap {
@@ -398,22 +380,20 @@ final class Team(
         Redirect(routes.Team.requestForm(team.id)).flashSuccess.toFuccess
     }
 
-  def requestProcess(requestId: String) =
-    AuthBody { implicit ctx => me =>
-      import cats.syntax.all.*
-      OptionFuRedirectUrl(for
-        requestOption <- api request requestId
-        teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      yield (teamOption, requestOption).mapN((_, _))) { (team, request) =>
-        given play.api.mvc.Request[?] = ctx.body
-        forms.processRequest
-          .bindFromRequest()
-          .fold(
-            _ => fuccess(routes.Team.show(team.id).toString),
-            { (decision, url) => api.processRequest(team, request, decision) inject url }
-          )
-      }
+  def requestProcess(requestId: String) = AuthBody { ctx ?=> me =>
+    import cats.syntax.all.*
+    OptionFuRedirectUrl(for
+      requestOption <- api request requestId
+      teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
+    yield (teamOption, requestOption).mapN((_, _))) { (team, request) =>
+      forms.processRequest
+        .bindFromRequest()
+        .fold(
+          _ => fuccess(routes.Team.show(team.id).toString),
+          { (decision, url) => api.processRequest(team, request, decision) inject url }
+        )
     }
+  }
 
   def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ =>
     WithOwnedTeamEnabled(id) { team =>
@@ -485,20 +465,18 @@ final class Team(
 
   def pmAllSubmit(id: TeamId) =
     AuthOrScopedBody(_.Team.Lead)(
-      auth = implicit ctx =>
+      auth = ctx ?=>
         me =>
-          WithOwnedTeamEnabled(id) { team =>
+          WithOwnedTeamEnabled(id): team =>
             doPmAll(team, me)(using ctx.body).fold(
               err => renderPmAll(team, err),
-              _ map { res =>
+              _.map: res =>
                 Redirect(routes.Team.show(team.id))
-                  .flashing(res match {
+                  .flashing(res match
                     case RateLimit.Result.Through => "success" -> ""
                     case RateLimit.Result.Limited => "failure" -> rateLimitedMsg
-                  })
-              }
-            )
-          },
+                  )
+            ),
       scoped = implicit req =>
         me =>
           api teamEnabled id flatMap {
