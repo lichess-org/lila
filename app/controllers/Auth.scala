@@ -142,8 +142,8 @@ final class Auth(
                           case Some(u) if u.enabled.no =>
                             negotiate(
                               html = env.mod.logApi.closedByMod(u) flatMap {
-                                case true => authenticateAppealUser(u, redirectTo)
-                                case _    => redirectTo(routes.Account.reopen.url).toFuccess
+                                if _ then authenticateAppealUser(u, redirectTo)
+                                else redirectTo(routes.Account.reopen.url).toFuccess
                               },
                               api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
                             )
@@ -241,8 +241,8 @@ final class Auth(
         case None => Ok(accountC.renderCheckYourEmail).toFuccess
         case Some(userEmail) =>
           env.user.repo exists userEmail.username map {
-            case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
-            case true  => Ok(accountC.renderCheckYourEmail)
+            if _ then Ok(accountC.renderCheckYourEmail)
+            else Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
           }
 
   // after signup and before confirmation

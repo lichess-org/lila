@@ -113,8 +113,8 @@ final class Challenge(
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me =>
       def tryRematch =
         env.bot.player.rematchAccept(id into GameId, me) flatMap {
-          case true => jsonOkResult.toFuccess
-          case _    => notFoundJson()
+          if _ then jsonOkResult.toFuccess
+          else notFoundJson()
         }
       api.byId(id) flatMap {
         _.filter(isForMe(_, me.some)) match
@@ -161,8 +161,8 @@ final class Challenge(
     api.activeByIdFor(id, me) flatMap {
       case None =>
         env.bot.player.rematchDecline(id into GameId, me) flatMap {
-          case true => jsonOkResult.toFuccess
-          case _    => notFoundJson()
+          if _ then jsonOkResult.toFuccess
+          else notFoundJson()
         }
       case Some(c) =>
         env.challenge.forms.decline
@@ -421,8 +421,8 @@ final class Challenge(
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied translated d)).toFuccess
             case _ =>
               api.offerRematchForGame(g, me) map {
-                case true => jsonOkResult
-                case _    => BadRequest(jsonError("Sorry, couldn't create the rematch."))
+                if _ then jsonOkResult
+                else BadRequest(jsonError("Sorry, couldn't create the rematch."))
               }
           }
         }

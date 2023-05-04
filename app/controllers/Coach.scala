@@ -72,8 +72,8 @@ final class Coach(env: Env) extends LilaController(env):
   def approveReview(id: String) = SecureBody(_.Coach) { ctx ?=> me =>
     OptionFuResult(api.reviews.byId(id)): review =>
       api.byId(review.coachId).dmap(_.exists(_ is me.user)) flatMap {
-        case false => notFound
-        case true  => api.reviews.approve(review, getBool("v")) inject Ok
+        if _ then api.reviews.approve(review, getBool("v")) inject Ok
+        else notFound
       }
   }
 

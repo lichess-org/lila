@@ -64,8 +64,8 @@ final class Ublog(env: Env) extends LilaController(env):
       val topicSlug = s"ublog-${id}"
       val redirect  = Redirect(routes.ForumTopic.show(ublogId.value, topicSlug))
       env.forum.topicRepo.existsByTree(ublogId, topicSlug) flatMap {
-        case true => fuccess(redirect)
-        case _ =>
+        if _ then fuccess(redirect)
+        else
           env.ublog.api.getPost(id) flatMapz { post =>
             env.forum.topicApi.makeUblogDiscuss(
               slug = topicSlug,

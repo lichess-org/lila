@@ -118,8 +118,8 @@ final class Blog(
       val topicSlug = s"blog-$id"
       val redirect  = Redirect(routes.ForumTopic.show(categId.value, topicSlug))
       env.forum.topicRepo.existsByTree(categId, topicSlug) flatMap {
-        case true => fuccess(redirect)
-        case _ =>
+        if _ then fuccess(redirect)
+        else
           blogApi.one(prismic.api, none, id) flatMapz { doc =>
             env.forum.categRepo.byId(categId) flatMapz { categ =>
               env.forum.topicApi.makeBlogDiscuss(

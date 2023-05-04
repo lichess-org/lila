@@ -61,13 +61,13 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def follow(username: UserStr) = Auth { ctx ?=> me =>
     FollowingUser(me, username) { user =>
       api.reachedMaxFollowing(me.id) flatMap {
-        case true =>
+        if _ then
           env.msg.api
             .postPreset(
               me.id,
               lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
             ) inject Ok
-        case _ => api.follow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+        else api.follow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
       }
     }
   }

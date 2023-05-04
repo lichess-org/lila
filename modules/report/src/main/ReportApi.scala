@@ -122,8 +122,8 @@ final class ReportApi(
         "reason" -> Reason.AltPrint.key
       )
     ) flatMap {
-      case true => funit // only report once
-      case _ =>
+      if _ then funit // only report once
+      else
         getSuspect(userId) zip getLichessReporter flatMap {
           case (Some(suspect), reporter) =>
             create(

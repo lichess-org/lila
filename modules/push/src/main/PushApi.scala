@@ -409,8 +409,8 @@ final private class PushApi(
     lila.common.Bus.ask[Boolean]("roundSocket") { p =>
       Tell(pov.gameId.value, IsOnGame(pov.color, p))
     } flatMap {
-      case true  => funit
-      case false => f
+      if _ then funit
+      else f
     }
 
   private def asyncOpponentName(pov: Pov): Fu[String] =

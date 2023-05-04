@@ -54,8 +54,8 @@ final class Fishnet(env: Env) extends LilaController(env):
   def keyExists(key: String) =
     Action.async { _ =>
       api keyExists lila.fishnet.Client.Key(key) map {
-        case true  => Ok
-        case false => NotFound
+        if _ then Ok
+        else NotFound
       }
     }
 

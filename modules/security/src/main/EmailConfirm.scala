@@ -76,8 +76,8 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
     tokener read token flatMapz userRepo.enabledById flatMap {
       _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
         userRepo.mustConfirmEmail(user.id) flatMap {
-          case true  => (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
-          case false => fuccess(Result.AlreadyConfirmed(user))
+          if _ then (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
+          else fuccess(Result.AlreadyConfirmed(user))
         }
       }
     }
@@ -170,10 +170,10 @@ object EmailConfirm:
           if (user.enabled.no) fuccess(Closed(user.username))
           else
             userRepo mustConfirmEmail user.id dmap {
-              case true =>
+              if _ then
                 emails.current match
                   case None        => NoEmail(user.username)
                   case Some(email) => EmailSent(user.username, email)
-              case false => Confirmed(user.username)
+              else Confirmed(user.username)
             }
       }

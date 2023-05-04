@@ -31,8 +31,8 @@ final class Team(
 
   def home(page: Int) = Open:
     ctx.me.??(api.hasTeams) map {
-      case true  => Redirect(routes.Team.mine)
-      case false => Redirect(routes.Team.all(page))
+      if _ then Redirect(routes.Team.mine)
+      else Redirect(routes.Team.all(page))
     }
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
@@ -47,11 +47,11 @@ final class Team(
             api.belongsTo(team.id, _)
           }
         canSee flatMap {
-          case true =>
+          if _ then
             paginator.teamMembersWithDate(team, page) map {
               html.team.members(team, _)
             }
-          case false => authorizationFailed
+          else authorizationFailed
         }
 
   def search(text: String, page: Int) = OpenBody:

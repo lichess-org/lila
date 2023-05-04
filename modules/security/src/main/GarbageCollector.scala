@@ -92,8 +92,8 @@ final class GarbageCollector(
 
   private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(user.id) ?? {
     hasBeenCollectedBefore(user) flatMap {
-      case true => funit
-      case _ =>
+      if _ then funit
+      else
         val armed = isArmed()
         val wait  = (30 + ThreadLocalRandom.nextInt(300)).seconds
         val message =

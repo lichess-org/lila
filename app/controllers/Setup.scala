@@ -102,12 +102,12 @@ final class Setup(
                       rematchOf = none
                     )
                     env.challenge.api create challenge flatMap {
-                      case true =>
+                      if _ then
                         negotiate(
                           html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
                           api = _ => challengeC.showChallenge(challenge, justCreated = true)
                         )
-                      case false =>
+                      else
                         negotiate(
                           html = fuccess(Redirect(routes.Lobby.home)),
                           api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
