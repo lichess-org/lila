@@ -122,24 +122,24 @@ Outro punto que cabe sinalar é que, se pasa un tempo sen xogares, o intervalo d
   <string name="ratingLeaderboards">listaxe de líderes</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">ter xogado cando menos 30 partidas por puntos nunha modalidade dada,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter xogado unha partida por puntos na última semana nesta modalidade,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">ter unha desviación de rating menor de %1$s, en xadrez estándar, e menor de %2$s en variantes,</string>
-  <string name="beInTopTen">estar no top 10 nesta modalidade.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requerimento é que os xogadores/as que xa non usan as súas contas deixen de poblar o listado de líderes.</string>
-  <string name="whyAreRatingHigher">Por que son máis altas as puntuacións en comparación con outras páxinas e organizacións como FIDE, USCF e o CIC?</string>
-  <string name="whyAreRatingHigherExplanation">O mellor é non considerar as puntuacións como cifras absolutas nin compararas con outras organizacións. Diferentes organizacións teñen distintos níveis de xogadores/as e sistemas de puntuación (Elo, Glicko, Glicko-2 ou unha versión modificada dos primeiros). Estes factores poden afectar drasticamente os números absolutos (puntuacións).
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ter unha desviación da puntuación menor de %1$s, en xadrez estándar, e menor de %2$s en variantes,</string>
+  <string name="beInTopTen">estar entre os 10 mellores nesta modalidade.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">A razón de ser da segunda condición é que os xogadores/as que xa non usan as súas contas deixen de aparecer na listaxe de líderes.</string>
+  <string name="whyAreRatingHigher">Por que son máis altas as puntuacións en comparación con outras páxinas e organizacións coma a FIDE, a USCF e o ICC?</string>
+  <string name="whyAreRatingHigherExplanation">O mellor é non considerar as puntuacións coma cifras absolutas, nin comparalas coas doutras organizacións. As diferentes organizacións teñen distintos níveis de xogadores/as e sistemas de puntuación (Elo, Glicko, Glicko-2 ou unha versión modificada dos primeiros). Estes factores poden afectar drasticamente os números absolutos (puntuacións).
 
-É mellor pensar nas puntuacións como figuras \"relativas\" (a diferenza das \"figuras absolutas\"): dentro dun conxunto de xogadores/as, as súas diferenzas relativas nas puntuacións axudaranche a estimar quen gana/empata/perde, e con que frecuencia. Dicir \"teño puntuación X\" significa nada a menos que haxa outros xogadores/as cos que comparar esa puntuación.</string>
-  <string name="howToHideRatingWhilePlaying">Como podo ocultar a clasificación mentres xogo?</string>
+É mellor pensar nas puntuacións coma valores\"relativos\" (a diferenza dos valores \"absolutos\"): dentro dun conxunto de xogadores/as, as súas diferenzas relativas nas puntuacións axudaranche a estimar quen gaña/empata/perde, e con que frecuencia. Dicir \"teño unha puntuación X\" non significa nada a menos que haxa outros xogadores/as cos que comparar esa puntuación.</string>
+  <string name="howToHideRatingWhilePlaying">Como podo ocultar as puntuacións mentres xogo?</string>
   <string name="enableZenMode">Habilita o modo Zen en %1$s, ou pulsando %2$s durante o xogo.</string>
   <string name="displayPreferences">amosar preferencias</string>
-  <string name="connexionLostCanIGetMyRatingBack">Perdín un xogo por lag/desconexión. Podo recuperar os meus puntos?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, non podemos devolver puntos nas partidas perdidas debido ao retraso de rede o desconexión, independentemente de si o problema estaba no teu carón o no noso. Sen embargo, este último caso é moi estrano. Tamén ten en conta que cando Lichess se reinicia e perdes por que se te remarata o tempo debido a iso, abortamos o xoego para previr unha perda inxusta.</string>
+  <string name="connexionLostCanIGetMyRatingBack">Perdín un xogo por retardo/desconexión. Podo recuperar os meus puntos?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, non podemos devolver puntos nas partidas perdidas debido ao retraso de rede ou desconexión, independentemente de se o problema era teu ou noso. Sen embargo, este último caso é moi raro. Tamén ten en conta que cando Lichess se reinicia e perdes por este motivo, abortamos a partida pra previr unha perda inxusta.</string>
   <string name="howToThreeDots">Como facer...?</string>
-  <string name="enableDisableNotificationPopUps">Habilitar ou deshabilitar notificacións?</string>
+  <string name="enableDisableNotificationPopUps">Activar ou desactivar notificacións emerxentes?</string>
   <string name="viewSiteInformationPopUp">Ver notificación de información do sitio</string>
-  <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess pode enviar notificacións emerxentes, por exemplo cando sexa o teu turno ou recibas unha mensaxe privada.
+  <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess pode enviar notificacións emerxentes, por exemplo cando sexa a túa quenda ou recibas unha mensaxe privada.
 
-Fai clic no icono de bloqueo xunto a dirección de lichess.org, na barra de URL do teu navegador.
+Fai clic na icona de bloqueo xunto ó enderezo de lichess.org, na barra de URL do teu navegador.
 
  Despois selecciona se permitir ou bloquear notificacións de Lichess.</string>
 </resources>
