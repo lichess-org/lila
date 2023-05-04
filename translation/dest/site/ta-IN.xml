@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\" ரவுண்டிங்குடன், அடுத்த பிடிப்பு அல்லது சிப்பாய் நகரும் வரை அரை நகர்வுகளின் எண்ணிக்கையின் அடிப்படையில்</string>
   <string name="noGameFound">எந்த அணியும் கிட்டவில்லை</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள்?</string>
+  <string name="openings">தொடக்கம்</string>
   <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
   <string name="openingEndgameExplorer">திறப்பு/எண்ட்கேம் எக்ஸ்ப்ளோரர்</string>
   <string name="xOpeningExplorer">%s விளையாட்டு திறப்பு ஆராய்ச்சி</string>
