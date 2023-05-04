@@ -177,9 +177,8 @@ final class Ublog(env: Env) extends LilaController(env):
           Redirect(urlOfPost(post)).toFuccess
         }
 
-  def setTier(blogId: String) = SecureBody(_.ModerateBlog) { implicit ctx => me =>
+  def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me =>
     UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMapz { blog =>
-      given play.api.mvc.Request[?] = ctx.body
       lila.ublog.UblogForm.tier
         .bindFromRequest()
         .fold(

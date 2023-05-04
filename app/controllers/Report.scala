@@ -23,19 +23,18 @@ final class Report(
 
   private given Conversion[Holder, AsMod] = holder => AsMod(holder.user)
 
-  def list =
-    Secure(_.SeeReport) { implicit ctx => me =>
-      if (env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force"))
-        fuccess(Forbidden(html.site.message.streamingMod))
-      else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
-    }
+  def list = Secure(_.SeeReport) { ctx ?=> me =>
+    if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
+    then fuccess(Forbidden(html.site.message.streamingMod))
+    else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
+  }
 
-  def listWithFilter(room: String) =
-    Secure(_.SeeReport) { implicit ctx => me =>
-      env.report.modFilters.set(me, Room(room))
-      if (Room(room).fold(true)(Room.isGrantedFor(me))) renderList(me, room)
-      else notFound
-    }
+  def listWithFilter(room: String) = Secure(_.SeeReport) { ctx ?=> me =>
+    env.report.modFilters.set(me, Room(room))
+    if Room(room).fold(true)(Room.isGrantedFor(me))
+    then renderList(me, room)
+    else notFound
+  }
 
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
@@ -56,18 +55,18 @@ final class Report(
           )
     }
 
-  def inquiry(reportOrAppealId: String) =
-    Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(me, reportOrAppealId) flatMap { (prev, next) =>
+  def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me =>
+    api.inquiries
+      .toggle(me, reportOrAppealId)
+      .flatMap: (prev, next) =>
         prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.setUnreadById) inject
           next.fold(
-            Redirect {
-              if (prev.exists(_.isAppeal)) appeal.routes.Appeal.queue
+            Redirect:
+              if prev.exists(_.isAppeal)
+              then appeal.routes.Appeal.queue
               else report.routes.Report.list
-            }
           )(onInquiryStart)
-      }
-    }
+  }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
     if (inquiry.isRecentComm) Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
@@ -114,37 +113,33 @@ final class Report(
         else if processed then userC.modZoneOrRedirect(me, inquiry.user)
         else onInquiryStart(inquiry).toFuccess
 
-  def process(id: ReportId) =
-    SecureBody(_.SeeReport) { implicit ctx => me =>
-      api byId id flatMap {
-        _.fold(Redirect(routes.Report.list).toFuccess) { inquiry =>
-          inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
-            api.process(me, inquiry) >>
-            onInquiryAction(inquiry, me, processed = true)
-        }
+  def process(id: ReportId) = SecureBody(_.SeeReport) { ctx ?=> me =>
+    api byId id flatMap {
+      _.fold(Redirect(routes.Report.list).toFuccess) { inquiry =>
+        inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
+          api.process(me, inquiry) >>
+          onInquiryAction(inquiry, me, processed = true)
       }
     }
+  }
 
-  def xfiles(id: UserStr) =
-    Secure(_.SeeReport) { _ => _ =>
-      api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
-    }
+  def xfiles(id: UserStr) = Secure(_.SeeReport) { _ ?=> _ =>
+    api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
+  }
 
-  def snooze(id: ReportId, dur: String) =
-    SecureBody(_.SeeReport) { _ => me =>
-      api.snooze(me, id, dur) map {
+  def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> me =>
+    api
+      .snooze(me, id, dur)
+      .map:
         _.fold(Redirect(routes.Report.list))(onInquiryStart)
-      }
-    }
+  }
 
-  def currentCheatInquiry(username: UserStr) =
-    Secure(_.CheatHunter) { implicit ctx => me =>
-      OptionFuResult(env.user.repo byId username) { user =>
-        api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
-          api.inquiries.toggle(me, Left(report.id)).void
-        }
+  def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { ctx ?=> me =>
+    OptionFuResult(env.user.repo byId username): user =>
+      api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
+        api.inquiries.toggle(me, Left(report.id)).void
       }
-    }
+  }
 
   def form = Auth { ctx ?=> _ =>
     getUserStr("username") ?? env.user.repo.byId flatMap { user =>

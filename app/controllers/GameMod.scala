@@ -17,25 +17,22 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
 
   import GameMod.*
 
-  def index(username: UserStr) =
-    SecureBody(_.GamesModView) { implicit ctx => _ =>
-      OptionFuResult(env.user.repo byId username) { user =>
-        given play.api.mvc.Request[?] = ctx.body
-        val form                      = filterForm.bindFromRequest()
-        val filter                    = form.fold(_ => emptyFilter, identity)
-        env.tournament.leaderboardApi.recentByUser(user, 1) zip
-          env.activity.read.recentSwissRanks(user.id) zip
-          fetchGames(user, filter) flatMap { case ((arenas, swisses), povs) =>
-            {
-              if (isGranted(_.UserEvaluate))
-                env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map Right.apply
-              else fuccess(Left(povs))
-            } map { games =>
-              Ok(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
-            }
+  def index(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> _ =>
+    OptionFuResult(env.user.repo byId username): user =>
+      val form   = filterForm.bindFromRequest()
+      val filter = form.fold(_ => emptyFilter, identity)
+      env.tournament.leaderboardApi.recentByUser(user, 1) zip
+        env.activity.read.recentSwissRanks(user.id) zip
+        fetchGames(user, filter) flatMap { case ((arenas, swisses), povs) =>
+          {
+            if isGranted(_.UserEvaluate)
+            then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map Right.apply
+            else fuccess(Left(povs))
+          } map { games =>
+            Ok(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
           }
-      }
-    }
+        }
+  }
 
   private def fetchGames(user: lila.user.User, filter: Filter) =
     val select = toDbSelect(filter) ++ lila.game.Query.finished
@@ -52,23 +49,20 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
       .run()
       .map(_.toList)
 
-  def post(username: UserStr) =
-    SecureBody(_.GamesModView) { implicit ctx => me =>
-      OptionFuResult(env.user.repo byId username) { user =>
-        given play.api.mvc.Request[?] = ctx.body
-        actionForm
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(err.toString).toFuccess,
-            {
-              case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).toFuccess
-              case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
-                multipleAnalysis(me, gameIds)
-              case _ => notFound
-            }
-          )
-      }
-    }
+  def post(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> me =>
+    OptionFuResult(env.user.repo byId username): user =>
+      actionForm
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(err.toString).toFuccess,
+          {
+            case (gameIds, Some("pgn")) => downloadPgn(user, gameIds).toFuccess
+            case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
+              multipleAnalysis(me, gameIds)
+            case _ => notFound
+          }
+        )
+  }
 
   private def multipleAnalysis(me: Holder, gameIds: Seq[GameId])(implicit ctx: Context) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>

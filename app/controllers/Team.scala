@@ -195,20 +195,17 @@ final class Team(
       ).flashSuccess
   }
 
-  def close(id: TeamId) =
-    SecureBody(_.ManageTeam) { implicit ctx => me =>
-      OptionFuResult(api team id) { team =>
-        given play.api.mvc.Request[?] = ctx.body
-        forms.explain
-          .bindFromRequest()
-          .fold(
-            _ => funit,
-            explain =>
-              api.delete(team, me.user, explain) >>
-                env.mod.logApi.deleteTeam(me.id into ModId, team.id, explain)
-          ) inject Redirect(routes.Team all 1).flashSuccess
-      }
-    }
+  def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me =>
+    OptionFuResult(api team id): team =>
+      forms.explain
+        .bindFromRequest()
+        .fold(
+          _ => funit,
+          explain =>
+            api.delete(team, me.user, explain) >>
+              env.mod.logApi.deleteTeam(me.id into ModId, team.id, explain)
+        ) inject Redirect(routes.Team all 1).flashSuccess
+  }
 
   def disable(id: TeamId) = AuthBody { ctx ?=> me =>
     WithOwnedTeamEnabled(id) { team =>

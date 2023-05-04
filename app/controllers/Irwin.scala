@@ -6,12 +6,11 @@ final class Irwin(env: Env) extends LilaController(env):
 
   import lila.irwin.JSONHandlers.given
 
-  def dashboard =
-    Secure(_.MarkEngine) { implicit ctx => _ =>
-      env.irwin.irwinApi.dashboard map { d =>
-        Ok(views.html.irwin.dashboard(d))
-      }
+  def dashboard = Secure(_.MarkEngine) { ctx ?=> _ =>
+    env.irwin.irwinApi.dashboard map { d =>
+      Ok(views.html.irwin.dashboard(d))
     }
+  }
 
   def saveReport =
     ScopedBody(parse.json)(Nil) { req => me =>
@@ -32,9 +31,8 @@ final class Irwin(env: Env) extends LilaController(env):
       }
     }
 
-  def kaladin =
-    Secure(_.MarkEngine) { implicit ctx => _ =>
-      env.irwin.kaladinApi.dashboard map { d =>
-        Ok(views.html.kaladin.dashboard(d))
-      }
+  def kaladin = Secure(_.MarkEngine) { ctx ?=> _ =>
+    env.irwin.kaladinApi.dashboard map { d =>
+      Ok(views.html.kaladin.dashboard(d))
     }
+  }

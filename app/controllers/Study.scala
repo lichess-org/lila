@@ -319,11 +319,12 @@ final class Study(
     }
   }
 
-  def admin(id: StudyId) =
-    Secure(_.StudyAdmin) { ctx => me =>
-      env.study.api.adminInvite(id, me) inject (if (HTTPRequest isXhr ctx.req) NoContent
-                                                else Redirect(routes.Study.show(id)))
-    }
+  def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me =>
+    env.study.api
+      .adminInvite(id, me)
+      .inject:
+        if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
+  }
 
   def embed(id: StudyId, chapterId: StudyChapterId) =
     Action.async { implicit req =>

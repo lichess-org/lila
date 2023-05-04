@@ -320,10 +320,9 @@ final class User(
         }
     )
 
-  def mod(username: UserStr) =
-    Secure(_.UserModView) { implicit ctx => holder =>
-      modZoneOrRedirect(holder, username)
-    }
+  def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> holder =>
+    modZoneOrRedirect(holder, username)
+  }
 
   protected[controllers] def modZoneOrRedirect(holder: Holder, username: UserStr)(using
       ctx: Context
@@ -514,14 +513,12 @@ final class User(
     }
   }
 
-  def setDoxNote(id: String, dox: Boolean) =
-    Secure(_.Admin) { implicit ctx => _ =>
-      OptionFuResult(env.user.noteApi.byId(id)) { note =>
-        note.mod ?? {
-          env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
-        }
+  def setDoxNote(id: String, dox: Boolean) = Secure(_.Admin) { ctx ?=> _ =>
+    OptionFuResult(env.user.noteApi.byId(id)): note =>
+      note.mod ?? {
+        env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
       }
-    }
+  }
 
   def opponents = Auth { ctx ?=> me =>
     getUserStr("u")

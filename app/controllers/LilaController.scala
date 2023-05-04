@@ -127,30 +127,29 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
       f: RequestHeader => Option[UserModel] => Fu[Result]
   ): Action[Unit] =
-    Action.async(parse.empty) { req =>
-      if (HTTPRequest isOAuth req) handleScoped(selectors)((req: RequestHeader) => me => f(req)(me.some))(req)
+    Action.async(parse.empty): req =>
+      if HTTPRequest.isOAuth(req)
+      then handleScoped(selectors)((req: RequestHeader) => me => f(req)(me.some))(req)
       else f(req)(none)
-    }
 
   /* Anonymous and oauth requests with a body */
   protected def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
       f: Request[A] => Option[UserModel] => Fu[Result]
   ): Action[A] =
-    Action.async(parser) { req =>
-      if (HTTPRequest isOAuth req)
-        ScopedBody(parser)(selectors)((req: Request[A]) => me => f(req)(me.some))(req)
+    Action.async(parser): req =>
+      if HTTPRequest.isOAuth(req)
+      then ScopedBody(parser)(selectors)((req: Request[A]) => me => f(req)(me.some))(req)
       else f(req)(none)
-    }
 
   /* Authenticated and oauth requests */
   protected def AuthOrScoped(selectors: OAuthScope.Selector*)(
       auth: Context => UserModel => Fu[Result],
       scoped: RequestHeader => UserModel => Fu[Result]
   ): Action[Unit] =
-    Action.async(parse.empty) { req =>
-      if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
+    Action.async(parse.empty): req =>
+      if HTTPRequest.isOAuth(req)
+      then handleScoped(selectors)(scoped)(req)
       else handleAuth(auth, req)
-    }
 
   /* Authenticated and oauth requests with a body */
   protected def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
@@ -163,10 +162,9 @@ abstract private[controllers] class LilaController(val env: Env)
       auth: BodyContext[A] ?=> UserModel => Fu[Result],
       scoped: Request[A] => UserModel => Fu[Result]
   ): Action[A] =
-    Action.async(parser) { req =>
+    Action.async(parser): req =>
       if (HTTPRequest isOAuth req) ScopedBody(parser)(selectors)(scoped)(req)
       else AuthBody(parser)(auth)(req)
-    }
 
   /* Authenticated requests */
   protected def Auth(f: Context ?=> UserModel => Fu[Result]): Action[Unit] =
@@ -177,11 +175,9 @@ abstract private[controllers] class LilaController(val env: Env)
     Action.async(parser) { handleAuth(f(using _), _) }
 
   private def handleAuth(f: Context => UserModel => Fu[Result], req: RequestHeader): Fu[Result] =
-    CSRF(req) {
-      reqToCtx(req) flatMap { ctx =>
+    CSRF(req):
+      reqToCtx(req).flatMap: ctx =>
         ctx.me.fold(authenticationFailed(using ctx))(f(ctx))
-      }
-    }
 
   /* Authenticated requests with a body */
   protected def AuthBody(f: BodyContext[?] ?=> UserModel => Fu[Result]): Action[AnyContent] =
@@ -195,20 +191,21 @@ abstract private[controllers] class LilaController(val env: Env)
           ctx.me.fold(authenticationFailed(using ctx))(f(using ctx))
 
   /* Authenticated requests requiring certain permissions */
-  protected def Secure(perm: Permission.Selector)(f: Context => Holder => Fu[Result]): Action[AnyContent] =
+  protected def Secure(perm: Permission.Selector)(f: Context ?=> Holder => Fu[Result]): Action[AnyContent] =
     Secure(perm(Permission))(f)
 
   /* Authenticated requests requiring certain permissions */
-  protected def Secure(perm: Permission)(f: Context => Holder => Fu[Result]): Action[AnyContent] =
+  protected def Secure(perm: Permission)(f: Context ?=> Holder => Fu[Result]): Action[AnyContent] =
     Secure(parse.anyContent)(perm)(f)
 
   /* Authenticated requests requiring certain permissions */
   protected def Secure[A](
       parser: BodyParser[A]
-  )(perm: Permission)(f: Context => Holder => Fu[Result]): Action[A] =
-    Auth(parser) { me =>
-      if (isGranted(perm)) f(ctx)(Holder(me)) else authorizationFailed
-    }
+  )(perm: Permission)(f: Context ?=> Holder => Fu[Result]): Action[A] =
+    Auth(parser): me =>
+      if isGranted(perm)
+      then f(Holder(me))
+      else authorizationFailed
 
   protected def SecureF(s: UserModel => Boolean)(f: Context ?=> UserModel => Fu[Result]): Action[AnyContent] =
     Auth(parse.anyContent): me =>
@@ -217,17 +214,17 @@ abstract private[controllers] class LilaController(val env: Env)
   /* Authenticated requests requiring certain permissions, with a body */
   protected def SecureBody[A](
       parser: BodyParser[A]
-  )(perm: Permission)(f: BodyContext[A] => Holder => Fu[Result]): Action[A] =
+  )(perm: Permission)(f: BodyContext[A] ?=> Holder => Fu[Result]): Action[A] =
     AuthBody(parser) { ctx ?=> me =>
       if isGranted(perm)
-      then f(ctx)(Holder(me))
+      then f(Holder(me))
       else authorizationFailed
     }
 
   /* Authenticated requests requiring certain permissions, with a body */
   protected def SecureBody(
       perm: Permission.Selector
-  )(f: BodyContext[?] => Holder => Fu[Result]): Action[AnyContent] =
+  )(f: BodyContext[?] ?=> Holder => Fu[Result]): Action[AnyContent] =
     SecureBody(parse.anyContent)(perm(Permission))(f)
 
   /* OAuth requests */
@@ -279,13 +276,13 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and OAuth requests requiring certain permissions */
   protected def SecureOrScoped(perm: Permission.Selector)(
-      secure: Context => Holder => Fu[Result],
+      secure: Context ?=> Holder => Fu[Result],
       scoped: RequestHeader => Holder => Fu[Result]
   ): Action[Unit] =
-    Action.async(parse.empty) { req =>
-      if (HTTPRequest isOAuth req) SecureOrScoped(perm)(scoped)(req)
+    Action.async(parse.empty): req =>
+      if HTTPRequest.isOAuth(req)
+      then SecureOrScoped(perm)(scoped)(req)
       else Secure(parse.empty)(perm(Permission))(secure)(req)
-    }
 
   /* Authenticated and OAuth requests requiring certain permissions */
   protected def SecureOrScoped(perm: Permission.Selector)(
@@ -297,13 +294,13 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and OAuth requests requiring certain permissions, with a body */
   protected def SecureOrScopedBody(perm: Permission.Selector)(
-      secure: BodyContext[?] => Holder => Fu[Result],
+      secure: BodyContext[?] ?=> Holder => Fu[Result],
       scoped: Request[?] => Holder => Fu[Result]
   ): Action[AnyContent] =
-    Action.async(parse.anyContent) { req =>
-      if (HTTPRequest isOAuth req) SecuredScopedBody(perm)(scoped)(req)
+    Action.async(parse.anyContent): req =>
+      if HTTPRequest.isOAuth(req)
+      then SecuredScopedBody(perm)(scoped)(req)
       else SecureBody(parse.anyContent)(perm(Permission))(secure)(req)
-    }
 
   /* Authenticated and OAuth requests requiring certain permissions, with a body */
   protected def SecuredScopedBody(perm: Permission.Selector)(

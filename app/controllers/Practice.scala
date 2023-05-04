@@ -109,24 +109,20 @@ final class Practice(
     api.progress.reset(me) inject Redirect(routes.Practice.index)
   }
 
-  def config =
-    Secure(_.PracticeConfig) { implicit ctx => _ =>
-      for
-        struct <- api.structure.get
-        form   <- api.config.form
-      yield Ok(html.practice.config(struct, form))
-    }
+  def config = Secure(_.PracticeConfig) { ctx ?=> _ =>
+    for
+      struct <- api.structure.get
+      form   <- api.config.form
+    yield Ok(html.practice.config(struct, form))
+  }
 
-  def configSave =
-    SecureBody(_.PracticeConfig) { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      api.config.form.flatMap { form =>
-        FormFuResult(form) { err =>
-          api.structure.get map { html.practice.config(_, err) }
-        } { text =>
-          ~api.config.set(text).toOption >>-
-            api.structure.clear() >>
-            env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
-        }
+  def configSave = SecureBody(_.PracticeConfig) { ctx ?=> me =>
+    api.config.form.flatMap: form =>
+      FormFuResult(form) { err =>
+        api.structure.get map { html.practice.config(_, err) }
+      } { text =>
+        ~api.config.set(text).toOption >>-
+          api.structure.clear() >>
+          env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
       }
-    }
+  }

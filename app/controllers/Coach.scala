@@ -69,67 +69,54 @@ final class Coach(env: Env) extends LilaController(env):
     }
   }
 
-  def approveReview(id: String) =
-    SecureBody(_.Coach) { implicit ctx => me =>
-      OptionFuResult(api.reviews.byId(id)) { review =>
-        api.byId(review.coachId).dmap(_.exists(_ is me.user)) flatMap {
-          case false => notFound
-          case true  => api.reviews.approve(review, getBool("v")) inject Ok
-        }
+  def approveReview(id: String) = SecureBody(_.Coach) { ctx ?=> me =>
+    OptionFuResult(api.reviews.byId(id)): review =>
+      api.byId(review.coachId).dmap(_.exists(_ is me.user)) flatMap {
+        case false => notFound
+        case true  => api.reviews.approve(review, getBool("v")) inject Ok
       }
-    }
+  }
 
-  def modReview(id: String) =
-    SecureBody(_.DisapproveCoachReview) { implicit ctx => me =>
-      OptionFuResult(api.reviews byId id) { review =>
-        env.mod.logApi.coachReview(me.id into ModId, review.coachId.userId, review.userId) >>
-          api.reviews.mod(review) inject Redirect(routes.Coach.show(review.coachId.value))
-      }
-    }
+  def modReview(id: String) = SecureBody(_.DisapproveCoachReview) { ctx ?=> me =>
+    OptionFuResult(api.reviews byId id): review =>
+      env.mod.logApi.coachReview(me.id into ModId, review.coachId.userId, review.userId) >>
+        api.reviews.mod(review) inject Redirect(routes.Coach.show(review.coachId.value))
+  }
 
-  private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
-    if (c.isListed || ctx.me.exists(_ is c.coach) || isGranted(_.Admin)) f
+  private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =
+    if c.isListed || ctx.me.exists(_ is c.coach) || isGranted(_.Admin) then f
     else notFound
 
-  def edit =
-    Secure(_.Coach) { implicit ctx => me =>
-      OptionFuResult(api findOrInit me) { c =>
-        env.msg.twoFactorReminder(me.id) >>
-          api.reviews.pendingByCoach(c.coach) map { reviews =>
-            Ok(html.coach.edit(c, CoachProfileForm edit c.coach, reviews)).noCache
-          }
-      }
-    }
+  def edit = Secure(_.Coach) { ctx ?=> me =>
+    OptionFuResult(api findOrInit me): c =>
+      env.msg.twoFactorReminder(me.id) >>
+        api.reviews.pendingByCoach(c.coach) map { reviews =>
+          Ok(html.coach.edit(c, CoachProfileForm edit c.coach, reviews)).noCache
+        }
+  }
 
-  def editApply =
-    SecureBody(_.Coach) { implicit ctx => me =>
-      OptionFuResult(api findOrInit me) { c =>
-        given play.api.mvc.Request[?] = ctx.body
-        CoachProfileForm
-          .edit(c.coach)
-          .bindFromRequest()
-          .fold(
-            _ => fuccess(BadRequest),
-            data => api.update(c, data) inject Ok
-          )
-      }
-    }
+  def editApply = SecureBody(_.Coach) { ctx ?=> me =>
+    OptionFuResult(api findOrInit me): c =>
+      CoachProfileForm
+        .edit(c.coach)
+        .bindFromRequest()
+        .fold(
+          _ => fuccess(BadRequest),
+          data => api.update(c, data) inject Ok
+        )
+  }
 
-  def picture =
-    Secure(_.Coach) { implicit ctx => me =>
-      OptionResult(api findOrInit me) { c =>
-        Ok(html.coach.picture(c)).noCache
-      }
-    }
+  def picture = Secure(_.Coach) { ctx ?=> me =>
+    OptionResult(api findOrInit me): c =>
+      Ok(html.coach.picture(c)).noCache
+  }
 
-  def pictureApply =
-    SecureBody(parse.multipartFormData)(lila.security.Permission.Coach) { implicit ctx => me =>
-      OptionFuResult(api findOrInit me) { c =>
-        ctx.body.body.file("picture") match
-          case Some(pic) =>
-            api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
-              BadRequest(html.coach.picture(c, e.message.some))
-            } inject Redirect(routes.Coach.edit)
-          case None => fuccess(Redirect(routes.Coach.edit))
-      }
-    }
+  def pictureApply = SecureBody(parse.multipartFormData)(lila.security.Permission.Coach) { ctx ?=> me =>
+    OptionFuResult(api findOrInit me): c =>
+      ctx.body.body.file("picture") match
+        case Some(pic) =>
+          api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
+            BadRequest(html.coach.picture(c, e.message.some))
+          } inject Redirect(routes.Coach.edit)
+        case None => fuccess(Redirect(routes.Coach.edit))
+  }
