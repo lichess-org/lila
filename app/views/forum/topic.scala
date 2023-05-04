@@ -127,9 +127,7 @@ object topic:
         ),
         pager,
         div(cls := "forum-topic__actions")(
-          if (topic.isOld)
-            p(trans.thisTopicIsArchived())
-          else if (formWithCaptcha.isDefined)
+          if (formWithCaptcha.isDefined)
             h2(id := "reply")(trans.replyToThisTopic())
           else if (topic.closed) p(trans.thisTopicIsNowClosed())
           else

@@ -63,7 +63,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
             env.team.cached.isLeader(teamId, me.id)
           }
-          form <- ctx.me.filter(_ => canWrite && topic.open && !topic.isOld) ?? { me =>
+          form <- ctx.me.filter(_ => canWrite && topic.open) ?? { me =>
             forms.postWithCaptcha(me, inOwnTeam) map some
           }
           _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)

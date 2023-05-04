@@ -37,7 +37,6 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         given play.api.mvc.Request[?] = ctx.body
         OptionFuResult(topicApi.show(categId, slug, page, ctx.me)) { case (categ, topic, posts) =>
           if (topic.closed) fuccess(BadRequest("This topic is closed"))
-          else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
           else
             categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
               forms
