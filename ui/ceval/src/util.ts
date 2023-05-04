@@ -1,5 +1,4 @@
 import { CevalTechnology } from './platform';
-import { ExternalEngine } from './worker';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
   return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
@@ -44,15 +43,12 @@ export function defaultDepth(technology: CevalTechnology, threads: number, multi
       return 18;
     case 'wasm':
       return 20;
-    case 'external':
-      return 24 + extraDepth;
     default:
       return 22 + extraDepth;
   }
 }
 
-export function engineName(technology: CevalTechnology, externalEngine?: ExternalEngine): string {
-  if (externalEngine) return externalEngine.name;
+export function engineName(technology: CevalTechnology): string {
   switch (technology) {
     case 'wasm':
     case 'asmjs':

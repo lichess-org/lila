@@ -133,7 +133,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       else if (node.eval) onFail(); // the move that was played in the game
       else {
         feedback('eval');
-        if (!root.ceval.enabled()) root.toggleCeval();
+        root.ceval.enable();
         checkCeval();
       }
     }

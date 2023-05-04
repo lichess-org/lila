@@ -108,10 +108,11 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
             attrs: { 'data-it': it },
           },
           renderIndexAndMove(
+            root.ceval,
             {
               withDots: true,
-              showEval: root.showComputer(),
-              showGlyphs: root.showComputer(),
+              showEval: root.ceval.enabled(),
+              showGlyphs: root.ceval.enabled(),
             },
             node
           )!

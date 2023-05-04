@@ -130,12 +130,13 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 export default function (ctrl: AnalyseCtrl): VNode {
+  const enabled = ctrl.ceval.enabled();
   const ctx: Ctx = {
     ctrl,
     truncateComments: false,
-    showComputer: ctrl.showComputer() && !ctrl.retro,
-    showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: !!ctrl.study || ctrl.showComputer(),
+    showComputer: !ctrl.retro && ctrl.ceval.showServerComments(),
+    showGlyphs: enabled,
+    showEval: enabled,
     currentPath: findCurrentPath(ctrl),
   };
   return h(

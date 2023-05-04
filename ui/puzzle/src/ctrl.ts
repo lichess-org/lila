@@ -60,10 +60,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
   const session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
 
-  // required by ceval
-  vm.showComputer = () => vm.mode === 'view';
-  vm.showAutoShapes = () => true;
-
   const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
   const loadSound = (file: string, volume?: number, delay?: number) => {
     setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true), delay || 1000);
@@ -304,7 +300,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         const sent = vm.mode == 'play' ? sendResult(true) : Promise.resolve();
         vm.mode = 'view';
         withGround(showGround);
-        sent.then(_ => (autoNext() ? nextPuzzle() : startCeval()));
+        sent.then(() => (autoNext() ? nextPuzzle() : ceval.startCeval()));
       }
     } else if (progress) {
       vm.lastFeedback = 'good';
@@ -406,7 +402,20 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           }
         });
       },
-      setAutoShapes: setAutoShapes,
+      setAutoShapes,
+      engineChanged: () => {
+        setAutoShapes();
+        if (!ceval.enabled())
+          threatMode(false);
+        redraw();
+      },
+      showServerAnalysis: false,
+      getChessground: ground,
+      tree,
+      getPath: () => vm.path,
+      getNode: () => vm.node,
+      outcome,
+      getNodeList: () => vm.nodeList,
     });
   }
 
@@ -424,38 +433,18 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     });
   }
 
-  function canUseCeval(): boolean {
-    return vm.mode === 'view' && !outcome();
-  }
-
-  function startCeval(): void {
-    if (ceval.enabled() && canUseCeval()) doStartCeval();
-  }
-
-  const doStartCeval = throttle(800, function () {
-    ceval.start(vm.path, vm.nodeList, threatMode());
-  });
-
   const nextNodeBest = () => treeOps.withMainlineChild(vm.node, n => n.eval?.best);
 
   const getCeval = () => ceval;
 
-  function toggleCeval(): void {
-    ceval.toggle();
-    setAutoShapes();
-    startCeval();
-    if (!ceval.enabled()) threatMode(false);
-    vm.autoScrollRequested = true;
-    redraw();
-  }
-
   function toggleThreatMode(): void {
     if (vm.node.check) return;
-    if (!ceval.enabled()) ceval.toggle();
+    const type = ceval.getEngineType();
+    if (type === 'disabled' || type === 'server') ceval.setEngineType('local');
     if (!ceval.enabled()) return;
     threatMode(!threatMode());
     setAutoShapes();
-    startCeval();
+    ceval.startCeval();
     redraw();
   }
 
@@ -480,7 +469,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       }
       threatMode(false);
       ceval.stop();
-      startCeval();
+      ceval.startCeval();
     }
     promotion.cancel();
     vm.justPlayed = undefined;
@@ -523,7 +512,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.autoScrollRequested = true;
     vm.voteDisabled = true;
     redraw();
-    startCeval();
+    ceval.startCeval();
     setTimeout(() => {
       vm.voteDisabled = false;
       redraw();
@@ -582,7 +571,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm,
     userJump,
     getCeval,
-    toggleCeval,
     toggleThreatMode,
     redraw,
     playBestMove,
@@ -615,6 +603,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   $('body').addClass('playing'); // for zen
   $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
 
+  
   return {
     vm,
     getData() {
@@ -646,18 +635,16 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       redraw();
     },
     outcome,
-    toggleCeval,
     toggleThreatMode,
-    threatMode,
     currentEvals() {
-      return { client: vm.node.ceval };
+      return { local: vm.node.ceval };
     },
     nextNodeBest,
     userMove,
     playUci,
     playUciList,
     showEvalGauge() {
-      return vm.showComputer() && ceval.enabled() && !outcome();
+      return ceval.enabled() && !outcome() && ceval.showGauge() && vm.mode === 'view';
     },
     getOrientation() {
       return withGround(g => g.state.orientation)!;
@@ -665,7 +652,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     getNode() {
       return vm.node;
     },
-    showComputer: vm.showComputer,
     promotion,
     redraw,
     ongoing: false,
@@ -681,5 +667,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flipped: () => flipped,
     showRatings: opts.showRatings,
     nvui: window.LichessPuzzleNvui ? (window.LichessPuzzleNvui(redraw) as NvuiPlugin) : undefined,
+    showServerAnalysis: false,
+    mandatoryCeval: () => false,
+    disableThreatMode: () => false,
   };
 }

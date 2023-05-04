@@ -1,5 +1,9 @@
 .action-menu {
-  @extend %border-bottom-active;
+  border-bottom: $border;
+
+  @include breakpoint($mq-col2-uniboard) {
+    border-bottom: 3px solid $c-secondary;
+  }
 
   flex: 1 1 0;
 
@@ -87,6 +91,16 @@
     .button::before {
       font-size: 1.2em;
     }
+  }
+
+  .button.setting {
+    display: inline-block;
+    text-align: center;
+  }
+
+  label > select {
+    margin-#{$start-direction}: 1em;
+    min-width: 0;
   }
 
   .setting {

@@ -2,13 +2,10 @@
   @extend %box-neat-force, %flex-column;
 
   background: $c-bg-box;
-
-  .ceval-wrap {
-    flex: 0 0 38px;
-  }
+  position: relative;
 
   .ceval {
-    height: 38px;
+    height: 48px;
   }
 }
 

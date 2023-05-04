@@ -288,15 +288,15 @@ const NOT_ENABLED = 'local evaluation not enabled';
 
 function renderEvalAndDepth(ctrl: AnalyseController): string {
   let evalStr: string, depthStr: string;
-  if (ctrl.threatMode()) {
+  if (ctrl.ceval.threatMode()) {
     evalStr = evalInfo(ctrl.node.threat);
     depthStr = depthInfo(ctrl, ctrl.node.threat, false);
     return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`;
   } else {
     const evs = ctrl.currentEvals(),
-      bestEv = cevalView.getBestEval(evs);
+      bestEv = cevalView.getBestEval(ctrl.ceval, evs);
     evalStr = evalInfo(bestEv);
-    depthStr = depthInfo(ctrl, evs.client, !!evs.client?.cloud);
+    depthStr = depthInfo(ctrl, evs.local, !!evs.local?.cloud);
   }
   if (!evalStr) {
     if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
@@ -324,14 +324,14 @@ function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefine
 }
 
 function renderBestMove(ctrl: AnalyseController, style: Style): string {
-  const instance = ctrl.getCeval();
+  const instance = ctrl.ceval;
   if (!instance.allowed()) return NOT_ALLOWED;
   if (!instance.possible) return NOT_POSSIBLE;
   if (!instance.enabled()) return NOT_ENABLED;
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[] = [];
-  if (ctrl.threatMode() && node.threat) {
+  if (ctrl.getCeval().threatMode() && node.threat) {
     pvs = node.threat.pvs;
     setup.turn = opposite(setup.turn);
     if (setup.turn === 'white') setup.fullmoves += 1;

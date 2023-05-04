@@ -50,7 +50,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     if (gb) gb.onSpace();
     else if (ctrl.practice || ctrl.studyPractice) return;
     else if (ctrl.ceval.enabled()) ctrl.playBestMove();
-    else ctrl.toggleCeval();
+    else ctrl.ceval.enable();
   });
 
   if (ctrl.studyPractice) return;
@@ -62,16 +62,17 @@ export const bind = (ctrl: AnalyseCtrl) => {
       if (ctrl.keyboardHelp) lichess.pubsub.emit('analyse.close-all');
       ctrl.redraw();
     })
-    .bind('l', ctrl.toggleCeval)
     .bind('z', () => {
-      ctrl.toggleComputer();
-      ctrl.redraw();
+      if (!ctrl.ceval.enabled())
+        ctrl.ceval.enable();
+      else
+        ctrl.ceval.setEngineType('disabled');
     })
     .bind('a', () => {
-      ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
+      ctrl.ceval.toggleAutoShapes(!ctrl.ceval.showAutoShapes());
       ctrl.redraw();
     })
-    .bind('x', ctrl.toggleThreatMode)
+    .bind('x', ctrl.ceval.toggleThreatMode)
     .bind('e', () => {
       ctrl.toggleExplorer();
       ctrl.redraw();

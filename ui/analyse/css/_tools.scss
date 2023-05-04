@@ -3,10 +3,7 @@
     @extend %box-neat-force, %flex-column;
 
     background: $c-bg-box;
-
-    .ceval {
-      flex: 0 0 38px;
-    }
+    position: relative;
 
     .sub-box {
       @extend %border-bottom-active;

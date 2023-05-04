@@ -1,7 +1,7 @@
 import { h, VNode, Classes } from 'snabbdom';
 import { defined } from 'common';
 import throttle from 'common/throttle';
-import { renderEval as normalizeEval } from 'ceval';
+import { renderEval as normalizeEval, view as cevalView } from 'ceval';
 import { path as treePath } from 'tree';
 import { Controller, MaybeVNode, MaybeVNodes } from '../interfaces';
 
@@ -157,7 +157,7 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
-  const ev = node.eval || node.ceval;
+  const ev = cevalView.getBestEval(ctx.ctrl.getCeval(), { local: node.ceval, server: node.eval });
   return [
     node.san,
     ev &&
@@ -212,7 +212,6 @@ export function render(ctrl: Controller): VNode {
   const root = ctrl.getTree().root;
   const ctx = {
     ctrl: ctrl,
-    showComputer: false,
   };
   return h(
     'div.tview2.tview2-column',

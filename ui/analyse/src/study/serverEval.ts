@@ -25,7 +25,7 @@ export default class ServerEval {
 export function view(ctrl: ServerEval): VNode {
   const analysis = ctrl.root.data.analysis;
 
-  if (!ctrl.root.showComputer()) return disabled();
+  if (!ctrl.root.ceval.enabled()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
 
   return h(
@@ -51,7 +51,7 @@ function requestButton(ctrl: ServerEval) {
     noarg = root.trans.noarg;
   return h(
     'div.study__message',
-    root.mainline.length < 5
+    !root.canRequestServerEval()
       ? h('p', noarg('theChapterIsTooShortToBeAnalysed'))
       : !root.study!.members.canContribute()
       ? [noarg('onlyContributorsCanRequestAnalysis')]

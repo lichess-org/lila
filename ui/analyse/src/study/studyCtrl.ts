@@ -236,8 +236,8 @@ export default function (
     lichess.pubsub.emit('chat.permissions', { local: canContribute });
     lichess.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
     const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
-    if (!computer) ctrl.getCeval().enabled(false);
-    ctrl.getCeval().allowed(computer);
+    if (!computer) ctrl.ceval.setEngineType('disabled');
+    ctrl.ceval.allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
     ctrl.explorer.allowed(data.chapter.features.explorer);
   }
@@ -302,7 +302,7 @@ export default function (
     serverEval.reset();
     commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node);
     redraw();
-    ctrl.startCeval();
+    ctrl.ceval.startCeval();
   }
 
   const xhrReload = throttlePromiseDelay(

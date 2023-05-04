@@ -142,7 +142,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       attrs: { p: path },
       class: classes,
     },
-    moveView.renderMove(ctx, node)
+    moveView.renderMove(ctx.ctrl.ceval, ctx, node),
   );
 }
 
@@ -230,13 +230,14 @@ const emptyConcealOf: ConcealOf = function () {
 
 export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
+  const enabled = ctrl.ceval.enabled();
   const ctx: Ctx = {
     ctrl,
     truncateComments: !ctrl.embed,
     concealOf: concealOf || emptyConcealOf,
-    showComputer: ctrl.showComputer() && !ctrl.retro,
-    showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: ctrl.showComputer(),
+    showComputer: !ctrl.retro && ctrl.ceval.showServerComments(),
+    showGlyphs: enabled,
+    showEval: enabled,
     currentPath: findCurrentPath(ctrl),
   };
   //I hardcoded the root path, I'm not sure if there's a better way for that to be done

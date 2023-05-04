@@ -103,7 +103,15 @@ object bits:
     trans.gameOver,
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation,
-    trans.flipBoard
+    trans.flipBoard,
+    // ceval config
+    trans.bestMoveArrow,
+    trans.evaluationGauge,
+    trans.infiniteAnalysis,
+    trans.removesTheDepthLimit,
+    trans.multipleLines,
+    trans.cpus,
+    trans.memory,
   )
 
   private val trainingI18nKeys = baseI18nKeys ::: List(

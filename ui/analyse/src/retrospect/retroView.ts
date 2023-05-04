@@ -4,6 +4,7 @@ import AnalyseCtrl from '../ctrl';
 import { bind, dataIcon } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
+import { CevalCtrl } from 'ceval';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
@@ -51,7 +52,7 @@ function renderEvalProgress(node: Tree.Node): VNode {
 }
 
 const feedback = {
-  find(ctrl: RetroCtrl): VNode[] {
+  find(ctrl: RetroCtrl, ceval: CevalCtrl): VNode[] {
     return [
       h('div.player', [
         h('div.no-square', h('piece.king.' + ctrl.color)),
@@ -63,6 +64,7 @@ const feedback = {
               h(
                 'move',
                 renderIndexAndMove(
+                  ceval,
                   {
                     withDots: true,
                     showGlyphs: true,
@@ -120,7 +122,7 @@ const feedback = {
       jumpToNext(ctrl),
     ];
   },
-  view(ctrl: RetroCtrl): VNode[] {
+  view(ctrl: RetroCtrl, ceval: CevalCtrl): VNode[] {
     return [
       h(
         'div.half.top',
@@ -135,6 +137,7 @@ const feedback = {
                 h(
                   'strong',
                   renderIndexAndMove(
+                    ceval,
                     {
                       withDots: true,
                       showEval: false,
@@ -207,8 +210,8 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
   const ctrl: RetroCtrl = root.retro!;
   const current = ctrl.current();
   if (ctrl.isSolving() && current && root.path !== current.prev.path) return feedback.offTrack(ctrl);
-  if (fb === 'find') return current ? feedback.find(ctrl) : feedback.end(ctrl, root.hasFullComputerAnalysis);
-  return feedback[fb](ctrl);
+  if (fb === 'find') return current ? feedback.find(ctrl, root.ceval) : feedback.end(ctrl, root.hasFullComputerAnalysis);
+  return feedback[fb](ctrl, root.ceval);
 }
 
 export default function (root: AnalyseCtrl): VNode | undefined {

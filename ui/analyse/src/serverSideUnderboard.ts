@@ -3,7 +3,7 @@ import type { AcplChart } from 'chart/dist/interface';
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
 import modal from 'common/modal';
-import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
+import { url as xhrUrl } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
@@ -39,14 +39,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
 
   if (!window.LichessAnalyseNvui) {
     lichess.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
-    lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
-      if (v) {
-        setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
-        advChart?.reflow();
-      } else {
-        $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
-      }
-    });
     lichess.pubsub.on('analysis.change', (fen: Fen, _) => {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
@@ -78,6 +70,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         advChart = chart;
       });
   }
+
+  lichess.pubsub.on('analysis.server.start', startAdvantageChart);
 
   const storage = lichess.storage.make('analysis.panel');
   const setPanel = function (panel: string) {
@@ -118,14 +112,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
         return false;
       }
-      xhrTextRaw(this.action, { method: this.method }).then(res => {
-        if (res.ok) startAdvantageChart();
-        else
-          res.text().then(t => {
-            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
-            lichess.reload();
-          });
-      });
+      ctrl.requestServerEval();
       return false;
     });
   }

@@ -69,7 +69,7 @@ let cevalShown = false;
 
 export default function (ctrl: Controller): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
-  const showCeval = ctrl.vm.showComputer(),
+  const showCeval = ctrl.vm.mode === 'view',
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
     if (!cevalShown) ctrl.vm.autoScrollNow = true;

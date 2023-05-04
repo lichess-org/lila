@@ -2,7 +2,7 @@
   "name": "ceval",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org local computer analysis",
+  "description": "lichess.org computer analysis",
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -21,7 +21,8 @@
     "chessops": "^0.12.7",
     "idb-keyval": "^6.2.0",
     "snabbdom": "^3.5.1",
-    "common": "workspace:*"
+    "common": "workspace:*",
+    "tree": "workspace:*"
   },
   "scripts": {
     "compile": "tsc",

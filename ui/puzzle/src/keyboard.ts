@@ -22,12 +22,11 @@ export default (ctrl: KeyboardController) =>
       control.last(ctrl);
       ctrl.redraw();
     })
-    .bind('l', ctrl.toggleCeval)
     .bind('x', ctrl.toggleThreatMode)
     .bind('space', () => {
       if (ctrl.vm.mode === 'view') {
         if (ctrl.getCeval().enabled()) ctrl.playBestMove();
-        else ctrl.toggleCeval();
+        else ctrl.getCeval().enable();
       }
     })
     .bind('z', () => lichess.pubsub.emit('zen'))

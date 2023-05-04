@@ -1,57 +1,73 @@
 import throttle from 'common/throttle';
-import { CevalState, CevalWorker, WebWorker, ThreadedWasmWorker, ExternalEngine, ExternalWorker } from './worker';
+import { CevalState, CevalWorker, WebWorker, ThreadedWasmWorker, ExternalWorker } from './worker';
 import { Cache } from './cache';
-import { CevalOpts, Work, Step, Hovering, PvBoard, Started } from './types';
-import { defaultDepth, engineName, sanIrreversible, sharedWasmMemory } from './util';
+import { CevalOpts, Work, Step, Hovering, PvBoard, Started, EngineType, FallbackType } from './types';
+import { defaultDepth, engineName, isEvalBetter, sanIrreversible, sharedWasmMemory } from './util';
 import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, Toggle, toggle } from 'common';
+import { prop, toggle } from 'common';
 import { Result } from '@badrap/result';
 import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
 import { Rules } from 'chessops';
 import { CevalPlatform, CevalTechnology, detectPlatform } from './platform';
-
-const cevalDisabledSentinel = '1';
-
-function enabledAfterDisable() {
-  const enabledAfter = lichess.tempStorage.get('ceval.enabled-after');
-  const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
-  return enabledAfter === disable;
-}
+import { Api as ChessgroundApi } from 'chessground/api';
 
 export default class CevalCtrl {
   rules: Rules;
   analysable: boolean;
   possible: boolean;
-  cachable: boolean;
   private officialStockfish: boolean;
+  private initialEngineType: EngineType | undefined;
 
   platform: CevalPlatform;
   technology: CevalTechnology;
-
-  selectedEngine: StoredProp<string> = storedStringProp('ceval.engine', 'lichess');
-  externalEngine?: ExternalEngine; // if selected, available, and usable for current rules
 
   enableNnue = storedBooleanProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
   infinite = storedBooleanProp('ceval.infinite', false);
   multiPv: StoredProp<number>;
   allowed = toggle(true);
-  enabled: Toggle;
   downloadProgress = prop(0);
   hovering = prop<Hovering | null>(null);
   pvBoard = prop<PvBoard | null>(null);
   isDeeper = toggle(false);
+  actionMenu = toggle(false);
 
   curEval: Tree.LocalEval | null = null;
   lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
 
-  private worker: CevalWorker | undefined;
+  private workers = new Map<EngineType, CevalWorker>();
+
+  private getWorker(): CevalWorker | undefined {
+    return this.workers.get(this.getEngineType());
+  }
+
+  private findExternalEngine = () => {
+    return this.opts.externalEngines?.find(
+      e => 'external-' + e.id === this.getEngineType() && (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
+    );
+  }
+
+  externalEngines() {
+    return this.opts.externalEngines?.map(({ id, name, variants }) => ({
+      type: `external-${id}`,
+      name: name,
+      disabled: !variants.map(lichessRules).includes(this.rules),
+    })) ?? [];
+  }
+
+  isCachable(): boolean {
+    return this.technology === 'nnue' || this.technology === 'hce' || !!this.findExternalEngine()?.officialStockfish
+  }
 
   constructor(readonly opts: CevalOpts) {
     this.possible = this.opts.possible;
+
+    this.initialEngineType = this.engineType();
+    if (this.initialEngineType === 'disabled' || this.initialEngineType === 'server')
+      this.initialEngineType = undefined;
 
     // check root position
     this.rules = lichessRules(this.opts.variant.key);
@@ -60,17 +76,11 @@ export default class CevalCtrl {
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
     this.officialStockfish = this.rules == 'chess' && (pos.isErr || isStandardMaterial(pos.value));
-    this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
 
-    this.externalEngine = this.opts.externalEngines?.find(
-      e =>
-        e.id == this.selectedEngine() && (this.officialStockfish || e.variants.map(lichessRules).includes(this.rules))
-    );
-    this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.externalEngine);
+    this.platform = detectPlatform(this.officialStockfish, this.enableNnue(), this.findExternalEngine);
     this.technology = this.platform.technology;
 
     this.multiPv = storedIntProp(this.storageKey('ceval.multipv'), this.opts.multiPvDefault || 1);
-    this.cachable = this.technology == 'nnue' || this.technology == 'hce' || !!this.externalEngine?.officialStockfish;
   }
 
   storageKey = (k: string) => (this.opts.storageKeyPrefix ? `${this.opts.storageKeyPrefix}.${k}` : k);
@@ -78,7 +88,7 @@ export default class CevalCtrl {
   threads = () => {
     const stored = lichess.storage.get(this.storageKey('ceval.threads'));
     return Math.min(
-      this.platform.maxThreads,
+      this.platform.maxThreads(),
       stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4)
     );
   };
@@ -96,7 +106,7 @@ export default class CevalCtrl {
     this.sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     this.curEval = ev;
     this.opts.emit(ev, work);
-    if (ev.fen !== this.lastEmitFen && enabledAfterDisable()) {
+    if (ev.fen !== this.lastEmitFen) {
       // amnesty while auto disable not processed
       this.lastEmitFen = ev.fen;
       lichess.storage.fire('ceval.fen', ev.fen);
@@ -109,7 +119,7 @@ export default class CevalCtrl {
     this.isDeeper() || this.infinite() ? 99 : defaultDepth(this.technology, this.threads(), this.multiPv());
 
   private doStart = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
-    if (!this.enabled() || !this.possible || !enabledAfterDisable()) return;
+    if (!this.enabled() || !this.possible) return;
 
     const maxDepth = this.effectiveMaxDepth();
 
@@ -161,12 +171,14 @@ export default class CevalCtrl {
 
     // Notify all other tabs to disable ceval.
     lichess.storage.fire('ceval.disable');
-    lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
-    if (!this.worker) {
-      if (this.externalEngine) this.worker = new ExternalWorker(this.externalEngine, this.opts.redraw);
+    const type = this.getEngineType();
+    let worker: CevalWorker | undefined = this.getWorker();
+
+    if (!worker) {
+      if (type.startsWith('external-')) worker = new ExternalWorker(this.findExternalEngine()!, this.opts.redraw);
       else if (this.technology == 'nnue')
-        this.worker = new ThreadedWasmWorker(
+        worker = new ThreadedWasmWorker(
           {
             baseUrl: 'vendor/stockfish-nnue.wasm/',
             module: 'Stockfish',
@@ -181,7 +193,7 @@ export default class CevalCtrl {
           this.opts.redraw
         );
       else if (this.technology == 'hce')
-        this.worker = new ThreadedWasmWorker(
+        worker = new ThreadedWasmWorker(
           {
             baseUrl: this.officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
             module: this.officialStockfish ? 'Stockfish' : 'StockfishMv',
@@ -191,16 +203,17 @@ export default class CevalCtrl {
           this.opts.redraw
         );
       else
-        this.worker = new WebWorker(
+        worker = new WebWorker(
           {
             url:
               this.technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
           },
           this.opts.redraw
         );
+      this.workers.set(type, worker);
     }
 
-    this.worker.start(work);
+    worker.start(work);
 
     this.lastStarted = {
       path,
@@ -209,8 +222,9 @@ export default class CevalCtrl {
     };
   };
 
-  goDeeper = () => {
-    this.isDeeper(true);
+  continue = () => {
+    if (this.curDepth() >= this.effectiveMaxDepth())
+      this.isDeeper(true);
     if (this.lastStarted) {
       if (this.infinite()) {
         if (this.curEval) this.opts.emit(this.curEval, this.lastStarted);
@@ -218,13 +232,13 @@ export default class CevalCtrl {
         this.stop();
         this.doStart(this.lastStarted.path, this.lastStarted.steps, this.lastStarted.threatMode);
       }
+    } else {
+      this.startCeval();
     }
     this.opts.redraw();
   };
 
-  stop = () => {
-    this.worker?.stop();
-  };
+  stop = () => this.getWorker()?.stop();
 
   showingCloud = (): boolean => {
     if (!this.lastStarted) return false;
@@ -232,14 +246,12 @@ export default class CevalCtrl {
     return !!curr.ceval?.cloud;
   };
 
-  start = (path: string, steps: Step[], threatMode?: boolean) => {
+  private start = (path: string, steps: Step[], threatMode?: boolean) => {
     this.isDeeper(false);
     this.doStart(path, steps, !!threatMode);
   };
 
-  getState() {
-    return this.worker ? this.worker.getState() : CevalState.Initial;
-  }
+  getState = () => this.getWorker()?.getState() ?? CevalState.Initial;
 
   setThreads = (threads: number) => lichess.storage.set(this.storageKey('ceval.threads'), threads.toString());
   setHashSize = (hash: number) => lichess.storage.set(this.storageKey('ceval.hash-size'), hash.toString());
@@ -252,27 +264,212 @@ export default class CevalCtrl {
     this.pvBoard(pvBoard);
     this.opts.redraw();
   };
-  toggle = () => {
+
+  private engineType: StoredProp<EngineType> = storedStringProp('ceval.engine-type', 'disabled') as StoredProp<EngineType>;
+
+  setEngineType(type: EngineType) {
     if (!this.possible || !this.allowed()) return;
-    this.stop();
-    if (!this.enabled() && !document.hidden) {
-      const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
-      if (disable) lichess.tempStorage.set('ceval.enabled-after', disable);
-      this.enabled(true);
+    if (this.engineType() !== type) this.stop();
+    this.engineType(type);
+    this.opts.engineChanged();
+    if (type.startsWith('external-') || type === 'local') {
+      if (!this.initialEngineType)
+        this.initialEngineType = type;
+      if (type !== this.initialEngineType) {
+        location.reload();
+        return;
+      }
     } else {
-      lichess.tempStorage.set('ceval.enabled-after', '');
-      this.enabled(false);
+      this.threatMode(false);
     }
-  };
-  selectEngine = (id: string) => {
-    this.selectedEngine(this.opts.externalEngines?.find(e => e.id == id) ? id : 'lichess');
-    lichess.reload();
-  };
-  canGoDeeper = () =>
-    this.curDepth() < 99 &&
-    !this.isDeeper() &&
+    this.startCeval();
+  }
+  getEngineType(): EngineType {
+    if (!this.possible || !this.allowed()) return 'disabled';
+    const type = this.engineType();
+    if (
+      type === 'server' && !this.opts.showServerAnalysis ||
+      type.startsWith('external-') &&
+      !this.opts.externalEngines?.some(e =>
+        'external-' + e.id === type &&
+        e.variants.map(lichessRules).includes(this.rules)
+      )
+    )
+      return 'local';
+    return type;
+  }
+  enable() {
+    if (this.engineType() === 'disabled')
+      this.setEngineType(this.initialEngineType ?? 'local');
+  }
+  enabled() {
+    return this.getEngineType() !== 'disabled';
+  }
+  showClientEval() {
+    return this.enabled() && this.getEngineType() !== 'server' &&
+      (this.getFallbackType() !== 'complement' || !this.opts.getNode().eval || this.threatMode());
+  }
+
+  useServerEval() {
+    return this.getEngineType() === 'server' || this.enabled() && this.getFallbackType() !== 'disabled';
+  }
+
+  private serverComments = storedBooleanProp('show-comments', true);
+  setShowServerComments(show: boolean) {
+    this.serverComments(show);
+    if (!show) this.opts.tree.removeComputerVariations();
+    this.opts.redraw();
+  }
+  showServerComments() {
+    return this.serverComments() && this.useServerEval();
+  }
+
+  private fallbackType: StoredProp<FallbackType> = storedStringProp('ceval.fallback-type', 'overwrite') as StoredProp<FallbackType>;
+  getFallbackType(): FallbackType {
+    return this.fallbackType();
+  }
+  setFallbackType(type: FallbackType) {
+    this.fallbackType(type);
+    this.opts.engineChanged();
+  }
+
+  canPause = () =>
+    this.getState() === CevalState.Computing &&
+    !this.infinite() &&
+    !this.showingCloud();
+
+  canContinue = () =>
+    this.enabled() &&
+    (this.curDepth() < 99 || !this.isDeeper()) &&
     ((!this.infinite() && this.getState() !== CevalState.Computing) || this.showingCloud());
-  shortEngineName = () => engineName(this.technology, this.externalEngine);
-  longEngineName = () => this.worker?.engineName();
-  destroy = () => this.worker?.destroy();
+
+  localEngineName = () => engineName(this.technology);
+  longEngineName = () => this?.getWorker()?.engineName();
+
+  destroy = () => {
+    for (let worker of this.workers.values())
+      worker.destroy();
+  };
+
+  showAutoShapes = storedBooleanProp('show-auto-shapes', true);
+  showGauge = storedBooleanProp('show-gauge', true);
+  showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
+
+  cgVersion = {
+    js: 1, // increment to recreate chessground
+    dom: 1,
+  };
+
+  withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined => {
+    const chessground = this.opts.getChessground();
+    if (!chessground) return;
+    if (this.cgVersion.js !== this.cgVersion.dom) return;
+    return f(chessground);
+  }
+
+  onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
+    this.opts.tree.updateAt(path, (node: Tree.Node) => {
+      if (node.fen !== ev.fen && !isThreat) return;
+      if (isThreat) {
+        const threat = ev as Tree.LocalEval;
+        if (!node.threat || isEvalBetter(threat, node.threat) || node.threat.maxDepth < threat.maxDepth)
+          node.threat = threat;
+      } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
+      else if (!ev.cloud) {
+        if (node.ceval.cloud && this.isDeeper()) node.ceval = ev;
+        else if (ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
+      }
+
+      if (path === this.opts.getPath()) {
+        this.opts.setAutoShapes();
+        if (!isThreat) {
+          const retro = this.opts.getRetro?.(),
+            practice = this.opts.getPractice?.(),
+            studyPractice = this.opts.getStudyPractice?.();
+          if (retro) retro.onCeval();
+          if (practice) practice.onCeval();
+          if (studyPractice) studyPractice.onCeval();
+          this.opts.evalCache.onCeval();
+          if (ev.cloud && ev.depth >= this.effectiveMaxDepth()) this.stop();
+        }
+        this.opts.redraw();
+      }
+    });
+  };
+
+  private resetAutoShapes() {
+    const chessground = this.opts.getChessground();
+    if (this.showAutoShapes() || this.showMoveAnnotation()) this.opts.setAutoShapes();
+    else if (chessground) chessground.setAutoShapes([]);
+  }
+
+  toggleAutoShapes = (v: boolean): void => {
+    this.showAutoShapes(v);
+    this.resetAutoShapes();
+  };
+
+  toggleGauge = () => {
+    this.showGauge(!this.showGauge());
+  };
+
+  toggleMoveAnnotation = (v: boolean): void => {
+    this.showMoveAnnotation(v);
+    this.resetAutoShapes();
+  };
+
+  private cevalReset(): void {
+    this.stop();
+    this.enable();
+    this.startCeval();
+    this.opts.redraw();
+  }
+
+  cevalSetMultiPv = (v: number): void => {
+    this.multiPv(v);
+    this.opts.tree.removeCeval();
+    this.opts.evalCache.clear();
+    this.cevalReset();
+  };
+
+  cevalSetThreads = (v: number): void => {
+    this.setThreads(v);
+    this.cevalReset();
+  };
+
+  cevalSetHashSize = (v: number): void => {
+    this.setHashSize(v);
+    this.cevalReset();
+  };
+
+  cevalSetInfinite = (v: boolean): void => {
+    this.infinite(v);
+    this.cevalReset();
+  };
+
+  threatMode = prop(false);
+
+  canUseCeval(): boolean {
+    return !this.opts.getNode().threefold && !this.opts.outcome();
+  }
+
+  startCeval = throttle(800, () => {
+    if (this.showClientEval()) {
+      if (this.canUseCeval()) {
+        this.start(this.opts.getPath(), this.opts.getNodeList(), this.threatMode());
+        this.opts.evalCache?.fetch(this.opts.getPath(), this.multiPv());
+      } else this.stop();
+    }
+  });
+
+  toggleThreatMode = () => {
+    if (this.opts.getNode().check) return;
+    this.threatMode(!this.threatMode());
+    if (this.threatMode()) {
+      if (!this.enabled() || this.getEngineType() === 'server') this.setEngineType(this.initialEngineType ?? 'local');
+      if (this.opts.getPractice?.()) this.opts.togglePractice?.();
+    }
+    this.opts.setAutoShapes();
+    this.startCeval();
+    this.opts.redraw();
+  };
 }

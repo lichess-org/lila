@@ -74,6 +74,8 @@ object jsI18n:
         trans.fast,
         trans.realtimeReplay,
         trans.byCPL,
+        // engine config
+        trans.requestAComputerAnalysis,
         // context menu
         trans.promoteVariation,
         trans.makeMainLine,

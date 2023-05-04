@@ -1,17 +1,15 @@
 .ceval {
   @extend %metal-bg;
 
-  position: relative;
   display: flex;
   align-items: stretch;
+  padding: 4px 0;
+  flex: 0 0 48px;
+  height: 48px;
 
-  &.enabled {
-    padding-top: 2px;
-    height: 40px;
-
-    .show-threat {
-      visibility: visible;
-    }
+  &.enabled .show-threat,
+  &.enabled .config-engine {
+    visibility: visible;
   }
 
   .switch {
@@ -21,20 +19,37 @@
     margin-#{$end-direction}: 8px;
   }
 
-  pearl {
-    flex: 0 0 75px;
-    line-height: 38px;
-    font-size: 1.6em;
+  .pearl {
+    flex: 0 0 85px;
+    font-size: 1.4em;
     text-align: center;
     font-weight: bold;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
   }
 
+  .pearl-eval {
+    line-height: 0.75em;
+    font-size: 0.5em;
+    font-weight: normal;
+  }
+
+  .pause {
+    color: $c-primary;
+    margin-#{$start-direction}: 4px;
+  }
+
+  .pause::before {
+    vertical-align: -2px;
+  }
+  
   .is-red::before {
     vertical-align: -3px;
   }
 
-  help,
-  .engine {
+  help {
     @extend %nowrap-hidden;
 
     flex: 1 1 auto;
@@ -44,38 +59,19 @@
     color: $c-font-dim;
   }
 
-  .engine {
-    .cloud {
-      @extend %roboto, %box-radius;
-
-      margin-#{$start-direction}: 4px;
-      background: $c-secondary-dim;
-      color: $c-secondary-over;
-      padding: 1px 3px;
-      text-transform: uppercase;
-      font-size: 11px;
-    }
-
-    .info {
-      display: block;
-      white-space: nowrap;
-    }
-
-    .deeper {
-      color: $c-primary;
-      margin-#{$start-direction}: 4px;
-    }
-
-    .deeper::before {
-      vertical-align: -2px;
-    }
+  .engine-choice {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    flex: 1 1 auto;
+    cursor: pointer;
+    border-radius: 0.5em;
+    min-width: 0;
   }
 
-  .technology {
-    margin-#{$start-direction}: 5px;
-    &.good {
-      color: $c-good;
-    }
+  .engine-choice:hover {
+    background: #8884;
   }
 
   .bar {
@@ -113,13 +109,14 @@
   }
 
   .show-threat {
-    flex: 0 99 auto;
-    line-height: 38px;
+    flex: 0 0 auto;
     color: $c-font-dim;
     font-size: 0.9em;
-    padding-#{$end-direction}: 0.5em;
+    padding: 0 0.5em;
     overflow: hidden;
     visibility: hidden;
+    display: flex;
+    align-items: center;
 
     &:hover:not(.hidden),
     &.active {
@@ -130,5 +127,29 @@
       opacity: 0.3;
       cursor: default;
     }
+  }
+
+  .config-engine {
+    flex: 0 0 2.5em;
+    margin: -4px 0;
+    visibility: hidden;
+  }
+
+  .engine-config {
+    position: absolute;
+    background: $c-bg-box;
+    top: 48px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    max-height: calc(100% - 48px);
+
+    & > :first-child {
+      margin-top: 0 !important;
+    }
+  }
+
+  .config-study-message {
+    text-align: center;
   }
 }

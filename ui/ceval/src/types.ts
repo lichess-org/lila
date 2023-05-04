@@ -2,6 +2,8 @@ import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import CevalCtrl from './ctrl';
 import { ExternalEngine } from './worker';
+import { Api as ChessgroundApi } from 'chessground/api';
+import { TreeWrapper } from 'tree';
 
 export interface Eval {
   cp?: number;
@@ -42,6 +44,19 @@ export interface CevalOpts {
   setAutoShapes: () => void;
   redraw: Redraw;
   externalEngines?: ExternalEngine[];
+  engineChanged(): void;
+  showServerAnalysis: boolean;
+  getChessground(): ChessgroundApi;
+  tree: TreeWrapper;
+  getPath(): string;
+  getRetro?(): any;
+  getPractice?(): any;
+  getStudyPractice?(): any;
+  togglePractice?(): void;
+  evalCache?: any;
+  getNode(): Tree.Node;
+  outcome(): Outcome | undefined;
+  getNodeList(): Array<Tree.Node>;
 }
 
 export interface Hovering {
@@ -61,27 +76,30 @@ export interface Started {
 }
 
 export interface ParentCtrl {
+  redraw: Redraw;
   getCeval(): CevalCtrl;
   nextNodeBest(): string | undefined;
-  disableThreatMode?: Prop<boolean>;
-  toggleThreatMode(): void;
-  toggleCeval(): void;
   outcome(): Outcome | undefined;
-  mandatoryCeval?: Prop<boolean>;
+  mandatoryCeval: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
   playUciList(uciList: string[]): void;
   getOrientation(): Color;
-  threatMode(): boolean;
   getNode(): Tree.Node;
-  showComputer(): boolean;
   trans: Trans;
+  showServerAnalysis: boolean;
+  disableThreatMode(): boolean;
+  hasServerEval?(): boolean;
+  canRequestServerEval?(): boolean;
+  requestServerEval?(): void;
+  isStudy?: boolean;
+  setShowServerComments?(show: boolean): void;
 }
 
 export interface NodeEvals {
-  client?: Tree.ClientEval;
+  local?: Tree.ClientEval;
   server?: Tree.ServerEval;
 }
 
@@ -93,3 +111,6 @@ export interface Step {
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;
 }
+
+export type EngineType = 'disabled' | 'local' | 'server' | `external-${string}`;
+export type FallbackType = 'disabled' | 'complement' | 'overwrite';

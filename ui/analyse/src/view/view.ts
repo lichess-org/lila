@@ -1,7 +1,7 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
-import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon, iconTag } from 'common/snabbdom';
+import { bind, bindNonPassive, onInsert, dataIcon, iconTag } from 'common/snabbdom';
 import { bindMobileMousedown, isMobile } from 'common/mobile';
 import { playable } from 'game';
 import * as router from 'game/router';
@@ -271,21 +271,6 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
-const analysisDisabled = (ctrl: AnalyseCtrl): MaybeVNode =>
-  ctrl.ceval.possible && ctrl.ceval.allowed()
-    ? h('div.comp-off__hint', [
-        h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
-        h(
-          'button',
-          {
-            hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
-            attrs: { type: 'button' },
-          },
-          ctrl.trans.noarg('enable')
-        ),
-      ])
-    : undefined;
-
 const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
   h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
@@ -352,7 +337,7 @@ export default function (deps?: typeof studyDeps) {
     if (ctrl.nvui) return ctrl.nvui.render();
     const concealOf = makeConcealOf(ctrl),
       study = ctrl.study,
-      showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
+      showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice && ctrl.ceval.showClientEval(),
       menuIsOpen = ctrl.actionMenu(),
       gamebookPlay = ctrl.gamebookPlay(),
       gamebookPlayView = gamebookPlay && deps?.gbPlay.render(gamebookPlay),
@@ -396,7 +381,7 @@ export default function (deps?: typeof studyDeps) {
           },
         },
         class: {
-          'comp-off': !ctrl.showComputer(),
+          'comp-off': !ctrl.ceval.enabled(),
           'gauge-on': gaugeOn,
           'has-players': !!playerBars,
           'gamebook-play': !!gamebookPlayView,
@@ -446,7 +431,7 @@ export default function (deps?: typeof studyDeps) {
                 ...(menuIsOpen
                   ? [actionMenu(ctrl)]
                   : [
-                      ctrl.showComputer() ? cevalView.renderCeval(ctrl) : analysisDisabled(ctrl),
+                      cevalView.renderCeval(ctrl),
                       showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                       renderAnalyse(ctrl, concealOf),
                       gamebookEditView || forkView(ctrl, concealOf),
@@ -461,7 +446,7 @@ export default function (deps?: typeof studyDeps) {
               'div.analyse__underboard',
               {
                 hook:
-                  ctrl.synthetic || playable(ctrl.data) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl)),
+                  !ctrl.showServerAnalysis || playable(ctrl.data) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl)),
               },
               study ? deps?.studyView.underboard(ctrl) : [inputs(ctrl)]
             ),

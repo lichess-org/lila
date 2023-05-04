@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: stretch;
   font-size: 1.3rem;
+  z-index: 1;
 
   .fbt {
     @extend %box-radius-bottom;

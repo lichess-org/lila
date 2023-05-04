@@ -55,6 +55,9 @@ importers:
       breakpoint-sass:
         specifier: ^2.7.1
         version: 2.7.1
+      common:
+        specifier: workspace:*
+        version: link:common
       jest:
         specifier: ^28.1.3
         version: 28.1.3(@types/node@18.11.17)
@@ -168,6 +171,9 @@ importers:
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
+      tree:
+        specifier: workspace:*
+        version: link:../tree
 
   ui/challenge:
     dependencies:

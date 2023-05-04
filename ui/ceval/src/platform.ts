@@ -2,13 +2,13 @@ import { isAndroid, isIOS, isIPad } from 'common/mobile';
 import { pow2floor, sharedWasmMemory } from './util';
 import { ExternalEngine } from './worker';
 
-export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'external';
+export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue';
 
 export interface CevalPlatform {
   technology: CevalTechnology;
   growableSharedMem: boolean;
   supportsNnue: boolean;
-  maxThreads: number;
+  maxThreads: () => number;
   maxWasmPages: (minPages: number) => number;
   maxHashSize: () => number;
 }
@@ -17,14 +17,13 @@ export interface CevalPlatform {
 export function detectPlatform(
   officialStockfish: boolean,
   enableNnue: boolean,
-  externalEngine?: ExternalEngine
+  findExternalEngine: () => ExternalEngine | undefined,
 ): CevalPlatform {
   let technology: CevalTechnology = 'asmjs',
     growableSharedMem = false,
     supportsNnue = false;
 
-  if (externalEngine) technology = 'external';
-  else if (
+  if (
     typeof WebAssembly === 'object' &&
     typeof WebAssembly.validate === 'function' &&
     WebAssembly.validate(Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]))
@@ -46,15 +45,6 @@ export function detectPlatform(
     }
   }
 
-  const maxThreads = externalEngine
-    ? externalEngine.maxThreads
-    : technology == 'nnue' || technology == 'hce'
-    ? Math.min(
-        Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-        growableSharedMem ? 32 : officialStockfish ? 2 : 1
-      )
-    : 1;
-
   // the numbers returned by maxHashMB seem small, but who knows if wasm stockfish performance even
   // scales like native stockfish with increasing hash. prefer smaller, non-crashing values
   // steer the high performance crowd towards external engine as it gets better
@@ -71,7 +61,18 @@ export function detectPlatform(
     technology,
     growableSharedMem,
     supportsNnue,
-    maxThreads,
+    maxThreads: () =>
+    {
+      const engine = findExternalEngine();
+      return engine
+        ? engine.maxThreads
+        : technology == 'nnue' || technology == 'hce'
+        ? Math.min(
+            Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+            growableSharedMem ? 32 : officialStockfish ? 2 : 1
+          )
+        : 1;
+    },
     maxWasmPages: (minPages: number): number => {
       if (!growableSharedMem) return minPages;
       let maxPages = 32768; // hopefully desktop browser, 2 GB max shared
@@ -80,7 +81,11 @@ export function detectPlatform(
       else if (isIOS()) maxPages = 4096; // 256 MB max shared
       return Math.max(minPages, maxPages);
     },
-    maxHashSize: () => (technology == 'external' ? externalEngine?.maxHash || 16 : maxHashMB()),
+    maxHashSize: () => {
+      const engine = findExternalEngine();
+      if (!engine) return maxHashMB();
+      return engine.maxHash || 16;
+    },
   };
 }
 

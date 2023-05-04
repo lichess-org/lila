@@ -9,13 +9,13 @@ import AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
-  h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
+  h('div.cg-wrap.cgv' + ctrl.ceval.cgVersion.js, {
     hook: {
       insert: vnode => {
         ctrl.chessground = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl));
         ctrl.setAutoShapes();
         if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
-        ctrl.cgVersion.dom = ctrl.cgVersion.js;
+        ctrl.ceval.cgVersion.dom = ctrl.ceval.cgVersion.js;
       },
       destroy: _ => ctrl.chessground.destroy(),
     },

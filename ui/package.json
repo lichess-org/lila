@@ -9,6 +9,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
+    "common": "workspace:*",
     "breakpoint-sass": "^2.7.1",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",

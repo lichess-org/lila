@@ -58,9 +58,8 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     played = prop(false);
 
   function ensureCevalRunning() {
-    if (!root.showComputer()) root.toggleComputer();
-    if (!root.ceval.enabled()) root.toggleCeval();
-    if (root.threatMode()) root.toggleThreatMode();
+    root.ceval.enable();
+    if (root.ceval.threatMode()) root.ceval.toggleThreatMode();
   }
 
   function commentable(node: Tree.Node, bonus = 0): boolean {
