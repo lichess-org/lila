@@ -62,13 +62,16 @@ final class Mod(
     }
 
   def publicChatTimeout =
-    def doTimeout(implicit req: Request[?], me: Holder) =
-      FormResult(lila.chat.ChatTimeout.form) { data =>
-        env.chat.api.userChat.publicTimeout(data, me)
-      }
+    def doTimeout(me: Holder)(using req: Request[?]): Fu[Result] =
+      lila.chat.ChatTimeout.form
+        .bindFromRequest()
+        .fold(
+          form => fuccess(BadRequest(form.errors mkString "\n")),
+          data => env.chat.api.userChat.publicTimeout(data, me)
+        )
     SecureOrScopedBody(_.ChatTimeout)(
-      secure = ctx => me => doTimeout(ctx.body, me),
-      scoped = req => me => doTimeout(req, me)
+      secure = ctx => me => doTimeout(me)(using ctx.body),
+      scoped = req => me => doTimeout(me)(using req)
     )
 
   def booster(username: UserStr, v: Boolean) =
@@ -85,15 +88,10 @@ final class Mod(
 
   def troll(username: UserStr, v: Boolean) =
     OAuthModBody(_.Shadowban) { me =>
-      withSuspect(username) { prev =>
+      withSuspect(username): prev =>
         for suspect <- modApi.setTroll(me, prev, v)
         yield suspect.some
-      }
-    }(ctx =>
-      me => { suspect =>
-        reportC.onModAction(me, suspect)(using ctx)
-      }
-    )
+    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
 
   def warn(username: UserStr, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
