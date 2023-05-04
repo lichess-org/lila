@@ -26,7 +26,9 @@
   <string name="computerAnalysis">Компьютерил анализ</string>
   <string name="deleteFromHere">Гьаниса хвезабизе</string>
   <string name="move">Ин</string>
+  <string name="capture">Боси</string>
   <string name="close">Къазе</string>
+  <string name="losing">Къолел</string>
   <string name="recentGames">Дагьал цере рукӀарал хӀаял</string>
   <string name="noGameFound">ХӀаял ратичӀо</string>
   <string name="delete">Хвезабизе</string>
@@ -73,6 +75,23 @@
   <string name="tournamentIsStarting">Турнир байбихьулеб буго</string>
   <string name="pause">ЧӀезабизе</string>
   <string name="youArePlaying">Мун хӀалев вуго!</string>
+  <string name="nextXTournament">Хадусеб %s турнир:</string>
+  <string name="boardEditor">Хъарщил редактор</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Улка яги байрахъ</string>
+  <string name="thankYou">Баркала!</string>
+  <string name="success">Бергьенлъи</string>
+  <string name="yes">У</string>
+  <string name="help">Квербакъи:</string>
+  <string name="message">Хабар</string>
+  <string name="user">ХӀалтӀизабулев</string>
+  <string name="whatIsIheMatter">Щиб ккараб?</string>
+  <string name="cheat">ХӀилла</string>
+  <string name="insult">ХӀакъир гьави</string>
+  <string name="troll">Иришгъат гьави</string>
+  <string name="other">Цогидаб</string>
+  <string name="by">%s-(и)ца</string>
+  <string name="none">ГьечӀо</string>
+  <string name="victory">Бергьенлъи</string>
   <string name="edit">Хисизе</string>
   <string name="rapid">Рапид</string>
   <string name="important">КӀвар буго</string>
