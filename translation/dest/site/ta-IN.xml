@@ -185,6 +185,10 @@
     <item quantity="one">%s மணி நேரம்</item>
     <item quantity="other">%s மணி நேரம்</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s நிமிடம்</item>
+    <item quantity="other">%s நிமிடங்கல்</item>
+  </plurals>
   <string name="time">நேரம்</string>
   <string name="rating">மதிப்பீடு</string>
   <string name="ratingStats">மதிப்பீடு புள்ளிவிவரங்கள்</string>
@@ -199,6 +203,7 @@
   <string name="email">மின்னஞ்சல்</string>
   <string name="passwordReset">கடவுச்சொல்லை மீட்டமை</string>
   <string name="forgotPassword">கடவுச்சொல்லை மறந்து விட்டீர்களா?</string>
+  <string name="proceedToX">%s தொடரவும்</string>
   <string name="rank">வரிசை</string>
   <string name="rankX">மதிப்பீடு: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -331,6 +336,7 @@
   <string name="filterGames">ஆட்டங்களைத் தேர்ந்தெடு</string>
   <string name="reset">அழி</string>
   <string name="apply">புழங்கு</string>
+  <string name="save">சேமி</string>
   <string name="leaderboard">முன்னிலைக் காட்சி</string>
   <string name="pasteTheFenStringHere">FEN தொடரை இங்கே ஒட்டு</string>
   <string name="pasteThePgnStringHere">PGN தொடரை இங்கே ஒட்டு</string>
