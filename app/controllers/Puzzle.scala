@@ -259,49 +259,40 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       else BadRequest.toFuccess
     }
 
-  def vote(id: PuzzleId) =
-    AuthBody { implicit ctx => me =>
-      NoBot {
-        given play.api.mvc.Request[?] = ctx.body
-        env.puzzle.forms.vote
+  def vote(id: PuzzleId) = AuthBody { _ ?=> me =>
+    NoBot:
+      env.puzzle.forms.vote
+        .bindFromRequest()
+        .fold(
+          jsonFormError,
+          vote => env.puzzle.api.vote.update(id, me, vote) inject jsonOkResult
+        )
+  }
+
+  def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { ctx ?=> me =>
+    NoBot:
+      PuzzleTheme.findDynamic(themeStr) ?? { theme =>
+        env.puzzle.forms.themeVote
           .bindFromRequest()
           .fold(
             jsonFormError,
-            vote => env.puzzle.api.vote.update(id, me, vote) inject jsonOkResult
+            vote => env.puzzle.api.theme.vote(me, id, theme.key, vote) inject jsonOkResult
           )
       }
-    }
+  }
 
-  def voteTheme(id: PuzzleId, themeStr: String) =
-    AuthBody { implicit ctx => me =>
-      NoBot {
-        PuzzleTheme.findDynamic(themeStr) ?? { theme =>
-          given play.api.mvc.Request[?] = ctx.body
-          env.puzzle.forms.themeVote
-            .bindFromRequest()
-            .fold(
-              jsonFormError,
-              vote => env.puzzle.api.theme.vote(me, id, theme.key, vote) inject jsonOkResult
-            )
-        }
-      }
-    }
-
-  def setDifficulty(theme: String) =
-    AuthBody { implicit ctx => me =>
-      NoBot {
-        given play.api.mvc.Request[?] = ctx.body
-        env.puzzle.forms.difficulty
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            diff =>
-              PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
-                Redirect(routes.Puzzle.show(theme))
-                  .withCookies(env.lilaCookie.session(cookieDifficulty, diff))
-          )
-      }
-    }
+  def setDifficulty(theme: String) = AuthBody { _ ?=> me =>
+    NoBot:
+      env.puzzle.forms.difficulty
+        .bindFromRequest()
+        .fold(
+          jsonFormError,
+          diff =>
+            PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
+              Redirect(routes.Puzzle.show(theme))
+                .withCookies(env.lilaCookie.session(cookieDifficulty, diff))
+        )
+  }
 
   def themes     = Open(serveThemes)
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
@@ -516,7 +507,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   /* Mobile API: tell the server about puzzles solved while offline */
-  def mobileBcBatchSolve = AuthBody(parse.json) { implicit ctx => me =>
+  def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me =>
     negotiate(
       html = notFound,
       api = _ => {
@@ -546,24 +537,21 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     )
   }
 
-  def mobileBcVote(nid: Long) =
-    AuthBody { implicit ctx => me =>
-      negotiate(
-        html = notFound,
-        api = _ => {
-          given play.api.mvc.Request[?] = ctx.body
-          env.puzzle.forms.bc.vote
-            .bindFromRequest()
-            .fold(
-              jsonFormError,
-              intVote =>
-                Puz.numericalId(nid) ?? {
-                  env.puzzle.api.vote.update(_, me, intVote == 1) inject jsonOkResult
-                }
-            )
-        }
-      )
-    }
+  def mobileBcVote(nid: Long) = AuthBody { ctx ?=> me =>
+    negotiate(
+      html = notFound,
+      api = _ =>
+        env.puzzle.forms.bc.vote
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            intVote =>
+              Puz.numericalId(nid) ?? {
+                env.puzzle.api.vote.update(_, me, intVote == 1) inject jsonOkResult
+              }
+          )
+    )
+  }
 
   def help = Open:
     Ok(html.site.helpModal.puzzle).toFuccess

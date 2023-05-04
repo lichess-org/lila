@@ -17,13 +17,11 @@ final class Coordinate(env: Env) extends LilaController(env):
       views.html.coordinate.show(score)
     }
 
-  def score =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      env.coordinate.forms.score
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(BadRequest),
-          data => env.coordinate.api.addScore(me.id, data.mode, data.color, data.score) inject Ok(())
-        )
-    }
+  def score = AuthBody { ctx ?=> me =>
+    env.coordinate.forms.score
+      .bindFromRequest()
+      .fold(
+        _ => fuccess(BadRequest),
+        data => env.coordinate.api.addScore(me.id, data.mode, data.color, data.score) inject Ok(())
+      )
+  }

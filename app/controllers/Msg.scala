@@ -60,25 +60,24 @@ final class Msg(env: Env) extends LilaController(env):
       inboxJson(me) map { Ok(_) }
   }
 
-  def compatCreate =
-    AuthBody { implicit ctx => me =>
-      ctx.noKid ?? ctx.noBot ?? {
-        env.msg.compat
-          .create(me)(ctx.body, formBinding)
-          .fold(
-            jsonFormError,
-            _ map { id =>
-              Ok(Json.obj("ok" -> true, "id" -> id))
-            }
-          )
-      }
+  def compatCreate = AuthBody { ctx ?=> me =>
+    ctx.noKid ?? ctx.noBot ?? {
+      env.msg.compat
+        .create(me)(ctx.body, formBinding)
+        .fold(
+          jsonFormError,
+          _ map { id =>
+            Ok(Json.obj("ok" -> true, "id" -> id))
+          }
+        )
     }
+  }
 
   def apiPost(username: UserStr) =
     val userId = username.id
     AuthOrScopedBody(_.Msg.Write)(
       // compat: reply
-      auth = implicit ctx =>
+      auth = ctx ?=>
         me =>
           env.msg.compat
             .reply(me, userId)(using ctx.body, formBinding)

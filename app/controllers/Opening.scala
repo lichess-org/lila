@@ -59,12 +59,11 @@ final class Opening(env: Env) extends LilaController(env):
         .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
         .toFuccess
 
-  def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { implicit ctx => me =>
-    given play.api.mvc.Request[?] = ctx.body
+  def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { ctx ?=> me =>
     env.opening.api
       .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), Crawler.No)
       .map(_.flatMap(_.query.exactOpening))
-      .flatMapz { op =>
+      .flatMapz: op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
         lila.opening.OpeningWiki.form
           .bindFromRequest()
@@ -72,7 +71,6 @@ final class Opening(env: Env) extends LilaController(env):
             _ => redirect.toFuccess,
             text => env.opening.wiki.write(op, text, me.user) inject redirect
           )
-      }
   }
 
   def tree = Open:

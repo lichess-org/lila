@@ -46,9 +46,9 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def create =
     AuthOrScopedBody(_.Study.Write)(
-      auth = implicit ctx =>
+      auth = ctx ?=>
         me =>
-          NoLameOrBot {
+          NoLameOrBot:
             env.relay.tourForm.create
               .bindFromRequest()(ctx.body, formBinding)
               .fold(
@@ -60,24 +60,21 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                     }
                   }
               )
-          },
+      ,
       scoped = req =>
         me =>
-          NoLameOrBot(me) {
+          NoLameOrBot(me):
             env.relay.tourForm.create
               .bindFromRequest()(req, formBinding)
               .fold(
                 err => BadRequest(apiFormError(err)).toFuccess,
                 setup =>
-                  rateLimitCreation(me, req, rateLimited) {
-                    JsonOk {
+                  rateLimitCreation(me, req, rateLimited):
+                    JsonOk:
                       env.relay.api.tourCreate(setup, me) map { tour =>
                         env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
                       }
-                    }
-                  }
               )
-          }
     )
 
   def edit(id: TourModel.Id) = Auth { ctx ?=> _ =>
@@ -88,9 +85,9 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def update(id: TourModel.Id) =
     AuthOrScopedBody(_.Study.Write)(
-      auth = implicit ctx =>
+      auth = ctx ?=>
         me =>
-          WithTourCanUpdate(id) { tour =>
+          WithTourCanUpdate(id): tour =>
             env.relay.tourForm
               .edit(tour)
               .bindFromRequest()(ctx.body, formBinding)
@@ -99,8 +96,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                 setup =>
                   env.relay.api.tourUpdate(tour, setup, me) inject
                     Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-              )
-          },
+              ),
       scoped = implicit req =>
         me =>
           env.relay.api tourById id flatMapz { tour =>

@@ -320,10 +320,9 @@ final class User(
         }
     )
 
-  def mod(username: UserStr) =
-    Secure(_.UserModView) { implicit ctx => holder =>
-      modZoneOrRedirect(holder, username)
-    }
+  def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> holder =>
+    modZoneOrRedirect(holder, username)
+  }
 
   protected[controllers] def modZoneOrRedirect(holder: Holder, username: UserStr)(using
       ctx: Context
@@ -459,25 +458,23 @@ final class User(
         }
     }
 
-  def writeNote(username: UserStr) =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      lila.user.UserForm.note
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(err.errors.toString).toFuccess,
-          data =>
-            doWriteNote(username, me, data)(user =>
-              if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
-                Ok(views.html.mod.inquiry.noteZone(user, notes))
+  def writeNote(username: UserStr) = AuthBody { ctx ?=> me =>
+    lila.user.UserForm.note
+      .bindFromRequest()
+      .fold(
+        err => BadRequest(err.errors.toString).toFuccess,
+        data =>
+          doWriteNote(username, me, data)(user =>
+            if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+              Ok(views.html.mod.inquiry.noteZone(user, notes))
+            }
+            else
+              env.socialInfo.fetchNotes(user, me) map { notes =>
+                Ok(views.html.user.show.header.noteZone(user, notes))
               }
-              else
-                env.socialInfo.fetchNotes(user, me) map { notes =>
-                  Ok(views.html.user.show.header.noteZone(user, notes))
-                }
-            )
-        )
-    }
+          )
+      )
+  }
 
   def apiReadNote(username: UserStr) =
     Scoped() { _ => me =>
@@ -516,14 +513,12 @@ final class User(
     }
   }
 
-  def setDoxNote(id: String, dox: Boolean) =
-    Secure(_.Admin) { implicit ctx => _ =>
-      OptionFuResult(env.user.noteApi.byId(id)) { note =>
-        note.mod ?? {
-          env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
-        }
+  def setDoxNote(id: String, dox: Boolean) = Secure(_.Admin) { ctx ?=> _ =>
+    OptionFuResult(env.user.noteApi.byId(id)): note =>
+      note.mod ?? {
+        env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
       }
-    }
+  }
 
   def opponents = Auth { ctx ?=> me =>
     getUserStr("u")

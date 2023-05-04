@@ -43,48 +43,48 @@ final class Pref(env: Env) extends LilaController(env):
             case Some(categ) => Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).toFuccess
         }
 
-  def formApply =
-    AuthBody { implicit ctx => _ =>
-      def onSuccess(data: lila.pref.PrefForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
-      implicit val req                                 = ctx.body
-      forms.pref
-        .bindFromRequest()
-        .fold(
-          _ =>
-            forms.pref
-              .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
-              .fold(
-                err => BadRequest(err.toString).toFuccess,
-                onSuccess
-              ),
-          onSuccess
-        )
-    }
+  def formApply = AuthBody { ctx ?=> _ =>
+    def onSuccess(data: lila.pref.PrefForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
+    forms.pref
+      .bindFromRequest()
+      .fold(
+        _ =>
+          forms.pref
+            .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
+            .fold(
+              err => BadRequest(err.toString).toFuccess,
+              onSuccess
+            ),
+        onSuccess
+      )
+  }
 
-  def notifyFormApply =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      NotificationPref.form.form
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(err.toString).toFuccess,
-          data => env.notifyM.api.prefs.set(me, data) inject Ok("saved")
-        )
-    }
+  def notifyFormApply = AuthBody { ctx ?=> me =>
+    NotificationPref.form.form
+      .bindFromRequest()
+      .fold(
+        err => BadRequest(err.toString).toFuccess,
+        data => env.notifyM.api.prefs.set(me, data) inject Ok("saved")
+      )
+  }
 
   def set(name: String) = OpenBody:
     if name == "zoom"
     then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).toFuccess
-    else if (name == "agreement") then
+    else if name == "agreement" then
       ctx.me ?? api.agree inject {
-        if (HTTPRequest.isXhr(ctx.req)) NoContent else Redirect(routes.Lobby.home)
+        if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
       }
     else
-      (setters get name) ?? { (form, fn) =>
-        FormResult(form): v =>
-          fn(v, ctx) map { cookie =>
-            Ok(()).withCookies(cookie)
-          }
+      setters.get(name) ?? { (form, fn) =>
+        form
+          .bindFromRequest()
+          .fold(
+            form => fuccess(BadRequest(form.errors mkString "\n")),
+            v =>
+              fn(v, ctx).map: cookie =>
+                Ok(()).withCookies(cookie)
+          )
       }
 
   private lazy val setters = Map(
