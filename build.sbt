@@ -81,7 +81,7 @@ lazy val api = module("api",
 
 lazy val i18n = module("i18n",
   Seq(db, hub),
-  tests.bundle ++ Seq(scalatags, jodaTime)
+  tests.bundle ++ Seq(scalatags)
 ).settings(
   Compile / sourceGenerators += Def.task {
     MessageCompiler(
