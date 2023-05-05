@@ -155,7 +155,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           JsonOk:
             env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
 
-  def player(tourId: TourId, userId: UserStr) = Action.async:
+  def player(tourId: TourId, userId: UserStr) = Anon:
     cachedTour(tourId).flatMapz: tour =>
       JsonOk:
         api.playerInfo(tour, userId.id) flatMapz {
@@ -508,17 +508,15 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
   }
 
-  def byTeam(id: TeamId) =
-    Action.async { implicit req =>
-      given play.api.i18n.Lang = reqLang
-      apiC.jsonDownload {
-        repo
-          .byTeamCursor(id)
-          .documentSource(getInt("max", req) | 100)
-          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
-          .throttle(20, 1.second)
-      }.toFuccess
-    }
+  def byTeam(id: TeamId) = Anon:
+    given play.api.i18n.Lang = reqLang
+    apiC.jsonDownload {
+      repo
+        .byTeamCursor(id)
+        .documentSource(getInt("max", req) | 100)
+        .mapAsync(1)(env.tournament.apiJsonView.fullJson)
+        .throttle(20, 1.second)
+    }.toFuccess
 
   def battleTeams(id: TourId) = Open:
     cachedTour(id).flatMap:

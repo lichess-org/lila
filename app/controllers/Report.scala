@@ -2,6 +2,7 @@ package controllers
 package report
 
 import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
+import play.api.data.*
 import views.*
 
 import lila.api.{ BodyContext, Context }
@@ -11,15 +12,13 @@ import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspec
 import lila.report.Report.{ Id as ReportId }
 import lila.user.{ Holder, User as UserModel }
 
-import play.api.data.*
-
 final class Report(
     env: Env,
     userC: => User,
     modC: => Mod
 ) extends LilaController(env):
 
-  private def api = env.report.api
+  import env.report.api
 
   private given Conversion[Holder, AsMod] = holder => AsMod(holder.user)
 
@@ -43,7 +42,7 @@ final class Report(
     api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) inject
-          Ok(
+          Ok:
             html.report
               .list(
                 reports.filter(r => lila.report.Reason.isGrantedFor(me)(r.report.reason)),
@@ -52,7 +51,6 @@ final class Report(
                 streamers,
                 appeals
               )
-          )
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me =>
@@ -112,11 +110,10 @@ final class Report(
 
   def process(id: ReportId) = SecureBody(_.SeeReport) { ctx ?=> me =>
     api byId id flatMap {
-      _.fold(Redirect(routes.Report.list).toFuccess) { inquiry =>
+      _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
         inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
           api.process(me, inquiry) >>
           onInquiryAction(inquiry, me, processed = true)
-      }
     }
   }
 
@@ -142,7 +139,7 @@ final class Report(
     getUserStr("username") ?? env.user.repo.byId flatMap { user =>
       if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
       else
-        env.report.forms.createWithCaptcha map { case (form, captcha) =>
+        env.report.forms.createWithCaptcha map { (form, captcha) =>
           val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
             case (Some(u), Some(pid)) =>
               form.fill(
@@ -173,7 +170,7 @@ final class Report(
       )
   }
 
-  def flag = AuthBody { ctx ?=> implicit me =>
+  def flag = AuthBody { ctx ?=> me =>
     env.report.forms.flag
       .bindFromRequest()
       .fold(

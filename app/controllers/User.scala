@@ -42,13 +42,12 @@ final class User(
             case _          => roundC.watch(pov, userTv = user.some)
       }
 
-  def tvExport(username: UserStr) =
-    Action.async: req =>
-      env.game.cached.lastPlayedPlayingId(username.id) orElse
-        env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
-          case None         => NotFound("No ongoing game").toFuccess
-          case Some(gameId) => gameC.exportGame(gameId, req)
-        }
+  def tvExport(username: UserStr) = Anon:
+    env.game.cached.lastPlayedPlayingId(username.id) orElse
+      env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
+        case None         => NotFound("No ongoing game").toFuccess
+        case Some(gameId) => gameC.exportGame(gameId, req)
+      }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
@@ -184,7 +183,7 @@ final class User(
           }
       else fuccess(Ok(html.user.bits.miniClosed(user)))
 
-  def online = Action.async { implicit req =>
+  def online = Anon:
     val max = 50
     negotiate(
       html = notFoundJson(),
@@ -199,7 +198,6 @@ final class User(
           )
         }
     )
-  }
 
   def ratingHistory(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -274,7 +272,7 @@ final class User(
       )
     }
 
-  def apiList = Action.async:
+  def apiList = Anon:
     env.user.cached.top10.get {} map { leaderboards =>
       import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
@@ -289,16 +287,14 @@ final class User(
       )
     }
 
-  def topNbApi(nb: Int, perfKey: Perf.Key) =
-    Action.async {
-      if nb == 1 && perfKey == Perf.Key("standard") then
-        env.user.cached.top10.get {} map { leaderboards =>
-          import env.user.jsonView.lightPerfIsOnlineWrites
-          import lila.user.JsonView.leaderboardStandardTopOneWrites
-          JsonOk(leaderboards)
-        }
-      else topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
-    }
+  def topNbApi(nb: Int, perfKey: Perf.Key) = Anon:
+    if nb == 1 && perfKey == Perf.Key("standard") then
+      env.user.cached.top10.get {} map { leaderboards =>
+        import env.user.jsonView.lightPerfIsOnlineWrites
+        import lila.user.JsonView.leaderboardStandardTopOneWrites
+        JsonOk(leaderboards)
+      }
+    else topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
     PerfType(perfKey) ?? { perfType =>

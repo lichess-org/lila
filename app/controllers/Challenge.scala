@@ -219,24 +219,22 @@ final class Challenge(
     }
   }
 
-  def apiStartClocks(id: GameId) =
-    Action.async { req =>
-      import cats.syntax.all.*
-      val scopes = List(OAuthScope.Challenge.Write)
-      (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
-        env.oAuth.server.authBoth(scopes, req)
-      } ?? {
-        _ flatMap {
-          case Left(e) => handleScopedFail(scopes, e)
-          case Right((u1, u2)) =>
-            env.game.gameRepo game id flatMapz { g =>
-              env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
-                (_.filter(_.hasUserIds(u1.id, u2.id)))
-            } mapz { game =>
-              env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
-              jsonOkResult
-            }
-        }
+  def apiStartClocks(id: GameId) = Anon:
+    import cats.syntax.all.*
+    val scopes = List(OAuthScope.Challenge.Write)
+    (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
+      env.oAuth.server.authBoth(scopes, req)
+    } ?? {
+      _ flatMap {
+        case Left(e) => handleScopedFail(scopes, e)
+        case Right((u1, u2)) =>
+          env.game.gameRepo game id flatMapz { g =>
+            env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
+              (_.filter(_.hasUserIds(u1.id, u2.id)))
+          } mapz { game =>
+            env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
+            jsonOkResult
+          }
       }
     }
 

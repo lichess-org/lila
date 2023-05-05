@@ -36,7 +36,7 @@ final class Tv(
   import lila.common.Json.given
   given Writes[lila.tv.Tv.Champion] = Json.writes
 
-  def channels = apiC.ApiRequest: _ =>
+  def channels = apiC.ApiRequest:
     env.tv.tv.getChampions map {
       _.channels map { (chan, champ) => chan.name -> champ }
     } map { Json.toJson(_) } dmap ApiResult.Data.apply
@@ -79,7 +79,7 @@ final class Tv(
           "html" -> views.html.game.mini(Pov naturalOrientation game).toString
         )
 
-  def apiGamesChannel(chanKey: String) = Action.async: req =>
+  def apiGamesChannel(chanKey: String) = Anon:
     lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
       env.tv.tv.getGameIds(channel, getInt("nb", req).fold(10)(_ atMost 30 atLeast 1)) map { gameIds =>
         val config =
@@ -93,7 +93,7 @@ final class Tv(
       }
     }
 
-  def feed = Action.async: req =>
+  def feed = Anon:
     import makeTimeout.short
     import akka.pattern.ask
     import lila.round.TvBroadcast
@@ -107,9 +107,8 @@ final class Tv(
       else apiC.sourceToNdJson(source)
     }
 
-  def frame = Action.async { implicit req =>
+  def frame = Anon:
     env.tv.tv.getBestGame map {
       case None       => NotFound
       case Some(game) => Ok(views.html.tv.embed(Pov naturalOrientation game))
     }
-  }

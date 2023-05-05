@@ -69,22 +69,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           api = v => renderJson(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some) dmap { Ok(_) }
         ) dmap (_.noCache)
 
-  def apiDaily =
-    Action.async { implicit req =>
-      env.puzzle.daily.get flatMap {
-        _.fold(notFoundJson()) { daily =>
-          JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(using reqLang))
-        }
-      }
-    }
+  def apiDaily = Anon:
+    env.puzzle.daily.get.flatMap:
+      _.fold(notFoundJson()): daily =>
+        JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(using reqLang))
 
-  def apiShow(id: PuzzleId) =
-    Action.async { implicit req =>
-      env.puzzle.api.puzzle find id flatMap {
-        _.fold(notFoundJson()) { puzzle =>
-          JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(using reqLang))
-        }
-      }
+  def apiShow(id: PuzzleId) = Anon:
+    env.puzzle.api.puzzle find id flatMap {
+      _.fold(notFoundJson()): puzzle =>
+        JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(using reqLang))
     }
 
   def home = Open(serveHome)
@@ -246,9 +239,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
     env.user.repo.addStreakRun(userId, score)
 
-  def apiStreak = Action.async { req =>
-    streakJsonAndPuzzle(using reqLang(using req)) mapz { (json, _) => JsonOk(json) }
-  }
+  def apiStreak = Anon:
+    streakJsonAndPuzzle(using reqLang).mapz: (json, _) =>
+      JsonOk(json)
 
   def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write) { _ ?=> me =>
     if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
@@ -360,13 +353,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
           }
 
-  def frame =
-    Action.async { implicit req =>
-      env.puzzle.daily.get map {
-        case None        => NotFound
-        case Some(daily) => html.puzzle.embed(daily)
-      }
-    }
+  def frame = Anon:
+    env.puzzle.daily.get.map:
+      _.fold(NotFound)(html.puzzle.embed(_))
 
   def activity = Scoped(_.Puzzle.Read) { req ?=> me =>
     val config = lila.puzzle.PuzzleActivity.Config(

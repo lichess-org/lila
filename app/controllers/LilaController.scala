@@ -51,14 +51,27 @@ abstract private[controllers] class LilaController(val env: Env)
 
   given lila.common.config.NetDomain = env.net.domain
 
-  inline def ctx(using it: Context) = it // `ctx` is shorter and nicer than `summon[Context]`
+  inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
+  inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
 
-  given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
   given (using ctx: Context): Lang                                 = ctx.lang
   given (using ctx: Context): RequestHeader                        = ctx.req
   given (using req: RequestHeader): ui.EmbedConfig                 = ui.EmbedConfig(req)
+  given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
 
   def reqLang(using req: RequestHeader): Lang = I18nLangPicker(req)
+
+  /* Anonymous requests */
+  protected def Anon(f: RequestHeader ?=> Fu[Result]): Action[Unit] =
+    Action.async(parse.empty)(f(using _))
+
+  /* Anonymous requests, with a body */
+  protected def AnonBody(f: Request[?] ?=> Fu[Result]): Action[AnyContent] =
+    Action.async(parse.anyContent)(f(using _))
+
+  /* Anonymous requests, with a body */
+  protected def AnonBodyOf[A](parser: BodyParser[A])(f: Request[A] ?=> A => Fu[Result]): Action[A] =
+    Action.async(parser)(req => f(using req)(req.body))
 
   /* Anonymous and authenticated requests */
   protected def Open(f: Context ?=> Fu[Result]): Action[Unit] =

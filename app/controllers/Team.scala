@@ -424,25 +424,22 @@ final class Team(
           }
     )
 
-  def autocomplete =
-    Action.async { req =>
-      get("term", req).filter(_.nonEmpty) match
-        case None => BadRequest("No search term provided").toFuccess
-        case Some(term) =>
-          for {
-            teams <- api.autocomplete(term, 10)
-            _     <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
-          } yield JsonOk {
-            JsArray(teams map { team =>
-              Json.obj(
-                "id"      -> team.id,
-                "name"    -> team.name,
-                "owner"   -> env.user.lightUserApi.syncFallback(team.createdBy).name,
-                "members" -> team.nbMembers
-              )
-            })
-          }
-    }
+  def autocomplete = Anon:
+    get("term", req).filter(_.nonEmpty) match
+      case None => BadRequest("No search term provided").toFuccess
+      case Some(term) =>
+        for {
+          teams <- api.autocomplete(term, 10)
+          _     <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
+        } yield JsonOk:
+          JsArray(teams map { team =>
+            Json.obj(
+              "id"      -> team.id,
+              "name"    -> team.name,
+              "owner"   -> env.user.lightUserApi.syncFallback(team.createdBy).name,
+              "members" -> team.nbMembers
+            )
+          })
 
   def pmAll(id: TeamId) = Auth { ctx ?=> _ =>
     WithOwnedTeamEnabled(id) { team =>
@@ -486,16 +483,13 @@ final class Team(
 
   // API
 
-  def apiAll(page: Int) =
-    Action.async {
-      import env.team.jsonView.given
-      import lila.common.paginator.PaginatorJson.given
-      JsonOk {
-        paginator popularTeams page flatMap { pager =>
-          env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
-        }
+  def apiAll(page: Int) = Anon:
+    import env.team.jsonView.given
+    import lila.common.paginator.PaginatorJson.given
+    JsonOk:
+      paginator popularTeams page flatMap { pager =>
+        env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
       }
-    }
 
   def apiShow(id: TeamId) = Open:
     JsonOptionOk:
@@ -512,7 +506,7 @@ final class Team(
         }.some
       }
 
-  def apiSearch(text: String, page: Int) = Action.async:
+  def apiSearch(text: String, page: Int) = Anon:
     import env.team.jsonView.given
     import lila.common.paginator.PaginatorJson.given
     JsonOk:
