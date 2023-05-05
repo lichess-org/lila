@@ -67,15 +67,37 @@ final class StudyMultiBoard(
                       "lang" -> "js",
                       "args" -> $arr("$root", "$tags"),
                       "body" -> """function(root, tags) {
-                    |tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result'));
-                    |const node = tags.length
-                    |  ? Object.keys(root).reduce(
-                    |      ([node, path], i) =>
-                    |        root[i].p > node.p && i.startsWith(path) ? [root[i], i] : [node, path],
-                    |      [root['_'], '']
-                    |    )[0]
-                    |  : root['_'];
-                    |return {node:{fen:node.f,uci:node.u},tags} }""".stripMargin
+                                    tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result'));
+                                    const [node, clockTicking] = tags.length ?
+                                      Object.keys(root).reduce(
+                                        ([node, clockTicking, path, pathTicking], i) => {
+                                          if (root[i].p > node.p && i.startsWith(path)) {
+                                            clockTicking = node;
+                                            pathTicking = path;
+                                            node = root[i];
+                                            path = i;
+                                          } else if (clockTicking && root[i].p > clockTicking.p && i.startsWith(pathTicking)) {
+                                            clockTicking = root[i];
+                                            pathTicking = i;
+                                          }
+                                          return [node, clockTicking, path, pathTicking]
+                                        },
+                                        [root['_'], undefined, '', undefined]
+                                      ).slice(0, 2) : [root['_'], undefined];
+                                    const [whiteClock, blackClock] = clockTicking ? node.f.includes(" b") ? [node.l, clockTicking.l] : [clockTicking.l, node.l] : [undefined, undefined]
+                                    
+                                    return {
+                                      node: {
+                                        fen: node.f,
+                                        uci: node.u,
+                                      },
+                                      tags,
+                                      clocks: {
+                                        black: blackClock,
+                                        white: whiteClock,
+                                      }
+                                    }
+                                  }""".stripMargin
                     )
                   ),
                   "orientation" -> "$setup.orientation",
