@@ -708,6 +708,8 @@ object I18nKeys:
   val `useTheReportForm` = I18nKey("useTheReportForm")
   val `toRequestSupport` = I18nKey("toRequestSupport")
   val `tryTheContactPage` = I18nKey("tryTheContactPage")
+  val `makeSureToRead` = I18nKey("makeSureToRead")
+  val `theForumEtiquette` = I18nKey("theForumEtiquette")
   val `thisTopicIsArchived` = I18nKey("thisTopicIsArchived")
   val `joinTheTeamXToPost` = I18nKey("joinTheTeamXToPost")
   val `teamNamedX` = I18nKey("teamNamedX")
