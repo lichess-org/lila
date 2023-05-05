@@ -179,11 +179,36 @@ function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefin
   );
 }
 
+const renderClock = (color: Color, time: number) =>
+  h(`span.mini-game__clock.mini-game__clock--${color}`, {
+    attrs: {
+      'data-time': time,
+      'data-managed': 1,
+    },
+  });
+
+const computeTimeLeft = (
+  preview: ChapterPreview,
+  player: ChapterPreviewPlayer | undefined,
+  color: Color
+): number | undefined => {
+  if (player && player.clock) {
+    if (preview.lastMoveAt && preview.sideToPlay == color) {
+      const spent = (Date.now() - preview.lastMoveAt) / 1000;
+      return Math.max(0, player.clock / 100 - spent);
+    } else {
+      return player.clock / 100;
+    }
+  } else {
+    return;
+  }
+};
+
 const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const player = preview.players && preview.players[color];
   const result = preview.outcome?.split('-')[color === 'white' ? 0 : 1];
-  return h('span.mini-game__player', [
-    h('span.mini-game__user', [renderPlayer(player)]),
-    result && h('span.mini-game__result', result.replace('1/2', '½')),
-  ]);
+  const resultNode = result && h('span.mini-game__result', result.replace('1/2', '½'));
+  const timeleft = computeTimeLeft(preview, player, color);
+  const clock = timeleft && renderClock(color, timeleft);
+  return h('span.mini-game__player', [h('span.mini-game__user', [renderPlayer(player)]), resultNode ?? clock]);
 };

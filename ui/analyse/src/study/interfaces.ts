@@ -231,9 +231,11 @@ export interface ChapterPreview {
     white: ChapterPreviewPlayer;
     black: ChapterPreviewPlayer;
   };
+  sideToPlay: Color;
   orientation: Color;
   fen: string;
   lastMove?: string;
+  lastMoveAt?: number;
   playing: boolean;
   outcome?: '1-0' | '0-1' | '1/2-1/2';
 }
@@ -242,6 +244,7 @@ export interface ChapterPreviewPlayer {
   name: string;
   title?: string;
   rating?: number;
+  clock?: number;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';

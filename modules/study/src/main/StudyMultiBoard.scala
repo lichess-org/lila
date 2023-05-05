@@ -1,7 +1,7 @@
 package lila.study
 
 import BSONHandlers.given
-import chess.{ ByColor, Centis, Color, Outcome }
+import chess.{ ByColor, Centis, Color, Outcome, Ply }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
@@ -110,23 +110,24 @@ final class StudyMultiBoard(
         }
         .map { r =>
           for
-            doc  <- r
-            id   <- doc.getAsOpt[StudyChapterId]("_id")
-            name <- doc.getAsOpt[StudyChapterName]("name")
-            lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
-            comp       <- doc.getAsOpt[Bdoc]("comp")
-            node       <- comp.getAsOpt[Bdoc]("node")
-            fen        <- node.getAsOpt[Fen.Epd]("fen")
+            doc    <- r
+            id     <- doc.getAsOpt[StudyChapterId]("_id")
+            name   <- doc.getAsOpt[StudyChapterName]("name").pp
+            lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt").pp
+            comp   <- doc.getAsOpt[Bdoc]("comp")
+            node   <- comp.getAsOpt[Bdoc]("node")
+            _ = node.getAsOpt[Centis]("clockDebug").pp
+            fen    <- node.getAsOpt[Fen.Epd]("fen").pp
             sideToPlay <- node.getAsOpt[Ply]("ply").map(_.color)
-            clocks     <- comp.getAsOpt[Bdoc]("clocks")
-            lastMove   = node.getAsOpt[Uci]("uci")
-            tags       = comp.getAsOpt[Tags]("tags")
-            blackClock = clocks.getAsOpt[Centis]("black")
-            whiteClock = clocks.getAsOpt[Centis]("white")
+            clocks <- comp.getAsOpt[Bdoc]("clocks")
+            lastMove   = node.getAsOpt[Uci]("uci").pp
+            tags       = comp.getAsOpt[Tags]("tags").pp
+            blackClock = clocks.getAsOpt[Centis]("black").pp
+            whiteClock = clocks.getAsOpt[Centis]("white").pp
           yield ChapterPreview(
             id = id,
             name = name,
-            players = tags flatMap ChapterPreview.players(blackClock = blackClock, whiteClock = whiteClock),
+            players = tags flatMap ChapterPreview.players(blackClock=blackClock, whiteClock=whiteClock),
             sideToPlay = sideToPlay,
             orientation = doc.getAsOpt[Color]("orientation") | Color.White,
             fen = fen,
@@ -161,6 +162,7 @@ object StudyMultiBoard:
       id: StudyChapterId,
       name: StudyChapterName,
       players: Option[ChapterPreview.Players],
+      sideToPlay: Color,
       orientation: Color,
       fen: Fen.Epd,
       lastMove: Option[Uci],
