@@ -219,7 +219,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
         hook: onInsert((el: HTMLInputElement) =>
           $(el).on(
             'change keyup paste',
-            debounce(() => el.value.trim(), 300)
+            debounce(() => setImg(el.value.trim()), 300)
           )
         ),
       }),
