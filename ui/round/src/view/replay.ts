@@ -206,13 +206,12 @@ function renderButtons(ctrl: RoundController) {
         {
           class: { active: ctrl.menu() },
           attrs: {
-            // TODO: translation
             title: ctrl.noarg('menu'),
             'data-act': 'menu',
             'data-icon': '',
           },
         },
-        h('div.notification')
+        h('div.new-nag')
       ),
     ]
   );
