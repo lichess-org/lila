@@ -865,7 +865,7 @@
   <string name="useTheReportForm">usa el formulario de informe</string>
   <string name="toRequestSupport">Para solicitar soporte, %1$s</string>
   <string name="tryTheContactPage">prueba la página de contacto</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Asegúrese de leer %1$s</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Asegúrate de leer %1$s</string>
   <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">las reglas del foro</string>
   <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no admite respuestas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar en este foro</string>
