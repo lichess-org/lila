@@ -222,7 +222,7 @@ object DataForm {
 
   val notation = Form(
     single(
-      "notation" -> text.verifying(Set("0", "1", "2", "3") contains _)
+      "notation" -> text.verifying(Notations.allToString contains _)
     )
   )
 

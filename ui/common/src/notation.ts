@@ -1,5 +1,6 @@
 import { Notation as sgNotation } from 'shogiground/types';
 import { makeJapaneseMove } from 'shogiops/notation/japanese';
+import { makeKifMove } from 'shogiops/notation/kif/kif';
 import { makeKitaoKawasakiMove } from 'shogiops/notation/kitaoKawasaki';
 import { makeWesternMove } from 'shogiops/notation/western';
 import { makeWesternEngineMove } from 'shogiops/notation/westernEngine';
@@ -13,13 +14,14 @@ export const enum Notation {
   Kawasaki,
   Japanese,
   WesternEngine,
+  Kif,
 }
 
 const notationPref: Notation = parseInt(document.body.dataset.notation || '0');
 
 // Notations, that should be displayed with ☖/☗
 export function notationsWithColor() {
-  return [Notation.Kawasaki, Notation.Japanese].includes(notationPref);
+  return [Notation.Kawasaki, Notation.Japanese, Notation.Kif].includes(notationPref);
 }
 
 export function notationFiles() {
@@ -30,6 +32,7 @@ export function notationFiles() {
 export function notationRanks() {
   switch (notationPref) {
     case Notation.Japanese:
+    case Notation.Kif:
       return sgNotation.JAPANESE;
     case Notation.WesternEngine:
       return sgNotation.ENGINE;
@@ -46,6 +49,8 @@ export function makeNotationWithPosition(pos: Position, move: Move, lastMove?: M
       return makeJapaneseMove(pos, move, lastMove?.to)!;
     case Notation.WesternEngine:
       return makeWesternEngineMove(pos, move)!;
+    case Notation.Kif:
+      return makeKifMove(pos, move, lastMove?.to)!;
     default:
       return makeWesternMove(pos, move)!;
   }

@@ -12,13 +12,16 @@ object Notations {
   val kawasaki      = new Notation(1)
   val japanese      = new Notation(2)
   val westernEngine = new Notation(3) // 1a
+  val kif           = new Notation(4)
 
   val all = List(
     western,
     westernEngine,
     kawasaki,
-    japanese
+    japanese,
+    kif
   )
+  val allToString = all.map(_.toString)
 
   lazy val allByIndex = all map { n =>
     n.index -> n

@@ -1624,6 +1624,7 @@ val `scrollOnTheBoardToReplayMoves` = new I18nKey("preferences:scrollOnTheBoardT
 val `westernNotation` = new I18nKey("preferences:westernNotation")
 val `japaneseNotation` = new I18nKey("preferences:japaneseNotation")
 val `kitaoKawasakiNotation` = new I18nKey("preferences:kitaoKawasakiNotation")
+val `kifNotation` = new I18nKey("preferences:kifNotation")
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
 }
 

@@ -1578,6 +1578,7 @@ export type I18nKey =
 'westernNotation'|
 'japaneseNotation'|
 'kitaoKawasakiNotation'|
+'kifNotation'|
 'yourPreferencesHaveBeenSaved'|
 'team'|
 'teams'|
