@@ -29,8 +29,10 @@
   <string name="cheatDetected">ХӀилла гьаби тӀатана</string>
   <string name="kingInTheCenter">Къирал центералда буго</string>
   <string name="threeChecks">Лъабго шах</string>
+  <string name="raceFinished">Хадур гъей лъугӀана</string>
   <string name="newOpponent">ЦӀияв дандеяв</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Дур дандеясе цӀидасан бокьун буго мунгун хӀазе</string>
+  <string name="joinTheGame">ХӀаялде жувазе</string>
   <string name="whitePlays">ХъахӀазул ин</string>
   <string name="blackPlays">ЧӀегӀеразул ин</string>
   <plurals name="opponentLeftCounter">
@@ -38,6 +40,10 @@
     <item quantity="other">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
   </plurals>
   <string name="forceResignation">Бергьенлъи лъазабизе</string>
+  <string name="whiteResigned">ХъахӀал къун чӀана</string>
+  <string name="blackResigned">ЧӀегӀерал къун чӀана</string>
+  <string name="whiteLeftTheGame">ХъахӀаз хӀай рехун тана</string>
+  <string name="blackLeftTheGame">ЧӀегӀераз хӀай рехун тана</string>
   <string name="whiteDidntMove">ХъахӀал инчӀо</string>
   <string name="blackDidntMove">ЧӀегӀерал инчӀо</string>
   <string name="computerAnalysis">Компьютерил анализ</string>
