@@ -72,8 +72,25 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                     for (const node of fctrl.list()[i]) {
                       const move = parseUci(node.uci);
                       if (!move) return;
-                      path.push(scalachessCharPair(move));
+                      const moveId = scalachessCharPair(move);
+
+                      // this handles the case where the move isn't in the tree yet
+                      // if it is, it just returns
+                      ctrl.tree.addNode(
+                        {
+                          ply: node.ply,
+                          fen: node.fen,
+                          uci: node.uci,
+                          san: node.san,
+                          id: moveId,
+                          children: [],
+                        },
+                        path.join('') // the path before this is its parent
+                      );
+
+                      path.push(moveId);
                     }
+
                     ctrl.userJump(path.join(''));
                     ctrl.redraw();
                   },
