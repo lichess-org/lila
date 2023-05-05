@@ -40,7 +40,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
     { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
-    { key: 'transp', name: trans.noarg('transparent') },
+    { key: 'transp', name: 'Picture' },
   ];
 
   const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
