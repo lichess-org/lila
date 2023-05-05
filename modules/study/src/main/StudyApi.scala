@@ -193,9 +193,7 @@ final class StudyApi(
     sequenceStudy(studyId) { study =>
       Contribute(who.u, study) {
         chapterRepo.byId(position.chapterId).map {
-          _ filter { c =>
-            c.root.pathExists(position.path) && study.position.chapterId == c.id
-          }
+          _.filter(_.root.pathExists(position.path))
         } flatMap {
           case None => funit >>- sendTo(study.id)(_.reloadSri(who.sri))
           case Some(chapter) if study.position.path != position.path =>

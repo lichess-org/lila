@@ -1,36 +1,38 @@
 package lila.study
 
 import chess.opening.*
+import chess.{ Tree, Square }
 import chess.variant.Variant
-import lila.tree.{ Branch, Branches, Root }
+import lila.tree.{ Metas, NewBranch, NewRoot }
+import lila.tree.Branch
+import lila.tree.Branches
 
 object TreeBuilder:
 
   private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
 
   // DEBUG should be done in BSONHandler
-  def apply(root: Root, variant: Variant): Root =
+  def apply(root: NewRoot, variant: Variant): NewRoot =
     val dests =
       if (variant.standard && root.fen.isInitial) initialStandardDests
       else
         val sit = chess.Game(variant.some, root.fen.some).situation
         sit.playable(false) ?? sit.destinations
-    makeRoot(root, variant).copy(dests = dests.some)
+    makeRoot(root, variant, dests)
 
   // DEBUG should be done in BSONHandler
-  def toBranch(node: Branch, variant: Variant): Branch =
-    node.copy(
-      opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(node.fen),
-      children = toBranches(node.children, variant)
-    )
+  def makeRoot(root: NewRoot, variant: Variant, dests: Map[Square, List[Square]]): NewRoot =
+    root
+      .copy(
+        metas = root.metas.updateOpening(variant).copy(dests = dests.some)
+      )
+      .mapChild(x => x.copy(metas = x.metas.updateOpening(variant)))
 
-  // DEBUG should be done in BSONHandler
-  def makeRoot(root: Root, variant: Variant): Root =
-    root.copy(
-      opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(root.fen),
-      children = toBranches(root.children, variant)
-    )
+  extension (m: Metas)
+    def updateOpening(variant: Variant): Metas =
+      m.copy(opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(m.fen))
 
-  private def toBranches(children: Branches, variant: Variant): Branches =
-    // Note, view here was I think not doing anything since .ToList was set afterwards
-    Branches(children.nodes.map(toBranch(_, variant)))
+  def toBranch(node: Tree[Branch], variant: Variant): Tree[Branch] = ???
+
+  private def toBranches(children: Branches, variant: Variant): Branches = ???
+

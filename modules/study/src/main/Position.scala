@@ -7,7 +7,7 @@ case class Position(chapter: Chapter, path: UciPath):
 
   def ref = Position.Ref(chapter.id, path)
 
-  def node: Option[Node] = chapter.root nodeAt path
+  // def node: Option[Node] = chapter.root nodeAt path
 
   override def toString = ref.toString
 

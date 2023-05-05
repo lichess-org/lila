@@ -195,6 +195,12 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   }
   def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
 
+  def mapChild(f: NewBranch => NewBranch): NewRoot =
+    copy(tree = tree.map(_.map(f)))
+
+  def pathExists(path: UciPath): Boolean =
+    path.isEmpty || tree.exists(_.pathExists(path.ids))
+
   def addNodeAt(path: UciPath, node: NewTree): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(tree = node.some).some
     else tree.flatMap(_.addNodeAt(path.ids)(node)).map(x => copy(tree = x.some))
@@ -225,9 +231,9 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def lastMainlineNode         = tree.map(_.lastMainlineNode)
   def lastMainlineMetas        = lastMainlineNode.map(_.value.metas)
   def lastMainlineMetasOrRoots = lastMainlineMetas | metas
-  def modifyLastMainlineOrRoot(f: Metas => Metas) =
-    tree.fold(copy(metas = f(metas)))(
-      _.modifyLastMainlineNode(ChessNode.lift(_.focus(_.metas).modify(f)))
+  def modifyLastMainlineOrRoot(f: Metas => Metas): NewRoot =
+    tree.fold(copy(metas = f(metas)))(tree =>
+      copy(tree = tree.modifyLastMainlineNode(ChessNode.lift(_.focus(_.metas).modify(f))).some)
     )
 
   override def toString = s"$tree"
@@ -237,5 +243,6 @@ object NewRoot:
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
   extension (path: UciPath) def ids                    = path.computeIds.toList
 
-  def minimalNodeJsonWriter = makeNodeJsonWriter(alwaysChildren = false)
+  given defaultNodeJsonWriter: Writes[NewRoot] = makeNodeJsonWriter(alwaysChildren = true)
+  def minimalNodeJsonWriter                    = makeNodeJsonWriter(alwaysChildren = false)
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] = ???

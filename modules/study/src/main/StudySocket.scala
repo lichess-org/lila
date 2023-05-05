@@ -15,6 +15,7 @@ import lila.socket.Socket.{ makeMessage, Sri }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
 import lila.tree.Branch
+import lila.tree.NewBranch
 
 final private class StudySocket(
     api: StudyApi,
@@ -259,7 +260,7 @@ final private class StudySocket(
   def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
   def addNode(
       pos: Position.Ref,
-      node: Branch,
+      node: NewBranch,
       variant: chess.variant.Variant,
       sticky: Boolean,
       relay: Option[Chapter.Relay],
