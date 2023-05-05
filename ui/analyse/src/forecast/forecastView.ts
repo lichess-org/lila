@@ -66,16 +66,18 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               'div.entry.text',
               {
                 attrs: dataIcon(''),
-                hook: bind('click', () => {
-                  const path = [findCurrentPath(ctrl)];
-                  for (const node of nodes) {
-                    const move = parseUci(node.uci);
-                    if (!move) return;
-                    path.push(scalachessCharPair(move));
-                  }
-
-                  ctrl.userJump(path.join(''));
-                }),
+                on: {
+                  click: () => {
+                    const path = [findCurrentPath(ctrl)];
+                    for (const node of fctrl.list()[i]) {
+                      const move = parseUci(node.uci);
+                      if (!move) return;
+                      path.push(scalachessCharPair(move));
+                    }
+                    ctrl.userJump(path.join(''));
+                    ctrl.redraw();
+                  },
+                },
               },
               [
                 h('button.del', {
