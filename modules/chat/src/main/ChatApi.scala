@@ -85,10 +85,7 @@ final class ChatApi(
     ): Funit =
       makeLine(chatId, userId, text) flatMapz { line =>
         linkCheck(line, publicSource) flatMap {
-          case false =>
-            logger.info(s"Link check rejected $line in $publicSource")
-            funit
-          case true =>
+          if _ then
             (persist ?? persistLine(chatId, line)) >>- {
               if (persist)
                 if (publicSource.isDefined) cached invalidate chatId
@@ -103,6 +100,9 @@ final class ChatApi(
                   .unit
               publish(chatId, ChatLine(chatId, line), busChan)
             }
+          else
+            logger.info(s"Link check rejected $line in $publicSource")
+            funit
         }
       }
 

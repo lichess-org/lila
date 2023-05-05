@@ -42,13 +42,12 @@ final class User(
             case _          => roundC.watch(pov, userTv = user.some)
       }
 
-  def tvExport(username: UserStr) =
-    Action.async: req =>
-      env.game.cached.lastPlayedPlayingId(username.id) orElse
-        env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
-          case None         => NotFound("No ongoing game").toFuccess
-          case Some(gameId) => gameC.exportGame(gameId, req)
-        }
+  def tvExport(username: UserStr) = Anon:
+    env.game.cached.lastPlayedPlayingId(username.id) orElse
+      env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
+        case None         => NotFound("No ongoing game").toFuccess
+        case Some(gameId) => gameC.exportGame(gameId, req)
+      }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
@@ -113,7 +112,7 @@ final class User(
               )(using reqBody, formBinding, reqLang)
               _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
               _ <- env.tournament.cached.nameCache preloadMany {
-                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
               }
               notes <- ctx.me ?? { me =>
                 env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me.id)
@@ -184,7 +183,7 @@ final class User(
           }
       else fuccess(Ok(html.user.bits.miniClosed(user)))
 
-  def online = Action.async { implicit req =>
+  def online = Anon:
     val max = 50
     negotiate(
       html = notFoundJson(),
@@ -199,7 +198,6 @@ final class User(
           )
         }
     )
-  }
 
   def ratingHistory(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -243,7 +241,7 @@ final class User(
         )(using ctx.body, formBinding, reqLang)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
-          pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+          pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
         }
         _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       yield pag
@@ -274,7 +272,7 @@ final class User(
       )
     }
 
-  def apiList = Action.async:
+  def apiList = Anon:
     env.user.cached.top10.get {} map { leaderboards =>
       import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
@@ -289,16 +287,14 @@ final class User(
       )
     }
 
-  def topNbApi(nb: Int, perfKey: Perf.Key) =
-    Action.async {
-      if nb == 1 && perfKey == Perf.Key("standard") then
-        env.user.cached.top10.get {} map { leaderboards =>
-          import env.user.jsonView.lightPerfIsOnlineWrites
-          import lila.user.JsonView.leaderboardStandardTopOneWrites
-          JsonOk(leaderboards)
-        }
-      else topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
-    }
+  def topNbApi(nb: Int, perfKey: Perf.Key) = Anon:
+    if nb == 1 && perfKey == Perf.Key("standard") then
+      env.user.cached.top10.get {} map { leaderboards =>
+        import env.user.jsonView.lightPerfIsOnlineWrites
+        import lila.user.JsonView.leaderboardStandardTopOneWrites
+        JsonOk(leaderboards)
+      }
+    else topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
     PerfType(perfKey) ?? { perfType =>
@@ -320,10 +316,9 @@ final class User(
         }
     )
 
-  def mod(username: UserStr) =
-    Secure(_.UserModView) { implicit ctx => holder =>
-      modZoneOrRedirect(holder, username)
-    }
+  def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> holder =>
+    modZoneOrRedirect(holder, username)
+  }
 
   protected[controllers] def modZoneOrRedirect(holder: Holder, username: UserStr)(using
       ctx: Context
@@ -444,7 +439,7 @@ final class User(
         }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
-  protected[controllers] def renderModZoneActions(username: UserStr)(implicit ctx: Context) =
+  protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
@@ -459,44 +454,40 @@ final class User(
         }
     }
 
-  def writeNote(username: UserStr) =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      lila.user.UserForm.note
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(err.errors.toString).toFuccess,
-          data =>
-            doWriteNote(username, me, data)(user =>
-              if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
-                Ok(views.html.mod.inquiry.noteZone(user, notes))
+  def writeNote(username: UserStr) = AuthBody { ctx ?=> me =>
+    lila.user.UserForm.note
+      .bindFromRequest()
+      .fold(
+        err => BadRequest(err.errors.toString).toFuccess,
+        data =>
+          doWriteNote(username, me, data)(user =>
+            if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+              Ok(views.html.mod.inquiry.noteZone(user, notes))
+            }
+            else
+              env.socialInfo.fetchNotes(user, me) map { notes =>
+                Ok(views.html.user.show.header.noteZone(user, notes))
               }
-              else
-                env.socialInfo.fetchNotes(user, me) map { notes =>
-                  Ok(views.html.user.show.header.noteZone(user, notes))
-                }
-            )
-        )
-    }
+          )
+      )
+  }
 
-  def apiReadNote(username: UserStr) =
-    Scoped() { _ => me =>
-      env.user.repo byId username flatMapz {
-        env.socialInfo.fetchNotes(_, me) flatMap {
-          lila.user.JsonView.notes(_)(using lightUserApi)
-        } map JsonOk
-      }
+  def apiReadNote(username: UserStr) = Scoped() { _ ?=> me =>
+    env.user.repo byId username flatMapz {
+      env.socialInfo.fetchNotes(_, me) flatMap {
+        lila.user.JsonView.notes(_)(using lightUserApi)
+      } map JsonOk
     }
+  }
 
-  def apiWriteNote(username: UserStr) =
-    ScopedBody() { implicit req => me =>
-      lila.user.UserForm.apiNote
-        .bindFromRequest()
-        .fold(
-          jsonFormErrorDefaultLang,
-          data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
-        )
-    }
+  def apiWriteNote(username: UserStr) = ScopedBody() { req ?=> me =>
+    lila.user.UserForm.apiNote
+      .bindFromRequest()
+      .fold(
+        jsonFormErrorDefaultLang,
+        data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
+      )
+  }
 
   private def doWriteNote(
       username: UserStr,
@@ -508,46 +499,42 @@ final class User(
       env.user.noteApi.write(user, data.text, me, isMod, isMod && data.dox) >> f(user)
     }
 
-  def deleteNote(id: String) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.user.noteApi.byId(id)) { note =>
-        (note.isFrom(me) && !note.mod) ?? {
-          env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
-        }
+  def deleteNote(id: String) = Auth { ctx ?=> me =>
+    OptionFuResult(env.user.noteApi.byId(id)) { note =>
+      (note.isFrom(me) && !note.mod) ?? {
+        env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
       }
     }
+  }
 
-  def setDoxNote(id: String, dox: Boolean) =
-    Secure(_.Admin) { implicit ctx => _ =>
-      OptionFuResult(env.user.noteApi.byId(id)) { note =>
-        note.mod ?? {
-          env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
-        }
+  def setDoxNote(id: String, dox: Boolean) = Secure(_.Admin) { ctx ?=> _ =>
+    OptionFuResult(env.user.noteApi.byId(id)): note =>
+      note.mod ?? {
+        env.user.noteApi.setDox(note._id, dox) inject Redirect(routes.User.show(note.to).url + "?note")
       }
-    }
+  }
 
-  def opponents =
-    Auth { implicit ctx => me =>
-      getUserStr("u")
-        .ifTrue(isGranted(_.BoostHunter))
-        .??(env.user.repo.byId)
-        .map(_ | me)
-        .flatMap { user =>
-          for {
-            ops         <- env.game.favoriteOpponents(user.id)
-            followables <- env.pref.api.followables(ops map (_._1.id))
-            relateds <-
-              ops
-                .zip(followables)
-                .map { case ((u, nb), followable) =>
-                  relationApi.fetchRelation(user.id, u.id) map {
-                    lila.relation.Related(u, nb.some, followable, _)
-                  }
+  def opponents = Auth { ctx ?=> me =>
+    getUserStr("u")
+      .ifTrue(isGranted(_.BoostHunter))
+      .??(env.user.repo.byId)
+      .map(_ | me)
+      .flatMap { user =>
+        for {
+          ops         <- env.game.favoriteOpponents(user.id)
+          followables <- env.pref.api.followables(ops map (_._1.id))
+          relateds <-
+            ops
+              .zip(followables)
+              .map { case ((u, nb), followable) =>
+                relationApi.fetchRelation(user.id, u.id) map {
+                  lila.relation.Related(u, nb.some, followable, _)
                 }
-                .parallel
-          } yield html.relation.bits.opponents(user, relateds)
-        }
-    }
+              }
+              .parallel
+        } yield html.relation.bits.opponents(user, relateds)
+      }
+  }
 
   def perfStat(username: UserStr, perfKey: Perf.Key) = Open:
     env.perfStat.api
@@ -618,10 +605,9 @@ final class User(
         }
       case _ => notFound
 
-  def myself =
-    Auth { _ => me =>
-      fuccess(Redirect(routes.User.show(me.username)))
-    }
+  def myself = Auth { _ ?=> me =>
+    fuccess(Redirect(routes.User.show(me.username)))
+  }
 
   def redirect(username: UserStr) = Open:
     staticRedirect(username.value) | {

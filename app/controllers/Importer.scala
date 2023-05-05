@@ -57,23 +57,21 @@ final class Importer(env: Env) extends LilaController(env):
       )
 
   def apiSendGame =
-    AnonOrScopedBody(parse.anyContent)() { req => me =>
-      ImportRateLimitPerIP(req.ipAddress, cost = if (me.isDefined) 1 else 2) {
+    AnonOrScopedBody(parse.anyContent)() { req ?=> me =>
+      ImportRateLimitPerIP(req.ipAddress, cost = if me.isDefined then 1 else 2) {
         env.importer.forms.importForm
           .bindFromRequest()(req, formBinding)
           .fold(
             err => BadRequest(apiFormError(err)).toFuccess,
             data =>
-              doImport(data, me) map {
+              doImport(data, me).map:
                 case Left(error) => BadRequest(jsonError(error))
                 case Right(game) =>
-                  JsonOk {
+                  JsonOk:
                     Json.obj(
                       "id"  -> game.id,
                       "url" -> s"${env.net.baseUrl}/${game.id}"
                     )
-                  }
-              }
           )
       }(rateLimitedFu)
     }

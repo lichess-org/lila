@@ -113,7 +113,7 @@ object discussion:
               if (as.isRight) momentFromNowOnce(msg.at)
               else momentFromNowServer(msg.at)
             ),
-            div(cls := "appeal__msg__text")(richText(msg.text))
+            div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
           )
         },
         as.left.exists(_.markedByMe) option div(dataIcon := "", cls := "marked-by-me text")(

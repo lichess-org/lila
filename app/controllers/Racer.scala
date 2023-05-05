@@ -12,7 +12,8 @@ import play.api.libs.json.Json
 final class Racer(env: Env) extends LilaController(env):
 
   def home     = Open(serveHome)
-  def homeLang = LangPage(routes.Racer.home)(serveHome(using _))
+  def homeLang = LangPage(routes.Racer.home)(serveHome)
+
   private def serveHome(using Context) = NoBot:
     Ok(html.racer.home).toFuccess
 
@@ -23,15 +24,14 @@ final class Racer(env: Env) extends LilaController(env):
       }
     }
 
-  def apiCreate = Scoped(_.Racer.Write) { _ => me =>
+  def apiCreate = Scoped(_.Racer.Write) { _ ?=> me =>
     me.noBot ?? {
       env.racer.api.createAndJoin(RacerPlayer.Id.User(me.id)) map { raceId =>
-        JsonOk(
+        JsonOk:
           Json.obj(
             "id"  -> raceId.value,
             "url" -> s"${env.net.baseUrl}${routes.Racer.show(raceId.value)}"
           )
-        )
       }
     }
   }

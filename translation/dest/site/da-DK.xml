@@ -865,6 +865,8 @@
   <string name="useTheReportForm">brug anmeldelsesformularen</string>
   <string name="toRequestSupport">For at få support, %1$s</string>
   <string name="tryTheContactPage">prøv kontakt-siden</string>
+  <string name="makeSureToRead">Sørg for at læse %1$s</string>
+  <string name="theForumEtiquette">forummets etikette</string>
   <string name="thisTopicIsArchived">Dette emne er arkiveret og kan ikke længere besvares.</string>
   <string name="joinTheTeamXToPost">Meld dig til %1$s, for at lave opslag i dette forum</string>
   <string name="teamNamedX">%1$s hold</string>

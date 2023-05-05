@@ -59,7 +59,7 @@ final class ForumPostApi(
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
               }
               if (anonMod) logAnonPost(me.id, post, edit = false)
-              else if (!post.troll && !categ.quiet && !topic.isTooBig)
+              else if (!post.troll && !categ.quiet)
                 timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
                 }
@@ -197,8 +197,7 @@ final class ForumPostApi(
         "userId",
         $doc(
           "topicId" -> topic.id,
-          "number" $gt (newPostNumber - 10),
-          "createdAt" $gt nowInstant.minusDays(5)
+          "number" $gt (newPostNumber - 20)
         ),
         ReadPreference.secondaryPreferred
       )

@@ -37,12 +37,11 @@ final class Auth(
       }
     }
 
-  private def getReferrerOption(implicit ctx: Context): Option[String] =
-    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse ctxReq.session.get(
-      api.AccessUri
-    )
+  private def getReferrerOption(using ctx: Context): Option[String] =
+    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
+      ctx.req.session.get(api.AccessUri)
 
-  private def getReferrer(implicit ctx: Context): String = getReferrerOption | routes.Lobby.home.url
+  private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
   def authenticateUser(u: UserModel, remember: Boolean, result: Option[String => Result] = None)(using
       ctx: Context
@@ -84,7 +83,7 @@ final class Auth(
       }
 
   def login     = Open(serveLogin)
-  def loginLang = LangPage(routes.Auth.login)(serveLogin(using _))
+  def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private def serveLogin(using ctx: Context) = NoBot {
     val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
@@ -143,8 +142,8 @@ final class Auth(
                           case Some(u) if u.enabled.no =>
                             negotiate(
                               html = env.mod.logApi.closedByMod(u) flatMap {
-                                case true => authenticateAppealUser(u, redirectTo)
-                                case _    => redirectTo(routes.Account.reopen.url).toFuccess
+                                if _ then authenticateAppealUser(u, redirectTo)
+                                else redirectTo(routes.Account.reopen.url).toFuccess
                               },
                               api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
                             )
@@ -169,22 +168,20 @@ final class Auth(
       ).dmap(_.withCookies(env.lilaCookie.newSession))
 
   // mobile app BC logout with GET
-  def logoutGet = Auth { implicit ctx => _ =>
+  def logoutGet = Auth { ctx ?=> _ =>
     negotiate(
       html = Ok(html.auth.bits.logout()).toFuccess,
-      api = _ => {
-        ctxReq.session get api.sessionIdKey foreach env.security.store.delete
+      api = _ =>
+        ctx.req.session get api.sessionIdKey foreach env.security.store.delete
         Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).toFuccess
-      }
     )
   }
 
   def signup     = Open(serveSignup)
-  def signupLang = LangPage(routes.Auth.signup)(serveSignup(using _))
-  private def serveSignup(using Context) =
-    NoTor:
-      forms.signup.website.map: form =>
-        Ok(html.auth.signup(form))
+  def signupLang = LangPage(routes.Auth.signup)(serveSignup)
+  private def serveSignup(using Context) = NoTor:
+    forms.signup.website.map: form =>
+      Ok(html.auth.signup(form))
 
   private def authLog(user: String, email: String, msg: String) =
     lila.log("auth").info(s"$user $email $msg")
@@ -244,8 +241,8 @@ final class Auth(
         case None => Ok(accountC.renderCheckYourEmail).toFuccess
         case Some(userEmail) =>
           env.user.repo exists userEmail.username map {
-            case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
-            case true  => Ok(accountC.renderCheckYourEmail)
+            if _ then Ok(accountC.renderCheckYourEmail)
+            else Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
           }
 
   // after signup and before confirmation
@@ -306,21 +303,20 @@ final class Auth(
       ) map authenticateCookie(sessionId, remember = true)
     } recoverWith authRecovery
 
-  def setFingerPrint(fp: String, ms: Int) =
-    Auth { ctx => me =>
-      lila.mon.http.fingerPrint.record(ms)
-      api
-        .setFingerPrint(ctx.req, FingerPrint(fp))
-        .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMapz { hash =>
-        !me.lame ?? (for
-          otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
-          _ <- (otherIds.sizeIs >= 2) ?? env.user.repo.countLameOrTroll(otherIds).flatMap {
-            case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.id)
-            case _                                        => funit
-          }
-        yield ())
-      } inject NoContent
-    }
+  def setFingerPrint(fp: String, ms: Int) = Auth { ctx ?=> me =>
+    lila.mon.http.fingerPrint.record(ms)
+    api
+      .setFingerPrint(ctx.req, FingerPrint(fp))
+      .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMapz { hash =>
+      !me.lame ?? (for
+        otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
+        _ <- (otherIds.sizeIs >= 2) ?? env.user.repo.countLameOrTroll(otherIds).flatMap {
+          case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.id)
+          case _                                        => funit
+        }
+      yield ())
+    } inject NoContent
+  }
 
   private def renderPasswordReset(form: Option[play.api.data.Form[PasswordReset]], fail: Boolean)(using
       ctx: Context
@@ -472,26 +468,23 @@ final class Auth(
       )
     }
 
-  def makeLoginToken =
-    AuthOrScoped(_.Web.Login)(
-      _ => loginTokenFor,
-      req =>
-        user => {
-          lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient req}")
-          loginTokenFor(user)
-        }
-    )
+  def makeLoginToken = AuthOrScoped(_.Web.Login)(
+    _ ?=> loginTokenFor,
+    req ?=>
+      user =>
+        lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient req}")
+        loginTokenFor(user)
+  )
 
   def loginWithToken(token: String) = Open:
     if ctx.isAuth
     then Redirect(getReferrer).toFuccess
     else
       Firewall:
-        consumingToken(token) { user =>
+        consumingToken(token): user =>
           env.security.loginToken.generate(user) map { newToken =>
             Ok(html.auth.bits.tokenLoginConfirmation(user, newToken, get("referrer")))
           }
-        }
 
   def loginWithTokenPost(token: String, @annotation.nowarn referrer: Option[String]) =
     Open:

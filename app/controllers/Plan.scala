@@ -112,24 +112,21 @@ final class Plan(env: Env) extends LilaController(env):
     fuccess:
       html.plan.features()
 
-  def switch =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
-        lila.plan.Switch
-          .form(pricing)
-          .bindFromRequest()
-          .fold(
-            _ => funit,
-            data => env.plan.api.switch(me, data.money)
-          ) inject Redirect(routes.Plan.index)
-      }
+  def switch = AuthBody { ctx ?=> me =>
+    env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
+      lila.plan.Switch
+        .form(pricing)
+        .bindFromRequest()
+        .fold(
+          _ => funit,
+          data => env.plan.api.switch(me, data.money)
+        ) inject Redirect(routes.Plan.index)
     }
+  }
 
-  def cancel =
-    AuthBody { _ => me =>
-      env.plan.api.cancel(me) inject Redirect(routes.Plan.index)
-    }
+  def cancel = AuthBody { _ ?=> me =>
+    env.plan.api.cancel(me) inject Redirect(routes.Plan.index)
+  }
 
   def thanks = Open:
     // wait for the payment data from stripe or paypal
@@ -140,10 +137,10 @@ final class Plan(env: Env) extends LilaController(env):
         gift     <- ctx.me ?? env.plan.api.recentGiftFrom
       yield Ok(html.plan.thanks(patron, customer, gift))
 
-  def webhook = Action.async(parse.json): req =>
+  def webhook = AnonBodyOf(parse.json): body =>
     if req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG")
-    then env.plan.webhook.payPal(req.body) inject Ok("kthxbye")
-    else env.plan.webhook.stripe(req.body) inject Ok("kthxbye")
+    then env.plan.webhook.payPal(body) inject Ok("kthxbye")
+    else env.plan.webhook.stripe(body) inject Ok("kthxbye")
 
   import lila.plan.StripeClient.{ StripeException, CantUseException }
   def badStripeApiCall: PartialFunction[Throwable, Result] = {
@@ -196,22 +193,22 @@ final class Plan(env: Env) extends LilaController(env):
     ("slow", 40, 1.day)
   )
 
-  def stripeCheckout =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      CheckoutRateLimit(ctx.ip) {
-        env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
+  def stripeCheckout = AuthBody { ctx ?=> me =>
+    CheckoutRateLimit(ctx.ip) {
+      env.plan.priceApi
+        .pricingOrDefault(myCurrency)
+        .flatMap: pricing =>
           env.plan.checkoutForm
             .form(pricing)
             .bindFromRequest()
             .fold(
-              err => {
+              err =>
                 logger.info(s"Plan.stripeCheckout 400: $err")
                 BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).toFuccess
-              },
-              data => {
+              ,
+              data =>
                 val checkout = data.fixFreq
-                for {
+                for
                   gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledById)
                   customer <- env.plan.api.stripe.userCustomer(me)
                   session <- customer match {
@@ -224,106 +221,96 @@ final class Plan(env: Env) extends LilaController(env):
                         .makeCustomer(me, checkout)
                         .flatMap(customer => createStripeSession(me, checkout, customer.id, gifted))
                   }
-                } yield session
-              }
+                yield session
             )
-        }
-      }(rateLimitedFu)
-    }
+    }(rateLimitedFu)
+  }
 
-  def updatePayment =
-    AuthBody { implicit ctx => me =>
-      CaptureRateLimit(ctx.ip) {
-        env.plan.api.stripe.userCustomer(me) flatMap {
-          _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)) ?? { sub =>
-            env.plan.api.stripe
-              .createPaymentUpdateSession(
-                sub,
-                NextUrls(
-                  cancel = s"${env.net.baseUrl}${routes.Plan.index}",
-                  success =
-                    s"${env.net.baseUrl}${routes.Plan.updatePaymentCallback}?session={CHECKOUT_SESSION_ID}"
-                )
+  def updatePayment = AuthBody { ctx ?=> me =>
+    CaptureRateLimit(ctx.ip) {
+      env.plan.api.stripe.userCustomer(me) flatMap {
+        _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)) ?? { sub =>
+          env.plan.api.stripe
+            .createPaymentUpdateSession(
+              sub,
+              NextUrls(
+                cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+                success =
+                  s"${env.net.baseUrl}${routes.Plan.updatePaymentCallback}?session={CHECKOUT_SESSION_ID}"
               )
-              .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
-              .recover(badStripeApiCall)
-          }
+            )
+            .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
+            .recover(badStripeApiCall)
         }
-      }(rateLimitedFu)
-    }
+      }
+    }(rateLimitedFu)
+  }
 
-  def updatePaymentCallback =
-    AuthBody { implicit ctx => me =>
-      get("session") ?? { session =>
-        env.plan.api.stripe.userCustomer(me) flatMap {
-          _.flatMap(_.firstSubscription) ?? { sub =>
-            env.plan.api.stripe.updatePaymentMethod(sub, session) inject Redirect(routes.Plan.index)
-          }
+  def updatePaymentCallback = AuthBody { ctx ?=> me =>
+    get("session") ?? { session =>
+      env.plan.api.stripe.userCustomer(me) flatMap {
+        _.flatMap(_.firstSubscription) ?? { sub =>
+          env.plan.api.stripe.updatePaymentMethod(sub, session) inject Redirect(routes.Plan.index)
         }
       }
     }
+  }
 
-  def payPalCheckout =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      CheckoutRateLimit(ctx.ip) {
-        env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
-          env.plan.checkoutForm
-            .form(pricing)
-            .bindFromRequest()
-            .fold(
-              err => {
-                logger.info(s"Plan.payPalCheckout 400: $err")
-                BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).toFuccess
-              },
-              data => {
-                val checkout = data.fixFreq
-                if (checkout.freq.renew) for {
-                  sub <- env.plan.api.payPal.createSubscription(checkout, me)
-                } yield JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
-                else
-                  for {
-                    gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledById)
-                    // customer <- env.plan.api.userCustomer(me)
-                    order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
-                  } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
-              }
-            )
-        }
-      }(rateLimitedFu)
-    }
+  def payPalCheckout = AuthBody { ctx ?=> me =>
+    CheckoutRateLimit(ctx.ip) {
+      env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
+        env.plan.checkoutForm
+          .form(pricing)
+          .bindFromRequest()
+          .fold(
+            err => {
+              logger.info(s"Plan.payPalCheckout 400: $err")
+              BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).toFuccess
+            },
+            data => {
+              val checkout = data.fixFreq
+              if (checkout.freq.renew) for {
+                sub <- env.plan.api.payPal.createSubscription(checkout, me)
+              } yield JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
+              else
+                for {
+                  gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledById)
+                  // customer <- env.plan.api.userCustomer(me)
+                  order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
+                } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
+            }
+          )
+      }
+    }(rateLimitedFu)
+  }
 
-  def payPalCapture(orderId: String) =
-    Auth { implicit ctx => me =>
-      CaptureRateLimit(ctx.ip) {
-        (get("sub") map PayPalSubscriptionId.apply match {
-          case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
-          case Some(subId) =>
-            env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
-        }) inject jsonOkResult
-      }(rateLimitedFu)
-    }
+  def payPalCapture(orderId: String) = Auth { ctx ?=> me =>
+    CaptureRateLimit(ctx.ip) {
+      (get("sub") map PayPalSubscriptionId.apply match {
+        case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
+        case Some(subId) =>
+          env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
+      }) inject jsonOkResult
+    }(rateLimitedFu)
+  }
 
   // deprecated
-  def payPalIpn =
-    Action.async { implicit req =>
-      lila.plan.PlanForm.ipn
-        .bindFromRequest()
-        .fold(
-          err => {
-            if (err.errors("txn_type").nonEmpty) {
-              logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
-              fuccess(Ok)
-            } else {
-              logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
-              fuccess(BadRequest)
-            }
-          },
-          ipn =>
-            env.plan.api.payPal.onLegacyCharge(
-              ipn,
-              ip = req.ipAddress,
-              key = get("key", req) | "N/A"
-            ) inject Ok
-        )
-    }
+  def payPalIpn = AnonBody:
+    lila.plan.PlanForm.ipn
+      .bindFromRequest()
+      .fold(
+        err =>
+          if err.errors("txn_type").nonEmpty then
+            logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
+            fuccess(Ok)
+          else
+            logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
+            fuccess(BadRequest)
+        ,
+        ipn =>
+          env.plan.api.payPal.onLegacyCharge(
+            ipn,
+            ip = req.ipAddress,
+            key = get("key", req) | "N/A"
+          ) inject Ok
+      )

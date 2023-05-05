@@ -98,21 +98,20 @@ final class Round(
           Ok(Json.obj("next" -> next.map(_.fullId)))
         }
 
-  def next(gameId: GameId) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.round.proxyRepo game gameId) { currentGame =>
-        otherPovs(currentGame) map getNext(currentGame) map {
-          _ orElse Pov(currentGame, me)
-        } flatMap {
-          case Some(next) => renderPlayer(next)
-          case None =>
-            fuccess(Redirect(currentGame.simulId match {
-              case Some(simulId) => routes.Simul.show(simulId)
-              case None          => routes.Round.watcher(gameId, "white")
-            }))
-        }
+  def next(gameId: GameId) = Auth { ctx ?=> me =>
+    OptionFuResult(env.round.proxyRepo game gameId) { currentGame =>
+      otherPovs(currentGame) map getNext(currentGame) map {
+        _ orElse Pov(currentGame, me)
+      } flatMap {
+        case Some(next) => renderPlayer(next)
+        case None =>
+          fuccess(Redirect(currentGame.simulId match {
+            case Some(simulId) => routes.Simul.show(simulId)
+            case None          => routes.Round.watcher(gameId, "white")
+          }))
       }
     }
+  }
 
   def watcher(gameId: GameId, color: String) = Open:
     proxyPov(gameId, color) flatMap {
@@ -271,23 +270,20 @@ final class Round(
             Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
         }
 
-  def writeNote(gameId: GameId) =
-    AuthBody { implicit ctx => me =>
-      import play.api.data.Forms.*
-      import play.api.data.*
-      given play.api.mvc.Request[?] = ctx.body
-      Form(single("text" -> text))
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(BadRequest),
-          text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
-        )
-    }
+  def writeNote(gameId: GameId) = AuthBody { ctx ?=> me =>
+    import play.api.data.Forms.*
+    import play.api.data.*
+    Form(single("text" -> text))
+      .bindFromRequest()
+      .fold(
+        _ => fuccess(BadRequest),
+        text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
+      )
+  }
 
-  def readNote(gameId: GameId) =
-    Auth { _ => me =>
-      env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
-    }
+  def readNote(gameId: GameId) = Auth { _ ?=> me =>
+    env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
+  }
 
   def continue(id: GameId, mode: String) = Open:
     OptionResult(env.game.gameRepo game id): game =>
@@ -319,22 +315,21 @@ final class Round(
       html.game.mini(_)
     )
 
-  def apiAddTime(anyId: GameAnyId, seconds: Int) =
-    Scoped(_.Challenge.Write) { _ => me =>
-      import lila.round.actorApi.round.Moretime
-      if (seconds < 1 || seconds > 86400) BadRequest.toFuccess
-      else
-        env.round.proxyRepo.game(lila.game.Game anyToId anyId) flatMap {
-          _.flatMap { Pov(_, me) }.?? { pov =>
-            env.round.moretimer.isAllowedIn(pov.game) map {
-              case true =>
-                env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
-                jsonOkResult
-              case false => BadRequest(jsonError("This game doesn't allow giving time"))
-            }
+  def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me =>
+    import lila.round.actorApi.round.Moretime
+    if (seconds < 1 || seconds > 86400) BadRequest.toFuccess
+    else
+      env.round.proxyRepo.game(lila.game.Game anyToId anyId) flatMap {
+        _.flatMap { Pov(_, me) }.?? { pov =>
+          env.round.moretimer.isAllowedIn(pov.game) map {
+            if _ then
+              env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
+              jsonOkResult
+            else BadRequest(jsonError("This game doesn't allow giving time"))
           }
         }
-    }
+      }
+  }
 
   def help = Open:
     Ok(html.site.keyboardHelpModal.round).toFuccess

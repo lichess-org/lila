@@ -59,7 +59,7 @@ final class Main(
       html.site.lag()
 
   def mobile     = Open(serveMobile)
-  def mobileLang = LangPage(routes.Main.mobile)(serveMobile(using _))
+  def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
   private def serveMobile(using Context) =
     pageHit
@@ -80,10 +80,11 @@ final class Main(
     )
     NoContent.toFuccess
 
-  val robots = Action: (req: RequestHeader) =>
-    Ok:
-      if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-      then """User-agent: *
+  val robots = Anon:
+    fuccess:
+      Ok:
+        if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
+        then """User-agent: *
 Allow: /
 Disallow: /game/export/
 Disallow: /games/export/
@@ -94,9 +95,9 @@ Allow: /game/export/gif/thumbnail/
 User-agent: Twitterbot
 Allow: /
 """
-      else "User-agent: *\nDisallow: /"
+        else "User-agent: *\nDisallow: /"
 
-  def manifest = Action:
+  def manifest = Anon:
     import lila.common.Json.given
     JsonOk:
       Json.obj(
@@ -125,20 +126,23 @@ Allow: /
           )
         )
       )
+    .toFuccess
 
   def getFishnet = Open:
     pageHit
     Ok(html.site.bits.getFishnet()).toFuccess
 
-  def costs = Action: (req: RequestHeader) =>
+  def costs = Anon:
     pageHit(req)
-    Redirect("https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview")
+    fuccess:
+      Redirect:
+        "https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview"
 
-  def verifyTitle = Action: (req: RequestHeader) =>
+  def verifyTitle = Anon:
     pageHit(req)
-    Redirect(
-      "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
-    )
+    fuccess:
+      Redirect:
+        "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"
 
   def contact = Open:
     pageHit
@@ -155,8 +159,8 @@ Allow: /
   def keyboardMoveHelp = Open:
     Ok(html.site.keyboardHelpModal.keyboardMove).toFuccess
 
-  def movedPermanently(to: String) = Action:
-    MovedPermanently(to)
+  def movedPermanently(to: String) = Anon:
+    MovedPermanently(to).toFuccess
 
   def instantChess = Open:
     pageHit

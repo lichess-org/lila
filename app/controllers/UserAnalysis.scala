@@ -137,30 +137,28 @@ final class UserAnalysis(
 
   private def forecastReload = JsonOk(Json.obj("reload" -> true))
 
-  def forecasts(fullId: GameFullId) =
-    AuthBody(parse.json) { implicit ctx => _ =>
-      import lila.round.Forecast
-      OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
-        if (isTheft(pov)) fuccess(theftResponse)
-        else
-          ctx.body.body
-            .validate[Forecast.Steps]
-            .fold(
-              err => BadRequest(err.toString).toFuccess,
-              forecasts =>
-                env.round.forecastApi.save(pov, forecasts) >>
-                  env.round.forecastApi.loadForDisplay(pov) map {
-                    _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
-                  } recover {
-                    case Forecast.OutOfSync        => forecastReload
-                    case _: lila.round.ClientError => forecastReload
-                  }
-            )
-      }
-    }
+  def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ =>
+    import lila.round.Forecast
+    OptionFuResult(env.round.proxyRepo pov fullId): pov =>
+      if (isTheft(pov)) fuccess(theftResponse)
+      else
+        ctx.body.body
+          .validate[Forecast.Steps]
+          .fold(
+            err => BadRequest(err.toString).toFuccess,
+            forecasts =>
+              env.round.forecastApi.save(pov, forecasts) >>
+                env.round.forecastApi.loadForDisplay(pov) map {
+                  _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
+                } recover {
+                  case Forecast.OutOfSync        => forecastReload
+                  case _: lila.round.ClientError => forecastReload
+                }
+          )
+  }
 
   def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
-    AuthBody(parse.json) { implicit ctx => _ =>
+    AuthBody(parse.json) { ctx ?=> _ =>
       import lila.round.Forecast
       OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
         if (isTheft(pov)) fuccess(theftResponse)

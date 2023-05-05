@@ -44,23 +44,19 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")
       })
 
-  def legacyAuthorize =
-    Action { (req: RequestHeader) =>
-      MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
-    }
+  def legacyAuthorize = Anon:
+    MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}").toFuccess
 
-  def authorizeApply =
-    Auth { implicit ctx => me =>
-      withPrompt { prompt =>
-        prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
-          case Validated.Valid(authorized) =>
-            env.oAuth.authorizationApi.create(authorized) map { code =>
-              SeeOther(authorized.redirectUrl(code))
-            }
-          case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
-        }
+  def authorizeApply = Auth { _ ?=> me =>
+    withPrompt: prompt =>
+      prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
+        case Validated.Valid(authorized) =>
+          env.oAuth.authorizationApi.create(authorized) map { code =>
+            SeeOther(authorized.redirectUrl(code))
+          }
+        case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).toFuccess
       }
-    }
+  }
 
   private val accessTokenRequestForm =
     import lila.oauth.Protocol.*
@@ -76,104 +72,94 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       )(AccessTokenRequest.Raw.apply)(unapply)
     )
 
-  def tokenApply =
-    Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
-      req.body.prepare match
-        case Validated.Valid(prepared) =>
-          env.oAuth.authorizationApi.consume(prepared) flatMap {
-            case Validated.Valid(granted) =>
-              env.oAuth.tokenApi.create(granted) map { token =>
-                Ok(
-                  Json
-                    .obj(
-                      "token_type"   -> "Bearer",
-                      "access_token" -> token.plain
-                    )
-                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
-                )
-              }
-            case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
-          }
-        case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
-    }
+  def tokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
+    _.prepare match
+      case Validated.Valid(prepared) =>
+        env.oAuth.authorizationApi.consume(prepared) flatMap {
+          case Validated.Valid(granted) =>
+            env.oAuth.tokenApi.create(granted) map { token =>
+              Ok(
+                Json
+                  .obj(
+                    "token_type"   -> "Bearer",
+                    "access_token" -> token.plain
+                  )
+                  .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
+              )
+            }
+          case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
+        }
+      case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
 
-  def legacyTokenApply =
-    Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
-      req.body.prepareLegacy(AccessTokenRequest.BasicAuth from req) match
-        case Validated.Valid(prepared) =>
-          env.oAuth.authorizationApi.consume(prepared) flatMap {
-            case Validated.Valid(granted) =>
-              env.oAuth.tokenApi.create(granted) map { token =>
-                Ok(
-                  Json
-                    .obj(
-                      "token_type"    -> "Bearer",
-                      "access_token"  -> token.plain,
-                      "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
-                    )
-                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
-                )
-              }
-            case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
-          }
-        case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
-    }
+  def legacyTokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
+    _.prepareLegacy(AccessTokenRequest.BasicAuth from req) match
+      case Validated.Valid(prepared) =>
+        env.oAuth.authorizationApi.consume(prepared) flatMap {
+          case Validated.Valid(granted) =>
+            env.oAuth.tokenApi.create(granted) map { token =>
+              Ok(
+                Json
+                  .obj(
+                    "token_type"    -> "Bearer",
+                    "access_token"  -> token.plain,
+                    "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
+                  )
+                  .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
+              )
+            }
+          case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
+        }
+      case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
 
-  def tokenRevoke =
-    Scoped() { implicit req => _ =>
-      HTTPRequest.bearer(req) ?? { token =>
-        env.oAuth.tokenApi.revoke(token) inject NoContent
-      }
+  def tokenRevoke = Scoped() { req ?=> _ =>
+    HTTPRequest.bearer(req) ?? { token =>
+      env.oAuth.tokenApi.revoke(token) inject NoContent
     }
+  }
 
   private val revokeClientForm = Form(single("origin" -> text))
 
-  def revokeClient =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      revokeClientForm
+  def revokeClient = AuthBody { ctx ?=> me =>
+    revokeClientForm
+      .bindFromRequest()
+      .fold(
+        _ => BadRequest.toFuccess,
+        origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
+      )
+  }
+
+  def challengeTokens = ScopedBody(_.Web.Mod) { req ?=> me =>
+    if isGranted(_.ApiChallengeAdmin, me) then
+      lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()
         .fold(
-          _ => BadRequest.toFuccess,
-          origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
+          err => BadRequest(apiFormError(err)).toFuccess,
+          data =>
+            env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
+              JsonOk(tokens.view.mapValues(_.plain).toMap)
+            }
         )
-    }
-
-  def challengeTokens =
-    ScopedBody(_.Web.Mod) { implicit req => me =>
-      if (isGranted(_.ApiChallengeAdmin, me))
-        lila.oauth.OAuthTokenForm.adminChallengeTokens
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(apiFormError(err)).toFuccess,
-            data =>
-              env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
-                JsonOk(tokens.view.mapValues(_.plain).toMap)
-              }
-          )
-      else Unauthorized(jsonError("Missing permission")).toFuccess
-    }
+    else Unauthorized(jsonError("Missing permission")).toFuccess
+  }
 
   private val testTokenRateLimit = lila.memo.RateLimit[IpAddress](
     credits = 10_000,
     duration = 10.minutes,
     key = "api.token.test"
   )
-  def testTokens =
-    Action.async(parse.tolerantText) { req =>
-      val bearers = Bearer from req.body.split(',').view.take(1000).toList
-      testTokenRateLimit[Fu[Api.ApiResult]](req.ipAddress, cost = bearers.size) {
-        env.oAuth.tokenApi.test(bearers) map { tokens =>
-          import lila.common.Json.given
-          ApiResult.Data(JsObject(tokens.map { case (bearer, token) =>
-            bearer.value -> token.fold[JsValue](JsNull) { t =>
-              Json.obj(
-                "userId"  -> t.userId,
-                "scopes"  -> t.scopes.map(_.key).mkString(","),
-                "expires" -> t.expires
-              )
-            }
-          }))
-        }
-      }(fuccess(ApiResult.Limited)) map apiC.toHttp
-    }
+  def testTokens = AnonBodyOf(parse.tolerantText): body =>
+    val bearers = Bearer from body.split(',').view.take(1000).toList
+    testTokenRateLimit[Fu[Api.ApiResult]](req.ipAddress, cost = bearers.size) {
+      env.oAuth.tokenApi.test(bearers) map { tokens =>
+        import lila.common.Json.given
+        ApiResult.Data(JsObject(tokens.map { case (bearer, token) =>
+          bearer.value -> token.fold[JsValue](JsNull) { t =>
+            Json.obj(
+              "userId"  -> t.userId,
+              "scopes"  -> t.scopes.map(_.key).mkString(","),
+              "expires" -> t.expires
+            )
+          }
+        }))
+      }
+    }(fuccess(ApiResult.Limited)) map apiC.toHttp
