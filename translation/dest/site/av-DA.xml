@@ -47,6 +47,8 @@
   <string name="whiteDidntMove">ХъахӀал инчӀо</string>
   <string name="blackDidntMove">ЧӀегӀерал инчӀо</string>
   <string name="computerAnalysis">Компьютерил анализ</string>
+  <string name="depthX">Гъварилъи %s</string>
+  <string name="usingServerAnalysis">Сервералъул анализ хӀалтӀизабулеб буго</string>
   <string name="deleteFromHere">Гьаниса хвезабизе</string>
   <string name="move">Ин</string>
   <string name="capture">ЧӀвай</string>
