@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">Under visse omstændigheder, når du spiller mod en bot-konto, giver et ratet parti måske ikke point, hvis det fastslås, at spilleren misbruger bot\'en for ratingpoint.</string>
   <string name="errorPage">Fejlside</string>
   <string name="reportErrorPage">Hvis du stødte på en fejlside, kan du anmelde det:</string>
+  <string name="wantBroadcastTournament">Jeg ønsker at udsende en turnering</string>
+  <string name="learnHowToMakeBroadcasts">Lær hvordan du laver dine egne udsendelser på Lichess</string>
+  <string name="contactAboutOfficialBroadcasts">Du kan også kontakte teamet for udsendelser angående officielle udsendelser.</string>
   <string name="banAppeal">Appellere en udelukkelse eller IP-restriktion</string>
   <string name="engineAppeal">Skakcomputer eller snyde-anmærkning</string>
   <string name="sendAppealTo">Du kan sende en appel til %s.</string>
