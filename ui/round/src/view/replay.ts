@@ -2,15 +2,14 @@ import * as game from 'game';
 import * as round from '../round';
 import * as status from 'game/status';
 import * as util from '../util';
+import { render as menu } from './menu';
 import isCol1 from 'common/isCol1';
 import RoundController from '../ctrl';
 import throttle from 'common/throttle';
-import { snabModal } from 'common/modal';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
 import { Step, MaybeVNodes } from '../interfaces';
-import { ToggleSettings, toggle } from 'common/controls';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -166,24 +165,12 @@ function renderButtons(ctrl: RoundController) {
 
           const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
           if (action === 'menu') ctrl.menu.toggle();
-          else if (action === 'flip') {
-            if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-            else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
-            else ctrl.flipNow();
-          }
         },
         ctrl.redraw
       ),
     },
     [
-      h('button.fbt.flip', {
-        class: { active: ctrl.flip },
-        attrs: {
-          title: ctrl.noarg('flipBoard'),
-          'data-act': 'flip',
-          'data-icon': '',
-        },
-      }),
+      analysisButton(ctrl) || h('div.noop'),
       ...[
         ['', firstPly],
         ['', ctrl.ply - 1],
@@ -200,8 +187,6 @@ function renderButtons(ctrl: RoundController) {
           },
         });
       }),
-      // TODO: readd this button
-      // analysisButton(ctrl) || h('div.noop'),
       h(
         'button.fbt.menu-button',
         {
@@ -217,39 +202,6 @@ function renderButtons(ctrl: RoundController) {
     ]
   );
 }
-
-const ctrlToggle = (t: ToggleSettings, ctrl: RoundController) => toggle(t, ctrl.trans, ctrl.redraw);
-
-const renderMenu = (ctrl: RoundController) =>
-  snabModal({
-    class: 'board-menu',
-    onClose: () => ctrl.menu(false),
-    content: [
-      h('h2', 'Move input'),
-      ctrlToggle(
-        {
-          name: 'Enable voice input',
-          title: 'Enable voice input',
-          id: 'voice',
-          checked: ctrl.voiceMoveEnabled(),
-          disabled: false,
-          change: ctrl.voiceMoveEnabled,
-        },
-        ctrl
-      ),
-      ctrlToggle(
-        {
-          name: 'Enable keyboard input',
-          title: 'Enable keyboard input',
-          id: 'keyboard',
-          checked: ctrl.keyboardMoveEnabled(),
-          disabled: false,
-          change: ctrl.keyboardMoveEnabled,
-        },
-        ctrl
-      ),
-    ],
-  });
 
 function initMessage(ctrl: RoundController) {
   const d = ctrl.data;
@@ -309,7 +261,7 @@ export function render(ctrl: RoundController): VNode | undefined {
     ? undefined
     : h(rmovesTag, [
         renderButtons(ctrl),
-        h('div.menu-anchor', ctrl.menu() ? renderMenu(ctrl) : undefined),
+        h('div.menu-anchor', ctrl.menu() ? menu(ctrl) : undefined),
         initMessage(ctrl) ||
           (isCol1()
             ? h('div.col1-moves', [
