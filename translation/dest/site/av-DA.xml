@@ -86,6 +86,11 @@
   </plurals>
   <string name="username">ХӀалтӀизабуласда цӀар</string>
   <string name="changeUsername">ХӀалтӀизабуласда цӀар хисизе</string>
+  <string name="forgotPassword">Парол кӀочонищ тараб?</string>
+  <string name="error.weakPassword">Гьаб парол кутакалда тӀибитӀараб буго, гьединго гьалда нахъгӀунтӀизе бигьаяб буго.</string>
+  <string name="youAreLeavingLichess">Мун Lichess-алдаса унев вуго</string>
+  <string name="neverTypeYourPassword">БатӀияб сайталда дур Lichess парол киданиги хъваге!</string>
+  <string name="emailCanTakeSomeTime">БачӀине мех базе бегьула.</string>
   <string name="accountClosed">%s аккаунт къан буго.</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>
@@ -93,7 +98,22 @@
     <item quantity="one">Ранг щибаб минуталъ цӀилъула</item>
     <item quantity="other">Ранг щибаб %s минуталъ цӀилъула</item>
   </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s масъала</item>
+    <item quantity="other">%s масъала</item>
+  </plurals>
   <string name="gamesPlayed">ХӀаял хӀана</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s мунгун хӀай</item>
+    <item quantity="other">%s мунгун хӀай</item>
+  </plurals>
+  <string name="accept">Разилъизе</string>
+  <string name="decline">НахъчӀвазе</string>
+  <string name="playingRightNow">ХӀай унеб буго гьабсагӀат</string>
+  <string name="eventInProgress">ХӀай унеб буго гьабсагӀат</string>
+  <string name="finished">ТӀубана</string>
+  <string name="finishesX">%s лъугӀула</string>
+  <string name="standard">ГӀадатаб</string>
   <string name="play">ХӀазе</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнирал</string>
