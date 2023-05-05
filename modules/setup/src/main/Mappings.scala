@@ -35,5 +35,5 @@ private object Mappings {
   val color       = text.verifying(Color.names contains _)
   val level       = number.verifying(AiConfig.levels contains _)
   val speed       = number.verifying(Config.speeds contains _)
-  val sfenField   = optional(nonEmptyText)
+  val sfenField   = optional(nonEmptyText.transform[String](_.replace("_", " "), identity))
 }
