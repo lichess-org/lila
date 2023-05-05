@@ -765,6 +765,7 @@
   <string name="invalidFen">FEB ـەکەت هەڵەیە</string>
   <string name="custom">تەرخانکراو</string>
   <string name="notifications">ئاگادارکردنەوەکان</string>
+  <string name="notificationsx">ئاگادارکردنەوەکان: %1$s</string>
   <string name="perfRatingX">هەڵسەنگاندن: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s چرکە ماوە بۆ یەکەم جوڵە</item>

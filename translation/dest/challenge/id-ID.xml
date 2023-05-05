@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Tantangan</string>
+  <string named="challengesx">Tantangan: %1$s</string>
   <string name="challengeToPlay">Menantang ke permainan</string>
   <string name="challengeDeclined">Tantangan ditolak</string>
   <string name="challengeAccepted">Tantangan diterima!</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">გამოწვევები</string>
+  <string named="challengesx">გამოწვევები: %1$s</string>
   <string name="challengeToPlay">გამოიწვიე სათამაშოთ</string>
   <string name="challengeDeclined">გამოწვევა უარყოფილია</string>
   <string name="challengeAccepted">გამოწვევა მიღებულია!</string>

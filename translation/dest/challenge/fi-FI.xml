@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Haasteet</string>
+  <string named="challengesx">Haasteet: %1$s</string>
   <string name="challengeToPlay">Haasta peliin</string>
   <string name="challengeDeclined">Haasteesta kieltäydyttiin</string>
   <string name="challengeAccepted">Haaste hyväksytty!</string>

@@ -928,6 +928,7 @@ https://lichess. org/study</string>
   <string name="invalidFen">FEN غير صالح</string>
   <string name="custom">مخصص</string>
   <string name="notifications">إشعارات</string>
+  <string name="notificationsx">إشعارات: %1$s</string>
   <string name="perfRatingX">التقييم: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>

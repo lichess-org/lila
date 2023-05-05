@@ -808,6 +808,7 @@
   <string name="invalidFen">Nepareizs FEN</string>
   <string name="custom">Pielāgota</string>
   <string name="notifications">Paziņojumi</string>
+  <string name="notificationsx">Paziņojumi: %1$s</string>
   <string name="perfRatingX">Reitings: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s sekundes, lai izdarītu pirmo gājienu</item>

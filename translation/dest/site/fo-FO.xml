@@ -713,6 +713,7 @@
   <string name="invalidFen">Ógildugt FEN</string>
   <string name="custom">Tillagað</string>
   <string name="notifications">Fráboðanir</string>
+  <string name="notificationsx">Fráboðanir: %1$s</string>
   <string name="perfRatingX">Styrkital: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund at flyta fyrsta leik</item>

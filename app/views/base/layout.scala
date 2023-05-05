@@ -126,15 +126,19 @@ object layout:
   private def allNotifications(using ctx: Context) =
     spaceless(s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="${trans.challenge.challenges
-        .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
+    <span title="${trans.challenge.challengesx
+        .txt(ctx.nbChallenges)}" aria-label="${trans.challenge.challengesx
+        .txt(ctx.nbChallenges)}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="${trans.notifications
-        .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
+    <span title="${trans.notificationsx
+        .txt(ctx.nbNotifications)}" aria-label="${trans.notificationsx
+        .txt(
+          ctx.nbNotifications
+        )}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>""")
@@ -451,6 +455,8 @@ object layout:
       trans.pause,
       trans.resume,
       trans.nbFriendsOnline,
+      trans.notificationsx,
+      trans.challenge.challengesx,
       trans.timeago.justNow,
       trans.timeago.inNbSeconds,
       trans.timeago.inNbMinutes,

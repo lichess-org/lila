@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Výzvy</string>
+  <string named="challengesx">Výzvy: %1$s</string>
   <string name="challengeToPlay">Vyzvat k partii</string>
   <string name="challengeDeclined">Výzva odmítnuta</string>
   <string name="challengeAccepted">Výzva přijata!</string>

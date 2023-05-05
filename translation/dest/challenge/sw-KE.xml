@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Mwito wa kuja kushindana</string>
+  <string named="challengesx">Mwito wa kuja kushindana: %1$s</string>
   <string name="challengeToPlay">Mwito wa kuja kushindana kwa mchezo</string>
   <string name="challengeDeclined">Mwito wa kuja kushindana umekataliwa</string>
   <string name="challengeAccepted">Mwito wa kuja kushindana umekubaliwa!</string>

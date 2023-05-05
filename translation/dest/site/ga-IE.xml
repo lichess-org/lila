@@ -872,6 +872,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="invalidFen">FEN neamhbhailí</string>
   <string name="custom">Saincheaptha</string>
   <string name="notifications">Fógraí</string>
+  <string name="notificationsx">Fógraí: %1$s</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s soicind chun an chéad bheart a imirt</item>

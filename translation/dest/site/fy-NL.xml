@@ -469,6 +469,7 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="invalidFen">Unjildige FEN</string>
   <string name="custom">Oanpast</string>
   <string name="notifications">Meldingen</string>
+  <string name="notificationsx">Meldingen: %1$s</string>
   <string name="doItAgain">Noch in kear dwaan</string>
   <string name="why">Wêrom?</string>
 </resources>

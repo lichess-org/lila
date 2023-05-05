@@ -697,6 +697,7 @@
   <string name="invalidFen">FEN da xatolik</string>
   <string name="custom">Boshqa</string>
   <string name="notifications">Xabarlar</string>
+  <string name="notificationsx">Xabarlar: %1$s</string>
   <string name="perfRatingX">Reyting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish uchun %s sekund</item>

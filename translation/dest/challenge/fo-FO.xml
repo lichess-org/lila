@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Avbjóðingar</string>
+  <string named="challengesx">Avbjóðingar: %1$s</string>
   <string name="challengeToPlay">Bjóða av at telva</string>
   <string name="challengeDeclined">Avbjóðing avvíst</string>
   <string name="challengeAccepted">Avbjóðing góðtikin!</string>

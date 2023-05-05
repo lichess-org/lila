@@ -726,6 +726,7 @@
   <string name="invalidFen">FEN ಸರಿ ಇಲ್ಲ</string>
   <string name="custom">ಸ್ವಂತೀಕರಿಸಿ</string>
   <string name="notifications">ಅಧಿಸೂಚನೆಗಳು</string>
+  <string name="notificationsx">ಅಧಿಸೂಚನೆಗಳು: %1$s</string>
   <string name="perfRatingX">ಧಾರಣೆ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ಸೆಕೆಂಡು ಬಾಕಿ ಇದೆ, ಮೊದಲ ನಡೆ ಆಡಲು</item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Предизвици</string>
+  <string named="challengesx">Предизвици: %1$s</string>
   <string name="challengeToPlay">Предизвикај на Игра</string>
   <string name="challengeDeclined">Предизвикот е одбиен</string>
   <string name="challengeAccepted">Предизвикот е прифатен!</string>

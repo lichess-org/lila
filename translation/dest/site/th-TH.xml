@@ -717,6 +717,7 @@
   <string name="invalidFen">FEN ไม่ถูกต้อง</string>
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
+  <string name="notificationsx">การแจ้งเตือน: %1$s</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>

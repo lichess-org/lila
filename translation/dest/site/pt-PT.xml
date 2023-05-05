@@ -772,6 +772,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="invalidFen">FEN inválido</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
+  <string name="notificationsx">Notificações: %1$s</string>
   <string name="perfRatingX">Pontuação: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>

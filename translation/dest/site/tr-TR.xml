@@ -771,6 +771,7 @@
   <string name="invalidFen">Geçersiz FEN</string>
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
+  <string name="notificationsx">Bildirimler: %1$s</string>
   <string name="perfRatingX">Puan: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">İlk hamle için son %s saniye</item>

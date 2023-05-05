@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Defioj</string>
+  <string named="challengesx">Defioj: %1$s</string>
   <string name="challengeToPlay">Defii al nova ludo</string>
   <string name="challengeDeclined">Defio malakceptita</string>
   <string name="challengeAccepted">Defio akceptita!</string>

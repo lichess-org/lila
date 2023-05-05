@@ -692,6 +692,7 @@
   <string name="invalidFen">Ógilt FEN</string>
   <string name="custom">Sérsniðinn</string>
   <string name="notifications">Tilkynningar</string>
+  <string name="notificationsx">Tilkynningar: %1$s</string>
   <string name="perfRatingX">Skákstig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að spila fyrsta leik</item>

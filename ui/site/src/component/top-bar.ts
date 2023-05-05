@@ -1,6 +1,7 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadModule } from './assets';
 import { loadDasher } from 'common/dasher';
+import { siteTrans } from './trans';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
@@ -37,7 +38,8 @@ export default function () {
   {
     // challengeApp
     let instance: any, booted: boolean;
-    const $toggle = $('#challenge-toggle');
+    const $toggle = $('#challenge-toggle'),
+      $countSpan = $toggle.find('span');
     $toggle.one('mouseover click', () => load());
     const load = function (data?: any) {
       if (booted) return;
@@ -52,7 +54,10 @@ export default function () {
               if (!isVisible('#challenge-app')) $toggle.trigger('click');
             },
             setCount(nb: number) {
-              $toggle.find('span').data('count', nb);
+              $countSpan
+                .attr('title', siteTrans('challengesx', nb))
+                .attr('aria-label', siteTrans('challengesx', nb))
+                .data('count', nb);
             },
             pulse() {
               $toggle.addClass('pulse');
@@ -71,6 +76,7 @@ export default function () {
     // notifyApp
     let instance: any, booted: boolean;
     const $toggle = $('#notify-toggle'),
+      $countSpan = $toggle.find('span'),
       selector = '#notify-app';
 
     const load = (data?: any) => {
@@ -83,9 +89,12 @@ export default function () {
           data,
           isVisible: () => isVisible(selector),
           updateUnread(nb: number | 'increment') {
-            const existing = ($toggle.find('span').data('count') as number) || 0;
+            const existing = ($countSpan.data('count') as number) || 0;
             if (nb == 'increment') nb = existing + 1;
-            $toggle.find('span').data('count', this.isVisible() ? 0 : nb);
+            $countSpan
+              .data('count', this.isVisible() ? 0 : nb)
+              .attr('title', siteTrans('notificationsx', nb))
+              .attr('aria-label', siteTrans('notificationsx', nb));
             return nb && nb != existing;
           },
           show() {

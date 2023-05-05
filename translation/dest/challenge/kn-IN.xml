@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">ಸವಾಲುಗಳು</string>
+  <string named="challengesx">ಸವಾಲುಗಳು: %1$s</string>
   <string name="challengeToPlay">ಆಡಲು ಸವಾಲು ಮಾಡಿ</string>
   <string name="challengeDeclined">ಸವಾಲನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
   <string name="challengeAccepted">ಸವಾಲನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ!</string>

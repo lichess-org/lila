@@ -845,6 +845,7 @@
   <string name="invalidFen">Neplatný formát FEN</string>
   <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
+  <string name="notificationsx">Upozornenia: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na vykonanie prvého ťahu</item>

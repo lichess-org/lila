@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Erronkak</string>
+  <string named="challengesx">Erronkak: %1$s</string>
   <string name="challengeToPlay">Partida baterako erronka egin</string>
   <string name="challengeDeclined">Erronka baztertuta</string>
   <string name="challengeAccepted">Erronka onartuta!</string>

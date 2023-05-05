@@ -726,6 +726,7 @@
   <string name="invalidFen">FEN tidak valid</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
+  <string name="notificationsx">Notifikasi: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>

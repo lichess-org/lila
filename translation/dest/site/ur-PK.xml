@@ -687,6 +687,7 @@
   <string name="invalidFen">ناقابل استعمال FEN</string>
   <string name="custom">من پسند</string>
   <string name="notifications">اطلاعات</string>
+  <string name="notificationsx">اطلاعات: %1$s</string>
   <string name="perfRatingX">درجہ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">پہلی چال چلنے کے لیے %s سیکنڈ</item>

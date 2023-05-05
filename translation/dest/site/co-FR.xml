@@ -736,6 +736,7 @@
   <string name="invalidFen">FEN invalidu</string>
   <string name="custom">Abitudine</string>
   <string name="notifications">Nutificazioni</string>
+  <string name="notificationsx">Nutificazioni: %1$s</string>
   <string name="perfRatingX">Classifica:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secunda pè ghjucà u primu colpu</item>

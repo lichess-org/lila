@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Шақырулар</string>
+  <string named="challengesx">Шақырулар: %1$s</string>
   <string name="challengeToPlay">Ойынға шақыру</string>
   <string name="challengeDeclined">Шақыруды қабылдамады</string>
   <string name="challengeAccepted">Шақыруды қабылдады!</string>

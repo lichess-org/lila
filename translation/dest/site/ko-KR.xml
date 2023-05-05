@@ -732,6 +732,7 @@
   <string name="invalidFen">잘못된 FEN입니다.</string>
   <string name="custom">사용자 지정</string>
   <string name="notifications">알림</string>
+  <string name="notificationsx">알림: %1$s</string>
   <string name="perfRatingX">레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
