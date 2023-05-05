@@ -866,6 +866,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="useTheReportForm">bruk rapportskjemaet</string>
   <string name="toRequestSupport">For å få hjelp, %1$s</string>
   <string name="tryTheContactPage">prøv kontaktsida</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Sørg for at du les %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">skikk og bruk i forumet</string>
   <string name="thisTopicIsArchived">Dette emnet er flytta til arkivet og kan ikkje lengre svarast på.</string>
   <string name="joinTheTeamXToPost">Meld deg på %1$s, for å poste meldingar i dette forumet</string>
   <string name="teamNamedX">%1$s lag</string>
