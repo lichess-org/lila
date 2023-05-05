@@ -221,6 +221,8 @@
   <string name="usernameNotFound">हमें %s नाम से कोई यूज़र नहीं मिला।</string>
   <string name="usernameCanBeUsedForNewAccount">आप इस यूज़रनेम से नया खाता खोल सकते हैं|</string>
   <string name="emailSent">हम ने %s को ईमेल भेजा है|</string>
+  <string name="emailCanTakeSomeTime">इसे आने में कुछ समय लग सकता है।</string>
+  <string name="refreshInboxAfterFiveMinutes">5 मिनट प्रतीक्षा करें और अपना ईमेल इनबॉक्स रिफ्रेश करें।</string>
   <string name="accountCanLogin">आप अब %s से लॉग इन कर सकते हैं|</string>
   <string name="accountConfirmationEmailNotNeeded">आप को कन्फ़र्मेशन ईमेल की ज़रुरत नहीं है|</string>
   <string name="accountClosed">%s खाता बंद है.</string>
