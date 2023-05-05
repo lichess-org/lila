@@ -5,6 +5,7 @@ import * as util from '../util';
 import isCol1 from 'common/isCol1';
 import RoundController from '../ctrl';
 import throttle from 'common/throttle';
+import { snabModal } from 'common/modal';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
@@ -219,33 +220,36 @@ function renderButtons(ctrl: RoundController) {
 
 const ctrlToggle = (t: ToggleSettings, ctrl: RoundController) => toggle(t, ctrl.trans, ctrl.redraw);
 
-function renderMenu(ctrl: RoundController) {
-  return h('div.menu', [
-    h('h2', 'Move input'),
-    ctrlToggle(
-      {
-        name: 'Enable voice input',
-        title: 'Enable voice input',
-        id: 'voice',
-        checked: ctrl.voiceMoveEnabled(),
-        disabled: false,
-        change: ctrl.voiceMoveEnabled,
-      },
-      ctrl
-    ),
-    ctrlToggle(
-      {
-        name: 'Enable keyboard input',
-        title: 'Enable keyboard input',
-        id: 'keyboard',
-        checked: ctrl.keyboardMoveEnabled(),
-        disabled: false,
-        change: ctrl.keyboardMoveEnabled,
-      },
-      ctrl
-    ),
-  ]);
-}
+const renderMenu = (ctrl: RoundController) =>
+  snabModal({
+    class: 'board-menu',
+    onClose: () => ctrl.menu(false),
+    content: [
+      h('h2', 'Move input'),
+      ctrlToggle(
+        {
+          name: 'Enable voice input',
+          title: 'Enable voice input',
+          id: 'voice',
+          checked: ctrl.voiceMoveEnabled(),
+          disabled: false,
+          change: ctrl.voiceMoveEnabled,
+        },
+        ctrl
+      ),
+      ctrlToggle(
+        {
+          name: 'Enable keyboard input',
+          title: 'Enable keyboard input',
+          id: 'keyboard',
+          checked: ctrl.keyboardMoveEnabled(),
+          disabled: false,
+          change: ctrl.keyboardMoveEnabled,
+        },
+        ctrl
+      ),
+    ],
+  });
 
 function initMessage(ctrl: RoundController) {
   const d = ctrl.data;
