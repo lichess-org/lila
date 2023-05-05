@@ -95,7 +95,7 @@ body {
     &:nth-child(odd) {
       border-right: $border;
     }
-    &:nth-child(n+3) {
+    &:nth-child(n + 3) {
       border-top: $border;
     }
   }

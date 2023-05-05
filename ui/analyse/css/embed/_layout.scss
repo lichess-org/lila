@@ -29,13 +29,15 @@
   grid-template-columns: auto;
   grid-template-rows: min-content calc(100vw / 11 * 12) min-content minmax(50px, calc(100vh - 100vw - 12rem)) 2.5rem;
   grid-template-rows: 1fr 9fr 1fr 2.5fr 3rem;
-  &.variant-minishogi, &.variant-kyotoshogi {
+  &.variant-minishogi,
+  &.variant-kyotoshogi {
     grid-template-rows: 1fr 5fr 1fr 2.5fr 3rem;
   }
 
   @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
     grid-template-columns: 9fr 7fr;
-    &.variant-minishogi, &.variant-kyotoshogi {
+    &.variant-minishogi,
+    &.variant-kyotoshogi {
       grid-template-columns: 5fr 5fr;
       grid-template-rows: min-content 1fr 2.5rem min-content;
     }

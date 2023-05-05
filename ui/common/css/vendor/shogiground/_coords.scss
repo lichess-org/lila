@@ -11,7 +11,7 @@ coords {
   display: flex;
   pointer-events: none;
   @include fluid-size('font-size', 7px, 11px);
-  body[data-notation="2"] &.ranks {
+  body[data-notation='2'] &.ranks {
     @include fluid-size('font-size', 6px, 10px);
   }
   user-select: none;
@@ -108,7 +108,7 @@ coords {
         line-height: $edge-size-s;
       }
     }
-    body[data-notation="2"] & {
+    body[data-notation='2'] & {
       coords.ranks {
         // full width characters
         font-size: calc(1.4vh * var(--board-scale, 1));
