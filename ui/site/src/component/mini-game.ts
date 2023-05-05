@@ -55,15 +55,15 @@ export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
       lastMove: uciToMove(lm),
     });
   const turnColor = fenColor(data.fen);
-  const renderClock = (time: number | undefined, color: Color) => {
+  const updateClock = (time: number | undefined, color: Color) => {
     if (!isNaN(time!))
       clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
         time: time!,
         pause: color != turnColor || !clockIsRunning(data.fen, color),
       });
   };
-  renderClock(data.wc, 'white');
-  renderClock(data.bc, 'black');
+  updateClock(data.wc, 'white');
+  updateClock(data.bc, 'black');
 };
 
 export const finish = (node: HTMLElement, win?: string) =>

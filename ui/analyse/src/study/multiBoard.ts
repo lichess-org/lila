@@ -1,4 +1,5 @@
 import debounce from 'common/debounce';
+import { renderClock } from 'common/mini-game';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
@@ -178,14 +179,6 @@ function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefin
     ])
   );
 }
-
-const renderClock = (color: Color, time: number) =>
-  h(`span.mini-game__clock.mini-game__clock--${color}`, {
-    attrs: {
-      'data-time': time,
-      'data-managed': 1,
-    },
-  });
 
 const computeTimeLeft = (
   preview: ChapterPreview,
