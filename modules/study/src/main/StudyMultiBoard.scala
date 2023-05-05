@@ -1,7 +1,7 @@
 package lila.study
 
 import BSONHandlers.given
-import chess.{ ByColor, Color, Outcome }
+import chess.{ ByColor, Centis, Color, Outcome }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
@@ -101,7 +101,8 @@ final class StudyMultiBoard(
                     )
                   ),
                   "orientation" -> "$setup.orientation",
-                  "name"        -> true
+                  "name"        -> true,
+                  "lastMoveAt"  -> "$relay.lastMoveAt"
                 )
               )
             )
@@ -112,18 +113,25 @@ final class StudyMultiBoard(
             doc  <- r
             id   <- doc.getAsOpt[StudyChapterId]("_id")
             name <- doc.getAsOpt[StudyChapterName]("name")
-            comp <- doc.getAsOpt[Bdoc]("comp")
-            node <- comp.getAsOpt[Bdoc]("node")
-            fen  <- node.getAsOpt[Fen.Epd]("fen")
-            lastMove = node.getAsOpt[Uci]("uci")
-            tags     = comp.getAsOpt[Tags]("tags")
+            lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
+            comp       <- doc.getAsOpt[Bdoc]("comp")
+            node       <- comp.getAsOpt[Bdoc]("node")
+            fen        <- node.getAsOpt[Fen.Epd]("fen")
+            sideToPlay <- node.getAsOpt[Ply]("ply").map(_.color)
+            clocks     <- comp.getAsOpt[Bdoc]("clocks")
+            lastMove   = node.getAsOpt[Uci]("uci")
+            tags       = comp.getAsOpt[Tags]("tags")
+            blackClock = clocks.getAsOpt[Centis]("black")
+            whiteClock = clocks.getAsOpt[Centis]("white")
           yield ChapterPreview(
             id = id,
             name = name,
-            players = tags flatMap ChapterPreview.players,
+            players = tags flatMap ChapterPreview.players(blackClock = blackClock, whiteClock = whiteClock),
+            sideToPlay = sideToPlay,
             orientation = doc.getAsOpt[Color]("orientation") | Color.White,
             fen = fen,
             lastMove = lastMove,
+            lastMoveAt = lastMoveAt,
             playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*"),
             outcome = tags.flatMap(_.outcome)
           )
@@ -136,6 +144,7 @@ final class StudyMultiBoard(
       .obj("name" -> p.name)
       .add("title" -> p.title)
       .add("rating" -> p.rating)
+      .add("clock" -> p.clock)
   }
 
   given Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] { players =>
@@ -155,21 +164,22 @@ object StudyMultiBoard:
       orientation: Color,
       fen: Fen.Epd,
       lastMove: Option[Uci],
+      lastMoveAt: Option[Instant],
       playing: Boolean,
       outcome: Option[Outcome]
   )
 
   object ChapterPreview:
 
-    case class Player(name: String, title: Option[String], rating: Option[Int])
+    case class Player(name: String, title: Option[String], rating: Option[Int], clock: Option[Centis])
 
     type Players = ByColor[Player]
 
-    def players(tags: Tags): Option[Players] =
+    def players(blackClock: Option[Centis], whiteClock: Option[Centis])(tags: Tags): Option[Players] =
       for
         wName <- tags(_.White)
         bName <- tags(_.Black)
       yield ByColor(
-        white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo).flatMap(_.toIntOption)),
-        black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo).flatMap(_.toIntOption))
+        white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo).flatMap(_.toIntOption), whiteClock),
+        black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo).flatMap(_.toIntOption), blackClock)
       )
