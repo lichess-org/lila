@@ -514,6 +514,7 @@
   <string name="blog">博客</string>
   <string name="notes">备注</string>
   <string name="typePrivateNotesHere">输入关于该用户的个人备注</string>
+  <string name="writeAPrivateNoteAboutThisUser">备注用户信息</string>
   <string name="noNoteYet">暂无笔记</string>
   <string name="invalidUsernameOrPassword">用户名或密码错误</string>
   <string name="incorrectPassword">密码错误</string>
@@ -902,4 +903,5 @@
   <string name="lichessDbExplanation">来自 Lichess 用户的所有 Rated 游戏</string>
   <string name="switchSides">更换所持颜色</string>
   <string name="closingAccountWithdrawAppeal">关闭您的帐户将撤回您的上诉</string>
+  <string name="ourEventTips">举办赛事的小建议</string>
 </resources>

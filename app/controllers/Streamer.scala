@@ -25,39 +25,31 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         yield Ok(html.streamer.index(live, pager, requests))
       }
 
-  def featured = Action.async { implicit req =>
-    env.streamer.liveStreamApi.all
-      .map { streams =>
-        val max      = env.streamer.homepageMaxSetting.get()
-        val featured = streams.homepage(max, req, none) withTitles env.user.lightUserApi
-        JsonOk {
-          featured.live.streams.map { s =>
-            Json.obj(
-              "url"    -> routes.Streamer.redirect(s.streamer.id.value).absoluteURL(),
-              "status" -> s.status,
-              "user" -> Json
-                .obj(
-                  "id"   -> s.streamer.userId,
-                  "name" -> s.streamer.name
-                )
-                .add("title" -> featured.titles.get(s.streamer.userId))
-            )
-          }
-        }
-      }
-  }
+  def featured = Anon:
+    env.streamer.liveStreamApi.all.map: streams =>
+      val max      = env.streamer.homepageMaxSetting.get()
+      val featured = streams.homepage(max, req, none) withTitles env.user.lightUserApi
+      JsonOk:
+        featured.live.streams.map: s =>
+          Json.obj(
+            "url"    -> routes.Streamer.redirect(s.streamer.id.value).absoluteURL(),
+            "status" -> s.status,
+            "user" -> Json
+              .obj(
+                "id"   -> s.streamer.userId,
+                "name" -> s.streamer.name
+              )
+              .add("title" -> featured.titles.get(s.streamer.userId))
+          )
 
-  def live = apiC.ApiRequest { _ =>
+  def live = apiC.ApiRequest:
     for
       s     <- env.streamer.liveStreamApi.all
       users <- env.user.lightUserApi asyncManyFallback s.streams.map(_.streamer.userId)
-    yield apiC.toApiResult {
-      (s.streams zip users).map { (stream, user) =>
+    yield apiC.toApiResult:
+      (s.streams zip users).map: (stream, user) =>
         lila.common.LightUser.lightUserWrites.writes(user) ++
           lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
-      }
-    }
-  }
 
   def show(username: UserStr) = Open:
     OptionFuResult(api.forSubscriber(username, ctx.me)): s =>
@@ -171,32 +163,29 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     fuccess(Ok)
   }
 
-  def onYouTubeVideo = Action.async(parse.tolerantXml) { req =>
-    val channel = (req.body \ "entry" \ "channelId").text
-    val video   = (req.body \ "entry" \ "videoId").text
+  def onYouTubeVideo = AnonBodyOf(parse.tolerantXml): body =>
+    val channel = (body \ "entry" \ "channelId").text
+    val video   = (body \ "entry" \ "videoId").text
     if channel.nonEmpty && video.nonEmpty
     then lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
-    else lila.log("streamer").warn(s"onYouTubeVideo $video on channel $channel ${req.body}")
+    else lila.log("streamer").warn(s"onYouTubeVideo $video on channel $channel $body")
     env.streamer.ytApi.onVideo(channel, video) inject Ok
-  }
 
-  def youTubePubSubChallenge = Action.async(parse.empty) { req =>
-    fuccess(Ok(get("hub.challenge", req).get))
-  }
+  def youTubePubSubChallenge = Anon:
+    Ok(get("hub.challenge", req).get).toFuccess
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context) =
-    ctx.me.fold(notFound) { me =>
+    ctx.me.fold(notFound): me =>
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.id) flatMap {
           _.fold(Ok(html.streamer.bits.create).toFuccess)(f)
         }
       else
-        Ok(
+        Ok:
           html.site.message("Too soon")(
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
           )
-        ).toFuccess
-    }
+        .toFuccess
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: Context) =
     ctx.noKid ?? {

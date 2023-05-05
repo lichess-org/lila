@@ -26,13 +26,13 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           }
         case Some(me) =>
           (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
-            case true =>
+            if _ then
               env.clas.api.student.clasIdsOfUser(me.id) flatMap
                 env.clas.api.clas.byIds map {
                   case List(single) => redirectTo(single)
                   case many         => Ok(views.html.clas.clas.studentIndex(many))
                 }
-            case _ => renderHome
+            else renderHome
           }
 
   def teacher(username: UserStr) = Secure(_.Admin) { ctx ?=> _ =>
@@ -98,8 +98,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       orDefault: Context => Fu[Result] = notFound(using _)
   )(using ctx: Context): Fu[Result] =
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
-      case true => forTeacher
-      case _ =>
+      if _ then forTeacher
+      else
         env.clas.api.clas.byId(id) flatMapz { clas =>
           env.clas.api.student.activeWithUsers(clas) flatMap { students =>
             if (students.exists(_.student is me)) forStudent(clas, students)
@@ -479,11 +479,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def becomeTeacher = AuthBody { ctx ?=> me =>
     couldBeTeacher flatMap {
-      case true =>
+      if _ then
         val perm = lila.security.Permission.Teacher.dbKey
         (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
           Redirect(routes.Clas.index)
-      case _ => notFound
+      else notFound
     }
   }
 

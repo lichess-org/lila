@@ -12,8 +12,8 @@ final private class FishnetLimiter(
 
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean, ownGame: Boolean): Fu[Analyser.Result] =
     (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
-      case false => fuccess(Analyser.Result.ConcurrentAnalysis)
-      case true  => perDayCheck(sender)
+      if _ then perDayCheck(sender)
+      else fuccess(Analyser.Result.ConcurrentAnalysis)
     } flatMap { result =>
       (result.ok ?? requesterApi.add(sender.userId, ownGame)) inject result
     }

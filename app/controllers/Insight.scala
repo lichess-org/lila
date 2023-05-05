@@ -24,14 +24,13 @@ final class Insight(env: Env) extends LilaController(env):
         Ok(Json.obj("status" -> status.toString))
       }
     OpenOrScoped()(
-      open = implicit ctx =>
-        Accessible(username) { user =>
-          render.async {
+      open = ctx ?=>
+        Accessible(username): user =>
+          render.async:
             case Accepts.Html() => doPath(user, InsightMetric.MeanCpl.key, InsightDimension.Perf.key, "")
             case Accepts.Json() => jsonStatus(user)
-          }
-        },
-      scoped = _ => me => AccessibleApi(username)(me.some)(jsonStatus)
+      ,
+      scoped = _ ?=> me => AccessibleApi(username)(me.some)(jsonStatus)
     )
 
   def path(username: UserStr, metric: String, dimension: String, filters: String) = Open:
@@ -64,8 +63,8 @@ final class Insight(env: Env) extends LilaController(env):
   def json(username: UserStr) =
     import lila.app.ui.EmbedConfig.given
     OpenOrScopedBody(parse.json)(Nil)(
-      open = implicit ctx => AccessibleApi(username)(ctx.me) { processQuestion(_, ctx.body) },
-      scoped = implicit req => me => AccessibleApi(username)(me.some) { processQuestion(_, req) }
+      open = ctx ?=> AccessibleApi(username)(ctx.me) { processQuestion(_, ctx.body) },
+      scoped = req ?=> me => AccessibleApi(username)(me.some) { processQuestion(_, req) }
     )
 
   private def processQuestion(user: lila.user.User, body: Request[JsValue])(using Lang) =
@@ -84,8 +83,8 @@ final class Insight(env: Env) extends LilaController(env):
     env.user.repo byId username flatMap {
       _.fold(notFound) { u =>
         env.insight.share.grant(u, ctx.me) flatMap {
-          case true => f(u)
-          case _    => fuccess(Forbidden(html.insight.forbidden(u)))
+          if _ then f(u)
+          else fuccess(Forbidden(html.insight.forbidden(u)))
         }
       }
     }
@@ -93,7 +92,7 @@ final class Insight(env: Env) extends LilaController(env):
   private def AccessibleApi(username: UserStr)(me: Option[lila.user.User])(f: lila.user.User => Fu[Result]) =
     env.user.repo byId username flatMapz { u =>
       env.insight.share.grant(u, me) flatMap {
-        case true => f(u)
-        case _    => fuccess(Forbidden)
+        if _ then f(u)
+        else fuccess(Forbidden)
       }
     }

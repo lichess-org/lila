@@ -51,7 +51,7 @@ final private class ReportScore(
         val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(m => GameId(m.group(1)))
         def isUsable(gameId: GameId) = gameRepo analysed gameId map { _.exists(_.ply > 30) }
         lila.common.LilaFuture.exists(gameIds)(isUsable) map {
-          case true  => c
-          case false => c.withScore(_.map(_ / 3))
+          if _ then c
+          else c.withScore(_.map(_ / 3))
         }
       else fuccess(c)

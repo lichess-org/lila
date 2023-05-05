@@ -69,22 +69,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           api = v => renderJson(daily.puzzle, PuzzleAngle.mix, apiVersion = v.some) dmap { Ok(_) }
         ) dmap (_.noCache)
 
-  def apiDaily =
-    Action.async { implicit req =>
-      env.puzzle.daily.get flatMap {
-        _.fold(notFoundJson()) { daily =>
-          JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(using reqLang))
-        }
-      }
-    }
+  def apiDaily = Anon:
+    env.puzzle.daily.get.flatMap:
+      _.fold(notFoundJson()): daily =>
+        JsonOk(env.puzzle.jsonView(daily.puzzle, none, none, none)(using reqLang))
 
-  def apiShow(id: PuzzleId) =
-    Action.async { implicit req =>
-      env.puzzle.api.puzzle find id flatMap {
-        _.fold(notFoundJson()) { puzzle =>
-          JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(using reqLang))
-        }
-      }
+  def apiShow(id: PuzzleId) = Anon:
+    env.puzzle.api.puzzle find id flatMap {
+      _.fold(notFoundJson()): puzzle =>
+        JsonOk(env.puzzle.jsonView(puzzle, none, none, none)(using reqLang))
     }
 
   def home = Open(serveHome)
@@ -246,18 +239,17 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
     env.user.repo.addStreakRun(userId, score)
 
-  def apiStreak = Action.async { req =>
-    streakJsonAndPuzzle(using reqLang(using req)) mapz { (json, _) => JsonOk(json) }
-  }
+  def apiStreak = Anon:
+    streakJsonAndPuzzle(using reqLang).mapz: (json, _) =>
+      JsonOk(json)
 
-  def apiStreakResult(score: Int) =
-    ScopedBody(_.Puzzle.Write) { _ => me =>
-      if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
-        lila.mon.streak.run.score("mobile").record(score)
-        setStreakResult(me.id, score)
-        NoContent.toFuccess
-      else BadRequest.toFuccess
-    }
+  def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write) { _ ?=> me =>
+    if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
+      lila.mon.streak.run.score("mobile").record(score)
+      setStreakResult(me.id, score)
+      NoContent.toFuccess
+    else BadRequest.toFuccess
+  }
 
   def vote(id: PuzzleId) = AuthBody { _ ?=> me =>
     NoBot:
@@ -361,40 +353,35 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
           }
 
-  def frame =
-    Action.async { implicit req =>
-      env.puzzle.daily.get map {
-        case None        => NotFound
-        case Some(daily) => html.puzzle.embed(daily)
-      }
-    }
+  def frame = Anon:
+    env.puzzle.daily.get.map:
+      _.fold(NotFound)(html.puzzle.embed(_))
 
-  def activity =
-    Scoped(_.Puzzle.Read) { req => me =>
-      val config = lila.puzzle.PuzzleActivity.Config(
-        user = me,
-        max = getInt("max", req) map (_ atLeast 1),
-        perSecond = MaxPerSecond(20)
-      )
-      apiC
-        .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)) {
-          source =>
-            Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
-        }
-        .toFuccess
-    }
+  def activity = Scoped(_.Puzzle.Read) { req ?=> me =>
+    val config = lila.puzzle.PuzzleActivity.Config(
+      user = me,
+      max = getInt("max", req) map (_ atLeast 1),
+      perSecond = MaxPerSecond(20)
+    )
+    apiC
+      .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)) {
+        source =>
+          Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
+      }
+      .toFuccess
+  }
 
   def apiDashboard(days: Int) =
     def render(me: UserModel)(using play.api.i18n.Lang) = JsonOptionOk {
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
     }
     AuthOrScoped(_.Puzzle.Read)(
-      auth = ctx => me => render(me)(using ctx.lang),
-      scoped = req => me => render(me)(using reqLang(using req))
+      auth = _ ?=> render,
+      scoped = _ ?=> me => render(me)(using reqLang)
     )
 
   def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =
-    DashboardPage(u) { implicit ctx => user =>
+    DashboardPage(u) { ctx ?=> user =>
       env.puzzle.dashboard(user, days) map { dashboard =>
         path match
           case "dashboard" => Ok(views.html.puzzle.dashboard.home(user, dashboard, days))
@@ -430,16 +417,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   }
 
-  def history(page: Int, u: Option[UserStr]) =
-    DashboardPage(u) { implicit ctx => user =>
-      Reasonable(page) {
-        env.puzzle.history(user, page) map { history =>
+  def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { ctx ?=> user =>
+    Reasonable(page):
+      env.puzzle
+        .history(user, page)
+        .map: history =>
           Ok(views.html.puzzle.history(user, history))
-        }
-      }
-    }
+  }
 
-  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { implicit req => me =>
+  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { req ?=> me =>
     batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb", req) | 15).dmap(Ok.apply)
   }
 
@@ -448,12 +434,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.batch.nextFor(me, angle, difficulty, nb atMost 50) flatMap
       env.puzzle.jsonView.batch(me)
 
-  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { implicit req => me =>
+  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { req ?=> me =>
     req.body
       .validate[lila.puzzle.PuzzleForm.batch.SolveData]
       .fold(
         err => BadRequest(err.toString).toFuccess,
-        data => {
+        data =>
           val angle = PuzzleAngle findOrMix angleStr
           for
             rounds <- me match
@@ -467,7 +453,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb", req))
             result = nextPuzzles ++ Json.obj("rounds" -> rounds)
           yield Ok(result)
-        }
       )
   }
 
@@ -556,7 +541,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def help = Open:
     Ok(html.site.helpModal.puzzle).toFuccess
 
-  private def DashboardPage(username: Option[UserStr])(f: Context => UserModel => Fu[Result]) =
+  private def DashboardPage(username: Option[UserStr])(f: Context ?=> UserModel => Fu[Result]) =
     Auth { ctx ?=> me =>
       username
         .??(env.user.repo.byId)
@@ -567,5 +552,5 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           }
         }
         .dmap(_ | me)
-        .flatMap(f(ctx))
+        .flatMap(f)
     }

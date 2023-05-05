@@ -326,47 +326,45 @@ final class Study(
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Study.show(id))
   }
 
-  def embed(id: StudyId, chapterId: StudyChapterId) =
-    Action.async { implicit req =>
-      val studyWithChapter =
-        if (chapterId.value == "autochap") env.study.api.byIdWithChapter(id)
-        else env.study.api.byIdWithChapter(id, chapterId)
-      studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
-        _.fold(embedNotFound) { case WithChapter(study, chapter) =>
-          for {
-            chapters <- env.study.chapterRepo.idNames(study.id)
-            studyJson <- env.study.jsonView(
-              study.copy(
-                members = lila.study.StudyMembers(Map.empty) // don't need no members
-              ),
-              List(chapter.metadata),
-              chapter,
-              none
-            )
-            setup      = chapter.setup
-            initialFen = chapter.root.fen.some
-            pov        = userAnalysisC.makePov(initialFen, setup.variant)
-            baseData = env.round.jsonView.userAnalysisJson(
-              pov,
-              lila.pref.Pref.default,
-              initialFen,
-              setup.orientation,
-              owner = false
-            )
-            analysis = baseData ++ Json.obj(
-              "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-              }
-            )
-            data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
-            result <- negotiate(
-              html = Ok(html.study.embed(study, chapter, chapters, data)).toFuccess,
-              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).toFuccess
-            )
-          } yield result
-        }
-      } dmap (_.noCache)
-    }
+  def embed(id: StudyId, chapterId: StudyChapterId) = Anon:
+    val studyWithChapter =
+      if (chapterId.value == "autochap") env.study.api.byIdWithChapter(id)
+      else env.study.api.byIdWithChapter(id, chapterId)
+    studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
+      _.fold(embedNotFound) { case WithChapter(study, chapter) =>
+        for
+          chapters <- env.study.chapterRepo.idNames(study.id)
+          studyJson <- env.study.jsonView(
+            study.copy(
+              members = lila.study.StudyMembers(Map.empty) // don't need no members
+            ),
+            List(chapter.metadata),
+            chapter,
+            none
+          )
+          setup      = chapter.setup
+          initialFen = chapter.root.fen.some
+          pov        = userAnalysisC.makePov(initialFen, setup.variant)
+          baseData = env.round.jsonView.userAnalysisJson(
+            pov,
+            lila.pref.Pref.default,
+            initialFen,
+            setup.orientation,
+            owner = false
+          )
+          analysis = baseData ++ Json.obj(
+            "treeParts" -> partitionTreeJsonWriter.writes {
+              lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
+            }
+          )
+          data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
+          result <- negotiate(
+            html = Ok(html.study.embed(study, chapter, chapters, data)).toFuccess,
+            api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).toFuccess
+          )
+        yield result
+      }
+    } dmap (_.noCache)
 
   private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
     fuccess(NotFound(html.study.embed.notFound))
@@ -421,7 +419,7 @@ final class Study(
       }
     }(rateLimitedFu)
 
-  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req => me =>
+  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
     env.study.api.byId(id).map {
       _.fold(studyNotFoundText) { study =>
         if req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
@@ -446,16 +444,15 @@ final class Study(
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)(using ctx.req, ctx.me)
 
-  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) =
-    AnonOrScoped(_.Study.Read) { req => me =>
-      doChapterPgn(
-        id,
-        chapterId,
-        fuccess(studyNotFoundText),
-        _ => fuccess(privateUnauthorizedText),
-        _ => fuccess(privateForbiddenText)
-      )(using req, me)
-    }
+  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
+    doChapterPgn(
+      id,
+      chapterId,
+      fuccess(studyNotFoundText),
+      _ => fuccess(privateUnauthorizedText),
+      _ => fuccess(privateForbiddenText)
+    )(using req, me)
+  }
 
   private def doChapterPgn(
       id: StudyId,
@@ -528,7 +525,7 @@ final class Study(
         env.study.multiBoard.json(study.id, page, getBool("playing")) map JsonOk
       }(privateUnauthorizedJson.toFuccess, privateForbiddenJson.toFuccess)
 
-  def topicAutocomplete = Action.async: req =>
+  def topicAutocomplete = Anon:
     get("term", req).filter(_.nonEmpty) match
       case None => BadRequest("No search term provided").toFuccess
       case Some(term) =>
@@ -614,47 +611,48 @@ final class Study(
         }
     }
 
-  def glyphs(lang: String) = Action {
-    import chess.format.pgn.Glyph
-    import lila.tree.Node.given
-    import lila.i18n.{ I18nKeys as trans }
-
-    play.api.i18n.Lang.get(lang) ?? { implicit lang =>
-      JsonOk(
+  def glyphs(lang: String) = Anon:
+    play.api.i18n.Lang.get(lang) ?? { lang =>
+      import chess.format.pgn.Glyph
+      import lila.tree.Node.given
+      import lila.i18n.I18nKeys.{ study as trans }
+      import Glyph.MoveAssessment.*
+      import Glyph.PositionAssessment.*
+      import Glyph.Observation.*
+      given play.api.i18n.Lang = lang
+      JsonOk:
         Json.obj(
           "move" -> List(
-            Glyph.MoveAssessment.good.copy(name = trans.study.goodMove.txt()),
-            Glyph.MoveAssessment.mistake.copy(name = trans.study.mistake.txt()),
-            Glyph.MoveAssessment.brillant.copy(name = trans.study.brilliantMove.txt()),
-            Glyph.MoveAssessment.blunder.copy(name = trans.study.blunder.txt()),
-            Glyph.MoveAssessment.interesting.copy(name = trans.study.interestingMove.txt()),
-            Glyph.MoveAssessment.dubious.copy(name = trans.study.dubiousMove.txt()),
-            Glyph.MoveAssessment.only.copy(name = trans.study.onlyMove.txt()),
-            Glyph.MoveAssessment.zugzwang.copy(name = trans.study.zugzwang.txt())
+            good.copy(name = trans.goodMove.txt()),
+            mistake.copy(name = trans.mistake.txt()),
+            brillant.copy(name = trans.brilliantMove.txt()),
+            blunder.copy(name = trans.blunder.txt()),
+            interesting.copy(name = trans.interestingMove.txt()),
+            dubious.copy(name = trans.dubiousMove.txt()),
+            only.copy(name = trans.onlyMove.txt()),
+            zugzwang.copy(name = trans.zugzwang.txt())
           ),
           "position" -> List(
-            Glyph.PositionAssessment.equal.copy(name = trans.study.equalPosition.txt()),
-            Glyph.PositionAssessment.unclear.copy(name = trans.study.unclearPosition.txt()),
-            Glyph.PositionAssessment.whiteSlightlyBetter
-              .copy(name = trans.study.whiteIsSlightlyBetter.txt()),
-            Glyph.PositionAssessment.blackSlightlyBetter
-              .copy(name = trans.study.blackIsSlightlyBetter.txt()),
-            Glyph.PositionAssessment.whiteQuiteBetter.copy(name = trans.study.whiteIsBetter.txt()),
-            Glyph.PositionAssessment.blackQuiteBetter.copy(name = trans.study.blackIsBetter.txt()),
-            Glyph.PositionAssessment.whiteMuchBetter.copy(name = trans.study.whiteIsWinning.txt()),
-            Glyph.PositionAssessment.blackMuchBetter.copy(name = trans.study.blackIsWinning.txt())
+            equal.copy(name = trans.equalPosition.txt()),
+            unclear.copy(name = trans.unclearPosition.txt()),
+            whiteSlightlyBetter.copy(name = trans.whiteIsSlightlyBetter.txt()),
+            blackSlightlyBetter.copy(name = trans.blackIsSlightlyBetter.txt()),
+            whiteQuiteBetter.copy(name = trans.whiteIsBetter.txt()),
+            blackQuiteBetter.copy(name = trans.blackIsBetter.txt()),
+            whiteMuchBetter.copy(name = trans.whiteIsWinning.txt()),
+            blackMuchBetter.copy(name = trans.blackIsWinning.txt())
           ),
           "observation" -> List(
-            Glyph.Observation.novelty.copy(name = trans.study.novelty.txt()),
-            Glyph.Observation.development.copy(name = trans.study.development.txt()),
-            Glyph.Observation.initiative.copy(name = trans.study.initiative.txt()),
-            Glyph.Observation.attack.copy(name = trans.study.attack.txt()),
-            Glyph.Observation.counterplay.copy(name = trans.study.counterplay.txt()),
-            Glyph.Observation.timeTrouble.copy(name = trans.study.timeTrouble.txt()),
-            Glyph.Observation.compensation.copy(name = trans.study.withCompensation.txt()),
-            Glyph.Observation.withIdea.copy(name = trans.study.withTheIdea.txt())
+            novelty.copy(name = trans.novelty.txt()),
+            development.copy(name = trans.development.txt()),
+            initiative.copy(name = trans.initiative.txt()),
+            attack.copy(name = trans.attack.txt()),
+            counterplay.copy(name = trans.counterplay.txt()),
+            timeTrouble.copy(name = trans.timeTrouble.txt()),
+            compensation.copy(name = trans.withCompensation.txt()),
+            withIdea.copy(name = trans.withTheIdea.txt())
           )
         )
-      ).withHeaders(CACHE_CONTROL -> "max-age=3600")
+      .withHeaders(CACHE_CONTROL -> "max-age=3600")
+        .toFuccess
     }
-  }

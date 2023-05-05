@@ -64,8 +64,8 @@ final class Ublog(env: Env) extends LilaController(env):
       val topicSlug = s"ublog-${id}"
       val redirect  = Redirect(routes.ForumTopic.show(ublogId.value, topicSlug))
       env.forum.topicRepo.existsByTree(ublogId, topicSlug) flatMap {
-        case true => fuccess(redirect)
-        case _ =>
+        if _ then fuccess(redirect)
+        else
           env.ublog.api.getPost(id) flatMapz { post =>
             env.forum.topicApi.makeUblogDiscuss(
               slug = topicSlug,
@@ -245,24 +245,23 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
     NotForKids:
       Reasonable(page, config.Max(8)):
-        pageHit(ctx)
+        pageHit(ctx.req)
         env.ublog.paginator.liveByCommunity(l, page) map { posts =>
           Ok(html.ublog.index.community(l, posts))
         }
 
-  def communityLangBC(code: String) = Action {
+  def communityLangBC(code: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.code == code)
-    Redirect {
+    Redirect:
       l.fold(routes.Ublog.communityAll())(l => routes.Ublog.communityLang(l.language))
-    }
-  }
+    .toFuccess
 
-  def communityAtom(language: String) = Action.async { _ =>
+  def communityAtom(language: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
-    env.ublog.paginator.liveByCommunity(l, page = 1) map { posts =>
-      Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
-    }
-  }
+    env.ublog.paginator
+      .liveByCommunity(l, page = 1)
+      .map: posts =>
+        Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
 
   def liked(page: Int) = Auth { ctx ?=> _ =>
     NotForKids {
@@ -291,18 +290,19 @@ final class Ublog(env: Env) extends LilaController(env):
           }
         }
 
-  def userAtom(username: UserStr) = Action.async { implicit req =>
-    env.user.repo.enabledById(username) flatMap {
-      case None => NotFound.toFuccess
-      case Some(user) =>
-        given play.api.i18n.Lang = reqLang
-        env.ublog.api.getUserBlog(user) flatMap { blog =>
-          (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
-            Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
-          }
-        }
-    }
-  }
+  def userAtom(username: UserStr) = Anon:
+    env.user.repo
+      .enabledById(username)
+      .flatMap:
+        case None => NotFound.toFuccess
+        case Some(user) =>
+          given play.api.i18n.Lang = reqLang
+          env.ublog.api
+            .getUserBlog(user)
+            .flatMap: blog =>
+              (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
+                Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
+              }
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 

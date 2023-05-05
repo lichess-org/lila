@@ -17,14 +17,13 @@ final class Simul(env: Env) extends LilaController(env):
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Simul.home)(serveHome)
 
-  private def serveHome(using ctx: Context) = NoBot {
+  private def serveHome(using ctx: Context) = NoBot:
     pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
       Ok(html.simul.home(pending, created, started, finished)).toFuccess
     }
-  }
 
-  val apiList = Action.async:
+  val apiList = Anon:
     fetchSimuls(none) flatMap { case (((pending, created), started), finished) =>
       env.simul.jsonView.apiAll(pending, created, started, finished) map JsonOk
     }
@@ -59,7 +58,7 @@ final class Simul(env: Env) extends LilaController(env):
       }
     } dmap (_.noCache)
 
-  private[controllers] def canHaveChat(simul: Sim)(implicit ctx: Context): Boolean =
+  private[controllers] def canHaveChat(simul: Sim)(using ctx: Context): Boolean =
     ctx.noKid && ctx.noBot &&                     // no public chats for kids or bots
       ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
         env.chat.panic.allowed

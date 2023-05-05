@@ -55,6 +55,6 @@ final class Moretimer(
       fufail(ClientError("[moretimer] game disallows it " + game.id))
     else
       isAllowedByPrefs(game) flatMap {
-        case true => fuccess(f)
-        case _    => fufail(ClientError("[moretimer] disallowed by preferences " + game.id))
+        if _ then fuccess(f)
+        else fufail(ClientError("[moretimer] disallowed by preferences " + game.id))
       }

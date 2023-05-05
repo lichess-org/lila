@@ -36,23 +36,13 @@ final class Mod(
           _ <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
         yield sus.some
       }
-    }(ctx =>
-      me => { suspect =>
-        reportC.onModAction(me, suspect)(using ctx)
-      }
-    )
+    }(reportC.onModAction)
 
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me =>
-      withSuspect(username) { sus =>
-        for _ <- modApi.setEngine(me, sus, v)
-        yield sus.some
-      }
-    }(ctx =>
-      me => { suspect =>
-        reportC.onModAction(me, suspect)(using ctx)
-      }
-    )
+      withSuspect(username): sus =>
+        modApi.setEngine(me, sus, v) inject sus.some
+    }(reportC.onModAction)
 
   def publicChat = Secure(_.PublicChatView) { ctx ?=> _ =>
     env.mod.publicChat.all.map: (tournamentsAndChats, swissesAndChats) =>
@@ -68,24 +58,22 @@ final class Mod(
           data => env.chat.api.userChat.publicTimeout(data, me)
         )
     SecureOrScopedBody(_.ChatTimeout)(
-      secure = ctx ?=> me => doTimeout(me),
-      scoped = req => me => doTimeout(me)(using req)
+      secure = _ ?=> doTimeout,
+      scoped = _ ?=> doTimeout
     )
 
   def booster(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkBooster) { me =>
-      withSuspect(username) { prev =>
-        for suspect <- modApi.setBoost(me, prev, v)
-        yield suspect.some
-      }
-    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
+      withSuspect(username): prev =>
+        modApi.setBoost(me, prev, v).map(some)
+    }(reportC.onModAction)
 
   def troll(username: UserStr, v: Boolean) =
     OAuthModBody(_.Shadowban) { me =>
       withSuspect(username): prev =>
         for suspect <- modApi.setTroll(me, prev, v)
         yield suspect.some
-    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
+    }(reportC.onModAction)
 
   def warn(username: UserStr, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
@@ -98,7 +86,7 @@ final class Mod(
           yield suspect.some
         }
       }
-    }(ctx => me => suspect => reportC.onModAction(me, suspect)(using ctx))
+    }(reportC.onModAction)
 
   def kid(username: UserStr) =
     OAuthMod(_.SetKidMode) { _ => me =>
@@ -493,7 +481,7 @@ final class Mod(
     env.chat.panic.set(v)
     env.irc.api.chatPanic(me, v)
     fuccess(().some)
-  }(_ => _ => _ => Redirect(routes.Mod.chatPanic).toFuccess)
+  }(_ ?=> _ => _ => Redirect(routes.Mod.chatPanic).toFuccess)
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ =>
     env.mod.presets
@@ -514,53 +502,50 @@ final class Mod(
           )
   }
 
-  def eventStream =
-    Scoped() { req => me =>
-      IfGranted(_.Admin, req, me) {
-        noProxyBuffer(Ok.chunked(env.mod.stream())).toFuccess
-      }
-    }
+  def eventStream = Scoped() { req ?=> me =>
+    IfGranted(_.Admin, req, me):
+      noProxyBuffer(Ok.chunked(env.mod.stream())).toFuccess
+  }
 
-  def apiUserLog(username: UserStr) =
-    SecureOrScoped(_.ModLog) { _ => me =>
-      import lila.common.Json.given
-      env.user.repo byId username flatMapz { user =>
-        for
-          logs      <- env.mod.logApi.userHistory(user.id)
-          notes     <- env.socialInfo.fetchNotes(user, me.user)
-          notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
-        yield JsonOk(
-          Json.obj(
-            "logs" -> Json.arr(logs.map { log =>
-              Json
-                .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
-                .add("details", log.details)
-            }),
-            "notes" -> notesJson
-          )
+  def apiUserLog(username: UserStr) = SecureOrScoped(_.ModLog) { _ ?=> me =>
+    import lila.common.Json.given
+    env.user.repo byId username flatMapz { user =>
+      for
+        logs      <- env.mod.logApi.userHistory(user.id)
+        notes     <- env.socialInfo.fetchNotes(user, me.user)
+        notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
+      yield JsonOk(
+        Json.obj(
+          "logs" -> Json.arr(logs.map { log =>
+            Json
+              .obj("mod" -> log.mod, "action" -> log.action, "date" -> log.date)
+              .add("details", log.details)
+          }),
+          "notes" -> notesJson
         )
-      }
+      )
     }
+  }
 
   private def withSuspect[A: Zero](username: UserStr)(f: Suspect => Fu[A]): Fu[A] =
     env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
-      secure: Context => Holder => A => Fu[Result]
+      secure: Context ?=> Holder => A => Fu[Result]
   ): Action[Unit] =
     SecureOrScoped(perm)(
-      secure = ctx ?=> me => f(ctx.req)(me) flatMapz secure(ctx)(me),
-      scoped = req =>
+      secure = ctx ?=> me => f(ctx.req)(me) flatMapz secure(me),
+      scoped = req ?=>
         me =>
           f(req)(me).flatMap:
             _.isDefined ?? fuccess(jsonOkResult)
     )
   private def OAuthModBody[A](perm: Permission.Selector)(f: Holder => Fu[Option[A]])(
-      secure: BodyContext[?] => Holder => A => Fu[Result]
+      secure: BodyContext[?] ?=> Holder => A => Fu[Result]
   ): Action[AnyContent] =
     SecureOrScopedBody(perm)(
-      secure = ctx ?=> me => f(me) flatMapz secure(ctx)(me),
-      scoped = _ =>
+      secure = ctx ?=> me => f(me) flatMapz secure(me),
+      scoped = _ ?=>
         me =>
           f(me).flatMap:
             _.isDefined ?? fuccess(jsonOkResult)
@@ -568,7 +553,7 @@ final class Mod(
 
   private def actionResult(
       username: UserStr
-  )(ctx: Context)(@nowarn user: Holder)(@nowarn res: Any) =
+  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: Context) =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then fuccess(redirect(username))
-    else userC.renderModZoneActions(username)(ctx)
+    else userC.renderModZoneActions(username)

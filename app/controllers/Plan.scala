@@ -137,10 +137,10 @@ final class Plan(env: Env) extends LilaController(env):
         gift     <- ctx.me ?? env.plan.api.recentGiftFrom
       yield Ok(html.plan.thanks(patron, customer, gift))
 
-  def webhook = Action.async(parse.json): req =>
+  def webhook = AnonBodyOf(parse.json): body =>
     if req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG")
-    then env.plan.webhook.payPal(req.body) inject Ok("kthxbye")
-    else env.plan.webhook.stripe(req.body) inject Ok("kthxbye")
+    then env.plan.webhook.payPal(body) inject Ok("kthxbye")
+    else env.plan.webhook.stripe(body) inject Ok("kthxbye")
 
   import lila.plan.StripeClient.{ StripeException, CantUseException }
   def badStripeApiCall: PartialFunction[Throwable, Result] = {
@@ -295,25 +295,22 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   // deprecated
-  def payPalIpn =
-    Action.async { implicit req =>
-      lila.plan.PlanForm.ipn
-        .bindFromRequest()
-        .fold(
-          err => {
-            if (err.errors("txn_type").nonEmpty) {
-              logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
-              fuccess(Ok)
-            } else {
-              logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
-              fuccess(BadRequest)
-            }
-          },
-          ipn =>
-            env.plan.api.payPal.onLegacyCharge(
-              ipn,
-              ip = req.ipAddress,
-              key = get("key", req) | "N/A"
-            ) inject Ok
-        )
-    }
+  def payPalIpn = AnonBody:
+    lila.plan.PlanForm.ipn
+      .bindFromRequest()
+      .fold(
+        err =>
+          if err.errors("txn_type").nonEmpty then
+            logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
+            fuccess(Ok)
+          else
+            logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
+            fuccess(BadRequest)
+        ,
+        ipn =>
+          env.plan.api.payPal.onLegacyCharge(
+            ipn,
+            ip = req.ipAddress,
+            key = get("key", req) | "N/A"
+          ) inject Ok
+      )

@@ -42,13 +42,12 @@ final class User(
             case _          => roundC.watch(pov, userTv = user.some)
       }
 
-  def tvExport(username: UserStr) =
-    Action.async: req =>
-      env.game.cached.lastPlayedPlayingId(username.id) orElse
-        env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
-          case None         => NotFound("No ongoing game").toFuccess
-          case Some(gameId) => gameC.exportGame(gameId, req)
-        }
+  def tvExport(username: UserStr) = Anon:
+    env.game.cached.lastPlayedPlayingId(username.id) orElse
+      env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
+        case None         => NotFound("No ongoing game").toFuccess
+        case Some(gameId) => gameC.exportGame(gameId, req)
+      }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
@@ -113,7 +112,7 @@ final class User(
               )(using reqBody, formBinding, reqLang)
               _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
               _ <- env.tournament.cached.nameCache preloadMany {
-                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
               }
               notes <- ctx.me ?? { me =>
                 env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me.id)
@@ -184,7 +183,7 @@ final class User(
           }
       else fuccess(Ok(html.user.bits.miniClosed(user)))
 
-  def online = Action.async { implicit req =>
+  def online = Anon:
     val max = 50
     negotiate(
       html = notFoundJson(),
@@ -199,7 +198,6 @@ final class User(
           )
         }
     )
-  }
 
   def ratingHistory(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -243,7 +241,7 @@ final class User(
         )(using ctx.body, formBinding, reqLang)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
-          pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+          pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
         }
         _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       yield pag
@@ -274,7 +272,7 @@ final class User(
       )
     }
 
-  def apiList = Action.async:
+  def apiList = Anon:
     env.user.cached.top10.get {} map { leaderboards =>
       import env.user.jsonView.lightPerfIsOnlineWrites
       import lila.user.JsonView.leaderboardsWrites
@@ -289,16 +287,14 @@ final class User(
       )
     }
 
-  def topNbApi(nb: Int, perfKey: Perf.Key) =
-    Action.async {
-      if nb == 1 && perfKey == Perf.Key("standard") then
-        env.user.cached.top10.get {} map { leaderboards =>
-          import env.user.jsonView.lightPerfIsOnlineWrites
-          import lila.user.JsonView.leaderboardStandardTopOneWrites
-          JsonOk(leaderboards)
-        }
-      else topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
-    }
+  def topNbApi(nb: Int, perfKey: Perf.Key) = Anon:
+    if nb == 1 && perfKey == Perf.Key("standard") then
+      env.user.cached.top10.get {} map { leaderboards =>
+        import env.user.jsonView.lightPerfIsOnlineWrites
+        import lila.user.JsonView.leaderboardStandardTopOneWrites
+        JsonOk(leaderboards)
+      }
+    else topNbUsers(nb, perfKey) mapz { users => topNbJson(users._1) }
 
   private def topNbUsers(nb: Int, perfKey: Perf.Key) =
     PerfType(perfKey) ?? { perfType =>
@@ -443,7 +439,7 @@ final class User(
         }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
-  protected[controllers] def renderModZoneActions(username: UserStr)(implicit ctx: Context) =
+  protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
@@ -476,24 +472,22 @@ final class User(
       )
   }
 
-  def apiReadNote(username: UserStr) =
-    Scoped() { _ => me =>
-      env.user.repo byId username flatMapz {
-        env.socialInfo.fetchNotes(_, me) flatMap {
-          lila.user.JsonView.notes(_)(using lightUserApi)
-        } map JsonOk
-      }
+  def apiReadNote(username: UserStr) = Scoped() { _ ?=> me =>
+    env.user.repo byId username flatMapz {
+      env.socialInfo.fetchNotes(_, me) flatMap {
+        lila.user.JsonView.notes(_)(using lightUserApi)
+      } map JsonOk
     }
+  }
 
-  def apiWriteNote(username: UserStr) =
-    ScopedBody() { implicit req => me =>
-      lila.user.UserForm.apiNote
-        .bindFromRequest()
-        .fold(
-          jsonFormErrorDefaultLang,
-          data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
-        )
-    }
+  def apiWriteNote(username: UserStr) = ScopedBody() { req ?=> me =>
+    lila.user.UserForm.apiNote
+      .bindFromRequest()
+      .fold(
+        jsonFormErrorDefaultLang,
+        data => doWriteNote(username, me, data)(_ => jsonOkResult.toFuccess)
+      )
+  }
 
   private def doWriteNote(
       username: UserStr,

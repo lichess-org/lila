@@ -86,7 +86,7 @@ final class Msg(env: Env) extends LilaController(env):
               _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
             ),
       // new API: create/reply
-      scoped = implicit req =>
+      scoped = req ?=>
         me =>
           (!me.kid && !me.is(userId)) ?? {
             import play.api.data.*

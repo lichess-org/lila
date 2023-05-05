@@ -92,7 +92,7 @@ final class Account(
 
   val apiMe =
     val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.account.user")
-    Scoped() { req => me =>
+    Scoped() { req ?=> me =>
       rateLimit(me.id) {
         env.api.userApi.extended(
           me,
@@ -107,10 +107,9 @@ final class Account(
       )
     }
 
-  def apiNowPlaying =
-    Scoped() { req => me =>
-      doNowPlaying(me, req)
-    }
+  def apiNowPlaying = Scoped() { req ?=> me =>
+    doNowPlaying(me, req)
+  }
 
   private def doNowPlaying(me: lila.user.User, req: RequestHeader) =
     env.round.proxyRepo.urgentGames(me) map { povs =>
@@ -174,12 +173,11 @@ final class Account(
         Ok(html.account.email(form))
   }
 
-  def apiEmail =
-    Scoped(_.Email.Read) { _ => me =>
-      env.user.repo email me.id mapz { email =>
-        JsonOk(Json.obj("email" -> email.value))
-      }
+  def apiEmail = Scoped(_.Email.Read) { _ ?=> me =>
+    env.user.repo email me.id mapz { email =>
+      JsonOk(Json.obj("email" -> email.value))
     }
+  }
 
   def renderCheckYourEmail(implicit ctx: Context) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
@@ -298,10 +296,9 @@ final class Account(
       }
     }
   }
-  def apiKid =
-    Scoped(_.Preference.Read) { _ => me =>
-      JsonOk(Json.obj("kid" -> me.kid)).toFuccess
-    }
+  def apiKid = Scoped(_.Preference.Read) { _ ?=> me =>
+    JsonOk(Json.obj("kid" -> me.kid)).toFuccess
+  }
 
   def kidPost = AuthBody { ctx ?=> me =>
     NotManaged:
@@ -324,12 +321,11 @@ final class Account(
       }
   }
 
-  def apiKidPost =
-    Scoped(_.Preference.Write) { req => me =>
-      getBoolOpt("v", req) match
-        case None    => BadRequest(jsonError("Missing v parameter")).toFuccess
-        case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
-    }
+  def apiKidPost = Scoped(_.Preference.Write) { req ?=> me =>
+    getBoolOpt("v", req) match
+      case None    => BadRequest(jsonError("Missing v parameter")).toFuccess
+      case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
+  }
 
   private def currentSessionId(implicit ctx: Context) =
     ~env.security.api.reqSessionId(ctx.req)

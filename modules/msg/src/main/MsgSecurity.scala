@@ -115,8 +115,8 @@ final private class MsgSecurity(
       else if (isNew) {
         isLeaderOf(contacts) >>| isTeacherOf(contacts)
       } map {
-        case true => none
-        case _    => limitWith(CreateLimitPerUser)
+        if _ then none
+        else limitWith(CreateLimitPerUser)
       }
       else fuccess(limitWith(ReplyLimitPerUser))
 

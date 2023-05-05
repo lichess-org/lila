@@ -37,12 +37,11 @@ final class Auth(
       }
     }
 
-  private def getReferrerOption(implicit ctx: Context): Option[String] =
-    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse ctxReq.session.get(
-      api.AccessUri
-    )
+  private def getReferrerOption(using ctx: Context): Option[String] =
+    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
+      ctx.req.session.get(api.AccessUri)
 
-  private def getReferrer(implicit ctx: Context): String = getReferrerOption | routes.Lobby.home.url
+  private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
   def authenticateUser(u: UserModel, remember: Boolean, result: Option[String => Result] = None)(using
       ctx: Context
@@ -143,8 +142,8 @@ final class Auth(
                           case Some(u) if u.enabled.no =>
                             negotiate(
                               html = env.mod.logApi.closedByMod(u) flatMap {
-                                case true => authenticateAppealUser(u, redirectTo)
-                                case _    => redirectTo(routes.Account.reopen.url).toFuccess
+                                if _ then authenticateAppealUser(u, redirectTo)
+                                else redirectTo(routes.Account.reopen.url).toFuccess
                               },
                               api = _ => Unauthorized(jsonError("This account is closed.")).toFuccess
                             )
@@ -169,13 +168,12 @@ final class Auth(
       ).dmap(_.withCookies(env.lilaCookie.newSession))
 
   // mobile app BC logout with GET
-  def logoutGet = Auth { _ ?=> _ =>
+  def logoutGet = Auth { ctx ?=> _ =>
     negotiate(
       html = Ok(html.auth.bits.logout()).toFuccess,
-      api = _ => {
-        ctxReq.session get api.sessionIdKey foreach env.security.store.delete
+      api = _ =>
+        ctx.req.session get api.sessionIdKey foreach env.security.store.delete
         Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).toFuccess
-      }
     )
   }
 
@@ -243,8 +241,8 @@ final class Auth(
         case None => Ok(accountC.renderCheckYourEmail).toFuccess
         case Some(userEmail) =>
           env.user.repo exists userEmail.username map {
-            case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
-            case true  => Ok(accountC.renderCheckYourEmail)
+            if _ then Ok(accountC.renderCheckYourEmail)
+            else Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(using ctx.req)
           }
 
   // after signup and before confirmation
@@ -470,15 +468,13 @@ final class Auth(
       )
     }
 
-  def makeLoginToken =
-    AuthOrScoped(_.Web.Login)(
-      _ => loginTokenFor,
-      req =>
-        user => {
-          lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient req}")
-          loginTokenFor(user)
-        }
-    )
+  def makeLoginToken = AuthOrScoped(_.Web.Login)(
+    _ ?=> loginTokenFor,
+    req ?=>
+      user =>
+        lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient req}")
+        loginTokenFor(user)
+  )
 
   def loginWithToken(token: String) = Open:
     if ctx.isAuth

@@ -31,8 +31,8 @@ final class Team(
 
   def home(page: Int) = Open:
     ctx.me.??(api.hasTeams) map {
-      case true  => Redirect(routes.Team.mine)
-      case false => Redirect(routes.Team.all(page))
+      if _ then Redirect(routes.Team.mine)
+      else Redirect(routes.Team.all(page))
     }
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
@@ -47,11 +47,11 @@ final class Team(
             api.belongsTo(team.id, _)
           }
         canSee flatMap {
-          case true =>
+          if _ then
             paginator.teamMembersWithDate(team, page) map {
               html.team.members(team, _)
             }
-          case false => authorizationFailed
+          else authorizationFailed
         }
 
   def search(text: String, page: Int) = OpenBody:
@@ -95,25 +95,23 @@ final class Team(
       (isGranted(_.ModerateForum) && requestModView)
     }
 
-  def users(teamId: TeamId) =
-    AnonOrScoped(_.Team.Read) { req => me =>
-      api teamEnabled teamId flatMapz { team =>
-        val canView: Fu[Boolean] =
-          if (team.publicMembers) fuccess(true)
-          else me.??(u => api.belongsTo(team.id, u.id))
-        canView map {
-          case true =>
-            apiC.jsonDownload(
-              env.team
-                .memberStream(team, config.MaxPerSecond(20))
-                .map { (user, joinedAt) =>
-                  env.api.userApi.one(user, joinedAt.some)
-                }
-            )(using req)
-          case false => Unauthorized
-        }
+  def users(teamId: TeamId) = AnonOrScoped(_.Team.Read) { req ?=> me =>
+    api teamEnabled teamId flatMapz { team =>
+      val canView: Fu[Boolean] =
+        if team.publicMembers then fuccess(true)
+        else me.??(u => api.belongsTo(team.id, u.id))
+      canView map {
+        if _ then
+          apiC.jsonDownload(
+            env.team
+              .memberStream(team, config.MaxPerSecond(20))
+              .map: (user, joinedAt) =>
+                env.api.userApi.one(user, joinedAt.some)
+          )(using req)
+        else Unauthorized
       }
     }
+  }
 
   def tournaments(teamId: TeamId) = Open:
     api teamEnabled teamId flatMapz { team =>
@@ -162,23 +160,21 @@ final class Team(
   )
   private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
 
-  def kickUser(teamId: TeamId, username: UserStr) =
-    Scoped(_.Team.Lead) { req => me =>
-      WithOwnedTeamEnabledApi(teamId, me) { team =>
-        ApiKickRateLimitPerIP[Fu[ApiResult]](
-          req.ipAddress,
-          cost = if (me.isVerified || me.isApiHog) 0 else 1
-        ) {
-          api.kick(team, username.id, me) inject ApiResult.Done
-        } {
-          if (kickLimitReportOnce(username.id))
-            lila
-              .log("security")
-              .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
-          fuccess(ApiResult.Limited)
-        }
+  def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { req ?=> me =>
+    WithOwnedTeamEnabledApi(teamId, me): team =>
+      ApiKickRateLimitPerIP[Fu[ApiResult]](
+        req.ipAddress,
+        cost = if me.isVerified || me.isApiHog then 0 else 1
+      ) {
+        api.kick(team, username.id, me) inject ApiResult.Done
+      } {
+        if (kickLimitReportOnce(username.id))
+          lila
+            .log("security")
+            .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
+        fuccess(ApiResult.Limited)
       }
-    }
+  }
 
   def leadersForm(id: TeamId) = Auth { ctx ?=> _ =>
     WithOwnedTeamEnabled(id) { team =>
@@ -305,7 +301,7 @@ final class Team(
                     )
                 }
       ,
-      scoped = implicit req =>
+      scoped = req ?=>
         me =>
           api.team(id) flatMapz { team =>
             given play.api.i18n.Lang = reqLang
@@ -315,7 +311,7 @@ final class Team(
               .fold(
                 newJsonFormError,
                 setup =>
-                  OneAtATime(me.id, rateLimitedFu) {
+                  OneAtATime(me.id, rateLimitedFu):
                     api.join(team, me, setup.message, setup.password) flatMap {
                       case Requesting.Joined => jsonOkResult.toFuccess
                       case Requesting.NeedPassword =>
@@ -327,7 +323,6 @@ final class Team(
                           )
                         ).toFuccess
                     }
-                  }
               )
           }
     )
@@ -339,7 +334,7 @@ final class Team(
         .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
     AuthOrScopedBody(_.Team.Write)(
       auth = ctx ?=> me => doSub(ctx.body, me) inject jsonOkResult,
-      scoped = req => me => doSub(req, me) inject jsonOkResult
+      scoped = req ?=> me => doSub(req, me) inject jsonOkResult
     )
 
   def requests = Auth { ctx ?=> me =>
@@ -402,10 +397,11 @@ final class Team(
 
   def quit(id: TeamId) =
     AuthOrScoped(_.Team.Write)(
-      auth = implicit ctx =>
+      auth = ctx ?=>
         me =>
           OptionFuResult(api team id) { team =>
-            if (team isOnlyLeader me.id)
+            if team isOnlyLeader me.id
+            then
               negotiate(
                 html = Redirect(routes.Team.edit(team.id))
                   .flashFailure(lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt())
@@ -419,7 +415,7 @@ final class Team(
                   api = _ => jsonOkResult.toFuccess
                 )
           },
-      scoped = _ =>
+      scoped = _ ?=>
         me =>
           api team id flatMap {
             _.fold(notFoundJson()) { team =>
@@ -428,25 +424,22 @@ final class Team(
           }
     )
 
-  def autocomplete =
-    Action.async { req =>
-      get("term", req).filter(_.nonEmpty) match
-        case None => BadRequest("No search term provided").toFuccess
-        case Some(term) =>
-          for {
-            teams <- api.autocomplete(term, 10)
-            _     <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
-          } yield JsonOk {
-            JsArray(teams map { team =>
-              Json.obj(
-                "id"      -> team.id,
-                "name"    -> team.name,
-                "owner"   -> env.user.lightUserApi.syncFallback(team.createdBy).name,
-                "members" -> team.nbMembers
-              )
-            })
-          }
-    }
+  def autocomplete = Anon:
+    get("term", req).filter(_.nonEmpty) match
+      case None => BadRequest("No search term provided").toFuccess
+      case Some(term) =>
+        for {
+          teams <- api.autocomplete(term, 10)
+          _     <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
+        } yield JsonOk:
+          JsArray(teams map { team =>
+            Json.obj(
+              "id"      -> team.id,
+              "name"    -> team.name,
+              "owner"   -> env.user.lightUserApi.syncFallback(team.createdBy).name,
+              "members" -> team.nbMembers
+            )
+          })
 
   def pmAll(id: TeamId) = Auth { ctx ?=> _ =>
     WithOwnedTeamEnabled(id) { team =>
@@ -474,16 +467,15 @@ final class Team(
                     case RateLimit.Result.Limited => "failure" -> rateLimitedMsg
                   )
             ),
-      scoped = implicit req =>
+      scoped = req ?=>
         me =>
           api teamEnabled id flatMap {
             _.filter(_ leaders me.id) ?? { team =>
               doPmAll(team, me).fold(
                 err => BadRequest(errorsAsJson(err)(using reqLang)).toFuccess,
-                _ map {
+                _.map:
                   case RateLimit.Result.Through => jsonOkResult
                   case RateLimit.Result.Limited => rateLimitedJson
-                }
               )
             }
           }
@@ -491,16 +483,13 @@ final class Team(
 
   // API
 
-  def apiAll(page: Int) =
-    Action.async {
-      import env.team.jsonView.given
-      import lila.common.paginator.PaginatorJson.given
-      JsonOk {
-        paginator popularTeams page flatMap { pager =>
-          env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
-        }
+  def apiAll(page: Int) = Anon:
+    import env.team.jsonView.given
+    import lila.common.paginator.PaginatorJson.given
+    JsonOk:
+      paginator popularTeams page flatMap { pager =>
+        env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
       }
-    }
 
   def apiShow(id: TeamId) = Open:
     JsonOptionOk:
@@ -517,7 +506,7 @@ final class Team(
         }.some
       }
 
-  def apiSearch(text: String, page: Int) = Action.async:
+  def apiSearch(text: String, page: Int) = Anon:
     import env.team.jsonView.given
     import lila.common.paginator.PaginatorJson.given
     JsonOk:
@@ -525,35 +514,31 @@ final class Team(
       then paginator popularTeams page
       else env.teamSearch(text, page)
 
-  def apiTeamsOf(username: UserStr) = AnonOrScoped() { _ => me =>
+  def apiTeamsOf(username: UserStr) = AnonOrScoped() { _ ?=> me =>
     import env.team.jsonView.given
-    JsonOk {
+    JsonOk:
       api.joinedTeamIdsOfUserAsSeenBy(username, me) flatMap api.teamsByIds flatMap { teams =>
         env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
       }
+  }
+
+  def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { req ?=> me =>
+    WithOwnedTeamEnabledApi(teamId, me) { team =>
+      import env.team.jsonView.requestWithUserWrites
+      val reqs =
+        if getBool("declined", req) then api.declinedRequestsWithUsers(team)
+        else api.requestsWithUsers(team)
+      reqs map Json.toJson map ApiResult.Data.apply
     }
   }
 
-  def apiRequests(teamId: TeamId) =
-    Scoped(_.Team.Read) { req => me =>
-      WithOwnedTeamEnabledApi(teamId, me) { team =>
-        import env.team.jsonView.requestWithUserWrites
-        val reqs =
-          if getBool("declined", req) then api.declinedRequestsWithUsers(team)
-          else api.requestsWithUsers(team)
-        reqs map Json.toJson map ApiResult.Data.apply
+  def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me =>
+    WithOwnedTeamEnabledApi(teamId, me): team =>
+      api request lila.team.Request.makeId(team.id, userId.id) flatMap {
+        case None      => fuccess(ApiResult.ClientError("No such team join request"))
+        case Some(req) => api.processRequest(team, req, decision) inject ApiResult.Done
       }
-    }
-
-  def apiRequestProcess(teamId: TeamId, userId: UserStr, decision: String) =
-    Scoped(_.Team.Lead) { _ => me =>
-      WithOwnedTeamEnabledApi(teamId, me) { team =>
-        api request lila.team.Request.makeId(team.id, userId.id) flatMap {
-          case None      => fuccess(ApiResult.ClientError("No such team join request"))
-          case Some(req) => api.processRequest(team, req, decision) inject ApiResult.Done
-        }
-      }
-    }
+  }
 
   private def doPmAll(team: TeamModel, me: UserModel)(using
       req: Request[?]

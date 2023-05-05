@@ -85,12 +85,10 @@ final class Swiss(
       )
     }
 
-  def apiShow(id: SwissId) =
-    Action.async { _ =>
-      env.swiss.cache.swissCache byId id flatMap {
-        case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
-        case _           => notFoundJson()
-      }
+  def apiShow(id: SwissId) = Anon:
+    env.swiss.cache.swissCache byId id flatMap {
+      case Some(swiss) => env.swiss.json.api(swiss) map JsonOk
+      case _           => notFoundJson()
     }
 
   private def isUserInTheTeam(teamId: lila.team.TeamId)(user: UserModel) =
@@ -133,50 +131,47 @@ final class Swiss(
           )
   }
 
-  def apiCreate(teamId: TeamId) =
-    ScopedBody(_.Tournament.Write) { implicit req => me =>
-      if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
-      else
-        env.team.cached.isLeader(teamId, me.id) flatMap {
-          case false => notFoundJson("You're not a leader of that team")
-          case _ =>
-            env.swiss.forms
-              .create(me)
-              .bindFromRequest()
-              .fold(
-                jsonFormErrorDefaultLang,
-                data =>
-                  tourC.rateLimitCreation(me, isPrivate = true, req, rateLimited) {
-                    env.swiss.api.create(data, me, teamId) flatMap env.swiss.json.api map JsonOk
-                  }
-              )
-        }
-    }
+  def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+    if me.isBot || me.lame then notFoundJson("This account cannot create tournaments")
+    else
+      env.team.cached.isLeader(teamId, me.id) flatMap {
+        if _ then
+          env.swiss.forms
+            .create(me)
+            .bindFromRequest()
+            .fold(
+              jsonFormErrorDefaultLang,
+              data =>
+                tourC.rateLimitCreation(me, isPrivate = true, req, rateLimited):
+                  env.swiss.api.create(data, me, teamId) flatMap env.swiss.json.api map JsonOk
+            )
+        else notFoundJson("You're not a leader of that team")
 
-  def apiTerminate(id: SwissId) =
-    ScopedBody(_.Tournament.Write) { _ => me =>
-      env.swiss.cache.swissCache byId id flatMapz {
-        case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
-          env.swiss.api
-            .kill(swiss)
-            .map(_ => jsonOkResult)
-        case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
       }
+  }
+
+  def apiTerminate(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me =>
+    env.swiss.cache.swissCache byId id flatMapz {
+      case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
+        env.swiss.api
+          .kill(swiss)
+          .map(_ => jsonOkResult)
+      case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).toFuccess
     }
+  }
 
   def join(id: SwissId) = AuthBody { ctx ?=> me =>
     NoLameOrBot:
-      doJoin(me, id, bodyPassword(ctx.body))
+      doJoin(me, id, bodyPassword)
   }
 
-  def apiJoin(id: SwissId) =
-    ScopedBody(_.Tournament.Write) { implicit req => me =>
-      if (me.lame || me.isBot)
-        Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
-      else doJoin(me, id, bodyPassword)
-    }
+  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+    if me.lame || me.isBot
+    then Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
+    else doJoin(me, id, bodyPassword)
+  }
 
-  private def bodyPassword(implicit req: Request[?]) =
+  private def bodyPassword(using Request[?]) =
     SwissForm.joinForm.bindFromRequest().fold(_ => none, identity)
 
   private def doJoin(me: UserModel, id: SwissId, password: Option[String]) =
@@ -197,10 +192,9 @@ final class Swiss(
       )
   }
 
-  def apiWithdraw(id: SwissId) =
-    ScopedBody(_.Tournament.Write) { _ => me =>
-      env.swiss.api.withdraw(id, me.id) inject jsonOkResult
-    }
+  def apiWithdraw(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me =>
+    env.swiss.api.withdraw(id, me.id) inject jsonOkResult
+  }
 
   def edit(id: SwissId) = Auth { ctx ?=> me =>
     WithEditableSwiss(id, me) { swiss =>
@@ -219,27 +213,26 @@ final class Swiss(
         )
   }
 
-  def apiUpdate(id: SwissId) =
-    ScopedBody(_.Tournament.Write) { implicit req => me =>
-      given play.api.i18n.Lang = reqLang
-      WithEditableSwiss(
-        id,
-        me,
-        _ => Unauthorized(Json.obj("error" -> "This user cannot edit this swiss")).toFuccess
-      ) { swiss =>
-        env.swiss.forms
-          .edit(me, swiss)
-          .bindFromRequest()
-          .fold(
-            newJsonFormError,
-            data => {
-              env.swiss.api.update(swiss.id, data) flatMapz { swiss =>
-                env.swiss.json.api(swiss) map JsonOk
-              }
+  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+    given play.api.i18n.Lang = reqLang
+    WithEditableSwiss(
+      id,
+      me,
+      _ => Unauthorized(Json.obj("error" -> "This user cannot edit this swiss")).toFuccess
+    ) { swiss =>
+      env.swiss.forms
+        .edit(me, swiss)
+        .bindFromRequest()
+        .fold(
+          newJsonFormError,
+          data => {
+            env.swiss.api.update(swiss.id, data) flatMapz { swiss =>
+              env.swiss.json.api(swiss) map JsonOk
             }
-          )
-      }
+          }
+        )
     }
+  }
 
   def scheduleNextRound(id: SwissId) =
     def doSchedule(using Request[?])(me: UserModel) = WithEditableSwiss(id, me) { swiss =>
@@ -259,7 +252,7 @@ final class Swiss(
     }
     AuthOrScopedBody(_.Tournament.Write)(
       auth = ctx ?=> doSchedule(using ctx.body),
-      scoped = req => doSchedule(using req)
+      scoped = doSchedule
     )
 
   def terminate(id: SwissId) = Auth { _ ?=> me =>
@@ -267,57 +260,41 @@ final class Swiss(
       env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
   }
 
-  def standing(id: SwissId, page: Int) =
-    Action.async {
-      WithSwiss(id) { swiss =>
-        JsonOk {
+  def standing(id: SwissId, page: Int) = Anon:
+    WithSwiss(id): swiss =>
+      JsonOk:
+        env.swiss.standingApi(swiss, page)
+
+  def pageOf(id: SwissId, userId: UserStr) = Anon:
+    WithSwiss(id): swiss =>
+      env.swiss.api.pageOf(swiss, userId.id) flatMapz { page =>
+        JsonOk:
           env.swiss.standingApi(swiss, page)
-        }
       }
+
+  def player(id: SwissId, userId: UserStr) = Anon:
+    WithSwiss(id): swiss =>
+      env.swiss.api.playerInfo(swiss, userId.id) flatMap {
+        _.fold(notFoundJson()): player =>
+          JsonOk(fuccess(lila.swiss.SwissJson.playerJsonExt(swiss, player)))
+      }
+
+  def exportTrf(id: SwissId) = Anon:
+    env.swiss.cache.swissCache byId id map {
+      case None => NotFound("Tournament not found")
+      case Some(swiss) =>
+        Ok.chunked(env.swiss.trf(swiss, sorted = true) intersperse "\n")
+          .pipe(asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf")))
     }
 
-  def pageOf(id: SwissId, userId: UserStr) =
-    Action.async {
-      WithSwiss(id) { swiss =>
-        env.swiss.api.pageOf(swiss, userId.id) flatMapz { page =>
-          JsonOk {
-            env.swiss.standingApi(swiss, page)
-          }
-        }
-      }
-    }
-
-  def player(id: SwissId, userId: UserStr) =
-    Action.async {
-      WithSwiss(id) { swiss =>
-        env.swiss.api.playerInfo(swiss, userId.id) flatMap {
-          _.fold(notFoundJson()) { player =>
-            JsonOk(fuccess(lila.swiss.SwissJson.playerJsonExt(swiss, player)))
-          }
-        }
-      }
-    }
-
-  def exportTrf(id: SwissId) =
-    Action.async {
-      env.swiss.cache.swissCache byId id map {
-        case None => NotFound("Tournament not found")
-        case Some(swiss) =>
-          Ok.chunked(env.swiss.trf(swiss, sorted = true) intersperse "\n")
-            .pipe(asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf")))
-      }
-    }
-
-  def byTeam(id: TeamId) =
-    Action.async { implicit req =>
-      apiC.jsonDownload {
-        env.swiss.api
-          .byTeamCursor(id)
-          .documentSource(getInt("max", req) | 100)
-          .mapAsync(4)(env.swiss.json.api)
-          .throttle(20, 1.second)
-      }.toFuccess
-    }
+  def byTeam(id: TeamId) = Anon:
+    apiC.jsonDownload {
+      env.swiss.api
+        .byTeamCursor(id)
+        .documentSource(getInt("max", req) | 100)
+        .mapAsync(4)(env.swiss.json.api)
+        .throttle(20, 1.second)
+    }.toFuccess
 
   private def WithSwiss(id: SwissId)(f: SwissModel => Fu[Result]): Fu[Result] =
     env.swiss.cache.swissCache byId id flatMapz f
@@ -338,7 +315,7 @@ final class Swiss(
   private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
     canHaveChat(swiss.roundInfo)
 
-  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
+  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
     (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
       swiss.chatFor match
         case ChatFor.NONE                  => fuFalse
