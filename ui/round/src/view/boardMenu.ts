@@ -4,27 +4,27 @@ import RoundController from '../ctrl';
 import { bind } from '../util';
 import { game as gameRoute } from 'game/router';
 import { toggle, ToggleSettings } from 'common/controls';
+import { dataIcon } from 'common/snabbdom';
 
-export const render = (ctrl: RoundController) =>
+export const boardMenu = (ctrl: RoundController) =>
   snabModal({
     class: 'board-menu',
     onClose: () => ctrl.menu(false),
     content: [
-      h('button.fbt.flip', {
-        class: { active: ctrl.flip },
-        attrs: {
-          title: ctrl.noarg('flipBoard'),
-          'data-act': 'flip',
-          'data-icon': '',
+      h(
+        'button.button.text',
+        {
+          class: { active: ctrl.flip },
+          attrs: dataIcon(''),
+          hook: bind('click', () => {
+            const d = ctrl.data;
+            if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+            else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
+            else ctrl.flipNow();
+          }),
         },
-        hook: bind('click', () => {
-          const d = ctrl.data;
-          if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-          else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
-          else ctrl.flipNow();
-        }),
-      }),
-      h('h2', 'Move input'),
+        ctrl.noarg('flipBoard')
+      ),
       ctrlToggle(
         {
           name: 'Enable voice input',

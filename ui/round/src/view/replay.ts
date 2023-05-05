@@ -2,7 +2,6 @@ import * as game from 'game';
 import * as round from '../round';
 import * as status from 'game/status';
 import * as util from '../util';
-import { render as menu } from './menu';
 import isCol1 from 'common/isCol1';
 import RoundController from '../ctrl';
 import throttle from 'common/throttle';
@@ -153,21 +152,19 @@ function renderButtons(ctrl: RoundController) {
   return h(
     'div.buttons',
     {
-      hook: util.bind(
-        'mousedown',
-        e => {
-          const target = e.target as HTMLElement;
-          const ply = parseInt(target.getAttribute('data-ply') || '');
-          if (!isNaN(ply)) {
-            ctrl.userJump(ply);
-            return;
-          }
+      hook: util.bind('mousedown', e => {
+        const target = e.target as HTMLElement;
+        const ply = parseInt(target.getAttribute('data-ply') || '');
+        if (!isNaN(ply)) {
+          ctrl.userJump(ply);
+          ctrl.redraw();
+          return;
+        }
 
-          const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-          if (action === 'menu') ctrl.menu.toggle();
-        },
-        ctrl.redraw
-      ),
+        const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+        console.log('action', action);
+        if (action === 'menu') ctrl.menu.toggle();
+      }),
     },
     [
       analysisButton(ctrl) || h('div.noop'),
@@ -188,7 +185,7 @@ function renderButtons(ctrl: RoundController) {
         });
       }),
       h(
-        'button.fbt.menu-button',
+        'button.fbt',
         {
           class: { active: ctrl.menu() },
           attrs: {
@@ -197,7 +194,7 @@ function renderButtons(ctrl: RoundController) {
             'data-icon': '',
           },
         },
-        h('div.new-nag')
+        h('div.board-menu-nag')
       ),
     ]
   );
@@ -261,7 +258,6 @@ export function render(ctrl: RoundController): VNode | undefined {
     ? undefined
     : h(rmovesTag, [
         renderButtons(ctrl),
-        h('div.menu-anchor', ctrl.menu() ? menu(ctrl) : undefined),
         initMessage(ctrl) ||
           (isCol1()
             ? h('div.col1-moves', [

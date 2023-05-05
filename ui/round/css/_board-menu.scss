@@ -1,0 +1,24 @@
+.board-menu {
+  min-width: 300px;
+
+  > div {
+    text-align: $start-direction;
+  }
+
+  .setting {
+    @extend %flex-center-nowrap;
+
+    flex: 0 0 auto;
+    margin-top: $block-gap;
+
+    label {
+      flex: 4 1 auto;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .switch + label {
+      margin-#{$start-direction}: 1ch;
+    }
+  }
+}

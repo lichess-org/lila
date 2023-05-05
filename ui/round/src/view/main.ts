@@ -9,6 +9,7 @@ import { render as renderGround } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'game/view/material';
 import { renderVoiceMove } from 'voice';
+import { boardMenu } from './boardMenu';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -54,5 +55,6 @@ export function main(ctrl: RoundController): VNode {
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
         ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
+        ctrl.menu() ? boardMenu(ctrl) : undefined,
       ]);
 }
