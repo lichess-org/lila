@@ -68,7 +68,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 attrs: dataIcon(''),
                 on: {
                   click: () => {
-                    const path = [findCurrentPath(ctrl)];
+                    let path = findCurrentPath(ctrl) || '';
                     for (const node of nodes) {
                       const move = parseUci(node.uci);
                       if (!move) return;
@@ -85,13 +85,13 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                           id: moveId,
                           children: [],
                         },
-                        path.join('') // the path before this is its parent
+                        path // the path before this is its parent
                       );
 
-                      path.push(moveId);
+                      path += moveId;
                     }
 
-                    ctrl.userJump(path.join(''));
+                    ctrl.userJump(path);
                     ctrl.redraw();
                   },
                 },
