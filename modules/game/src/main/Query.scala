@@ -47,8 +47,14 @@ object Query:
 
   def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory $exists c
 
-  def user(u: UserId): Bdoc = F.playerUids $eq u
-  def user(u: User): Bdoc   = user(u.id)
+  def user(u: UserId): Bdoc            = F.playerUids $eq u
+  def users(u: Iterable[UserId]): Bdoc = F.playerUids $in u
+  def user(u: User): Bdoc              = user(u.id)
+
+  val noAnon = $doc(
+    "p0.e" $exists true,
+    "p1.e" $exists true
+  )
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,

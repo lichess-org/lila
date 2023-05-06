@@ -36,7 +36,7 @@ case class ForumTopic(
 
   def open = !closed
 
-  def isTooBig = nbPosts > (if (ForumCateg.isTeamSlug(categId)) 500 else 50)
+  def isTooBig = nbPosts > (if isTeam then 500 else 50)
 
   def possibleTeamId = ForumCateg toTeamId categId
 
@@ -45,6 +45,7 @@ case class ForumTopic(
   def isAuthor(user: User): Boolean = userId contains user.id
   def isUblog                       = ublogId.isDefined
   def isUblogAuthor(user: User)     = isUblog && isAuthor(user)
+  def isTeam                        = ForumCateg.isTeamSlug(categId)
 
   def withPost(post: ForumPost): ForumTopic =
     copy(
@@ -58,7 +59,10 @@ case class ForumTopic(
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 
-  def isOld = updatedAt isBefore nowInstant.minusMonths(1)
+  def isOld = updatedAt isBefore nowInstant.minusMonths:
+    if isUblog then 12 * 5
+    else if isTeam then 6
+    else 1
 
   def lastPage(maxPerPage: MaxPerPage): Int =
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value

@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">בנסיבות מסויימות כאשר משחק הוא מול בוט, משחק מדורג עשוי לא להעניק נקודות אם ייקבע שהשחקן/ית מנצל/ת את הבוט לצבירת ניקוד.</string>
   <string name="errorPage">שגיאה בדף</string>
   <string name="reportErrorPage">אם התמודדת עם שגיאה בדף, את/ה יכול/ה לדווח על זה:</string>
+  <string name="wantBroadcastTournament">אני רוצה לשדר טורניר</string>
+  <string name="learnHowToMakeBroadcasts">למדו כיצד ליצור הקרנות חיות של טורנירים בליצ׳ס</string>
+  <string name="contactAboutOfficialBroadcasts">ניתן גם לכתוב לצוות השידורים שלנו לגבי שידורים רשמיים.</string>
   <string name="banAppeal">ערעור על איסור או על הגבלה בIP</string>
   <string name="engineAppeal">סימן שימוש במנוע או רמאות</string>
   <string name="sendAppealTo">את/ה יכול/ה לשלוח ערעור ל%s.</string>

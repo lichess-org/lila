@@ -33,7 +33,6 @@
   <string name="streamerLanguageSettings">Lichessin striimaajasivu on suunnattu yleisölle striimialustasi kielellä. Aseta shakkistriimeillesi sopiva kieli niiden lähetykseen käyttämässäsi sovelluksessa tai palvelussa.</string>
   <string name="twitchUsername">Twitch-käyttäjänimesi tai URL</string>
   <string name="optionalOrEmpty">Ei-pakollinen. Jätä tyhjäksi jollei sinulla ole</string>
-  <string name="youtubeChannel">YouTube-kanavasi kanava-ID tai URL</string>
   <string name="streamerName">Striimaajanimesi Lichessissä</string>
   <plurals name="keepItShort">
     <item quantity="one">Pidä se lyhyenä: %s merkki enintään</item>

@@ -19,67 +19,59 @@ final class Importer(env: Env) extends LilaController(env):
     ("slow", 150, 1.hour)
   )
 
-  def importGame =
-    OpenBody { implicit ctx =>
-      fuccess {
-        val pgn  = ctx.body.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
-        val data = lila.importer.ImportData(PgnStr(pgn), None)
-        Ok(html.game.importGame(env.importer.forms.importForm.fill(data)))
-      }
-    }
+  def importGame = OpenBody:
+    fuccess:
+      val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
+      val data = lila.importer.ImportData(PgnStr(pgn), None)
+      Ok(html.game.importGame(env.importer.forms.importForm.fill(data)))
 
-  def sendGame =
-    OpenBody { implicit ctx =>
-      given play.api.mvc.Request[?] = ctx.body
-      env.importer.forms.importForm
-        .bindFromRequest()
-        .fold(
-          failure =>
-            negotiate( // used by mobile app
-              html = Ok(html.game.importGame(failure)).toFuccess,
-              api = _ => BadRequest(jsonError("Invalid PGN")).toFuccess
-            ),
-          data =>
-            ImportRateLimitPerIP(ctx.ip, cost = 1) {
-              doImport(data, ctx.me) flatMap {
-                case Right(game) =>
-                  ctx.me.ifTrue(data.analyse.isDefined && game.analysable) ?? { me =>
-                    env.fishnet
-                      .analyser(
-                        game,
-                        lila.fishnet.Work.Sender(
-                          userId = me.id,
-                          ip = ctx.ip.some,
-                          mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
-                          system = false
-                        )
+  def sendGame = OpenBody:
+    env.importer.forms.importForm
+      .bindFromRequest()
+      .fold(
+        failure =>
+          negotiate( // used by mobile app
+            html = Ok(html.game.importGame(failure)).toFuccess,
+            api = _ => BadRequest(jsonError("Invalid PGN")).toFuccess
+          ),
+        data =>
+          ImportRateLimitPerIP(ctx.ip, cost = 1) {
+            doImport(data, ctx.me) flatMap {
+              case Right(game) =>
+                ctx.me.filter(_ => data.analyse.isDefined && game.analysable) ?? { me =>
+                  env.fishnet
+                    .analyser(
+                      game,
+                      lila.fishnet.Work.Sender(
+                        userId = me.id,
+                        ip = ctx.ip.some,
+                        mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
+                        system = false
                       )
-                      .void
-                  } inject Redirect(routes.Round.watcher(game.id, "white"))
-                case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error).toFuccess
-              }
-            }(rateLimitedFu)
-        )
-    }
+                    )
+                    .void
+                } inject Redirect(routes.Round.watcher(game.id, "white"))
+              case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error).toFuccess
+            }
+          }(rateLimitedFu)
+      )
 
   def apiSendGame =
-    AnonOrScopedBody(parse.anyContent)() { req => me =>
-      ImportRateLimitPerIP(req.ipAddress, cost = if (me.isDefined) 1 else 2) {
+    AnonOrScopedBody(parse.anyContent)() { req ?=> me =>
+      ImportRateLimitPerIP(req.ipAddress, cost = if me.isDefined then 1 else 2) {
         env.importer.forms.importForm
           .bindFromRequest()(req, formBinding)
           .fold(
             err => BadRequest(apiFormError(err)).toFuccess,
             data =>
-              doImport(data, me) map {
+              doImport(data, me).map:
                 case Left(error) => BadRequest(jsonError(error))
                 case Right(game) =>
-                  JsonOk {
+                  JsonOk:
                     Json.obj(
                       "id"  -> game.id,
                       "url" -> s"${env.net.baseUrl}/${game.id}"
                     )
-                  }
-              }
           )
       }(rateLimitedFu)
     }
@@ -94,11 +86,9 @@ final class Importer(env: Env) extends LilaController(env):
       Left("The PGN contains illegal and/or ambiguous moves.")
     }
 
-  def masterGame(id: GameId, orientation: String) =
-    Open { implicit ctx =>
-      env.explorer.importer(id) mapz { game =>
-        val url      = routes.Round.watcher(game.id, orientation).url
-        val fenParam = get("fen").??(f => s"?fen=$f")
-        Redirect(s"$url$fenParam")
-      }
+  def masterGame(id: GameId, orientation: String) = Open:
+    env.explorer.importer(id) mapz { game =>
+      val url      = routes.Round.watcher(game.id, orientation).url
+      val fenParam = get("fen").??(f => s"?fen=$f")
+      Redirect(s"$url$fenParam")
     }
