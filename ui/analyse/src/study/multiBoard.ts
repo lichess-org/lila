@@ -4,7 +4,8 @@ import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { opposite } from 'chessground/util';
+import { opposite as CgOpposite } from 'chessground/util';
+import { opposite as oppositeColor } from 'chessops/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 
 export class MultiBoardCtrl {
@@ -20,6 +21,12 @@ export class MultiBoardCtrl {
     if (cp?.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
+      cp.sideToPlay = node.ply % 2 === 0 ? 'white' : 'black'; // TODO, does it work when the first position is black to move?
+      let playerWhoMoved = cp.players && cp.players[oppositeColor(cp.sideToPlay)];
+      playerWhoMoved && (playerWhoMoved.clock = node.clock);
+      // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
+      // to mitigate bad usage, setting it as `undefined`
+      cp.lastMoveAt = undefined;
       this.redraw();
     }
   };
@@ -157,13 +164,19 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
             lichess.miniGame.update(vnode.elm as HTMLElement, {
               lm: preview.lastMove!,
               fen: preview.fen,
+              wc: computeTimeLeft(preview, 'white'),
+              bc: computeTimeLeft(preview, 'black'),
             });
           }
           vnode.data!.fen = preview.fen;
         },
       },
     },
-    [boardPlayer(preview, opposite(preview.orientation)), h('span.cg-wrap'), boardPlayer(preview, preview.orientation)]
+    [
+      boardPlayer(preview, CgOpposite(preview.orientation)),
+      h('span.cg-wrap'),
+      boardPlayer(preview, preview.orientation),
+    ]
   );
 
 const userName = (u: ChapterPreviewPlayer) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
@@ -180,11 +193,8 @@ function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefin
   );
 }
 
-const computeTimeLeft = (
-  preview: ChapterPreview,
-  player: ChapterPreviewPlayer | undefined,
-  color: Color
-): number | undefined => {
+const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
+  const player = preview.players && preview.players[color];
   if (player && player.clock) {
     if (preview.lastMoveAt && preview.sideToPlay == color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
@@ -201,7 +211,7 @@ const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const player = preview.players && preview.players[color];
   const result = preview.outcome?.split('-')[color === 'white' ? 0 : 1];
   const resultNode = result && h('span.mini-game__result', result.replace('1/2', '½'));
-  const timeleft = computeTimeLeft(preview, player, color);
+  const timeleft = computeTimeLeft(preview, color);
   const clock = timeleft && renderClock(color, timeleft);
   return h('span.mini-game__player', [h('span.mini-game__user', [renderPlayer(player)]), resultNode ?? clock]);
 };
