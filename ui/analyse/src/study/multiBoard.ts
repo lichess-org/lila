@@ -21,7 +21,7 @@ export class MultiBoardCtrl {
     if (cp?.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
-      let playerWhoMoved = cp.players && cp.players[oppositeColor(fenColor(cp.fen))];
+      const playerWhoMoved = cp.players && cp.players[oppositeColor(fenColor(cp.fen))];
       playerWhoMoved && (playerWhoMoved.clock = node.clock);
       // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
       // to mitigate bad usage, setting it as `undefined`
