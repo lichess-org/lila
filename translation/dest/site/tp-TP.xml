@@ -839,6 +839,8 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="useTheReportForm">o toki kepeken lipu ni</string>
   <string name="toRequestSupport">sina wile toki tawa mi mute pi ilo Lichess la, %1$s</string>
   <string name="tryTheContactPage">o toki kepeken lipu \"toki tawa mi mute\"</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">o lukin e %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">nasin pi ma toki</string>
   <string name="thisTopicIsArchived">toki ni li awen. jan li ken ala toki lon ona lon tenpo ni.</string>
   <string name="joinTheTeamXToPost">sina wile toki lon tomo toki ni la, o kama tawa kulupu \"%1$s\"</string>
   <string name="teamNamedX">kulupu %1$s</string>
