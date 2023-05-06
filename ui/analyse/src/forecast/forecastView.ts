@@ -69,7 +69,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 on: {
                   click: () => {
                     const path = [findCurrentPath(ctrl)];
-                    for (const node of fctrl.list()[i]) {
+                    for (const node of nodes) {
                       const move = parseUci(node.uci);
                       if (!move) return;
                       const moveId = scalachessCharPair(move);
