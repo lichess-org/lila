@@ -908,7 +908,7 @@
   </plurals>
   <string name="sorry">Oprostite :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
-  <string name="timeoutExpires">Omejitev poteče v %s.</string>
+  <string name="timeoutExpires">Omejitev poteče čez %s.</string>
   <string name="why">Zakaj?</string>
   <string name="pleasantChessExperience">Želimo, da imajo z igranjem vsi prijetno izkušnjo.</string>
   <string name="goodPractice">Da bi to dosegli, moramo zagotoviti, da se vsi igralci držijo dobre prakse.</string>
