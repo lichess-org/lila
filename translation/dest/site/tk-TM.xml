@@ -635,7 +635,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="invalidFen">Ýörgünsiz FEN</string>
   <string name="custom">Şahsy</string>
   <string name="notifications">Duýduryşlar</string>
-  <string name="notificationsx">Duýduryşlar: %1$s</string>
   <string name="perfRatingX">Reýting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Ilkinji göçüm üçin %s sekunt</item>

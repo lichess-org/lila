@@ -722,7 +722,6 @@
   <string name="invalidFen">Невалиден FEN</string>
   <string name="custom">Персонализирано</string>
   <string name="notifications">Известувања</string>
-  <string name="notificationsx">Известувања: %1$s</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за првиот потег</item>

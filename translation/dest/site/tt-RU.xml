@@ -650,7 +650,6 @@
   <string name="invalidFen">Бозык FEN</string>
   <string name="custom">Куелган</string>
   <string name="notifications">Хәбәр итүләр</string>
-  <string name="notificationsx">Хәбәр итүләр: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s секунд уйнар өчен беренче хәрәкәтне</item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">চ্যালেঞ্জ: %1$s</string>
+  <string name="challenges">চ্যালেঞ্জ</string>
   <string name="challengeToPlay">খেলার জন্য চ্যালেঞ্জ করুন</string>
   <string name="challengeDeclined">চ্যালেঞ্জ প্রত্যাখ্যান করা হয়েছে</string>
   <string name="challengeAccepted">চ্যালেঞ্জ গৃহীত হয়েছে!</string>

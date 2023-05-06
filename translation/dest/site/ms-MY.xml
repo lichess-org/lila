@@ -664,7 +664,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="invalidFen">FEN tidak sah</string>
   <string name="custom">Tersuai</string>
   <string name="notifications">Pemberitahuan</string>
-  <string name="notificationsx">Pemberitahuan: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s saat untuk memulakan langkah pertama</item>

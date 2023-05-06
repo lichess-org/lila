@@ -705,7 +705,6 @@
   <string name="invalidFen">അസാധുവായ FEN</string>
   <string name="custom">ഇച്ഛാനുസൃതം</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
-  <string name="notificationsx">അറിയിപ്പുകൾ: %1$s</string>
   <string name="perfRatingX">നിലവാരം: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കന്റ് ബാക്കി നിൽക്കുന്നു</item>

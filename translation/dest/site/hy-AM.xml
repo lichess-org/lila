@@ -750,7 +750,6 @@
   <string name="invalidFen">Ոչ կոռեկտ PGN</string>
   <string name="custom">Սեփական խաղ</string>
   <string name="notifications">Ծանուցումներ</string>
-  <string name="notificationsx">Ծանուցումներ: %1$s</string>
   <string name="perfRatingX">Վարկանիշ՝ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s վայրկյան առաջին քայլի համար</item>

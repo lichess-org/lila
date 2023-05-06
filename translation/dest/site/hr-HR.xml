@@ -809,7 +809,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="invalidFen">Nevaljan FEN</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
-  <string name="notificationsx">Obavijesti: %1$s</string>
   <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>

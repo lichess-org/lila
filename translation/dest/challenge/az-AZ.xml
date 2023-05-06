@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">Çağırışlar: %1$s</string>
+  <string name="challenges">Çağırışlar</string>
   <string name="challengeToPlay">Oyuna çağırış</string>
   <string name="challengeDeclined">Çağırış rədd edildi</string>
   <string name="challengeAccepted">Çağırış qəbul edildi!</string>

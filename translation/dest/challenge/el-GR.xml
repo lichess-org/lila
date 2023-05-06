@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">Προκλήσεις: %1$s</string>
+  <string name="challenges">Προκλήσεις</string>
   <string name="challengeToPlay">Προκαλέστε σε παιχνίδι</string>
   <string name="challengeDeclined">Η πρόκληση απορρίφθηκε</string>
   <string name="challengeAccepted">Η πρόκληση έγινε δεκτή!</string>

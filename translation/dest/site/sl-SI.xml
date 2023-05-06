@@ -844,7 +844,6 @@
   <string name="invalidFen">Neveljaven FEN</string>
   <string name="custom">Po meri</string>
   <string name="notifications">Obvestila</string>
-  <string name="notificationsx">Obvestila: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund za prvo potezo</item>

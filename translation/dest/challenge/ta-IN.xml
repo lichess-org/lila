@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">சவால்கள்: %1$s</string>
+  <string name="challenges">சவால்கள்</string>
   <string name="challengeToPlay">ஆட அழை</string>
   <string name="challengeDeclined">சவால்லய் மறு</string>
   <string name="challengeAccepted">சவால் ஏற்றுக்கொள்ளப்பட்டது!</string>
