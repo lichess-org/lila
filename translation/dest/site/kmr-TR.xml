@@ -700,6 +700,7 @@
   <string name="invalidFen">FENa nederbasdar</string>
   <string name="custom">Xisûsî</string>
   <string name="notifications">Danezan</string>
+  <string name="notificationsx">Danezan: %1$s</string>
   <string name="perfRatingX">Reytîng: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s çirke ji bo lîstina hemleya pêşîn</item>

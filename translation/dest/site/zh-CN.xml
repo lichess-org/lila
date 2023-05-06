@@ -730,6 +730,7 @@
   <string name="invalidFen">FEN无法识别</string>
   <string name="custom">自定义</string>
   <string name="notifications">通知</string>
+  <string name="notificationsx">通知: %1$s</string>
   <string name="perfRatingX">等级分：%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">还剩%s秒走第一步</item>

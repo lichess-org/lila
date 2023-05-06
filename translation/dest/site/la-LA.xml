@@ -665,6 +665,7 @@
   <string name="invalidFen">Invalida positio notatio</string>
   <string name="custom">Alius</string>
   <string name="notifications">Nuntii</string>
+  <string name="notificationsx">Nuntii: %1$s</string>
   <string name="perfRatingX">Ordo: %s</string>
   <string name="seeBestMove">Maxime motum videre</string>
   <string name="hideBestMove">Maxime motum celare</string>

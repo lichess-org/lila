@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesx">Challenges: %1$s</string>
   <string name="challengeToPlay">Challenge to a game</string>
   <string name="challengeDeclined">Challenge declined</string>
   <string name="challengeAccepted">Challenge accepted!</string>

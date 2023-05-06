@@ -667,6 +667,7 @@
   <string name="invalidFen">अमान्य FEN</string>
   <string name="custom">कष्टम</string>
   <string name="notifications">सुचनाहरु</string>
+  <string name="notificationsx">सुचनाहरु: %1$s</string>
   <string name="perfRatingX">रेटिङ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिलो चाल चाल्न %s सेकेण्ड</item>

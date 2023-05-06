@@ -771,6 +771,7 @@
   <string name="invalidFen">Μη έγκυρο FEN</string>
   <string name="custom">Προσαρμογή</string>
   <string name="notifications">Ειδοποιήσεις</string>
+  <string name="notificationsx">Ειδοποιήσεις: %1$s</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>

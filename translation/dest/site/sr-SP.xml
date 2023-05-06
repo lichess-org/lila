@@ -733,6 +733,7 @@
   <string name="invalidFen">Неважећи FEN</string>
   <string name="custom">Прилагођено</string>
   <string name="notifications">Обавештења</string>
+  <string name="notificationsx">Обавештења: %1$s</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунд да одиграте први потез</item>

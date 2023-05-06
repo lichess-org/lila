@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesx">Väljakutsed: %1$s</string>
   <string name="challengeToPlay">Väljakutse mängule</string>
   <string name="challengeDeclined">Väljakutse tagasi lükatud</string>
   <string name="challengeAccepted">Väljakutse vastu võetud!</string>

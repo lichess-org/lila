@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesx">挑戦: %1$s</string>
   <string name="challengeToPlay">対局を申し込む</string>
   <string name="challengeDeclined">挑戦が拒否されました。</string>
   <string name="challengeAccepted">挑戦が承認されました！</string>

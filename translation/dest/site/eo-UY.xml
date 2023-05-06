@@ -770,6 +770,7 @@
   <string name="invalidFen">Nevalida FEN</string>
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
+  <string name="notificationsx">Sciigoj: %1$s</string>
   <string name="perfRatingX">Rango: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>

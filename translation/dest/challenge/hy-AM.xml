@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesx">Մարտահրավերներ: %1$s</string>
   <string name="challengeToPlay">Ուղարկել խաղի մարտահրավեր</string>
   <string name="challengeDeclined">Մարտահրավերը մերժված է</string>
   <string name="challengeAccepted">Մարտահրավերն ընդունված է</string>

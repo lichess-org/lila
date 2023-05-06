@@ -773,6 +773,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="invalidFen">FEN e pavlefshme</string>
   <string name="custom">Vetjake</string>
   <string name="notifications">Njoftime</string>
+  <string name="notificationsx">Njoftime: %1$s</string>
   <string name="perfRatingX">Vlerësimi: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekondë për kryerjen e lëvizjes së parë</item>

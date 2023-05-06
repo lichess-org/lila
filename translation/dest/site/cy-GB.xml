@@ -618,6 +618,7 @@
   <string name="invalidFen">FEN anilys</string>
   <string name="custom">Dewis amgenach</string>
   <string name="notifications">Hysbysiadau</string>
+  <string name="notificationsx">Hysbysiadau: %1$s</string>
   <string name="perfRatingX">Graddfa %s</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="anotherWasX">Dewis da arall oedd %s</string>

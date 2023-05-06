@@ -845,6 +845,7 @@
   <string name="invalidFen">FEN לא חוקי</string>
   <string name="custom">התאמה אישית</string>
   <string name="notifications">התראות</string>
+  <string name="notificationsx">התראות: %1$s</string>
   <string name="perfRatingX">דירוג: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">שנייה %s לשחק את המסע הראשון</item>

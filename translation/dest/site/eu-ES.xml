@@ -771,6 +771,7 @@
   <string name="invalidFen">FENa ez da zuzena</string>
   <string name="custom">Pertsonalizatua</string>
   <string name="notifications">Jakinarazpenak</string>
+  <string name="notificationsx">Jakinarazpenak: %1$s</string>
   <string name="perfRatingX">Sailkapena: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>

@@ -771,6 +771,7 @@
   <string name="invalidFen">FEN ei kelpaa</string>
   <string name="custom">Mukautettu</string>
   <string name="notifications">Ilmoitukset</string>
+  <string name="notificationsx">Ilmoitukset: %1$s</string>
   <string name="perfRatingX">Vahvuusluku: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekuntia aikaa pelata ensimmäinen siirto</item>

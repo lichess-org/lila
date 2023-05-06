@@ -719,6 +719,7 @@
   <string name="invalidFen">Maling FEN</string>
   <string name="custom">Pinasadya</string>
   <string name="notifications">Mga Notipikasyon</string>
+  <string name="notificationsx">Mga Notipikasyon: %1$s</string>
   <string name="perfRatingX">Marka: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo na gawin ang unang galaw</item>

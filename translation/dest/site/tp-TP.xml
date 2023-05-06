@@ -745,6 +745,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="invalidFen">lipu FEN li ike</string>
   <string name="custom">nasin ante</string>
   <string name="notifications">toki kama</string>
+  <string name="notificationsx">toki kama: %1$s</string>
   <string name="perfRatingX">nanpa wawa: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">tenpo Sekunta %s li tenpo pi tawa #1</item>

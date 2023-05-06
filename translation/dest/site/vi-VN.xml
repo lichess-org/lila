@@ -734,6 +734,7 @@
   <string name="invalidFen">FEN không hợp lệ</string>
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
+  <string name="notificationsx">Thông báo: %1$s</string>
   <string name="perfRatingX">Xếp hạng: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>

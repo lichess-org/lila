@@ -597,6 +597,7 @@
   <string name="invalidFen">lo me la FEN. cu toldra</string>
   <string name="custom">cuxna</string>
   <string name="notifications">lo notci</string>
+  <string name="notificationsx">lo notci: %1$s</string>
   <string name="perfRatingX">nilcre fa li %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">zukte .ei lo pa moi kelka\'u ba nu\'i la\'u lo snidu be li su\'e %s</item>

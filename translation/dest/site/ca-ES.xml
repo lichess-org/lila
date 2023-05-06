@@ -771,6 +771,7 @@
   <string name="invalidFen">FEN no vàlid</string>
   <string name="custom">Personalitzat</string>
   <string name="notifications">Avisos</string>
+  <string name="notificationsx">Avisos: %1$s</string>
   <string name="perfRatingX">Classificació: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segon per jugar el primer moviment</item>

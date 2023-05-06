@@ -638,6 +638,7 @@
   <string name="invalidFen">Буруу FEN</string>
   <string name="custom">Өөрийнхөөр</string>
   <string name="notifications">Мэдэгдэлүүд</string>
+  <string name="notificationsx">Мэдэгдэлүүд: %1$s</string>
   <string name="perfRatingX">Чансаа:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Эхний нүүдэл хийхэд %s секунд байна</item>
