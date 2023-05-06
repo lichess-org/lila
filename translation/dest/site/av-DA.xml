@@ -114,7 +114,22 @@
   <string name="finished">ТӀубана</string>
   <string name="finishesX">%s лъугӀула</string>
   <string name="standard">ГӀадатаб</string>
+  <string name="unlimited">ГьечӀо</string>
   <string name="play">ХӀазе</string>
+  <string name="chatRoom">Чат</string>
+  <string name="send">БитӀизе</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s бергьенлъи</item>
+    <item quantity="other">%s бергьенлъи</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s къей</item>
+    <item quantity="other">%s къей</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s хӀалеб</item>
+    <item quantity="other">%s хӀалеб</item>
+  </plurals>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнирал</string>
   <string name="viewTournament">Турниралде балагьизе</string>
