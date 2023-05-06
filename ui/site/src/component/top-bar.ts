@@ -65,7 +65,7 @@ export default function () {
           }))
       );
     };
-    const tryFocusFirstChallenge = function (attempt: number = 1) {
+    const tryFocusFirstChallenge = function (attempt = 1) {
       const maxAttempts = 5,
         attemptIntervalMs = 100,
         $challengeAccept = $('#challenge-app .challenges .challenge.in button.accept').first();
@@ -133,7 +133,7 @@ export default function () {
         }, 200);
       });
 
-    const tryFocusFirstNotification = function (attempt: number) {
+    const tryFocusFirstNotification = function (attempt = 1) {
       const maxAttempts = 5,
         attemptIntervalMs = 100,
         $firstNotification = $('#notify-app .notifications a.site_notification').first();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">Выклікі: %1$s</string>
+  <string name="challengesx">Выклікі: %1$s</string>
   <string name="challengeToPlay">Выклікаць на гульню</string>
   <string name="challengeDeclined">Выклік адхілены</string>
   <string name="challengeAccepted">Выклік прыняты!</string>

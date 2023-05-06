@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">對弈: %1$s</string>
+  <string name="challengesx">對弈: %1$s</string>
   <string name="challengeToPlay">邀請對弈</string>
   <string name="challengeDeclined">對弈邀請已拒絕</string>
   <string name="challengeAccepted">對弈邀請已接受</string>

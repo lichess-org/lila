@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">چالش بازی: %1$s</string>
+  <string name="challengesx">چالش بازی: %1$s</string>
   <string name="challengeToPlay">دعوت به بازی</string>
   <string name="challengeDeclined">چالش از طرف حریف قبول نشد</string>
   <string name="challengeAccepted">چالش از طرف حریف قبول شد!</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">Kihívások: %1$s</string>
+  <string name="challengesx">Kihívások: %1$s</string>
   <string name="challengeToPlay">Kihívás játszmára</string>
   <string name="challengeDeclined">Kihívás elutasítva</string>
   <string name="challengeAccepted">Kihívás elfogadva!</string>

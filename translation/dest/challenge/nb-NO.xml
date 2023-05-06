@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">Utfordringer: %1$s</string>
+  <string name="challengesx">Utfordringer: %1$s</string>
   <string name="challengeToPlay">Utfordre til et parti</string>
   <string name="challengeDeclined">Utfordring avslått</string>
   <string name="challengeAccepted">Utfordring godtatt!</string>

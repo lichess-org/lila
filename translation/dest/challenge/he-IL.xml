@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">הזמנות למשחק: %1$s</string>
+  <string name="challengesx">הזמנות למשחק: %1$s</string>
   <string name="challengeToPlay">הזמינו למשחק</string>
   <string name="challengeDeclined">ההזמנה למשחק נדחתה</string>
   <string name="challengeAccepted">ההזמנה למשחק התקבלה!</string>

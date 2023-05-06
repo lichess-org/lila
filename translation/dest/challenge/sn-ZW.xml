@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">Mitambo: %1$s</string>
+  <string name="challengesx">Mitambo: %1$s</string>
   <string name="challengeToPlay">Dana munhu kumutambo</string>
   <string name="challengeDeclined">Aramba kutamba newe</string>
   <string name="challengeAccepted">\"Abvuma Kutamba newe!\"!</string>

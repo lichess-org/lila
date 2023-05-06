@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">മത്സരക്ഷണങ്ങള്‍: %1$s</string>
+  <string name="challengesx">മത്സരക്ഷണങ്ങള്‍: %1$s</string>
   <string name="challengeToPlay">ഒരു മത്സരത്തിനു ക്ഷണിക്കുക</string>
   <string name="challengeDeclined">മത്സര ക്ഷണം നിരസിച്ചു</string>
   <string name="challengeAccepted">മത്സരക്ഷണങ്ങള്‍ സ്വീകരിച്ചു!</string>

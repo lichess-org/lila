@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">Изазови: %1$s</string>
+  <string name="challengesx">Изазови: %1$s</string>
   <string name="challengeToPlay">Изазови на партију</string>
   <string name="challengeDeclined">Изазов одбијен</string>
   <string name="challengeAccepted">Изазов прихваћен!</string>

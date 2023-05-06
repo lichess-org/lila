@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string named="challengesx">Heriau: %1$s</string>
+  <string name="challengesx">Heriau: %1$s</string>
   <string name="challengeToPlay">Herio i chwarae</string>
   <string name="challengeDeclined">Her wedi ei wrthod</string>
   <string name="challengeAccepted">Her wedi ei dderbyn!</string>
