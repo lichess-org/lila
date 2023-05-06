@@ -65,10 +65,24 @@ export default function () {
           }))
       );
     };
+    const tryFocusFirstChallenge = function (attempt: number = 1) {
+      const maxAttempts = 5,
+        attemptIntervalMs = 100,
+        $challengeAccept = $('#challenge-app .challenges .challenge.in button.accept').first();
+
+      if (!isVisible('#challenge-app')) return;
+      if ($challengeAccept.length == 0 && attempt < maxAttempts) {
+        setTimeout(() => tryFocusFirstChallenge(attempt + 1), attemptIntervalMs);
+        return;
+      }
+
+      $challengeAccept[0]?.focus();
+    };
     pubsub.on('socket.in.challenges', data => {
       if (!instance) load(data);
       else instance.update(data);
     });
+    pubsub.on('top.toggle.challenge-toggle', tryFocusFirstChallenge);
     pubsub.on('challenge-app.open', () => $toggle.trigger('click'));
   }
 

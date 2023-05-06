@@ -46,7 +46,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       },
       [
         h('div.content', [
-          h('div.content__text', [
+          h(`div.content__text#challenge-text-${c.id}`, [
             h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
             h('span.desc', [
               h('span.is.is2.color-icon.' + myColor),
@@ -89,6 +89,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
         h('button.button.accept', {
           attrs: {
             type: 'submit',
+            'aria-describedby': `challenge-text-${c.id}`,
             'data-icon': '',
             title: trans('accept'),
           },
