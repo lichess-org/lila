@@ -15,7 +15,7 @@ import lila.socket.Socket.{ makeMessage, Sri }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
 import lila.tree.Branch
-import lila.tree.NewBranch
+import lila.tree.{ NewBranch, NewTree }
 
 final private class StudySocket(
     api: StudyApi,
@@ -250,7 +250,8 @@ final private class StudySocket(
 
   import JsonView.given
   import jsonView.given
-  import lila.tree.Node.{ defaultNodeJsonWriter, given }
+  import lila.tree.NewTree.{ defaultNodeJsonWriter, given }
+  import lila.tree.Node.given
   private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId into RoomId, NotifyVersion(tpe, data))
@@ -260,13 +261,13 @@ final private class StudySocket(
   def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
   def addNode(
       pos: Position.Ref,
-      node: NewBranch,
+      node: NewTree,
       variant: chess.variant.Variant,
       sticky: Boolean,
       relay: Option[Chapter.Relay],
       who: Who
   ) =
-    val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.some)
+    val dests = AnaDests(variant, node.value.fen, pos.path.toString, pos.chapterId.some)
     version(
       "addNode",
       Json

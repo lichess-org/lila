@@ -12,7 +12,7 @@ import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.tree.{ Branch, Branches }
+import lila.tree.{ Branch, Branches, NewBranch, NewRoot, NewTree }
 import lila.user.{ Holder, User }
 
 final class StudyApi(
@@ -221,13 +221,13 @@ final class StudyApi(
   private def doAddNode(
       study: Study,
       position: Position,
-      rawNode: Branch,
+      rawNode: NewTree,
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
   )(who: Who): Fu[Option[() => Funit]] =
-    val singleNode   = rawNode.withoutChildren
+    val singleNode   = rawNode.withoutChildAndVariations
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
-    if (position.chapter.isOverweight)
+    if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       failReload()
       fuccess(none)

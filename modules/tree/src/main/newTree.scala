@@ -14,7 +14,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.{ given, * }
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 import chess.Mergeable
@@ -172,6 +172,9 @@ object NewTree:
       node.crazyData
     )
 
+  given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
+  def minimalNodeJsonWriter: Writes[NewTree]                    = makeNodeJsonWriter(alwaysChildren = false)
+  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ???
   // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
 

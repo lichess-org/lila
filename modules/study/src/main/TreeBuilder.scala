@@ -1,9 +1,10 @@
 package lila.study
 
+import cats.syntax.all.*
 import chess.opening.*
 import chess.{ Tree, Square }
 import chess.variant.Variant
-import lila.tree.{ Metas, NewBranch, NewRoot }
+import lila.tree.{ Metas, NewBranch, NewRoot, NewTree }
 import lila.tree.Branch
 import lila.tree.Branches
 
@@ -32,7 +33,9 @@ object TreeBuilder:
     def updateOpening(variant: Variant): Metas =
       m.copy(opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(m.fen))
 
-  def toBranch(node: Tree[Branch], variant: Variant): Tree[Branch] = ???
+  // add opening to tree
+  def toBranch(node: NewTree, variant: Variant): NewTree =
+    node.map(_.copy(metas = node.value.metas.updateOpening(variant)))
 
   private def toBranches(children: Branches, variant: Variant): Branches = ???
 
