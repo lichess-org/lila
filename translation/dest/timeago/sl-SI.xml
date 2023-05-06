@@ -17,12 +17,12 @@
     <item quantity="one">čez %s uro</item>
     <item quantity="two">čez %s uri</item>
     <item quantity="few">čez %s ure</item>
-    <item quantity="other">čez %s ura</item>
+    <item quantity="other">čez %s ur</item>
   </plurals>
   <plurals name="inNbDays">
     <item quantity="one">čez %s dan</item>
     <item quantity="two">čez %s dneva</item>
-    <item quantity="few">v %s dnevih</item>
+    <item quantity="few">čez %s dnevih</item>
     <item quantity="other">čez %s dni</item>
   </plurals>
   <plurals name="inNbWeeks">
@@ -38,12 +38,12 @@
     <item quantity="other">čez %s mesecev</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">v %s letu</item>
-    <item quantity="two">v %s letih</item>
-    <item quantity="few">v %s letih</item>
-    <item quantity="other">v %s letih</item>
+    <item quantity="one">čez %s leto</item>
+    <item quantity="two">čez %s leti</item>
+    <item quantity="few">čez %s leta</item>
+    <item quantity="other">čez %s let</item>
   </plurals>
-  <string name="rightNow">trenutno</string>
+  <string name="rightNow">ta trenutek</string>
   <plurals name="nbSecondsAgo">
     <item quantity="one">%s sekundo nazaj</item>
     <item quantity="two">pred %s sekundama</item>
