@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Strømmesiden til Lichess retter seg mot publikummet ditt med språket strømmeplattformen din leverer. Angi riktig språk for sjakkstrømmene dine i appen eller tjenesten du bruker for overføringer.</string>
   <string name="twitchUsername">Ditt Twitch-brukernavn eller URL</string>
   <string name="optionalOrEmpty">Valgfritt. Kan være tom</string>
+  <string name="youTubeChannelId">ID til YouTube-kanalen din</string>
   <string name="streamerName">Ditt strømmernavn på Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hold deg kort; maks %s tegn</item>

@@ -69,12 +69,9 @@ final class Blog(
       }
   }
 
-  def atom =
-    Action.async {
-      atomCache.getUnit map { xml =>
-        Ok(xml) as XML
-      }
-    }
+  def atom = Anon:
+    atomCache.getUnit.map: xml =>
+      Ok(xml) as XML
 
   private val sitemapCache = env.memo.cacheApi.unit[String] {
     _.refreshAfterWrite(3.hours)
@@ -89,12 +86,9 @@ final class Blog(
       }
   }
 
-  def sitemapTxt =
-    Action.async {
-      sitemapCache.getUnit map { txt =>
-        Ok(txt) as TEXT
-      }
-    }
+  def sitemapTxt = Anon:
+    sitemapCache.getUnit.map: txt =>
+      Ok(txt) as TEXT
 
   def all =
     WithPrismic { implicit ctx => implicit prismic =>
@@ -118,8 +112,8 @@ final class Blog(
       val topicSlug = s"blog-$id"
       val redirect  = Redirect(routes.ForumTopic.show(categId.value, topicSlug))
       env.forum.topicRepo.existsByTree(categId, topicSlug) flatMap {
-        case true => fuccess(redirect)
-        case _ =>
+        if _ then fuccess(redirect)
+        else
           blogApi.one(prismic.api, none, id) flatMapz { doc =>
             env.forum.categRepo.byId(categId) flatMapz { categ =>
               env.forum.topicApi.makeBlogDiscuss(
@@ -133,17 +127,13 @@ final class Blog(
       }
     }
 
-  private def WithPrismic(f: Context => BlogApi.Context => Fu[Result]): Action[Unit] =
-    Open { ctx =>
-      blogApi context ctx.req flatMap { prismic =>
-        f(ctx)(prismic)
-      }
-    }
+  private def WithPrismic(f: Context => BlogApi.Context => Fu[Result]) = Open:
+    blogApi context ctx.req flatMap f(ctx)
 
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[Document], slug: String)(
       callback: Either[String, Document] => Result
-  )(implicit ctx: lila.api.Context) =
+  )(using lila.api.Context) =
     document.collect {
       case document if document.slug == slug => fuccess(callback(Right(document)))
       case document

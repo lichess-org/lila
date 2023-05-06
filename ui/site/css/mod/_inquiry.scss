@@ -402,10 +402,14 @@ body.no-inquiry {
   .notes {
     span {
       transition: all 1s ease-out;
-      &.flash {
-        background: $c-primary !important;
+      &.note-flash {
+        background: $c-primary;
         box-shadow: 0 0px 15px $c-primary;
         transition: none;
+        &.warning {
+          background: $c-warn;
+          box-shadow: 0 0px 15px $c-warn;
+        }
       }
     }
 

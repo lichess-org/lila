@@ -95,8 +95,8 @@ final class SecurityApi(
       req: RequestHeader
   ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
-      case true => fufail(SecurityApi MustConfirmEmail userId)
-      case false =>
+      if _ then fufail(SecurityApi MustConfirmEmail userId)
+      else
         val sessionId = SecureRandom nextString 22
         if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"Tor login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId

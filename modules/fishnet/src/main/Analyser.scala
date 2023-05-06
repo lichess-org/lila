@@ -21,9 +21,9 @@ final class Analyser(
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id.value)) flatMap {
-      case true                  => fuccess(Analyser.Result.AlreadyAnalysed)
-      case _ if !game.analysable => fuccess(Analyser.Result.NotAnalysable)
-      case _ =>
+      if _ then fuccess(Analyser.Result.AlreadyAnalysed)
+      else if !game.analysable then fuccess(Analyser.Result.NotAnalysable)
+      else
         limiter(
           sender,
           ignoreConcurrentCheck = ignoreConcurrentCheck,
@@ -61,8 +61,8 @@ final class Analyser(
 
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
     analysisRepo exists req.chapterId.value flatMap {
-      case true => fuccess(Analyser.Result.NoChapter)
-      case _ =>
+      if _ then fuccess(Analyser.Result.NoChapter)
+      else
         import req.*
         val sender = Work.Sender(req.userId, none, mod = false, system = false)
         (if (req.unlimited) fuccess(Analyser.Result.Ok)

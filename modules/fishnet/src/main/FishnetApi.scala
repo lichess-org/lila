@@ -99,11 +99,11 @@ final class FishnetApi(
               {
                 fuccess(work.game.studyId.isDefined) >>| socketExists(GameId(work.game.id))
               } flatMap {
-                case true =>
+                if _ then
                   analysisBuilder.partial(client, work, partial.analysis) map { analysis =>
                     PostAnalysisResult.Partial(analysis)
                   }
-                case false => fuccess(PostAnalysisResult.UnusedPartial)
+                else fuccess(PostAnalysisResult.UnusedPartial)
               }
           }: Fu[PostAnalysisResult]
         case Some(work) =>

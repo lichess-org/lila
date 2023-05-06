@@ -65,7 +65,7 @@ Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu sp
  Er kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>
   <string name="lateJoinA">Ja, bis mehr als die Hälfte der Runden begonnen wurden; so können Spieler zum Beispiel an einem elfründigen Turnier nach Schweizer System vor dem Beginn der Runde 6 und in einem zwölfründigen vor Beginn der Runde 7 beitreten. Späteinsteiger erhalten einen halben Punkt gutgeschrieben, auch wenn sie mehrere Runden verpasst haben.</string>
-  <string name="willSwissReplaceArenasQ">Werden Turniere nach Schweizer System Arena-Turniere ersetzen?</string>
+  <string name="willSwissReplaceArenasQ">Werden nach Schweizer System-Turniere Arena-Turniere ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nein. Sie sind komplementäre Funktionen.</string>
   <string name="roundRobinQ">Was ist mit Rundenturnieren?</string>
   <string name="roundRobinA">Wir möchten es hinzufügen, aber leider funktionieren Rundenturniere online nicht.

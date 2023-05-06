@@ -442,8 +442,8 @@ final class SwissApi(
                   } inject true
             } >>- cache.swissCache.clear(swiss.id)
       }.flatMap {
-        case true => recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
-        case _    => funit
+        if _ then recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
+        else funit
       }
     }
 
