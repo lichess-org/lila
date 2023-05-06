@@ -34,8 +34,7 @@
   }
 
   button.toggle {
-    background: none;
-    border: none;
+    @extend %button-none;
   }
 
   .initiating {
