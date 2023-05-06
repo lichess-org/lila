@@ -26,7 +26,8 @@
   }
 
   .entry {
-    @extend %flex-center-nowrap;
+    @extend %button-none, %flex-center-nowrap;
+    width: 100%;
 
     cursor: pointer;
     &:hover {

@@ -63,7 +63,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           'div.list',
           fctrl.list().map(function (nodes, i) {
             return h(
-              'div.entry.text',
+              'button.entry.text',
               {
                 attrs: dataIcon(''),
                 on: {
