@@ -806,7 +806,6 @@
   <string name="invalidFen">Некарэктны FEN</string>
   <string name="custom">Свая гульня</string>
   <string name="notifications">Апавяшчэнні</string>
-  <string name="notificationsx">Апавяшчэнні: %1$s</string>
   <string name="perfRatingX">Рэйтынг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на першы ход</item>

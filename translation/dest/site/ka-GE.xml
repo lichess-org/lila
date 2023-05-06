@@ -641,7 +641,6 @@
   <string name="chessBasics">ჭადრაკის საფუძვლები</string>
   <string name="coaches">მწვრთნელები</string>
   <string name="notifications">შეტყობინებები</string>
-  <string name="notificationsx">შეტყობინებები: %1$s</string>
   <string name="perfRatingX">რეიტინგი: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s წამი პირველი სვლის სათამაშოდ</item>

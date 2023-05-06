@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">Uitdagingen: %1$s</string>
   <string name="challengeToPlay">Uitdagen voor een partij</string>
   <string name="challengeDeclined">Uitdaging geweigerd</string>
   <string name="challengeAccepted">Uitdaging aangenomen!</string>

@@ -734,7 +734,6 @@
   <string name="invalidFen">अवैध FEN</string>
   <string name="custom">इतर</string>
   <string name="notifications">Notifications</string>
-  <string name="notificationsx">Notifications: %1$s</string>
   <string name="perfRatingX">गुणांकन: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>

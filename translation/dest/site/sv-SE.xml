@@ -772,7 +772,6 @@ https://lichess. org/study</string>
   <string name="invalidFen">Ogiltig FEN</string>
   <string name="custom">Anpassad</string>
   <string name="notifications">Aviseringar</string>
-  <string name="notificationsx">Aviseringar: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund kvar för att spela första draget</item>

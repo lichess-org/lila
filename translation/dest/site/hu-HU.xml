@@ -771,7 +771,6 @@
   <string name="invalidFen">Hibás FEN</string>
   <string name="custom">Egyéni</string>
   <string name="notifications">Értesítések</string>
-  <string name="notificationsx">Értesítések: %1$s</string>
   <string name="perfRatingX">Pontszám: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s másodperc a kezdőlépés megtételére</item>

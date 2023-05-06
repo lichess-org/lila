@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">Izaicinājumi: %1$s</string>
   <string name="challengeToPlay">Izaicināt uz spēli</string>
   <string name="challengeDeclined">Izaicinājums noraidīts</string>
   <string name="challengeAccepted">Izaicinājums pieņemts!</string>

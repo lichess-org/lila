@@ -626,7 +626,7 @@ object I18nKeys:
   val `invalidFen` = I18nKey("invalidFen")
   val `custom` = I18nKey("custom")
   val `notifications` = I18nKey("notifications")
-  val `notificationsx` = I18nKey("notificationsx")
+  val `notificationsX` = I18nKey("notificationsX")
   val `perfRatingX` = I18nKey("perfRatingX")
   val `practiceWithComputer` = I18nKey("practiceWithComputer")
   val `anotherWasX` = I18nKey("anotherWasX")
@@ -2273,7 +2273,7 @@ object I18nKeys:
     val `puzzleDownloadInformation` = I18nKey("puzzleTheme:puzzleDownloadInformation")
 
   object challenge:
-    val `challengesx` = I18nKey("challenge:challengesx")
+    val `challengesX` = I18nKey("challenge:challengesX")
     val `challengeToPlay` = I18nKey("challenge:challengeToPlay")
     val `challengeDeclined` = I18nKey("challenge:challengeDeclined")
     val `challengeAccepted` = I18nKey("challenge:challengeAccepted")

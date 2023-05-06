@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">Useforderige: %1$s</string>
   <string name="challengeToPlay">Zunere Partie usefordere</string>
   <string name="challengeDeclined">Useforderig abglehnt</string>
   <string name="challengeAccepted">Useforderig agnah!</string>

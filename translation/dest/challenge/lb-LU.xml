@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">Erausfuerderungen: %1$s</string>
   <string name="challengeToPlay">Erausfuerderung zu enger Partie</string>
   <string name="challengeDeclined">Erausfuerderung ofgeleent</string>
   <string name="challengeAccepted">Erausfuerderung ugeholl!</string>

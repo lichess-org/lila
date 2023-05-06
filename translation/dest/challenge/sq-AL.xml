@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">Sfida: %1$s</string>
   <string name="challengeToPlay">Sfidoni në një lojë</string>
   <string name="challengeDeclined">Sfida u refuzua</string>
   <string name="challengeAccepted">Sfida u pranua!</string>

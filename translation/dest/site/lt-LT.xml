@@ -846,7 +846,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="invalidFen">Netinkamas FEN</string>
   <string name="custom">Kitoks</string>
   <string name="notifications">Pranešimai</string>
-  <string name="notificationsx">Pranešimai: %1$s</string>
   <string name="perfRatingX">Reitingas: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>

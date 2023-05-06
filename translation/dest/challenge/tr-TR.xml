@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">Meydan okumalar: %1$s</string>
   <string name="challengeToPlay">Oyun teklif et</string>
   <string name="challengeDeclined">Oyun teklifi reddedildi</string>
   <string name="challengeAccepted">Oyun teklifi kabul edildi!</string>

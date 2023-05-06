@@ -771,7 +771,6 @@
   <string name="invalidFen">FEN ungültig</string>
   <string name="custom">Andere Spielzeit</string>
   <string name="notifications">Benachrichtigungen</string>
-  <string name="notificationsx">Benachrichtigungen: %1$s</string>
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>

@@ -806,7 +806,6 @@
   <string name="invalidFen">FEN invalid</string>
   <string name="custom">Personalizat</string>
   <string name="notifications">Notificări</string>
-  <string name="notificationsx">Notificări: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secundă rămasă pentru a începe jocul</item>

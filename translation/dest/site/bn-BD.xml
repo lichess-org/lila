@@ -725,7 +725,6 @@
   <string name="invalidFen">অকার্যকর FEN</string>
   <string name="custom">স্বনির্ধারিত</string>
   <string name="notifications">বিজ্ঞাপন</string>
-  <string name="notificationsx">বিজ্ঞাপন: %1$s</string>
   <string name="perfRatingX">অনুপাত: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s সেকেন্ডে খেলার প্রথম চাল</item>

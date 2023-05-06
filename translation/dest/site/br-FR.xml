@@ -853,7 +853,6 @@
   <string name="invalidFen">Ur gudenn zo gant ar FEN</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Kemennoù</string>
-  <string name="notificationsx">Kemennoù: %1$s</string>
   <string name="perfRatingX">Renk: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>

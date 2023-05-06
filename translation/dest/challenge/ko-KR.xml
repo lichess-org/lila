@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesx">도전: %1$s</string>
   <string name="challengeToPlay">도전 신청</string>
   <string name="challengeDeclined">도전 거절됨</string>
   <string name="challengeAccepted">도전 수락!</string>

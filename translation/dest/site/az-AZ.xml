@@ -724,7 +724,6 @@
   <string name="invalidFen">Yanlış FEN</string>
   <string name="custom">Özəl</string>
   <string name="notifications">Bildirişlər</string>
-  <string name="notificationsx">Bildirişlər: %1$s</string>
   <string name="perfRatingX">Reytinq: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">ilk gedişi etmək üçün son %s saniyə</item>

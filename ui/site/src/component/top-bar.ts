@@ -55,8 +55,8 @@ export default function () {
             },
             setCount(nb: number) {
               $countSpan
-                .attr('title', siteTrans('challengesx', nb))
-                .attr('aria-label', siteTrans('challengesx', nb))
+                .attr('title', siteTrans('challengesX', nb))
+                .attr('aria-label', siteTrans('challengesX', nb))
                 .data('count', nb);
             },
             pulse() {
@@ -107,8 +107,8 @@ export default function () {
             if (nb == 'increment') nb = existing + 1;
             $countSpan
               .data('count', this.isVisible() ? 0 : nb)
-              .attr('title', siteTrans('notificationsx', nb))
-              .attr('aria-label', siteTrans('notificationsx', nb));
+              .attr('title', siteTrans('notificationsX', nb))
+              .attr('aria-label', siteTrans('notificationsX', nb));
             return nb && nb != existing;
           },
           show() {

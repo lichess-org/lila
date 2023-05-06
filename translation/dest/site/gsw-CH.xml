@@ -780,7 +780,6 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="invalidFen">Fähler im FEN</string>
   <string name="custom">Eigeni Bedänkzit</string>
   <string name="notifications">Benachrichtigunge</string>
-  <string name="notificationsx">Benachrichtigunge: %1$s</string>
   <string name="perfRatingX">Wertig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde für de 1. Zug</item>

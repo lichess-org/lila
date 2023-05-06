@@ -770,7 +770,6 @@
   <string name="invalidFen">Қате FEN</string>
   <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
-  <string name="notificationsx">Хабарлама: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>

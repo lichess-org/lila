@@ -845,7 +845,6 @@
   <string name="invalidFen">Некорректный FEN</string>
   <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
-  <string name="notificationsx">Уведомления: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на первый ход</item>
