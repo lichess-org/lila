@@ -70,9 +70,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   click: () => {
                     let path = findCurrentPath(ctrl) || '';
                     for (const node of nodes) {
-                      const move = parseUci(node.uci);
-                      if (!move) return;
-                      const moveId = scalachessCharPair(move);
+                      const moveId = scalachessCharPair(parseUci(node.uci)!);
 
                       // this handles the case where the move isn't in the tree yet
                       // if it is, it just returns
