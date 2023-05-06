@@ -1,9 +1,8 @@
 import { uciToMove } from 'chessground/util';
+import { fenColor } from 'common/mini-game';
 import * as domData from 'common/data';
 import clockWidget from './clock-widget';
 import StrongSocket from './socket';
-
-const fenColor = (fen: string) => (fen.indexOf(' b') > 0 ? 'black' : 'white');
 
 export const init = (node: HTMLElement) => {
   if (!window.Chessground) setTimeout(() => init(node), 200);
