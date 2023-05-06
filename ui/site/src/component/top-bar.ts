@@ -133,6 +133,20 @@ export default function () {
         }, 200);
       });
 
+    const tryFocusFirstNotification = function (attempt: number) {
+      const maxAttempts = 5,
+        attemptIntervalMs = 100,
+        $firstNotification = $('#notify-app .notifications a.site_notification').first();
+
+      if (!isVisible('#notify-app')) return;
+      if ($firstNotification.length == 0 && attempt < maxAttempts) {
+        setTimeout(() => tryFocusFirstNotification(attempt + 1), attemptIntervalMs);
+        return;
+      }
+
+      $firstNotification[0]?.focus();
+    };
+    pubsub.on('top.toggle.notify-toggle', tryFocusFirstNotification);
     pubsub.on('socket.in.notifications', data => {
       if (!instance) load(data);
       else instance.update(data);
