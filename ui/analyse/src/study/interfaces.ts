@@ -231,7 +231,6 @@ export interface ChapterPreview {
     white: ChapterPreviewPlayer;
     black: ChapterPreviewPlayer;
   };
-  sideToPlay: Color;
   orientation: Color;
   fen: string;
   lastMove?: string;

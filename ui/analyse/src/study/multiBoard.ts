@@ -1,5 +1,5 @@
 import debounce from 'common/debounce';
-import { renderClock } from 'common/mini-game';
+import { renderClock, fenColor } from 'common/mini-game';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
@@ -21,8 +21,7 @@ export class MultiBoardCtrl {
     if (cp?.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
-      cp.sideToPlay = node.ply % 2 === 0 ? 'white' : 'black'; // TODO, does it work when the first position is black to move?
-      let playerWhoMoved = cp.players && cp.players[oppositeColor(cp.sideToPlay)];
+      let playerWhoMoved = cp.players && cp.players[oppositeColor(fenColor(cp.fen))];
       playerWhoMoved && (playerWhoMoved.clock = node.clock);
       // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
       // to mitigate bad usage, setting it as `undefined`
@@ -196,7 +195,7 @@ function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefin
 const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
   const player = preview.players && preview.players[color];
   if (player && player.clock) {
-    if (preview.lastMoveAt && preview.sideToPlay == color) {
+    if (preview.lastMoveAt && fenColor(preview.fen) == color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
       return Math.max(0, player.clock / 100 - spent);
     } else {
