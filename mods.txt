@@ -1,0 +1,242 @@
+
+bg = 'system'
+  88.10% customized:
+    'dark': 44.61%
+    'light': 44.37%
+    'transparent': 7.87%
+    'dark board': 3.15%
+
+autoThreefold = 'always'
+  73.00% customized:
+    'time under 30 seconds': 97.55%
+    'never': 2.45%
+
+theme = 'brown'
+  28.36% customized:
+    'blue': 14.21%
+    'wood4': 11.49%
+    'blue3': 9.32%
+    'maple': 8.95%
+    'green': 7.51%
+    'wood': 6.72%
+    'wood3': 5.71%
+    'metal': 4.78%
+    'blue-marble': 3.41%
+    'blue2': 3.10%
+    'grey': 2.77%
+    'green-plastic': 2.50%
+    'maple2': 2.46%
+    'purple': 2.32%
+    'purple-diag': 2.22%
+    'pink': 1.93%
+    'canvas': 1.73%
+    'olive': 1.72%
+    'marble': 1.65%
+    'wood2': 1.46%
+    'leather': 1.26%
+    'horsey': 1.19%
+    'newspaper': 0.96%
+    'ic': 0.61%
+    'yellow': 0.01%
+
+coords = 'inside'
+  22.86% customized:
+    'outside': 95.97%
+    'none': 4.03%
+
+pieceSet = 'cburnett'
+  20.33% customized:
+    'merida': 34.89%
+    'alpha': 13.99%
+    'maestro': 9.87%
+    'fantasy': 3.79%
+    'cardinal': 3.47%
+    'california': 2.95%
+    'fresca': 2.90%
+    'kosal': 2.52%
+    'pixel': 2.48%
+    'companion': 2.39%
+    'staunty': 2.31%
+    'horsey': 1.89%
+    'pirouetti': 1.86%
+    'chess7': 1.83%
+    'chessnut': 1.73%
+    'leipzig': 1.57%
+    'governor': 1.52%
+    'tatiana': 1.33%
+    'gioco': 1.27%
+    'anarcandy': 1.25%
+    'riohacha': 0.96%
+    'reillycraig': 0.77%
+    'icpieces': 0.73%
+    'dubrovny': 0.53%
+    'spatial': 0.42%
+    'shapes': 0.24%
+    'celtic': 0.16%
+    'letter': 0.16%
+    'kiwen-suwi': 0.11%
+    'mpchess': 0.06%
+    'disguised': 0.04%
+    'libra': 0.00%
+
+soundSet = 'standard' (note - 'speech' is local storage, we don't know about it)
+  14.35% customized:
+    'silent': 73.62%
+    'piano': 6.23%
+    'robot': 6.05%
+    'sfx': 4.03%
+    'nes': 3.74%
+    'lisp': 2.64%
+    'futuristic': 1.90%
+    'music': 1.75%
+    'pentatonic': 0.04%
+
+autoQueen = 'premove'
+  11.47% customized:
+    'always': 70.02%
+    'never': 29.98%
+
+animation = 'normal'
+  8.15% customized:
+    'none': 26.38%
+    'fast': 62.53%
+    'slow': 11.09%
+
+takeback = 'always'
+  8.06% customized:
+    'never': 68.94%
+    'casual': 31.06%
+
+theme3d = 'woodi'
+  7.81% customized:
+    'black-white-aluminium': 40.64%
+    'light-wood': 16.84%
+    'china-blue': 4.99%
+    'china-green': 4.40%
+    'jade': 4.18%
+    'marble': 3.48%
+    'china-scarlet': 3.43%
+    'brushed-aluminium': 3.29%
+    'power-coated': 3.27%
+    'rosewood': 3.18%
+    'china-grey': 2.81%
+    'wax': 2.63%
+    'classic-blue': 2.27%
+    'purple-black': 1.29%
+    'gold-silver': 1.22%
+    'wood-glass': 0.96%
+    'green-glass': 0.62%
+    'china-yellow': 0.52%
+
+pieceSet3d = 'basic'
+  5.93% customized:
+    'staunton': 18.96%
+    'experimental': 14.80%
+    'redvblue': 13.54%
+    'cubesandpi': 11.03%
+    'glass': 10.69%
+    'wood': 9.26%
+    'trimmed': 8.43%
+    'modernwood': 6.28%
+    'metal': 3.69%
+    'modernjade': 3.33%
+
+challenge = 'registered'
+  5.75% customized:
+    'rating': 58.34%
+    'friend': 18.84%
+    'never': 16.77%
+    'always': 6.06%
+
+submitMove = 'correspondence only'
+  5.69% customized:
+    'never': 50.35%
+    'correspondence & unlimited': 31.08%
+    'always': 18.57%
+
+clockTenths = 'time under 10 seconds
+  4.50% customized:
+    'never': 14.49%
+    'always': 45.73%
+    'true': 39.30%
+    'false': 0.48%
+
+insightShare = 'friends'
+  3.93% customized:
+    'nobody': 73.58%
+    'everybody': 26.42%
+
+pieceNotation = 'symbol'
+  3.86% customized:
+    'letter': 100.00%
+
+destination = 'true'
+  3.05% customized:
+    'false': 100.00%
+
+resizeHandle = 'on initial position'
+  2.84% customized:
+    'always': 85.59%
+    'never': 14.41%
+
+follow = 'true'
+  2.69% customized:
+    'false': 100.00%
+
+rookCastle: 2.60%
+    '0': 100.00%
+
+moretime: 2.35%
+    '1': 62.18%
+    '2': 37.82%
+
+is3d: 2.25%
+    'true': 100.00%
+
+message: 2.07%
+    '1': 42.02%
+    '2': 57.98%
+
+moveEvent: 1.84%
+    '0': 47.79%
+    '1': 52.21%
+
+studyInvite: 1.64%
+    '1': 53.42%
+    '2': 46.58%
+
+premove: 1.55%
+    'false': 100.00%
+
+zen: 1.41%
+    '1': 100.00%
+
+confirmResign: 1.20%
+    '0': 100.00%
+
+clockSound: 1.12%
+    'false': 100.00%
+
+keyboardMove: 1.12%
+    '1': 100.00%
+
+captured: 1.09%
+    'false': 100.00%
+
+replay: 0.88%
+    '0': 65.48%
+    '1': 34.52%
+
+highlight: 0.84%
+    'false': 100.00%
+
+clockBar: 0.59%
+    'false': 100.00%
+
+ratings: 0.21%
+    '0': 100.00%
+
+blindfold: 0.16%
+    '1': 100.00%
+
+tags: 0.00%
