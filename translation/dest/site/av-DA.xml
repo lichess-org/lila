@@ -76,6 +76,7 @@
   <string name="averageRatingX">Гьоркьохъеб рейтинг: %s</string>
   <string name="recentGames">Дагьал цере рукӀарал хӀаял</string>
   <string name="topGames">Бищун лъикӀал хӀаял</string>
+  <string name="masterDbExplanation">%2$s-даса %3$s сон щвезегӀан %1$s+ FIDE рейтингалъул хӀалезул 2 миллион хъорщода нахъа хӀаял</string>
   <string name="noGameFound">ХӀаял ратичӀо</string>
   <string name="openings">Байбихьиял</string>
   <string name="openingExplorer">Байбихьиязул база</string>
