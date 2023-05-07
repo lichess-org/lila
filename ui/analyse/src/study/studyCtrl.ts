@@ -530,6 +530,7 @@ export default function (
     },
     chapters(d) {
       chapters.list(d);
+      if (vm.toolTab() == 'multiBoard' || (relay && relay.tourShow.active)) multiBoard.addResult(d);
       if (!currentChapter()) {
         vm.chapterId = d[0].id;
         if (!vm.mode.sticky) xhrReload();

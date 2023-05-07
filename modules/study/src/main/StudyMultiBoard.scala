@@ -149,7 +149,7 @@ final class StudyMultiBoard(
     Json.obj("white" -> players.white, "black" -> players.black)
   }
 
-  given Writes[Outcome] = writeAs(_.toString)
+  given Writes[Outcome] = writeAs(_.toString.replace("1/2", "½"))
 
   given Writes[ChapterPreview] = Json.writes
 

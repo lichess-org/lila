@@ -6,7 +6,7 @@ import { h, VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
+import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -28,6 +28,19 @@ export class MultiBoardCtrl {
       cp.lastMoveAt = undefined;
       this.redraw();
     }
+  };
+
+  addResult = (metas: StudyChapterMeta[]) => {
+    let changed = false;
+    for (const meta of metas) {
+      const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == meta.id);
+      if (cp?.playing) {
+        const oldOutcome = cp.outcome;
+        cp.outcome = meta.res !== '*' ? meta.res : undefined;
+        changed = changed || cp.outcome !== oldOutcome;
+      }
+    }
+    if (changed) this.redraw();
   };
 
   reload = (onInsert?: boolean) => {
@@ -160,12 +173,19 @@ const makePreview = (study: StudyCtrl) => (preview: ChapterPreview) =>
         },
         postpatch(old, vnode) {
           if (old.data!.fen !== preview.fen) {
-            lichess.miniGame.update(vnode.elm as HTMLElement, {
-              lm: preview.lastMove!,
-              fen: preview.fen,
-              wc: computeTimeLeft(preview, 'white'),
-              bc: computeTimeLeft(preview, 'black'),
-            });
+            if (preview.outcome) {
+              lichess.miniGame.finish(
+                vnode.elm as HTMLElement,
+                preview.outcome === '1-0' ? 'white' : preview.outcome === '0-1' ? 'black' : undefined
+              );
+            } else {
+              lichess.miniGame.update(vnode.elm as HTMLElement, {
+                lm: preview.lastMove!,
+                fen: preview.fen,
+                wc: computeTimeLeft(preview, 'white'),
+                bc: computeTimeLeft(preview, 'black'),
+              });
+            }
           }
           vnode.data!.fen = preview.fen;
         },
@@ -209,7 +229,7 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
 const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const player = preview.players && preview.players[color];
   const result = preview.outcome?.split('-')[color === 'white' ? 0 : 1];
-  const resultNode = result && h('span.mini-game__result', result.replace('1/2', '½'));
+  const resultNode = result && h('span.mini-game__result', result);
   const timeleft = computeTimeLeft(preview, color);
   const clock = timeleft && renderClock(color, timeleft);
   return h('span.mini-game__player', [h('span.mini-game__user', [renderPlayer(player)]), resultNode ?? clock]);

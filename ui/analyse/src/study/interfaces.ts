@@ -236,7 +236,7 @@ export interface ChapterPreview {
   lastMove?: string;
   lastMoveAt?: number;
   playing: boolean;
-  outcome?: '1-0' | '0-1' | '1/2-1/2';
+  outcome?: '1-0' | '0-1' | '½-½';
 }
 
 export interface ChapterPreviewPlayer {
