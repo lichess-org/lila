@@ -53,6 +53,8 @@
   <string name="inLocalBrowser">браузералда</string>
   <string name="deleteFromHere">Гьаниса хвезабизе</string>
   <string name="move">Ин</string>
+  <string name="variantLoss">Вариант къола</string>
+  <string name="variantWin">Вариант бергьуна</string>
   <string name="pawnMove">Пешка хъурщи</string>
   <string name="capture">ЧӀвай</string>
   <string name="close">Къазе</string>
