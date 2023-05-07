@@ -220,11 +220,12 @@ object contact:
         ),
         Leaf(
           "broadcast",
-          "I want to broadcast a tournament",
+          wantBroadcastTournament(),
           frag(
-            p(a(href := routes.RelayTour.help)("Learn how to make your own broadcasts on Lichess"), "."),
+            p(a(href := routes.RelayTour.help)(learnHowToMakeBroadcasts()), "."),
             p(
-              "You can also contact the broadcast team about official broadcasts. ",
+              contactAboutOfficialBroadcasts(),
+              " ",
               sendEmailAt(contactEmailLink("broadcast@lichess.org"))
             )
           )

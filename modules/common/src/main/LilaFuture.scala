@@ -60,8 +60,8 @@ object LilaFuture:
       case Nil => fuccess(none)
       case h :: t =>
         f(h).flatMap {
-          case true  => fuccess(h.some)
-          case false => find(t)(f)
+          if _ then fuccess(h.some)
+          else find(t)(f)
         }
 
   def exists[A](list: List[A])(pred: A => Fu[Boolean])(using Executor): Fu[Boolean] =

@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">další způsoby jak pomoci</string>
   <string name="areThereWebsitesBasedOnLichess">Existují nějaké webové stránky založené na Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ano. Lichess vskutku inspiroval další otevřené stránky využívající náš %1$s, naše %2$s či naši %3$s.</string>
+  <string name="keyboardShortcuts">Jaké klávesové zkratky jsou k dispozici?</string>
+  <string name="keyboardShortcutsExplanation">Některé stránky na Lichess mají klávesové zkratky, které můžete zkusit použít. Zkuste použít klávesu \'?\' při studii, analýze, úlohách nebo při hře pro zobrazení listu dostupných klávesových zkratek.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kdy mám nárok na automatické vrácení ratingu za zápasy s podvodníky?</string>
   <string name="ratingRefundExplanation">Jednu minutu poté, co je hráč označen, vezmeme jejich posledních 40 hodnocených her za uplynulé 3 dny. Pokud jste proti němu v těchto hrách hráli, ztratili jste body (kvůli prohře nebo remíze) a vaše hodnocení nebylo prozatimní, budou vám body vráceny. Počet vrácených bodů je omezen v závislosti na vašem dosavadním nejlepším hodnocení a rovněž vývoji vašeho hodnocení po dané hře.
@@ -26,7 +28,7 @@
   <string name="youCannotApply">Není možné žádat o funkci moderátora. Pokud uvidíme někoho, o němž si myslíme, že by byl dobrým moderátorem, přímo jej kontaktujeme.</string>
   <string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální šachy?</string>
   <string name="pleaseReadFairPlayPage">Pro více informací si prosím přečtěte %s</string>
-  <string name="fairPlayPage">fair flay stránku</string>
+  <string name="fairPlayPage">stránku fair play</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno použít knihu zahájení. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lichess ne.</string>
   <string name="gameplay">Hraní hry</string>
   <string name="howBulletBlitzEtcDecided">Podle čeho se rozhoduje, zda časomíra spadá pod bullet, blitz apod.?</string>
@@ -61,6 +63,7 @@ Braní mimochodem je také popsáno v článku 3.7 (d) %2$s:
 Pro procvičení můžete použít %3$s.</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="lichessTraining">tuto interaktivní lekci</string>
+  <string name="watchIMRosenCheckmate">Sledujte video mezinárodního mistra Erica Rosena: šach mat zbraním mimochodem %s.</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
   <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 (d) pravidel FIDE, viz %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojí opakování pozice</string>

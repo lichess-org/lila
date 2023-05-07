@@ -2,13 +2,13 @@
 <resources>
   <string name="contact">Kontakt</string>
   <string name="contactLichess">Kontaktiraj lichess</string>
-  <string name="whatCanWeHelpYouWith">S čim vam lahko pomagamo?</string>
+  <string name="whatCanWeHelpYouWith">Kako vam lahko pomagamo?</string>
   <string name="visitThisPage">Obiščite to stran, da rešite težavo</string>
-  <string name="iCantLogIn">Nemorem se vpisati</string>
+  <string name="iCantLogIn">Ne morem se vpisati</string>
   <string name="noConfirmationEmail">Nisem prejel potrditvene pošte</string>
   <string name="forgotPassword">Pozabil sem geslo</string>
   <string name="forgotUsername">Pozabil sem uporabniško ime</string>
-  <string name="youCanLoginWithEmail">Vpišete se lahko z naslovom elektronske pošte s katero ste se registrirali</string>
+  <string name="youCanLoginWithEmail">Vpišete se lahko z naslovom elektronske pošte, s katero ste se registrirali</string>
   <string name="lost2FA">Izgubil sem dostop do moje dvojne avtentikacijske kode</string>
   <string name="doPasswordReset">Dokončajte ponastavitev gesla, da odstranite svoj drugi dejavnik</string>
   <string name="accountSupport">Potrebujem podporo za račun</string>
@@ -27,7 +27,7 @@
   <string name="wantClearHistory">Hočem počistiti svojo zgodovino ali rating</string>
   <string name="cantClearHistory">Ni možno pobrisati vaše zgodovine igranih iger, zgodovine ugank ali ratinga.</string>
   <string name="wantReport">Hočem prijaviti igralca</string>
-  <string name="toReportAPlayerUseForm">Za prijavo igralca, uporabite obrazec za prijavo</string>
+  <string name="toReportAPlayerUseForm">Za prijavo igralca uporabite obrazec za prijavo</string>
   <string name="youCanAlsoReachReportPage">Do te strani lahko pride tudi s klikom na gumb %s na strani profila uporabnika.</string>
   <string name="doNotReportInForum">Ne prijavite igralcev na forumu.</string>
   <string name="doNotSendReportEmails">Ne pošiljajte nam elektronskih pisem s prijavo.</string>

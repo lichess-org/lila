@@ -2,6 +2,7 @@ package controllers
 package report
 
 import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
+import play.api.data.*
 import views.*
 
 import lila.api.{ BodyContext, Context }
@@ -11,31 +12,28 @@ import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspec
 import lila.report.Report.{ Id as ReportId }
 import lila.user.{ Holder, User as UserModel }
 
-import play.api.data.*
-
 final class Report(
     env: Env,
     userC: => User,
     modC: => Mod
 ) extends LilaController(env):
 
-  private def api = env.report.api
+  import env.report.api
 
   private given Conversion[Holder, AsMod] = holder => AsMod(holder.user)
 
-  def list =
-    Secure(_.SeeReport) { implicit ctx => me =>
-      if (env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force"))
-        fuccess(Forbidden(html.site.message.streamingMod))
-      else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
-    }
+  def list = Secure(_.SeeReport) { ctx ?=> me =>
+    if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
+    then fuccess(Forbidden(html.site.message.streamingMod))
+    else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
+  }
 
-  def listWithFilter(room: String) =
-    Secure(_.SeeReport) { implicit ctx => me =>
-      env.report.modFilters.set(me, Room(room))
-      if (Room(room).fold(true)(Room.isGrantedFor(me))) renderList(me, room)
-      else notFound
-    }
+  def listWithFilter(room: String) = Secure(_.SeeReport) { ctx ?=> me =>
+    env.report.modFilters.set(me, Room(room))
+    if Room(room).fold(true)(Room.isGrantedFor(me))
+    then renderList(me, room)
+    else notFound
+  }
 
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
@@ -44,7 +42,7 @@ final class Report(
     api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) inject
-          Ok(
+          Ok:
             html.report
               .list(
                 reports.filter(r => lila.report.Reason.isGrantedFor(me)(r.report.reason)),
@@ -53,31 +51,27 @@ final class Report(
                 streamers,
                 appeals
               )
-          )
     }
 
-  def inquiry(reportOrAppealId: String) =
-    Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(me, reportOrAppealId) flatMap { (prev, next) =>
+  def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me =>
+    api.inquiries
+      .toggle(me, reportOrAppealId)
+      .flatMap: (prev, next) =>
         prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.setUnreadById) inject
           next.fold(
-            Redirect {
-              if (prev.exists(_.isAppeal)) appeal.routes.Appeal.queue
+            Redirect:
+              if prev.exists(_.isAppeal)
+              then appeal.routes.Appeal.queue
               else report.routes.Report.list
-            }
           )(onInquiryStart)
-      }
-    }
+  }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
     if (inquiry.isRecentComm) Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
     else if (inquiry.isComm) Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
-  protected[controllers] def onModAction(
-      me: Holder,
-      goTo: Suspect
-  )(using ctx: BodyContext[?]): Fu[Result] =
+  protected[controllers] def onModAction(me: Holder)(goTo: Suspect)(using ctx: BodyContext[?]): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then userC.renderModZoneActions(goTo.user.username)
     else
       api.inquiries
@@ -114,96 +108,85 @@ final class Report(
         else if processed then userC.modZoneOrRedirect(me, inquiry.user)
         else onInquiryStart(inquiry).toFuccess
 
-  def process(id: ReportId) =
-    SecureBody(_.SeeReport) { implicit ctx => me =>
-      api byId id flatMap {
-        _.fold(Redirect(routes.Report.list).toFuccess) { inquiry =>
-          inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
-            api.process(me, inquiry) >>
-            onInquiryAction(inquiry, me, processed = true)
-        }
-      }
+  def process(id: ReportId) = SecureBody(_.SeeReport) { ctx ?=> me =>
+    api byId id flatMap {
+      _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
+        inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
+          api.process(me, inquiry) >>
+          onInquiryAction(inquiry, me, processed = true)
     }
+  }
 
-  def xfiles(id: UserStr) =
-    Secure(_.SeeReport) { _ => _ =>
-      api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
-    }
+  def xfiles(id: UserStr) = Secure(_.SeeReport) { _ ?=> _ =>
+    api.moveToXfiles(id.id) inject Redirect(routes.Report.list)
+  }
 
-  def snooze(id: ReportId, dur: String) =
-    SecureBody(_.SeeReport) { _ => me =>
-      api.snooze(me, id, dur) map {
+  def snooze(id: ReportId, dur: String) = SecureBody(_.SeeReport) { _ ?=> me =>
+    api
+      .snooze(me, id, dur)
+      .map:
         _.fold(Redirect(routes.Report.list))(onInquiryStart)
-      }
-    }
+  }
 
-  def currentCheatInquiry(username: UserStr) =
-    Secure(_.CheatHunter) { implicit ctx => me =>
-      OptionFuResult(env.user.repo byId username) { user =>
-        api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
-          api.inquiries.toggle(me, Left(report.id)).void
+  def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { ctx ?=> me =>
+    OptionFuResult(env.user.repo byId username): user =>
+      api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
+        api.inquiries.toggle(me, Left(report.id)).void
+      }
+  }
+
+  def form = Auth { ctx ?=> _ =>
+    getUserStr("username") ?? env.user.repo.byId flatMap { user =>
+      if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
+      else
+        env.report.forms.createWithCaptcha map { (form, captcha) =>
+          val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
+            case (Some(u), Some(pid)) =>
+              form.fill(
+                lila.report
+                  .ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", GameId(""), "")
+              )
+            case _ => form
+          Ok(html.report.form(filledForm, user, captcha))
         }
-      }
     }
+  }
 
-  def form =
-    Auth { implicit ctx => _ =>
-      getUserStr("username") ?? env.user.repo.byId flatMap { user =>
-        if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
-        else
-          env.report.forms.createWithCaptcha map { case (form, captcha) =>
-            val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
-              case (Some(u), Some(pid)) =>
-                form.fill(
-                  lila.report
-                    .ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", GameId(""), "")
-                )
-              case _ => form
-            Ok(html.report.form(filledForm, user, captcha))
-          }
-      }
-    }
-
-  def create =
-    AuthBody { implicit ctx => implicit me =>
-      given play.api.mvc.Request[?] = ctx.body
-      env.report.forms.create
-        .bindFromRequest()
-        .fold(
-          err =>
-            getUserStr("username") ?? env.user.repo.byId flatMap { user =>
-              env.report.forms.anyCaptcha map { captcha =>
-                BadRequest(html.report.form(err, user, captcha))
-              }
-            },
-          data =>
-            if data.user.id == me.id then notFound
-            else
-              api.create(data, Reporter(me)) inject
-                Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
-        )
-    }
-
-  def flag =
-    AuthBody { implicit ctx => implicit me =>
-      given play.api.mvc.Request[?] = ctx.body
-      env.report.forms.flag
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest.toFuccess,
-          data =>
-            env.user.repo byId data.username flatMapz { user =>
-              if (user == me) BadRequest.toFuccess
-              else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
+  def create = AuthBody { ctx ?=> implicit me =>
+    env.report.forms.create
+      .bindFromRequest()
+      .fold(
+        err =>
+          getUserStr("username") ?? env.user.repo.byId flatMap { user =>
+            env.report.forms.anyCaptcha map { captcha =>
+              BadRequest(html.report.form(err, user, captcha))
             }
-        )
-    }
+          },
+        data =>
+          if data.user.id == me.id then notFound
+          else
+            api.create(data, Reporter(me)) inject
+              Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
+      )
+  }
 
-  def thanks =
-    Auth { implicit ctx => me =>
-      ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>
-        env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
-          html.report.thanks(reported.id, blocked)
-        }
+  def flag = AuthBody { ctx ?=> me =>
+    env.report.forms.flag
+      .bindFromRequest()
+      .fold(
+        _ => BadRequest.toFuccess,
+        data =>
+          env.user.repo byId data.username flatMapz { user =>
+            if (user == me) BadRequest.toFuccess
+            else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
+          }
+      )
+  }
+
+  def thanks = Auth { ctx ?=> me =>
+    ctx.req.flash.get("reported").flatMap(UserStr.read).fold(Redirect("/").toFuccess) { reported =>
+      env.relation.api.fetchBlocks(me.id, reported.id) map { blocked =>
+        html.report.thanks(reported.id, blocked)
       }
     }
+  }

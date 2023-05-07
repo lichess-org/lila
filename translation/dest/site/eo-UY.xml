@@ -930,5 +930,5 @@ kaj influas la rangojn de ludantoj</string>
   <string name="since">Ekde</string>
   <string name="until">Ĝis</string>
   <string name="lichessDbExplanation">Rangaj ludoj luditaj per Lichess</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Niaj konsiletoj por organizi eventojn</string>
+  <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
 </resources>

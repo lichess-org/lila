@@ -2,6 +2,10 @@
   width: 100%;
   border-bottom: $border;
 
+  @include breakpoint($mq-not-x-small) {
+    min-width: calc(650px - var(--box-padding) * 2);
+  }
+
   thead {
     @extend %metal, %roboto;
 
@@ -55,4 +59,9 @@
       background: none;
     }
   }
+}
+
+.slist-wrapper {
+  overflow-x: auto;
+  max-width: calc(100vw - var(--box-padding) * 2);
 }

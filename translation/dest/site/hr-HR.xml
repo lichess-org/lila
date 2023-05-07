@@ -989,5 +989,5 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Promijeni strane</string>
   <string name="closingAccountWithdrawAppeal">Zatvaranje računa će povući vašu žalbu</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naši savjeti za organizaciju događaja</string>
+  <string name="ourEventTips">Naši savjeti za organizaciju događaja</string>
 </resources>

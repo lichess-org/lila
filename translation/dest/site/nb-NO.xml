@@ -948,5 +948,5 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="lichessDbExplanation">Ratede partier spilt hos Lichess</string>
   <string name="switchSides">Skift side</string>
   <string name="closingAccountWithdrawAppeal">Klagen din blir trukket hvis du stenger kontoen din</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Tips for arrangementer</string>
+  <string name="ourEventTips">Tips for arrangementer</string>
 </resources>

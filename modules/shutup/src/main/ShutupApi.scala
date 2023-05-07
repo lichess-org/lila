@@ -49,11 +49,11 @@ final class ShutupApi(
       toUserId: Option[UserId] = None
   ): Funit =
     userRepo isTroll userId flatMap {
-      case true => funit
-      case false =>
+      if _ then funit
+      else
         toUserId ?? { relationApi.fetchFollows(_, userId) } flatMap {
-          case true => funit
-          case false =>
+          if _ then funit
+          else
             val analysed = Analyser(text)
             val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty) ?? { source =>
               $doc(

@@ -12,28 +12,26 @@ import lila.game.{ Game as GameModel }
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
-  def bookmark(gameId: GameId) =
-    Auth { implicit ctx => me =>
-      env.bookmark.api.toggle(gameId, me.id)
-    }
+  def bookmark(gameId: GameId) = Auth { _ ?=> me =>
+    env.bookmark.api.toggle(gameId, me.id)
+  }
 
-  def delete(gameId: GameId) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.game.gameRepo game gameId) { game =>
-        if (game.pgnImport.flatMap(_.user) ?? (me.id.==))
-          env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-          (env.game.gameRepo remove game.id) >>
-            (env.analyse.analysisRepo remove game.id) >>
-            env.game.cached.clearNbImportedByCache(me.id) inject
-            Redirect(routes.User.show(me.username))
-        else
-          fuccess {
-            Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
-          }
-      }
-    }
+  def delete(gameId: GameId) = Auth { _ ?=> me =>
+    OptionFuResult(env.game.gameRepo game gameId): game =>
+      if game.pgnImport.flatMap(_.user).has(me.id)
+      then
+        env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+        (env.game.gameRepo remove game.id) >>
+          (env.analyse.analysisRepo remove game.id) >>
+          env.game.cached.clearNbImportedByCache(me.id) inject
+          Redirect(routes.User.show(me.username))
+      else
+        fuccess:
+          Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
+  }
 
-  def exportOne(id: GameAnyId) = Action.async { exportGame(GameModel anyToId id, _) }
+  def exportOne(id: GameAnyId) = Anon:
+    exportGame(GameModel anyToId id, req)
 
   private[controllers] def exportGame(gameId: GameId, req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
@@ -56,14 +54,14 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         }
     }
 
-  def exportByUser(username: UserStr) =
-    OpenOrScoped()(
-      open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
-      scoped = req => me => handleExport(username, me.some, req, oauth = true)
-    )
+  def exportByUser(username: UserStr) = OpenOrScoped()(
+    open = ctx ?=> handleExport(username, ctx.me, ctx.req, oauth = false),
+    scoped = req ?=> me => handleExport(username, me.some, req, oauth = true)
+  )
 
-  def apiExportByUser(username: UserStr) =
-    AnonOrScoped() { req => me => handleExport(username, me, req, oauth = me.isDefined) }
+  def apiExportByUser(username: UserStr) = AnonOrScoped() { req ?=> me =>
+    handleExport(username, me, req, oauth = me.isDefined)
+  }
 
   private def handleExport(
       username: UserStr,
@@ -129,8 +127,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiExportByUserImportedGames(username: UserStr) =
     AuthOrScoped()(
-      auth = ctx => me => handleExportByUserImportedGames(username, me, ctx.req),
-      scoped = req => me => handleExportByUserImportedGames(username, me, req)
+      auth = ctx ?=> me => handleExportByUserImportedGames(username, me, ctx.req),
+      scoped = req ?=> me => handleExportByUserImportedGames(username, me, req)
     )
 
   private def handleExportByUserImportedGames(username: UserStr, me: lila.user.User, req: RequestHeader) =
@@ -147,21 +145,19 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           }
     }
 
-  def exportByIds =
-    Action.async(parse.tolerantText) { req =>
-      val config = GameApiV2.ByIdsConfig(
-        ids = GameId from req.body.split(',').view.take(300).toSeq,
-        format = GameApiV2.Format byRequest req,
-        flags = requestPgnFlags(req, extended = false),
-        perSecond = MaxPerSecond(30),
-        playerFile = get("players", req)
-      )
-      apiC.GlobalConcurrencyLimitPerIP
-        .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)) { source =>
-          noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
-        }
-        .toFuccess
-    }
+  def exportByIds = AnonBodyOf(parse.tolerantText): body =>
+    val config = GameApiV2.ByIdsConfig(
+      ids = GameId from body.split(',').view.take(300).toSeq,
+      format = GameApiV2.Format byRequest req,
+      flags = requestPgnFlags(req, extended = false),
+      perSecond = MaxPerSecond(30),
+      playerFile = get("players", req)
+    )
+    apiC.GlobalConcurrencyLimitPerIP
+      .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)) { source =>
+        noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
+      }
+      .toFuccess
 
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
     getUserStr("vs", req) match

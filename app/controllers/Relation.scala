@@ -58,97 +58,83 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       }(rateLimitedFu)
     }
 
-  def follow(username: UserStr) =
-    Auth { implicit ctx => me =>
-      FollowingUser(me, username) { user =>
-        api.reachedMaxFollowing(me.id) flatMap {
-          case true =>
-            env.msg.api
-              .postPreset(
-                me.id,
-                lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
-              ) inject Ok
-          case _ => api.follow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
-        }
+  def follow(username: UserStr) = Auth { ctx ?=> me =>
+    FollowingUser(me, username) { user =>
+      api.reachedMaxFollowing(me.id) flatMap {
+        if _ then
+          env.msg.api
+            .postPreset(
+              me.id,
+              lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
+            ) inject Ok
+        else api.follow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
       }
     }
+  }
 
-  def apiFollow(userId: UserStr) =
-    Scoped(_.Follow.Write) { _ => me =>
-      FollowLimitPerUser(me.id) {
-        api.reachedMaxFollowing(me.id) flatMap {
-          case true =>
-            fuccess {
+  def apiFollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me =>
+    FollowLimitPerUser(me.id) {
+      api
+        .reachedMaxFollowing(me.id)
+        .flatMap:
+          if _ then
+            fuccess:
               ApiResult.ClientError(
                 lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value).text
               )
-            }
-          case _ =>
-            api.follow(me.id, userId.id).recoverDefault inject ApiResult.Done
+          else api.follow(me.id, userId.id).recoverDefault inject ApiResult.Done
+    }(fuccess(ApiResult.Limited)) map apiC.toHttp
+  }
+
+  def unfollow(username: UserStr) = Auth { ctx ?=> me =>
+    FollowingUser(me, username) { user =>
+      api.unfollow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+    }
+  }
+
+  def apiUnfollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me =>
+    FollowLimitPerUser[Fu[ApiResult]](me.id) {
+      api.unfollow(me.id, userId.id) inject ApiResult.Done
+    }(fuccess(ApiResult.Limited)) map apiC.toHttp
+  }
+
+  def block(username: UserStr) = Auth { ctx ?=> me =>
+    FollowingUser(me, username) { user =>
+      api.block(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+    }
+  }
+
+  def unblock(username: UserStr) = Auth { ctx ?=> me =>
+    FollowingUser(me, username) { user =>
+      api.unblock(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+    }
+  }
+
+  def following(username: UserStr, page: Int) = Open:
+    Reasonable(page, config.Max(20)):
+      OptionFuResult(env.user.repo byId username): user =>
+        RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
+          negotiate(
+            html =
+              if ctx.is(user) || isGranted(_.CloseAccount)
+              then Ok(html.relation.bits.friends(user, pag)).toFuccess
+              else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).toFuccess),
+            api = _ => Ok(jsonRelatedPaginator(pag)).toFuccess
+          )
         }
-      }(fuccess(ApiResult.Limited)) map apiC.toHttp
-    }
 
-  def unfollow(username: UserStr) =
-    Auth { implicit ctx => me =>
-      FollowingUser(me, username) { user =>
-        api.unfollow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
-      }
-    }
-
-  def apiUnfollow(userId: UserStr) =
-    Scoped(_.Follow.Write) { _ => me =>
-      FollowLimitPerUser[Fu[ApiResult]](me.id) {
-        api.unfollow(me.id, userId.id) inject ApiResult.Done
-      }(fuccess(ApiResult.Limited)) map apiC.toHttp
-    }
-
-  def block(username: UserStr) =
-    Auth { implicit ctx => me =>
-      FollowingUser(me, username) { user =>
-        api.block(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
-      }
-    }
-
-  def unblock(username: UserStr) =
-    Auth { implicit ctx => me =>
-      FollowingUser(me, username) { user =>
-        api.unblock(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
-      }
-    }
-
-  def following(username: UserStr, page: Int) =
-    Open { implicit ctx =>
-      Reasonable(page, config.Max(20)) {
-        OptionFuResult(env.user.repo byId username) { user =>
-          RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
-            negotiate(
-              html = {
-                if (ctx.is(user) || isGranted(_.CloseAccount))
-                  Ok(html.relation.bits.friends(user, pag)).toFuccess
-                else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).toFuccess)
-              },
-              api = _ => Ok(jsonRelatedPaginator(pag)).toFuccess
-            )
+  def followers(username: UserStr, page: Int) = Open:
+    negotiate(
+      html = notFound,
+      api = _ =>
+        Reasonable(page, config.Max(20)) {
+          RelatedPager(api.followersPaginatorAdapter(username.id), page) flatMap { pag =>
+            Ok(jsonRelatedPaginator(pag)).toFuccess
           }
         }
-      }
-    }
+    )
 
-  def followers(username: UserStr, page: Int) =
-    Open { implicit ctx =>
-      negotiate(
-        html = notFound,
-        api = _ =>
-          Reasonable(page, config.Max(20)) {
-            RelatedPager(api.followersPaginatorAdapter(username.id), page) flatMap { pag =>
-              Ok(jsonRelatedPaginator(pag)).toFuccess
-            }
-          }
-      )
-    }
-
-  def apiFollowing = Scoped(_.Follow.Read) { implicit req => me =>
+  def apiFollowing = Scoped(_.Follow.Read) { req ?=> me =>
     apiC.jsonDownload {
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
@@ -169,14 +155,13 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .add("online" -> env.socket.isOnline(r.user.id))
     }))
 
-  def blocks(page: Int) =
-    Auth { implicit ctx => me =>
-      Reasonable(page, config.Max(20)) {
-        RelatedPager(api.blockingPaginatorAdapter(me.id), page) map { pag =>
-          html.relation.bits.blocks(me, pag)
-        }
+  def blocks(page: Int) = Auth { ctx ?=> me =>
+    Reasonable(page, config.Max(20)) {
+      RelatedPager(api.blockingPaginatorAdapter(me.id), page) map { pag =>
+        html.relation.bits.blocks(me, pag)
       }
     }
+  }
 
   private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(implicit ctx: Context) =
     Paginator(

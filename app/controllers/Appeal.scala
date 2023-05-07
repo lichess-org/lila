@@ -15,25 +15,23 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def modForm(using Context)  = lila.appeal.Appeal.modForm
   private def userForm(using Context) = lila.appeal.Appeal.form
 
-  def home =
-    Auth { implicit ctx => me =>
-      renderAppealOrTree(me) map { Ok(_) }
-    }
+  def home = Auth { _ ?=> me =>
+    renderAppealOrTree(me) map { Ok(_) }
+  }
 
-  def landing =
-    Auth { implicit ctx => _ =>
-      if (ctx.isAppealUser || isGranted(_.Appeals))
-        pageHit
-        OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
-          views.html.site.page.lone(doc, resolver)
-        }
-      else notFound
-    }
+  def landing = Auth { ctx ?=> _ =>
+    if (ctx.isAppealUser || isGranted(_.Appeals))
+      pageHit
+      OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
+        views.html.site.page.lone(doc, resolver)
+      }
+    else notFound
+  }
 
   private def renderAppealOrTree(
       me: lila.user.User,
       err: Option[Form[String]] = None
-  )(implicit ctx: Context) = env.appeal.api mine me flatMap {
+  )(using Context) = env.appeal.api mine me flatMap {
     case None =>
       env.playban.api.currentBan(me.id).dmap(_.isDefined) map {
         html.appeal.tree(me, _)
@@ -41,68 +39,59 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     case Some(a) => fuccess(html.appeal.discussion(a, me, err | userForm))
   }
 
-  def post =
-    AuthBody { implicit ctx => me =>
-      given play.api.mvc.Request[?] = ctx.body
-      userForm
-        .bindFromRequest()
-        .fold(
-          err => renderAppealOrTree(me, err.some) map { BadRequest(_) },
-          text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
-        )
-    }
+  def post = AuthBody { ctx ?=> me =>
+    userForm
+      .bindFromRequest()
+      .fold(
+        err => renderAppealOrTree(me, err.some) map { BadRequest(_) },
+        text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
+      )
+  }
 
-  def queue =
-    Secure(_.Appeals) { implicit ctx => me =>
-      env.appeal.api.queueOf(
-        me.user
-      ) zip env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
+  def queue = Secure(_.Appeals) { ctx ?=> me =>
+    env.appeal.api.queueOf(me.user) zip
+      env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
         case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
           env.user.lightUserApi preloadUsers appeals.map(_.user)
           env.mod.logApi.wereMarkedBy(me.id into ModId, appeals.map(_.user.id)) map { markedByMap =>
             Ok(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
           }
       }
-    }
+  }
 
-  def show(username: UserStr) =
-    Secure(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
-        getModData(me, suspect) map { modData =>
-          Ok(html.appeal.discussion.show(appeal, modForm, modData))
-        }
+  def show(username: UserStr) = Secure(_.Appeals) { ctx ?=> me =>
+    asMod(username): (appeal, suspect) =>
+      getModData(me, suspect) map { modData =>
+        Ok(html.appeal.discussion.show(appeal, modForm, modData))
       }
-    }
+  }
 
-  def reply(username: UserStr) =
-    SecureBody(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
-        given play.api.mvc.Request[?] = ctx.body
-        modForm
-          .bindFromRequest()
-          .fold(
-            err =>
-              getModData(me, suspect) map { modData =>
-                BadRequest(html.appeal.discussion.show(appeal, err, modData))
-              },
-            { case (text, process) =>
-              for {
-                _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-                preset = getPresets.findLike(text)
-                _ <- env.appeal.api.reply(text, appeal, me, preset.map(_.name))
-                _ <- env.mod.logApi.appealPost(me.id into ModId, suspect.user.id)
-                result <-
-                  if (process) {
-                    env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
-                      Redirect(routes.Appeal.queue)
-                  } else {
-                    fuccess(Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions"))
-                  }
-              } yield result
-            }
-          )
-      }
-    }
+  def reply(username: UserStr) = SecureBody(_.Appeals) { ctx ?=> me =>
+    asMod(username): (appeal, suspect) =>
+      modForm
+        .bindFromRequest()
+        .fold(
+          err =>
+            getModData(me, suspect) map { modData =>
+              BadRequest(html.appeal.discussion.show(appeal, err, modData))
+            },
+          { case (text, process) =>
+            for {
+              _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
+              preset = getPresets.findLike(text)
+              _ <- env.appeal.api.reply(text, appeal, me, preset.map(_.name))
+              _ <- env.mod.logApi.appealPost(me.id into ModId, suspect.user.id)
+              result <-
+                if (process) {
+                  env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
+                    Redirect(routes.Appeal.queue)
+                } else {
+                  fuccess(Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions"))
+                }
+            } yield result
+          }
+        )
+  }
 
   private def getModData(me: lila.user.Holder, suspect: Suspect)(using Context) =
     for
@@ -122,30 +111,24 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       markedByMe = markedByMe
     )
 
-  def mute(username: UserStr) =
-    Secure(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, _) =>
-        env.appeal.api.toggleMute(appeal) >>
-          env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
-          Redirect(routes.Appeal.queue)
-      }
-    }
-
-  def sendToZulip(username: UserStr) =
-    Secure(_.SendToZulip) { implicit ctx => me =>
-      asMod(username) { (_, suspect) =>
-        env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
-      }
-    }
-
-  def snooze(username: UserStr, dur: String) =
-    Secure(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, _) =>
-        env.appeal.api.snooze(me.user, appeal.id, dur)
+  def mute(username: UserStr) = Secure(_.Appeals) { ctx ?=> me =>
+    asMod(username): (appeal, _) =>
+      env.appeal.api.toggleMute(appeal) >>
         env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
-          Redirect(routes.Appeal.queue)
-      }
-    }
+        Redirect(routes.Appeal.queue)
+  }
+
+  def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { ctx ?=> me =>
+    asMod(username): (_, suspect) =>
+      env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
+  }
+
+  def snooze(username: UserStr, dur: String) = Secure(_.Appeals) { ctx ?=> me =>
+    asMod(username): (appeal, _) =>
+      env.appeal.api.snooze(me.user, appeal.id, dur)
+      env.report.api.inquiries.toggle(Mod(me.user), Right(appeal.userId)) inject
+        Redirect(routes.Appeal.queue)
+  }
 
   private def getPresets = env.mod.presets.appealPresets.get()
 

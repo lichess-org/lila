@@ -14,7 +14,7 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.3.5"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.3.6"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.5"
   val chess       = "org.lichess"                  %% "scalachess"                      % "15.1.21"
@@ -58,7 +58,7 @@ object Dependencies {
 
   object reactivemongo {
     val driver = "org.reactivemongo" %% "reactivemongo"               % "1.1.0-RC9"
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC9"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % "1.1.0-RC10"
     val shaded = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"1.1.0-RC6-$os-x86-64"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
@@ -66,7 +66,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.9"
-    val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC7"
+    val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC8"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
