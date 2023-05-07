@@ -89,7 +89,7 @@ object NewPgnImport:
       node: ParsedPgnTree,
       annotator: Option[Comment.Author]
   ): Option[PgnNode[NewBranch]] =
-    node.mapAccumlOption(Context(setup, UciPath.root)) { (context, data) =>
+    node.mapAccumlOption_(Context(setup, UciPath.root)) { (context, data) =>
       transform(context, data, annotator)
     }
 

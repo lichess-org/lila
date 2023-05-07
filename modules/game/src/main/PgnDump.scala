@@ -8,7 +8,7 @@ import chess.{ Centis, Color, ByColor, Outcome, Ply }
 import lila.common.config.BaseUrl
 import lila.common.LightUser
 import chess.format.pgn.Initial
-import chess.Tree
+import chess.Node
 
 final class PgnDump(
     baseUrl: BaseUrl,
@@ -170,7 +170,7 @@ object PgnDump:
       san = san,
       secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
     )
-    Tree.build(moves.zipWithIndex, f)
+    Node.build(moves.zipWithIndex, f)
 
   case class WithFlags(
       clocks: Boolean = true,
