@@ -52,9 +52,14 @@
   <string name="depthX">Гъварилъи %s</string>
   <string name="usingServerAnalysis">Сервералъул анализ хӀалтӀизабулеб буго</string>
   <string name="cloudAnalysis">НакӀкӀул анализ</string>
+  <string name="goDeeper">ЦӀикӀкӀун гьабизе</string>
   <string name="showThreat">ХӀинкъи бихьизабизе</string>
   <string name="inLocalBrowser">браузералда</string>
+  <string name="toggleLocalEvaluation">БакӀалъул анализ биччазе</string>
+  <string name="promoteVariation">Эхеде бахинабизе</string>
+  <string name="makeMainLine">Аслияблъун гьабизе</string>
   <string name="deleteFromHere">Гьаниса хвезабизе</string>
+  <string name="forceVariation">Вариантлъун гьабизе</string>
   <string name="move">Ин</string>
   <string name="variantLoss">Вариант къола</string>
   <string name="variantWin">Вариант бергьуна</string>
