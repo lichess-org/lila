@@ -946,6 +946,8 @@
   <string name="useTheReportForm">використовуйте форму звіту</string>
   <string name="toRequestSupport">Для запиту підтримки %1$s</string>
   <string name="tryTheContactPage">спробуйте сторінку контактів</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Варто прочитати %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">етикет форуму</string>
   <string name="thisTopicIsArchived">Ця тема була заархівована і додати відповідь більше не можна.</string>
   <string name="joinTheTeamXToPost">Приєднайтесь до %1$s, щоб писати у цьому форумі</string>
   <string name="teamNamedX">%1$s команда</string>
