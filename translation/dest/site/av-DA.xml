@@ -51,6 +51,7 @@
   <string name="computerAnalysis">Компьютерил анализ</string>
   <string name="depthX">Гъварилъи %s</string>
   <string name="usingServerAnalysis">Сервералъул анализ хӀалтӀизабулеб буго</string>
+  <string name="cloudAnalysis">НакӀкӀул анализ</string>
   <string name="showThreat">ХӀинкъи бихьизабизе</string>
   <string name="inLocalBrowser">браузералда</string>
   <string name="deleteFromHere">Гьаниса хвезабизе</string>
