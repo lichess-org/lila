@@ -158,7 +158,7 @@ export interface StudyChapterMeta {
   id: string;
   name: string;
   ongoing?: boolean;
-  res?: string;
+  res?: '1-0' | '0-1' | '½-½' | '*';
 }
 
 export interface StudyChapterConfig extends StudyChapterMeta {
