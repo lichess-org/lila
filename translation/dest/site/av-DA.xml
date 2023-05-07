@@ -30,6 +30,7 @@
   <string name="kingInTheCenter">Къирал центералда буго</string>
   <string name="threeChecks">Лъабго шах</string>
   <string name="raceFinished">Хадур гъей лъугӀана</string>
+  <string name="variantEnding">ХӀай лъугӀана</string>
   <string name="newOpponent">ЦӀияв дандеяв</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Дур дандеясе цӀидасан бокьун буго мунгун хӀазе</string>
   <string name="joinTheGame">ХӀаялде жувазе</string>
@@ -39,6 +40,7 @@
     <item quantity="one">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
     <item quantity="other">Дур дандеяс хӀай рехун тана. Дуда %s секундалдаса бергьенлъи лъазабизе кӀола.</item>
   </plurals>
+  <string name="opponentLeftChoices">Дур дандеяс хӀай рехун тана. Дуда кӀола бергьенлъи яги ращад ккей лъазабизе яги балагьун чӀезе.</string>
   <string name="forceResignation">Бергьенлъи лъазабизе</string>
   <string name="whiteResigned">ХъахӀал къун чӀана</string>
   <string name="blackResigned">ЧӀегӀерал къун чӀана</string>
@@ -274,6 +276,7 @@
   <string name="yourRating">Дур рейтинг</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Аноним</string>
+  <string name="yourScore">Нужер рикӀкӀин: %s</string>
   <string name="language">МацӀ</string>
   <string name="light">КанчӀаб</string>
   <string name="dark">БецӀаб</string>
@@ -291,6 +294,7 @@
     <item quantity="other">%s секунд</item>
   </plurals>
   <string name="sorry">ТӀаса лъугьа :(</string>
+  <string name="timeoutExpires">Балагьун чӀеялъул заман %s лъугӀула.</string>
   <string name="why">Щай?</string>
   <string name="edit">Хисизе</string>
   <string name="rapid">Рапид</string>
@@ -300,5 +304,6 @@
   <string name="invitedYouToX">мун \"%1$s\"-ялде ахӀана.</string>
   <string name="download">РещтӀинабизе</string>
   <string name="welcome">ЛъикӀ щварав!</string>
+  <string name="gameInProgress">Дур %sгун хӀай унеб буго.</string>
   <string name="switchSides">Рахъ хизисе</string>
 </resources>
