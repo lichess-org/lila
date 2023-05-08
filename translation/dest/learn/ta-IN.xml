@@ -24,6 +24,7 @@
 ஆகிய இரண்டும் உங்களிற்குத் தேவைப்படும்!</string>
   <string name="bishopComplete">வாழ்த்துகள்! நீங்கள் மந்திரிக்குக் கட்டளையிடலாம்.</string>
   <string name="theQueen">அரசி</string>
+  <string name="queenCombinesRookAndBishop">அரசி=யானை+அமைச்சர்</string>
   <string name="theKing">அரசன்</string>
   <string name="lastOne">கடைசியாக ஒன்று!</string>
   <string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
