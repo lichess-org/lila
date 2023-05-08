@@ -105,6 +105,8 @@
   <string name="shortDescription">Ganar en dos chugadas.</string>
   <string name="skewer">Enfilada</string>
   <string name="skewerDescription">Maniobra de clavada inversa en que una pieza d\'alto valor ye atacada y en mover-se, permita capturar u atacar una pieza de menos valor que ye dezaga.</string>
+  <string name="smotheredMate">Mate d\'a calz</string>
+  <string name="smotheredMateDescription">Un mate executau per un caballo an que lo rei no se puede mover perque ye rodiau (u afogau) per las suyas propias piezas.</string>
   <string name="superGM">Partidas de Super GM</string>
   <string name="superGMDescription">Problemas de partidas chugadas per los millors chugadors d\'o mundo.</string>
   <string name="trappedPiece">Pieza enzarrada</string>
