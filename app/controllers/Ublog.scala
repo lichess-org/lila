@@ -51,7 +51,7 @@ final class Ublog(env: Env) extends LilaController(env):
                   env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
                     ctx.me.??(env.ublog.rank.liked(post)) zip
                     ctx.userId.??(env.relation.api.fetchFollows(_, user.id)) zip
-                    env.ublog.markup(post).flatMap { case (((others, liked), followed), markup) =>
+                    env.ublog.markup(post) flatMap { case (((others, liked), followed), markup) =>
                       val viewedPost = env.ublog.viewCounter(post, ctx.ip)
                       env.ask.api.asksIn(post.markdown.value).map { asks =>
                         Ok(html.ublog.post(user, blog, viewedPost, markup, others, liked, followed, asks))
@@ -121,7 +121,7 @@ final class Ublog(env: Env) extends LilaController(env):
         )
   }
 
-  def edit(id: UblogPostId) = AuthBody { implicit ctx => me =>
+  def edit(id: UblogPostId) = AuthBody { ctx ?=> me =>
     NotForKids:
       env.ublog.api
         .findByUserBlogOrAdmin(id, me)
