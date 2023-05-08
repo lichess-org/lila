@@ -130,6 +130,7 @@
   <string name="yesterday">Сон</string>
   <string name="variant">Вариант</string>
   <string name="variants">Вариантал</string>
+  <string name="correspondence">Цоцахъе хъвай</string>
   <string name="oneDay">Цо къо</string>
   <plurals name="nbDays">
     <item quantity="one">%s къо</item>
@@ -143,10 +144,14 @@
     <item quantity="one">%s минут</item>
     <item quantity="other">%s минут</item>
   </plurals>
+  <string name="time">Заман</string>
+  <string name="rating">Рейтинг</string>
+  <string name="ratingStats">Рейтингалъул истатистика</string>
   <string name="username">ХӀалтӀизабуласда цӀар</string>
   <string name="changeUsername">ХӀалтӀизабуласда цӀар хисизе</string>
   <string name="password">Парол</string>
   <string name="changePassword">Парол хисизе</string>
+  <string name="email">Электронияб поч</string>
   <string name="forgotPassword">Парол кӀочонищ тараб?</string>
   <string name="error.weakPassword">Гьаб парол кутакалда тӀибитӀараб буго, гьединго гьалда нахъгӀунтӀизе бигьаяб буго.</string>
   <string name="youAreLeavingLichess">Мун Lichess-алдаса унев вуго</string>
@@ -211,6 +216,7 @@
   <string name="xCreatedTeamY">%1$s(и)ца %2$s къокъа гьабуна</string>
   <string name="location">Геолокация</string>
   <string name="save">ЦӀунизе</string>
+  <string name="screenshotCurrentPosition">Гьанжесеб позициялъул сурат бахъизе</string>
   <string name="notACheckmate">Мат гуро</string>
   <string name="favoriteOpponents">ТӀаса рищарал дандеял</string>
   <string name="follow">Нахъвилълъине</string>
@@ -288,6 +294,7 @@
   <string name="blackCastlingKingside">ЧӀегӀерал О-О</string>
   <string name="watchGames">ХӀаязухъ балагьизе</string>
   <string name="watch">Балагьизе</string>
+  <string name="about">ХӀакъалъулъ</string>
   <string name="host">Хост</string>
   <string name="create">Гьабизе</string>
   <string name="lichessTournaments">Lichess турнирал</string>
@@ -320,6 +327,7 @@
   <string name="sorry">ТӀаса лъугьа :(</string>
   <string name="timeoutExpires">Балагьун чӀеялъул заман %s лъугӀула.</string>
   <string name="why">Щай?</string>
+  <string name="currentMatchScore">Гьанжесеб мачалъул рикӀкӀин</string>
   <string name="edit">Хисизе</string>
   <string name="rapid">Рапид</string>
   <string name="important">КӀвар буго</string>
