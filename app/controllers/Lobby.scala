@@ -20,18 +20,15 @@ final class Lobby(env: Env) extends LilaController(env):
     )
   )
 
-  def home =
-    Open { implicit ctx =>
-      pageHit
-      negotiate(
-        html = serveHtmlHome,
-        api = _ =>
-          fuccess {
-            val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
-            Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
-          }
-      )
-    }
+  def home = Open:
+    pageHit
+    negotiate(
+      html = serveHtmlHome,
+      api = _ =>
+        fuccess:
+          val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
+          Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
+    )
 
   private def serveHtmlHome(using ctx: Context) =
     env.pageCache { () =>
@@ -42,27 +39,25 @@ final class Lobby(env: Env) extends LilaController(env):
 
   def homeLang(lang: String) =
     staticRedirect(lang).map(Action.async(_)) getOrElse
-      LangPage("/")(serveHtmlHome(using _))(lang)
+      LangPage("/")(serveHtmlHome)(lang)
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
     reqToCtx(req) flatMap { ctx =>
       keyPages.home(status)(using ctx)
     }
 
-  def seeks =
-    Open { implicit ctx =>
-      negotiate(
-        html = fuccess(NotFound),
-        api = _ =>
-          ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
-            Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
-          }
-      )
-    }
+  def seeks = Open:
+    negotiate(
+      html = fuccess(NotFound),
+      api = _ =>
+        ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
+          Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
+        }
+    )
 
-  def timeline =
-    Auth { implicit ctx => me =>
-      env.timeline.entryApi.userEntries(me.id) map { entries =>
+  def timeline = Auth { _ ?=> me =>
+    env.timeline.entryApi
+      .userEntries(me.id)
+      .map: entries =>
         Ok(html.timeline.entries(entries)).withHeaders(CACHE_CONTROL -> s"max-age=20")
-      }
-    }
+  }

@@ -97,13 +97,13 @@ final class GameRepo(val coll: Coll)(using Executor):
     }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
-    recentGamesByUserFromSecondaryCursor(user, select)
+    recentGamesFromSecondaryCursor(Query.user(user) ++ select)
       .list(nb)
       .map { _.flatMap(Pov(_, user)) }
 
-  def recentGamesByUserFromSecondaryCursor(user: User, select: Bdoc = $empty) =
+  def recentGamesFromSecondaryCursor(select: Bdoc = $empty) =
     coll
-      .find(Query.user(user) ++ select)
+      .find(select)
       .sort(Query.sortCreated)
       .cursor[Game](temporarilyPrimary)
 

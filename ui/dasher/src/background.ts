@@ -40,7 +40,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
     { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
-    { key: 'transp', name: trans.noarg('transparent') },
+    { key: 'transp', name: 'Picture' },
   ];
 
   const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
@@ -203,17 +203,12 @@ function galleryInput(ctrl: BackgroundCtrl) {
       h(
         'div#images-grid',
         { attrs: { style: `background-image: url(${montageUrl});` } },
-        gallery.images.map((img, i) => {
+        gallery.images.map(img => {
           const assetUrl = lichess.assetUrl(img, { noVersion: true });
           const divClass = ctrl.data.image.endsWith(assetUrl) ? '.selected' : '';
-          return h(
-            `div#${urlId(assetUrl)}${divClass}`,
-            {
-              attrs: { style: 'display: flex; flex-direction: row; align-items: center; justify-content: center;' },
-              hook: bind('click', () => setImg(assetUrl)),
-            },
-            `${i + 1}`
-          );
+          return h(`div#${urlId(assetUrl)}${divClass}`, {
+            hook: bind('click', () => setImg(assetUrl)),
+          });
         })
       )
     ),
@@ -224,7 +219,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
         hook: onInsert((el: HTMLInputElement) =>
           $(el).on(
             'change keyup paste',
-            debounce(() => el.value.trim(), 300)
+            debounce(() => setImg(el.value.trim()), 300)
           )
         ),
       }),

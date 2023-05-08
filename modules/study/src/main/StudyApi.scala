@@ -90,8 +90,8 @@ final class StudyApi(
   private def fixNoChapter(study: Study): Fu[Option[Study.WithChapter]] =
     sequenceStudy(study.id) { study =>
       chapterRepo existsByStudy study.id flatMap {
-        case true => funit
-        case _ =>
+        if _ then funit
+        else
           chapterMaker.fromFenOrPgnOrBlank(
             study,
             ChapterMaker.Data(StudyChapterName("Chapter 1")),

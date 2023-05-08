@@ -45,8 +45,8 @@ final class TeamApi(
   def create(setup: TeamSetup, me: User): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
     chatApi.exists(bestId into ChatId) map {
-      case true  => Team.randomId()
-      case false => bestId
+      if _ then Team.randomId()
+      else bestId
     } flatMap { id =>
       val team = Team.make(
         id = id,
@@ -182,8 +182,8 @@ final class TeamApi(
 
   def cancelRequestOrQuit(team: Team, user: User): Funit =
     requestRepo.cancel(team.id, user) flatMap {
-      case false => quit(team, user.id)
-      case true  => funit
+      if _ then funit
+      else quit(team, user.id)
     }
 
   def processRequest(team: Team, request: Request, decision: String): Funit = {

@@ -61,59 +61,56 @@ final class Dasher(env: Env)(using StandaloneWSClient) extends LilaController(en
         case _                        => None
       }
 
-  def get =
-    Open { implicit ctx =>
-      negotiate(
-        html = notFound,
-        api = _ =>
-          ctx.me.??(env.streamer.api.isPotentialStreamer).zip(galleryJson) map { case (isStreamer, gallery) =>
-            Ok {
-              Json.obj(
-                "user" -> ctx.me.map(_.light),
-                "lang" -> Json.obj(
-                  "current"  -> ctx.lang.code,
-                  "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code),
-                  "list"     -> LangList.allChoices
+  def get = Open:
+    negotiate(
+      html = notFound,
+      api = _ =>
+        ctx.me.??(env.streamer.api.isPotentialStreamer).zip(galleryJson) map { case (isStreamer, gallery) =>
+          Ok:
+            Json.obj(
+              "user" -> ctx.me.map(_.light),
+              "lang" -> Json.obj(
+                "current"  -> ctx.lang.code,
+                "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code),
+                "list"     -> LangList.allChoices
+              ),
+              "sound" -> Json.obj(
+                "list" -> lila.pref.SoundSet.list.map { set =>
+                  s"${set.key} ${set.name}"
+                }
+              ),
+              "background" -> Json
+                .obj(
+                  "current" -> lila.pref.Pref.Bg.asString.get(ctx.pref.bg),
+                  "image"   -> ctx.pref.bgImgOrDefault
+                )
+                .add("gallery", gallery),
+              "board" -> Json.obj(
+                "is3d" -> ctx.pref.is3d
+              ),
+              "theme" -> Json.obj(
+                "d2" -> Json.obj(
+                  "current" -> ctx.currentTheme.name,
+                  "list"    -> lila.pref.Theme.all.map(_.name)
                 ),
-                "sound" -> Json.obj(
-                  "list" -> lila.pref.SoundSet.list.map { set =>
-                    s"${set.key} ${set.name}"
-                  }
+                "d3" -> Json.obj(
+                  "current" -> ctx.currentTheme3d.name,
+                  "list"    -> lila.pref.Theme3d.all.map(_.name)
+                )
+              ),
+              "piece" -> Json.obj(
+                "d2" -> Json.obj(
+                  "current" -> ctx.currentPieceSet.name,
+                  "list"    -> lila.pref.PieceSet.all.map(_.name)
                 ),
-                "background" -> Json
-                  .obj(
-                    "current" -> lila.pref.Pref.Bg.asString.get(ctx.pref.bg),
-                    "image"   -> ctx.pref.bgImgOrDefault
-                  )
-                  .add("gallery" -> gallery),
-                "board" -> Json.obj(
-                  "is3d" -> ctx.pref.is3d
-                ),
-                "theme" -> Json.obj(
-                  "d2" -> Json.obj(
-                    "current" -> ctx.currentTheme.name,
-                    "list"    -> lila.pref.Theme.all.map(_.name)
-                  ),
-                  "d3" -> Json.obj(
-                    "current" -> ctx.currentTheme3d.name,
-                    "list"    -> lila.pref.Theme3d.all.map(_.name)
-                  )
-                ),
-                "piece" -> Json.obj(
-                  "d2" -> Json.obj(
-                    "current" -> ctx.currentPieceSet.name,
-                    "list"    -> lila.pref.PieceSet.all.map(_.name)
-                  ),
-                  "d3" -> Json.obj(
-                    "current" -> ctx.currentPieceSet3d.name,
-                    "list"    -> lila.pref.PieceSet3d.all.map(_.name)
-                  )
-                ),
-                "coach"    -> isGranted(_.Coach),
-                "streamer" -> isStreamer,
-                "i18n"     -> translations
-              )
-            }
-          }
-      )
-    }
+                "d3" -> Json.obj(
+                  "current" -> ctx.currentPieceSet3d.name,
+                  "list"    -> lila.pref.PieceSet3d.all.map(_.name)
+                )
+              ),
+              "coach"    -> isGranted(_.Coach),
+              "streamer" -> isStreamer,
+              "i18n"     -> translations
+            )
+        }
+    )
