@@ -42,13 +42,19 @@
   </plurals>
   <string name="opponentLeftChoices">Дур дандеяс хӀай рехун тана. Дуда кӀола бергьенлъи яги ращад ккей лъазабизе яги балагьун чӀезе.</string>
   <string name="forceResignation">Бергьенлъи лъазабизе</string>
+  <string name="forceDraw">Ращад ккей лъазабизе</string>
+  <string name="talkInChat">Чаталда адаб гьабе!</string>
   <string name="whiteResigned">ХъахӀал къун чӀана</string>
   <string name="blackResigned">ЧӀегӀерал къун чӀана</string>
   <string name="whiteLeftTheGame">ХъахӀаз хӀай рехун тана</string>
   <string name="blackLeftTheGame">ЧӀегӀераз хӀай рехун тана</string>
   <string name="whiteDidntMove">ХъахӀал инчӀо</string>
   <string name="blackDidntMove">ЧӀегӀерал инчӀо</string>
+  <string name="requestAComputerAnalysis">Компютералъул анализ хӀалтӀизабизе</string>
   <string name="computerAnalysis">Компьютерил анализ</string>
+  <string name="computerAnalysisAvailable">Компютералъул анализ хӀалтӀизабизе рес буго</string>
+  <string name="computerAnalysisDisabled">Компютералъул анализ свинабуна</string>
+  <string name="analysis">Хъорщол анализ гьабизе</string>
   <string name="depthX">Гъварилъи %s</string>
   <string name="usingServerAnalysis">Сервералъул анализ хӀалтӀизабулеб буго</string>
   <string name="cloudAnalysis">НакӀкӀул анализ</string>
@@ -84,6 +90,7 @@
   <string name="importPgn">PNG жаниб лъезе</string>
   <string name="delete">Хвезабизе</string>
   <string name="deleteThisImportedGame">Гьаб жаниб лъураб хӀай хвезабилищ?</string>
+  <string name="replayMode">Такраралъул къагӀида</string>
   <string name="realtimeReplay">БукӀараб куцалъ</string>
   <string name="byCPL">Камияз</string>
   <string name="openStudy">ЦӀехрех рагьизе</string>
@@ -91,6 +98,7 @@
   <string name="bestMoveArrow">Бищун лъикӀаб хъурщиялъул чӀорил сурат</string>
   <string name="evaluationGauge">Къиматалъул роцен</string>
   <string name="multipleLines">Чанги вариант</string>
+  <string name="cpus">CPU</string>
   <string name="memory">РакӀалдачӀей</string>
   <string name="infiniteAnalysis">ЛъугӀи гьечӀеб анализ</string>
   <string name="mistake">ГъалатӀ</string>
@@ -124,6 +132,7 @@
   <string name="youNeedAnAccountToDoThat">Гьеб гьабизе, дуе аккаунт къваригӀуна</string>
   <string name="signUp">ХӀисабалде воси</string>
   <string name="games">ХӀаял</string>
+  <string name="forum">Форум</string>
   <string name="players">ХӀалел</string>
   <string name="friends">Гьудулзаби</string>
   <string name="today">Жакъа</string>
