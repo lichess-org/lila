@@ -44,13 +44,7 @@ object header:
                 href := youTube.fullUrl
               )(youTube.minUrl)
             )
-          },
-          li(
-            a(cls := "service lichess ulpt", href := routes.User.show(s.user.username))(
-              netConfig.domain,
-              routes.User.show(s.user.username).url
-            )
-          )
+          }
         ),
         div(cls := "ats")(
           s.stream.map { s =>
