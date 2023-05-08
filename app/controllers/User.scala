@@ -362,10 +362,10 @@ final class User(
 
         val nbOthers = getInt("nbOthers") | 100
 
-        val modLog = for {
+        val modLog = for
           history <- env.mod.logApi.userHistory(user.id)
           appeal  <- isGranted(_.Appeals) ?? env.appeal.api.get(user)
-        } yield view.modLog(history, appeal)
+        yield view.modLog(history, appeal)
 
         val plan =
           isGranted(_.Admin) ?? env.plan.api
