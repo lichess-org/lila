@@ -98,6 +98,7 @@
     <item quantity="one">%s гъалатӀ</item>
     <item quantity="other">%s гъалатӀ</item>
   </plurals>
+  <string name="flipBoard">Хъарщи сверизабизе</string>
   <string name="draw">Ращад ккей</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s хӀалев</item>
