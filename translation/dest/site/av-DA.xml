@@ -99,15 +99,29 @@
     <item quantity="other">%s гъалатӀ</item>
   </plurals>
   <string name="flipBoard">Хъарщи сверизабизе</string>
+  <string name="threefoldRepetition">ЛъабцӀул такрар гьаби</string>
+  <string name="claimADraw">Ращад ккей тӀалаб гьабизе</string>
+  <string name="offerDraw">Ращад ккей кьезе</string>
   <string name="draw">Ращад ккей</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s хӀалев</item>
     <item quantity="other">%s хӀалев</item>
   </plurals>
+  <string name="drawByMutualAgreement">КӀиязулго разилъиялдалъун ращад ккей</string>
+  <string name="currentGames">Гьанжесел хӀаял</string>
   <plurals name="nbGames">
     <item quantity="one">%s хӀай</item>
     <item quantity="other">%s хӀай</item>
   </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s гӀуж</item>
+    <item quantity="other">%s гӀуж</item>
+  </plurals>
+  <string name="viewInFullSize">ТӀубараб кӀодолъиялда балагьизе</string>
+  <string name="logOut">КъватӀиве лъугьине</string>
+  <string name="signIn">Жаниве лъугьине</string>
+  <string name="rememberMe">Жанив лъугьун тезе</string>
+  <string name="youNeedAnAccountToDoThat">Гьеб гьабизе, дуе аккаунт къваригӀуна</string>
   <string name="signUp">ХӀисабалде воси</string>
   <string name="games">ХӀаял</string>
   <string name="players">ХӀалел</string>
@@ -244,6 +258,7 @@
   <string name="other">Цогидаб</string>
   <string name="by">%s-(и)ца</string>
   <string name="notes">Хъвай-хъвагӀаял</string>
+  <string name="currentPassword">Гьанжесеб парол</string>
   <string name="letOtherPlayersFollowYou">Цогидазе дуда нахъвилълъине биччазе</string>
   <string name="letOtherPlayersChallengeYou">Цогидазе мун къецалде ахӀизе биччазе</string>
   <string name="letOtherPlayersInviteYouToStudy">Цогидазе мун цӀех-рехалде ахӀизе биччазе</string>
@@ -301,6 +316,7 @@
     <item quantity="one">%s секунд</item>
     <item quantity="other">%s секунд</item>
   </plurals>
+  <string name="addCurrentVariation">Гьанжесеб вариант тӀаде жубазе</string>
   <string name="sorry">ТӀаса лъугьа :(</string>
   <string name="timeoutExpires">Балагьун чӀеялъул заман %s лъугӀула.</string>
   <string name="why">Щай?</string>
