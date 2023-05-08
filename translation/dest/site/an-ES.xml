@@ -213,6 +213,25 @@
   <string name="youAreLeavingLichess">Yes salindo de Lichess</string>
   <string name="neverTypeYourPassword">No escribas nunca la clau de Lichess un unatro puesto web!</string>
   <string name="proceedToX">Continúa enta %s</string>
+  <string name="passwordSuggestion">No fagas servir una clau sucherida per atri. La fará servir pa furtar la tuya cuenta.</string>
+  <string name="emailSuggestion">No fagas servir un correu electronico sucheriu per atri. Lo fará servir pa furtar la tuya cuenta.</string>
+  <string name="emailConfirmHelp">Aduya con a confirmación de correu</string>
+  <string name="emailConfirmNotReceived">No has recibiu lo tuyo correu de confirmación dimpués de rechistrar-te?</string>
+  <string name="whatSignupUsername">Qué nombre d\'usuario has feito servir pa rechistrar-te?</string>
+  <string name="usernameNotFound">No hemos puesto trobar garra usuario con este nombre: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Puez fer servir este nombre d\'usuario pa crear una nueva cuenta</string>
+  <string name="emailSent">Hemos ninviau un correu a %s.</string>
+  <string name="emailCanTakeSomeTime">Pueda tardar un ratet a arribar.</string>
+  <string name="refreshInboxAfterFiveMinutes">Aguarda 5 minutos y refresca lo tuyo buzón de dentrada.</string>
+  <string name="checkSpamFolder">Compreba tamién la carpeta de correu vasuera, puede estar astí. Si ye astí, maca-lo como \"no vasuera\".</string>
+  <string name="emailForSignupHelp">Si tot ixo falla, ninvia-nos este correu:</string>
+  <string name="copyTextToEmail">Copia y pega este texto y ninva-lo a %s</string>
+  <string name="waitForSignupHelp">Te contestaremos decamín pa aduyar-te a completar lo rechistro.</string>
+  <string name="accountConfirmed">L\'usuario %s ha estau confirmau correctament.</string>
+  <string name="accountCanLogin">Puez identificar-te agora como %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">No te cal un correu de confirmación.</string>
+  <string name="accountClosed">La cuenta %s ye zarrada.</string>
+  <string name="accountRegisteredWithoutEmail">La cuenta %s ye rechistrada sin garra correu electronico.</string>
   <string name="rank">Posición</string>
   <string name="rankX">Posición: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -352,6 +371,7 @@
   <string name="siteDescription">Servidor d\'escaques en linia gratuito. Chuga a los escaques en una interficie simpla. Sin rechistro, sin publicidat, sin necesidat de complementos. Chuga contra l\'ordinador, amigos u oponents desconoixius.</string>
   <string name="xJoinedTeamY">%1$s s\'unió a l\'equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creau l\'equipo %2$s</string>
+  <string name="startedStreaming">prencipió a emitir</string>
   <string name="xStartedStreaming">%s prencipió a emitir</string>
   <string name="averageElo">Puntuación meya</string>
   <string name="location">Ubicación</string>
@@ -360,6 +380,8 @@
   <string name="apply">Aplicar cambios</string>
   <string name="save">Alzar</string>
   <string name="leaderboard">Clasificación</string>
+  <string name="screenshotCurrentPosition">Fe una captura de pantalla d\'a posición actual</string>
+  <string name="gameAsGIF">Partida como GIF</string>
   <string name="pasteTheFenStringHere">Apega lo texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Apega lo texto PGN aquí</string>
   <string name="orUploadPgnFile">U penchar un fichero PGN</string>
@@ -368,6 +390,7 @@
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Apegando lo PGN d\'una partida, s\'obtiene una repetición navegable, una analisi per ordinador, un chat de partida y un vinclo pa compartir.</string>
+  <string name="importGameCaveat">Se borrarán las variants. Pa mantenir-la, importa lo PGN a traviés d\'un estudio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -439,6 +462,7 @@
   <string name="tournamentPairingsAreNowClosed">Ya s\'han zarrau los emparellamientos d\'o torneyo.</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
   <string name="pause">Pausa</string>
+  <string name="resume">Reprener</string>
   <string name="youArePlaying">Te toca chugar!</string>
   <string name="winRate">Taxa de victorias</string>
   <string name="berserkRate">Taxa de berserk</string>
@@ -473,6 +497,10 @@
   <string name="socialMediaLinks">Vinclos a rez socials</string>
   <string name="oneUrlPerLine">Una URL per linia.</string>
   <string name="inlineNotation">Notación compacta</string>
+  <string name="savingMoves">Almagacenamiento temporal de movimientos</string>
+  <string name="savingMovesHelp">Siempre almagacenamos las tuyas variants en a memoria caché d\'o tuyo navegador.</string>
+  <string name="makeAStudy">Pa alzar-las de manera segura y compartir-las, considera fer un estudio.</string>
+  <string name="clearSavedMoves">Limpia movimientos</string>
   <string name="previouslyOnLichessTV">Anteriorment en Lichess TV</string>
   <string name="onlinePlayers">Chugadors connectaus</string>
   <string name="activePlayers">Chugadors activos</string>
@@ -520,6 +548,8 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe aquí las tuyas notas privadas</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe una nota privada sobre este usuario</string>
+  <string name="noNoteYet">Encara no i hai notas</string>
   <string name="invalidUsernameOrPassword">Nombre d\'usuario u clau erronio</string>
   <string name="incorrectPassword">Clau incorrecta</string>
   <string name="invalidAuthenticationCode">Codigo d\'autenticación invalido</string>
@@ -576,6 +606,7 @@
   <string name="community">Comunidat</string>
   <string name="tools">Ferramientas</string>
   <string name="increment">Incremento</string>
+  <string name="error.unknown">Valor invalida</string>
   <string name="error.required">Este campo ye obligatorio</string>
   <string name="error.email">Esta adreza de correu no ye valida</string>
   <string name="error.email_acceptable">Esta adreza de correu no ye acceptable. Compreba-la y torna-lo a intentar.</string>
@@ -631,10 +662,13 @@
   <string name="simulClockHint">Configuración de reloch Fischer. Contra mas oponents, mas tiempo se precisa.</string>
   <string name="simulAddExtraTime">Puez anyadir tiempo adicional a lo tuyo reloch pa aduyar-te en a simultania.</string>
   <string name="simulHostExtraTime">Tiempo extra de l\'anfitrión</string>
+  <string name="simulAddExtraTimePerPlayer">Anyadir tiempo inicial a lo tuyo reloch per cada chugador que dentre a la simultania.</string>
+  <string name="simulHostExtraTimePerPlayer">Tiempo extra de l\'anfitrión per chugador</string>
   <string name="lichessTournaments">Torneyos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuents d\'os torneyos arena</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes que prencipie lo torneyo</string>
   <string name="averageCentipawnLoss">Perdua meya en centipeons</string>
+  <string name="accuracy">Precisión</string>
   <string name="keyboardShortcuts">Alcorces d\'o teclau</string>
   <string name="keyMoveBackwardOrForward">movimiento enta zaga y enta adebant</string>
   <string name="keyGoToStartOrEnd">ir a l\'inicio/fin</string>
@@ -683,6 +717,7 @@
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Per seguridat, en o modo infantil se desactivan totas las comunicacions con atros usuarios. Activa esto pa protecher a los menors d\'atros usuarios d\'Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En o modo infantil, lo logo de lichess tiene un icono de %s, indicando que los ninos son seguros.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">La tuya cuenta ye administrada. Demanda-le a lo tuyo mayestro abandonar lo modo pa ninos.</string>
   <string name="enableKidMode">Activar lo modo infantil</string>
   <string name="disableKidMode">Desactivar lo modo infantil</string>
   <string name="security">Seguridat</string>
@@ -717,6 +752,7 @@
   <string name="light">Claro</string>
   <string name="dark">Fosco</string>
   <string name="transparent">Transparent</string>
+  <string name="deviceTheme">Tema d\'o dispositivo</string>
   <string name="backgroundImageUrl">URL d\'imachen de fondo:</string>
   <string name="boardGeometry">Cheometría d\'o escaquero</string>
   <string name="boardTheme">Tema d\'o escaquero</string>
@@ -745,6 +781,7 @@
   <string name="bestWasX">Lo millor yera %s</string>
   <string name="youBrowsedAway">Has saliu d\'a revisión</string>
   <string name="resumePractice">Tornar a la revisión d\'errors</string>
+  <string name="drawByFiftyMoves">Lo chuego ha quedau empaz per la regla d\'os 50 movimientos.</string>
   <string name="theGameIsADraw">La partida ye taulas.</string>
   <string name="computerThinking">L\'ordinador ye calculando...</string>
   <string name="seeBestMove">Veyer lo millor movimiento</string>
@@ -828,6 +865,7 @@
   <string name="useTheReportForm">usar lo formulario de reporte</string>
   <string name="toRequestSupport">Pa solicitar suporte, %1$s</string>
   <string name="tryTheContactPage">preba la pachina de contacto</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Asegura-te de leyer %1$s</string>
   <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">la etiqueta en os foros</string>
   <string name="thisTopicIsArchived">Este tema s\'ha archivau y ya no se puede responder.</string>
   <string name="joinTheTeamXToPost">Une-te a %1$s, pa publicar en este foro</string>
