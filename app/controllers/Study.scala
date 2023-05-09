@@ -67,15 +67,14 @@ final class Study(
   def byOwner(username: UserStr, order: Order, page: Int) = Open:
     env.user.repo
       .byId(username)
-      .flatMap:
-        _.fold(notFound): owner =>
-          env.study.pager
-            .byOwner(owner, ctx.me, order, page)
-            .flatMap: pag =>
-              preloadMembers(pag) >> negotiate(
-                html = Ok(html.study.list.byOwner(pag, order, owner)).toFuccess,
-                api = _ => apiStudies(pag)
-              )
+      .flatMapz: owner =>
+        env.study.pager
+          .byOwner(owner, ctx.me, order, page)
+          .flatMap: pag =>
+            preloadMembers(pag) >> negotiate(
+              html = Ok(html.study.list.byOwner(pag, order, owner)).toFuccess,
+              api = _ => apiStudies(pag)
+            )
 
   def mine(order: Order, page: Int) = Auth { ctx ?=> me =>
     env.study.pager.mine(me, order, page) flatMap { pag =>
@@ -420,7 +419,7 @@ final class Study(
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
     env.study.api.byId(id).map {
-      _.fold(studyNotFoundText) { study =>
+      _.fold(studyNotFoundText): study =>
         if req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
         else
           PgnRateLimitPerIp(req.ipAddress, msg = id) {
@@ -428,12 +427,11 @@ final class Study(
               doPgn(study, req)
             }(privateUnauthorizedText, privateForbiddenText)
           }(rateLimited)
-      }
     }
   }
 
   private def doPgn(study: StudyModel, req: RequestHeader) =
-    Ok.chunked(env.study.pgnDump(study, requestPgnFlags(req)))
+    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags(req)).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
       .withDateHeaders(studyLastModified(study))
@@ -472,27 +470,27 @@ final class Study(
       }
     }
 
-  def exportPgn(username: UserStr) =
-    OpenOrScoped(_.Study.Read) { (req, me) =>
-      val name = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
-      val userId = name.id
-      val flags  = requestPgnFlags(req)
-      val isMe   = me.exists(_ is userId)
-      apiC
-        .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
-          env.study.studyRepo
-            .sourceByOwner(userId, isMe)
-            .flatMapConcat(env.study.pgnDump(_, flags))
-            .withAttributes(
-              akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
-            )
-        } { source =>
-          Ok.chunked(source)
-            .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
-            .as(pgnContentType)
-        }
-        .toFuccess
-    }
+  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read) { me =>
+    val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
+    val userId = name.id
+    val flags  = requestPgnFlags(req)
+    val isMe   = me.exists(_ is userId)
+    apiC
+      .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
+        env.study.studyRepo
+          .sourceByOwner(userId, isMe)
+          .flatMapConcat(env.study.pgnDump.chaptersOf(_, flags))
+          .throttle(16, 1.second)
+          .withAttributes(
+            akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
+          )
+      } { source =>
+        Ok.chunked(source)
+          .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
+          .as(pgnContentType)
+      }
+      .toFuccess
+  }
 
   private def requestPgnFlags(req: RequestHeader) =
     lila.study.PgnDump.WithFlags(

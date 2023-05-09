@@ -553,7 +553,7 @@ final class User(
               }
         )
 
-  def autocomplete = OpenOrScoped(): (req, me) =>
+  def autocomplete = OpenOrScoped(): me =>
     getUserStr("term", req).flatMap(UserModel.validateId) match
       case None                               => BadRequest("No search term provided").toFuccess
       case Some(id) if getBool("exists", req) => env.user.repo exists id map JsonOk

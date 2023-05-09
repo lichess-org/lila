@@ -18,10 +18,9 @@ final class PgnDump(
 
   import PgnDump.*
 
-  def apply(study: Study, flags: WithFlags): Source[PgnStr, ?] =
+  def chaptersOf(study: Study, flags: WithFlags): Source[PgnStr, ?] =
     chapterRepo
       .orderedByStudySource(study.id)
-      .throttle(16, 1 second)
       .mapAsync(1)(ofChapter(study, flags))
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
