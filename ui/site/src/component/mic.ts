@@ -1,46 +1,20 @@
 import { objectStorage } from 'common/objectStorage';
 import * as xhr from 'common/xhr';
 
-const models = new Map([
-  ['ca', 'vendor/vosk/model-ca-0.4.tar.gz'],
-  ['cn', 'vendor/vosk/model-cn-0.22.tar.gz'],
-  ['cs', 'vendor/vosk/model-cs-0.4.tar.gz'],
-  ['de', 'vendor/vosk/model-de-0.15.tar.gz'],
-  ['en', 'vendor/vosk/model-en-us-0.15.tar.gz'],
-  ['eo', 'vendor/vosk/model-eo-0.42.tar.gz'],
-  ['es', 'vendor/vosk/model-es-0.42.tar.gz'],
-  ['fa', 'vendor/vosk/model-fa-0.4.tar.gz'],
-  ['fr', 'vendor/vosk/model-fr-0.22.tar.gz'],
-  ['hi', 'vendor/vosk/model-hi-0.22.tar.gz'],
-  ['it', 'vendor/vosk/model-it-0.22.tar.gz'],
-  ['ja', 'vendor/vosk/model-ja-0.22.tar.gz'],
-  ['ko', 'vendor/vosk/model-ko-0.22.tar.gz'],
-  ['kz', 'vendor/vosk/model-kz-0.15.tar.gz'],
-  ['nl', 'vendor/vosk/model-nl-0.22.tar.gz'],
-  ['pl', 'vendor/vosk/model-pl-0.22.tar.gz'],
-  ['pt', 'vendor/vosk/model-pt-0.3.tar.gz'],
-  ['ru', 'vendor/vosk/model-ru-0.22.tar.gz'],
-  ['tr', 'vendor/vosk/model-tr-0.3.tar.gz'],
-  ['uk', 'vendor/vosk/model-uk-v3.tar.gz'],
-  ['uz', 'vendor/vosk/model-uz-0.22.tar.gz'],
-  ['vi', 'vendor/vosk/model-vi-0.4.tar.gz'],
-]);
-
 class Recognizer {
   listenerMap = new Map<string, Voice.Listener>();
   vocab: string[] = [];
   node?: AudioNode;
 
   get listeners(): Voice.Listener[] {
-    return [...this.listenerMap.values()].reverse(); // LIFO
+    return [...this.listenerMap.values()].reverse(); // LIFO because reasons
   }
 }
 
-// mic supports at most two simultaneous recognizers, one for full phrases and the other for partials
+// this code is bundled with callers, so lazy create and store in window global
 export const mic =
   window.LichessVoicePlugin?.mic ??
   new (class implements Voice.Microphone {
-    initGrammar?: { name: string; callback: (g: any) => void };
     language = 'en';
 
     audioCtx: AudioContext;
@@ -80,6 +54,7 @@ export const mic =
 
     async setLang(lang: string) {
       if (lang === this.language) return;
+      console.log(`Changing language from ${this.language} to ${lang}`);
       this.stop();
       this.language = lang;
     }
@@ -88,13 +63,13 @@ export const mic =
       const rec = this.recs[mode];
       if (vocab.length === rec.vocab.length && vocab.every((w, i) => w === rec.vocab[i])) return;
       rec.vocab = vocab;
-      if (!this.vosk?.ready()) return;
-      this.stop();
-      await this.initKaldi(mode);
+      rec.node?.disconnect();
+      rec.node = undefined;
+      if (this.vosk?.isReady(this.lang)) this.initKaldi(mode);
     }
 
-    useGrammar(name: string, callback: (g: any) => void) {
-      this.initGrammar = { name: name, callback: callback };
+    useGrammar(name: string): Promise<any> {
+      return xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${name}.json`));
     }
 
     stop() {
@@ -111,7 +86,8 @@ export const mic =
         if (this.isListening) return;
         this.busy = true;
         await this.initModel();
-        await this.initKaldi();
+        if (!this.recs.full.node) this.initKaldi('full');
+        if (!this.recs.partial.node) this.initKaldi('partial');
         this.micTrack!.enabled = true;
         this.mode = 'full';
         [text, msgType] = ['Listening...', 'start'];
@@ -140,35 +116,26 @@ export const mic =
       this.broadcast('Listening...', 'status');
     }
 
-    async initKaldi(mode?: Voice.ListenMode) {
-      if (!mode && Object.values(this.recs).every(r => r.node || r.vocab.length === 0)) return;
-      const modes = mode ? [mode] : (['full', 'partial'] as Voice.ListenMode[]);
-      for (const m of modes) {
-        const rec = this.recs[m];
-        if (!mode && (rec.node || rec.vocab.length === 0)) continue;
-        rec.node = await this.vosk?.setRecognizer({
-          mode: m,
-          audioCtx: this.audioCtx!,
-          vocab: rec.vocab,
-          broadcast: this.broadcast.bind(this),
-        });
-      }
+    initKaldi(mode: Voice.ListenMode) {
+      this.recs[mode].node = this.vosk?.setRecognizer({
+        mode: mode,
+        audioCtx: this.audioCtx!,
+        vocab: this.recs[mode].vocab,
+        broadcast: this.broadcast.bind(this),
+      });
     }
 
     async initModel(): Promise<void> {
-      if (this.vosk?.ready() && this.vosk?.lang === this.lang) return;
+      if (this.vosk?.isReady(this.lang)) return;
       this.broadcast('Loading...');
+
       const modelUrl = lichess.assetUrl(models.get(this.lang)!, { noVersion: true });
-      console.log(modelUrl);
       const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
-      const grammarAsync = this.initGrammar
-        ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${this.initGrammar.name}.json`))
-        : Promise.resolve();
+
       const audioAsync = this.initAudio();
       await lichess.loadModule('voice.vosk');
       await downloadAsync;
       await this.vosk.initModel(modelUrl, this.lang);
-      this.initGrammar?.callback(await grammarAsync);
       await audioAsync;
     }
 
@@ -260,11 +227,12 @@ export const mic =
           );
 
         this.download.onload = _ => {
-          this.broadcast('Extracting...');
-          resolve(this.download?.response);
+          if (this.download?.status !== 200) reject(`${this.download?.status} Failed`);
+          else resolve(this.download?.response);
         };
         this.download.send();
       });
+      this.broadcast('Extracting...');
       const now = new Date();
       await voskStore.put(emscriptenPath, { timestamp: now, mode: 16877 });
       await voskStore.put(`${emscriptenPath}/downloaded.ok`, {
@@ -281,3 +249,28 @@ export const mic =
       voskStore.txn('readwrite').objectStore('FILE_DATA').index('timestamp');
     }
   })();
+
+const models = new Map([
+  ['ca', 'vendor/vosk/model-ca-0.4.tar.gz'],
+  ['cn', 'vendor/vosk/model-cn-0.22.tar.gz'],
+  ['cs', 'vendor/vosk/model-cs-0.4.tar.gz'],
+  ['de', 'vendor/vosk/model-de-0.15.tar.gz'],
+  ['en', 'vendor/vosk/model-en-us-0.15.tar.gz'],
+  ['eo', 'vendor/vosk/model-eo-0.42.tar.gz'],
+  ['es', 'vendor/vosk/model-es-0.42.tar.gz'],
+  ['fa', 'vendor/vosk/model-fa-0.4.tar.gz'],
+  ['fr', 'vendor/vosk/model-fr-0.22.tar.gz'],
+  ['hi', 'vendor/vosk/model-hi-0.22.tar.gz'],
+  ['it', 'vendor/vosk/model-it-0.22.tar.gz'],
+  ['ja', 'vendor/vosk/model-ja-0.22.tar.gz'],
+  ['ko', 'vendor/vosk/model-ko-0.22.tar.gz'],
+  ['kz', 'vendor/vosk/model-kz-0.15.tar.gz'],
+  ['nl', 'vendor/vosk/model-nl-0.22.tar.gz'],
+  ['pl', 'vendor/vosk/model-pl-0.22.tar.gz'],
+  ['pt', 'vendor/vosk/model-pt-0.3.tar.gz'],
+  ['ru', 'vendor/vosk/model-ru-0.22.tar.gz'],
+  ['tr', 'vendor/vosk/model-tr-0.3.tar.gz'],
+  ['uk', 'vendor/vosk/model-uk-v3.tar.gz'],
+  ['uz', 'vendor/vosk/model-uz-0.22.tar.gz'],
+  ['vi', 'vendor/vosk/model-vi-0.4.tar.gz'],
+]);
