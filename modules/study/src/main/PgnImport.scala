@@ -104,9 +104,10 @@ object PgnImport:
       node: PgnNode[PgnNodeData],
       annotator: Option[Comment.Author]
   ): Branches =
-    // TODO: parsedPgn.sans.value take Node.MAX_PLIES
-    val variations = node.variations.flatMap(x => makeBranch(prev, x.toNode, annotator))
-    removeDuplicatedChildrenFirstNode(Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations)))
+    val variations = node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(prev, x.toNode, annotator))
+    removeDuplicatedChildrenFirstNode(
+      Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations))
+    )
 
   private def makeBranch(
       prev: chess.Game,
