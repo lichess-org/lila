@@ -11,11 +11,11 @@ import { onClickAway } from 'common';
 let moveCtrl: VoiceMove; // globals. not just a bad idea, it's the law!
 
 const supportedLangs = [
-  ['en', 'English'] /*
+  ['en', 'English'],
   ['fr', 'Français'],
   ['de', 'Deutsch'],
   ['tr', 'Türkçe'],
-  ['vi', 'Tiếng Việt'],*/,
+  ['vi', 'Tiếng Việt'],
 ];
 
 export { type RootCtrl, type VoiceMove } from './interfaces';

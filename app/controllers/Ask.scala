@@ -7,11 +7,10 @@ import play.api.data.Forms.single
 final class Ask(env: Env) extends LilaController(env):
 
   def view(aid: String, view: Option[String], tally: Boolean) = Open: _ ?=>
-    env.ask.api
-      .get(aid)
-      .map:
-        case Some(ask) => Ok(views.html.ask.renderInner(ask, paramToList(view), tally))
-        case None      => NotFound(s"Ask $aid not found")
+    env.ask.api.get(aid).map {
+      case Some(ask) => Ok(views.html.ask.renderInner(ask, paramToList(view), tally))
+      case None      => NotFound(s"Ask $aid not found")
+    }
 
   def picks(aid: String, picks: Option[String], view: Option[String], anon: Boolean) = AuthBody { _ ?=> me =>
     // don't validate picks here. parseable but invalid picks are handled elsewhere

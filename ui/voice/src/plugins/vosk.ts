@@ -8,44 +8,27 @@ const BUF_SIZE = 8192;
 // Based on the original implementation by Sam 'Spammy' Ezeh who found Vosk-browser and first
 // got it working in lichess.
 //
-// do not touch this unless you are familiar with vosk-browser, emscripten, the vosk api,
-// and kaldi.
-class Recognizer {
-  kaldi: KaldiRecognizer;
-  node: ScriptProcessorNode;
-  constructor(kaldi: KaldiRecognizer, node: ScriptProcessorNode) {
-    this.kaldi = kaldi;
-    this.node = node;
-  }
-  close() {
-    this.kaldi.remove();
-    if (this.node.onaudioprocess) this.node.onaudioprocess = null;
-    this.node.disconnect();
-  }
-}
+// don't touch unless you are familiar with vosk-browser, the vosk api, and kaldi.
+// web audio connections outside of script processor callbacks are not handled here.
+// the audio context graph must be constructed and maintained at a higher level
 
 export default (window as any).LichessVoicePlugin.vosk = new (class {
   voiceModel?: Model;
-  recs = new Map<Voice.ListenMode, Recognizer>();
-  mode?: Voice.ListenMode = 'full';
-  language?: string;
-
-  get lang() {
-    return this.voiceModel && this.language;
-  }
+  kaldiNodes: { full?: KaldiNode; partial?: KaldiNode } = {};
+  mode: Voice.ListenMode = 'full';
+  lang?: string;
 
   async initModel(url: string, lang: string): Promise<void> {
     this.voiceModel?.terminate();
     this.voiceModel = undefined;
-    this.recs.forEach(r => r.close());
-    this.recs.clear();
-    this.language = lang;
+    this.closeKaldi();
     this.voiceModel = await createModel(url, LOG_LEVEL);
+    this.lang = lang;
   }
 
-  async setRecognizer(opts: RecognizerOpts): Promise<AudioNode | undefined> {
+  setRecognizer(opts: RecognizerOpts): AudioNode | undefined {
     if (!opts.vocab || !opts.vocab.length || !this.voiceModel) {
-      this.close(opts.mode);
+      this.closeKaldi(opts.mode);
       return;
     }
 
@@ -53,55 +36,79 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
 
     // fun fact - createScriptProcessor was deprecated in 2014
     const node = opts.audioCtx.createScriptProcessor(BUF_SIZE, 1, 1);
-    if (opts.mode === 'partial')
+    if (opts.mode === 'partial') {
       kaldi.on('partialresult', (msg: ServerMessagePartialResult) => {
-        if (msg.result.partial.length < 2 || this.mode !== 'partial') return;
+        if (msg.result.partial.length < 1 || this.mode !== 'partial') return;
         opts.broadcast(msg.result.partial, opts.mode, 1000);
       });
-    else
+    } else {
       kaldi.on('result', (msg: ServerMessageResult) => {
-        if (msg.result.text.length < 2 || this.mode !== 'full') return;
+        if (msg.result.text.length < 1 || this.mode !== 'full') return;
         opts.broadcast(msg.result.text, opts.mode, 3000);
       });
-
-    if (this.mode === opts.mode) node.onaudioprocess = e => kaldi.acceptWaveform(e.inputBuffer);
-    this.close(opts.mode);
+    }
+    this.closeKaldi(opts.mode);
 
     if (LOG_LEVEL >= -1) console.info(`Creating ${opts.mode} recognizer with`, opts.vocab);
-    this.recs.set(opts.mode, new Recognizer(kaldi, node));
+
+    this.kaldiNodes[opts.mode] = new KaldiNode(kaldi, node, this.mode === opts.mode);
     return node;
   }
 
-  ready(): boolean {
-    return this.voiceModel !== undefined;
+  isReady(lang?: string): boolean {
+    return this.voiceModel !== undefined && (!lang || lang === this.lang);
   }
 
   setMode(newMode: Voice.ListenMode): void {
-    if (this.mode === newMode && this.recs.get(newMode)?.node?.onaudioprocess) return;
-    const oldRec = this.mode ? this.recs.get(this.mode) : undefined;
-    if (oldRec?.node.onaudioprocess) {
-      this.mode = undefined;
-      oldRec.node.onaudioprocess = null;
-      if (newMode === 'full') oldRec.kaldi.retrieveFinalResult();
+    if (this.kaldiNodes[newMode]?.enabled) return;
+    if (newMode !== this.mode) {
+      this.kaldiNodes[this.mode]?.setEnabled(false);
+      if (newMode === 'full') this.kaldiNodes['partial']?.kaldi.retrieveFinalResult(); // flush lattice
     }
-    const r = this.recs.get(newMode);
-    if (r?.node) r.node.onaudioprocess = e => r.kaldi.acceptWaveform(e.inputBuffer);
+    this.kaldiNodes[newMode]?.setEnabled(true);
     this.mode = newMode;
   }
 
   stop(): void {
-    this.recs.forEach(rec => {
-      if (rec.node?.onaudioprocess) rec.node.onaudioprocess = null;
-    });
+    this.kaldiNodes.full?.setEnabled(false);
+    this.kaldiNodes.partial?.setEnabled(false);
   }
 
-  close(mode: Voice.ListenMode) {
-    const rec = this.recs.get(mode);
-    if (rec && LOG_LEVEL >= -1) console.info(`Closing ${mode} recognizer`);
-    rec?.close();
-    this.recs.delete(mode);
+  closeKaldi(mode?: Voice.ListenMode) {
+    if (mode) this.kaldiNodes[mode]?.kill();
+    else {
+      this.kaldiNodes.full?.kill();
+      this.kaldiNodes.partial?.kill();
+    }
   }
 })();
+
+class KaldiNode {
+  kaldi: KaldiRecognizer;
+  node: ScriptProcessorNode;
+
+  constructor(kaldi: KaldiRecognizer, node: ScriptProcessorNode, enable = false) {
+    this.kaldi = kaldi;
+    this.node = node;
+    this.setEnabled(enable);
+  }
+
+  kill() {
+    this.setEnabled(false);
+    this.kaldi.remove();
+  }
+
+  get enabled(): boolean {
+    return this?.node.onaudioprocess != null; // != is intentional
+  }
+
+  setEnabled(isEnabled: boolean) {
+    if (isEnabled) {
+      if (this.node.onaudioprocess) return;
+      this.node.onaudioprocess = e => this.kaldi.acceptWaveform(e.inputBuffer);
+    } else if (this.node.onaudioprocess) this.node.onaudioprocess = null;
+  }
+}
 
 //========================== works on all but safari ==========================
 /*

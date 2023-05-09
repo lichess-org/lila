@@ -205,10 +205,10 @@ declare namespace Voice {
     setVocabulary: (vocabulary: string[], mode?: ListenMode) => Promise<void>; // required
     setLang: (language: string) => Promise<void>; // defaults to 'en';
 
-    mode: ListenMode; // starts in full
+    mode: ListenMode; // starts in 'full'
 
-    // optional, to fetch a grammar in parallel during initialization
-    useGrammar: (grammarName: string, callback: (g: any) => void) => void;
+    // optional, to fetch a grammar
+    useGrammar: (grammarName: string) => Promise<any>;
 
     start: () => Promise<void>; // initialize if necessary and begin recording
     stop: () => void; // stop recording/downloading/whatever

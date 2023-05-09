@@ -128,7 +128,7 @@ final class Ublog(env: Env) extends LilaController(env):
         .flatMapz: post =>
           if (!lila.ask.AskApi.hasAskId(post.markdown.value))
             fuccess(Ok(html.ublog.form.edit(post, env.ublog.form.edit(post))))
-          else // avoid copying post unless we have to
+          else
             env.ask.api
               .unfreezeAsync(post.markdown.value)
               .map: text =>
