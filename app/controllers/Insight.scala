@@ -11,12 +11,9 @@ import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env):
 
-  def refresh(username: UserStr) =
-    OpenOrScoped() { (_, me) =>
-      AccessibleApi(username)(me) { user =>
-        env.insight.api indexAll user inject Ok
-      }
-    }
+  def refresh(username: UserStr) = OpenOrScoped(): me =>
+    AccessibleApi(username)(me): user =>
+      env.insight.api indexAll user inject Ok
 
   def index(username: UserStr) =
     def jsonStatus(user: lila.user.User) =

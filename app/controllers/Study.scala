@@ -67,15 +67,14 @@ final class Study(
   def byOwner(username: UserStr, order: Order, page: Int) = Open:
     env.user.repo
       .byId(username)
-      .flatMap:
-        _.fold(notFound): owner =>
-          env.study.pager
-            .byOwner(owner, ctx.me, order, page)
-            .flatMap: pag =>
-              preloadMembers(pag) >> negotiate(
-                html = Ok(html.study.list.byOwner(pag, order, owner)).toFuccess,
-                api = _ => apiStudies(pag)
-              )
+      .flatMapz: owner =>
+        env.study.pager
+          .byOwner(owner, ctx.me, order, page)
+          .flatMap: pag =>
+            preloadMembers(pag) >> negotiate(
+              html = Ok(html.study.list.byOwner(pag, order, owner)).toFuccess,
+              api = _ => apiStudies(pag)
+            )
 
   def mine(order: Order, page: Int) = Auth { ctx ?=> me =>
     env.study.pager.mine(me, order, page) flatMap { pag =>
@@ -160,9 +159,9 @@ final class Study(
     else f
 
   private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
-    OptionFuResult(query) { oldSc =>
+    OptionFuResult(query): oldSc =>
       CanView(oldSc.study, ctx.me) {
-        for {
+        for
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
             html =
@@ -188,41 +187,40 @@ final class Study(
                 )
               }
           )
-        } yield res
+        yield res
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
-    } dmap (_.noCache)
+    .dmap(_.noCache)
 
-  private[controllers] def getJsonData(sc: WithChapter)(using ctx: Context): Fu[(WithChapter, JsData)] =
-    for
-      chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
-      (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
-      chapter = resetToChapter | sc.chapter
-      _ <- env.user.lightUserApi preloadMany study.members.ids.toList
-      pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-      analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id)
-      division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
-      baseData <- env.api.roundApi.withExternalEngines(
-        ctx.me,
-        env.round.jsonView.userAnalysisJson(
-          pov,
-          ctx.pref,
-          chapter.root.fen.some,
-          chapter.setup.orientation,
-          owner = false,
-          division = division
-        )
+  private[controllers] def getJsonData(sc: WithChapter)(using ctx: Context): Fu[(WithChapter, JsData)] = for
+    chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
+    (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
+    chapter = resetToChapter | sc.chapter
+    _ <- env.user.lightUserApi preloadMany study.members.ids.toList
+    pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
+    analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id)
+    division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
+    baseData <- env.api.roundApi.withExternalEngines(
+      ctx.me,
+      env.round.jsonView.userAnalysisJson(
+        pov,
+        ctx.pref,
+        chapter.root.fen.some,
+        chapter.setup.orientation,
+        owner = false,
+        division = division
       )
-      studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
-    yield WithChapter(study, chapter) -> JsData(
-      study = studyJson,
-      analysis = baseData
-        .add(
-          "treeParts" -> partitionTreeJsonWriter.writes {
-            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-          }.some
-        )
-        .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
     )
+    studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
+  yield WithChapter(study, chapter) -> JsData(
+    study = studyJson,
+    analysis = baseData
+      .add(
+        "treeParts" -> partitionTreeJsonWriter.writes {
+          lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+        }.some
+      )
+      .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
+  )
 
   def show(id: StudyId) = Open:
     orRelay(id):
@@ -421,7 +419,7 @@ final class Study(
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
     env.study.api.byId(id).map {
-      _.fold(studyNotFoundText) { study =>
+      _.fold(studyNotFoundText): study =>
         if req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
         else
           PgnRateLimitPerIp(req.ipAddress, msg = id) {
@@ -429,12 +427,11 @@ final class Study(
               doPgn(study, req)
             }(privateUnauthorizedText, privateForbiddenText)
           }(rateLimited)
-      }
     }
   }
 
   private def doPgn(study: StudyModel, req: RequestHeader) =
-    Ok.chunked(env.study.pgnDump(study, requestPgnFlags(req)))
+    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags(req)).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
       .withDateHeaders(studyLastModified(study))
@@ -473,27 +470,38 @@ final class Study(
       }
     }
 
-  def exportPgn(username: UserStr) =
-    OpenOrScoped(_.Study.Read) { (req, me) =>
-      val name = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
-      val userId = name.id
-      val flags  = requestPgnFlags(req)
-      val isMe   = me.exists(_ is userId)
-      apiC
-        .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
-          env.study.studyRepo
-            .sourceByOwner(userId, isMe)
-            .flatMapConcat(env.study.pgnDump(_, flags))
-            .withAttributes(
-              akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
-            )
-        } { source =>
-          Ok.chunked(source)
-            .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
-            .as(pgnContentType)
-        }
-        .toFuccess
-    }
+  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read) { me =>
+    val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
+    val userId = name.id
+    val flags  = requestPgnFlags(req)
+    val isMe   = me.exists(_ is userId)
+    apiC
+      .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
+        env.study.studyRepo
+          .sourceByOwner(userId, isMe)
+          .flatMapConcat(env.study.pgnDump.chaptersOf(_, flags))
+          .throttle(16, 1.second)
+          .withAttributes(
+            akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
+          )
+      } { source =>
+        Ok.chunked(source)
+          .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
+          .as(pgnContentType)
+      }
+      .toFuccess
+  }
+
+  def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read) { me =>
+    val isMe = me.exists(_ is username)
+    apiC
+      .jsonDownload:
+        env.study.studyRepo
+          .sourceByOwner(username.id, isMe)
+          .throttle(if isMe then 50 else 20, 1.second)
+          .map(lila.study.JsonView.metadata)
+      .toFuccess
+  }
 
   private def requestPgnFlags(req: RequestHeader) =
     lila.study.PgnDump.WithFlags(
@@ -613,46 +621,8 @@ final class Study(
 
   def glyphs(lang: String) = Anon:
     play.api.i18n.Lang.get(lang) ?? { lang =>
-      import chess.format.pgn.Glyph
-      import lila.tree.Node.given
-      import lila.i18n.I18nKeys.{ study as trans }
-      import Glyph.MoveAssessment.*
-      import Glyph.PositionAssessment.*
-      import Glyph.Observation.*
-      given play.api.i18n.Lang = lang
       JsonOk:
-        Json.obj(
-          "move" -> List(
-            good.copy(name = trans.goodMove.txt()),
-            mistake.copy(name = trans.mistake.txt()),
-            brillant.copy(name = trans.brilliantMove.txt()),
-            blunder.copy(name = trans.blunder.txt()),
-            interesting.copy(name = trans.interestingMove.txt()),
-            dubious.copy(name = trans.dubiousMove.txt()),
-            only.copy(name = trans.onlyMove.txt()),
-            zugzwang.copy(name = trans.zugzwang.txt())
-          ),
-          "position" -> List(
-            equal.copy(name = trans.equalPosition.txt()),
-            unclear.copy(name = trans.unclearPosition.txt()),
-            whiteSlightlyBetter.copy(name = trans.whiteIsSlightlyBetter.txt()),
-            blackSlightlyBetter.copy(name = trans.blackIsSlightlyBetter.txt()),
-            whiteQuiteBetter.copy(name = trans.whiteIsBetter.txt()),
-            blackQuiteBetter.copy(name = trans.blackIsBetter.txt()),
-            whiteMuchBetter.copy(name = trans.whiteIsWinning.txt()),
-            blackMuchBetter.copy(name = trans.blackIsWinning.txt())
-          ),
-          "observation" -> List(
-            novelty.copy(name = trans.novelty.txt()),
-            development.copy(name = trans.development.txt()),
-            initiative.copy(name = trans.initiative.txt()),
-            attack.copy(name = trans.attack.txt()),
-            counterplay.copy(name = trans.counterplay.txt()),
-            timeTrouble.copy(name = trans.timeTrouble.txt()),
-            compensation.copy(name = trans.withCompensation.txt()),
-            withIdea.copy(name = trans.withTheIdea.txt())
-          )
-        )
+        lila.study.JsonView.glyphs(lang)
       .withHeaders(CACHE_CONTROL -> "max-age=3600")
         .toFuccess
     }
