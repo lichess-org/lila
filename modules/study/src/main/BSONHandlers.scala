@@ -160,7 +160,6 @@ object BSONHandlers:
       clock = clock,
       crazyData = crazyData,
       children = Branches.empty,
-      // TODO we probably need to have access to the variant to set the opening correctly
       forceVariation = forceVariation
     )
 
@@ -185,7 +184,6 @@ object BSONHandlers:
     yield NewBranch(
       id = id,
       path = path,
-      // TODO we probably need to have access to the variant to set the opening correctly
       forceVariation = forceVariation,
       move = Uci.WithSan(uci, san),
       metas = Metas(
