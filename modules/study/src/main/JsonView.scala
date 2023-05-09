@@ -116,6 +116,13 @@ object JsonView:
     Json.obj("id" -> s._id, "name" -> s.name)
   }
 
+  def metadata(study: Study) = Json.obj(
+    "id"        -> study.id,
+    "name"      -> study.name,
+    "createdAt" -> study.createdAt,
+    "updatedAt" -> study.updatedAt
+  )
+
   def glyphs(lang: play.api.i18n.Lang): JsObject =
     import lila.tree.Node.given
     import lila.i18n.I18nKeys.{ study as trans }

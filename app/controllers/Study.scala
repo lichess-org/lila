@@ -492,6 +492,17 @@ final class Study(
       .toFuccess
   }
 
+  def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read) { me =>
+    val isMe = me.exists(_ is username)
+    apiC
+      .jsonDownload:
+        env.study.studyRepo
+          .sourceByOwner(username.id, isMe)
+          .throttle(if isMe then 50 else 20, 1.second)
+          .map(lila.study.JsonView.metadata)
+      .toFuccess
+  }
+
   private def requestPgnFlags(req: RequestHeader) =
     lila.study.PgnDump.WithFlags(
       comments = getBoolOpt("comments", req) | true,
