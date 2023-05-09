@@ -148,27 +148,29 @@ function voiceSettings(redraw: () => void): VNode {
         )
       ),
     ]),
-    h('div.voice-setting', [
-      h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
-      h(
-        'select#voice-lang',
-        {
-          attrs: { name: 'lang' },
-          hook: bind('change', e => moveCtrl.langPref((e.target as HTMLSelectElement).value)),
-        },
-        [
-          ...supportedLangs.map(l =>
-            h(
-              'option',
-              {
-                attrs: l[0] === moveCtrl.langPref() ? { value: l[0], selected: '' } : { value: l[0] },
-              },
-              l[1]
-            )
+    supportedLangs.length < 2
+      ? null
+      : h('div.voice-setting', [
+          h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+          h(
+            'select#voice-lang',
+            {
+              attrs: { name: 'lang' },
+              hook: bind('change', e => moveCtrl.langPref((e.target as HTMLSelectElement).value)),
+            },
+            [
+              ...supportedLangs.map(l =>
+                h(
+                  'option',
+                  {
+                    attrs: l[0] === moveCtrl.langPref() ? { value: l[0], selected: '' } : { value: l[0] },
+                  },
+                  l[1]
+                )
+              ),
+            ]
           ),
-        ]
-      ),
-    ]),
+        ]),
     $('body').data('user')
       ? h(
           'a.button',

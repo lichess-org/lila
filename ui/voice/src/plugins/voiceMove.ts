@@ -69,7 +69,7 @@ export default (window as any).LichessVoiceMove = (root: RootCtrl, fen: string) 
       this.update(fen);
 
       lichess.mic?.setLang(this.langPref());
-      lichess.mic?.useGrammar(`moves-${this.lang}`, this.init.bind(this));
+      lichess.mic?.useGrammar(`moves-${this.lang}`).then(g => this.init.bind(this)(g));
 
       lichess.mic?.addListener('voiceMove', this.listenFull.bind(this));
       lichess.mic?.addListener('partials', this.listenPartial.bind(this), 'partial');
@@ -98,7 +98,7 @@ export default (window as any).LichessVoiceMove = (root: RootCtrl, fen: string) 
     set lang(lang: string) {
       if (lang === lichess.mic?.lang) return;
       lichess.mic?.setLang(lang);
-      lichess.mic?.useGrammar(`moves-${lang}`, this.init.bind(this));
+      lichess.mic?.useGrammar(`moves-${lang}`).then(g => this.init(g));
     }
 
     get lang() {
