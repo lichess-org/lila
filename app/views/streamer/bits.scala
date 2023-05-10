@@ -11,7 +11,7 @@ object bits:
 
   import trans.streamer.*
 
-  def create(implicit ctx: Context) =
+  def create(using Context) =
     views.html.site.message(
       title = becomeStreamer.txt(),
       icon = Some(""),
@@ -30,7 +30,7 @@ object bits:
       )
     )
 
-  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(implicit ctx: Context) =
+  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(using ctx: Context) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
       s.map { st =>
@@ -107,7 +107,7 @@ object bits:
       }
     )
 
-  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang): Option[Tag] =
+  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context): Option[Tag] =
     ctx.isAuth option {
       val id = s"streamer-subscribe-${s.streamer.userId}"
       label(cls := "streamer-subscribe")(
@@ -124,7 +124,7 @@ object bits:
         trans.subscribe()
       )
     }
-  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang) =
+  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using lang: Lang) =
     span(cls := "streamer-profile")(
       userLink(s.user)
     )
