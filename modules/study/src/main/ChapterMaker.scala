@@ -116,15 +116,15 @@ final private class ChapterMaker(
       withRatings: Boolean,
       initialFen: Option[Fen.Epd] = None
   ): Fu[Chapter] =
-    for {
+    for
       root <- getBestRoot(game, data.pgn, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <-
-        if (data.isDefaultName)
+        if data.isDefaultName then
           StudyChapterName from Namer.gameVsText(game, withRatings)(using lightUser.async)
         else fuccess(data.name)
       _ = notifyChat(study, game, userId)
-    } yield Chapter.make(
+    yield Chapter.make(
       studyId = study.id,
       name = name,
       setup = Chapter.Setup(

@@ -42,7 +42,7 @@ final class PgnDump(
         val fenSituation = ts.fen flatMap Fen.readWithMoveNumber
         makeTree(
           flags keepDelayIf game.playable applyDelay {
-            if (fenSituation.exists(_.situation.color.black)) SanStr("..") +: game.sans
+            if fenSituation.exists(_.situation.color.black) then SanStr("..") +: game.sans
             else game.sans
           },
           fenSituation.fold(Ply.initial)(_.ply),
@@ -91,8 +91,8 @@ final class PgnDump(
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Tags] =
-    gameLightUsers(game) map { (wu, bu) =>
-      Tags {
+    gameLightUsers(game).map: (wu, bu) =>
+      Tags:
         val importedDate = imported.flatMap(_.tags(_.Date))
         List[Option[Tag]](
           Tag(
@@ -149,8 +149,6 @@ final class PgnDump(
             )
           )
         )
-      }
-    }
 
 object PgnDump:
 

@@ -50,18 +50,19 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
 
   // add advices into mainline
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
-    advices.foldLeft(p) { (pgn, advice) =>
-      pgn
-        .updatePly(
-          advice.ply,
-          move =>
-            move.copy(
-              glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-              comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments
-            )
-        )
-        .getOrElse(pgn)
-    }
+    advices
+      .foldLeft(p) { (pgn, advice) =>
+        pgn
+          .updatePly(
+            advice.ply,
+            move =>
+              move.copy(
+                glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
+                comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments
+              )
+          )
+          .getOrElse(pgn)
+      }
 
   private def annotateDrawOffers(pgn: Pgn, drawOffers: GameDrawOffers): Pgn =
     if drawOffers.isEmpty then pgn
