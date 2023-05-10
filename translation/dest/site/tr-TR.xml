@@ -865,6 +865,8 @@
   <string name="useTheReportForm">rapor formunu kullanın</string>
   <string name="toRequestSupport">Destek almak istiyorsanız, %1$s</string>
   <string name="tryTheContactPage">iletişim sayfasını kullanmayı deneyebilirsiniz</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Okuduğunuzdan emin olun: %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">forum görgü kuralları</string>
   <string name="thisTopicIsArchived">Bu konu arşivlenmiş ve yeni yanıtlara kapatılmıştır.</string>
   <string name="joinTheTeamXToPost">Bu forumda paylaşım yapmak için %1$s adlı takıma katılın</string>
   <string name="teamNamedX">%1$s</string>
@@ -946,5 +948,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
   <string name="switchSides">Renk değiştir</string>
   <string name="closingAccountWithdrawAppeal">Hesabınızı kapatırsanız başvurunuz geri çekilecektir</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Etkinlik düzenlemek için ipuçlarımız</string>
+  <string name="ourEventTips">Etkinlik düzenlemek için ipuçlarımız</string>
 </resources>

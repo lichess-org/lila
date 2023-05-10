@@ -26,18 +26,12 @@ final class Export(env: Env) extends LilaController(env):
     key = "export.image.ip"
   )
 
-  private def exportImageOf[A](fetch: Fu[Option[A]])(convert: A => Fu[Result]) =
-    Action.async { implicit req =>
-      fetch flatMap {
-        _.fold(notFoundJson()) { res =>
-          ExportImageRateLimitByIp(req.ipAddress) {
-            ExportImageRateLimitGlobal("-") {
-              convert(res)
-            }(rateLimitedFu)
-          }(rateLimitedFu)
-        }
-      }
-    }
+  private def exportImageOf[A](fetch: Fu[Option[A]])(convert: A => Fu[Result]) = Anon:
+    fetch.flatMap:
+      _.fold(notFoundJson()): res =>
+        ExportImageRateLimitByIp(req.ipAddress) {
+          ExportImageRateLimitGlobal("-")(convert(res))(rateLimitedFu)
+        }(rateLimitedFu)
 
   def gif(id: GameId, color: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo gameWithInitialFen id) { g =>
@@ -49,10 +43,8 @@ final class Export(env: Env) extends LilaController(env):
       ) pipe stream(cacheSeconds = if (g.game.finishedOrAborted) 3600 * 24 else 10)
     }
 
-  def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
-    Action {
-      MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
-    }
+  def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
+    MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url).toFuccess
 
   def gameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo game id) { game =>

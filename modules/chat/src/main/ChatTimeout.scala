@@ -19,8 +19,8 @@ final class ChatTimeout(
 
   def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
     isActive(chat.id, user.id) flatMap {
-      case true => fuccess(false)
-      case false =>
+      if _ then fuccess(false)
+      else
         if (scope == Scope.Global) global put user.id
         coll.insert
           .one(

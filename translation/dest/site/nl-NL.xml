@@ -865,6 +865,8 @@
   <string name="useTheReportForm">gebruik het meldingsformulier</string>
   <string name="toRequestSupport">Om ondersteuning aan te vragen, %1$s</string>
   <string name="tryTheContactPage">probeer de contactpagina</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Lees zeker %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">de regels van het forum</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
   <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>
@@ -948,5 +950,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
   <string name="switchSides">Van kleur wisselen</string>
   <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Onze tips voor het organiseren van evenementen</string>
+  <string name="ourEventTips">Onze tips voor het organiseren van evenementen</string>
 </resources>

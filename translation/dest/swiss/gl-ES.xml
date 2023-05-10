@@ -40,7 +40,7 @@
   <string name="forbiddenPairingsHelp">Xogadores/as que non poden xogar xuntos (irmás, por exemplo). Dous nomes de usuario por liña, separados por un espazo.</string>
   <string name="newSwiss">Novo torneo suízo</string>
   <string name="swissVsArenaQ">Cando debería usar torneos suizos en lugar de areas?</string>
-  <string name="swissVsArenaA">Nun torneo suizo, todas as participantes xogan o mesmo número de partidas e só xogan unha vez con cada opoñente.
+  <string name="swissVsArenaA">Nun torneo suízo, todos os participantes xogan o mesmo número de partidas e só xogan unha vez con cada opoñente.
 Pode ser unha boa opción para clubes e torneos oficiais.</string>
   <string name="pointsCalculationQ">Como se calculan os puntos?</string>
   <string name="pointsCalculationA">Unha victoria vale un punto, un empate é un medio punto e unha pérdida son cero puntos.
@@ -56,8 +56,8 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
   <string name="moreRoundsThanPlayersQ">Que pasa se o torneo ten máis rondas que xogadores/as?</string>
   <string name="moreRoundsThanPlayersA">Cando se xogaron todos os posibles emparellamentos, o torneo remata e declárase un gañador/a.</string>
   <string name="restrictedToTeamsQ">Porque isto está restrinxido aos equipos?</string>
-  <string name="restrictedToTeamsA">Os torneos suizos non están deseñados para o xadrez online, pois esixen puntualidade, dedicación e paciencia dos xogadores.
-Cremos que estas condicións é maís probable que se cumpran nun equipo que en torneos globais.</string>
+  <string name="restrictedToTeamsA">Os torneos suízos non están deseñados para o xadrez online, pois esixen puntualidade, dedicación e paciencia dos xogadores.
+Cremos que é máis probable que se cumpran estas condicións nun equipo que en torneos globais.</string>
   <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
   <string name="numberOfByesA">Un xogador/a ten un \"bye\" de un punto cada vez que o sistema de emparellamento non pode atoparlle opoñente. Adicionalmente, un \"bye\" de medio punto daráselle a un xogador cando entre tardiamente nun torneo.</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador/a non xoga unha partida?</string>

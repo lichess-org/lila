@@ -42,8 +42,8 @@ final class Reopen(
                 fuccess(Left("differentEmail" -> "That account has a different email address."))
               case _ =>
                 closedByMod(user) map {
-                  case true => Left("nope" -> "Sorry, that account can no longer be reopened.")
-                  case _    => Right(user)
+                  if _ then Left("nope" -> "Sorry, that account can no longer be reopened.")
+                  else Right(user)
                 }
             }
         }

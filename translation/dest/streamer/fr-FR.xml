@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">La page de diffusion en continu de Lichess cible votre public avec la langue fournie par votre plateforme de diffusion. Définissez la langue par défaut pour vos diffusions dans l\'application ou le service que vous utilisez.</string>
   <string name="twitchUsername">Votre nom d\'utilisateur Twitch ou votre URL</string>
   <string name="optionalOrEmpty">Optionnel. Laisser vide si aucun</string>
+  <string name="youTubeChannelId">ID de votre chaîne YouTube</string>
   <string name="streamerName">Votre nom de streamer sur Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Restez brief %s caractère max</item>

@@ -207,7 +207,7 @@
   <string name="email">Correo</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
-  <string name="error.weakPassword">Esta contraseña es extremadamente común, y muy fácil de adivinar.</string>
+  <string name="error.weakPassword">Esta contraseña es extremadamente común y fácil de adivinar.</string>
   <string name="error.namePassword">Por favor, no uses tu nombre de usuario como contraseña.</string>
   <string name="blankedPassword">Has utilizado la misma contraseña en otro sitio, y ese sitio se ha visto comprometido. Para garantizar la seguridad de tu cuenta en Lichess, necesitamos que establezcas una nueva contraseña. Gracias por tu comprensión.</string>
   <string name="youAreLeavingLichess">Estás saliendo de Lichess</string>
@@ -216,7 +216,7 @@
   <string name="passwordSuggestion">No establezcas una contraseña sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailSuggestion">No establezcas una dirección de correo electrónico sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailConfirmHelp">Ayuda con confirmación de correo electrónico</string>
-  <string name="emailConfirmNotReceived">¿No recibiste tu correo de confirmación después de registrarte?</string>
+  <string name="emailConfirmNotReceived">¿No recibiste un correo de confirmación después de registrarte?</string>
   <string name="whatSignupUsername">¿Qué nombre de usuario utilizaste para registrarte?</string>
   <string name="usernameNotFound">No pudimos encontrar ningún usuario con este nombre: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Puedes usar este nombre de usuario para crear una nueva cuenta</string>
@@ -381,7 +381,7 @@
   <string name="save">Guardar</string>
   <string name="leaderboard">Clasificación</string>
   <string name="screenshotCurrentPosition">Hacer captura de pantalla de la posición actual</string>
-  <string name="gameAsGIF">GIF de la partida</string>
+  <string name="gameAsGIF">Guardar partida en formato GIF</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>
@@ -865,6 +865,8 @@
   <string name="useTheReportForm">usa el formulario de informe</string>
   <string name="toRequestSupport">Para solicitar soporte, %1$s</string>
   <string name="tryTheContactPage">prueba la página de contacto</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Asegúrate de leer %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">las reglas del foro</string>
   <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no admite respuestas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar en este foro</string>
   <string name="teamNamedX">equipo %1$s</string>

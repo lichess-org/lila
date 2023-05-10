@@ -1,5 +1,6 @@
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
+import { renderClock } from 'common/mini-game';
 import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
@@ -7,14 +8,6 @@ import { opposite } from 'chessground/util';
 export default function (ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
 }
-
-const renderClock = (color: Color, time: number) =>
-  h(`span.mini-game__clock.mini-game__clock--${color}`, {
-    attrs: {
-      'data-time': time,
-      'data-managed': 1,
-    },
-  });
 
 const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
   const game = pairing.game,

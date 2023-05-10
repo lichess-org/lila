@@ -61,13 +61,13 @@ final class KaladinApi(
     sequence(user) { prev =>
       prev.fold(KaladinUser.make(user, requester).some)(_.queueAgain(requester)) ?? { req =>
         hasEnoughRecentMoves(user) flatMap {
-          case false =>
-            lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
-            funit
-          case true =>
+          if _ then
             lila.mon.mod.kaladin.request(requester.name).increment()
             insightApi.indexAll(user.user) >>
               coll(_.update.one($id(req._id), req, upsert = true)).void
+          else
+            lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
+            funit
         }
       }
     }
@@ -124,8 +124,8 @@ final class KaladinApi(
 
     if (pred.percent >= thresholds.get().mark)
       userRepo.hasTitle(user.id) flatMap {
-        case true => sendReport
-        case false =>
+        if _ then sendReport
+        else
           modApi.autoMark(user.suspectId, User.kaladinId into ModId, pred.note) >>-
             lila.mon.mod.kaladin.mark.increment().unit
       }

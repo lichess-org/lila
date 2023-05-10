@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">lichess.org аккаунт ритӀухъ гьабе, %s</string>
+  <string name="emailConfirm_ignore">Мун Lichess-алда хӀисабалде восун ватичӀони дуца хӀинкъичӀого гьаб хабар малъикъ гьабизе бегьула.</string>
+  <string name="welcome_subject">ЛъикӀ щварав lichess.org-алъуве, %s</string>
+  <string name="logInToLichess">lichess.org-алъуве лъугьа, %s</string>
+  <string name="common_orPaste">(ТӀаде цуй хӀалтӀулеб гьечӀищ? Дур браузералъубе гьеб лъезе хӀалбихье!)</string>
+</resources>

@@ -945,6 +945,8 @@
   <string name="useTheReportForm">použi nahlasovací formulár</string>
   <string name="toRequestSupport">Pre vyžiadanie podpory, %1$s</string>
   <string name="tryTheContactPage">vyskúšaj stránku Kontakt</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Určite si prečítajte %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">etiketu fóra</string>
   <string name="thisTopicIsArchived">Táto téma bola presunutá do archívu a nemožno už na ňu odpovedať.</string>
   <string name="joinTheTeamXToPost">Pripoj sa k %1$s, aby si mohol uverejňovať príspevky v tomto fóre</string>
   <string name="teamNamedX">%1$s tím</string>
@@ -1027,5 +1029,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
   <string name="switchSides">Vymeniť strany</string>
   <string name="closingAccountWithdrawAppeal">Zrušením Vášho účtu bude Vaše odvolanie stiahnuté</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naše tipy ohľadom organizovania podujatí</string>
+  <string name="ourEventTips">Naše tipy ohľadom organizovania podujatí</string>
 </resources>

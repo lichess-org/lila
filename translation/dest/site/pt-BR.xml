@@ -865,6 +865,8 @@
   <string name="useTheReportForm">use o formulário de denúncia</string>
   <string name="toRequestSupport">Para solicitar ajuda, %1$s</string>
   <string name="tryTheContactPage">tente a página de contato</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Certifique-se de ler %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">as regras do fórum</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e não pode mais ser respondido.</string>
   <string name="joinTheTeamXToPost">Junte-se a %1$s para publicar neste fórum</string>
   <string name="teamNamedX">Equipe %1$s</string>
@@ -947,5 +949,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="lichessDbExplanation">Amostra de partidas rankeadas de todos os jogadores do Lichess</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar sua conta anulará seu apelo</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Nossas dicas para organização de eventos</string>
+  <string name="ourEventTips">Nossas dicas para organização de eventos</string>
 </resources>

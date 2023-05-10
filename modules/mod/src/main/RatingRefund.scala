@@ -27,8 +27,8 @@ final private class RatingRefund(
 
   private def apply(sus: Suspect): Funit =
     logApi.wasUnengined(sus) flatMap {
-      case true => funit
-      case false =>
+      if _ then funit
+      else
         def lastGames =
           gameRepo.coll
             .find(

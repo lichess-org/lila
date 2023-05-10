@@ -4,6 +4,7 @@
   <string name="lichessStreamer">Lichess стриймър</string>
   <string name="live">НА ЖИВО!</string>
   <string name="offline">ИЗВЪН ЛИНИЯ</string>
+  <string name="currentlyStreaming">Текущо предаване: %s</string>
   <string name="lastStream">Последен стрийм %s</string>
   <string name="becomeStreamer">Станете Lichess стриймър</string>
   <string name="doYouHaveStream">Имате ли канал в Twitch или YouTube?</string>
@@ -17,12 +18,18 @@
   <string name="rule1">Включете ключовата дума \"lichess.org\" в заглавието на стрийма Ви и използвайте категорията \"Шах\", когато стриймвате в Lichess.</string>
   <string name="rule2">Премахнете ключовата дума, когато стриймвате неща, които не са в Lichess.</string>
   <string name="rule3">Lichess ще открие стрийма автоматично и ще позволи следните предимства:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Прочетете нашите %s, за да гарантирате честна игра за всички по време на потока.</string>
+  <string name="streamingFairplayFAQ">стрийминг ЧЗВ. за честна игра</string>
   <string name="perks">Предимства на стриймването с ключовата дума</string>
   <string name="perk1">Вземете икона на пламтяща лента в профила си в Lichess.</string>
   <string name="perk2">Влезте в горната част на списъка на стриймъри.</string>
   <string name="perk3">Известие до последователите ви в Lichess.</string>
+  <string name="perk4">Покажете своя поток във вашите игри, турнири и проучвания.</string>
+  <string name="approved">Вашият стрийм е одобрен.</string>
+  <string name="pendingReview">Вашият стрийм се преглежда от модератори.</string>
   <string name="pleaseFillIn">Моля, попълнете информацията за своя стрийм и качете снимка.</string>
   <string name="twitchUsername">Вашето потребителско име в Twitch или URL адрес</string>
+  <string name="youTubeChannelId">ID на канала Ви в YouTube</string>
   <string name="streamerName">Име на вашата стрийм страница в Lichess</string>
   <string name="visibility">Видимо на публичната страницата със стриймъри</string>
   <string name="whenApproved">Когато е одобрена от модераторите</string>

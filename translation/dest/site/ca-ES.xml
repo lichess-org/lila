@@ -865,6 +865,8 @@
   <string name="useTheReportForm">utilitza el formulari</string>
   <string name="toRequestSupport">Per demanar suport, %1$s</string>
   <string name="tryTheContactPage">prova la plana de contacte</string>
+  <string name="makeSureToRead">Assegureu-vos de llegir %1$s</string>
+  <string name="theForumEtiquette">l\'etiqueta del fòrum</string>
   <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
   <string name="joinTheTeamXToPost">Uneix-te a %1$s, per poder publicar</string>
   <string name="teamNamedX">%1$s equip</string>

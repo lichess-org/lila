@@ -20,8 +20,8 @@ final class PerfsUpdater(
   // returns rating diffs
   def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =
     botFarming(game) flatMap {
-      case true => fuccess(none)
-      case _ =>
+      if _ then fuccess(none)
+      else
         PerfPicker.main(game) ?? { mainPerf =>
           (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
             val ratingsW = mkRatings(white.perfs)

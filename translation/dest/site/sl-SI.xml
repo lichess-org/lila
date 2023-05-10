@@ -908,7 +908,7 @@
   </plurals>
   <string name="sorry">Oprostite :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
-  <string name="timeoutExpires">Omejitev poteče v %s.</string>
+  <string name="timeoutExpires">Omejitev poteče čez %s.</string>
   <string name="why">Zakaj?</string>
   <string name="pleasantChessExperience">Želimo, da imajo z igranjem vsi prijetno izkušnjo.</string>
   <string name="goodPractice">Da bi to dosegli, moramo zagotoviti, da se vsi igralci držijo dobre prakse.</string>
@@ -944,6 +944,8 @@
   <string name="useTheReportForm">uporabi prijavni obrazec</string>
   <string name="toRequestSupport">Za zahtevo podpore, %1$s</string>
   <string name="tryTheContactPage">poskusi s stranjo za stike</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Ne pozabite prebrati %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">forumski bonton</string>
   <string name="thisTopicIsArchived">Ta tema je arhivirana in nanjo ni mogoče več odgovarjati.</string>
   <string name="joinTheTeamXToPost">Pridruži se ekipi %1$s, da boš lahko objavljal sporočila na forumu</string>
   <string name="teamNamedX">ekipa %1$s</string>
@@ -1027,5 +1029,5 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="lichessDbExplanation">Rangirane igre, vzorčene od vseh igralcev Lichess</string>
   <string name="switchSides">Zamenjaj strani</string>
   <string name="closingAccountWithdrawAppeal">Z zaprtjem računa bo vaša pritožba umaknjena</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Naši nasveti za organizacijo dogodkov</string>
+  <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
 </resources>

@@ -47,14 +47,14 @@ final private[api] class GameApi(
               G.playerUids -> user.id,
               G.status $gte chess.Status.Mate.id,
               G.analysed -> analysed.map[BSONValue] {
-                case true => BSONBoolean(true)
-                case _    => $doc("$exists" -> false)
+                if _ then BSONBoolean(true)
+                else $doc("$exists" -> false)
               }
             )
         } ++ $doc(
           G.rated -> rated.map[BSONValue] {
-            case true => BSONBoolean(true)
-            case _    => $doc("$exists" -> false)
+            if _ then BSONBoolean(true)
+            else $doc("$exists" -> false)
           }
         ),
         projection = none,
@@ -65,8 +65,8 @@ final private[api] class GameApi(
         else
           fuccess {
             rated.fold(user.count.game) {
-              case true => user.count.rated
-              case _    => user.count.casual
+              if _ then user.count.rated
+              else user.count.casual
             }
           }
       ),
@@ -101,14 +101,14 @@ final private[api] class GameApi(
             lila.game.Query.opponents(users._1, users._2) ++ $doc(
               G.status $gte chess.Status.Mate.id,
               G.analysed -> analysed.map[BSONValue] {
-                case true => BSONBoolean(true)
-                case _    => $doc("$exists" -> false)
+                if _ then BSONBoolean(true)
+                else $doc("$exists" -> false)
               }
             )
         } ++ $doc(
           G.rated -> rated.map[BSONValue] {
-            case true => BSONBoolean(true)
-            case _    => $doc("$exists" -> false)
+            if _ then BSONBoolean(true)
+            else $doc("$exists" -> false)
           }
         ),
         projection = none,
@@ -145,14 +145,14 @@ final private[api] class GameApi(
             lila.game.Query.opponents(userIds) ++ $doc(
               G.status $gte chess.Status.Mate.id,
               G.analysed -> analysed.map[BSONValue] {
-                case true => BSONBoolean(true)
-                case _    => $doc("$exists" -> false)
+                if _ then BSONBoolean(true)
+                else $doc("$exists" -> false)
               }
             )
         } ++ $doc(
           G.rated -> rated.map[BSONValue] {
-            case true => BSONBoolean(true)
-            case _    => $doc("$exists" -> false)
+            if _ then BSONBoolean(true)
+            else $doc("$exists" -> false)
           },
           G.createdAt $gte since
         ),

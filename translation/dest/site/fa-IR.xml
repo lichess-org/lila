@@ -863,6 +863,8 @@
   <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
   <string name="toRequestSupport">جهت درخواست پشتیبانی، %1$s</string>
   <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">حتما %1$s را مطالعه کنید</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">آداب انجمن</string>
   <string name="thisTopicIsArchived">این موضوع بایگانی شده است و دیگر نمی توان به آن پاسخ داد.</string>
   <string name="joinTheTeamXToPost">به %1$s ملحق شوید تا در این انجمن پست بگذارید</string>
   <string name="teamNamedX">تیم %1$s</string>
@@ -944,5 +946,5 @@
   <string name="lichessDbExplanation">تمام بازی های امتیازی بازیکنان لیچس نمونه برداری شده اند</string>
   <string name="switchSides">تعویض سمت</string>
   <string name="closingAccountWithdrawAppeal">با بستن حساب خود درخواست تجدید نظر خود را پس خواهید گرفت</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">پیشنهادهای ما برای برگزاری رویدادها</string>
+  <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>
 </resources>

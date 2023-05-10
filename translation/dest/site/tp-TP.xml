@@ -59,6 +59,7 @@
   <string name="depthX">sona pi tawa kama: %s</string>
   <string name="usingServerAnalysis">kepeken sona tan ilo pana</string>
   <string name="loadingEngine">ilo sona li kama...</string>
+  <string name="calculatingMoves">mi pali e tawa...</string>
   <string name="engineFailed">kepeken pakala e sona ilo</string>
   <string name="cloudAnalysis">sona tan ilo sona ante</string>
   <string name="goDeeper">o alasa e sona sin</string>
@@ -366,6 +367,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="apply">kama lon</string>
   <string name="save">awen</string>
   <string name="leaderboard">jan pi pona mute</string>
+  <string name="gameAsGIF">musi kepeken lipu kama</string>
   <string name="pasteTheFenStringHere">o pana e nimi FEN lon ni</string>
   <string name="pasteThePgnStringHere">o pana e nimi PGN lon ni</string>
   <string name="orUploadPgnFile">ante la, sina ken pana e lipu PGN</string>
@@ -444,6 +446,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tournamentIsStarting">musi li open</string>
   <string name="tournamentPairingsAreNowClosed">mi pini pali e linja tawa jan musi pi utala musi ni.</string>
   <string name="standByX">jan %s o, mi lukin e jan musi ante tawa sina. o awen!</string>
+  <string name="pause">o tawa ala</string>
   <string name="resume">o awen</string>
   <string name="youArePlaying">sina musi lon tenpo ni!</string>
   <string name="winRate">pini pona</string>
@@ -642,6 +645,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tournamentFAQ">wile sona pi jan mute pi utala musi</string>
   <string name="timeBeforeTournamentStarts">tenpo open pi utala musi li kama lon</string>
   <string name="averageCentipawnLoss">nanpa insa CPL</string>
+  <string name="accuracy">wawa</string>
   <string name="keyboardShortcuts">lipu pi pali ale pi ilo nena</string>
   <string name="keyMoveBackwardOrForward">o tawa sinpin/monsi</string>
   <string name="keyGoToStartOrEnd">o tawa open/pini</string>
@@ -837,6 +841,8 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="useTheReportForm">o toki kepeken lipu ni</string>
   <string name="toRequestSupport">sina wile toki tawa mi mute pi ilo Lichess la, %1$s</string>
   <string name="tryTheContactPage">o toki kepeken lipu \"toki tawa mi mute\"</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">o lukin e %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">nasin pi ma toki</string>
   <string name="thisTopicIsArchived">toki ni li awen. jan li ken ala toki lon ona lon tenpo ni.</string>
   <string name="joinTheTeamXToPost">sina wile toki lon tomo toki ni la, o kama tawa kulupu \"%1$s\"</string>
   <string name="teamNamedX">kulupu %1$s</string>

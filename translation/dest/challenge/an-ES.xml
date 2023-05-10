@@ -6,10 +6,10 @@
   <string name="challengeAccepted">Desafío acceptau!</string>
   <string name="challengeCanceled">Desafío cancelau.</string>
   <string name="registerToSendChallenges">Has d\'estar rechistrau pa ninviar desafíos.</string>
-  <string name="youCannotChallengeX">No puetz desafiar a %s.</string>
+  <string name="youCannotChallengeX">No puez desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s no accepta desafíos.</string>
   <string name="yourXRatingIsTooFarFromY">La tuya puntuación de %1$s ye masiau aleixada de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No puetz ninviar desafíos perque la tuya puntuación de %s ye provisional.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">No puez ninviar desafíos perque la tuya puntuación de %s ye provisional.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s nomás accepta desafíos d\'os suyos amigos.</string>
   <string name="declineGeneric">No accepto desafíos en este momento.</string>
   <string name="declineLater">No me viene bien agora, torna-me-lo a demandar mas enta debant.</string>
@@ -22,4 +22,5 @@
   <string name="declineVariant">No quiero chugar esta variant en este momento.</string>
   <string name="declineNoBot">No accepto desafíos de bots.</string>
   <string name="declineOnlyBot">Nomás accepto desafíos de bots.</string>
+  <string name="inviteLichessUser">U convida a un usuario de Lichess:</string>
 </resources>

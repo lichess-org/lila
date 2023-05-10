@@ -946,6 +946,8 @@
   <string name="useTheReportForm">використовуйте форму звіту</string>
   <string name="toRequestSupport">Для запиту підтримки %1$s</string>
   <string name="tryTheContactPage">спробуйте сторінку контактів</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Варто прочитати %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">етикет форуму</string>
   <string name="thisTopicIsArchived">Ця тема була заархівована і додати відповідь більше не можна.</string>
   <string name="joinTheTeamXToPost">Приєднайтесь до %1$s, щоб писати у цьому форумі</string>
   <string name="teamNamedX">%1$s команда</string>
@@ -1027,5 +1029,5 @@
   <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Наші поради щодо організації подій</string>
+  <string name="ourEventTips">Наші поради щодо організації подій</string>
 </resources>

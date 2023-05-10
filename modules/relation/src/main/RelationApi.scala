@@ -171,8 +171,8 @@ final class RelationApi(
   def block(u1: UserId, u2: UserId): Funit =
     (u1 != u2 && u2 != User.lichessId) ?? {
       fetchBlocks(u1, u2) flatMap {
-        case true => funit
-        case _ =>
+        if _ then funit
+        else
           repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
             Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
             Bus.publish(
@@ -201,7 +201,7 @@ final class RelationApi(
   def unblock(u1: UserId, u2: UserId): Funit =
     (u1 != u2) ?? {
       fetchBlocks(u1, u2) flatMap {
-        case true =>
+        if _ then
           repo.unblock(u1, u2) >>- {
             Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
             Bus.publish(
@@ -210,7 +210,7 @@ final class RelationApi(
             )
             lila.mon.relation.unblock.increment().unit
           }
-        case _ => funit
+        else funit
       }
     }
 

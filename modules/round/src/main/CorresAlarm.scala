@@ -64,8 +64,8 @@ final private class CorresAlarm(
           val pov = Pov.ofCurrentTurn(game)
           deleteAlarm(game.id) zip
             pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
-              case true  => // already looking at the game
-              case false => Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
+              if _ then () // already looking at the game
+              else Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
             }
         case (alarm, None) => deleteAlarm(alarm._id)
       }

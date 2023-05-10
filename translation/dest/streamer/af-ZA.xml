@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Die Lichess uitsaaiingsblaai teiken jou gehoor met die voorsiende taal van jou uitsaaiings platform. Stel die versterkte taal vir jou skaak strome, in die uitsaaiings toepassing of diens wat jy gebruik.</string>
   <string name="twitchUsername">Jou Twitch gebruikersnaam of URL</string>
   <string name="optionalOrEmpty">Optioneel. Los leeg indien jy nie een het nie</string>
+  <string name="youTubeChannelId">Jou YouTube-kanaal-ID</string>
   <string name="streamerName">Jou uitsendingsnaam op Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hou dit kort: %s karakter maks</item>

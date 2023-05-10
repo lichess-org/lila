@@ -826,7 +826,7 @@
   <string name="light">בהיר</string>
   <string name="dark">כהה</string>
   <string name="transparent">שקוף</string>
-  <string name="deviceTheme">עיצוב המכשיר</string>
+  <string name="deviceTheme">לפי הגדרות המכשיר</string>
   <string name="backgroundImageUrl">כתובת תמונת רקע (URL):</string>
   <string name="boardGeometry">תצוגת הלוח</string>
   <string name="boardTheme">עיצוב הלוח</string>
@@ -945,6 +945,8 @@
   <string name="useTheReportForm">השתמשו בטופס הדיווח</string>
   <string name="toRequestSupport">לבקשת תמיכה, %1$s</string>
   <string name="tryTheContactPage">נסו את העמוד ״צרו קשר״</string>
+  <string name="makeSureToRead">קראו את %1$s</string>
+  <string name="theForumEtiquette">כללי ההשתתפות בפורומים</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
   <string name="joinTheTeamXToPost">הצטרף ל %1$s כדי לפרסם בפורום הזה</string>
   <string name="teamNamedX">הקבוצה %1$s</string>

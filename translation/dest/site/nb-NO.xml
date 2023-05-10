@@ -865,6 +865,8 @@
   <string name="useTheReportForm">bruk rapportskjemaet</string>
   <string name="toRequestSupport">For å få hjelp, %1$s</string>
   <string name="tryTheContactPage">prøv kontaktsiden</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Pass på å lese %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">forumetiketten</string>
   <string name="thisTopicIsArchived">Dette emnet er arkivert og kan ikke lenger besvares.</string>
   <string name="joinTheTeamXToPost">Bli med i %1$s for å skrive innlegg i dette forumet</string>
   <string name="teamNamedX">laget %1$s</string>
@@ -948,5 +950,5 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="lichessDbExplanation">Ratede partier spilt hos Lichess</string>
   <string name="switchSides">Skift side</string>
   <string name="closingAccountWithdrawAppeal">Klagen din blir trukket hvis du stenger kontoen din</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Tips for arrangementer</string>
+  <string name="ourEventTips">Tips for arrangementer</string>
 </resources>

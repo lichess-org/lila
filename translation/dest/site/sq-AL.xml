@@ -867,6 +867,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="useTheReportForm">përdorni formularin e raportimeve</string>
   <string name="toRequestSupport">Për të kërkuar asistencë, %1$s</string>
   <string name="tryTheContactPage">provoni faqen e kontaktit</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Mos harroni të lexoni %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">rregullat e etiketës në forum</string>
   <string name="thisTopicIsArchived">Kjo temë është arkivuar dhe në të s’mund të përgjigjen më.</string>
   <string name="joinTheTeamXToPost">Që të postoni në këtë forum, bëhuni pjesë e %1$s</string>
   <string name="teamNamedX">Ekipi %1$s</string>
@@ -950,5 +952,5 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="lichessDbExplanation">Lojëra me vlerësim, marrë nga krejt lojëtarët e Lichess-it</string>
   <string name="switchSides">Ndërroni palët</string>
   <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Këshillat tona për organizim veprimtarish</string>
+  <string name="ourEventTips">Këshillat tona për organizim veprimtarish</string>
 </resources>

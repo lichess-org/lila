@@ -874,6 +874,8 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="useTheReportForm">benutz euses Mälde-Formular</string>
   <string name="toRequestSupport">Zum Hilf überchoo, %1$s</string>
   <string name="tryTheContactPage">probiers uf de Kontaktsite</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Lies unbedingt %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">d\'Forum Aschtandsregle</string>
   <string name="thisTopicIsArchived">Das Thema isch archiviert und chann nüme beantwortet werde.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bi, um i dem Forum Biträg z\'schribe</string>
   <string name="teamNamedX">%1$s Team</string>
@@ -958,5 +960,5 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="lichessDbExplanation">Gwerteti Schpiel vu allne Lichess Schpiller</string>
   <string name="switchSides">Farb wächsle</string>
   <string name="closingAccountWithdrawAppeal">Wänn du dis Konto schlüssisch, ziehsch du au din Ischpruch zrugg</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Eusi Tipps, fürs Organisiere vu Events</string>
+  <string name="ourEventTips">Eusi Tipps, fürs Organisiere vu Events</string>
 </resources>

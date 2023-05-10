@@ -949,5 +949,5 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="lichessDbExplanation">Rankade spel från alla Lichess spelare</string>
   <string name="switchSides">Växla sida</string>
   <string name="closingAccountWithdrawAppeal">Att avsluta ditt konto kommer att dra tillbaka ditt överklagande</string>
-  <string name="ourEventTips" comment="ourEventTips&#10;&#10;Tips in the sense of advice.&#10;&#10;A link that leads to https://lichess.org/page/event-tips&#10;&#10;That page describes best practices for events such as tournaments. It includes guidance on configuring the tournament, advertising it, and rules about prizes.">Våra tips för anordnande av evenemang</string>
+  <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
 </resources>
