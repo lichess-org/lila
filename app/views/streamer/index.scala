@@ -54,7 +54,10 @@ object index:
               }
             )
           ),
-          !requests option bits.subscribeButtonFor(s)
+          div(cls := "streamer-footer")(
+            !requests option bits.subscribeButtonFor(s),
+            bits.streamerProfile(s)
+          )
         )
       )
 
