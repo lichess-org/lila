@@ -332,4 +332,4 @@ final class Round(
   }
 
   def help = Open:
-    Ok(html.site.keyboardHelpModal.round).toFuccess
+    Ok(html.site.helpModal.round).toFuccess

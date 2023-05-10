@@ -44,7 +44,7 @@ export default class Persistence {
 
   async merge(): Promise<void> {
     try {
-      this.moveDb = await objectStorage<AnalyseState>('analyse-state');
+      this.moveDb = await objectStorage<AnalyseState>({ store: 'analyse-state', db: 'lichess' });
       const state = await this.moveDb.get(this.ctrl.data.game.id);
       if (state?.root && state?.path) {
         this.ctrl.tree.merge(state.root);

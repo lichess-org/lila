@@ -24,7 +24,8 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
+import { makeVoiceMove, VoiceMove, RootCtrl as VoiceRoot } from 'voice';
+import { ctrl as makeKeyboardMove, KeyboardMove, RootController as KeyboardRoot } from 'keyboardMove';
 import { defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
@@ -87,28 +88,28 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   let keyboardMove: KeyboardMove | undefined;
+  let voiceMove: VoiceMove | undefined;
 
   function setChessground(this: Controller, cg: CgApi): void {
     ground(cg);
-    if (opts.pref.keyboardMove) {
-      keyboardMove = makeKeyboardMove(
-        {
-          data: {
-            game: { variant: { key: 'standard' } },
-            player: { color: vm.pov },
-          },
-          chessground: cg,
-          sendMove: playUserMove,
-          redraw: this.redraw,
-          userJumpPlyDelta,
-          next: nextPuzzle,
-          vote,
-        },
-        { fen: this.vm.node.fen }
-      );
-      this.keyboardMove = keyboardMove;
-      requestAnimationFrame(() => this.redraw());
-    }
+    const makeRoot = () => ({
+      data: {
+        game: { variant: { key: 'standard' } },
+        player: { color: vm.pov },
+      },
+      chessground: cg,
+      sendMove: playUserMove,
+      redraw: this.redraw,
+      flipNow: flip,
+      userJumpPlyDelta,
+      next: nextPuzzle,
+      vote,
+      solve: viewSolution,
+    });
+    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
+    if (opts.pref.keyboardMove)
+      this.keyboardMove = keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.vm.node.fen });
+    requestAnimationFrame(() => this.redraw());
   }
 
   function withGround<A>(f: (cg: CgApi) => A): A | undefined {
@@ -205,6 +206,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
+    voiceMove?.update(vm.node.fen);
     keyboardMove?.update({ fen: vm.node.fen });
   }
 
@@ -484,6 +486,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
     keyboardMove?.update({ fen: vm.node.fen });
+    voiceMove?.update(vm.node.fen);
     lichess.pubsub.emit('ply', vm.node.ply);
   }
 
@@ -623,6 +626,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     setChessground,
     ground,
     makeCgOpts,
+    voiceMove,
     keyboardMove,
     keyboardHelp,
     userJump,

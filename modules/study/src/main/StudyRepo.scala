@@ -9,8 +9,8 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
+    Executor,
+    akka.stream.Materializer
 ):
 
   import BSONHandlers.given
@@ -70,14 +70,12 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def countByOwner(ownerId: UserId) = coll(_.countSel(selectOwnerId(ownerId)))
 
   def sourceByOwner(ownerId: UserId, isMe: Boolean): Source[Study, ?] =
-    Source futureSource {
-      coll map {
+    Source.futureSource:
+      coll.map:
         _.find(selectOwnerId(ownerId) ++ (!isMe ?? selectPublic))
           .sort($sort desc "updatedAt")
           .cursor[Study](readPreference = readPref)
           .documentSource()
-      }
-    }
 
   def insert(s: Study): Funit =
     coll {

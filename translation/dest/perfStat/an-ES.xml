@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">No s\'han chugau suficients partidas pa establir una puntuación fiable.</string>
   <string name="progressOverLastXGames">Progresión en as zagueras %s partidas:</string>
   <string name="ratingDeviation">Desviación d\'a puntuación: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Una valor mas baixa significa que la puntuación ye mas estable. Per alto de %1$s, la puntación ye provisional. Pa que s\'incluiga en as clasificacions, este valor ha d\'estar menor de %2$s (escaques estándard) u %3$s (variants).</string>
   <string name="totalGames">Partidas totals</string>
   <string name="ratedGames">Partidas per puntos</string>
   <string name="tournamentGames">Partidas de torneyo</string>

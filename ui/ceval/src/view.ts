@@ -1,5 +1,5 @@
 import * as winningChances from './winningChances';
-import stepwiseScroll from 'common/wheel';
+import { stepwiseScroll } from 'common/scroll';
 import { bind } from 'common/snabbdom';
 import { defined, notNull } from 'common';
 import { Eval, ParentCtrl, NodeEvals } from './types';

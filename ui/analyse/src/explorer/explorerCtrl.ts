@@ -1,10 +1,11 @@
 import { Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
+import { fenColor } from 'common/mini-game';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';
-import { winnerOf, colorOf } from './explorerUtil';
+import { winnerOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
@@ -217,7 +218,7 @@ export default class ExplorerCtrl {
     return {
       fen,
       best: move && move.uci,
-      winner: res.checkmate ? opposite(colorOf(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
+      winner: res.checkmate ? opposite(fenColor(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
     } as SimpleTablebaseHit;
   };
 }

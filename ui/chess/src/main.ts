@@ -1,6 +1,6 @@
 import { piotr } from './piotr';
 
-export { type SanToUci, sanWriter } from './sanWriter';
+export * from './sanWriter';
 
 export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
@@ -9,6 +9,16 @@ export function fixCrazySan(san: San): San {
 }
 
 export type Dests = Map<Key, Key[]>;
+
+export function destsToUcis(dests: Dests): Uci[] {
+  const ucis: string[] = [];
+  for (const [orig, d] of dests) {
+    d.forEach(function (dest) {
+      ucis.push(orig + dest);
+    });
+  }
+  return ucis;
+}
 
 export function readDests(lines?: string): Dests | null {
   if (typeof lines === 'undefined') return null;
