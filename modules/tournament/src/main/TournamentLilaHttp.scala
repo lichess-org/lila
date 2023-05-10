@@ -68,8 +68,7 @@ final class TournamentLilaHttp(
           json <- playerJson(
             tour,
             sheet,
-            RankedPlayer(Rank(index.toInt + 1), player),
-            streakable = tour.streakable
+            RankedPlayer(Rank(index.toInt + 1), player)
           )
         } yield json
       }
@@ -92,8 +91,7 @@ final class TournamentLilaHttp(
   private def playerJson(
       tour: Tournament,
       sheet: arena.Sheet,
-      rankedPlayer: RankedPlayer,
-      streakable: Boolean
+      rankedPlayer: RankedPlayer
   )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
     lightUserApi asyncFallback p.userId map { light =>

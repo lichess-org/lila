@@ -23,7 +23,6 @@ final private class MsgSecurity(
     scheduler: Scheduler
 ):
 
-  import BsonHandlers.given
   import MsgSecurity.*
 
   private object limitCost:

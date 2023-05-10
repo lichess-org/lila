@@ -1,7 +1,7 @@
 package lila.study
 
 import BSONHandlers.given
-import chess.{ ByColor, Centis, Color, Outcome, Ply }
+import chess.{ ByColor, Centis, Color, Outcome }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache

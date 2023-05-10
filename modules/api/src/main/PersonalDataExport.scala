@@ -142,17 +142,6 @@ final class PersonalDataExport(
         .map { doc => doc.string("l").??(_.drop(user.id.value.size + 1)) }
         .throttle(heavyPerSecond, 1 second)
 
-    val privateGameChats =
-      Source(List(textTitle("Private game chat messages"))) concat
-        gameChatsLookup(
-          $lookup.simple(
-            from = chatEnv.coll,
-            as = "chat",
-            local = "_id",
-            foreign = "_id"
-          )
-        )
-
     val spectatorGameChats =
       Source(List(textTitle("Spectator game chat messages"))) concat
         gameChatsLookup(
@@ -222,7 +211,6 @@ final class PersonalDataExport(
       ublogPosts,
       forumPosts,
       privateMessages,
-      // privateGameChats,
       spectatorGameChats,
       gameNotes,
       outro

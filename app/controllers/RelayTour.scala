@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import scala.annotation.nowarn
 import views.*
 
 import lila.api.Context
@@ -112,7 +111,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def redirectOrApiTour(@nowarn("msg=unused") slug: String, id: TourModel.Id) = Open:
+  def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:
     env.relay.api tourById id flatMapz { tour =>
       render.async:
         case Accepts.Json() =>

@@ -3,7 +3,6 @@ package lila.relay
 import akka.actor.*
 import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
-import com.github.benmanes.caffeine.cache.Cache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
 import play.api.libs.ws.StandaloneWSClient

@@ -6,7 +6,6 @@ import com.softwaremill.macwire.*
 import lila.common.config.CollName
 import lila.common.autoconfig.given
 
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db

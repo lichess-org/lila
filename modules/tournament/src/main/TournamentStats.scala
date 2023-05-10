@@ -3,7 +3,7 @@ package lila.tournament
 import reactivemongo.api.bson.*
 
 import chess.Color
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 
 final class TournamentStatsApi(
     playerRepo: PlayerRepo,

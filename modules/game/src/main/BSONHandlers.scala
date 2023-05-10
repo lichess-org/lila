@@ -21,7 +21,6 @@ import scala.util.{ Success, Try }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.common.Days
-import scala.annotation.nowarn
 
 object BSONHandlers:
 
@@ -57,7 +56,7 @@ object BSONHandlers:
         },
         promoted = chess.bitboard.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
       )
-    def writes(@nowarn w: BSON.Writer, o: Crazyhouse.Data) =
+    def writes(w: BSON.Writer, o: Crazyhouse.Data) =
       def roles(color: Color) = o.pockets(color).values.flatMap { (role, nb) =>
         List.fill(nb)(role)
       }

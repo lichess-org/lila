@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
 final class SwissTrf(
@@ -97,7 +96,6 @@ final class SwissTrf(
   def fetchPlayerIds(swiss: Swiss): Fu[PlayerIds] =
     SwissPlayer
       .fields { p =>
-        import BsonHandlers.given
         mongo.player
           .aggregateOne() { framework =>
             import framework.*

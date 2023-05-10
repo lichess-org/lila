@@ -7,7 +7,6 @@ import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ Swiss, SwissForm }
-import lila.tournament.TournamentForm
 import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:

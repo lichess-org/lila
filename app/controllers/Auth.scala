@@ -486,7 +486,7 @@ final class Auth(
             Ok(html.auth.bits.tokenLoginConfirmation(user, newToken, get("referrer")))
           }
 
-  def loginWithTokenPost(token: String, @annotation.nowarn referrer: Option[String]) =
+  def loginWithTokenPost(token: String, referrer: Option[String]) =
     Open:
       if ctx.isAuth
       then Redirect(getReferrer).toFuccess

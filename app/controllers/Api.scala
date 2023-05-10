@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scala.util.chaining.*
 
-import lila.api.{ Context, GameApiV2 }
+import lila.api.GameApiV2
 import lila.app.{ given, * }
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress, LightUser }

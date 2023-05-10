@@ -1,6 +1,5 @@
 package lila.insight
 
-import scalatags.Text.all.*
 import reactivemongo.api.bson.*
 import InsightMetric.DataType.*
 import InsightPosition.*
