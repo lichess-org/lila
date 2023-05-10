@@ -111,9 +111,4 @@ $mq-picture: $mq-medium;
       opacity: 0.7;
     }
   }
-  .streamer-footer {
-    @extend %flex-wrap;
-    align-items: center;
-    gap: 3em;
-  }
 }
