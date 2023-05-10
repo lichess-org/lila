@@ -9,8 +9,7 @@
   position: relative;
   cursor: pointer;
   outline: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
+  user-select: none;
   padding: 1px;
   width: 40px;
   height: 24px;
