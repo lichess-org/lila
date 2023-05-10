@@ -304,7 +304,7 @@ final class Api(
     }
 
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)() { req ?=> me =>
-    val max = me.fold(300) { u => if u == lila.user.User.lichess4545Id then 900 else 500 }
+    val max = me.fold(300) { u => if u is lila.user.User.lichess4545Id then 900 else 500 }
     withIdsFromReqBody[UserId](req, max, id => UserStr.read(id).map(_.id)) { ids =>
       GlobalConcurrencyLimitPerIP.events(req.ipAddress)(
         addKeepAlive:
