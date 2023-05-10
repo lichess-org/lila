@@ -12,7 +12,7 @@ import chess.Node
 
 final class PgnDump(
     baseUrl: BaseUrl,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.ILightUserApi
 )(using Executor):
 
   import PgnDump.*
