@@ -2,7 +2,6 @@
   @extend %double-tap;
   position: absolute;
   margin-#{$start-direction}: -99999px;
-  visibility: hidden;
 }
 
 .cmn-toggle + label {
