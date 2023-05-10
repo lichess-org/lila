@@ -7,7 +7,7 @@
   <string name="myPrivateStudies">Los míos estudios privaus</string>
   <string name="myFavoriteStudies">Los míos estudios favoritos</string>
   <string name="whatAreStudies">Qué son los estudios?</string>
-  <string name="allStudies">Totz los estudios</string>
+  <string name="allStudies">Toz los estudios</string>
   <string name="studiesCreatedByX">Estudios creaus per %s</string>
   <string name="noneYet">Garra estudio, per agora.</string>
   <string name="hot">D\'interés actualment</string>
@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Data (mas antigas)</string>
   <string name="recentlyUpdated">Actualizaus recientment</string>
   <string name="mostPopular">Mas populars</string>
+  <string name="alphabetical">Alfabetico</string>
   <string name="addNewChapter">Anyadir nuevo capitol</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Capitol</item>
@@ -40,6 +41,7 @@
   <string name="youAreNowASpectator">Agora yes un espectador</string>
   <string name="pgnTags">Etiquetas PGN</string>
   <string name="like">Me fa goyo</string>
+  <string name="unlike">Ya no m\'agrada</string>
   <string name="newTag">Nueva etiqueta</string>
   <string name="commentThisPosition">Comentar esta posición</string>
   <string name="commentThisMove">Comentar este movimiento</string>
@@ -48,7 +50,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Nomás los colaboradors d\'o estudio pueden solicitar una analisi per ordinador.</string>
   <string name="getAFullComputerAnalysis">Obtiene una analisi completa d\'a linia prencipal en o servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegura-te que lo capitol ye completo. Nomás puede solicitar l\'analisi una vegada.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Totz los miembros de SYNC son en a mesma posición</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Toz los miembros de SYNC son en a mesma posición</string>
   <string name="shareChanges">Comparte cambios con os espectadors y alza-los en o servidor</string>
   <string name="playing">Chugando</string>
   <string name="first">Primer</string>
@@ -60,10 +62,12 @@
   <string name="studyPgn">PGN d\'o estudio</string>
   <string name="downloadAllGames">Descargar totas las partidas</string>
   <string name="chapterPgn">PGN d\'o capitol</string>
+  <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyChapterPgnDescription">Copiar lo PGN d\'o capítol ta lo portapapers.</string>
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL d\'o estudio</string>
   <string name="currentChapterUrl">URL d\'o capitol actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Puetz apegar esto en o foro pa ficar-ie la partida</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Puez apegar esto en o foro pa ficar-ie la partida</string>
   <string name="startAtInitialPosition">Prencipiar dende la posición inicial</string>
   <string name="startAtX">Prencipiar en %s</string>
   <string name="embedInYourWebsite">Fica-lo en a tuya pachina u blog</string>
@@ -74,14 +78,16 @@
   <string name="studyNotFound">No se trobó lo estudio</string>
   <string name="editChapter">Editar capitol</string>
   <string name="newChapter">Capitol nuevo</string>
+  <string name="importFromChapterX">Importar dende %s</string>
   <string name="orientation">Orientación</string>
   <string name="analysisMode">Modo d\'analisi</string>
   <string name="pinnedChapterComment">Comentario fixo pa lo capitol</string>
   <string name="saveChapter">Alzar capitol</string>
   <string name="clearAnnotations">Borrar anotacions</string>
+  <string name="clearVariations">Borrar variants</string>
   <string name="deleteChapter">Borrar capitol</string>
   <string name="deleteThisChapter">Quiers borrar lo capitol? Esta acción no se puede desfer!</string>
-  <string name="clearAllCommentsInThisChapter">Borrar totz los comentarios, iconos y marcas d\'este capitol?</string>
+  <string name="clearAllCommentsInThisChapter">Borrar toz los comentarios, iconos y marcas d\'este capitol?</string>
   <string name="rightUnderTheBoard">Chusto debaixo d\'o escaquero</string>
   <string name="noPinnedComment">Garra</string>
   <string name="normalAnalysis">Analisi normal</string>
@@ -115,9 +121,9 @@
   <string name="onlyMe">Nomás yo</string>
   <string name="contributors">Colaboradors</string>
   <string name="members">Miembros</string>
-  <string name="everyone">Totz</string>
+  <string name="everyone">Toz</string>
   <string name="enableSync">Habilitar sincronización</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Ell: totz veye la mesma posición</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Él: toz veye la mesma posición</string>
   <string name="noLetPeopleBrowseFreely">No: permitir que la chent navegue librement</string>
   <string name="pinnedStudyComment">Comentario fixau d\'o estudio</string>
   <string name="start">Prencipiar</string>
@@ -125,6 +131,7 @@
   <string name="clearChat">Limpiar lo chat</string>
   <string name="deleteTheStudyChatHistory">Quiers borrar de verdat lo historial de chat? Esta acción no se puede desfer!</string>
   <string name="deleteStudy">Borrar estudio</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Seguro que quiers borrar lo estudio? Si lo fas, no se puede desfer. Escribe lo nombre d\'o estudio pa confirmar-lo: %s</string>
   <string name="whereDoYouWantToStudyThat">Án quiers estudiar ixo?</string>
   <string name="goodMove">Buena chugada</string>
   <string name="mistake">Error</string>
@@ -160,5 +167,5 @@
   <string name="back">Enta zaga</string>
   <string name="playAgain">Chugar atra vegada</string>
   <string name="whatWouldYouPlay">Qué chugarías en esta posición?</string>
-  <string name="youCompletedThisLesson">Felicidatz! Has remtau la lición.</string>
+  <string name="youCompletedThisLesson">Felicidaz! Has remtau la lición.</string>
 </resources>
