@@ -138,6 +138,10 @@ object pref:
               radios(form("behavior.keyboardMove"), booleanChoices)
             ),
             setting(
+              "Input moves with your voice",
+              radios(form("behavior.voice"), booleanChoices)
+            ),
+            setting(
               snapArrowsToValidMoves(),
               radios(form("behavior.arrowSnap"), booleanChoices)
             )(cls := "arrow-snap"),

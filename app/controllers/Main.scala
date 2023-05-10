@@ -157,7 +157,10 @@ Allow: /
     NotImplemented(html.site.message.temporarilyDisabled).toFuccess
 
   def keyboardMoveHelp = Open:
-    Ok(html.site.keyboardHelpModal.keyboardMove).toFuccess
+    Ok(html.site.helpModal.keyboardMove).toFuccess
+
+  def voiceMoveHelp = Open:
+    Ok(html.site.helpModal.voiceMove).toFuccess
 
   def movedPermanently(to: String) = Anon:
     MovedPermanently(to).toFuccess

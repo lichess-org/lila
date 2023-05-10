@@ -1,6 +1,7 @@
 import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
+import { isIOS } from 'common/mobile';
 
 declare class Howl {
   constructor(opts: { src: string | string[] });
@@ -95,17 +96,21 @@ const sound: SoundI = new (class {
   enabled = () => this.soundSet !== 'silent';
 
   speech = (v?: boolean): boolean => {
-    if (typeof v != 'undefined') this.speechStorage.set(v);
+    if (v !== undefined) this.speechStorage.set(v);
     return this.speechStorage.get();
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
     if (cut) speechSynthesis.cancel();
     if (!this.speechStorage.get() && !force) return false;
-
     const msg = new SpeechSynthesisUtterance(text);
     msg.volume = this.getVolume();
     msg.lang = translated ? document.documentElement!.lang : 'en-US';
+    if (!isIOS()) {
+      // speech events are unreliable on iOS, but iphones do their own cancellation
+      msg.onstart = _ => lichess.mic?.pause();
+      msg.onend = msg.onerror = _ => lichess.mic?.resume();
+    }
     speechSynthesis.speak(msg);
     return true;
   };
