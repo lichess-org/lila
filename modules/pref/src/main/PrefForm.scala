@@ -28,7 +28,6 @@ object PrefForm:
         "pieceNotation" -> optional(booleanNumber),
         "zen"           -> optional(booleanNumber),
         "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "voice"         -> optional(booleanNumber),
         "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
@@ -68,7 +67,6 @@ object PrefForm:
       pieceNotation: Option[Int],
       zen: Option[Int],
       resizeHandle: Option[Int],
-      voice: Option[Int],
       blindfold: Int
   )
 
@@ -129,7 +127,7 @@ object PrefForm:
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
-        voice = behavior.voice | pref.voice,
+        voice = if pref.voice.isEmpty && !behavior.voice.contains(1) then None else behavior.voice,
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
@@ -148,7 +146,6 @@ object PrefForm:
           coords = pref.coords,
           replay = pref.replay,
           captured = if (pref.captured) 1 else 0,
-          voice = pref.voice.some,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,
@@ -163,7 +160,7 @@ object PrefForm:
           submitMove = pref.submitMove,
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
-          voice = pref.voice.some,
+          voice = pref.voice.getOrElse(0).some,
           rookCastle = pref.rookCastle.some
         ),
         clock = ClockData(
