@@ -251,7 +251,7 @@ final class Swiss(
         )
     }
     AuthOrScopedBody(_.Tournament.Write)(
-      auth = ctx ?=> doSchedule(using ctx.body),
+      auth = doSchedule,
       scoped = doSchedule
     )
 

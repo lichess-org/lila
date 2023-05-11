@@ -58,7 +58,7 @@ object OAuthScope:
 
   object Web:
     case object Login  extends OAuthScope("web:login", trans.webLogin)
-    case object Socket extends OAuthScope("web:socket", I18nKey("Official Lichess mobile app"))
+    case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
     case object Mod    extends OAuthScope("web:mod", trans.webMod)
 
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
@@ -89,7 +89,7 @@ object OAuthScope:
     Engine.Read,
     Engine.Write,
     Web.Login,
-    Web.Socket,
+    Web.Mobile,
     Web.Mod
   )
 

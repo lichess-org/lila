@@ -1,4 +1,5 @@
 import { Board, SwissOpts } from '../interfaces';
+import { renderClock } from 'common/mini-game';
 import { h, VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import { player as renderPlayer } from './util';
@@ -44,12 +45,7 @@ function boardPlayer(board: Board, color: Color, opts: SwissOpts) {
   return h('span.mini-game__player', [
     h('span.mini-game__user', [h('strong', '#' + player.rank), renderPlayer(player, true, opts.showRatings)]),
     board.clock
-      ? h(`span.mini-game__clock.mini-game__clock--${color}`, {
-          attrs: {
-            'data-time': board.clock[color],
-            'data-managed': 1,
-          },
-        })
+      ? renderClock(color, board.clock[color])
       : h('span.mini-game__result', board.winner ? (board.winner == color ? 1 : 0) : '½'),
   ]);
 }

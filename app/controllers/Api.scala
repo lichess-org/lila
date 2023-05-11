@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scala.util.chaining.*
 
-import lila.api.{ Context, GameApiV2 }
+import lila.api.GameApiV2
 import lila.app.{ given, * }
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
@@ -37,14 +37,13 @@ final class Api(
   private val userRateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "user.show.api.ip")
   def user(name: UserStr) =
     def get(req: RequestHeader, me: Option[lila.user.User], lang: Lang) =
-      userRateLimit(req.ipAddress) {
+      userRateLimit(req.ipAddress, rateLimitedFu):
         userApi.extended(
           name,
           me,
           withFollows = userWithFollows(req),
           withTrophies = getBool("trophies", req)
         )(using lang) map toApiResult map toHttp
-      }(rateLimitedFu)
     OpenOrScoped()(
       ctx ?=> get(ctx.req, ctx.me, ctx.lang),
       req ?=> me => get(req, me.some, me.realLang | reqLang(using req))
@@ -64,12 +63,11 @@ final class Api(
   def usersByIds = AnonBodyOf(parse.tolerantText): body =>
     val usernames = body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
     val cost      = usernames.size / 4
-    UsersRateLimitPerIP(req.ipAddress, cost = cost) {
+    UsersRateLimitPerIP(req.ipAddress, rateLimitedFu, cost = cost):
       lila.mon.api.users.increment(cost.toLong)
       env.user.repo byIds usernames map {
         _.map { env.user.jsonView.full(_, none, withRating = true, withProfile = true) }
       } map toApiResult map toHttp
-    }(rateLimitedFu)
 
   def usersStatus = ApiRequest:
     val ids = get("ids", req).??(_.split(',').take(100).toList flatMap UserStr.read).map(_.id)
@@ -110,14 +108,12 @@ final class Api(
   )
 
   private def UserGamesRateLimit(cost: Int, req: RequestHeader)(run: => Fu[ApiResult]) =
-    val ip = req.ipAddress
-    UserGamesRateLimitPerIP(ip, cost = cost) {
-      UserGamesRateLimitPerUA(HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
-        UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
+    val ip      = req.ipAddress
+    def limited = fuccess(ApiResult.Limited)
+    UserGamesRateLimitPerIP(ip, limited, cost = cost):
+      UserGamesRateLimitPerUA(HTTPRequest.userAgent(req), limited, cost = cost, msg = ip.value):
+        UserGamesRateLimitGlobal("-", limited, cost = cost, msg = ip.value):
           run
-        }(fuccess(ApiResult.Limited))
-      }(fuccess(ApiResult.Limited))
-    }(fuccess(ApiResult.Limited))
 
   private def gameFlagsFromRequest(req: RequestHeader) =
     lila.api.GameApi.WithFlags(
@@ -156,10 +152,9 @@ final class Api(
   )
 
   def game(id: GameId) = ApiRequest:
-    GameRateLimitPerIP(req.ipAddress, cost = 1) {
+    GameRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.game.increment(1)
       gameApi.one(id, gameFlagsFromRequest(req)) map toApiResult
-    }(fuccess(ApiResult.Limited))
 
   private val CrosstableRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 30,
@@ -169,7 +164,7 @@ final class Api(
 
   def crosstable(name1: UserStr, name2: UserStr) =
     ApiRequest:
-      CrosstableRateLimitPerIP(req.ipAddress, cost = 1) {
+      CrosstableRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
         val (u1, u2) = (name1.id, name2.id)
         env.game.crosstableApi(u1, u2) flatMap { ct =>
           (ct.results.nonEmpty && getBool("matchup", req)).?? {
@@ -179,7 +174,6 @@ final class Api(
               lila.game.JsonView.crosstable(ct, matchup).some
           }
         }
-      }(fuccess(ApiResult.Limited))
 
   def currentTournaments = ApiRequest:
     given Lang = reqLang
@@ -304,7 +298,7 @@ final class Api(
     }
 
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)() { req ?=> me =>
-    val max = me.fold(300) { u => if u == lila.user.User.lichess4545Id then 900 else 500 }
+    val max = me.fold(300) { u => if u is lila.user.User.lichess4545Id then 900 else 500 }
     withIdsFromReqBody[UserId](req, max, id => UserStr.read(id).map(_.id)) { ids =>
       GlobalConcurrencyLimitPerIP.events(req.ipAddress)(
         addKeepAlive:
@@ -349,7 +343,7 @@ final class Api(
   val cloudEval =
     val rateLimit = lila.memo.RateLimit[IpAddress](3_000, 1.day, "cloud-eval.api.ip")
     Anon:
-      rateLimit(req.ipAddress) {
+      rateLimit(req.ipAddress, rateLimitedFu):
         get("fen", req).fold(notFoundJson("Missing FEN")): fen =>
           import chess.variant.Variant
           JsonOptionOk:
@@ -358,21 +352,18 @@ final class Api(
               chess.format.Fen.Epd.clean(fen),
               getIntAs[MultiPv]("multiPv", req) | MultiPv(1)
             )
-      }(rateLimitedFu)
 
   val eventStream =
     val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.stream.event.user")
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me =>
-      rateLimit(me.id) {
+      def limited = rateLimitedFu:
+        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
+      rateLimit(me.id, limited):
         env.round.proxyRepo.urgentGames(me) flatMap { povs =>
           env.challenge.api.createdByDestId(me.id) map { challenges =>
             sourceToNdJsonOption(env.api.eventStream(me, povs.map(_.game), challenges))
           }
         }
-      }(
-        rateLimitedFu:
-          "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
-      )
     }
 
   private val UserActivityRateLimitPerIP = lila.memo.RateLimit[IpAddress](
@@ -383,14 +374,13 @@ final class Api(
 
   def activity(name: UserStr) = ApiRequest:
     given Lang = reqLang
-    UserActivityRateLimitPerIP(req.ipAddress, cost = 1) {
+    UserActivityRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.activity.increment(1)
       env.user.repo byId name flatMapz { user =>
         env.activity.read.recentAndPreload(user) flatMap {
           _.map { env.activity.jsonView(_, user) }.parallel
         }
       } map toApiResult
-    }(fuccess(ApiResult.Limited))
 
   private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
     lila.memo.ConcurrencyLimit[IpAddress](

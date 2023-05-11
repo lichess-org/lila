@@ -84,23 +84,20 @@ final class RelayRound(
     AuthOrScopedBody(_.Study.Write)(
       auth = ctx ?=>
         me =>
-          doUpdate(id, me)(using ctx.body) flatMap {
-            case None => notFound
-            case Some(res) =>
-              res
-                .fold(
-                  { case (old, err) => BadRequest(html.relay.roundForm.edit(old, err)) },
-                  rt => Redirect(rt.path)
-                )
-                .toFuccess
-          },
+          doUpdate(id, me).flatMapz: res =>
+            fuccess:
+              res.fold(
+                (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
+                rt => Redirect(rt.path)
+              )
+      ,
       scoped = req ?=>
         me =>
           doUpdate(id, me) map {
             case None => NotFound(jsonError("No such broadcast"))
             case Some(res) =>
               res.fold(
-                { case (_, err) => BadRequest(apiFormError(err)) },
+                (_, err) => BadRequest(apiFormError(err)),
                 rt => JsonOk(env.relay.jsonView.withUrl(rt))
               )
           }
@@ -151,8 +148,8 @@ final class RelayRound(
           }
     )
 
-  def pgn(@nowarn ts: String, @nowarn rs: String, id: StudyId) = studyC.pgn(id)
-  def apiPgn(id: StudyId)                                      = studyC.apiPgn(id)
+  def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
+  def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
   def stream(id: RelayRoundId) = AnonOrScoped() { req ?=> me =>
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
@@ -238,15 +235,11 @@ final class RelayRound(
       me: UserModel,
       req: RequestHeader,
       fail: => Result
-  )(
-      create: => Fu[Result]
-  ): Fu[Result] =
+  )(create: => Fu[Result]): Fu[Result] =
     val cost =
-      if (isGranted(_.Relay, me)) 2
-      else if (me.hasTitle || me.isVerified) 5
+      if isGranted(_.Relay, me) then 2
+      else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(req.ipAddress, cost = cost) {
+    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost):
         create
-      }(fail.toFuccess)
-    }(fail.toFuccess)

@@ -4,7 +4,7 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 
 import lila.common.LilaStream
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.game.{ Game, GameRepo, Query }
 import lila.round.actorApi.round.{ Abandon, QuietFlag }
 

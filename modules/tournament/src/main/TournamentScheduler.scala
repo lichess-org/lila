@@ -380,7 +380,6 @@ Thank you all, you rock!""",
             case _ => Rapid
           List(1300, 1500, 1700, 2000).map(IntRating(_)).zipWithIndex.flatMap { (rating, hourDelay) =>
             import chess.Clock
-            val perf = Schedule.Speed toPerfType speed
             val conditions = TournamentCondition.All(
               nbRatedGame = Condition.NbRatedGame(20).some,
               maxRating = Condition.MaxRating(rating).some,

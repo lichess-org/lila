@@ -149,11 +149,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     AsStreamer: s =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
-          ImageRateLimitPerIp(ctx.ip) {
+          ImageRateLimitPerIp(ctx.ip, rateLimitedFu):
             api.uploadPicture(s.streamer, pic, me) recover { case e: Exception =>
               BadRequest(html.streamer.picture(s, e.getMessage.some))
             } inject Redirect(routes.Streamer.edit)
-          }(rateLimitedFu)
         case None => Redirect(routes.Streamer.edit).flashFailure.toFuccess
   }
 

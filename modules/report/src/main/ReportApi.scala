@@ -35,16 +35,14 @@ final class ReportApi(
 
   def create(data: ReportSetup, reporter: Reporter): Funit =
     Reason(data.reason) ?? { reason =>
-      getSuspect(data.user.id) flatMapz { suspect =>
-        create(
+      getSuspect(data.user.id).flatMapz: suspect =>
+        create:
           Report.Candidate(
             reporter,
             suspect,
             reason,
             data.text take 1000
           )
-        )
-      }
     }
 
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =

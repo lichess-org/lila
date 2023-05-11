@@ -3,7 +3,6 @@ package lila.security
 import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all.*
-import scala.annotation.nowarn
 
 import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
@@ -15,7 +14,7 @@ trait EmailConfirm:
 
   def effective: Boolean
 
-  def send(user: User, email: EmailAddress)(using lang: Lang): Funit
+  def send(user: User, email: EmailAddress)(using Lang): Funit
 
   def confirm(token: String): Fu[EmailConfirm.Result]
 
@@ -23,10 +22,10 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
-  def send(user: User, @nowarn email: EmailAddress)(using @nowarn lang: Lang) =
+  def send(user: User, email: EmailAddress)(using Lang) =
     userRepo setEmailConfirmed user.id void
 
-  def confirm(@nowarn token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
+  def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 
 final class EmailConfirmMailer(
     userRepo: UserRepo,
@@ -42,7 +41,7 @@ final class EmailConfirmMailer(
 
   val maxTries = 3
 
-  def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
+  def send(user: User, email: EmailAddress)(using Lang): Funit =
     !email.looksLikeFakeEmail ?? {
       tokener make user.id flatMap { token =>
         lila.mon.email.send.confirmation.increment()
@@ -136,14 +135,11 @@ object EmailConfirm:
     key = "email.confirms.email"
   )
 
-  def rateLimit[A](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
-    rateLimitPerUser(userEmail.username.id, cost = 1) {
-      rateLimitPerEmail(userEmail.email.value, cost = 1) {
-        rateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
+  def rateLimit[A](userEmail: UserEmail, req: RequestHeader, default: => Fu[A])(run: => Fu[A]): Fu[A] =
+    rateLimitPerUser(userEmail.username.id, default):
+      rateLimitPerEmail(userEmail.email.value, default):
+        rateLimitPerIP(HTTPRequest ipAddress req, default):
           run
-        }(default)
-      }(default)
-    }(default)
 
   object Help:
 

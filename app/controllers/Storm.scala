@@ -38,7 +38,7 @@ final class Storm(env: Env) extends LilaController(env):
           data => env.storm.dayApi.addRun(data, me, mobile = mobile)
         ) map env.storm.json.newHigh map JsonOk
     OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write))(
-      open = ctx ?=> NoBot { doRecord(ctx.me, mobile = false)(using ctx.body) },
+      open = ctx ?=> NoBot { doRecord(ctx.me, mobile = false) },
       scoped = req ?=> me => doRecord(me.some, mobile = HTTPRequest.isLichessMobile(req))
     )
 

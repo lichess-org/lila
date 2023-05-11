@@ -863,6 +863,8 @@
   <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
   <string name="toRequestSupport">جهت درخواست پشتیبانی، %1$s</string>
   <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">حتما %1$s را مطالعه کنید</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">آداب انجمن</string>
   <string name="thisTopicIsArchived">این موضوع بایگانی شده است و دیگر نمی توان به آن پاسخ داد.</string>
   <string name="joinTheTeamXToPost">به %1$s ملحق شوید تا در این انجمن پست بگذارید</string>
   <string name="teamNamedX">تیم %1$s</string>

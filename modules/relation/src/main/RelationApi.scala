@@ -150,18 +150,16 @@ final class RelationApi(
   )
 
   private def limitFollow(u: UserId) =
-    countFollowing(u) flatMap { nb =>
+    countFollowing(u).flatMap: nb =>
       (nb > config.maxFollow.value) ?? {
-        limitFollowRateLimiter(u) {
+        limitFollowRateLimiter(u, fuccess(Nil)):
           fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(nowInstant.minusDays(90))
-        }(fuccess(Nil)) flatMap {
+        .flatMap:
           case Nil => repo.drop(u, true, nb - config.maxFollow.value)
           case inactiveIds =>
             repo.unfollowMany(u, inactiveIds) >>-
               countFollowingCache.update(u, _ - inactiveIds.size)
-        }
       }
-    }
 
   private def limitBlock(u: UserId) =
     countBlocking(u) flatMap { nb =>

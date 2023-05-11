@@ -3,14 +3,28 @@
   <string name="learnChess">சதுரங்கம் கற்றுக்கொள்ளுங்கள்</string>
   <string name="byPlaying">விளையாடுவதன் மூலம்!</string>
   <string name="menu">பட்டியல்</string>
+  <string name="progressX">%s முன்னேறியுள்ளீர்கள்</string>
   <string name="resetMyProgress">என் முன்னேற்றம் மீட்டமைக்க</string>
+  <string name="youWillLoseAllYourProgress">உங்களின் முன்னேற்றத்தை இழந்துவிடுவீர்கள்!</string>
   <string name="play">ஆடு!</string>
   <string name="chessPieces">சதுரங்க காய்கள்</string>
   <string name="theRook">தி ரூக்</string>
   <string name="itMovesInStraightLines">இது நேர்கோட்டில் நகரும்</string>
   <string name="rookIntro">ரோக் ஒரு சக்திவாய்ந்த துண்டு. நீங்கள் கட்டளையிட தயாரா?</string>
   <string name="rookGoal">அதை நட்சத்திரத்திற்கு கொண்டு வர ரூக் மீது கிளிக் செய்யவும்!</string>
+  <string name="grabAllTheStars">எல்லா நட்சத்திரங்களையும் எடுங்கள்!</string>
+  <string name="theFewerMoves">குறைந்த நகர்வில் கூடுதலான புள்ளிகளைப் பெறுங்கள்!</string>
+  <string name="useTwoRooks">விரைவுபடுத்த இரண்டு யானைகளையும் பாவியுங்கள்!</string>
+  <string name="rookComplete">வாழ்த்துகள்! யானையைக் கையாள்வதில் தேர்ச்சிபெற்றுவிட்டீர்கள்.</string>
+  <string name="theBishop">மந்திரி</string>
+  <string name="itMovesDiagonally">இது மூலைவிட்டம் வழியே நகரும்</string>
+  <string name="bishopIntro">அடுத்து மந்திரியைக் கையாள்வதைக் கற்போம்!</string>
+  <string name="youNeedBothBishops">ஒரு வெள்ளைச் சதுர (light-squared) மந்திரி,
+ஒரு கறுப்புப் பெட்டி (dark-squared) மந்திரி,
+ஆகிய இரண்டும் உங்களிற்குத் தேவைப்படும்!</string>
+  <string name="bishopComplete">வாழ்த்துகள்! நீங்கள் மந்திரிக்குக் கட்டளையிடலாம்.</string>
   <string name="theQueen">அரசி</string>
+  <string name="queenCombinesRookAndBishop">அரசி=யானை+அமைச்சர்</string>
   <string name="theKing">அரசன்</string>
   <string name="lastOne">கடைசியாக ஒன்று!</string>
   <string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>

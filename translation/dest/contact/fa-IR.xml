@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">در مواقع مشخص و در بازی مقابل یک حساب کاربری ربات، اگر مشخص شود که بازیکن در حال سوءِ استفاده از ربات برای دریافت امتیاز است ممکن است به بازی امتیازی تعلق نگیرد.</string>
   <string name="errorPage">صفحه خطا</string>
   <string name="reportErrorPage">اگر با صفحه خطا مواجه شدید، می‌توانید آن را گزارش کنید:</string>
+  <string name="wantBroadcastTournament">من مایلم که یک دوره مسابقات را پخش کنم</string>
+  <string name="learnHowToMakeBroadcasts">یاد بگیرید که چطور پخش زنده خود را در لیچس بسازید</string>
+  <string name="contactAboutOfficialBroadcasts">شما همینطور میتوانید با تیم پخش زنده در مورد پخش های رسمی تماس بگیرید.</string>
   <string name="banAppeal">درخواست بازنگری برای یک ممنوعیت یا محدودیتِ IP</string>
   <string name="engineAppeal">نشانه استفاده از موتور تحلیل یا تقلب</string>
   <string name="sendAppealTo">شما می‌توانید یک درخواست بررسی مجدد به %s ارسال کنید.</string>

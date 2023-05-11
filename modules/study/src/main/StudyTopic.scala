@@ -42,8 +42,6 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     scheduler: Scheduler
 ):
 
-  import BSONHandlers.given
-
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll(_.byId[Bdoc](str)) dmap { _ flatMap docTopic }
 

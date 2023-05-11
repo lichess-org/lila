@@ -1,0 +1,16 @@
+{
+  "name": "make-grammar",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "makeGrammar.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "tsc && node dist/makeGrammar.js"
+  },
+  "keywords": [],
+  "author": "T-Bone Duplexus",
+  "license": "GPL-3.0"
+}

@@ -4,13 +4,11 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.user.User
 
 final private class SwissRankingApi(
     mongo: SwissMongo,
     cacheApi: CacheApi
 )(using Executor):
-  import BsonHandlers.given
 
   def apply(swiss: Swiss): Fu[Ranking] =
     fuccess(scoreCache.getIfPresent(swiss.id)) getOrElse {

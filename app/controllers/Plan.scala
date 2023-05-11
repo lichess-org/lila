@@ -194,7 +194,7 @@ final class Plan(env: Env) extends LilaController(env):
   )
 
   def stripeCheckout = AuthBody { ctx ?=> me =>
-    CheckoutRateLimit(ctx.ip) {
+    CheckoutRateLimit(ctx.ip, rateLimitedFu):
       env.plan.priceApi
         .pricingOrDefault(myCurrency)
         .flatMap: pricing =>
@@ -223,11 +223,10 @@ final class Plan(env: Env) extends LilaController(env):
                   }
                 yield session
             )
-    }(rateLimitedFu)
   }
 
   def updatePayment = AuthBody { ctx ?=> me =>
-    CaptureRateLimit(ctx.ip) {
+    CaptureRateLimit(ctx.ip, rateLimitedFu):
       env.plan.api.stripe.userCustomer(me) flatMap {
         _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)) ?? { sub =>
           env.plan.api.stripe
@@ -243,7 +242,6 @@ final class Plan(env: Env) extends LilaController(env):
             .recover(badStripeApiCall)
         }
       }
-    }(rateLimitedFu)
   }
 
   def updatePaymentCallback = AuthBody { ctx ?=> me =>
@@ -257,41 +255,42 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def payPalCheckout = AuthBody { ctx ?=> me =>
-    CheckoutRateLimit(ctx.ip) {
+    CheckoutRateLimit(ctx.ip, rateLimitedFu):
       env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
         env.plan.checkoutForm
           .form(pricing)
           .bindFromRequest()
           .fold(
-            err => {
+            err =>
               logger.info(s"Plan.payPalCheckout 400: $err")
               BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).toFuccess
-            },
-            data => {
+            ,
+            data =>
               val checkout = data.fixFreq
-              if (checkout.freq.renew) for {
-                sub <- env.plan.api.payPal.createSubscription(checkout, me)
-              } yield JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
+              if checkout.freq.renew then
+                env.plan.api.payPal
+                  .createSubscription(checkout, me)
+                  .map: sub =>
+                    JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
               else
-                for {
+                for
                   gifted <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledById)
                   // customer <- env.plan.api.userCustomer(me)
                   order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
-                } yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
-            }
+                yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
           )
       }
-    }(rateLimitedFu)
   }
 
   def payPalCapture(orderId: String) = Auth { ctx ?=> me =>
-    CaptureRateLimit(ctx.ip) {
-      (get("sub") map PayPalSubscriptionId.apply match {
-        case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
-        case Some(subId) =>
-          env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
-      }) inject jsonOkResult
-    }(rateLimitedFu)
+    CaptureRateLimit(ctx.ip, rateLimitedFu):
+      get("sub")
+        .map(PayPalSubscriptionId.apply)
+        .match
+          case None => env.plan.api.payPal.captureOrder(PayPalOrderId(orderId), ctx.ip)
+          case Some(subId) =>
+            env.plan.api.payPal.captureSubscription(PayPalOrderId(orderId), subId, me, ctx.ip)
+        .inject(jsonOkResult)
   }
 
   // deprecated

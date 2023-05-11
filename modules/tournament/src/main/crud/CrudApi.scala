@@ -1,17 +1,15 @@
 package lila.tournament
 package crud
 
-import scala.util.chaining.*
 import chess.{ Clock, Mode }
 import chess.format.Fen
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.tournament.BSONHandlers.given
-import lila.gathering.{ Condition, ConditionForm }
 
 final class CrudApi(tournamentRepo: TournamentRepo, crudForm: CrudForm):
 

@@ -46,7 +46,7 @@ private object RelayGame:
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
 
   import lila.common.Iso
-  import chess.format.pgn.{ Initial, Pgn, PgnStr }
+  import chess.format.pgn.{ Initial, Pgn }
   val iso: Iso[RelayGames, MultiPgn] =
     import lila.study.PgnDump.WithFlags
     given WithFlags = WithFlags(

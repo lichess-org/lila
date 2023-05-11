@@ -9,7 +9,6 @@ import views.*
 import lila.api.Context
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
-import scala.annotation.nowarn
 
 final class Main(
     env: Env,
@@ -157,7 +156,10 @@ Allow: /
     NotImplemented(html.site.message.temporarilyDisabled).toFuccess
 
   def keyboardMoveHelp = Open:
-    Ok(html.site.keyboardHelpModal.keyboardMove).toFuccess
+    Ok(html.site.helpModal.keyboardMove).toFuccess
+
+  def voiceMoveHelp = Open:
+    Ok(html.site.helpModal.voiceMove).toFuccess
 
   def movedPermanently(to: String) = Anon:
     MovedPermanently(to).toFuccess
@@ -174,7 +176,7 @@ Allow: /
           }
         )
 
-  def legacyQaQuestion(id: Int, @nowarn slug: String) = Open:
+  def legacyQaQuestion(id: Int, slug: String) = Open:
     MovedPermanently {
       val faq = routes.Main.faq.url
       id match
@@ -198,4 +200,4 @@ Allow: /
         case _    => faq
     }.toFuccess
 
-  def devAsset(@nowarn v: String, path: String, file: String) = assetsC.at(path, file)
+  def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)

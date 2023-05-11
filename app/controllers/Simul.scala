@@ -6,7 +6,7 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.simul.{ Simul as Sim, SimulCondition }
+import lila.simul.{ Simul as Sim }
 
 final class Simul(env: Env) extends LilaController(env):
 
