@@ -12,10 +12,10 @@ let moveCtrl: VoiceMove; // globals. not just a bad idea, it's the law!
 
 const supportedLangs = [
   ['en', 'English'],
-  ['fr', 'Français'],
-  ['de', 'Deutsch'],
-  ['tr', 'Türkçe'],
-  ['vi', 'Tiếng Việt'],
+  //['fr', 'Français'],
+  //['de', 'Deutsch'],
+  //['tr', 'Türkçe'],
+  //['vi', 'Tiếng Việt'],
 ];
 
 export { type RootCtrl, type VoiceMove } from './interfaces';
@@ -70,7 +70,6 @@ export function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
   lichess.loadModule('voice.move').then(() => {
     moveCtrl = window.LichessVoiceMove(ctrl, fen);
   });
-  // this shim lets the UI build without the async voiceMove module
   return {
     update: fen => moveCtrl?.update(fen),
     opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),
@@ -171,7 +170,7 @@ function voiceSettings(redraw: () => void): VNode {
             ]
           ),
         ]),
-    $('body').data('user')
+    /*$('body').data('user')
       ? h(
           'a.button',
           {
@@ -187,7 +186,7 @@ function voiceSettings(redraw: () => void): VNode {
           },
           'Hide voice controls'
         )
-      : null,
+      : null,*/
   ]);
 }
 
