@@ -215,12 +215,11 @@ object PrefForm:
     )
   )
 
+  // Allow blank image URL
   val bgImg = Form(
     single(
-      "bgImg" -> nonEmptyText(minLength = 10, maxLength = 400)
-        .verifying { url =>
-          url.startsWith("https://") || url.startsWith("//")
-        }
+      "bgImg" -> text(maxLength = 400)
+        .verifying { url => url.isBlank || url.startsWith("https://") || url.startsWith("//") }
     )
   )
 
