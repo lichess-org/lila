@@ -152,7 +152,7 @@ final class Report(
     }
   }
 
-  def create = AuthBody { _ ?=> implicit me =>
+  def create = AuthBody { _ ?=> me =>
     env.report.forms.create
       .bindFromRequest()
       .fold(

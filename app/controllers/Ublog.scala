@@ -112,12 +112,11 @@ final class Ublog(env: Env) extends LilaController(env):
               BadRequest(html.ublog.form.create(me, err, captcha))
             },
           data =>
-            CreateLimitPerUser(me.id, cost = if (me.isVerified) 1 else 3) {
+            CreateLimitPerUser(me.id, rateLimitedFu, cost = if me.isVerified then 1 else 3):
               env.ublog.api.create(data, me) map { post =>
                 lila.mon.ublog.create(me.id).increment()
                 Redirect(editUrlOfPost(post)).flashSuccess
               }
-            }(rateLimitedFu)
         )
   }
 
@@ -161,7 +160,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private def logModAction(post: UblogPost, action: String)(implicit ctx: Context): Funit =
+  private def logModAction(post: UblogPost, action: String)(using ctx: Context): Funit =
     isGranted(_.ModerateBlog) ?? ctx.me ?? { me =>
       !me.is(post.created.by) ?? {
         env.user.repo.byId(post.created.by) flatMapz { user =>
@@ -217,13 +216,12 @@ final class Ublog(env: Env) extends LilaController(env):
     env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
       ctx.body.body.file("image") match
         case Some(image) =>
-          ImageRateLimitPerIp(ctx.ip) {
+          ImageRateLimitPerIp(ctx.ip, rateLimitedFu):
             env.ublog.api.uploadImage(me, post, image) map { newPost =>
               Ok(html.ublog.form.formImage(newPost))
             } recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
-          }(rateLimitedFu)
         case None =>
           env.ublog.api.deleteImage(post) flatMap { newPost =>
             logModAction(newPost, "delete image") inject

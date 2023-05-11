@@ -52,14 +52,13 @@ export const mic =
       Object.values(this.recs).forEach(rec => rec.listenerMap.delete(id));
     }
 
-    async setLang(lang: string) {
+    setLang(lang: string) {
       if (lang === this.language) return;
-      console.log(`Changing language from ${this.language} to ${lang}`);
       this.stop();
       this.language = lang;
     }
 
-    async setVocabulary(vocab: string[], mode: Voice.ListenMode = 'full') {
+    setVocabulary(vocab: string[], mode: Voice.ListenMode = 'full') {
       const rec = this.recs[mode];
       if (vocab.length === rec.vocab.length && vocab.every((w, i) => w === rec.vocab[i])) return;
       rec.vocab = vocab;
@@ -251,26 +250,26 @@ export const mic =
   })();
 
 const models = new Map([
-  ['ca', 'vendor/vosk/model-ca-0.4.tar.gz'],
-  ['cn', 'vendor/vosk/model-cn-0.22.tar.gz'],
-  ['cs', 'vendor/vosk/model-cs-0.4.tar.gz'],
-  ['de', 'vendor/vosk/model-de-0.15.tar.gz'],
-  ['en', 'vendor/vosk/model-en-us-0.15.tar.gz'],
-  ['eo', 'vendor/vosk/model-eo-0.42.tar.gz'],
-  ['es', 'vendor/vosk/model-es-0.42.tar.gz'],
-  ['fa', 'vendor/vosk/model-fa-0.4.tar.gz'],
-  ['fr', 'vendor/vosk/model-fr-0.22.tar.gz'],
-  ['hi', 'vendor/vosk/model-hi-0.22.tar.gz'],
-  ['it', 'vendor/vosk/model-it-0.22.tar.gz'],
-  ['ja', 'vendor/vosk/model-ja-0.22.tar.gz'],
-  ['ko', 'vendor/vosk/model-ko-0.22.tar.gz'],
-  ['kz', 'vendor/vosk/model-kz-0.15.tar.gz'],
-  ['nl', 'vendor/vosk/model-nl-0.22.tar.gz'],
-  ['pl', 'vendor/vosk/model-pl-0.22.tar.gz'],
-  ['pt', 'vendor/vosk/model-pt-0.3.tar.gz'],
-  ['ru', 'vendor/vosk/model-ru-0.22.tar.gz'],
-  ['tr', 'vendor/vosk/model-tr-0.3.tar.gz'],
-  ['uk', 'vendor/vosk/model-uk-v3.tar.gz'],
-  ['uz', 'vendor/vosk/model-uz-0.22.tar.gz'],
-  ['vi', 'vendor/vosk/model-vi-0.4.tar.gz'],
+  ['ca', 'lifat/vosk/model-ca-0.4.tar.gz'],
+  ['cn', 'lifat/vosk/model-cn-0.22.tar.gz'],
+  ['cs', 'lifat/vosk/model-cs-0.4.tar.gz'],
+  ['de', 'lifat/vosk/model-de-0.15.tar.gz'],
+  ['en', 'lifat/vosk/model-en-us-0.15.tar.gz'],
+  ['eo', 'lifat/vosk/model-eo-0.42.tar.gz'],
+  ['es', 'lifat/vosk/model-es-0.42.tar.gz'],
+  ['fa', 'lifat/vosk/model-fa-0.4.tar.gz'],
+  ['fr', 'lifat/vosk/model-fr-0.22.tar.gz'],
+  ['hi', 'lifat/vosk/model-hi-0.22.tar.gz'],
+  ['it', 'lifat/vosk/model-it-0.22.tar.gz'],
+  ['ja', 'lifat/vosk/model-ja-0.22.tar.gz'],
+  ['ko', 'lifat/vosk/model-ko-0.22.tar.gz'],
+  ['kz', 'lifat/vosk/model-kz-0.15.tar.gz'],
+  ['nl', 'lifat/vosk/model-nl-0.22.tar.gz'],
+  ['pl', 'lifat/vosk/model-pl-0.22.tar.gz'],
+  ['pt', 'lifat/vosk/model-pt-0.3.tar.gz'],
+  ['ru', 'lifat/vosk/model-ru-0.22.tar.gz'],
+  ['tr', 'lifat/vosk/model-tr-0.3.tar.gz'],
+  ['uk', 'lifat/vosk/model-uk-v3.tar.gz'],
+  ['uz', 'lifat/vosk/model-uz-0.22.tar.gz'],
+  ['vi', 'lifat/vosk/model-vi-0.4.tar.gz'],
 ]);

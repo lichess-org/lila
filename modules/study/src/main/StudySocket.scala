@@ -195,10 +195,10 @@ final private class StudySocket(
             user foreach { api.analysisRequest(studyId, chapterId, _) }
           }
         case "invite" =>
-          for {
+          for
             w        <- who
             username <- o.get[UserStr]("d")
-          } InviteLimitPerUser(w.u, cost = 1) {
+          yield InviteLimitPerUser.zero(w.u, cost = 1):
             api.invite(
               w.u,
               studyId,
@@ -206,7 +206,6 @@ final private class StudySocket(
               isPresent = userId => isPresent(studyId, userId),
               onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err)))
             )
-          }(funit)
         case "relaySync" =>
           who foreach { w =>
             Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")

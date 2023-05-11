@@ -7,7 +7,6 @@ import lila.common.config.*
 import lila.db.dsl.Coll
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
@@ -17,7 +16,6 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
-    settingStore: lila.memo.SettingStore.Builder,
     net: NetConfig,
     askApi: lila.ask.AskApi
 )(using

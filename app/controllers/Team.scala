@@ -162,18 +162,12 @@ final class Team(
 
   def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { req ?=> me =>
     WithOwnedTeamEnabledApi(teamId, me): team =>
-      ApiKickRateLimitPerIP[Fu[ApiResult]](
-        req.ipAddress,
-        cost = if me.isVerified || me.isApiHog then 0 else 1
-      ) {
-        api.kick(team, username.id, me) inject ApiResult.Done
-      } {
-        if (kickLimitReportOnce(username.id))
-          lila
-            .log("security")
-            .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
+      def limited =
+        if kickLimitReportOnce(username.id) then
+          lila.log("security").warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
         fuccess(ApiResult.Limited)
-      }
+      ApiKickRateLimitPerIP(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
+        api.kick(team, username.id, me) inject ApiResult.Done
   }
 
   def leadersForm(id: TeamId) = Auth { ctx ?=> _ =>
@@ -257,7 +251,7 @@ final class Team(
     }
   }
 
-  private def tooManyTeams(me: UserModel)(implicit ctx: Context) =
+  private def tooManyTeams(me: UserModel)(using Context) =
     api mine me map html.team.list.mine map { BadRequest(_) }
 
   def leader = Auth { ctx ?=> me =>
@@ -458,7 +452,7 @@ final class Team(
       auth = ctx ?=>
         me =>
           WithOwnedTeamEnabled(id): team =>
-            doPmAll(team, me)(using ctx.body).fold(
+            doPmAll(team, me).fold(
               err => renderPmAll(team, err),
               _.map: res =>
                 Redirect(routes.Team.show(team.id))
@@ -572,7 +566,7 @@ You received this because you are subscribed to messages of the team $url."""
           }
       )
 
-  private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+  private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(using Context): Fu[Result] =
     api.countCreatedRecently(me) flatMap { count =>
       val allow =
         isGranted(_.ManageTeam) ||
@@ -583,7 +577,7 @@ You received this because you are subscribed to messages of the team $url."""
       else Forbidden(views.html.site.message.teamCreateLimit).toFuccess
     }
 
-  private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def WithOwnedTeam(teamId: TeamId)(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
     OptionFuResult(api team teamId) { team =>
       if (ctx.userId.exists(team.leaders.contains) || isGranted(_.ManageTeam)) f(team)
       else Redirect(routes.Team.show(team.id)).toFuccess
@@ -591,7 +585,7 @@ You received this because you are subscribed to messages of the team $url."""
 
   private def WithOwnedTeamEnabled(
       teamId: TeamId
-  )(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  )(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
     WithOwnedTeam(teamId) { team =>
       if (team.enabled || isGranted(_.ManageTeam)) f(team)
       else notFound

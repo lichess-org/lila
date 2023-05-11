@@ -24,7 +24,7 @@ object BSONHandlers:
       r.getO[Square]("p") map { pos =>
         Shape.Circle(brush, pos)
       } getOrElse Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d"))
-    def writes(@annotation.nowarn w: Writer, t: Shape) =
+    def writes(w: Writer, t: Shape) =
       t match
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
         case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)

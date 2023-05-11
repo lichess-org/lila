@@ -84,7 +84,7 @@ final class JsonView(
       myTeam       <- myInfo.flatMap(_.teamId) ?? { getMyRankedTeam(tour, _) }
     } yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json
       .obj("standing" -> stand)
-      .add("me" -> myInfo.map(myInfoJson(me, pauseDelay)))
+      .add("me" -> myInfo.map(myInfoJson(pauseDelay)))
       .add("playerInfo" -> playerInfoJson)
       .add("socketVersion" -> socketVersion)
       .add("myTeam" -> myTeam) ++
@@ -291,7 +291,7 @@ final class JsonView(
       )
       .add("winner" -> game.winnerColor.map(_.name))
 
-  private def myInfoJson(u: Option[User], delay: Option[Pause.Delay])(i: MyInfo) =
+  private def myInfoJson(delay: Option[Pause.Delay])(i: MyInfo) =
     Json
       .obj("rank" -> i.rank)
       .add("withdraw", i.withdraw)

@@ -70,7 +70,6 @@ export function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
   lichess.loadModule('voice.move').then(() => {
     moveCtrl = window.LichessVoiceMove(ctrl, fen);
   });
-  // this shim lets the UI build without the async voiceMove module
   return {
     update: fen => moveCtrl?.update(fen),
     opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),

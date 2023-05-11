@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">The Lichess streamer page targets your audience with the language provided by your streaming platform. Set the correct default language for your chess streams in the app or service you use to broadcast.</string>
   <string name="twitchUsername">Your Twitch username or URL</string>
   <string name="optionalOrEmpty">Optional. Leave empty if none</string>
+  <string name="youTubeChannelId">Your YouTube channel ID</string>
   <string name="streamerName">Your streamer name on Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Keep it short: %s character max</item>

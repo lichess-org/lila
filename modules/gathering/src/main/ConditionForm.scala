@@ -2,11 +2,7 @@ package lila.gathering
 
 import play.api.data.Forms.*
 
-import lila.rating.PerfType
-import play.api.i18n.Lang
-import lila.rating.Perf
 import lila.hub.LeaderTeam
-import lila.hub.LightTeam.TeamName
 import lila.gathering.Condition.*
 import lila.common.Form.{ *, given }
 import play.api.data.Mapping

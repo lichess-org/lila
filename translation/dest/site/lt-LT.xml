@@ -946,6 +946,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="useTheReportForm">naudokitės skundų forma</string>
   <string name="toRequestSupport">Norėdami gauti pagalbos, %1$s</string>
   <string name="tryTheContactPage">aplankykite kontaktų skiltį</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Įsitikinkite, kad perskaitėte %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">forumo etiketą</string>
   <string name="thisTopicIsArchived">Ši tema yra suarchyvuota, tad nauji atsakymai negalimi.</string>
   <string name="joinTheTeamXToPost">Norėdami rašyti šiame forume, prisijunkite prie „%1$s“</string>
   <string name="teamNamedX">%1$s komanda</string>

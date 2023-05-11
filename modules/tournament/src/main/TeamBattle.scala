@@ -2,8 +2,6 @@ package lila.tournament
 
 import play.api.data.*
 
-import lila.user.User
-
 case class TeamBattle(
     teams: Set[TeamId],
     nbLeaders: Int

@@ -2,17 +2,13 @@ package lila.mod
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
-import play.api.Configuration
 
 import lila.common.config.*
 import lila.user.User
 import lila.report.{ ModId, SuspectId }
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
@@ -36,7 +32,6 @@ final class Env(
     msgApi: lila.msg.MsgApi
 )(using
     ec: Executor,
-    system: ActorSystem,
     scheduler: Scheduler
 ):
   private lazy val logRepo        = new ModlogRepo(db(CollName("modlog")))

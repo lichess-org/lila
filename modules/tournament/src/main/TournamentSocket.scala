@@ -8,7 +8,6 @@ import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage
 import lila.common.Json.given
-import lila.user.User
 
 final private class TournamentSocket(
     repo: TournamentRepo,
@@ -18,8 +17,7 @@ final private class TournamentSocket(
 )(using
     ec: Executor,
     system: ActorSystem,
-    scheduler: Scheduler,
-    mode: play.api.Mode
+    scheduler: Scheduler
 ):
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)

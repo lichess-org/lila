@@ -454,7 +454,7 @@ object Pref:
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
-    voice = Voice.YES,
+    voice = Voice.NO,
     zen = Zen.NO,
     ratings = Ratings.YES,
     rookCastle = RookCastle.YES,

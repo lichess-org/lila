@@ -19,7 +19,6 @@ final class Gamify(
 )(using Executor):
 
   import Gamify.*
-  import lila.report.BSONHandlers.given
 
   private given BSONDocumentHandler[ModMixed]     = Macros.handler
   private given BSONDocumentHandler[HistoryMonth] = Macros.handler

@@ -13,7 +13,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.Holder
 
-final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env):
+final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
   import GameMod.*
 
@@ -64,7 +64,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
         )
   }
 
-  private def multipleAnalysis(me: Holder, gameIds: Seq[GameId])(implicit ctx: Context) =
+  private def multipleAnalysis(me: Holder, gameIds: Seq[GameId])(using Context) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
         env.fishnet
