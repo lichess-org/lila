@@ -28,23 +28,22 @@ final private[setup] class Processor(
   yield pov
 
   def hook(
+      me: Option[User],
       configBase: HookConfig,
       sri: lila.socket.Socket.Sri,
       sid: Option[String],
       blocking: lila.pool.Blocking
-  )(using ctx: UserContext): Fu[Processor.HookResult] =
+  ): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor
-    config.hook(sri, ctx.me, sid, blocking) match
+    config.hook(sri, me, sid, blocking) match
       case Left(hook) =>
-        fuccess {
+        fuccess:
           Bus.publish(AddHook(hook), "lobbyActor")
           Created(hook.id)
-        }
       case Right(Some(seek)) =>
-        ctx.userId match
-          case None         => fuccess(Refused)
-          case Some(userId) => createSeekIfAllowed(seek, userId)
+        me.fold(fuccess(Refused)): user =>
+          createSeekIfAllowed(seek, user.id)
       case _ => fuccess(Refused)
 
   def createSeekIfAllowed(seek: Seek, userId: UserId): Fu[Processor.HookResult] =

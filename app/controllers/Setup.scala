@@ -1,6 +1,8 @@
 package controllers
 
 import play.api.libs.json.Json
+import play.api.mvc.Request
+import play.api.i18n.Lang
 
 import chess.format.Fen
 import lila.api.Context
@@ -118,40 +120,44 @@ final class Setup(
           )
       }(rateLimitedFu)
 
-  private def hookResponse(res: HookResult) =
-    res match
-      case HookResult.Created(id) =>
-        JsonOk(
-          Json.obj(
-            "ok"   -> true,
-            "hook" -> Json.obj("id" -> id)
-          )
+  private def hookResponse(res: HookResult) = res match
+    case HookResult.Created(id) =>
+      JsonOk:
+        Json.obj(
+          "ok"   -> true,
+          "hook" -> Json.obj("id" -> id)
         )
-      case HookResult.Refused => BadRequest(jsonError("Game was not created"))
+    case HookResult.Refused => BadRequest(jsonError("Game was not created"))
 
-  def hook(sri: String) = OpenBody:
-    NoBot:
-      NoPlaybanOrCurrent:
-        forms.hook
+  def hook(sri: Sri) =
+    def send(me: Option[lila.user.User])(using req: Request[_], lang: Lang) =
+      NoPlaybanOrCurrent(me):
+        forms
+          .hook(me)
           .bindFromRequest()
           .fold(
             jsonFormError,
             userConfig =>
-              PostRateLimit(ctx.ip) {
-                AnonHookRateLimit(ctx.ip, cost = ctx.isAnon ?? 1) {
-                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+              PostRateLimit(req.ipAddress) {
+                AnonHookRateLimit(req.ipAddress, cost = me.isEmpty ?? 1) {
+                  (me.map(_.id) ?? env.relation.api.fetchBlocking) flatMap { blocking =>
                     processor.hook(
-                      userConfig withinLimits ctx.me,
-                      Sri(sri),
-                      ctx.req.sid,
+                      me,
+                      userConfig withinLimits me,
+                      sri,
+                      req.sid,
                       lila.pool.Blocking(blocking)
                     ) map hookResponse
                   }
                 }(rateLimitedFu)
               }(rateLimitedFu)
           )
+    OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile))(
+      open = ctx ?=> NoBot(send(ctx.me)(using ctx.body)),
+      scoped = req ?=> me => send(me.some)(using req, reqLang(me))
+    )
 
-  def like(sri: String, gameId: GameId) = Open:
+  def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
       PostRateLimit(ctx.ip) {
         NoPlaybanOrCurrent:
@@ -170,8 +176,9 @@ final class Setup(
               hookResult <-
                 processor
                   .hook(
+                    ctx.me,
                     hookConfigWithRating,
-                    Sri(sri),
+                    sri,
                     ctx.req.sid,
                     lila.pool.Blocking(blocking ++ sameOpponents)
                   )

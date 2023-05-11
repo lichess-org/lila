@@ -59,7 +59,8 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using req: RequestHeader): ui.EmbedConfig                 = ui.EmbedConfig(req)
   given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
 
-  def reqLang(using req: RequestHeader): Lang = I18nLangPicker(req)
+  def reqLang(using req: RequestHeader): Lang             = I18nLangPicker(req)
+  def reqLang(user: UserModel)(using RequestHeader): Lang = I18nLangPicker(req, user.lang)
 
   /* Anonymous requests */
   protected def Anon(f: RequestHeader ?=> Fu[Result]): Action[Unit] =
@@ -372,11 +373,10 @@ abstract private[controllers] class LilaController(val env: Env)
             api = _ => playbanJsonError(ban)
           )
 
-  protected def NoPlayban(userId: Option[UserId])(a: => Fu[Result]): Fu[Result] =
-    userId
-      .??(env.playban.api.currentBan)
-      .flatMap:
-        _.fold(a)(playbanJsonError)
+  protected def NoPlayban(userId: Option[UserId])(a: => Fu[Result]): Fu[Result] = userId
+    .??(env.playban.api.currentBan)
+    .flatMap:
+      _.fold(a)(playbanJsonError)
 
   private def playbanJsonError(ban: lila.playban.TempBan) = fuccess:
     Forbidden(
@@ -390,19 +390,24 @@ abstract private[controllers] class LilaController(val env: Env)
       _.fold(a): current =>
         negotiate(
           html = keyPages.home(Results.Forbidden),
-          api = _ =>
-            fuccess {
-              Forbidden(
-                jsonError(
-                  s"You are already playing ${current.opponent}"
-                )
-              ) as JSON
-            }
+          api = _ => currentGameJsonError(current)
         )
     }
+  protected def NoCurrentGame(me: Option[UserModel])(a: => Fu[Result]): Fu[Result] = me
+    .??(env.preloader.currentGameMyTurn)
+    .flatMap:
+      _.fold(a)(currentGameJsonError)
+
+  private def currentGameJsonError(current: lila.app.mashup.Preload.CurrentGame) = fuccess:
+    Forbidden(
+      jsonError:
+        s"You are already playing ${current.opponent}"
+    ) as JSON
 
   protected def NoPlaybanOrCurrent(a: => Fu[Result])(using Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
+  protected def NoPlaybanOrCurrent(me: Option[UserModel])(a: => Fu[Result]): Fu[Result] =
+    NoPlayban(me.map(_.id))(NoCurrentGame(me)(a))
 
   protected def JsonOk(body: JsValue): Result             = Ok(body) as JSON
   protected def JsonOk[A: Writes](body: A): Result        = Ok(Json toJson body) as JSON
