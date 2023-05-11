@@ -21,6 +21,7 @@ import lila.socket.UserLagCache
 import lila.user.{ Holder, User as UserModel }
 import lila.security.{ Granter, UserLogins }
 import lila.mod.UserWithModlog
+import play.api.i18n.Lang
 
 final class User(
     env: Env,
@@ -243,7 +244,7 @@ final class User(
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
           page = page
-        )(using ctx.body, formBinding, reqLang)
+        )
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)

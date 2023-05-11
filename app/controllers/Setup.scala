@@ -148,7 +148,7 @@ final class Setup(
                   }
           )
     OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile))(
-      open = ctx ?=> NoBot(send(ctx.me)(using ctx.body)),
+      open = ctx ?=> NoBot(send(ctx.me)),
       scoped = req ?=> me => send(me.some)(using req, reqLang(me))
     )
 

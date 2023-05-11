@@ -84,23 +84,20 @@ final class RelayRound(
     AuthOrScopedBody(_.Study.Write)(
       auth = ctx ?=>
         me =>
-          doUpdate(id, me)(using ctx.body) flatMap {
-            case None => notFound
-            case Some(res) =>
-              res
-                .fold(
-                  { case (old, err) => BadRequest(html.relay.roundForm.edit(old, err)) },
-                  rt => Redirect(rt.path)
-                )
-                .toFuccess
-          },
+          doUpdate(id, me).flatMapz: res =>
+            fuccess:
+              res.fold(
+                (old, err) => BadRequest(html.relay.roundForm.edit(old, err)),
+                rt => Redirect(rt.path)
+              )
+      ,
       scoped = req ?=>
         me =>
           doUpdate(id, me) map {
             case None => NotFound(jsonError("No such broadcast"))
             case Some(res) =>
               res.fold(
-                { case (_, err) => BadRequest(apiFormError(err)) },
+                (_, err) => BadRequest(apiFormError(err)),
                 rt => JsonOk(env.relay.jsonView.withUrl(rt))
               )
           }

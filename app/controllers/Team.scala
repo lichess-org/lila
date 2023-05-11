@@ -452,7 +452,7 @@ final class Team(
       auth = ctx ?=>
         me =>
           WithOwnedTeamEnabled(id): team =>
-            doPmAll(team, me)(using ctx.body).fold(
+            doPmAll(team, me).fold(
               err => renderPmAll(team, err),
               _.map: res =>
                 Redirect(routes.Team.show(team.id))

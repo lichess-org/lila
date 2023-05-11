@@ -440,7 +440,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         if s.student.managed
         then
-          env.security.forms.preloadEmailDns()(using ctx.body, formBinding) >>
+          env.security.forms.preloadEmailDns() >>
             env.clas.forms.student.release
               .bindFromRequest()(ctx.body, formBinding)
               .fold(

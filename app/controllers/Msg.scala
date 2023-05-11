@@ -80,7 +80,7 @@ final class Msg(env: Env) extends LilaController(env):
       auth = ctx ?=>
         me =>
           env.msg.compat
-            .reply(me, userId)(using ctx.body, formBinding)
+            .reply(me, userId)
             .fold(
               jsonFormError,
               _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
