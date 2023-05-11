@@ -54,7 +54,7 @@ final class Dasher(env: Env)(using StandaloneWSClient) extends LilaController(en
 
   private lazy val galleryJson: Fu[Option[JsValue]] =
     summon[StandaloneWSClient]
-      .url(s"${env.net.assetBaseUrl}/assets/images/background/gallery.json")
+      .url(s"${env.net.assetBaseUrl}/assets/lifat/background/gallery.json")
       .get()
       .map {
         case res if res.status == 200 => Json.parse(res.body).some
