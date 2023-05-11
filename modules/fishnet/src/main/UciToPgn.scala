@@ -5,7 +5,7 @@ import cats.data.Validated.valid
 import cats.syntax.all.*
 import chess.format.pgn.{ Dumper, SanStr }
 import chess.format.Uci
-import chess.{ Ply, Drop, Move, MoveOrDrop, Replay, Situation }
+import chess.{ Ply, MoveOrDrop, Replay, Situation }
 import chess.MoveOrDrop.*
 
 import lila.analyse.{ Analysis, Info }
