@@ -6,10 +6,8 @@ import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
-import lila.db.dsl.Coll
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,

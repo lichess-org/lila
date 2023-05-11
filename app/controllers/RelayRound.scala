@@ -148,8 +148,8 @@ final class RelayRound(
           }
     )
 
-  def pgn(@nowarn ts: String, @nowarn rs: String, id: StudyId) = studyC.pgn(id)
-  def apiPgn(id: StudyId)                                      = studyC.apiPgn(id)
+  def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
+  def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
   def stream(id: RelayRoundId) = AnonOrScoped() { req ?=> me =>
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>

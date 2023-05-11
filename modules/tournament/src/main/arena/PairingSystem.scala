@@ -1,12 +1,9 @@
 package lila.tournament
 package arena
 
-import lila.user.{ User, UserRepo }
-
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
-    userRepo: UserRepo,
     colorHistoryApi: ColorHistoryApi
 )(using
     ec: Executor,

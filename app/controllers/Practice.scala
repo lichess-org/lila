@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.libs.json.*
-import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app.{ given, * }
@@ -24,12 +23,12 @@ final class Practice(
       Ok(html.practice.index(up)).noCache.toFuccess
     }
 
-  def show(@nowarn sectionId: String, @nowarn studySlug: String, studyId: StudyId) = Open:
+  def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
     OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
 
   def showChapter(
-      @nowarn sectionId: String,
-      @nowarn studySlug: String,
+      sectionId: String,
+      studySlug: String,
       studyId: StudyId,
       chapterId: StudyChapterId
   ) = Open:

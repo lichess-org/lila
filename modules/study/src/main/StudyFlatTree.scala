@@ -4,7 +4,7 @@ import BSONHandlers.{ readNode, writeNode }
 import Node.Children
 
 import lila.common.Chronometer
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import chess.format.UciPath
 
 private object StudyFlatTree:

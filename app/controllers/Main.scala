@@ -9,7 +9,6 @@ import views.*
 import lila.api.Context
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
-import scala.annotation.nowarn
 
 final class Main(
     env: Env,
@@ -177,7 +176,7 @@ Allow: /
           }
         )
 
-  def legacyQaQuestion(id: Int, @nowarn slug: String) = Open:
+  def legacyQaQuestion(id: Int, slug: String) = Open:
     MovedPermanently {
       val faq = routes.Main.faq.url
       id match
@@ -201,4 +200,4 @@ Allow: /
         case _    => faq
     }.toFuccess
 
-  def devAsset(@nowarn v: String, path: String, file: String) = assetsC.at(path, file)
+  def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)

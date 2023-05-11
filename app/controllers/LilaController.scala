@@ -7,7 +7,6 @@ import play.api.http.*
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsNumber, JsObject, JsString, JsValue, Json, Writes }
 import play.api.mvc.*
-import scala.annotation.nowarn
 import scalatags.Text.Frag
 
 import lila.api.{ BodyContext, Context, HeaderContext, PageData, Nonce }
@@ -43,7 +42,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val rateLimitedFu              = rateLimited.toFuccess
   protected def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
 
-  implicit protected def LilaFunitToResult(@nowarn funit: Funit)(using req: RequestHeader): Fu[Result] =
+  implicit protected def LilaFunitToResult(funit: Funit)(using req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)

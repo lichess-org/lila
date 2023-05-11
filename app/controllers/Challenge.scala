@@ -39,7 +39,7 @@ final class Challenge(
     }
   }
 
-  def show(id: ChallengeId, @annotation.nowarn _color: Option[String]) =
+  def show(id: ChallengeId, _color: Option[String]) =
     Open:
       showId(id)
 

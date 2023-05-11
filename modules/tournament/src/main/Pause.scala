@@ -1,7 +1,5 @@
 package lila.tournament
 
-import lila.user.User
-
 /*
  * Computes the delay before a player can rejoin a tournament after pausing.
  * The first pause results in a delay of 10 seconds.

@@ -1,7 +1,6 @@
 package lila.round
 
 import lila.game.{ Game, Pov }
-import lila.user.User
 import play.api.libs.json.JsObject
 
 opaque type OnStart = GameId => Unit
