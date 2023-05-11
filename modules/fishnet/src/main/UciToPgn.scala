@@ -11,8 +11,9 @@ import chess.MoveOrDrop.*
 import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException
 
-// convert variations from UCI to PGN.
-// also drops extra variations
+// Even though Info.variation is a List[SanStr]
+// When we receive them from Fishnet clients it's actually a list of UCI moves.
+// This converts them to San format. drops extra variations
 private object UciToPgn:
 
   type WithErrors[A] = (A, List[Exception])
