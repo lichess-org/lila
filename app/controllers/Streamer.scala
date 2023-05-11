@@ -77,7 +77,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  private def modData(streamer: StreamerModel)(implicit ctx: Context) =
+  private def modData(streamer: StreamerModel)(using Context) =
     isGranted(_.ModLog) ?? {
       env.mod.logApi.userHistory(streamer.userId) zip
         env.user.noteApi.byUserForMod(streamer.userId) zip

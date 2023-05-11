@@ -9,7 +9,7 @@ import lila.common.LangPath
 
 object mobile:
 
-  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
+  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using Context) =
     views.html.base.layout(
       title = "Mobile",
       moreCss = cssTag("mobile"),

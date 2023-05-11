@@ -176,7 +176,7 @@ final class Account(
     }
   }
 
-  def renderCheckYourEmail(implicit ctx: Context) =
+  def renderCheckYourEmail(using Context) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { ctx ?=> me =>
@@ -322,7 +322,7 @@ final class Account(
       case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
   }
 
-  private def currentSessionId(implicit ctx: Context) =
+  private def currentSessionId(using Context) =
     ~env.security.api.reqSessionId(ctx.req)
 
   def security = Auth { _ ?=> me =>

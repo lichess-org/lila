@@ -77,7 +77,7 @@ final class Practice(
       }
     }
 
-  private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] =
+  private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] =
     us match
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
         env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>

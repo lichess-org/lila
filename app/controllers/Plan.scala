@@ -100,7 +100,7 @@ final class Plan(env: Env) extends LilaController(env):
       Ok(html.plan.indexPayPal(me, patron, sub, gifts))
     }
 
-  private def myCurrency(implicit ctx: Context): Currency =
+  private def myCurrency(using ctx: Context): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
       env.plan.currencyApi.currencyByCountryCodeOrLang(
         env.security.geoIP(ctx.ip).flatMap(_.countryCode),

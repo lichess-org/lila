@@ -11,9 +11,7 @@ object atom:
 
   import views.html.base.atom.{ atomDate, category }
 
-  def apply(
-      pager: Paginator[io.prismic.Document]
-  )(implicit prismic: lila.blog.BlogApi.Context) =
+  def apply(pager: Paginator[io.prismic.Document])(using prismic: lila.blog.BlogApi.Context) =
     views.html.base.atom(
       elems = pager.currentPageResults,
       htmlCall = routes.Blog.index(),

@@ -22,7 +22,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   private def forms      = env.tournament.forms
   private def cachedTour = env.tournament.cached.tourCache.byId
 
-  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
+  private def tournamentNotFound(using Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
     _.refreshAfterWrite(3.seconds)
@@ -309,7 +309,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     else doApiCreate(me)
   }
 
-  private def doApiCreate(me: UserModel)(implicit req: Request[?]): Fu[Result] =
+  private def doApiCreate(me: UserModel)(using req: Request[?]): Fu[Result] =
     env.team.api.lightsByLeader(me.id) flatMap { teams =>
       forms
         .create(me, teams)
@@ -523,7 +523,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   private def WithEditableTournament(id: TourId, me: UserModel)(
       f: Tour => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  )(using Context): Fu[Result] =
     cachedTour(id) flatMap {
       case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)

@@ -186,12 +186,12 @@ final class RelayRound(
 
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  )(using Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  )(using ctx: Context): Fu[Result] =
     WithTour(id) { tour =>
       ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
         env.relay.api withRounds tour flatMap f
@@ -202,7 +202,7 @@ final class RelayRound(
       ctx: Context
   ): Fu[Result] =
     studyC.CanView(oldSc.study, ctx.me) {
-      for {
+      for
         (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
         data <- env.relay.jsonView.makeData(
@@ -214,7 +214,7 @@ final class RelayRound(
         chat      <- studyC.chatOf(sc.study)
         sVersion  <- env.study.version(sc.study.id)
         streamers <- studyC.streamersOf(sc.study)
-      } yield Ok(
+      yield Ok(
         html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers)
       ).enableSharedArrayBuffer
     }(studyC.privateUnauthorizedFu(oldSc.study), studyC.privateForbiddenFu(oldSc.study))

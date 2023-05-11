@@ -20,18 +20,16 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok(views.html.tutor.home(av, me)).toFuccess
   }
 
-  def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => _ => perf =>
-      Ok(views.html.tutor.perf(perf, me)).toFuccess: Fu[Result]
+  def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { ctx ?=> me => _ => perf =>
+    Ok(views.html.tutor.perf(perf, me)).toFuccess: Fu[Result]
   }
 
-  def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => _ => perf =>
-      Ok(views.html.tutor.openings(perf, me)).toFuccess
+  def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+    Ok(views.html.tutor.openings(perf, me)).toFuccess
   }
 
   def opening(username: UserStr, perf: Perf.Key, colName: String, opName: String) =
-    TutorPerfPage(username, perf) { implicit ctx => me => _ => perf =>
+    TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
       chess.Color
         .fromName(colName)
         .fold(Redirect(routes.Tutor.openings(me.username, perf.perf.key)).toFuccess) { color =>
@@ -46,19 +44,16 @@ final class Tutor(env: Env) extends LilaController(env):
         }
     }
 
-  def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => _ => perf =>
-      Ok(views.html.tutor.skills(perf, me)).toFuccess
+  def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+    Ok(views.html.tutor.skills(perf, me)).toFuccess
   }
 
-  def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => _ => perf =>
-      Ok(views.html.tutor.phases(perf, me)).toFuccess
+  def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+    Ok(views.html.tutor.phases(perf, me)).toFuccess
   }
 
-  def time(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) {
-    implicit ctx => me => _ => perf =>
-      Ok(views.html.tutor.time(perf, me)).toFuccess
+  def time(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> me => _ => perf =>
+    Ok(views.html.tutor.time(perf, me)).toFuccess
   }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>
@@ -98,14 +93,14 @@ final class Tutor(env: Env) extends LilaController(env):
     }
 
   private def TutorPerfPage(username: UserStr, perf: Perf.Key)(
-      f: Context => UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
+      f: Context ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
   ) =
     TutorPage(username) { ctx ?=> me => availability =>
       PerfType(perf).fold(redirHome(me)): perf =>
         availability match
           case full @ TutorFullReport.Available(report, _) =>
-            report(perf).fold(redirHome(me)): perfReport =>
-              f(ctx)(me)(full)(perfReport)
+            report(perf).fold(redirHome(me)):
+              f(me)(full)
     }
 
   private def redirHome(user: UserModel) =

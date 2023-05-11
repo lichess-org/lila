@@ -50,7 +50,7 @@ final class User(
         case Some(gameId) => gameC.exportGame(gameId, req)
       }
 
-  private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[?]) =
+  private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }

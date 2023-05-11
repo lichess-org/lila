@@ -364,7 +364,7 @@ final class Study(
       }
     } dmap (_.noCache)
 
-  private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
+  private def embedNotFound(using RequestHeader): Fu[Result] =
     fuccess(NotFound(html.study.embed.notFound))
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ =>

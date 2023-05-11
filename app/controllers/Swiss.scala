@@ -312,7 +312,7 @@ final class Swiss(
       else fallback(swiss)
     }
 
-  private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
+  private def canHaveChat(swiss: SwissModel)(using Context): Fu[Boolean] =
     canHaveChat(swiss.roundInfo)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =

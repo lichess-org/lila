@@ -149,7 +149,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private def logModAction(post: UblogPost, action: String)(implicit ctx: Context): Funit =
+  private def logModAction(post: UblogPost, action: String)(using ctx: Context): Funit =
     isGranted(_.ModerateBlog) ?? ctx.me ?? { me =>
       !me.is(post.created.by) ?? {
         env.user.repo.byId(post.created.by) flatMapz { user =>

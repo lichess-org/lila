@@ -77,7 +77,7 @@ final class Challenge(
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } map env.lilaCookie.ensure(ctx.req)
 
-  private def isMine(challenge: ChallengeModel)(implicit ctx: Context) =
+  private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
       case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId

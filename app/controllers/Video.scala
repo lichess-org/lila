@@ -10,7 +10,7 @@ final class Video(env: Env) extends LilaController(env):
 
   private def api = env.video.api
 
-  private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] =
+  private def WithUserControl[A](f: UserControl => Fu[A])(using Context): Fu[A] =
     val reqTags = get("tags") ?? (_.split('/').toList.map(_.trim.toLowerCase))
     api.tag.paths(reqTags) map { tags =>
       UserControl(

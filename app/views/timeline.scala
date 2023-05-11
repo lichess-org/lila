@@ -9,14 +9,14 @@ import lila.hub.actorApi.timeline.*
 
 object timeline:
 
-  def entries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
+  def entries(entries: Vector[lila.timeline.Entry])(using Context) =
     div(cls := "entries")(
       filterEntries(entries) map { entry =>
         div(cls := "entry")(timeline.entry(entry))
       }
     )
 
-  def more(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
+  def more(entries: Vector[lila.timeline.Entry])(using Context) =
     views.html.base.layout(
       title = trans.timeline.txt(),
       moreCss = cssTag("slist")
@@ -33,16 +33,16 @@ object timeline:
       )
     )
 
-  private def filterEntries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
+  private def filterEntries(entries: Vector[lila.timeline.Entry])(using ctx: Context) =
     if (ctx.noKid) entries
     else entries.filter(e => e.okForKid)
 
-  private def userLink(userId: UserId)(implicit ctx: Context) =
+  private def userLink(userId: UserId)(using ctx: Context) =
     ctx.me match
       case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
       case _                         => userIdLink(userId.some, withOnline = true)
 
-  private def entry(e: lila.timeline.Entry)(implicit ctx: Context) =
+  private def entry(e: lila.timeline.Entry)(using ctx: Context) =
     frag(
       e.decode.map[Frag] {
         case Follow(u1, u2) =>

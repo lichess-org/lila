@@ -51,7 +51,7 @@ final class Storm(env: Env) extends LilaController(env):
       renderDashboardOf(_, page)
     }
 
-  private def renderDashboardOf(user: lila.user.User, page: Int)(implicit ctx: Context): Fu[Result] =
+  private def renderDashboardOf(user: lila.user.User, page: Int)(using Context): Fu[Result] =
     env.storm.dayApi.history(user.id, page) flatMap { history =>
       env.storm.highApi.get(user.id) map { high =>
         Ok(views.html.storm.dashboard(user, history, high))

@@ -10,7 +10,7 @@ import lila.common.config
 
 final class Search(env: Env) extends LilaController(env):
 
-  def searchForm(implicit lang: Lang) = env.gameSearch.forms.search
+  def searchForm(using Lang) = env.gameSearch.forms.search
 
   private val SearchRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 50,

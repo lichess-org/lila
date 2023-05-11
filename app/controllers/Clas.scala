@@ -539,7 +539,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       env.clas.api.student.get(clas, user) flatMapz f
     }
 
-  private def SafeTeacher(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
     if (ctx.me.exists(!_.lameOrTroll)) f
     else Redirect(routes.Clas.index).toFuccess
 

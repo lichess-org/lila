@@ -23,9 +23,9 @@ final class Auth(
   private def api   = env.security.api
   private def forms = env.security.forms
 
-  private def mobileUserOk(u: UserModel, sessionId: String)(implicit ctx: Context): Fu[Result] =
+  private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] =
     env.round.proxyRepo urgentGames u map { povs =>
-      Ok {
+      Ok:
         env.user.jsonView.full(
           u,
           withRating = ctx.pref.showRatings,
@@ -34,7 +34,6 @@ final class Auth(
           "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
           "sessionId"  -> sessionId
         )
-      }
     }
 
   private def getReferrerOption(using ctx: Context): Option[String] =
@@ -295,7 +294,7 @@ final class Auth(
         } >> redirectNewUser(user)
     }
 
-  private def redirectNewUser(user: UserModel)(implicit ctx: Context) =
+  private def redirectNewUser(user: UserModel)(using Context) =
     api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = Redirect(getReferrerOption | routes.User.show(user.username).url).toFuccess,
