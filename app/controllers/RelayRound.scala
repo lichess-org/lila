@@ -238,15 +238,11 @@ final class RelayRound(
       me: UserModel,
       req: RequestHeader,
       fail: => Result
-  )(
-      create: => Fu[Result]
-  ): Fu[Result] =
+  )(create: => Fu[Result]): Fu[Result] =
     val cost =
-      if (isGranted(_.Relay, me)) 2
-      else if (me.hasTitle || me.isVerified) 5
+      if isGranted(_.Relay, me) then 2
+      else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(req.ipAddress, cost = cost) {
+    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost):
         create
-      }(fail.toFuccess)
-    }(fail.toFuccess)

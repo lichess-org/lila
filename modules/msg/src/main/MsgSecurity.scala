@@ -110,7 +110,7 @@ final private class MsgSecurity(
         val cost = limitCost(contacts.orig) * {
           if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
         }
-        limiter(contacts.orig.id, cost)(none)(Limit.some)
+        limiter(contacts.orig.id, Limit.some, cost)(none)
       if (unlimited) fuccess(none)
       else if (isNew) {
         isLeaderOf(contacts) >>| isTeacherOf(contacts)

@@ -229,7 +229,12 @@ final class User(
       filterName: String,
       page: Int
   )(using ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
-    UserGamesRateLimitPerIP(ctx.ip, cost = page, msg = s"on ${u.username}") {
+    UserGamesRateLimitPerIP(
+      ctx.ip,
+      fuccess(Paginator.empty[GameModel]),
+      cost = page,
+      msg = s"on ${u.username}"
+    ):
       lila.mon.http.userGamesCost.increment(page.toLong)
       for
         pagFromDb <- env.gamePaginator(
@@ -245,7 +250,6 @@ final class User(
         }
         _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       yield pag
-    }(fuccess(Paginator.empty[GameModel]))
 
   def list = Open:
     env.user.cached.top10.get {} flatMap { leaderboards =>

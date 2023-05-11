@@ -228,19 +228,17 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               .toList
             val nbGames = pairs.size
             val cost    = nbGames * (if me.isVerified || me.isApiHog then 1 else 3)
-            rateLimit[Fu[Result]](me.id, cost = cost) {
+            rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
               lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames).unit
               idGenerator
                 .games(nbGames)
-                .map {
+                .map:
                   _.toList zip pairs
-                }
-                .map {
+                .map:
                   _.map { case (id, (w, b)) =>
                     ScheduledGame(id, w, b)
                   }
-                }
-                .dmap {
+                .dmap:
                   ScheduledBulk(
                     _id = ThreadLocalRandom nextString 8,
                     by = me.id,
@@ -255,7 +253,5 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                     scheduledAt = nowInstant,
                     fen = data.fen
                   )
-                }
                 .dmap(Right.apply)
-            }(fuccess(Left(ScheduleError.RateLimited)))
       }

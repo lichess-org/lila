@@ -64,7 +64,7 @@ final private class StudyInvite(
         else if (inviter.hasTitle) 20
         else if (inviter.perfs.bestRating >= 2000) 50
         else 100
-      _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
+      _ <- shouldNotify ?? notifyRateLimit.zero(inviter.id, rateLimitCost):
         notifyApi
           .notifyOne(
             invited,
@@ -75,7 +75,6 @@ final private class StudyInvite(
             )
           )
           .void
-      }(funit)
     } yield invited
 
   def admin(study: Study, user: Holder): Funit =

@@ -59,8 +59,9 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using req: RequestHeader): ui.EmbedConfig                 = ui.EmbedConfig(req)
   given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
 
-  def reqLang(using req: RequestHeader): Lang             = I18nLangPicker(req)
-  def reqLang(user: UserModel)(using RequestHeader): Lang = I18nLangPicker(req, user.lang)
+  def reqLang(using req: RequestHeader): Lang                     = I18nLangPicker(req)
+  def reqLang(user: UserModel)(using RequestHeader): Lang         = I18nLangPicker(req, user.lang)
+  def reqLang(user: Option[UserModel])(using RequestHeader): Lang = I18nLangPicker(req, user.flatMap(_.lang))
 
   /* Anonymous requests */
   protected def Anon(f: RequestHeader ?=> Fu[Result]): Action[Unit] =

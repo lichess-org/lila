@@ -162,18 +162,12 @@ final class Team(
 
   def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { req ?=> me =>
     WithOwnedTeamEnabledApi(teamId, me): team =>
-      ApiKickRateLimitPerIP[Fu[ApiResult]](
-        req.ipAddress,
-        cost = if me.isVerified || me.isApiHog then 0 else 1
-      ) {
-        api.kick(team, username.id, me) inject ApiResult.Done
-      } {
-        if (kickLimitReportOnce(username.id))
-          lila
-            .log("security")
-            .warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
+      def limited =
+        if kickLimitReportOnce(username.id) then
+          lila.log("security").warn(s"API team.kick limited team:${teamId} user:${me.id} ip:${req.ipAddress}")
         fuccess(ApiResult.Limited)
-      }
+      ApiKickRateLimitPerIP(req.ipAddress, limited, cost = if me.isVerified || me.isApiHog then 0 else 1):
+        api.kick(team, username.id, me) inject ApiResult.Done
   }
 
   def leadersForm(id: TeamId) = Auth { ctx ?=> _ =>

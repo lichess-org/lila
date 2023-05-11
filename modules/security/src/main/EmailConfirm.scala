@@ -136,14 +136,11 @@ object EmailConfirm:
     key = "email.confirms.email"
   )
 
-  def rateLimit[A](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
-    rateLimitPerUser(userEmail.username.id, cost = 1) {
-      rateLimitPerEmail(userEmail.email.value, cost = 1) {
-        rateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
+  def rateLimit[A](userEmail: UserEmail, req: RequestHeader, default: => Fu[A])(run: => Fu[A]): Fu[A] =
+    rateLimitPerUser(userEmail.username.id, default):
+      rateLimitPerEmail(userEmail.email.value, default):
+        rateLimitPerIP(HTTPRequest ipAddress req, default):
           run
-        }(default)
-      }(default)
-    }(default)
 
   object Help:
 

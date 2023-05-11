@@ -440,23 +440,18 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         if s.student.managed
         then
-          env.security.forms.preloadEmailDns()(using
-            ctx.body,
-            formBinding
-          ) >> env.clas.forms.student.release
-            .bindFromRequest()(ctx.body, formBinding)
-            .fold(
-              err => BadRequest(html.clas.student.release(clas, students, s, err)).toFuccess,
-              email => {
-                val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email)
-                authC.EmailConfirmRateLimit(newUserEmail, ctx.req) {
-                  env.security.emailChange.send(s.user, newUserEmail.email) inject
-                    Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess {
-                      s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account."
-                    }
-                }(rateLimitedFu)
-              }
-            )
+          env.security.forms.preloadEmailDns()(using ctx.body, formBinding) >>
+            env.clas.forms.student.release
+              .bindFromRequest()(ctx.body, formBinding)
+              .fold(
+                err => BadRequest(html.clas.student.release(clas, students, s, err)).toFuccess,
+                email =>
+                  val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email)
+                  authC.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimitedFu):
+                    env.security.emailChange.send(s.user, newUserEmail.email) inject
+                      Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess:
+                        s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account."
+              )
         else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).toFuccess
   }
 
@@ -478,22 +473,18 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def becomeTeacher = AuthBody { ctx ?=> me =>
-    couldBeTeacher flatMap {
-      if _ then
-        val perm = lila.security.Permission.Teacher.dbKey
-        (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
-          Redirect(routes.Clas.index)
-      else notFound
-    }
+    couldBeTeacher.flatMapz:
+      val perm = lila.security.Permission.Teacher.dbKey
+      (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
+        Redirect(routes.Clas.index)
   }
 
-  private def couldBeTeacher(using ctx: Context) =
-    ctx.me match
-      case None                 => fuTrue
-      case Some(me) if me.isBot => fuFalse
-      case Some(me) if me.kid   => fuFalse
-      case _ if ctx.hasClas     => fuTrue
-      case Some(me)             => !env.mod.logApi.wasUnteachered(me.id)
+  private def couldBeTeacher(using ctx: Context) = ctx.me match
+    case None                 => fuTrue
+    case Some(me) if me.isBot => fuFalse
+    case Some(me) if me.kid   => fuFalse
+    case _ if ctx.hasClas     => fuTrue
+    case Some(me)             => !env.mod.logApi.wasUnteachered(me.id)
 
   def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me =>
     OptionOk(env.clas.api.invite.view(id, me)): (invite, clas) =>
@@ -505,14 +496,14 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       .bindFromRequest()
       .fold(
         _ => Redirect(routes.Clas.invitation(id)).toFuccess,
-        v => {
-          if (v) env.clas.api.invite.accept(id, me) mapz { student =>
-            redirectTo(student.clasId)
-          }
+        v =>
+          if v then
+            env.clas.api.invite.accept(id, me) mapz { student =>
+              redirectTo(student.clasId)
+            }
           else
             env.clas.api.invite.decline(id) inject
               Redirect(routes.Clas.invitation(id))
-        }
       )
   }
 
