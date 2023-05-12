@@ -312,6 +312,7 @@ schlampe
 schwanzlutscher
 schwuchtel
 trottel
+untermensch
 wichser
 """)
 
@@ -350,6 +351,7 @@ k y s
 ky5
 nigg?[ae]r
 rap(ed?|e?ing)
+subhuman
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
