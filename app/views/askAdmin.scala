@@ -10,9 +10,7 @@ import views.html.ask._
 // thrown together, half-baked, prototype code
 object askAdmin {
 
-  import RenderType._
-
-  def show(asks: List[Ask], user: lila.common.LightUser)(implicit ctx: Context): Frag =
+  def show(asks: List[Ask], user: lila.common.LightUser)(using ctx: Context): Frag =
     views.html.base.layout(
       title = s"${user.titleName} polls",
       moreJs = jsModule("ask"),
@@ -26,7 +24,7 @@ object askAdmin {
       )
     }
 
-  def showAsks(urlopt: Option[String], asks: List[Ask])(implicit ctx: Context) =
+  def showAsks(urlopt: Option[String], asks: List[Ask])(using ctx: Context) =
     div(
       hr,
       h2(
@@ -35,9 +33,10 @@ object askAdmin {
           case None      => "no url"
         }
       ),
-      asks map renderInner
+      asks map renderOne
     )
-  def renderInner(as: Ask)(implicit ctx: Context) = {
+
+  def renderOne(as: Ask)(using ctx: Context) = {
     div(cls := "ask-admin")(
       a(name := as._id),
       div(cls := "header")(
@@ -54,10 +53,7 @@ object askAdmin {
         property("created at:", as.createdAt.toString),
         property("tags:", as.tags.toString),
         p,
-        ask.RenderType(as) match {
-          case POLL | BAR | QUIZ => as.choices.nonEmpty ?? barGraphBody(as)
-          case RANK | RANKBAR    => as.choices.nonEmpty ?? rankGraphBody(as)
-        }
+        renderGraph(as)
       ),
       as.feedback map { case fbmap =>
         div(cls := "inset-box")(
@@ -78,10 +74,7 @@ object askAdmin {
     val sb = new StringBuilder();
     sb ++= s"question:\n  ${as.question}\n"
     if (as.choices.nonEmpty) sb ++= "choices:\n"
-    as.choices foreach (c =>
-      if (c == ~as.answer) sb ++= s" -> * $c\n"
-      else sb ++= s"    * $c\n"
-    )
+    as.choices foreach (c => sb ++= s"    * $c\n")
     if (as.footer.isDefined) sb ++= s"footer:\n    ${~as.footer}\n"
     as.feedback match {
       case Some(fbmap) =>

@@ -1,26 +1,24 @@
-/*
-  Please don't use BEM in conjunction with parent selector here. Up to two levels of nesting is
-  tolerated.  Nothing depends on this so scoped item element styles with brief class names that
-  express intent is the goal
-*/
 $c-contrast-font: if($theme-light, #444, #ddd);
 $c-neutral: if($theme-light, #ccc, #777);
 $c-box-border: if($theme-light, #ddd, #484848);
 $c-bg-hover: $c-box-border;
-$gap: 8px; // needs to be independent of font-size, adjust to space things out.
+$gap: 8px;
+%lighten-hover {
+  color: $c-contrast-font;
+  &:hover {
+    box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
+  }
+}
 
-// ask-container has one child that is replaced on every xhr request
 div.ask-container {
   display: flex;
 
-  // formatting modifier corresponding to 'stretch' tag in ask markup
   &.stretch {
     flex-direction: column;
     align-items: stretch;
   }
 }
 
-// main ask class has a legend/header, body, footer in block layout
 fieldset.ask {
   margin-bottom: 2 * $gap;
   padding: 0 (3 * $gap) $gap (2 * $gap);
@@ -33,14 +31,12 @@ fieldset.ask {
     width: 100%;
   }
 
-  // currently just the number of votes/respondents on a concluded ask
   > label {
     margin: $gap;
     flex-basis: 100%;
     font-weight: bold;
   }
 
-  // defaults for header, body, footer
   & > * {
     display: flex;
     align-items: center;
@@ -61,6 +57,12 @@ span.ask__header {
     font-size: 1.3em;
   }
 
+  // usage hint
+  i {
+    white-space: nowrap;
+    margin: 0 $gap;
+    font-size: 0.6em;
+  }
   // icon buttons in the top right
   .action {
     @extend %data-icon;
@@ -84,19 +86,19 @@ span.ask__header {
       color: $c-link-hover;
     }
 
-    // for mods or the poll creator
     &.admin::before {
       content: '';
     }
+
     &.view::before {
       content: '';
     }
+
     &.tally::before {
       content: '';
     }
-    // the red x will unset a submitted vote,
+
     &.unset {
-      //visibility: hidden;
       color: if($theme-light, #f66, #c33);
       &::before {
         content: '';
@@ -104,9 +106,6 @@ span.ask__header {
       &:hover {
         color: if($theme-light, #c33, #f66);
       }
-      //&.visible {
-      //  visibility: visible;
-      //}
     }
   }
 }
@@ -122,13 +121,11 @@ div.ask__footer {
     grid-column: 1/3;
   }
 
-  // the input text feield for feedback
   .feedback-text {
     margin: 0 0 $gap $gap;
     padding: 0.4em;
   }
 
-  // the submit button for feedback text
   .feedback-submit {
     @extend %data-icon, %flex-around;
     visibility: hidden;
@@ -174,37 +171,78 @@ div.ask__footer {
   }
 }
 
-// the main body - a flex layout of Ask.choices
 div.ask__choices {
   margin: $gap 0 $gap 0;
   display: flex;
   flex-flow: row wrap;
   align-items: flex-start;
 
-  // a single clickable/draggable choice button
   .choice {
+    display: inline-block;
+    user-select: none;
+    flex: initial;
+  }
+
+  .choice.cbx {
+    display: flex;
+    align-items: center;
+    margin: 1.5 * $gap $gap 0;
+    &:first-child {
+      margin-top: 0;
+    }
+    flex-flow: row nowrap;
+    > input {
+      pointer-events: none;
+      min-width: 24px;
+      min-height: 24px;
+      cursor: pointer;
+      margin-#{$end-direction}: $gap;
+    }
+
+    &.selected,
+    &.enabled {
+      cursor: pointer;
+      > input {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .choice.btn {
     @extend %metal, %box-radius;
     margin: 0 0 $gap $gap;
     padding: $gap (2 * $gap);
-    flex: initial;
-    display: inline-block;
     text-align: center;
-    user-select: none;
     border: 1px;
     border-color: $c-neutral;
 
-    label {
-      pointer-events: none;
+    &.enabled {
+      @extend %lighten-hover;
+      cursor: pointer;
+
+      @if $theme-light {
+        background: linear-gradient(hsl(0deg, 0%, 92%) 0%, hsl(0deg, 0%, 86%) 100%);
+      } @else if $theme == 'dark' {
+        background: linear-gradient(hsl(0deg, 0%, 27%) 0%, hsl(0deg, 0%, 19%) 100%);
+      } @else {
+        background: hsla(0deg, 0%, 50%, 0.3);
+      }
     }
 
-    // modifier corresponds to 'stretch' tag in ask markup
+    &.selected {
+      @extend %lighten-hover;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
+    }
+
     &.stretch {
       flex: auto;
     }
   }
 
   // a draggable choice button
-  .rank {
+  .choice.btn.rank {
     @extend %lighten-hover;
     display: flex;
     justify-content: space-between;
@@ -239,7 +277,6 @@ div.ask__choices {
       background: $c-secondary;
     }
 
-    // ask-specific transparent background (overrides %metal)
     @if $theme == 'transp' {
       background: hsla(0deg, 0%, 50%, 0.3);
     }
@@ -273,75 +310,10 @@ div.ask__choices {
     }
   }
 
-  // mouseover for clickable choices
-  %lighten-hover {
-    color: $c-contrast-font;
-
-    &:hover {
-      box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, if($theme-light, 0.3, 0.1));
-    }
-  }
-
-  // ask choice that can be clicked
-  .enabled {
-    @extend %lighten-hover;
-    cursor: pointer;
-
-    @if $theme-light {
-      background: linear-gradient(hsl(0deg, 0%, 92%) 0%, hsl(0deg, 0%, 86%) 100%);
-    } @else if $theme == 'dark' {
-      background: linear-gradient(hsl(0deg, 0%, 27%) 0%, hsl(0deg, 0%, 19%) 100%);
-    } @else {
-      background: hsla(0deg, 0%, 50%, 0.3);
-    }
-  }
-
-  // selected choice registered in db - can be clicked to unset
-  .selected {
-    @extend %lighten-hover;
-    cursor: pointer;
-    color: white;
-    background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
-  }
-
-  // unavailable, cannot be clicked
-  .disabled,
-  .wrong {
-    background: none;
-  }
-
-  .correct {
-    color: white;
-    background: linear-gradient(hsl(88deg, 62%, 44%) 0%, hsl(88deg, 62%, 38%) 100%);
-  }
-
-  .wrong {
-    // transforms for the red x on wrong answers
-    position: relative;
-
-    &:before,
-    &:after {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 5em;
-      height: 4px;
-      background: hsla(0, 100%, 60%, 0.5);
-      transform: translate(-50%, -50%) rotate(-20deg);
-      content: '';
-    }
-
-    &:after {
-      transform: translate(-50%, -50%) rotate(20deg);
-    }
-  }
-
-  // formatting modifier corresponding to vertical tag in ask markup
   &.vertical {
     flex-flow: column;
   }
 
-  // formatting modifier corresponding to center tag in ask markup
   &.center {
     align-items: center;
     justify-content: center;

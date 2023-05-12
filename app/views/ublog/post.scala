@@ -116,7 +116,7 @@ object post:
           ),
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text", role := "document")(
-            views.html.ask.render(markup, asks)
+            views.html.ask.renderMany(markup, asks)
           ),
           div(cls := "ublog-post__footer")(
             post.live && ~post.discuss option a(

@@ -34,9 +34,7 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
           hook: onInsert(el => {
             el.addEventListener('click', _ => {
               if (!rtfm()) {
-                setTimeout(() =>
-                  alert(`Read the help page (the 'i' button) before using your microphone to make moves.`)
-                );
+                setTimeout(() => alert(`Read the help page (the 'i' button) before using voice recognition.`));
                 rtfm(true);
               }
               rec(!(lichess.mic?.isListening || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
@@ -45,7 +43,7 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
           }),
         },
         h('span.microphone-icon', {
-          attrs: { ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
+          attrs: { ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
         })
       ),
       h('span#voice-status', {

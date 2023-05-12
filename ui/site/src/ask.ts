@@ -36,15 +36,15 @@ class Ask {
   }
 }
 
-const rewire = (el: Element | null, frag: string): Ask | undefined => {
+function rewire(el: Element | null, frag: string): Ask | undefined {
   while (el && !el.classList.contains('ask-container')) el = el.parentElement;
   if (el && frag) {
     el.innerHTML = frag;
     return new Ask(el.firstElementChild!);
   }
-};
+}
 
-const askXhr = (req: { ask: Ask; url: string; method?: string; body?: FormData; after?: (_: Ask) => void }) =>
+function askXhr(req: { ask: Ask; url: string; method?: string; body?: FormData; after?: (_: Ask) => void }) {
   xhr.textRaw(req.url, { method: req.method ? req.method : 'POST', body: req.body }).then(
     async (rsp: Response) => {
       if (rsp.redirected) {
@@ -60,6 +60,7 @@ const askXhr = (req: { ask: Ask; url: string; method?: string; body?: FormData; 
       console.log(`Ask failed: ${rsp.status} ${rsp.statusText}`);
     }
   );
+}
 
 const wireExclusiveChoices = (ask: Ask): Cash =>
   $('.choice.exclusive', ask.el).on('click', function (e: Event) {
@@ -68,6 +69,7 @@ const wireExclusiveChoices = (ask: Ask): Cash =>
       ask: ask,
       url: ask.picksUrl(el.classList.contains('selected') ? '' : el.getAttribute('value')!),
     });
+    e.preventDefault();
   });
 
 const wireMultipleChoices = (ask: Ask): Cash =>
@@ -76,11 +78,12 @@ const wireMultipleChoices = (ask: Ask): Cash =>
     const picks = $('.choice', ask.el)
       .filter((_, x) => x.classList.contains('selected'))
       .get()
-      .map(x => x.getAttribute('value')!);
+      .map(x => x.getAttribute('value'));
     askXhr({ ask: ask, url: ask.picksUrl(picks.join('-')) });
+    e.preventDefault();
   });
 
-const wireFeedback = (ask: Ask): void => {
+function wireFeedback(ask: Ask): void {
   ask.feedbackEl = $('.feedback-text', ask.el)
     .on('input', () => ask.feedbackState(ask.feedbackEl?.value == initialFeedback ? 'clean' : 'dirty'))
     .on('keypress', (e: KeyboardEvent) => {
@@ -98,9 +101,9 @@ const wireFeedback = (ask: Ask): void => {
     })
     .get(0) as HTMLInputElement;
   const initialFeedback = ask.feedbackEl?.value;
-};
+}
 
-const wireSubmit = (ask: Ask): void => {
+function wireSubmit(ask: Ask): void {
   ask.submitEl = $('.feedback-submit', ask.el).get(0);
   if (!ask.submitEl) return;
   $('input', ask.submitEl).on('click', () => {
@@ -113,7 +116,7 @@ const wireSubmit = (ask: Ask): void => {
       after: ask => ask.feedbackState(ask.feedbackEl?.value ? 'success' : 'clean'),
     });
   });
-};
+}
 
 const wireActions = (ask: Ask): Cash =>
   $('button.action', ask.el).on('click', (e: Event) => {
@@ -121,7 +124,7 @@ const wireActions = (ask: Ask): Cash =>
     askXhr({ ask: ask, method: btn.formMethod, url: btn.formAction });
   });
 
-const wireRankedChoices = (ask: Ask): void => {
+function wireRankedChoices(ask: Ask): void {
   let initialOrder = ask.ranking();
   let d: DragContext;
 
@@ -177,7 +180,7 @@ const wireRankedChoices = (ask: Ask): void => {
         },
       });
     });
-};
+}
 
 type DragContext = {
   dragEl: Element; // we are dragging this
@@ -190,7 +193,7 @@ type DragContext = {
   data?: any; // used to track dirty state in updateHCursor
 };
 
-const createCursor = (vertical: boolean) => {
+function createCursor(vertical: boolean) {
   if (vertical) return [document.createElement('hr'), null];
 
   const cursorEl = document.createElement('div');
@@ -198,14 +201,14 @@ const createCursor = (vertical: boolean) => {
   const breakEl = document.createElement('div');
   breakEl.style.flexBasis = '100%';
   return [cursorEl, breakEl];
-};
+}
 
-const clearCursor = (d: DragContext): void => {
+function clearCursor(d: DragContext): void {
   if (d.cursorEl.parentNode) d.parentEl.removeChild(d.cursorEl);
   if (d.breakEl?.parentNode) d.parentEl.removeChild(d.breakEl);
-};
+}
 
-const updateHCursor = (d: DragContext, e: MouseEvent): void => {
+function updateHCursor(d: DragContext, e: MouseEvent): void {
   if (e.x <= d.box.left || e.x >= d.box.right || e.y <= d.box.top || e.y >= d.box.bottom) {
     clearCursor(d);
     d.data = null;
@@ -237,9 +240,9 @@ const updateHCursor = (d: DragContext, e: MouseEvent): void => {
     if (target.break != 'afterend' || d.cursorEl.getBoundingClientRect().top < e.y)
       d.cursorEl.insertAdjacentElement(target.break, d.breakEl!);
   } else if (d.breakEl!.parentNode) d.parentEl.removeChild(d.breakEl!);
-};
+}
 
-const updateVCursor = (d: DragContext, e: DragEvent): void => {
+function updateVCursor(d: DragContext, e: DragEvent): void {
   if (e.x <= d.box.left || e.x >= d.box.right || e.y <= d.box.top || e.y >= d.box.bottom) {
     clearCursor(d);
     return;
@@ -250,26 +253,4 @@ const updateVCursor = (d: DragContext, e: DragEvent): void => {
     if (e.y < r.top + r.height / 2) target = d.choices[i];
   }
   d.parentEl.insertBefore(d.cursorEl, target);
-};
-
-/* 
-// this does NOT seem to help convey how the flex layout is changing
-const insertAnimation = (d: DragContext): void => {
-  const width = $(d.dragEl).innerWidth();
-  const el = d.dragEl as HTMLElement;
-  el.addEventListener('transitionend', () => {
-    el.style.transition = '';
-    el.style.flex = ''
-    el.style.overflow = '';
-    el.style.justifyContent = '';
-  });
-  d.parentEl.insertBefore(el, d.cursorEl);
-  clearCursor(d);
-  el.style.flex = '0 1 16px';
-  el.style.overflow = 'hidden';
-  el.style.justifyContent = 'center';
-  requestAnimationFrame(() => {
-    el.style.transition = 'flex 0.15s';
-    requestAnimationFrame(() => el.style.flex = `0 1 ${width}px`);
-  });
-}*/
+}

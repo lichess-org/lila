@@ -107,7 +107,7 @@ object post:
         ),
         div(cls := "forum-post__message expand-text", role := "document")(
           if (post.erased) p("<Comment deleted by user>")
-          else views.html.ask.render(body, asks)
+          else views.html.ask.renderMany(body, asks)
         ),
         !post.erased option reactions(post, canReact),
         ctx.me.exists(post.shouldShowEditForm) option

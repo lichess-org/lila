@@ -1,5 +1,6 @@
 package lila.ask
 
+import lila.common.IpAddress
 import lila.user.User
 
 case class Ask(
@@ -9,24 +10,23 @@ case class Ask(
     tags: Ask.Tags,
     creator: UserId,
     createdAt: java.time.Instant,
-    answer: Option[String], // correct answer, if defined then this ask is a quiz
-    footer: Option[String], // reveal text for quizzes or optional text prompt for feedbacks
+    footer: Option[String], // optional text prompt for feedbacks
     picks: Option[Ask.Picks],
     feedback: Option[Ask.Feedback],
     url: Option[String]
 ):
+
   // changes to any of the fields checked in compatible will invalidate votes and feedback
   def compatible(a: Ask): Boolean =
     question == a.question &&
       choices == a.choices &&
-      answer == a.answer &&
       footer == a.footer &&
       creator == a.creator &&
-      isPublic == a.isPublic &&
+      isOpen == a.isOpen &&
+      isTransparent == a.isTransparent &&
       isAnon == a.isAnon &&
       isRanked == a.isRanked &&
-      isMulti == a.isMulti &&
-      isRange == a.isRange
+      isMulti == a.isMulti
 
   def merge(dbAsk: Ask): Ask =
     if this.compatible(dbAsk) then // keep votes & feedback
@@ -35,40 +35,47 @@ case class Ask(
     else copy(url = dbAsk.url) // discard votes & feedback
 
   def participants: Seq[String] = picks match
-    case Some(p) => p.keys.toSeq
+    case Some(p) => p.keys.filter(!_.startsWith("anon-")).toSeq
     case None    => Nil
 
-  def isAnon: Boolean      = tags.exists(_ startsWith "anon") // hide voters from creator/mods
-  def isPublic: Boolean    = tags contains "public"           // everyone can see who voted for what
-  def isTally: Boolean     = tags contains "tally"            // partial results viewable before conclusion
-  def isConcluded: Boolean = tags contains "concluded"        // no more votes, notify participants
+  lazy val isOpen        = tags contains "open"               // allow votes from anyone (no acct reqired)
+  lazy val isAnon        = tags.exists(_ startsWith "anon")   // hide voters from creator/mods
+  lazy val isTransparent = tags.exists(_ startsWith "trans")  // everyone can see who voted for what
+  lazy val isTally       = tags contains "tally"              // partial results viewable before conclusion
+  lazy val isConcluded   = tags contains "concluded"          // closed poll
+  lazy val isRandom      = tags.exists(_ startsWith "random") // randomize order of choices
+  lazy val isMulti    = !isRanked && tags.exists(_ startsWith "multi") // multiple choices allowed
+  lazy val isRanked   = tags.exists(_ startsWith "rank")               // drag to sort
+  lazy val isFeedback = tags contains "feedback"                       // has a feedback/submit form
+  // def isCenter = tags contains "center"             // horizontally center each row of choices
+  lazy val isStretch  = tags.exists(_ startsWith "stretch") // stretch choices to fill width
+  lazy val isCheckbox = !isRanked && isVertical             // use checkboxes, implies vertical
+  lazy val isVertical = tags.exists(_ startsWith "vert") || // one choice per row
+    tags.exists(_ startsWith "check")
 
-  def isRandom: Boolean   = tags contains "random"              // randomize order of choices
-  def isCenter: Boolean   = tags contains "center"              // horizontally center each row of choices
-  def isVertical: Boolean = tags.exists(_ startsWith "vert")    // one choice per row
-  def isStretch: Boolean  = tags.exists(_ startsWith "stretch") // stretch choices to fill width
+  // these accessors probably seem cumbersone
+  // they were written to support app/views/ask.scala code
+  def toAnon(user: UserId): Option[String] =
+    (if isAnon then Ask.anonHash(user.value, _id) else user.value).some
 
-  def isMulti: Boolean    = tags.exists(_ startsWith "multi") // multiple choices allowed
-  def isRanked: Boolean   = tags.exists(_ startsWith "rank")  // drag to sort
-  def isRange: Boolean    = tags.exists(_ startsWith "range") // slider
-  def isFeedback: Boolean = tags contains "feedback"          // has a feedback/submit form
-  def isQuiz: Boolean     = answer nonEmpty                   // has a correct answer
+  def toAnon(ip: IpAddress): Option[String] =
+    isOpen option Ask.anonHash(ip.toString, _id)
 
-  def range: Int = tags.find(_ startsWith "range(") flatMap (_.drop(6).toIntOption) getOrElse choices.size
-  def anon(user: UserId): String = if isAnon then Ask.anon(user, _id) else user.value
+  // NOTE - eid stands for effective id, either a user id or an anonymous hash
+  def hasPickFor(o: Option[String]): Boolean =
+    o ?? (eid => picks.exists(_ contains eid))
 
-  def hasPickFor(uid: UserId): Boolean               = picks exists (_ contains anon(uid))
-  def hasPickFor(o: Option[User]): Boolean           = o.fold(false)(u => hasPickFor(u.id))
-  def picksFor(uid: UserId): Option[Vector[Int]]     = picks flatMap (_ get anon(uid))
-  def picksFor(o: Option[User]): Option[Vector[Int]] = o flatMap (u => picksFor(u.id))
-  def firstPickFor(uid: UserId): Option[Int]         = picksFor(uid) flatMap (_ headOption)
-  def firstPickFor(o: Option[User]): Option[Int]     = o flatMap (u => firstPickFor(u.id))
+  def picksFor(o: Option[String]): Option[Vector[Int]] =
+    o.flatMap(eid => picks.flatMap(_ get eid))
 
-  def rankingFor(uid: UserId): Option[IndexedSeq[Int]] =
-    picks flatMap (_ get anon(uid))
+  def firstPickFor(o: Option[String]): Option[Int] =
+    picksFor(o) flatMap (_ headOption)
 
-  def hasFeedbackFor(uid: UserId): Boolean     = feedback exists (_ contains anon(uid))
-  def feedbackFor(uid: UserId): Option[String] = feedback flatMap (_ get anon(uid))
+  def hasFeedbackFor(o: Option[String]): Boolean =
+    o ?? (eid => feedback.exists(_ contains eid))
+
+  def feedbackFor(o: Option[String]): Option[String] =
+    o ?? (eid => feedback flatMap (_ get eid))
 
   def count(choice: Int): Int    = picks.fold(0)(_.values.count(_ contains choice))
   def count(choice: String): Int = count(choices indexOf choice)
@@ -132,7 +139,6 @@ object Ask:
       choices: Choices,
       tags: Tags,
       creator: UserId,
-      answer: Option[String],
       footer: Option[String]
   ) = Ask(
     _id = _id getOrElse (ornicar.scalalib.ThreadLocalRandom nextString idSize),
@@ -141,15 +147,14 @@ object Ask:
     tags = tags,
     createdAt = java.time.Instant.now(),
     creator = creator,
-    answer = answer,
     footer = footer,
     picks = None,
     feedback = None,
     url = None
   )
 
-  def anon(uid: UserId, aid: Ask.ID): String =
-    "anon-" + new String(base64.encode(com.roundeights.hasher.Algo.sha1(s"${uid.value}-$aid").bytes))
+  def anonHash(uid: String, aid: Ask.ID): String =
+    "anon-" + new String(base64.encode(com.roundeights.hasher.Algo.sha1(s"$uid-$aid").bytes))
       .substring(0, 11) // 66 bits is plenty of entropy, collisions are fairly harmless
 
   private val base64 = java.util.Base64.getEncoder().withoutPadding();
