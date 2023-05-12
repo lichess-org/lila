@@ -8,7 +8,7 @@ import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
+import { isOpening, Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
 
@@ -48,6 +48,7 @@ export default class ExplorerCtrl {
   lastStream: Sync<true> | undefined;
   abortController: AbortController | undefined;
   cache: Dictionary<ExplorerData> = {};
+  cacheUseful: boolean = true;
 
   constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, previous?: ExplorerCtrl) {
     this.allowed = prop(previous ? previous.allowed() : !root.embed);
@@ -90,6 +91,7 @@ export default class ExplorerCtrl {
       const fen = this.root.node.fen;
       const processData = (res: ExplorerData) => {
         this.cache[fen] = res;
+        this.cacheUseful = isOpening(res) && res.white + res.black + res.draws > 100;
         this.movesAway(res.moves.length ? 0 : this.movesAway() + 1);
         this.loading(false);
         this.failing(null);
@@ -118,6 +120,7 @@ export default class ExplorerCtrl {
                 play: this.root.nodeList.slice(1).map(s => s.uci!),
                 fen,
                 withGames: this.withGames,
+                cacheUseful: this.cacheUseful,
               },
               processData,
               this.abortController.signal
@@ -202,6 +205,7 @@ export default class ExplorerCtrl {
             rootFen: fen,
             play: [],
             fen,
+            cacheUseful: true,
           },
           (res: OpeningData) => {
             masterCache[fen] = res;
