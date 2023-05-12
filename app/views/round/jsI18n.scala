@@ -43,7 +43,8 @@ object jsI18n:
 
   private val swissTranslations = Vector(
     trans.backToTournament,
-    trans.viewTournament
+    trans.viewTournament,
+    trans.noDrawBeforeSwissLimit
   )
 
   private val baseTranslations = Vector(
