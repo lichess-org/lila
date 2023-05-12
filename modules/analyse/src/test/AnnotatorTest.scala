@@ -62,7 +62,7 @@ class AnnotatorTest extends munit.FunSuite:
     // )
     assertEquals(
       annotator(dumped, makeGame(playedGame), none).copy(tags = Tags.empty).render,
-      PgnStr("""1. a3 { A00 Anderssen's Opening } 2.g6 2. g4""")
+      PgnStr("""1. a3 { A00 Anderssen's Opening } g6 2. g4""")
     )
 
   // test("simple analysis"):
