@@ -490,7 +490,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
-  <string name="firstName">Given name</string>
+  <string name="firstName">First name</string>
   <string name="lastName">Last name</string>
   <string name="biography">Biography</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Country or flag</string>
@@ -866,6 +866,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="useTheReportForm">use the report form</string>
   <string name="toRequestSupport">To request support, %1$s</string>
   <string name="tryTheContactPage">try the contact page</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Make sure to read %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">the forum etiquette</string>
   <string name="thisTopicIsArchived">This topic has been archived and can no longer be replied to.</string>
   <string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
   <string name="teamNamedX">%1$s team</string>

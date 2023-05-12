@@ -22,7 +22,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   private def forms      = env.tournament.forms
   private def cachedTour = env.tournament.cached.tourCache.byId
 
-  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
+  private def tournamentNotFound(using Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
     _.refreshAfterWrite(3.seconds)
@@ -182,7 +182,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me =>
     NoLameOrBot:
       NoPlayban:
-        JoinLimitPerUser(me.id) {
+        JoinLimitPerUser(me.id, rateLimitedJson.toFuccess):
           val data = TournamentForm.TournamentJoin(
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[TeamId]
@@ -191,7 +191,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
             case None        => jsonOkResult
             case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
           }
-        }(rateLimitedJson.toFuccess)
   }
 
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
@@ -199,16 +198,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
     else
       NoPlayban(me.id.some):
-        JoinLimitPerUser(me.id) {
+        JoinLimitPerUser(me.id, rateLimitedJson.toFuccess):
           val data = TournamentForm.joinForm
             .bindFromRequest()
             .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
           doJoin(id, data, me) map {
-            _.error match
-              case None        => jsonOkResult
-              case Some(error) => BadRequest(Json.obj("error" -> error))
+            _.error.fold(jsonOkResult): error =>
+              BadRequest(Json.obj("error" -> error))
           }
-        }(rateLimitedJson.toFuccess)
   }
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin, me: UserModel) =
@@ -277,11 +274,9 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         isPrivate
       ) 5
       else 20
-    CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(req.ipAddress, cost = cost, msg = me.username) {
+    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost, msg = me.username):
         create
-      }(fail.toFuccess)
-    }(fail.toFuccess)
 
   def create = AuthBody { ctx ?=> me =>
     NoBot:
@@ -314,7 +309,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     else doApiCreate(me)
   }
 
-  private def doApiCreate(me: UserModel)(implicit req: Request[?]): Fu[Result] =
+  private def doApiCreate(me: UserModel)(using req: Request[?]): Fu[Result] =
     env.team.api.lightsByLeader(me.id) flatMap { teams =>
       forms
         .create(me, teams)
@@ -528,7 +523,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   private def WithEditableTournament(id: TourId, me: UserModel)(
       f: Tour => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  )(using Context): Fu[Result] =
     cachedTour(id) flatMap {
       case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)

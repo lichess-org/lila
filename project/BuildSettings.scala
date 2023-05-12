@@ -55,7 +55,7 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-Xtarget:12"
+    "-Xtarget:12",
     // "-Wunused:all"
   )
 

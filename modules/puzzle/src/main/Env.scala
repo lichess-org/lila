@@ -16,7 +16,6 @@ private class PuzzleConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     renderer: lila.hub.actors.Renderer,

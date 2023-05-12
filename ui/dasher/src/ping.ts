@@ -12,10 +12,18 @@ export interface PingCtrl {
   trans: Trans;
 }
 
+//let theseThingsBuildUpYaknow = {}
 export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
   const data: PingData = {
     ping: undefined,
     server: undefined,
+  };
+
+  const maybeRedraw = () => {
+    // redraw only if lag indicator is shown. prevent the entire dasher DOM tree from being
+    // rebuilt on every subsequent pong we get (even when closed). this hack can be improved.
+    // maybe remove the pubsub handlers when a sub is shown or dasher is closed.
+    if ($('div.dasher').hasClass('shown') && $('#dasher_app div.links')[0]) redraw();
   };
 
   const hub = lichess.pubsub;
@@ -23,11 +31,11 @@ export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
   hub.emit('socket.send', 'moveLat', true);
   hub.on('socket.lag', lag => {
     data.ping = Math.round(lag);
-    redraw();
+    maybeRedraw();
   });
   hub.on('socket.in.mlat', lat => {
     data.server = lat as number;
-    redraw();
+    maybeRedraw();
   });
 
   return { data, trans };

@@ -2,17 +2,15 @@ package lila.round
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import chess.format.{ Fen, BoardFen }
+import chess.format.Fen
 import play.api.libs.json.*
 
 import lila.common.{ Bus, LightUser }
 import lila.common.Json.given
 import lila.game.actorApi.MoveGameEvent
-import lila.game.Game
 import lila.socket.Socket
 
 final private class TvBroadcast(
-    userJsonView: lila.user.JsonView,
     lightUserSync: LightUser.GetterSync
 ) extends Actor:
 

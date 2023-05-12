@@ -627,6 +627,7 @@
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">동시대국을 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
   <string name="simulHostExtraTime">호스트 연장 시간</string>
+  <string name="simulAddExtraTimePerPlayer">다면기에 참여하는 각 플레이어에게 기본 시간을 추가합니다.</string>
   <string name="lichessTournaments">Lichess 토너먼트</string>
   <string name="tournamentFAQ">아레나 토너먼트 FAQ</string>
   <string name="timeBeforeTournamentStarts">토너먼트 시작까지 시간</string>
@@ -823,6 +824,8 @@
   <string name="useTheReportForm">사용자 신고</string>
   <string name="toRequestSupport">%1$s에서 리체스에 문의하실 수 있습니다.</string>
   <string name="tryTheContactPage">연락처</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">%1$s를 꼭 읽으세요</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">포럼 에티켓</string>
   <string name="thisTopicIsArchived">이 주제는 보존되어서 댓글을 남기실 수 없습니다.</string>
   <string name="joinTheTeamXToPost">이 포럼에 글을 올리시려면 %1$s에 가입하셔야 합니다.</string>
   <string name="teamNamedX">팀 %1$s</string>
@@ -906,4 +909,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
   <string name="switchSides">색 바꾸기</string>
   <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
+  <string name="ourEventTips">이벤트 준비를 위한 팁</string>
 </resources>

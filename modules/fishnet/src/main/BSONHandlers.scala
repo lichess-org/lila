@@ -19,7 +19,6 @@ private object BSONHandlers:
   given BSONHandler[Variant] = variantByIdHandler
 
   private given BSONDocumentHandler[Work.Acquired] = Macros.handler
-  private given BSONDocumentHandler[Work.Clock]    = Macros.handler
   private given BSONDocumentHandler[Work.Game]     = Macros.handler
   private given BSONDocumentHandler[Work.Sender]   = Macros.handler
   given BSONDocumentHandler[Work.Analysis]         = Macros.handler

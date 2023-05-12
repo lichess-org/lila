@@ -1,7 +1,7 @@
 .cmn-toggle {
   @extend %double-tap;
   position: absolute;
-  margin-#{$start-direction}: -99999px;
+  margin-left: -99999px;
 }
 
 .cmn-toggle + label {
@@ -9,8 +9,7 @@
   position: relative;
   cursor: pointer;
   outline: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
+  user-select: none;
   padding: 1px;
   width: 40px;
   height: 24px;

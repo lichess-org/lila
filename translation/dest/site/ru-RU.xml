@@ -945,6 +945,8 @@
   <string name="useTheReportForm">заполните форму обращения</string>
   <string name="toRequestSupport">Чтобы получить поддержку, %1$s</string>
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
+  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Не забудьте прочитать %1$s</string>
+  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">форумный этикет</string>
   <string name="thisTopicIsArchived">Эта тема была помещена в архив и добавить комментарий уже нельзя.</string>
   <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>

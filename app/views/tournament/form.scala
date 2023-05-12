@@ -9,7 +9,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
 import lila.tournament.{ Tournament, TournamentForm }
-import lila.gathering.{ Condition, ConditionForm, GatheringClock }
+import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
 

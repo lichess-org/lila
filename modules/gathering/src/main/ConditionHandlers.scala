@@ -10,7 +10,6 @@ object ConditionHandlers:
   object BSONHandlers:
     import reactivemongo.api.bson.*
     import lila.db.dsl.{ *, given }
-    import lila.rating.BSONHandlers.perfTypeKeyHandler
 
     given BSONDocumentHandler[NbRatedGame] = Macros.handler
     given BSONDocumentHandler[MaxRating]   = Macros.handler

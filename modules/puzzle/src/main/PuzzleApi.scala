@@ -15,7 +15,6 @@ final class PuzzleApi(
     openingApi: PuzzleOpeningApi
 )(using ec: Executor, scheduler: Scheduler):
 
-  import Puzzle.{ BSONFields as F }
   import BsonHandlers.given
 
   object puzzle:

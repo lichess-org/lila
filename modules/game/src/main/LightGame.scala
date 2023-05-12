@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.{ Color, Status }
-import lila.i18n.I18nKeys.ratingRange
 
 case class LightGame(
     id: GameId,

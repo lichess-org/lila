@@ -190,8 +190,6 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       (o \ "deleted").asOpt[Boolean]
     } contains true
 
-  private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]
-
 object StripeClient:
 
   class StripeException(msg: String)                      extends Exception(msg)

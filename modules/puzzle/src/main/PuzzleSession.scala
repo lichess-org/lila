@@ -3,7 +3,6 @@ package lila.puzzle
 import chess.Color
 import scala.util.chaining.*
 
-import lila.db.dsl.*
 import lila.memo.CacheApi
 import lila.user.User
 

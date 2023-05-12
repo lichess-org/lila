@@ -4,7 +4,7 @@ import * as side from './side';
 import theme from './theme';
 import chessground from './chessground';
 import feedbackView from './feedback';
-import stepwiseScroll from 'common/wheel';
+import { stepwiseScroll } from 'common/scroll';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { onInsert, bindNonPassive } from 'common/snabbdom';

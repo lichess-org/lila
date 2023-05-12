@@ -5,7 +5,7 @@ import cats.data.NonEmptyList
 import lila.insight.*
 import lila.rating.PerfType
 import lila.common.config
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.insight.InsightEntry.{ BSONFields as F }
 import lila.insight.BSONHandlers.given

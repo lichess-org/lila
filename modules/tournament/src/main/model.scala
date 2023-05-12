@@ -2,8 +2,6 @@ package lila.tournament
 
 import play.api.i18n.Lang
 
-import lila.user.User
-
 final class LeaderboardRepo(val coll: lila.db.dsl.Coll)
 
 case class TournamentTop(value: List[Player]) extends AnyVal

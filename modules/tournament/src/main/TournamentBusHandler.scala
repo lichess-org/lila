@@ -1,9 +1,6 @@
 package lila.tournament
 
-import akka.actor.*
-
 import lila.game.actorApi.FinishGame
-import lila.user.User
 
 final private class TournamentBusHandler(
     api: TournamentApi,

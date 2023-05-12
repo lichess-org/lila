@@ -945,6 +945,8 @@
   <string name="useTheReportForm">השתמשו בטופס הדיווח</string>
   <string name="toRequestSupport">לבקשת תמיכה, %1$s</string>
   <string name="tryTheContactPage">נסו את העמוד ״צרו קשר״</string>
+  <string name="makeSureToRead">קראו את %1$s</string>
+  <string name="theForumEtiquette">כללי ההשתתפות בפורומים</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
   <string name="joinTheTeamXToPost">הצטרף ל %1$s כדי לפרסם בפורום הזה</string>
   <string name="teamNamedX">הקבוצה %1$s</string>

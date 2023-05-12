@@ -118,7 +118,7 @@ final class StudySearchApi(
               parseDate("2011-01-01").get
           logger.info(s"Index to ${c.index} since $since")
           val retryLogger = logger.branch("index")
-          import lila.db.dsl.{ *, given }
+          import lila.db.dsl.*
           Source
             .futureSource {
               studyRepo

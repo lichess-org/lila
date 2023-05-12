@@ -283,7 +283,7 @@ case object Perfs:
 
     private inline def notNew(p: Perf): Option[Perf] = p.nonEmpty option p
 
-    def writes(@annotation.nowarn w: BSON.Writer, o: Perfs) =
+    def writes(w: BSON.Writer, o: Perfs) =
       reactivemongo.api.bson.BSONDocument(
         "standard"       -> notNew(o.standard),
         "chess960"       -> notNew(o.chess960),

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Просунутий пішак</string>
-  <string name="advancedPawnDescription">Пішак, що загрожує перетворенню, є ключовим для тактики.</string>
+  <string name="advancedPawnDescription">Один з Ваших пішаків просунувся по позиціях суперника, ймовірна загроза перетворення.</string>
   <string name="advantage">Перевага</string>
   <string name="advantageDescription">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Мат Анастасії</string>
   <string name="anastasiaMateDescription">Кінь з турою або ферзем ловлять короля між краєм дошки та власною фігурою.</string>
   <string name="arabianMate">Арабський мат</string>
-  <string name="arabianMateDescription">Кінь та тура ловлять короля на кутку дошки.</string>
+  <string name="arabianMateDescription">Кінь та тура разом ловлять короля у кутку дошки.</string>
   <string name="attackingF2F7">Атака f2 або f7</string>
   <string name="attackingF2F7Description">Атака, спрямована на f2 або f7, наприклад, як у дебюті смаженої печінки.</string>
   <string name="attraction">Заманювання</string>
   <string name="attractionDescription">Обмін або жертва, що заманює або примушує суперника зробити хід, що дозволяє проводити подальшу тактику.</string>
   <string name="backRankMate">Мат по останній горизонталі</string>
-  <string name="backRankMateDescription">Мат королю в останньому ряду, коли він у пастці між власними фігурами.</string>
+  <string name="backRankMateDescription">Мат королю в домашньому ряду, коли він у пастці між власними фігурами.</string>
   <string name="bishopEndgame">Слоновий ендшпіль</string>
   <string name="bishopEndgameDescription">Ендшпіль лише зі слонами та пішаками.</string>
   <string name="bodenMate">Мат Бодена</string>

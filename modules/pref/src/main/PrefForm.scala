@@ -28,7 +28,6 @@ object PrefForm:
         "pieceNotation" -> optional(booleanNumber),
         "zen"           -> optional(booleanNumber),
         "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "voice"         -> optional(booleanNumber),
         "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
@@ -40,6 +39,7 @@ object PrefForm:
         "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
         "keyboardMove"  -> optional(booleanNumber),
+        "voice"         -> optional(booleanNumber),
         "rookCastle"    -> optional(booleanNumber)
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
@@ -67,7 +67,6 @@ object PrefForm:
       pieceNotation: Option[Int],
       zen: Option[Int],
       resizeHandle: Option[Int],
-      voice: Option[Int],
       blindfold: Int
   )
 
@@ -80,6 +79,7 @@ object PrefForm:
       submitMove: Int,
       confirmResign: Int,
       keyboardMove: Option[Int],
+      voice: Option[Int],
       rookCastle: Option[Int]
   )
 
@@ -116,7 +116,6 @@ object PrefForm:
         destination = display.destination == 1,
         coords = display.coords,
         replay = display.replay,
-        voice = display.voice | pref.voice,
         blindfold = display.blindfold,
         challenge = challenge,
         message = message,
@@ -128,6 +127,7 @@ object PrefForm:
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
+        voice = behavior.voice | pref.voice,
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
@@ -146,7 +146,6 @@ object PrefForm:
           coords = pref.coords,
           replay = pref.replay,
           captured = if (pref.captured) 1 else 0,
-          voice = pref.voice.some,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,
@@ -161,6 +160,7 @@ object PrefForm:
           submitMove = pref.submitMove,
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
+          voice = pref.voice.some,
           rookCastle = pref.rookCastle.some
         ),
         clock = ClockData(
@@ -215,12 +215,11 @@ object PrefForm:
     )
   )
 
+  // Allow blank image URL
   val bgImg = Form(
     single(
-      "bgImg" -> nonEmptyText(minLength = 10, maxLength = 400)
-        .verifying { url =>
-          url.startsWith("https://") || url.startsWith("//")
-        }
+      "bgImg" -> text(maxLength = 400)
+        .verifying { url => url.isBlank || url.startsWith("https://") || url.startsWith("//") }
     )
   )
 
