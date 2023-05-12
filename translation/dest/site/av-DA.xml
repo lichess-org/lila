@@ -165,7 +165,9 @@
   <string name="error.weakPassword">Гьаб парол кутакалда тӀибитӀараб буго, гьединго гьалда нахъгӀунтӀизе бигьаяб буго.</string>
   <string name="youAreLeavingLichess">Мун Lichess-алдаса унев вуго</string>
   <string name="neverTypeYourPassword">БатӀияб сайталда дур Lichess парол киданиги хъваге!</string>
+  <string name="emailSent">%s-алде поч битӀана.</string>
   <string name="emailCanTakeSomeTime">БачӀине мех базе бегьула.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 минуталъ чӀа цинги цӀи гьабе дур почалде рачӀарал.</string>
   <string name="accountClosed">%s аккаунт къан буго.</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>
