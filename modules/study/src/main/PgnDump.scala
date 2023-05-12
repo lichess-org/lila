@@ -4,7 +4,6 @@ import akka.stream.scaladsl.*
 import cats.syntax.all.*
 import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
 import chess.format.{ pgn as chessPgn }
-import scala.concurrent.duration.*
 
 import lila.common.String.slugify
 import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }

@@ -21,6 +21,7 @@ import lila.socket.UserLagCache
 import lila.user.{ Holder, User as UserModel }
 import lila.security.{ Granter, UserLogins }
 import lila.mod.UserWithModlog
+import play.api.i18n.Lang
 
 final class User(
     env: Env,
@@ -49,7 +50,7 @@ final class User(
         case Some(gameId) => gameC.exportGame(gameId, req)
       }
 
-  private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[?]) =
+  private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
@@ -229,7 +230,12 @@ final class User(
       filterName: String,
       page: Int
   )(using ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
-    UserGamesRateLimitPerIP(ctx.ip, cost = page, msg = s"on ${u.username}") {
+    UserGamesRateLimitPerIP(
+      ctx.ip,
+      fuccess(Paginator.empty[GameModel]),
+      cost = page,
+      msg = s"on ${u.username}"
+    ):
       lila.mon.http.userGamesCost.increment(page.toLong)
       for
         pagFromDb <- env.gamePaginator(
@@ -238,14 +244,13 @@ final class User(
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
           page = page
-        )(using ctx.body, formBinding, reqLang)
+        )
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
         }
         _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       yield pag
-    }(fuccess(Paginator.empty[GameModel]))
 
   def list = Open:
     env.user.cached.top10.get {} flatMap { leaderboards =>

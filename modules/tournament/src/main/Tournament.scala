@@ -10,7 +10,7 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
-import lila.gathering.{ GreatPlayer, Condition }
+import lila.gathering.GreatPlayer
 
 case class Tournament(
     id: TourId,

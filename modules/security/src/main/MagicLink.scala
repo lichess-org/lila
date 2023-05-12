@@ -70,13 +70,10 @@ object MagicLink:
     key = "login.magicLink.email"
   )
 
-  def rateLimit[A](user: User, email: EmailAddress, req: RequestHeader)(
+  def rateLimit[A](user: User, email: EmailAddress, req: RequestHeader, default: => Fu[A])(
       run: => Fu[A]
-  )(default: => Fu[A]): Fu[A] =
-    rateLimitPerUser(user.id, cost = 1) {
-      rateLimitPerEmail(email.value, cost = 1) {
-        rateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
+  ): Fu[A] =
+    rateLimitPerUser(user.id, default):
+      rateLimitPerEmail(email.value, default):
+        rateLimitPerIP(HTTPRequest ipAddress req, default):
           run
-        }(default)
-      }(default)
-    }(default)

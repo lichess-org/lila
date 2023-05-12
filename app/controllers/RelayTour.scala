@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import scala.annotation.nowarn
 import views.*
 
 import lila.api.Context
@@ -112,7 +111,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           }
     )
 
-  def redirectOrApiTour(@nowarn("msg=unused") slug: String, id: TourModel.Id) = Open:
+  def redirectOrApiTour(slug: String, id: TourModel.Id) = Open:
     env.relay.api tourById id flatMapz { tour =>
       render.async:
         case Accepts.Json() =>
@@ -179,11 +178,9 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       fail: => Result
   )(create: => Fu[Result]): Fu[Result] =
     val cost =
-      if (isGranted(_.Relay, me)) 2
-      else if (me.hasTitle || me.isVerified) 5
+      if isGranted(_.Relay, me) then 2
+      else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(req.ipAddress, cost = cost) {
+    CreateLimitPerUser(me.id, fail.toFuccess, cost = cost):
+      CreateLimitPerIP(req.ipAddress, fail.toFuccess, cost = cost):
         create
-      }(fail.toFuccess)
-    }(fail.toFuccess)

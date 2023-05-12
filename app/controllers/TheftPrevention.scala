@@ -7,11 +7,11 @@ import play.api.mvc.*
 
 private[controllers] trait TheftPrevention { self: LilaController =>
 
-  protected def PreventTheft(pov: Pov)(ok: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  protected def PreventTheft(pov: Pov)(ok: => Fu[Result])(using Context): Fu[Result] =
     if (isTheft(pov)) fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name)))
     else ok
 
-  protected def isTheft(pov: Pov)(implicit ctx: Context) =
+  protected def isTheft(pov: Pov)(using Context) =
     pov.game.isPgnImport || pov.player.isAi || {
       (pov.player.userId, ctx.userId) match
         case (Some(_), None)                    => true
@@ -21,9 +21,9 @@ private[controllers] trait TheftPrevention { self: LilaController =>
           !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId.value)
     }
 
-  protected def isMyPov(pov: Pov)(implicit ctx: Context) = !isTheft(pov)
+  protected def isMyPov(pov: Pov)(using Context) = !isTheft(pov)
 
-  protected def playablePovForReq(game: GameModel)(implicit ctx: Context) =
+  protected def playablePovForReq(game: GameModel)(using Context) =
     (!game.isPgnImport && game.playable) ?? {
       ctx.userId
         .flatMap(game.playerByUserId)

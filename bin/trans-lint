@@ -94,9 +94,7 @@ def lint(report, path):
             continue
 
         source_el = source.find(f".//{el.tag}[@name='{name}']")
-        if source_el is None:
-            ctx.error(f"did not find source element for {el.tag}")
-        elif el.tag == "string":
+        if el.tag == "string":
             lint_string(ctx, el.text, source_el.text)
         elif el.tag == "plurals":
             for item in el:

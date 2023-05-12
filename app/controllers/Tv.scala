@@ -2,28 +2,26 @@ package controllers
 
 import play.api.http.ContentTypes
 import scala.util.chaining.*
+import play.api.libs.json.*
 import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.game.Pov
-import Api.ApiResult
+import lila.tv.Tv.Channel
+import lila.common.Json.given
 
-final class Tv(
-    env: Env,
-    apiC: => Api,
-    gameC: => Game
-) extends LilaController(env):
+final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
 
   def index     = Open(serveIndex)
   def indexLang = LangPage(routes.Tv.index)(serveIndex)
 
-  private def serveIndex(using Context) = serveChannel(lila.tv.Tv.Channel.Best.key)
+  private def serveIndex(using Context) = serveChannel(Channel.Best.key)
 
   def onChannel(chanKey: String) = Open(serveChannel(chanKey))
 
   private def serveChannel(chanKey: String)(using Context) =
-    lila.tv.Tv.Channel.byKey.get(chanKey) ?? lichessTv
+    Channel.byKey.get(chanKey) ?? lichessTv
 
   def sides(gameId: GameId, color: String) = Open:
     OptionFuResult(chess.Color.fromName(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
@@ -32,17 +30,15 @@ final class Tv(
       }
     }
 
-  import play.api.libs.json.*
-  import lila.common.Json.given
-  given Writes[lila.tv.Tv.Champion] = Json.writes
+  private given Writes[lila.tv.Tv.Champion] = Json.writes
 
   def channels = apiC.ApiRequest:
     env.tv.tv.getChampions map {
       _.channels map { (chan, champ) => chan.name -> champ }
-    } map { Json.toJson(_) } dmap ApiResult.Data.apply
+    } map { Json.toJson(_) } dmap Api.ApiResult.Data.apply
 
-  private def lichessTv(channel: lila.tv.Tv.Channel)(using Context) =
-    OptionFuResult(env.tv.tv getGameAndHistory channel) { (game, history) =>
+  private def lichessTv(channel: Channel)(using Context) =
+    OptionFuResult(env.tv.tv getGameAndHistory channel): (game, history) =>
       val flip    = getBool("flip")
       val natural = Pov naturalOrientation game
       val pov     = if (flip) !natural else natural
@@ -57,19 +53,18 @@ final class Tv(
         },
         api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) dmap { Ok(_) }
       )
-    }
 
-  def games = gamesChannel(lila.tv.Tv.Channel.Best.key)
+  def games = gamesChannel(Channel.Best.key)
 
   def gamesChannel(chanKey: String) = Open:
-    lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
+    Channel.byKey.get(chanKey) ?? { channel =>
       env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map { (champs, games) =>
         Ok(html.tv.games(channel, games map Pov.naturalOrientation, champs)).noCache
       }
     }
 
   def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[String]) = Open:
-    val gameFu = lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
+    val gameFu = Channel.byKey.get(chanKey) ?? { channel =>
       env.tv.tv.getReplacementGame(channel, gameId, exclude map { GameId(_) })
     }
     OptionResult(gameFu): game =>
@@ -80,7 +75,7 @@ final class Tv(
         )
 
   def apiGamesChannel(chanKey: String) = Anon:
-    lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
+    Channel.byKey.get(chanKey) ?? { channel =>
       env.tv.tv.getGameIds(channel, getInt("nb", req).fold(10)(_ atMost 30 atLeast 1)) map { gameIds =>
         val config =
           lila.api.GameApiV2.ByIdsConfig(
@@ -108,7 +103,5 @@ final class Tv(
     }
 
   def frame = Anon:
-    env.tv.tv.getBestGame map {
-      case None       => NotFound
-      case Some(game) => Ok(views.html.tv.embed(Pov naturalOrientation game))
-    }
+    env.tv.tv.getBestGame.mapz: game =>
+      Ok(views.html.tv.embed(Pov naturalOrientation game))

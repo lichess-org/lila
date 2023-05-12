@@ -7,7 +7,6 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
-import scala.annotation.nowarn
 
 import lila.common.autoconfig.*
 import lila.common.config.*
@@ -45,11 +44,11 @@ object Hcaptcha:
 
 final class HcaptchaSkip(config: HcaptchaPublicConfig) extends Hcaptcha:
 
-  def form[A](form: Form[A])(using @nowarn req: RequestHeader): Fu[HcaptchaForm[A]] = fuccess {
+  def form[A](form: Form[A])(using RequestHeader): Fu[HcaptchaForm[A]] = fuccess {
     HcaptchaForm(form, config, skip = true)
   }
 
-  def verify(@nowarn response: String)(using @nowarn req: RequestHeader) = fuccess(Hcaptcha.Result.Valid)
+  def verify(response: String)(using RequestHeader) = fuccess(Hcaptcha.Result.Valid)
 
 final class HcaptchaReal(
     ws: StandaloneWSClient,

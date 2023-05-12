@@ -93,18 +93,15 @@ final class Account(
   val apiMe =
     val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.account.user")
     Scoped() { req ?=> me =>
-      rateLimit(me.id) {
+      def limited = rateLimitedFu:
+        "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+      rateLimit(me.id, limited):
         env.api.userApi.extended(
           me,
           me.some,
           withFollows = apiC.userWithFollows(req),
           withTrophies = false
-        )(using I18nLangPicker(req, me.lang)) dmap { JsonOk(_) }
-      }(
-        rateLimitedFu(
-          "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
-        )
-      )
+        )(using reqLang(me)) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying = Scoped() { req ?=> me =>
@@ -179,7 +176,7 @@ final class Account(
     }
   }
 
-  def renderCheckYourEmail(implicit ctx: Context) =
+  def renderCheckYourEmail(using Context) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { ctx ?=> me =>
@@ -189,12 +186,10 @@ final class Account(
           fuccess(html.account.email(err))
         } { data =>
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
-          auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+          auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimitedFu):
             env.security.emailChange.send(me, newUserEmail.email) inject
-              Redirect(routes.Account.email).flashSuccess {
+              Redirect(routes.Account.email).flashSuccess:
                 lila.i18n.I18nKeys.checkYourEmail.txt()
-              }
-          }(rateLimitedFu)
         }
       }
   }
@@ -327,7 +322,7 @@ final class Account(
       case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
   }
 
-  private def currentSessionId(implicit ctx: Context) =
+  private def currentSessionId(using Context) =
     ~env.security.api.reqSessionId(ctx.req)
 
   def security = Auth { _ ?=> me =>
@@ -382,12 +377,10 @@ final class Account(
                     lila.mon.user.auth.reopenRequest(code).increment()
                     renderReopen(none, msg.some) map { BadRequest(_) }
                   case Right(user) =>
-                    auth.MagicLinkRateLimit(user, data.email, ctx.req) {
+                    auth.MagicLinkRateLimit(user, data.email, ctx.req, rateLimitedFu):
                       lila.mon.user.auth.reopenRequest("success").increment()
-                      env.security.reopen.send(user, data.email) inject Redirect(
+                      env.security.reopen.send(user, data.email) inject Redirect:
                         routes.Account.reopenSent
-                      )
-                    }(rateLimitedFu)
                 }
             )
         }

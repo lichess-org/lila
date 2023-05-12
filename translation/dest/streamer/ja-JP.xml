@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Lichess の配信者ページは、配信プラットフォームで指定した言語の視聴者を対象にします。配信に使うアプリやサービスでデフォルト言語を正しく設定しておいてください。</string>
   <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
   <string name="optionalOrEmpty">任意。なければ空白</string>
+  <string name="youTubeChannelId">あなたの YouTube チャンネル ID</string>
   <string name="streamerName">Lichess での配信者名</string>
   <plurals name="keepItShort">
     <item quantity="other">短めに、最大 %s 字まで</item>

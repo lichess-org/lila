@@ -361,7 +361,7 @@ final class Study(
       }
     } dmap (_.noCache)
 
-  private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
+  private def embedNotFound(using RequestHeader): Fu[Result] =
     fuccess(NotFound(html.study.embed.notFound))
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ =>
@@ -386,8 +386,8 @@ final class Study(
 
   def cloneApply(id: StudyId) = Auth { ctx ?=> me =>
     val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
-    CloneLimitPerUser(me.id, cost = cost) {
-      CloneLimitPerIP(ctx.ip, cost = cost) {
+    CloneLimitPerUser(me.id, rateLimitedFu, cost = cost):
+      CloneLimitPerIP(ctx.ip, rateLimitedFu, cost = cost):
         OptionFuResult(env.study.api.byId(id)) { prev =>
           CanView(prev, me.some) {
             env.study.api.clone(me, prev) map { study =>
@@ -395,8 +395,6 @@ final class Study(
             }
           }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
         }
-      }(rateLimitedFu)
-    }(rateLimitedFu)
   }
 
   private val PgnRateLimitPerIp = lila.memo.RateLimit[IpAddress](
@@ -406,24 +404,21 @@ final class Study(
   )
 
   def pgn(id: StudyId) = Open:
-    PgnRateLimitPerIp(ctx.ip, msg = id) {
-      OptionFuResult(env.study.api byId id) { study =>
+    PgnRateLimitPerIp(ctx.ip, rateLimitedFu, msg = id):
+      OptionFuResult(env.study.api byId id): study =>
         CanView(study, ctx.me) {
           doPgn(study, ctx.req).toFuccess
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
-      }
-    }(rateLimitedFu)
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
     env.study.api.byId(id).map {
       _.fold(studyNotFoundText): study =>
         if req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
         else
-          PgnRateLimitPerIp(req.ipAddress, msg = id) {
+          PgnRateLimitPerIp(req.ipAddress, rateLimited, msg = id):
             CanView(study, me) {
               doPgn(study, req)
             }(privateUnauthorizedText, privateForbiddenText)
-          }(rateLimited)
     }
   }
 

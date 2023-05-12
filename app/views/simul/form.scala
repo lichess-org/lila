@@ -9,7 +9,6 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
 import lila.simul.Simul
 import lila.simul.SimulForm
-import lila.simul.SimulCondition
 import lila.gathering.ConditionForm
 
 object form:

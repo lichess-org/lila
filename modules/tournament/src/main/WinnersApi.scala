@@ -5,7 +5,6 @@ import reactivemongo.api.ReadPreference
 import chess.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl.{ *, given }
 import Schedule.{ Freq, Speed }
-import lila.user.User
 
 case class Winner(
     tourId: TourId,

@@ -10,7 +10,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 

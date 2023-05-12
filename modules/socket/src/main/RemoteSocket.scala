@@ -113,8 +113,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
   }
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
-    def apply(msg: String)                                  = if (!stopping) super.send(channel, msg).unit
-    def sticky(@annotation.nowarn _id: String, msg: String) = apply(msg)
+    def apply(msg: String)               = if (!stopping) super.send(channel, msg).unit
+    def sticky(_id: String, msg: String) = apply(msg)
 
   final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
       extends Sender:

@@ -90,8 +90,4 @@ object JsonHandlers:
   import play.api.libs.json.*
   import lila.common.Json.given
 
-  private given Writes[Uci] = Writes { uci =>
-    JsString(uci.uci)
-  }
-
   given Writes[Eval] = Json.writes[Eval]

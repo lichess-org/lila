@@ -4,7 +4,7 @@ import cats.syntax.all.*
 import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
 
 import lila.common.Chronometer
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import chess.format.UciPath
 import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
 import chess.format.UciCharPair
