@@ -8,7 +8,15 @@ import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
-import { isOpening, Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
+import {
+  isOpening,
+  Hovering,
+  ExplorerData,
+  ExplorerDb,
+  OpeningData,
+  SimpleTablebaseHit,
+  ExplorerOpts,
+} from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
 
