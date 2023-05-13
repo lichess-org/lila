@@ -30,7 +30,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
         .fold(
           err => fufail(err.value),
           replay =>
-            UciToPgn(
+            UciToSan(
               replay,
               Analysis(
                 id = work.game.id,

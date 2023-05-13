@@ -35,7 +35,7 @@ case class Pref(
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
-    voice: Int,
+    voice: Option[Int],
     zen: Int,
     ratings: Int,
     rookCastle: Int,
@@ -91,7 +91,7 @@ case class Pref(
           copy(soundSet = s.key)
         }
       case "zen"   => copy(zen = if (value == "1") 1 else 0).some
-      case "voice" => copy(voice = if (value == "1") 1 else 0).some
+      case "voice" => copy(voice = if (value == "1") 1.some else 0.some).some
       case _       => none
 
   def animationMillis: Int =
@@ -127,7 +127,7 @@ case class Pref(
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
 
-  def hasVoice = voice == Voice.YES
+  def hasVoice = voice.contains(Voice.YES)
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -454,7 +454,7 @@ object Pref:
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
-    voice = Voice.NO,
+    voice = none,
     zen = Zen.NO,
     ratings = Ratings.YES,
     rookCastle = RookCastle.YES,
