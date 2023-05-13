@@ -14,7 +14,7 @@ import lila.base.LilaException
 // Even though Info.variation is a List[SanStr]
 // When we receive them from Fishnet clients it's actually a list of UCI moves.
 // This converts them to San format. drops extra variations
-private object UciToPgn:
+private object UciToSan:
 
   type WithErrors[A] = (A, List[Exception])
 
