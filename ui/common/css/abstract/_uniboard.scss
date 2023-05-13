@@ -25,7 +25,7 @@ $col3-uniboard-max-height: calc(100vh - #{$site-header-outer-height} - #{$col3-m
 $col3-uniboard-max-size: min(#{$col3-uniboard-max-width}, #{$col3-uniboard-max-height});
 $col3-uniboard-width: calc(#{$col3-uniboard-max-size} * var(--board-scale));
 
-// default zoom setting is 85% which gives a board-scale of 0.85*0.7+0.3 = 0.895 ≈ 0.9 (coincidence)
+// default zoom setting is 85% which gives a board-scale of 0.85*0.75+0.25 = 0,8875 ≈ 0.9 (coincidence)
 // this is used for 3-col pages that don't actually have a board, e.g. tournament pages
 // on these pages, the height is irrelevant, so we just use the width
 $uniboard-default-scale: 0.9;
