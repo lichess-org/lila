@@ -86,13 +86,8 @@ final class PgnDump(
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
     val root = chapter.root
-    val pgn = Pgn(
-      tags = makeTags(study, chapter)(using flags),
-      initial = Initial(
-        chapter.root.comments.value.map(_.text into Comment) ::: shapeComment(chapter.root.shapes).toList
-      ),
-      rootToTree(root)(using flags)
-    )
+    val tags = makeTags(study, chapter)(using flags)
+    val pgn  = rootToPgn(root, tags)(using flags)
     annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
 
 object PgnDump:
@@ -108,11 +103,19 @@ object PgnDump:
   private type Variations = List[Branch]
   private val noVariations: Variations = Nil
 
-  def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
-    if flags.variations then tree.map(branch2move) else tree.mapMainline(branch2move)
+  def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
+    println(s"rootToPgn $flags")
+    Pgn(
+      tags,
+      Initial(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
+      rootToTree(root)(using flags)
+    )
 
   def rootToTree(root: Root)(using flags: WithFlags): Option[PgnTree] =
     NewTree(root).map(treeToTree(_)(using flags))
+
+  def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
+    if flags.variations then tree.map(branch2move) else tree.mapMainline(branch2move)
 
   private def branch2move(node: NewBranch)(using flags: WithFlags) =
     chessPgn.Move(

@@ -121,13 +121,13 @@ object PgnImport:
           _ => none, // illegal move; stop here.
           moveOrDrop => {
             val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
-            val uci    = moveOrDrop.fold(_.toUci, _.toUci)
+            val uci    = moveOrDrop.toUci
             val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
             parseComments(node.value.metas.comments, annotator) match {
               case (shapes, clock, comments) =>
                 Branch(
                   id = UciCharPair(uci),
-                  ply = game.ply,
+                  ply = prev.ply,
                   move = Uci.WithSan(uci, sanStr),
                   fen = Fen write game,
                   check = game.situation.check,

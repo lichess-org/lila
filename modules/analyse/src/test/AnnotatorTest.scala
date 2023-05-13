@@ -10,6 +10,8 @@ import lila.game.PgnDump
 
 class AnnotatorTest extends munit.FunSuite:
 
+  given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
+
   val annotator = Annotator(NetDomain("l.org"))
   def makeGame(g: chess.Game) =
     lila.game.Game
@@ -39,8 +41,7 @@ class AnnotatorTest extends munit.FunSuite:
       .get
       .state
 
-  given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-  val dumper                              = PgnDump(BaseUrl("l.org/"), lila.user.LightUserApi.mock)
+  val dumper = PgnDump(BaseUrl("l.org/"), lila.user.LightUserApi.mock)
   val dumped =
     dumper(makeGame(playedGame), None, PgnDump.WithFlags(tags = false)).await(1.second, "test dump")
 
@@ -57,9 +58,6 @@ class AnnotatorTest extends munit.FunSuite:
     )
 
   test("opening comment"):
-    // val analysis = emptyAnalysis.copy(
-    //   infos = List(Info(Ply(1), emptyEval, Nil))
-    // )
     assertEquals(
       annotator(dumped, makeGame(playedGame), none).copy(tags = Tags.empty).render,
       PgnStr("""1. a3 { A00 Anderssen's Opening } g6 2. g4""")

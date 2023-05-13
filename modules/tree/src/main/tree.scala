@@ -287,7 +287,7 @@ case class Root(
     then copy(children = children.takeMainlineWhile(f))
     else this
 
-  override def toString = s"$children"
+  override def toString = s"$ply $children"
 
 object Root:
   def default(variant: Variant) =
