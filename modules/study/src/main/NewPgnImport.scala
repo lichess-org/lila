@@ -79,10 +79,7 @@ object NewPgnImport:
             )
     }
 
-  case class Context(
-      game: chess.Game,
-      path: UciPath
-  )
+  case class Context(game: chess.Game, path: UciPath)
 
   private def makeTree(
       setup: chess.Game,
@@ -117,7 +114,7 @@ object NewPgnImport:
                 comp = false,
                 forceVariation = false,
                 Metas(
-                  ply = game.ply,
+                  ply = context.game.ply,
                   fen = Fen write game,
                   check = game.situation.check,
                   dests = None,
