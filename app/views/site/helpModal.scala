@@ -156,7 +156,9 @@ object helpModal:
             td(cls := "tips")(
               ul(
                 li(
-                  "Click the microphone to enable voice moves. It glows red when listening."
+                  "Use the ",
+                  i(dataIcon := ""),
+                  " button to toggle voice recognition mode."
                 ),
                 li(
                   "Your voice audio never leaves your device. Moves are sent as plain text just like those made by mouse or touch."
@@ -187,7 +189,7 @@ object helpModal:
                   "Higher clarity values will decrease arrows & countdowns but increase the chance of misplays."
                 ),
                 li(
-                  "Clarity, countdown, and arrow display settings are in the hamburger menu by the microphone."
+                  "Clarity, countdown, and arrow display settings are in the voice bar hamburger menu."
                 ),
                 li(
                   "The phonetic alphabet is ",
