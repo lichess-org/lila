@@ -21,9 +21,14 @@ final class PuzzleActivity(
   import BsonHandlers.given
 
   def stream(config: Config): Source[String, ?] =
-    Source futureSource {
-      colls.round.map {
-        _.find($doc(PuzzleRound.BSONFields.user -> config.user.id))
+    Source futureSource:
+      colls.round.map:
+        _.find(
+          $doc(PuzzleRound.BSONFields.user -> config.user.id) ++
+            config.before.?? { before =>
+              $doc(PuzzleRound.BSONFields.date $lt before)
+            }
+        )
           .sort($sort desc PuzzleRound.BSONFields.date)
           .batchSize(config.perSecond.value)
           .cursor[PuzzleRound](ReadPreference.secondaryPreferred)
@@ -32,20 +37,17 @@ final class PuzzleActivity(
           .throttle(1, 1 second)
           .mapAsync(1)(enrich)
           .mapConcat(identity)
-          .map { json =>
+          .map: json =>
             s"${Json.stringify(json)}\n"
-          }
-      }
-    }
 
   private def enrich(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
-    colls.puzzle {
+    colls.puzzle:
       _.primitiveMap[PuzzleId, Double](
         ids = rounds.map(_.id.puzzleId),
         field = s"${Puzzle.BSONFields.glicko}.r",
         fieldExtractor = _.child("glicko").flatMap(_ double "r")
-      ) map { ratings =>
-        rounds flatMap { round =>
+      ).map: ratings =>
+        rounds.flatMap: round =>
           ratings get round.id.puzzleId map { puzzleRating =>
             Json.obj(
               "id"           -> round.id.puzzleId,
@@ -54,14 +56,12 @@ final class PuzzleActivity(
               "puzzleRating" -> puzzleRating.toInt
             )
           }
-        }
-      }
-    }
 
 object PuzzleActivity:
 
   case class Config(
       user: User,
       max: Option[Int] = None,
+      before: Option[Instant] = None,
       perSecond: MaxPerSecond
   )
