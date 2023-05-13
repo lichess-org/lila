@@ -14,6 +14,7 @@
   grid-template-areas: 'board' 'race' 'side' 'history';
 
   @include breakpoint($mq-col2) {
+    grid-template-columns: $col2-uniboard-fallback-width $col2-uniboard-table;
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
     grid-template-rows: auto fit-content(0);
     grid-template-areas:
