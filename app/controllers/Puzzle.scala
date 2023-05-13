@@ -361,8 +361,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
       max = getInt("max", req).map(_ atLeast 1),
-      before = getTimestamp("before", req),
-      perSecond = MaxPerSecond(20)
+      before = getTimestamp("before", req)
     )
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)):

@@ -21,6 +21,7 @@ final class PuzzleActivity(
   import BsonHandlers.given
 
   def stream(config: Config): Source[String, ?] =
+    val perSecond = MaxPerSecond(20)
     Source futureSource:
       colls.round.map:
         _.find(
@@ -30,38 +31,35 @@ final class PuzzleActivity(
             }
         )
           .sort($sort desc PuzzleRound.BSONFields.date)
-          .batchSize(config.perSecond.value)
+          .batchSize(perSecond.value)
           .cursor[PuzzleRound](ReadPreference.secondaryPreferred)
           .documentSource(config.max | Int.MaxValue)
-          .grouped(config.perSecond.value)
+          .grouped(perSecond.value)
           .throttle(1, 1 second)
-          .mapAsync(1)(enrich)
+          .mapAsync(1)(enrich(config))
           .mapConcat(identity)
           .map: json =>
             s"${Json.stringify(json)}\n"
 
-  private def enrich(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
+  private def enrich(config: Config)(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
     colls.puzzle:
-      _.primitiveMap[PuzzleId, Double](
-        ids = rounds.map(_.id.puzzleId),
-        field = s"${Puzzle.BSONFields.glicko}.r",
-        fieldExtractor = _.child("glicko").flatMap(_ double "r")
-      ).map: ratings =>
-        rounds.flatMap: round =>
-          ratings get round.id.puzzleId map { puzzleRating =>
-            Json.obj(
-              "id"           -> round.id.puzzleId,
-              "date"         -> round.date,
-              "win"          -> round.win,
-              "puzzleRating" -> puzzleRating.toInt
-            )
-          }
+      _.optionsByOrderedIds[Puzzle, PuzzleId](
+        rounds.map(_.id.puzzleId),
+        readPreference = ReadPreference.secondaryPreferred
+      )(_.id).map: puzzles =>
+        rounds.zip(puzzles).collect { case (round, Some(puzzle)) =>
+          Json.obj(
+            "id"     -> round.id.puzzleId,
+            "date"   -> round.date,
+            "win"    -> round.win,
+            "puzzle" -> JsonView.puzzleJsonStandalone(puzzle)
+          )
+        }
 
 object PuzzleActivity:
 
   case class Config(
       user: User,
-      max: Option[Int] = None,
-      before: Option[Instant] = None,
-      perSecond: MaxPerSecond
+      max: Option[Int],
+      before: Option[Instant]
   )
