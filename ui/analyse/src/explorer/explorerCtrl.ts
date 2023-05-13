@@ -20,6 +20,8 @@ import {
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
 
+export const MAX_DEPTH = 50;
+
 function pieceCount(fen: Fen) {
   const parts = fen.split(/\s/);
   return parts[0].split(/[nbrqkp]/i).length - 1;
@@ -160,7 +162,7 @@ export default class ExplorerCtrl {
     if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
-    if (node.ply >= 50 && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
+    if (node.ply >= MAX_DEPTH && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
       this.cache[node.fen] = this.empty;
     }
     const cached = this.cache[node.fen];
