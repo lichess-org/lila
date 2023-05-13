@@ -207,10 +207,6 @@ final class JsonView(
 
 object JsonView:
 
-  given OWrites[PuzzleRound.Theme] = Json.writes
-  given OWrites[PuzzleRound.Id]    = Json.writes
-  given OWrites[PuzzleRound]       = Json.writes
-
   private def puzzleJson(puzzle: Puzzle): JsObject = Json.obj(
     "id"         -> puzzle.id,
     "rating"     -> puzzle.glicko.intRating,
@@ -222,17 +218,3 @@ object JsonView:
 
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)
-
-  given OWrites[PuzzleHistory.SessionRound] = OWrites { sessionRound =>
-    Json.obj(
-      "round"  -> sessionRound.round,
-      "puzzle" -> puzzleJson(sessionRound.puzzle),
-      "theme"  -> sessionRound.theme
-    )
-  }
-  given OWrites[PuzzleHistory.PuzzleSession] = OWrites { puzzleSession =>
-    Json.obj(
-      "theme"   -> puzzleSession.theme,
-      "puzzles" -> puzzleSession.puzzles.toList
-    )
-  }

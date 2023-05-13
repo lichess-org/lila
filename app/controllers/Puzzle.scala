@@ -402,21 +402,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  def mobileHistory(page: Int) = Auth { ctx ?=> me =>
-    negotiate(
-      html = notFound,
-      _ => {
-        import lila.puzzle.JsonView.given
-        Reasonable(page) {
-          env.puzzle.history(me, page) map { historyPaginator =>
-            Ok(lila.common.paginator.PaginatorJson(historyPaginator))
-          }
-        }
-      }
-    )
-
-  }
-
   def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { ctx ?=> user =>
     Reasonable(page):
       env.puzzle
