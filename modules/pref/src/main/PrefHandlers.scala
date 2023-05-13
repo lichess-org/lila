@@ -43,7 +43,7 @@ private object PrefHandlers:
         confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
         insightShare = r.getD("insightShare", Pref.default.insightShare),
         keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
-        voice = r.getD("voice", Pref.default.voice),
+        voice = r.getO("voice"),
         zen = r.getD("zen", Pref.default.zen),
         ratings = r.getD("ratings", Pref.default.ratings),
         rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
