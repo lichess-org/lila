@@ -26,12 +26,12 @@ object JsDump:
       case literal: Simple  => List(k -> JsString(literal.message))
       case literal: Escaped => List(k -> JsString(literal.message))
       case plurals: Plurals =>
-        if plurals.messages.size == 1 then
-          Map(k -> JsString(plurals.messages.head._2))
-        else
-          plurals.messages.map { case (quantity, msg) =>
-            s"$k${quantitySuffix(quantity)}" -> JsString(msg)
-          }
+        plurals.messages.toList match
+          case List((_, msg)) => Map(k -> JsString(msg))
+          case list =>
+            list.map { (quantity, msg) =>
+              s"$k${quantitySuffix(quantity)}" -> JsString(msg)
+            }
 
   def keysToObject(keys: Seq[I18nKey], lang: Lang): JsObject =
     JsObject {
