@@ -103,10 +103,7 @@ export function standard(
 ): VNode {
   // disabled if condition callback is provided and is falsy
   const enabled = () => !condition || condition(ctrl.data).enabled;
-  const hintFn = () => {
-    if (!condition) return hint;
-    return condition(ctrl.data)?.overrideHint || hint;
-  };
+  const hintFn = () => condition?.(ctrl.data)?.overrideHint || hint;
   return h(
     'button.fbt.' + socketMsg,
     {
@@ -180,7 +177,9 @@ export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) 
   h(
     'button.button.draw-yes',
     {
-      hook: util.bind('click', () => (condition(ctrl.data).enabled ? ctrl.socket.sendLoading('draw-claim') : () => {})),
+      hook: util.bind('click', () =>
+        condition(ctrl.data).enabled ? ctrl.socket.sendLoading('draw-claim') : undefined
+      ),
       attrs: {
         title: ctrl.noarg(condition(ctrl.data)?.overrideHint || 'claimADraw'),
         disabled: !condition(ctrl.data).enabled,
