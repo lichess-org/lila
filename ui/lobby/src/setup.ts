@@ -406,7 +406,9 @@ export default class Setup {
     $timeModeSelect
       .on('change', function (this: HTMLElement) {
         const timeMode = $(this).val();
-        $form.find('.time_choice, .byoyomi_choice, .advanced_toggle').toggle(timeMode === '1');
+        $form
+          .find('.time_choice, .byoyomi_choice, .periods, .increment_choice, .advanced_toggle')
+          .toggle(timeMode === '1');
         $form.find('.days_choice').toggle(timeMode === '2');
         initAdvancedTimeSetup();
         toggleButtons();
