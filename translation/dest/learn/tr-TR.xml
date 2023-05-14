@@ -97,9 +97,9 @@ Ve sizinkileri kaptırmayın.</string>
 	<string name="reuseCapturedPieces">Yenmiş taşları yeniden kullan!</string>
 	<string name="dropIntro">Bir kez daha, kendi taşlarınızı kaptırmadan rakibin bütün taşlarını ele geçirin!</string>
 	<string name="capturedPiecesCanBeDropped">Yenmiş taşlar sıra sizdeyken oyuna geri sokulabilir!</string>
-	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Dropping a piece in promotion zone doesn\'t result in promotion.
-Take the enemy pieces!</string>
-	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
+	<string name="dropLimitations">Bir taşı başka bir taşın üstüne veye oynayamayacağı bir yere bırakamazsınız. Bir taşı terfi alanına bırakmak o taşı terfi ettirmez.
+Düşman taşlarını al!</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">Bir dikeyde aynı anda iki tane terfi etmemiş piyon bulunamaz.</string>
 	<string name="protection">Savunma</string>
 	<string name="keepYourPiecesSafe">Taşlarını koru</string>
 	<string name="protectionIntro">Rakibin saldırdığı taşları bul ve onları koru!</string>
@@ -148,39 +148,37 @@ Take the enemy pieces!</string>
 	<string name="firstPlaceTheKing">Oyundan önce taşları dizmenin iki geleneksel yolu bulunur. Profesyoneller tarafından sıklıkla tercih edilen Oohashi (大橋) stilini öğreteceğiz. Önce şah yerine koyulur. Şahınızı ilk sıranın orta karesine yerleştirin.</string>
 	<string name="dropAGold">Şahın, önceliği sola vermek üzere her iki tarafına da birer altın yerleştirin.</string>
 	<string name="thenPlaceASilver">Ardından birer gümüşü önce sol taraftaki altının yanına, daha sonra da sağdaki altının yanına yerleştirin.</string>
-	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
-	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
-	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
-	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
-	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
+	<string name="dropTheKnights">Atını, gümüşü bıraktığın gibi bırak. Senin düşmanın Itou (伊藤) stilini yapıcak.</string>
+	<string name="dropTheLances">Mızrağı bırak. Senin düşmanın piyonları soldan sağa mızraklardan önce bırakıcak. Bu Itou stilidir.</string>
+	<string name="placeTheBishopThenRook">Filleri sol atın üstüne bırak, sonra kaleyi de sağ atın üstüne bırak. Tabiki de gerçek oyunlarda taşları dizerken düşmanınla uyum içinde olmana gerek yok.</string>
+	<string name="placeThePawns">Son olarak üçüncü yataya piyonlarını, arka yataydaki taşları dizdiğin gibi bırak. Daire sana yardımcı olacak.</string>
+	<string name="pushingThe3rdPawn">Üçüncü piyonu sürerek filin çapraz yolunu açmak en yaygın ilk hamledir. Devam etmek için bu hamleyi yap.</string>
 	<string name="boardSetupComplete">Bravo! Artık shogi taşlarının nasıl dizildiğini biliyorsun.</string>
-	<string name="repetition">Repetition</string>
-	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
-	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
-	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
-	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
-	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
-	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
+	<string name="repetition">Tekrarlama</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Dört kez tekrar etmek beraberedir, ANCAK...</string>
+	<string name="repetitionIntro">Dört kez tekrar etmek beraberedir Sürekli şah çekmek yenilgidir.</string>
+	<string name="ifTheSamePositionOccurs">Eğer Shogi\'de aynı pozisyon 4 defa meydana gelirse, otomatikman oyun beraberedir. Bu duruma sennichite (千日手) denir. Tek yasal hamleyi yap.</string>
+	<string name="perpetualCheckIsALoss">Ancak sürekli şah çekmek, şah çeken kısım için kayıptır. Maalesef senin düşmanın bu kuralı bilmiyor! Tek yasal hamleyi yap.</string>
+	<string name="boardFlippedFindBestMove">Tahta şimdi çevrildi. Buradaki en iyi hamle ne?</string>
+	<string name="repetitionComplete">Sürekli şah çekmenin kayıp olmasındaki sebep herkesin oyunu berabereye zorlamasını önlemektir.</string>
 	<string name="advanced">İleri düzey</string>
 	<string name="pieceValue">Taş değerleri</string>
 	<string name="evaluatePieceStrength">Taş güçlerini hesaplama</string>
-	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
-The king is priceless! Losing it means losing the game.</string>
+	<string name="pieceValueIntroNew">Hareket kabiliyeti daha fazla olan taşlar daha değerlidir. Şahın paha biçilemezdir! Onu kaybetmek oyunu kaybetmektir.</string>
 	<string name="queenOverBishop">En değerli taşı ye! Vezir &gt; Fil</string>
-	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
-Take the most valuable piece.</string>
-	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
-Take the most valuable piece without losing your own.</string>
-	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
-Take the most valuable piece.</string>
-	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
-	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
-	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
-	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
-	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
-	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
+	<string name="pawnsAreTheLeastValuable">Piyonlar en değersiz taştır, ondan sonra mızraklar gelir. Atlar mızraklardan biraz daha değerlidir. En değerli taşı al.</string>
+	<string name="knightSilverGold">At &lt; Gümüş &lt; Altın
+Kendi taşını kaybetmeden en değerli taşı al.</string>
+	<string name="goldBishopRook">Altın &lt; Fil &lt; Kale
+En değerli taşı al.</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Tüm taşları en değerliden en değersize göre al.</string>
+	<string name="anExchangeIs">Takas bir taşı alırken aynı zamanda bir taşı kaybetmektir. Hangisi daha iyi bir takastır? Kaleye karşı gümüs mü, ata karşı altın mı?</string>
+	<string name="theOpponentJustGaveAway">Düşmanın zayıf kalesini beleşe verdi! Alır mısın?</string>
+	<string name="yourKingsValueIsInfinite">Şahın değeri kaleyle kıyaslandığında sonsuzdur. Buradaki en iyi hamle ne?</string>
+	<string name="twoGeneralsAreBetter">İki general bir büyük taştan daha değerli olabilir. Bir at ve mızrak bir generalden daha değerli olabilir. Filini feda ederek iki general kazanmanın yolunu bul.</string>
+	<string name="rememberWhichPieceIsTheMostValuable">Hangi taş daha değerli hatırlıyor musun?</string>
 	<string name="takeThePieceWithTheHighestValue">En değerli taşı ye ve kendi taşlarına da dikkat et!</string>
-	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">Şahın değeri tüm taşların değerlerinin toplamından da değerlidir. Taşlarıni feda ederek rakip şaha saldırmak normaldir. Sadece kendi şahının güvenliğini unutma!</string>
 	<string name="checkInTwo">Şah çekme II</string>
 	<string name="twoMovesToGiveCheck">İki hamlede şah çek</string>
 	<string name="checkInTwoIntro">Rakibe iki hamlede şah çekmenin bir yolunu bul!</string>

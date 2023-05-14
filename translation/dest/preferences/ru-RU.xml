@@ -43,5 +43,6 @@
 	<string name="westernNotation">Западная нотация</string>
 	<string name="japaneseNotation">Японская нотация</string>
 	<string name="kitaoKawasakiNotation">Китайская</string>
+	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
 </resources>

@@ -204,6 +204,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Standar</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Tak terbatas</string>
 	<string name="mode">Mode</string>
 	<string name="casual">Santai (Tanpa rating)</string>

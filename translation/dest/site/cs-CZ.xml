@@ -234,6 +234,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Standardní</string>
 	<string name="minishogi">Minišógi</string>
 	<string name="chushogi">Čú šógi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Bez hodin</string>
 	<string name="mode">Režim hry</string>
 	<string name="casual">Jen tak</string>

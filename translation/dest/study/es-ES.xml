@@ -99,7 +99,7 @@
   <string name="loadAPositionFromSfen">Cargar una posición de SFEN</string>
   <string name="automatic">Automática</string>
   <string name="urlOfTheGame">URL de la partida</string>
-  <string name="loadAGameFromX">Load games from %1$s</string>
+  <string name="loadAGameFromX">Cargar partidas de %1$s</string>
   <string name="createChapter">Crear capítulo</string>
   <string name="configureLiveBroadcast">Configurar la emisión en directo</string>
   <string name="createStudy">Crear estudio</string>
@@ -125,4 +125,22 @@
   <string name="deleteStudy">Borrar estudio</string>
   <string name="deleteTheEntireStudy">¿Realmente quieres borrar todo el estudio? ¡Esta acción no se puede deshacer!</string>
   <string name="whereDoYouWantToStudyThat">¿Dónde quieres estudiar eso?</string>
+  <string name="startTag" comment="Tags for kif and csa">Comenzar</string>
+  <string name="endTag" comment="Tags for kif and csa">Finalizar</string>
+  <string name="siteTag" comment="Tags for kif and csa">Lugar</string>
+  <string name="eventTag" comment="Tags for kif and csa">Evento</string>
+  <string name="timeControlTag" comment="Tags for kif and csa">Control de tiempo</string>
+  <string name="xEloTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="xTitleTag" comment="Tags for kif and csa">%s título</string>
+  <string name="xTeamTag" comment="Tags for kif and csa">%s equipo</string>
+  <string name="openingTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="resultTag" comment="Tags for kif and csa">Resultado</string>
+  <string name="problemNameTag" comment="Tags for kif and csa">Nombre del problema</string>
+  <string name="problemIdTag" comment="Tags for kif and csa">ID del problema</string>
+  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Fecha de publicación</string>
+  <string name="composerTag" comment="Tags for kif and csa">Compositor</string>
+  <string name="publicationTag" comment="Tags for kif and csa">Publicación</string>
+  <string name="collectionTag" comment="Tags for kif and csa">Colección</string>
+  <string name="lengthTag" comment="Tags for kif and csa">Longitud</string>
+  <string name="prizeTag" comment="Tags for kif and csa">Premio</string>
 </resources>

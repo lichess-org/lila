@@ -3,7 +3,7 @@
 	<string name="preferences">Sửa giao diện</string>
 	<string name="gameDisplay">Hiển thị ván cờ</string>
 	<string name="boardLayout">Board layout</string>
-	<string name="clearHands">Hide ghosts of pieces in hand</string>
+	<string name="clearHands">Ẩn ảnh ảo các quân trên tay</string>
 	<string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
 	<string name="materialDifference">Khác chất</string>
 	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
@@ -12,7 +12,7 @@
 	<string name="dropDestinations">Tọa độ của quân cờ</string>
 	<string name="boardCoordinates">Tạo độ bàn cờ (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Biên bản ván đấu</string>
-	<string name="colorName">Name used for individual players</string>
+	<string name="colorName">Tên dùng cho từng người chơi</string>
 	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
 	<string name="zenMode">Chế độ Zen</string>
 	<string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ</string>
@@ -43,5 +43,6 @@
 	<string name="westernNotation">Western notation</string>
 	<string name="japaneseNotation">Japanese notatation</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
+	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
 </resources>

@@ -214,6 +214,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Κανονικό</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Απεριόριστου χρόνου</string>
 	<string name="mode">Ρύθμιση</string>
 	<string name="casual">Φιλικό</string>

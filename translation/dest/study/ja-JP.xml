@@ -93,10 +93,10 @@
   <string name="editor">エディタ</string>
   <string name="startFromCustomPosition">指定した局面から</string>
   <string name="loadAGameByUrl">棋譜を URL で読み込み</string>
-  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
+  <string name="loadAPositionFromSfen">SFENから局面を読み込み</string>
   <string name="automatic">自動</string>
   <string name="urlOfTheGame">対局棋譜の URL、１行に一つ</string>
-  <string name="loadAGameFromX">Load games from %1$s</string>
+  <string name="loadAGameFromX">%1$s から対局を読み込み</string>
   <string name="createChapter">章を作成</string>
   <string name="configureLiveBroadcast">ライブ放送の設定</string>
   <string name="createStudy">研究を作成</string>
@@ -122,4 +122,22 @@
   <string name="deleteStudy">研究を削除</string>
   <string name="deleteTheEntireStudy">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="whereDoYouWantToStudyThat">どこで研究しますか？</string>
+  <string name="startTag" comment="Tags for kif and csa">Start</string>
+  <string name="endTag" comment="Tags for kif and csa">End</string>
+  <string name="siteTag" comment="Tags for kif and csa">Site</string>
+  <string name="eventTag" comment="Tags for kif and csa">Event</string>
+  <string name="timeControlTag" comment="Tags for kif and csa">Time control</string>
+  <string name="xEloTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="xTitleTag" comment="Tags for kif and csa">%s title</string>
+  <string name="xTeamTag" comment="Tags for kif and csa">%s team</string>
+  <string name="openingTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="resultTag" comment="Tags for kif and csa">Result</string>
+  <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>
+  <string name="problemIdTag" comment="Tags for kif and csa">Problem Id</string>
+  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Date of publication</string>
+  <string name="composerTag" comment="Tags for kif and csa">Composer</string>
+  <string name="publicationTag" comment="Tags for kif and csa">Publication</string>
+  <string name="collectionTag" comment="Tags for kif and csa">Collection</string>
+  <string name="lengthTag" comment="Tags for kif and csa">Length</string>
+  <string name="prizeTag" comment="Tags for kif and csa">Prize</string>
 </resources>

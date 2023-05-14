@@ -74,10 +74,10 @@
 	<string name="forceVariation">Przedstaw jako wariant</string>
 	<string name="move">Ruch</string>
 	<plurals name="nbMoves">
-		<item quantity="one">%s move</item>
-		<item quantity="few">%s moves</item>
-		<item quantity="many">%s moves</item>
-		<item quantity="other">%s moves</item>
+		<item quantity="one">%s ruch</item>
+		<item quantity="few">%s ruchy</item>
+		<item quantity="many">%s ruchów</item>
+		<item quantity="other">%s ruchów</item>
 	</plurals>
 	<string name="variantLoss">Wariant przegrywający</string>
 	<string name="variantWin">Wariant wygrywający</string>
@@ -234,6 +234,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Standard</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Bez limitu</string>
 	<string name="mode">Rodzaj</string>
 	<string name="casual">Towarzyska</string>

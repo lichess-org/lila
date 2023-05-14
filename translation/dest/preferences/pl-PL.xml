@@ -43,5 +43,6 @@
 	<string name="westernNotation">Notacja zachodnia</string>
 	<string name="japaneseNotation">Notacja japońska</string>
 	<string name="kitaoKawasakiNotation">Notacja Kitao-Kawasaki</string>
+	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
 </resources>

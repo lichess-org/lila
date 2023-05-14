@@ -234,6 +234,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Стандартныя сёгі</string>
 	<string name="minishogi">Мінісёгі</string>
 	<string name="chushogi">Чусёгі</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Кіото сёгі</string>
 	<string name="unlimited">Неабмежаваны</string>
 	<string name="mode">Рэжым</string>
 	<string name="casual">Таварыская</string>
@@ -654,7 +656,7 @@
 	<string name="learnMenu">Абучэнне</string>
 	<string name="studyMenu">Студыя</string>
 	<string name="practice">Практыка</string>
-	<string name="community">Згуртааванне</string>
+	<string name="community">Згуртаванне</string>
 	<string name="tools">Інструменты</string>
 	<string name="increment">Прырост</string>
 	<string name="byoyomi">Бёёмі</string>

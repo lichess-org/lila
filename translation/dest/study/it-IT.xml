@@ -10,7 +10,7 @@
   <string name="allStudies">Tutti gli studi</string>
   <string name="studiesCreatedByX">Studi creati da %s</string>
   <string name="noneYet">Vuoto.</string>
-  <string name="hot">Hot</string>
+  <string name="hot">Interessante</string>
   <string name="dateAddedNewest">Data di pubblicazione (dalla più recente)</string>
   <string name="dateAddedOldest">Data di pubblicazione (dalla meno recente)</string>
   <string name="recentlyUpdated">Data di aggiornamento (dalla più recente)</string>
@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Abbandona lo studio</string>
   <string name="youAreNowAContributor">Ora sei un partecipante</string>
   <string name="youAreNowASpectator">Ora sei uno spettatore</string>
-  <string name="tags">Tags</string>
+  <string name="tags">Etichette</string>
   <string name="like">Mi piace</string>
   <string name="newTag">Nuovo tag</string>
   <string name="commentThisPosition">Commenta questa posizione</string>
@@ -59,9 +59,9 @@
   <string name="cloneStudy">Duplica</string>
   <string name="downloadAllGames">Scarica tutte le partite</string>
   <string name="downloadGame">Scarica partita</string>
-  <string name="studyKif">Study KIF</string>
-  <string name="chapterKif">Chapter KIF</string>
-  <string name="chapterCsa">Chapter CSA</string>
+  <string name="studyKif">Studio KIF</string>
+  <string name="chapterKif">Capitolo KIF</string>
+  <string name="chapterCsa">Capitolo CSA</string>
   <string name="studyUrl">URL dello studio</string>
   <string name="broadcastUrl">URL di diffusione</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
@@ -96,10 +96,10 @@
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Inizia da una posizione personalizzata</string>
   <string name="loadAGameByUrl">Carica una partita da URL</string>
-  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
+  <string name="loadAPositionFromSfen">Carica una posizione da SFEN</string>
   <string name="automatic">Automatica</string>
   <string name="urlOfTheGame">URL della partita</string>
-  <string name="loadAGameFromX">Load games from %1$s</string>
+  <string name="loadAGameFromX">Carica partite da %1$s</string>
   <string name="createChapter">Crea capitolo</string>
   <string name="configureLiveBroadcast">Configura diretta live</string>
   <string name="createStudy">Crea studio</string>
@@ -125,4 +125,22 @@
   <string name="deleteStudy">Elimina studio</string>
   <string name="deleteTheEntireStudy">Vuoi davvero eliminare tutto lo studio? Sarà perso per sempre!</string>
   <string name="whereDoYouWantToStudyThat">Dove vuoi creare lo studio?</string>
+  <string name="startTag" comment="Tags for kif and csa">Start</string>
+  <string name="endTag" comment="Tags for kif and csa">End</string>
+  <string name="siteTag" comment="Tags for kif and csa">Site</string>
+  <string name="eventTag" comment="Tags for kif and csa">Event</string>
+  <string name="timeControlTag" comment="Tags for kif and csa">Time control</string>
+  <string name="xEloTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="xTitleTag" comment="Tags for kif and csa">%s title</string>
+  <string name="xTeamTag" comment="Tags for kif and csa">%s team</string>
+  <string name="openingTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="resultTag" comment="Tags for kif and csa">Result</string>
+  <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>
+  <string name="problemIdTag" comment="Tags for kif and csa">Problem Id</string>
+  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Date of publication</string>
+  <string name="composerTag" comment="Tags for kif and csa">Composer</string>
+  <string name="publicationTag" comment="Tags for kif and csa">Publication</string>
+  <string name="collectionTag" comment="Tags for kif and csa">Collection</string>
+  <string name="lengthTag" comment="Tags for kif and csa">Length</string>
+  <string name="prizeTag" comment="Tags for kif and csa">Prize</string>
 </resources>

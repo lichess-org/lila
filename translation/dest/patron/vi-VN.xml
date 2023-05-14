@@ -13,7 +13,7 @@
 	<string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>
 	<string name="ifNotRenewed">Nếu không được làm mới, bạn sẽ hạ cấp xuống miễn phí.</string>
 	<string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lishogi, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một Patron!</string>
-	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">Nếu bạn muốn ủng hộ Lishogi và phát triển mã nguồn mở, hãy quyên góp! Bạn sẽ không nhận được gì, vì Lishogi đối xử với mọi người dùng như nhau, nhưng sự đóng góp của bạn sẽ rất được tôn trọng!</string>
 	<string name="lifetime">Vĩnh viễn</string>
 	<string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lishogi Patron vĩnh viễn!</string>
 	<string name="lifetimePatron">Lishogi Patron trọn đời</string>
@@ -68,5 +68,5 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
 	<string name="nowLifetime">Giờ bạn đã trở thành Lishogi Patron trọn đời!</string>
 	<string name="nowOneMonth">Giờ bạn đã trở thành Lishogi Patron trong một tháng!</string>
 	<string name="downgradeNextMonth">Sau một tháng, bạn sẽ không phải trả tiền lại nữa, và tài khoản Lishogi của bạn sẽ quay trở lại tài khoản thường.</string>
-	<string name="donationPolicy">Donation policy</string>
+	<string name="donationPolicy">Chính sách quyên góp</string>
 </resources>

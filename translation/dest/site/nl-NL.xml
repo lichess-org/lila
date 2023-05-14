@@ -214,6 +214,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Standaard</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Onbeperkt</string>
 	<string name="mode">Instelling</string>
 	<string name="casual">Vrijblijvend</string>

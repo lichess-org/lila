@@ -13,7 +13,7 @@
 	<string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
 	<string name="ifNotRenewed">Yeniden bağış yapmadığınız takdirde hesabınız ücretsiz hesaba çevrilecektir.</string>
 	<string name="weRelyOnSupport">Lishogi sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
-	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="donationSupport">Lishogi\'yi ve açık kaynak geliştirmeyi desteklemek istiyorsanız bağış yapmayı düşünebilirsiniz! Karşılığında bir şey almayacaksınız çünkü Lishogi tüm kullanıcılarına eşit davranır, ancak bağışınız çok makbule geçer!</string>
 	<string name="lifetime">Ömür Boyu</string>
 	<string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza dek Lishogi destekçisi olun!</string>
 	<string name="lifetimePatron">Bir Ömür Lishogi Destekçisi</string>
@@ -70,5 +70,5 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
 	<string name="nowLifetime">Bu desteğiniz bize bir ömür yeter!</string>
 	<string name="nowOneMonth">Bir aylığına Lishogi Destekçisi oldunuz!</string>
 	<string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lishogi hesabınız ücretsiz hâline dönecek.</string>
-	<string name="donationPolicy">Donation policy</string>
+	<string name="donationPolicy">Bağış politikası</string>
 </resources>

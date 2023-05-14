@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="faqAbbreviation">FAQ</string>
+	<string name="faqAbbreviation">Domande Frequenti</string>
 	<string name="frequentlyAskedQuestions">Domande frequenti</string>
-	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from Lichess, but since it\'s for playing shogi, it\'s called Lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Lichess. And Lichess is called Lichess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leeshogi">lee-shogi</string>
+	<string name="whyIsLishogiCalledLishogi">Perché Lishogi si chiama così?</string>
+	<string name="forkedFromLichess">Lishogi é un progetto open-source derivato da Lichess, ma visto che si gioca a Shogi, è chiamato Lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Perché è derivato da Lichess. E Lichess si chiama così perché è una combinazione di Live/Leggero/Libre e Scacchi (Chess). Lishogi si pronuncia %1$s.</string>
+	<string name="leeshogi">li-scioghi</string>
 	<string name="whyLiveLightLibre">Live, perché le partite sono giocate e guardate in tempo reale 24/7; light e libre poichè Lishogi è completamente open-source e non appesantito dalla spazzatura proprietaria che affligge altri siti web.</string>
-	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
-	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
-	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
-	<string name="beingAPatron">Become a Patron.</string>
-	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
+	<string name="whyIsLilaCalledLila">Similmente, il codice sorgente di Lishogi, %1$s, sta per li[Shogi in sca]la, visto che la base di Lishogi è scritta in %2$s, un linguaggio di programmazione intuitivo.</string>
+	<string name="howCanIContributeToLishogi">Come posso contribuire a Lishogi?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi è sostenuto da donazioni di mecenati e dagli sforzi di una squadra di volontari</string>
+	<string name="beingAPatron">Diventa un mecenate.</string>
+	<string name="otherWaysToContribute">Qui ci sono molti modi con cui contribuire a Lishogi</string>
 	<string name="breakdownOfOurCosts">dettaglio dei nostri costi</string>
 	<string name="otherWaysToHelp">altri modi per aiutare</string>
 	<string name="fairPlay">Fair Play</string>
@@ -25,17 +25,17 @@
  </string>
 	<string name="howCanIBecomeModerator">Come posso diventare un moderatore?</string>
 	<string name="youCannotApply">Non è possibile fare domanda per diventare un moderatore. Se vediamo qualcuno che pensiamo possa essere un moderatore, li contatteremo direttamente.</string>
-	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
-	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="isCorrespondenceDifferent">La corrispondenza è diversa dal normale Shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">In Lishogi, la differenza principale delle regole per la corrispondenza dello Shogi sta nell\'ammettere un libro delle aperture. L\'utilizzo di motori computerizzati è comunque proibito e porta alla segnalazione per uso di assistenza computerizzata. Nonostante ICCF permette l\'uso di motori computerizzati, Lishogi non lo permette.</string>
 	<string name="gameplay">Dinamica di gioco</string>
 	<string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altri controlli temporali?</string>
 	<string name="basedOnGameDuration">I controlli del tempo Lishogi si basano sulla durata stimata del gioco = %1$s
 Ad esempio, la durata stimata di una partita 5 + 3 è 5 × 60 + 40 × 3 = 420 secondi.</string>
-	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
+	<string name="formulaOfDuration">60 x (ora iniziale in minuti) + 60 x (incremento temporale) + 25 x (tempo byoyomi) x (periodi temporali)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
 	<string name="whatVariantsCanIplay">Quali varianti posso giocare su Lishogi?</string>
-	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi supporta lo Shogi standard e %1$s.</string>
 	<string name="whatIsACPL">Qual è la perdita media di centipawn (ACPL)?</string>
 	<string name="acplExplanation">Il centopiedi è l\'unità di misura utilizzata negli scacchi come rappresentazione del vantaggio. Un centopiedi equivale a 1/100 di un pedone. Pertanto 100 centopiedi = 1 pedone. Questi valori non svolgono alcun ruolo formale nel gioco ma sono utili ai giocatori ed essenziali negli scacchi al computer per la valutazione delle posizioni.
 
@@ -47,15 +47,15 @@ L\'analisi del computer su Lishogi è fornita da Stockfish.</string>
 	<string name="insufficientMaterial">Perdere in tempo, disegno e materiale insufficiente</string>
 	<string name="goodIntroduction">buona introduzione</string>
 	<string name="officialRulesPDF">regole ufficiali (PDF)</string>
-	<string name="lishogiTraining">Lishogi training</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="lishogiTraining">Allenamento Lishogi</string>
+	<string name="fourfoldRepetition">Ripetizione quadrupla</string>
 	<string name="handBookPDF">manuale (PDF)</string>
 	<string name="notRepeatedMoves">Non abbiamo ripetuto le mosse. Perché il gioco è stato ancora disegnato dalla ripetizione?</string>
 	<string name="repeatedPositionsThatMatters">La triplice ripetizione riguarda la %1$s, non le mosse. La ripetizione non deve necessariamente avvenire consecutivamente.</string>
 	<string name="positions">posizioni</string>
 	<string name="configure">configurare</string>
 	<string name="accounts">Utenti</string>
-	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="titlesAvailableOnLishogi">Quali titoli sono disponibili su Lishogi?</string>
 	<string name="showYourTitle">Se disponi di un titolo FIDE ufficiale puoi richiedere che questo venga visualizzato sul tuo account completando il %1$s. Dovrai includere una chiara immagine di un documento identificativo e un selfie di te stesso mentre tieni in vista il documento.
 
 Qualificando te stesso come giocatore titolato su Lishogi potrai parteciapre negli eventi appositamente dedicati quali \"Arena per titolati\".
@@ -75,15 +75,15 @@ Non chiedere il titolo di LM.</string>
 	<string name="uniqueTrophies">Trofei unici</string>
 	<string name="ownerUniqueTrophies">Questo trofeo è unico nella storia di Lishogi, nessun altro tranne %1$s lo potrà mai avere.</string>
 	<string name="aHourlyBulletTournament">un torneo Bullet orario</string>
-	<string name="lishogiRatings">Lishogi ratings</string>
-	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
-	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+	<string name="lishogiRatings">Classifiche Lishogi</string>
+	<string name="whichRatingSystemUsedByLishogi">Che sistema di classificazione usa Lishogi?</string>
+	<string name="ratingSystemUsedByLishogi">I punteggi sono calcolati utilizzando il metodo di valutazione Glicko-2 sviluppato da Mark Glickman. Si tratta di un sistema di valutazione molto popolare, ed è infatti utilizzato da un grande numero di organizzazioni scacchistiche (FIDE, tuttavia, è una notevole eccezione poiché utilizza ancora il datato sistema di valutazione Elo).
 
-Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+In sostanza, le valutazioni Glicko utilizzano \"intervalli di sicurezza\" per il calcolo e la rappresentazione del tuo punteggio. Quando inizi a giocare sul sito la tua valutazione parte da 1500 ± 700. I 1500 rappresentano il tuo punteggio e i 700 rappresentano l\'intervallo di sicurezza.
 
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+Fondamentalmente, il sistema è sicuro al 90% che il tuo punteggio sia compreso tra 800 e 2200. Questo punteggio iniziale è molto impreciso. Per questo motivo, quando un giocatore gioca le prime partite, il suo punteggio cambierà molto drasticamente, potenzialmente anche di diverse centinaia di punti alla volta. Tuttavia, dopo alcune partite contro dei giocatori dal punteggio stabile, l\'intervallo di sicurezza si restringerà e l\'ammontare di punti guadagnati/persi dopo ogni partita tenderà a diminuire.
 
-Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+Un altro aspetto da notare è che, allo scorrere del tempo, l\'intervallo di sicurezza tornerà ad aumentare. Questo ti permette di guadagnare/perdere punti più rapidamente per adattare il punteggio all\'evoluzione del tuo livello di abilità durante quel periodo di tempo trascorso.</string>
 	<string name="whatIsProvisionalRating">Perché c\'è un punto interrogativo (?) accanto al rating?</string>
 	<string name="provisionalRatingExplanation">Il punto interrogativo indica che il rating è provvisorio. I motivi includono:</string>
 	<string name="notPlayedEnoughRatedGamesAgainstX">Il giocatore non ha ancora partecipato in abbastanza partite valide per la classifica contro %1$s nella categoria di punteggio.</string>
@@ -95,7 +95,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">classifiche generali</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">aver giocato almeno 30 partite valide per il rating in una data categoria,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">aver giocato una partita valida per il rating nella categoria di riferimento</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">avere una deviazione minore di %1$s, nello Shogi standard, e minore di %2$s nelle sue varianti,</string>
 	<string name="beInTopTen">essere fra i 10 migliori giocatori in una data categoria di riferimento.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Il secondo requisito è che i giocatori che non utilizzano più i loro account smettano di essere inclusi nelle classifiche.</string>
 	<string name="whyAreRatingHigher">Perché i rating sono più elevati rispetto ad altri siti e organizzazioni quali FIDE, USCF e ICC?</string>
@@ -110,9 +110,9 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="howToThreeDots">Come fare per...</string>
 	<string name="enableDisableNotificationPopUps">Attivare o disattivare i popup delle notifiche?</string>
 	<string name="viewSiteInformationPopUp">Visualizza il popup delle informazioni del sito</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi può opzionalmente inviare notifiche popup, per esempio quando è il tuo turno oppure hai ricevuto un messaggio privato.
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+Clicca l\'icona del lucchetto vicino all\'indirizzo lishogi.org nella barra degli indirizzo del tuo browser.
 
-Then select whether to allow or block notifications from Lishogi.</string>
+Poi seleziona se consentire o bloccare le notifiche da Lishogi.</string>
 </resources>

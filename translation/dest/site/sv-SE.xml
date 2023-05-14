@@ -214,6 +214,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Standard</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Obegränsad</string>
 	<string name="mode">Typ</string>
 	<string name="casual">Ej rankat</string>

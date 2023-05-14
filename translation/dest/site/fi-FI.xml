@@ -214,6 +214,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Tavallinen</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Rajaton</string>
 	<string name="mode">Tyyppi</string>
 	<string name="casual">Rento</string>

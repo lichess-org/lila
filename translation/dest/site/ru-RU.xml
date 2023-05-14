@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="shogi">Shogi</string>
+	<string name="shogi">Сёги</string>
 	<string name="playWithAFriend">Сыграть с другом</string>
 	<string name="playWithTheMachine">Сыграть с компьютером</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
@@ -18,12 +18,12 @@
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Пат</string>
 	<string name="impasse">Тупик</string>
-	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
-	<string name="bareKing" comment="Used in chushogi">Bare king</string>
-	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
+	<string name="perpetualCheck">Вечный шах</string>
+	<string name="royalsLost" comment="Used in chushogi">Главные фигуры утеряны</string>
+	<string name="bareKing" comment="Used in chushogi">Голый король</string>
+	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Готэ</string>
 	<string name="white" comment="Alternative to gote">Белые</string>
-	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
+	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Сэнтэ</string>
 	<string name="black" comment="Alternative to sente">Чёрные</string>
 	<string name="shitate" comment="Should be 'Shitate', unless equivalent written differently exists (ex. 下手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Шитатэ</string>
 	<string name="uwate" comment="Should be 'Uwate', unless equivalent written differently exists (ex. 上手 in JP; し - ši in CZ instead of shi) - https://en.wikipedia.org/wiki/Handicap_(shogi)">Уватэ</string>
@@ -37,7 +37,7 @@
 	<string name="newOpponent">Найти другого соперника</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает вам сыграть ещё раз</string>
 	<string name="joinTheGame">Принять вызов</string>
-	<string name="xPlays" comment="%s - sente(black)/gote(white)">%s to play</string>
+	<string name="xPlays" comment="%s - sente(black)/gote(white)">Ход %s</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Ваш соперник покинул игру. Вы можете объявить победу через %s секунду.</item>
 		<item quantity="few">Ваш соперник покинул игру. Вы можете объявить победу через %s секунды.</item>
@@ -76,7 +76,7 @@
 	<plurals name="nbMoves">
 		<item quantity="one">%s move</item>
 		<item quantity="few">%s moves</item>
-		<item quantity="many">%s moves</item>
+		<item quantity="many">%s Ходов</item>
 		<item quantity="other">%s moves</item>
 	</plurals>
 	<string name="variantLoss">Проигрышный ход</string>
@@ -220,8 +220,8 @@
 	<string name="drawOfferDeclined">Предложение ничьей отклонено</string>
 	<string name="drawOfferAccepted">Предложение ничьей принято</string>
 	<string name="drawOfferCanceled">Предложение ничьей отменено</string>
-	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
-	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
+	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s предлагает ничью</string>
+	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s отвергает ничью</string>
 	<string name="yourOpponentOffersADraw">Ваш соперник предлагает вам ничью</string>
 	<string name="accept">Принять</string>
 	<string name="decline">Отклонить</string>
@@ -232,8 +232,10 @@
 	<string name="abortGame">Отменить игру</string>
 	<string name="gameAborted">Игра отменена</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Классические сёги</string>
-	<string name="minishogi">Minishogi</string>
-	<string name="chushogi">Chushogi</string>
+	<string name="minishogi">Минисёги</string>
+	<string name="chushogi">Чу Сёги</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Отсутствует</string>
 	<string name="mode">Режим</string>
 	<string name="casual">Товарищеская</string>
@@ -243,7 +245,7 @@
 	<string name="thisGameIsRated">Игра на рейтинг</string>
 	<string name="rematch">Реванш</string>
 	<string name="rematchOfferSent">Предложение реванша отправлено</string>
-	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s offers rematch</string>
+	<string name="rematchOfferSentX" comment="%s - sente(black)/gote(white)">%s хочет реванш</string>
 	<string name="rematchOfferAccepted">Предложение реванша принято</string>
 	<string name="rematchOfferCanceled">Предложение реванша отменено</string>
 	<string name="rematchOfferDeclined">Предложение реванша отклонено</string>
@@ -368,8 +370,8 @@
 	<string name="youAreNotInTeam">Вы не член клуба %s</string>
 	<string name="backToGame">Вернуться к игре</string>
 	<string name="siteDescription">Бесплатный сервер сёги. Сыграйте в сёги прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в сёги с компьютером, друзьями или случайными соперниками.</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
-	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
+	<string name="shogiDescription">Сёги, известная как \"将棋\" в японском языке — стратегическая настольная игра на двоих, в которую на протяжении столетий играли в Японии; также она известна как Японские шахматы по своей схожести с западным аналогом, но между тем её особенности делают Сёги самостоятельной игрой.</string>
+	<string name="learnShogiHereX">Не в курсе правил? Смотрите тут: %s</string>
 	<string name="xJoinedTeamY">%1$s вступил в клуб %2$s</string>
 	<string name="xCreatedTeamY">%1$s организовал клуб %2$s</string>
 	<string name="xStartedStreaming">%s запустил стрим</string>
@@ -836,7 +838,7 @@
 	<string name="shogiResources">Ресурсы по сёги</string>
 	<string name="coaches">Тренеры</string>
 	<string name="invalidNotation">Недопустимая нотация</string>
-	<string name="invalidSfen">Invalid SFEN</string>
+	<string name="invalidSfen">Некорректный SFEN</string>
 	<string name="error.minLength">Минимальная длина — %s</string>
 	<string name="error.maxLength">Максимальная длина — %s</string>
 	<string name="error.min">Значение должно быть больше либо равным %s</string>
@@ -869,7 +871,7 @@
 	<string name="skipThisMove">Пропустить этот ход</string>
 	<string name="next">Далее</string>
 	<string name="xWasPlayed">Было сыграно %s</string>
-	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Find a better move for %s</string>
+	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">Найдите лучший ход за %s</string>
 	<string name="resumeLearning">Вернуться к обучению</string>
 	<string name="youCanDoBetter">Есть более сильный ход</string>
 	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
@@ -960,13 +962,13 @@
 	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Фигуры в лагере соперника</string>
 	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Король в лагере противника</string>
 	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Суммарная стоимость</string>
-	<string name="postGameStudy">Post-game study</string>
-	<string name="postGameStudies">Post-game studies</string>
-	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
-	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
-	<string name="studyWithOpponent">Study with opponent</string>
-	<string name="studyOfPlayers">Study of players</string>
-	<string name="studyWith">Study with:</string>
-	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
-	<string name="standardStudy">Standard study</string>
+	<string name="postGameStudy">Студия после игры</string>
+	<string name="postGameStudies">Студии после игр</string>
+	<string name="postGameStudyExplanation">Студии после игр указаны в своём собственном списке; они позволяют там же предложить реванш или поискать другого соперника.</string>
+	<string name="postGameStudiesOfGame">Студии после этой партии</string>
+	<string name="studyWithOpponent">Студия с соперником</string>
+	<string name="studyOfPlayers">Студия игроков</string>
+	<string name="studyWith">Изучать с:</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">Необязательно</string>
+	<string name="standardStudy">Стандартная студия</string>
 </resources>

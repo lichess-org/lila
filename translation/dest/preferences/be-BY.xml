@@ -43,5 +43,6 @@
 	<string name="westernNotation">Заходнія абазначэнні</string>
 	<string name="japaneseNotation">Японскія абазначэнні</string>
 	<string name="kitaoKawasakiNotation">Абазначэнні Кітаа-Кавасакі</string>
+	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Вашы налады былі захаваныя.</string>
 </resources>

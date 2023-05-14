@@ -234,6 +234,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Уставно</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Безмежно</string>
 	<string name="mode">Лад</string>
 	<string name="casual">Товариська</string>

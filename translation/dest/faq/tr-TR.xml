@@ -5,13 +5,13 @@
 	<string name="whyIsLishogiCalledLishogi">Lishogi\'nin adı neden Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi, Lichess\'ten esinlenmiş açık kaynak kodlu bir platformdur fakat shogi oynamak için kurulmuştur, bu yüzden adı lishogi\'dir.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Çünkü bu site Lichess\'ten türetilmiştir ve lichess, lichess diye okunur çünkü canlı/hafif/yaşam ve satranç kelimelerinin birleşimidir (live/light/libre/chess). Lishogi, %1$s olarak telaffuz edilir.</string>
-	<string name="leeshogi">lee-shogi</string>
+	<string name="leeshogi">Lee-shogi</string>
 	<string name="whyLiveLightLibre">Canlı, çünkü oyunlar gerçek zamanlı olarak 24/7 oynanır ve izlenir; bunun nedeni Lishogi açık kaynak kodludur ve diğer web sitelerini rahatsız eden önemsiz sıkıntılar tarafından engellenmemesi içindir.</string>
 	<string name="whyIsLilaCalledLila">Benzer şekilde, Lishogi\'nin kaynak kodu %1$s\'dur. Zira Lishogi\'nin büyük bir bölümü sezgisel bir programlama dili olan %2$s ile yazılmıştır.</string>
 	<string name="howCanIContributeToLishogi">Lishogi\'ye nasıl katkıda bulunabilirim?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi, sizlerin bağışları ve gönüllülerden oluşan bir ekibin gayretleriyle ayakta kalmaktadır.</string>
 	<string name="beingAPatron">Destek olun</string>
-	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
+	<string name="otherWaysToContribute">İşte Lishogi\'ye katkıda bulunabileceğiniz diğer birçok yol.</string>
 	<string name="breakdownOfOurCosts">giderlerimizin dağılışı</string>
 	<string name="otherWaysToHelp">yardım etmenin diğer yolları</string>
 	<string name="fairPlay">Adil Oyun</string>
@@ -30,11 +30,11 @@
 	<string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
 	<string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor = %1$s
 Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
-	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
+	<string name="formulaOfDuration">60 × ( dakika cinsinden saat ilk zaman) + 60 × (saat artışı) + 25 × (saat byoyomisi) × (saat dönemleri)</string>
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi\'te hangi varyantları oynayabilirim?</string>
-	<string name="lishogiSupportShogiAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportShogiAnd">Lishogi normal shogiyi ve %1$s\'yi destekliyor.</string>
 	<string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
 	<string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
 
@@ -47,7 +47,7 @@ Lishogi üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.<
 	<string name="goodIntroduction">iyi giriş</string>
 	<string name="officialRulesPDF">resmi kurallar (PDF)</string>
 	<string name="lishogiTraining">Lishogi antrenmanları</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">Dört kez hamle tekrarı</string>
 	<string name="handBookPDF">el kitabı (PDF)</string>
 	<string name="notRepeatedMoves">Biz hamle tekrarı yapmadık. Oyun neden hamle tekrarından berabere bitti?</string>
 	<string name="repeatedPositionsThatMatters">Üç kez hamle tekrarı %1$s ile ilgilidir, hamle ile değil. Tekrarlama ardışık olarak gerçekleşmek zorunda değildir.</string>
@@ -76,13 +76,7 @@ LM unvanı için sorma.</string>
 	<string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
 	<string name="lishogiRatings">Lishogi dereceleri</string>
 	<string name="whichRatingSystemUsedByLishogi">Lishogi hangi derecelendirme sistemini kullanıyor?</string>
-	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
-
-Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
-
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
-
-Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+	<string name="ratingSystemUsedByLishogi">Derecelendirmeler, Mark Glickman tarafından geliştirilen Glicko-2 derecelendirme yöntemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılmaktadır (FIDE, hala eski Elo derecelendirme sistemini kullandıkları için dikkate değer bir karşı örnektir). Temel olarak, Glicko derecelendirmeleri, derecelendirmenizi hesaplarken ve temsil ederken \"güven aralıklarını\" kullanır. Siteyi ilk kullanmaya başladığınızda puanınız 1500 ± 700\'den başlıyor. 1500 puanınızı, 700 ise güven aralığını gösteriyor. Temel olarak sistem, derecelendirmenizin 800 ile 2200 arasında bir yerde olduğundan %90 emin. İnanılmaz derecede belirsiz. Bu nedenle, bir oyuncu oyuna yeni başladığında reytingi çok dramatik bir şekilde, potansiyel olarak her seferinde birkaç yüz puan değişecektir. Ancak yerleşik oyunculara karşı oynanan bazı oyunlardan sonra güven aralığı daralacak ve her oyundan sonra kazanılan/kaybedilen puan miktarı azalacaktır. Dikkat edilmesi gereken bir diğer nokta ise zaman geçtikçe güven aralığının artacağıdır. Bu, o zaman içinde beceri seviyenizdeki herhangi bir değişikliği eşleştirmek için daha hızlı puan kazanmanızı/kaybetmenizi sağlar.</string>
 	<string name="whatIsProvisionalRating">Neden puanımın yanında soru işareti(?) var?</string>
 	<string name="provisionalRatingExplanation">Soru işareti, derecelendirmenin geçici olduğu anlamına gelir. Nedenleri şunlardır:</string>
 	<string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu henüz derecelendirmeli oyun kategorisinde %1$s karşısında yeterince puanlı oyun bitirmedi.</string>
@@ -94,7 +88,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">liderlik tablosu</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">en az 30 puanlı oyun oynamak,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">bu derecelendirme için son bir hafta içinde puanlı oyun oynamak,</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">standart shogi\'de %1$s\'den düşük ve varyantlarda %2$s\'den düşük derecelendirme sapmasına sahip olmak,</string>
 	<string name="beInTopTen">bu derecelendirmede ilk 10 içerisinde yer almak.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2. şart, artık hesaplarını kullanmayan oyuncuların skor tablolarını doldurmayı bırakmasıdır.</string>
 	<string name="whyAreRatingHigher">Derecelendirmeler FIDE, USCF ve ICC gibi diğer sitelere ve kuruluşlara göre neden daha yüksek?</string>

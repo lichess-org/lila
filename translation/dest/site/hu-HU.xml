@@ -214,6 +214,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Hagyományos</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">Végtelen</string>
 	<string name="mode">Mód</string>
 	<string name="casual">Nem rangsorolt</string>

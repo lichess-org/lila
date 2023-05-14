@@ -43,5 +43,6 @@
 	<string name="westernNotation">西洋記法</string>
 	<string name="japaneseNotation">日本記法</string>
 	<string name="kitaoKawasakiNotation">北尾-川崎記法</string>
+	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">已儲存您的設定。</string>
 </resources>

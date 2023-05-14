@@ -12,7 +12,7 @@
 	<string name="dropDestinations">Destino de las reintroducciones (movimientos válidos y anticipados)</string>
 	<string name="boardCoordinates">Coordenadas del tablero (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Lista de movimientos durante la partida</string>
-	<string name="colorName">Name used for individual players</string>
+	<string name="colorName">Nombre usado para jugadores individuales</string>
 	<string name="displayTouchSquareOverlay">Capa de subrayado del cuadrado en dispositivos táctiles</string>
 	<string name="zenMode">Modo Zen</string>
 	<string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
@@ -43,5 +43,6 @@
 	<string name="westernNotation">Notación occidental</string>
 	<string name="japaneseNotation">Notación japonesa</string>
 	<string name="kitaoKawasakiNotation">Notación Kitao-Kawasaki</string>
+	<string name="kifNotation">Notación kifu</string>
 	<string name="yourPreferencesHaveBeenSaved">Tus preferencias se han guardado.</string>
 </resources>

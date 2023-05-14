@@ -2,26 +2,26 @@
 <resources>
 	<string name="preferences">設定</string>
 	<string name="gameDisplay">表示設定</string>
-	<string name="boardLayout">Board layout</string>
-	<string name="clearHands">Hide ghosts of pieces in hand</string>
+	<string name="boardLayout">盤面のレイアウト</string>
+	<string name="clearHands">持ち駒にある駒の影を隠す</string>
 	<string name="pieceAnimation">駒のアニメーション速度</string>
 	<string name="materialDifference">駒の損得</string>
-	<string name="boardHighlightsLastDests">Board highlights - last move/drop</string>
-	<string name="boardHighlightsCheck">Board highlights - check</string>
+	<string name="boardHighlightsLastDests">盤面のハイライト - 最後の指し手</string>
+	<string name="boardHighlightsCheck">盤面のハイライト - 王手</string>
 	<string name="pieceDestinations">駒の行き先（ルール上動けるマスとプリムーブ）</string>
 	<string name="dropDestinations">持ち駒の行き先（ルール上打てるマスとプリドロップ）</string>
 	<string name="boardCoordinates">盤の座標（1-9, 1-9）</string>
 	<string name="moveListWhilePlaying">対局中の棋譜記録</string>
-	<string name="colorName">Name used for individual players</string>
-	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
+	<string name="colorName">先手/後手の表記方法</string>
+	<string name="displayTouchSquareOverlay">タッチデバイスにおける四角形ハイライトのオーバーレイ</string>
 	<string name="zenMode">集中モード</string>
 	<string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
 	<string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
-	<string name="blindfoldShogi">Blindfold shogi (invisible pieces)</string>
-	<string name="shogiClock">Shogi clock</string>
+	<string name="blindfoldShogi">目隠し将棋（駒の非表示）</string>
+	<string name="shogiClock">対局時計</string>
 	<string name="tenthsOfSeconds">0.1秒単位で時間表示</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">持ち時間が残り 10 秒以下の場合</string>
-	<string name="clockTickingStart">Clock should start ticking at</string>
+	<string name="clockTickingStart">対局時計が音を鳴らし始める時間</string>
 	<string name="soundWhenTimeGetsCritical">時間が迫ってきたら音を鳴らす</string>
 	<string name="giveMoreTime">相手に時間追加</string>
 	<string name="gameBehavior">対局中の動作</string>
@@ -39,9 +39,10 @@
 	<string name="correspondenceAndUnlimited">通信戦と持ち時間無制限</string>
 	<string name="confirmResignationAndDrawOffers">投了と引き分け提案を確認する</string>
 	<string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
-	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
+	<string name="scrollOnTheBoardToReplayMoves">盤面上のスクロールで棋譜を再現する</string>
 	<string name="westernNotation">西洋表記</string>
 	<string name="japaneseNotation">日本表記</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki 形式</string>
+	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
 </resources>

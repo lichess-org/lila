@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiClasses">Classes</string>
-	<string name="teachClassesOfShogiStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="lishogiClasses">Classi</string>
+	<string name="teachClassesOfShogiStudents">Tieni classi a studenti di Shogi con il set di strumenti Lishogi Classes</string>
 	<string name="features">Funzioni</string>
 	<string name="quicklyGenerateSafeUsernames">Genera facilmente username e password sicure per gli studenti</string>
 	<string name="trackStudentProgress">Tieni traccia dei progressi degli studenti in partite e tattiche</string>
 	<string name="messageAllStudents">Invia a tutti gli studenti un messaggio sul nuovo materiale di classe</string>
 	<string name="freeForAllForever">100% gratuito per tutti, per sempre, senza pubblicità o tracker</string>
-	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="applyToBeLishogiTeacher">Chiedi di diventare insegnante di Lishogi</string>
 	<string name="noClassesYet">Ancora nessuna classe.</string>
 	<string name="teachersX">Insegnanti: %s</string>
 	<string name="newClass">Nuova classe</string>
@@ -23,7 +23,7 @@
 	<string name="classDescription">Descrizione della classe</string>
 	<string name="visibleByBothStudentsAndTeachers">Visibile sia dagli insegnanti che dagli studenti della classe</string>
 	<string name="teachersOfTheClass">Insegnanti della classe</string>
-	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="addLishogiUsernames">Aggiungi i nomi utenti per invitarli come insegnanti. Uno per riga.</string>
 	<string name="theyMustFirstApply">Devono prima candidarsi per essere professori di Lishogi.</string>
 	<string name="resetPassword">Reimposta password</string>
 	<string name="makeSureToCopy">Assicurati di copiare o segnarti la password ora. Non sarai più in grado di vederla!</string>
@@ -33,21 +33,21 @@
 	<string name="realName">Nome reale</string>
 	<string name="privateWillNeverBeShown">Privato. Non verrà mai mostrato fuori dalla classe. Aiuta a ricordare chi è lo studente.</string>
 	<string name="addStudent">Aggiungi studenti</string>
-	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="lishogiProfileXCreatedForY">Profilo Lishogi %1$s creato per %2$s.</string>
 	<string name="studentCredentials">Studente:  %1$s
 Nome utente: %2$s
 Password: %3$s</string>
-	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteALishogiAccount">Invita un account Lishogi</string>
 	<string name="inviteDesc1">Se lo studente ha già un account Lishogi, puoi invitarlo in classe.</string>
 	<string name="inviteDesc2">Riceveranno un messaggio su Lishogi con un link per unirsi alla lezione.</string>
 	<string name="inviteDesc3">Importante: invita solo gli studenti che conosci e che desiderano partecipare attivamente alla classe.</string>
 	<string name="inviteDesc4">Non inviare mai inviti indesiderati a giocatori arbitrari.</string>
-	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createANewLishogiAccount">Crea un nuovo account Lishogi</string>
 	<string name="createDesc1">Se lo studente non ha ancora un account di Lishogi, puoi crearne per loro uno qui.</string>
 	<string name="createDesc2">Non è richiesto alcun indirizzo email. Verrà generata una password e dovrai trasmetterla allo studente, in modo che possa accedere.</string>
 	<string name="createDesc3">Importante: uno studente non deve avere account multipli.</string>
 	<string name="createDesc4">Se ne ha già uno, utilizza invece il modulo di invito.</string>
-	<string name="lishogiUsername">Lishogi username</string>
+	<string name="lishogiUsername">Nome utente Lishogi</string>
 	<string name="generateANewUsername">Genera un nuovo nome utente</string>
 	<string name="welcomeToClass">Benvenuto nella lezione: %s
 Questo è il link per accedere alla lezione.</string>
@@ -85,7 +85,7 @@ Questo è il link per accedere alla lezione.</string>
 	<string name="timePlaying">Tempo giocato</string>
 	<string name="variantXOverLastY">%1$s sopra gli ultimi %2$s</string>
 	<string name="winrate">Percentuale di vittorie</string>
-	<string name="na">N/A</string>
+	<string name="na">Non Disponibile</string>
 	<string name="news">News della classe</string>
 	<string name="editNews">Modifica notizie</string>
 	<string name="notifyAllStudents">Notifica tutti gli studenti</string>

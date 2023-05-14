@@ -204,6 +204,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">표준</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">무제한</string>
 	<string name="mode">모드</string>
 	<string name="casual">캐주얼</string>

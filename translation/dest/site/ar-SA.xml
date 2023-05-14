@@ -254,6 +254,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">عادي</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">غير محدود</string>
 	<string name="mode">مقيمة أو غير مقيمة</string>
 	<string name="casual">غير مقيّمة</string>

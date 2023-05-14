@@ -204,6 +204,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">มาตรฐาน</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">ไม่จำกัด</string>
 	<string name="mode">รูปแบบการเล่น</string>
 	<string name="casual">เกมสบาย ๆ</string>

@@ -18,9 +18,9 @@
 	<string name="checkmate">詰み</string>
 	<string name="stalemate">ステイルメイト</string>
 	<string name="impasse">持将棋</string>
-	<string name="perpetualCheck">Perpetual check</string>
-	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
-	<string name="bareKing" comment="Used in chushogi">Bare king</string>
+	<string name="perpetualCheck">連続王手の千日手</string>
+	<string name="royalsLost" comment="Used in chushogi">すべてのroyal駒を失う</string>
+	<string name="bareKing" comment="Used in chushogi">裸の王</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">後手</string>
 	<string name="white" comment="Alternative to gote">白</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">先手</string>
@@ -49,7 +49,7 @@
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">このURLを最初にクリックした人があなたと対局します。</string>
 	<string name="xResigned" comment="%s - sente(black)/gote(white)">%sが投了しました</string>
 	<string name="xLeftTheGame" comment="%s - sente(black)/gote(white)">%sが退席しました</string>
-	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s didn\'t move</string>
+	<string name="xDidntMove" comment="%s - sente(black)/gote(white)">%s は動けない</string>
 	<string name="shareThisUrlToLetSpectatorsSeeTheGame">誰かに対局を見てほしい場合、このURLを共有してください</string>
 	<string name="theComputerAnalysisHasFailed">コンピューター解析に失敗しました</string>
 	<string name="viewTheComputerAnalysis">コンピューター解析を見る</string>
@@ -71,7 +71,7 @@
 	<string name="forceVariation">変化として表示</string>
 	<string name="move">手</string>
 	<plurals name="nbMoves">
-		<item quantity="other">%s moves</item>
+		<item quantity="other">%s 手</item>
 	</plurals>
 	<string name="variantLoss">バリアント負け</string>
 	<string name="variantWin">バリアント勝ち</string>
@@ -204,6 +204,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">本将棋</string>
 	<string name="minishogi">5五将棋</string>
 	<string name="chushogi">中将棋</string>
+	<string name="annanshogi">Annan shogi</string>
+	<string name="kyotoshogi">Kyoto shogi</string>
 	<string name="unlimited">無制限</string>
 	<string name="mode">モード</string>
 	<string name="casual">非レート戦</string>
@@ -302,8 +304,8 @@
 	<string name="youAreNotInTeam">チーム %s に入っていません</string>
 	<string name="backToGame">対局に戻る</string>
 	<string name="siteDescription">無料オンライン将棋。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。コンピューターと、友達と、知らない相手とも対局できます。</string>
-	<string name="shogiDescription">Shogi, also known as \"将棋\" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as \"Japanese chess\" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
-	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
+	<string name="shogiDescription">日本語で「将棋」は、何世紀にもわたって日本で行われてきた二人の対局者による戦略ボードゲームです。チェスとの類似性から\"Japanese chess\"ともしばしば呼ばれますが、独特の特徴をもち、それ自体で別のゲームとして成立しています。</string>
+	<string name="learnShogiHereX">もしあなたが将棋のルールについて詳しくないなら、 %s を確認してください。</string>
 	<string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
 	<string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
 	<string name="xStartedStreaming">%s が配信を開始</string>
@@ -318,7 +320,7 @@
 	<string name="pasteTheSfenStringHere">ここにSFEN形式の局面をペースト</string>
 	<string name="pasteTheKifCsaStringHere">KIFあるいはCSAをここに貼り付けてください</string>
 	<string name="fromPosition">特定の局面から</string>
-	<string name="default" comment="Default starting position as opposed to custom starting position">Default</string>
+	<string name="default" comment="Default starting position as opposed to custom starting position">既定</string>
 	<string name="continueFromHere">中断した所から再開</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">棋譜をインポート</string>
@@ -381,7 +383,7 @@
 	<string name="showAdvancedSettings">「高度な設定」を表示</string>
 	<string name="makePrivateTournament">トーナメントを「非公開」にすると参加にパスワードが必要になります</string>
 	<string name="join">参加する</string>
-	<string name="pause">Pause</string>
+	<string name="pause">一時停止</string>
 	<string name="withdraw">一時停止する</string>
 	<string name="points">ポイント</string>
 	<string name="wins">勝</string>
@@ -519,7 +521,7 @@
 	<string name="compact">コンパクト</string>
 	<string name="insideTheBoard">盤の内</string>
 	<string name="outsideTheBoard">盤の外</string>
-	<string name="edgeOfTheBoard">Edge of the board</string>
+	<string name="edgeOfTheBoard">盤の端</string>
 	<string name="onSlowGames">長時間の対局のみ</string>
 	<string name="always">常に有効</string>
 	<string name="never">無効</string>
@@ -678,7 +680,7 @@
 	<string name="security">セキュリティ</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">これはあなたのアカウントにログインしたデバイスの一覧です。覚えのないセッションは削除してください。</string>
 	<string name="alternativelyYouCanX">あるいは %s こともできます。</string>
-	<string name="sessions">Sessions</string>
+	<string name="sessions">セッション</string>
 	<string name="revokeAllSessions">すべてのセッションを取り消す</string>
 	<string name="playShogiEverywhere">どこでも将棋を対局</string>
 	<string name="asFreeAsLishogi">Lishogi は常に無料</string>
@@ -709,17 +711,17 @@
 	<string name="light">明るい</string>
 	<string name="dark">暗い</string>
 	<string name="transparent">自由設定</string>
-	<string name="customTheme">Custom theme</string>
+	<string name="customTheme">カスタムテーマ</string>
 	<string name="backgroundImageUrl">背景画像URL:</string>
-	<string name="backgroundColor">Background color:</string>
-	<string name="gridColor">Grid color:</string>
-	<string name="gridWidth">Grid width:</string>
-	<string name="board">Board</string>
-	<string name="grid">Grid</string>
-	<string name="gridSlim">Slim</string>
-	<string name="gridThick">Thick</string>
-	<string name="gridVeryThick">Very thick</string>
-	<string name="hands" comment="Title in custom board theme editor">Hands</string>
+	<string name="backgroundColor">背景色：</string>
+	<string name="gridColor">グリッドカラー：</string>
+	<string name="gridWidth">グリッド幅：</string>
+	<string name="board">盤</string>
+	<string name="grid">グリッド</string>
+	<string name="gridSlim">細い</string>
+	<string name="gridThick">太い</string>
+	<string name="gridVeryThick">非常に太い</string>
+	<string name="hands" comment="Title in custom board theme editor">持駒</string>
 	<string name="boardTheme">盤のデザイン</string>
 	<string name="boardSize">盤のサイズ</string>
 	<string name="pieceSet">駒のデザイン</string>
@@ -735,7 +737,7 @@
 	<string name="shogiResources">将棋資料</string>
 	<string name="coaches">コーチ</string>
 	<string name="invalidNotation">無効な棋譜</string>
-	<string name="invalidSfen">Invalid SFEN</string>
+	<string name="invalidSfen">無効なSFEN</string>
 	<string name="error.minLength">最小の長さは %s 文字です</string>
 	<string name="error.maxLength">最大の長さは %s 文字です</string>
 	<string name="error.min">%s 以上にしてください</string>
@@ -816,7 +818,7 @@
 	<string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
 	<string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
 	<string name="agreementPolicy">私は Lishogi のすべてのポリシーに従うことに同意します。</string>
-	<string name="agreeWithX">I agree with: %s</string>
+	<string name="agreeWithX">%s に賛成</string>
 	<string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
 	<string name="edit">編集</string>
 	<string name="rapid">ラピッド</string>
@@ -850,13 +852,13 @@
 	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">無効な駒</string>
 	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">入玉</string>
 	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">合計点数</string>
-	<string name="postGameStudy">Post-game study</string>
-	<string name="postGameStudies">Post-game studies</string>
-	<string name="postGameStudyExplanation">Post-game studies are listed in their own category and allow directly offering rematch or seeking a new game.</string>
-	<string name="postGameStudiesOfGame">Post-game studies of this game</string>
-	<string name="studyWithOpponent">Study with opponent</string>
-	<string name="studyOfPlayers">Study of players</string>
-	<string name="studyWith">Study with:</string>
-	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
-	<string name="standardStudy">Standard study</string>
+	<string name="postGameStudy">感想戦</string>
+	<string name="postGameStudies">感想戦の一覧</string>
+	<string name="postGameStudyExplanation">感想戦の研究はそれぞれのカテゴリでリスト化され、また直接再対局の提案や新しい対局を探せる。</string>
+	<string name="postGameStudiesOfGame">この対局の感想戦</string>
+	<string name="studyWithOpponent">相手と研究する</string>
+	<string name="studyOfPlayers">研究相手</string>
+	<string name="studyWith">一緒に研究する：</string>
+	<string name="optional" comment="Used in forms to indicate the field is optional">オプション</string>
+	<string name="standardStudy">通常の研究</string>
 </resources>
