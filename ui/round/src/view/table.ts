@@ -48,15 +48,42 @@ export const renderTablePlay = (ctrl: RoundController) => {
         : [
             game.abortable(d)
               ? button.standard(ctrl, undefined, '', 'abortGame', 'abort')
-              : button.standard(ctrl, game.takebackable, '', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
+              : button.standard(
+                  ctrl,
+                  d => ({ enabled: game.takebackable(d) }),
+                  '',
+                  'proposeATakeback',
+                  'takeback-yes',
+                  ctrl.takebackYes
+                ),
             ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
               : ctrl.data.game.threefold
-              ? button.claimThreefold(ctrl)
-              : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
+              ? button.claimThreefold(ctrl, d => {
+                  const threefoldable = game.drawableSwiss(d);
+                  return { enabled: threefoldable, overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit' };
+                })
+              : button.standard(
+                  ctrl,
+                  d => ({
+                    enabled: ctrl.canOfferDraw(),
+                    overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
+                  }),
+                  '2',
+                  'offerDraw',
+                  'draw-yes',
+                  () => ctrl.offerDraw(true)
+                ),
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
-              : button.standard(ctrl, game.resignable, '', 'resign', 'resign', () => ctrl.resign(true)),
+              : button.standard(
+                  ctrl,
+                  d => ({ enabled: game.resignable(d) }),
+                  '',
+                  'resign',
+                  'resign',
+                  () => ctrl.resign(true)
+                ),
             replay.analysisButton(ctrl),
           ],
     buttons: MaybeVNodes = loading

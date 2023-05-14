@@ -258,6 +258,7 @@ object I18nKeys:
   val `tournamentPoints` = I18nKey("tournamentPoints")
   val `viewTournament` = I18nKey("viewTournament")
   val `backToTournament` = I18nKey("backToTournament")
+  val `noDrawBeforeSwissLimit` = I18nKey("noDrawBeforeSwissLimit")
   val `thematic` = I18nKey("thematic")
   val `yourPerfRatingIsProvisional` = I18nKey("yourPerfRatingIsProvisional")
   val `yourPerfRatingIsTooHigh` = I18nKey("yourPerfRatingIsTooHigh")

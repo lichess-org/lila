@@ -343,6 +343,7 @@
   </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
+  <string name="noDrawBeforeSwissLimit">You cannot draw before 30 moves are played in a Swiss tournament.</string>
   <string name="thematic">Thematic</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rated game</item>
