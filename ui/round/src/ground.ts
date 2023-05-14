@@ -137,7 +137,6 @@ export function renderBoard(ctrl: RoundController) {
     hook: {
       insert: vnode => {
         ctrl.shogiground.attach({ board: vnode.elm as HTMLElement });
-        // ctrl.setKeyboardMove();
       },
     },
   });

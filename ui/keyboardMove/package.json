@@ -1,0 +1,35 @@
+{
+  "name": "keyboardMove",
+  "version": "1.0.0",
+  "private": true,
+  "description": "lishogi.org keyboard move",
+  "type": "module",
+  "main": "dist/src/main.js",
+  "types": "dist/src/main",
+  "keywords": [
+    "shogi",
+    "lishogi",
+    "keyboard"
+  ],
+  "author": "Thibault Duplessis, WandererXII",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/lishogi": "2.0.0",
+    "rollup": "^2",
+    "typescript": "^4"
+  },
+  "dependencies": {
+    "common": "2.0.0",
+    "shogiground": "^0.7.1",
+    "shogiops": "^0.14.2",
+    "snabbdom": "^3.5.1"
+  },
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc --declaration --incremental",
+    "plugin-dev": "rollup --config --config-plugin keyboardMove",
+    "plugin-prod": "rollup --config --config-prod --config-plugin keyboardMove",
+    "dev": "yarn run compile && yarn run plugin-dev",
+    "prod": "yarn run compile && yarn run plugin-prod"
+  }
+}

@@ -154,13 +154,14 @@ function renderButtons(ctrl: RoundController) {
         ['X', ctrl.ply + 1],
         ['V', lastPly],
       ].map((b, i) => {
-        const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+        const ply = b[1] as number,
+          enabled = ctrl.ply !== ply && ply >= firstPly && ply <= lastPly;
         return h('button.fbt', {
           class: { glowing: i === 3 && ctrl.isLate() },
           attrs: {
             disabled: !enabled,
             'data-icon': b[0],
-            'data-ply': enabled ? b[1] : '-',
+            'data-ply': enabled ? ply : '-',
           },
         });
       }),

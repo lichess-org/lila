@@ -21,6 +21,7 @@
     "chat": "2.0.0",
     "common": "2.0.0",
     "game": "2.0.0",
+    "keyboardMove": "1.0.0",
     "nvui": "2.0.0",
     "shogiground": "^0.7.1",
     "shogiops": "^0.14.2",
@@ -28,8 +29,7 @@
   },
   "scripts": {
     "dev": "rollup --config",
-    "nvui": "rollup --config --config-plugin keyboardMove",
-    "key": "rollup --config --config-plugin nvui",
-    "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin nvui && rollup --config --config-prod --config-plugin keyboardMove"
+    "nvui": "rollup --config --config-plugin nvui",
+    "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin nvui"
   }
 }

@@ -47,6 +47,7 @@
     "ui/speech",
     "ui/palantir",
     "ui/insight",
+    "ui/keyboardMove",
     "ui/learn",
     "ui/lobby",
     "ui/notify",

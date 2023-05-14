@@ -10,7 +10,7 @@ import { samePiece } from 'shogiground/util';
 import { eagleLionAttacks, falconLionAttacks } from 'shogiops/attacks';
 import { checksSquareNames, shogigroundSecondLionStep, usiToSquareNames } from 'shogiops/compat';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
-import { NormalMove, Piece, Role, isDrop } from 'shogiops/types';
+import { NormalMove, Piece, Role, Square, isDrop } from 'shogiops/types';
 import { defined, makeSquareName, makeUsi, opposite, parseSquareName, parseUsi, squareDist } from 'shogiops/util';
 import { Chushogi } from 'shogiops/variant/chushogi';
 import { handRoles, promotableOnDrop, promote, unpromote } from 'shogiops/variant/util';
@@ -30,9 +30,10 @@ import {
   RoundOpts,
   SocketOpts,
   SocketUsi,
+  Step,
 } from './interfaces';
 import * as keyboard from './keyboard';
-import { KeyboardMove, ctrl as makeKeyboardMove } from './keyboardMove';
+import { KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import MoveOn from './moveOn';
 import * as round from './round';
 import { RoundSocket, make as makeSocket } from './socket';
@@ -121,6 +122,7 @@ export default class RoundController {
       setInterval(this.corresClockTick, 1000);
     }
 
+    this.setKeyboardMove();
     this.setQuietMode();
 
     this.moveOn = new MoveOn(this, 'move-on');
@@ -320,7 +322,7 @@ export default class RoundController {
     }
     this.lionFirstMove = undefined;
     this.autoScroll();
-    if (this.keyboardMove) this.keyboardMove.update(s);
+    if (this.keyboardMove) this.keyboardMove.update({ sfen: s.sfen, lastSquare: this.stepDest(this.stepAt(ply)) });
     li.pubsub.emit('ply', ply);
     return true;
   };
@@ -371,7 +373,7 @@ export default class RoundController {
     this.redraw();
   };
 
-  sendUsi = (usi: string, meta: sg.MoveMetadata) => {
+  sendUsi = (usi: Usi, meta: sg.MoveMetadata) => {
     const move: SocketUsi = {
       u: usi,
     };
@@ -511,9 +513,13 @@ export default class RoundController {
     }
     this.autoScroll();
     this.onChange();
-    if (this.keyboardMove) this.keyboardMove.update(step, playedColor != d.player.color);
+    if (this.keyboardMove)
+      this.keyboardMove.update(
+        { sfen: step.sfen, lastSquare: lastStep?.usi ? parseUsi(lastStep.usi)?.to : undefined },
+        playedColor != d.player.color
+      );
     if (this.music) this.music.jump(o);
-    speech.step(step);
+    speech.notation(step.notation);
   };
 
   reload = (d: RoundData): void => {
@@ -533,7 +539,11 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    if (this.keyboardMove) this.keyboardMove.update(d.steps[d.steps.length - 1]);
+    if (this.keyboardMove)
+      this.keyboardMove.update({
+        sfen: d.steps[d.steps.length - 1].sfen,
+        lastSquare: this.stepDest(d.steps[d.steps.length - 2]),
+      });
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -740,14 +750,22 @@ export default class RoundController {
     this.socket.sendLoading('draw-yes', null);
   };
 
-  setKeyboardMove = () => {
-    if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
+  private setKeyboardMove = () => {
+    if (this.data.pref.keyboardMove && this.data.game.variant.key !== 'chushogi') {
+      this.keyboardMove = makeKeyboardMove(this, {
+        sfen: this.stepAt(this.ply).sfen,
+        lastSquare: this.stepDest(this.stepAt(this.ply - 1)),
+      });
       requestAnimationFrame(() => this.redraw());
     }
   };
 
   stepAt = (ply: Ply) => round.plyStep(this.data, ply);
+
+  private stepDest = (step: Step | undefined): Square | undefined => {
+    if (step?.usi) return parseUsi(step.usi)?.to;
+    else return;
+  };
 
   private delayedInit = () => {
     const d = this.data;

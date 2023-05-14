@@ -3,7 +3,7 @@ import { VNode, h } from 'snabbdom';
 import RoundController from '../ctrl';
 import * as shogiground from '../ground';
 import * as keyboard from '../keyboard';
-import { render as keyboardMove } from '../keyboardMove';
+import { render as keyboardMove } from 'keyboardMove';
 import * as util from '../util';
 import { renderTable } from './table';
 
