@@ -3,9 +3,14 @@ package lila.fishnet
 import chess.format.Fen
 import JsonApi.Request.Evaluation
 
+trait IFishnetEvalCache:
+  def skipPositions(game: Work.Game): Fu[List[Int]]
+  def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]]
+
 final private class FishnetEvalCache(
     evalCacheApi: lila.evalCache.EvalCacheApi
-)(using Executor):
+)(using Executor)
+    extends IFishnetEvalCache:
 
   val maxPlies = 15
 
@@ -49,3 +54,8 @@ final private class FishnetEvalCache(
           .parallel
           .map(_.flatten)
       )
+
+object FishnetEvalCache:
+  val mock: IFishnetEvalCache = new:
+    def skipPositions(game: Work.Game): Fu[List[Int]]        = fuccess(Nil)
+    def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] = fuccess(Map.empty)

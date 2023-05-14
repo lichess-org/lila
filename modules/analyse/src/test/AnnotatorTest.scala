@@ -3,8 +3,8 @@ package lila.analyse
 import chess.{ ByColor, Color, Ply }
 import lila.common.Maths.isCloseTo
 import lila.common.config.{ NetDomain, BaseUrl }
-import chess.format.pgn.{ Pgn, PgnStr, Initial, Tag, Tags, Parser, PgnTree }
 import lila.tree.Eval
+import chess.format.pgn.{ Pgn, PgnStr, Initial, Tag, Tags, Parser, PgnTree }
 import chess.{ Node, Move }
 import lila.game.PgnDump
 

@@ -7,7 +7,7 @@ import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 
-final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor):
+final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor):
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
@@ -35,12 +35,13 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
               Analysis(
                 id = work.game.id,
                 studyId = work.game.studyId,
-                infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
+                infos =
+                  makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList.pp, work.startPly),
                 startPly = work.startPly,
                 fk = !client.lichess option client.key.value,
                 date = nowInstant
               )
-            ) match {
+            ).pp match {
               case (analysis, errors) =>
                 errors foreach { e =>
                   logger.debug(s"[UciToPgn] $debug $e")
@@ -76,7 +77,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
       moves: List[Uci],
       startedAtPly: Ply
   ): List[Info] =
-    evals.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves).zipWithIndex map {
+    evals.pp.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves.pp).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) =>
         val variation = before.cappedPv match
           case first :: rest if first != move => first :: rest
