@@ -11,7 +11,6 @@ export class PingCtrl {
   }
 
   onLag = (lag: number) => {
-    console.log(lag);
     this.ping = Math.round(lag);
     this.redraw();
   };
