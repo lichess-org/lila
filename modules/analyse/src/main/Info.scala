@@ -75,11 +75,12 @@ object Info:
         Info(ply, Eval(strCp(cp), strMate(ma), Uci.Move fromChars be), SanStr from va.split(' ').toList).some
       case _ => none
 
-  def decodeList(str: String, fromPly: Ply): Option[List[Info]] = {
-    str.split(listSeparator).toList.zipWithIndex map { (infoStr, index) =>
-      decode(fromPly + index + 1, infoStr)
-    }
-  }.sequence
+  def decodeList(str: String, fromPly: Ply): Option[List[Info]] =
+    str
+      .split(listSeparator)
+      .toList
+      .zipWithIndex
+      .traverse((infoStr, index) => decode(fromPly + index + 1, infoStr))
 
   def encodeList(infos: List[Info]): String = infos.map(_.encode) mkString listSeparator
 

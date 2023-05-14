@@ -43,9 +43,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
               )
             ) match {
               case (analysis, errors) =>
-                errors foreach { e =>
-                  logger.debug(s"[UciToPgn] $debug $e")
-                }
+                errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))
                 if (analysis.valid) {
                   if (!isPartial && analysis.emptyRatio >= 1d / 10)
                     fufail(
