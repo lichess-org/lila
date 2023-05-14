@@ -50,9 +50,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
               ? button.standard(ctrl, undefined, '', 'abortGame', 'abort')
               : button.standard(
                   ctrl,
-                  d => {
-                    return { enabled: game.takebackable(d) };
-                  },
+                  d => ({ enabled: game.takebackable(d) }),
                   '',
                   'proposeATakeback',
                   'takeback-yes',
@@ -67,12 +65,10 @@ export const renderTablePlay = (ctrl: RoundController) => {
                 })
               : button.standard(
                   ctrl,
-                  d => {
-                    return {
-                      enabled: ctrl.canOfferDraw(),
-                      overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
-                    };
-                  },
+                  d => ({
+                    enabled: ctrl.canOfferDraw(),
+                    overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
+                  }),
                   '2',
                   'offerDraw',
                   'draw-yes',
@@ -82,9 +78,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
               ? button.resignConfirm(ctrl)
               : button.standard(
                   ctrl,
-                  d => {
-                    return { enabled: game.resignable(d) };
-                  },
+                  d => ({ enabled: game.resignable(d) }),
                   '',
                   'resign',
                   'resign',
