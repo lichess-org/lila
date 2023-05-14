@@ -24,7 +24,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
        * to prevent the mobile app from thinking it's complete
        * https://github.com/lichess-org/lichobile/issues/722
        */
-      val cached = if (isPartial) cachedFull - 0 else cachedFull
+      val cached = if isPartial then cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
       chess
         .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
@@ -36,13 +36,12 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
               Analysis(
                 id = work.game.id,
                 studyId = work.game.studyId,
-                infos =
-                  makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList.pp, work.startPly),
+                infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
                 fk = !client.lichess option client.key.value,
                 date = nowInstant
               )
-            ).pp match {
+            ) match {
               case (analysis, errors) =>
                 errors foreach { e =>
                   logger.debug(s"[UciToPgn] $debug $e")
@@ -78,7 +77,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
       moves: List[Uci],
       startedAtPly: Ply
   ): List[Info] =
-    evals.pp.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves.pp).zipWithIndex map {
+    evals.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) =>
         val variation = before.cappedPv match
           case first :: rest if first != move => first :: rest
@@ -87,7 +86,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
         val info = Info(
           ply = startedAtPly + index + 1,
           eval = Eval(after.score.cp, after.score.mate, best),
-          variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToPgn
+          variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToSan
         )
         if (info.ply.isOdd) info.invert else info
       case ((_, _), index) => Info(startedAtPly + index + 1, Eval.empty, Nil)
