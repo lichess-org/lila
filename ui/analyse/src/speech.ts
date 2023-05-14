@@ -9,7 +9,7 @@ function onSpeechChange(enabled: boolean) {
 }
 
 export function node(n: Tree.Node) {
-  withSpeech(s => s.step(n, true));
+  withSpeech(s => s.notation(n.notation, true));
 }
 
 function withSpeech(f: (speech: LishogiSpeech) => void) {

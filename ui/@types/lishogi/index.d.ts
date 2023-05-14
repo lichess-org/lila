@@ -85,7 +85,7 @@ interface Lishogi {
 }
 
 interface LishogiSpeech {
-  step(s: { notation?: string }, cut: boolean): void;
+  notation(notation: string | undefined, cut: boolean): void;
 }
 
 interface PalantirOpts {

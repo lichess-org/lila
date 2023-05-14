@@ -114,10 +114,12 @@ function renderMove(move: string) {
     .join(' ');
 }
 
-export function step(s: { notation?: string }, cut: boolean) {
-  const texts = {
-    en: s.notation ? renderMove(s.notation) : 'Game start',
-    jp: s.notation ? jRenderMove(s.notation) : '開始',
-  };
-  window.lishogi.sound.say(texts, cut);
+export function notation(notation: string | undefined, cut: boolean) {
+  window.lishogi.sound.say(
+    {
+      en: notation ? renderMove(notation) : 'Game start',
+      jp: notation ? jRenderMove(notation) : '開始',
+    },
+    cut
+  );
 }

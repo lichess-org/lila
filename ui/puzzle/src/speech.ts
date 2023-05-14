@@ -9,7 +9,7 @@ function onSpeechChange(enabled: boolean): void {
 }
 
 export function node(n: Tree.Node, cut: boolean): void {
-  withSpeech(s => s.step(n, cut));
+  withSpeech(s => s.notation(n.notation, cut));
 }
 
 export function failure(): void {
