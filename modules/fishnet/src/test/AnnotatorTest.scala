@@ -5,7 +5,6 @@ import play.api.libs.json.Reads
 import play.api.libs.json.*
 import lila.game.PgnImport
 import lila.fishnet.JsonApi.Request.Evaluation
-import lila.fishnet.JsonApi.Request.Evaluation.Skipped
 import chess.format.pgn.{
   Move,
   Dumper,
@@ -47,7 +46,7 @@ final class AnnotatorTest extends munit.FunSuite:
 
   val analysisBuilder = AnalysisBuilder(FishnetEvalCache.mock)
 
-  def parseFishnetInput(str: String): List[Either[Skipped.type, Evaluation]] =
+  def parseFishnetInput(str: String): List[Evaluation.EvalOrSkip] =
     Json.parse(fishnetInput).as[Request.PostAnalysis].analysis.flatten
 
   def parseAnalysis(str: String): lila.analyse.Analysis =
