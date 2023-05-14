@@ -115,7 +115,6 @@ export interface ParentCtrl {
   getNode(): Tree.Node;
   showComputer(): boolean;
   trans: Trans;
-  data: any;
 }
 
 export interface NodeEvals {
