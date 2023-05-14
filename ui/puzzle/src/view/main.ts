@@ -10,6 +10,7 @@ import * as shogiground from './shogiground';
 import * as side from './side';
 import theme from './theme';
 import { render as treeView } from './tree';
+import { render as renderKeyboardMove } from 'keyboardMove';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -133,6 +134,7 @@ export default function (ctrl: Controller): VNode {
       shogiground.renderHand(ctrl, 'bottom'),
       controls(ctrl),
       session(ctrl),
+      ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
     ]
   );
 }

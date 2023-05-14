@@ -8,6 +8,7 @@ import { Move, Outcome, Piece } from 'shogiops/types';
 import { Shogi } from 'shogiops/variant/shogi';
 import { TreeWrapper } from 'tree';
 import PuzzleSession from './session';
+import { KeyboardMove } from 'keyboardMove';
 
 export type Redraw = () => void;
 
@@ -46,7 +47,6 @@ export interface Controller extends KeyboardController {
   showComputer(): boolean;
   trans: Trans;
   getData(): PuzzleData;
-  data: PuzzleOpts;
   getTree(): TreeWrapper;
   shogiground: SgApi;
   makeSgOpts(): SgConfig;
@@ -62,6 +62,7 @@ export interface Controller extends KeyboardController {
   autoNexting: () => boolean;
   session: PuzzleSession;
   allThemes?: AllThemes;
+  keyboardMove?: KeyboardMove;
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
@@ -111,6 +112,7 @@ export interface PuzzlePrefs {
     duration: number;
   };
   blindfold: boolean;
+  keyboardMove: boolean;
 }
 
 export interface Theme {
@@ -126,6 +128,7 @@ export interface PuzzleData {
   game: PuzzleGame;
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
+  player: { color: Color };
 }
 
 export interface PuzzleReplay {

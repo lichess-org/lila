@@ -91,7 +91,8 @@ final class JsonView(
       "moveEvent"          -> p.moveEvent,
       "highlightLastDests" -> p.highlightLastDests,
       "highlightCheck"     -> p.highlightCheck,
-      "squareOverlay"      -> p.squareOverlay
+      "squareOverlay"      -> p.squareOverlay,
+      "keyboardMove"       -> (p.keyboardMove == lila.pref.Pref.KeyboardMove.YES)
     )
 
   def dashboardJson(dash: PuzzleDashboard, days: Int)(implicit lang: Lang) = Json.obj(

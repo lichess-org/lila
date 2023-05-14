@@ -22,12 +22,14 @@
     "ceval": "2.0.0",
     "chart.js": "^2.9",
     "common": "2.0.0",
+    "keyboardMove": "1.0.0",
     "shogiground": "^0.7.1",
     "shogiops": "^0.14.2",
     "snabbdom": "^3.5.1",
     "tree": "2.0.0"
   },
   "scripts": {
+    "noDash": "rollup --config",
     "dev": "rollup --config && rollup --config --config-plugin dashboard",
     "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin dashboard"
   }

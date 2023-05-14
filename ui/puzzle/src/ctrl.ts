@@ -21,6 +21,9 @@ import PuzzleSession from './session';
 import * as speech from './speech';
 import { plyColor, scalashogiCharPair } from './util';
 import * as xhr from './xhr';
+import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
+import { last } from 'tree/dist/ops';
+import { fromNodeList } from 'tree/dist/path';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   let vm: Vm = {
@@ -50,6 +53,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   }
 
+  let keyboardMove: KeyboardMove | undefined;
+
   function initiate(fromData: PuzzleData): void {
     data = fromData;
     tree = data.game.moves ? treeBuild(usiToTree(data.game.moves.split(' '))) : treeBuild(sfenToTree(data.game.sfen!));
@@ -62,6 +67,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = plyColor(vm.initialNode.ply);
+    data.player = { color: vm.pov };
 
     setPath(treePath.init(initialPath));
     if (data.game.id)
@@ -81,6 +87,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     shogiground.setShapes([]);
     shogiground.set(makeSgOpts());
 
+    if (opts.pref.keyboardMove) instanciateKeyboard();
     instanciateCeval();
   }
 
@@ -275,6 +282,31 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (data.replay) window.lishogi.redirect(`/training/dashboard/${data.replay.days}`);
   }
 
+  function instanciateKeyboard(): void {
+    const parent = tree.parentNode(vm.path),
+      lastMove = parent.usi ? parseUsi(parent.usi) : undefined;
+
+    if (!keyboardMove) {
+      keyboardMove = makeKeyboardMove(
+        {
+          data: {
+            game: { variant: { key: 'standard' } },
+            player: { color: vm.pov },
+          },
+          shogiground,
+          redraw: redraw,
+          userJumpPlyDelta,
+          next: nextPuzzle,
+          vote,
+        },
+        { sfen: vm.node.sfen, lastSquare: lastMove?.to }
+      );
+      requestAnimationFrame(() => redraw());
+    } else {
+      keyboardMove.update({ sfen: vm.node.sfen, lastSquare: lastMove?.to });
+    }
+  }
+
   function instanciateCeval(): void {
     if (ceval) ceval.destroy();
     ceval = cevalCtrl({
@@ -381,6 +413,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       startCeval();
     }
     vm.autoScrollRequested = true;
+    if (keyboardMove) {
+      const parent = tree.parentNode(vm.path),
+        lastMove = parent.usi ? parseUsi(parent.usi) : undefined;
+      keyboardMove.update({ sfen: vm.node.sfen, lastSquare: lastMove?.to });
+    }
     window.lishogi.pubsub.emit('ply', vm.node.ply);
   }
 
@@ -389,6 +426,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     shogiground.selectSquare(null);
     jump(path);
     if (path) speech.node(vm.node, true);
+  }
+
+  function userJumpPlyDelta(plyDelta: Ply) {
+    // ensure we are jumping to a valid ply
+    let maxValidPly = vm.mainline.length - 1;
+    if (last(vm.mainline)?.puzzle == 'fail' && vm.mode != 'view') maxValidPly -= 1;
+    const newPly = Math.min(Math.max(vm.node.ply + plyDelta, 0), maxValidPly);
+    userJump(fromNodeList(vm.mainline.slice(0, newPly + 1)));
   }
 
   function viewSolution(): void {
@@ -474,12 +519,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     getData() {
       return data;
     },
-    data: opts, // for ceval
     getTree() {
       return tree;
     },
     shogiground,
     makeSgOpts,
+    keyboardMove,
     userJump,
     viewSolution,
     nextPuzzle,

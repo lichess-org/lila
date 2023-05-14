@@ -49,6 +49,10 @@ $hand-col1-height: auto;
     grid-area: gauge;
   }
 
+  .keyboard-move {
+    grid-area: kb-move;
+  }
+
   grid-template-areas:
     'hand-top'
     'board'
@@ -56,6 +60,7 @@ $hand-col1-height: auto;
     'controls'
     'tools'
     'session'
+    'kb-move'
     'side';
 
   &__moves {
@@ -70,6 +75,7 @@ $hand-col1-height: auto;
       'board   gauge tools'
       'board   gauge hand-bot'
       'session .     controls'
+      'kb-move .     controls'
       'side    side  side';
 
     .board-layout-1 & {
@@ -78,6 +84,7 @@ $hand-col1-height: auto;
       grid-template-areas:
         'hand-top . board   . hand-bot gauge tools'
         '.        . session . .        .     controls'
+        '.        . kb-move . .        .     .'
         '.        . side    side side   side  side';
       @include breakpoint($mq-col2-uniboard-squeeze-1) {
         grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
@@ -95,6 +102,7 @@ $hand-col1-height: auto;
       'side    . board   gauge tools'
       'side    . board   gauge hand-bot'
       'side    . session .     controls'
+      'side    . kb-move .     .'
       'side    . .       .     .';
     grid-template-columns:
       $col3-uniboard-side $block-gap $col3-uniboard-width $gauge-gap
@@ -108,6 +116,7 @@ $hand-col1-height: auto;
       grid-template-areas:
         'side . hand-top  . board   . hand-bot gauge tools'
         'side . .         . session . .        .     controls'
+        'side . .         . kb-move . .        .     .'
         'side . .         . .       . .        .     .';
     }
   }
