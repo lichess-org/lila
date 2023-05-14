@@ -14,7 +14,10 @@ $shape-themes: (
   'green': #15781b,
   'red': #882020,
   'yellow': #e68f00,
-  'blue': #003088
+  'blue': #003088,
+  // keyboard moves
+  'suggest': #3f51b5,
+  'confirm':#00ff00,
 );
 
 .sg-shapes {
@@ -76,5 +79,12 @@ $shape-themes: (
   g.engineAlt,
   g.engineThreatAlt {
     opacity: 0.35;
+  }
+
+  g.confirm {
+    opacity: 1;
+  }
+  g.suggest {
+    opacity: 1;
   }
 }
