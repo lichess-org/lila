@@ -5,13 +5,13 @@ export const commands = {
   piece: {
     help: 'p: Read locations of a piece type. Example: p N, p k.',
     apply(c: string, pieces: Pieces, style: Style): string | undefined {
-      return tryC(c, /^p ([p|n|b|r|q|k|g|s|l|a|m|h|d|u|t])$/i, p => renderPieceKeys(pieces, p, style));
+      return tryC(c, /^p (p|l|n|s|g|b|r|k|\+p|\+l|\+n|\+s|\+b|\+r|d|h|t)$/i, p => renderPieceKeys(pieces, p, style));
     },
   },
   scan: {
-    help: 'scan: Read pieces on a rank or file. Example: scan a, scan 1.',
+    help: 's: Read pieces on a rank or file. Example: s 1, scan a.',
     apply(c: string, pieces: Pieces, style: Style): string | undefined {
-      return tryC(c, /^scan ([a-i1-9])$/i, p => renderPiecesOn(pieces, p, style));
+      return tryC(c, /^s ([1-9a-i][a-i]?)$/i, p => renderPiecesOn(pieces, p, style));
     },
   },
 };

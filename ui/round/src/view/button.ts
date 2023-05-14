@@ -1,4 +1,4 @@
-import { MaybeVNodes } from 'common/snabbdom';
+import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import * as game from 'game';
 import { PlayerUser } from 'game';
@@ -316,7 +316,8 @@ export function standard(
   );
 }
 
-export function impasse(ctrl: RoundController): VNode {
+export function impasse(ctrl: RoundController): MaybeVNode {
+  if (ctrl.nvui) return undefined;
   return h(
     'button.fbt.impasse',
     {

@@ -37,6 +37,7 @@
   },
   "scripts": {
     "dev": "rollup --config",
+    "nvui": "rollup --config --config-plugin nvui",
     "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin nvui"
   }
 }

@@ -4,7 +4,7 @@ import { Player } from 'game';
 import { commands } from 'nvui/command';
 import { Notify } from 'nvui/notify';
 import { renderSetting } from 'nvui/setting';
-import { Style, renderBoard, renderMove, renderPieces, styleSetting } from 'nvui/shogi';
+import { Style, renderBoard, renderMove, renderPieces, styleSetting, supportedVariant, validUsi } from 'nvui/shogi';
 import { Shogiground } from 'shogiground';
 import { VNode, h } from 'snabbdom';
 import AnalyseController from '../ctrl';
@@ -23,7 +23,8 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
   return {
     render(ctrl: AnalyseController): VNode {
       const d = ctrl.data,
-        style = moveStyle.get();
+        style = moveStyle.get(),
+        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
       if (!ctrl.shogiground)
         ctrl.shogiground = Shogiground({
           ...makeSgConfig(ctrl),
@@ -33,6 +34,8 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
             enabled: false,
           },
         });
+      if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
+
       return h('main.analyse', [
         h('div.nvui', [
           h('h1', 'Textual representation'),
@@ -51,7 +54,7 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
                 'aria-live': 'off',
               },
             },
-            renderMainline(ctrl.mainline, ctrl.path, style)
+            renderMainline(ctrl.mainline, ctrl.path, ctrl.data.game.variant.key, style)
           ),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
@@ -61,10 +64,10 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
             {
               attrs: {
                 'aria-live': 'assertive',
-                'aria-atomic': true,
+                'aria-atomic': 'true',
               },
             },
-            renderCurrentNode(ctrl.node, style)
+            renderCurrentNode(ctrl.node, ctrl.data.game.variant.key, style)
           ),
           h('h2', 'Move form'),
           h(
@@ -96,9 +99,14 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
           // h('h2', 'Actions'),
           // h('div.actions', tableInner(ctrl)),
           h('h2', 'Computer analysis'),
-          ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
+          ...(renderAcpl(ctrl, ctrl.data.game.variant.key, style) || [
+            requestAnalysisButton(ctrl, analysisInProgress, notify.set),
+          ]),
           h('h2', 'Board'),
-          h('pre.board', renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color)),
+          h(
+            'pre.board',
+            renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color, ctrl.data.game.variant.key)
+          ),
           h('div.content', {
             hook: {
               insert: vnode => {
@@ -130,13 +138,17 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
     let input = $input.val().trim();
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
-    else notify('Invalid command');
+    else {
+      const usi = validUsi(input, ctrl.node.sfen, ctrl.data.game.variant.key);
+      if (usi) ctrl.sendUsi(usi);
+      else notify('Invalid command');
+    }
     $input.val('');
     return false;
   };
 }
 
-const shortCommands = ['p', 'scan'];
+const shortCommands = ['p', 's'];
 
 function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0]);
@@ -149,7 +161,7 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
 
 const analysisGlyphs = ['?!', '?', '??'];
 
-function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
+function renderAcpl(ctrl: AnalyseController, variant: VariantKey, style: Style): MaybeVNodes | undefined {
   const anal = ctrl.data.analysis;
   if (!anal) return undefined;
   const analysisNodes = ctrl.mainline.filter(n => (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)));
@@ -174,7 +186,9 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
                   selected: node.ply === ctrl.node.ply,
                 },
               },
-              [node.ply + ctrl.plyOffset(), renderMove(node.usi, style), renderComments(node)].join(' ')
+              [node.ply + ctrl.plyOffset(), renderMove(node.usi, node.sfen, variant, style), renderComments(node)].join(
+                ' '
+              )
             )
           )
       )
@@ -205,13 +219,13 @@ function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean
   );
 }
 
-function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style) {
+function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, variant: VariantKey, style: Style) {
   const res: Array<string | VNode> = [];
   let path: Tree.Path = '';
   nodes.forEach(node => {
     if (!node.usi) return;
     path += node.id;
-    const content: MaybeVNodes = [node.ply.toString(), renderMove(node.usi, style)];
+    const content: MaybeVNodes = [node.ply.toString(), renderMove(node.usi, node.sfen, variant, style)];
     res.push(
       h(
         'move',
@@ -219,7 +233,7 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
           attrs: { p: path },
           class: { active: path === currentPath },
         },
-        content
+        content.join(' ')
       )
     );
     res.push(renderComments(node));
@@ -229,9 +243,8 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
   return res;
 }
 
-function renderCurrentNode(node: Tree.Node, style: Style): string {
-  if (!node.usi) return 'Initial position';
-  return [node.ply, renderMove(node.usi, style), renderComments(node)].join(' ');
+function renderCurrentNode(node: Tree.Node, variant: VariantKey, style: Style): string {
+  return [node.ply, renderMove(node.usi, node.sfen, variant, style), renderComments(node)].join(' ');
 }
 
 function renderComments(node: Tree.Node): string {

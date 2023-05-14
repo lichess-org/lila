@@ -66,12 +66,12 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def roundTag = jsAt(s"compiled/lishogi.round${minifiedAssets ?? ".min"}.js", defer = true)
   def roundNvuiTag(implicit ctx: Context) =
     ctx.blind option
-      jsAt(s"compiled/lishogi.round.nvui.min.js", defer = true)
+      jsAt(s"compiled/lishogi.round.nvui${minifiedAssets ?? ".min"}.js", defer = true)
 
   def analyseTag = jsAt(s"compiled/lishogi.analyse${minifiedAssets ?? ".min"}.js")
   def analyseNvuiTag(implicit ctx: Context) =
     ctx.blind option
-      jsAt(s"compiled/lishogi.analyse.nvui.min.js")
+      jsAt(s"compiled/lishogi.analyse.nvui${minifiedAssets ?? ".min"}.js")
 
   def captchaTag = jsAt(s"compiled/captcha.js")
 

@@ -29,7 +29,7 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
         attrs: {
           role: 'log',
           'aria-live': 'polite',
-          'aria-atomic': false,
+          'aria-atomic': 'false',
         },
         hook: {
           insert(vnode) {
