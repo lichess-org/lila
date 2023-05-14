@@ -60,9 +60,20 @@ object side:
                 ),
                 game.pgnImport.flatMap(_.date).map(frag(_)) | momentFromNowWithPreload(game.createdAt)
               ),
-              game.pgnImport.flatMap(_.user).map { user =>
-                small(
-                  trans.importedByX(userIdLink(user.some, None, withOnline = false))
+              game.pgnImport.flatMap(_.user).map { importUser =>
+                frag(
+                  small(
+                    trans.importedByX(userIdLink(importUser.some, None, withOnline = false))
+                  ),
+                  ctx.me.filter(_.id is importUser).map { _ =>
+                    form(cls := "delete", method := "post", action := routes.Game.delete(game.id)) {
+                      button(
+                        cls          := "link text button-thin confirm",
+                        attr("type") := "submit",
+                        title        := trans.deleteThisImportedGame.txt()
+                      )(trans.delete.txt())
+                    }
+                  }
                 )
               }
             )

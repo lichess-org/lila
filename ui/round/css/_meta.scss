@@ -29,6 +29,17 @@
     time {
       opacity: 1;
     }
+
+    form.delete button {
+      @extend %button-none;
+      padding: 0;
+      color: $c-error;
+
+      &:hover,
+      &:focus {
+        color: $c-error-over;
+      }
+    }
   }
 
   .status {
