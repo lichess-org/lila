@@ -104,10 +104,10 @@ final class AnnotatorTest extends munit.FunSuite:
 
   test("annotated game with fishnet input"):
     val analysis = parseAnalysis(fishnetInput)
-    assertEquals(
-      annotator(dumped, makeGame(gameWithMoves._1), analysis.some).copy(tags = Tags.empty).render,
-      PgnStr(annotatedPgn)
-    )
+    val p1       = annotator(dumped, makeGame(gameWithMoves._1), analysis.some).copy(tags = Tags.empty)
+    val p2       = annotator.addEvals(p1, analysis)
+    val output   = annotator.toPgnString(p2)
+    assertEquals(output, PgnStr(annotatedPgn))
 
   case class Context(sit: Situation, ply: Ply)
 
