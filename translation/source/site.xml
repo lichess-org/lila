@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50'' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">No game found</string>
+  <string name="maxDepthReached">Max depth reached!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openings">Openings</string>
   <string name="openingExplorer">Opening explorer</string>

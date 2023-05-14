@@ -48,7 +48,7 @@ final class OpeningApi(
     for
       wiki <- query.closestOpening.??(op => wikiApi(op, withWikiRevisions) dmap some)
       useExplorer = crawler.no || wiki.exists(_.hasMarkup)
-      stats      <- (useExplorer ?? explorer.stats(query))
+      stats      <- (useExplorer ?? explorer.stats(query, cacheUseful = crawler.no))
       history    <- ((crawler.no && query.uci.nonEmpty) ?? explorer.queryHistory(query))
       allHistory <- allGamesHistory.get(query.config)
       games      <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))

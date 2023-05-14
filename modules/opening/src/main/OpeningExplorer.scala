@@ -15,9 +15,11 @@ final private class OpeningExplorer(
 
   private val requestTimeout = 4.seconds
 
-  def stats(query: OpeningQuery): Fu[Option[Position]] =
+  def stats(query: OpeningQuery, cacheUseful: Boolean): Fu[Option[Position]] =
     ws.url(s"$explorerEndpoint/lichess")
-      .withQueryStringParameters(queryParameters(query)*)
+      .withQueryStringParameters(
+        ("cacheHint" -> (if cacheUseful then "useful" else "useless")) :: queryParameters(query)*
+      )
       .withRequestTimeout(requestTimeout)
       .get()
       .flatMap {

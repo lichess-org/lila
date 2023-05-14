@@ -45,7 +45,7 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
           }),
         },
         h('span.microphone-icon', {
-          attrs: { ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
+          attrs: { ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
         })
       ),
       h('span#voice-status', {
