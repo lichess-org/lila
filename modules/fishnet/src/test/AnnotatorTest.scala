@@ -6,15 +6,31 @@ import play.api.libs.json.*
 import lila.game.PgnImport
 import lila.fishnet.JsonApi.Request.Evaluation
 import lila.fishnet.JsonApi.Request.Evaluation.Skipped
-import chess.format.pgn.{ SanStr, Pgn, PgnStr, Initial, Tag, Tags, Parser, PgnTree }
-import chess.{ Node, Move, Ply }
-import lila.analyse.*
+import chess.format.pgn.{
+  Move,
+  Dumper,
+  SanStr,
+  Pgn,
+  PgnStr,
+  Initial,
+  Tag,
+  Tags,
+  Parser,
+  PgnTree,
+  ParsedPgnTree,
+  ParsedPgn,
+  PgnNodeData
+}
+import chess.{ Node, Ply, MoveOrDrop, Situation }
+import chess.MoveOrDrop.*
+import lila.analyse.{ Analysis, Annotator }
 import lila.common.config.NetDomain
 import lila.game.PgnDump
 import lila.common.config.BaseUrl
 import chess.variant.Standard
 import lila.fishnet.Work.Analysis
 import java.time.Instant
+import chess.Clock
 
 final class AnnotatorTest extends munit.FunSuite:
 
@@ -39,7 +55,7 @@ final class AnnotatorTest extends munit.FunSuite:
     val userId = UserId("user")
     val sender = Work.Sender(userId, None, false, false)
     val gameId = "TaHSAsYD"
-    val game   = Work.Game(gameId, None, None, Standard, gameWithMoves._2.pp)
+    val game   = Work.Game(gameId, None, None, Standard, gameWithMoves._2)
     val analysis = Work.Analysis(
       Work.Id("workid"),
       sender,
@@ -64,8 +80,8 @@ final class AnnotatorTest extends munit.FunSuite:
     (game, moves)
   }
 
-  lazy val dumped =
-    dumper(makeGame(gameWithMoves._1), None, PgnDump.WithFlags(tags = false)).await(1.second, "test dump")
+  // Parse pgn and then convert it to Pgn directly
+  lazy val dumped = Parser.full(gamePgn).toOption.get.toPgn
 
   def makeGame(g: chess.Game) =
     lila.game.Game
@@ -87,12 +103,12 @@ final class AnnotatorTest extends munit.FunSuite:
   //     PgnStr(gamePgn)
   //   )
 
-  // test("annotated game with fishnet input"):
-  //   val analysis = parseAnalysis(fishnetInput)
-  //   assertEquals(
-  //     annotator(dumped, makeGame(gameWithMoves._1), analysis.some).copy(tags = Tags.empty).render,
-  //     PgnStr(annotatedPgn)
-  //   )
+  test("annotated game with fishnet input"):
+    val analysis = parseAnalysis(fishnetInput)
+    assertEquals(
+      annotator(dumped, makeGame(gameWithMoves._1), analysis.some).copy(tags = Tags.empty).render,
+      PgnStr(annotatedPgn)
+    )
 
   val gameSans =
     "e4 c5 Nf3 Nc6 Bb5 Qb6 Nc3 Nd4 Bc4 e6 O-O a6 d3 d6 Re1 Nf6 Rb1 Be7 Be3 Nxf3+ Qxf3 Qc7 a4 O-O Qg3 Kh8 f4 Qd8 e5 Nd7 exd6 Bxd6 Ne4 Be7 Qf2 Qc7 Ra1 a5 Bb5 b6 Qg3 Bb7 Bd2 Nf6 Ng5 h6 Qh3 Nd5 Rf1 Kg8 Ne4 f5 Ng3 Bf6 c3 Rad8 Rae1 Qf7 Nh5 Kh7 Nxf6+ Qxf6 Re5 Bc8 Rfe1 Nc7 Bc4 Rde8 Qf3 Re7 Be3 Rfe8 Bf2 Rd8 d4 Nd5 dxc5 bxc5 Bb5 Bb7 Qg3 Nc7 Bc4 Rd2 b3 Red7 Bxc5 Rd1 Bd4 Rxe1+ Qxe1 Qf7 Qe2 Nd5 Qf2 Bc6 Re1"
@@ -100,9 +116,61 @@ final class AnnotatorTest extends munit.FunSuite:
       .toList
       .map(SanStr(_))
 
+  case class Context(sit: Situation, ply: Ply)
+
+  extension (d: PgnNodeData)
+    def toMove(context: Context): Option[(Situation, Move)] =
+      def toSan(mv: MoveOrDrop): SanStr =
+        mv.fold(x => Dumper(context.sit, x, x.situationAfter), x => Dumper(x, x.situationAfter))
+
+      d.san(context.sit)
+        .toOption
+        .map(x =>
+          (
+            x.situationAfter,
+            Move(
+              ply = context.ply,
+              san = toSan(x),
+              comments = d.comments,
+              glyphs = d.glyphs,
+              opening = None,
+              result = None,
+              secondsLeft = None,
+              variationComments = d.variationComments
+            )
+          )
+        )
+
+  extension (tree: ParsedPgnTree)
+    def toPgn(game: chess.Game): Option[PgnTree] =
+      tree.mapAccumlOption_(Context(game.situation, game.ply)) { (ctx, d) =>
+        d.toMove(ctx) match
+          case Some((sit, m)) => (Context(sit, ctx.ply.next), m.some)
+          case None           => (ctx, None)
+      }
+
+  extension (pgn: ParsedPgn)
+    def toPgn: Pgn =
+      val game = makeChessGame(pgn.tags)
+      Pgn(
+        tags = pgn.tags,
+        initial = Initial(pgn.initialPosition.comments),
+        tree = pgn.tree.flatMap(_.toPgn(game))
+      )
+
+  private def makeChessGame(tags: Tags) =
+    val g = chess.Game(
+      variantOption = tags(_.Variant) flatMap chess.variant.Variant.byName,
+      fen = tags.fen
+    )
+    g.copy(
+      startedAtPly = g.ply,
+      clock = tags.clockConfig map Clock.apply
+    )
+
   val gamePgn =
     """
-1. e4 c5 2. Nf3 Nc6 3. Bb5 Qb6 4. Nc3 Nd4 5. Bc4 e6 6. O-O a6 7. d3 d6 8. Re1 Nf6 9. Rb1 Be7 10. Be3 Nxf3+ 11. Qxf3 Qc7 12. a4 O-O 13. Qg3 Kh8 14. f4 Qd8 15. e5 Nd7 16. exd6 Bxd6 17. Ne4 Be7 18. Qf2 Qc7 19. Ra1 a5 20. Bb5 b6 21. Qg3 Bb7 22. Bd2 Nf6 23. Ng5 h6 24. Qh3 Nd5 25. Rf1 Kg8 26. Ne4 f5 27. Ng3 Bf6 28. c3 Rad8 29. Rae1 Qf7 30. Nh5 Kh7 31. Nxf6+ Qxf6 32. Re5 Bc8 33. Rfe1 Nc7 34. Bc4 Rde8 35. Qf3 Re7 36. Be3 Rfe8 37. Bf2 Rd8 38. d4 Nd5 39. dxc5 bxc5 40. Bb5 Bb7 41. Qg3 Nc7 42. Bc4 Rd2 43. b3 Red7 44. Bxc5 Rd1 45. Bd4 Rxe1+ 46. Qxe1 Qf7 47. Qe2 Nd5 48. Qf2 Bc6 49. Re1
+1. e4 { [%clk 0:10:00] } 1... c5 { [%clk 0:10:00] } 2. Nf3 { [%clk 0:09:57] } 2... Nc6 { [%clk 0:09:58] } 3. Bb5 { [%clk 0:09:55] } { B30 Sicilian Defense: Nyezhmetdinov-Rossolimo Attack } 3... Qb6 { [%clk 0:09:56] } 4. Nc3 { [%clk 0:09:47] } 4... Nd4 { [%clk 0:09:54] } 5. Bc4 { [%clk 0:09:38] } 5... e6 { [%clk 0:09:52] } 6. O-O { [%clk 0:09:30] } 6... a6 { [%clk 0:09:50] } 7. d3 { [%clk 0:09:26] } 7... d6 { [%clk 0:09:46] } 8. Re1 { [%clk 0:09:13] } 8... Nf6 { [%clk 0:09:37] } 9. Rb1 { [%clk 0:08:43] } 9... Be7 { [%clk 0:09:13] } 10. Be3 { [%clk 0:08:33] } 10... Nxf3+ { [%clk 0:09:01] } 11. Qxf3 { [%clk 0:08:31] } 11... Qc7 { [%clk 0:08:58] } 12. a4 { [%clk 0:08:18] } 12... O-O { [%clk 0:08:51] } 13. Qg3 { [%clk 0:07:56] } 13... Kh8 { [%clk 0:08:47] } 14. f4 { [%clk 0:07:48] } 14... Qd8 { [%clk 0:08:28] } 15. e5 { [%clk 0:07:33] } 15... Nd7 { [%clk 0:08:12] } 16. exd6 { [%clk 0:07:12] } 16... Bxd6 { [%clk 0:08:08] } 17. Ne4 { [%clk 0:07:11] } 17... Be7 { [%clk 0:08:06] } 18. Qf2 { [%clk 0:05:35] } 18... Qc7 { [%clk 0:07:12] } 19. Ra1 { [%clk 0:03:29] } 19... a5 { [%clk 0:07:06] } 20. Bb5 { [%clk 0:03:02] } 20... b6 { [%clk 0:07:00] } 21. Qg3 { [%clk 0:02:46] } 21... Bb7 { [%clk 0:06:47] } 22. Bd2 { [%clk 0:02:42] } 22... Nf6 { [%clk 0:06:27] } 23. Ng5 { [%clk 0:02:37] } 23... h6 { [%clk 0:06:16] } 24. Qh3 { [%clk 0:02:34] } 24... Nd5 { [%clk 0:05:37] } 25. Rf1 { [%clk 0:02:24] } 25... Kg8 { [%clk 0:04:45] } 26. Ne4 { [%clk 0:02:20] } 26... f5 { [%clk 0:04:33] } 27. Ng3 { [%clk 0:02:15] } 27... Bf6 { [%clk 0:04:13] } 28. c3 { [%clk 0:02:14] } 28... Rad8 { [%clk 0:03:50] } 29. Rae1 { [%clk 0:02:11] } 29... Qf7 { [%clk 0:03:47] } 30. Nh5 { [%clk 0:02:09] } 30... Kh7 { [%clk 0:03:08] } 31. Nxf6+ { [%clk 0:01:57] } 31... Qxf6 { [%clk 0:03:07] } 32. Re5 { [%clk 0:01:50] } 32... Bc8 { [%clk 0:02:41] } 33. Rfe1 { [%clk 0:01:47] } 33... Nc7 { [%clk 0:02:34] } 34. Bc4 { [%clk 0:01:45] } 34... Rde8 { [%clk 0:02:31] } 35. Qf3 { [%clk 0:01:40] } 35... Re7 { [%clk 0:02:15] } 36. Be3 { [%clk 0:01:37] } 36... Rfe8 { [%clk 0:01:55] } 37. Bf2 { [%clk 0:01:31] } 37... Rd8 { [%clk 0:01:19] } 38. d4 { [%clk 0:01:29] } 38... Nd5 { [%clk 0:00:53] } 39. dxc5 { [%clk 0:01:26] } 39... bxc5 { [%clk 0:00:52] } 40. Bb5 { [%clk 0:01:08] } 40... Bb7 { [%clk 0:00:47] } 41. Qg3 { [%clk 0:01:02] } 41... Nc7 { [%clk 0:00:37] } 42. Bc4 { [%clk 0:00:57] } 42... Rd2 { [%clk 0:00:33] } 43. b3 { [%clk 0:00:51] } 43... Red7 { [%clk 0:00:27] } 44. Bxc5 { [%clk 0:00:48] } 44... Rd1 { [%clk 0:00:16] } 45. Bd4 { [%clk 0:00:41] } 45... Rxe1+ { [%clk 0:00:14] } 46. Qxe1 { [%clk 0:00:39] } 46... Qf7 { [%clk 0:00:10] } 47. Qe2 { [%clk 0:00:34] } 47... Nd5 { [%clk 0:00:06] } 48. Qf2 { [%clk 0:00:30] } 48... Bc6 { [%clk 0:00:01] } 49. Re1 { [%clk 0:00:27] } { White wins on time. } 1-0
   """.trim
 
   val annotatedPgn =
