@@ -148,7 +148,7 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
         help = trans.ratedFormHelp().some,
         half = true
       ),
-      st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
+      form3.hidden(form("rated"), "false".some) // hack allow disabling rated
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(

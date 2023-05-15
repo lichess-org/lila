@@ -211,7 +211,7 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using Co
         trans.rated(),
         help = trans.ratedFormHelp().some
       ),
-      st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
+      form3.hidden(form("rated"), "false".some) // hack allow disabling rated
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
