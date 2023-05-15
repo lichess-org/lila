@@ -101,7 +101,7 @@ export default class ExplorerCtrl {
       const fen = this.root.node.fen;
       const processData = (res: ExplorerData) => {
         this.cache[fen] = res;
-        this.cacheUseful(isOpening(res) && res.white + res.black + res.draws > 1000);
+        this.cacheUseful(isOpening(res) && res.white + res.black + res.draws > 10000);
         this.movesAway(res.moves.length ? 0 : this.movesAway() + 1);
         this.loading(false);
         this.failing(null);
