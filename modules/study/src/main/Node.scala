@@ -331,6 +331,20 @@ object Node:
 
     def moveOption = none
 
+    def merge(n: Root): Root =
+      copy(
+        shapes = shapes ++ n.shapes,
+        comments = comments ++ n.comments,
+        gamebook = n.gamebook orElse gamebook,
+        glyphs = glyphs merge n.glyphs,
+        score = n.score orElse score,
+        clock = n.clock orElse clock,
+        crazyData = n.crazyData orElse crazyData,
+        children = n.children.nodes.foldLeft(children) { (cs, c) =>
+          cs addNode c
+        }
+      )
+
     override def toString = "ROOT"
 
   object Root:
