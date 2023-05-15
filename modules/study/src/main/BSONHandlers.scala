@@ -10,8 +10,7 @@ import scala.util.Success
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.tree.Eval
-import lila.tree.Score
+import lila.tree.{ Eval, Score }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 
 object BSONHandlers:
