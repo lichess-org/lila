@@ -11,7 +11,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
 import lila.tree.Eval
-import lila.tree.Eval.Score
+import lila.tree.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 
 object BSONHandlers:
@@ -115,11 +115,9 @@ object BSONHandlers:
     val mateFactor = 1000000
     BSONIntegerHandler.as[Score](
       v =>
-        Score {
-          if (v >= mateFactor || v <= -mateFactor) Right(Eval.Mate(v / mateFactor))
-          else Left(Eval.Cp(v))
-        },
-      _.value.fold(
+        if v >= mateFactor || v <= -mateFactor then Score.mate(v / mateFactor)
+        else Score.cp(v),
+      _.fold(
         cp => cp.value atLeast (-mateFactor + 1) atMost (mateFactor - 1),
         mate => mate.value * mateFactor
       )

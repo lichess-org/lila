@@ -42,6 +42,10 @@ enum Score:
 
   def eval: Eval = Eval(cp, mate, None)
 
+object Score:
+  def cp(cp: Int): Score      = Cp(Eval.Cp(cp))
+  def mate(mate: Int): Score  = Mate(Eval.Mate(mate))
+
 object Eval:
 
   opaque type Cp = Int
