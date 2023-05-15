@@ -3,6 +3,7 @@ package lila.study
 object Node:
 
   val MAX_PLIES = 400
+
   object BsonFields:
     val ply            = "p"
     val uci            = "u"
