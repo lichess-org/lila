@@ -287,6 +287,17 @@ case class Root(
     then copy(children = children.takeMainlineWhile(f))
     else this
 
+  def merge(n: Root): Root = copy(
+    shapes = shapes ++ n.shapes,
+    comments = comments ++ n.comments,
+    gamebook = n.gamebook orElse gamebook,
+    glyphs = glyphs merge n.glyphs,
+    eval = n.eval orElse eval,
+    clock = n.clock orElse clock,
+    crazyData = n.crazyData orElse crazyData,
+    children = n.children.nodes.foldLeft(children)(_ addNode _)
+  )
+
   override def toString = s"$ply $children"
 
 object Root:

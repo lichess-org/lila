@@ -166,10 +166,9 @@ final private class ChapterMaker(
       fuccess(fen.some)
     } map { goodFen =>
       val fromGame = GameToRoot(game, goodFen, withClocks = true)
-      pgnOpt.flatMap(PgnImport(_, Nil).toOption.map(_.root)) match {
+      pgnOpt.flatMap(PgnImport(_, Nil).toOption.map(_.root)) match
         case Some(r) => fromGame.merge(r)
         case None    => fromGame
-      }
     }
 
   private val UrlRegex = {
