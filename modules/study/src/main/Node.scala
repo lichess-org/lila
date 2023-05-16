@@ -5,7 +5,7 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.Crazyhouse
 
 import chess.{ Ply, Centis, Check }
-import lila.tree.Eval.Score
+import lila.tree.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode:
