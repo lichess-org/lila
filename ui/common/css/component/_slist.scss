@@ -2,8 +2,10 @@
   width: 100%;
   border-bottom: $border;
 
-  @include breakpoint($mq-not-x-small) {
-    min-width: calc(650px - var(--box-padding) * 2);
+  .slist-wrapper & {
+    @include breakpoint($mq-not-x-small) {
+      min-width: calc(650px - var(--box-padding) * 2);
+    }
   }
 
   thead {

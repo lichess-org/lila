@@ -49,7 +49,6 @@ final class PuzzleActivity(
       )(_.id).map: puzzles =>
         rounds.zip(puzzles).collect { case (round, Some(puzzle)) =>
           Json.obj(
-            "id"     -> round.id.puzzleId,
             "date"   -> round.date,
             "win"    -> round.win,
             "puzzle" -> JsonView.puzzleJsonStandalone(puzzle)
