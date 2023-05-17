@@ -214,6 +214,12 @@ object DataForm {
     )
   )
 
+  val thickGrid = Form(
+    single(
+      "thickGrid" -> text.verifying(Set("0", "1") contains _)
+    )
+  )
+
   val zen = Form(
     single(
       "zen" -> text.verifying(Set("0", "1") contains _)

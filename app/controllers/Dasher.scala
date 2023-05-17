@@ -89,8 +89,9 @@ final class Dasher(env: Env) extends LilaController(env) {
                   "image"   -> ctx.pref.bgImgOrDefault
                 ),
                 "theme" -> Json.obj(
-                  "current" -> ctx.currentTheme.name,
-                  "list"    -> lila.pref.Theme.all.map(_.name)
+                  "thickGrid" -> ctx.pref.isUsingThickGrid,
+                  "current"   -> ctx.currentTheme.name,
+                  "list"      -> lila.pref.Theme.all.map(_.name)
                 ),
                 "customTheme" -> ctx.pref.customThemeOrDefault,
                 "piece" -> Json.obj(

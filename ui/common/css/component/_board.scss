@@ -19,7 +19,8 @@
       height: 3px !important;
       margin: -2px !important;
     }
-    .grid-width-2 & sg-squares sq::after {
+    .grid-width-2 & sg-squares sq::after,
+    .thick-grid:not(.custom) & sg-squares sq::after {
       width: 6px !important;
       height: 6px !important;
       margin: -4px !important;

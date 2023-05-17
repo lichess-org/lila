@@ -36,6 +36,7 @@ case class Pref(
     submitMove: Int,
     confirmResign: Int,
     insightShare: Int,
+    thickGrid: Int,
     keyboardMove: Int,
     zen: Int,
     moveEvent: Int,
@@ -79,7 +80,8 @@ case class Pref(
         SoundSet.allByKey get value map { s =>
           copy(soundSet = s.key)
         }
-      case "zen" => copy(zen = if (value == "1") 1 else 0).some
+      case "thickGrid" => copy(thickGrid = if (value == "1") 1 else 0).some
+      case "zen"       => copy(zen = if (value == "1") 1 else 0).some
       case "notation" =>
         value.toIntOption flatMap { index =>
           Notations.allByIndex get index map { n =>
@@ -103,6 +105,8 @@ case class Pref(
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
 
   def customThemeOrDefault = customTheme | CustomTheme.default
+
+  def isUsingThickGrid = thickGrid == ThickGrid.YES
 
   def isZen = zen == Zen.YES
 }
@@ -183,6 +187,8 @@ object Pref {
       EVERYBODY
     )
   }
+
+  object ThickGrid extends BooleanPref
 
   object KeyboardMove extends BooleanPref
 
@@ -419,6 +425,7 @@ object Pref {
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
+    thickGrid = ThickGrid.NO,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
     moveEvent = MoveEvent.BOTH,

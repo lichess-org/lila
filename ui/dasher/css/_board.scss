@@ -82,5 +82,17 @@
         background-image: url(../images/boards/thumbnails/kinkaku.png);
       }
     }
+    .thick-switch {
+      margin: auto;
+      & > label {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    }
   }
 }

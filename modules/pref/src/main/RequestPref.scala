@@ -40,6 +40,7 @@ object RequestPref {
       soundSet = paramOrSession("soundSet") | default.soundSet,
       bgImg = paramOrSession("bgImg"),
       notation = paramOrSession("notation").flatMap(_.toIntOption) | default.notation,
+      thickGrid = paramOrSession("thickGrid").flatMap(_.toIntOption) | default.thickGrid,
       customTheme = customTheme
     )
   }

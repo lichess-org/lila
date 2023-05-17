@@ -258,6 +258,7 @@ object layout {
           cls := List(
             s"${ctx.currentBg} ${ctx.currentTheme.cssClass} coords-${ctx.pref.coordsClass}" -> true,
             s"grid-width-${ctx.pref.customThemeOrDefault.gridWidth}" -> ctx.pref.isUsingCustomTheme,
+            "thick-grid"                                             -> ctx.pref.isUsingThickGrid,
             s"board-layout-${ctx.pref.boardLayout}"                  -> (ctx.pref.boardLayout != 0),
             "clear-hands"                                            -> ctx.pref.clearHands,
             "no-touch"                                               -> !ctx.pref.squareOverlay,

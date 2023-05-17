@@ -417,6 +417,9 @@ sg-squares {
         background-image: none;
       }
     }
+    sg-hand {
+      border-width: 0;
+    }
   }
   &.grid-width-2 {
     .sg-wrap {
@@ -436,6 +439,9 @@ sg-squares {
         background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 2px, transparent 2px),
           linear-gradient(to bottom, var(--c-grid-color, $c-font) 2px, transparent 2px);
       }
+    }
+    sg-hand {
+      border-width: 2px;
     }
   }
   &.grid-width-3 {
@@ -457,6 +463,29 @@ sg-squares {
           linear-gradient(to bottom, var(--c-grid-color, $c-font) 3px, transparent 3px);
       }
     }
+    sg-hand {
+      border-width: 3px;
+    }
+  }
+}
+
+.thick-grid:not(.custom) {
+  .sg-wrap {
+    border-width: 2px;
+    sg-squares {
+      border-width: 2px;
+      sq {
+        border-width: 2px;
+        &::after {
+          margin: -5px !important;
+          width: 8px !important;
+          height: 8px !important;
+        }
+      }
+    }
+  }
+  sg-hand {
+    border-width: 2px;
   }
 }
 
@@ -474,5 +503,25 @@ sg-squares {
     margin: -6px !important;
     width: 10px !important;
     height: 10px !important;
+  }
+
+  .thick-grid:not(.custom) {
+    .sg-wrap {
+      border-width: 3px;
+      sg-squares {
+        border-width: 3px;
+        sq {
+          border-width: 3px;
+          &::after {
+            margin: -7px !important;
+            width: 12px !important;
+            height: 12px !important;
+          }
+        }
+      }
+    }
+    sg-hand {
+      border-width: 3px;
+    }
   }
 }
