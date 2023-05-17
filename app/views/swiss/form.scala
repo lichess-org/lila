@@ -262,5 +262,5 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
       ).some,
       half = true
     ),
-    form3.hidden(form("conditions.playYourGames"), "false".some) // hack to allow disabling players requirement to play their last game
+    form3.hiddenFalse(form("conditions.playYourGames"))
   )

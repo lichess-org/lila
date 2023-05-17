@@ -156,7 +156,7 @@ object form:
           help = trans.arena.allowBerserkHelp().some,
           half = true
         ),
-        form3.hidden(form("berserkable"), "false".some) // hack to allow disabling berserk
+        form3.hiddenFalse(form("berserkable"))
       ),
       form3.split(
         form3.checkbox(
@@ -165,14 +165,14 @@ object form:
           help = trans.arena.allowChatHelp().some,
           half = true
         ),
-        form3.hidden(form("hasChat"), "false".some), // hack to allow disabling chat
+        form3.hiddenFalse(form("hasChat")),
         form3.checkbox(
           form("streakable"),
           trans.arena.arenaStreaks(),
           help = trans.arena.arenaStreaksHelp().some,
           half = true
         ),
-        form3.hidden(form("streakable"), "false".some) // hack to allow disabling streaks
+        form3.hiddenFalse(form("streakable"))
       )
     )
 
@@ -211,7 +211,7 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using Co
         trans.rated(),
         help = trans.ratedFormHelp().some
       ),
-      form3.hidden(form("rated"), "false".some) // hack allow disabling rated
+      form3.hiddenFalse(form("rated"))
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
