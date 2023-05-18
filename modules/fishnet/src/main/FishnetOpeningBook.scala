@@ -33,7 +33,8 @@ final private class FishnetOpeningBook(
           "topGames"    -> "0",
           "recentGames" -> "0",
           "ratings"     -> (~levelRatings.get(level)).mkString(","),
-          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(",")
+          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(","),
+          "source"      -> "fishnet"
         )
         .get()
         .map {
