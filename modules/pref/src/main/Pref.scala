@@ -127,7 +127,7 @@ case class Pref(
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
 
-  def hasVoice = voice.contains(Voice.YES)
+  def hasVoice = !voice.contains(Voice.NO)
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =

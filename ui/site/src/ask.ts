@@ -62,7 +62,7 @@ function askXhr(req: { ask: Ask; url: string; method?: string; body?: FormData; 
   );
 }
 
-const wireExclusiveChoices = (ask: Ask): Cash =>
+function wireExclusiveChoices(ask: Ask) {
   $('.choice.exclusive', ask.el).on('click', function (e: Event) {
     const el = e.target as Element;
     askXhr({
@@ -71,8 +71,9 @@ const wireExclusiveChoices = (ask: Ask): Cash =>
     });
     e.preventDefault();
   });
+}
 
-const wireMultipleChoices = (ask: Ask): Cash =>
+function wireMultipleChoices(ask: Ask) {
   $('.choice.multiple', ask.el).on('click', function (e: Event) {
     $(e.target as Element).toggleClass('selected');
     const picks = $('.choice', ask.el)
@@ -82,8 +83,9 @@ const wireMultipleChoices = (ask: Ask): Cash =>
     askXhr({ ask: ask, url: ask.picksUrl(picks.join('-')) });
     e.preventDefault();
   });
+}
 
-function wireFeedback(ask: Ask): void {
+function wireFeedback(ask: Ask) {
   ask.feedbackEl = $('.feedback-text', ask.el)
     .on('input', () => ask.feedbackState(ask.feedbackEl?.value == initialFeedback ? 'clean' : 'dirty'))
     .on('keypress', (e: KeyboardEvent) => {
@@ -103,7 +105,7 @@ function wireFeedback(ask: Ask): void {
   const initialFeedback = ask.feedbackEl?.value;
 }
 
-function wireSubmit(ask: Ask): void {
+function wireSubmit(ask: Ask) {
   ask.submitEl = $('.feedback-submit', ask.el).get(0);
   if (!ask.submitEl) return;
   $('input', ask.submitEl).on('click', () => {
@@ -118,11 +120,13 @@ function wireSubmit(ask: Ask): void {
   });
 }
 
-const wireActions = (ask: Ask): Cash =>
-  $('button.action', ask.el).on('click', (e: Event) => {
+function wireActions(ask: Ask) {
+  console.log($('.url-actions button', ask.el));
+  $('.url-actions button', ask.el).on('click', (e: Event) => {
     const btn = e.target as HTMLButtonElement;
     askXhr({ ask: ask, method: btn.formMethod, url: btn.formAction });
   });
+}
 
 function wireRankedChoices(ask: Ask): void {
   let initialOrder = ask.ranking();

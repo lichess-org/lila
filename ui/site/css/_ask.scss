@@ -1,8 +1,8 @@
+$gap: 8px;
 $c-contrast-font: if($theme-light, #444, #ddd);
 $c-neutral: if($theme-light, #ccc, #777);
 $c-box-border: if($theme-light, #ddd, #484848);
 $c-bg-hover: $c-box-border;
-$gap: 8px;
 %lighten-hover {
   color: $c-contrast-font;
   &:hover {
@@ -12,6 +12,7 @@ $gap: 8px;
 
 div.ask-container {
   display: flex;
+  font-size: 1.2rem;
 
   &.stretch {
     flex-direction: column;
@@ -23,7 +24,6 @@ fieldset.ask {
   margin-bottom: 2 * $gap;
   padding: 0 (3 * $gap) $gap (2 * $gap);
   width: 100%;
-  font-size: 1.2rem;
   line-height: normal;
   border: solid 1px $c-box-border;
 
@@ -49,7 +49,6 @@ span.ask__header {
   flex: 1 0 100%;
   justify-content: space-between;
 
-  // the question
   label {
     flex: auto;
     margin: 0 $gap;
@@ -57,31 +56,38 @@ span.ask__header {
     font-size: 1.3em;
   }
 
-  // usage hint
   label span {
     white-space: nowrap;
     margin: 0 $gap;
     font-size: 0.6em;
   }
 
-  // icon buttons in the top right
-  .action {
-    @extend %data-icon;
-    margin-#{$end-direction}: $gap / 2;
-    margin-bottom: $gap;
-    flex: initial;
-    justify-self: flex-end;
-    background: none;
-    border: none;
-    outline: none;
-    opacity: 1;
+  div {
+    margin-#{$start-direction}: $gap;
+    display: flex;
+    align-content: center;
+    border: 1px solid $c-box-border;
+    border-radius: 4px;
+    align-self: center;
+  }
+
+  div button {
+    @extend %button-none;
+    padding: 0 0.25em;
+    font-size: 1.2em;
+    font-family: lichess;
+  }
+
+  div.url-actions {
+    border-color: $c-font-dimmer;
+    font-size: 1em;
+    padding: 0.3em;
+  }
+
+  div.url-actions button {
+    padding: 0 $gap / 4;
     color: $c-link;
     cursor: pointer;
-
-    &::before {
-      vertical-align: top;
-      font-size: 1.2em;
-    }
 
     &:hover {
       color: $c-link-hover;
@@ -101,27 +107,37 @@ span.ask__header {
 
     &.unset {
       color: if($theme-light, #f66, #c33);
+
       &::before {
         content: '';
       }
+
       &:hover {
         color: if($theme-light, #c33, #f66);
       }
     }
   }
-  i {
-    font-family: lichess;
-    font-size: 1em;
-    align-self: flex-start;
-    margin-#{$start-direction}: $gap / 2;
-    &:first-child {
-      border-#{$start-direction}: 1px solid $c-box-border;
-    }
+
+  div.properties {
+    font-size: 0.8em;
+    padding: 0.2em;
+  }
+
+  div.properties button {
+    padding: 0 $gap / 2;
+    color: $c-font-dim;
+    cursor: default;
+
     &.open::before {
       content: '';
     }
+
     &.anon::before {
       content: '';
+    }
+
+    &.trace::before {
+      content: '';
     }
   }
 }
@@ -131,7 +147,7 @@ div.ask__footer {
   display: grid;
   grid-template-columns: auto min-content;
 
-  // feedback prompt or quiz reveal
+  // feedback prompt
   label {
     margin: 0 0 $gap $gap;
     grid-column: 1/3;
@@ -170,9 +186,8 @@ div.ask__footer {
     }
   }
 
-  // optional feedback results
   .feedback-results {
-    grid-column: 1/3;
+    grid-column: 1/3; // wtf is htis?
     display: grid;
     grid-template-columns: max-content auto;
     padding: 0 (2 * $gap) $gap $gap;
@@ -260,7 +275,6 @@ div.ask__choices {
     }
   }
 
-  // a draggable choice button
   .choice.btn.rank {
     @extend %lighten-hover;
     display: flex;
@@ -281,7 +295,6 @@ div.ask__choices {
       margin-#{$end-direction}: $gap;
       width: 1.7em;
       height: 1.7em;
-      //visibility: visible;
       border-radius: 100%;
       background: if($theme-light, #bbb, #666);
       border: 1px solid if($theme-light, #aaa, #666);

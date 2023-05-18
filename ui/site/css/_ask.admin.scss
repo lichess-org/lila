@@ -10,16 +10,15 @@ div.ask-admin {
     justify-content: space-between;
     align-items: center;
   }
-  div.actions {
+  div.url-actions {
     display: flex;
     flex-flow: row-reverse nowrap;
+
+    a,
     button {
+      @extend %button-none;
       font-size: 16px;
       color: $c-primary;
-      background: none;
-      box-shadow: none;
-      border: none;
-      outline: none;
       padding: 0.6em 0.8em;
       margin: 0;
       &:hover {
@@ -46,7 +45,7 @@ div.ask-admin {
   .inset-box {
     padding: 1em;
     border: solid 1px $c-box-border;
-    box-shadow: inset -1px -1px red; //$c-dimmer($c-box-border, 20%);
+    //box-shadow: inset -1px -1px red; //$c-dimmer($c-box-border, 20%);
     background: $c-bg-box;
     > p {
       margin: 0 0 0 2em;

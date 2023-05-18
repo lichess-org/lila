@@ -28,19 +28,20 @@ object ask:
 
   def renderOne(ask: Ask, prevView: Option[List[Int]] = None, tallyView: Boolean = false)(using
       ctx: Context
-  ): Frag = Render(ask, prevView, tallyView, ctx).render
+  ): Frag =
+    RenderAsk(ask, prevView, tallyView, ctx).render
 
   def renderGraph(ask: Ask)(using ctx: Context): Frag =
-    if ask.isRanked then Render(ask, None, true, ctx).rankGraphBody
-    else Render(ask, None, true, ctx).barGraphBody
+    if ask.isRanked then RenderAsk(ask, None, true, ctx).rankGraphBody
+    else RenderAsk(ask, None, true, ctx).pollGraphBody
 
-private case class Render( // collect all these params
+private case class RenderAsk(
     ask: Ask,
     prevView: Option[List[Int]],
     tallyView: Boolean,
     ctx: Context
 ):
-  // NOTE - me is either a user id, an anonymous hash, or none
+  // this.me is what AskApi cares about. It's either Some(user id), Some(anonymous hash), or None
   val me = ctx.me.fold(ask.toAnon(ctx.ip))(u => ask.toAnon(u.id))
 
   val view = prevView getOrElse:
@@ -59,7 +60,7 @@ private case class Render( // collect all these params
         if ask.isRanked then
           if ask.isConcluded || tallyView then rankGraphBody
           else rankBody
-        else if ask.isConcluded || tallyView then barGraphBody
+        else if ask.isConcluded || tallyView then pollGraphBody
         else pollBody
       ),
       footer
@@ -77,25 +78,37 @@ private case class Render( // collect all these params
             else span("(Choose one)")
           )
         ),
-        ask.isTally option button(
-          cls        := s"action ${if tallyView then "view" else "tally"}",
-          formmethod := "GET",
-          formaction := routes.Ask.view(ask._id, viewParam.some, !tallyView)
+        maybeDiv(
+          "url-actions",
+          ask.isTally option button(
+            cls        := (if tallyView then "view" else "tally"),
+            formmethod := "GET",
+            formaction := routes.Ask.view(ask._id, viewParam.some, !tallyView)
+          ),
+          ctx.me.exists(_ is ask.creator) || ctx.me ?? Granter(Permission.Shusher) option button(
+            cls        := "admin",
+            formmethod := "GET",
+            formaction := routes.Ask.admin(ask._id),
+            title      := trans.edit.txt()(using ctx.lang)
+          ),
+          ask.hasPickFor(me) && !ask.isConcluded option button(
+            cls        := "unset",
+            formaction := routes.Ask.unset(ask._id, viewParam.some, ask.isAnon),
+            title      := trans.delete.txt()(using ctx.lang)
+          )
         ),
-        ctx.me.exists(_ is ask.creator) option button(
-          cls        := "action admin",
-          formmethod := "GET",
-          formaction := routes.Ask.admin(ask._id),
-          title      := trans.edit.txt()(using ctx.lang)
-        ),
-        ask.hasPickFor(me) && !ask.isConcluded option button(
-          cls        := "action unset",
-          formmethod := "POST",
-          formaction := routes.Ask.unset(ask._id, viewParam.some, ask.isAnon),
-          title      := trans.delete.txt()(using ctx.lang)
-        ),
-        ask.isAnon option i(cls := "anon", title := "Anonymous - your identity is secure"),
-        ask.isOpen option i(cls := "open", title := "Open - anyone can participate")
+        maybeDiv(
+          "properties",
+          ask.isTraceable option button(
+            cls   := "property trace",
+            title := "Participants can see who voted for what"
+          ),
+          ask.isAnon option button(
+            cls   := "property anon",
+            title := "Your identity is anonymized and secure"
+          ),
+          ask.isOpen option button(cls := "property open", title := "Anyone can participate")
+        )
       )
     )
 
@@ -117,7 +130,7 @@ private case class Render( // collect all these params
           div(cls := "feedback-results")(
             ask.footer map (label(_)),
             fbmap.toSeq flatMap:
-              case (feedbacker, fb) => Seq(div(s"${ask.isTraceable ?? s"$feedbacker:"}"), div(fb))
+              case (feedbacker, fb) => Seq(div(ask.isTraceable ?? s"$feedbacker:"), div(fb))
           )
     )
 
@@ -149,7 +162,7 @@ private case class Render( // collect all these params
           i
         )
 
-  def barGraphBody =
+  def pollGraphBody =
     div(cls := "ask__graph")(frag:
       val totals = ask.totals
       val max    = totals.max
@@ -178,6 +191,9 @@ private case class Render( // collect all these params
               div(cls := "set-width", title := hint, style := s"width: $pct%")(nbsp)
             )
     )
+
+  def maybeDiv(clz: String, tags: Option[Frag]*) =
+    if tags.toList.flatten.nonEmpty then div(cls := clz, tags) else emptyFrag
 
   def choiceContainer =
     val sb = new mutable.StringBuilder("ask__choices")

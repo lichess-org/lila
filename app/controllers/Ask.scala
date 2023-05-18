@@ -1,12 +1,12 @@
 package controllers
 
-import lila.api.Context
-import lila.app.{ given, * }
-import lila.ask.Ask.anonHash
 import play.api.data.Form
 import play.api.data.Forms.single
 
-final case class AskContext(ctx: Context, anon: Boolean, aid: String, eid: String)
+import lila.api.Context
+import lila.app.{ given, * }
+import lila.ask.Ask.anonHash
+import lila.security.{ Granter, Permission }
 
 final class Ask(env: Env) extends LilaController(env):
 
@@ -65,16 +65,25 @@ final class Ask(env: Env) extends LilaController(env):
     yield Ok(views.html.askAdmin.show(asks, user.get))
   }
 
+  def json(aid: String) = Auth { _ ?=> me =>
+    env.ask.api
+      .get(aid)
+      .map:
+        case Some(ask) =>
+          if (me is ask.creator) || Granter(Permission.Shusher)(me) then JsonOk(ask.toJson)
+          else JsonBadRequest(jsonError(s"Not authorized to view ask $aid"))
+        case None => JsonBadRequest(jsonError(s"Ask $aid not found"))
+  }
   def delete(aid: String) = Auth { ctx ?=> me =>
     env.ask.api
       .get(aid)
-      .flatMap:
-        case None => fuccess(NotFound(s"Ask id ${aid} not found"))
+      .map:
+        case None => NotFound(s"Ask id ${aid} not found")
         case Some(ask) =>
-          if ask.creator != me.id then fuccess(Unauthorized)
-          else
+          if (me is ask.creator) || Granter(Permission.Shusher)(me) then
             env.ask.api.delete(aid)
-            fuccess(Ok(lila.ask.AskApi.askNotFoundFrag))
+            Ok(lila.ask.AskApi.askNotFoundFrag)
+          else Unauthorized
 
   }
 
@@ -99,11 +108,11 @@ final class Ask(env: Env) extends LilaController(env):
         .flatMap:
           case None => fuccess(NotFound(s"Ask id ${aid} not found"))
           case Some(ask) =>
-            if ask.creator != me.id then fuccess(Unauthorized)
-            else
-              action(ask).flatMap:
-                case Some(newAsk) => fuccess(Ok(views.html.ask.renderOne(newAsk)))
-                case None         => fufail(new RuntimeException("Something is so very wrong."))
+            if (me is ask.creator) || Granter(Permission.Shusher)(me) then
+              action(ask).map:
+                case Some(newAsk) => Ok(views.html.ask.renderOne(newAsk))
+                case None         => NotFound(s"Ask id ${aid} not found")
+            else fuccess(Unauthorized)
     }
 
   private def paramToList(param: Option[String]) =

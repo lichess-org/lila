@@ -39,9 +39,7 @@ final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
     val client     = HTTPRequest clientName req
     httpMon.time(actionName, client, req.method, statusCode).record(reqTime)
     if (logRequests && actionName != "Fishnet.status") {
-      val ip = req.headers
-        .get("x-real-ip")
-        .getOrElse(req.headers.get("x-forwarded-for").getOrElse(req.remoteAddress));
+      val ip = req.headers.get("x-real-ip") getOrElse req.remoteAddress;
       logger.info(s"${ip} $client - $statusCode $req $actionName ${reqTime}ms")
     }
 

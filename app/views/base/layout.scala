@@ -253,9 +253,8 @@ object layout:
           metaCsp(csp),
           metaThemeColor,
           st.headTitle {
-            val prodTitle = fullTitle | s"$title • $siteName"
-            if netConfig.isProd then title
-            else s"${ctx.me.??(_.username + " ")} $prodTitle"
+            if netConfig.isProd then fullTitle | s"$title • $siteName"
+            else s"${ctx.me.??(_.username + " ")}${fullTitle | s"$title • $siteName"}"
           },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),

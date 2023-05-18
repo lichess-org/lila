@@ -28,10 +28,13 @@ object askAdmin {
     div(
       hr,
       h2(
-        urlopt match {
+        urlopt match
           case Some(url) => div(style := "text-align: center")(a(href := url)(url), p)
           case None      => "no url"
-        }
+        /*span(cls := "actions")(
+        button(tpe := "submit", formmethod := "GET", formaction := "")("Download all by question"),
+        button(tpe := "submit", formmethod := "GET", formaction := "")("Download all by user")
+      )*/
       ),
       asks map renderOne
     )
@@ -41,10 +44,11 @@ object askAdmin {
       a(name := as._id),
       div(cls := "header")(
         as.question,
-        div(cls := "actions")(
-          button(cls := "action", tpe := "submit", formaction := routes.Ask.delete(as._id))("Delete"),
-          button(cls := "action", tpe := "submit", formaction := routes.Ask.reset(as._id))("Reset"),
-          button(cls := "action", tpe := "submit", formaction := routes.Ask.conclude(as._id))("Conclude")
+        div(cls := "url-actions")(
+          button(formaction := routes.Ask.delete(as._id))("Delete"),
+          button(formaction := routes.Ask.reset(as._id))("Reset"),
+          !as.isConcluded option button(formaction := routes.Ask.conclude(as._id))("Conclude"),
+          a(href := routes.Ask.json(as._id))("JSON")
         )
       ),
       div(cls := "inset")(
@@ -57,14 +61,12 @@ object askAdmin {
       ),
       as.feedback map { case fbmap =>
         div(cls := "inset-box")(
-          fbmap.toSeq map { case (uid, fb) =>
-            p(s"$uid: $fb")
+          fbmap.toSeq map {
+            case (uid, fb) if uid.startsWith("anon-") => p(s"anon: $fb");
+            case (uid, fb)                            => p(s"$uid: $fb")
           }
         )
-      },
-      div(cls := "actions")(button(tpe := "submit")("Download CSV file")),
-      hr,
-      p
+      }
     )
   }
   def property(name: String, value: String) =

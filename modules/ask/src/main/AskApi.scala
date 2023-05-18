@@ -170,12 +170,13 @@ object AskApi:
 
   // combine text fragments with frozen text in proper order
   def bake(text: String, askFrags: Iterable[String]): String =
-    val sb             = new mutable.StringBuilder(text.length + askFrags.foldLeft(0)((x, y) => x + y.length))
+    // scala StringBuilder cannot append substrings without unnecessary copying
+    val sb = new java.lang.StringBuilder(text.length + askFrags.foldLeft(0)((x, y) => x + y.length))
     val magicIntervals = frozenIdRe.findAllMatchIn(text).map(m => (m.start, m.end)).toList
     val it             = askFrags.iterator
 
     intervalClosure(magicIntervals, text.length).map: seg =>
-      if (it.hasNext && magicIntervals.contains(seg)) sb.append(it.next())
+      if (it.hasNext && magicIntervals.contains(seg)) sb.append(it.next)
       else sb.append(text, seg._1, seg._2)
     sb.toString
 
@@ -186,10 +187,10 @@ object AskApi:
     sb ++= s"?= id{${ask._id}}"
     if ask.isOpen then sb ++= " open"
     if ask.isTraceable then sb ++= " traceable"
-    if ask.isTally then sb ++= " tally"
-    if ask.isAnon then sb ++= " anonymized"
+    else
+      if ask.isTally then sb ++= " tally"
+      if ask.isAnon then sb ++= " anonymized"
     if ask.isVertical then sb ++= " vertical"
-    // if ask.isCenter then sb ++= " center"
     if ask.isStretch then sb ++= " stretch"
     if ask.isRandom then sb ++= " random"
     if ask.isRanked then sb ++= " ranked"
@@ -225,18 +226,21 @@ object AskApi:
     val points = (0 :: subs.flatten(i => List(i._1, i._2)) ::: upper :: Nil).distinct.sorted
     points zip (points tail)
 
-  // magic/id in a frozen text looks like:  ﷖﷔﷒﷐{8 char id}
-  private def extractIds(t: String): List[Ask.ID] =
-    var i   = t indexOf frozenIdMagic
-    val ids = mutable.ListBuffer[String]()
-    while (i != -1 && i <= t.length - 14)   // 14 is total magic length
-      ids addOne t.substring(i + 5, i + 13) // (5, 13) delimit id within magic
-      i = t.indexOf(frozenIdMagic, i + 14)
-    ids toList
-
   // https://www.unicode.org/faq/private_use.html
   private val frozenIdMagic = "\ufdd6\ufdd4\ufdd2\ufdd0"
   private val frozenIdRe    = s"$frozenIdMagic\\{(\\S{8})}".r
+
+  // magic/id in a frozen text looks like:  ﷖﷔﷒﷐{8 char id}
+  private def frozenOffsets(t: String): List[Interval] =
+    var i   = t indexOf frozenIdMagic
+    val ids = mutable.ListBuffer[(Int, Int)]()
+    while (i != -1 && i <= t.length - 14) // 14 is total magic length
+      ids addOne (i, i + 14)              // (5, 13) delimit id within magic
+      i = t.indexOf(frozenIdMagic, i + 14)
+    ids toList
+
+  private def extractIds(t: String): List[Ask.ID] =
+    frozenOffsets(t) map (off => t.substring(off._1 + 5, off._2 - 1))
 
   private def extractQuestion(t: String): String =
     questionInAskRe.findFirstMatchIn(t).get group 1 trim // NPE is desired if get fails
