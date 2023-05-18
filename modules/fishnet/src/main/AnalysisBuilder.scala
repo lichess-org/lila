@@ -6,16 +6,17 @@ import chess.format.pgn.SanStr
 import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
+import Evaluation.EvalOrSkip
 
 final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor):
 
-  def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
+  def apply(client: Client, work: Work.Analysis, evals: List[EvalOrSkip]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
 
   def partial(
       client: Client,
       work: Work.Analysis,
-      evals: List[Option[Evaluation.OrSkipped]],
+      evals: List[Option[EvalOrSkip]],
       isPartial: Boolean = true
   ): Fu[Analysis] =
     evalCache.evals(work) flatMap { cachedFull =>
@@ -30,7 +31,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
         .fold(
           err => fufail(err.value),
           replay =>
-            UciToPgn(
+            UciToSan(
               replay,
               Analysis(
                 id = work.game.id,
@@ -58,12 +59,12 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
 
   private def mergeEvalsAndCached(
       work: Work.Analysis,
-      evals: List[Option[Evaluation.OrSkipped]],
+      evals: List[Option[EvalOrSkip]],
       cached: Map[Int, Evaluation]
   ): List[Option[Evaluation]] =
     evals.zipWithIndex.map {
-      case (None, i)              => cached get i
-      case (Some(Right(eval)), i) => cached.getOrElse(i, eval).some
+      case (None, i)                             => cached get i
+      case (Some(EvalOrSkip.Evaluated(eval)), i) => cached.getOrElse(i, eval).some
       case (_, i) =>
         cached get i orElse {
           logger.error(s"Missing cached eval for skipped position at index $i in $work")

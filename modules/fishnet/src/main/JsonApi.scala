@@ -36,7 +36,7 @@ object JsonApi:
     case class PostAnalysis(
         fishnet: Fishnet,
         stockfish: Stockfish,
-        analysis: List[Option[Evaluation.OrSkipped]]
+        analysis: List[Option[Evaluation.EvalOrSkip]]
     ) extends Request:
 
       def completeOrPartial =
@@ -46,10 +46,11 @@ object JsonApi:
     case class CompleteAnalysis(
         fishnet: Fishnet,
         stockfish: Stockfish,
-        analysis: List[Evaluation.OrSkipped]
+        analysis: List[Evaluation.EvalOrSkip]
     ):
 
-      def evaluations = analysis.collect { case Right(e) => e }
+      import Evaluation.*
+      def evaluations = analysis.collect { case EvalOrSkip.Evaluated(e) => e }
 
       def medianNodes =
         Maths.median {
@@ -61,7 +62,7 @@ object JsonApi:
     case class PartialAnalysis(
         fishnet: Fishnet,
         stockfish: Stockfish,
-        analysis: List[Option[Evaluation.OrSkipped]]
+        analysis: List[Option[Evaluation.EvalOrSkip]]
     )
 
     case class Evaluation(
@@ -82,9 +83,9 @@ object JsonApi:
 
     object Evaluation:
 
-      object Skipped
-
-      type OrSkipped = Either[Skipped.type, Evaluation]
+      enum EvalOrSkip:
+        case Skipped
+        case Evaluated(eval: Evaluation)
 
       case class Score(cp: Option[Cp], mate: Option[Mate]):
         def invert                  = copy(cp.map(_.invert), mate.map(_.invert))
@@ -128,6 +129,7 @@ object JsonApi:
 
   object readers:
     import play.api.libs.functional.syntax.*
+    import Request.Evaluation.EvalOrSkip
     given Reads[Request.Stockfish]        = Json.reads
     given Reads[Request.Fishnet]          = Json.reads
     given Reads[Request.Acquire]          = Json.reads
@@ -144,11 +146,11 @@ object JsonApi:
         (__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)) and
         (__ \ "depth").readNullable[Depth]
     )(Request.Evaluation.apply)
-    given Reads[Option[Request.Evaluation.OrSkipped]] = Reads {
+    given Reads[Option[EvalOrSkip]] = Reads {
       case JsNull => JsSuccess(None)
       case obj =>
-        if (~(obj boolean "skipped")) JsSuccess(Left(Request.Evaluation.Skipped).some)
-        else EvaluationReads reads obj map Right.apply map some
+        if ~(obj boolean "skipped") then JsSuccess(EvalOrSkip.Skipped.some)
+        else EvaluationReads.reads(obj).map(EvalOrSkip.Evaluated(_).some)
     }
     given Reads[Request.PostAnalysis] = Json.reads
 

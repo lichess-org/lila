@@ -28,16 +28,15 @@ final class AskApi(
   def get(id: Ask.ID): Fu[Option[Ask]] = askDb: coll =>
     coll.byId[Ask](id)
 
-  // note that uid is a String (not a UserId) on purpose - they can be anonymous hashes.
-  // this is confined to a few places so i don't think it's worth a new opaque type
-  def setPicks(id: Ask.ID, uid: String, ranking: Option[List[Int]]): Fu[Option[Ask]] =
-    update(id, ranking.fold($unset(s"picks.$uid"))(r => $set(s"picks.$uid" -> r)))
+  // eid (effective id) is a String (not a UserId) on purpose - they can be anonymous hashes.
+  def setPicks(id: Ask.ID, eid: String, picks: Option[List[Int]]): Fu[Option[Ask]] =
+    update(id, picks.fold($unset(s"picks.$eid"))(r => $set(s"picks.$eid" -> r)))
 
-  def unset(id: Ask.ID, uid: String): Fu[Option[Ask]] =
-    update(id, $unset(s"feedback.$uid", s"picks.$uid"))
+  def unset(id: Ask.ID, eid: String): Fu[Option[Ask]] =
+    update(id, $unset(s"feedback.$eid", s"picks.$eid"))
 
-  def setFeedback(id: Ask.ID, uid: String, feedback: Option[String]): Fu[Option[Ask]] =
-    update(id, feedback.fold($unset(s"feedback.$uid"))(f => $set(s"feedback.$uid" -> f)))
+  def setFeedback(id: Ask.ID, eid: String, feedback: Option[String]): Fu[Option[Ask]] =
+    update(id, feedback.fold($unset(s"feedback.$eid"))(f => $set(s"feedback.$eid" -> f)))
 
   def conclude(ask: Ask): Fu[Option[Ask]] = conclude(ask._id)
 
@@ -47,10 +46,9 @@ final class AskApi(
       $addToSet("tags" -> "concluded"),
       fetchNewObject = true
     ) collect { case Some(ask) =>
-      if (!ask.isAnon)
-        timeline ! Propagate(AskConcluded(ask.creator, ask.question, ~ask.url))
-          .toUsers(ask.participants.map(UserId(_)).toList)
-          .exceptUser(ask.creator)
+      timeline ! Propagate(AskConcluded(ask.creator, ask.question, ~ask.url))
+        .toUsers(ask.participants.map(UserId(_)).toList)
+        .exceptUser(ask.creator)
       ask.some
     }
   }
@@ -81,6 +79,7 @@ final class AskApi(
 
     val it = asks.iterator
     val sb = new java.lang.StringBuilder(text.length)
+
     intervalClosure(askIntervals, text.length).map: seg =>
       if it.hasNext && askIntervals.contains(seg) then sb.append(s"$frozenIdMagic{${it.next()._id}}")
       else sb.append(text, seg._1, seg._2)
@@ -100,6 +99,7 @@ final class AskApi(
       .map: asks =>
         val it = asks.iterator
         val sb = new java.lang.StringBuilder(text.length)
+
         intervalClosure(askIntervals, text.length).map: seg =>
           if it.hasNext && askIntervals.contains(seg) then sb.append(s"$frozenIdMagic{${it.next()._id}}")
           else sb.append(text, seg._1, seg._2)
@@ -122,13 +122,12 @@ final class AskApi(
     if !hasAskId(text) then fuccess(text)
     else asksIn(text).map(unfreeze(text, _))
 
-  // convenience redirects
+  def isOpen(id: Ask.ID): Fu[Boolean] = askDb: coll =>
+    coll.exists($and($id(id), $doc("tags" -> "open")))
+
   def hasAskId(text: String): Boolean                        = AskApi.hasAskId(text)
   def stripAsks(text: String, n: Int = -1): String           = AskApi.stripAsks(text, n)
   def bake(text: String, askFrags: Iterable[String]): String = AskApi.bake(text, askFrags)
-
-  def isOpen(id: Ask.ID): Fu[Boolean] = askDb: coll =>
-    coll.exists($and($id(id), $doc("tags" -> "open")))
 
   private def update(
       id: Ask.ID,
@@ -165,15 +164,16 @@ object AskApi:
 
   def hasAskId(text: String): Boolean = text.contains(frozenIdMagic)
 
-  // remove frozen artifacts for summaries
+  // remove frozen magic (for summaries)
   def stripAsks(text: String, n: Int = -1): String =
     frozenIdRe.replaceAllIn(text, "").take(if n == -1 then text.length else n)
 
   // combine text fragments with frozen text in proper order
   def bake(text: String, askFrags: Iterable[String]): String =
-    val sb = new java.lang.StringBuilder(text.length + askFrags.foldLeft(0)((x, y) => x + y.length))
-    val it = askFrags.iterator
+    val sb             = new mutable.StringBuilder(text.length + askFrags.foldLeft(0)((x, y) => x + y.length))
     val magicIntervals = frozenIdRe.findAllMatchIn(text).map(m => (m.start, m.end)).toList
+    val it             = askFrags.iterator
+
     intervalClosure(magicIntervals, text.length).map: seg =>
       if (it.hasNext && magicIntervals.contains(seg)) sb.append(it.next())
       else sb.append(text, seg._1, seg._2)
@@ -185,14 +185,13 @@ object AskApi:
     sb ++= s"?? ${ask.question}\n"
     sb ++= s"?= id{${ask._id}}"
     if ask.isOpen then sb ++= " open"
-    if ask.isTransparent then sb ++= " transparent"
+    if ask.isTraceable then sb ++= " traceable"
     if ask.isTally then sb ++= " tally"
     if ask.isAnon then sb ++= " anonymized"
     if ask.isVertical then sb ++= " vertical"
     // if ask.isCenter then sb ++= " center"
     if ask.isStretch then sb ++= " stretch"
     if ask.isRandom then sb ++= " random"
-    if ask.isCheckbox then sb ++= " checkbox"
     if ask.isRanked then sb ++= " ranked"
     if ask.isMulti then sb ++= " multiple"
     if ask.isFeedback then sb ++= " feedback"
@@ -214,9 +213,8 @@ object AskApi:
       footer = extractFooter(segment)
     )
 
-  // keep track of index pairs for value equality on regex matches
-  type Interval  = (Int, Int) // [start, end)
-  type Intervals = List[Interval]
+  type Interval  = (Int, Int)     // [start, end) cleaner than regex match objects
+  type Intervals = List[Interval] // for our purposes
 
   // return list of (start, end) indices of ask markups in text.
   private def getMarkupIntervals(t: String): Intervals =

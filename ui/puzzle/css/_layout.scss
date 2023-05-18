@@ -62,6 +62,7 @@
   }
 
   @include breakpoint($mq-col2) {
+    grid-template-columns: $col2-uniboard-fallback-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
@@ -81,6 +82,7 @@
       'side    . session .     controls'
       'side    . kb-move .     controls'
       'side    . .       .     .';
+    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-fallback-width var(--gauge-gap) $col3-uniboard-table;
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
   }
 

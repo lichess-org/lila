@@ -14,7 +14,7 @@ import {
   OpeningGame,
   ExplorerDb,
 } from './interfaces';
-import ExplorerCtrl from './explorerCtrl';
+import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {
@@ -247,7 +247,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
     h('div.message', [
-      h('strong', ctrl.trans.noarg('noGameFound')),
+      h('strong', ctrl.trans.noarg(ctrl.explorer.root.node.ply >= MAX_DEPTH ? 'maxDepthReached' : 'noGameFound')),
       data?.queuePosition
         ? h('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
         : !ctrl.explorer.config.fullHouse()

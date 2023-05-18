@@ -58,11 +58,12 @@ span.ask__header {
   }
 
   // usage hint
-  i {
+  label span {
     white-space: nowrap;
     margin: 0 $gap;
     font-size: 0.6em;
   }
+
   // icon buttons in the top right
   .action {
     @extend %data-icon;
@@ -106,6 +107,21 @@ span.ask__header {
       &:hover {
         color: if($theme-light, #c33, #f66);
       }
+    }
+  }
+  i {
+    font-family: lichess;
+    font-size: 1em;
+    align-self: flex-start;
+    margin-#{$start-direction}: $gap / 2;
+    &:first-child {
+      border-#{$start-direction}: 1px solid $c-box-border;
+    }
+    &.open::before {
+      content: '';
+    }
+    &.anon::before {
+      content: '';
     }
   }
 }
@@ -181,6 +197,9 @@ div.ask__choices {
     display: inline-block;
     user-select: none;
     flex: initial;
+    &:focus-within {
+      outline: 1px solid $c-primary;
+    }
   }
 
   .choice.cbx {
@@ -256,13 +275,13 @@ div.ask__choices {
       content: '';
     }
 
-    // grey rank badge (unsubmitted)
+    // rank badge
     > div {
       margin-#{$start-direction}: -$gap;
       margin-#{$end-direction}: $gap;
       width: 1.7em;
       height: 1.7em;
-      visibility: visible;
+      //visibility: visible;
       border-radius: 100%;
       background: if($theme-light, #bbb, #666);
       border: 1px solid if($theme-light, #aaa, #666);
@@ -272,8 +291,8 @@ div.ask__choices {
       font-weight: bold;
     }
 
-    // green rank badge (unsubmitted)
-    &.badge > div {
+    // green rank badge (submitted)
+    &.submitted > div {
       background: $c-secondary;
     }
 

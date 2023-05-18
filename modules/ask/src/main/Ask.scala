@@ -23,7 +23,7 @@ case class Ask(
       footer == a.footer &&
       creator == a.creator &&
       isOpen == a.isOpen &&
-      isTransparent == a.isTransparent &&
+      isTraceable == a.isTraceable &&
       isAnon == a.isAnon &&
       isRanked == a.isRanked &&
       isMulti == a.isMulti
@@ -38,20 +38,19 @@ case class Ask(
     case Some(p) => p.keys.filter(!_.startsWith("anon-")).toSeq
     case None    => Nil
 
-  lazy val isOpen        = tags contains "open"               // allow votes from anyone (no acct reqired)
-  lazy val isAnon        = tags.exists(_ startsWith "anon")   // hide voters from creator/mods
-  lazy val isTransparent = tags.exists(_ startsWith "trans")  // everyone can see who voted for what
-  lazy val isTally       = tags contains "tally"              // partial results viewable before conclusion
-  lazy val isConcluded   = tags contains "concluded"          // closed poll
-  lazy val isRandom      = tags.exists(_ startsWith "random") // randomize order of choices
+  lazy val isOpen      = tags contains "open"               // allow votes from anyone (no acct reqired)
+  lazy val isAnon      = tags.exists(_ startsWith "anon")   // hide voters from creator/mods
+  lazy val isTraceable = tags.exists(_ startsWith "trace")  // everyone can see who voted for what
+  lazy val isTally     = tags contains "tally"              // partial results viewable before conclusion
+  lazy val isConcluded = tags contains "concluded"          // closed poll
+  lazy val isRandom    = tags.exists(_ startsWith "random") // randomize order of choices
   lazy val isMulti    = !isRanked && tags.exists(_ startsWith "multi") // multiple choices allowed
   lazy val isRanked   = tags.exists(_ startsWith "rank")               // drag to sort
   lazy val isFeedback = tags contains "feedback"                       // has a feedback/submit form
   // def isCenter = tags contains "center"             // horizontally center each row of choices
   lazy val isStretch  = tags.exists(_ startsWith "stretch") // stretch choices to fill width
   lazy val isCheckbox = !isRanked && isVertical             // use checkboxes, implies vertical
-  lazy val isVertical = tags.exists(_ startsWith "vert") || // one choice per row
-    tags.exists(_ startsWith "check")
+  lazy val isVertical = tags.exists(_ startsWith "vert")    // one choice per row
 
   // these accessors probably seem cumbersone
   // they were written to support app/views/ask.scala code
@@ -125,7 +124,6 @@ case class Ask(
       Array.ofDim[Int](0, 0)
 
 object Ask:
-  val idSize = 8
 
   type ID       = String
   type Tags     = Set[String]
@@ -141,7 +139,7 @@ object Ask:
       creator: UserId,
       footer: Option[String]
   ) = Ask(
-    _id = _id getOrElse (ornicar.scalalib.ThreadLocalRandom nextString idSize),
+    _id = _id getOrElse (ornicar.scalalib.ThreadLocalRandom nextString 8),
     question = question,
     choices = choices,
     tags = tags,
@@ -153,8 +151,8 @@ object Ask:
     url = None
   )
 
-  def anonHash(uid: String, aid: Ask.ID): String =
-    "anon-" + new String(base64.encode(com.roundeights.hasher.Algo.sha1(s"$uid-$aid").bytes))
+  def anonHash(eid: String, aid: Ask.ID): String =
+    "anon-" + new String(base64.encode(com.roundeights.hasher.Algo.sha1(s"$eid-$aid").bytes))
       .substring(0, 11) // 66 bits is plenty of entropy, collisions are fairly harmless
 
   private val base64 = java.util.Base64.getEncoder().withoutPadding();

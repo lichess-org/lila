@@ -1,5 +1,5 @@
 $c-mic-enabled: if($theme == 'light', $c-primary, $c-primary);
-$c-mic-bg-hover: if($theme == 'light', mix(#000, $c-bg-page, 10%), transparent);
+$c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
 
 #voice-control {
   position: relative;
@@ -47,7 +47,7 @@ $c-mic-bg-hover: if($theme == 'light', mix(#000, $c-bg-page, 10%), transparent);
     animation-iteration-count: infinite;
     border-color: $c-primary;
     &:hover {
-      color: $c-primary-clear;
+      color: $c-font;
     }
   }
   @keyframes pulseBorder {
