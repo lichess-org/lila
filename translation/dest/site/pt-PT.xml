@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' com arredondamento, baseado no número de meios-movimentos até à próxima captura ou movimento de peão</string>
   <string name="noGameFound">Nenhum jogo encontrado</string>
+  <string name="maxDepthReached">Nível máximo alcançado!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openings">Aberturas</string>
   <string name="openingExplorer">Explorador de aberturas</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Ver o torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
+  <string name="noDrawBeforeSwissLimit">Num torneio suíço não pode empatar antes de 30 jogadas.</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida a valer pontos</item>
