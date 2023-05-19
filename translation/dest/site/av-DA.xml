@@ -300,6 +300,7 @@
   </plurals>
   <string name="viewTournament">Турниралде балагьизе</string>
   <string name="backToTournament">Турниралде вуссине</string>
+  <string name="noDrawBeforeSwissLimit">Швейцар турниралда 30 хъурщи гьабизегӀан дуда ращадккей гьабизе кӀоларо.</string>
   <string name="thematic">Тематикияб</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s рейтингияб хӀай</item>
@@ -417,6 +418,7 @@
   <string name="reply">Жаваб кьезе</string>
   <string name="message">Хабар</string>
   <string name="user">ХӀалтӀизабулев</string>
+  <string name="reason">ГӀилла</string>
   <string name="whatIsIheMatter">Щиб ккараб?</string>
   <string name="cheat">ХӀилла</string>
   <string name="insult">ХӀакъир гьави</string>
@@ -425,7 +427,17 @@
   <string name="by">%s-(и)ца</string>
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>
   <string name="notes">Хъвай-хъвагӀаял</string>
+  <string name="noNoteYet">Жеги хъвай-хъвагӀай гьечӀо</string>
+  <string name="incorrectPassword">Мекъаб парол</string>
   <string name="currentPassword">Гьанжесеб парол</string>
+  <string name="newPassword">ЦӀияб парол</string>
+  <string name="newPasswordAgain">ЦӀияб парол (цоги нухалъ)</string>
+  <string name="newPasswordsDontMatch">ЦӀиял паролал дандекколел гьечӀо</string>
+  <string name="newPasswordStrength">Паролалъул хъинкъи гьечӀолъи</string>
+  <string name="clockInitialTime">СагӀаталда байбихьул заман</string>
+  <string name="clockIncrement">Заман тӀаде жубай</string>
+  <string name="privacy">ТӀатинареблъи</string>
+  <string name="privacyPolicy">ТӀатинареблъиялъул политика</string>
   <string name="letOtherPlayersFollowYou">Цогидазе дуда нахъвилълъине биччазе</string>
   <string name="letOtherPlayersChallengeYou">Цогидазе мун къецалде ахӀизе биччазе</string>
   <string name="letOtherPlayersInviteYouToStudy">Цогидазе мун цӀех-рехалде ахӀизе биччазе</string>
@@ -439,7 +451,13 @@
   <string name="onSlowGames">Хьадарал хӀаязулъ</string>
   <string name="always">Кидаго</string>
   <string name="never">Киданиги</string>
+  <string name="xCompetesInY">%1$s %2$s-алда жувана</string>
   <string name="victory">Бергьенлъи</string>
+  <string name="defeat">Къей</string>
+  <string name="victoryVsYInZ">%1$s - %2$s, %3$s</string>
+  <string name="defeatVsYInZ">%1$s - %2$s, %3$s</string>
+  <string name="drawVsYInZ">%1$s - %2$s, %3$s</string>
+  <string name="timeline">Таймлайн</string>
   <string name="human">ГӀадан</string>
   <string name="computer">Компьютер</string>
   <string name="side">Рахъ</string>
@@ -449,6 +467,7 @@
   <string name="practice">ХӀалбихьи</string>
   <string name="tools">Алатал</string>
   <string name="ifRatingIsPlusMinusX">Рейтинг ± %s батани</string>
+  <string name="ifRegistered">ХӀисабалде восун ватани</string>
   <string name="onlyFriends">ЦохӀо гьудулзабазе</string>
   <string name="castling">Рокировка</string>
   <string name="whiteCastlingKingside">ХъахӀал О-О</string>
@@ -467,6 +486,7 @@
   <string name="tournamentNotFound">Турнир батичӀо</string>
   <string name="tournamentDoesNotExist">Гьадинаб турнир гьечӀо.</string>
   <string name="yourRating">Дур рейтинг</string>
+  <string name="followAndChallengeFriends">Гьудулзабазда нахъвилълъа, къецалдеги ахӀе</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Нужер рикӀкӀин: %s</string>
