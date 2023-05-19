@@ -95,6 +95,8 @@
   <string name="noGameFound">ХӀаял ратичӀо</string>
   <string name="openings">Байбихьиял</string>
   <string name="openingExplorer">Байбихьиязул база</string>
+  <string name="openingEndgameExplorer">ХӀаялъул авал/ахиралъул база</string>
+  <string name="xOpeningExplorer">%s авалалъул база</string>
   <string name="winPreventedBy50MoveRule">50-хъурщиялъул къагӀидаялъ бергьине рес ккечӀо</string>
   <string name="lossSavedBy50MoveRule">50-хъурщиялъул къагӀидаялъ къезе рес ккечӀо</string>
   <string name="winOr50MovesByPriorMistake">Бергьенлъи яги цебесеб гъалатӀалъ 50 хъурщи</string>
@@ -116,6 +118,7 @@
   <string name="infiniteAnalysis">ЛъугӀи гьечӀеб анализ</string>
   <string name="blunder">КӀудияб гъалатӀ</string>
   <string name="mistake">ГъалатӀ</string>
+  <string name="inaccuracy">ГьитӀинаб гъалатӀ</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s кӀудияб гъалатӀ</item>
     <item quantity="other">%s кӀудияб гъалатӀ</item>
@@ -123,6 +126,10 @@
   <plurals name="nbMistakes">
     <item quantity="one">%s гъалатӀ</item>
     <item quantity="other">%s гъалатӀ</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s гьитӀинаб гъалатӀ</item>
+    <item quantity="other">%s гьитӀинаб гъалатӀ</item>
   </plurals>
   <string name="moveTimes">Хъурщизе заман</string>
   <string name="flipBoard">Хъарщи сверизабизе</string>
@@ -154,6 +161,8 @@
   <string name="computersAreNotAllowedToPlay">Компютеразе яги компютераз квербакъи гьабулел чагӀазе хӀазе бегьуларо. ХӀаралъув мухӀарикалдаса яги цогидаздаса квербакъи босуге. Гьединго чанги аккаунт гьабиялъ баналде вачине вугилан рекӀелъ цӀуне.</string>
   <string name="games">ХӀаял</string>
   <string name="forum">Форум</string>
+  <string name="xPostedInForumY">%1$s-(и)ца %2$s темаялда публикация гьабуна</string>
+  <string name="latestForumPosts">Ахирисел форумалъул публикацияби</string>
   <string name="players">ХӀалел</string>
   <string name="friends">Гьудулзаби</string>
   <string name="discussions">Гара-чӀвариял</string>
@@ -257,8 +266,10 @@
   <string name="viewRematch">Реваншалъухъ балагьизе</string>
   <string name="confirmMove">Хъурщи тасдикъ гьабизе</string>
   <string name="play">ХӀазе</string>
+  <string name="inbox">РачӀарал</string>
   <string name="chatRoom">Чат</string>
   <string name="loginToChat">Чаталде жувазе хъвай-хъвагӀай гьабе</string>
+  <string name="youHaveBeenTimedOut">Дуе дагьаб мехалъ хъвазе биччаларо.</string>
   <string name="spectatorRoom">Балагьулезе чат</string>
   <string name="composeMessage">Хабар хъвазе</string>
   <string name="subject">Тема</string>
@@ -284,6 +295,7 @@
     <item quantity="one">%s хӀалеб</item>
     <item quantity="other">%s хӀалеб</item>
   </plurals>
+  <string name="exportGames">ХӀаял жаниса росизе</string>
   <string name="ratingRange">Рейтингалъул диапазон</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s секунд кьезе</item>
