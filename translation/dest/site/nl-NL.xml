@@ -343,7 +343,7 @@
   </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
-  <string name="noDrawBeforeSwissLimit">Je kunt pas remise aanbieden na 30 zetten in een Zwitsers toernooi.</string>
+  <string name="noDrawBeforeSwissLimit">In een Zwitsers toernooi kun je pas na 30 zetten remise aanbieden.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partij met rating</item>
