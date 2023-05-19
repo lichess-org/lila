@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antal halvtrekk fram til neste brikketaking eller bondetrekk</string>
   <string name="noGameFound">Fann ikkje noko parti</string>
+  <string name="maxDepthReached">Maksimal djupn er nådd!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
   <string name="openings">Opningar</string>
   <string name="openingExplorer">Opningsbok</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Attende til turneringa</string>
+  <string name="noDrawBeforeSwissLimit">I sveitsarturneringer må det spelast minst 30 trekk før det er lov å tilby remis.</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rangert parti</item>
