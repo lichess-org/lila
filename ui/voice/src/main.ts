@@ -34,9 +34,7 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
           hook: onInsert(el => {
             el.addEventListener('click', _ => {
               if (!rtfm()) {
-                setTimeout(() =>
-                  alert(`Read the help page (the 'i' button) before using your microphone to make moves.`)
-                );
+                moveCtrl.showHelp(true);
                 rtfm(true);
               }
               rec(!(lichess.mic?.isListening || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
@@ -176,7 +174,7 @@ function voiceSettings(redraw: () => void): VNode {
           {
             attrs: {
               title:
-                'Click here to remove the microphone from your UI.\nIt can be re-enabled in Preferences -> Display',
+                'Also set in Preferences -> Display',
             },
             hook: bind('click', () =>
               xhr
@@ -184,7 +182,7 @@ function voiceSettings(redraw: () => void): VNode {
                 .then(() => window.location.reload())
             ),
           },
-          'Hide voice controls'
+          'Disable voice recognition'
         )
       : null,*/
   ]);
