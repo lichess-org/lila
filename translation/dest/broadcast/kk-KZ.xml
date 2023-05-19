@@ -26,5 +26,5 @@
   <string name="currentGameUrl">Қазіргі ойын сілтемесі</string>
   <string name="downloadAllRounds">Барлық айналымдарды жүктеп алу</string>
   <string name="definitivelyDeleteRound" comment="definitivelyDeleteRound&#10;&#10;Refers to live tournaments being broadcast on lichess&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.">Айналым мен оның ойындарын толығымен жою.</string>
-  <string name="deleteAllGamesOfThisRound">Айналымның бүкіл ойындарын жою. Оларды қайта құру үшін қайнар көзі белсенді болуы керек.</string>
+  <string name="deleteAllGamesOfThisRound" comment="deleteAllGamesOfThisRound&#10;&#10;This is a button when editing a broadcast round. &quot;Source&quot; refers to the broadcasting source, usually an URL pointing to a PGN file which is continuously updated by the tournament organizers and polled by Lichess to get new moves. The button is used when a mismatch occurs between the broadcast state and the source, e.g. when a move is reverted in the source. Deleting all games causes the state to be recreated completely from the source the next time it is polled by Lichess.">Айналымның бүкіл ойындарын жою. Оларды қайта құру үшін қайнар көзі белсенді болуы керек.</string>
 </resources>
