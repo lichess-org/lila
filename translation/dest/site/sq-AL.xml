@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' me rrumbullakim, bazuar në numrin e gjysmë-lëvizjeve deri në kapjen ose lëvizjen tjetër të pengut</string>
   <string name="noGameFound">S’u gjet lojë</string>
+  <string name="maxDepthReached">U mbërrit në thellësinë maksimum!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ndoshta të përfshihen më tepër lojëra nga menuja e parapëlqimeve?</string>
   <string name="openings">Hapje</string>
   <string name="openingExplorer">Eksplorues hapjesh</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Shihni turneun</string>
   <string name="backToTournament">Kthehu në turne</string>
+  <string name="noDrawBeforeSwissLimit">Në një turne zviceran, s’mund të dilni barazim para se të jenë luajtur 30 lëvizje.</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">Lojë e vlerësuar me ≥ %s</item>
