@@ -10,7 +10,7 @@ import scala.util.Success
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Root, Branch, Branches }
+import lila.tree.{ Score, Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 import lila.tree.NewBranch
 import lila.tree.Metas
