@@ -343,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
+  <string name="noDrawBeforeSwissLimit">Non puoi offrire una patta prima della trentesima mossa in un torneo a sistema Svizzero.</string>
   <string name="thematic">A tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partita classificata</item>
