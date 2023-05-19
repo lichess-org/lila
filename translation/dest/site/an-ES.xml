@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" con redondeyo, basau en o numero de meyos movimientos dica la siguient captura u movimiento de peón</string>
   <string name="noGameFound">No s\'ha trobau garra partida</string>
+  <string name="maxDepthReached">S\'ha alcanzau la maxima produndidat!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Preba incluyindo mas partidas dende lo menú de preferencias</string>
   <string name="openings">Obriduras</string>
   <string name="openingExplorer">Explorador d\'obriduras</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Veyer torneyo</string>
   <string name="backToTournament">Tornar a lo torneyo</string>
+  <string name="noDrawBeforeSwissLimit">No se puet ofrir taulas antes de fer 30 movimientos en os torneyos suizos.</string>
   <string name="thematic">Tematico</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida per puntos</item>
