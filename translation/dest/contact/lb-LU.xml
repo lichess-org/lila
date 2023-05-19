@@ -20,6 +20,7 @@
   <string name="reopenOnThisPage">Du kanns däin Konto op dëser Säit rëm opmaachen. Et geet just eemol.</string>
   <string name="doNotAskByEmailToReopen">Fro eis net per Email fir däin Konto rëm opzemaachen, mir wäerten en net maachen.</string>
   <string name="wantChangeUsername">Ech wëll mäin Benotzernumm änneren</string>
+  <string name="wantClearHistory">Ech wëll mäin Verlaf oder meng Wäertung läschen</string>
   <string name="wantReport">Ech wëll een Spiller mellen</string>
   <string name="wantReportBug">Ech wëll een Bug mellen</string>
   <string name="illegalPawnCapture">Illegalen Bauerenschlagzuch</string>
@@ -27,6 +28,7 @@
   <string name="insufficientMaterial">Ongenügend Mattmaterial</string>
   <string name="noRatingPoints">Keng Wäertungspunkten goufen verdeelt</string>
   <string name="errorPage">Feelersäit</string>
+  <string name="wantBroadcastTournament">Ech wëll een Turnéier iwwerdroen</string>
   <string name="banAppeal">Asproch géint een Bann oder eng IP Restriktioun</string>
   <string name="engineAppeal">Engine- oder Bedruchsmarkéierung</string>
   <string name="sendAppealTo">Du kanns däin Asproch un %s schécken.</string>
