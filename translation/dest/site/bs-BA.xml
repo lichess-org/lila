@@ -95,6 +95,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' sa zaokruživanjem, na osnovi broja polu-poteza do idućeg uzimanja figure ili poteza sa pijunom</string>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
+  <string name="maxDepthReached">Dostignuta maksimalna dubina!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možda da probate uključiti više partija u postavkama pretraživača otvaranja?</string>
   <string name="openings">Otvaranja</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
@@ -364,6 +365,7 @@
   </plurals>
   <string name="viewTournament">Pogledajte turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
+  <string name="noDrawBeforeSwissLimit">Ne možete ponuditi remi u turniru po švicarskom sistemu prije nego što bude odigrano 30 poteza.</string>
   <string name="thematic">Tematski</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partije za bodove</item>
@@ -906,6 +908,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="useTheReportForm">koristite formular za prijavu</string>
   <string name="toRequestSupport">Da zatražite podršku, %1$s</string>
   <string name="tryTheContactPage">pokušajte na stranici za kontakt</string>
+  <string name="makeSureToRead">Obavezno pročitajte %1$s</string>
+  <string name="theForumEtiquette">forumski bonton</string>
   <string name="thisTopicIsArchived">Ova je tema arhivirana i na nju se više ne može odgovarati.</string>
   <string name="joinTheTeamXToPost">Pridružite se %1$su da biste objavljivali na ovom forumu</string>
   <string name="teamNamedX">%1$s tim</string>
