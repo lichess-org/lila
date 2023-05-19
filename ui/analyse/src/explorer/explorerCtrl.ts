@@ -9,7 +9,6 @@ import { winnerOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
 import {
-  isOpening,
   Hovering,
   ExplorerData,
   ExplorerDb,
@@ -58,7 +57,6 @@ export default class ExplorerCtrl {
   lastStream: Sync<true> | undefined;
   abortController: AbortController | undefined;
   cache: Dictionary<ExplorerData> = {};
-  cacheUseful = prop(true);
 
   constructor(readonly root: AnalyseCtrl, readonly opts: ExplorerOpts, previous?: ExplorerCtrl) {
     this.allowed = prop(previous ? previous.allowed() : !root.embed);
@@ -101,7 +99,6 @@ export default class ExplorerCtrl {
       const fen = this.root.node.fen;
       const processData = (res: ExplorerData) => {
         this.cache[fen] = res;
-        this.cacheUseful(isOpening(res) && res.white + res.black + res.draws > 10000);
         this.movesAway(res.moves.length ? 0 : this.movesAway() + 1);
         this.loading(false);
         this.failing(null);
@@ -130,7 +127,7 @@ export default class ExplorerCtrl {
                 play: this.root.nodeList.slice(1).map(s => s.uci!),
                 fen,
                 withGames: this.withGames,
-                cacheUseful: this.cacheUseful(),
+                cacheUseful: this.root.node.ply < 15,
               },
               processData,
               this.abortController.signal
