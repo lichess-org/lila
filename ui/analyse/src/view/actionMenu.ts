@@ -1,6 +1,6 @@
 import { isEmpty } from 'common';
 import modal from 'common/modal';
-import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
+import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
 import { config as externalEngineConfig } from './externalEngine';
@@ -36,34 +36,6 @@ const cplSpeed: AutoplaySpeed = {
 };
 
 const ctrlToggle = (t: ToggleSettings, ctrl: AnalyseCtrl) => toggle(t, ctrl.trans, ctrl.redraw);
-
-function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
-  const g = ctrl.data.game;
-  if (g.source === 'import' && g.importedBy && g.importedBy === userId)
-    return h(
-      'form.delete',
-      {
-        attrs: {
-          method: 'post',
-          action: `/${g.id}/delete`,
-        },
-        hook: bindNonPassive('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
-      },
-      [
-        h(
-          'button.button.text.button-thin.button-red',
-          {
-            attrs: {
-              type: 'submit',
-              'data-icon': '',
-            },
-          },
-          ctrl.trans.noarg('delete')
-        ),
-      ]
-    );
-  return;
-}
 
 function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
@@ -361,7 +333,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ...cevalConfig,
     ...externalEngineConfig(ctrl),
     ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
-    deleteButton(ctrl, ctrl.opts.userId),
     canContinue
       ? h('div.continue-with.none.g_' + d.game.id, [
           h(

@@ -69,8 +69,6 @@ object jsI18n:
         trans.multipleLines,
         trans.cpus,
         trans.memory,
-        trans.delete,
-        trans.deleteThisImportedGame,
         trans.replayMode,
         trans.slow,
         trans.fast,
