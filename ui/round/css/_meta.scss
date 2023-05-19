@@ -29,6 +29,10 @@
     time {
       opacity: 1;
     }
+
+    form.delete button {
+      color: $c-bad;
+    }
   }
 
   .status {

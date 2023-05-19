@@ -41,7 +41,7 @@
   <string name="drawStreakStandard">Серія нічиїх: Якщо гравець має послідовні нічиї на арені, то одне очко зарахується лише за першу нічию, або нічию, яка триватиме більше ніж %s ходів. Серію нічиїх можна перервати лише перемогою, але не програшем чи нічиєю.</string>
   <string name="drawStreakVariants">Мінімальна тривалість партії для нічиєї та отримання балів залежить від варіанту. Таблиця нижче містить поріг для кожного варіанту.</string>
   <string name="variant">Варіант</string>
-  <string name="minimumGameLength">Мінімальна тривалість партії</string>
+  <string name="minimumGameLength">Мінімальна тривалість гри</string>
   <string name="history">Історія Арени</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Переглянути команду</item>

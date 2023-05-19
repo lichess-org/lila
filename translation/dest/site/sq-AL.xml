@@ -867,8 +867,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="useTheReportForm">përdorni formularin e raportimeve</string>
   <string name="toRequestSupport">Për të kërkuar asistencë, %1$s</string>
   <string name="tryTheContactPage">provoni faqen e kontaktit</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Mos harroni të lexoni %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">rregullat e etiketës në forum</string>
+  <string name="makeSureToRead">Mos harroni të lexoni %1$s</string>
+  <string name="theForumEtiquette">rregullat e etiketës në forum</string>
   <string name="thisTopicIsArchived">Kjo temë është arkivuar dhe në të s’mund të përgjigjen më.</string>
   <string name="joinTheTeamXToPost">Që të postoni në këtë forum, bëhuni pjesë e %1$s</string>
   <string name="teamNamedX">Ekipi %1$s</string>

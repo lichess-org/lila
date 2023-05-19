@@ -944,8 +944,8 @@
   <string name="useTheReportForm">uporabi prijavni obrazec</string>
   <string name="toRequestSupport">Za zahtevo podpore, %1$s</string>
   <string name="tryTheContactPage">poskusi s stranjo za stike</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Ne pozabite prebrati %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">forumski bonton</string>
+  <string name="makeSureToRead">Ne pozabite prebrati %1$s</string>
+  <string name="theForumEtiquette">forumski bonton</string>
   <string name="thisTopicIsArchived">Ta tema je arhivirana in nanjo ni mogoče več odgovarjati.</string>
   <string name="joinTheTeamXToPost">Pridruži se ekipi %1$s, da boš lahko objavljal sporočila na forumu</string>
   <string name="teamNamedX">ekipa %1$s</string>

@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' կլորացումով` կախված կիսաքայլերի քանակից մինչև հաջորդ վերցնելը կամ զինվորի քայլը</string>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
+  <string name="maxDepthReached">Արձանագրված է առավելագույն խորություն։</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Փորձեք կարգավորումներում միացնել ավելի շատ խաղեր։</string>
   <string name="openings">Սկզբնախաղեր</string>
   <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
@@ -341,6 +342,7 @@
   </plurals>
   <string name="viewTournament">Դիտել մրցաշարը</string>
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
+  <string name="noDrawBeforeSwissLimit">Դուք չեք կարող ոչ-ոքի առաջարկել մինչև 30-րդ քայլը շվեյցարական համակարգով մրցաշարում։</string>
   <string name="thematic">Թեմատիկա</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">Վարկանիշային խաղերը՝ ≥ %s</item>

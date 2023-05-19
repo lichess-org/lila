@@ -826,8 +826,8 @@
   <string name="useTheReportForm">通報フォームをお使いください</string>
   <string name="toRequestSupport">サポートを求める時には%1$s</string>
   <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">%1$s を必ずお読みください</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">フォーラムでのマナー</string>
+  <string name="makeSureToRead">%1$s を必ずお読みください</string>
+  <string name="theForumEtiquette">フォーラムでのマナー</string>
   <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
   <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
   <string name="teamNamedX">%1$s チーム</string>

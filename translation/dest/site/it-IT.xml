@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con arrotondamento, in base al numero di mezze mosse fino alla prossima cattura o mossa del pedone</string>
   <string name="noGameFound">Nessun partita trovata</string>
+  <string name="maxDepthReached">Massima profondità raggiunta!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openings">Aperture</string>
   <string name="openingExplorer">Esplora aperture</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
+  <string name="noDrawBeforeSwissLimit">Non puoi offrire una patta prima della trentesima mossa in un torneo a sistema Svizzero.</string>
   <string name="thematic">A tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partita classificata</item>
@@ -866,8 +868,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="useTheReportForm">usa il modulo di rapporto</string>
   <string name="toRequestSupport">Per richiedere supporto, %1$s</string>
   <string name="tryTheContactPage">prova la pagina dei contatti</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Assicurati di leggere %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">le regole del forum</string>
+  <string name="makeSureToRead">Assicurati di leggere %1$s</string>
+  <string name="theForumEtiquette">le regole del forum</string>
   <string name="thisTopicIsArchived">Questo argomento è stato archiviato e non è più possibile rispondervi.</string>
   <string name="joinTheTeamXToPost">Iscriviti al team %1$s, per postare in questo forum</string>
   <string name="teamNamedX">Squadra %1$s</string>

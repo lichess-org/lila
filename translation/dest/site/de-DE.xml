@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' mit Rundung, basierend auf der Anzahl der Halbzüge bis zum nächsten Schlag- oder Bauernzug</string>
   <string name="noGameFound">Kein Spiel gefunden</string>
+  <string name="maxDepthReached">Maximale Tiefe erreicht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Partien über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openings">Eröffnungen</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
+  <string name="noDrawBeforeSwissLimit">Du kannst in einem Turnier nach Schweizer System nicht vor dem Erreichen des 30. Zugs Remis anbieten.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gewertetes Spiel</item>

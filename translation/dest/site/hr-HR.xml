@@ -906,6 +906,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="useTheReportForm">koristi obrazac za prijavu</string>
   <string name="toRequestSupport">Za potraživanje pomoći, %1$s</string>
   <string name="tryTheContactPage">kontaktiraj nas</string>
+  <string name="makeSureToRead">Obavezno pročitajte %1$s</string>
+  <string name="theForumEtiquette">forum etiketa</string>
   <string name="thisTopicIsArchived">Ova tema je arhivirana i na nju više nije moguće odgovoriti.</string>
   <string name="joinTheTeamXToPost">Pridruži se %1$s za objavljivanje na ovom forumu</string>
   <string name="teamNamedX">%1$s tim</string>

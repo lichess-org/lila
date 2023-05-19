@@ -866,8 +866,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="useTheReportForm">usa o formulario correspondente</string>
   <string name="toRequestSupport">Para solicitar axuda, %1$s</string>
   <string name="tryTheContactPage">proba a páxina de contacto</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Asegúrate de ler %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">a etiqueta do foro</string>
+  <string name="makeSureToRead">Asegúrate de ler %1$s</string>
+  <string name="theForumEtiquette">a etiqueta do foro</string>
   <string name="thisTopicIsArchived">Este tema foi arquivado e non admite respostas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar neste foro</string>
   <string name="teamNamedX">equipo %1$s</string>

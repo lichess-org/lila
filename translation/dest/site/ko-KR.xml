@@ -824,8 +824,8 @@
   <string name="useTheReportForm">사용자 신고</string>
   <string name="toRequestSupport">%1$s에서 리체스에 문의하실 수 있습니다.</string>
   <string name="tryTheContactPage">연락처</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">%1$s를 꼭 읽으세요</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">포럼 에티켓</string>
+  <string name="makeSureToRead">%1$s를 꼭 읽으세요</string>
+  <string name="theForumEtiquette">포럼 에티켓</string>
   <string name="thisTopicIsArchived">이 주제는 보존되어서 댓글을 남기실 수 없습니다.</string>
   <string name="joinTheTeamXToPost">이 포럼에 글을 올리시려면 %1$s에 가입하셔야 합니다.</string>
   <string name="teamNamedX">팀 %1$s</string>

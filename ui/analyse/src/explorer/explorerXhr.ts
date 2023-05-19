@@ -27,7 +27,6 @@ export async function opening(
   params.set('variant', opts.variant || 'standard');
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));
-  if (opts.cacheUseful === false) params.set('cacheHint', 'useless');
   if (opts.db === 'masters') {
     if (confByDb.since()) params.set('since', confByDb.since().split('-')[0]);
     if (confByDb.until()) params.set('until', confByDb.until().split('-')[0]);
@@ -50,6 +49,8 @@ export async function opening(
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
+  params.set('cacheHint', opts.cacheUseful === false ? 'useless' : 'useful');
+  params.set('source', 'analysis');
 
   const res = await fetch(url.href, {
     cache: 'default',
