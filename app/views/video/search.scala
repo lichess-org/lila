@@ -9,7 +9,7 @@ import controllers.routes
 
 object search:
 
-  def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit ctx: Context) =
+  def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using Context) =
     layout(title = s"${control.query.getOrElse("Search")} • Free Chess Videos", control = control)(
       boxTop(
         h1(pluralize("video", videos.nbResults), " found"),

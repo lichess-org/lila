@@ -12,6 +12,7 @@ interface OpeningXhrOpts {
   variant?: VariantKey; // only lichess & player
   config: ExplorerConfigData;
   withGames?: boolean;
+  cacheUseful: boolean;
 }
 
 export async function opening(
@@ -48,6 +49,8 @@ export async function opening(
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
+  params.set('cacheHint', opts.cacheUseful === false ? 'useless' : 'useful');
+  params.set('source', 'analysis');
 
   const res = await fetch(url.href, {
     cache: 'default',

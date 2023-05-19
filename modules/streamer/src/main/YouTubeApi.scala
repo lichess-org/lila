@@ -59,7 +59,20 @@ final private class YouTubeApi(
           lastResults = streams
       }
 
-  def onVideo(channelId: String, videoId: String): Funit = coll.update
+  def onVideoXml(xml: scala.xml.NodeSeq): Funit =
+    val channel = (xml \ "entry" \ "channelId").text
+    val video   = (xml \ "entry" \ "videoId").text
+    if channel.nonEmpty && video.nonEmpty
+    then
+      lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
+      onVideo(channel, video)
+    else
+      val deleted = (xml \ "deleted-entry" \@ "ref")
+      if deleted.nonEmpty
+      then lila.log("streamer").warn(s"onYouTubeVideo deleted-entry $deleted")
+      funit
+
+  private def onVideo(channelId: String, videoId: String): Funit = coll.update
     .one(
       $doc("youTube.channelId"     -> channelId, "approval.granted" -> true),
       $set("youTube.pubsubVideoId" -> videoId),

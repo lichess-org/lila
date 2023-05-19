@@ -1,7 +1,9 @@
 import { h, VNode } from 'snabbdom';
 import { Redraw, Close, bind, header } from './util';
 import debounce from 'common/debounce';
+import { onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
+import { elementScrollBarWidth } from 'common/scroll';
 import { throttlePromiseDelay } from 'common/throttle';
 import { supportsSystemTheme } from 'common/theme';
 
@@ -13,11 +15,17 @@ export interface BackgroundCtrl {
   setImage(i: string): void;
   trans: Trans;
   close: Close;
+  data: BackgroundData;
 }
 
 export interface BackgroundData {
   current: string;
   image: string;
+  gallery?: {
+    images: string[];
+    montage2: string;
+    montage4: string;
+  };
 }
 
 interface Background {
@@ -32,7 +40,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
     { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
-    { key: 'transp', name: trans.noarg('transparent') },
+    { key: 'transp', name: 'Picture' },
   ];
 
   const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
@@ -72,6 +80,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
       redraw();
     },
     close,
+    data,
   };
 }
 
@@ -94,7 +103,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
         );
       })
     ),
-    cur === 'transp' ? imageInput(ctrl) : null,
+    cur !== 'transp' ? null : ctrl.data.gallery ? galleryInput(ctrl) : imageInput(ctrl),
   ]);
 }
 
@@ -170,4 +179,50 @@ function replaceStylesheet(old: HTMLLinkElement, oldKey: string, newKey: string,
   if (media) link.media = `(prefers-color-scheme: ${media})`;
   link.onload = () => setTimeout(() => old.remove(), 100);
   document.head.appendChild(link);
+}
+
+function galleryInput(ctrl: BackgroundCtrl) {
+  const urlId = (url: string) => url.replace(/[^\w]/g, '_');
+
+  function setImg(url: string) {
+    $('#images-grid .selected').removeClass('selected');
+    $(`#${urlId(url)}`).addClass('selected');
+    ctrl.setImage(url);
+  }
+
+  const gallery = ctrl.data.gallery!;
+  const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2; // $mq-x-small
+  const montageUrl = lichess.assetUrl(gallery[`montage${cols}`], { noVersion: true });
+  // our layout is static due to the single image gallery optimization. set width here
+  // and allow for the possibility of non-overlaid scrollbars
+  const width = cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidth() : 0);
+
+  return h('div#gallery', { attrs: { style: `width: ${width}px` } }, [
+    h(
+      'div#images-viewport',
+      h(
+        'div#images-grid',
+        { attrs: { style: `background-image: url(${montageUrl});` } },
+        gallery.images.map(img => {
+          const assetUrl = lichess.assetUrl(img, { noVersion: true });
+          const divClass = ctrl.data.image.endsWith(assetUrl) ? '.selected' : '';
+          return h(`div#${urlId(assetUrl)}${divClass}`, {
+            hook: bind('click', () => setImg(assetUrl)),
+          });
+        })
+      )
+    ),
+    h('span#url', [
+      h('label', 'URL'),
+      h('input', {
+        attrs: { type: 'text', placeholder: 'https://', value: ctrl.data.image },
+        hook: onInsert((el: HTMLInputElement) =>
+          $(el).on(
+            'change keyup paste',
+            debounce(() => setImg(el.value.trim()), 300)
+          )
+        ),
+      }),
+    ]),
+  ]);
 }

@@ -162,6 +162,8 @@ body {
 }
 
 .lobby__blog {
+  @include metal-bg;
+
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   grid-gap: 0 2%;
   grid-template-rows: auto; /* first row auto */

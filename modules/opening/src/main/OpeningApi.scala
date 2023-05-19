@@ -48,13 +48,13 @@ final class OpeningApi(
     for
       wiki <- query.closestOpening.??(op => wikiApi(op, withWikiRevisions) dmap some)
       useExplorer = crawler.no || wiki.exists(_.hasMarkup)
-      stats      <- (useExplorer ?? explorer.stats(query))
-      history    <- ((crawler.no && query.uci.nonEmpty) ?? explorer.queryHistory(query))
+      stats      <- (useExplorer ?? explorer.stats(query.uci, query.config, crawler))
       allHistory <- allGamesHistory.get(query.config)
       games      <- gameRepo.gamesFromSecondary(stats.??(_.games).map(_.id))
       withPgn <- games.map { g =>
         pgnDump(g, None, PgnDump.WithFlags(evals = false)) dmap { GameWithPgn(g, _) }
       }.parallel
+      history    = stats.??(_.popularityHistory)
       relHistory = query.uci.nonEmpty ?? historyPercent(history, allHistory)
     yield OpeningPage(query, stats, withPgn, relHistory, wiki).some
 
@@ -64,12 +64,14 @@ final class OpeningApi(
       query: PopularityHistoryAbsolute,
       config: PopularityHistoryAbsolute
   ): PopularityHistoryPercent =
-    query.zipAll(config, 0, 0) map {
+    query.zipAll(config, 0L, 0L) map {
       case (_, 0)     => 0
-      case (cur, all) => (cur * 100f) / all
+      case (cur, all) => ((cur.toDouble / all) * 100).toFloat
     }
 
   private val allGamesHistory =
     cacheApi[OpeningConfig, PopularityHistoryAbsolute](32, "opening.allGamesHistory") {
-      _.expireAfterWrite(1 hour).buildAsyncFuture(explorer.configHistory)
+      _.expireAfterWrite(1 hour).buildAsyncFuture(config => {
+        explorer.stats(Vector.empty, config, Crawler(false)).map(_.??(_.popularityHistory))
+      })
     }

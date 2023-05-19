@@ -28,7 +28,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
         wins = r boolO "wins",
         hostColor = r.strO("hostColor").flatMap(chess.Color.fromName) | chess.White
       )
-    def writes(@annotation.nowarn w: BSON.Writer, o: SimulPairing) =
+    def writes(w: BSON.Writer, o: SimulPairing) =
       $doc(
         "player"    -> o.player,
         "gameId"    -> o.gameId,

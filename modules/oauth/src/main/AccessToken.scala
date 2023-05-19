@@ -74,7 +74,7 @@ object AccessToken:
         expires = r.getO[Instant](expires)
       )
 
-    def writes(@annotation.nowarn w: BSON.Writer, o: AccessToken) =
+    def writes(w: BSON.Writer, o: AccessToken) =
       $doc(
         id           -> o.id,
         plain        -> o.plain,

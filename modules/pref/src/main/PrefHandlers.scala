@@ -43,7 +43,7 @@ private object PrefHandlers:
         confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
         insightShare = r.getD("insightShare", Pref.default.insightShare),
         keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
-        voice = r.getD("voice", Pref.default.voice),
+        voice = r.getO("voice"),
         zen = r.getD("zen", Pref.default.zen),
         ratings = r.getD("ratings", Pref.default.ratings),
         rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
@@ -54,7 +54,7 @@ private object PrefHandlers:
         tags = r.getD("tags", Pref.default.tags)
       )
 
-    def writes(@annotation.nowarn w: BSON.Writer, o: Pref) =
+    def writes(w: BSON.Writer, o: Pref) =
       $doc(
         "_id"           -> o._id,
         "bg"            -> o.bg,

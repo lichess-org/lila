@@ -202,8 +202,8 @@ declare namespace Voice {
   export type Listener = (msgText: string, msgType: MsgType) => void;
 
   export interface Microphone {
-    setVocabulary: (vocabulary: string[], mode?: ListenMode) => Promise<void>; // required
-    setLang: (language: string) => Promise<void>; // defaults to 'en';
+    setVocabulary: (vocabulary: string[], mode?: ListenMode) => void; // required
+    setLang: (language: string) => void; // defaults to 'en';
 
     mode: ListenMode; // starts in 'full'
 
@@ -285,7 +285,7 @@ interface Window {
   readonly LichessFlatpickr: (element: Element, opts: any) => any;
   readonly LichessNotify: (element: any, opts: any) => any;
   readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: any) => any;
+  readonly LichessDasher: (element: HTMLElement, toggle: HTMLElement) => any;
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;

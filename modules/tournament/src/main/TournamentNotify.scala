@@ -1,7 +1,5 @@
 package lila.tournament
 
-import akka.actor.ActorSystem
-
 import lila.common.Bus
 import lila.common.LilaScheduler
 import lila.hub.actorApi.push.TourSoon

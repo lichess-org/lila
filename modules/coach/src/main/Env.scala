@@ -14,7 +14,6 @@ final private class CoachConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,

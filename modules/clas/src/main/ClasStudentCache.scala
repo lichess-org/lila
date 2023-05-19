@@ -5,7 +5,7 @@ import akka.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
 import reactivemongo.akkastream.cursorProducer
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 
 final class ClasStudentCache(colls: ClasColls)(using
     ec: Executor,

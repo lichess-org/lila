@@ -24,7 +24,6 @@ private class RoundConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -46,10 +45,8 @@ final class Env(
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
-    evalCache: lila.evalCache.EvalCacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     lightUserApi: lila.user.LightUserApi,
-    ircApi: lila.irc.IrcApi,
     settingStore: lila.memo.SettingStore.Builder,
     ratingFactors: () => lila.rating.RatingFactors,
     notifyColls: lila.notify.NotifyColls,

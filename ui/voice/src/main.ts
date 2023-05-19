@@ -12,17 +12,16 @@ let moveCtrl: VoiceMove; // globals. not just a bad idea, it's the law!
 
 const supportedLangs = [
   ['en', 'English'],
-  ['fr', 'Français'],
-  ['de', 'Deutsch'],
-  ['tr', 'Türkçe'],
-  ['vi', 'Tiếng Việt'],
+  //['fr', 'Français'],
+  //['de', 'Deutsch'],
+  //['tr', 'Türkçe'],
+  //['vi', 'Tiếng Việt'],
 ];
 
 export { type RootCtrl, type VoiceMove } from './interfaces';
 
 export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
   const rec = storedBooleanProp('voice.listening', false);
-  const rtfm = storedBooleanProp('voice.rtfm', false);
 
   return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
     h('div#voice-status-row', [
@@ -33,19 +32,14 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
           attrs: { role: 'button', title: 'Toggle voice control' },
           hook: onInsert(el => {
             el.addEventListener('click', _ => {
-              if (!rtfm()) {
-                setTimeout(() =>
-                  alert(`Read the help page (the 'i' button) before using your microphone to make moves.`)
-                );
-                rtfm(true);
-              }
+              if (lichess.once('voice.rtfm')) moveCtrl.showHelp(true);
               rec(!(lichess.mic?.isListening || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
             });
             if (rec() && !lichess.mic?.isListening) setTimeout(() => el.dispatchEvent(new Event('click')));
           }),
         },
         h('span.microphone-icon', {
-          attrs: { ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
+          attrs: { ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
         })
       ),
       h('span#voice-status', {
@@ -70,7 +64,6 @@ export function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
   lichess.loadModule('voice.move').then(() => {
     moveCtrl = window.LichessVoiceMove(ctrl, fen);
   });
-  // this shim lets the UI build without the async voiceMove module
   return {
     update: fen => moveCtrl?.update(fen),
     opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),
@@ -171,13 +164,13 @@ function voiceSettings(redraw: () => void): VNode {
             ]
           ),
         ]),
-    $('body').data('user')
+    /*$('body').data('user')
       ? h(
           'a.button',
           {
             attrs: {
               title:
-                'Click here to remove the microphone from your UI.\nIt can be re-enabled in Preferences -> Display',
+                'Also set in Preferences -> Display',
             },
             hook: bind('click', () =>
               xhr
@@ -185,9 +178,9 @@ function voiceSettings(redraw: () => void): VNode {
                 .then(() => window.location.reload())
             ),
           },
-          'Hide voice controls'
+          'Disable voice recognition'
         )
-      : null,
+      : null,*/
   ]);
 }
 

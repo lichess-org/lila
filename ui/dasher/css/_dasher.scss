@@ -129,10 +129,7 @@
         @include transition(opacity);
       }
 
-      &:hover::before {
-        opacity: 1;
-        color: $c-dasher;
-      }
+      // don't show checkmarks on inactive selectors.
 
       &.active::before {
         opacity: 1;
@@ -211,5 +208,62 @@
     margin: 0;
     padding: 0;
     width: 100%;
+  }
+
+  .background #gallery {
+    $thumb-w: 160px; // see bin/make-gallery
+    $thumb-h: 90px;
+
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #000000bb;
+
+    #images-viewport {
+      max-height: ($thumb-h + 2px) * 4;
+      overflow: hidden auto;
+    }
+
+    #images-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      @include breakpoint($mq-x-small) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      background-attachment: scroll;
+
+      div {
+        margin: 1px;
+        width: $thumb-w;
+        height: $thumb-h;
+        background-color: transparent;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ffffff16;
+        }
+
+        &.selected {
+          outline: #afa 1px solid;
+        }
+      }
+    }
+
+    #url {
+      padding: 0.5rem 0.5rem 0.7rem;
+      display: flex;
+      align-items: center;
+
+      label {
+        margin: 0 1rem 0 0.5rem;
+        font-size: 1rem;
+      }
+
+      input {
+        padding: 0.5rem;
+        flex: 1 1 auto;
+        background-color: #181818dd;
+      }
+    }
   }
 }

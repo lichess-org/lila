@@ -127,7 +127,7 @@ object PrefForm:
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
-        voice = behavior.voice | pref.voice,
+        voice = if pref.voice.isEmpty && !behavior.voice.contains(1) then None else behavior.voice,
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
@@ -160,7 +160,7 @@ object PrefForm:
           submitMove = pref.submitMove,
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
-          voice = pref.voice.some,
+          voice = pref.voice.getOrElse(0).some,
           rookCastle = pref.rookCastle.some
         ),
         clock = ClockData(
@@ -215,12 +215,11 @@ object PrefForm:
     )
   )
 
+  // Allow blank image URL
   val bgImg = Form(
     single(
-      "bgImg" -> nonEmptyText(minLength = 10, maxLength = 400)
-        .verifying { url =>
-          url.startsWith("https://") || url.startsWith("//")
-        }
+      "bgImg" -> text(maxLength = 400)
+        .verifying { url => url.isBlank || url.startsWith("https://") || url.startsWith("//") }
     )
   )
 
