@@ -64,12 +64,13 @@ final case class HeaderUserContext(r: RequestHeader, m: Option[User], i: Option[
 
 trait UserContextWrapper extends UserContext:
   val userContext: UserContext
-  val req            = userContext.req
-  val me             = userContext.me
-  val impersonatedBy = userContext.impersonatedBy
-  def isBot          = me.exists(_.isBot)
-  def noBot          = !isBot
-  def isAppealUser   = me.exists(_.enabled.no)
+  val req                                  = userContext.req
+  val me                                   = userContext.me
+  val impersonatedBy                       = userContext.impersonatedBy
+  def isBot                                = me.exists(_.isBot)
+  def noBot                                = !isBot
+  def isAppealUser                         = me.exists(_.enabled.no)
+  def is[U](u: U)(using idOf: UserIdOf[U]) = me.exists(_.id == idOf(u))
 
 object UserContext:
 
