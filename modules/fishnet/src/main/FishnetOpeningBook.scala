@@ -33,7 +33,8 @@ final private class FishnetOpeningBook(
           "topGames"    -> "0",
           "recentGames" -> "0",
           "ratings"     -> (~levelRatings.get(level)).mkString(","),
-          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(",")
+          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(","),
+          "source"      -> "fishnet"
         )
         .get()
         .map {
@@ -88,7 +89,7 @@ object FishnetOpeningBook:
   given Reads[Response] = Json.reads
 
   private val levelRatings: Map[Int, Seq[Int]] = Map(
-    1 -> Seq(600),
+    1 -> Seq(400),
     2 -> Seq(1000, 1200),
     3 -> Seq(1400, 1600),
     4 -> Seq(1800, 2000, 2200),

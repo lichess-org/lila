@@ -1,4 +1,4 @@
-import { PingCtrl, ctrl as pingCtrl } from './ping';
+import { PingCtrl } from './ping';
 import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
 import { SoundCtrl, ctrl as soundCtrl } from './sound';
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background';
@@ -63,7 +63,7 @@ export function makeCtrl(data: DasherData, redraw: Redraw): DasherCtrl {
   };
   const close = () => setMode(defaultMode);
 
-  const ping = pingCtrl(trans, redraw);
+  const ping = new PingCtrl(trans, redraw);
 
   const subs = {
     langs: langsCtrl(data.lang, trans, close),

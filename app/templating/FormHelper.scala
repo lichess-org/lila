@@ -224,6 +224,9 @@ trait FormHelper { self: I18nHelper =>
         tpe      := "hidden"
       )
 
+    // allows disabling of a field that defaults to true
+    def hiddenFalse(field: Field): Tag = form3.hidden(field, "false".some)
+
     def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using Lang): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))
 

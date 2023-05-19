@@ -22,7 +22,6 @@ export { type RootCtrl, type VoiceMove } from './interfaces';
 
 export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
   const rec = storedBooleanProp('voice.listening', false);
-  const rtfm = storedBooleanProp('voice.rtfm', false);
 
   return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
     h('div#voice-status-row', [
@@ -33,12 +32,7 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
           attrs: { role: 'button', title: 'Toggle voice control' },
           hook: onInsert(el => {
             el.addEventListener('click', _ => {
-              if (!rtfm()) {
-                setTimeout(() =>
-                  alert(`Read the help page (the 'i' button) before using your microphone to make moves.`)
-                );
-                rtfm(true);
-              }
+              if (lichess.once('voice.rtfm')) moveCtrl.showHelp(true);
               rec(!(lichess.mic?.isListening || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
             });
             if (rec() && !lichess.mic?.isListening) setTimeout(() => el.dispatchEvent(new Event('click')));
@@ -176,7 +170,7 @@ function voiceSettings(redraw: () => void): VNode {
           {
             attrs: {
               title:
-                'Click here to remove the microphone from your UI.\nIt can be re-enabled in Preferences -> Display',
+                'Also set in Preferences -> Display',
             },
             hook: bind('click', () =>
               xhr
@@ -184,7 +178,7 @@ function voiceSettings(redraw: () => void): VNode {
                 .then(() => window.location.reload())
             ),
           },
-          'Hide voice controls'
+          'Disable voice recognition'
         )
       : null,*/
   ]);
