@@ -1,8 +1,10 @@
 package lila.analyse
 
+import monocle.syntax.all.*
+
 import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, PgnStr, Comment }
 import chess.opening.*
-import chess.{ Color, Status }
+import chess.{ Color, Node, Variation, Status, Ply }
 
 import lila.game.GameDrawOffers
 import lila.game.Game
@@ -31,12 +33,11 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
         .getOrElse(pgn)
     }
 
-  def toPgnString(pgn: Pgn): PgnStr = PgnStr {
-    // merge analysis & eval comments
-    // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
-    // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
+  // merge analysis & eval comments
+  // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
+  // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
+  def toPgnString(pgn: Pgn): PgnStr = PgnStr:
     s"$pgn\n\n\n".replaceIf("] } { [", "] [")
-  }
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
     lila.game.StatusText(status, winner, chess.variant.Standard) match
@@ -53,13 +54,17 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
     advices
       .foldLeft(p) { (pgn, advice) =>
         pgn
-          .updatePly(
+          .modifyInMainline(
             advice.ply,
-            move =>
-              move.copy(
-                glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-                comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments
+            { node =>
+              node.copy(
+                value = node.value.copy(
+                  glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
+                  comments = advice.makeComment(withEval = true, withBestMove = true) :: node.value.comments
+                ),
+                variations = makeVariation(advice).toList ++ node.variations
               )
+            }
           )
           .getOrElse(pgn)
       }
@@ -75,3 +80,20 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
           )
           .getOrElse(pgn)
       }
+
+  private def makeVariation(advice: Advice): Option[Variation[Move]] =
+    val sansWithIndex = (advice.info.variation take 20).zipWithIndex
+    Variation.build(
+      sansWithIndex,
+      { case (san, index) =>
+        Move(
+          ply = Ply(advice.ply.value + index - 1),
+          san = san
+        )
+      }
+    )
+
+  extension (pgn: Pgn)
+    def modifyInMainline(ply: Ply, f: Node[Move] => Node[Move]): Option[Pgn] =
+      val predicate = (m: Move) => m.ply == ply - 1
+      pgn.focus(_.tree.some).modifyA(_.modifyInMainline(predicate, f))
