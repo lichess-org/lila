@@ -45,13 +45,13 @@
   <string name="normal">Normale</string>
   <string name="easier">Më e lehtë</string>
   <string name="easiest">Më e lehta</string>
-  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
+  <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">Një pikë nën vlerësimin tuaj në ushtrime</item>
     <item quantity="other">%s pikë nën vlerësimin tuaj në ushtrime</item>
   </plurals>
   <string name="harder">Më e vështirë</string>
   <string name="hardest">Më e vështira</string>
-  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
+  <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Një pikë mbi vlerësimin tuaj në ushtrime</item>
     <item quantity="other">%s pikë mbi vlerësimin tuaj në ushtrime</item>
   </plurals>

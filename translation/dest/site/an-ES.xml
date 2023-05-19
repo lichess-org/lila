@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" con redondeyo, basau en o numero de meyos movimientos dica la siguient captura u movimiento de peón</string>
   <string name="noGameFound">No s\'ha trobau garra partida</string>
+  <string name="maxDepthReached">S\'ha alcanzau la maxima produndidat!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Preba incluyindo mas partidas dende lo menú de preferencias</string>
   <string name="openings">Obriduras</string>
   <string name="openingExplorer">Explorador d\'obriduras</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Veyer torneyo</string>
   <string name="backToTournament">Tornar a lo torneyo</string>
+  <string name="noDrawBeforeSwissLimit">No se puet ofrir taulas antes de fer 30 movimientos en os torneyos suizos.</string>
   <string name="thematic">Tematico</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida per puntos</item>
@@ -865,8 +867,8 @@
   <string name="useTheReportForm">usar lo formulario de reporte</string>
   <string name="toRequestSupport">Pa solicitar suporte, %1$s</string>
   <string name="tryTheContactPage">preba la pachina de contacto</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Asegura-te de leyer %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">la etiqueta en os foros</string>
+  <string name="makeSureToRead">Asegura-te de leyer %1$s</string>
+  <string name="theForumEtiquette">la etiqueta en os foros</string>
   <string name="thisTopicIsArchived">Este tema s\'ha archivau y ya no se puede responder.</string>
   <string name="joinTheTeamXToPost">Une-te a %1$s, pa publicar en este foro</string>
   <string name="teamNamedX">%1$s equipo</string>
