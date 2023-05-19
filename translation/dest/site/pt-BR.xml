@@ -865,8 +865,8 @@
   <string name="useTheReportForm">use o formulário de denúncia</string>
   <string name="toRequestSupport">Para solicitar ajuda, %1$s</string>
   <string name="tryTheContactPage">tente a página de contato</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Certifique-se de ler %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">as regras do fórum</string>
+  <string name="makeSureToRead">Certifique-se de ler %1$s</string>
+  <string name="theForumEtiquette">as regras do fórum</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e não pode mais ser respondido.</string>
   <string name="joinTheTeamXToPost">Junte-se a %1$s para publicar neste fórum</string>
   <string name="teamNamedX">Equipe %1$s</string>
