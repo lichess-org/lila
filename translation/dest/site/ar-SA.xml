@@ -101,6 +101,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' مع تقريب ، استنادًا إلى عدد من نصف التحركات حتى التقاط أو نقل بياض التالي</string>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
+  <string name="maxDepthReached">تم الوصول إلى أقصى عمق!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
   <string name="openings">الافتتاح</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
@@ -430,6 +431,7 @@
   </plurals>
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
+  <string name="noDrawBeforeSwissLimit">لا يمكنك التعادل قبل لعب 30 حركة في بطولة سويسرية.</string>
   <string name="thematic">وضعية مخصصة</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="zero">≥ %s مباراة مقيمة</item>
