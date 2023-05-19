@@ -97,6 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' עם עיגול, בהתבסס על מספר חצאי-המסעים עד ההכאה הבאה או מסע עם חייל</string>
   <string name="noGameFound">אין משחק זמין</string>
+  <string name="maxDepthReached">הגעתם לעומק המירבי!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">להוסיף עוד משחקים מתפריט ההגדרות?</string>
   <string name="openings">פתיחות</string>
   <string name="openingExplorer">סייר הפתיחות</string>
@@ -386,6 +387,7 @@
   </plurals>
   <string name="viewTournament">צפייה בטורניר</string>
   <string name="backToTournament">חזרה לטורניר</string>
+  <string name="noDrawBeforeSwissLimit">אין אפשרות לסיים את המשחק בתיקו בטורניר שוויצרי לפני ששוחקו 30 מהלכים.</string>
   <string name="thematic">נושאי</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">משחק מדורג %s ≥</item>
