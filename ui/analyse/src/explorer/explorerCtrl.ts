@@ -8,14 +8,7 @@ import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
-import {
-  Hovering,
-  ExplorerData,
-  ExplorerDb,
-  OpeningData,
-  SimpleTablebaseHit,
-  ExplorerOpts,
-} from './interfaces';
+import { Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
 
@@ -127,7 +120,6 @@ export default class ExplorerCtrl {
                 play: this.root.nodeList.slice(1).map(s => s.uci!),
                 fen,
                 withGames: this.withGames,
-                cacheUseful: this.root.node.ply < 15,
               },
               processData,
               this.abortController.signal
@@ -212,7 +204,6 @@ export default class ExplorerCtrl {
             rootFen: fen,
             play: [],
             fen,
-            cacheUseful: true,
           },
           (res: OpeningData) => {
             masterCache[fen] = res;
