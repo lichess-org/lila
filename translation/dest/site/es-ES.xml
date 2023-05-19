@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, basado en el número de movimientos intermedios hasta la próxima captura o movimiento de peón</string>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
+  <string name="maxDepthReached">¡Profundidad máxima alcanzada!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openings">Aperturas</string>
   <string name="openingExplorer">Explorador de aperturas</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
+  <string name="noDrawBeforeSwissLimit">No puedes hacer tablas antes de que se jueguen 30 movimientos en un torneo suizo.</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida por puntos</item>
