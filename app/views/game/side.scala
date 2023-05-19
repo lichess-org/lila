@@ -65,7 +65,7 @@ object side:
                 .map: importedBy =>
                   small(
                     trans.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
-                    ctx.isUserId(importedBy) option
+                    ctx.is(importedBy) option
                       form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                         submitButton(
                           cls   := "button-link confirm",
