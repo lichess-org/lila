@@ -11,6 +11,7 @@ import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 import { PromotionCtrl } from 'chess/promotion';
 import { KeyboardMove } from 'keyboardMove';
+import { VoiceMove } from 'voice';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
 
@@ -76,6 +77,7 @@ export interface Controller extends KeyboardController {
   allThemes?: AllThemes;
   showRatings: boolean;
   keyboardMove?: KeyboardMove;
+  voiceMove?: VoiceMove;
 
   streak?: PuzzleStreak;
   skip(): void;
@@ -147,6 +149,7 @@ export interface PuzzlePrefs {
   };
   blindfold: boolean;
   keyboardMove: boolean;
+  voiceMove: boolean;
 }
 
 export interface Angle {

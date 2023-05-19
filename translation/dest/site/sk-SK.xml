@@ -945,6 +945,8 @@
   <string name="useTheReportForm">použi nahlasovací formulár</string>
   <string name="toRequestSupport">Pre vyžiadanie podpory, %1$s</string>
   <string name="tryTheContactPage">vyskúšaj stránku Kontakt</string>
+  <string name="makeSureToRead">Určite si prečítajte %1$s</string>
+  <string name="theForumEtiquette">etiketu fóra</string>
   <string name="thisTopicIsArchived">Táto téma bola presunutá do archívu a nemožno už na ňu odpovedať.</string>
   <string name="joinTheTeamXToPost">Pripoj sa k %1$s, aby si mohol uverejňovať príspevky v tomto fóre</string>
   <string name="teamNamedX">%1$s tím</string>

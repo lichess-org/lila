@@ -5,15 +5,16 @@ import cats.data.Validated.valid
 import cats.syntax.all.*
 import chess.format.pgn.{ Dumper, SanStr }
 import chess.format.Uci
-import chess.{ Ply, Drop, Move, Replay, Situation }
+import chess.{ Ply, MoveOrDrop, Replay, Situation }
 import chess.MoveOrDrop.*
 
 import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException
 
-// convert variations from UCI to PGN.
-// also drops extra variations
-private object UciToPgn:
+// Even though Info.variation is a List[SanStr]
+// When we receive them from Fishnet clients it's actually a list of UCI moves.
+// This converts them to San format. drops extra variations
+private object UciToSan:
 
   type WithErrors[A] = (A, List[Exception])
 
@@ -23,30 +24,28 @@ private object UciToPgn:
       case a if a.info.hasVariation => a.ply
     }.toSet
 
-    val onlyMeaningfulVariations: List[Info] = analysis.infos map { info =>
-      if (pliesWithAdviceAndVariation(info.ply)) info
+    val onlyMeaningfulVariations: List[Info] = analysis.infos.map: info =>
+      if pliesWithAdviceAndVariation(info.ply) then info
       else info.dropVariation
-    }
 
     def uciToPgn(ply: Ply, variation: List[String]): Validated[String, List[SanStr]] =
-      for {
+      for
         situation <-
-          if (ply == replay.setup.startedAtPly + 1) valid(replay.setup.situation)
+          if ply == replay.setup.startedAtPly + 1 then valid(replay.setup.situation)
           else replay moveAtPly ply map (_.fold(_.situationBefore, _.situationBefore)) toValid "No move found"
-        ucis <- variation.map(Uci.apply).sequence toValid "Invalid UCI moves " + variation
+        ucis <- variation.traverse(Uci.apply) toValid s"Invalid UCI moves $variation"
         moves <-
-          ucis.foldLeft[Validated[String, (Situation, List[Either[Move, Drop]])]](valid(situation -> Nil)) {
-            case (Validated.Valid((sit, moves)), uci: Uci.Move) =>
-              sit.move(uci.orig, uci.dest, uci.promotion).leftMap(e => s"ply $ply $e") map { move =>
-                move.situationAfter -> (Left(move) :: moves)
-              }
-            case (Validated.Valid((sit, moves)), uci: Uci.Drop) =>
-              sit.drop(uci.role, uci.square).leftMap(e => s"ply $ply $e") map { drop =>
-                drop.situationAfter -> (Right(drop) :: moves)
-              }
-            case (failure, _) => failure
+          ucis.foldLeft(valid[String, (Situation, List[MoveOrDrop])](situation -> Nil)) {
+            case (Validated.Valid((sit, moves)), uci) => validateMove(moves, sit, ply, uci)
+            case (failure, _)                         => failure
           }
-      } yield moves._2.reverse map (_.fold(Dumper.apply, Dumper.apply))
+      yield moves._2.reverse map (_.fold(Dumper.apply, Dumper.apply))
+
+    def validateMove(acc: List[MoveOrDrop], sit: Situation, ply: Ply, md: Uci) =
+      val result = md match
+        case move: Uci.Move => sit.move(move.orig, move.dest, move.promotion)
+        case drop: Uci.Drop => sit.drop(drop.role, drop.square)
+      result.bimap(e => s"ply $ply $e", move => move.situationAfter -> (move :: acc))
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)

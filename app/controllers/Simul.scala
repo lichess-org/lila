@@ -6,13 +6,13 @@ import views.*
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
-import lila.simul.{ Simul as Sim, SimulCondition }
+import lila.simul.{ Simul as Sim }
 
 final class Simul(env: Env) extends LilaController(env):
 
   private def forms = lila.simul.SimulForm
 
-  private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
+  private def simulNotFound(using Context) = NotFound(html.simul.bits.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Simul.home)(serveHome)
@@ -23,8 +23,8 @@ final class Simul(env: Env) extends LilaController(env):
       Ok(html.simul.home(pending, created, started, finished)).toFuccess
     }
 
-  val apiList = Anon:
-    fetchSimuls(none) flatMap { case (((pending, created), started), finished) =>
+  val apiList = OpenOrScoped(): me =>
+    fetchSimuls(me) flatMap { case (((pending, created), started), finished) =>
       env.simul.jsonView.apiAll(pending, created, started, finished) map JsonOk
     }
 
@@ -131,7 +131,7 @@ final class Simul(env: Env) extends LilaController(env):
             )
   }
 
-  def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> implicit me =>
+  def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> me =>
     NoLameOrBot:
       env.simul.api
         .addApplicant(id, me, variant)

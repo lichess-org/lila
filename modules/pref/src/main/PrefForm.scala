@@ -39,6 +39,7 @@ object PrefForm:
         "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
         "keyboardMove"  -> optional(booleanNumber),
+        "voice"         -> optional(booleanNumber),
         "rookCastle"    -> optional(booleanNumber)
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
@@ -78,6 +79,7 @@ object PrefForm:
       submitMove: Int,
       confirmResign: Int,
       keyboardMove: Option[Int],
+      voice: Option[Int],
       rookCastle: Option[Int]
   )
 
@@ -125,6 +127,7 @@ object PrefForm:
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
+        voice = if pref.voice.isEmpty && !behavior.voice.contains(1) then None else behavior.voice,
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
@@ -157,6 +160,7 @@ object PrefForm:
           submitMove = pref.submitMove,
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
+          voice = pref.voice.getOrElse(0).some,
           rookCastle = pref.rookCastle.some
         ),
         clock = ClockData(
@@ -211,12 +215,11 @@ object PrefForm:
     )
   )
 
+  // Allow blank image URL
   val bgImg = Form(
     single(
-      "bgImg" -> nonEmptyText(minLength = 10, maxLength = 400)
-        .verifying { url =>
-          url.startsWith("https://") || url.startsWith("//")
-        }
+      "bgImg" -> text(maxLength = 400)
+        .verifying { url => url.isBlank || url.startsWith("https://") || url.startsWith("//") }
     )
   )
 
@@ -229,5 +232,11 @@ object PrefForm:
   val zen = Form(
     single(
       "zen" -> text.verifying(Set("0", "1") contains _)
+    )
+  )
+
+  val voice = Form(
+    single(
+      "voice" -> text.verifying(Set("0", "1") contains _)
     )
   )

@@ -199,8 +199,8 @@ export const codes: any = {
   magenta: '35',
   cyan: '36',
   grey: '90',
-  error: '31;41',
-  warn: '33;43',
+  error: '31',
+  warn: '33',
 };
 
 const colorForCtx = (ctx: string, color: any): string =>

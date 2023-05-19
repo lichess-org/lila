@@ -21,6 +21,7 @@ import lila.socket.UserLagCache
 import lila.user.{ Holder, User as UserModel }
 import lila.security.{ Granter, UserLogins }
 import lila.mod.UserWithModlog
+import play.api.i18n.Lang
 
 final class User(
     env: Env,
@@ -49,7 +50,7 @@ final class User(
         case Some(gameId) => gameC.exportGame(gameId, req)
       }
 
-  private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[?]) =
+  private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
@@ -229,7 +230,12 @@ final class User(
       filterName: String,
       page: Int
   )(using ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
-    UserGamesRateLimitPerIP(ctx.ip, cost = page, msg = s"on ${u.username}") {
+    UserGamesRateLimitPerIP(
+      ctx.ip,
+      fuccess(Paginator.empty[GameModel]),
+      cost = page,
+      msg = s"on ${u.username}"
+    ):
       lila.mon.http.userGamesCost.increment(page.toLong)
       for
         pagFromDb <- env.gamePaginator(
@@ -238,14 +244,13 @@ final class User(
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
           page = page
-        )(using ctx.body, formBinding, reqLang)
+        )
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
         }
         _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       yield pag
-    }(fuccess(Paginator.empty[GameModel]))
 
   def list = Open:
     env.user.cached.top10.get {} flatMap { leaderboards =>
@@ -553,33 +558,34 @@ final class User(
               }
         )
 
-  def autocomplete =
-    OpenOrScoped() { (req, me) =>
-      getUserStr("term", req).flatMap(UserModel.validateId) match
-        case None                               => BadRequest("No search term provided").toFuccess
-        case Some(id) if getBool("exists", req) => env.user.repo exists id map JsonOk
-        case Some(term) =>
-          {
-            (get("tour", req), get("swiss", req), get("team", req)) match
-              case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
-              case (_, Some(swissId), _) =>
-                env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-              case (_, _, Some(teamId)) => env.team.api.searchMembers(TeamId(teamId), term, 10)
-              case _ =>
-                me.ifTrue(getBool("friend", req)) match
-                  case Some(follower) =>
-                    env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
-                      case Nil     => env.user.cached userIdsLike term
-                      case userIds => fuccess(userIds)
-                    }
-                  case None if getBool("teacher", req) =>
-                    env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
-                  case None => env.user.cached userIdsLike term
-          } flatMap { userIds =>
-            if (getBool("names", req)) lightUserApi.asyncMany(userIds) map { users =>
+  def autocomplete = OpenOrScoped(): me =>
+    getUserStr("term", req).flatMap(UserModel.validateId) match
+      case None                               => BadRequest("No search term provided").toFuccess
+      case Some(id) if getBool("exists", req) => env.user.repo exists id map JsonOk
+      case Some(term) =>
+        {
+          (get("tour", req), get("swiss", req), get("team", req)) match
+            case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
+            case (_, Some(swissId), _) =>
+              env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
+            case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, me, 10)
+            case _ =>
+              me.ifTrue(getBool("friend", req)) match
+                case Some(follower) =>
+                  env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
+                    case Nil     => env.user.cached userIdsLike term
+                    case userIds => fuccess(userIds)
+                  }
+                case None if getBool("teacher", req) =>
+                  env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
+                case None => env.user.cached userIdsLike term
+        } flatMap { userIds =>
+          if getBool("names", req) then
+            lightUserApi.asyncMany(userIds) map { users =>
               Json toJson users.flatMap(_.map(_.name))
             }
-            else if (getBool("object", req)) lightUserApi.asyncMany(userIds) map { users =>
+          else if getBool("object", req) then
+            lightUserApi.asyncMany(userIds) map { users =>
               Json.obj(
                 "result" -> JsArray(users collect { case Some(u) =>
                   lila.common.LightUser.lightUserWrites
@@ -588,9 +594,8 @@ final class User(
                 })
               )
             }
-            else fuccess(Json toJson userIds)
-          } map JsonOk
-    }
+          else fuccess(Json toJson userIds)
+        } map JsonOk
 
   def ratingDistribution(perfKey: lila.rating.Perf.Key, username: Option[UserStr] = None) = Open:
     lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has) match

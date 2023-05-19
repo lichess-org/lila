@@ -10,8 +10,7 @@ import scala.util.Success
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.tree.Eval
-import lila.tree.Eval.Score
+import lila.tree.{ Eval, Score }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 
 object BSONHandlers:
@@ -24,7 +23,7 @@ object BSONHandlers:
       r.getO[Square]("p") map { pos =>
         Shape.Circle(brush, pos)
       } getOrElse Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d"))
-    def writes(@annotation.nowarn w: Writer, t: Shape) =
+    def writes(w: Writer, t: Shape) =
       t match
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
         case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
@@ -115,11 +114,9 @@ object BSONHandlers:
     val mateFactor = 1000000
     BSONIntegerHandler.as[Score](
       v =>
-        Score {
-          if (v >= mateFactor || v <= -mateFactor) Right(Eval.Mate(v / mateFactor))
-          else Left(Eval.Cp(v))
-        },
-      _.value.fold(
+        if v >= mateFactor || v <= -mateFactor then Score.mate(v / mateFactor)
+        else Score.cp(v),
+      _.fold(
         cp => cp.value atLeast (-mateFactor + 1) atMost (mateFactor - 1),
         mate => mate.value * mateFactor
       )

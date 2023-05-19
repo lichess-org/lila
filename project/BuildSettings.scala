@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.3.0-RC5"
+  val globalScalaVersion = "3.3.0-RC6"
 
   val shadedMongo = !System.getProperty("os.arch").toLowerCase.startsWith("aarch")
   if (shadedMongo) println("--- shaded native reactivemongo ---")

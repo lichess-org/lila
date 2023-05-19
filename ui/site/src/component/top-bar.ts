@@ -22,7 +22,6 @@ export default function () {
   $('#top').on('click', 'a.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
-    pubsub.emit('top.toggle.' + this.id);
     setTimeout(() => {
       const handler = (e: Event) => {
         if ($p[0]?.contains(e.target as HTMLElement)) return;

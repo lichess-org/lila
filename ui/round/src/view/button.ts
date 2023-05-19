@@ -8,6 +8,11 @@ import { RoundData, MaybeVNodes } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 
+export interface ButtonState {
+  enabled: boolean;
+  overrideHint?: string;
+}
+
 function analysisBoardOrientation(data: RoundData) {
   return data.game.variant.key === 'racingKings' ? 'white' : data.player.color;
 }
@@ -90,26 +95,27 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
 
 export function standard(
   ctrl: RoundController,
-  condition: ((d: RoundData) => boolean) | undefined,
+  condition: ((d: RoundData) => ButtonState) | undefined,
   icon: string,
   hint: string,
   socketMsg: string,
   onclick?: () => void
 ): VNode {
   // disabled if condition callback is provided and is falsy
-  const enabled = () => !condition || condition(ctrl.data);
+  const enabled = () => !condition || condition(ctrl.data).enabled;
+  const hintFn = () => condition?.(ctrl.data)?.overrideHint || hint;
   return h(
     'button.fbt.' + socketMsg,
     {
       attrs: {
         disabled: !enabled(),
-        title: ctrl.noarg(hint),
+        title: ctrl.noarg(hintFn()),
       },
       hook: util.bind('click', _ => {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    [h('span', hint == 'offerDraw' ? ['½'] : ctrl.nvui ? [ctrl.noarg(hint)] : util.justIcon(icon))]
+    [h('span', hint == 'offerDraw' ? ['½'] : ctrl.nvui ? [ctrl.noarg(hintFn())] : util.justIcon(icon))]
   );
 }
 
@@ -167,12 +173,20 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
     fbtCancel(ctrl, ctrl.offerDraw),
   ]);
 
-export const claimThreefold = (ctrl: RoundController): VNode =>
+export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) => ButtonState): VNode =>
   h(
     'button.button.draw-yes',
     {
-      hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim')),
-      attrs: { title: ctrl.noarg('claimADraw') },
+      hook: util.bind('click', () =>
+        condition(ctrl.data).enabled ? ctrl.socket.sendLoading('draw-claim') : undefined
+      ),
+      attrs: {
+        title: ctrl.noarg(condition(ctrl.data)?.overrideHint || 'claimADraw'),
+        disabled: !condition(ctrl.data).enabled,
+      },
+      class: {
+        disabled: !condition(ctrl.data).enabled,
+      },
     },
     h('span', '½')
   );

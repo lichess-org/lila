@@ -97,6 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">Правило 50 ходов: объявляется ничья, если на протяжении последних 50 ходов ни одна фигура не была взята и ни одна пешка не сделала хода</string>
   <string name="noGameFound">Партий не найдено</string>
+  <string name="maxDepthReached">Достигнута максимальная глубина!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
   <string name="openings">Дебюты</string>
   <string name="openingExplorer">База дебютов</string>
@@ -386,6 +387,7 @@
   </plurals>
   <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
+  <string name="noDrawBeforeSwissLimit">Вы не можете предлагать ничью до 30-го хода в турнире по швейцарской системе.</string>
   <string name="thematic">Тематический</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">Рейтинговых игр ≥ %s</item>
@@ -945,6 +947,8 @@
   <string name="useTheReportForm">заполните форму обращения</string>
   <string name="toRequestSupport">Чтобы получить поддержку, %1$s</string>
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
+  <string name="makeSureToRead">Не забудьте прочитать %1$s</string>
+  <string name="theForumEtiquette">форумный этикет</string>
   <string name="thisTopicIsArchived">Эта тема была помещена в архив и добавить комментарий уже нельзя.</string>
   <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>

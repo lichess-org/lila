@@ -9,6 +9,10 @@
     <item quantity="one">%s Ronn</item>
     <item quantity="other">%s Ronnen</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s Ronn Schwäizer System</item>
+    <item quantity="other">%s RonnenSchwäizer System</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Eng Ronn pro Dag</item>
     <item quantity="other">Eng Ronn all %s Deeg</item>
@@ -102,4 +106,6 @@ De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronn
   <string name="streaksAndBerserk">Erfollegsserie a Berserker</string>
   <string name="similarToOTB">Änlech wéi OTB Turnéier</string>
   <string name="unlimitedAndFree">Onbegrenzt a gratis</string>
+  <string name="predefinedUsers">Nëmmen virdefinéiert Spiller dierfen matmaachen</string>
+  <string name="forbiddedUsers">Falls dës Lëscht net eidel ass, kënnen Spiller déi net dropstinn net matmaachen. Een Benotzernumm pro Zeil.</string>
 </resources>

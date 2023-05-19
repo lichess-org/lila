@@ -77,7 +77,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  private def modData(streamer: StreamerModel)(implicit ctx: Context) =
+  private def modData(streamer: StreamerModel)(using Context) =
     isGranted(_.ModLog) ?? {
       env.mod.logApi.userHistory(streamer.userId) zip
         env.user.noteApi.byUserForMod(streamer.userId) zip
@@ -149,11 +149,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     AsStreamer: s =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
-          ImageRateLimitPerIp(ctx.ip) {
+          ImageRateLimitPerIp(ctx.ip, rateLimitedFu):
             api.uploadPicture(s.streamer, pic, me) recover { case e: Exception =>
               BadRequest(html.streamer.picture(s, e.getMessage.some))
             } inject Redirect(routes.Streamer.edit)
-          }(rateLimitedFu)
         case None => Redirect(routes.Streamer.edit).flashFailure.toFuccess
   }
 
@@ -163,13 +162,8 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     fuccess(Ok)
   }
 
-  def onYouTubeVideo = AnonBodyOf(parse.tolerantXml): body =>
-    val channel = (body \ "entry" \ "channelId").text
-    val video   = (body \ "entry" \ "videoId").text
-    if channel.nonEmpty && video.nonEmpty
-    then lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
-    else lila.log("streamer").warn(s"onYouTubeVideo $video on channel $channel $body")
-    env.streamer.ytApi.onVideo(channel, video) inject Ok
+  def onYouTubeVideo = AnonBodyOf(parse.tolerantXml):
+    env.streamer.ytApi.onVideoXml
 
   def youTubePubSubChallenge = Anon:
     Ok(get("hub.challenge", req).get).toFuccess

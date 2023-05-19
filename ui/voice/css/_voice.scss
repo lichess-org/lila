@@ -1,0 +1,122 @@
+$c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
+
+#voice-control {
+  position: relative;
+}
+
+#voice-status-row {
+  @extend %box-neat, %flex-center-nowrap;
+  font-size: 1rem;
+  align-items: stretch;
+  background: $c-bg-box;
+  user-select: none;
+  padding-#{$end-direction}: 0.7em;
+
+  #voice-control.puz & {
+    background: $c-bg-zebra;
+  }
+
+  > button {
+    @extend %button-none;
+    color: $c-font-dim;
+    padding: 0.2em 0.5em;
+
+    &:hover {
+      color: $c-font;
+    }
+  }
+}
+
+#voice-status {
+  @extend %flex-center-nowrap;
+  flex: 1 1 auto;
+}
+
+#microphone-button {
+  span {
+    padding: 1px;
+    font-family: 'lichess';
+    font-size: 1.6em;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    &:hover {
+      color: $c-font;
+      background-color: $c-mic-bg-hover;
+    }
+  }
+  &.enabled span {
+    color: $c-primary;
+    animation: pulseBorder 2s;
+    animation-iteration-count: infinite;
+    border-color: transparent;
+
+    &:hover {
+      color: $c-link-hover;
+    }
+  }
+  @keyframes pulseBorder {
+    0% {
+      border-color: transparent;
+    }
+    50% {
+      border-color: $c-primary;
+    }
+    100% {
+      border-color: transparent;
+    }
+  }
+}
+
+#voice-settings-button {
+  &.active {
+    color: white;
+    background-color: $c-primary;
+  }
+}
+
+#voice-settings {
+  @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+  position: absolute;
+  border-top: 2px solid $c-primary;
+  z-index: z(mz-menu);
+  width: 100%;
+  background: $c-bg-popup;
+  gap: 1.5em;
+  padding: 1.5em;
+}
+.voice-setting {
+  @extend %flex-center-nowrap;
+
+  label {
+    flex: 4 1 auto;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .switch + label {
+    margin-#{$start-direction}: 1ch;
+  }
+
+  input[type='range'] {
+    cursor: pointer;
+    flex: 1 4 auto;
+    padding: 0;
+    height: 1.6em;
+    width: 100%;
+    margin: 0 1ch;
+  }
+
+  .range_value {
+    direction: ltr;
+    flex: 0 0 15%;
+    text-align: left;
+  }
+}
+
+.voice-choices {
+  @extend %flex-between;
+  .active {
+    @extend %active-primary;
+  }
+}

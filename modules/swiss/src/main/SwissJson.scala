@@ -14,7 +14,6 @@ import lila.gathering.GreatPlayer
 
 final class SwissJson(
     mongo: SwissMongo,
-    pairingSystem: PairingSystem,
     standingApi: SwissStandingApi,
     rankingApi: SwissRankingApi,
     boardApi: SwissBoardApi,

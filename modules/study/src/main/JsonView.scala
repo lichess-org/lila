@@ -116,6 +116,54 @@ object JsonView:
     Json.obj("id" -> s._id, "name" -> s.name)
   }
 
+  def metadata(study: Study) = Json.obj(
+    "id"        -> study.id,
+    "name"      -> study.name,
+    "createdAt" -> study.createdAt,
+    "updatedAt" -> study.updatedAt
+  )
+
+  def glyphs(lang: play.api.i18n.Lang): JsObject =
+    import lila.tree.Node.given
+    import lila.i18n.I18nKeys.{ study as trans }
+    import chess.format.pgn.Glyph
+    import Glyph.MoveAssessment.*
+    import Glyph.PositionAssessment.*
+    import Glyph.Observation.*
+    given play.api.i18n.Lang = lang
+    Json.obj(
+      "move" -> List(
+        good.copy(name = trans.goodMove.txt()),
+        mistake.copy(name = trans.mistake.txt()),
+        brillant.copy(name = trans.brilliantMove.txt()),
+        blunder.copy(name = trans.blunder.txt()),
+        interesting.copy(name = trans.interestingMove.txt()),
+        dubious.copy(name = trans.dubiousMove.txt()),
+        only.copy(name = trans.onlyMove.txt()),
+        zugzwang.copy(name = trans.zugzwang.txt())
+      ),
+      "position" -> List(
+        equal.copy(name = trans.equalPosition.txt()),
+        unclear.copy(name = trans.unclearPosition.txt()),
+        whiteSlightlyBetter.copy(name = trans.whiteIsSlightlyBetter.txt()),
+        blackSlightlyBetter.copy(name = trans.blackIsSlightlyBetter.txt()),
+        whiteQuiteBetter.copy(name = trans.whiteIsBetter.txt()),
+        blackQuiteBetter.copy(name = trans.blackIsBetter.txt()),
+        whiteMuchBetter.copy(name = trans.whiteIsWinning.txt()),
+        blackMuchBetter.copy(name = trans.blackIsWinning.txt())
+      ),
+      "observation" -> List(
+        novelty.copy(name = trans.novelty.txt()),
+        development.copy(name = trans.development.txt()),
+        initiative.copy(name = trans.initiative.txt()),
+        attack.copy(name = trans.attack.txt()),
+        counterplay.copy(name = trans.counterplay.txt()),
+        timeTrouble.copy(name = trans.timeTrouble.txt()),
+        compensation.copy(name = trans.withCompensation.txt()),
+        withIdea.copy(name = trans.withTheIdea.txt())
+      )
+    )
+
   private given Reads[Square] = Reads { v =>
     (v.asOpt[String] flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   }

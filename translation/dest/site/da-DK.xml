@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med afrunding, baseret på antallet af halv-træk indtil næste fangst eller bondetræk</string>
   <string name="noGameFound">Intet parti fundet</string>
+  <string name="maxDepthReached">Maks dybde nået!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prøv eventuelt at inkludere flere partier fra præferencemenuen?</string>
   <string name="openings">Åbninger</string>
   <string name="openingExplorer">Åbningsbog</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
+  <string name="noDrawBeforeSwissLimit">Du kan ikke spille remis i en schweizerturnering, før der er lavet 30 træk.</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s ratet parti</item>

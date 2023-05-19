@@ -61,4 +61,5 @@
   <string name="notifyPush">Gerät Benoriichtegung wanns du net ob Lichess bass</string>
   <string name="notifyWeb">Web-Browser</string>
   <string name="notifyDevice">Gerät</string>
+  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Glacken-Notifikatiounstoun</string>
 </resources>

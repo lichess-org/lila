@@ -80,6 +80,7 @@ body {
     'uchat';
 
   @include breakpoint($mq-col2) {
+    grid-template-columns: $col2-uniboard-fallback-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
@@ -111,6 +112,7 @@ body {
   }
 
   @include breakpoint($mq-col3) {
+    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-fallback-width var(--gauge-gap) $col3-uniboard-table;
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
     grid-template-rows: $meta-height $chat-height 2.5em 1fr;
     grid-template-areas:

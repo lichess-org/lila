@@ -360,21 +360,18 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def activity = Scoped(_.Puzzle.Read) { req ?=> me =>
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
-      max = getInt("max", req) map (_ atLeast 1),
-      perSecond = MaxPerSecond(20)
+      max = getInt("max", req).map(_ atLeast 1),
+      before = getTimestamp("before", req)
     )
     apiC
-      .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)) {
-        source =>
-          Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
-      }
+      .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)):
+        source => Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
       .toFuccess
   }
 
   def apiDashboard(days: Int) =
-    def render(me: UserModel)(using play.api.i18n.Lang) = JsonOptionOk {
+    def render(me: UserModel)(using play.api.i18n.Lang) = JsonOptionOk:
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
-    }
     AuthOrScoped(_.Puzzle.Read)(
       auth = _ ?=> render,
       scoped = _ ?=> me => render(me)(using reqLang)
@@ -382,7 +379,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =
     DashboardPage(u) { ctx ?=> user =>
-      env.puzzle.dashboard(user, days) map { dashboard =>
+      env.puzzle.dashboard(user, days).map { dashboard =>
         path match
           case "dashboard" => Ok(views.html.puzzle.dashboard.home(user, dashboard, days))
           case "improvementAreas" =>
@@ -400,21 +397,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         Redirect(routes.Puzzle.dashboard(days, "home", none)).toFuccess
       case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
     }
-  }
-
-  def mobileHistory(page: Int) = Auth { ctx ?=> me =>
-    negotiate(
-      html = notFound,
-      _ => {
-        import lila.puzzle.JsonView.given
-        Reasonable(page) {
-          env.puzzle.history(me, page) map { historyPaginator =>
-            Ok(lila.common.paginator.PaginatorJson(historyPaginator))
-          }
-        }
-      }
-    )
-
   }
 
   def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { ctx ?=> user =>
@@ -539,7 +521,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok(html.site.keyboardHelpModal.puzzle).toFuccess
+    Ok(html.site.helpModal.puzzle).toFuccess
 
   private def DashboardPage(username: Option[UserStr])(f: Context ?=> UserModel => Fu[Result]) =
     Auth { ctx ?=> me =>

@@ -19,12 +19,14 @@ public/vendor/stockfish.wasm
 public/vendor/stockfish-nnue.wasm
 public/vendor/stockfish-mv.wasm
 public/vendor/stockfish.js
+public/lifat
 public/css/
 target
 data/
 dist/
 node_modules/
 local/
+lifat/
 ui/common/**/*.js
 ui/common/**/*.d.ts
 ui/chess/**/*.js
@@ -35,6 +37,7 @@ ui/nvui/**/*.js
 ui/nvui/**/*.d.ts
 ui/puz/**/*.js
 ui/puz/**/*.d.ts
+ui/voice/@build/crowdv
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log

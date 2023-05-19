@@ -6,8 +6,7 @@ import lila.db.dsl.{ *, given }
 
 final private class SwissScoring(mongo: SwissMongo)(using
     scheduler: Scheduler,
-    ec: Executor,
-    mode: play.api.Mode
+    ec: Executor
 ):
 
   import BsonHandlers.given

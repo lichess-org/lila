@@ -865,6 +865,8 @@
   <string name="useTheReportForm">ilmoituslomakkeella</string>
   <string name="toRequestSupport">Ongelmiin voit pyytää apua %1$s</string>
   <string name="tryTheContactPage">yhteydenottosivulta</string>
+  <string name="makeSureToRead">Lue ensi töiksesi %1$s</string>
+  <string name="theForumEtiquette">foorumin etiketti</string>
   <string name="thisTopicIsArchived">Tämä aihe on arkistoitu, eikä siihen voi enää vastata.</string>
   <string name="joinTheTeamXToPost">Kirjoittaaksesi tähän foorumiin sinun on liityttävä %1$s</string>
   <string name="teamNamedX">%1$s -joukkueeseen</string>

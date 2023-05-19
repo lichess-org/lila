@@ -40,6 +40,8 @@ interface Lichess {
 
   socket: any;
   sound: SoundI;
+  mic?: Voice.Microphone;
+
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
@@ -194,6 +196,38 @@ interface LichessEditor {
   setOrientation(o: Color): void;
 }
 
+declare namespace Voice {
+  export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
+  export type ListenMode = 'full' | 'partial';
+  export type Listener = (msgText: string, msgType: MsgType) => void;
+
+  export interface Microphone {
+    setVocabulary: (vocabulary: string[], mode?: ListenMode) => void; // required
+    setLang: (language: string) => void; // defaults to 'en';
+
+    mode: ListenMode; // starts in 'full'
+
+    // optional, to fetch a grammar
+    useGrammar: (grammarName: string) => Promise<any>;
+
+    start: () => Promise<void>; // initialize if necessary and begin recording
+    stop: () => void; // stop recording/downloading/whatever
+
+    pause: () => void; // mute mic, no overhead
+    resume: () => void; // unmute mic
+
+    readonly isBusy: boolean; // are we downloading, extracting, or loading?
+    readonly isListening: boolean; // are we recording?
+    readonly status: string; // errors, progress, or the most recent voice command
+    readonly lang: string; // defaults to 'en'
+
+    addListener: (id: string, listener: Listener, mode?: ListenMode) => void;
+    removeListener: (id: string) => void;
+
+    stopPropagation: () => void; // listeners can call this to stop propagation during modal interactions
+  }
+}
+
 declare namespace Editor {
   export interface Config {
     baseUrl: string;
@@ -251,7 +285,7 @@ interface Window {
   readonly LichessFlatpickr: (element: Element, opts: any) => any;
   readonly LichessNotify: (element: any, opts: any) => any;
   readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: any) => any;
+  readonly LichessDasher: (element: HTMLElement, toggle: HTMLElement) => any;
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
@@ -262,6 +296,8 @@ interface Window {
   };
   readonly LichessChartRatingHistory?: any;
   readonly LichessKeyboardMove?: any;
+  readonly LichessVoiceMove?: any;
+  readonly LichessVoicePlugin: { mic: Voice.Microphone; vosk: any };
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

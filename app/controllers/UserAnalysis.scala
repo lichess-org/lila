@@ -178,4 +178,4 @@ final class UserAnalysis(
     }
 
   def help = Open:
-    Ok(html.site.keyboardHelpModal.analyse(getBool("study"))).toFuccess
+    Ok(html.site.helpModal.analyse(getBool("study"))).toFuccess

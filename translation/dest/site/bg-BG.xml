@@ -209,6 +209,7 @@
   <string name="forgotPassword">Забравена парола?</string>
   <string name="error.weakPassword">Тази парола е често срещана и несигурна</string>
   <string name="error.namePassword">Моля, не използвайте потребителското си име като парола.</string>
+  <string name="blankedPassword">Използвали сте същата парола в друг сайт и той е бил компрометиран. За да гарантираме сигурността на вашия акаунт в Lichess, трябва да зададете нова парола. Благодарим ви за разбирането.</string>
   <string name="youAreLeavingLichess">Напускате Lichess</string>
   <string name="neverTypeYourPassword">Никога не използвайте паролата си за Lichess в друг сайт!</string>
   <string name="proceedToX">Продължи към %s</string>
@@ -864,6 +865,8 @@
   <string name="useTheReportForm">използвайте формуляра за докладване</string>
   <string name="toRequestSupport">За да поискате помощ, %1$s</string>
   <string name="tryTheContactPage">опитайте страницата за контакти</string>
+  <string name="makeSureToRead">Моля прочетете %1$s</string>
+  <string name="theForumEtiquette">правилата за етикет на форума</string>
   <string name="thisTopicIsArchived">Тази тема е архивирана и не може да получава повече мнения.</string>
   <string name="joinTheTeamXToPost">Присъединете се към %1$s, за да публикувате в този форум</string>
   <string name="teamNamedX">отбора %1$s</string>

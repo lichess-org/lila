@@ -146,7 +146,6 @@ final class Env(
   lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
   lazy val pageCache     = wire[http.PageCache]
 
-  @annotation.nowarn("msg=unused")
   private val tryDailyPuzzle: lila.puzzle.DailyPuzzle.Try = () =>
     Future {
       puzzle.daily.get
@@ -159,7 +158,6 @@ final class Env(
   system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
 end Env
 
-@annotation.nowarn("msg=unused")
 final class EnvBoot(
     config: Configuration,
     environment: Environment,

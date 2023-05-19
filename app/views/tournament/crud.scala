@@ -9,7 +9,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
-import lila.tournament.{ Tournament, TournamentForm }
+import lila.tournament.Tournament
 import lila.gathering.GatheringClock
 
 object crud:

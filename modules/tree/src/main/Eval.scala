@@ -14,36 +14,39 @@ case class Eval(
 
   def invert = copy(cp = cp.map(_.invert), mate = mate.map(_.invert))
 
-  def score: Option[Eval.Score] = cp.map(Eval.Score.cp(_)) orElse mate.map(Eval.Score.mate(_))
+  def score: Option[Score] = cp.map(Score.Cp(_)) orElse mate.map(Score.Mate(_))
 
   def forceAsCp: Option[Eval.Cp] = cp orElse mate.map {
     case m if m.negative => Eval.Cp(Int.MinValue - m.value)
     case m               => Eval.Cp(Int.MaxValue - m.value)
   }
 
+enum Score:
+  case Cp(c: Eval.Cp)
+  case Mate(m: Eval.Mate)
+
+  val checkmate: Score = Mate(Eval.Mate(0))
+
+  inline def fold[A](w: Eval.Cp => A, b: Eval.Mate => A): A = this match
+    case Cp(cp)     => w(cp)
+    case Mate(mate) => b(mate)
+
+  inline def cp: Option[Eval.Cp]     = fold(Some(_), _ => None)
+  inline def mate: Option[Eval.Mate] = fold(_ => None, Some(_))
+
+  inline def isCheckmate = mate.exists(_.value == 0)
+  inline def mateFound   = mate.isDefined
+
+  inline def invert: Score                  = fold(c => Cp(c.invert), m => Mate(m.invert))
+  inline def invertIf(cond: Boolean): Score = if cond then invert else this
+
+  def eval: Eval = Eval(cp, mate, None)
+
+object Score:
+  def cp(cp: Int): Score      = Cp(Eval.Cp(cp))
+  def mate(mate: Int): Score  = Mate(Eval.Mate(mate))
+
 object Eval:
-
-  opaque type Score = Either[Cp, Mate]
-  object Score extends TotalWrapper[Score, Either[Cp, Mate]]:
-
-    inline def cp(x: Cp): Score     = Score(Left(x))
-    inline def mate(y: Mate): Score = Score(Right(y))
-    val checkmate: Either[Cp, Mate] = Right(Mate(0))
-
-    extension (score: Score)
-
-      inline def cp: Option[Cp]     = score.value.left.toOption
-      inline def mate: Option[Mate] = score.value.toOption
-
-      inline def isCheckmate = score.value == Score.checkmate
-      inline def mateFound   = score.value.isRight
-
-      inline def invert = Score(score.value.left.map(Cp.invert(_)).map(Mate.invert(_)))
-      inline def invertIf(cond: Boolean): Score = if (cond) invert else score
-
-      def eval: Eval = Eval(cp, mate, None)
-
-  end Score
 
   opaque type Cp = Int
   object Cp extends OpaqueInt[Cp]:
@@ -88,9 +91,5 @@ object Eval:
 object JsonHandlers:
   import play.api.libs.json.*
   import lila.common.Json.given
-
-  private given Writes[Uci] = Writes { uci =>
-    JsString(uci.uci)
-  }
 
   given Writes[Eval] = Json.writes[Eval]

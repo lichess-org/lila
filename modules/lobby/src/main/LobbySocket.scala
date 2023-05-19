@@ -147,8 +147,8 @@ final class LobbySocket(
     key = "lobby.hook_pool.member"
   )
 
-  private def HookPoolLimit(member: Member, cost: Int, msg: => String)(op: => Unit) =
-    poolLimitPerSri(k = member.sri.value, cost = cost, msg = msg)(op) {}
+  private def HookPoolLimit(member: Member, cost: Int, msg: => String) =
+    poolLimitPerSri.zero[Unit](k = member.sri.value, cost = cost, msg = msg)
 
   def controller(member: Member): SocketController =
     case ("join", o) if !member.bot =>

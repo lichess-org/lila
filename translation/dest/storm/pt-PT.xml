@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Faz um lance para começar</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Tu ogas com as peças brancas em todos os problemas</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Tu jogas com as peças pretas em todos os problemas</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Jogas com as peças brancas em todos os problemas</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Jogas com as peças pretas em todos os problemas</string>
   <string name="puzzlesSolved">problemas resolvidos</string>
   <string name="newDailyHighscore">Novo recorde diário!</string>
   <string name="newWeeklyHighscore">Novo recorde semanal!</string>
@@ -24,7 +24,7 @@
   <string name="accuracy">Precisão</string>
   <string name="combo">Combo</string>
   <string name="time">Tempo</string>
-  <string name="timePerMove">Tempo por lance</string>
+  <string name="timePerMove">Tempo por jogada</string>
   <string name="highestSolved">Problema mais difícil resolvido</string>
   <string name="puzzlesPlayed">Problemas jogados</string>
   <string name="newRun">Nova partida (tecla: espaço)</string>
@@ -35,21 +35,21 @@
   <string name="runs">Partidas</string>
   <string name="getReady">Preparar!</string>
   <string name="waitingForMorePlayers">À espera de mais jogadores...</string>
-  <string name="raceComplete">Corrida concluída!</string>
+  <string name="raceComplete">Race concluída!</string>
   <string name="spectating">A assistir</string>
   <string name="joinTheRace">Junta-te à corrida!</string>
   <string name="startTheRace">Começar a corrida</string>
-  <string name="yourRankX">A tua posição: %s</string>
+  <string name="yourRankX">A tua pontuação: %s</string>
   <string name="waitForRematch">Espera pela desforra</string>
   <string name="nextRace">Próxima corrida</string>
   <string name="joinRematch">Juntar-se à desforra</string>
-  <string name="waitingToStart">Esperando pelo início</string>
+  <string name="waitingToStart">À espera de começar</string>
   <string name="createNewGame">Criar um novo jogo</string>
   <string name="joinPublicRace">Junta-te a uma corrida pública</string>
   <string name="raceYourFriends">Corre contra os teus amigos</string>
   <string name="skip">ignorar</string>
   <string name="skipHelp">Pode pular um movimento por corrida:</string>
-  <string name="skipExplanation">Pule este lance para preservar seu combo! Funciona apenas uma vez por corrida.</string>
+  <string name="skipExplanation">Passa à frente esta jogada para preservares o teu combo! Só podes fazê-lo apenas uma vez por Race.</string>
   <string name="failedPuzzles">Desafios falhados</string>
   <string name="slowPuzzles">Desafios lentos</string>
   <string name="skippedPuzzle">Desafios saltados</string>

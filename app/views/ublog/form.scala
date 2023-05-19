@@ -47,7 +47,7 @@ object form:
           standardFlash,
           boxTop(
             h1(
-              if (ctx isUserId post.created.by) trans.ublog.editYourBlogPost()
+              if ctx is post.created.by then trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
             ),
             a(href := postView.urlOfPost(post), dataIcon := "", cls := "text", targetBlank)("Preview")
@@ -78,7 +78,7 @@ object form:
       form3.split(
         div(cls := "form-group form-half")(formImage(post)),
         div(cls := "form-group form-half")(
-          if (ctx isUserId post.created.by)
+          if ctx is post.created.by then
             frag(
               p(trans.ublog.uploadAnImageForYourPost()),
               p(
@@ -103,9 +103,8 @@ object form:
               form3.file.image("image")
             )
           else
-            post.image.isDefined option submitButton(cls := "button button-red confirm")(
+            post.image.isDefined option submitButton(cls := "button button-red confirm"):
               trans.ublog.deleteImage()
-            )
         )
       )
     )

@@ -86,7 +86,7 @@ private object AuthorizationApi:
         expires = r.get[Instant](F.expires)
       )
 
-    def writes(@annotation.nowarn w: BSON.Writer, o: PendingAuthorization) =
+    def writes(w: BSON.Writer, o: PendingAuthorization) =
       $doc(
         F.hashedCode         -> o.hashedCode,
         F.clientId           -> o.clientId.value,

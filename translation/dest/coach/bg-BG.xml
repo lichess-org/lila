@@ -12,13 +12,23 @@
   <string name="hourlyRate">Цена за час</string>
   <string name="availability">Достъпност</string>
   <string name="accepting">Приемащ ученици</string>
+  <string name="notAccepting">В момента не приема студенти</string>
+  <string name="xCoachesStudents">%s тренира ученици по шах</string>
   <string name="viewXProfile">Вижте Lichess профила на %s</string>
+  <string name="sendPM">Изпратете лично съобщение</string>
   <string name="aboutMe">За мен</string>
   <string name="playingExperience">Игрален опит</string>
   <string name="teachingExperience">Опит като учител</string>
   <string name="otherExperiences">Други опити</string>
   <string name="bestSkills">Най-добри способности</string>
+  <string name="teachingMethod">Методика на преподаване</string>
   <string name="youtubeVideos">YouTube видеа</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Един коментар от ученик</item>
+    <item quantity="other">%s коментари на ученици</item>
+  </plurals>
+  <string name="thankYouForReview">Благодаря ти за коментара!</string>
+  <string name="xWillApproveIt">%s ще го одобри много скоро или модератор ще го разгледа.</string>
   <string name="reviewCoach">Оставете мнение за треньора</string>
   <string name="describeExperienceWith">Опишете Вашия опит с преподаването на %s</string>
 </resources>

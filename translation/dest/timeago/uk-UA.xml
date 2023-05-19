@@ -43,7 +43,7 @@
     <item quantity="many">за %s років</item>
     <item quantity="other">за %s років</item>
   </plurals>
-  <string name="rightNow">просто зараз</string>
+  <string name="rightNow">прямо зараз</string>
   <plurals name="nbSecondsAgo">
     <item quantity="one">%s секунду тому</item>
     <item quantity="few">%s секунди тому</item>

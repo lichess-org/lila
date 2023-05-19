@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antal halvtrekk fram til neste brikketaking eller bondetrekk</string>
   <string name="noGameFound">Fann ikkje noko parti</string>
+  <string name="maxDepthReached">Maksimal djupn er nådd!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
   <string name="openings">Opningar</string>
   <string name="openingExplorer">Opningsbok</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Attende til turneringa</string>
+  <string name="noDrawBeforeSwissLimit">I sveitsarturneringer må det spelast minst 30 trekk før det er lov å tilby remis.</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rangert parti</item>
@@ -866,6 +868,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="useTheReportForm">bruk rapportskjemaet</string>
   <string name="toRequestSupport">For å få hjelp, %1$s</string>
   <string name="tryTheContactPage">prøv kontaktsida</string>
+  <string name="makeSureToRead">Sørg for at du les %1$s</string>
+  <string name="theForumEtiquette">skikk og bruk i forumet</string>
   <string name="thisTopicIsArchived">Dette emnet er flytta til arkivet og kan ikkje lengre svarast på.</string>
   <string name="joinTheTeamXToPost">Meld deg på %1$s, for å poste meldingar i dette forumet</string>
   <string name="teamNamedX">%1$s lag</string>

@@ -2,7 +2,7 @@ package lila
 
 object log:
 
-  def apply(name: String): Logger = new Logger(name)
+  def apply(name: String): Logger = Logger(name)
 
   final class Logger(name: String) extends play.api.LoggerLike:
 

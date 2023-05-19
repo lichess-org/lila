@@ -35,7 +35,7 @@ final class Importer(env: Env) extends LilaController(env):
             api = _ => BadRequest(jsonError("Invalid PGN")).toFuccess
           ),
         data =>
-          ImportRateLimitPerIP(ctx.ip, cost = 1) {
+          ImportRateLimitPerIP(ctx.ip, rateLimitedFu, cost = 1):
             doImport(data, ctx.me) flatMap {
               case Right(game) =>
                 ctx.me.filter(_ => data.analyse.isDefined && game.analysable) ?? { me =>
@@ -53,12 +53,11 @@ final class Importer(env: Env) extends LilaController(env):
                 } inject Redirect(routes.Round.watcher(game.id, "white"))
               case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error).toFuccess
             }
-          }(rateLimitedFu)
       )
 
   def apiSendGame =
     AnonOrScopedBody(parse.anyContent)() { req ?=> me =>
-      ImportRateLimitPerIP(req.ipAddress, cost = if me.isDefined then 1 else 2) {
+      ImportRateLimitPerIP(req.ipAddress, rateLimitedFu, cost = if me.isDefined then 1 else 2):
         env.importer.forms.importForm
           .bindFromRequest()(req, formBinding)
           .fold(
@@ -73,7 +72,6 @@ final class Importer(env: Env) extends LilaController(env):
                       "url" -> s"${env.net.baseUrl}/${game.id}"
                     )
           )
-      }(rateLimitedFu)
     }
 
   private def doImport(

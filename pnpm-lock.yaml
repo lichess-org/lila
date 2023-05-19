@@ -609,6 +609,9 @@ importers:
       tree:
         specifier: workspace:*
         version: link:../tree
+      voice:
+        specifier: workspace:*
+        version: link:../voice
 
   ui/racer:
     dependencies:
@@ -663,6 +666,9 @@ importers:
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
+      voice:
+        specifier: workspace:*
+        version: link:../voice
 
   ui/serviceWorker:
     dependencies:
@@ -900,6 +906,33 @@ importers:
       lichess-pgn-viewer:
         specifier: ^1.5.5
         version: 1.5.5
+
+  ui/voice:
+    dependencies:
+      '@jest/globals':
+        specifier: ^29.3.1
+        version: 29.3.1
+      '@types/audioworklet':
+        specifier: ^0.0.36
+        version: 0.0.36
+      '@types/cash':
+        specifier: workspace:*
+        version: link:../@types/cash
+      '@types/lichess':
+        specifier: workspace:*
+        version: link:../@types/lichess
+      chess:
+        specifier: workspace:*
+        version: link:../chess
+      common:
+        specifier: workspace:*
+        version: link:../common
+      snabbdom:
+        specifier: ^3.5.1
+        version: 3.5.1
+      vosk-browser:
+        specifier: ^0.0.8
+        version: 0.0.8
 
 packages:
 
@@ -2651,7 +2684,7 @@ packages:
       '@jest/schemas': 29.0.0
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       '@types/yargs': 17.0.17
       chalk: 4.1.2
     dev: false
@@ -2749,6 +2782,10 @@ packages:
     engines: {node: '>= 10'}
     dev: false
 
+  /@types/audioworklet@0.0.36:
+    resolution: {integrity: sha512-aEE9vSGLA6fF4g9zp6Y2q2UE6GWMYliksQ3VSkR+5n87GqbbbeFiFRwoIBvN5ojc5i6lkIeHfzzNhMdQVNiWMg==}
+    dev: false
+
   /@types/babel__core@7.1.20:
     resolution: {integrity: sha512-PVb6Bg2QuscZ30FvOU7z4guG6c926D9YRvOxEaelzndpMsvP+YM74Q/dAFASpg2l6+XLalxSGxcq/lrgYWZtyQ==}
     dependencies:
@@ -2801,7 +2838,7 @@ packages:
   /@types/graceful-fs@4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
     dev: false
 
   /@types/highcharts@4.2.57:
@@ -4280,7 +4317,7 @@ packages:
       '@jest/expect': 28.1.3
       '@jest/test-result': 28.1.3
       '@jest/types': 28.1.3
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       chalk: 4.1.2
       co: 4.6.0
       dedent: 0.7.0
@@ -4430,7 +4467,7 @@ packages:
       '@jest/environment': 28.1.3
       '@jest/fake-timers': 28.1.3
       '@jest/types': 28.1.3
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       jest-mock: 28.1.3
       jest-util: 28.1.3
     dev: false
@@ -4470,7 +4507,7 @@ packages:
     dependencies:
       '@jest/types': 29.3.1
       '@types/graceful-fs': 4.1.5
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.10
@@ -4744,7 +4781,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.3.1
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       chalk: 4.1.2
       ci-info: 3.7.0
       graceful-fs: 4.2.10
@@ -4781,7 +4818,7 @@ packages:
     resolution: {integrity: sha512-CqRA220YV/6jCo8VWvAt1KKx6eek1VIHMPeLEbpcfSfkEeWyBNppynM/o6q+Wmw+sOhos2ml34wZbSX3G13//g==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     dependencies:
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: false
@@ -4790,7 +4827,7 @@ packages:
     resolution: {integrity: sha512-lY4AnnmsEWeiXirAIA0c9SDPbuCBq8IYuDVL8PMm0MZ2PEs2yPvRA/J64QBXuZp7CYKrDM/rmNrc9/i3KJQncw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       jest-util: 29.3.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -5909,6 +5946,11 @@ packages:
       requires-port: 1.0.0
     dev: false
 
+  /uuid@9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
+
   /v8-to-istanbul@9.0.1:
     resolution: {integrity: sha512-74Y4LqY74kLE6IFyIjPtkSTWzUZmj8tdHT9Ii/26dvQ6K9Dl2NbEfj0XgU2sHCtKgt5VupqhlO/5aWuqS+IY1w==}
     engines: {node: '>=10.12.0'}
@@ -5916,6 +5958,12 @@ packages:
       '@jridgewell/trace-mapping': 0.3.17
       '@types/istanbul-lib-coverage': 2.0.4
       convert-source-map: 1.9.0
+    dev: false
+
+  /vosk-browser@0.0.8:
+    resolution: {integrity: sha512-df9MuChirUGKxP/+4k8tBV6hJOic8IRdJXv64+ET0Ue5CddOzLZINiHOWCka765gBzHJWNtQKgaYakS0FXZIJA==}
+    dependencies:
+      uuid: 9.0.0
     dev: false
 
   /w3c-hr-time@1.0.2:
