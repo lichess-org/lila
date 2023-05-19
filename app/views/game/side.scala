@@ -65,15 +65,13 @@ object side:
                   small(
                     trans.importedByX(userIdLink(importUser.some, None, withOnline = false))
                   ),
-                  ctx.me.filter(_.id is importUser).map { _ =>
-                    form(cls := "delete", method := "post", action := routes.Game.delete(game.id)) {
+                  ctx.me.is(importUser) option
+                    form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                       button(
                         cls          := "link text button-thin confirm",
                         attr("type") := "submit",
                         title        := trans.deleteThisImportedGame.txt()
                       )(trans.delete.txt())
-                    }
-                  }
                 )
               }
             )
