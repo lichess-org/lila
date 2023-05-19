@@ -91,6 +91,7 @@
     <item quantity="one">%s бащдаб хъурщиялдаса мат</item>
     <item quantity="other">%s бащдаб хъурщиялдаса мат</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' бащдаб хъурщиялъул рикӀкӀен хадусеб чӀвай щвезегӀан яги пешка хъурщизегӀан кьочӀое босун</string>
   <string name="noGameFound">ХӀаял ратичӀо</string>
   <string name="openings">Байбихьиял</string>
   <string name="openingExplorer">Байбихьиязул база</string>
@@ -389,6 +390,7 @@
   <string name="averageOpponent">Гьоркьохъев дандеяв</string>
   <string name="boardEditor">Хъарщил редактор</string>
   <string name="setTheBoard">Хъарщи чӀезабизе</string>
+  <string name="chess960StartPosition">Chess960 байбихьул бакӀал: %s</string>
   <string name="isPrivate">Къараб</string>
   <string name="xRating">%s рейтинг</string>
   <string name="profile">Дур гьумер</string>
