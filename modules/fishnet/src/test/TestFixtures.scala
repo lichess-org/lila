@@ -18,7 +18,7 @@ import chess.format.pgn.{
   ParsedPgn
 }
 import chess.format.{ EpdFen, Uci }
-import chess.variant.Standard
+import chess.variant.{ Variant, Standard }
 import chess.{ Clock, Node, Ply, MoveOrDrop, Situation }
 import chess.MoveOrDrop.*
 
@@ -35,14 +35,19 @@ case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expec
   val annotator                           = Annotator(NetDomain("l.org"))
   val analysisBuilder                     = AnalysisBuilder(FishnetEvalCache.mock)
 
+  lazy val parsedPgn = Parser.full(pgn).toOption.get
+  lazy val dumped    = parsedPgn.toPgn
+  val variant        = parsedPgn.tags.variant.getOrElse(Standard)
+  val fen            = parsedPgn.tags.fen.getOrElse(variant.initialFen)
+  lazy val chessGame = chess.Game(
+    variantOption = variant.some,
+    fen = fen.some
+  )
   lazy val gameWithMoves =
-    val (_, xs, _) = chess.Replay.gameMoveWhileValid(sans, EpdFen.initial, Standard)
+    val (_, xs, _) = chess.Replay.gameMoveWhileValid(sans, fen, variant)
     val game       = xs.last._1
     val moves      = xs.map(_._2.uci.uci).mkString(" ")
     (game, moves)
-
-  // Parse pgn and then convert it to Pgn directly
-  lazy val dumped = Parser.full(pgn).toOption.get.toPgn
 
   def makeGame(g: chess.Game) =
     lila.game.Game
@@ -68,12 +73,12 @@ case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expec
     val userId = UserId("user")
     val sender = Work.Sender(userId, None, false, false)
     val gameId = "TaHSAsYD"
-    val game   = Work.Game(gameId, None, None, Standard, gameWithMoves._2)
+    val game   = Work.Game(gameId, Some(fen), None, variant, gameWithMoves._2)
     val analysis = Work.Analysis(
       Work.Id("workid"),
       sender,
       game,
-      Ply.initial,
+      chessGame.ply,
       0,
       None,
       None,
@@ -88,6 +93,8 @@ object TestFixtures:
   lazy val testCases = List(
     TestCase(sans1, PgnStr(pgn1), fish1, PgnStr(expected1)),
     TestCase(sans2, PgnStr(pgn2), fish2, PgnStr(expected2)),
+    TestCase(sans3, PgnStr(pgn3), fish3, PgnStr(expected3)),
+    TestCase(sans4, PgnStr(pgn4), fish4, PgnStr(expected4))
   )
 
   case class Context(sit: Situation, ply: Ply)
@@ -134,7 +141,7 @@ object TestFixtures:
 
   private def makeChessGame(tags: Tags) =
     val g = chess.Game(
-      variantOption = tags(_.Variant) flatMap chess.variant.Variant.byName,
+      variantOption = tags.variant,
       fen = tags.fen
     )
     g.copy(
@@ -1153,23 +1160,21 @@ object TestFixtures:
 }
 """.trim
 
-
   val pgn2 =
-  """
+    """
   1. d4 Nf6 2. Nf3 d5 3. c4 e6 4. Nc3 c5 5. e3 Nc6 6. cxd5 exd5 7. Bb5 cxd4 8. Nxd4 Bd7 9. O-O Bd6 10. Nf3 Be6 11. b3 a6 12. Bd3 Ne5 13. Nxe5 Bxe5 14. Bb2 Rc8 15. Rc1 O-O 16. f4 Bc7 17. Ne2 Bb6 18. Bd4 Bxd4 19. Nxd4 Qa5 20. Qe2 Rfe8 21. h3 Bd7 22. Rxc8 Rxc8 23. Qb2 Qc5 24. a4 a5 25. Qd2 b6 26. Rb1 Qa3 27. Kh2 h6 28. Rb2 Qe7 29. Rc2 Rc5 30. Nf3 Rxc2 31. Bxc2 Qc5 32. Bd3 Kf8 33. Nd4 Kg8 34. Kg1 Kf8 35. Kf2 Ke7 36. Qb2 Kf8 37. Nc2 Ne4+ 38. Bxe4 dxe4 39. Nd4 Bc6 40. Qe2 Qc3 41. Qa6 Qd2+ 42. Ne2 Qb4 43. Qc8+ Be8 44. Qc2 Bd7 45. Nd4 f5 46. Qc7 Qd2+ 47. Ne2 Be6 48. Qxb6 Kf7 49. Qd4 Qa2 50. Qa7+ Kg8 51. Qa8+ Kh7 52. Qxa5 Kh8 53. Qd8+ Kh7 54. Qa5 Kh8 55. b4 Bc4 56. Qd8+ Kh7 57. Qd1 Bb3 58. Qd7 Be6 59. Qb5 Kh8 60. Qc5 g6 61. Ke1 Kg8 62. Qd6 Kf7 63. Qd2 Qxa4 64. Nd4 Bc4 65. Kf2 h5 66. Kg3 Qa3 67. b5 Qd3 68. Qc1 Bxb5 69. Qc7+ Kf8 70. Qc5+ { White wins. } 1-0
   """
 
   val sans2 =
-  """
+    """
   d4 Nf6 Nf3 d5 c4 e6 Nc3 c5 e3 Nc6 cxd5 exd5 Bb5 cxd4 Nxd4 Bd7 O-O Bd6 Nf3 Be6 b3 a6 Bd3 Ne5 Nxe5 Bxe5 Bb2 Rc8 Rc1 O-O f4 Bc7 Ne2 Bb6 Bd4 Bxd4 Nxd4 Qa5 Qe2 Rfe8 h3 Bd7 Rxc8 Rxc8 Qb2 Qc5 a4 a5 Qd2 b6 Rb1 Qa3 Kh2 h6 Rb2 Qe7 Rc2 Rc5 Nf3 Rxc2 Bxc2 Qc5 Bd3 Kf8 Nd4 Kg8 Kg1 Kf8 Kf2 Ke7 Qb2 Kf8 Nc2 Ne4+ Bxe4 dxe4 Nd4 Bc6 Qe2 Qc3 Qa6 Qd2+ Ne2 Qb4 Qc8+ Be8 Qc2 Bd7 Nd4 f5 Qc7 Qd2+ Ne2 Be6 Qxb6 Kf7 Qd4 Qa2 Qa7+ Kg8 Qa8+ Kh7 Qxa5 Kh8 Qd8+ Kh7 Qa5 Kh8 b4 Bc4 Qd8+ Kh7 Qd1 Bb3 Qd7 Be6 Qb5 Kh8 Qc5 g6 Ke1 Kg8 Qd6 Kf7 Qd2 Qxa4 Nd4 Bc4 Kf2 h5 Kg3 Qa3 b5 Qd3 Qc1 Bxb5 Qc7+ Kf8 Qc5+
   """.trim
-        .split(" ")
-        .toList
-        .map(SanStr(_))
-
+      .split(" ")
+      .toList
+      .map(SanStr(_))
 
   val fish2 =
-  """
+    """
   {
     "fishnet": {
       "version": "2.6.11-dev",
@@ -2584,7 +2589,1177 @@ object TestFixtures:
   """
 
   val expected2 =
-  """1. d4 { [%eval 0.29] } 1... Nf6 { [%eval 0.35] } 2. Nf3 { [%eval 0.26] } 2... d5 { [%eval 0.3] } 3. c4 { [%eval 0.4] } 3... e6 { [%eval 0.4] } 4. Nc3 { [%eval 0.24] } 4... c5 { [%eval 0.31] } 5. e3 { [%eval 0.24] } 5... Nc6 { [%eval 0.09] } { D32 Tarrasch Defense: Symmetrical Variation } 6. cxd5 { [%eval 0.2] } 6... exd5 { [%eval 0.13] } 7. Bb5 { [%eval 0.16] } 7... cxd4 { [%eval 0.12] } 8. Nxd4 { [%eval 0.15] } 8... Bd7 { [%eval 0.12] } 9. O-O { [%eval 0.13] } 9... Bd6 { [%eval 0.12] } 10. Nf3 { [%eval 0.16] } 10... Be6 { [%eval 0.06] } 11. b3 { [%eval 0.03] } 11... a6 { [%eval 0.12] } 12. Bd3 { [%eval 0.14] } 12... Ne5 { [%eval 0.14] } 13. Nxe5 { [%eval 0.06] } 13... Bxe5 { [%eval 0.11] } 14. Bb2 { [%eval 0.18] } 14... Rc8 { [%eval 0.25] } 15. Rc1 { [%eval 0.0] } 15... O-O { [%eval 0.04] } 16. f4 { [%eval -0.06] } 16... Bc7 { [%eval 0.23] } 17. Ne2 { [%eval 0.1] } 17... Bb6 { [%eval 0.09] } 18. Bd4 { [%eval 0.09] } 18... Bxd4 { [%eval 0.21] } 19. Nxd4 { [%eval 0.13] } 19... Qa5 { [%eval -0.07] } 20. Qe2 { [%eval 0.23] } 20... Rfe8 { [%eval 0.08] } 21. h3 { [%eval 0.09] } 21... Bd7 { [%eval 0.08] } 22. Rxc8 { [%eval 0.07] } 22... Rxc8 { [%eval 0.05] } 23. Qb2 { [%eval 0.11] } 23... Qc5 { [%eval 0.2] } 24. a4 { [%eval 0.0] } 24... a5 { [%eval 0.0] } 25. Qd2 { [%eval -0.05] } 25... b6 { [%eval 0.0] } 26. Rb1 { [%eval 0.0] } 26... Qa3 { [%eval 0.0] } 27. Kh2 { [%eval 0.02] } 27... h6 { [%eval 0.0] } 28. Rb2 { [%eval 0.0] } 28... Qe7 { [%eval 0.0] } 29. Rc2 { [%eval 0.01] } 29... Rc5 { [%eval 0.04] } 30. Nf3 { [%eval -0.03] } 30... Rxc2 { [%eval 0.0] } 31. Bxc2 { [%eval 0.0] } 31... Qc5 { [%eval 0.0] } 32. Bd3 { [%eval 0.0] } 32... Kf8 { [%eval 0.0] } 33. Nd4 { [%eval 0.0] } 33... Kg8 { [%eval 0.05] } 34. Kg1 { [%eval 0.06] } 34... Kf8 { [%eval 0.04] } 35. Kf2 { [%eval 0.0] } 35... Ke7 { [%eval 0.1] } 36. Qb2 { [%eval 0.04] } 36... Kf8 { [%eval 0.04] } 37. Nc2 { [%eval 0.02] } 37... Ne4+ { [%eval 0.05] } 38. Bxe4 { [%eval 0.02] } 38... dxe4 { [%eval 0.04] } 39. Nd4 { [%eval 0.0] } 39... Bc6 { [%eval 0.0] } 40. Qe2 { [%eval 0.06] } 40... Qc3 { [%eval 0.04] } 41. Qa6 { [%eval 0.22] } 41... Qd2+ { [%eval 0.2] } 42. Ne2 { [%eval 0.18] } 42... Qb4 { [%eval 0.34] } 43. Qc8+ { [%eval 0.34] } 43... Be8 { [%eval 0.37] } 44. Qc2 { [%eval 0.45] } 44... Bd7 { [%eval 0.61] } 45. Nd4 { [%eval 0.67] } 45... f5?! { (0.67 → 1.36) Inaccuracy. Kg8 was best. } { [%eval 1.36] } (45... Kg8) 46. Qc7 { [%eval 1.46] } 46... Qd2+ { [%eval 1.34] } 47. Ne2 { [%eval 1.42] } 47... Be6 { [%eval 1.44] } 48. Qxb6 { [%eval 1.24] } 48... Kf7 { [%eval 1.29] } 49. Qd4 { [%eval 1.5] } 49... Qa2 { [%eval 1.68] } 50. Qa7+ { [%eval 1.21] } 50... Kg8 { [%eval 2.04] } 51. Qa8+ { [%eval 2.22] } 51... Kh7 { [%eval 2.25] } 52. Qxa5 { [%eval 1.61] } 52... Kh8 { [%eval 1.91] } 53. Qd8+?! { (1.91 → 1.23) Inaccuracy. Qa8+ was best. } { [%eval 1.23] } (53. Qa8+) 53... Kh7 { [%eval 2.19] } 54. Qa5 { [%eval 2.07] } 54... Kh8 { [%eval 1.9] } 55. b4 { [%eval 2.11] } 55... Bc4 { [%eval 2.2] } 56. Qd8+ { [%eval 2.16] } 56... Kh7 { [%eval 2.24] } 57. Qd1 { [%eval 2.24] } 57... Bb3 { [%eval 2.58] } 58. Qd7 { [%eval 2.9] } 58... Be6 { [%eval 3.2] } 59. Qb5 { [%eval 3.26] } 59... Kh8 { [%eval 3.34] } 60. Qc5 { [%eval 3.57] } 60... g6 { [%eval 3.82] } 61. Ke1 { [%eval 4.06] } 61... Kg8 { [%eval 4.21] } 62. Qd6 { [%eval 3.69] } 62... Kf7 { [%eval 4.59] } 63. Qd2?! { (4.59 → 3.00) Inaccuracy. Nd4 was best. } { [%eval 3.0] } (63. Nd4 Bc4 64. b5 h5 65. b6 Kg7 66. Qb4 Ba6 67. b7 Qa1+ 68. Kf2 Qf1+ 69. Kg3 Bxb7) 63... Qxa4 { [%eval 3.12] } 64. Nd4 { [%eval 2.64] } 64... Bc4?! { (2.64 → 3.39) Inaccuracy. g5 was best. } { [%eval 3.39] } (64... g5 65. fxg5 hxg5 66. b5 Qa3 67. Kf2 Qc5 68. Qe2 f4 69. Qh5+ Ke7 70. Qh7+ Kd6 71. Qxe4) 65. Kf2 { [%eval 3.54] } 65... h5 { [%eval 4.31] } 66. Kg3 { [%eval 3.87] } 66... Qa3 { [%eval 4.38] } 67. b5 { [%eval 3.9] } 67... Qd3?! { (3.90 → 4.96) Inaccuracy. Bd5 was best. } { [%eval 4.96] } (67... Bd5 68. Kh2) 68. Qc1 { [%eval 5.16] } 68... Bxb5 { [%eval 5.48] } 69. Qc7+ { [%eval 5.44] } 69... Kf8 { [%eval 6.48] } 70. Qc5+ { [%eval 5.25] } { White wins. }
+    """1. d4 { [%eval 0.29] } 1... Nf6 { [%eval 0.35] } 2. Nf3 { [%eval 0.26] } 2... d5 { [%eval 0.3] } 3. c4 { [%eval 0.4] } 3... e6 { [%eval 0.4] } 4. Nc3 { [%eval 0.24] } 4... c5 { [%eval 0.31] } 5. e3 { [%eval 0.24] } 5... Nc6 { [%eval 0.09] } { D32 Tarrasch Defense: Symmetrical Variation } 6. cxd5 { [%eval 0.2] } 6... exd5 { [%eval 0.13] } 7. Bb5 { [%eval 0.16] } 7... cxd4 { [%eval 0.12] } 8. Nxd4 { [%eval 0.15] } 8... Bd7 { [%eval 0.12] } 9. O-O { [%eval 0.13] } 9... Bd6 { [%eval 0.12] } 10. Nf3 { [%eval 0.16] } 10... Be6 { [%eval 0.06] } 11. b3 { [%eval 0.03] } 11... a6 { [%eval 0.12] } 12. Bd3 { [%eval 0.14] } 12... Ne5 { [%eval 0.14] } 13. Nxe5 { [%eval 0.06] } 13... Bxe5 { [%eval 0.11] } 14. Bb2 { [%eval 0.18] } 14... Rc8 { [%eval 0.25] } 15. Rc1 { [%eval 0.0] } 15... O-O { [%eval 0.04] } 16. f4 { [%eval -0.06] } 16... Bc7 { [%eval 0.23] } 17. Ne2 { [%eval 0.1] } 17... Bb6 { [%eval 0.09] } 18. Bd4 { [%eval 0.09] } 18... Bxd4 { [%eval 0.21] } 19. Nxd4 { [%eval 0.13] } 19... Qa5 { [%eval -0.07] } 20. Qe2 { [%eval 0.23] } 20... Rfe8 { [%eval 0.08] } 21. h3 { [%eval 0.09] } 21... Bd7 { [%eval 0.08] } 22. Rxc8 { [%eval 0.07] } 22... Rxc8 { [%eval 0.05] } 23. Qb2 { [%eval 0.11] } 23... Qc5 { [%eval 0.2] } 24. a4 { [%eval 0.0] } 24... a5 { [%eval 0.0] } 25. Qd2 { [%eval -0.05] } 25... b6 { [%eval 0.0] } 26. Rb1 { [%eval 0.0] } 26... Qa3 { [%eval 0.0] } 27. Kh2 { [%eval 0.02] } 27... h6 { [%eval 0.0] } 28. Rb2 { [%eval 0.0] } 28... Qe7 { [%eval 0.0] } 29. Rc2 { [%eval 0.01] } 29... Rc5 { [%eval 0.04] } 30. Nf3 { [%eval -0.03] } 30... Rxc2 { [%eval 0.0] } 31. Bxc2 { [%eval 0.0] } 31... Qc5 { [%eval 0.0] } 32. Bd3 { [%eval 0.0] } 32... Kf8 { [%eval 0.0] } 33. Nd4 { [%eval 0.0] } 33... Kg8 { [%eval 0.05] } 34. Kg1 { [%eval 0.06] } 34... Kf8 { [%eval 0.04] } 35. Kf2 { [%eval 0.0] } 35... Ke7 { [%eval 0.1] } 36. Qb2 { [%eval 0.04] } 36... Kf8 { [%eval 0.04] } 37. Nc2 { [%eval 0.02] } 37... Ne4+ { [%eval 0.05] } 38. Bxe4 { [%eval 0.02] } 38... dxe4 { [%eval 0.04] } 39. Nd4 { [%eval 0.0] } 39... Bc6 { [%eval 0.0] } 40. Qe2 { [%eval 0.06] } 40... Qc3 { [%eval 0.04] } 41. Qa6 { [%eval 0.22] } 41... Qd2+ { [%eval 0.2] } 42. Ne2 { [%eval 0.18] } 42... Qb4 { [%eval 0.34] } 43. Qc8+ { [%eval 0.34] } 43... Be8 { [%eval 0.37] } 44. Qc2 { [%eval 0.45] } 44... Bd7 { [%eval 0.61] } 45. Nd4 { [%eval 0.67] } 45... f5?! { (0.67 → 1.36) Inaccuracy. Kg8 was best. } { [%eval 1.36] } (45... Kg8) 46. Qc7 { [%eval 1.46] } 46... Qd2+ { [%eval 1.34] } 47. Ne2 { [%eval 1.42] } 47... Be6 { [%eval 1.44] } 48. Qxb6 { [%eval 1.24] } 48... Kf7 { [%eval 1.29] } 49. Qd4 { [%eval 1.5] } 49... Qa2 { [%eval 1.68] } 50. Qa7+ { [%eval 1.21] } 50... Kg8 { [%eval 2.04] } 51. Qa8+ { [%eval 2.22] } 51... Kh7 { [%eval 2.25] } 52. Qxa5 { [%eval 1.61] } 52... Kh8 { [%eval 1.91] } 53. Qd8+?! { (1.91 → 1.23) Inaccuracy. Qa8+ was best. } { [%eval 1.23] } (53. Qa8+) 53... Kh7 { [%eval 2.19] } 54. Qa5 { [%eval 2.07] } 54... Kh8 { [%eval 1.9] } 55. b4 { [%eval 2.11] } 55... Bc4 { [%eval 2.2] } 56. Qd8+ { [%eval 2.16] } 56... Kh7 { [%eval 2.24] } 57. Qd1 { [%eval 2.24] } 57... Bb3 { [%eval 2.58] } 58. Qd7 { [%eval 2.9] } 58... Be6 { [%eval 3.2] } 59. Qb5 { [%eval 3.26] } 59... Kh8 { [%eval 3.34] } 60. Qc5 { [%eval 3.57] } 60... g6 { [%eval 3.82] } 61. Ke1 { [%eval 4.06] } 61... Kg8 { [%eval 4.21] } 62. Qd6 { [%eval 3.69] } 62... Kf7 { [%eval 4.59] } 63. Qd2?! { (4.59 → 3.00) Inaccuracy. Nd4 was best. } { [%eval 3.0] } (63. Nd4 Bc4 64. b5 h5 65. b6 Kg7 66. Qb4 Ba6 67. b7 Qa1+ 68. Kf2 Qf1+ 69. Kg3 Bxb7) 63... Qxa4 { [%eval 3.12] } 64. Nd4 { [%eval 2.64] } 64... Bc4?! { (2.64 → 3.39) Inaccuracy. g5 was best. } { [%eval 3.39] } (64... g5 65. fxg5 hxg5 66. b5 Qa3 67. Kf2 Qc5 68. Qe2 f4 69. Qh5+ Ke7 70. Qh7+ Kd6 71. Qxe4) 65. Kf2 { [%eval 3.54] } 65... h5 { [%eval 4.31] } 66. Kg3 { [%eval 3.87] } 66... Qa3 { [%eval 4.38] } 67. b5 { [%eval 3.9] } 67... Qd3?! { (3.90 → 4.96) Inaccuracy. Bd5 was best. } { [%eval 4.96] } (67... Bd5 68. Kh2) 68. Qc1 { [%eval 5.16] } 68... Bxb5 { [%eval 5.48] } 69. Qc7+ { [%eval 5.44] } 69... Kf8 { [%eval 6.48] } 70. Qc5+ { [%eval 5.25] } { White wins. }
+
+
+"""
+
+  val pgn3 =
+    """[Event "Thematic World Chess Championship Arena"]
+  [Variant "From Position"]
+  [FEN "r2q1rk1/1bp1bppp/p1np1n2/1p2p3/4P3/1BPPBN1P/PP3PP1/RN1Q1RK1 b - - 0 1"]
+  [SetUp "1"]
+1... Na5 2. Nbd2 c5 3. Bc2 Rc8 4. d4 Qc7 5. d5 Ba8 6. Nh4 Nxd5 7. exd5 Bxh4 8. Qg4 Bf6 9. Qf5 Rfe8 10. Ne4 Bxd5 11. Nxf6+ gxf6 12. Qxf6 Qe7 13. Qf5 f6 14. Be4 Be6 15. Qf3 Nc4 16. b3 Nxe3 17. fxe3 Rf8 18. Bf5 d5 19. Qg4+ Kh8 20. Bxe6 Rcd8 21. Rad1 d4 22. cxd4 cxd4 23. e4 Qg7 24. Qxg7+ Kxg7 25. Kf2 Rd6 26. Bg4 h5 27. Bxh5 Rc8 28. Rd2 Rc3 29. Bg4 a5 30. Be2 Rb6 31. Bd3 a4 32. b4 Kf7 33. h4 Ke7 34. Rh1 Rb8 35. h5 Rh8 36. Bxb5 Kd6 37. Bxa4 { Black wins on time. } Rc4 0-1
+
+
+  """
+
+  val sans3 =
+    """Na5 Nbd2 c5 Bc2 Rc8 d4 Qc7 d5 Ba8 Nh4 Nxd5 exd5 Bxh4 Qg4 Bf6 Qf5 Rfe8 Ne4 Bxd5 Nxf6+ gxf6 Qxf6 Qe7 Qf5 f6 Be4 Be6 Qf3 Nc4 b3 Nxe3 fxe3 Rf8 Bf5 d5 Qg4+ Kh8 Bxe6 Rcd8 Rad1 d4 cxd4 cxd4 e4 Qg7 Qxg7+ Kxg7 Kf2 Rd6 Bg4 h5 Bxh5 Rc8 Rd2 Rc3 Bg4 a5 Be2 Rb6 Bd3 a4 b4 Kf7 h4 Ke7 Rh1 Rb8 h5 Rh8 Bxb5 Kd6 Bxa4 Rc4"""
+      .split(" ")
+      .toList
+      .map(SanStr(_))
+
+  val fish3 =
+    """
+  {
+    "fishnet": {
+      "version": "2.6.11-dev",
+      "apikey": ""
+    },
+    "stockfish": {
+      "flavor": "nnue"
+    },
+    "analysis": [
+      {
+        "pv": "c6a5",
+        "score": {
+          "cp": -6
+        },
+        "depth": 25,
+        "nodes": 1500699,
+        "time": 1542,
+        "nps": 973215
+      },
+      {
+        "pv": "b3c2",
+        "score": {
+          "cp": 13
+        },
+        "depth": 25,
+        "nodes": 1501146,
+        "time": 1564,
+        "nps": 959812
+      },
+      {
+        "pv": "a5b3 d1b3",
+        "score": {
+          "cp": 31
+        },
+        "depth": 25,
+        "nodes": 1500713,
+        "time": 1560,
+        "nps": 961995
+      },
+      {
+        "pv": "b3c2",
+        "score": {
+          "cp": 9
+        },
+        "depth": 23,
+        "nodes": 1500480,
+        "time": 1610,
+        "nps": 931975
+      },
+      {
+        "pv": "a8c8 a2a4 b5b4 c3b4 c5b4 d2b3 d6d5 f3e5 e7d6 e3d4 d5e4 b3a5 d6e5 d4e5",
+        "score": {
+          "cp": -12
+        },
+        "depth": 22,
+        "nodes": 1501391,
+        "time": 1684,
+        "nps": 891562
+      },
+      {
+        "pv": "f1e1 f8e8 a2a4 b5b4 a1c1 e7f8 e3g5 h7h6 g5h4 f8e7 c3b4 c5b4 d2b3 f6h5 b3a5 d8a5 c2b3 c8c1 d1c1 h5f4 c1e3 e7h4",
+        "score": {
+          "cp": 11
+        },
+        "depth": 23,
+        "nodes": 1500918,
+        "time": 1676,
+        "nps": 895535
+      },
+      {
+        "pv": "e5d4 c3d4",
+        "score": {
+          "cp": 5
+        },
+        "depth": 23,
+        "nodes": 1501320,
+        "time": 1692,
+        "nps": 887304
+      },
+      {
+        "pv": "d4d5 g7g6",
+        "score": {
+          "cp": 130
+        },
+        "depth": 21,
+        "nodes": 1500572,
+        "time": 1969,
+        "nps": 762098
+      },
+      {
+        "pv": "f6d7 g2g4 a5c4 d2c4 b5c4 d1e2 d7b6 g1h2 c8b8 f1g1 a6a5 h3h4 b7c8 h4h5 a5a4 g1g3 c7d8 a1h1 g7g5 h5g6 f7g6 g3h3",
+        "score": {
+          "cp": -128
+        },
+        "depth": 23,
+        "nodes": 1500094,
+        "time": 2070,
+        "nps": 724683
+      },
+      {
+        "pv": "b2b3 a8b7 d1e2 c8a8 g2g4 b7c8 g1h1 c8d7 f3h2 h7h6 h3h4 f6h7 g4g5 h6g5 f1g1 f7f6 d2f3 f8f7 g1g3 a5b7 a1g1 c5c4 b3b4 a8f8",
+        "score": {
+          "cp": 168
+        },
+        "depth": 23,
+        "nodes": 1500192,
+        "time": 1999,
+        "nps": 750471
+      },
+      {
+        "pv": "g7g6",
+        "score": {
+          "cp": -127
+        },
+        "depth": 22,
+        "nodes": 1500755,
+        "time": 2012,
+        "nps": 745902
+      },
+      {
+        "pv": "e4d5 e7h4 d1h5 f7f5 h5h4 a8d5 g2g4 d5e6 g4f5 e6f5 c2f5 f8f5 f2f4 e5e4 d2e4 a5c4 e3c1 c8e8 e4g3 f5f7 h4g4 c7e7 g4f3 c4e5 f3g2 e5d3 c1d2 d3b2",
+        "score": {
+          "cp": 275
+        },
+        "depth": 22,
+        "nodes": 1500684,
+        "time": 1798,
+        "nps": 834640
+      },
+      {
+        "pv": "e7h4 d1h5 f7f5 h5h4 a8d5 g2g4 d5e6 g4f5 e6f5 c2f5 f8f5 f2f4 c8e8 f4e5 f5e5 e3f4 e5e6 a1e1 a5c6 e1e6 e8e6 f4g3 h7h6 h4f4 c7e7 f4f3 e7e8 f1f2 c6e5 f3f5 e6g6 g1h2 g6e6",
+        "score": {
+          "cp": -265
+        },
+        "depth": 24,
+        "nodes": 1500178,
+        "time": 1905,
+        "nps": 787495
+      },
+      {
+        "pv": "d1h5 f7f5 h5h4 a8d5 g2g4 d5e6 g4f5 e6f5 c2f5 f8f5 f2f4 c7d7 f4e5 f5e5 e3f4 e5e6 a1e1 c8f8 e1e6 d7e6 h4g4 e6g4 h3g4 d6d5 f4c7 f8f1 g1f1 a5c4 d2c4 d5c4 f1e1",
+        "score": {
+          "cp": 276
+        },
+        "depth": 23,
+        "nodes": 1500708,
+        "time": 1849,
+        "nps": 811632
+      },
+      {
+        "pv": "h4e7 e3h6",
+        "score": {
+          "cp": -39
+        },
+        "depth": 23,
+        "nodes": 1500790,
+        "time": 1758,
+        "nps": 853691
+      },
+      {
+        "pv": "g4f5 f8e8 c2e4 h7h6 f5h7 g8f8 f2f4 f8e7 f4e5 d6e5 d5d6 c7d6 e4a8 c8a8 d2e4 e8h8 h7f5 d6e6 e3c5 e7e8 e4d6 e8d7 f5f3 a8d8 a2a4 f6e7 a4b5 e7d6 c5d6 e5e4 f3g3 e6d6 a1d1",
+        "score": {
+          "cp": 306
+        },
+        "depth": 23,
+        "nodes": 1500273,
+        "time": 1892,
+        "nps": 792956
+      },
+      {
+        "pv": "f8e8 c2e4 g8f8 f2f4 h7h6 f4e5 e8e5 f5h7 a8d5 e4d5 e5d5 f1f6 g7f6 d2e4 a5c4 e3h6 f8e7 a1f1 d5e5 f1f6 c8f8 f6f1 c7d7",
+        "score": {
+          "cp": -294
+        },
+        "depth": 23,
+        "nodes": 1501263,
+        "time": 2042,
+        "nps": 735192
+      },
+      {
+        "pv": "c2e4 g8f8 f2f4 f8e7 f4e5 d6e5 f5h7 c7d6 a1d1 e8h8 h7f5 c5c4 f5g4 a8d5 e4d5 d6d5 d2e4 d5e6 g4f3 h8d8 e3c5 c8c5 e4c5",
+        "score": {
+          "cp": 318
+        },
+        "depth": 21,
+        "nodes": 1500645,
+        "time": 1895,
+        "nps": 791897
+      },
+      {
+        "pv": "f6h4 f5h5",
+        "score": {
+          "cp": -319
+        },
+        "depth": 21,
+        "nodes": 1500005,
+        "time": 1866,
+        "nps": 803861
+      },
+      {
+        "pv": "e4f6 g8f8 f6d5 f7f6 d5c7 c8c7 f5h7 e5e4 b2b3 a5b7 a1d1 b7d8 d1d6 d8f7 d6b6 e8c8 h7f5 c8d8 c3c4 b5c4 b3c4",
+        "score": {
+          "cp": 851
+        },
+        "depth": 19,
+        "nodes": 1501404,
+        "time": 928,
+        "nps": 1617892
+      },
+      {
+        "pv": "g8f8 f6d5 f7f6 d5c7 c8c7 f5h7 e5e4 a1d1 a5c4 e3f4 c4e5 a2a4 e5f7 d1d6 b5a4",
+        "score": {
+          "cp": -839
+        },
+        "depth": 19,
+        "nodes": 1501334,
+        "time": 946,
+        "nps": 1587033
+      },
+      {
+        "pv": "e3h6 d5e4 c2e4 d6d5 f5h7",
+        "score": {
+          "mate": 3
+        },
+        "depth": 245,
+        "nodes": 1352444,
+        "time": 158,
+        "nps": 8559772
+      },
+      {
+        "pv": "c7e7 f6h6",
+        "score": {
+          "cp": -168
+        },
+        "depth": 23,
+        "nodes": 1500052,
+        "time": 1903,
+        "nps": 788256
+      },
+      {
+        "pv": "f6h6",
+        "score": {
+          "cp": 159
+        },
+        "depth": 24,
+        "nodes": 1500755,
+        "time": 1881,
+        "nps": 797849
+      },
+      {
+        "pv": "f7f6 e3h6",
+        "score": {
+          "cp": -41
+        },
+        "depth": 22,
+        "nodes": 1500482,
+        "time": 1759,
+        "nps": 853031
+      },
+      {
+        "pv": "e3h6",
+        "score": {
+          "cp": 57
+        },
+        "depth": 22,
+        "nodes": 1500727,
+        "time": 1867,
+        "nps": 803817
+      },
+      {
+        "pv": "d5e6 f5f3",
+        "score": {
+          "cp": 85
+        },
+        "depth": 22,
+        "nodes": 1500258,
+        "time": 1840,
+        "nps": 815357
+      },
+      {
+        "pv": "f5h5 d6d5",
+        "score": {
+          "cp": -96
+        },
+        "depth": 20,
+        "nodes": 1500214,
+        "time": 1862,
+        "nps": 805700
+      },
+      {
+        "pv": "e7f7 b2b4",
+        "score": {
+          "cp": 63
+        },
+        "depth": 22,
+        "nodes": 1500025,
+        "time": 1850,
+        "nps": 810824
+      },
+      {
+        "pv": "b2b3 c4e3",
+        "score": {
+          "cp": -3
+        },
+        "depth": 24,
+        "nodes": 1500962,
+        "time": 1807,
+        "nps": 830637
+      },
+      {
+        "pv": "c4e3 f2e3",
+        "score": {
+          "cp": 3
+        },
+        "depth": 25,
+        "nodes": 1500486,
+        "time": 1764,
+        "nps": 850615
+      },
+      {
+        "pv": "f2e3",
+        "score": {
+          "cp": -2
+        },
+        "depth": 24,
+        "nodes": 1500896,
+        "time": 1839,
+        "nps": 816147
+      },
+      {
+        "pv": "e8f8 e4d5",
+        "score": {
+          "cp": 0
+        },
+        "depth": 24,
+        "nodes": 1500435,
+        "time": 1933,
+        "nps": 776220
+      },
+      {
+        "pv": "e4d5 f6f5",
+        "score": {
+          "cp": -5
+        },
+        "depth": 24,
+        "nodes": 1500485,
+        "time": 1805,
+        "nps": 831293
+      },
+      {
+        "pv": "e6f5 f3f5",
+        "score": {
+          "cp": 4
+        },
+        "depth": 24,
+        "nodes": 1500886,
+        "time": 1688,
+        "nps": 889150
+      },
+      {
+        "pv": "f3g4",
+        "score": {
+          "cp": 51
+        },
+        "depth": 22,
+        "nodes": 1500701,
+        "time": 1694,
+        "nps": 885891
+      },
+      {
+        "pv": "g8f7 a2a4 b5b4 c3b4 c5b4 f5e6 e7e6 g4b4 f7g7 a1c1 c8c1 f1c1 f8d8 b4e1 e6d6 e1g3 g7h8 a4a5 d6e7 g3e1 e7d6 c1c3 d5d4 c3d3 d6c5 b3b4 c5c4 e1f1",
+        "score": {
+          "cp": -34
+        },
+        "depth": 23,
+        "nodes": 1500355,
+        "time": 1648,
+        "nps": 910409
+      },
+      {
+        "pv": "f5e6 c8d8 a1d1 d5d4 c3d4 e5d4 e3d4 d8d4 g4f5 f8e8 d1d4 c5d4 e6d5 e7e5 f5e5 f6e5 d5e4 e8e7 h3h4 h8g7 g2g4 e7c7 g4g5",
+        "score": {
+          "cp": 440
+        },
+        "depth": 22,
+        "nodes": 1500455,
+        "time": 1629,
+        "nps": 921089
+      },
+      {
+        "pv": "c8d8 a1d1 d5d4 c3d4 c5d4 e3e4 d4d3 e6d5 e7c5 g1h1 c5d4 g4f3 d3d2 f3g4 d8c8 g4h4",
+        "score": {
+          "cp": -453
+        },
+        "depth": 23,
+        "nodes": 1500639,
+        "time": 1567,
+        "nps": 957650
+      },
+      {
+        "pv": "a1d1 d5d4 c3d4 c5d4 e3e4 d8d6 e6d5 e7g7 g4h5 d6d8 d1c1 d8c8 h5h4 c8c3 b3b4 f6f5 e4f5 c3c1 f1c1",
+        "score": {
+          "cp": 431
+        },
+        "depth": 23,
+        "nodes": 1501163,
+        "time": 1626,
+        "nps": 923224
+      },
+      {
+        "pv": "d5d4 c3d4 e5d4 e3d4 d8d4 d1d4 c5d4 f1d1 f8e8 e6d5 e7e3 g1h1 e3e2 g4e2 e8e2 a2a4 e2e3 h1h2 b5a4 b3a4 e3e5 d5f3 e5a5 d1d4 a5a4 d4a4 h7h6 h2g3 a6a5 f3e4 h8g7 g3f4 g7f7 g2g3",
+        "score": {
+          "cp": -462
+        },
+        "depth": 23,
+        "nodes": 1501197,
+        "time": 1534,
+        "nps": 978616
+      },
+      {
+        "pv": "c3d4 c5d4 e3e4 d4d3 e6d5 e7c5 g1h1 c5e3 h1h2 e3d4 g4f3 d8d5 e4d5 e5e4 f3f4 d4d5",
+        "score": {
+          "cp": 442
+        },
+        "depth": 21,
+        "nodes": 1500208,
+        "time": 1805,
+        "nps": 831140
+      },
+      {
+        "pv": "c5d4 e3e4 d8d6 e6d5 e7g7 d1c1 g7g4 h3g4 f8d8 g1f2 h8g7 g4g5 f6g5 f2e2 d8d7 c1c8",
+        "score": {
+          "cp": -451
+        },
+        "depth": 22,
+        "nodes": 1501388,
+        "time": 1778,
+        "nps": 844425
+      },
+      {
+        "pv": "e3d4 d8d4 d1d4 e5d4 f1d1 f8e8 e6d5 e7e3 g1h1 e3e5 g4d4 e5d4d1d4 e8e2 d4g4 h7h5 g4g6 e2a2 g6f6 a6a5 h1h2 a2g2 d5g2 h8g7 f6a6 h5h4 a6a5",
+        "score": {
+          "cp": 470
+        },
+        "depth": 21,
+        "nodes": 1500258,
+        "time": 1371,
+        "nps": 1094280
+      },
+      {
+        "pv": "d8d6 e6d5 e7g7 g4h5 f8c8 d1c1 d6d8 c1c8 d8c8 d5e6 c8d8 e6f5 b5b4 f1d1 d8g8 h5f3",
+        "score": {
+          "cp": -451
+        },
+        "depth": 19,
+        "nodes": 1500294,
+        "time": 1902,
+        "nps": 788798
+      },
+      {
+        "pv": "g4g7 h8g7 d1c1 g7h8 c1c7 d8d6 e6f5 h7h5 f1f3 h5h4 f3d3 h8g8 g2g3 f8f7 c7c8 f7f8 c8c2 g8g7 g3h4 f8h8 c2c7 g7h6 g1f1 a6a5 f1e1 a5a4 b3a4 b5a4 d3g3 d6b6 g3g7 b6b1 e1f2",
+        "score": {
+          "cp": 479
+        },
+        "depth": 22,
+        "nodes": 1501232,
+        "time": 1848,
+        "nps": 812354
+      },
+      {
+        "pv": "h8g7 d1c1 g7h8 c1c7 h7h6 f1d1 d8d6 e6f5 d4d3 d1d2 f8d8 g1f2 h6h5 h3h4 d6d4 f2e1 a6a5 c7b7 a5a4 b7b5",
+        "score": {
+          "cp": -460
+        },
+        "depth": 23,
+        "nodes": 1500297,
+        "time": 1936,
+        "nps": 774946
+      },
+      {
+        "pv": "d1c1 d8d6 c1c7 g7h8 e6f5 h7h5 f1d1 h8g8 d1d3 h5h4 g2g3 f8f7 c7c8 f7f8 c8c2 g8g7 g3h4 f8h8 d3g3 g7h6 g1f2 h6h5 g3g4 a6a5 g4g3 b5b4",
+        "score": {
+          "cp": 459
+        },
+        "depth": 23,
+        "nodes": 1501335,
+        "time": 1956,
+        "nps": 767553
+      },
+      {
+        "pv": "d8d6 e6f5 d6c6 d1c1 c6c3 b3b4 f8d8 c1c3 d4c3 f2e3 d8d2 f1c1 d2g2 c1c3 g2a2 c3c7 g7f8 c7h7 a2b2 h7a7 b2b4 a7a6 f8g7 a6a7 g7f8 e3f3 b4b1 a7b7",
+        "score": {
+          "cp": -378
+        },
+        "depth": 23,
+        "nodes": 1500517,
+        "time": 1997,
+        "nps": 751385
+      },
+      {
+        "pv": "e6f5 d6c6 d1c1 c6c3 c1c3 d4c3 b3b4 a6a5 a2a3 a5b4 a3b4 f8a8 f1c1 a8a3 f2e3 h7h5 e3d3 a3b3 c1c3 b3b4 c3c7 g7f8 c7h7 b4b2 h7h5 b2g2 h5h8 f8g7 h8h7 g7f8 h7b7 g2b2 d3c3 b2b1 c3c2 b1a1 c2b2 a1h1 b7b6 f8g7",
+        "score": {
+          "cp": 399
+        },
+        "depth": 26,
+        "nodes": 1500547,
+        "time": 1639,
+        "nps": 915525
+      },
+      {
+        "pv": "h7h5 g4f5 d6c6 d1c1 c6c3 b3b4 a6a5 b4a5 f8a8 c1c3 d4c3 f5e6 a8a5 f2e3 h5h4 e3d3 b5b4 f1b1 a5a4 e6b3 a4a6 d3c4 a6b6 b3c2 b6a6 c4b4 a6a2 b4c3 g7h6 b1f1 h6g6 c3b3 a2a7 c2d3 a7b7 b3c3",
+        "score": {
+          "cp": -354
+        },
+        "depth": 24,
+        "nodes": 1500712,
+        "time": 2007,
+        "nps": 747738
+      },
+      {
+        "pv": "g4f5 d6c6 d1c1 c6c3 b3b4 a6a5 b4a5 f8a8 c1c3 d4c3 f5e6 a8a5 e6b3 a5a6 h3h4 f6f5 f2e3 f5f4 e3d3 a6g6 d3c3 g6g2 c3b4 g7f6 b4b5 g2a2 b3a2 f6e7",
+        "score": {
+          "cp": 338
+        },
+        "depth": 26,
+        "nodes": 1500076,
+        "time": 1899,
+        "nps": 789929
+      },
+      {
+        "pv": "f6f5 f2e2 f5e4 f1f8 g7f8 d1c1 d6h6 h5g4 f8e7 g4f5 e4e3 g2g3 h6f6 g3g4 f6h6 c1h1 h6h4 e2f3 e7d6 f5e4",
+        "score": {
+          "cp": -335
+        },
+        "depth": 23,
+        "nodes": 1500572,
+        "time": 1616,
+        "nps": 928571
+      },
+      {
+        "pv": "d1c1 d6c6 c1c6 c8c6 f2e1 c6c1 h5d1 b5b4 f1f2 a6a5 f2c2 c1a1 e1d2 f6f5 d1f3 f5f4 d2d3 a1e1",
+        "score": {
+          "cp": 390
+        },
+        "depth": 23,
+        "nodes": 1500637,
+        "time": 1766,
+        "nps": 849737
+      },
+      {
+        "pv": "c8c3 h5g4 d6c6 f2g1 c3e3 b3b4 c6d6 g4f5 d6c6 h3h4 c6c4 d2b2 g7h6 g2g4 h6g7 b2g2 d4d3 g4g5 f6g5 g2g5 g7h6 g5g6 h6h5",
+        "score": {
+          "cp": -366
+        },
+        "depth": 23,
+        "nodes": 1501183,
+        "time": 1772,
+        "nps": 847168
+      },
+      {
+        "pv": "h5g4 d6c6 f1e1 c3c2 e1d1 c2c3 f2g1 c3e3 d1f1 g7g6 d2f2 b5b4 g4e2 d4d3 e2f3 g6g5 g2g3 c6c3",
+        "score": {
+          "cp": 372
+        },
+        "depth": 24,
+        "nodes": 1501217,
+        "time": 1754,
+        "nps": 855881
+      },
+      {
+        "pv": "b5b4 f2g1 c3e3 d2e2 e3c3 e2f2 c3e3 f1c1 e3c3 c1d1 c3e3 f2e2 e3c3 e2d2 c3e3 g4f3 a6a5 d2d3 e3d3 d1d3 d6c6",
+        "score": {
+          "cp": -357
+        },
+        "depth": 22,
+        "nodes": 1500053,
+        "time": 1762,
+        "nps": 851335
+      },
+      {
+        "pv": "f2g1 d6b6 g1h2 a5a4 b3a4 b5a4 f1f3 b6c6 f3g3 g7h6 g4d7 c6c4 d2f2 c3g3 h2g3 h6g7 f2d2 c4c3 g3g4",
+        "score": {
+          "cp": 380
+        },
+        "depth": 23,
+        "nodes": 1500619,
+        "time": 1935,
+        "nps": 775513
+      },
+      {
+        "pv": "a5a4 e2b5 a4b3 a2b3 c3b3 b5d3 d6c6 h3h4 c6b6 f2g1 g7g6 g1h2 b3c3 d3e2 c3e3 e2f3 f6f5 e4f5 g6f6 f3d1 d4d3 h2g1 e5e4 g1f2",
+        "score": {
+          "cp": -390
+        },
+        "depth": 22,
+        "nodes": 1500356,
+        "time": 1646,
+        "nps": 911516
+      },
+      {
+        "pv": "e2d3 g7h6 f2e2 h6g5 d2c2 c3c2 d3c2 b6c6 c2d3 a5a4 f1f5 g5g6 e2d2 c6c3",
+        "score": {
+          "cp": 390
+        },
+        "depth": 22,
+        "nodes": 1500778,
+        "time": 1761,
+        "nps": 852230
+      },
+      {
+        "pv": "a5a4 b3b4 c3c4 f1b1 g7h6 f2e2 h6g5 d3c4 b5c4 d2d1 g5f4 d1c1 f4e4 c1c4 f6f5 b4b5 b6g6 g2g4 e4d5 c4c6",
+        "score": {
+          "cp": -409
+        },
+        "depth": 21,
+        "nodes": 1500924,
+        "time": 1839,
+        "nps": 816163
+      },
+      {
+        "pv": "b3b4 b6b7 f2f3 b7c7 f3g4 c3c4 f1b1 c4c3 h3h4 g7f7 b1f1 f7e6 h4h5 c7g7 g4h4 c3d3 d2d3",
+        "score": {
+          "cp": 382
+        },
+        "depth": 22,
+        "nodes": 1500997,
+        "time": 1749,
+        "nps": 858202
+      },
+      {
+        "pv": "g7f7 f2e2 b6b8 d2c2 c3c2 d3c2 b8g8 e2f2 f7g6 c2d3 g8c8 f2g1 g6g5 d3b5 c8c2 b5a4 c2a2 a4b3 a2b2 b3c4 g5h4 b4b5",
+        "score": {
+          "cp": -407
+        },
+        "depth": 22,
+        "nodes": 1500980,
+        "time": 1757,
+        "nps": 854285
+      },
+      {
+        "pv": "f2e2 f7g6 d2c2 c3a3 f1f3 b6b7 g2g3 g6g5 f3f5 g5g6 h3h4 b7g7 g3g4 g7h7 h4h5 g6h6 e2d2 h7g7 f5f6 h6g5 f6g6 g7g6 h5g6 g5g6",
+        "score": {
+          "cp": 424
+        },
+        "depth": 21,
+        "nodes": 1500546,
+        "time": 1793,
+        "nps": 836891
+      },
+      {
+        "pv": "c3c4 d2c2 c4b4 h4h5 a4a3 f2g3 f7g7 g3h4 g7h6 g2g4 b4b2 c2b2 a3b2 f1b1 b5b4 b1b2 b6b7 b2b1 b7a7 b1f1 h6g7",
+        "score": {
+          "cp": -418
+        },
+        "depth": 22,
+        "nodes": 1500144,
+        "time": 1784,
+        "nps": 840887
+      },
+      {
+        "pv": "h4h5 b6b8 f2g3 b8g8 g3h4 a4a3 g2g3 g8c8 g3g4 c3c4 f1b1 c4c3 b1g1 c3c6 d2d1 c6c4 g4g5 f6g5 g1g5 c4c1 d1c1 c8c1 g5g7 e7f8 g7g3 c1a1 g3g2 a1d1 d3e2 d1b1",
+        "score": {
+          "cp": 449
+        },
+        "depth": 23,
+        "nodes": 1500192,
+        "time": 1611,
+        "nps": 931217
+      },
+      {
+        "pv": "b6b8 h4h5 e7f7 h1f1 b8h8 d3b5 h8h5 b5a4 f7e7 a4b3 h5h4 b4b5 f6f5 e4f5 e5e4 f5f6 e7f8 f2g1 e4e3 d2e2 c3c8",
+        "score": {
+          "cp": -415
+        },
+        "depth": 22,
+        "nodes": 1500744,
+        "time": 1780,
+        "nps": 843114
+      },
+      {
+        "pv": "h4h5 a4a3 h5h6 e7f7 h6h7 f7g7 h7h8q b8h8 h1h8 g7h8 d3b5 c3c1 b5d3 h8g8 f2e2 c1g1 b4b5 g1g2 e2d1 g2g7 d1c2 g8f8 c2b3 f8e7",
+        "score": {
+          "cp": 478
+        },
+        "depth": 23,
+        "nodes": 1500001,
+        "time": 1435,
+        "nps": 1045296
+      },
+      {
+        "pv": "e7f7 h5h6 f7g8 h6h7 g8h8 f2f3 c3c4 f3g4 c4b4 d2c2 a4a3 g4f5 b4a4 c2c7 a4a8 f5g6 b5b4 d3c4 b8c8 c7c8 a8c8 c4e6 c8c6 e6b3 c6c3 g2g4 c3c6 g4g5 f6g5 g6g5 c6d6",
+        "score": {
+          "cp": -463
+        },
+        "depth": 23,
+        "nodes": 1500160,
+        "time": 1613,
+        "nps": 930043
+      },
+      {
+        "pv": "h5h6 a4a3 d3b5 h8b8 h6h7 c3c8 b5d3 b8b4 h7h8r b4b8 h8c8 b8c8 h1h7 e7d6 h7a7 c8c1 a7a6 d6c5 a6f6",
+        "score": {
+          "cp": 519
+        },
+        "depth": 21,
+        "nodes": 1500359,
+        "time": 1637,
+        "nps": 916529
+      },
+      {
+        "pv": "a4a3 h5h6 e7f8 b5d7 f8e7 d7f5 e7d6 h6h7 d6c6 h1h3 c6b5 h3c3 d4c3 d2c2 b5b4 f2f3 b4c4 f3e3 c4b4 c2c1",
+        "score": {
+          "cp": -514
+        },
+        "depth": 20,
+        "nodes": 1501030,
+        "time": 1772,
+        "nps": 847082
+      },
+      {
+        "pv": "b5a4 c3c4 h5h6 c4b4 a4b3 f6f5 d2e2 d4d3 e2d2 f5e4 f2e3 b4d4 g2g4 d6c5 h1h5 c5b4 h5e5 h8h6 e3d4 h6g6 d4e4",
+        "score": {
+          "cp": 532
+        },
+        "depth": 21,
+        "nodes": 1501044,
+        "time": 1759,
+        "nps": 853350
+      },
+      {
+        "pv": "c3c4 a4b3 c4b4 h5h6 b4b7 d2c2 b7h7 b3d5 h7h6 h1b1 h8d8 c2c6 d6e7 a2a4 h6h4 a4a5 h4f4 f2e2 e7f8 a5a6 d4d3 e2e3",
+        "score": {
+          "cp": -524
+        },
+        "depth": 20,
+        "nodes": 1500377,
+        "time": 1583,
+        "nps": 947806
+      },
+      {
+        "pv": "a4b3 c4b4 h5h6 f6f5 d2e2 d4d3 e2d2 f5e4 f2e3 b4d4 d2f2 d6c5 g2g4 h8d8 h6h7 d4d7 e3e4 c5b4",
+        "score": {
+          "cp": 537
+        },
+        "depth": 20,
+        "nodes": 1500801,
+        "time": 1613,
+        "nps": 930440
+      }
+    ]
+  }
+  """.trim
+
+  val expected3 =
+    """1... Na5 { [%eval 0.13] } 2. Nbd2 { [%eval -0.31] } 2... c5 { [%eval 0.09] } 3. Bc2 { [%eval 0.12] } 3... Rc8 { [%eval 0.11] } 4. d4 { [%eval -0.05] } 4... Qc7? { (-0.05 → 1.30) Mistake. exd4 was best. } { [%eval 1.3] } (4... exd4 5. cxd4) 5. d5 { [%eval 1.28] } 5... Ba8 { [%eval 1.68] } 6. Nh4 { [%eval 1.27] } 6... Nxd5? { (1.27 → 2.75) Mistake. g6 was best. } { [%eval 2.75] } (6... g6) 7. exd5 { [%eval 2.65] } 7... Bxh4 { [%eval 2.76] } 8. Qg4?? { (2.76 → 0.39) Blunder. Qh5 was best. } { [%eval 0.39] } (8. Qh5 f5 9. Qxh4 Bxd5 10. g4 Be6 11. gxf5 Bxf5 12. Bxf5 Rxf5 13. f4 Qd7 14. fxe5 Rxe5) 8... Bf6?? { (0.39 → 3.06) Blunder. Be7 was best. } { [%eval 3.06] } (8... Be7 9. Bh6) 9. Qf5 { [%eval 2.94] } 9... Rfe8 { [%eval 3.18] } 10. Ne4 { [%eval 3.19] } 10... Bxd5?? { (3.19 → 8.51) Blunder. Bh4 was best. } { [%eval 8.51] } (10... Bh4 11. Qh5) 11. Nxf6+ { [%eval 8.39] } 11... gxf6? { (8.39 → Mate in 3) Checkmate is now unavoidable. Kf8 was best. } { [%eval #3] } (11... Kf8 12. Nxd5 f6 13. Nxc7 Rxc7 14. Qxh7 e4 15. Rad1 Nc4 16. Bf4 Ne5 17. a4 Nf7 18. Rxd6) 12. Qxf6?? { (Mate in 3 → 1.68) Lost forced checkmate sequence. Bh6 was best. } { [%eval 1.68] } (12. Bh6 Be4 13. Bxe4 d5 14. Qxh7#) 12... Qe7 { [%eval 1.59] } 13. Qf5? { (1.59 → 0.41) Mistake. Qh6 was best. } { [%eval 0.41] } (13. Qh6) 13... f6 { [%eval 0.57] } 14. Be4? { (0.57 → -0.85) Mistake. Bh6 was best. } { [%eval -0.85] } (14. Bh6) 14... Be6 { [%eval -0.96] } 15. Qf3 { [%eval -0.63] } 15... Nc4?! { (-0.63 → -0.03) Inaccuracy. Qf7 was best. } { [%eval -0.03] } (15... Qf7 16. b4) 16. b3 { [%eval -0.03] } 16... Nxe3 { [%eval -0.02] } 17. fxe3 { [%eval 0.0] } 17... Rf8 { [%eval -0.05] } 18. Bf5 { [%eval -0.04] } 18... d5?! { (-0.04 → 0.51) Inaccuracy. Bxf5 was best. } { [%eval 0.51] } (18... Bxf5 19. Qxf5) 19. Qg4+ { [%eval 0.34] } 19... Kh8?? { (0.34 → 4.40) Blunder. Kf7 was best. } { [%eval 4.4] } (19... Kf7 20. a4 b4 21. cxb4 cxb4 22. Bxe6+ Qxe6 23. Qxb4 Kg7 24. Rac1 Rxc1 25. Rxc1 Rd8 26. Qe1) 20. Bxe6 { [%eval 4.53] } 20... Rcd8 { [%eval 4.31] } 21. Rad1 { [%eval 4.62] } 21... d4 { [%eval 4.42] } 22. cxd4 { [%eval 4.51] } 22... cxd4 { [%eval 4.7] } 23. e4 { [%eval 4.51] } 23... Qg7 { [%eval 4.79] } 24. Qxg7+ { [%eval 4.6] } 24... Kxg7 { [%eval 4.59] } 25. Kf2 { [%eval 3.78] } 25... Rd6 { [%eval 3.99] } 26. Bg4 { [%eval 3.54] } 26... h5 { [%eval 3.38] } 27. Bxh5 { [%eval 3.35] } 27... Rc8 { [%eval 3.9] } 28. Rd2 { [%eval 3.66] } 28... Rc3 { [%eval 3.72] } 29. Bg4 { [%eval 3.57] } 29... a5 { [%eval 3.8] } 30. Be2 { [%eval 3.9] } 30... Rb6 { [%eval 3.9] } 31. Bd3 { [%eval 4.09] } 31... a4 { [%eval 3.82] } 32. b4 { [%eval 4.07] } 32... Kf7 { [%eval 4.24] } 33. h4 { [%eval 4.18] } 33... Ke7 { [%eval 4.49] } 34. Rh1 { [%eval 4.15] } 34... Rb8 { [%eval 4.78] } 35. h5 { [%eval 4.63] } 35... Rh8 { [%eval 5.19] } 36. Bxb5 { [%eval 5.14] } 36... Kd6 { [%eval 5.32] } 37. Bxa4 { [%eval 5.24] } { Black wins on time. } 37... Rc4 { [%eval 5.37] }
+
+
+"""
+
+  val pgn4 =
+    """
+[Variant "Crazyhouse"]
+
+1. Nf3 c5 2. d4 cxd4 3. Nxd4 Nc6 4. Nxc6 bxc6 5. e4 Nf6 6. Nc3 P@b4 7. Bc4 e6 8. e5 bxc3 9. P@d6 cxb2 10. Bxb2 P@c7 11. dxc7 Qxc7 12. P@d6 Qa5+ 13. Kf1 Rb8 14. exf6 gxf6 15. Bxf6 P@e7 16. N@c7+ Kd8 17. P@g7 Bxg7 18. Bxe7# { White wins by checkmate. }
+  """
+
+  val sans4 =
+    """Nf3 c5 d4 cxd4 Nxd4 Nc6 Nxc6 bxc6 e4 Nf6 Nc3 P@b4 Bc4 e6 e5 bxc3 P@d6 cxb2 Bxb2 P@c7 dxc7 Qxc7 P@d6 Qa5+ Kf1 Rb8 exf6 gxf6 Bxf6 P@e7 N@c7+ Kd8 P@g7 Bxg7 Bxe7#
+  """.trim
+      .split(" ")
+      .toList
+      .map(SanStr(_))
+
+  val fish4 =
+    """
+  {
+    "fishnet": {
+      "version": "2.6.11-dev",
+      "apikey": ""
+    },
+    "stockfish": {
+      "flavor": "classical"
+    },
+    "analysis": [
+      {
+        "pv": "e2e4 b8c6 g1f3 g8f6 e4e5 d7d5 f1b5 c8d7 b5c6 d7c6 e5f6 e7f6 e1h1 P@e4 f3d4 B@e5 N@e2 c6d7 N@f5 d7f5 d4f5",
+        "score": {
+          "cp": 130
+        },
+        "depth": 20,
+        "nodes": 4200041,
+        "time": 3658,
+        "nps": 1148179
+      },
+      {
+        "pv": "d7d5 d2d4 c8f5 c1f4 b8c6 e2e3 e7e6 f1d3 f8b4 b1d2 f5d3 c2d3 B@g4 B@e2 g8f6 e1h1 e8h8 f3e5 g4e2 d1e2 b4d2 e5c6 b7c6 e2d2",
+        "score": {
+          "cp": -92
+        },
+        "depth": 21,
+        "nodes": 4200007,
+        "time": 4317,
+        "nps": 972899
+      },
+      {
+        "pv": "b1c3",
+        "score": {
+          "cp": 308
+        },
+        "depth": 18,
+        "nodes": 4200961,
+        "time": 4485,
+        "nps": 936669
+      },
+      {
+        "pv": "c5d4 f3d4",
+        "score": {
+          "cp": -131
+        },
+        "depth": 20,
+        "nodes": 4201187,
+        "time": 4521,
+        "nps": 929260
+      },
+      {
+        "pv": "f3d4 b8c6 e2e4 e7e5 d4c6 b7c6 N@d6 f8d6 d1d6 d8e7 B@b4 e7d6 b4d6 N@e6 Q@d2 Q@a4 b1c3 a4d4 d2d4 e6d4",
+        "score": {
+          "cp": 284
+        },
+        "depth": 20,
+        "nodes": 4200083,
+        "time": 4504,
+        "nps": 932522
+      },
+      {
+        "pv": "b8c6 P@d5",
+        "score": {
+          "cp": -216
+        },
+        "depth": 19,
+        "nodes": 4201476,
+        "time": 4610,
+        "nps": 911383
+      },
+      {
+        "pv": "b1c3 g8f6 e2e4 d7d6 f1c4 e7e6 P@c7 d8c7 c3b5 c7a5 c1d2 P@b4 d4c6 b7c6 N@c7 e8d7 c7a8 c6b5 R@c7 d7d8",
+        "score": {
+          "cp": 343
+        },
+        "depth": 19,
+        "nodes": 4200032,
+        "time": 4705,
+        "nps": 892674
+      },
+      {
+        "pv": "b7c6 b1c3 d8c7 e2e4 a8b8 N@g5 g8h6 P@f5 P@b4 c3a4 e7e6 g5e6 d7e6 c1h6 e6f5 h6g7 f8g7 N@d6 e8f8 d6f5",
+        "score": {
+          "cp": -138
+        },
+        "depth": 20,
+        "nodes": 4200072,
+        "time": 4597,
+        "nps": 913654
+      },
+      {
+        "pv": "b1c3 d8c7",
+        "score": {
+          "cp": 161
+        },
+        "depth": 19,
+        "nodes": 4201240,
+        "time": 4758,
+        "nps": 882984
+      },
+      {
+        "pv": "e7e5 P@f4 e5f4 c1f4 N@e6 N@d6 f8d6 f4d6 P@e7 d6b4 g8f6 b1c3 e8h8 P@f5 d7d6 f5e6 c8e6",
+        "score": {
+          "cp": -123
+        },
+        "depth": 18,
+        "nodes": 4200095,
+        "time": 4708,
+        "nps": 892118
+      },
+      {
+        "pv": "b1c3",
+        "score": {
+          "cp": 269
+        },
+        "depth": 19,
+        "nodes": 4200681,
+        "time": 4918,
+        "nps": 854144
+      },
+      {
+        "pv": "P@b4 f1c4",
+        "score": {
+          "cp": -186
+        },
+        "depth": 18,
+        "nodes": 4202287,
+        "time": 4784,
+        "nps": 878404
+      },
+      {
+        "pv": "N@d5 f6d5 c3d5 c6d5 d1d5 N@d6 d5a8 N@d4 N@e3 e7e5 R@d5 N@g4 d5c5 g4f2 c5e5 P@e6 P@c7 d4c2 e1f2 d8f6 N@f3 c2e3",
+        "score": {
+          "cp": 317
+        },
+        "depth": 20,
+        "nodes": 4200396,
+        "time": 4963,
+        "nps": 846342
+      },
+      {
+        "pv": "N@e5 d1d4 e5c4 d4c4 d8a5 N@b3 a5b6 c1e3 b6b8 P@c7 b8c7 N@d5 c7b8 d5b4 e7e6 b4d3 B@a6 c4d4 a6d3 d4d3",
+        "score": {
+          "cp": -207
+        },
+        "depth": 21,
+        "nodes": 4200368,
+        "time": 5237,
+        "nps": 802056
+      },
+      {
+        "pv": "c1f4 d7d6 c3b5 c6b5 c4b5 N@d7 P@c6 N@c7 P@b7 c8b7 c6d7 f6d7 b5d7 d8d7 N@c5 d7c6 c5b7 c6e4 N@e3 e4f4 B@c6 P@d7",
+        "score": {
+          "cp": 475
+        },
+        "depth": 20,
+        "nodes": 4201292,
+        "time": 5166,
+        "nps": 813258
+      },
+      {
+        "pv": "N@h4 e1h1 b4c3 e5f6 g7f6 P@g7 N@f3 g2f3 h8g8 N@h5 f8g7 N@d6 e8f8 b2c3",
+        "score": {
+          "cp": -511
+        },
+        "depth": 15,
+        "nodes": 4200090,
+        "time": 5185,
+        "nps": 810046
+      },
+      {
+        "pv": "e5f6",
+        "score": {
+          "cp": 436
+        },
+        "depth": 18,
+        "nodes": 4200382,
+        "time": 4987,
+        "nps": 842266
+      },
+      {
+        "pv": "c3b2 c1b2",
+        "score": {
+          "cp": 38
+        },
+        "depth": 17,
+        "nodes": 4200655,
+        "time": 4951,
+        "nps": 848445
+      },
+      {
+        "pv": "c1b2",
+        "score": {
+          "cp": 158
+        },
+        "depth": 21,
+        "nodes": 4200565,
+        "time": 4778,
+        "nps": 879147
+      },
+      {
+        "pv": "f6e4 e1h1",
+        "score": {
+          "cp": -110
+        },
+        "depth": 17,
+        "nodes": 4200514,
+        "time": 5039,
+        "nps": 833600
+      },
+      {
+        "pv": "e5f6 N@e3 f2e3 g7f6 N@h5 P@f2 e1f1 N@f5 N@e4 f5e3 f1f2 e3c4 N@g7 f8g7 h5g7 e8f8",
+        "score": {
+          "cp": 1621
+        },
+        "depth": 19,
+        "nodes": 4200388,
+        "time": 5464,
+        "nps": 768738
+      },
+      {
+        "pv": "d8c7 e5f6",
+        "score": {
+          "cp": -723
+        },
+        "depth": 17,
+        "nodes": 4201208,
+        "time": 5282,
+        "nps": 795382
+      },
+      {
+        "pv": "e5f6",
+        "score": {
+          "cp": 725
+        },
+        "depth": 19,
+        "nodes": 4202563,
+        "time": 5106,
+        "nps": 823063
+      },
+      {
+        "pv": "c7a5 P@d2",
+        "score": {
+          "cp": -255
+        },
+        "depth": 16,
+        "nodes": 4200684,
+        "time": 4958,
+        "nps": 847253
+      },
+      {
+        "pv": "P@d2 N@h4 N@c7 e8d8 c7e6 d7e6 P@e7 f8e7 d6e7 d8c7 B@d8 h8d8 e7d8b c7d8 R@d4 f6d7 d4h4 B@e7 e1h1 d7e5 b2e5 a5e5",
+        "score": {
+          "cp": 271
+        },
+        "depth": 18,
+        "nodes": 4202717,
+        "time": 4982,
+        "nps": 843580
+      },
+      {
+        "pv": "P@h3 N@c7",
+        "score": {
+          "cp": 674
+        },
+        "depth": 17,
+        "nodes": 4201982,
+        "time": 4896,
+        "nps": 858247
+      },
+      {
+        "pv": "N@c7 e8d8",
+        "score": {
+          "cp": 2809
+        },
+        "depth": 17,
+        "nodes": 4201234,
+        "time": 5513,
+        "nps": 762059
+      },
+      {
+        "pv": "P@f3 g2f3",
+        "score": {
+          "cp": -1347
+        },
+        "depth": 16,
+        "nodes": 4200322,
+        "time": 5351,
+        "nps": 784960
+      },
+      {
+        "pv": "N@c7 e8d8 b2f6 P@e7 c7e6 f7e6 P@c7 d8e8 c7b8q N@b6 f6h8 P@f3 N@c7 e8f7 R@f4 N@f5 b8b6 a7b6 d6e7 P@e2 c4e2 f3g2 f1g2 N@h4 g2g1",
+        "score": {
+          "cp": 4051
+        },
+        "depth": 18,
+        "nodes": 4201425,
+        "time": 5845,
+        "nps": 718806
+      },
+      {
+        "pv": "c8a6 c4a6",
+        "score": {
+          "cp": -1379
+        },
+        "depth": 16,
+        "nodes": 4200005,
+        "time": 5720,
+        "nps": 734266
+      },
+      {
+        "pv": "N@c7",
+        "score": {
+          "cp": 4001
+        },
+        "depth": 18,
+        "nodes": 4200724,
+        "time": 5997,
+        "nps": 700470
+      },
+      {
+        "pv": "e8d8 c7e6 f7e6 P@c7 d8e8 c7b8q P@e2 d1e2 N@d2 e2d2 a5d2 b8c8 e8f7 N@e5 f7f6 N@e4 f6e5 e4d2 Q@d4 d2f3 e5f6 B@g5 f6g7",
+        "score": {
+          "cp": -4439
+        },
+        "depth": 15,
+        "nodes": 4204412,
+        "time": 5898,
+        "nps": 712853
+      },
+      {
+        "pv": "c7e6 f7e6 P@c7 d8e8 c7b8q N@d8 b8c8 N@d5 c4d5 e7f6 N@c7 a5c7 d6c7",
+        "score": {
+          "cp": 4223
+        },
+        "depth": 18,
+        "nodes": 4200811,
+        "time": 5952,
+        "nps": 705781
+      },
+      {
+        "pv": "N@e3 f2e3",
+        "score": {
+          "cp": -3731
+        },
+        "depth": 17,
+        "nodes": 4201957,
+        "time": 5655,
+        "nps": 743051
+      },
+      {
+        "pv": "f6e7",
+        "score": {
+          "mate": 1
+        },
+        "depth": 245,
+        "nodes": 28211,
+        "time": 10,
+        "nps": 2821100
+      },
+      {
+        "score": {
+          "mate": 0
+        },
+        "depth": 0,
+        "nodes": 0,
+        "time": 0
+      }
+    ]
+  }
+  """
+
+  val expected4 =
+    """1. Nf3 { [%eval 0.92] } 1... c5?? { (0.92 → 3.08) Blunder. d5 was best. } { [%eval 3.08] } { A04 Zukertort Opening: Sicilian Invitation } (1... d5 2. d4 Bf5 3. Bf4 Nc6 4. e3 e6 5. Bd3 Bb4+ 6. Nbd2 Bxd3 7. cxd3 B@g4 8. B@e2) 2. d4? { (3.08 → 1.31) Mistake. Nc3 was best. } { [%eval 1.31] } (2. Nc3) 2... cxd4 { [%eval 2.84] } 3. Nxd4 { [%eval 2.16] } 3... Nc6 { [%eval 3.43] } 4. Nxc6?? { (3.43 → 1.38) Blunder. Nc3 was best. } { [%eval 1.38] } (4. Nc3 Nf6 5. e4 d6 6. Bc4 e6 7. P@c7 Qxc7 8. Ncb5 Qa5+ 9. Bd2 P@b4 10. Nxc6 bxc6) 4... bxc6 { [%eval 1.61] } 5. e4 { [%eval 1.23] } 5... Nf6? { (1.23 → 2.69) Mistake. e5 was best. } { [%eval 2.69] } (5... e5 6. P@f4 exf4 7. Bxf4 N@e6 8. N@d6+ Bxd6 9. Bxd6 P@e7 10. Bb4 Nf6 11. Nc3 O-O 12. P@f5) 6. Nc3 { [%eval 1.86] } 6... P@b4 { [%eval 3.17] } 7. Bc4?! { (3.17 → 2.07) Inaccuracy. N@d5 was best. } { [%eval 2.07] } (7. N@d5 Nxd5 8. Nxd5 cxd5 9. Qxd5 N@d6 10. Qxa8 N@d4 11. N@e3 e5 12. R@d5 N@g4 13. Rc5 Nxf2) 7... e6?? { (2.07 → 4.75) Blunder. N@e5 was best. } { [%eval 4.75] } (7... N@e5 8. Qd4 Nxc4 9. Qxc4 Qa5 10. N@b3 Qb6 11. Be3 Qb8 12. P@c7 Qxc7 13. N@d5 Qb8 14. Nxb4) 8. e5 { [%eval 5.11] } 8... bxc3 { [%eval 4.36] } 9. P@d6?? { (4.36 → -0.38) Blunder. exf6 was best. } { [%eval -0.38] } (9. exf6) 9... cxb2 { [%eval 1.58] } 10. Bxb2 { [%eval 1.1] } 10... P@c7?? { (1.10 → 16.21) Blunder. Ne4 was best. } { [%eval 16.21] } (10... Ne4 11. O-O) 11. dxc7?! { (16.21 → 7.23) Inaccuracy. exf6 was best. } { [%eval 7.23] } (11. exf6 N@e3 12. fxe3 gxf6 13. N@h5 P@f2+ 14. Kf1 N@f5 15. N@e4 Nxe3+ 16. Kxf2 Nxc4 17. N@g7+ Bxg7) 11... Qxc7 { [%eval 7.25] } 12. P@d6?? { (7.25 → 2.55) Blunder. exf6 was best. } { [%eval 2.55] } (12. exf6) 12... Qa5+ { [%eval 2.71] } 13. Kf1?? { (2.71 → -6.74) Blunder. P@d2 was best. } { [%eval -6.74] } (13. P@d2 N@h4 14. N@c7+ Kd8 15. Nxe6+ dxe6 16. P@e7+ Bxe7 17. dxe7+ Kc7 18. B@d8+ Rxd8 19. exd8=B+ Kxd8) 13... Rb8?? { (-6.74 → 28.09) Blunder. P@h3 was best. } { [%eval 28.09] } (13... P@h3 14. N@c7+) 14. exf6 { [%eval 13.47] } 14... gxf6 { [%eval 40.51] } 15. Bxf6 { [%eval 13.79] } 15... P@e7 { [%eval 40.01] } 16. N@c7+ { [%eval 44.39] } 16... Kd8 { [%eval 42.23] } 17. P@g7 { [%eval 37.31] } 17... Bxg7?! { (37.31 → Mate in 1) Checkmate is now unavoidable. N@e3+ was best. } { [%eval #1] } (17... N@e3+ 18. fxe3) 18. Bxe7# { White wins by checkmate. }
 
 
 """
