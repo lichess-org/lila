@@ -65,7 +65,7 @@ object side:
                   small(
                     trans.importedByX(userIdLink(importUser.some, None, withOnline = false))
                   ),
-                  ctx.me.is(importUser) option
+                  ctx.isUserId(importUser) option
                     form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                       button(
                         cls          := "link text button-thin confirm",
