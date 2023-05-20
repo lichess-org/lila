@@ -25,7 +25,7 @@ enum Score:
   case Cp(c: Eval.Cp)
   case Mate(m: Eval.Mate)
 
-  val checkmate: Score = Mate(Eval.Mate(0))
+  lazy val checkmate: Score = Mate(Eval.Mate(0))
 
   inline def fold[A](w: Eval.Cp => A, b: Eval.Mate => A): A = this match
     case Cp(cp)     => w(cp)
@@ -43,8 +43,8 @@ enum Score:
   def eval: Eval = Eval(cp, mate, None)
 
 object Score:
-  def cp(cp: Int): Score      = Cp(Eval.Cp(cp))
-  def mate(mate: Int): Score  = Mate(Eval.Mate(mate))
+  def cp(cp: Int): Score     = Cp(Eval.Cp(cp))
+  def mate(mate: Int): Score = Mate(Eval.Mate(mate))
 
 object Eval:
 
