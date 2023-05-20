@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Švajčiarske turnaje</string>
+  <string name="swissTournaments">Turnaje švajčiarskym systémom</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Zobraziť kolo</item>
     <item quantity="few">Zobraziť %s kolá</item>
