@@ -595,6 +595,8 @@
   <string name="unsubscribe">Навилълъин нахъе бахъизе</string>
   <string name="invitedYouToX">мун \"%1$s\"-ялде ахӀана.</string>
   <string name="youHaveJoinedTeamX">Мун \"%1$s\"-алде жувана.</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Цояв дур мудариб гьумералъухъ валагьана.</string>
   <string name="download">РещтӀинабизе</string>
   <string name="welcome">ЛъикӀ щварав!</string>
   <string name="coachManager">Мударибзабазе</string>
