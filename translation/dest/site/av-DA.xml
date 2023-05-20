@@ -358,12 +358,19 @@
   <string name="leaderboard">Бищун лъикӀал хӀалел</string>
   <string name="screenshotCurrentPosition">Гьанжесеб позициялъул сурат бахъизе</string>
   <string name="gameAsGIF">GIF-лъун цӀунизе</string>
+  <string name="pasteTheFenStringHere">FEN текст гьаниб лъе</string>
+  <string name="pasteThePgnStringHere">PGN текст гьаниб лъе</string>
   <string name="importGame">ХӀай жаниб лъезе</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s жаниб лъураб хӀай</item>
     <item quantity="other">%s жаниб лъураб хӀай</item>
   </plurals>
+  <string name="thisIsAChessCaptcha">Гьаб шахматазул CAPTCHA буго.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Дур хъурщиги гьабизе, мун гӀадан вугевалиги лъазе, хъорщода тӀадецуй.</string>
+  <string name="captcha.fail">Шахматазул captcha гьабе.</string>
   <string name="notACheckmate">Мат гуро</string>
+  <string name="whiteCheckmatesInOneMove">ХъахӀал цо хъурщиялъ мат гьабула</string>
+  <string name="blackCheckmatesInOneMove">ЧӀегӀерал цо хъурщиялъ мат гьабула</string>
   <string name="retry">ЦӀидасан хӀалбихьизе</string>
   <string name="favoriteOpponents">ТӀаса рищарал дандеял</string>
   <string name="follow">Нахъвилълъине</string>
@@ -403,7 +410,9 @@
   <string name="tournamentIsStarting">Турнир байбихьулеб буго</string>
   <string name="pause">ЧӀезабизе</string>
   <string name="youArePlaying">Мун хӀалев вуго!</string>
+  <string name="winRate">Бергьенлъи</string>
   <string name="berserkRate">Берсерк рейтинг</string>
+  <string name="movesPlayed">Хъурщи гьабуна</string>
   <string name="whiteWins">ХъахӀаз бергьенлъи</string>
   <string name="blackWins">ЧӀегӀераз бергьенлъи</string>
   <string name="draws">Ращад ккей</string>
@@ -413,6 +422,7 @@
   <string name="setTheBoard">Хъарщи чӀезабизе</string>
   <string name="chess960StartPosition">Chess960 байбихьул бакӀал: %s</string>
   <string name="isPrivate">Къараб</string>
+  <string name="reportXToModerators">%s-(и)л модераторазда бицине</string>
   <string name="xRating">%s рейтинг</string>
   <string name="profile">Дур гьумер</string>
   <string name="editProfile">Дур гьумер хисизе</string>
@@ -420,6 +430,7 @@
   <string name="biography">ГӀумрухъвай</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Улка яги байрахъ</string>
   <string name="thankYou">Баркала!</string>
+  <string name="oneUrlPerLine">Мухъда цо бухьен.</string>
   <string name="success">Бергьенлъи</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s хӀай</item>
@@ -428,15 +439,21 @@
   <string name="puzzles">Масъала</string>
   <string name="tournamentWinners">Турниралда бергьарал</string>
   <string name="name">ЦӀар</string>
+  <string name="description">Гьелъул хӀакъалъулъ хъвай</string>
   <string name="no">Гуро</string>
   <string name="yes">У</string>
   <string name="help">Квербакъи:</string>
+  <string name="createANewTopic">ЦӀияб тема гьабизе</string>
   <string name="topics">Темаби</string>
+  <string name="posts">Публикацияби</string>
+  <string name="lastPost">Ахирисеб публикация</string>
   <string name="views">Балагьи</string>
   <string name="replies">Жавабал</string>
   <string name="replyToThisTopic">Гьаб темаялда жаваб кьезе</string>
   <string name="reply">Жаваб кьезе</string>
   <string name="message">Хабар</string>
+  <string name="createTheTopic">Тема гьабизе</string>
+  <string name="reportAUser">ХӀалтӀизабулесул лъазабизе</string>
   <string name="user">ХӀалтӀизабулев</string>
   <string name="reason">ГӀилла</string>
   <string name="whatIsIheMatter">Щиб ккараб?</string>
@@ -446,6 +463,7 @@
   <string name="other">Цогидаб</string>
   <string name="by">%s-(и)ца</string>
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>
+  <string name="thisTopicIsNowClosed">Гьаб тема къан буго.</string>
   <string name="notes">Хъвай-хъвагӀаял</string>
   <string name="noNoteYet">Жеги хъвай-хъвагӀай гьечӀо</string>
   <string name="incorrectPassword">Мекъаб парол</string>
@@ -478,6 +496,7 @@
   <string name="defeatVsYInZ">%1$s - %2$s, %3$s</string>
   <string name="drawVsYInZ">%1$s - %2$s, %3$s</string>
   <string name="timeline">Таймлайн</string>
+  <string name="starting">Байбихьула:</string>
   <string name="human">ГӀадан</string>
   <string name="computer">Компьютер</string>
   <string name="side">Рахъ</string>
@@ -505,8 +524,27 @@
   <string name="newTournament">ЦӀияб турнир</string>
   <string name="tournamentNotFound">Турнир батичӀо</string>
   <string name="tournamentDoesNotExist">Гьадинаб турнир гьечӀо.</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Гьаб анкьалъ %1$s %2$s хӀалев.</item>
+    <item quantity="other">Гьаб анкьалъ %1$s %2$s хӀалев.</item>
+  </plurals>
+  <string name="yourPerfTypeRatingIsRating">Дур %1$s рейтинг %2$s буго.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Мун %1$s %2$s хӀалесдаса лъикӀав вуго.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s хӀалесдаса лъикӀав вуго.</string>
   <string name="yourRating">Дур рейтинг</string>
+  <string name="readAboutOur">Нижер %s-ялъул цӀале.</string>
+  <string name="downloadAnnotated">Аннотациягун рещтӀинабизе</string>
+  <string name="downloadRaw">Бугеб куцалъ рещтӀинабизе</string>
+  <string name="downloadImported">Жаниб лъураб рещтӀинабизе</string>
+  <string name="playChessEverywhere">Шахматаби кибго хӀай</string>
+  <string name="zeroAdvertisement">Реклама гьечӀо</string>
+  <string name="phoneAndTablet">Телефонги планшетги</string>
   <string name="followAndChallengeFriends">Гьудулзабазда нахъвилълъа, къецалдеги ахӀе</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s мацӀалда рагьараб буго!</item>
+    <item quantity="other">%s мацӀалда рагьараб буго!</item>
+  </plurals>
+  <string name="gameAnalysis">ХӀаялъул анализ</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Нужер рикӀкӀин: %s</string>
@@ -514,7 +552,11 @@
   <string name="light">КанчӀаб</string>
   <string name="dark">БецӀаб</string>
   <string name="transparent">Гъорлъан канлъи бихьулеб</string>
+  <string name="boardTheme">Хъорщол куц</string>
   <string name="coaches">Мударибзаби</string>
+  <string name="invalidPgn">Мекъаб PGN</string>
+  <string name="invalidFen">Мекъаб FEN</string>
+  <string name="custom">Дирго хӀай</string>
   <string name="notifications">Ругьалаби</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
@@ -526,6 +568,10 @@
   <string name="bestWasX">Бищун лъикӀаб букӀана %s</string>
   <string name="computerThinking">Компютер ургъулеб буго ...</string>
   <string name="seeBestMove">Бищун лъикӀаб ин балагьизе</string>
+  <string name="whiteWinsGame">ХъахӀал бергьана</string>
+  <string name="blackWinsGame">ЧӀегӀерал бергьана</string>
+  <string name="next">Хадусеб</string>
+  <string name="youCanDoBetter">Жеги лъикӀаб буго</string>
   <string name="noMistakesFoundForWhite">ХъахӀазул гъалатӀал ратичӀо</string>
   <string name="noMistakesFoundForBlack">ЧӀегӀеразул гъалатӀал ратичӀо</string>
   <string name="doItAgain">Нахъеги гьабизе</string>
