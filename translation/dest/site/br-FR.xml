@@ -363,9 +363,9 @@
   <plurals name="giveNbSeconds">
     <item quantity="one">Reiñ %s eilenn</item>
     <item quantity="two">Reiñ %s eilenn</item>
-    <item quantity="few">Reiñ %s eilennoù</item>
-    <item quantity="many">Reiñ %s eilennoù</item>
-    <item quantity="other">Reiñ %s eilennoù</item>
+    <item quantity="few">Reiñ %s eilenn</item>
+    <item quantity="many">Reiñ %s eilenn</item>
+    <item quantity="other">Reiñ %s eilenn</item>
   </plurals>
   <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ n\'en deus ket doujet da Reolennoù Lichess</string>
   <string name="openingExplorerAndTablebase">Furcher an digoradurioù &amp; tablebase</string>
