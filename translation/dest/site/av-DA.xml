@@ -224,6 +224,7 @@
   <string name="emailForSignupHelp">Щибниги битӀун кколеб гьечӀони, гьаб кагъат битӀе нижехъе:</string>
   <string name="copyTextToEmail">Копия бахъун тексталда тӀад лъе цинги гьанибе битӀе %s</string>
   <string name="waitForSignupHelp">Дуе хъвай-хъвагӀай гьабизе квербакъизе, ниж кватӀичӀого духъе тӀадруссина.</string>
+  <string name="accountConfirmed">%s хӀалтӀизабулев чи бергьенлъиялда тасдикъ гьавуна.</string>
   <string name="accountCanLogin">Дуда %s-лъун гьабсагӀат жаниве лъугьине кӀола.</string>
   <string name="accountConfirmationEmailNotNeeded">Дуе электронияб поч тасдикъ гьабизе къваригӀунаро.</string>
   <string name="accountClosed">%s аккаунт къан буго.</string>
@@ -552,7 +553,9 @@
   <string name="light">КанчӀаб</string>
   <string name="dark">БецӀаб</string>
   <string name="transparent">Гъорлъан канлъи бихьулеб</string>
+  <string name="deviceTheme">Девайсалъул куц</string>
   <string name="boardTheme">Хъорщол куц</string>
+  <string name="boardSize">Хъорщол кӀодолъи</string>
   <string name="coaches">Мударибзаби</string>
   <string name="invalidPgn">Мекъаб PGN</string>
   <string name="invalidFen">Мекъаб FEN</string>
@@ -604,11 +607,14 @@
   <string name="tournChat">Турниралъул чат</string>
   <string name="noChat">Чат гьечӀо</string>
   <string name="onlyTeamLeaders">ЦохӀо къокъаялъул церехъаби</string>
+  <string name="onlyTeamMembers">ЦохӀо къокъаялъул гӀахьалчӀагӀи</string>
   <string name="playComputerMove">Бищун лъикӀаб компютералъул хъурщи гьабизе</string>
   <string name="showHelpDialog">Квербакъиялъул хъвай-хъвагӀай бихьзабизе</string>
   <string name="onlyWorksOnce">Гьаб цо нухалъ хӀалтӀизе буго.</string>
   <string name="tournamentEntryCode">Турниралде лъугьине код</string>
   <string name="hangOn">ЧӀая цо!</string>
   <string name="gameInProgress">Дур %sгун хӀай унеб буго.</string>
+  <string name="since">-даса</string>
+  <string name="until">ЩвезегӀан</string>
   <string name="switchSides">Рахъ хизисе</string>
 </resources>
