@@ -609,7 +609,9 @@
   <string name="onlyTeamLeaders">ЦохӀо къокъаялъул церехъаби</string>
   <string name="onlyTeamMembers">ЦохӀо къокъаялъул гӀахьалчӀагӀи</string>
   <string name="playComputerMove">Бищун лъикӀаб компютералъул хъурщи гьабизе</string>
+  <string name="analysisOptions">Анализалъул параметраби</string>
   <string name="showHelpDialog">Квербакъиялъул хъвай-хъвагӀай бихьзабизе</string>
+  <string name="reopenYourAccount">Дур аккаунт цӀидасан рагье</string>
   <string name="onlyWorksOnce">Гьаб цо нухалъ хӀалтӀизе буго.</string>
   <string name="tournamentEntryCode">Турниралде лъугьине код</string>
   <string name="hangOn">ЧӀая цо!</string>
@@ -617,4 +619,5 @@
   <string name="since">-даса</string>
   <string name="until">ЩвезегӀан</string>
   <string name="switchSides">Рахъ хизисе</string>
+  <string name="ourEventTips">Тадбирал гьабизелъун нижер гӀакълаби</string>
 </resources>
