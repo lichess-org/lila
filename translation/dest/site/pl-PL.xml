@@ -97,6 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' - odległość do zerowania z regułą pięćdziesięciu ruchów</string>
   <string name="noGameFound">Nie znaleziono partii</string>
+  <string name="maxDepthReached">Osiągnięto maksymalną głębokość!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
   <string name="openings">Otwarcia</string>
   <string name="openingExplorer">Biblioteka otwarć</string>
@@ -386,6 +387,7 @@
   </plurals>
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
+  <string name="noDrawBeforeSwissLimit">Nie możesz oferować remisu przed 30 posunięciem w turnieju szwajcarskim.</string>
   <string name="thematic">Tematyczny</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partia rankingowa</item>
