@@ -242,6 +242,8 @@
   <string name="proceedToX">Kuitaat war-zu %s</string>
   <string name="passwordSuggestion">Na choazit ket ur ger-kuzh bet silet e pleg ho skouarn gant unan all. Arveriet e vo evit laerezh ho kont diganeoc\'h.</string>
   <string name="emailSuggestion">Na choazit ket ur chomlec\'h postel bet aliet deoc\'h gant unan all. Arveriet e vo evit laerezh ho kont diganeoc\'h.</string>
+  <string name="emailConfirmHelp">Un tamm sikour evit ar postel kadarnaat</string>
+  <string name="usernameNotFound">N\'omp ket deuet a-benn da gavout ur c\'hoarier anvet: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Gallout a rit ober gant an anv implijer-mañ evit krouiñ ur gont nevez</string>
   <string name="emailSent">Kaset hon eus ur postel da %s.</string>
   <string name="emailCanTakeSomeTime">Marteze ne vo ket resevet diouzhtu-dak.</string>
@@ -627,7 +629,7 @@
   <string name="typePrivateNotesHere">Bizskrivañ notennoù prevez amañ</string>
   <string name="writeAPrivateNoteAboutThisUser">Skrivañ un notenn brevez diwar-benn ar c\'hoarier-mañ</string>
   <string name="noNoteYet">Notenn ebet evit poent</string>
-  <string name="invalidUsernameOrPassword">N\'eo ket mat an an anv-implijer pe ar ger-tremen</string>
+  <string name="invalidUsernameOrPassword">N\'eo ket mat an anv-implijer pe ar ger-tremen-mañ</string>
   <string name="incorrectPassword">N\'eo ket mat ar ger-kuzh</string>
   <string name="invalidAuthenticationCode">Kod dilesadur fall</string>
   <string name="emailMeALink">Kasit din ul liamm dre bostel</string>
@@ -956,6 +958,7 @@
   <string name="useTheReportForm">grit gant ar furmskrid diskleriañ</string>
   <string name="toRequestSupport">Evit bezañ sikouret %1$s</string>
   <string name="tryTheContactPage">klaskit war ar bajenn mont e darempred</string>
+  <string name="makeSureToRead">Lennit %1$s mar plij ganeoc\'h</string>
   <string name="thisTopicIsArchived">Diellaouet eo bet ar sujed-mañ ha ne c\'haller ket respont ken.</string>
   <string name="joinTheTeamXToPost">Ret eo bezañ ezel eus %1$s evit skrivañ ur gemennadenn er forom-mañ</string>
   <string name="teamNamedX">Skipailh %1$s</string>
@@ -1007,4 +1010,5 @@
   <string name="lichessDbExplanation">Krogadoù renket c\'hoariet war Lichess</string>
   <string name="switchSides">Cheñch tu</string>
   <string name="closingAccountWithdrawAppeal">Nullet e vo hoc\'h engalv ma serrit ho kont</string>
+  <string name="ourEventTips">Alioù fur a-raok aozañ abadennoù</string>
 </resources>
