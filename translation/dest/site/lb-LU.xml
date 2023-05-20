@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
   <string name="noGameFound">Keng Partie fonnt</string>
+  <string name="maxDepthReached">Maximal Déift erreecht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
   <string name="openings">Eröffnungen</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Turnéier ukucken</string>
   <string name="backToTournament">Zeréck bei den Turnéier</string>
+  <string name="noDrawBeforeSwissLimit">Du kanns an engem Schwäizer Turnéier keen Remis offréieren virum 30ten Zuch.</string>
   <string name="thematic">Thematesch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gewäert Partie</item>

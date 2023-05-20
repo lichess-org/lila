@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' arrondi, basé sur le nombre de demi-coups jusqu\'à la prochaine capture ou le prochain coup de pion</string>
   <string name="noGameFound">Aucune partie trouvée</string>
+  <string name="maxDepthReached">Profondeur maximale atteinte!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openings">Ouvertures</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
+  <string name="noDrawBeforeSwissLimit">Vous ne pouvez pas offrir de nulle avant 30 coups dans un tournoi suisse.</string>
   <string name="thematic">Thématique</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partie classée</item>

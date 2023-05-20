@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' със закръгляне, базирано на броя полуходове до следващото вземане на фигура или преместване на пешка</string>
   <string name="noGameFound">Няма намерени игри</string>
+  <string name="maxDepthReached">Максималната дълбочина е достигната!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Защо не включите повече игри в датабазата от менюто?</string>
   <string name="openings">Дебюти</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Виж турнира</string>
   <string name="backToTournament">Продължи турнира</string>
+  <string name="noDrawBeforeSwissLimit">Не можете да предложите реми при по-малко от 30 хода в швейцарски турнир.</string>
   <string name="thematic">Тематичен</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s оценена игра</item>

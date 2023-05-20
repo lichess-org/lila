@@ -48,7 +48,10 @@ final private class FishnetOpeningBook(
               move <- data randomPonderedMove (game.turnColor, level)
             yield move.uci
         }
-        .recover { case _: java.util.concurrent.TimeoutException => none }
+        .recover { case _: java.util.concurrent.TimeoutException =>
+          outOfBook.put(game.id)
+          none
+        }
         .monTry { res =>
           _.fishnet
             .openingBook(
@@ -69,7 +72,7 @@ object FishnetOpeningBook:
 
     def randomPonderedMove(turn: Color, level: Int): Option[Move] =
       val sum     = moves.map(_.score(turn, level)).sum
-      val novelty = 5L * 14 // score of 5 winning games
+      val novelty = 50L * 14 // score of 50 winning games
       val rng     = ThreadLocalRandom.nextLong(sum + novelty)
       moves
         .foldLeft((none[Move], 0L)) { case ((found, it), next) =>

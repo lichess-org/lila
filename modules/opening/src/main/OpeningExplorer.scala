@@ -65,7 +65,7 @@ final private class OpeningExplorer(
         case res =>
           res
             .body[JsValue]
-            .validate[Position]
+            .validate[Stats]
             .fold(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.sum.some)
@@ -85,7 +85,7 @@ object OpeningExplorer:
       moves: List[Move],
       topGames: List[GameRef],
       recentGames: List[GameRef],
-      history: List[HistorySegment]
+      history: List[Stats]
   ):
     val sum      = white + draws + black
     val movesSum = moves.foldLeft(0L)(_ + _.sum)
@@ -99,7 +99,7 @@ object OpeningExplorer:
 
   case class GameRef(id: GameId)
 
-  case class HistorySegment(
+  case class Stats(
       white: Long,
       draws: Long,
       black: Long
@@ -107,7 +107,7 @@ object OpeningExplorer:
     def sum = white + draws + black
 
   import lila.common.Json.given
-  private given Reads[Move]           = Json.reads
-  private given Reads[GameRef]        = Json.reads
-  private given Reads[HistorySegment] = Json.reads
-  private given Reads[Position]       = Json.reads
+  private given Reads[Move]     = Json.reads
+  private given Reads[GameRef]  = Json.reads
+  private given Reads[Position] = Json.reads
+  private given Reads[Stats]    = Json.reads
