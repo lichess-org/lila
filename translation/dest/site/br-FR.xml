@@ -701,6 +701,8 @@
   <string name="error.min">A rank bezañ %s da nebeutañ</string>
   <string name="error.max">A rank bezañ %s da vuiañ</string>
   <string name="ifRatingIsPlusMinusX">Ma \'z eo ar renkadur ± %s</string>
+  <string name="ifRegistered">Enskrivet hepken</string>
+  <string name="onlyExistingConversations">Kaozeadennoù o ren hepken</string>
   <string name="onlyFriends">Mignoned hepken</string>
   <string name="menu">Lañser</string>
   <string name="castling">Rokañ</string>
