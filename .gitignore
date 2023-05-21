@@ -1,5 +1,6 @@
 .sbtopts
 .bsp
+.pnpm-store
 .bloop/
 .metals/
 project/.bloop/
@@ -57,5 +58,7 @@ RUNNING_PID
 # IntelliJ auto-generated files
 .idea
 
-# Docker-compose
+# Docker-compose / docker sbt
 /docker-compose.yml
+/?
+
