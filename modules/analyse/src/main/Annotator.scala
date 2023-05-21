@@ -82,9 +82,9 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
       }
 
   private def makeVariation(advice: Advice): Option[Variation[Move]] =
-    val sansWithIndex = (advice.info.variation take 20).zipWithIndex
-    Variation.build(
-      sansWithIndex,
+    val sans = advice.info.variation take 20
+    Variation.buildWithIndex(
+      sans,
       { case (san, index) =>
         Move(
           ply = Ply(advice.ply.value + index - 1),

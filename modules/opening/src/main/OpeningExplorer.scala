@@ -107,7 +107,7 @@ object OpeningExplorer:
     def sum = white + draws + black
 
   import lila.common.Json.given
-  private given Reads[Move]           = Json.reads
-  private given Reads[GameRef]        = Json.reads
-  private given Reads[Position]       = Json.reads
-  private given Reads[Stats]          = Json.reads
+  private given Reads[Move]     = Json.reads
+  private given Reads[GameRef]  = Json.reads
+  private given Reads[Position] = Json.reads
+  private given Reads[Stats]    = Json.reads
