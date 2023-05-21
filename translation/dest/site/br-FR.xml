@@ -243,6 +243,7 @@
   <string name="passwordSuggestion">Na choazit ket ur ger-kuzh bet silet e pleg ho skouarn gant unan all. Arveriet e vo evit laerezh ho kont diganeoc\'h.</string>
   <string name="emailSuggestion">Na choazit ket ur chomlec\'h postel bet aliet deoc\'h gant unan all. Arveriet e vo evit laerezh ho kont diganeoc\'h.</string>
   <string name="emailConfirmHelp">Un tamm sikour evit ar postel kadarnaat</string>
+  <string name="whatSignupUsername">Petra oa hoc\'h anv-implijer da vare hoc\'h enskrivadur?</string>
   <string name="usernameNotFound">N\'omp ket deuet a-benn da gavout ur c\'hoarier anvet: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Gallout a rit ober gant an anv implijer-mañ evit krouiñ ur gont nevez</string>
   <string name="emailSent">Kaset hon eus ur postel da %s.</string>
@@ -251,7 +252,9 @@
   <string name="checkSpamFolder">Taolit ur sell en ho strobelloù e ken kas. Ma c\'hoarvez seul taol ganeoc\'h e vo dav resisaat n\'eo ket ur strobell.</string>
   <string name="emailForSignupHelp">Kasit deomp ar postel-mañ ma n\'oc\'h ket deuet a-benn:</string>
   <string name="copyTextToEmail">Eilit ha pegit an destennig ha kasit anezhi da %s</string>
+  <string name="accountConfirmed">Kadarnaet eo bet krouidigezh ar c\'hoarier %s.</string>
   <string name="accountCanLogin">Gallout a rit kevreañ dindan an anv %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">N\'ho peus ket ezhomm deus ur postel-kadarnaat.</string>
   <string name="accountClosed">Serr eo ar gont %s.</string>
   <string name="rank">Renk</string>
   <string name="rankX">Renk: %s</string>
@@ -961,6 +964,7 @@
   <string name="toRequestSupport">Evit bezañ sikouret %1$s</string>
   <string name="tryTheContactPage">klaskit war ar bajenn mont e darempred</string>
   <string name="makeSureToRead">Lennit %1$s mar plij ganeoc\'h</string>
+  <string name="theForumEtiquette">reolennoù ar forom</string>
   <string name="thisTopicIsArchived">Diellaouet eo bet ar sujed-mañ ha ne c\'haller ket respont ken.</string>
   <string name="joinTheTeamXToPost">Ret eo bezañ ezel eus %1$s evit skrivañ ur gemennadenn er forom-mañ</string>
   <string name="teamNamedX">Skipailh %1$s</string>
@@ -985,7 +989,10 @@
   <string name="cancelTournament">Nullañ an tournamant</string>
   <string name="tournDescription">Ur gerig diwar-benn an tournamant</string>
   <string name="tournDescriptionHelp">Un dra bennak a fell deoc\'h lâret d\'ar re a gemero perzh? E berr gomzoù mar plij. Liammoù Markdown zo: [name](https://url)</string>
+  <string name="ratedFormHelp">Renket eo ar c\'hrogadoù ha cheñch a reont renkadur ar c\'hoarierien</string>
   <string name="onlyMembersOfTeam">Izili ar skipailh hepken</string>
+  <string name="noRestriction">Harz ebet</string>
+  <string name="minimumRating">Renkadur bihanañ</string>
   <string name="onlyTitled">C\'hoarierien titlet hepken</string>
   <string name="simulHostcolor">Liv an ostiz evit pep krogad</string>
   <string name="simulDescriptionHelp">Un dra bennak da lâret d\'ar re a gemero perzh?</string>
