@@ -80,8 +80,7 @@ object Helpers:
       node
         .focus(_.metas.comments)
         .modify(_.cleanup)
-        .focus(_.path)
-        .replace(UciPath.root)
+        .copy(path = UciPath.root)
 
   extension (root: NewRoot)
     def cleanup: NewRoot =

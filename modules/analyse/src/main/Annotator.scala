@@ -56,7 +56,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
         pgn
           .modifyInMainline(
             advice.ply,
-            { node =>
+            node =>
               node.copy(
                 value = node.value.copy(
                   glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
@@ -64,7 +64,6 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
                 ),
                 variations = makeVariation(advice).toList ++ node.variations
               )
-            }
           )
           .getOrElse(pgn)
       }
@@ -85,15 +84,10 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
     val sans = advice.info.variation take 20
     Variation.buildWithIndex(
       sans,
-      { case (san, index) =>
-        Move(
-          ply = Ply(advice.ply.value + index - 1),
-          san = san
-        )
-      }
+      (san, index) => Move(Ply(advice.ply.value + index - 1), san)
     )
 
   extension (pgn: Pgn)
     def modifyInMainline(ply: Ply, f: Node[Move] => Node[Move]): Option[Pgn] =
-      val predicate = (m: Move) => m.ply == ply - 1
+      val predicate = (_: Move).ply == ply - 1
       pgn.focus(_.tree.some).modifyA(_.modifyInMainline(predicate, f))

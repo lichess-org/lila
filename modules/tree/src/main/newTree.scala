@@ -124,13 +124,12 @@ object NewTree:
     ChessNode(value, child, variations)
 
   def apply(root: Root): Option[NewTree] =
-    root.children.first.map(first =>
+    root.children.first.map: first =>
       NewTree(
         value = fromBranch(first),
         child = first.children.first.map(fromBranch(_, first.children.variations)),
         variations = root.children.variations.map(toVariation)
       )
-    )
 
   def fromBranch(branch: Branch, variations: List[Branch]): NewTree =
     NewTree(
@@ -172,9 +171,9 @@ object NewTree:
       node.crazyData
     )
 
-  given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
-  def minimalNodeJsonWriter: Writes[NewTree]                    = makeNodeJsonWriter(alwaysChildren = false)
-  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ???
+  // given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
+  // def minimalNodeJsonWriter: Writes[NewTree]   = makeNodeJsonWriter(alwaysChildren = false)
+  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ???
   // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
 
