@@ -70,8 +70,6 @@ object jsI18n:
         trans.cpus,
         trans.memory,
         trans.engineManager,
-        trans.delete,
-        trans.deleteThisImportedGame,
         trans.replayMode,
         trans.slow,
         trans.fast,
