@@ -34,7 +34,7 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
 
 #microphone-button {
   span {
-    padding: 1px;
+    padding: 0 4px;
     font-family: 'lichess';
     font-size: 1.6em;
     border: 1px solid transparent;
