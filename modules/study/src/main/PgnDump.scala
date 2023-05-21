@@ -104,7 +104,6 @@ object PgnDump:
   private val noVariations: Variations = Nil
 
   def rootToPgn(root: Root, tags: Tags)(using flags: WithFlags): Pgn =
-    println(s"rootToPgn $flags")
     Pgn(
       tags,
       Initial(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
