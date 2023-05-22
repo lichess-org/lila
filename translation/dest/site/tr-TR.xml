@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\', bir sonraki yakalama veya piyon hamlesine kadar olan yarım hamle sayısına dayalı yuvarlama ile</string>
   <string name="noGameFound">Oyun bulunamadı</string>
+  <string name="maxDepthReached">Maksimum derinliğe ulaşıldı!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
   <string name="openings">Açılışlar</string>
   <string name="openingExplorer">Açılış kâşifi</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Turnuvaya göz at</string>
   <string name="backToTournament">Turnuvaya geri dön</string>
+  <string name="noDrawBeforeSwissLimit">Bir İsviçre sistemi turnuvasında 30 hamle oynanmadan berabere yapamazsınız.</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s dereceli maç</item>

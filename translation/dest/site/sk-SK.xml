@@ -387,6 +387,7 @@
   </plurals>
   <string name="viewTournament">Zobraziť turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
+  <string name="noDrawBeforeSwissLimit">V turnaji švajčiarskeho systému nie je možné remizovať pokiaľ sa neodohralo 30 ťahov.</string>
   <string name="thematic">Tematický</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s hodnotená hra</item>
