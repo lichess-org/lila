@@ -202,8 +202,8 @@ Allow: /
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
-    key = "user.image.ip"
+  private val ImageUploadRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "image.upload.ip"
   )(
     ("fast", 10, 2.minutes),
     ("slow", 60, 1.day)
@@ -213,7 +213,7 @@ Allow: /
     if lila.common.HTTPRequest.isXhr(ctx.req) then
       ctx.body.body.file("image") match
         case Some(image) =>
-          ImageRateLimitPerIp(ctx.ip, rateLimitedFu):
+          ImageUploadRateLimitPerIp(ctx.ip, rateLimitedFu):
             env.memo.picfitApi
               .uploadFile(
                 s"userimage:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}",

@@ -76,7 +76,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
         const formData = new FormData();
         formData.append('image', blob);
         xhr
-          .json(el.getAttribute('data-url')!, { method: 'POST', body: formData })
+          .json(el.getAttribute('data-image-upload-url')!, { method: 'POST', body: formData })
           .then(data => cb(data.imageUrl, ''))
           .catch(e => {
             cb('');
