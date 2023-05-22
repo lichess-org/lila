@@ -209,14 +209,14 @@ Allow: /
     ("slow", 60, 1.day)
   )
 
-  def uploadImage = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
     if lila.common.HTTPRequest.isXhr(ctx.req) then
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageUploadRateLimitPerIp(ctx.ip, rateLimitedFu):
             env.memo.picfitApi
               .uploadFile(
-                s"userimage:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}",
+                s"$rel:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}",
                 image,
                 userId = me.id
               )
