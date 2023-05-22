@@ -210,18 +210,10 @@ Allow: /
   )
 
   def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
-    if lila.common.HTTPRequest.isXhr(ctx.req) then
-      ctx.body.body.file("image") match
-        case Some(image) =>
-          ImageUploadRateLimitPerIp(ctx.ip, rateLimitedFu):
-            env.memo.picfitApi
-              .uploadFile(
-                s"$rel:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}",
-                image,
-                userId = me.id
-              )
-              .map(pic => JsonOk(Json.obj("imageUrl" -> env.memo.picfitApi.url.resize(pic.id, Left(720)))))
-        case None =>
-          fuccess(JsonBadRequest(jsonError("Image content only")))
-    else fuccess(Forbidden)
+    ctx.body.body.file("image") match
+      case Some(image) =>
+        env.memo.picfitApi.bodyImage
+          .upload(rel = rel, image = image, me = me.id, ip = ctx.ip)
+          .map(url => JsonOk(Json.obj("imageUrl" -> url)))
+      case None => fuccess(JsonBadRequest(jsonError("Image content only")))
   }

@@ -10,6 +10,7 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
+import lila.common.IpAddress
 
 case class PicfitImage(
     _id: PicfitImage.Id,
@@ -72,6 +73,17 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .flatMap { _.result[PicfitImage] ?? picfitServer.delete }
       .void
 
+  object bodyImage:
+    private val sizePx = Left(720)
+    private val RateLimitPerIp = RateLimit.composite[lila.common.IpAddress](key = "image.body.upload.ip")(
+      ("fast", 10, 2.minutes),
+      ("slow", 60, 1.day)
+    )
+    def upload(rel: String, image: FilePart, me: UserId, ip: IpAddress): Fu[Option[String]] =
+      RateLimitPerIp(ip, fuccess(none)):
+        uploadFile(s"$rel:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}", image, me)
+          .map(pic => url.resize(pic.id, sizePx).some)
+
   private object picfitServer:
 
     def store(image: PicfitImage, part: SourcePart): Funit =
@@ -102,9 +114,9 @@ object PicfitApi:
 
   val uploadMaxMb = 4
 
-  type FilePart   = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
-  type ByteSource = Source[ByteString, ?]
-  type SourcePart = MultipartFormData.FilePart[ByteSource]
+  type FilePart           = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
+  private type ByteSource = Source[ByteString, ?]
+  private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
   object WSBodyWritables:
