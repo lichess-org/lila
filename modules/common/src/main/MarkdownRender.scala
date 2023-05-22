@@ -33,6 +33,7 @@ import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
 import chess.format.pgn.PgnStr
+import lila.common.config.AssetDomain
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -43,7 +44,7 @@ final class MarkdownRender(
     list: Boolean = false,
     code: Boolean = false,
     gameExpand: Option[MarkdownRender.GameExpand] = None,
-    assetDomain: String = "lichess1.org"
+    assetDomain: AssetDomain = AssetDomain("lichess1.org")
 ):
 
   private val extensions = java.util.ArrayList[Extension]()
@@ -113,7 +114,7 @@ object MarkdownRender:
 
   private object WhitelistedImage:
 
-    private val whitelist =
+    private val whitelist = AssetDomain.from:
       List(
         "imgur.com",
         "giphy.com",
@@ -132,14 +133,14 @@ object MarkdownRender:
         "images.prismic.io"
       )
 
-    private def whitelistedSrc(src: String, assetDomain: String): Option[String] = for
+    private def whitelistedSrc(src: String, assetDomain: AssetDomain): Option[String] = for
       url <- Try(URL.parse(src)).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
-      if (assetDomain :: whitelist).exists(h => host == h || host.endsWith(s".$h"))
+      if (assetDomain :: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))
     yield url.toString
 
-    def create(assetDomain: String) = new HtmlRenderer.HtmlRendererExtension:
+    def create(assetDomain: AssetDomain) = new HtmlRenderer.HtmlRendererExtension:
       override def rendererOptions(options: MutableDataHolder) = ()
       override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
         htmlRendererBuilder
