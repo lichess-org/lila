@@ -31,7 +31,7 @@ final class UblogMarkup(
     code = true,
     table = true,
     gameExpand = MarkdownRender.GameExpand(netDomain, pgnCache.getIfPresent).some,
-    assetDomain
+    assetDomain.some
   )
 
   def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map { html =>

@@ -44,7 +44,7 @@ final class MarkdownRender(
     list: Boolean = false,
     code: Boolean = false,
     gameExpand: Option[MarkdownRender.GameExpand] = None,
-    assetDomain: AssetDomain = AssetDomain("lichess1.org")
+    assetDomain: Option[AssetDomain] = None
 ):
 
   private val extensions = java.util.ArrayList[Extension]()
@@ -133,14 +133,14 @@ object MarkdownRender:
         "images.prismic.io"
       )
 
-    private def whitelistedSrc(src: String, assetDomain: AssetDomain): Option[String] = for
+    private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
       url <- Try(URL.parse(src)).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
-      if (assetDomain :: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))
+      if (assetDomain.toList ::: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))
     yield url.toString
 
-    def create(assetDomain: AssetDomain) = new HtmlRenderer.HtmlRendererExtension:
+    def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
       override def rendererOptions(options: MutableDataHolder) = ()
       override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
         htmlRendererBuilder
