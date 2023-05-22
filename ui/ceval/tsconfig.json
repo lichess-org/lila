@@ -7,6 +7,6 @@
     "types": ["lichess", "web", "cash"],
     "composite": true
   },
-  "references": [{ "path": "../common/tsconfig.json" }],
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../tree/tsconfig.json" }],
   "isolatedModules": true
 }
