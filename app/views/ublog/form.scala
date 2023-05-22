@@ -141,7 +141,7 @@ object form:
       ) { field =>
         frag(
           form3.textarea(field)(),
-          div(id := "markdown-editor")
+          div(id := "markdown-editor", attr("data-url") := routes.Main.uploadImage)
         )
       },
       post.toOption match {

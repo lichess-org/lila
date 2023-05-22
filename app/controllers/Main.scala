@@ -201,3 +201,27 @@ Allow: /
     }.toFuccess
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
+
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "user.image.ip"
+  )(
+    ("fast", 10, 2.minutes),
+    ("slow", 60, 1.day)
+  )
+
+  def uploadImage = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+    if lila.common.HTTPRequest.isXhr(ctx.req) then
+      ctx.body.body.file("image") match
+        case Some(image) =>
+          ImageRateLimitPerIp(ctx.ip, rateLimitedFu):
+            env.memo.picfitApi
+              .uploadFile(
+                s"userimage:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}",
+                image,
+                userId = me.id
+              )
+              .map(pic => JsonOk(Json.obj("imageUrl" -> env.memo.picfitApi.url.resize(pic.id, Left(720)))))
+        case None =>
+          fuccess(JsonBadRequest(jsonError("Image content only")))
+    else fuccess(Forbidden)
+  }

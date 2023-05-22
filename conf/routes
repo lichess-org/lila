@@ -815,6 +815,7 @@ GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
+POST  /upload/image/user               controllers.Main.uploadImage
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli
