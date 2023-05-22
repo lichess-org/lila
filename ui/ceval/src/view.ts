@@ -13,7 +13,7 @@ import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
 import { CevalState } from './worker';
-import { toggle, ToggleSettings } from 'common/toggle';
+import { toggle, ToggleSettings } from 'common/controls';
 import CevalCtrl from './ctrl';
 
 let gaugeLast = 0;
@@ -68,7 +68,7 @@ function shortEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
   }
 
   const depth = evs.local.depth || 0;
-  let t : Array<VNode | string> = evs.local.cloud
+  const t : Array<VNode | string> = evs.local.cloud
     ? [trans('depthX', depth)]
     : [trans('depthX', depth + '/' + Math.max(depth, evs.local.maxDepth))];
   t.push(
@@ -223,7 +223,7 @@ export function renderEngineSelect(sel: string, ctrl: ParentCtrl): VNode {
           elm.addEventListener('change', () => ceval.setEngineType(e.value as EngineType));
           e.value = type;
         },
-        postpatch: ({ }, { elm }) => elm && ((elm as HTMLSelectElement).value = type),
+        postpatch: (_, { elm }) => elm && ((elm as HTMLSelectElement).value = type),
       },
     },
     nodes,
@@ -241,7 +241,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   if (!enabled) instance.actionMenu(false);
 
   let pearl: VNode | string, percent: number;
-  let shortEval: boolean = true;
+  let shortEval = true;
 
   if (!enabled) {
     pearl = '';

@@ -347,7 +347,7 @@ export default class CevalCtrl {
   longEngineName = () => this?.getWorker()?.engineName();
 
   destroy = () => {
-    for (let worker of this.workers.values())
+    for (const worker of this.workers.values())
       worker.destroy();
   };
 
