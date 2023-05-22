@@ -99,6 +99,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' le slánú, bunaithe ar líon na leathbheart go dtí an chéad ghabháil nó beart ceaithearnach</string>
   <string name="noGameFound">Níor aimsíodh cluiche</string>
+  <string name="maxDepthReached">Doimhneacht uasta bainte amach!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
   <string name="openings">Oscailtí</string>
   <string name="openingExplorer">Ag oscailt taiscéalaí</string>
@@ -240,6 +241,14 @@
   <string name="email">Ríomhphost</string>
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">An ndearna tú dearmad ar do phasfhocal?</string>
+  <string name="error.weakPassword">Tá an pasfhocal seo thar a bheith coitianta, agus ró-éasca le buille faoi thuairim.</string>
+  <string name="error.namePassword">Ná húsáid d\'ainm úsáideora mar do phasfhocal.</string>
+  <string name="blankedPassword">D\'úsáid tú an pasfhocal céanna ar shuíomh eile, agus tá an suíomh sin curtha i gcontúirt. Chun sábháilteacht do chuntais Lichess a chinntiú, ní mór dúinn pasfhocal nua a shocrú. Go raibh maith agat as do thuiscint.</string>
+  <string name="youAreLeavingLichess">Tá tú ag fágáil Lichess</string>
+  <string name="neverTypeYourPassword">Ná clóscríobh do phasfhocal Lichess ar shuíomh eile riamh!</string>
+  <string name="proceedToX">Lean ar aghaidh go %s</string>
+  <string name="passwordSuggestion">Ná socraigh pasfhocal a mhol duine éigin eile. Úsáidfidh siad é chun do chuntas a ghoid.</string>
+  <string name="emailSuggestion">Ná socraigh seoladh ríomhphoist a mhol duine éigin eile. Úsáidfidh siad é chun do chuntas a ghoid.</string>
   <string name="emailConfirmHelp">Cabhair le deimhniú ríomhphoist</string>
   <string name="emailConfirmNotReceived">Nach bhfuair tú do ríomhphost deimhnithe tar éis síniú suas?</string>
   <string name="whatSignupUsername">Cén t-ainm úsáideora a d\'úsáid tú chun clárú?</string>
@@ -400,6 +409,7 @@
   </plurals>
   <string name="viewTournament">Féach ar chomórtas</string>
   <string name="backToTournament">Fill ar an chomórtas</string>
+  <string name="noDrawBeforeSwissLimit">Ní féidir cluiche cothroma a aontú sula n-imrítear 30 beart i gcomórtas Eilvéiseach.</string>
   <string name="thematic">Téamach</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s cluiche rátáilte</item>
@@ -461,6 +471,7 @@
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="importGameExplanation">Greamaigh cluiche PGN chun athfhéachaint inbhrabhsala a fháil,
 anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
+  <string name="importGameCaveat">Scriosfar éagsúlachtaí. Chun iad a choinneáil, iompórtáil an PGN trí staidéar.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s cluiche iompórtáilte</item>
     <item quantity="two">%s chluiche iompórtáilte</item>
@@ -759,6 +770,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="simulClockHint">Suiteáil Clog Fischer. Braitheann an méid ama a theastaíonn uait ar an méid céile comhraic atá agat.</string>
   <string name="simulAddExtraTime">Féadfaidh tú am breise a chur le do chlog chun cabhrú leat déileáil leis an gcluiche comhuaineach.</string>
   <string name="simulHostExtraTime">Am breise an óstaigh</string>
+  <string name="simulAddExtraTimePerPlayer">Cuir am tosaigh le do chlog do gach imreoir a ghlacann páirt sa chluiche comhuaineach.</string>
+  <string name="simulHostExtraTimePerPlayer">Óstáil am breise clog do gach imreora</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">Ceisteanna Coitianta Comórtais Airéine</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula dtosnaíonn an comórtas</string>
@@ -975,6 +988,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="useTheReportForm">bain úsáid as an bhfoirm thuairisce</string>
   <string name="toRequestSupport">Chun tacaíocht a iarraidh, %1$s</string>
   <string name="tryTheContactPage">triail an leathanach teagmhála</string>
+  <string name="makeSureToRead">Bí cinnte %1$s a léamh</string>
+  <string name="theForumEtiquette">rialacha iompair an fhóraim</string>
   <string name="thisTopicIsArchived">Cuireadh an t-ábhar seo i gcartlann agus ní féidir freagra a thabhairt air a thuilleadh.</string>
   <string name="joinTheTeamXToPost">Comhcheangail an %1$s, le postáil san fhóram seo</string>
   <string name="teamNamedX">Foireann %1$s</string>
@@ -1058,4 +1073,5 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="lichessDbExplanation">Cluichí rátáilte a sampláladh ó gach imreoir Lichess</string>
   <string name="switchSides">Athraigh taobhanna</string>
   <string name="closingAccountWithdrawAppeal">Má dhúnann tú do chuntas tarraingeofar siar d’achomharc</string>
+  <string name="ourEventTips">Ár leideanna chun imeachtaí a eagrú</string>
 </resources>
