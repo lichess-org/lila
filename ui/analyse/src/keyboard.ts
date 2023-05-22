@@ -63,10 +63,8 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('z', () => {
-      if (!ctrl.ceval.enabled())
-        ctrl.ceval.enable();
-      else
-        ctrl.ceval.setEngineType('disabled');
+      if (!ctrl.ceval.enabled()) ctrl.ceval.enable();
+      else ctrl.ceval.setEngineType('disabled');
     })
     .bind('a', () => {
       ctrl.ceval.toggleAutoShapes(!ctrl.ceval.showAutoShapes());

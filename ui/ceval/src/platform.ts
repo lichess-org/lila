@@ -17,7 +17,7 @@ export interface CevalPlatform {
 export function detectPlatform(
   officialStockfish: boolean,
   enableNnue: boolean,
-  findExternalEngine: () => ExternalEngine | undefined,
+  findExternalEngine: () => ExternalEngine | undefined
 ): CevalPlatform {
   let technology: CevalTechnology = 'asmjs',
     growableSharedMem = false,
@@ -61,8 +61,7 @@ export function detectPlatform(
     technology,
     growableSharedMem,
     supportsNnue,
-    maxThreads: () =>
-    {
+    maxThreads: () => {
       const engine = findExternalEngine();
       return engine
         ? engine.maxThreads

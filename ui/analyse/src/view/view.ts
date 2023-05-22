@@ -446,7 +446,9 @@ export default function (deps?: typeof studyDeps) {
               'div.analyse__underboard',
               {
                 hook:
-                  !ctrl.showServerAnalysis || playable(ctrl.data) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl)),
+                  !ctrl.showServerAnalysis || playable(ctrl.data)
+                    ? undefined
+                    : onInsert(elm => serverSideUnderboard(elm, ctrl)),
               },
               study ? deps?.studyView.underboard(ctrl) : [inputs(ctrl)]
             ),

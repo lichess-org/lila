@@ -32,17 +32,14 @@ function longEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): string {
   if (!evs.local) {
     if (!ceval.analysable) return 'Engine cannot analyze this position';
     if (state == CevalState.Failed) return trans.noarg('engineFailed');
-    return state == CevalState.Loading
-      ? trans.noarg('loadingEngine')
-      : trans.noarg('calculatingMoves');
+    return state == CevalState.Loading ? trans.noarg('loadingEngine') : trans.noarg('calculatingMoves');
   }
 
   const depth = evs.local.depth || 0;
   let t: string = evs.local.cloud
     ? trans('depthX', depth)
     : trans('depthX', depth + '/' + Math.max(depth, evs.local.maxDepth));
-  if (!evs.local.cloud && evs.local.knps)
-    t += ', ' + Math.round(evs.local.knps) + 'k nodes/s';
+  if (!evs.local.cloud && evs.local.knps) t += ', ' + Math.round(evs.local.knps) + 'k nodes/s';
   return ceval.longEngineName() + '\n' + t;
 }
 
@@ -68,7 +65,7 @@ function shortEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
   }
 
   const depth = evs.local.depth || 0;
-  const t : Array<VNode | string> = evs.local.cloud
+  const t: Array<VNode | string> = evs.local.cloud
     ? [trans('depthX', depth)]
     : [trans('depthX', depth + '/' + Math.max(depth, evs.local.maxDepth))];
   t.push(
@@ -178,40 +175,42 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
 export function renderEngineSelect(sel: string, ctrl: ParentCtrl): VNode {
   const ceval = ctrl.getCeval();
 
-  const options: Array<{ value: string, name: string }> = [];
+  const options: Array<{ value: string; name: string }> = [];
 
-  if (!ctrl.mandatoryCeval())
-    options.push({ value: 'disabled', name: 'Analysis disabled' });
+  if (!ctrl.mandatoryCeval()) options.push({ value: 'disabled', name: 'Analysis disabled' });
 
   if (ceval.analysable) {
-    if (ctrl.showServerAnalysis)
-      options.push({ value: 'server', name: 'Stockfish 15.1 (Server)' });
+    if (ctrl.showServerAnalysis) options.push({ value: 'server', name: 'Stockfish 15.1 (Server)' });
     options.push({ value: 'local', name: ceval.localEngineName() + ' (Local)' });
   }
 
   const type = ceval.getEngineType();
   const engines = ceval.externalEngines();
 
-  const nodes: VNode[] = options.map(({ value, name }) => h('option', { attrs: { value }, }, [name]));
+  const nodes: VNode[] = options.map(({ value, name }) => h('option', { attrs: { value } }, [name]));
 
   if (engines.length !== 0)
     nodes.push(
-      h('optgroup', { attrs: { label: 'External Engines' } },
+      h(
+        'optgroup',
+        { attrs: { label: 'External Engines' } },
         engines.map(({ type: value, name, disabled }) =>
-          h('option',
+          h(
+            'option',
             {
               attrs: {
                 value,
                 disabled,
               },
             },
-            [name + ' (External)'],
-          ),
-        ),
-      ),
+            [name + ' (External)']
+          )
+        )
+      )
     );
 
-  return h(sel,
+  return h(
+    sel,
     {
       attrs: {
         disabled: !ceval.analysable,
@@ -226,7 +225,7 @@ export function renderEngineSelect(sel: string, ctrl: ParentCtrl): VNode {
         postpatch: (_, { elm }) => elm && ((elm as HTMLSelectElement).value = type),
       },
     },
-    nodes,
+    nodes
   );
 }
 
@@ -295,27 +294,19 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     : null;
 
   const pearlNode = threatMode
-    ? h('div.pearl',
-        { attrs: { title: longThreatInfo(ctrl, threat) } },
-        [
-          pearl,
-          h('span.pearl-eval', shortThreatInfo(ctrl, threat)),
-        ]
-      )
-    : h('div.pearl',
-        { attrs: { title: longEvalInfo(ctrl, evs) } },
-        [
-          pearl,
-          shortEval ? h('span.pearl-eval', shortEvalInfo(ctrl, evs)) : undefined,
-        ]
-      )
+    ? h('div.pearl', { attrs: { title: longThreatInfo(ctrl, threat) } }, [
+        pearl,
+        h('span.pearl-eval', shortThreatInfo(ctrl, threat)),
+      ])
+    : h('div.pearl', { attrs: { title: longEvalInfo(ctrl, evs) } }, [
+        pearl,
+        shortEval ? h('span.pearl-eval', shortEvalInfo(ctrl, evs)) : undefined,
+      ]);
 
   const hook = bind('click', instance.actionMenu.toggle, ctrl.redraw);
-  const configButton =
-    !enabled
+  const configButton = !enabled
     ? h('button.fbt.config-engine', { hook, attrs: { disabled: true } })
-    : h('button.fbt.config-engine',
-      {
+    : h('button.fbt.config-engine', {
         attrs: {
           'data-icon': '\ue019',
           title: 'Configure engine',
@@ -326,11 +317,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         },
       });
 
-  const config = !instance.actionMenu()
-    ? undefined
-    : h('div.action-menu.engine-config',
-        renderEngineConfig(ctrl),
-      );
+  const config = !instance.actionMenu() ? undefined : h('div.action-menu.engine-config', renderEngineConfig(ctrl));
 
   return h(
     'div.ceval',
@@ -585,24 +572,28 @@ export function renderEngineConfig(ctrl: ParentCtrl): Array<VNode | undefined> {
     fallbackType = ceval.getFallbackType();
 
   if (type === 'disabled') return [];
-  
-  const notSupported = 'Engine does not support this option'
-  
+
+  const notSupported = 'Engine does not support this option';
+
   if (type === 'server' && !ctrl.hasServerEval!()) {
-    if (!ctrl.canRequestServerEval?.())
-      return [h('p.config-study-message', noarg('theChapterIsTooShortToBeAnalysed'))];
+    if (!ctrl.canRequestServerEval?.()) return [h('p.config-study-message', noarg('theChapterIsTooShortToBeAnalysed'))];
     return [
       !ctrl.isStudy
-      ? undefined
-      : h('p.config-study-message', [noarg('getAFullComputerAnalysis'), h('br'), noarg('makeSureTheChapterIsComplete')]),
-      h('button.button.text.setting',
+        ? undefined
+        : h('p.config-study-message', [
+            noarg('getAFullComputerAnalysis'),
+            h('br'),
+            noarg('makeSureTheChapterIsComplete'),
+          ]),
+      h(
+        'button.button.text.setting',
         {
           attrs: {
             'data-icon': '\ue004',
           },
           hook: bind('click', ctrl.requestServerEval!.bind(ctrl), ctrl.redraw),
         },
-        [ctrl.trans.noarg('requestAComputerAnalysis')],
+        [ctrl.trans.noarg('requestAComputerAnalysis')]
       ),
     ];
   }
@@ -611,14 +602,14 @@ export function renderEngineConfig(ctrl: ParentCtrl): Array<VNode | undefined> {
 
   return [
     type === 'server'
-    ? undefined
-    : ctrlToggle(ctrl, {
-        name: 'bestMoveArrow',
-        title: 'Hotkey: a',
-        id: 'shapes',
-        checked: ceval.showAutoShapes(),
-        change: ceval.toggleAutoShapes,
-      }),
+      ? undefined
+      : ctrlToggle(ctrl, {
+          name: 'bestMoveArrow',
+          title: 'Hotkey: a',
+          id: 'shapes',
+          checked: ceval.showAutoShapes(),
+          change: ceval.toggleAutoShapes,
+        }),
     ctrlToggle(ctrl, {
       name: 'evaluationGauge',
       id: 'gauge',
@@ -626,14 +617,14 @@ export function renderEngineConfig(ctrl: ParentCtrl): Array<VNode | undefined> {
       change: ceval.toggleGauge,
     }),
     type === 'server'
-    ? undefined
-    : ctrlToggle(ctrl, {
-        name: 'infiniteAnalysis',
-        title: 'removesTheDepthLimit',
-        id: 'infinite',
-        checked: ceval.infinite(),
-        change: ceval.cevalSetInfinite,
-      }),
+      ? undefined
+      : ctrlToggle(ctrl, {
+          name: 'infiniteAnalysis',
+          title: 'removesTheDepthLimit',
+          id: 'infinite',
+          checked: ceval.infinite(),
+          change: ceval.cevalSetInfinite,
+        }),
     type.startsWith('external-') || type === 'server'
       ? undefined
       : ctrlToggle(ctrl, {
@@ -709,30 +700,24 @@ export function renderEngineConfig(ctrl: ParentCtrl): Array<VNode | undefined> {
       ]);
     })(),
     type === 'server' || !ctrl.hasServerEval?.()
-    ? undefined
-    : h('label.setting', [
-        'Complement server:',
-        h('select',
-          {
-            hook: bind('change', e => ceval.setFallbackType((e.target as any).value), ctrl.redraw),
-          },
-          [
-            h('option',
-              { attrs: { selected: fallbackType === 'disabled', value: 'disabled' } },
-              ['Disabled'],
-            ),
-            h('option',
-              { attrs: { selected: fallbackType === 'complement', value: 'complement' } },
-              ['Only on variations'],
-            ),
-            h('option',
-              { attrs: { selected: fallbackType === 'overwrite', value: 'overwrite' } },
-              ['Always'],
-            ),
-          ],
-        ),
-      ]),
-      !ceval.useServerEval()
+      ? undefined
+      : h('label.setting', [
+          'Complement server:',
+          h(
+            'select',
+            {
+              hook: bind('change', e => ceval.setFallbackType((e.target as any).value), ctrl.redraw),
+            },
+            [
+              h('option', { attrs: { selected: fallbackType === 'disabled', value: 'disabled' } }, ['Disabled']),
+              h('option', { attrs: { selected: fallbackType === 'complement', value: 'complement' } }, [
+                'Only on variations',
+              ]),
+              h('option', { attrs: { selected: fallbackType === 'overwrite', value: 'overwrite' } }, ['Always']),
+            ]
+          ),
+        ]),
+    !ceval.useServerEval()
       ? undefined
       : ctrlToggle(ctrl, {
           name: 'Annotations on board',
@@ -741,14 +726,14 @@ export function renderEngineConfig(ctrl: ParentCtrl): Array<VNode | undefined> {
           checked: ceval.showMoveAnnotation(),
           change: ceval.toggleMoveAnnotation,
         }),
-      !ctrl.hasServerEval?.() || type !== 'server' && fallbackType === 'disabled'
+    !ctrl.hasServerEval?.() || (type !== 'server' && fallbackType === 'disabled')
       ? undefined
       : ctrlToggle(ctrl, {
-        name: 'Show comments',
-        title: 'Shows analysis comments on the score sheet',
-        id: 'comments',
-        checked: ceval.showServerComments(),
-        change: ceval.setShowServerComments.bind(ceval),
-      }),
-  ]
+          name: 'Show comments',
+          title: 'Shows analysis comments on the score sheet',
+          id: 'comments',
+          checked: ceval.showServerComments(),
+          change: ceval.setShowServerComments.bind(ceval),
+        }),
+  ];
 }

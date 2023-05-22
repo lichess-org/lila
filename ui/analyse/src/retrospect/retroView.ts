@@ -210,7 +210,8 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
   const ctrl: RetroCtrl = root.retro!;
   const current = ctrl.current();
   if (ctrl.isSolving() && current && root.path !== current.prev.path) return feedback.offTrack(ctrl);
-  if (fb === 'find') return current ? feedback.find(ctrl, root.ceval) : feedback.end(ctrl, root.hasFullComputerAnalysis);
+  if (fb === 'find')
+    return current ? feedback.find(ctrl, root.ceval) : feedback.end(ctrl, root.hasFullComputerAnalysis);
   return feedback[fb](ctrl, root.ceval);
 }
 

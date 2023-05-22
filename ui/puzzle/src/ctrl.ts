@@ -405,8 +405,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       setAutoShapes,
       engineChanged: () => {
         setAutoShapes();
-        if (!ceval.enabled())
-          threatMode(false);
+        if (!ceval.enabled()) threatMode(false);
         redraw();
       },
       showServerAnalysis: false,
@@ -603,7 +602,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   $('body').addClass('playing'); // for zen
   $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
 
-  
   return {
     vm,
     getData() {

@@ -188,11 +188,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
         },
       },
       ctrl.trans,
-      ctrl.redraw,
+      ctrl.redraw
     ),
   ];
 
-  const engineConfig = ctrl.getCeval().analysable ? [h('h2', noarg('computerAnalysis')), renderEngineSelect('select.setting', ctrl), ...renderEngineConfig(ctrl)] : [];
+  const engineConfig = ctrl.getCeval().analysable
+    ? [h('h2', noarg('computerAnalysis')), renderEngineSelect('select.setting', ctrl), ...renderEngineConfig(ctrl)]
+    : [];
 
   return h('div.action-menu', [
     ...tools,

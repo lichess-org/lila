@@ -154,8 +154,7 @@ export default class AnalyseCtrl implements ParentCtrl {
     keyboard.bind(this);
 
     const urlEngine = new URLSearchParams(location.search).get('engine');
-    if (urlEngine)
-      this.ceval.setEngineType(`external-${urlEngine}`);
+    if (urlEngine) this.ceval.setEngineType(`external-${urlEngine}`);
 
     lichess.pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
@@ -178,7 +177,10 @@ export default class AnalyseCtrl implements ParentCtrl {
       this.redraw();
     });
     lichess.pubsub.on('theme.change', redraw);
-    lichess.pubsub.on('analysis.server.start', () => { this.analysisStarted = true; this.redraw(); });
+    lichess.pubsub.on('analysis.server.start', () => {
+      this.analysisStarted = true;
+      this.redraw();
+    });
     speech.setup();
     this.persistence?.merge();
   }
@@ -683,7 +685,12 @@ export default class AnalyseCtrl implements ParentCtrl {
   };
 
   showEvalGauge(): boolean {
-    return this.hasAnyComputerAnalysis() && this.ceval.showGauge() && !this.outcome() && this.ceval.getEngineType() !== 'disabled';
+    return (
+      this.hasAnyComputerAnalysis() &&
+      this.ceval.showGauge() &&
+      !this.outcome() &&
+      this.ceval.getEngineType() !== 'disabled'
+    );
   }
 
   hasAnyComputerAnalysis(): boolean {

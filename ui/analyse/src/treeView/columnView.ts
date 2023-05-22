@@ -142,7 +142,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       attrs: { p: path },
       class: classes,
     },
-    moveView.renderMove(ctx.ctrl.ceval, ctx, node),
+    moveView.renderMove(ctx.ctrl.ceval, ctx, node)
   );
 }
 
