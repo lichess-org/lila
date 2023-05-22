@@ -1,23 +1,20 @@
 package lila.study
 
-import monocle.syntax.all.*
 import cats.syntax.all.*
-import chess.{ Centis, ErrorStr, Node as PgnNode }
+import monocle.syntax.all.*
+import chess.{ Centis, ErrorStr, Node as PgnNode, Tree, Variation }
+import chess.format.UciPath
 import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.MoveOrDrop.*
-
-import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
-import cats.data.Validated
-
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
-import chess.Variation
-import chess.Tree
 
 object Helpers:
   import lila.tree.NewTree.*
+
+  def rootToPgn(root: Root) = PgnDump
+    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
+    .render
 
   object NewRootC:
     def fromRoot(root: Root) =

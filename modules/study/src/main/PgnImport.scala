@@ -119,7 +119,7 @@ object PgnImport:
         .san(prev.situation)
         .fold(
           _ => none, // illegal move; stop here.
-          moveOrDrop => {
+          moveOrDrop =>
             val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
             val uci    = moveOrDrop.toUci
             val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
@@ -138,7 +138,6 @@ object PgnImport:
                   children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
                 ).some
             }
-          }
         )
     catch
       case _: StackOverflowError =>

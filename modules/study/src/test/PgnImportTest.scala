@@ -29,12 +29,18 @@ class PgnImportTest extends lila.common.LilaTest:
 
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, false)
 
-  test("import pgn") {
-
+  test("import pgn"):
     val x: Validated[ErrorStr, Result] = PgnImport(pgn, List(user))
-    assertMatch(x) { case Validated.Valid(parsed: Result) =>
-      parsed.tags == Tags.empty
-      parsed.root.children.nodes.size == 3
+    assertMatch(x.pp) { case Validated.Valid(parsed: Result) =>
+      parsed.tags == Tags.empty &&
+      parsed.root.children.nodes.size == 3 &&
       parsed.root.ply == Ply.initial
     }
-  }
+
+  test("import a simple pgn"):
+    val x: Validated[ErrorStr, Result] = PgnImport("1.d4 d5 2.e4 e5", List(user))
+    assertMatch(x) { case Validated.Valid(parsed: Result) =>
+      parsed.tags == Tags.empty &&
+      parsed.root.children.nodes.size == 1 &&
+      parsed.root.ply == Ply.initial
+    }
