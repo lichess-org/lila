@@ -798,6 +798,7 @@ object I18nKeys:
   val `nbInaccuracies` = I18nKey("nbInaccuracies")
   val `nbPlayers` = I18nKey("nbPlayers")
   val `nbGames` = I18nKey("nbGames")
+  val `ratingXOverYGames` = I18nKey("ratingXOverYGames")
   val `nbBookmarks` = I18nKey("nbBookmarks")
   val `nbDays` = I18nKey("nbDays")
   val `nbHours` = I18nKey("nbHours")
