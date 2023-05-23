@@ -45,7 +45,7 @@ class PgnRoundTripTest extends lila.common.LilaTest:
   val treeBson                   = summon[BSON[Root]]
   val w = new Writer
 
-  test("roundtrip with BSONHndlers"):
+  test("roundtrip with BSONHandlers"):
     PgnFixtures.roundTrip
       .map(cleanTags)
       .foreach: pgn =>

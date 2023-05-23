@@ -10,7 +10,6 @@ import lila.tree.{ Branch, Branches, Root }
 
 class PgnDumpTest extends lila.common.LilaTest {
 
-  given PgnDump.WithFlags    = PgnDump.WithFlags(true, true, true, false, false)
   given Conversion[Int, Ply] = Ply(_)
 
   val P = PgnDump
@@ -32,17 +31,15 @@ class PgnDumpTest extends lila.common.LilaTest {
 
   val root = Root.default(variant.Standard)
 
-  def rootToPgn(root: Root) = P
-    .rootToTree(root)(using PgnDump.WithFlags(true, true, true, false, false))
-    .fold("")(_.render)
+  import Helpers.rootToPgn
 
   test("empty") {
-    assertEquals(rootToPgn(root), "")
+    assertEquals(rootToPgn(root).value, "")
   }
 
   test("one move") {
     val tree = root.copy(children = children(node(0, "e2e4", "e4")))
-    assertEquals(rootToPgn(tree), "1. e4")
+    assertEquals(rootToPgn(tree).value, "1. e4")
   }
 
   test("one move and variation") {
@@ -52,7 +49,7 @@ class PgnDumpTest extends lila.common.LilaTest {
         node(0, "g1f3", "Nf3")
       )
     )
-    assertEquals(rootToPgn(tree), "1. e4 (1. Nf3)")
+    assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3)")
   }
 
   test("two moves and one variation") {
@@ -69,7 +66,7 @@ class PgnDumpTest extends lila.common.LilaTest {
         node(0, "g1f3", "Nf3")
       )
     )
-    assertEquals(rootToPgn(tree), "1. e4 (1. Nf3) 1... d5")
+    assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3) 1... d5")
   }
 
   test("two moves and two variations") {
@@ -87,7 +84,7 @@ class PgnDumpTest extends lila.common.LilaTest {
         node(0, "g1f3", "Nf3")
       )
     )
-    assertEquals(rootToPgn(tree), "1. e4 (1. Nf3) 1... d5 (1... Nf6)")
+    assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3) 1... d5 (1... Nf6)")
   }
 
   test("more moves and variations") {
@@ -136,7 +133,7 @@ class PgnDumpTest extends lila.common.LilaTest {
       )
     )
     assertEquals(
-      rootToPgn(tree),
+      rootToPgn(tree).value,
       "1. e4 (1. Nf3 a6 (1... b6 2. c4)) 1... d5 (1... Nf6 2. h4) 2. a3 (2. b3)"
     )
   }
