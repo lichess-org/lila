@@ -14,7 +14,6 @@ import lila.rating.{ Perf, PerfType }
 final class UserRepo(val coll: Coll)(using Executor):
 
   import User.{ BSONFields as F, given }
-  import Title.given
   import UserMark.given
 
   def withColl[A](f: Coll => A): A = f(coll)
@@ -60,7 +59,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def idByEmail(email: NormalizedEmailAddress): Fu[Option[UserId]] =
     coll.primitiveOne[UserId]($doc(F.email -> email), "_id")
 
-  def countRecentByPrevEmail(email: NormalizedEmailAddress, since: DateTime): Fu[Int] =
+  def countRecentByPrevEmail(email: NormalizedEmailAddress, since: Instant): Fu[Int] =
     coll.countSel($doc(F.prevEmail -> email, F.createdAt $gt since))
 
   def pair(x: Option[UserId], y: Option[UserId]): Fu[(Option[User], Option[User])] =
@@ -123,7 +122,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.distinctEasy[UserName, List](F.username, $inIds(ids), ReadPreference.secondaryPreferred)
 
   def createdAtById(id: UserId) =
-    coll.primitiveOne[DateTime]($id(id), F.createdAt)
+    coll.primitiveOne[Instant]($id(id), F.createdAt)
 
   def orderByGameCount(u1: UserId, u2: UserId): Fu[Option[(UserId, UserId)]] =
     coll
@@ -201,7 +200,6 @@ final class UserRepo(val coll: Coll)(using Executor):
   def addStreakRun = addStormLikeRun("streak")
 
   private def addStormLikeRun(field: String)(userId: UserId, score: Int): Funit =
-    val inc = $inc(s"perfs.$field.runs" -> 1)
     coll.update
       .one(
         $id(userId),
@@ -357,7 +355,7 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def isTroll(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
-  def isCreatedSince(id: UserId, since: DateTime): Fu[Boolean] =
+  def isCreatedSince(id: UserId, since: Instant): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.createdAt $lt since))
 
   def setRoles(id: UserId, roles: List[String]): Funit =
@@ -380,7 +378,8 @@ final class UserRepo(val coll: Coll)(using Executor):
       coll.update
         .one(
           $id(id) ++ $doc(F.email $exists false),
-          $doc("$rename" -> $doc(F.prevEmail -> F.email))
+          $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
+            $doc("$unset" -> $doc(F.eraseAt -> true))
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
@@ -573,7 +572,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       .dmap(_.toMap)
 
   def setSeenAt(id: UserId): Unit =
-    coll.updateFieldUnchecked($id(id), F.seenAt, nowDate)
+    coll.updateFieldUnchecked($id(id), F.seenAt, nowInstant)
 
   def setLang(user: User, lang: play.api.i18n.Lang) =
     coll.updateField($id(user.id), "lang", lang.code).void
@@ -640,7 +639,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     }
   }
 
-  def filterClosedOrInactiveIds(since: DateTime)(ids: Iterable[UserId]): Fu[List[UserId]] =
+  def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](
       F.id,
       $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since),
@@ -648,7 +647,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     )
 
   def setEraseAt(user: User) =
-    coll.updateField($id(user.id), F.eraseAt, nowDate plusDays 1).void
+    coll.updateField($id(user.id), F.eraseAt, nowInstant plusDays 1).void
 
   private def newUser(
       name: UserName,
@@ -663,18 +662,19 @@ final class UserRepo(val coll: Coll)(using Executor):
     import Authenticator.given
 
     val normalizedEmail = email.normalize
+    val now             = nowInstant
     $doc(
       F.id                    -> name.id,
       F.username              -> name,
       F.email                 -> normalizedEmail,
-      F.mustConfirmEmail      -> mustConfirmEmail.option(nowDate),
+      F.mustConfirmEmail      -> mustConfirmEmail.option(now),
       F.bpass                 -> passwordHash,
       F.perfs                 -> $empty,
       F.count                 -> Count.default,
       F.enabled               -> true,
-      F.createdAt             -> nowDate,
+      F.createdAt             -> now,
       F.createdWithApiVersion -> mobileApiVersion,
-      F.seenAt                -> nowDate,
+      F.seenAt                -> now,
       F.playTime              -> User.PlayTime(0, 0),
       F.lang                  -> lang
     ) ++ {

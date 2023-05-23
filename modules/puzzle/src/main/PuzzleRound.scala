@@ -1,12 +1,10 @@
 package lila.puzzle
 
-import lila.user.User
-
 case class PuzzleRound(
     id: PuzzleRound.Id,
-    win: PuzzleWin,            // last result
-    fixedAt: Option[DateTime], // date of first-replaying lost puzzle and winning it
-    date: DateTime,            // date of first playing the puzzle
+    win: PuzzleWin,           // last result
+    fixedAt: Option[Instant], // date of first-replaying lost puzzle and winning it
+    date: Instant,            // date of first playing the puzzle
     vote: Option[Int] = None,
     themes: List[PuzzleRound.Theme] = Nil
 ):
@@ -33,7 +31,7 @@ case class PuzzleRound(
 
   def updateWithWin(win: PuzzleWin) = copy(
     win = win,
-    fixedAt = fixedAt orElse win.yes.option(nowDate)
+    fixedAt = fixedAt orElse win.yes.option(nowInstant)
   )
 
   def firstWin = win.yes && fixedAt.isEmpty
@@ -63,7 +61,7 @@ object PuzzleRound:
     val date    = "d" // date of first playing the puzzle
     val theme   = "h"
 
-  import lila.db.dsl.{ *, given }
+  import lila.db.dsl.*
   def puzzleLookup(colls: PuzzleColls, pipeline: List[Bdoc] = Nil) =
     $lookup.pipelineFull(
       from = colls.puzzle.name.value,

@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">W pewnych okolicznościach, grając przeciwko botowi, partia rankingowa może nie przynieść punktów, jeśli zostanie rozpoznane, że gracz nadużywa bota do nabijania ich sobie.</string>
   <string name="errorPage">Strona błędu</string>
   <string name="reportErrorPage">Jeśli znalazłeś się na stronie błędu, możesz to zgłosić:</string>
+  <string name="wantBroadcastTournament">Chcę transmitować turniej</string>
+  <string name="learnHowToMakeBroadcasts">Dowiedz się, jak tworzyć własne transmisje na Lichess</string>
+  <string name="contactAboutOfficialBroadcasts">Możesz również skontaktować się z zespołem nadawczym w sprawie oficjalnych transmisji.</string>
   <string name="banAppeal">Odwołanie od zablokowania konta lub ograniczenia IP</string>
   <string name="engineAppeal">Silnik szachowy lub inne oszustwo</string>
   <string name="sendAppealTo">Możesz wysłać odwołanie do %s.</string>

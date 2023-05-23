@@ -4,7 +4,6 @@ package templating
 import play.api.data.*
 import play.api.i18n.Lang
 
-import lila.api.Context
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 
@@ -174,7 +173,7 @@ trait FormHelper { self: I18nHelper =>
           cls   := "form-control"
         )(disabled option (st.disabled := true))(validationModifiers(field))(
           default map { option(value := "")(_) },
-          options.toSeq map { case (value, name) =>
+          options.toSeq map { (value, name) =>
             option(
               st.value := value.toString,
               field.value.has(value.toString) option selected
@@ -225,6 +224,9 @@ trait FormHelper { self: I18nHelper =>
         tpe      := "hidden"
       )
 
+    // allows disabling of a field that defaults to true
+    def hiddenFalse(field: Field): Tag = form3.hidden(field, "false".some)
+
     def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using Lang): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))
 
@@ -241,6 +243,9 @@ trait FormHelper { self: I18nHelper =>
       form.globalError map { err =>
         div(cls := "form-group is-invalid")(error(err))
       }
+
+    def fieldset(legend: Frag): Tag =
+      st.fieldset(cls := "form-fieldset")(st.legend(legend))
 
     private val dataEnableTime = attr("data-enable-time")
     private val dataTime24h    = attr("data-time_24h")

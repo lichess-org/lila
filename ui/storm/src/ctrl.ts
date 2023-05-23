@@ -14,7 +14,7 @@ import { prop, Prop } from 'common';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { Role } from 'chessground/types';
-import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
+import { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
 
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;
@@ -30,7 +30,7 @@ export default class StormCtrl implements PuzCtrl {
   flipped = false;
 
   constructor(opts: StormOpts, redraw: (data: StormData) => void) {
-    this.data = opts.data;
+    this.data = { puzzles: opts.puzzles, key: opts.key };
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
     this.filters = new PuzFilters(this.redraw, false);
@@ -87,7 +87,7 @@ export default class StormCtrl implements PuzCtrl {
     this.ground(false);
     this.redraw();
     sound.end();
-    xhr.record(this.runStats(), this.data.notAnExploit).then(res => {
+    xhr.record(this.runStats()).then(res => {
       this.vm.response = res;
       this.redraw();
     });

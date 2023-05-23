@@ -24,10 +24,10 @@
     <item quantity="other">%s розділи</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s гра</item>
-    <item quantity="few">%s гри</item>
-    <item quantity="many">%s ігор</item>
-    <item quantity="other">%s гри</item>
+    <item quantity="one">%s Партія</item>
+    <item quantity="few">%s Партії</item>
+    <item quantity="many">%s Партій</item>
+    <item quantity="other">%s Партій</item>
   </plurals>
   <string name="addMembers">Додати учасників</string>
   <plurals name="nbMembers">
@@ -66,7 +66,7 @@
   <string name="shareAndExport">Надсилання та експорт</string>
   <string name="cloneStudy">Клонувати</string>
   <string name="studyPgn">PGN дослідження</string>
-  <string name="downloadAllGames">Завантажити всі ігри</string>
+  <string name="downloadAllGames">Завантажити всі партії</string>
   <string name="chapterPgn">PGN розділу</string>
   <string name="copyChapterPgn">Скопіювати PGN</string>
   <string name="copyChapterPgnDescription">Скопіювати PGN розділу в буфер обміну.</string>

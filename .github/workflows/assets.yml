@@ -8,6 +8,7 @@ on:
       - 'ui/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - 'bin/download-lifat'
   pull_request:
     paths:
       - '.github/workflows/assets.yml'
@@ -15,6 +16,7 @@ on:
       - 'ui/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - 'bin/download-lifat'
 
 jobs:
   assets:
@@ -25,7 +27,7 @@ jobs:
           submodules: recursive
       - uses: pnpm/action-setup@v2
         with:
-          version: '7.18.2'
+          version: '8.1'
       - run: git submodule absorbgitdirs
       - uses: actions/setup-node@v3
         with:

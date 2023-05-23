@@ -1,7 +1,6 @@
 package lila.irc
 
-import lila.common.IpAddress
-import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
+import lila.common.{ EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.irc.*
 import lila.user.Holder
 import lila.user.User
@@ -27,7 +26,7 @@ final class IrcApi(
       case _               => ZulipClient.stream.mod.adminGeneral
     noteApi
       .byUserForMod(user.id)
-      .map(_.headOption.filter(_.date isAfter nowDate.minusMinutes(5)))
+      .map(_.headOption.filter(_.date isAfter nowInstant.minusMinutes(5)))
       .flatMap {
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
@@ -188,7 +187,7 @@ final class IrcApi(
 
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
-      buffer.head.date.isBefore(nowDate.minusHours(12)) ?? {
+      buffer.head.date.isBefore(nowInstant.minusHours(12)) ?? {
         val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.cents).sum
         val patrons =
@@ -232,7 +231,7 @@ object IrcApi:
     def printLink(print: String)                = lichessLink(s"/mod/print/$print", print)
     def ipLink(ip: String)                      = lichessLink(s"/mod/ip/$ip", ip)
     def userNotesLink(name: UserName)           = lichessLink(s"/@/$name?notes", "notes")
-    def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
+    def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
     def linkifyUsers(msg: String) = userRegex matcher msg replaceAll (m => userLink(UserName(m.group(1))))
     val postReplace               = lichessLink("/forum/$1", "$1")
     def linkifyPosts(msg: String) = postRegex matcher msg replaceAll postReplace

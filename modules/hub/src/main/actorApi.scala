@@ -1,12 +1,12 @@
 package lila.hub
 package actorApi
 
-import chess.format.{ BoardFen, Uci, Fen }
-import org.joda.time.Period
+import chess.format.{ Uci, Fen }
+import java.time.Duration
 import play.api.libs.json.*
 
 // announce something to all clients
-case class Announce(msg: String, date: DateTime, json: JsObject)
+case class Announce(msg: String, date: Instant, json: JsObject)
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
@@ -105,7 +105,11 @@ package simul:
   case class PlayerMove(gameId: GameId)
 
 package mailer:
-  case class CorrespondenceOpponent(opponentId: Option[UserId], remainingTime: Option[Period], gameId: GameId)
+  case class CorrespondenceOpponent(
+      opponentId: Option[UserId],
+      remainingTime: Option[Duration],
+      gameId: GameId
+  )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
 
 package irc:
@@ -261,7 +265,7 @@ package study:
   case class RemoveStudy(studyId: StudyId, contributors: Set[UserId])
 
 package plan:
-  case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: DateTime)
+  case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)
   case class MonthInc(userId: UserId, months: Int)
   case class PlanStart(userId: UserId)
   case class PlanGift(from: UserId, to: UserId, lifetime: Boolean)

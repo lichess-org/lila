@@ -2,17 +2,16 @@ package views.html.streamer
 
 import controllers.routes
 import play.api.i18n.Lang
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
-import lila.user.User
 
 object bits:
 
   import trans.streamer.*
 
-  def create(implicit ctx: Context) =
+  def create(using Context) =
     views.html.site.message(
       title = becomeStreamer.txt(),
       icon = Some(""),
@@ -31,7 +30,7 @@ object bits:
       )
     )
 
-  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(implicit ctx: Context) =
+  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(using ctx: Context) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
       s.map { st =>
@@ -72,9 +71,14 @@ object bits:
       )
     }
 
-  def contextual(userId: UserId)(implicit lang: Lang): Frag =
+  def contextual(streamers: List[UserId])(using Lang): Option[Tag] =
+    streamers.nonEmpty option div(cls := "context-streamers")(
+      streamers map contextual
+    )
+
+  def contextual(userId: UserId)(using Lang): Tag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
-      xIsStreaming(titleNameOrId(userId))
+      xIsStreaming(strong(titleNameOrId(userId)))
     )
 
   def rules(implicit lang: Lang) =
@@ -95,7 +99,7 @@ object bits:
       )
     )
 
-  def streamerTitle(s: lila.streamer.Streamer.WithContext)(implicit lang: Lang) =
+  def streamerTitle(s: lila.streamer.Streamer.WithContext) =
     span(cls := "streamer-title")(
       h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang map { language =>
@@ -103,10 +107,10 @@ object bits:
       }
     )
 
-  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context, lang: Lang): Option[Tag] =
-    ctx.isAuth option {
+  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context): Option[Tag] =
+    ctx.isAuth && !ctx.is(s.user) option {
       val id = s"streamer-subscribe-${s.streamer.userId}"
-      label(cls := "streamer-subscribe button button-metal")(
+      label(cls := "streamer-subscribe")(
         `for`          := id,
         data("action") := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}"
       )(
@@ -120,3 +124,7 @@ object bits:
         trans.subscribe()
       )
     }
+  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using lang: Lang) =
+    span(cls := "streamer-profile")(
+      userLink(s.user)
+    )

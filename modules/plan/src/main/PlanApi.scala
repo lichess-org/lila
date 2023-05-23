@@ -1,15 +1,14 @@
 package lila.plan
 
-import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import reactivemongo.api.*
+import cats.syntax.all.*
 
 import lila.common.config.Secret
 import lila.common.{ Bus, IpAddress, EmailAddress }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
-import org.joda.time.Days
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -96,7 +95,7 @@ final class PlanApi(
                 stripeClient.getCustomer(stripeCharge.customer) flatMap { customer =>
                   val freq = if (customer.exists(_.renew)) Freq.Monthly else Freq.Onetime
                   val patron = prevPatron
-                    .copy(lastLevelUp = prevPatron.lastLevelUp orElse nowDate.some)
+                    .copy(lastLevelUp = prevPatron.lastLevelUp orElse nowInstant.some)
                     .levelUpIfPossible
                     .expireInOneMonth(freq == Freq.Onetime)
                   mongo.patron.update.one($id(prevPatron.id), patron) >>
@@ -115,7 +114,7 @@ final class PlanApi(
             setDbUserPlan(user.mapPlan(_.disable)) >>
               mongo.patron.update.one($id(user.id), patron.removeStripe).void >>-
               notifier.onExpire(user) >>-
-              logger.info(s"Unsubed ${user.username} $sub")
+              logger.info(s"Unsubbed ${user.username} $sub")
           }
       }
 
@@ -181,7 +180,7 @@ final class PlanApi(
         val maxPerWeek = {
           val verifiedBonus  = user.isVerified ?? 50
           val nbGamesBonus   = math.sqrt(user.count.game / 50)
-          val seniorityBonus = math.sqrt(Days.daysBetween(user.createdAt, nowDate).getDays.toDouble / 30)
+          val seniorityBonus = math.sqrt(daysBetween(user.createdAt, nowInstant) / 30d)
           verifiedBonus + nbGamesBonus + seniorityBonus
         }.toInt.atLeast(1).atMost(50)
         freq match
@@ -190,7 +189,7 @@ final class PlanApi(
               .countSel(
                 $doc(
                   "userId" -> user.id,
-                  "date" $gt nowDate.minusWeeks(1),
+                  "date" $gt nowInstant.minusWeeks(1),
                   "stripe" $exists true,
                   "giftTo" $exists false
                 )
@@ -199,7 +198,7 @@ final class PlanApi(
           case Freq.Onetime => // prevents mass gifting or one-time donations
             StripeCanUse from mongo.charge
               .countSel(
-                $doc("userId" -> user.id, "date" $gt nowDate.minusWeeks(1), "stripe" $exists true)
+                $doc("userId" -> user.id, "date" $gt nowInstant.minusWeeks(1), "stripe" $exists true)
               )
               .map(_ < maxPerWeek)
     }
@@ -250,7 +249,7 @@ final class PlanApi(
                     Patron.PayPalLegacy(
                       ipn.email,
                       ipn.subId,
-                      nowDate
+                      nowInstant
                     )
                   userPatron(user).flatMap {
                     case None =>
@@ -258,7 +257,7 @@ final class PlanApi(
                         Patron(
                           _id = user.id,
                           payPal = payPal.some,
-                          lastLevelUp = Some(nowDate)
+                          lastLevelUp = Some(nowInstant)
                         ).expireInOneMonth
                       ) >>
                         setDbUserPlanOnCharge(user, levelUp = false)
@@ -310,7 +309,7 @@ final class PlanApi(
           val charge = Charge.make(
             userId = order.userId,
             giftTo = giftTo.map(_.id),
-            payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id, none).some,
+            payPalCheckout = Patron.PayPalCheckout(order.id, order.payer.id, none).some,
             money = money,
             usd = usd
           )
@@ -319,14 +318,14 @@ final class PlanApi(
               giftTo match
                 case Some(to) => gift(user, to, money)
                 case None =>
-                  def newPayPalCheckout = Patron.PayPalCheckout(order.payer.id, none)
+                  def newPayPalCheckout = Patron.PayPalCheckout(order.id, order.payer.id, none)
                   userPatron(user).flatMap {
                     case None =>
                       mongo.patron.insert.one(
                         Patron(
                           _id = user.id,
                           payPalCheckout = newPayPalCheckout.some,
-                          lastLevelUp = Some(nowDate)
+                          lastLevelUp = Some(nowInstant)
                         ).expireInOneMonth
                       ) >>
                         setDbUserPlanOnCharge(user, levelUp = false)
@@ -351,13 +350,12 @@ final class PlanApi(
         subId: PayPalSubscriptionId,
         user: User,
         ip: IpAddress
-    ) = for {
+    ) = for
       order <- payPalClient.getOrder(orderId) orFail s"Missing paypal order for id $orderId"
       sub   <- payPalClient.getSubscription(subId) orFail s"Missing paypal subscription for order $order"
       money = sub.capturedMoney
-      pricing    <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"
-      usd        <- currencyApi toUsd money orFail s"Invalid paypal currency $money"
-      isLifetime <- pricingApi isLifetime money
+      pricing <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"
+      usd     <- currencyApi toUsd money orFail s"Invalid paypal currency $money"
       _ <-
         if (!pricing.valid(money))
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money $orderId")
@@ -366,44 +364,63 @@ final class PlanApi(
           val charge = Charge.make(
             userId = user.id.some,
             giftTo = None,
-            payPalCheckout = Charge.PayPalCheckout(order.id, order.payer.id, sub.id.some).some,
+            payPalCheckout = Patron.PayPalCheckout(order.id, order.payer.id, sub.id.some).some,
             money = money,
             usd = usd
           )
-          addCharge(charge, order.country) >> {
-            val payPalCheckout = Patron.PayPalCheckout(order.payer.id, subId.some)
-            userPatron(user).flatMap {
-              case None =>
-                mongo.patron.insert.one(
-                  Patron(
-                    _id = user.id,
-                    payPalCheckout = payPalCheckout.some,
-                    lastLevelUp = Some(nowDate)
-                  ).expireInOneMonth
-                ) >>
-                  setDbUserPlanOnCharge(user, levelUp = false)
-              case Some(patron) =>
-                val p2 = patron
-                  .copy(
-                    payPalCheckout = payPalCheckout.some,
-                    stripe = none,
-                    free = none
-                  )
-                  .levelUpIfPossible
-                  .expireInOneMonth
-                mongo.patron.update.one($id(patron.id), p2) >>
-                  setDbUserPlanOnCharge(user, patron.canLevelUp)
-            } >> {
-              isLifetime ?? setLifetime(user)
-            } >>- logger.info(s"Charged ${user.username} with paypal checkout: $money")
-          }
-    } yield ()
+          addSubscriptionCharge(charge, user, order.country)
+    yield ()
 
     def subscriptionUser(id: PayPalSubscriptionId): Fu[Option[User]] =
       subscriptionIdPatron(id) flatMap { _.map(_.id) ?? userRepo.byId }
 
+    // only used for automatically renewing subscription charges
     def onCaptureCompleted(capture: PayPalCapture) =
-      logger.info(s"Charged $capture")
+      capture.subscriptionId.map { subId =>
+        for
+          user <- userRepo.byId(capture.userId) orFail s"Missing user for paypal capture $capture"
+          // look for previous charge
+          previous <- mongo.charge
+            // hit the userId index
+            .find($doc("userId" -> user.id, "payPalCheckout.subscriptionId" -> subId))
+            .sort($doc("date" -> -1))
+            .one[Charge]
+            // avoid duplicating the initial charge
+            .map(_.filter(_.date.isBefore(nowInstant.minusMinutes(3))))
+          _ <- previous ?? { prev =>
+            logger.info(s"Renewing paypal checkout subscription with $capture")
+            addSubscriptionCharge(prev.copyAsNew, user, none)
+          }
+        yield ()
+      } | funit
+
+    private def addSubscriptionCharge(charge: Charge, user: User, country: Option[Country]) = for
+      _ <- addCharge(charge, country)
+      _ <- userPatron(user).flatMap {
+        case None =>
+          mongo.patron.insert.one(
+            Patron(
+              _id = user.id,
+              payPalCheckout = charge.payPalCheckout,
+              lastLevelUp = Some(nowInstant)
+            ).expireInOneMonth
+          ) >>
+            setDbUserPlanOnCharge(user, levelUp = false)
+        case Some(patron) =>
+          val p2 = patron
+            .copy(
+              payPalCheckout = charge.payPalCheckout,
+              stripe = none,
+              free = none
+            )
+            .levelUpIfPossible
+            .expireInOneMonth
+          mongo.patron.update.one($id(patron.id), p2) >>
+            setDbUserPlanOnCharge(user, patron.canLevelUp)
+      }
+      isLifetime <- pricingApi isLifetime charge.money
+      _          <- isLifetime ?? setLifetime(user)
+    yield logger.info(s"Charged ${user.username} with paypal checkout: $charge")
 
     private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
       mongo.patron.one[Patron]($doc("payPalCheckout.subscriptionId" -> id))
@@ -439,7 +456,7 @@ final class PlanApi(
               case customer => fuccess(Synced(patron.some, customer, none))
             }
 
-          case (_, Some(Patron.PayPalCheckout(_, Some(subId))), _) =>
+          case (_, Some(Patron.PayPalCheckout(_, _, Some(subId))), _) =>
             payPalClient.getSubscription(subId) flatMap {
               case None =>
                 logger.warn(s"${user.username} sync: unset DB patron that's not in paypal")
@@ -479,9 +496,9 @@ final class PlanApi(
       .one(
         $id(user.id),
         $set(
-          "lastLevelUp" -> nowDate,
+          "lastLevelUp" -> nowInstant,
           "lifetime"    -> true,
-          "free"        -> Patron.Free(nowDate, by = none)
+          "free"        -> Patron.Free(nowInstant, by = none)
         ),
         upsert = true
       )
@@ -492,10 +509,10 @@ final class PlanApi(
       .one(
         $id(user.id),
         $set(
-          "lastLevelUp" -> nowDate,
+          "lastLevelUp" -> nowInstant,
           "lifetime"    -> false,
-          "free"        -> Patron.Free(nowDate, by = none),
-          "expiresAt"   -> nowDate.plusMonths(1)
+          "free"        -> Patron.Free(nowInstant, by = none),
+          "expiresAt"   -> nowInstant.plusMonths(1)
         ),
         upsert = true
       )
@@ -509,10 +526,10 @@ final class PlanApi(
         .one(
           $id(to.id),
           $set(
-            "lastLevelUp" -> nowDate,
+            "lastLevelUp" -> nowInstant,
             "lifetime"    -> isLifetime,
-            "free"        -> Patron.Free(nowDate, by = from.id.some),
-            "expiresAt"   -> (!isLifetime option nowDate.plusMonths(1))
+            "free"        -> Patron.Free(nowInstant, by = from.id.some),
+            "expiresAt"   -> (!isLifetime option nowInstant.plusMonths(1))
           ),
           upsert = true
         )
@@ -525,7 +542,7 @@ final class PlanApi(
       .find(
         $doc(
           "free.by" -> from.id,
-          "free.at" $gt nowDate.minusMinutes(2)
+          "free.at" $gt nowInstant.minusMinutes(2)
         )
       )
       .sort($sort desc "free.at")
@@ -641,7 +658,7 @@ final class PlanApi(
             username = charge.userId.map(lightUserApi.syncFallback).fold(UserName("Anonymous"))(_.name),
             cents = charge.usd.cents,
             percent = m.percent,
-            nowDate
+            nowInstant
           ),
           "plan"
         )

@@ -391,6 +391,7 @@
   <string name="importGame">Ойынды жүктеп салу</string>
   <string name="importGameExplanation">Ойынның PGN-ын салыңыз.
 Бұл ойынды қайта көру, компьютерлік талдау, чат пен бөліспелі URL-ға жол ашады.</string>
+  <string name="importGameCaveat">Вариациялар жойылады. Оларды сақтау үшін зерттеу арқылы PGN импорттаңыз.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын салынды</item>
     <item quantity="other">%s ойын салынды</item>

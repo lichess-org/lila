@@ -1,9 +1,8 @@
 package views
 package html.tournament
 
-import chess.variant.{ FromPosition, Standard }
 import controllers.routes
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
@@ -15,7 +14,7 @@ object side:
 
   def apply(
       tour: Tournament,
-      verdicts: lila.tournament.Condition.All.WithVerdicts,
+      verdicts: lila.gathering.Condition.WithVerdicts,
       streamers: List[UserId],
       shieldOwner: Option[UserId],
       chat: Boolean
@@ -70,37 +69,11 @@ object side:
           st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
-        verdicts.relevant option st.section(
-          dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
-                       else ""),
-          cls := List(
-            "conditions" -> true,
-            "accepted"   -> (ctx.isAuth && verdicts.accepted),
-            "refused"    -> (ctx.isAuth && !verdicts.accepted)
-          )
-        )(
-          div(
-            verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
-            verdicts.list map { v =>
-              p(
-                cls := List(
-                  "condition" -> true,
-                  "accepted"  -> (ctx.isAuth && v.verdict.accepted),
-                  "refused"   -> (ctx.isAuth && !v.verdict.accepted)
-                ),
-                title := v.verdict.reason.map(_(ctx.lang))
-              )(v.condition match {
-                case lila.tournament.Condition.TeamMember(teamId, teamName) =>
-                  trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
-                case c => c.name
-              })
-            }
-          )
-        ),
+        views.html.gathering.verdicts(verdicts, tour.perfType),
         tour.noBerserk option div(cls := "text", dataIcon := "")(trans.arena.noBerserkAllowed()),
         tour.noStreak option div(cls := "text", dataIcon := "")(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
-        (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
+        (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientInstant(
           tour.startsAt
         ),
         tour.startingPosition.map { pos =>
@@ -113,9 +86,7 @@ object side:
           )
         }
       ),
-      streamers.nonEmpty option div(cls := "context-streamers")(
-        streamers map views.html.streamer.bits.contextual
-      ),
+      views.html.streamer.bits.contextual(streamers),
       chat option views.html.chat.frag
     )
 

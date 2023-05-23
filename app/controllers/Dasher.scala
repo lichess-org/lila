@@ -1,13 +1,15 @@
 package controllers
 
 import play.api.libs.json.*
+import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.JsonBodyReadables.*
 
 import lila.api.Context
 import lila.app.{ given, * }
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ enLang, I18nKeys as trans, I18nLangPicker, LangList }
 
-final class Dasher(env: Env) extends LilaController(env):
+final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaController(env):
 
   private val translationsBase = List(
     trans.networkLagBetweenYouAndLichess,
@@ -40,7 +42,7 @@ final class Dasher(env: Env) extends LilaController(env):
     trans.logOut
   ) ::: translationsBase
 
-  private def translations(implicit ctx: Context) =
+  private def translations(using Context) =
     lila.i18n.JsDump.keysToObject(
       if (ctx.isAnon) translationsAnon else translationsAuth,
       ctx.lang
@@ -51,13 +53,24 @@ final class Dasher(env: Env) extends LilaController(env):
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )
 
-  def get =
-    Open { implicit ctx =>
-      negotiate(
-        html = notFound,
-        api = _ =>
-          ctx.me.??(env.streamer.api.isPotentialStreamer) map { isStreamer =>
-            Ok {
+  private lazy val galleryJson = env.memo.cacheApi.unit[Option[JsValue]]:
+    _.refreshAfterWrite(1.minute)
+      .buildAsyncFuture: _ =>
+        ws.url(s"${env.net.assetBaseUrl}/assets/lifat/background/gallery.json")
+          .get()
+          .map:
+            case res if res.status == 200 => res.body[JsValue].some
+            case _                        => none
+
+  def get = Open:
+    negotiate(
+      html = notFound,
+      api = _ =>
+        ctx.me
+          .??(env.streamer.api.isPotentialStreamer)
+          .zip(galleryJson.get({}))
+          .map: (isStreamer, gallery) =>
+            Ok:
               Json.obj(
                 "user" -> ctx.me.map(_.light),
                 "lang" -> Json.obj(
@@ -70,10 +83,12 @@ final class Dasher(env: Env) extends LilaController(env):
                     s"${set.key} ${set.name}"
                   }
                 ),
-                "background" -> Json.obj(
-                  "current" -> lila.pref.Pref.Bg.asString.get(ctx.pref.bg),
-                  "image"   -> ctx.pref.bgImgOrDefault
-                ),
+                "background" -> Json
+                  .obj(
+                    "current" -> lila.pref.Pref.Bg.asString.get(ctx.pref.bg),
+                    "image"   -> ctx.pref.bgImgOrDefault
+                  )
+                  .add("gallery", gallery),
                 "board" -> Json.obj(
                   "is3d" -> ctx.pref.is3d
                 ),
@@ -101,7 +116,4 @@ final class Dasher(env: Env) extends LilaController(env):
                 "streamer" -> isStreamer,
                 "i18n"     -> translations
               )
-            }
-          }
-      )
-    }
+    )

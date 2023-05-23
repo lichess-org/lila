@@ -3,7 +3,6 @@ package lila.search
 import play.api.libs.json.*
 import play.api.libs.ws.*
 import play.api.libs.ws.JsonBodyWritables.*
-import scala.annotation.nowarn
 
 import lila.common.Json.given
 
@@ -80,9 +79,8 @@ final class ESClientStub extends ESClient:
   def search[Q: Writes](query: Q, from: From, size: Size) = fuccess(SearchResponse(Nil))
   def count[Q: Writes](query: Q)                          = fuccess(CountResponse(0))
   def store(id: Id, doc: JsObject)                        = funit
-  @nowarn("msg=parameter value")
-  def storeBulk(docs: Seq[(Id, JsObject)]) = funit
-  def deleteById(id: Id)                   = funit
-  def deleteByIds(ids: List[Id])           = funit
-  def putMapping                           = funit
-  def refresh                              = funit
+  def storeBulk(docs: Seq[(Id, JsObject)])                = funit
+  def deleteById(id: Id)                                  = funit
+  def deleteByIds(ids: List[Id])                          = funit
+  def putMapping                                          = funit
+  def refresh                                             = funit

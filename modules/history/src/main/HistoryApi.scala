@@ -1,7 +1,6 @@
 package lila.history
 
 import chess.Speed
-import org.joda.time.Days
 import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently
@@ -16,7 +15,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
   import History.{ given, * }
 
-  def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = withColl { coll =>
+  def addPuzzle(user: User, completedAt: Instant, perf: Perf): Funit = withColl { coll =>
     val days = daysBetween(user.createdAt, completedAt)
     coll.update
       .one(
@@ -62,7 +61,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
 
   // used for rating refunds
   def setPerfRating(user: User, perf: PerfType, rating: IntRating): Funit = withColl { coll =>
-    val days = daysBetween(user.createdAt, nowDate)
+    val days = daysBetween(user.createdAt, nowInstant)
     coll.update
       .one(
         $id(user.id),
@@ -71,8 +70,8 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
       .void
   }
 
-  private def daysBetween(from: DateTime, to: DateTime): Int =
-    Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
+  private def daysBetween(from: Instant, to: Instant): Int =
+    ornicar.scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
 
   def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 
@@ -88,7 +87,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
         import History.ratingsReader
         users zip hists map { case (user, doc) =>
           val current      = user.perfs(perfType).intRating
-          val previousDate = daysBetween(user.createdAt, nowDate minusDays days)
+          val previousDate = daysBetween(user.createdAt, nowInstant minusDays days)
           val previous =
             doc.flatMap(_ child perfType.key.value).flatMap(ratingsReader.readOpt).fold(current) { hist =>
               hist.foldLeft(hist.headOption.fold(current)(_._2)) {
@@ -110,7 +109,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
         .buildAsyncFuture { case (userId, perf) =>
           userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
             val currentRating = user.perfs(perf).intRating
-            val firstDay      = daysBetween(user.createdAt, nowDate minusWeeks 1)
+            val firstDay      = daysBetween(user.createdAt, nowInstant minusWeeks 1)
             val days          = firstDay to (firstDay + 6) toList
             val project = BSONDocument {
               ("_id" -> BSONBoolean(false)) :: days.map { d =>

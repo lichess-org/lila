@@ -3,7 +3,7 @@ package views.html.user.show
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -184,9 +184,9 @@ object header:
                   ),
                   u.playTime.map { playTime =>
                     frag(
-                      p(trans.tpTimeSpentPlaying(showPeriod(playTime.totalPeriod))),
-                      playTime.nonEmptyTvPeriod.map { tvPeriod =>
-                        p(trans.tpTimeSpentOnTV(showPeriod(tvPeriod)))
+                      p(trans.tpTimeSpentPlaying(showDuration(playTime.totalDuration))),
+                      playTime.nonEmptyTvDuration.map { tvDuration =>
+                        p(trans.tpTimeSpentOnTV(showDuration(tvDuration)))
                       }
                     )
                   },

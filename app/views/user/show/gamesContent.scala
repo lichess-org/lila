@@ -2,7 +2,7 @@ package views.html.user.show
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -54,7 +54,7 @@ object gamesContent:
           )(
             if (filterName == "playing" && pager.nbResults > 2)
               pager.currentPageResults.flatMap { Pov(_, u) }.map { pov =>
-                views.html.game.mini(pov)(ctx)(cls := "paginated")
+                views.html.game.mini(pov)(cls := "paginated")
               }
             else
               views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),

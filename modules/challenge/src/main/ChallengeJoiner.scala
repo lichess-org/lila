@@ -4,7 +4,7 @@ import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Color, Mode, Situation }
+import chess.{ Mode, Situation }
 import scala.util.chaining.*
 
 import lila.game.{ Game, Player, Pov, Source }
@@ -17,9 +17,9 @@ final private class ChallengeJoiner(
 )(using Executor):
 
   def apply(c: Challenge, destUser: Option[User]): Fu[Validated[String, Pov]] =
-    gameRepo exists GameId(c.id) flatMap {
-      case true => fuccess(Invalid("The challenge has already been accepted"))
-      case _ =>
+    gameRepo exists c.id.into(GameId) flatMap {
+      if _ then fuccess(Invalid("The challenge has already been accepted"))
+      else
         c.challengerUserId.??(userRepo.byId) flatMap { origUser =>
           val game = ChallengeJoiner.createGame(c, origUser, destUser)
           (gameRepo insertDenormalized game) >>- onStart(game.id) inject
@@ -46,7 +46,7 @@ private object ChallengeJoiner:
         pgnImport = None,
         rules = c.rules
       )
-      .withId(GameId(c.id))
+      .withId(c.id into GameId)
       .pipe(addGameHistory(state))
       .start
 

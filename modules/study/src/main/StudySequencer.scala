@@ -8,7 +8,7 @@ import lila.common.config.Max
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler):
 
   private val workQueue = AsyncActorSequencers[StudyId](
     maxSize = Max(64),
@@ -18,20 +18,17 @@ final private class StudySequencer(
   )
 
   def sequenceStudy[A <: Matchable: Zero](studyId: StudyId)(f: Study => Fu[A]): Fu[A] =
-    workQueue(studyId) {
+    workQueue(studyId):
       studyRepo.byId(studyId) flatMapz f
-    }
 
   def sequenceStudyWithChapter[A <: Matchable: Zero](studyId: StudyId, chapterId: StudyChapterId)(
       f: Study.WithChapter => Fu[A]
   ): Fu[A] =
-    sequenceStudy(studyId) { study =>
+    sequenceStudy(studyId): study =>
       chapterRepo
         .byId(chapterId)
-        .flatMap {
+        .flatMap:
           _.filter(_.studyId == studyId) ?? { chapter =>
             f(Study.WithChapter(study, chapter))
           }
-        }
         .mon(_.study.sequencer.chapterTime)
-    }

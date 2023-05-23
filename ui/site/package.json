@@ -17,7 +17,6 @@
     "@types/zxcvbn": "^4.4.1",
     "@yaireo/tagify": "^4.17.6",
     "chat": "workspace:*",
-    "chessground": "^8.3.7",
     "common": "workspace:*",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.13",

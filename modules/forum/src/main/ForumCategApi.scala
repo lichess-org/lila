@@ -8,8 +8,7 @@ final class ForumCategApi(
     postRepo: ForumPostRepo,
     topicRepo: ForumTopicRepo,
     categRepo: ForumCategRepo,
-    paginator: ForumPaginator,
-    config: ForumConfig
+    paginator: ForumPaginator
 )(using Executor):
 
   import BSONHandlers.given

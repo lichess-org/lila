@@ -14,7 +14,7 @@ import {
   OpeningGame,
   ExplorerDb,
 } from './interfaces';
-import ExplorerCtrl from './explorerCtrl';
+import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {
@@ -51,7 +51,13 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       : data.moves;
 
   return h('table.moves', [
-    h('thead', [h('tr', [h('th', trans('move')), h('th', trans('games')), h('th', trans('whiteDrawBlack'))])]),
+    h('thead', [
+      h('tr', [
+        h('th', trans('move')),
+        h('th', { attrs: { colspan: 2 } }, trans('games')),
+        h('th', trans('whiteDrawBlack')),
+      ]),
+    ]),
     h(
       'tbody',
       moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
@@ -67,7 +73,8 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
           },
           [
             h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
-            h('td', { attrs: { title: ((total / sumTotal) * 100).toFixed(1) + '%' } }, numberFormat(total)),
+            h('td', ((total / sumTotal) * 100).toFixed(0) + '%'),
+            h('td', numberFormat(total)),
             h('td', { attrs: { title: moveTooltip(ctrl, move) } }, resultBar(move)),
           ]
         );
@@ -247,7 +254,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
     h('div.message', [
-      h('strong', ctrl.trans.noarg('noGameFound')),
+      h('strong', ctrl.trans.noarg(ctrl.explorer.root.node.ply >= MAX_DEPTH ? 'maxDepthReached' : 'noGameFound')),
       data?.queuePosition
         ? h('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
         : !ctrl.explorer.config.fullHouse()

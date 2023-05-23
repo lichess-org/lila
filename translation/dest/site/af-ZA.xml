@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" met afronding, gebaseer op die hoeveelheid half-skuiwe tot die volgende vat of pionskuif</string>
   <string name="noGameFound">Geen spel gevind</string>
+  <string name="maxDepthReached">Maksimum diepte is bereik!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openings">Openinge</string>
   <string name="openingExplorer">Opening ontdekker</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Sien toernooi</string>
   <string name="backToTournament">Terug na toernooi</string>
+  <string name="noDrawBeforeSwissLimit">Geen gelykop voor 30 skuiwe tydens \'n Switserse toernooi nie.</string>
   <string name="thematic">Tematies</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gegradeerde spel</item>
@@ -663,6 +665,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="simulClockHint">Fischer Klok stelling. Hoe meer spelers wat jy aanvat, hoe meer tyd kan jy benodig.</string>
   <string name="simulAddExtraTime">Jy kan ekstra tyd by jou klok sit om jou te help om die simul te hanteer.</string>
   <string name="simulHostExtraTime">Gasheer ekstra kloktyd</string>
+  <string name="simulAddExtraTimePerPlayer">Voeg begintyd by jou klok vir elke speler wat die simul aansluit.</string>
+  <string name="simulHostExtraTimePerPlayer">Gasheer ekstra tyd per speller</string>
   <string name="lichessTournaments">Lichess toernooie</string>
   <string name="tournamentFAQ">Arena toernooi Vrae</string>
   <string name="timeBeforeTournamentStarts">Tydsduur tot aanvang van toernooi</string>
@@ -947,4 +951,5 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="lichessDbExplanation">Gegradeerde spelle gekies uit alle Lichess-spelers</string>
   <string name="switchSides">Ruil kante</string>
   <string name="closingAccountWithdrawAppeal">Sluiting van jou rekening beteken terugtrekking van jou appèl</string>
+  <string name="ourEventTips">Ons wenke om gebeurtenisse te organiseer</string>
 </resources>

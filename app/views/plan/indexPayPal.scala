@@ -2,10 +2,9 @@ package views.html.plan
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
 object indexPayPal:
 
@@ -17,9 +16,8 @@ object indexPayPal:
       me: lila.user.User,
       patron: lila.plan.Patron,
       subscription: lila.plan.PayPalSubscription,
-      pricing: lila.plan.PlanPricing,
       gifts: List[lila.plan.Charge.Gift]
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),

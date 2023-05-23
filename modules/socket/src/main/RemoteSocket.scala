@@ -19,10 +19,7 @@ import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
 import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
 
-final class RemoteSocket(
-    redisClient: RedisClient,
-    shutdown: CoordinatedShutdown
-)(using Executor, Scheduler):
+final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown)(using Executor, Scheduler):
 
   import RemoteSocket.*, Protocol.*
 

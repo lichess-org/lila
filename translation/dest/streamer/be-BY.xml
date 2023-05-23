@@ -32,7 +32,6 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запрасіць прагляд мадэратара</string>
   <string name="twitchUsername">Ваша імя карыстальніка/спасылка на Twich</string>
   <string name="optionalOrEmpty">Апцыянальна. Калі няма, пакіньце пустым</string>
-  <string name="youtubeChannel">ID вашага YouTube канала ці спасылка</string>
   <string name="streamerName">Ваша стрымерскае імя на Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Сцісла: максімальна %s сімвал</item>

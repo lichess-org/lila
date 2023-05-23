@@ -1,17 +1,12 @@
 package lila.api
 
-import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json.Json
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.hub.actorApi.Announce
+final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(using Executor):
 
-final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(using
-    ec: Executor
-):
-
-  def lilaRestart(date: DateTime): Funit =
+  def lilaRestart(date: Instant): Funit =
     (config.serviceId.nonEmpty && config.apiKey.value.nonEmpty) ??
       ws.url("https://api.pagerduty.com/maintenance_windows")
         .withHttpHeaders(
@@ -24,8 +19,8 @@ final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDut
             .obj(
               "maintenance_window" -> Json.obj(
                 "type"        -> "maintenance_window",
-                "start_time"  -> formatDate(date),
-                "end_time"    -> formatDate(date.plusMinutes(3)),
+                "start_time"  -> isoDateTimeFormatter.print(date),
+                "end_time"    -> isoDateTimeFormatter.print(date.plusMinutes(3)),
                 "description" -> "restart announce",
                 "services" -> Json.arr(
                   Json.obj(
@@ -47,5 +42,3 @@ final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDut
         .void
 
   private lazy val logger = lila.log("pagerDuty")
-
-  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date

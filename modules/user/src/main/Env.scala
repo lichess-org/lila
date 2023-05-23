@@ -7,7 +7,6 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
-import lila.common.LightUser
 import lila.db.dsl.Coll
 
 private class UserConfig(
@@ -41,7 +40,7 @@ final class Env(
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
-  val repo = new UserRepo(db(config.collectionUser))
+  val repo = UserRepo(db(config.collectionUser))
 
   val lightUserApi: LightUserApi = wire[LightUserApi]
 
@@ -53,8 +52,8 @@ final class Env(
     isBotSync
   }
 
-  lazy val botIds     = new GetBotIds(() => cached.botIds.get {})
-  lazy val rankingsOf = new RankingsOf(cached.rankingsOf)
+  lazy val botIds     = GetBotIds(() => cached.botIds.get {})
+  lazy val rankingsOf = RankingsOf(cached.rankingsOf)
 
   lazy val jsonView = wire[JsonView]
 
@@ -62,7 +61,7 @@ final class Env(
     def mk = (coll: Coll) => wire[NoteApi]
     mk(db(config.collectionNote))
 
-  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
+  lazy val trophyApi = TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
 
   private lazy val rankingColl = yoloDb(config.collectionRanking).failingSilently()
 
@@ -70,7 +69,7 @@ final class Env(
 
   lazy val cached: Cached = wire[Cached]
 
-  private lazy val passHasher = new PasswordHasher(
+  private lazy val passHasher = PasswordHasher(
     secret = config.passwordBPassSecret,
     logRounds = 10,
     hashTimer = res => lila.common.Chronometer.syncMon(_.user.auth.hashTime)(res)

@@ -56,7 +56,7 @@
   <string name="computerAnalysis">Analiza computer-ului</string>
   <string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
   <string name="computerAnalysisDisabled">Analiză computerizată dezactivată</string>
-  <string name="analysis">Analiza</string>
+  <string name="analysis">Analiză</string>
   <string name="depthX">Profunzime %s</string>
   <string name="usingServerAnalysis">Utilizează analiză de server</string>
   <string name="loadingEngine">Se încarcă motorul de analiză...</string>
@@ -95,6 +95,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
   <string name="noGameFound">Nu a fost găsit nici un joc</string>
+  <string name="maxDepthReached">Adâncime maximă atinsă!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
   <string name="openings">Deschideri</string>
   <string name="openingExplorer">Exploratorul de deschideri</string>
@@ -364,6 +365,7 @@
   </plurals>
   <string name="viewTournament">Vizualizați turneul</string>
   <string name="backToTournament">Înapoi la turneu</string>
+  <string name="noDrawBeforeSwissLimit">Nu poți declara remiză înainte ca 30 de mutări să fie jucate într-un turneu elvețian.</string>
   <string name="thematic">Tematică</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s meci evaluat</item>
@@ -986,4 +988,5 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>
   <string name="switchSides">Întoarce tabla</string>
   <string name="closingAccountWithdrawAppeal">Închiderea contului dvs. vă va retrage apelul</string>
+  <string name="ourEventTips">Sfaturile noastre pentru organizarea evenimentelor</string>
 </resources>

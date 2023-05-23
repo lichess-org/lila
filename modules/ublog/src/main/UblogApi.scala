@@ -5,7 +5,7 @@ import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Propagate
-import lila.memo.{ PicfitApi, PicfitUrl }
+import lila.memo.PicfitApi
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
@@ -43,7 +43,7 @@ final class UblogApi(
         timeline ! Propagate(
           lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
         ).toFollowersOf(user.id)
-        if (blog.modTier.isEmpty) sendPostToZulip(user, blog, post).unit
+        if (blog.modTier.isEmpty) sendPostToZulipMaybe(user, post).unit
     }
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
@@ -114,14 +114,15 @@ final class UblogApi(
     picfitApi.deleteByRel(imageRel(post)) >>
       colls.post.unsetField($id(post.id), "image") inject post.copy(image = none)
 
-  private def sendPostToZulip(user: User, blog: UblogBlog, post: UblogPost): Funit =
-    irc.ublogPost(
-      user,
-      id = post.id,
-      slug = post.slug,
-      title = post.title,
-      intro = post.intro
-    )
+  private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
+    (post.markdown.value.sizeIs > 1000) ??
+      irc.ublogPost(
+        user,
+        id = post.id,
+        slug = post.slug,
+        title = post.title,
+        intro = post.intro
+      )
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post

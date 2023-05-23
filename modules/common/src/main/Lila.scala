@@ -12,13 +12,13 @@ object Lila extends Lila:
   export ornicar.scalalib.newtypes.{ given, * }
   export ornicar.scalalib.zeros.given
   export ornicar.scalalib.extensions.{ given, * }
+  export ornicar.scalalib.time.*
 
-  inline def nowNanos: Long    = System.nanoTime()
-  inline def nowMillis: Long   = System.currentTimeMillis()
-  inline def nowCentis: Long   = nowMillis / 10
-  inline def nowTenths: Long   = nowMillis / 100
-  inline def nowSeconds: Int   = (nowMillis / 1000).toInt
-  inline def nowDate: DateTime = org.joda.time.DateTime()
+  inline def nowNanos: Long  = System.nanoTime()
+  inline def nowMillis: Long = System.currentTimeMillis()
+  inline def nowCentis: Long = nowMillis / 10
+  inline def nowTenths: Long = nowMillis / 100
+  inline def nowSeconds: Int = (nowMillis / 1000).toInt
 
   object makeTimeout:
 
@@ -44,15 +44,6 @@ trait Lila
     with cats.syntax.ListSyntax
     with lila.base.LilaLibraryExtensions:
 
-  trait IntValue extends Any:
-    def value: Int
-    override def toString = value.toString
-  trait BooleanValue extends Any:
-    def value: Boolean
-    override def toString = value.toString
-  trait DoubleValue extends Any:
-    def value: Double
-    override def toString = value.toString
   trait StringValue extends Any:
     def value: String
     override def toString = value
@@ -64,5 +55,5 @@ trait Lila
   import play.api.libs.json.{ JsObject, JsValue }
   import lila.base.{ LilaJsObject, LilaJsValue }
   // can't use extensions because of method name shadowing :(
-  implicit def toLilaJsObject(jo: JsObject): LilaJsObject = new LilaJsObject(jo)
-  implicit def toLilaJsValue(jv: JsValue): LilaJsValue    = new LilaJsValue(jv)
+  implicit def toLilaJsObject(jo: JsObject): LilaJsObject = LilaJsObject(jo)
+  implicit def toLilaJsValue(jv: JsValue): LilaJsValue    = LilaJsValue(jv)

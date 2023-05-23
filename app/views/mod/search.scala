@@ -4,7 +4,7 @@ import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
@@ -19,7 +19,7 @@ object search:
   private val email = tag("email")
   private val mark  = tag("marked")
 
-  def apply(mod: Holder, form: Form[?], users: List[User.WithEmails])(implicit ctx: Context) =
+  def apply(mod: Holder, form: Form[?], users: List[User.WithEmails])(using Context) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
@@ -37,7 +37,7 @@ object search:
               value       := form("q").value
             )
           ),
-          userTable(mod, users, eraseButton = isGranted(_.CloseAccount))
+          userTable(mod, users, showUsernames = true, eraseButton = isGranted(_.GdprErase))
         )
       )
     }
@@ -48,7 +48,7 @@ object search:
       users: List[User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(implicit ctx: Context) =
+  )(using Context) =
     views.html.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
@@ -90,7 +90,7 @@ object search:
       users: List[lila.user.User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(implicit ctx: Context, renderIp: RenderIp) =
+  )(using ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
@@ -126,7 +126,7 @@ object search:
       )
     }
 
-  def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(implicit ctx: Context) =
+  def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(using Context) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
@@ -146,7 +146,7 @@ object search:
       )
     }
 
-  def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(implicit ctx: Context) =
+  def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(using Context) =
     views.html.base.layout(
       title = "Classes",
       moreCss = cssTag("mod.misc")
@@ -189,7 +189,7 @@ object search:
       )
     }
 
-  private def teacherLink(userId: UserId)(implicit ctx: Context) =
+  private def teacherLink(userId: UserId)(using Context) =
     lightUser(userId).map { user =>
       a(
         href     := clasRoutes.teacher(user.name),
@@ -202,8 +202,13 @@ object search:
       )
     }
 
-  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(using
-      ctx: Context
+  private def userTable(
+      mod: Holder,
+      users: List[User.WithEmails],
+      showUsernames: Boolean = false,
+      eraseButton: Boolean = false
+  )(using
+      Context
   ) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
@@ -221,10 +226,11 @@ object search:
       tbody(
         users.map { case lila.user.User.WithEmails(u, emails) =>
           tr(
-            if (Granter.canViewAltUsername(mod, u))
+            if showUsernames || Granter.canViewAltUsername(mod, u)
+            then
               td(
                 userLink(u, withBestRating = true, params = "?mod"),
-                (isGranted(_.Admin) && isGranted(_.SetEmail)) option
+                isGranted(_.Admin) option
                   email(emails.strList.mkString(", "))
               )
             else td,
@@ -238,7 +244,7 @@ object search:
             td(u.enabled.no option mark("CLOSED")),
             td(momentFromNow(u.createdAt)),
             td(u.seenAt.map(momentFromNow(_))),
-            isGranted(_.CloseAccount) option td(
+            canCloseAlt option td(
               !u.marks.alt option button(
                 cls  := "button button-empty button-thin button-red mark-alt",
                 href := routes.Mod.alt(u.id, !u.marks.alt)
@@ -246,10 +252,7 @@ object search:
             ),
             eraseButton option td(
               postForm(action := routes.Mod.gdprErase(u.username))(
-                submitButton(
-                  cls   := "button button-red button-empty confirm",
-                  title := "Definitely erase everything about this user"
-                )("GDPR erasure")
+                views.html.user.mod.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
               )
             )
           )

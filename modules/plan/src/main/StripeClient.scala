@@ -1,6 +1,5 @@
 package lila.plan
 
-import java.util.Currency
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
@@ -8,18 +7,13 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
 import lila.common.config.Secret
-import lila.common.WebService
 import lila.user.User
 import lila.common.EmailAddress
 import play.api.ConfigLoader
 
-final private class StripeClient(
-    ws: StandaloneWSClient,
-    config: StripeClient.Config
-)(using Executor):
+final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using Executor):
 
   import StripeClient.*
-  import JsonHandlers.given
   import JsonHandlers.stripe.given
   import WebService.*
 
@@ -145,8 +139,8 @@ final private class StripeClient(
         None
     }
 
-  private def getList[A: Reads](url: String, queryString: (String, Matchable)*): Fu[List[A]] =
-    get[List[A]](url, queryString)(using listReader[A])
+  // private def getList[A: Reads](url: String, queryString: (String, Matchable)*): Fu[List[A]] =
+  //   get[List[A]](url, queryString)(using listReader[A])
 
   private def postOne[A: Reads](url: String, data: (String, Matchable)*): Fu[A] = post[A](url, data)
 
@@ -195,8 +189,6 @@ final private class StripeClient(
     js.asOpt[JsObject] flatMap { o =>
       (o \ "deleted").asOpt[Boolean]
     } contains true
-
-  private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]
 
 object StripeClient:
 

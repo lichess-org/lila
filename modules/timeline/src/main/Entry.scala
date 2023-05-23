@@ -2,7 +2,6 @@ package lila.timeline
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
-import scala.util.{ Failure, Success, Try }
 
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
@@ -13,7 +12,7 @@ case class Entry(
     typ: String,
     chan: Option[String],
     data: Bdoc,
-    date: DateTime
+    date: Instant
 ):
 
   import Entry.*
@@ -52,7 +51,7 @@ object Entry:
       case d: StreamStart   => "stream-start"    -> toBson(d)
   } match
     case (typ, bson) =>
-      new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowDate)
+      new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowInstant)
 
   object atomBsonHandlers:
     given followHandler: BSONDocumentHandler[Follow]               = Macros.handler

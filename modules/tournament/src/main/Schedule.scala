@@ -7,17 +7,18 @@ import play.api.i18n.Lang
 
 import lila.i18n.I18nKeys
 import lila.rating.PerfType
+import lila.gathering.Condition
 
 case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
     position: Option[Fen.Opening],
-    at: DateTime,
-    conditions: Condition.All = Condition.All.empty
+    at: LocalDateTime,
+    conditions: TournamentCondition.All = TournamentCondition.All.empty
 ):
 
-  def name(full: Boolean = true)(using lang: Lang): String =
+  def name(full: Boolean = true)(using Lang): String =
     import Schedule.Freq.*
     import Schedule.Speed.*
     import lila.i18n.I18nKeys.tourname.*
@@ -126,7 +127,7 @@ case class Schedule(
   def plan                                  = Schedule.Plan(this, None)
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
-  override def toString = s"$freq $variant $speed $conditions $at"
+  override def toString = s"$freq ${variant.key} ${speed.key} $conditions ${at.instant}"
 
 object Schedule:
 
@@ -136,7 +137,7 @@ object Schedule:
       speed = Speed fromClock tour.clock,
       variant = tour.variant,
       position = tour.position,
-      at = tour.startsAt
+      at = tour.startsAt.dateTime
     )
 
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]):
@@ -191,7 +192,7 @@ object Schedule:
   enum Speed(val id: Int):
     val name = Speed.this.toString
     val key  = lila.common.String lcfirst name
-    def trans(using lang: Lang): String = this match
+    def trans(using Lang): String = this match
       case Speed.Rapid     => I18nKeys.rapid.txt()
       case Speed.Classical => I18nKeys.classical.txt()
       case _               => name
@@ -289,8 +290,8 @@ object Schedule:
       case (Unique, _, _) => 60 * 6
 
   private val standardIncHours         = Set(1, 7, 13, 19)
-  private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
-  private def zhInc(s: Schedule)       = s.at.getHourOfDay % 2 == 0
+  private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
+  private def zhInc(s: Schedule)       = s.at.getHour % 2 == 0
 
   private given Conversion[Int, LimitSeconds]     = LimitSeconds(_)
   private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)
@@ -331,7 +332,7 @@ object Schedule:
     s.copy(conditions = conditionFor(s))
 
   private[tournament] def conditionFor(s: Schedule) =
-    if (s.conditions.relevant) s.conditions
+    if s.conditions.nonEmpty then s.conditions
     else
       import Freq.*, Speed.*
 
@@ -350,18 +351,15 @@ object Schedule:
 
         case _ => 0
 
-      val minRating = (s.freq, s.variant) match
-        case (Weekend, chess.variant.Crazyhouse) => 2100
-        case (Weekend, _)                        => 2200
-        case _                                   => 0
+      val minRating = IntRating:
+        (s.freq, s.variant) match
+          case (Weekend, chess.variant.Crazyhouse) => 2100
+          case (Weekend, _)                        => 2200
+          case _                                   => 0
 
-      Condition.All(
-        nbRatedGame = nbRatedGame.some.filter(0 <).map {
-          Condition.NbRatedGame(s.perfType.some, _)
-        },
-        minRating = minRating.some.filter(0 <).map {
-          Condition.MinRating(s.perfType, _)
-        },
+      TournamentCondition.All(
+        nbRatedGame = nbRatedGame.some.filter(0 <) map Condition.NbRatedGame.apply,
+        minRating = minRating.some.filter(_ > 0) map Condition.MinRating.apply,
         maxRating = none,
         titled = none,
         teamMember = none,

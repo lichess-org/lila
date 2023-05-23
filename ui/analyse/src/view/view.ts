@@ -29,7 +29,7 @@ import serverSideUnderboard from '../serverSideUnderboard';
 import { StudyCtrl } from '../study/interfaces';
 import { render as renderTreeView } from '../treeView/treeView';
 import { spinnerVdom as spinner } from 'common/spinner';
-import stepwiseScroll from 'common/wheel';
+import { stepwiseScroll } from 'common/scroll';
 import type * as studyDeps from '../study/studyDeps';
 import { renderNextChapter } from '../study/nextChapter';
 import * as Prefs from 'common/prefs';

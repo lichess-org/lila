@@ -3,12 +3,11 @@ package tournament
 
 import play.api.libs.json.Json
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
 import lila.tournament.Tournament
-import lila.user.User
 
 import controllers.routes
 
@@ -16,7 +15,7 @@ object show:
 
   def apply(
       tour: Tournament,
-      verdicts: lila.tournament.Condition.All.WithVerdicts,
+      verdicts: lila.gathering.Condition.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],

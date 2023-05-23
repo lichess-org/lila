@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
+  <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">بازی‌های بیشتری از لیست ترجیحات لحاظ شوند؟</string>
   <string name="openings">گشایش</string>
   <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">مشاهده مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
+  <string name="noDrawBeforeSwissLimit">شما نمی‌توانید در مسابقات سوییس تا قبل از حرکت ۳۰ام بازی را مساوی کنید.</string>
   <string name="thematic">واریانتی</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">بیشتر از %s بازی رسمی</item>
@@ -863,6 +865,8 @@
   <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
   <string name="toRequestSupport">جهت درخواست پشتیبانی، %1$s</string>
   <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
+  <string name="makeSureToRead">حتما %1$s را مطالعه کنید</string>
+  <string name="theForumEtiquette">آداب انجمن</string>
   <string name="thisTopicIsArchived">این موضوع بایگانی شده است و دیگر نمی توان به آن پاسخ داد.</string>
   <string name="joinTheTeamXToPost">به %1$s ملحق شوید تا در این انجمن پست بگذارید</string>
   <string name="teamNamedX">تیم %1$s</string>
@@ -944,4 +948,5 @@
   <string name="lichessDbExplanation">تمام بازی های امتیازی بازیکنان لیچس نمونه برداری شده اند</string>
   <string name="switchSides">تعویض سمت</string>
   <string name="closingAccountWithdrawAppeal">با بستن حساب خود درخواست تجدید نظر خود را پس خواهید گرفت</string>
+  <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>
 </resources>

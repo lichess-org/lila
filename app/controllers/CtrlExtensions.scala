@@ -1,8 +1,7 @@
 package controllers
 
 import play.api.mvc.*
-import play.api.http.*
-import lila.app.{ *, given }
+import lila.app.*
 import lila.common.HTTPRequest
 
 trait CtrlExtensions extends ControllerHelpers:
@@ -26,7 +25,7 @@ trait CtrlExtensions extends ControllerHelpers:
     def enableSharedArrayBuffer(using req: RequestHeader): Result = {
       if HTTPRequest.isChrome96Plus(req) then
         result.withHeaders("Cross-Origin-Embedder-Policy" -> "credentialless")
-      else if HTTPRequest.isFirefox108Plus(req) && env.firefoxOriginTrial.get().nonEmpty then
+      else if HTTPRequest.isFirefox112Plus(req) && env.firefoxOriginTrial.get().nonEmpty then
         result.withHeaders(
           "Origin-Trial"                 -> env.firefoxOriginTrial.get(),
           "Cross-Origin-Embedder-Policy" -> "credentialless"

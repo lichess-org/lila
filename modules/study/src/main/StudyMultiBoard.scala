@@ -1,7 +1,7 @@
 package lila.study
 
 import BSONHandlers.given
-import chess.Color
+import chess.{ ByColor, Centis, Color, Outcome }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
@@ -39,7 +39,7 @@ final class StudyMultiBoard(
 
   private def fetch(studyId: StudyId, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](
-      new ChapterPreviewAdapter(studyId, playing),
+      ChapterPreviewAdapter(studyId, playing),
       currentPage = page,
       maxPerPage = maxPerPage
     )
@@ -67,52 +67,89 @@ final class StudyMultiBoard(
                       "lang" -> "js",
                       "args" -> $arr("$root", "$tags"),
                       "body" -> """function(root, tags) {
-                    |tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result'));
-                    |const node = tags.length ? Object.keys(root).reduce(([path, node], i) => (root[i].p > node.p && i.startsWith(path)) ? [i, root[i]] : [path, node], ['', root['_']])[1] : root['_'];
-                    |return {node:{fen:node.f,uci:node.u},tags} }""".stripMargin
+                                    tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result'));
+                                    const [node, clockTicking] = tags.length ?
+                                      Object.keys(root).reduce(
+                                        ([node, clockTicking, path, pathTicking], i) => {
+                                          if (root[i].p > node.p && i.startsWith(path)) {
+                                            clockTicking = node;
+                                            pathTicking = path;
+                                            node = root[i];
+                                            path = i;
+                                          } else if (clockTicking && root[i].p > clockTicking.p && i.startsWith(pathTicking)) {
+                                            clockTicking = root[i];
+                                            pathTicking = i;
+                                          }
+                                          return [node, clockTicking, path, pathTicking]
+                                        },
+                                        [root['_'], undefined, '', undefined]
+                                      ).slice(0, 2) : [root['_'], undefined];
+                                    const [whiteClock, blackClock] = clockTicking ? node.f.includes(" b") ? [node.l, clockTicking.l] : [clockTicking.l, node.l] : [undefined, undefined]
+                                    
+                                    return {
+                                      node: {
+                                        fen: node.f,
+                                        uci: node.u,
+                                      },
+                                      tags,
+                                      clocks: {
+                                        black: blackClock,
+                                        white: whiteClock,
+                                      }
+                                    }
+                                  }""".stripMargin
                     )
                   ),
                   "orientation" -> "$setup.orientation",
-                  "name"        -> true
+                  "name"        -> true,
+                  "lastMoveAt"  -> "$relay.lastMoveAt"
                 )
               )
             )
           }
         }
         .map { r =>
-          for {
+          for
             doc  <- r
             id   <- doc.getAsOpt[StudyChapterId]("_id")
             name <- doc.getAsOpt[StudyChapterName]("name")
-            comp <- doc.getAsOpt[Bdoc]("comp")
-            node <- comp.getAsOpt[Bdoc]("node")
-            fen  <- node.getAsOpt[Fen.Epd]("fen")
-            lastMove = node.getAsOpt[Uci]("uci")
-            tags     = comp.getAsOpt[Tags]("tags")
-          } yield ChapterPreview(
+            lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
+            comp   <- doc.getAsOpt[Bdoc]("comp")
+            node   <- comp.getAsOpt[Bdoc]("node")
+            fen    <- node.getAsOpt[Fen.Epd]("fen")
+            clocks <- comp.getAsOpt[Bdoc]("clocks")
+            lastMove   = node.getAsOpt[Uci]("uci")
+            tags       = comp.getAsOpt[Tags]("tags")
+            blackClock = clocks.getAsOpt[Centis]("black")
+            whiteClock = clocks.getAsOpt[Centis]("white")
+          yield ChapterPreview(
             id = id,
             name = name,
-            players = tags flatMap ChapterPreview.players,
+            players = tags flatMap ChapterPreview.players(blackClock = blackClock, whiteClock = whiteClock),
             orientation = doc.getAsOpt[Color]("orientation") | Color.White,
             fen = fen,
             lastMove = lastMove,
-            playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*")
+            lastMoveAt = lastMoveAt,
+            playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*"),
+            outcome = tags.flatMap(_.outcome)
           )
         }
 
-  import lila.common.Json.given
-  import JsonView.given
+  import lila.common.Json.{ writeAs, given }
 
   given Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
     Json
       .obj("name" -> p.name)
       .add("title" -> p.title)
       .add("rating" -> p.rating)
+      .add("clock" -> p.clock)
   }
 
   given Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] { players =>
     Json.obj("white" -> players.white, "black" -> players.black)
   }
+
+  given Writes[Outcome] = writeAs(_.toString.replace("1/2", "½"))
 
   given Writes[ChapterPreview] = Json.writes
 
@@ -125,20 +162,22 @@ object StudyMultiBoard:
       orientation: Color,
       fen: Fen.Epd,
       lastMove: Option[Uci],
-      playing: Boolean
+      lastMoveAt: Option[Instant],
+      playing: Boolean,
+      outcome: Option[Outcome]
   )
 
   object ChapterPreview:
 
-    case class Player(name: String, title: Option[String], rating: Option[Int])
+    case class Player(name: String, title: Option[String], rating: Option[Int], clock: Option[Centis])
 
-    type Players = Color.Map[Player]
+    type Players = ByColor[Player]
 
-    def players(tags: Tags): Option[Players] =
-      for {
+    def players(blackClock: Option[Centis], whiteClock: Option[Centis])(tags: Tags): Option[Players] =
+      for
         wName <- tags(_.White)
         bName <- tags(_.Black)
-      } yield Color.Map(
-        white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo) flatMap (_.toIntOption)),
-        black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo) flatMap (_.toIntOption))
+      yield ByColor(
+        white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo).flatMap(_.toIntOption), whiteClock),
+        black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo).flatMap(_.toIntOption), blackClock)
       )

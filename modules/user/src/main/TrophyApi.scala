@@ -24,8 +24,7 @@ final class TrophyApi(
       expireAfter = Syncache.ExpireAfter.Write(1 hour)
     )
 
-  private given BSONHandler[TrophyKind] = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
-
+  private given BSONHandler[TrophyKind]     = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
   private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
@@ -43,28 +42,28 @@ final class TrophyApi(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.moderator,
-        date = nowDate,
+        date = nowInstant,
         url = none
       ),
       isDev option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.developer,
-        date = nowDate,
+        date = nowInstant,
         url = none
       ),
       isVerified option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.verified,
-        date = nowDate,
+        date = nowInstant,
         url = none
       ),
       isContentTeam option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.contentTeam,
-        date = nowDate,
+        date = nowInstant,
         url = none
       )
     ).flatten
@@ -77,6 +76,6 @@ final class TrophyApi(
           "user" -> userId,
           "kind" -> kindKey,
           "url"  -> trophyUrl,
-          "date" -> nowDate
+          "date" -> nowInstant
         )
       ) void

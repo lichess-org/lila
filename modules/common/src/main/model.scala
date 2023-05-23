@@ -4,7 +4,6 @@ import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
 import play.api.mvc.Call
 import scala.util.Try
-import lila.base.LilaTypes
 import java.net.InetAddress
 import ornicar.scalalib.SecureRandom
 
@@ -79,6 +78,9 @@ case class Template(value: String) extends AnyVal
 
 opaque type Days = Int
 object Days extends OpaqueInt[Days]
+
+opaque type Seconds = Int
+object Seconds extends OpaqueInt[Seconds]
 
 case class Preload[A](value: Option[A]) extends AnyVal:
   def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)

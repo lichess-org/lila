@@ -1,9 +1,8 @@
 package lila.opening
 
-import chess.format.pgn.{ Pgn, San, SanStr }
+import chess.format.pgn.{ Pgn, SanStr }
 import chess.format.{ Fen, OpeningFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
-import chess.Speed
 
 import lila.game.Game
 

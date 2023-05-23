@@ -16,7 +16,6 @@ final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     net: NetConfig,
-    captcher: lila.hub.actors.Captcher,
     userRepo: UserRepo,
     authenticator: Authenticator,
     mailer: lila.mailer.Mailer,
@@ -29,7 +28,6 @@ final class Env(
     db: lila.db.Db
 )(using
     ec: Executor,
-    system: ActorSystem,
     scheduler: Scheduler,
     mode: play.api.Mode
 ):

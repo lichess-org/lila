@@ -5,7 +5,7 @@ import chess.variant.{ Crazyhouse, Variant }
 import controllers.routes
 import scala.util.chaining.*
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Pov }
@@ -33,6 +33,7 @@ object bits:
       moreCss = frag(
         cssTag(if (variant == Crazyhouse) "round.zh" else "round"),
         ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
+        ctx.pref.hasVoice option cssTag("voice"),
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),
@@ -41,7 +42,7 @@ object bits:
       zenable = zenable,
       robots = robots,
       zoomable = true,
-      csp = defaultCsp.withPeer.some,
+      csp = defaultCsp.withPeer.withWebAssembly.some,
       withHrefLangs = withHrefLangs
     )(body)
 
@@ -135,7 +136,7 @@ object bits:
       bookmarked = bookmarked
     )
 
-  def roundAppPreload(pov: Pov, controls: Boolean)(using Context) =
+  def roundAppPreload(pov: Pov)(using Context) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(chessground(pov)),
       div(cls := "col1-rmoves-preload")

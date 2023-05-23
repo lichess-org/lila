@@ -2,10 +2,9 @@ package lila.study
 
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.format.Fen
-import chess.variant.{ Crazyhouse, Variant }
-import lila.chat.{ Chat, ChatApi }
+import chess.variant.Variant
+import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
-import lila.user.User
 import chess.Color
 
 final private class ChapterMaker(
@@ -117,7 +116,7 @@ final private class ChapterMaker(
       initialFen: Option[Fen.Epd] = None
   ): Fu[Chapter] =
     for {
-      root <- getBestRoot(game, data.pgn, initialFen)
+      root <- makeRoot(game, data.pgn, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <-
         if (data.isDefaultName)
@@ -157,7 +156,7 @@ final private class ChapterMaker(
         )
       }
 
-  private[study] def getBestRoot(
+  private[study] def makeRoot(
       game: Game,
       pgnOpt: Option[PgnStr],
       initialFen: Option[Fen.Epd]
@@ -165,11 +164,11 @@ final private class ChapterMaker(
     initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { goodFen =>
-      pgnOpt
-        .filter(_.value.nonEmpty)
-        .flatMap(PgnImport(_, Nil).toOption)
-        .map(_.root)
-        .getOrElse(GameToRoot(game, goodFen, withClocks = true))
+      val fromGame = GameToRoot(game, goodFen, withClocks = true)
+      pgnOpt.flatMap(PgnImport(_, Nil).toOption.map(_.root)) match {
+        case Some(r) => fromGame.merge(r)
+        case None    => fromGame
+      }
     }
 
   private val UrlRegex = {

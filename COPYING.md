@@ -1,7 +1,7 @@
 # Copying Lila
 
 Any file in this project that does not state otherwise and is not listed as an
-exception below is part of lila and copyright (c) 2012-2022 the lila authors.
+exception below is part of lila and copyright (c) 2012-2023 the lila authors.
 
 For a list of the authors see the commit log or
 https://github.com/lichess-org/lila/graphs/contributors.
@@ -65,6 +65,8 @@ public/piece/dubrovny | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.or
 public/piece/libra | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/anarcandy | [caderek](https://github.com/caderek) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/disguised | danegraphics | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/kiwen-suwi | [neverRare](https://github.com/neverRare) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+public/piece/mpchess | [Maxime Chupin](https://github.com/chupinmaxime) | [GPL3v3+](https://www.gnu.org/licenses/quick-guide-gplv3.en.html)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+

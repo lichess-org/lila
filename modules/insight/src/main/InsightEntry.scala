@@ -2,10 +2,9 @@ package lila.insight
 
 import chess.Color
 
-import lila.common.{ LilaOpeningFamily, SimpleOpening }
-import lila.game.{ Game, Pov }
+import lila.common.SimpleOpening
+import lila.game.Pov
 import lila.rating.PerfType
-import lila.user.User
 
 case class InsightEntry(
     id: String, // gameId + w/b
@@ -25,7 +24,7 @@ case class InsightEntry(
     ratingDiff: IntRatingDiff,
     analysed: Boolean,
     provisional: Boolean,
-    date: DateTime
+    date: Instant
 )
 
 case object InsightEntry:

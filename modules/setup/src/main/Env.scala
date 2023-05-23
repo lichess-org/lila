@@ -3,10 +3,10 @@ package lila.setup
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
 import lila.oauth.OAuthServer
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,

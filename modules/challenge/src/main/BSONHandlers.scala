@@ -2,13 +2,11 @@ package lila.challenge
 
 import chess.variant.Variant
 import reactivemongo.api.bson.*
-import scala.util.Success
 
 import lila.common.Days
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 private object BSONHandlers:
 

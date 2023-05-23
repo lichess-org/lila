@@ -7,7 +7,6 @@ import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.Atom
 import lila.memo.CacheApi.*
-import lila.user.User
 
 final class EntryApi(
     coll: Coll,
@@ -30,7 +29,7 @@ final class EntryApi(
       .find(
         $doc(
           "users" -> userId,
-          "date" $gt nowDate.minusWeeks(2)
+          "date" $gt nowInstant.minusWeeks(2)
         ),
         projection.some
       )
@@ -38,7 +37,7 @@ final class EntryApi(
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .vector(max.value)
 
-  def findRecent(typ: String, since: DateTime, max: Max) =
+  def findRecent(typ: String, since: Instant, max: Max) =
     coll
       .find(
         $doc("typ" -> typ, "date" $gt since),
@@ -53,7 +52,7 @@ final class EntryApi(
       $doc(
         "users" -> userId,
         "chan"  -> channel,
-        "date" $gt nowDate.minusDays(7)
+        "date" $gt nowInstant.minusDays(7)
       )
     ) map (0 !=)
 
@@ -65,8 +64,8 @@ final class EntryApi(
   private[timeline] def removeRecentFollowsBy(userId: UserId): Funit =
     coll.update
       .one(
-        $doc("typ"  -> "follow", "data.u1" -> userId, "date" $gt nowDate.minusHours(1)),
-        $set("date" -> nowDate.minusDays(365)),
+        $doc("typ"  -> "follow", "data.u1" -> userId, "date" $gt nowInstant.minusHours(1)),
+        $set("date" -> nowInstant.minusDays(365)),
         multi = true
       )
       .void
@@ -78,7 +77,7 @@ final class EntryApi(
     private val cache = cacheApi.unit[Vector[Entry]] {
       _.refreshAfterWrite(1 hour).buildAsyncFuture { _ =>
         coll
-          .find($doc("users" $exists false, "date" $gt nowDate.minusWeeks(2)))
+          .find($doc("users" $exists false, "date" $gt nowInstant.minusWeeks(2)))
           .sort($sort desc "date")
           .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work
           .vector(3)
@@ -91,10 +90,10 @@ final class EntryApi(
           val interleaved =
             val oldestEntry = entries.lastOption
             if (oldestEntry.fold(true)(_.date isBefore mostRecentBc.date))
-              (entries ++ bcs).sortBy(-_.date.getMillis)
+              (entries ++ bcs).sortBy(-_.date.toMillis)
             else entries
           // sneak recent broadcast at first place
-          if (mostRecentBc.date.isAfter(nowDate minusDays 1))
+          if (mostRecentBc.date.isAfter(nowInstant minusDays 1))
             mostRecentBc +: interleaved.filter(mostRecentBc !=)
           else interleaved
         }

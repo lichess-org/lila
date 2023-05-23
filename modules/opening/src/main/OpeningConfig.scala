@@ -6,7 +6,6 @@ import play.api.data.Forms.*
 import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ typeIn, numberIn, given }
-import lila.common.Iso
 import lila.common.LilaCookie
 
 case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
@@ -48,7 +47,7 @@ final class OpeningConfigStore(baker: LilaCookie):
 
 object OpeningConfig:
 
-  val allRatings        = List[Int](600, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500)
+  val allRatings        = List[Int](400, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2500)
   val contiguousRatings = allRatings.mkString(",")
 
   val allSpeeds =

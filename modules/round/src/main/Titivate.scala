@@ -4,7 +4,7 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 
 import lila.common.LilaStream
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.game.{ Game, GameRepo, Query }
 import lila.round.actorApi.round.{ Abandon, QuietFlag }
 
@@ -103,13 +103,13 @@ final private[round] class Titivate(
 
             case Some(clock) if clock.isRunning =>
               val minutes = clock.estimateTotalSeconds / 60
-              gameRepo.setCheckAt(game, nowDate plusMinutes minutes).void
+              gameRepo.setCheckAt(game, nowInstant plusMinutes minutes).void
 
             case Some(_) =>
               val hours = Game.unplayedHours
-              gameRepo.setCheckAt(game, nowDate plusHours hours).void
+              gameRepo.setCheckAt(game, nowInstant plusHours hours).void
 
             case None =>
               val days = game.daysPerTurn | Game.abandonedDays
-              gameRepo.setCheckAt(game, nowDate plusDays days.value).void
+              gameRepo.setCheckAt(game, nowInstant plusDays days.value).void
   }

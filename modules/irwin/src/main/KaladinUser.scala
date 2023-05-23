@@ -1,17 +1,15 @@
 package lila.irwin
 
 import lila.report.SuspectId
-import lila.user.User
 import lila.report.Suspect
-import lila.user.Holder
 import lila.rating.{ Perf, PerfType }
 
 case class KaladinUser(
     _id: UserId,
     priority: Int,
-    queuedAt: DateTime,
+    queuedAt: Instant,
     queuedBy: KaladinUser.Requester,
-    startedAt: Option[DateTime] = None,
+    startedAt: Option[Instant] = None,
     response: Option[KaladinUser.Response] = None
 ):
 
@@ -19,7 +17,7 @@ case class KaladinUser(
 
   def suspectId = SuspectId(_id)
 
-  def recentlyQueued = queuedAt isAfter nowDate.minusWeeks(1)
+  def recentlyQueued = queuedAt isAfter nowInstant.minusWeeks(1)
 
   def queueAgain(by: KaladinUser.Requester): Option[KaladinUser] =
     if (startedAt.isEmpty && by.priority > priority)
@@ -30,7 +28,7 @@ case class KaladinUser(
     else if (by.isMod || !recentlyQueued)
       copy(
         priority = by.priority,
-        queuedAt = nowDate,
+        queuedAt = nowInstant,
         queuedBy = by,
         startedAt = none,
         response = none
@@ -42,7 +40,7 @@ object KaladinUser:
   def make(suspect: Suspect, by: Requester) = KaladinUser(
     _id = suspect.id.value,
     priority = by.priority,
-    queuedAt = nowDate,
+    queuedAt = nowInstant,
     queuedBy = by
   )
 
@@ -57,7 +55,7 @@ object KaladinUser:
     case object TournamentLeader extends Requester(20)
     case object Report           extends Requester(30)
 
-  case class Response(at: DateTime, pred: Option[Pred], err: Option[String])
+  case class Response(at: Instant, pred: Option[Pred], err: Option[String])
   // Pred, short for Predication, activation, float between 0 and 1,
   // the higher the more likely the user is cheating
   case class Pred(activation: Float, insights: List[String], tc: Int):
@@ -74,4 +72,4 @@ object KaladinUser:
       response.at
     }
 
-    def seenRecently = lastSeenAt.??(nowDate.minusMinutes(30).isBefore)
+    def seenRecently = lastSeenAt.??(nowInstant.minusMinutes(30).isBefore)

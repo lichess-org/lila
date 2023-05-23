@@ -3,12 +3,10 @@ package lila.lobby
 import actorApi.*
 import cats.syntax.all.*
 
-import lila.common.config.Max
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
 import lila.hub.SyncActor
 import lila.socket.Socket.{ Sri, Sris }
-import lila.user.User
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
@@ -24,7 +22,7 @@ final private class LobbySyncActor(
 
   private val hookRepo = new HookRepo
 
-  private var remoteDisconnectAllAt = nowDate
+  private var remoteDisconnectAllAt = nowInstant
 
   private var socket: SyncActor = SyncActor.stub
 
@@ -92,7 +90,7 @@ final private class LobbySyncActor(
       socket ! msg
       socket ! RemoveSeek(seek.id)
 
-    case LeaveAll => remoteDisconnectAllAt = nowDate
+    case LeaveAll => remoteDisconnectAllAt = nowInstant
 
     case Tick(promise) =>
       hookRepo.truncateIfNeeded()
@@ -109,7 +107,7 @@ final private class LobbySyncActor(
 
     case WithPromise(Sris(sris), promise) =>
       poolApi socketIds Sris(sris)
-      val fewSecondsAgo = nowDate minusSeconds 5
+      val fewSecondsAgo = nowInstant minusSeconds 5
       if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks {
         hookRepo
           .notInSris(sris)

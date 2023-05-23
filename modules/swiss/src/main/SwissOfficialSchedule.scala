@@ -1,8 +1,9 @@
 package lila.swiss
 
-import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
+import chess.Clock.{ LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
+import lila.gathering.Condition.NbRatedGame
 
 final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(using
     Executor
@@ -36,20 +37,21 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
     bulletInc,
     blitz,
     hyperbulletInc,
-    superblitz
+    superblitz,
+    rapidInc
   )
   private def daySchedule = (0 to 47).toList.flatMap(i => schedule.lift(i % schedule.length))
 
   def generate: Funit =
-    val dayStart = nowDate.plusDays(3).withTimeAtStartOfDay
+    val dayStart = nowInstant.plusDays(3).withTimeAtStartOfDay
     daySchedule.zipWithIndex
       .map { (config, position) =>
         val hour    = position / 2
         val minute  = (position % 2) * 30
         val startAt = dayStart plusHours hour plusMinutes minute
         mongo.swiss.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)) flatMap {
-          case true => fuFalse
-          case _ => mongo.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
+          if _ then fuFalse
+          else mongo.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
         }
       }
       .parallel
@@ -57,7 +59,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
         if (res.exists(identity)) cache.featuredInTeam.invalidate(lichessTeamId)
       }
 
-  private def makeSwiss(config: Config, startAt: DateTime) =
+  private def makeSwiss(config: Config, startAt: Instant) =
     Swiss(
       _id = Swiss.makeId,
       name = config.name,
@@ -66,7 +68,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       round = SwissRoundNumber(0),
       nbPlayers = 0,
       nbOngoing = 0,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       createdBy = lila.user.User.lichessId,
       teamId = lichessTeamId,
       nextRoundAt = startAt.some,
@@ -80,8 +82,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
         position = none,
         roundInterval = SwissForm.autoInterval(config.clock),
         password = none,
-        conditions = SwissCondition
-          .All(nbRatedGame = SwissCondition.NbRatedGame(config.minGames).some, none, none, none, none),
+        conditions = SwissCondition.All.empty.copy(nbRatedGame = NbRatedGame(config.minGames).some),
         forbiddenPairings = "",
         manualPairings = ""
       )

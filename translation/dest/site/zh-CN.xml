@@ -91,6 +91,7 @@
   </plurals>
   <string name="dtzWithRounding">经过四舍五入的DTZ50\'\'，是基于到下次吃子或兵动的半步数目。</string>
   <string name="noGameFound">没找到符合要求的棋局</string>
+  <string name="maxDepthReached">已达成满级！</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openings">开局</string>
   <string name="openingExplorer">开局浏览器</string>
@@ -514,6 +515,7 @@
   <string name="blog">博客</string>
   <string name="notes">备注</string>
   <string name="typePrivateNotesHere">输入关于该用户的个人备注</string>
+  <string name="writeAPrivateNoteAboutThisUser">备注用户信息</string>
   <string name="noNoteYet">暂无笔记</string>
   <string name="invalidUsernameOrPassword">用户名或密码错误</string>
   <string name="incorrectPassword">密码错误</string>
@@ -902,4 +904,5 @@
   <string name="lichessDbExplanation">来自 Lichess 用户的所有 Rated 游戏</string>
   <string name="switchSides">更换所持颜色</string>
   <string name="closingAccountWithdrawAppeal">关闭您的帐户将撤回您的上诉</string>
+  <string name="ourEventTips">举办赛事的小建议</string>
 </resources>

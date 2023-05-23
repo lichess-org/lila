@@ -49,29 +49,29 @@ object BSON extends Handlers:
     inline def getsD[A: BSONReader](k: String) =
       doc.getAsOpt[List[A]](k) getOrElse Nil
 
-    inline def str(k: String)                         = get[String](k)(using BSONStringHandler)
-    inline def strO(k: String)                        = getO[String](k)(using BSONStringHandler)
-    inline def strD(k: String)                        = strO(k) getOrElse ""
-    inline def int(k: String)                         = get[Int](k)
-    inline def intO(k: String)                        = getO[Int](k)
-    inline def intD(k: String)                        = intO(k) getOrElse 0
-    inline def double(k: String)                      = get[Double](k)
-    inline def doubleO(k: String)                     = getO[Double](k)
-    inline def floatO(k: String)                      = getO[Float](k)
-    inline def bool(k: String)                        = get[Boolean](k)
-    inline def boolO(k: String)                       = getO[Boolean](k)
-    inline def boolD(k: String)                       = boolO(k) getOrElse false
-    inline def date(k: String)                        = get[DateTime](k)
-    inline def dateO(k: String)                       = getO[DateTime](k)
-    inline def dateD(k: String, default: => DateTime) = getD(k, default)
-    inline def bytes(k: String)                       = get[ByteArray](k)
-    inline def bytesO(k: String)                      = getO[ByteArray](k)
-    inline def bytesD(k: String)                      = bytesO(k) getOrElse ByteArray.empty
-    inline def nInt(k: String)                        = get[BSONNumberLike](k).toInt.get
-    inline def nIntO(k: String): Option[Int]          = getO[BSONNumberLike](k) flatMap (_.toInt.toOption)
-    inline def nIntD(k: String): Int                  = nIntO(k) getOrElse 0
-    inline def intsD(k: String)                       = getO[List[Int]](k) getOrElse Nil
-    inline def strsD(k: String)                       = getO[List[String]](k) getOrElse Nil
+    inline def str(k: String)                        = get[String](k)(using BSONStringHandler)
+    inline def strO(k: String)                       = getO[String](k)(using BSONStringHandler)
+    inline def strD(k: String)                       = strO(k) getOrElse ""
+    inline def int(k: String)                        = get[Int](k)
+    inline def intO(k: String)                       = getO[Int](k)
+    inline def intD(k: String)                       = intO(k) getOrElse 0
+    inline def double(k: String)                     = get[Double](k)
+    inline def doubleO(k: String)                    = getO[Double](k)
+    inline def floatO(k: String)                     = getO[Float](k)
+    inline def bool(k: String)                       = get[Boolean](k)
+    inline def boolO(k: String)                      = getO[Boolean](k)
+    inline def boolD(k: String)                      = boolO(k) getOrElse false
+    inline def date(k: String)                       = get[Instant](k)
+    inline def dateO(k: String)                      = getO[Instant](k)
+    inline def dateD(k: String, default: => Instant) = getD(k, default)
+    inline def bytes(k: String)                      = get[ByteArray](k)
+    inline def bytesO(k: String)                     = getO[ByteArray](k)
+    inline def bytesD(k: String)                     = bytesO(k) getOrElse ByteArray.empty
+    inline def nInt(k: String)                       = get[BSONNumberLike](k).toInt.get
+    inline def nIntO(k: String): Option[Int]         = getO[BSONNumberLike](k) flatMap (_.toInt.toOption)
+    inline def nIntD(k: String): Int                 = nIntO(k) getOrElse 0
+    inline def intsD(k: String)                      = getO[List[Int]](k) getOrElse Nil
+    inline def strsD(k: String)                      = getO[List[String]](k) getOrElse Nil
     inline def yesnoD[A](k: String)(using sr: SameRuntime[A, Boolean], rs: SameRuntime[Boolean, A]): A =
       getO[A](k) getOrElse rs(false)
 
@@ -89,7 +89,7 @@ object BSON extends Handlers:
     def strO(s: String): Option[BSONString]                    = if (s.nonEmpty) Some(BSONString(s)) else None
     def int(i: Int): BSONInteger                               = BSONInteger(i)
     def intO(i: Int): Option[BSONInteger]                      = if (i != 0) Some(BSONInteger(i)) else None
-    def date(d: DateTime)(using handler: BSONHandler[DateTime]): BSONValue = handler.writeTry(d).get
+    def date(d: Instant)(using handler: BSONHandler[Instant]): BSONValue = handler.writeTry(d).get
     def byteArrayO(b: ByteArray)(using handler: BSONHandler[ByteArray]): Option[BSONValue] =
       if (b.isEmpty) None else handler.writeOpt(b)
     def bytesO(b: Array[Byte]): Option[BSONValue] = byteArrayO(ByteArray(b))
@@ -101,7 +101,7 @@ object BSON extends Handlers:
     def double(i: Double): BSONDouble                 = BSONDouble(i)
     def doubleO(i: Double): Option[BSONDouble]        = if (i != 0) Some(BSONDouble(i)) else None
     def zero[A](a: A)(using zero: Zero[A]): Option[A] = if (zero.zero == a) None else Some(a)
-    def yesnoO[A](a: A)(using sr: SameRuntime[A, Boolean], rs: SameRuntime[Boolean, A]): Option[BSONBoolean] =
+    def yesnoO[A](a: A)(using sr: SameRuntime[A, Boolean]): Option[BSONBoolean] =
       boolO(sr(a))
 
   val writer = new Writer

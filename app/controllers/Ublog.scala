@@ -17,19 +17,18 @@ final class Ublog(env: Env) extends LilaController(env):
   import views.html.ublog.blog.urlOfBlog
   import lila.common.paginator.Paginator.given
 
-  def index(username: UserStr, page: Int) = Open { implicit ctx =>
-    NotForKids {
-      OptionFuResult(env.user.repo byId username) { user =>
-        env.ublog.api.getUserBlog(user) flatMap { blog =>
-          (canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
-            Ok(html.ublog.blog(user, blog, posts))
-          }
-        }
-      }
-    }
-  }
+  def index(username: UserStr, page: Int) = Open:
+    NotForKids:
+      val userFu = if username == UserStr("me") then fuccess(ctx.me) else env.user.repo.byId(username)
+      OptionFuResult(userFu): user =>
+        env.ublog.api
+          .getUserBlog(user)
+          .flatMap: blog =>
+            (canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
+              Ok(html.ublog.blog(user, blog, posts))
+            }
 
-  def drafts(username: UserStr, page: Int) = Auth { implicit ctx => me =>
+  def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me =>
     NotForKids {
       if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).toFuccess
       else
@@ -39,36 +38,34 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def post(username: UserStr, slug: String, id: UblogPostId) = Open { implicit ctx =>
-    NotForKids {
-      OptionFuResult(env.user.repo byId username) { user =>
-        env.ublog.api.getUserBlog(user) flatMap { blog =>
-          env.ublog.api.findByIdAndBlog(id, blog.id) flatMap {
-            _.filter(canViewPost(user, blog)).fold(notFound) { post =>
-              if (slug != post.slug) Redirect(urlOfPost(post)).toFuccess
-              else
-                env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
-                  ctx.me.??(env.ublog.rank.liked(post)) zip
-                  ctx.userId.??(env.relation.api.fetchFollows(_, user.id)) zip
-                  env.ublog.markup(post) map { case (((others, liked), followed), markup) =>
-                    val viewedPost = env.ublog.viewCounter(post, ctx.ip)
-                    Ok(html.ublog.post(user, blog, viewedPost, markup, others, liked, followed))
-                  }
+  def post(username: UserStr, slug: String, id: UblogPostId) = Open:
+    NotForKids:
+      OptionFuResult(env.user.repo byId username): user =>
+        env.ublog.api
+          .getUserBlog(user)
+          .flatMap: blog =>
+            env.ublog.api.findByIdAndBlog(id, blog.id) flatMap {
+              _.filter(canViewPost(user, blog)).fold(notFound) { post =>
+                if (slug != post.slug) Redirect(urlOfPost(post)).toFuccess
+                else
+                  env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
+                    ctx.me.??(env.ublog.rank.liked(post)) zip
+                    ctx.userId.??(env.relation.api.fetchFollows(_, user.id)) zip
+                    env.ublog.markup(post) map { case (((others, liked), followed), markup) =>
+                      val viewedPost = env.ublog.viewCounter(post, ctx.ip)
+                      Ok(html.ublog.post(user, blog, viewedPost, markup, others, liked, followed))
+                    }
+              }
             }
-          }
-        }
-      }
-    }
-  }
 
-  def discuss(id: UblogPostId) = Open { implicit ctx =>
-    NotForKids {
+  def discuss(id: UblogPostId) = Open:
+    NotForKids:
       import lila.forum.ForumCateg.ublogId
       val topicSlug = s"ublog-${id}"
       val redirect  = Redirect(routes.ForumTopic.show(ublogId.value, topicSlug))
       env.forum.topicRepo.existsByTree(ublogId, topicSlug) flatMap {
-        case true => fuccess(redirect)
-        case _ =>
+        if _ then fuccess(redirect)
+        else
           env.ublog.api.getPost(id) flatMapz { post =>
             env.forum.topicApi.makeUblogDiscuss(
               slug = topicSlug,
@@ -79,10 +76,8 @@ final class Ublog(env: Env) extends LilaController(env):
             )
           }
       }
-    }
-  }
 
-  def form(username: UserStr) = Auth { implicit ctx => me =>
+  def form(username: UserStr) = Auth { ctx ?=> me =>
     NotForKids {
       if (env.ublog.api.canBlog(me))
         if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).toFuccess
@@ -105,8 +100,8 @@ final class Ublog(env: Env) extends LilaController(env):
     key = "ublog.create.user"
   )
 
-  def create = AuthBody { implicit ctx => me =>
-    NotForKids {
+  def create = AuthBody { ctx ?=> me =>
+    NotForKids:
       env.ublog.form.create
         .bindFromRequest()(ctx.body, formBinding)
         .fold(
@@ -115,26 +110,22 @@ final class Ublog(env: Env) extends LilaController(env):
               BadRequest(html.ublog.form.create(me, err, captcha))
             },
           data =>
-            CreateLimitPerUser(me.id, cost = if (me.isVerified) 1 else 3) {
+            CreateLimitPerUser(me.id, rateLimitedFu, cost = if me.isVerified then 1 else 3):
               env.ublog.api.create(data, me) map { post =>
                 lila.mon.ublog.create(me.id).increment()
                 Redirect(editUrlOfPost(post)).flashSuccess
               }
-            }(rateLimitedFu)
         )
-    }
   }
 
-  def edit(id: UblogPostId) = AuthBody { implicit ctx => me =>
-    NotForKids {
-      OptionOk(env.ublog.api.findByUserBlogOrAdmin(id, me)) { post =>
+  def edit(id: UblogPostId) = AuthBody { ctx ?=> me =>
+    NotForKids:
+      OptionOk(env.ublog.api.findByUserBlogOrAdmin(id, me)): post =>
         html.ublog.form.edit(post, env.ublog.form.edit(post))
-      }
-    }
   }
 
-  def update(id: UblogPostId) = AuthBody { implicit ctx => me =>
-    NotForKids {
+  def update(id: UblogPostId) = AuthBody { ctx ?=> me =>
+    NotForKids:
       env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { prev =>
         env.ublog.form
           .edit(prev)
@@ -148,10 +139,9 @@ final class Ublog(env: Env) extends LilaController(env):
               }
           )
       }
-    }
   }
 
-  def delete(id: UblogPostId) = AuthBody { implicit ctx => me =>
+  def delete(id: UblogPostId) = AuthBody { ctx ?=> me =>
     env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
       env.ublog.api.delete(post) >>
         logModAction(post, "delete") inject
@@ -159,7 +149,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private def logModAction(post: UblogPost, action: String)(implicit ctx: Context): Funit =
+  private def logModAction(post: UblogPost, action: String)(using ctx: Context): Funit =
     isGranted(_.ModerateBlog) ?? ctx.me ?? { me =>
       !me.is(post.created.by) ?? {
         env.user.repo.byId(post.created.by) flatMapz { user =>
@@ -168,7 +158,7 @@ final class Ublog(env: Env) extends LilaController(env):
       }
     }
 
-  def like(id: UblogPostId, v: Boolean) = Auth { implicit ctx => me =>
+  def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> me =>
     NoBot {
       NotForKids {
         env.ublog.rank.like(id, me, v) map { likes =>
@@ -178,29 +168,28 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def redirect(id: UblogPostId) = Open { implicit ctx =>
-    env.ublog.api.postPreview(id) flatMap {
-      _.fold(notFound) { post =>
-        Redirect(urlOfPost(post)).toFuccess
-      }
-    }
-  }
+  def redirect(id: UblogPostId) = Open:
+    env.ublog.api
+      .postPreview(id)
+      .flatMap:
+        _.fold(notFound) { post =>
+          Redirect(urlOfPost(post)).toFuccess
+        }
 
-  def setTier(blogId: String) = SecureBody(_.ModerateBlog) { implicit ctx => me =>
+  def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me =>
     UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMapz { blog =>
-      given play.api.mvc.Request[?] = ctx.body
       lila.ublog.UblogForm.tier
         .bindFromRequest()
         .fold(
-          err => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
+          _ => Redirect(urlOfBlog(blog)).flashFailure.toFuccess,
           tier =>
-            for {
+            for
               user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect.apply
               _    <- env.ublog.api.setTier(blog.id, tier)
               _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
               _ <- env.mod.logApi
-                .blogTier(lila.report.Mod(me.user), user, blog.id.full, UblogBlog.Tier.name(tier))
-            } yield Redirect(urlOfBlog(blog)).flashSuccess
+                .blogTier(lila.report.Mod(me.user), user, UblogBlog.Tier.name(tier))
+            yield Redirect(urlOfBlog(blog)).flashSuccess
         )
     }
   }
@@ -212,77 +201,67 @@ final class Ublog(env: Env) extends LilaController(env):
     ("slow", 60, 1.day)
   )
 
-  def image(id: UblogPostId) =
-    AuthBody(parse.multipartFormData) { implicit ctx => me =>
-      env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
-        ctx.body.body.file("image") match
-          case Some(image) =>
-            ImageRateLimitPerIp(ctx.ip) {
-              env.ublog.api.uploadImage(me, post, image) map { newPost =>
-                Ok(html.ublog.form.formImage(newPost))
-              } recover { case e: Exception =>
-                BadRequest(e.getMessage)
-              }
-            }(rateLimitedFu)
-          case None =>
-            env.ublog.api.deleteImage(post) flatMap { newPost =>
-              logModAction(newPost, "delete image") inject
-                Ok(html.ublog.form.formImage(newPost))
+  def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+    env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { post =>
+      ctx.body.body.file("image") match
+        case Some(image) =>
+          ImageRateLimitPerIp(ctx.ip, rateLimitedFu):
+            env.ublog.api.uploadImage(me, post, image) map { newPost =>
+              Ok(html.ublog.form.formImage(newPost))
+            } recover { case e: Exception =>
+              BadRequest(e.getMessage)
             }
-      }
+        case None =>
+          env.ublog.api.deleteImage(post) flatMap { newPost =>
+            logModAction(newPost, "delete image") inject
+              Ok(html.ublog.form.formImage(newPost))
+          }
     }
+  }
 
-  def friends(page: Int) = Auth { implicit ctx => me =>
-    NotForKids {
-      Reasonable(page, config.Max(10)) {
+  def friends(page: Int) = Auth { _ ?=> me =>
+    NotForKids:
+      Reasonable(page, config.Max(10)):
         env.ublog.paginator.liveByFollowed(me, page) map { posts =>
           Ok(html.ublog.index.friends(posts))
         }
-      }
-    }
   }
 
-  def communityLang(language: String, page: Int = 1) =
-    Open { ctx =>
-      import I18nLangPicker.ByHref
-      I18nLangPicker.byHref(language, ctx.req) match
-        case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
-        case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
-        case ByHref.Refused(lang) => communityIndex(lang.some, page)(ctx)
-        case ByHref.Found(lang) =>
-          if (ctx.isAuth) communityIndex(lang.some, page)(ctx)
-          else communityIndex(lang.some, page)(ctx withLang lang)
-    }
+  def communityLang(language: String, page: Int = 1) = Open:
+    import I18nLangPicker.ByHref
+    I18nLangPicker.byHref(language, ctx.req) match
+      case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page)).toFuccess
+      case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page)).toFuccess
+      case ByHref.Refused(lang) => communityIndex(lang.some, page)
+      case ByHref.Found(lang) =>
+        if (ctx.isAuth) communityIndex(lang.some, page)
+        else communityIndex(lang.some, page)(using ctx.withLang(lang))
 
-  def communityAll(page: Int) = Open { implicit ctx =>
+  def communityAll(page: Int) = Open:
     communityIndex(none, page)
-  }
 
-  def communityIndex(l: Option[Lang], page: Int)(implicit ctx: Context) =
-    NotForKids {
-      Reasonable(page, config.Max(8)) {
-        pageHit(ctx)
+  def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
+    NotForKids:
+      Reasonable(page, config.Max(8)):
+        pageHit(ctx.req)
         env.ublog.paginator.liveByCommunity(l, page) map { posts =>
           Ok(html.ublog.index.community(l, posts))
         }
-      }
-    }
 
-  def communityLangBC(code: String) = Action {
+  def communityLangBC(code: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.code == code)
-    Redirect {
+    Redirect:
       l.fold(routes.Ublog.communityAll())(l => routes.Ublog.communityLang(l.language))
-    }
-  }
+    .toFuccess
 
-  def communityAtom(language: String) = Action.async { implicit req =>
+  def communityAtom(language: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
-    env.ublog.paginator.liveByCommunity(l, page = 1) map { posts =>
-      Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
-    }
-  }
+    env.ublog.paginator
+      .liveByCommunity(l, page = 1)
+      .map: posts =>
+        Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
 
-  def liked(page: Int) = Auth { implicit ctx => me =>
+  def liked(page: Int) = Auth { ctx ?=> _ =>
     NotForKids {
       Reasonable(page, config.Max(15)) {
         ctx.me ?? { me =>
@@ -294,43 +273,39 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  def topics = Open { implicit ctx =>
-    NotForKids {
+  def topics = Open:
+    NotForKids:
       env.ublog.topic.withPosts map { topics =>
         Ok(html.ublog.index.topics(topics))
       }
-    }
-  }
 
-  def topic(str: String, page: Int) = Open { implicit ctx =>
-    NotForKids {
-      Reasonable(page, config.Max(5)) {
+  def topic(str: String, page: Int) = Open:
+    NotForKids:
+      Reasonable(page, config.Max(5)):
         lila.ublog.UblogTopic.fromUrl(str) ?? { top =>
           env.ublog.paginator.liveByTopic(top, page) map { posts =>
             Ok(html.ublog.index.topic(top, posts))
           }
         }
-      }
-    }
-  }
 
-  def userAtom(username: UserStr) = Action.async { implicit req =>
-    env.user.repo.enabledById(username) flatMap {
-      case None => NotFound.toFuccess
-      case Some(user) =>
-        given play.api.i18n.Lang = reqLang
-        env.ublog.api.getUserBlog(user) flatMap { blog =>
-          (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
-            Ok(html.ublog.atom.user(user, blog, posts.currentPageResults)) as XML
-          }
-        }
-    }
-  }
+  def userAtom(username: UserStr) = Anon:
+    env.user.repo
+      .enabledById(username)
+      .flatMap:
+        case None => NotFound.toFuccess
+        case Some(user) =>
+          given play.api.i18n.Lang = reqLang
+          env.ublog.api
+            .getUserBlog(user)
+            .flatMap: blog =>
+              (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
+                Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
+              }
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
-  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(implicit ctx: Context) =
+  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGranted(_.ModerateBlog) || isBlogVisible(user, blog)
 
-  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(implicit ctx: Context) =
+  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: Context) =
     canViewBlogOf(user, blog) && (ctx.is(user) || post.live)

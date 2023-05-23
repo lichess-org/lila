@@ -6,7 +6,6 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import cats.data.NonEmptyList
 
-import lila.user.User
 import play.api.ConfigLoader
 
 final private class WebPush(
@@ -47,7 +46,9 @@ final private class WebPush(
               "payload" -> data.payload
             )
             .toString,
-          "ttl" -> 43200
+          "topic"   -> data.stacking.key,
+          "urgency" -> data.urgency.key,
+          "ttl"     -> 43200
         )
       ) flatMap {
       case res if res.status == 200 => funit

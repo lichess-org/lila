@@ -133,3 +133,15 @@ textarea.form-control {
     width: 25%;
   }
 }
+
+.form-fieldset {
+  @extend %box-radius;
+  margin: 1.5em 0;
+  border-color: rgba(128, 128, 128, 0.3);
+
+  legend {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2em;
+  }
+}

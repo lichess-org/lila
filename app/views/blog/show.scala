@@ -1,6 +1,6 @@
 package views.html.blog
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -47,7 +47,7 @@ object show:
                 (doc
                   .getDate("blog.date")
                   .exists(
-                    _.value.toDateTimeAtStartOfDay isAfter nowDate.minusWeeks(2)
+                    _.value.atStartOfDay.instant isAfter nowInstant.minusWeeks(2)
                   )) option
                   a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
                     "Discuss this blog post in the forum"

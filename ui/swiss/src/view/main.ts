@@ -99,7 +99,7 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
         required: !ctrl.data.nextRound,
       },
       attrs: {
-        action: `/swiss/${ctrl.data.id}/schedule-next-round`,
+        action: `/api/swiss/${ctrl.data.id}/schedule-next-round`,
         method: 'post',
       },
     },

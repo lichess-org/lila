@@ -10,7 +10,6 @@ final private[api] class Cli(
     fishnet: lila.fishnet.Env,
     study: lila.study.Env,
     studySearch: lila.studySearch.Env,
-    coach: lila.coach.Env,
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
     msg: lila.msg.Env,
@@ -35,8 +34,6 @@ final private[api] class Cli(
       import lila.common.AssetVersion
       AssetVersion.change()
       fuccess(s"Changed to ${AssetVersion.current}")
-    case "gdpr" :: "erase" :: user :: "forever" :: Nil =>
-      accountClosure.eraseClosed(UserStr(user).id).map(_.fold(identity, identity))
     case "announce" :: "cancel" :: Nil =>
       AnnounceStore set none
       Bus.publish(AnnounceStore.cancel, "announce")

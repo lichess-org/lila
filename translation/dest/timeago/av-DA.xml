@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="justNow">гьабсагӀат</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s секундалдаса</item>
+    <item quantity="other">%s секундалдаса</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">%s минуталдаса</item>
+    <item quantity="other">%s минуталдаса</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">%s сагӀаталдаса</item>
+    <item quantity="other">%s сагӀаталдаса</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">%s къоялдаса</item>
+    <item quantity="other">%s къоялдаса</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">%s анкьидаса</item>
+    <item quantity="other">%s анкьидаса</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">%s моцӀидаса</item>
+    <item quantity="other">%s моцӀидаса</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">%s соналдаса</item>
+    <item quantity="other">%s соналдаса</item>
+  </plurals>
+  <string name="rightNow">гьабсагӀат</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s секундалъ цебе</item>
+    <item quantity="other">%s секундалъ цебе</item>
+  </plurals>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s минуталъ цебе</item>
+    <item quantity="other">%s минуталъ цебе</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s сагӀаталъ цебе</item>
+    <item quantity="other">%s сагӀаталъ цебе</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s къоялъ цебе</item>
+    <item quantity="other">%s къоялъ цебе</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s анкьалъ цебе</item>
+    <item quantity="other">%s анкьалъ цебе</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s моцӀалъ цебе</item>
+    <item quantity="other">%s моцӀалъ цебе</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s соналда цебе</item>
+    <item quantity="other">%s соналъ цебе</item>
+  </plurals>
+</resources>

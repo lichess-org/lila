@@ -1,12 +1,10 @@
 package views.html.base
 
-import controllers.routes
-import org.joda.time.format.ISODateTimeFormat
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.config.BaseUrl
+import java.time.LocalDate
 
 object atom:
 
@@ -15,7 +13,7 @@ object atom:
       htmlCall: Call,
       atomCall: Call,
       title: String,
-      updated: Option[DateTime]
+      updated: Option[Instant]
   )(elem: A => Frag) =
     frag(
       raw("""<?xml version="1.0" encoding="utf-8"?>"""),
@@ -33,8 +31,9 @@ object atom:
       raw("</feed>")
     )
 
-  private val atomDateFormatter        = ISODateTimeFormat.dateTime
-  def atomDate(date: DateTime): String = atomDateFormatter print date
+  def atomDate(date: Instant): String = isoDateTimeFormatter print date
+  def atomDate(date: LocalDate): String =
+    java.time.format.DateTimeFormatter.ISO_DATE.withZone(utcZone) print date
 
   private val termAttr   = attr("term")
   private val labelAttr  = attr("label")

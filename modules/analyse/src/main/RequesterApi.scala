@@ -1,29 +1,27 @@
 package lila.analyse
 
 import reactivemongo.api.bson.{ BSONBoolean, BSONInteger }
-import org.joda.time.format.DateTimeFormat
+import java.time.format.DateTimeFormatter
 import lila.db.dsl.{ given, * }
-import lila.memo.CacheApi
-import lila.user.User
 
 final class RequesterApi(coll: Coll)(using Executor):
 
-  private val formatter = DateTimeFormat forPattern "yyyy-MM-dd"
+  private val formatter = DateTimeFormatter ofPattern "yyyy-MM-dd"
 
   def add(requester: UserId, ownGame: Boolean): Funit =
     coll.update
       .one(
         $id(requester),
         $inc(
-          "total"                  -> 1,
-          formatter.print(nowDate) -> (if (ownGame) 1 else 2)
+          "total"                     -> 1,
+          formatter.print(nowInstant) -> (if (ownGame) 1 else 2)
         ),
         upsert = true
       )
       .void
 
   def countTodayAndThisWeek(userId: UserId): Fu[(Int, Int)] =
-    val now = nowDate
+    val now = nowInstant
     coll
       .one(
         $id(userId),

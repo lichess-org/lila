@@ -1,12 +1,9 @@
 package lila.mod
 
-import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.Json
-import reactivemongo.api.ReadPreference
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
-import lila.report.Report
 import lila.report.Room
 import lila.user.User
 
@@ -24,24 +21,21 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
   private val cache = cacheApi[CacheKey, Result](64, "mod.activity") {
     _.expireAfter[CacheKey, Result](
       create = (key, _) =>
-        key match {
+        key match
           case (_, Period.Week)  => 15.seconds
           case (_, Period.Month) => 5.minutes
           case (_, Period.Year)  => 1.day
-        },
+      ,
       update = (_, _, current) => current,
       read = (_, _, current) => current
     ).buildAsyncFuture((compute).tupled)
   }
 
-  private val maxDocs = 10_1000
+  private val maxDocs = 10_000
 
   private def compute(who: Who, period: Period): Fu[Result] =
     repo.coll
-      .aggregateList(
-        maxDocs = maxDocs,
-        readPreference = temporarilyPrimary
-      ) { framework =>
+      .aggregateList(maxDocs = maxDocs, readPreference = temporarilyPrimary) { framework =>
         import framework.*
         def dateToString(field: String): Bdoc =
           $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))
@@ -50,10 +44,10 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           Match(
             $doc(
               "open" -> false,
-              who match {
+              who match
                 case Who.Me(userId) => "done.by" -> userId
                 case Who.Team       => "done.by" $nin List(User.lichessId, User.irwinId)
-              },
+              ,
               "done.at" $gt Period.dateSince(period)
             )
           ),
@@ -64,10 +58,9 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           $doc(
             "human" -> true,
             "date" $gt Period.dateSince(period)
-          ) ++ (who match {
+          ) ++ who.match
             case Who.Me(userId) => $doc("mod" -> userId)
             case Who.Team       => $empty
-          })
         ) -> List(
           Group($arr(dateToString("date"), "$action"))("nb" -> SumAll),
           PipelineOperator(
@@ -83,13 +76,13 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         )
       }
       .map { docs =>
-        for {
+        for
           doc  <- docs
           id   <- doc.getAsOpt[List[String]]("_id")
           date <- id.headOption
           key  <- id lift 1
           nb   <- doc.int("nb")
-        } yield (date, key, nb)
+        yield (date, key, nb)
       }
       .map {
         _.foldLeft(Map.empty[String, Day]) { case (acc, (date, key, nb)) =>
@@ -107,8 +100,10 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         Result(
           who,
           period,
-          data.toList.sortBy(_._1).reverse.flatMap { case (date, row) =>
-            Try(dateFormat parseDateTime date).toOption map { _ -> row }
+          data.toList.sortBy(_._1).reverse.flatMap { (date, row) =>
+            Try(java.time.LocalDate.parse(date, dateFormat)).toOption map {
+              _.atStartOfDay.instant -> row
+            }
           }
         )
       }
@@ -118,14 +113,14 @@ object ModActivity:
   case class Result(
       who: Who,
       period: Period,
-      data: List[(DateTime, Day)]
+      data: List[(Instant, Day)]
   )
 
   case class Day(actions: Map[Action, Int], reports: Map[Room, Int]):
     def set(action: Action, nb: Int) = copy(actions = actions.updated(action, nb))
     def set(room: Room, nb: Int)     = copy(reports = reports.updated(room, nb))
 
-  val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
+  val dateFormat = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
 
   enum Period:
     def key = toString.toLowerCase
@@ -136,9 +131,9 @@ object ModActivity:
       else if (str == "month") Month
       else Week
     def dateSince(period: Period) = period match
-      case Period.Week  => nowDate.minusWeeks(1)
-      case Period.Month => nowDate.minusMonths(1)
-      case Period.Year  => nowDate.minusYears(1)
+      case Period.Week  => nowInstant.minusWeeks(1)
+      case Period.Month => nowInstant.minusMonths(1)
+      case Period.Year  => nowInstant.minusYears(1)
 
   sealed abstract class Who(val key: String)
   object Who:
@@ -186,7 +181,7 @@ object ModActivity:
   object json:
     def apply(result: Result) = Json.obj(
       "common" -> Json.obj(
-        "xaxis" -> result.data.map(_._1.getMillis)
+        "xaxis" -> result.data.map(_._1.toMillis)
       ),
       "reports" -> Json.obj(
         "series" -> Room.allButXfiles.map { room =>

@@ -4,23 +4,24 @@ import akka.stream.scaladsl.*
 import alleycats.Zero
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
-import lila.chat.Chat
 import lila.common.config.MaxPerSecond
-import lila.common.{ Bus, GreatPlayer, LightUser }
+import lila.common.{ Bus, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.round.actorApi.round.QuietFlag
 import lila.user.{ User, UserRepo }
 import lila.common.config.Max
+import lila.gathering.GreatPlayer
+import lila.gathering.Condition.WithVerdicts
 
 final class SwissApi(
     mongo: SwissMongo,
-    pairingSystem: PairingSystem,
     cache: SwissCache,
     userRepo: UserRepo,
     socket: SwissSocket,
@@ -37,8 +38,7 @@ final class SwissApi(
 )(using
     ec: Executor,
     scheduler: Scheduler,
-    mat: akka.stream.Materializer,
-    mode: play.api.Mode
+    mat: akka.stream.Materializer
 ):
 
   private val sequencer = lila.hub.AsyncActorSequencers[SwissId](
@@ -61,7 +61,7 @@ final class SwissApi(
       round = SwissRoundNumber(0),
       nbPlayers = 0,
       nbOngoing = 0,
-      createdAt = nowDate,
+      createdAt = nowInstant,
       createdBy = me.id,
       teamId = teamId,
       nextRoundAt = data.realStartsAt.some,
@@ -76,7 +76,7 @@ final class SwissApi(
         chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval,
         password = data.password,
-        conditions = data.conditions.all,
+        conditions = data.conditions,
         forbiddenPairings = ~data.forbiddenPairings,
         manualPairings = ~data.manualPairings
       )
@@ -108,7 +108,7 @@ final class SwissApi(
               if (data.roundInterval.isDefined) data.realRoundInterval
               else old.settings.roundInterval,
             password = data.password,
-            conditions = data.conditions.all,
+            conditions = data.conditions,
             forbiddenPairings = ~data.forbiddenPairings,
             manualPairings = ~data.manualPairings
           )
@@ -116,7 +116,7 @@ final class SwissApi(
           if (
             s.isStarted && s.nbOngoing == 0 && (s.nextRoundAt.isEmpty || old.settings.manualRounds) && !s.settings.manualRounds
           )
-            s.copy(nextRoundAt = nowDate.plusSeconds(s.settings.roundInterval.toSeconds.toInt).some)
+            s.copy(nextRoundAt = nowInstant.plusSeconds(s.settings.roundInterval.toSeconds.toInt).some)
           else if (s.settings.manualRounds && !old.settings.manualRounds)
             s.copy(nextRoundAt = none)
           else s
@@ -146,26 +146,27 @@ final class SwissApi(
     _ <- elements.nonEmpty ?? update.many(elements).void
   } yield ()
 
-  def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
+  def scheduleNextRound(swiss: Swiss, date: Instant): Funit =
     Sequencing(swiss.id)(cache.swissCache.notFinishedById) { old =>
-      old.settings.manualRounds ?? {
-        if (old.isCreated) mongo.swiss.updateField($id(old.id), "startsAt", date).void
-        else if (old.isStarted && old.nbOngoing == 0)
+      for
+        _ <- !old.settings.manualRounds ?? mongo.swiss
+          .updateField($id(old.id), "settings.i", Swiss.RoundInterval.manual)
+          .void
+        _ <- old.isCreated ?? mongo.swiss.updateField($id(old.id), "startsAt", date).void
+        _ <- (!old.isFinished && old.nbOngoing == 0) ??
           mongo.swiss.updateField($id(old.id), "nextRoundAt", date).void >>- {
-            val show = org.joda.time.format.DateTimeFormat.forStyle("MS") print date
-            systemChat(swiss.id, s"Round ${swiss.round.value + 1} scheduled at $show UTC")
+            val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+            val showDate  = formatter print date
+            systemChat(swiss.id, s"Round ${swiss.round.value + 1} scheduled at $showDate UTC")
           }
-        else funit
-      } >>- {
+      yield
         cache.swissCache clear swiss.id
         socket.reload(swiss.id)
-      }
     }
 
-  def verdicts(swiss: Swiss, me: Option[User]): Fu[SwissCondition.All.WithVerdicts] =
-    me match
-      case None       => fuccess(swiss.settings.conditions.accepted)
-      case Some(user) => verify(swiss, user)
+  def verdicts(swiss: Swiss, me: Option[User]): Fu[WithVerdicts] = me match
+    case None       => fuccess(swiss.settings.conditions.accepted)
+    case Some(user) => verify(swiss, user)
 
   def join(id: SwissId, me: User, isInTeam: TeamId => Boolean, password: Option[String]): Fu[Boolean] =
     Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
@@ -222,7 +223,7 @@ final class SwissApi(
       (nbSoon > 0).?? {
         mongo.swiss
           .find(
-            $doc("teamId" -> teamId, "startsAt" $gt nowDate.minusWeeks(2), "finishedAt" $exists false)
+            $doc("teamId" -> teamId, "startsAt" $gt nowInstant.minusWeeks(2), "finishedAt" $exists false)
           )
           .sort($sort asc "startsAt")
           .cursor[Swiss]()
@@ -432,7 +433,7 @@ final class SwissApi(
                             swiss.settings.dailyInterval match {
                               case Some(days) => game.createdAt plusDays days
                               case None =>
-                                nowDate.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
+                                nowInstant.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
                             }
                           )
                           .void >>-
@@ -441,8 +442,8 @@ final class SwissApi(
                   } inject true
             } >>- cache.swissCache.clear(swiss.id)
       }.flatMap {
-        case true => recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
-        case _    => funit
+        if _ then recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
+        else funit
       }
     }
 
@@ -471,7 +472,7 @@ final class SwissApi(
             $id(swiss.id),
             $unset("nextRoundAt", "lastRoundAt", "featurable") ++ $set(
               "settings.n" -> swiss.round,
-              "finishedAt" -> nowDate,
+              "finishedAt" -> nowInstant,
               "winnerId"   -> winnerUserId
             )
           )
@@ -527,7 +528,7 @@ final class SwissApi(
 
   private[swiss] def startPendingRounds: Funit =
     mongo.swiss
-      .find($doc("nextRoundAt" $lt nowDate), $id(true).some)
+      .find($doc("nextRoundAt" $lt nowInstant), $id(true).some)
       .cursor[Bdoc]()
       .list(10)
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
@@ -552,16 +553,16 @@ final class SwissApi(
                       case s =>
                         systemChat(s.id, s"Round ${s.round.value} failed.", volatile = true)
                         mongo.swiss.update
-                          .one($id(s.id), $set("nextRoundAt" -> nowDate.plusSeconds(61)))
+                          .one($id(s.id), $set("nextRoundAt" -> nowInstant.plusSeconds(61)))
                           .void
                     }
                   } >>- cache.swissCache.clear(swiss.id)
               }
-            else if (swiss.startsAt isBefore nowDate.minusMinutes(60)) destroy(swiss)
+            else if (swiss.startsAt isBefore nowInstant.minusMinutes(60)) destroy(swiss)
             else
               systemChat(swiss.id, "Not enough players for first round; delaying start.", volatile = true)
               mongo.swiss.update
-                .one($id(swiss.id), $set("nextRoundAt" -> nowDate.plusSeconds(121)))
+                .one($id(swiss.id), $set("nextRoundAt" -> nowInstant.plusSeconds(121)))
                 .void >>- cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
         }

@@ -1,7 +1,7 @@
 package views.html
 package account
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.pref.PrefCateg
@@ -17,9 +17,7 @@ object pref:
 
   private def setting(name: Frag, body: Frag) = st.section(h2(name), body)
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using
-      ctx: Context
-  ) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using Context) =
     account.layout(
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",
       active = categ.slug
@@ -138,6 +136,10 @@ object pref:
             setting(
               inputMovesWithTheKeyboard(),
               radios(form("behavior.keyboardMove"), booleanChoices)
+            ),
+            setting(
+              "Input moves with your voice",
+              radios(form("behavior.voice"), booleanChoices)
             ),
             setting(
               snapArrowsToValidMoves(),

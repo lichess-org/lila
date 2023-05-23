@@ -1,9 +1,8 @@
 package lila.relay
 
 import akka.stream.scaladsl.*
-import org.joda.time.format.DateTimeFormat
 
-import lila.study.{ Chapter, ChapterRepo, PgnDump, Study, StudyRepo }
+import lila.study.{ ChapterRepo, PgnDump, StudyRepo }
 import lila.common.Bus
 import chess.format.pgn.PgnStr
 
@@ -14,14 +13,13 @@ final class RelayPgnStream(
     studyPgnDump: PgnDump
 )(using Executor):
 
-  def exportFullTour(tour: RelayTour): Source[PgnStr, ?] =
-    Source futureSource {
-      roundRepo.idsByTourOrdered(tour) flatMap { ids =>
+  def exportFullTour(tour: RelayTour): Source[PgnStr, ?] = Source.futureSource:
+    roundRepo
+      .idsByTourOrdered(tour)
+      .flatMap: ids =>
         studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)) map { studies =>
-          Source(studies).flatMapConcat { studyPgnDump(_, flags) }
+          Source(studies).flatMapConcat { studyPgnDump.chaptersOf(_, flags) }.throttle(16, 1.second)
         }
-      }
-    }
 
   private val flags = PgnDump.WithFlags(
     comments = false,
@@ -30,15 +28,15 @@ final class RelayPgnStream(
     source = false,
     orientation = false
   )
-  private val fileR      = """[\s,]""".r
-  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
+  private val fileR         = """[\s,]""".r
+  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy.MM.dd"
 
   def filename(tour: RelayTour): String =
-    val date = dateFormat.print(tour.syncedAt | tour.createdAt)
+    val date = dateFormatter.print(tour.syncedAt | tour.createdAt)
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
   def streamRoundGames(rt: RelayRound.WithTourAndStudy): Source[PgnStr, ?] = {
-    if (rt.relay.hasStarted) studyPgnDump(rt.study, flags)
+    if (rt.relay.hasStarted) studyPgnDump.chaptersOf(rt.study, flags).throttle(16, 1 second)
     else Source.empty[PgnStr]
   } concat Source
     .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)

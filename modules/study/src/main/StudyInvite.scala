@@ -1,12 +1,11 @@
 package lila.study
 
 import lila.db.dsl.{ *, given }
-import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
+import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
 import lila.user.{ Holder, User }
-import lila.study.BSONHandlers.given
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
@@ -65,7 +64,7 @@ final private class StudyInvite(
         else if (inviter.hasTitle) 20
         else if (inviter.perfs.bestRating >= 2000) 50
         else 100
-      _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
+      _ <- shouldNotify ?? notifyRateLimit.zero(inviter.id, rateLimitCost):
         notifyApi
           .notifyOne(
             invited,
@@ -76,7 +75,6 @@ final private class StudyInvite(
             )
           )
           .void
-      }(funit)
     } yield invited
 
   def admin(study: Study, user: Holder): Funit =

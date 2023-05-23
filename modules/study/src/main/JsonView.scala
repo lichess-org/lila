@@ -1,7 +1,6 @@
 package lila.study
 
-import chess.format.{ Fen, Uci }
-import chess.Pos
+import chess.Square
 import play.api.libs.json.*
 import scala.util.chaining.*
 
@@ -15,7 +14,7 @@ final class JsonView(
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
 
-  import JsonView.{ *, given }
+  import JsonView.given
 
   def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
 
@@ -102,7 +101,7 @@ final class JsonView(
         "settings"           -> s.settings,
         "visibility"         -> s.visibility,
         "createdAt"          -> s.createdAt,
-        "secondsSinceUpdate" -> (nowSeconds - s.updatedAt.getSeconds).toInt,
+        "secondsSinceUpdate" -> (nowSeconds - s.updatedAt.toSeconds).toInt,
         "from"               -> s.from,
         "likes"              -> s.likes
       )
@@ -113,14 +112,60 @@ object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  import Study.given
-
   given OWrites[Study.IdName] = OWrites { s =>
     Json.obj("id" -> s._id, "name" -> s.name)
   }
 
-  private given Reads[Pos] = Reads { v =>
-    (v.asOpt[String] flatMap { Pos.fromKey(_) }).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
+  def metadata(study: Study) = Json.obj(
+    "id"        -> study.id,
+    "name"      -> study.name,
+    "createdAt" -> study.createdAt,
+    "updatedAt" -> study.updatedAt
+  )
+
+  def glyphs(lang: play.api.i18n.Lang): JsObject =
+    import lila.tree.Node.given
+    import lila.i18n.I18nKeys.{ study as trans }
+    import chess.format.pgn.Glyph
+    import Glyph.MoveAssessment.*
+    import Glyph.PositionAssessment.*
+    import Glyph.Observation.*
+    given play.api.i18n.Lang = lang
+    Json.obj(
+      "move" -> List(
+        good.copy(name = trans.goodMove.txt()),
+        mistake.copy(name = trans.mistake.txt()),
+        brillant.copy(name = trans.brilliantMove.txt()),
+        blunder.copy(name = trans.blunder.txt()),
+        interesting.copy(name = trans.interestingMove.txt()),
+        dubious.copy(name = trans.dubiousMove.txt()),
+        only.copy(name = trans.onlyMove.txt()),
+        zugzwang.copy(name = trans.zugzwang.txt())
+      ),
+      "position" -> List(
+        equal.copy(name = trans.equalPosition.txt()),
+        unclear.copy(name = trans.unclearPosition.txt()),
+        whiteSlightlyBetter.copy(name = trans.whiteIsSlightlyBetter.txt()),
+        blackSlightlyBetter.copy(name = trans.blackIsSlightlyBetter.txt()),
+        whiteQuiteBetter.copy(name = trans.whiteIsBetter.txt()),
+        blackQuiteBetter.copy(name = trans.blackIsBetter.txt()),
+        whiteMuchBetter.copy(name = trans.whiteIsWinning.txt()),
+        blackMuchBetter.copy(name = trans.blackIsWinning.txt())
+      ),
+      "observation" -> List(
+        novelty.copy(name = trans.novelty.txt()),
+        development.copy(name = trans.development.txt()),
+        initiative.copy(name = trans.initiative.txt()),
+        attack.copy(name = trans.attack.txt()),
+        counterplay.copy(name = trans.counterplay.txt()),
+        timeTrouble.copy(name = trans.timeTrouble.txt()),
+        compensation.copy(name = trans.withCompensation.txt()),
+        withIdea.copy(name = trans.withTheIdea.txt())
+      )
+    )
+
+  private given Reads[Square] = Reads { v =>
+    (v.asOpt[String] flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   }
   private[study] given Writes[Sri]              = writeAs(_.value)
   private[study] given Writes[Study.Visibility] = writeAs(_.key)
@@ -138,8 +183,8 @@ object JsonView:
       .flatMap { o =>
         for
           brush <- o str "brush"
-          orig  <- o.get[Pos]("orig")
-        yield o.get[Pos]("dest") match
+          orig  <- o.get[Square]("orig")
+        yield o.get[Square]("dest") match
           case Some(dest) => Shape.Arrow(brush, orig, dest)
           case _          => Shape.Circle(brush, orig)
       }

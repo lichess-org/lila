@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' met afronding, gebaseerd op het aantal halfzetten tot de volgende stukwinst of pionzet</string>
   <string name="noGameFound">Geen partij gevonden</string>
+  <string name="maxDepthReached">Maximale diepte bereikt!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
   <string name="openings">Openingen</string>
   <string name="openingExplorer">Openingverkenner</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
+  <string name="noDrawBeforeSwissLimit">In een Zwitsers toernooi kun je pas na 30 zetten remise aanbieden.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partij met rating</item>
@@ -499,7 +501,7 @@
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="savingMoves">Tijdelijke zettenopslag</string>
   <string name="savingMovesHelp">We slaan je varianten op in de browser-cache.</string>
-  <string name="makeAStudy">Om ze te bewaren en te delen, overweeg een studie aan te maken.</string>
+  <string name="makeAStudy">Maak een studie aan om ze te bewaren en/of te delen.</string>
   <string name="clearSavedMoves">Zetten wissen</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
@@ -662,6 +664,8 @@
   <string name="simulClockHint">Fischer-speeltempo. Hoe meer tegenstanders er zijn, hoe meer tijd je nodig hebt.</string>
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
+  <string name="simulAddExtraTimePerPlayer">Voeg extra tijd toe aan de klok voor elke speler die meedoet aan de simultaan.</string>
+  <string name="simulHostExtraTimePerPlayer">Extra tijd voor de simultaangever per deelnemer</string>
   <string name="lichessTournaments">Lichess toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
@@ -863,6 +867,8 @@
   <string name="useTheReportForm">gebruik het meldingsformulier</string>
   <string name="toRequestSupport">Om ondersteuning aan te vragen, %1$s</string>
   <string name="tryTheContactPage">probeer de contactpagina</string>
+  <string name="makeSureToRead">Lees zeker %1$s</string>
+  <string name="theForumEtiquette">de regels van het forum</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
   <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>
@@ -946,4 +952,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
   <string name="switchSides">Van kleur wisselen</string>
   <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
+  <string name="ourEventTips">Onze tips voor het organiseren van evenementen</string>
 </resources>

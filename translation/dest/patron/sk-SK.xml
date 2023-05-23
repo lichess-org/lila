@@ -31,6 +31,7 @@
   <string name="otherAmount">Iné</string>
   <string name="pleaseEnterAmountInX">Prosím, zadajte sumu v %s</string>
   <string name="withCreditCard">Kreditná karta</string>
+  <string name="logInToDonate">Pre darovanie sa prihláste</string>
   <string name="weAreSmallTeam">Sme malý tím, čiže Vaša podpora robí obrovský rozdiel!</string>
   <string name="celebratedPatrons">Slávni Patróni, ktorí robia Lichess možným</string>
   <string name="whereMoneyGoes">Kam idú peniaze?</string>
@@ -44,7 +45,9 @@ Potom zaplatíme vývojárovi na plný úväzok: %s, zakladateľovi spoločnosti
 Alebo môžete %s.</string>
   <string name="contactSupport">kontaktovať podporu Lichess</string>
   <string name="otherMethods">Iné spôsoby podpory?</string>
+  <string name="lichessIsRegisteredWith">Lichess je registrovaný na %s.</string>
   <string name="bankTransfers">Prijímame aj bankové prevody</string>
+  <string name="onlyDonationFromAbove">Upozorňujeme, že štatút Patróna získate iba darovaním prostredníctvom stránky Lichess.</string>
   <string name="patronFeatures">Sú niektoré funkcie vyhradené pre patrónov?</string>
   <string name="noPatronFeatures">Nie, pretože Lichess je úplne zadarmo, navždy a pre všetkých. To je prísľub.
 Patróni však majú vychvaľovacie práva so skvelou novou ikonou profilu.</string>

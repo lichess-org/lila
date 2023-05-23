@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de movementos intermedios ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
+  <string name="maxDepthReached">Chegouse á máxima profundidade!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
   <string name="openings">Aperturas</string>
   <string name="openingExplorer">Abrir o explorador</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Voltar ó torneo</string>
+  <string name="noDrawBeforeSwissLimit">Nos torneos Suízos non se pode ofrecer táboas antes de realizar 30 xogadas.</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ partida puntuada %s</item>
@@ -391,6 +393,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Ao pegar o PGN dunha partida, obténse unha repetición navegable,
 unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
+  <string name="importGameCaveat">As variantes borraranse. Pra conservalas, importa o PGN mediante un estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Partidas importadas</item>
     <item quantity="other">%s Partidas importadas</item>
@@ -662,6 +665,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coa simultánea.</string>
   <string name="simulHostExtraTime">Tempo extra para o simultaneador</string>
+  <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reló por cada xogador que se una á simultánea.</string>
+  <string name="simulHostExtraTimePerPlayer">Tempo extra do anfitrión por cada xogador</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes sobre torneos</string>
   <string name="timeBeforeTournamentStarts">Tempo antes de que o torneo comece</string>
@@ -863,6 +868,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="useTheReportForm">usa o formulario correspondente</string>
   <string name="toRequestSupport">Para solicitar axuda, %1$s</string>
   <string name="tryTheContactPage">proba a páxina de contacto</string>
+  <string name="makeSureToRead">Asegúrate de ler %1$s</string>
+  <string name="theForumEtiquette">a etiqueta do foro</string>
   <string name="thisTopicIsArchived">Este tema foi arquivado e non admite respostas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar neste foro</string>
   <string name="teamNamedX">equipo %1$s</string>
@@ -945,4 +952,5 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="lichessDbExplanation">Partidas por puntos de todos os xogadores/as de Lichess</string>
   <string name="switchSides">Cambiar de lado</string>
   <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
+  <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
 </resources>

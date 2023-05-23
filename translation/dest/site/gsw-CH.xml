@@ -2,15 +2,15 @@
 <resources>
   <string name="playWithAFriend">Schpill mit eme Fründ</string>
   <string name="playWithTheMachine">Schpill mit em Computer</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille iilade - schick die URL</string>
   <string name="gameOver">Schpiil verbii</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
-  <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s Schtufe %2$s</string>
   <string name="level">Schtufe</string>
   <string name="strength">Schpillstärchi</string>
-  <string name="toggleTheChat">Chat a und abschalte</string>
+  <string name="toggleTheChat">Chat aa und abschalte</string>
   <string name="chat">Chat</string>
   <string name="resign">Ufgeh</string>
   <string name="checkmate">Schachmatt</string>
@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' mit Rundig, basierend uf de Azahl Halbzüg bis zum nächschte Schlag- oder Pure-Zug</string>
   <string name="noGameFound">Keis Schpiel gfunde</string>
+  <string name="maxDepthReached">Die maximali Tüfi isch erreicht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht sötted meh Schpiel vom Iischteligs Menü ibezoge werde?</string>
   <string name="openings">Eröffnige</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
@@ -249,7 +250,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Partie mit dir</item>
   </plurals>
   <string name="cancel">Abbräche</string>
-  <string name="whiteTimeOut">Wiss hät d\'Zit überschritte</string>
+  <string name="whiteTimeOut">Wiss hät d\'Ziit überschritte</string>
   <string name="blackTimeOut">Schwarz hät d\'Zit überschritte</string>
   <string name="drawOfferSent">Remis-Agebot gsändet</string>
   <string name="drawOfferAccepted">Remis-Agebot akzeptiert</string>
@@ -343,6 +344,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="viewTournament">Turnier zueluege</string>
   <string name="backToTournament">Zrugg zum Turnier</string>
+  <string name="noDrawBeforeSwissLimit">Ime Turnier, nach Schwizer Syschtem, chann me erscht nach 30 Züg es Remis mache.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gwertets Schpiel</item>
@@ -671,6 +673,8 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Zit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir Extrazit geh, dass du z\'rächt chunsch.</string>
   <string name="simulHostExtraTime">Extrazit Simultanschpiller</string>
+  <string name="simulAddExtraTimePerPlayer">Gib für jede Schpiller, wo am Simultan teilnimmt, bi dinere Uhr Zit dezue</string>
+  <string name="simulHostExtraTimePerPlayer">Für jede Schpiller zuesätzlichi Zit addiere</string>
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Zit bis s\'Turnier afangt</string>
@@ -872,6 +876,8 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="useTheReportForm">benutz euses Mälde-Formular</string>
   <string name="toRequestSupport">Zum Hilf überchoo, %1$s</string>
   <string name="tryTheContactPage">probiers uf de Kontaktsite</string>
+  <string name="makeSureToRead">Lies unbedingt %1$s</string>
+  <string name="theForumEtiquette">d\'Forum Aschtandsregle</string>
   <string name="thisTopicIsArchived">Das Thema isch archiviert und chann nüme beantwortet werde.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bi, um i dem Forum Biträg z\'schribe</string>
   <string name="teamNamedX">%1$s Team</string>
@@ -956,4 +962,5 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="lichessDbExplanation">Gwerteti Schpiel vu allne Lichess Schpiller</string>
   <string name="switchSides">Farb wächsle</string>
   <string name="closingAccountWithdrawAppeal">Wänn du dis Konto schlüssisch, ziehsch du au din Ischpruch zrugg</string>
+  <string name="ourEventTips">Eusi Tipps, fürs Organisiere vu Events</string>
 </resources>

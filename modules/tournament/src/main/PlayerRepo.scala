@@ -24,7 +24,6 @@ final class PlayerRepo(coll: Coll)(using Executor):
   def byId(id: TourId): Fu[Option[Player]] = coll.one[Player]($id(id))
 
   private[tournament] def byPlayerIdsOnPage(
-      tourId: TourId,
       playerIds: List[TourPlayerId],
       page: Int
   ): Fu[RankedPlayers] =
@@ -176,7 +175,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
         import cats.syntax.all.*
         (m.get(w), m.get(b)).mapN((_, _)) ?? { case (wt, bt) =>
-          TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
+          TeamBattle.TeamVs(chess.ByColor(wt, bt)).some
         }
       }
     }
@@ -187,6 +186,9 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   def remove(tourId: TourId, userId: UserId) =
     coll.delete.one(selectTourUser(tourId, userId)).void
+
+  def removeNotInTeams(tourId: TourId, teamIds: Set[TeamId]) =
+    coll.delete.one(selectTour(tourId) ++ $doc("t" $nin teamIds)).void
 
   def existsActive(tourId: TourId, userId: UserId) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
@@ -340,6 +342,9 @@ final class PlayerRepo(coll: Coll)(using Executor):
         field = "uid"
       )
     }
+
+  def teamsWithPlayers(tourId: TourId): Fu[Set[TeamId]] =
+    coll.distinctEasy[TeamId, Set]("t", selectTour(tourId))
 
   private[tournament] def sortedCursor(
       tournamentId: TourId,

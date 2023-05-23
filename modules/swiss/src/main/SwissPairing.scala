@@ -1,8 +1,6 @@
 package lila.swiss
 
 import chess.Color
-import lila.game.Game
-import lila.user.User
 
 case class SwissPairing(
     id: GameId,

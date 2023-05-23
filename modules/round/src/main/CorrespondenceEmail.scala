@@ -1,21 +1,21 @@
 package lila.round
 
 import akka.stream.scaladsl.*
-import org.joda.time.{ LocalTime, Period }
+import java.time.{ LocalTime, Duration }
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.mailer.*
-import lila.pref.PrefApi
+import lila.notify.NotifyColls
 import lila.user.UserRepo
 
-final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, prefApi: PrefApi)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
+final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, notifyColls: NotifyColls)(
+    using
+    Executor,
+    akka.stream.Materializer
 ):
 
   private val (runAfter, runBefore) = (LocalTime parse "05:00", LocalTime parse "05:11")
@@ -34,12 +34,12 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
       .monSuccess(_.round.correspondenceEmail.time)
 
   private def opponentStream =
-    prefApi.coll
-      .aggregateWith(readPreference = ReadPreference.secondaryPreferred) { framework =>
+    notifyColls.pref
+      .aggregateWith(readPreference = temporarilyPrimary) { framework =>
         import framework.*
         // hit partial index
         List(
-          Match($doc("notification.correspondenceEmail" -> true)),
+          Match($doc("correspondenceEmail" -> true)),
           Project($id(true)),
           PipelineOperator(
             $lookup.pipeline(
@@ -78,7 +78,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           opponents = povs map { pov =>
             CorrespondenceOpponent(
               pov.opponent.userId,
-              pov.remainingSeconds.map(remainingSeconds => new Period(remainingSeconds * 1000L)),
+              pov.remainingSeconds.map(s => Duration.ofSeconds(s.toLong)),
               pov.game.id
             )
           }

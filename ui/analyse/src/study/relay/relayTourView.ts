@@ -19,13 +19,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       {
         class: { active: relay.tab() === key },
         attrs: { role: 'tab' },
-        hook: bind(
-          'mousedown',
-          () => {
-            relay.tab(key);
-          },
-          relay.redraw
-        ),
+        hook: bind('mousedown', () => relay.tab(key), relay.redraw),
       },
       name
     );
@@ -84,21 +78,29 @@ const overview = (relay: RelayCtrl, study: StudyCtrl) => {
   return [
     h('div.relay-tour__text', [
       h('h1', relay.data.tour.name),
-      h('div.relay-tour__round', [
-        h('strong', round.name),
-        ' ',
-        round.ongoing
-          ? study.trans.noarg('playingRightNow')
-          : round.startsAt
-          ? h(
-              'time.timeago',
-              {
-                hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)),
-              },
-              lichess.timeago(round.startsAt)
-            )
-          : null,
-      ]),
+      h(
+        'a.relay-tour__round',
+        {
+          class: { ongoing: !!round.ongoing },
+          attrs: { tabindex: 0 },
+          hook: bind('click', () => $('span.chapters[role="tab"]').trigger('mousedown')),
+        },
+        [
+          h('strong', round.name),
+          ' ',
+          round.ongoing
+            ? study.trans.noarg('playingRightNow')
+            : round.startsAt
+            ? h(
+                'time.timeago',
+                {
+                  hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)),
+                },
+                lichess.timeago(round.startsAt)
+              )
+            : null,
+        ]
+      ),
       relay.data.tour.markup
         ? h('div', {
             hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),

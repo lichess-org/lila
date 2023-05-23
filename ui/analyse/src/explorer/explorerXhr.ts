@@ -48,6 +48,7 @@ export async function opening(
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
+  params.set('source', 'analysis');
 
   const res = await fetch(url.href, {
     cache: 'default',

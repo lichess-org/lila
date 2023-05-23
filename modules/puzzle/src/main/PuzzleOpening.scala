@@ -1,7 +1,6 @@
 package lila.puzzle
 
-import akka.stream.scaladsl.*
-import chess.opening.{ Opening, OpeningDb, OpeningFamily, OpeningVariation }
+import chess.opening.{ Opening, OpeningDb, OpeningFamily }
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
@@ -57,11 +56,7 @@ final class PuzzleOpeningApi(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    mat: akka.stream.Materializer
-):
+)(using Executor, akka.stream.Materializer):
   import BsonHandlers.given
   import SimpleOpening.*
   import PuzzleOpening.*

@@ -2,7 +2,7 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -10,14 +10,11 @@ object table:
 
   private val dataSort = attr("data-sort")
 
-  def apply(users: List[lila.user.User])(implicit ctx: Context) =
+  def apply(users: List[lila.user.User])(using Context) =
 
     val title = "All mods"
 
-    views.html.base.layout(
-      title = title,
-      moreCss = cssTag("mod.misc")
-    ) {
+    views.html.base.layout(title = title, moreCss = cssTag("mod.misc")):
       main(cls := "page-menu")(
         views.html.mod.menu("mods"),
         div(id := "mod_table", cls := "page-menu__content box")(
@@ -39,11 +36,10 @@ object table:
                       lila.security.Permission(user.roles).map(_.name) mkString ", "
                     )
                   ),
-                  td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
+                  td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce))
                 )
               }
             )
           )
         )
       )
-    }

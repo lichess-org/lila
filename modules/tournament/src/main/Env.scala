@@ -4,12 +4,10 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
-import lila.user.User
 
 @Module
 final class Env(
@@ -20,7 +18,6 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     proxyRepo: lila.round.GameProxyRepo,
-    renderer: lila.hub.actors.Renderer,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
@@ -48,7 +45,7 @@ final class Env(
 
   lazy val cached: TournamentCache = wire[TournamentCache]
 
-  lazy val verify = wire[Condition.Verify]
+  lazy val verify = wire[TournamentCondition.Verify]
 
   lazy val winners: WinnersApi = wire[WinnersApi]
 

@@ -3,7 +3,6 @@ package lila.security
 import java.security.MessageDigest
 import java.nio.charset.StandardCharsets.UTF_8
 import com.roundeights.hasher.Algo
-import org.mindrot.BCrypt
 
 import lila.common.String.base64
 import lila.common.Iso
@@ -64,5 +63,5 @@ object StringToken:
     case Custom(f: String => Fu[Boolean])
 
   object DateStr:
-    def toStr(date: DateTime) = date.getMillis.toString
-    def toDate(str: String)   = str.toLongOption map { new DateTime(_) }
+    def toStr(date: Instant)   = date.toMillis.toString
+    def toInstant(str: String) = str.toLongOption map millisToInstant

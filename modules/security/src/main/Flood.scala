@@ -1,10 +1,9 @@
 package lila.security
 
 import com.github.blemale.scaffeine.Cache
-import org.joda.time.Instant
+import java.time.Instant
 
 import lila.common.base.Levenshtein.isLevenshteinDistanceLessThan
-import lila.user.User
 
 final class Flood(duration: FiniteDuration):
 
@@ -24,7 +23,7 @@ final class Flood(duration: FiniteDuration):
     }
 
   private def quickPost(msg: Message, msgs: Messages): Boolean =
-    msgs.lift(floodNumber) ?? (_.date isAfter msg.date.minus(10000L))
+    msgs.lift(floodNumber) ?? (_.date isAfter msg.date.minusSeconds(10))
 
 object Flood:
 

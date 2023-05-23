@@ -4,7 +4,7 @@ import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
@@ -22,42 +22,45 @@ object mini:
       ownerLink: Boolean = false,
       tv: Boolean = false,
       withLink: Boolean = true
-  )(implicit ctx: Context): Tag =
+  )(using ctx: Context): Tag =
+    renderMini(
+      pov,
+      withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
+      showRatings = ctx.pref.showRatings
+    )
+
+  def noCtx(pov: Pov, tv: Boolean = false): Tag =
+    val link = if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
+    renderMini(pov, link.url.some)(using
+      defaultLang
+    )
+
+  private def renderMini(
+      pov: Pov,
+      link: Option[String] = None,
+      showRatings: Boolean = true
+  )(using Lang): Tag =
     val game   = pov.game
     val isLive = game.isBeingPlayed
-    val tag    = if (withLink) a else span
+    val tag    = if (link.isDefined) a else span
     tag(
-      href     := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
+      href     := link,
       cls      := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov, withRating = ctx.pref.showRatings),
+      renderPlayer(!pov, withRating = showRatings),
       cgWrap,
-      renderPlayer(pov, withRating = ctx.pref.showRatings)
-    )
-
-  def noCtx(pov: Pov, tv: Boolean = false): Tag =
-    val game   = pov.game
-    val isLive = game.isBeingPlayed
-    a(
-      href := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
-      cls := s"mini-game mini-game-${game.id} mini-game--init is2d ${isLive ?? "mini-game--live"} ${game.variant.key}",
-      dataLive := isLive.option(game.id),
-      renderState(pov)
-    )(
-      renderPlayer(!pov, withRating = true)(defaultLang),
-      cgWrap,
-      renderPlayer(pov, withRating = true)(defaultLang)
+      renderPlayer(pov, withRating = showRatings)
     )
 
   def renderState(pov: Pov) =
     dataState := s"${Fen writeBoardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
-  private def renderPlayer(pov: Pov, withRating: Boolean)(implicit lang: Lang) =
+  private def renderPlayer(pov: Pov, withRating: Boolean)(using Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
-        playerUsername(pov.player, withRating = false),
+        playerUsername(pov.player.light, withRating = false),
         withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       if (pov.game.finished) renderResult(pov)

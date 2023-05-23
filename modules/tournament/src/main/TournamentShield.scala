@@ -1,8 +1,6 @@
 package lila.tournament
 
-import reactivemongo.api.ReadPreference
-
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.user.User
 import lila.memo.CacheApi.*
 
@@ -83,7 +81,7 @@ object TournamentShield:
   case class Award(
       categ: Category,
       owner: UserId,
-      date: DateTime,
+      date: Instant,
       tourId: TourId
   )
   // newer entry first

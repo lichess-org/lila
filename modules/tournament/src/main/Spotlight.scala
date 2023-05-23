@@ -53,9 +53,9 @@ object Spotlight:
   private def canMaybeJoinLimited(tour: Tournament, user: User): Boolean =
     tour.conditions.isRatingLimited &&
       tour.conditions.nbRatedGame.fold(true) { c =>
-        c(user).accepted
+        c(user, tour.perfType).accepted
       } &&
       tour.conditions.minRating.fold(true) { c =>
-        c(user).accepted
+        c(user, tour.perfType).accepted
       } &&
-      tour.conditions.maxRating.fold(true)(_ maybe user)
+      tour.conditions.maxRating.fold(true)(_.maybe(user, tour.perfType))

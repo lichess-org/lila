@@ -9,10 +9,9 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 import lila.game.Game
 import lila.memo.SettingStore
-import scala.util.{ Failure, Success }
 
 final private class FishnetOpeningBook(
     ws: StandaloneWSClient,
@@ -34,7 +33,8 @@ final private class FishnetOpeningBook(
           "topGames"    -> "0",
           "recentGames" -> "0",
           "ratings"     -> (~levelRatings.get(level)).mkString(","),
-          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(",")
+          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(","),
+          "source"      -> "fishnet"
         )
         .get()
         .map {
@@ -42,13 +42,16 @@ final private class FishnetOpeningBook(
             logger.warn(s"opening book ${game.id} ${level} ${res.status} ${res.body}")
             none
           case res =>
-            for {
+            for
               data <- res.body[JsValue].validate[Response].asOpt
               _ = if (data.moves.isEmpty) outOfBook.put(game.id)
               move <- data randomPonderedMove (game.turnColor, level)
-            } yield move.uci
+            yield move.uci
         }
-        .recover { case _: java.util.concurrent.TimeoutException => none }
+        .recover { case _: java.util.concurrent.TimeoutException =>
+          outOfBook.put(game.id)
+          none
+        }
         .monTry { res =>
           _.fishnet
             .openingBook(
@@ -69,7 +72,7 @@ object FishnetOpeningBook:
 
     def randomPonderedMove(turn: Color, level: Int): Option[Move] =
       val sum     = moves.map(_.score(turn, level)).sum
-      val novelty = 5L * 14 // score of 5 winning games
+      val novelty = 50L * 14 // score of 50 winning games
       val rng     = ThreadLocalRandom.nextLong(sum + novelty)
       moves
         .foldLeft((none[Move], 0L)) { case ((found, it), next) =>
@@ -89,7 +92,7 @@ object FishnetOpeningBook:
   given Reads[Response] = Json.reads
 
   private val levelRatings: Map[Int, Seq[Int]] = Map(
-    1 -> Seq(600),
+    1 -> Seq(400),
     2 -> Seq(1000, 1200),
     3 -> Seq(1400, 1600),
     4 -> Seq(1800, 2000, 2200),

@@ -4,8 +4,7 @@ import java.util.regex.Matcher
 import play.api.Mode
 
 import lila.common.config
-import lila.common.{ Bus, Chronometer, Markdown, MarkdownRender }
-import lila.game.Game
+import lila.common.{ Bus, Markdown, MarkdownRender }
 import lila.hub.actorApi.lpv.GamePgnsFromText
 import lila.memo.CacheApi
 
@@ -13,7 +12,8 @@ final class UblogMarkup(
     baseUrl: config.BaseUrl,
     assetBaseUrl: config.AssetBaseUrl,
     cacheApi: CacheApi,
-    netDomain: config.NetDomain
+    netDomain: config.NetDomain,
+    assetDomain: config.AssetDomain
 )(using ec: Executor, scheduler: Scheduler, mode: Mode):
 
   import UblogMarkup.*
@@ -30,7 +30,8 @@ final class UblogMarkup(
     blockQuote = true,
     code = true,
     table = true,
-    gameExpand = MarkdownRender.GameExpand(netDomain, pgnCache.getIfPresent).some
+    gameExpand = MarkdownRender.GameExpand(netDomain, pgnCache.getIfPresent).some,
+    assetDomain.some
   )
 
   def apply(post: UblogPost) = cache.get((post.id, post.markdown)).map { html =>

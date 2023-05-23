@@ -15,11 +15,7 @@ final class Env(
     appConfig: Configuration,
     timelineApi: lila.timeline.EntryApi,
     cacheApi: lila.memo.CacheApi
-)(using
-    Executor,
-    Scheduler,
-    play.api.libs.ws.StandaloneWSClient
-):
+)(using Executor, Scheduler, play.api.libs.ws.StandaloneWSClient):
 
   private val config = appConfig.get[BlogConfig]("blog")(AutoConfig.loader)
 

@@ -85,8 +85,8 @@ final private class Takebacker(
     else if (!game.canTakebackOrAddTime) fufail(ClientError("[takebacker] game disallows it " + game.id))
     else
       isAllowedByPrefs(game) flatMap {
-        case true => f
-        case _    => fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
+        if _ then f
+        else fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
       }
 
   private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] =

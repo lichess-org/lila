@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antall halvtrekk til neste slag eller bondetrekk</string>
   <string name="noGameFound">Intet parti funnet</string>
+  <string name="maxDepthReached">Maks dybde nådd!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openings">Åpninger</string>
   <string name="openingExplorer">Åpningsutforsker</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringen</string>
+  <string name="noDrawBeforeSwissLimit">Ingen remis før 30 trekk i sveitserturneringer.</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s ratet parti</item>
@@ -390,7 +392,7 @@
   <string name="toStudy">Studie</string>
   <string name="importGame">Importer parti</string>
   <string name="importGameExplanation">Lim inn PGN for gjennomblaing, maskinanalyse, partisamtale og delbar URL.</string>
-  <string name="importGameCaveat" comment="importGameCaveat&#10;&#10;Appears on the import game page: https://lichess.org/paste&#10;Importing a game using a PGN file into Lichess in this way will leave only the main line of the game. No variations.&#10;&#10;Studies are a separate feature which retain variations in imported chess games.">Varianter importeres ikke. Bruk en studie for å importere PGN med varianter.</string>
+  <string name="importGameCaveat">Varianter importeres ikke. Bruk en studie for å importere PGN med varianter.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte partier</item>
@@ -662,6 +664,8 @@
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>
   <string name="simulHostExtraTime">Ekstra tid for verten</string>
+  <string name="simulAddExtraTimePerPlayer">Legg til ekstra tid på klokken din for hver deltaker.</string>
+  <string name="simulHostExtraTimePerPlayer">Ekstra tenketid som simultanverten får for hver spiller</string>
   <string name="lichessTournaments">Lichessturneringer</string>
   <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
@@ -863,6 +867,8 @@
   <string name="useTheReportForm">bruk rapportskjemaet</string>
   <string name="toRequestSupport">For å få hjelp, %1$s</string>
   <string name="tryTheContactPage">prøv kontaktsiden</string>
+  <string name="makeSureToRead">Pass på å lese %1$s</string>
+  <string name="theForumEtiquette">forumetiketten</string>
   <string name="thisTopicIsArchived">Dette emnet er arkivert og kan ikke lenger besvares.</string>
   <string name="joinTheTeamXToPost">Bli med i %1$s for å skrive innlegg i dette forumet</string>
   <string name="teamNamedX">laget %1$s</string>
@@ -946,4 +952,5 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="lichessDbExplanation">Ratede partier spilt hos Lichess</string>
   <string name="switchSides">Skift side</string>
   <string name="closingAccountWithdrawAppeal">Klagen din blir trukket hvis du stenger kontoen din</string>
+  <string name="ourEventTips">Tips for arrangementer</string>
 </resources>

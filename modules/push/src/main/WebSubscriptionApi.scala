@@ -19,7 +19,7 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
           "endpoint" -> subscription.endpoint,
           "auth"     -> subscription.auth,
           "p256dh"   -> subscription.p256dh,
-          "seenAt"   -> nowDate
+          "seenAt"   -> nowInstant
         ),
         upsert = true
       )

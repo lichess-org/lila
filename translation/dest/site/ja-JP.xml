@@ -91,6 +91,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
+  <string name="maxDepthReached">最大深度に到達！</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openings">オープニング</string>
   <string name="openingExplorer">オープニング探索</string>
@@ -249,7 +250,7 @@
   <string name="playingRightNow">対局中</string>
   <string name="eventInProgress">対局中</string>
   <string name="finished">終了したトーナメント</string>
-  <string name="finishesX">終了まで %s</string>
+  <string name="finishesX">終了は %s</string>
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
   <string name="standard">スタンダード</string>
@@ -628,6 +629,8 @@
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
+  <string name="simulAddExtraTimePerPlayer">同時対局の参加者 1 人につき何分の形で自分の持時間を増やせます。</string>
+  <string name="simulHostExtraTimePerPlayer">ホスト延長時間（人数比例）</string>
   <string name="lichessTournaments">Lichess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
@@ -824,6 +827,8 @@
   <string name="useTheReportForm">通報フォームをお使いください</string>
   <string name="toRequestSupport">サポートを求める時には%1$s</string>
   <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
+  <string name="makeSureToRead">%1$s を必ずお読みください</string>
+  <string name="theForumEtiquette">フォーラムでのマナー</string>
   <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
   <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
   <string name="teamNamedX">%1$s チーム</string>
@@ -907,4 +912,5 @@
   <string name="lichessDbExplanation">Lichess 全プレイヤーのレート戦が対象</string>
   <string name="switchSides">色変更</string>
   <string name="closingAccountWithdrawAppeal">アカウントを閉鎖すると異議申立ても取り下げになります</string>
+  <string name="ourEventTips">チェスイベント開催のアドバイス</string>
 </resources>

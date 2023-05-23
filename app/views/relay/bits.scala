@@ -2,14 +2,14 @@ package views.html.relay
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTour
 
 object bits:
 
-  def spotlight(tr: RelayTour.ActiveWithNextRound)(using Context) =
+  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using Context) =
     a(
       href := tr.path,
       cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
@@ -18,16 +18,16 @@ object bits:
       span(cls := "content")(
         span(cls := "name")(tr.tour.name),
         span(cls := "more")(
-          tr.round.name,
+          tr.display.caption.fold(tr.display.name.value)(_.value),
           " • ",
-          if tr.round.hasStarted
+          if tr.display.hasStarted
           then trans.eventInProgress()
-          else tr.round.startsAt.map(momentFromNow(_)) | "Soon"
+          else tr.display.startsAt.map(momentFromNow(_)) | "Soon"
         )
       )
     )
 
-  def howToUse(using Context) =
+  def howToUse =
     a(dataIcon := "", cls := "text", href := routes.RelayTour.help)(
       "How to use Lichess Broadcasts"
     )

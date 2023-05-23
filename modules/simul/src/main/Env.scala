@@ -15,6 +15,7 @@ private class SimulConfig(
 )
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -26,6 +27,7 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     onGameStart: lila.round.OnStart,
     cacheApi: lila.memo.CacheApi,
+    historyApi: lila.history.HistoryApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
@@ -41,6 +43,8 @@ final class Env(
 
   lazy val repo: SimulRepo = wire[SimulRepo]
 
+  lazy val verify = wire[SimulCondition.Verify]
+
   lazy val api: SimulApi = wire[SimulApi]
 
   lazy val jsonView = wire[JsonView]
@@ -54,9 +58,8 @@ final class Env(
       .buildAsyncFuture(_ => repo.allCreatedFeaturable)
   }
 
-  val featurable = new SimulIsFeaturable((simul: Simul) =>
-    simul.team.isEmpty && featureLimiter(simul.hostId)(true)(false)
-  )
+  val featurable = SimulIsFeaturable: simul =>
+    simul.conditions.teamMember.isEmpty && featureLimiter.zero(simul.hostId)(true)
 
   private val featureLimiter = lila.memo.RateLimit[UserId](
     credits = config.featureViews.value,

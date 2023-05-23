@@ -101,6 +101,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' مع تقريب ، استنادًا إلى عدد من نصف التحركات حتى التقاط أو نقل بياض التالي</string>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
+  <string name="maxDepthReached">تم الوصول إلى أقصى عمق!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
   <string name="openings">الافتتاح</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
@@ -430,6 +431,7 @@
   </plurals>
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
+  <string name="noDrawBeforeSwissLimit">لا يمكنك التعادل قبل لعب 30 حركة في بطولة سويسرية.</string>
   <string name="thematic">وضعية مخصصة</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="zero">≥ %s مباراة مقيمة</item>
@@ -494,6 +496,7 @@
   <string name="toStudy">دراسة</string>
   <string name="importGame">استورد مباراة</string>
   <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
+  <string name="importGameCaveat">سيتم محو التغييرات. للحفاظ عليها، يرجى استيراد PGN (تنسيق لعبة الشطرنج المحمول) عبر تبويب دراسة.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">مباراة مستوردة %s</item>
     <item quantity="one">مباراة مستوردة %s</item>
@@ -810,6 +813,8 @@ https://lichess. org/study</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
   <string name="simulHostExtraTime">التوقيت الإضافي لساعة المضيف</string>
+  <string name="simulAddExtraTimePerPlayer">أضف وقتًا ابتدائيًا إلى ساعتك لكل لاعب ينضم إلى المحاكاة.</string>
+  <string name="simulHostExtraTimePerPlayer">استضافة وقت إضافيًا لكل لاعب</string>
   <string name="lichessTournaments">مسابقات الموقع</string>
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
@@ -1113,4 +1118,5 @@ https://lichess. org/study</string>
   <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي Lichess</string>
   <string name="switchSides">تبديل جهة اللعب</string>
   <string name="closingAccountWithdrawAppeal">إغلاق حسابك سوف تخسر تقدمك</string>
+  <string name="ourEventTips">نصائحنا لتنظيم الأحداث</string>
 </resources>

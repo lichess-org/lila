@@ -103,8 +103,4 @@
   <string name="unlimitedAndFree">Шектеусіз әрі тегін</string>
   <string name="predefinedUsers">Тек алдын-ала бекітілген ойыншылар ғана қосыла алады</string>
   <string name="forbiddedUsers">Егер де осы тізімде біреу көрсетілсе, тізімде жоқ ойыншылардың қосылуға руқсаты болмайды. Әр жолға – бір ойыншының аты.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">Швейцарлық ойынның %1$s / %2$s кезеңі</item>
-    <item quantity="other">Швейцарлық ойынның %1$s / %2$s кезеңі</item>
-  </plurals>
 </resources>

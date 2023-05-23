@@ -85,7 +85,7 @@ Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo
 vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
   <string name="otherSystemsQ">Was isch mit andere Turniersystem?</string>
   <string name="otherSystemsA">Mir händ im Momänt nöd planet bi Lichess no meh Turnier Variante oder System zuezfüege.</string>
-  <string name="swissDescription">Ime Turnier nach \"Schweizer System\" %1$s spillt jede Schpiller nöd notwändigerwis gäge alli andere Schpiller. Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zueglost, zum sicher stelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de glichi Gägner trifft. De Sieger isch am Schluss de Schpiller, mit de höchschte Azahl Pünkt, wo us allne Runde addiert worde sind. Alli Spieler spilled i jedere Rundi, es sei denn, es git e ungradi Azahl vu Schpiller.</string>
+  <string name="swissDescription">Ime Turnier nach \"Schweizer System\" %1$s schpillt jede Schpiller nöd notwändigerwis gäge alli andere Schpiller. Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zueglost, zum sicher schtelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de glich Gägner trifft. De Sieger isch am Schluss de Schpiller, mit de höchschte Azahl Pünkt, wo us allne Runde erzielt worde sind. Alli Schpiller schpilled i jedere Rundi, usser es git e ungradi Azahl vu Schpiller.</string>
   <string name="teamOnly">Turnier nach \"Schweizer System\" chönd nur vu Teamleiter erschtellt werde.
 Und nur Teammitglieder chönd im Turnier mitschpille.
 %1$s zum a Turnier nach \"Schweizer System\" schpille.</string>
@@ -99,7 +99,7 @@ Und nur Teammitglieder chönd im Turnier mitschpille.
 aber unbekannti Turnierlängi</string>
   <string name="numberOfGames">Azahl Partie</string>
   <string name="numberOfGamesAsManyAsPossible">So viel wie die zuegwiseni Längi zuelaht</string>
-  <string name="numberOfGamesPreDefined">Vorher entschiede, für all Spiler glich</string>
+  <string name="numberOfGamesPreDefined">Vorher entschiede, für all Schpiller glich</string>
   <string name="pairingSystem">Paarigs System</string>
   <string name="pairingSystemArena">Jede verfüegbari Gägner 
 mit ähnlichem Rang</string>
@@ -119,8 +119,4 @@ mit ähnlichem Rang</string>
   <string name="unlimitedAndFree">Unbeschränkt und gratis</string>
   <string name="predefinedUsers">Nur vordefinierte Benutzer s\'Mitmache erlaube</string>
   <string name="forbiddedUsers">Wänn die Lischte nöd leer isch, dörfed Benutzer, wo nöd uf dere Lischte stöhnd, nöd Teilneh. Nur ein Nutzername pro Zile.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s Rundi Schweizer System</item>
-    <item quantity="other">%1$s / %2$s Rundene Schweizer System</item>
-  </plurals>
 </resources>

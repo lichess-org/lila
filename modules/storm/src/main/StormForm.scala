@@ -2,7 +2,6 @@ package lila.storm
 
 import play.api.data.*
 import play.api.data.Forms.*
-import lila.common.Form.*
 
 object StormForm:
 

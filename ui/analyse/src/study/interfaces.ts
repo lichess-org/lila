@@ -4,13 +4,13 @@ import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import { StudyChaptersCtrl } from './studyChapters';
+import StudyChaptersCtrl from './studyChapters';
 import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
 import { CommentForm } from './commentForm';
-import { TopicsCtrl } from './topics';
+import TopicsCtrl from './topics';
 import RelayCtrl from './relay/relayCtrl';
 import ServerEval from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';
@@ -20,12 +20,14 @@ import { StudyFormCtrl } from './studyForm';
 import { StudyMemberCtrl } from './studyMembers';
 import { Opening } from '../explorer/interfaces';
 import { StudySocketSendParams } from '../socket';
+import { SearchCtrl } from './studySearch';
 
 export interface StudyCtrl {
   data: StudyData;
   currentChapter(): StudyChapterMeta;
   socketHandler(t: string, d: any): boolean;
   vm: StudyVm;
+  setTab(tab: Tab): void;
   relay?: RelayCtrl;
   multiBoard: MultiBoardCtrl;
   form: StudyFormCtrl;
@@ -40,6 +42,7 @@ export interface StudyCtrl {
   tags: TagsCtrl;
   studyDesc: DescriptionCtrl;
   chapterDesc: DescriptionCtrl;
+  search: SearchCtrl;
   toggleLike(): void;
   position(): Position;
   isChapterOwner(): boolean;
@@ -155,7 +158,7 @@ export interface StudyChapterMeta {
   id: string;
   name: string;
   ongoing?: boolean;
-  res?: string;
+  res?: '1-0' | '0-1' | '½-½' | '*';
 }
 
 export interface StudyChapterConfig extends StudyChapterMeta {
@@ -231,13 +234,16 @@ export interface ChapterPreview {
   orientation: Color;
   fen: string;
   lastMove?: string;
+  lastMoveAt?: number;
   playing: boolean;
+  outcome?: '1-0' | '0-1' | '½-½';
 }
 
 export interface ChapterPreviewPlayer {
   name: string;
   title?: string;
   rating?: number;
+  clock?: number;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';

@@ -106,7 +106,7 @@ final private class RelaySync(
                   .Relay(
                     index = game.index,
                     path = position.path + n.id,
-                    lastMoveAt = nowDate
+                    lastMoveAt = nowInstant
                   )
                   .some
               )(who) inject position + n
@@ -165,10 +165,10 @@ final private class RelaySync(
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
       val name = {
-        for {
+        for
           w <- game.tags(_.White)
           b <- game.tags(_.Black)
-        } yield s"$w - $b"
+        yield s"$w - $b"
       } orElse game.tags("board") getOrElse "?"
       val chapter = Chapter.make(
         studyId = study.id,
@@ -189,7 +189,7 @@ final private class RelaySync(
           .Relay(
             index = game.index,
             path = game.root.mainlinePath,
-            lastMoveAt = nowDate
+            lastMoveAt = nowInstant
           )
           .some
       )

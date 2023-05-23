@@ -95,6 +95,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' sa zaokruživanjem, na osnovi broja polu-poteza do idućeg uzimanja figure ili poteza sa pijunom</string>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
+  <string name="maxDepthReached">Dostignuta maksimalna dubina!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možda da probate uključiti više partija u postavkama pretraživača otvaranja?</string>
   <string name="openings">Otvaranja</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
@@ -224,6 +225,8 @@
   <string name="youAreLeavingLichess">Napuštate Lichess</string>
   <string name="neverTypeYourPassword">Nikada nemojte unijeti Vašu lozinku za Lichess na nekom drugom sajtu!</string>
   <string name="proceedToX">Idite na %s</string>
+  <string name="passwordSuggestion">Nemojte postavljati lozinku koju je predložio netko drugi. Mogu je iskoristiti za krađu vašeg računa.</string>
+  <string name="emailSuggestion">Nemojte postavljati e-mail adresu koju je predložio netko drugi. Mogu je iskoristiti za krađu vašeg računa.</string>
   <string name="emailConfirmHelp">Pomoć za potvrdu e-pošte</string>
   <string name="emailConfirmNotReceived">Niste primili e-poštu za potvrdu nakon prijavljivanja?</string>
   <string name="whatSignupUsername">Koje ste korisničko ime upotrijebili za prijavu?</string>
@@ -362,6 +365,7 @@
   </plurals>
   <string name="viewTournament">Pogledajte turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
+  <string name="noDrawBeforeSwissLimit">Ne možete ponuditi remi u turniru po švicarskom sistemu prije nego što bude odigrano 30 poteza.</string>
   <string name="thematic">Tematski</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partije za bodove</item>
@@ -696,6 +700,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primite, više će Vam vremena trebati.</string>
   <string name="simulAddExtraTime">Možete dodati više vremena na svoj sat kako bi Vam to pomoglo tokom igranja simultanke.</string>
   <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
+  <string name="simulAddExtraTimePerPlayer">Dodajte početno vrijeme na Vaš sat za svakog igrača koji se pridruži simultanci.</string>
+  <string name="simulHostExtraTimePerPlayer">Dodatno vrijeme po igraču za domaćina simultanke</string>
   <string name="lichessTournaments">Lichess turniri</string>
   <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
   <string name="timeBeforeTournamentStarts">Vrijeme do početka turnira</string>
@@ -902,6 +908,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="useTheReportForm">koristite formular za prijavu</string>
   <string name="toRequestSupport">Da zatražite podršku, %1$s</string>
   <string name="tryTheContactPage">pokušajte na stranici za kontakt</string>
+  <string name="makeSureToRead">Obavezno pročitajte %1$s</string>
+  <string name="theForumEtiquette">forumski bonton</string>
   <string name="thisTopicIsArchived">Ova je tema arhivirana i na nju se više ne može odgovarati.</string>
   <string name="joinTheTeamXToPost">Pridružite se %1$su da biste objavljivali na ovom forumu</string>
   <string name="teamNamedX">%1$s tim</string>
@@ -986,4 +994,5 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
   <string name="switchSides">Zamijenite strane</string>
   <string name="closingAccountWithdrawAppeal">Zatvaranje Vašeg računa povući će Vašu žalbu</string>
+  <string name="ourEventTips">Naši savjeti za organiziranje događajâ</string>
 </resources>

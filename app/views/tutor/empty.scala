@@ -1,12 +1,11 @@
 package views.html.tutor
 
 import controllers.routes
-import play.api.libs.json.*
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.{ TutorFullReport, TutorQueue }
+import lila.tutor.TutorQueue
 import lila.user.User
 import lila.game.Pov
 import play.api.i18n.Lang
@@ -15,7 +14,7 @@ import chess.format.pgn.PgnStr
 object empty:
 
   def start(user: User)(using Context) =
-    bits.layout(TutorFullReport.Empty(TutorQueue.NotInQueue), menu = emptyFrag, pageSmall = true)(
+    bits.layout(menu = emptyFrag, pageSmall = true)(
       cls := "tutor__empty box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       bits.mascotSays("Explain what tutor is about here."),
@@ -26,7 +25,6 @@ object empty:
 
   def queued(in: TutorQueue.InQueue, user: User, waitGames: List[(Pov, PgnStr)])(using Context) =
     bits.layout(
-      TutorFullReport.Empty(in),
       menu = emptyFrag,
       title = "Lichess Tutor - Examining games...",
       pageSmall = true
@@ -52,7 +50,7 @@ object empty:
       )
     )
 
-  private def waitGame(game: (Pov, PgnStr))(using Context) =
+  private def waitGame(game: (Pov, PgnStr)) =
     div(
       cls            := "tutor__waiting-game lpv lpv--todo lpv--moves-false lpv--controls-false",
       st.data("pgn") := game._2.value,
@@ -74,7 +72,7 @@ object empty:
   )
 
   def insufficientGames(user: User)(using Context) =
-    bits.layout(TutorFullReport.InsufficientGames, menu = emptyFrag, pageSmall = true)(
+    bits.layout(menu = emptyFrag, pageSmall = true)(
       cls := "tutor__insufficient box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
       mascotSaysInsufficient

@@ -6,13 +6,14 @@ import scala.jdk.CollectionConverters.*
 
 final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     f: Id => Unit
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
-  import Debouncer.*
+)(using ec: Executor, scheduler: Scheduler):
 
-  private val debounces = new ConcurrentHashMap[Id, Queued](initialCapacity)
+  // can't use a boolean or int,
+  // the ConcurrentHashMap uses weird defaults instead of null for missing values
+  private enum Queued:
+    case Another, Empty
+
+  private val debounces = ConcurrentHashMap[Id, Queued](initialCapacity)
 
   def push(id: Id): Unit = debounces
     .compute(
@@ -41,10 +42,3 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     .unit
 
   private[this] var nullToRemove: Queued = _
-
-private object Debouncer:
-
-  // can't use a boolean or int,
-  // the ConcurrentHashMap uses weird defaults instead of null for missing values
-  private enum Queued:
-    case Another, Empty

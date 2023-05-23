@@ -4,9 +4,8 @@ import cats.data.NonEmptyList
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
-import scala.util.matching.Regex
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -107,16 +106,35 @@ object inquiry:
       ),
       div(cls := "links")(
         isGranted(_.MarkBooster) option {
-          boostOpponents(in.report, in.allReports, in.user) map { opponents =>
-            a(href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}")(
-              "View",
-              br,
-              "Games"
+          val searchUrl = routes.User.games(in.user.username, "search")
+          div(cls := "dropper view-games")(
+            span("View", br, "Games"),
+            div(
+              a(
+                cls := "fbt",
+                href := s"$searchUrl?turnsMax=5&mode=1&players.loser=${in.user.id}&sort.field=d&sort.order=desc"
+              )("Quick rated losses"),
+              a(
+                cls := "fbt",
+                href := s"$searchUrl?turnsMax=5&mode=1&players.winner=${in.user.id}&sort.field=d&sort.order=desc"
+              )("Quick rated wins"),
+              isGranted(_.CheatHunter) option a(cls := "fbt", href := routes.GameMod.index(in.user.username))(
+                "Hunter game list"
+              ),
+              boostOpponents(in.report, in.allReports, in.user) map { opponents =>
+                a(
+                  cls  := "fbt",
+                  href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}"
+                )("With these opponents")
+              }
             )
-          }
+          )
         },
-        isGranted(_.Shadowban) option
-          a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms"),
+        isGranted(_.Shadowban) option a(href := routes.Mod.communicationPublic(in.user.id))(
+          "View",
+          br,
+          "Comms"
+        ),
         in.report.isAppeal option a(href := appealRoutes.show(in.user.id))("View", br, "Appeal")
       ),
       div(cls := "actions")(

@@ -26,6 +26,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(using
   private def pushNow(rt: RelayRound.WithTour, pgn: PgnStr): Funit =
     RelayFetch
       .multiPgnToGames(MultiPgn.split(pgn, RelayFetch.maxChapters(rt.tour)))
+      .future
       .flatMap { games =>
         sync(rt, games)
           .map { res =>

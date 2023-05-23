@@ -1,8 +1,8 @@
 package views.html.site
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 
 object lag:
 
@@ -18,7 +18,7 @@ object lag:
         highchartsMoreTag,
         jsTag("lag.js")
       )
-    ) {
+    ):
       div(cls := "box box-pad lag")(
         h1(cls := "box__top")(
           isLichessLagging(),
@@ -56,4 +56,3 @@ object lag:
           )
         )
       )
-    }

@@ -21,7 +21,7 @@
   <string name="asBlack">amb negres</string>
   <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
-  <string name="whiteIsVictorious">Les blanques han guanyat</string>
+  <string name="whiteIsVictorious">Guanyen les blanques</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
   <string name="youPlayTheWhitePieces">Jugues les blanques</string>
   <string name="youPlayTheBlackPieces">Jugues les negres</string>
@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins a la propera captura o moviment de peó</string>
   <string name="noGameFound">No s\'ha trobat cap partida</string>
+  <string name="maxDepthReached">S\'ha arribat a la màxima profunditat!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vols incloure més partides des del menú de preferències?</string>
   <string name="openings">Obertures</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Mirar el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
+  <string name="noDrawBeforeSwissLimit">No es pot fer taules abans dels 30 moviments en un torneig suís.</string>
   <string name="thematic">Temàtics</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida per punts</item>
@@ -662,6 +664,8 @@
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
   <string name="simulHostExtraTime">Temps extra per a l\'amfitrió</string>
+  <string name="simulAddExtraTimePerPlayer">Afegir temps inicial al vostre rellotge per cada jugador que entri a la simultània.</string>
+  <string name="simulHostExtraTimePerPlayer">Temps extra de l\'amfitrió per jugador</string>
   <string name="lichessTournaments">Tornejos de Lichess</string>
   <string name="tournamentFAQ">Torneig Arena: Preguntes Més Freqüents</string>
   <string name="timeBeforeTournamentStarts">Temps per a què comenci el torneig</string>
@@ -863,6 +867,8 @@
   <string name="useTheReportForm">utilitza el formulari</string>
   <string name="toRequestSupport">Per demanar suport, %1$s</string>
   <string name="tryTheContactPage">prova la plana de contacte</string>
+  <string name="makeSureToRead">Assegureu-vos de llegir %1$s</string>
+  <string name="theForumEtiquette">l\'etiqueta del fòrum</string>
   <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
   <string name="joinTheTeamXToPost">Uneix-te a %1$s, per poder publicar</string>
   <string name="teamNamedX">%1$s equip</string>
@@ -946,4 +952,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>
   <string name="switchSides">Canviar de banda</string>
   <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
+  <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
 </resources>

@@ -1,8 +1,8 @@
 package views.html.analyse
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 
 object bits:
 
@@ -13,7 +13,7 @@ object bits:
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
       openGraph: Option[lila.app.ui.OpenGraph] = None
-  )(body: Frag)(implicit ctx: Context): Frag =
+  )(body: Frag)(using Context): Frag =
     views.html.base.layout(
       title = title,
       moreCss = moreCss,

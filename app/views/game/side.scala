@@ -1,7 +1,7 @@
 package views.html
 package game
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -60,11 +60,18 @@ object side:
                 ),
                 game.pgnImport.flatMap(_.date).map(frag(_)) | momentFromNowWithPreload(game.createdAt)
               ),
-              game.pgnImport.flatMap(_.user).map { user =>
-                small(
-                  trans.importedByX(userIdLink(user.some, None, withOnline = false))
-                )
-              }
+              game.pgnImport
+                .flatMap(_.user)
+                .map: importedBy =>
+                  small(
+                    trans.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
+                    ctx.is(importedBy) option
+                      form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
+                        submitButton(
+                          cls   := "button-link confirm",
+                          title := trans.deleteThisImportedGame.txt()
+                        )(trans.delete.txt())
+                  )
             )
           ),
           div(cls := "game__meta__players")(

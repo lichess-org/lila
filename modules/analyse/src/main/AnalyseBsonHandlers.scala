@@ -1,7 +1,7 @@
 package lila.analyse
 
 import lila.db.BSON
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.given
 import reactivemongo.api.bson.*
 import chess.Ply
 

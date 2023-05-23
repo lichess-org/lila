@@ -45,7 +45,7 @@
   <string name="opponentLeftChoices">Nasprotnik je zapustil igro. Vsili predajo ali počakaj nanj.</string>
   <string name="forceResignation">Prijavi zmago</string>
   <string name="forceDraw">Prijavi remi</string>
-  <string name="talkInChat">Prosimo bodite prijazni v klepetu!</string>
+  <string name="talkInChat">Prosimo, bodite prijazni v klepetu!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">S teboj bo igrala prva oseba, ki pride na ta naslov.</string>
   <string name="whiteResigned">Beli je predal</string>
   <string name="blackResigned">Črni je predal</string>
@@ -400,10 +400,10 @@
     <item quantity="other">≥ %1$s %2$s rangiranih partij</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Morate odigrati še %1$s rangirano partijo %2$s</item>
+    <item quantity="one">Odigrati morate še %1$s rangiranih partij %2$s</item>
     <item quantity="two">Morate odigrati še %1$s rangirani partiji %2$s</item>
-    <item quantity="few">Morate odigrati še %1$s rangiranih partij %2$s</item>
-    <item quantity="other">Morate odigrati še %1$s rangiranih partij %2$s</item>
+    <item quantity="few">Odigrati morate še %1$s rangiranih partij %2$s</item>
+    <item quantity="other">Odigrati morate še %1$s rangiranih partij %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Morate odigrati še %s rangirano partijo</item>
@@ -731,6 +731,8 @@
   <string name="simulClockHint">Fischerjeva nastavitev ure. Več igralcev kot sprejmeš, več časa boš morda potreboval.</string>
   <string name="simulAddExtraTime">Uri lahko dodaš več časa v pomoč pri igranju simultanke.</string>
   <string name="simulHostExtraTime">Dodaten čas za gostitelja</string>
+  <string name="simulAddExtraTimePerPlayer">Dodajte začetni čas svoji uri za vsakega igralca, ki se pridruži simultanki.</string>
+  <string name="simulHostExtraTimePerPlayer">Gostite dodatni čas na igralca</string>
   <string name="lichessTournaments">Lichess turnirji</string>
   <string name="tournamentFAQ">Turnirji - odgovori na pogosta vprašanja</string>
   <string name="timeBeforeTournamentStarts">Čas do začetka turnirja</string>
@@ -906,7 +908,7 @@
   </plurals>
   <string name="sorry">Oprostite :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
-  <string name="timeoutExpires">Omejitev poteče v %s.</string>
+  <string name="timeoutExpires">Omejitev poteče čez %s.</string>
   <string name="why">Zakaj?</string>
   <string name="pleasantChessExperience">Želimo, da imajo z igranjem vsi prijetno izkušnjo.</string>
   <string name="goodPractice">Da bi to dosegli, moramo zagotoviti, da se vsi igralci držijo dobre prakse.</string>
@@ -942,6 +944,8 @@
   <string name="useTheReportForm">uporabi prijavni obrazec</string>
   <string name="toRequestSupport">Za zahtevo podpore, %1$s</string>
   <string name="tryTheContactPage">poskusi s stranjo za stike</string>
+  <string name="makeSureToRead">Ne pozabite prebrati %1$s</string>
+  <string name="theForumEtiquette">forumski bonton</string>
   <string name="thisTopicIsArchived">Ta tema je arhivirana in nanjo ni mogoče več odgovarjati.</string>
   <string name="joinTheTeamXToPost">Pridruži se ekipi %1$s, da boš lahko objavljal sporočila na forumu</string>
   <string name="teamNamedX">ekipa %1$s</string>
@@ -1025,4 +1029,5 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="lichessDbExplanation">Rangirane igre, vzorčene od vseh igralcev Lichess</string>
   <string name="switchSides">Zamenjaj strani</string>
   <string name="closingAccountWithdrawAppeal">Z zaprtjem računa bo vaša pritožba umaknjena</string>
+  <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
 </resources>

@@ -6,10 +6,10 @@ import lila.memo.ExpireSetMemo
 import lila.user.User
 
 private case class WaitingUsers(
-    hash: Map[UserId, DateTime],
+    hash: Map[UserId, Instant],
     apiUsers: Option[ExpireSetMemo[UserId]],
     clock: TournamentClock,
-    date: DateTime
+    date: Instant
 ):
 
   // ultrabullet -> 8
@@ -30,7 +30,7 @@ private case class WaitingUsers(
 
   // skips the most recent user if odd
   def evenNumber: Set[UserId] =
-    if (isOdd) all - hash.maxBy(_._2.getMillis)._1
+    if (isOdd) all - hash.maxBy(_._2.toMillis)._1
     else all
 
   lazy val haveWaitedEnough: Boolean =
@@ -41,7 +41,7 @@ private case class WaitingUsers(
     }
 
   def update(fromWebSocket: Set[UserId]) =
-    val newDate      = nowDate
+    val newDate      = nowInstant
     val withApiUsers = fromWebSocket ++ apiUsers.??(_.keySet)
     copy(
       date = newDate,
@@ -100,7 +100,7 @@ final private class WaitingUsersApi:
       (_: TourId, cur: WaitingUsers.WithNext) =>
         f(
           Option(cur) | WaitingUsers.WithNext(
-            WaitingUsers(Map.empty, None, tour.clock, nowDate),
+            WaitingUsers(Map.empty, None, tour.clock, nowInstant),
             none
           )
         )

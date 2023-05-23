@@ -22,7 +22,7 @@ final class SwissFeature(
           .find(
             $doc(
               "teamId" -> lichessTeamId,
-              "startsAt" $gt nowDate.minusMinutes(5) $lt nowDate.plusMinutes(10)
+              "startsAt" $gt nowInstant.minusMinutes(5) $lt nowInstant.plusMinutes(10)
             )
           )
           .sort($sort asc "startsAt")
@@ -38,7 +38,7 @@ final class SwissFeature(
       )
     }
 
-  private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.getMillis)
+  private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.toMillis)
 
   private def getForTeams(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     teams.map(swissCache.featuredInTeam.get).parallel.dmap(_.flatten) flatMap { ids =>
@@ -55,7 +55,7 @@ final class SwissFeature(
   private val cache = cacheApi.unit[FeaturedSwisses] {
     _.refreshAfterWrite(10 seconds)
       .buildAsyncFuture { _ =>
-        val now = nowDate
+        val now = nowInstant
         cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1))) zip
           cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)) map { case (created, started) =>
             FeaturedSwisses(created, started)

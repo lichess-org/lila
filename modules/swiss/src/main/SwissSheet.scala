@@ -76,7 +76,7 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
       sort: Bdoc
   ): Source[(SwissPlayer, Map[SwissRoundNumber, SwissPairing], SwissSheet), ?] =
     val readPreference =
-      if (swiss.finishedAt.exists(_ isBefore nowDate.minusSeconds(10)))
+      if (swiss.finishedAt.exists(_ isBefore nowInstant.minusSeconds(10)))
         temporarilyPrimary
       else ReadPreference.primary
     SwissPlayer

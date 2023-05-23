@@ -5,7 +5,6 @@ import akka.actor.*
 import lila.game.Game
 import lila.rating.{ PerfType, RatingRange }
 import lila.socket.Socket.{ Sri, Sris }
-import lila.user.User
 
 final class PoolApi(
     val configs: List[PoolConfig],

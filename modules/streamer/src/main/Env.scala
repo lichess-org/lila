@@ -18,6 +18,7 @@ private class StreamerConfig(
 private class TwitchConfig(@ConfigName("client_id") val clientId: String, val secret: Secret)
 
 @Module
+@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: play.api.libs.ws.StandaloneWSClient,
@@ -67,7 +68,6 @@ final class Env(
   private lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
   private val streaming = Streaming(
-    ws = ws,
     api = api,
     isOnline = isOnline,
     keyword = config.keyword,

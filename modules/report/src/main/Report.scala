@@ -5,7 +5,6 @@ import ornicar.scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.user.User
-import lila.common.Iso
 
 case class Report(
     @Key("_id") id: Report.Id, // also the url slug
@@ -55,7 +54,7 @@ case class Report(
   def bestAtom: Atom   = bestAtoms(1).headOption | recentAtom
   def bestAtoms(nb: Int): List[Atom] =
     atoms.toList.sortBy { a =>
-      (-a.score.value, -a.at.getSeconds)
+      (-a.score.value, -a.at.toSeconds)
     } take nb
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty option atoms.head
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
@@ -68,7 +67,7 @@ case class Report(
   def process(by: User) =
     copy(
       open = false,
-      done = Report.Done(by.id into ModId, nowDate).some
+      done = Report.Done(by.id into ModId, nowInstant).some
     )
 
   def userIds: List[UserId] = user :: atoms.toList.map(_.by.userId)
@@ -104,7 +103,7 @@ object Report:
       by: ReporterId,
       text: String,
       score: Score,
-      at: DateTime
+      at: Instant
   ):
     def simplifiedText = text.linesIterator.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
@@ -112,9 +111,9 @@ object Report:
 
     def byLichess = by == ReporterId.lichess
 
-  case class Done(by: ModId, at: DateTime)
+  case class Done(by: ModId, at: Instant)
 
-  case class Inquiry(mod: UserId, seenAt: DateTime)
+  case class Inquiry(mod: UserId, seenAt: Instant)
 
   case class WithSuspect(report: Report, suspect: Suspect, isOnline: Boolean):
 
@@ -148,7 +147,7 @@ object Report:
           by = candidate.reporter.id,
           text = candidate.text,
           score = score,
-          at = nowDate
+          at = nowInstant
         )
 
   private[report] val spontaneousText = "Spontaneous inquiry"

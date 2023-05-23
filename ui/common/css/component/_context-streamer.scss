@@ -6,18 +6,22 @@
 .context-streamer {
   @extend %nowrap-hidden, %box-radius-bottom, %box-shadow, %flex-center-nowrap;
 
-  height: 2.2em;
-  color: $c-secondary-over !important;
-  background: mix($c-secondary, $c-bg-page, 60%);
+  height: 2em;
+  padding-#{$start-direction}: 0.2em;
+  background: $c-bg-box;
+  color: $c-font-dim;
+  strong {
+    padding-#{$end-direction}: 0.7ch;
+  }
 
   @include transition;
 
   &::before {
     font-size: 1.3em;
-    margin-#{$start-direction}: 0.4em;
+    color: $c-primary;
   }
 
   &:hover {
-    background: mix($c-secondary, $c-bg-page, 80%);
+    color: $c-primary;
   }
 }

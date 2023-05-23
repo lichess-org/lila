@@ -2,8 +2,6 @@ package lila.tournament
 
 import play.api.data.*
 
-import lila.user.User
-
 case class TeamBattle(
     teams: Set[TeamId],
     nbLeaders: Int
@@ -24,7 +22,7 @@ object TeamBattle:
 
   def init(teamId: TeamId) = TeamBattle(Set(teamId), 5)
 
-  case class TeamVs(teams: chess.Color.Map[TeamId])
+  case class TeamVs(teams: chess.ByColor[TeamId])
 
   class RankedTeam(
       val rank: Int,

@@ -1,14 +1,14 @@
 package views.html
 package userTournament
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.user.User
 
 object chart:
 
-  def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(implicit ctx: Context) =
+  def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using Context) =
     bits.layout(
       u,
       title = s"${u.username} tournaments",

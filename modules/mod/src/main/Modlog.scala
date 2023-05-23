@@ -7,7 +7,7 @@ case class Modlog(
     user: Option[UserId],
     action: String,
     details: Option[String] = None,
-    date: DateTime = nowDate,
+    date: Instant = nowInstant,
     index: Option[String] = None
 ):
 
@@ -90,7 +90,7 @@ object Modlog:
       details = details
     )
 
-  case class UserEntry(user: UserId, action: String, date: DateTime)
+  case class UserEntry(user: UserId, action: String, date: Instant)
 
   val alt                 = "alt"
   val unalt               = "unalt"

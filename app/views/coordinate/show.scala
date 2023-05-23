@@ -1,13 +1,9 @@
 package views.html.coordinate
 
-import play.api.libs.json.Json
-
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
-import lila.pref.Pref.Color
-import play.api.i18n.Lang
 
 import controllers.routes
 import lila.common.LangPath

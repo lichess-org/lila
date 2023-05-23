@@ -3,9 +3,9 @@ package lila.shutup
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ given, * }
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 import lila.hub.actorApi.shutup.PublicSource
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 final class ShutupApi(
     coll: Coll,
@@ -49,11 +49,11 @@ final class ShutupApi(
       toUserId: Option[UserId] = None
   ): Funit =
     userRepo isTroll userId flatMap {
-      case true => funit
-      case false =>
+      if _ then funit
+      else
         toUserId ?? { relationApi.fetchFollows(_, userId) } flatMap {
-          case true => funit
-          case false =>
+          if _ then funit
+          else
             val analysed = Analyser(text)
             val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty) ?? { source =>
               $doc(
@@ -85,7 +85,10 @@ final class ShutupApi(
 
   private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
     (analysed.critical || userRecord.reports.exists(_.unacceptable)) ?? {
-      val text = (analysed.critical ?? "Critical comm alert\n") ++ reportText(userRecord)
+      val text = (analysed.critical ?? "Critical comm alert\n") ++ {
+        val repText = reportText(userRecord)
+        if repText.isEmpty then analysed.badWords.mkString(", ") else repText
+      }
       reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, text, analysed.critical)
       coll.update
         .one(

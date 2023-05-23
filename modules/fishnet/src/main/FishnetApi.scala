@@ -6,7 +6,6 @@ import scala.util.{ Failure, Success, Try }
 import Client.Skill
 import lila.common.IpAddress
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 import lila.common.config.Max
 import lila.base.LilaNoStackTrace
 
@@ -42,10 +41,11 @@ final class FishnetApi(
   }
 
   def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
-    (client.skill match {
-      case Skill.Move                 => fufail(s"Can't acquire a move directly on lichess! $client")
-      case Skill.Analysis | Skill.All => acquireAnalysis(client, slow)
-    }).monSuccess(_.fishnet.acquire)
+    client.skill
+      .match
+        case Skill.Move                 => fufail(s"Can't acquire a move directly on lichess! $client")
+        case Skill.Analysis | Skill.All => acquireAnalysis(client, slow)
+      .monSuccess(_.fishnet.acquire)
       .recover { case e: Exception =>
         logger.error("Fishnet.acquire", e)
         none
@@ -100,11 +100,11 @@ final class FishnetApi(
               {
                 fuccess(work.game.studyId.isDefined) >>| socketExists(GameId(work.game.id))
               } flatMap {
-                case true =>
+                if _ then
                   analysisBuilder.partial(client, work, partial.analysis) map { analysis =>
                     PostAnalysisResult.Partial(analysis)
                   }
-                case false => fuccess(PostAnalysisResult.UnusedPartial)
+                else fuccess(PostAnalysisResult.UnusedPartial)
               }
           }: Fu[PostAnalysisResult]
         case Some(work) =>
@@ -149,7 +149,7 @@ final class FishnetApi(
       skill = Skill.Analysis,
       instance = None,
       enabled = true,
-      createdAt = nowDate
+      createdAt = nowInstant
     )
     repo addClient client inject client
 

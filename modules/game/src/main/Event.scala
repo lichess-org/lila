@@ -11,7 +11,7 @@ import chess.{
   Color,
   Drop as ChessDrop,
   Move as ChessMove,
-  Pos,
+  Square,
   PromotableRole,
   Situation,
   Status
@@ -21,7 +21,7 @@ import chess.format.pgn.SanStr
 import JsonView.{ *, given }
 import lila.chat.{ PlayerLine, UserLine }
 import lila.common.ApiVersion
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 
 sealed trait Event:
   def typ: String
@@ -48,8 +48,8 @@ object Event:
         threefold: Boolean,
         state: State,
         clock: Option[ClockEvent],
-        possibleMoves: Map[Pos, List[Pos]],
-        possibleDrops: Option[List[Pos]],
+        possibleMoves: Map[Square, List[Square]],
+        possibleDrops: Option[List[Square]],
         crazyData: Option[Crazyhouse.Data]
     )(extra: JsObject) =
       extra ++ Json
@@ -71,8 +71,8 @@ object Event:
         })
 
   case class Move(
-      orig: Pos,
-      dest: Pos,
+      orig: Square,
+      dest: Square,
       san: SanStr,
       fen: BoardFen,
       check: Check,
@@ -82,8 +82,8 @@ object Event:
       castle: Option[Castling],
       state: State,
       clock: Option[ClockEvent],
-      possibleMoves: Map[Pos, List[Pos]],
-      possibleDrops: Option[List[Pos]],
+      possibleMoves: Map[Square, List[Square]],
+      possibleDrops: Option[List[Square]],
       crazyData: Option[Crazyhouse.Data]
   ) extends Event:
     def typ = "move"
@@ -130,16 +130,16 @@ object Event:
 
   case class Drop(
       role: chess.Role,
-      pos: Pos,
+      pos: Square,
       san: SanStr,
       fen: BoardFen,
       check: Check,
       threefold: Boolean,
       state: State,
       clock: Option[ClockEvent],
-      possibleMoves: Map[Pos, List[Pos]],
+      possibleMoves: Map[Square, List[Square]],
       crazyData: Option[Crazyhouse.Data],
-      possibleDrops: Option[List[Pos]]
+      possibleDrops: Option[List[Square]]
   ) extends Event:
     def typ = "drop"
     def data =
@@ -161,7 +161,7 @@ object Event:
     ): Drop =
       Drop(
         role = drop.piece.role,
-        pos = drop.pos,
+        pos = drop.square,
         san = chess.format.pgn.Dumper(drop),
         fen = Fen.writeBoard(situation.board),
         check = situation.check,
@@ -175,11 +175,11 @@ object Event:
 
   object PossibleMoves:
 
-    def json(moves: Map[Pos, List[Pos]], apiVersion: ApiVersion) =
+    def json(moves: Map[Square, List[Square]], apiVersion: ApiVersion) =
       if (apiVersion.value >= 4) newJson(moves)
       else oldJson(moves)
 
-    def newJson(moves: Map[Pos, List[Pos]]) =
+    def newJson(moves: Map[Square, List[Square]]) =
       if (moves.isEmpty) JsNull
       else
         val sb    = new java.lang.StringBuilder(128)
@@ -192,14 +192,14 @@ object Event:
         }
         JsString(sb.toString)
 
-    def oldJson(moves: Map[Pos, List[Pos]]) =
+    def oldJson(moves: Map[Square, List[Square]]) =
       if (moves.isEmpty) JsNull
       else
         moves.foldLeft(JsObject(Nil)) { case (res, (o, d)) =>
           res + (o.key -> JsString(d.map(_.key) mkString))
         }
 
-  case class Enpassant(pos: Pos, color: Color) extends Event:
+  case class Enpassant(pos: Square, color: Color) extends Event:
     def typ = "enpassant"
     def data =
       Json.obj(
@@ -207,7 +207,7 @@ object Event:
         "color" -> color
       )
 
-  case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event:
+  case class Castling(king: (Square, Square), rook: (Square, Square), color: Color) extends Event:
     def typ = "castling"
     def data =
       Json.obj(
@@ -231,7 +231,7 @@ object Event:
         .add("cookie" -> cookie)
     override def only = Some(color)
 
-  case class Promotion(role: PromotableRole, pos: Pos) extends Event:
+  case class Promotion(role: PromotableRole, pos: Square) extends Event:
     def typ = "promotion"
     def data =
       Json.obj(

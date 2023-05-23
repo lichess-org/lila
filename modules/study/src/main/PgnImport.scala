@@ -2,7 +2,7 @@ package lila.study
 
 import cats.data.Validated
 import chess.{ Centis, ErrorStr }
-import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr }
+import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*
 
@@ -77,7 +77,7 @@ object PgnImport:
     pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
-        c.name.value == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
+        c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
       } map { c =>
         Comment.Author.User(c.id, c.titleName)
       } getOrElse Comment.Author.External(a)
@@ -92,12 +92,12 @@ object PgnImport:
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
       _.metas.variations.flatMap { variation =>
-        makeNode(game, variation.value, annotator)
+        makeNode(game, variation.sans.value, annotator)
       }
     }
 
   private def parseComments(
-      comments: List[String],
+      comments: List[ChessComment],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Comments) =
     comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) { case ((shapes, clock, comments), txt) =>

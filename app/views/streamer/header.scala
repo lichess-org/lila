@@ -1,8 +1,6 @@
 package views.html.streamer
 
-import controllers.routes
-
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -44,13 +42,7 @@ object header:
                 href := youTube.fullUrl
               )(youTube.minUrl)
             )
-          },
-          li(
-            a(cls := "service lichess ulpt", href := routes.User.show(s.user.username))(
-              netConfig.domain,
-              routes.User.show(s.user.username).url
-            )
-          )
+          }
         ),
         div(cls := "ats")(
           s.stream.map { s =>
@@ -62,6 +54,9 @@ object header:
             }
           )
         ),
-        !modView option bits.subscribeButtonFor(s)
+        div(cls := "streamer-footer")(
+          !modView option bits.subscribeButtonFor(s),
+          bits.streamerProfile(s)
+        )
       )
     )

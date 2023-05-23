@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">aukera dituzu</string>
   <string name="areThereWebsitesBasedOnLichess">Lichessen oinarritutako webgunerik badago?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Bai. Lichess inspirazio iturri erabili dituen eta bere %1$s, %2$s edo %3$s darabilten hainbat webgune ditu.</string>
+  <string name="keyboardShortcuts">Zein lastertekla erabili daitezke?</string>
+  <string name="keyboardShortcutsExplanation">Lichesseko orri batzuk lasterteklak dituzte. \'?\' tekla azterlan, analisi, ariketa eta partida baten pantailan sakatuz gero, zerrendatuta agertuko dira.</string>
   <string name="fairPlay">Joko Garbia</string>
   <string name="whenAmIEligibleRatinRefund">Noiz jaso dezaket tranpa egin didaten jokalarien aurkako partidetako puntuazioa?</string>
   <string name="ratingRefundExplanation">Jokalari bat markatu eta minutu bat pasatu ostean, bere azken 3 egunetako puntuatutako azken 40 partidak hartzen dira. Partida horietako aurkariren bat zu bazara, puntuazioa galdu bazenuen (porrot edo berdinketagatik), eta zure puntuazioa behin-behinekoa ez bazen, zure puntuazioa bueltan lortuko duzu. Puntuazioaren itzulera zure puntuazio altuenarekin eta partidaren osteko zure eboluzioarekin mugatuta egongo da.

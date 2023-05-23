@@ -3,7 +3,6 @@ package lila.msg
 import reactivemongo.api.bson.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.User
 import lila.db.dsl.{ *, given }
 import lila.db.BSON
 

@@ -2,7 +2,7 @@ package views.html.user
 
 import play.api.i18n.Lang
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.{ Perf, PerfType }
@@ -134,7 +134,7 @@ object perfStat:
   private def pct(num: Int, denom: Int): String =
     (denom != 0) ?? s"${Math.round(num * 100.0 / denom)}%"
 
-  private def counter(count: lila.perfStat.Count)(implicit lang: Lang): Frag =
+  private def counter(count: lila.perfStat.Count)(using Lang): Frag =
     st.section(cls := "counter split")(
       div(
         table(
@@ -161,7 +161,7 @@ object perfStat:
             ),
             count.seconds > 0 option tr(cls := "full")(
               th(timeSpentPlaying()),
-              td(colspan := "2")(showPeriod(count.period))
+              td(colspan := "2")(showDuration(count.duration))
             )
           )
         )
@@ -200,37 +200,36 @@ object perfStat:
     )
 
   private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], color: String)(using
-      lang: Lang
-  ): Frag =
-    opt match
-      case Some(r) =>
-        div(
-          h2(title(strong(tag(color)(r.int)))),
-          a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at))
-        )
-      case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
+      Lang
+  ): Frag = opt match
+    case Some(r) =>
+      div(
+        h2(title(strong(tag(color)(r.int)))),
+        a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientInstant(r.at))
+      )
+    case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
 
-  private def highlow(stat: PerfStat)(implicit lang: Lang): Frag =
+  private def highlow(stat: PerfStat)(using Lang): Frag =
     st.section(cls := "highlow split")(
       highlowSide(highestRating(_), stat.highest, "green"),
       highlowSide(lowestRating(_), stat.lowest, "red")
     )
 
-  private def fromTo(s: lila.perfStat.Streak)(implicit lang: Lang): Frag =
+  private def fromTo(s: lila.perfStat.Streak)(using Lang): Frag =
     s.from match
       case Some(from) =>
         fromXToY(
-          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientDateTime(from.at)),
+          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientInstant(from.at)),
           s.to match {
             case Some(to) =>
-              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientDateTime(to.at))
+              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientInstant(to.at))
             case None => now()
           }
         )
       case None => nbsp
 
   private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(using
-      lang: Lang
+      Lang
   ): Frag =
     div(cls := "streak")(
       h3(
@@ -243,7 +242,7 @@ object perfStat:
     )
 
   private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(using
-      lang: Lang
+      Lang
   ): Frag =
     div(
       h2(title),
@@ -251,14 +250,14 @@ object perfStat:
       resultStreakSideStreak(s.cur, currentStreak(_), color)
     )
 
-  private def resultStreak(streak: lila.perfStat.ResultStreak)(implicit lang: Lang): Frag =
+  private def resultStreak(streak: lila.perfStat.ResultStreak)(using Lang): Frag =
     st.section(cls := "resultStreak split")(
       resultStreakSide(streak.win, winningStreak(), "green"),
       resultStreakSide(streak.loss, losingStreak(), "red")
     )
 
   private def resultTable(results: lila.perfStat.Results, title: Frag, user: User)(using
-      lang: Lang
+      Lang
   ): Frag =
     div(
       table(
@@ -273,7 +272,7 @@ object perfStat:
               td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td(
                 a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.username}")(
-                  absClientDateTime(r.at)
+                  absClientInstant(r.at)
                 )
               )
             )
@@ -282,13 +281,13 @@ object perfStat:
       )
     )
 
-  private def result(stat: PerfStat, user: User)(implicit lang: Lang): Frag =
+  private def result(stat: PerfStat, user: User)(using Lang): Frag =
     st.section(cls := "result split")(
       resultTable(stat.bestWins, bestRated(), user),
       resultTable(stat.worstLosses, worstRated(), user)
     )
 
-  private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit lang: Lang): Frag =
+  private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Lang): Frag =
     div(
       div(cls := "streak")(
         h3(
@@ -301,33 +300,33 @@ object perfStat:
       )
     )
 
-  private def playStreakNbStreaks(streaks: lila.perfStat.Streaks)(implicit lang: Lang): Frag =
+  private def playStreakNbStreaks(streaks: lila.perfStat.Streaks)(using Lang): Frag =
     div(cls := "split")(
       playStreakNbStreak(streaks.max, longestStreak(_)),
       playStreakNbStreak(streaks.cur, currentStreak(_))
     )
 
-  private def playStreakNb(playStreak: lila.perfStat.PlayStreak)(implicit lang: Lang): Frag =
+  private def playStreakNb(playStreak: lila.perfStat.PlayStreak)(using Lang): Frag =
     st.section(cls := "playStreak")(
       h2(span(title := lessThanOneHour.txt())(gamesInARow())),
       playStreakNbStreaks(playStreak.nb)
     )
 
-  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit lang: Lang): Frag =
+  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Lang): Frag =
     div(
       div(cls := "streak")(
-        h3(title(showPeriod(s.period))),
+        h3(title(showDuration(s.duration))),
         fromTo(s)
       )
     )
 
-  private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks)(implicit lang: Lang): Frag =
+  private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks)(using Lang): Frag =
     div(cls := "split")(
       playStreakTimeStreak(streaks.max, longestStreak(_)),
       playStreakTimeStreak(streaks.cur, currentStreak(_))
     )
 
-  private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(implicit lang: Lang): Frag =
+  private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(using Lang): Frag =
     st.section(cls := "playStreak")(
       h2(span(title := lessThanOneHour.txt())(maxTimePlaying())),
       playStreakTimeStreaks(playStreak.time)

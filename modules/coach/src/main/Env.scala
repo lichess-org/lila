@@ -5,7 +5,7 @@ import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
-import lila.security.Permission
+import akka.actor.ActorSystem
 
 @Module
 final private class CoachConfig(
@@ -21,7 +21,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi
-)(using ec: Executor, system: akka.actor.ActorSystem):
+)(using Executor, ActorSystem):
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 

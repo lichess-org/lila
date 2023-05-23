@@ -46,7 +46,7 @@ final class Env(
 
   val trf: SwissTrf = wire[SwissTrf]
 
-  private val pairingSystem = new PairingSystem(trf, rankingApi, appConfig.get[String]("swiss.bbpairing"))
+  private val pairingSystem = PairingSystem(trf, appConfig.get[String]("swiss.bbpairing"))
 
   private val manualPairing = wire[SwissManualPairing]
 

@@ -72,11 +72,13 @@ object Pov:
   def ofUserId(game: Game, userId: UserId): Option[Pov] =
     game playerByUserId userId map { apply(game, _) }
 
+  def ofCurrentTurn(game: Game) = Pov(game, game.turnColor)
+
   def opponentOfUserId(game: Game, userId: UserId): Option[Player] =
     ofUserId(game, userId) map (_.opponent)
 
   private def orInf(i: Option[Int])     = i getOrElse Int.MaxValue
-  private def isFresher(a: Pov, b: Pov) = a.game.movedAt.getSeconds > b.game.movedAt.getSeconds
+  private def isFresher(a: Pov, b: Pov) = a.game.movedAt isAfter b.game.movedAt
 
   def priority(a: Pov, b: Pov) =
     if (!a.isMyTurn && !b.isMyTurn) isFresher(a, b)
@@ -106,11 +108,11 @@ case class LightPov(game: LightGame, color: Color):
   def gameId   = game.id
   def player   = game player color
   def opponent = game player !color
-  def win      = game wonBy color
+  // def win      = game wonBy color
 
 object LightPov:
 
-  def apply(game: LightGame, player: Player) = new LightPov(game, player.color)
+  def apply(game: LightGame, player: LightPlayer): LightPov = LightPov(game, player.color)
 
   def ofUserId(game: LightGame, userId: UserId): Option[LightPov] =
     game playerByUserId userId map { apply(game, _) }

@@ -146,7 +146,6 @@ GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, p
 GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path, u: Option[String])
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme)
 GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[String])
-GET   /training/mobile/history         controllers.Puzzle.mobileHistory(page: Int ?= 1)
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
@@ -166,13 +165,16 @@ GET   /$lang<\w\w\w?>/training/:angleOrId controllers.Puzzle.showLang(lang, angl
 
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak
-GET   /$lang<\w\w\w?>/streak               controllers.Puzzle.streakLang(lang)
+GET   /api/streak                       controllers.Puzzle.apiStreak
+POST  /api/streak/:score                controllers.Puzzle.apiStreakResult(score: Int)
+GET   /$lang<\w\w\w?>/streak            controllers.Puzzle.streakLang(lang)
 
 # Puzzle Storm
 GET   /storm                            controllers.Storm.home
 POST  /storm                            controllers.Storm.record
 GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?= 1)
 GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username, page: Int ?= 1)
+GET   /api/storm                        controllers.Storm.apiGet
 GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username, days: Int ?= 30)
 GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang)
 
@@ -227,9 +229,11 @@ GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang)
 GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
+GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
+GET   /api/study/by/:user              controllers.Study.apiListByOwner(user)
 
 # Relay
-GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1)
+GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
@@ -352,7 +356,7 @@ POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(i
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id)
 POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id)
 GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id)
-GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
+GET   /tournament/help                        controllers.Tournament.help
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
 GET   /tournament/shields/:categ              controllers.Tournament.categShields(categ)
@@ -381,7 +385,7 @@ POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id)
 GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id, page: Int)
 GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id, user)
 GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id, user)
-POST  /swiss/$id<\w{8}>/schedule-next-round   controllers.Swiss.scheduleNextRound(id)
+POST  /api/swiss/$id<\w{8}>/schedule-next-round controllers.Swiss.scheduleNextRound(id)
 GET   /$lang<\w\w\w?>/swiss                   controllers.Swiss.homeLang(lang)
 
 # Simul
@@ -520,7 +524,7 @@ GET   /auth/token/:token               controllers.Auth.loginWithToken(token)
 POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token, referrer: Option[String])
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
-GET   /auth/magic-link/sent/:email     controllers.Auth.magicLinkSent(email)
+GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
 GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token)
 
 # Mod
@@ -642,7 +646,6 @@ GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf,
 # API
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
-GET   /api/user/puzzle-activity        controllers.Puzzle.activity
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
@@ -758,7 +761,7 @@ POST  /account/twofactor/setup         controllers.Account.setupTwoFactor
 POST  /account/twofactor/disable       controllers.Account.disableTwoFactor
 GET   /account/reopen                  controllers.Account.reopen
 POST  /account/reopen/send             controllers.Account.reopenApply
-GET   /account/reopen/sent/:email      controllers.Account.reopenSent(email)
+GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
 # App BC
@@ -812,6 +815,7 @@ GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
+POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli
@@ -843,7 +847,7 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.help
 GET   /help/master                     controllers.Page.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
-
+GET   /help/voice-move                 controllers.Main.voiceMoveHelp
 # DGT
 GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play

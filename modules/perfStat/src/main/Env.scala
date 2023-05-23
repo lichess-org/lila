@@ -2,7 +2,6 @@ package lila.perfStat
 
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import play.api.Configuration
 
 import lila.common.config.*
 
@@ -15,12 +14,9 @@ final class Env(
     rankingsOf: lila.user.RankingsOf,
     rankingApi: lila.user.RankingApi,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, Scheduler):
 
-  private lazy val storage = new PerfStatStorage(
+  private lazy val storage = PerfStatStorage(
     coll = yoloDb(CollName("perf_stat")).failingSilently()
   )
 

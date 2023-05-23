@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' mit Rundung, basierend auf der Anzahl der Halbzüge bis zum nächsten Schlag- oder Bauernzug</string>
   <string name="noGameFound">Kein Spiel gefunden</string>
+  <string name="maxDepthReached">Maximale Tiefe erreicht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Partien über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openings">Eröffnungen</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
+  <string name="noDrawBeforeSwissLimit">Du kannst in einem Turnier nach Schweizer System nicht vor dem Erreichen des 30. Zugs Remis anbieten.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gewertetes Spiel</item>
@@ -662,6 +664,8 @@
   <string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
   <string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
   <string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
+  <string name="simulAddExtraTimePerPlayer">Füge deiner Uhr für jeden Spieler, der deinem Simultan beitritt, zu Beginn zusätzliche Bedenkzeit hinzu.</string>
+  <string name="simulHostExtraTimePerPlayer">Teile jedem Spieler zusätzliche Bedenkzeit zu</string>
   <string name="lichessTournaments">Lichess Turniere</string>
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
@@ -863,6 +867,8 @@
   <string name="useTheReportForm">nutze das Meldeformular</string>
   <string name="toRequestSupport">Um Hilfe zu erhalten, %1$s</string>
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
+  <string name="makeSureToRead">Bitte lies unbedingt: %1$s</string>
+  <string name="theForumEtiquette">die Forumsetikette</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bei, um in diesem Forum schreiben zu können</string>
   <string name="teamNamedX">%1$s Team</string>
@@ -946,4 +952,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="lichessDbExplanation">Aus gewerteten Partien aller Lichess-Spieler</string>
   <string name="switchSides">andere Farbe</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
+  <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
 </resources>

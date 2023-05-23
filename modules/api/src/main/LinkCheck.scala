@@ -1,7 +1,5 @@
 package lila.api
 
-import cats.syntax.all.*
-
 import lila.chat.UserLine
 import lila.common.config.NetDomain
 import lila.hub.actorApi.shutup.PublicSource
@@ -13,9 +11,9 @@ import lila.team.Team
 import lila.team.TeamRepo
 import lila.tournament.Tournament
 import lila.tournament.TournamentRepo
-import lila.user.User
 import lila.study.Study
 import lila.study.StudyRepo
+import scala.annotation.nowarn
 
 /* Determine if a link to a lichess resource
  * can be posted from another lichess resource.
@@ -82,9 +80,9 @@ final private class LinkCheck(
       _ exists source.teamId.has
     }
 
-  private def studyLink(studyId: String, source: FullSource) = fuFalse
+  private def studyLink(@nowarn studyId: String, @nowarn source: FullSource) = fuFalse
 
-  private def teamLink(teamId: String, source: FullSource) = fuFalse
+  private def teamLink(@nowarn teamId: String, @nowarn source: FullSource) = fuFalse
 
   private val multipleLinks   = s"(?i)$domain.+$domain".r.unanchored
   private val tournamentLinkR = s"(?i)$domain/tournament/(\\w{8})".r.unanchored
@@ -105,7 +103,7 @@ private object LinkCheck:
       def teamId = value.conditions.teamMember.map(_.teamId)
     case class SimulSource(value: Simul) extends FullSource:
       def owners = Set(value.hostId)
-      def teamId = value.team
+      def teamId = value.conditions.teamMember.map(_.teamId)
     case class SwissSource(value: Swiss) extends FullSource:
       def owners = Set(value.createdBy)
       def teamId = value.teamId.some

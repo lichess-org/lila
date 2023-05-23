@@ -105,8 +105,8 @@ final class BotPlayer(
         }
       }
     } flatMap {
-      case true => funit
-      case _    => clientError("You cannot claim the win on this game")
+      if _ then funit
+      else clientError("You cannot claim the win on this game")
     }
 
   def berserk(game: Game, me: User): Boolean =

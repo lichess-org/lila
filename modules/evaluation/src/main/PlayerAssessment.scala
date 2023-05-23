@@ -3,8 +3,7 @@ package lila.evaluation
 import chess.{ Color, Speed }
 
 import lila.analyse.{ AccuracyCP, Analysis }
-import lila.game.{ Game, Player, Pov }
-import lila.user.User
+import lila.game.{ Player, Pov }
 
 case class PlayerAssessment(
     _id: String,
@@ -12,7 +11,7 @@ case class PlayerAssessment(
     userId: UserId,
     color: Color,
     assessment: GameAssessment,
-    date: DateTime,
+    date: Instant,
     basics: PlayerAssessment.Basics,
     analysis: Statistics.IntAvgSd,
     flags: PlayerFlags,
@@ -152,7 +151,7 @@ object PlayerAssessment:
       userId = game.player(color).userId err s"PlayerAssessment $game $color no userId",
       color = color,
       assessment = assessment,
-      date = nowDate,
+      date = nowInstant,
       basics = basics,
       analysis = intAvgSd(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten),
       flags = flags,

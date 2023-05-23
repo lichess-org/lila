@@ -35,6 +35,7 @@ case class Pref(
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
+    voice: Option[Int],
     zen: Int,
     ratings: Int,
     rookCastle: Int,
@@ -89,8 +90,9 @@ case class Pref(
         SoundSet.allByKey get value map { s =>
           copy(soundSet = s.key)
         }
-      case "zen" => copy(zen = if (value == "1") 1 else 0).some
-      case _     => none
+      case "zen"   => copy(zen = if (value == "1") 1 else 0).some
+      case "voice" => copy(voice = if (value == "1") 1.some else 0.some).some
+      case _       => none
 
   def animationMillis: Int =
     animation match
@@ -118,12 +120,14 @@ case class Pref(
 
   def is2d = !is3d
 
-  def agreementNeededSince: Option[DateTime] =
+  def agreementNeededSince: Option[Instant] =
     Agreement.showPrompt && agreement < Agreement.current option Agreement.changedAt
 
   def agree = copy(agreement = Agreement.current)
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
+
+  def hasVoice = voice.contains(Voice.YES)
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -223,6 +227,7 @@ object Pref:
     )
 
   object KeyboardMove extends BooleanPref
+  object Voice        extends BooleanPref
 
   object RookCastle:
     val NO  = 0
@@ -396,14 +401,14 @@ object Pref:
 
   object Agreement:
     val current    = 2
-    val changedAt  = new DateTime(2021, 12, 28, 8, 0)
-    val showPrompt = changedAt.isAfter(nowDate minusMonths 6)
+    val changedAt  = instantOf(2021, 12, 28, 8, 0)
+    val showPrompt = changedAt.isAfter(nowInstant minusMonths 6)
 
-  object Zen     extends BooleanPref {}
-  object Ratings extends BooleanPref {}
+  object Zen     extends BooleanPref
+  object Ratings extends BooleanPref
 
-  val darkByDefaultSince   = new DateTime(2021, 11, 7, 8, 0)
-  val systemByDefaultSince = new DateTime(2022, 12, 23, 8, 0)
+  val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)
+  val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
 
   def create(id: UserId) = default.copy(_id = id)
 
@@ -449,6 +454,7 @@ object Pref:
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
+    voice = none,
     zen = Zen.NO,
     ratings = Ratings.YES,
     rookCastle = RookCastle.YES,

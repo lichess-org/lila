@@ -26,8 +26,13 @@
   <string name="goodMove">Goede zet</string>
   <string name="bestMove">Beste zet!</string>
   <string name="keepGoing">Ga zo door…</string>
-  <string name="puzzleSuccess">Succes!</string>
+  <string name="puzzleSuccess">Perfect!</string>
   <string name="puzzleComplete">Puzzel voltooid!</string>
+  <string name="byOpenings">Per opening</string>
+  <string name="puzzlesByOpenings">Puzzels per opening</string>
+  <string name="openingsYouPlayedTheMost">Openingen die je het meest hebt gespeeld in partijen met rating</string>
+  <string name="useFindInPage">Gebruik \"In pagina zoeken\" in het browsermenu om je favoriete opening te vinden!</string>
+  <string name="useCtrlF">Gebruik Ctrl+F om je favoriete opening te vinden!</string>
   <string name="notTheMove">Dat is niet de juiste zet!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
   <string name="ratingX">Rating: %s</string>

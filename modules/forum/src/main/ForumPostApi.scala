@@ -1,6 +1,5 @@
 package lila.forum
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.chaining.*
 
@@ -60,7 +59,7 @@ final class ForumPostApi(
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
               }
               if (anonMod) logAnonPost(me.id, post, edit = false)
-              else if (!post.troll && !categ.quiet && !topic.isTooBig)
+              else if (!post.troll && !categ.quiet)
                 timeline ! Propagate(TimelinePost(me.id, topic.id, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id withTeam categ.team
                 }
@@ -79,7 +78,7 @@ final class ForumPostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost = post.editPost(nowDate, spam replace newText)
+          val newPost = post.editPost(nowInstant, spam replace newText)
           (newPost.text != post.text).?? {
             postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
               logAnonPost(user.id, newPost, edit = true)
@@ -198,8 +197,7 @@ final class ForumPostApi(
         "userId",
         $doc(
           "topicId" -> topic.id,
-          "number" $gt (newPostNumber - 10),
-          "createdAt" $gt nowDate.minusDays(5)
+          "number" $gt (newPostNumber - 20)
         ),
         ReadPreference.secondaryPreferred
       )

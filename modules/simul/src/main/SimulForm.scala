@@ -1,8 +1,7 @@
 package lila.simul
 
 import cats.syntax.all.*
-import chess.format.{ Fen, OpeningFen }
-import chess.StartingPosition
+import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
@@ -16,15 +15,14 @@ import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
 
 object SimulForm:
 
-  val clockTimes       = LimitMinutes.from((5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20))
+  val clockTimeChoices = options((5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20), "%d minute{s}")
   val clockTimeDefault = LimitMinutes(20)
-  val clockTimeChoices = options(LimitMinutes raw clockTimes, "%d minute{s}")
 
-  val clockIncrements = IncrementSeconds.from(
-    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockIncrementChoices = options(
+    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30),
+    "%d second{s}"
   )
   val clockIncrementDefault = IncrementSeconds(60)
-  val clockIncrementChoices = options(IncrementSeconds raw clockIncrements, "%d second{s}")
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtras         = clockExtrasPositive.tail.map(-_).reverse concat clockExtrasPositive
@@ -32,7 +30,10 @@ object SimulForm:
     case (d, str) if d > 0 => (d, s"+$str")
     case pair              => pair
   }
-  val clockExtraDefault = 0
+  val clockExtraDefault = LimitMinutes(0)
+
+  val clockExtraPerPlayerChoices = options((0 to 60 by 10) ++ Seq(90, 120, 180, 240, 300), "%d second{s}")
+  val clockExtraPerPlayerDefault = LimitSeconds(0)
 
   val colors = List("white", "random", "black")
   val colorChoices = List(
@@ -63,13 +64,14 @@ object SimulForm:
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
       clockExtra = clockExtraDefault,
+      clockExtraPerPlayer = clockExtraPerPlayerDefault,
       variants = List(chess.variant.Standard.id),
       position = none,
       color = colorDefault,
       text = "",
       estimatedStartAt = none,
-      team = none,
-      featured = host.hasTitle.some
+      featured = host.hasTitle.some,
+      conditions = SimulCondition.All.empty
     )
 
   def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
@@ -78,31 +80,33 @@ object SimulForm:
       clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
       clockIncrement = simul.clock.config.incrementSeconds,
       clockExtra = simul.clock.hostExtraMinutes,
+      clockExtraPerPlayer = simul.clock.hostExtraTimePerPlayer,
       variants = simul.variants.map(_.id),
       position = simul.position,
       color = simul.color | "random",
       text = simul.text,
       estimatedStartAt = simul.estimatedStartAt,
-      team = simul.team,
-      featured = simul.featurable
+      featured = simul.featurable,
+      conditions = simul.conditions
     )
 
   private def baseForm(host: User, teams: List[LeaderTeam]) =
     Form(
       mapping(
-        "name"           -> nameType(host),
-        "clockTime"      -> numberIn(clockTimeChoices).into[LimitMinutes],
-        "clockIncrement" -> numberIn(clockIncrementChoices).into[IncrementSeconds],
-        "clockExtra"     -> numberIn(clockExtraChoices),
+        "name"                -> nameType(host),
+        "clockTime"           -> numberIn(clockTimeChoices).into[LimitMinutes],
+        "clockIncrement"      -> numberIn(clockIncrementChoices).into[IncrementSeconds],
+        "clockExtra"          -> numberIn(clockExtraChoices).into[LimitMinutes],
+        "clockExtraPerPlayer" -> numberIn(clockExtraPerPlayerChoices).into[LimitSeconds],
         "variants" -> list {
           typeIn(Variant.list.all.filter(chess.variant.FromPosition != _).map(_.id).toSet)
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "color"            -> stringIn(colorChoices),
         "text"             -> cleanText,
-        "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "team"             -> optional(of[TeamId].verifying(id => teams.exists(_.id == id))),
-        "featured"         -> optional(boolean)
+        "estimatedStartAt" -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
+        "featured"         -> optional(boolean),
+        "conditions"       -> SimulCondition.form.all(teams)
       )(Setup.apply)(unapply)
         .verifying("Invalid host extra time.", _.clock.valid)
     )
@@ -113,20 +117,21 @@ object SimulForm:
       name: String,
       clockTime: LimitMinutes,
       clockIncrement: IncrementSeconds,
-      clockExtra: Int,
+      clockExtra: LimitMinutes,
+      clockExtraPerPlayer: LimitSeconds,
       variants: List[Variant.Id],
       position: Option[Fen.Epd],
       color: String,
       text: String,
-      estimatedStartAt: Option[DateTime] = None,
-      team: Option[TeamId],
-      featured: Option[Boolean]
+      estimatedStartAt: Option[Instant] = None,
+      featured: Option[Boolean],
+      conditions: SimulCondition.All
   ):
-
     def clock =
       SimulClock(
         config = Clock.Config(LimitSeconds(clockTime.value * 60), clockIncrement),
-        hostExtraTime = clockExtra * 60
+        hostExtraTime = LimitSeconds(clockExtra.value * 60),
+        hostExtraTimePerPlayer = clockExtraPerPlayer
       )
 
     def actualVariants = variants.flatMap { Variant(_) }

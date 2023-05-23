@@ -5,7 +5,7 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.Crazyhouse
 
 import chess.{ Ply, Centis, Check }
-import lila.tree.Eval.Score
+import lila.tree.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode:
@@ -325,11 +325,25 @@ object Node:
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
 
     def takeMainlineWhile(f: Node => Boolean) =
-      children.first.fold(this) { main =>
-        copy(children = children.takeMainlineWhile(f))
-      }
+      if children.first.isDefined
+      then copy(children = children.takeMainlineWhile(f))
+      else this
 
     def moveOption = none
+
+    def merge(n: Root): Root =
+      copy(
+        shapes = shapes ++ n.shapes,
+        comments = comments ++ n.comments,
+        gamebook = n.gamebook orElse gamebook,
+        glyphs = glyphs merge n.glyphs,
+        score = n.score orElse score,
+        clock = n.clock orElse clock,
+        crazyData = n.crazyData orElse crazyData,
+        children = n.children.nodes.foldLeft(children) { (cs, c) =>
+          cs addNode c
+        }
+      )
 
     override def toString = "ROOT"
 

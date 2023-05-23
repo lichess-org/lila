@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Švajčiarske turnaje</string>
+  <string name="swissTournaments">Turnaje švajčiarskym systémom</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Zobraziť kolo</item>
     <item quantity="few">Zobraziť %s kolá</item>
@@ -114,6 +114,9 @@ Víťaz je súťažiaci s najvyšším počtom bodov, ktoré získal vo všetký
   <string name="lateJoinUntil">Áno, kým sa nezačne viac ako polovica kôl</string>
   <string name="pause">Pozastavené</string>
   <string name="pauseSwiss">Áno, ale môže sa znížiť počet kôl</string>
+  <string name="streaksAndBerserk">Série výhier a Besnenie</string>
   <string name="similarToOTB">Podobné turnajom hraným naživo</string>
   <string name="unlimitedAndFree">Bez obmedzení a zadarmo</string>
+  <string name="predefinedUsers">Povoľte pripojenie len vopred zadaným používateľom</string>
+  <string name="forbiddedUsers">Ak tento zoznam nie je prázdny, používatelia, ktorí v ňom nie sú, sa nesmú pripojiť. Jedno meno používateľa na riadok.</string>
 </resources>

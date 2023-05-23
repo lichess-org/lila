@@ -16,10 +16,10 @@
     "@types/lichess": "workspace:*",
     "chat": "workspace:*",
     "chess": "workspace:*",
-    "chessground": "^8.3.7",
     "common": "workspace:*",
     "game": "workspace:*",
     "keyboardMove": "workspace:*",
+    "voice": "workspace:*",
     "nvui": "workspace:*",
     "snabbdom": "^3.5.1"
   },

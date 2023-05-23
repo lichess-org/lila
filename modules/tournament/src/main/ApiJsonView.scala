@@ -6,11 +6,12 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.LightUserApi
+import lila.gathering.Condition
+import lila.gathering.ConditionHandlers.JSONHandlers.given
 
 final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
 
   import JsonView.{ *, given }
-  import Condition.JSONHandlers.given
 
   def apply(tournaments: VisibleTournaments)(using Lang): Fu[JsObject] = for
     created  <- tournaments.created.map(fullJson).parallel

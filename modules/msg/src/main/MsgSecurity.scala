@@ -23,7 +23,6 @@ final private class MsgSecurity(
     scheduler: Scheduler
 ):
 
-  import BsonHandlers.given
   import MsgSecurity.*
 
   private object limitCost:
@@ -110,13 +109,13 @@ final private class MsgSecurity(
         val cost = limitCost(contacts.orig) * {
           if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
         }
-        limiter(contacts.orig.id, cost)(none)(Limit.some)
+        limiter(contacts.orig.id, Limit.some, cost)(none)
       if (unlimited) fuccess(none)
       else if (isNew) {
         isLeaderOf(contacts) >>| isTeacherOf(contacts)
       } map {
-        case true => none
-        case _    => limitWith(CreateLimitPerUser)
+        if _ then none
+        else limitWith(CreateLimitPerUser)
       }
       else fuccess(limitWith(ReplyLimitPerUser))
 
@@ -132,7 +131,7 @@ final private class MsgSecurity(
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) ??
-        !userRepo.isCreatedSince(user.id, nowDate.minusDays(30)) dmap { _ option Dirt }
+        !userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)) dmap { _ option Dirt }
 
   object may:
 

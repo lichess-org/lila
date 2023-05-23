@@ -2,8 +2,7 @@ package lila.timeline
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.db.dsl.*
 
 final class UnsubApi(coll: Coll)(using Executor):
 

@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Luani me një shok</string>
   <string name="playWithTheMachine">Luaj me kompjuterin</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë me ju, dërgojini këtë URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
   <string name="waiting">Në pritje</string>
@@ -34,7 +34,7 @@
   <string name="newOpponent">Kundërshtar i ri</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Kundërshtari juaj dëshiron të luajë lojë të re me ju</string>
   <string name="joinTheGame">Hyni në lojë</string>
-  <string name="whitePlays">Radha e të Bardhit</string>
+  <string name="whitePlays">I bardhi luan</string>
   <string name="blackPlays">Radha e të Ziut</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Kundërshtari juaj la lojën. Mund të kërkoni fitoren pas %s sekondash.</item>
@@ -44,7 +44,7 @@
   <string name="forceResignation">Kërko fitoren</string>
   <string name="forceDraw">Shpalle barazim</string>
   <string name="talkInChat">Ju lutem jini të sjellshëm në bisedë!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Personi i parë që do hapë këtë adresë do të luajë me ju.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Personi i parë që do të vijë në këtë URL do të luajë me ju.</string>
   <string name="whiteResigned">I bardhi u dorëzua</string>
   <string name="blackResigned">I ziu u dorëzua</string>
   <string name="whiteLeftTheGame">I bardhi e la lojën</string>
@@ -55,7 +55,7 @@
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="computerAnalysisAvailable">Analiza kompjuterike është gati</string>
   <string name="computerAnalysisDisabled">Analiza kompjuterike u çaktivizua</string>
-  <string name="analysis">Analiza</string>
+  <string name="analysis">Bordi i analizës</string>
   <string name="depthX">Thellësia %s</string>
   <string name="usingServerAnalysis">Duke përdorur analizën e shërbyesit</string>
   <string name="loadingEngine">Po ngarkohet programi analizues …</string>
@@ -91,7 +91,9 @@
     <item quantity="one">Mat në %s gjysmë lëvizje</item>
     <item quantity="other">Mat në %s gjysmë lëvizje</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' me rrumbullakim, bazuar në numrin e gjysmë-lëvizjeve deri në kapjen ose lëvizjen tjetër të pengut</string>
   <string name="noGameFound">S’u gjet lojë</string>
+  <string name="maxDepthReached">U mbërrit në thellësinë maksimum!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ndoshta të përfshihen më tepër lojëra nga menuja e parapëlqimeve?</string>
   <string name="openings">Hapje</string>
   <string name="openingExplorer">Eksplorues hapjesh</string>
@@ -99,6 +101,9 @@
   <string name="xOpeningExplorer">Eksploruesi i hapjeve %s</string>
   <string name="winPreventedBy50MoveRule">Fitore e parandaluar nga rregulli i 50 lëvizjeve</string>
   <string name="lossSavedBy50MoveRule">Humbje e parandaluar nga rregulli i 50 lëvizjeve</string>
+  <string name="winOr50MovesByPriorMistake">Fitore ose 50 lëvizje me gabim të mëparshëm</string>
+  <string name="lossOr50MovesByPriorMistake">Humbje ose 50 lëvizje me gabim të mëparshëm</string>
+  <string name="unknownDueToRounding">Fitorja/humbja garantohet vetëm nëse vija e rekomanduar e bazës së tavolinës është ndjekur që nga kapja e fundit ose lëvizja e pengut, për shkak të rrumbullakimit të mundshëm të vlerave të DTZ në bazat e tabelave Syzygy.</string>
   <string name="allSet">Gjithçka gati!</string>
   <string name="importPgn">Importo PGN</string>
   <string name="delete">Fshije</string>
@@ -110,7 +115,7 @@
   <string name="enable">Aktivizoje</string>
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
   <string name="evaluationGauge">Matësi i vlerësimit</string>
-  <string name="multipleLines">Disa shigjeta</string>
+  <string name="multipleLines">Linja të shumta</string>
   <string name="cpus">Procesorë</string>
   <string name="memory">Kujtesë</string>
   <string name="infiniteAnalysis">Analizë e pafundme</string>
@@ -306,13 +311,13 @@
     <item quantity="other">%s barazime</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s duke luajtur</item>
+    <item quantity="one">%s po luan</item>
     <item quantity="other">%s duke luajtur</item>
   </plurals>
   <string name="exportGames">Eksporto lojërat</string>
   <string name="ratingRange">Shtrirja e vlerësimit</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dhuro %s sekonda</item>
+    <item quantity="one">Jep %s sekondë</item>
     <item quantity="other">Dhuro %s sekonda</item>
   </plurals>
   <string name="thisAccountViolatedTos">Kjo llogari ka shkelur Kushtet e Shërbimit të Lichess</string>
@@ -338,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Shihni turneun</string>
   <string name="backToTournament">Kthehu në turne</string>
+  <string name="noDrawBeforeSwissLimit">Në një turne zviceran, s’mund të dilni barazim para se të jenë luajtur 30 lëvizje.</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">Lojë e vlerësuar me ≥ %s</item>
@@ -388,6 +394,7 @@
   <string name="importGameExplanation">Ngjitni një PGN loje, që të merrni një përsëritje
 të lojës në shfletues, analizë kompjuterike, bisedë
 loje dhe URL për ta ndarë me të tjerë.</string>
+  <string name="importGameCaveat">Variacionet do të fshihen. Për t\'i mbajtur ato, importoni PGN përmes një studimi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lojë e importuar</item>
     <item quantity="other">%s lojëra të importuara</item>
@@ -659,6 +666,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="simulClockHint">Ujdisje Fisher për sahatin. Sa më shumë lojtarë pranoni, aq më shumë kohë mund t’ju nevojitet.</string>
   <string name="simulAddExtraTime">Ju mund të shtoni kohë shtesë për t\'i bërë ballë simultanes.</string>
   <string name="simulHostExtraTime">Kohë shtesë për organizatorin</string>
+  <string name="simulAddExtraTimePerPlayer">Shtoni kohë fillestare te sahati juaj për çdo lojtar që hyn në simultane.</string>
+  <string name="simulHostExtraTimePerPlayer">Kohë ekstra sahati organizatori për lojtar</string>
   <string name="lichessTournaments">Turne Lichess</string>
   <string name="tournamentFAQ">PBR për turne Arenë</string>
   <string name="timeBeforeTournamentStarts">Koha deri sa të fillojë turneu</string>
@@ -860,6 +869,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="useTheReportForm">përdorni formularin e raportimeve</string>
   <string name="toRequestSupport">Për të kërkuar asistencë, %1$s</string>
   <string name="tryTheContactPage">provoni faqen e kontaktit</string>
+  <string name="makeSureToRead">Mos harroni të lexoni %1$s</string>
+  <string name="theForumEtiquette">rregullat e etiketës në forum</string>
   <string name="thisTopicIsArchived">Kjo temë është arkivuar dhe në të s’mund të përgjigjen më.</string>
   <string name="joinTheTeamXToPost">Që të postoni në këtë forum, bëhuni pjesë e %1$s</string>
   <string name="teamNamedX">Ekipi %1$s</string>
@@ -943,4 +954,5 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="lichessDbExplanation">Lojëra me vlerësim, marrë nga krejt lojëtarët e Lichess-it</string>
   <string name="switchSides">Ndërroni palët</string>
   <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
+  <string name="ourEventTips">Këshillat tona për organizim veprimtarish</string>
 </resources>

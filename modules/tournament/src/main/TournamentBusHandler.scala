@@ -1,9 +1,6 @@
 package lila.tournament
 
-import akka.actor.*
-
 import lila.game.actorApi.FinishGame
-import lila.user.User
 
 final private class TournamentBusHandler(
     api: TournamentApi,
@@ -29,7 +26,7 @@ final private class TournamentBusHandler(
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       ejectFromEnterable(userId) >>
         leaderboard
-          .getAndDeleteRecent(userId, nowDate minusDays 30)
+          .getAndDeleteRecent(userId, nowInstant minusDays 30)
           .flatMap {
             _.map {
               api.removePlayerAndRewriteHistory(_, userId)

@@ -150,18 +150,16 @@ final class RelationApi(
   )
 
   private def limitFollow(u: UserId) =
-    countFollowing(u) flatMap { nb =>
+    countFollowing(u).flatMap: nb =>
       (nb > config.maxFollow.value) ?? {
-        limitFollowRateLimiter(u) {
-          fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(nowDate.minusDays(90))
-        }(fuccess(Nil)) flatMap {
+        limitFollowRateLimiter(u, fuccess(Nil)):
+          fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(nowInstant.minusDays(90))
+        .flatMap:
           case Nil => repo.drop(u, true, nb - config.maxFollow.value)
           case inactiveIds =>
             repo.unfollowMany(u, inactiveIds) >>-
               countFollowingCache.update(u, _ - inactiveIds.size)
-        }
       }
-    }
 
   private def limitBlock(u: UserId) =
     countBlocking(u) flatMap { nb =>
@@ -171,8 +169,8 @@ final class RelationApi(
   def block(u1: UserId, u2: UserId): Funit =
     (u1 != u2 && u2 != User.lichessId) ?? {
       fetchBlocks(u1, u2) flatMap {
-        case true => funit
-        case _ =>
+        if _ then funit
+        else
           repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
             Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
             Bus.publish(
@@ -201,7 +199,7 @@ final class RelationApi(
   def unblock(u1: UserId, u2: UserId): Funit =
     (u1 != u2) ?? {
       fetchBlocks(u1, u2) flatMap {
-        case true =>
+        if _ then
           repo.unblock(u1, u2) >>- {
             Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
             Bus.publish(
@@ -210,7 +208,7 @@ final class RelationApi(
             )
             lila.mon.relation.unblock.increment().unit
           }
-        case _ => funit
+        else funit
       }
     }
 

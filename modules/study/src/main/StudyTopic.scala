@@ -7,7 +7,6 @@ import lila.common.LilaFuture
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import lila.common.Iso
 import lila.common.config.Max
 
 opaque type StudyTopic = String
@@ -42,8 +41,6 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     ec: Executor,
     scheduler: Scheduler
 ):
-
-  import BSONHandlers.given
 
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll(_.byId[Bdoc](str)) dmap { _ flatMap docTopic }

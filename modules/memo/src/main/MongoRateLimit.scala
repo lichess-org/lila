@@ -17,7 +17,7 @@ final class MongoRateLimit[K](
   import MongoRateLimit.{ *, given }
   import RateLimit.Cost
 
-  private def makeClearAt = nowDate plusMinutes duration.toMinutes.toInt
+  private def makeClearAt = nowInstant plus duration
 
   private lazy val logger  = lila.log("ratelimit").branch("mongo").branch(name)
   private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")
@@ -52,8 +52,8 @@ final class MongoRateLimit[K](
       }
 
 object MongoRateLimit:
-  case class Entry(_id: String, v: Int, e: DateTime):
-    def until = e
+  case class Entry(_id: String, v: Int, e: Instant):
+    inline def until = e
   private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
 final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig):

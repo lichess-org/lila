@@ -1,0 +1,12 @@
+.is2d .pawn.white {background-image:url('/assets/piece/kiwen-suwi/wP.svg')}
+.is2d .knight.white {background-image:url('/assets/piece/kiwen-suwi/wN.svg')}
+.is2d .bishop.white {background-image:url('/assets/piece/kiwen-suwi/wB.svg')}
+.is2d .rook.white {background-image:url('/assets/piece/kiwen-suwi/wR.svg')}
+.is2d .queen.white {background-image:url('/assets/piece/kiwen-suwi/wQ.svg')}
+.is2d .king.white {background-image:url('/assets/piece/kiwen-suwi/wK.svg')}
+.is2d .pawn.black {background-image:url('/assets/piece/kiwen-suwi/bP.svg')}
+.is2d .knight.black {background-image:url('/assets/piece/kiwen-suwi/bN.svg')}
+.is2d .bishop.black {background-image:url('/assets/piece/kiwen-suwi/bB.svg')}
+.is2d .rook.black {background-image:url('/assets/piece/kiwen-suwi/bR.svg')}
+.is2d .queen.black {background-image:url('/assets/piece/kiwen-suwi/bQ.svg')}
+.is2d .king.black {background-image:url('/assets/piece/kiwen-suwi/bK.svg')}

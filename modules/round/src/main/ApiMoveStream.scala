@@ -1,10 +1,10 @@
 package lila.round
 
 import akka.stream.scaladsl.*
-import chess.Color
-import chess.format.{ BoardFen, Fen }
+import chess.format.Fen
 import chess.{ Centis, Replay }
 import play.api.libs.json.*
+import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.common.Json.given
@@ -19,15 +19,11 @@ final class ApiMoveStream(
 
   def apply(game: Game, delayMoves: Boolean): Source[JsObject, ?] =
     Source futureSource {
-      val hasMoveDelay         = delayMoves && game.hasClock
-      val delayMovesBy         = hasMoveDelay ?? 3
-      val delayKeepsFirstMoves = hasMoveDelay ?? 5
       for
         initialFen <- gameRepo.initialFen(game)
         lightUsers <- lightUserApi.asyncManyOptions(game.players.map(_.userId))
       yield
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
-        var moves  = 0
         def makeGameJson(g: Game) =
           gameJsonView.base(g, initialFen) ++ Json.obj(
             "players" -> JsObject(g.players zip lightUsers map { (p, user) =>
@@ -37,13 +33,6 @@ final class ApiMoveStream(
         Source(List(makeGameJson(game))) concat
           Source
             .queue[JsObject]((game.ply.value + 3) atLeast 16, akka.stream.OverflowStrategy.dropHead)
-            .statefulMapConcat { () => js =>
-              moves += 1
-              if (game.finished || moves <= delayKeepsFirstMoves) List(js)
-              else
-                buffer.enqueue(js)
-                (buffer.size > delayMovesBy) ?? List(buffer.dequeue())
-            }
             .mapMaterializedValue { queue =>
               val clocks = for
                 clk        <- game.clock
@@ -62,7 +51,6 @@ final class ApiMoveStream(
                   yield (white, black)
                   queue offer toJson(
                     Fen write s,
-                    s.color,
                     s.board.history.lastMove.map(_.uci),
                     clk
                   )
@@ -85,25 +73,29 @@ final class ApiMoveStream(
                   Bus.unsubscribe(sub, chans)
                 }
             }
+            .pipe: source =>
+              if delayMoves
+              then source.delay(delayMovesBy(game), akka.stream.DelayOverflowStrategy.emitEarly)
+              else source
     }
   end apply
+
+  private def delayMovesBy(game: Game): FiniteDuration =
+    game.clock
+      .fold(60): clock =>
+        (clock.config.estimateTotalSeconds / 60) atLeast 3 atMost 60
+      .seconds
 
   private def toJson(game: Game, fen: Fen.Epd, lastMoveUci: Option[String]): JsObject =
     toJson(
       fen,
-      game.turnColor,
       lastMoveUci,
       game.clock.map { clk =>
         (clk.remainingTime(chess.White), clk.remainingTime(chess.Black))
       }
     )
 
-  private def toJson(
-      fen: Fen.Epd,
-      turnColor: Color,
-      lastMoveUci: Option[String],
-      clock: Option[PairOf[Centis]]
-  ): JsObject =
+  private def toJson(fen: Fen.Epd, lastMoveUci: Option[String], clock: Option[PairOf[Centis]]): JsObject =
     clock.foldLeft(
       Json
         .obj("fen" -> fen)

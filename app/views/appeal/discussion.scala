@@ -5,10 +5,9 @@ import controllers.routes
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 import play.api.data.Form
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import views.html.appeal.tree
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
@@ -30,7 +29,7 @@ object discussion:
       markedByMe: Boolean
   )
 
-  def apply(appeal: Appeal, me: User, textForm: Form[String])(implicit ctx: Context) =
+  def apply(appeal: Appeal, me: User, textForm: Form[?])(using Context) =
     bits.layout("Appeal") {
       main(cls := "page-small box box-pad appeal")(
         renderAppeal(appeal, textForm, Right(me))
@@ -39,9 +38,9 @@ object discussion:
 
   def show(
       appeal: Appeal,
-      textForm: Form[String],
+      textForm: Form[?],
       modData: ModData
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     bits.layout(s"Appeal by ${modData.suspect.user.username}") {
       main(cls := "box box-pad appeal")(
         renderAppeal(appeal, textForm, Left(modData)),
@@ -78,9 +77,9 @@ object discussion:
 
   private def renderAppeal(
       appeal: Appeal,
-      textForm: Form[String],
+      textForm: Form[?],
       as: Either[ModData, User]
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     frag(
       h1(
         div(cls := "title")(
@@ -114,7 +113,7 @@ object discussion:
               if (as.isRight) momentFromNowOnce(msg.at)
               else momentFromNowServer(msg.at)
             ),
-            div(cls := "appeal__msg__text")(richText(msg.text))
+            div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
           )
         },
         as.left.exists(_.markedByMe) option div(dataIcon := "", cls := "marked-by-me text")(
@@ -133,7 +132,7 @@ object discussion:
       )
     )
 
-  private def renderMark(suspect: User)(implicit ctx: Context) =
+  private def renderMark(suspect: User)(using ctx: Context) =
     val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
     if (suspect.enabled.no || query.contains("alt")) tree.closedByModerators
     else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
@@ -142,7 +141,7 @@ object discussion:
     else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
     else tree.cleanAllGood
 
-  private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(implicit ctx: Context) =
+  private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
     if (appeal isAbout userId) userIdLink(userId.some, params = asMod ?? "?mod")
     else
       span(
@@ -154,9 +153,7 @@ object discussion:
         )
       )
 
-  def renderForm(form: Form[String], action: String, isNew: Boolean, presets: Option[ModPresets])(using
-      ctx: Context
-  ) =
+  def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using Context) =
     postForm(st.action := action)(
       form3.globalError(form),
       form3.group(
@@ -178,7 +175,14 @@ object discussion:
             ),
             isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Edit presets")
           ),
-          form3.submit(trans.send())
+          form3.submit(
+            "Send and process appeal",
+            nameValue = ("process" -> true.toString).some
+          ),
+          form3.submit(
+            trans.send(),
+            nameValue = ("process" -> false.toString).some
+          )
         )
       } getOrElse form3.submit(trans.send())
     )

@@ -21,7 +21,7 @@ object PuzzlePath:
 final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
 
   import BsonHandlers.given
-  import PuzzlePath.{ *, given }
+  import PuzzlePath.*
 
   def nextFor(
       user: User,
@@ -67,5 +67,5 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
   )
 
   def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
-    _.fold(true)(_ < nowDate.minusDays(1).getMillis)
+    _.fold(true)(_ < nowInstant.minusDays(1).toMillis)
   }

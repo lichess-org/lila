@@ -2,7 +2,7 @@ package lila.common
 
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.vladsch.flexmark.ext.tables.TablesExtension
+import com.vladsch.flexmark.ext.tables.{ TablesExtension, TableBlock }
 import com.vladsch.flexmark.html.{
   AttributeProvider,
   HtmlRenderer,
@@ -25,15 +25,15 @@ import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDa
 import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import io.mola.galimatias.URL
-import scala.collection.JavaConverters
 import java.util.Arrays
+import scala.collection.Set
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
-import chess.format.pgn.Pgn
 import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
 import chess.format.pgn.PgnStr
+import lila.common.config.AssetDomain
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -43,19 +43,23 @@ final class MarkdownRender(
     blockQuote: Boolean = false,
     list: Boolean = false,
     code: Boolean = false,
-    gameExpand: Option[MarkdownRender.GameExpand] = None
+    gameExpand: Option[MarkdownRender.GameExpand] = None,
+    assetDomain: Option[AssetDomain] = None
 ):
-  import MarkdownRender.Key
 
-  private val extensions = new java.util.ArrayList[com.vladsch.flexmark.util.misc.Extension]()
-  if (table) extensions.add(TablesExtension.create())
+  private val extensions = java.util.ArrayList[Extension]()
+  if (table)
+    extensions.add(TablesExtension.create())
+    extensions.add(MarkdownRender.tableWrapperExtension)
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
-  if (autoLink) extensions.add(AutolinkExtension.create())
+  if (autoLink)
+    extensions.add(AutolinkExtension.create())
+    extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
   extensions.add(
-    gameExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { new MarkdownRender.GameEmbedExtension(_) }
+    gameExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.GameEmbedExtension(_) }
   )
 
-  private val options = new MutableDataSet()
+  private val options = MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
     .set(HtmlRenderer.ESCAPE_HTML, Boolean box true)
     .set(HtmlRenderer.SOFT_BREAK, "<br>")
@@ -86,7 +90,7 @@ final class MarkdownRender(
     tooManyUnderscoreRegex.replaceAllIn(text.value, "_" * 3)
   )
 
-  def apply(key: Key, pgns: Map[String, Pgn] = Map.empty)(text: Markdown): Html = Html {
+  def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html {
     Chronometer
       .sync {
         try renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)).value))
@@ -108,26 +112,9 @@ object MarkdownRender:
 
   private val rel = "nofollow noopener noreferrer"
 
-  private object WhitelistedImageExtension extends HtmlRenderer.HtmlRendererExtension:
-    override def rendererOptions(options: MutableDataHolder) = ()
-    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
-      htmlRendererBuilder
-        .nodeRendererFactory(new NodeRendererFactory {
-          override def apply(options: DataHolder) = WhitelistedImageNodeRenderer
-        })
-        .unit
-  private object WhitelistedImageNodeRenderer extends NodeRenderer:
-    override def getNodeRenderingHandlers() =
-      new java.util.HashSet(
-        Arrays.asList(
-          new NodeRenderingHandler(
-            classOf[Image],
-            render _
-          )
-        )
-      )
+  private object WhitelistedImage:
 
-    private val whitelist =
+    private val whitelist = AssetDomain.from:
       List(
         "imgur.com",
         "giphy.com",
@@ -143,44 +130,54 @@ object MarkdownRender:
         "i.ibb.co",
         "i.postimg.cc",
         "xkcd.com",
-        "lichess1.org"
+        "images.prismic.io"
       )
-    private def whitelistedSrc(src: String): Option[String] =
-      for {
-        url <- Try(URL.parse(src)).toOption
-        if url.scheme == "http" || url.scheme == "https"
-        host <- Option(url.host).map(_.toHostString)
-        if whitelist.exists(h => host == h || host.endsWith(s".$h"))
-      } yield url.toString
 
-    private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
-      // Based on implementation in CoreNodeRenderer.
-      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
-        context.renderChildren(node)
-      else
-        {
-          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-          val url          = resolvedLink.getUrl()
-          val altText      = new TextCollectingVisitor().collectAndGetText(node)
-          whitelistedSrc(url) match
-            case Some(src) =>
-              html
-                .srcPos(node.getChars())
-                .attr("src", src)
-                .attr("alt", altText)
-                .attr(resolvedLink.getNonNullAttributes())
-                .withAttr(resolvedLink)
-                .tagVoid("img")
-            case None =>
-              html
-                .srcPos(node.getChars())
-                .attr("href", url)
-                .attr("rel", rel)
-                .withAttr(resolvedLink)
-                .tag("a")
-                .text(altText)
-                .tag("/a")
-        }.unit
+    private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
+      url <- Try(URL.parse(src)).toOption
+      if url.scheme == "http" || url.scheme == "https"
+      host <- Option(url.host).map(_.toHostString)
+      if (assetDomain.toList ::: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))
+    yield url.toString
+
+    def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
+      override def rendererOptions(options: MutableDataHolder) = ()
+      override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+        htmlRendererBuilder
+          .nodeRendererFactory(new NodeRendererFactory {
+            override def apply(options: DataHolder) = new NodeRenderer:
+              override def getNodeRenderingHandlers() =
+                Set(NodeRenderingHandler(classOf[Image], render _)).asJava
+          })
+
+      private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
+        // Based on implementation in CoreNodeRenderer.
+        if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+          context.renderChildren(node)
+        else
+          {
+            val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+            val url          = resolvedLink.getUrl()
+            val altText      = new TextCollectingVisitor().collectAndGetText(node)
+            whitelistedSrc(url, assetDomain) match
+              case Some(src) =>
+                html
+                  .srcPos(node.getChars())
+                  .attr("src", src)
+                  .attr("alt", altText)
+                  .attr(resolvedLink.getNonNullAttributes())
+                  .withAttr(resolvedLink)
+                  .tagVoid("img")
+              case None =>
+                html
+                  .srcPos(node.getChars())
+                  .attr("href", url)
+                  .attr("rel", rel)
+                  .withAttr(resolvedLink)
+                  .tag("a")
+                  .text(altText)
+                  .tag("/a")
+          }.unit
 
   private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
@@ -277,3 +274,19 @@ object MarkdownRender:
       if ((node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK)
         attributes.replaceValue("rel", rel).unit
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href"))).unit
+
+  private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory(
+      new NodeRendererFactory:
+        override def apply(options: DataHolder) = new NodeRenderer:
+          override def getNodeRenderingHandlers() = Set(
+            new NodeRenderingHandler(
+              classOf[TableBlock],
+              (node: TableBlock, context: NodeRendererContext, html: HtmlWriter) =>
+                html.withAttr().attr("class", "slist-wrapper").tag("div")
+                context.delegateRender();
+                html.tag("/div")
+            )
+          ).asJava
+    )

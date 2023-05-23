@@ -1,7 +1,7 @@
 package lila.importer
 
 import cats.data.Validated
-import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader, Tag, TagType, Tags }
+import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
 import chess.{ Color, Mode, Outcome, Replay, Status, ErrorStr }
 import play.api.data.*
@@ -42,8 +42,6 @@ case class Preprocessed(
 
 case class ImportData(pgn: PgnStr, analyse: Option[String]):
 
-  private type TagPicker = Tag.type => TagType
-
   private val maxPlies = 600
 
   private def evenIncomplete(result: Reader.Result): Replay =
@@ -78,7 +76,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
           } map Fen.write
 
           val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-            case Some("normal")                          => Status.Resign
+            case Some("normal")                          => game.situation.status | Status.Resign
             case Some("abandoned")                       => Status.Aborted
             case Some("time forfeit")                    => Status.Outoftime
             case Some("rules infraction")                => Status.Cheat

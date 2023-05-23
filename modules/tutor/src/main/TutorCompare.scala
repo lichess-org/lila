@@ -1,7 +1,7 @@
 package lila.tutor
 
 import lila.common.Heapsort.topN
-import lila.insight.{ InsightDimension, InsightMetric }
+import lila.insight.InsightDimension
 
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],

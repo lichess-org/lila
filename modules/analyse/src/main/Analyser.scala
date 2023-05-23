@@ -10,8 +10,6 @@ final class Analyser(
     analysisRepo: AnalysisRepo
 )(using Executor):
 
-  import AnalyseBsonHandlers.*
-
   def get(game: Game): Fu[Option[Analysis]] =
     analysisRepo byGame game
 

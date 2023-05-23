@@ -4,7 +4,7 @@ import com.softwaremill.tagging.*
 
 import lila.common.config
 import lila.fishnet.{ Analyser, FishnetAwaiter, Work }
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 import lila.insight.InsightPerfStats
 import lila.memo.SettingStore
 import lila.rating.PerfType

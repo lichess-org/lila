@@ -121,7 +121,8 @@
       padding-#{$start-direction}: 7px;
     }
 
-    td:nth-child(2) {
+    td:nth-child(2),
+    td:nth-child(3) {
       font-size: 0.75em;
       text-align: right;
     }

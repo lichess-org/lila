@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scala.util.{ Failure, Success }
 
-import lila.app.{ given, * }
+import lila.app.*
 import lila.fishnet.JsonApi.readers.given
 import lila.fishnet.JsonApi.writers.given
 import lila.fishnet.{ JsonApi, Work }
@@ -51,27 +51,24 @@ final class Fishnet(env: Env) extends LilaController(env):
       api.abort(Work.Id(workId), client) inject Right(none)
     }
 
-  def keyExists(key: String) =
-    Action.async { _ =>
-      api keyExists lila.fishnet.Client.Key(key) map {
-        case true  => Ok
-        case false => NotFound
-      }
+  def keyExists(key: String) = Anon:
+    api keyExists lila.fishnet.Client.Key(key) map {
+      if _ then Ok
+      else NotFound
     }
 
-  val status = Action.async {
+  val status = Anon:
     api.status map { JsonStrOk(_) }
-  }
 
   private def ClientAction[A <: JsonApi.Request](
       f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]]
   )(using Reads[A]) =
-    Action.async(parse.tolerantJson) { req =>
-      req.body
+    AnonBodyOf(parse.tolerantJson): body =>
+      body
         .validate[A]
         .fold(
           err => {
-            logger.warn(s"Malformed request: $err\n${req.body}")
+            logger.warn(s"Malformed request: $err\n${body}")
             BadRequest(jsonError(JsError toJson err)).toFuccess
           },
           data =>
@@ -85,4 +82,3 @@ final class Fishnet(env: Env) extends LilaController(env):
                 }
             }
         )
-    }

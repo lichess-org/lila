@@ -83,6 +83,19 @@ export function ctrl(
   };
 }
 
+async function writePgnClipboard(url: string): Promise<void> {
+  // Firefox does not support `ClipboardItem`
+  if (typeof ClipboardItem === 'undefined') {
+    const pgn = await xhrText(url);
+    return navigator.clipboard.writeText(pgn);
+  } else {
+    const clipboardItem = new ClipboardItem({
+      'text/plain': xhrText(url).then(pgn => new Blob([pgn], { type: 'text/plain' })),
+    });
+    return navigator.clipboard.write([clipboardItem]);
+  }
+}
+
 export function view(ctrl: StudyShareCtrl): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
@@ -148,12 +161,20 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 attrs: {
                   'data-icon': '',
                   title: ctrl.trans.noarg('copyChapterPgnDescription'),
+                  tabindex: '0',
                 },
                 hook: bind('click', async event => {
-                  const pgn = await xhrText(`/study/${studyId}/${ctrl.chapter().id}.pgn`);
-                  await navigator.clipboard.writeText(pgn);
-                  (event.target as HTMLElement).setAttribute('data-icon', '');
-                  setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
+                  const iconFeedback = (success: boolean) => {
+                    (event.target as HTMLElement).setAttribute('data-icon', success ? '' : '');
+                    setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
+                  };
+                  writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`).then(
+                    () => iconFeedback(true),
+                    err => {
+                      console.log(err);
+                      iconFeedback(false);
+                    }
+                  );
                 }),
               },
               ctrl.trans.noarg('copyChapterPgn')

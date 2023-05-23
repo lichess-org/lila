@@ -65,7 +65,7 @@ Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu sp
  Er kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>
   <string name="lateJoinA">Ja, bis mehr als die Hälfte der Runden begonnen wurden; so können Spieler zum Beispiel an einem elfründigen Turnier nach Schweizer System vor dem Beginn der Runde 6 und in einem zwölfründigen vor Beginn der Runde 7 beitreten. Späteinsteiger erhalten einen halben Punkt gutgeschrieben, auch wenn sie mehrere Runden verpasst haben.</string>
-  <string name="willSwissReplaceArenasQ">Werden Turniere nach Schweizer System Arena-Turniere ersetzen?</string>
+  <string name="willSwissReplaceArenasQ">Werden nach Schweizer System-Turniere Arena-Turniere ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nein. Sie sind komplementäre Funktionen.</string>
   <string name="roundRobinQ">Was ist mit Rundenturnieren?</string>
   <string name="roundRobinA">Wir möchten es hinzufügen, aber leider funktionieren Rundenturniere online nicht.
@@ -104,8 +104,4 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
   <string name="predefinedUsers">Nur vordefinierten Benutzern erlauben beizutreten</string>
   <string name="forbiddedUsers">Falls diese Liste nicht leer ist, können nicht aufgeführte Benutzer nicht teilnehmen. Ein Benutzername pro Zeile.</string>
-  <plurals name="xOutOfYRoundsSwiss">
-    <item quantity="one">%1$s / %2$s Runden Schweizer System</item>
-    <item quantity="other">%1$s / %2$s Runden Schweizer System</item>
-  </plurals>
 </resources>

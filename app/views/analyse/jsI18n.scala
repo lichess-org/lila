@@ -2,7 +2,7 @@ package views.html.analyse
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.*
 import lila.i18n.{ I18nKeys as trans }
 import views.html.board.{ userAnalysisI18n as board }
 
@@ -69,8 +69,6 @@ object jsI18n:
         trans.multipleLines,
         trans.cpus,
         trans.memory,
-        trans.delete,
-        trans.deleteThisImportedGame,
         trans.replayMode,
         trans.slow,
         trans.fast,

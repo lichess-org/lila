@@ -32,19 +32,13 @@ export interface SimulData {
     text: string;
     author: string;
   };
-  team?: Team;
+  canJoin: boolean;
 }
 
 export interface Variant {
   key: VariantKey;
   name: string;
   icon: string;
-}
-
-export interface Team {
-  id: string;
-  name: string;
-  isIn: boolean;
 }
 
 export interface Player extends LightUserOnline {

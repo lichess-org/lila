@@ -209,6 +209,7 @@
   <string name="forgotPassword">Unustasid parooli?</string>
   <string name="error.weakPassword">See parool on väga levinud ning liiga lihtne arvata.</string>
   <string name="error.namePassword">Palun ära kasuta oma kasutajanime paroolina.</string>
+  <string name="blankedPassword">Olete kasutanud sama parooli mõnel teisel kompromiseeritud lehel. Teie Lichess konto turvalisuse kaitsmiseks palume teil seada uus parool. Tänan mõistva suhtumise eest.</string>
   <string name="youAreLeavingLichess">Lahkud Lichessist</string>
   <string name="neverTypeYourPassword">Ära kirjuta oma Lichessi parooli teisele leheküljele!</string>
   <string name="passwordSuggestion">Ära kasuta kellegi teise poolt soovitatud parooli. Nad võivad su konto kaaperdada.</string>
@@ -861,6 +862,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="useTheReportForm">kasuta selleks ettenähtud vormi</string>
   <string name="toRequestSupport">Abi saamiseks, %1$s</string>
   <string name="tryTheContactPage">proovi kontakti lehte</string>
+  <string name="makeSureToRead">Loe ka kindlasti %1$s</string>
+  <string name="theForumEtiquette">foorumi etikett</string>
   <string name="thisTopicIsArchived">See teema on arhiveeritud ja sellele ei saa enam vastata.</string>
   <string name="joinTheTeamXToPost">Ühine %1$s-ga et sellesse foorumisse postitada</string>
   <string name="teamNamedX">%1$s võistkond</string>
@@ -944,4 +947,5 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="lichessDbExplanation">Reitinguga mängud kõikidelt Lichessi mängijatelt</string>
   <string name="switchSides">Vaheta pooli</string>
   <string name="closingAccountWithdrawAppeal">Konto sulgemine tühistab teie kaebuse</string>
+  <string name="ourEventTips">Meie nõuanded ürituste korraldamiseks</string>
 </resources>

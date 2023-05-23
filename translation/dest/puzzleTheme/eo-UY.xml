@@ -11,6 +11,7 @@
   <string name="attackingF2F7">Atako al f2 aŭ f7</string>
   <string name="attraction">Altiro</string>
   <string name="attractionDescription">Interŝanĝo aŭ ofero kiu instigas aŭ trudas kontraŭulan ŝakpecon al kvadrato ke ebligas taktikon.</string>
+  <string name="backRankMateDescription">Ŝakmati la reĝo sur la hejmrango, kiam ĝi estas kaptita per ĝiaj propraj ŝakpecoj.</string>
   <string name="bishopEndgame">Kuriera finaĵo</string>
   <string name="bishopEndgameDescription">Finaĵo nur kun kurieroj kaj peonoj.</string>
   <string name="bodenMate">Boden ŝakmato</string>

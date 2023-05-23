@@ -3,11 +3,13 @@ package html.swiss
 
 import controllers.routes
 
-import lila.api.{ Context, given }
+import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
-import lila.swiss.{ Swiss, SwissCondition }
+import lila.swiss.Swiss
+import lila.gathering.Condition
+import lila.gathering.Condition.WithVerdicts
 
 object side:
 
@@ -15,12 +17,10 @@ object side:
 
   def apply(
       s: Swiss,
-      verdicts: SwissCondition.All.WithVerdicts,
+      verdicts: WithVerdicts,
       streamers: List[UserId],
       chat: Boolean
-  )(using
-      ctx: Context
-  ) =
+  )(using ctx: Context) =
     frag(
       div(cls := "swiss__meta")(
         st.section(dataIcon := s.perfType.iconChar.toString)(
@@ -59,45 +59,11 @@ object side:
           )
         },
         teamLink(s.teamId),
-        if (verdicts.relevant)
-          st.section(
-            dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
-                         else ""),
-            cls := List(
-              "conditions" -> true,
-              "accepted"   -> (ctx.isAuth && verdicts.accepted),
-              "refused"    -> (ctx.isAuth && !verdicts.accepted)
-            )
-          )(
-            div(
-              verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
-              verdicts.list map { v =>
-                p(
-                  cls := List(
-                    "condition" -> true,
-                    "accepted"  -> (ctx.isAuth && v.verdict.accepted),
-                    "refused"   -> (ctx.isAuth && !v.verdict.accepted)
-                  ),
-                  title := v.verdict.reason.map(_(ctx.lang))
-                )(v.verdict match {
-                  case SwissCondition.RefusedUntil(until) =>
-                    frag(
-                      "Because you missed your last swiss game, you cannot enter a new swiss tournament until ",
-                      absClientDateTime(until),
-                      "."
-                    )
-                  case _ => v.condition.name(s.perfType)
-                })
-              }
-            )
-          )
-        else br,
+        views.html.gathering.verdicts(verdicts, s.perfType) | br,
         small(trans.by(userIdLink(s.createdBy.some))),
         br,
-        absClientDateTime(s.startsAt)
+        absClientInstant(s.startsAt)
       ),
-      streamers.nonEmpty option div(cls := "context-streamers")(
-        streamers map views.html.streamer.bits.contextual
-      ),
+      views.html.streamer.bits.contextual(streamers),
       chat option views.html.chat.frag
     )

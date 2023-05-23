@@ -1,8 +1,6 @@
 package lila.mod
 
-import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.*
-import reactivemongo.api.ReadPreference
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
@@ -38,18 +36,19 @@ final class ModQueueStats(
       .cursor[Bdoc](temporarilyPrimary)
       .listAll()
       .map { docs =>
-        for {
+        for
           doc     <- docs
           dateStr <- doc.string("_id")
-          date    <- Try(dateFormat parseDateTime dateStr).toOption
-          data    <- doc.getAsOpt[List[Bdoc]]("data")
-        } yield date -> {
-          for {
+          date <- Try(java.time.LocalDate.parse(dateStr, dateFormat)).toOption
+            .map(_.atStartOfDay.instant)
+          data <- doc.getAsOpt[List[Bdoc]]("data")
+        yield date -> {
+          for
             entry <- data
             nb    <- entry.int("nb")
             room  <- entry.string("room")
             score <- entry.int("score")
-          } yield (room, score, nb)
+          yield (room, score, nb)
         }
       }
       .map { days =>
@@ -57,7 +56,7 @@ final class ModQueueStats(
           period,
           Json.obj(
             "common" -> Json.obj(
-              "xaxis" -> days.map(_._1.getMillis)
+              "xaxis" -> days.map(_._1.toMillis)
             ),
             "rooms" -> Room.values
               .map { room => room.key -> room.name }
