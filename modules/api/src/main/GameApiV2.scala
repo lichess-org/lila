@@ -39,10 +39,11 @@ final class GameApiV2(
 
   def exportOne(game: Game, configInput: OneConfig): Fu[String] = {
     val config = configInput.copy(
-      flags = configInput.flags.copy(
-        delayMoves = (game.playable && !configInput.noDelay) ?? 3,
-        evals = configInput.flags.evals && !game.playable
-      )
+      flags = configInput.flags
+        .copy(
+          evals = configInput.flags.evals && !game.playable,
+          delayMoves = !configInput.noDelay
+        )
     )
     game.notationImport ifTrue config.imported match {
       case Some(imported) if config.flags.csa == imported.isCsa => fuccess(imported.notation)
@@ -139,7 +140,7 @@ final class GameApiV2(
       config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
         gameRepo
           .sortedCursor(
-            $inIds(config.ids) ++ Query.finished,
+            $inIds(config.ids),
             Query.sortCreated,
             batchSize = config.perSecond.value
           )
@@ -300,7 +301,9 @@ final class GameApiV2(
       )
       .add("initialSfen" -> g.initialSfen)
       .add("winner" -> g.winnerColor.map(_.name))
-      .add("moves" -> withFlags.moves.option(g.usiMoves.map(_.usi) mkString " "))
+      .add("moves" -> withFlags.moves.option {
+        withFlags keepDelayIf g.playable applyDelay g.usiMoves.map(_.usi) mkString " "
+      })
       .add("notation" -> notation)
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
@@ -370,7 +373,7 @@ object GameApiV2 {
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond,
-      playerFile: Option[String]
+      playerFile: Option[String] = None
   ) extends Config
 
   case class ByTournamentConfig(

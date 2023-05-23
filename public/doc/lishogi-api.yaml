@@ -51,6 +51,10 @@ tags:
   description: |
     Access games played on Lishogi.
     <https://lishogi.org/games>
+- name: TV
+  description: |
+    Access Lishogi TV channels and games.
+    <https://lishogi.org/tv> & <https://lishogi.org/games>
 - name: Puzzles
   description: |
     Access Lishogi [puzzle history and dashboard](https://lishogi.org/training).
@@ -1076,6 +1080,207 @@ paths:
             application/x-ndjson:
               schema:
                 $ref: '#/components/schemas/MoveStream'
+
+  /api/tv/channels:
+    get:
+      operationId: tvChannels
+      summary: Get current TV games
+      description: |
+        Get basic info about the best games being played for each speed and variant,
+        but also computer games and bot games.
+
+        See [lishogi.org/tv](https://lishogi.org/tv).
+      tags:
+        - TV
+      security: []
+      responses:
+        "200":
+          description: The list of games being played for each speed and variant.
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                default: "'*'"
+          content:
+            application/json:
+              schema:
+                example: {
+                  "Bot": {
+                      "user": {
+                          "name": "o_moli_e_mi",
+                          "id": "o_moli_e_mi"
+                      },
+                      "rating": 1500,
+                      "gameId": "n35AmydN"
+                  },
+                  "UltraBullet": {
+                      "user": {
+                          "name": "vnamese_shogi_player",
+                          "id": "vnamese_shogi_player"
+                      },
+                      "rating": 1502,
+                      "gameId": "e13EEMJH"
+                  },
+                  "Bullet": {
+                      "user": {
+                          "name": "Harururu",
+                          "id": "harururu"
+                      },
+                      "rating": 1175,
+                      "gameId": "SplWCERy"
+                  },
+                  "Classical": {
+                      "user": {
+                          "name": "it",
+                          "id": "it"
+                      },
+                      "rating": 1611,
+                      "gameId": "Qs6A7q6X"
+                  },
+                  "Computer": {
+                      "user": {
+                          "name": "meikawa",
+                          "id": "meikawa"
+                      },
+                      "rating": 1500,
+                      "gameId": "YcpXkcMi"
+                  },
+                  "Rapid": {
+                      "user": {
+                          "name": "Sereon",
+                          "id": "sereon"
+                      },
+                      "rating": 1500,
+                      "gameId": "doJVE9uH"
+                  },
+                  "Top Rated": {
+                      "user": {
+                          "name": "meikawa",
+                          "id": "meikawa"
+                      },
+                      "rating": 1500,
+                      "gameId": "CUPfcBlg"
+                  },
+                  "Blitz": {
+                      "user": {
+                          "name": "nekomiya_tank",
+                          "id": "nekomiya_tank"
+                      },
+                      "rating": 1930,
+                      "gameId": "nOYWf3Tc"
+                  },
+                  "Minishogi": {
+                      "user": {
+                          "name": "Chakalnikov",
+                          "id": "chakalnikov"
+                      },
+                      "rating": 1500,
+                      "gameId": "snDhiKtA"
+                  }
+                }
+
+  /api/tv/feed:
+    get:
+      operationId: tvFeed
+      summary: Stream current TV game
+      description: |
+        Stream positions and moves of the current [TV game](https://lishogi.org/tv) in [ndjson](#section/Introduction/Streaming-with-ND-JSON).
+        A summary of the game is sent as a first message, and when the featured game changes.
+
+        Try it with `curl https://lishogi.org/api/tv/feed`.
+      tags:
+        - TV
+      security: []
+      responses:
+        "200":
+          description: The stream of the current TV game.
+          content:
+            application/x-ndjson:
+              schema:
+                example: {
+                  "t": "featured",
+                  "d": {
+                    "id": "ACy7ndl5",
+                    "orientation": "gote",
+                    "players": [
+                      {
+                        "color": "sente",
+                        "user": { "name": "proudly", "id": "proudly" },
+                        "rating": 1887
+                      },
+                      {
+                        "color": "gote",
+                        "user": { "name": "Fortissimo", "id": "fortissimo" },
+                        "rating": 2176
+                      }
+                    ],
+                    "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"
+                  }
+                }
+
+  /api/tv/{channel}:
+    get:
+      operationId: tvChannelGames
+      summary: Get best ongoing games of a TV channel
+      description: |
+        Get a list of ongoing games for a given TV channel. Similar to [lishogi.org/games](https://lishogi.org/games).
+
+        Available in kifu or [ndjson](#section/Introduction/Streaming-with-ND-JSON) format, depending on the request Accept header.
+      tags:
+        - TV
+      security: []
+      parameters:
+        - in: path
+          name: channel
+          description: The name of the channel in camel case.
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: nb
+          description: Number of games to fetch.
+          schema:
+            type: number
+            default: 10
+            minimum: 1
+            maximum: 30
+        - in: query
+          name: moves
+          description: Include the KIF moves.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: notationInJson
+          description: Include the full KIF within the JSON response, in a `notation` field.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: tags
+          description: Include the KIF tags.
+          schema:
+            type: boolean
+            default: true
+        - in: query
+          name: clocks
+          description: |
+            Include clock comments in the KIF moves, when available.
+
+            Example: `2. exd5 { [%clk 1:01:27] } e5 { [%clk 1:01:28] }`
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: The representation of the games.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GameKif'
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/GameJson'
 
   /api/tournament:
     get:

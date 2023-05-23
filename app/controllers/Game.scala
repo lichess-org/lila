@@ -128,11 +128,7 @@ final class Game(
         .GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
           env.api.gameApiV2.exportByIds(config)
         ) { source =>
-          Ok.chunked(source)
-            .withHeaders(
-              noProxyBufferHeader
-            )
-            .as(gameContentType(config))
+          noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
         }
         .fuccess
     }
