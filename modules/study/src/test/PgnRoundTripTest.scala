@@ -20,7 +20,7 @@ import lila.db.BSON.Writer
 import lila.db.BSON.Reader
 import lila.db.dsl.Bdoc
 
-class PgnRoundTripTest extends lila.common.LilaTest:
+class PgnRoundTripTest extends munit.FunSuite:
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value

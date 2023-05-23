@@ -8,7 +8,7 @@ import Node.*
 
 import lila.tree.{ Branch, Branches, Root }
 
-class PgnDumpTest extends lila.common.LilaTest {
+class PgnDumpTest extends munit.FunSuite:
 
   given Conversion[Int, Ply] = Ply(_)
 
@@ -33,16 +33,14 @@ class PgnDumpTest extends lila.common.LilaTest {
 
   import Helpers.rootToPgn
 
-  test("empty") {
+  test("empty"):
     assertEquals(rootToPgn(root).value, "")
-  }
 
-  test("one move") {
+  test("one move"):
     val tree = root.copy(children = children(node(0, "e2e4", "e4")))
     assertEquals(rootToPgn(tree).value, "1. e4")
-  }
 
-  test("one move and variation") {
+  test("one move and variation"):
     val tree = root.copy(children =
       children(
         node(0, "e2e4", "e4"),
@@ -50,9 +48,8 @@ class PgnDumpTest extends lila.common.LilaTest {
       )
     )
     assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3)")
-  }
 
-  test("two moves and one variation") {
+  test("two moves and one variation"):
     val tree = root.copy(children =
       children(
         node(
@@ -67,9 +64,8 @@ class PgnDumpTest extends lila.common.LilaTest {
       )
     )
     assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3) 1... d5")
-  }
 
-  test("two moves and two variations") {
+  test("two moves and two variations"):
     val tree = root.copy(children =
       children(
         node(
@@ -85,9 +81,8 @@ class PgnDumpTest extends lila.common.LilaTest {
       )
     )
     assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3) 1... d5 (1... Nf6)")
-  }
 
-  test("more moves and variations") {
+  test("more moves and variations"):
     val tree = root.copy(children =
       children(
         node(
@@ -136,6 +131,3 @@ class PgnDumpTest extends lila.common.LilaTest {
       rootToPgn(tree).value,
       "1. e4 (1. Nf3 a6 (1... b6 2. c4)) 1... d5 (1... Nf6 2. h4) 2. a3 (2. b3)"
     )
-  }
-
-}
