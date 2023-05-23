@@ -1138,6 +1138,7 @@ object I18nKeys:
     val `inviteToTheStudy` = I18nKey("study:inviteToTheStudy")
     val `pleaseOnlyInvitePeopleYouKnow` = I18nKey("study:pleaseOnlyInvitePeopleYouKnow")
     val `searchByUsername` = I18nKey("study:searchByUsername")
+    val `removeRecentlySearchedPlayer` = I18nKey("study:removeRecentlySearchedPlayer")
     val `spectator` = I18nKey("study:spectator")
     val `contributor` = I18nKey("study:contributor")
     val `kick` = I18nKey("study:kick")

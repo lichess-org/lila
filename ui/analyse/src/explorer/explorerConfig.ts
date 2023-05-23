@@ -341,15 +341,30 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             name => !ctrl?.myName || name?.localeCompare(ctrl.myName, undefined, { sensitivity: 'accent' })
           ),
           ...ctrl.data.playerName.previous(),
-        ].map(name =>
-          h(
-            `button.button${name == ctrl.myName ? '.button-green' : ''}`,
+        ].map(name => {
+          const selfButton = name == ctrl.myName;
+          return h(
+            `button.button${selfButton ? '.button-green' : ''}`,
             {
               hook: bind('click', () => onSelect(name)),
             },
-            name
-          )
-        )
+            selfButton || ctrl.participants.includes(name)
+              ? name
+              : [
+                  name,
+                  h('button.remove', {
+                    attrs: {
+                      'aria-label': 'Remove player',
+                      title: ctrl.root.trans.noarg('removeRecentlySearchedPlayer'),
+                      ...dataIcon(''),
+                    },
+                    hook: bind('click', e => {
+                      e.stopPropagation();
+                    }),
+                  }),
+                ]
+          );
+        })
       ),
     ],
   });

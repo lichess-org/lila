@@ -176,6 +176,7 @@ object userAnalysisI18n:
     trans.lossSavedBy50MoveRule,
     trans.allSet,
     trans.study.searchByUsername,
+    trans.study.removeRecentlySearchedPlayer,
     trans.mode,
     trans.rated,
     trans.casual,

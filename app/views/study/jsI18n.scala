@@ -33,6 +33,7 @@ object jsI18n:
       inviteToTheStudy,
       pleaseOnlyInvitePeopleYouKnow,
       searchByUsername,
+      removeRecentlySearchedPlayer,
       spectator,
       contributor,
       kick,

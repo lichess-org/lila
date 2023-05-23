@@ -120,6 +120,11 @@
       .button {
         margin: 0.3em 0.2em;
         text-transform: none;
+
+        .remove {
+          position: relative;
+          left: 18%;
+        }
       }
     }
   }
