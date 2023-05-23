@@ -24,6 +24,42 @@ object PgnFixtures:
 
   """
 
+  val pgn3 = """
+[Event "nt9's Study: Chapter 3"]
+[Site "https://lichess.org/study/Q41XcI0B/ypuKuiI4"]
+[Result "*"]
+[UTCDate "2023.04.30"]
+[UTCTime "14:43:04"]
+[Variant "Standard"]
+[ECO "A40"]
+[Opening "Queen's Pawn Game"]
+[Annotator "https://lichess.org/@/nt9"]
+
+{ shape glyphs }
+1. d4 c6 (1... f6 2. c3?? $15 $138 $36 { jjjjjjjj } { [%csl Gd7,Re7,Bf6,Yh7,Yb7][%cal Gh4f4,Gf2e4] } (2. h4)) 2. f4 h5 3. h4 { [%csl Bd4,Gf4,Gf7][%cal Gc2c4,Gd2e4] }
+
+
+  """
+
+  val pgn4 = """
+  [Event "nt9's Study: Chapter 7"]
+  [Site "https://lichess.org/study/Q41XcI0B/JHnNE9Oi"]
+  [Result "*"]
+  [UTCDate "2023.05.23"]
+  [UTCTime "18:15:30"]
+  [Variant "Standard"]
+  [ECO "?"]
+  [Opening "?"]
+  [Annotator "https://lichess.org/@/nt9"]
+  [FEN "rnbqkbnr/pp1ppppp/2p5/8/3P1P2/8/PPP1P1PP/RNBQKBNR b KQkq - 0 2"]
+  [SetUp "1"]
+
+{ custom position with Black to move }
+  2... h5 3. b4
+
+
+"""
+
   val wcc2023 = List(
     """
 [Event "FIDE World Championship 2023"]
@@ -611,5 +647,5 @@ The knight on c6 is less flexible and limits the scope of the light square bisho
 Now we move on to the tie breaks. In the rapid portion, the match should be balanced. However, if it were to proceed to the blitz, I rate Nepo as the favourite. } 1/2-1/2
 """
   )
-  val all       = List(pgn, pgn1, pgn2) ++ wcc2023
-  val roundTrip = List(pgn, pgn1, pgn2)
+  val roundTrip = List(pgn1, pgn2, pgn3, pgn4)
+  val all       = roundTrip ++ wcc2023

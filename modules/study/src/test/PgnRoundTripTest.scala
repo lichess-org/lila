@@ -35,11 +35,10 @@ class PgnRoundTripTest extends lila.common.LilaTest:
 
   test("roundtrip"):
     PgnFixtures.roundTrip
-      .map(cleanTags)
       .foreach: pgn =>
         val imported = PgnImport(pgn, List(user)).toOption.get
         val dumped   = rootToPgn(imported.root)
-        assertEquals(dumped.value, pgn.trim)
+        assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
   given Conversion[Bdoc, Reader] = Reader(_)
   val treeBson                   = summon[BSON[Root]]
@@ -47,12 +46,12 @@ class PgnRoundTripTest extends lila.common.LilaTest:
 
   test("roundtrip with BSONHandlers"):
     PgnFixtures.roundTrip
-      .map(cleanTags)
       .foreach: pgn =>
-        val imported = PgnImport(pgn, List(user)).toOption.get
-        val y        = treeBson.reads(treeBson.writes(w, imported.root))
-        val dumped   = rootToPgn(y)
-        assertEquals(dumped.value, pgn.trim)
+        val imported  = PgnImport(pgn, List(user)).toOption.get
+        val afterBson = treeBson.reads(treeBson.writes(w, imported.root))
+        val dumped    = rootToPgn(afterBson)
+        assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
-  def cleanTags(pgn: String): String =
-    pgn.split("\n").filter(!_.startsWith("[")).mkString("\n")
+  extension (pgn: String)
+    def cleanTags: String =
+      pgn.split("\n").map(_.trim).filterNot(x => x.startsWith("[") || x.isBlank).mkString("\n")
