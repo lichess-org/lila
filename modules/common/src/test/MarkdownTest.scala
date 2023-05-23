@@ -1,10 +1,11 @@
 package lila.common
 
 import chess.format.pgn.PgnStr
+import lila.common.config.AssetDomain
 
 class MarkdownTest extends munit.FunSuite {
 
-  val render: Markdown => Html = new MarkdownRender()("test") _
+  val render: Markdown => Html = new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some)("test") _
 
   test("autolinks add rel") {
     val md = Markdown("https://example.com")

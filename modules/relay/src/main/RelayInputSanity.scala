@@ -3,7 +3,7 @@ package lila.relay
 import lila.study.*
 import chess.format.Fen
 
-/* Try and detect variant ways for the input to be wrong */
+/* Try to detect variant ways for the input to be wrong */
 private object RelayInputSanity:
 
   sealed abstract class Fail(val msg: String)

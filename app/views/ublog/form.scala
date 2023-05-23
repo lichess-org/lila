@@ -112,8 +112,8 @@ object form:
   def formImage(post: UblogPost) =
     postView.thumbnail(post, _.Small)(cls := post.image.isDefined.option("user-image"))
 
-  private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(
-      implicit ctx: Context
+  private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(using
+      Context
   ) =
     postForm(
       cls    := "form3 ublog-post-form__main",
@@ -141,7 +141,7 @@ object form:
       ) { field =>
         frag(
           form3.textarea(field)(),
-          div(id := "markdown-editor")
+          div(id := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
         )
       },
       post.toOption match {

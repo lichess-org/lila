@@ -253,7 +253,7 @@ type Entry = {
   tok?: string; // single char token representation (or multiple for a phrase)
   val?: string; // the string moveHandler receives, default is tok
   subs?: Sub[]; // allowable token transitions calculated by this script
-  tags?: string[]; // classificiation context for this token, used downstream
+  tags?: string[]; // classification context for this token, used downstream
 };
 
 class Builder {

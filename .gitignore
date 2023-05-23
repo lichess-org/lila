@@ -57,5 +57,6 @@ RUNNING_PID
 # IntelliJ auto-generated files
 .idea
 
-# Docker-compose
+# Docker-compose / docker sbt
 /docker-compose.yml
+/?

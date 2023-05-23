@@ -91,6 +91,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
+  <string name="maxDepthReached">最大深度に到達！</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openings">オープニング</string>
   <string name="openingExplorer">オープニング探索</string>

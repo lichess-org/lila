@@ -76,6 +76,8 @@ patron remove {username}
 tournament feature {id}
 tournament unfeature {id}
 eval-cache drop standard 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
+disposable test msumain.edu.ph
+disposable reload msumain.edu.ph
 video sheet
 """)
         )
