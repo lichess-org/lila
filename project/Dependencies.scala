@@ -12,7 +12,7 @@ object Dependencies {
     val commons = Seq(lilaMaven) ++ sonatype ++ sonatypeS
   }
 
-  val shogi       = "io.github.WandererXII" %% "scalashogi"                     % "7.0.1"
+  val shogi       = "io.github.WandererXII" %% "scalashogi"                     % "8.0.0"
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.2"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.12.5"
@@ -20,11 +20,11 @@ object Dependencies {
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.22"
   val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.16.0"
+  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.16.1"
   val galimatias  = "io.mola.galimatias"    % "galimatias"                      % "0.2.1"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.2.3.RELEASE"
-  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.91.Final" classifier "linux-x86_64"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.2.4.RELEASE"
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.92.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.2.11" % Test
   val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.14.0"
