@@ -73,7 +73,6 @@ object Query {
 
   def loss(u: String) =
     user(u) ++ $doc(
-      F.status $in Status.finishedWithWinner.map(_.id),
       F.winnerId -> $doc(
         "$exists" -> true,
         "$ne"     -> u
