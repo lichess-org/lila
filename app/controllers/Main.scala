@@ -83,49 +83,13 @@ final class Main(
     fuccess:
       Ok:
         if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-        then """User-agent: *
-Allow: /
-Disallow: /game/export/
-Disallow: /games/export/
-Disallow: /api/
-Disallow: /opening/config/
-Allow: /game/export/gif/thumbnail/
-
-User-agent: Twitterbot
-Allow: /
-"""
+        then lila.api.StaticContent.robotsTxt
         else "User-agent: *\nDisallow: /"
 
   def manifest = Anon:
-    import lila.common.Json.given
-    JsonOk:
-      Json.obj(
-        "name"             -> env.net.domain,
-        "short_name"       -> "Lichess",
-        "start_url"        -> "/",
-        "display"          -> "standalone",
-        "background_color" -> "#161512",
-        "theme_color"      -> "#161512",
-        "description"      -> "The (really) free, no-ads, open source chess server.",
-        "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
-          Json.obj(
-            "src"   -> s"//${env.net.assetDomain}/assets/logo/lichess-favicon-$size.png",
-            "sizes" -> s"${size}x$size",
-            "type"  -> "image/png"
-          )
-        },
-        "related_applications" -> Json.arr(
-          Json.obj(
-            "platform" -> "play",
-            "url"      -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-          ),
-          Json.obj(
-            "platform" -> "itunes",
-            "url"      -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
-          )
-        )
-      )
-    .toFuccess
+    fuccess:
+      JsonOk:
+        lila.api.StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit
@@ -177,7 +141,7 @@ Allow: /
         )
 
   def legacyQaQuestion(id: Int, slug: String) = Open:
-    MovedPermanently {
+    MovedPermanently:
       val faq = routes.Main.faq.url
       id match
         case 103  => s"$faq#acpl"
@@ -198,6 +162,22 @@ Allow: /
         case 46   => s"$faq#name"
         case 122  => s"$faq#marks"
         case _    => faq
-    }.toFuccess
+    .toFuccess
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
+
+  private val ImageUploadRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "image.upload.ip"
+  )(
+    ("fast", 10, 2.minutes),
+    ("slow", 60, 1.day)
+  )
+
+  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me =>
+    ctx.body.body.file("image") match
+      case Some(image) =>
+        env.memo.picfitApi.bodyImage
+          .upload(rel = rel, image = image, me = me.id, ip = ctx.ip)
+          .map(url => JsonOk(Json.obj("imageUrl" -> url)))
+      case None => fuccess(JsonBadRequest(jsonError("Image content only")))
+  }

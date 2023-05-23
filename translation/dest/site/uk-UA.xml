@@ -97,6 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' при округленні в залежності від кількості напівходів, доки не відбудеться наступне взяття або хiд пiшаком</string>
   <string name="noGameFound">Ігор не знайдено</string>
+  <string name="maxDepthReached">Досягнуто найбільшої глибини!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openings">Дебюти</string>
   <string name="openingExplorer">Провідник дебютів</string>
@@ -386,6 +387,7 @@
   </plurals>
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
+  <string name="noDrawBeforeSwissLimit">Нічия не можлива до 30 ходу гри у турнірі за швейцарською системою.</string>
   <string name="thematic">Тематичний</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s рейтингова гра</item>

@@ -54,59 +54,51 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     }
 
   def orderedByStudySource(studyId: StudyId): Source[Chapter, ?] =
-    Source futureSource {
-      coll map {
+    Source.futureSource:
+      coll.map:
         _.find($studyId(studyId))
           .sort($sort asc "order")
           .cursor[Chapter](readPreference = readPref)
           .documentSource()
-      }
-    }
 
   def byIdsSource(ids: Iterable[StudyChapterId]): Source[Chapter, ?] =
-    Source futureSource {
-      coll map {
+    Source.futureSource:
+      coll.map:
         _.find($inIds(ids))
           .cursor[Chapter](readPreference = readPref)
           .documentSource()
-      }
-    }
 
   // loads all study chapters in memory!
   def orderedByStudy(studyId: StudyId): Fu[List[Chapter]] =
-    coll {
+    coll:
       _.find($studyId(studyId))
         .sort($sort asc "order")
         .cursor[Chapter]()
         .list(300)
-    }
 
   def relaysAndTagsByStudyId(studyId: StudyId): Fu[List[Chapter.RelayAndTags]] =
-    coll {
+    coll:
       _.find(
         $studyId(studyId),
         $doc("relay" -> true, "tags" -> true).some
       )
         .cursor[Bdoc]()
-        .list(300) map { docs =>
-        for {
-          doc   <- docs
-          id    <- doc.getAsOpt[StudyChapterId]("_id")
-          relay <- doc.getAsOpt[Chapter.Relay]("relay")
-          tags  <- doc.getAsOpt[Tags]("tags")
-        } yield Chapter.RelayAndTags(id, relay, tags)
-      }
-    }
+        .list(300)
+        .map: docs =>
+          for
+            doc   <- docs
+            id    <- doc.getAsOpt[StudyChapterId]("_id")
+            relay <- doc.getAsOpt[Chapter.Relay]("relay")
+            tags  <- doc.getAsOpt[Tags]("tags")
+          yield Chapter.RelayAndTags(id, relay, tags)
 
   def sort(study: Study, ids: List[StudyChapterId]): Funit =
-    coll { c =>
+    coll: c =>
       ids.zipWithIndex
-        .map { case (id, index) =>
+        .map: (id, index) =>
           c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
-        }
         .parallel
         .void
-    }
 
   def nextOrderByStudy(studyId: StudyId): Fu[Int] =
     coll(_.primitiveOne[Int]($studyId(studyId), $sort desc "order", "order")) dmap { ~_ + 1 }
@@ -183,13 +175,12 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       field: String,
       value: Option[A]
   )(chapter: Chapter, path: UciPath): Funit =
-    coll {
+    coll:
       _.updateOrUnsetField(
         $id(chapter.id) ++ $doc(path.toDbField $exists true),
         pathToField(path, field),
         value
       ).void
-    }
 
   private[study] def setNodeValues(
       chapter: Chapter,
@@ -239,7 +230,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       }
 
   def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
-    coll {
+    coll:
       _.find(
         $studyId(studyId),
         $doc("_id" -> true, "name" -> true).some
@@ -247,20 +238,19 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .sort($sort asc "order")
         .cursor[Bdoc](readPref)
         .list(Study.maxChapters * 2)
-    }
-      .dmap { _ flatMap readIdName }
+    .dmap { _ flatMap readIdName }
 
   private def readIdName(doc: Bdoc) =
-    for {
+    for
       id   <- doc.getAsOpt[StudyChapterId]("_id")
       name <- doc.getAsOpt[StudyChapterName]("name")
-    } yield Chapter.IdName(id, name)
+    yield Chapter.IdName(id, name)
 
   def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
     studyIds.nonEmpty ?? coll { _.primitive[Tags]("studyId" $in studyIds, "tags") }
 
   def startServerEval(chapter: Chapter) =
-    coll {
+    coll:
       _.updateField(
         $id(chapter.id),
         "serverEval",
@@ -269,7 +259,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
           done = false
         )
       )
-    }.void
+    .void
 
   def completeServerEval(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "serverEval.done", true)).void

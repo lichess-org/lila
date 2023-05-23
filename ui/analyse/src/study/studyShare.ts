@@ -37,13 +37,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
       ? h('label.ply', [
           h('input', {
             attrs: { type: 'checkbox', checked: ctrl.withPly() },
-            hook: bind(
-              'change',
-              e => {
-                ctrl.withPly((e.target as HTMLInputElement).checked);
-              },
-              ctrl.redraw
-            ),
+            hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
           }),
           ...(renderedMove
             ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
@@ -226,12 +220,20 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ).map(([i18n, path, pastable]: [string, string, boolean]) =>
               h('div.form-group', [
                 h('label.form-label', ctrl.trans.noarg(i18n)),
-                h('input.form-control.autoselect', {
-                  attrs: {
-                    readonly: true,
-                    value: `${baseUrl()}${path}`,
-                  },
-                }),
+                h('div.form-control-with-clipboard', [
+                  h(`input#study-share-${i18n}.form-control.copyable`, {
+                    attrs: {
+                      readonly: true,
+                      value: `${baseUrl()}${path}`,
+                    },
+                  }),
+                  h('button.button.copy', {
+                    attrs: {
+                      'data-rel': `study-share-${i18n}`,
+                      'data-icon': '',
+                    },
+                  }),
+                ]),
                 ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
               ])
             ),
