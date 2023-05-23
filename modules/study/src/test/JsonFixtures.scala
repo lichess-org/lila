@@ -22,4 +22,3 @@ object JsonFixtures:
   """.trim
 
   val all = List(j1, j2, j3, j4, j5)
-
