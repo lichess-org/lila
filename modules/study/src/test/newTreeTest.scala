@@ -1,6 +1,5 @@
 package lila.study
 
-import monocle.syntax.all.*
 import cats.syntax.all.*
 import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }

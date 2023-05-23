@@ -536,13 +536,12 @@ object Node:
   val minimalNodeJsonWriter = makeNodeJsonWriter(alwaysChildren = false)
 
   def nodeListJsonWriter(alwaysChildren: Boolean): Writes[List[Node]] =
-    Writes[List[Node]] { list =>
-      val writer = if (alwaysChildren) defaultNodeJsonWriter else minimalNodeJsonWriter
+    Writes: list =>
+      val writer = if alwaysChildren then defaultNodeJsonWriter else minimalNodeJsonWriter
       JsArray(list map writer.writes)
-    }
 
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] =
-    Writes { node =>
+    Writes: node =>
       import node.*
       try
         val comments = node.comments.value.flatMap(_.removeMeta)
@@ -562,20 +561,14 @@ object Node:
           .add("shapes", if (shapes.value.nonEmpty) Some(shapes.value) else None)
           .add("opening", opening)
           .add("dests", dests)
-          .add(
-            "drops",
-            drops.map { drops =>
-              JsString(drops.map(_.key).mkString)
-            }
-          )
+          .add("drops", drops.map(drops => JsString(drops.map(_.key).mkString)))
           .add("clock", clock)
           .add("crazy", crazyData)
           .add("comp", comp)
           .add(
             "children",
-            if (alwaysChildren || children.nonEmpty) Some {
+            if (alwaysChildren || children.nonEmpty) Some:
               nodeListJsonWriter(true) writes children.nodes
-            }
             else None
           )
           .add("forceVariation", forceVariation)
@@ -583,25 +576,20 @@ object Node:
         case e: StackOverflowError =>
           e.printStackTrace()
           sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
-    }
 
   def destString(dests: Map[Square, List[Square]]): String =
-    val sb    = new java.lang.StringBuilder(80)
+    val sb    = java.lang.StringBuilder(80)
     var first = true
-    dests foreach { (orig, dests) =>
-      if (first) first = false
+    dests.foreach: (orig, dests) =>
+      if first then first = false
       else sb append " "
       sb append orig.asChar
       dests foreach { sb append _.asChar }
-    }
     sb.toString
 
-  given Writes[Map[Square, List[Square]]] = Writes { dests =>
+  given Writes[Map[Square, List[Square]]] = Writes: dests =>
     JsString(destString(dests))
-  }
 
-  val partitionTreeJsonWriter: Writes[Node] = Writes { node =>
-    JsArray {
+  val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
+    JsArray:
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
-    }
-  }

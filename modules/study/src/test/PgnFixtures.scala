@@ -1,15 +1,17 @@
 package lila.study
 
+import chess.format.pgn.PgnStr
+
 object PgnFixtures:
 
-  val pgn = """
+  val pgn1 = """
   { Root comment }
 1. e4! $16 $40 $32 (1. d4?? d5 $146 { d5 is a good move }) (1. c4 { and }) (1. f4 { best }) 1... e6?! { e6 is a naughty move }
   """
 
-  val pgn1 = "1. d4 d5 2. e4 e5"
+  val pgn2 = "1. d4 d5 2. e4 e5"
 
-  val pgn2 = """
+  val pgn3 = """
 [Event "nt9's Study: Chapter 2"]
 [Site "https://lichess.org/study/Q41XcI0B/2LjSXwxW"]
 [Result "*"]
@@ -24,7 +26,7 @@ object PgnFixtures:
 
   """
 
-  val pgn3 = """
+  val pgn4 = """
 [Event "nt9's Study: Chapter 3"]
 [Site "https://lichess.org/study/Q41XcI0B/ypuKuiI4"]
 [Result "*"]
@@ -41,7 +43,7 @@ object PgnFixtures:
 
   """
 
-  val pgn4 = """
+  val pgn5 = """
   [Event "nt9's Study: Chapter 7"]
   [Site "https://lichess.org/study/Q41XcI0B/JHnNE9Oi"]
   [Result "*"]
@@ -647,5 +649,5 @@ The knight on c6 is less flexible and limits the scope of the light square bisho
 Now we move on to the tie breaks. In the rapid portion, the match should be balanced. However, if it were to proceed to the blitz, I rate Nepo as the favourite. } 1/2-1/2
 """
   )
-  val roundTrip = List(pgn1, pgn2, pgn3, pgn4)
-  val all       = roundTrip ++ wcc2023
+  val roundTrip = List(pgn1, pgn2, pgn3, pgn4, pgn5).map(PgnStr(_))
+  val all       = roundTrip ++ wcc2023.map(PgnStr(_))
