@@ -18,6 +18,7 @@ export type I18nKey =
 'checkmate'|
 'stalemate'|
 'impasse'|
+'repetition'|
 'perpetualCheck'|
 'royalsLost'|
 'bareKing'|
