@@ -221,22 +221,17 @@ export function view(ctrl: StudyShareCtrl): VNode {
               h('div.form-group', [
                 h('label.form-label', ctrl.trans.noarg(i18n)),
                 h('div.form-control-with-clipboard', [
-                  h('input.form-control.autoselect', {
+                  h(`input#study-share-${i18n}.form-control.copyable`, {
                     attrs: {
                       readonly: true,
                       value: `${baseUrl()}${path}`,
                     },
                   }),
-                  h('a.button.clipboard', {
+                  h('button.button.copy', {
                     attrs: {
+                      'data-rel': `study-share-${i18n}`,
                       'data-icon': '',
                     },
-                    hook: bind('click', async event => {
-                      const text = `${baseUrl()}${path}`;
-                      await navigator.clipboard.writeText(text);
-                      (event.target as HTMLElement).setAttribute('data-icon', '');
-                      setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
-                    }),
                   }),
                 ]),
                 ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
