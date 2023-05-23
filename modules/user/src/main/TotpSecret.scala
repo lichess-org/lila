@@ -42,7 +42,7 @@ object TotpSecret {
 
   private def otpString(otp: Int) = {
     val s = (otp % 1000000).toString
-    if (s.length == 6) s
+    if (s.lengthIs == 6) s
     else "0" * (6 - s.length) + s
   }
 

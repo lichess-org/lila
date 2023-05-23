@@ -37,7 +37,7 @@ final class PostGameStudyApi(
               .postGameStudy(
                 game,
                 Color.Sente,
-                game.userIds.headOption.ifTrue(game.userIds.size == 1).getOrElse(User.lishogiId),
+                game.userIds.headOption.ifTrue(game.userIds.sizeIs == 1).getOrElse(User.lishogiId),
                 game.userIds,
                 withOpponent = true
               )

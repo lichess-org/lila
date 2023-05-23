@@ -240,7 +240,7 @@ final class Puzzle(
           nextPuzzleForMe(theme.key) flatMap {
             renderShow(_, theme)
           }
-        case None if themeOrId.size == Puz.idSize =>
+        case None if themeOrId.sizeIs == Puz.idSize =>
           OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
             ctx.me.?? { me =>
               !env.puzzle.api.round.exists(me, puz.id) map {

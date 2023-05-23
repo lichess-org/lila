@@ -27,7 +27,7 @@ case class UserRecord(
       case o if o != Outcome.Good         => 1
     } sum
 
-  def badOutcomeRatio: Float = if (bans.size < 3) 0.4f else 0.3f
+  def badOutcomeRatio: Float = if (bans.sizeIs < 3) 0.4f else 0.3f
 
   def minBadOutcomes: Int =
     bans.size match {
@@ -49,7 +49,7 @@ case class UserRecord(
         // too many bad overall
         badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes.toFloat) || {
           // bad result streak
-          outcomes.size >= badOutcomesStreakSize &&
+          outcomes.sizeIs >= badOutcomesStreakSize &&
           outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
         }
       }

@@ -75,7 +75,7 @@ object activities {
         val newIds = (id :: ids).distinct
         copy(
           ids = newIds take maxSubEntries,
-          nb = nb.map(1 +).orElse(newIds.size > maxSubEntries option newIds.size)
+          nb = nb.map(1 +).orElse(newIds.sizeIs > maxSubEntries option newIds.size)
         )
       }
     def isEmpty = ids.isEmpty

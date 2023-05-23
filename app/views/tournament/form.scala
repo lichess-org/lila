@@ -118,7 +118,7 @@ object form {
     frag(
       form3.split(
         fields.password,
-        (auto && tour.isEmpty && teams.size > 0) option {
+        (auto && tour.isEmpty && teams.nonEmpty) option {
           val baseField = form("conditions.teamMember.teamId")
           val field = ctx.req.queryString get "team" flatMap (_.headOption) match {
             case None       => baseField

@@ -18,7 +18,9 @@ object header {
           s.streamer.name
         ),
         s.streamer.headline.map(_.value).map { d =>
-          p(cls := s"headline ${if (d.size < 60) "small" else if (d.size < 120) "medium" else "large"}")(d)
+          p(cls := s"headline ${if (d.sizeIs < 60) "small" else if (d.sizeIs < 120) "medium" else "large"}")(
+            d
+          )
         },
         ul(cls := "services")(
           s.streamer.twitch.map { twitch =>

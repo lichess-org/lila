@@ -153,7 +153,7 @@ object SimulForm {
       )
 
     def canHaveCustomPosition =
-      actualVariants.size == 1 || !position.isDefined
+      actualVariants.sizeIs == 1 || !position.isDefined
 
     def isCustomPositionValid =
       position.fold(true) { sfen =>

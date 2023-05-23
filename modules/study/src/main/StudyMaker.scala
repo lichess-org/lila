@@ -105,7 +105,7 @@ final private class StudyMaker(
       name <- Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async)
       roots = makeRoots(pov)
       chapters = roots.zipWithIndex.map { case (r, i) =>
-        val nameStr = if (roots.size > 1) s"$name pt.${i + 1}" else name
+        val nameStr = if (roots.sizeIs > 1) s"$name pt.${i + 1}" else name
         Chapter.make(
           studyId = studyId,
           name = Chapter.Name(nameStr),
@@ -130,7 +130,7 @@ final private class StudyMaker(
   // Make the potential next chapters reasonably long in case the game is close to Node.MAX_PLIES
   // and allow making moves at the chapter end
   private def chapterNodeLimit(pov: Pov): Int =
-    if (pov.game.usiMoves.size < Node.MAX_PLIES) Node.MAX_PLIES
+    if (pov.game.usiMoves.sizeIs < Node.MAX_PLIES) Node.MAX_PLIES
     else Node.MAX_PLIES - 50
 
   private def makeClocks(pov: Pov): Option[Vector[Centis]] =

@@ -53,7 +53,7 @@ case class Game(
   def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
-    (fullId.size == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
+    (fullId.sizeIs == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)
 
@@ -254,7 +254,7 @@ case class Game(
     else
       copy(
         status = Status.Started,
-        mode = Mode(mode.rated && userIds.distinct.size == 2)
+        mode = Mode(mode.rated && userIds.distinct.sizeIs == 2)
       )
 
   def startClock =

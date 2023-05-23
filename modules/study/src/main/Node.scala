@@ -361,7 +361,7 @@ object Node {
     def gameMainlinePath: Option[Path] =
       gameMainline.map(gm => mainlinePath.take(gm.usiMoves.size))
 
-    def hasMultipleCommentAuthors: Boolean = (comments.authors ::: children.commentAuthors).toSet.size > 1
+    def hasMultipleCommentAuthors: Boolean = (comments.authors ::: children.commentAuthors).toSet.sizeIs > 1
 
     def usiOption      = none
     def idOption       = none

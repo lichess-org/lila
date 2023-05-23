@@ -31,7 +31,7 @@ private object StudyFlatTree {
     else key.size / 2
 
   private def toUsiCharPair(key: String): Option[UsiCharPair] =
-    key.takeRight(2).some.filter(_.size == 2).map(k => UsiCharPair(k.head, k.last))
+    key.takeRight(2).some.filter(_.sizeIs == 2).map(k => UsiCharPair(k.head, k.last))
 
   object reader {
 

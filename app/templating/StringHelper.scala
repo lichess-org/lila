@@ -29,7 +29,7 @@ trait StringHelper { self: NumberHelper =>
           br,
           raw(html)
         )
-      case NumberLastRegex(n) if rendered.length > n.length + 1 =>
+      case NumberLastRegex(n) if rendered.lengthIs > n.length + 1 =>
         frag(
           raw(rendered.dropRight(n.length + 1)),
           br,

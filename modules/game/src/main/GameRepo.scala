@@ -352,7 +352,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def insertDenormalized(g: Game): Funit = {
     val g2 =
       if (
-        g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(
+        g.rated && (g.userIds.distinct.sizeIs != 2 || !Game.allowRated(
           g.initialSfen,
           g.clock.map(_.config),
           g.variant

@@ -114,7 +114,7 @@ final class MoveDB(implicit system: ActorSystem) {
       } else coll += (move.id -> move)
 
     def clearIfFull() =
-      if (coll.size > maxSize) {
+      if (coll.sizeIs > maxSize) {
         logger.warn(s"MoveDB collection is full! maxSize=$maxSize. Dropping all now!")
         coll.clear()
       }

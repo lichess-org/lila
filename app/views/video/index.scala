@@ -47,7 +47,7 @@ object index {
       ),
       div(cls := "list box__pad infinitescroll")(
         videos.currentPageResults.map { bits.card(_, control) },
-        videos.currentPageResults.size < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
+        videos.currentPageResults.sizeIs < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
           if (videos.currentPageResults.isEmpty) "No videos for these tags:"
           else "That's all we got for these tags:",
           control.filter.tags.map { tag =>

@@ -56,7 +56,7 @@ object Puzzle {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  def toId(id: String) = id.size == idSize option Id(id)
+  def toId(id: String) = id.sizeIs == idSize option Id(id)
 
   /* The mobile app requires numerical IDs.
    * We convert string ids from and to Longs using base 62
@@ -79,7 +79,7 @@ object Puzzle {
           (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
         }
         ._1
-      (str.size == idSize) option Id(str)
+      (str.sizeIs == idSize) option Id(str)
     }
 
     private def charToInt(c: Char) = {

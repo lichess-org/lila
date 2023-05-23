@@ -207,7 +207,7 @@ object DataForm {
   val bgImg = Form(
     single(
       "bgImg" -> text.verifying { url =>
-        url.getBytes(UTF_8).length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
+        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
           "//"
         ))
       }
@@ -236,7 +236,7 @@ object DataForm {
     mapping(
       "boardColor" -> text(maxLength = 30),
       "boardImg" -> text.verifying { url =>
-        url.getBytes(UTF_8).length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
+        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
           "//"
         ))
       },
@@ -244,7 +244,7 @@ object DataForm {
       "gridWidth"  -> number.verifying(Set(0, 1, 2, 3) contains _),
       "handsColor" -> text(maxLength = 30),
       "handsImg" -> text.verifying { url =>
-        url.getBytes(UTF_8).length < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
+        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
           "//"
         ))
       }
