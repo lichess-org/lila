@@ -40,7 +40,7 @@ final private[round] class RoundAsyncActor(
   final private class Player(color: Color):
 
     private var offlineSince: Option[Long] = nowMillis.some
-    // wether the player closed the window intentionally
+    // whether the player closed the window intentionally
     private var bye: Boolean        = false
     private var botConnections: Int = 0
 
