@@ -1,0 +1,111 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit f7d788d5be0842a10af8b613565a5af677bfbaf1
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 11:15:56 +0100
+    also consider logins from TOR
+commit 6a28f1eeae161f5087d4fe868832cb6c78c1f9bd
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 11:21:45 +0100
+    restore enum RateLimit.Result
+commit 66b31c2413f28a3d6c98246b2d98202a8182ca0c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 11:30:21 +0100
+    code golf
+commit 2fa5bd3190c6ff7067afbed22361d3cdbd896074
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 11:52:40 +0100
+    extract linkPopup and apply it to profile links
+commit 132e78a80bab3b4986fd5224baaa48b925d5a484
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 15:03:13 +0100
+    add login monitoring
+commit 2c7774733132bce9d6664fdea1ecc7f53e2bd6eb
+Author: Jonathan Gamble <gamblej@gmail.com>
+Date:   2023-02-07 08:29:10 -0600
+    refactor
+commit 2ce2f92aa0fe47c22c9da804c041d828bd104227
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-02-07 17:21:57 +0100
+    Check whether auto comm flags are critical
+commit f11c2c84ca4e5b9c4044896c9041242489dc0a59
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 17:45:57 +0100
+    accuracy requires analysis
+commit 9b5bc6647638c57d60b07853e23533aeaba866db
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-02-07 17:59:44 +0100
+    Fix eslint
+commit 646340df3d17f9157fd1b3ffe56e240e8c046ac0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 18:03:18 +0100
+    fix prev commit
+commit cf0478e52f2279352e89b895e950e38f50f1d434
+Merge: 646340df3d 9b5bc66476
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 18:03:22 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      Fix eslint
+commit 5a549798bd77859389dc868ee1b4284fab439ac1
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-02-07 18:58:28 +0100
+    game api: Move accuracy into analyisis object
+commit 00f2b4dd993fd166f9cc95768f8c6d64c47107d4
+Author: Jonathan Gamble <gamblej@gmail.com>
+Date:   2023-02-07 14:27:39 -0600
+    moves field in initial stream object
+    same as board api.  hey, they all asked for the moves.  also give times because hey free data.
+commit 3880c97ab075bdaf0c56c1fa8de6a6f34fb326d7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-07 21:55:01 +0100
+    read nginx stuffing header
+commit b191ea448ff7a9d011b3ba8dfca9309c3eaf4256
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 08:11:10 +0100
+commit f43681addf957852b2e4609e3c23faef60548357
+Merge: b191ea448f 2ce2f92aa0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 08:16:17 +0100
+    Merge pull request #12330 from benediktwerner/auto-flag-critical
+    Check whether auto comm flags are critical
+commit cf2f5e3c0dfc8904c0142e01507a0ac0a8d6cbdb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 12:19:09 +0100
+    export akka.actor.Scheduler
+commit e8e3adbbf6657f3ede39003b98493ee97288c54b
+Merge: 00f2b4dd99 cf2f5e3c0d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 12:36:40 +0100
+    Merge branch 'master' into api-game-stream-players
+    * master:
+      export akka.actor.Scheduler
+      read nginx stuffing header
+      fix prev commit
+      Fix eslint
+      accuracy requires analysis
+      Check whether auto comm flags are critical
+      add login monitoring
+      extract linkPopup and apply it to profile links
+      code golf
+      restore enum RateLimit.Result
+      also consider logins from TOR
+      iptrust rate limiter
+      import cats.syntax.all.*
+      More arena and team battle translations (#12326)
+      analyser test warning
+      further increase hasher security
+      Translate bell notification sound pref
+commit df09c3bbdf2426e9fc51e4eb1c053a97b5a900b6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 12:40:00 +0100
+    stick to the initial purpose of the pull request: player info
+commit 769e2e9726be6a62dff068b7b9040afe7342f0f3
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 12:48:42 +0100
+    lila.game.JsonView.apply is very generic
+    and should not contain bot/board data in UCI format
+commit fc77575188f5753a413db5e90dc56091e88a52d3
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 13:18:40 +0100
+    move standard game API player JSON to lila.game.JsonView

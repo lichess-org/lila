@@ -1,0 +1,106 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 2d23eb8ba8b102138325e0e246b73a1622cd0565
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-01 10:02:58 +0200
+    add Challenge.declineReasonKey to API
+commit 562de56c1e83c42f13e1d6c9301101008f99e51a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-01 10:05:48 +0200
+    update lint workflow pnpm version
+commit c40628cd28eb1d562e436797c7e9d88e06934e04
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-01 11:11:20 +0200
+    more unused warnings and code tweaks
+commit 81de3e6349ea7136ab53021f8122c13857614560
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-01 11:26:36 +0200
+    last unused warnings pass
+commit e372ef3fa68500bfb4a4724d510c144f0f089153
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-01 11:55:04 +0200
+commit f94df68f7078c53fa950ee391c7b6b7ae5e45830
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-01 14:42:04 +0200
+    Priorite visible mark over account closure in user appeal view
+    Since the policy is to close marked account with a higher chance to sue, the appeal page can be misleading to those users if we show the alt-closed screen.
+commit eeb32bded5df5fd035a2b2e96201424748213a6f
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-01 14:52:16 +0200
+    scalafmt
+commit bd7f25ee656ba1c022e919e69a655aebc0323565
+Merge: eeb32bded5 f94df68f70
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-01 17:28:22 +0200
+    Merge pull request #12613 from kraktus/closed_appeal_msg
+    Priorite visible mark over account closure in user appeal view
+commit 9ed782210282f00af91bac787ba8da0a4ddc00b0
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-04-01 18:39:53 +0000
+    Update joda-time to 2.12.5
+commit b6d4d1c1213653f4d5b081d742257f77b4e8f23b
+Author: Trevor Fitzgerald <fitztrev@users.noreply.github.com>
+Date:   2023-04-01 22:09:37 -0400
+    allow PUT method for api endpoints
+commit 5902cb1f3a8bb0cb8d681c8de551292c1818530d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 05:02:44 +0200
+commit 1c01c04dfe7d74ece3395e2e9ef98f4d84a31f94
+Merge: 5902cb1f3a 9ed7822102
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 05:02:56 +0200
+    Merge pull request #12614 from scala-steward/update/joda-time-2.12.5
+    Update joda-time to 2.12.5
+commit b429fc74b1959f21f98f7997a0e4716840045f51
+Merge: 1c01c04dfe b6d4d1c121
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 05:03:38 +0200
+    Merge pull request #12615 from fitztrev/allow-put-method
+    Add PUT method to Access-Control-Allow-Methods for API endpoints
+commit 53e1b25dafc5711ff7dab61d8a9c90d7821368d7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 11:24:59 +0200
+    add lila.game.LightPlayer, refactor lila.game.Game BSON handler
+commit 91f993a9dedd0ed971b27913a68028f84b5cb5dd
+Merge: 53e1b25daf b429fc74b1
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 11:25:04 +0200
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      allow PUT method for api endpoints
+      Update joda-time to 2.12.5
+      scalafmt
+      Priorite visible mark over account closure in user appeal view
+commit b2786e7e0c4e7dc8f3a238dbf0f397520e0d2942
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-02 13:01:08 +0200
+    Fix shapes in studies
+commit dea179787a79ea077f76c7a631ce207662035f1d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 13:45:38 +0200
+    joda.time -> java.time WIP
+commit df37f654dc5a60c2add3212ac4de96b50b78d6b9
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 14:45:16 +0200
+    java.time WIP
+commit af9c3a940905e00cc1ef65563d77bec24b61482b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 18:45:01 +0200
+    java.time WIP
+commit 02342c4092a96ae8e3c27609fa2056961177b524
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 20:53:43 +0200
+    fix rare loop in puzzle selector
+    when someone with a provisional rating and nbPuzzles % 5 == 0 asks to play an exotic opening as black,
+    lila tries to find a puzzle, fails a few times in the top tier,
+    then downgrades the tier and tries again with some more retry credits.
+    because the rating is provisional the session is flushed and the down tier is forgotten,
+    so it starts back at the top tier.
+    Fix: only allow session flushing when retries=0
+commit 54051ea6f4766377855c0f46302fc1398a7ad778
+Merge: af9c3a9409 02342c4092
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-02 20:56:12 +0200
+    Merge branch 'master' into java.time
+    * master:
+      fix rare loop in puzzle selector

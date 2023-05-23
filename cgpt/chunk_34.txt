@@ -1,0 +1,105 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 1f9d572cb0fe3473d1dbc784b97015c121c00bd8
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 17:37:24 +0200
+    increase puzzle selector logging
+commit 5f253ccf467c21b73619f7e7b15526d187ece0e5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 17:52:38 +0200
+    rename and type Relay.Sync.period - DB migration required
+commit d9126ab9fcdc0faa9a9ae72dc8a2713a80a486a9
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-22 18:34:21 +0200
+    Mod usertable: show absolute time of the mark
+commit b6ab81e49134ef4417bc60f6d2b99c205f9e5bf8
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-23 08:36:37 +0200
+    finish switching to `Relay.Sync.period`
+commit 0604923fba504cce158d5082a15aab8ebd10a2ef
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-23 08:36:54 +0200
+    scalafmt
+commit a18bed88694d2e8fb3a8662d5514a38b9211e306
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-23 09:48:27 +0200
+    refactor `mini.scala`
+commit d32f7f4d8fbfa7a969cd571d7ed6ba95663698f2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-23 10:37:58 +0200
+    fix relay sync.period
+commit 358d917335b3094ac71ec564128fe1395b9e0500
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-23 10:38:15 +0200
+    broadcast delay WIP
+commit d6a3d260ebf93386676c9a99d0e70257a5a038af
+Merge: d32f7f4d8f 0604923fba
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-23 10:38:24 +0200
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      scalafmt
+      finish switching to `Relay.Sync.period`
+      Mod usertable: show absolute time of the mark
+commit 1923bfbac767ee052a037eedbf78bfb894cbd977
+Merge: 358d917335 d6a3d260eb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-23 10:40:42 +0200
+    Merge branch 'master' into broadcast-delay
+    * master:
+      fix relay sync.period
+      scalafmt
+      finish switching to `Relay.Sync.period`
+      Mod usertable: show absolute time of the mark
+commit 7dc1df1eba9684f1cf7b947e680db02b232624df
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-23 11:31:22 +0200
+    remove unused showPeriod (#12670)
+commit cd8ab684c6ce1760b1015aca7d3cef22a73914c3
+Merge: 1923bfbac7 7dc1df1eba
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-23 13:56:28 +0200
+    Merge branch 'master' into broadcast-delay
+    * master:
+      remove unused showPeriod (#12670)
+commit 03bac54a68c09e36b5799684da82c4d0fb4861e5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-23 14:31:31 +0200
+    fix manually setting date of swiss first round
+commit d01712e120f70540e710988f69bec18f58e94ce2
+Merge: cd8ab684c6 03bac54a68
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-23 14:32:34 +0200
+    Merge branch 'master' into broadcast-delay
+    * master:
+      fix manually setting date of swiss first round
+commit 8581a626613e0b4af3aad3fdd0c98084b66a01d0
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-23 19:17:11 +0200
+    Use `mini-game` for broadcast multi-boards
+    The snabbdom code was mainly taken from the code in swiss/arena to show ongoing games.
+    Tested on both finished and ongoing games, as well as update via ws. Should allow "easy" integration in a 2nd time (even though for now mini-game has a limitation about clock, re-putting it at the beginning of the turn at every refresh, that should be fixed for classical)
+commit 0e04b935c6f785d23ad41036a1e6e86203b5b8bc
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-23 22:58:49 +0200
+    Fix mini board update type
+commit 03570a897421f614662981275a6fcb0412a5ae56
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-23 23:02:30 +0200
+    Remove commented out import
+commit 38b097b91cdcdab4f630eedac99accf6ff7b4acb
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-23 23:05:50 +0200
+    Fix implicit ctx passing
+commit 5b4287b4e4e63f11ff1de6160a40619a0f8b2c28
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-23 23:19:17 +0200
+    Prettier
+commit 0c947abad2b4549cf40b1e2f98f94b508f8bb916
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-24 00:17:11 +0200
+    Rename MiniGameUpdate to MiniGameUpdateData
+commit 75b747a94cce9c9deba8cd45c0ba5335769cd99e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 10:51:58 +0200
+    upgrade reactivemongo

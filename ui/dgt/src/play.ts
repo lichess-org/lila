@@ -815,7 +815,7 @@ export default function (token: string) {
     //Attach Events
     liveChessConnection.onopen = () => {
       isLiveChessConnected = true;
-      if (verbose) console.info('Websocket onopen: Connection to LiveChess was sucessful');
+      if (verbose) console.info('Websocket onopen: Connection to LiveChess was successful');
       liveChessConnection.send('{"id":1,"call":"eboards"}');
     };
 
@@ -896,7 +896,7 @@ export default function (token: string) {
             if (verbose)
               console.warn('onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess);
             if (localBoard.turn == currentGameColor) {
-              //If more than one move is received when its the DGT board player's turn this may be a invalid move
+              //If more than one move is received when it's the DGT board player's turn this may be a invalid move
               //Move will be quarantined by 2.5 seconds
               const quarantinedlastLegalParam = lastLegalParam;
               await sleep(2500);
@@ -904,7 +904,7 @@ export default function (token: string) {
               if (JSON.stringify(lastLegalParam.san) != JSON.stringify(quarantinedlastLegalParam.san)) {
                 //lastLegalParam was altered, this mean a new move was received from LiveChess during quarantine
                 console.warn(
-                  'onmessage - Invalid moved quarantined and not sent to lichess. Newer move interpretration received.'
+                  'onmessage - Invalid moved quarantined and not sent to lichess. Newer move interpretation received.'
                 );
                 return;
               }
@@ -1184,7 +1184,7 @@ export default function (token: string) {
    * Compare moves in different formats.
    * Fixes issue in which chessops return UCI_960 for castling instead of plain UCI
    * @param lastMove - the move a string received from lichess
-   * @param moveObject - the move in chessops format after applyng the SAN to localBoard
+   * @param moveObject - the move in chessops format after applying the SAN to localBoard
    * @returns {Boolean} - True if the moves are the same
    */
   function compareMoves(lastMove: string, moveObject: NormalMove): boolean {

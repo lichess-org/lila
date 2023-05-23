@@ -1,0 +1,112 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 9092df1513733ddb1bdd8d6cae05646fafdd3338
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 09:26:30 +0200
+    regen piece sprite after #12815
+commit d283187dcbed0ea5c4397e654b55a9ed34aba3b0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 09:34:40 +0200
+commit 83f873476066ea0de4d34bfb7765f066309ba94b
+Merge: 71d5f4a840 d283187dcb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 09:34:53 +0200
+    Merge branch 'master' into profile-button-in-streamer-page
+    * master: (60 commits)
+      regen piece sprite after #12815
+      recreate source branch for voice merge
+      Mpchess black knight adjustment
+      add /api/study/by/:user endpoint
+      tweak study controllers and ratelimiting
+      move glyphs json to modules/study
+      fix autocompletion of members of a team with hidden listings
+      scala code golf
+      Add results to broadcast multiboard in real-time
+      better type `StudyChapterMeta.res`
+      fix eslint, use const for `playerWhoMoved`
+      scala code golf
+      remove debug
+      remove `ChapterPreview.sideToPlay` as it can be computed client-side cheaply
+      extract and refactor `fenColor` to `common/mini-game`
+      don't select games with anon in mod games view
+      Update clocks when moves are received by websocket
+      Update play-json to 2.10.0-RC8
+      Adjust 2FA wording: 'secret' -> 'secret key'
+      ...
+commit e7a531926dc0e21ad9e9015f4284b5d505ecdc80
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 09:38:27 +0200
+    fix accessibility of .cmn-toggle
+commit cdea5f6c5a8176c1cc85d66fc68d86d683c2b5d7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 09:46:04 +0200
+    fix scss syntax
+commit cabaab346b10012286dc6183f0cde7bdc235b273
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 09:47:53 +0200
+    remove duplicated and unused scss
+commit e9681aebc2db1014e21404df9a192546e7aad7f7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 09:48:01 +0200
+    cleanup scala usings
+commit 82e4a744479f4dd9d4047e9334644940ca07114c
+Merge: d283187dcb e9681aebc2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 09:49:30 +0200
+    Merge pull request #12780 from MarcPerezdeTudela/profile-button-in-streamer-page
+    add lichess profile link and change subscribe button style
+commit 922619842d14de367772bd7ae407ff89b52446ba
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 12:05:50 +0200
+    remove css vendor rules
+commit 5bb171ed5b74a76b322d6f5bfb3038c385625f17
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 12:06:28 +0200
+    fix cmn-toggle accessibility dissimulation margin
+commit 75a0c430afe99899b491afaeceb3dc48f012f7de
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 12:30:13 +0200
+    fix compile error in scala template
+commit c00b74aff0c09cc821da61a3bdc735773dabf0f1
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-10 12:30:57 +0200
+    fix broken scala equality
+commit dda3f649dd5d604b3c695aef05a0b9e7f545acd1
+Author: Thanh Le <lenguyenthanh@hotmail.com>
+Date:   2023-05-10 20:50:34 +0200
+    Remove unused things
+commit dbb20e56b539a1d9a9221e3abdd8aa54eb090a56
+Author: Jonathan Gamble <101470903+schlawg@users.noreply.github.com>
+Date:   2023-05-10 21:18:40 -0500
+    asset urls mirror deployment locs
+commit 6549eb00cf37cf5abd9d50637539db6c810ab6bc
+Merge: c00b74aff0 dbb20e56b5
+Author: Jonathan Gamble <101470903+schlawg@users.noreply.github.com>
+Date:   2023-05-10 21:23:47 -0500
+    Merge pull request #12820 from schlawg/lifat-assets-new-loc
+    point model urls to lifat deployment
+commit 151d2dfa7a606377b935a74ceda0057f5e06f62d
+Author: Jonathan Gamble <101470903+schlawg@users.noreply.github.com>
+Date:   2023-05-10 21:48:23 -0500
+    remove redundant .gitignore entries
+commit ae890ee53fd1e20c9035b2acd88cc22f685194d0
+Author: Jonathan Gamble <101470903+schlawg@users.noreply.github.com>
+Date:   2023-05-10 22:13:56 -0500
+    fix asset urls
+commit c55572a61e4743f6f37b4f32ffb941f5c6baeb36
+Author: Jonathan Gamble <101470903+schlawg@users.noreply.github.com>
+Date:   2023-05-10 22:46:38 -0500
+    tweak download-lifat
+    lifat_commit_dir may not exist yet.
+commit 711318723d144ed49ac37023c327cef46387683d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-11 09:01:44 +0200
+    tweak Tv controller
+commit e91a8dcf5658370ac6348e0f66c6bb5835a23094
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-11 11:01:16 +0200
+    rename web:mobile oauth scope
+commit 7b4c3286aea203d18e7d8784ab265aacfa5c7a51
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-11 11:01:50 +0200
+    make /setup/hook callable with web:mobile

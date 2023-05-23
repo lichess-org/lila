@@ -1,0 +1,106 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 39c44a8428c893ba8a502d64002fcfd8ebfa712a
+Merge: 6370a73f67 4bb65df243
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-09 22:03:20 +0100
+    Merge pull request #12341 from kraktus/learn_basics
+    Redirect click on "Learn" top nav button to Chess basics
+commit 7a5d8ecf19399350892a167445e982775b36e9cd
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-10 22:13:21 +0100
+    show explorer indexer position if available
+commit 9b7fb7b9f2c0b2040d2bc094e863a04f3d273a25
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-11 10:03:35 +0100
+    retire live explorer indexer
+commit 99a7d0e23d33561eaf9f9b7f967a5fc730951b52
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-11 10:09:16 +0100
+    fix changing status of created but offline challenge - closes lichess-org/api#234
+commit cbb3a0aa901d060b5f1cdbd95b98da0e50b5c77e
+Merge: 99a7d0e23d 9b7fb7b9f2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-11 10:09:21 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      retire live explorer indexer
+commit 7661f4f8291334d599d75547db8c351ba8017590
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-11 12:21:29 +0100
+    rework swiss manual pairing byes - fixes #12497
+    Missing players get zero points by default.
+    Manual byes of 1 point can be assigned.
+    New form help:
+    Specify all pairings of the next round manually. One player pair per line. Example:
+    PlayerA PlayerB
+    PlayerC PlayerD
+    To give a bye (1 point) to a player instead of a pairing, add a line like so:
+    PlayerE 1
+    Missing players will be considered absent and get zero points.
+    Leave this field empty to let lichess create pairings automatically.
+commit 50a66a3db1490ae39b651ee6a2a98d56029b09be
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-11 12:37:45 +0100
+commit 14980251a2c39339ac4c0df2bf53c2f2e0047e10
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-11 15:27:20 +0100
+    show the moretime button on 420px+ screens - closes #12468
+commit 6136891a1f64aa664415e88a237e8202d0b6307c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-12 08:16:55 +0100
+commit abbcd3c945279bb37f31e209456e1ca39bc81059
+Merge: 6136891a1f c0e5db5030
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-12 08:18:09 +0100
+    Merge pull request #12488 from lichess-org/min-rating
+    lower minRating: 600 -> 400
+commit edb5e1c86e1a193825e57791a95aa75c1abec471
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-12 11:20:27 +0100
+    scala export
+commit 50cfbd5eb2b7f0646048e548a3a131739290a28f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-12 11:27:21 +0100
+    tournament opening link is now internal
+commit 0eae727ffe765c2e9ec907fee4c220e15a9b1090
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-12 18:14:10 +0100
+    expose declined team requests in the API - for #12505
+commit 8fca7556714056d5e89f651890df4d7b9388db14
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-03-12 18:49:50 +0000
+    Update reactivemongo-akkastream to 1.1.0-RC9
+commit cabb9d52bfdf63a8f84f70bbb9665835507c7a11
+Merge: 0eae727ffe 8fca755671
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-12 21:34:52 +0100
+    Merge pull request #12507 from scala-steward/update/reactivemongo-akkastream-1.1.0-RC9
+    Update reactivemongo-akkastream to 1.1.0-RC9
+commit a7e3a993ff0df29aac01f9cab359f48212b78cde
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-13 10:08:43 +0100
+    whitelist subdomains of whitelisted email domains
+commit 4f0ef398963224bf1ba71d9eec58fe2819a0081a
+Author: Reinis Mazeiks <reinis.mazeiks@gmail.com>
+Date:   2023-03-13 13:10:10 +0200
+    Fix (?) incorrect I18nKey for en passant puzzle theme.
+    Re-using the string from `trans.learn`, as it should be the same, and I believe this was the original intention.
+commit 270295fed2675da4af06f38f6b4bee36b78fc5f4
+Merge: a7e3a993ff 4f0ef39896
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-13 22:53:57 +0100
+    Merge pull request #12509 from rMazeiks/enpassant-i18n
+    Fix incorrect I18nKey for en passant puzzle theme.
+commit a8ec90bc2b87959c3ebffb63449bf6ba402fdafc
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-14 11:06:37 +0100
+    tweak log scripts
+commit e13cde63cce098b9016a4c5f2fe1334f6046d218
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-14 11:07:00 +0100
+    new scalachess pgn wip
+commit 1e721b6d13f0aa226aaeb4da32218f11611abb5a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-14 11:23:06 +0100
+    add glicko data to puzzle select/batch API

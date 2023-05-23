@@ -1,0 +1,98 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 5e3737ad76dffb8a35e0226521cee09502b71831
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-24 07:57:25 +0100
+commit 055ad1572a9da73d14c896c2d8ebc80f582722ef
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-02-24 11:54:32 +0000
+    Update caffeine to 3.1.4
+commit 44d24871e3d3d4055c39dbf3eece92eff92b4f55
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-02-24 11:54:57 +0000
+    Update scalafmt-core to 3.7.2
+commit 9c01efaeb4fef1eb9302eafae8f52237ebb5f7c9
+Merge: 5e3737ad76 055ad1572a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-24 17:08:26 +0100
+    Merge pull request #12431 from scala-steward/update/caffeine-3.1.4
+    Update caffeine to 3.1.4
+commit 2068f1f3665e242ccbc456677e664f785490e047
+Merge: 9c01efaeb4 44d24871e3
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-24 17:09:17 +0100
+    Merge pull request #12432 from scala-steward/update/scalafmt-core-3.7.2
+    Update scalafmt-core to 3.7.2
+commit cf8d382b63bc6aeb8a030b71815f5c1ecef7b18a
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-02-25 10:49:26 +0100
+    Don't close reports on marks
+commit fccfaf4997b64606a0521584a8e159d98ff65f85
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-25 11:01:45 +0100
+    scalachess 14.5.4
+commit 803ab26dff608eeeccdeaecc8d78620285d891fa
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-02-25 11:04:29 +0100
+    Holder is implicitly converted to Mod
+commit 9629e985edee62b27d2e5d0332f8d8b5f9950843
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-02-25 13:37:48 +0100
+    Fix bugs
+commit 0b5c121d65cc8fd46878b94542a17770d29a5ab8
+Author: Jonathan Gamble <101470903+schlawg@users.noreply.github.com>
+Date:   2023-02-25 15:07:52 -0600
+    Update parse.ts
+commit 0d7fb8dc416047636d952f583ec74a0faba55ecf
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 07:24:03 +0100
+commit 011266b573693ff246dd08e11aa7e5880c97ba12
+Merge: 0d7fb8dc41 9629e985ed
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 07:24:53 +0100
+    Merge pull request #12435 from benediktwerner/report-auto-close
+    Don't close reports on marks
+commit e0b312d129ad4de3e78de78c1c2d9ec44f7401ca
+Merge: 011266b573 375735ce8d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 07:26:01 +0100
+    Merge pull request #12367 from lichess-org/rkwc-2022-trophy
+    Add RKWC 2022 trophy
+commit 4443709491773f8b2ff5ecf8acf9b069d0d0e052
+Merge: e0b312d129 b818f90d03
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 07:26:39 +0100
+    Merge pull request #12365 from benediktwerner/dont-embed-customized-link
+    Don't expand links with custom text
+commit a4f77b4bb8ad0ca36ad2af0a2ae1462dc8bc9b51
+Merge: 4443709491 2b74cb6e18
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 07:27:11 +0100
+    Merge pull request #12335 from kraktus/ublog_lang
+    Expand lang regex in route to take into account Kurdish (Kurmanji)
+commit 2097ea1ec09945af2c155213bddf675d35b98be6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 09:17:48 +0100
+    fix FEN full move in stream - closes lichess-org/api#228
+commit e27131e5102238ef627d2c2f20ea1eb84092c179
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 09:46:16 +0100
+    fix checkmate in game retrospective - closes #12442
+commit 231b2f7947d7b44b6f730d5cb712e0d01acd8f00
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 10:23:26 +0100
+    fix API players when one is an AI - closes #12439
+commit dcd447242a228a67ba4aec3a3f133ca42e039836
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-27 10:24:18 +0100
+    accept to stream game even if it's not in cache
+commit f4977657bc87ede7a36094ceaa69ce9483896194
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-02-27 18:00:25 +0100
+    Let anon post batch puzzles result and increment their play counter
+commit 3749bdc3998d8cfa74ac713ab065b13506a62c1a
+Merge: dcd447242a f4977657bc
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-28 17:50:53 +0100
+    Merge pull request #12448 from kraktus/anon_batch_stats
+    Let anon post batch puzzles result and increment their play counter

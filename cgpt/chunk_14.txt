@@ -1,0 +1,105 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 86317589d740fa1d5d5590d1405312bffeb08415
+Author: Trevor Fitzgerald <fitztrev@users.noreply.github.com>
+Date:   2023-03-25 10:17:23 -0400
+    Route to automatically select an external engine on Analysis board
+commit 41c78c8d265612310d1296842caad1371888d24c
+Author: Trevor Fitzgerald <fitztrev@users.noreply.github.com>
+Date:   2023-03-25 12:41:19 -0400
+    fix path to font file on oops page
+commit 9257b7e4050b58daea610a655dc45e1559da344b
+Author: Denys Rybalka <denys.rybalka@tuta.io>
+Date:   2023-03-25 19:35:18 +0100
+    Add extra time per player in simul
+commit 305ede514ce329975a9baaf2c91e33e5204a9cd7
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-03-26 16:31:53 +0000
+    Update play-ahc-ws-standalone, ... to 2.2.0-M3
+commit 9167d5b5bbf8c2c6fae52d40cb5cd5b833ed779f
+Author: Denys Rybalka <denys.rybalka@tuta.io>
+Date:   2023-03-26 20:30:37 +0200
+    Simplify conversion syntax
+commit 79738482d27808b31dc7fdde8e5452922968990c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 10:58:03 +0200
+    add shortcut to own ublog
+commit 3566b96dd98e8c321bd5a65a29e0fb1673e605e5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 11:30:53 +0200
+commit 9990a29ce69b077c007e2223c2b95508858c3c7f
+Merge: 3566b96dd9 41c78c8d26
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 12:11:02 +0200
+    Merge pull request #12575 from fitztrev/oops-font
+    fix path to font file on oops page
+commit 4e8768cdd2f2aa554db35caf2591ea821776b48a
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-27 13:08:19 +0200
+    refer to SECURITY.md on github (https://github.com/lichess-org/lila/discussions/12581)
+commit 51e6440969681d31becab27b8c7f5e44bf561f8b
+Author: Vitaly <dvrazor@mail.ru>
+Date:   2023-03-27 14:36:58 +0300
+    Update ru Dictionary
+    Added some inflictions, added some words. Sorted alphabetically.
+commit fef70448992d8a87127ebf2272b210b971b31554
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 14:39:13 +0200
+    GET /api/storm anon or oauth
+commit 345a6afa6052445d94bc03c422de996f0f736a99
+Merge: fef7044899 4e8768cdd2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 14:39:17 +0200
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      refer to SECURITY.md on github (https://github.com/lichess-org/lila/discussions/12581)
+      fix path to font file on oops page
+commit c402219315c237dc1a28d9af66168687a450b5ac
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 15:30:54 +0200
+    POST /storm with oauth
+commit c693d7aab5b8c3671528078c0d8d5d2d7081c036
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 15:54:15 +0200
+    fix storm result posting
+commit ab5722276e53d78cfc0e859e66e6862db0afafa8
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 16:13:19 +0200
+    tweak leaderboard list API code
+commit f5bff6d17a46350167160adcf37e2475a4a1e839
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 16:33:36 +0200
+    add /api/player/top/1/all for mobile app
+commit 05942d3ceeab644b35b31c1415d09cb759a18a2e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 16:36:32 +0200
+    /api/player/top/1/standard for mobile app
+commit 6dc267b4b674c189b6fc19c226e96917b4a5b0df
+Merge: 05942d3cee 51e6440969
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 16:50:38 +0200
+    Merge pull request #12583 from DVRazor/patch-2
+    Update ru Dictionary
+commit 49c18f9cec4629bf9191900fa56f40fc2a2b19be
+Merge: 79738482d2 6dc267b4b6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-27 17:07:21 +0200
+    Merge branch 'master' into homepage-blogs-higher
+    * master:
+      /api/player/top/1/standard for mobile app
+      add /api/player/top/1/all for mobile app
+      tweak leaderboard list API code
+      fix storm result posting
+      POST /storm with oauth
+      GET /api/storm anon or oauth
+      Update ru Dictionary
+      refer to SECURITY.md on github (https://github.com/lichess-org/lila/discussions/12581)
+      fix path to font file on oops page
+commit 6e7c1ac01c45e89df96d850efeaded221ebcddb5
+Author: Denys Rybalka <denys.rybalka@tuta.io>
+Date:   2023-03-27 19:08:23 +0200
+    Use consistent time measuring units
+commit 1ef44c68384381a84e307c5b70772d56dbaff983
+Author: my_name <96615665+thedancinglaundry@users.noreply.github.com>
+Date:   2023-03-28 04:53:07 +0300
+    Update TR Dictionary

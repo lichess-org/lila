@@ -1,0 +1,101 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit bad7773a4776513d3bd8850bbaa44bde5d50ab59
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-02-28 17:48:57 +0000
+    Update reactivemongo-akkastream to 1.1.0-RC8
+commit 36f484256c5451b1b8bc5813880b4b39582722e0
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-02-28 19:07:25 +0100
+    Close associated reports when auto marking
+commit 5150f4f423298f1ab3e5c2affe27319bedaa2530
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-02-28 19:11:10 +0100
+    scalafmt
+commit 12ef91df078cc25ac6b5f6e7c39ad0b083725d1e
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-02-28 19:53:15 +0100
+    Translate "daily puzzle" and link to puzzle theme/opening
+commit d4788eeac95b834def467d215b2de67c7392cd65
+Merge: 5150f4f423 bad7773a47
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-01 16:16:16 +0100
+    Merge pull request #12451 from scala-steward/update/reactivemongo-akkastream-1.1.0-RC8
+    Update reactivemongo-akkastream to 1.1.0-RC8
+commit be68e8c917f9e97317ba845b84430be683c721db
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-01 16:16:33 +0100
+commit 2ef6e8f2aec83c6361de170d9f0a7e2d16417faa
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-01 17:32:08 +0100
+    fix #12455
+    we only want homepage lang URLs for the most popular languages anyway.
+commit 1f547a2540ed7d2ca8ed26edc0344bddcc7823ca
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-01 18:37:49 +0100
+    scalachess 14.5.5
+commit b612745877db83dfc4f89bd6c50ec9e9413dbf92
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-01 18:38:10 +0100
+    add ?difficulty to puzzle batch endpoints, for the app
+commit 84d86196b52768d5be94958f8ca50c72e1b15a9c
+Merge: b612745877 36f484256c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-02 08:35:37 +0100
+    Merge pull request #12452 from kraktus/close_auto_repor
+    Close associated reports when auto marking
+commit 936d08c2a5e6e2fa4d8e8e986adbd74ad69de705
+Merge: 84d86196b5 12ef91df07
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-02 10:41:38 +0100
+    Merge pull request #12453 from kraktus/daily_puz
+    Translate "daily puzzle" and link to puzzle theme/opening
+commit 4c62c77b79810a84eca5415f0a7ab549c213aab7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-02 10:52:41 +0100
+    also log logging in with a blanked password
+commit fdd1f896a499b0ee90b8acb19fee8888f9e51515
+Author: Thanh Le <lenguyenthanh@hotmail.com>
+Date:   2023-03-02 19:59:08 +0100
+    Scalachess 14.5.6 with Opaque type Sans
+commit 84d0de5a3d49d6842a7993d9ff27ab81eb188ca6
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-03-03 21:01:57 +0100
+    scalafmt
+commit e7d1c0bf5cd942d32dc68aa6a500afb91bdaf576
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-03-03 21:00:47 +0100
+    PGN import: warn that variations will be lost and redirect to study
+commit b7f9ab70205eee55aa311a10cf4c390d697c6adc
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-03-03 21:26:46 +0100
+    Switch to a more discrete warning display
+commit 60a1862f29f79b8418677d7ff3598392a974ef60
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-03-04 19:10:28 +0000
+    Update geoip2 to 4.0.1
+commit f9d5a59cad2cf73547a1f18cceb715dadc5ddfcd
+Author: Chathulanka Gamage <61736812+cmgchess@users.noreply.github.com>
+Date:   2023-03-05 13:32:10 +0530
+    codeblock ui readme
+commit 0fe2da4cd444cb78cd2569124db986161c87678f
+Merge: 84d0de5a3d 60a1862f29
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-05 10:43:07 +0100
+    Merge pull request #12471 from scala-steward/update/geoip2-4.0.1
+    Update geoip2 to 4.0.1
+commit 8d74fa1e8db4fdf55737f6b1ad3f7b47e4e394ab
+Merge: 0fe2da4cd4 f9d5a59cad
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-05 10:43:24 +0100
+    Merge pull request #12472 from cmgchess/readme
+    fix codeblock in ui readme
+commit 32f5a71c30065e833fbd04dbbaa40d24ae287a6c
+Merge: fdd1f896a4 8d74fa1e8d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-05 10:47:42 +0100
+    Merge branch 'master' into scalachess-14.5.6
+    * master:
+      codeblock ui readme
+      Update geoip2 to 4.0.1
+      scalafmt

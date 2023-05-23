@@ -1,0 +1,105 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 676d5168c16bdbaf7beaa7e53d481ff51b594fb3
+Author: Sean Dolan <stdolan@gmail.com>
+Date:   2023-05-04 22:08:29 -0700
+    Broadcast i18n keys
+commit 7c91201e5e84bf4fc18b6d2a8173852670c50417
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-05 09:29:27 +0200
+    replace remaining controller `Action.async` with `Anon:`
+commit 5fa57922d851cc3faaa1af459a5e2e56ef649153
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-05-05 09:53:50 +0200
+    format inlined-JS in `StudyMultiBoard` $function
+    easier to see what's going on
+commit 604f048517c7c9fa9f18f7501e9334a078ceb4c6
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-05-05 10:29:20 +0200
+    swap `node` and `path` order in `$function`
+    Preliminary refactor to fetching clock stake. Extremely precautious here due to lack of type checking so each step is tested then commited
+commit af382fb76c9492440c51c628c420b309c9263329
+Merge: 7c91201e5e d4f3f2085f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-05 10:44:24 +0200
+    Merge pull request #12790 from schlawg/aint-2-big-2-notify
+    don't stop timeline for large threads
+commit eea8780c85e7db3698ec595a79237f32839c1e27
+Merge: af382fb76c 676d5168c1
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-05 11:01:13 +0200
+    Merge pull request #12794 from stdolan/forum-broadcast-missing-i18n
+    Forum and help on broadcast contact page missing i18n
+commit 4d51a8e8c65f3312e945bb6bdebf7254feb0716b
+Merge: eea8780c85 dd1966cadf
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-05 12:43:56 +0200
+    Merge pull request #12793 from lichess-org/naive-show-duration
+    replace joda with naive showDuration impl (closes #12670)
+commit bc43ed6f0d3d3096acb09858c1186a088d386695
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-05 12:59:15 +0200
+commit 89736c7006747a5cd0ddacbca46d902089a6bfa5
+Author: ItsQuadrus <quadrus.yt@gmail.com>
+Date:   2023-05-05 16:57:12 +0200
+    Added discord badge in README.md (#12797)
+    * added discord badge
+    * updated discord badge
+    forgot to run prettier on it.
+commit 24936cd48173b52ed002a1e2fb6a12cd6305c9c4
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-05-05 10:50:58 +0200
+    Multiboard: retrieve the last clock value for the two players
+    Keep the clock state as a sliding window of the last two nodes. since `Object.keys(root)` does not list moves chronologically, we need to store the two paths.
+    `clockTicking` -> the ticking clock, belonging to player whose turn it is to move
+    `node` -> the node of the last move. Contain the clock of the player that just played
+    We cannot use `node.ply` to know the side to move, because when starting from position black can start first
+commit e9c5116feaedbccf7760d9d172e0ccc2d1785b16
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-05-05 17:12:07 +0200
+    multiboard clock WIP: start updating `ChapterPreview` model
+commit 3911bcce198b6b1a030966255fbd0482d5564945
+Author: Jonathan Gamble <gamblej@gmail.com>
+Date:   2023-05-05 12:31:34 -0500
+    fix manual url entry
+commit 1073d101780cd82aae577feea97c14edd40d17f0
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-05-05 21:10:57 +0200
+    Multiboard clock WIP: update front-end `ChapterPreview` model
+commit 0f9ee2050e0368e85159bb414502ca6e04aa7a11
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-05-05 21:52:26 +0200
+    refactor `renderClock` into a new module `common/mini-game`
+    Probably more helpers to generate mini-game can go there
+commit 53af2f0c646324a9e3ed1024f5773684eff35b33
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-05-05 22:39:10 +0200
+    Adjust 2FA wording: 'secret' -> 'secret key'
+commit bdd73fb917224b87a8792f485fb65c8790cd2241
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-05-05 21:00:19 +0000
+    Update play-json to 2.10.0-RC8
+commit aa208bb065b1a1d41a43e7eeada3b9a0ecb8253e
+Author: Jonathan Gamble <gamblej@gmail.com>
+Date:   2023-05-05 16:50:44 -0500
+    change menu item from Transparent to Picture
+commit 767e827c23cd1f7314ef6a338b2502a0b6158a92
+Merge: 89736c7006 bdd73fb917
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-06 09:41:10 +0200
+    Merge pull request #12800 from scala-steward/update/play-json-2.10.0-RC8
+    Update play-json to 2.10.0-RC8
+commit 4a013793e0be615756fd0d20180bbf30d142d18d
+Merge: 767e827c23 53af2f0c64
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-06 09:41:27 +0200
+    Merge pull request #12799 from lichess-org/2fa-secret-key-trans
+    Adjust 2FA wording: 'secret' -> 'secret key'
+commit 36ee780e2f252c1e7f6f6010a319e70cdd162d81
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-05-06 10:58:44 +0200
+    Update clocks when moves are received by websocket
+commit da6bdd01ffe30f1fa02da17b2bc3b5ffba30182b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-06 12:47:11 +0200
+    don't select games with anon in mod games view

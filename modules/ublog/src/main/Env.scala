@@ -25,7 +25,7 @@ final class Env(
     mode: play.api.Mode
 ):
 
-  export net.{ assetBaseUrl, baseUrl, domain }
+  export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 

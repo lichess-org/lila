@@ -512,7 +512,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov);
     reorderChildren(vm.initialPath, true);
 
-    // try and play the solution next move
+    // try to play the solution next move
     const next = vm.node.children[0];
     if (next && next.puzzle === 'good') userJump(vm.path + next.id);
     else {

@@ -108,7 +108,7 @@ object bits:
     )
 
   def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context): Option[Tag] =
-    ctx.isAuth option {
+    ctx.isAuth && !ctx.is(s.user) option {
       val id = s"streamer-subscribe-${s.streamer.userId}"
       label(cls := "streamer-subscribe")(
         `for`          := id,

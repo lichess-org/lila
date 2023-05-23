@@ -1,0 +1,104 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 85d8f19c247a3781ee9724e5182f246f1ace619c
+Merge: e13cde63cc 1e721b6d13
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-14 15:15:20 +0100
+    Merge branch 'master' into scalachess-pgn
+    * master:
+      add glicko data to puzzle select/batch API
+commit a483157cf18f80b9066b112e7b4abc448747c048
+Author: TheMadSword <2840135+TheMadSword@users.noreply.github.com>
+Date:   2023-03-14 17:11:37 +0100
+    ~Reworked analysis menu navigation to solve #12469 and #12517
+commit 53f36433340ef132e703d13c086ae2c826873237
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-03-14 17:13:37 +0000
+    Update netty-transport-native-epoll to 4.1.90.Final
+commit a4c62a75a647c3769de645489497d54a79407a4a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 11:53:45 +0100
+    fix logging buffering
+commit 9a75ca2b6e825543d8b7eb1acc86f9d2f00a2c6f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 12:19:56 +0100
+    fix/improve puzzle batch mobile API
+commit c3da0ac9a48511793ffd2303fa6ee9d41d68e648
+Merge: e13cde63cc 9a75ca2b6e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 12:22:10 +0100
+    Merge branch 'master' into scalachess-pgn
+    * master:
+      fix/improve puzzle batch mobile API
+      fix logging buffering
+      add glicko data to puzzle select/batch API
+commit ba12f269c29a6fd78e4aa2786126622c7afbfcdc
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 12:23:45 +0100
+    tweak npm scripts
+commit df249da066c0de27d70b97f4409cab0337c782bc
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 14:53:09 +0100
+    scalalib 9.1.4
+commit dbb6c8923e50f02b89e707a378e450e7b2551df5
+Merge: 85d8f19c24 ba12f269c2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 14:53:16 +0100
+    Merge branch 'scalachess-pgn' of github.com:lichess-org/lila into scalachess-pgn
+    * 'scalachess-pgn' of github.com:lichess-org/lila:
+      tweak npm scripts
+      fix/improve puzzle batch mobile API
+      fix logging buffering
+commit 349be11b2249df7ea0abd8b20e2bcf62872a38c9
+Merge: dbb6c8923e df249da066
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 14:53:18 +0100
+    Merge branch 'master' into scalachess-pgn
+    * master:
+      scalalib 9.1.4
+commit a361a8610f8c97ce1335da912ed45fa2fa76f605
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 15:00:55 +0100
+    tweak mobile puzzle batch API output
+commit 1c4c846f9c5634035c120a3bcce84edea44334ce
+Author: Tyler Palesano <tpalesano@interworks.com>
+Date:   2023-03-15 10:59:20 -0500
+    Using Date.prototype.toLocaleDateString() for chat
+commit 2074d33eabf04e5d4fcb3978d6cceebb5244ebc5
+Author: Tyler Palesano <tpalesano@interworks.com>
+Date:   2023-03-15 11:06:06 -0500
+    Fixing type issue for DateTimeFormatOptions
+commit 153219b20cff00e3d7847fba5b1329ead5d2c813
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-15 17:36:44 +0100
+    remove debug
+commit 3f4dcc6606c18ede6c01ba8a474af4410198869b
+Author: Calvin Josenhans <calvinjosenhans10@gmail.com>
+Date:   2023-03-17 16:09:35 +0000
+    It works, except for weirdness with comment mode
+commit 65023c5e71e0d8b13a3eafbc43cdd8733730034a
+Author: Calvin Josenhans <calvinjosenhans10@gmail.com>
+Date:   2023-03-17 16:45:34 +0000
+    Functional now, lacks UX
+commit bb95af885c5dd28d6f82a4bfee1238b4962d205b
+Author: Calvin Josenhans <calvinjosenhans10@gmail.com>
+Date:   2023-03-17 17:25:31 +0000
+    Formatting and cursor css
+commit b4fab7605459214b899ecd4e23137b0c4b6426fa
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-17 20:07:17 +0100
+    path is never undefined
+commit 9d0c7580ae54ee598869286613bdd0165447f4e2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-17 20:10:18 +0100
+    naming, const
+commit ca220e94a70128dd85811336c82f20890bd2ad3b
+Author: Calvin Josenhans <calvinjosenhans10@gmail.com>
+Date:   2023-03-17 19:32:55 +0000
+    It isn't wrong
+commit 25a8a5c4d69eab4e80baf11f8c3f97d435b2fbba
+Merge: 153219b20c 53f3643334
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-17 23:02:13 +0100
+    Merge pull request #12520 from scala-steward/update/netty-transport-native-epoll-4.1.90.Final
+    Update netty-transport-native-epoll to 4.1.90.Final

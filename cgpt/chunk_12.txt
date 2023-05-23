@@ -1,0 +1,91 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit cba19fe471d8019fc44a01ab326d9b58fcad2153
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-17 23:02:35 +0100
+commit 366beb71f6d4f43ef6e76b3c18ce3ed2f1de6626
+Merge: cba19fe471 2074d33eab
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-17 23:03:51 +0100
+    Merge pull request #12525 from MrOnosa/master
+    Using Date.prototype.toLocaleDateString() for chat
+commit 55c1e0ed3269875b57e3b3b49106f4eec542f156
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-18 14:10:18 +0100
+    paypal sub renew fix wip
+commit 0cbbedfff7e9b5a511115f518ee5be92eef15694
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-18 14:27:04 +0100
+    paypal sub renew fix
+commit 6a3676d18a0c2b4a766f8a4e0ce1f2bea78959bf
+Author: Calvin Josenhans <calvinjosenhans10@gmail.com>
+Date:   2023-03-18 13:37:51 +0000
+    Wrap truncated comments in a selector to reuse
+commit b96ccb509bb423738c4259e1606f1a87e89c3154
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-18 14:45:51 +0100
+    paypal sub comments, tweaks and logging
+commit 61aad34f39076ce7c22befc1c5404bb0df58175b
+Author: Thanh Le <lenguyenthanh@hotmail.com>
+Date:   2023-03-18 16:01:04 +0100
+    Revert "new scalachess pgn wip"
+    This reverts commit e13cde63cce098b9016a4c5f2fe1334f6046d218.
+commit 6676d9226ea3db876f809ad3e2f5dcc469fa63da
+Author: Thanh Le <lenguyenthanh@hotmail.com>
+Date:   2023-03-18 17:33:29 +0100
+    Remove unused Map
+commit 17d9c992aad1595612e3a19128fc54de06b43ed9
+Author: Thanh Le <lenguyenthanh@hotmail.com>
+Date:   2023-03-18 18:17:04 +0100
+    Migrate scalachess 14.6.2
+commit b50179e049ab79865185e3b558420102ae4152ee
+Author: Thanh Le <lenguyenthanh@hotmail.com>
+Date:   2023-03-18 18:17:26 +0100
+    Fix tests
+commit 407d2b0a2cd5d3b4f3e42ef032eae600abf1f6c8
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-19 06:12:16 +0100
+commit e1c2a11e693450c8a72f02df918ce161b6b0555d
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-19 12:02:51 +0100
+    scalafmt
+commit 78e6bf1a8cf4899fb6b0f1eaeb7c5a6bd720c0c6
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-19 12:03:24 +0100
+    fix imported game status with termination normal (fixes #12527)
+commit f50e5d1a1e19f11bcaa97a9f7b0572c206f57adc
+Merge: 78e6bf1a8c b50179e049
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-19 14:44:04 +0100
+    Merge pull request #12539 from lichess-org/scalachess-pgn
+    upgrade scalachess and migrate Pgn model
+commit 2598fbc72301d723bbc7c0b194c7a61520dd95c6
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-19 13:23:46 +0100
+    fix username preload in game thumbnails
+commit d8beff376138901f2a394a1112aebfd0954adc79
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-19 16:05:47 +0100
+    fix fenThumbnail for crazyhouse (fixes #12526)
+commit 61d9dbe512f8bf980058d129dfb503449b9e9343
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-19 16:17:26 +0100
+    whitelist zohomail.eu (fixes #12521)
+commit eba09f48f766ad94bee5521a4bd2a83ebdff17fc
+Merge: 61d9dbe512 a483157cf1
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-19 16:33:15 +0100
+    Merge pull request #12518 from TheMadSword/fix_analysis_retro-actionMenu-explorer_navigation_bug
+    ~Reworked analysis menu navigation to solve #12469 and #12517
+commit 52a1325267263998b212fb819ebd8e5e8ba1125b
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-19 16:44:05 +0100
+    simplify toggleExplorer
+commit f30c936e7f3d6e0066c7348712f934a4fb6a2edd
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-19 17:41:25 +0100
+    clamp puzzle votes in case of puzzle/round inconsistency (closes #12408)
+commit 5bf38e5c9487eba96c15da4cbdceaf08abf67239
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-20 12:38:53 +0100
+    scalachess 14.6.3

@@ -1,0 +1,105 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 4f7a9364e53d454a99c54e0d6a33c3a51fbe5085
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-05 11:22:19 +0100
+    scalachess 14.5.8
+commit 3707bccc4b8af0dc367af84ab1e9b26ce9db540e
+Merge: 8d74fa1e8d 4f7a9364e5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-05 11:22:42 +0100
+    Merge pull request #12463 from lenguyenthanh/scalachess-14.5.6
+    Scalachess 14.5.6 with Opaque type Sans
+commit 219aa5eac7efb57ab9cf95c8533f51d16858a974
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-05 11:30:00 +0100
+commit 30f854d12314932021b50487d900b415e9583c8c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-05 18:01:51 +0100
+    tweak login ratelimit
+commit 27dd4871089b5cf02ecba9fd5f583d84b6d93e40
+Merge: 30f854d123 219aa5eac7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-05 18:01:54 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      scalachess 14.5.8
+      codeblock ui readme
+      Update geoip2 to 4.0.1
+      scalafmt
+      Scalachess 14.5.6 with Opaque type Sans
+commit f434b84eb81d9501c92d457e0ab4e591d0530516
+Author: Ken Whaley <keaaww@gmail.com>
+Date:   2023-03-05 21:15:05 +0300
+    ui/build fails on older Mac OS (e.g., Mojave) because readlink doesn't support the -f flag.  This removes the readlink command from the UI_DIR initialization
+commit 29af69d0cfbc27b2d148c267830862f19c5239a1
+Merge: 27dd487108 f434b84eb8
+Author: Jonathan Gamble <101470903+schlawg@users.noreply.github.com>
+Date:   2023-03-05 12:21:50 -0600
+    Merge pull request #12477 from keaaw/mac-os-mojave-build-fix
+    ui/build fails on older Mac OS (e.g., Mojave) because readlink doesn'…
+commit ce9bc1cdfdfeef775fb11c88c5928cf0f9cddc55
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-06 10:32:41 +0100
+    web:socket oauth scope for mobile app
+commit 17eb10f94957cc257d48c6e6d048a9c7e47b2020
+Merge: ce9bc1cdfd 29af69d0cf
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-06 10:32:46 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      ui/build fails on older Mac OS (e.g., Mojave) because readlink doesn't support the -f flag.  This removes the readlink command from the UI_DIR initialization
+      tweak login ratelimit
+commit 37f9859a8cec4471da1deeb473e0af1f467f8a84
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-03-06 14:13:16 +0100
+    Move streamer langauge out of the live ribbon - closes #12339
+commit 8125f1f8c674f65b62824d48ecfd6e4cae5ba010
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-03-06 14:19:23 +0100
+    Force ltr on streamer list
+commit 9898df073b95c69165cf9ba85127c629a134a1fc
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-06 18:58:39 +0100
+commit d23453c5fd01278dab90a65e3c19f61895cd8632
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-03-06 18:12:36 +0000
+    Update caffeine to 3.1.5
+commit fd11a083a8928b7b7eabad5c2373e9020db2c277
+Merge: 9898df073b d23453c5fd
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-07 09:09:39 +0100
+    Merge pull request #12483 from scala-steward/update/caffeine-3.1.5
+    Update caffeine to 3.1.5
+commit d3190bcf4880b8f53d9f62489a36ce1584cc0f23
+Merge: fd11a083a8 b7f9ab7020
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-07 09:25:40 +0100
+    Merge pull request #12467 from kraktus/pgn_variation
+    PGN import: warn that variations will be lost and redirect to study
+commit c0e5db50305b88cadec373dd98eddddf9474f489
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-07 16:38:52 +0100
+    lower minRating: 600 -> 400
+commit ef77809559f3b20983db05e4c2f5f41a82dff246
+Author: Konstantinos07 <gkizisk@gmail.com>
+Date:   2023-03-07 18:11:14 +0200
+    adding event tips to new arena/swiss form
+commit 3d211f32e11568ac0349056974b7fc4e82155b3c
+Author: Konstantinos07 <71346111+Konstantinos07@users.noreply.github.com>
+Date:   2023-03-07 19:28:49 +0200
+    tweak critical dict
+commit 5d49de02f8e42ffb2b73027975ccf576c53dc7fa
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-08 22:24:48 +0100
+    fix capitalization in i18n source
+commit 8a5b58fa26ff03be84702987287c6ede4f414a22
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-08 22:42:27 +0100
+    fix Pref.default.soundSet (fixes lichess-org/api#233)
+commit 6370a73f672903f09c83502447f5b97cd8e84e3b
+Merge: 8a5b58fa26 3d211f32e1
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-09 21:58:03 +0100
+    Merge pull request #12490 from Konstantinos07/patch-29
+    tweak critical dict

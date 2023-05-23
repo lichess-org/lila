@@ -1,0 +1,108 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 75d0d1bc31d8a8650f666ef4ed8f9243a466df43
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-03 22:47:54 +0200
+    prepare web push urgency
+commit cf35ca465c19fa77c56377b438540df6e8acbdbc
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-03 22:48:40 +0200
+    prepare web push topics
+commit c2177be23d4cc5b3eaa0d1b9fb3e4551019a4d5e
+Author: my_name <96615665+thedancinglaundry@users.noreply.github.com>
+Date:   2023-04-04 00:20:15 +0300
+    Update Spanish Dictionary
+commit fd2e98e195cabac3cb27b6c89c350529555fbf15
+Merge: cf35ca465c c2177be23d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-04 09:13:48 +0200
+    Merge pull request #12630 from thedancinglaundry/patch-8
+    Update Spanish Dictionary
+commit 793456866dd9f7a05b73db296a6c444585205863
+Author: neverRare <contactneverrare@gmail.com>
+Date:   2023-04-04 16:07:24 +0800
+    Add kiwen suwi
+commit 3ebd0e2f42b9da874d815b247baf75ced6ce96f2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-04 11:42:27 +0200
+commit 4bebb141f73d389efce5b1f044f13d3cdd21621e
+Merge: 73bce7c8cc 3ebd0e2f42
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-04 11:46:21 +0200
+    Merge branch 'master' into java.time
+    * master:
+      Update Spanish Dictionary
+      prepare web push topics
+      prepare web push urgency
+      track supported encodings for web push subs
+      Adjust SetEmail and gdpr erasure perms
+      Revert "https://lichess.org/blog/ZCcL1hYAACYAM1qD/life-moves-pretty-fast-not-really"
+      https://lichess.org/blog/ZCcL1hYAACYAM1qD/life-moves-pretty-fast-not-really
+      Update netty-transport-native-epoll to 4.1.91.Final
+commit a74a041dd0be67ecb6f610c0e7cc00811a114105
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-04 12:02:43 +0200
+    java.time.Instant WIP
+commit 973721a14f0a6e101bd12f24c7613486a4b51222
+Merge: a74a041dd0 4bebb141f7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-04 12:02:47 +0200
+    Merge branch 'java.time' of github.com:lichess-org/lila into java.time
+    * 'java.time' of github.com:lichess-org/lila:
+      Update Spanish Dictionary
+      prepare web push topics
+      prepare web push urgency
+      track supported encodings for web push subs
+      Adjust SetEmail and gdpr erasure perms
+      Revert "https://lichess.org/blog/ZCcL1hYAACYAM1qD/life-moves-pretty-fast-not-really"
+      https://lichess.org/blog/ZCcL1hYAACYAM1qD/life-moves-pretty-fast-not-really
+      Update netty-transport-native-epoll to 4.1.91.Final
+commit 2000803ae0f55fea84bdbe568867c794194ba276
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-04 22:05:25 +0200
+    Kick players when removing a team from a team battle
+commit 3f63db8d5b34f66a2396a74c314567183c39740e
+Merge: 793456866d 3ebd0e2f42
+Author: Sean <seanbagongon@gmail.com>
+Date:   2023-04-05 08:49:16 +0800
+    Merge branch 'lichess-org:master' into master
+commit 26df9eb2f98563dae61f259cec091cfd31f9a38a
+Author: neverRare <contactneverrare@gmail.com>
+Date:   2023-04-05 16:40:02 +0800
+    Update kiwen suwi
+commit 01a0096dbca86ad91220a4570ab807122c8bdded
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-05 10:40:52 +0200
+    Instant in modules/tournament
+commit db3b512fb7fd090c6eb07a6f9b47ff0bb01ed526
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-05 10:50:05 +0200
+    test the tournament scheduler WIP
+commit ba64fba7f2245a17b4be780f968f66e03f44fc97
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-05 10:50:05 +0200
+    test the tournament scheduler WIP
+commit 22b661c39b5f57521c2bcbac04eab1d11bbfd0f9
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-05 11:10:39 +0200
+    test the tournament scheduler - complete
+commit 36e23f60b2d1d1673cd75553bad386dc709bcbaf
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-05 11:10:39 +0200
+    test the tournament scheduler - complete
+commit f1c8a77053302fd055325bac2c48caf087008e30
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-05 11:55:10 +0200
+    tweak tournament scheduler test
+commit 931e21478867109fa5e2feab3d9c1c1bfabf0a3f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-05 12:14:15 +0200
+    more tournament scheduler tests
+commit 253b3d39cdbb91376f98b613c1ff90263e0bbce6
+Author: piyush-jaiswal <piyushjf@gmail.com>
+Date:   2023-04-05 16:23:41 +0530
+    Remember puzzle difficulty
+commit d98e4319252dd74e88d91ed934bb7a2665e7bd8f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-05 12:14:15 +0200
+    more tournament scheduler tests

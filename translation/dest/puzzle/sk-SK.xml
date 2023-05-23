@@ -49,7 +49,7 @@
   <string name="normal">Normálna</string>
   <string name="easier">Ľahšia</string>
   <string name="easiest">Najľahšia</string>
-  <plurals name="nbPointsBelowYourPuzzleRating" comment="nbPointsBelowYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Easier (-300)&quot; has the tooltip &quot;300 points below your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points below your puzzle rating.">
+  <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">O jeden bod nižšia ako Váš rating úloh</item>
     <item quantity="few">O %s body nižšia ako Váš rating úloh</item>
     <item quantity="many">O %s bodov nižšia ako Váš rating úloh</item>
@@ -57,7 +57,7 @@
   </plurals>
   <string name="harder">Ťažšia</string>
   <string name="hardest">Najťažšia</string>
-  <plurals name="nbPointsAboveYourPuzzleRating" comment="nbPointsAboveYourPuzzleRating [one] [other]&#10;&#10;Hover tooltip in puzzle difficulty selection e.g. &quot;Harder (+300)&quot; has the tooltip &quot;300 points above your puzzle rating&quot; i.e. that difficulty will provide puzzles around 300 rated points above your puzzle rating.">
+  <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">O jeden bodov vyššia ako Váš rating úloh</item>
     <item quantity="few">O %s body vyššia ako Váš rating úloh</item>
     <item quantity="many">O %s bodov vyššia ako Váš rating úloh</item>

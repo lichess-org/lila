@@ -206,7 +206,10 @@ object JsonView:
   )
 
   def puzzleJsonStandalone(puzzle: Puzzle): JsObject =
-    puzzleJsonBase(puzzle) ++ Json.obj("fen" -> puzzle.fen)
+    puzzleJsonBase(puzzle) ++ Json.obj(
+      "fen"      -> puzzle.fenAfterInitialMove,
+      "lastMove" -> puzzle.line.head.uci
+    )
 
   private def puzzleJsonBase(puzzle: Puzzle): JsObject = Json.obj(
     "id"       -> puzzle.id,

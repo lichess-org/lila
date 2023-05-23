@@ -1,0 +1,141 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 209f21733be8f9fade9f16fa40d6bbf076388bd6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 22:09:56 +0200
+    personalize visible teams in api endpoint using an optional oauth token
+commit 8ec992b18d14184aad9b9a82f20e4b426987a465
+Merge: 209f21733b 88aeb125d6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 22:11:59 +0200
+    Merge pull request #12719 from kraktus/copy_pgn_chap_study
+    Study chapter: fix PGN to clipboard for Safari
+commit 51a3fa094b7fc8c8b7b8f1316f799d85a6d3d35d
+Merge: 8ec992b18d 51e0124a40
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 22:15:49 +0200
+    Merge pull request #12723 from kraktus/appeal_send_dismiss
+    Appeal: Add "send and process" button
+commit 88f7b56358cccab86caef55c03b929a0543b5013
+Merge: 631092f310 51a3fa094b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 22:16:32 +0200
+    Merge branch 'master' into show_prov_rating
+    * master: (30 commits)
+      personalize visible teams in api endpoint using an optional oauth token
+      fix filtering user teams in api endpoint
+      Appeal: Add "send and process" button
+      fix type: String -> string
+      restore libra knight
+      restore staunty knight
+      minify staunty piece set
+      minify maestro piece set
+      minify libra piece set
+      minify leipzig piece set
+      minify kosal piece set
+      minify icpieces
+      minify governor piece set
+      minify gioco piece set
+      minify fresca piece set
+      minify pixel piece set
+      minify dubrovny piece set
+      minify tatiana piece set
+      slightly minify disguised piece set
+      improve companion piece set minification
+      ...
+commit 1f7bf60d8bcde6c2fb0372b8ac9de2053f30f3a7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 22:17:58 +0200
+    code dedup
+commit c53be52956401181716f83d941dc216b317d5d30
+Merge: 51a3fa094b 1f7bf60d8b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 22:18:15 +0200
+    Merge pull request #12722 from trevorbayless/show_prov_rating
+    Show provisional rating indicator on create game modal
+commit bb7279c5fbe75da3a7ae0d0919e88b350caf3b4d
+Merge: c53be52956 b507be15d1
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 22:19:34 +0200
+    Merge pull request #12721 from kraktus/weak_pwd_dev_singup
+    Signup: disable weak password protection on dev instances
+commit 1647268f6a560358aabdbeebf8c9204754bbe8bf
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 22:25:04 +0200
+    more code dedup
+commit 82dc238df30f2404b3c39dbce7ba4d33d2bdf55b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 08:53:00 +0200
+    fix gdpr erasure button
+commit 91183701f44ec8451a2a8b73bf1de132733aeb75
+Merge: 82dc238df3 1647268f6a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 10:28:51 +0200
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila: (33 commits)
+      more code dedup
+      code dedup
+      personalize visible teams in api endpoint using an optional oauth token
+      fix filtering user teams in api endpoint
+      Appeal: Add "send and process" button
+      fix type: String -> string
+      restore libra knight
+      restore staunty knight
+      minify staunty piece set
+      minify maestro piece set
+      minify libra piece set
+      minify leipzig piece set
+      minify kosal piece set
+      minify icpieces
+      minify governor piece set
+      minify gioco piece set
+      minify fresca piece set
+      minify pixel piece set
+      minify dubrovny piece set
+      minify tatiana piece set
+      ...
+commit baee01cd9a0472986520b8ec041411b387deb4fb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 11:17:28 +0200
+    study search highlight fix and <enter> shortcut
+commit ea3bde5d71ac350508fbb2c95d13841bf4e3ad8b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 11:27:08 +0200
+    more study/broadcast search tweaks
+commit f19d4c8f963c53d387a34c02954963cac8c0b912
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 11:32:03 +0200
+    lower default provisional rating for new class students
+commit 327f7c21d8f1064b80c3e939bfd852ee27abe01a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 11:54:19 +0200
+    better integrate search button in study tabs
+commit df3c11af9f1af1708523feb8cdf2afb93cb936aa
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 12:01:59 +0200
+    tweak tabs-horiz to better overflow cramped text
+commit eddf611ad7bccdb18222b7d16c1121af3bc3e6f6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 12:02:58 +0200
+    shrink the broadcast study tab
+commit 061d1877943f93073b46ec23714663d14a9f0b88
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 12:50:16 +0200
+    tweak study search highlight padding
+commit 46fe0945835f7ead00ae2065730832a15f93f5b2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 14:30:50 +0200
+    escape unsafe db regex
+commit 98997aa16d9b1c9be5739553b86beb2673dc20f9
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-22 14:31:11 +0200
+    delete unused function
+commit f0cdbcf001083418d63cdc1c44f3cf6587d8e506
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-22 16:10:36 +0200
+    Revert "track supported encodings for web push subs"
+    This reverts commit 1a2c51f4019d26df9f168299bf0d4f15ed344484.
+commit 2a91a785e3e83c9b3a296557c460bacf139c1716
+Author: Denys Rybalka <denys.rybalka@tuta.io>
+Date:   2023-04-22 16:26:38 +0200
+    Use verdicts in simul

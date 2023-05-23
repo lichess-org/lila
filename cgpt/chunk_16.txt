@@ -1,0 +1,92 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 8d89e7867eeff534f8a56ff1e4143b1c9b6529a3
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 12:46:25 +0200
+    lobby col4 layout
+commit bd1bb67640f233e92c06f4849999dfb1a10f7e2b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 13:28:01 +0200
+    remove unused Preload.lobbySocket
+commit 0039de338e083f58eb432a42e7f9012b4a533137
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 13:28:22 +0200
+    merge tours & simuls in homepage in a futile attempt to solve grid issues
+commit 8b220d2b31eb581801574a244cbc0c493dcbaafa
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 14:13:01 +0200
+    more homepage responsive layout rework
+commit 84fc2b19f47e21826845944947d937b5880d07f1
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 14:37:23 +0200
+    paypal status casing is inconsistent
+commit ac9779727454e274cb536720453b23a8f3efbe2a
+Author: Sam Ezeh <sam.z.ezeh@gmail.com>
+Date:   2023-03-29 16:04:03 +0100
+    Further internationalise the puzzles page
+commit 3be4054bb226e4183115f274992ded5e643e2fc2
+Author: Sam Ezeh <sam.z.ezeh@gmail.com>
+Date:   2023-03-29 16:12:15 +0100
+    Use trans.txt for title
+commit 15b9d10c4f30a426716f2bb58ea268e43ea0a605
+Merge: 84fc2b19f4 ef77809559
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-29 17:29:11 +0200
+    Merge pull request #12489 from Konstantinos07/event-tips
+    adding event tips to new arena/swiss form
+commit 491d961c65477b02cb613c3b6db368457fa62f4e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 17:35:43 +0200
+    remove superfluous `frag()` after #12489
+commit 92283c359a4be9d33fe10e8c4d556b07adf6af34
+Merge: 491d961c65 3be4054bb2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 18:12:37 +0200
+    Merge pull request #12595 from dignissimus/puzzles-i18n
+    Further internationalise the puzzles page
+commit fc90742b24ae354c1e4d99f057678780e7650a06
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-03-29 22:12:50 +0200
+    remove unused val allButWeb
+commit 0bfcd24f68015f7afb6c04ed8208beb0cdfa3329
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 22:56:10 +0200
+commit 1d1152479460cdd16014d9932ac4a6ec0cad5ffb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 22:58:21 +0200
+    scalachess 14.7
+commit 42f3da0bfa48668db0b0458d6447ce5c249cfe7f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 23:07:00 +0200
+    unused warnings
+commit 63b6004e45db3a8db9ca5813a14e17bd19f5710e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 23:36:53 +0200
+    more unused warnings
+commit 880f8193481ab6feceadfbdfc285433ced96026c
+Merge: 63b6004e45 0bfcd24f68
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-29 23:36:58 +0200
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      remove unused val allButWeb
+commit 20627e61fc32ae1cf577715e50bed578b3bce584
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-30 05:01:41 +0200
+commit 461b6bb7f1d7966128fa1cb52ca6ac5196223b67
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-30 05:21:24 +0200
+    fix correspondence email notifications - closes #12599
+    was broken by the preferences refactoring
+commit 832d0bfda714a6d72d2cbb9ba3068ba0780f27f5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-30 10:26:07 +0200
+    unused warnings
+commit e4d2439817844c0635bf02216b9a090cd18a740b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-30 10:26:29 +0200
+    comment -Wunused:all
+commit d2a91b87c268a7b80b813a625b38e507c124f938
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-03-30 10:39:28 +0200
+    Show web:mod scope to mods on API token creation page again

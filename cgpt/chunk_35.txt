@@ -1,0 +1,129 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 62af2089221354220bb6bb048b5c4f3fb748873f
+Merge: 0c947abad2 75b747a94c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 12:27:46 +0200
+    Merge branch 'master' into consistent_multiboard
+    * master:
+      upgrade reactivemongo
+      fix manually setting date of swiss first round
+      remove unused showPeriod (#12670)
+      fix relay sync.period
+commit 08373903d01d2d3bdfcc09fdda724508a62c8421
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 12:34:01 +0200
+    ts code golf and autoformat
+commit 502dd6b042d2cfd6541209d7895d4eb182beedc8
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 12:36:56 +0200
+    remove data-live from analysis multiboard, they're not live games
+commit 1875abb3464d3b990ee7818c21c059c6db528179
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 12:58:34 +0200
+    code golf
+commit 2cee9f4340f9e78706c7eb15b8a2663dc4afe484
+Merge: 75b747a94c 1875abb346
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 12:58:52 +0200
+    Merge pull request #12732 from kraktus/consistent_multiboard
+    Use mini-game for broadcast multi-boards
+commit 00afc956aa3e396525f3cfd6cfa690c1990919e4
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 13:10:22 +0200
+    fix responsive view of /broadcast with silly round names - closes #12730
+commit 751849ab81e070b0b741cdcb699d3eedb672b995
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 13:14:00 +0200
+    log Streamer.onYouTubeVideo
+commit 9e0f255735dd3ed6c66a527ca742367231566a95
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 13:14:09 +0200
+commit c71f2f66eacb10de5019e2fe9fba6f4b17ab2b9f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 15:15:53 +0200
+    broadcast delay WIP
+commit 7126d0f8eb1bfb2197550ccf0c6422eae207b4ff
+Merge: c71f2f66ea 9e0f255735
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-24 15:16:17 +0200
+    Merge remote-tracking branch 'origin/master' into broadcast-delay
+    * origin/master:
+      log Streamer.onYouTubeVideo
+      fix responsive view of /broadcast with silly round names - closes #12730
+      code golf
+      remove data-live from analysis multiboard, they're not live games
+      ts code golf and autoformat
+      upgrade reactivemongo
+      Rename MiniGameUpdate to MiniGameUpdateData
+      Prettier
+      Fix implicit ctx passing
+      Remove commented out import
+      Fix mini board update type
+      Use `mini-game` for broadcast multi-boards
+      refactor `mini.scala`
+commit b1b2e177eeba2ea029725bc7d385eacc1e1033f7
+Merge: cd8ab684c6 9e0f255735
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 10:52:27 +0200
+    Merge branch 'master' into broadcast-delay
+    * master:
+      log Streamer.onYouTubeVideo
+      fix responsive view of /broadcast with silly round names - closes #12730
+      code golf
+      remove data-live from analysis multiboard, they're not live games
+      ts code golf and autoformat
+      upgrade reactivemongo
+      Rename MiniGameUpdate to MiniGameUpdateData
+      Prettier
+      Fix implicit ctx passing
+      Remove commented out import
+      Fix mini board update type
+      Use `mini-game` for broadcast multi-boards
+      fix manually setting date of swiss first round
+      refactor `mini.scala`
+commit 85d9ce8163c6322e1b23d63a936e737fcb245512
+Merge: b1b2e177ee 7126d0f8eb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 10:52:31 +0200
+    Merge branch 'broadcast-delay' of github.com:lichess-org/lila into broadcast-delay
+    * 'broadcast-delay' of github.com:lichess-org/lila:
+      broadcast delay WIP
+commit 3a1be2d0195efd4b8f3fbe1af92ed8e9e8174ad0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 12:19:55 +0200
+    implement broadcast delay
+commit 8d374a02fa959c719c4558b17fd9c7ab06cfd620
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 12:34:57 +0200
+    delayed relay: show initial setup immediately
+commit 1d5b6730b9390062b2d075ea2c9f44da0c4c8902
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 12:53:28 +0200
+    final tweaks to broadcast delay
+commit ad7bef8dfc0f4d6da42c42cc15c10e7268d77835
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 13:01:38 +0200
+    relay delay refactor
+commit 55d61eb0f15e627bd17c6f1d971d4e50206f8256
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 13:20:48 +0200
+    only store delayed rounds
+commit f0959e5372006e39cf128e00fa0f1e4ebceb494d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 15:23:39 +0200
+    new endpoint HEAD /api/study/{id}.pgn
+commit 96f068ee9cd46f6aedafd71947a33ee9f3f19558
+Author: Denys Rybalka <denys.rybalka@tuta.io>
+Date:   2023-04-25 18:37:58 +0200
+    Add teams as simul condition
+commit ec6038732b344600c5cb82cc1c27189d6dbcbf54
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-04-25 17:26:19 +0000
+    Update netty-transport-native-epoll to 4.1.92.Final
+commit e7d7dc6df94a9d3d803a27f87005b84d0997024a
+Merge: f0959e5372 ec6038732b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-25 22:49:19 +0200
+    Merge pull request #12736 from scala-steward/update/netty-transport-native-epoll-4.1.92.Final
+    Update netty-transport-native-epoll to 4.1.92.Final

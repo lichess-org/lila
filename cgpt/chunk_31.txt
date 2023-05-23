@@ -1,0 +1,98 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 58e8908a91e8204ff4fe23fbef028f1968a23413
+Merge: 1292d1e733 89e02f1a10
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 07:41:04 +0200
+    Merge pull request #12714 from kraktus/anon_difficulty_puz
+    Hide the puzzle difficulty toggle for anonymous players
+commit e306576ff1000d27bb8dd14da22924aa86564e4a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 07:44:54 +0200
+    fix mod queue date parsing
+commit 570d3f53f3eaf1b6b9622dc90dfa95270db0f5e8
+Merge: e306576ff1 58e8908a91
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 07:44:58 +0200
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      Hide the puzzle difficulty toggle for anonymous players
+commit 0e87346ad59b8394b9b13d18758a262981164b88
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 07:45:39 +0200
+commit 4d43c3d73d76a0e75e1786fb040964e357ef9d31
+Merge: 0e87346ad5 4d1d4ccd8f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 08:20:30 +0200
+    Merge branch 'scala-3.3.0-RC4'
+    * scala-3.3.0-RC4:
+      remove superfluous (?) @nowarn annotations
+      scala 3.3.0-RC4 and -Wunused:all
+commit c5d96a7994198ea7c8ad9744d495d5794d283497
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 08:23:27 +0200
+    disable broken -Wunused:all
+commit 24742ab9fbea7382668a5cc0b4ba0117a21f5fda
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-21 08:24:47 +0200
+    better user feedback if copying the chapter PGN fails
+commit bd7cc02afc961180d0d211d30b66f3b412f7cdd7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 08:53:55 +0200
+    replace 10MB breeze jar with simple gaussian implementation
+commit 88aeb125d684338249ccd49dd6f7d81321e8d1e9
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-21 10:16:44 +0200
+    Study chapter: fix PGN to clipboard for Safari
+    The issue was that we waited for the PGN http request to return before calling the clipboard API, and at that time it was already disabled back by the browser.
+    Safari fix is a simplified version of https://developer.apple.com/forums/thread/691873. Unfortunately, Firefox does not support the `ClipboardItem` so made a workaround.
+    Tested on Safari and Firefox.
+    fix https://github.com/lichess-org/lila/issues/12461
+commit 9949f1bc5a64f5bfc483439eb98353c75e4e0d60
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 12:30:38 +0200
+    rudimentary broadcast search engine
+commit 617b467c872a14c383ed3ab8ae610b434ea218f6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 14:24:26 +0200
+    improve broadcast search
+commit 426c8f66933d62e70effc7b529e18bd18549a7ac
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 14:30:19 +0200
+    simplify broadcast search and fix infinite scroll
+commit d17ac30579abd192de34afa32865c9233aabddb6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 14:44:09 +0200
+    fix font list page
+commit 58673206b58ca34a73a50a543a54ded5c7e7f11e
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-21 15:09:21 +0200
+    remove unused password form
+commit b507be15d1665ccd96ccd188a805fc3b2d15a34f
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-21 15:40:07 +0200
+    disable weak password protections on dev instances
+commit 631092f310d8dc781ced65ba61ae85b44957311f
+Author: Trevor Bayless <trevorbayless1@gmail.com>
+Date:   2023-04-21 11:36:34 -0500
+    Show provisional rating indicator on create game modal
+commit af0a5246cd1708f91ff2e022c6a80f472fa695f0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 20:30:21 +0200
+    study/broadcast chapter/sound client-side search WIP
+commit 35fc15ae201665ca7230998cf6b837fd05bf84aa
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 20:42:34 +0200
+    minify fantasy piece set
+commit 8814794380c35fe77f6bdf0943a222acf832f8d4
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 20:44:22 +0200
+    minify spatial piece set
+commit d1581ecf8e591e218bf56967b2798dbf004b4f9d
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 20:52:12 +0200
+    minify celtic piece set
+commit 161c11430eb81a285e832a05df0d3476c17ef1b7
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 20:53:48 +0200
+    minify anarcandy piece set

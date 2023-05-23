@@ -26,32 +26,19 @@ final class Page(
 
   def source = Open:
     pageHit
-    OptionOk(prismicC getBookmark "source") { (doc, resolver) =>
+    OptionOk(prismicC getBookmark "source"): (doc, resolver) =>
       views.html.site.page.source(doc, resolver)
-    }
 
   def variantHome = Open:
     negotiate(
-      html = OptionOk(prismicC getBookmark "variant") { (doc, resolver) =>
-        views.html.site.variant.home(doc, resolver)
-      },
-      api = _ => Ok(variantsJson).toFuccess
+      html = OptionOk(prismicC getBookmark "variant"): (doc, resolver) =>
+        views.html.site.variant.home(doc, resolver),
+      api = _ => Ok(lila.api.StaticContent.variantsJson).toFuccess
     )
-
-  private lazy val variantsJson =
-    import lila.common.Json.given
-    JsArray(Variant.list.all.map { v =>
-      Json.obj(
-        "id"   -> v.id,
-        "key"  -> v.key,
-        "name" -> v.name
-      )
-    })
 
   def variant(key: Variant.LilaKey) = Open:
     (for
       variant  <- Variant(key)
       perfType <- lila.rating.PerfType byVariant variant
-    yield OptionOk(prismicC getVariant variant) { (doc, resolver) =>
-      views.html.site.variant.show(doc, resolver, variant, perfType)
-    }) | notFound
+    yield OptionOk(prismicC getVariant variant): (doc, resolver) =>
+      views.html.site.variant.show(doc, resolver, variant, perfType)) | notFound

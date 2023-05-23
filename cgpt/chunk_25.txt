@@ -1,0 +1,118 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit e76cc0bb71d0055b621b556361e0aa97f9e83009
+Merge: 3d3cc01a61 16711c1d61
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-12 13:24:07 +0200
+    Merge branch 'master' into team-battle-kick-remove-team
+    * master: (79 commits)
+      remove explicit joda dependencies
+      remove debug
+      bump deps
+      form date tweaks
+      fix form date tests
+      more form date tests
+      fix form date tests
+      form date tests
+      rename form date formats
+      scala tweaks
+      fix merge
+      don't make folks pnpm link chessground from multiple modules
+      opaque type Challenge.Id
+      form date types
+      java.time safe formatting wip
+      complete scalachess Crazyhouse and Square migrations
+      allow more recent pnpm
+      scalachess update WIP - requires java.time
+      ...
+commit eded4dcda94fde1374ad3a017aa21d1592a93edc
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-12 13:24:40 +0200
+    remove accidentally indexed logs
+commit a6ea62f25c1bfcdf1a4b20db6b50506a7caddbb9
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-12 13:28:11 +0200
+    ensure the team battle limit is respected
+commit 8867d9d58243875d51d15144df73d2976a12d51c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-12 13:30:17 +0200
+    for sugar
+commit 5095aa6d3c49372f17a111866e0e278f9ea02260
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-12 13:31:51 +0200
+    fix build
+commit a82e9fcbec846d4f46cfd1f1c61ca6044c96cf1d
+Merge: 16711c1d61 5095aa6d3c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-12 13:32:03 +0200
+    Merge pull request #12637 from benediktwerner/team-battle-kick-remove-team
+    Kick players when removing a team from a team battle
+commit 9af989f549872dc46daa509f72c5598bd350b44b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-12 13:38:26 +0200
+    more tournament api scala tweaks
+commit 4621f9419e9cee47d5fa25fbc048d27df0c45258
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-13 09:02:56 +0200
+    fix build
+commit 2c23770dcd358c9ce37629c6973256c384192492
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-13 09:03:22 +0200
+    code tweaks and fixes
+commit 0c45281fba5f33a6c57700907a7c1576f5a8d96f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-13 09:51:57 +0200
+    fix double correspondence alarms maybe
+commit bdd3e8e6a9fdc614058f6c9ad289f8fbc45d5c17
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-13 10:57:36 +0200
+    allow the open challenge maker to cancel it for 1h
+commit 48abcdd5b4ff6da2689308d5c4e2801cccc2d6cc
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-13 11:02:39 +0200
+    Fix corres clock with rtl - closes #11782
+commit 4da0824a8aabd311d3791eedb94ca0c4d7cf4aa5
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-13 11:12:28 +0200
+    Make all textareas unicode-bidi:plaintext
+commit 996309c3b2c18766acc907fdbc4158c85d59c096
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-13 11:25:11 +0200
+    allow the open challenge maker to abort the game
+commit 3f592f711b0ae1767e0a2cc2ed8845c2e50215df
+Merge: 996309c3b2 4da0824a8a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-13 11:25:15 +0200
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      Make all textareas unicode-bidi:plaintext
+      Fix corres clock with rtl - closes #11782
+commit ae2c8f992b76b98d6638f30802b70a5880d51956
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-04-13 11:25:33 +0200
+    Fix ratingRefundExplanation wording
+commit ce3277a610c2745772d895759bd5f0d12b146982
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-13 11:38:06 +0200
+commit 4dc7c2a1683a7fec6f9a3f16de9bd447e55aadc8
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-13 18:31:14 +0200
+    fix deprecation notices
+commit 3955c00e984729b39f8d5a92960e8408cf86d3c1
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-13 23:01:25 +0200
+    also whitelist zoho.in (fixes #12676)
+commit 05563ac30c724810edcffc2a11052321427f91e4
+Author: my_name <96615665+thedancinglaundry@users.noreply.github.com>
+Date:   2023-04-14 10:32:53 +0300
+    Update Dictionary.scala (#12674)
+    * Update Dictionary.scala
+    added  "mal , göt " in TR
+    added  "ky5" in critical
+    * Update Dictionary.scala
+commit 6db5c0fbb882194e577cafb818119eb4e376154c
+Merge: 05563ac30c 4dc7c2a168
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-14 10:22:19 +0200
+    Merge pull request #12681 from kraktus/fix_dep_warning
+    fix deprecation notices

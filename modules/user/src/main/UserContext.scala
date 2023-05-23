@@ -14,14 +14,9 @@ sealed trait UserContext:
   def lang: Lang
   def withLang(newLang: Lang): UserContext
 
-  def isAuth = me.isDefined
+  export me.{ isDefined as isAuth, isEmpty as isAnon }
 
-  def isAnon = !isAuth
-
-  def is(user: User): Boolean                  = me contains user
-  def is(user: lila.common.LightUser): Boolean = userId contains user.id
-
-  def isUserId(id: UserId): Boolean = userId contains id
+  def is[U: UserIdOf](u: U): Boolean = me.exists(_ is u)
 
   def userId = me.map(_.id)
 

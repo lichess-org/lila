@@ -1,0 +1,125 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit aa98e34b30b91a56d248563cdb3b3cedc800ef24
+Merge: 170828833d 248be82955
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-13 12:14:50 +0100
+    Merge pull request #12368 from Konstantinos07/patch-27
+    update en, critical
+commit 4f31850c1de7bf427268629a846ac456f3b05030
+Merge: aa98e34b30 5aa759ca33
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-13 12:15:16 +0100
+    Merge pull request #12366 from scala-steward/update/netty-transport-native-epoll-4.1.88.Final
+    Update netty-transport-native-epoll to 4.1.88.Final
+commit a21d9caf5bef661111f050f24e512eca29b6c8a2
+Merge: 4f31850c1d ff5c27ab52
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-13 12:16:32 +0100
+    Merge pull request #12362 from benediktwerner/tweak-link-popup
+    Tweak and translate link popup
+commit e9b868b8a33fc9f93dc2fc7a26478002eed0b153
+Merge: c298de4311 a21d9caf5b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-14 11:23:44 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      Improve unknownFinish status rendering
+      update en, critical
+      Update netty-transport-native-epoll to 4.1.88.Final
+      Tweak and translate link popup
+commit e0a57577c1cabe08cd731978cbef2ba2644a447a
+Author: my_name <96615665+thedancinglaundry@users.noreply.github.com>
+Date:   2023-02-14 19:11:20 +0300
+    update RU dict.
+    "аутист" = " autistic"
+commit e4d6462f7f24183d7f9dc449df9c4c7b1f553fdd
+Merge: e9b868b8a3 e0a57577c1
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-14 17:21:57 +0100
+    Merge pull request #12374 from thedancinglaundry/patch-3
+    update RU dict.
+commit 598a8a85e0be471fd1ce296499797489d5a41fb9
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-02-14 17:43:04 +0000
+    Update netty-transport-native-epoll to 4.1.89.Final
+commit e79ac5832be4b31a3b34823f0a051676d5660c36
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-14 22:24:40 +0100
+    summon
+commit ba14859fcd82e361ec197a831050dfbd380a561f
+Merge: e79ac5832b e4d6462f7f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-14 22:24:43 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      update RU dict.
+      Improve unknownFinish status rendering
+      code golf
+      fix sorting issue
+      update en, critical
+      Update netty-transport-native-epoll to 4.1.88.Final
+      allow up to 4 event streams and 2 download streams by IP - closes #12363
+      using
+      update referrer spam mitigation
+      Fix temporarilyPrimary access
+      Read personal data export temporarily from primary
+      Tweak and translate link popup
+      fix monitoring
+commit 4934c7ace0a10de75909c4f18cab484b5a735c45
+Author: Tristan F <LeoDog896@hotmail.com>
+Date:   2023-02-14 20:50:37 -0500
+    refactor: nullification of maxDepth | millis
+commit d31d8e804ad18239508a1eab08a537741a484c09
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-15 08:46:27 +0100
+    code tweaks
+commit f77b134066b75c87099bf4150687bc9d51c17fca
+Merge: d31d8e804a 598a8a85e0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-15 08:46:57 +0100
+    Merge pull request #12376 from scala-steward/update/netty-transport-native-epoll-4.1.89.Final
+    Update netty-transport-native-epoll to 4.1.89.Final
+commit 7e4e5c7e162d3b19d953bec819c79945b4b1ed24
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-15 08:47:11 +0100
+commit 80ece6d1f28a64a7560976fdf679e1c332d22b63
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-15 09:11:33 +0100
+    relax login rules
+commit b4243a1dbf9a70630d99118c847d2d403fc0846a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-15 18:11:05 +0100
+    scalachess 14.4.0
+commit b81b632e27cad1343c0512a2953bacbdbb0087a9
+Merge: b4243a1dbf 4934c7ace0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-15 18:18:22 +0100
+    Merge pull request #12381 from LeoDog896/master
+    refactor: optional maxDepth | millis
+commit bc3ee2b70066187b855a57ee0543f2e6673a2a3d
+Author: Trevor Bayless <trevorbayless1@gmail.com>
+Date:   2023-02-14 12:38:18 -0600
+    Update OAuth code flow link
+commit c4b881751e890898b44d7d5e0f890aacc6b44fe3
+Author: my_name <96615665+thedancinglaundry@users.noreply.github.com>
+Date:   2023-02-16 01:48:33 +0300
+    update TR dict.
+    "ezik" = " weak/looser"
+commit dc2cbf2d09ae43f24acca06745e1d9b143b691c0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-16 09:20:10 +0100
+    return 403 instead of 401 when oauth scopes are insufficient
+commit 047a1183af480e1a2ff17a39b83a88bfe3238f9e
+Merge: dc2cbf2d09 b81b632e27
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-16 09:20:14 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      refactor: nullification of maxDepth | millis
+commit 399f9f566c6656f1a7fd4843bf49cfa205ed3324
+Merge: 047a1183af c4b881751e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-16 09:31:43 +0100
+    Merge pull request #12387 from thedancinglaundry/patch-4
+    update TR dict.

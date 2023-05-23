@@ -3,16 +3,18 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
 #voice-control {
   position: relative;
 }
+
 #voice-status-row {
   @extend %box-neat, %flex-center-nowrap;
   font-size: 1rem;
   align-items: stretch;
   background: $c-bg-box;
-  padding: 0 0.4em;
+  user-select: none;
+  padding-#{$end-direction}: 0.7em;
   #voice-control.puz & {
     background: $c-bg-zebra;
   }
-  user-select: none;
+
   > button {
     @extend %button-none;
     color: $c-font-dim;
@@ -40,6 +42,7 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
       background-color: $c-mic-bg-hover;
     }
   }
+
   &.enabled span {
     color: $c-primary;
     animation: pulseBorder 2s;
@@ -81,7 +84,6 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
 }
 .voice-setting {
   @extend %flex-center-nowrap;
-
   label {
     flex: 4 1 auto;
     cursor: pointer;

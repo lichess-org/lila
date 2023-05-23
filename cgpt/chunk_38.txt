@@ -1,0 +1,97 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit e142fe3e374437608643b0ff693f5f4fcf7c1aef
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 15:46:24 +0200
+    optimize message compiler imports
+commit a5731c21f565006e49b4f36b16b00356fa49624c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 16:28:17 +0200
+    remove duplicate messages when compiling i18n
+commit dcfcaa09e8bad643281d4708480add9399f6e173
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 16:28:36 +0200
+    ensure i18n escapes &quot;
+commit b3405ba46d80f3dd15cfabc66369bb9593fe966d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 17:07:04 +0200
+    fix i18n tests
+commit 4e8931726d8734378266a5cf5a535d07c729778b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 22:46:41 +0200
+    move CSP and Nonce out of modules/common
+commit 4a5ac24271b9a739981eb7475f6d282fa401c33c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 23:05:44 +0200
+    code tweaks and cleanup
+commit d6767dcc173ea1e0b7a69926d38186495b0cdcbc
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 23:07:50 +0200
+    move lila.gathering.GreatPlayer
+commit 68086939afabe8094185b672127bbd103bf1fe6b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 23:15:34 +0200
+    more refactor/cleanup
+commit 15a3865a8318f615f256d33cc2001723e8aab304
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 23:32:38 +0200
+    remove modules/quote
+commit e051bc091408ee93a9b5d6eb39d15278f211a174
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-29 23:44:50 +0200
+    set translation map load factor to 1, as it doesn't grow
+commit 1667265035b55a5840d2f904aa8eb1e8ee7139ad
+Author: Jonathan Gamble <gamblej@gmail.com>
+Date:   2023-04-29 17:50:10 -0500
+    use markdown mixin for pre/code in _page.scss
+    addresses #12755
+commit 8eee2fda61121996b4a266a6482472f0b727575c
+Author: Jonathan Gamble <gamblej@gmail.com>
+Date:   2023-04-29 22:29:20 -0500
+    timed api move stream delay
+commit 587be11eead5921d6d4f05622413e935789aa56c
+Author: Tristen Tomczak <78294042+ttomczak3@users.noreply.github.com>
+Date:   2023-04-30 02:22:56 -0500
+    Puzzle replay: redirect to dashboard only after voting
+commit e08eaac806ff4b8d3e67c7bb96aa4030f02ae5da
+Author: Tristen Tomczak <78294042+ttomczak3@users.noreply.github.com>
+Date:   2023-04-30 02:30:04 -0500
+    Fix: Improve legibility by adding a text shadow
+commit 3f50e415b0463425160607d291c54078bcc6f02f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-30 11:42:57 +0200
+    tweak inline streamer list style
+commit 81848cefeda6b387484081942262a1e5563f6d0e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-30 14:08:46 +0200
+    adjust message hashmap initialCapacity
+commit 561727f961d306ed7ffa68357c30ace864b3b1e8
+Author: Thomas Daniels <daniels.thomas@pm.me>
+Date:   2023-05-01 00:55:09 +0200
+    Add ACWC and 3+ WC 2022 trophies
+commit 5ca901e0541744a1b0d066b5bdd25bc1deb0b32e
+Author: Denys Rybalka <denys.rybalka@tuta.io>
+Date:   2023-05-01 10:27:34 +0200
+    Add script for building dependency-graph
+commit dba7ed797301e5592c755012159a41d21944e09f
+Merge: 81848cefed 561727f961
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-01 10:42:14 +0200
+    Merge pull request #12764 from lichess-org/acwc-3wc-trophy-2022
+    Add ACWC and 3+ WC 2022 trophies
+commit 059d3484e625786456e39a4568605f12a00abe49
+Merge: dba7ed7973 e08eaac806
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-01 10:51:56 +0200
+    Merge pull request #12761 from ttomczak3/patch-2
+    Fix: Improve legibility by adding a text shadow
+commit 9825fe2aef3902b884f924d6af48fd8e7e21d532
+Merge: 1667265035 059d3484e6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-01 10:53:16 +0200
+    Merge branch 'master' into prismic-code-css
+    * master:
+      Add ACWC and 3+ WC 2022 trophies
+      adjust message hashmap initialCapacity
+      tweak inline streamer list style
+      Fix: Improve legibility by adding a text shadow

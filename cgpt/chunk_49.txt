@@ -1,0 +1,120 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 0baa6da12322317835b8618ffd75c158c187ae4c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-17 08:56:32 +0200
+    form3.hiddenFalse
+commit 3eaa7f9c4df01b6a74c014678d7b03e214e4408c
+Merge: 3a2e3d528d 0baa6da123
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-17 08:59:14 +0200
+    Merge pull request #12855 from kraktus/swiss_played_last_game
+    Fix disabling swiss conditions for players to have played their last game
+commit dbb3f258482ea435aa05cf6d852e6ab826be671c
+Author: Gabriel <73392506+gabtar@users.noreply.github.com>
+Date:   2023-05-17 07:15:45 -0300
+    Fix gap on homepage (#12850)
+    * Fix gap on homepage
+    * Fix format
+commit c4e51327cd031358717238c60cacd6d0171a6725
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-18 08:42:09 +0200
+    better handle at:deleted-entry from pubsubhubb - for #12713
+commit aaf4885a54f0c410ee069b424e79fa23816cee85
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-18 08:42:30 +0200
+    refactor pubsubhub handler
+commit 8d27c92f5559065ef965eb31ca1ae6b132a1374f
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-05-18 16:45:34 +0200
+    update label of lowest /opening rating group
+commit 3542785160c892ad32c45d71c5bb77bf65d2e7d9
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-05-18 20:13:24 +0200
+    update lowest rating group of fishnet opening book
+commit ab96fd42f23a04c2ebb6130eb1a34a639fba07d1
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-05-18 23:31:36 +0200
+    update opening explorer api
+    * track source of queries
+    * combine /lichess/history and /lichess
+commit 3b9dd1071caae2380e992670b0e654e00a5bfc8d
+Author: Jonathan Gamble <gamblej@gmail.com>
+Date:   2023-05-18 23:01:09 -0500
+    don't advertise modals from other modals
+    * icon css fixes for mobile (leftover hover style) and reduced motion (permament hilite).
+    * move settings icon a tiny bit away from edge of device screens, they can be dead areas.
+commit 626e028cefcada89db5d0e1f3b11b2f32169388b
+Merge: ab96fd42f2 3b9dd1071c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 08:26:16 +0200
+    Merge pull request #12862 from schlawg/tiny-voice-ui-fixes
+    tiny voice UI fixes
+commit 6de2070c7aecdb5dafb165249081b92e5b54d13f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 08:31:30 +0200
+    use lichess.once in ui/voice instead of storedBooleanProp
+commit 6a0c992d3b0dcaa82c02de7bd364485ac50e3dcf
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 08:34:11 +0200
+    Update Crowdin configuration file
+commit deaadc94824325427855d0c417cf5b19b12751b9
+Merge: cabd749e96 6de2070c7a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 08:46:46 +0200
+    Merge branch 'master' into imported-game-delete-discoverability
+    * master: (25 commits)
+      use lichess.once in ui/voice instead of storedBooleanProp
+      don't advertise modals from other modals
+      update opening explorer api
+      update lowest rating group of fishnet opening book
+      update label of lowest /opening rating group
+      refactor pubsubhub handler
+      better handle at:deleted-entry from pubsubhubb - for #12713
+      Fix gap on homepage (#12850)
+      form3.hiddenFalse
+      further increase explorer cache useful threshold
+      increase cache useful threshold
+      scala 3.3.0-RC6
+      Group imports
+      Use new Score
+      Fix writing swiss conditions to mongodb when empty
+      remove round.id from puzzle activity stream
+      code golf for hidden inputs allowing to disable rated
+      fix comment for hack about swiss tournaments `conditions.playYourGames`
+      API: Allow to retrieve pending simuls when authenticated
+      fix slist min width without a wrapper - closes #12795
+      ...
+commit fe20699c6270b7bcd690125537b4020417b62f4b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 10:18:49 +0200
+    add convenience method ctx.is
+commit f554b3e77890eac3d3f07ff97441d95db64dc3cb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 10:19:01 +0200
+    scala code golf
+commit 5b5d5b6d02d6e7e66c8005f36383b8afe2e74b76
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 10:28:30 +0200
+    fix the compilation error I just commited
+commit 6a3c8acce5430b2bef5f74bb7f3a395d3c7b8c19
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 10:32:22 +0200
+    import delete CSS and template tweaks
+commit b6d696154582e748f0464423540096a7bb47b10e
+Merge: 6a0c992d3b 6a3c8acce5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 10:32:42 +0200
+    Merge pull request #12845 from michd/imported-game-delete-discoverability
+    Better display how to remove imported games
+commit 76a1527a1cee4f61d1b4ad540f9a55bbc7624813
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 10:34:26 +0200
+commit 4b7fd7ee520c1bed8aaa792e9173f5ced63c3bd9
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-05-19 10:39:41 +0200
+    UserContext tweaks
+commit 04eb2edacbd0bb685cf0395c9ee2ec016fc3b30b
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-05-19 13:26:40 +0200
+    try ply based explorer cache hints

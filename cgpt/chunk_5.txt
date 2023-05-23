@@ -1,0 +1,128 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 834cfaaf7b7c6e15133bee9b1cc4bfab505d1bb8
+Merge: 399f9f566c bc3ee2b700
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-16 09:32:22 +0100
+    Merge pull request #12385 from trevorbayless/fix_oauth_section_link
+    Update OAuth code flow link
+commit fe00bf92e77193972196dd4ef16943d19adb1e58
+Merge: 834cfaaf7b d05421feca
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-16 10:37:15 +0100
+    Merge pull request #12361 from benediktwerner/media-query-not
+    Fix $mq-not-... media queries
+commit abad9ad126ead20c5d9b4f35d96736a9ccf4d93d
+Author: Thanh Le <lenguyenthanh@hotmail.com>
+Date:   2023-02-16 16:28:40 +0100
+    Migrate scalachess MoveOrDrop
+commit 3008ddffd872616f88c849a30d2e5439b3848aa7
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-02-16 19:46:26 +0000
+    Update google-auth-library-oauth2-http to 1.16.0
+commit 2dea5b9f01ad343b15af5098c5a608b0a59854f0
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-02-16 19:46:48 +0000
+    Update lettuce-core to 6.2.3.RELEASE
+commit 840906afc695972e50ea08a790e2ea7bb3d083ef
+Author: Thanh Le <lenguyenthanh@hotmail.com>
+Date:   2023-02-16 23:34:27 +0100
+    Remove unused imports
+commit a3c5c682e0eab4aec0d24b125981571901cfb68a
+Merge: ba14859fcd fe00bf92e7
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-17 08:59:40 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      return 403 instead of 401 when oauth scopes are insufficient
+      update TR dict.
+      Update OAuth code flow link
+      scalachess 14.4.0
+      relax login rules
+      code tweaks
+      refactor: nullification of maxDepth | millis
+      Update netty-transport-native-epoll to 4.1.89.Final
+      Fix $mq-not-... media queries
+commit 48d5c274d0534b99ad1381ecf77f45b2f88b9c05
+Merge: a3c5c682e0 840906afc6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-17 10:56:46 +0100
+    Merge pull request #12388 from lenguyenthanh/scalachess-move-or-drop
+    Migrate scalachess MoveOrDrop
+commit 5d7bc021d4a5413f9289c7e3ab14b297757feb23
+Author: TheMadSword <2840135+TheMadSword@users.noreply.github.com>
+Date:   2023-02-17 23:33:27 +0100
+    +Mention '?' for keyboard shortcuts in FAQ
+commit 6b9022c7792058d45e271064a94be7efc0918eba
+Merge: 48d5c274d0 2dea5b9f01
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-18 12:38:12 +0100
+    Merge pull request #12392 from scala-steward/update/lettuce-core-6.2.3.RELEASE
+    Update lettuce-core to 6.2.3.RELEASE
+commit 2546d8191543de88c07a6fba1dadfc5b3d06571b
+Merge: 6b9022c779 3008ddffd8
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-18 12:38:20 +0100
+    Merge pull request #12391 from scala-steward/update/google-auth-library-oauth2-http-1.16.0
+    Update google-auth-library-oauth2-http to 1.16.0
+commit f3ee8fc2ec7d1d4c5647577178313cd359002444
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-02-18 20:13:47 +0100
+    load explorer stats and history sequentially for cache efficiency
+commit 173212b03f5e45dfe09bee793df525ac77fb67f0
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-02-18 20:14:57 +0100
+    increase explorer timeout
+    Timeouts are most likely on cold pages. Cold pages will likely not have
+    Wiki entries. So the page will not have useful information without
+    explorer stats.
+    Also, cancelled queries don't get a chance to populate higher-level
+    caches.
+commit 118e40c258d29d8114fe847ea70950ccc1313298
+Author: Erdogan Seref <erdogan872@gmail.com>
+Date:   2023-02-18 21:36:01 +0000
+    Send full FEN on all /api/stream/game events
+    Replace BoardFen with EpdFen
+commit c16e5e4d2cc0dcb7007f7096f9f82ed32056be81
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-19 11:53:55 +0100
+    scalachess 14.5.1
+commit c2c71cbc7fcba9f7b03f265ef539d7aae879a1df
+Merge: c16e5e4d2c 118e40c258
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-19 13:45:08 +0100
+    Merge pull request #12405 from ErdoganSeref/feat-12357-send-full-FEN
+    Send full FEN on all /api/stream/game events
+commit c6e5e687d9c8dd60da222d6e976444b9bc206da1
+Merge: 5d7bc021d4 c2c71cbc7f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-20 11:31:25 +0100
+    Merge branch 'master' into TheMadSword/master
+    * master:
+      scalachess 14.5.1
+      Send full FEN on all /api/stream/game events
+      increase explorer timeout
+      load explorer stats and history sequentially for cache efficiency
+      Remove unused imports
+      Update lettuce-core to 6.2.3.RELEASE
+      Update google-auth-library-oauth2-http to 1.16.0
+      Migrate scalachess MoveOrDrop
+      summon
+commit 5c829b09c5b1a4a78406a729ab07285691ad3f1d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-20 11:35:13 +0100
+    simplify translatable wording
+commit 54c7b4d1242ec37812637cf5c35c193eefbbdcb6
+Merge: c2c71cbc7f 5c829b09c5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-20 11:35:38 +0100
+    Merge pull request #12401 from TheMadSword/master
+    +Mention '?' keyboard shortcut in FAQ
+commit f688f8d2cbd5c4a6b39bdcd3afecac9416a290e9
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-02-20 17:34:32 +0100
+    faq: Oxford comma
+commit 23df628627f782881a4e83558324b7518a076253
+Author: Trevor Bayless <trevorbayless1@gmail.com>
+Date:   2023-02-20 10:57:08 -0600
+    Use issue form for bug reports

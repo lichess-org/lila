@@ -1,0 +1,127 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 3d6cfd693e60d95c1ecfee243b1f38b4d4f639e8
+Merge: 6a3676d18a 5bf38e5c94
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-20 12:55:42 +0100
+    Merge branch 'master' into truncated-comment-redirect
+    * master: (23 commits)
+      scalachess 14.6.3
+      clamp puzzle votes in case of puzzle/round inconsistency (closes #12408)
+      simplify toggleExplorer
+      whitelist zohomail.eu (fixes #12521)
+      fix fenThumbnail for crazyhouse (fixes #12526)
+      fix username preload in game thumbnails
+      fix imported game status with termination normal (fixes #12527)
+      scalafmt
+      Fix tests
+      Migrate scalachess 14.6.2
+      Remove unused Map
+      Revert "new scalachess pgn wip"
+      paypal sub comments, tweaks and logging
+      paypal sub renew fix
+      paypal sub renew fix wip
+      Fixing type issue for DateTimeFormatOptions
+      Using Date.prototype.toLocaleDateString() for chat
+      tweak npm scripts
+      ...
+commit bbb9616ca5f693f6459a0d3bb6944f6b514be42e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-20 13:23:55 +0100
+    fix code duplication
+commit 787d46baafcbee13cc0d5e39bff729986bba42df
+Merge: 5bf38e5c94 bbb9616ca5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-20 13:24:40 +0100
+    Merge pull request #12536 from HalflingHelper/truncated-comment-redirect
+    Truncated comment redirect (Issue #12470)
+commit 578f3a1fbee7cf5a7fec3b49ebbd4369535554e3
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-20 17:33:54 +0100
+    fix color field in racing king JSON, add orientation? instead
+commit c5c24c3ada46e74b3219ecdc6d4869a578082922
+Merge: 578f3a1fbe 787d46baaf
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-20 17:33:58 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      fix code duplication
+      Wrap truncated comments in a selector to reuse
+      It isn't wrong
+      naming, const
+      path is never undefined
+      Formatting and cursor css
+      Functional now, lacks UX
+      It works, except for weirdness with comment mode
+commit bed79992e6b055f95e1dd17b846a11f90a5ad83a
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-03-20 17:39:45 +0100
+    Fix YT embeds with stripped protocol
+    lila strips the protocol on the link text and adds https to the href if it's missing
+commit 103771011a3926f4f9449bdec1947b52cb67ccd4
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-22 10:40:06 +0100
+    fix #12544
+commit 947e567b1cc14bcc2ab9b4473219cc901143d142
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-22 10:44:50 +0100
+commit cf8a1f9015b9151b435260def0f5529f796ee9e6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-22 10:48:32 +0100
+    remove some `new`
+commit c2cdf65465db33ec15a0cfad574ff69a477c2038
+Merge: cf8a1f9015 947e567b1c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-22 10:48:37 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+commit 0b0b6e7f44473faa89f5a5f75251eb14550cb5ce
+Author: TheMadSword <2840135+TheMadSword@users.noreply.github.com>
+Date:   2023-03-22 14:38:34 +0100
+    ~Fix 2nd part of #12544 : Screen shake/scroll problem
+commit 01099c087ffc1dfaa849c40a085129e136ea22db
+Merge: c2cdf65465 0b0b6e7f44
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-22 17:43:33 +0100
+    Merge pull request #12558 from TheMadSword/fix_analysis-tabs_shake
+    ~Fix 2nd part of #12544 : Screen shake/scroll problem
+commit dc2fd033ca7605747dcf0d637d088b0cc92a59d3
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-24 16:33:02 +0100
+    add GET /api/streak endpoint
+commit b7b40869ed476e1503d2331a4f653e90cd533511
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-24 16:52:40 +0100
+    add POST /api/streak/:score API endpoint
+commit 5ab78ba1baded4cb218322233c0c3e048428f8e4
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-03-24 17:50:47 +0000
+    Update joda-time to 2.12.4
+commit 3be88b1b509bb249807d4195b9b91740b6558973
+Author: Giacomo Lorenzetti <g.lorenz9@protonmail.com>
+Date:   2023-03-24 19:16:37 +0100
+    Verify website on Mastodon
+commit 9f2183491d0726645c9bdbe907a170182136e223
+Merge: b7b40869ed 5ab78ba1ba
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-24 22:23:15 +0100
+    Merge pull request #12570 from scala-steward/update/joda-time-2.12.4
+    Update joda-time to 2.12.4
+commit ba3e7cc09a51cd578db1f2759dffec95f9656152
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-24 22:26:36 +0100
+    remove scalatags.me
+commit c5861a828c08217621e647091168f45815aafcbb
+Merge: 9f2183491d ba3e7cc09a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-24 22:26:46 +0100
+    Merge pull request #12571 from G-Lorenz/verifyMastodon
+    Verify website on Mastodon
+commit 66042ed1b690b9a981e6317777d699dda5b55bf4
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-25 11:02:18 +0100
+    make grid areas more readable
+commit ce049b0c3fa466d5785858d44e3222c976426161
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-03-25 13:50:31 +0100
+    move ublog cards higher on homepage, WIP

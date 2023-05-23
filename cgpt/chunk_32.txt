@@ -1,0 +1,88 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit 994f3a4991ea271473817d7b4f125092d8727050
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 20:54:38 +0200
+    minify california piece set
+commit 0b3ab97b96843f41fc9b6487edbfb3a59698e88c
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 20:56:35 +0200
+    minify cardinal piece set
+commit e638b295f8c87a0d809fcc164a348d6e842f7cb2
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 20:58:32 +0200
+    improve companion piece set minification
+commit 7bbc84d3c5012c479a7aa0838c1fb971ed1ec9ca
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 20:59:25 +0200
+    slightly minify disguised piece set
+commit 0db2673e1d80dca18561a28975fe4d70ce9367d7
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:01:32 +0200
+    minify tatiana piece set
+commit 59553ab0ef51d980603230dc028ad85fd3f6ccd1
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:08:37 +0200
+    minify dubrovny piece set
+commit 74d4b93389787b886fb6cffb7c9847cb547170c8
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:10:14 +0200
+    minify pixel piece set
+commit 8b1961f2cf23c5112d62159118f2a04784057272
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:12:10 +0200
+    minify fresca piece set
+commit 26d3f4f6fa1c16068ec08d513c836513136b0663
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:12:52 +0200
+    minify gioco piece set
+commit 747a747e6220f88fd7a3f9a3d92cb9e6bb4bedf3
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:14:07 +0200
+    minify governor piece set
+commit 26e80d48e192e2679a0901669cd9f957f05c04e1
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:14:55 +0200
+    minify icpieces
+commit 045aa9ad3176768f8ba42256b51435b0ec592e6e
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:15:47 +0200
+    minify kosal piece set
+commit 86aa84d6b3e542694ef7b39bce9d6beb151067c1
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:16:20 +0200
+    minify leipzig piece set
+commit c3e22889a81b90dee1c44198298ae4919caf86d0
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:17:17 +0200
+    minify libra piece set
+commit b2e49691ceba7c2327224a038b750f4514ec7a39
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:17:40 +0200
+    minify maestro piece set
+commit 6a66d10cc090eaeaa96f526f9cb42942d7cd4eea
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:18:54 +0200
+    minify staunty piece set
+commit 904989e5da64697595c4631aa8073c190936d579
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:33:22 +0200
+    restore staunty knight
+commit 6d5a5670d1aa30b4620392988da640dd7b9cb5f6
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:35:44 +0200
+    restore libra knight
+commit 4813deebee34ede18e6e7e74b692aa89ef05531c
+Author: Niklas Fiekas <niklas.fiekas@backscattering.de>
+Date:   2023-04-21 21:38:11 +0200
+    fix type: String -> string
+commit 51e0124a40a86af92ef62561f894ec70cb83da97
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-04-21 20:57:33 +0200
+    Appeal: Add "send and process" button
+    from https://hq.lichess.ovh/#narrow/stream/30-mod-admin-appeal/topic/main/near/2509236
+    Tested both as user and mod.
+commit 87337ba9a59bdf28fdf06e4da6e1f3c6a460656c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-21 21:58:57 +0200
+    fix filtering user teams in api endpoint

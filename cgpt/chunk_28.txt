@@ -1,0 +1,105 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit f14db82e9312b9d638ae2122a24c3e551158edd8
+Merge: 4422b8e44c 44e2794446
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 07:31:12 +0200
+    Merge pull request #12702 from ttomczak3/master
+    Fix: PGNs transparent background
+commit 8815b3b1ef0bda802d82c35e86872a7f3c33b74f
+Merge: 3d733efd2a f14db82e93
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 07:54:34 +0200
+    Merge branch 'master' into chupinmaxime/master
+    * master:
+      Fix: PGNs transparent background
+      Bump scalachess fix Crazyhouse checkmate condition
+      fix casing issue in study annotator/contributor matcher
+commit a8f89cae7ff5172918ca90c9e8d5da49b4c08f1d
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 07:58:48 +0200
+    run bin/gen/piece-sprites
+commit c25dd01d2c9ab44400d9bfd67e9e12665808e439
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 07:59:21 +0200
+    add mpchess to the piece set list
+commit 2946cbe4494fdb103f6c30e92f77ac6546da2cc8
+Merge: f14db82e93 a03c062105
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 08:03:12 +0200
+    Merge pull request #12700 from kraktus/deprecation_URL
+    Fix depreciation notice about `java.net.Url`
+commit 68d8a13a5f2d8067ffa6cf2f4bdaf978d846940c
+Merge: c25dd01d2c 2946cbe449
+Author: Chupin <chupin@ceremade.dauphine.fr>
+Date:   2023-04-17 10:15:17 +0200
+    Merge branch 'lichess-org:master' into master
+commit 9f240b5bce1d0dadefc357862923c856fe88beb7
+Author: Maxime Chupin (Dauphine) <chupin@ceremade.dauphine.fr>
+Date:   2023-04-17 10:30:30 +0200
+    Mpchess piece set: bug on wN.svg fixed
+commit 9d29f94bd41db196c0837555f69c90fe68c84f6f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 12:03:41 +0200
+    migrate modules/common tests to munit
+commit ddcc2bd774cd8e2f5bb06b4a2713f5a7cdd3bbad
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 12:20:45 +0200
+    migrate modules/game tests to munit
+commit f1aced8712b534f714d4bba84d0e4e275624c97b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 12:44:34 +0200
+    user & api tests with munit
+commit 4af2b6316bf128759f78ef3b0d371bd87a62ec29
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 13:07:53 +0200
+    remove unused test fixtures
+commit e8b7686ab926e5aec927ba1c5c64cfc9e9c47dab
+Merge: 9f240b5bce 4af2b6316b
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 13:08:57 +0200
+    Merge branch 'master' into chupinmaxime/master
+    * master:
+      remove unused test fixtures
+      user & api tests with munit
+      migrate modules/game tests to munit
+      migrate modules/common tests to munit
+commit b369340a2bccbc704855b5ab38670c97c81a753f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 13:10:24 +0200
+    run bin/gen/piece-sprites
+commit 96ebdbda6c29a253cca558254792f8c6fd7049a2
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 13:10:30 +0200
+    reorder piece sets
+commit 9842ecdfb8bfca06a033ba6623fe51b8fc10be5c
+Merge: 4af2b6316b 96ebdbda6c
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 13:10:42 +0200
+    Merge pull request #12698 from chupinmaxime/master
+    Add mpchess piece set
+commit 6286c1f7a3a5576cc1aa848f19e2655a3d5f4af6
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 15:57:58 +0200
+    migrate more tests to munit
+commit 86685f8148a8df280711f856bf1f9d77a70423bb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 18:47:58 +0200
+    remove specs2
+commit 2bc55b21283560dde7fd581dea58405007df3a82
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-17 18:51:12 +0200
+    simplify dependency to common%test
+commit 159c7e4cce2b0b174d43191188e072ee8ffe9420
+Author: Maxime Chupin <chupin@ceremade.dauphine.fr>
+Date:   2023-04-18 09:45:29 +0200
+    COPYING file for mpchess (#12705)
+    * Add mpchess in COPYING.md file
+    * typo COPYING
+commit 83224f8d45b2e57948963fec71c593d65b0bd4b0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-18 10:07:37 +0200
+    add seconds to exported date times
+commit 847d609156b09ce4bc74bfc4c74dea80ecd7e408
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-04-18 10:26:37 +0200

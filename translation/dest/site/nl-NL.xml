@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' met afronding, gebaseerd op het aantal halfzetten tot de volgende stukwinst of pionzet</string>
   <string name="noGameFound">Geen partij gevonden</string>
+  <string name="maxDepthReached">Maximale diepte bereikt!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
   <string name="openings">Openingen</string>
   <string name="openingExplorer">Openingverkenner</string>
@@ -342,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
+  <string name="noDrawBeforeSwissLimit">In een Zwitsers toernooi kun je pas na 30 zetten remise aanbieden.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partij met rating</item>
@@ -865,8 +867,8 @@
   <string name="useTheReportForm">gebruik het meldingsformulier</string>
   <string name="toRequestSupport">Om ondersteuning aan te vragen, %1$s</string>
   <string name="tryTheContactPage">probeer de contactpagina</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Lees zeker %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">de regels van het forum</string>
+  <string name="makeSureToRead">Lees zeker %1$s</string>
+  <string name="theForumEtiquette">de regels van het forum</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
   <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>

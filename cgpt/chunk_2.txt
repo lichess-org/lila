@@ -1,0 +1,115 @@
+Transform this git log from the github/lichess-org/lila repo into a human readable markdown list. Ignore commit hashes, authors, and dates. Hyperlink git refs and repo files when possible. Replace github issue and pr hashes in link display text with their descriptions. Omit merge commits. Embed the markdown output within an HTML <code> block.
+
+commit ae1f8573f9d03882ef6aa9bf1355a57e594360b3
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 13:44:00 +0100
+    remove `implicit` from game Namer
+commit 68c0725e09d14db10b0fdd08c45206fb63e9a058
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 13:45:12 +0100
+    fix build
+commit 64686986f5e4eda14bb388d228dd8690fd77f872
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 13:45:59 +0100
+    api move stream: add standard players JSON, with async light users
+commit 9549f9c179acf09cd484e4746c3bfb95a9dd6809
+Merge: cf2f5e3c0d 64686986f5
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-08 13:47:13 +0100
+    Merge pull request #12328 from schlawg/api-game-stream-players
+    include player info in api/stream/game/{id}
+commit 2b74cb6e1800a363fc37346473501d3262eccb79
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-02-08 16:41:23 +0100
+    Expand lang regex in route to take into account Kurdish (Kurmanji)
+    This add additional complexity on the router side, but I think it's negligible, since those pages are not hit a lot.
+    The other solution would be to assign the `ku` lang code to `Kurdish (Kurmanji)` instead of `kmr`, since we do not support other kurdish dialects.
+    This solution would potentially be problematic with crowndin though.
+commit 5f9cf4445e6700621359d04cd94a4129701b18bf
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-09 08:57:32 +0100
+    disallow POST with missing origin
+commit e6c91ce93ebc44b1bbd01b1c439a6437a29d13d4
+Merge: 5f9cf4445e 9549f9c179
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-09 08:57:37 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      api move stream: add standard players JSON, with async light users
+      fix build
+      remove `implicit` from game Namer
+      move standard game API player JSON to lila.game.JsonView
+      lila.game.JsonView.apply is very generic
+      stick to the initial purpose of the pull request: player info
+      export akka.actor.Scheduler
+      moves field in initial stream object
+      Check whether auto comm flags are critical
+      refactor
+      include player info in api/stream/game/{id}
+commit 5fbd00d3f8a0fa8e196dc2d0f88419f16d8258f8
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-09 08:57:56 +0100
+commit 41d38baa368a8410465fd435b3f1a7ff48632c1a
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-02-09 09:30:31 +0100
+    scalafmt
+commit 4bb65df2430c751af7761b36767bbdd7f2fa582e
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-02-09 09:38:14 +0100
+    Redirect click on "Learn" top nav button to Chess basics
+    Close #12336. I agree with the OP that it makes more sense for beginners and lead to better consistency.
+    The "Practice" link was chosen in f3fa4dd70c7bd78ef8133baa6430ddd3bf754bec.
+commit 0c31243f0f4f45f6d1d38695a3b5f435a2b16606
+Author: Benedikt Werner <1benediktwerner@gmail.com>
+Date:   2023-02-09 11:40:51 +0100
+    Optimize email and domain regex
+commit 5c5248db6da8a20d4656551afe9eb7d5a1d6efa0
+Author: kraktus <kraktus@users.noreply.github.com>
+Date:   2023-02-09 11:00:16 +0100
+    Make rating range unselectable for provisional ratings
+    Those range are ignored anyway by the pairing system. Greying out is better UX than just removing it I think, as with the tooltip they can learn why it's not possible. I'm not sold on the wording of that tooltip, but could not find better without being too lengthy.
+    Fix #12271
+commit 3cbcc2f9aa7e33a31b00490539d15e6222b24fb6
+Merge: 41d38baa36 0c31243f0f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-09 23:04:13 +0100
+    Merge pull request #12343 from benediktwerner/email-regex
+    Optimize email and domain regex
+commit 7d2b483403a98a6bb6b5487df1d56ed4388b8d1f
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-10 14:38:33 +0100
+    detect blanked password and tell the user to reset
+commit 7df7b81c843efe9e62cd0e5a4147bdf3a7ba2c47
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-10 14:41:14 +0100
+    auth links gap
+commit b55309042e4465d60efbfb2e2c05b9f40f0f9bb6
+Author: Scala Steward <scala_steward@virtuslab.com>
+Date:   2023-02-10 19:54:12 +0000
+    Update caffeine to 3.1.3
+commit c413b5c799c80463706b62cb3bc7165554552beb
+Merge: 7df7b81c84 b55309042e
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-10 23:04:30 +0100
+    Merge pull request #12349 from scala-steward/update/caffeine-3.1.3
+    Update caffeine to 3.1.3
+commit aee1d0f0be2763b504fa7502d94453003d03d81a
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-10 23:04:49 +0100
+commit 8de6cac7cbc71a1ef0cd74232dce91f9231d57ea
+Merge: aee1d0f0be 5a549798bd
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-10 23:08:37 +0100
+    Merge pull request #12331 from benediktwerner/accuracy-api-consistent
+    game api: Move accuracy into analyisis object
+commit 68897e365a2ff7145f03359a289c966151e30ca0
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-10 23:30:34 +0100
+    even short messages can be reported
+commit c627c3728f1b347dc390e598d86815e619cc13a7
+Merge: 68897e365a 8de6cac7cb
+Author: Thibault Duplessis <t@lichess.org>
+Date:   2023-02-10 23:30:37 +0100
+    Merge branch 'master' of github.com:lichess-org/lila
+    * 'master' of github.com:lichess-org/lila:
+      game api: Move accuracy into analyisis object
