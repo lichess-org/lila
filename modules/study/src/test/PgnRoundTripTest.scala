@@ -43,7 +43,7 @@ class PgnRoundTripTest extends lila.common.LilaTest:
 
   given Conversion[Bdoc, Reader] = Reader(_)
   val treeBson                   = summon[BSON[Root]]
-  val w = new Writer
+  val w                          = new Writer
 
   test("roundtrip with BSONHandlers"):
     PgnFixtures.roundTrip
