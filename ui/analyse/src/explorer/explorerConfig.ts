@@ -335,7 +335,13 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.participants, ...ctrl.data.playerName.previous()].map(name =>
+        [
+          ...(ctrl.myName ? [ctrl.myName] : []),
+          ...ctrl.participants.filter(
+            name => !ctrl?.myName || name?.localeCompare(ctrl.myName, undefined, { sensitivity: 'accent' })
+          ),
+          ...ctrl.data.playerName.previous(),
+        ].map(name =>
           h(
             `button.button${name == ctrl.myName ? '.button-green' : ''}`,
             {
