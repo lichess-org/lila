@@ -1,7 +1,8 @@
 package controllers
 
-import play.api.mvc._
 import play.api.i18n.Lang
+import play.api.mvc._
+import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.app._
@@ -12,6 +13,8 @@ import lila.user.{ User => UserModel }
 final class PlayApi(
     env: Env,
     apiC: => Api
+)(implicit
+    mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
   implicit private def autoReqLang(implicit req: RequestHeader) = reqLang(req)
@@ -103,6 +106,25 @@ final class PlayApi(
       }
   }
 
+  def boardCommandGet(cmd: String) =
+    ScopedBody(_.Board.Play) { implicit req => me =>
+      cmd.split('/') match {
+        case Array("game", id, "chat") => WithPovAsBoard(id, me)(getChat)
+        case _                         => notFoundJson("No such command")
+      }
+    }
+
+  def botCommandGet(cmd: String) =
+    ScopedBody(_.Bot.Play) { implicit req => me =>
+      cmd.split('/') match {
+        case Array("game", id, "chat") => WithPovAsBot(id, me)(getChat)
+        case _                         => notFoundJson("No such command")
+      }
+    }
+
+  private def getChat(pov: Pov) =
+    env.chat.api.userChat.find(lila.chat.Chat.Id(pov.game.id)) map lila.chat.JsonView.boardApi map { JsonOk(_) }
+
   // utils
 
   private def toResult(f: Funit): Fu[Result] = catchClientError(f inject jsonOkResult)
@@ -146,6 +168,17 @@ final class PlayApi(
     Open { implicit ctx =>
       env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
         Ok(views.html.user.bots(users))
+      }
+    }
+
+  def botOnlineApi =
+    Action { implicit req =>
+      apiC.jsonStream {
+        env.user.repo
+          .botsByIdsCursor(env.bot.onlineApiUsers.get)
+          .documentSource()
+          .throttle(50, 1 second)
+          .map { env.user.jsonView(_) }
       }
     }
 }
