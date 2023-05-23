@@ -43,9 +43,10 @@ final class GameSearchApi(
     Json
       .obj(
         Fields.status -> (game.status match {
-          case s if s.is(_.Timeout) => shogi.Status.Resign
-          case s if s.is(_.NoStart) => shogi.Status.Resign
-          case _                    => game.status
+          case s if s.is(_.Timeout)    => shogi.Status.Resign
+          case s if s.is(_.NoStart)    => shogi.Status.Resign
+          case s if s.is(_.Repetition) => shogi.Status.Draw
+          case _                       => game.status
         }).id,
         Fields.plies         -> (game.plies + 1) / 2,
         Fields.rated         -> game.rated,

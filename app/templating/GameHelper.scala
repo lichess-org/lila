@@ -72,6 +72,8 @@ trait GameHelper {
       case (_, Some(l), PerpetualCheck)                     => s"${playerText(l)} lost due to perpetual check"
       case (Some(w), _, RoyalsLost)     => s"${playerText(w)} won by capturing all royal pieces"
       case (Some(w), _, BareKing)       => s"${playerText(w)} won due to bare king rule"
+      case (Some(w), _, Repetition)     => s"${playerText(w)} won due to repetition" // minishogi
+      case (_, _, Repetition)           => "Game is a draw due to repetition"
       case (_, _, Draw | UnknownFinish) => "Game is a draw"
       case (_, _, Aborted)              => "Game has been aborted"
       case _                            => "Game is still being played"
@@ -191,8 +193,9 @@ trait GameHelper {
           .getOrElse(
             trans.draw.txt()
           )
-      case S.Draw      => trans.draw.txt()
-      case S.Outoftime => trans.timeOut.txt()
+      case S.Repetition => trans.repetition.txt()
+      case S.Draw       => trans.draw.txt()
+      case S.Outoftime  => trans.timeOut.txt()
       case S.NoStart =>
         game.loserColor
           .map(l => transWithColorName(trans.xDidntMove, l, game.isHandicap))

@@ -161,7 +161,7 @@ object activity {
                 pov.game.wonBy(pov.color) match {
                   case Some(true)  => trans.victory()
                   case Some(false) => trans.defeat()
-                  case _           => "Draw"
+                  case _           => trans.draw()
                 }
               ),
               " vs ",

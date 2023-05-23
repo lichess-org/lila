@@ -167,6 +167,7 @@ final private class Player(
       case Status.Mate           => finisher.other(game, _.Mate, game.situation.winner)
       case Status.Stalemate      => finisher.other(game, _.Stalemate, game.situation.winner)
       case Status.Impasse27      => finisher.other(game, _.Impasse27, game.situation.winner)
+      case Status.Repetition     => finisher.other(game, _.Repetition, game.situation.winner)
       case Status.PerpetualCheck => finisher.other(game, _.PerpetualCheck, game.situation.winner)
       case Status.RoyalsLost     => finisher.other(game, _.RoyalsLost, game.situation.winner)
       case Status.BareKing       => finisher.other(game, _.BareKing, game.situation.winner)
