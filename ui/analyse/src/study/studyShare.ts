@@ -37,13 +37,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
       ? h('label.ply', [
           h('input', {
             attrs: { type: 'checkbox', checked: ctrl.withPly() },
-            hook: bind(
-              'change',
-              e => {
-                ctrl.withPly((e.target as HTMLInputElement).checked);
-              },
-              ctrl.redraw
-            ),
+            hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
           }),
           ...(renderedMove
             ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
