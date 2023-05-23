@@ -232,7 +232,9 @@ final class StudyApi(
               val newPosition = position.ref + node
               chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
                 (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
-                (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
+                (if opts.sticky
+                 then studyRepo.setPosition(study.id, newPosition)
+                 else studyRepo.updateNow(study)) >>
                 updateConceal(study, chapter, newPosition) >>-
                 sendTo(study.id)(
                   _.addNode(
