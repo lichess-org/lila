@@ -13,7 +13,6 @@ import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.{ Holder, User }
-import lila.study.MoveOpts.promoteToMainline
 
 final class StudyApi(
     studyRepo: StudyRepo,
