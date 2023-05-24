@@ -59,11 +59,11 @@
   <string name="learnHowToMakeBroadcasts">Lær hvordan du laver dine egne udsendelser på Lichess</string>
   <string name="contactAboutOfficialBroadcasts">Du kan også kontakte teamet for udsendelser angående officielle udsendelser.</string>
   <string name="banAppeal">Appellere en udelukkelse eller IP-restriktion</string>
-  <string name="engineAppeal">Skakcomputer eller snyde-anmærkning</string>
+  <string name="engineAppeal">Skakprogram eller snyde-anmærkning</string>
   <string name="sendAppealTo">Du kan sende en appel til %s.</string>
   <string name="falsePositives">Falske positiver forekommer, hvilket vi beklager.</string>
   <string name="ifLegit">Hvis din appel er berettiget, ophæver vi udelukkelsen hurtigst muligt.</string>
-  <string name="accountLost">Men hvis du faktisk fik assistance fra en skakcomputer, selvom det blot var én gang, er din konto desværre gået tabt.</string>
+  <string name="accountLost">Men hvis du faktisk fik assistance fra et skakprogram, selvom det blot var én gang, er din konto desværre gået tabt.</string>
   <string name="doNotDeny">Benægt ikke snyderiet. Indrøm bare hvad du gjorde, hvis du vil have lov til at oprette en ny konto, og vis, at du forstår, at det var en fejltagelse.</string>
   <string name="otherRestriction">Anden restriktion</string>
   <string name="collaboration">Samarbejde, jura, kommerciel</string>

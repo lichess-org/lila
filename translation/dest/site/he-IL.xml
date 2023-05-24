@@ -124,6 +124,7 @@
   <string name="memory">זיכרון</string>
   <string name="infiniteAnalysis">ניתוח אינסופי</string>
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
+  <string name="engineManager">מנהל המנועים</string>
   <string name="blunder">טעות גסה</string>
   <string name="mistake">שגיאה</string>
   <string name="inaccuracy">אי־דיוק</string>
@@ -165,6 +166,12 @@
     <item quantity="two">%s משחקים</item>
     <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">דירוג של %1$s לאורך משחק %2$s</item>
+    <item quantity="two">דירוג של %1$s לאורך %2$s משחקים</item>
+    <item quantity="many">דירוג של %1$s לאורך %2$s משחקים</item>
+    <item quantity="other">דירוג של %1$s לאורך %2$s משחקים</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s מועדפים</item>

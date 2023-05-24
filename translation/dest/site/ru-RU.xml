@@ -124,6 +124,7 @@
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
+  <string name="engineManager">Менеджер движка</string>
   <string name="blunder">Зевок</string>
   <string name="mistake">Ошибка</string>
   <string name="inaccuracy">Неточность</string>
@@ -165,6 +166,12 @@
     <item quantity="few">%s игры</item>
     <item quantity="many">%s игр</item>
     <item quantity="other">%s игр</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Рейтинг %1$s за %2$s партию</item>
+    <item quantity="few">Рейтинг %1$s за %2$s партии</item>
+    <item quantity="many">Рейтинг %1$s за %2$s партий</item>
+    <item quantity="other">Рейтинг %1$s за %2$s партий</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s отмеченная</item>
