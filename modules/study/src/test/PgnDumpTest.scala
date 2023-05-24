@@ -37,14 +37,14 @@ class PgnDumpTest extends munit.FunSuite:
     assertEquals(rootToPgn(root).value, "")
 
   test("one move"):
-    val tree = root.copy(children = children(node(0, "e2e4", "e4")))
+    val tree = root.copy(children = children(node(1, "e2e4", "e4")))
     assertEquals(rootToPgn(tree).value, "1. e4")
 
   test("one move and variation"):
     val tree = root.copy(children =
       children(
-        node(0, "e2e4", "e4"),
-        node(0, "g1f3", "Nf3")
+        node(1, "e2e4", "e4"),
+        node(1, "g1f3", "Nf3")
       )
     )
     assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3)")
@@ -53,14 +53,14 @@ class PgnDumpTest extends munit.FunSuite:
     val tree = root.copy(children =
       children(
         node(
-          0,
+          1,
           "e2e4",
           "e4",
           children(
-            node(1, "d7d5", "d5")
+            node(2, "d7d5", "d5")
           )
         ),
-        node(0, "g1f3", "Nf3")
+        node(1, "g1f3", "Nf3")
       )
     )
     assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3) 1... d5")
@@ -69,15 +69,15 @@ class PgnDumpTest extends munit.FunSuite:
     val tree = root.copy(children =
       children(
         node(
-          0,
+          1,
           "e2e4",
           "e4",
           children(
-            node(1, "d7d5", "d5"),
-            node(1, "g8f6", "Nf6")
+            node(2, "d7d5", "d5"),
+            node(2, "g8f6", "Nf6")
           )
         ),
-        node(0, "g1f3", "Nf3")
+        node(1, "g1f3", "Nf3")
       )
     )
     assertEquals(rootToPgn(tree).value, "1. e4 (1. Nf3) 1... d5 (1... Nf6)")
@@ -86,41 +86,41 @@ class PgnDumpTest extends munit.FunSuite:
     val tree = root.copy(children =
       children(
         node(
-          0,
+          1,
           "e2e4",
           "e4",
           children(
             node(
-              1,
+              2,
               "d7d5",
               "d5",
               children(
-                node(2, "a2a3", "a3"),
-                node(2, "b2b3", "b3")
+                node(3, "a2a3", "a3"),
+                node(3, "b2b3", "b3")
               )
             ),
             node(
-              1,
+              2,
               "g8f6",
               "Nf6",
               children(
-                node(2, "h2h4", "h4")
+                node(3, "h2h4", "h4")
               )
             )
           )
         ),
         node(
-          0,
+          1,
           "g1f3",
           "Nf3",
           children(
-            node(1, "a7a6", "a6"),
+            node(2, "a7a6", "a6"),
             node(
-              1,
+              2,
               "b7b6",
               "b6",
               children(
-                node(2, "c2c4", "c4")
+                node(3, "c2c4", "c4")
               )
             )
           )

@@ -44,7 +44,7 @@ case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
   // normalize to pretend it was done on the opponent turn.
   def normalize(color: Color): Set[Ply] = color.fold(white, black) map {
     case ply if ply.turn == color => ply + 1
-    case ply                       => ply
+    case ply                      => ply
   }
   def normalizedPlies: Set[Ply] = normalize(chess.White) ++ normalize(chess.Black)
 

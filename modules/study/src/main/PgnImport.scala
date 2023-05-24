@@ -127,7 +127,7 @@ object PgnImport:
               case (shapes, clock, comments) =>
                 Branch(
                   id = UciCharPair(uci),
-                  ply = prev.ply,
+                  ply = game.ply,
                   move = Uci.WithSan(uci, sanStr),
                   fen = Fen write game,
                   check = game.situation.check,

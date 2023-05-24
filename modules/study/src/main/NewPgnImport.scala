@@ -114,7 +114,7 @@ object NewPgnImport:
                 comp = false,
                 forceVariation = false,
                 Metas(
-                  ply = context.game.ply,
+                  ply = game.ply,
                   fen = Fen write game,
                   check = game.situation.check,
                   dests = None,
