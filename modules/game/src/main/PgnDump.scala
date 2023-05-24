@@ -163,7 +163,7 @@ object PgnDump:
   ): Option[PgnTree] =
     val clockOffset = startColor.fold(0, 1)
     def f(san: SanStr, index: Int) = chessPgn.Move(
-      ply = from + index,
+      ply = from + index + 1,
       san = san,
       secondsLeft = clocks.lift(index * 2 - clockOffset).map(_.roundSeconds)
     )

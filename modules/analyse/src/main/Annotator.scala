@@ -15,7 +15,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
     annotateStatus(game.winnerColor, game.status) {
       annotateOpening(game.opening) {
         annotateTurns(
-          annotateDrawOffers(p, game.drawOffers),
+          annotateDrawOffers(p.pp, game.drawOffers),
           analysis.??(_.advices)
         )
       }.copy(
@@ -84,5 +84,5 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
     val sans = advice.info.variation take 20
     Variation.buildWithIndex(
       sans,
-      (san, index) => Move(Ply(advice.ply.value + index - 1), san)
+      (san, index) => Move(Ply(advice.ply.value + index), san)
     )

@@ -62,17 +62,3 @@ class AnnotatorTest extends munit.FunSuite:
       annotator(dumped, makeGame(playedGame), none).copy(tags = Tags.empty).render,
       PgnStr("""1. a3 { A00 Anderssen's Opening } g6 2. g4""")
     )
-
-  // test("simple analysis"):
-  //   val analysis = emptyAnalysis.copy(
-  //     infos = List(
-  //       Info(Ply(1), emptyEval.copy(cp = Eval.Cp(300).some), Nil),
-  //       Info(Ply(2), emptyEval.copy(cp = Eval.Cp(-300).some), Nil),
-  //       Info(Ply(3), emptyEval.copy(cp = Eval.Cp(300).some), Nil),
-  //       Info(Ply(4), emptyEval.copy(cp = Eval.Cp(-300).some), Nil)
-  //     )
-  //   )
-  //   assertEquals(
-  //     annotator(dumped, makeGame(playedGame), analysis.some),
-  //     annotatedPgn
-  //   )
