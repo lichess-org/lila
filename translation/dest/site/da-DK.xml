@@ -152,6 +152,10 @@
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating over %2$s parti</item>
+    <item quantity="other">%1$s rating over %2$s partier</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bogmærke</item>
     <item quantity="other">%s bogmærker</item>
