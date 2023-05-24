@@ -124,6 +124,7 @@
   <string name="memory">זיכרון</string>
   <string name="infiniteAnalysis">ניתוח אינסופי</string>
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
+  <string name="engineManager">מנהל המנועים</string>
   <string name="blunder">טעות גסה</string>
   <string name="mistake">שגיאה</string>
   <string name="inaccuracy">אי־דיוק</string>
