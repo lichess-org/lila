@@ -120,6 +120,7 @@
   <string name="memory">حافظه</string>
   <string name="infiniteAnalysis">آنالیز بی پایان</string>
   <string name="removesTheDepthLimit">محدودیت عمق بررسی را بر می دارد که به گرم شدن کامپیوتر شما منجر می شود</string>
+  <string name="engineManager">مدیر موتور شطرنج</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
   <string name="inaccuracy">بی دقتی</string>
