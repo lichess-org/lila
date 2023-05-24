@@ -22,13 +22,13 @@ class PgnDumpTest extends munit.FunSuite:
         .makeTree("e5 Ke2 Ke7".split(' ').toList.map(SanStr(_)), Ply(3), Vector.empty, Color.White)
         .get,
       Node(
-        Move(Ply(3), SanStr("e5")),
+        Move(Ply(4), SanStr("e5")),
         Some(
           Node(
-            Move(Ply(4), SanStr("Ke2")),
+            Move(Ply(5), SanStr("Ke2")),
             Some(
               Node(
-                Move(Ply(5), SanStr("Ke7")),
+                Move(Ply(6), SanStr("Ke7")),
                 None
               )
             )
