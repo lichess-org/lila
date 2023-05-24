@@ -144,7 +144,7 @@ object BSONHandlers:
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield Branch(
       id = id,
-      ply = ply - 1,
+      ply = ply,
       move = Uci.WithSan(uci, san),
       fen = fen,
       check = check,
@@ -183,7 +183,7 @@ object BSONHandlers:
       forceVariation = forceVariation,
       move = Uci.WithSan(uci, san),
       metas = Metas(
-        ply = ply - 1,
+        ply = ply,
         fen = fen,
         check = check,
         shapes = shapes,
@@ -200,7 +200,7 @@ object BSONHandlers:
     import Node.{ BsonFields as F }
     val w = new Writer
     $doc(
-      F.ply            -> (n.ply + 1),
+      F.ply            -> n.ply,
       F.uci            -> n.move.uci,
       F.san            -> n.move.san,
       F.fen            -> n.fen,
@@ -222,7 +222,7 @@ object BSONHandlers:
     import Node.{ BsonFields as F }
     val w = new Writer
     $doc(
-      F.ply      -> (n.metas.ply + 1),
+      F.ply      -> n.metas.ply,
       F.uci      -> n.move.uci,
       F.san      -> n.move.san,
       F.fen      -> n.metas.fen,

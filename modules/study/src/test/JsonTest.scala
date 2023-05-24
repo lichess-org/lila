@@ -37,9 +37,9 @@ class JsonTest extends munit.FunSuite:
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val imported = PgnImport(pgn, List(user)).toOption.get.root.cleanCommentIds
+        val imported  = PgnImport(pgn, List(user)).toOption.get.root.cleanCommentIds
         val afterBson = treeBson.reads(treeBson.writes(w, imported))
-        val json     = writeTree(afterBson)
+        val json      = writeTree(afterBson)
         assertEquals(json, expected)
 
   extension (root: Root)
