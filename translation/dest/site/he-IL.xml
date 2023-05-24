@@ -166,6 +166,12 @@
     <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">דירוג של %1$s לאורך משחק %2$s</item>
+    <item quantity="two">דירוג של %1$s לאורך %2$s משחקים</item>
+    <item quantity="many">דירוג של %1$s לאורך %2$s משחקים</item>
+    <item quantity="other">דירוג של %1$s לאורך %2$s משחקים</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s מועדפים</item>
     <item quantity="two">%s מועדפים</item>
