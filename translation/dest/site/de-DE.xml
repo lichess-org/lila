@@ -120,6 +120,7 @@
   <string name="memory">Arbeitsspeicher</string>
   <string name="infiniteAnalysis">Endlose Analyse</string>
   <string name="removesTheDepthLimit">Entfernt die Tiefenbegrenzung und hält deinen Computer warm</string>
+  <string name="engineManager">Engineverwaltung</string>
   <string name="blunder">Grober Patzer</string>
   <string name="mistake">Fehler</string>
   <string name="inaccuracy">Ungenauigkeit</string>
