@@ -115,6 +115,7 @@ object I18nKeys:
   val `memory` = I18nKey("memory")
   val `infiniteAnalysis` = I18nKey("infiniteAnalysis")
   val `removesTheDepthLimit` = I18nKey("removesTheDepthLimit")
+  val `engineManager` = I18nKey("engineManager")
   val `blunder` = I18nKey("blunder")
   val `mistake` = I18nKey("mistake")
   val `inaccuracy` = I18nKey("inaccuracy")
