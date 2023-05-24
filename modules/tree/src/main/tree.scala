@@ -182,11 +182,6 @@ sealed trait Node:
   def mainlineNodeList: List[Node] =
     dropFirstChild :: children.first.fold(List.empty[Node])(_.mainlineNodeList)
 
-  // workaround to add backward compatibility for JsonAPI
-  def jsonPly = this match
-    case _: Root => ply
-    case _       => ply + 1
-
 case class Root(
     ply: Ply,
     fen: Fen.Epd,
@@ -547,7 +542,7 @@ object Node:
         val comments = node.comments.value.flatMap(_.removeMeta)
         Json
           .obj(
-            "ply" -> jsonPly,
+            "ply" -> ply,
             "fen" -> fen
           )
           .add("id", idOption.map(_.toString))
