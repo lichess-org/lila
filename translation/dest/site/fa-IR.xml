@@ -152,6 +152,10 @@
     <item quantity="one">%s بازی</item>
     <item quantity="other">%s بازی</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s ریتینگ در %2$s بازی</item>
+    <item quantity="other">%1$s ریتینگ در %2$s بازی</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s بازی مورد علاقه</item>
     <item quantity="other">%s بازی مورد علاقه</item>
