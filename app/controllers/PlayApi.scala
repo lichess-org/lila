@@ -123,7 +123,9 @@ final class PlayApi(
     }
 
   private def getChat(pov: Pov) =
-    env.chat.api.userChat.find(lila.chat.Chat.Id(pov.game.id)) map lila.chat.JsonView.boardApi map { JsonOk(_) }
+    env.chat.api.userChat.find(lila.chat.Chat.Id(pov.game.id)) map lila.chat.JsonView.boardApi map {
+      JsonOk(_)
+    }
 
   // utils
 
