@@ -42,7 +42,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       icon: Char
   )(using Lang): Frag =
     span(
-      title    := s"$name rating over ${nb.localize} games",
+      title    := trans.ratingXOverYGames.pluralTxt(nb, name, nb.localize),
       dataIcon := icon,
       cls      := "text"
     )(

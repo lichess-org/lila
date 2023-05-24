@@ -4,9 +4,9 @@ import AnalyseCtrl from '../ctrl';
 
 export function config(ctrl: AnalyseCtrl) {
   const engines = ctrl.data.externalEngines;
-  if (!engines?.length) return [];
+  if (!engines?.length || !ctrl.ceval?.possible || !ctrl.ceval.allowed()) return [];
   return [
-    h('h2', 'Engine manager'),
+    h('h2', ctrl.trans.noarg('engineManager')),
     h(
       'select.external__select.setting',
       {
