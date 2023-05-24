@@ -119,6 +119,7 @@
   <string name="memory">Հիշողություն</string>
   <string name="infiniteAnalysis">Անվերջ վերլուծություն</string>
   <string name="removesTheDepthLimit">Վերացնում է խորության սահմանափակումը և տաք պահում ձեր համակարգիչը</string>
+  <string name="engineManager">Շարժիչի մենեջեր</string>
   <string name="blunder">Վրիպում</string>
   <string name="mistake">Սխալ</string>
   <string name="inaccuracy">Անճշտություն</string>
@@ -150,6 +151,10 @@
   <plurals name="nbGames">
     <item quantity="one">Տեսնել բոլոր %s խաղերը</item>
     <item quantity="other">Տեսնել բոլոր %s խաղերը</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s վարկանիշ %2$s պարտիայի համար</item>
+    <item quantity="other">%1$s վարկանիշ %2$s պարտիայի համար</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Էջանիշեր</item>

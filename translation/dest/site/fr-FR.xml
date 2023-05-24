@@ -120,6 +120,7 @@
   <string name="memory">Mémoire</string>
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
+  <string name="engineManager">Gestionnaire de moteur d\'analyse</string>
   <string name="blunder">Gaffe</string>
   <string name="mistake">Erreur</string>
   <string name="inaccuracy">Imprécision</string>
@@ -151,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
     <item quantity="other">%s parties</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Classement de %1$s après %2$s partie</item>
+    <item quantity="other">Classement de %1$s après %2$s parties</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s favori</item>
