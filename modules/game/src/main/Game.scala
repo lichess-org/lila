@@ -530,7 +530,7 @@ case class Game(
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = startedAtPly.color
+  def startColor = startedAtPly.turn
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns.value + 1) / 2
@@ -627,7 +627,7 @@ object Game:
   case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
 
   case class SideAndStart(color: Color, startedAtPly: Ply):
-    def startColor = startedAtPly.color
+    def startColor = startedAtPly.turn
 
   val syntheticId = GameId("synthetic")
 

@@ -177,7 +177,7 @@ sealed trait Node:
   def moveOption: Option[Uci.WithSan]
 
   // who's color plays next
-  def color = ply.color
+  def color = ply.turn
 
   def mainlineNodeList: List[Node] =
     dropFirstChild :: children.first.fold(List.empty[Node])(_.mainlineNodeList)

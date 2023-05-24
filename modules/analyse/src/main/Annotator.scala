@@ -75,7 +75,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
         pgn
           .updatePly(
             ply,
-            move => move.copy(comments = Comment(s"${!ply.color} offers draw") :: move.comments)
+            move => move.copy(comments = Comment(s"${!ply.turn} offers draw") :: move.comments)
           )
           .getOrElse(pgn)
       }

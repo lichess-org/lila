@@ -16,7 +16,7 @@ case class Step(
     crazyData: Option[Crazyhouse.Data]
 ):
   // who's color plays next
-  def color = ply.color
+  def color = ply.turn
 
   def toJson = Json toJson this
 

@@ -14,7 +14,7 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
 
   def prevPly: Ply   = ply - 1
   def prevMoveNumber = prevPly.fullMoveNumber
-  def color          = prevPly.color
+  def color          = prevPly.turn
 
   def winPercent = eval.cp map WinPercent.fromCentiPawns
 

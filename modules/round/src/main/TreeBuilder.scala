@@ -60,7 +60,7 @@ object TreeBuilder:
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
               drawOfferPlies(g.ply)
-                .option(makeLichessComment(Comment(s"${!g.ply.color} offers draw")))
+                .option(makeLichessComment(Comment(s"${!g.ply.turn} offers draw")))
                 .toList :::
                 advice
                   .map(_.makeComment(withEval = false, withBestMove = true))

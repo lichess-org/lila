@@ -276,7 +276,7 @@ final class GameApiV2(
         .dmap(annotator.toPgnString)
         .dmap(some)
     accuracy = analysisOption.ifTrue(withFlags.accuracy).flatMap {
-      AccuracyPercent.gameAccuracy(g.startedAtPly.color, _)
+      AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _)
     }
   yield Json
     .obj(

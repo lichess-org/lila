@@ -94,7 +94,7 @@ object BSONHandlers:
 
       val startedAtPly = Ply(r intD F.startedAtTurn)
       val ply          = r.get[Ply](F.turns) atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val turnColor    = ply.color
+      val turnColor    = ply.turn
       val createdAt    = r date F.createdAt
 
       val playedPlies = ply - startedAtPly
