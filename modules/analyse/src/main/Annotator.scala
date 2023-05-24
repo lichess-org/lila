@@ -86,8 +86,3 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
       sans,
       (san, index) => Move(Ply(advice.ply.value + index - 1), san)
     )
-
-  extension (pgn: Pgn)
-    def modifyInMainline(ply: Ply, f: Node[Move] => Node[Move]): Option[Pgn] =
-      val predicate = (_: Move).ply == ply - 1
-      pgn.focus(_.tree.some).modifyA(_.modifyInMainline(predicate, f))
