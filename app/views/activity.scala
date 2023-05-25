@@ -123,7 +123,7 @@ object activity:
   private def renderGames(games: Games)(using Context) =
     games.value.toSeq.sortBy(-_._2.size).map { case (pt, score) =>
       entryTag(
-        iconTag(pt.iconChar),
+        iconTag(pt.icon),
         scoreFrag(score),
         div(
           trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),

@@ -106,7 +106,7 @@ object TournamentShield:
 
   sealed abstract class Category(
       val of: SpeedOrVariant,
-      val iconChar: Char
+      val icon: licon.Icon
   ):
     def key  = of.fold(_.key, _.key.value)
     def name = of.fold(_.name, _.name)
@@ -122,91 +122,91 @@ object TournamentShield:
     case object UltraBullet
         extends Category(
           of = Left(Schedule.Speed.UltraBullet),
-          iconChar = licon.UltraBullet.charAt(0)
+          icon = licon.UltraBullet
         )
 
     case object HyperBullet
         extends Category(
           of = Left(Schedule.Speed.HyperBullet),
-          iconChar = licon.Bullet.charAt(0)
+          icon = licon.Bullet
         )
 
     case object Bullet
         extends Category(
           of = Left(Schedule.Speed.Bullet),
-          iconChar = licon.Bullet.charAt(0)
+          icon = licon.Bullet
         )
 
     case object SuperBlitz
         extends Category(
           of = Left(Schedule.Speed.SuperBlitz),
-          iconChar = licon.FlameBlitz.charAt(0)
+          icon = licon.FlameBlitz
         )
 
     case object Blitz
         extends Category(
           of = Left(Schedule.Speed.Blitz),
-          iconChar = licon.FlameBlitz.charAt(0)
+          icon = licon.FlameBlitz
         )
 
     case object Rapid
         extends Category(
           of = Left(Schedule.Speed.Rapid),
-          iconChar = licon.Rabbit.charAt(0)
+          icon = licon.Rabbit
         )
 
     case object Classical
         extends Category(
           of = Left(Schedule.Speed.Classical),
-          iconChar = licon.Turtle.charAt(0)
+          icon = licon.Turtle
         )
 
     case object Chess960
         extends Category(
           of = Right(chess.variant.Chess960),
-          iconChar = licon.DieSix.charAt(0)
+          icon = licon.DieSix
         )
 
     case object KingOfTheHill
         extends Category(
           of = Right(chess.variant.KingOfTheHill),
-          iconChar = licon.FlagKingHill.charAt(0)
+          icon = licon.FlagKingHill
         )
 
     case object Antichess
         extends Category(
           of = Right(chess.variant.Antichess),
-          iconChar = licon.Antichess.charAt(0)
+          icon = licon.Antichess
         )
 
     case object Atomic
         extends Category(
           of = Right(chess.variant.Atomic),
-          iconChar = licon.Atom.charAt(0)
+          icon = licon.Atom
         )
 
     case object ThreeCheck
         extends Category(
           of = Right(chess.variant.ThreeCheck),
-          iconChar = licon.ThreeCheckStack.charAt(0)
+          icon = licon.ThreeCheckStack
         )
 
     case object Horde
         extends Category(
           of = Right(chess.variant.Horde),
-          iconChar = licon.Keypad.charAt(0)
+          icon = licon.Keypad
         )
 
     case object RacingKings
         extends Category(
           of = Right(chess.variant.RacingKings),
-          iconChar = licon.FlagRacingKings.charAt(0)
+          icon = licon.FlagRacingKings
         )
 
     case object Crazyhouse
         extends Category(
           of = Right(chess.variant.Crazyhouse),
-          iconChar = licon.Crazyhouse.charAt(0)
+          icon = licon.Crazyhouse
         )
 
     val all: List[Category] = List(

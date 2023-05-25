@@ -33,7 +33,7 @@ object bits:
                 tr(
                   td(lightUserLink(l.user)),
                   lila.rating.PerfType(l.perfKey) map { pt =>
-                    td(cls := "text", dataIcon := pt.iconChar)(l.rating)
+                    td(cls := "text", dataIcon := pt.icon)(l.rating)
                   },
                   td(ratingProgress(l.progress))
                 )

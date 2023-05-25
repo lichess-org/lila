@@ -23,7 +23,7 @@ object side:
     def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
       val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
-        dataIcon := perfType.iconChar,
+        dataIcon := perfType.icon,
         title    := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,

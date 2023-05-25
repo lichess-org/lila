@@ -26,7 +26,7 @@ object shields:
               section(
                 h2(
                   a(href := routes.Tournament.categShields(categ.key))(
-                    span(cls := "shield-trophy")(categ.iconChar.toString),
+                    span(cls := "shield-trophy")(categ.icon),
                     categ.name
                   )
                 ),
@@ -60,7 +60,7 @@ object shields:
           ),
           ol(awards.map { aw =>
             li(
-              span(cls := "shield-trophy")(categ.iconChar.toString),
+              span(cls := "shield-trophy")(categ.icon),
               userIdLink(aw.owner.some),
               a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
             )

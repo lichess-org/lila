@@ -23,7 +23,7 @@ object side:
   )(using ctx: Context) =
     frag(
       div(cls := "swiss__meta")(
-        st.section(dataIcon := s.perfType.iconChar.toString)(
+        st.section(dataIcon := s.perfType.icon.toString)(
           div(
             p(
               s.clock.show,

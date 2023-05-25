@@ -21,7 +21,7 @@ object side:
   )(using ctx: Context) =
     frag(
       div(cls := "tour__meta")(
-        st.section(dataIcon := tour.perfType.iconChar.toString)(
+        st.section(dataIcon := tour.perfType.icon.toString)(
           div(
             p(
               tour.clock.show,

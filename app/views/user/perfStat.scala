@@ -51,7 +51,7 @@ object perfStat:
             div(cls := "box__top__actions")(
               a(
                 cls      := "button button-empty text",
-                dataIcon := perfType.iconChar,
+                dataIcon := perfType.icon,
                 href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
               )(viewTheGames())
             )

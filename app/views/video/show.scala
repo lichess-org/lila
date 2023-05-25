@@ -4,7 +4,7 @@ import lila.common.String.html.richText
 
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
 
@@ -39,7 +39,11 @@ object show:
           )
         ),
         h1(cls := "box__pad")(
-          a(cls := "is4 text", dataIcon := licon.Back, href := s"${routes.Video.index}?${control.queryString}"),
+          a(
+            cls      := "is4 text",
+            dataIcon := licon.Back,
+            href     := s"${routes.Video.index}?${control.queryString}"
+          ),
           video.title
         ),
         div(cls := "meta box__pad")(

@@ -67,7 +67,7 @@ object Tv:
 
   sealed abstract class Channel(
       val name: String,
-      val icon: String,
+      val icon: licon.Icon,
       val secondsSinceLastMove: Int,
       filters: Seq[Candidate => Boolean]
   ):
@@ -85,91 +85,91 @@ object Tv:
     case object Bullet
         extends Channel(
           name = S.Bullet.name,
-          icon = P.Bullet.iconChar.toString,
+          icon = P.Bullet.icon,
           secondsSinceLastMove = 35,
           filters = Seq(speed(S.Bullet), rated(2000), standard, noBot)
         )
     case object Blitz
         extends Channel(
           name = S.Blitz.name,
-          icon = P.Blitz.iconChar.toString,
+          icon = P.Blitz.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(speed(S.Blitz), rated(2000), standard, noBot)
         )
     case object Rapid
         extends Channel(
           name = S.Rapid.name,
-          icon = P.Rapid.iconChar.toString,
+          icon = P.Rapid.icon,
           secondsSinceLastMove = 60 * 5,
           filters = Seq(speed(S.Rapid), rated(1800), standard, noBot)
         )
     case object Classical
         extends Channel(
           name = S.Classical.name,
-          icon = P.Classical.iconChar.toString,
+          icon = P.Classical.icon,
           secondsSinceLastMove = 60 * 8,
           filters = Seq(speed(S.Classical), rated(1650), standard, noBot)
         )
     case object Chess960
         extends Channel(
           name = V.Chess960.name,
-          icon = P.Chess960.iconChar.toString,
+          icon = P.Chess960.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Chess960), noBot)
         )
     case object KingOfTheHill
         extends Channel(
           name = V.KingOfTheHill.name,
-          icon = P.KingOfTheHill.iconChar.toString,
+          icon = P.KingOfTheHill.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.KingOfTheHill), noBot)
         )
     case object ThreeCheck
         extends Channel(
           name = V.ThreeCheck.name,
-          icon = P.ThreeCheck.iconChar.toString,
+          icon = P.ThreeCheck.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.ThreeCheck), noBot)
         )
     case object Antichess
         extends Channel(
           name = V.Antichess.name,
-          icon = P.Antichess.iconChar.toString,
+          icon = P.Antichess.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Antichess), noBot)
         )
     case object Atomic
         extends Channel(
           name = V.Atomic.name,
-          icon = P.Atomic.iconChar.toString,
+          icon = P.Atomic.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Atomic), noBot)
         )
     case object Horde
         extends Channel(
           name = V.Horde.name,
-          icon = P.Horde.iconChar.toString,
+          icon = P.Horde.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Horde), noBot)
         )
     case object RacingKings
         extends Channel(
           name = V.RacingKings.name,
-          icon = P.RacingKings.iconChar.toString,
+          icon = P.RacingKings.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.RacingKings), noBot)
         )
     case object Crazyhouse
         extends Channel(
           name = V.Crazyhouse.name,
-          icon = P.Crazyhouse.iconChar.toString,
+          icon = P.Crazyhouse.icon,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(variant(V.Crazyhouse), noBot)
         )
     case object UltraBullet
         extends Channel(
           name = S.UltraBullet.name,
-          icon = P.UltraBullet.iconChar.toString,
+          icon = P.UltraBullet.icon,
           secondsSinceLastMove = 20,
           filters = Seq(speed(S.UltraBullet), rated(1600), standard, noBot)
         )

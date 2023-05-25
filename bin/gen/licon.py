@@ -26,6 +26,8 @@ scala_preamble = comment_preamble + """
 package lila.common
 
 object licon:
+  opaque type Icon = String
+  object Icon extends OpaqueString[Icon]
 """
 
 typescript_preamble = comment_preamble + '\n'
@@ -87,14 +89,15 @@ def parse_codes():
 
 
 def gen_sources(codes):
-    longest = len(max(codes.keys(), key=lambda x: len(x)))
+    with_type = lambda name: f'{name}: Icon'
+    longest = len(max(codes.keys(), key=lambda x: len(x))) + 6
 
     with open('../../modules/common/src/main/Licon.scala', 'w') as scala:
         scala.write(scala_preamble)
         with open('../../ui/common/src/licon.ts', 'w') as ts:
             ts.write(typescript_preamble)
             for name in codes:
-                scala.write(f'  val {name.ljust(longest)} = "{chr(codes[name])}" // {codes[name]:x}\n')
+                scala.write(f'  val {with_type(name).ljust(longest)} = "{chr(codes[name])}" // {codes[name]:x}\n')
                 ts.write(f"export const {name} = '{chr(codes[name])}'; // {codes[name]:x}\n")
 
 

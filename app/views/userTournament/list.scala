@@ -35,7 +35,7 @@ object list:
           tbody(cls := "infinite-scroll")(
             pager.currentPageResults.map { e =>
               tr(cls := List("paginated" -> true, "scheduled" -> e.tour.isScheduled))(
-                td(cls := "icon")(iconTag(tournamentIconChar(e.tour))),
+                td(cls := "icon")(iconTag(tournamentIcon(e.tour))),
                 td(cls := "header")(
                   a(href := routes.Tournament.show(e.tour.id))(
                     span(cls := "name")(e.tour.name()),

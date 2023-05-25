@@ -14,7 +14,7 @@ object finishedList:
 
   def apply(t: Tournament)(implicit ctx: Context): Tag =
     tr(cls := "paginated")(
-      td(cls := "icon")(iconTag(tournamentIconChar(t))),
+      td(cls := "icon")(iconTag(tournamentIcon(t))),
       header(t),
       td(cls := "date")(momentFromNow(t.startsAt)),
       td(cls := "players")(

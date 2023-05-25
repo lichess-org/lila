@@ -79,7 +79,7 @@ final class JsonView(
         "color"      -> c.colorChoice.toString.toLowerCase,
         "finalColor" -> c.finalColor.toString.toLowerCase,
         "perf" -> Json.obj(
-          "icon" -> iconChar(c).toString,
+          "icon" -> iconOf(c),
           "name" -> c.perfType.trans
         )
       )
@@ -91,9 +91,10 @@ final class JsonView(
       .add("open" -> c.open)
       .add("rules" -> c.nonEmptyRules)
 
-  private def iconChar(c: Challenge) =
-    if (c.variant == chess.variant.FromPosition) licon.Feather.charAt(0)
-    else c.perfType.iconChar
+  private def iconOf(c: Challenge): licon.Icon =
+    if c.variant == chess.variant.FromPosition
+    then licon.Feather
+    else c.perfType.icon
 
   private val i18nKeys = List(
     trans.rated,

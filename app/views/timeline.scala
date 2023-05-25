@@ -94,7 +94,7 @@ object timeline:
             })(
               a(
                 href     := routes.Round.player(playerId),
-                dataIcon := perf.iconChar,
+                dataIcon := perf.icon,
                 cls      := "text glpt"
               )(win match {
                 case Some(true)  => trans.victory()

@@ -49,7 +49,7 @@ object home:
       tbody(
         swisses map { s =>
           tr(
-            td(cls := "icon")(iconTag(bits.iconChar(s))),
+            td(cls := "icon")(iconTag(s.perfType.icon)),
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),

@@ -2,7 +2,7 @@ package views.html.mod
 
 import lila.api.Context
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ given, * }
 
 import controllers.routes
 

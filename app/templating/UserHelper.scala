@@ -40,7 +40,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       nb: Int,
       provisional: RatingProvisional,
       clueless: Boolean,
-      icon: Char
+      icon: licon.Icon
   )(using Lang): Frag =
     span(
       title    := trans.ratingXOverYGames.pluralTxt(nb, name, nb.localize),
@@ -58,7 +58,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
       perf.nb,
       perf.provisional,
       perf.clueless,
-      perfType.iconChar
+      perfType.icon
     )
 
   def showPerfRating(u: User, perfType: PerfType)(using Lang): Frag =

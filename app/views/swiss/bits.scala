@@ -20,8 +20,7 @@ object bits:
       href     := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: SwissId): String  = env.swiss.getName sync id getOrElse "Tournament"
-  def iconChar(swiss: Swiss): String = swiss.perfType.iconChar.toString
+  def idToName(id: SwissId): String = env.swiss.getName sync id getOrElse "Tournament"
 
   def notFound()(using Context) =
     views.html.base.layout(
@@ -47,7 +46,7 @@ object bits:
               "soon"      -> s.isNowOrSoon
             )
           )(
-            td(cls := "icon")(iconTag(iconChar(s))),
+            td(cls := "icon")(iconTag(s.perfType.icon)),
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
@@ -82,7 +81,7 @@ object bits:
 
   def homepageSpotlight(s: Swiss)(using Context) =
     a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
-      iconTag(iconChar(s))(cls := "img icon"),
+      iconTag(s.perfType.icon)(cls := "img icon"),
       span(cls := "content")(
         span(cls := "name")(s.name, " Swiss"),
         span(cls := "more")(

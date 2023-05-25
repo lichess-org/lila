@@ -63,16 +63,15 @@ object notification {
           if (!hiddenFields(s"$filterName.$allow"))
             div(cls := "toggle", form3.cmnToggle(name, name, checked))
           else if (!checked)
-            div(iconTag(licon.X.charAt(0)))
+            div(iconTag(licon.X))
           else
             div(
               cls := "always-on",
               form3.hidden(name, "true"),
-              filterName match {
-                case "challenge"      => iconTag(licon.Swords.charAt(0))
-                case "privateMessage" => iconTag(licon.BellOutline.charAt(0))
+              filterName match
+                case "challenge"      => iconTag(licon.Swords)
+                case "privateMessage" => iconTag(licon.BellOutline)
                 case _                => emptyFrag
-              }
             )
         )
       }

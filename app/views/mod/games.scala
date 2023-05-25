@@ -123,7 +123,7 @@ object games:
                       )(_.config.estimateTotalSeconds)
                     )(
                       pov.game.perfType.map { pt =>
-                        iconTag(pt.iconChar)(cls := "text")
+                        iconTag(pt.icon)(cls := "text")
                       },
                       shortClockName(pov.game)
                     ),

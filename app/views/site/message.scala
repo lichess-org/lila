@@ -7,13 +7,14 @@ import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
+import lila.common.licon
 
 object message:
 
   def apply(
       title: String,
       back: Option[String] = None,
-      icon: Option[String] = None,
+      icon: Option[licon.Icon] = None,
       moreCss: Option[Frag] = None
   )(message: Modifier*)(using Context) =
     views.html.base.layout(title = title, moreCss = ~moreCss):
