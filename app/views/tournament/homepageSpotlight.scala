@@ -23,7 +23,7 @@ object homepageSpotlight:
           } getOrElse {
             spot.iconFont.fold[Frag](iconTag(licon.Trophy)(cls := "img")) {
               case licon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
-              case i   => iconTag(i)(cls := "img")
+              case i           => iconTag(i)(cls := "img")
             }
           },
           span(cls := "content")(

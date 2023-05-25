@@ -182,7 +182,11 @@ object topic:
             form3.group(
               form("text"),
               trans.message(),
-              help = a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("forum-etiquette"))(
+              help = a(
+                dataIcon := licon.InfoCircle,
+                cls      := "text",
+                href     := routes.Page.loneBookmark("forum-etiquette")
+              )(
                 "Forum etiquette"
               ).some
             ) { f =>

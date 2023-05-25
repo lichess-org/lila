@@ -17,7 +17,11 @@ object index:
         boxTop(
           h1(title),
           st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
-            submitButton(cls := "button frameless", st.title := "New access token", dataIcon := licon.PlusButton)
+            submitButton(
+              cls      := "button frameless",
+              st.title := "New access token",
+              dataIcon := licon.PlusButton
+            )
           )
         ),
         standardFlash.map(div(cls := "box__pad")(_)),
@@ -48,7 +52,7 @@ object index:
         tokens.headOption.filter(_.isBrandNew).map { token =>
           div(cls := "box__pad brand")(
             if (token.isDangerous) iconTag(licon.CautionTriangle)(cls := "is-red")
-            else iconTag(licon.Checkmark)(cls                   := "is-green"),
+            else iconTag(licon.Checkmark)(cls                         := "is-green"),
             div(
               if (token.isDangerous)
                 p(strong(trans.oauthScope.doNotShareIt()))

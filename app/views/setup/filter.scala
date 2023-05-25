@@ -72,7 +72,11 @@ object filter:
           )
         ),
         div(cls := "actions")(
-          button(tpe := "reset", cls := "button button-empty button-red text reset", dataIcon := licon.NotAllowed)(
+          button(
+            tpe      := "reset",
+            cls      := "button button-empty button-red text reset",
+            dataIcon := licon.NotAllowed
+          )(
             trans.reset()
           ),
           submitButton(cls := "button button-green text apply", dataIcon := licon.Checkmark)(trans.apply())
