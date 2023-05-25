@@ -67,11 +67,11 @@
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">Ligazón do capítulo actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Podes pegar esto no foro para inserir a partida</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Podes pegar isto no foro ou no teu blog do Lichess para inserir a partida</string>
   <string name="startAtInitialPosition">Comezar desde a posición inicial</string>
   <string name="startAtX">Comezar en %s</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web ou blog</string>
-  <string name="readMoreAboutEmbedding">Ler máis sobre como insertar contido</string>
+  <string name="readMoreAboutEmbedding">Ler máis sobre como inserir contido</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Só poden incorporarse estudos públicos!</string>
   <string name="open">Abrir</string>
   <string name="xBroughtToYouByY">%1$s traído para ti por %2$s</string>
@@ -87,11 +87,11 @@
   <string name="clearVariations">Borrar variacións</string>
   <string name="deleteChapter">Borrar capítulo</string>
   <string name="deleteThisChapter">Realmente queres borrar o capítulo? Non hai volta atrás!</string>
-  <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo?</string>
+  <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo</string>
   <string name="rightUnderTheBoard">Mesmo debaixo do taboleiro</string>
   <string name="noPinnedComment">Ningún</string>
   <string name="normalAnalysis">Análise normal</string>
-  <string name="hideNextMoves">Ocultar os seguientes movementos</string>
+  <string name="hideNextMoves">Ocultar os seguintes movementos</string>
   <string name="interactiveLesson">Lección interactiva</string>
   <string name="chapterX">Capítulo %s</string>
   <string name="empty">Baleiro</string>
@@ -104,10 +104,10 @@
   <string name="automatic">Automática</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Copia o teu texto PGN aquí, ata %s partida</item>
-    <item quantity="other">Copia o teu texto PGN aquí, ata %s partidas</item>
+    <item quantity="other">Pega o teu texto PGN aquí, ata %s partidas</item>
   </plurals>
-  <string name="urlOfTheGame">URL da partida</string>
-  <string name="loadAGameFromXOrY">Cargar partida de %1$s ou %2$s</string>
+  <string name="urlOfTheGame">Ligazóns das partidas, unha por liña</string>
+  <string name="loadAGameFromXOrY">Cargar unha partida dende %1$s ou %2$s</string>
   <string name="createChapter">Crear capítulo</string>
   <string name="configureLiveBroadcast">Configurar a emisión en directo</string>
   <string name="createStudy">Crear estudo</string>
@@ -128,33 +128,33 @@
   <string name="pinnedStudyComment">Comentario fixado do estudo</string>
   <string name="start">Comezar</string>
   <string name="save">Gardar</string>
-  <string name="clearChat">Limpar o chat</string>
-  <string name="deleteTheStudyChatHistory">Realmente queres borrar o historial de chat? Esta acción non se pode desfacer!</string>
-  <string name="deleteStudy">Borrar estudio</string>
+  <string name="clearChat">Borrar a sala de conversa</string>
+  <string name="deleteTheStudyChatHistory">Realmente queres borrar o historial da sala de conversa? Esta acción non se pode desfacer!</string>
+  <string name="deleteStudy">Borrar estudo</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Borrar todo o estudo? Non se poderá recuperar! Teclea o nome do estudo para confirmar: %s</string>
   <string name="whereDoYouWantToStudyThat">Onde queres estudar isto?</string>
   <string name="goodMove">Bo movemento</string>
   <string name="mistake">Erro</string>
   <string name="brilliantMove">Movemento brillante</string>
-  <string name="blunder">Pifia</string>
+  <string name="blunder">Metida de zoca</string>
   <string name="interestingMove">Movemento interesante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Movemento dubidoso</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Movemento único</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Posición igualada</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Posición pouco clara</string>
-  <string name="whiteIsSlightlyBetter">Brancas lixeiramente mellor</string>
-  <string name="blackIsSlightlyBetter">Negras lixeiramente mellor</string>
+  <string name="whiteIsSlightlyBetter">As brancas están lixeiramente mellor</string>
+  <string name="blackIsSlightlyBetter">As negras están lixeiramente mellor</string>
   <string name="whiteIsBetter">As brancas están mellor</string>
   <string name="blackIsBetter">As negras están mellor</string>
-  <string name="whiteIsWinning">As brancas gañan</string>
-  <string name="blackIsWinning">As negras gañan</string>
+  <string name="whiteIsWinning">As brancas están gañando</string>
+  <string name="blackIsWinning">As negras están gañando</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novidade</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Desenvolvemento</string>
   <string name="initiative">Iniciativa</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Ataque</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Contraxogo</string>
-  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Problema de tempo</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Apuros de tempo</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Con compensación</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Coa idea</string>
   <string name="nextChapter">Capítulo seguinte</string>
