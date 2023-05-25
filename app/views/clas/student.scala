@@ -353,7 +353,9 @@ object student:
         postForm(cls := "form3", action := clasRoutes.studentClosePost(clas.id.value, s.user.username))(
           form3.actions(
             a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
-            form3.submit(trans.clas.closeTheAccount(), icon = licon.CautionCircle.some)(cls := "button-red confirm")
+            form3.submit(trans.clas.closeTheAccount(), icon = licon.CautionCircle.some)(
+              cls := "button-red confirm"
+            )
           )
         )
       )

@@ -199,4 +199,5 @@ object communication:
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
 
-  private def showSbMark(u: User) = u.marks.troll option span(cls := "user_marks")(iconTag(licon.BubbleSpeech))
+  private def showSbMark(u: User) =
+    u.marks.troll option span(cls := "user_marks")(iconTag(licon.BubbleSpeech))

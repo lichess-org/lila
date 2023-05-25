@@ -163,7 +163,9 @@ object edit:
               )(form3.textarea(_)(rows := 6))
             ),
             div(cls := "panel reviews")(
-              p(cls := "help text", dataIcon := licon.InfoCircle)("Reviews are visible only after you approve them."),
+              p(cls := "help text", dataIcon := licon.InfoCircle)(
+                "Reviews are visible only after you approve them."
+              ),
               reviews.list.map { r =>
                 div(cls := "review", attr("data-action") := routes.Coach.approveReview(r.id))(
                   div(cls := "user")(

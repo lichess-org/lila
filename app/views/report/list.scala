@@ -66,7 +66,9 @@ object list:
                     case None =>
                       if (r.done.isDefined)
                         postForm(action := reportRoutes.inquiry(r.id), cls := "reopen")(
-                          submitButton(dataIcon := licon.PlayTriangle, cls := "text button button-metal")("Reopen")
+                          submitButton(dataIcon := licon.PlayTriangle, cls := "text button button-metal")(
+                            "Reopen"
+                          )
                         )
                       else
                         postForm(action := reportRoutes.inquiry(r.id), cls := "inquiry")(

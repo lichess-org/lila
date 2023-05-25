@@ -3,6 +3,7 @@ import subprocess
 import re
 import textwrap
 import os
+from os.path import *
 import argparse
 import tempfile
 
@@ -32,36 +33,36 @@ object licon:
 
 typescript_preamble = comment_preamble + '\n'
 
-
 def main():
     parser = argparse.ArgumentParser(description='lichess.sfd helper')
     parser.add_argument('--check', action='store_true', help='report any embedded licon literals in your sources')
     parser.add_argument('--replace', action='store_true', help='replace embedded licon literals with `licon.<glyph-name>`')
 
-    os.chdir(os.path.join(os.path.dirname(__file__),'../../public/font'))
-
-    [codes, warnings] = parse_codes()
-
-    gen_sources(codes)
+    lila_chdir('public/font')
 
     gen_fonts()
 
-    if len(warnings) > 0:
-        print('Warnings:\n  ' + '  '.join(warnings))
+    codes = parse_codes()
+
+    gen_sources(codes)
 
     print('Generated:\n  public/font/lichess.woff\n  public/font/lichess.woff2\n  public/font/lichess.ttf')
     print('  modules/common/src/main/Licon.scala\n  ui/common/src/licon.ts\n')
 
     args = parser.parse_args()
     if args.check or args.replace:
-        os.chdir(os.path.join(os.path.dirname(__file__),'..'))
-        find_replace_refs({chr(v): k for k, v in codes.items()}, args.replace)
+        lila_chdir()
+        find_replace_chars({chr(v): k for k, v in codes.items()}, args.replace)
     else:
         print('Note:')
         print('  bin/licon.py --check    # report any embedded licon literals in your sources')
         print('  bin/licon.py --replace  # replace embedded licon literals with `licon.<glyph-name>`')
 
     print("\nDon't forget to install lichess.ttf in your system & editor!\n")
+
+
+def lila_chdir(s = '', lila_root = abspath(join(dirname(__file__), '../../'))):
+    os.chdir(join(lila_root, s))
 
 
 def dash_camel(s):
@@ -82,10 +83,11 @@ def parse_codes():
                 code_point = int(line.split(" ")[1])
                 if code_point >= 0xe000 and code_point <= 0xefff:
                     if unnamed_re.match(name):
-                        warnings.append(f'Unnamed glyph "{name}" at code point {code_point}\n')
+                        warnings.append(f'  Unnamed glyph "{name}" at code point {code_point}\n')
                         continue
                     codes[name] = code_point
-    return [codes, warnings]
+    print('' if not warnings else f'\nWarnings:\n{"".join(warnings)}')
+    return codes
 
 
 def gen_sources(codes):
@@ -114,23 +116,25 @@ def gen_fonts():
     os.remove(name)
 
 
-def find_replace_refs(names, do_replace):
+def find_replace_chars(names, do_replace):
     search_re = re.compile(u'([\'"]([\ue000-\uefff])[\'"])')
     search_cp_re = re.compile(r'([\'"]\\u(e[0-9a-f]{3})[\'"])', re.IGNORECASE)
 
     print('Replacing...' if do_replace else 'Checking...')
 
     sources = []
-
+    
     for dir, _, files in os.walk('.'):
-        sources.extend(
-            [os.path.join(dir, f) for f in files if any(map(lambda e: f.endswith(e), ['.ts', '.scala', '.scss']))]
-        )
+        if '/node_modules' in dir or '/dist' in dir:
+            continue
+        sources.extend([join(dir, f) for f in filter(
+            lambda f: \
+                any(map(lambda e: f.endswith(e), ['.ts', '.scala', '.scss'])) \
+                and not f in ['Licon.scala', 'licon.ts'], 
+            files
+        )])
 
-    for source in filter(
-        lambda f: not os.path.basename(f) in ['Licon.scala', 'licon.ts'] and f.find('node_modules') == -1,
-        sources
-    ):
+    for source in sources:
         replace = do_replace and not source.endswith('.scss')
         text = ''
         with open(source, 'r') as f:
@@ -143,8 +147,6 @@ def find_replace_refs(names, do_replace):
                     ch = m.group(2) if m.group(2)[:1] != 'e' else chr(int(m.group(2),16))
                     if replace and ch in names:
                         sub = f'licon.{names[ch]}'
-                        if m.group(1).startswith("'") and source.endswith('scala'):
-                            sub += '.charAt(0)'
                         text = text[:m.start()] + sub + text[m.end():]
                         report += f'{m.group(1)} -> {sub}'
                     else:

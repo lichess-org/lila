@@ -38,7 +38,11 @@ object bits:
     )(
       boxTop(
         h1(
-          a(cls := "is4 text", dataIcon := licon.Back, href := s"${routes.Video.index}?${control.queryString}"),
+          a(
+            cls      := "is4 text",
+            dataIcon := licon.Back,
+            href     := s"${routes.Video.index}?${control.queryString}"
+          ),
           name
         ),
         span(

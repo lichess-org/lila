@@ -61,7 +61,7 @@ this.setSelectionRange(this.value.length, this.value.length);
                   td(u.seenAt.map(momentFromNow(_))),
                   td(style := "font-size:2em")(
                     if (!u.everLoggedIn) iconTag(licon.Checkmark)(cls := "is-green")
-                    else iconTag(licon.X)(cls                 := "is-red")
+                    else iconTag(licon.X)(cls                         := "is-red")
                   )
                 )
               )
