@@ -3,7 +3,6 @@ import subprocess
 import re
 import textwrap
 import os
-import glob
 import argparse
 import tempfile
 
@@ -38,7 +37,7 @@ def main():
     parser.add_argument('--replace', action='store_true', help='replace embedded licon literals with `licon.<glyph-name>`')
 
     os.chdir(os.path.join(os.path.dirname(__file__),'../public/font'))
-    
+
     [codes, warnings] = parse_codes()
 
     gen_sources(codes)
@@ -47,7 +46,7 @@ def main():
 
     if len(warnings) > 0:
         print('Warnings:\n  ' + '  '.join(warnings))
-    
+
     print('Generated:\n  public/font/lichess.woff\n  public/font/lichess.woff2\n  public/font/lichess.ttf')
     print('  modules/common/src/main/Licon.scala\n  ui/common/src/licon.ts\n')
 
