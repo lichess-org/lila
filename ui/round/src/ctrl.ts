@@ -6,6 +6,7 @@ import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
 import * as ground from './ground';
+import * as licon from 'common/licon';
 import notify from 'common/notification';
 import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
@@ -670,7 +671,7 @@ export default class RoundController {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) lichess.sound.play('berserk');
     this.redraw();
-    $('<i data-icon="">').appendTo($(`.game__meta .player.${color} .user-link`));
+    $(`<i data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
   setLoading = (v: boolean, duration = 1500) => {

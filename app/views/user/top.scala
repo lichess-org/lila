@@ -26,7 +26,7 @@ object top:
         .some
     )(
       main(cls := "page-small box")(
-        boxTop(h1(a(href := routes.User.list, dataIcon := ""), title)),
+        boxTop(h1(a(href := routes.User.list, dataIcon := licon.LessThan), title)),
         table(cls := "slist slist-pad")(
           tbody(
             users.zipWithIndex.map { case (u, i) =>

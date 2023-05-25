@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNodes } from '../interfaces';
 import { h, VNode } from 'snabbdom';
@@ -40,7 +41,7 @@ const renderContinue = (ctrl: Controller) =>
     {
       hook: bind('click', ctrl.nextPuzzle),
     },
-    [h('i', { attrs: dataIcon('') }), ctrl.trans.noarg('continueTraining')]
+    [h('i', { attrs: dataIcon(licon.PlayTriangle) }), ctrl.trans.noarg('continueTraining')]
   );
 
 const renderStreak = (ctrl: Controller): MaybeVNodes => [
@@ -53,7 +54,7 @@ const renderStreak = (ctrl: Controller): MaybeVNodes => [
     {
       attrs: { href: router.withLang('/streak') },
     },
-    [h('i', { attrs: dataIcon('') }), ctrl.trans('newStreak')]
+    [h('i', { attrs: dataIcon(licon.PlayTriangle) }), ctrl.trans('newStreak')]
   ),
 ];
 
@@ -70,7 +71,7 @@ export default function (ctrl: Controller): VNode {
           h('div.puzzle__more', [
             h('a', {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Bullseye,
                 href: `/analysis/${ctrl.vm.node.fen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
                 title: ctrl.trans.noarg('playWithTheMachine'),
                 target: '_blank',

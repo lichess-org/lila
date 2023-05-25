@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import TournamentController from '../ctrl';
 import { TournamentData, MaybeVNodes } from '../interfaces';
 import * as pagination from '../pagination';
@@ -59,7 +60,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
         'a.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.Download,
             href: `/api/tournament/${data.id}/games`,
             download: true,
           },
@@ -71,7 +72,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
           'a.text',
           {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.Download,
               href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
               download: true,
             },
@@ -82,7 +83,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
         'a.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.Download,
             href: `/api/tournament/${data.id}/results`,
             download: true,
           },
@@ -93,7 +94,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
         'a.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.Download,
             href: `/api/tournament/${data.id}/results?as=csv`,
             download: true,
           },
@@ -105,7 +106,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
         'a.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.InfoCircle,
             href: 'https://lichess.org/api#tag/Arena-tournaments',
           },
         },

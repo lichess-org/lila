@@ -1,5 +1,6 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl from './relayCtrl';
+import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
@@ -144,9 +145,9 @@ const schedule = (relay: RelayCtrl): VNode[] => [
 
 const roundStateIcon = (round: RelayRound) =>
   round.ongoing
-    ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } })
+    ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
     : round.finished
-    ? h('finished', { attrs: { ...dataIcon(''), title: 'Finished' } })
+    ? h('finished', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } })
     : null;
 
 export function rounds(ctrl: StudyCtrl): VNode {
@@ -177,7 +178,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
             canContribute
               ? h('a.act', {
                   attrs: {
-                    ...dataIcon(''),
+                    ...dataIcon(licon.Gear),
                     href: `/broadcast/round/${round.id}/edit`,
                   },
                 })
@@ -195,7 +196,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
                   {
                     attrs: {
                       href: `/broadcast/${relay.data.tour.id}/new`,
-                      'data-icon': '',
+                      'data-icon': licon.PlusButton,
                     },
                   },
                   ctrl.trans.noarg('addRound')

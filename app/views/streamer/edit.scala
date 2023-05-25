@@ -53,7 +53,7 @@ object edit:
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(
                 cls      := s"status is${granted ?? "-green"}",
-                dataIcon := (if (granted) "" else "")
+                dataIcon := (if (granted) licon.Checkmark else licon.InfoCircle)
               )(
                 if (granted)
                   frag(
@@ -89,7 +89,7 @@ object edit:
               ),
               modData.map { case ((log, notes), same) =>
                 div(cls := "mod_log status")(
-                  strong(cls := "text", dataIcon := "")(
+                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
                     "Moderation history",
                     log.isEmpty option ": nothing to show."
                   ),
@@ -107,7 +107,7 @@ object edit:
                     }
                   ),
                   br,
-                  strong(cls := "text", dataIcon := "")(
+                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
                     "Moderator notes",
                     notes.isEmpty option ": nothing to show."
                   ),
@@ -121,7 +121,7 @@ object edit:
                     }
                   ),
                   br,
-                  strong(cls := "text", dataIcon := "")(
+                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
                     "Streamers with same Twitch or YouTube",
                     same.isEmpty option ": nothing to show."
                   ),
@@ -187,7 +187,7 @@ object edit:
                         name  := "approval.quick",
                         value := "approve"
                       ),
-                    form3.submit("Decline and next", icon = "".some)(
+                    form3.submit("Decline and next", icon = licon.X.some)(
                       cls   := "button-red",
                       name  := "approval.quick",
                       value := "decline"

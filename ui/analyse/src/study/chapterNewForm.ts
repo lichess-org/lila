@@ -1,5 +1,6 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
+import * as licon from 'common/licon';
 import { snabModal } from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { StoredProp, storedStringProp } from 'common/storage';
@@ -159,7 +160,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
         : h('h2', [
             noarg('newChapter'),
             h('i.help', {
-              attrs: { 'data-icon': '' },
+              attrs: { 'data-icon': licon.InfoCircle },
               hook: bind('click', ctrl.startTour),
             }),
           ]),

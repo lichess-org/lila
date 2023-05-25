@@ -29,7 +29,7 @@ object otherTrophies:
           cls := "shield-trophy combo-trophy",
           ariaTitle(s"${shield.categ.name} Shield"),
           href := routes.Tournament.shields
-        )(shield.categ.iconChar.toString)
+        )(shield.categ.icon)
       },
       info.trophies.revolutions.map { revol =>
         a(
@@ -63,7 +63,7 @@ object otherTrophies:
           href := routes.Coach.show(info.user.username),
           cls  := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
-        )(""),
+        )(licon.GraduateCap),
       (info.isStreamer && ctx.noKid) option {
         val streaming = isStreaming(info.user.id)
         views.html.streamer.bits.redirectLink(info.user.username, streaming.some)(
@@ -72,7 +72,7 @@ object otherTrophies:
             "streaming"                    -> streaming
           ),
           ariaTitle(if (streaming) "Live now!" else "Lichess Streamer")
-        )("")
+        )(licon.Mic)
       }
     )
 

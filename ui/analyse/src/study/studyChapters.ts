@@ -1,4 +1,5 @@
 import { prop, Prop, scrollToInnerSelector } from 'common';
+import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -136,9 +137,9 @@ export function view(ctrl: StudyCtrl): VNode {
           [
             h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
             h('h3', chapter.name),
-            chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } }) : null,
+            chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
             !chapter.ongoing && chapter.res ? h('res', chapter.res) : null,
-            canContribute ? h('i.act', { attrs: dataIcon('') }) : null,
+            canContribute ? h('i.act', { attrs: dataIcon(licon.Gear) }) : null,
           ]
         );
       })
@@ -150,7 +151,7 @@ export function view(ctrl: StudyCtrl): VNode {
                 {
                   hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw),
                 },
-                [h('span', iconTag('')), h('h3', ctrl.trans.noarg('addNewChapter'))]
+                [h('span', iconTag(licon.PlusButton)), h('h3', ctrl.trans.noarg('addNewChapter'))]
               ),
             ]
           : []

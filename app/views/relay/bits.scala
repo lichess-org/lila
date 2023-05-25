@@ -14,7 +14,7 @@ object bits:
       href := tr.path,
       cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
     )(
-      i(cls := "img", dataIcon := ""),
+      i(cls := "img", dataIcon := licon.RadioTower),
       span(cls := "content")(
         span(cls := "name")(tr.tour.name),
         span(cls := "more")(
@@ -28,7 +28,7 @@ object bits:
     )
 
   def howToUse =
-    a(dataIcon := "", cls := "text", href := routes.RelayTour.help)(
+    a(dataIcon := licon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
       "How to use Lichess Broadcasts"
     )
 

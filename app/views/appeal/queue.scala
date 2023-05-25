@@ -35,7 +35,7 @@ object queue:
               td(
                 userIdLink(appeal.id.some, params = "?mod"),
                 br,
-                markedByMe.contains(appeal.userId) option span(dataIcon := "", cls := "marked-by-me text")(
+                markedByMe.contains(appeal.userId) option span(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
                   "My mark"
                 ),
                 views.html.user.mod.userMarks(user, None)

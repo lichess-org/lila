@@ -36,7 +36,7 @@ object invite:
                 form3.submit(
                   trans.decline(),
                   nameValue = ("v" -> false.toString).some,
-                  icon = "".some
+                  icon = licon.X.some
                 )(cls := "button-red button-fat")
               else p,
               form3.submit(

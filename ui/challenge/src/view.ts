@@ -1,5 +1,6 @@
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { opposite } from 'chessground/util';
 
@@ -89,7 +90,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
         h('button.button.accept', {
           attrs: {
             type: 'submit',
-            'data-icon': '',
+            'data-icon': licon.Checkmark,
             title: trans('accept'),
           },
           hook: onClick(ctrl.onRedirect),
@@ -99,7 +100,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
     h('button.button.decline', {
       attrs: {
         type: 'submit',
-        'data-icon': '',
+        'data-icon': licon.X,
         title: trans('decline'),
       },
       hook: onClick(() => ctrl.decline(c.id, 'generic')),
@@ -128,7 +129,7 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
       h('span.waiting', ctrl.trans()('waiting')),
       h('a.view', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.Eye,
           href: '/' + c.id,
           title: trans('viewInFullSize'),
         },
@@ -136,7 +137,7 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
     ]),
     h('button.button.decline', {
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.X,
         title: trans('cancel'),
       },
       hook: onClick(() => ctrl.cancel(c.id)),
@@ -189,7 +190,7 @@ const empty = (): VNode =>
     'div.empty.text',
     {
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.InfoCircle,
       },
     },
     'No challenges.'

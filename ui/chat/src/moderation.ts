@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import userLink from 'common/userLink';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
@@ -69,7 +70,7 @@ function reportUserText(resourceId: string, username: string, text: string) {
   if (confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = () => h('i.mod', { attrs: { 'data-icon': '' } });
+export const lineAction = () => h('i.mod', { attrs: { 'data-icon': licon.Agent } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
@@ -120,7 +121,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             h(
               'a.text',
               {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => ctrl.timeout(r, data.text)),
               },
               r.name
@@ -133,7 +134,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             h(
               'a.text',
               {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
               },
               'Timeout 15 minutes'
@@ -141,7 +142,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             h(
               'a.text',
               {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => {
                   reportUserText(ctrl.opts.resourceId, data.username, data.text);
                   ctrl.timeout(ctrl.opts.reasons[0], data.text);
@@ -188,12 +189,12 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       h(
         'span.text',
         {
-          attrs: { 'data-icon': '' },
+          attrs: { 'data-icon': licon.Agent },
         },
         [userLink(data.username)]
       ),
       h('a', {
-        attrs: { 'data-icon': '' },
+        attrs: { 'data-icon': licon.X },
         hook: bind('click', ctrl.close),
       }),
     ]),

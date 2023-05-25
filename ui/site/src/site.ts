@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as miniBoard from 'common/mini-board';
 import * as miniGame from './component/mini-game';
 import * as timeago from './component/timeago';
@@ -46,7 +47,7 @@ lichess.load.then(() => {
         this.select();
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
-        const showCheckmark = () => $(this).attr('data-icon', '');
+        const showCheckmark = () => $(this).attr('data-icon', licon.Checkmark);
         $('#' + $(this).data('rel')).each(function (this: HTMLInputElement) {
           try {
             navigator.clipboard.writeText(this.value).then(showCheckmark);
@@ -179,11 +180,11 @@ lichess.load.then(() => {
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')
-          .append($('<a data-icon="" class="text">').attr('href', url).text(data.name))
+          .append($(`<a data-icon="${licon.Trophy}" class="text">`).attr('href', url).text(data.name))
           .append(
             $('<div class="actions">')
               .append(
-                $('<a class="withdraw text" data-icon="">')
+                $(`<a class="withdraw text" data-icon="${licon.Pause}">`)
                   .attr('href', url + '/withdraw')
                   .text(siteTrans('pause'))
                   .on('click', function (this: HTMLAnchorElement) {
@@ -192,7 +193,9 @@ lichess.load.then(() => {
                     return false;
                   })
               )
-              .append($('<a class="text" data-icon="">').attr('href', url).text(siteTrans('resume')))
+              .append(
+                $(`<a class="text" data-icon="${licon.PlayTriangle}">`).attr('href', url).text(siteTrans('resume'))
+              )
           )
       );
     });

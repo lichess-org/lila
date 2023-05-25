@@ -115,9 +115,9 @@ object irwin:
                       link = false
                     ),
                     br,
-                    pov.game.isTournament ?? frag(iconTag(""), " "),
+                    pov.game.isTournament ?? frag(iconTag(licon.Trophy), " "),
                     pov.game.perfType.map { pt =>
-                      iconTag(pt.iconChar)
+                      iconTag(pt.icon)
                     },
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",

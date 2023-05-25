@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.api.Context
-import lila.app.templating.Environment.given
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Heapsort.topN
 import lila.tutor.TutorCompare.given
@@ -19,7 +19,7 @@ object perf:
       cls := "tutor__perf box",
       boxTop(
         h1(
-          a(href := routes.Tutor.user(user.username), dataIcon := "", cls := "text"),
+          a(href := routes.Tutor.user(user.username), dataIcon := licon.LessThan, cls := "text"),
           bits.otherUser(user),
           "Tutor: ",
           report.perf.trans

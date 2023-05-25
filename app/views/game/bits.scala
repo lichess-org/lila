@@ -12,14 +12,14 @@ import controllers.routes
 
 object bits:
 
-  def gameIcon(game: Game): Char =
+  def gameIcon(game: Game): licon.Icon =
     game.perfType match
-      case _ if game.fromPosition         => ''
-      case _ if game.imported             => ''
-      case Some(p) if game.variant.exotic => p.iconChar
-      case _ if game.hasAi                => ''
-      case Some(p)                        => p.iconChar
-      case _                              => ''
+      case _ if game.fromPosition         => licon.Feather
+      case _ if game.imported             => licon.UploadCloud
+      case Some(p) if game.variant.exotic => p.icon
+      case _ if game.hasAi                => licon.Cogs
+      case Some(p)                        => p.icon
+      case _                              => licon.Crown
 
   def sides(
       pov: Pov,
@@ -29,12 +29,11 @@ object bits:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(implicit ctx: Context) =
+  )(using ctx: Context) =
     div(
       side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
-      cross.map { c =>
+      cross.map: c =>
         div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
-      }
     )
 
   def variantLink(
@@ -42,7 +41,7 @@ object bits:
       perfType: Option[lila.rating.PerfType] = None,
       initialFen: Option[chess.format.Fen.Epd] = None,
       shortName: Boolean = false
-  )(implicit lang: Lang): Frag =
+  )(using Lang): Frag =
     def link(
         href: String,
         title: String,
@@ -56,11 +55,11 @@ object bits:
 
     if (variant.exotic)
       link(
-        href = variant match {
+        href = variant match
           case chess.variant.FromPosition =>
             s"""${routes.Editor.index}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
           case v => routes.Page.variant(v.key).url
-        },
+        ,
         title = variant.title,
         name = (if (shortName && variant == chess.variant.KingOfTheHill) variant.shortName
                 else variant.name).toUpperCase

@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { bind, MaybeVNodes, onInsert } from './snabbdom';
+import * as licon from './licon';
 
 interface BaseModal {
   class?: string;
@@ -22,7 +23,7 @@ const overlayId = 'modal-overlay';
 export default function modal(opts: Modal) {
   modal.close();
   const $wrap = $(
-    '<div id="modal-wrap"><span class="close" role="button" aria-label="Close" data-icon="" tabindex="0"></span></div>'
+    `<div id="modal-wrap"><span class="close" role="button" aria-label="Close" data-icon="${licon.X}" tabindex="0"></span></div>`
   );
   const $overlay = $(`<div id="${overlayId}" class="${opts.class}">`);
   if (!opts.noClickAway) $overlay.on('click', modal.close);
@@ -74,7 +75,7 @@ export function snabModal(opts: SnabModal): VNode {
         [
           h('span.close', {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.X,
               role: 'button',
               'aria-label': 'Close',
               tabindex: '0',

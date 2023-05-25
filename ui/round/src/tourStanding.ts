@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { onInsert } from './util';
 import { ChatPlugin } from 'chat';
 import { Team, TourPlayer } from 'game';
@@ -26,7 +27,7 @@ export const tourStandingCtrl = (players: TourPlayer[], team: Team | undefined, 
           ? h(
               'h3.text',
               {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.Group },
               },
               team.name
             )
@@ -51,7 +52,7 @@ export const tourStandingCtrl = (players: TourPlayer[], team: Team | undefined, 
                   p.f
                     ? {
                         class: { 'is-gold': true },
-                        attrs: { 'data-icon': '' },
+                        attrs: { 'data-icon': licon.Fire },
                       }
                     : {},
                   '' + p.s

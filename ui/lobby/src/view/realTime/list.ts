@@ -1,5 +1,6 @@
 import { h } from 'snabbdom';
 import LobbyController from '../../ctrl';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { tds, perfNames } from '../util';
 import perfIcons from 'common/perfIcons';
@@ -55,7 +56,7 @@ const isNotMine = (hook: Hook) => !isMine(hook);
 export const toggle = (ctrl: LobbyController) =>
   h('i.toggle', {
     key: 'set-mode-chart',
-    attrs: { title: ctrl.trans.noarg('graph'), 'data-icon': '' },
+    attrs: { title: ctrl.trans.noarg('graph'), 'data-icon': licon.LineGraph },
     hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
   });
 

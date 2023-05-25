@@ -15,7 +15,7 @@ object review:
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
       h2(
         studentReviews(reviews.list.size),
-        iconTag("")(
+        iconTag(licon.InfoCircle)(
           cls      := "coach-show__reviews__disclaimer",
           st.title := "Comments are approved by the coach. Negative comments are reviewed by moderators."
         )

@@ -27,7 +27,7 @@ object form:
         )(
           div(cls := "form-group")(
             p(
-              a(href := routes.Page.loneBookmark("report-faq"), dataIcon := "", cls := "text")(
+              a(href := routes.Page.loneBookmark("report-faq"), dataIcon := licon.InfoCircle, cls := "text")(
                 "Read more about Lichess reports"
               )
             ),

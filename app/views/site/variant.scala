@@ -19,7 +19,7 @@ object variant:
       title = s"${variant.name} • ${variant.title}",
       klass = "box-pad page variant"
     )(
-      boxTop(h1(cls := "text", dataIcon := perfType.iconChar)(variant.name)),
+      boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.name)),
       h2(cls := "headline")(variant.title),
       div(cls := "body")(raw(~doc.getHtml("variant.content", resolver)))
     )
@@ -37,7 +37,7 @@ object variant:
       div(cls := "variants")(
         lila.rating.PerfType.variants map { pt =>
           val variant = lila.rating.PerfType variantOf pt
-          a(cls := "variant text box__pad", href := routes.Page.variant(pt.key), dataIcon := pt.iconChar)(
+          a(cls := "variant text box__pad", href := routes.Page.variant(pt.key), dataIcon := pt.icon)(
             span(
               h2(variant.name),
               h3(cls := "headline")(variant.title)
@@ -64,7 +64,7 @@ object variant:
             a(
               cls      := List("text" -> true, "active" -> active.has(pt)),
               href     := routes.Page.variant(pt.key),
-              dataIcon := pt.iconChar
+              dataIcon := pt.icon
             )(pt.trans)
           }
         ),

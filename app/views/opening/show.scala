@@ -34,8 +34,8 @@ object show:
         search.resultsList(Nil),
         h1(cls := "opening__title")(
           page.query.prev match
-            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := "")
-            case None       => a(href := routes.Opening.index(), dataIcon := "")
+            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := licon.LessThan)
+            case None       => a(href := routes.Opening.index(), dataIcon := licon.LessThan)
           ,
           span(cls := "opening__name")(
             page.nameParts.zipWithIndex map { (part, i) =>
@@ -73,13 +73,13 @@ object show:
                 cls := "opening__actions"
               )(
                 puzzleKey.map { key =>
-                  a(cls := "button text", dataIcon := "", href := routes.Puzzle.show(key))(
+                  a(cls := "button text", dataIcon := licon.ArcheryTarget, href := routes.Puzzle.show(key))(
                     "Train with puzzles"
                   )
                 },
                 a(
                   cls      := "button text",
-                  dataIcon := "",
+                  dataIcon := licon.Book,
                   href     := s"${routes.UserAnalysis.pgn(page.query.sans mkString "_")}#explorer"
                 )(trans.openingExplorer())
               ),
