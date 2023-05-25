@@ -348,6 +348,7 @@
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Жарысқа оралу</string>
+  <string name="noDrawBeforeSwissLimit">Швейцарлық жарыста 30 қадам болмай тепе-теңдік те болмайды.</string>
   <string name="thematic">Тақырыптық</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s бағалы ойын</item>
@@ -669,6 +670,8 @@
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Көпшілікке қарсы ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
   <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
+  <string name="simulAddExtraTimePerPlayer">Көпшіліктің әр ойыншысына бастапқы уақытты белгілеп қойыңыз.</string>
+  <string name="simulHostExtraTimePerPlayer">Әр ойыншы үшін бас ойыншыға берілетін қосымша уақыт</string>
   <string name="lichessTournaments">Личес жарыстары</string>
   <string name="tournamentFAQ">Алаң жарысы туралы Жұрттан-сұрақ</string>
   <string name="timeBeforeTournamentStarts">Жарыс басталуына қалған уақыт</string>
@@ -870,6 +873,8 @@
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>
   <string name="toRequestSupport">Жәрдем іздесеңіз %1$s</string>
   <string name="tryTheContactPage">байланыс туралы бетке өтіңіз</string>
+  <string name="makeSureToRead">%1$sпен танысып алыңыз</string>
+  <string name="theForumEtiquette">форумдағы әдеп</string>
   <string name="thisTopicIsArchived">Бұл тақырып мұрағатталды, енді жауап жазуға болмайды.</string>
   <string name="joinTheTeamXToPost">Осы форумда хабар қалдыру үшін %1$s тобына қосылыңыз</string>
   <string name="teamNamedX">%1$s тобы</string>
@@ -953,4 +958,5 @@
   <string name="lichessDbExplanation">Личес-тегі бағалы ойындар</string>
   <string name="switchSides">Түсті ауыстыру</string>
   <string name="closingAccountWithdrawAppeal">Тіркелгі жабылса, қарсы шағымдарыңыз жойылады</string>
+  <string name="ourEventTips">Шара ұйымдастыру туралы ақыл-кеңес</string>
 </resources>
