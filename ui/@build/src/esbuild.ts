@@ -15,50 +15,32 @@ export async function esbuild(): Promise<void> {
       }
     }
   }
+  const opts: es.BuildOptions = {
+    sourcemap: !env.prod,
+    define: {
+      __info__: JSON.stringify({
+        date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
+        commit: cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
+        message: cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
+      }),
+    },
+    format: 'iife',
+    target: 'es2018',
+    logLevel: 'silent',
+    bundle: true,
+    outdir: env.jsDir,
+    minify: env.prod,
+    entryPoints: entryPoints,
+    treeShaking: true,
+    outExtension: { '.js': env.prod ? '.min.js' : '.js' },
+    plugins: [onEndPlugin],
+  };
   try {
-    await es.build({
-      sourcemap: !env.prod,
-      define: {
-        __info__: JSON.stringify({
-          date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-          commit: cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
-          message: cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
-        }),
-      },
-      format: 'iife',
-      target: 'es2018',
-      logLevel: 'silent',
-      bundle: true,
-      outdir: env.jsDir,
-      watch: env.watch,
-      minify: env.prod,
-      entryPoints: entryPoints,
-      outExtension: { '.js': env.prod ? '.min.js' : '.js' },
-      plugins: [/*onStartPlugin, onLoadPlugin,*/ onEndPlugin],
-    });
+    env.watch ? await (await es.context(opts)).watch() : await es.build(opts);
   } catch (e: any) {
     env.log(e, { error: true });
   }
 }
-/*
-const onStartPlugin = {
-  name: 'lichessOnStart',
-  setup(build: es.PluginBuild) {
-    build.onStart(() => env.log(c.grey('Bundling') + ' modules', { ctx: 'esbuild' }));
-  },
-};
-
-const fileFilter = new RegExp(`\\${path.sep}ui\\${path.sep}(.+\\.ts)$`);
-const onLoadPlugin = {
-  // more like onMurderScrollbackBuffer
-  name: 'lichessOnLoad',
-  setup(build: es.PluginBuild) {
-    build.onLoad({ filter: fileFilter }, (o: es.OnLoadArgs): es.OnLoadResult | undefined => {
-      env.log(`Bundling '${c.cyan(fileFilter.exec(o.path)![1])}'`, { ctx: 'esbuild' });
-      return undefined;
-    });
-  },
-};*/
 
 const onEndPlugin = {
   name: 'lichessOnEnd',

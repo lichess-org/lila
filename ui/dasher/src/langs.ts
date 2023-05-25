@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-
+import * as licon from 'common/licon';
 import { Close, header } from './util';
 
 type Code = string;
@@ -49,7 +49,7 @@ export function view(ctrl: LangsCtrl): VNode {
       {
         attrs: {
           href: 'https://crowdin.com/project/lichess',
-          'data-icon': '',
+          'data-icon': licon.Heart,
         },
       },
       'Help translate Lichess'

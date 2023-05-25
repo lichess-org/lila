@@ -2,6 +2,7 @@ import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { findTag } from '../study/studyChapters';
 import * as game from 'game';
+import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
@@ -55,7 +56,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
         ' ',
         h('a', {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.InfoCircle,
             href: '/page/accuracy',
             target: '_blank',
           },
@@ -117,7 +118,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
             'a.button.text',
             {
               class: { active: !!ctrl.retro },
-              attrs: dataIcon(''),
+              attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
             ctrl.trans.noarg('learnFromYourMistakes')
@@ -137,7 +138,7 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
         'a.button-link.text',
         {
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.ArcheryTarget,
             href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
           },
         },

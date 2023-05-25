@@ -109,7 +109,7 @@ object index:
                 cls      := "atom",
                 st.title := "Atom RSS feed",
                 href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
-                dataIcon := ""
+                dataIcon := licon.RssFeed
               )
             )
           ),

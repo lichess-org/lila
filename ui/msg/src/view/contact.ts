@@ -2,6 +2,7 @@ import { h, VNode } from 'snabbdom';
 import { Contact, LastMsg } from '../interfaces';
 import MsgCtrl from '../ctrl';
 import { userName, userIcon } from './util';
+import * as licon from 'common/licon';
 import { hookMobileMousedown } from 'common/mobile';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
@@ -32,7 +33,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
           ),
           isNew
             ? h('i.msg-app__side__contact__new', {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.BellOutline },
               })
             : null,
         ]),

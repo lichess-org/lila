@@ -50,7 +50,7 @@ object bits:
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         div(cls := "opening__config__summary__short")(
-          iconTag('')
+          iconTag(licon.Gear)
         ),
         div(cls := "opening__config__summary__large")(
           "Speed: ",

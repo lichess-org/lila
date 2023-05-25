@@ -9,6 +9,7 @@ import scalatags.Text.{ Aggregate, Cap }
 
 import lila.api.Context
 import lila.user.Title
+import lila.common.licon.Icon
 
 // collection of lila attrs
 trait ScalatagsAttrs:
@@ -45,26 +46,24 @@ trait ScalatagsSnippets:
 
   import scalatags.Text.all.*
 
-  val nbsp: Frag                             = raw("&nbsp;")
-  val amp: Frag                              = raw("&amp;")
-  def iconTag(icon: Char): Tag               = iconTag(icon.toString)
-  def iconTag(icon: String): Tag             = i(dataIcon := icon)
-  def iconTag(icon: Char, text: Frag): Tag   = iconTag(icon.toString, text)
-  def iconTag(icon: String, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
-  val styleTag                               = tag("style")
-  val ratingTag                              = tag("rating")
-  val countTag                               = tag("count")
-  val goodTag                                = tag("good")
-  val badTag                                 = tag("bad")
-  val timeTag                                = tag("time")
-  val dialog                                 = tag("dialog")
-  val svgTag                                 = tag("svg")
-  val svgGroupTag                            = tag("g")
-  val svgTextTag                             = tag("text")
-  val details                                = tag("details")
-  val summary                                = tag("summary")
-  val abbr                                   = tag("abbr")
-  val boxTop                                 = div(cls := "box__top")
+  val nbsp: Frag                           = raw("&nbsp;")
+  val amp: Frag                            = raw("&amp;")
+  def iconTag(icon: Icon): Tag             = i(dataIcon := icon)
+  def iconTag(icon: Icon, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
+  val styleTag                             = tag("style")
+  val ratingTag                            = tag("rating")
+  val countTag                             = tag("count")
+  val goodTag                              = tag("good")
+  val badTag                               = tag("bad")
+  val timeTag                              = tag("time")
+  val dialog                               = tag("dialog")
+  val svgTag                               = tag("svg")
+  val svgGroupTag                          = tag("g")
+  val svgTextTag                           = tag("text")
+  val details                              = tag("details")
+  val summary                              = tag("summary")
+  val abbr                                 = tag("abbr")
+  val boxTop                               = div(cls := "box__top")
 
   def rawHtml(html: Html) = raw(html.value)
 
@@ -123,6 +122,7 @@ trait ScalatagsExtensions:
 
   given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
 
+  // TODO implicit?
   implicit def opaqueStringFrag[A](a: A)(using r: StringRuntime[A]): Frag = stringFrag(r(a))
   implicit def opaqueIntFrag[A](a: A)(using r: IntRuntime[A]): Frag       = intFrag(r(a))
 

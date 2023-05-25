@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -81,12 +82,16 @@ function view(opts: Opts, coords: Coords): VNode {
     },
     [
       h('p.title', nodeFullName(node)),
-      onMainline ? null : action('', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
-      onMainline ? null : action('', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
-      action('', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
+      onMainline ? null : action(licon.UpTriangle, trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
+      onMainline ? null : action(licon.Checkmark, trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
+      action(licon.Trash, trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
     ]
       .concat(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : [])
-      .concat([onMainline ? action('', trans('forceVariation'), () => ctrl.forceVariation(opts.path, true)) : null])
+      .concat([
+        onMainline
+          ? action(licon.InternalArrow, trans('forceVariation'), () => ctrl.forceVariation(opts.path, true))
+          : null,
+      ])
   );
 }
 

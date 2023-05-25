@@ -31,26 +31,26 @@
     <item quantity="other">%s Membros</item>
   </plurals>
   <string name="inviteToTheStudy">Invitar ao estudo</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Por favor só invite xente que coñece e que queira ser engadido ao estudo.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, convida só a persoas que coñezas e que desexen activamente unirse a este estudo.</string>
   <string name="searchByUsername">Buscar por nome de usuario</string>
   <string name="spectator">Espectador</string>
   <string name="contributor">Contribuínte</string>
-  <string name="kick">Patear</string>
+  <string name="kick">Expulsar</string>
   <string name="leaveTheStudy">Deixar o estudo</string>
   <string name="youAreNowAContributor">Agora es un contribuínte</string>
   <string name="youAreNowASpectator">Agora es un espectador</string>
   <string name="pgnTags">Etiquetas PGN</string>
-  <string name="like">Me gusta</string>
+  <string name="like">Gústame</string>
   <string name="unlike">Xa non me gusta</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comentar nesta posición</string>
-  <string name="commentThisMove">Comentar nesta posición</string>
+  <string name="commentThisMove">Comentar este movemento</string>
   <string name="annotateWithGlyphs">Anotar con símbolos</string>
   <string name="theChapterIsTooShortToBeAnalysed">O capítulo é demasiado curto para analizalo.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Só os colaboradores do estudio poden solicitar unha análise por ordenador.</string>
-  <string name="getAFullComputerAnalysis">Obtén unha análise completa da liña principal do servidor.</string>
-  <string name="makeSureTheChapterIsComplete">Asegúrate de que o capítulo está completo. Só podes solicitar análise unha vez.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros en SYNC permanecen na mesma posición</string>
+  <string name="onlyContributorsCanRequestAnalysis">Só os colaboradores do estudo poden solicitar unha análise por ordenador.</string>
+  <string name="getAFullComputerAnalysis">Obtén unha análise completa dende o servidor da liña principal.</string>
+  <string name="makeSureTheChapterIsComplete">Asegúrate de que o capítulo está completo. Só podes solicitar a análise unha vez.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros sincronizados permanecen na mesma posición</string>
   <string name="shareChanges">Comparte os cambios cos espectadores e gárdaos no servidor</string>
   <string name="playing">En xogo</string>
   <string name="first">Primeiro</string>
@@ -166,6 +166,6 @@
   <string name="manageTopics">Manexar temas</string>
   <string name="back">Voltar</string>
   <string name="playAgain">Xogar de novo</string>
-  <string name="whatWouldYouPlay">Qué xogarías en esta posición?</string>
-  <string name="youCompletedThisLesson">Parabéns! Completaches esta leción.</string>
+  <string name="whatWouldYouPlay">Que xogarías nesta posición?</string>
+  <string name="youCompletedThisLesson">Parabéns! Completaches esta lección.</string>
 </resources>

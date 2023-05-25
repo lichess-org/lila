@@ -71,7 +71,7 @@ object tour:
         "relay-widget--active"                                -> tr.tour.active,
         "relay-widget--ongoing"                               -> ongoing(tr)
       ),
-      dataIcon := ""
+      dataIcon := licon.RadioTower
     )(
       a(cls := "overlay", href := tr.path),
       div(

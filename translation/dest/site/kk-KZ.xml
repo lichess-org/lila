@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">Дөңгелектелген DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жартыжүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
+  <string name="maxDepthReached">Тереңдіктің шегіне жетті!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openings">Бастаулар</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
@@ -119,6 +120,7 @@
   <string name="memory">Жад</string>
   <string name="infiniteAnalysis">Шектеусіз талдау</string>
   <string name="removesTheDepthLimit">Тереңдік шектеулерін жояды, әрі компьютеріңізді қыздырады</string>
+  <string name="engineManager">Есептеуіш басқарушысы</string>
   <string name="blunder">Өрескел қателік</string>
   <string name="mistake">Қателік</string>
   <string name="inaccuracy">Жеңіл қате</string>
@@ -150,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s ойын</item>
     <item quantity="other">%s ойын</item>
+  </plurals>
+  <plurals name="ratingXOverYGames" comment="Hover tooltip explaining over how many games a displayed rating was calculated (i.e. how many games in total the user played in the time control or variant).&#10;&#10;%1$s is a time control or variant e.g. &quot;Blitz&quot; or &quot;Antichess&quot;&#10;%2$s is the number of games played in that time control or variant">
+    <item quantity="one">%2$s %1$s ойынның қорытындысы</item>
+    <item quantity="other">%2$s %1$s ойындардың қорытындысы</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s бетбелгі</item>
@@ -270,10 +276,10 @@
   <string name="unlimited">Шектеусіз</string>
   <string name="mode">Бағалау</string>
   <string name="casual">Жай</string>
-  <string name="rated">Бағаланатын</string>
+  <string name="rated">Бағалы</string>
   <string name="casualTournament">Кәдімгі</string>
-  <string name="ratedTournament">Бағаланатын</string>
-  <string name="thisGameIsRated">Бұл ойын бағаланады</string>
+  <string name="ratedTournament">Бағалы</string>
+  <string name="thisGameIsRated">Бұл ойын бағалы</string>
   <string name="rematch">Қайта ойнау</string>
   <string name="rematchOfferSent">Қайта ойнау сұралуда</string>
   <string name="rematchOfferAccepted">Қайта ойнауға келісті</string>
@@ -294,8 +300,8 @@
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
   <plurals name="nbRated">
-    <item quantity="one">бағаланатын %s</item>
-    <item quantity="other">бағаланатын %s</item>
+    <item quantity="one">%s бағалы</item>
+    <item quantity="other">%s бағалы</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s жеңіс</item>
@@ -342,29 +348,30 @@
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Жарысқа оралу</string>
+  <string name="noDrawBeforeSwissLimit">Швейцарлық жарыста 30 қадам болмай тепе-теңдік те болмайды.</string>
   <string name="thematic">Тақырыптық</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s бағаланатын ойын</item>
-    <item quantity="other">≥ %s бағаланатын ойын</item>
+    <item quantity="one">≥ %s бағалы ойын</item>
+    <item quantity="other">≥ %s бағалы ойын</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s бағаланатын %2$s ойын</item>
-    <item quantity="other">≥ %1$s бағаланатын %2$s ойын</item>
+    <item quantity="one">≥ %1$s бағалы %2$s ойын</item>
+    <item quantity="other">≥ %1$s бағалы %2$s ойын</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Сіз тағы %1$s бағаланатын %2$s ойнауыңыз керек</item>
-    <item quantity="other">Сіз тағы %1$s бағаланатын %2$s ойнауыңыз керек</item>
+    <item quantity="one">Сіз тағы %1$s бағалы %2$s ойнауыңыз керек</item>
+    <item quantity="other">Сіз тағы %1$s бағалы %2$s ойнауыңыз керек</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Сіз тағы бағаланатын %s ойнауыңыз керек</item>
-    <item quantity="other">Сіз тағы бағаланатын %s ойнауыңыз керек</item>
+    <item quantity="one">Сіз тағы %s бағалы ойын ойнауыңыз керек</item>
+    <item quantity="other">Сіз тағы %s бағалы ойын ойнауыңыз керек</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Сіздің %s рейтингіңіз болжамалы</string>
   <string name="yourPerfRatingIsTooHigh">%1$s рейтингіңіз (%2$s) тым жоғары</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Үздік апталық %1$s рейтингіңіз (%2$s) тым жоғары</string>
   <string name="yourPerfRatingIsTooLow">%1$s рейтингіңіз тым аз (%2$s)</string>
-  <string name="ratedMoreThanInPerf">%2$s рейтингі ≥ %1$s</string>
-  <string name="ratedLessThanInPerf">%2$s рейтингі ≤ %1$s</string>
+  <string name="ratedMoreThanInPerf">Бағалы %2$s ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">Бағалы %2$s кейінгі аптада ≤ %1$s</string>
   <string name="mustBeInTeam">Сіздің тобыңыз – %s</string>
   <string name="youAreNotInTeam">Сіз %s тобының мүшесі емессіз</string>
   <string name="backToGame">Ойынға оралу</string>
@@ -663,6 +670,8 @@
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Көпшілікке қарсы ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
   <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
+  <string name="simulAddExtraTimePerPlayer">Көпшіліктің әр ойыншысына бастапқы уақытты белгілеп қойыңыз.</string>
+  <string name="simulHostExtraTimePerPlayer">Әр ойыншы үшін бас ойыншыға берілетін қосымша уақыт</string>
   <string name="lichessTournaments">Личес жарыстары</string>
   <string name="tournamentFAQ">Алаң жарысы туралы Жұрттан-сұрақ</string>
   <string name="timeBeforeTournamentStarts">Жарыс басталуына қалған уақыт</string>
@@ -864,6 +873,8 @@
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>
   <string name="toRequestSupport">Жәрдем іздесеңіз %1$s</string>
   <string name="tryTheContactPage">байланыс туралы бетке өтіңіз</string>
+  <string name="makeSureToRead">%1$sпен танысып алыңыз</string>
+  <string name="theForumEtiquette">форумдағы әдеп</string>
   <string name="thisTopicIsArchived">Бұл тақырып мұрағатталды, енді жауап жазуға болмайды.</string>
   <string name="joinTheTeamXToPost">Осы форумда хабар қалдыру үшін %1$s тобына қосылыңыз</string>
   <string name="teamNamedX">%1$s тобы</string>
@@ -895,11 +906,11 @@
   <string name="cancelTournament">Жарысты болдырмау</string>
   <string name="tournDescription">Жарыс сипаттамасы</string>
   <string name="tournDescriptionHelp">Қатысушыларға арнайы сөзіңіз болса, жазыңыз. Қысқа болған жақсы. Сілтемелерді markdown күйінде қосуыңызға болады: [name](https://url)</string>
-  <string name="ratedFormHelp">Ойындар бағаланады
+  <string name="ratedFormHelp">Ойындар бағалы
 яғни ойыншылардың рейтингіне әсер етеді</string>
   <string name="onlyMembersOfTeam">Тек топ мүшелері</string>
   <string name="noRestriction">Шектеусіз</string>
-  <string name="minimumRatedGames">Бағаланған ойындар кемінде</string>
+  <string name="minimumRatedGames">Бағалы ойындар кемінде</string>
   <string name="minimumRating">Рейтинг кемінде</string>
   <string name="maximumWeeklyRating">Апталық рейтингтің ең көбі</string>
   <string name="onlyTitled">Тек атаққа ие ойыншылар</string>
@@ -944,7 +955,8 @@
   <string name="youCantStartNewGame">Бұл ойын аяқталмағанша, сіз жаңа ойын бастай алмайсыз.</string>
   <string name="since">Бастап</string>
   <string name="until">Дейін</string>
-  <string name="lichessDbExplanation">Личес-тегі бағаланатын ойындарда</string>
+  <string name="lichessDbExplanation">Личес-тегі бағалы ойындар</string>
   <string name="switchSides">Түсті ауыстыру</string>
   <string name="closingAccountWithdrawAppeal">Тіркелгі жабылса, қарсы шағымдарыңыз жойылады</string>
+  <string name="ourEventTips">Шара ұйымдастыру туралы ақыл-кеңес</string>
 </resources>

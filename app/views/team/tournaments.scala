@@ -11,7 +11,7 @@ import controllers.routes
 
 object tournaments:
 
-  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(implicit ctx: Context) =
+  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using Context) =
     views.html.base.layout(
       title = s"${t.name} • ${trans.tournaments.txt()}",
       openGraph = lila.app.ui
@@ -51,7 +51,7 @@ object tournaments:
       )
     }
 
-  def renderList(tours: List[TeamInfo.AnyTour])(implicit ctx: Context) =
+  def renderList(tours: List[TeamInfo.AnyTour])(using Context) =
     tbody(
       tours map { any =>
         tr(
@@ -60,7 +60,7 @@ object tournaments:
             "soon"      -> any.isNowOrSoon
           )
         )(
-          td(cls := "icon")(iconTag(any.value.fold(tournamentIconChar, views.html.swiss.bits.iconChar))),
+          td(cls := "icon")(iconTag(any.value.fold(tournamentIcon, _.perfType.icon))),
           td(cls := "header")(
             any.value.fold(
               t =>
@@ -109,7 +109,7 @@ object tournaments:
                 )
             )
           ),
-          td(cls := "text", dataIcon := "")(any.nbPlayers.localize)
+          td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
         )
       }
     )

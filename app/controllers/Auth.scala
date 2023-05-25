@@ -8,7 +8,7 @@ import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.{ EmailAddress, HTTPRequest }
+import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
@@ -501,17 +501,23 @@ final class Auth(
 
   private given limitedDefault: Zero[Result] = Zero(rateLimited)
 
-  private[controllers] def LoginRateLimit(id: UserIdOrEmail, req: RequestHeader)(
-      run: RateLimit.Charge => Fu[Result]
-  ): Fu[Result] =
-    env.security.ipTrust
-      .isSuspicious(req.ipAddress)
-      .flatMap: ipSusp =>
-        PasswordHasher.rateLimit[Result](
-          rateLimitedFu,
-          enforce = env.net.rateLimit,
-          ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(2)
-        )(id, req)(run)
+  private[controllers] object LoginRateLimit:
+    private val lastAttemptIp =
+      env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](1024, "login.lastIp") {
+        _.expireAfterWrite(10.seconds).build()
+      }
+    def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result]): Fu[Result] =
+      val ip          = req.ipAddress
+      val multipleIps = lastAttemptIp.asMap().replace(id, ip).fold(false)(_ != ip)
+      env.security.ipTrust
+        .isSuspicious(ip)
+        .flatMap: ipSusp =>
+          PasswordHasher.rateLimit[Result](
+            rateLimitedFu,
+            enforce = env.net.rateLimit,
+            ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(2),
+            userCost = 1 + multipleIps.??(4)
+          )(id, req)(run)
 
   private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(run: => Fu[Result]): Fu[Result] =
     env.security

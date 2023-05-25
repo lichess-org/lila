@@ -297,14 +297,14 @@ object tree:
             )
         ),
         div(cls := "appeal__rules")(
-          p(cls := "text warning-closure", dataIcon := "")(closingAccountWithdrawAppeal()),
-          p(cls := "text", dataIcon := "")(doNotMessageModerators()),
+          p(cls := "text warning-closure", dataIcon := licon.CautionTriangle)(closingAccountWithdrawAppeal()),
+          p(cls := "text", dataIcon := licon.InfoCircle)(doNotMessageModerators()),
           p(
-            a(cls := "text", dataIcon := "", href := routes.Page.loneBookmark("appeal"))(
+            a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Page.loneBookmark("appeal"))(
               "Read more about the appeal process"
             )
           ),
-          p(a(cls := "text", dataIcon := "", href := routes.Account.data)("Export personal data"))
+          p(a(cls := "text", dataIcon := licon.Download, href := routes.Account.data)("Export personal data"))
         )
       )
     }

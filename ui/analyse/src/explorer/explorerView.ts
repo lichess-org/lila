@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { numberFormat } from 'common/number';
 import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode, MaybeVNodes } from 'common/snabbdom';
@@ -199,7 +200,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
             h(
               'a.text',
               {
-                attrs: dataIcon(''),
+                attrs: dataIcon(licon.Eye),
                 hook: bind('click', _ => openGame(ctrl, game.id)),
               },
               'View'
@@ -209,7 +210,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                   h(
                     'a.text',
                     {
-                      attrs: dataIcon(''),
+                      attrs: dataIcon(licon.BubbleSpeech),
                       hook: bind('click', _ => send(false), ctrl.redraw),
                     },
                     'Cite'
@@ -217,7 +218,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                   h(
                     'a.text',
                     {
-                      attrs: dataIcon(''),
+                      attrs: dataIcon(licon.PlusButton),
                       hook: bind('click', _ => send(true), ctrl.redraw),
                     },
                     'Insert'
@@ -227,7 +228,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
             h(
               'a.text',
               {
-                attrs: dataIcon(''),
+                attrs: dataIcon(licon.X),
                 hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw),
               },
               'Close'
@@ -243,7 +244,7 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
   h(
     'button.button.button-empty.text',
     {
-      attrs: dataIcon(''),
+      attrs: dataIcon(licon.X),
       hook: bind('click', ctrl.toggleExplorer, ctrl.redraw),
     },
     ctrl.trans.noarg('close')
@@ -266,7 +267,11 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   h('div.data.empty', [
     h('div.title', ctrl.trans.noarg('gameOver')),
-    h('div.message', [h('i', { attrs: dataIcon('') }), h('h3', ctrl.trans.noarg(title)), closeButton(ctrl)]),
+    h('div.message', [
+      h('i', { attrs: dataIcon(licon.InfoCircle) }),
+      h('h3', ctrl.trans.noarg(title)),
+      closeButton(ctrl),
+    ]),
   ]);
 
 const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
@@ -378,7 +383,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     h(
       'span.active.text.' + db,
       {
-        attrs: { title, ...dataIcon('') },
+        attrs: { title, ...dataIcon(licon.Book) },
         hook: db == 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
       },
       nodes
@@ -470,7 +475,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       h('button.fbt.toconf', {
         attrs: {
           'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
-          ...dataIcon(configOpened ? '' : ''),
+          ...dataIcon(configOpened ? licon.X : licon.Gear),
         },
         hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
       }),

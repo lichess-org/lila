@@ -45,7 +45,7 @@ object bits:
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
-            fail option span(cls := "is-red", dataIcon := ""),
+            fail option span(cls := "is-red", dataIcon := licon.X),
             trans.passwordReset()
           )
         ),
@@ -64,7 +64,7 @@ object bits:
       title = trans.passwordReset.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.checkYourEmail())),
         p(trans.weHaveSentYouAnEmailTo(email)),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
@@ -84,8 +84,8 @@ object bits:
       main(cls := "page-small box box-pad")(
         boxTop(
           (ok match {
-            case Some(true)  => h1(cls := "is-green text", dataIcon := "")
-            case Some(false) => h1(cls := "is-red text", dataIcon := "")
+            case Some(true)  => h1(cls := "is-green text", dataIcon := licon.Checkmark)
+            case Some(false) => h1(cls := "is-red text", dataIcon := licon.X)
             case _           => h1
           })(
             userLink(u, withOnline = false),
@@ -119,7 +119,7 @@ object bits:
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
-            fail option span(cls := "is-red", dataIcon := ""),
+            fail option span(cls := "is-red", dataIcon := licon.X),
             "Log in by email"
           )
         ),
@@ -139,7 +139,7 @@ object bits:
       title = "Log in by email"
     ) {
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.checkYourEmail())),
         p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

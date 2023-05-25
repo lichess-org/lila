@@ -1,4 +1,5 @@
 import debounce from 'common/debounce';
+import * as licon from 'common/licon';
 import { renderClock, fenColor } from 'common/mini-game';
 import { bind, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
@@ -128,14 +129,14 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
     to = Math.min(pager.nbResults, page * pager.maxPerPage);
   return h('div.pager', [
-    pagerButton(ctrl.trans.noarg('first'), '', () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton(ctrl.trans.noarg('previous'), '', ctrl.prevPage, page > 1, ctrl),
+    pagerButton(ctrl.trans.noarg('first'), licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(ctrl.trans.noarg('previous'), licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton(ctrl.trans.noarg('next'), '', ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton(ctrl.trans.noarg('last'), '', ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton(ctrl.trans.noarg('next'), licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(ctrl.trans.noarg('last'), licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     h('button.fbt', {
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.Search,
         title: 'Search',
       },
       hook: bind('click', () => lichess.pubsub.emit('study.search.open')),

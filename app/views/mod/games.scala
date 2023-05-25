@@ -94,7 +94,7 @@ object games:
                 ),
                 dataSortNumberTh("Opponent"),
                 dataSortNumberTh("Speed"),
-                th(iconTag('')),
+                th(iconTag(licon.Trophy)),
                 dataSortNumberTh("Moves"),
                 dataSortNumberTh("Result"),
                 dataSortNumberTh("ACPL", br, "(Avg ± SD)"),
@@ -123,21 +123,21 @@ object games:
                       )(_.config.estimateTotalSeconds)
                     )(
                       pov.game.perfType.map { pt =>
-                        iconTag(pt.iconChar)(cls := "text")
+                        iconTag(pt.icon)(cls := "text")
                       },
                       shortClockName(pov.game)
                     ),
                     td(dataSort := pov.game.tournamentId.??(_.value))(
                       pov.game.tournamentId map { tourId =>
                         a(
-                          dataIcon := "",
+                          dataIcon := licon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
                           title    := tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId map { swissId =>
                         a(
-                          dataIcon := "",
+                          dataIcon := licon.Trophy,
                           href     := routes.Swiss.show(swissId).url,
                           title    := s"Swiss #${swissId}"
                         )
