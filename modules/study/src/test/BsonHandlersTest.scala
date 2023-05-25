@@ -21,7 +21,7 @@ import lila.db.BSON.Reader
 import lila.db.dsl.Bdoc
 
 // in lila.study to have access to PgnImport
-class BsonHandlersTest extends lila.common.LilaTest:
+class BsonHandlersTest extends munit.FunSuite:
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
