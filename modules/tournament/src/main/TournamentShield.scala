@@ -1,5 +1,6 @@
 package lila.tournament
 
+import lila.common.licon
 import lila.db.dsl.*
 import lila.user.User
 import lila.memo.CacheApi.*
@@ -121,91 +122,91 @@ object TournamentShield:
     case object UltraBullet
         extends Category(
           of = Left(Schedule.Speed.UltraBullet),
-          iconChar = ''
+          iconChar = licon.UltraBullet.charAt(0)
         )
 
     case object HyperBullet
         extends Category(
           of = Left(Schedule.Speed.HyperBullet),
-          iconChar = ''
+          iconChar = licon.Bullet.charAt(0)
         )
 
     case object Bullet
         extends Category(
           of = Left(Schedule.Speed.Bullet),
-          iconChar = ''
+          iconChar = licon.Bullet.charAt(0)
         )
 
     case object SuperBlitz
         extends Category(
           of = Left(Schedule.Speed.SuperBlitz),
-          iconChar = ''
+          iconChar = licon.FlameBlitz.charAt(0)
         )
 
     case object Blitz
         extends Category(
           of = Left(Schedule.Speed.Blitz),
-          iconChar = ''
+          iconChar = licon.FlameBlitz.charAt(0)
         )
 
     case object Rapid
         extends Category(
           of = Left(Schedule.Speed.Rapid),
-          iconChar = ''
+          iconChar = licon.Rabbit.charAt(0)
         )
 
     case object Classical
         extends Category(
           of = Left(Schedule.Speed.Classical),
-          iconChar = ''
+          iconChar = licon.Turtle.charAt(0)
         )
 
     case object Chess960
         extends Category(
           of = Right(chess.variant.Chess960),
-          iconChar = ''
+          iconChar = licon.DieSix.charAt(0)
         )
 
     case object KingOfTheHill
         extends Category(
           of = Right(chess.variant.KingOfTheHill),
-          iconChar = ''
+          iconChar = licon.FlagKingHill.charAt(0)
         )
 
     case object Antichess
         extends Category(
           of = Right(chess.variant.Antichess),
-          iconChar = ''
+          iconChar = licon.Antichess.charAt(0)
         )
 
     case object Atomic
         extends Category(
           of = Right(chess.variant.Atomic),
-          iconChar = ''
+          iconChar = licon.Atom.charAt(0)
         )
 
     case object ThreeCheck
         extends Category(
           of = Right(chess.variant.ThreeCheck),
-          iconChar = ''
+          iconChar = licon.ThreeCheckStack.charAt(0)
         )
 
     case object Horde
         extends Category(
           of = Right(chess.variant.Horde),
-          iconChar = ''
+          iconChar = licon.Keypad.charAt(0)
         )
 
     case object RacingKings
         extends Category(
           of = Right(chess.variant.RacingKings),
-          iconChar = ''
+          iconChar = licon.FlagRacingKings.charAt(0)
         )
 
     case object Crazyhouse
         extends Category(
           of = Right(chess.variant.Crazyhouse),
-          iconChar = ''
+          iconChar = licon.Crazyhouse.charAt(0)
         )
 
     val all: List[Category] = List(
@@ -232,7 +233,7 @@ object TournamentShield:
 
   def spotlight(name: String) =
     Spotlight(
-      iconFont = "".some,
+      iconFont = licon.Shield.some,
       headline = s"Battle for the $name Shield",
       description =
         s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.

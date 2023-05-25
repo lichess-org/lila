@@ -1,5 +1,6 @@
 package lila.tv
 
+import lila.common.licon
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.SyncActor
@@ -77,7 +78,7 @@ object Tv:
     case object Best
         extends Channel(
           name = "Top Rated",
-          icon = "",
+          icon = licon.CrownElite,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(rated(2150), standard, noBot)
         )
@@ -175,14 +176,14 @@ object Tv:
     case object Bot
         extends Channel(
           name = "Bot",
-          icon = "",
+          icon = licon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(standard, hasBot)
         )
     case object Computer
         extends Channel(
           name = "Computer",
-          icon = "",
+          icon = licon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(computerFromInitialPosition)
         )

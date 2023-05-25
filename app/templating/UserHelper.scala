@@ -6,6 +6,7 @@ import mashup.*
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.licon
 import lila.common.LightUser
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
@@ -257,7 +258,7 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using
       lang: Lang
   ): Frag =
-    if (filter == GameFilter.Search) frag(iconTag(""), br, trans.search.advancedSearch())
+    if (filter == GameFilter.Search) frag(iconTag(licon.Search), br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   private def transLocalize(key: I18nKey, number: Int)(using lang: Lang) =
@@ -287,8 +288,8 @@ trait UserHelper extends HasEnv { self: I18nHelper with StringHelper with Number
     }
     s"$name played $nbGames games since $createdAt.$currentRating"
 
-  val patronIconChar = ""
-  val lineIconChar   = ""
+  val patronIconChar = licon.Wings
+  val lineIconChar   = licon.Disc
 
   val lineIcon: Frag = i(cls := "line")
   def patronIcon(using lang: Lang): Frag =

@@ -21,7 +21,7 @@ object message:
         boxTop(
           h1(dataIcon := icon ifTrue back.isEmpty, cls := List("text" -> (icon.isDefined && back.isEmpty)))(
             back map { url =>
-              a(href := url, dataIcon := "", cls := "text")
+              a(href := url, dataIcon := licon.LessThan, cls := "text")
             },
             title
           )

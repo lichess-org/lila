@@ -48,7 +48,7 @@ object leaderboard:
     ) {
       def eliteWinners =
         section(
-          h2(cls := "text", dataIcon := "")("Elite Arena"),
+          h2(cls := "text", dataIcon := licon.CrownElite)("Elite Arena"),
           ul(
             winners.elite.map { w =>
               li(
@@ -61,7 +61,7 @@ object leaderboard:
 
       def marathonWinners =
         section(
-          h2(cls := "text", dataIcon := "")("Marathon"),
+          h2(cls := "text", dataIcon := licon.Globe)("Marathon"),
           ul(
             winners.marathon.map { w =>
               li(

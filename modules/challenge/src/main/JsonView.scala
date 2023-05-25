@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.common.licon
 import lila.game.JsonView.given
 import lila.i18n.{ I18nKeys as trans }
 import lila.socket.{ SocketVersion, UserLagCache }
@@ -91,7 +92,7 @@ final class JsonView(
       .add("rules" -> c.nonEmptyRules)
 
   private def iconChar(c: Challenge) =
-    if (c.variant == chess.variant.FromPosition) ''
+    if (c.variant == chess.variant.FromPosition) licon.Feather.charAt(0)
     else c.perfType.iconChar
 
   private val i18nKeys = List(

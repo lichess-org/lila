@@ -19,7 +19,7 @@ object search:
       main(cls := "box search")(
         boxTop(
           h1(
-            a(href := routes.ForumCateg.index, dataIcon := "", cls := "text"),
+            a(href := routes.ForumCateg.index, dataIcon := licon.LessThan, cls := "text"),
             title
           ),
           bits.searchForm(text)

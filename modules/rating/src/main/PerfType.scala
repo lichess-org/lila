@@ -4,6 +4,7 @@ import chess.Centis
 import chess.Speed
 import play.api.i18n.Lang
 
+import lila.common.licon
 import lila.i18n.I18nKeys
 
 sealed abstract class PerfType(
@@ -28,7 +29,7 @@ object PerfType:
         key = Perf.Key("ultraBullet"),
         name = Speed.UltraBullet.name,
         title = Speed.UltraBullet.title,
-        iconChar = ''
+        iconChar = licon.UltraBullet.charAt(0)
       )
 
   case object Bullet
@@ -37,7 +38,7 @@ object PerfType:
         key = Perf.Key("bullet"),
         name = Speed.Bullet.name,
         title = Speed.Bullet.title,
-        iconChar = ''
+        iconChar = licon.Bullet.charAt(0)
       )
 
   case object Blitz
@@ -46,7 +47,7 @@ object PerfType:
         key = Perf.Key("blitz"),
         name = Speed.Blitz.name,
         title = Speed.Blitz.title,
-        iconChar = ''
+        iconChar = licon.FlameBlitz.charAt(0)
       )
 
   case object Rapid
@@ -55,7 +56,7 @@ object PerfType:
         key = Perf.Key("rapid"),
         name = Speed.Rapid.name,
         title = Speed.Rapid.title,
-        iconChar = ''
+        iconChar = licon.Rabbit.charAt(0)
       )
 
   case object Classical
@@ -64,7 +65,7 @@ object PerfType:
         key = Perf.Key("classical"),
         name = Speed.Classical.name,
         title = Speed.Classical.title,
-        iconChar = ''
+        iconChar = licon.Turtle.charAt(0)
       )
 
   case object Correspondence
@@ -73,7 +74,7 @@ object PerfType:
         key = Perf.Key("correspondence"),
         name = "Correspondence",
         title = Speed.Correspondence.title,
-        iconChar = ''
+        iconChar = licon.PaperAirplane.charAt(0)
       )
 
   case object Standard
@@ -82,7 +83,7 @@ object PerfType:
         key = Perf.Key("standard"),
         name = chess.variant.Standard.name,
         title = "Standard rules of chess",
-        iconChar = ''
+        iconChar = licon.Crown.charAt(0)
       )
 
   case object Chess960
@@ -91,7 +92,7 @@ object PerfType:
         key = Perf.Key("chess960"),
         name = chess.variant.Chess960.name,
         title = "Chess960 variant",
-        iconChar = ''
+        iconChar = licon.DieSix.charAt(0)
       )
 
   case object KingOfTheHill
@@ -100,7 +101,7 @@ object PerfType:
         key = Perf.Key("kingOfTheHill"),
         name = chess.variant.KingOfTheHill.name,
         title = "King of the Hill variant",
-        iconChar = ''
+        iconChar = licon.FlagKingHill.charAt(0)
       )
 
   case object Antichess
@@ -109,7 +110,7 @@ object PerfType:
         key = Perf.Key("antichess"),
         name = chess.variant.Antichess.name,
         title = "Antichess variant",
-        iconChar = ''
+        iconChar = licon.Antichess.charAt(0)
       )
 
   case object Atomic
@@ -118,7 +119,7 @@ object PerfType:
         key = Perf.Key("atomic"),
         name = chess.variant.Atomic.name,
         title = "Atomic variant",
-        iconChar = ''
+        iconChar = licon.Atom.charAt(0)
       )
 
   case object ThreeCheck
@@ -127,7 +128,7 @@ object PerfType:
         key = Perf.Key("threeCheck"),
         name = chess.variant.ThreeCheck.name,
         title = "Three-check variant",
-        iconChar = ''
+        iconChar = licon.ThreeCheckStack.charAt(0)
       )
 
   case object Horde
@@ -136,7 +137,7 @@ object PerfType:
         key = Perf.Key("horde"),
         name = chess.variant.Horde.name,
         title = "Horde variant",
-        iconChar = ''
+        iconChar = licon.Keypad.charAt(0)
       )
 
   case object RacingKings
@@ -145,7 +146,7 @@ object PerfType:
         key = Perf.Key("racingKings"),
         name = chess.variant.RacingKings.name,
         title = "Racing kings variant",
-        iconChar = ''
+        iconChar = licon.FlagRacingKings.charAt(0)
       )
 
   case object Crazyhouse
@@ -154,7 +155,7 @@ object PerfType:
         key = Perf.Key("crazyhouse"),
         name = chess.variant.Crazyhouse.name,
         title = "Crazyhouse variant",
-        iconChar = ''
+        iconChar = licon.Crazyhouse.charAt(0)
       )
 
   case object Puzzle
@@ -163,7 +164,7 @@ object PerfType:
         key = Perf.Key("puzzle"),
         name = "Training",
         title = "Chess tactics trainer",
-        iconChar = ''
+        iconChar = licon.ArcheryTarget.charAt(0)
       )
 
   val all: List[PerfType] = List(
@@ -284,7 +285,7 @@ object PerfType:
     .to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): Char =
-    byVariant(variant).fold('')(_.iconChar)
+    byVariant(variant).fold(licon.CrownElite.charAt(0))(_.iconChar)
 
   def trans(pt: PerfType)(using Lang): String =
     pt match

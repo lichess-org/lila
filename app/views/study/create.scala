@@ -20,7 +20,7 @@ object create:
   )(implicit ctx: Context) =
     views.html.site.message(
       title = trans.toStudy.txt(),
-      icon = Some(""),
+      icon = Some(licon.StudyBoard),
       back = backUrl,
       moreCss = cssTag("study.create").some
     ) {
@@ -37,7 +37,7 @@ object create:
               name     := "as",
               value    := "study",
               cls      := "submit button large new text",
-              dataIcon := ""
+              dataIcon := licon.StudyBoard
             )(trans.study.createStudy())
           ),
           div(cls := "studies")(

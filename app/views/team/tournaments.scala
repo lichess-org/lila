@@ -109,7 +109,7 @@ object tournaments:
                 )
             )
           ),
-          td(cls := "text", dataIcon := "")(any.nbPlayers.localize)
+          td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
         )
       }
     )

@@ -198,7 +198,7 @@ trait FormHelper { self: I18nHelper =>
 
     def submit(
         content: Frag,
-        icon: Option[String] = Some(""),
+        icon: Option[String] = Some(lila.common.licon.Checkmark),
         nameValue: Option[(String, String)] = None,
         confirm: Option[String] = None
     ): Tag =

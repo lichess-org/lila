@@ -40,7 +40,7 @@ object side:
               a(href := routes.Swiss.home)("Swiss"),
               (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
                 " ",
-                a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(""))
+                a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(licon.Gear))
               )
             ),
             bits.showInterval(s)

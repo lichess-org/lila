@@ -19,7 +19,7 @@ object finishedList:
       td(cls := "date")(momentFromNow(t.startsAt)),
       td(cls := "players")(
         span(
-          iconTag('')(cls := "text"),
+          iconTag(licon.Trophy)(cls := "text"),
           userIdLink(t.winnerId, withOnline = false)
         ),
         span(trans.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize))

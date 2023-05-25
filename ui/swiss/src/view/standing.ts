@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import SwissCtrl from '../ctrl';
 import { player as renderPlayer } from './util';
@@ -22,7 +23,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
         player.absent && ctrl.data.status != 'finished'
           ? h('i', {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Pause,
                 title: 'Absent',
               },
             })

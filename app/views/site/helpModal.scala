@@ -2,7 +2,7 @@ package views.html.site
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.given
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 
 object helpModal:
@@ -157,7 +157,7 @@ object helpModal:
               ul(
                 li(
                   "Use the ",
-                  i(dataIcon := ""),
+                  i(dataIcon := licon.Voice),
                   " button to toggle voice recognition mode."
                 ),
                 li(

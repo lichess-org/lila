@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate.*
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
+import lila.common.licon
 import lila.common.Json.given
 
 trait TournamentHelper extends HasEnv:
@@ -30,14 +31,14 @@ trait TournamentHelper extends HasEnv:
 
   def tournamentLink(tour: Tournament)(using Lang): Frag =
     a(
-      dataIcon := "",
+      dataIcon := licon.Trophy,
       cls      := (if (tour.isScheduled) "text is-gold" else "text"),
       href     := routes.Tournament.show(tour.id.value).url
     )(tour.name())
 
   def tournamentLink(tourId: TourId)(using Lang): Frag =
     a(
-      dataIcon := "",
+      dataIcon := licon.Trophy,
       cls      := "text",
       href     := routes.Tournament.show(tourId.value).url
     )(tournamentIdToName(tourId))
@@ -49,7 +50,7 @@ trait TournamentHelper extends HasEnv:
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
     private val replacements = List(
       "Lichess "    -> "",
-      "Marathon"    -> icon(''),
+      "Marathon"    -> icon(licon.Globe.charAt(0)),
       "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
       "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
@@ -65,5 +66,5 @@ trait TournamentHelper extends HasEnv:
 
   def tournamentIconChar(tour: Tournament): String =
     tour.schedule.map(_.freq) match
-      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => ""
+      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => licon.Globe
       case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.iconChar.toString

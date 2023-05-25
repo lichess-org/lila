@@ -25,6 +25,7 @@ object Environment
     with UserContext.ToLang:
 
   export lila.Lila.{ id as _, *, given }
+  export lila.common.licon
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = { envVar = Some(e) }

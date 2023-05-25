@@ -50,7 +50,7 @@ object list:
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
-              userTopActive(nbAllTime, trans.activePlayers(), icon = ''.some),
+              userTopActive(nbAllTime, trans.activePlayers(), icon = licon.Swords.charAt(0).some),
               tournamentWinners(tourneyWinners),
               userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse),
               userTopPerf(leaderboards.chess960, PerfType.Chess960),
@@ -68,7 +68,7 @@ object list:
 
   private def tournamentWinners(winners: List[lila.tournament.Winner])(using Context) =
     st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := "")(
+      h2(cls := "text", dataIcon := licon.Trophy)(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
       ol(winners take 10 map { w =>

@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as enhance from 'common/richText';
 import userLink from 'common/userLink';
 import * as spam from './spam';
@@ -223,7 +224,7 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
           myUserId && line.u && myUserId != line.u
             ? h('i.flag', {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.CautionTriangle,
                   title: 'Report',
                 },
               })
