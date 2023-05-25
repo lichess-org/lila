@@ -48,7 +48,7 @@ object replay:
     }
     val imageLinks = frag(
       a(
-        dataIcon := "",
+        dataIcon := licon.NodeBranching,
         cls      := "text game-gif",
         targetBlank,
         href := cdnUrl(
@@ -56,7 +56,7 @@ object replay:
         )
       )(trans.gameAsGIF()),
       a(
-        dataIcon := "",
+        dataIcon := licon.NodeBranching,
         cls      := "text position-gif",
         targetBlank,
         href := cdnUrl(
@@ -74,7 +74,7 @@ object replay:
       )(trans.screenshotCurrentPosition())
     )
     val shareLinks = frag(
-      a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
+      a(dataIcon := licon.Expand, cls := "text embed-howto")(trans.embedInYourWebsite()),
       div(
         input(
           id         := "game-url",
@@ -87,13 +87,13 @@ object replay:
           title    := "Copy URL",
           cls      := "copy button",
           dataRel  := "game-url",
-          dataIcon := ""
+          dataIcon := licon.Link
         )
       )
     )
     val pgnLinks = frag(
       a(
-        dataIcon := "",
+        dataIcon := licon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?literate=1",
         downloadAttr
@@ -101,7 +101,7 @@ object replay:
         trans.downloadAnnotated()
       ),
       a(
-        dataIcon := "",
+        dataIcon := licon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
         downloadAttr
@@ -109,7 +109,7 @@ object replay:
         trans.downloadRaw()
       ),
       game.isPgnImport option a(
-        dataIcon := "",
+        dataIcon := licon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?imported=1",
         downloadAttr
@@ -179,7 +179,7 @@ object replay:
                       action := routes.Analyse.requestAnalysis(gameId)
                     )(
                       submitButton(cls := "button text")(
-                        span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
+                        span(cls := "is3 text", dataIcon := licon.BarChart)(trans.requestAComputerAnalysis())
                       )
                     )
                 ),

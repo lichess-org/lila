@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import * as licon from 'common/licon';
 import { Player } from 'game';
 import { Position } from '../interfaces';
 import RoundController from '../ctrl';
@@ -54,7 +55,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         player.engine
           ? h('span', {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.CautionCircle,
                 title: ctrl.noarg('thisAccountViolatedTos'),
               },
             })

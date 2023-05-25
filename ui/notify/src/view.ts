@@ -1,5 +1,6 @@
 import { Ctrl, NotifyData, type Notification } from './interfaces';
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
 
@@ -19,7 +20,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
 
   nodes.push(
     h(`div.pager.prev${pager.previousPage ? '' : '.disabled'}`, {
-      attrs: { 'data-icon': '' },
+      attrs: { 'data-icon': licon.UpTriangle },
       hook: clickHook(ctrl.previousPage),
     })
   );
@@ -28,7 +29,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
     nodes.push(
       h('button.delete.button.button-empty', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.Trash,
           title: 'Clear',
         },
         hook: clickHook(ctrl.clear),
@@ -40,7 +41,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
   if (pager.nextPage)
     nodes.push(
       h('div.pager.next', {
-        attrs: { 'data-icon': '' },
+        attrs: { 'data-icon': licon.DownTriangle },
         hook: clickHook(ctrl.nextPage),
       })
     );
@@ -105,5 +106,5 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
 }
 
 function empty() {
-  return h('div.empty.text', { attrs: { 'data-icon': '' } }, 'No notifications.');
+  return h('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, 'No notifications.');
 }

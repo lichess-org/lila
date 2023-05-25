@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-
+import * as licon from 'common/licon';
 import { Notification, Renderer, Renderers } from './interfaces';
 
 // function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
@@ -7,7 +7,7 @@ export default function makeRenderers(trans: Trans): Renderers {
   return {
     streamStart: {
       html: n =>
-        generic(n, `/streamer/${n.content.sid}/redirect`, '', [
+        generic(n, `/streamer/${n.content.sid}/redirect`, licon.Mic, [
           h('span', [h('strong', n.content.name), drawTime(n)]),
           h('span', trans('startedStreaming')),
         ]),
@@ -23,7 +23,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     mention: {
       html: n =>
-        generic(n, `/forum/redirect/post/${n.content.postId}`, '', [
+        generic(n, `/forum/redirect/post/${n.content.postId}`, licon.BubbleConvo, [
           h('span', [h('strong', userFullName(n.content.mentionedBy)), drawTime(n)]),
           h('span', trans('mentionedYouInX', n.content.topic)),
         ]),
@@ -31,7 +31,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     invitedStudy: {
       html: n =>
-        generic(n, '/study/' + n.content.studyId, '', [
+        generic(n, '/study/' + n.content.studyId, licon.StudyBoard, [
           h('span', [h('strong', userFullName(n.content.invitedBy)), drawTime(n)]),
           h('span', trans('invitedYouToX', n.content.studyName)),
         ]),
@@ -39,7 +39,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     privateMessage: {
       html: n =>
-        generic(n, '/inbox/' + n.content.user!.name, '', [
+        generic(n, '/inbox/' + n.content.user!.name, licon.BubbleSpeech, [
           h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
           h('span', n.content.text),
         ]),
@@ -47,7 +47,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     teamJoined: {
       html: n =>
-        generic(n, '/team/' + n.content.id, '', [
+        generic(n, '/team/' + n.content.id, licon.Group, [
           h('span', [h('strong', n.content.name), drawTime(n)]),
           h('span', trans.noarg('youAreNowPartOfTeam')),
         ]),
@@ -55,7 +55,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     titledTourney: {
       html: n =>
-        generic(n, '/tournament/' + n.content.id, '', [
+        generic(n, '/tournament/' + n.content.id, licon.Trophy, [
           h('span', [h('strong', 'Lichess Titled Arena'), drawTime(n)]),
           h('span', n.content.text),
         ]),
@@ -63,7 +63,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     reportedBanned: {
       html: n =>
-        generic(n, undefined, '', [
+        generic(n, undefined, licon.InfoCircle, [
           h('span', [h('strong', trans.noarg('someoneYouReportedWasBanned'))]),
           h('span', trans.noarg('thankYou')),
         ]),
@@ -82,7 +82,7 @@ export default function makeRenderers(trans: Trans): Renderers {
           default:
             result = trans.noarg('draw');
         }
-        return generic(n, '/' + n.content.id, '', [
+        return generic(n, '/' + n.content.id, licon.PaperAirplane, [
           h('span', [h('strong', trans('gameVsX', userFullName(n.content.opponent))), drawTime(n)]),
           h('span', result),
         ]);
@@ -104,16 +104,18 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     planStart: {
       html: n =>
-        generic(n, '/patron', '', [h('span', [h('strong', 'You just became a lichess Patron.'), drawTime(n)])]),
+        generic(n, '/patron', licon.Wings, [
+          h('span', [h('strong', 'You just became a lichess Patron.'), drawTime(n)]),
+        ]),
       text: _ => 'You just became a lichess Patron.',
     },
     planExpire: {
-      html: n => generic(n, '/patron', '', [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
+      html: n => generic(n, '/patron', licon.Wings, [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
       text: _ => 'Patron account expired',
     },
     coachReview: {
       html: n =>
-        generic(n, '/coach/edit', '', [
+        generic(n, '/coach/edit', licon.GraduateCap, [
           h('span', [h('strong', 'New pending review'), drawTime(n)]),
           h('span', trans.noarg('someoneReviewedYourCoachProfile')),
         ]),
@@ -121,7 +123,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     ratingRefund: {
       html: n =>
-        generic(n, '/faq#rating-refund', '', [
+        generic(n, '/faq#rating-refund', licon.InfoCircle, [
           h('span', [h('strong', trans.noarg('lostAgainstTOSViolator')), drawTime(n)]),
           h('span', trans('refundXpointsTimeControlY', n.content.points, n.content.perf)),
         ]),
@@ -129,7 +131,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     corresAlarm: {
       html: n =>
-        generic(n, '/' + n.content.id, '', [
+        generic(n, '/' + n.content.id, licon.PaperAirplane, [
           h('span', [h('strong', trans.noarg('timeAlmostUp')), drawTime(n)]),
           // not a `LightUser`, could be a game against Stockfish
           h('span', trans('gameVsX', n.content.op)),
@@ -143,7 +145,7 @@ export default function makeRenderers(trans: Trans): Renderers {
 
 const jobDone = (name: string): Renderer => ({
   html: n =>
-    generic(n, '/@/' + n.content.user!.name + '?mod', '', [
+    generic(n, '/@/' + n.content.user!.name + '?mod', licon.Agent, [
       h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
       h('span', `${name} job complete!`),
     ]),

@@ -4,6 +4,7 @@ import * as side from './side';
 import theme from './theme';
 import chessground from './chessground';
 import feedbackView from './feedback';
+import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
@@ -56,10 +57,10 @@ function controls(ctrl: Controller): VNode {
     },
     [
       h('div.jumps', [
-        jumpButton('', 'first', !node.ply),
-        jumpButton('', 'prev', !node.ply),
-        jumpButton('', 'next', !nextNode, goNext),
-        jumpButton('', 'last', !nextNode, goNext),
+        jumpButton(licon.JumpFirst, 'first', !node.ply),
+        jumpButton(licon.JumpPrev, 'prev', !node.ply),
+        jumpButton(licon.JumpNext, 'next', !nextNode, goNext),
+        jumpButton(licon.JumpLast, 'last', !nextNode, goNext),
       ]),
     ]
   );

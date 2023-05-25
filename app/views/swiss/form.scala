@@ -23,7 +23,7 @@ object form:
           h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             div(cls := "form-group")(
-              a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("event-tips"))(
                 trans.ourEventTips()
               )
             ),
@@ -41,7 +41,7 @@ object form:
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = "".some)
+              form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
             )
           )
         )
@@ -73,11 +73,11 @@ object form:
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id))(trans.cancel()),
-              form3.submit(trans.save(), icon = "".some)
+              form3.submit(trans.save(), icon = licon.Trophy.some)
             )
           ),
           postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-            submitButton(dataIcon := "", cls := "text button button-red confirm")(
+            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
               trans.cancelTournament()
             )
           )

@@ -1,5 +1,6 @@
 import { h, thunk } from 'snabbdom';
 import debounce from 'common/debounce';
+import * as licon from 'common/licon';
 import axis from './axis';
 import filters from './filters';
 import presets from './presets';
@@ -48,7 +49,7 @@ const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
     return h('div'); // returning undefined breaks snabbdom's thunks
   } else if (ctrl.vm.broken) {
     return h('div.broken', [
-      h('i', { attrs: { 'data-icon': '' } }),
+      h('i', { attrs: { 'data-icon': licon.DiscBig } }),
       'Insights are unavailable.',
       h('br'),
       'Please try again later.',
@@ -74,9 +75,9 @@ const viewTabData = (ctrl: Ctrl, view: ViewTab) => ({
 function header(ctrl: Ctrl) {
   return h('header', widthStyle(mainW()), [
     isAtLeastXSmall(mainW())
-      ? h('h2.text', { attrs: { 'data-icon': '' } }, 'Chess Insights')
+      ? h('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Chess Insights')
       : isAtLeastXXSmall(mainW())
-      ? h('h2.text', { attrs: { 'data-icon': '' } }, 'Insights')
+      ? h('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Insights')
       : mainW() >= 460
       ? h('h2.text', 'Insights')
       : null,
@@ -129,7 +130,10 @@ function clearBtn(ctrl: Ctrl) {
   const btn = () =>
     h(
       'a.clear',
-      { attrs: { title: 'Clear all filters', 'data-icon': '' }, hook: bind('click', ctrl.clearFilters.bind(ctrl)) },
+      {
+        attrs: { title: 'Clear all filters', 'data-icon': licon.X },
+        hook: bind('click', ctrl.clearFilters.bind(ctrl)),
+      },
       isLandscapeLayout() ? 'CLEAR' : 'CLEAR FILTERS'
     );
   return isLandscapeLayout() ? btn() : h('div.center-clear', btn());

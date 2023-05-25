@@ -3,6 +3,7 @@ package lila.streamer
 import reactivemongo.api.ReadPreference
 import play.api.i18n.Lang
 
+import lila.common.licon
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
@@ -94,7 +95,7 @@ final class StreamerApi(
         url = "/streamer/edit",
         title = "Listed on /streamer".some,
         text = "Your streamer page is public".some,
-        icon = ""
+        icon = licon.Mic
       )
     )
     Streamer.ModChange(

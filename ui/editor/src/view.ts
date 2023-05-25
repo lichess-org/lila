@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
@@ -49,7 +50,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
         {
           attrs: {
             type: 'submit',
-            'data-icon': '',
+            'data-icon': licon.StudyBoard,
             disabled: !state.legalFen,
           },
           class: {
@@ -224,12 +225,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             ),
           ]),
           h('div.actions', [
-            buttonStart(''),
-            buttonClear(''),
+            buttonStart(licon.Reload),
+            buttonClear(licon.Trash),
             h(
               'button.button.button-empty.text',
               {
-                attrs: { 'data-icon': '' },
+                attrs: { 'data-icon': licon.ChasingArrows },
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
@@ -243,7 +244,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               'a',
               {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.Microscope,
                   rel: 'nofollow',
                   ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen, ctrl.bottomColor()) } : {}),
                 },
@@ -273,7 +274,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [h('span.text', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('continueFromHere'))]
+              [h('span.text', { attrs: { 'data-icon': licon.Swords } }, ctrl.trans.noarg('continueFromHere'))]
             ),
             studyButton(ctrl, state),
           ]),

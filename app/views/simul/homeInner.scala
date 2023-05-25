@@ -30,7 +30,7 @@ object homeInner:
               tr(cls := "scheduled")(
                 simTd(sim),
                 simHost(sim),
-                td(cls := "players text", dataIcon := "")(sim.applicants.size)
+                td(cls := "players text", dataIcon := licon.User)(sim.applicants.size)
               )
             }
           )
@@ -47,7 +47,7 @@ object homeInner:
             tr(cls := "scheduled")(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := "")(sim.applicants.size)
+              td(cls := "players text", dataIcon := licon.User)(sim.applicants.size)
             )
           },
           tr(cls := "create")(
@@ -72,7 +72,7 @@ object homeInner:
               tr(
                 simTd(sim),
                 simHost(sim),
-                td(cls := "players text", dataIcon := "")(sim.pairings.size)
+                td(cls := "players text", dataIcon := licon.User)(sim.pairings.size)
               )
             }
           )
@@ -89,7 +89,7 @@ object homeInner:
             tr(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := "")(sim.pairings.size)
+              td(cls := "players text", dataIcon := licon.User)(sim.pairings.size)
             )
           }
         )

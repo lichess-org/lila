@@ -1,4 +1,5 @@
 import { prop, Prop } from 'common';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { text as xhrText, url as xhrUrl } from 'common/xhr';
 import { h, VNode } from 'snabbdom';
@@ -97,7 +98,11 @@ export function view(ctrl: StudyShareCtrl): VNode {
   const addPly = (path: string) =>
     ctrl.onMainline() ? (ctrl.withPly() ? `${path}#${ctrl.currentNode().ply}` : path) : `${path}#last`;
   const youCanPasteThis = () =>
-    h('p.form-help.text', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed'));
+    h(
+      'p.form-help.text',
+      { attrs: { 'data-icon': licon.InfoCircle } },
+      ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed')
+    );
   return h(
     'div.study__share',
     ctrl.shareable()
@@ -108,7 +113,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   'a.button.text',
                   {
                     attrs: {
-                      'data-icon': '',
+                      'data-icon': licon.StudyBoard,
                       href: `/study/${studyId}/clone`,
                     },
                   },
@@ -120,7 +125,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 'a.button.text',
                 {
                   attrs: {
-                    'data-icon': '',
+                    'data-icon': licon.Download,
                     href: `/api/broadcast/${ctrl.relay.data.tour.id}.pgn`,
                     download: true,
                   },
@@ -131,7 +136,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.Download,
                   href: ctrl.relay ? `${ctrl.relay.roundPath()}.pgn` : `/study/${studyId}.pgn`,
                   download: true,
                 },
@@ -142,7 +147,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.Download,
                   href: `/study/${studyId}/${chapter.id}.pgn`,
                   download: true,
                 },
@@ -153,14 +158,14 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.Clipboard,
                   title: ctrl.trans.noarg('copyChapterPgnDescription'),
                   tabindex: '0',
                 },
                 hook: bind('click', async event => {
                   const iconFeedback = (success: boolean) => {
-                    (event.target as HTMLElement).setAttribute('data-icon', success ? '' : '');
-                    setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', ''), 1000);
+                    (event.target as HTMLElement).setAttribute('data-icon', success ? licon.Checkmark : licon.X);
+                    setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', licon.Clipboard), 1000);
                   };
                   writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`).then(
                     () => iconFeedback(true),
@@ -177,7 +182,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.Download,
                   href: xhrUrl(document.body.getAttribute('data-asset-url') + '/export/fen.gif', {
                     fen: ctrl.currentNode().fen,
                     color: ctrl.bottomColor(),
@@ -195,7 +200,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': '',
+                  'data-icon': licon.Download,
                   href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
                     theme: document.body.dataset.boardTheme,
                     piece: document.body.dataset.pieceSet,
@@ -230,7 +235,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                   h('button.button.copy', {
                     attrs: {
                       'data-rel': `study-share-${i18n}`,
-                      'data-icon': '',
+                      'data-icon': licon.Clipboard,
                     },
                   }),
                 ]),
@@ -263,7 +268,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                             href: '/developers#embed-study',
                             target: '_blank',
                             rel: 'noopener',
-                            'data-icon': '',
+                            'data-icon': licon.InfoCircle,
                           },
                         },
                         ctrl.trans.noarg('readMoreAboutEmbedding')

@@ -1,4 +1,5 @@
 import type * as snabbdom from 'snabbdom';
+import * as licon from 'common/licon';
 
 type State =
   | 'off'
@@ -212,7 +213,7 @@ export function palantir(opts: PalantirOpts): Palantir | undefined {
             'div.mchat__tab.palantir.data-count.palantir-' + state,
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Handset,
                 title: `Voice chat: ${state}`,
                 'data-count': state == 'on' ? connections.length + 1 : 0,
               },

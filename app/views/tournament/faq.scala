@@ -19,7 +19,7 @@ object faq:
       main(cls := "page-small box box-pad page")(
         boxTop(
           h1(
-            a(href := routes.Tournament.home, dataIcon := "", cls := "text"),
+            a(href := routes.Tournament.home, dataIcon := licon.LessThan, cls := "text"),
             trans.tournamentFAQ()
           )
         ),

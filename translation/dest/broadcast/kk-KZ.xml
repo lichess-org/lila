@@ -15,7 +15,7 @@
   <string name="fullDescriptionHelp">Көрсетілімнің қосымша үлкен сипаттамасы. %1$s қолданысқа ашық. Ұзындығы %2$s таңбадан кем болуы керек.</string>
   <string name="sourceUrlOrGameIds">Сілтемесі не ойын нөмірлері</string>
   <string name="sourceUrlHelp">PGN жаңартуларын алу үшін Личес тексеретін сілтеме. Ол интернетте баршалыққа ашық болуы керек.</string>
-  <string name="gameIdsHelp">Басқаша, сіз бос орынмен ажыратылған ең көбі 64 Личес ойнын (нөмір түрде) енгізе аласыз.</string>
+  <string name="gameIdsHelp">Одан бөлек, бос орынмен ажыратып, ең көбі 64 Личес ойындарының нөмірін енгізе аласыз.</string>
   <string name="startDate">Басталу күні (өз уақыт белдеуіңізде)</string>
   <string name="startDateHelp">Міндетті емес, егер күнін біліп тұрсаңыз</string>
   <string name="credits">Қайнар көзіне сілтеңіз</string>

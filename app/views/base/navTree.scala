@@ -2,7 +2,7 @@ package views.html
 package base
 
 import lila.api.Context
-import lila.app.templating.Environment.given
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object navTree:
@@ -44,6 +44,6 @@ object navTree:
     a(
       makeLink(parent.id),
       cls      := List("back" -> true, "no-mirror" -> forceLtr),
-      dataIcon := "",
+      dataIcon := licon.LessThan,
       title    := "Go back"
     )

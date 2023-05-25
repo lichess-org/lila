@@ -135,7 +135,8 @@ object userAnalysisI18n:
     trans.removesTheDepthLimit,
     trans.multipleLines,
     trans.cpus,
-    trans.memory
+    trans.memory,
+    trans.engineManager
   )
 
   val explorerTranslations = Vector(

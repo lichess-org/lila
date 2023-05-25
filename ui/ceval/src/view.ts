@@ -1,4 +1,5 @@
 import * as winningChances from './winningChances';
+import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
 import { bind } from 'common/snabbdom';
 import { defined, notNull } from 'common';
@@ -44,7 +45,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
       h('a.deeper', {
         attrs: {
           title: trans.noarg('goDeeper'),
-          'data-icon': '',
+          'data-icon': licon.PlusButton,
         },
         hook: bind('click', ceval.goDeeper),
       })
@@ -68,7 +69,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
       hidden: !!ctrl.getNode().check,
     },
     attrs: {
-      'data-icon': '',
+      'data-icon': licon.Target,
       title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
     hook: bind('click', ctrl.toggleThreatMode),
@@ -174,7 +175,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   } else {
     if (!enabled) pearl = h('i');
     else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
-    else if (instance.getState() === CevalState.Failed) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
+    else if (instance.getState() === CevalState.Failed)
+      pearl = h('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
     else pearl = h('i.ddloader');
     percent = 0;
   }

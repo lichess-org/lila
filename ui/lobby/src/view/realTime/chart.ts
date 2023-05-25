@@ -1,4 +1,5 @@
 import LobbyController from '../../ctrl';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Hook } from '../../interfaces';
@@ -133,7 +134,7 @@ function renderYAxis() {
 export function toggle(ctrl: LobbyController) {
   return h('i.toggle', {
     key: 'set-mode-list',
-    attrs: { title: ctrl.trans.noarg('list'), 'data-icon': '' },
+    attrs: { title: ctrl.trans.noarg('list'), 'data-icon': licon.List },
     hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),
   });
 }

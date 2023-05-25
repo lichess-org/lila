@@ -60,7 +60,7 @@ object widgets:
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", dataIcon := ""),
+            div(cls := "swords", dataIcon := licon.Swords),
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(
@@ -98,7 +98,7 @@ object widgets:
             div(cls := "notes")(strong("Notes: "), note)
           },
           g.metadata.analysed option
-            div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
+            div(cls := "metadata text", dataIcon := licon.BarChart)(trans.computerAnalysisAvailable()),
           g.pgnImport.flatMap(_.user).map { user =>
             div(cls := "metadata")("PGN import by ", userIdLink(user.some))
           }

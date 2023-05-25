@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { onInsert, bind, dataIcon } from 'common/snabbdom';
 import { storedBooleanProp } from 'common/storage';
 import { rangeConfig } from 'common/controls';
@@ -39,18 +40,18 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
           }),
         },
         h('span.microphone-icon', {
-          attrs: { ...dataIcon(lichess.mic?.isBusy ? '' : ''), title: 'Toggle voice control' },
+          attrs: { ...dataIcon(lichess.mic?.isBusy ? licon.Cancel : licon.Voice), title: 'Toggle voice control' },
         })
       ),
       h('span#voice-status', {
         hook: onInsert(el => lichess.mic?.addListener('moveInput', txt => (el.innerText = txt))),
       }),
       h('button#voice-help-button', {
-        attrs: { role: 'button', ...dataIcon('') },
+        attrs: { role: 'button', ...dataIcon(licon.InfoCircle) },
         hook: bind('click', () => moveCtrl.showHelp(true)),
       }),
       h('button#voice-settings-button', {
-        attrs: { role: 'button', ...dataIcon('') },
+        attrs: { role: 'button', ...dataIcon(licon.Hamburger) },
         class: { active: moveCtrl?.showSettings() },
         hook: bind('click', () => moveCtrl.showSettings.toggle(), redraw),
       }),

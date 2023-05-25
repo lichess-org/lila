@@ -120,6 +120,7 @@
   <string name="memory">Memory</string>
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
+  <string name="engineManager">Engine manager</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Mistake</string>
   <string name="inaccuracy">Inaccuracy</string>
@@ -151,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s game</item>
     <item quantity="other">%s games</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating over %2$s game</item>
+    <item quantity="other">%1$s rating over %2$s games</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bookmark</item>

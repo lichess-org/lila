@@ -118,14 +118,13 @@ final class Account(
     negotiate(
       html = notFound,
       api = _ =>
-        env.pref.api.getPref(me) map { prefs =>
-          Ok {
+        env.pref.api.getPref(me).map { prefs =>
+          Ok:
             import lila.pref.JsonView.given
             lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
               "coach" -> isGranted(_.Coach),
               "prefs" -> prefs
             )
-          }
         }
     )
   }

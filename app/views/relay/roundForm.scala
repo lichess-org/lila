@@ -67,7 +67,7 @@ object roundForm:
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
         bits.howToUse,
-        create option p(dataIcon := "", cls := "text")(
+        create option p(dataIcon := licon.InfoCircle, cls := "text")(
           "The new round will have the same members and contributors as the previous one."
         )
       ),
