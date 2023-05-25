@@ -432,7 +432,8 @@ object Node:
       def is(other: Author) = (this, other) match
         case (User(a, _), User(b, _)) => a == b
         case _                        => this == other
-    def sanitize(text: String) = Text {
+
+    def sanitize(text: String) = Text:
       lila.common.String
         .softCleanUp(text)
         .take(4000)
@@ -440,7 +441,7 @@ object Node:
         .replaceAll("""(?m)(^ *| +(?= |$))""", "")
         .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
         .replaceAll("[{}]", "") // {} are reserved in PGN comments
-    }
+
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
