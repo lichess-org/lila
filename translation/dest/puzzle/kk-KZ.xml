@@ -28,6 +28,11 @@
   <string name="keepGoing">Ары қарай…</string>
   <string name="puzzleSuccess">Бәрі дұрыс!</string>
   <string name="puzzleComplete">Жұмбақ шешілді!</string>
+  <string name="byOpenings">Бастамасына қарай</string>
+  <string name="puzzlesByOpenings">Жұмбақтың бастамасы</string>
+  <string name="openingsYouPlayedTheMost">Сіздің бағалы ойындарыңызда ең жиі келетін бастама</string>
+  <string name="useFindInPage">Браузер мәзірінде \"Осы бетте іздеуді\" қолдана қалаулы бастаманы тауып алыңыз!</string>
+  <string name="useCtrlF">Қалаулы бастаманы табу үшін Ctrl+f басыңыз</string>
   <string name="notTheMove">Ол жүріс емес!</string>
   <string name="trySomethingElse">Басқаша жүріп көріңіз.</string>
   <string name="ratingX">Рейтинг: %s</string>
