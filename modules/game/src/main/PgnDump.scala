@@ -150,8 +150,6 @@ final class PgnDump(
             )
           )
         )
-      }
-    }
 
 object PgnDump:
 

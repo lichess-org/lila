@@ -42,6 +42,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
                 fk = !client.lichess option client.key.value,
                 date = nowInstant
               )
+            )
             errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))
             if (analysis.valid) then
               if !isPartial && analysis.emptyRatio >= 1d / 10 then

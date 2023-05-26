@@ -136,8 +136,7 @@ object ServerEval:
         initialFen = chapter.root.fen.some
       )
 
-
-    private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Branch] =
+    private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
       val (_, games, error) = chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant)
       error foreach { e => logger.info(e.value) }
       games.reverse match

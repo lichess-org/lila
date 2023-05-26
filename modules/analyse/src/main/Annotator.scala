@@ -15,7 +15,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
     annotateStatus(game.winnerColor, game.status) {
       annotateOpening(game.opening) {
         annotateTurns(
-          annotateDrawOffers(p.pp, game.drawOffers),
+          annotateDrawOffers(p, game.drawOffers),
           analysis.??(_.advices)
         )
       }.copy(

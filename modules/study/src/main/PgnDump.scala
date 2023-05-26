@@ -26,7 +26,7 @@ final class PgnDump(
       .mapAsync(1)(ofChapter(study, flags))
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
+    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id into Analysis.Id) map { analysis =>
       ofChapter(study, flags)(chapter, analysis)
     }
 

@@ -191,7 +191,8 @@ object Fixtures:
 {"t":"shapes","d":{"path":".>VF-=WO$5`W","shapes":[{"orig":"f2","brush":"green"}],"ch":"kMOZO15F"}}
 
   """.trim
-  val pgn3 = "1. d4 d5 2. c4 e6 3. Nc3 Nf6 (3... Be7 { A better move, prevent 5. Bg5 } { [%csl Gf2] }) 4. cxd5 exd5 5. Bg5 Be7"
+  val pgn3 =
+    "1. d4 d5 2. c4 e6 3. Nc3 Nf6 (3... Be7 { A better move, prevent 5. Bg5 } { [%csl Gf2] }) 4. cxd5 exd5 5. Bg5 Be7"
 
   val ms  = List(m0, m1, m2, m3)
   val ps  = List(pgn0, pgn1, pgn2, pgn3)
