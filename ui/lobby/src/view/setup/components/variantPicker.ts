@@ -20,7 +20,7 @@ if (
         ctrl.data.ratingMap[setupCtrl.selectedPerf()].prov
       ) {
         // Check if the rating is provisional
-        if (!!ctrl.data.ratingMap[setupCtrl.selectedPerf()].prov) {
+        if (ctrl.data.ratingMap[setupCtrl.selectedPerf()].prov) {
           setupCtrl.ratingMin(-500); // Set ratingMin to -500 for provisional rating
 		   setupCtrl.ratingMax(500);
         }
