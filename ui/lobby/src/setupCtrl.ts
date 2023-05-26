@@ -169,11 +169,8 @@ private savePropsToStoreExceptRating = () => {
 };
   private onPropChange = () => {
     this.enforcePropRules();
-    console.log(this.gameType);
 	if(this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
-		console.log("King Racing");
 		this.savePropsToStoreExceptRating();
-		console.log(this.ratingMin());
 	}
 	else {
 		this.savePropsToStore();
@@ -202,9 +199,7 @@ private savePropsToStoreExceptRating = () => {
 	private onVariantChange = () => {
     // Handle rating update here
     if(this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
-		console.log("King Racing");
 		this.savePropsToStoreExceptRating();
-		console.log(this.ratingMin());
 	}
 	else {
 		this.savePropsToStore();
