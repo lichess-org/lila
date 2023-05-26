@@ -63,7 +63,7 @@ object ServerEval:
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
       analysis.studyId ?? { studyId =>
-        sequencer.sequenceStudyWithChapter(studyId, StudyChapterId(analysis.id)) {
+        sequencer.sequenceStudyWithChapter(studyId, analysis.id into StudyChapterId) {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
               lila.common.LilaFuture
@@ -73,7 +73,7 @@ object ServerEval:
                       analysisLine(parent, chapter.setup.variant, info) map { subTree =>
                         parent.addChild(subTree) -> subTree
                       }
-                    } ?? { case (newParent, subTree) =>
+                    } ?? { (newParent, subTree) =>
                       chapterRepo.addSubTree(subTree, newParent, path)(chapter)
                     } >> {
                       import BSONHandlers.given
@@ -110,19 +110,20 @@ object ServerEval:
                     } inject path + node.id
                 } void
             } >>- {
-              chapterRepo.byId(StudyChapterId(analysis.id)).foreach {
-                _ ?? { chapter =>
-                  socket.onServerEval(
-                    studyId,
-                    ServerEval.Progress(
-                      chapterId = chapter.id,
-                      tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
-                      analysis = toJson(chapter, analysis),
-                      division = divisionOf(chapter)
+              chapterRepo
+                .byId(analysis.id into StudyChapterId)
+                .foreach:
+                  _ ?? { chapter =>
+                    socket.onServerEval(
+                      studyId,
+                      ServerEval.Progress(
+                        chapterId = chapter.id,
+                        tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
+                        analysis = toJson(chapter, analysis),
+                        division = divisionOf(chapter)
+                      )
                     )
-                  )
-                }
-              }
+                  }
             } logFailure logger
         }
       }
@@ -136,16 +137,15 @@ object ServerEval:
       )
 
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
-      chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant) match
-        case (_, games, error) =>
-          error foreach { e => logger.info(e.value) }
-          games.reverse match
-            case Nil => none
-            case (g, m) :: rest =>
-              rest
-                .foldLeft[Node](makeBranch(g, m)) { case (node, (g, m)) =>
-                  makeBranch(g, m) addChild node
-                } some
+      val (_, games, error) = chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant)
+      error foreach { e => logger.info(e.value) }
+      games.reverse match
+        case Nil => none
+        case (g, m) :: rest =>
+          rest
+            .foldLeft[Node](makeBranch(g, m)) { case (node, (g, m)) =>
+              makeBranch(g, m) addChild node
+            } some
 
     private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Node(

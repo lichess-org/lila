@@ -85,7 +85,7 @@ object widgets:
                 strong(opening.opening.name)
               },
               div(cls := "pgn")(
-                g.sans.take(6).grouped(2).zipWithIndex map {
+                g.sans.take(6).grouped(2).zipWithIndex.map {
                   case (Vector(w, b), i) => s"${i + 1}. $w $b"
                   case (Vector(w), i)    => s"${i + 1}. $w"
                   case _                 => ""

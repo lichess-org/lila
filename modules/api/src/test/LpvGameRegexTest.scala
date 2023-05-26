@@ -1,8 +1,10 @@
 package lila.api
 
+import lila.common.config.NetDomain
+
 class LpvGameRegexTest extends munit.FunSuite {
 
-  val re = LpvGameRegex("boo.org:8080")
+  val re = LpvGameRegex(NetDomain("boo.org:8080"))
 
   def group(r: scala.util.matching.Regex, t: String, g: Int) = r.findFirstMatchIn(t).map(_.group(g))
 

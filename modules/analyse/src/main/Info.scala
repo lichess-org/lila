@@ -69,9 +69,11 @@ object Info:
       case _ => none
 
   def decodeList(str: String, fromPly: Ply): Option[List[Info]] = {
-    str.split(listSeparator).toList.zipWithIndex map { (infoStr, index) =>
-      decode(fromPly + index + 1, infoStr)
-    }
+    str
+      .split(listSeparator)
+      .toList
+      .mapWithIndex: (infoStr, index) =>
+        decode(fromPly + index + 1, infoStr)
   }.sequence
 
   def encodeList(infos: List[Info]): String = infos.map(_.encode) mkString listSeparator
