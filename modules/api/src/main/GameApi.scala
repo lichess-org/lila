@@ -168,7 +168,7 @@ final private[api] class GameApi(
 
   private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] =
     val allAnalysis =
-      if (withFlags.analysis) analysisRepo byIds games.map(_.id.value)
+      if (withFlags.analysis) analysisRepo byIds games.map(_.id into Analysis.Id)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map gameRepo.initialFen).parallel map { initialFens =>

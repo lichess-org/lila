@@ -13,19 +13,20 @@ final class Analyser(
   def get(game: Game): Fu[Option[Analysis]] =
     analysisRepo byGame game
 
-  def byId(id: Analysis.ID): Fu[Option[Analysis]] = analysisRepo byId id
+  def byId(id: Analysis.Id): Fu[Option[Analysis]] = analysisRepo byId id
 
   def save(analysis: Analysis): Funit =
     analysis.studyId match
       case None =>
-        gameRepo game GameId(analysis.id) flatMapz { prev =>
+        gameRepo game analysis.id.into(GameId) flatMapz { prev =>
           val game = prev.setAnalysed
-          gameRepo.setAnalysed(game.id) >>
-            analysisRepo.save(analysis) >>
-            sendAnalysisProgress(analysis, complete = true) >>- {
-              Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
-              Bus.publish(InsertGame(game), "gameSearchInsert")
-            }
+          for
+            _ <- gameRepo.setAnalysed(game.id)
+            _ <- analysisRepo.save(analysis)
+            _ <- sendAnalysisProgress(analysis, complete = true)
+          yield
+            Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
+            Bus.publish(InsertGame(game), "gameSearchInsert")
         }
       case Some(_) =>
         analysisRepo.save(analysis) >>
@@ -36,10 +37,10 @@ final class Analyser(
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit =
     analysis.studyId match
       case None =>
-        gameRepo gameWithInitialFen GameId(analysis.id) mapz { g =>
+        gameRepo gameWithInitialFen analysis.id.into(GameId) mapz { g =>
           Bus.publish(
             TellIfExists(
-              analysis.id,
+              analysis.id.value,
               actorApi.AnalysisProgress(
                 analysis = analysis,
                 game = g.game,
@@ -51,6 +52,5 @@ final class Analyser(
           )
         }
       case Some(_) =>
-        fuccess {
+        fuccess:
           Bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
-        }

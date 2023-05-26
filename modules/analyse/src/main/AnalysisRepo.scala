@@ -1,30 +1,27 @@
 package lila.analyse
 
-import lila.db.dsl.*
+import lila.db.dsl.{ given, * }
 import lila.game.Game
 
 final class AnalysisRepo(val coll: Coll)(using Executor):
 
   import AnalyseBsonHandlers.given
 
-  type ID = String
-
   def save(analysis: Analysis) = coll.insert one analysis void
 
-  def byId(id: ID): Fu[Option[Analysis]] = coll.byId[Analysis](id)
+  def byId(id: Analysis.Id): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
   def byGame(game: Game): Fu[Option[Analysis]] =
-    game.metadata.analysed ?? byId(game.id.value)
+    game.metadata.analysed ?? byId(game.id into Analysis.Id)
 
-  def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
-    coll.optionsByOrderedIds[Analysis, Analysis.ID](ids)(_.id)
+  def byIds(ids: Seq[Analysis.Id]): Fu[Seq[Option[Analysis]]] =
+    coll.optionsByOrderedIds[Analysis, Analysis.Id](ids)(_.id)
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
-    byIds(games.map(_.id.value)) map { as =>
+    byIds(games.map(_.id into Analysis.Id)).map: as =>
       games zip as collect { case (game, Some(analysis)) =>
         game -> analysis
       }
-    }
 
   def remove(id: String) = coll.delete one $id(id)
 
