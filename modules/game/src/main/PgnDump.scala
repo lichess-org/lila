@@ -1,5 +1,6 @@
 package lila.game
 
+import cats.syntax.all.*
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
 import chess.format.{ pgn as chessPgn }
@@ -149,6 +150,8 @@ final class PgnDump(
             )
           )
         )
+      }
+    }
 
 object PgnDump:
 

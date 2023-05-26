@@ -1,5 +1,6 @@
 package lila.study
 
+import cats.syntax.all.*
 import akka.stream.scaladsl.*
 import chess.format.pgn.Tags
 import chess.format.UciPath
@@ -94,8 +95,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def sort(study: Study, ids: List[StudyChapterId]): Funit =
     coll: c =>
-      ids.zipWithIndex
-        .map: (id, index) =>
+      ids
+        .mapWithIndex: (id, index) =>
           c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
         .parallel
         .void

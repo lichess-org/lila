@@ -1,12 +1,13 @@
 package lila.insight
 
 import cats.data.NonEmptyList
+import cats.syntax.all.*
 import chess.opening.OpeningDb
 import chess.{ Ply, Centis, Clock, Role, Situation, Stats }
 import chess.format.pgn.SanStr
 import scala.util.chaining.*
 
-import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, WinPercent }
+import lila.analyse.{ Analysis, AccuracyCP, AccuracyPercent, Advice, WinPercent }
 import lila.game.{ Game, Pov }
 import lila.common.SimpleOpening
 
@@ -43,29 +44,28 @@ final private class PovToEntry(
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id.value)) map { case (fen, an) =>
-            for {
-              situations <-
-                chess.Replay
-                  .situations(
-                    sans = game.sans,
-                    initialFen = fen orElse {
-                      !pov.game.variant.standardInitialPosition option pov.game.variant.initialFen
-                    },
-                    variant = game.variant
-                  )
-                  .toOption
-                  .flatMap(_.toNel)
-            } yield RichPov(
-              pov = pov,
-              provisional = provisional,
-              analysis = an,
-              situations = situations,
-              clock = game.clock.map(_.config),
-              movetimes = game.clock.flatMap(_ => game.moveTimes(pov.color)) map (_.toVector),
-              clockStates = game.clockHistory.map(_(pov.color)),
-              advices = an.??(_.advices.mapBy(_.info.ply))
-            )
+          (game.metadata.analysed ?? analysisRepo.byId(game.id into Analysis.Id)) map { (fen, an) =>
+            chess.Replay
+              .situations(
+                sans = game.sans,
+                initialFen = fen orElse {
+                  !pov.game.variant.standardInitialPosition option pov.game.variant.initialFen
+                },
+                variant = game.variant
+              )
+              .toOption
+              .flatMap(_.toNel)
+              .map: situations =>
+                RichPov(
+                  pov = pov,
+                  provisional = provisional,
+                  analysis = an,
+                  situations = situations,
+                  clock = game.clock.map(_.config),
+                  movetimes = game.clock.flatMap(_ => game.moveTimes(pov.color)) map (_.toVector),
+                  clockStates = game.clockHistory.map(_(pov.color)),
+                  advices = an.??(_.advices.mapBy(_.info.ply))
+                )
           }
       }
 
@@ -105,8 +105,7 @@ final private class PovToEntry(
       .zip(timeCvs | Vector.fill(roles.size)(none))
       .zip(from.clockStates.map(_.map(some)) | Vector.fill(roles.size)(none))
       .zip(from.movetimes.map(_.map(some)) | Vector.fill(roles.size)(none))
-      .zipWithIndex
-      .map { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
+      .mapWithIndex { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
         val ply      = Ply(i * 2 + from.pov.color.fold(1, 2))
         val prevInfo = prevInfos lift i
         val awareness = from.advices.get(ply - 1) flatMap {
@@ -166,17 +165,15 @@ final private class PovToEntry(
     val s = Stats(a)
     s.stdDev.map { _ / s.mean }
 
-  private def queenTrade(from: RichPov) =
-    QueenTrade {
-      from.division.end.map(_.value).fold(from.situations.last.some)(from.situations.toList.lift) match
-        case Some(situation) =>
-          chess.Color.all.forall { color =>
-            !situation.board.isOccupied(chess.Piece(color, chess.Queen))
-          }
-        case _ =>
-          logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
-          false
-    }
+  private def queenTrade(from: RichPov) = QueenTrade:
+    from.division.end.map(_.value).fold(from.situations.last.some)(from.situations.toList.lift) match
+      case Some(situation) =>
+        chess.Color.all.forall { color =>
+          !situation.board.isOccupied(chess.Piece(color, chess.Queen))
+        }
+      case _ =>
+        logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
+        false
 
   private def convert(from: RichPov): Option[InsightEntry] =
     import from.*

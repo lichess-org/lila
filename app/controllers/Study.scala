@@ -14,6 +14,7 @@ import lila.study.Study.WithChapter
 import lila.study.{ Order, StudyForm, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
+import lila.analyse.Analysis
 
 final class Study(
     env: Env,
@@ -197,7 +198,7 @@ final class Study(
     chapter = resetToChapter | sc.chapter
     _ <- env.user.lightUserApi preloadMany study.members.ids.toList
     pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-    analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id)
+    analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id into Analysis.Id)
     division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
     baseData <- env.api.roundApi.withExternalEngines(
       ctx.me,

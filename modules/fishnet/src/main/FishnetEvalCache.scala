@@ -1,5 +1,6 @@
 package lila.fishnet
 
+import cats.syntax.all.*
 import chess.format.Fen
 import JsonApi.Request.Evaluation
 
@@ -47,11 +48,9 @@ final private class FishnetEvalCache(
       )
       .fold(
         _ => fuccess(Nil),
-        _.zipWithIndex
-          .map { (sit, index) =>
-            evalCacheApi.getSinglePvEval(game.variant, Fen write sit) dmap2 { index -> _ }
-          }
-          .parallel
+        _.mapWithIndex: (sit, index) =>
+          evalCacheApi.getSinglePvEval(game.variant, Fen write sit) dmap2 { index -> _ }
+        .parallel
           .map(_.flatten)
       )
 
