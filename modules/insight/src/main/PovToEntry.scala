@@ -1,6 +1,7 @@
 package lila.insight
 
 import cats.data.NonEmptyList
+import cats.syntax.all.*
 import chess.opening.OpeningDb
 import chess.{ Ply, Centis, Clock, Role, Situation, Stats }
 import chess.format.pgn.SanStr
@@ -104,8 +105,7 @@ final private class PovToEntry(
       .zip(timeCvs | Vector.fill(roles.size)(none))
       .zip(from.clockStates.map(_.map(some)) | Vector.fill(roles.size)(none))
       .zip(from.movetimes.map(_.map(some)) | Vector.fill(roles.size)(none))
-      .zipWithIndex
-      .map { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
+      .mapWithIndex { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
         val ply      = Ply(i * 2 + from.pov.color.fold(1, 2))
         val prevInfo = prevInfos lift i
         val awareness = from.advices.get(ply - 1) flatMap {

@@ -1,5 +1,6 @@
 package views.html.opening
 
+import cats.syntax.all.*
 import controllers.routes
 
 import lila.api.Context
@@ -20,7 +21,7 @@ object show:
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${queryUrl(page.query)}",
@@ -38,7 +39,7 @@ object show:
             case None       => a(href := routes.Opening.index(), dataIcon := licon.LessThan)
           ,
           span(cls := "opening__name")(
-            page.nameParts.zipWithIndex map { (part, i) =>
+            page.nameParts.mapWithIndex: (part, i) =>
               frag(
                 part match
                   case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)
@@ -50,8 +51,7 @@ object show:
                         a(href := keyUrl(k))(cls := className)(name)
                       }
                     )
-              )
-            },
+              ),
             beta
           )
         ),
