@@ -63,20 +63,16 @@ final private[api] class GameApi(
       ).withNbResults(
         if (~playing) gameCache.nbPlaying(user.id)
         else
-          fuccess {
-            rated.fold(user.count.game) {
+          fuccess:
+            rated.fold(user.count.game):
               if _ then user.count.rated
               else user.count.casual
-            }
-          }
       ),
       currentPage = page,
       maxPerPage = nb
-    ) flatMap { pag =>
-      gamesJson(withFlags = withFlags)(pag.currentPageResults) map { games =>
+    ).flatMap: pag =>
+      gamesJson(withFlags = withFlags)(pag.currentPageResults).map: games =>
         PaginatorJson(pag withCurrentPageResults games)
-      }
-    }
 
   def one(id: GameId, withFlags: WithFlags): Fu[Option[JsObject]] =
     gameRepo game id flatMapz { g =>
@@ -172,7 +168,7 @@ final private[api] class GameApi(
 
   private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] =
     val allAnalysis =
-      if (withFlags.analysis) analysisRepo byIds games.map(_.id.value)
+      if (withFlags.analysis) analysisRepo byIds games.map(_.id into Analysis.Id)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map gameRepo.initialFen).parallel map { initialFens =>

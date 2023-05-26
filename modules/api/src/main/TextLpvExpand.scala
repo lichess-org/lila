@@ -3,7 +3,7 @@ package lila.api
 import chess.format.pgn.Pgn
 import scalatags.Text.all.*
 
-import lila.analyse.AnalysisRepo
+import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import chess.format.pgn.PgnStr
@@ -72,7 +72,7 @@ final class TextLpvExpand(
 
   private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMapz { g =>
-      analysisRepo.byId(id.value) flatMap { analysis =>
+      analysisRepo.byId(id into Analysis.Id) flatMap { analysis =>
         pgnDump(g.game, g.fen, analysis, pgnFlags) dmap some
       }
     }

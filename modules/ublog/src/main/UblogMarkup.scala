@@ -81,4 +81,4 @@ private[ublog] object UblogMarkup:
     // Same as `atUsernameRegex` in `RawHtmlTest.scala` but it also matches the '\' character.
     // Can't end with '\', which would be escaping something after the username, like '\)'
     private val atUsernameRegexEscaped = """@(?<![\w@#/]@)([\w\\-]{1,29}\w)(?![@\w-]|\.\w)""".r
-    val apply = (_: Markdown).map(atUsernameRegexEscaped.replaceAllIn(_, a => s"@${unescape(a group 1)}"))
+    def apply(m: Markdown) = m.map(atUsernameRegexEscaped.replaceAllIn(_, a => s"@${unescape(a group 1)}"))
