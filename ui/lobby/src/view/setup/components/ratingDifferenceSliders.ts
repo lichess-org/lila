@@ -3,7 +3,7 @@ import LobbyController from '../../../ctrl';
 
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {
   if (!ctrl.me || ctrl.opts.blindMode || !ctrl.data.ratingMap) return null;
-
+  
   const { trans, setupCtrl } = ctrl;
   const selectedPerf = ctrl.setupCtrl.selectedPerf();
   const isProvisional = !!ctrl.data.ratingMap[selectedPerf].prov;
@@ -12,6 +12,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
   // Get current rating values or use default values if isProvisional
   const currentRatingMin = isProvisional ? -500 : setupCtrl.ratingMin();
   const currentRatingMax = isProvisional ? 500 : setupCtrl.ratingMax();
+
 
   return h(
     `div.rating-range-config.optional-config${disabled}`,
@@ -66,4 +67,3 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
     ]
   );
 };
-
