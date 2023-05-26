@@ -127,7 +127,7 @@ final class SimulApi(
         simul.start ?? { started =>
           userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
             started.pairings.mapWithIndex(makeGame(started, host)).parallel map { games =>
-              games.headOption foreach { case (game, _) =>
+              games.headOption foreach { (game, _) =>
                 socket.startSimul(simul, game)
               }
               games.foldLeft(started) { case (s, (g, hostColor)) =>

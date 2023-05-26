@@ -158,7 +158,7 @@ final class PgnDump(
       clocks: Vector[Centis],
       startColor: Color
   ): List[chessPgn.Turn] =
-    (moves grouped 2).toList.mapWithIndex { case (moves, index) =>
+    (moves grouped 2).toList.mapWithIndex { (moves, index) =>
       val clockOffset = startColor.fold(0, 1)
       chessPgn.Turn(
         number = index + from,

@@ -89,7 +89,7 @@ object gamify:
                 )
               ),
               tbody(
-                leaderboards(period).mapWithIndex { case (m, i) =>
+                leaderboards(period).mapWithIndex: (m, i) =>
                   tr(
                     th(i + 1),
                     th(userIdLink(m.modId.some, withOnline = false)),
@@ -97,7 +97,6 @@ object gamify:
                     td(m.report.localize),
                     td(cls := "score")(m.score.localize)
                   )
-                }
               )
             )
           )

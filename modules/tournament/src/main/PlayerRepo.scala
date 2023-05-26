@@ -88,20 +88,18 @@ final class PlayerRepo(coll: Coll)(using Executor):
         )
       }
       .map {
-        _.flatMap { doc =>
-          for {
+        _.flatMap: doc =>
+          for
             teamId      <- doc.getAsOpt[TeamId]("_id")
             leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
-            leaders = leadersBson.flatMap { p =>
-              for {
+            leaders = leadersBson.flatMap: p =>
+              for
                 id    <- p.getAsOpt[UserId]("u")
                 magic <- p.int("m")
-              } yield TeamLeader(id, magic)
-            }
-          } yield new RankedTeam(0, teamId, leaders)
-        }.sorted.mapWithIndex { case (rt, pos) =>
+              yield TeamLeader(id, magic)
+          yield new RankedTeam(0, teamId, leaders)
+        .sorted.mapWithIndex: (rt, pos) =>
           rt.updateRank(pos + 1)
-        }
       } map { ranked =>
       if (ranked.sizeIs == battle.teams.size) ranked
       else

@@ -30,7 +30,7 @@ object top:
         boxTop(h1(a(href := routes.User.list, dataIcon := licon.LessThan), title)),
         table(cls := "slist slist-pad")(
           tbody(
-            users.mapWithIndex { case (u, i) =>
+            users.mapWithIndex: (u, i) =>
               tr(
                 td(i + 1),
                 td(lightUserLink(u.user)),
@@ -39,7 +39,6 @@ object top:
                   td(ratingProgress(u.progress))
                 )
               )
-            }
           )
         )
       )

@@ -39,7 +39,7 @@ object show:
             case None       => a(href := routes.Opening.index(), dataIcon := licon.LessThan)
           ,
           span(cls := "opening__name")(
-            page.nameParts.mapWithIndex { (part, i) =>
+            page.nameParts.mapWithIndex: (part, i) =>
               frag(
                 part match
                   case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)
@@ -51,8 +51,7 @@ object show:
                         a(href := keyUrl(k))(cls := className)(name)
                       }
                     )
-              )
-            },
+              ),
             beta
           )
         ),
