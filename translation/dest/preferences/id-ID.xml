@@ -51,6 +51,7 @@
   <string name="scrollOnTheBoardToReplayMoves">Gulir pada papan untuk mengulang gerakan</string>
   <string name="notifyStreamStart">Streamer memulai siaran</string>
   <string name="notifyInboxMsg">Pesan masuk</string>
+  <string name="notifyForumMention">Komentar forum menyebutkan Anda</string>
   <string name="notifyChallenge">Tantangan</string>
   <string name="notifyBell">Notifikasi bel didalam Lichess</string>
   <string name="notifyWeb">Browser</string>
