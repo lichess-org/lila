@@ -252,7 +252,7 @@ object MarkdownRender:
         .attr("data-pgn", pgn.value)
         .attr("data-orientation", Option(color) | "white")
         .attr("data-ply", Option(ply) | "")
-        .attr("class", "lpv--autostart")
+        .attr("class", "lpv--autostart is2d")
         .srcPos(node.getChars())
         .withAttr(link)
         .tag("div")

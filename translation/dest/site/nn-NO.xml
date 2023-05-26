@@ -120,6 +120,7 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
+  <string name="engineManager">Innstillingar for sjakkprogram</string>
   <string name="blunder">Bukk</string>
   <string name="mistake">Mistak</string>
   <string name="inaccuracy">Småfeil</string>

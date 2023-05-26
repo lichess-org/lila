@@ -157,7 +157,11 @@ object list:
         )
       },
       a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
-      a(cls := "text", dataIcon := licon.InfoCircle, href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
+      a(
+        cls      := "text",
+        dataIcon := licon.InfoCircle,
+        href     := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way"
+      )(
         trans.study.whatAreStudies()
       )
     )
