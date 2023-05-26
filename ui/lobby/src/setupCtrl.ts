@@ -72,7 +72,6 @@ export default class SetupController {
   constructor(ctrl: LobbyController) {
     this.root = ctrl;
     this.blindModeColor = propWithEffect('random', this.onPropChange);
-
     // Initialize stores with default props as necessary
     this.store = {
       hook: this.makeSetupStore('hook'),
@@ -101,7 +100,7 @@ export default class SetupController {
   private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
-    this.variant = this.propWithApply(forceOptions?.variant || storeProps.variant);
+    this.variant = this.propWithApplyVariant(forceOptions?.variant || storeProps.variant);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
     this.timeMode = this.propWithApply(forceOptions?.timeMode || storeProps.timeMode);
     this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
@@ -109,14 +108,15 @@ export default class SetupController {
     this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
     this.gameMode = this.propWithApply(storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
-    this.ratingMax = this.propWithApply(storeProps.ratingMax);
+		this.ratingMax = this.propWithApply(storeProps.ratingMax);
     this.aiLevel = this.propWithApply(storeProps.aiLevel);
-
+     
     this.enforcePropRules();
     // Upon loading the props from the store, overriding with forced options, and enforcing rules,
     // immediately save them to the store. This way, the user can know that whatever they saw last
     // in the modal will be there when they open it at a later time.
     this.savePropsToStore();
+	
   };
 
   private enforcePropRules = () => {
@@ -134,6 +134,7 @@ export default class SetupController {
     }
   };
 
+
   private savePropsToStore = () =>
     this.gameType &&
     this.store[this.gameType]({
@@ -148,14 +149,45 @@ export default class SetupController {
       ratingMax: this.ratingMax(),
       aiLevel: this.aiLevel(),
     });
-
+private savePropsToStoreExceptRating = () => {
+  if (this.gameType && this.store[this.gameType]) {
+    const ratingMin = this.store[this.gameType]().ratingMin;
+    const ratingMax = this.store[this.gameType]().ratingMax;
+    this.store[this.gameType]({
+      variant: this.variant(),
+      fen: this.fen(),
+      timeMode: this.timeMode(),
+      time: this.time(),
+      increment: this.increment(),
+      days: this.days(),
+      gameMode: this.gameMode(),
+      ratingMin: ratingMin,
+      ratingMax: ratingMax,
+      aiLevel: this.aiLevel(),
+    });
+  }
+};
   private onPropChange = () => {
     this.enforcePropRules();
-    this.savePropsToStore();
+    console.log(this.gameType);
+	if(this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
+		console.log("King Racing");
+		this.savePropsToStoreExceptRating();
+		console.log(this.ratingMin());
+	}
+	else {
+		this.savePropsToStore();
+	}
     this.root.redraw();
   };
 
-  private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
+  	private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
+
+  	private propWithApplyVariant = <A>(value: A) => {
+    const prop = propWithEffect(value, this.onVariantChange);
+    return prop;
+};
+	
 
   openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
     this.root.leavePool();
@@ -166,6 +198,19 @@ export default class SetupController {
     this.friendUser = friendUser || '';
     this.loadPropsFromStore(forceOptions);
   };
+
+	private onVariantChange = () => {
+    // Handle rating update here
+    if(this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
+		console.log("King Racing");
+		this.savePropsToStoreExceptRating();
+		console.log(this.ratingMin());
+	}
+	else {
+		this.savePropsToStore();
+	}
+    this.root.redraw();
+};	
 
   closeModal = () => {
     this.gameType = null;
