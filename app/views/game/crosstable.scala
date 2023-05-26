@@ -1,5 +1,7 @@
 package views.html.game
 
+import cats.syntax.all.*
+
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -21,7 +23,7 @@ object crosstable:
     }
     div(cls := "crosstable")(
       ct.fillSize > 0 option raw { s"""<fill style="flex:${ct.fillSize * 0.75} 1 auto"></fill>""" },
-      ct.results.zipWithIndex.map { case (r, i) =>
+      ct.results.mapWithIndex { case (r, i) =>
         tag("povs")(
           cls := List(
             "sep"     -> matchupSepAt.has(i),

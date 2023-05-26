@@ -1,5 +1,6 @@
 package lila.tournament
 
+import cats.syntax.all.*
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -28,9 +29,10 @@ final class PlayerRepo(coll: Coll)(using Executor):
       page: Int
   ): Fu[RankedPlayers] =
     coll.find($inIds(playerIds)).cursor[Player]().listAll() map { players =>
-      playerIds.flatMap(id => players.find(_._id == id)).zipWithIndex.map { case (player, index) =>
-        RankedPlayer(Rank((page - 1) * 10 + index + 1), player)
-      }
+      playerIds
+        .flatMap(id => players.find(_._id == id))
+        .mapWithIndex: (player, index) =>
+          RankedPlayer(Rank((page - 1) * 10 + index + 1), player)
     }
 
   private[tournament] def bestByTour(tourId: TourId, nb: Int, skip: Int = 0): Fu[List[Player]] =
@@ -97,7 +99,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
               } yield TeamLeader(id, magic)
             }
           } yield new RankedTeam(0, teamId, leaders)
-        }.sorted.zipWithIndex map { case (rt, pos) =>
+        }.sorted.mapWithIndex { case (rt, pos) =>
           rt.updateRank(pos + 1)
         }
       } map { ranked =>

@@ -1,5 +1,6 @@
 package views.html.setup
 
+import cats.syntax.all.*
 import play.api.data.Form
 
 import lila.api.Context
@@ -90,7 +91,7 @@ object filter:
       options: Seq[(Any, String, Option[String])],
       checks: Set[String] = Set.empty
   ): Frag =
-    options.zipWithIndex.map { case ((value, text, hint), index) =>
+    options.mapWithIndex { case ((value, text, hint), index) =>
       div(cls := "checkable")(
         renderCheckbox(form, key, index, value.toString, raw(text), hint, checks)
       )

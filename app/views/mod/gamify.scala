@@ -1,5 +1,6 @@
 package views.html.mod
 
+import cats.syntax.all.*
 import play.api.i18n.Lang
 
 import lila.api.Context
@@ -88,7 +89,7 @@ object gamify:
                 )
               ),
               tbody(
-                leaderboards(period).zipWithIndex.map { case (m, i) =>
+                leaderboards(period).mapWithIndex { case (m, i) =>
                   tr(
                     th(i + 1),
                     th(userIdLink(m.modId.some, withOnline = false)),

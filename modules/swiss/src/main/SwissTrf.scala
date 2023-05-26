@@ -1,5 +1,7 @@
 package lila.swiss
 
+import cats.syntax.all.*
+
 import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
 
@@ -108,11 +110,9 @@ final class SwissTrf(
             ~_.flatMap(_.getAsOpt[List[UserId]]("us"))
           }
           .map {
-            _.view.zipWithIndex
-              .map { (userId, index) =>
-                (userId, index + 1)
-              }
-              .toMap
+            _.mapWithIndex: (userId, index) =>
+              (userId, index + 1)
+            .toMap
           }
       }
 

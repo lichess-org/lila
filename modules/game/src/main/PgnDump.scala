@@ -1,5 +1,6 @@
 package lila.game
 
+import cats.syntax.all.*
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr }
 import chess.format.{ pgn as chessPgn }
@@ -157,7 +158,7 @@ final class PgnDump(
       clocks: Vector[Centis],
       startColor: Color
   ): List[chessPgn.Turn] =
-    (moves grouped 2).zipWithIndex.toList map { case (moves, index) =>
+    (moves grouped 2).toList.mapWithIndex { case (moves, index) =>
       val clockOffset = startColor.fold(0, 1)
       chessPgn.Turn(
         number = index + from,

@@ -1,5 +1,7 @@
 package lila.ublog
 
+import cats.syntax.all.*
+
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 
@@ -51,10 +53,9 @@ final class Env(
         api
           .latestPosts(lookInto)
           .map:
-            _.zipWithIndex
-              .map: (post, i) =>
-                (post, ThreadLocalRandom.nextInt(10 * (lookInto - i)))
-              .sortBy(_._2)
+            _.mapWithIndex: (post, i) =>
+              (post, ThreadLocalRandom.nextInt(10 * (lookInto - i)))
+            .sortBy(_._2)
               .take(keep)
               .map(_._1)
 

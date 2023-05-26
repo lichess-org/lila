@@ -1,5 +1,6 @@
 package lila.opening
 
+import cats.syntax.all.*
 import chess.opening.{ Opening, OpeningDb, OpeningName, OpeningKey }
 
 case class OpeningTree(children: List[(OpeningTree.NameOrOpening, OpeningTree)])
@@ -29,14 +30,13 @@ object OpeningTree:
     OpeningDb.shortestLines.values
       .map { op =>
         val sections = NameSection.sectionsOf(op.name)
-        sections.toList.zipWithIndex map { case (name, i) =>
+        sections.toList.mapWithIndex: (name, i) =>
           (
             name,
             OpeningDb.shortestLines.get(
               OpeningKey.fromName(OpeningName(sections.take(i + 1).mkString("_")))
             )
           )
-        }
       }
       .toList
       .foldLeft(emptyNode)(_ update _)

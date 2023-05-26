@@ -1,5 +1,6 @@
 package lila.fishnet
 
+import cats.syntax.all.*
 import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr
@@ -62,7 +63,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
       evals: List[Option[EvalOrSkip]],
       cached: Map[Int, Evaluation]
   ): List[Option[Evaluation]] =
-    evals.zipWithIndex.map {
+    evals.mapWithIndex:
       case (None, i)                             => cached get i
       case (Some(EvalOrSkip.Evaluated(eval)), i) => cached.getOrElse(i, eval).some
       case (_, i) =>
@@ -70,14 +71,13 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
           logger.error(s"Missing cached eval for skipped position at index $i in $work")
           none[Evaluation]
         }
-    }
 
   private def makeInfos(
       evals: List[Option[Evaluation]],
       moves: List[Uci],
       startedAtPly: Ply
   ): List[Info] =
-    evals.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves).zipWithIndex map {
+    evals.filterNot(_.exists(_.isCheckmate)).sliding(2).toList.zip(moves).mapWithIndex {
       case ((List(Some(before), Some(after)), move), index) =>
         val variation = before.cappedPv match
           case first :: rest if first != move => first :: rest
