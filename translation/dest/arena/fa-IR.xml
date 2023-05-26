@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena tournaments</string>
-  <string name="isItRated">Is it rated?</string>
-  <string name="willBeNotified">You will be notified when the tournament starts, so it is safe to play in another tab while waiting.</string>
-  <string name="isRated">This tournament is rated and will affect your rating.</string>
-  <string name="isNotRated">This tournament is *not* rated and will *not* affect your rating.</string>
-  <string name="someRated">Some tournaments are rated and will affect your rating.</string>
-  <string name="howAreScoresCalculated">How are scores calculated?</string>
-  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw 1 point, and a loss is worth no points.
-If you win two games consecutively you will start a double point streak, represented by a flame icon.
-The following games will continue to be worth double points until you fail to win a game.
-That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
+  <string name="arenaTournaments">مسابقات</string>
+  <string name="isItRated">آیا رسمی است؟</string>
+  <string name="willBeNotified">هنگام شروع تورنومنت به شما اطلاع داده خواهد شد، پس در زمان انتظار بازی کردن در تب های دیگر بلامانع است.</string>
+  <string name="isRated">این تورنومنت رسمی است و بر روی ریتینگ شما تاثیر میگذارد.</string>
+  <string name="isNotRated">این تورنومنت رسمی نیست و بر روی امتیاز شما تاثیر نمیگذارد.</string>
+  <string name="someRated">بعضی تورنومنت ها رسمی هستند و بر روی امتیاز شما تاثیر میگذارند.</string>
+  <string name="howAreScoresCalculated">چگونه امتیازات محسابه میشوند؟</string>
+  <string name="howAreScoresCalculatedAnswer">هر برد 2 امتیاز پایه دارد، هر مساوی: 1 امتیاز، و هر باخت هیچ امیتازی ندارد.
+اگر شما دو بازی را پشت سر هم ببرید شما جریان امتیاز دوبل را اغاز خواهید کرد. که توسط یک تصویر شعله نشان داده میشود.
+بازی های بعدی هم همان ارزش امتیاز دوبل را حفظ خواهند کرد تا اینکه موفق نشوید یک بازی را ببرید.
+در آن حالت، هر برد ارزش 4 امتیاز، هر مساوی: 2امتیاز، و هر باخت باز هم هیچ امتیازی ندارد.
+برای مثال، دو برد با یک مساوی 6 امتیاز محسابه میشود: (1×2)+2+2</string>
+  <string name="berserk">حالت برزرک</string>
+  <string name="berserkAnswer">وقتی یک بازیکن در اول بازی بر روی دکمه berserk کلیک میکند، نصف زمانش را از دست میدهد، اما بردش یک امیتاز دیگر را هم به همراه دارد.
 
-For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
+برزرک کردن در بازی هایی که زمان اضافه میشود اضافه کردن زمان را لغو میکند. (2+1 یک استثنا است، آن را به 0+1 تبدیل میکند)
 
-Going Berserk in time controls with an increment and byoyomi also cancels the increment and byoyomi time (1+2 is an exception, it gives 1+0).
+برزرک کردن برای بازی هایی با زمان اولیه صفر امکان پذیر نمیباشد( 1+0، 2+0).
 
-Berserk is not available for games with zero initial time (0+1, 0+2).
-
-Berserk only grants an extra point if you play at least 7 moves in the game.</string>
-  <string name="howIsTheWinnerDecided">How is the winner decided?</string>
-  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament\'s set time limit will be announced winner(s).
-
-When two or more players have the same number of points, the tournament performance is the tie break.</string>
-  <string name="howDoesPairingWork">How does the pairing work?</string>
-  <string name="howDoesPairingWorkAnswer">At the beginning of the tournament, players are paired based on their rating.
-As soon as you finish a game, return to the tournament lobby: you will then be paired with a player close to your ranking. This ensures minimum wait time, however you may not face all other players in the tournament.
-Play fast and return to the lobby to play more games and win more points.</string>
-  <string name="howDoesItEnd">How does it end?</string>
-  <string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however they don\'t count for the tournament.</string>
-  <string name="otherRules">Other important rules</string>
-  <string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
+برزرک فقط در حالتی یک امتیاز اضافه میدهد که حداقل 7 حرکت بازی کنید.</string>
+  <string name="howIsTheWinnerDecided">برنده چگونه انتخاب میشود؟</string>
+  <string name="howIsTheWinnerDecidedAnswer">بازیکن(ها) با بیشترین امتیاز در پایان زمان تورنومنت به عنوان برنده اعلام خواه(ن)د شد.</string>
+  <string name="howDoesPairingWork">رویارویی بازیکنان با یکدیگر چگونه انجام میشود؟</string>
+  <string name="howDoesPairingWorkAnswer">در ابتدای تورنومنت، بازیکنان با توجه به امتیازهایشان با یکدیگر روبه رو میشوند.
+به محض اینکه شما بازی را تمام کردید و به لابی تورنومنت برگردید: شما به بازیکنی که رتبه نزدیک تری به شما دارد متصل میشوید. این مکانیزم در حداقل زمان ممکن انجام میشود، هرچند امکان دارد با همه بازیکنان تورنومنت روبه رو نشوید.
+سریع بازی کنید و به لابی برگردید تا بازی های بیشتری بازی کنید و امتیاز بیشتری بگیرید.</string>
+  <string name="howDoesItEnd">چگونه به پایان می رسد؟</string>
+  <string name="howDoesItEndAnswer">تورنومنت یک ساعت شمارش معکوس دارد. وقتی به صفر برسد، رتبه بندی تورنومنت غیرقابل تغییر میشود، و برنده اعلام میشود. بازی های در حال اجرا باید تمام شوند، هر چند نتیجه آن بازی ها تاثیری در تورنومنت ندارد.</string>
+  <string name="otherRules">قوانین مهم دیگر</string>
+  <string name="thereIsACountdown">برای اولین حرکت شما یک شمارش معکوس وجود دارد. اگر در این زمان نتوانید حرکت خود را انجام دهید، بازی برای حریف شما باطل خواهد شد.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Drawing the game within the first %s move will earn neither player any points.</item>
-    <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
+    <item quantity="one">در صورت تساوی بازی در %s حرکت اول، به هیچکدام از بازیکنان امتیازی نخواهد رسید.</item>
+    <item quantity="other">در صورت تساوی بازی در %s حرکت اول، به هیچکدام از بازیکنان امتیازی نخواهد رسید.</item>
   </plurals>
-  <string name="thisIsPrivate">This is a private tournament</string>
-  <string name="shareUrl">Share this URL to let people join: %s</string>
+  <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
+  <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
   <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="donate">Paremti</string>
+	<string name="lishogiPatron">Lishogi Rėmėjas</string>
+	<string name="freeAccount">Nemokama paskyra</string>
+	<string name="becomePatron">Tapkite Lishogi Rėmėju</string>
+	<string name="xBecamePatron">%s tapo Lishogi Rėmėju</string>
+	<string name="newPatrons">Nauji Rėmėjai</string>
+	<string name="freeShogi">Free shogi for everyone, forever!</string>
+	<string name="noAdsNoSubs">Jokių reklamų, prenumeratų - tik atviras kodas ir aistra.</string>
+	<string name="thankYou">Dėkojame už jūsų paramą!</string>
+	<string name="youHaveLifetime">Jūs turite Rėmėjo Gyvenimui paskyrą. Kietai!</string>
+	<string name="patronUntil">Jūs turite Rėmėjo paskyrą iki %s.</string>
+	<string name="ifNotRenewed">If not renewed, you will then be downgraded to free.</string>
+	<string name="weRelyOnSupport">Norėdami tai pasiekti, mes remiamės tokių žmonių kaip jūs parama. Jei jums patinka Lishogi, pamąstykite apie paramą mums ir tapkite Rėmėju!</string>
+	<string name="donationSupport">If you want to support Lishogi and open source development, consider donating! You will not get anything in return, because Lishogi treats all users equally, but your donation will be very appreciated!</string>
+	<string name="lifetime">Gyvenimui</string>
+	<string name="payLifetimeOnce">Mokėkite %s vieną kartą. Tapkite Lishogi Rėmėju visam laikui!</string>
+	<string name="lifetimePatron">Lishogi Rėmėjas gyvenimui</string>
+	<string name="makeExtraDonation">Make an extra donation?</string>
+	<string name="monthly">Kas mėnesį</string>
+	<string name="recurringBilling">Pasikartojantis mokėjimas, atnaujinantis jūsų Rėmėjo sparnus kiekvieną mėnesį.</string>
+	<string name="onetime">Vieną kartą</string>
+	<string name="singleDonation">Viena parama suteikia jums Rėmėjo sparnus vienam mėnesiui.</string>
+	<string name="otherAmount">Kita</string>
+	<string name="pleaseEnterAmount">Please enter an amount in USD</string>
+	<string name="withCreditCard">Banko kortele</string>
+	<string name="withPaypal">PayPal</string>
+	<string name="weAreSmallTeam">Mes esame maža komanda, todėl jūsų pagalba mums labai svarbi!</string>
+	<string name="celebratedPatrons">Mūsų gerbiami Rėmėjai, kurie leidžia gyvuoti Lishogi</string>
+	<string name="whereMoneyGoes">Kur eina pinigai?</string>
+	<string name="costBreakdown">Peržiūrėti detalų išrašą</string>
+	<string name="changeMonthlySupport">Ar galiu pakeisti/atšaukti savo mėnesinę paramą?</string>
+	<string name="changeOrContact">Taip, bet kuriuo laiku iš šio puslapio.
+Arba galite %s.</string>
+	<string name="contactSupport">susisiekti su Lishogi pagalba</string>
+	<string name="otherMethods">Kiti būdai paremti?</string>
+	<string name="bankTransfers">Mes taip pat priimame banko pervedimus</string>
+	<string name="bitcoin">And here\'s our bitcoin address: %s</string>
+	<string name="patronFeatures">Ar yra funkcijų, kurios prieinamos tik Rėmėjams?</string>
+	<string name="noPatronFeatures">Ne, kadangi Lishogi visiškai ir visada nemokamas ir visiems. Tai yra mūsų pažadas.
+Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.</string>
+	<string name="featuresComparison">Peržiūrėkite detalų funkcijų palyginimą</string>
+	<plurals name="patronForMonths">
+		<item quantity="one">Lishogi Rėmėjas vieną mėnesį</item>
+		<item quantity="few">Lishogi Rėmėjas %s mėnesius</item>
+		<item quantity="many">Lishogi Rėmėjas %s mėnesio</item>
+		<item quantity="other">Lishogi rėmėjas %s mėnesių</item>
+	</plurals>
+	<string name="youSupportWith">Jūs remiate lishogi.org %s per mėnesį.</string>
+	<string name="tyvm">Dekojame už pagalbą. Jūs šauniausias!</string>
+	<string name="currentStatus">Dabartinė būsena</string>
+	<string name="nextPayment">Kitas mokėjimas</string>
+	<string name="youWillBeChargedXOnY">%1$s bus nuskaityta %2$s.</string>
+	<string name="makeAdditionalDonation">Atlikti papildomą paramos pervedimą</string>
+	<string name="update">Atnaujinti</string>
+	<string name="changeMonthlyAmount">Pakeisti mėnesinį kiekį (%s)</string>
+	<string name="cancelSupport">atšaukti savo pagalbą</string>
+	<string name="xOrY">%1$s arba %2$s</string>
+	<string name="decideHowMuch">Nuspręskite, kiek jums vertas Lishogi:</string>
+	<string name="stopPayments">Pašalinti savo kortelę ir sustabdyti mokėjimus:</string>
+	<string name="noLongerSupport">Daugiau neberemti Lishogi</string>
+	<string name="paymentHistory">Payment history</string>
+	<string name="paid">Paid</string>
+	<string name="viewOthers">Peržiūrėti kitus Lishogi rėmėjus</string>
+	<string name="date">Data</string>
+	<string name="amount">Suma</string>
+	<string name="transactionCompleted">Jūsų pervedimas buvo atliktas, dovanos sąskaita jums buvo išsiųsta el. paštu.</string>
+	<string name="permanentPatron">Dabar visam laikui turite rėmėjo paskyrą.</string>
+	<string name="checkOutProfile">Patikrinkite savo profilio puslapį!</string>
+	<string name="nowLifetime">Jūs esate Lishogi rėmėjas visam gyvenimui!</string>
+	<string name="nowOneMonth">Jūs esate Lishogi rėmėjas vienam mėnesiui!</string>
+	<string name="downgradeNextMonth">Po mėnesio pinigai nebus nuskaityti dar kartą ir jūsų Lishogi paskyra atsistatys į įprastą.</string>
+	<string name="donationPolicy">Donation policy</string>
+</resources>

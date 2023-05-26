@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privati</string>
+  <string name="myStudies">Mano studijos</string>
+  <string name="studiesIContributeTo">Studijos, kuriose prisidedu</string>
+  <string name="myPublicStudies">Mano viešos studijos</string>
+  <string name="myPrivateStudies">Mano privačios studijos</string>
+  <string name="myFavoriteStudies">Mano mėgstamiausios studijos</string>
+  <string name="whatAreStudies">Kas yra studijos?</string>
+  <string name="allStudies">Visos studijos</string>
+  <string name="studiesCreatedByX">Studijos, sukurtos %s</string>
+  <string name="noneYet">Dar nėra.</string>
+  <string name="hot">Populiaru dabar</string>
+  <string name="dateAddedNewest">Sukūrimo data (naujausios)</string>
+  <string name="dateAddedOldest">Sukūrimo data (seniausios)</string>
+  <string name="recentlyUpdated">Neseniai atnaujintos</string>
+  <string name="mostPopular">Populiariausios</string>
+  <string name="addNewChapter">Pridėti naują skyrių</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s skyrius</item>
+    <item quantity="few">%s skyriai</item>
+    <item quantity="many">%s skyrių</item>
+    <item quantity="other">%s skyrių</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s partija</item>
+    <item quantity="few">%s partijos</item>
+    <item quantity="many">%s partijų</item>
+    <item quantity="other">%s partijų</item>
+  </plurals>
+  <string name="addMembers">Pridėti narių</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s narys</item>
+    <item quantity="few">%s nariai</item>
+    <item quantity="many">%s narių</item>
+    <item quantity="other">%s narių</item>
+  </plurals>
+  <string name="inviteToTheStudy">Pakviesti į studiją</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Kvieskite tik pažįstamus žmones, ir tik norinčius dalyvauti šioje studijoje.</string>
+  <string name="searchByUsername">Ieškoti pagal naudotojo vardą</string>
+  <string name="spectator">Žiūrovas</string>
+  <string name="contributor">Talkininkas</string>
+  <string name="kick">Išmesti</string>
+  <string name="leaveTheStudy">Palikti studiją</string>
+  <string name="youAreNowAContributor">Dabar esate talkininkas</string>
+  <string name="youAreNowASpectator">Dabar esate žiūrovas</string>
+  <string name="tags">Tags</string>
+  <string name="like">Mėgti</string>
+  <string name="newTag">Nauja žyma</string>
+  <string name="commentThisPosition">Komentuoti šią poziciją</string>
+  <string name="commentThisMove">Komentuoti šį ėjimą</string>
+  <string name="annotateWithGlyphs">Komentuoti su glifais</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Skyrius yra per trumpas analizei.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Tik studijos talkininkai gali prašyti kompiuterio analizės.</string>
+  <string name="getAFullComputerAnalysis">Gaukite pilną pagrindinės linijos kompiuterio analizę.</string>
+  <string name="makeSureTheChapterIsComplete">Įsitikinkite, kad skyrius užbaigtas. Analizės galite prašyti tik kartą.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC nariai lieka toje pačioje pozicijoje</string>
+  <string name="shareChanges">Dalinkitės pakeitimais su žiūrovais ir saugokite juos serveryje</string>
+  <string name="playing">Žaidžiama</string>
+  <string name="first">Pirmas</string>
+  <string name="previous">Ankstesnis</string>
+  <string name="next">Kitas</string>
+  <string name="last">Paskutinis</string>
+  <string name="shareAndExport">Dalintis ir eksportuoti</string>
+  <string name="cloneStudy">Klonuoti</string>
+  <string name="downloadAllGames">Atsisiųsti visus žaidimus</string>
+  <string name="downloadGame">Atsisiųsti žaidimą</string>
+  <string name="studyKif">Study KIF</string>
+  <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
+  <string name="studyUrl">Studijos URL</string>
+  <string name="broadcastUrl">Broadcast URL</string>
+  <string name="currentChapterUrl">Dabartinio skyriaus URL</string>
+  <string name="currentGameUrl">Current game URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Galite įklijuoti šį forume norėdami įterpti</string>
+  <string name="startAtInitialPosition">Pradėti pradinėje pozicijoje</string>
+  <string name="startAtX">Pradėti nuo %s</string>
+  <string name="embedInYourWebsite">Įterpti savo svetainėje ar tinklaraštyje</string>
+  <string name="readMoreAboutEmbedding">Skaitykite daugiau apie įterpimą</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Gali būti įterptos tik viešos studijos!</string>
+  <string name="open">Atverti</string>
+  <string name="xBroughtToYouByY">%1$s iš %2$s</string>
+  <string name="studyNotFound">Studija nerasta</string>
+  <string name="editChapter">Redaguoti skyrių</string>
+  <string name="newChapter">Naujas skyrius</string>
+  <string name="orientation">Kryptis</string>
+  <string name="analysisMode">Analizės režimas</string>
+  <string name="pinnedChapterComment">Prisegtas skyriaus komentaras</string>
+  <string name="saveChapter">Išsaugoti skyrių</string>
+  <string name="clearAnnotations">Pašalinti anotacijas</string>
+  <string name="deleteChapter">Ištrinti skyrių</string>
+  <string name="deleteThisChapter">Ištrinti šį skyrių? Nėra kelio atgal!</string>
+  <string name="clearAllCommentsInThisChapter">Išvalyti visus komentarus, ženklus ir figūras šiame skyriuje?</string>
+  <string name="rightUnderTheBoard">Iš karto po lenta</string>
+  <string name="noPinnedComment">Jokio</string>
+  <string name="normalAnalysis">Įprasta analizė</string>
+  <string name="hideNextMoves">Slėpti kitus ėjimus</string>
+  <string name="interactiveLesson">Interaktyvi pamoka</string>
+  <string name="chapterX">Skyrius %s</string>
+  <string name="empty">Tuščia</string>
+  <string name="startFromInitialPosition">Pradėti nuo pirminės pozicijos</string>
+  <string name="editor">Redaktorius</string>
+  <string name="startFromCustomPosition">Pradėti nuo tinkintos pozicijos</string>
+  <string name="loadAGameByUrl">Pakrauti partijas iš adresų</string>
+  <string name="loadAPositionFromSfen">Load a position from SFEN</string>
+  <string name="automatic">Automatinis</string>
+  <string name="urlOfTheGame">Partijų adresai, vienas per eilutę</string>
+  <string name="loadAGameFromX">Load games from %1$s</string>
+  <string name="createChapter">Sukurti skyrių</string>
+  <string name="configureLiveBroadcast">Tinkinti gyvą transliaciją</string>
+  <string name="createStudy">Sukurti studiją</string>
+  <string name="editStudy">Redaguoti studiją</string>
+  <string name="visibility">Matomumas</string>
+  <string name="public">Viešas</string>
+  <string name="unlisted">Nėra sąraše</string>
+  <string name="inviteOnly">Tik su pakvietimu</string>
+  <string name="allowCloning">Leisti kopijuoti</string>
+  <string name="nobody">Niekam</string>
+  <string name="onlyMe">Tik man</string>
+  <string name="contributors">Dalyviams</string>
+  <string name="members">Nariams</string>
+  <string name="everyone">Visiems</string>
+  <string name="enableSync">Įgalinti sinchronizaciją</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Taip: visiems rodyti tą pačią poziciją</string>
+  <string name="noLetPeopleBrowseFreely">Ne: leisti žmonėms naršyti laisvai</string>
+  <string name="pinnedStudyComment">Prisegtas studijos komentaras</string>
+  <string name="start">Pradėti</string>
+  <string name="save">Išsaugoti</string>
+  <string name="clearChat">Išvalyti pokalbį</string>
+  <string name="deleteTheStudyChatHistory">Ištrinti studijos pokalbių istoriją? Nėra kelio atgal!</string>
+  <string name="deleteStudy">Ištrinti studiją</string>
+  <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
+  <string name="whereDoYouWantToStudyThat">Kur norite tai studijuoti?</string>
+  <string name="startTag" comment="Tags for kif and csa">Start</string>
+  <string name="endTag" comment="Tags for kif and csa">End</string>
+  <string name="siteTag" comment="Tags for kif and csa">Site</string>
+  <string name="eventTag" comment="Tags for kif and csa">Event</string>
+  <string name="timeControlTag" comment="Tags for kif and csa">Time control</string>
+  <string name="xEloTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="xTitleTag" comment="Tags for kif and csa">%s title</string>
+  <string name="xTeamTag" comment="Tags for kif and csa">%s team</string>
+  <string name="openingTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="resultTag" comment="Tags for kif and csa">Result</string>
+  <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>
+  <string name="problemIdTag" comment="Tags for kif and csa">Problem Id</string>
+  <string name="dateOfPublicationTag" comment="Tags for kif and csa">Date of publication</string>
+  <string name="composerTag" comment="Tags for kif and csa">Composer</string>
+  <string name="publicationTag" comment="Tags for kif and csa">Publication</string>
+  <string name="collectionTag" comment="Tags for kif and csa">Collection</string>
+  <string name="lengthTag" comment="Tags for kif and csa">Length</string>
+  <string name="prizeTag" comment="Tags for kif and csa">Prize</string>
+</resources>

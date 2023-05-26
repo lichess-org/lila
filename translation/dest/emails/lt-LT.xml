@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Patvirtinkite savo lishogi.org paskyrą, %s</string>
+  <string name="emailConfirm_click">Spustelėkite nuorodą, norėdami aktyvuoti savo „Lishogi“ paskyrą:</string>
+  <string name="emailConfirm_ignore">Jeigu nesiregistravote „Lishogi“, galite ignoruoti šį pranešimą.</string>
+  <string name="passwordReset_subject">Pakeiskite savo lishogi.org slaptažodį, %s</string>
+  <string name="passwordReset_intro">Mes gavome užklausą pakeisti jūsų paskyros slaptažodį.</string>
+  <string name="passwordReset_clickOrIgnore">Jei tai atlikote jūs, spustelėkite žemiau esančia nuorodą. Jeigu ne, galite ignoruoti šį laišką.</string>
+  <string name="emailChange_subject">Patvirtinkite naująjį el. pašto adresą, %s</string>
+  <string name="emailChange_intro">Jūs užklausėte savo el. pašto adreso pakeitimo.</string>
+  <string name="emailChange_click">Norėdami jį patvirtinti, spustelėkite žemiau esančią nuorodą:</string>
+  <string name="welcome_subject">Sveiki atvykę į lishogi.org, %s</string>
+  <string name="welcome_text">Sėkmingai susikūrėte savo paskyrą per https://lishogi.org.
+
+Štai jūsų profilio puslapis: %1$s. Galite jį tinkinti per %2$s.
+
+Smagiai praleiskite laiką, ir tegul jūsų figūros visuomet randa kelią iki varžovo karaliaus!</string>
+  <string name="logInToLishogi">Prisijunkite prie lishogi.org, %s</string>
+  <string name="common_orPaste">(Spustelėjimas neveikia? Pabandykite nukopijuoti į naršyklę!)</string>
+  <string name="common_note">Tai yra aptarnavimo laiškas, susijęs su %s naudojimu.</string>
+  <string name="common_contact">Norėdami susisiekti, naudokite %s.</string>
+</resources>

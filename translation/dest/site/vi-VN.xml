@@ -18,6 +18,7 @@
 	<string name="checkmate">Chiếu hết</string>
 	<string name="stalemate">Hòa pat</string>
 	<string name="impasse">Impasse</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
 	<string name="perpetualCheck">Chiếu vĩnh viễn</string>
 	<string name="royalsLost" comment="Used in chushogi">Mất tất cả các quân hoàng gia</string>
 	<string name="bareKing" comment="Used in chushogi">Vua đơn</string>

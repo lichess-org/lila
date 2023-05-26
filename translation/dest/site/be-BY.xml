@@ -18,6 +18,7 @@
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Зарэз</string>
 	<string name="impasse">Зарэз</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
 	<string name="perpetualCheck">Бестэрміновы шах</string>
 	<string name="royalsLost" comment="Used in chushogi">Усе каралеўскія фігуры згублены</string>
 	<string name="bareKing" comment="Used in chushogi">Голы кароль</string>

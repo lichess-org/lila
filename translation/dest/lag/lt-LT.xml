@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Ar „Lishogi“ stringa?</string>
+  <string name="measurementInProgressThreeDot">Vyksta matavimai...</string>
+  <string name="noAndYourNetworkIsGood">Ne. O jūsų ryšys yra geras.</string>
+  <string name="noAndYourNetworkIsBad">Ne. Bet jūsų ryšys yra blogas.</string>
+  <string name="yesItWillBeFixedSoon">Taip. Netrukus bus sutvarkyta!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">O dabar, ilgas atsakymas! Žaidimo delsa susideda iš dviejų nesusijusių reikšmių (mažesnė yra geriau):</string>
+  <string name="lishogiServerLatency">„Lishogi“ serverio delsa</string>
+  <string name="lishogiServerLatencyExplanation">Tai laikas, kurį užtrunka ėjimo apdorojimas serveryje. Jis yra vienodas visiems, ir priklauso tik nuo serverio apkrovos. Kuo daugiau žaidėjų, tuo apkrovimas didesnis, tačiau „Lishogi“ programuotojai stengiasi jį išlaikyti kuo žemesnį. Dažniausiai jis neviršija 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Ryšys tarp „Lishogi“ ir jūsų</string>
+  <string name="networkBetweenLishogiAndYouExplanation">Tai laikas, kurį užtrunka ėjimo perdavimas iš jūsų kompiuterio į „Lishogi“ serverį, ir atsakymo gavimas. Jis priklauso nuo jūsų atstumo iki „Lishogi“ serverių (Prancūzija), ir jūsų interneto ryšio kokybės. „Lishogi“ programuotojai negali sutvarkyti jūsų „WiFi“, ar priversti šviesą keliauti greičiau.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Šias reikšmes galite pamatyti bet kuriuo metu, spustelėdami savo naudotojo vardą viršutinėje juostoje.</string>
+  <string name="lagCompensation">Delsos kompensavimas</string>
+  <string name="lagCompensationExplanation">„Lishogi“ kompensuoja ryšio delsą. Į tai įeina pastovi delsa ir kartais įvykstantys delsos šuoliai. Egzistuoja ribos ir heuristiniai algoritmai priklausomai nuo partijų trukmės ir iki šiol kompensuotos delsos, kad rezultatas būtų priimtinas abiems žaidėjams. Tad jei turite didesnę ryšio delsą negu jūsų varžovas, tai nėra kliūtis laimėti!</string>
+</resources>

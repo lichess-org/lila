@@ -18,6 +18,7 @@
 	<string name="checkmate">Şah Mat</string>
 	<string name="stalemate">Pat</string>
 	<string name="impasse">Çıkmaz</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
 	<string name="perpetualCheck">Sürekli şah</string>
 	<string name="royalsLost" comment="Used in chushogi">Tüm kraliyet taşları kaybedildi</string>
 	<string name="bareKing" comment="Used in chushogi">Yalnız şah</string>

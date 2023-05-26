@@ -18,6 +18,7 @@
 	<string name="checkmate">Šach mat</string>
 	<string name="stalemate">Pat</string>
 	<string name="impasse">Slepá cesta</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
 	<string name="perpetualCheck">Věčný šach</string>
 	<string name="royalsLost" comment="Used in chushogi">Všechny královské kameny ztracené</string>
 	<string name="bareKing" comment="Used in chushogi">Obnažený král</string>

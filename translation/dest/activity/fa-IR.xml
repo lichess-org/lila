@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="activity">Activity</string>
-  <string name="hostedALiveStream">Hosted a live stream</string>
+  <string name="activity">فعالیت</string>
+  <string name="hostedALiveStream">یک پخش زنده میزبانی کرد</string>
   <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
-    <item quantity="one">Supported lishogi.org for %1$s month as a %2$s</item>
-    <item quantity="other">Supported lishogi.org for %1$s months as a %2$s</item>
+    <item quantity="one">به عنوان %2$s برای %1$s ماه از lishogi.org حمایت کرد</item>
+    <item quantity="other">به عنوان %2$s برای %1$s ماه از lishogi.org حمایت کرد</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Practised %1$s position on %2$s</item>
-    <item quantity="other">Practised %1$s positions on %2$s</item>
+    <item quantity="one">%1$s وضعیت را در %2$s تمرین کرد</item>
+    <item quantity="other">%1$s پوزیسیون را در %2$s تمرین کرد</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Solved %s tactical puzzle</item>
-    <item quantity="other">Solved %s tactical puzzles</item>
+    <item quantity="one">%s مساله تاکتیکی را حل کرد</item>
+    <item quantity="other">%s مساله تاکتیکی را حل کرد</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Played %1$s %2$s game</item>
-    <item quantity="other">Played %1$s %2$s games</item>
+    <item quantity="one">%1$s بازی %2$s را انجام داد</item>
+    <item quantity="other">%1$s بازی %2$s را انجام داد</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Posted %1$s message in %2$s</item>
-    <item quantity="other">Posted %1$s messages in %2$s</item>
+    <item quantity="one">%1$s پیام را در %2$s ارسال کرد</item>
+    <item quantity="other">%1$s پیام را در %2$s ارسال کرد</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Played %1$s move</item>
-    <item quantity="other">Played %1$s moves</item>
+    <item quantity="one">%1$s حرکت انجام داد</item>
+    <item quantity="other">%1$s حرکت انجام داد</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">in %1$s correspondence game</item>
-    <item quantity="other">in %1$s correspondence games</item>
+    <item quantity="one">در %1$s بازی مکاتبه‌ای</item>
+    <item quantity="other">در %1$s بازی مکاتبه‌ای</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Completed %s correspondence game</item>
-    <item quantity="other">Completed %s correspondence games</item>
+    <item quantity="one">%s بازی مکاتبه‌ای را به پایان رساند</item>
+    <item quantity="other">%s بازی مکاتبه‌ای را به پایان رساند</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Started following %s player</item>
-    <item quantity="other">Started following %s players</item>
+    <item quantity="one">%s بازیکن را دنبال کرد</item>
+    <item quantity="other">%s بازیکن را دنبال کرد</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Gained %s new follower</item>
-    <item quantity="other">Gained %s new followers</item>
+    <item quantity="one">%s دنبال کننده جدید به دست آورد</item>
+    <item quantity="other">%s دنبال کننده جدید به دست آورد</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Hosted %s simultaneous exhibition</item>
-    <item quantity="other">Hosted %s simultaneous exhibitions</item>
+    <item quantity="one">%s مسابقه هم‌زمان برگزار کرد</item>
+    <item quantity="other">%s مسابقه هم‌زمان برگزار کرد</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Participated in %s simultaneous exhibition</item>
-    <item quantity="other">Participated in %s simultaneous exhibitions</item>
+    <item quantity="one">در %s مسابقه هم‌زمان شرکت کرد</item>
+    <item quantity="other">در %s مسابقه هم‌زمان شرکت کرد</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Created %s new study</item>
-    <item quantity="other">Created %s new studies</item>
+    <item quantity="one">%s درس جدید ساخت</item>
+    <item quantity="other">%s درس جدید ساخت</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Competed in %s tournament</item>
-    <item quantity="other">Competed in %s tournaments</item>
+    <item quantity="one">در %s مسابقه آرنا رقابت کرد</item>
+    <item quantity="other">در %s مسابقه آرنا رقابت کرد</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Ranked #%1$s (top %2$s%%) with %3$s game in %4$s</item>
-    <item quantity="other">Ranked #%1$s (top %2$s%%) with %3$s games in %4$s</item>
+    <item quantity="one">رتبه #%1$s (%2$s %% برتر) را در %4$s با %3$s بازی به دست آورد</item>
+    <item quantity="other">رتبه #%1$s (%2$s %% برتر) را در %4$s با %3$s بازی به دست آورد</item>
   </plurals>
-  <string name="signedUp">Signed up to lishogi.org</string>
+  <string name="signedUp">در لیچس ثبت نام کرد</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Joined %s team</item>
-    <item quantity="other">Joined %s teams</item>
+    <item quantity="one">به %s تیم پیوست</item>
+    <item quantity="other">به %s تیم پیوست</item>
   </plurals>
 </resources>

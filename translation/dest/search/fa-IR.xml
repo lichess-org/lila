@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="search">Search</string>
-	<string name="advancedSearch">Advanced search</string>
+	<string name="search">جستجو</string>
+	<string name="advancedSearch">جستجوی پیشرفته</string>
 	<plurals name="searchInXGames">
-		<item quantity="one">Search in %s shogi game</item>
-		<item quantity="other">Search in %s shogi games</item>
+		<item quantity="one">جستجو در %s بازی</item>
+		<item quantity="other">جستجو در %s بازی</item>
 	</plurals>
 	<plurals name="xGamesFound">
-		<item quantity="one">One game found</item>
-		<item quantity="other">%s games found</item>
+		<item quantity="one">یک بازی یافت شد</item>
+		<item quantity="other">%s بازی یافت شد</item>
 	</plurals>
-	<string name="opponentName">Opponent name</string>
-	<string name="loser">Loser</string>
-	<string name="from">From</string>
-	<string name="to">To</string>
-	<string name="humanOrComputer">Whether the player\'s opponent was human or a computer</string>
-	<string name="aiLevel">A.I. level</string>
-	<string name="source">Source</string>
-	<string name="nbTurns">Number of turns</string>
-	<string name="result">Result</string>
-	<string name="winnerColor">Winner color</string>
-	<string name="date">Date</string>
-	<string name="sortBy">Sort by</string>
-	<string name="analysis">Analysis</string>
-	<string name="onlyAnalysed">Only games where a computer analysis is available</string>
+	<string name="opponentName">نام حریف</string>
+	<string name="loser">بازنده</string>
+	<string name="from">از</string>
+	<string name="to">تا</string>
+	<string name="humanOrComputer">که آیا حریف بازیکن، انسان یا رایانه بود</string>
+	<string name="aiLevel">سطح هوش مصنوعی</string>
+	<string name="source">منبع</string>
+	<string name="nbTurns">تعداد حرکت</string>
+	<string name="result">نتیجه</string>
+	<string name="winnerColor">رنگ مهره های بازیکن برنده</string>
+	<string name="date">تاریخ</string>
+	<string name="sortBy">مرتب کردن بر اساس</string>
+	<string name="analysis">برسی بازی</string>
+	<string name="onlyAnalysed">فقط بازی هایی که تجزیه و تحلیل کامپیوتر در آنها موجود است</string>
 </resources>

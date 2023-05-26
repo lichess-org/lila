@@ -18,6 +18,7 @@
 	<string name="checkmate">詰み</string>
 	<string name="stalemate">ステイルメイト</string>
 	<string name="impasse">持将棋</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">千日手</string>
 	<string name="perpetualCheck">連続王手の千日手</string>
 	<string name="royalsLost" comment="Used in chushogi">すべてのroyal駒を失う</string>
 	<string name="bareKing" comment="Used in chushogi">裸の王</string>
@@ -204,8 +205,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">本将棋</string>
 	<string name="minishogi">5五将棋</string>
 	<string name="chushogi">中将棋</string>
-	<string name="annanshogi">Annan shogi</string>
-	<string name="kyotoshogi">Kyoto shogi</string>
+	<string name="annanshogi">安南将棋</string>
+	<string name="kyotoshogi">京都将棋</string>
 	<string name="unlimited">無制限</string>
 	<string name="mode">モード</string>
 	<string name="casual">非レート戦</string>
@@ -770,13 +771,13 @@
 	<string name="findBetterMoveForX" comment="%s - sente(black)/gote(white)">%sのもっといい手を見つけてください</string>
 	<string name="resumeLearning">学習を続ける</string>
 	<string name="youCanDoBetter">もっといい手があります</string>
-	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">Try another move for %s</string>
+	<string name="tryAnotherMoveForX" comment="%s - sente(black)/gote(white)">%sの別の手を考えてください</string>
 	<string name="solution">答え</string>
 	<string name="waitingForAnalysis">解析を待っています</string>
-	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">No mistakes found for %s</string>
-	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">Done reviewing %s mistakes</string>
+	<string name="noMistakesFoundForX" comment="%s - sente(black)/gote(white)">%sに悪手はありませんでした</string>
+	<string name="doneReviewingXMistakes" comment="%s - sente(black)/gote(white)">%sの悪手チェックが終了</string>
 	<string name="doItAgain">もう一度どうぞ</string>
-	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">Review %s mistakes</string>
+	<string name="reviewXMistakes" comment="%s - sente(black)/gote(white)">%sの悪手を確認する</string>
 	<string name="advantage">優位</string>
 	<plurals name="nbSeconds">
 		<item quantity="other">%s 秒</item>

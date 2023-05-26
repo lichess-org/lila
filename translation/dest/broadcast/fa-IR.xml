@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Broadcasts</string>
-  <string name="liveBroadcasts">Live tournament broadcasts</string>
-  <string name="newBroadcast">New live broadcast</string>
-  <string name="ongoing">Ongoing</string>
-  <string name="upcoming">Upcoming</string>
-  <string name="completed">Completed</string>
+  <string name="broadcasts">پخش می شود</string>
+  <string name="liveBroadcasts">پخش زنده مسابقات</string>
+  <string name="newBroadcast">پخش مستقیم جدید</string>
+  <string name="ongoing">در حال اجرا</string>
+  <string name="upcoming">در آینده</string>
+  <string name="completed">کامل شده</string>
   <string name="eventName">Event name</string>
   <string name="eventDescription">Short event description</string>
-  <string name="fullDescription">Full event description</string>
-  <string name="fullDescriptionHelp">Optional long description of the broadcast. %1$s is available. Length must be less than %2$s characters.</string>
+  <string name="fullDescription">شرح کامل رویداد</string>
+  <string name="fullDescriptionHelp">توصیفی طولانی و اختیاری از مسابقه. %1$s در دسترس است. اندازه متن باید کمتر از %2$s حرف باشد.</string>
   <string name="sourceUrl">Source URL</string>
-  <string name="sourceUrlHelp">URL that Lishogi will check to get PGN updates. It must be publicly accessible from the Internet.</string>
-  <string name="roundNumber">Round number</string>
-  <string name="startDate">Start date in your own timezone</string>
-  <string name="startDateHelp">Optional, if you know when the event starts</string>
-  <string name="credits">Credit the source</string>
+  <string name="sourceUrlHelp">لینکی که Lishogi برای دریافت به روزرسانی های PGN بررسی می کند. باید از طریق اینترنت در دسترس عموم باشد.</string>
+  <string name="roundNumber">عدد گرد شده</string>
+  <string name="startDate">تاریخ را در منطقه‌ی زمانی خود شروع کنید</string>
+  <string name="startDateHelp">اختیاری ، اگر می دانید چه زمانی رویداد شروع می شود</string>
+  <string name="credits">به منبع اعتبار دهید</string>
   <string name="cloneBroadcast">Clone the broadcast</string>
   <string name="resetBroadcast">Reset the broadcast</string>
 </resources>

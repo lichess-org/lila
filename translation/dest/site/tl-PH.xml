@@ -18,6 +18,7 @@
 	<string name="checkmate">Checkmate</string>
 	<string name="stalemate">Tabla</string>
 	<string name="impasse">Impasse</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
 	<string name="perpetualCheck">Perpetual check</string>
 	<string name="royalsLost" comment="Used in chushogi">All royal pieces lost</string>
 	<string name="bareKing" comment="Used in chushogi">Bare king</string>

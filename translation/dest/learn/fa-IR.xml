@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="learnShogi">Learn shogi</string>
-	<string name="byPlaying">by playing!</string>
-	<string name="menu">Menu</string>
-	<string name="progressX">Progress: %s</string>
-	<string name="resetMyProgress">Reset my progress</string>
-	<string name="youWillLoseAllYourProgress">You will lose all your progress!</string>
-	<string name="play">play!</string>
+	<string name="byPlaying">با بازی کردن!</string>
+	<string name="menu">منو</string>
+	<string name="progressX">پیشرفت: %s</string>
+	<string name="resetMyProgress">تنظیم مجدد پیشرفت من</string>
+	<string name="youWillLoseAllYourProgress">شما همه پیشرفت خود را از دست خواهید داد!</string>
+	<string name="play">بازی کن!</string>
 	<string name="shogiPieces">Shogi pieces</string>
 	<string name="theIntroduction">Introduction</string>
 	<string name="introBasics">Let\'s learn some basics.</string>
@@ -18,47 +18,51 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
 	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
 	<string name="introCompleteTwo">You now know some basics! Now learn how individual pieces move.</string>
-	<string name="theRook">The rook</string>
-	<string name="itMovesInStraightLines">It moves in straight lines</string>
-	<string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
-	<string name="rookGoal">Click on the rook to bring it to the star!</string>
+	<string name="theRook">رخ</string>
+	<string name="itMovesInStraightLines">در خط های مستقیم حرکت میکند</string>
+	<string name="rookIntro">رخ مهره قوییه. آماده ای که بهش دستور بدی؟</string>
+	<string name="rookGoal">روی رخ کلیک کن
+تا روی ستاره ببریش!</string>
 	<string name="grabAllTheStarsRemember">Grab all the stars! Remember, look outside of the board.</string>
 	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
 	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
 	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="dragonSummaryTwo">The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
-	<string name="grabAllTheStars">Grab all the stars!</string>
-	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
-	<string name="rookComplete">Congratulations! You have successfully mastered the rook.</string>
-	<string name="theBishop">The bishop</string>
-	<string name="itMovesDiagonally">It moves diagonally</string>
-	<string name="bishopIntro">Next we will learn how to manoeuvre a bishop!</string>
+	<string name="grabAllTheStars">همه ستاره ها رو بگیر!</string>
+	<string name="theFewerMoves">هرچی تعداد حرکت کمتری بری،
+ستاره بیشتری میگیری!</string>
+	<string name="rookComplete">تبریک! شما با موفقیت در بازی با رخ استاد شدید.</string>
+	<string name="theBishop">فیل</string>
+	<string name="itMovesDiagonally">مورب حرکت میکنه</string>
+	<string name="bishopIntro">در مرحله بعدی یاد میگیریم که چگونه با فیل مانور دهیم!</string>
 	<string name="ehThereIsNoPiece">Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.</string>
 	<string name="bishopPromotion">Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".</string>
 	<string name="bishopSummary">The bishop moves in any diagonal direction.</string>
 	<string name="horseSummary">The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.</string>
-	<string name="bishopComplete">Congratulations! You can command a bishop.</string>
-	<string name="theKing">The king</string>
-	<string name="theMostImportantPiece">The most important piece</string>
-	<string name="kingIntro">You are the king. If you fall in battle, the game is lost.</string>
-	<string name="theKingIsSlow">The king is rather slow.</string>
+	<string name="bishopComplete">تبریک! شما میتوانید یک فیل را فرمانروایی کنید.</string>
+	<string name="theKing">شاه</string>
+	<string name="theMostImportantPiece">مهم ترین مهره شطرنج</string>
+	<string name="kingIntro">شما شاه هستید. اگه وارد جنگ شوید،باختید.</string>
+	<string name="theKingIsSlow">شاه کُنده.</string>
 	<string name="kingSummary">King can move in any direction, but only by one sqaure.</string>
-	<string name="kingComplete">You can now command the commander!</string>
-	<string name="theKnight">The knight</string>
-	<string name="itMovesInAnLShape">It moves in an L shape, but only FORWARD!</string>
-	<string name="knightIntro">Here\'s another challenge for you. The knight is... a tricky piece.</string>
-	<string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
-	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
+	<string name="kingComplete">حالا شما میتوانید فرمانده را فرمانروایی کنید!</string>
+	<string name="theKnight">اسب</string>
+	<string name="itMovesInAnLShape">به صورت L حرکت میکند</string>
+	<string name="knightIntro">چالشی برای شما. اسب... مهره فریبنده ایه.</string>
+	<string name="knightsHaveAFancyWay">اسب میتواند به صورت فریبنده به اطراف بپرد!</string>
+	<string name="knightsCanJumpOverObstacles">اسب میتونه از روی مانع ها بپره!
+فرار کن و ستاره ها رو بگیر!</string>
 	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
 	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
 	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
-	<string name="knightComplete">Congratulations! You have mastered the knight.</string>
-	<string name="thePawn">The pawn</string>
-	<string name="itMovesForwardOnly">March forward!</string>
-	<string name="pawnIntro">Pawns are weak, but they pack a lot of potential.</string>
-	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
-	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
-	<string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
+	<string name="knightComplete">تبریک! شما در بازی با اسب استاد شدید.</string>
+	<string name="thePawn">پیاده</string>
+	<string name="itMovesForwardOnly">فقط به جلو حرکت میکند</string>
+	<string name="pawnIntro">پیاده ها ضعیفن، اما کوله باری از پتانسیل اند.</string>
+	<string name="pawnsMoveOneSquareOnly">پیاده ها فقط یک خونه حرکت میکنند.
+اما وقتی که به اون طرف صفحه برسند، مهره قویی میشن!</string>
+	<string name="pawnPromotion">ارتقاء پیاده</string>
+	<string name="pawnComplete">تبریک! هیچ رازی از پیاده ها بر شما پنهان نیست.</string>
 	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
 	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
 	<string name="theLance">The lance</string>
@@ -85,15 +89,15 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="silverComplete">Congratulations! You are on a roll.</string>
 	<string name="promotion">This piece can be promoted.</string>
 	<string name="yourPieceReachedThePromotionZone">Your piece reached the promotion zone!</string>
-	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
-	<string name="selectThePieceYouWant">Select the piece you want!</string>
-	<string name="fundamentals">Fundamentals</string>
-	<string name="capture">Capture</string>
-	<string name="takeTheEnemyPieces">Take the enemy pieces</string>
-	<string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
+	<string name="itNowPromotesToAStrongerPiece">حالا به یک مهره قوی تر ارتقاء میابه.</string>
+	<string name="selectThePieceYouWant">مهره ای که میخواهید را انتخاب کنید!</string>
+	<string name="fundamentals">اصول</string>
+	<string name="capture">زدن</string>
+	<string name="takeTheEnemyPieces">مهره حریف رو بزن</string>
+	<string name="captureIntro">مهره های بی دفاع حریف را شناسایی کنید، و آن ها را بزنید!</string>
 	<string name="takeTheEnemyPiecesAndDontLoseYours">Take the enemy pieces!
 And don\'t lose yours.</string>
-	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="captureComplete">تبریک! شما می دانید چگونه با مهره های شطرنج بجنگید!</string>
 	<string name="pieceDrops">Piece drops</string>
 	<string name="reuseCapturedPieces">Reuse captured pieces!</string>
 	<string name="dropIntro">Once again, capture all the opponent\'s pieces, without losing yours!</string>
@@ -101,47 +105,42 @@ And don\'t lose yours.</string>
 	<string name="dropLimitations">You cannot drop a piece on another piece or drop it where it cannot have any legal moves. Dropping a piece in promotion zone doesn\'t result in promotion.
 Take the enemy pieces!</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">You cannot have two unpromoted pawns in the same file.</string>
-	<string name="protection">Protection</string>
-	<string name="keepYourPiecesSafe">Keep your pieces safe</string>
-	<string name="protectionIntro">Identify the pieces your opponent attacks, and defend them!</string>
-	<string name="protectionComplete">Congratulations! A piece you don\'t lose is a piece you win!</string>
-	<string name="escape">You\'re under attack!
-Escape the threat!</string>
-	<string name="noEscape">There is no escape,
-but you can defend!</string>
+	<string name="protection">محافظت</string>
+	<string name="keepYourPiecesSafe">مهره های خود را امن نگه دارید</string>
+	<string name="protectionIntro">مهره هایی که حریفتان حمله میکند را شناسایی کنید، و از آن ها دفاع کنید!</string>
+	<string name="protectionComplete">تبریک! مهره ای که شما از دست ندادی مهره ای است که شما بردید!</string>
+	<string name="escape">شما مورد حمله قرار گرفتید!
+از تهدید فرار کنید!</string>
+	<string name="noEscape">هیچ راه فراری نیست،
+اما میتوانید دفاع کنید!</string>
 	<string name="makeSureAllSafe">Make sure all your pieces are safe!</string>
 	<string name="dontForgetYouCanDropToDefend">Don’t forget you can drop pieces to defend!</string>
-	<string name="dontLetThemTakeAnyUndefendedPiece">Don\'t let them take
-any undefended piece!</string>
-	<string name="combat">Combat</string>
-	<string name="captureAndDefendPieces">Capture and defend pieces</string>
-	<string name="combatIntro">A good warrior knows both attack and defence!</string>
-	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
-	<string name="checkInOne">Check in one</string>
-	<string name="attackTheOpponentsKing">Attack the opponent\'s king</string>
-	<string name="checkInOneIntro">To check your opponent, attack their king. They must defend it!</string>
-	<string name="checkInOneGoal">Aim at the opponent\'s king
-in one move!</string>
-	<string name="checkInOneComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
-	<string name="outOfCheck">Out of check</string>
-	<string name="defendYourKing">Defend your king</string>
-	<string name="outOfCheckIntro">You are in check! You must escape or block the attack.</string>
+	<string name="dontLetThemTakeAnyUndefendedPiece">بهشون اجازه نده هیچ مهره بی دفاعی رو بگیرن!</string>
+	<string name="combat">مبارزه</string>
+	<string name="captureAndDefendPieces">زدن و دفاع کردن مهره ها</string>
+	<string name="combatIntro">یه جنگجوی خوب هم حمله بلده هم دفاع!</string>
+	<string name="combatComplete">تبریک! شما بلدید چطور با مهره های شطرنج بجنگید!</string>
+	<string name="checkInOne">کیش در یک حرکت</string>
+	<string name="attackTheOpponentsKing">به شاه حریف حمله کن</string>
+	<string name="checkInOneIntro">برای کیش دادن به حریف، به شاهش حمله کن. اون باید دفاع کنه!</string>
+	<string name="checkInOneGoal">شاه حریف را در یک حرکت هدف بگیر!</string>
+	<string name="checkInOneComplete">تبریک میگم! شما حریف خود را کیش دادید و مجبور به دفاع از شاه خود!</string>
+	<string name="outOfCheck">خارج از کیش</string>
+	<string name="defendYourKing">از شاهت دفاع کن</string>
+	<string name="outOfCheckIntro">شما دارد در کیش قرار دارید و یا باید فرار و یا از حمله جلوگیری کنید.</string>
 	<string name="ifYourKingIsAttacked">If your king is attacked, you must deal with the attack.</string>
-	<string name="escapeWithTheKing">Escape with the king!</string>
-	<string name="theKingCannotEscapeButBlock">The king cannot escape,
-but you can block the attack!</string>
-	<string name="youCanGetOutOfCheckByTaking">You can get out of check
-by taking the attacking piece.</string>
+	<string name="escapeWithTheKing">فرار با شاه!</string>
+	<string name="theKingCannotEscapeButBlock">شاه نمی تواند فرار کند اما شما می توانید حمله را بلاک کنید!</string>
+	<string name="youCanGetOutOfCheckByTaking">شما می توانید با زدن مهره ای که شما را کیش کرده، از کیش خارج شوید.</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">This knight is checking
 through your defences!</string>
 	<string name="getOutOfCheck">Get out of check!</string>
 	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
-	<string name="escapeOrBlock">Escape with the king
-or block the attack!</string>
+	<string name="escapeOrBlock">یا شاهت رو فراری بده، و یا حمله رو بلاک کن!</string>
 	<string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
-	<string name="mateInOne">Mate in one</string>
-	<string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
-	<string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
+	<string name="mateInOne">مات در یک حرکت</string>
+	<string name="defeatTheOpponentsKing">شاه حریف را شکست بده</string>
+	<string name="mateInOneIntro">شما زمانی برنده می شوید که حریفتان در برابر کیش نمی تواند از خودش دفاع کند.</string>
 	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
 	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">Attack your opponent\'s king
@@ -149,13 +148,13 @@ in a way that cannot be defended!</string>
 	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
 	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
 	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
-	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
-	<string name="intermediate">Intermediate</string>
-	<string name="boardSetup">Board setup</string>
-	<string name="howTheGameStarts">How the game starts</string>
+	<string name="mateInOneComplete">تبریک میگم! این گونه شما در بازی شطرنج برنده می شوید!</string>
+	<string name="intermediate">متوسط</string>
+	<string name="boardSetup">چبدمان صفحه</string>
+	<string name="howTheGameStarts">چگونه بازی شروع می شود</string>
 	<string name="boardSetupIntro">The two armies face each other, ready for the battle.</string>
 	<string name="thisIsTheInitialPosition">This is the initial position
-of every game of shogi!
+of every game of chess!
 Make any move to continue.</string>
 	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
 	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
@@ -165,7 +164,7 @@ Make any move to continue.</string>
 	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
 	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
 	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
-	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
 	<string name="repetition">Repetition</string>
 	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
 	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
@@ -193,28 +192,26 @@ Take the most valuable piece.</string>
 	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
 	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
 	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
-	<string name="takeThePieceWithTheHighestValue">Take the piece
-with the highest value!</string>
+	<string name="takeThePieceWithTheHighestValue">با ارزش ترین مهره را بزن!</string>
 	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
-	<string name="checkInTwo">Check in two</string>
+	<string name="checkInTwo">کیس در دو حرکت</string>
 	<string name="twoMovesToGiveCheck">Two moves to give a check</string>
 	<string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent\'s king!</string>
-	<string name="checkInTwoGoal">Threaten the opponent\'s king
-in two moves!</string>
-	<string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
-	<string name="whatNext">What next?</string>
+	<string name="checkInTwoGoal">به شاه حریف در دو حرکت حمله کنید!</string>
+	<string name="checkInTwoComplete">تبریک! شما به شاه حریف کیش دادید و حریف را مجبور به دفاع از شاه خود کردید!</string>
+	<string name="whatNext">گام بعدی چیست؟</string>
 	<string name="youKnowHowToPlayShogi">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
-	<string name="register">Register</string>
-	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
-	<string name="practice">Practise</string>
+	<string name="register">نام نویسی</string>
+	<string name="getAFreeLishogiAccount">یک حساب کاربری رایگان در لیچس دریافت کنید</string>
+	<string name="practice">تمرین</string>
 	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
-	<string name="puzzles">Puzzles</string>
+	<string name="puzzles">معما</string>
 	<string name="exerciseYourTacticalSkills">Exercise your tactical skills</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="curatedShogiResources">See our curated list of shogi resources</string>
-	<string name="videos">Videos</string>
+	<string name="videos">ویدیو ها</string>
 	<string name="watchInstructiveShogiVideos">Watch instructive shogi videos</string>
-	<string name="playPeople">Play people</string>
+	<string name="playPeople">با مردم بازی کنید</string>
 	<string name="opponentsFromAroundTheWorld">Opponents from around the world</string>
 	<string name="playMachine">Play machine</string>
 	<string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
@@ -224,7 +221,7 @@ in two moves!</string>
 	<string name="excellent">Excellent!</string>
 	<string name="greatJob">Great job!</string>
 	<string name="perfect">Perfect!</string>
-	<string name="outstanding">Outstanding!</string>
+	<string name="outstanding">فوق العاده!</string>
 	<string name="wayToGo">Way to go!</string>
 	<string name="yesYesYes">Yes, yes, yes!</string>
 	<string name="youreGoodAtThis">You\'re good at this!</string>
@@ -232,8 +229,8 @@ in two moves!</string>
 	<string name="rightOn">Right on!</string>
 	<string name="stageXComplete">Stage %s complete</string>
 	<string name="yourScore">Your score</string>
-	<string name="next">Next</string>
-	<string name="backToMenu">Back to menu</string>
+	<string name="next">بعدی</string>
+	<string name="backToMenu">برگشت به منو</string>
 	<string name="puzzleFailed">Puzzle failed!</string>
-	<string name="retry">Retry</string>
+	<string name="retry">تلاش مجدد</string>
 </resources>

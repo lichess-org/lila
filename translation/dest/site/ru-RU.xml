@@ -18,6 +18,7 @@
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Пат</string>
 	<string name="impasse">Тупик</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
 	<string name="perpetualCheck">Вечный шах</string>
 	<string name="royalsLost" comment="Used in chushogi">Главные фигуры утеряны</string>
 	<string name="bareKing" comment="Used in chushogi">Голый король</string>

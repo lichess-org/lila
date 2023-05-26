@@ -18,6 +18,7 @@
 	<string name="checkmate">Mat</string>
 	<string name="stalemate">Pat</string>
 	<string name="impasse">Impas</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
 	<string name="perpetualCheck">Wieczny szach</string>
 	<string name="royalsLost" comment="Used in chushogi">Wszystkie królewskie bierki stracone</string>
 	<string name="bareKing" comment="Used in chushogi">Ogołocony król</string>
