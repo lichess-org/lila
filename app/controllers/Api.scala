@@ -153,7 +153,6 @@ final class Api(
 
   def game(id: GameId) = ApiRequest:
     GameRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
-      lila.mon.api.game.increment(1)
       gameApi.one(id, gameFlagsFromRequest(req)) map toApiResult
 
   private val CrosstableRateLimitPerIP = lila.memo.RateLimit[IpAddress](
