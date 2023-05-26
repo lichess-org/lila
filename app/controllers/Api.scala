@@ -145,15 +145,8 @@ final class Api(
       } map toApiResult
     }
 
-  private val GameRateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 100,
-    duration = 1.minute,
-    key = "game.api.one.ip"
-  )
-
   def game(id: GameId) = ApiRequest:
-    GameRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
-      gameApi.one(id, gameFlagsFromRequest(req)) map toApiResult
+    gameApi.one(id, gameFlagsFromRequest(req)) map toApiResult
 
   private val CrosstableRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 30,
