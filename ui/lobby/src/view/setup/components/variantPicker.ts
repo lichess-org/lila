@@ -13,7 +13,19 @@ export const variantPicker = (ctrl: LobbyController) => {
       'select#sf_variant',
       {
         on: {
-          change: (e: Event) => setupCtrl.variant((e.target as HTMLSelectElement).value as VariantKey),
+          change: (e: Event) => {setupCtrl.variant((e.target as HTMLSelectElement).value as VariantKey);
+if (
+        ctrl.data.ratingMap !== null &&
+        setupCtrl.selectedPerf() !== null &&
+        ctrl.data.ratingMap[setupCtrl.selectedPerf()].prov
+      ) {
+        // Check if the rating is provisional
+        if (!!ctrl.data.ratingMap[setupCtrl.selectedPerf()].prov) {
+          setupCtrl.ratingMin(-500); // Set ratingMin to -500 for provisional rating
+		   setupCtrl.ratingMax(500);
+        }
+      } 
+},
         },
         hook: onInsert<HTMLSelectElement>(element => element.focus()),
       },
