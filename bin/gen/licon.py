@@ -70,7 +70,7 @@ def dash_camel(s):
 
 
 def parse_codes():
-    unnamed_re = re.compile(r'$|Uni[a-fA-F0-9]{4}')
+    unnamed_re = re.compile(r'$|uni[a-f0-9]{4}', re.IGNORECASE)
     codes = {}
     warnings = []
     with open('lichess.sfd', 'r') as f:
@@ -78,9 +78,9 @@ def parse_codes():
         name = None
         for line in lines:
             if line.startswith('StartChar:'):
-                name = dash_camel(line.split(": ")[1].strip())
-            elif line.startswith("Encoding:") and name is not None:
-                code_point = int(line.split(" ")[1])
+                name = dash_camel(line.split(': ')[1].strip())
+            elif line.startswith('Encoding:') and name is not None:
+                code_point = int(line.split(' ')[1])
                 if code_point >= 0xe000 and code_point <= 0xefff:
                     if unnamed_re.match(name):
                         warnings.append(f'  Unnamed glyph "{name}" at code point {code_point}\n')
@@ -92,7 +92,7 @@ def parse_codes():
 
 def gen_sources(codes):
     with_type = lambda name: f'{name}: Icon'
-    longest = len(max(codes.keys(), key=lambda x: len(x))) + 6
+    longest = len(max(codes.keys(), key=len)) + 6
 
     with open('../../modules/common/src/main/Licon.scala', 'w') as scala:
         scala.write(scala_preamble)
@@ -106,10 +106,10 @@ def gen_sources(codes):
 def gen_fonts():
     [f, name] = tempfile.mkstemp(suffix='.pe', dir='.')
     os.write(f, textwrap.dedent(f"""
-        Open("lichess.sfd")
-        Generate("lichess.woff")
-        Generate("lichess.woff2")
-        Generate("lichess.ttf")
+        Open('lichess.sfd')
+        Generate('lichess.woff')
+        Generate('lichess.woff2')
+        Generate('lichess.ttf')
         Quit()
     """).encode('utf-8'))
     subprocess.run(['fontforge', '-script', name])
@@ -144,7 +144,7 @@ def find_replace_chars(names, do_replace):
                 while m is not None:
                     line = text[:m.start()].count('\n') + 1
                     report = f'  {source}:{line} '
-                    ch = m.group(2) if m.group(2)[:1] != 'e' else chr(int(m.group(2),16))
+                    ch = m.group(2) if m.group(2)[:1].lower() != 'e' else chr(int(m.group(2),16))
                     if replace and ch in names:
                         sub = f'licon.{names[ch]}'
                         text = text[:m.start()] + sub + text[m.end():]
