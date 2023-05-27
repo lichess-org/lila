@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">ابھی ابھی</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">%s ثانیہ میں</item>
+    <item quantity="other">%s ثنون میں</item>
+  </plurals>
   <string name="rightNow">ابھی ابھی</string>
+  <plurals name="nbSecondsAgo">
+    <item quantity="one">%s ثانیہ قبل</item>
+    <item quantity="other">%s ثنون قبل</item>
+  </plurals>
 </resources>
