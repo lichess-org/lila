@@ -112,7 +112,7 @@ object StudyAction:
         SetComment(p, Comment.sanitize(text))
       case Some("promote") =>
         val p          = jsObject.get[AtPosition]("d").get
-        val toMainline = (jsObject \ "d" \ "toMainLine").asOpt[Boolean].get
+        val toMainline = (jsObject \ "d" \ "toMainline").asOpt[Boolean].get
         Promote(p, toMainline)
       case Some("toggleGlyph") =>
         val p     = jsObject.get[AtPosition]("d").get
@@ -120,7 +120,7 @@ object StudyAction:
         ToggleGlyph(p, glyph)
       case Some("clearAnnotations") =>
         ClearAnnotations
-      case Some("clearVariation") =>
+      case Some("clearVariations") =>
         ClearVariations
       case _ => throw Exception(s"cannot parse $str")
 
@@ -246,6 +246,44 @@ object Fixtures:
   val pgn3 =
     "1. d4 d5 2. c4 e6 3. Nc3 Nf6 (3... Be7 { A better move, prevent 5. Bg5 } { [%csl Gf2] }) 4. cxd5 exd5 5. Bg5 Be7"
 
-  val ms  = List(m0, m1, m2, m3)
-  val ps  = List(pgn0, pgn1, pgn2, pgn3)
+  // https://lichess.org/study/Q41XcI0B/XTMYNVqi
+  val m4 = """
+{"t":"anaMove","d":{"orig":"e2","dest":"e4","fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","path":"","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"e7","dest":"e6","fen":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","path":"/?","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"d2","dest":"d4","fen":"rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","path":"/?WO","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"d7","dest":"d5","fen":"rnbqkbnr/pppp1ppp/4p3/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq - 0 2","path":"/?WO.>","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"e4","dest":"d5","fen":"rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3","path":"/?WO.>VF","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"e6","dest":"d5","fen":"rnbqkbnr/ppp2ppp/4p3/3P4/3P4/8/PPP2PPP/RNBQKBNR b KQkq - 0 3","path":"/?WO.>VF?F","ch":"XTMYNVqi"}}
+{"t":"setComment","d":{"ch":"XTMYNVqi","path":"/?WO.>VF?FOF","text":"We have French exchange, the most exciting opening ever"}}
+{"t":"toggleGlyph","d":{"id":3,"ch":"XTMYNVqi","path":"/?WO.>VF?FOF"}}
+{"t":"toggleGlyph","d":{"id":15,"ch":"XTMYNVqi","path":"/?WO.>VF?FOF"}}
+{"t":"anaMove","d":{"orig":"f1","dest":"d3","fen":"rnbqkbnr/ppp2ppp/8/3p4/3P4/8/PPP2PPP/RNBQKBNR w KQkq - 0 4","path":"/?WO.>VF?FOF","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"e4","dest":"e5","fen":"rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3","path":"/?WO.>VF","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"c7","dest":"c5","fen":"rnbqkbnr/ppp2ppp/4p3/3pP3/3P4/8/PPP2PPP/RNBQKBNR b KQkq - 0 3","path":"/?WO.>VF?G","ch":"XTMYNVqi"}}
+{"t":"setComment","d":{"ch":"XTMYNVqi","path":"/?WO.>VF?GUE","text":"French Defence: Advance Variation, another better position for Black"}}
+{"t":"shapes","d":{"path":"/?WO.>VF?GUE","shapes":[{"orig":"c5","dest":"d4","brush":"green"}],"ch":"XTMYNVqi"}}
+{"t":"shapes","d":{"path":"/?WO.>VF?GUE","shapes":[{"orig":"c5","dest":"d4","brush":"green"},{"orig":"h2","dest":"h4","brush":"green"}],"ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"b1","dest":"c3","fen":"rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3","path":"/?WO.>VF","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"d5","dest":"e4","fen":"rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3","path":"/?WO.>VF$5","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"c3","dest":"e4","fen":"rnbqkbnr/ppp2ppp/4p3/8/3Pp3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 4","path":"/?WO.>VF$5F?","ch":"XTMYNVqi"}}
+{"t":"anaMove","d":{"orig":"b8","dest":"d7","fen":"rnbqkbnr/ppp2ppp/4p3/8/3PN3/8/PPP2PPP/R1BQKBNR b KQkq - 0 4","path":"/?WO.>VF$5F?5?","ch":"XTMYNVqi"}}
+{"t":"setComment","d":{"ch":"XTMYNVqi","path":"/?WO.>VF$5F?","text":"3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is scrwed "}}
+{"t":"setComment","d":{"ch":"XTMYNVqi","path":"/?WO.>VF$5F?","text":"3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here"}}
+{"t":"anaMove","d":{"orig":"f8","dest":"b4","fen":"rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3","path":"/?WO.>VF$5","ch":"XTMYNVqi"}}
+{"t":"promote","d":{"toMainline":false,"path":"/?WO.>VF$5`<","ch":"XTMYNVqi"}}
+{"t":"promote","d":{"toMainline":true,"path":"/?WO.>VF$5F?5?\\V","ch":"XTMYNVqi"}}
+""".trim
+
+  val pgn4 =
+    "1. e4 e6 2. d4 d5 3. Nc3 (3. exd5 exd5!! $15 { We have French exchange, the most exciting opening ever } 4. Bd3) (3. e5 c5 { French Defence: Advance Variation, another better position for Black } { [%cal Gc5d4,Gh2h4] }) 3... dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } (3... Bb4) 4. Nxe4 Nd7"
+
+  val m5   = s"""$m4\n{"t":"clearAnnotations","d":"kMOZO15F"}"""
+  val pgn5 = "1. e4 e6 2. d4 d5 3. Nc3 (3. exd5 exd5 4. Bd3) (3. e5 c5) 3... dxe4 (3... Bb4) 4. Nxe4 Nd7"
+
+  val m6 = s"""$m4\n{"t":"clearVariations","d":"kMOZO15F"}"""
+  val pgn6 =
+    "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
+
+  val ms  = List(m0, m1, m2, m3, m4, m5, m6)
+  val ps  = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
   val all = ms.zip(ps)
