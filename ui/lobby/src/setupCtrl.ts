@@ -166,10 +166,26 @@ export default class SetupController {
     }
   };
   private onPropChange = () => {
-    this.enforcePropRules();
     if (this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
       this.savePropsToStoreExceptRating();
     } else {
+      this.savePropsToStore();
+    }
+    this.root.redraw();
+  };
+
+  private onVariantChange = () => {
+    // Handle rating update here
+    this.enforcePropRules();
+    if (this.root.data.ratingMap && this.selectedPerf() && this.root.data.ratingMap[this.selectedPerf()].prov) {
+      this.savePropsToStoreExceptRating();
+    } else {
+      if (this.gameType) {
+        const ratingMin = this.store[this.gameType]().ratingMin;
+        const ratingMax = this.store[this.gameType]().ratingMax;
+        this.ratingMin(ratingMin);
+        this.ratingMax(ratingMax);
+      }
       this.savePropsToStore();
     }
     this.root.redraw();
@@ -190,16 +206,6 @@ export default class SetupController {
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
     this.loadPropsFromStore(forceOptions);
-  };
-
-  private onVariantChange = () => {
-    // Handle rating update here
-    if (this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
-      this.savePropsToStoreExceptRating();
-    } else {
-      this.savePropsToStore();
-    }
-    this.root.redraw();
   };
 
   closeModal = () => {
