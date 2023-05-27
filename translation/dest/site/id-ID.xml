@@ -91,6 +91,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" dengan pembulatan, berdasarkan jumlah dari langkah setengah sampai ada langkah makan atau langkah pion</string>
   <string name="noGameFound">Permainan tidak ditemukan</string>
+  <string name="maxDepthReached">Kedalaman maksimal tercapai!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
   <string name="openings">Pembukaan</string>
   <string name="openingExplorer">Penjelajah pembukaan</string>
@@ -114,6 +115,7 @@
   <string name="memory">Memori</string>
   <string name="infiniteAnalysis">Menganalisa tanpa ada batasan</string>
   <string name="removesTheDepthLimit">Menghapus batas kedalaman, dan membuat komputer Anda hangat</string>
+  <string name="engineManager">Pengaturan komputer</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Kesalahan</string>
   <string name="inaccuracy">Ketidaktelitian</string>
@@ -817,6 +819,8 @@
   <string name="useTheReportForm">gunakan form pelaporan</string>
   <string name="toRequestSupport">Untuk meminta bantuan, %1$s</string>
   <string name="tryTheContactPage">silakan lihat laman kontak</string>
+  <string name="makeSureToRead">Pastilkan membaca %1$s</string>
+  <string name="theForumEtiquette">etika forum</string>
   <string name="thisTopicIsArchived">Topik ini sudah diarsipkan dan tidak dapat dibalas.</string>
   <string name="joinTheTeamXToPost">Gabung dengan %1$s, untuk posting di forum ini</string>
   <string name="teamNamedX">tim %1$s</string>
