@@ -156,7 +156,7 @@ export default class RacerCtrl implements PuzCtrl {
   };
 
   userMove = (orig: Key, dest: Key): void => {
-    if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
+    if (!this.promotion.start(orig, dest, { submit: this.playUserMove })) this.playUserMove(orig, dest);
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void =>

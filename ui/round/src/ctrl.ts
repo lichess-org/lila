@@ -177,17 +177,7 @@ export default class RoundController {
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
     if (!this.keyboardMove?.usedSan) ab.move(this, meta);
-    if (
-      !this.promotion.start(
-        orig,
-        dest,
-        (orig, dest, role) => this.sendMove(orig, dest, role, meta),
-        meta,
-        this.keyboardMove?.justSelected()
-      )
-    ) {
-      this.sendMove(orig, dest, undefined, meta);
-    }
+    if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
@@ -205,15 +195,19 @@ export default class RoundController {
     } else sound.move();
   };
 
-  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    this.promotion.start(
+  private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
+    return this.promotion.start(
       orig,
       dest,
-      (orig, dest, role) => this.sendMove(orig, dest, role, meta),
+      {
+        submit: (orig, dest, role) => this.sendMove(orig, dest, role, meta),
+        show: this.voiceMove?.showPromotion,
+      },
       meta,
       this.keyboardMove?.justSelected()
     );
   };
+  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => this.startPromotion(orig, dest, meta);
 
   private onCancelPremove = () => {
     this.promotion.cancelPrePromotion();
