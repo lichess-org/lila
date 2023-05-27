@@ -5,7 +5,7 @@ import cats.syntax.all.*
 import chess.{ Square, White }
 import chess.variant.Standard
 import chess.format.UciPath
-import chess.format.pgn.Tags
+import chess.format.pgn.{ Glyph, Tags }
 
 import lila.socket.AnaMove
 import java.time.Instant
@@ -17,6 +17,9 @@ import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes 
 import lila.common.Json.given
 import lila.tree.Node.Comment.Text
 import lila.user.User
+import lila.socket.AnaDrop
+import chess.format.pgn.Glyph
+import lila.socket.AnaAny
 
 val studyId      = StudyId("studyId")
 val chapterId    = StudyChapterId("chapterId")
@@ -61,9 +64,15 @@ class StudyIntegrationTest extends munit.FunSuite:
 
 enum StudyAction:
   case Move(m: AnaMove)
+  case Drop(m: AnaDrop)
   case DeleteNode(p: AtPosition)
   case SetComment(p: AtPosition, text: Text)
+  // case DeleteComment(id: String) because ids are generated, so we don't have them statically at the beginning
   case SetShapes(p: AtPosition, shapes: List[Shape])
+  case Promote(p: AtPosition, toMainline: Boolean)
+  case ToggleGlyph(p: AtPosition, glyph: Glyph)
+  case ClearVariations
+  case ClearAnnotations
 
 object StudyAction:
 
@@ -88,6 +97,9 @@ object StudyAction:
     jsObject.str("t") match
       case Some("anaMove") =>
         Move(AnaMove.parse(jsObject).get)
+      case Some("AnaDrop") =>
+        ???
+        Drop(AnaDrop.parse(jsObject).get)
       case Some("deleteNode") =>
         DeleteNode(jsObject.get[AtPosition]("d").get)
       case Some("shapes") =>
@@ -98,10 +110,22 @@ object StudyAction:
         val p    = jsObject.get[AtPosition]("d").get
         val text = (jsObject \ "d" \ "text").asOpt[String].get
         SetComment(p, Comment.sanitize(text))
+      case Some("promote") =>
+        val p          = jsObject.get[AtPosition]("d").get
+        val toMainline = (jsObject \ "d" \ "toMainLine").asOpt[Boolean].get
+        Promote(p, toMainline)
+      case Some("toggleGlyph") =>
+        val p     = jsObject.get[AtPosition]("d").get
+        val glyph = (jsObject \ "d" \ "id").asOpt[Int].flatMap(Glyph.find).get
+        ToggleGlyph(p, glyph)
+      case Some("clearAnnotations") =>
+        ClearAnnotations
+      case Some("clearVariation") =>
+        ClearVariations
       case _ => throw Exception(s"cannot parse $str")
 
   // combined of StudySocket.moveOrDrop & StudyApi.addNode
-  def addNode(chapter: Chapter, move: AnaMove): Option[Chapter] =
+  def moveOrDrop(chapter: Chapter, move: AnaAny): Option[Chapter] =
     move.branch.toOption.flatMap(b => chapter.addNode(b.withoutChildren, move.path, None))
 
   def deleteNodeAt(chapter: Chapter, position: Position.Ref) =
@@ -119,17 +143,45 @@ object StudyAction:
   def setShapes(chapter: Chapter, position: Position.Ref, shapes: Shapes) =
     chapter.setShapes(shapes, position.path)
 
+  def promote(chapter: Chapter, position: Position.Ref, toMainline: Boolean) =
+    chapter
+      .updateRoot:
+        _.withChildren: children =>
+          if toMainline then children.promoteToMainlineAt(position.path)
+          else children.promoteUpAt(position.path).map(_._1)
+
+  def toggleGlyph(chapter: Chapter, position: Position.Ref, glyph: Glyph) =
+    chapter.toggleGlyph(glyph, position.path)
+
+  def clearAnnotations(chapter: Chapter) =
+    chapter.updateRoot: root =>
+      root.withChildren: children =>
+        children.updateAllWith(_.clearAnnotations).some
+
+  def clearVariations(chapter: Chapter) =
+    chapter.copy(root = chapter.root.clearVariations).some
+
   extension (chapter: Chapter)
     def execute(action: StudyAction): Option[Chapter] =
       action match
         case StudyAction.Move(move) =>
-          addNode(chapter, move)
+          moveOrDrop(chapter, move)
+        case StudyAction.Drop(drop) =>
+          moveOrDrop(chapter, drop)
         case StudyAction.DeleteNode(pos) =>
           deleteNodeAt(chapter, pos.ref)
         case StudyAction.SetComment(pos, text) =>
           setComment(chapter, pos.ref, text)
         case StudyAction.SetShapes(pos, shapes) =>
           setShapes(chapter, pos.ref, Shapes(shapes))
+        case StudyAction.Promote(p, toMainline) =>
+          promote(chapter, p.ref, toMainline)
+        case StudyAction.ToggleGlyph(p, glyph) =>
+          toggleGlyph(chapter, p.ref, glyph)
+        case StudyAction.ClearVariations =>
+          clearVariations(chapter)
+        case StudyAction.ClearAnnotations =>
+          clearAnnotations(chapter)
 
     def execute(actions: List[StudyAction]): Option[Chapter] =
       actions.foldLeft(chapter.some): (chapter, action) =>

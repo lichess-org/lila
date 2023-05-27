@@ -31,7 +31,7 @@ class PgnImportTest extends lila.common.LilaTest:
 
   test("import pgn"):
     val x: Validated[ErrorStr, Result] = PgnImport(pgn, List(user))
-    assertMatch(x.pp) { case Validated.Valid(parsed: Result) =>
+    assertMatch(x) { case Validated.Valid(parsed: Result) =>
       parsed.tags == Tags.empty &&
       parsed.root.children.nodes.size == 3 &&
       parsed.root.ply == Ply.initial
