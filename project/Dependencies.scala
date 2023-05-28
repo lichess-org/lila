@@ -29,7 +29,7 @@ object Dependencies {
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.92.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M7" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.14.0"
+  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.15.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.10.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
