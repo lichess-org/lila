@@ -126,7 +126,7 @@ Right next to his queen.</string>
 Make any move to continue.</string>
   <string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
   <string name="castling">قلعه رفتن</string>
-  <string name="theSpecialKingMove">پادشاه ویژه حرکت می کند</string>
+  <string name="theSpecialKingMove">حرکت ویژه پادشاه</string>
   <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
   <string name="castleKingSide">Move your king two squares
 to castle king-side!</string>
@@ -189,7 +189,7 @@ Rook = 5
 Bishop = 3
 Knight = 3
 Pawn = 1</string>
-  <string name="checkInTwo">کیس در دو حرکت</string>
+  <string name="checkInTwo">کیش در دو حرکت</string>
   <string name="twoMovesToGiveCheck">Two moves to give a check</string>
   <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent\'s king!</string>
   <string name="checkInTwoGoal">به شاه حریف در دو حرکت حمله کنید!</string>
