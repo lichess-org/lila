@@ -225,8 +225,8 @@ final class ChatApi(
         }
       } inject change
 
-    private def isMod(user: User)      = lila.security.Granter(_.ChatTimeout)(user)
-    private def isRelayMod(user: User) = lila.security.Granter(_.BroadcastTimeout)(user)
+    private def isMod(user: User)      = Granter(_.ChatTimeout)(user)
+    private def isRelayMod(user: User) = Granter(_.BroadcastTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach { r =>
