@@ -14,7 +14,7 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.3.6"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.3.7"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val chess       = "org.lichess"                  %% "scalachess"                      % "14.9.4"
   val compression = "org.lichess"                  %% "compression"                     % "1.8"
@@ -70,6 +70,7 @@ object Dependencies {
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
     val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
+    val mailer      = "com.typesafe.play" %% "play-mailer"       % "9.0.0-M1"
   }
 
   object playWs {
