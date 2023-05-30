@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
+import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { player as renderPlayer } from './util';
 import { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
@@ -15,7 +16,7 @@ function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) 
       player.berserk
         ? h('i', {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.Berserk,
               title: 'Berserk',
             },
           })

@@ -66,11 +66,13 @@ object list:
                     case None =>
                       if (r.done.isDefined)
                         postForm(action := reportRoutes.inquiry(r.id), cls := "reopen")(
-                          submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
+                          submitButton(dataIcon := licon.PlayTriangle, cls := "text button button-metal")(
+                            "Reopen"
+                          )
                         )
                       else
                         postForm(action := reportRoutes.inquiry(r.id), cls := "inquiry")(
-                          submitButton(dataIcon := "", cls := "button button-metal")
+                          submitButton(dataIcon := licon.PlayTriangle, cls := "button button-metal")
                         )
                     case Some(inquiry) =>
                       frag(

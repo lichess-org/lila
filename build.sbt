@@ -378,7 +378,7 @@ lazy val irc = module("irc",
 
 lazy val mailer = module("mailer",
   Seq(user),
-  reactivemongo.bundle ++ Seq(scalatags, hasher)
+  reactivemongo.bundle ++ Seq(scalatags, hasher, play.mailer)
 )
 
 lazy val plan = module("plan",

@@ -47,7 +47,7 @@ object communication:
                 cls  := "button button-empty mod-zone-toggle",
                 href := routes.User.mod(u.username),
                 titleOrText("Mod zone (Hotkey: m)"),
-                dataIcon := ""
+                dataIcon := licon.Agent
               ),
               isGranted(_.ViewPrivateComms) option {
                 if (priv)
@@ -199,4 +199,5 @@ object communication:
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
 
-  private def showSbMark(u: User) = u.marks.troll option span(cls := "user_marks")(iconTag(""))
+  private def showSbMark(u: User) =
+    u.marks.troll option span(cls := "user_marks")(iconTag(licon.BubbleSpeech))

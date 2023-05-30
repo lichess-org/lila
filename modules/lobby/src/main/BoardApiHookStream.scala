@@ -16,40 +16,37 @@ final class BoardApiHookStream(
     Source.queue[Option[JsObject]](16, akka.stream.OverflowStrategy.dropHead)
 
   def apply(hook: Hook): Source[Option[JsObject], ?] =
-    blueprint mapMaterializedValue { queue =>
+    blueprint.mapMaterializedValue: queue =>
       val actor = system.actorOf(Props(mkActor(hook, queue)))
       queue.watchCompletion().addEffectAnyway {
         actor ! PoisonPill
       }
-    }
 
-  private def mkActor(hook: Hook, queue: SourceQueueWithComplete[Option[JsObject]]) =
-    new Actor:
+  private def mkActor(hook: Hook, queue: SourceQueueWithComplete[Option[JsObject]]): Actor = new:
 
-      val classifiers = List(s"hookRemove:${hook.id}")
+    val classifiers = List(s"hookRemove:${hook.id}")
 
-      override def preStart(): Unit =
-        super.preStart()
-        Bus.subscribe(self, classifiers)
-        trouper ! actorApi.AddHook(hook)
+    override def preStart(): Unit =
+      super.preStart()
+      Bus.subscribe(self, classifiers)
+      trouper ! actorApi.AddHook(hook)
 
-      override def postStop() =
-        super.postStop()
-        Bus.unsubscribe(self, classifiers)
-        trouper ! actorApi.CancelHook(hook.sri)
-        queue.complete()
+    override def postStop() =
+      super.postStop()
+      Bus.unsubscribe(self, classifiers)
+      trouper ! actorApi.CancelHook(hook.sri)
+      queue.complete()
 
-      self ! SetOnline
+    self ! SetOnline
 
-      def receive =
+    def receive =
 
-        case actorApi.RemoveHook(_) => self ! PoisonPill
+      case actorApi.RemoveHook(_) => self ! PoisonPill
 
-        case SetOnline =>
-          context.system.scheduler
-            .scheduleOnce(3 second) {
-              // gotta send a message to check if the client has disconnected
-              queue offer None
-              self ! SetOnline
-            }
-            .unit
+      case SetOnline =>
+        context.system.scheduler
+          .scheduleOnce(3 second):
+            // gotta send a message to check if the client has disconnected
+            queue offer None
+            self ! SetOnline
+          .unit

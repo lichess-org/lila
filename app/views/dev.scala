@@ -28,7 +28,7 @@ object dev:
                 case Some(v: Boolean) => div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
                 case v                => input(name := "v", value := v.map(_.toString))
               },
-              submitButton(cls := "button button-empty", dataIcon := "")
+              submitButton(cls := "button button-empty", dataIcon := licon.Checkmark)
             )
           }
         )
@@ -70,6 +70,7 @@ announce cancel
 change asset version
 fishnet client create {username}
 gdpr erase {username} forever
+msg multi {sender} {recipient1,recipient2} {message}
 patron lifetime {username}
 patron month {username}
 patron remove {username}

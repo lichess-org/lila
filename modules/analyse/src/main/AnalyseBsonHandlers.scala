@@ -12,7 +12,7 @@ object AnalyseBsonHandlers:
       val startPly = Ply(r intD "ply")
       val raw      = r str "data"
       Analysis(
-        id = r str "_id",
+        id = r.get[Analysis.Id]("_id"),
         studyId = r.getO[StudyId]("studyId"),
         infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
         startPly = startPly,

@@ -1,5 +1,7 @@
 package lila.swiss
 
+import cats.syntax.all.*
+
 import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
 
@@ -94,27 +96,21 @@ final class SwissTrf(
   val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
   def fetchPlayerIds(swiss: Swiss): Fu[PlayerIds] =
-    SwissPlayer
-      .fields { p =>
-        mongo.player
-          .aggregateOne() { framework =>
-            import framework.*
-            Match($doc(p.swissId -> swiss.id)) -> List(
-              Sort(Descending(p.rating)),
-              Group(BSONNull)("us" -> PushField(p.userId))
-            )
-          }
-          .map {
-            ~_.flatMap(_.getAsOpt[List[UserId]]("us"))
-          }
-          .map {
-            _.view.zipWithIndex
-              .map { (userId, index) =>
-                (userId, index + 1)
-              }
-              .toMap
-          }
-      }
+    SwissPlayer.fields: p =>
+      mongo.player
+        .aggregateOne() { framework =>
+          import framework.*
+          Match($doc(p.swissId -> swiss.id)) -> List(
+            Sort(Descending(p.rating)),
+            Group(BSONNull)("us" -> PushField(p.userId))
+          )
+        }
+        .map:
+          ~_.flatMap(_.getAsOpt[List[UserId]]("us"))
+        .map:
+          _.mapWithIndex: (userId, index) =>
+            (userId, index + 1)
+          .toMap
 
   private def forbiddenPairings(swiss: Swiss, playerIds: PlayerIds): Source[String, ?] =
     if (swiss.settings.forbiddenPairings.isEmpty) Source.empty[String]

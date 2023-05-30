@@ -47,7 +47,7 @@ object blog:
                     cls      := "atom",
                     st.title := "Atom RSS feed",
                     href     := routes.Ublog.userAtom(user.username),
-                    dataIcon := ""
+                    dataIcon := licon.RssFeed
                   )
                 )
             )
@@ -73,7 +73,7 @@ object blog:
   private def tierForm(blog: UblogBlog) = postForm(action := routes.Ublog.setTier(blog.id.full)) {
     val form = lila.ublog.UblogForm.tier.fill(blog.tier)
     frag(
-      span(dataIcon := "", cls := "text")("Set to:"),
+      span(dataIcon := licon.Agent, cls := "text")("Set to:"),
       form3.select(form("tier"), lila.ublog.UblogBlog.Tier.options)
     )
   }

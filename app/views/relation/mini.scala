@@ -20,7 +20,7 @@ object mini:
         val isLong = name.sizeIs > 8
         a(
           cls      := s"btn-rack__btn relation-button${!isLong ?? " text"}",
-          dataIcon := "",
+          dataIcon := licon.ThumbsUp,
           href     := s"${routes.Relation.follow(userId)}?mini=1",
           title    := isLong option name
         )(!isLong option name)
@@ -29,13 +29,13 @@ object mini:
           cls      := "btn-rack__btn relation-button text",
           title    := trans.unfollow.txt(),
           href     := s"${routes.Relation.unfollow(userId)}?mini=1",
-          dataIcon := ""
+          dataIcon := licon.ThumbsUp
         )(trans.following())
       case Some(false) =>
         a(
           cls      := "btn-rack__btn relation-button text",
           title    := trans.unblock.txt(),
           href     := s"${routes.Relation.unblock(userId)}?mini=1",
-          dataIcon := ""
+          dataIcon := licon.NotAllowed
         )(trans.blocked())
       case _ => emptyFrag

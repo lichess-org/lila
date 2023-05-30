@@ -1,5 +1,6 @@
 package lila.swiss
 
+import cats.syntax.all.*
 import chess.Clock.{ LimitSeconds, IncrementSeconds }
 
 import lila.db.dsl.{ *, given }
@@ -44,8 +45,8 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
 
   def generate: Funit =
     val dayStart = nowInstant.plusDays(3).withTimeAtStartOfDay
-    daySchedule.zipWithIndex
-      .map { (config, position) =>
+    daySchedule
+      .mapWithIndex { (config, position) =>
         val hour    = position / 2
         val minute  = (position % 2) * 30
         val startAt = dayStart plusHours hour plusMinutes minute

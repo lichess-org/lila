@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import { bind, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, thunk, VNode } from 'snabbdom';
@@ -150,7 +151,7 @@ export function side(ctrl: StudyCtrl): VNode {
               [
                 h('span.status.' + completion, {
                   attrs: {
-                    'data-icon': (loading || active) && completion === 'ongoing' ? '' : '',
+                    'data-icon': (loading || active) && completion === 'ongoing' ? licon.PlayTriangle : licon.Checkmark,
                   },
                 }),
                 h('h3', chapter.name),
@@ -163,7 +164,7 @@ export function side(ctrl: StudyCtrl): VNode {
     h('div.finally', [
       h('a.back', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.LessThan,
           href: '/practice',
           title: 'More practice',
         },

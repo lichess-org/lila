@@ -6,6 +6,7 @@ import chess.format.{ pgn as chessPgn }
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
+import lila.analyse.Analysis
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -23,7 +24,7 @@ final class PgnDump(
       .mapAsync(1)(ofChapter(study, flags))
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
+    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id into Analysis.Id) map { analysis =>
       val pgn = Pgn(
         tags = makeTags(study, chapter)(using flags),
         turns = toTurns(chapter.root)(using flags).toList,

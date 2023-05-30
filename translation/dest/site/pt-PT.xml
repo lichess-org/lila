@@ -120,6 +120,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o teu computador quente</string>
+  <string name="engineManager">Gestão do motor</string>
   <string name="blunder">Erro grave</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>

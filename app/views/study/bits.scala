@@ -28,7 +28,11 @@ object bits:
 
   def newForm()(using Context) =
     postForm(cls := "new-study", action := routes.Study.create)(
-      submitButton(cls := "button button-green", dataIcon := "", title := trans.study.createStudy.txt())
+      submitButton(
+        cls      := "button button-green",
+        dataIcon := licon.PlusButton,
+        title    := trans.study.createStudy.txt()
+      )
     )
 
   def authLinks(active: String, order: Order)(using Context) =
@@ -48,15 +52,15 @@ object bits:
   def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: Context) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
-      div(cls := "top", dataIcon := "")(
+      div(cls := "top", dataIcon := licon.StudyBoard)(
         div(
           tag(cls := "study-name")(s.study.name),
           span(
             !s.study.isPublic option frag(
-              iconTag("")(cls := "private", ariaTitle(trans.study.`private`.txt())),
+              iconTag(licon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
               " "
             ),
-            iconTag(if (s.liked) "" else ""),
+            iconTag(if (s.liked) licon.Heart else licon.HeartOutline),
             " ",
             s.study.likes.value,
             " • ",
@@ -69,7 +73,7 @@ object bits:
       div(cls := "body")(
         ol(cls := "chapters")(
           s.chapters.map { name =>
-            li(cls := "text", dataIcon := "")(
+            li(cls := "text", dataIcon := licon.DiscBigOutline)(
               if (ctx.userId.exists(s.study.isMember)) name
               else removeMultibyteSymbols(name.value)
             )
@@ -79,7 +83,9 @@ object bits:
           s.study.members.members.values
             .take(Study.previewNbMembers)
             .map { m =>
-              li(cls := "text", dataIcon := (if (m.canContribute) "" else ""))(titleNameOrId(m.id))
+              li(cls := "text", dataIcon := (if (m.canContribute) licon.RadioTower else licon.Eye))(
+                titleNameOrId(m.id)
+              )
             }
             .toList
         )

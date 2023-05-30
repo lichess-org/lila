@@ -3,7 +3,7 @@ package userTournament
 
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.user.User
 
@@ -30,10 +30,10 @@ object upcoming:
             tbody(
               pager.currentPageResults.map { t =>
                 tr(
-                  td(cls := "icon")(iconTag(tournamentIconChar(t))),
+                  td(cls := "icon")(iconTag(tournamentIcon(t))),
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
-                  td(cls := "text", dataIcon := "")(t.nbPlayers.localize)
+                  td(cls := "text", dataIcon := licon.User)(t.nbPlayers.localize)
                 )
               }
             )

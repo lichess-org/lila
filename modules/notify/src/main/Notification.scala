@@ -6,6 +6,7 @@ import alleycats.Zero
 
 import lila.common.paginator.Paginator
 import lila.notify.Notification.*
+import lila.common.licon
 
 sealed abstract class NotificationContent(val key: String)
 
@@ -72,7 +73,7 @@ case class GenericLink(
     url: String,
     title: Option[String],
     text: Option[String],
-    icon: String
+    icon: licon.Icon
 ) extends NotificationContent("genericLink")
 
 case class PushNotification(

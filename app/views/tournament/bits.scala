@@ -29,7 +29,7 @@ object bits:
       tours map { tour =>
         tr(
           td(cls := "name")(
-            a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(
+            a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id))(
               tour.name(full = false)
             )
           ),
@@ -37,7 +37,7 @@ object bits:
             td(momentFromNow(s.at.instant))
           },
           td(tour.durationString),
-          td(dataIcon := "", cls := "text")(tour.nbPlayers)
+          td(dataIcon := licon.User, cls := "text")(tour.nbPlayers)
         )
       }
     )

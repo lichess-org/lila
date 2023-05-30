@@ -8,5 +8,6 @@
     "declaration": true,
     "composite": true
   },
-  "isolatedModules": true
+  "isolatedModules": true,
+  "references": [{ "path": "../common/tsconfig.json" }]
 }

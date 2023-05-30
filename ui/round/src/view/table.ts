@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import { h } from 'snabbdom';
 import { Position, MaybeVNodes } from '../interfaces';
 import * as game from 'game';
@@ -47,11 +48,11 @@ export const renderTablePlay = (ctrl: RoundController) => {
         ? []
         : [
             game.abortable(d)
-              ? button.standard(ctrl, undefined, '', 'abortGame', 'abort')
+              ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
               : button.standard(
                   ctrl,
                   d => ({ enabled: game.takebackable(d) }),
-                  '',
+                  licon.Back,
                   'proposeATakeback',
                   'takeback-yes',
                   ctrl.takebackYes
@@ -79,7 +80,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
               : button.standard(
                   ctrl,
                   d => ({ enabled: game.resignable(d) }),
-                  '',
+                  licon.FlagOutline,
                   'resign',
                   'resign',
                   () => ctrl.resign(true)

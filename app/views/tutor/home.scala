@@ -56,7 +56,7 @@ object home:
       dataHref := routes.Tutor.perf(user.username, perfReport.perf.key)
     )(
       div(cls := "tutor-card__top")(
-        iconTag(perfReport.perf.iconChar),
+        iconTag(perfReport.perf.icon),
         div(cls := "tutor-card__top__title")(
           h3(cls := "tutor-card__top__title__text")(
             perfReport.stats.totalNbGames.localize,

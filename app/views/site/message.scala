@@ -7,13 +7,14 @@ import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
+import lila.common.licon
 
 object message:
 
   def apply(
       title: String,
       back: Option[String] = None,
-      icon: Option[String] = None,
+      icon: Option[licon.Icon] = None,
       moreCss: Option[Frag] = None
   )(message: Modifier*)(using Context) =
     views.html.base.layout(title = title, moreCss = ~moreCss):
@@ -21,7 +22,7 @@ object message:
         boxTop(
           h1(dataIcon := icon ifTrue back.isEmpty, cls := List("text" -> (icon.isDefined && back.isEmpty)))(
             back map { url =>
-              a(href := url, dataIcon := "", cls := "text")
+              a(href := url, dataIcon := licon.LessThan, cls := "text")
             },
             title
           )

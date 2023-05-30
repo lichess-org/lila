@@ -6,7 +6,7 @@
   "license": "AGPL-3.0-or-later",
   "type": "commonjs",
   "dependencies": {
-    "esbuild": "^0.16.9",
+    "esbuild": "^0.17.19",
     "fast-glob": "^3.2.12"
   },
   "scripts": {
