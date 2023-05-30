@@ -37,7 +37,7 @@ final class ApiMoveStream(
               val clocks = for
                 clk        <- game.clock
                 clkHistory <- game.clockHistory
-              yield (
+              yield ByColor(
                 Vector(clk.config.initTime) ++ clkHistory.white,
                 Vector(clk.config.initTime) ++ clkHistory.black
               )
@@ -45,9 +45,9 @@ final class ApiMoveStream(
               Replay.situations(game.sans, initialFen, game.variant) foreach {
                 _.zipWithIndex.foreach: (s, index) =>
                   val clk = for
-                    (clkWhite, clkBlack) <- clocks
-                    white                <- clkWhite.lift((index + 1 - clockOffset) >> 1)
-                    black                <- clkBlack.lift((index + clockOffset) >> 1)
+                    c     <- clocks
+                    white <- c.white.lift((index + 1 - clockOffset) >> 1)
+                    black <- c.black.lift((index + clockOffset) >> 1)
                   yield ByColor(white, black)
                   queue offer toJson(
                     Fen write s,
