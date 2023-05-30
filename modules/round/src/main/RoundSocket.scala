@@ -78,42 +78,38 @@ final class RoundSocket(
       version = version
     )(using ec, proxy)
     terminationDelay schedule id
-    gameFu dforeach {
-      _ foreach { game =>
+    gameFu.dforeach:
+      _.foreach: game =>
         scheduleExpiration(game)
-        goneWeightsFor(game) dforeach { w =>
+        goneWeightsFor(game).dforeach: w =>
           roundActor ! RoundAsyncActor.SetGameInfo(game, w)
-        }
-      }
-    }
     roundActor
 
   private val roundHandler: Handler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
       rounds.tell(Game fullToId fullId, HumanPlay(Game takePlayerId fullId, uci, blur, lag, none))
     case Protocol.In.PlayerDo(fullId, tpe) if !stopping =>
+      def forward(f: GamePlayerId => Any) = rounds.tell(Game fullToId fullId, f(Game takePlayerId fullId))
       tpe match
-        case "moretime"     => rounds.tell(Game fullToId fullId, Moretime(Game takePlayerId fullId))
-        case "rematch-yes"  => rounds.tell(Game fullToId fullId, RematchYes(Game takePlayerId fullId))
-        case "rematch-no"   => rounds.tell(Game fullToId fullId, RematchNo(Game takePlayerId fullId))
-        case "takeback-yes" => rounds.tell(Game fullToId fullId, TakebackYes(Game takePlayerId fullId))
-        case "takeback-no"  => rounds.tell(Game fullToId fullId, TakebackNo(Game takePlayerId fullId))
-        case "draw-yes"     => rounds.tell(Game fullToId fullId, DrawYes(Game takePlayerId fullId))
-        case "draw-no"      => rounds.tell(Game fullToId fullId, DrawNo(Game takePlayerId fullId))
-        case "draw-claim"   => rounds.tell(Game fullToId fullId, DrawClaim(Game takePlayerId fullId))
-        case "resign"       => rounds.tell(Game fullToId fullId, Resign(Game takePlayerId fullId))
-        case "resign-force" => rounds.tell(Game fullToId fullId, ResignForce(Game takePlayerId fullId))
-        case "draw-force"   => rounds.tell(Game fullToId fullId, DrawForce(Game takePlayerId fullId))
-        case "abort"        => rounds.tell(Game fullToId fullId, Abort(Game takePlayerId fullId))
-        case "outoftime"    => rounds.tell(Game fullToId fullId, QuietFlag) // mobile app BC
+        case "moretime"     => forward(Moretime(_))
+        case "rematch-yes"  => forward(RematchYes(_))
+        case "rematch-no"   => forward(RematchNo(_))
+        case "takeback-yes" => forward(TakebackYes(_))
+        case "takeback-no"  => forward(TakebackNo(_))
+        case "draw-yes"     => forward(DrawYes(_))
+        case "draw-no"      => forward(DrawNo(_))
+        case "draw-claim"   => forward(DrawClaim(_))
+        case "resign"       => forward(Resign(_))
+        case "resign-force" => forward(ResignForce(_))
+        case "draw-force"   => forward(DrawForce(_))
+        case "abort"        => forward(Abort(_))
+        case "outoftime"    => forward(_ => QuietFlag) // mobile app BC
         case t              => logger.warn(s"Unhandled round socket message: $t")
     case Protocol.In.Flag(gameId, color, fromPlayerId) => rounds.tell(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
-      gameIfPresent(id) foreach {
-        _ foreach {
+      gameIfPresent(id).foreach:
+        _.foreach:
           messenger.owner(_, color, msg).unit
-        }
-      }
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
       messenger.owner(id, userId, msg).unit
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
