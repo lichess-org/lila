@@ -12,7 +12,7 @@ import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.common.Json.given
 import lila.game.{ Event, Game, Pov }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
-import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
+import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Get, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
@@ -136,6 +136,7 @@ final class RoundSocket(
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
     case P.In.Ping(id)                 => send(P.Out.pong(id))
+    case Protocol.In.Get(id, sri)      => rounds.tell(id, Get(sri))
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -300,7 +301,8 @@ object RoundSocket:
       case class Berserk(gameId: GameId, userId: UserId)                                          extends P.In
       case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
-      case class WsLatency(millis: Int) extends P.In
+      case class WsLatency(millis: Int)       extends P.In
+      case class Get(id: GameId, sri: String) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match
@@ -348,23 +350,26 @@ object RoundSocket:
           case "r/bye" => Bye(GameFullId(raw.args)).some
           case "r/hold" =>
             raw.get(4) { case Array(fullId, ip, meanS, sdS) =>
-              for {
+              for
                 mean <- meanS.toIntOption
                 sd   <- sdS.toIntOption
                 ip   <- IpAddress.from(ip)
-              } yield HoldAlert(GameFullId(fullId), ip, mean, sd)
+              yield HoldAlert(GameFullId(fullId), ip, mean, sd)
             }
           case "r/report" =>
             raw.get(4) { case Array(fullId, ip, user, name) =>
-              IpAddress.from(ip) map { ip =>
+              IpAddress.from(ip).map { ip =>
                 SelfReport(GameFullId(fullId), ip, UserId from P.In.optional(user), name)
               }
             }
           case "r/flag" =>
             raw.get(3) { case Array(gameId, color, playerId) =>
-              readColor(color) map {
+              readColor(color).map:
                 Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
-              }
+            }
+          case "r/get" =>
+            raw.get(2) { case Array(gameId, sri) =>
+              Get(GameId(gameId), sri).some
             }
           case "r/latency" => raw.args.toIntOption map WsLatency.apply
           case _           => RP.In.reader(raw)
