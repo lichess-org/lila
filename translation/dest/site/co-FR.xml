@@ -718,6 +718,7 @@
   <string name="light">Lume</string>
   <string name="dark">Bughju</string>
   <string name="transparent">Diafanu</string>
+  <string name="deviceTheme">Tema dispusitivu</string>
   <string name="backgroundImageUrl">URL di a fiura di u fondu:</string>
   <string name="boardGeometry">Geumetria di a scacchera</string>
   <string name="boardTheme">Aspettu di a scacchera</string>

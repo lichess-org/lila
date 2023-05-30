@@ -210,7 +210,7 @@
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="error.weakPassword">Bu parola çok yaygın, ve tahmin etmesi çok kolay.</string>
   <string name="error.namePassword">Lütfen kullanıcı adınızı parolanız olarak kullanmayın.</string>
-  <string name="blankedPassword">Aynı şifreyi başka bir sitede kullanmışsıniz, ve o sitenin güvenliği ihlal edildi. Lichess hesabınızın güvenliğini sağlayabilmek için yeni bir şifre seçmeniz gerekiyor. Anlayışınız için teşekkürler.</string>
+  <string name="blankedPassword">Şifreniz güvenlik açığı yaşanan başka bir sitede kullanılmış. Lichess hesabınızı güvende tutmak için yeni bir şifre seçmeniz gerekiyor. Anlayışınız için teşekkürler.</string>
   <string name="youAreLeavingLichess">Lichess\'ten ayrılıyorsunuz</string>
   <string name="neverTypeYourPassword">Lichess parolanızı asla başka bir site içerisinde yazmayın!</string>
   <string name="proceedToX">%s adresine devam et</string>
@@ -343,7 +343,7 @@
   </plurals>
   <string name="viewTournament">Turnuvaya göz at</string>
   <string name="backToTournament">Turnuvaya geri dön</string>
-  <string name="noDrawBeforeSwissLimit">Bir İsviçre sistemi turnuvasında 30 hamle oynanmadan berabere yapamazsınız.</string>
+  <string name="noDrawBeforeSwissLimit">Bir İsviçre sistemi turnuvasında 30 hamle oynanmadan beraberlik teklif edemezsiniz.</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s dereceli maç</item>
