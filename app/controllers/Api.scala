@@ -164,7 +164,6 @@ final class Api(
           toApiResult:
             lila.game.JsonView.crosstable(ct, matchup).some
         }
-      }
 
   def currentTournaments = ApiRequest:
     given Lang = reqLang
