@@ -124,6 +124,7 @@
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Знімає обмеження на глибину аналізу - ваш комп’ютер стане теплішим</string>
+  <string name="engineManager">Менеджер рушія</string>
   <string name="blunder">Груба помилка</string>
   <string name="mistake">Помилка</string>
   <string name="inaccuracy">Неточність</string>
@@ -165,6 +166,12 @@
     <item quantity="few">%s гри</item>
     <item quantity="many">%s ігор</item>
     <item quantity="other">%s ігор</item>
+  </plurals>
+  <plurals name="ratingXOverYGames" comment="Hover tooltip explaining over how many games a displayed rating was calculated (i.e. how many games in total the user played in the time control or variant).&#10;&#10;%1$s is a time control or variant e.g. &quot;Blitz&quot; or &quot;Antichess&quot;&#10;%2$s is the number of games played in that time control or variant">
+    <item quantity="one">Рейтинг %1$s за %2$s партію</item>
+    <item quantity="few">Рейтинг %1$s за %2$s партії</item>
+    <item quantity="many">Рейтинг %1$s за %2$s партій</item>
+    <item quantity="other">Рейтинг %1$s за %2$s партій</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s закладка</item>
