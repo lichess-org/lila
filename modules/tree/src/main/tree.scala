@@ -11,7 +11,6 @@ import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
-
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
 //opaque type not working due to cyclic ref try again later
@@ -468,19 +467,6 @@ object Node:
         hint = trimOrNone(hint)
       )
     def nonEmpty = deviation.nonEmpty || hint.nonEmpty
-
-  // TODO copied from lila.game
-  // put all that shit somewhere else
-  private given OWrites[Crazyhouse.Pocket] = OWrites { v =>
-    JsObject(
-      v.values.collect {
-        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
-      }
-    )
-  }
-  private given OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
-  }
 
   given OWrites[chess.opening.Opening] = OWrites { o =>
     Json.obj(
