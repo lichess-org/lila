@@ -198,7 +198,7 @@ final class ChatApi(
           line foreach { l =>
             publish(chat.id, ChatLine(chat.id, l), busChan)
           }
-          if (Granter(_.ChatTimeout)(mod))
+          if (isMod(mod) || isRelayMod(mod))
             lila.common.Bus.publish(
               lila.hub.actorApi.mod.ChatTimeout(
                 mod = mod.id,
