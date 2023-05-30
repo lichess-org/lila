@@ -100,7 +100,7 @@ export default class SetupController {
   private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
-    this.variant = this.propWithApplyVariant(forceOptions?.variant || storeProps.variant);
+    this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onVariantChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
     this.timeMode = this.propWithApply(forceOptions?.timeMode || storeProps.timeMode);
     this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
@@ -147,6 +147,7 @@ export default class SetupController {
       ratingMax: this.ratingMax(),
       aiLevel: this.aiLevel(),
     });
+
   private savePropsToStoreExceptRating = () => {
     if (this.gameType && this.store[this.gameType]) {
       const ratingMin = this.store[this.gameType]().ratingMin;
@@ -166,11 +167,9 @@ export default class SetupController {
     }
   };
   private onPropChange = () => {
-    if (this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
+    if (this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov)
       this.savePropsToStoreExceptRating();
-    } else {
-      this.savePropsToStore();
-    }
+    else this.savePropsToStore();
     this.root.redraw();
   };
 
@@ -192,11 +191,6 @@ export default class SetupController {
   };
 
   private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
-
-  private propWithApplyVariant = <A>(value: A) => {
-    const prop = propWithEffect(value, this.onVariantChange);
-    return prop;
-  };
 
   openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
     this.root.leavePool();
