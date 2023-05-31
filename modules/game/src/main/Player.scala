@@ -34,7 +34,7 @@ case class Player(
 
   def hasUser = userId.isDefined
 
-  def isUser(u: User) = userId.fold(false)(_ == u.id)
+  def isUser[U: UserIdOf](u: U) = userId.fold(false)(_ is u)
 
   def userInfos: Option[Player.UserInfo] =
     (userId, rating) mapN { (id, ra) =>

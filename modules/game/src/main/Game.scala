@@ -56,7 +56,7 @@ case class Game(
   def player(playerId: GamePlayerId): Option[Player] =
     players.find(_.id == playerId)
 
-  def player(user: User): Option[Player] =
+  def player[U: UserIdOf](user: U): Option[Player] =
     players.find(_ isUser user)
 
   def player(c: Color.type => Color): Player = player(c(Color))

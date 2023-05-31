@@ -181,14 +181,8 @@ final private[round] class RoundAsyncActor(
               "analysisProgress",
               Json.obj(
                 "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
-                "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
-                  TreeBuilder(
-                    a.game,
-                    a.analysis.some,
-                    a.initialFen,
-                    JsonView.WithFlags()
-                  )
-                }
+                "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
+                  TreeBuilder(a.game, a.analysis.some, a.initialFen, JsonView.WithFlags())
               )
             )
           )
@@ -511,5 +505,6 @@ object RoundAsyncActor:
       val player: Player,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
-      val isSimulHost: IsSimulHost
+      val isSimulHost: IsSimulHost,
+      val jsonView: JsonView
   )
