@@ -7,7 +7,6 @@
   flex: 0 0 48px;
   height: 48px;
 
-  &.enabled .show-threat,
   &.enabled .config-engine {
     visibility: visible;
   }
@@ -108,30 +107,9 @@
     animation: bar-anim 1000s linear infinite;
   }
 
-  .show-threat {
-    flex: 0 0 auto;
-    color: $c-font-dim;
-    font-size: 0.9em;
-    padding: 0 0.5em;
-    overflow: hidden;
-    visibility: hidden;
-    display: flex;
-    align-items: center;
-
-    &:hover:not(.hidden),
-    &.active {
-      color: $c-red;
-    }
-
-    &.hidden {
-      opacity: 0.3;
-      cursor: default;
-    }
-  }
-
   .config-engine {
     flex: 0 0 2.5em;
-    margin: -4px 0;
+    margin: -4px 0 -4px 1%;
     visibility: hidden;
   }
 

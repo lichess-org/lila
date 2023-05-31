@@ -106,22 +106,6 @@ function shortThreatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): str
   return ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
 }
 
-function threatButton(ctrl: ParentCtrl): VNode | null {
-  const ceval = ctrl.getCeval();
-  return h('a.show-threat', {
-    class: {
-      active: ceval.threatMode(),
-      hidden: !!ctrl.getNode().check || ctrl.disableThreatMode(),
-    },
-    attrs: {
-      tabindex: 0,
-      'data-icon': licon.Target,
-      title: ctrl.trans.noarg('showThreat') + ' (x)',
-    },
-    hook: bind('click', ceval.toggleThreatMode),
-  });
-}
-
 const serverNodes = 4e6;
 
 export function getBestEval(ctrl: CevalCtrl | undefined, evs: NodeEvals): Eval | undefined {
@@ -327,7 +311,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         computing: percent < 100 && instance.getState() === CevalState.Computing,
       },
     },
-    [progressBar, pearlNode, renderEngineSelect('select.engine-choice', ctrl), threatButton(ctrl), configButton, config]
+    [progressBar, pearlNode, renderEngineSelect('select.engine-choice', ctrl), configButton, config]
   );
 }
 
@@ -356,7 +340,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
     .closest('div.pv')
     .children()
     .filter('span.pv-san')
-    .each(function () {
+    .each(function (this: HTMLElement) {
       pvMoves.push($(this).attr('data-board'));
     });
 
@@ -625,6 +609,16 @@ export function renderEngineConfig(ctrl: ParentCtrl): Array<VNode | undefined> {
           checked: ceval.infinite(),
           change: ceval.cevalSetInfinite,
         }),
+    type === 'local'
+      ? ctrlToggle(ctrl, {
+          name: 'showThreat',
+          title: 'Hotkey: x',
+          id: `showThreat-${ctrl.getNode().ply}-${ctrl.getNode().uci}`, // full redraw on node change
+          checked: ceval.threatMode(),
+          change: ceval.toggleThreatMode,
+          disabled: !!ctrl.getNode().check || ctrl.disableThreatMode(),
+        })
+      : undefined,
     type.startsWith('external-') || type === 'server'
       ? undefined
       : ctrlToggle(ctrl, {

@@ -8,7 +8,7 @@ import { parseFen } from 'chessops/fen';
 import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, toggle } from 'common';
+import { defined, prop, toggle } from 'common';
 import { Result } from '@badrap/result';
 import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
 import { Rules } from 'chessops';
@@ -466,9 +466,9 @@ export default class CevalCtrl {
     }
   });
 
-  toggleThreatMode = () => {
+  toggleThreatMode = (v?: boolean) => {
     if (this.opts.getNode().check) return;
-    this.threatMode(!this.threatMode());
+    this.threatMode(defined(v) ? v : !this.threatMode());
     if (this.threatMode()) {
       if (!this.enabled() || this.getEngineType() === 'server') this.setEngineType(this.initialEngineType ?? 'local');
       if (this.opts.getPractice?.()) this.opts.togglePractice?.();
