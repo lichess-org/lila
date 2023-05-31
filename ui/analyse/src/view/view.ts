@@ -272,21 +272,6 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
-const analysisDisabled = (ctrl: AnalyseCtrl): MaybeVNode =>
-  ctrl.ceval.possible && ctrl.ceval.allowed()
-    ? h('div.comp-off__hint', [
-        h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
-        h(
-          'button',
-          {
-            hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
-            attrs: { type: 'button' },
-          },
-          ctrl.trans.noarg('enable')
-        ),
-      ])
-    : undefined;
-
 const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
   h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
