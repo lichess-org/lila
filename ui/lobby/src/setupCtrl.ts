@@ -147,11 +147,10 @@ export default class SetupController {
       ratingMax: this.ratingMax(),
       aiLevel: this.aiLevel(),
     });
-  private savePropsToStoreExceptRating = () => {
-    if (this.gameType && this.store[this.gameType]) {
-      const ratingMin = this.store[this.gameType]().ratingMin;
-      const ratingMax = this.store[this.gameType]().ratingMax;
-      this.store[this.gameType]({
+
+private savePropsToStoreExceptRating = () =>
+    this.gameType &&
+    this.store[this.gameType]({
         variant: this.variant(),
         fen: this.fen(),
         timeMode: this.timeMode(),
@@ -159,12 +158,11 @@ export default class SetupController {
         increment: this.increment(),
         days: this.days(),
         gameMode: this.gameMode(),
-        ratingMin: ratingMin,
-        ratingMax: ratingMax,
+        ratingMin: this.store[this.gameType]().ratingMin,
+        ratingMax: this.store[this.gameType]().ratingMax,
         aiLevel: this.aiLevel(),
-      });
-    }
-  };
+    });
+  
   private onPropChange = () => {
     if (this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
       this.savePropsToStoreExceptRating();
@@ -178,6 +176,8 @@ export default class SetupController {
     // Handle rating update here
     this.enforcePropRules();
     if (this.root.data.ratingMap && this.selectedPerf() && this.root.data.ratingMap[this.selectedPerf()].prov) {
+	  this.ratingMin(-500);
+	  this.ratingMax(500);
       this.savePropsToStoreExceptRating();
     } else {
       if (this.gameType) {
