@@ -8,7 +8,6 @@ import { toggle } from 'common/controls';
 import AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'game/router';
 import * as pgnExport from '../pgnExport';
-import { renderEngineConfig, renderEngineSelect } from 'ceval/src/view';
 
 interface AutoplaySpeed {
   name: string;
@@ -193,14 +192,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ),
   ];
 
-  const engineConfig = ctrl.getCeval().analysable
-    ? [h('h2', noarg('computerAnalysis')), renderEngineSelect('select.setting', ctrl), ...renderEngineConfig(ctrl)]
-    : [];
-
   return h('div.action-menu', [
     ...tools,
     ...notationConfig,
-    ...engineConfig,
     ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
     canContinue
       ? h('div.continue-with.none.g_' + d.game.id, [
