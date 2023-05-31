@@ -118,6 +118,7 @@
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
+  <string name="engineManager">解析エンジンの管理</string>
   <string name="blunder">大悪手</string>
   <string name="mistake">悪手</string>
   <string name="inaccuracy">疑問手</string>
@@ -144,6 +145,9 @@
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%1$s レーティング（%2$s 局で）</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s個の ブックマーク</item>
@@ -321,6 +325,7 @@
   </plurals>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
+  <string name="noDrawBeforeSwissLimit">スイス式トーナメントでは 30 手指すまでドローは認められません。</string>
   <string name="thematic">局面指定</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">レート戦 %s 局以上</item>
