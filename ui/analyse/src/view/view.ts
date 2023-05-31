@@ -2,7 +2,7 @@ import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
-import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon, iconTag } from 'common/snabbdom';
+import { bind, bindNonPassive, onInsert, dataIcon, iconTag } from 'common/snabbdom';
 import { bindMobileMousedown, isMobile } from 'common/mobile';
 import { playable } from 'game';
 import * as router from 'game/router';
@@ -382,7 +382,7 @@ export default function (deps?: typeof studyDeps) {
           },
         },
         class: {
-          'comp-off': !ctrl.showComputer(),
+          'comp-off': !ctrl.ceval.enabled(),
           'gauge-on': gaugeOn,
           'has-players': !!playerBars,
           'gamebook-play': !!gamebookPlayView,
