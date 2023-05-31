@@ -45,6 +45,10 @@ class PgnImportTest extends lila.common.LilaTest:
       parsed.root.ply == Ply.initial
     }
 
+  test("import a simple pgn with a clock comment"):
+    val x = PgnImport("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
+    assert(x.root.mainlineNodeList(1).clock.isDefined)
+
   test("import a broadcast pgn"):
     val x = PgnImport(
       """[Event "Norway Chess"]
@@ -78,4 +82,5 @@ Ng6 {[%clk 1:17:22]} 14. Qf2 {[%clk 1:32:39]} Be6 {[%clk 1:16:24]} 15. Ne2 {[%cl
 Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       Nil
     ).toOption.get
-    assert(x.root.mainlineNodeList(1).clock.isDefined)
+    assert(x.root.mainlineNodeList(1).clock contains chess.Centis(719900))
+    assert(x.root.mainlineNodeList(2).clock contains chess.Centis(718000))
