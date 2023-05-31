@@ -1,19 +1,20 @@
 package lila.study
 
 import cats.data.Validated
-import chess.{ Centis, ErrorStr }
-import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, Comment as ChessComment }
+import chess.{ Centis, ErrorStr, Node as PgnNode }
+import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
+import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
 object PgnImport:
 
   case class Result(
-      root: Node.Root,
+      root: Root,
       variant: chess.variant.Variant,
       tags: Tags,
       end: Option[End]
@@ -32,8 +33,7 @@ object PgnImport:
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, comments) =>
-            val sans = parsedPgn.sans.value take Node.MAX_PLIES
-            val root = Node.Root(
+            val root = Root(
               ply = replay.setup.ply,
               fen = initialFen | game.variant.initialFen,
               check = replay.setup.situation.check,
@@ -42,14 +42,7 @@ object PgnImport:
               glyphs = Glyphs.empty,
               clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
-              children = Node.Children {
-                val variations = makeVariations(sans, replay.setup, annotator)
-                makeNode(
-                  prev = replay.setup,
-                  sans = sans,
-                  annotator = annotator
-                ).fold(variations)(_ :: variations).toVector
-              }
+              children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, _, annotator))
             )
             val end: Option[End] = (game.finished option game.status).map { status =>
               End(
@@ -60,7 +53,7 @@ object PgnImport:
               )
             }
             val commented =
-              if (root.mainline.lastOption.??(_.isCommented)) root
+              if root.mainline.lastOption.??(_.isCommented) then root
               else
                 end.map(endComment).fold(root) { comment =>
                   root updateMainlineLast { _.setComment(comment) }
@@ -73,7 +66,7 @@ object PgnImport:
             )
     }
 
-  private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
+  def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
     pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
@@ -83,20 +76,12 @@ object PgnImport:
       } getOrElse Comment.Author.External(a)
     }
 
-  private def endComment(end: End): Comment =
-    import lila.tree.Node.Comment
+  def endComment(end: End): Comment =
     import end.*
     val text = s"$resultText $statusText"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
 
-  private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
-    sans.headOption.?? {
-      _.metas.variations.flatMap { variation =>
-        makeNode(game, variation.sans.value, annotator)
-      }
-    }
-
-  private def parseComments(
+  def parseComments(
       comments: List[ChessComment],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Comments) =
@@ -114,41 +99,47 @@ object PgnImport:
           )
     }
 
-  private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
+  private def makeBranches(
+      prev: chess.Game,
+      node: PgnNode[PgnNodeData],
+      annotator: Option[Comment.Author]
+  ): Branches =
+    val variations = node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(prev, x.toNode, annotator))
+    removeDuplicatedChildrenFirstNode(
+      Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations))
+    )
+
+  private def makeBranch(
+      prev: chess.Game,
+      node: PgnNode[PgnNodeData],
+      annotator: Option[Comment.Author]
+  ): Option[Branch] =
     try
-      sans match
-        case Nil => none
-        case san :: rest =>
-          san(prev.situation).fold(
-            _ => none, // illegal move; stop here.
-            moveOrDrop => {
-              val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
-              val uci    = moveOrDrop.fold(_.toUci, _.toUci)
-              val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
-              parseComments(san.metas.comments, annotator) match {
-                case (shapes, clock, comments) =>
-                  Node(
-                    id = UciCharPair(uci),
-                    ply = game.ply,
-                    move = Uci.WithSan(uci, sanStr),
-                    fen = Fen write game,
-                    check = game.situation.check,
-                    shapes = shapes,
-                    comments = comments,
-                    glyphs = san.metas.glyphs,
-                    crazyData = game.situation.board.crazyData,
-                    clock = clock,
-                    children = removeDuplicatedChildrenFirstNode {
-                      val variations = makeVariations(rest, game, annotator)
-                      Node.Children {
-                        makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
-                      }
-                    },
-                    forceVariation = false
-                  ).some
-              }
+      node.value
+        .san(prev.situation)
+        .fold(
+          _ => none, // illegal move; stop here.
+          moveOrDrop =>
+            val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
+            val uci    = moveOrDrop.toUci
+            val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
+            parseComments(node.value.metas.comments, annotator) match {
+              case (shapes, clock, comments) =>
+                Branch(
+                  id = UciCharPair(uci),
+                  ply = game.ply,
+                  move = Uci.WithSan(uci, sanStr),
+                  fen = Fen write game,
+                  check = game.situation.check,
+                  shapes = shapes,
+                  comments = comments,
+                  glyphs = node.value.metas.glyphs,
+                  clock = clock,
+                  crazyData = game.situation.board.crazyData,
+                  children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
+                ).some
             }
-          )
+        )
     catch
       case _: StackOverflowError =>
         logger.warn(s"study PgnImport.makeNode StackOverflowError")
@@ -159,13 +150,14 @@ object PgnImport:
    * 7. c4 (7. c4 Nf6) (7. c4 dxc4) 7... cxd4
    * where 7. c4 appears three times
    */
-  private def removeDuplicatedChildrenFirstNode(children: Node.Children): Node.Children =
+  // TODO this could probably be refactored better or moved to scalachess
+  private def removeDuplicatedChildrenFirstNode(children: Branches): Branches =
     children.first match
       case Some(main) if children.variations.exists(_.id == main.id) =>
-        Node.Children {
+        Branches {
           main +: children.variations.flatMap { node =>
             if (node.id == main.id) node.children.nodes
-            else Vector(node)
+            else List(node)
           }
         }
       case _ => children

@@ -120,18 +120,6 @@ object JsonView:
   def crosstable(ct: Crosstable, matchup: Option[Crosstable.Matchup]) =
     Json.toJsObject(ct).add("matchup" -> matchup)
 
-  given OWrites[Crazyhouse.Pocket] = OWrites { v =>
-    JsObject(
-      v.values.collect {
-        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
-      }
-    )
-  }
-
-  given OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
-  }
-
   given OWrites[Blurs] = OWrites { blurs =>
     Json.obj(
       "nb"   -> blurs.nb,

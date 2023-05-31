@@ -145,8 +145,8 @@ final class Round(
       case _ =>
         negotiate(
           html = {
-            if (pov.game.replayable) analyseC.replay(pov, userTv = userTv)
-            else if (HTTPRequest.isHuman(ctx.req))
+            if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
+            else if HTTPRequest.isHuman(ctx.req) then
               env.tournament.api.gameView.watcher(pov.game) zip
                 (pov.game.simulId ?? env.simul.repo.find) zip
                 getWatcherChat(pov.game) zip
@@ -176,18 +176,18 @@ final class Round(
                     }
                 }
             else
-              for { // web crawlers don't need the full thing
+              for // web crawlers don't need the full thing
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
                 pgn        <- env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
-              } yield Ok(html.round.watcher.crawler(pov, initialFen, pgn))
+              yield Ok(html.round.watcher.crawler(pov, initialFen, pgn))
           },
           api = apiVersion =>
-            for {
+            for
               tour     <- env.tournament.api.gameView.watcher(pov.game)
               data     <- env.api.roundApi.watcher(pov, tour, apiVersion, tv = none)
               analysis <- env.analyse.analyser get pov.game
               chat     <- getWatcherChat(pov.game)
-            } yield Ok {
+            yield Ok {
               data
                 .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
                 .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))

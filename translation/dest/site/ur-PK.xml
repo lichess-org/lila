@@ -108,6 +108,7 @@
   <string name="memory">یاداشت</string>
   <string name="infiniteAnalysis">لامحدود تجزیہ</string>
   <string name="removesTheDepthLimit">گہرائی کی حد ختم کریں، یہ آپ کے کمپیوٹر کو گرم رکھے گا</string>
+  <string name="engineManager">انجن منتظم</string>
   <string name="blunder">احمقانہ غلطی</string>
   <string name="mistake">غلطی</string>
   <string name="inaccuracy">کمزور چال</string>

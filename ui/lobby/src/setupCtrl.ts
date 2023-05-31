@@ -100,7 +100,7 @@ export default class SetupController {
   private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
-    this.variant = this.propWithApplyVariant(forceOptions?.variant || storeProps.variant);
+    this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onVariantChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
     this.timeMode = this.propWithApply(forceOptions?.timeMode || storeProps.timeMode);
     this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
@@ -148,27 +148,25 @@ export default class SetupController {
       aiLevel: this.aiLevel(),
     });
 
-private savePropsToStoreExceptRating = () =>
+  private savePropsToStoreExceptRating = () =>
     this.gameType &&
     this.store[this.gameType]({
-        variant: this.variant(),
-        fen: this.fen(),
-        timeMode: this.timeMode(),
-        time: this.time(),
-        increment: this.increment(),
-        days: this.days(),
-        gameMode: this.gameMode(),
-        ratingMin: this.store[this.gameType]().ratingMin,
-        ratingMax: this.store[this.gameType]().ratingMax,
-        aiLevel: this.aiLevel(),
+      variant: this.variant(),
+      fen: this.fen(),
+      timeMode: this.timeMode(),
+      time: this.time(),
+      increment: this.increment(),
+      days: this.days(),
+      gameMode: this.gameMode(),
+      ratingMin: this.store[this.gameType]().ratingMin,
+      ratingMax: this.store[this.gameType]().ratingMax,
+      aiLevel: this.aiLevel(),
     });
-  
+
   private onPropChange = () => {
-    if (this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov) {
+    if (this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov)
       this.savePropsToStoreExceptRating();
-    } else {
-      this.savePropsToStore();
-    }
+    else this.savePropsToStore();
     this.root.redraw();
   };
 
@@ -176,8 +174,8 @@ private savePropsToStoreExceptRating = () =>
     // Handle rating update here
     this.enforcePropRules();
     if (this.root.data.ratingMap && this.selectedPerf() && this.root.data.ratingMap[this.selectedPerf()].prov) {
-	  this.ratingMin(-500);
-	  this.ratingMax(500);
+      this.ratingMin(-500);
+      this.ratingMax(500);
       this.savePropsToStoreExceptRating();
     } else {
       if (this.gameType) {
@@ -192,11 +190,6 @@ private savePropsToStoreExceptRating = () =>
   };
 
   private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
-
-  private propWithApplyVariant = <A>(value: A) => {
-    const prop = propWithEffect(value, this.onVariantChange);
-    return prop;
-  };
 
   openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
     this.root.leavePool();

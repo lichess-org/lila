@@ -152,6 +152,10 @@
     <item quantity="one">%s Партия</item>
     <item quantity="other">%s Партии</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s рейтинг базирано на %2$s игра</item>
+    <item quantity="other">%1$s рейтинг базирано на %2$s игри</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Отбелязани</item>
     <item quantity="other">%s Отбелязани</item>

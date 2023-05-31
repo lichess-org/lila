@@ -67,7 +67,7 @@ final class Auth(
 
   private def authenticateCookie(sessionId: String, remember: Boolean)(
       result: Result
-  )(using req: RequestHeader) =
+  )(using RequestHeader) =
     result.withCookies(
       env.lilaCookie.withSession(remember = remember) {
         _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
@@ -136,7 +136,7 @@ final class Auth(
                         )
                       },
                       result =>
-                        result.toOption match {
+                        result.toOption match
                           case None => InternalServerError("Authentication error").toFuccess
                           case Some(u) if u.enabled.no =>
                             negotiate(
@@ -151,7 +151,6 @@ final class Auth(
                             env.user.repo.email(u.id) foreach { _ foreach garbageCollect(u) }
                             val remember = api.rememberForm.bindFromRequest().value | true
                             authenticateUser(u, remember, Some(redirectTo))
-                        }
                     )
                 }
               }
@@ -182,8 +181,8 @@ final class Auth(
     forms.signup.website.map: form =>
       Ok(html.auth.signup(form))
 
-  private def authLog(user: String, email: String, msg: String) =
-    lila.log("auth").info(s"$user $email $msg")
+  private def authLog(user: UserName, email: Option[EmailAddress], msg: String) =
+    lila.log("auth").info(s"$user ${email.fold("-")(_.value)} $msg")
 
   def signupPost = OpenBody:
     NoTor:
@@ -288,7 +287,7 @@ final class Auth(
         lila.mon.user.register.confirmEmailResult(true).increment()
         env.user.repo.email(user.id).flatMap {
           _.?? { email =>
-            authLog(user.username, email.value, s"Confirmed email ${email.value}")
+            authLog(user.username, email.some, s"Confirmed email ${email.value}")
             welcome(user, email, sendWelcomeEmail = false)
           }
         } >> redirectNewUser(user)
@@ -364,7 +363,7 @@ final class Auth(
         lila.mon.user.auth.passwordResetConfirm("tokenFail").increment()
         notFound
       case Some(user) =>
-        authLog(user.username, "-", "Reset password")
+        authLog(user.username, none, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
         fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdResetFor(user), none))
     }
@@ -451,7 +450,7 @@ final class Auth(
               lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
               notFound
             case Some(user) =>
-              authLog(user.username, "-", "Magic link")
+              authLog(user.username, none, "Magic link")
               authenticateUser(user, remember = true) >>-
                 lila.mon.user.auth.magicLinkConfirm("success").increment().unit
           }
@@ -509,7 +508,7 @@ final class Auth(
       }
     def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result]): Fu[Result] =
       val ip          = req.ipAddress
-      val multipleIps = lastAttemptIp.asMap().replace(id, ip).fold(false)(_ != ip)
+      val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
       env.security.ipTrust
         .isSuspicious(ip)
         .flatMap: ipSusp =>

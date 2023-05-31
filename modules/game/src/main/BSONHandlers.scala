@@ -94,7 +94,7 @@ object BSONHandlers:
 
       val startedAtPly = Ply(r intD F.startedAtTurn)
       val ply          = r.get[Ply](F.turns) atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val turnColor    = ply.color
+      val turnColor    = ply.turn
       val createdAt    = r date F.createdAt
 
       val playedPlies = ply - startedAtPly
@@ -112,7 +112,7 @@ object BSONHandlers:
             HalfMoveClock from sans.reverse
               .indexWhere(san => san.value.contains("x") || san.value.headOption.exists(_.isLower))
               .some
-              .filter(0 <= _)
+              .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
             pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),

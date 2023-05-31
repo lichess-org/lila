@@ -1,8 +1,10 @@
 package lila.analyse
 
-import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn, PgnStr }
+import monocle.syntax.all.*
+
+import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, PgnStr, Comment }
 import chess.opening.*
-import chess.{ Color, Status }
+import chess.{ Color, Node, Variation, Status, Ply }
 
 import lila.game.GameDrawOffers
 import lila.game.Game
@@ -23,24 +25,19 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
 
   def addEvals(p: Pgn, analysis: Analysis): Pgn =
     analysis.infos.foldLeft(p) { (pgn, info) =>
-      pgn.updatePly(
-        info.ply,
-        move => {
-          val comment = info.cp
-            .map(_.pawns.toString)
-            .orElse(info.mate.map(m => s"#${m.value}"))
-            .map(c => s"[%eval $c]")
-          move.copy(comments = comment.toList ::: move.comments)
-        }
-      )
+      pgn
+        .updatePly(
+          info.ply,
+          move => move.copy(comments = info.pgnComment.toList ::: move.comments)
+        )
+        .getOrElse(pgn)
     }
 
-  def toPgnString(pgn: Pgn): PgnStr = PgnStr {
-    // merge analysis & eval comments
-    // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
-    // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
+  // merge analysis & eval comments
+  // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
+  // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
+  def toPgnString(pgn: Pgn): PgnStr = PgnStr:
     s"$pgn\n\n\n".replaceIf("] } { [", "] [")
-  }
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
     lila.game.StatusText(status, winner, chess.variant.Standard) match
@@ -49,33 +46,43 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
 
   private def annotateOpening(opening: Option[Opening.AtPly])(p: Pgn) =
     opening.fold(p) { o =>
-      p.updatePly(o.ply, _.copy(opening = s"${o.opening.eco} ${o.opening.name}".some))
+      p.updatePly(o.ply, _.copy(opening = s"${o.opening.eco} ${o.opening.name}".some)).getOrElse(p)
     }
 
+  // add advices into mainline
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
-    advices.foldLeft(p) { (pgn, advice) =>
-      pgn.updatePly(
-        advice.ply,
-        move =>
-          move.copy(
-            glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-            comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments,
-            variations = makeVariation(advice) :: Nil
+    advices
+      .foldLeft(p) { (pgn, advice) =>
+        pgn
+          .modifyInMainline(
+            advice.ply,
+            node =>
+              node.copy(
+                value = node.value.copy(
+                  glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
+                  comments = advice.makeComment(withEval = true, withBestMove = true) :: node.value.comments
+                ),
+                variations = makeVariation(advice).toList ++ node.variations
+              )
           )
-      )
-    }
-
-  private def annotateDrawOffers(pgn: Pgn, drawOffers: GameDrawOffers): Pgn =
-    if (drawOffers.isEmpty) pgn
-    else
-      drawOffers.normalizedPlies.foldLeft(pgn) { (pgn, ply) =>
-        pgn.updatePly(ply, move => move.copy(comments = s"${!ply.color} offers draw" :: move.comments))
+          .getOrElse(pgn)
       }
 
-  private def makeVariation(advice: Advice): List[Turn] =
-    Turn.fromMoves(
-      advice.info.variation take 20 map { san =>
-        Move(san)
-      },
-      advice.ply
+  private def annotateDrawOffers(pgn: Pgn, drawOffers: GameDrawOffers): Pgn =
+    if drawOffers.isEmpty then pgn
+    else
+      drawOffers.normalizedPlies.foldLeft(pgn) { (pgn, ply) =>
+        pgn
+          .updatePly(
+            ply,
+            move => move.copy(comments = Comment(s"${!ply.turn} offers draw") :: move.comments)
+          )
+          .getOrElse(pgn)
+      }
+
+  private def makeVariation(advice: Advice): Option[Variation[Move]] =
+    val sans = advice.info.variation take 20
+    Variation.buildWithIndex(
+      sans,
+      (san, index) => Move(Ply(advice.ply.value + index), san)
     )
