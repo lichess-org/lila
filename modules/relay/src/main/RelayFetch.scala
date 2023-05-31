@@ -1,5 +1,7 @@
 package lila.relay
 
+import cats.syntax.all.*
+
 import akka.actor.*
 import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
@@ -169,8 +171,8 @@ final private class RelayFetch(
             }
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap { round =>
-          round.pairings.zipWithIndex
-            .map { (pairing, i) =>
+          round.pairings
+            .mapWithIndex: (pairing, i) =>
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               gameDoc.format
@@ -182,7 +184,6 @@ final private class RelayFetch(
                     } map { _.toPgn(pairing.tags) }
                 }
                 .map(number -> _)
-            }
             .parallel
             .map { results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
@@ -247,6 +248,7 @@ private object RelayFetch:
       def toPgn(extraTags: Tags = Tags.empty) =
         val strMoves = moves.map(_ split ' ') map { move =>
           chess.format.pgn.Move(
+            ply = chess.Ply.initial,
             san = SanStr(~move.headOption),
             secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
           )

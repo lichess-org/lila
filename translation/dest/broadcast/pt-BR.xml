@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Transmissões</string>
-  <string name="liveBroadcasts">Transmissões do torneio ao vivo</string>
+  <string name="liveBroadcasts">Transmissões ao vivo do torneio</string>
   <string name="newBroadcast">Nova transmissão ao vivo</string>
   <string name="addRound">Adicionar uma rodada</string>
   <string name="ongoing">Em andamento</string>
   <string name="upcoming">Próximos</string>
   <string name="completed">Concluído</string>
-  <string name="roundName">Número da rodada</string>
+  <string name="roundName">Nome da rodada</string>
   <string name="roundNumber">Número da rodada</string>
   <string name="tournamentName">Nome do torneio</string>
   <string name="tournamentDescription">Descrição curta do torneio</string>
   <string name="fullDescription">Descrição completa do evento</string>
-  <string name="fullDescriptionHelp">Descrição longa e opcional da transmissão. %1$s está disponível. O comprimento deve ser menor que %2$s caracteres.</string>
-  <string name="sourceUrlOrGameIds">URL de origem ou IDs de jogos</string>
+  <string name="fullDescriptionHelp">Descrição longa e opcional da transmissão. %1$s está disponível. O tamanho deve ser menor que %2$s caracteres.</string>
+  <string name="sourceUrlOrGameIds">URL de origem ou IDs das partidas</string>
   <string name="sourceUrlHelp">URL que Lichess irá verificar para obter atualizações PGN. Deve ser acessível ao público a partir da Internet.</string>
   <string name="gameIdsHelp">Como alternativa, você pode inserir até 64 IDs de jogo do Lichess, separados por espaços.</string>
   <string name="startDate">Data de início em seu próprio fuso horário</string>

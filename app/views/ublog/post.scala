@@ -69,7 +69,7 @@ object post:
                   cls := "ublog-post__tier"
                 )(UblogBlog.Tier.name(blog.tier))
             ),
-            iconTag("")(
+            iconTag(licon.InfoCircle)(
               cls      := "ublog-post__meta__disclaimer",
               st.title := "Opinions expressed by Lichess contributors are their own."
             ),
@@ -101,7 +101,7 @@ object post:
                     "reason"   -> "comm"
                   )
                 ),
-                dataIcon := ""
+                dataIcon := licon.CautionTriangle
               )
           ),
           div(cls := "ublog-post__topics")(
@@ -115,7 +115,7 @@ object post:
             post.live && ~post.discuss option a(
               href     := routes.Ublog.discuss(post.id),
               cls      := "button text ublog-post__discuss",
-              dataIcon := ""
+              dataIcon := licon.BubbleConvo
             )("Discuss this blog post in the forum"),
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
@@ -132,7 +132,7 @@ object post:
   private def editButton(post: UblogPost)(using Context) = a(
     href     := editUrlOfPost(post),
     cls      := "button button-empty text",
-    dataIcon := ""
+    dataIcon := licon.Pencil
   )(trans.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using Context) =
@@ -164,8 +164,8 @@ object post:
       )
     )(
       List(
-        ("yes", trans.unfollowX, routes.Relation.unfollow, ""),
-        ("no", trans.followX, routes.Relation.follow, "")
+        ("yes", trans.unfollowX, routes.Relation.unfollow, licon.Checkmark),
+        ("no", trans.followX, routes.Relation.follow, licon.ThumbsUp)
       ).map { case (role, text, route, icon) =>
         button(
           cls      := s"ublog-post__follow__$role button button-big",
@@ -209,7 +209,7 @@ object post:
     a(
       href     := routes.Ublog.form(u.username),
       cls      := "button button-green",
-      dataIcon := "",
+      dataIcon := licon.PlusButton,
       title    := trans.ublog.newPost.txt()
     )
   }

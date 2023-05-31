@@ -28,7 +28,7 @@ object form:
           ),
           postForm(cls := "form3", action := routes.Tournament.create)(
             div(cls := "form-group")(
-              a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("event-tips"))(
                 trans.ourEventTips()
               )
             ),
@@ -48,7 +48,7 @@ object form:
             fields.isTeamBattle option form3.hidden(form("teamBattleByTeam")),
             form3.actions(
               a(href := routes.Tournament.home)(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = "".some)
+              form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
             )
           )
         ),
@@ -87,14 +87,14 @@ object form:
             ),
             form3.actions(
               a(href := routes.Tournament.show(tour.id))(trans.cancel()),
-              form3.submit(trans.save(), icon = "".some)
+              form3.submit(trans.save(), icon = licon.Trophy.some)
             )
           ),
           hr,
           br,
           br,
           postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
-            submitButton(dataIcon := "", cls := "text button button-red confirm")(
+            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
               trans.cancelTournament()
             )
           )
@@ -273,7 +273,7 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using Co
     frag(
       errMsg(form("conditions")),
       p(
-        strong(dataIcon := "", cls := "text")(trans.recommendNotTouching()),
+        strong(dataIcon := licon.CautionTriangle, cls := "text")(trans.recommendNotTouching()),
         " ",
         trans.fewerPlayers(),
         " ",

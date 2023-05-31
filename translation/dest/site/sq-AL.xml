@@ -152,6 +152,10 @@
     <item quantity="one">%s lojë</item>
     <item quantity="other">%s lojëra</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Vlerësuar me %1$s për %2$s lojë</item>
+    <item quantity="other">Vlerësuar me %1$s për %2$s lojëra</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s faqerojtës</item>
     <item quantity="other">%s faqerojtës</item>

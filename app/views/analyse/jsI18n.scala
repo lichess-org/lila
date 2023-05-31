@@ -69,6 +69,7 @@ object jsI18n:
         trans.multipleLines,
         trans.cpus,
         trans.memory,
+        trans.engineManager,
         trans.replayMode,
         trans.slow,
         trans.fast,

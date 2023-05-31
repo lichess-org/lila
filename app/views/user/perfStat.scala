@@ -51,7 +51,7 @@ object perfStat:
             div(cls := "box__top__actions")(
               a(
                 cls      := "button button-empty text",
-                dataIcon := perfType.iconChar,
+                dataIcon := perfType.icon,
                 href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
               )(viewTheGames())
             )
@@ -114,8 +114,8 @@ object perfStat:
         progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if (perf.progress > 0) tag("green")(dataIcon := "")(perf.progress)
-          else if (perf.progress < 0) tag("red")(dataIcon := "")(-perf.progress)
+          if (perf.progress > 0) tag("green")(dataIcon := licon.ArrowUpRight)(perf.progress)
+          else if (perf.progress < 0) tag("red")(dataIcon := licon.ArrowDownRight)(-perf.progress)
           else "-"
         ),
         ". ",

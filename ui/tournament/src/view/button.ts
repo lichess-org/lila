@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon } from 'common/snabbdom';
 import TournamentController from '../ctrl';
@@ -13,7 +14,7 @@ export function withdraw(ctrl: TournamentController): VNode {
     return h(
       'button.fbt.text',
       {
-        attrs: dataIcon(pause ? '' : ''),
+        attrs: dataIcon(pause ? licon.Pause : licon.FlagOutline),
         hook: bind('click', ctrl.withdraw, ctrl.redraw),
       },
       ctrl.trans.noarg(pause ? 'pause' : 'withdraw')
@@ -30,7 +31,7 @@ export function join(ctrl: TournamentController): VNode {
       {
         attrs: {
           disabled: !joinable,
-          'data-icon': '',
+          'data-icon': licon.PlayTriangle,
         },
         hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
@@ -74,7 +75,7 @@ export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
       {
         attrs: {
           href: '/login?referrer=' + window.location.pathname,
-          'data-icon': '',
+          'data-icon': licon.PlayTriangle,
         },
       },
       ctrl.trans('signIn')

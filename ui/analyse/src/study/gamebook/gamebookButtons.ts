@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
 import AnalyseCtrl from '../../ctrl';
 import { StudyCtrl } from '../interfaces';
@@ -16,7 +17,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           'button.fbt.text.back',
           {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.LessThan,
               type: 'button',
             },
             hook: bind('click', () => root.userJump(''), ctrl.redraw),
@@ -29,7 +30,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           'button.fbt.text.solution',
           {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.PlayTriangle,
               type: 'button',
             },
             hook: bind('click', ctrl.solution, ctrl.redraw),
@@ -50,7 +51,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         {
           class: { active: o === 'play' },
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.Eye,
             type: 'button',
           },
           hook: bind(
@@ -71,7 +72,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
           'a.fbt.text.preview',
           {
             class: { active: isAnalyse },
-            attrs: dataIcon(''),
+            attrs: dataIcon(licon.Microscope),
             hook: bind(
               'click',
               () => {

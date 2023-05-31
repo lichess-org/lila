@@ -2,6 +2,18 @@
 <resources>
   <string name="activity">Գործունեություն</string>
   <string name="hostedALiveStream">Անցկացվել է ուղիղ միացում</string>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Կատարված է %1$s քայլ</item>
+    <item quantity="other">Կատարված է %1$s քայլ</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">նամակագրությամբ %1$s խաղում</item>
+    <item quantity="other">նամակագրությամբ %1$s խաղում</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Ավարտված է նամակագրությամբ %s խաղ</item>
+    <item quantity="other">Ավարտված է նամակագրությամբ %s խաղ</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Ստեղծվել է %s նոր ստուդիա</item>
     <item quantity="other">Ստեղծվել են %s նոր ստուդիաներ</item>

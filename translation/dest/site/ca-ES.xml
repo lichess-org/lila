@@ -120,6 +120,7 @@
   <string name="memory">Memòria</string>
   <string name="infiniteAnalysis">Anàlisi il·limitada</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i escalfa el teu ordinador</string>
+  <string name="engineManager">Gestió del mòdul</string>
   <string name="blunder">Errada greu</string>
   <string name="mistake">Errada</string>
   <string name="inaccuracy">Imprecisió</string>
@@ -151,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partides</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s puntuació en %2$s partida</item>
+    <item quantity="other">%1$s puntuació en %2$s partides</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s preferida</item>

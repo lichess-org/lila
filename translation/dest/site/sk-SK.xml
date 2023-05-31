@@ -166,6 +166,12 @@
     <item quantity="many">%s partií</item>
     <item quantity="other">%s partií</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating z %2$s partie</item>
+    <item quantity="few">%1$s rating z %2$s partií</item>
+    <item quantity="many">%1$s rating z %2$s partií</item>
+    <item quantity="other">%1$s rating z %2$s partií</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s záložka</item>
     <item quantity="few">%s záložky</item>

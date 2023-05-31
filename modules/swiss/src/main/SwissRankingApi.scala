@@ -1,5 +1,6 @@
 package lila.swiss
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -18,7 +19,7 @@ final private class SwissRankingApi(
   def update(res: SwissScoring.Result): Unit =
     scoreCache.put(
       res.swiss.id,
-      res.leaderboard.zipWithIndex.map { case ((p, _), i) =>
+      res.leaderboard.mapWithIndex { case ((p, _), i) =>
         p.userId -> Rank(i + 1)
       }.toMap
     )
@@ -34,12 +35,10 @@ final private class SwissRankingApi(
   }
 
   private def computeRanking(id: SwissId): Fu[Ranking] =
-    SwissPlayer.fields { f =>
-      mongo.player.primitive[UserId]($doc(f.swissId -> id), $sort desc f.score, f.userId)
-    } map {
-      _.view.zipWithIndex
-        .map { (user, i) =>
+    SwissPlayer
+      .fields: f =>
+        mongo.player.primitive[UserId]($doc(f.swissId -> id), $sort desc f.score, f.userId)
+      .map:
+        _.mapWithIndex: (user, i) =>
           (user, Rank(i + 1))
-        }
         .toMap
-    }

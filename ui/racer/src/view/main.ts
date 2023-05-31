@@ -2,6 +2,7 @@ import config from '../config';
 import RacerCtrl from '../ctrl';
 import renderClock from 'puz/view/clock';
 import renderHistory from 'puz/view/history';
+import * as licon from 'common/licon';
 import { MaybeVNodes, bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { playModifiers, renderCombo } from 'puz/view/util';
@@ -127,7 +128,7 @@ const renderControls = (ctrl: RacerCtrl): VNode =>
         'button-empty': !ctrl.flipped,
       },
       attrs: {
-        'data-icon': '',
+        'data-icon': licon.ChasingArrows,
         title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
       },
       hook: bind('click', ctrl.flip),
@@ -155,7 +156,7 @@ const renderLink = (ctrl: RacerCtrl) =>
         attrs: {
           title: 'Copy URL',
           'data-rel': `racer-url-${ctrl.race.id}`,
-          'data-icon': '',
+          'data-icon': licon.Link,
         },
       }),
     ]),

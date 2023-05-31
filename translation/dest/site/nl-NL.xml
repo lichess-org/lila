@@ -120,6 +120,7 @@
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="removesTheDepthLimit">Verwijdert de dieptelimiet, en houdt je computer warm</string>
+  <string name="engineManager">Engine-beheer</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onnauwkeurigheid</string>
@@ -151,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s partij</item>
     <item quantity="other">%s partijen</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating na %2$s partij</item>
+    <item quantity="other">%1$s rating na %2$s partijen</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s favoriet</item>

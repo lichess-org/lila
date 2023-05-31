@@ -34,7 +34,7 @@ object event:
             }
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
-            form3.submit("Clone", "".some)(cls := "button-green button-empty")
+            form3.submit("Clone", licon.Mic.some)(cls := "button-green button-empty")
           )
         ),
         standardFlash,
@@ -44,8 +44,8 @@ object event:
 
   def iconOf(e: Event) =
     e.icon match
-      case None                                     => i(cls := "img", dataIcon := "")
-      case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := "")
+      case None                                     => i(cls := "img", dataIcon := licon.Mic)
+      case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := licon.RadioTower)
       case Some(c)                                  => img(cls := "img", src := assetUrl(s"images/$c"))
 
   def show(e: Event)(implicit ctx: Context) =
@@ -93,7 +93,7 @@ object event:
         boxTop(
           h1(title),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.Event.form, dataIcon := "")
+            a(cls := "button button-green", href := routes.Event.form, dataIcon := licon.PlusButton)
           )
         ),
         table(cls := "slist slist-pad")(
@@ -122,7 +122,7 @@ object event:
                   showInstantUTC(e.finishesAt),
                   momentFromNow(e.finishesAt)
                 ),
-                td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := ""))
+                td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := licon.Eye))
               )
             }
           )

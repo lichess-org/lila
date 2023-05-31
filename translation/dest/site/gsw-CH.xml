@@ -120,6 +120,7 @@
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Unändlichi Analyse</string>
   <string name="removesTheDepthLimit">Entfernt d\'Tüfebegränzig und haltet din Computer warm</string>
+  <string name="engineManager">Engine Betreuer</string>
   <string name="blunder">En Patzer</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungnauigkeit</string>
@@ -151,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partie</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s Wertig vu %2$s Spiel</item>
+    <item quantity="other">%1$s Wertig vu %2$s Spiel</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Läsezeiche</item>

@@ -21,7 +21,7 @@ trait TeamHelper { self: HasEnv with RouterHelper =>
   def teamLink(id: TeamId, name: Frag, withIcon: Boolean): Tag =
     a(
       href     := routes.Team.show(id),
-      dataIcon := withIcon.option(""),
+      dataIcon := withIcon.option(lila.common.licon.Group),
       cls      := withIcon option "text"
     )(name)
 

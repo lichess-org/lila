@@ -1,4 +1,5 @@
 import * as winningChances from './winningChances';
+import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
 import { bind } from 'common/snabbdom';
 import { defined, notNull } from 'common';
@@ -85,7 +86,7 @@ function shortEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
         hidden: !ceval.canPause(),
         tabindex: 0,
         title: 'Pause',
-        'data-icon': '\ue04D',
+        'data-icon': licon.PlusButton,
       },
       hook: bind('click', ceval.stop),
     })
@@ -114,7 +115,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
     },
     attrs: {
       tabindex: 0,
-      'data-icon': '',
+      'data-icon': licon.Target,
       title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
     hook: bind('click', ceval.toggleThreatMode),
@@ -258,7 +259,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     percent = 100;
   } else {
     if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
-    else if (instance.getState() === CevalState.Failed) pearl = h('i.is-red', { attrs: { 'data-icon': '\ue05d' } });
+    else if (instance.getState() === CevalState.Failed) pearl = h('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
     else if (!instance.showClientEval()) pearl = '? ?';
     else {
       shortEval = instance.getState() === CevalState.Loading;

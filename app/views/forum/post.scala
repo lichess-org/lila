@@ -16,7 +16,7 @@ object post:
       posts map { p =>
         li(
           a(
-            dataIcon := p.isTeam.option(""),
+            dataIcon := p.isTeam.option(licon.Group),
             cls      := "post_link text",
             href     := routes.ForumPost.redirect(p.postId),
             title    := p.topicName
@@ -59,13 +59,15 @@ object post:
                 }
             ),
             (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
-              button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := "")("Edit"),
+              button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := licon.Pencil)(
+                "Edit"
+              ),
             ctx.me flatMap { me =>
               if (!post.erased && post.canBeEditedBy(me))
                 postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
                   submitButton(
                     cls      := "mod delete button button-empty confirm",
-                    dataIcon := "",
+                    dataIcon := licon.Trash,
                     title    := "Delete"
                   )
                 ).some
@@ -75,7 +77,7 @@ object post:
                     a(
                       cls      := "mod delete button button-empty",
                       href     := routes.ForumPost.delete(categ.slug, post.id),
-                      dataIcon := "",
+                      dataIcon := licon.Trash,
                       title    := "Delete"
                     )
                   else
@@ -90,7 +92,7 @@ object post:
                             reportRoutes.form.url,
                             Map("username" -> userId, "postUrl" -> postUrl, "reason" -> "comm")
                           ),
-                          dataIcon := ""
+                          dataIcon := licon.CautionTriangle
                         )
                       )
                     }

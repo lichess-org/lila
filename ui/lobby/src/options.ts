@@ -1,16 +1,18 @@
+import * as licon from 'common/licon';
+
 import { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
 
 export const variants: Variant[] = [
-  { id: 1, icon: '', key: 'standard', name: 'Standard' },
-  { id: 10, icon: '', key: 'crazyhouse', name: 'Crazyhouse' },
-  { id: 2, icon: '', key: 'chess960', name: 'Chess960' },
-  { id: 4, icon: '', key: 'kingOfTheHill', name: 'King of the Hill' },
-  { id: 5, icon: '', key: 'threeCheck', name: 'Three-check' },
-  { id: 6, icon: '', key: 'antichess', name: 'Antichess' },
-  { id: 7, icon: '', key: 'atomic', name: 'Atomic' },
-  { id: 8, icon: '', key: 'horde', name: 'Horde' },
-  { id: 9, icon: '', key: 'racingKings', name: 'Racing Kings' },
-  { id: 3, icon: '', key: 'fromPosition', name: 'From Position' },
+  { id: 1, icon: licon.Crown, key: 'standard', name: 'Standard' },
+  { id: 10, icon: licon.Crazyhouse, key: 'crazyhouse', name: 'Crazyhouse' },
+  { id: 2, icon: licon.DieSix, key: 'chess960', name: 'Chess960' },
+  { id: 4, icon: licon.FlagKingHill, key: 'kingOfTheHill', name: 'King of the Hill' },
+  { id: 5, icon: licon.ThreeCheckStack, key: 'threeCheck', name: 'Three-check' },
+  { id: 6, icon: licon.Antichess, key: 'antichess', name: 'Antichess' },
+  { id: 7, icon: licon.Atom, key: 'atomic', name: 'Atomic' },
+  { id: 8, icon: licon.Keypad, key: 'horde', name: 'Horde' },
+  { id: 9, icon: licon.FlagRacingKings, key: 'racingKings', name: 'Racing Kings' },
+  { id: 3, icon: licon.Crown, key: 'fromPosition', name: 'From Position' },
 ];
 
 export const variantsBlindMode: Variant[] = variants.filter(({ key }: Variant) =>
@@ -33,12 +35,12 @@ export const variantsForGameType = (baseVariants: Variant[], gameType: GameType)
 export const variantsWhereWhiteIsBetter: VariantKey[] = ['antichess', 'atomic', 'horde', 'racingKings', 'threeCheck'];
 
 export const speeds: { key: Speed; name: string; icon: string }[] = [
-  { icon: '', key: 'ultraBullet', name: 'UltraBullet' },
-  { icon: '', key: 'bullet', name: 'Bullet' },
-  { icon: '', key: 'blitz', name: 'Blitz' },
-  { icon: '', key: 'rapid', name: 'Rapid' },
-  { icon: '', key: 'classical', name: 'Classical' },
-  { icon: '', key: 'correspondence', name: 'Correspondence' },
+  { icon: licon.UltraBullet, key: 'ultraBullet', name: 'UltraBullet' },
+  { icon: licon.Bullet, key: 'bullet', name: 'Bullet' },
+  { icon: licon.FlameBlitz, key: 'blitz', name: 'Blitz' },
+  { icon: licon.Rabbit, key: 'rapid', name: 'Rapid' },
+  { icon: licon.Turtle, key: 'classical', name: 'Classical' },
+  { icon: licon.PaperAirplane, key: 'correspondence', name: 'Correspondence' },
 ];
 
 export const timeModes = (trans: Trans): { id: number; key: TimeMode; name: string }[] => [

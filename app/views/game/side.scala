@@ -114,12 +114,14 @@ object side:
         }: Frag,
         userTv.map { u =>
           st.section(cls := "game__tv")(
-            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := "")(u.titleUsername)
+            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := licon.AnalogTv)(u.titleUsername)
           )
         },
         tour.map { t =>
           st.section(cls := "game__tournament")(
-            a(cls := "text", dataIcon := "", href := routes.Tournament.show(t.tour.id))(t.tour.name()),
+            a(cls := "text", dataIcon := licon.Trophy, href := routes.Tournament.show(t.tour.id))(
+              t.tour.name()
+            ),
             div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)
           )
         } orElse game.tournamentId.map { tourId =>

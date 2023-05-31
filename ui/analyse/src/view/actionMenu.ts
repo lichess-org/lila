@@ -1,4 +1,5 @@
 import { isEmpty } from 'common';
+import * as licon from 'common/licon';
 import modal from 'common/modal';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
@@ -72,7 +73,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
           href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
           target: '_blank',
           rel: 'noopener',
-          'data-icon': '',
+          'data-icon': licon.StudyBoard,
         },
       },
       ctrl.trans.noarg('openStudy')
@@ -103,7 +104,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
         {
           attrs: {
             type: 'submit',
-            'data-icon': '',
+            'data-icon': licon.StudyBoard,
           },
         },
         ctrl.trans.noarg('toStudy')
@@ -124,7 +125,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         {
           hook: bind('click', ctrl.flip),
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.ChasingArrows,
             title: 'Hotkey: f',
           },
         },
@@ -144,7 +145,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       color: ctrl.chessground.state.orientation,
                     })
                   : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
-                'data-icon': '',
+                'data-icon': licon.Pencil,
                 ...(ctrl.embed
                   ? {
                       target: '_blank',
@@ -166,7 +167,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   content: $('.continue-with.g_' + d.game.id),
                 })
               ),
-              attrs: dataIcon(''),
+              attrs: dataIcon(licon.Swords),
             },
             noarg('continueFromHere')
           )

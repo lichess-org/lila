@@ -6,6 +6,7 @@ import chess.variant.Variant
 import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
 import chess.Color
+import lila.tree.{ Root, Branch, Branches }
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,
@@ -67,7 +68,7 @@ final private class ChapterMaker(
       conceal = data.isConceal option parsed.root.ply
     )
 
-  private def resolveOrientation(data: Data, root: Node.Root, tags: Tags = Tags.empty): Color =
+  private def resolveOrientation(data: Data, root: Root, tags: Tags = Tags.empty): Color =
     data.orientation match
       case Orientation.Fixed(color)    => color
       case _ if tags.outcome.isDefined => Color.white
@@ -79,15 +80,15 @@ final private class ChapterMaker(
     val (root, isFromFen) =
       data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match
         case Some(sit) =>
-          Node.Root(
+          Root(
             ply = sit.ply,
             fen = Fen write sit,
             check = sit.situation.check,
             clock = none,
             crazyData = sit.situation.board.crazyData,
-            children = Node.emptyChildren
+            children = Branches.empty
           ) -> true
-        case None => Node.Root.default(variant) -> false
+        case None => Root.default(variant) -> false
     Chapter.make(
       studyId = study.id,
       name = data.name,
@@ -115,15 +116,15 @@ final private class ChapterMaker(
       withRatings: Boolean,
       initialFen: Option[Fen.Epd] = None
   ): Fu[Chapter] =
-    for {
+    for
       root <- makeRoot(game, data.pgn, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <-
-        if (data.isDefaultName)
+        if data.isDefaultName then
           StudyChapterName from Namer.gameVsText(game, withRatings)(using lightUser.async)
         else fuccess(data.name)
       _ = notifyChat(study, game, userId)
-    } yield Chapter.make(
+    yield Chapter.make(
       studyId = study.id,
       name = name,
       setup = Chapter.Setup(
@@ -160,15 +161,14 @@ final private class ChapterMaker(
       game: Game,
       pgnOpt: Option[PgnStr],
       initialFen: Option[Fen.Epd]
-  ): Fu[Node.Root] =
+  ): Fu[Root] =
     initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { goodFen =>
       val fromGame = GameToRoot(game, goodFen, withClocks = true)
-      pgnOpt.flatMap(PgnImport(_, Nil).toOption.map(_.root)) match {
+      pgnOpt.flatMap(PgnImport(_, Nil).toOption.map(_.root)) match
         case Some(r) => fromGame.merge(r)
         case None    => fromGame
-      }
     }
 
   private val UrlRegex = {

@@ -145,16 +145,8 @@ final class Api(
       } map toApiResult
     }
 
-  private val GameRateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 100,
-    duration = 1.minute,
-    key = "game.api.one.ip"
-  )
-
   def game(id: GameId) = ApiRequest:
-    GameRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
-      lila.mon.api.game.increment(1)
-      gameApi.one(id, gameFlagsFromRequest(req)) map toApiResult
+    gameApi.one(id, gameFlagsFromRequest(req)) map toApiResult
 
   private val CrosstableRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 30,
@@ -162,18 +154,17 @@ final class Api(
     key = "crosstable.api.ip"
   )
 
-  def crosstable(name1: UserStr, name2: UserStr) =
-    ApiRequest:
-      CrosstableRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
-        val (u1, u2) = (name1.id, name2.id)
-        env.game.crosstableApi(u1, u2) flatMap { ct =>
-          (ct.results.nonEmpty && getBool("matchup", req)).?? {
-            env.game.crosstableApi.getMatchup(u1, u2)
-          } map { matchup =>
-            toApiResult:
-              lila.game.JsonView.crosstable(ct, matchup).some
-          }
+  def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
+    CrosstableRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
+      val (u1, u2) = (name1.id, name2.id)
+      env.game.crosstableApi(u1, u2) flatMap { ct =>
+        (ct.results.nonEmpty && getBool("matchup", req)).?? {
+          env.game.crosstableApi.getMatchup(u1, u2)
+        } map { matchup =>
+          toApiResult:
+            lila.game.JsonView.crosstable(ct, matchup).some
         }
+      }
 
   def currentTournaments = ApiRequest:
     given Lang = reqLang

@@ -12,6 +12,7 @@ import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
+import lila.tree.{ Branch, Branches }
 import lila.user.{ Holder, User }
 
 final class StudyApi(
@@ -199,7 +200,7 @@ final class StudyApi(
   def addNode(
       studyId: StudyId,
       position: Position.Ref,
-      node: Node,
+      node: Branch,
       opts: MoveOpts,
       relay: Option[Chapter.Relay] = None
   )(who: Who): Funit =
@@ -211,13 +212,13 @@ final class StudyApi(
   private def doAddNode(
       study: Study,
       position: Position,
-      rawNode: Node,
+      rawNode: Branch,
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
   )(who: Who): Fu[Option[() => Funit]] =
     val singleNode   = rawNode.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
-    if (position.chapter.isOverweight)
+    if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       failReload()
       fuccess(none)
@@ -230,24 +231,19 @@ final class StudyApi(
           chapter.root.nodeAt(position.path) ?? { parent =>
             parent.children.get(singleNode.id) ?? { node =>
               val newPosition = position.ref + node
-              chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
-                (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
-                (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
-                updateConceal(study, chapter, newPosition) >>-
-                sendTo(study.id)(
-                  _.addNode(
-                    position.ref,
-                    node,
-                    chapter.setup.variant,
-                    sticky = opts.sticky,
-                    relay = relay,
-                    who
-                  )
-                ) inject {
-                  (opts.promoteToMainline && !newPosition.path.isMainline(chapter.root)) option { () =>
-                    promote(study.id, position.ref + node, toMainline = true)(who)
-                  }
-                }
+              for
+                _ <- chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter)
+                _ <- relay ?? { chapterRepo.setRelay(chapter.id, _) }
+                _ <-
+                  if opts.sticky
+                  then studyRepo.setPosition(study.id, newPosition)
+                  else studyRepo.updateNow(study)
+                _ <- updateConceal(study, chapter, newPosition)
+                _ = sendTo(study.id):
+                  _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
+                promoteToMainline = opts.promoteToMainline && !newPosition.path.isMainline(chapter.root)
+              yield promoteToMainline.option: () =>
+                promote(study.id, position.ref + node, toMainline = true)(who)
             }
           }
 

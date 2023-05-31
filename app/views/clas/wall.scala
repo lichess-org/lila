@@ -13,10 +13,18 @@ object wall:
   def show(c: Clas, html: Html, students: List[Student.WithUser])(using Context) =
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
       div(cls := "clas-wall__actions")(
-        a(dataIcon := "", href := clasRoutes.wallEdit(c.id.value), cls := "button button-clas text")(
+        a(
+          dataIcon := licon.Pencil,
+          href     := clasRoutes.wallEdit(c.id.value),
+          cls      := "button button-clas text"
+        )(
           trans.clas.editNews()
         ),
-        a(dataIcon := "", href := clasRoutes.notifyStudents(c.id.value), cls := "button button-clas text")(
+        a(
+          dataIcon := licon.Envelope,
+          href     := clasRoutes.notifyStudents(c.id.value),
+          cls      := "button button-clas text"
+        )(
           trans.clas.notifyAllStudents()
         )
       ),

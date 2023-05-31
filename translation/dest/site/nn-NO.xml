@@ -120,6 +120,7 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
+  <string name="engineManager">Innstillingar for sjakkprogram</string>
   <string name="blunder">Bukk</string>
   <string name="mistake">Mistak</string>
   <string name="inaccuracy">Småfeil</string>
@@ -151,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating over %2$s parti</item>
+    <item quantity="other">%1$s rating over %2$s parti</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bokmerke</item>

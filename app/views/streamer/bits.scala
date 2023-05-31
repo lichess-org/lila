@@ -14,7 +14,7 @@ object bits:
   def create(using Context) =
     views.html.site.message(
       title = becomeStreamer.txt(),
-      icon = Some(""),
+      icon = Some(licon.Mic),
       moreCss = cssTag("streamer.form").some
     )(
       postForm(cls := "streamer-new", action := routes.Streamer.create)(
@@ -25,7 +25,7 @@ object bits:
         br,
         br,
         p(style := "text-align: center")(
-          submitButton(cls := "button button-fat text", dataIcon := "")(hereWeGo())
+          submitButton(cls := "button button-fat text", dataIcon := licon.Mic)(hereWeGo())
         )
       )
     )
@@ -48,7 +48,11 @@ object bits:
         cls  := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
       )("Approval requests"),
-      a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")(
+      a(
+        dataIcon := licon.InfoCircle,
+        cls      := "text",
+        href     := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community"
+      )(
         "Streamer community"
       ),
       a(href := "/about")(downloadKit())
@@ -65,7 +69,7 @@ object bits:
         cls   := "stream highlight",
         title := s.status
       )(
-        strong(cls := "text", dataIcon := "")(l titleName s),
+        strong(cls := "text", dataIcon := licon.Mic)(l titleName s),
         " ",
         s.cleanStatus
       )
@@ -77,7 +81,7 @@ object bits:
     )
 
   def contextual(userId: UserId)(using Lang): Tag =
-    redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
+    redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic)(
       xIsStreaming(strong(titleNameOrId(userId)))
     )
 
@@ -101,7 +105,7 @@ object bits:
 
   def streamerTitle(s: lila.streamer.Streamer.WithContext) =
     span(cls := "streamer-title")(
-      h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
+      h1(dataIcon := licon.Mic)(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang map { language =>
         span(cls := "streamer-lang")(LangList nameByStr language)
       }

@@ -124,6 +124,7 @@
   <string name="memory">Pamięć RAM</string>
   <string name="infiniteAnalysis">Nieskończona analiza</string>
   <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
+  <string name="engineManager">Ustawienia silnika</string>
   <string name="blunder">Błąd</string>
   <string name="mistake">Pomyłka</string>
   <string name="inaccuracy">Niedokładność</string>
@@ -165,6 +166,12 @@
     <item quantity="few">%s partie</item>
     <item quantity="many">%s partii</item>
     <item quantity="other">%s partii</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s ranking na podstawie %2$s partii</item>
+    <item quantity="few">%1$s ranking na podstawie %2$s partii</item>
+    <item quantity="many">%1$s ranking na podstawie %2$s partii</item>
+    <item quantity="other">%1$s ranking na podstawie %2$s partii</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ulubiona partia</item>

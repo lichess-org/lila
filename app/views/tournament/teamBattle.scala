@@ -1,6 +1,7 @@
 package views.html
 package tournament
 
+import cats.syntax.all.*
 import controllers.routes
 import play.api.data.Form
 
@@ -121,17 +122,16 @@ object teamBattle:
             )
           ),
           tbody(
-            info.topPlayers.zipWithIndex.map { case (player, index) =>
+            info.topPlayers.mapWithIndex: (player, index) =>
               tr(
                 td(index + 1),
                 td(
-                  (index < tour.teamBattle.??(_.nbLeaders)) option iconTag(""),
+                  (index < tour.teamBattle.??(_.nbLeaders)) option iconTag(licon.Crown),
                   userIdLink(player.userId.some)
                 ),
                 td(player.score),
                 ctx.pref.showRatings option td(player.performance)
               )
-            }
           )
         )
       )

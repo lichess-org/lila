@@ -16,24 +16,13 @@ case class Step(
     crazyData: Option[Crazyhouse.Data]
 ):
   // who's color plays next
-  def color = ply.color
+  def color = ply.turn
 
   def toJson = Json toJson this
 
 object Step:
 
-  // TODO copied from lila.game
-  // put all that shit somewhere else
-  private given OWrites[Crazyhouse.Pocket] = OWrites { v =>
-    JsObject(
-      v.values.collect {
-        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
-      }
-    )
-  }
-  given OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
-  }
+  import lila.common.Json.given
 
   given Writes[Step] = Writes { step =>
     import lila.common.Json.given

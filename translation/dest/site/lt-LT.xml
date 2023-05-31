@@ -124,6 +124,7 @@
   <string name="memory">Atmintinė</string>
   <string name="infiniteAnalysis">Neribota analizė</string>
   <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
+  <string name="engineManager">Variklių valdymas</string>
   <string name="blunder">Šiurkšti klaida</string>
   <string name="mistake">Klaida</string>
   <string name="inaccuracy">Netikslumas</string>
@@ -165,6 +166,12 @@
     <item quantity="few">%s partijos</item>
     <item quantity="many">%s partijų</item>
     <item quantity="other">%s partijų</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s reitingas per %2$s partiją</item>
+    <item quantity="few">%1$s reitingas per %2$s partijas</item>
+    <item quantity="many">%1$s reitingas per %2$s partijos</item>
+    <item quantity="other">%1$s reitingas per %2$s partijų</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s įrašas</item>

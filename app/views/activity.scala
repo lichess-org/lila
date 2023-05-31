@@ -50,7 +50,7 @@ object activity:
 
   private def renderPatron(p: Patron)(using Context) =
     div(cls := "entry plan")(
-      iconTag(""),
+      iconTag(licon.Wings),
       div(
         if (p.months == 0) a(href := routes.Plan.index)("Lifetime Patron!")
         else
@@ -61,7 +61,7 @@ object activity:
   private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(using Context) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
-      iconTag(""),
+      iconTag(licon.Bullseye),
       div(
         ps.headOption map onePractice,
         ps match {
@@ -82,7 +82,7 @@ object activity:
 
   private def renderPuzzles(u: User)(p: Puzzles)(using ctx: Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.ArcheryTarget),
       scoreFrag(p.value),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.value.size),
@@ -92,7 +92,7 @@ object activity:
 
   private def renderStorm(s: Storm)(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.Storm),
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
@@ -102,7 +102,7 @@ object activity:
 
   private def renderRacer(s: Racer)(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.FlagChessboard),
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
@@ -112,7 +112,7 @@ object activity:
 
   private def renderStreak(s: Streak)(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.ArrowThruApple),
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
@@ -123,7 +123,7 @@ object activity:
   private def renderGames(games: Games)(using Context) =
     games.value.toSeq.sortBy(-_._2.size).map { case (pt, score) =>
       entryTag(
-        iconTag(pt.iconChar),
+        iconTag(pt.icon),
         scoreFrag(score),
         div(
           trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),
@@ -136,7 +136,7 @@ object activity:
       ctx: Context
   ) =
     ctx.noKid option entryTag(
-      iconTag(""),
+      iconTag(licon.BubbleConvo),
       div(
         posts.toSeq.map { case (topic, posts) =>
           frag(
@@ -160,7 +160,7 @@ object activity:
       ctx: Context
   ) =
     ctx.noKid option entryTag(
-      iconTag(""),
+      iconTag(licon.InkQuill),
       div(
         trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),
         subTag(posts.map { post =>
@@ -173,7 +173,7 @@ object activity:
 
   private def renderCorresMoves(nb: Int, povs: List[lila.game.LightPov])(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.PaperAirplane),
       div(
         trans.activity.playedNbMoves.pluralSame(nb),
         " ",
@@ -199,7 +199,7 @@ object activity:
 
   private def renderCorresEnds(score: Score, povs: List[lila.game.LightPov])(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.PaperAirplane),
       div(
         trans.activity.completedNbGames.plural(score.size, subCount(score.size)),
         score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
@@ -230,7 +230,7 @@ object activity:
 
   private def renderFollows(all: Follows)(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.ThumbsUp),
       div(
         List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten map { case (f, in) =>
           frag(
@@ -249,7 +249,7 @@ object activity:
 
   private def renderSimuls(u: User)(simuls: List[lila.simul.Simul])(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.Group),
       div(
         simuls.groupBy(_.isHost(u.some)).toSeq.map { case (isHost, simuls) =>
           frag(
@@ -276,7 +276,7 @@ object activity:
 
   private def renderStudies(studies: List[lila.study.Study.IdName])(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.StudyBoard),
       div(
         trans.activity.createdNbStudies.pluralSame(studies.size),
         subTag(
@@ -289,7 +289,7 @@ object activity:
 
   private def renderTeams(teams: Teams)(using ctx: Context) =
     ctx.noKid option entryTag(
-      iconTag(""),
+      iconTag(licon.Group),
       div(
         trans.activity.joinedNbTeams.pluralSame(teams.value.size),
         subTag(fragList(teams.value.map(id => teamLink(id))))
@@ -298,7 +298,7 @@ object activity:
 
   private def renderTours(tours: lila.activity.ActivityView.Tours)(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.Trophy),
       div(
         trans.activity.competedInNbTournaments.pluralSame(tours.nb),
         subTag(
@@ -308,7 +308,7 @@ object activity:
                 "is-gold" -> (t.rank == Rank(1)),
                 "text"    -> (t.rank <= 3)
               ),
-              dataIcon := (t.rank <= 3).option("")
+              dataIcon := (t.rank <= 3).option(licon.Trophy)
             )(
               trans.activity.rankedInTournament.plural(
                 t.nbGames,
@@ -326,7 +326,7 @@ object activity:
 
   private def renderSwisses(swisses: List[(Swiss.IdName, Rank)])(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.Trophy),
       div(
         trans.activity.competedInNbSwissTournaments.pluralSame(swisses.size),
         subTag(
@@ -336,7 +336,7 @@ object activity:
                 "is-gold" -> (rank == Rank(1)),
                 "text"    -> (rank <= 3)
               ),
-              dataIcon := (rank <= 3).option("")
+              dataIcon := (rank <= 3).option(licon.Trophy)
             )(
               trans.activity.rankedInSwissTournament(
                 strong(rank),
@@ -351,13 +351,13 @@ object activity:
 
   private def renderStream(u: User)(using ctx: Context) =
     ctx.noKid option entryTag(
-      iconTag(""),
+      iconTag(licon.Mic),
       a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
     )
 
   private def renderSignup(using Context) =
     entryTag(
-      iconTag(""),
+      iconTag(licon.StarOutline),
       div(trans.activity.signedUp())
     )
 

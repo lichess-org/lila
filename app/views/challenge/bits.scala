@@ -27,7 +27,10 @@ object bits:
 
   def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: Context) =
     div(cls := "details")(
-      div(cls := "variant", dataIcon := (if (c.initialFen.isDefined) '' else c.perfType.iconChar))(
+      div(
+        cls      := "variant",
+        dataIcon := (if c.initialFen.isDefined then licon.Feather else c.perfType.icon)
+      )(
         div(
           views.html.game.bits.variantLink(c.variant, c.perfType.some, c.initialFen),
           br,
