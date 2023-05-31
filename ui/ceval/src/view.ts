@@ -259,7 +259,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     percent = 100;
   } else {
     if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
-    else if (instance.getState() === CevalState.Failed) pearl = h('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
+    else if (instance.getState() === CevalState.Failed)
+      pearl = h('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
     else if (!instance.showClientEval()) pearl = '? ?';
     else {
       shortEval = instance.getState() === CevalState.Loading;
@@ -304,19 +305,17 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         shortEval ? h('span.pearl-eval', shortEvalInfo(ctrl, evs)) : undefined,
       ]);
 
-  const hook = bind('click', instance.actionMenu.toggle, ctrl.redraw);
-  const configButton = !enabled
-    ? h('button.fbt.config-engine', { hook, attrs: { disabled: true } })
-    : h('button.fbt.config-engine', {
-        attrs: {
-          'data-icon': '\ue019',
-          title: 'Configure engine',
-        },
-        hook,
-        class: {
-          active: instance.actionMenu(),
-        },
-      });
+  const configButton = h('button.fbt.config-engine', {
+    attrs: {
+      'data-icon': licon.Gear,
+      title: 'Configure engine',
+      disabled: !enabled,
+    },
+    hook: bind('click', instance.actionMenu.toggle, ctrl.redraw),
+    class: {
+      active: enabled && instance.actionMenu(),
+    },
+  });
 
   const config = !instance.actionMenu() ? undefined : h('div.action-menu.engine-config', renderEngineConfig(ctrl));
 
