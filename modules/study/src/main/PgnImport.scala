@@ -134,6 +134,7 @@ object PgnImport:
                   shapes = shapes,
                   comments = comments,
                   glyphs = node.value.metas.glyphs,
+                  clock = clock,
                   crazyData = game.situation.board.crazyData,
                   children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
                 ).some
