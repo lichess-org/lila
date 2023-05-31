@@ -67,6 +67,7 @@ object Eval:
       inline def invertIf(cond: Boolean): Cp = if (cond) invert else cp
 
       def signum: Int = Math.signum(cp.value.toFloat).toInt
+
   end Cp
 
   opaque type Mate = Int

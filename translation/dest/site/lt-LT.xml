@@ -167,7 +167,7 @@
     <item quantity="many">%s partijų</item>
     <item quantity="other">%s partijų</item>
   </plurals>
-  <plurals name="ratingXOverYGames" comment="Hover tooltip explaining over how many games a displayed rating was calculated (i.e. how many games in total the user played in the time control or variant).&#10;&#10;%1$s is a time control or variant e.g. &quot;Blitz&quot; or &quot;Antichess&quot;&#10;%2$s is the number of games played in that time control or variant">
+  <plurals name="ratingXOverYGames">
     <item quantity="one">%1$s reitingas per %2$s partiją</item>
     <item quantity="few">%1$s reitingas per %2$s partijas</item>
     <item quantity="many">%1$s reitingas per %2$s partijos</item>

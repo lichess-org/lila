@@ -1,14 +1,14 @@
 package lila.relay
 
 import chess.format.pgn.{ Tags, Tag, TagType }
-import lila.study.{ Chapter, Node, PgnImport }
-import lila.study.MultiPgn
+import lila.study.{ Chapter, MultiPgn, Node, PgnImport }
+import lila.tree.Root
 
 case class RelayGame(
     index: Int,
     tags: Tags,
     variant: chess.variant.Variant,
-    root: Node.Root,
+    root: Root,
     end: Option[PgnImport.End]
 ):
 
@@ -62,8 +62,8 @@ private object RelayGame:
           gs.view.map { g =>
             Pgn(
               tags = g.tags,
-              turns = lila.study.PgnDump.toTurns(g.root).toList,
-              initial = Initial.empty
+              initial = Initial.empty,
+              lila.study.PgnDump.rootToTree(g.root)
             ).render
           }.toList
         },
