@@ -508,7 +508,7 @@ final class Auth(
       }
     def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result]): Fu[Result] =
       val ip          = req.ipAddress
-      val multipleIps = lastAttemptIp.asMap().replace(id, ip).fold(false)(_ != ip)
+      val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
       env.security.ipTrust
         .isSuspicious(ip)
         .flatMap: ipSusp =>
