@@ -63,7 +63,7 @@ object PgnFixtures:
 """
 
   val pgn6 =
-      """[Event "Norway Chess"]
+    """[Event "Norway Chess"]
 [Site "-"]
 [Date "2023.05.31"]
 [Round "3"]
