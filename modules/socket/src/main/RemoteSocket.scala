@@ -5,11 +5,9 @@ import chess.{ Centis, Color }
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
 import java.util.concurrent.atomic.AtomicReference
-import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json.*
 import scala.util.chaining.*
 import lila.socket.Socket.Sri
-import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
@@ -26,27 +24,6 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
   private var stopping = false
 
   private type UserIds = Set[UserId]
-
-  object request:
-
-    private val inFlight = ConcurrentHashMap[Int, Promise[String]](32)
-
-    def apply[R](sendReq: Int => Unit, readRes: String => R): Fu[R] =
-      val id = ThreadLocalRandom.nextInt()
-      sendReq(id)
-      val promise = Promise[String]()
-      inFlight.put(id, promise)
-      promise.future map readRes
-
-    private[RemoteSocket] def onResponse(reqId: Int, response: String): Unit =
-      inFlight
-        .computeIfPresent(
-          reqId,
-          (_, promise) =>
-            promise success response
-            null // remove from promises
-        )
-        .unit
 
   val onlineUserIds: AtomicReference[Set[UserId]] = AtomicReference(initialUserIds)
 
@@ -65,7 +42,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
-    case In.ReqResponse(reqId, response) => request.onResponse(reqId, response)
+    case In.ReqResponse(reqId, response) => SocketRequest.onResponse(reqId, response)
     case In.Ping(id)                     => send(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -168,7 +145,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     subPromise.future
 
   Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping"): () =>
-    request[Unit](
+    SocketRequest[Unit](
       id => send(Protocol.Out.stop(id)),
       res => logger.info(s"lila-ws says: $res")
     ).withTimeout(1 second, "Lilakka.shutdown")
@@ -181,8 +158,6 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       redisClient.shutdown()
 
 object RemoteSocket:
-
-  private val logger = lila log "socket"
 
   type Send = String => Unit
 

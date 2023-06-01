@@ -30,7 +30,7 @@ final private class StudySocket(
   subscribeChat(rooms, _.Study)
 
   def isPresent(studyId: StudyId, userId: UserId): Fu[Boolean] =
-    remoteSocketApi.request[Boolean](
+    lila.socket.SocketRequest[Boolean](
       id => send(Protocol.Out.getIsPresent(id, studyId, userId)),
       _ == "true"
     )
