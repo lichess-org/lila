@@ -62,6 +62,28 @@ object PgnFixtures:
 
 """
 
+  val pgn6 =
+      """[Event "Norway Chess"]
+[Site "-"]
+[Date "2023.05.31"]
+[Round "3"]
+[WhiteTitle "GM"] [White "Carlsen, Magnus"]
+[Black "So, Wesley"]
+[Result "*"]
+[Board "1"]
+[WhiteClock "01:03:52"]
+[WhiteElo "2853"]
+[WhiteTitle "GM"]
+[WhiteCountry "NOR"]
+[WhiteFideId "1503014"]
+[BlackClock "01:09:48"]
+[BlackElo "2760"]
+[BlackTitle "GM"]
+[BlackCountry "USA"]
+[BlackFideId "5202213"]
+
+1. e4 { [%clk 1:59:59] } 1... e5 { [%clk 1:59:40] } 2. Nf3 { [%clk 1:59:51] } 2... Nc6 { [%clk 1:59:07] } 3. Bb5 { [%clk 1:59:44] } 3... Nf6 { [%clk 1:59:01] } 4. d3 { [%clk 1:59:36] } 4... Bc5 { [%clk 1:58:57] } 5. Bxc6 { [%clk 1:59:30] } 5... dxc6 { [%clk 1:58:53] } 6. O-O { [%clk 1:59:07] } 6... Nd7 { [%clk 1:57:22] } 7. h3 { [%clk 1:55:18] } 7... O-O { [%clk 1:55:11] } 8. Nc3 { [%clk 1:54:21] } 8... a5 { [%clk 1:52:37] } 9. a4 { [%clk 1:53:36] } 9... f6 { [%clk 1:49:06] } 10. Qe2 { [%clk 1:45:14] } 10... Re8 { [%clk 1:41:33] } 11. Be3 { [%clk 1:44:27] } 11... Bd6 { [%clk 1:36:47] } 12. Nd2 { [%clk 1:42:23] } 12... Nf8 { [%clk 1:36:24] } 13. f3 { [%clk 1:32:47] } 13... Ng6 { [%clk 1:17:22] } 14. Qf2 { [%clk 1:32:39] } 14... Be6 { [%clk 1:16:24] } 15. Ne2 { [%clk 1:31:54] } 15... Qd7 { [%clk 1:16:14] } 16. b3 { [%clk 1:27:21] } 16... Bb4 { [%clk 1:13:57] } 17. Rad1 { [%clk 1:24:50] } 17... b6 { [%clk 1:09:49] } 18. g4 { [%clk 1:03:52] }"""
+
   val wcc2023 = List(
     """
 [Event "FIDE World Championship 2023"]
@@ -649,5 +671,5 @@ The knight on c6 is less flexible and limits the scope of the light square bisho
 Now we move on to the tie breaks. In the rapid portion, the match should be balanced. However, if it were to proceed to the blitz, I rate Nepo as the favourite. } 1/2-1/2
 """
   )
-  val roundTrip = List(pgn1, pgn2, pgn3, pgn4, pgn5).map(PgnStr(_))
+  val roundTrip = List(pgn1, pgn2, pgn3, pgn4, pgn5, pgn6).map(PgnStr(_))
   val all       = roundTrip ++ wcc2023.map(PgnStr(_))

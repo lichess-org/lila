@@ -11,6 +11,8 @@
   background: $c-bg-box;
   color: $c-font-dim;
   strong {
+    color: $c-brag;
+    font-weight: normal;
     padding-#{$end-direction}: 0.7ch;
   }
 
@@ -18,10 +20,10 @@
 
   &::before {
     font-size: 1.3em;
-    color: $c-primary;
+    color: $c-brag;
   }
 
   &:hover {
-    color: $c-primary;
+    color: $c-brag;
   }
 }
