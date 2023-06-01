@@ -3,6 +3,7 @@ package lila.relay
 import cats.syntax.all.*
 
 import akka.actor.*
+import chess.Ply
 import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
@@ -212,12 +213,12 @@ final private class RelayFetch(
           .fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
     yield data
 
-private object RelayFetch:
+private[relay] object RelayFetch:
 
   def maxChapters(tour: RelayTour) =
     lila.study.Study.maxChapters * (if (tour.official) 2 else 1)
 
-  private object DgtJson:
+  private[relay] object DgtJson:
     case class PairingPlayer(
         fname: Option[String],
         mname: Option[String],
@@ -246,13 +247,13 @@ private object RelayFetch:
 
     case class GameJson(moves: List[String], result: Option[String]):
       def toPgn(extraTags: Tags = Tags.empty) =
-        val strMoves = moves.map(_ split ' ') map { move =>
+        val strMoves = moves.map(_ split ' ').mapWithIndex: (move, index) =>
           chess.format.pgn.Move(
-            ply = chess.Ply.initial,
+            ply = Ply(index + 1),
             san = SanStr(~move.headOption),
             secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
-          )
-        } mkString " "
+          ).render
+        .mkString(" ")
         PgnStr(s"$extraTags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 
