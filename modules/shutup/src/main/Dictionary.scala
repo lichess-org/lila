@@ -73,7 +73,7 @@ honkey
 hooker
 horny
 humping
-idiot
+[iİ]diot
 incest
 jerk
 jizz?(um|)
@@ -246,6 +246,7 @@ ching(ue|a)
 chupame
 cobarde
 est[úu]pid[ao]
+gilipollas
 hdp
 hijo de put\w*
 idiota
@@ -317,7 +318,7 @@ wichser
 """)
 
   def tr = dict("""
-am[iı]na (koyay[iı]m|koy?dum)
+am[iı]na ((koyay[iı]m|koy?dum)|(sokay[iı]m)|([cç]akay[iı]m))
 amc[iı]k
 anan[iı]n am[iı]
 ((ann?an[iı](z[iı])?)|(kar[iı]n[iı](z[iı])?)|(avrad[iı]n[iı](z[iı])?)) (s[ii̇]k[ei](yim|cem|rim|m))
@@ -334,7 +335,7 @@ oç+
 piç(lik)?
 pu[sş]t
 salak
-s[ii̇]k[ei](yim|cem|rim|m)
+s[ii̇]k[ei](yim|cem|rim|m|ik)
 sikiyonuz
 s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz
@@ -349,6 +350,7 @@ cancer
 g?kys
 k y s
 ky5
+(l|1)<ys
 nigg?[ae]r
 rap(ed?|e?ing)
 subhuman
