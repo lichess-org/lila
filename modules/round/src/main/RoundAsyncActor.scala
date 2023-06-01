@@ -15,8 +15,7 @@ import lila.hub.actorApi.round.{
   IsOnGame,
   RematchNo,
   RematchYes,
-  Resign,
-  GetWatcher
+  Resign
 }
 import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol as RP, * }

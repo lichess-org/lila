@@ -245,7 +245,6 @@ package round:
   case class RematchNo(playerId: GamePlayerId)
   case class Abort(playerId: GamePlayerId)
   case class Resign(playerId: GamePlayerId)
-  case class GetWatcher(sri: String, id: GameId, color: chess.Color)
   case class Mlat(millis: Int)
 
 package evaluation:

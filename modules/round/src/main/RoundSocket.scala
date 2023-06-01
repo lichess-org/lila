@@ -12,7 +12,7 @@ import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.common.Json.given
 import lila.game.{ Event, Game, Pov, PovRef }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
-import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, GetWatcher, Resign, TourStanding }
+import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
@@ -137,11 +137,12 @@ final class RoundSocket(
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
     case P.In.Ping(id) => send(P.Out.pong(id))
-    case Protocol.In.GetWatcher(sri, pov) =>
+    case Protocol.In.GetWatcher(reqId, pov) =>
       for
-        data    <- rounds.ask[GameAndSocketStatus](pov.gameId)(GetGameAndSocketStatus.apply)
-        publish <- mobileSocket.watcher(sri, data.game.pov(pov.color), data.socket)
-      yield publish
+        data <- rounds.ask[GameAndSocketStatus](pov.gameId)(GetGameAndSocketStatus.apply)
+        data <- mobileSocket.watcher(data.game.pov(pov.color), data.socket)
+      yield sendForGameId(pov.gameId)(Protocol.Out.respond(reqId, data))
+
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -306,13 +307,13 @@ object RoundSocket:
       case class Berserk(gameId: GameId, userId: UserId)                                          extends P.In
       case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
-      case class WsLatency(millis: Int)                   extends P.In
-      case class GetWatcher(sri: Socket.Sri, pov: PovRef) extends P.In
+      case class WsLatency(millis: Int)              extends P.In
+      case class GetWatcher(reqId: Int, pov: PovRef) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match
           case "r/ons" =>
-            PlayerOnlines {
+            PlayerOnlines:
               P.In.commas(raw.args) map {
                 _ splitAt Game.gameIdSize match
                   case (gameId, cs) =>
@@ -321,24 +322,23 @@ object RoundSocket:
                       if (cs.isEmpty) None else Some(RoomCrowd(cs(0) == '+', cs(1) == '+'))
                     )
               }
-            }.some
+            .some
           case "r/do" =>
             raw.get(2) { case Array(fullId, payload) =>
-              for {
+              for
                 obj <- Json.parse(payload).asOpt[JsObject]
                 tpe <- obj str "t"
-              } yield PlayerDo(GameFullId(fullId), tpe)
+              yield PlayerDo(GameFullId(fullId), tpe)
             }
           case "r/move" =>
             raw.get(6) { case Array(fullId, uciS, blurS, lagS, mtS, fraS) =>
-              Uci(uciS) map { uci =>
+              Uci(uciS).map: uci =>
                 PlayerMove(
                   GameFullId(fullId),
                   uci,
                   P.In.boolean(blurS),
                   MoveMetrics(centis(lagS), centis(mtS), centis(fraS))
                 )
-              }
             }
           case "chat/say" =>
             raw.get(3) { case Array(roomId, author, msg) =>
@@ -372,10 +372,12 @@ object RoundSocket:
               readColor(color).map:
                 Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
             }
-          case "r/watcher" =>
-            raw.get(3) { case Array(sri, gameId, color) =>
-              readColor(color).map: color =>
-                GetWatcher(Socket.Sri(sri), PovRef(GameId(gameId), color))
+          case "r/get/watcher" =>
+            raw.get(3) { case Array(reqId, gameId, color) =>
+              for
+                reqId <- reqId.toIntOption
+                color <- readColor(color)
+              yield GetWatcher(reqId, PovRef(GameId(gameId), color))
             }
           case "r/latency" => raw.args.toIntOption map WsLatency.apply
           case _           => RP.In.reader(raw)
@@ -421,6 +423,8 @@ object RoundSocket:
       def startGame(users: List[UserId]) = s"r/start ${P.Out.commas(users)}"
       def finishGame(gameId: GameId, winner: Option[Color], users: List[UserId]) =
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
+
+      def respond(reqId: Int, data: JsObject) = s"req/response $reqId ${Json stringify data}"
 
       def versioningReady = "r/versioning-ready"
 

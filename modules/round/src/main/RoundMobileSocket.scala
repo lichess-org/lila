@@ -6,7 +6,6 @@ import lila.round.actorApi.SocketStatus
 import play.api.libs.json.JsObject
 import lila.common.{ Bus, Preload, ApiVersion }
 import lila.socket.Socket
-import lila.hub.actorApi.socket.remote.TellSriOut
 
 final private class RoundMobileSocket(
     userRepo: UserRepo,
@@ -15,7 +14,7 @@ final private class RoundMobileSocket(
 )(using Executor):
   private given play.api.i18n.Lang = lila.i18n.defaultLang
 
-  def watcher(sri: Socket.Sri, pov: Pov, socket: SocketStatus): Funit =
+  def watcher(pov: Pov, socket: SocketStatus): Fu[JsObject] =
     gameRepo
       .initialFen(pov.game)
       .flatMap: initialFen =>
@@ -28,5 +27,3 @@ final private class RoundMobileSocket(
           flags = JsonView.WithFlags(),
           socketStatus = Preload(socket)
         )
-      .map: json =>
-        Bus.publish(TellSriOut(sri.value, json), "remoteSocketOut")

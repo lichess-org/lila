@@ -2,12 +2,13 @@ package lila.socket
 
 import java.util.concurrent.atomic.AtomicInteger
 
+// send a request to lila-ws and await a response
 object SocketRequest:
 
   private val counter = AtomicInteger(0)
 
   private val inFlight = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterWrite(1.minute)
+    .expireAfterWrite(30.seconds)
     .removalListener { (id, _, cause) =>
       import com.github.benmanes.caffeine.cache.RemovalCause
       cause match
@@ -26,4 +27,4 @@ object SocketRequest:
     promise.future map readRes
 
   private[socket] def onResponse(reqId: Int, response: String): Unit =
-    asMap.remove(reqId).foreach(_ success response).unit
+    asMap.remove(reqId).foreach(_ success response)
