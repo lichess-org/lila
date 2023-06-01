@@ -350,7 +350,7 @@ cancer
 g?kys
 k y s
 ky5
-(l|1)<ys
+l<ys
 nigg?[ae]r
 rap(ed?|e?ing)
 subhuman
