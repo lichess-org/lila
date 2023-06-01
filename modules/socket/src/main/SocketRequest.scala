@@ -1,6 +1,7 @@
 package lila.socket
 
 import java.util.concurrent.atomic.AtomicInteger
+import com.github.benmanes.caffeine.cache.RemovalCause
 
 // send a request to lila-ws and await a response
 object SocketRequest:
@@ -9,13 +10,8 @@ object SocketRequest:
 
   private val inFlight = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(30.seconds)
-    .removalListener { (id, _, cause) =>
-      import com.github.benmanes.caffeine.cache.RemovalCause
-      cause match
-        case RemovalCause.EXPIRED  => logger.warn(s"RemoteSocket.request $id expired")
-        case RemovalCause.EXPLICIT =>
-        case _                     => logger.warn(s"RemoteSocket.request $id removed: $cause")
-    }
+    .removalListener: (id, _, cause) =>
+      if cause != RemovalCause.EXPLICIT then logger.warn(s"SocketRequest $id removed: $cause")
     .build[Int, Promise[String]]()
   private val asMap = inFlight.asMap()
 
