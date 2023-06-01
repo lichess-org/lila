@@ -335,7 +335,7 @@ oç+
 piç(lik)?
 pu[sş]t
 salak
-s[ii̇]k[ei](yim|cem|rim|m|ik)
+s[ii̇]k[ei](yim|cem|rim|m|k)
 sikiyonuz
 s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz
