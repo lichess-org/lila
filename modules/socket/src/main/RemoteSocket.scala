@@ -27,16 +27,28 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
 
   private type UserIds = Set[UserId]
 
-  private val requests = ConcurrentHashMap[Int, Promise[String]](32)
+  object request:
 
-  def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] =
-    val id = ThreadLocalRandom.nextInt()
-    sendReq(id)
-    val promise = Promise[String]()
-    requests.put(id, promise)
-    promise.future map readRes
+    private val inFlight = ConcurrentHashMap[Int, Promise[String]](32)
 
-  val onlineUserIds: AtomicReference[Set[UserId]] = new AtomicReference(initialUserIds)
+    def apply[R](sendReq: Int => Unit, readRes: String => R): Fu[R] =
+      val id = ThreadLocalRandom.nextInt()
+      sendReq(id)
+      val promise = Promise[String]()
+      inFlight.put(id, promise)
+      promise.future map readRes
+
+    private[RemoteSocket] def onResponse(reqId: Int, response: String): Unit =
+      inFlight
+        .computeIfPresent(
+          reqId,
+          (_, promise) =>
+            promise success response
+            null // remove from promises
+        )
+        .unit
+
+  val onlineUserIds: AtomicReference[Set[UserId]] = AtomicReference(initialUserIds)
 
   val baseHandler: Handler =
     case In.ConnectUser(userId) =>
@@ -53,16 +65,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
-    case In.ReqResponse(reqId, response) =>
-      requests
-        .computeIfPresent(
-          reqId,
-          (_: Int, promise: Promise[String]) =>
-            promise success response
-            null // remove from promises
-        )
-        .unit
-    case In.Ping(id) => send(Out.pong(id))
+    case In.ReqResponse(reqId, response) => request.onResponse(reqId, response)
+    case In.Ping(id)                     => send(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds set initialUserIds
