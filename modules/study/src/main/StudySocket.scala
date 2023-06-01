@@ -80,7 +80,7 @@ final private class StudySocket(
               applyWho(moveOrDrop(studyId, move, MoveOpts parse o))
 
         case "anaDrop" =>
-          AnaMove
+          AnaDrop
             .parse(o)
             .foreach: drop =>
               applyWho(moveOrDrop(studyId, drop, MoveOpts parse o))
