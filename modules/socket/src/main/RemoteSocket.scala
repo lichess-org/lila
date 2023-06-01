@@ -27,7 +27,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
 
   private type UserIds = Set[UserId]
 
-  private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
+  private val requests = ConcurrentHashMap[Int, Promise[String]](32)
 
   def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] =
     val id = ThreadLocalRandom.nextInt()
@@ -57,10 +57,9 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       requests
         .computeIfPresent(
           reqId,
-          (_: Int, promise: Promise[String]) => {
+          (_: Int, promise: Promise[String]) =>
             promise success response
             null // remove from promises
-          }
         )
         .unit
     case In.Ping(id) => send(Out.pong(id))
@@ -132,14 +131,13 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
   private val send: Send = makeSender("site-out").apply
 
   def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Funit =
-    connectAndSubscribe(channel) { str =>
+    connectAndSubscribe(channel): str =>
       RawMsg(str) match
         case None => logger.error(s"Invalid $channel $str")
         case Some(msg) =>
           reader(msg) collect handler match
             case Some(_) => // processed
             case None    => logger.warn(s"Unhandled $channel $str")
-    }
 
   def subscribeRoundRobin(channel: Channel, reader: In.Reader, parallelism: Int)(
       handler: Handler
@@ -148,9 +146,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     subscribe(channel, reader)(handler) >> {
       // and subscribe to subchannels
       (0 to parallelism)
-        .map { index =>
+        .map: index =>
           subscribe(s"$channel:$index", reader)(handler)
-        }
         .parallel
         .void
     }
@@ -166,21 +163,18 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     }
     subPromise.future
 
-  Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping") { () =>
+  Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping"): () =>
     request[Unit](
       id => send(Protocol.Out.stop(id)),
       res => logger.info(s"lila-ws says: $res")
     ).withTimeout(1 second, "Lilakka.shutdown")
       .addFailureEffect(e => logger.error("lila-ws stop", e))
       .recoverDefault
-  }
 
-  Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the socket redis pool") { () =>
-    Future {
+  Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the socket redis pool"): () =>
+    Future:
       stopping = true
       redisClient.shutdown()
-    }
-  }
 
 object RemoteSocket:
 

@@ -10,10 +10,10 @@ import play.api.libs.json.*
 import lila.chat.BusChan
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.common.Json.given
-import lila.game.{ Event, Game, Pov }
+import lila.game.{ Event, Game, Pov, PovRef }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
-import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Get, Resign, TourStanding }
-import lila.hub.actorApi.socket.remote.TellSriIn
+import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, GetWatcher, Resign, TourStanding }
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
 import lila.room.RoomSocket.{ Protocol as RP, * }
@@ -28,6 +28,7 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
+    mobileSocket: RoundMobileSocket,
     shutdown: CoordinatedShutdown
 )(using ec: Executor, scheduler: Scheduler):
 
@@ -135,8 +136,12 @@ final class RoundSocket(
     case RP.In.SetVersions(versions) =>
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
-    case P.In.Ping(id)                 => send(P.Out.pong(id))
-    case Protocol.In.Get(id, sri)      => rounds.tell(id, Get(sri))
+    case P.In.Ping(id) => send(P.Out.pong(id))
+    case Protocol.In.GetWatcher(sri, pov) =>
+      for
+        data    <- rounds.ask[GameAndSocketStatus](pov.gameId)(GetGameAndSocketStatus.apply)
+        publish <- mobileSocket.watcher(sri, data.game.pov(pov.color), data.socket)
+      yield publish
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -301,8 +306,8 @@ object RoundSocket:
       case class Berserk(gameId: GameId, userId: UserId)                                          extends P.In
       case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
-      case class WsLatency(millis: Int)       extends P.In
-      case class Get(id: GameId, sri: String) extends P.In
+      case class WsLatency(millis: Int)                   extends P.In
+      case class GetWatcher(sri: Socket.Sri, pov: PovRef) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match
@@ -367,9 +372,10 @@ object RoundSocket:
               readColor(color).map:
                 Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
             }
-          case "r/get" =>
-            raw.get(2) { case Array(gameId, sri) =>
-              Get(GameId(gameId), sri).some
+          case "r/watcher" =>
+            raw.get(3) { case Array(sri, gameId, color) =>
+              readColor(color).map: color =>
+                GetWatcher(Socket.Sri(sri), PovRef(GameId(gameId), color))
             }
           case "r/latency" => raw.args.toIntOption map WsLatency.apply
           case _           => RP.In.reader(raw)
