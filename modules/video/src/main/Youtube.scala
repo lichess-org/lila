@@ -61,7 +61,6 @@ final private[video] class Youtube(
             case JsError(err)          => fufail(err.toString)
             case JsSuccess(entries, _) => fuccess(entries.toList)
         case res =>
-          println(res.body)
           fufail(s"[video youtube] fetch ${res.status}")
       }
     }
