@@ -162,7 +162,6 @@ export const mic =
     }
 
     private get micTrack(): MediaStreamTrack | undefined {
-      debugger;
       return this.mediaStream?.getAudioTracks()[0];
     }
 
