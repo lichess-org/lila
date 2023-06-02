@@ -10,7 +10,7 @@ import play.api.libs.json.*
 import lila.chat.BusChan
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.common.Json.given
-import lila.game.{ Event, Game, Pov, PovRef }
+import lila.game.{ Event, Game, Pov }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
@@ -137,11 +137,11 @@ final class RoundSocket(
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
     case P.In.Ping(id) => send(P.Out.pong(id))
-    case Protocol.In.GetWatcher(reqId, pov) =>
+    case Protocol.In.GetGame(reqId, gameId) =>
       for
-        data <- rounds.ask[GameAndSocketStatus](pov.gameId)(GetGameAndSocketStatus.apply)
-        data <- mobileSocket.watcher(data.game.pov(pov.color), data.socket)
-      yield sendForGameId(pov.gameId)(Protocol.Out.respond(reqId, data))
+        game <- rounds.ask[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
+        data <- mobileSocket.json(game.game, game.socket)
+      yield sendForGameId(gameId)(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
@@ -307,8 +307,8 @@ object RoundSocket:
       case class Berserk(gameId: GameId, userId: UserId)                                          extends P.In
       case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
-      case class WsLatency(millis: Int)              extends P.In
-      case class GetWatcher(reqId: Int, pov: PovRef) extends P.In
+      case class WsLatency(millis: Int)          extends P.In
+      case class GetGame(reqId: Int, id: GameId) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match
@@ -372,12 +372,10 @@ object RoundSocket:
               readColor(color).map:
                 Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
             }
-          case "r/get/watcher" =>
-            raw.get(3) { case Array(reqId, gameId, color) =>
-              for
-                reqId <- reqId.toIntOption
-                color <- readColor(color)
-              yield GetWatcher(reqId, PovRef(GameId(gameId), color))
+          case "r/get" =>
+            raw.get(2) { case Array(reqId, gameId) =>
+              reqId.toIntOption.map:
+                GetGame(_, GameId(gameId))
             }
           case "r/latency" => raw.args.toIntOption map WsLatency.apply
           case _           => RP.In.reader(raw)

@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Potwierdź swoje konto na lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Użyj poniższego odnośnika, aby aktywować swoje konto Lichess:</string>
-  <string name="emailConfirm_ignore">Jeśli nie rejestrowałeś się na Lichess, możesz bezpiecznie zignorować tą wiadomość.</string>
+  <string name="emailConfirm_ignore">Jeśli nie rejestrowałeś/aś się na Lichess, możesz bezpiecznie zignorować tę wiadomość.</string>
   <string name="passwordReset_subject">%s, zresetuj swoje hasło na lichess.org</string>
   <string name="passwordReset_intro">Otrzymaliśmy prośbę o zmianę hasła do Twojego konta.</string>
   <string name="passwordReset_clickOrIgnore">Jeśli Ty ją wysłałeś, użyj poniższego odnośnika. W przeciwnym razie możesz zignorować ten e-mail.</string>
@@ -10,7 +10,7 @@
   <string name="emailChange_intro">Poprosiłeś o zmianę swojego adresu e-mail.</string>
   <string name="emailChange_click">Aby potwierdzić, że masz dostęp do tego adresu email, użyj poniższego odnośnika:</string>
   <string name="welcome_subject">Witamy na lichess.org, %s</string>
-  <string name="welcome_text">Właśnie utworzyłeś konto na lichess.org.
+  <string name="welcome_text">Pomyślnie utworzono konto na https://lichess.org.
 
 Oto Twoja strona profilowa: %1$s. Możesz ją spersonalizować na %2$s.
 
