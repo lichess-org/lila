@@ -121,7 +121,6 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
           class: { top: i === 0 },
           attrs: {
             'data-href': '/@/' + p.user.name,
-            'data-name': p.user.name,
           },
           hook: {
             destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
