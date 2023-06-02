@@ -162,6 +162,7 @@ export const mic =
     }
 
     private get micTrack(): MediaStreamTrack | undefined {
+      debugger;
       return this.mediaStream?.getAudioTracks()[0];
     }
 
@@ -235,7 +236,7 @@ export const mic =
 
       const modelBlob: ArrayBuffer | undefined = await new Promise((resolve, reject) => {
         this.download = new XMLHttpRequest();
-        this.download.open('GET', lichess.assetUrl(models.get(this.lang)!), true);
+        this.download.open('GET', lichess.assetUrl(models.get(this.lang)!, { noVersion: true }), true);
         this.download.responseType = 'arraybuffer';
         this.download.onerror = _ => reject('Failed. See console');
         this.download.onabort = _ => reject('Aborted');
