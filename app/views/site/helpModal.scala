@@ -164,40 +164,36 @@ object helpModal:
                 ),
                 li(
                   "We show arrows for multiple moves when we're not sure. Speak the color or number of a move "
-                    + "to select it. Choose colors vs numbers in the voice ",
+                    + "arrow to select it. Choose between colors or numbers in the voice ",
                   i(dataIcon := licon.Gear),
                   " menu"
                 ),
                 li(
-                  "If an arrow shows a growing pie, that move will be played when the pie becomes a full circle. "
+                  "If an arrow shows a sweeping arc, that move will be played when the arc becomes a full circle. "
                     + "During this countdown, you may say \"",
                   voice("yes"),
                   "\" to play it immediately, \"",
                   voice("no"),
-                  "\" to cancel, or choose a different arrow. The timer can be configured in the ",
+                  "\" to cancel, or choose a different arrow. The timer can be adjusted or turned off in the ",
                   i(dataIcon := licon.Gear),
                   " menu."
                 ),
                 li(
-                  "Increase the clarity setting in the ",
-                  i(dataIcon := licon.Gear),
-                  " menu to reduce arrows if your mic is good and the room is quiet. Decrease clarity if you get "
-                    + "too many misplays."
+                  "An increased clarity setting reduces the number of arrows shown when using a good microphone "
+                    + "in quiet surroundings. Decrease clarity to offer more choices if your moves are often "
+                    + "misheard. Try the phonetic alphabet to improve recognition. ",
+                  phonetics()
                 ),
                 li(
-                  "To control when lichess listens using your voice, enable \"",
+                  "Enable \"",
                   strong("Hey Lichess"),
                   "\" in the ",
                   i(dataIcon := licon.Gear),
-                  " menu. Say \"",
+                  " menu to start and stop listening with your voice. Say \"",
                   strong("Hey Lichess"),
                   "\" to start listening and make a move. Say \"",
                   voice("stop"),
-                  "\" to go back to sleep. We go to sleep automatically after 20 seconds with no command."
-                ),
-                li(
-                  "Try the phonetic alphabet to improve recognition. ",
-                  phonetics()
+                  "\" to go back to sleep. We go to sleep automatically after 20 seconds without a spoken command."
                 )
               )
             )
