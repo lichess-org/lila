@@ -39,7 +39,7 @@ Potrzebujesz ich obu!</string>
   <string name="knightsHaveAFancyWay">Skoczki mają nietypowy sposób poruszania się!</string>
   <string name="knightsCanJumpOverObstacles">Skoczki mogą przeskakiwać przez przeszkody!
 Skacz i zbieraj gwiazdki!</string>
-  <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
+  <string name="knightComplete">Gratulacje! Udało ci się opanować skoczka.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
   <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
@@ -79,10 +79,10 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="attackTheOpponentsKing">Zaatakuj króla przeciwnika</string>
   <string name="checkInOneIntro">Aby zaszachować swojego przeciwnika, zaatakuj jego króla. Będzie musiał go obronić!</string>
   <string name="checkInOneGoal">Zaatakuj króla przeciwnika w jednym ruchu!</string>
-  <string name="checkInOneComplete">Gratulacje! Zaszachowałeś przeciwnika, zmuszając go do obrony króla!</string>
+  <string name="checkInOneComplete">Gratulacje! Zaszachowałeś/aś przeciwnika, zmuszając go do obrony króla!</string>
   <string name="outOfCheck">Obrona przed szachem</string>
   <string name="defendYourKing">Chroń swojego króla</string>
-  <string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciec lub odeprzeć atak.</string>
+  <string name="outOfCheckIntro">Jesteś w szachu! Musisz uciec lub odeprzeć atak.</string>
   <string name="escapeWithTheKing">Uciekaj królem!</string>
   <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
   <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
@@ -147,7 +147,8 @@ Król jest bezcenny! Tracąc go przegrywasz partię.</string>
   <string name="queenOverBishop">Zbij figurę o największej wartości!
 hetman &gt; goniec</string>
   <string name="pieceValueExchange">Zbij figurę o najwyższej wartości!
-Nie wymieniaj bardziej wartościowej figury na mniej wartościową.</string>
+ Nie wymieniaj bardziej
+ wartościowej figury na mniej wartościową.</string>
   <string name="pieceValueLegal">Zbij figurę o najwyższej wartości!
 Upewnij się, że Twój ruch jest legalny!</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
@@ -188,7 +189,7 @@ Pionek – 1</string>
   <string name="youreGoodAtThis">Jesteś w tym dobry!</string>
   <string name="nailedIt">Brawo.</string>
   <string name="rightOn">Tak jest!</string>
-  <string name="stageXComplete">Etap %s kompletny</string>
+  <string name="stageXComplete">Etap %s zakończony</string>
   <string name="next">Następne</string>
   <string name="nextX">Następne: %s</string>
   <string name="backToMenu">Powrót do menu</string>
