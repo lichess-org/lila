@@ -176,17 +176,7 @@ export default class RoundController {
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
     if (!this.keyboardMove?.usedSan) ab.move(this, meta);
-    if (
-      !this.promotion.start(
-        orig,
-        dest,
-        (orig, dest, role) => this.sendMove(orig, dest, role, meta),
-        meta,
-        this.keyboardMove?.justSelected()
-      )
-    ) {
-      this.sendMove(orig, dest, undefined, meta);
-    }
+    if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
@@ -204,19 +194,21 @@ export default class RoundController {
     } else sound.move();
   };
 
-  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
+  private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
     this.promotion.start(
       orig,
       dest,
-      (orig, dest, role) => this.sendMove(orig, dest, role, meta),
+      {
+        submit: (orig, dest, role) => this.sendMove(orig, dest, role, meta),
+        show: this.voiceMove?.showPromotion,
+      },
       meta,
       this.keyboardMove?.justSelected() //this.voiceMove?.justSelected()
     );
-  };
 
-  private onCancelPremove = () => {
-    this.promotion.cancelPrePromotion();
-  };
+  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => this.startPromotion(orig, dest, meta);
+
+  private onCancelPremove = () => this.promotion.cancelPrePromotion();
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
@@ -228,9 +220,7 @@ export default class RoundController {
     this.redraw();
   };
 
-  private isSimulHost = () => {
-    return this.data.simul && this.data.simul.hostId === this.opts.userId;
-  };
+  private isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
   private enpassant = (orig: cg.Key, dest: cg.Key): boolean => {
     if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;

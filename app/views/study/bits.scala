@@ -28,7 +28,11 @@ object bits:
 
   def newForm()(using Context) =
     postForm(cls := "new-study", action := routes.Study.create)(
-      submitButton(cls := "button button-green", dataIcon := licon.PlusButton, title := trans.study.createStudy.txt())
+      submitButton(
+        cls      := "button button-green",
+        dataIcon := licon.PlusButton,
+        title    := trans.study.createStudy.txt()
+      )
     )
 
   def authLinks(active: String, order: Order)(using Context) =
@@ -79,7 +83,9 @@ object bits:
           s.study.members.members.values
             .take(Study.previewNbMembers)
             .map { m =>
-              li(cls := "text", dataIcon := (if (m.canContribute) licon.RadioTower else licon.Eye))(titleNameOrId(m.id))
+              li(cls := "text", dataIcon := (if (m.canContribute) licon.RadioTower else licon.Eye))(
+                titleNameOrId(m.id)
+              )
             }
             .toList
         )

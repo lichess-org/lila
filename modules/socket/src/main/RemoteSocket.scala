@@ -5,11 +5,9 @@ import chess.{ Centis, Color }
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
 import java.util.concurrent.atomic.AtomicReference
-import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json.*
 import scala.util.chaining.*
 import lila.socket.Socket.Sri
-import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
@@ -27,16 +25,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
 
   private type UserIds = Set[UserId]
 
-  private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
-
-  def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] =
-    val id = ThreadLocalRandom.nextInt()
-    sendReq(id)
-    val promise = Promise[String]()
-    requests.put(id, promise)
-    promise.future map readRes
-
-  val onlineUserIds: AtomicReference[Set[UserId]] = new AtomicReference(initialUserIds)
+  val onlineUserIds: AtomicReference[Set[UserId]] = AtomicReference(initialUserIds)
 
   val baseHandler: Handler =
     case In.ConnectUser(userId) =>
@@ -53,17 +42,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
-    case In.ReqResponse(reqId, response) =>
-      requests
-        .computeIfPresent(
-          reqId,
-          (_: Int, promise: Promise[String]) => {
-            promise success response
-            null // remove from promises
-          }
-        )
-        .unit
-    case In.Ping(id) => send(Out.pong(id))
+    case In.ReqResponse(reqId, response) => SocketRequest.onResponse(reqId, response)
+    case In.Ping(id)                     => send(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds set initialUserIds
@@ -132,14 +112,13 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
   private val send: Send = makeSender("site-out").apply
 
   def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Funit =
-    connectAndSubscribe(channel) { str =>
+    connectAndSubscribe(channel): str =>
       RawMsg(str) match
         case None => logger.error(s"Invalid $channel $str")
         case Some(msg) =>
           reader(msg) collect handler match
             case Some(_) => // processed
             case None    => logger.warn(s"Unhandled $channel $str")
-    }
 
   def subscribeRoundRobin(channel: Channel, reader: In.Reader, parallelism: Int)(
       handler: Handler
@@ -148,9 +127,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     subscribe(channel, reader)(handler) >> {
       // and subscribe to subchannels
       (0 to parallelism)
-        .map { index =>
+        .map: index =>
           subscribe(s"$channel:$index", reader)(handler)
-        }
         .parallel
         .void
     }
@@ -166,25 +144,20 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     }
     subPromise.future
 
-  Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping") { () =>
-    request[Unit](
+  Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping"): () =>
+    SocketRequest[Unit](
       id => send(Protocol.Out.stop(id)),
       res => logger.info(s"lila-ws says: $res")
     ).withTimeout(1 second, "Lilakka.shutdown")
       .addFailureEffect(e => logger.error("lila-ws stop", e))
       .recoverDefault
-  }
 
-  Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the socket redis pool") { () =>
-    Future {
+  Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the socket redis pool"): () =>
+    Future:
       stopping = true
       redisClient.shutdown()
-    }
-  }
 
 object RemoteSocket:
-
-  private val logger = lila log "socket"
 
   type Send = String => Unit
 
@@ -299,12 +272,13 @@ object RemoteSocket:
         s"mod/troll/set $userId ${boolean(v)}"
       def impersonate(userId: UserId, by: Option[UserId]) =
         s"mod/impersonate $userId ${optional(by.map(_.value))}"
-      def follow(u1: UserId, u2: UserId)       = s"rel/follow $u1 $u2"
-      def unfollow(u1: UserId, u2: UserId)     = s"rel/unfollow $u1 $u2"
-      def apiUserOnline(u: UserId, v: Boolean) = s"api/online $u ${boolean(v)}"
-      def boot                                 = "boot"
-      def pong(id: String)                     = s"pong $id"
-      def stop(reqId: Int)                     = s"lila/stop $reqId"
+      def follow(u1: UserId, u2: UserId)         = s"rel/follow $u1 $u2"
+      def unfollow(u1: UserId, u2: UserId)       = s"rel/unfollow $u1 $u2"
+      def apiUserOnline(u: UserId, v: Boolean)   = s"api/online $u ${boolean(v)}"
+      def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json stringify payload}"
+      def boot                                   = "boot"
+      def pong(id: String)                       = s"pong $id"
+      def stop(reqId: Int)                       = s"lila/stop $reqId"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String         = if (v) "+" else "-"

@@ -118,7 +118,12 @@ object security:
           " can be used to access your account. Revoke any that you do not recognize."
         ),
         td(
-          a(href := routes.OAuthToken.index, cls := "button", title := "API access tokens", dataIcon := licon.Gear)
+          a(
+            href     := routes.OAuthToken.index,
+            cls      := "button",
+            title    := "API access tokens",
+            dataIcon := licon.Gear
+          )
         )
       )
     )

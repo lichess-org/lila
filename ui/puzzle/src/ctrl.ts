@@ -205,7 +205,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
-    if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
+    if (!promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.showPromotion }))
+      playUserMove(orig, dest);
     voiceMove?.update(vm.node.fen);
     keyboardMove?.update({ fen: vm.node.fen });
   }

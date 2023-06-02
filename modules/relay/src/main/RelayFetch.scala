@@ -1,6 +1,9 @@
 package lila.relay
 
+import cats.syntax.all.*
+
 import akka.actor.*
+import chess.Ply
 import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
@@ -169,8 +172,8 @@ final private class RelayFetch(
             }
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap { round =>
-          round.pairings.zipWithIndex
-            .map { (pairing, i) =>
+          round.pairings
+            .mapWithIndex: (pairing, i) =>
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               gameDoc.format
@@ -182,7 +185,6 @@ final private class RelayFetch(
                     } map { _.toPgn(pairing.tags) }
                 }
                 .map(number -> _)
-            }
             .parallel
             .map { results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
@@ -211,12 +213,12 @@ final private class RelayFetch(
           .fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
     yield data
 
-private object RelayFetch:
+private[relay] object RelayFetch:
 
   def maxChapters(tour: RelayTour) =
     lila.study.Study.maxChapters * (if (tour.official) 2 else 1)
 
-  private object DgtJson:
+  private[relay] object DgtJson:
     case class PairingPlayer(
         fname: Option[String],
         mname: Option[String],
@@ -245,12 +247,13 @@ private object RelayFetch:
 
     case class GameJson(moves: List[String], result: Option[String]):
       def toPgn(extraTags: Tags = Tags.empty) =
-        val strMoves = moves.map(_ split ' ') map { move =>
+        val strMoves = moves.map(_ split ' ').mapWithIndex: (move, index) =>
           chess.format.pgn.Move(
+            ply = Ply(index + 1),
             san = SanStr(~move.headOption),
             secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
-          )
-        } mkString " "
+          ).render
+        .mkString(" ")
         PgnStr(s"$extraTags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 

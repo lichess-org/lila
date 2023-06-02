@@ -48,7 +48,11 @@ object bits:
         cls  := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
       )("Approval requests"),
-      a(dataIcon := licon.InfoCircle, cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")(
+      a(
+        dataIcon := licon.InfoCircle,
+        cls      := "text",
+        href     := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community"
+      )(
         "Streamer community"
       ),
       a(href := "/about")(downloadKit())

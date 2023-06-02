@@ -1,5 +1,6 @@
 package lila.opening
 
+import cats.syntax.all.*
 import chess.opening.{ Opening, OpeningDb }
 import java.text.Normalizer
 
@@ -69,8 +70,8 @@ private object OpeningSearch:
   private def makeQuery(userInput: String) =
     val clean = userInput.trim.toLowerCase
     val numberedPgn = // try to produce numbered PGN "1. e4 e5 2. f4" from a query like "e4 e5 f4"
-      clean.split(' ').toList.map(_.trim).filter(_.nonEmpty).grouped(2).toList.zipWithIndex.map {
-        case (moves, index) => s"${index + 1}. ${moves mkString " "}"
+      clean.split(' ').toList.map(_.trim).filter(_.nonEmpty).grouped(2).toList.mapWithIndex {
+        (moves, index) => s"${index + 1}. ${moves mkString " "}"
       } mkString " "
     Query(clean, numberedPgn, tokenize(clean))
   private case class Entry(opening: Opening, tokens: Set[Token])

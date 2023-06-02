@@ -3,10 +3,11 @@ package lila.api
 import chess.format.pgn.Pgn
 import scalatags.Text.all.*
 
-import lila.analyse.AnalysisRepo
+import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import chess.format.pgn.PgnStr
+import lila.common.config.NetDomain
 
 final class TextLpvExpand(
     gameRepo: GameRepo,
@@ -24,42 +25,40 @@ final class TextLpvExpand(
     regex.linkRenderRe
       .findAllMatchIn(text)
       .toList
-      .flatMap { m =>
+      .flatMap: m =>
         Option(m.group(2)) filter { id =>
           !notGames(id)
         } map (m.group(1) -> _)
-      }
-      .map { case (matched, id) =>
+      .map: (matched, id) =>
         pgnCache.get(GameId(id)) map2 { matched -> _ }
-      }
       .parallel
-      .map(_.flatten.toMap) map { matches => (url, _) =>
-      matches
-        .get(url)
-        .map { pgn =>
-          div(
-            cls                      := "lpv--autostart is2d",
-            attr("data-pgn")         := pgn.toString,
-            attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
-            attr("data-ply")         := plyRe.findFirstIn(url).fold("last")(_.substring(1))
-          )
-        }
-    }
+      .map(_.flatten.toMap)
+      .map { matches => (url, _) =>
+        matches
+          .get(url)
+          .map: pgn =>
+            div(
+              cls                      := "lpv--autostart is2d",
+              attr("data-pgn")         := pgn.toString,
+              attr("data-orientation") := chess.Color.fromWhite(!url.contains("black")).name,
+              attr("data-ply")         := plyRe.findFirstIn(url).fold("last")(_.substring(1))
+            )
+      }
 
   // gamePgnsFromText is used by blogs & ublogs to build game id -> pgn maps but the
   // substitution happens in blog/BlogApi (blogs) and common/MarkdownRender for ublogs
   def gamePgnsFromText(text: String): Fu[Map[GameId, PgnStr]] =
-    val gameIds = regex.gamePgnsRe
-      .findAllMatchIn(text)
-      .toList
-      .flatMap { m => Option(m.group(1)) filterNot notGames.contains }
-      .distinct
-      .map(GameId(_))
+    val gameIds = GameId from
+      regex.gamePgnsRe
+        .findAllMatchIn(text)
+        .toList
+        .flatMap { m => Option(m.group(1)) filterNot notGames.contains }
+        .distinct
     pgnCache getAll gameIds map {
       _.collect { case (gameId, Some(pgn)) => gameId -> pgn }
     }
 
-  private val regex = LpvGameRegex(net.domain.toString)
+  private val regex = LpvGameRegex(net.domain)
   private val plyRe = raw"#(\d+)\z".r
 
   private val notGames =
@@ -68,18 +67,17 @@ final class TextLpvExpand(
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val pgnCache = cacheApi[GameId, Option[PgnStr]](512, "textLpvExpand.pgn") {
+  private val pgnCache = cacheApi[GameId, Option[PgnStr]](512, "textLpvExpand.pgn"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
-  }
 
   private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
     gameRepo gameWithInitialFen id flatMapz { g =>
-      analysisRepo.byId(id.value) flatMap { analysis =>
+      analysisRepo.byId(id into Analysis.Id) flatMap { analysis =>
         pgnDump(g.game, g.fen, analysis, pgnFlags) dmap some
       }
     }
 
-final class LpvGameRegex(domain: String):
+final class LpvGameRegex(domain: NetDomain):
 
 // linkified forum hrefs are relative but this regex runs pre-linkify, match path & id
   val linkRenderRe =

@@ -152,7 +152,11 @@ object bits:
       p(trans.gameInProgress(strong(current.opponent))),
       br,
       br,
-      a(cls := "text button button-fat", dataIcon := licon.PlayTriangle, href := routes.Round.player(current.pov.fullId))(
+      a(
+        cls      := "text button button-fat",
+        dataIcon := licon.PlayTriangle,
+        href     := routes.Round.player(current.pov.fullId)
+      )(
         trans.joinTheGame()
       ),
       br,

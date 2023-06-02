@@ -1,9 +1,11 @@
 .voice-move-help {
   @extend %help-modal;
+  backdrop-filter: blur(6px);
 
   td.tips li {
     list-style: disc;
-    margin: 0 10%;
+    font-size: 1.1em;
+    margin: 0.8em 10%;
   }
 
   a {

@@ -124,7 +124,12 @@ $('#asset-version-message').text(lichess.info.message);"""
                 cls   := "copyable autoselect",
                 value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
-              button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := licon.Link)
+              button(
+                title    := "Copy code",
+                cls      := "copy button",
+                dataRel  := "tv-embed-src",
+                dataIcon := licon.Link
+              )
             ),
             parameters
           )

@@ -22,4 +22,5 @@
   <string name="declineVariant">Saya tidak ingin bermain variasi ini sekarang.</string>
   <string name="declineNoBot">Saya tidak menerima tantangan dari bot.</string>
   <string name="declineOnlyBot">Saya hanya menerima tantangan dari bot.</string>
+  <string name="inviteLichessUser">Atau undang pengguna Lichess lain:</string>
 </resources>

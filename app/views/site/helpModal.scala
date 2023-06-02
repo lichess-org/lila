@@ -145,6 +145,7 @@ object helpModal:
         )
       )
     )
+
   def voiceMove(using Lang) =
     import trans.keyboardMove.*
     frag(
@@ -158,42 +159,45 @@ object helpModal:
                 li(
                   "Use the ",
                   i(dataIcon := licon.Voice),
-                  " button to toggle voice recognition mode."
+                  " button to toggle voice recognition. Moves are sent to lichess.org "
+                    + "as plain text. Audio does not leave your device."
                 ),
                 li(
-                  "Your voice audio never leaves your device. Moves are sent as plain text just like those made by mouse or touch."
+                  "We show arrows for multiple moves when we're not sure. Speak the color or number of a move "
+                    + "to select it. Choose colors vs numbers in the voice ",
+                  i(dataIcon := licon.Gear),
+                  " menu"
                 ),
                 li(
-                  "You may speak UCI, SAN, piece names, board squares, or phrases like ",
-                  voice("P,x,R"),
-                  " and ",
-                  voice("x"),
-                  ". Click ",
-                  strong("Show me everything"),
-                  " for a full list."
-                ),
-                li(
-                  "We show colored or numbered arrows for up to 8 available moves when we're not sure. " +
-                    "If an arrow shows a growing pie, that move will be played when the pie becomes a full circle."
-                ),
-                li(
-                  "During this countdown, you may only say ",
+                  "If an arrow shows a growing pie, that move will be played when the pie becomes a full circle. "
+                    + "During this countdown, you may say \"",
                   voice("yes"),
-                  " to play the move immediately, ",
+                  "\" to play it immediately, \"",
                   voice("no"),
-                  " to cancel, ",
+                  "\" to cancel, or choose a different arrow. The timer can be configured in the ",
+                  i(dataIcon := licon.Gear),
+                  " menu."
+                ),
+                li(
+                  "Increase the clarity setting in the ",
+                  i(dataIcon := licon.Gear),
+                  " menu to reduce arrows if your mic is good and the room is quiet. Decrease clarity if you get "
+                    + "too many misplays."
+                ),
+                li(
+                  "To control when lichess listens using your voice, enable \"",
+                  strong("Hey Lichess"),
+                  "\" in the ",
+                  i(dataIcon := licon.Gear),
+                  " menu. Say \"",
+                  strong("Hey Lichess"),
+                  "\" to start listening and make a move. Say \"",
                   voice("stop"),
-                  " to stop the clock, or the color/number of an arrow. No other command will be recognized."
+                  "\" to go back to sleep. We go to sleep automatically after 20 seconds with no command."
                 ),
                 li(
-                  "Higher clarity values will decrease arrows & countdowns but increase the chance of misplays."
-                ),
-                li(
-                  "Clarity, countdown, and arrow display settings are in the voice bar hamburger menu."
-                ),
-                li(
-                  "The phonetic alphabet is ",
-                  phonetic("a,b,c,d,e,f,g,h")
+                  "Try the phonetic alphabet to improve recognition. ",
+                  phonetics()
                 )
               )
             )
@@ -204,29 +208,26 @@ object helpModal:
         table(
           tbody(
             header(performAMove()),
-            row(frag(voice("e,4"), br, phonetic("e,4")), "Move to e4 or select a piece there"),
-            row(voice("N"), "Move my knight or capture a knight"),
-            row(frag(voice("B,h,6"), br, phonetic("B,h,6")), "Move bishop to h6"),
+            row(voice("e,4"), "Move to e4 or select e4 piece"),
+            row(voice("N"), "Select or capture a knight"),
+            row(voice("B,h,6"), "Move bishop to h6"),
             row(voice("Q,x,R"), "Take rook with queen"),
-            row(
-              frag(voice("c,8,=,N"), br, phonetic("c,8,N")),
-              "Move c8 promote to knight"
-            ),
+            row(voice("c,8,=,N"), "Pawn to c8 promote to knight"),
             row(voice("castle"), "castle (either side)"),
             row(voice("O-O-O"), "Queenside castle"),
-            row(frag(voice("a,7,g,1"), br, phonetic("a,7,g,1")), "Full UCI works too"),
-            row(voice("draw"), offerOrAcceptDraw())
+            row(phonetic("a,7,g,1"), "Phonetic alphabet is best"),
+            row(voice("draw"), offerOrAcceptDraw()),
+            row(voice("resign"), trans.resignTheGame()),
+            row(voice("takeback"), "Request a takeback")
           )
         ),
         table(
           tbody(
             header(otherCommands()),
-            row(voice("resign"), trans.resignTheGame()),
-            row(voice("takeback"), "Request a takeback"),
             row(voice("no"), "Cancel timer or deny a request"),
             row(voice("yes"), "Play preferred move or confirm something"),
-            row(voice("stop"), "Stop the timer but keep the arrows"),
-            row(voice("mic-off"), "Turn off your microphone"),
+            row(voice("stop"), "Sleep (if wake word enabled)"),
+            row(voice("mic-off"), "Turn off voice recognition"),
             row(voice("next"), trans.puzzle.nextPuzzle()),
             row(voice("upvote"), trans.puzzle.upVote()),
             row(voice("solve"), "Show puzzle solution"),
@@ -239,3 +240,7 @@ object helpModal:
         )
       )
     )
+
+  private def phonetics() =
+    for letter <- List("a", "b", "c", "d", "e", "f", "g", "h")
+    yield frag(s"$letter is \"", phonetic(letter), "\". ")

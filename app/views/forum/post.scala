@@ -60,7 +60,9 @@ object post:
                 }
             ),
             (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
-              button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := licon.Pencil)("Edit"),
+              button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := licon.Pencil)(
+                "Edit"
+              ),
             ctx.me flatMap { me =>
               if (!post.erased && post.canBeEditedBy(me))
                 postForm(action := routes.ForumPost.delete(categ.slug, post.id))(

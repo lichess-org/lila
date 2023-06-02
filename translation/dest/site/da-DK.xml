@@ -153,7 +153,7 @@
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
   </plurals>
-  <plurals name="ratingXOverYGames" comment="Hover tooltip explaining over how many games a displayed rating was calculated (i.e. how many games in total the user played in the time control or variant).&#10;&#10;%1$s is a time control or variant e.g. &quot;Blitz&quot; or &quot;Antichess&quot;&#10;%2$s is the number of games played in that time control or variant">
+  <plurals name="ratingXOverYGames">
     <item quantity="one">%1$s rating over %2$s parti</item>
     <item quantity="other">%1$s rating over %2$s partier</item>
   </plurals>

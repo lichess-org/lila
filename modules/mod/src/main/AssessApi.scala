@@ -66,7 +66,7 @@ final class AssessApi(
         }
         missing.nonEmpty ??
           analysisRepo.coll
-            .idsMap[Analysis, GameId](missing)(x => GameId(x.id))
+            .idsMap[Analysis, GameId](missing)(_.id into GameId)
             .flatMap { ans =>
               povs
                 .flatMap { pov =>
@@ -173,7 +173,7 @@ final class AssessApi(
     }
 
   private val assessableSources: Set[Source] =
-    Set(Source.Lobby, Source.Pool, Source.Tournament, Source.Swiss, Source.Simul)
+    Set(Source.Lobby, Source.Pool, Source.Arena, Source.Swiss, Source.Simul)
 
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent

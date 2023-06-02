@@ -9,6 +9,7 @@ import lila.socket.SocketVersion
 
 case class ByePlayer(playerId: GamePlayerId)
 case class GetSocketStatus(promise: Promise[SocketStatus])
+case class GetGameAndSocketStatus(promise: Promise[GameAndSocketStatus])
 case class SocketStatus(
     version: SocketVersion,
     whiteOnGame: Boolean,
@@ -19,6 +20,7 @@ case class SocketStatus(
   def onGame(color: Color)     = color.fold(whiteOnGame, blackOnGame)
   def isGone(color: Color)     = color.fold(whiteIsGone, blackIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
+case class GameAndSocketStatus(game: lila.game.Game, socket: SocketStatus)
 case class RoomCrowd(white: Boolean, black: Boolean)
 case class BotConnected(color: Color, v: Boolean)
 

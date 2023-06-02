@@ -49,8 +49,8 @@
   <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
   <string name="blackLeftTheGame">Pretas deixaram a partida</string>
-  <string name="whiteDidntMove">As brancas não jogaram</string>
-  <string name="blackDidntMove">As pretas não jogaram</string>
+  <string name="whiteDidntMove">As brancas não se moveram</string>
+  <string name="blackDidntMove">As pretas não se moveram</string>
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
   <string name="computerAnalysis">Análise do computador</string>
   <string name="computerAnalysisAvailable">Análise de computador disponível</string>
@@ -88,8 +88,8 @@
   <string name="topGames">Melhores partidas</string>
   <string name="masterDbExplanation">Duas milhões de partidas de jogadores com pontuação FIDE acima de %1$s, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate em %s lance (meio-movimento)</item>
-    <item quantity="other">Mate em %s lances (meio-movimentos)</item>
+    <item quantity="one">Mate em %s lance</item>
+    <item quantity="other">Mate em %s lances</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\" com arredondamento, baseado no número de meias-jogadas até a próxima captura ou jogada de peão</string>
   <string name="noGameFound">Nenhuma partida encontrada</string>
@@ -120,6 +120,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade, o que aquece seu computador</string>
+  <string name="engineManager">Gerenciador de engine</string>
   <string name="blunder">Capivarada</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
@@ -152,9 +153,9 @@
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partidas</item>
   </plurals>
-  <plurals name="ratingXOverYGames" comment="Hover tooltip explaining over how many games a displayed rating was calculated (i.e. how many games in total the user played in the time control or variant).&#10;&#10;%1$s is a time control or variant e.g. &quot;Blitz&quot; or &quot;Antichess&quot;&#10;%2$s is the number of games played in that time control or variant">
+  <plurals name="ratingXOverYGames">
     <item quantity="one">Classificação %1$s em %2$s jogo</item>
-    <item quantity="other">Classificação %1$s em %2$s jogos</item>
+    <item quantity="other">Rating %1$s após %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Favoritos</item>
@@ -205,7 +206,7 @@
   <string name="changeUsernameNotSame">Pode-se apenas trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"fulanodetal\" para \"FulanoDeTal\".</string>
   <string name="changeUsernameDescription">Altere seu nome de usuário. Isso só pode ser feito uma vez e você poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="signupUsernameHint">Escolha um nome de usuário apropriado. Não será possível mudá-lo, e qualquer conta que tiver um nome ofensivo ou inapropriado será excluída!</string>
-  <string name="signupEmailHint">Vamos usá-lo apenas para trocar de senha.</string>
+  <string name="signupEmailHint">Vamos usar apenas para redefinir a sua senha.</string>
   <string name="password">Senha</string>
   <string name="changePassword">Alterar senha</string>
   <string name="changeEmail">Alterar email</string>
@@ -277,7 +278,7 @@
   <string name="casual">Amistosa</string>
   <string name="rated">Ranqueada</string>
   <string name="casualTournament">Amistoso</string>
-  <string name="ratedTournament">Ranqueado</string>
+  <string name="ratedTournament">Valendo pontos</string>
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Oferta de revanche enviada</string>
@@ -347,7 +348,7 @@
   </plurals>
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
-  <string name="noDrawBeforeSwissLimit">Não é possível empatar antes de 30 lances em um torneio no sistema suíço.</string>
+  <string name="noDrawBeforeSwissLimit">Não é possível empatar antes de 30 lances em um torneio suíço.</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s jogos valendo pontos</item>
@@ -377,7 +378,7 @@
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipe %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipe %2$s</string>
-  <string name="startedStreaming">começou uma transmissão</string>
+  <string name="startedStreaming">começou uma transmissão ao vivo</string>
   <string name="xStartedStreaming">%s começou a transmitir</string>
   <string name="averageElo">Média de classificação</string>
   <string name="location">Localização</string>
@@ -390,7 +391,7 @@
   <string name="gameAsGIF">Salvar a partida como GIF</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
-  <string name="orUploadPgnFile">Ou suba um arquivo PGN</string>
+  <string name="orUploadPgnFile">Ou carregue um arquivo PGN</string>
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="toStudy">Estudo</string>
@@ -405,8 +406,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer seu lance, provando que é humano.</string>
   <string name="captcha.fail">Por favor, resolva o captcha enxadrístico.</string>
   <string name="notACheckmate">Não é xeque-mate</string>
-  <string name="whiteCheckmatesInOneMove">Xeque-mate em um lance para as brancas</string>
-  <string name="blackCheckmatesInOneMove">Xeque-mate em um lance para as pretas</string>
+  <string name="whiteCheckmatesInOneMove">As brancas dão mate em um lance</string>
+  <string name="blackCheckmatesInOneMove">As pretas dão mate em um lance</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
   <plurals name="nbFriendsOnline">
@@ -434,7 +435,7 @@
   </plurals>
   <string name="more">Mais</string>
   <string name="memberSince">Membro desde</string>
-  <string name="lastSeenActive">Última conexão %s</string>
+  <string name="lastSeenActive">Ativo %s</string>
   <string name="player">Jogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
@@ -449,9 +450,9 @@
   <string name="standing">Colocação</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário do torneio</string>
-  <string name="conditionOfEntry">Condição de participação:</string>
+  <string name="conditionOfEntry">Condições de participação:</string>
   <string name="advancedSettings">Configurações avançadas</string>
-  <string name="safeTournamentName">Escolha um nome incontroverso para o torneio.</string>
+  <string name="safeTournamentName">Escolha um nome seguro para o torneio.</string>
   <string name="inappropriateNameWarning">Até mesmo a menor indecência poderia ensejar o encerramento de sua conta.</string>
   <string name="emptyTournamentName">Deixe em branco para dar ao torneio o nome de um grande mestre aleatório.</string>
   <string name="recommendNotTouching">Recomendamos não mexer nisso.</string>
@@ -464,12 +465,12 @@
   <string name="wins">Vitórias</string>
   <string name="losses">Derrotas</string>
   <string name="createdBy">Criado por</string>
-  <string name="tournamentIsStarting">O torneio está a começar</string>
+  <string name="tournamentIsStarting">O torneio está começando</string>
   <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
   <string name="standByX">%s, aguarde: o pareamento está em andamento, prepare-se!</string>
   <string name="pause">Pausar</string>
-  <string name="resume">Procurar jogadores</string>
-  <string name="youArePlaying">Você está no jogo!</string>
+  <string name="resume">Continuar</string>
+  <string name="youArePlaying">Você está participando!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa Berserk</string>
   <string name="performance">Desempenho</string>
@@ -484,7 +485,7 @@
   <string name="setTheBoard">Defina a posição</string>
   <string name="popularOpenings">Aberturas populares</string>
   <string name="endgamePositions">Posições de final</string>
-  <string name="chess960StartPosition">Posição inicial de Chess960: %s</string>
+  <string name="chess960StartPosition">Posição inicial do Xadrez960: %s</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar tabuleiro</string>
   <string name="loadPosition">Carregar posição</string>
@@ -559,7 +560,7 @@
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
   <string name="incorrectPassword">Senha incorreta</string>
   <string name="invalidAuthenticationCode">Código de verificação inválido</string>
-  <string name="emailMeALink">Envie-me um link</string>
+  <string name="emailMeALink">Me envie um link</string>
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
   <string name="newPasswordAgain">Nova senha (novamente)</string>
@@ -579,7 +580,7 @@
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro do tabuleiro</string>
   <string name="outsideTheBoard">Fora do tabuleiro</string>
-  <string name="onSlowGames">Em jogos lentos</string>
+  <string name="onSlowGames">Em partidas lentas</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>
   <string name="xCompetesInY">%1$s compete em %2$s</string>
@@ -591,7 +592,7 @@
   <string name="timeline">Linha do tempo</string>
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
-  <string name="biographyDescription">Fale sobre você, o que você gosta no xadrez, suas aberturas favoritas, jogos, grandes jogadores de sua preferência...</string>
+  <string name="biographyDescription">Fale sobre você, seus interesses, o que você gosta no xadrez, suas aberturas favoritas, jogadores...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s caractere.</item>
     <item quantity="other">Máximo: %s caracteres.</item>
@@ -600,7 +601,7 @@
     <item quantity="one">%s bloqueado</item>
     <item quantity="other">%s bloqueados</item>
   </plurals>
-  <string name="listBlockedPlayers">Sua lista de bloqueados</string>
+  <string name="listBlockedPlayers">Sua lista de jogadores bloqueados</string>
   <string name="human">Humano</string>
   <string name="computer">Computador</string>
   <string name="side">Cor</string>
@@ -612,11 +613,11 @@
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
-  <string name="error.unknown">Inválido</string>
+  <string name="error.unknown">Valor inválido</string>
   <string name="error.required">Este campo deve ser preenchido</string>
   <string name="error.email">Este endereço de e-mail é inválido</string>
-  <string name="error.email_acceptable">Este endereço de email não é válido. Verifique e tente novamente.</string>
-  <string name="error.email_unique">Endereço de e-mail é inválido ou já está em uso</string>
+  <string name="error.email_acceptable">Este endereço de e-mail não é válido. Verifique e tente novamente.</string>
+  <string name="error.email_unique">Endereço de e-mail é inválido ou já está sendo utilizado</string>
   <string name="error.email_different">Este já é o seu endereço de e-mail</string>
   <string name="error.minLength">O mínimo de caracteres é %s</string>
   <string name="error.maxLength">O máximo de caracteres é %s</string>
@@ -647,12 +648,12 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito (%2$s), livre, sem anúncios e código aberto.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
-  <string name="termsOfService">Condições de uso</string>
+  <string name="termsOfService">Termos de serviço</string>
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>
   <string name="hostColorX">Cor do simultanista: %s</string>
-  <string name="createdSimuls">Simultâneas recentemente criadas</string>
+  <string name="createdSimuls">Simultâneas criadas recentemente</string>
   <string name="hostANewSimul">Iniciar nova simultânea</string>
   <string name="noSimulFound">Simultânea não encontrada</string>
   <string name="noSimulExplanation">Esta exibição simultânea não existe.</string>
@@ -732,7 +733,7 @@
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
   <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Desenvolvido pelo amor ao xadrez, não pelo dinheiro</string>
-  <string name="everybodyGetsAllFeaturesForFree">Todos usam grátis todos os recursos</string>
+  <string name="everybodyGetsAllFeaturesForFree">Todos têm todos os recursos de graça</string>
   <string name="zeroAdvertisement">Zero anúncios</string>
   <string name="fullFeatured">Cheio de recursos</string>
   <string name="phoneAndTablet">Celular e tablet</string>
@@ -749,7 +750,7 @@
   <string name="xHostsY">%1$s criou %2$s</string>
   <string name="xJoinsY">%1$s entrou em %2$s</string>
   <string name="xLikesY">%1$s gostou de %2$s</string>
-  <string name="quickPairing">Partida rápida</string>
+  <string name="quickPairing">Pareamento rápido</string>
   <string name="lobby">Salão</string>
   <string name="anonymous">Anônimo</string>
   <string name="yourScore">Sua pontuação:%s</string>
@@ -772,7 +773,7 @@
   <string name="usernameUnacceptable">Este nome de usuário não é aceitável.</string>
   <string name="playChessInStyle">Jogue xadrez com estilo</string>
   <string name="chessBasics">Básicos do xadrez</string>
-  <string name="coaches">Professores</string>
+  <string name="coaches">Treinadores</string>
   <string name="invalidPgn">PGN inválido</string>
   <string name="invalidFen">FEN inválido</string>
   <string name="custom">Personalizado</string>
@@ -788,7 +789,7 @@
   <string name="youBrowsedAway">Você navegou para longe</string>
   <string name="resumePractice">Retornar à prática</string>
   <string name="drawByFiftyMoves">O jogo empatou pela regra dos cinquenta movimentos.</string>
-  <string name="theGameIsADraw">A partida está empatada.</string>
+  <string name="theGameIsADraw">A partida terminou em empate.</string>
   <string name="computerThinking">Computador pensando ...</string>
   <string name="seeBestMove">Veja o melhor lance</string>
   <string name="hideBestMove">Esconder o melhor lance</string>
@@ -798,12 +799,12 @@
   <string name="blackWinsGame">Pretas vencem</string>
   <string name="learnFromYourMistakes">Aprenda com seus erros</string>
   <string name="learnFromThisMistake">Aprenda com este erro</string>
-  <string name="skipThisMove">Ignorar este lance</string>
+  <string name="skipThisMove">Pular esse lance</string>
   <string name="next">Próximo</string>
   <string name="xWasPlayed">%s foi jogado</string>
   <string name="findBetterMoveForWhite">Encontrar o melhor lance para as Brancas</string>
   <string name="findBetterMoveForBlack">Encontre o melhor lance para as Pretas</string>
-  <string name="resumeLearning">Retomar avaliação</string>
+  <string name="resumeLearning">Continuar a aprendizagem</string>
   <string name="youCanDoBetter">Você pode fazer melhor</string>
   <string name="tryAnotherMoveForWhite">Tente um outro lance para as Brancas</string>
   <string name="tryAnotherMoveForBlack">Tente um outro lance para as Pretas</string>

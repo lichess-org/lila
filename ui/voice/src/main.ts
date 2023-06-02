@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { onInsert, bind, dataIcon } from 'common/snabbdom';
+import { onInsert, bind } from 'common/snabbdom';
 import { storedBooleanProp } from 'common/storage';
 import { rangeConfig } from 'common/controls';
 import { snabModal } from 'common/modal';
@@ -20,168 +20,195 @@ const supportedLangs = [
 ];
 
 export { type RootCtrl, type VoiceMove } from './interfaces';
+export { makeVoiceMove };
 
 export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
   const rec = storedBooleanProp('voice.listening', false);
 
   return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
     h('div#voice-status-row', [
-      h(
-        'button#microphone-button',
-        {
-          class: { enabled: lichess.mic!.isListening, busy: lichess.mic!.isBusy },
-          attrs: { role: 'button', title: 'Toggle voice control' },
-          hook: onInsert(el => {
-            el.addEventListener('click', _ => {
-              if (lichess.once('voice.rtfm')) moveCtrl.showHelp(true);
-              rec(!(lichess.mic?.isListening || lichess.mic?.isBusy)) ? lichess.mic?.start() : lichess.mic?.stop();
-            });
-            if (rec() && !lichess.mic?.isListening) setTimeout(() => el.dispatchEvent(new Event('click')));
-          }),
+      h('button#microphone-button', {
+        class: {
+          listening: lichess.mic.recId !== false && lichess.mic.recId !== 'idle',
+          idle: lichess.mic.recId === 'idle',
+          busy: lichess.mic.isBusy,
         },
-        h('span.microphone-icon', {
-          attrs: { ...dataIcon(lichess.mic?.isBusy ? licon.Cancel : licon.Voice), title: 'Toggle voice control' },
-        })
-      ),
+        attrs: {
+          'data-icon': lichess.mic.isBusy ? licon.Cancel : licon.Voice,
+          title: 'Toggle voice control',
+        },
+        hook: onInsert(el => {
+          el.addEventListener('click', _ => {
+            const recId = moveCtrl?.wakePref() ? 'idle' : undefined;
+            if (lichess.once('voice.rtfm')) moveCtrl.showHelp(true);
+            rec(lichess.mic.recId === lichess.mic.isBusy) ? lichess.mic.start(recId) : lichess.mic.stop();
+          });
+          if (rec() && !lichess.mic.recId) setTimeout(() => el.dispatchEvent(new Event('click')));
+        }),
+      }),
       h('span#voice-status', {
-        hook: onInsert(el => lichess.mic?.addListener('moveInput', txt => (el.innerText = txt))),
+        hook: onInsert(el => lichess.mic.setController(updateVoiceBar(el))),
       }),
       h('button#voice-help-button', {
-        attrs: { role: 'button', ...dataIcon(licon.InfoCircle) },
+        attrs: { 'data-icon': licon.InfoCircle, title: 'Voice help' },
         hook: bind('click', () => moveCtrl.showHelp(true)),
       }),
       h('button#voice-settings-button', {
-        attrs: { role: 'button', ...dataIcon(licon.Hamburger) },
+        attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },
         class: { active: moveCtrl?.showSettings() },
         hook: bind('click', () => moveCtrl.showSettings.toggle(), redraw),
       }),
     ]),
-    moveCtrl?.showSettings() ? voiceSettings(redraw) : null,
+    moveCtrl?.showSettings() ? renderSettings(redraw) : null,
     moveCtrl?.showHelp() ? helpModal() : null,
   ]);
 }
 
-export function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
-  lichess.loadModule('voice.move').then(() => {
-    moveCtrl = window.LichessVoiceMove(ctrl, fen);
-  });
-  return {
-    update: fen => moveCtrl?.update(fen),
-    opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),
-    get showHelp() {
-      return moveCtrl?.showHelp;
-    },
-    get showSettings() {
-      return moveCtrl?.showSettings;
-    },
-    get clarityPref() {
-      return moveCtrl?.clarityPref;
-    },
-    get timerPref() {
-      return moveCtrl?.timerPref;
-    },
-    get colorsPref() {
-      return moveCtrl?.colorsPref;
-    },
-    get langPref() {
-      return moveCtrl?.langPref;
-    },
-    get allPhrases() {
-      return moveCtrl?.allPhrases;
-    },
+function updateVoiceBar(el: HTMLElement) {
+  const voiceBtn = $('button#microphone-button');
+
+  return (txt: string, tpe: Voice.MsgType) => {
+    lichess.mic.recId !== false && lichess.mic.recId !== 'idle'
+      ? voiceBtn.addClass('listening')
+      : voiceBtn.removeClass('listening');
+    lichess.mic.recId === 'idle' ? voiceBtn.addClass('idle') : voiceBtn.removeClass('idle');
+    if (lichess.mic.isBusy && !lichess.mic.recId) {
+      voiceBtn.addClass('busy');
+      voiceBtn.attr('data-icon', licon.Cancel);
+    } else {
+      voiceBtn.removeClass('busy');
+      voiceBtn.attr('data-icon', licon.Voice);
+    }
+    if (tpe === 'start') {
+      el.innerText = '';
+      if (moveCtrl.wakePref()) {
+        if (txt === 'idle') voiceBtn.addClass('idle');
+        else voiceBtn.removeClass('idle');
+      }
+    } else if (tpe !== 'partial') el.innerText = txt;
   };
 }
 
-function voiceSettings(redraw: () => void): VNode {
+function renderSettings(redraw: () => void): VNode {
   return h('div#voice-settings', { hook: onInsert(onClickAway(() => moveCtrl.showSettings(false))) }, [
-    h('div.voice-setting', [
-      h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
-      h('input#voice-clarity', {
-        attrs: {
-          type: 'range',
-          min: 0,
-          max: 2,
-          step: 1,
-        },
-        hook: rangeConfig(moveCtrl.clarityPref, val => {
-          moveCtrl.clarityPref(val);
-          redraw();
-        }),
-      }),
-      h('div.range_value', ['Fuzzy', 'Average', 'Clear'][moveCtrl.clarityPref()]),
-    ]),
-    h('div.voice-setting', [
-      h('label', { attrs: { for: 'voice-timer' } }, 'Timer'),
-      h('input#voice-timer', {
-        attrs: {
-          type: 'range',
-          min: 0,
-          max: 5,
-          step: 1,
-        },
-        hook: rangeConfig(moveCtrl.timerPref, val => {
-          moveCtrl.timerPref(val);
-          redraw();
-        }),
-      }),
-      h('div.range_value', ['Off', '2s', '2.5s', '3s', '4s', '5s'][moveCtrl.timerPref()]),
-    ]),
-    h('div.voice-choices', [
-      'Label with',
-      h(
-        'span.btn-rack',
-        ['Colors', 'Numbers'].map(pref =>
-          h(
-            `span.btn-rack__btn`,
-            {
-              class: { active: moveCtrl.colorsPref() === (pref === 'Colors') },
-              hook: bind('click', () => moveCtrl.colorsPref(pref === 'Colors'), redraw),
-            },
-            [pref]
-          )
-        )
-      ),
-    ]),
-    supportedLangs.length < 2
-      ? null
-      : h('div.voice-setting', [
-          h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
-          h(
-            'select#voice-lang',
-            {
-              attrs: { name: 'lang' },
-              hook: bind('change', e => moveCtrl.langPref((e.target as HTMLSelectElement).value)),
-            },
-            [
-              ...supportedLangs.map(l =>
-                h(
-                  'option',
-                  {
-                    attrs: l[0] === moveCtrl.langPref() ? { value: l[0], selected: '' } : { value: l[0] },
-                  },
-                  l[1]
-                )
-              ),
-            ]
-          ),
-        ]),
-    $('body').data('user')
-      ? h(
-          'a.button',
-          {
-            attrs: {
-              title: 'Also set in Preferences -> Game behavior',
-            },
-            hook: bind('click', () =>
-              xhr
-                .text('/pref/voice', { method: 'post', body: xhr.form({ voice: '0' }) })
-                .then(() => window.location.reload())
-            ),
-          },
-          'Disable voice recognition'
-        )
-      : null,
+    colorsSetting(redraw),
+    claritySetting(redraw),
+    timerSetting(redraw),
+    langSetting(),
+    wakeSetting(redraw),
+    h('hr'),
+    voiceDisable(),
   ]);
+}
+
+function colorsSetting(redraw: () => void) {
+  return h('div.voice-choices', [
+    'Label with',
+    h(
+      'span.btn-rack',
+      ['Colors', 'Numbers'].map(pref =>
+        h(
+          `span.btn-rack__btn`,
+          {
+            class: { active: moveCtrl.colorsPref() === (pref === 'Colors') },
+            hook: bind('click', () => moveCtrl.colorsPref(pref === 'Colors'), redraw),
+          },
+          [pref]
+        )
+      )
+    ),
+  ]);
+}
+
+function claritySetting(redraw: () => void) {
+  return h('div.voice-setting', [
+    h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
+    h('input#voice-clarity', {
+      attrs: {
+        type: 'range',
+        min: 0,
+        max: 2,
+        step: 1,
+      },
+      hook: rangeConfig(moveCtrl.clarityPref, val => {
+        moveCtrl.clarityPref(val);
+        redraw();
+      }),
+    }),
+    h('div.range_value', ['Fuzzy', 'Average', 'Clear'][moveCtrl.clarityPref()]),
+  ]);
+}
+
+function timerSetting(redraw: () => void) {
+  return h('div.voice-setting', [
+    h('label', { attrs: { for: 'voice-timer' } }, 'Timer'),
+    h('input#voice-timer', {
+      attrs: { type: 'range', min: 0, max: 5, step: 1 },
+      hook: rangeConfig(moveCtrl.timerPref, val => {
+        moveCtrl.timerPref(val);
+        redraw();
+      }),
+    }),
+    h('div.range_value', ['Off', '1.5s', '2s', '2.5s', '3s', '5s'][moveCtrl.timerPref()]),
+  ]);
+}
+
+function langSetting() {
+  return supportedLangs.length < 2
+    ? null
+    : h('div.voice-setting', [
+        h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
+        h(
+          'select#voice-lang',
+          {
+            attrs: { name: 'lang' },
+            hook: bind('change', e => moveCtrl.langPref((e.target as HTMLSelectElement).value)),
+          },
+          [
+            ...supportedLangs.map(l =>
+              h(
+                'option',
+                {
+                  attrs: l[0] === moveCtrl.langPref() ? { value: l[0], selected: '' } : { value: l[0] },
+                },
+                l[1]
+              )
+            ),
+          ]
+        ),
+      ]);
+}
+
+function wakeSetting(redraw: () => void) {
+  return h('div.voice-setting', { attrs: { title: '' } }, [
+    h('div.switch', { attrs: { title: 'Say "hey lichess" to activate' } }, [
+      h('input#wake-mode.cmn-toggle', {
+        attrs: { type: 'checkbox', checked: moveCtrl.wakePref() },
+        hook: bind('change', e => moveCtrl.wakePref((e.target as HTMLInputElement).checked), redraw),
+      }),
+      h('label', { attrs: { for: 'wake-mode' } }),
+    ]),
+    h('label', { attrs: { for: 'wake-mode' } }, ['Wake on ', h('strong', '"Hey Lichess"')]),
+  ]);
+}
+
+function voiceDisable() {
+  return !$('body').data('user')
+    ? null
+    : h(
+        'a.button',
+        {
+          attrs: {
+            title: 'Also set in Preferences -> Display',
+          },
+          hook: bind('click', () =>
+            xhr
+              .text('/pref/voice', { method: 'post', body: xhr.form({ voice: '0' }) })
+              .then(() => window.location.reload())
+          ),
+        },
+        'Disable voice recognition'
+      );
 }
 
 function helpModal() {
@@ -224,4 +251,41 @@ function helpModal() {
       });
     },
   });
+}
+
+function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
+  lichess.loadModule('voice.move').then(() => {
+    moveCtrl = window.LichessVoiceMove(ctrl, fen);
+  });
+  return {
+    update: fen => moveCtrl?.update(fen),
+    opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),
+    get showHelp() {
+      return moveCtrl?.showHelp;
+    },
+    get showSettings() {
+      return moveCtrl?.showSettings;
+    },
+    get clarityPref() {
+      return moveCtrl?.clarityPref;
+    },
+    get timerPref() {
+      return moveCtrl?.timerPref;
+    },
+    get colorsPref() {
+      return moveCtrl?.colorsPref;
+    },
+    get wakePref() {
+      return moveCtrl?.wakePref;
+    },
+    get showPromotion() {
+      return moveCtrl?.showPromotion;
+    },
+    get langPref() {
+      return moveCtrl?.langPref;
+    },
+    get allPhrases() {
+      return moveCtrl?.allPhrases;
+    },
+  };
 }

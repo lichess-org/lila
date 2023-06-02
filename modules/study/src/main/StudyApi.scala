@@ -12,6 +12,7 @@ import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
+import lila.tree.{ Branch, Branches }
 import lila.user.{ Holder, User }
 
 final class StudyApi(
@@ -199,7 +200,7 @@ final class StudyApi(
   def addNode(
       studyId: StudyId,
       position: Position.Ref,
-      node: Node,
+      node: Branch,
       opts: MoveOpts,
       relay: Option[Chapter.Relay] = None
   )(who: Who): Funit =
@@ -211,7 +212,7 @@ final class StudyApi(
   private def doAddNode(
       study: Study,
       position: Position,
-      rawNode: Node,
+      rawNode: Branch,
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
   )(who: Who): Fu[Option[() => Funit]] =

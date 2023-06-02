@@ -1,6 +1,7 @@
 package views.html
 package user
 
+import cats.syntax.all.*
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -29,7 +30,7 @@ object top:
         boxTop(h1(a(href := routes.User.list, dataIcon := licon.LessThan), title)),
         table(cls := "slist slist-pad")(
           tbody(
-            users.zipWithIndex.map { case (u, i) =>
+            users.mapWithIndex: (u, i) =>
               tr(
                 td(i + 1),
                 td(lightUserLink(u.user)),
@@ -38,7 +39,6 @@ object top:
                   td(ratingProgress(u.progress))
                 )
               )
-            }
           )
         )
       )
