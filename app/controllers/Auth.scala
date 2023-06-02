@@ -503,9 +503,8 @@ final class Auth(
 
   private[controllers] object LoginRateLimit:
     private val lastAttemptIp =
-      env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](1024, "login.lastIp") {
+      env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](64, "login.lastIp"):
         _.expireAfterWrite(10.seconds).build()
-      }
     def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result]): Fu[Result] =
       val ip          = req.ipAddress
       val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
