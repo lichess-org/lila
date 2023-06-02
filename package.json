@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
     "ab": "https://github.com/lichess-org/ab-stub",
-    "chessground": "^8.3.8",
+    "chessground": "^8.3.9",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "2.8.1",
