@@ -39,7 +39,7 @@ Potrzebujesz ich obu!</string>
   <string name="knightsHaveAFancyWay">Skoczki mają nietypowy sposób poruszania się!</string>
   <string name="knightsCanJumpOverObstacles">Skoczki mogą przeskakiwać przez przeszkody!
 Skacz i zbieraj gwiazdki!</string>
-  <string name="knightComplete">Gratulacje! Udało ci się opanować skoczka.</string>
+  <string name="knightComplete">Gratulacje! Udało Ci się opanować skoczka.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
   <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
@@ -67,7 +67,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="protection">Obrona</string>
   <string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
   <string name="protectionIntro">Znajdź figury które przeciwnik atakuje i obroń je!</string>
-  <string name="protectionComplete">Gratulacje! Figura nie stracona to figura wygrana!</string>
+  <string name="protectionComplete">Gratulacje! Figura niestracona to figura wygrana!</string>
   <string name="escape">Jesteś atakowany! Uciekaj przed zagrożeniem!</string>
   <string name="noEscape">Nie ma możliwości ucieczki ale można się obronić!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nie pozwól, aby zbito niebronione figury!</string>
@@ -88,7 +88,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
   <string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
-  <string name="outOfCheckComplete">Gratulacje! Twój król jest niepokonany, sprawdź czy potrafisz bronić się przed szachem!</string>
+  <string name="outOfCheckComplete">Gratulacje! Twojego króla nie można zbić, upewnij się, czy potrafisz bronić się przed szachem!</string>
   <string name="mateInOne">Mat w 1 ruchu</string>
   <string name="defeatTheOpponentsKing">Pokonaj króla przeciwnika</string>
   <string name="mateInOneIntro">Wygrasz kiedy Twój przeciwnik nie może obronić się przed szachem.</string>
@@ -118,7 +118,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="youCannotCastleIfAttacked">Nie możesz roszować jeśli król jest szachowany. Najpierw zasłoń króla i wtedy zrób roszadę!</string>
   <string name="findAWayToCastleKingSide">Znajdź sposób aby wykonać krótką roszadę!</string>
   <string name="findAWayToCastleQueenSide">Znajdź sposób aby wykonać długą roszadę!</string>
-  <string name="castlingComplete">Gratulacje! Powinieneś roszować w prawie każdej partii.</string>
+  <string name="castlingComplete">Gratulacje! Roszada powinna być wykonana w prawie każdej partii.</string>
   <string name="enPassant">Bicie w przelocie</string>
   <string name="theSpecialPawnMove">Specjalny ruch piona</string>
   <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak, jak gdyby poruszył się tylko o jedno pole.</string>
@@ -162,7 +162,7 @@ Pionek – 1</string>
   <string name="twoMovesToGiveCheck">Dwa ruchy aby dać szacha</string>
   <string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>
   <string name="checkInTwoGoal">Zaatakuj króla przeciwnika w dwóch ruchach!</string>
-  <string name="checkInTwoComplete">Gratulacje! Zaszachowałeś przeciwnika zmuszając go do obrony króla!</string>
+  <string name="checkInTwoComplete">Gratulacje! Zaszachowałeś/aś przeciwnika zmuszając go do obrony króla!</string>
   <string name="whatNext">Co dalej?</string>
   <string name="youKnowHowToPlayChess">Gratulacje! Wiesz już jak grać w szachy. Czy chcesz stać się silniejszym graczem?</string>
   <string name="register">Rejestracja</string>
