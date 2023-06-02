@@ -195,8 +195,8 @@ export default class RoundController {
     } else sound.move();
   };
 
-  private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    return this.promotion.start(
+  private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
+    this.promotion.start(
       orig,
       dest,
       {
@@ -206,12 +206,10 @@ export default class RoundController {
       meta,
       this.keyboardMove?.justSelected()
     );
-  };
+
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => this.startPromotion(orig, dest, meta);
 
-  private onCancelPremove = () => {
-    this.promotion.cancelPrePromotion();
-  };
+  private onCancelPremove = () => this.promotion.cancelPrePromotion();
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
@@ -223,9 +221,7 @@ export default class RoundController {
     this.redraw();
   };
 
-  private isSimulHost = () => {
-    return this.data.simul && this.data.simul.hostId === this.opts.userId;
-  };
+  private isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
   private enpassant = (orig: cg.Key, dest: cg.Key): boolean => {
     if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
