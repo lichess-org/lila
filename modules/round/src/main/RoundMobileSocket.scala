@@ -36,7 +36,11 @@ final private class RoundMobileSocket(
         .add("onGame" -> (player.isAi || socket.onGame(player.color)))
     Json
       .obj(
-        "game"   -> jsonView.base(game, initialFen),
+        "game" -> {
+          jsonView.base(game, initialFen) ++ Json.obj(
+            "pgn" -> game.sans.mkString(" ")
+          )
+        },
         "white"  -> playerJson(Color.White),
         "black"  -> playerJson(Color.Black),
         "socket" -> socket.version

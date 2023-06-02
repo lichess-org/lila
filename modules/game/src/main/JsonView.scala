@@ -15,19 +15,19 @@ final class JsonView(rematches: Rematches):
   def base(game: Game, initialFen: Option[Fen.Epd]) =
     Json
       .obj(
-        "id"            -> game.id,
-        "variant"       -> game.variant,
-        "speed"         -> game.speed.key,
-        "perf"          -> PerfPicker.key(game),
-        "rated"         -> game.rated,
-        "fen"           -> (Fen write game.chess),
-        "player"        -> game.turnColor,
-        "turns"         -> game.ply,
-        "startedAtTurn" -> game.chess.startedAtPly,
-        "source"        -> game.source,
-        "status"        -> game.status,
-        "createdAt"     -> game.createdAt
+        "id"        -> game.id,
+        "variant"   -> game.variant,
+        "speed"     -> game.speed.key,
+        "perf"      -> PerfPicker.key(game),
+        "rated"     -> game.rated,
+        "fen"       -> (Fen write game.chess),
+        "player"    -> game.turnColor,
+        "turns"     -> game.ply,
+        "source"    -> game.source,
+        "status"    -> game.status,
+        "createdAt" -> game.createdAt
       )
+      .add("startedAtTurn" -> game.chess.startedAtPly.some.filter(_ > 0))
       .add("initialFen" -> initialFen)
       .add("threefold" -> game.history.threefoldRepetition)
       .add("boosted" -> game.boosted)
