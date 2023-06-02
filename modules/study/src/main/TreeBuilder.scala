@@ -2,13 +2,14 @@ package lila.study
 
 import chess.opening.*
 import chess.variant.Variant
-import lila.tree
+import lila.tree.{ Branch, Branches, Root }
 
 object TreeBuilder:
 
   private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
 
-  def apply(root: Node.Root, variant: Variant): tree.Root =
+  // DEBUG should be done in BSONHandler
+  def apply(root: Root, variant: Variant): Root =
     val dests =
       if (variant.standard && root.fen.isInitial) initialStandardDests
       else
@@ -16,40 +17,20 @@ object TreeBuilder:
         sit.playable(false) ?? sit.destinations
     makeRoot(root, variant).copy(dests = dests.some)
 
-  def toBranch(node: Node, variant: Variant): tree.Branch =
-    tree.Branch(
-      id = node.id,
-      ply = node.ply,
-      move = node.move,
-      fen = node.fen,
-      check = node.check,
-      shapes = node.shapes,
-      comments = node.comments,
-      gamebook = node.gamebook,
-      glyphs = node.glyphs,
-      clock = node.clock,
-      crazyData = node.crazyData,
-      eval = node.score.map(_.eval),
-      children = toBranches(node.children, variant),
+  // DEBUG should be done in BSONHandler
+  def toBranch(node: Branch, variant: Variant): Branch =
+    node.copy(
       opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(node.fen),
-      forceVariation = node.forceVariation
+      children = toBranches(node.children, variant)
     )
 
-  def makeRoot(root: Node.Root, variant: Variant): tree.Root =
-    tree.Root(
-      ply = root.ply,
-      fen = root.fen,
-      check = root.check,
-      shapes = root.shapes,
-      comments = root.comments,
-      gamebook = root.gamebook,
-      glyphs = root.glyphs,
-      clock = root.clock,
-      crazyData = root.crazyData,
-      eval = root.score.map(_.eval),
-      children = toBranches(root.children, variant),
-      opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(root.fen)
+  // DEBUG should be done in BSONHandler
+  def makeRoot(root: Root, variant: Variant): Root =
+    root.copy(
+      opening = Variant.list.openingSensibleVariants(variant) ?? OpeningDb.findByEpdFen(root.fen),
+      children = toBranches(root.children, variant)
     )
 
-  private def toBranches(children: Node.Children, variant: Variant): List[tree.Branch] =
-    children.nodes.view.map(toBranch(_, variant)).toList
+  private def toBranches(children: Branches, variant: Variant): Branches =
+    // Note, view here was I think not doing anything since .ToList was set afterwards
+    Branches(children.nodes.map(toBranch(_, variant)))

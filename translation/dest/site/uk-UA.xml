@@ -124,6 +124,7 @@
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Знімає обмеження на глибину аналізу - ваш комп’ютер стане теплішим</string>
+  <string name="engineManager">Менеджер рушія</string>
   <string name="blunder">Груба помилка</string>
   <string name="mistake">Помилка</string>
   <string name="inaccuracy">Неточність</string>
@@ -165,6 +166,12 @@
     <item quantity="few">%s гри</item>
     <item quantity="many">%s ігор</item>
     <item quantity="other">%s ігор</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Рейтинг %1$s за %2$s партію</item>
+    <item quantity="few">Рейтинг %1$s за %2$s партії</item>
+    <item quantity="many">Рейтинг %1$s за %2$s партій</item>
+    <item quantity="other">Рейтинг %1$s за %2$s партій</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s закладка</item>

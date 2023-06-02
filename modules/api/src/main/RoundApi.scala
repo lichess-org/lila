@@ -43,12 +43,11 @@ final private[api] class RoundApi(
         given play.api.i18n.Lang = ctx.lang
         jsonView.playerJson(
           pov,
-          ctx.pref,
+          ctx.pref.some,
           apiVersion,
           ctx.me.map(Right.apply),
-          withFlags = ctxFlags,
-          initialFen = initialFen,
-          nvui = ctx.blind
+          flags = ctxFlags,
+          initialFen = initialFen
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip
@@ -82,12 +81,11 @@ final private[api] class RoundApi(
         given play.api.i18n.Lang = ctx.lang
         jsonView.watcherJson(
           pov,
-          ctx.pref,
+          ctx.pref.some,
           apiVersion,
-          ctx.me,
           tv,
           initialFen = initialFen,
-          withFlags = ctxFlags
+          flags = ctxFlags
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip
@@ -106,7 +104,7 @@ final private[api] class RoundApi(
       .mon(_.round.api.watcher)
 
   private def ctxFlags(using ctx: Context) =
-    WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs), rating = ctx.pref.showRatings)
+    WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
 
   def review(
       pov: Pov,
@@ -120,12 +118,11 @@ final private[api] class RoundApi(
     given play.api.i18n.Lang = ctx.lang
     jsonView.watcherJson(
       pov,
-      ctx.pref,
+      ctx.pref.some,
       apiVersion,
-      ctx.me,
       tv,
       initialFen = initialFen,
-      withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
+      flags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
     ) zip
       tourApi.gameView.analysis(pov.game) zip
       (pov.game.simulId ?? simulApi.find) zip

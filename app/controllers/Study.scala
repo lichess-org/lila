@@ -11,7 +11,7 @@ import lila.common.{ HTTPRequest, IpAddress }
 import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
-import lila.study.{ Order, Study as StudyModel }
+import lila.study.{ Order, StudyForm, Study as StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views.*
 import lila.analyse.Analysis
@@ -250,7 +250,7 @@ final class Study(
     .mon(_.chat.fetch("study"))
 
   def createAs = AuthBody { ctx ?=> me =>
-    lila.study.StudyForm.importGame.form
+    StudyForm.importGame.form
       .bindFromRequest()
       .fold(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
@@ -259,7 +259,7 @@ final class Study(
             owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
             contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
             res <-
-              if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
+              if owner.isEmpty && contrib.isEmpty then createStudy(data, me)
               else
                 val back = HTTPRequest.referer(ctx.req) orElse
                   data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
@@ -269,7 +269,7 @@ final class Study(
   }
 
   def create = AuthBody { ctx ?=> me =>
-    lila.study.StudyForm.importGame.form
+    StudyForm.importGame.form
       .bindFromRequest()
       .fold(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
@@ -277,13 +277,10 @@ final class Study(
       )
   }
 
-  private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(using
-      ctx: Context
-  ) =
+  private def createStudy(data: StudyForm.importGame.Data, me: lila.user.User)(using ctx: Context) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
-      _.fold(notFound) { sc =>
+      _.fold(notFound): sc =>
         Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id)).toFuccess
-      }
     }
 
   def delete(id: StudyId) = Auth { _ ?=> me =>
@@ -303,7 +300,7 @@ final class Study(
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me =>
     get("sri") ?? { sri =>
-      lila.study.StudyForm.importPgn.form
+      StudyForm.importPgn.form
         .bindFromRequest()
         .fold(
           jsonFormError,
@@ -539,12 +536,12 @@ final class Study(
   def topics = Open:
     env.study.topicApi.popular(50) zip
       ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map { (popular, mine) =>
-        val form = mine map lila.study.StudyForm.topicsForm
+        val form = mine map StudyForm.topicsForm
         Ok(html.study.topic.index(popular, mine, form))
       }
 
   def setTopics = AuthBody { ctx ?=> me =>
-    lila.study.StudyForm.topicsForm
+    StudyForm.topicsForm
       .bindFromRequest()
       .fold(
         _ => Redirect(routes.Study.topics).toFuccess,
