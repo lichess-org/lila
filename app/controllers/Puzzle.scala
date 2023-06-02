@@ -92,9 +92,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  private def nextPuzzleForMe(angle: PuzzleAngle, color: Option[Option[Color]])(using
-      ctx: Context
-  ): Fu[Option[Puz]] =
+  private def nextPuzzleForMe(
+      angle: PuzzleAngle,
+      color: Option[Option[Color]],
+      difficulty: PuzzleDifficulty = PuzzleDifficulty.Normal
+  )(using ctx: Context): Fu[Option[Puz]] =
     ctx.me match
       case Some(me) =>
         ctx.req.session.get(cookieDifficulty).flatMap(PuzzleDifficulty.find).?? {
@@ -102,7 +104,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         } >>
           color.?? { env.puzzle.session.setAngleAndColor(me, angle, _) } >>
           env.puzzle.selector.nextPuzzleFor(me, angle)
-      case None => env.puzzle.anon.getOneFor(angle, ~color)
+      case None => env.puzzle.anon.getOneFor(angle, difficulty, ~color)
 
   private def redirectNoPuzzle =
     Redirect(routes.Puzzle.themes).flashFailure("No more puzzles available! Try another theme.").toFuccess
