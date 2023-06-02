@@ -53,47 +53,6 @@ export const toggle = (initialValue: boolean, effect: (value: boolean) => void =
   return prop;
 };
 
-export interface Selectable {
-  select: () => void;
-  deselect: () => void;
-  destroy: () => void;
-}
-
-export class Selector<T extends Selectable> {
-  // mutex group when cleanup matters
-  select(name: string | false) {
-    if (this.selectedName) {
-      if (this.selectedName !== name) this.selected?.deselect();
-      else return;
-    }
-    this.selectedName = name;
-    this.selected?.select();
-  }
-
-  add(name: string, val: T) {
-    this.clear(name);
-    this.group.set(name, val);
-    if (this.selectedName === name) val.select();
-  }
-
-  clear(name?: string) {
-    if (!name) {
-      for (const key of this.group.keys()) this.clear(key);
-      this.selectedName = false;
-      return;
-    }
-    if (this.selectedName === name) this.selectedName = false;
-    this.group.get(name)?.deselect();
-    this.group.get(name)?.destroy();
-    this.group.delete(name);
-  }
-  get selected(): T | undefined {
-    return this.selectedName ? this.group.get(this.selectedName) : undefined;
-  }
-  selectedName: string | false = false;
-  group = new Map<string, T>();
-}
-
 // Only computes a value once. The computed value must not be undefined.
 export const memoize = <A>(compute: () => A): (() => A) => {
   let computed: A;
