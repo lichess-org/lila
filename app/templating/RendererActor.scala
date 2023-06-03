@@ -6,7 +6,7 @@ import akka.actor.*
 import lila.game.Pov
 import views.{ html as V }
 
-final private[app] class RendererActor extends Actor:
+final private class RendererActor extends Actor:
 
   def receive =
 

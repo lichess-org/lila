@@ -139,9 +139,10 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       override def message(_channel: String, message: String): Unit = f(message)
     })
     val subPromise = Promise[Unit]()
-    conn.async.subscribe(channel).thenRun { () =>
-      subPromise.success(())
-    }
+    conn.async
+      .subscribe(channel)
+      .thenRun: () =>
+        subPromise.success(())
     subPromise.future
 
   Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping"): () =>
