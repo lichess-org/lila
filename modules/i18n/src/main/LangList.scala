@@ -27,7 +27,7 @@ object LangList {
     Lang("es", "ES") -> "español",
     // Lang("et", "EE")  -> "eesti keel",
     // Lang("eu", "ES")  -> "Euskara",
-    // Lang("fa", "IR")  -> "فارسی",
+    Lang("fa", "IR") -> "فارسی",
     Lang("fi", "FI") -> "suomen kieli",
     // Lang("fo", "FO")  -> "føroyskt",
     Lang("fr", "FR") -> "français",
@@ -58,7 +58,7 @@ object LangList {
     Lang("ko", "KR") -> "한국어",
     // Lang("ky", "KG")  -> "кыргызча",
     // Lang("la", "LA")  -> "lingua Latina",
-    // Lang("lt", "LT")  -> "lietuvių kalba",
+    Lang("lt", "LT") -> "lietuvių kalba",
     // Lang("lv", "LV")  -> "latviešu valoda",
     // Lang("mg", "MG")  -> "fiteny malagasy",
     // Lang("mk", "MK")  -> "македонски јази",
@@ -112,16 +112,15 @@ object LangList {
   }
 
   lazy val popularNoRegion: List[Lang] = popular.collect {
-    case l if noRegion(l) == l => l
+    case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
   }
 
-  private def noRegion(lang: Lang): Lang =
-    lang.language match {
-      case "en" => Lang("en", "GB")
-      case "pt" => Lang("pt", "PT")
-      case "zh" => Lang("zh", "CN")
-      case _    => lang
-    }
+  val defaultRegions = Map[String, Lang](
+    "de" -> Lang("de", "DE"),
+    "en" -> Lang("en", "GB"),
+    "pt" -> Lang("pt", "PT"),
+    "zh" -> Lang("zh", "CN")
+  )
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)
