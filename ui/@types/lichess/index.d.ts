@@ -201,6 +201,9 @@ declare namespace Voice {
   export type Listener = (msgText: string, msgType: MsgType) => void;
 
   export interface Microphone {
+    setDeviceId: (deviceId: string) => void;
+    getDeviceId: () => string;
+    getDevices: () => Promise<MediaDeviceInfo[]>;
     setLang: (language: string) => void;
     initRecognizer: (
       words: string[],
