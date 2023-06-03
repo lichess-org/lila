@@ -52,7 +52,7 @@ final class ApiMoveStream(
                   yield ByColor(white, black)
                   queue offer toJson(
                     Fen write Situation
-                      .AndFullMoveNumber(s, Ply(index + game.startedAtPly.value).fullMoveNumber),
+                      .AndFullMoveNumber(s, (game.startedAtPly + index).fullMoveNumber),
                     s.board.history.lastMove.map(_.uci),
                     clk
                   )
