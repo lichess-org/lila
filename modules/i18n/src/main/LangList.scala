@@ -101,10 +101,51 @@ object LangList {
   )
 
   lazy val popular: List[Lang] = {
-    // 26/04/2020 based on db.user4.aggregate({$sortByCount:'$lang'}).toArray()
+    // 01/06/2023 based on db.user4.aggregate({$sortByCount:'$lang'}).toArray()
+    // GB should be third, but let's have en together
     val langs =
-      "en-US en-GB ja-JP ru-RU es-ES tr-TR fr-FR de-DE pt-BR it-IT pl-PL ar-SA nl-NL"
-        .split(' ')
+      List(
+        "en-US",
+        "en-GB",
+        "ja-JP",
+        "ru-RU",
+        "es-ES",
+        "pt-BR",
+        "fr-FR",
+        "de-DE",
+        "zh-CN",
+        "vi-VN",
+        "pl-PL",
+        "it-IT",
+        "tr-TR",
+        "zh-TW",
+        "nl-NL",
+        "ko-KR",
+        "cs-CZ",
+        "pt-PT",
+        "sv-SE",
+        "hu-HU",
+        "uk-UA",
+        "fi-FI",
+        "da-DK",
+        "th-TH",
+        "ar-SA",
+        "no-NO",
+        "ro-RO",
+        "ca-ES",
+        "el-GR",
+        "he-IL",
+        "sr-SP",
+        "id-ID",
+        "nb-NO",
+        "be-BY",
+        "af-ZA",
+        "hi-IN",
+        "tk-TM",
+        "tl-PH",
+        "fa-IR",
+        "lt-LT"
+      )
         .flatMap(Lang.get)
         .zipWithIndex
         .toMap
