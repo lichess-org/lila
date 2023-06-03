@@ -94,6 +94,7 @@ function renderSettings(moveCtrl: VoiceMove, redraw: () => void): VNode {
     timerSetting(moveCtrl, redraw),
     langSetting(moveCtrl),
     wakeSetting(moveCtrl, redraw),
+    deviceSelector(redraw),
     h('hr'),
     voiceDisable(),
   ]);
@@ -187,6 +188,38 @@ function wakeSetting(moveCtrl: VoiceMove, redraw: () => void) {
       h('label', { attrs: { for: 'wake-mode' } }),
     ]),
     h('label', { attrs: { for: 'wake-mode' } }, ['Wake on ', h('strong', '"Hey Lichess"')]),
+  ]);
+}
+
+let devices: InputDeviceInfo[] | undefined;
+function deviceSelector(redraw: () => void) {
+  return h('div.voice-choices', [
+    'Microphone',
+    h(
+      'select',
+      {
+        hook: onInsert((el: HTMLSelectElement) => {
+          el.addEventListener('change', () => lichess.mic.setDeviceId(el.value));
+          if (devices === undefined)
+            lichess.mic.getDevices().then(ds => {
+              devices = ds;
+              redraw();
+            });
+        }),
+      },
+      (devices || []).map(d =>
+        h(
+          'option',
+          {
+            attrs: {
+              value: d.deviceId,
+              selected: d.deviceId === lichess.mic.getDeviceId(),
+            },
+          },
+          d.label
+        )
+      )
+    ),
   ]);
 }
 

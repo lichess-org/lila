@@ -1,5 +1,6 @@
 import { objectStorage } from 'common/objectStorage';
 import { Selector, Selectable } from 'common/selector';
+import { storedStringProp } from 'common/storage';
 
 type Audio = { vosk?: AudioNode; source?: AudioNode; ctx?: AudioContext };
 
@@ -39,6 +40,9 @@ export const mic =
     mediaStream: MediaStream;
     micSource: AudioNode;
 
+    userSelectedDeviceId = storedStringProp('mic.deviceId', 'default');
+    deviceIds?: string[];
+
     recs = new Selector<RecNode, Audio>();
     ctrl: Voice.Listener;
     download?: XMLHttpRequest;
@@ -55,6 +59,17 @@ export const mic =
 
     get lang() {
       return this.language;
+    }
+
+    setDeviceId(id: string) {
+      this.userSelectedDeviceId(id);
+      this.initAudio();
+    }
+    getDeviceId() {
+      return this.userSelectedDeviceId();
+    }
+    async getDevices() {
+      return navigator.mediaDevices.enumerateDevices().then(d => d.filter(d => d.kind == 'audioinput'));
     }
 
     setController(ctrl: Voice.Listener) {
@@ -208,6 +223,7 @@ export const mic =
           sampleRate: this.audioCtx.sampleRate,
           echoCancellation: true,
           noiseSuppression: true,
+          deviceId: this.userSelectedDeviceId(),
         },
       });
       this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
