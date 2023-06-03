@@ -93,6 +93,8 @@ object bits {
       ),
       div(id := "shogi_description", cls := "lobby__box__content")(
         p(
+          trans.siteDescription(),
+          br,
           trans.shogiDescription(),
           br,
           trans.learnShogiHereX(strong(a(href := routes.Learn.index)(trans.shogiBasics())))
