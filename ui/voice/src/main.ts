@@ -25,6 +25,13 @@ export { makeVoiceMove };
 export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
   const rec = storedBooleanProp('voice.listening', false);
 
+  const toggle = () => {
+    const recId = moveCtrl?.wakePref() ? 'idle' : undefined;
+    if (lichess.once('voice.rtfm')) moveCtrl.showHelp(true);
+    rec(lichess.mic.recId === lichess.mic.isBusy) ? lichess.mic.start(recId) : lichess.mic.stop();
+  };
+  if (rec() && !lichess.mic.recId) toggle();
+
   return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
     h('div#voice-status-row', [
       h('button#microphone-button', {
@@ -37,14 +44,7 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
           'data-icon': lichess.mic.isBusy ? licon.Cancel : licon.Voice,
           title: 'Toggle voice control',
         },
-        hook: onInsert(el => {
-          el.addEventListener('click', _ => {
-            const recId = moveCtrl?.wakePref() ? 'idle' : undefined;
-            if (lichess.once('voice.rtfm')) moveCtrl.showHelp(true);
-            rec(lichess.mic.recId === lichess.mic.isBusy) ? lichess.mic.start(recId) : lichess.mic.stop();
-          });
-          if (rec() && !lichess.mic.recId) setTimeout(() => el.dispatchEvent(new Event('click')));
-        }),
+        hook: onInsert(el => el.addEventListener('click', toggle)),
       }),
       h('span#voice-status', {
         hook: onInsert(el => lichess.mic.setController(updateVoiceBar(el))),
