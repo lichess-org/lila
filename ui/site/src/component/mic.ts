@@ -98,6 +98,7 @@ export const mic =
     }
 
     async start(recId = 'default'): Promise<void> {
+      await this.initAudio();
       try {
         if (this.micEnabled && this.recId === recId) return;
         this.busy = true;
@@ -197,8 +198,9 @@ export const mic =
     }
 
     private async initAudio(): Promise<void> {
-      if (this.audioCtx) return;
+      if (this.audioCtx && this.audioCtx.state !== 'running') await this.audioCtx.resume();
       this.audioCtx = new AudioContext();
+      if (this.audioCtx.state !== 'running') throw `Audio context state: ${this.audioCtx.state}`;
       this.mediaStream = await navigator.mediaDevices.getUserMedia({
         video: false,
         audio: {
