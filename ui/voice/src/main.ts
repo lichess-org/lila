@@ -257,31 +257,31 @@ async function makeVoiceMove(ctrl: RootCtrl, fen: string): Promise<VoiceMove> {
     update: fen => moveCtrl?.update(fen),
     opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),
     get showHelp() {
-      return moveCtrl?.showHelp;
+      return moveCtrl.showHelp;
     },
     get showSettings() {
-      return moveCtrl?.showSettings;
+      return moveCtrl.showSettings;
     },
     get clarityPref() {
-      return moveCtrl?.clarityPref;
+      return moveCtrl.clarityPref;
     },
     get timerPref() {
-      return moveCtrl?.timerPref;
+      return moveCtrl.timerPref;
     },
     get colorsPref() {
-      return moveCtrl?.colorsPref;
+      return moveCtrl.colorsPref;
     },
     get wakePref() {
-      return moveCtrl?.wakePref;
+      return moveCtrl.wakePref;
     },
     get showPromotion() {
-      return moveCtrl?.showPromotion;
+      return moveCtrl.showPromotion;
     },
     get langPref() {
-      return moveCtrl?.langPref;
+      return moveCtrl.langPref;
     },
     get allPhrases() {
-      return moveCtrl?.allPhrases;
+      return moveCtrl.allPhrases;
     },
   };
 }
