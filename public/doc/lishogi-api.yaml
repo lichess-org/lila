@@ -258,6 +258,8 @@ paths:
               - classical
               - minishogi
               - chushogi
+              - annanshogi
+              - kyotoshogi
           required: true
       responses:
         "200":
@@ -3619,6 +3621,8 @@ components:
         - standard
         - minishogi
         - chushogi
+        - annanshogi
+        - kyotoshogi
       example: standard
       default: standard
 
@@ -3653,6 +3657,8 @@ components:
         - correspondence
         - minishogi
         - chushogi
+        - annanshogi
+        - kyotoshogi
 
     Clock:
       type: object
@@ -4818,7 +4824,9 @@ components:
         "classical": [],
         "ultraBullet": [],
         "minishogi": [],
-        "chushogi": []
+        "chushogi": [],
+        "annanshogi": [],
+        "kyotoshogi": []
       }
 
     Leaderboard:
