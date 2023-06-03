@@ -9,8 +9,6 @@ import { Entry, VoiceMove, RootCtrl } from './interfaces';
 import * as xhr from 'common/xhr';
 import { onClickAway } from 'common';
 
-let moveCtrl: VoiceMove; // globals. not just a bad idea, it's the law!
-
 const supportedLangs = [
   ['en', 'English'],
   //['fr', 'Français'],
@@ -22,11 +20,11 @@ const supportedLangs = [
 export { type RootCtrl, type VoiceMove } from './interfaces';
 export { makeVoiceMove };
 
-export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
+export function renderVoiceMove(moveCtrl: VoiceMove, redraw: () => void, isPuzzle: boolean) {
   const rec = storedBooleanProp('voice.listening', false);
 
   const toggle = () => {
-    const recId = moveCtrl?.wakePref() ? 'idle' : undefined;
+    const recId = moveCtrl.wakePref() ? 'idle' : undefined;
     if (lichess.once('voice.rtfm')) moveCtrl.showHelp(true);
     rec(lichess.mic.recId === lichess.mic.isBusy) ? lichess.mic.start(recId) : lichess.mic.stop();
   };
@@ -47,7 +45,7 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
         hook: onInsert(el => el.addEventListener('click', toggle)),
       }),
       h('span#voice-status', {
-        hook: onInsert(el => lichess.mic.setController(updateVoiceBar(el))),
+        hook: onInsert(el => lichess.mic.setController(updateVoiceBar(moveCtrl, el))),
       }),
       h('button#voice-help-button', {
         attrs: { 'data-icon': licon.InfoCircle, title: 'Voice help' },
@@ -55,16 +53,16 @@ export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
       }),
       h('button#voice-settings-button', {
         attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },
-        class: { active: moveCtrl?.showSettings() },
+        class: { active: moveCtrl.showSettings() },
         hook: bind('click', () => moveCtrl.showSettings.toggle(), redraw),
       }),
     ]),
-    moveCtrl?.showSettings() ? renderSettings(redraw) : null,
-    moveCtrl?.showHelp() ? helpModal() : null,
+    moveCtrl.showSettings() ? renderSettings(moveCtrl, redraw) : null,
+    moveCtrl.showHelp() ? helpModal(moveCtrl) : null,
   ]);
 }
 
-function updateVoiceBar(el: HTMLElement) {
+function updateVoiceBar(moveCtrl: VoiceMove, el: HTMLElement) {
   const voiceBtn = $('button#microphone-button');
 
   return (txt: string, tpe: Voice.MsgType) => {
@@ -89,19 +87,19 @@ function updateVoiceBar(el: HTMLElement) {
   };
 }
 
-function renderSettings(redraw: () => void): VNode {
+function renderSettings(moveCtrl: VoiceMove, redraw: () => void): VNode {
   return h('div#voice-settings', { hook: onInsert(onClickAway(() => moveCtrl.showSettings(false))) }, [
-    colorsSetting(redraw),
-    claritySetting(redraw),
-    timerSetting(redraw),
-    langSetting(),
-    wakeSetting(redraw),
+    colorsSetting(moveCtrl, redraw),
+    claritySetting(moveCtrl, redraw),
+    timerSetting(moveCtrl, redraw),
+    langSetting(moveCtrl),
+    wakeSetting(moveCtrl, redraw),
     h('hr'),
     voiceDisable(),
   ]);
 }
 
-function colorsSetting(redraw: () => void) {
+function colorsSetting(moveCtrl: VoiceMove, redraw: () => void) {
   return h('div.voice-choices', [
     'Label with',
     h(
@@ -120,7 +118,7 @@ function colorsSetting(redraw: () => void) {
   ]);
 }
 
-function claritySetting(redraw: () => void) {
+function claritySetting(moveCtrl: VoiceMove, redraw: () => void) {
   return h('div.voice-setting', [
     h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
     h('input#voice-clarity', {
@@ -139,7 +137,7 @@ function claritySetting(redraw: () => void) {
   ]);
 }
 
-function timerSetting(redraw: () => void) {
+function timerSetting(moveCtrl: VoiceMove, redraw: () => void) {
   return h('div.voice-setting', [
     h('label', { attrs: { for: 'voice-timer' } }, 'Timer'),
     h('input#voice-timer', {
@@ -153,7 +151,7 @@ function timerSetting(redraw: () => void) {
   ]);
 }
 
-function langSetting() {
+function langSetting(moveCtrl: VoiceMove) {
   return supportedLangs.length < 2
     ? null
     : h('div.voice-setting', [
@@ -179,7 +177,7 @@ function langSetting() {
       ]);
 }
 
-function wakeSetting(redraw: () => void) {
+function wakeSetting(moveCtrl: VoiceMove, redraw: () => void) {
   return h('div.voice-setting', { attrs: { title: '' } }, [
     h('div.switch', { attrs: { title: 'Say "hey lichess" to activate' } }, [
       h('input#wake-mode.cmn-toggle', {
@@ -211,7 +209,7 @@ function voiceDisable() {
       );
 }
 
-function helpModal() {
+function helpModal(moveCtrl: VoiceMove) {
   return snabModal({
     class: `voice-move-help`,
     content: [h('div.scrollable', spinner())],
@@ -253,10 +251,8 @@ function helpModal() {
   });
 }
 
-function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
-  lichess.loadModule('voice.move').then(() => {
-    moveCtrl = window.LichessVoiceMove(ctrl, fen);
-  });
+async function makeVoiceMove(ctrl: RootCtrl, fen: string): Promise<VoiceMove> {
+  const moveCtrl = await lichess.loadModule('voice.move').then(() => window.LichessVoiceMove(ctrl, fen));
   return {
     update: fen => moveCtrl?.update(fen),
     opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),

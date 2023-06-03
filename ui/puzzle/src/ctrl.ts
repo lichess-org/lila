@@ -106,7 +106,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       vote,
       solve: viewSolution,
     });
-    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
+    if (opts.pref.voiceMove)
+      makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen).then(vm => {
+        this.voiceMove = voiceMove = vm;
+      });
     if (opts.pref.keyboardMove)
       this.keyboardMove = keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.vm.node.fen });
     requestAnimationFrame(() => this.redraw());
