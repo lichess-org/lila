@@ -112,6 +112,7 @@ export function teamName(battle: TeamBattle, teamId: string): VNode {
 function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam) {
   const players = [] as (string | VNode)[];
   team.players.forEach((p, i) => {
+    if (i > 0) players.push('+');
     players.push(
       h(
         'score.ulpt.user-link',
