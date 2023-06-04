@@ -67,7 +67,8 @@ final class SwissFeature(
           $doc(
             "featurable" -> true,
             "settings.i" $lte 600, // hits the partial index
-            "startsAt" -> startsAtRange,
+            "settings.o.playYourGames" -> true,
+            "startsAt"                 -> startsAtRange,
             "garbage" $ne true
           )
         ) -> List(
