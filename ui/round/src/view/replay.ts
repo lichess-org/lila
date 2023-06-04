@@ -197,7 +197,7 @@ function renderButtons(ctrl: RoundController) {
           attrs: {
             title: ctrl.noarg('menu'),
             'data-act': 'menu',
-            'data-icon': '',
+            'data-icon': licon.Hamburger,
           },
         },
         h('div.board-menu-nag')
