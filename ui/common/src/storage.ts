@@ -1,4 +1,4 @@
-import { defined, Prop, withEffect } from './common';
+import { defined, notNull, Prop, withEffect } from './common';
 
 export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
@@ -17,7 +17,12 @@ export function storedProp<V>(
       cached = replacement;
       lichess.storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {
-      const str = lichess.storage.get(key) ?? lichess.storage.get(compatKey);
+      const compatValue = lichess.storage.get(compatKey);
+      if (notNull(compatValue)) {
+        lichess.storage.set(key, compatValue);
+        lichess.storage.remove(compatKey);
+      }
+      const str = lichess.storage.get(key);
       cached = str === null ? defaultValue : fromStr(str);
     }
     return cached;
