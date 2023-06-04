@@ -31,13 +31,11 @@ final private class RelayFetch(
     ws: StandaloneWSClient
 )(using Executor, Scheduler):
 
-  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
+  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)):
     syncRelays(official = true)
-  }
 
-  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(1 minute)) {
+  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(1 minute)):
     syncRelays(official = false)
-  }
 
   private def syncRelays(official: Boolean) =
     api
@@ -247,13 +245,17 @@ private[relay] object RelayFetch:
 
     case class GameJson(moves: List[String], result: Option[String]):
       def toPgn(extraTags: Tags = Tags.empty) =
-        val strMoves = moves.map(_ split ' ').mapWithIndex: (move, index) =>
-          chess.format.pgn.Move(
-            ply = Ply(index + 1),
-            san = SanStr(~move.headOption),
-            secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
-          ).render
-        .mkString(" ")
+        val strMoves = moves
+          .map(_ split ' ')
+          .mapWithIndex: (move, index) =>
+            chess.format.pgn
+              .Move(
+                ply = Ply(index + 1),
+                san = SanStr(~move.headOption),
+                secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
+              )
+              .render
+          .mkString(" ")
         PgnStr(s"$extraTags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 
