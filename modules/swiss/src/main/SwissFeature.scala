@@ -15,23 +15,20 @@ final class SwissFeature(
 
   import BsonHandlers.given
 
-  val onHomepage = cacheApi.unit[Option[Swiss]] {
+  val onHomepage = cacheApi.unit[Option[Swiss]]:
     _.refreshAfterWrite(30 seconds)
-      .buildAsyncFuture { _ =>
+      .buildAsyncFuture: _ =>
         mongo.swiss
-          .find(
+          .find:
             $doc(
               "teamId" -> lichessTeamId,
               "startsAt" $gt nowInstant.minusMinutes(5) $lt nowInstant.plusMinutes(10)
             )
-          )
           .sort($sort asc "startsAt")
           .one[Swiss]
-      }
-  }
 
   def get(teams: Seq[TeamId]) =
-    cache.getUnit zip getForTeams(teams :+ lichessTeamId distinct) map { case (cached, teamed) =>
+    cache.getUnit zip getForTeams(teams :+ lichessTeamId distinct) map { (cached, teamed) =>
       FeaturedSwisses(
         created = (teamed.created ::: cached.created).distinctBy(_.id),
         started = (teamed.started ::: cached.started).distinctBy(_.id)
@@ -52,21 +49,19 @@ final class SwissFeature(
           )
     }
 
-  private val cache = cacheApi.unit[FeaturedSwisses] {
+  private val cache = cacheApi.unit[FeaturedSwisses]:
     _.refreshAfterWrite(10 seconds)
-      .buildAsyncFuture { _ =>
+      .buildAsyncFuture: _ =>
         val now = nowInstant
         cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1))) zip
-          cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)) map { case (created, started) =>
+          cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)) map { (created, started) =>
             FeaturedSwisses(created, started)
           }
-      }
-  }
 
   // causes heavy team reads
   private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =
     mongo.swiss
-      .aggregateList(nb, ReadPreference.secondaryPreferred) { framework =>
+      .aggregateList(nb, ReadPreference.secondaryPreferred): framework =>
         import framework.*
         Match(
           $doc(
@@ -93,5 +88,4 @@ final class SwissFeature(
           UnwindField("team"),
           Limit(nb)
         )
-      }
       .map { _.flatMap(_.asOpt[Swiss]) }
