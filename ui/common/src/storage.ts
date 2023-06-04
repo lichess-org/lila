@@ -5,19 +5,19 @@ export interface StoredProp<V> extends Prop<V> {
 }
 
 export function storedProp<V>(
-  k: string,
+  key: string,
   defaultValue: V,
   fromStr: (str: string) => V,
   toStr: (v: V) => string
 ): StoredProp<V> {
-  const sk = 'analyse.' + k; // historical blunder
+  const compatKey = 'analyse.' + key;
   let cached: V;
   return function (replacement?: V) {
     if (defined(replacement) && replacement != cached) {
       cached = replacement;
-      lichess.storage.set(sk, toStr(replacement));
+      lichess.storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {
-      const str = lichess.storage.get(sk);
+      const str = lichess.storage.get(key) ?? lichess.storage.get(compatKey);
       cached = str === null ? defaultValue : fromStr(str);
     }
     return cached;
