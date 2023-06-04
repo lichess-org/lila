@@ -64,6 +64,7 @@ const feedback = {
               h(
                 'move',
                 renderIndexAndMove(
+                  undefined,
                   {
                     withDots: true,
                     showGlyphs: true,
@@ -136,6 +137,7 @@ const feedback = {
                 h(
                   'strong',
                   renderIndexAndMove(
+                    undefined,
                     {
                       withDots: true,
                       showEval: false,

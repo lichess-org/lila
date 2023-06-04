@@ -13,7 +13,7 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
     hook: {
       insert: vnode => {
         ctrl.chessground = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl));
-        ctrl.setAutoShapes();
+        ctrl.ceval.setAutoShapes();
         if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
         ctrl.cgVersion.dom = ctrl.cgVersion.js;
       },

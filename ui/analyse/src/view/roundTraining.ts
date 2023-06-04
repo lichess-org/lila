@@ -151,7 +151,7 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
 export function render(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.studyPractice || ctrl.embed) return;
 
-  if (!ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
+  if (!ctrl.data.analysis || !ctrl.ceval.show() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
     return h('div.analyse__round-training', puzzleLink(ctrl));
 
   // don't cache until the analysis is complete!

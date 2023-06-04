@@ -1,8 +1,9 @@
-import { Work, Redraw } from './types';
+import { Work } from './types';
 import { Protocol } from './protocol';
 import { Cache } from './cache';
 import { randomToken } from 'common/random';
 import { readNdJson } from 'common/ndjson';
+import { Redraw } from 'chessground/types';
 
 export enum CevalState {
   Initial,

@@ -76,6 +76,7 @@ object jsI18n:
         trans.realtimeReplay,
         trans.byCPL,
         // context menu
+        trans.requestAComputerAnalysis,
         trans.promoteVariation,
         trans.makeMainLine,
         trans.deleteFromHere,

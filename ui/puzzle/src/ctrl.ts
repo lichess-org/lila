@@ -8,7 +8,6 @@ import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
 import {
-  Redraw,
   Vm,
   Controller,
   PuzzleOpts,
@@ -38,6 +37,7 @@ import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
+import { Redraw } from 'chessground/types';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
@@ -48,7 +48,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const autoNext = storedBooleanProp(`puzzle.autoNext${hasStreak ? '.streak' : ''}`, hasStreak);
   const rated = storedBooleanProp('puzzle.rated', true);
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
-  const threatMode = prop(false);
   const streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
   const streakFailStorage = lichess.storage.make('puzzle.streak.fail');
   if (streak) {
@@ -61,7 +60,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
 
   // required by ceval
-  vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
 
   const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
@@ -304,7 +302,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         const sent = vm.mode == 'play' ? sendResult(true) : Promise.resolve();
         vm.mode = 'view';
         withGround(showGround);
-        sent.then(_ => (autoNext() ? nextPuzzle() : startCeval()));
+        sent.then(() => (autoNext() ? nextPuzzle() : ceval.startCeval()));
       }
     } else if (progress) {
       vm.lastFeedback = 'good';
@@ -401,63 +399,34 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
               node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth) node.ceval = ev;
           if (work.path === vm.path) {
-            setAutoShapes();
+            ceval.setAutoShapes();
             redraw();
           }
         });
       },
-      setAutoShapes: setAutoShapes,
-    });
-  }
-
-  function setAutoShapes(): void {
-    withGround(g => {
-      g.setAutoShapes(
-        computeAutoShapes({
+      computeAutoShapes: () =>
+        withGround(ground => computeAutoShapes({
           vm: vm,
           ceval: ceval,
-          ground: g,
-          threatMode: threatMode(),
+          ground,
+          threatMode: ceval.threatMode(),
           nextNodeBest: nextNodeBest(),
         })
-      );
+      ),
+      showServerAnalysis: false,
+      getChessground: ground,
+      tree,
+      getPath: () => vm.path,
+      getNode: () => vm.node,
+      outcome,
+      getNodeList: () => vm.nodeList,
+      disallowed: () => vm.mode !== 'view',
     });
   }
-
-  function canUseCeval(): boolean {
-    return vm.mode === 'view' && !outcome();
-  }
-
-  function startCeval(): void {
-    if (ceval.enabled() && canUseCeval()) doStartCeval();
-  }
-
-  const doStartCeval = throttle(800, function () {
-    ceval.start(vm.path, vm.nodeList, threatMode());
-  });
 
   const nextNodeBest = () => treeOps.withMainlineChild(vm.node, n => n.eval?.best);
 
   const getCeval = () => ceval;
-
-  function toggleCeval(): void {
-    ceval.toggle();
-    setAutoShapes();
-    startCeval();
-    if (!ceval.enabled()) threatMode(false);
-    vm.autoScrollRequested = true;
-    redraw();
-  }
-
-  function toggleThreatMode(): void {
-    if (vm.node.check) return;
-    if (!ceval.enabled()) ceval.toggle();
-    if (!ceval.enabled()) return;
-    threatMode(!threatMode());
-    setAutoShapes();
-    startCeval();
-    redraw();
-  }
 
   function outcome(): Outcome | undefined {
     return position().outcome();
@@ -478,9 +447,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         }
         if (/\+|#/.test(vm.node.san!)) sound.check();
       }
-      threatMode(false);
+      ceval.threatMode(false);
       ceval.stop();
-      startCeval();
+      ceval.startCeval();
     }
     promotion.cancel();
     vm.justPlayed = undefined;
@@ -523,7 +492,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.autoScrollRequested = true;
     vm.voteDisabled = true;
     redraw();
-    startCeval();
+    ceval.startCeval();
     setTimeout(() => {
       vm.voteDisabled = false;
       redraw();
@@ -582,8 +551,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm,
     userJump,
     getCeval,
-    toggleCeval,
-    toggleThreatMode,
     redraw,
     playBestMove,
     flip,
@@ -646,9 +613,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       redraw();
     },
     outcome,
-    toggleCeval,
-    toggleThreatMode,
-    threatMode,
     currentEvals() {
       return { client: vm.node.ceval };
     },
@@ -656,16 +620,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     userMove,
     playUci,
     playUciList,
-    showEvalGauge() {
-      return vm.showComputer() && ceval.enabled() && !outcome();
-    },
     getOrientation() {
       return withGround(g => g.state.orientation)!;
     },
     getNode() {
       return vm.node;
     },
-    showComputer: vm.showComputer,
     promotion,
     redraw,
     ongoing: false,

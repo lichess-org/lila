@@ -7,7 +7,7 @@ $mq-col1: 9999px;
 }
 
 @import '../tools';
-@import '../action-menu';
+@import '../../../common/css/component/action-menu';
 @import 'layout';
 @import 'footer';
 @import 'not-found';

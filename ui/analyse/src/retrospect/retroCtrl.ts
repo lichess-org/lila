@@ -123,7 +123,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (!cur) return;
     if (fb === 'eval' && cur.fault.node.ply !== node.ply) {
       feedback('find');
-      root.setAutoShapes();
+      root.ceval.setAutoShapes();
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
@@ -133,11 +133,11 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       else if (node.eval) onFail(); // the move that was played in the game
       else {
         feedback('eval');
-        if (!root.ceval.enabled()) root.toggleCeval();
+        if (!root.ceval.showLive()) root.ceval.toggleLive();
         checkCeval();
       }
     }
-    root.setAutoShapes();
+    root.ceval.setAutoShapes();
   }
 
   function isCevalReady(node: Tree.Node): boolean {

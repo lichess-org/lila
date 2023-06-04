@@ -17,7 +17,7 @@ import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
-import { defined, prop, Prop, toggle, Toggle } from 'common';
+import { defined, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { ForecastCtrl } from './forecast/interfaces';
 import { lichessRules } from 'chessops/compat';
@@ -34,7 +34,6 @@ import { parseFen } from 'chessops/fen';
 import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
-import { storedBooleanProp } from 'common/storage';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -44,8 +43,10 @@ import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
 import pgnImport from './pgnImport';
+import { ParentCtrl } from 'ceval/src/types';
+import { textRaw as xhrTextRaw } from 'common/xhr';
 
-export default class AnalyseCtrl {
+export default class AnalyseCtrl implements ParentCtrl {
   data: AnalyseData;
   element: HTMLElement;
   tree: TreeWrapper;
@@ -89,12 +90,6 @@ export default class AnalyseCtrl {
   flipped = false;
   embed: boolean;
   showComments = true; // whether to display comments in the move tree
-  showAutoShapes = storedBooleanProp('show-auto-shapes', true);
-  showGauge = storedBooleanProp('show-gauge', true);
-  showComputer = storedBooleanProp('show-computer', true);
-  showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
-  keyboardHelp: boolean = location.hash === '#keyboard';
-  threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
   cgVersion = {
     js: 1, // increment to recreate chessground
@@ -144,7 +139,7 @@ export default class AnalyseCtrl {
 
     this.showGround();
     this.onToggleComputer();
-    this.startCeval();
+    this.ceval.startCeval();
     this.explorer.setNode();
     this.study = opts.study
       ? makeStudy?.(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
@@ -159,7 +154,7 @@ export default class AnalyseCtrl {
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
       this.getCeval().selectedEngine(urlEngine);
-      if (!this.ceval.enabled()) this.toggleCeval();
+      if (!this.ceval.showLive()) this.ceval.toggleLive();
     }
 
     lichess.pubsub.on('jump', (ply: string) => {
@@ -292,7 +287,7 @@ export default class AnalyseCtrl {
     if (!defined(this.node.dests)) this.getDests();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
-      this.setAutoShapes();
+      this.ceval.setAutoShapes();
       if (this.node.shapes) cg.setShapes(this.node.shapes as DrawShape[]);
     });
   }
@@ -384,9 +379,9 @@ export default class AnalyseCtrl {
         }
         if (/\+|#/.test(this.node.san!)) this.sound.check();
       }
-      this.threatMode(false);
+      this.ceval.threatMode(false);
       this.ceval.stop();
-      this.startCeval();
+      this.ceval.startCeval();
       speech.node(this.node);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
@@ -614,10 +609,6 @@ export default class AnalyseCtrl {
     return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval?.best);
   }
 
-  setAutoShapes = (): void => {
-    this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
-  };
-
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
@@ -632,7 +623,7 @@ export default class AnalyseCtrl {
       }
 
       if (path === this.path) {
-        this.setAutoShapes();
+        this.ceval.setAutoShapes();
         if (!isThreat) {
           if (this.retro) this.retro.onCeval();
           if (this.practice) this.practice.onCeval();
@@ -654,7 +645,6 @@ export default class AnalyseCtrl {
       emit: (ev: Tree.ClientEval, work: EvalMeta) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
-      setAutoShapes: this.setAutoShapes,
       redraw: this.redraw,
       ...(this.opts.study && this.opts.practice
         ? {
@@ -667,6 +657,19 @@ export default class AnalyseCtrl {
           ...engine,
           endpoint: this.opts.externalEngineEndpoint,
         })) || [],
+      showServerAnalysis: !this.synthetic || !!this.opts.study,
+      getPath: () => this.path,
+      togglePractice: () => this.togglePractice(),
+      getNode: () => this.node,
+      outcome: () => this.outcome(),
+      getNodeList: () => this.nodeList,
+      getChessground: () => this.chessground,
+      tree: this.tree,
+      getRetro: () => this.retro,
+      getPractice: () => this.practice,
+      getStudyPractice: () => this.studyPractice,
+      evalCache: this.evalCache,
+      computeAutoShapes: () => computeAutoShapes(this),
     });
   }
 
@@ -684,42 +687,6 @@ export default class AnalyseCtrl {
     return setupPosition(lichessRules(this.data.game.variant.key), setup);
   }
 
-  canUseCeval(): boolean {
-    return !this.node.threefold && !this.outcome();
-  }
-
-  startCeval = throttle(800, () => {
-    if (this.ceval.enabled()) {
-      if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode());
-        this.evalCache.fetch(this.path, this.ceval.multiPv());
-      } else this.ceval.stop();
-    }
-  });
-
-  toggleCeval = () => {
-    if (!this.showComputer()) return;
-    this.ceval.toggle();
-    this.setAutoShapes();
-    this.startCeval();
-    if (!this.ceval.enabled()) {
-      this.threatMode(false);
-      if (this.practice) this.togglePractice();
-    }
-    this.redraw();
-  };
-
-  toggleThreatMode = () => {
-    if (this.node.check) return;
-    if (!this.ceval.enabled()) this.ceval.toggle();
-    if (!this.ceval.enabled()) return;
-    this.threatMode(!this.threatMode());
-    if (this.threatMode() && this.practice) this.togglePractice();
-    this.setAutoShapes();
-    this.startCeval();
-    this.redraw();
-  };
-
   disableThreatMode = (): boolean => {
     return !!this.practice;
   };
@@ -728,87 +695,57 @@ export default class AnalyseCtrl {
     return !!this.studyPractice;
   };
 
-  private cevalReset(): void {
-    this.ceval.stop();
-    if (!this.ceval.enabled()) this.ceval.toggle();
-    this.startCeval();
-    this.redraw();
-  }
-
-  cevalSetMultiPv = (v: number): void => {
-    this.ceval.multiPv(v);
-    this.tree.removeCeval();
-    this.evalCache.clear();
-    this.cevalReset();
-  };
-
-  cevalSetThreads = (v: number): void => {
-    this.ceval.setThreads(v);
-    this.cevalReset();
-  };
-
-  cevalSetHashSize = (v: number): void => {
-    this.ceval.setHashSize(v);
-    this.cevalReset();
-  };
-
-  cevalSetInfinite = (v: boolean): void => {
-    this.ceval.infinite(v);
-    this.cevalReset();
-  };
-
-  showEvalGauge(): boolean {
-    return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();
-  }
-
-  hasAnyComputerAnalysis(): boolean {
-    return this.data.analysis ? true : this.ceval.enabled();
-  }
-
   hasFullComputerAnalysis = (): boolean => {
     return Object.keys(this.mainline[0].eval || {}).length > 0;
   };
 
-  private resetAutoShapes() {
-    if (this.showAutoShapes() || this.showMoveAnnotation()) this.setAutoShapes();
-    else this.chessground && this.chessground.setAutoShapes([]);
+  private analysisStarted = $('#acpl-chart').length !== 0;
+  hasServerEval() {
+    return this.study?.serverEval?.requested || !!this.data.analysis || this.analysisStarted;
   }
 
-  toggleAutoShapes = (v: boolean): void => {
-    this.showAutoShapes(v);
-    this.resetAutoShapes();
-  };
+  canRequestServerEval() {
+    if (this.hasServerEval()) return true;
+    if (this.study) return this.mainline.length > 4;
+    return !this.synthetic;
+  }
 
-  toggleGauge = () => {
-    this.showGauge(!this.showGauge());
-  };
+  requestServerEval() {
+    if (this.study) {
+      this.study.serverEval.request();
+      return;
+    }
+    if ($('form.future-game-analysis.must-login').length !== 0) {
+      if (confirm(this.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
+      return;
+    }
+    xhrTextRaw(`/${this.data.game.id}/request-analysis`, { method: 'POST' }).then(res => {
+      if (!res.ok) {
+        res.text().then(t => {
+          if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
+          lichess.reload();
+        });
+        return;
+      }
+      lichess.pubsub.emit('analysis.server.start');
+      this.analysisStarted = true;
+      this.redraw();
+    });
+  }
 
-  toggleMoveAnnotation = (v: boolean): void => {
-    this.showMoveAnnotation(v);
-    this.resetAutoShapes();
-  };
+  getExternalEngines = () => this.data.externalEngines ?? [];
 
   private onToggleComputer() {
-    if (!this.showComputer()) {
+    if (!this.ceval.showServer()) {
       this.tree.removeComputerVariations();
-      if (this.ceval.enabled()) this.toggleCeval();
       this.chessground && this.chessground.setAutoShapes([]);
-    } else this.resetAutoShapes();
+    } else this.ceval.resetAutoShapes();
   }
-
-  toggleComputer = () => {
-    if (this.ceval.enabled()) this.toggleCeval();
-    const value = !this.showComputer();
-    this.showComputer(value);
-    if (!value && this.practice) this.togglePractice();
-    this.onToggleComputer();
-    lichess.pubsub.emit('analysis.comp.toggle', value);
-  };
 
   mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     this.tree.merge(data.tree);
-    if (!this.showComputer()) this.tree.removeComputerVariations();
+    if (!this.ceval.showServer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
     if (data.analysis)
       data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length && n.ply <= 300);
@@ -904,7 +841,7 @@ export default class AnalyseCtrl {
       this.closeTools();
       this.retro = makeRetro(this, this.bottomColor());
     }
-    this.setAutoShapes();
+    this.ceval.setAutoShapes();
   };
 
   toggleExplorer = (): void => {
@@ -924,7 +861,7 @@ export default class AnalyseCtrl {
         // lower to 18 after task completion (or failure)
         return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
       });
-      this.setAutoShapes();
+      this.ceval.setAutoShapes();
     }
   };
 

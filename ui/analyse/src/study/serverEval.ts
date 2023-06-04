@@ -26,7 +26,6 @@ export default class ServerEval {
 export function view(ctrl: ServerEval): VNode {
   const analysis = ctrl.root.data.analysis;
 
-  if (!ctrl.root.showComputer()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
 
   return h(
@@ -42,8 +41,6 @@ export function view(ctrl: ServerEval): VNode {
     [h('div.study__message', spinnerVdom())]
   );
 }
-
-const disabled = () => h('div.study__server-eval.disabled.padded', 'You disabled computer analysis.');
 
 const requested = () => h('div.study__server-eval.requested.padded', spinnerVdom());
 

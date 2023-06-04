@@ -4,8 +4,7 @@ import modal from 'common/modal';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
-import { config as externalEngineConfig } from './externalEngine';
-import { toggle, ToggleSettings, rangeConfig } from 'common/controls';
+import { toggle, ToggleSettings } from 'common/controls';
 import AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'game/router';
 import * as pgnExport from '../pgnExport';
@@ -64,8 +63,6 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   );
 }
 
-const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
-
 const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
 
 export function studyButton(ctrl: AnalyseCtrl) {
@@ -120,9 +117,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     noarg = ctrl.trans.noarg,
-    canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
-    ceval = ctrl.getCeval(),
-    mandatoryCeval = ctrl.mandatoryCeval();
+    canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
 
   const tools: MaybeVNodes = [
     h('div.action-menu__tools', [
@@ -182,136 +177,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
-  const notSupported = (ceval?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
-
-  const cevalConfig: MaybeVNodes =
-    ceval?.possible && ceval.allowed()
-      ? [
-          h('h2', noarg('computerAnalysis')),
-          ctrlToggle(
-            {
-              name: 'enable',
-              title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
-              id: 'all',
-              checked: ctrl.showComputer(),
-              disabled: mandatoryCeval,
-              change: ctrl.toggleComputer,
-            },
-            ctrl
-          ),
-          ...(ctrl.showComputer()
-            ? [
-                ctrlToggle(
-                  {
-                    name: 'bestMoveArrow',
-                    title: 'Hotkey: a',
-                    id: 'shapes',
-                    checked: ctrl.showAutoShapes(),
-                    change: ctrl.toggleAutoShapes,
-                  },
-                  ctrl
-                ),
-                ctrlToggle(
-                  {
-                    name: 'evaluationGauge',
-                    id: 'gauge',
-                    checked: ctrl.showGauge(),
-                    change: ctrl.toggleGauge,
-                  },
-                  ctrl
-                ),
-                ctrlToggle(
-                  {
-                    name: 'Annotations on board',
-                    title: 'Display analysis symbols on the board',
-                    id: 'move-annotation',
-                    checked: ctrl.showMoveAnnotation(),
-                    change: ctrl.toggleMoveAnnotation,
-                  },
-                  ctrl
-                ),
-                ctrlToggle(
-                  {
-                    name: 'infiniteAnalysis',
-                    title: 'removesTheDepthLimit',
-                    id: 'infinite',
-                    checked: ceval.infinite(),
-                    change: ctrl.cevalSetInfinite,
-                  },
-                  ctrl
-                ),
-                ceval.technology != 'external'
-                  ? ctrlToggle(
-                      {
-                        name: 'Use NNUE',
-                        title: ceval.platform.supportsNnue
-                          ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
-                          : notSupported,
-                        id: 'enable-nnue',
-                        checked: ceval.platform.supportsNnue && ceval.enableNnue(),
-                        change: ceval.enableNnue,
-                        disabled: !ceval.platform.supportsNnue,
-                      },
-                      ctrl
-                    )
-                  : null,
-                (id => {
-                  const max = 5;
-                  return h('div.setting', [
-                    h('label', { attrs: { for: id } }, noarg('multipleLines')),
-                    h('input#' + id, {
-                      attrs: {
-                        type: 'range',
-                        min: 0,
-                        max,
-                        step: 1,
-                      },
-                      hook: rangeConfig(() => ceval!.multiPv(), ctrl.cevalSetMultiPv),
-                    }),
-                    h('div.range_value', ceval.multiPv() + ' / ' + max),
-                  ]);
-                })('analyse-multipv'),
-                (id => {
-                  return h('div.setting', [
-                    h('label', { attrs: { for: id } }, noarg('cpus')),
-                    h('input#' + id, {
-                      attrs: {
-                        type: 'range',
-                        min: 1,
-                        max: ceval.platform.maxThreads,
-                        step: 1,
-                        disabled: ceval.platform.maxThreads <= 1,
-                        ...(ceval.platform.maxThreads <= 1 ? { title: notSupported } : null),
-                      },
-                      hook: rangeConfig(() => ceval.threads(), ctrl.cevalSetThreads),
-                    }),
-                    h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.platform.maxThreads}`),
-                  ]);
-                })('analyse-threads'),
-                (id =>
-                  h('div.setting', [
-                    h('label', { attrs: { for: id } }, noarg('memory')),
-                    h('input#' + id, {
-                      attrs: {
-                        type: 'range',
-                        min: 4,
-                        max: Math.floor(Math.log2(ceval.platform.maxHashSize())),
-                        step: 1,
-                        disabled: ceval.platform.maxHashSize() <= 16,
-                        ...(ceval.platform.maxHashSize() <= 16 ? { title: notSupported } : null),
-                      },
-                      hook: rangeConfig(
-                        () => Math.floor(Math.log2(ceval.hashSize())),
-                        v => ctrl.cevalSetHashSize(Math.pow(2, v))
-                      ),
-                    }),
-                    h('div.range_value', formatHashSize(ceval.hashSize())),
-                  ]))('analyse-memory'),
-              ]
-            : []),
-        ]
-      : [];
-
   const notationConfig = [
     ctrlToggle(
       {
@@ -331,8 +196,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return h('div.action-menu', [
     ...tools,
     ...notationConfig,
-    ...cevalConfig,
-    ...externalEngineConfig(ctrl),
     ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
     canContinue
       ? h('div.continue-with.none.g_' + d.game.id, [

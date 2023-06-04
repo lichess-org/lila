@@ -26,6 +26,7 @@ export interface StudyShareCtrl {
 
 function fromPly(ctrl: StudyShareCtrl): VNode {
   const renderedMove = renderIndexAndMove(
+    undefined,
     {
       withDots: true,
       showEval: false,

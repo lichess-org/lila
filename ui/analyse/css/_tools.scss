@@ -4,9 +4,7 @@
 
     background: $c-bg-box;
 
-    .ceval {
-      flex: 0 0 38px;
-    }
+    position: relative;
 
     .sub-box {
       @extend %border-bottom-active;
@@ -20,25 +18,6 @@
         padding: 0 7px;
         a {
           font-weight: bold;
-        }
-      }
-    }
-
-    .comp-off__hint {
-      @extend %metal-bg;
-
-      opacity: 0.8;
-      padding: 0.3em 1em;
-      text-align: center;
-
-      button {
-        @extend %button-none;
-
-        margin-#{$start-direction}: 1em;
-        color: $c-link;
-
-        &:hover {
-          color: $c-link-hover;
         }
       }
     }

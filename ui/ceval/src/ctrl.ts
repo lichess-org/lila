@@ -8,7 +8,7 @@ import { parseFen } from 'chessops/fen';
 import { isStandardMaterial } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, Toggle, toggle } from 'common';
+import { Prop, prop, toggle } from 'common';
 import { Result } from '@badrap/result';
 import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
 import { Rules } from 'chessops';
@@ -38,12 +38,17 @@ export default class CevalCtrl {
   enableNnue = storedBooleanProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
   infinite = storedBooleanProp('ceval.infinite', false);
   multiPv: StoredProp<number>;
-  allowed = toggle(true);
-  enabled: Toggle;
+  setAllowed = toggle(true);
+  allowed = () => !this.opts.disallowed?.() && this.setAllowed();
   downloadProgress = prop(0);
   hovering = prop<Hovering | null>(null);
   pvBoard = prop<PvBoard | null>(null);
   isDeeper = toggle(false);
+  actionMenu = toggle(false);
+
+  showServer = storedBooleanProp('ceval.show-server', true);
+  showLive = storedBooleanProp('ceval.show-live', false);
+  show = () => this.showServer() || this.showLive();
 
   curEval: Tree.LocalEval | null = null;
   lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
@@ -60,7 +65,6 @@ export default class CevalCtrl {
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
     this.officialStockfish = this.rules == 'chess' && (pos.isErr || isStandardMaterial(pos.value));
-    this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
 
     this.externalEngine = this.opts.externalEngines?.find(
       e =>
@@ -109,7 +113,7 @@ export default class CevalCtrl {
     this.isDeeper() || this.infinite() ? 99 : defaultDepth(this.technology, this.threads(), this.multiPv());
 
   private doStart = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
-    if (!this.enabled() || !this.possible || !enabledAfterDisable()) return;
+    if (!this.showLive() || !this.possible || !enabledAfterDisable()) return;
 
     const maxDepth = this.effectiveMaxDepth();
 
@@ -139,7 +143,7 @@ export default class CevalCtrl {
       multiPv: this.multiPv(),
       threatMode,
       emit: (ev: Tree.LocalEval) => {
-        if (this.enabled()) this.onEmit(ev, work);
+        if (this.showLive()) this.onEmit(ev, work);
       },
     };
 
@@ -232,7 +236,7 @@ export default class CevalCtrl {
     return !!curr.ceval?.cloud;
   };
 
-  start = (path: string, steps: Step[], threatMode?: boolean) => {
+  private start = (path: string, steps: Step[], threatMode?: boolean) => {
     this.isDeeper(false);
     this.doStart(path, steps, !!threatMode);
   };
@@ -241,27 +245,27 @@ export default class CevalCtrl {
     return this.worker ? this.worker.getState() : CevalState.Initial;
   }
 
-  setThreads = (threads: number) => lichess.storage.set(this.storageKey('ceval.threads'), threads.toString());
-  setHashSize = (hash: number) => lichess.storage.set(this.storageKey('ceval.hash-size'), hash.toString());
+  private setThreadsStorage = (threads: number) => lichess.storage.set(this.storageKey('ceval.threads'), threads.toString());
+  private setHashSizeStorage = (hash: number) => lichess.storage.set(this.storageKey('ceval.hash-size'), hash.toString());
 
   setHovering = (fen: Fen, uci?: Uci) => {
     this.hovering(uci ? { fen, uci } : null);
-    this.opts.setAutoShapes();
+    this.setAutoShapes();
   };
   setPvBoard = (pvBoard: PvBoard | null) => {
     this.pvBoard(pvBoard);
     this.opts.redraw();
   };
-  toggle = () => {
+  private toggle = () => {
     if (!this.possible || !this.allowed()) return;
     this.stop();
-    if (!this.enabled() && !document.hidden) {
+    if (!this.showLive() && !document.hidden) {
       const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
       if (disable) lichess.tempStorage.set('ceval.enabled-after', disable);
-      this.enabled(true);
+      this.showLive(true);
     } else {
       lichess.tempStorage.set('ceval.enabled-after', '');
-      this.enabled(false);
+      this.showLive(false);
     }
   };
   selectEngine = (id: string) => {
@@ -275,4 +279,100 @@ export default class CevalCtrl {
   shortEngineName = () => engineName(this.technology, this.externalEngine);
   longEngineName = () => this.worker?.engineName();
   destroy = () => this.worker?.destroy();
+
+  showAutoShapes = storedBooleanProp('show-auto-shapes', true);
+
+  startCeval = throttle(800, () => {
+    if (this.allowed() && !this.opts.getNode().threefold && !this.opts.outcome()) {
+      if (this.showLive()) {
+        this.start(this.opts.getPath(), this.opts.getNodeList(), this.threatMode());
+        this.opts.evalCache.fetch(this.opts.getPath(), this.multiPv());
+      }
+    } else this.stop();
+  });
+
+  private cevalReset(): void {
+    this.stop();
+    this.startCeval();
+    this.opts.redraw();
+  }
+
+  showGauge = storedBooleanProp('show-gauge', false);
+  showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
+  keyboardHelp: boolean = location.hash === '#keyboard';
+  threatMode: Prop<boolean> = prop(false);
+
+  setMultiPv = (v: number): void => {
+    this.multiPv(v);
+    this.opts.tree.removeCeval();
+    this.opts.evalCache.clear();
+    this.cevalReset();
+  };
+
+  setThreads = (v: number): void => {
+    this.setThreadsStorage(v);
+    this.cevalReset();
+  };
+
+  setHashSize = (v: number): void => {
+    this.setHashSizeStorage(v);
+    this.cevalReset();
+  };
+
+  setInfinite = (v: boolean): void => {
+    this.infinite(v);
+    this.cevalReset();
+  };
+
+  resetAutoShapes() {
+    const chessground = this.opts.getChessground();
+    if (this.showAutoShapes() || this.showMoveAnnotation()) this.setAutoShapes();
+    else if (chessground) chessground.setAutoShapes([]);
+  }
+
+  setAutoShapes = (): void => {
+    this.opts.getChessground()?.setAutoShapes(this.opts.computeAutoShapes());
+  };
+
+  toggleAutoShapes = (v: boolean): void => {
+    this.showAutoShapes(v);
+    this.resetAutoShapes();
+  };
+
+  toggleGauge = () => {
+    this.showGauge(!this.showGauge());
+  };
+
+  toggleMoveAnnotation = (v: boolean): void => {
+    this.showMoveAnnotation(v);
+    this.resetAutoShapes();
+  };
+
+  toggleLive = () => {
+    this.toggle();
+    this.setAutoShapes();
+    this.startCeval();
+    if (!this.showLive())
+      this.threatMode(false);
+    this.opts.liveToggled?.();
+    this.opts.redraw();
+  };
+
+  toggleServer = (v: boolean = !this.showServer()) => {
+    this.showServer(v);
+    if (!this.showServer())
+      this.opts.tree.removeComputerVariations();
+    this.opts.redraw();
+  }
+
+  toggleThreatMode = () => {
+    if (this.opts.disableThreatMode?.()) return;
+    if (this.opts.getNode().check) return;
+    if (!this.showLive()) this.toggle();
+    if (!this.showLive()) return;
+    this.threatMode(!this.threatMode());
+    this.setAutoShapes();
+    this.startCeval();
+    this.opts.redraw();
+  };
 }

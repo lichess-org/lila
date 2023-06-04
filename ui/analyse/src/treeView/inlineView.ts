@@ -133,9 +133,9 @@ export default function (ctrl: AnalyseCtrl): VNode {
   const ctx: Ctx = {
     ctrl,
     truncateComments: false,
-    showComputer: ctrl.showComputer() && !ctrl.retro,
-    showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: !!ctrl.study || ctrl.showComputer(),
+    showComputer: ctrl.ceval.showServer() && !ctrl.retro,
+    showGlyphs: ctrl.ceval.showServer(),
+    showEval: ctrl.ceval.show(),
     currentPath: findCurrentPath(ctrl),
   };
   return h(

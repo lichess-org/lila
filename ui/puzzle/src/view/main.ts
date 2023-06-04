@@ -66,16 +66,9 @@ function controls(ctrl: Controller): VNode {
   );
 }
 
-let cevalShown = false;
-
 export default function (ctrl: Controller): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
-  const showCeval = ctrl.vm.showComputer(),
-    gaugeOn = ctrl.showEvalGauge();
-  if (cevalShown !== showCeval) {
-    if (!cevalShown) ctrl.vm.autoScrollNow = true;
-    cevalShown = showCeval;
-  }
+  const gaugeOn = ctrl.getCeval().showGauge();
   return h(
     `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
@@ -123,15 +116,12 @@ export default function (ctrl: Controller): VNode {
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
-        ctrl.voiceMove ? renderVoiceMove(ctrl.redraw, !showCeval) : null,
+        ctrl.voiceMove ? renderVoiceMove(ctrl.redraw, true) : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         h(
           'div.ceval-wrap',
-          {
-            class: { none: !showCeval },
-          },
-          showCeval ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : []
+          [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)]
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),

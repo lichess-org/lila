@@ -3,18 +3,13 @@
 
   background: $c-bg-box;
 
-  .ceval-wrap {
-    flex: 0 0 38px;
-  }
-
-  .ceval {
-    height: 38px;
-  }
+  position: relative;
 }
 
 .puzzle__moves {
   flex: 2 1 auto;
   overflow: auto;
+  border-top: $border;
   border-bottom: $border;
   position: relative;
 

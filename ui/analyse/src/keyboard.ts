@@ -49,8 +49,8 @@ export const bind = (ctrl: AnalyseCtrl) => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
     else if (ctrl.practice || ctrl.studyPractice) return;
-    else if (ctrl.ceval.enabled()) ctrl.playBestMove();
-    else ctrl.toggleCeval();
+    else if (ctrl.ceval.showLive()) ctrl.playBestMove();
+    else ctrl.ceval.toggleLive();
   });
 
   if (ctrl.studyPractice) return;
@@ -58,20 +58,16 @@ export const bind = (ctrl: AnalyseCtrl) => {
   kbd
     .bind('f', ctrl.flip)
     .bind('?', () => {
-      ctrl.keyboardHelp = !ctrl.keyboardHelp;
-      if (ctrl.keyboardHelp) lichess.pubsub.emit('analyse.close-all');
+      ctrl.ceval.keyboardHelp = !ctrl.ceval.keyboardHelp;
+      if (ctrl.ceval.keyboardHelp) lichess.pubsub.emit('analyse.close-all');
       ctrl.redraw();
     })
-    .bind('l', ctrl.toggleCeval)
-    .bind('z', () => {
-      ctrl.toggleComputer();
-      ctrl.redraw();
-    })
+    .bind('l', ctrl.ceval.toggleLive)
     .bind('a', () => {
-      ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
+      ctrl.ceval.toggleAutoShapes(!ctrl.ceval.showAutoShapes());
       ctrl.redraw();
     })
-    .bind('x', ctrl.toggleThreatMode)
+    .bind('x', ctrl.ceval.toggleThreatMode)
     .bind('e', () => {
       ctrl.toggleExplorer();
       ctrl.redraw();
@@ -105,7 +101,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       $wrap.find('.scrollable').html(html);
     },
     onClose() {
-      ctrl.keyboardHelp = false;
+      ctrl.ceval.keyboardHelp = false;
       ctrl.redraw();
     },
     content: [h('div.scrollable', spinner())],

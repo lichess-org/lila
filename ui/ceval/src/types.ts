@@ -2,6 +2,7 @@ import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import CevalCtrl from './ctrl';
 import { ExternalEngine } from './worker';
+import { Redraw } from 'chessground/types';
 
 export interface Eval {
   cp?: number;
@@ -30,8 +31,6 @@ export interface EvalMeta {
   threatMode: boolean;
 }
 
-export type Redraw = () => void;
-
 export interface CevalOpts {
   storageKeyPrefix?: string;
   multiPvDefault?: number;
@@ -39,9 +38,26 @@ export interface CevalOpts {
   variant: Variant;
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
-  setAutoShapes: () => void;
   redraw: Redraw;
   externalEngines?: ExternalEngine[];
+  showServerAnalysis: boolean;
+  getPath(): string;
+  togglePractice?(): void;
+  getNode(): Tree.Node;
+  outcome(): Outcome | undefined;
+  getNodeList(): Array<Tree.Node>;
+  computeAutoShapes(): void;
+  disallowed?(): boolean;
+  liveToggled?(): void;
+  disableThreatMode?(): boolean;
+
+  // TODO(zamfofex): add types to these
+  getChessground(): any;
+  tree: any;
+  getRetro?(): any;
+  getPractice?(): any;
+  getStudyPractice?(): any;
+  evalCache?: any;
 }
 
 export interface Hovering {
@@ -61,23 +77,23 @@ export interface Started {
 }
 
 export interface ParentCtrl {
+  redraw: Redraw;
   getCeval(): CevalCtrl;
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<boolean>;
-  toggleThreatMode(): void;
-  toggleCeval(): void;
   outcome(): Outcome | undefined;
   mandatoryCeval?: Prop<boolean>;
-  showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
   playUciList(uciList: string[]): void;
   getOrientation(): Color;
-  threatMode(): boolean;
   getNode(): Tree.Node;
-  showComputer(): boolean;
   trans: Trans;
+  hasServerEval?(): boolean;
+  canRequestServerEval?(): boolean;
+  requestServerEval?(): void;
+  getExternalEngines?(): ExternalEngine[];
 }
 
 export interface NodeEvals {

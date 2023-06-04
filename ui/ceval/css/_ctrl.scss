@@ -1,24 +1,20 @@
 .ceval {
   @extend %metal-bg;
 
-  position: relative;
   display: flex;
   align-items: stretch;
+  flex: 0 0 38px;
+  height: 38px;
 
-  &.enabled {
-    padding-top: 2px;
-    height: 40px;
-
-    .show-threat {
-      visibility: visible;
-    }
+  &.enabled .show-threat {
+    visibility: visible;
   }
 
   .switch {
     @extend %flex-center;
 
-    flex: 0 0 40px;
-    margin-#{$end-direction}: 8px;
+    flex: 0 0 38px;
+    margin: 0 2px;
   }
 
   pearl {
@@ -129,6 +125,24 @@
     &.hidden {
       opacity: 0.3;
       cursor: default;
+    }
+  }
+
+  .config-engine {
+    flex: 0 0 2.5em;
+  }
+
+  .engine-config {
+    position: absolute;
+    background: $c-bg-box;
+    top: 38px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    max-height: calc(100% - 38px);
+
+    & > :first-child {
+      margin-top: 0 !important;
     }
   }
 }

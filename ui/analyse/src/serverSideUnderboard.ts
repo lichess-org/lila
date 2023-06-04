@@ -4,7 +4,7 @@ import AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
 import * as licon from 'common/licon';
 import modal from 'common/modal';
-import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
+import { url as xhrUrl } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
@@ -80,6 +80,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       });
   }
 
+  lichess.pubsub.on('analysis.server.start', startAdvantageChart);  lichess.pubsub.on('analysis.server.start', startAdvantageChart);
+
   const storage = lichess.storage.make('analysis.panel');
   const setPanel = function (panel: string) {
     $menu.children('.active').removeClass('active');
@@ -115,18 +117,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
-      if ($(this).hasClass('must-login')) {
-        if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
-        return false;
-      }
-      xhrTextRaw(this.action, { method: this.method }).then(res => {
-        if (res.ok) startAdvantageChart();
-        else
-          res.text().then(t => {
-            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
-            lichess.reload();
-          });
-      });
+      ctrl.requestServerEval();
       return false;
     });
   }

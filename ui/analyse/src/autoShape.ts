@@ -71,12 +71,12 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   if (hovering && hovering.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
-  if (ctrl.showAutoShapes() && ctrl.showComputer()) {
+  if (ctrl.ceval.showAutoShapes() && ctrl.ceval.showServer()) {
     if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && instance.multiPv()) {
-      const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
+      const nextBest = instance.showLive() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
-      if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
+      if (instance.showLive() && nCeval && nCeval.pvs[1] && !(ctrl.ceval.threatMode() && nThreat && nThreat.pvs.length > 2)) {
         nCeval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
@@ -91,7 +91,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     }
   }
-  if (instance.enabled() && ctrl.threatMode() && nThreat) {
+  if (instance.showLive() && ctrl.ceval.threatMode() && nThreat) {
     const [pv0, ...pv1s] = nThreat.pvs;
 
     shapes = shapes.concat(makeShapesFromUci(rcolor, pv0.moves[0], pv1s.length > 0 ? 'paleRed' : 'red'));
@@ -107,7 +107,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     });
   }
-  if (ctrl.showMoveAnnotation() && ctrl.showComputer()) {
+  if (ctrl.ceval.showMoveAnnotation() && ctrl.ceval.showServer()) {
     const { uci, glyphs, san } = ctrl.node;
     if (uci && san && glyphs && glyphs.length > 0) {
       const glyph = glyphs[0];

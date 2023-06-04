@@ -1,10 +1,6 @@
 $col1-panel-height: 30vh;
 $col2-panel-height: 240px;
 
-.comp-off .computer-analysis {
-  display: none !important;
-}
-
 .analyse__underboard {
   &__menu {
     @extend %flex-center-nowrap;

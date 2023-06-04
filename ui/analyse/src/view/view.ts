@@ -2,7 +2,7 @@ import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
-import { bind, bindNonPassive, MaybeVNode, onInsert, dataIcon, iconTag } from 'common/snabbdom';
+import { bind, bindNonPassive, onInsert, dataIcon, iconTag } from 'common/snabbdom';
 import { bindMobileMousedown, isMobile } from 'common/mobile';
 import { playable } from 'game';
 import * as router from 'game/router';
@@ -272,21 +272,6 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
-const analysisDisabled = (ctrl: AnalyseCtrl): MaybeVNode =>
-  ctrl.ceval.possible && ctrl.ceval.allowed()
-    ? h('div.comp-off__hint', [
-        h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
-        h(
-          'button',
-          {
-            hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
-            attrs: { type: 'button' },
-          },
-          ctrl.trans.noarg('enable')
-        ),
-      ])
-    : undefined;
-
 const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
   h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
@@ -360,7 +345,7 @@ export default function (deps?: typeof studyDeps) {
       gamebookEditView = deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
       playerBars = deps?.renderPlayerBars(ctrl),
       playerStrips = !playerBars && renderPlayerStrips(ctrl),
-      gaugeOn = ctrl.showEvalGauge(),
+      gaugeOn = ctrl.ceval.showGauge(),
       needsInnerCoords = ctrl.data.pref.showCaptured || !!gaugeOn || !!playerBars,
       tour = deps?.relayTour(ctrl);
 
@@ -397,7 +382,6 @@ export default function (deps?: typeof studyDeps) {
           },
         },
         class: {
-          'comp-off': !ctrl.showComputer(),
           'gauge-on': gaugeOn,
           'has-players': !!playerBars,
           'gamebook-play': !!gamebookPlayView,
@@ -407,7 +391,7 @@ export default function (deps?: typeof studyDeps) {
         },
       },
       [
-        ctrl.keyboardHelp ? keyboardView(ctrl) : null,
+        ctrl.ceval.keyboardHelp ? keyboardView(ctrl) : null,
         study ? deps?.studyView.overboard(study) : null,
         tour ||
           h(
@@ -447,7 +431,7 @@ export default function (deps?: typeof studyDeps) {
                 ...(menuIsOpen
                   ? [actionMenu(ctrl)]
                   : [
-                      ctrl.showComputer() ? cevalView.renderCeval(ctrl) : analysisDisabled(ctrl),
+                      cevalView.renderCeval(ctrl),
                       showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                       renderAnalyse(ctrl, concealOf),
                       gamebookEditView || forkView(ctrl, concealOf),

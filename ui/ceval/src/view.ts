@@ -15,6 +15,7 @@ import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
 import { CevalState } from './worker';
 import CevalCtrl from './ctrl';
+import { toggle, ToggleSettings, rangeConfig } from 'common/controls';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -62,17 +63,17 @@ function threatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
 }
 
 function threatButton(ctrl: ParentCtrl): VNode | null {
-  if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
+  if (ctrl.disableThreatMode?.()) return null;
   return h('a.show-threat', {
     class: {
-      active: ctrl.threatMode(),
+      active: ctrl.getCeval().threatMode(),
       hidden: !!ctrl.getNode().check,
     },
     attrs: {
       'data-icon': licon.Target,
       title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
-    hook: bind('click', ctrl.toggleThreatMode),
+    hook: bind('click', ctrl.getCeval().toggleThreatMode),
   });
 }
 
@@ -114,9 +115,13 @@ function engineName(ctrl: CevalCtrl): VNode[] {
 
 const serverNodes = 4e6;
 
-export function getBestEval(evs: NodeEvals): Eval | undefined {
+export function getBestEval(ctrl: CevalCtrl, evs: NodeEvals): Eval | undefined {
   const serverEv = evs.server,
     localEv = evs.client;
+    
+  if (!ctrl.show()) return;
+  if (!ctrl.showLive()) return serverEv;
+  if (!ctrl.showServer()) return localEv;
 
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
@@ -133,8 +138,8 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
 }
 
 export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
-  if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
-  const bestEv = getBestEval(ctrl.currentEvals());
+  if (ctrl.ongoing || !ctrl.getCeval().showGauge()) return;
+  const bestEv = getBestEval(ctrl.getCeval(), ctrl.currentEvals());
   let ev;
   if (bestEv) {
     ev = winningChances.povChances('white', bestEv);
@@ -152,15 +157,185 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   );
 }
 
+const ctrlToggle = (t: ToggleSettings, ctrl: ParentCtrl) => toggle(t, ctrl.trans, ctrl.redraw);
+
+const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
+
+function externalEngineConfig(ctrl: ParentCtrl) {
+  const engines = ctrl.getExternalEngines?.();
+  const ceval = ctrl.getCeval();
+  if (!engines?.length || !ceval.possible || !ceval.allowed()) return;
+  return h(
+    'select.external__select.setting',
+    {
+      hook: bind('change', e => ctrl.getCeval().selectEngine((e.target as HTMLSelectElement).value)),
+    },
+    [
+      h('option', { attrs: { value: 'lichess' } }, 'Stockfish (Local)'),
+      ...engines.map(engine =>
+        h(
+          'option',
+          {
+            attrs: {
+              value: engine.id,
+              selected: ctrl.getCeval().externalEngine?.id === engine.id,
+            },
+          },
+          engine.name
+        )
+      ),
+    ]
+  );
+}
+
+function renderConfig(pctrl: ParentCtrl) {
+  const ctrl = pctrl.getCeval(),
+    noarg = pctrl.trans.noarg,
+    notSupported = (ctrl?.technology == 'external' ? 'Engine' : 'Browser') + ' does not support this option';
+
+  return [
+    externalEngineConfig(pctrl),
+    pctrl.canRequestServerEval?.()
+    ? pctrl.hasServerEval?.()
+      ? ctrlToggle(
+          {
+            name: 'Show server evaluation',
+            id: 'show-server',
+            checked: ctrl.showServer(),
+            change: ctrl.toggleServer,
+          },
+          pctrl
+        )
+      : h(
+        'button.button.text.setting',
+        {
+          attrs: {
+            'data-icon': '\ue004',
+          },
+          hook: bind('click', () => pctrl.requestServerEval?.(), pctrl.redraw),
+        },
+        [noarg('requestAComputerAnalysis')]
+      )
+    : undefined,
+    ctrlToggle(
+      {
+        name: 'bestMoveArrow',
+        title: 'Hotkey: a',
+        id: 'shapes',
+        checked: ctrl.showAutoShapes(),
+        change: ctrl.toggleAutoShapes,
+      },
+      pctrl
+    ),
+    ctrlToggle(
+      {
+        name: 'evaluationGauge',
+        id: 'gauge',
+        checked: ctrl.showGauge(),
+        change: ctrl.toggleGauge,
+      },
+      pctrl
+    ),
+    ctrlToggle(
+      {
+        name: 'Annotations on board',
+        title: 'Display analysis symbols on the board',
+        id: 'move-annotation',
+        checked: ctrl.showMoveAnnotation(),
+        change: ctrl.toggleMoveAnnotation,
+      },
+      pctrl
+    ),
+    ctrlToggle(
+      {
+        name: 'infiniteAnalysis',
+        title: 'removesTheDepthLimit',
+        id: 'infinite',
+        checked: ctrl.infinite(),
+        change: ctrl.setInfinite,
+      },
+      pctrl
+    ),
+    ctrl.technology != 'external'
+      ? ctrlToggle(
+          {
+            name: 'Use NNUE',
+            title: ctrl.platform.supportsNnue
+              ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
+              : notSupported,
+            id: 'enable-nnue',
+            checked: ctrl.platform.supportsNnue && ctrl.enableNnue(),
+            change: ctrl.enableNnue,
+            disabled: !ctrl.platform.supportsNnue,
+          },
+          pctrl
+        )
+      : null,
+    (id => {
+      const max = 5;
+      return h('div.setting', [
+        h('label', { attrs: { for: id } }, noarg('multipleLines')),
+        h('input#' + id, {
+          attrs: {
+            type: 'range',
+            min: 0,
+            max,
+            step: 1,
+          },
+          hook: rangeConfig(() => ctrl!.multiPv(), ctrl.setMultiPv),
+        }),
+        h('div.range_value', ctrl.multiPv() + ' / ' + max),
+      ]);
+    })('analyse-multipv'),
+    (id => {
+      return h('div.setting', [
+        h('label', { attrs: { for: id } }, noarg('cpus')),
+        h('input#' + id, {
+          attrs: {
+            type: 'range',
+            min: 1,
+            max: ctrl.platform.maxThreads,
+            step: 1,
+            disabled: ctrl.platform.maxThreads <= 1,
+            ...(ctrl.platform.maxThreads <= 1 ? { title: notSupported } : null),
+          },
+          hook: rangeConfig(() => ctrl.threads(), ctrl.setThreads),
+        }),
+        h('div.range_value', `${ctrl.threads ? ctrl.threads() : 1} / ${ctrl.platform.maxThreads}`),
+      ]);
+    })('analyse-threads'),
+    (id =>
+      h('div.setting', [
+        h('label', { attrs: { for: id } }, noarg('memory')),
+        h('input', {
+          attrs: {
+            id,
+            type: 'range',
+            min: 4,
+            max: Math.floor(Math.log2(ctrl.platform.maxHashSize())),
+            step: 1,
+            disabled: ctrl.platform.maxHashSize() <= 16,
+            ...(ctrl.platform.maxHashSize() <= 16 ? { title: notSupported } : null),
+          },
+          hook: rangeConfig(
+            () => Math.floor(Math.log2(ctrl.hashSize())),
+            v => ctrl.setHashSize(Math.pow(2, v))
+          ),
+        }),
+        h('div.range_value', formatHashSize(ctrl.hashSize())),
+      ]))('analyse-memory'),
+  ];
+}
+
 export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval(),
     trans = ctrl.trans;
-  if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
-  const enabled = instance.enabled(),
+  if (!instance.allowed() || !instance.possible) return;
+  const enabled = instance.showLive(),
     evs = ctrl.currentEvals(),
-    threatMode = ctrl.threatMode(),
+    threatMode = ctrl.getCeval().threatMode(),
     threat = threatMode && ctrl.getNode().threat,
-    bestEv = threat || getBestEval(evs);
+    bestEv = threat || getBestEval(ctrl.getCeval(), evs);
   let pearl: VNode | string, percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
@@ -248,11 +423,25 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
                 checked: enabled,
                 disabled: !instance.analysable,
               },
-              hook: bind('change', ctrl.toggleCeval),
+              hook: bind('change', ctrl.getCeval().toggleLive),
             }),
             h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
           ]
         );
+
+    const configButton =
+      h('button.fbt.config-engine', {
+        attrs: {
+          'data-icon': '\ue019',
+          title: 'Configure engine',
+        },
+        hook: bind('click', instance.actionMenu.toggle, ctrl.redraw),
+        class: {
+          active: instance.actionMenu(),
+        },
+      });
+
+  const config = !instance.actionMenu() ? undefined : h('div.action-menu.engine-config', renderConfig(ctrl));
 
   return h(
     'div.ceval' + (enabled ? '.enabled' : ''),
@@ -261,7 +450,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         computing: percent < 100 && instance.getState() === CevalState.Computing,
       },
     },
-    [progressBar, ...body, threatButton(ctrl), switchButton]
+    [progressBar, ...body, threatButton(ctrl), switchButton, configButton, config]
   );
 }
 
@@ -306,7 +495,7 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
 
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
-  if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
+  if (!instance.allowed() || !instance.possible || !instance.showLive()) return;
   const multiPv = instance.multiPv(),
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
@@ -314,7 +503,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     threat = false,
     pvMoves: (string | null)[],
     pvIndex: number | null;
-  if (ctrl.threatMode() && node.threat) {
+  if (ctrl.getCeval().threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
   } else if (node.ceval) pvs = node.ceval.pvs;
@@ -362,7 +551,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
               const uciList = getElUciList(e);
-              if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
+              if (uciList.length > (pvIndex ?? 0) && !ctrl.getCeval().threatMode()) {
                 ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
                 e.preventDefault();
               }

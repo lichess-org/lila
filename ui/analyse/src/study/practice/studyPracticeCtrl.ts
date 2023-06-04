@@ -2,7 +2,6 @@ import * as xhr from '../studyXhr';
 import { prop } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
-import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
@@ -18,9 +17,6 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
   lichess.sound.loadOggOrMp3('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`, true);
 
   function onLoad() {
-    root.showAutoShapes = readOnlyProp(true);
-    root.showGauge = readOnlyProp(true);
-    root.showComputer = readOnlyProp(true);
     goal(root.data.practiceGoal!);
     nbMoves(0);
     success(null);

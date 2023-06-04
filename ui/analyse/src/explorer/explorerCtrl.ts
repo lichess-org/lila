@@ -182,7 +182,7 @@ export default class ExplorerCtrl {
   };
   setHovering = (fen: Fen, uci: Uci | null) => {
     this.hovering(uci ? { fen, uci } : null);
-    this.root.setAutoShapes();
+    this.root.ceval.setAutoShapes();
   };
   onFlip = () => {
     if (this.db() == 'player') {

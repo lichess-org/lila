@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { Controller, Redraw } from '../interfaces';
+import { Controller } from '../interfaces';
 import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
 import theme from '../view/theme';
 import {
@@ -32,6 +32,7 @@ import * as control from '../control';
 import { bind, onInsert } from 'common/snabbdom';
 import { Api } from 'chessground/api';
 import throttle from 'common/throttle';
+import { Redraw } from 'chessground/types';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');

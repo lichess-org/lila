@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { fixCrazySan } from 'chess';
 import { defined } from 'common';
-import { view as cevalView, renderEval as normalizeEval } from 'ceval';
+import { CevalCtrl, view as cevalView, renderEval as normalizeEval } from 'ceval';
 import { plyToTurn } from '../util';
 
 export interface Ctx {
@@ -27,8 +27,8 @@ export const renderIndexText = (ply: Ply, withDots?: boolean): string =>
 export const renderIndex = (ply: Ply, withDots?: boolean): VNode =>
   h(`index.sbhint${ply}`, renderIndexText(ply, withDots));
 
-export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
-  const ev = cevalView.getBestEval({ client: node.ceval, server: node.eval });
+export function renderMove(ctrl: CevalCtrl | undefined, ctx: Ctx, node: Tree.Node): VNode[] {
+  const ev = ctrl && cevalView.getBestEval(ctrl, { client: node.ceval, server: node.eval });
   const nodes = [h('san', fixCrazySan(node.san!))];
   if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => nodes.push(renderGlyph(g)));
   if (node.shapes?.length) nodes.push(h('shapes'));
@@ -39,5 +39,5 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   return nodes;
 }
 
-export const renderIndexAndMove = (ctx: Ctx, node: Tree.Node): VNode[] | undefined =>
-  node.san ? [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node)] : undefined;
+export const renderIndexAndMove = (ctrl: CevalCtrl | undefined, ctx: Ctx, node: Tree.Node): VNode[] | undefined =>
+  node.san ? [renderIndex(node.ply, ctx.withDots), ...renderMove(ctrl, ctx, node)] : undefined;

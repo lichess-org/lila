@@ -236,8 +236,8 @@ export default function (
     lichess.pubsub.emit('chat.permissions', { local: canContribute });
     lichess.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
     const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
-    if (!computer) ctrl.getCeval().enabled(false);
-    ctrl.getCeval().allowed(computer);
+    if (!computer && ctrl.getCeval().showLive()) ctrl.getCeval().toggleLive();
+    ctrl.getCeval().setAllowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
     ctrl.explorer.allowed(data.chapter.features.explorer);
   }
@@ -302,7 +302,7 @@ export default function (
     serverEval.reset();
     commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node);
     redraw();
-    ctrl.startCeval();
+    ctrl.ceval.startCeval();
   }
 
   const xhrReload = throttlePromiseDelay(
@@ -578,7 +578,7 @@ export default function (
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setGlyphsAt(d.g, position.path);
-      if (ctrl.path === position.path) ctrl.setAutoShapes();
+      if (ctrl.path === position.path) ctrl.ceval.setAutoShapes();
       redraw();
     },
     clock(d) {

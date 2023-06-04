@@ -58,9 +58,9 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     played = prop(false);
 
   function ensureCevalRunning() {
-    if (!root.showComputer()) root.toggleComputer();
-    if (!root.ceval.enabled()) root.toggleCeval();
-    if (root.threatMode()) root.toggleThreatMode();
+    root.ceval.showLive(true);
+    if (!root.ceval.showLive()) root.ceval.toggleLive();
+    if (root.ceval.threatMode()) root.ceval.toggleThreatMode();
   }
 
   function commentable(node: Tree.Node, bonus = 0): boolean {
@@ -148,7 +148,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       const h = hinting();
       if (h) {
         h.uci = nodeBestUci(node) || h.uci;
-        root.setAutoShapes();
+        root.ceval.setAutoShapes();
       }
     } else {
       comment(null);
@@ -240,7 +240,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
         hovering({
           uci: c.best.uci,
         });
-      root.setAutoShapes();
+      root.ceval.setAutoShapes();
     },
     hint() {
       const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
@@ -251,7 +251,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
           mode: prev ? 'move' : 'piece',
           uci: best,
         });
-      root.setAutoShapes();
+      root.ceval.setAutoShapes();
     },
     currentNode: () => root.node,
     bottomColor: root.bottomColor,

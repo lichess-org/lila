@@ -29,14 +29,14 @@ export default function (opts: Opts): DrawShape[] {
   let shapes: DrawShape[] = [];
   if (hovering && hovering.fen === n.fen)
     shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
-  if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
+  if (opts.vm.showAutoShapes() && opts.ceval.show()) {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best!, 'paleGreen'));
     if (!hovering) {
       let nextBest: Uci | undefined = opts.nextNodeBest;
-      if (!nextBest && opts.ceval.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
+      if (!nextBest && opts.ceval.showLive() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
       if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
       if (
-        opts.ceval.enabled() &&
+        opts.ceval.showLive() &&
         n.ceval &&
         n.ceval.pvs &&
         n.ceval.pvs[1] &&
@@ -55,7 +55,7 @@ export default function (opts: Opts): DrawShape[] {
       }
     }
   }
-  if (opts.ceval.enabled() && opts.threatMode && n.threat) {
+  if (opts.ceval.showLive() && opts.threatMode && n.threat) {
     if (n.threat.pvs[1]) {
       shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'paleRed'));
       n.threat.pvs.slice(1).forEach(function (pv) {
