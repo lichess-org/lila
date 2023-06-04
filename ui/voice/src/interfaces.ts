@@ -1,5 +1,6 @@
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
+import { PromotionCtrl } from 'chess/promotion';
 import { Prop, Toggle } from 'common';
 
 export interface RootCtrl {
@@ -22,15 +23,18 @@ export interface VoiceMove {
   clarityPref: Prop<number>;
   timerPref: Prop<number>;
   colorsPref: Prop<boolean>;
+  wakePref: Prop<boolean>;
   langPref: Prop<string>;
-  allPhrases: () => [string, string][];
+  allPhrases(): [string, string][];
+  showPromotion(ctrl: PromotionCtrl, roles: cg.Role[] | false): void;
   update(fen: string, yourMove?: boolean): void;
   opponentRequest(request: string, callback: (v: boolean) => void): void;
 }
 
 export interface RecognizerOpts {
-  vocab: string[];
-  mode: Voice.ListenMode;
+  words: string[];
+  recId: string;
+  partial: boolean;
   audioCtx: AudioContext;
   broadcast: (text: string, msgType: Voice.MsgType, forMs: number) => void;
 }
@@ -46,15 +50,4 @@ export type Entry = {
   tags: string[];
   val?: string;
   subs?: Sub[];
-};
-
-export type Partials = {
-  commands: string[];
-  colors: string[];
-  numbers: string[];
-};
-
-export type Grammar = {
-  partials: Partials;
-  entries: Entry[];
 };

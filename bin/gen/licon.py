@@ -87,7 +87,7 @@ def parse_codes():
                         continue
                     codes[name] = code_point
     print('' if not warnings else f'\nWarnings:\n{"".join(warnings)}')
-    return codes
+    return dict(sorted(codes.items(), key=lambda x: x[1]))
 
 
 def gen_sources(codes):
