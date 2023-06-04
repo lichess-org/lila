@@ -35,22 +35,27 @@ export const boardMenu = (ctrl: RoundController) =>
           h('section', [
             ctrlToggle(
               {
-                name: 'Enable voice input',
-                title: 'Enable voice input',
+                name: 'Zen mode',
+                id: 'zen',
+                checked: $('body').hasClass('zen'),
+                change: () => lichess.pubsub.emit('zen'),
+              },
+              ctrl
+            ),
+            ctrlToggle(
+              {
+                name: 'Voice input',
                 id: 'voice',
                 checked: ctrl.voiceMoveEnabled(),
-                disabled: false,
                 change: ctrl.voiceMoveEnabled,
               },
               ctrl
             ),
             ctrlToggle(
               {
-                name: 'Enable keyboard input',
-                title: 'Enable keyboard input',
+                name: 'Keyboard input',
                 id: 'keyboard',
                 checked: ctrl.keyboardMoveEnabled(),
-                disabled: false,
                 change: ctrl.keyboardMoveEnabled,
               },
               ctrl
