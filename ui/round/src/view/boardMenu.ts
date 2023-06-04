@@ -1,5 +1,6 @@
 import { h } from 'snabbdom';
 import { snabModal } from 'common/modal';
+import * as licon from 'common/licon';
 import RoundController from '../ctrl';
 import { bind } from '../util';
 import { game as gameRoute } from 'game/router';
