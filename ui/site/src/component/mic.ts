@@ -113,7 +113,6 @@ export const mic =
     }
 
     async start(recId = 'default'): Promise<void> {
-      await this.initAudio();
       try {
         if (this.micEnabled && this.recId === recId) return;
         this.busy = true;
@@ -197,8 +196,10 @@ export const mic =
     }
 
     private async initModel(): Promise<void> {
-      if (this.vosk?.isLoaded(this.lang)) return;
-
+      if (this.vosk?.isLoaded(this.lang)) {
+        await this.initAudio();
+        return;
+      }
       this.broadcast('Loading...');
 
       const modelUrl = lichess.assetUrl(models.get(this.lang)!, { noVersion: true });
@@ -213,9 +214,9 @@ export const mic =
     }
 
     private async initAudio(): Promise<void> {
-      if (this.audioCtx && this.audioCtx.state !== 'running') await this.audioCtx.resume();
+      if (this.audioCtx?.state === 'suspended') await this.audioCtx.resume();
+      if (this.audioCtx?.state === 'running') return;
       this.audioCtx = new AudioContext();
-      if (this.audioCtx.state !== 'running') throw `Audio context state: ${this.audioCtx.state}`;
       this.mediaStream = await navigator.mediaDevices.getUserMedia({
         video: false,
         audio: {
