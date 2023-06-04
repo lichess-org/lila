@@ -17,12 +17,12 @@ case class Puzzle(
     themes: Set[PuzzleTheme.Key]
 ):
   // ply after "initial move" when we start solving
-  def initialPly: Ply = Fen.readPly(fen) | Ply(0)
+  def initialPly: Ply = Fen.readPly(fen) | Ply.initial
 
-  def situationAfterInitialMove: Option[chess.Situation] = for {
+  def situationAfterInitialMove: Option[chess.Situation] = for
     sit1 <- Fen read fen
     sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
-  } yield sit2
+  yield sit2
 
   lazy val fenAfterInitialMove: Fen.Epd =
     situationAfterInitialMove map Fen.write err s"Can't apply puzzle $id first move"

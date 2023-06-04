@@ -1,10 +1,11 @@
 package lila.common
 
 import chess.format.pgn.PgnStr
+import lila.common.config.AssetDomain
 
 class MarkdownTest extends munit.FunSuite {
 
-  val render: Markdown => Html = new MarkdownRender()("test") _
+  val render: Markdown => Html = new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some)("test") _
 
   test("autolinks add rel") {
     val md = Markdown("https://example.com")
@@ -35,7 +36,7 @@ class MarkdownTest extends munit.FunSuite {
     assertEquals(
       gameRender(md),
       Html(
-        s"""<p>foo <div data-pgn="$pgn" data-orientation="white" data-ply="" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
+        s"""<p>foo <div data-pgn="$pgn" data-orientation="white" data-ply="" class="lpv--autostart is2d">http://l.org/$gameId</div> bar</p>
 """
       )
     )
@@ -45,7 +46,7 @@ class MarkdownTest extends munit.FunSuite {
     assertEquals(
       gameRender(md),
       Html(
-        s"""<p>foo <div data-pgn="$pgn" data-orientation="white" data-ply="" class="lpv--autostart">http://l.org/$gameId</div> bar</p>
+        s"""<p>foo <div data-pgn="$pgn" data-orientation="white" data-ply="" class="lpv--autostart is2d">http://l.org/$gameId</div> bar</p>
 """
       )
     )
@@ -55,7 +56,7 @@ class MarkdownTest extends munit.FunSuite {
     assertEquals(
       gameRender(md),
       Html(
-        s"""<p>prefix <div data-pgn="$pgn" data-orientation="white" data-ply="1" class="lpv--autostart">http://l.org/$gameId#1</div> suffix</p>
+        s"""<p>prefix <div data-pgn="$pgn" data-orientation="white" data-ply="1" class="lpv--autostart is2d">http://l.org/$gameId#1</div> suffix</p>
 """
       )
     )

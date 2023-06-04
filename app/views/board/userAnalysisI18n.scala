@@ -135,7 +135,8 @@ object userAnalysisI18n:
     trans.removesTheDepthLimit,
     trans.multipleLines,
     trans.cpus,
-    trans.memory
+    trans.memory,
+    trans.engineManager
   )
 
   val explorerTranslations = Vector(
@@ -169,6 +170,7 @@ object userAnalysisI18n:
     trans.lossOr50MovesByPriorMistake,
     trans.unknownDueToRounding,
     trans.noGameFound,
+    trans.maxDepthReached,
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,
     trans.winPreventedBy50MoveRule,
     trans.lossSavedBy50MoveRule,

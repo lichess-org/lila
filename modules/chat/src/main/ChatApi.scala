@@ -6,7 +6,7 @@ import reactivemongo.api.ReadPreference
 import lila.common.Bus
 import lila.common.config.NetDomain
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.security.Flood
+import lila.security.{ Flood, Granter }
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi.*
@@ -198,7 +198,7 @@ final class ChatApi(
           line foreach { l =>
             publish(chat.id, ChatLine(chat.id, l), busChan)
           }
-          if (scope == ChatTimeout.Scope.Global)
+          if (isMod(mod) || isRelayMod(mod))
             lila.common.Bus.publish(
               lila.hub.actorApi.mod.ChatTimeout(
                 mod = mod.id,
@@ -225,8 +225,8 @@ final class ChatApi(
         }
       } inject change
 
-    private def isMod(user: User)      = lila.security.Granter(_.ChatTimeout)(user)
-    private def isRelayMod(user: User) = lila.security.Granter(_.BroadcastTimeout)(user)
+    private def isMod(user: User)      = Granter(_.ChatTimeout)(user)
+    private def isRelayMod(user: User) = Granter(_.BroadcastTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach { r =>

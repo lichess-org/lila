@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
   <string name="noGameFound">Keng Partie fonnt</string>
+  <string name="maxDepthReached">Maximal Déift erreecht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
   <string name="openings">Eröffnungen</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -209,9 +210,12 @@
   <string name="forgotPassword">Passwuert vergiess?</string>
   <string name="error.weakPassword">Dëst Passwuert ass extrem heefeg an einfach ze roden.</string>
   <string name="error.namePassword">Wannechgelifft benotz net däin Benotzernumm als Passwuert.</string>
+  <string name="blankedPassword">Du hues dat selwecht Passwuert ob enger anerer Säit benotzt déi kompromettéiert gouf. Fir d\'Secherheet vun dengem Lichess Konto ze assuréieren muss du en neit Passwuert wielen. Merci fir däi Versteesdemech.</string>
   <string name="youAreLeavingLichess">Du verléiss Lichess</string>
   <string name="neverTypeYourPassword">Gëff däin Lichess Passwuert nie ob enger anerer Säit an!</string>
   <string name="proceedToX">Weider op %s</string>
+  <string name="passwordSuggestion">Benotz kee Passwuert, dat een aneren dir virschleit. Et kéint probéiert ginn däin Konto ze klauen.</string>
+  <string name="emailSuggestion">Benotz keng Email-Adress, déi een aneren dir virschleit. Et kéint probéiert ginn däin Konto ze klauen.</string>
   <string name="emailConfirmHelp">Hëllef bei der Email Confirmatioun</string>
   <string name="emailConfirmNotReceived">Huet dir keng Confirmatiouns Email kritt nom Umellen?</string>
   <string name="whatSignupUsername">Mat wéiengem Benotzernumm huet dir iech ugemellt?</string>
@@ -339,6 +343,7 @@
   </plurals>
   <string name="viewTournament">Turnéier ukucken</string>
   <string name="backToTournament">Zeréck bei den Turnéier</string>
+  <string name="noDrawBeforeSwissLimit">Du kanns an engem Schwäizer Turnéier keen Remis offréieren virum 30ten Zuch.</string>
   <string name="thematic">Thematesch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gewäert Partie</item>
@@ -387,6 +392,7 @@
   <string name="toStudy">Etüd</string>
   <string name="importGame">Partie importéieren</string>
   <string name="importGameExplanation">Füg eng Partien PGN an fir en browsbaren Replay, Computer Analyse, Partienchat and eng deelbar URL ze kréien.</string>
+  <string name="importGameCaveat">Varianten wäerten geläscht ginn. Fir se ze haalen, importéier d\'PGN an eng Etüd.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importéiert Partie</item>
     <item quantity="other">%s importéiert Partien</item>
@@ -658,6 +664,8 @@
   <string name="simulClockHint">Fischer Bedenkzäit. Je méi Géigner du hues, desto méi Zäit wäers du brauchen.</string>
   <string name="simulAddExtraTime">Du kanns dir extra Zäit ginn fir besser mat der Simul zurechtzekommen.</string>
   <string name="simulHostExtraTime">Host extra Zäit</string>
+  <string name="simulAddExtraTimePerPlayer">Gëff denger Auer zousätzlech Zäit fir all Spiller deen der Simultan bäitrëtt.</string>
+  <string name="simulHostExtraTimePerPlayer">Gëff all Spiller zousätzlech Bedenkzäit</string>
   <string name="lichessTournaments">Lichess Turnéier</string>
   <string name="tournamentFAQ">Arena Turnéier FAQ</string>
   <string name="timeBeforeTournamentStarts">Zäit bis den Turnéier ufänkt</string>
@@ -711,6 +719,7 @@
   <string name="kidMode">Kannermodus</string>
   <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Am Kannermodus huet den Lichess logo en %s Icon, sou weess du dass däin Kand sécher ass.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Däin Konto gëtt verwalt. Fro däin Schachtrainer fir den Kannermodus opzehiewen.</string>
   <string name="enableKidMode">Kannermodus aktivéieren</string>
   <string name="disableKidMode">Kannermodus desaktivéieren</string>
   <string name="security">Sécherheet</string>
@@ -858,6 +867,8 @@
   <string name="useTheReportForm">benotz dësen Formulaire</string>
   <string name="toRequestSupport">Fir Hëllef ze kréien, %1$s</string>
   <string name="tryTheContactPage">probéier eis Kontaktsäit</string>
+  <string name="makeSureToRead">Wannechgelift lies %1$s</string>
+  <string name="theForumEtiquette">d\'Forumsetikett</string>
   <string name="thisTopicIsArchived">Dësen Thema gouf archivéiert and kann net méi beäntwert ginn.</string>
   <string name="joinTheTeamXToPost">Triet %1$s bäi, fir an dësem Forum ze posten</string>
   <string name="teamNamedX">%1$s Ekipp</string>

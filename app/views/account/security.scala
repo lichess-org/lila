@@ -57,7 +57,7 @@ object security:
           td(cls := "icon")(
             span(
               cls      := curSessionId.map { cur => s"is-${if (cur == s.session.id) "gold" else "green"}" },
-              dataIcon := (if (s.session.isMobile) "" else "")
+              dataIcon := (if (s.session.isMobile) licon.PhoneMobile else licon.ScreenDesktop)
             )
           ),
           td(cls := "info")(
@@ -76,7 +76,7 @@ object security:
             td(
               s.session.id != cur option
                 postForm(action := routes.Account.signout(s.session.id))(
-                  submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := "")
+                  submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := licon.X)
                 )
             )
           }
@@ -84,7 +84,7 @@ object security:
       },
       clients map { client =>
         tr(
-          td(cls := "icon")(span(cls := "is-green", dataIcon := "")),
+          td(cls := "icon")(span(cls := "is-green", dataIcon := licon.ThreeCheckStack)),
           td(cls := "info")(
             strong(client.origin),
             p(cls := "ua")(
@@ -106,19 +106,24 @@ object security:
           td(
             postForm(action := routes.OAuth.revokeClient)(
               input(tpe        := "hidden", name             := "origin", value    := client.origin),
-              submitButton(cls := "button button-red", title := "Revoke", dataIcon := "")
+              submitButton(cls := "button button-red", title := "Revoke", dataIcon := licon.X)
             )
           )
         )
       },
       (personalAccessTokens > 0) option tr(
-        td(cls := "icon")(span(cls := "is-green", dataIcon := "")),
+        td(cls := "icon")(span(cls := "is-green", dataIcon := licon.Tools)),
         td(cls := "info")(
           strong("Personal access tokens"),
           " can be used to access your account. Revoke any that you do not recognize."
         ),
         td(
-          a(href := routes.OAuthToken.index, cls := "button", title := "API access tokens", dataIcon := "")
+          a(
+            href     := routes.OAuthToken.index,
+            cls      := "button",
+            title    := "API access tokens",
+            dataIcon := licon.Gear
+          )
         )
       )
     )

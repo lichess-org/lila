@@ -95,6 +95,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' ar noapaļošanu, balstīts uz pusgājienu skaita līdz nākamajam sitienam vai bandinieka gājienam</string>
   <string name="noGameFound">Neviena spēle nav atrasta</string>
+  <string name="maxDepthReached">Sasniegts dziļuma ierobežojums!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
   <string name="openings">Atklātnes</string>
   <string name="openingExplorer">Atklātņu pārlūks</string>
@@ -121,6 +122,7 @@
   <string name="memory">Atmiņa</string>
   <string name="infiniteAnalysis">Bezgalīga analīze</string>
   <string name="removesTheDepthLimit">Noņem dziļuma ierobežojumu un uztur tavu datoru siltu</string>
+  <string name="engineManager">Dzinēja pārvaldnieks</string>
   <string name="blunder">Rupja kļūda</string>
   <string name="mistake">Kļūda</string>
   <string name="inaccuracy">Neprecizitāte</string>

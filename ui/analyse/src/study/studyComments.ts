@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
 import AnalyseCtrl from '../ctrl';
@@ -45,7 +46,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
         study.members.canContribute() && study.vm.mode.write
           ? h('a.edit', {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Trash,
                 title: 'Delete',
               },
               hook: bind(

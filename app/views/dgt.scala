@@ -72,7 +72,7 @@ object dgt:
     layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.plain.value}")"""))(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
-        h2(iconTag("", "If a move is not detected")),
+        h2(iconTag(licon.InfoCircle, "If a move is not detected")),
         p(
           "Check that you have made your opponent's move on the DGT board first. ",
           "Revert your move. Play again. "
@@ -92,7 +92,7 @@ object dgt:
           st.section(
             h2("Lichess connectivity"),
             if (token.isDefined)
-              p(cls := "text", dataIcon := "")(
+              p(cls := "text", dataIcon := licon.Checkmark)(
                 "You have an OAuth token suitable for DGT play.",
                 br,
                 br,

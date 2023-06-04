@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import SwissCtrl from './ctrl';
 import { MaybeVNodes, Pager } from './interfaces';
@@ -21,7 +22,7 @@ function scrollToMeButton(ctrl: SwissCtrl): VNode | undefined {
   return ctrl.data.me
     ? h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.Target,
           title: 'Scroll to your player',
         },
         hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),
@@ -38,11 +39,11 @@ export function renderPager(ctrl: SwissCtrl, pag: Pager): MaybeVNodes {
         ...(ctrl.searching
           ? [search.input(ctrl)]
           : [
-              button('First', '', () => ctrl.userSetPage(1), enabled && page > 1, ctrl),
-              button('Prev', '', ctrl.userPrevPage, enabled && page > 1, ctrl),
+              button('First', licon.JumpFirst, () => ctrl.userSetPage(1), enabled && page > 1, ctrl),
+              button('Prev', licon.JumpPrev, ctrl.userPrevPage, enabled && page > 1, ctrl),
               h('span.page', (pag.nbResults ? pag.from + 1 : 0) + '-' + pag.to + ' / ' + pag.nbResults),
-              button('Next', '', ctrl.userNextPage, enabled && page < pag.nbPages, ctrl),
-              button('Last', '', ctrl.userLastPage, enabled && page < pag.nbPages, ctrl),
+              button('Next', licon.JumpNext, ctrl.userNextPage, enabled && page < pag.nbPages, ctrl),
+              button('Last', licon.JumpLast, ctrl.userLastPage, enabled && page < pag.nbPages, ctrl),
               scrollToMeButton(ctrl),
             ]),
       ]

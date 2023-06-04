@@ -9,6 +9,7 @@
   <string name="postBody">Bäitragsinhalt</string>
   <string name="drafts">Entworf</string>
   <string name="published">Verëffentlecht</string>
+  <string name="createBlogDiscussion">Kommentaren erlaben</string>
   <string name="publishOnYourBlog">Verëffentlechen an dengem Blog</string>
   <string name="publishHelp">Wann aktivéiert, wäert de Bäitrag an engem Blog opgelëscht ginn. Wann net, wäert e privat sinn, an dengen Entwërf</string>
   <plurals name="publishedNbBlogPosts">
@@ -33,4 +34,5 @@
   <string name="uploadAnImageForYourPost">E Bild fir däin Bäitrag eroplueden</string>
   <string name="imageAlt">Alternativen Bildtext</string>
   <string name="imageCredit">Bildquell</string>
+  <string name="deleteImage">D\'Bild läschen</string>
 </resources>

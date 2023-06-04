@@ -1,4 +1,5 @@
 import { Prop, propWithEffect } from 'common';
+import * as licon from 'common/licon';
 import { snabModal } from 'common/modal';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
@@ -85,7 +86,7 @@ export function view(ctrl: SearchCtrl) {
                 },
                 c.name
               ),
-              c.ongoing ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } }) : null,
+              c.ongoing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
               !c.ongoing && c.res ? h('res', c.res) : null,
             ]
           )

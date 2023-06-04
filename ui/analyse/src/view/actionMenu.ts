@@ -1,6 +1,7 @@
 import { isEmpty } from 'common';
+import * as licon from 'common/licon';
 import modal from 'common/modal';
-import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
+import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
 import { config as externalEngineConfig } from './externalEngine';
@@ -36,34 +37,6 @@ const cplSpeed: AutoplaySpeed = {
 };
 
 const ctrlToggle = (t: ToggleSettings, ctrl: AnalyseCtrl) => toggle(t, ctrl.trans, ctrl.redraw);
-
-function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
-  const g = ctrl.data.game;
-  if (g.source === 'import' && g.importedBy && g.importedBy === userId)
-    return h(
-      'form.delete',
-      {
-        attrs: {
-          method: 'post',
-          action: `/${g.id}/delete`,
-        },
-        hook: bindNonPassive('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
-      },
-      [
-        h(
-          'button.button.text.button-thin.button-red',
-          {
-            attrs: {
-              type: 'submit',
-              'data-icon': '',
-            },
-          },
-          ctrl.trans.noarg('delete')
-        ),
-      ]
-    );
-  return;
-}
 
 function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
@@ -104,7 +77,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
           href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
           target: '_blank',
           rel: 'noopener',
-          'data-icon': '',
+          'data-icon': licon.StudyBoard,
         },
       },
       ctrl.trans.noarg('openStudy')
@@ -135,7 +108,7 @@ export function studyButton(ctrl: AnalyseCtrl) {
         {
           attrs: {
             type: 'submit',
-            'data-icon': '',
+            'data-icon': licon.StudyBoard,
           },
         },
         ctrl.trans.noarg('toStudy')
@@ -158,7 +131,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         {
           hook: bind('click', ctrl.flip),
           attrs: {
-            'data-icon': '',
+            'data-icon': licon.ChasingArrows,
             title: 'Hotkey: f',
           },
         },
@@ -178,7 +151,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       color: ctrl.chessground.state.orientation,
                     })
                   : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
-                'data-icon': '',
+                'data-icon': licon.Pencil,
                 ...(ctrl.embed
                   ? {
                       target: '_blank',
@@ -200,7 +173,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   content: $('.continue-with.g_' + d.game.id),
                 })
               ),
-              attrs: dataIcon(''),
+              attrs: dataIcon(licon.Swords),
             },
             noarg('continueFromHere')
           )
@@ -361,7 +334,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ...cevalConfig,
     ...externalEngineConfig(ctrl),
     ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
-    deleteButton(ctrl, ctrl.opts.userId),
     canContinue
       ? h('div.continue-with.none.g_' + d.game.id, [
           h(

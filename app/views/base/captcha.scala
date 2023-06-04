@@ -18,7 +18,7 @@ object captcha:
   def apply(form: lila.common.Form.FormLike, captcha: lila.common.Captcha)(using ctx: Context) =
     frag(
       form3.hidden(form("gameId"), captcha.gameId.value.some),
-      if (ctx.blind) form3.hidden(form("move"), captcha.solutions.head.some)
+      if ctx.blind then form3.hidden(form("move"), captcha.solutions.head.some)
       else {
         val url =
           netBaseUrl + routes.Round.watcher(captcha.gameId.value, captcha.color.name)
@@ -55,8 +55,8 @@ object captcha:
             trans.help(),
             " ",
             a(title := trans.viewTheSolution.txt(), targetBlank, href := s"${url}#last")(url),
-            div(cls := "result success text", dataIcon := "")(trans.checkmate()),
-            div(cls := "result failure text", dataIcon := "")(trans.notACheckmate()),
+            div(cls := "result success text", dataIcon := licon.Checkmark)(trans.checkmate()),
+            div(cls := "result failure text", dataIcon := licon.NotAllowed)(trans.notACheckmate()),
             form3.hidden(form("move"))
           )
         )

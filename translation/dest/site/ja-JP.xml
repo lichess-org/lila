@@ -91,6 +91,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
+  <string name="maxDepthReached">最大深度に到達！</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openings">オープニング</string>
   <string name="openingExplorer">オープニング探索</string>
@@ -117,6 +118,7 @@
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
+  <string name="engineManager">解析エンジンの管理</string>
   <string name="blunder">大悪手</string>
   <string name="mistake">悪手</string>
   <string name="inaccuracy">疑問手</string>
@@ -143,6 +145,9 @@
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%1$s レーティング（%2$s 局で）</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s個の ブックマーク</item>
@@ -320,6 +325,7 @@
   </plurals>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
+  <string name="noDrawBeforeSwissLimit">スイス式トーナメントでは 30 手指すまでドローは認められません。</string>
   <string name="thematic">局面指定</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">レート戦 %s 局以上</item>
@@ -826,8 +832,8 @@
   <string name="useTheReportForm">通報フォームをお使いください</string>
   <string name="toRequestSupport">サポートを求める時には%1$s</string>
   <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">%1$s を必ずお読みください</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">フォーラムでのマナー</string>
+  <string name="makeSureToRead">%1$s を必ずお読みください</string>
+  <string name="theForumEtiquette">フォーラムでのマナー</string>
   <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
   <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
   <string name="teamNamedX">%1$s チーム</string>

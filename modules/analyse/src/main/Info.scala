@@ -3,7 +3,7 @@ package lila.analyse
 import cats.syntax.all.*
 import chess.Ply
 import chess.format.Uci
-import chess.format.pgn.SanStr
+import chess.format.pgn.{ SanStr, Comment }
 
 import lila.tree.Eval
 
@@ -14,7 +14,7 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
 
   def prevPly: Ply   = ply - 1
   def prevMoveNumber = prevPly.fullMoveNumber
-  def color          = prevPly.color
+  def color          = prevPly.turn
 
   def winPercent = eval.cp map WinPercent.fromCentiPawns
 
@@ -36,7 +36,14 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
     mate map { m =>
       s"Mate in ${math.abs(m.value)}"
     }
+  // advise comment
   def evalComment: Option[String] = cpComment orElse mateComment
+
+  // pgn comment
+  def pgnComment = Comment from cp
+    .map(_.pawns.toString)
+    .orElse(mate.map(m => s"#${m.value}"))
+    .map(c => s"[%eval $c]")
 
   def isEmpty = cp.isEmpty && mate.isEmpty
 
@@ -68,11 +75,11 @@ object Info:
         Info(ply, Eval(strCp(cp), strMate(ma), Uci.Move fromChars be), SanStr from va.split(' ').toList).some
       case _ => none
 
-  def decodeList(str: String, fromPly: Ply): Option[List[Info]] = {
-    str.split(listSeparator).toList.zipWithIndex map { (infoStr, index) =>
-      decode(fromPly + index + 1, infoStr)
-    }
-  }.sequence
+  def decodeList(str: String, fromPly: Ply): Option[List[Info]] =
+    str
+      .split(listSeparator)
+      .toList
+      .traverseWithIndexM((infoStr, index) => decode(fromPly + index + 1, infoStr))
 
   def encodeList(infos: List[Info]): String = infos.map(_.encode) mkString listSeparator
 

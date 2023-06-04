@@ -94,6 +94,7 @@
   <string name="dtzWithRounding">DTZ50\'\" attundulatu, basatu nantu à u numeru di mezzicolpi sin\' à a prossima cattura o u prossimu muvimentu di pedinu</string>
   <string name="noGameFound">Ùn ci hè partita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seria megliu d\' include d\' altre partite in u listinu di e preferenze?</string>
+  <string name="openings">Aperture</string>
   <string name="openingExplorer">Espluratore d\' apertura</string>
   <string name="openingEndgameExplorer">Apre u spluradore di i finali</string>
   <string name="xOpeningExplorer">%s espluratore d\' apertura</string>
@@ -157,6 +158,7 @@
   <string name="viewInFullSize">Vede in taglia massima</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
+  <string name="rememberMe">Tene mi cunnessu</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
   <string name="signUp">Arrigistrà si</string>
   <string name="computersAreNotAllowedToPlay">L\' urdinatori è i ghjocadori chì adopranu un urdinatore ùn anu u drittu di ghjucà. Pè piace, ùn aiutate vi nè d\' un urdinatore, nè d\' una databasa, nè di i cunsigli d\' un altru ghjucadore duranti e vostre partite. Eppò, annutate ch\' avè parechji conti hè assai malvistu. I ghjucadori chì anu troppu conti seranu messi fora.</string>
@@ -718,6 +720,7 @@
   <string name="light">Lume</string>
   <string name="dark">Bughju</string>
   <string name="transparent">Diafanu</string>
+  <string name="deviceTheme">Tema dispusitivu</string>
   <string name="backgroundImageUrl">URL di a fiura di u fondu:</string>
   <string name="boardGeometry">Geumetria di a scacchera</string>
   <string name="boardTheme">Aspettu di a scacchera</string>

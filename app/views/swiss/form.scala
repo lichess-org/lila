@@ -23,7 +23,7 @@ object form:
           h1(cls := "box__top")(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             div(cls := "form-group")(
-              a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("event-tips"))(
+              a(dataIcon := licon.InfoCircle, cls := "text", href := routes.Page.loneBookmark("event-tips"))(
                 trans.ourEventTips()
               )
             ),
@@ -41,7 +41,7 @@ object form:
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = "".some)
+              form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
             )
           )
         )
@@ -73,11 +73,11 @@ object form:
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id))(trans.cancel()),
-              form3.submit(trans.save(), icon = "".some)
+              form3.submit(trans.save(), icon = licon.Trophy.some)
             )
           ),
           postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-            submitButton(dataIcon := "", cls := "text button button-red confirm")(
+            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
               trans.cancelTournament()
             )
           )
@@ -148,7 +148,7 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
         help = trans.ratedFormHelp().some,
         half = true
       ),
-      st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
+      form3.hidden(form("rated"), "false".some) // hack allow disabling rated
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
@@ -262,5 +262,5 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
       ).some,
       half = true
     ),
-    form3.hidden(form("conditions.playYourGames"), "false".some) // hack to allow disabling berserk
+    form3.hiddenFalse(form("conditions.playYourGames"))
   )

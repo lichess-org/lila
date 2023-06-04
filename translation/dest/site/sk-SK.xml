@@ -97,6 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" so zaokrúhlením, vychádzajúci s počtu polťahov až do najbližšieho brania alebo ťahu pešiakom</string>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
+  <string name="maxDepthReached">Dosiahnutá maximálna hĺbka!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
   <string name="openings">Otvorenia</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
@@ -164,6 +165,12 @@
     <item quantity="few">%s partie</item>
     <item quantity="many">%s partií</item>
     <item quantity="other">%s partií</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating z %2$s partie</item>
+    <item quantity="few">%1$s rating z %2$s partií</item>
+    <item quantity="many">%1$s rating z %2$s partií</item>
+    <item quantity="other">%1$s rating z %2$s partií</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s záložka</item>
@@ -386,6 +393,7 @@
   </plurals>
   <string name="viewTournament">Zobraziť turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
+  <string name="noDrawBeforeSwissLimit">V turnaji švajčiarskeho systému nie je možné remizovať pokiaľ sa neodohralo 30 ťahov.</string>
   <string name="thematic">Tematický</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s hodnotená hra</item>
@@ -945,8 +953,8 @@
   <string name="useTheReportForm">použi nahlasovací formulár</string>
   <string name="toRequestSupport">Pre vyžiadanie podpory, %1$s</string>
   <string name="tryTheContactPage">vyskúšaj stránku Kontakt</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Určite si prečítajte %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">etiketu fóra</string>
+  <string name="makeSureToRead">Určite si prečítajte %1$s</string>
+  <string name="theForumEtiquette">etiketu fóra</string>
   <string name="thisTopicIsArchived">Táto téma bola presunutá do archívu a nemožno už na ňu odpovedať.</string>
   <string name="joinTheTeamXToPost">Pripoj sa k %1$s, aby si mohol uverejňovať príspevky v tomto fóre</string>
   <string name="teamNamedX">%1$s tím</string>

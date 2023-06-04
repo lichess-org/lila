@@ -23,8 +23,8 @@ final class Simul(env: Env) extends LilaController(env):
       Ok(html.simul.home(pending, created, started, finished)).toFuccess
     }
 
-  val apiList = Anon:
-    fetchSimuls(none) flatMap { case (((pending, created), started), finished) =>
+  val apiList = OpenOrScoped(): me =>
+    fetchSimuls(me) flatMap { case (((pending, created), started), finished) =>
       env.simul.jsonView.apiAll(pending, created, started, finished) map JsonOk
     }
 

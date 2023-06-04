@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { Redraw, Close, bind, header } from './util';
 import debounce from 'common/debounce';
+import * as licon from 'common/licon';
 import { onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { elementScrollBarWidth } from 'common/scroll';
@@ -96,7 +97,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
           'button.text',
           {
             class: { active: cur === bg.key },
-            attrs: { 'data-icon': '', title: bg.title || '', type: 'button' },
+            attrs: { 'data-icon': licon.Checkmark, title: bg.title || '', type: 'button' },
             hook: bind('click', () => ctrl.set(bg.key)),
           },
           bg.name

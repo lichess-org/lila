@@ -8,7 +8,7 @@ import views.*
 
 import lila.api.Context
 import lila.app.{ given, * }
-import lila.common.{ EmailAddress, HTTPRequest }
+import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
@@ -67,7 +67,7 @@ final class Auth(
 
   private def authenticateCookie(sessionId: String, remember: Boolean)(
       result: Result
-  )(using req: RequestHeader) =
+  )(using RequestHeader) =
     result.withCookies(
       env.lilaCookie.withSession(remember = remember) {
         _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
@@ -136,7 +136,7 @@ final class Auth(
                         )
                       },
                       result =>
-                        result.toOption match {
+                        result.toOption match
                           case None => InternalServerError("Authentication error").toFuccess
                           case Some(u) if u.enabled.no =>
                             negotiate(
@@ -151,7 +151,6 @@ final class Auth(
                             env.user.repo.email(u.id) foreach { _ foreach garbageCollect(u) }
                             val remember = api.rememberForm.bindFromRequest().value | true
                             authenticateUser(u, remember, Some(redirectTo))
-                        }
                     )
                 }
               }
@@ -182,8 +181,8 @@ final class Auth(
     forms.signup.website.map: form =>
       Ok(html.auth.signup(form))
 
-  private def authLog(user: String, email: String, msg: String) =
-    lila.log("auth").info(s"$user $email $msg")
+  private def authLog(user: UserName, email: Option[EmailAddress], msg: String) =
+    lila.log("auth").info(s"$user ${email.fold("-")(_.value)} $msg")
 
   def signupPost = OpenBody:
     NoTor:
@@ -288,7 +287,7 @@ final class Auth(
         lila.mon.user.register.confirmEmailResult(true).increment()
         env.user.repo.email(user.id).flatMap {
           _.?? { email =>
-            authLog(user.username, email.value, s"Confirmed email ${email.value}")
+            authLog(user.username, email.some, s"Confirmed email ${email.value}")
             welcome(user, email, sendWelcomeEmail = false)
           }
         } >> redirectNewUser(user)
@@ -364,7 +363,7 @@ final class Auth(
         lila.mon.user.auth.passwordResetConfirm("tokenFail").increment()
         notFound
       case Some(user) =>
-        authLog(user.username, "-", "Reset password")
+        authLog(user.username, none, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
         fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdResetFor(user), none))
     }
@@ -451,7 +450,7 @@ final class Auth(
               lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
               notFound
             case Some(user) =>
-              authLog(user.username, "-", "Magic link")
+              authLog(user.username, none, "Magic link")
               authenticateUser(user, remember = true) >>-
                 lila.mon.user.auth.magicLinkConfirm("success").increment().unit
           }
@@ -502,17 +501,22 @@ final class Auth(
 
   private given limitedDefault: Zero[Result] = Zero(rateLimited)
 
-  private[controllers] def LoginRateLimit(id: UserIdOrEmail, req: RequestHeader)(
-      run: RateLimit.Charge => Fu[Result]
-  ): Fu[Result] =
-    env.security.ipTrust
-      .isSuspicious(req.ipAddress)
-      .flatMap: ipSusp =>
-        PasswordHasher.rateLimit[Result](
-          rateLimitedFu,
-          enforce = env.net.rateLimit,
-          ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(2)
-        )(id, req)(run)
+  private[controllers] object LoginRateLimit:
+    private val lastAttemptIp =
+      env.memo.cacheApi.notLoadingSync[UserIdOrEmail, IpAddress](64, "login.lastIp"):
+        _.expireAfterWrite(10.seconds).build()
+    def apply(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[Result]): Fu[Result] =
+      val ip          = req.ipAddress
+      val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
+      env.security.ipTrust
+        .isSuspicious(ip)
+        .flatMap: ipSusp =>
+          PasswordHasher.rateLimit[Result](
+            rateLimitedFu,
+            enforce = env.net.rateLimit,
+            ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(2),
+            userCost = 1 + multipleIps.??(4)
+          )(id, req)(run)
 
   private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(run: => Fu[Result]): Fu[Result] =
     env.security

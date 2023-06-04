@@ -110,7 +110,7 @@ trait GameHelper:
   def gameVsText(game: Game, withRatings: Boolean = false): String =
     Namer.gameVsTextBlocking(game, withRatings)(using lightUser)
 
-  val berserkIconSpan = iconTag("")
+  val berserkIconSpan = iconTag(lila.common.licon.Berserk)
 
   def playerLink(
       player: Player,

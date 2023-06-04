@@ -92,7 +92,7 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
                     momentFromNow(t.startsAt),
                     " ",
                     a(
-                      dataIcon     := "",
+                      dataIcon     := licon.Forward,
                       cls          := "text copy-url-button",
                       data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
                     )

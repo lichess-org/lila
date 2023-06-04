@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as game from 'game';
 import * as round from '../round';
 import * as status from 'game/status';
@@ -136,7 +137,7 @@ export function analysisButton(ctrl: RoundController): VNode | undefined {
           attrs: {
             title: ctrl.noarg('analysis'),
             href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-            'data-icon': '',
+            'data-icon': licon.Microscope,
           },
         },
         forecastCount ? ['' + forecastCount] : []
@@ -152,28 +153,33 @@ function renderButtons(ctrl: RoundController) {
   return h(
     'div.buttons',
     {
-      hook: util.bind('mousedown', e => {
-        const target = e.target as HTMLElement;
-        const ply = parseInt(target.getAttribute('data-ply') || '');
-        if (!isNaN(ply)) {
-          ctrl.userJump(ply);
-          ctrl.redraw();
-          return;
-        }
-
-        const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-        console.log('action', action);
-        if (action === 'menu') ctrl.menu.toggle();
-      }),
+      hook: util.bind(
+        'mousedown',
+        e => {
+          const target = e.target as HTMLElement;
+          const ply = parseInt(target.getAttribute('data-ply') || '');
+          if (!isNaN(ply)) ctrl.userJump(ply);
+          else {
+            const action =
+              target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+            if (action === 'flip') {
+              if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+              else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
+              else ctrl.flipNow();
+            }
+          }
+        },
+        ctrl.redraw
+      ),
     },
     [
       analysisButton(ctrl) || h('div.noop'),
       ...[
-        ['', firstPly],
-        ['', ctrl.ply - 1],
-        ['', ctrl.ply + 1],
-        ['', lastPly],
-      ].map((b, i) => {
+        [licon.JumpFirst, firstPly],
+        [licon.JumpPrev, ctrl.ply - 1],
+        [licon.JumpNext, ctrl.ply + 1],
+        [licon.JumpLast, lastPly],
+      ].map((b: [string, number], i) => {
         const enabled = ctrl.ply !== b[1] && (b[1] as number) >= firstPly && (b[1] as number) <= lastPly;
         return h('button.fbt', {
           class: { glowing: i === 3 && ctrl.isLate() },
@@ -203,7 +209,7 @@ function renderButtons(ctrl: RoundController) {
 function initMessage(ctrl: RoundController) {
   const d = ctrl.data;
   return (ctrl.replayEnabledByPref() || !isCol1()) && game.playable(d) && d.game.turns === 0 && !d.player.spectator
-    ? h('div.message', util.justIcon(''), [
+    ? h('div.message', util.justIcon(licon.InfoCircle), [
         h('div', [
           ctrl.trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
           ...(d.player.color === 'white' ? [h('br'), h('strong', ctrl.trans('itsYourTurn'))] : []),
@@ -261,9 +267,9 @@ export function render(ctrl: RoundController): VNode | undefined {
         initMessage(ctrl) ||
           (isCol1()
             ? h('div.col1-moves', [
-                col1Button(ctrl, -1, '', ctrl.ply == round.firstPly(d)),
+                col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == round.firstPly(d)),
                 renderMovesOrResult,
-                col1Button(ctrl, 1, '', ctrl.ply == round.lastPly(d)),
+                col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == round.lastPly(d)),
               ])
             : renderMovesOrResult),
       ]);

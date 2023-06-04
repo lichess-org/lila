@@ -106,7 +106,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       vote,
       solve: viewSolution,
     });
-    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
+    if (opts.pref.voiceMove)
+      makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen).then(vm => {
+        this.voiceMove = voiceMove = vm;
+      });
     if (opts.pref.keyboardMove)
       this.keyboardMove = keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.vm.node.fen });
     requestAnimationFrame(() => this.redraw());
@@ -205,7 +208,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
-    if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
+    if (!promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.showPromotion }))
+      playUserMove(orig, dest);
     voiceMove?.update(vm.node.fen);
     keyboardMove?.update({ fen: vm.node.fen });
   }
@@ -512,7 +516,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov);
     reorderChildren(vm.initialPath, true);
 
-    // try and play the solution next move
+    // try to play the solution next move
     const next = vm.node.children[0];
     if (next && next.puzzle === 'good') userJump(vm.path + next.id);
     else {

@@ -75,13 +75,13 @@ object header:
               cls  := "btn-rack__btn",
               href := routes.Account.profile,
               titleOrText(trans.editProfile.txt()),
-              dataIcon := ""
+              dataIcon := licon.Gear
             ),
             a(
               cls  := "btn-rack__btn",
               href := routes.Relation.blocks(),
               titleOrText(trans.listBlockedPlayers.txt()),
-              dataIcon := ""
+              dataIcon := licon.NotAllowed
             )
           ),
           isGranted(_.UserModView) option
@@ -89,13 +89,13 @@ object header:
               cls  := "btn-rack__btn mod-zone-toggle",
               href := routes.User.mod(u.username),
               titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := ""
+              dataIcon := licon.Agent
             ),
           a(
             cls  := "btn-rack__btn",
             href := routes.User.tv(u.username),
             titleOrText(trans.watchGames.txt()),
-            dataIcon := ""
+            dataIcon := licon.AnalogTv
           ),
           !ctx.is(u) option views.html.relation.actions(
             u.light,
@@ -107,19 +107,19 @@ object header:
             cls  := "btn-rack__btn",
             href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
             titleOrText(trans.openingExplorer.txt()),
-            dataIcon := ""
+            dataIcon := licon.Book
           ),
           a(
             cls  := "btn-rack__btn",
             href := routes.User.download(u.username),
             titleOrText(trans.exportGames.txt()),
-            dataIcon := ""
+            dataIcon := licon.Download
           ),
           (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls      := "btn-rack__btn",
             href     := s"${reportRoutes.form}?username=${u.username}",
-            dataIcon := ""
+            dataIcon := licon.CautionTriangle
           )
         )
       ),
@@ -140,7 +140,7 @@ object header:
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
                   u.lame option div(cls := "warning tos_warning")(
-                    span(dataIcon := "", cls := "is4"),
+                    span(dataIcon := licon.CautionCircle, cls := "is4"),
                     trans.thisAccountViolatedTos()
                   )
                 ),
@@ -205,7 +205,7 @@ object header:
                 )
               ),
               info.insightVisible option
-                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := "")(
+                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := licon.Target)(
                   span(
                     strong("Chess Insights"),
                     em("Analytics from ", if (ctx.is(u)) "your" else s"${u.username}'s", " games")
@@ -284,7 +284,7 @@ object header:
               submitButton(
                 cls      := "button-empty button-red confirm button text",
                 style    := "float:right",
-                dataIcon := ""
+                dataIcon := licon.Trash
               )(trans.delete())
             )
           )

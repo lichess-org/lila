@@ -68,7 +68,7 @@ object twoFactor:
       div(cls := "account twofactor box box-pad")(
         boxTop(
           h1(
-            i(cls := "is-green text", dataIcon := ""),
+            i(cls := "is-green text", dataIcon := licon.Checkmark),
             twoFactorEnabled()
           )
         ),

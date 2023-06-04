@@ -94,7 +94,7 @@ object timeline:
             })(
               a(
                 href     := routes.Round.player(playerId),
-                dataIcon := perf.iconChar,
+                dataIcon := perf.icon,
                 cls      := "text glpt"
               )(win match {
                 case Some(true)  => trans.victory()
@@ -120,7 +120,7 @@ object timeline:
               .plural(months, userLink(userId), months)
           )
         case BlogPost(id, slug, title) =>
-          a(cls := "text", dataIcon := "", href := routes.Blog.show(id, slug))(title)
+          a(cls := "text", dataIcon := licon.InkQuill, href := routes.Blog.show(id, slug))(title)
         case UblogPostLike(userId, postId, postTitle) =>
           trans.xLikesY(
             userLink(userId),
@@ -128,7 +128,7 @@ object timeline:
           )
         case StreamStart(id, name) =>
           views.html.streamer.bits
-            .redirectLink(id)(cls := "text", dataIcon := "")(trans.xStartedStreaming(name))
+            .redirectLink(id)(cls := "text", dataIcon := licon.Mic)(trans.xStartedStreaming(name))
       },
       " ",
       momentFromNowWithPreload(e.date)

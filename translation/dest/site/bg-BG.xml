@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' със закръгляне, базирано на броя полуходове до следващото вземане на фигура или преместване на пешка</string>
   <string name="noGameFound">Няма намерени игри</string>
+  <string name="maxDepthReached">Максималната дълбочина е достигната!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Защо не включите повече игри в датабазата от менюто?</string>
   <string name="openings">Дебюти</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
@@ -150,6 +151,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s Партия</item>
     <item quantity="other">%s Партии</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s рейтинг базирано на %2$s игра</item>
+    <item quantity="other">%1$s рейтинг базирано на %2$s игри</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Отбелязани</item>
@@ -342,6 +347,7 @@
   </plurals>
   <string name="viewTournament">Виж турнира</string>
   <string name="backToTournament">Продължи турнира</string>
+  <string name="noDrawBeforeSwissLimit">Не можете да предложите реми при по-малко от 30 хода в швейцарски турнир.</string>
   <string name="thematic">Тематичен</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s оценена игра</item>
@@ -865,8 +871,8 @@
   <string name="useTheReportForm">използвайте формуляра за докладване</string>
   <string name="toRequestSupport">За да поискате помощ, %1$s</string>
   <string name="tryTheContactPage">опитайте страницата за контакти</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Моля прочетете %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">правилата за етикет на форума</string>
+  <string name="makeSureToRead">Моля прочетете %1$s</string>
+  <string name="theForumEtiquette">правилата за етикет на форума</string>
   <string name="thisTopicIsArchived">Тази тема е архивирана и не може да получава повече мнения.</string>
   <string name="joinTheTeamXToPost">Присъединете се към %1$s, за да публикувате в този форум</string>
   <string name="teamNamedX">отбора %1$s</string>

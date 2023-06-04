@@ -8,7 +8,7 @@ import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 import lila.tree.Eval._
 
-final class UciToPgnTest extends munit.FunSuite {
+final class UciToSanTest extends munit.FunSuite {
 
   private given Conversion[Int, Ply] = Ply(_)
 
@@ -22,7 +22,7 @@ final class UciToPgnTest extends munit.FunSuite {
 
   test("convert UCI analysis to PGN") {
     val uciAnalysis = Analysis(
-      "ke5ssdgj",
+      Analysis.Id("ke5ssdgj"),
       None,
       List(
         Info(1, Eval(Some(Cp(12)), None, None), List()),
@@ -231,7 +231,7 @@ final class UciToPgnTest extends munit.FunSuite {
       .map(evenIncomplete)
       .toOption
       .get
-    UciToPgn(rep, uciAnalysis) match
+    UciToSan(rep, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
   }
   test("even in KotH") {
@@ -302,8 +302,8 @@ final class UciToPgnTest extends munit.FunSuite {
       "Qxg5#"
     )
     val rep         = Replay(pgn, None, chess.variant.KingOfTheHill).map(evenIncomplete).toOption.get
-    val uciAnalysis = Analysis("g5hX8efz", None, Nil, 0, now, None)
-    UciToPgn(rep, uciAnalysis) match
+    val uciAnalysis = Analysis(Analysis.Id("g5hX8efz"), None, Nil, 0, now, None)
+    UciToSan(rep, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
   }
 }

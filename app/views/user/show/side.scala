@@ -23,7 +23,7 @@ object side:
     def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
       val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
-        dataIcon := perfType.iconChar,
+        dataIcon := perfType.icon,
         title    := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
@@ -60,7 +60,7 @@ object side:
             )
           }
         ),
-        ctx.pref.showRatings option iconTag("")
+        ctx.pref.showRatings option iconTag(licon.PlayTriangle)
       )
 
     div(cls := "side sub-ratings")(
@@ -92,7 +92,7 @@ object side:
 
   private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Lang) =
     a(
-      dataIcon := '',
+      dataIcon := licon.Storm,
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
@@ -107,12 +107,12 @@ object side:
           )
         )
       ),
-      iconTag("")
+      iconTag(licon.PlayTriangle)
     )
 
   private def showRacer(racer: lila.rating.Perf.Racer)(using Lang) =
     a(
-      dataIcon := '',
+      dataIcon := licon.FlagChessboard,
       cls := List(
         "empty" -> !racer.nonEmpty
       ),
@@ -127,12 +127,12 @@ object side:
           )
         )
       ),
-      iconTag("")
+      iconTag(licon.PlayTriangle)
     )
 
   private def showStreak(streak: lila.rating.Perf.Streak)(using Lang) =
     a(
-      dataIcon := '',
+      dataIcon := licon.ArrowThruApple,
       cls := List(
         "empty" -> !streak.nonEmpty
       ),
@@ -147,5 +147,5 @@ object side:
           )
         )
       ),
-      iconTag("")
+      iconTag(licon.PlayTriangle)
     )

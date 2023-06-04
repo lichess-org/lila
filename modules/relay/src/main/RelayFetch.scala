@@ -1,6 +1,9 @@
 package lila.relay
 
+import cats.syntax.all.*
+
 import akka.actor.*
+import chess.Ply
 import chess.format.pgn.{ Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
@@ -28,13 +31,11 @@ final private class RelayFetch(
     ws: StandaloneWSClient
 )(using Executor, Scheduler):
 
-  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)) {
+  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(30 seconds)):
     syncRelays(official = true)
-  }
 
-  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(1 minute)) {
+  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(1 minute)):
     syncRelays(official = false)
-  }
 
   private def syncRelays(official: Boolean) =
     api
@@ -169,8 +170,8 @@ final private class RelayFetch(
             }
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap { round =>
-          round.pairings.zipWithIndex
-            .map { (pairing, i) =>
+          round.pairings
+            .mapWithIndex: (pairing, i) =>
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               gameDoc.format
@@ -182,7 +183,6 @@ final private class RelayFetch(
                     } map { _.toPgn(pairing.tags) }
                 }
                 .map(number -> _)
-            }
             .parallel
             .map { results =>
               MultiPgn(results.sortBy(_._1).map(_._2))
@@ -211,12 +211,12 @@ final private class RelayFetch(
           .fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
     yield data
 
-private object RelayFetch:
+private[relay] object RelayFetch:
 
   def maxChapters(tour: RelayTour) =
     lila.study.Study.maxChapters * (if (tour.official) 2 else 1)
 
-  private object DgtJson:
+  private[relay] object DgtJson:
     case class PairingPlayer(
         fname: Option[String],
         mname: Option[String],
@@ -245,12 +245,17 @@ private object RelayFetch:
 
     case class GameJson(moves: List[String], result: Option[String]):
       def toPgn(extraTags: Tags = Tags.empty) =
-        val strMoves = moves.map(_ split ' ') map { move =>
-          chess.format.pgn.Move(
-            san = SanStr(~move.headOption),
-            secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
-          )
-        } mkString " "
+        val strMoves = moves
+          .map(_ split ' ')
+          .mapWithIndex: (move, index) =>
+            chess.format.pgn
+              .Move(
+                ply = Ply(index + 1),
+                san = SanStr(~move.headOption),
+                secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
+              )
+              .render
+          .mkString(" ")
         PgnStr(s"$extraTags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 

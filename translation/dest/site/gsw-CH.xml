@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' mit Rundig, basierend uf de Azahl Halbzüg bis zum nächschte Schlag- oder Pure-Zug</string>
   <string name="noGameFound">Keis Schpiel gfunde</string>
+  <string name="maxDepthReached">Die maximali Tüfi isch erreicht!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht sötted meh Schpiel vom Iischteligs Menü ibezoge werde?</string>
   <string name="openings">Eröffnige</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
@@ -119,6 +120,7 @@
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Unändlichi Analyse</string>
   <string name="removesTheDepthLimit">Entfernt d\'Tüfebegränzig und haltet din Computer warm</string>
+  <string name="engineManager">Engine Betreuer</string>
   <string name="blunder">En Patzer</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungnauigkeit</string>
@@ -150,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partie</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s Wertig vu %2$s Spiel</item>
+    <item quantity="other">%1$s Wertig vu %2$s Spiel</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Läsezeiche</item>
@@ -343,6 +349,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="viewTournament">Turnier zueluege</string>
   <string name="backToTournament">Zrugg zum Turnier</string>
+  <string name="noDrawBeforeSwissLimit">Ime Turnier, nach Schwizer Syschtem, chann me erscht nach 30 Züg es Remis mache.</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gwertets Schpiel</item>
@@ -874,8 +881,8 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="useTheReportForm">benutz euses Mälde-Formular</string>
   <string name="toRequestSupport">Zum Hilf überchoo, %1$s</string>
   <string name="tryTheContactPage">probiers uf de Kontaktsite</string>
-  <string name="makeSureToRead" comment="makeSureToRead&#10;&#10;%1$s is 'the forum etiquette'.">Lies unbedingt %1$s</string>
-  <string name="theForumEtiquette" comment="theForumEtiquette&#10;&#10;Part of string 'Make sure to read [the forum etiquette]'">d\'Forum Aschtandsregle</string>
+  <string name="makeSureToRead">Lies unbedingt %1$s</string>
+  <string name="theForumEtiquette">d\'Forum Aschtandsregle</string>
   <string name="thisTopicIsArchived">Das Thema isch archiviert und chann nüme beantwortet werde.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bi, um i dem Forum Biträg z\'schribe</string>
   <string name="teamNamedX">%1$s Team</string>

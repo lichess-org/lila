@@ -91,7 +91,7 @@ object discussion:
             cls  := "button button-empty mod-zone-toggle",
             href := routes.User.mod(appeal.id),
             titleOrText("Mod zone (Hotkey: m)"),
-            dataIcon := ""
+            dataIcon := licon.Agent
           )
         )
       ),
@@ -116,7 +116,8 @@ object discussion:
             div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
           )
         },
-        as.left.exists(_.markedByMe) option div(dataIcon := "", cls := "marked-by-me text")(
+        as.left
+          .exists(_.markedByMe) option div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
           "You have marked this user. Appeal should be handled by another moderator"
         ),
         if (as.isRight && !appeal.canAddMsg) p("Please wait for a moderator to reply.")

@@ -49,7 +49,11 @@ object show:
                   .exists(
                     _.value.atStartOfDay.instant isAfter nowInstant.minusWeeks(2)
                   )) option
-                  a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "")(
+                  a(
+                    href     := routes.Blog.discuss(doc.id),
+                    cls      := "button text discuss",
+                    dataIcon := licon.BubbleConvo
+                  )(
                     "Discuss this blog post in the forum"
                   )
               } else p("This is a preview."),

@@ -1,5 +1,6 @@
 package lila.simul
 
+import cats.syntax.all.*
 import akka.actor.*
 import chess.variant.Variant
 import play.api.libs.json.Json
@@ -125,8 +126,8 @@ final class SimulApi(
       repo.findCreated(simulId) flatMapz { simul =>
         simul.start ?? { started =>
           userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
-            started.pairings.zipWithIndex.map(makeGame(started, host)).parallel map { games =>
-              games.headOption foreach { case (game, _) =>
+            started.pairings.mapWithIndex(makeGame(started, host)).parallel map { games =>
+              games.headOption foreach { (game, _) =>
                 socket.startSimul(simul, game)
               }
               games.foldLeft(started) { case (s, (g, hostColor)) =>
@@ -225,44 +226,43 @@ final class SimulApi(
     repo.coll.primitiveOne[TeamId]($id(id), "team")
 
   private def makeGame(simul: Simul, host: User)(
-      pairingAndNumber: (SimulPairing, Int)
+      pairing: SimulPairing,
+      number: Int
   ): Fu[(Game, chess.Color)] =
-    pairingAndNumber match
-      case (pairing, number) =>
-        for {
-          user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
-          hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
-          whiteUser = hostColor.fold(host, user)
-          blackUser = hostColor.fold(user, host)
-          clock     = simul.clock.chessClockOf(hostColor)
-          perfPicker =
-            lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
-          game1 = Game.make(
-            chess = chess
-              .Game(
-                variantOption = Some {
-                  if (simul.position.isEmpty) pairing.player.variant
-                  else chess.variant.FromPosition
-                },
-                fen = simul.position
-              )
-              .copy(clock = clock.start.some),
-            whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
-            blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
-            mode = chess.Mode.Casual,
-            source = lila.game.Source.Simul,
-            pgnImport = None
+    for {
+      user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
+      hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
+      whiteUser = hostColor.fold(host, user)
+      blackUser = hostColor.fold(user, host)
+      clock     = simul.clock.chessClockOf(hostColor)
+      perfPicker =
+        lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
+      game1 = Game.make(
+        chess = chess
+          .Game(
+            variantOption = Some {
+              if (simul.position.isEmpty) pairing.player.variant
+              else chess.variant.FromPosition
+            },
+            fen = simul.position
           )
-          game2 =
-            game1
-              .withId(pairing.gameId)
-              .withSimulId(simul.id)
-              .start
-          _ <-
-            (gameRepo insertDenormalized game2) >>-
-              onGameStart(game2.id) >>-
-              socket.startGame(simul, game2)
-        } yield game2 -> hostColor
+          .copy(clock = clock.start.some),
+        whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
+        blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
+        mode = chess.Mode.Casual,
+        source = lila.game.Source.Simul,
+        pgnImport = None
+      )
+      game2 =
+        game1
+          .withId(pairing.gameId)
+          .withSimulId(simul.id)
+          .start
+      _ <-
+        (gameRepo insertDenormalized game2) >>-
+          onGameStart(game2.id) >>-
+          socket.startGame(simul, game2)
+    } yield game2 -> hostColor
 
   private def update(simul: Simul): Funit =
     repo.update(simul) >>- socket.reload(simul.id) >>- publish()

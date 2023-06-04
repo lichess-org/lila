@@ -39,7 +39,7 @@ object presets:
               ).some
             )(form3.textarea(_)(rows := 20)),
             form3.action(
-              submitButton(cls := "button text", dataIcon := "")("Save")
+              submitButton(cls := "button text", dataIcon := licon.Checkmark)("Save")
             )
           )
         )

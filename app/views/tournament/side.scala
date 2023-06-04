@@ -21,7 +21,7 @@ object side:
   )(using ctx: Context) =
     frag(
       div(cls := "tour__meta")(
-        st.section(dataIcon := tour.perfType.iconChar.toString)(
+        st.section(dataIcon := tour.perfType.icon.toString)(
           div(
             p(
               tour.clock.show,
@@ -41,7 +41,7 @@ object side:
             (isGranted(_.ManageTournament) || (ctx.userId
               .has(tour.createdBy) && !tour.isFinished)) option frag(
               " ",
-              a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag(""))
+              a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag(licon.Gear))
             )
           )
         ),
@@ -50,7 +50,7 @@ object side:
           st.section(cls := "description")(
             markdownLinksOrRichText(s.description),
             shieldOwner map { owner =>
-              p(cls := "defender", dataIcon := "")(
+              p(cls := "defender", dataIcon := licon.Shield)(
                 "Defender:",
                 userIdLink(owner.some)
               )
@@ -70,8 +70,8 @@ object side:
         },
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
         views.html.gathering.verdicts(verdicts, tour.perfType),
-        tour.noBerserk option div(cls := "text", dataIcon := "")(trans.arena.noBerserkAllowed()),
-        tour.noStreak option div(cls := "text", dataIcon := "")(trans.arena.noArenaStreaks()),
+        tour.noBerserk option div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed()),
+        tour.noStreak option div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientInstant(
           tour.startsAt
@@ -92,9 +92,11 @@ object side:
 
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(implicit ctx: Context) =
     st.section(cls := "team-battle")(
-      p(cls := "team-battle__title text", dataIcon := "")(
+      p(cls := "team-battle__title text", dataIcon := licon.Group)(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
         (ctx.userId.has(tour.createdBy) || isGranted(_.ManageTournament)) option
-          a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag(""))
+          a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(
+            iconTag(licon.Gear)
+          )
       )
     )

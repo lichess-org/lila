@@ -58,9 +58,9 @@
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
-  <string name="loadingEngine">Indlæser skakmotor ...</string>
+  <string name="loadingEngine">Indlæser skakprogram...</string>
   <string name="calculatingMoves">Beregner træk...</string>
-  <string name="engineFailed">Fejl under indlæsning af beregningsmotor</string>
+  <string name="engineFailed">Fejl under indlæsning af skakprogram</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med afrunding, baseret på antallet af halv-træk indtil næste fangst eller bondetræk</string>
   <string name="noGameFound">Intet parti fundet</string>
+  <string name="maxDepthReached">Maks dybde nået!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prøv eventuelt at inkludere flere partier fra præferencemenuen?</string>
   <string name="openings">Åbninger</string>
   <string name="openingExplorer">Åbningsbog</string>
@@ -119,6 +120,7 @@
   <string name="memory">Hukommelse</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdegrænsen, og holder din computer varm</string>
+  <string name="engineManager">Administration af skakprogram</string>
   <string name="blunder">Brøler</string>
   <string name="mistake">Fejl</string>
   <string name="inaccuracy">Unøjagtighed</string>
@@ -151,6 +153,10 @@
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating over %2$s parti</item>
+    <item quantity="other">%1$s rating over %2$s partier</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bogmærke</item>
     <item quantity="other">%s bogmærker</item>
@@ -161,7 +167,7 @@
   <string name="rememberMe">Husk mig</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
-  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
+  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere har ikke lov til at spille. Du må ikke få hjælp fra skakprogrammer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det kraftigt frarådes at oprette flere konti, og at overdreven brug af flere konti vil føre til udelukkelse.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
@@ -342,6 +348,7 @@
   </plurals>
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
+  <string name="noDrawBeforeSwissLimit">Du kan ikke spille remis i en schweizerturnering, før der er lavet 30 træk.</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s ratet parti</item>
@@ -706,7 +713,7 @@
   <string name="downloadImported">Download importeret</string>
   <string name="crosstable">Krydstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computervariationer for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="letOtherPlayersMessageYou">Lad andre spillere sende en besked til dig</string>
   <string name="receiveForumNotifications">Modtag notifikationer, når du bliver nævnt i forummet</string>

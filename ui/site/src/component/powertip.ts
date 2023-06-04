@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { requestIdleCallback } from './functions';
 
@@ -26,9 +27,9 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) =>
           '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
             name +
             '</span></div></div><div class="upt__actions btn-rack">' +
-            uptA('/@/' + u + '/tv', '') +
-            uptA('/inbox/new?user=' + u, '') +
-            uptA('/?user=' + u + '#friend', '') +
+            uptA('/@/' + u + '/tv', licon.AnalogTv) +
+            uptA('/inbox/new?user=' + u, licon.BubbleSpeech) +
+            uptA('/?user=' + u + '#friend', licon.Swords) +
             '<a class="btn-rack__btn relation-button" disabled></a></div>'
         );
       }),

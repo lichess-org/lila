@@ -146,7 +146,6 @@ GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, p
 GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path, u: Option[String])
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme)
 GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[String])
-GET   /training/mobile/history         controllers.Puzzle.mobileHistory(page: Int ?= 1)
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
@@ -647,7 +646,6 @@ GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf,
 # API
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
-GET   /api/user/puzzle-activity        controllers.Puzzle.activity
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
@@ -817,6 +815,7 @@ GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
+POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli

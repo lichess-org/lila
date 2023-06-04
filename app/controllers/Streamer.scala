@@ -162,13 +162,8 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     fuccess(Ok)
   }
 
-  def onYouTubeVideo = AnonBodyOf(parse.tolerantXml): body =>
-    val channel = (body \ "entry" \ "channelId").text
-    val video   = (body \ "entry" \ "videoId").text
-    if channel.nonEmpty && video.nonEmpty
-    then lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
-    else lila.log("streamer").warn(s"onYouTubeVideo $video on channel $channel $body")
-    env.streamer.ytApi.onVideo(channel, video) inject Ok
+  def onYouTubeVideo = AnonBodyOf(parse.tolerantXml):
+    env.streamer.ytApi.onVideoXml
 
   def youTubePubSubChallenge = Anon:
     Ok(get("hub.challenge", req).get).toFuccess

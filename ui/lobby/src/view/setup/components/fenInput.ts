@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import * as licon from 'common/licon';
 import LobbyController from '../../../ctrl';
 
 export const fenInput = (ctrl: LobbyController) => {
@@ -20,7 +21,7 @@ export const fenInput = (ctrl: LobbyController) => {
       }),
       h('a.button.button-empty', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.Pencil,
           title: trans('boardEditor'),
           href: '/editor' + (fen ? `/${fen.replace(' ', '_')}` : ''),
         },

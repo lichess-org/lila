@@ -73,7 +73,7 @@ object student:
   private def top(clas: Clas, s: Student.WithUser)(using Context) =
     div(cls := "student-show__top")(
       boxTop(
-        h1(dataIcon := "")(
+        h1(dataIcon := licon.User)(
           span(
             strong(s.user.username),
             em(s.student.realName)
@@ -271,7 +271,7 @@ object student:
     )
 
   private def maxStudentsWarning(using Lang) =
-    p(dataIcon := "", cls := "text")(
+    p(dataIcon := licon.InfoCircle, cls := "text")(
       trans.clas.maxStudentsNote(
         lila.clas.Clas.maxStudents,
         a(href := clasRoutes.form)(trans.clas.createMoreClasses())
@@ -353,7 +353,9 @@ object student:
         postForm(cls := "form3", action := clasRoutes.studentClosePost(clas.id.value, s.user.username))(
           form3.actions(
             a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
-            form3.submit(trans.clas.closeTheAccount(), icon = "".some)(cls := "button-red confirm")
+            form3.submit(trans.clas.closeTheAccount(), icon = licon.CautionCircle.some)(
+              cls := "button-red confirm"
+            )
           )
         )
       )

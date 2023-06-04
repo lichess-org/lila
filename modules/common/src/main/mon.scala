@@ -603,7 +603,6 @@ object mon:
   object api:
     val userGames = counter("api.cost").withTag("endpoint", "userGames")
     val users     = counter("api.cost").withTag("endpoint", "users")
-    val game      = counter("api.cost").withTag("endpoint", "game")
     val activity  = counter("api.cost").withTag("endpoint", "activity")
     object challenge:
       object bulk:

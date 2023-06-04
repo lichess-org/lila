@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" met afronding, gebaseer op die hoeveelheid half-skuiwe tot die volgende vat of pionskuif</string>
   <string name="noGameFound">Geen spel gevind</string>
+  <string name="maxDepthReached">Maksimum diepte is bereik!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openings">Openinge</string>
   <string name="openingExplorer">Opening ontdekker</string>
@@ -119,6 +120,7 @@
   <string name="memory">Geheue</string>
   <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="removesTheDepthLimit">Verwyder dieptelimiet, en hou jou rekenaar warm</string>
+  <string name="engineManager">Enjinbestuurder</string>
   <string name="blunder">Flater</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onakkuraatheid</string>
@@ -342,6 +344,7 @@
   </plurals>
   <string name="viewTournament">Sien toernooi</string>
   <string name="backToTournament">Terug na toernooi</string>
+  <string name="noDrawBeforeSwissLimit">Geen gelykop voor 30 skuiwe tydens \'n Switserse toernooi nie.</string>
   <string name="thematic">Tematies</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s gegradeerde spel</item>
