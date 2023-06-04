@@ -54,7 +54,7 @@ export function main(ctrl: RoundController): VNode {
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
-        ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
-        ctrl.menu() ? boardMenu(ctrl) : undefined,
+        ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
+        boardMenu(ctrl),
       ]);
 }

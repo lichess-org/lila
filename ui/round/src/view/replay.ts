@@ -162,11 +162,7 @@ function renderButtons(ctrl: RoundController) {
           else {
             const action =
               target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-            if (action === 'flip') {
-              if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-              else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
-              else ctrl.flipNow();
-            }
+            if (action === 'menu') ctrl.menu.toggle();
           }
         },
         ctrl.redraw
