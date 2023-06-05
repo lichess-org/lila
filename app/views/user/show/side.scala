@@ -45,8 +45,8 @@ object side {
             ratingProgress(perf.progress),
             " ",
             span(
-              if (perfType.key == "puzzle") trans.nbPuzzles(perf.nb, perf.nb.localize)
-              else trans.nbGames(perf.nb, perf.nb.localize)
+              if (perfType.key == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
+              else trans.nbGames.plural(perf.nb, perf.nb.localize)
             )
           ),
           rankMap get perfType map { rank =>

@@ -224,9 +224,9 @@ trait SetupHelper { self: I18nHelper =>
   def translatedClockCountdownChoices(implicit lang: Lang) =
     List(
       (Pref.ClockCountdown.NEVER, trans.never.txt()),
-      (Pref.ClockCountdown.THREE, trans.nbSeconds.txt("3")),
-      (Pref.ClockCountdown.FIVE, trans.nbSeconds.txt("5")),
-      (Pref.ClockCountdown.TEN, trans.nbSeconds.txt("10"))
+      (Pref.ClockCountdown.THREE, trans.nbSeconds.pluralSameTxt(3)),
+      (Pref.ClockCountdown.FIVE, trans.nbSeconds.pluralSameTxt(5)),
+      (Pref.ClockCountdown.TEN, trans.nbSeconds.pluralSameTxt(10))
     )
 
   def translatedMoveEventChoices(implicit lang: Lang) =

@@ -141,7 +141,7 @@ object teacherDashboard {
           thead(
             tr(
               th(attr("data-sort-default") := "1")(
-                trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.txt(progress.days)),
+                trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.pluralSameTxt(progress.days)),
                 sortNumberTh(trans.rating()),
                 sortNumberTh(trans.clas.progress()),
                 sortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
