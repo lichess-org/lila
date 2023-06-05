@@ -776,6 +776,7 @@
   <string name="invalidFen">پوزیشن وارد شده نامعتبر است</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
+  <string name="notificationsX">هشدار: %1$s</string>
   <string name="perfRatingX">ریتینگ. %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
