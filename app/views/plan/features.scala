@@ -21,7 +21,8 @@ object features {
           url = s"$netBaseUrl${routes.Plan.features.url}",
           description = "All of Lishogi features are free for all and forever. We do it for the shogi!"
         )
-        .some
+        .some,
+      withHrefLangs = none
     ) {
       main(cls := "box box-pad features")(
         table(

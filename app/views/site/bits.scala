@@ -28,7 +28,8 @@ object bits {
 
   def errorPage(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Internal server error"
+      title = "Internal server error",
+      withHrefLangs = none
     ) {
       main(cls := "page-small box box-pad")(
         h1("Something went wrong on this page"),

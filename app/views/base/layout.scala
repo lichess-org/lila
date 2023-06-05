@@ -130,7 +130,9 @@ object layout {
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
+<a href="${langHref(
+        s"${routes.Auth.login.url}?referrer=${ctx.req.path}"
+      )}" class="signin button button-empty">${trans.signIn
         .txt()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
@@ -159,6 +161,21 @@ object layout {
     style :=
       "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
+
+  private def hrefLang(lang: String, path: String) =
+    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
+
+  private def hrefLangs(altLangs: lila.i18n.LangList.AlternativeLangs)(implicit ctx: Context) = raw {
+    val path      = ctx.req.path
+    val baseLangs = hrefLang("x-default", path) + hrefLang("en", path)
+    altLangs match {
+      case lila.i18n.LangList.EnglishJapanese => baseLangs + hrefLang("ja", s"$path?lang=ja")
+      case lila.i18n.LangList.All =>
+        baseLangs + (lila.i18n.LangList.alternativeLangCodes.map { lang =>
+          hrefLang(lang, s"$path?lang=$lang")
+        }).mkString
+    }
+  }
 
   private def cssBackgroundImageValue(url: String): String =
     if (url.isEmpty) "none" else s"url(${escapeHtmlRaw(url).replace("&amp;", "&")})"
@@ -212,7 +229,8 @@ object layout {
       zoomable: Boolean = false,
       deferJs: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
-      wrapClass: String = ""
+      wrapClass: String = "",
+      withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = Some(lila.i18n.LangList.All)
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
       doctype,
@@ -252,7 +270,8 @@ object layout {
           fontPreload,
           boardPreload,
           manifests,
-          jsLicense
+          jsLicense,
+          withHrefLangs.filter(_ => ctx.req.queryString.removed("lang").isEmpty).map(hrefLangs)
         ),
         st.body(
           cls := List(
@@ -359,7 +378,7 @@ object layout {
           h1(cls := "site-title")(
             if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
-            a(href := "/")(
+            a(href := langHref("/"))(
               "lishogi",
               span(if (isProd) ".org" else ".dev"),
               span(style := "position: relative; top: -12px; margin-left: 5px; font-size: 14px;")("beta")

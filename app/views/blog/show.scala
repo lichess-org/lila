@@ -22,7 +22,8 @@ object show {
         )
         .some,
       moreCss = cssTag("blog"),
-      csp = bits.csp
+      csp = bits.csp,
+      withHrefLangs = Some(lila.i18n.LangList.EnglishJapanese)
     )(
       main(cls := "page-menu page-small")(
         bits.menu(none, false),

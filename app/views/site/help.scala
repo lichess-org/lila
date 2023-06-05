@@ -191,10 +191,11 @@ $('#asset-version-message').text(lishogi.info.message);"""
     views.html.base.layout(
       title = title,
       moreCss = moreCss,
-      moreJs = moreJs
+      moreJs = moreJs,
+      withHrefLangs = none
     ) {
-      val sep = div(cls := "sep")
-      // val external             = frag(" ", i(dataIcon := "0"))
+      val sep                  = div(cls := "sep")
+      val external             = frag(" ", i(dataIcon := "0"))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
@@ -212,10 +213,9 @@ $('#asset-version-message').text(lishogi.info.message);"""
           sep,
           a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
           // a(activeCls("database"), href := "https://database.lishogi.org")(trans.database(), external),
-          // a(activeCls("api"), href := routes.Api.index)("API", external),
+          a(activeCls("api"), href := routes.Api.index)("API", external),
           sep,
           a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLishogiLagging())
-          // a(activeCls("ads"), href := routes.Page.ads)("Block ads")
         ),
         div(cls := s"page-menu__content $contentCls")(body)
       )

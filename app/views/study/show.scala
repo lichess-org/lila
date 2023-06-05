@@ -62,7 +62,8 @@ object show {
           url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",
           description = s"A shogi study by ${usernameOrId(s.ownerId)}"
         )
-        .some
+        .some,
+      withHrefLangs = none
     )(
       frag(
         main(cls := "analyse"),

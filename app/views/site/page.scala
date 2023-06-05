@@ -6,10 +6,15 @@ import lila.app.ui.ScalatagsTemplate._
 
 object page {
 
-  def apply(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
+  def apply(
+      doc: io.prismic.Document,
+      resolver: io.prismic.DocumentLinkResolver,
+      withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = None
+  )(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("page"),
-      title = ~doc.getText("doc.title")
+      title = ~doc.getText("doc.title"),
+      withHrefLangs = withHrefLangs
     ) {
       main(cls := "page-small box box-pad page")(
         h1(doc.getText("doc.title")),
