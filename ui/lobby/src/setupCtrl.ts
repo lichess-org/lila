@@ -135,7 +135,7 @@ export default class SetupController {
     }
   };
 
-  private savePropsToStore = () =>
+  private savePropsToStore = (override: Partial<SetupStore> = {}) =>
     this.gameType &&
     this.store[this.gameType]({
       variant: this.variant(),
@@ -148,21 +148,14 @@ export default class SetupController {
       ratingMin: this.ratingMin(),
       ratingMax: this.ratingMax(),
       aiLevel: this.aiLevel(),
+      ...override,
     });
 
   private savePropsToStoreExceptRating = () =>
     this.gameType &&
-    this.store[this.gameType]({
-      variant: this.variant(),
-      fen: this.fen(),
-      timeMode: this.timeMode(),
-      time: this.time(),
-      increment: this.increment(),
-      days: this.days(),
-      gameMode: this.gameMode(),
+    this.savePropsToStore({
       ratingMin: this.store[this.gameType]().ratingMin,
       ratingMax: this.store[this.gameType]().ratingMax,
-      aiLevel: this.aiLevel(),
     });
 
   private isProvisional = () => {
