@@ -1,5 +1,6 @@
 #tournament-calendar {
   user-select: none;
+  padding-left: 5rem;
   group {
     @extend %flex-column;
     width: 100%;
@@ -23,11 +24,11 @@
       flex: 1 1 100%;
       overflow: hidden;
       padding: 5px 0;
+      height: 2.6em;
     }
     lane {
       display: block;
       width: 100%;
-      height: 2.3em;
       position: relative;
     }
   }
