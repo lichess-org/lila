@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import LobbyController from '../../../ctrl';
 
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {
-  if (!ctrl.me || ctrl.opts.blindMode || !ctrl.data.ratingMap) return null;
+  if (!ctrl.me || lichess.blindMode || !ctrl.data.ratingMap) return null;
 
   const { trans, setupCtrl } = ctrl;
   const selectedPerf = ctrl.setupCtrl.selectedPerf();

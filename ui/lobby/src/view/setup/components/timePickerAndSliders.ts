@@ -106,7 +106,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
   const { trans, setupCtrl } = ctrl;
   return h(
     'div.time-mode-config.optional-config',
-    ctrl.opts.blindMode
+    lichess.blindMode
       ? renderBlindModeTimePickers(ctrl, allowAnonymous)
       : [
           renderTimeModePicker(ctrl, allowAnonymous),

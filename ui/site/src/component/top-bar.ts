@@ -11,8 +11,6 @@ export default function () {
       return display && display != 'none';
     };
 
-  const blindMode = document.body.classList.contains('blind-mode');
-
   // On touchscreens, clicking the top menu element expands it. There's no top link.
   // Only for $mq-topnav-hidden in ui/common/css/abstract/_media-queries.scss
   if ('ontouchstart' in window && !window.matchMedia('(max-width: 979px)').matches)
@@ -82,7 +80,7 @@ export default function () {
       else instance.update(data);
     });
 
-    if (blindMode) {
+    if (lichess.blindMode) {
       pubsub.on('top.toggle.challenge-toggle', tryFocusFirstChallenge);
     }
     pubsub.on('challenge-app.open', () => $toggle.trigger('click'));
@@ -148,7 +146,7 @@ export default function () {
       $firstNotification[0]?.focus();
     };
 
-    if (blindMode) {
+    if (lichess.blindMode) {
       pubsub.on('top.toggle.notify-toggle', tryFocusFirstNotification);
     }
     pubsub.on('socket.in.notifications', data => {
