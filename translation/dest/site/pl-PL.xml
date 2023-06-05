@@ -496,7 +496,7 @@
     <item quantity="other">%s obserwowanych</item>
   </plurals>
   <string name="more">Więcej</string>
-  <string name="memberSince">Zarejestrowany od</string>
+  <string name="memberSince">Zarejestrowano</string>
   <string name="lastSeenActive">Widziano %s</string>
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
