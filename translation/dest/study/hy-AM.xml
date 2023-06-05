@@ -63,6 +63,7 @@
   <string name="downloadAllGames">Ներբեռնել բոլոր պարտիաները</string>
   <string name="chapterPgn">Գլխի PGN-ը</string>
   <string name="copyChapterPgn">Պատճենել PGN-ը</string>
+  <string name="copyChapterPgnDescription">Պատճենել գլխի PGN-ը փոխանակման բուֆերիմ:</string>
   <string name="downloadGame">Ներբեռնել պարտիան</string>
   <string name="studyUrl">Ստուդիայի հղումը</string>
   <string name="currentChapterUrl">Այս գլխի հղումը</string>
@@ -73,6 +74,7 @@
   <string name="readMoreAboutEmbedding">Մանրամասն կայքում ներդնելու մասին</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Կայքում կարելի է ներդնել միայն հրապարակային ստուդիաները։</string>
   <string name="open">Բացել</string>
+  <string name="xBroughtToYouByY">%1$s-ը %2$s-ից</string>
   <string name="studyNotFound">Ստուդիան չի գտնվել</string>
   <string name="editChapter">Խմբագրել գլուխը</string>
   <string name="newChapter">Նոր գլուխ</string>
