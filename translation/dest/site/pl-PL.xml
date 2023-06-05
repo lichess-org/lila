@@ -496,7 +496,7 @@
     <item quantity="other">%s obserwowanych</item>
   </plurals>
   <string name="more">Więcej</string>
-  <string name="memberSince">Zarejestrowany od</string>
+  <string name="memberSince">Zarejestrowano</string>
   <string name="lastSeenActive">Widziano %s</string>
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
@@ -694,7 +694,7 @@
   <string name="error.min">Musi być dłuższe lub równe %s</string>
   <string name="error.max">Musi być krótsze lub równe %s</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
-  <string name="ifRegistered">Jeśli jesteś zarejestrowany</string>
+  <string name="ifRegistered">Tylko zarejestrowani</string>
   <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
@@ -768,8 +768,8 @@
     <item quantity="other">%1$s graczy (%2$s) w tym tygodniu.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s jest lepszy niż %2$s z %3$s graczy.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Grasz lepiej niż %1$s graczy (%2$s).</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s gra lepiej niż %2$s graczy %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>
   <string name="yourRating">Twój ranking</string>
   <string name="cumulative">Łącznie</string>

@@ -96,6 +96,7 @@ export default class AnalyseCtrl {
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
+  treeVersion = 1; // increment to recreate tree
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1,
@@ -586,12 +587,14 @@ export default class AnalyseCtrl {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
+    this.treeVersion++;
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
     this.tree.forceVariationAt(path, force);
     this.jump(path);
     if (this.study) this.study.forceVariation(path, force);
+    this.treeVersion++;
   }
 
   reset(): void {

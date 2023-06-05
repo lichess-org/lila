@@ -478,6 +478,7 @@ export default function (
       if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
       ctrl.tree.promoteAt(position.path, d.toMainline);
       if (vm.mode.sticky) ctrl.jump(ctrl.path);
+      ctrl.treeVersion++;
       redraw();
     },
     reload: xhrReload,
