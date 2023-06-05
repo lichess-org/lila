@@ -125,8 +125,8 @@ object layout:
     )
 
   private def allNotifications(using ctx: Context) =
-    val challengeTitle = trans.challenge.challengesX.pluralTxt(ctx.nbChallenges)
-    val notifTitle     = trans.notificationsX.pluralTxt(ctx.nbNotifications.value)
+    val challengeTitle = trans.challenge.challengesX.txt(ctx.nbChallenges)
+    val notifTitle     = trans.notificationsX.txt(ctx.nbNotifications.value)
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
@@ -142,10 +142,11 @@ object layout:
 </div>"""
 
   private def anonDasher(using ctx: Context) =
+    val preferences = trans.preferences.preferences.txt()
     spaceless:
       s"""<div class="dasher">
   <a class="toggle link anon">
-    <button title="${trans.preferences.preferences.txt()}" data-icon="${licon.Gear}""></button>
+    <button title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}""></button>
   </a>
   <div id="dasher_app" class="dropdown"></div>
 </div>
@@ -450,6 +451,8 @@ object layout:
       trans.pause,
       trans.resume,
       trans.nbFriendsOnline,
+      trans.challenge.challengesX,
+      trans.notificationsX,
       trans.timeago.justNow,
       trans.timeago.inNbSeconds,
       trans.timeago.inNbMinutes,
