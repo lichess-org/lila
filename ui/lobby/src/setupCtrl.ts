@@ -166,7 +166,7 @@ export default class SetupController {
     });
 
   private onPropChange = () => {
-    if (this.root.data.ratingMap && this.selectedPerf() && !!this.root.data.ratingMap[this.selectedPerf()].prov)
+    if (this.root.data.ratingMap && !!this.root.data.ratingMap[this.selectedPerf()].prov)
       this.savePropsToStoreExceptRating();
     else this.savePropsToStore();
     this.root.redraw();
@@ -175,7 +175,7 @@ export default class SetupController {
   private onVariantChange = () => {
     // Handle rating update here
     this.enforcePropRules();
-    if (this.root.data.ratingMap && this.selectedPerf() && this.root.data.ratingMap[this.selectedPerf()].prov) {
+    if (this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()].prov) {
       this.ratingMin(-500);
       this.ratingMax(500);
       this.savePropsToStoreExceptRating();
