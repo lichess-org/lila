@@ -341,7 +341,7 @@ export default function (deps?: typeof studyDeps) {
 
   const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
     h('div.analyse__moves.areplay', [
-      h('div', [
+      h(`div.areplay__v${ctrl.treeVersion}`, [
         ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
         renderTreeView(ctrl, concealOf),
         ...renderResult(ctrl),
