@@ -48,6 +48,7 @@ export const boardMenu = (ctrl: RoundController) =>
                 id: 'voice',
                 checked: ctrl.voiceMoveEnabled(),
                 change: ctrl.voiceMoveEnabled,
+                cls: 'setting--nag',
               },
               ctrl
             ),

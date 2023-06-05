@@ -187,7 +187,7 @@ function renderButtons(ctrl: RoundController) {
         });
       }),
       h(
-        'button.fbt',
+        'button.fbt.board-menu-toggle',
         {
           class: { active: ctrl.menu() },
           attrs: {

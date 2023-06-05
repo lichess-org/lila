@@ -30,6 +30,16 @@
     .switch + label {
       margin-#{$start-direction}: 1ch;
     }
+
+    &--nag {
+      > label {
+        &::after {
+          content: ' NEW';
+          color: $c-brag;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
 
