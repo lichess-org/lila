@@ -778,6 +778,7 @@
   <string name="invalidFen">Ongeldige FEN</string>
   <string name="custom">Aangepast</string>
   <string name="notifications">Meldingen</string>
+  <string name="notificationsX">Meldingen: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde om de eerste zet te spelen</item>
