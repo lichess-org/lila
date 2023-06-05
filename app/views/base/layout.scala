@@ -145,9 +145,9 @@ object layout:
     val preferences = trans.preferences.preferences.txt()
     spaceless:
       s"""<div class="dasher">
-  <a class="toggle link anon">
-    <button title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}""></button>
-  </a>
+  <button class="toggle link anon">
+    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}""></span>
+  </button>
   <div id="dasher_app" class="dropdown"></div>
 </div>
 <a href="/login?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
