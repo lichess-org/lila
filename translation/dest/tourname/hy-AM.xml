@@ -34,5 +34,14 @@
   <string name="yearlyClassical">Ամենամյա դասական շախմատ</string>
   <string name="yearlyXArena">Ամենամյա %s Արենա</string>
   <string name="yearlyX">Ամենամյա %s</string>
+  <string name="rapidShieldArena">Արագ շախմատի Վահանի Արենա</string>
+  <string name="rapidShield">Արագ շախմատի Վահան</string>
+  <string name="classicalShieldArena">Դասական շախմատի Վահանի Արենա</string>
+  <string name="classicalShield">Դասական շախմատի Վահան</string>
+  <string name="xShieldArena">%s Վահանի Արենա</string>
+  <string name="xShield">%s Վահան</string>
+  <string name="xTeamBattle">%s Միջակումբային Մրցաշար</string>
+  <string name="eliteXArena">Էլիտար %s Արենա</string>
+  <string name="eliteX">Էլիտար %s</string>
   <string name="xArena">%s Արենա</string>
 </resources>
