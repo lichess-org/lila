@@ -451,8 +451,6 @@ object layout:
       trans.pause,
       trans.resume,
       trans.nbFriendsOnline,
-      trans.challenge.challengesX,
-      trans.notificationsX,
       trans.timeago.justNow,
       trans.timeago.inNbSeconds,
       trans.timeago.inNbMinutes,

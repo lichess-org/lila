@@ -55,10 +55,8 @@ export default function () {
               if (!isVisible('#challenge-app')) $toggle.trigger('click');
             },
             setCount(nb: number) {
-              $countSpan
-                .attr('title', siteTrans('challengesX', nb))
-                .attr('aria-label', siteTrans('challengesX', nb))
-                .data('count', nb);
+              const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
+              $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
             },
             pulse() {
               $toggle.addClass('pulse');
@@ -109,10 +107,9 @@ export default function () {
           updateUnread(nb: number | 'increment') {
             const existing = ($countSpan.data('count') as number) || 0;
             if (nb == 'increment') nb = existing + 1;
-            $countSpan
-              .data('count', this.isVisible() ? 0 : nb)
-              .attr('title', siteTrans('notificationsX', nb))
-              .attr('aria-label', siteTrans('notificationsX', nb));
+            if (this.isVisible()) nb = 0;
+            const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
+            $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
             return nb && nb != existing;
           },
           show() {
