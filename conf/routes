@@ -698,7 +698,6 @@ GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.about
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
-GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /contribute                      controllers.Page.help
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
@@ -729,6 +728,3 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
-
-OPTIONS /                              controllers.Options.root
-OPTIONS /*url                          controllers.Options.all(url: String)
