@@ -160,11 +160,11 @@ export default class SetupController {
 
   private isProvisional = () => {
     const rating = this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()];
-    return rating?.prov ?? true;
+    return rating ? !!rating.prov : true;
   };
 
   private onPropChange = () => {
-    if (!this.isProvisional()) this.savePropsToStoreExceptRating();
+    if (this.isProvisional()) this.savePropsToStoreExceptRating();
     else this.savePropsToStore();
     this.root.redraw();
   };
@@ -172,16 +172,14 @@ export default class SetupController {
   private onVariantChange = () => {
     // Handle rating update here
     this.enforcePropRules();
-    if (!this.isProvisional()) {
+    if (this.isProvisional()) {
       this.ratingMin(-500);
       this.ratingMax(500);
       this.savePropsToStoreExceptRating();
     } else {
       if (this.gameType) {
-        const ratingMin = this.store[this.gameType]().ratingMin;
-        const ratingMax = this.store[this.gameType]().ratingMax;
-        this.ratingMin(ratingMin);
-        this.ratingMax(ratingMax);
+        this.ratingMin(this.store[this.gameType]().ratingMin);
+        this.ratingMax(this.store[this.gameType]().ratingMax);
       }
       this.savePropsToStore();
     }
