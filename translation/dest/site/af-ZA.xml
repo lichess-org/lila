@@ -775,6 +775,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="invalidFen">Ongeldige FEN</string>
   <string name="custom">Pasmaak</string>
   <string name="notifications">Kennisgewings</string>
+  <string name="notificationsX">Kennisgewings: %1$s</string>
   <string name="perfRatingX">Gradering: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekonde om die eerste skuif te speel</item>
