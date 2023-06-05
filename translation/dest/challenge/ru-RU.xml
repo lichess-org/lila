@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Вызовы</string>
   <string name="challengeToPlay">Вызвать на игру</string>
   <string name="challengeDeclined">Вызов отклонён</string>
   <string name="challengeAccepted">Вызов принят!</string>
