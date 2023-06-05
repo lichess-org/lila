@@ -64,19 +64,15 @@ team {
 
   .players {
     @extend %break-word;
+
+    color: $c-font-dim;
   }
 
   score {
     font-weight: bold;
-    padding: 0 1px 0 2px;
+    padding: 0 2px;
     cursor: pointer;
 
-    &:not(:first-child)::before {
-      content: '+';
-      color: $c-font-dim;
-      font-weight: normal;
-      margin-right: 2px;
-    }
     &:hover {
       color: $c-brag;
     }
