@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import { onInsert } from 'common/snabbdom';
 import { numberFormat } from 'common/number';
 import userLink from 'common/userLink';
@@ -44,7 +45,7 @@ export default function (ctrl: Ctrl) {
                 hook: onInsert(_el => lichess.refreshInsightForm()),
               },
               [
-                h('button.button.text', { attrs: { 'data-icon': '' } }, 'Update insights'),
+                h('button.button.text', { attrs: { 'data-icon': licon.Checkmark } }, 'Update insights'),
                 h(
                   'div.crunching.none',
                   {

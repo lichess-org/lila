@@ -1,3 +1,5 @@
+import * as licon from 'common/licon';
+
 interface Data {
   nb: number;
   users?: string[];
@@ -16,9 +18,9 @@ export default function watchers(element: HTMLElement) {
 
   $element.data('watched', 1);
   const $innerElement = $('<div class="chat__members__inner">').appendTo($element);
-  const $numberEl = $('<div class="chat__members__number" data-icon="" title="Spectators"></div>').appendTo(
-    $innerElement
-  );
+  const $numberEl = $(
+    `<div class="chat__members__number" data-icon="${licon.User}" title="Spectators"></div>`
+  ).appendTo($innerElement);
   const $listEl = $('<div>').appendTo($innerElement);
 
   lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));

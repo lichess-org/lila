@@ -2,9 +2,8 @@ package lila.swiss
 
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys as trans
 import lila.rating.PerfType
-import lila.user.{ Title, User }
+import lila.user.User
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import alleycats.Zero
@@ -52,7 +51,6 @@ object SwissCondition:
 
   object form:
     import play.api.data.Forms.*
-    import lila.common.Form.*
     import lila.gathering.ConditionForm.*
 
     def all =

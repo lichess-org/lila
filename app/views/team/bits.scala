@@ -57,7 +57,7 @@ object bits:
     tr(cls := "paginated")(
       td(cls := "subject")(
         a(
-          dataIcon := "",
+          dataIcon := licon.Group,
           cls := List(
             "team-name text" -> true,
             "mine"           -> isMine

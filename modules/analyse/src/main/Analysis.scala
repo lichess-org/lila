@@ -3,7 +3,7 @@ package lila.analyse
 import chess.{ Ply, Color }
 
 case class Analysis(
-    id: Analysis.ID, // game ID, or chapter ID if studyId is set
+    id: Analysis.Id, // game ID, or chapter ID if studyId is set
     studyId: Option[StudyId],
     infos: List[Info],
     startPly: Ply,
@@ -37,7 +37,9 @@ case class Analysis(
 
 object Analysis:
 
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
+
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
-  type ID         = String
   type FishnetKey = String

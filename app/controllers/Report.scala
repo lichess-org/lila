@@ -22,13 +22,13 @@ final class Report(
 
   private given Conversion[Holder, AsMod] = holder => AsMod(holder.user)
 
-  def list = Secure(_.SeeReport) { ctx ?=> me =>
+  def list = Secure(_.SeeReport) { _ ?=> me =>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
     then fuccess(Forbidden(html.site.message.streamingMod))
     else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
   }
 
-  def listWithFilter(room: String) = Secure(_.SeeReport) { ctx ?=> me =>
+  def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me =>
     env.report.modFilters.set(me, Room(room))
     if Room(room).fold(true)(Room.isGrantedFor(me))
     then renderList(me, room)
@@ -38,7 +38,7 @@ final class Report(
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(me: Holder, room: String)(implicit ctx: Context) =
+  private def renderList(me: Holder, room: String)(using Context) =
     api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) inject
@@ -108,7 +108,7 @@ final class Report(
         else if processed then userC.modZoneOrRedirect(me, inquiry.user)
         else onInquiryStart(inquiry).toFuccess
 
-  def process(id: ReportId) = SecureBody(_.SeeReport) { ctx ?=> me =>
+  def process(id: ReportId) = SecureBody(_.SeeReport) { _ ?=> me =>
     api byId id flatMap {
       _.fold(Redirect(routes.Report.list).toFuccess): inquiry =>
         inquiry.isAppeal.??(env.appeal.api.setReadById(inquiry.user)) >>
@@ -128,14 +128,14 @@ final class Report(
         _.fold(Redirect(routes.Report.list))(onInquiryStart)
   }
 
-  def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { ctx ?=> me =>
+  def currentCheatInquiry(username: UserStr) = Secure(_.CheatHunter) { _ ?=> me =>
     OptionFuResult(env.user.repo byId username): user =>
       api.currentCheatReport(lila.report.Suspect(user)) flatMapz { report =>
         api.inquiries.toggle(me, Left(report.id)).void
       }
   }
 
-  def form = Auth { ctx ?=> _ =>
+  def form = Auth { _ ?=> _ =>
     getUserStr("username") ?? env.user.repo.byId flatMap { user =>
       if (user.map(_.id) has UserModel.lichessId) Redirect(controllers.routes.Main.contact).toFuccess
       else
@@ -152,7 +152,7 @@ final class Report(
     }
   }
 
-  def create = AuthBody { ctx ?=> implicit me =>
+  def create = AuthBody { _ ?=> me =>
     env.report.forms.create
       .bindFromRequest()
       .fold(
@@ -170,7 +170,7 @@ final class Report(
       )
   }
 
-  def flag = AuthBody { ctx ?=> me =>
+  def flag = AuthBody { _ ?=> me =>
     env.report.forms.flag
       .bindFromRequest()
       .fold(

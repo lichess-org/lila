@@ -18,11 +18,10 @@ object SetupForm:
   val filter = Form(single("local" -> text))
 
   def aiFilled(fen: Option[Fen.Epd]): Form[AiConfig] =
-    ai fill fen.foldLeft(AiConfig.default) { case (config, f) =>
+    ai fill fen.foldLeft(AiConfig.default): (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
-    }
 
-  lazy val ai = Form(
+  lazy val ai = Form:
     mapping(
       "variant"   -> aiVariants,
       "timeMode"  -> timeMode,
@@ -35,50 +34,44 @@ object SetupForm:
     )(AiConfig.from)(_.>>)
       .verifying("invalidFen", _.validFen)
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
-  )
 
   def friendFilled(fen: Option[Fen.Epd])(using ctx: UserContext): Form[FriendConfig] =
-    friend(ctx) fill fen.foldLeft(FriendConfig.default) { case (config, f) =>
+    friend(ctx) fill fen.foldLeft(FriendConfig.default): (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
-    }
 
-  def friend(ctx: UserContext) =
-    Form(
-      mapping(
-        "variant"   -> variantWithFenAndVariants,
-        "timeMode"  -> timeMode,
-        "time"      -> time,
-        "increment" -> increment,
-        "days"      -> days,
-        "mode"      -> mode(withRated = ctx.isAuth),
-        "color"     -> color,
-        "fen"       -> fenField
-      )(FriendConfig.from)(_.>>)
-        .verifying("Invalid clock", _.validClock)
-        .verifying("Invalid speed", _.validSpeed(ctx.me.exists(_.isBot)))
-        .verifying("invalidFen", _.validFen)
-    )
+  def friend(ctx: UserContext) = Form:
+    mapping(
+      "variant"   -> variantWithFenAndVariants,
+      "timeMode"  -> timeMode,
+      "time"      -> time,
+      "increment" -> increment,
+      "days"      -> days,
+      "mode"      -> mode(withRated = ctx.isAuth),
+      "color"     -> color,
+      "fen"       -> fenField
+    )(FriendConfig.from)(_.>>)
+      .verifying("Invalid clock", _.validClock)
+      .verifying("Invalid speed", _.validSpeed(ctx.me.exists(_.isBot)))
+      .verifying("invalidFen", _.validFen)
 
   def hookFilled(timeModeString: Option[String])(using ctx: UserContext): Form[HookConfig] =
-    hook fill HookConfig.default(ctx.isAuth).withTimeModeString(timeModeString)
+    hook(ctx.me) fill HookConfig.default(ctx.isAuth).withTimeModeString(timeModeString)
 
-  def hook(using ctx: UserContext) =
-    Form(
-      mapping(
-        "variant"     -> variantWithVariants,
-        "timeMode"    -> timeMode,
-        "time"        -> time,
-        "increment"   -> increment,
-        "days"        -> days,
-        "mode"        -> mode(ctx.isAuth),
-        "ratingRange" -> optional(ratingRange),
-        "color"       -> color
-      )(HookConfig.from)(_.>>)
-        .verifying("Invalid clock", _.validClock)
-        .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
-    )
+  def hook(me: Option[User]) = Form:
+    mapping(
+      "variant"     -> variantWithVariants,
+      "timeMode"    -> timeMode,
+      "time"        -> time,
+      "increment"   -> increment,
+      "days"        -> days,
+      "mode"        -> mode(me.isDefined),
+      "ratingRange" -> optional(ratingRange),
+      "color"       -> color
+    )(HookConfig.from)(_.>>)
+      .verifying("Invalid clock", _.validClock)
+      .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
 
-  lazy val boardApiHook = Form(
+  lazy val boardApiHook = Form:
     mapping(
       "time"        -> optional(time),
       "increment"   -> optional(increment),
@@ -104,7 +97,6 @@ object SetupForm:
         "Invalid time control",
         hook => hook.makeClock.exists(lila.game.Game.isBoardCompatible) || hook.makeDaysPerTurn.isDefined
       )
-  )
 
   object api:
 
@@ -149,7 +141,7 @@ object SetupForm:
         .verifying("invalidFen", _.validFen)
         .verifying("can't be rated", _.validRated)
 
-    lazy val ai = Form(
+    lazy val ai = Form:
       mapping(
         "level" -> level,
         variant,
@@ -158,9 +150,8 @@ object SetupForm:
         "color" -> optional(color),
         "fen"   -> fenField
       )(ApiAiConfig.from)(_ => none).verifying("invalidFen", _.validFen)
-    )
 
-    lazy val open = Form(
+    lazy val open = Form:
       mapping(
         "name" -> optional(LilaForm.cleanNonEmptyText(maxLength = 200)),
         variant,
@@ -178,4 +169,3 @@ object SetupForm:
       )(OpenConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
-    )

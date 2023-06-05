@@ -1,3 +1,4 @@
+import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 
 lichess.load.then(() => {
@@ -43,7 +44,7 @@ lichess.load.then(() => {
     const checkDanger = () => {
       isDanger = !!form.find('.danger input:checked').length;
       submit.toggleClass('button-red confirm', isDanger);
-      submit.attr('data-icon', isDanger ? '' : '');
+      submit.attr('data-icon', isDanger ? licon.CautionTriangle : licon.Checkmark);
       submit.attr('title', isDanger ? submit.data('danger-title') : '');
     };
     checkDanger();

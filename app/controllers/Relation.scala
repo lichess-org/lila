@@ -19,18 +19,18 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   val api = env.relation.api
 
-  private def renderActions(username: UserName, mini: Boolean)(implicit ctx: Context) =
+  private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) =
     env.user.lightUserApi.asyncFallbackName(username) flatMap { user =>
       (ctx.userId ?? { api.fetchRelation(_, user.id) }) zip
         (ctx.isAuth ?? { env.pref.api followable user.id }) zip
         (ctx.userId ?? { api.fetchBlocks(user.id, _) }) flatMap { case ((relation, followable), blocked) =>
           negotiate(
-            html = fuccess(Ok {
-              if (mini)
+            html = fuccess(Ok:
+              if mini then
                 html.relation.mini(user.id, blocked = blocked, followable = followable, relation = relation)
               else
                 html.relation.actions(user, relation = relation, blocked = blocked, followable = followable)
-            }),
+            ),
             api = _ =>
               fuccess(
                 Ok(
@@ -53,9 +53,8 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   private def FollowingUser(me: UserModel, str: UserStr)(f: LightUser => Fu[Result]): Fu[Result] =
     env.user.lightUserApi.async(str.id) flatMapz { user =>
-      FollowLimitPerUser(me.id) {
+      FollowLimitPerUser(me.id, rateLimitedFu):
         f(user)
-      }(rateLimitedFu)
     }
 
   def follow(username: UserStr) = Auth { ctx ?=> me =>
@@ -73,7 +72,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def apiFollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me =>
-    FollowLimitPerUser(me.id) {
+    FollowLimitPerUser(me.id, fuccess(ApiResult.Limited)):
       api
         .reachedMaxFollowing(me.id)
         .flatMap:
@@ -83,19 +82,18 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
                 lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value).text
               )
           else api.follow(me.id, userId.id).recoverDefault inject ApiResult.Done
-    }(fuccess(ApiResult.Limited)) map apiC.toHttp
+    .map(apiC.toHttp)
   }
 
   def unfollow(username: UserStr) = Auth { ctx ?=> me =>
-    FollowingUser(me, username) { user =>
+    FollowingUser(me, username): user =>
       api.unfollow(me.id, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
-    }
   }
 
   def apiUnfollow(userId: UserStr) = Scoped(_.Follow.Write) { _ ?=> me =>
-    FollowLimitPerUser[Fu[ApiResult]](me.id) {
+    FollowLimitPerUser(me.id, fuccess(ApiResult.Limited)):
       api.unfollow(me.id, userId.id) inject ApiResult.Done
-    }(fuccess(ApiResult.Limited)) map apiC.toHttp
+    .map(apiC.toHttp)
   }
 
   def block(username: UserStr) = Auth { ctx ?=> me =>
@@ -163,14 +161,14 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(implicit ctx: Context) =
+  private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using Context) =
     Paginator(
       adapter = adapter mapFutureList followship,
       currentPage = page,
       maxPerPage = lila.common.config.MaxPerPage(30)
     )
 
-  private def followship(userIds: Seq[UserId])(implicit ctx: Context): Fu[List[Related]] =
+  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related]] =
     env.user.repo usersFromSecondary userIds flatMap { users =>
       (ctx.isAuth ?? { env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>

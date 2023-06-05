@@ -33,6 +33,7 @@
   <string name="streamerLanguageSettings">Lichess transliuotojo puslapius nukreipia jūsų auditoriją su kalba nurodyta jūsų transliacijos platformoje. Nustatykite tinkamą numatytąją kalbą savo šachmatų transliacijoms programėlėje ar platformoje iš kurios transliuojate.</string>
   <string name="twitchUsername">Jūsų Twitch vartotojo vardas ar adresas</string>
   <string name="optionalOrEmpty">Nebūtina. Palikite tuščią, jei nėra</string>
+  <string name="youTubeChannelId">Jūsų YouTube kanalo ID (channel ID)</string>
   <string name="streamerName">Jūsų transliuotojo vardas Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Pasirinkite trumpą: daugiausia %s ženklas</item>

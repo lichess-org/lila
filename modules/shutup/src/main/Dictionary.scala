@@ -7,6 +7,7 @@ package lila.shutup
 private object Dictionary:
 
   def en = dict("""
+(burn|die) in hell
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
 (f|ph)agg?([oi]t|)
 (kill|hang|neck) my ?self
@@ -31,6 +32,7 @@ blumpkin
 bollock
 boner
 boob
+bozo
 braindea?d
 bugger
 buk?kake
@@ -71,7 +73,7 @@ honkey
 hooker
 horny
 humping
-idiot
+[iİ]diot
 incest
 jerk
 jizz?(um|)
@@ -129,6 +131,7 @@ shagg?(e?d|)
 shemale
 shit(z|e|y|ty|bag|)
 sissy
+skank
 slag
 slave
 slut
@@ -243,6 +246,7 @@ ching(ue|a)
 chupame
 cobarde
 est[úu]pid[ao]
+gilipollas
 hdp
 hijo de put\w*
 idiota
@@ -309,11 +313,12 @@ schlampe
 schwanzlutscher
 schwuchtel
 trottel
+untermensch
 wichser
 """)
 
   def tr = dict("""
-am[iı]na (koyay[iı]m|koy?dum)
+am[iı]na ((koyay[iı]m|koy?dum)|(sokay[iı]m)|([cç]akay[iı]m))
 amc[iı]k
 anan[iı]n am[iı]
 ((ann?an[iı](z[iı])?)|(kar[iı]n[iı](z[iı])?)|(avrad[iı]n[iı](z[iı])?)) (s[ii̇]k[ei](yim|cem|rim|m))
@@ -330,7 +335,7 @@ oç+
 piç(lik)?
 pu[sş]t
 salak
-s[ii̇]k[ei](yim|cem|rim|m)
+s[ii̇]k[ei](yim|cem|rim|m|k)
 sikiyonuz
 s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz
@@ -345,8 +350,10 @@ cancer
 g?kys
 k y s
 ky5
+(l|1|ı|\|)<ys
 nigg?[ae]r
 rap(ed?|e?ing)
+subhuman
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)

@@ -24,12 +24,12 @@ object topic:
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
+            a(href := routes.ForumCateg.show(categ.slug), dataIcon := licon.LessThan, cls := "text"),
             categ.name
           )
         ),
         st.section(cls := "warning")(
-          h2(dataIcon := "", cls := "text")(trans.important()),
+          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.important()),
           p(
             trans.yourQuestionMayHaveBeenAnswered(
               strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
@@ -63,7 +63,7 @@ object topic:
               form3.submit(
                 frag("Create as a mod"),
                 nameValue = (form("post")("modIcon").name, "true").some,
-                icon = "".some
+                icon = licon.Agent.some
               ),
             form3.submit(trans.createTheTopic())
           )
@@ -106,7 +106,7 @@ object topic:
               href := topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}") { id =>
                 routes.Ublog.redirect(id).url
               },
-              dataIcon := "",
+              dataIcon := licon.LessThan,
               cls      := "text"
             ),
             topic.name
@@ -150,10 +150,10 @@ object topic:
                 cls    := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
-                button(cls := "button button-empty text on", dataIcon := "", bits.dataUnsub := "off")(
+                button(cls := "button button-empty text on", dataIcon := licon.Eye, bits.dataUnsub := "off")(
                   trans.subscribe()
                 ),
-                button(cls := "button button-empty text off", dataIcon := "", bits.dataUnsub := "on")(
+                button(cls := "button button-empty text off", dataIcon := licon.Eye, bits.dataUnsub := "on")(
                   trans.unsubscribe()
                 )
               )
@@ -182,7 +182,11 @@ object topic:
             form3.group(
               form("text"),
               trans.message(),
-              help = a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("forum-etiquette"))(
+              help = a(
+                dataIcon := licon.InfoCircle,
+                cls      := "text",
+                href     := routes.Page.loneBookmark("forum-etiquette")
+              )(
                 "Forum etiquette"
               ).some
             ) { f =>
@@ -195,7 +199,7 @@ object topic:
                 form3.submit(
                   frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).?? { "(anonymously)" }}"),
                   nameValue = (form("modIcon").name, "true").some,
-                  icon = "".some
+                  icon = licon.Agent.some
                 ),
               form3.submit(trans.reply())
             )

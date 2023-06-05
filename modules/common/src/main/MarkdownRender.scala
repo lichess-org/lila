@@ -33,6 +33,7 @@ import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
 import chess.format.pgn.PgnStr
+import lila.common.config.AssetDomain
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -42,7 +43,8 @@ final class MarkdownRender(
     blockQuote: Boolean = false,
     list: Boolean = false,
     code: Boolean = false,
-    gameExpand: Option[MarkdownRender.GameExpand] = None
+    gameExpand: Option[MarkdownRender.GameExpand] = None,
+    assetDomain: Option[AssetDomain] = None
 ):
 
   private val extensions = java.util.ArrayList[Extension]()
@@ -52,7 +54,7 @@ final class MarkdownRender(
   if (strikeThrough) extensions.add(StrikethroughExtension.create())
   if (autoLink)
     extensions.add(AutolinkExtension.create())
-    extensions.add(MarkdownRender.WhitelistedImage.extension)
+    extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
   extensions.add(
     gameExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.GameEmbedExtension(_) }
   )
@@ -112,19 +114,7 @@ object MarkdownRender:
 
   private object WhitelistedImage:
 
-    val extension = new HtmlRenderer.HtmlRendererExtension:
-      override def rendererOptions(options: MutableDataHolder) = ()
-      override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
-        htmlRendererBuilder
-          .nodeRendererFactory(new NodeRendererFactory {
-            override def apply(options: DataHolder) = renderer
-          })
-
-    private val renderer = new NodeRenderer:
-      override def getNodeRenderingHandlers() =
-        java.util.HashSet(Arrays.asList(NodeRenderingHandler(classOf[Image], render _)))
-
-    private val whitelist =
+    private val whitelist = AssetDomain.from:
       List(
         "imgur.com",
         "giphy.com",
@@ -140,44 +130,54 @@ object MarkdownRender:
         "i.ibb.co",
         "i.postimg.cc",
         "xkcd.com",
-        "lichess1.org",
         "images.prismic.io"
       )
-    private def whitelistedSrc(src: String): Option[String] = for
+
+    private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
       url <- Try(URL.parse(src)).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
-      if whitelist.exists(h => host == h || host.endsWith(s".$h"))
+      if (assetDomain.toList ::: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))
     yield url.toString
 
-    private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
-      // Based on implementation in CoreNodeRenderer.
-      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
-        context.renderChildren(node)
-      else
-        {
-          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-          val url          = resolvedLink.getUrl()
-          val altText      = new TextCollectingVisitor().collectAndGetText(node)
-          whitelistedSrc(url) match
-            case Some(src) =>
-              html
-                .srcPos(node.getChars())
-                .attr("src", src)
-                .attr("alt", altText)
-                .attr(resolvedLink.getNonNullAttributes())
-                .withAttr(resolvedLink)
-                .tagVoid("img")
-            case None =>
-              html
-                .srcPos(node.getChars())
-                .attr("href", url)
-                .attr("rel", rel)
-                .withAttr(resolvedLink)
-                .tag("a")
-                .text(altText)
-                .tag("/a")
-        }.unit
+    def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
+      override def rendererOptions(options: MutableDataHolder) = ()
+      override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+        htmlRendererBuilder
+          .nodeRendererFactory(new NodeRendererFactory {
+            override def apply(options: DataHolder) = new NodeRenderer:
+              override def getNodeRenderingHandlers() =
+                Set(NodeRenderingHandler(classOf[Image], render _)).asJava
+          })
+
+      private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
+        // Based on implementation in CoreNodeRenderer.
+        if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
+          context.renderChildren(node)
+        else
+          {
+            val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+            val url          = resolvedLink.getUrl()
+            val altText      = new TextCollectingVisitor().collectAndGetText(node)
+            whitelistedSrc(url, assetDomain) match
+              case Some(src) =>
+                html
+                  .srcPos(node.getChars())
+                  .attr("src", src)
+                  .attr("alt", altText)
+                  .attr(resolvedLink.getNonNullAttributes())
+                  .withAttr(resolvedLink)
+                  .tagVoid("img")
+              case None =>
+                html
+                  .srcPos(node.getChars())
+                  .attr("href", url)
+                  .attr("rel", rel)
+                  .withAttr(resolvedLink)
+                  .tag("a")
+                  .text(altText)
+                  .tag("/a")
+          }.unit
 
   private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
@@ -252,7 +252,7 @@ object MarkdownRender:
         .attr("data-pgn", pgn.value)
         .attr("data-orientation", Option(color) | "white")
         .attr("data-ply", Option(ply) | "")
-        .attr("class", "lpv--autostart")
+        .attr("class", "lpv--autostart is2d")
         .srcPos(node.getChars())
         .withAttr(link)
         .tag("div")

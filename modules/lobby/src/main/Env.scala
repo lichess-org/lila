@@ -40,9 +40,8 @@ final class Env(
   private lazy val lobbySyncActor = LobbySyncActor.start(
     broomPeriod = 2 seconds,
     resyncIdsPeriod = 25 seconds
-  ) { () =>
+  ): () =>
     wire[LobbySyncActor]
-  }
 
   private lazy val abortListener = wire[AbortListener]
 

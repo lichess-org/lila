@@ -22,7 +22,7 @@ object home:
         renderList(trans.swiss.startingSoon.txt())(featured.created),
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
-            iconTag(""),
+            iconTag(licon.InfoCircle),
             p(
               trans.swiss.swissDescription(
                 a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
@@ -30,7 +30,7 @@ object home:
             )
           ),
           div(cls := "team")(
-            iconTag(""),
+            iconTag(licon.Group),
             p(
               trans.swiss.teamOnly(
                 a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
@@ -49,7 +49,7 @@ object home:
       tbody(
         swisses map { s =>
           tr(
-            td(cls := "icon")(iconTag(bits.iconChar(s))),
+            td(cls := "icon")(iconTag(s.perfType.icon)),
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
@@ -73,7 +73,7 @@ object home:
             td(
               momentFromNow(s.startsAt),
               br,
-              span(cls := "players text", dataIcon := "")(s.nbPlayers.localize)
+              span(cls := "players text", dataIcon := licon.User)(s.nbPlayers.localize)
             )
           )
         }

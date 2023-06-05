@@ -12,7 +12,7 @@ object picture:
 
   import trans.streamer.*
 
-  def apply(s: Streamer.WithContext, error: Option[String] = None)(implicit ctx: Context) =
+  def apply(s: Streamer.WithContext, error: Option[String] = None)(using Context) =
     views.html.base.layout(
       title = xStreamerPicture.txt(s.user.username),
       moreJs = embedJsUnsafeLoadThen("""
@@ -37,7 +37,7 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
             submitButton(cls := "button")(uploadPicture())
           ),
           div(cls := "cancel")(
-            a(href := routes.Streamer.edit, cls := "text", dataIcon := "")(trans.cancel())
+            a(href := routes.Streamer.edit, cls := "text", dataIcon := licon.LessThan)(trans.cancel())
           )
         )
       )

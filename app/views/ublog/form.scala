@@ -47,10 +47,10 @@ object form:
           standardFlash,
           boxTop(
             h1(
-              if (ctx isUserId post.created.by) trans.ublog.editYourBlogPost()
+              if ctx is post.created.by then trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
             ),
-            a(href := postView.urlOfPost(post), dataIcon := "", cls := "text", targetBlank)("Preview")
+            a(href := postView.urlOfPost(post), dataIcon := licon.Eye, cls := "text", targetBlank)("Preview")
           ),
           imageForm(post),
           inner(f, Right(post), none),
@@ -78,7 +78,7 @@ object form:
       form3.split(
         div(cls := "form-group form-half")(formImage(post)),
         div(cls := "form-group form-half")(
-          if (ctx isUserId post.created.by)
+          if ctx is post.created.by then
             frag(
               p(trans.ublog.uploadAnImageForYourPost()),
               p(
@@ -103,9 +103,8 @@ object form:
               form3.file.image("image")
             )
           else
-            post.image.isDefined option submitButton(cls := "button button-red confirm")(
+            post.image.isDefined option submitButton(cls := "button button-red confirm"):
               trans.ublog.deleteImage()
-            )
         )
       )
     )
@@ -113,8 +112,8 @@ object form:
   def formImage(post: UblogPost) =
     postView.thumbnail(post, _.Small)(cls := post.image.isDefined.option("user-image"))
 
-  private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(
-      implicit ctx: Context
+  private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(using
+      Context
   ) =
     postForm(
       cls    := "form3 ublog-post-form__main",
@@ -142,7 +141,7 @@ object form:
       ) { field =>
         frag(
           form3.textarea(field)(),
-          div(id := "markdown-editor")
+          div(id := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
         )
       },
       post.toOption match {
@@ -200,7 +199,7 @@ object form:
     p(trans.ublog.inappropriateContentAccountClosed()),
     p(
       a(
-        dataIcon := "",
+        dataIcon := licon.InfoCircle,
         href     := routes.Page.loneBookmark("blog-etiquette"),
         cls      := "text",
         targetBlank
@@ -210,7 +209,7 @@ object form:
   )
 
   def tips(implicit ctx: Context) = a(
-    dataIcon := "",
+    dataIcon := licon.InfoCircle,
     href     := routes.Page.loneBookmark("blog-tips"),
     cls      := "text",
     targetBlank

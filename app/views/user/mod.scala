@@ -207,7 +207,7 @@ object mod:
             name        := "email",
             placeholder := "Email address"
           ),
-          submitButton(cls := "button", dataIcon := "")
+          submitButton(cls := "button", dataIcon := licon.Checkmark)
         ),
         emails.previous.map { email =>
           s"Previously $email"
@@ -242,14 +242,14 @@ object mod:
         )
       ),
       mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := "")("Notable preferences"),
+        strong(cls := "text inline", dataIcon := licon.Gear)("Notable preferences"),
         ul(
           pref.hasKeyboardMove option li("keyboard moves"),
           pref.botCompatible option li(
             strong(
               a(
                 cls      := "text",
-                dataIcon := "",
+                dataIcon := licon.CautionCircle,
                 href := lila.common.String.base64
                   .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
               )("BOT-COMPATIBLE SETTINGS")
@@ -312,7 +312,7 @@ object mod:
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Lang) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(
-        strong(cls := "text", dataIcon := "")(
+        strong(cls := "text", dataIcon := licon.CautionTriangle)(
           "Moderation history",
           history.isEmpty option ": nothing to show"
         ),
@@ -341,7 +341,7 @@ object mod:
         frag(
           div(cls := "mod_log mod_log--appeal")(
             st.a(href := appealRoutes.Appeal.show(a.id))(
-              strong(cls := "text", dataIcon := "")(
+              strong(cls := "text", dataIcon := licon.CautionTriangle)(
                 "Appeal status: ",
                 a.status.toString
               )
@@ -359,7 +359,7 @@ object mod:
   def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Lang): Frag =
     mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
-        strong(cls := "text", dataIcon := "")(
+        strong(cls := "text", dataIcon := licon.CautionTriangle)(
           s"Reports sent by ${u.username}",
           reports.by.isEmpty option ": nothing to show."
         ),
@@ -378,7 +378,7 @@ object mod:
         }
       ),
       div(cls := "mz_reports mz_reports--in")(
-        strong(cls := "text", dataIcon := "")(
+        strong(cls := "text", dataIcon := licon.CautionTriangle)(
           s"Reports concerning ${u.username}",
           reports.about.isEmpty option ": nothing to show."
         ),
@@ -406,7 +406,7 @@ object mod:
   def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using Context): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
-        p(cls := "text", dataIcon := "")(
+        p(cls := "text", dataIcon := licon.CautionCircle)(
           "ACPL in games with blurs is ",
           strong(blursYes._1),
           " [",
@@ -428,7 +428,7 @@ object mod:
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
-        p(cls := "text", dataIcon := "")(
+        p(cls := "text", dataIcon := licon.CautionCircle)(
           "ACPL in games with consistent move times is ",
           strong(lowVar._1),
           " [",
@@ -450,7 +450,7 @@ object mod:
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
-        p(cls := "text", dataIcon := "")(
+        p(cls := "text", dataIcon := licon.CautionCircle)(
           "ACPL in games with bot signature ",
           strong(holdYes._1),
           " [",
@@ -500,32 +500,32 @@ object mod:
                 td(
                   pag.pov(result).map { p =>
                     a(href := routes.Round.watcher(p.gameId, p.color.name))(
-                      p.game.isTournament option iconTag(""),
+                      p.game.isTournament option iconTag(licon.Trophy),
                       p.game.perfType.map { pt =>
-                        iconTag(pt.iconChar)(cls := "text")
+                        iconTag(pt.icon)(cls := "text")
                       },
                       shortClockName(p.game.clock.map(_.config))
                     )
                   }
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := ""),
+                  span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := licon.DiscBig),
                   s" ${result.analysis}"
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := ""),
+                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := licon.DiscBig),
                   s" ${result.basics.moveTimes / 10}",
                   result.basics.mtStreak ?? frag(br, "streak")
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := ""),
+                  span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := licon.DiscBig),
                   s" ${result.basics.blurs}%",
                   result.basics.blurStreak.filter(8.<=) map { s =>
                     frag(br, s"streak $s/12")
                   }
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := ""),
+                  span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := licon.DiscBig),
                   if (result.basics.hold) "Yes" else "No"
                 ),
                 td(
@@ -549,15 +549,15 @@ object mod:
   private val sortNumberTh    = th(attr("data-sort-method") := "number")
   private val dataSort        = attr("data-sort")
   private val dataTags        = attr("data-tags")
-  private val playban         = iconTag("")
+  private val playban         = iconTag(licon.Clock)
   private val alt: Frag       = i("A")
-  private val shadowban: Frag = iconTag("")
-  private val boosting: Frag  = iconTag("")
-  private val engine: Frag    = iconTag("")
-  private val closed: Frag    = iconTag("")
-  private val clean: Frag     = iconTag("")
-  private val reportban       = iconTag("")
-  private val notesText       = iconTag("")
+  private val shadowban: Frag = iconTag(licon.BubbleSpeech)
+  private val boosting: Frag  = iconTag(licon.LineGraph)
+  private val engine: Frag    = iconTag(licon.Cogs)
+  private val closed: Frag    = iconTag(licon.NotAllowed)
+  private val clean: Frag     = iconTag(licon.User)
+  private val reportban       = iconTag(licon.CautionTriangle)
+  private val notesText       = iconTag(licon.Pencil)
   private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
     if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
@@ -582,15 +582,15 @@ object mod:
             isGranted(_.Admin) option th("Email"),
             sortNumberTh(dataSortDefault)("Same"),
             th("Games"),
-            sortNumberTh(playban)(cls      := "i", title := "Playban"),
-            sortNumberTh(alt)(cls          := "i", title := "Alt"),
-            sortNumberTh(shadowban)(cls    := "i", title := "Shadowban"),
-            sortNumberTh(boosting)(cls     := "i", title := "Boosting"),
-            sortNumberTh(engine)(cls       := "i", title := "Engine"),
-            sortNumberTh(closed)(cls       := "i", title := "Closed"),
-            sortNumberTh(reportban)(cls    := "i", title := "Reportban"),
-            sortNumberTh(notesText)(cls    := "i", title := "Notes"),
-            sortNumberTh(iconTag(""))(cls := "i", title := "Appeals"),
+            sortNumberTh(playban)(cls                 := "i", title := "Playban"),
+            sortNumberTh(alt)(cls                     := "i", title := "Alt"),
+            sortNumberTh(shadowban)(cls               := "i", title := "Shadowban"),
+            sortNumberTh(boosting)(cls                := "i", title := "Boosting"),
+            sortNumberTh(engine)(cls                  := "i", title := "Engine"),
+            sortNumberTh(closed)(cls                  := "i", title := "Closed"),
+            sortNumberTh(reportban)(cls               := "i", title := "Reportban"),
+            sortNumberTh(notesText)(cls               := "i", title := "Notes"),
+            sortNumberTh(iconTag(licon.InkQuill))(cls := "i", title := "Appeals"),
             sortNumberTh("Created"),
             sortNumberTh("Active"),
             isGranted(_.CloseAccount) option th
@@ -648,7 +648,7 @@ object mod:
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted
                       ),
-                      dataIcon := "",
+                      dataIcon := licon.InkQuill,
                       title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted ?? " [MUTED]"}"
                     )(appeal.msgs.size)
                   )

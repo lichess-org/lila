@@ -22,7 +22,7 @@ object search:
         autocomplete   := "off",
         spellcheck     := "false"
       ),
-      submitButton(cls := "button", dataIcon := "")
+      submitButton(cls := "button", dataIcon := licon.Search)
     )
 
   def resultsList(results: List[OpeningSearchResult]) =

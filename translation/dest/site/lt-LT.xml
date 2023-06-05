@@ -97,6 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" su apvalinimu remiantis pusėjimių iki kito kirtimo ar pėstininko ėjimo skaičiumi</string>
   <string name="noGameFound">Partijų nerasta</string>
+  <string name="maxDepthReached">Pasiektas didžiausias gylis!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openings">Debiutai</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
@@ -123,6 +124,7 @@
   <string name="memory">Atmintinė</string>
   <string name="infiniteAnalysis">Neribota analizė</string>
   <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
+  <string name="engineManager">Variklių valdymas</string>
   <string name="blunder">Šiurkšti klaida</string>
   <string name="mistake">Klaida</string>
   <string name="inaccuracy">Netikslumas</string>
@@ -164,6 +166,12 @@
     <item quantity="few">%s partijos</item>
     <item quantity="many">%s partijų</item>
     <item quantity="other">%s partijų</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s reitingas per %2$s partiją</item>
+    <item quantity="few">%1$s reitingas per %2$s partijas</item>
+    <item quantity="many">%1$s reitingas per %2$s partijos</item>
+    <item quantity="other">%1$s reitingas per %2$s partijų</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s įrašas</item>
@@ -386,6 +394,7 @@
   </plurals>
   <string name="viewTournament">Stebėti turnyrą</string>
   <string name="backToTournament">Grįžti į turnyrą</string>
+  <string name="noDrawBeforeSwissLimit">Šveicariškame turnyre negalite skelbti lygiųjų neatlikę bent 30 ėjimų.</string>
   <string name="thematic">Tematinis</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s vertinama partija</item>
@@ -946,6 +955,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="useTheReportForm">naudokitės skundų forma</string>
   <string name="toRequestSupport">Norėdami gauti pagalbos, %1$s</string>
   <string name="tryTheContactPage">aplankykite kontaktų skiltį</string>
+  <string name="makeSureToRead">Įsitikinkite, kad perskaitėte %1$s</string>
+  <string name="theForumEtiquette">forumo etiketą</string>
   <string name="thisTopicIsArchived">Ši tema yra suarchyvuota, tad nauji atsakymai negalimi.</string>
   <string name="joinTheTeamXToPost">Norėdami rašyti šiame forume, prisijunkite prie „%1$s“</string>
   <string name="teamNamedX">%1$s komanda</string>

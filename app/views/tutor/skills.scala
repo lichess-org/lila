@@ -3,7 +3,7 @@ package views.html.tutor
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment.given
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorPerfReport
 import lila.insight.InsightPosition
@@ -15,7 +15,11 @@ object skills:
       cls := "tutor__skills box",
       boxTop(
         h1(
-          a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          a(
+            href     := routes.Tutor.perf(user.username, report.perf.key),
+            dataIcon := licon.LessThan,
+            cls      := "text"
+          ),
           bits.otherUser(user),
           report.perf.trans,
           " skills"

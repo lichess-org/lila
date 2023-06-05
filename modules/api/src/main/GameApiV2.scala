@@ -40,7 +40,7 @@ final class GameApiV2(
     game.pgnImport ifTrue config.imported match
       case Some(imported) => fuccess(imported.pgn.value)
       case None =>
-        for {
+        for
           realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
           (game, initialFen, analysis) <- enrich(config.flags)(game)
           formatted <- config.format match
@@ -54,12 +54,12 @@ final class GameApiV2(
                 config.flags,
                 realPlayers = realPlayers
               ).dmap(annotator.toPgnString)
-        } yield formatted
+        yield formatted
 
   private val fileR = """[\s,]""".r
 
   def filename(game: Game, format: Format): Fu[String] =
-    gameLightUsers(game) map { case (wu, bu) =>
+    gameLightUsers(game).map: (wu, bu) =>
       fileR.replaceAllIn(
         "lichess_pgn_%s_%s_vs_%s.%s.%s".format(
           Tag.UTCDate.format.print(game.createdAt),
@@ -70,7 +70,6 @@ final class GameApiV2(
         ),
         "_"
       )
-    }
 
   def filename(tour: Tournament, format: Format): String =
     filename(tour, format.toString.toLowerCase)
@@ -101,7 +100,7 @@ final class GameApiV2(
     )
 
   def exportByUser(config: ByUserConfig): Source[String, ?] =
-    Source futureSource {
+    Source.futureSource:
       config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
         val playerSelect =
           if (config.finished)
@@ -126,10 +125,9 @@ final class GameApiV2(
           .via(preparationFlow(config, realPlayers))
           .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
       }
-    }
 
   def exportByIds(config: ByIdsConfig): Source[String, ?] =
-    Source futureSource {
+    Source.futureSource:
       config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
         gameRepo
           .sortedCursor(
@@ -142,7 +140,6 @@ final class GameApiV2(
           .via(upgradeOngoingGame)
           .via(preparationFlow(config, realPlayers))
       }
-    }
 
   def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[UserId]): Source[String, ?] =
     pairingRepo
@@ -153,7 +150,7 @@ final class GameApiV2(
       )
       .documentSource()
       .grouped(30)
-      .mapAsync(1) { pairings =>
+      .mapAsync(1): pairings =>
         config.tour.isTeamBattle.?? {
           playerRepo.teamsOfPlayers(config.tour.id, pairings.flatMap(_.users).distinct).dmap(_.toMap)
         } flatMap { playerTeams =>
@@ -171,12 +168,10 @@ final class GameApiV2(
             }
           }
         }
-      }
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1 second)
-      .mapAsync(4) { case (game, pairing, teams) =>
+      .mapAsync(4): (game, pairing, teams) =>
         enrich(config.flags)(game) dmap { (_, pairing, teams) }
-      }
       .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
         config.format match
           case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
@@ -206,14 +201,12 @@ final class GameApiV2(
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1 second)
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { (game, fen, analysis) =>
+      .mapAsync(4): (game, fen, analysis) =>
         config.format match
           case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, none, none)
           case Format.JSON =>
-            toJson(game, fen, analysis, config.flags, None) dmap { json =>
+            toJson(game, fen, analysis, config.flags, None).dmap: json =>
               s"${Json.stringify(json)}\n"
-            }
-      }
 
   def exportUserImportedGames(user: User): Source[PgnStr, ?] =
     gameRepo
@@ -228,9 +221,8 @@ final class GameApiV2(
   private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
       .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { (game, fen, analysis) =>
+      .mapAsync(4): (game, fen, analysis) =>
         formatterFor(config)(game, fen, analysis, None, realPlayers)
-      }
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
@@ -257,9 +249,8 @@ final class GameApiV2(
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
     ) =>
-      toJson(game, initialFen, analysis, flags, teams, realPlayers) dmap { json =>
+      toJson(game, initialFen, analysis, flags, teams, realPlayers).dmap: json =>
         s"${Json.stringify(json)}\n"
-      }
 
   private def toJson(
       g: Game,
@@ -276,7 +267,7 @@ final class GameApiV2(
         .dmap(annotator.toPgnString)
         .dmap(some)
     accuracy = analysisOption.ifTrue(withFlags.accuracy).flatMap {
-      AccuracyPercent.gameAccuracy(g.startedAtPly.color, _)
+      AccuracyPercent.gameAccuracy(g.startedAtPly.turn, _)
     }
   yield Json
     .obj(
@@ -313,13 +304,12 @@ final class GameApiV2(
     .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
     .add("tournament" -> g.tournamentId)
     .add("swiss" -> g.swissId)
-    .add("clock" -> g.clock.map { clock =>
+    .add("clock" -> g.clock.map: clock =>
       Json.obj(
         "initial"   -> clock.limitSeconds,
         "increment" -> clock.incrementSeconds,
         "totalTime" -> clock.estimateTotalSeconds
-      )
-    })
+      ))
     .add("lastFen" -> withFlags.lastFen.option(Fen.write(g.chess.situation)))
 
   private def gameLightUsers(game: Game): Fu[PairOf[Option[LightUser]]] =

@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.api.Context
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 
 object index:
@@ -54,7 +54,10 @@ object index:
               }
             )
           ),
-          !requests option bits.subscribeButtonFor(s)
+          div(cls := "streamer-footer")(
+            !requests option bits.subscribeButtonFor(s),
+            bits.streamerProfile(s)
+          )
         )
       )
 
@@ -64,9 +67,9 @@ object index:
       moreJs = frag(infiniteScrollTag, jsModule("streamer"))
     ) {
       main(cls := "page-menu")(
-        bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
+        bits.menu(if (requests) "requests" else "index", none)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
-          boxTop(h1(dataIcon := "", cls := "text")(title)),
+          boxTop(h1(dataIcon := licon.Mic, cls := "text")(title)),
           !requests option div(cls := "list force-ltr live")(
             live.map { s =>
               st.article(cls := "streamer")(widget(s, s.stream))

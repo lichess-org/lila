@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { Redraw, Close, bind, header } from './util';
 import debounce from 'common/debounce';
+import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 
 export interface BoardCtrl {
@@ -63,7 +64,7 @@ export function view(ctrl: BoardCtrl): VNode {
         'button.text',
         {
           class: { active: !ctrl.data.is3d },
-          attrs: { 'data-icon': '', type: 'button' },
+          attrs: { 'data-icon': licon.Checkmark, type: 'button' },
           hook: bind('click', () => ctrl.setIs3d(false)),
         },
         '2D'
@@ -72,7 +73,7 @@ export function view(ctrl: BoardCtrl): VNode {
         'button.text',
         {
           class: { active: ctrl.data.is3d },
-          attrs: { 'data-icon': '', type: 'button' },
+          attrs: { 'data-icon': licon.Checkmark, type: 'button' },
           hook: bind('click', () => ctrl.setIs3d(true)),
         },
         '3D'

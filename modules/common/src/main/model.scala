@@ -10,6 +10,7 @@ import ornicar.scalalib.SecureRandom
 opaque type ApiVersion = Int
 object ApiVersion extends OpaqueInt[ApiVersion]:
   def puzzleV2(v: ApiVersion) = v >= 6
+  val mobile: ApiVersion      = 100
 
 opaque type AssetVersion = String
 object AssetVersion extends OpaqueString[AssetVersion]:

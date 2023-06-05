@@ -172,6 +172,6 @@ object dashboard:
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
         ),
-        iconTag(if (results.canReplay) '' else '')
+        iconTag(if (results.canReplay) licon.PlayTriangle else licon.Checkmark)
       )
     )

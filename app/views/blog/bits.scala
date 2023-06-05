@@ -49,13 +49,13 @@ object bits:
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>
-          span(cls := "text", dataIcon := "")(semanticDate(date.value))
+          span(cls := "text", dataIcon := licon.Clock)(semanticDate(date.value))
         },
         doc.getText("blog.author").map { author =>
-          span(cls := "text", dataIcon := "")(richText(author))
+          span(cls := "text", dataIcon := licon.User)(richText(author))
         },
         doc.getText("blog.category").map { categ =>
-          span(cls := "text", dataIcon := "")(categ)
+          span(cls := "text", dataIcon := licon.Star)(categ)
         }
       ),
       strong(cls := "headline")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw))

@@ -24,6 +24,7 @@ object show:
       moreCss = frag(
         cssTag("puzzle"),
         ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
+        ctx.pref.hasVoice option cssTag("voice"),
         ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(

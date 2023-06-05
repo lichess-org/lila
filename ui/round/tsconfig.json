@@ -8,6 +8,7 @@
     { "path": "../common/tsconfig.json" },
     { "path": "../game/tsconfig.json" },
     { "path": "../keyboardMove/tsconfig.json" },
+    { "path": "../voice/tsconfig.json" },
     { "path": "../nvui/tsconfig.json" }
   ]
 }

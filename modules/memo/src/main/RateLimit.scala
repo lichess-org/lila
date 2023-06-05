@@ -1,5 +1,7 @@
 package lila.memo
 
+import alleycats.Zero
+
 /** Throttler that allows X operations per Y unit of time Not thread safe
   */
 final class RateLimit[K](
@@ -20,13 +22,14 @@ final class RateLimit[K](
   private lazy val logger  = lila.log("ratelimit").branch(key)
   private lazy val monitor = lila.mon.security.rateLimit(key)
 
-  def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
+  def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(
       op: ChargeWith => A
-  )(default: => A): A =
-    apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
+  ): A =
+    apply(k, default, cost, msg):
+      op(c => apply(k, {}, c, s"charge: $msg") {})
 
-  def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A =
-    if (cost < 1) op
+  def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A =
+    if cost < 1 then op
     else
       storage getIfPresent k match
         case None =>
@@ -39,11 +42,14 @@ final class RateLimit[K](
           storage.put(k, cost -> makeClearAt)
           op
         case _ if enforce =>
-          if (log) logger.info(s"$credits/$duration $k cost: $cost $msg")
+          if log then logger.info(s"$credits/$duration $k cost: $cost $msg")
           monitor.increment()
           default
         case _ =>
           op
+
+  def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
+    apply[A](k, default.zero, cost, msg)(op)
 
 object RateLimit:
 
@@ -56,9 +62,9 @@ object RateLimit:
 
   trait RateLimiter[K]:
 
-    def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A
+    def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
 
-    def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A)(default: => A): A
+    def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
 
   def composite[K](
       key: String,
@@ -78,14 +84,15 @@ object RateLimit:
 
     new RateLimiter[K]:
 
-      def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A =
+      def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A =
         val accepted = limiters.foldLeft(true) {
-          case (true, limiter) => limiter(k, cost, msg)(true)(false)
+          case (true, limiter) => limiter(k, false, cost, msg)(true)
           case (false, _)      => false
         }
-        if (accepted) op else default
+        if accepted then op else default
 
-      def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A)(default: => A): A =
-        apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
+      def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A =
+        apply(k, default, cost, msg):
+          op(c => apply(k, default, c, s"charge: $msg") {})
 
   private type ClearAt = Long

@@ -1,4 +1,5 @@
 import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
+import * as licon from 'common/licon';
 import { dataIcon, onInsert, bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
@@ -15,7 +16,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
   h(
     'div.infos.puzzle',
     {
-      attrs: dataIcon(''),
+      attrs: dataIcon(licon.ArcheryTarget),
     },
     [
       h('div', [
@@ -102,7 +103,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
           h(
             'h1.text',
             {
-              attrs: dataIcon(''),
+              attrs: dataIcon(licon.ArrowThruApple),
             },
             'Puzzle Streak'
           ),
@@ -111,7 +112,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
       : h(
           'div.puzzle__side__streak__score.text',
           {
-            attrs: dataIcon(''),
+            attrs: dataIcon(licon.ArrowThruApple),
           },
           streak.data.index
         )

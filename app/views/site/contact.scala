@@ -140,7 +140,9 @@ object contact:
               "."
             ),
             p(
-              youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := ""))
+              youCanAlsoReachReportPage(
+                button(cls := "thin button button-empty", dataIcon := licon.CautionTriangle)
+              )
             ),
             p(
               doNotMessageModerators(),

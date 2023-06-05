@@ -74,7 +74,7 @@ object home:
           div(cls := "scheduled")(
             scheduled.map { tour =>
               tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>
-                a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
+                a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIcon(tour))(
                   strong(tour.name(full = false)),
                   momentFromNow(s.at.instant)
                 )
@@ -89,7 +89,7 @@ object home:
               a(
                 href     := routes.Tournament.form,
                 cls      := "button button-green text",
-                dataIcon := ""
+                dataIcon := licon.PlusButton
               )(trans.createANewTournament())
             )
           ),

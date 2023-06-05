@@ -4,14 +4,13 @@ import com.softwaremill.tagging.*
 import scala.util.matching.Regex
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.{ IpAddress, IpAddressStr, Strings }
+import lila.common.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 final class SelfReport(
     tellRound: TellRound,
-    gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,

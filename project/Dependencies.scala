@@ -14,22 +14,23 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.3.6"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.4.1"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "14.9.4"
+  val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.5"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "15.2.7"
   val compression = "org.lichess"                  %% "compression"                     % "1.8"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.6" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.16.1"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.17.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.4.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.92.Final" classifier s"$os-$arch"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.93.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M7" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.14.0"
+  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.15.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.10.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
@@ -64,12 +65,13 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.9"
+    val playVersion = "2.8.18-lila_3.10"
     val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC8"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
     val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
+    val mailer      = "com.typesafe.play" %% "play-mailer"       % "9.0.0-M1"
   }
 
   object playWs {

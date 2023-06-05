@@ -64,7 +64,7 @@ object edit:
               a(
                 href     := routes.Coach.show(c.user.username),
                 cls      := "button button-empty text",
-                dataIcon := ""
+                dataIcon := licon.Eye
               )("Preview coach page")
             )
           )
@@ -163,7 +163,9 @@ object edit:
               )(form3.textarea(_)(rows := 6))
             ),
             div(cls := "panel reviews")(
-              p(cls := "help text", dataIcon := "")("Reviews are visible only after you approve them."),
+              p(cls := "help text", dataIcon := licon.InfoCircle)(
+                "Reviews are visible only after you approve them."
+              ),
               reviews.list.map { r =>
                 div(cls := "review", attr("data-action") := routes.Coach.approveReview(r.id))(
                   div(cls := "user")(
@@ -182,14 +184,14 @@ object edit:
                   ),
                   div(cls := "actions btn-rack")(
                     r.moddedAt.fold(true)(_.isBefore(r.updatedAt)) option
-                      a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := ""),
-                    a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := "")
+                      a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := licon.Checkmark),
+                    a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := licon.X)
                   )
                 )
               }
             )
           ),
-          div(cls := "status text", dataIcon := "")("Your changes have been saved.")
+          div(cls := "status text", dataIcon := licon.Checkmark)("Your changes have been saved.")
         )
       )
     )

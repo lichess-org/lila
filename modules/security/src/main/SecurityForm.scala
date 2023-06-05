@@ -7,7 +7,7 @@ import play.api.data.validation.Constraints
 import play.api.mvc.RequestHeader
 
 import lila.common.{ EmailAddress, Form as LilaForm, LameName }
-import lila.common.Form.{ *, given }
+import lila.common.Form.*
 import lila.user.User.{ ClearPassword, TotpToken }
 import lila.user.{ TotpSecret, User, UserRepo }
 

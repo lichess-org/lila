@@ -148,11 +148,11 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     key = "api.token.test"
   )
   def testTokens = AnonBodyOf(parse.tolerantText): body =>
-    val bearers = Bearer from body.split(',').view.take(1000).toList
-    testTokenRateLimit[Fu[Api.ApiResult]](req.ipAddress, cost = bearers.size) {
+    val bearers = Bearer from body.trim.split(',').view.take(1000).toList
+    testTokenRateLimit(req.ipAddress, fuccess(ApiResult.Limited), cost = bearers.size):
       env.oAuth.tokenApi.test(bearers) map { tokens =>
         import lila.common.Json.given
-        ApiResult.Data(JsObject(tokens.map { case (bearer, token) =>
+        ApiResult.Data(JsObject(tokens.map { (bearer, token) =>
           bearer.value -> token.fold[JsValue](JsNull) { t =>
             Json.obj(
               "userId"  -> t.userId,
@@ -162,4 +162,4 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           }
         }))
       }
-    }(fuccess(ApiResult.Limited)) map apiC.toHttp
+    .map(apiC.toHttp)

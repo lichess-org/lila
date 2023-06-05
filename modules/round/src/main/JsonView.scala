@@ -6,13 +6,12 @@ import chess.{ Clock, Color }
 import play.api.libs.json.*
 import scala.math
 
-import lila.common.{ ApiVersion, LightUser }
+import lila.common.{ Preload, ApiVersion, LightUser }
 import lila.common.Json.given
 import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
-import lila.socket.SocketVersion.given
 
 final class JsonView(
     userRepo: UserRepo,
@@ -56,12 +55,11 @@ final class JsonView(
 
   def playerJson(
       pov: Pov,
-      pref: Pref,
+      pref: Option[Pref],
       apiVersion: ApiVersion,
       playerUser: Option[Either[LightUser.Ghost, User]],
       initialFen: Option[Fen.Epd],
-      withFlags: WithFlags,
-      nvui: Boolean
+      flags: WithFlags
   ): Fu[JsObject] =
     getSocketStatus(pov.game) zip
       (pov.opponent.userId ?? userRepo.byIdOrGhost) zip
@@ -72,13 +70,13 @@ final class JsonView(
           .obj(
             "game" -> gameJsonView.base(game, initialFen),
             "player" -> {
-              commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
+              commonPlayerJson(game, player, playerUser, flags) ++ Json.obj(
                 "id"      -> playerId,
                 "version" -> socket.version
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> {
-              commonPlayerJson(game, opponent, opponentUser, withFlags) ++ Json.obj(
+              commonPlayerJson(game, opponent, opponentUser, flags) ++ Json.obj(
                 "color" -> opponent.color.name,
                 "ai"    -> opponent.aiLevel
               )
@@ -87,40 +85,43 @@ final class JsonView(
             "url" -> Json.obj(
               "socket" -> s"/play/$fullId/v$apiVersion",
               "round"  -> s"/$fullId"
-            ),
-            "pref" -> Json
-              .obj(
-                "animationDuration" -> animationMillis(pov, pref),
-                "coords"            -> pref.coords,
-                "resizeHandle"      -> pref.resizeHandle,
-                "replay"            -> pref.replay,
-                "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER
-                                else pref.autoQueen),
-                "clockTenths" -> pref.clockTenths,
-                "moveEvent"   -> pref.moveEvent
-                // "ratings"     -> pref.showRatings
-              )
-              .add("is3d" -> pref.is3d)
-              .add("clockBar" -> pref.clockBar)
-              .add("clockSound" -> pref.clockSound)
-              .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
-              .add("keyboardMove" -> (!nvui && pref.hasKeyboardMove))
-              .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
-              .add("blindfold" -> pref.isBlindfold)
-              .add("highlight" -> pref.highlight)
-              .add("destination" -> (pref.destination && !pref.isBlindfold))
-              .add("enablePremove" -> pref.premove)
-              .add("showCaptured" -> pref.captured)
-              .add("submitMove" -> {
-                import Pref.SubmitMove.*
-                pref.submitMove match {
-                  case _ if game.hasAi || nvui                            => false
-                  case ALWAYS                                             => true
-                  case CORRESPONDENCE_UNLIMITED if game.isCorrespondence  => true
-                  case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true
-                  case _                                                  => false
-                }
-              })
+            )
+          )
+          .add(
+            "pref" -> pref.map: pref =>
+              Json
+                .obj(
+                  "animationDuration" -> animationMillis(pov, pref),
+                  "coords"            -> pref.coords,
+                  "resizeHandle"      -> pref.resizeHandle,
+                  "replay"            -> pref.replay,
+                  "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER
+                                  else pref.autoQueen),
+                  "clockTenths" -> pref.clockTenths,
+                  "moveEvent"   -> pref.moveEvent
+                  // "ratings"     -> pref.showRatings
+                )
+                .add("is3d" -> pref.is3d)
+                .add("clockBar" -> pref.clockBar)
+                .add("clockSound" -> pref.clockSound)
+                .add("confirmResign" -> (!flags.nvui && pref.confirmResign == Pref.ConfirmResign.YES))
+                .add("keyboardMove" -> (!flags.nvui && pref.hasKeyboardMove))
+                .add("voiceMove" -> (!flags.nvui && pref.hasVoice))
+                .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
+                .add("blindfold" -> pref.isBlindfold)
+                .add("highlight" -> pref.highlight)
+                .add("destination" -> (pref.destination && !pref.isBlindfold))
+                .add("enablePremove" -> pref.premove)
+                .add("showCaptured" -> pref.captured)
+                .add("submitMove" -> {
+                  import Pref.SubmitMove.*
+                  pref.submitMove match
+                    case _ if game.hasAi || flags.nvui                      => false
+                    case ALWAYS                                             => true
+                    case CORRESPONDENCE_UNLIMITED if game.isCorrespondence  => true
+                    case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true
+                    case _                                                  => false
+                })
           )
           .add("clock" -> game.clock.map(clockJson))
           .add("correspondence" -> game.correspondenceClock)
@@ -129,12 +130,12 @@ final class JsonView(
           .add("crazyhouse" -> pov.game.board.crazyData)
           .add("possibleMoves" -> possibleMoves(pov, apiVersion))
           .add("possibleDrops" -> possibleDrops(pov))
-          .add("expiration" -> game.expirable.option {
+          .add("expiration" -> game.expirable.option:
             Json.obj(
               "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
               "millisToMove" -> game.timeForFirstMove.millis
             )
-          })
+          )
       }
 
   private def commonWatcherJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
@@ -154,12 +155,11 @@ final class JsonView(
 
   def watcherJson(
       pov: Pov,
-      pref: Pref,
+      pref: Option[Pref],
       apiVersion: ApiVersion,
-      me: Option[User],
       tv: Option[OnTv],
       initialFen: Option[Fen.Epd] = None,
-      withFlags: WithFlags
+      flags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
       userRepo.pair(pov.player.userId, pov.opponent.userId) map { case (socket, (playerUser, opponentUser)) =>
@@ -168,20 +168,19 @@ final class JsonView(
           .obj(
             "game" -> gameJsonView
               .base(game, initialFen)
-              .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
-              .add("division" -> withFlags.division.option(divider(game, initialFen)))
+              .add("moveCentis" -> (flags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
+              .add("division" -> flags.division.option(divider(game, initialFen)))
               .add("opening" -> game.opening)
               .add("importedBy" -> game.pgnImport.flatMap(_.user)),
             "clock"          -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock,
             "player" -> {
-              commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
+              commonWatcherJson(game, player, playerUser, flags) ++ Json.obj(
                 "version"   -> socket.version,
-                "spectator" -> true,
-                "id"        -> me.flatMap(game.player).map(_.id)
+                "spectator" -> true
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
-            "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags).add(
+            "opponent" -> commonWatcherJson(game, opponent, opponentUser, flags).add(
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
             ),
             "orientation" -> pov.color.name,
@@ -189,20 +188,21 @@ final class JsonView(
               "socket" -> s"/watch/$gameId/${color.name}/v$apiVersion",
               "round"  -> s"/$gameId/${color.name}"
             ),
-            "pref" -> Json
-              .obj(
-                "animationDuration" -> animationMillis(pov, pref),
-                "coords"            -> pref.coords,
-                "resizeHandle"      -> pref.resizeHandle,
-                "replay"            -> pref.replay,
-                "clockTenths"       -> pref.clockTenths
-              )
-              .add("is3d" -> pref.is3d)
-              .add("clockBar" -> pref.clockBar)
-              .add("highlight" -> pref.highlight)
-              .add("destination" -> (pref.destination && !pref.isBlindfold))
-              .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
-              .add("showCaptured" -> pref.captured)
+            "pref" -> pref.map: pref =>
+              Json
+                .obj(
+                  "animationDuration" -> animationMillis(pov, pref),
+                  "coords"            -> pref.coords,
+                  "resizeHandle"      -> pref.resizeHandle,
+                  "replay"            -> pref.replay,
+                  "clockTenths"       -> pref.clockTenths
+                )
+                .add("is3d" -> pref.is3d)
+                .add("clockBar" -> pref.clockBar)
+                .add("highlight" -> pref.highlight)
+                .add("destination" -> (pref.destination && !pref.isBlindfold))
+                .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
+                .add("showCaptured" -> pref.captured)
           )
           .add("tv" -> tv.collect { case OnTv.Lichess(channel, flip) =>
             Json.obj("channel" -> channel, "flip" -> flip)
@@ -292,7 +292,7 @@ final class JsonView(
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
 
-  private def clockJson(clock: Clock): JsObject =
+  private[round] def clockJson(clock: Clock): JsObject =
     Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
   private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
@@ -321,5 +321,6 @@ object JsonView:
       clocks: Boolean = false,
       blurs: Boolean = false,
       rating: Boolean = true,
-      puzzles: Boolean = false
+      puzzles: Boolean = false,
+      nvui: Boolean = false
   )

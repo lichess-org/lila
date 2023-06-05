@@ -108,8 +108,8 @@ object inquiry:
         isGranted(_.MarkBooster) option {
           val searchUrl = routes.User.games(in.user.username, "search")
           div(cls := "dropper view-games")(
-            span("View", br, "Games"),
-            div(
+            a(href := routes.GameMod.index(in.user.username))("View", br, "Games"),
+            div(cls := "view-games-dropdown")(
               a(
                 cls := "fbt",
                 href := s"$searchUrl?turnsMax=5&mode=1&players.loser=${in.user.id}&sort.field=d&sort.order=desc"
@@ -118,9 +118,6 @@ object inquiry:
                 cls := "fbt",
                 href := s"$searchUrl?turnsMax=5&mode=1&players.winner=${in.user.id}&sort.field=d&sort.order=desc"
               )("Quick rated wins"),
-              isGranted(_.CheatHunter) option a(cls := "fbt", href := routes.GameMod.index(in.user.username))(
-                "Hunter game list"
-              ),
               boostOpponents(in.report, in.allReports, in.user) map { opponents =>
                 a(
                   cls  := "fbt",
@@ -139,7 +136,7 @@ object inquiry:
       ),
       div(cls := "actions")(
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
-          iconTag(""),
+          iconTag(licon.Envelope),
           div(
             env.mod.presets.getPmPresets(ctx.me).value.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
@@ -153,7 +150,7 @@ object inquiry:
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
             postForm(action := url, cls := "main", title := "Mark as cheat")(
-              markButton(in.user.marks.engine)(dataIcon := ""),
+              markButton(in.user.marks.engine)(dataIcon := licon.Cogs),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -163,7 +160,7 @@ object inquiry:
           val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-              markButton(in.user.marks.boost)(dataIcon := ""),
+              markButton(in.user.marks.boost)(dataIcon := licon.LineGraph),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -177,7 +174,7 @@ object inquiry:
               title  := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
               cls    := "main"
             )(
-              markButton(in.user.marks.troll)(dataIcon := ""),
+              markButton(in.user.marks.troll)(dataIcon := licon.BubbleSpeech),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -194,7 +191,7 @@ object inquiry:
           )
         },
         div(cls := "dropper more buttons")(
-          iconTag(""),
+          iconTag(licon.MoreTriangle),
           div(
             isGranted(_.SendToZulip) option {
               val url =
@@ -241,7 +238,7 @@ object inquiry:
           title  := "Dismiss this report as processed. (Hotkey: d)",
           cls    := "process"
         )(
-          submitButton(dataIcon := "", cls := "fbt"),
+          submitButton(dataIcon := licon.Checkmark, cls := "fbt"),
           autoNextInput
         ),
         postForm(
@@ -249,7 +246,7 @@ object inquiry:
           title  := "Cancel the inquiry, re-instore the report",
           cls    := "cancel"
         )(
-          submitButton(dataIcon := "", cls := "fbt")(in.alreadyMarked option disabled)
+          submitButton(dataIcon := licon.X, cls := "fbt")(in.alreadyMarked option disabled)
         )
       )
     )

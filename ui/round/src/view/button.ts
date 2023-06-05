@@ -1,4 +1,5 @@
 import { h, VNode, Hooks } from 'snabbdom';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import * as util from '../util';
 import * as game from 'game';
@@ -7,6 +8,11 @@ import { game as gameRoute } from 'game/router';
 import { RoundData, MaybeVNodes } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
+
+export interface ButtonState {
+  enabled: boolean;
+  overrideHint?: string;
+}
 
 function analysisBoardOrientation(data: RoundData) {
   return data.game.variant.key === 'racingKings' ? 'white' : data.player.color;
@@ -47,7 +53,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
           'button.rematch-decline',
           {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.X,
               title: noarg('decline'),
             },
             hook: util.bind('click', () => ctrl.socket.send('rematch-no')),
@@ -90,26 +96,27 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
 
 export function standard(
   ctrl: RoundController,
-  condition: ((d: RoundData) => boolean) | undefined,
+  condition: ((d: RoundData) => ButtonState) | undefined,
   icon: string,
   hint: string,
   socketMsg: string,
   onclick?: () => void
 ): VNode {
   // disabled if condition callback is provided and is falsy
-  const enabled = () => !condition || condition(ctrl.data);
+  const enabled = () => !condition || condition(ctrl.data).enabled;
+  const hintFn = () => condition?.(ctrl.data)?.overrideHint || hint;
   return h(
     'button.fbt.' + socketMsg,
     {
       attrs: {
         disabled: !enabled(),
-        title: ctrl.noarg(hint),
+        title: ctrl.noarg(hintFn()),
       },
       hook: util.bind('click', _ => {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    [h('span', hint == 'offerDraw' ? ['½'] : ctrl.nvui ? [ctrl.noarg(hint)] : util.justIcon(icon))]
+    [h('span', hint == 'offerDraw' ? ['½'] : ctrl.nvui ? [ctrl.noarg(hintFn())] : util.justIcon(icon))]
   );
 }
 
@@ -141,14 +148,14 @@ export function opponentGone(ctrl: RoundController) {
 
 const fbtCancel = (ctrl: RoundController, f: (v: boolean) => void) =>
   h('button.fbt.no', {
-    attrs: { title: ctrl.noarg('cancel'), 'data-icon': '' },
+    attrs: { title: ctrl.noarg('cancel'), 'data-icon': licon.X },
     hook: util.bind('click', () => f(false)),
   });
 
 export const resignConfirm = (ctrl: RoundController): VNode =>
   h('div.act-confirm', [
     h('button.fbt.yes', {
-      attrs: { title: ctrl.noarg('resign'), 'data-icon': '' },
+      attrs: { title: ctrl.noarg('resign'), 'data-icon': licon.FlagOutline },
       hook: util.bind('click', () => ctrl.resign(true)),
     }),
     fbtCancel(ctrl, ctrl.resign),
@@ -167,12 +174,20 @@ export const drawConfirm = (ctrl: RoundController): VNode =>
     fbtCancel(ctrl, ctrl.offerDraw),
   ]);
 
-export const claimThreefold = (ctrl: RoundController): VNode =>
+export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) => ButtonState): VNode =>
   h(
     'button.button.draw-yes',
     {
-      hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim')),
-      attrs: { title: ctrl.noarg('claimADraw') },
+      hook: util.bind('click', () =>
+        condition(ctrl.data).enabled ? ctrl.socket.sendLoading('draw-claim') : undefined
+      ),
+      attrs: {
+        title: ctrl.noarg(condition(ctrl.data)?.overrideHint || 'claimADraw'),
+        disabled: !condition(ctrl.data).enabled,
+      },
+      class: {
+        disabled: !condition(ctrl.data).enabled,
+      },
     },
     h('span', '½')
   );
@@ -232,7 +247,7 @@ function acceptButton(ctrl: RoundController, klass: string, action: () => void, 
       )
     : h('a.accept', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.Checkmark,
           title: text,
         },
         hook: util.bind('click', action),
@@ -250,7 +265,7 @@ function declineButton(ctrl: RoundController, action: () => void, i18nKey: I18nK
       )
     : h('a.decline', {
         attrs: {
-          'data-icon': '',
+          'data-icon': licon.X,
           title: text,
         },
         hook: util.bind('click', action),
@@ -285,7 +300,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
           'a.text.fbt.strong.glowing',
           {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.PlayTriangle,
               href: '/tournament/' + d.tournament.id,
             },
             hook: util.bind('click', ctrl.setRedirecting),
@@ -300,7 +315,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
               action: '/tournament/' + d.tournament.id + '/withdraw',
             },
           },
-          [h('button.text.fbt.weak', util.justIcon(''), 'Pause')]
+          [h('button.text.fbt.weak', util.justIcon(licon.Pause), 'Pause')]
         ),
         analysisButton(ctrl),
       ])
@@ -315,7 +330,7 @@ export function backToSwiss(ctrl: RoundController): VNode | undefined {
           'a.text.fbt.strong.glowing',
           {
             attrs: {
-              'data-icon': '',
+              'data-icon': licon.PlayTriangle,
               href: '/swiss/' + d.swiss.id,
             },
             hook: util.bind('click', ctrl.setRedirecting),
@@ -332,7 +347,7 @@ export function moretime(ctrl: RoundController) {
     ? h('a.moretime', {
         attrs: {
           title: ctrl.data.clock ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) : ctrl.noarg('giveMoreTime'),
-          'data-icon': '',
+          'data-icon': licon.PlusButton,
         },
         hook: util.bind('click', ctrl.socket.moreTime),
       })

@@ -1,10 +1,8 @@
-import { defined } from './common';
+import { defined, Prop, withEffect } from './common';
 
-export interface StoredProp<V> {
+export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
 }
-
-const storage = lichess.storage;
 
 export function storedProp<V>(
   k: string,
@@ -17,9 +15,9 @@ export function storedProp<V>(
   return function (replacement?: V) {
     if (defined(replacement) && replacement != cached) {
       cached = replacement;
-      storage.set(sk, toStr(replacement));
+      lichess.storage.set(sk, toStr(replacement));
     } else if (!defined(cached)) {
-      const str = storage.get(sk);
+      const str = lichess.storage.get(sk);
       cached = str === null ? defaultValue : fromStr(str);
     }
     return cached;
@@ -42,6 +40,18 @@ export const storedBooleanProp = (k: string, defaultValue: boolean): StoredProp<
     v => v.toString()
   );
 
+export const storedStringPropWithEffect = (
+  k: string,
+  defaultValue: string,
+  effect: (v: string) => void
+): Prop<string> => withEffect(storedStringProp(k, defaultValue), effect);
+
+export const storedBooleanPropWithEffect = (
+  k: string,
+  defaultValue: boolean,
+  effect: (v: boolean) => void
+): Prop<boolean> => withEffect(storedBooleanProp(k, defaultValue), effect);
+
 export const storedIntProp = (k: string, defaultValue: number): StoredProp<number> =>
   storedProp<number>(
     k,
@@ -49,6 +59,9 @@ export const storedIntProp = (k: string, defaultValue: number): StoredProp<numbe
     str => parseInt(str),
     v => v + ''
   );
+
+export const storedIntPropWithEffect = (k: string, defaultValue: number, effect: (v: number) => void): Prop<number> =>
+  withEffect(storedIntProp(k, defaultValue), effect);
 
 export interface StoredJsonProp<V> {
   (): V;
@@ -59,10 +72,10 @@ export const storedJsonProp =
   <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
   (v?: V) => {
     if (defined(v)) {
-      storage.set(key, JSON.stringify(v));
+      lichess.storage.set(key, JSON.stringify(v));
       return v;
     }
-    const ret = JSON.parse(storage.get(key)!);
+    const ret = JSON.parse(lichess.storage.get(key)!);
     return ret !== null ? ret : defaultValue();
   };
 

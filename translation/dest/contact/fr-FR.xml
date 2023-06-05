@@ -55,6 +55,9 @@
   <string name="botRatingAbuse">Dans certains cas, si vous jouez contre un bot, une partie classée ne vous donnera pas de points s\'il est déterminé que vous avez abusé du bot pour obtenir des points.</string>
   <string name="errorPage">Page d\'erreur</string>
   <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
+  <string name="wantBroadcastTournament">Je souhaite diffuser un tournoi</string>
+  <string name="learnHowToMakeBroadcasts">Apprenez comment réaliser vos propres diffusions sur Lichess</string>
+  <string name="contactAboutOfficialBroadcasts">Vous pouvez également contacter l\'équipe de diffusion au sujet des diffusions officielles.</string>
   <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
   <string name="engineAppeal">Tricherie ou utilisation d\'un programme</string>
   <string name="sendAppealTo">Vous pouvez soumettre une demande d\'appel à %s.</string>

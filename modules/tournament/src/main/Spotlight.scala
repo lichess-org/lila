@@ -2,12 +2,13 @@ package lila.tournament
 
 import lila.common.Heapsort.topN
 import lila.user.User
+import lila.common.licon
 
 case class Spotlight(
     headline: String,
     description: String,
     homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
-    iconFont: Option[String] = None,
+    iconFont: Option[licon.Icon] = None,
     iconImg: Option[String] = None
 )
 

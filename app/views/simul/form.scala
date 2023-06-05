@@ -9,7 +9,6 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
 import lila.simul.Simul
 import lila.simul.SimulForm
-import lila.simul.SimulCondition
 import lila.gathering.ConditionForm
 
 object form:
@@ -30,7 +29,7 @@ object form:
           formContent(form, teams, none),
           form3.actions(
             a(href := routes.Simul.home)(trans.cancel()),
-            form3.submit(trans.hostANewSimul(), icon = "".some)
+            form3.submit(trans.hostANewSimul(), icon = licon.Trophy.some)
           )
         )
       )
@@ -48,11 +47,11 @@ object form:
           formContent(form, teams, simul.some),
           form3.actions(
             a(href := routes.Simul.show(simul.id))(trans.cancel()),
-            form3.submit(trans.save(), icon = "".some)
+            form3.submit(trans.save(), icon = licon.Trophy.some)
           )
         ),
         postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-          submitButton(dataIcon := "", cls := "text button button-red confirm")(
+          submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
             trans.cancelSimul()
           )
         )

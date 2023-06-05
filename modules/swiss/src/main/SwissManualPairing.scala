@@ -1,8 +1,6 @@
 package lila.swiss
 
 import lila.db.dsl.{ *, given }
-import lila.swiss.BsonHandlers.given
-import lila.user.User
 
 final private class SwissManualPairing(mongo: SwissMongo)(using Executor):
 

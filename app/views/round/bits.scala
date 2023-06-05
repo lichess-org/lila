@@ -33,6 +33,7 @@ object bits:
       moreCss = frag(
         cssTag(if (variant == Crazyhouse) "round.zh" else "round"),
         ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
+        ctx.pref.hasVoice option cssTag("voice"),
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),
@@ -41,7 +42,7 @@ object bits:
       zenable = zenable,
       robots = robots,
       zoomable = true,
-      csp = defaultCsp.withPeer.some,
+      csp = defaultCsp.withPeer.withWebAssembly.some,
       withHrefLangs = withHrefLangs
     )(body)
 

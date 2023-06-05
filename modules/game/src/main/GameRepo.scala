@@ -103,7 +103,7 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def recentGamesFromSecondaryCursor(select: Bdoc = $empty) =
     coll
-      .find(select.ppAs(lila.db.BSON.debug))
+      .find(select)
       .sort(Query.sortCreated)
       .cursor[Game](temporarilyPrimary)
 

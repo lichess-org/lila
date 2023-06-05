@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { Prop, prop } from 'common';
+import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
@@ -136,7 +137,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       h(
         'button.button.button-green.text',
         {
-          attrs: dataIcon(''),
+          attrs: dataIcon(licon.Checkmark),
           hook: bind('click', ctrl.toggleOpen),
         },
         ctrl.root.trans.noarg('allSet')
@@ -168,7 +169,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
         h(
           'button.button-link.text.color',
           {
-            attrs: dataIcon(''),
+            attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
           ' ' + ctrl.root.trans(ctrl.data.color() == 'white' ? 'asWhite' : 'asBlack')

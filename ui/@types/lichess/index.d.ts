@@ -40,6 +40,8 @@ interface Lichess {
 
   socket: any;
   sound: SoundI;
+  mic: Voice.Microphone;
+
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
@@ -194,6 +196,47 @@ interface LichessEditor {
   setOrientation(o: Color): void;
 }
 
+declare namespace Voice {
+  export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
+  export type Listener = (msgText: string, msgType: MsgType) => void;
+
+  export interface Microphone {
+    setDeviceId: (deviceId: string) => void;
+    getDeviceId: () => string;
+    getDevices: () => Promise<MediaDeviceInfo[]>;
+    setLang: (language: string) => void;
+    initRecognizer: (
+      words: string[],
+      also?: {
+        recId?: string; // = 'default' if not provided
+        partial?: boolean; // = false
+        listener?: Listener; // = undefined
+        listenerId?: string; // = recId (needed to disambiguate multiple listeners on the same recId)
+      }
+    ) => void;
+    addListener: (
+      listener: Listener,
+      also?: {
+        recId?: string; // = 'default'
+        listenerId?: string; // = recId
+      }
+    ) => void;
+    removeListener: (listenerId: string) => void;
+    setController: (listener: Listener) => void; // for status display, indicators, etc
+    stopPropagation: () => void; // interrupt broadcast propagation on current rec (for modal interactions)
+
+    start: (recId?: string) => Promise<void>; // begin listening on recId (or 'default')
+    stop: () => void; // stop listening/downloading/whatever
+    pause: () => void;
+    resume: () => void;
+
+    readonly recId: string | false; // false if not listening, otherwise active rec
+    readonly isBusy: boolean; // are we downloading, extracting, or loading?
+    readonly status: string; // status display for setController listener
+    readonly lang: string; // defaults to 'en'
+  }
+}
+
 declare namespace Editor {
   export interface Config {
     baseUrl: string;
@@ -251,7 +294,7 @@ interface Window {
   readonly LichessFlatpickr: (element: Element, opts: any) => any;
   readonly LichessNotify: (element: any, opts: any) => any;
   readonly LichessChallenge: (element: any, opts: any) => any;
-  readonly LichessDasher: (element: any) => any;
+  readonly LichessDasher: (element: HTMLElement, toggle: HTMLElement) => any;
   readonly LichessAnalyse: any;
   readonly LichessCli: any;
   readonly LichessRound: any;
@@ -262,6 +305,8 @@ interface Window {
   };
   readonly LichessChartRatingHistory?: any;
   readonly LichessKeyboardMove?: any;
+  readonly LichessVoiceMove?: any;
+  readonly LichessVoicePlugin: { mic: Voice.Microphone; vosk: any };
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

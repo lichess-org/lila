@@ -1,4 +1,5 @@
 import { scroller } from './scroller';
+import * as licon from 'common/licon';
 import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'common/richText';
 
 export { isMoreThanText } from 'common/richText';
@@ -85,7 +86,7 @@ function expandGames(games: Expandable[]): void {
     games.forEach(game => {
       game.element.title = 'Click to expand';
       game.element.classList.add('text');
-      game.element.setAttribute('data-icon', '');
+      game.element.setAttribute('data-icon', licon.Expand);
       game.element.addEventListener('click', e => {
         if (e.button === 0) {
           e.preventDefault();

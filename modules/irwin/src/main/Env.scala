@@ -10,7 +10,6 @@ import lila.tournament.TournamentApi
 import lila.db.dsl.Coll
 import lila.db.AsyncColl
 
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     tournamentApi: TournamentApi,

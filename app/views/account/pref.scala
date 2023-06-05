@@ -71,7 +71,7 @@ object pref:
               showPlayerRatings(),
               frag(
                 radios(form("ratings"), booleanChoices),
-                div(cls := "help text shy", dataIcon := "")(
+                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
                   explainShowPlayerRatings()
                 )
               )
@@ -112,7 +112,7 @@ object pref:
               promoteToQueenAutomatically(),
               frag(
                 radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
-                div(cls := "help text shy", dataIcon := "")(
+                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
                   explainPromoteToQueenAutomatically()
                 )
               )
@@ -136,6 +136,10 @@ object pref:
             setting(
               inputMovesWithTheKeyboard(),
               radios(form("behavior.keyboardMove"), booleanChoices)
+            ),
+            setting(
+              "Input moves with your voice",
+              radios(form("behavior.voice"), booleanChoices)
             ),
             setting(
               snapArrowsToValidMoves(),
@@ -172,7 +176,7 @@ object pref:
               radios(form("insightShare"), translatedInsightShareChoices)
             )
           ),
-          p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())
         )
       )
     }

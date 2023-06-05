@@ -1,5 +1,7 @@
 package lila.ublog
 
+import cats.syntax.all.*
+
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 
@@ -7,7 +9,6 @@ import lila.common.config.*
 import lila.db.dsl.Coll
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
@@ -17,7 +18,6 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
-    settingStore: lila.memo.SettingStore.Builder,
     net: NetConfig
 )(using
     ec: Executor,
@@ -26,7 +26,7 @@ final class Env(
     mode: play.api.Mode
 ):
 
-  export net.{ assetBaseUrl, baseUrl, domain }
+  export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
@@ -53,10 +53,9 @@ final class Env(
         api
           .latestPosts(lookInto)
           .map:
-            _.zipWithIndex
-              .map: (post, i) =>
-                (post, ThreadLocalRandom.nextInt(10 * (lookInto - i)))
-              .sortBy(_._2)
+            _.mapWithIndex: (post, i) =>
+              (post, ThreadLocalRandom.nextInt(10 * (lookInto - i)))
+            .sortBy(_._2)
               .take(keep)
               .map(_._1)
 

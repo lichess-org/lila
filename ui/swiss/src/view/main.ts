@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { dataIcon, bind, onInsert } from 'common/snabbdom';
 import { numberRow } from './util';
@@ -137,7 +138,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       {
         attrs: {
           href: '/login?referrer=' + window.location.pathname,
-          'data-icon': '',
+          'data-icon': licon.PlayTriangle,
         },
       },
       ctrl.trans('signIn')
@@ -149,7 +150,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       {
         attrs: {
           href: `/team/${d.joinTeam}`,
-          'data-icon': '',
+          'data-icon': licon.Group,
         },
       },
       ctrl.trans.noarg('joinTeam')
@@ -161,7 +162,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       : h(
           'button.fbt.text.highlight',
           {
-            attrs: dataIcon(''),
+            attrs: dataIcon(licon.PlayTriangle),
             hook: bind(
               'click',
               _ => {
@@ -183,7 +184,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
         : h(
             'button.fbt.text.highlight',
             {
-              attrs: dataIcon(''),
+              attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', _ => ctrl.join(), ctrl.redraw),
             },
             ctrl.trans.noarg('join')
@@ -193,7 +194,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       : h(
           'button.fbt.text',
           {
-            attrs: dataIcon(''),
+            attrs: dataIcon(licon.FlagOutline),
             hook: bind('click', ctrl.withdraw, ctrl.redraw),
           },
           ctrl.trans.noarg('withdraw')
@@ -256,7 +257,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Download,
                 href: `/swiss/${ctrl.data.id}.trf`,
                 download: true,
               },
@@ -267,7 +268,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Download,
                 href: `/api/swiss/${ctrl.data.id}/games`,
                 download: true,
               },
@@ -278,7 +279,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Download,
                 href: `/api/swiss/${ctrl.data.id}/results`,
                 download: true,
               },
@@ -289,7 +290,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.Download,
                 href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
                 download: true,
               },
@@ -301,7 +302,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': licon.InfoCircle,
                 href: 'https://lichess.org/api#tag/Swiss-tournaments',
               },
             },

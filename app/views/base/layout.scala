@@ -114,7 +114,8 @@ object layout:
     spaceless(s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
-  <a data-icon="" id="zentog" class="text fbt active">${trans.preferences.zenMode.txt()}</a>
+  <a data-icon="${licon.Checkmark}"" id="zentog" class="text fbt active">${trans.preferences.zenMode
+        .txt()}</a>
 </div>""")
 
   private def dasher(me: lila.user.User) =
@@ -126,19 +127,15 @@ object layout:
   private def allNotifications(using ctx: Context) =
     spaceless(s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="${trans.challenge.challengesX
-        .txt(ctx.nbChallenges)}" aria-label="${trans.challenge.challengesX
-        .txt(ctx.nbChallenges)}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
+    <span title="${trans.challenge.challenges
+        .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="${trans.notificationsX
-        .txt(ctx.nbNotifications)}" aria-label="${trans.notificationsX
-        .txt(
-          ctx.nbNotifications
-        )}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
+    <span title="${trans.notifications
+        .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>""")
@@ -147,7 +144,7 @@ object layout:
     spaceless {
       s"""<div class="dasher">
   <a class="toggle link anon">
-    <span title="${trans.preferences.preferences.txt()}" data-icon=""></span>
+    <button title="${trans.preferences.preferences.txt()}" data-icon="${licon.Gear}""></button>
   </a>
   <div id="dasher_app" class="dropdown"></div>
 </div>
@@ -156,7 +153,7 @@ object layout:
         )}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
     }
 
-  private val clinputLink = a(cls := "link")(span(dataIcon := ""))
+  private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
 
   private def clinput(using ctx: Context) =
     div(id := "clinput")(
@@ -343,7 +340,7 @@ object layout:
             )
           )(body),
           ctx.me.exists(_.enabled.yes) option div(id := "friend_box")(
-            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
+            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))),
             div(cls := "content_wrap none")(
               div(cls := "content list")
             )
@@ -351,7 +348,7 @@ object layout:
           netConfig.socketDomains.nonEmpty option a(
             id       := "reconnecting",
             cls      := "link text",
-            dataIcon := ""
+            dataIcon := licon.ChasingArrows
           )(trans.reconnecting()),
           ctx.pref.agreementNeededSince map { date =>
             div(id := "agreement")(
@@ -395,7 +392,7 @@ object layout:
               title     := "Moderation",
               href      := reportRoutes.list,
               dataCount := score,
-              dataIcon  := ""
+              dataIcon  := licon.Agent
             )
       }.some
       else
@@ -404,7 +401,7 @@ object layout:
             cls      := "link",
             title    := "Moderation",
             href     := routes.Mod.publicChat,
-            dataIcon := ""
+            dataIcon := licon.Agent
           )
 
     private def teamRequests(using ctx: Context) =
@@ -413,7 +410,7 @@ object layout:
           cls       := "link data-count link-center",
           href      := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon  := "",
+          dataIcon  := licon.Group,
           title     := trans.team.teams.txt()
         )
 
@@ -455,8 +452,6 @@ object layout:
       trans.pause,
       trans.resume,
       trans.nbFriendsOnline,
-      trans.notificationsX,
-      trans.challenge.challengesX,
       trans.timeago.justNow,
       trans.timeago.inNbSeconds,
       trans.timeago.inNbMinutes,

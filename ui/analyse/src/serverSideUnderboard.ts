@@ -2,6 +2,7 @@ import type { AcplChart } from 'chart/dist/interface';
 
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
+import * as licon from 'common/licon';
 import modal from 'common/modal';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
@@ -152,7 +153,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           '</pre><br />' +
           iframe +
           '<br /><br />' +
-          '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a></div>'
+          `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`
       ),
     });
   });

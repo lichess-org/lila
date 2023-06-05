@@ -23,14 +23,14 @@ object bits:
         span(cls := "target")(vv.video.targets.map(lila.video.Target.name).mkString(", ")),
         span(cls := "tags")(
           vv.video.tags.map { tag =>
-            span(dataIcon := "")(tag.capitalize)
+            span(dataIcon := licon.Tag)(tag.capitalize)
           }
         )
       )
     )
 
   def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using
-      ctx: Context
+      Context
   ) =
     layout(
       title = s"$name • Free Chess Videos",
@@ -38,7 +38,11 @@ object bits:
     )(
       boxTop(
         h1(
-          a(cls := "is4 text", dataIcon := "", href := s"${routes.Video.index}?${control.queryString}"),
+          a(
+            cls      := "is4 text",
+            dataIcon := licon.Back,
+            href     := s"${routes.Video.index}?${control.queryString}"
+          ),
           name
         ),
         span(
@@ -52,31 +56,31 @@ object bits:
       )
     )
 
-  def notFound(control: lila.video.UserControl)(implicit ctx: Context) =
+  def notFound(control: lila.video.UserControl)(using Context) =
     layout(title = "Video not found", control = control)(
       div(cls := "content_box_top")(
-        a(cls := "is4 text", dataIcon := "", href := routes.Video.index)("Video library")
+        a(cls := "is4 text", dataIcon := licon.Back, href := routes.Video.index)("Video library")
       ),
       div(cls := "not_found")(
         h1("Video Not Found!"),
         br,
         br,
-        a(cls := "big button text", dataIcon := "", href := routes.Video.index)(
+        a(cls := "big button text", dataIcon := licon.Back, href := routes.Video.index)(
           "Return to the video library"
         )
       )
     )
 
-  def searchForm(query: Option[String])(implicit ctx: Context) =
+  def searchForm(query: Option[String])(using Context) =
     form(cls := "search", method := "GET", action := routes.Video.index)(
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
     )
 
-  def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(implicit ctx: Context) =
+  def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(using Context) =
     layout(title = s"Tags • Free Chess Videos", control = control)(
       boxTop(
         h1(
-          a(cls := "text", dataIcon := "", href := s"${routes.Video.index}?${control.queryString}")(
+          a(cls := "text", dataIcon := licon.Back, href := s"${routes.Video.index}?${control.queryString}")(
             "All ",
             ts.size,
             " video tags"

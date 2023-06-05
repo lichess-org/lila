@@ -57,7 +57,7 @@ object insight:
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        boxTop(h1(cls := "text", dataIcon := "")(trans.insight.xChessInsights(u.username))),
+        boxTop(h1(cls := "text", dataIcon := licon.Target)(trans.insight.xChessInsights(u.username))),
         p(trans.insight.xHasNoChessInsights(userLink(u))),
         refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
@@ -79,7 +79,7 @@ object insight:
 
   def refreshForm(u: User, action: String)(implicit lang: Lang) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
-      button(dataIcon := "", cls := "button text")(action),
+      button(dataIcon := licon.Checkmark, cls := "button text")(action),
       div(cls := "crunching none")(
         spinner,
         br,

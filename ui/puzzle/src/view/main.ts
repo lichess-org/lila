@@ -4,14 +4,17 @@ import * as side from './side';
 import theme from './theme';
 import chessground from './chessground';
 import feedbackView from './feedback';
-import stepwiseScroll from 'common/wheel';
+import * as licon from 'common/licon';
+import { stepwiseScroll } from 'common/scroll';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { onInsert, bindNonPassive } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
+import { renderVoiceMove } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
+
 import * as Prefs from 'common/prefs';
 
 const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -54,10 +57,10 @@ function controls(ctrl: Controller): VNode {
     },
     [
       h('div.jumps', [
-        jumpButton('', 'first', !node.ply),
-        jumpButton('', 'prev', !node.ply),
-        jumpButton('', 'next', !nextNode, goNext),
-        jumpButton('', 'last', !nextNode, goNext),
+        jumpButton(licon.JumpFirst, 'first', !node.ply),
+        jumpButton(licon.JumpPrev, 'prev', !node.ply),
+        jumpButton(licon.JumpNext, 'next', !nextNode, goNext),
+        jumpButton(licon.JumpLast, 'last', !nextNode, goNext),
       ]),
     ]
   );
@@ -120,6 +123,7 @@ export default function (ctrl: Controller): VNode {
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
+        ctrl.voiceMove ? renderVoiceMove(ctrl.voiceMove, ctrl.redraw, !showCeval) : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         h(

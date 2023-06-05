@@ -24,4 +24,16 @@
   <string name="sortBy">Ordenar per</string>
   <string name="analysis">Analisi</string>
   <string name="onlyAnalysed">Nomás partidas que tiengan una analisi per ordinador disponible</string>
+  <string name="color">Color</string>
+  <string name="evaluation">Avaluación</string>
+  <string name="maxNumber">Numero maximo</string>
+  <string name="maxNumberExplanation">Lo numero maximo de partidas a amostrar en os resultaus</string>
+  <string name="include">Incluyir</string>
+  <string name="descending">Descendent</string>
+  <string name="ascending">Ascendent</string>
+  <plurals name="gamesFound">
+    <item quantity="one">S\'ha trobau %s partida</item>
+    <item quantity="other">S\'ha trobau %s partidas</item>
+  </plurals>
+  <string name="ratingExplanation">La puntuación meya d\'os chugadors</string>
 </resources>

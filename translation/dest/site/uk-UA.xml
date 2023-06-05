@@ -97,6 +97,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' при округленні в залежності від кількості напівходів, доки не відбудеться наступне взяття або хiд пiшаком</string>
   <string name="noGameFound">Ігор не знайдено</string>
+  <string name="maxDepthReached">Досягнуто найбільшої глибини!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openings">Дебюти</string>
   <string name="openingExplorer">Провідник дебютів</string>
@@ -123,6 +124,7 @@
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Знімає обмеження на глибину аналізу - ваш комп’ютер стане теплішим</string>
+  <string name="engineManager">Менеджер рушія</string>
   <string name="blunder">Груба помилка</string>
   <string name="mistake">Помилка</string>
   <string name="inaccuracy">Неточність</string>
@@ -140,7 +142,7 @@
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s неточність</item>
-    <item quantity="few">%s неточністі</item>
+    <item quantity="few">%s неточності</item>
     <item quantity="many">%s неточностей</item>
     <item quantity="other">%s неточностей</item>
   </plurals>
@@ -164,6 +166,12 @@
     <item quantity="few">%s гри</item>
     <item quantity="many">%s ігор</item>
     <item quantity="other">%s ігор</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Рейтинг %1$s за %2$s партію</item>
+    <item quantity="few">Рейтинг %1$s за %2$s партії</item>
+    <item quantity="many">Рейтинг %1$s за %2$s партій</item>
+    <item quantity="other">Рейтинг %1$s за %2$s партій</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s закладка</item>
@@ -386,6 +394,7 @@
   </plurals>
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
+  <string name="noDrawBeforeSwissLimit">Нічия не можлива до 30 ходу гри у турнірі за швейцарською системою.</string>
   <string name="thematic">Тематичний</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s рейтингова гра</item>
@@ -946,6 +955,8 @@
   <string name="useTheReportForm">використовуйте форму звіту</string>
   <string name="toRequestSupport">Для запиту підтримки %1$s</string>
   <string name="tryTheContactPage">спробуйте сторінку контактів</string>
+  <string name="makeSureToRead">Варто прочитати %1$s</string>
+  <string name="theForumEtiquette">етикет форуму</string>
   <string name="thisTopicIsArchived">Ця тема була заархівована і додати відповідь більше не можна.</string>
   <string name="joinTheTeamXToPost">Приєднайтесь до %1$s, щоб писати у цьому форумі</string>
   <string name="teamNamedX">%1$s команда</string>

@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de movementos intermedios ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
+  <string name="maxDepthReached">Chegouse á máxima profundidade!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
   <string name="openings">Aperturas</string>
   <string name="openingExplorer">Abrir o explorador</string>
@@ -119,6 +120,7 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
+  <string name="engineManager">Administrador do módulo</string>
   <string name="blunder">Pifia</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisión</string>
@@ -150,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s Partidas</item>
     <item quantity="other">%s Partidas</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">puntuación %1$s en %2$s partida</item>
+    <item quantity="other">Puntuación %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Marcadores</item>
@@ -342,6 +348,7 @@
   </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Voltar ó torneo</string>
+  <string name="noDrawBeforeSwissLimit">Nos torneos Suízos non se pode ofrecer táboas antes de realizar 30 xogadas.</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ partida puntuada %s</item>
@@ -866,6 +873,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="useTheReportForm">usa o formulario correspondente</string>
   <string name="toRequestSupport">Para solicitar axuda, %1$s</string>
   <string name="tryTheContactPage">proba a páxina de contacto</string>
+  <string name="makeSureToRead">Asegúrate de ler %1$s</string>
+  <string name="theForumEtiquette">a etiqueta do foro</string>
   <string name="thisTopicIsArchived">Este tema foi arquivado e non admite respostas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar neste foro</string>
   <string name="teamNamedX">equipo %1$s</string>

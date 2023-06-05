@@ -9,14 +9,14 @@ import lila.hub.actorApi.timeline.*
 
 object timeline:
 
-  def entries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
+  def entries(entries: Vector[lila.timeline.Entry])(using Context) =
     div(cls := "entries")(
       filterEntries(entries) map { entry =>
         div(cls := "entry")(timeline.entry(entry))
       }
     )
 
-  def more(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
+  def more(entries: Vector[lila.timeline.Entry])(using Context) =
     views.html.base.layout(
       title = trans.timeline.txt(),
       moreCss = cssTag("slist")
@@ -33,16 +33,16 @@ object timeline:
       )
     )
 
-  private def filterEntries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
+  private def filterEntries(entries: Vector[lila.timeline.Entry])(using ctx: Context) =
     if (ctx.noKid) entries
     else entries.filter(e => e.okForKid)
 
-  private def userLink(userId: UserId)(implicit ctx: Context) =
+  private def userLink(userId: UserId)(using ctx: Context) =
     ctx.me match
       case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
       case _                         => userIdLink(userId.some, withOnline = true)
 
-  private def entry(e: lila.timeline.Entry)(implicit ctx: Context) =
+  private def entry(e: lila.timeline.Entry)(using ctx: Context) =
     frag(
       e.decode.map[Frag] {
         case Follow(u1, u2) =>
@@ -94,7 +94,7 @@ object timeline:
             })(
               a(
                 href     := routes.Round.player(playerId),
-                dataIcon := perf.iconChar,
+                dataIcon := perf.icon,
                 cls      := "text glpt"
               )(win match {
                 case Some(true)  => trans.victory()
@@ -120,7 +120,7 @@ object timeline:
               .plural(months, userLink(userId), months)
           )
         case BlogPost(id, slug, title) =>
-          a(cls := "text", dataIcon := "", href := routes.Blog.show(id, slug))(title)
+          a(cls := "text", dataIcon := licon.InkQuill, href := routes.Blog.show(id, slug))(title)
         case UblogPostLike(userId, postId, postTitle) =>
           trans.xLikesY(
             userLink(userId),
@@ -128,7 +128,7 @@ object timeline:
           )
         case StreamStart(id, name) =>
           views.html.streamer.bits
-            .redirectLink(id)(cls := "text", dataIcon := "")(trans.xStartedStreaming(name))
+            .redirectLink(id)(cls := "text", dataIcon := licon.Mic)(trans.xStartedStreaming(name))
       },
       " ",
       momentFromNowWithPreload(e.date)

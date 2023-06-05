@@ -21,7 +21,6 @@ import scala.util.{ Success, Try }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.common.Days
-import scala.annotation.nowarn
 
 object BSONHandlers:
 
@@ -57,7 +56,7 @@ object BSONHandlers:
         },
         promoted = chess.bitboard.Bitboard(r.str("t").view.flatMap(chess.Square.fromChar(_)))
       )
-    def writes(@nowarn w: BSON.Writer, o: Crazyhouse.Data) =
+    def writes(w: BSON.Writer, o: Crazyhouse.Data) =
       def roles(color: Color) = o.pockets(color).values.flatMap { (role, nb) =>
         List.fill(nb)(role)
       }
@@ -95,7 +94,7 @@ object BSONHandlers:
 
       val startedAtPly = Ply(r intD F.startedAtTurn)
       val ply          = r.get[Ply](F.turns) atMost Game.maxPlies // unlimited can cause StackOverflowError
-      val turnColor    = ply.color
+      val turnColor    = ply.turn
       val createdAt    = r date F.createdAt
 
       val playedPlies = ply - startedAtPly
@@ -113,7 +112,7 @@ object BSONHandlers:
             HalfMoveClock from sans.reverse
               .indexWhere(san => san.value.contains("x") || san.value.headOption.exists(_.isLower))
               .some
-              .filter(0 <= _)
+              .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
             pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),

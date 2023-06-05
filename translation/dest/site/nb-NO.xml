@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antall halvtrekk til neste slag eller bondetrekk</string>
   <string name="noGameFound">Intet parti funnet</string>
+  <string name="maxDepthReached">Maks dybde nådd!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openings">Åpninger</string>
   <string name="openingExplorer">Åpningsutforsker</string>
@@ -119,6 +120,7 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdebegrensning, og holder maskinen din varm</string>
+  <string name="engineManager">Innstillinger for sjakkmotorer</string>
   <string name="blunder">Bukk</string>
   <string name="mistake">Feil</string>
   <string name="inaccuracy">Unøyaktighet</string>
@@ -150,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s-rating over %2$s parti</item>
+    <item quantity="other">%1$s-rating over %2$s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bokmerke</item>
@@ -342,6 +348,7 @@
   </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringen</string>
+  <string name="noDrawBeforeSwissLimit">Ingen remis før 30 trekk i sveitserturneringer.</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s ratet parti</item>
@@ -865,6 +872,8 @@
   <string name="useTheReportForm">bruk rapportskjemaet</string>
   <string name="toRequestSupport">For å få hjelp, %1$s</string>
   <string name="tryTheContactPage">prøv kontaktsiden</string>
+  <string name="makeSureToRead">Pass på å lese %1$s</string>
+  <string name="theForumEtiquette">forumetiketten</string>
   <string name="thisTopicIsArchived">Dette emnet er arkivert og kan ikke lenger besvares.</string>
   <string name="joinTheTeamXToPost">Bli med i %1$s for å skrive innlegg i dette forumet</string>
   <string name="teamNamedX">laget %1$s</string>

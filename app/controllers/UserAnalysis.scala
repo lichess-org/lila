@@ -57,7 +57,7 @@ final class UserAnalysis(
     makePov {
       fen.filter(_.value.nonEmpty).flatMap {
         Fen.readWithMoveNumber(variant, _)
-      } | Situation.AndFullMoveNumber(Situation(variant), FullMoveNumber(1))
+      } | Situation.AndFullMoveNumber(Situation(variant), FullMoveNumber.initial)
     }
 
   private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =
@@ -178,4 +178,4 @@ final class UserAnalysis(
     }
 
   def help = Open:
-    Ok(html.site.keyboardHelpModal.analyse(getBool("study"))).toFuccess
+    Ok(html.site.helpModal.analyse(getBool("study"))).toFuccess

@@ -68,7 +68,7 @@ object show:
         }
       )(
         boxTop(
-          h1(cls := "text", dataIcon := "")(t.name),
+          h1(cls := "text", dataIcon := licon.Group)(t.name),
           div(
             if (t.disabled) span(cls := "staff")("CLOSED")
             else
@@ -88,7 +88,7 @@ object show:
                 })
               ),
               info.ledByMe option a(
-                dataIcon := "",
+                dataIcon := licon.InfoCircle,
                 href     := routes.Page.loneBookmark("team-etiquette"),
                 cls      := "text"
               )("Team Etiquette")
@@ -131,7 +131,7 @@ object show:
                 a(
                   href     := routes.Tournament.teamBattleForm(t.id),
                   cls      := "button button-empty text",
-                  dataIcon := ""
+                  dataIcon := licon.Trophy
                 )(
                   span(
                     strong(teamBattle()),
@@ -141,7 +141,7 @@ object show:
                 a(
                   href     := s"${routes.Tournament.form}?team=${t.id}",
                   cls      := "button button-empty text",
-                  dataIcon := ""
+                  dataIcon := licon.Trophy
                 )(
                   span(
                     strong(teamTournament()),
@@ -151,7 +151,7 @@ object show:
                 a(
                   href     := s"${routes.Swiss.form(t.id)}",
                   cls      := "button button-empty text",
-                  dataIcon := ""
+                  dataIcon := licon.Trophy
                 )(
                   span(
                     strong(trans.swiss.swissTournaments()),
@@ -161,7 +161,7 @@ object show:
                 a(
                   href     := routes.Team.pmAll(t.id),
                   cls      := "button button-empty text",
-                  dataIcon := ""
+                  dataIcon := licon.Envelope
                 )(
                   span(
                     strong(messageAllMembers()),
@@ -170,7 +170,7 @@ object show:
                 )
               ),
               ((t.enabled && info.ledByMe) || manageTeamEnabled) option
-                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
+                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := licon.Gear)(
                   trans.settings.settings()
                 ),
               ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !requestedModView) option a(

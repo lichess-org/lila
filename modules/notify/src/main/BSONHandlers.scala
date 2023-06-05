@@ -60,6 +60,6 @@ private object BSONHandlers:
         case "genericLink"    => reader.as[GenericLink]
         case "streamStart"    => reader.as[StreamStart]
 
-    def writes(@annotation.nowarn w: Writer, n: NotificationContent): Bdoc = writeNotificationContent(n)
+    def writes(w: Writer, n: NotificationContent): Bdoc = writeNotificationContent(n)
 
   private[notify] given BSONDocumentHandler[Notification] = Macros.handler

@@ -3,7 +3,7 @@ package views.html.tutor
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment.given
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorPerfReport
 import lila.insight.InsightPosition
@@ -15,7 +15,11 @@ object phases:
       cls := "tutor__phases box",
       boxTop(
         h1(
-          a(href := routes.Tutor.perf(user.username, report.perf.key), dataIcon := "", cls := "text"),
+          a(
+            href     := routes.Tutor.perf(user.username, report.perf.key),
+            dataIcon := licon.LessThan,
+            cls      := "text"
+          ),
           bits.otherUser(user),
           report.perf.trans,
           " phases"
@@ -38,12 +42,12 @@ object phases:
               div(cls := "tutor__phases__phase__buttons")(
                 a(
                   cls      := "button button-no-upper text",
-                  dataIcon := "",
+                  dataIcon := licon.ArcheryTarget,
                   href     := routes.Puzzle.show(phase.phase.name)
                 )("Train with ", phase.phase.name, " puzzles"),
                 a(
                   cls      := "button button-no-upper text",
-                  dataIcon := "",
+                  dataIcon := licon.AnalogTv,
                   href     := s"${routes.Video.index}?tags=${phase.phase.name}"
                 )("Watch ", phase.phase.name, " videos")
               )

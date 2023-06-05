@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' com arredondamento, baseado no número de meios-movimentos até à próxima captura ou movimento de peão</string>
   <string name="noGameFound">Nenhum jogo encontrado</string>
+  <string name="maxDepthReached">Nível máximo alcançado!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openings">Aberturas</string>
   <string name="openingExplorer">Explorador de aberturas</string>
@@ -119,6 +120,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o teu computador quente</string>
+  <string name="engineManager">Gestão do motor</string>
   <string name="blunder">Erro grave</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
@@ -342,6 +344,7 @@
   </plurals>
   <string name="viewTournament">Ver o torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
+  <string name="noDrawBeforeSwissLimit">Num torneio suíço não pode empatar antes de 30 jogadas.</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida a valer pontos</item>
@@ -866,6 +869,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="useTheReportForm">usa a ficha própria para o fazeres</string>
   <string name="toRequestSupport">Para solicitares suporte, %1$s.</string>
   <string name="tryTheContactPage">tenta a página de contacto</string>
+  <string name="makeSureToRead">Certifique-se que lê %1$s</string>
+  <string name="theForumEtiquette">a etiqueta do fórum</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e já não pode ser respondido.</string>
   <string name="joinTheTeamXToPost">Junta-te a %1$s, para publicares neste fórum</string>
   <string name="teamNamedX">equipa %1$s</string>
