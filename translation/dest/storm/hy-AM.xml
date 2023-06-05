@@ -4,7 +4,7 @@
   <string name="youPlayTheWhitePiecesInAllPuzzles">Դուք խաղում եք սպիտակ խաղաքարերով բոլոր խնդիրներում</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Դուք խաղում եք սև խաղաքարերով բոլոր խնդիրներում</string>
   <string name="puzzlesSolved">խնդիրներ լուծվել են</string>
-  <string name="newDailyHighscore">Օրվա նոր ռեկորդ</string>
+  <string name="newDailyHighscore">Օրվա նո՛ր ռեկորդ</string>
   <string name="newWeeklyHighscore">Շաբաթվա նոր ռեկորդ</string>
   <string name="newMonthlyHighscore">Ամսվա նոր ռեկորդ</string>
   <string name="newAllTimeHighscore">Բոլոր ժամանակների նոր ռեկորդ</string>
@@ -50,7 +50,13 @@
   <string name="skip">բաց թողնել</string>
   <string name="skipHelp">Մրցավազքի ընթացքում Դուք կարող եք բաց թողնել մեկ քայլ.</string>
   <string name="skipExplanation">Բաց թողնել այս քայլը՝ շարքը պահպանելու համար։ Մրցավազքի ընթացքում կարելի է օգտագործել միայն մեկ անգամ։</string>
+  <string name="failedPuzzles">Չլուծված խնդիրներ</string>
+  <string name="slowPuzzles">Երկար լուծելի խնդիրներ</string>
+  <string name="skippedPuzzle">Բաց թողնված խնդիր</string>
   <string name="thisWeek">Այս շաբաթ</string>
   <string name="thisMonth">Այս ամիս</string>
   <string name="allTime">Ամբողջ ընթացքում</string>
+  <string name="clickToReload">Հպեք՝ վերագործարկելու համար</string>
+  <string name="thisRunHasExpired">Այս շարքի ժամանակը սպառվե՛լ է:</string>
+  <string name="thisRunWasOpenedInAnotherTab">Այս շարքը բացվել է մեկ ա՛յլ ներդիրում:</string>
 </resources>
