@@ -103,6 +103,7 @@
   <string name="lossSavedBy50MoveRule">Պարտությունը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="winOr50MovesByPriorMistake">Հաղթանակ կամ 50 քայլ վերջին սխալից հետո</string>
   <string name="lossOr50MovesByPriorMistake">Պարտություն կամ 50 քայլ վերջին սխալից հետո</string>
+  <string name="unknownDueToRounding">Հաղթանակը երաշխավորված է միայն այն դեպքում, եթե առաջարկվող քայլերի հաջորդականությունը կատարվել է վերջին անգամ խաղաքարը վերցնելուց կամ զինվորական քայլից՝ Syzygy-ի բազաներում DTZ արժեքների հնարավոր կլորացման պատճառով:</string>
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
@@ -546,6 +547,8 @@
   <string name="troll">Թրոլինգ</string>
   <string name="ratingManipulation">Կեղծարարություններ վարկանիշի հետ</string>
   <string name="other">այլ</string>
+  <string name="reportDescriptionHelp">Կիսվեք մեզ հետ Այն խաղերի հղումներով, որտեղ կարծում եք, որ կանոնները խախտվել են և նկարագրեք, թե ինչն է սխալ: Բավական չէ պարզապես գրել \"Նա խարդախում է\", խնդրում ենք նկարագրել, թե ինչպես եք եկել այս եզրակացության: Մենք ավելի արագ կաշխատենք, եթե գրեք անգլերեն:</string>
+  <string name="error.provideOneCheatedGameLink">Խնդրում ենք ավելացնել առնվազն մեկ խաղի հղում, որտեղ ձեր կարծիքով խախտվել են կանոնները:</string>
   <string name="by">ըստ %s</string>
   <string name="importedByX">Ներմուծվել է %s-ի կողմից</string>
   <string name="thisTopicIsNowClosed">Այս թեման այժմ փակ է։</string>
@@ -556,6 +559,7 @@
   <string name="noNoteYet">Դեռ մի նշում չկա</string>
   <string name="invalidUsernameOrPassword">Սխալ օգտանուն կամ գաղտնաբառ</string>
   <string name="incorrectPassword">Գաղտնաբառը սխալ է</string>
+  <string name="invalidAuthenticationCode">Վավերացման սխալ կոդը</string>
   <string name="emailMeALink">Էլեկտրոնային փոստով ուղարկել ինձ  հղումը</string>
   <string name="currentPassword">Ընթացիկ գաղտնաբառը</string>
   <string name="newPassword">նոր գաղտնաբառը</string>
@@ -612,6 +616,11 @@
   <string name="error.unknown">Սխալ արժեք</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Էլ. փոստի այս հասցեն սխալ է:</string>
+  <string name="error.email_acceptable">Այս էլ. փոստի հասցեն վավեր չէ։ Ստուգեք այն և նորից փորձեք:</string>
+  <string name="error.email_unique">Էլ. փոստի հասցեն անվավեր է կամ արդեն զբաղված է</string>
+  <string name="error.email_different">Սա առանց այդ էլ Ձեր էլ. փոստի հասցեն է</string>
+  <string name="error.minLength">Տեքստի նվազագույն երկարությունը — %s</string>
+  <string name="error.maxLength">Տեքստի առավելագույն երկարությունը — %s</string>
   <string name="error.min">Արժեքը պետք է լինի մեծ կամ հավասար %s</string>
   <string name="error.max">Արժեքը պետք է լինի փոքր կամ հավասար %s</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
@@ -660,6 +669,8 @@
   <string name="simulClockHint">Ֆիշերի ժամացույցի կարգավորումներ։ Որքան շատ մրցակից ունենաք, այնքան շատ ժամանակ ձեզ պետք կգա։</string>
   <string name="simulAddExtraTime">Պարտիաներում մտորելու համար դուք կարող եք ստանալ լրացուցիչ ժամանակ։</string>
   <string name="simulHostExtraTime">Խաղաշար անցկացնողի լրացուցիչ ժամանակը</string>
+  <string name="simulAddExtraTimePerPlayer">Ձեր ժամացույցի վրա ավելացրեք մեկնարկային ժամանակը յուրաքանչյուր խաղացողի համար, ով մուտք է գործել Ձեր միաժամանակյա խաղի նստաշրջան:</string>
+  <string name="simulHostExtraTimePerPlayer">Յուրաքանչյուր խաղացողի համար նստաշրջանի ժամանակի լրացում</string>
   <string name="lichessTournaments">Lichess մրցաշարեր</string>
   <string name="tournamentFAQ">Հարցեր «Արենա» մրցաշարերի վերաբերյալ</string>
   <string name="timeBeforeTournamentStarts">Ժամանակ մինչև մրցաշարի սկսվելը</string>
@@ -691,6 +702,11 @@
   <string name="glicko2Rating">Glicko-2 վարկանիշ</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ձեզ նամակ ենք ուղարկել։ Մասնակցային հաշիվն ակտիվացնելու համար սեղմեք նամակում եղած հղումը։</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Եթե նամակը չկա, ստուգեք սպամի և այլ պանակները, որտեղ այն կարող էր հասնել:</string>
+  <string name="weHaveSentYouAnEmailTo">Մենք նամակ ենք ուղարկել %s։ Կտտացրեք դրա մեջ գտնվող հղմանը՝ ձեր գաղտնաբառը վերականգնելու համար։</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Գրանցվելով՝ Դուք ստանձնում եք մեր %s հետևելու պարտականությունը:</string>
+  <string name="readAboutOur">Ծանոթացեք մեր %s։</string>
+  <string name="networkLagBetweenYouAndLichess">Ձեր և Lichess-ի սերվերների միջև տվյալների փոխանցման հետաձգում:</string>
   <string name="timeToProcessAMoveOnLichessServer">Քայլի մշակման ժամանակը Lichess-ի սերվերում</string>
   <string name="downloadAnnotated">Ներբեռնել անոտացիաներով</string>
   <string name="downloadRaw">Ներբեռնել նախնական տեսքով</string>
@@ -708,6 +724,7 @@
   <string name="kidMode">Մանկական ռեժիմ</string>
   <string name="kidModeExplanation">Սա անվտանգության համար է։ Մանկական ռեժիմում անջատված են կայքի հաղորդակցության բոլոր միջոցները։ Միացրեք այս ռեժիմը ձեր երեխաների և աշակերտների համար` նրանց այլ օգտատերերից պաշտպանելու համար։</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Մանկական ռեժիմում Lichess-ի պատկերանշանին ավելանում է %s տեսքով նշան, որպեսզի Դուք իմանաք, որ Ձեր երեխաներն անվտանգության մեջ են։</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Ձեր հաշիվը կառավարվում է: Հարցրեք ձեր շախմատի ուսուցիչին երեխաների ռեժիմը հեռացնելու մասին:</string>
   <string name="enableKidMode">Միացնել մանկական ռեժիմը</string>
   <string name="disableKidMode">Անջատել մանկական ռեժիմը</string>
   <string name="security">Անվտանգություն</string>
@@ -856,6 +873,8 @@
   <string name="useTheReportForm">օգտագործեք հաղորդման ձևը</string>
   <string name="toRequestSupport">Աջակցություն ստանալու համար %1$s</string>
   <string name="tryTheContactPage">դիտեք կոնտակտային տվյալները</string>
+  <string name="makeSureToRead">Մի մոռացեք կարդալ %1$s</string>
+  <string name="theForumEtiquette">ֆորումի վարվելակարգը</string>
   <string name="thisTopicIsArchived">Այս թեման տեղափոխվել է արխիվ, և այն այլևս հնարավոր չէ մեկնաբանել։</string>
   <string name="joinTheTeamXToPost">Մուտք գործեք %1$s, այս ֆորումում գրելու համար</string>
   <string name="teamNamedX">%1$s թիմ</string>
@@ -886,6 +905,7 @@
   <string name="streamerManager">Սթրիմերների համար</string>
   <string name="cancelTournament">Չեղարկել մրցաշարը</string>
   <string name="tournDescription">Մրցաշարի նկարագրությունը</string>
+  <string name="tournDescriptionHelp">Անկանու՞մ եք ինչ-որ բան ասել օգտվողներին: Փորձեք լինել հակիրճ. Markdown ձևաչափով հղումները [name](https://url) մատչելի են: </string>
   <string name="ratedFormHelp">Խաղերն ընթանում են վարկանիշի հաշվարկով և ազդում են խաղացողների վարկանիշի վրա</string>
   <string name="onlyMembersOfTeam">Միայն ակումբի անդամների համար</string>
   <string name="noRestriction">Առանց սահմանափակումների</string>
@@ -894,6 +914,10 @@
   <string name="maximumWeeklyRating">Առավելագույն ամենշաբաթյա վարկանիշ</string>
   <string name="onlyTitled">Միայն տիտղոսավոր խաղացողներ</string>
   <string name="onlyTitledHelp">Պահանջում է պաշտոնական տիտղոս մրցաշարին մասնակցելու համար</string>
+  <string name="positionInputHelp">Տեղադրեք FEN-ի ճիշտ տողը, որպեսզի յուրաքանչյուր խաղ սկսվի տվյալ դիրքից:
+Սա աշխատում է միայն ստանդարտ խաղերի համար, բայց ոչ տարբերակների հետ:
+Դուք կարող եք օգտագործել %s՝ FEN դիրքը ստեղծելու համար, այնուհետև տեղադրեք այն այստեղ:
+Դաշտը թողեք դատարկ, որպեսզի խաղերը սկսվեն սովորական մեկնարկային դիրքից:</string>
   <string name="cancelSimul">Չեղարկել խաղաշարը</string>
   <string name="simulHostcolor">Խաղաշար անցկացնողի գույնը յուրաքանչյուր պարտիայում</string>
   <string name="estimatedStart">Խաղաշարը սկսելու նախատեսվող ժամը</string>
@@ -908,8 +932,10 @@
   <string name="noChat">Առանց զրուցարանի</string>
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
+  <string name="navigateMoveTree">Անցում ըստ քայլերի</string>
   <string name="mouseTricks">Շարժումներ մկնիկով</string>
   <string name="toggleLocalAnalysis">Միացնել համակարգչային վերլուծությունը</string>
+  <string name="toggleAllAnalysis">Փոխել համակարգչային վերլուծության բոլոր եղանակները</string>
   <string name="playComputerMove">Անել լավագույն համակարգչային քայլը</string>
   <string name="analysisOptions">Վերլուծության պարամետրերը</string>
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
