@@ -34,4 +34,5 @@
   <string name="yearlyClassical">Ամենամյա դասական շախմատ</string>
   <string name="yearlyXArena">Ամենամյա %s Արենա</string>
   <string name="yearlyX">Ամենամյա %s</string>
+  <string name="xArena">%s Արենա</string>
 </resources>
