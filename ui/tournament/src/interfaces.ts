@@ -1,8 +1,3 @@
-import { VNode } from 'snabbdom';
-
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
-
 export interface StandingPlayer extends SimplePlayer {
   id: string;
   withdraw?: boolean;

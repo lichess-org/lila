@@ -33,6 +33,7 @@ import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
 import { uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
+import { toggle as boardMenuToggle } from 'board/menu';
 
 import {
   RoundOpts,
@@ -48,7 +49,7 @@ import {
   NvuiPlugin,
 } from './interfaces';
 import { Toggle, toggle } from 'common';
-import { ToggleWithUsed, toggleWithUsed } from 'common/storage';
+import { ToggleWithUsed } from 'common/storage';
 
 interface GoneBerserk {
   white?: boolean;
@@ -141,7 +142,7 @@ export default class RoundController {
     this.moveOn = new MoveOn(this, 'move-on');
     this.transientMove = new TransientMove(this.socket);
 
-    this.menu = toggleWithUsed('boardMenuToggleUsed', toggle(false, redraw));
+    this.menu = boardMenuToggle(redraw);
     this.voiceMoveEnabled = toggle(d.pref.voiceMove, async v => {
       await xhr.setPreference('voice', v ? '1' : '0');
       lichess.reload();

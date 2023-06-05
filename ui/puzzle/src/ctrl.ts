@@ -38,6 +38,7 @@ import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
+import { toggle as boardMenuToggle } from 'board/menu';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
@@ -59,6 +60,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     streakFailStorage.listen(_ => failStreak(streak));
   }
   const session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
+  const menu = boardMenuToggle(redraw);
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -685,5 +687,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flipped: () => flipped,
     showRatings: opts.showRatings,
     nvui: window.LichessPuzzleNvui ? (window.LichessPuzzleNvui(redraw) as NvuiPlugin) : undefined,
+    menu,
   };
 }

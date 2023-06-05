@@ -5,7 +5,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
 import { Outcome, Move } from 'chessops/types';
 import { Prop } from 'common';
-import { StoredProp } from 'common/storage';
+import { StoredProp, ToggleWithUsed } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
@@ -86,6 +86,7 @@ export interface Controller extends KeyboardController {
   autoScrollRequested?: boolean;
 
   nvui?: NvuiPlugin;
+  menu: ToggleWithUsed;
 }
 
 export interface NvuiPlugin {

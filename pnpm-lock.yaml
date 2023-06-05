@@ -604,6 +604,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      board:
+        specifier: workspace:*
+        version: link:../board
       ceval:
         specifier: workspace:*
         version: link:../ceval
