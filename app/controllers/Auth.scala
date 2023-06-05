@@ -50,7 +50,7 @@ final class Auth(
   private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
     result.withCookies(
       env.lilaCookie.withSession {
-        _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
+        _ + (lila.common.HTTPRequest.userSessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
       }
     )
 
@@ -78,7 +78,7 @@ final class Auth(
       def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
       Firewall {
         implicit val req = ctx.body
-        val referrer     = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
+        val referrer     = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers)
         api.usernameOrEmailForm
           .bindFromRequest()
           .fold(
@@ -129,7 +129,7 @@ final class Auth(
 
   def logout =
     Open { implicit ctx =>
-      val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
+      val currentSessionId = ~lila.common.HTTPRequest.userSessionId(ctx.req)
       env.security.store.delete(currentSessionId) >>
         env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
         negotiate(
@@ -144,7 +144,7 @@ final class Auth(
       negotiate(
         html = notFound,
         api = _ => {
-          ctxReq.session get api.sessionIdKey foreach env.security.store.delete
+          ctxReq.session get lila.common.HTTPRequest.userSessionIdKey foreach env.security.store.delete
           Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).fuccess
         }
       )

@@ -25,7 +25,7 @@ object bits {
       div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "'")(trans.leaderboard()),
-          a(cls := "more", href := routes.User.list)(trans.more(), " »")
+          a(cls := "more", href := langHref(routes.User.list))(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
@@ -46,7 +46,7 @@ object bits {
       div(cls := "lobby__winners lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
-          a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
+          a(cls := "more", href := langHref(routes.Tournament.leaderboard))(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
@@ -55,7 +55,7 @@ object bits {
                 tr(
                   td(userIdLink(w.userId.some)),
                   td(
-                    a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
+                    a(title := w.tourName, href := langHref(routes.Tournament.show(w.tourId)))(
                       scheduledTournamentNameShortHtml(w.tourName)
                     )
                   )
@@ -66,7 +66,7 @@ object bits {
         )
       ),
       div(cls := "lobby__tournaments lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Tournament.home)(
+        a(cls := "lobby__box__top", href := langHref(routes.Tournament.home))(
           h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
           span(cls := "more")(trans.more(), " »")
         ),
@@ -75,7 +75,7 @@ object bits {
         )
       ),
       div(cls := "lobby__simuls lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Simul.home)(
+        a(cls := "lobby__box__top", href := langHref(routes.Simul.home))(
           h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
           span(cls := "more")(trans.more(), " »")
         ),
@@ -87,7 +87,7 @@ object bits {
 
   def shogiDescription(implicit ctx: Context): Frag =
     div(cls := "lobby__description lobby__box")(
-      a(cls := "lobby__box__top", href := routes.Learn.index)(
+      a(cls := "lobby__box__top", href := langHref(routes.Learn.index))(
         h2(cls := "title text", dataIcon := "C")(trans.shogi()),
         span(cls := "more")(trans.learnMenu(), " »")
       ),
@@ -97,7 +97,7 @@ object bits {
           br,
           trans.shogiDescription(),
           br,
-          trans.learnShogiHereX(strong(a(href := routes.Learn.index)(trans.shogiBasics())))
+          trans.learnShogiHereX(strong(a(href := langHref(routes.Learn.index))(trans.shogiBasics())))
         )
       )
     )
@@ -115,31 +115,33 @@ object bits {
       )
     )
 
-  private def variantNameTag(variant: Variant)(implicit ctx: Context): Frag =
+  private def variantNameTag(variant: Variant)(implicit ctx: Context): Frag = {
+    val showKanjiName = ctx.lang.language != "ja"
     variant match {
       case Kyotoshogi =>
         h3(dataIcon := "")(
-          s"${trans.kyotoshogi.txt()}${if (ctx.lang.language == "en") " (京都将棋)" else ""}"
+          s"${trans.kyotoshogi.txt()}${if (showKanjiName) " (京都将棋)" else ""}"
         )
       case Annanshogi =>
         h3(dataIcon := "")(
-          s"${trans.annanshogi.txt()}${if (ctx.lang.language == "en") " (安南将棋)" else ""}"
+          s"${trans.annanshogi.txt()}${if (showKanjiName) " (安南将棋)" else ""}"
         )
       case Chushogi =>
         h3(dataIcon := "(")(
-          s"${trans.chushogi.txt()}${if (ctx.lang.language == "en") " (中将棋)" else ""}"
+          s"${trans.chushogi.txt()}${if (showKanjiName) " (中将棋)" else ""}"
         )
       case Minishogi =>
         h3(dataIcon := ",")(
-          s"${trans.minishogi.txt()}${if (ctx.lang.language == "en") " (5五将棋)" else ""}"
+          s"${trans.minishogi.txt()}${if (showKanjiName) " (5五将棋)" else ""}"
         )
       case _ => trans.shogi.txt()
     }
+  }
 
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = {
     posts.nonEmpty option
       div(cls := "lobby__blog lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Blog.index())(
+        a(cls := "lobby__box__top", href := langHref(routes.Blog.index()))(
           h2(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
           span(cls := "more")(trans.more(), " »")
         ),
@@ -186,28 +188,27 @@ object bits {
       )
     )
 
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame) =
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(implicit ctx: Context) =
     nopeInfo(
-      h1("Hang on!"),
-      p("You have a game in progress with ", strong(current.opponent), "."),
+      h1(trans.hangOn()),
+      p(trans.gameInProgressWithX(strong(current.opponent)), "."),
       br,
       br,
       a(cls := "text button button-fat", dataIcon := "G", href := routes.Round.player(current.pov.fullId))(
-        "Join the game"
+        trans.joinTheGame()
       ),
       br,
       br,
-      "or",
+      trans.or(),
       br,
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
         button(cls := "text button button-red", dataIcon := "L")(
-          if (current.pov.game.abortable) "Abort" else "Resign",
-          " the game"
+          if (current.pov.game.abortable) trans.abortGame() else trans.resign()
         )
       ),
       br,
-      p("You can't start a new game until this one is finished.")
+      p(trans.gameInProgressDescription())
     )
 
   def nopeInfo(content: Modifier*) =

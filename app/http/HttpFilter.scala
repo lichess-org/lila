@@ -23,7 +23,7 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     else {
       val startTime = nowMillis
       redirectWrongDomain(req) map fuccess getOrElse {
-        nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
+        nextFilter(req) dmap finalizeResponse(req) dmap { result =>
           monitoring(req, startTime, result)
           result
         }
@@ -49,9 +49,20 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
         !(req.host == net.assetDomain.value && HTTPRequest.hasFileExtension(req))
     ) option Results.MovedPermanently(s"http${if (req.secure) "s" else ""}://${net.domain}${req.uri}")
 
-  private def addApiResponseHeaders(req: RequestHeader)(result: Result) =
+  private def finalizeResponse(req: RequestHeader)(result: Result) =
     if (HTTPRequest.isApiOrApp(req))
       result.withHeaders(ResponseHeaders.headersForApiOrApp(req): _*)
+    else if (
+      HTTPRequest
+        .userSessionId(req)
+        .isEmpty && result.session(req).get("lang").isEmpty
+    )
+      req
+        .getQueryString("lang")
+        .flatMap(lila.i18n.I18nLangPicker.byQuery)
+        .fold(result) { lang =>
+          result.withCookies(env.lilaCookie.session("lang", lang.code)(req))
+        }
     else
       result
 }

@@ -500,9 +500,10 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   private def getAndSaveLang(req: RequestHeader, user: Option[UserModel]): Lang = {
-    val lang = I18nLangPicker(req, user.flatMap(_.lang))
-    user.filter(_.lang.fold(true)(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
-    lang
+    val langToSave = I18nLangPicker(req, user.flatMap(_.lang))
+    user.filter(_.lang.fold(true)(_ != langToSave.code)) foreach { env.user.repo.setLang(_, langToSave) }
+    val qLang = get("lang", req).flatMap(I18nLangPicker.byQuery)
+    qLang.getOrElse(langToSave)
   }
 
   private def pageDataBuilder(ctx: UserContext, hasFingerPrint: Boolean): Fu[PageData] = {
@@ -593,11 +594,11 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NotForBots(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isCrawler ctx.req) notFound else res
 
-  protected def OnlyHumans(result: => Fu[Result])(implicit ctx: lila.api.Context) =
+  protected def OnlyHumans(result: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isCrawler ctx.req) fuccess(NotFound)
     else result
 
-  protected def OnlyHumansAndFacebookOrTwitter(result: => Fu[Result])(implicit ctx: lila.api.Context) =
+  protected def OnlyHumansAndFacebookOrTwitter(result: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isFacebookOrTwitterBot ctx.req) result
     else if (HTTPRequest isCrawler ctx.req) fuccess(NotFound)
     else result
@@ -650,7 +651,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment().unit
 
-  protected def pageHit(implicit ctx: lila.api.Context): Unit = pageHit(ctx.req)
+  protected def pageHit(implicit ctx: Context): Unit = pageHit(ctx.req)
 
   protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
   protected val noProxyBuffer       = (res: Result) => res.withHeaders(noProxyBufferHeader)

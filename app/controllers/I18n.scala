@@ -34,7 +34,7 @@ final class I18n(env: Env) extends LilaController(env) {
                       val pageUrl = new java.net.URL(str)
                       val path    = pageUrl.getPath
                       val query   = pageUrl.getQuery
-                      if (query == null) path
+                      if (query == null || query.startsWith("lang=") || query.contains("&lang=")) path
                       else path + "?" + query
                     } catch {
                       case _: java.net.MalformedURLException => routes.Lobby.home.url

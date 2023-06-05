@@ -103,7 +103,7 @@ final class SecurityApi(
   }
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerPrintedUser]] =
-    firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
+    firewall.accepts(req) ?? HTTPRequest.userSessionId(req) ?? { sessionId =>
       store.authInfo(sessionId) flatMap {
         _ ?? { d =>
           userRepo byId d.user dmap { _ map { FingerPrintedUser(_, d.hasFp) } }
@@ -133,15 +133,10 @@ final class SecurityApi(
     }
 
   def dedup(userId: User.ID, req: RequestHeader): Funit =
-    reqSessionId(req) ?? { store.dedup(userId, _) }
+    HTTPRequest.userSessionId(req) ?? { store.dedup(userId, _) }
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
-    reqSessionId(req) ?? { store.setFingerPrint(_, fp) map some }
-
-  val sessionIdKey = "sessionId"
-
-  def reqSessionId(req: RequestHeader): Option[String] =
-    req.session.get(sessionIdKey) orElse req.headers.get(sessionIdKey)
+    HTTPRequest.userSessionId(req) ?? { store.setFingerPrint(_, fp) map some }
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 

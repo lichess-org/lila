@@ -7,7 +7,8 @@ import lila.common.config.BaseUrl
 
 final class ReferrerRedirect(baseUrl: BaseUrl) {
 
-  val sillyLoginReferrers = Set("/login", "/signup", "/mobile")
+  private val sillyLoginReferrersSet   = Set("/login", "/signup", "/mobile")
+  def sillyLoginReferrers(ref: String) = sillyLoginReferrersSet(ref)
 
   private lazy val parsedBaseUrl = URL.parse(baseUrl.value)
 

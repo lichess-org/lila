@@ -71,7 +71,7 @@ final class Page(
     Open { implicit ctx =>
       pageHit
       OptionOk(prismicC.getPage("doc", uid, BlogLang.fromLang(ctx.lang))) { case (doc, resolver) =>
-        views.html.site.page(doc, resolver)
+        views.html.site.page(doc, resolver, lila.i18n.LangList.EnglishJapanese.some)
       }
     }
 

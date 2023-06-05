@@ -158,10 +158,37 @@ object LangList {
 
   val defaultRegions = Map[String, Lang](
     "de" -> Lang("de", "DE"),
-    "en" -> Lang("en", "GB"),
-    "pt" -> Lang("pt", "PT"),
+    "en" -> Lang("en", "US"),
+    "pt" -> Lang("pt", "BR"),
     "zh" -> Lang("zh", "CN")
   )
+
+  // based on https://crowdin.com/project/lishogi
+  // at least 80%, no en, order doesn't matter
+  private val fullyTranslated =
+    List(
+      "be-BY",
+      "zh-CN",
+      "cs-CZ",
+      "fr-FR",
+      "de-DE",
+      "hi-IN",
+      "it-IT",
+      "ja-JP",
+      "pl-PL",
+      "pt-BR",
+      "ru-RU",
+      "es-ES",
+      "tr-TR",
+      "vi-VN"
+    )
+
+  sealed trait AlternativeLangs
+  case object EnglishJapanese extends AlternativeLangs
+  case object All             extends AlternativeLangs
+
+  lazy val alternativeLangCodes: List[String] =
+    popularNoRegion.withFilter(l => fullyTranslated.contains(l.code)).map(fixJavaLanguageCode).take(15)
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)
