@@ -779,6 +779,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpassa</string>
   <string name="notifications">Meldingar</string>
+  <string name="notificationsX">Varsel: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
