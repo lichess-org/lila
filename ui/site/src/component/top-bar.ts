@@ -61,27 +61,11 @@ export default function () {
           }))
       );
     };
-    const tryFocusFirstChallenge = function (attempt = 1) {
-      const maxAttempts = 5,
-        attemptIntervalMs = 100,
-        $challengeAccept = $('#challenge-app .challenges .challenge.in button.accept').first();
-
-      if (!isVisible('#challenge-app')) return;
-      if ($challengeAccept.length == 0 && attempt < maxAttempts) {
-        setTimeout(() => tryFocusFirstChallenge(attempt + 1), attemptIntervalMs);
-        return;
-      }
-
-      $challengeAccept[0]?.focus();
-    };
     pubsub.on('socket.in.challenges', data => {
       if (!instance) load(data);
       else instance.update(data);
     });
 
-    if (lichess.blindMode) {
-      pubsub.on('top.toggle.challenge-toggle', tryFocusFirstChallenge);
-    }
     pubsub.on('challenge-app.open', () => $toggle.trigger('click'));
   }
 
@@ -131,23 +115,6 @@ export default function () {
         }, 200);
       });
 
-    const tryFocusFirstNotification = function (attempt = 1) {
-      const maxAttempts = 5,
-        attemptIntervalMs = 100,
-        $firstNotification = $('#notify-app .notifications a.site_notification').first();
-
-      if (!isVisible('#notify-app')) return;
-      if ($firstNotification.length == 0 && attempt < maxAttempts) {
-        setTimeout(() => tryFocusFirstNotification(attempt + 1), attemptIntervalMs);
-        return;
-      }
-
-      $firstNotification[0]?.focus();
-    };
-
-    if (lichess.blindMode) {
-      pubsub.on('top.toggle.notify-toggle', tryFocusFirstNotification);
-    }
     pubsub.on('socket.in.notifications', data => {
       if (!instance) load(data);
       else instance.update(data);
