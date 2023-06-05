@@ -179,6 +179,7 @@
 	<string name="changeEmail">Change email</string>
 	<string name="email">Email</string>
 	<string name="passwordReset">Password reset</string>
+	<string name="loginByEmail">Log in by email</string>
 	<string name="forgotPassword">Forgot password?</string>
 	<string name="rank">Rank</string>
 	<string name="rankX">Rank: %s</string>
@@ -236,6 +237,7 @@
 	<string name="play">Play</string>
 	<string name="inbox">Inbox</string>
 	<string name="streamerManager">Streamer manager</string>
+	<string name="coachManager">Coach manager</string>
 	<string name="chatRoom">Chat room</string>
 	<string name="loginToChat">Sign in to chat</string>
 	<string name="youHaveBeenTimedOut">You have been timed out.</string>
@@ -288,6 +290,7 @@
 	<string name="yourOpponentProposesATakeback">Your opponent proposes a takeback</string>
 	<string name="bookmarkThisGame">Bookmark this game</string>
 	<string name="tournament">Tournament</string>
+	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">Tournaments</string>
 	<string name="tournamentPoints">Tournament points</string>
 	<plurals name="nbTournamentPoints">
@@ -327,7 +330,7 @@
 	<string name="youAreNotInTeam">You are not in the team %s</string>
 	<string name="backToGame">Back to game</string>
 	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
-	<string name="shogiDescription">Shogi, also known as "将棋" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as "Japanese chess" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
+	<string name="shogiDescription" comment="Feel free to tweak it">Shogi, also known as "将棋" in Japanese, is a two-player strategy board game that has been played in Japan for centuries. It is often referred to as "Japanese chess" due to its similarities to the Western game of chess, but has unique features that make it a distinct game in its own right.</string>
 	<string name="learnShogiHereX">If you are not familiar with the rules of shogi, check out - %s.</string>
 	<string name="xJoinedTeamY">%1$s joined team %2$s</string>
 	<string name="xCreatedTeamY">%1$s created team %2$s</string>
@@ -445,6 +448,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="isPrivate">Private</string>
 	<string name="reportXToModerators">Report %s to moderators</string>
 	<string name="profileCompletion">Profile completion: %s</string>
+	<string name="thisIsProfilePage">This is your profile page.</string>
 	<string name="xRating">%s rating</string>
 	<string name="ifNoneLeaveEmpty">If none, leave empty</string>
 	<string name="gameCompletionRate">Game completion rate: %s</string>
@@ -459,23 +463,14 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="watchLishogiTV">Watch Lishogi TV</string>
 	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
 	<string name="onlinePlayers">Online players</string>
+	<string name="onlineBots">Online bots</string>
 	<string name="activeToday">Active today</string>
 	<string name="activePlayers">Active players</string>
 	<string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
-	<string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
 	<string name="toTrackYourProgress">To track your progress:</string>
-	<string name="puzzleId">Puzzle %s</string>
-	<string name="puzzleOfTheDay">Puzzle of the day</string>
-	<string name="clickToSolve">Click to solve</string>
 	<string name="goodMove">Good move</string>
-	<string name="butYouCanDoBetter">But you can do better.</string>
 	<string name="bestMove">Best move!</string>
-	<string name="keepGoing">Keep going…</string>
-	<string name="puzzleFailed">Puzzle failed</string>
-	<string name="butYouCanKeepTrying">But you can keep trying.</string>
 	<string name="success">Success</string>
-	<string name="wasThisPuzzleAnyGood">Was this puzzle any good?</string>
-	<string name="pleaseVotePuzzle">Help Lishogi improve by voting, using the up or down arrow:</string>
 	<string name="thankYou">Thank you!</string>
 	<string name="ratingX">Rating: %s</string>
 	<string name="hidden">hidden</string>
@@ -484,10 +479,6 @@ computer analysis, game chat and shareable URL.</string>
 		<item quantity="other">Played %s times</item>
 	</plurals>
 	<string name="fromGameLink">From game %s</string>
-	<string name="continueTraining">Continue training</string>
-	<string name="retryThisPuzzle">Retry this puzzle</string>
-	<string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
-	<string name="thisPuzzleIsWrong">This puzzle is wrong or boring</string>
 	<plurals name="nbGamesInPlay">
 		<item quantity="one">%s game in play</item>
 		<item quantity="other">%s games in play</item>
@@ -529,6 +520,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="questionsAndAnswers">Questions &amp; Answers</string>
 	<string name="notes">Notes</string>
 	<string name="typePrivateNotesHere">Type private notes here</string>
+        <string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+        <string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">Invalid username or password</string>
 	<string name="incorrectPassword">Incorrect password</string>
 	<string name="invalidAuthenticationCode">Invalid authentication code</string>
@@ -582,6 +575,7 @@ computer analysis, game chat and shareable URL.</string>
 	</plurals>
 	<string name="listBlockedPlayers">List players you have blocked</string>
 	<string name="human">Human</string>
+	<string name="bots">Bots</string>
 	<string name="computer">Computer</string>
 	<string name="side">Side</string>
 	<string name="clock">Clock</string>
@@ -649,15 +643,18 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="create">Create</string>
 	<string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
 	<string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
-	<string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
+	<string name="simulClockHint">The more players you take on, the more time you may need.</string>
 	<string name="simulAddExtraTime">You may add extra time to your clock to help you cope with the simul.</string>
 	<string name="simulHostExtraTime">Host extra clock time</string>
 	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
 	<string name="hostColorForEachGame">Host color for each game</string>
 	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="noRestriction">No Restriction</string>
+	<string name="estimatedStart">Estimated start time</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="tournamentShields">Tournament shields</string>
 	<string name="tournamentFAQ">Arena tournament FAQ</string>
 	<string name="tournamentOfficial">Official</string>
 	<string name="timeBeforeTournamentStarts">Time before tournament starts</string>
@@ -899,4 +896,14 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="studyWith">Study with:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Optional</string>
 	<string name="standardStudy">Standard study</string>
+	<string name="welcomeToX">Welcome to %s!</string>
+	<string name="whatNow">What now?</string>
+	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="hangOn" comment="Meaning: wait!">Hang on!</string>
+	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">or</string>
+	<string name="gameInProgressDescription">You can't start a new game until this one is finished.</string>
+	<string name="challengeDeclined">Challenge declined</string>
+	<string name="challengeAccepted">Challenge accepted</string>
+	<string name="challengeCanceled">Challenge canceled</string>
 </resources>

@@ -125,6 +125,10 @@
   <string name="deleteStudy">Delete study</string>
   <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
   <string name="whereDoYouWantToStudyThat">Where do you want to study that?</string>
+  <string name="studyTopics">Study topics</string>
+  <string name="topicsDescription">Topics to organize your studies with</string>
+  <string name="myTopics">My topics</string>
+  <string name="popularTopics">Popular topics</string>
   <string name="startTag" comment="Tags for kif and csa">Start</string>
   <string name="endTag" comment="Tags for kif and csa">End</string>
   <string name="siteTag" comment="Tags for kif and csa">Site</string>
