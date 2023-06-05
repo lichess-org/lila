@@ -196,7 +196,7 @@ function renderButtons(ctrl: RoundController) {
             'data-icon': licon.Hamburger,
           },
         },
-        h('div.board-menu-nag')
+        ctrl.menu.used() ? undefined : h('div.board-menu-toggle__new')
       ),
     ]
   );

@@ -48,6 +48,7 @@ import {
   NvuiPlugin,
 } from './interfaces';
 import { Toggle, toggle } from 'common';
+import { ToggleWithUsed, toggleWithUsed } from 'common/storage';
 
 interface GoneBerserk {
   white?: boolean;
@@ -72,7 +73,7 @@ export default class RoundController {
   ply: number;
   firstSeconds = true;
   flip = false;
-  menu: Toggle;
+  menu: ToggleWithUsed;
   voiceMoveEnabled: Toggle;
   keyboardMoveEnabled: Toggle;
   loading = false;
@@ -140,7 +141,7 @@ export default class RoundController {
     this.moveOn = new MoveOn(this, 'move-on');
     this.transientMove = new TransientMove(this.socket);
 
-    this.menu = toggle(false, redraw);
+    this.menu = toggleWithUsed('boardMenuToggleUsed', toggle(false, redraw));
     this.voiceMoveEnabled = toggle(d.pref.voiceMove, async v => {
       await xhr.setPreference('voice', v ? '1' : '0');
       lichess.reload();
