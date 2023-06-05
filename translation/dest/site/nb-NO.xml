@@ -778,6 +778,7 @@
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Varsler</string>
+  <string name="notificationsX">Varsler: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
