@@ -44,21 +44,19 @@ button#microphone-button {
   height: 30px;
   border: 1px solid transparent;
   border-radius: 4px;
-  animation: pulseListening 2s;
-  animation-iteration-count: infinite;
-  --pulse-color: transparent;
 
   &:hover {
     background-color: $c-mic-bg-hover;
   }
 
-  &.idle {
-    --pulse-color: $c-font-dim;
+  &.push-to-talk {
+    border-color: $c-primary;
   }
 
   &.listening {
+    animation: pulseListening 2s;
+    animation-iteration-count: infinite;
     color: $c-primary;
-    --pulse-color: $c-primary;
 
     &:hover {
       color: $c-link-hover;
@@ -74,7 +72,7 @@ button#microphone-button {
       border-color: transparent;
     }
     50% {
-      border-color: var(--pulse-color);
+      border-color: $c-primary;
     }
     100% {
       border-color: transparent;
@@ -105,7 +103,6 @@ button#microphone-button {
 }
 .voice-setting {
   @extend %flex-center-nowrap;
-
   * {
     white-space: nowrap;
   }
@@ -126,6 +123,14 @@ button#microphone-button {
     height: 1.6em;
     width: 100%;
     margin: 0 1ch;
+  }
+
+  select {
+    flex: 1 4 auto;
+    margin: 0 1ch;
+    padding: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .range_value {

@@ -1,422 +1,375 @@
-import { propWithEffect, PropWithEffect, toggle, Toggle } from 'common';
 import { Api as CgApi } from 'chessground/api';
+import * as xhr from 'common/xhr';
+import * as prop from 'common/storage';
 import * as cs from 'chess';
 import { src as src, dest as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
-import * as xhr from 'common/xhr';
-import * as prop from 'common/storage';
-import { RootCtrl, VoiceMove, Entry } from '../interfaces';
-import { coloredArrows, numberedArrows, brushes } from '../arrows';
-import { findTransforms, movesTo, pushMap, spreadMap, spread, getSpread, remove, type Transform } from '../util';
+import { RootCtrl, VoiceMove, VoiceCtrl, Entry } from '../main';
+import { coloredArrows, numberedArrows, brushes } from './arrows';
+import { settingNodes } from './view';
+import { findTransforms, movesTo, pushMap, spreadMap, spread, getSpread, remove, type Transform } from './util';
 
 // Based on the original implementation by Sam 'Spammy' Ezeh. see the README.md in ui/voice/@build
-let impl: VoiceMoveCtrl;
-export default (window as any).LichessVoiceMove = (root: RootCtrl, fen: string) =>
-  (impl = new VoiceMoveCtrl(root, fen));
 
-class VoiceMoveCtrl implements VoiceMove {
-  cg: CgApi;
-  root: RootCtrl;
-  board: cs.Board;
-  entries: Entry[] = [];
-  partials = { commands: [], colors: [], numbers: [], wake: { ignore: [], phrase: undefined } };
+export default (window as any).LichessVoiceMove = function (
+  root: RootCtrl,
+  ui: VoiceCtrl,
+  initialFen: string
+): VoiceMove {
+  const cg: CgApi = root.chessground;
+  const byVal = new Map<string, Entry | Set<Entry>>(); // map values to lexicon entries
+  const byTok = new Map<string, Entry>(); // map token chars to lexicon entries
+  const byWord = new Map<string, Entry>(); // map input words to lexicon entries
+  const confirm = new Map<string, (v: boolean) => void>(); // boolean confirmation callbacks
 
-  byVal = new Map<string, Entry | Set<Entry>>(); // map values to lexicon entries
-  byTok = new Map<string, Entry>(); // map token chars to lexicon entries
-  byWord = new Map<string, Entry>(); // map input words to lexicon entries
-  confirm = new Map<string, (v: boolean) => void>(); // boolean confirmation callbacks
+  let entries: Entry[] = [];
+  let partials = { commands: [], colors: [], numbers: [], wake: { ignore: [], phrase: undefined } };
+  let board: cs.Board;
+  let ucis: Uci[]; // every legal move in uci
+  let moves: Map<string, Uci | Set<Uci>>; // on full phrase - map valid xvals to all full legal moves
+  let squares: Map<string, Uci | Set<Uci>>; // on full phrase - map of xvals to selectable or reachable square(s)
+  let choices: Map<string, Uci> | undefined; // map choice (blue, red, 1, 2, etc) to action
+  let choiceTimeout: number | undefined; // timeout for ambiguity choices
 
-  ucis: Uci[]; // every legal move in uci
-  moves: Map<string, Uci | Set<Uci>>; // on full phrase - map valid xvals to all full legal moves
-  squares: Map<string, Uci | Set<Uci>>; // on full phrase - map of xvals to selectable or reachable square(s)
-  choices?: Map<string, Uci>; // map choice (blue, red, 1, 2, etc) to action
-  choiceTimeout?: number; // timeout for ambiguity choices
-  idleTimeout?: number; // timeout for wake mode
+  const MAX_CHOICES = 8; // don't use brushes.length
 
-  MAX_CHOICES = 8; // don't use brushes.length
-  IDLE_SECS = 20; // wake timeout
+  const clarityPref = prop.storedIntProp('voice.clarity', 0);
+  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
+  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
+  const debug = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
 
-  showHelp: PropWithEffect<boolean>;
-  showSettings: Toggle;
-  clarityPref = prop.storedIntProp('voice.clarity', 0);
-  colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => this.initTimerRec());
-  wakePref = prop.storedBooleanPropWithEffect('voice.wakeMode', false, _ => this.initWakeRec());
-  timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => this.initTimerRec());
-  langPref = prop.storedStringPropWithEffect('voice.lang', 'en', v => (this.lang = v));
-  debug = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
-
-  commands: { [_: string]: () => void } = {
-    no: () => (this.showHelp() ? this.showHelp(false) : this.clearMoveProgress()),
-    help: () => this.showHelp(true),
-    stop: () => this.scheduleIdle(0),
+  const commands: { [_: string]: () => void } = {
+    no: () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress()),
+    help: () => ui.showHelp(true),
     'mic-off': () => lichess.mic.stop(),
-    flip: () => this.root.flipNow(),
-    rematch: () => this.root.rematch?.(true),
-    draw: () => this.root.offerDraw?.(true, false),
-    resign: () => this.root.resign?.(true, false),
-    next: () => this.root.next?.(),
-    takeback: () => this.root.takebackYes?.(),
-    upvote: () => this.root.vote?.(true),
-    downvote: () => this.root.vote?.(false),
-    solve: () => this.root.solve?.(),
+    flip: () => root.flipNow(),
+    rematch: () => root.rematch?.(true),
+    draw: () => root.offerDraw?.(true, false),
+    resign: () => root.resign?.(true, false),
+    next: () => root.next?.(),
+    takeback: () => root.takebackYes?.(),
+    upvote: () => root.vote?.(true),
+    downvote: () => root.vote?.(false),
+    solve: () => root.solve?.(),
   };
 
-  constructor(root: RootCtrl, fen: string) {
-    this.showHelp = propWithEffect(false, root.redraw);
-    this.showSettings = toggle(false, root.redraw);
-    this.root = root;
-    this.cg = this.root.chessground;
-    for (const [color, brush] of brushes) this.cg.state.drawable.brushes[`v-${color}`] = brush;
+  for (const [color, brush] of brushes) cg.state.drawable.brushes[`v-${color}`] = brush;
 
-    this.update(fen);
+  update(initialFen);
 
-    lichess.mic.setLang(this.langPref());
-    this.initGrammar();
+  initGrammar();
+
+  return {
+    ui,
+    initGrammar,
+    prefNodes,
+    allPhrases,
+    update,
+    promotionHook,
+    opponentRequest,
+  };
+
+  function prefNodes() {
+    return settingNodes(colorsPref, clarityPref, timerPref, root.redraw);
   }
 
-  set lang(lang: string) {
-    if (lang === lichess.mic.lang) return;
-    lichess.mic.setLang(lang);
-    this.initGrammar();
+  async function initGrammar(): Promise<void> {
+    const g = await xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/move-${ui.lang()}.json`));
+    byWord.clear();
+    byTok.clear();
+    byVal.clear();
+    for (const e of g.entries) {
+      byWord.set(e.in, e);
+      byTok.set(e.tok, e);
+      if (e.val === undefined) e.val = e.tok;
+      pushMap(byVal, e.val, e);
+    }
+    entries = g.entries;
+    partials = g.partials;
+    initDefaultRec();
+    initTimerRec();
   }
 
-  get lang() {
-    return this.langPref();
+  function initDefaultRec() {
+    const excludeTag = root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
+    const words = tagWords().filter(x => byWord.get(x)?.tags?.includes(excludeTag) !== true);
+    lichess.mic.initRecognizer(words, { listener: listen });
   }
 
-  initGrammar() {
-    xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/moves-${this.lang}.json`)).then(g => {
-      this.byWord.clear();
-      this.byTok.clear();
-      this.byVal.clear();
-      for (const e of g.entries) {
-        this.byWord.set(e.in, e);
-        this.byTok.set(e.tok, e);
-        if (e.val === undefined) e.val = e.tok;
-        pushMap(this.byVal, e.val, e);
-      }
-      this.entries = g.entries;
-      this.partials = g.partials;
-      this.initDefaultRec();
-      this.initTimerRec();
-      this.initWakeRec();
-    });
+  function initTimerRec() {
+    if (timer() === 0) return;
+    const words = [...partials.commands, ...(colorsPref() ? partials.colors : partials.numbers)].map(w => valWord(w));
+    lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
   }
 
-  initDefaultRec() {
-    const excludeTag = this.root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
-    const words = this.tagWords().filter(x => this.byWord.get(x)?.tags?.includes(excludeTag) !== true);
-    lichess.mic.initRecognizer(words, { listener: this.listen.bind(this) });
+  function update(fen: string) {
+    board = cs.readFen(fen);
+    cg.setShapes([]);
+    if (!cg.state.movable.dests) return;
+    ucis = cs.destsToUcis(cg.state.movable.dests);
+    moves = buildMoves();
+    squares = buildSquares();
   }
 
-  initTimerRec() {
-    if (this.timer === 0) return;
-    const words = [
-      ...this.partials.commands,
-      ...(this.colorsPref() ? this.partials.colors : this.partials.numbers),
-    ].map(w => this.valWord(w));
-    lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: this.listenTimer.bind(this) });
-  }
-
-  initWakeRec() {
-    if (this.wakePref() && this.partials.wake.phrase)
-      lichess.mic.initRecognizer(this.partials.wake.ignore.concat(this.partials.wake.phrase), {
-        recId: 'idle',
-        partial: true,
-        listener: this.listenWake.bind(this),
-      });
-    else lichess.mic.initRecognizer([], { recId: 'idle' });
-  }
-
-  update(fen: string) {
-    this.board = cs.readFen(fen);
-    this.cg.setShapes([]);
-    if (!this.cg.state.movable.dests) return;
-    this.ucis = cs.destsToUcis(this.cg.state.movable.dests);
-    this.moves = this.buildMoves();
-    this.squares = this.buildSquares();
-  }
-
-  listen(text: string, msgType: Voice.MsgType) {
-    if (msgType === 'stop') this.clearMoveProgress();
+  function listen(text: string, msgType: Voice.MsgType) {
+    if (msgType === 'stop' && !ui.pushTalk()) clearMoveProgress();
     else if (msgType === 'full') {
       try {
-        if (this.debug?.collapse) console.groupCollapsed(`listen '${text}'`);
-        if (this.handleCommand(text) || this.handleAmbiguity(text) || this.handleMove(text)) {
-          this.confirm.forEach((cb, _) => cb(false));
-          this.confirm.clear();
-          this.scheduleIdle();
+        if (debug?.collapse) console.groupCollapsed(`listen '${text}'`);
+        if (handleCommand(text) || handleAmbiguity(text) || handleMove(text)) {
+          confirm.forEach((cb, _) => cb(false));
+          confirm.clear();
         }
       } finally {
-        if (this.debug?.collapse) console.groupEnd();
+        if (debug?.collapse) console.groupEnd();
       }
     }
-    this.root.redraw();
+    root.redraw();
   }
 
-  listenWake(text: string) {
-    if (text !== this.partials.wake.phrase) return;
-    lichess.mic.start('default');
-    this.scheduleIdle();
+  function listenTimer(word: string) {
+    console.log('hayo', word);
+    if (!choices || !choiceTimeout) return;
+    const val = wordVal(word);
+    const move = choices.get(val);
+    if (val !== 'no' && !move) return;
+    clearMoveProgress();
+    if (move) submit(move);
+    lichess.mic.setRecognizer('default');
+    cg.redrawAll();
   }
 
-  listenTimer(word: string) {
-    if (!this.choices || !this.choiceTimeout) return;
-    const val = this.wordVal(word);
-    const move = this.choices.get(val);
-    if (!['stop', 'no'].includes(val) && !move) return;
-    this.clearMoveProgress();
-
-    if (move) this.submit(move);
-    if (val === 'stop') this.scheduleIdle(0);
-    else {
-      lichess.mic.start('default');
-      this.scheduleIdle();
-    }
-    this.cg.redrawAll();
-  }
-
-  scheduleIdle(secs = this.IDLE_SECS) {
-    if (!this.wakePref()) return;
-    clearTimeout(this.idleTimeout);
-    this.idleTimeout = setTimeout(() => {
-      if (this.wakePref() && lichess.mic.recId) lichess.mic.start('idle');
-    }, secs * 1000);
-  }
-
-  makeArrows() {
-    if (!this.choices) return;
-    const arrowTime = this.choiceTimeout ? this.timer : undefined;
-    this.cg.setShapes(
-      this.colorsPref()
-        ? coloredArrows([...this.choices], arrowTime)
-        : numberedArrows([...this.choices], arrowTime, this.cg.state.orientation === 'white')
+  function makeArrows() {
+    if (!choices) return;
+    const arrowTime = choiceTimeout ? timer() : undefined;
+    cg.setShapes(
+      colorsPref()
+        ? coloredArrows([...choices], arrowTime)
+        : numberedArrows([...choices], arrowTime, cg.state.orientation === 'white')
     );
   }
 
-  handleCommand(msgText: string): boolean {
-    const c = this.matchOneTags(msgText, ['command', 'choice'])?.[0];
+  function handleCommand(msgText: string): boolean {
+    const c = matchOneTags(msgText, ['command', 'choice'])?.[0];
     if (!c) return false;
 
-    for (const [action, callback] of this.confirm) {
+    for (const [action, callback] of confirm) {
       if (c === 'yes' || c === 'no' || c === action) {
-        this.confirm.delete(action);
+        confirm.delete(action);
         callback(c !== 'no');
         return true;
       }
     }
 
-    if (!(c in this.commands)) return false;
-    this.commands[c]();
+    if (!(c in commands)) return false;
+    commands[c]();
     return true;
   }
 
-  handleAmbiguity(phrase: string): boolean {
-    if (!this.choices || phrase.includes(' ')) return false;
+  function handleAmbiguity(phrase: string): boolean {
+    if (!choices || phrase.includes(' ')) return false;
 
-    const chosen = this.matchOne(
+    const chosen = matchOne(
       phrase,
-      [...this.choices].map(([w, uci]) => [this.wordVal(w), [uci]])
+      [...choices].map(([w, uci]) => [wordVal(w), [uci]])
     );
     if (!chosen) {
-      this.clearMoveProgress();
-      if (this.debug) console.log('handleAmbiguity', `no match for '${phrase}' among`, this.choices);
+      clearMoveProgress();
+      if (debug) console.log('handleAmbiguity', `no match for '${phrase}' among`, choices);
       return false;
     }
-    if (this.debug)
-      console.log('handleAmbiguity', `matched '${phrase}' to '${chosen[0]}' at cost=${chosen[1]} among`, this.choices);
-    this.submit(chosen[0]);
+    if (debug)
+      console.log('handleAmbiguity', `matched '${phrase}' to '${chosen[0]}' at cost=${chosen[1]} among`, choices);
+    submit(chosen[0]);
     return true;
   }
 
-  handleMove(phrase: string): boolean {
-    if (this.selection && this.chooseMoves(this.matchMany(phrase, spreadMap(this.squares)))) return true;
-    return this.chooseMoves(this.matchMany(phrase, [...spreadMap(this.moves), ...spreadMap(this.squares)]));
+  function handleMove(phrase: string): boolean {
+    if (selection() && chooseMoves(matchMany(phrase, spreadMap(squares)))) return true;
+    return chooseMoves(matchMany(phrase, [...spreadMap(moves), ...spreadMap(squares)]));
   }
 
   // mappings can be partite over tag sets. in the substitution graph, all tokens with identical
   // tags define a partition and cannot share an edge when the partite argument is true.
-  matchMany(phrase: string, xvalsToOutSet: [string, string[]][], partite = false): [string, number][] {
-    const htoks = this.wordsToks(phrase);
+  function matchMany(phrase: string, xvalsToOutSet: [string, string[]][], partite = false): [string, number][] {
+    const htoks = wordsToks(phrase);
     const xtoksToOutSet = new Map<string, Set<string>>(); // temp map for val->tok expansion
     for (const [xvals, outs] of xvalsToOutSet) {
-      for (const xtoks of this.valsToks(xvals)) {
+      for (const xtoks of valsToks(xvals)) {
         for (const out of outs) pushMap(xtoksToOutSet, xtoks, out);
       }
     }
     const matchMap = new Map<string, number>();
     for (const [xtoks, outs] of spreadMap(xtoksToOutSet)) {
-      const cost = this.costToMatch(htoks, xtoks, partite);
+      const cost = costToMatch(htoks, xtoks, partite);
       if (cost < 1)
         for (const out of outs) {
           if (!matchMap.has(out) || matchMap.get(out)! > cost) matchMap.set(out, cost);
         }
     }
     const matches = [...matchMap].sort(([, lhsCost], [, rhsCost]) => lhsCost - rhsCost);
-    if ((this.debug && matches.length > 0) || this.debug?.emptyMatches)
+    if ((debug && matches.length > 0) || debug?.emptyMatches)
       console.log('matchMany', `from: `, xtoksToOutSet, '\nto: ', new Map(matches));
     return matches;
   }
 
-  matchOne(heard: string, xvalsToOutSet: [string, string[]][]): [string, number] | undefined {
-    return this.matchMany(heard, xvalsToOutSet, true)[0];
+  function matchOne(heard: string, xvalsToOutSet: [string, string[]][]): [string, number] | undefined {
+    return matchMany(heard, xvalsToOutSet, true)[0];
   }
 
-  matchOneTags(heard: string, tags: string[], vals: string[] = []): [string, number] | undefined {
-    return this.matchOne(heard, [...vals.map(v => [v, [v]]), ...this.byTags(tags).map(e => [e.val!, [e.val!]])] as [
+  function matchOneTags(heard: string, tags: string[], vals: string[] = []): [string, number] | undefined {
+    return matchOne(heard, [...vals.map(v => [v, [v]]), ...byTags(tags).map(e => [e.val!, [e.val!]])] as [
       string,
       string[]
     ][]);
   }
 
-  costToMatch(h: string, x: string, partite: boolean) {
+  function costToMatch(h: string, x: string, partite: boolean) {
     if (h === x) return 0;
     const xforms = findTransforms(h, x)
-      .map(t => t.reduce((acc, t) => acc + this.transformCost(t, partite), 0))
+      .map(t => t.reduce((acc, t) => acc + transformCost(t, partite), 0))
       .sort((lhs, rhs) => lhs - rhs);
     return xforms?.[0];
   }
 
-  transformCost(transform: Transform, partite: boolean) {
+  function transformCost(transform: Transform, partite: boolean) {
     if (transform.from === transform.to) return 0;
-    const from = this.byTok.get(transform.from);
+    const from = byTok.get(transform.from);
     const sub = from?.subs?.find(x => x.to === transform.to);
     if (partite) {
       // mappings within a tag partition are not allowed when partite is true
-      const to = this.byTok.get(transform.to);
-      // this should be optimized, maybe consolidate tags when parsing the lexicon
+      const to = byTok.get(transform.to);
+      // should be optimized, maybe consolidate tags when parsing the lexicon
       if (from?.tags?.every(x => to?.tags?.includes(x)) && from.tags.length === to!.tags.length) return 100;
     }
     return sub?.cost ?? 100;
   }
 
-  chooseMoves(m: [string, number][]) {
+  function chooseMoves(m: [string, number][]) {
     if (m.length === 0) return false;
-    if (this.timer) return this.ambiguate(m);
-    if (
-      (m.length === 1 && m[0][1] < 0.4) ||
-      (m.length > 1 && m[1][1] - m[0][1] > [0.7, 0.5, 0.3][this.clarityPref()])
-    ) {
-      if (this.debug) console.log('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]}`);
-      this.submit(m[0][0]);
+    if (timer()) return ambiguate(m);
+    if ((m.length === 1 && m[0][1] < 0.4) || (m.length > 1 && m[1][1] - m[0][1] > [0.7, 0.5, 0.3][clarityPref()])) {
+      if (debug) console.log('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]}`);
+      submit(m[0][0]);
       return true;
     }
-    return this.ambiguate(m);
+    return ambiguate(m);
   }
 
-  ambiguate(choices: [string, number][]) {
-    if (choices.length === 0) return false;
+  function ambiguate(options: [string, number][]) {
+    if (options.length === 0) return false;
     // dedup by uci squares & keep first to preserve cost order
-    choices = choices
+    options = options
       .filter(
-        ([uci, _], keepIfFirst) => choices.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst
+        ([uci, _], keepIfFirst) => options.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst
       )
-      .slice(0, this.MAX_CHOICES);
+      .slice(0, MAX_CHOICES);
 
     // if multiple choices with identical cost head the list, prefer a single pawn move
-    const sameLowCost = choices.filter(([_, cost]) => cost === choices[0][1]);
+    const sameLowCost = options.filter(([_, cost]) => cost === options[0][1]);
     const pawnMoves = sameLowCost.filter(
-      ([uci, _]) => uci.length > 3 && this.board.pieces[cs.square(src(uci))].toUpperCase() === 'P'
+      ([uci, _]) => uci.length > 3 && board.pieces[cs.square(src(uci))].toUpperCase() === 'P'
     );
     if (pawnMoves.length === 1 && sameLowCost.length > 1) {
       // bump the other costs and move pawn uci to front
       const pIndex = sameLowCost.findIndex(([uci, _]) => uci === pawnMoves[0][0]);
-      [choices[0], choices[pIndex]] = [choices[pIndex], choices[0]];
+      [options[0], options[pIndex]] = [options[pIndex], options[0]];
       for (let i = 1; i < sameLowCost.length; i++) {
-        choices[i][1] += 0.01;
+        options[i][1] += 0.01;
       }
     }
     // trim choices to clarity window
-    if (this.timer) {
-      const clarity = this.clarityPref();
-      const lowestCost = choices[0][1];
-      choices = choices.filter(([, cost]) => cost - lowestCost <= [1.0, 0.6, 0.001][clarity]);
+    if (timer()) {
+      const clarity = clarityPref();
+      const lowestCost = options[0][1];
+      options = options.filter(([, cost]) => cost - lowestCost <= [1.0, 0.5, 0.001][clarity]);
     }
 
-    this.choices = new Map<string, Uci>();
-    const preferred = choices.length === 1 || choices[0][1] < choices[1][1];
-    if (preferred) this.choices.set('yes', choices[0][0]);
-    if (this.colorsPref()) {
+    choices = new Map<string, Uci>();
+    const preferred = options.length === 1 || options[0][1] < options[1][1];
+    if (preferred) choices.set('yes', options[0][0]);
+    if (colorsPref()) {
       const colorNames = [...brushes.keys()];
-      choices.forEach(([uci], i) => this.choices!.set(colorNames[i], uci));
-    } else choices.forEach(([uci], i) => this.choices!.set(`${i + 1}`, uci));
+      options.forEach(([uci], i) => choices!.set(colorNames[i], uci));
+    } else options.forEach(([uci], i) => choices!.set(`${i + 1}`, uci));
 
-    if (this.debug) console.log('ambiguate', this.choices);
-    this.choiceTimeout = 0;
-    if (preferred && this.timer) {
-      this.choiceTimeout = setTimeout(() => {
-        this.submit(choices[0][0]);
-        this.choiceTimeout = undefined;
-        if (lichess.mic.recId === 'timer') lichess.mic.start('default');
-      }, this.timer * 1000 + 100);
-      lichess.mic.start('timer');
+    if (debug) console.log('ambiguate', choices);
+    choiceTimeout = 0;
+    if (preferred && timer()) {
+      choiceTimeout = setTimeout(() => {
+        submit(options[0][0]);
+        choiceTimeout = undefined;
+        lichess.mic.setRecognizer('default');
+      }, timer() * 1000 + 100);
+      lichess.mic.setRecognizer('timer');
     }
-    this.makeArrows();
-    this.cg.redrawAll();
+    makeArrows();
+    cg.redrawAll();
     return true;
   }
 
-  opponentRequest(request: string, callback?: (granted: boolean) => void) {
-    if (callback) this.confirm.set(request, callback);
-    else this.confirm.delete(request);
+  function opponentRequest(request: string, callback?: (granted: boolean) => void) {
+    if (callback) confirm.set(request, callback);
+    else confirm.delete(request);
   }
 
-  submit(uci: Uci) {
-    this.clearMoveProgress();
+  function submit(uci: Uci) {
+    clearMoveProgress();
     if (uci.length < 3) {
-      const dests = this.ucis.filter(x => x.startsWith(uci));
+      const dests = ucis.filter(x => x.startsWith(uci));
 
-      if (dests.length <= this.MAX_CHOICES) return this.ambiguate(dests.map(uci => [uci, 0]));
-      this.selection = uci === this.selection ? undefined : src(uci);
-      this.cg.redrawAll();
+      if (dests.length <= MAX_CHOICES) return ambiguate(dests.map(uci => [uci, 0]));
+      if (uci !== selection()) selection(src(uci));
+      cg.redrawAll();
       return true;
     }
     const role = cs.promo(uci) as cs.Role;
-    this.cg.cancelMove();
+    cg.cancelMove();
     if (role) {
-      promote(this.cg, dest(uci), role);
-      this.root.sendMove(src(uci), dest(uci), role, { premove: false });
+      promote(cg, dest(uci), role);
+      root.sendMove(src(uci), dest(uci), role, { premove: false });
     } else {
-      this.cg.selectSquare(src(uci), true);
-      this.cg.selectSquare(dest(uci), false);
+      cg.selectSquare(src(uci), true);
+      cg.selectSquare(dest(uci), false);
     }
     return true;
   }
 
-  showPromotion(ctrl: PromotionCtrl, roles: cs.Role[] | false) {
-    if (!roles) lichess.mic.removeListener('promotion');
-    else
-      lichess.mic.addListener(
-        (text: string) => {
-          const val = impl.matchOneTags(text, ['role'], ['no'])?.[0];
-          lichess.mic.stopPropagation();
-          if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
-          else if (val === 'no') ctrl.cancel();
-        },
-        { listenerId: 'promotion' }
-      );
+  function promotionHook() {
+    return (ctrl: PromotionCtrl, roles: cs.Role[] | false) =>
+      roles
+        ? lichess.mic.addListener(
+            (text: string) => {
+              const val = matchOneTags(text, ['role'], ['no'])?.[0];
+              lichess.mic.stopPropagation();
+              if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
+              else if (val === 'no') ctrl.cancel();
+            },
+            { listenerId: 'promotion' }
+          )
+        : lichess.mic.removeListener('promotion');
   }
 
   // given each uci, build every possible move phrase for it
-  buildMoves(): Map<string, Uci | Set<Uci>> {
+  function buildMoves(): Map<string, Uci | Set<Uci>> {
     const moves = new Map<string, Uci | Set<Uci>>();
-    for (const uci of this.ucis) {
+    for (const uci of ucis) {
       const usrc = src(uci),
         udest = dest(uci),
         nsrc = cs.square(usrc),
         ndest = cs.square(udest),
-        dp = this.board.pieces[ndest],
-        srole = this.board.pieces[nsrc].toUpperCase();
+        dp = board.pieces[ndest],
+        srole = board.pieces[nsrc].toUpperCase();
 
       if (srole == 'K') {
-        if (this.isOurs(dp)) {
+        if (isOurs(dp)) {
           pushMap(moves, 'castle', uci);
           moves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
         } else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
       }
-      const xtokset = new Set<Uci>(); // allowable exact phrases for this uci
+      const xtokset = new Set<Uci>(); // allowable exact phrases for uci
       xtokset.add(uci);
-      if (dp && !this.isOurs(dp)) {
+      if (dp && !isOurs(dp)) {
         const drole = dp.toUpperCase(); // takes
         xtokset.add(`${srole}${drole}`);
         xtokset.add(`${srole}x${drole}`);
@@ -425,7 +378,7 @@ class VoiceMoveCtrl implements VoiceMove {
         xtokset.add(`x`);
       }
       if (srole === 'P') {
-        xtokset.add(udest); // this includes en passant
+        xtokset.add(udest); // includes en passant
         if (uci[0] === uci[2]) {
           xtokset.add(`P${udest}`);
         } else if (dp) {
@@ -446,11 +399,11 @@ class VoiceMoveCtrl implements VoiceMove {
           }
         }
       } else {
-        const others: number[] = movesTo(ndest, srole, this.board);
+        const others: number[] = movesTo(ndest, srole, board);
         let rank = '',
           file = '';
         for (const other of others) {
-          if (other === nsrc || this.board.pieces[other] !== this.board.pieces[nsrc]) continue;
+          if (other === nsrc || board.pieces[other] !== board.pieces[nsrc]) continue;
           if (nsrc >> 3 === other >> 3) file = uci[0];
           if ((nsrc & 7) === (other & 7)) rank = uci[1];
           else file = uci[0];
@@ -463,118 +416,114 @@ class VoiceMoveCtrl implements VoiceMove {
       // since all toks === vals in xtokset, just comma separate to map to val space
       [...xtokset].map(x => pushMap(moves, [...x].join(','), uci));
     }
-    if (this.debug?.buildMoves) console.log('buildMoves', moves);
+    if (debug?.buildMoves) console.log('buildMoves', moves);
     return moves;
   }
 
-  buildSquares(): Map<string, Uci | Set<Uci>> {
+  function buildSquares(): Map<string, Uci | Set<Uci>> {
     const squares = new Map<string, Uci | Set<Uci>>();
-    for (const uci of this.ucis) {
-      if (this.selection && !uci.startsWith(this.selection)) continue;
+    for (const uci of ucis) {
+      const sel = selection();
+      if (sel && !uci.startsWith(sel)) continue;
       const usrc = src(uci),
         udest = dest(uci),
         nsrc = cs.square(usrc),
         ndest = cs.square(udest),
-        dp = this.board.pieces[ndest],
-        srole = this.board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
+        dp = board.pieces[ndest],
+        srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
       pushMap(squares, `${usrc[0]},${usrc[1]}`, usrc);
       pushMap(squares, `${udest[0]},${udest[1]}`, uci);
       if (srole !== 'P') {
         pushMap(squares, srole, uci);
         pushMap(squares, srole, usrc);
       }
-      if (dp && !this.isOurs(dp)) pushMap(squares, dp.toUpperCase(), uci);
+      if (dp && !isOurs(dp)) pushMap(squares, dp.toUpperCase(), uci);
     }
     // deconflict role partials for move & select
     for (const [xouts, set] of squares) {
       if (!'PNBRQK'.includes(xouts)) continue;
       const moves = spread(set).filter(x => x.length > 2);
-      if (moves.length > this.MAX_CHOICES) moves.forEach(x => remove(squares, xouts, x));
+      if (moves.length > MAX_CHOICES) moves.forEach(x => remove(squares, xouts, x));
       else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(squares, xouts, x));
     }
-    if (this.debug?.buildSquares) console.log('buildSquares', squares);
+    if (debug?.buildSquares) console.log('buildSquares', squares);
     return squares;
   }
 
-  isOurs(p: string | undefined) {
+  function isOurs(p: string | undefined) {
     return p === '' || p === undefined
       ? undefined
-      : this.cg.state.turnColor === 'white'
+      : cg.state.turnColor === 'white'
       ? p.toUpperCase() === p
       : p.toLowerCase() === p;
   }
 
-  clearMoveProgress() {
-    const mustRedraw = this.moveInProgress;
-    clearTimeout(this.choiceTimeout);
-    this.choiceTimeout = undefined;
-    this.choices = undefined;
-    this.cg.setShapes([]);
-    this.selection = undefined;
-    if (mustRedraw) this.cg.redrawAll();
+  function clearMoveProgress() {
+    const mustRedraw = moveInProgress();
+    clearTimeout(choiceTimeout);
+    choiceTimeout = undefined;
+    choices = undefined;
+    cg.setShapes([]);
+    selection(undefined);
+    if (mustRedraw) cg.redrawAll();
   }
 
-  get selection(): Key | undefined {
-    return this.cg.state.selected;
+  function selection(sq?: Key | false) {
+    if (sq !== undefined) {
+      cg.selectSquare(sq || null);
+      squares = buildSquares();
+    }
+    return cg.state.selected;
   }
 
-  set selection(sq: Key | undefined) {
-    if (this.selection === sq) return;
-    this.cg.selectSquare(sq ?? null);
-    this.squares = this.buildSquares();
+  function timer(): number {
+    return [0, 1.5, 2, 2.5, 3, 5][timerPref()];
   }
 
-  get timer(): number {
-    return [0, 1.5, 2, 2.5, 3, 5][this.timerPref()];
+  function moveInProgress() {
+    return selection !== undefined || choices !== undefined;
   }
 
-  get clarityWindow(): number {
-    return [1, 0.7, 0.001][this.clarityPref()];
-  }
-  get moveInProgress() {
-    return this.selection !== undefined || this.choices !== undefined;
+  function tokWord(tok?: string) {
+    return tok && byTok.get(tok)?.in;
   }
 
-  tokWord(tok?: string) {
-    return tok && this.byTok.get(tok)?.in;
+  function tagWords(tags?: string[], intersect = false) {
+    return byTags(tags, intersect).map(e => e.in);
   }
 
-  tagWords(tags?: string[], intersect = false) {
-    return this.byTags(tags, intersect).map(e => e.in);
-  }
-
-  byTags(tags?: string[], intersect = false): Entry[] {
+  function byTags(tags?: string[], intersect = false): Entry[] {
     return tags === undefined
-      ? this.entries
+      ? entries
       : intersect
-      ? this.entries.filter(e => e.tags.every(tag => tags.includes(tag)))
-      : this.entries.filter(e => e.tags.some(tag => tags.includes(tag)));
+      ? entries.filter(e => e.tags.every(tag => tags.includes(tag)))
+      : entries.filter(e => e.tags.some(tag => tags.includes(tag)));
   }
 
-  wordTok(word: string) {
-    return this.byWord.get(word)?.tok ?? '';
+  function wordTok(word: string) {
+    return byWord.get(word)?.tok ?? '';
   }
 
-  wordVal(word: string) {
-    return this.byWord.get(word)?.val ?? word;
+  function wordVal(word: string) {
+    return byWord.get(word)?.val ?? word;
   }
 
-  wordsToks(phrase: string) {
+  function wordsToks(phrase: string) {
     return phrase
       .split(' ')
-      .map(word => this.wordTok(word))
+      .map(word => wordTok(word))
       .join('');
   }
 
-  valToks(val: string) {
-    return getSpread(this.byVal, val).map(e => e.tok);
+  function valToks(val: string) {
+    return getSpread(byVal, val).map(e => e.tok);
   }
 
-  valsToks(vals: string): string[] {
+  function valsToks(vals: string): string[] {
     const fork = (toks: string[], val: string[]): string[] => {
       if (val.length === 0) return toks;
       const nextToks: string[] = [];
-      for (const nextTok of this.valToks(val[0])) {
+      for (const nextTok of valToks(val[0])) {
         for (const tok of toks) nextToks.push(tok + nextTok);
       }
       return fork(nextToks, val.slice(1));
@@ -582,28 +531,28 @@ class VoiceMoveCtrl implements VoiceMove {
     return fork([''], vals.split(','));
   }
 
-  valsWords(vals: string): string[] {
-    return this.valsToks(vals).map(toks => [...toks].map(tok => this.tokWord(tok)).join(' '));
+  function valsWords(vals: string): string[] {
+    return valsToks(vals).map(toks => [...toks].map(tok => tokWord(tok)).join(' '));
   }
 
-  valWord(val: string, tag?: string) {
-    // if no tag, returns only the first matching input word for this val, there may be others
-    const v = this.byVal.has(val) ? this.byVal.get(val) : this.byTok.get(val);
+  function valWord(val: string, tag?: string) {
+    // if no tag, returns only the first matching input word for val, there may be others
+    const v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
     if (v instanceof Set) {
       return tag ? [...v].find(e => e.tags.includes(tag))?.in : v.values().next().value.in;
     }
     return v ? v.in : val;
   }
 
-  allPhrases() {
+  function allPhrases() {
     const res: [string, string][] = [];
-    for (const [xval, uci] of [...this.moves, ...this.squares]) {
+    for (const [xval, uci] of [...moves, ...squares]) {
       const toVal = typeof uci === 'string' ? uci : '[...]';
-      res.push(...(this.valsWords(xval).map(p => [p, toVal]) as [string, string][]));
+      res.push(...(valsWords(xval).map(p => [p, toVal]) as [string, string][]));
     }
-    for (const e of this.byTags(['command', 'choice'])) {
-      res.push(...(this.valsWords(e.val!).map(p => [p, e.val!]) as [string, string][]));
+    for (const e of byTags(['command', 'choice'])) {
+      res.push(...(valsWords(e.val!).map(p => [p, e.val!]) as [string, string][]));
     }
     return [...new Map(res)]; // vals expansion can create duplicates
   }
-}
+};

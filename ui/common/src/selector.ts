@@ -3,7 +3,7 @@
 export interface Selectable<C = any> {
   select?: (ctx?: C) => void;
   deselect?: (ctx?: C) => void;
-  dispose?: (ctx?: C) => void;
+  close?: (ctx?: C) => void;
 }
 
 export class Selector<T extends Selectable, C = any> {
@@ -25,33 +25,37 @@ export class Selector<T extends Selectable, C = any> {
   select(key: string | false) {
     if (this.key) {
       if (this.key === key) return;
-      this.selected!.deselect?.(this.context);
+      this.selected?.deselect?.(this.context);
     }
     this.key = key;
     this.selected?.select?.(this.context);
-  }
-
-  set(key: string, val: T) {
-    this.delete(key);
-    this.group.set(key, val);
-    if (this.key === key) val.select?.(this.context);
   }
 
   get(key: string): T | undefined {
     return this.group.get(key);
   }
 
-  delete(key?: string) {
+  set(key: string, val: T) {
+    const reselect = this.key === key;
+    this.close(key);
+    this.group.set(key, val);
+    if (reselect) this.select(key);
+  }
+
+  close(key?: string) {
     if (key === undefined) {
-      for (const key of this.group.keys()) this.delete(key);
-      this.key = false;
+      for (const k of this.group.keys()) this.close(k);
       return;
     }
-    if (this.key === key) {
-      this.key = false;
+    if (key === this.key) {
       this.group.get(key)?.deselect?.(this.context);
+      this.key = false;
     }
-    this.group.get(key)?.dispose?.(this.context);
-    this.group.delete(key);
+    this.group.get(key)?.close?.(this.context);
+  }
+
+  delete(key?: string) {
+    this.close(key);
+    key ? this.group.delete(key) : this.group.clear();
   }
 }

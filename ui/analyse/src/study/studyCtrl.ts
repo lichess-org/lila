@@ -86,7 +86,7 @@ export default function (
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
-  const relayRecProp = storedBooleanProp('relay.rec', true);
+  const relayRecProp = storedBooleanProp('analyse.relay.rec', true);
   const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   const chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
 

@@ -59,7 +59,7 @@ export function ctrl(
     variants: [],
     open: false,
     initial: prop(false),
-    tab: storedStringProp('study.form.tab', 'init'),
+    tab: storedStringProp('analyse.study.form.tab', 'init'),
     editor: null,
     editorFen: prop(null),
     isDefaultName: true,

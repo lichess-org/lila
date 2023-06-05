@@ -89,10 +89,10 @@ export default class AnalyseCtrl {
   flipped = false;
   embed: boolean;
   showComments = true; // whether to display comments in the move tree
-  showAutoShapes = storedBooleanProp('show-auto-shapes', true);
-  showGauge = storedBooleanProp('show-gauge', true);
-  showComputer = storedBooleanProp('show-computer', true);
-  showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
+  showAutoShapes = storedBooleanProp('analyse.show-auto-shapes', true);
+  showGauge = storedBooleanProp('analyse.show-gauge', true);
+  showComputer = storedBooleanProp('analyse.show-computer', true);
+  showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;

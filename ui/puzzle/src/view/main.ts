@@ -12,7 +12,7 @@ import { onInsert, bindNonPassive } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import { renderVoiceMove } from 'voice';
+import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
 
 import * as Prefs from 'common/prefs';
@@ -123,7 +123,7 @@ export default function (ctrl: Controller): VNode {
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
-        ctrl.voiceMove ? renderVoiceMove(ctrl.voiceMove, ctrl.redraw, !showCeval) : null,
+        ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw, !showCeval) : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         h(
