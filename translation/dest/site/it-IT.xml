@@ -779,6 +779,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="invalidFen">FEN non valido</string>
   <string name="custom">Personalizza</string>
   <string name="notifications">Notifiche</string>
+  <string name="notificationsX">Notifiche: %1$s</string>
   <string name="perfRatingX">Punteggio: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secondi per giocare la prima mossa</item>
