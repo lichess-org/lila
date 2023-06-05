@@ -102,7 +102,7 @@ object bits {
       ctx: Context
   ) =
     views.html.base.layout(
-      title = "Log in by email",
+      title = trans.loginByEmail.txt(),
       moreCss = cssTag("auth"),
       moreJs = captchaTag
     ) {
@@ -111,7 +111,7 @@ object bits {
           ok.map { r =>
             span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
           },
-          "Log in by email"
+          trans.loginByEmail()
         ),
         p("We will send you an email containing a link to log you in."),
         postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
@@ -126,7 +126,7 @@ object bits {
 
   def magicLinkSent(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Log in by email"
+      title = trans.loginByEmail.txt()
     ) {
       main(cls := "page-small box box-pad")(
         h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),

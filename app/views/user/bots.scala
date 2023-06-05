@@ -13,7 +13,7 @@ object bots {
 
   def apply(users: List[User])(implicit ctx: Context) = {
 
-    val title = s"${users.size} Online bots"
+    val title = s"${users.size} ${trans.onlineBots.txt()}"
 
     views.html.base.layout(
       title = title,

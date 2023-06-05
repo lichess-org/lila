@@ -42,7 +42,7 @@ object leaderboard {
 
   def apply(winners: lila.tournament.AllWinners)(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Tournament leaderboard",
+      title = trans.tournamentLeaderboard.txt(),
       moreCss = cssTag("tournament.leaderboard"),
       wrapClass = "full-screen-force"
     ) {
@@ -76,7 +76,7 @@ object leaderboard {
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("tournament"),
         div(cls := "page-menu__content box box-pad")(
-          h1("Tournament winners"),
+          h1(trans.tournamentWinners()),
           div(cls := "tournament-leaderboards")(
             eliteWinners,
             // freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),

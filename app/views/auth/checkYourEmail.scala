@@ -15,7 +15,7 @@ object checkYourEmail {
       form: Option[Form[_]] = None
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Check your email",
+      title = trans.checkYourEmail.txt(),
       moreCss = cssTag("email-confirm")
     ) {
       main(

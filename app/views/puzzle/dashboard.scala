@@ -25,9 +25,9 @@ object dashboard {
       days = days,
       path = "dashboard",
       title =
-        if (ctx is user) "Puzzle dashboard"
-        else s"${user.username} puzzle dashboard",
-      subtitle = "Train, analyse, improve",
+        if (ctx is user) trans.puzzle.puzzleDashboard.txt()
+        else s"${user.username} - ${trans.puzzle.puzzleDashboard.txt()}",
+      subtitle = trans.puzzle.puzzleDashboardSubtitle.txt(),
       dashOpt = dashOpt,
       moreJs = dashOpt ?? { dash =>
         val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
@@ -71,8 +71,8 @@ object dashboard {
       "improvementAreas",
       title =
         if (ctx is user) trans.puzzle.improvementAreas.txt()
-        else s"${user.username} improvement areas",
-      subtitle = "Train these to optimize your progress!",
+        else s"${user.username} - ${trans.puzzle.improvementAreas.txt()}",
+      subtitle = trans.puzzle.improvementAreasSubtitle.txt(),
       dashOpt = dashOpt
     ) { dash =>
       dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
@@ -85,8 +85,8 @@ object dashboard {
       "strengths",
       title =
         if (ctx is user) trans.puzzle.strengths.txt()
-        else s"${user.username} puzzle strengths",
-      subtitle = "You perform the best in these themes",
+        else s"${user.username} - ${trans.puzzle.strengths.txt()}",
+      subtitle = trans.puzzle.strengthsSubtitle.txt(),
       dashOpt = dashOpt
     ) { dash =>
       dash.strongThemes.nonEmpty option themeSelection(days, dash.strongThemes)

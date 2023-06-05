@@ -17,7 +17,8 @@ object search {
     views.html.base.layout(
       title = title,
       moreJs = infiniteScrollTag,
-      moreCss = cssTag("forum")
+      moreCss = cssTag("forum"),
+      withHrefLangs = none
     )(
       main(cls := "box box search")(
         div(cls := "box__top")(
@@ -27,9 +28,9 @@ object search {
           ),
           bits.searchForm(text)
         ),
-        strong(cls := "nb-results box__pad")(pager.nbResults, " posts found"),
+        strong(cls := "nb-results box__pad")(trans.nbForumPosts.pluralSame(pager.nbResults)),
         table(cls := "slist slist-pad search__results")(
-          if (pager.nbResults > 0)
+          (pager.nbResults > 0) option
             tbody(cls := "infinitescroll")(
               pagerNextTable(pager, n => routes.ForumPost.search(text, n).url) | tr,
               pager.currentPageResults.map { view =>
@@ -62,7 +63,6 @@ object search {
                 )
               }
             )
-          else tbody(tr(td("No forum post found")))
         )
       )
     )

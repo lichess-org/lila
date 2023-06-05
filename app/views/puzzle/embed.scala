@@ -33,7 +33,7 @@ object embed {
   )(
     raw(daily.html),
     div(cls := "vstext")(
-      trans.puzzleOfTheDay(),
+      trans.puzzle.puzzleOfTheDay(),
       br,
       trans.xPlays(daily.puzzle.color.fold(trans.sente, trans.gote)())
     )

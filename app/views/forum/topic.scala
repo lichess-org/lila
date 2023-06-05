@@ -14,12 +14,13 @@ object topic {
 
   def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
-      title = "New forum topic",
+      title = trans.createANewTopic.txt(),
       moreCss = cssTag("forum"),
       moreJs = frag(
         jsTag("forum-post.js"),
         captchaTag
-      )
+      ),
+      withHrefLangs = none
     ) {
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         h1(
@@ -86,7 +87,8 @@ object topic {
           url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
           description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
         )
-        .some
+        .some,
+      withHrefLangs = none
     ) {
       val teamOnly = categ.team.filterNot(myTeam)
       val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)

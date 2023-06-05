@@ -20,8 +20,8 @@ object bits {
       a(cls := active.active("tournament"), href := routes.Tournament.leaderboard)(
         trans.tournamentWinners()
       ),
-      a(cls := active.active("shield"), href := routes.Tournament.shields)("Shields"),
-      a(cls := active.active("bots"), href := routes.PlayApi.botOnline)("Online bots")
+      a(cls := active.active("shield"), href := routes.Tournament.shields)(trans.tournamentShields()),
+      a(cls := active.active("bots"), href := routes.PlayApi.botOnline)(trans.onlineBots())
     )
 
   def miniClosed(u: User)(implicit ctx: Context) =
@@ -70,22 +70,13 @@ object bits {
       h2(dataIcon := "'", cls := "text")("Congratulations for breaking the 2500 rating threshold!"),
       p(
         "To ensure honest players aren't falsely accused of cheating, we request titled players ",
-        "to identify themselves. For instance, ",
-        a(href := routes.User.show("opperwezen"))("opperwezen"),
-        " and ",
-        a(href := routes.User.show("DrNykterstein"))("Magnus Carlsen"),
-        " are verified IM, and GM. ",
+        "to identify themselves.",
         "You can confirm your title and decide to remain anonymous. We will not reveal your identity."
       ),
       p(
-        "To confirm your title, ",
-        a(href := "https://goo.gl/forms/KymEzEIFpqTO2Jbr1")("please fill in this form"),
-        "."
-      ),
-      p(
-        "If you need help or have any question, feel free to contact us by email at ",
+        "Please contact us by email at ",
         contactEmailLink,
-        "."
+        ". You can also contact a moderator on lishogi.org."
       ),
       postForm(action := routes.Pref.verifyTitle)(
         button(cls := "button text", dataIcon := "E", name := "v", value := true)("Got it, thanks!"),

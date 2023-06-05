@@ -29,10 +29,10 @@ object variant {
       resolver: io.prismic.DocumentLinkResolver
   )(implicit ctx: Context) =
     layout(
-      title = "Lishogi variants",
+      title = s"Lishogi ${trans.variants.txt()}",
       klass = "variants"
     )(
-      h1("Lishogi variants"),
+      h1(s"Lishogi ${trans.variants.txt()}"),
       div(cls := "body box__pad")(raw(~doc.getHtml("doc.content", resolver))),
       div(cls := "variants")(
         lila.rating.PerfType.variants map { pt =>
@@ -60,7 +60,8 @@ object variant {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("variant"),
-      openGraph = openGraph
+      openGraph = openGraph,
+      withHrefLangs = none
     )(
       main(cls := "page-menu")(
         st.aside(cls := "page-menu__menu subnav")(

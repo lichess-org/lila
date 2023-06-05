@@ -18,10 +18,11 @@ object index {
       (pager.currentPage == 1).??(pager.currentPageResults.headOption) flatMap FullPost.fromDocument("blog")
 
     views.html.base.layout(
-      title = "Blog",
+      title = trans.blog.txt(),
       moreCss = cssTag("blog"),
       csp = bits.csp,
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
+      withHrefLangs = Some(lila.i18n.LangList.EnglishJapanese)
     )(
       main(cls := "page-menu")(
         bits.menu(none),

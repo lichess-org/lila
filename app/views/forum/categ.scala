@@ -20,11 +20,12 @@ object categ {
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
           description = "Shogi discussions and feedback about Lishogi development"
         )
-        .some
+        .some,
+      withHrefLangs = none
     ) {
       main(cls := "forum index box")(
         div(cls := "box__top")(
-          h1(dataIcon := "d", cls := "text")("Lishogi Forum"),
+          h1(dataIcon := "d", cls := "text")(s"Lishogi ${trans.forum.txt()}"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
@@ -84,7 +85,8 @@ object categ {
           url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
           description = categ.desc
         )
-        .some
+        .some,
+      withHrefLangs = none
     ) {
       main(cls := "forum forum-categ box")(
         h1(

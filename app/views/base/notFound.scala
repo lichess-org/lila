@@ -15,7 +15,8 @@ object notFound {
       moreCss = frag(
         cssTag("not-found"),
         cssAt("vendor/sliding-puzzles/assets/css/hakoirimusume.css")
-      )
+      ),
+      withHrefLangs = none
     ) {
       main(cls := "not-found page-small box box-pad")(
         header(

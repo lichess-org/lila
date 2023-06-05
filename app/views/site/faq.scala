@@ -21,7 +21,7 @@ object faq {
 
   def apply()(implicit ctx: Context) =
     help.layout(
-      title = "Frequently Asked Questions",
+      title = trans.faq.frequentlyAskedQuestions.txt(),
       active = "faq",
       moreCss = cssTag("faq")
     ) {

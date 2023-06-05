@@ -129,7 +129,7 @@ object header {
         postForm(action := s"${routes.User.writeNote(u.username)}?note")(
           textarea(
             name        := "text",
-            placeholder := "Write a private note about this user"
+            placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
           ),
           if (isGranted(_.ModNote))
             div(cls := "mod-note")(
@@ -149,7 +149,7 @@ object header {
               submitButton(cls := "button")(trans.send())
             )
         ),
-        social.notes.isEmpty option div("No note yet"),
+        social.notes.isEmpty option div(trans.noNoteYet()),
         social.notes
           .filter { n =>
             ctx.me.exists(n.isFrom) ||
@@ -171,7 +171,7 @@ object header {
                       cls      := "button-empty button-red confirm button text",
                       style    := "float:right",
                       dataIcon := "q"
-                    )("Delete")
+                    )(trans.delete())
                   )
                 )
               )

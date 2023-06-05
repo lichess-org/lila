@@ -23,7 +23,7 @@ object msg {
             )}))"""
         )
       ),
-      title = "Lishogi Inbox"
+      title = s"Lishogi ${trans.inbox.txt()}"
     ) {
       main(cls := "box msg-app")
     }

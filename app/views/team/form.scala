@@ -45,7 +45,7 @@ object form {
     }
 
   def edit(t: Team, form: Form[_])(implicit ctx: Context) = {
-    val title = "Edit Team " + t.name
+    val title = s"${trans.edit.txt()} - ${trans.teamNamedX.txt(t.name)}"
     bits.layout(title = title) {
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),

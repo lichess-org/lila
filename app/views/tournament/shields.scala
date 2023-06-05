@@ -13,14 +13,14 @@ object shields {
 
   def apply(history: TournamentShield.History)(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Tournament shields",
+      title = trans.tournamentShields.txt(),
       moreCss = cssTag("tournament.leaderboard"),
       wrapClass = "full-screen-force"
     ) {
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("shield"),
         div(cls := "page-menu__content box box-pad")(
-          h1("Tournament shields"),
+          h1(trans.tournamentShields()),
           div(cls := "tournament-shields")(
             history.sorted.map {
               case (categ, awards) => {
@@ -47,7 +47,7 @@ object shields {
 
   def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Tournament shields",
+      title = trans.tournamentShields.txt(),
       moreCss = frag(cssTag("tournament.leaderboard"), cssTag("slist"))
     ) {
       main(cls := "page-menu page-small tournament-categ-shields")(

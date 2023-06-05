@@ -10,7 +10,7 @@ object clone {
 
   def apply(s: lila.study.Study)(implicit ctx: Context) =
     views.html.site.message(
-      title = s"Clone ${s.name}",
+      title = s"${trans.study.cloneStudy.txt()} ${s.name}",
       icon = Some("4")
     ) {
       postForm(action := routes.Study.cloneApply(s.id.value))(
