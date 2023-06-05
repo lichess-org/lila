@@ -74,7 +74,7 @@ final class Simul(
             stream <- env.streamer.liveStreamApi one sim.hostId
           } yield html.simul.show(sim, version, json, chat, stream, team)
         }
-      } map NoCache
+      } dmap (_.noCache)
     }
 
   private[controllers] def canHaveChat(implicit ctx: Context): Boolean =

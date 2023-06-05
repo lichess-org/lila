@@ -43,12 +43,10 @@ final class Puzzle(
   ) =
     renderJson(puzzle, theme, replay) zip
       ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
-        EnableSharedArrayBuffer(
-          Ok(
-            views.html.puzzle
-              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty, robots = robots)
-          )
-        )
+        Ok(
+          views.html.puzzle
+            .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty, robots = robots)
+        ).enableSharedArrayBuffer
       }
 
   def daily =
@@ -58,7 +56,7 @@ final class Puzzle(
           negotiate(
             html = renderShow(daily.puzzle, PuzzleTheme.mix),
             api = v => renderJson(daily.puzzle, PuzzleTheme.mix, apiVersion = v.some) dmap { Ok(_) }
-          ) map NoCache
+          ) dmap (_.noCache)
         }
       }
     }

@@ -37,7 +37,7 @@ final class Tv(
       implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
-      } map { Json.toJson(_) } map Api.Data.apply
+      } map { Json.toJson(_) } dmap Api.Data.apply
     }
   }
 
@@ -51,12 +51,10 @@ final class Tv(
           env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
             env.game.crosstableApi.withMatchup(game) zip
             env.tv.tv.getChampions map { case ((data, cross), champions) =>
-              NoCache {
-                Ok(html.tv.index(channel, champions, pov, data, cross, history))
-              }
+              Ok(html.tv.index(channel, champions, pov, data, cross, history)).noCache
             }
         },
-        api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) map { Ok(_) }
+        api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) dmap { Ok(_) }
       )
     }
   }
@@ -67,9 +65,7 @@ final class Tv(
     Open { implicit ctx =>
       lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
         env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map { case (champs, games) =>
-          NoCache {
-            Ok(html.tv.games(channel, games map Pov.first, champs))
-          }
+          Ok(html.tv.games(channel, games map Pov.first, champs)).noCache
         }
       }
     }

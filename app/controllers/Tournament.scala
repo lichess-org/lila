@@ -51,9 +51,9 @@ final class Tournament(
           allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
           teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
           scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
-        } yield NoCache {
+        } yield {
           pageHit
-          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
+          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson)).noCache
         },
         api = _ =>
           for {
@@ -119,7 +119,7 @@ final class Tournament(
                 }
                 streamers   <- streamerCache get tour.id
                 shieldOwner <- env.tournament.shieldApi currentOwner tour
-              } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)))
+              } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)).noCache)
             }
             .monSuccess(_.tournament.apiShowPartial(false, HTTPRequest clientName ctx.req)),
           api = _ =>
@@ -138,10 +138,10 @@ final class Tournament(
                         socketVersion = socketVersion,
                         partial = getBool("partial")
                       )
-                  } dmap { Ok(_) }
+                  } dmap { Ok(_).noCache }
               }
               .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
-        ) dmap NoCache
+        )
       }
     }
 

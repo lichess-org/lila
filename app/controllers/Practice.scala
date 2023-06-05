@@ -22,7 +22,7 @@ final class Practice(
     Open { implicit ctx =>
       pageHit
       api.get(ctx.me) flatMap { up =>
-        NoCache(Ok(html.practice.index(up))).fuccess
+        Ok(html.practice.index(up)).noCache.fuccess
       }
     }
 
@@ -66,20 +66,16 @@ final class Practice(
 
   private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) =
     analysisJson(us) map { case (analysisJson, studyJson) =>
-      NoCache(
-        EnableSharedArrayBuffer(
-          Ok(
-            html.practice.show(
-              us,
-              lila.practice.JsonView.JsData(
-                study = studyJson,
-                analysis = analysisJson,
-                practice = lila.practice.JsonView(us)
-              )
-            )
+      Ok(
+        html.practice.show(
+          us,
+          lila.practice.JsonView.JsData(
+            study = studyJson,
+            analysis = analysisJson,
+            practice = lila.practice.JsonView(us)
           )
         )
-      )
+      ).noCache.enableSharedArrayBuffer.withCanonical(s"${us.url}/${us.study.chapter.id.value}")
     }
 
   def chapter(studyId: String, chapterId: String) =
@@ -91,9 +87,9 @@ final class Practice(
               "study"    -> studyJson,
               "analysis" -> analysisJson
             )
-          ) as JSON
+          ).noCache
         }
-      } map NoCache
+      }
     }
 
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] =

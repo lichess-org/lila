@@ -64,22 +64,20 @@ final class Analyse(
                   division = true
                 )
               ) map { data =>
-                EnableSharedArrayBuffer(
-                  Ok(
-                    html.analyse.replay(
-                      pov,
-                      data,
-                      kif.render,
-                      analysis,
-                      analysisInProgress,
-                      simul,
-                      crosstable,
-                      userTv,
-                      chat,
-                      bookmarked = bookmarked
-                    )
+                Ok(
+                  html.analyse.replay(
+                    pov,
+                    data,
+                    kif.render,
+                    analysis,
+                    analysisInProgress,
+                    simul,
+                    crosstable,
+                    userTv,
+                    chat,
+                    bookmarked = bookmarked
                   )
-                )
+                ).enableSharedArrayBuffer
               }
           }
       }
@@ -94,10 +92,10 @@ final class Analyse(
             lila.api.Mobile.Api.currentVersion,
             withFlags = WithFlags()
           ) map { data =>
-            Ok(html.analyse.embed(pov, data))
+            Ok(html.analyse.embed(pov, data)).enableSharedArrayBuffer
           }
         case _ => fuccess(NotFound(html.analyse.embed.notFound))
-      } dmap EnableSharedArrayBuffer
+      }
     }
 
   private def RedirectAtSfen(pov: Pov)(or: => Fu[Result])(implicit ctx: Context) =

@@ -79,7 +79,7 @@ final class User(
         lila.mon.chronoSync(_.user segment "renderSync") {
           html.user.show.page.activity(u, as, info, social)
         }
-      }
+      }.withCanonical(routes.User.show(u.username))
     } else
       env.activity.read.recent(u) map { as =>
         status(html.activity(u, as))
@@ -116,7 +116,7 @@ final class User(
                       GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body, formBinding)
                 } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
                 else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
-            } yield res,
+            } yield Ok(res).withCanonical(routes.User.games(u.username, filters.current.name)),
             api = _ => apiGames(u, filter, page)
           )
         }

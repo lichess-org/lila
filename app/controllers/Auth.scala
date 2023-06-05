@@ -67,7 +67,10 @@ final class Auth(
       val referrer = get("referrer").flatMap(env.api.referrerRedirect.valid)
       referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
-        case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
+        case None =>
+          Ok(html.auth.login(api.loginForm, referrer))
+            .withCanonical(routes.Auth.login)
+            .fuccess
       }
     }
 

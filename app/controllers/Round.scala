@@ -54,7 +54,7 @@ final class Round(
                         chatOption = chatOption,
                         bookmarked = bookmarked
                       )
-                    )
+                    ).noCache
                 }
             }
           },
@@ -66,13 +66,13 @@ final class Round(
             gameC.preloadUsers(pov.game) zip
               env.api.roundApi.player(pov, tour, apiVersion) zip
               getPlayerChat(pov.game, none) map { case ((_, data), chat) =>
-                Ok {
+                Ok(
                   data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
-                }
+                ).noCache
               }
           }
       }
-    ) dmap NoCache
+    )
 
   def player(fullId: String) =
     Open { implicit ctx =>
@@ -205,7 +205,7 @@ final class Round(
                 .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
                 .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
             }
-        ) map { NoCache(_) }
+        ) dmap (_.noCache)
     }
 
   private[controllers] def getWatcherChat(

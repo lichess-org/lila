@@ -105,7 +105,7 @@ final class Streamer(
       AsStreamer { s =>
         env.streamer.liveStreamApi of s flatMap { sws =>
           modData(s.streamer) map { forMod =>
-            NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
+            Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)).noCache
           }
         }
       }
@@ -155,7 +155,7 @@ final class Streamer(
   def picture =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
-        NoCache(Ok(html.streamer.picture(s))).fuccess
+        Ok(html.streamer.picture(s)).noCache.fuccess
       }
     }
 
