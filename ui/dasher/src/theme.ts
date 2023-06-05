@@ -102,8 +102,7 @@ function customThemeView(ctrl: ThemeCtrl): VNode {
 }
 
 function applyThickGrid(isThick: boolean) {
-  if (isThick) $('body').addClass('thick-grid');
-  else $('body').removeClass('thick-grid');
+  $('body').toggleClass('thick-grid', isThick);
 }
 
 function applyTheme(t: Theme, list: Theme[]) {

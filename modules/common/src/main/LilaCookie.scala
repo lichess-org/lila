@@ -14,6 +14,10 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
     withSession { s =>
       s + (name -> value)
     }
+  def session(kvs: Iterable[(String, String)])(implicit req: RequestHeader): Cookie =
+    withSession { s =>
+      s ++ kvs
+    }
 
   def newSession(implicit req: RequestHeader): Cookie = withSession(_ => Session.emptyCookie)
 

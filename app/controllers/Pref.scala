@@ -100,8 +100,8 @@ final class Pref(env: Env) extends LilaController(env) {
   private def saveCustomTheme(ct: lila.pref.CustomTheme, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
       api.setPref(_, p => p.copy(customTheme = ct.some))
-    } inject env.lilaCookie.withSession { s =>
-      s ++ List(
+    } inject env.lilaCookie.session(
+      List(
         ("boardColor" -> ct.boardColor),
         ("boardImg"   -> ct.boardImg),
         ("gridColor"  -> ct.gridColor),
@@ -109,5 +109,5 @@ final class Pref(env: Env) extends LilaController(env) {
         ("handsColor" -> ct.handsColor),
         ("handsImg"   -> ct.handsImg)
       )
-    }(ctx.req)
+    )(ctx.req)
 }

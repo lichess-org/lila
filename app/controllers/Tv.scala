@@ -18,7 +18,7 @@ final class Tv(
 
   def onChannel(chanKey: String) = {
     Open { implicit ctx =>
-      (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lishogiTv)
+      (lila.tv.Tv.Channel.byKey get chanKey) ?? lishogiTv
     }
   }
 
@@ -77,13 +77,13 @@ final class Tv(
   def apiGamesChannel(chanKey: String) =
     Action.async { req =>
       lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
-        env.tv.tv.getGameIds(channel, getInt("nb", req).fold(10)(_ atMost 30)) map { gameIds =>
+        env.tv.tv.getGameIds(channel, getInt("nb", req).fold(10)(_ atMost 20)) map { gameIds =>
           val config =
             lila.api.GameApiV2.ByIdsConfig(
               ids = gameIds,
               format = lila.api.GameApiV2.Format byRequest req,
               flags = gameC.requestNotationFlags(req, extended = false).copy(delayMoves = false),
-              perSecond = lila.common.config.MaxPerSecond(30)
+              perSecond = lila.common.config.MaxPerSecond(20)
             )
           noProxyBuffer(Ok.chunked(env.api.gameApiV2.exportByIds(config))).as(gameC.gameContentType(config))
         }

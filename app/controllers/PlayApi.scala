@@ -179,7 +179,7 @@ final class PlayApi(
         env.user.repo
           .botsByIdsCursor(env.bot.onlineApiUsers.get)
           .documentSource()
-          .throttle(50, 1 second)
+          .throttle(20, 1 second)
           .map { env.user.jsonView(_) }
       }
     }

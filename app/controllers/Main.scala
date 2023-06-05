@@ -122,6 +122,7 @@ final class Main(
 Allow: /
 Disallow: /game/export/
 Disallow: /games/export/
+Disallow: /api/
 Allow: /game/export/gif/thumbnail/
 
 User-agent: Twitterbot

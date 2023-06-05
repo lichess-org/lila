@@ -287,9 +287,9 @@ function controls(ctrl: AnalyseCtrl) {
                           title: noarg('practiceWithComputer'),
                           'data-act': 'practice',
                           'data-icon': '',
+                          hidden: menuIsOpen || !!ctrl.retro,
                         },
                         class: {
-                          hidden: menuIsOpen || !!ctrl.retro,
                           active: !!ctrl.practice,
                         },
                       })
