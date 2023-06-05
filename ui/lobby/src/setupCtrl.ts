@@ -165,9 +165,13 @@ export default class SetupController {
       aiLevel: this.aiLevel(),
     });
 
+  private isProvisional = () => {
+    const rating = this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()];
+    return rating?.prov ?? true;
+  };
+
   private onPropChange = () => {
-    if (this.root.data.ratingMap && !!this.root.data.ratingMap[this.selectedPerf()].prov)
-      this.savePropsToStoreExceptRating();
+    if (!this.isProvisional()) this.savePropsToStoreExceptRating();
     else this.savePropsToStore();
     this.root.redraw();
   };
@@ -175,7 +179,7 @@ export default class SetupController {
   private onVariantChange = () => {
     // Handle rating update here
     this.enforcePropRules();
-    if (this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()].prov) {
+    if (!this.isProvisional()) {
       this.ratingMin(-500);
       this.ratingMax(500);
       this.savePropsToStoreExceptRating();
