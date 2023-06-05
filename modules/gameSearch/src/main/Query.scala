@@ -139,6 +139,7 @@ object Query {
     case s if s.is(_.NoStart)        => none
     case s if s.is(_.UnknownFinish)  => none
     case s if s.is(_.Repetition)     => none
+    case s if s.is(_.Draw)           => Some(s.id -> "Draw/Repetition")
     case s if s.is(_.Impasse27)      => Some(s.id -> "Impasse")
     case s if s.is(_.TryRule)        => Some(s.id -> "Try rule")
     case s if s.is(_.Outoftime)      => Some(s.id -> "Clock Flag")
