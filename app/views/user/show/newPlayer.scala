@@ -3,49 +3,46 @@ package views.html.user.show
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
+import play.api.i18n.Lang
 
 import controllers.routes
 
 object newPlayer {
 
-  def apply(u: User) =
+  def apply(u: User)(implicit lang: Lang) =
     div(cls := "new-player")(
-      h2("Welcome to lishogi.org!"),
+      h2(trans.welcomeToX("lishogi.org")),
       p(
-        "This is your profile page.",
+        trans.thisIsProfilePage(),
         u.profile.isEmpty option frag(
           br,
-          "Would you like to ",
-          a(href := routes.Account.profile)("improve it"),
-          "?"
+          a(href := routes.Account.profile)(trans.editProfile())
         )
       ),
       p(
-        if (u.kid) "Kid mode is enabled."
-        else
-          frag(
-            "Will a child use this account? You might want to enable ",
-            a(href := routes.Account.kid)("Kid mode"),
-            "."
-          )
-      ),
-      p(
-        "What now? Here are a few suggestions:"
+        frag(
+          trans.whatNow(),
+          br,
+          trans.hereAreSuggestions()
+        )
       ),
       ul(
-        li(a(href := routes.Learn.index)("Learn shogi rules")),
-        li(a(href := routes.Puzzle.home)("Improve with shogi tactics puzzles")), // puzzle
-        li(a(href := s"${routes.Lobby.home}#ai")("Play the artificial intelligence")),
-        li(a(href := s"${routes.Lobby.home}#hook")("Play opponents from around the world")),
-        li(a(href := routes.User.list)("Follow your friends on Lishogi")),
-        li(a(href := routes.Tournament.home)("Play in tournaments")),
+        li(a(href := routes.Learn.index)(trans.learn.learnShogi())),
+        li(a(href := routes.Puzzle.home)(trans.puzzleDesc())),
+        li(a(href := s"${routes.Lobby.home}#ai")(trans.playWithTheMachine())),
+        li(a(href := s"${routes.Lobby.home}#hook")(trans.playShogiInStyle())),
+        li(a(href := routes.User.list)(trans.findFriends())),
+        li(a(href := routes.Tournament.home)(trans.tournaments())),
         li(
-          "Learn from ",
-          a(href := routes.Study.allDefault(1))("studies"),
-          " and ",
-          a(href := routes.Video.index)("videos")
+          trans.learnShogiHereX(
+            frag(
+              a(href := routes.Study.allDefault(1))(trans.studyMenu()),
+              trans.or(),
+              a(href := routes.Video.index)(trans.videoLibrary())
+            )
+          )
         ),
-        li(a(href := routes.Pref.form("game-display"))("Configure Lishogi to your liking")),
+        li(a(href := routes.Pref.form("game-display"))(trans.preferences.preferences())),
         li("Explore the site and have fun :)")
       )
     )
