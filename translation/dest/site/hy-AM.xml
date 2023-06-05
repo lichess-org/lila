@@ -547,10 +547,13 @@
   <string name="ratingManipulation">Կեղծարարություններ վարկանիշի հետ</string>
   <string name="other">այլ</string>
   <string name="by">ըստ %s</string>
+  <string name="importedByX">Ներմուծվել է %s-ի կողմից</string>
   <string name="thisTopicIsNowClosed">Այս թեման այժմ փակ է։</string>
   <string name="blog">Բլոգ</string>
   <string name="notes">Նշումներ</string>
   <string name="typePrivateNotesHere">Մասնավոր նշումները մուտքագրեք այստեղ</string>
+  <string name="writeAPrivateNoteAboutThisUser">Գրել գաղտնի նշում այդ օգտվողի մասին</string>
+  <string name="noNoteYet">Դեռ մի նշում չկա</string>
   <string name="invalidUsernameOrPassword">Սխալ օգտանուն կամ գաղտնաբառ</string>
   <string name="incorrectPassword">Գաղտնաբառը սխալ է</string>
   <string name="emailMeALink">Էլեկտրոնային փոստով ուղարկել ինձ  հղումը</string>
@@ -739,6 +742,7 @@
   <string name="light">Բաց</string>
   <string name="dark">Մուգ</string>
   <string name="transparent">Թափանցիկ</string>
+  <string name="deviceTheme">Սարքի թեման</string>
   <string name="backgroundImageUrl">Հետնաշերտի պատկերի հղում`</string>
   <string name="boardGeometry">Խաղատախտակի տեսքն ու չափսը</string>
   <string name="boardTheme">Խաղատախտակի ձևավորումը</string>
