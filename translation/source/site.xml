@@ -520,8 +520,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="questionsAndAnswers">Questions &amp; Answers</string>
 	<string name="notes">Notes</string>
 	<string name="typePrivateNotesHere">Type private notes here</string>
-        <string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
-        <string name="noNoteYet">No note yet</string>
+	<string name="writeAPrivateNoteAboutThisUser">Write a private note about this user</string>
+	<string name="noNoteYet">No note yet</string>
 	<string name="invalidUsernameOrPassword">Invalid username or password</string>
 	<string name="incorrectPassword">Incorrect password</string>
 	<string name="invalidAuthenticationCode">Invalid authentication code</string>

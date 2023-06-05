@@ -86,10 +86,10 @@ object home {
           ),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
-            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(
+            a(id := "nb_connected_players", href := ctx.noBlind.option(langHref(routes.User.list)))(
               trans.nbPlayers(strong(homepage.counters.members.localize))
             ),
-            a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
+            a(id := "nb_games_in_play", href := ctx.noBlind.option(langHref(routes.Tv.games)))(
               trans.nbGamesInPlay(strong(homepage.counters.rounds.localize))
             )
           )
@@ -160,7 +160,7 @@ object home {
         bits.shogiDescription,
         bits.variants,
         div(cls := "lobby__support")(
-          a(href := routes.Plan.index)( // patron
+          a(href := langHref(routes.Plan.index))(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
               strong(trans.patron.donate()),

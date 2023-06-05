@@ -47,7 +47,7 @@ abstract private[controllers] class LilaController(val env: Env)
         }
       LINK -> s"<${env.net.baseUrl}$url$langQuery>; rel=\"canonical\""
     }
-    def withCanonical(url: Call)(implicit req: RequestHeader): Result = withCanonical(url.url)
+    def withCanonical(call: Call)(implicit req: RequestHeader): Result = withCanonical(call.url)
     def enableSharedArrayBuffer(implicit req: RequestHeader): Result = result.withHeaders(
       "Cross-Origin-Opener-Policy" -> "same-origin",
       "Cross-Origin-Embedder-Policy" -> {
