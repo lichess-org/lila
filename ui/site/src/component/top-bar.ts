@@ -1,7 +1,6 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadModule } from './assets';
 import { loadDasher } from 'common/dasher';
-import { siteTrans } from './trans';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
