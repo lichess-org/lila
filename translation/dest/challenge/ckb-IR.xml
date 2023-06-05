@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">بەرەنگاریەکان: %1$s</string>
   <string name="challengeToPlay">بەرانگاربوونەوە بۆ یاریکردن</string>
   <string name="challengeDeclined">بەرەنگاربوونەوەکە ڕەتکرایەوە</string>
   <string name="challengeAccepted">بەرەنگاربوونەوەکە قبوڵکرا!</string>
