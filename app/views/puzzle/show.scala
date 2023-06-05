@@ -14,7 +14,8 @@ object show {
       puzzle: lila.puzzle.Puzzle,
       data: JsObject,
       pref: JsObject,
-      difficulty: Option[lila.puzzle.PuzzleDifficulty] = None
+      difficulty: Option[lila.puzzle.PuzzleDifficulty] = None,
+      robots: Boolean = true
   )(implicit
       ctx: Context
   ) =
@@ -47,8 +48,10 @@ object show {
             + s" Played by ${puzzle.plays} players."
         )
         .some,
+      robots = robots,
       zoomable = true,
-      playing = true
+      playing = true,
+      withHrefLangs = robots option lila.i18n.LangList.All
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(

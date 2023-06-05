@@ -36,7 +36,8 @@ final class Puzzle(
   private def renderShow(
       puzzle: Puz,
       theme: PuzzleTheme,
-      replay: Option[PuzzleReplay] = None
+      replay: Option[PuzzleReplay] = None,
+      robots: Boolean = true
   )(implicit
       ctx: Context
   ) =
@@ -45,7 +46,7 @@ final class Puzzle(
         EnableSharedArrayBuffer(
           Ok(
             views.html.puzzle
-              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty)
+              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty, robots = robots)
           )
         )
       }
@@ -247,7 +248,7 @@ final class Puzzle(
                 _ ?? env.puzzle.api.casual.set(me, puz.id)
               }
             } >>
-              renderShow(puz, PuzzleTheme.mix)
+              renderShow(puz, PuzzleTheme.mix, robots = false)
           }
         case None =>
           themeOrId.toLongOption
@@ -323,7 +324,7 @@ final class Puzzle(
   def replay(days: Int, themeKey: String) =
     Auth { implicit ctx => me =>
       val theme         = PuzzleTheme.findOrAny(themeKey)
-      val checkedDayOpt = PuzzleDashboard.getclosestDay(days)
+      val checkedDayOpt = PuzzleDashboard.getClosestDay(days)
       env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
         case None                   => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
         case Some((puzzle, replay)) => renderShow(puzzle, theme, replay.some)
