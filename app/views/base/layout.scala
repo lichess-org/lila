@@ -125,8 +125,8 @@ object layout:
     )
 
   private def allNotifications(using ctx: Context) =
-    val challengeTitle = trans.challenge.challenges.txt()
-    val notifTitle     = trans.notifications.txt()
+    val challengeTitle = trans.challenge.challengesX.pluralTxt(ctx.nbChallenges)
+    val notifTitle     = trans.notificationsX.pluralTxt(ctx.nbNotifications.value)
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
