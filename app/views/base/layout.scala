@@ -125,33 +125,31 @@ object layout:
     )
 
   private def allNotifications(using ctx: Context) =
-    spaceless(s"""<div>
+    val challengeTitle = trans.challenge.challenges.txt()
+    val notifTitle     = trans.notifications.txt()
+    spaceless:
+      s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="${trans.challenge.challenges
-        .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
+    <span title="$challengeTitle" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="${trans.notifications
-        .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
+    <span title="$notifTitle" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
-</div>""")
+</div>"""
 
   private def anonDasher(using ctx: Context) =
-    spaceless {
+    spaceless:
       s"""<div class="dasher">
   <a class="toggle link anon">
     <button title="${trans.preferences.preferences.txt()}" data-icon="${licon.Gear}""></button>
   </a>
   <div id="dasher_app" class="dropdown"></div>
 </div>
-<a href="${langHref(
-          routes.Auth.login
-        )}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
-    }
+<a href="/login?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
 
   private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
 
