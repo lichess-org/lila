@@ -43,7 +43,7 @@ case class Metas(
   def deleteComment(comment: Comment.Id) =
     copy(comments = comments.delete(comment))
   def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
-  def turn                     = ply.turn
+  def turn                      = ply.turn
 
 object Metas:
   def default(variant: Variant): Metas =

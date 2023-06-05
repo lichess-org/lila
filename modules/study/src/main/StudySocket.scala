@@ -30,7 +30,7 @@ final private class StudySocket(
   subscribeChat(rooms, _.Study)
 
   def isPresent(studyId: StudyId, userId: UserId): Fu[Boolean] =
-    remoteSocketApi.request[Boolean](
+    lila.socket.SocketRequest[Boolean](
       id => send(Protocol.Out.getIsPresent(id, studyId, userId)),
       _ == "true"
     )
@@ -59,7 +59,7 @@ final private class StudySocket(
     case RP.In.TellRoomSri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
       import Protocol.In.{ *, given }
       import JsonView.given
-      def who = user.map(Who(_, sri))
+      def who                      = user.map(Who(_, sri))
       def applyWho(f: Who => Unit) = who.foreach(f)
 
       tpe match
@@ -68,40 +68,53 @@ final private class StudySocket(
             applyWho(api.setPath(studyId, position.ref))
 
         case "like" =>
-          (o \ "d" \ "liked").asOpt[Boolean].foreach: v =>
-            applyWho(api.like(studyId, v))
+          (o \ "d" \ "liked")
+            .asOpt[Boolean]
+            .foreach: v =>
+              applyWho(api.like(studyId, v))
 
         case "anaMove" =>
-          AnaMove.parse(o).foreach: move =>
-            applyWho(moveOrDrop(studyId, move, MoveOpts parse o))
+          AnaMove
+            .parse(o)
+            .foreach: move =>
+              applyWho(moveOrDrop(studyId, move, MoveOpts parse o))
 
         case "anaDrop" =>
-          AnaMove.parse(o).foreach: drop =>
-            applyWho(moveOrDrop(studyId, drop, MoveOpts parse o))
+          AnaDrop
+            .parse(o)
+            .foreach: drop =>
+              applyWho(moveOrDrop(studyId, drop, MoveOpts parse o))
 
         case "deleteNode" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "jumpTo").asOpt[UciPath].foreach: jumpTo =>
-              applyWho(api.setPath(studyId, position.ref.withPath(jumpTo)))
-              applyWho(api.deleteNodeAt(studyId, position.ref))
+            (o \ "d" \ "jumpTo")
+              .asOpt[UciPath]
+              .foreach: jumpTo =>
+                applyWho(api.setPath(studyId, position.ref.withPath(jumpTo)))
+                applyWho(api.deleteNodeAt(studyId, position.ref))
 
         case "promote" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "toMainline").asOpt[Boolean].foreach: toMainline =>
-              applyWho(api.promote(studyId, position.ref, toMainline))
+            (o \ "d" \ "toMainline")
+              .asOpt[Boolean]
+              .foreach: toMainline =>
+                applyWho(api.promote(studyId, position.ref, toMainline))
 
         case "forceVariation" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "force").asOpt[Boolean].foreach: force =>
-              applyWho(api.forceVariation(studyId, position.ref, force))
+            (o \ "d" \ "force")
+              .asOpt[Boolean]
+              .foreach: force =>
+                applyWho(api.forceVariation(studyId, position.ref, force))
 
         case "setRole" =>
           reading[SetRole](o): d =>
             applyWho(api.setRole(studyId, d.userId, d.role))
 
         case "kick" =>
-          o.get[UserStr]("d").foreach: username =>
-            applyWho(api.kick(studyId, username.id))
+          o.get[UserStr]("d")
+            .foreach: username =>
+              applyWho(api.kick(studyId, username.id))
 
         case "leave" =>
           who.foreach: w =>
@@ -109,8 +122,10 @@ final private class StudySocket(
 
         case "shapes" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "shapes").asOpt[List[Shape]].foreach: shapes =>
-              applyWho(api.setShapes(studyId, position.ref, Shapes(shapes take 32)))
+            (o \ "d" \ "shapes")
+              .asOpt[List[Shape]]
+              .foreach: shapes =>
+                applyWho(api.setShapes(studyId, position.ref, Shapes(shapes take 32)))
 
         case "addChapter" =>
           reading[ChapterMaker.Data](o): data =>
@@ -118,40 +133,48 @@ final private class StudySocket(
             applyWho(api.addChapter(studyId, data, sticky = sticky, withRatings = true))
 
         case "setChapter" =>
-          o.get[StudyChapterId]("d").foreach: chapterId =>
-            applyWho(api.setChapter(studyId, chapterId))
+          o.get[StudyChapterId]("d")
+            .foreach: chapterId =>
+              applyWho(api.setChapter(studyId, chapterId))
 
         case "editChapter" =>
           reading[ChapterMaker.EditData](o): data =>
             applyWho(api.editChapter(studyId, data))
 
         case "descStudy" =>
-          o.str("d").foreach: desc =>
-            applyWho(api.descStudy(studyId, desc))
+          o.str("d")
+            .foreach: desc =>
+              applyWho(api.descStudy(studyId, desc))
 
         case "descChapter" =>
           reading[ChapterMaker.DescData](o): data =>
             applyWho(api.descChapter(studyId, data))
 
         case "deleteChapter" =>
-          o.get[StudyChapterId]("d").foreach: id =>
-            applyWho(api.deleteChapter(studyId, id))
+          o.get[StudyChapterId]("d")
+            .foreach: id =>
+              applyWho(api.deleteChapter(studyId, id))
 
         case "clearAnnotations" =>
-          o.get[StudyChapterId]("d").foreach: id =>
-            applyWho(api.clearAnnotations(studyId, id))
+          o.get[StudyChapterId]("d")
+            .foreach: id =>
+              applyWho(api.clearAnnotations(studyId, id))
 
         case "clearVariations" =>
-          o.get[StudyChapterId]("d").foreach: id =>
-            applyWho(api.clearVariations(studyId, id))
+          o.get[StudyChapterId]("d")
+            .foreach: id =>
+              applyWho(api.clearVariations(studyId, id))
 
         case "sortChapters" =>
-          o.get[List[StudyChapterId]]("d").foreach: ids =>
-            applyWho(api.sortChapters(studyId, ids))
+          o.get[List[StudyChapterId]]("d")
+            .foreach: ids =>
+              applyWho(api.sortChapters(studyId, ids))
 
         case "editStudy" =>
-          (o \ "d").asOpt[Study.Data].foreach: data =>
-            applyWho(api.editStudy(studyId, data))
+          (o \ "d")
+            .asOpt[Study.Data]
+            .foreach: data =>
+              applyWho(api.editStudy(studyId, data))
 
         case "setTag" =>
           reading[actorApi.SetTag](o): setTag =>
@@ -159,35 +182,47 @@ final private class StudySocket(
 
         case "setComment" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "text").asOpt[String].foreach: text =>
-              applyWho(api.setComment(studyId, position.ref, Comment sanitize text))
+            (o \ "d" \ "text")
+              .asOpt[String]
+              .foreach: text =>
+                applyWho(api.setComment(studyId, position.ref, Comment sanitize text))
 
         case "deleteComment" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "id").asOpt[String].foreach: id =>
-              applyWho(api.deleteComment(studyId, position.ref, Comment.Id(id)))
+            (o \ "d" \ "id")
+              .asOpt[String]
+              .foreach: id =>
+                applyWho(api.deleteComment(studyId, position.ref, Comment.Id(id)))
 
         case "setGamebook" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "gamebook").asOpt[Gamebook].map(_.cleanUp).foreach: gamebook =>
-              applyWho(api.setGamebook(studyId, position.ref, gamebook))
+            (o \ "d" \ "gamebook")
+              .asOpt[Gamebook]
+              .map(_.cleanUp)
+              .foreach: gamebook =>
+                applyWho(api.setGamebook(studyId, position.ref, gamebook))
 
         case "toggleGlyph" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "id").asOpt[Int].flatMap(Glyph.find).foreach: glyph =>
-              applyWho(api.toggleGlyph(studyId, position.ref, glyph))
+            (o \ "d" \ "id")
+              .asOpt[Int]
+              .flatMap(Glyph.find)
+              .foreach: glyph =>
+                applyWho(api.toggleGlyph(studyId, position.ref, glyph))
 
         case "setTopics" =>
-          o.strs("d").foreach: topics =>
-            applyWho(api.setTopics(studyId, topics))
+          o.strs("d")
+            .foreach: topics =>
+              applyWho(api.setTopics(studyId, topics))
 
         case "explorerGame" =>
           reading[actorApi.ExplorerGame](o): data =>
             applyWho(api.explorerGame(studyId, data))
 
         case "requestAnalysis" =>
-          o.get[StudyChapterId]("d").foreach: chapterId =>
-            user.foreach(api.analysisRequest(studyId, chapterId, _))
+          o.get[StudyChapterId]("d")
+            .foreach: chapterId =>
+              user.foreach(api.analysisRequest(studyId, chapterId, _))
 
         case "invite" =>
           for
@@ -204,7 +239,8 @@ final private class StudySocket(
 
         case "relaySync" =>
           who.foreach(w =>
-            Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle"))
+            Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
+          )
 
         case t => logger.warn(s"Unhandled study socket message: $t")
 

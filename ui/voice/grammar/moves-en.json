@@ -3,7 +3,35 @@
   "partials": {
     "commands": ["yes", "no", "stop"],
     "colors": ["green", "blue", "purple", "pink", "yellow", "orange", "white", "brown"],
-    "numbers": ["1", "2", "3", "4", "5", "6", "7", "8"]
+    "numbers": ["1", "2", "3", "4", "5", "6", "7", "8"],
+    "wake": {
+      "phrase": "hey lee chess",
+      "ignore": [
+        "nay",
+        "pay",
+        "way",
+        "say",
+        "may",
+        "gray",
+        "ray",
+        "lay",
+        "b",
+        "c",
+        "g",
+        "p",
+        "t",
+        "key",
+        "tree",
+        "knee",
+        "like",
+        "lake",
+        "leak",
+        "look",
+        "jest",
+        "best",
+        "vest"
+      ]
+    }
   },
   "entries": [
     {
@@ -628,37 +656,37 @@
       "in": "short castle",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "u!"
+      "tok": "w!"
     },
     {
       "in": "king side castle",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "Kv!"
+      "tok": "Kx!"
     },
     {
       "in": "castle king side",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "!Kv"
+      "tok": "!Kx"
     },
     {
       "in": "long castle",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "w!"
+      "tok": "y!"
     },
     {
       "in": "castle queen side",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "!Qv"
+      "tok": "!Qx"
     },
     {
       "in": "queen side castle",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "Qv!"
+      "tok": "Qx!"
     },
     {
       "in": "take",
@@ -800,13 +828,13 @@
       "in": "offer draw",
       "val": "draw",
       "tags": ["command", "round"],
-      "tok": "x."
+      "tok": "z."
     },
     {
       "in": "accept draw",
       "val": "draw",
       "tags": ["command", "round"],
-      "tok": "y."
+      "tok": "{."
     },
     {
       "in": "resign",
@@ -896,13 +924,13 @@
       "in": "thumbs up",
       "val": "upvote",
       "tags": ["command", "puzzle"],
-      "tok": "z{"
+      "tok": "|}"
     },
     {
       "in": "thumbs down",
       "val": "downvote",
       "tags": ["command", "puzzle"],
-      "tok": "z|"
+      "tok": "|Ā"
     },
     {
       "in": "solution",
@@ -944,13 +972,13 @@
       "in": "stop listening",
       "val": "mic-off",
       "tags": ["command"],
-      "tok": "@}"
+      "tok": "@ā"
     },
     {
       "in": "stop recording",
       "val": "mic-off",
       "tags": ["command"],
-      "tok": "@Ā"
+      "tok": "@Ă"
     },
     {
       "in": "yes",
@@ -1317,7 +1345,7 @@
       ]
     },
     {
-      "in": "and",
+      "in": "lee",
       "val": "",
       "tags": ["ignore"],
       "tok": "j",
@@ -1329,7 +1357,7 @@
       ]
     },
     {
-      "in": "oh",
+      "in": "chess",
       "val": "",
       "tags": ["ignore"],
       "tok": "k",
@@ -1341,7 +1369,7 @@
       ]
     },
     {
-      "in": "um",
+      "in": "and",
       "val": "",
       "tags": ["ignore"],
       "tok": "l",
@@ -1353,7 +1381,7 @@
       ]
     },
     {
-      "in": "uh",
+      "in": "oh",
       "val": "",
       "tags": ["ignore"],
       "tok": "m",
@@ -1365,7 +1393,7 @@
       ]
     },
     {
-      "in": "hmm",
+      "in": "um",
       "val": "",
       "tags": ["ignore"],
       "tok": "n",
@@ -1377,7 +1405,7 @@
       ]
     },
     {
-      "in": "huh",
+      "in": "uh",
       "val": "",
       "tags": ["ignore"],
       "tok": "o",
@@ -1389,7 +1417,7 @@
       ]
     },
     {
-      "in": "his",
+      "in": "hmm",
       "val": "",
       "tags": ["ignore"],
       "tok": "p",
@@ -1401,7 +1429,7 @@
       ]
     },
     {
-      "in": "her",
+      "in": "huh",
       "val": "",
       "tags": ["ignore"],
       "tok": "q",
@@ -1413,10 +1441,34 @@
       ]
     },
     {
-      "in": "the",
+      "in": "his",
       "val": "",
       "tags": ["ignore"],
       "tok": "r",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "in": "her",
+      "val": "",
+      "tags": ["ignore"],
+      "tok": "s",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "in": "the",
+      "val": "",
+      "tags": ["ignore"],
+      "tok": "t",
       "subs": [
         {
           "to": "",
@@ -1440,7 +1492,7 @@
       "in": "their",
       "val": "",
       "tags": ["ignore"],
-      "tok": "s",
+      "tok": "u",
       "subs": [
         {
           "to": "",
@@ -1452,7 +1504,7 @@
       "in": "training",
       "val": "",
       "tags": ["ignore"],
-      "tok": "t",
+      "tok": "v",
       "subs": [
         {
           "to": "",
@@ -1462,7 +1514,7 @@
     },
     {
       "in": "short",
-      "tok": "u",
+      "tok": "w",
       "tags": ["part"],
       "subs": [
         {
@@ -1473,7 +1525,7 @@
     },
     {
       "in": "side",
-      "tok": "v",
+      "tok": "x",
       "tags": ["part"],
       "subs": [
         {
@@ -1484,7 +1536,7 @@
     },
     {
       "in": "long",
-      "tok": "w",
+      "tok": "y",
       "tags": ["part"],
       "subs": [
         {
@@ -1503,28 +1555,6 @@
     },
     {
       "in": "offer",
-      "tok": "x",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "accept",
-      "tok": "y",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "thumbs",
       "tok": "z",
       "tags": ["part"],
       "subs": [
@@ -1535,7 +1565,7 @@
       ]
     },
     {
-      "in": "up",
+      "in": "accept",
       "tok": "{",
       "tags": ["part"],
       "subs": [
@@ -1546,7 +1576,7 @@
       ]
     },
     {
-      "in": "down",
+      "in": "thumbs",
       "tok": "|",
       "tags": ["part"],
       "subs": [
@@ -1557,7 +1587,7 @@
       ]
     },
     {
-      "in": "listening",
+      "in": "up",
       "tok": "}",
       "tags": ["part"],
       "subs": [
@@ -1568,8 +1598,30 @@
       ]
     },
     {
-      "in": "recording",
+      "in": "down",
       "tok": "Ā",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "listening",
+      "tok": "ā",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "recording",
+      "tok": "Ă",
       "tags": ["part"],
       "subs": [
         {

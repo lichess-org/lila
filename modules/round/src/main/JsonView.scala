@@ -12,7 +12,6 @@ import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
-import lila.socket.SocketVersion.given
 
 final class JsonView(
     userRepo: UserRepo,
@@ -60,10 +59,9 @@ final class JsonView(
       apiVersion: ApiVersion,
       playerUser: Option[Either[LightUser.Ghost, User]],
       initialFen: Option[Fen.Epd],
-      flags: WithFlags,
-      socketStatus: Preload[SocketStatus] = Preload.none
+      flags: WithFlags
   ): Fu[JsObject] =
-    socketStatus.orLoad(getSocketStatus(pov.game)) zip
+    getSocketStatus(pov.game) zip
       (pov.opponent.userId ?? userRepo.byIdOrGhost) zip
       takebacker.isAllowedIn(pov.game) zip
       moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
@@ -159,13 +157,11 @@ final class JsonView(
       pov: Pov,
       pref: Option[Pref],
       apiVersion: ApiVersion,
-      me: Option[UserId],
       tv: Option[OnTv],
       initialFen: Option[Fen.Epd] = None,
-      flags: WithFlags,
-      socketStatus: Preload[SocketStatus] = Preload.none
+      flags: WithFlags
   ) =
-    socketStatus.orLoad(getSocketStatus(pov.game)) zip
+    getSocketStatus(pov.game) zip
       userRepo.pair(pov.player.userId, pov.opponent.userId) map { case (socket, (playerUser, opponentUser)) =>
         import pov.*
         Json
@@ -181,8 +177,7 @@ final class JsonView(
             "player" -> {
               commonWatcherJson(game, player, playerUser, flags) ++ Json.obj(
                 "version"   -> socket.version,
-                "spectator" -> true,
-                "id"        -> me.flatMap(game.player).map(_.id)
+                "spectator" -> true
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, flags).add(
@@ -297,7 +292,7 @@ final class JsonView(
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
 
-  private def clockJson(clock: Clock): JsObject =
+  private[round] def clockJson(clock: Clock): JsObject =
     Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
   private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =

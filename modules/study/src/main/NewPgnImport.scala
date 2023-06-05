@@ -50,8 +50,8 @@ object NewPgnImport:
                   gamebook = None,
                   glyphs = Glyphs.empty,
                   opening = None,
-                  clock = None,
-                  crazyData = None
+                  crazyData = replay.setup.situation.board.crazyData,
+                  clock = parsedPgn.tags.clockConfig.map(_.limit),
                 ),
                 parsedPgn.tree.flatMap(makeTree(replay.setup, _, annotator))
               )

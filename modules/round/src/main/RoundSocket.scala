@@ -12,8 +12,8 @@ import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.common.Json.given
 import lila.game.{ Event, Game, Pov }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
-import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Get, Resign, TourStanding }
-import lila.hub.actorApi.socket.remote.TellSriIn
+import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
 import lila.room.RoomSocket.{ Protocol as RP, * }
@@ -28,6 +28,7 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
+    mobileSocket: RoundMobileSocket,
     shutdown: CoordinatedShutdown
 )(using ec: Executor, scheduler: Scheduler):
 
@@ -135,8 +136,13 @@ final class RoundSocket(
     case RP.In.SetVersions(versions) =>
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
-    case P.In.Ping(id)                 => send(P.Out.pong(id))
-    case Protocol.In.Get(id, sri)      => rounds.tell(id, Get(sri))
+    case P.In.Ping(id) => send(P.Out.pong(id))
+    case Protocol.In.GetGame(reqId, gameId) =>
+      for
+        game <- rounds.ask[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
+        data <- mobileSocket.json(game.game, game.socket)
+      yield sendForGameId(gameId)(Protocol.Out.respond(reqId, data))
+
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -153,7 +159,7 @@ final class RoundSocket(
   private val sendForGameId: GameId => SocketSend = gameId =>
     SocketSend(msg => send.sticky(gameId.value, msg))
 
-  remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 8)(
+  remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 16)(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
@@ -301,13 +307,13 @@ object RoundSocket:
       case class Berserk(gameId: GameId, userId: UserId)                                          extends P.In
       case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
-      case class WsLatency(millis: Int)       extends P.In
-      case class Get(id: GameId, sri: String) extends P.In
+      case class WsLatency(millis: Int)          extends P.In
+      case class GetGame(reqId: Int, id: GameId) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match
           case "r/ons" =>
-            PlayerOnlines {
+            PlayerOnlines:
               P.In.commas(raw.args) map {
                 _ splitAt Game.gameIdSize match
                   case (gameId, cs) =>
@@ -316,24 +322,23 @@ object RoundSocket:
                       if (cs.isEmpty) None else Some(RoomCrowd(cs(0) == '+', cs(1) == '+'))
                     )
               }
-            }.some
+            .some
           case "r/do" =>
             raw.get(2) { case Array(fullId, payload) =>
-              for {
+              for
                 obj <- Json.parse(payload).asOpt[JsObject]
                 tpe <- obj str "t"
-              } yield PlayerDo(GameFullId(fullId), tpe)
+              yield PlayerDo(GameFullId(fullId), tpe)
             }
           case "r/move" =>
             raw.get(6) { case Array(fullId, uciS, blurS, lagS, mtS, fraS) =>
-              Uci(uciS) map { uci =>
+              Uci(uciS).map: uci =>
                 PlayerMove(
                   GameFullId(fullId),
                   uci,
                   P.In.boolean(blurS),
                   MoveMetrics(centis(lagS), centis(mtS), centis(fraS))
                 )
-              }
             }
           case "chat/say" =>
             raw.get(3) { case Array(roomId, author, msg) =>
@@ -368,8 +373,9 @@ object RoundSocket:
                 Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
             }
           case "r/get" =>
-            raw.get(2) { case Array(gameId, sri) =>
-              Get(GameId(gameId), sri).some
+            raw.get(2) { case Array(reqId, gameId) =>
+              reqId.toIntOption.map:
+                GetGame(_, GameId(gameId))
             }
           case "r/latency" => raw.args.toIntOption map WsLatency.apply
           case _           => RP.In.reader(raw)
@@ -415,6 +421,8 @@ object RoundSocket:
       def startGame(users: List[UserId]) = s"r/start ${P.Out.commas(users)}"
       def finishGame(gameId: GameId, winner: Option[Color], users: List[UserId]) =
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
+
+      def respond(reqId: Int, data: JsObject) = s"req/response $reqId ${Json stringify data}"
 
       def versioningReady = "r/versioning-ready"
 

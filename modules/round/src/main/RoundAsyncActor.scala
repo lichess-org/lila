@@ -15,8 +15,7 @@ import lila.hub.actorApi.round.{
   IsOnGame,
   RematchNo,
   RematchYes,
-  Resign,
-  Get
+  Resign
 }
 import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol as RP, * }
@@ -133,17 +132,14 @@ final private[round] class RoundAsyncActor(
         promise success getPlayer(color).isOnline
 
     case GetSocketStatus(promise) =>
-      whitePlayer.isLongGone zip blackPlayer.isLongGone map { (whiteIsGone, blackIsGone) =>
-        promise success SocketStatus(
-          version = version,
-          whiteOnGame = whitePlayer.isOnline,
-          whiteIsGone = whiteIsGone,
-          blackOnGame = blackPlayer.isOnline,
-          blackIsGone = blackIsGone
-        )
-      }
+      getSocketStatus tap promise.completeWith
 
-    case Get(sri) => ???
+    case GetGameAndSocketStatus(promise) =>
+      getSocketStatus
+        .zip(getGame)
+        .map: (socket, game) =>
+          GameAndSocketStatus(game err s"Game $gameId not found", socket)
+        .tap(promise.completeWith)
 
     case HasUserId(userId, promise) =>
       fuccess:
@@ -396,6 +392,17 @@ final private[round] class RoundAsyncActor(
     case Stop => proxy.terminate() >>- socketSend(RP.Out.stop(roomId))
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
+
+  private def getSocketStatus: Future[SocketStatus] =
+    whitePlayer.isLongGone zip blackPlayer.isLongGone map { (whiteIsGone, blackIsGone) =>
+      SocketStatus(
+        version = version,
+        whiteOnGame = whitePlayer.isOnline,
+        whiteIsGone = whiteIsGone,
+        blackOnGame = blackPlayer.isOnline,
+        blackIsGone = blackIsGone
+      )
+    }
 
   private def recordLag(pov: Pov): Unit =
     if ((pov.game.playedTurns.value & 30) == 10)

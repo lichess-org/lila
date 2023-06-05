@@ -78,7 +78,7 @@ final class Env(
       scheduler.scheduleOnce((centis.millis + 1000).millis):
         tellRound(game.id, actorApi.round.NoStart)
 
-  private lazy val proxyDependencies = GameProxy.Dependencies(gameRepo, scheduler)
+  private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
@@ -167,7 +167,7 @@ final class Env(
 
   lazy val messenger = wire[Messenger]
 
-  lazy val getSocketStatus = (game: Game) =>
+  lazy val getSocketStatus: Game => Future[SocketStatus] = (game: Game) =>
     roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus.apply)
 
   private def isUserPresent(game: Game, userId: UserId): Fu[Boolean] =
@@ -176,6 +176,8 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   lazy val noteApi = NoteApi(db(config.noteColl))
+
+  private lazy val mobileSocket = wire[RoundMobileSocket]
 
   MoveLatMonitor.start(scheduler)
 
