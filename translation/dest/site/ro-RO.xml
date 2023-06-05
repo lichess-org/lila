@@ -162,7 +162,7 @@
   <plurals name="ratingXOverYGames">
     <item quantity="one">Rating %1$s din %2$s meci</item>
     <item quantity="few">Rating %1$s din %2$s meciuri</item>
-    <item quantity="other">Rating %1$s din %2$s meciuri</item>
+    <item quantity="other">Rating %1$s din %2$s de meciuri</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s marcat</item>
@@ -226,7 +226,7 @@
   <string name="forgotPassword">Ți-ai uitat parola?</string>
   <string name="error.weakPassword">Această parolă este extrem de comună şi prea uşor de ghicit.</string>
   <string name="error.namePassword">Te rugăm să nu folosești numele tău de utilizator ca parolă.</string>
-  <string name="blankedPassword">Ați folosit aceeași parolă pe un alt site, iar acest site a fost compromis. Pentru a asigura siguranța contului dvs. Lichess, trebuie să setați o parolă nouă. Vă mulțumim pentru înțelegere.</string>
+  <string name="blankedPassword">Ați folosit aceeași parolă pe un alt site, iar acel site a fost compromis. Pentru a asigura siguranța contului dvs. Lichess, trebuie să setați o parolă nouă. Vă mulțumim pentru înțelegere.</string>
   <string name="youAreLeavingLichess">Părăsești Lichess</string>
   <string name="neverTypeYourPassword">Nu introduceți niciodată parola Lichess pe un alt site!</string>
   <string name="proceedToX">Continuă către %s</string>
@@ -704,6 +704,8 @@
   <string name="simulClockHint">Configurare de ceas Fischer. Cu cât joci împotriva mai multor jucători, cu atât vei avea nevoie de mai mult timp.</string>
   <string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>
   <string name="simulHostExtraTime">Timp suplimentar pe ceasul gazdei</string>
+  <string name="simulAddExtraTimePerPlayer">Adaugă timp inițial la ceasul tău pentru fiecare jucător care se alătură jocului simultan.</string>
+  <string name="simulHostExtraTimePerPlayer">Timp suplimentar pentru ceasul gazdei, pentru fiecare jucător</string>
   <string name="lichessTournaments">Turnee Lichess</string>
   <string name="tournamentFAQ">Întrebări și răspunsuri pentru turneu</string>
   <string name="timeBeforeTournamentStarts">Timp până la începerea turneului</string>
@@ -911,6 +913,8 @@
   <string name="useTheReportForm">folosiți formularul de raportare</string>
   <string name="toRequestSupport">Pentru a solicita asistență, %1$s</string>
   <string name="tryTheContactPage">încercați pagina de contact</string>
+  <string name="makeSureToRead">Asigură-te că citești %1$s</string>
+  <string name="theForumEtiquette">normele de comportare în forum</string>
   <string name="thisTopicIsArchived">Acest subiect a fost arhivat și nu mai acceptă răspunsuri.</string>
   <string name="joinTheTeamXToPost">Alăturați-vă echipei %1$s, pentru a posta pe acest forum</string>
   <string name="teamNamedX">echipa %1$s</string>
