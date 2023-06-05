@@ -10,6 +10,7 @@ import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
 import { Step, MaybeVNodes } from '../interfaces';
+import { toggleButton as boardMenuToggleButton } from 'board/menu';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -186,18 +187,7 @@ function renderButtons(ctrl: RoundController) {
           },
         });
       }),
-      h(
-        'button.fbt.board-menu-toggle',
-        {
-          class: { active: ctrl.menu() },
-          attrs: {
-            title: ctrl.noarg('menu'),
-            'data-act': 'menu',
-            'data-icon': licon.Hamburger,
-          },
-        },
-        ctrl.menu.used() ? undefined : h('div.board-menu-toggle__new')
-      ),
+      boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
     ]
   );
 }

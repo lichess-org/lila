@@ -146,6 +146,21 @@ importers:
         specifier: workspace:*
         version: link:../tree
 
+  ui/board:
+    dependencies:
+      '@types/cash':
+        specifier: workspace:*
+        version: link:../@types/cash
+      '@types/lichess':
+        specifier: workspace:*
+        version: link:../@types/lichess
+      common:
+        specifier: workspace:*
+        version: link:../common
+      snabbdom:
+        specifier: ^3.5.1
+        version: 3.5.1
+
   ui/ceval:
     dependencies:
       '@badrap/result':
@@ -652,6 +667,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      board:
+        specifier: workspace:*
+        version: link:../board
       chat:
         specifier: workspace:*
         version: link:../chat
