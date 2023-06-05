@@ -854,6 +854,7 @@
   <string name="invalidFen">Nieprawidłowy FEN</string>
   <string name="custom">Niestandardowa</string>
   <string name="notifications">Powiadomienia</string>
+  <string name="notificationsX">Powiadomienia: %1$s</string>
   <string name="perfRatingX">Ranking: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na wykonanie pierwszego ruchu</item>
