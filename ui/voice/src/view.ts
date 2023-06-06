@@ -155,7 +155,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     onInsert: async el => {
       const [, grammar, html] = await Promise.all([
         lichess.loadCssPath('voiceMove.help'),
-        xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/moves-${ctrl.lang()}.json`)),
+        xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/move-${ctrl.lang()}.json`)),
         xhr.text(xhr.url(`/help/voice-move`, {})),
       ]);
       // using lexicon instead of crowdin translations for moves/commands

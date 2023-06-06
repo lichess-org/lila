@@ -54,9 +54,13 @@ export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
 
   const lang = prop.storedStringPropWithEffect('voice.lang', 'en', code => {
     if (code === lichess.mic.lang) return;
-    const start = enabled() ? () => lichess.mic.start(!pushTalk()) : undefined;
     lichess.mic.setLang(code);
-    opts.module?.().initGrammar().then(start);
+    opts
+      .module?.()
+      .initGrammar()
+      .then(() => {
+        if (enabled()) lichess.mic.start(!pushTalk());
+      });
   });
 
   const showHelp = propWithEffect(false, opts.redraw);
