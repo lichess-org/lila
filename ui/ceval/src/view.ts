@@ -23,7 +23,7 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
 );
 
 function longEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): string {
-  const ceval = ctrl.getCeval(),
+  const ceval = ctrl.ceval,
     state = ceval.getState(),
     trans = ctrl.trans;
   if (!ceval.enabled()) return '';
@@ -45,7 +45,7 @@ function longEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): string {
 }
 
 function shortEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
-  const ceval = ctrl.getCeval(),
+  const ceval = ctrl.ceval,
     state = ceval.getState(),
     trans = ctrl.trans;
 
@@ -98,7 +98,7 @@ function longThreatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): stri
   if (!threat) return ctrl.trans.noarg('calculatingMoves');
   let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
   if (threat.knps) t += ', ' + Math.round(threat.knps) + 'k nodes/s';
-  return ctrl.getCeval().longEngineName() + '\n' + t;
+  return ctrl.ceval.longEngineName() + '\n' + t;
 }
 
 function shortThreatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
@@ -135,12 +135,12 @@ export function getBestEval(ctrl: CevalCtrl | undefined, evs: NodeEvals): Eval |
 
 export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
-  const bestEv = getBestEval(ctrl.getCeval(), ctrl.currentEvals());
+  const bestEv = getBestEval(ctrl.ceval, ctrl.currentEvals());
   let ev;
   if (bestEv) {
     ev = winningChances.povChances('white', bestEv);
     gaugeLast = ev;
-  } else if (ctrl.getCeval().showClientEval()) {
+  } else if (ctrl.ceval.showClientEval()) {
     ev = gaugeLast;
   } else {
     return;
@@ -158,7 +158,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
 }
 
 export function renderEngineSelect(sel: string, ctrl: ParentCtrl): VNode {
-  const ceval = ctrl.getCeval();
+  const ceval = ctrl.ceval;
 
   const options: Array<{ value: string; name: string }> = [];
 
@@ -215,7 +215,7 @@ export function renderEngineSelect(sel: string, ctrl: ParentCtrl): VNode {
 }
 
 export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
-  const instance = ctrl.getCeval();
+  const instance = ctrl.ceval;
   if (!instance.allowed() || !instance.possible) return;
   const enabled = instance.enabled(),
     evs = ctrl.currentEvals(),
@@ -355,7 +355,7 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
 }
 
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
-  const instance = ctrl.getCeval();
+  const instance = ctrl.ceval;
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = instance.multiPv(),
     node = ctrl.getNode(),
@@ -383,7 +383,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
           el.addEventListener('mouseover', (e: MouseEvent) => {
-            const instance = ctrl.getCeval();
+            const instance = ctrl.ceval;
             instance.setHovering(getElFen(el), getElUci(e));
             const pvBoard = (e.target as HTMLElement).dataset.board;
             if (pvBoard) {
@@ -403,12 +403,12 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                 const pvBoard = pvMoves[pvIndex];
                 if (pvBoard) {
                   const [fen, uci] = pvBoard.split('|');
-                  ctrl.getCeval().setPvBoard({ fen, uci });
+                  ctrl.ceval.setPvBoard({ fen, uci });
                 }
               }
             })
           );
-          el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
+          el.addEventListener('mouseout', () => ctrl.ceval.setHovering(getElFen(el)));
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
               const uciList = getElUciList(e);
@@ -419,7 +419,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             });
           }
           el.addEventListener('mouseleave', () => {
-            ctrl.getCeval().setPvBoard(null);
+            ctrl.ceval.setPvBoard(null);
             pvIndex = null;
           });
           checkHover(el, instance);
@@ -508,7 +508,7 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
 }
 
 function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
-  const instance = ctrl.getCeval();
+  const instance = ctrl.ceval;
   const pvBoard = instance.pvBoard();
   if (!pvBoard) {
     return;
@@ -551,7 +551,7 @@ const formatHashSize = (v: number): string => (v < 1024 ? v + ' MiB' : Math.roun
 
 export function renderEngineConfig(ctrl: ParentCtrl): Array<VNode | undefined> {
   const noarg = ctrl.trans.noarg,
-    ceval = ctrl.getCeval(),
+    ceval = ctrl.ceval,
     type = ceval.getEngineType(),
     fallbackType = ceval.getFallbackType();
 

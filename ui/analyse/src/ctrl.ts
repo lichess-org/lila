@@ -669,8 +669,6 @@ export default class AnalyseCtrl implements ParentCtrl {
     });
   }
 
-  getCeval = () => this.ceval;
-
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(
       pos => pos.outcome(),

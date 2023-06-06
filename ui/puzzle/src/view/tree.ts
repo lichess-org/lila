@@ -3,11 +3,11 @@ import { defined } from 'common';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval, view as cevalView } from 'ceval';
 import { path as treePath } from 'tree';
-import { Controller } from '../interfaces';
+import PuzzleController from '../ctrl';
 import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 
 interface Ctx {
-  ctrl: Controller;
+  ctrl: PuzzleController;
 }
 
 interface RenderOpts {
@@ -21,7 +21,7 @@ interface Glyph {
   symbol: string;
 }
 
-const autoScroll = throttle(150, (ctrl: Controller, el) => {
+const autoScroll = throttle(150, (ctrl: PuzzleController, el) => {
   const cont = el.parentNode;
   const target = el.querySelector('.active');
   if (!target) {
@@ -158,7 +158,7 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
-  const ev = cevalView.getBestEval(ctx.ctrl.getCeval(), { local: node.ceval, server: node.eval });
+  const ev = cevalView.getBestEval(ctx.ctrl.ceval, { local: node.ceval, server: node.eval });
   return [
     node.san,
     ev &&
@@ -209,18 +209,16 @@ function eventPath(e: Event): Tree.Path | null {
   return target.getAttribute('p') || (target.parentNode as HTMLElement).getAttribute('p');
 }
 
-export function render(ctrl: Controller): VNode {
-  const root = ctrl.getTree().root;
-  const ctx = {
-    ctrl: ctrl,
-  };
+export function render(ctrl: PuzzleController): VNode {
+  const root = ctrl.tree.root;
+  const ctx = { ctrl };
   return h(
     'div.tview2.tview2-column',
     {
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
-          if (ctrl.path !== treePath.root) autoScroll(ctrl, el);
+          if (ctrl.vm.path !== treePath.root) autoScroll(ctrl, el);
           el.addEventListener('mousedown', (e: MouseEvent) => {
             if (defined(e.button) && e.button !== 0) return; // only touch or left click
             const path = eventPath(e);
@@ -232,7 +230,7 @@ export function render(ctrl: Controller): VNode {
           if (ctrl.vm.autoScrollNow) {
             autoScroll(ctrl, vnode.elm as HTMLElement);
             ctrl.vm.autoScrollNow = false;
-            ctrl.autoScrollRequested = false;
+            ctrl.vm.autoScrollRequested = false;
           } else if (ctrl.vm.autoScrollRequested) {
             if (ctrl.vm.path !== treePath.root) autoScroll(ctrl, vnode.elm as HTMLElement);
             ctrl.vm.autoScrollRequested = false;

@@ -1,4 +1,4 @@
-import { Controller, Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
+import { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
 import * as licon from 'common/licon';
 import { dataIcon, onInsert, bind, MaybeVNode } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
@@ -6,13 +6,14 @@ import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
 import * as router from 'common/router';
 import PuzzleStreak from '../streak';
+import PuzzleController from '../ctrl';
 
-export function puzzleBox(ctrl: Controller): VNode {
-  const data = ctrl.getData();
+export function puzzleBox(ctrl: PuzzleController): VNode {
+  const data = ctrl.data;
   return h('div.puzzle__side__metas', [puzzleInfos(ctrl, data.puzzle), gameInfos(ctrl, data.game, data.puzzle)]);
 }
 
-const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
+const puzzleInfos = (ctrl: PuzzleController, puzzle: Puzzle): VNode =>
   h(
     'div.infos.puzzle',
     {
@@ -38,7 +39,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
                 )
               )
             ),
-        ctrl.showRatings
+        ctrl.opts.showRatings
           ? h(
               'p',
               ctrl.trans.vdom(
@@ -54,7 +55,7 @@ const puzzleInfos = (ctrl: Controller, puzzle: Puzzle): VNode =>
     ]
   );
 
-function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
+function gameInfos(ctrl: PuzzleController, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;
   return h('div.infos', { attrs: dataIcon(perfIcons[game.perf.key]) }, [
     h('div', [
@@ -76,7 +77,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
       h(
         'div.players',
         game.players.map(p => {
-          const name = ctrl.showRatings ? p.name : p.name.split(' ')[0];
+          const name = ctrl.opts.showRatings ? p.name : p.name.split(' ')[0];
           return h(
             'div.player.color-icon.is.text.' + p.color,
             p.userId != 'anon'
@@ -118,8 +119,8 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
         )
   );
 
-export const userBox = (ctrl: Controller): VNode => {
-  const data = ctrl.getData(),
+export const userBox = (ctrl: PuzzleController): VNode => {
+  const data = ctrl.data,
     noarg = ctrl.trans.noarg;
   if (!data.user)
     return h('div.puzzle__side__user', [
@@ -139,7 +140,7 @@ export const userBox = (ctrl: Controller): VNode => {
                 disabled: ctrl.vm.lastFeedback != 'init',
               },
               hook: {
-                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),
+                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.rated.toggle),
               },
             }),
             h('label', { attrs: { for: ratedId } }),
@@ -150,7 +151,7 @@ export const userBox = (ctrl: Controller): VNode => {
     h(
       'div.puzzle__side__user__rating',
       ctrl.rated()
-        ? ctrl.showRatings
+        ? ctrl.opts.showRatings
           ? h('strong', [
               data.user.rating - (diff || 0),
               ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
@@ -162,7 +163,7 @@ export const userBox = (ctrl: Controller): VNode => {
   ]);
 };
 
-export const streakBox = (ctrl: Controller) =>
+export const streakBox = (ctrl: PuzzleController) =>
   h('div.puzzle__side__user', renderStreak(ctrl.streak!, ctrl.trans.noarg));
 
 const difficulties: [PuzzleDifficulty, number][] = [
@@ -178,8 +179,8 @@ const colors = [
   ['white', 'asWhite'],
 ];
 
-export function replay(ctrl: Controller): MaybeVNode {
-  const replay = ctrl.getData().replay;
+export function replay(ctrl: PuzzleController): MaybeVNode {
+  const replay = ctrl.data.replay;
   if (!replay) return;
   const i = replay.i + (ctrl.vm.mode == 'play' ? 0 : 1);
   return h('div.puzzle__side__replay', [
@@ -190,7 +191,7 @@ export function replay(ctrl: Controller): MaybeVNode {
           href: `/training/dashboard/${replay.days}`,
         },
       },
-      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().angle.key)} puzzles`]
+      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.data.angle.key)} puzzles`]
     ),
     h('div.puzzle__side__replay__bar', {
       attrs: {
@@ -201,10 +202,10 @@ export function replay(ctrl: Controller): MaybeVNode {
   ]);
 }
 
-export function config(ctrl: Controller): MaybeVNode {
+export function config(ctrl: PuzzleController): MaybeVNode {
   const autoNextId = 'puzzle-toggle-autonext',
     noarg = ctrl.trans.noarg,
-    data = ctrl.getData();
+    data = ctrl.data;
   return h('div.puzzle__side__config', [
     h('div.puzzle__side__config__toggle', [
       h('div.switch', [
@@ -254,12 +255,12 @@ export function config(ctrl: Controller): MaybeVNode {
   ]);
 }
 
-export const renderDifficultyForm = (ctrl: Controller): VNode =>
+export const renderDifficultyForm = (ctrl: PuzzleController): VNode =>
   h(
     'form.puzzle__side__config__difficulty',
     {
       attrs: {
-        action: `/training/difficulty/${ctrl.getData().angle.key}`,
+        action: `/training/difficulty/${ctrl.data.angle.key}`,
         method: 'post',
       },
     },
@@ -283,7 +284,7 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
             {
               attrs: {
                 value: key,
-                selected: key == ctrl.settings.difficulty,
+                selected: key == ctrl.opts.settings.difficulty,
                 title:
                   !!delta &&
                   ctrl.trans.pluralSame(
@@ -299,7 +300,7 @@ export const renderDifficultyForm = (ctrl: Controller): VNode =>
     ]
   );
 
-export const renderColorForm = (ctrl: Controller): VNode =>
+export const renderColorForm = (ctrl: PuzzleController): VNode =>
   h(
     'div.puzzle__side__config__color',
     h(
@@ -307,10 +308,10 @@ export const renderColorForm = (ctrl: Controller): VNode =>
       colors.map(([key, i18n]) =>
         h('div', [
           h(
-            `a.label.color-${key}${key === (ctrl.settings.color || 'random') ? '.active' : ''}`,
+            `a.label.color-${key}${key === (ctrl.opts.settings.color || 'random') ? '.active' : ''}`,
             {
               attrs: {
-                href: `/training/${ctrl.getData().angle.key}/${key}`,
+                href: `/training/${ctrl.data.angle.key}/${key}`,
                 title: ctrl.trans.noarg(i18n),
               },
             },

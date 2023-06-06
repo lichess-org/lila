@@ -1,11 +1,11 @@
 import resizeHandle from 'common/resize';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
-import { Controller } from '../interfaces';
+import PuzzleController from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import * as Prefs from 'common/prefs';
 
-export default function (ctrl: Controller): VNode {
+export default function (ctrl: PuzzleController): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.setChessground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
@@ -14,30 +14,31 @@ export default function (ctrl: Controller): VNode {
   });
 }
 
-export function makeConfig(ctrl: Controller): CgConfig {
-  const opts = ctrl.makeCgOpts();
+export function makeConfig(ctrl: PuzzleController): CgConfig {
+  const opts = ctrl.makeCgOpts(),
+    pref = ctrl.opts.pref;
   return {
     fen: opts.fen,
     orientation: opts.orientation,
     turnColor: opts.turnColor,
     check: opts.check,
     lastMove: opts.lastMove,
-    coordinates: ctrl.pref.coords !== Prefs.Coords.Hidden,
-    addPieceZIndex: ctrl.pref.is3d,
+    coordinates: pref.coords !== Prefs.Coords.Hidden,
+    addPieceZIndex: pref.is3d,
     addDimensionsCssVarsTo: document.body,
     movable: {
       free: false,
       color: opts.movable!.color,
       dests: opts.movable!.dests,
-      showDests: ctrl.pref.destination,
-      rookCastle: ctrl.pref.rookCastle,
+      showDests: pref.destination,
+      rookCastle: pref.rookCastle,
     },
     draggable: {
-      enabled: ctrl.pref.moveEvent > 0,
-      showGhost: ctrl.pref.highlight,
+      enabled: pref.moveEvent > 0,
+      showGhost: pref.highlight,
     },
     selectable: {
-      enabled: ctrl.pref.moveEvent !== 1,
+      enabled: pref.moveEvent !== 1,
     },
     events: {
       move: ctrl.userMove,
@@ -53,12 +54,12 @@ export function makeConfig(ctrl: Controller): CgConfig {
       defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
-      lastMove: ctrl.pref.highlight,
-      check: ctrl.pref.highlight,
+      lastMove: pref.highlight,
+      check: pref.highlight,
     },
     animation: {
       enabled: true,
-      duration: ctrl.pref.animation.duration,
+      duration: pref.animation.duration,
     },
     disableContextMenu: true,
   };

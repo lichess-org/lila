@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { Controller } from '../interfaces';
+import PuzzleController from '../ctrl';
 import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
 import theme from '../view/theme';
 import {
@@ -47,11 +47,11 @@ export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
     boardStyle = boardSetting();
 
   return {
-    render(ctrl: Controller): VNode {
+    render(ctrl: PuzzleController): VNode {
       const ground = ctrl.ground() || createGround(ctrl);
 
       return h(
-        `main.puzzle.puzzle--nvui.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${
+        `main.puzzle.puzzle--nvui.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${
           ctrl.streak ? '.puzzle--streak' : ''
         }`,
         h('div.nvui', [
@@ -133,7 +133,7 @@ export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
               hook: onInsert(el => {
                 const $board = $(el);
                 const $buttons = $board.find('button');
-                const steps = () => ctrl.getTree().getNodeList(ctrl.vm.path);
+                const steps = () => ctrl.tree.getNodeList(ctrl.vm.path);
                 const uciSteps = () => steps().filter(hasUci);
                 const fenSteps = () => steps().map(step => step.fen);
                 const opponentColor = ctrl.vm.pov === 'white' ? 'black' : 'white';
@@ -186,7 +186,7 @@ export default (window as any).LichessPuzzleNvui = function (redraw: Redraw) {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          ...(!ctrl.getData().replay && !ctrl.streak ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
+          ...(!ctrl.data.replay && !ctrl.streak ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
           h('h2', 'Keyboard shortcuts'),
           h('p', [
             'Left and right arrow keys or k and j: Navigate to the previous or next move.',
@@ -251,14 +251,14 @@ function hasUci(step: Tree.Node): step is StepWithUci {
   return step.uci !== undefined;
 }
 
-function lastMove(ctrl: Controller, style: Style): string {
+function lastMove(ctrl: PuzzleController, style: Style): string {
   const node = ctrl.vm.node;
   if (node.ply === 0) return 'Initial position';
   // make sure consecutive moves are different so that they get re-read
   return renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : ' ');
 }
 
-function createGround(ctrl: Controller): Api {
+function createGround(ctrl: PuzzleController): Api {
   const ground = Chessground(document.createElement('div'), {
     ...makeConfig(ctrl),
     animation: { enabled: false },
@@ -270,7 +270,7 @@ function createGround(ctrl: Controller): Api {
 }
 
 function onSubmit(
-  ctrl: Controller,
+  ctrl: PuzzleController,
   notify: (txt: string) => void,
   style: () => Style,
   $input: Cash,
@@ -303,11 +303,11 @@ function onSubmit(
   };
 }
 
-function isYourMove(ctrl: Controller) {
+function isYourMove(ctrl: PuzzleController) {
   return ctrl.vm.node.children.length === 0 || ctrl.vm.node.children[0].puzzle === 'fail';
 }
 
-function browseHint(ctrl: Controller): string[] {
+function browseHint(ctrl: PuzzleController): string[] {
   if (ctrl.vm.mode !== 'view' && !isYourMove(ctrl)) return ['You browsed away from the latest position.'];
   else return [];
 }
@@ -318,7 +318,7 @@ function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
-function onCommand(ctrl: Controller, notify: (txt: string) => void, c: string, style: Style): void {
+function onCommand(ctrl: PuzzleController, notify: (txt: string) => void, c: string, style: Style): void {
   const lowered = c.toLowerCase();
   const pieces = ctrl.ground()!.state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
@@ -327,7 +327,7 @@ function onCommand(ctrl: Controller, notify: (txt: string) => void, c: string, s
     notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
 }
 
-function viewOrAdvanceSolution(ctrl: Controller, notify: (txt: string) => void): void {
+function viewOrAdvanceSolution(ctrl: PuzzleController, notify: (txt: string) => void): void {
   if (ctrl.vm.mode === 'view') {
     const node = ctrl.vm.node,
       next = nextNode(node),
@@ -354,26 +354,26 @@ function nextNode(node?: Tree.Node): Tree.Node | undefined {
   else return;
 }
 
-function renderStreak(ctrl: Controller): VNode[] {
+function renderStreak(ctrl: PuzzleController): VNode[] {
   if (!ctrl.streak) return [];
   return [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || ctrl.trans.noarg('streakDescription'))];
 }
 
-function renderStatus(ctrl: Controller): string {
+function renderStatus(ctrl: PuzzleController): string {
   if (ctrl.vm.mode !== 'view') return 'Solving';
   else if (ctrl.streak) return `GAME OVER. Your streak: ${ctrl.streak.data.index}`;
   else if (ctrl.vm.lastFeedback === 'win') return 'Puzzle solved!';
   else return 'Puzzle complete.';
 }
 
-function renderReplay(ctrl: Controller): string {
-  const replay = ctrl.getData().replay;
+function renderReplay(ctrl: PuzzleController): string {
+  const replay = ctrl.data.replay;
   if (!replay) return '';
   const i = replay.i + (ctrl.vm.mode === 'play' ? 0 : 1);
-  return `Replaying ${ctrl.trans.noarg(ctrl.getData().angle.key)} puzzles: ${i} of ${replay.of}`;
+  return `Replaying ${ctrl.trans.noarg(ctrl.data.angle.key)} puzzles: ${i} of ${replay.of}`;
 }
 
-function playActions(ctrl: Controller): VNode {
+function playActions(ctrl: PuzzleController): VNode {
   if (ctrl.streak)
     return button(
       ctrl.trans.noarg('skip'),
@@ -384,7 +384,7 @@ function playActions(ctrl: Controller): VNode {
   else return h('div.actions_play', button('View the solution', ctrl.viewSolution));
 }
 
-function afterActions(ctrl: Controller): VNode {
+function afterActions(ctrl: PuzzleController): VNode {
   const win = ctrl.vm.lastFeedback === 'win';
   return h(
     'div.actions_after',
@@ -394,13 +394,13 @@ function afterActions(ctrl: Controller): VNode {
   );
 }
 
-const renderVoteTutorial = (ctrl: Controller): VNode[] =>
-  ctrl.session.isNew() && ctrl.getData().user?.provisional
+const renderVoteTutorial = (ctrl: PuzzleController): VNode[] =>
+  ctrl.session.isNew() && ctrl.data.user?.provisional
     ? [h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')), h('p', ctrl.trans.noarg('voteToLoadNextOne'))]
     : [];
 
-function renderVote(ctrl: Controller): VNode[] {
-  if (!ctrl.getData().user || ctrl.autoNexting()) return [];
+function renderVote(ctrl: PuzzleController): VNode[] {
+  if (!ctrl.data.user || ctrl.autoNexting()) return [];
   return [
     ...renderVoteTutorial(ctrl),
     button('Thumbs up', () => ctrl.vote(true), undefined, ctrl.vm.voteDisabled),

@@ -6,7 +6,6 @@ import chessground from './chessground';
 import feedbackView from './feedback';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
-import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { onInsert, bindNonPassive } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/mobile';
@@ -16,10 +15,10 @@ import { renderVoiceMove } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
 import boardMenu from './boardMenu';
-
 import * as Prefs from 'common/prefs';
+import PuzzleController from '../ctrl';
 
-const renderAnalyse = (ctrl: Controller): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
+const renderAnalyse = (ctrl: PuzzleController): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
@@ -36,7 +35,7 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing = f
   });
 }
 
-function controls(ctrl: Controller): VNode {
+function controls(ctrl: PuzzleController): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
   const goNext = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
@@ -72,7 +71,7 @@ function controls(ctrl: Controller): VNode {
 
 let cevalShown = false;
 
-export default function (ctrl: Controller): VNode {
+export default function (ctrl: PuzzleController): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const showCeval = ctrl.vm.mode === 'view',
     gaugeOn = ctrl.showEvalGauge();
@@ -81,13 +80,13 @@ export default function (ctrl: Controller): VNode {
     cevalShown = showCeval;
   }
   return h(
-    `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
+    `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
       class: { 'gauge-on': gaugeOn },
       hook: {
         postpatch(old, vnode) {
           if (old.data!.gaugeOn !== gaugeOn) {
-            if (ctrl.pref.coords === Prefs.Coords.Outside) {
+            if (ctrl.opts.pref.coords === Prefs.Coords.Outside) {
               $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
             }
             document.body.dispatchEvent(new Event('chessground.resize'));
@@ -105,7 +104,7 @@ export default function (ctrl: Controller): VNode {
         theme(ctrl),
       ]),
       h(
-        'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
+        'div.puzzle__board.main-board' + (ctrl.opts.pref.blindfold ? '.blindfold' : ''),
         {
           hook:
             'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
@@ -149,13 +148,13 @@ export default function (ctrl: Controller): VNode {
   );
 }
 
-function session(ctrl: Controller) {
+function session(ctrl: PuzzleController) {
   const rounds = ctrl.session.get().rounds,
-    current = ctrl.getData().puzzle.id;
+    current = ctrl.data.puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
       const rd =
-        round.ratingDiff && ctrl.showRatings
+        round.ratingDiff && ctrl.opts.showRatings
           ? round.ratingDiff > 0
             ? '+' + round.ratingDiff
             : round.ratingDiff

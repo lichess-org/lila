@@ -77,7 +77,7 @@ export interface Started {
 
 export interface ParentCtrl {
   redraw: Redraw;
-  getCeval(): CevalCtrl;
+  ceval: CevalCtrl;
   nextNodeBest(): string | undefined;
   outcome(): Outcome | undefined;
   mandatoryCeval: Prop<boolean>;

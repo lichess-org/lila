@@ -1,15 +1,15 @@
 import { attributesModule, classModule, init } from 'snabbdom';
-import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view/main';
 import { Chessground } from 'chessground';
 import { PuzzleOpts } from './interfaces';
+import PuzzleController from './ctrl';
 
 const patch = init([classModule, attributesModule]);
 
 export default (window as any).LichessPuzzle = function (opts: PuzzleOpts): void {
   const element = document.querySelector('main.puzzle') as HTMLElement;
-  const ctrl = makeCtrl(opts, redraw);
+  const ctrl = new PuzzleController(opts, redraw);
 
   const blueprint = view(ctrl);
   element.innerHTML = '';

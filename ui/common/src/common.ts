@@ -10,7 +10,9 @@ export interface Prop<T> {
   (): T;
   (v: T): T;
 }
-export interface PropWithEffect<T> extends Prop<T> {}
+export interface PropWithEffect<T> extends Prop<T> {
+  effect(v: T): void;
+}
 
 // like mithril prop but with type safety
 export const prop = <A>(initialValue: A): Prop<A> => {
@@ -23,18 +25,19 @@ export const prop = <A>(initialValue: A): Prop<A> => {
 
 export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): PropWithEffect<A> => {
   let value = initialValue;
-  return (v?: A) => {
+  const prop = (v?: A) => {
     if (defined(v)) {
       value = v;
       effect(v);
     }
     return value;
   };
+  prop.effect = effect;
+  return prop;
 };
 
-export const withEffect =
-  <T>(prop: Prop<T>, effect: (v: T) => void): PropWithEffect<T> =>
-  (v?: T) => {
+export const withEffect = <T>(prop: Prop<T>, effect: (v: T) => void): PropWithEffect<T> => {
+  const newProp = (v?: T) => {
     let returnValue;
     if (defined(v)) {
       returnValue = prop(v);
@@ -42,6 +45,9 @@ export const withEffect =
     } else returnValue = prop();
     return returnValue;
   };
+  newProp.effect = effect;
+  return newProp;
+};
 
 export interface Toggle extends PropWithEffect<boolean> {
   toggle(): void;

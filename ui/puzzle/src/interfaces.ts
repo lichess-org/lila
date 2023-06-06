@@ -1,36 +1,12 @@
-import PuzzleSession from './session';
-import { Api as CgApi } from 'chessground/api';
-import { CevalCtrl } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
 import { Move } from 'chessops/types';
-import { Prop } from 'common';
-import { StoredProp, ToggleWithUsed } from 'common/storage';
-import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
-import PuzzleStreak from './streak';
-import { PromotionCtrl } from 'chess/promotion';
-import { KeyboardMove } from 'keyboardMove';
-import { VoiceMove } from 'voice';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
-import { ParentCtrl } from 'ceval/src/types';
-import { Redraw } from 'common/snabbdom';
+import PuzzleController from './ctrl';
 
 export type PuzzleId = string;
-
-export interface KeyboardController {
-  vm: Vm;
-  redraw: Redraw;
-  userJump(path: Tree.Path): void;
-  getCeval(): CevalCtrl;
-  toggleThreatMode(): void;
-  playBestMove(): void;
-  flip(): void;
-  flipped(): boolean;
-  nextPuzzle(): void;
-  keyboardHelp: Prop<boolean>;
-}
 
 export type ThemeKey = string;
 export interface AllThemes {
@@ -38,42 +14,8 @@ export interface AllThemes {
   static: Set<ThemeKey>;
 }
 
-export interface Controller extends KeyboardController, ParentCtrl {
-  getData(): PuzzleData;
-  getTree(): TreeWrapper;
-  ground: Prop<CgApi | undefined>;
-  setChessground(cg: CgApi): void;
-  makeCgOpts(): CgConfig;
-  viewSolution(): void;
-  nextPuzzle(): void;
-  vote(v: boolean): void;
-  voteTheme(theme: ThemeKey, v: boolean): void;
-  pref: PuzzlePrefs;
-  settings: PuzzleSettings;
-  userMove(orig: Key, dest: Key): void;
-  promotion: PromotionCtrl;
-  autoNext: StoredProp<boolean>;
-  autoNexting: () => boolean;
-  rated: StoredProp<boolean>;
-  toggleRated: () => void;
-  session: PuzzleSession;
-  allThemes?: AllThemes;
-  showRatings: boolean;
-  keyboardMove?: KeyboardMove;
-  voiceMove?: VoiceMove;
-
-  streak?: PuzzleStreak;
-  skip(): void;
-
-  path?: Tree.Path;
-  autoScrollRequested?: boolean;
-
-  nvui?: NvuiPlugin;
-  menu: ToggleWithUsed;
-}
-
 export interface NvuiPlugin {
-  render(ctrl: Controller): VNode;
+  render(ctrl: PuzzleController): VNode;
 }
 
 export type ReplayEnd = PuzzleReplay;

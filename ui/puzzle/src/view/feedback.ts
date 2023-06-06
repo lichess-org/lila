@@ -1,9 +1,9 @@
 import { bind, MaybeVNode } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
-import { Controller } from '../interfaces';
+import PuzzleController from '../ctrl';
 import afterView from './after';
 
-const viewSolution = (ctrl: Controller): VNode =>
+const viewSolution = (ctrl: PuzzleController): VNode =>
   ctrl.streak
     ? h(
         'div.view_solution.skip',
@@ -39,7 +39,7 @@ const viewSolution = (ctrl: Controller): VNode =>
         ]
       );
 
-const initial = (ctrl: Controller): VNode =>
+const initial = (ctrl: PuzzleController): VNode =>
   h('div.puzzle__feedback.play', [
     h('div.player', [
       h('div.no-square', h('piece.king.' + ctrl.vm.pov)),
@@ -51,7 +51,7 @@ const initial = (ctrl: Controller): VNode =>
     viewSolution(ctrl),
   ]);
 
-const good = (ctrl: Controller): VNode =>
+const good = (ctrl: PuzzleController): VNode =>
   h('div.puzzle__feedback.good', [
     h('div.player', [
       h('div.icon', '✓'),
@@ -60,7 +60,7 @@ const good = (ctrl: Controller): VNode =>
     viewSolution(ctrl),
   ]);
 
-const fail = (ctrl: Controller): VNode =>
+const fail = (ctrl: PuzzleController): VNode =>
   h('div.puzzle__feedback.fail', [
     h('div.player', [
       h('div.icon', '✗'),
@@ -72,7 +72,7 @@ const fail = (ctrl: Controller): VNode =>
     viewSolution(ctrl),
   ]);
 
-export default function (ctrl: Controller): MaybeVNode {
+export default function (ctrl: PuzzleController): MaybeVNode {
   if (ctrl.vm.mode === 'view') return afterView(ctrl);
   switch (ctrl.vm.lastFeedback) {
     case 'init':

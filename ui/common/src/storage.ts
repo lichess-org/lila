@@ -51,11 +51,11 @@ export const storedStringPropWithEffect = (
   effect: (v: string) => void
 ): Prop<string> => withEffect(storedStringProp(k, defaultValue), effect);
 
-export const storedBooleanPropWithEffect = (
-  k: string,
-  defaultValue: boolean,
-  effect: (v: boolean) => void
-): Prop<boolean> => withEffect(storedBooleanProp(k, defaultValue), effect);
+export const storedToggle = (k: string, defaultValue: boolean, effect: (v: boolean) => void = () => {}): Toggle => {
+  const toggle = withEffect(storedBooleanProp(k, defaultValue), effect) as Toggle;
+  toggle.toggle = () => toggle(!toggle());
+  return toggle;
+};
 
 export const storedIntProp = (k: string, defaultValue: number): StoredProp<number> =>
   storedProp<number>(

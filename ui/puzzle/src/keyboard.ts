@@ -1,11 +1,11 @@
 import * as control from './control';
 import * as xhr from 'common/xhr';
-import { Controller, KeyboardController } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { spinnerVdom as spinner } from 'common/spinner';
+import PuzzleController from './ctrl';
 
-export default (ctrl: KeyboardController) =>
+export const bindHotkeys = (ctrl: PuzzleController) =>
   window.Mousetrap.bind(['left', 'k'], () => {
     control.prev(ctrl);
     ctrl.redraw();
@@ -25,8 +25,8 @@ export default (ctrl: KeyboardController) =>
     .bind('x', ctrl.toggleThreatMode)
     .bind('space', () => {
       if (ctrl.vm.mode === 'view') {
-        if (ctrl.getCeval().enabled()) ctrl.playBestMove();
-        else ctrl.getCeval().enable();
+        if (ctrl.ceval.enabled()) ctrl.playBestMove();
+        else ctrl.ceval.enable();
       }
     })
     .bind('z', () => lichess.pubsub.emit('zen'))
@@ -34,7 +34,7 @@ export default (ctrl: KeyboardController) =>
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle);
 
-export const view = (ctrl: Controller): VNode =>
+export const view = (ctrl: PuzzleController): VNode =>
   snabModal({
     class: 'keyboard-help',
     onInsert: async ($wrap: Cash) => {

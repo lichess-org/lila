@@ -331,7 +331,7 @@ function renderBestMove(ctrl: AnalyseController, style: Style): string {
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[] = [];
-  if (ctrl.getCeval().threatMode() && node.threat) {
+  if (ctrl.ceval.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     setup.turn = opposite(setup.turn);
     if (setup.turn === 'white') setup.fullmoves += 1;

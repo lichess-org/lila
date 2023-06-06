@@ -1,16 +1,16 @@
 import * as licon from 'common/licon';
 import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
-import { Controller } from '../interfaces';
+import PuzzleController from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import * as router from 'common/router';
 
-const renderVote = (ctrl: Controller): VNode =>
+const renderVote = (ctrl: PuzzleController): VNode =>
   h(
     'div.puzzle__vote',
     ctrl.autoNexting()
       ? []
       : [
-          ctrl.session.isNew() && ctrl.getData().user?.provisional
+          ctrl.session.isNew() && ctrl.data.user?.provisional
             ? h('div.puzzle__vote__help', [
                 h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
                 h('p', ctrl.trans.noarg('voteToLoadNextOne')),
@@ -35,7 +35,7 @@ const renderVote = (ctrl: Controller): VNode =>
         ]
   );
 
-const renderContinue = (ctrl: Controller) =>
+const renderContinue = (ctrl: PuzzleController) =>
   h(
     'a.continue',
     {
@@ -44,7 +44,7 @@ const renderContinue = (ctrl: Controller) =>
     [h('i', { attrs: dataIcon(licon.PlayTriangle) }), ctrl.trans.noarg('continueTraining')]
   );
 
-const renderStreak = (ctrl: Controller): MaybeVNodes => [
+const renderStreak = (ctrl: PuzzleController): MaybeVNodes => [
   h('div.complete', [
     h('span.game-over', 'GAME OVER'),
     h('span', ctrl.trans.vdom('yourStreakX', h('strong', ctrl.streak?.data.index))),
@@ -58,8 +58,8 @@ const renderStreak = (ctrl: Controller): MaybeVNodes => [
   ),
 ];
 
-export default function (ctrl: Controller): VNode {
-  const data = ctrl.getData();
+export default function (ctrl: PuzzleController): VNode {
+  const data = ctrl.data;
   const win = ctrl.vm.lastFeedback == 'win';
   return h(
     'div.puzzle__feedback.after',

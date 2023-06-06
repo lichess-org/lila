@@ -39,8 +39,8 @@ class VoiceMoveCtrl implements VoiceMove {
   showHelp: PropWithEffect<boolean>;
   showSettings: Toggle;
   clarityPref = prop.storedIntProp('voice.clarity', 0);
-  colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => this.initTimerRec());
-  wakePref = prop.storedBooleanPropWithEffect('voice.wakeMode', false, _ => this.initWakeRec());
+  colorsPref = prop.storedToggle('voice.useColors', true, _ => this.initTimerRec());
+  wakePref = prop.storedToggle('voice.wakeMode', false, _ => this.initWakeRec());
   timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => this.initTimerRec());
   langPref = prop.storedStringPropWithEffect('voice.lang', 'en', v => (this.lang = v));
   debug = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };

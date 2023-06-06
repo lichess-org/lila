@@ -1,8 +1,8 @@
 import { h } from 'snabbdom';
 import { modal as menuModal } from 'board/menu';
-import { Controller } from '../interfaces';
+import PuzzleController from '../ctrl';
 
-export default function (ctrl: Controller) {
+export default function (ctrl: PuzzleController) {
   return menuModal(ctrl.trans, ctrl.redraw, ctrl.menu, menu => {
     return [
       h('section', [menu.flip(ctrl.trans.noarg('flipBoard'), ctrl.flipped(), ctrl.flip)]),
