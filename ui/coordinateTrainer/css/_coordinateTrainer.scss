@@ -157,16 +157,21 @@
   }
 
   .coordinate-input {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    row-gap: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    @include breakpoint($mq-not-x-small) {
+      display: block;
+    }
   }
 
   .keyboard-container {
-    display: flex;
-    align-items: center;
-
+    @extend %flex-between;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    a {
+      margin-right: 2vw;
+    }
     input.keyboard {
       width: 4em;
       margin-#{$end-direction}: 1em;
@@ -176,7 +181,15 @@
     }
   }
 
+  .voice-container {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
   .files-ranks {
+    margin-bottom: 1vh;
+    grid-column: 1 / 3;
+    grid-row: 1;
     display: grid;
     width: 100%;
     grid-template-columns: repeat(8, 1fr);

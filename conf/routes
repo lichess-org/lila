@@ -859,7 +859,7 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.help
 GET   /help/master                     controllers.Page.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
-GET   /help/voice-move                 controllers.Main.voiceMoveHelp
+GET   /help/voice                      controllers.Main.voiceHelp(module)
 # DGT
 GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play

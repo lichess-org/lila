@@ -7,7 +7,7 @@ import { PromotionCtrl, promote } from 'chess/promotion';
 import { RootCtrl, VoiceMove, VoiceCtrl, Entry } from '../main';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import { findTransforms, movesTo, pushMap, spreadMap, spread, getSpread, remove, type Transform } from './util';
+import { findTransforms, movesTo, pushMap, spreadMap, spread, getSpread, remove, type Transform } from '../util';
 
 // Based on the original implementation by Sam 'Spammy' Ezeh. see the README.md in ui/voice/@build
 

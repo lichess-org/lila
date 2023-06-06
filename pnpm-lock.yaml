@@ -286,6 +286,9 @@ importers:
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
+      voice:
+        specifier: workspace:*
+        version: link:../voice
 
   ui/dasher:
     dependencies:
