@@ -291,6 +291,7 @@ final class TournamentApi(
           )
             getVerdicts(tour, me.some, prevPlayer.isDefined) flatMap { verdicts =>
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
+              else if (tour.looksLikePrize) fuccess(JoinResult.PrizeBanned) // DEBUG
               else if (!pause.canJoin(me.id, tour)) fuccess(JoinResult.Paused)
               else
                 def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] =
