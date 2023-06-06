@@ -1,8 +1,8 @@
-export interface Piotr {
+interface UciChar {
   [p: string]: Key;
 }
 
-export const piotr: Piotr = {
+export const uciChar: UciChar = {
   a: 'a1',
   b: 'b1',
   c: 'c1',

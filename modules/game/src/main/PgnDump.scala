@@ -166,7 +166,7 @@ object PgnDump:
     def f(san: SanStr, index: Int) = chessPgn.Move(
       ply = from + index + 1,
       san = san,
-      secondsLeft = clocks.lift(index * 2 - clockOffset).map(_.roundSeconds)
+      secondsLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)
     )
     Node.build(moves.zipWithIndex, f)
 

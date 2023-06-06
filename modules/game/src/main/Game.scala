@@ -56,7 +56,7 @@ case class Game(
   def player(playerId: GamePlayerId): Option[Player] =
     players.find(_.id == playerId)
 
-  def player(user: User): Option[Player] =
+  def player[U: UserIdOf](user: U): Option[Player] =
     players.find(_ isUser user)
 
   def player(c: Color.type => Color): Player = player(c(Color))
@@ -174,17 +174,15 @@ case class Game(
 
     def copyPlayer(player: Player) =
       if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
-        player.copy(
-          blurs = player.blurs.add(playerMoves(player.color))
-        )
+        player.copy(blurs = player.blurs.add(playerMoves(player.color)))
       else player
 
     // This must be computed eagerly
     // because it depends on the current time
-    val newClockHistory = for {
+    val newClockHistory = for
       clk <- game.clock
       ch  <- clockHistory
-    } yield ch.record(turnColor, clk)
+    yield ch.record(turnColor, clk)
 
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
@@ -230,10 +228,9 @@ case class Game(
     Progress(this, updated, events)
 
   def lastMoveKeys: Option[String] =
-    history.lastMove map {
+    history.lastMove.map:
       case Uci.Drop(_, target) => s"${target.key}${target.key}"
       case m: Uci.Move         => m.keys
-    }
 
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(

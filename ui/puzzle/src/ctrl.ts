@@ -7,17 +7,7 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
-import {
-  Redraw,
-  Vm,
-  Controller,
-  PuzzleOpts,
-  PuzzleData,
-  MoveTest,
-  ThemeKey,
-  NvuiPlugin,
-  ReplayEnd,
-} from './interfaces';
+import { Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin, ReplayEnd } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -38,6 +28,8 @@ import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
+import { toggle as boardMenuToggle } from 'board/menu';
+import { Redraw } from 'common/snabbdom';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
@@ -59,6 +51,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     streakFailStorage.listen(_ => failStreak(streak));
   }
   const session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
+  const menu = boardMenuToggle(redraw);
 
   const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
   const loadSound = (file: string, volume?: number, delay?: number) => {
@@ -102,7 +95,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       vote,
       solve: viewSolution,
     });
-    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
+    if (opts.pref.voiceMove)
+      makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen).then(vm => {
+        this.voiceMove = voiceMove = vm;
+      });
     if (opts.pref.keyboardMove)
       this.keyboardMove = keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.vm.node.fen });
     requestAnimationFrame(() => this.redraw());
@@ -201,7 +197,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
-    if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
+    if (!promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.showPromotion }))
+      playUserMove(orig, dest);
     voiceMove?.update(vm.node.fen);
     keyboardMove?.update({ fen: vm.node.fen });
   }
@@ -668,5 +665,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     showServerAnalysis: false,
     mandatoryCeval: () => false,
     disableThreatMode: () => false,
+    menu,
   };
 }

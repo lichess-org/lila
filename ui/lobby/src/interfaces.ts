@@ -62,7 +62,6 @@ export interface LobbyOpts {
   tableElement: HTMLElement;
   socketSend: SocketSend;
   pools: Pool[];
-  blindMode: boolean;
   hasUnreadLichessMessage: boolean;
   playban: boolean;
   hideRatings: boolean;

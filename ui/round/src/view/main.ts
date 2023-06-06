@@ -9,6 +9,7 @@ import { render as renderGround } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'game/view/material';
 import { renderVoiceMove } from 'voice';
+import boardMenu from './boardMenu';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -48,11 +49,12 @@ export function main(ctrl: RoundController): VNode {
           },
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
-        ctrl.voiceMove ? renderVoiceMove(ctrl.redraw, false) : null,
+        ctrl.voiceMove ? renderVoiceMove(ctrl.voiceMove, ctrl.redraw, false) : null,
         ctrl.keyboardHelp ? keyboard.view(ctrl) : null,
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
-        ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
+        ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
+        boardMenu(ctrl),
       ]);
 }

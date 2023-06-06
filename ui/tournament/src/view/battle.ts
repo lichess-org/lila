@@ -1,8 +1,8 @@
 import TournamentController from '../ctrl';
-import { bind } from 'common/snabbdom';
+import { bind, MaybeVNode } from 'common/snabbdom';
 import { playerName } from './util';
 import { h, VNode } from 'snabbdom';
-import { TeamBattle, RankedTeam, MaybeVNode } from '../interfaces';
+import { TeamBattle, RankedTeam } from '../interfaces';
 import { snabModal } from 'common/modal';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
@@ -121,11 +121,9 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
           class: { top: i === 0 },
           attrs: {
             'data-href': '/@/' + p.user.name,
-            'data-name': p.user.name,
           },
           hook: {
             destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
-            ...bind('click', _ => ctrl.jumpToPageOf(p.user.name), ctrl.redraw),
           },
         },
         [...(i === 0 ? [h('username', playerName(p.user)), ' '] : []), '' + p.score]
@@ -144,7 +142,19 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
     [
       h('td.rank', '' + team.rank),
       h('td.team', [teamName(battle, team.id)]),
-      h('td.players', players),
+      h(
+        'td.players',
+        {
+          hook: bind('click', e => {
+            const href = (e.target as HTMLElement).getAttribute('data-href');
+            if (href) {
+              ctrl.jumpToPageOf(href.slice(3));
+              ctrl.redraw;
+            }
+          }),
+        },
+        players
+      ),
       h('td.total', [h('strong', '' + team.score)]),
     ]
   );

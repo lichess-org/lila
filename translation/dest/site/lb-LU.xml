@@ -773,6 +773,7 @@
   <string name="invalidFen">Ongëlteg FEN</string>
   <string name="custom">Personaliséiert</string>
   <string name="notifications">Notificatiounen</string>
+  <string name="notificationsX">Notifikatiounen: %1$s</string>
   <string name="perfRatingX">Wäertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekonn fir den éischten Zuch ze spillen</item>

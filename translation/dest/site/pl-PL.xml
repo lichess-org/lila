@@ -236,18 +236,18 @@
   <string name="changeEmail">Zmień adres e-mail</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Resetuj hasło</string>
-  <string name="forgotPassword">Zapomniałeś hasła?</string>
+  <string name="forgotPassword">Nie pamiętasz hasła?</string>
   <string name="error.weakPassword">To hasło jest bardzo popularne i zbyt łatwe do odgadnięcia.</string>
   <string name="error.namePassword">Nie używaj nazwy użytkownika jako hasła.</string>
-  <string name="blankedPassword">Użyłeś tego samego hasła w innym serwisie, który został zaatakowany. Aby zapewnić bezpieczeństwo Twojego konta Lichess musisz ustawić nowe hasło. Dziękujemy za wyrozumiałość.</string>
+  <string name="blankedPassword">Użyłeś/aś tego samego hasła w innym serwisie, który został zaatakowany. Aby zapewnić bezpieczeństwo Twojego konta Lichess, musisz ustawić nowe hasło. Dziękujemy za wyrozumiałość.</string>
   <string name="youAreLeavingLichess">Opuszczasz Lichess</string>
   <string name="neverTypeYourPassword">Nigdy nie wpisuj hasła Lichess na innej stronie!</string>
   <string name="proceedToX">Przejdź do %s</string>
   <string name="passwordSuggestion">Nie ustawiaj hasła zasugerowanego przez kogoś innego. Wykorzystają je do kradzieży Twojego konta.</string>
   <string name="emailSuggestion">Nie ustawiaj adresu e-mail zasugerowanego przez kogoś innego. Wykorzystają go do kradzieży Twojego konta.</string>
   <string name="emailConfirmHelp">Pomoc z potwierdzeniem adresu e-mail</string>
-  <string name="emailConfirmNotReceived">Nie otrzymałeś potwierdzenia e-mail po rejestracji?</string>
-  <string name="whatSignupUsername">Jakiej nazwy użytkownika użyłeś do rejestracji?</string>
+  <string name="emailConfirmNotReceived">Nie dotarło potwierdzenie e-mail po rejestracji?</string>
+  <string name="whatSignupUsername">Jakiej nazwy użytkownika użyłeś/aś do rejestracji?</string>
   <string name="usernameNotFound">Nie mogliśmy znaleźć żadnego użytkownika o tej nazwie: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Możesz użyć tej nazwy użytkownika, aby utworzyć nowe konto</string>
   <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
@@ -496,7 +496,7 @@
     <item quantity="other">%s obserwowanych</item>
   </plurals>
   <string name="more">Więcej</string>
-  <string name="memberSince">Zarejestrowany od</string>
+  <string name="memberSince">Zarejestrowano</string>
   <string name="lastSeenActive">Widziano %s</string>
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
@@ -613,7 +613,7 @@
   <string name="troll">Natręt (troll)</string>
   <string name="ratingManipulation">Manipulacja rankingiem</string>
   <string name="other">Inne</string>
-  <string name="reportDescriptionHelp">Wklej odnośnik do gry (gier) i wyjaśnij, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko, że „oszukuje”, ale wytłumacz nam, na jakiej podstawie doszedłeś do takiego wniosku. Odniesiemy się do twojego zgłoszenia szybciej, jeżeli napiszesz je w języku angielskim.</string>
+  <string name="reportDescriptionHelp">Wklej odnośnik do partii i wyjaśnij, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko, że „oszukuje”, ale wytłumacz nam, na jakiej podstawie doszedłeś/aś do takiego wniosku. Odniesiemy się do twojego zgłoszenia szybciej, jeżeli napiszesz je w języku angielskim.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
   <string name="by">autor %s</string>
   <string name="importedByX">Zaimportowane przez %s</string>
@@ -694,7 +694,7 @@
   <string name="error.min">Musi być dłuższe lub równe %s</string>
   <string name="error.max">Musi być krótsze lub równe %s</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
-  <string name="ifRegistered">Jeśli jesteś zarejestrowany</string>
+  <string name="ifRegistered">Tylko zarejestrowani</string>
   <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
@@ -768,8 +768,8 @@
     <item quantity="other">%1$s graczy (%2$s) w tym tygodniu.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s jest lepszy niż %2$s z %3$s graczy.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Grasz lepiej niż %1$s graczy (%2$s).</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s gra lepiej niż %2$s graczy %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>
   <string name="yourRating">Twój ranking</string>
   <string name="cumulative">Łącznie</string>
@@ -788,7 +788,7 @@
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>
-  <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
+  <string name="analysisShapesHowTo">Kliknij podczas trzymania Shift lub przytrzymaj prawy przycisk myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="receiveForumNotifications">Otrzymuj powiadomienia, kiedy ktoś wspomni o Tobie na forum</string>
   <string name="shareYourInsightsData">Udostępniaj szczegółowe statystyki</string>
@@ -967,14 +967,14 @@
   <string name="invitedYouToX">zaprosił Cię do \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Należysz teraz do klubu.</string>
-  <string name="youHaveJoinedTeamX">Dołączyłeś do \"%1$s\".</string>
+  <string name="youHaveJoinedTeamX">Dołączono do \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ktoś kogo zgłosiłeś został zbanowany</string>
-  <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
+  <string name="congratsYouWon">Gratulacje, wygrałeś/aś!</string>
   <string name="gameVsX">Partia przeciwko %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał Twój profil trenera.</string>
   <string name="newPendingReview">Nowa oczekująca recenzja</string>
-  <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
+  <string name="lostAgainstTOSViolator">Przegrałeś/aś z kimś, kto naruszył warunki użytkowania Lichess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
   <string name="timeAlmostUp">Czas prawie minął!</string>
   <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
@@ -987,7 +987,8 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="cancelTournament">Anuluj turniej</string>
   <string name="tournDescription">Opis turnieju</string>
   <string name="tournDescriptionHelp">Czy chcesz powiedzieć coś szczególnego uczestnikom? Pisz krótko i na temat. Istnieje możliwość dodania odnośników: [text](https://url)</string>
-  <string name="ratedFormHelp">Partie są rankingowe i wpływają na ranking graczy</string>
+  <string name="ratedFormHelp">Partie wpływają
+na ranking graczy</string>
   <string name="onlyMembersOfTeam">Tylko członkowie klubu</string>
   <string name="noRestriction">Bez ograniczeń</string>
   <string name="minimumRatedGames">Minimalna liczba partii rankingowych</string>
@@ -1022,7 +1023,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="focusChat">Aktywuj czat</string>
   <string name="showHelpDialog">Pokaż okno pomocy</string>
   <string name="reopenYourAccount">Otwórz ponownie swoje konto</string>
-  <string name="closedAccountChangedMind">Jeśli zamknąłeś swoje konto, ale zmieniłeś zdanie, otrzymasz jedną szansę na jego odzyskanie.</string>
+  <string name="closedAccountChangedMind">Jeśli zamknąłeś/aś swoje konto, ale zmieniłeś/aś zdanie, otrzymasz jedną szansę na jego odzyskanie.</string>
   <string name="onlyWorksOnce">To zadziała tylko raz.</string>
   <string name="cantDoThisTwice">Jeśli zamkniesz swoje konto po raz drugi, nie będzie możliwości jego odzyskania.</string>
   <string name="emailAssociatedToaccount">Adres e-mail powiązany z kontem</string>

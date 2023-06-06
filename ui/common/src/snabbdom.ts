@@ -1,5 +1,6 @@
 import { h, VNode, Hooks, Attrs } from 'snabbdom';
 
+export type Redraw = () => void;
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
 

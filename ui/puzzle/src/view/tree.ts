@@ -3,7 +3,8 @@ import { defined } from 'common';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval, view as cevalView } from 'ceval';
 import { path as treePath } from 'tree';
-import { Controller, MaybeVNode, MaybeVNodes } from '../interfaces';
+import { Controller } from '../interfaces';
+import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 
 interface Ctx {
   ctrl: Controller;

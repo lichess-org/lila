@@ -1,25 +1,28 @@
-import { defined, Prop, withEffect } from './common';
+import { defined, notNull, Prop, Toggle, withEffect } from './common';
 
 export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
 }
 
-const storage = lichess.storage;
-
 export function storedProp<V>(
-  k: string,
+  key: string,
   defaultValue: V,
   fromStr: (str: string) => V,
   toStr: (v: V) => string
 ): StoredProp<V> {
-  const sk = 'analyse.' + k; // historical blunder
+  const compatKey = 'analyse.' + key;
   let cached: V;
   return function (replacement?: V) {
     if (defined(replacement) && replacement != cached) {
       cached = replacement;
-      storage.set(sk, toStr(replacement));
+      lichess.storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {
-      const str = storage.get(sk);
+      const compatValue = lichess.storage.get(compatKey);
+      if (notNull(compatValue)) {
+        lichess.storage.set(key, compatValue);
+        lichess.storage.remove(compatKey);
+      }
+      const str = lichess.storage.get(key);
       cached = str === null ? defaultValue : fromStr(str);
     }
     return cached;
@@ -65,19 +68,16 @@ export const storedIntProp = (k: string, defaultValue: number): StoredProp<numbe
 export const storedIntPropWithEffect = (k: string, defaultValue: number, effect: (v: number) => void): Prop<number> =>
   withEffect(storedIntProp(k, defaultValue), effect);
 
-export interface StoredJsonProp<V> {
-  (): V;
-  (v: V): V;
-}
+export type StoredJsonProp<V> = Prop<V>;
 
 export const storedJsonProp =
   <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
   (v?: V) => {
     if (defined(v)) {
-      storage.set(key, JSON.stringify(v));
+      lichess.storage.set(key, JSON.stringify(v));
       return v;
     }
-    const ret = JSON.parse(storage.get(key)!);
+    const ret = JSON.parse(lichess.storage.get(key)!);
     return ret !== null ? ret : defaultValue();
   };
 
@@ -116,4 +116,28 @@ export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => 
     }
     return set;
   };
+};
+
+export interface ToggleWithUsed extends Toggle {
+  used: () => boolean;
+}
+
+export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
+  let value = toggle();
+  let used = !!lichess.storage.get(key);
+  const novTog = (v?: boolean) => {
+    if (defined(v)) {
+      value = v;
+      if (!used) {
+        lichess.storage.set(key, '1');
+        used = true;
+      }
+      toggle.effect(v);
+    }
+    return value;
+  };
+  novTog.toggle = () => novTog(!novTog());
+  novTog.used = () => used;
+  novTog.effect = toggle.effect;
+  return novTog;
 };

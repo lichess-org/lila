@@ -23,6 +23,7 @@ interface Lichess {
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
   contentLoaded(parent?: HTMLElement): void;
+  blindMode: boolean;
   unload: {
     expected: boolean;
   };
@@ -40,7 +41,7 @@ interface Lichess {
 
   socket: any;
   sound: SoundI;
-  mic?: Voice.Microphone;
+  mic: Voice.Microphone;
 
   miniBoard: {
     init(node: HTMLElement): void;
@@ -202,29 +203,39 @@ declare namespace Voice {
   export type Listener = (msgText: string, msgType: MsgType) => void;
 
   export interface Microphone {
-    setVocabulary: (vocabulary: string[], mode?: ListenMode) => void; // required
-    setLang: (language: string) => void; // defaults to 'en';
+    setDeviceId: (deviceId: string) => void;
+    getDeviceId: () => string;
+    getDevices: () => Promise<MediaDeviceInfo[]>;
+    setLang: (language: string) => void;
+    initRecognizer: (
+      words: string[],
+      also?: {
+        recId?: string; // = 'default' if not provided
+        partial?: boolean; // = false
+        listener?: Listener; // = undefined
+        listenerId?: string; // = recId (needed to disambiguate multiple listeners on the same recId)
+      }
+    ) => void;
+    addListener: (
+      listener: Listener,
+      also?: {
+        recId?: string; // = 'default'
+        listenerId?: string; // = recId
+      }
+    ) => void;
+    removeListener: (listenerId: string) => void;
+    setController: (listener: Listener) => void; // for status display, indicators, etc
+    stopPropagation: () => void; // interrupt broadcast propagation on current rec (for modal interactions)
 
-    mode: ListenMode; // starts in 'full'
+    start: (recId?: string) => Promise<void>; // begin listening on recId (or 'default')
+    stop: () => void; // stop listening/downloading/whatever
+    pause: () => void;
+    resume: () => void;
 
-    // optional, to fetch a grammar
-    useGrammar: (grammarName: string) => Promise<any>;
-
-    start: () => Promise<void>; // initialize if necessary and begin recording
-    stop: () => void; // stop recording/downloading/whatever
-
-    pause: () => void; // mute mic, no overhead
-    resume: () => void; // unmute mic
-
+    readonly recId: string | false; // false if not listening, otherwise active rec
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
-    readonly isListening: boolean; // are we recording?
-    readonly status: string; // errors, progress, or the most recent voice command
+    readonly status: string; // status display for setController listener
     readonly lang: string; // defaults to 'en'
-
-    addListener: (id: string, listener: Listener, mode?: ListenMode) => void;
-    removeListener: (id: string) => void;
-
-    stopPropagation: () => void; // listeners can call this to stop propagation during modal interactions
   }
 }
 

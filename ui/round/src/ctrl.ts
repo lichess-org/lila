@@ -33,13 +33,13 @@ import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
 import { uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
+import { toggle as boardMenuToggle } from 'board/menu';
 
 import {
   RoundOpts,
   RoundData,
   ApiMove,
   ApiEnd,
-  Redraw,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -47,6 +47,9 @@ import {
   Position,
   NvuiPlugin,
 } from './interfaces';
+import { Toggle, toggle } from 'common';
+import { ToggleWithUsed } from 'common/storage';
+import { Redraw } from 'common/snabbdom';
 
 interface GoneBerserk {
   white?: boolean;
@@ -71,6 +74,9 @@ export default class RoundController {
   ply: number;
   firstSeconds = true;
   flip = false;
+  menu: ToggleWithUsed;
+  voiceMoveEnabled: Toggle;
+  keyboardMoveEnabled: Toggle;
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -90,7 +96,6 @@ export default class RoundController {
   nvui?: NvuiPlugin;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
-
   private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
@@ -137,6 +142,16 @@ export default class RoundController {
     this.moveOn = new MoveOn(this, 'move-on');
     this.transientMove = new TransientMove(this.socket);
 
+    this.menu = boardMenuToggle(redraw);
+    this.voiceMoveEnabled = toggle(d.pref.voiceMove, async v => {
+      await xhr.setPreference('voice', v ? '1' : '0');
+      lichess.reload();
+    });
+    this.keyboardMoveEnabled = toggle(d.pref.keyboardMove, async v => {
+      await xhr.setPreference('keyboardMove', v ? '1' : '0');
+      lichess.reload();
+    });
+
     this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
@@ -177,17 +192,7 @@ export default class RoundController {
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
     if (!this.keyboardMove?.usedSan) ab.move(this, meta);
-    if (
-      !this.promotion.start(
-        orig,
-        dest,
-        (orig, dest, role) => this.sendMove(orig, dest, role, meta),
-        meta,
-        this.keyboardMove?.justSelected()
-      )
-    ) {
-      this.sendMove(orig, dest, undefined, meta);
-    }
+    if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
@@ -205,19 +210,21 @@ export default class RoundController {
     } else sound.move();
   };
 
-  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
+  private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
     this.promotion.start(
       orig,
       dest,
-      (orig, dest, role) => this.sendMove(orig, dest, role, meta),
+      {
+        submit: (orig, dest, role) => this.sendMove(orig, dest, role, meta),
+        show: this.voiceMove?.showPromotion,
+      },
       meta,
-      this.keyboardMove?.justSelected()
+      this.keyboardMove?.justSelected() //this.voiceMove?.justSelected()
     );
-  };
 
-  private onCancelPremove = () => {
-    this.promotion.cancelPrePromotion();
-  };
+  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => this.startPromotion(orig, dest, meta);
+
+  private onCancelPremove = () => this.promotion.cancelPrePromotion();
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
@@ -229,9 +236,7 @@ export default class RoundController {
     this.redraw();
   };
 
-  private isSimulHost = () => {
-    return this.data.simul && this.data.simul.hostId === this.opts.userId;
-  };
+  private isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
   private enpassant = (orig: cg.Key, dest: cg.Key): boolean => {
     if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
@@ -779,7 +784,10 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
-    if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
+    if (this.data.pref.voiceMove)
+      makeVoiceMove(this, this.stepAt(this.ply).fen).then(vm => {
+        this.voiceMove = vm;
+      });
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
   };
 

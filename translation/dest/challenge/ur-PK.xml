@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">چیلنجیں</string>
   <string name="challengeToPlay">کھیل پر چیلنج کرنا</string>
   <string name="challengeAccepted">چیلنج منظور!</string>
   <string name="declineGeneric">میں اس وقت چیلنج قبول نہیں کر رہا۔</string>
