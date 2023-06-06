@@ -855,6 +855,7 @@
   <string name="invalidFen">Неприпустимий FEN</string>
   <string name="custom">Своя гра</string>
   <string name="notifications">Сповіщення</string>
+  <string name="notificationsX">Сповіщення: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
