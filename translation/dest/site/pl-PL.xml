@@ -253,7 +253,7 @@
   <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
   <string name="emailCanTakeSomeTime">Dostarczenie emaila może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
-  <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz email. Jeśli tak, oznacz go jako nie spam.</string>
+  <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz e-mail. Jeśli tak, oznacz go jako nie spam.</string>
   <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
   <string name="copyTextToEmail">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
   <string name="waitForSignupHelp">Wkrótce wrócimy do Ciebie, aby pomóc Ci w dokończeniu rejestracji.</string>
@@ -797,7 +797,7 @@
   <string name="withEverybody">Każdemu</string>
   <string name="kidMode">Tryb dla dzieci</string>
   <string name="kidModeExplanation">Chodzi o bezpieczeństwo. W trybie dla dzieci możliwość komunikacji w serwisie jest wyłączona. Włącz go na rzecz swoich dzieci, czy uczniów, by chronić ich przed możliwymi zagrożeniami ze strony innych użytkowników internetu.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, byś wiedział, że dziecko jest chronione.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, wiesz wtedy, że Twoje dziecko jest chronione.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Twoim kontem zarządza nauczyciel. Poproś go o przekazanie zarządzania Tobie.</string>
   <string name="enableKidMode">Włącz tryb dla dzieci</string>
   <string name="disableKidMode">Wyłącz tryb dla dzieci</string>
