@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
+  <string name="maxDepthReached">Maximális mélység elérve!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Több játszma bevétele a beállítások menüben?</string>
   <string name="openings">Megnyitások</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
@@ -119,6 +120,7 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Nincs mélységkorlát és melegszik a számítógéped</string>
+  <string name="engineManager">Motor menedzser</string>
   <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
@@ -150,6 +152,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s játszma</item>
     <item quantity="other">%s játszma</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s pontszám %2$s játszma alatt</item>
+    <item quantity="other">%1$s pontszám %2$s játszma alatt</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s kedvenc</item>
@@ -342,6 +348,7 @@
   </plurals>
   <string name="viewTournament">Verseny megtekintése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
+  <string name="noDrawBeforeSwissLimit">Nem ajánlhatsz döntetlent 30 lépés előtt egy Svájci rendszerű versenyen.</string>
   <string name="thematic">Tematikus</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s értékelt játszma</item>
@@ -771,6 +778,7 @@
   <string name="invalidFen">Hibás FEN</string>
   <string name="custom">Egyéni</string>
   <string name="notifications">Értesítések</string>
+  <string name="notificationsX">Értesítések: %1$s</string>
   <string name="perfRatingX">Pontszám: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s másodperc a kezdőlépés megtételére</item>
@@ -865,6 +873,8 @@
   <string name="useTheReportForm">ezen az oldalon</string>
   <string name="toRequestSupport">Segítségért %1$s</string>
   <string name="tryTheContactPage">lépjen velünk kapcsolatba</string>
+  <string name="makeSureToRead">Olvasd el %1$s</string>
+  <string name="theForumEtiquette">a fórum etikettet</string>
   <string name="thisTopicIsArchived">Ezt a témát archiváltuk, ezért nem lehet már hozzászólni.</string>
   <string name="joinTheTeamXToPost">Csatlakozz %1$s csapathoz, hogy írhass ebbe a fórumba.</string>
   <string name="teamNamedX">%1$s csapat</string>
