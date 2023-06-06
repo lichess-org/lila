@@ -1,4 +1,4 @@
-import { defined, notNull, Prop, withEffect } from './common';
+import { defined, notNull, Prop, Toggle, withEffect } from './common';
 
 export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
@@ -68,10 +68,7 @@ export const storedIntProp = (k: string, defaultValue: number): StoredProp<numbe
 export const storedIntPropWithEffect = (k: string, defaultValue: number, effect: (v: number) => void): Prop<number> =>
   withEffect(storedIntProp(k, defaultValue), effect);
 
-export interface StoredJsonProp<V> {
-  (): V;
-  (v: V): V;
-}
+export type StoredJsonProp<V> = Prop<V>;
 
 export const storedJsonProp =
   <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
@@ -119,4 +116,28 @@ export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => 
     }
     return set;
   };
+};
+
+export interface ToggleWithUsed extends Toggle {
+  used: () => boolean;
+}
+
+export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
+  let value = toggle();
+  let used = !!lichess.storage.get(key);
+  const novTog = (v?: boolean) => {
+    if (defined(v)) {
+      value = v;
+      if (!used) {
+        lichess.storage.set(key, '1');
+        used = true;
+      }
+      toggle.effect(v);
+    }
+    return value;
+  };
+  novTog.toggle = () => novTog(!novTog());
+  novTog.used = () => used;
+  novTog.effect = toggle.effect;
+  return novTog;
 };

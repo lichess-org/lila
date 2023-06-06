@@ -1,10 +1,10 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent, playerName } from './util';
 import { teamName } from './battle';
-import { MaybeVNodes, Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
+import { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
 

@@ -240,3 +240,9 @@ object PrefForm:
       "voice" -> text.verifying(Set("0", "1") contains _)
     )
   )
+
+  val keyboardMove = Form(
+    single(
+      "keyboardMove" -> text.verifying(Set("0", "1") contains _)
+    )
+  )
