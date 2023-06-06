@@ -86,7 +86,7 @@ export default function (
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
-  const relayRecProp = storedBooleanProp('relay.rec', true);
+  const relayRecProp = storedBooleanProp('analyse.relay.rec', true);
   const nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   const chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
 
@@ -478,6 +478,7 @@ export default function (
       if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
       ctrl.tree.promoteAt(position.path, d.toMainline);
       if (vm.mode.sticky) ctrl.jump(ctrl.path);
+      ctrl.treeVersion++;
       redraw();
     },
     reload: xhrReload,

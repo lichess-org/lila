@@ -1,34 +1,22 @@
-import { Api as CgApi } from 'chessground/api';
-import * as cg from 'chessground/types';
-import { PromotionCtrl } from 'chess/promotion';
-import { Prop, Toggle } from 'common';
+import { Toggle } from 'common';
+import { VNode } from 'snabbdom';
 
-export interface RootCtrl {
-  chessground: CgApi;
-  sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
-  redraw: () => void;
-  flipNow: () => void;
-  offerDraw?: (v: boolean, immediately?: boolean) => void;
-  takebackYes?: () => void;
-  resign?: (v: boolean, immediately?: boolean) => void;
-  rematch?: (accept?: boolean) => boolean;
-  next?: () => void;
-  vote?: (v: boolean) => void;
-  solve?: () => void;
+export interface VoiceCtrl {
+  lang: (lang?: string) => string;
+  micId: (deviceId?: string) => string;
+  enabled: (enabled?: boolean) => boolean;
+  toggle: () => void;
+  showHelp: (v?: boolean) => boolean;
+  pushTalk: (v?: boolean) => boolean;
+  showPrefs: Toggle;
+  module: () => VoiceModule | undefined;
 }
 
-export interface VoiceMove {
-  showHelp: Prop<boolean>;
-  showSettings: Toggle;
-  clarityPref: Prop<number>;
-  timerPref: Prop<number>;
-  colorsPref: Prop<boolean>;
-  wakePref: Prop<boolean>;
-  langPref: Prop<string>;
-  allPhrases(): [string, string][];
-  showPromotion(ctrl: PromotionCtrl, roles: cg.Role[] | false): void;
-  update(fen: string, yourMove?: boolean): void;
-  opponentRequest(request: string, callback: (v: boolean) => void): void;
+export interface VoiceModule {
+  ui: VoiceCtrl;
+  initGrammar: (recId?: string) => Promise<void>;
+  prefNodes: (redraw?: () => void) => VNode[];
+  allPhrases: () => [string, string][];
 }
 
 export interface RecognizerOpts {

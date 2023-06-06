@@ -159,7 +159,7 @@ final class RoundSocket(
   private val sendForGameId: GameId => SocketSend = gameId =>
     SocketSend(msg => send.sticky(gameId.value, msg))
 
-  remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 8)(
+  remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 16)(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 

@@ -1,12 +1,13 @@
 import { objectStorage } from 'common/objectStorage';
 import { Selector, Selectable } from 'common/selector';
+import { storedStringProp } from 'common/storage';
 
 type Audio = { vosk?: AudioNode; source?: AudioNode; ctx?: AudioContext };
 
 class RecNode implements Selectable {
   listenerMap = new Map<string, Voice.Listener>();
   words: string[];
-  node: AudioNode;
+  node?: AudioNode;
   partial: boolean;
 
   constructor(words: string[], partial: boolean) {
@@ -24,6 +25,10 @@ class RecNode implements Selectable {
     this.node?.disconnect();
   }
 
+  close() {
+    this.node = undefined;
+  }
+
   get listeners(): Voice.Listener[] {
     return [...this.listenerMap.values()].reverse(); // LIFO for interrupt
   }
@@ -35,11 +40,15 @@ export const mic =
   new (class implements Voice.Microphone {
     language = 'en';
 
-    audioCtx: AudioContext;
+    audioCtx: AudioContext | undefined;
     mediaStream: MediaStream;
     micSource: AudioNode;
 
+    deviceId = storedStringProp('voice.micDeviceId', 'default');
+    deviceIds?: string[];
+
     recs = new Selector<RecNode, Audio>();
+    recId = 'default';
     ctrl: Voice.Listener;
     download?: XMLHttpRequest;
     broadcastTimeout?: number;
@@ -57,8 +66,33 @@ export const mic =
       return this.language;
     }
 
+    setLang(lang: string) {
+      if (lang === this.language) return;
+      this.stop();
+      this.language = lang;
+    }
+
+    async getMics() {
+      return navigator.mediaDevices.enumerateDevices().then(d => d.filter(d => d.kind == 'audioinput'));
+    }
+
+    get micId() {
+      return this.deviceId();
+    }
+
+    setMic(id: string) {
+      const listening = this.isListening;
+      lichess.mic.stop();
+      this.deviceId(id);
+      this.recs.close();
+      this.audioCtx?.close();
+      this.audioCtx = undefined;
+      if (listening) this.start();
+    }
+
     setController(ctrl: Voice.Listener) {
       this.ctrl = ctrl;
+      this.ctrl('', 'status'); // hello
     }
 
     addListener(listener: Voice.Listener, also: { recId?: string; listenerId?: string } = {}) {
@@ -69,12 +103,6 @@ export const mic =
 
     removeListener(listenerId: string) {
       this.recs.group.forEach(v => v.listenerMap.delete(listenerId));
-    }
-
-    setLang(lang: string) {
-      if (lang === this.language) return;
-      this.stop();
-      this.language = lang;
     }
 
     initRecognizer(
@@ -97,18 +125,23 @@ export const mic =
       if (also.listener) this.addListener(also.listener, { recId, listenerId: also.listenerId });
     }
 
-    async start(recId = 'default'): Promise<void> {
+    setRecognizer(recId = 'default') {
+      this.recId = recId;
+      this.recs.select(recId);
+      this.vosk?.select(recId);
+    }
+
+    async start(listen = true): Promise<void> {
       try {
-        if (this.micEnabled && this.recId === recId) return;
+        if (listen && this.isListening && this.recId === this.recs.key) return;
         this.busy = true;
         await this.initModel();
-        for (const [lex, rec] of this.recs.group) {
-          if (!rec.node) this.initKaldi(lex, rec);
-        }
-        this.select(recId);
-        this.micTrack!.enabled = true;
+        for (const [recId, rec] of this.recs.group) this.initKaldi(recId, rec);
+        this.recs.select(this.recId);
+        this.vosk?.select(this.recId);
+        this.micTrack!.enabled = listen;
         this.busy = false;
-        this.broadcast(recId, 'start');
+        this.broadcast(this.recId, 'start');
       } catch (e: any) {
         this.stop([e.toString(), 'error']);
         throw e;
@@ -120,7 +153,8 @@ export const mic =
       this.download?.abort();
       this.download = undefined;
       this.busy = false;
-      this.select(false);
+      this.recs.select(false);
+      this.vosk?.select(false);
       this.broadcast(...reason);
     }
 
@@ -137,8 +171,8 @@ export const mic =
       this.micTrack.enabled = true;
     }
 
-    get recId(): string | false {
-      return this.recs.key;
+    get isListening(): boolean {
+      return this.micEnabled && !this.isBusy;
     }
 
     get isBusy(): boolean {
@@ -165,12 +199,8 @@ export const mic =
       return this.mediaStream?.getAudioTracks()[0];
     }
 
-    private select(recId: string | false) {
-      this.recs.select(recId);
-      this.vosk?.select(recId);
-    }
-
     private initKaldi(recId: string, rec: RecNode) {
+      if (rec.node) return;
       rec.node = this.vosk?.initRecognizer({
         recId: recId,
         audioCtx: this.audioCtx!,
@@ -181,8 +211,10 @@ export const mic =
     }
 
     private async initModel(): Promise<void> {
-      if (this.vosk?.isLoaded(this.lang)) return;
-
+      if (this.vosk?.isLoaded(this.lang)) {
+        await this.initAudio();
+        return;
+      }
       this.broadcast('Loading...');
 
       const modelUrl = lichess.assetUrl(models.get(this.lang)!, { noVersion: true });
@@ -193,28 +225,31 @@ export const mic =
       await downloadAsync;
       await this.vosk.initModel(modelUrl, this.lang);
       await audioAsync;
-      this.recs.ctx = { vosk: this.vosk, source: this.micSource, ctx: this.audioCtx };
     }
 
     private async initAudio(): Promise<void> {
-      if (this.audioCtx) return;
-      this.audioCtx = new AudioContext();
+      if (this.audioCtx?.state === 'suspended') await this.audioCtx.resume();
+      if (this.audioCtx?.state === 'running') return;
+      else if (this.audioCtx) throw `Error ${this.audioCtx.state}`;
       this.mediaStream = await navigator.mediaDevices.getUserMedia({
         video: false,
         audio: {
-          sampleRate: this.audioCtx.sampleRate,
-          echoCancellation: true,
-          noiseSuppression: true,
+          sampleRate: { ideal: 16000 },
+          echoCancellation: { ideal: true },
+          noiseSuppression: { ideal: true },
+          deviceId: this.micId,
         },
       });
+      this.audioCtx = new AudioContext({ sampleRate: this.mediaStream.getAudioTracks()[0].getSettings().sampleRate });
       this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
+      this.recs.ctx = { vosk: this.vosk, source: this.micSource, ctx: this.audioCtx };
     }
 
     private broadcast(text: string, msgType: Voice.MsgType = 'status', forMs = 0) {
       this.ctrl?.call(this, text, msgType);
       if (msgType === 'status' || msgType === 'full') window.clearTimeout(this.broadcastTimeout);
       this.voskStatus = text;
-      for (const li of this.recs.selected?.listeners ?? []) {
+      for (const li of this.recs.get(this.recId)?.listeners ?? []) {
         if (!this.interrupt) li(text, msgType);
       }
       this.interrupt = false;
@@ -232,7 +267,6 @@ export const mic =
         },
       });
       if ((await voskStore.count(`${emscriptenPath}/extracted.ok`)) > 0) return;
-
       const modelBlob: ArrayBuffer | undefined = await new Promise((resolve, reject) => {
         this.download = new XMLHttpRequest();
         this.download.open('GET', lichess.assetUrl(models.get(this.lang)!, { noVersion: true }), true);

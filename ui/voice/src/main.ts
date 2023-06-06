@@ -1,291 +1,93 @@
-import { h, VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { onInsert, bind } from 'common/snabbdom';
-import { storedBooleanProp } from 'common/storage';
-import { rangeConfig } from 'common/controls';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
-import { Entry, VoiceMove, RootCtrl } from './interfaces';
-import * as xhr from 'common/xhr';
-import { onClickAway } from 'common';
+import { propWithEffect, toggle as commonToggle } from 'common';
+import * as prop from 'common/storage';
+import { VoiceCtrl, VoiceModule } from './interfaces';
 
-let moveCtrl: VoiceMove; // globals. not just a bad idea, it's the law!
+export * from './interfaces';
+export * from './move/interfaces';
+export { makeVoiceMove } from './move/shim';
+export { renderVoiceBar } from './view';
 
-const supportedLangs = [
+export type VoiceUIOpts = {
+  redraw: () => void;
+  module?: () => VoiceModule;
+  tpe: 'move' | 'coords';
+};
+
+export const supportedLangs = [
   ['en', 'English'],
   ['fr', 'Français'],
   ['de', 'Deutsch'],
   ['tr', 'Türkçe'],
-  ['vi', 'Tiếng Việt'],
+  ['vi', 'Tiếng Việt'],,
 ];
 
-export { type RootCtrl, type VoiceMove } from './interfaces';
-export { makeVoiceMove };
-
-export function renderVoiceMove(redraw: () => void, isPuzzle: boolean) {
-  const rec = storedBooleanProp('voice.listening', false);
-
-  return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
-    h('div#voice-status-row', [
-      h('button#microphone-button', {
-        class: {
-          listening: lichess.mic.recId !== false && lichess.mic.recId !== 'idle',
-          idle: lichess.mic.recId === 'idle',
-          busy: lichess.mic.isBusy,
-        },
-        attrs: {
-          'data-icon': lichess.mic.isBusy ? licon.Cancel : licon.Voice,
-          title: 'Toggle voice control',
-        },
-        hook: onInsert(el => {
-          el.addEventListener('click', _ => {
-            const recId = moveCtrl?.wakePref() ? 'idle' : undefined;
-            if (lichess.once('voice.rtfm')) moveCtrl.showHelp(true);
-            rec(lichess.mic.recId === lichess.mic.isBusy) ? lichess.mic.start(recId) : lichess.mic.stop();
-          });
-          if (rec() && !lichess.mic.recId) setTimeout(() => el.dispatchEvent(new Event('click')));
-        }),
-      }),
-      h('span#voice-status', {
-        hook: onInsert(el => lichess.mic.setController(updateVoiceBar(el))),
-      }),
-      h('button#voice-help-button', {
-        attrs: { 'data-icon': licon.InfoCircle, title: 'Voice help' },
-        hook: bind('click', () => moveCtrl.showHelp(true)),
-      }),
-      h('button#voice-settings-button', {
-        attrs: { 'data-icon': licon.Gear, title: 'Voice settings' },
-        class: { active: moveCtrl?.showSettings() },
-        hook: bind('click', () => moveCtrl.showSettings.toggle(), redraw),
-      }),
-    ]),
-    moveCtrl?.showSettings() ? renderSettings(redraw) : null,
-    moveCtrl?.showHelp() ? helpModal() : null,
-  ]);
-}
-
-function updateVoiceBar(el: HTMLElement) {
-  const voiceBtn = $('button#microphone-button');
-
-  return (txt: string, tpe: Voice.MsgType) => {
-    lichess.mic.recId !== false && lichess.mic.recId !== 'idle'
-      ? voiceBtn.addClass('listening')
-      : voiceBtn.removeClass('listening');
-    lichess.mic.recId === 'idle' ? voiceBtn.addClass('idle') : voiceBtn.removeClass('idle');
-    if (lichess.mic.isBusy && !lichess.mic.recId) {
-      voiceBtn.addClass('busy');
-      voiceBtn.attr('data-icon', licon.Cancel);
-    } else {
-      voiceBtn.removeClass('busy');
-      voiceBtn.attr('data-icon', licon.Voice);
-    }
-    if (tpe === 'start') {
-      el.innerText = '';
-      if (moveCtrl.wakePref()) {
-        if (txt === 'idle') voiceBtn.addClass('idle');
-        else voiceBtn.removeClass('idle');
-      }
-    } else if (tpe !== 'partial') el.innerText = txt;
+export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
+  let keyupTimeout: number;
+  const keydownListener = (e: KeyboardEvent) => {
+    if (e.key !== 'Shift') return;
+    lichess.mic.start();
+    clearTimeout(keyupTimeout);
   };
-}
-
-function renderSettings(redraw: () => void): VNode {
-  return h('div#voice-settings', { hook: onInsert(onClickAway(() => moveCtrl.showSettings(false))) }, [
-    colorsSetting(redraw),
-    claritySetting(redraw),
-    timerSetting(redraw),
-    langSetting(),
-    wakeSetting(redraw),
-    h('hr'),
-    voiceDisable(),
-  ]);
-}
-
-function colorsSetting(redraw: () => void) {
-  return h('div.voice-choices', [
-    'Label with',
-    h(
-      'span.btn-rack',
-      ['Colors', 'Numbers'].map(pref =>
-        h(
-          `span.btn-rack__btn`,
-          {
-            class: { active: moveCtrl.colorsPref() === (pref === 'Colors') },
-            hook: bind('click', () => moveCtrl.colorsPref(pref === 'Colors'), redraw),
-          },
-          [pref]
-        )
-      )
-    ),
-  ]);
-}
-
-function claritySetting(redraw: () => void) {
-  return h('div.voice-setting', [
-    h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
-    h('input#voice-clarity', {
-      attrs: {
-        type: 'range',
-        min: 0,
-        max: 2,
-        step: 1,
-      },
-      hook: rangeConfig(moveCtrl.clarityPref, val => {
-        moveCtrl.clarityPref(val);
-        redraw();
-      }),
-    }),
-    h('div.range_value', ['Fuzzy', 'Average', 'Clear'][moveCtrl.clarityPref()]),
-  ]);
-}
-
-function timerSetting(redraw: () => void) {
-  return h('div.voice-setting', [
-    h('label', { attrs: { for: 'voice-timer' } }, 'Timer'),
-    h('input#voice-timer', {
-      attrs: { type: 'range', min: 0, max: 5, step: 1 },
-      hook: rangeConfig(moveCtrl.timerPref, val => {
-        moveCtrl.timerPref(val);
-        redraw();
-      }),
-    }),
-    h('div.range_value', ['Off', '1.5s', '2s', '2.5s', '3s', '5s'][moveCtrl.timerPref()]),
-  ]);
-}
-
-function langSetting() {
-  return supportedLangs.length < 2
-    ? null
-    : h('div.voice-setting', [
-        h('label', { attrs: { for: 'voice-lang' } }, 'Language'),
-        h(
-          'select#voice-lang',
-          {
-            attrs: { name: 'lang' },
-            hook: bind('change', e => moveCtrl.langPref((e.target as HTMLSelectElement).value)),
-          },
-          [
-            ...supportedLangs.map(l =>
-              h(
-                'option',
-                {
-                  attrs: l[0] === moveCtrl.langPref() ? { value: l[0], selected: '' } : { value: l[0] },
-                },
-                l[1]
-              )
-            ),
-          ]
-        ),
-      ]);
-}
-
-function wakeSetting(redraw: () => void) {
-  return h('div.voice-setting', { attrs: { title: '' } }, [
-    h('div.switch', { attrs: { title: 'Say "hey lichess" to activate' } }, [
-      h('input#wake-mode.cmn-toggle', {
-        attrs: { type: 'checkbox', checked: moveCtrl.wakePref() },
-        hook: bind('change', e => moveCtrl.wakePref((e.target as HTMLInputElement).checked), redraw),
-      }),
-      h('label', { attrs: { for: 'wake-mode' } }),
-    ]),
-    h('label', { attrs: { for: 'wake-mode' } }, ['Wake on ', h('strong', '"Hey Lichess"')]),
-  ]);
-}
-
-function voiceDisable() {
-  return !$('body').data('user')
-    ? null
-    : h(
-        'a.button',
-        {
-          attrs: {
-            title: 'Also set in Preferences -> Display',
-          },
-          hook: bind('click', () =>
-            xhr
-              .text('/pref/voice', { method: 'post', body: xhr.form({ voice: '0' }) })
-              .then(() => window.location.reload())
-          ),
-        },
-        'Disable voice recognition'
-      );
-}
-
-function helpModal() {
-  return snabModal({
-    class: `voice-move-help`,
-    content: [h('div.scrollable', spinner())],
-    onClose: () => moveCtrl.showHelp(false),
-    onInsert: async el => {
-      const [, grammar, html] = await Promise.all([
-        lichess.loadCssPath('voiceMove.help'),
-        xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/moves-${moveCtrl.langPref()}.json`)),
-        xhr.text(xhr.url(`/help/voice-move`, {})),
-      ]);
-      // using lexicon instead of crowdin translations for moves/commands
-      el.find('.scrollable').html(html);
-      const valToWord = (val: string, phonetic: boolean) =>
-        grammar.entries.find((e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')))?.in;
-      $('.val-to-word', el).each(function (this: HTMLElement) {
-        const tryPhonetic = (val: string) =>
-          (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
-        this.innerText = this.innerText
-          .split(',')
-          .map(v => tryPhonetic(v))
-          .join(' ');
-      });
-      el.find('#all-phrases-button').on('click', () => {
-        let html = '<table id="big-table"><tbody>';
-        const all = moveCtrl.allPhrases().sort((a, b) => a[0].localeCompare(b[0]));
-        const cols = Math.min(3, Math.ceil(window.innerWidth / 399));
-        const rows = Math.ceil(all.length / cols);
-        for (let row = 0; row < rows; row++) {
-          html += '<tr>';
-          for (let i = row; i < all.length; i += rows) {
-            html += `<td>${all[i][0]}</td><td>${all[i][1]}</td>`;
-          }
-          html += '</tr>';
-        }
-        html += '</tbody></table>';
-        el.find('.scrollable').html(html);
-      });
-    },
+  const keyupListener = (e: KeyboardEvent) => {
+    if (e.key !== 'Shift') return;
+    clearTimeout(keyupTimeout);
+    keyupTimeout = setTimeout(() => lichess.mic.stop(), 600);
+  };
+  const pushTalkOn = () => {
+    // TODO: setTimeout to periodically generate events (to check modifier state)
+    document.addEventListener('keydown', keydownListener);
+    document.addEventListener('keyup', keyupListener);
+  };
+  const pushTalkOff = () => {
+    document.removeEventListener('keydown', keydownListener);
+    document.removeEventListener('keyup', keyupListener);
+  };
+  const enabled = prop.storedBooleanProp('voice.on', false);
+  const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
+    lichess.mic.stop();
+    if (val) {
+      pushTalkOn();
+      enabled(true);
+    } else pushTalkOff();
+    if (enabled()) lichess.mic.start(!val);
   });
-}
 
-function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
-  lichess.loadModule('voice.move').then(() => {
-    moveCtrl = window.LichessVoiceMove(ctrl, fen);
+  const lang = prop.storedStringPropWithEffect('voice.lang', 'en', code => {
+    if (code === lichess.mic.lang) return;
+    const start = enabled() ? () => lichess.mic.start(!pushTalk()) : undefined;
+    lichess.mic.setLang(code);
+    opts.module?.().initGrammar().then(start);
   });
+
+  const showHelp = propWithEffect(false, opts.redraw);
+
+  const toggle = () => {
+    if (pushTalk()) {
+      enabled(false);
+      pushTalk(false);
+    } else enabled(!enabled()) ? lichess.mic.start() : lichess.mic.stop();
+    if (lichess.once('voice.rtfm')) showHelp(true);
+  };
+
+  const micId = (deviceId?: string) => {
+    if (deviceId) lichess.mic.setMic(deviceId);
+    return lichess.mic.micId;
+  };
+
+  lichess.mic.setLang(lang());
+  if (pushTalk()) {
+    pushTalkOn();
+    lichess.mic.start(false);
+  } else if (enabled()) lichess.mic.start(true);
+
   return {
-    update: fen => moveCtrl?.update(fen),
-    opponentRequest: (request, callback) => moveCtrl?.opponentRequest(request, callback),
-    get showHelp() {
-      return moveCtrl?.showHelp;
-    },
-    get showSettings() {
-      return moveCtrl?.showSettings;
-    },
-    get clarityPref() {
-      return moveCtrl?.clarityPref;
-    },
-    get timerPref() {
-      return moveCtrl?.timerPref;
-    },
-    get colorsPref() {
-      return moveCtrl?.colorsPref;
-    },
-    get wakePref() {
-      return moveCtrl?.wakePref;
-    },
-    get showPromotion() {
-      return moveCtrl?.showPromotion;
-    },
-    get langPref() {
-      return moveCtrl?.langPref;
-    },
-    get allPhrases() {
-      return moveCtrl?.allPhrases;
-    },
+    lang,
+    micId,
+    enabled,
+    toggle,
+    showHelp,
+    pushTalk,
+    showPrefs: commonToggle(false, opts.redraw),
+    module: () => opts.module?.(),
   };
 }

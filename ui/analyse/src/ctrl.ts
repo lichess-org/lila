@@ -89,13 +89,14 @@ export default class AnalyseCtrl {
   flipped = false;
   embed: boolean;
   showComments = true; // whether to display comments in the move tree
-  showAutoShapes = storedBooleanProp('show-auto-shapes', true);
-  showGauge = storedBooleanProp('show-gauge', true);
-  showComputer = storedBooleanProp('show-computer', true);
-  showMoveAnnotation = storedBooleanProp('show-move-annotation', true);
+  showAutoShapes = storedBooleanProp('analyse.show-auto-shapes', true);
+  showGauge = storedBooleanProp('analyse.show-gauge', true);
+  showComputer = storedBooleanProp('analyse.show-computer', true);
+  showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
+  treeVersion = 1; // increment to recreate tree
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1,
@@ -586,12 +587,14 @@ export default class AnalyseCtrl {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
+    this.treeVersion++;
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
     this.tree.forceVariationAt(path, force);
     this.jump(path);
     if (this.study) this.study.forceVariation(path, force);
+    this.treeVersion++;
   }
 
   reset(): void {

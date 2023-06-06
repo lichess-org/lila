@@ -28,7 +28,7 @@
       ]
     },
     {
-      "in": "c",
+      "in": "ç",
       "tok": "c",
       "tags": ["file", "move"],
       "subs": [

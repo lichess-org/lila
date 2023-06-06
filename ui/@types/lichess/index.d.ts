@@ -23,6 +23,7 @@ interface Lichess {
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
   contentLoaded(parent?: HTMLElement): void;
+  blindMode: boolean;
   unload: {
     expected: boolean;
   };
@@ -202,6 +203,10 @@ declare namespace Voice {
 
   export interface Microphone {
     setLang: (language: string) => void;
+
+    getMics: () => Promise<MediaDeviceInfo[]>;
+    setMic: (micId: string) => void;
+
     initRecognizer: (
       words: string[],
       also?: {
@@ -211,6 +216,8 @@ declare namespace Voice {
         listenerId?: string; // = recId (needed to disambiguate multiple listeners on the same recId)
       }
     ) => void;
+    setRecognizer: (recId: string) => void;
+
     addListener: (
       listener: Listener,
       also?: {
@@ -222,14 +229,16 @@ declare namespace Voice {
     setController: (listener: Listener) => void; // for status display, indicators, etc
     stopPropagation: () => void; // interrupt broadcast propagation on current rec (for modal interactions)
 
-    start: (recId?: string) => Promise<void>; // begin listening on recId (or 'default')
+    start: (listen?: boolean) => Promise<void>; // listen = true if not provided, if false just initialize
     stop: () => void; // stop listening/downloading/whatever
     pause: () => void;
     resume: () => void;
 
-    readonly recId: string | false; // false if not listening, otherwise active rec
+    readonly isListening: boolean;
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
     readonly status: string; // status display for setController listener
+    readonly recId: string; // get/set current recognizer
+    readonly micId: string;
     readonly lang: string; // defaults to 'en'
   }
 }

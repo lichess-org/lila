@@ -1,25 +1,28 @@
-import { defined, Prop, withEffect } from './common';
+import { defined, notNull, Prop, withEffect } from './common';
 
 export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
 }
 
-const storage = lichess.storage;
-
 export function storedProp<V>(
-  k: string,
+  key: string,
   defaultValue: V,
   fromStr: (str: string) => V,
   toStr: (v: V) => string
 ): StoredProp<V> {
-  const sk = 'analyse.' + k; // historical blunder
+  const compatKey = 'analyse.' + key;
   let cached: V;
   return function (replacement?: V) {
     if (defined(replacement) && replacement != cached) {
       cached = replacement;
-      storage.set(sk, toStr(replacement));
+      lichess.storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {
-      const str = storage.get(sk);
+      const compatValue = lichess.storage.get(compatKey);
+      if (notNull(compatValue)) {
+        lichess.storage.set(key, compatValue);
+        lichess.storage.remove(compatKey);
+      }
+      const str = lichess.storage.get(key);
       cached = str === null ? defaultValue : fromStr(str);
     }
     return cached;
@@ -74,10 +77,10 @@ export const storedJsonProp =
   <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
   (v?: V) => {
     if (defined(v)) {
-      storage.set(key, JSON.stringify(v));
+      lichess.storage.set(key, JSON.stringify(v));
       return v;
     }
-    const ret = JSON.parse(storage.get(key)!);
+    const ret = JSON.parse(lichess.storage.get(key)!);
     return ret !== null ? ret : defaultValue();
   };
 

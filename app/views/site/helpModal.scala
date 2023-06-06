@@ -160,43 +160,34 @@ object helpModal:
                   "Use the ",
                   i(dataIcon := licon.Voice),
                   " button to toggle voice recognition. Moves are sent to lichess.org "
-                    + "as plain text. Audio does not leave your device."
+                    + "as plain text. Audio does not leave your device. Use the ",
+                  i(dataIcon := licon.Gear),
+                  " menu to configure all speech options."
                 ),
                 li(
                   "We show arrows for multiple moves when we're not sure. Speak the color or number of a move "
-                    + "to select it. Choose colors vs numbers in the voice ",
-                  i(dataIcon := licon.Gear),
-                  " menu"
+                    + "arrow to select it."
                 ),
                 li(
-                  "If an arrow shows a growing pie, that move will be played when the pie becomes a full circle. "
+                  "If an arrow shows a sweeping arc, that move will be played when the arc becomes a full circle. "
                     + "During this countdown, you may say \"",
                   voice("yes"),
                   "\" to play it immediately, \"",
                   voice("no"),
-                  "\" to cancel, or choose a different arrow. The timer can be configured in the ",
-                  i(dataIcon := licon.Gear),
-                  " menu."
+                  "\" to cancel, or choose a different arrow. The timer can be adjusted or turned off."
                 ),
                 li(
-                  "Increase the clarity setting in the ",
-                  i(dataIcon := licon.Gear),
-                  " menu to reduce arrows if your mic is good and the room is quiet. Decrease clarity if you get "
-                    + "too many misplays."
+                  "An increased clarity setting reduces the number of moves shown when using a good microphone "
+                    + "in quiet surroundings. Decrease clarity to offer more choices if moves are often "
+                    + "misheard."
                 ),
                 li(
-                  "To control when lichess listens using your voice, enable \"",
-                  strong("Hey Lichess"),
-                  "\" in the ",
-                  i(dataIcon := licon.Gear),
-                  " menu. Say \"",
-                  strong("Hey Lichess"),
-                  "\" to start listening and make a move. Say \"",
-                  voice("stop"),
-                  "\" to go back to sleep. We go to sleep automatically after 20 seconds with no command."
+                  "Enable ",
+                  strong("Push to Talk"),
+                  " in noisy surroundings. You must hold shift while speaking and lichess.org must be the frontmost tab and window."
                 ),
                 li(
-                  "Try the phonetic alphabet to improve recognition. ",
+                  "Use the phonetic alphabet to improve recognition of chessboard files. ",
                   phonetics()
                 )
               )
@@ -243,4 +234,4 @@ object helpModal:
 
   private def phonetics() =
     for letter <- List("a", "b", "c", "d", "e", "f", "g", "h")
-    yield frag(s"$letter is \"", phonetic(letter), "\". ")
+    yield frag(s"${letter.capitalize} is ", phonetic(letter), ". ")

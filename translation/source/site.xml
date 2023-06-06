@@ -780,6 +780,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="invalidFen">Invalid FEN</string>
   <string name="custom">Custom</string>
   <string name="notifications">Notifications</string>
+  <string name="notificationsX">Notifications: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s second to play the first move</item>

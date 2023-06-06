@@ -200,7 +200,7 @@ export default class RoundController {
       dest,
       {
         submit: (orig, dest, role) => this.sendMove(orig, dest, role, meta),
-        show: this.voiceMove?.showPromotion,
+        show: this.voiceMove?.promotionHook(),
       },
       meta,
       this.keyboardMove?.justSelected() //this.voiceMove?.justSelected()
