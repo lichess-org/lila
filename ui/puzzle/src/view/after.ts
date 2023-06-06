@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
-import { bind, dataIcon } from 'common/snabbdom';
-import { Controller, MaybeVNodes } from '../interfaces';
+import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
+import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import * as router from 'common/router';
 

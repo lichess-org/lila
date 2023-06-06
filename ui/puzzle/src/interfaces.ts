@@ -14,12 +14,9 @@ import { KeyboardMove } from 'keyboardMove';
 import { VoiceMove } from 'voice';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
+import { Redraw } from 'common/snabbdom';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 export type PuzzleId = string;
-
-export type Redraw = () => void;
 
 export interface KeyboardController {
   vm: Vm;

@@ -40,7 +40,6 @@ import {
   RoundData,
   ApiMove,
   ApiEnd,
-  Redraw,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -50,6 +49,7 @@ import {
 } from './interfaces';
 import { Toggle, toggle } from 'common';
 import { ToggleWithUsed } from 'common/storage';
+import { Redraw } from 'common/snabbdom';
 
 interface GoneBerserk {
   white?: boolean;

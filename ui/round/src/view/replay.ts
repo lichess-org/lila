@@ -9,8 +9,9 @@ import throttle from 'common/throttle';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
-import { Step, MaybeVNodes } from '../interfaces';
+import { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import { MaybeVNodes } from 'common/snabbdom';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',

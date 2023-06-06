@@ -7,17 +7,7 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
-import {
-  Redraw,
-  Vm,
-  Controller,
-  PuzzleOpts,
-  PuzzleData,
-  MoveTest,
-  ThemeKey,
-  NvuiPlugin,
-  ReplayEnd,
-} from './interfaces';
+import { Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin, ReplayEnd } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -39,6 +29,7 @@ import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { toggle as boardMenuToggle } from 'board/menu';
+import { Redraw } from 'common/snabbdom';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {

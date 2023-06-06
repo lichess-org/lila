@@ -1,6 +1,6 @@
-import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
+import { Controller, Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
 import * as licon from 'common/licon';
-import { dataIcon, onInsert, bind } from 'common/snabbdom';
+import { dataIcon, onInsert, bind, MaybeVNode } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';

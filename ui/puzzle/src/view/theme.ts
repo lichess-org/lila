@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import * as router from 'common/router';
-import { bind, dataIcon } from 'common/snabbdom';
-import { Controller, MaybeVNode } from '../interfaces';
+import { MaybeVNode, bind, dataIcon } from 'common/snabbdom';
+import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 import { renderColorForm } from './side';
 
