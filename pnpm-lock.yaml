@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 importers:
 
@@ -20,8 +24,8 @@ importers:
         specifier: https://github.com/lichess-org/ab-stub
         version: github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
       chessground:
-        specifier: ^8.3.7
-        version: 8.3.7
+        specifier: ^8.3.9
+        version: 8.3.9
       eslint:
         specifier: ^8.30.0
         version: 8.30.0
@@ -3445,8 +3449,8 @@ packages:
       mithril: github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4
     dev: false
 
-  /chessground@8.3.7:
-    resolution: {integrity: sha512-5CIuml9i6XpucZiYSIy4QB8OAqh3gsWaxyfnAYk+7C6PK34DFslI5dqWaWSrk/KtNEdQnmEfa8mqAn4tVsTiZA==}
+  /chessground@8.3.9:
+    resolution: {integrity: sha512-R07MTyNTUA48tLCK75sPq+pRC7Z+u82BgJqoccnAGsTN7bFwQnfEwDeB5vFuE9jvvuJv0/RyPp8QG2EijBxoEA==}
     dev: false
 
   /chessops@0.12.7:
@@ -4986,7 +4990,7 @@ packages:
     resolution: {integrity: sha512-cRDzOl0ef0HV96kjclurP86USxJ/a3zfvlFO7z5rWPtK67+ImH4gKVJNU4DqAOuWomQ+AnxIr1mQUC9H324/Mw==}
     dependencies:
       '@types/node': 18.11.18
-      chessground: 8.3.7
+      chessground: 8.3.9
       chessops: 0.12.7
       snabbdom: 3.5.1
     dev: false
