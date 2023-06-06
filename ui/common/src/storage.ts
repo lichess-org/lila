@@ -132,10 +132,12 @@ export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
         lichess.storage.set(key, '1');
         used = true;
       }
+      toggle.effect(v);
     }
     return value;
   };
   novTog.toggle = () => novTog(!novTog());
   novTog.used = () => used;
+  novTog.effect = toggle.effect;
   return novTog;
 };

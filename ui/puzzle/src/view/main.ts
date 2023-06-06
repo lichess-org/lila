@@ -15,7 +15,7 @@ import { view as cevalView } from 'ceval';
 import { renderVoiceMove } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
-import { boardMenu } from './boardMenu';
+import boardMenu from './boardMenu';
 
 import * as Prefs from 'common/prefs';
 
@@ -52,6 +52,7 @@ function controls(ctrl: Controller): VNode {
             else if (action === 'next') control.next(ctrl);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
+            else if (action === 'menu') ctrl.menu.toggle();
           },
           ctrl.redraw
         );

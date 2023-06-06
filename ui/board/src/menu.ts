@@ -10,8 +10,8 @@ import * as controls from 'common/controls';
 export const toggle = (redraw: () => void): ToggleWithUsed =>
   toggleWithUsed('boardMenuToggleUsed', baseToggle(false, redraw));
 
-export function toggleButton(toggle: ToggleWithUsed, title: string) {
-  return h(
+export const toggleButton = (toggle: ToggleWithUsed, title: string) =>
+  h(
     'button.fbt.board-menu-toggle',
     {
       class: { active: toggle() },
@@ -23,7 +23,6 @@ export function toggleButton(toggle: ToggleWithUsed, title: string) {
     },
     toggle.used() ? undefined : h('div.board-menu-toggle__new')
   );
-}
 
 export const modal = (
   trans: Trans,
