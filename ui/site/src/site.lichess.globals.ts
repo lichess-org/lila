@@ -67,4 +67,5 @@ export default () => {
   l.timeago = timeago;
   l.dateFormat = dateFormat;
   l.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
+  l.blindMode = document.body.classList.contains('blind-mode');
 };

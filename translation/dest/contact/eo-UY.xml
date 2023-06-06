@@ -54,6 +54,7 @@
   <string name="ratedGame">Certigu, ke vi ludis taksitan ludon. Kazaj ludoj ne influas la taksojn de ludantoj.</string>
   <string name="errorPage">Erara paĝo</string>
   <string name="reportErrorPage">Se vi trovas eraran paĝon, vi povas raporti ĝin:</string>
+  <string name="wantBroadcastTournament">Mi volas elsendi turniron</string>
   <string name="banAppeal">Apelacio por malpermeso aŭ IP limigo</string>
   <string name="engineAppeal">Motoro aŭ trompmarko</string>
   <string name="sendAppealTo">Vi povas sendi apelacion al %s.</string>

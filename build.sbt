@@ -338,7 +338,7 @@ lazy val study = module("study",
 
 lazy val relay = module("relay",
   Seq(study),
-  Seq(galimatias) ++ reactivemongo.bundle
+  tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 
 lazy val studySearch = module("studySearch",

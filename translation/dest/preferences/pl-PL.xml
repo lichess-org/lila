@@ -2,7 +2,7 @@
 <resources>
   <string name="preferences">Ustawienia</string>
   <string name="display">Wyświetlanie</string>
-  <string name="privacy">Ochrona danych</string>
+  <string name="privacy">Prywatność</string>
   <string name="notifications">Powiadomienia</string>
   <string name="pieceAnimation">Animacja ruchu bierek</string>
   <string name="materialDifference">Przewaga materialna</string>

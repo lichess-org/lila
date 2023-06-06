@@ -94,6 +94,11 @@ export default class AnalyseCtrl implements ParentCtrl {
   keyboardHelp: boolean = location.hash === '#keyboard';
   treeView: TreeView;
   isStudy: boolean;
+  treeVersion = 1; // increment to recreate tree
+  cgVersion = {
+    js: 1, // increment to recreate chessground
+    dom: 1,
+  };
 
   // underboard inputs
   fenInput?: string;
@@ -500,7 +505,7 @@ export default class AnalyseCtrl implements ParentCtrl {
     const piece = this.chessground.state.pieces.get(dest);
     const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
     this.sound[isCapture ? 'capture' : 'move']();
-    if (!this.promotion.start(orig, dest, (orig, dest, prom) => this.sendMove(orig, dest, capture, prom))) {
+    if (!this.promotion.start(orig, dest, { submit: (orig, dest, prom) => this.sendMove(orig, dest, capture, prom) })) {
       this.sendMove(orig, dest, capture);
     }
   };
@@ -584,12 +589,14 @@ export default class AnalyseCtrl implements ParentCtrl {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
+    this.treeVersion++;
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
     this.tree.forceVariationAt(path, force);
     this.jump(path);
     if (this.study) this.study.forceVariation(path, force);
+    this.treeVersion++;
   }
 
   reset(): void {
