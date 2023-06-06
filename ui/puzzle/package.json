@@ -22,6 +22,7 @@
     "keyboardMove": "workspace:*",
     "voice": "workspace:*",
     "nvui": "workspace:*",
+    "board": "workspace:*",
     "snabbdom": "^3.5.1",
     "tree": "workspace:*"
   },

@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { Controller, Redraw } from '../interfaces';
+import { Controller } from '../interfaces';
 import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
 import theme from '../view/theme';
 import {
@@ -29,7 +29,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import * as control from '../control';
-import { bind, onInsert } from 'common/snabbdom';
+import { bind, onInsert, Redraw } from 'common/snabbdom';
 import { Api } from 'chessground/api';
 import throttle from 'common/throttle';
 

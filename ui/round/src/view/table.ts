@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
 import { h } from 'snabbdom';
-import { Position, MaybeVNodes } from '../interfaces';
+import { Position } from '../interfaces';
 import * as game from 'game';
 import * as status from 'game/status';
 import { renderClock } from '../clock/clockView';
@@ -10,6 +10,7 @@ import renderExpiration from './expiration';
 import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
+import { MaybeVNodes } from 'common/snabbdom';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);

@@ -188,8 +188,6 @@
 
   .files-ranks {
     grid-area: buttons;
-    grid-column: 1 / 3;
-    grid-row: 1;
     display: grid;
     width: 100%;
     grid-template-columns: repeat(8, 1fr);

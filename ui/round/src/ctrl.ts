@@ -33,13 +33,13 @@ import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
 import { uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
+import { toggle as boardMenuToggle } from 'board/menu';
 
 import {
   RoundOpts,
   RoundData,
   ApiMove,
   ApiEnd,
-  Redraw,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -47,6 +47,9 @@ import {
   Position,
   NvuiPlugin,
 } from './interfaces';
+import { Toggle, toggle } from 'common';
+import { ToggleWithUsed } from 'common/storage';
+import { Redraw } from 'common/snabbdom';
 
 interface GoneBerserk {
   white?: boolean;
@@ -71,6 +74,9 @@ export default class RoundController {
   ply: number;
   firstSeconds = true;
   flip = false;
+  menu: ToggleWithUsed;
+  voiceMoveEnabled: Toggle;
+  keyboardMoveEnabled: Toggle;
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -135,6 +141,16 @@ export default class RoundController {
 
     this.moveOn = new MoveOn(this, 'move-on');
     this.transientMove = new TransientMove(this.socket);
+
+    this.menu = boardMenuToggle(redraw);
+    this.voiceMoveEnabled = toggle(d.pref.voiceMove, async v => {
+      await xhr.setPreference('voice', v ? '1' : '0');
+      lichess.reload();
+    });
+    this.keyboardMoveEnabled = toggle(d.pref.keyboardMove, async v => {
+      await xhr.setPreference('keyboardMove', v ? '1' : '0');
+      lichess.reload();
+    });
 
     this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;

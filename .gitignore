@@ -27,7 +27,6 @@ data/
 dist/
 node_modules/
 local/
-lifat/
 ui/common/**/*.js
 ui/common/**/*.d.ts
 ui/chess/**/*.js
