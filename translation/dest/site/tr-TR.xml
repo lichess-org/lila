@@ -120,6 +120,7 @@
   <string name="memory">Hafıza</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
+  <string name="engineManager">Motor yöneticisi</string>
   <string name="blunder">Vahim hata</string>
   <string name="mistake">Hata</string>
   <string name="inaccuracy">Kusurlu hamle</string>
@@ -773,6 +774,7 @@
   <string name="invalidFen">Geçersiz FEN</string>
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
+  <string name="notificationsX">Bildirimler: %1$s</string>
   <string name="perfRatingX">Puan: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">İlk hamle için son %s saniye</item>
