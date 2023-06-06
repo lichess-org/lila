@@ -7,7 +7,7 @@
   <string name="rememberTokenUse">Pamiętaj więc do czego służy ten token</string>
   <string name="whatTheTokenCanDo">Co token może zrobić w Twoim imieniu:</string>
   <string name="doNotShareIt">Token zapewni dostęp do Twojego konta. NIE udostępniaj go nikomu!</string>
-  <string name="copyTokenNow">Upewnij się, że zapisałeś swój nowy osobisty token dostępu. Nie będziesz mógł go zobaczyć ponownie!</string>
+  <string name="copyTokenNow">Skopiuj swój nowy osobisty token dostępu. Nie można go zobaczyć ponownie!</string>
   <string name="preferenceRead">Odczyt ustawień</string>
   <string name="preferenceWrite">Zapis ustawień</string>
   <string name="emailRead">Odczyt adresu email</string>
