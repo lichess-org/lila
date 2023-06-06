@@ -87,5 +87,5 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
 ```
   * src/makeGrammar.ts
   * ui/site/component/mic.ts
-  * ui/voice/voiceMove.ts
+  * ui/voice/src/plugins/voiceMove.ts
 ```

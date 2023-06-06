@@ -146,6 +146,21 @@ importers:
         specifier: workspace:*
         version: link:../tree
 
+  ui/board:
+    dependencies:
+      '@types/cash':
+        specifier: workspace:*
+        version: link:../@types/cash
+      '@types/lichess':
+        specifier: workspace:*
+        version: link:../@types/lichess
+      common:
+        specifier: workspace:*
+        version: link:../common
+      snabbdom:
+        specifier: ^3.5.1
+        version: 3.5.1
+
   ui/ceval:
     dependencies:
       '@badrap/result':
@@ -589,6 +604,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      board:
+        specifier: workspace:*
+        version: link:../board
       ceval:
         specifier: workspace:*
         version: link:../ceval
@@ -652,6 +670,9 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      board:
+        specifier: workspace:*
+        version: link:../board
       chat:
         specifier: workspace:*
         version: link:../chat
@@ -2460,7 +2481,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.3.1
       '@jest/types': 29.3.1
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       jest-mock: 29.3.1
     dev: false
 
@@ -2516,7 +2537,7 @@ packages:
     dependencies:
       '@jest/types': 29.3.1
       '@sinonjs/fake-timers': 9.1.2
-      '@types/node': 18.11.17
+      '@types/node': 18.11.18
       jest-message-util: 29.3.1
       jest-mock: 29.3.1
       jest-util: 29.3.1

@@ -5,9 +5,10 @@ import * as util from '../util';
 import * as game from 'game';
 import * as status from 'game/status';
 import { game as gameRoute } from 'game/router';
-import { RoundData, MaybeVNodes } from '../interfaces';
+import { RoundData } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
+import { MaybeVNodes } from 'common/snabbdom';
 
 export interface ButtonState {
   enabled: boolean;

@@ -128,11 +128,6 @@
       }
     }
 
-    &__toggles {
-      @extend %flex-between;
-      margin-top: 2vmin;
-    }
-
     &__color {
       margin-top: 1.5vh;
       i {

@@ -252,7 +252,11 @@ object layout:
           viewport,
           metaCsp(csp),
           metaThemeColor,
-          st.headTitle(fullTitle | s"$title • $siteName"),
+          st.headTitle {
+            val prodTitle = fullTitle | s"$title • $siteName"
+            if netConfig.isProd then title
+            else s"${ctx.me.??(_.username + " ")} $prodTitle"
+          },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),
           ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),

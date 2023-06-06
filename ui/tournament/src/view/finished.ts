@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import TournamentController from '../ctrl';
-import { TournamentData, MaybeVNodes } from '../interfaces';
+import { TournamentData } from '../interfaces';
 import * as pagination from '../pagination';
 import { controls, standing, podium } from './arena';
 import { teamStanding } from './battle';
@@ -9,6 +9,7 @@ import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { numberRow } from './util';
+import { MaybeVNodes } from 'common/snabbdom';
 
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id))

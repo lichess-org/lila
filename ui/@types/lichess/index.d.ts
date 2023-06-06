@@ -199,6 +199,7 @@ interface LichessEditor {
 
 declare namespace Voice {
   export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
+  export type ListenMode = 'full' | 'partial';
   export type Listener = (msgText: string, msgType: MsgType) => void;
 
   export interface Microphone {
