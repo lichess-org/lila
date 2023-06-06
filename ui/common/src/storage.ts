@@ -1,4 +1,4 @@
-import { defined, notNull, Prop, withEffect } from './common';
+import { defined, notNull, Prop, Toggle, withEffect } from './common';
 
 export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
