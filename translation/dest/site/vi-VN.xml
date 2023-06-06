@@ -91,6 +91,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" được làm tròn, dựa vào số nước đi quân cho tới nước bắt quân hoặc đi tốt tiếp theo</string>
   <string name="noGameFound">Không có ván đấu nào trùng khớp</string>
+  <string name="maxDepthReached">Đã đạt độ sâu tối đa!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
   <string name="openings">Các khai cuộc</string>
   <string name="openingExplorer">Sách khai cuộc</string>
@@ -117,6 +118,7 @@
   <string name="memory">Bộ nhớ</string>
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
   <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và làm máy tính của bạn ấm hơn</string>
+  <string name="engineManager">Quản lý máy</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>
   <string name="mistake">Lỗi</string>
   <string name="inaccuracy">Không chính xác</string>
@@ -143,6 +145,9 @@
   <string name="currentGames">Những trận đang chơi</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">Hệ số %1$s sau %2$s ván</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s Đánh dấu</item>
@@ -320,6 +325,7 @@
   </plurals>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải đấu</string>
+  <string name="noDrawBeforeSwissLimit">Trong giải đấu kiểu Swiss, ván đấu dưới 30 nước cờ không thể hòa.</string>
   <string name="thematic">Theo chủ đề</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s ván xếp hạng</item>
@@ -734,6 +740,7 @@
   <string name="invalidFen">FEN không hợp lệ</string>
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
+  <string name="notificationsX">Thông báo (%1$s)</string>
   <string name="perfRatingX">Xếp hạng: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
@@ -825,6 +832,8 @@
   <string name="useTheReportForm">dùng biểu mẫu tố cáo</string>
   <string name="toRequestSupport">Để yêu cầu trợ giúp, %1$s</string>
   <string name="tryTheContactPage">hãy thử trang trợ giúp</string>
+  <string name="makeSureToRead">Hãy chắc rằng bạn đã đọc %1$s</string>
+  <string name="theForumEtiquette">quy tắc diễn đàn</string>
   <string name="thisTopicIsArchived">Đề tài này đã bị đóng nên bạn không thể bình luận nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>
