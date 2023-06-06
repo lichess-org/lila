@@ -339,6 +339,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setTroll     = setMark(UserMark.Troll)
   def setReportban = setMark(UserMark.Reportban)
   def setRankban   = setMark(UserMark.Rankban)
+  def setPrizeban  = setMark(UserMark.PrizeBan)
   def setAlt       = setMark(UserMark.Alt)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void

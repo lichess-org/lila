@@ -134,6 +134,15 @@ object mod:
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban))("Rankban")
           )
         },
+        isGranted(_.PrizeBan) option {
+          postForm(
+            action := routes.Mod.prizeban(u.username, !u.marks.prizeban),
+            title  := "Enable/disable this user from joining prized tournaments.",
+            cls    := "xhr"
+          )(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.prizeban))("Prizeban")
+          )
+        },
         isGranted(_.ReportBan) option {
           postForm(
             action := routes.Mod.reportban(u.username, !u.marks.reportban),

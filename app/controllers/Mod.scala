@@ -133,6 +133,13 @@ final class Mod(
       }
     }(actionResult(username))
 
+  def prizeban(username: UserStr, v: Boolean) =
+    OAuthMod(_.PrizeBan) { _ => me =>
+      withSuspect(username) { sus =>
+        modApi.setPrizeban(me, sus, v) map some
+      }
+    }(actionResult(username))
+
   def impersonate(username: UserStr) = Auth { _ ?=> me =>
     if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess {
       env.mod.impersonate.stop(me)

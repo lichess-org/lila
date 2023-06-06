@@ -156,6 +156,11 @@ final class ModApi(
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(mod, sus, v)
     }
 
+  def setPrizeban(mod: Mod, sus: Suspect, v: Boolean): Funit =
+    (sus.user.marks.prizeban != v) ?? {
+      userRepo.setPrizeban(sus.user.id, v) >> logApi.prizeban(mod, sus, v)
+    }
+
   def allMods =
     userRepo.userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList) flatMap
       userRepo.enabledByIds dmap {
