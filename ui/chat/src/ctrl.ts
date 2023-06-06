@@ -91,13 +91,13 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
   const onPermissions = (obj: Permissions) => {
     let p: keyof Permissions;
     for (p in obj) opts.permissions[p] = obj[p];
-    instanciateModeration();
+    instantiateModeration();
     redraw();
   };
 
   const trans = lichess.trans(opts.i18n);
 
-  function instanciateModeration() {
+  function instantiateModeration() {
     if (opts.permissions.timeout || opts.permissions.broadcast || opts.permissions.local) {
       moderation = moderationCtrl({
         reasons: opts.timeoutReasons || [{ key: 'other', name: 'Inappropriate behavior' }],
@@ -108,7 +108,7 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
       opts.loadCss('chat.mod');
     }
   }
-  instanciateModeration();
+  instantiateModeration();
 
   const note = opts.noteId
     ? noteCtrl({

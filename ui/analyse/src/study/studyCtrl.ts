@@ -277,7 +277,7 @@ export default function (
     configureAnalysis();
     vm.loading = false;
 
-    instanciateGamebookPlay();
+    instantiateGamebookPlay();
     if (relay) relay.applyChapterRelay(data.chapter, s.chapter.relay);
 
     let nextPath: Tree.Path;
@@ -338,14 +338,14 @@ export default function (
 
   let gamebookPlay: GamebookPlayCtrl | undefined;
 
-  function instanciateGamebookPlay() {
+  function instantiateGamebookPlay() {
     if (!isGamebookPlay()) return (gamebookPlay = undefined);
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
     gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, ctrl.trans, redraw);
     vm.mode.sticky = false;
     return undefined;
   }
-  instanciateGamebookPlay();
+  instantiateGamebookPlay();
 
   function mutateCgConfig(config: Required<Pick<CgConfig, 'drawable'>>) {
     config.drawable.onChange = (shapes: Tree.Shape[]) => {
@@ -725,7 +725,7 @@ export default function (
     },
     setGamebookOverride(o) {
       vm.gamebookOverride = o;
-      instanciateGamebookPlay();
+      instantiateGamebookPlay();
       configureAnalysis();
       ctrl.userJump(ctrl.path);
       if (!o) xhrReload();

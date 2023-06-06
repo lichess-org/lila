@@ -129,7 +129,7 @@ export default class AnalyseCtrl implements ParentCtrl {
     if (this.opts.wiki) this.wiki = wikiTheory();
     if (window.LichessAnalyseNvui) this.nvui = window.LichessAnalyseNvui(this) as NvuiPlugin;
 
-    this.instanciateEvalCache();
+    this.instantiateEvalCache();
 
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
@@ -139,7 +139,7 @@ export default class AnalyseCtrl implements ParentCtrl {
 
     this.persistence = this.embed || opts.study || this.synthetic ? undefined : new Persistence(this);
 
-    this.instanciateCeval();
+    this.instantiateCeval();
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
@@ -447,8 +447,8 @@ export default class AnalyseCtrl implements ParentCtrl {
     this.initialize(data, merge);
     this.redirecting = false;
     this.setPath(treePath.root);
-    this.instanciateCeval();
-    this.instanciateEvalCache();
+    this.instantiateCeval();
+    this.instantiateEvalCache();
     this.ceval.cgVersion.js++;
   }
 
@@ -623,7 +623,7 @@ export default class AnalyseCtrl implements ParentCtrl {
     this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
   };
 
-  private instanciateCeval(): void {
+  private instantiateCeval(): void {
     if (this.ceval) this.ceval.destroy();
     this.ceval = new CevalCtrl({
       variant: this.data.game.variant,
@@ -812,7 +812,7 @@ export default class AnalyseCtrl implements ParentCtrl {
     return true;
   }
 
-  instanciateEvalCache() {
+  instantiateEvalCache() {
     this.evalCache = makeEvalCache({
       variant: this.data.game.variant.key,
       canGet: () => this.canEvalGet(),
