@@ -10,6 +10,7 @@ export interface VoiceCtrl {
   pushTalk: (v?: boolean) => boolean;
   showPrefs: Toggle;
   module: () => VoiceModule | undefined;
+  moduleId: string;
 }
 
 export interface VoiceModule {

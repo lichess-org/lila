@@ -122,8 +122,11 @@ final class Main(
   def keyboardMoveHelp = Open:
     Ok(html.site.helpModal.keyboardMove).toFuccess
 
-  def voiceMoveHelp = Open:
-    Ok(html.site.helpModal.voiceMove).toFuccess
+  def voiceHelp(module: String) = Open:
+    module match
+      case "move"   => Ok(html.site.helpModal.voiceMove).toFuccess
+      case "coords" => Ok(html.site.helpModal.voiceCoords).toFuccess
+      case _        => NotFound(s"Unknown voice help module: $module").toFuccess
 
   def movedPermanently(to: String) = Anon:
     MovedPermanently(to).toFuccess

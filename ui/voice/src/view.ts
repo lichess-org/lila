@@ -8,8 +8,8 @@ import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
 import { supportedLangs } from './main';
 
-export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, isPuzzle: boolean) {
-  return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
+export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, isPuzzle = false) {
+  return h(`div#voice-bar${isPuzzle ? '.puz' : ''}`, [
     h('div#voice-status-row', [
       h('button#microphone-button', {
         hook: onInsert(el => el.addEventListener('click', () => ctrl.toggle())),
@@ -34,7 +34,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, isPuzzle: bo
           ...(ctrl.module()?.prefNodes(redraw) ?? []),
           pushTalkSetting(ctrl),
           h('br'),
-          voiceDisable(),
+          ctrl.moduleId === 'move' ? voiceDisable() : null,
         ])
       : null,
 
@@ -155,8 +155,10 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     onInsert: async el => {
       const [, grammar, html] = await Promise.all([
         lichess.loadCssPath('voiceMove.help'),
-        xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/moves-${ctrl.lang()}.json`)),
-        xhr.text(xhr.url(`/help/voice-move`, {})),
+        ctrl.moduleId !== 'coords'
+          ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`))
+          : Promise.resolve({ entries: [] }),
+        xhr.text(xhr.url(`/help/voice?module=${ctrl.moduleId}`, {})),
       ]);
       // using lexicon instead of crowdin translations for moves/commands
       el.find('.scrollable').html(html);

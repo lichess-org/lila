@@ -13,7 +13,10 @@ object show:
   def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
-      moreCss = cssTag("coordinateTrainer"),
+      moreCss = frag(
+        cssTag("coordinateTrainer"),
+        cssTag("voice")
+      ),
       moreJs = frag(
         jsModule("coordinateTrainer"),
         embedJsUnsafeLoadThen(
@@ -22,6 +25,7 @@ object show:
             )});"""
         )
       ),
+      csp = defaultCsp.withPeer.withWebAssembly.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess board coordinates trainer",

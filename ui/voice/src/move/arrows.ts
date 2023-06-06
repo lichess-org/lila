@@ -1,7 +1,7 @@
 import { Key } from 'chessground/types';
 import { DrawBrush, DrawShape } from 'chessground/draw';
 import { src, dest } from 'chess';
-import { pushMap } from './util';
+import { pushMap } from '../util';
 
 export const brushes = new Map<string, DrawBrush>([
   ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],

@@ -89,5 +89,6 @@ export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
     pushTalk,
     showPrefs: commonToggle(false, opts.redraw),
     module: () => opts.module?.(),
+    moduleId: opts.tpe,
   };
 }
