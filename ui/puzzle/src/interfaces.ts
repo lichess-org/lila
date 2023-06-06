@@ -5,7 +5,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
 import { Outcome, Move } from 'chessops/types';
 import { Prop } from 'common';
-import { StoredProp } from 'common/storage';
+import { StoredProp, ToggleWithUsed } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
@@ -14,12 +14,9 @@ import { KeyboardMove } from 'keyboardMove';
 import { VoiceMove } from 'voice';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
+import { Redraw } from 'common/snabbdom';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 export type PuzzleId = string;
-
-export type Redraw = () => void;
 
 export interface KeyboardController {
   vm: Vm;
@@ -86,6 +83,7 @@ export interface Controller extends KeyboardController {
   autoScrollRequested?: boolean;
 
   nvui?: NvuiPlugin;
+  menu: ToggleWithUsed;
 }
 
 export interface NvuiPlugin {

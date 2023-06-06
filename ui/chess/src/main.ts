@@ -1,4 +1,4 @@
-import { piotr } from './piotr';
+import { uciChar } from './uciChar';
 
 export * from './sanWriter';
 export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
@@ -25,11 +25,11 @@ export function readDests(lines?: string): Dests | null {
   if (lines)
     for (const line of lines.split(' ')) {
       dests.set(
-        piotr[line[0]],
+        uciChar[line[0]],
         line
           .slice(1)
           .split('')
-          .map(c => piotr[c])
+          .map(c => uciChar[c])
       );
     }
   return dests;
