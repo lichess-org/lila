@@ -170,7 +170,8 @@ final class SwissApi(
 
   def join(id: SwissId, me: User, isInTeam: TeamId => Boolean, password: Option[String]): Fu[Boolean] =
     Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
-      if (
+      if (me.marks.prizeban && swiss.looksLikePrize) fuFalse
+      else if (
         swiss.settings.password.forall(p =>
           MessageDigest.isEqual(p.getBytes(UTF_8), (~password).getBytes(UTF_8))
         ) && isInTeam(swiss.teamId)
