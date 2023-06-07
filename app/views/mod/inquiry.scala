@@ -108,8 +108,8 @@ object inquiry:
         isGranted(_.MarkBooster) option {
           val searchUrl = routes.User.games(in.user.username, "search")
           div(cls := "dropper view-games")(
-            span("View", br, "Games"),
-            div(
+            a(href := routes.GameMod.index(in.user.username))("View", br, "Games"),
+            div(cls := "view-games-dropdown")(
               a(
                 cls := "fbt",
                 href := s"$searchUrl?turnsMax=5&mode=1&players.loser=${in.user.id}&sort.field=d&sort.order=desc"
@@ -118,9 +118,6 @@ object inquiry:
                 cls := "fbt",
                 href := s"$searchUrl?turnsMax=5&mode=1&players.winner=${in.user.id}&sort.field=d&sort.order=desc"
               )("Quick rated wins"),
-              isGranted(_.CheatHunter) option a(cls := "fbt", href := routes.GameMod.index(in.user.username))(
-                "Hunter game list"
-              ),
               boostOpponents(in.report, in.allReports, in.user) map { opponents =>
                 a(
                   cls  := "fbt",

@@ -19,7 +19,7 @@ export default function () {
     document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked)
   );
 
-  $('#top').on('click', 'a.toggle', function (this: HTMLElement) {
+  $('#top').on('click', '.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
     setTimeout(() => {
@@ -36,7 +36,8 @@ export default function () {
   {
     // challengeApp
     let instance: any, booted: boolean;
-    const $toggle = $('#challenge-toggle');
+    const $toggle = $('#challenge-toggle'),
+      $countSpan = $toggle.find('span');
     $toggle.one('mouseover click', () => load());
     const load = function (data?: any) {
       if (booted) return;
@@ -51,7 +52,8 @@ export default function () {
               if (!isVisible('#challenge-app')) $toggle.trigger('click');
             },
             setCount(nb: number) {
-              $toggle.find('span').data('count', nb);
+              const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
+              $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
             },
             pulse() {
               $toggle.addClass('pulse');
@@ -63,6 +65,7 @@ export default function () {
       if (!instance) load(data);
       else instance.update(data);
     });
+
     pubsub.on('challenge-app.open', () => $toggle.trigger('click'));
   }
 
@@ -70,6 +73,7 @@ export default function () {
     // notifyApp
     let instance: any, booted: boolean;
     const $toggle = $('#notify-toggle'),
+      $countSpan = $toggle.find('span'),
       selector = '#notify-app';
 
     const load = (data?: any) => {
@@ -82,9 +86,11 @@ export default function () {
           data,
           isVisible: () => isVisible(selector),
           updateUnread(nb: number | 'increment') {
-            const existing = ($toggle.find('span').data('count') as number) || 0;
+            const existing = ($countSpan.data('count') as number) || 0;
             if (nb == 'increment') nb = existing + 1;
-            $toggle.find('span').data('count', this.isVisible() ? 0 : nb);
+            if (this.isVisible()) nb = 0;
+            const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
+            $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
             return nb && nb != existing;
           },
           show() {

@@ -56,7 +56,7 @@ case class Game(
   def player(playerId: GamePlayerId): Option[Player] =
     players.find(_.id == playerId)
 
-  def player(user: User): Option[Player] =
+  def player[U: UserIdOf](user: U): Option[Player] =
     players.find(_ isUser user)
 
   def player(c: Color.type => Color): Player = player(c(Color))
@@ -174,17 +174,15 @@ case class Game(
 
     def copyPlayer(player: Player) =
       if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
-        player.copy(
-          blurs = player.blurs.add(playerMoves(player.color))
-        )
+        player.copy(blurs = player.blurs.add(playerMoves(player.color)))
       else player
 
     // This must be computed eagerly
     // because it depends on the current time
-    val newClockHistory = for {
+    val newClockHistory = for
       clk <- game.clock
       ch  <- clockHistory
-    } yield ch.record(turnColor, clk)
+    yield ch.record(turnColor, clk)
 
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
@@ -230,10 +228,9 @@ case class Game(
     Progress(this, updated, events)
 
   def lastMoveKeys: Option[String] =
-    history.lastMove map {
+    history.lastMove.map:
       case Uci.Drop(_, target) => s"${target.key}${target.key}"
       case m: Uci.Move         => m.keys
-    }
 
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(
@@ -522,15 +519,15 @@ case class Game(
     }
 
   def playerWhoDidNotMove: Option[Player] = {
-    if playedTurns == Ply(0) then player(startColor).some
-    else if playedTurns == Ply(1) then player(!startColor).some
+    if playedTurns == Ply.initial then player(startColor).some
+    else if playedTurns == Ply.initial.next then player(!startColor).some
     else none
   } filterNot { player => winnerColor contains player.color }
 
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = startedAtPly.color
+  def startColor = startedAtPly.turn
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns.value + 1) / 2
@@ -588,7 +585,7 @@ case class Game(
   def pgnImport   = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def resetTurns = copy(chess = chess.copy(ply = Ply(0), startedAtPly = Ply(0)))
+  def resetTurns = copy(chess = chess.copy(ply = Ply.initial, startedAtPly = Ply.initial))
 
   lazy val opening: Option[Opening.AtPly] =
     (!fromPosition && Variant.list.openingSensibleVariants(variant)) ?? OpeningDb.search(sans)
@@ -627,7 +624,7 @@ object Game:
   case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
 
   case class SideAndStart(color: Color, startedAtPly: Ply):
-    def startColor = startedAtPly.color
+    def startColor = startedAtPly.turn
 
   val syntheticId = GameId("synthetic")
 

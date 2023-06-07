@@ -7,13 +7,14 @@ export interface ToggleSettings {
   id: string;
   checked: boolean;
   disabled?: boolean;
+  cls?: string;
   change(v: boolean): void;
 }
 
 export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void) {
   const fullId = 'abset-' + t.id;
   return h(
-    'div.setting.' + fullId,
+    'div.setting.' + fullId + (t.cls ? '.' + t.cls : ''),
     t.title
       ? {
           attrs: { title: trans.noarg(t.title) },

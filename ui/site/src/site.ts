@@ -145,7 +145,7 @@ lichess.load.then(() => {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
+    if (location.hash === '#blind' && !lichess.blindMode)
       xhr
         .text('/toggle-blind-mode', {
           method: 'post',

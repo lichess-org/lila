@@ -159,6 +159,11 @@
     <item quantity="few">%s partide</item>
     <item quantity="other">%s partide</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Rating %1$s din %2$s meci</item>
+    <item quantity="few">Rating %1$s din %2$s meciuri</item>
+    <item quantity="other">Rating %1$s din %2$s meciuri</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s marcat</item>
     <item quantity="few">%s marcate</item>

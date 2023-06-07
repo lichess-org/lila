@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ Centis, ByColor, Square, PromotableRole, Role, Outcome, Ply, Check }
 import reactivemongo.api.bson.*
@@ -10,8 +10,11 @@ import scala.util.Success
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Eval, Score }
+import lila.tree.{ Score, Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
+import lila.tree.NewBranch
+import lila.tree.Metas
+import lila.tree.NewRoot
 
 object BSONHandlers:
 
@@ -122,9 +125,10 @@ object BSONHandlers:
       )
     )
 
-  private[study] def readNode(doc: Bdoc, id: UciCharPair): Option[Node] =
+  // shallow read, as not reading children
+  private[study] def readBranch(doc: Bdoc, id: UciCharPair): Option[Branch] =
     import Node.{ BsonFields as F }
-    for {
+    for
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
@@ -134,85 +138,177 @@ object BSONHandlers:
       comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
-      score          = doc.getAsOpt[Score](F.score)
+      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
       clock          = doc.getAsOpt[Centis](F.clock)
-      crazy          = doc.getAsOpt[Crazyhouse.Data](F.crazy)
+      crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
-    } yield Node(
-      id,
-      ply,
-      Uci.WithSan(uci, san),
-      fen,
-      check,
-      shapes,
-      comments,
-      gamebook,
-      glyphs,
-      score,
-      clock,
-      crazy,
-      Node.emptyChildren,
-      forceVariation
+    yield Branch(
+      id = id,
+      ply = ply,
+      move = Uci.WithSan(uci, san),
+      fen = fen,
+      check = check,
+      shapes = shapes,
+      comments = comments,
+      gamebook = gamebook,
+      glyphs = glyphs,
+      eval = eval,
+      clock = clock,
+      crazyData = crazyData,
+      children = Branches.empty,
+      forceVariation = forceVariation
     )
 
-  private[study] def writeNode(n: Node) =
-    import Node.BsonFields.*
+  // shallow read, as not reading children
+  private[study] def readNewBranch(doc: Bdoc, path: UciPath): Option[NewBranch] =
+    import Node.{ BsonFields as F }
+    for
+      id  <- path.lastId
+      ply <- doc.getAsOpt[Ply](F.ply)
+      uci <- doc.getAsOpt[Uci](F.uci)
+      san <- doc.getAsOpt[SanStr](F.san)
+      fen <- doc.getAsOpt[Fen.Epd](F.fen)
+      check          = ~doc.getAsOpt[Check](F.check)
+      shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
+      comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
+      gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
+      glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
+      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
+      clock          = doc.getAsOpt[Centis](F.clock)
+      crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
+      forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
+    yield NewBranch(
+      id = id,
+      path = path,
+      forceVariation = forceVariation,
+      move = Uci.WithSan(uci, san),
+      metas = Metas(
+        ply = ply,
+        fen = fen,
+        check = check,
+        shapes = shapes,
+        comments = comments,
+        gamebook = gamebook,
+        glyphs = glyphs,
+        eval = eval,
+        clock = clock,
+        crazyData = crazyData
+      )
+    )
+
+  private[study] def writeBranch(n: Branch) =
+    import Node.{ BsonFields as F }
     val w = new Writer
     $doc(
-      ply            -> n.ply,
-      uci            -> n.move.uci,
-      san            -> n.move.san,
-      fen            -> n.fen,
-      check          -> w.yesnoO(n.check),
-      shapes         -> n.shapes.value.nonEmpty.option(n.shapes),
-      comments       -> n.comments.value.nonEmpty.option(n.comments),
-      gamebook       -> n.gamebook,
-      glyphs         -> n.glyphs.nonEmpty,
-      score          -> n.score,
-      clock          -> n.clock,
-      crazy          -> n.crazyData,
-      forceVariation -> w.boolO(n.forceVariation),
-      order -> {
+      F.ply            -> n.ply,
+      F.uci            -> n.move.uci,
+      F.san            -> n.move.san,
+      F.fen            -> n.fen,
+      F.check          -> w.yesnoO(n.check),
+      F.shapes         -> n.shapes.value.nonEmpty.option(n.shapes),
+      F.comments       -> n.comments.value.nonEmpty.option(n.comments),
+      F.gamebook       -> n.gamebook,
+      F.glyphs         -> n.glyphs.nonEmpty,
+      F.score          -> n.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+      F.clock          -> n.clock,
+      F.crazy          -> n.crazyData,
+      F.forceVariation -> w.boolO(n.forceVariation),
+      F.order -> {
         (n.children.nodes.sizeIs > 1) option n.children.nodes.map(_.id)
       }
     )
 
-  import Node.Root
+  private[study] def writeNewBranch(n: NewBranch, order: Option[List[UciCharPair]]) =
+    import Node.{ BsonFields as F }
+    val w = new Writer
+    $doc(
+      F.ply      -> n.metas.ply,
+      F.uci      -> n.move.uci,
+      F.san      -> n.move.san,
+      F.fen      -> n.metas.fen,
+      F.check    -> w.yesnoO(n.metas.check),
+      F.shapes   -> n.metas.shapes.value.nonEmpty.option(n.metas.shapes),
+      F.comments -> n.metas.comments.value.nonEmpty.option(n.metas.comments),
+      F.gamebook -> n.metas.gamebook,
+      F.glyphs   -> n.metas.glyphs.nonEmpty,
+      F.score    -> n.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+      F.clock    -> n.metas.clock,
+      F.crazy    -> n.metas.crazyData,
+      F.forceVariation -> w.boolO(n.forceVariation),
+      F.order          -> order
+    )
+
   private[study] given BSON[Root] with
-    import Node.BsonFields.*
+    import Node.{ BsonFields as F }
     def reads(fullReader: Reader) =
       val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey) err "Missing root"
-      val r        = new Reader(rootNode)
+      val r        = Reader(rootNode)
       Root(
-        ply = r.get[Ply](ply),
-        fen = r.get[Fen.Epd](fen),
-        check = r yesnoD check,
-        shapes = r.getO[Shapes](shapes) | Shapes.empty,
-        comments = r.getO[Comments](comments) | Comments.empty,
-        gamebook = r.getO[Gamebook](gamebook),
-        glyphs = r.getO[Glyphs](glyphs) | Glyphs.empty,
-        score = r.getO[Score](score),
-        clock = r.getO[Centis](clock),
-        crazyData = r.getO[Crazyhouse.Data](crazy),
+        ply = r.get[Ply](F.ply),
+        fen = r.get[Fen.Epd](F.fen),
+        check = r yesnoD F.check,
+        shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
+        comments = r.getO[Comments](F.comments) | Comments.empty,
+        gamebook = r.getO[Gamebook](F.gamebook),
+        glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
+        eval = r.getO[Score](F.score).map(_.eval),
+        clock = r.getO[Centis](F.clock),
+        crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
     def writes(w: Writer, r: Root) = $doc(
       StudyFlatTree.writer.rootChildren(r) appended {
         UciPathDb.rootDbKey -> $doc(
-          ply      -> r.ply,
-          fen      -> r.fen,
-          check    -> w.yesnoO(r.check),
-          shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
-          comments -> r.comments.value.nonEmpty.option(r.comments),
-          gamebook -> r.gamebook,
-          glyphs   -> r.glyphs.nonEmpty,
-          score    -> r.score,
-          clock    -> r.clock,
-          crazy    -> r.crazyData
+          F.ply      -> r.ply,
+          F.fen      -> r.fen,
+          F.check    -> w.yesnoO(r.check),
+          F.shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
+          F.comments -> r.comments.value.nonEmpty.option(r.comments),
+          F.gamebook -> r.gamebook,
+          F.glyphs   -> r.glyphs.nonEmpty,
+          F.score    -> r.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+          F.clock    -> r.clock,
+          F.crazy    -> r.crazyData
         )
       }
     )
 
+  private[study] given BSON[NewRoot] with
+    import Node.{ BsonFields as F }
+    def reads(fullReader: Reader) =
+      val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey) err "Missing root"
+      val r        = Reader(rootNode)
+      NewRoot(
+        Metas(
+          ply = r.get[Ply](F.ply),
+          fen = r.get[Fen.Epd](F.fen),
+          check = r yesnoD F.check,
+          shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
+          comments = r.getO[Comments](F.comments) | Comments.empty,
+          gamebook = r.getO[Gamebook](F.gamebook),
+          glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
+          eval = r.getO[Score](F.score).map(_.eval),
+          clock = r.getO[Centis](F.clock),
+          crazyData = r.getO[Crazyhouse.Data](F.crazy)
+        ),
+        tree = StudyFlatTree.reader.newRoot(fullReader.doc)
+      )
+    def writes(w: Writer, r: NewRoot) = $doc(
+      StudyFlatTree.writer.newRootChildren(r) appended {
+        UciPathDb.rootDbKey -> $doc(
+          F.ply      -> r.metas.ply,
+          F.fen      -> r.metas.fen,
+          F.check    -> w.yesnoO(r.metas.check),
+          F.shapes   -> r.metas.shapes.value.nonEmpty.option(r.metas.shapes),
+          F.comments -> r.metas.comments.value.nonEmpty.option(r.metas.comments),
+          F.gamebook -> r.metas.gamebook,
+          F.glyphs   -> r.metas.glyphs.nonEmpty,
+          F.score -> r.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
+          F.clock -> r.metas.clock,
+          F.crazy -> r.metas.crazyData
+        )
+      }
+    )
   given BSONHandler[Variant] = variantByIdHandler
 
   given BSONHandler[Tag] = tryHandler[Tag](

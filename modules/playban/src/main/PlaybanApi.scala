@@ -28,7 +28,7 @@ final class PlaybanApi(
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
 
-  private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
+  private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Arena)
 
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(blameableSources.contains) && game.hasClock) ?? {
@@ -237,7 +237,7 @@ final class PlaybanApi(
         lila.mon.playban.ban.mins.record(ban.mins)
         Bus.publish(
           lila.hub.actorApi.playban
-            .Playban(record.userId, ban.mins, inTournament = source has Source.Tournament),
+            .Playban(record.userId, ban.mins, inTournament = source has Source.Arena),
           "playban"
         )
         coll

@@ -277,7 +277,8 @@ final class TournamentApi(
       playerRepo.find(tour.id, me.id) flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if (
+          if (me.marks.prizeban && tour.looksLikePrize) fuccess(JoinResult.PrizeBanned)
+          else if (
             prevPlayer.nonEmpty || tour.password.forall(p =>
               // plain text access code
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
@@ -559,7 +560,7 @@ final class TournamentApi(
 
     def player(pov: Pov): Fu[Option[GameView]] =
       (pov.game.tournamentId ?? get) flatMapz { tour =>
-        getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { case (teamVs, ranks) =>
+        getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap { (teamVs, ranks) =>
           teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
             cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map2 { info =>
               TournamentTop(info.topPlayers take tournamentTopNb)
@@ -572,7 +573,7 @@ final class TournamentApi(
 
     def watcher(game: Game): Fu[Option[GameView]] =
       (game.tournamentId ?? get) flatMapz { tour =>
-        getTeamVs(tour, game) zip getGameRanks(tour, game) dmap { case (teamVs, ranks) =>
+        getTeamVs(tour, game) zip getGameRanks(tour, game) dmap { (teamVs, ranks) =>
           GameView(tour, teamVs, ranks, none).some
         }
       }

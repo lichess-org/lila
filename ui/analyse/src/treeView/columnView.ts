@@ -175,17 +175,17 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
         [h('index', '[...]')]
       ),
     ];
-  return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
-    .concat(renderInlineCommentsOf(ctx, node, path))
-    .concat(opts.inline ? renderInline(ctx, opts.inline, opts) : null)
-    .concat(
-      renderChildrenOf(ctx, node, {
-        parentPath: path,
-        isMainline: opts.isMainline,
-        noConceal: opts.noConceal,
-        truncate: opts.truncate ? opts.truncate - 1 : undefined,
-      }) || []
-    );
+  return [
+    renderMoveOf(ctx, node, opts),
+    ...renderInlineCommentsOf(ctx, node, path),
+    opts.inline ? renderInline(ctx, opts.inline, opts) : null,
+    ...(renderChildrenOf(ctx, node, {
+      parentPath: path,
+      isMainline: opts.isMainline,
+      noConceal: opts.noConceal,
+      truncate: opts.truncate ? opts.truncate - 1 : undefined,
+    }) || []),
+  ];
 }
 
 function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {

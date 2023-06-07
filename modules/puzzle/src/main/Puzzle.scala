@@ -17,7 +17,7 @@ case class Puzzle(
     themes: Set[PuzzleTheme.Key]
 ):
   // ply after "initial move" when we start solving
-  def initialPly: Ply = Fen.readPly(fen) | Ply(0)
+  def initialPly: Ply = Fen.readPly(fen) | Ply.initial
 
   def situationAfterInitialMove: Option[chess.Situation] = for
     sit1 <- Fen read fen

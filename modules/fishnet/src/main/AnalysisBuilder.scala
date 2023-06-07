@@ -9,7 +9,7 @@ import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 import Evaluation.EvalOrSkip
 
-final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor):
+final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor):
 
   def apply(client: Client, work: Work.Analysis, evals: List[EvalOrSkip]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
@@ -25,7 +25,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
        * to prevent the mobile app from thinking it's complete
        * https://github.com/lichess-org/lichobile/issues/722
        */
-      val cached = if (isPartial) cachedFull - 0 else cachedFull
+      val cached = if isPartial then cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
       chess
         .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
@@ -43,8 +43,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
                 date = nowInstant
               )
             )
-            errors.foreach: e =>
-              logger.debug(s"[UciToPgn] $debug $e")
+            errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))
             if (analysis.valid) then
               if !isPartial && analysis.emptyRatio >= 1d / 10 then
                 fufail:
@@ -82,7 +81,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(using Executor)
         val info = Info(
           ply = startedAtPly + index + 1,
           eval = Eval(after.score.cp, after.score.mate, best),
-          variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToPgn
+          variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToSan
         )
         if (info.ply.isOdd) info.invert else info
       case ((_, _), index) => Info(startedAtPly + index + 1, Eval.empty, Nil)

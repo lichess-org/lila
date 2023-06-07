@@ -37,7 +37,7 @@ final class Analyse(
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
-    if (HTTPRequest.isCrawler(ctx.req).yes) replayBot(pov)
+    if HTTPRequest.isCrawler(ctx.req).yes then replayBot(pov)
     else
       env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
         gameC.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {

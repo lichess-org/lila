@@ -1,11 +1,11 @@
 import PuzzleSession from './session';
 import { Api as CgApi } from 'chessground/api';
-import { CevalCtrl } from 'ceval';
+import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
-import { Move } from 'chessops/types';
+import { Outcome, Move } from 'chessops/types';
 import { Prop } from 'common';
-import { StoredProp } from 'common/storage';
+import { StoredProp, ToggleWithUsed } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
@@ -14,11 +14,8 @@ import { KeyboardMove } from 'keyboardMove';
 import { VoiceMove } from 'voice';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
-import { ParentCtrl } from 'ceval/src/types';
-import { Redraw } from 'chessground/types';
+import { Redraw } from 'common/snabbdom';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 export type PuzzleId = string;
 
 export interface KeyboardController {
@@ -39,7 +36,21 @@ export interface AllThemes {
   static: Set<ThemeKey>;
 }
 
-export interface Controller extends KeyboardController, ParentCtrl {
+export interface Controller extends KeyboardController {
+  nextNodeBest(): string | undefined;
+  disableThreatMode?: Prop<boolean>;
+  outcome(): Outcome | undefined;
+  mandatoryCeval?: Prop<boolean>;
+  showEvalGauge: Prop<boolean>;
+  currentEvals(): NodeEvals;
+  ongoing: boolean;
+  playUci(uci: string): void;
+  playUciList(uciList: string[]): void;
+  getOrientation(): Color;
+  threatMode: Prop<boolean>;
+  getNode(): Tree.Node;
+  showComputer(): boolean;
+  trans: Trans;
   getData(): PuzzleData;
   getTree(): TreeWrapper;
   ground: Prop<CgApi | undefined>;
@@ -70,6 +81,7 @@ export interface Controller extends KeyboardController, ParentCtrl {
   autoScrollRequested?: boolean;
 
   nvui?: NvuiPlugin;
+  menu: ToggleWithUsed;
 }
 
 export interface NvuiPlugin {

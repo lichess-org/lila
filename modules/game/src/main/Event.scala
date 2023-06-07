@@ -98,7 +98,7 @@ object Event:
           .add("enpassant" -> enpassant.map(_.data))
           .add("castle" -> castle.map(_.data))
       }
-    override def moveBy = Some(!state.turns.color)
+    override def moveBy = Some(!state.turns.turn)
   object Move:
     def apply(
         move: ChessMove,
@@ -150,7 +150,7 @@ object Event:
           "san"  -> san
         )
       }
-    override def moveBy = Some(!state.turns.color)
+    override def moveBy = Some(!state.turns.turn)
   object Drop:
     def apply(
         drop: ChessDrop,
@@ -354,7 +354,7 @@ object Event:
     def data =
       Json
         .obj(
-          "color" -> turns.color,
+          "color" -> turns.turn,
           "turns" -> turns
         )
         .add("status" -> status)

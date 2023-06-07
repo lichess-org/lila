@@ -3,6 +3,7 @@ package lila.common
 import play.api.libs.json.{ Json as PlayJson, * }
 import chess.format.{ Uci }
 import scala.util.NotGiven
+import chess.variant.Crazyhouse
 
 object Json:
 
@@ -96,3 +97,12 @@ object Json:
   }
 
   given NoJsonHandler[chess.Square] with {}
+
+  given OWrites[Crazyhouse.Pocket] = OWrites: v =>
+    JsObject(
+      v.values.collect:
+        case (role, nb) if nb > 0 => role.name -> JsNumber(nb)
+    )
+
+  given OWrites[chess.variant.Crazyhouse.Data] = OWrites: v =>
+    PlayJson.obj("pockets" -> List(v.pockets.white, v.pockets.black))

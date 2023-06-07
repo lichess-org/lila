@@ -72,7 +72,6 @@ export default class SetupController {
   constructor(ctrl: LobbyController) {
     this.root = ctrl;
     this.blindModeColor = propWithEffect('random', this.onPropChange);
-
     // Initialize stores with default props as necessary
     this.store = {
       hook: this.makeSetupStore('hook'),
@@ -101,7 +100,7 @@ export default class SetupController {
   private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
-    this.variant = this.propWithApply(forceOptions?.variant || storeProps.variant);
+    this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onVariantChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
     this.timeMode = this.propWithApply(forceOptions?.timeMode || storeProps.timeMode);
     this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
@@ -129,12 +128,14 @@ export default class SetupController {
       this.gameMode = this.propWithApply('casual');
     }
 
+    this.ratingMin = this.propWithApply(Math.min(0, this.ratingMin()));
+    this.ratingMax = this.propWithApply(Math.max(0, this.ratingMax()));
     if (this.ratingMin() === 0 && this.ratingMax() === 0) {
       this.ratingMax = this.propWithApply(50);
     }
   };
 
-  private savePropsToStore = () =>
+  private savePropsToStore = (override: Partial<SetupStore> = {}) =>
     this.gameType &&
     this.store[this.gameType]({
       variant: this.variant(),
@@ -147,11 +148,41 @@ export default class SetupController {
       ratingMin: this.ratingMin(),
       ratingMax: this.ratingMax(),
       aiLevel: this.aiLevel(),
+      ...override,
     });
 
+  private savePropsToStoreExceptRating = () =>
+    this.gameType &&
+    this.savePropsToStore({
+      ratingMin: this.store[this.gameType]().ratingMin,
+      ratingMax: this.store[this.gameType]().ratingMax,
+    });
+
+  private isProvisional = () => {
+    const rating = this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()];
+    return rating ? !!rating.prov : true;
+  };
+
   private onPropChange = () => {
+    if (this.isProvisional()) this.savePropsToStoreExceptRating();
+    else this.savePropsToStore();
+    this.root.redraw();
+  };
+
+  private onVariantChange = () => {
+    // Handle rating update here
     this.enforcePropRules();
-    this.savePropsToStore();
+    if (this.isProvisional()) {
+      this.ratingMin(-500);
+      this.ratingMax(500);
+      this.savePropsToStoreExceptRating();
+    } else {
+      if (this.gameType) {
+        this.ratingMin(this.store[this.gameType]().ratingMin);
+        this.ratingMax(this.store[this.gameType]().ratingMax);
+      }
+      this.savePropsToStore();
+    }
     this.root.redraw();
   };
 
@@ -175,17 +206,24 @@ export default class SetupController {
   validateFen = debounce(() => {
     const fen = this.fen();
     if (!fen) return;
-    xhr.text(xhr.url('/setup/validate-fen', { fen, strict: this.gameType === 'ai' ? 1 : undefined })).then(
-      () => {
-        this.fenError = false;
-        this.lastValidFen = fen;
-        this.root.redraw();
-      },
-      () => {
-        this.fenError = true;
-        this.root.redraw();
-      }
-    );
+    xhr
+      .text(
+        xhr.url('/setup/validate-fen', {
+          fen,
+          strict: this.gameType === 'ai' ? 1 : undefined,
+        })
+      )
+      .then(
+        () => {
+          this.fenError = false;
+          this.lastValidFen = fen;
+          this.root.redraw();
+        },
+        () => {
+          this.fenError = true;
+          this.root.redraw();
+        }
+      );
   }, 300);
 
   ratedModeDisabled = (): boolean =>

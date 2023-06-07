@@ -7,16 +7,21 @@ import lila.db.dsl.{ given, * }
 import lila.memo.{ CacheApi, Syncache }
 import User.BSONFields as F
 
-final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor):
+trait ILightUserApi:
+  def async: LightUser.Getter
+  def sync: LightUser.GetterSync
 
-  val async = LightUser.Getter(id => if (User isGhost id) fuccess(LightUser.ghost.some) else cache.async(id))
+final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) extends ILightUserApi:
+
+  val async =
+    LightUser.Getter(id => if User.isGhost(id) then fuccess(LightUser.ghost.some) else cache.async(id))
   val asyncFallback = LightUser.GetterFallback(id =>
-    if (User isGhost id) fuccess(LightUser.ghost)
+    if User.isGhost(id) then fuccess(LightUser.ghost)
     else cache.async(id).dmap(_ | LightUser.fallback(id into UserName))
   )
-  val sync = LightUser.GetterSync(id => if (User isGhost id) LightUser.ghost.some else cache.sync(id))
+  val sync = LightUser.GetterSync(id => if User.isGhost(id) then LightUser.ghost.some else cache.sync(id))
   val syncFallback = LightUser.GetterSyncFallback(id =>
-    if (User isGhost id) LightUser.ghost else cache.sync(id) | LightUser.fallback(id into UserName)
+    if User.isGhost(id) then LightUser.ghost else cache.sync(id) | LightUser.fallback(id into UserName)
   )
 
   export cache.{ asyncMany, invalidate, preloadOne, preloadMany }
@@ -61,3 +66,9 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor):
 
   private val projection =
     $doc(F.id -> false, F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some
+
+object LightUserApi:
+
+  def mock: ILightUserApi = new:
+    def sync  = LightUser.GetterSync(id => LightUser.fallback(id into UserName).some)
+    def async = LightUser.Getter(id => fuccess(sync(id)))

@@ -125,33 +125,32 @@ object layout:
     )
 
   private def allNotifications(using ctx: Context) =
-    spaceless(s"""<div>
-  <a id="challenge-toggle" class="toggle link">
-    <span title="${trans.challenge.challenges
-        .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
-  </a>
+    val challengeTitle = trans.challenge.challengesX.txt(ctx.nbChallenges)
+    val notifTitle     = trans.notificationsX.txt(ctx.nbNotifications.value)
+    spaceless:
+      s"""<div>
+  <button id="challenge-toggle" class="toggle link">
+    <span title="$challengeTitle" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
+  </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
-  <a id="notify-toggle" class="toggle link">
-    <span title="${trans.notifications
-        .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
-  </a>
+  <button id="notify-toggle" class="toggle link">
+    <span title="$notifTitle" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
+  </button>
   <div id="notify-app" class="dropdown"></div>
-</div>""")
+</div>"""
 
   private def anonDasher(using ctx: Context) =
-    spaceless {
+    val preferences = trans.preferences.preferences.txt()
+    spaceless:
       s"""<div class="dasher">
-  <a class="toggle link anon">
-    <span title="${trans.preferences.preferences.txt()}" data-icon="${licon.Gear}""></span>
-  </a>
+  <button class="toggle link anon">
+    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}""></span>
+  </button>
   <div id="dasher_app" class="dropdown"></div>
 </div>
-<a href="${langHref(
-          routes.Auth.login
-        )}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
-    }
+<a href="/login?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
 
   private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
 
@@ -253,7 +252,11 @@ object layout:
           viewport,
           metaCsp(csp),
           metaThemeColor,
-          st.headTitle(fullTitle | s"$title • $siteName"),
+          st.headTitle {
+            val prodTitle = fullTitle | s"$title • $siteName"
+            if netConfig.isProd then title
+            else s"${ctx.me.??(_.username + " ")} $prodTitle"
+          },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),
           ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),

@@ -1,11 +1,10 @@
 import { h, VNode } from 'snabbdom';
-import { onInsert } from 'common/snabbdom';
+import { onInsert, MaybeVNodes } from 'common/snabbdom';
 import * as created from './created';
 import * as started from './started';
 import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import TournamentController from '../ctrl';
-import { MaybeVNodes } from '../interfaces';
 
 export default function (ctrl: TournamentController) {
   let handler: {

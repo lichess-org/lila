@@ -338,7 +338,7 @@ lazy val study = module("study",
 
 lazy val relay = module("relay",
   Seq(study),
-  Seq(galimatias) ++ reactivemongo.bundle
+  tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 
 lazy val studySearch = module("studySearch",
@@ -378,7 +378,7 @@ lazy val irc = module("irc",
 
 lazy val mailer = module("mailer",
   Seq(user),
-  reactivemongo.bundle ++ Seq(scalatags, hasher)
+  reactivemongo.bundle ++ Seq(scalatags, hasher, play.mailer)
 )
 
 lazy val plan = module("plan",

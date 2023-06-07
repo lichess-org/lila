@@ -108,8 +108,8 @@ const sound: SoundI = new (class {
     msg.lang = translated ? document.documentElement!.lang : 'en-US';
     if (!isIOS()) {
       // speech events are unreliable on iOS, but iphones do their own cancellation
-      msg.onstart = _ => lichess.mic?.pause();
-      msg.onend = msg.onerror = _ => lichess.mic?.resume();
+      msg.onstart = _ => lichess.mic.pause();
+      msg.onend = msg.onerror = _ => lichess.mic.resume();
     }
     speechSynthesis.speak(msg);
     return true;

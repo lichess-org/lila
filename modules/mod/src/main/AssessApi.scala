@@ -173,7 +173,7 @@ final class AssessApi(
     }
 
   private val assessableSources: Set[Source] =
-    Set(Source.Lobby, Source.Pool, Source.Tournament, Source.Swiss, Source.Simul)
+    Set(Source.Lobby, Source.Pool, Source.Arena, Source.Swiss, Source.Simul)
 
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent

@@ -5,6 +5,8 @@ import alleycats.Zero
 
 export lila.Lila.{ *, given }
 
+private val logger = lila.log("socket")
+
 opaque type SocketVersion = Int
 object SocketVersion extends OpaqueInt[SocketVersion]:
   extension (o: SocketVersion) def incVersion = SocketVersion(o + 1)

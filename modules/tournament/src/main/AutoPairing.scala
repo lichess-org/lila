@@ -28,7 +28,7 @@ final class AutoPairing(
         whitePlayer = makePlayer(White, pairing.player1),
         blackPlayer = makePlayer(Black, pairing.player2),
         mode = tour.mode,
-        source = Source.Tournament,
+        source = Source.Arena,
         pgnImport = None
       )
       .withId(pairing.pairing.gameId)

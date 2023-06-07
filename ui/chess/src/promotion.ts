@@ -6,13 +6,16 @@ import { DrawShape } from 'chessground/draw';
 import * as cgUtil from 'chessground/util';
 import * as cg from 'chessground/types';
 
-export type Callback = (orig: Key, dest: Key, role: cg.Role) => void;
+export type Hooks = {
+  submit: (orig: Key, dest: Key, role: cg.Role) => void;
+  show?: (ctrl: PromotionCtrl, roles: cg.Role[] | false) => void;
+};
 
 interface Promoting {
   orig: Key;
   dest: Key;
   pre: boolean;
-  callback: Callback;
+  hooks: Hooks;
 }
 
 const PROMOTABLE_ROLES: cg.Role[] = ['queen', 'knight', 'rook', 'bishop'];
@@ -46,7 +49,7 @@ export class PromotionCtrl {
     private autoQueenPref: Prefs.AutoQueen = Prefs.AutoQueen.Never
   ) {}
 
-  start = (orig: Key, dest: Key, callback: Callback, meta?: cg.MoveMetadata, forceAutoQueen = false): boolean =>
+  start = (orig: Key, dest: Key, hooks: Hooks, meta?: cg.MoveMetadata, forceAutoQueen = false): boolean =>
     this.withGround(g => {
       const premovePiece = g.state.pieces.get(orig);
       const piece = premovePiece || g.state.pieces.get(dest);
@@ -55,7 +58,7 @@ export class PromotionCtrl {
         ((dest[1] == '8' && g.state.turnColor == 'black') || (dest[1] == '1' && g.state.turnColor == 'white'))
       ) {
         if (this.prePromotionRole && meta?.premove) {
-          this.doPromote({ orig, dest, callback }, this.prePromotionRole);
+          this.doPromote({ orig, dest, hooks }, this.prePromotionRole);
           return true;
         }
         if (
@@ -66,10 +69,10 @@ export class PromotionCtrl {
             forceAutoQueen)
         ) {
           if (premovePiece) this.setPrePromotion(dest, 'queen');
-          else this.doPromote({ orig, dest, callback }, 'queen');
+          else this.doPromote({ orig, dest, hooks }, 'queen');
           return true;
         }
-        this.promoting = { orig, dest, pre: !!premovePiece, callback };
+        this.promoting = { orig, dest, pre: !!premovePiece, hooks };
         this.redraw();
         return true;
       }
@@ -86,7 +89,7 @@ export class PromotionCtrl {
   };
 
   cancelPrePromotion = (): void => {
-    lichess.mic?.removeListener('promotion');
+    this.promoting?.hooks.show?.(this, false);
     if (this.prePromotionRole) {
       this.withGround(g => g.setAutoShapes([]));
       this.prePromotionRole = undefined;
@@ -97,15 +100,7 @@ export class PromotionCtrl {
   view = (antichess?: boolean): MaybeVNode => {
     const promoting = this.promoting;
     if (!promoting) return;
-    lichess.mic?.addListener('promotion', (text: string) => {
-      if (['no', 'cancel', 'abort', 'close', 'clear', 'oops', 'undo'].includes(text)) this.cancel();
-      else if (['queen', 'knight', 'rook', 'bishop', ...(antichess ? ['king'] : [])].includes(text)) {
-        this.promoting = undefined;
-        this.doPromote(promoting, text as cg.Role);
-        this.redraw();
-      }
-      lichess.mic?.stopPropagation();
-    });
+    promoting.hooks.show?.(this, antichess ? [...PROMOTABLE_ROLES, 'king'] : PROMOTABLE_ROLES);
 
     return (
       this.withGround(g =>
@@ -119,19 +114,20 @@ export class PromotionCtrl {
     );
   };
 
-  private finish(role: cg.Role): void {
+  finish(role: cg.Role): void {
     const promoting = this.promoting;
     if (promoting) {
       this.promoting = undefined;
       if (promoting.pre) this.setPrePromotion(promoting.dest, role);
       else this.doPromote(promoting, role);
+      promoting.hooks.show?.(this, false);
       this.redraw();
     }
   }
 
   private doPromote(promoting: Omit<Promoting, 'pre'>, role: cg.Role): void {
     this.withGround(g => promote(g, promoting.dest, role));
-    promoting.callback(promoting.orig, promoting.dest, role);
+    promoting.hooks.submit(promoting.orig, promoting.dest, role);
   }
 
   private setPrePromotion(dest: cg.Key, role: cg.Role): void {

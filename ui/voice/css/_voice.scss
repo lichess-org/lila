@@ -2,6 +2,7 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
 
 #voice-control {
   position: relative;
+  user-select: none;
 }
 
 #voice-status-row {
@@ -9,8 +10,7 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
   font-size: 1rem;
   align-items: stretch;
   background: $c-bg-box;
-  user-select: none;
-  padding-#{$end-direction}: 0.7em;
+  padding-#{$end-direction}: 6px;
 
   #voice-control.puz & {
     background: $c-bg-zebra;
@@ -19,7 +19,12 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
   > button {
     @extend %button-none;
     color: $c-font-dim;
-    padding: 0.2em 0.5em;
+    font-size: 16px;
+    padding: 0 6px;
+
+    &::before {
+      vertical-align: sub;
+    }
 
     &:hover {
       color: $c-font;
@@ -32,35 +37,44 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
   flex: 1 1 auto;
 }
 
-#microphone-button {
-  span {
-    padding: 0 4px;
-    font-family: 'lichess';
-    font-size: 1.6em;
-    border: 1px solid transparent;
-    border-radius: 4px;
+button#microphone-button {
+  margin: 4px;
+  margin-#{$end-direction}: 8px;
+  width: 42px; // compensate for width difference between speaker and cancel buttons
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  animation: pulseListening 2s;
+  animation-iteration-count: infinite;
+  --pulse-color: transparent;
 
-    &:hover {
-      color: $c-font;
-      background-color: $c-mic-bg-hover;
-    }
+  &:hover {
+    background-color: $c-mic-bg-hover;
   }
-  &.enabled span {
+
+  &.idle {
+    --pulse-color: $c-font-dim;
+  }
+
+  &.listening {
     color: $c-primary;
-    animation: pulseBorder 2s;
-    animation-iteration-count: infinite;
-    border-color: transparent;
+    --pulse-color: $c-primary;
 
     &:hover {
       color: $c-link-hover;
     }
   }
-  @keyframes pulseBorder {
+
+  &.busy {
+    color: $c-bad;
+  }
+
+  @keyframes pulseListening {
     0% {
       border-color: transparent;
     }
     50% {
-      border-color: $c-primary;
+      border-color: var(--pulse-color);
     }
     100% {
       border-color: transparent;
@@ -78,20 +92,27 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
 #voice-settings {
   @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
   position: absolute;
+  backdrop-filter: blur(6px);
   border-top: 2px solid $c-primary;
   z-index: z(mz-menu);
   width: 100%;
   background: $c-bg-popup;
   gap: 1.5em;
   padding: 1.5em;
+  > hr {
+    margin: 5px;
+  }
 }
 .voice-setting {
   @extend %flex-center-nowrap;
 
+  * {
+    white-space: nowrap;
+  }
+
   label {
     flex: 4 1 auto;
     cursor: pointer;
-    white-space: nowrap;
   }
 
   .switch + label {
@@ -116,6 +137,7 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
 
 .voice-choices {
   @extend %flex-between;
+
   .active {
     @extend %active-primary;
   }

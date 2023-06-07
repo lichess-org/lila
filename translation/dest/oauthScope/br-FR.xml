@@ -5,4 +5,5 @@
   <string name="tournamentWrite">Krouiñ, hizivaat ha kemer perzh e tournamantoù</string>
   <string name="teamRead">Lenn titouroù ar skipailhoù prevez</string>
   <string name="teamWrite">Emezelañ ha kuitaat ur skipailh</string>
+  <string name="botPlay">C\'hoari krogadoù a-enep ar robot API</string>
 </resources>

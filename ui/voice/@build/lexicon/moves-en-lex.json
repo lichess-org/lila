@@ -3,7 +3,14 @@
   "partials": {
     "commands": [ "yes", "no", "stop" ],
     "colors": [ "green", "blue", "purple", "pink", "yellow", "orange", "white", "brown" ],
-    "numbers": [ "1", "2", "3", "4", "5", "6", "7", "8" ]
+    "numbers": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+    "wake": {
+      "phrase": "hey lee chess",
+      "ignore": [
+        "nay", "pay", "way", "say", "may", "gray", "ray", "lay", "b", "c", "g", "p", "t",
+        "key", "tree", "knee", "like", "lake", "leak", "look", "jest", "best", "vest"
+      ]
+    }
   },
   "entries": [
     { "in": "a", "tok": "a", "tags": [ "file", "move" ] },
@@ -95,6 +102,8 @@
     { "in": "mate", "val": "", "tags": [ "move", "ignore" ] },
     { "in": "check", "val": "", "tags": [ "move", "ignore" ] },
     { "in": "puzzle", "val": "", "tags": [ "ignore" ] },
+    { "in": "lee", "val": "", "tags": [ "ignore" ] },
+    { "in": "chess", "val": "", "tags": [ "ignore" ] },
     { "in": "and", "val": "", "tags": [ "ignore" ] },
     { "in": "oh", "val": "", "tags": [ "ignore" ] },
     { "in": "um", "val": "", "tags": [ "ignore" ] },

@@ -50,14 +50,14 @@ final class Env(
 
   private lazy val analysisColl = db(config.analysisColl)
 
-  private lazy val redis = new FishnetRedis(
+  private lazy val redis = FishnetRedis(
     RedisClient create RedisURI.create(config.redisUri),
     "fishnet-in",
     "fishnet-out",
     shutdown
   )
 
-  private lazy val clientVersion = new Client.ClientVersion(config.clientMinVersion)
+  private lazy val clientVersion = Client.ClientVersion(config.clientMinVersion)
 
   private lazy val repo = new FishnetRepo(
     analysisColl = analysisColl,

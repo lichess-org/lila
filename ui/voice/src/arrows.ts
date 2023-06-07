@@ -1,6 +1,7 @@
 import { Key } from 'chessground/types';
 import { DrawBrush, DrawShape } from 'chessground/draw';
-import { pushMap, src, dest } from './util';
+import { src, dest } from 'chess';
+import { pushMap } from './util';
 
 export const brushes = new Map<string, DrawBrush>([
   ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],
@@ -9,54 +10,73 @@ export const brushes = new Map<string, DrawBrush>([
   ['pink', { key: 'vpn', color: '#ee2080', opacity: 0.5, lineWidth: 12 }],
   ['yellow', { key: 'vyl', color: '#ffef00', opacity: 0.6, lineWidth: 12 }],
   ['orange', { key: 'vor', color: '#f6931f', opacity: 0.8, lineWidth: 12 }],
-  ['white', { key: 'vwh', color: '#ffffff', opacity: 1.0, lineWidth: 12 }],
   ['brown', { key: 'vgy', color: '#7b3c13', opacity: 0.8, lineWidth: 12 }],
-  ['red', { key: 'vrd', color: '#881010', opacity: 0.8, lineWidth: 12 }],
   ['grey', { key: 'vgr', color: '#666666', opacity: 0.8, lineWidth: 12 }],
+  ['red', { key: 'vrd', color: '#881010', opacity: 0.8, lineWidth: 12 }],
+  ['white', { key: 'vwh', color: '#ffffff', opacity: 1.0, lineWidth: 15 }],
 ]);
 
 const LABEL_SIZE = 40; // size of arrow labels in svg user units, 100 is the width of a board square
 
-export function numberedArrows(choices: [string, Uci][], asWhite: boolean, timer?: number): DrawShape[] {
+export function numberedArrows(choices: [string, Uci][], timer: number | undefined, asWhite: boolean): DrawShape[] {
   if (!choices) return [];
   const shapes: DrawShape[] = [];
   const dests = new Map<Key, number | Set<number>>();
+  const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([, uci]) => {
-    shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-grey` });
+    shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-grey`, modifiers: { hilite: uci === preferred } });
     if (uci.length > 2) pushMap(dests, dest(uci), moveAngle(uci, asWhite));
   });
   if (timer) {
-    shapes.push(timerShape(choices[0][1], labelOffset(choices[0][1], dests, asWhite), timer, 'grey', 0.6));
+    shapes.push(
+      timerShape(
+        choices[0][1],
+        choices.length > 1 ? labelOffset(choices[0][1], dests, asWhite) : [0, 0],
+        timer,
+        choices.length > 1 ? 'grey' : 'white',
+        0.6
+      )
+    );
   }
-  choices.forEach(([, uci], i) => {
-    shapes.push(labelShape(uci, dests, `${i + 1}`, asWhite));
-  });
+  if (choices.length > 1)
+    choices.forEach(([, uci], i) => {
+      shapes.push(labelShape(uci, dests, `${i + 1}`, asWhite));
+    });
   return shapes;
 }
 
-export function coloredArrows(choices: [string, Uci][], timer?: number): DrawShape[] {
+export function coloredArrows(choices: [string, Uci][], timer: number | undefined): DrawShape[] {
   if (!choices) return [];
   const shapes: DrawShape[] = [];
+  const preferred = choices[0][0] === 'yes' ? choices.shift()?.[1] : undefined;
   choices.forEach(([c, uci]) => {
-    shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-${c}` });
+    shapes.push({ orig: src(uci), dest: dest(uci), brush: `v-${c}`, modifiers: { hilite: uci === preferred } });
   });
-  if (timer) shapes.push(timerShape(choices[0][1], [0, 0], timer, brushes.values().next().value.color));
+  if (timer) {
+    shapes.push(timerShape(choices[0][1], [0, 0], timer, brushes.values().next().value.color));
+  }
   return shapes;
 }
 
-export const timerShape = (uci: Uci, offset: [number, number], duration: number, color: string, alpha = 0.4) => ({
-  orig: src(uci),
-  brush: 'v-grey',
-  customSvg:
-    (color !== 'grey' ? `<svg width="100" height="100">` : `<svg viewBox="${offset[0]} ${offset[1]} 100 100">`) +
-    `<circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}"
-             stroke-width="50" stroke-opacity="${alpha}"  transform="rotate(270,50,50)">
-
-      <animate attributeName="stroke-dasharray" dur="${duration}s" repeatCount="1"
-               values="0 ${Math.PI * 50};${Math.PI * 50} ${Math.PI * 50}" />
-
-    </circle></svg>`,
-});
+function timerShape(uci: Uci, offset: [number, number], duration: number, color: string, alpha = 0.4) {
+  // works around a firefox stroke-dasharray animation bug
+  setTimeout(() => {
+    const anim = document.querySelector('#voice-timer-arc') as SVGAnimationElement;
+    anim.beginElement();
+    anim.parentElement!.setAttribute('visibility', 'visible');
+  });
+  return {
+    orig: src(uci),
+    brush: 'v-grey',
+    customSvg:
+      (color !== 'grey' ? `<svg width="100" height="100">` : `<svg viewBox="${offset[0]} ${offset[1]} 100 100">`) +
+      `<circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
+               stroke-width="50" stroke-opacity="${alpha}" begin="indefinite" visibility="hidden">
+         <animate id="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
+                  values="0 ${Math.PI * 50}; ${Math.PI * 50} ${Math.PI * 50}"/>
+       </circle></svg>`,
+  };
+}
 
 function labelShape(uci: Uci, dests: Map<Key, number | Set<number>>, label: string, asWhite: boolean): DrawShape {
   const fontSize = Math.round(LABEL_SIZE * 0.82);

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Thách đấu</string>
   <string name="challengeToPlay">Yêu cầu chơi</string>
   <string name="challengeDeclined">Lời thách đấu bị từ chối</string>
   <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>

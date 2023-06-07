@@ -218,6 +218,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   def rankban(mod: Mod, sus: Suspect, v: Boolean) = add:
     Modlog.make(mod, sus, if (v) Modlog.rankban else Modlog.unrankban)
 
+  def prizeban(mod: Mod, sus: Suspect, v: Boolean) = add:
+    Modlog.make(mod, sus, if (v) Modlog.prizeban else Modlog.unprizeban)
+
   def teamKick(mod: ModId, user: UserId, teamName: String) = add:
     Modlog(mod, user.some, Modlog.teamKick, details = Some(teamName take 140))
 

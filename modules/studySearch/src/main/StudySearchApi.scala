@@ -7,7 +7,8 @@ import play.api.libs.json.*
 
 import lila.hub.LateMultiThrottler
 import lila.search.*
-import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
+import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }
+import lila.tree.Node
 import lila.tree.Node.Comments
 import lila.common.Json.given
 import java.time.LocalDate
@@ -87,7 +88,7 @@ final class StudySearchApi(
       c.description
     ).flatten
 
-  private def nodeText(n: RootOrNode): String =
+  private def nodeText(n: Node): String =
     commentsText(n.comments) + " " + n.children.nodes.map(nodeText).mkString(" ")
 
   private def commentsText(cs: Comments): String =

@@ -70,6 +70,7 @@ announce cancel
 change asset version
 fishnet client create {username}
 gdpr erase {username} forever
+msg multi {sender} {recipient1,recipient2} {message}
 patron lifetime {username}
 patron month {username}
 patron remove {username}

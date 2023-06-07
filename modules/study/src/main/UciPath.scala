@@ -2,10 +2,12 @@ package lila.study
 
 import chess.format.UciPath
 
+import lila.tree.Node
+
 extension (e: UciPath)
 
   @annotation.tailrec
-  def isMainline(node: RootOrNode): Boolean =
+  def isMainline(node: Node): Boolean =
     e.split match
       case None => true
       case Some((id, rest)) =>
@@ -28,7 +30,7 @@ private[study] object UciPathDb:
   def decodeDbKey(key: String): UciPath =
     UciPath(key.replace(144.toChar, '.').replace(145.toChar, '$'))
 
-  def isMainline(node: RootOrNode, path: UciPath): Boolean =
+  def isMainline(node: Node, path: UciPath): Boolean =
     path.split.fold(true) { (id, rest) =>
       node.children.first ?? { child =>
         child.id == id && isMainline(child, rest)

@@ -120,6 +120,7 @@
   <string name="memory">Muistia</string>
   <string name="infiniteAnalysis">Loputon analyysi</string>
   <string name="removesTheDepthLimit">Poistaa syvyysrajoituksen ja pitää koneesi lämpöisenä</string>
+  <string name="engineManager">Moottorin hallinta</string>
   <string name="blunder">Vakava virhe</string>
   <string name="mistake">Virhe</string>
   <string name="inaccuracy">Epätarkkuus</string>

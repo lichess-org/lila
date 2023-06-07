@@ -31,9 +31,7 @@ object mini:
 
   def noCtx(pov: Pov, tv: Boolean = false): Tag =
     val link = if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
-    renderMini(pov, link.url.some)(using
-      defaultLang
-    )
+    renderMini(pov, link.url.some)(using defaultLang)
 
   private def renderMini(
       pov: Pov,

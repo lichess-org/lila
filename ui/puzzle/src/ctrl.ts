@@ -37,7 +37,8 @@ import { storedBooleanProp } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
-import { Redraw } from 'chessground/types';
+import { toggle as boardMenuToggle } from 'board/menu';
+import { Redraw } from 'common/snabbdom';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
@@ -58,6 +59,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     streakFailStorage.listen(_ => failStreak(streak));
   }
   const session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
+  const menu = boardMenuToggle(redraw);
 
   // required by ceval
   vm.showAutoShapes = () => true;
@@ -104,7 +106,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       vote,
       solve: viewSolution,
     });
-    if (opts.pref.voiceMove) this.voiceMove = voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
+    if (opts.pref.voiceMove)
+      makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen).then(vm => {
+        this.voiceMove = voiceMove = vm;
+      });
     if (opts.pref.keyboardMove)
       this.keyboardMove = keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.vm.node.fen });
     requestAnimationFrame(() => this.redraw());
@@ -203,7 +208,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
-    if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
+    if (!promotion.start(orig, dest, { submit: playUserMove, show: voiceMove?.showPromotion }))
+      playUserMove(orig, dest);
     voiceMove?.update(vm.node.fen);
     keyboardMove?.update({ fen: vm.node.fen });
   }
@@ -641,5 +647,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     flipped: () => flipped,
     showRatings: opts.showRatings,
     nvui: window.LichessPuzzleNvui ? (window.LichessPuzzleNvui(redraw) as NvuiPlugin) : undefined,
+    menu,
   };
 }
