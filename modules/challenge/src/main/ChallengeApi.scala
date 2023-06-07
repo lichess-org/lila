@@ -153,8 +153,8 @@ final class ChallengeApi(
       Bus.publish(Event.Create(challenge), "challenge")
     }
 
-  def removeByUserId(userId: UserId) =
-    repo.allWithUserId(userId).flatMap(_.traverse_(remove))
+  def removeByUserId(userId: UserId): Funit =
+    repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void
 
   def oauthAccept(dest: User, challenge: Challenge): Fu[Validated[String, Game]] =
     joiner(challenge, dest.some).map(_.map(_.game))
