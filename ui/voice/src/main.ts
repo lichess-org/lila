@@ -193,7 +193,7 @@ function wakeSetting(moveCtrl: VoiceMove, redraw: () => void) {
 
 let devices: InputDeviceInfo[] | undefined;
 function deviceSelector(redraw: () => void) {
-  return h('div.voice-choices', [
+  return h('div.voice-choices.voice-choices__device', [
     'Microphone',
     h(
       'select',
