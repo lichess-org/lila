@@ -127,7 +127,7 @@ object pref:
             ),
             setting(
               moveConfirmation(),
-              radios(form("behavior.submitMove"), submitMoveChoices)
+              checkboxes(form("behavior.submitMove"), submitMoveChoices)
             ),
             setting(
               confirmResignationAndDrawOffers(),

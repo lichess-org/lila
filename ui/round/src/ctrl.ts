@@ -83,6 +83,7 @@ export default class RoundController {
   transientMove: TransientMove;
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
+  allowMoveConfirmation = true;
   goneBerserk: GoneBerserk = {};
   resignConfirm?: Timeout = undefined;
   drawConfirm?: Timeout = undefined;
@@ -103,6 +104,7 @@ export default class RoundController {
 
     const d = (this.data = opts.data);
 
+    this.allowMoveConfirmation = true;
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;
@@ -359,7 +361,7 @@ export default class RoundController {
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && !meta.premove) {
+    if (this.data.pref.submitMove && this.allowMoveConfirmation && !meta.premove) {
       this.moveToSubmit = move;
       this.redraw();
     } else {
@@ -377,7 +379,7 @@ export default class RoundController {
     };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && !isPredrop) {
+    if (this.data.pref.submitMove && this.allowMoveConfirmation && !isPredrop) {
       this.dropToSubmit = drop;
       this.redraw();
     } else {
@@ -713,6 +715,10 @@ export default class RoundController {
     } else this.jump(this.ply);
     this.cancelMove();
     if (toSubmit) this.setLoading(true, 300);
+  };
+
+  toggleMoveConfirmation = (): void => {
+    this.allowMoveConfirmation = !this.allowMoveConfirmation;
   };
 
   cancelMove = (): void => {

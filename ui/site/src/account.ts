@@ -20,6 +20,48 @@ lichess.load.then(() => {
       $form = $(form),
       showSaved = () => $form.find('.saved').removeClass('none');
     $form.find('input').on('change', function (this: HTMLInputElement) {
+      if (this.type === 'checkbox') {
+        const bitInputs = $(`input[type="checkbox"][name="${this.name}"]`);
+
+        if (this.value === '-1') {
+          if (this.checked) {
+            for (let i = 0; i < bitInputs.length; ++i) {
+              if (bitInputs !== undefined && bitInputs[i] !== undefined) {
+                (<HTMLInputElement>bitInputs[i]).checked = parseInt((<HTMLInputElement>bitInputs[i]).value) !== 0;
+              }
+            }
+          }
+        } else if (this.value === '0') {
+          if (this.checked) {
+            //Deselect all non-Never
+            for (let i = 0; i < bitInputs.length; ++i) {
+              if (bitInputs !== undefined && bitInputs[i] !== undefined) {
+                if (parseInt((<HTMLInputElement>bitInputs[i]).value) !== 0) {
+                  (<HTMLInputElement>bitInputs[i]).checked = false;
+                }
+              }
+            }
+          } else {
+            //self-reselect;  Never is never
+            this.checked = !this.checked
+            return;
+          }
+        }
+
+        let sum = 0;
+        for (let i = 0; i < bitInputs.length; ++i) {
+          if (bitInputs !== undefined && bitInputs[i] !== undefined) {
+            console.log("bit " + (<HTMLInputElement>bitInputs[i])?.value + " is " + (<HTMLInputElement>bitInputs[i])?.checked);
+            if ((<HTMLInputElement>bitInputs[i])?.checked) {
+              sum |= parseInt((<HTMLInputElement>bitInputs[i])?.value);
+            }
+          }
+        }
+        (<HTMLInputElement>$(`input[type="checkbox"][name="${this.name}"][value="0"]`)[0]).checked = sum === 0;
+
+        const valueHidden = $(`input[type="hidden"][name="${this.name}"]`);
+        valueHidden.val(sum.toString());
+      }
       localPrefs.forEach(([categ, name, storeKey]) => {
         if (this.name == `${categ}.${name}`) {
           lichess.storage.boolean(storeKey).set(this.value == '1');

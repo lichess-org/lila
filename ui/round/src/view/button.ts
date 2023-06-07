@@ -9,6 +9,7 @@ import { RoundData } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 import { MaybeVNodes } from 'common/snabbdom';
+import { toggle } from 'common/toggle';
 
 export interface ButtonState {
   enabled: boolean;
@@ -273,6 +274,27 @@ function declineButton(ctrl: RoundController, action: () => void, i18nKey: I18nK
       });
 }
 
+export function toggleMoveConfirmationBtn(ctrl: RoundController): VNode | undefined {
+  return ctrl.data.pref.submitMove && !ctrl.moveToSubmit && !ctrl.dropToSubmit
+    ? h('div.negotiation.fbt.move-confirm-buttons', [toggleMoveConfirmation(ctrl)])
+  : undefined;
+}
+
+function toggleMoveConfirmation(ctrl: RoundController): VNode {
+  return toggle(
+      {
+        name: '',
+        title: 'enableConfirmationForThisGame',
+        id: 'enable-move-confirmation',
+        checked: ctrl.allowMoveConfirmation,
+        change: ctrl.toggleMoveConfirmation,
+      },
+      ctrl.trans,
+      ctrl.redraw
+    );
+}
+
+
 export function answerOpponentTakebackProposition(ctrl: RoundController) {
   return ctrl.data.opponent.proposingTakeback
     ? h('div.negotiation.takeback', [
@@ -286,9 +308,13 @@ export function answerOpponentTakebackProposition(ctrl: RoundController) {
 export function submitMove(ctrl: RoundController): VNode | undefined {
   return ctrl.moveToSubmit || ctrl.dropToSubmit
     ? h('div.negotiation.move-confirm', [
+      toggleMoveConfirmation(ctrl),
+      h('div.negotiation.rcontrols.move-confirm-buttons', [
         declineButton(ctrl, () => ctrl.submitMove(false), 'cancel'),
         h('p', ctrl.noarg('confirmMove')),
-        acceptButton(ctrl, 'confirm-yes', () => ctrl.submitMove(true)),
+        acceptButton(ctrl, 'confirm-yes', () => ctrl.submitMove(true)
+        )],
+      ),
       ])
     : undefined;
 }
