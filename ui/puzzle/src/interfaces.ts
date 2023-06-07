@@ -1,9 +1,9 @@
 import PuzzleSession from './session';
 import { Api as CgApi } from 'chessground/api';
-import { CevalCtrl, NodeEvals } from 'ceval';
+import { CevalCtrl } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
-import { Outcome, Move } from 'chessops/types';
+import { Move } from 'chessops/types';
 import { Prop } from 'common';
 import { StoredProp, ToggleWithUsed } from 'common/storage';
 import { TreeWrapper } from 'tree';
@@ -15,6 +15,7 @@ import { VoiceMove } from 'voice';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
 import { Redraw } from 'common/snabbdom';
+import { ParentCtrl } from 'ceval/src/types';
 
 export type PuzzleId = string;
 
@@ -36,21 +37,7 @@ export interface AllThemes {
   static: Set<ThemeKey>;
 }
 
-export interface Controller extends KeyboardController {
-  nextNodeBest(): string | undefined;
-  disableThreatMode?: Prop<boolean>;
-  outcome(): Outcome | undefined;
-  mandatoryCeval?: Prop<boolean>;
-  showEvalGauge: Prop<boolean>;
-  currentEvals(): NodeEvals;
-  ongoing: boolean;
-  playUci(uci: string): void;
-  playUciList(uciList: string[]): void;
-  getOrientation(): Color;
-  threatMode: Prop<boolean>;
-  getNode(): Tree.Node;
-  showComputer(): boolean;
-  trans: Trans;
+export interface Controller extends KeyboardController, ParentCtrl {
   getData(): PuzzleData;
   getTree(): TreeWrapper;
   ground: Prop<CgApi | undefined>;

@@ -32,7 +32,6 @@ import * as control from '../control';
 import { bind, onInsert, Redraw } from 'common/snabbdom';
 import { Api } from 'chessground/api';
 import throttle from 'common/throttle';
-import { Redraw } from 'chessground/types';
 
 const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 const selectSound = throttled('select');

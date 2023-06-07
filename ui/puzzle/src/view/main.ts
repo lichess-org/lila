@@ -123,10 +123,7 @@ export default function (ctrl: Controller): VNode {
         ctrl.voiceMove ? renderVoiceMove(ctrl.voiceMove, ctrl.redraw, !showCeval) : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
-        h(
-          'div.ceval-wrap',
-          [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)]
-        ),
+        h('div.ceval-wrap', [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)]),
         renderAnalyse(ctrl),
         feedbackView(ctrl),
       ]),
