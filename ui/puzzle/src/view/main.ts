@@ -120,7 +120,7 @@ export default function (ctrl: Controller): VNode {
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
-        ctrl.voiceMove ? renderVoiceMove(ctrl.voiceMove, ctrl.redraw, !showCeval) : null,
+        ctrl.voiceMove ? renderVoiceMove(ctrl.voiceMove, ctrl.redraw, 'puz') : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         h('div.ceval-wrap', [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)]),
