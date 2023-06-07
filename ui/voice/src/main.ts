@@ -20,7 +20,7 @@ const supportedLangs = [
 export { type RootCtrl, type VoiceMove } from './interfaces';
 export { makeVoiceMove };
 
-export function renderVoiceMove(moveCtrl: VoiceMove, redraw: () => void, isPuzzle: boolean) {
+export function renderVoiceMove(moveCtrl: VoiceMove, redraw: () => void, cls?: string) {
   const rec = storedBooleanProp('voice.listening', false);
 
   const toggle = () => {
@@ -30,7 +30,7 @@ export function renderVoiceMove(moveCtrl: VoiceMove, redraw: () => void, isPuzzl
   };
   if (rec() && !lichess.mic.recId) toggle();
 
-  return h(`div#voice-control${isPuzzle ? '.puz' : ''}`, [
+  return h(`div#voice-control${cls ? '.' + cls : ''}`, [
     h('div#voice-status-row', [
       h('button#microphone-button', {
         class: {
