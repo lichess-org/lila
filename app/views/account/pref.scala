@@ -127,7 +127,12 @@ object pref:
             ),
             setting(
               moveConfirmation(),
-              checkboxes(form("behavior.submitMove"), submitMoveChoices)
+              frag(
+                checkboxes(form("behavior.submitMove"), submitMoveChoices),
+                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
+                  explainCanThenBeTemporarilyDisabled()
+                )
+              )
             ),
             setting(
               confirmResignationAndDrawOffers(),

@@ -48,9 +48,6 @@ export const renderTablePlay = (ctrl: RoundController) => {
       loading || submit
         ? []
         : [
-            !ctrl.moveToSubmit && !ctrl.dropToSubmit
-              ? button.toggleMoveConfirmationBtn(ctrl)
-              : undefined,
             game.abortable(d)
               ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
               : button.standard(

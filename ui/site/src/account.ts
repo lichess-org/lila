@@ -43,18 +43,15 @@ lichess.load.then(() => {
             }
           } else {
             //self-reselect;  Never is never
-            this.checked = !this.checked
+            this.checked = !this.checked;
             return;
           }
         }
 
         let sum = 0;
         for (let i = 0; i < bitInputs.length; ++i) {
-          if (bitInputs !== undefined && bitInputs[i] !== undefined) {
-            console.log("bit " + (<HTMLInputElement>bitInputs[i])?.value + " is " + (<HTMLInputElement>bitInputs[i])?.checked);
-            if ((<HTMLInputElement>bitInputs[i])?.checked) {
-              sum |= parseInt((<HTMLInputElement>bitInputs[i])?.value);
-            }
+          if (bitInputs !== undefined && bitInputs[i] !== undefined && (<HTMLInputElement>bitInputs[i])?.checked) {
+            sum |= parseInt((<HTMLInputElement>bitInputs[i])?.value);
           }
         }
         (<HTMLInputElement>$(`input[type="checkbox"][name="${this.name}"][value="0"]`)[0]).checked = sum === 0;

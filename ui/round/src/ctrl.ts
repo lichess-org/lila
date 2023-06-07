@@ -77,6 +77,7 @@ export default class RoundController {
   menu: ToggleWithUsed;
   voiceMoveEnabled: Toggle;
   keyboardMoveEnabled: Toggle;
+  confirmMoveEnabled: Toggle;
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -152,6 +153,9 @@ export default class RoundController {
     this.keyboardMoveEnabled = toggle(d.pref.keyboardMove, async v => {
       await xhr.setPreference('keyboardMove', v ? '1' : '0');
       lichess.reload();
+    });
+    this.confirmMoveEnabled = toggle(this.allowMoveConfirmation, () => {
+      this.allowMoveConfirmation = !this.allowMoveConfirmation;
     });
 
     this.trans = lichess.trans(opts.i18n);
@@ -715,10 +719,6 @@ export default class RoundController {
     } else this.jump(this.ply);
     this.cancelMove();
     if (toSubmit) this.setLoading(true, 300);
-  };
-
-  toggleMoveConfirmation = (): void => {
-    this.allowMoveConfirmation = !this.allowMoveConfirmation;
   };
 
   cancelMove = (): void => {
