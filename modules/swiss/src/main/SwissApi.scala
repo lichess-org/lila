@@ -1,7 +1,8 @@
 package lila.swiss
 
-import akka.stream.scaladsl.*
+import cats.syntax.all.*
 import alleycats.Zero
+import akka.stream.scaladsl.*
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import java.time.format.{ DateTimeFormatter, FormatStyle }
@@ -533,8 +534,8 @@ final class SwissApi(
       .cursor[Bdoc]()
       .list(10)
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
-      .flatMap { ids =>
-        lila.common.LilaFuture.applySequentially(ids) { id =>
+      .flatMap:
+        _.traverse_ : id =>
           Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
             if (swiss.round.value >= swiss.settings.nbRounds) doFinish(swiss)
             else if (swiss.nbPlayers >= 2)
@@ -566,8 +567,6 @@ final class SwissApi(
                 .one($id(swiss.id), $set("nextRoundAt" -> nowInstant.plusSeconds(121)))
                 .void >>- cache.swissCache.clear(swiss.id)
           } >> recomputeAndUpdateAll(id)
-        }
-      }
       .monSuccess(_.swiss.tick)
 
   private def countPresentPlayers(swiss: Swiss) = SwissPlayer.fields { f =>

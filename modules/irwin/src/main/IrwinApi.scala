@@ -1,5 +1,6 @@
 package lila.irwin
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 import reactivemongo.api.ReadPreference
 
@@ -109,10 +110,10 @@ final class IrwinApi(
       )
 
     private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
-      lila.common.LilaFuture.applySequentially(suspects) { insert(_, _.Tournament) }
+      suspects.traverse_(insert(_, _.Tournament))
 
     private[irwin] def topOnline(leaders: List[Suspect]): Funit =
-      lila.common.LilaFuture.applySequentially(leaders) { insert(_, _.Leaderboard) }
+      leaders.traverse_(insert(_, _.Leaderboard))
 
     import lila.game.BSONHandlers.given
 
