@@ -1,5 +1,6 @@
 package lila.simul
 
+import cats.syntax.all.*
 import play.api.libs.json.*
 
 import lila.common.LightUser
@@ -49,8 +50,6 @@ final class JsonView(
     }
 
   def api(simuls: List[Simul]): Fu[JsArray] =
-    import cats.syntax.all.*
-    // lila.common.LilaFuture.linear(simuls)(apiJson) map JsArray.apply
     simuls.traverse(apiJson).map(JsArray.apply)
 
   def apiAll(

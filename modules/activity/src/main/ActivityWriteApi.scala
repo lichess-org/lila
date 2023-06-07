@@ -136,9 +136,8 @@ final class ActivityWriteApi(
 
   def swiss(id: SwissId, ranking: lila.swiss.Ranking) =
     ranking.toList.traverse_ : (userId, rank) =>
-      update(userId) { a =>
+      update(userId): a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
-      }
 
   private def simulParticipant(simul: lila.simul.Simul, userId: UserId) = update(userId) { a =>
     $doc(ActivityFields.simuls -> { ~a.simuls + simul.id })

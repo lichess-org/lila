@@ -248,18 +248,16 @@ final class ClasApi(
         data: ClasForm.ManyNewStudent,
         teacher: User
     ): Fu[List[Student.WithPassword]] =
-      count(clas.id) flatMap { nbCurrentStudents =>
+      count(clas.id).flatMap: nbCurrentStudents =>
         data.realNames
           .take(Clas.maxStudents - nbCurrentStudents)
           .traverse: realName =>
-            nameGenerator() flatMap { username =>
+            nameGenerator().flatMap: username =>
               val data = ClasForm.CreateStudent(
                 username = username | UserName(ThreadLocalRandom.nextString(10)),
                 realName = realName
               )
               create(clas, data, teacher)
-            }
-      }
 
     def resetPassword(s: Student): Fu[ClearPassword] =
       val password = Student.password.generate

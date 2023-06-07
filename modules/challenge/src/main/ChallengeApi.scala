@@ -160,17 +160,18 @@ final class ChallengeApi(
     joiner(challenge, dest.some).map(_.map(_.game))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
-    if (c.hasClock) fuFalse
+    if c.hasClock then fuFalse
     else
       c.userIds
-        .map { userId =>
+        .map: userId =>
           gameCache.nbPlaying(userId) dmap (lila.game.Game.maxPlaying <=)
-        }
         .parallel
         .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =
-    repo.realTimeUnseenSince(nowInstant minusSeconds 20, max = 50).flatMap(_.traverse_(offline)) >>
+    repo
+      .realTimeUnseenSince(nowInstant minusSeconds 20, max = 50)
+      .flatMap(_.traverse_(offline)) >>
       repo.expired(50).flatMap(_.traverse_(remove))
 
   private def remove(c: Challenge) =
