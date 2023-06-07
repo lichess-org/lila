@@ -1,5 +1,6 @@
 package lila.challenge
 
+import cats.syntax.all.*
 import cats.data.Validated
 import cats.data.Validated.{ Invalid, Valid }
 
@@ -153,9 +154,7 @@ final class ChallengeApi(
     }
 
   def removeByUserId(userId: UserId) =
-    repo allWithUserId userId flatMap { cs =>
-      lila.common.LilaFuture.applySequentially(cs)(remove).void
-    }
+    repo.allWithUserId(userId).flatMap(_.traverse_(remove))
 
   def oauthAccept(dest: User, challenge: Challenge): Fu[Validated[String, Game]] =
     joiner(challenge, dest.some).map(_.map(_.game))
@@ -171,12 +170,8 @@ final class ChallengeApi(
         .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =
-    repo.realTimeUnseenSince(nowInstant minusSeconds 20, max = 50).flatMap { cs =>
-      lila.common.LilaFuture.applySequentially(cs)(offline).void
-    } >>
-      repo.expired(50).flatMap { cs =>
-        lila.common.LilaFuture.applySequentially(cs)(remove).void
-      }
+    repo.realTimeUnseenSince(nowInstant minusSeconds 20, max = 50).flatMap(_.traverse_(offline)) >>
+      repo.expired(50).flatMap(_.traverse_(remove))
 
   private def remove(c: Challenge) =
     repo.remove(c.id) >>- uncacheAndNotify(c)

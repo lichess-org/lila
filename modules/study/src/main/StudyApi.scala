@@ -563,9 +563,7 @@ final class StudyApi(
 
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ) =
-    lila.common.LilaFuture.applySequentially(datas): data =>
-      addChapter(studyId, data, sticky, withRatings)(who)
+  ) = datas.traverse_(addChapter(studyId, _, sticky, withRatings)(who))
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who) =
     chapterRepo.insert(chapter) >> {

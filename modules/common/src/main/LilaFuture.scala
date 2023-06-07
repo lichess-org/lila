@@ -46,13 +46,6 @@ object LilaFuture:
       }
     }.dmap(_.result())
 
-  def applySequentially[A](
-      list: List[A]
-  )(f: A => Funit)(using Executor): Funit =
-    list match
-      case h :: t => f(h) >> applySequentially(t)(f)
-      case Nil    => funit
-
   def find[A](
       list: List[A]
   )(f: A => Fu[Boolean])(using Executor): Fu[Option[A]] =

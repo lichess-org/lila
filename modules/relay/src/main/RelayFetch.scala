@@ -247,13 +247,17 @@ private[relay] object RelayFetch:
 
     case class GameJson(moves: List[String], result: Option[String]):
       def toPgn(extraTags: Tags = Tags.empty) =
-        val strMoves = moves.map(_ split ' ').mapWithIndex: (move, index) =>
-          chess.format.pgn.Move(
-            ply = Ply(index + 1),
-            san = SanStr(~move.headOption),
-            secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
-          ).render
-        .mkString(" ")
+        val strMoves = moves
+          .map(_ split ' ')
+          .mapWithIndex: (move, index) =>
+            chess.format.pgn
+              .Move(
+                ply = Ply(index + 1),
+                san = SanStr(~move.headOption),
+                secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
+              )
+              .render
+          .mkString(" ")
         PgnStr(s"$extraTags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 
