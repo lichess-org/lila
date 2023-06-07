@@ -73,7 +73,7 @@
   <string name="history">Historia zadań</string>
   <string name="solved">rozwiązane</string>
   <string name="failed">nie udało się</string>
-  <string name="streakDescription">Stopniowo rozwiązuj coraz trudniejsze zadania i utwórz serię poprawnych rozwiązań. Czas nie jest odliczany więc nie musisz się spieszyć. Jednak do przegranej wystarczy tylko jeden zły ruch! Możesz pominąć ruch w danej sesji.</string>
+  <string name="streakDescription">Stopniowo rozwiązuj coraz trudniejsze zadania i utwórz serię poprawnych rozwiązań. Czas nie jest odliczany, więc nie musisz się spieszyć. Jednak do przegranej wystarczy tylko jeden zły ruch! Możesz pominąć jeden ruch na sesję.</string>
   <string name="yourStreakX">Twoja seria: %s</string>
   <string name="streakSkipExplanation">Pomiń ruch, jeśli chcesz zachować swoją serię. Możesz użyć tylko raz w sesji.</string>
   <string name="continueTheStreak">Kontynuuj serię</string>
