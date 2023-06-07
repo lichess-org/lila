@@ -14,6 +14,7 @@ export type I18nKey =
 'toggleTheChat'|
 'toggleSound'|
 'chat'|
+'page'|
 'resign'|
 'checkmate'|
 'stalemate'|

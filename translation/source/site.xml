@@ -14,6 +14,7 @@
 	<string name="toggleTheChat">Toggle the chat</string>
 	<string name="toggleSound">Toggle sound</string>
 	<string name="chat">Chat</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
 	<string name="resign">Resign</string>
 	<string name="checkmate">Checkmate</string>
 	<string name="stalemate">Stalemate</string>
