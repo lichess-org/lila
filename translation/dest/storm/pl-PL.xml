@@ -17,10 +17,10 @@
     <item quantity="other">%s prób</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Jedna próba rozwiązania %2$s</item>
-    <item quantity="few">%1$s próby rozwiązania %2$s</item>
-    <item quantity="many">%1$s prób rozwiązania %2$s</item>
-    <item quantity="other">%1$s prób rozwiązania %2$s</item>
+    <item quantity="one">Rozegrano jedną sesję %2$s</item>
+    <item quantity="few">Rozegrano %1$s sesje %2$s</item>
+    <item quantity="many">Rozegrano %1$s sesji %2$s</item>
+    <item quantity="other">Rozegrano %1$s sesji %2$s</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
   <string name="score">Wynik</string>
