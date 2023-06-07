@@ -45,7 +45,9 @@ $buttons-height: 2.5rem;
   }
 
   .board-menu {
+    @extend %box-radius-bottom;
     top: $buttons-height;
+    border-top: 2px solid $c-secondary;
   }
 
   @import 'moves-col1';

@@ -1,7 +1,6 @@
 .board-menu {
-  @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+  @extend %flex-column, %dropdown-shadow;
   position: absolute;
-  border-top: 2px solid $c-secondary;
   z-index: z(mz-menu);
   min-width: 100%;
   right: 0;

@@ -52,7 +52,6 @@ function controls(ctrl: Controller): VNode {
             else if (action === 'next') control.next(ctrl);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-            else if (action === 'menu') ctrl.menu.toggle();
           },
           ctrl.redraw
         );
@@ -66,6 +65,7 @@ function controls(ctrl: Controller): VNode {
         jumpButton(licon.JumpLast, 'last', !nextNode, goNext),
         boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
       ]),
+      boardMenu(ctrl),
     ]
   );
 }
@@ -144,7 +144,6 @@ export default function (ctrl: Controller): VNode {
       ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
       ctrl.keyboardHelp() ? keyboard.view(ctrl) : null,
-      boardMenu(ctrl),
     ]
   );
 }
