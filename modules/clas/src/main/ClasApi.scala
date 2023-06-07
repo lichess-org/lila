@@ -1,5 +1,6 @@
 package lila.clas
 
+import cats.syntax.all.*
 import reactivemongo.api.*
 import ornicar.scalalib.ThreadLocalRandom
 
@@ -248,15 +249,16 @@ final class ClasApi(
         teacher: User
     ): Fu[List[Student.WithPassword]] =
       count(clas.id) flatMap { nbCurrentStudents =>
-        lila.common.LilaFuture.linear(data.realNames.take(Clas.maxStudents - nbCurrentStudents)) { realName =>
-          nameGenerator() flatMap { username =>
-            val data = ClasForm.CreateStudent(
-              username = username | UserName(ThreadLocalRandom.nextString(10)),
-              realName = realName
-            )
-            create(clas, data, teacher)
-          }
-        }
+        data.realNames
+          .take(Clas.maxStudents - nbCurrentStudents)
+          .traverse: realName =>
+            nameGenerator() flatMap { username =>
+              val data = ClasForm.CreateStudent(
+                username = username | UserName(ThreadLocalRandom.nextString(10)),
+                realName = realName
+              )
+              create(clas, data, teacher)
+            }
       }
 
     def resetPassword(s: Student): Fu[ClearPassword] =

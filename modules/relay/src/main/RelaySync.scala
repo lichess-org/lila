@@ -1,5 +1,6 @@
 package lila.relay
 
+import cats.syntax.traverse.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
 import lila.socket.Socket.Sri
@@ -20,7 +21,7 @@ final private class RelaySync(
         RelayInputSanity(chapters, games) match
           case Left(fail) => fufail(fail.msg)
           case Right(games) =>
-            lila.common.LilaFuture.linear(games) { game =>
+            games.traverse: game =>
               findCorrespondingChapter(game, chapters, games.size) match
                 case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
                 case None =>
@@ -35,11 +36,10 @@ final private class RelaySync(
                         } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
                       }
                   }
-            } flatMap { chapterUpdates =>
-              val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
-              lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
-              tourRepo.setSyncedNow(rt.tour) inject result
-            }
+      } flatMap { chapterUpdates =>
+        val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
+        lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
+        tourRepo.setSyncedNow(rt.tour) inject result
       }
     }
 
