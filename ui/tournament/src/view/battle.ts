@@ -1,8 +1,8 @@
 import TournamentController from '../ctrl';
-import { bind } from 'common/snabbdom';
+import { bind, MaybeVNode } from 'common/snabbdom';
 import { playerName } from './util';
 import { h, VNode } from 'snabbdom';
-import { TeamBattle, RankedTeam, MaybeVNode } from '../interfaces';
+import { TeamBattle, RankedTeam } from '../interfaces';
 import { snabModal } from 'common/modal';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
@@ -112,6 +112,7 @@ export function teamName(battle: TeamBattle, teamId: string): VNode {
 function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam) {
   const players = [] as (string | VNode)[];
   team.players.forEach((p, i) => {
+    if (i > 0) players.push('+');
     players.push(
       h(
         'score.ulpt.user-link',

@@ -2,12 +2,16 @@ import { h } from 'snabbdom';
 import LobbyController from '../../../ctrl';
 
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {
-  if (!ctrl.me || ctrl.opts.blindMode || !ctrl.data.ratingMap) return null;
+  if (!ctrl.me || lichess.blindMode || !ctrl.data.ratingMap) return null;
 
   const { trans, setupCtrl } = ctrl;
   const selectedPerf = ctrl.setupCtrl.selectedPerf();
   const isProvisional = !!ctrl.data.ratingMap[selectedPerf].prov;
   const disabled = isProvisional ? '.disabled' : '';
+
+  // Get current rating values or use default values if isProvisional
+  const currentRatingMin = isProvisional ? -500 : setupCtrl.ratingMin();
+  const currentRatingMax = isProvisional ? 500 : setupCtrl.ratingMax();
 
   return h(
     `div.rating-range-config.optional-config${disabled}`,
@@ -27,7 +31,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
             min: '-500',
             max: '0',
             step: '50',
-            value: setupCtrl.ratingMin(),
+            value: currentRatingMin,
             disabled: isProvisional,
           },
           on: {
@@ -38,16 +42,16 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
             },
           },
         }),
-        h('span.rating-min', '-' + Math.abs(setupCtrl.ratingMin())),
+        h('span.rating-min', '-' + Math.abs(currentRatingMin)),
         '/',
-        h('span.rating-max', '+' + setupCtrl.ratingMax()),
+        h('span.rating-max', '+' + currentRatingMax),
         h('input.range.rating-range__max', {
           attrs: {
             type: 'range',
             min: '0',
             max: '500',
             step: '50',
-            value: setupCtrl.ratingMax(),
+            value: currentRatingMax,
             disabled: isProvisional,
           },
           on: {

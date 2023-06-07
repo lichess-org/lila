@@ -778,6 +778,7 @@
   <string name="invalidFen">FEN non valide</string>
   <string name="custom">Personnalisée</string>
   <string name="notifications">Notifications</string>
+  <string name="notificationsX">Notifications : %1$s</string>
   <string name="perfRatingX">Classement : %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde pour jouer le premier coup</item>

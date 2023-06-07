@@ -142,7 +142,7 @@
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s неточність</item>
-    <item quantity="few">%s неточністі</item>
+    <item quantity="few">%s неточності</item>
     <item quantity="many">%s неточностей</item>
     <item quantity="other">%s неточностей</item>
   </plurals>

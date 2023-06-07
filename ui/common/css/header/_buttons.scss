@@ -33,6 +33,10 @@
     @extend %top-icon;
   }
 
+  button.toggle {
+    @extend %button-none;
+  }
+
   .initiating {
     @extend %flex-center;
 

@@ -10,6 +10,7 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.game.actorApi.{ FinishGame, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
+import chess.{ Ply, Situation }
 
 final class ApiMoveStream(
     gameRepo: GameRepo,
@@ -50,12 +51,13 @@ final class ApiMoveStream(
                     black <- c.black.lift((index + clockOffset) >> 1)
                   yield ByColor(white, black)
                   queue offer toJson(
-                    Fen write s,
+                    Fen write Situation
+                      .AndFullMoveNumber(s, (game.startedAtPly + index).fullMoveNumber),
                     s.board.history.lastMove.map(_.uci),
                     clk
                   )
               }
-              if (game.finished)
+              if game.finished then
                 queue offer makeGameJson(game)
                 queue.complete()
               else

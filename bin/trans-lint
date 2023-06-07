@@ -94,7 +94,9 @@ def lint(report, path):
             continue
 
         source_el = source.find(f".//{el.tag}[@name='{name}']")
-        if el.tag == "string":
+        if source_el is None:
+            ctx.error(f"Source is missing for {db}")
+        elif el.tag == "string":
             lint_string(ctx, el.text, source_el.text)
         elif el.tag == "plurals":
             for item in el:

@@ -44,13 +44,13 @@ Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund
   <string name="lichessSupportChessAnd">Lichess umożliwia grę w standardowe szachy oraz %1$s.</string>
   <string name="eightVariants">8 wariantów szachów</string>
   <string name="whatIsACPL">Czym jest średnia strata setnej części piona (ACPL - average centipawn loss)?</string>
-  <string name="acplExplanation">Średnia strata setnej części piona (ACPL - average centipawn loss) jest jednostką miary stosowaną w szachach do przedstawienia straty wynikającej z wykonania danego posunięcia. Wartość ta nie odgrywa żadnej formalnej roli podczas rozgrywania partii, ale jest użyteczna dla graczy podczas jej analizy. Silniki szachowe wykorzystują ją natomiast do oceny pozycji podczas samej rozgrywki.
+  <string name="acplExplanation">Średnia strata setnej piona (ACPL - average centipawn loss) jest jednostką miary stosowaną w szachach do przedstawienia straty wynikającej z wykonania danego posunięcia. Wartość ta nie odgrywa żadnej formalnej roli podczas rozgrywania partii, ale jest użyteczna dla graczy podczas jej analizy. Silniki szachowe wykorzystują ją natomiast do oceny pozycji podczas samej rozgrywki.
 
-Najlepszy znaleziony podczas analizy komputerowej ruch to brak straty, ale gorsze ruchy powodują pogorszenie się pozycji, które właśnie mierzymy w setnych częściach wartości piona.
+Najlepszy znaleziony podczas analizy komputerowej ruch spowoduje brak straty, ale gorsze ruchy powodują pogorszenie się pozycji, które właśnie mierzymy w setnych wartości piona.
 
-Ta wartość może być użyta jako wskaźnik siły gry. Im mniej setnych części piona traconych jest średnio w jednym ruchu, tym siła gry jest większa.
+Ta wartość może być użyta jako wskaźnik siły gry. Im mniej setnych piona jest średnio traconych na jeden ruch, tym silniejsza jest gra.
 
-Analiza komputerowa dostępna na Lichess wspierana jest przez silnik szachowy Stockfish.</string>
+Analiza komputerowa dostępna na Lichess jest zasilana przez Stockfish.</string>
   <string name="insufficientMaterial">Przegrana z powodu upłynięcia czasu gry, remis i niewystarczający materiał aby zamatować przeciwnika</string>
   <string name="lichessFollowFIDErules">W przypadku gdy jednemu z graczy skończy się czas, gracz ten zazwyczaj przegrywa. Jednakże w przypadku gdy pozycja na szachownicy uniemożliwia przeciwnikowi doprowadzenie do zamatowania króla gracza żadną możliwą sekwencją ruchów (%1$s), gra jest remisowana.
 

@@ -9,7 +9,9 @@ import throttle from 'common/throttle';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
-import { Step, MaybeVNodes } from '../interfaces';
+import { Step } from '../interfaces';
+import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import { MaybeVNodes } from 'common/snabbdom';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -162,32 +164,21 @@ function renderButtons(ctrl: RoundController) {
           else {
             const action =
               target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-            if (action === 'flip') {
-              if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-              else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
-              else ctrl.flipNow();
-            }
+            if (action === 'menu') ctrl.menu.toggle();
           }
         },
         ctrl.redraw
       ),
     },
     [
-      h('button.fbt.flip', {
-        class: { active: ctrl.flip },
-        attrs: {
-          title: ctrl.noarg('flipBoard'),
-          'data-act': 'flip',
-          'data-icon': licon.ChasingArrows,
-        },
-      }),
+      analysisButton(ctrl) || h('div.noop'),
       ...[
         [licon.JumpFirst, firstPly],
         [licon.JumpPrev, ctrl.ply - 1],
         [licon.JumpNext, ctrl.ply + 1],
         [licon.JumpLast, lastPly],
       ].map((b: [string, number], i) => {
-        const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+        const enabled = ctrl.ply !== b[1] && (b[1] as number) >= firstPly && (b[1] as number) <= lastPly;
         return h('button.fbt', {
           class: { glowing: i === 3 && ctrl.isLate() },
           attrs: {
@@ -197,7 +188,7 @@ function renderButtons(ctrl: RoundController) {
           },
         });
       }),
-      analysisButton(ctrl) || h('div.noop'),
+      boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
     ]
   );
 }
