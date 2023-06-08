@@ -1,5 +1,6 @@
 package lila.push
 
+import cats.syntax.all.*
 import akka.actor.*
 import play.api.libs.json.*
 
@@ -298,7 +299,7 @@ final private class PushApi(
     }
 
   def tourSoon(tour: TourSoon): Funit =
-    lila.common.LilaFuture.applySequentially(tour.userIds.toList) { userId =>
+    tour.userIds.toList.traverse_ : userId =>
       maybePush(
         userId,
         _.tourSoon,
@@ -321,7 +322,6 @@ final private class PushApi(
               )
           )
       )
-    }
 
   def forumMention(to: NotifyAllows, mentionedBy: String, topicName: String, postId: ForumPostId): Funit =
     postApi.getPost(postId) flatMap { post =>

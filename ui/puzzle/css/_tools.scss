@@ -125,6 +125,7 @@
 .puzzle__controls {
   @extend %flex-center;
 
+  position: relative;
   height: $col3-uniboard-controls;
   margin-top: #{-$block-gap};
 
@@ -134,7 +135,16 @@
 
   // height: calc(#{$puzzle-history-height} + #{$block-gap});
   .jumps {
+    position: relative;
     flex: 1 1 auto;
+  }
+  .board-menu {
+    @extend %box-radius-top;
+    bottom: $col3-uniboard-controls;
+    @include breakpoint($mq-col1) {
+      bottom: $col1-uniboard-controls;
+    }
+    border-bottom: 2px solid $c-secondary;
   }
 
   .fbt {

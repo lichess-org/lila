@@ -1,5 +1,11 @@
 .board-menu {
-  min-width: 300px;
+  @extend %flex-column, %dropdown-shadow;
+  position: absolute;
+  z-index: z(mz-menu);
+  min-width: 100%;
+  right: 0;
+  background: $c-bg-popup;
+  padding: 0 1.5em;
 
   > div {
     @extend %flex-column;
@@ -10,9 +16,9 @@
   section {
     @extend %flex-column;
     gap: 1.5em;
+    padding: 1.2em 0;
     &:not(:last-child) {
       border-bottom: 1px solid $c-border;
-      padding-bottom: 2em;
     }
   }
 
