@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично реми при трикратно повторение</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когато остават по-малко от 30 секунди</string>
   <string name="moveConfirmation">Потвърждение на хода</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Може да бъде изключено по време на игра от менюто на дъската</string>
   <string name="inCorrespondenceGames">Кореспондентски игри</string>
   <string name="correspondenceAndUnlimited">Кореспондентен и без ограничение</string>
   <string name="confirmResignationAndDrawOffers">Потвърждаване на предаване и предложение за реми</string>
