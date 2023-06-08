@@ -219,7 +219,7 @@ private[study] object ChapterMaker:
       isDefaultName: Boolean = true
   ) extends ChapterData:
 
-    def manyGames: Option[List[Data]] =
+    def manyGames =
       game
         .??(_.linesIterator.take(Study.maxChapters).toList)
         .map(_.trim)

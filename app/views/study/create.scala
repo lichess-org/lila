@@ -29,7 +29,6 @@ object create:
       moreCss = cssTag("study.create").some
     ) {
       div(cls := "study-create")(
-        standardFlash,
         postForm(action := routes.Study.create)(
           input(tpe := "hidden", name := "gameId", value      := data.gameId),
           input(tpe := "hidden", name := "orientation", value := data.orientation.map(_.key)),
