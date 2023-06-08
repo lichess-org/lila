@@ -1,5 +1,6 @@
 package lila.activity
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently
@@ -74,9 +75,7 @@ final class ActivityWriteApi(
   }
 
   def simul(simul: lila.simul.Simul) =
-    lila.common.LilaFuture.applySequentially(simul.hostId :: simul.pairings.map(_.player.user)) {
-      simulParticipant(simul, _)
-    }
+    (simul.hostId :: simul.pairings.map(_.player.user)).traverse_(simulParticipant(simul, _))
 
   def corresMove(gameId: GameId, userId: UserId) = update(userId) { a =>
     $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
@@ -136,11 +135,9 @@ final class ActivityWriteApi(
     }
 
   def swiss(id: SwissId, ranking: lila.swiss.Ranking) =
-    lila.common.LilaFuture.applySequentially(ranking.toList) { case (userId, rank) =>
-      update(userId) { a =>
+    ranking.toList.traverse_ : (userId, rank) =>
+      update(userId): a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
-      }
-    }
 
   private def simulParticipant(simul: lila.simul.Simul, userId: UserId) = update(userId) { a =>
     $doc(ActivityFields.simuls -> { ~a.simuls + simul.id })

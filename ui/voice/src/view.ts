@@ -8,8 +8,8 @@ import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
 import { supportedLangs } from './main';
 
-export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, isPuzzle = false) {
-  return h(`div#voice-bar${isPuzzle ? '.puz' : ''}`, [
+export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string) {
+  return h(`div#voice-bar${cls ? '.' + cls : ''}`, [
     h('div#voice-status-row', [
       h('button#microphone-button', {
         hook: onInsert(el => el.addEventListener('click', () => ctrl.toggle())),

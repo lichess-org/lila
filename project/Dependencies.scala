@@ -14,13 +14,13 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.9.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.9.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.4.1"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.4.2"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val jodaTime    = "joda-time"                     % "joda-time"                       % "2.12.5"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "15.2.7"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "15.2.8"
   val compression = "org.lichess"                  %% "compression"                     % "1.8"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
-  val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3"
+  val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.6" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.17.0"
@@ -65,17 +65,17 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.10"
-    val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC8"
+    val playVersion = "2.8.18-lila_3.13"
+    val json        = "com.typesafe.play" %% "play-json"         % "2.10.0-RC9"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
     val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
-    val mailer      = "com.typesafe.play" %% "play-mailer"       % "9.0.0-M1"
+    val mailer      = "com.typesafe.play" %% "play-mailer"       % "9.0.0-M2"
   }
 
   object playWs {
-    val version = "2.2.0-M3"
+    val version = "2.2.0-M4"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)

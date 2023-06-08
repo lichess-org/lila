@@ -9,6 +9,7 @@ enum UserMark:
   case Troll
   case Reportban
   case Rankban
+  case PrizeBan
   case Alt
   def key = toString.toLowerCase
 
@@ -27,6 +28,7 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     def troll: Boolean               = has(UserMark.Troll)
     def reportban: Boolean           = has(UserMark.Reportban)
     def rankban: Boolean             = has(UserMark.Rankban)
+    def prizeban: Boolean            = has(UserMark.PrizeBan)
     def alt: Boolean                 = has(UserMark.Alt)
 
     def nonEmpty   = a.value.nonEmpty option a

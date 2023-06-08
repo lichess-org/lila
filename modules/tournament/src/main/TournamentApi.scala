@@ -1,5 +1,6 @@
 package lila.tournament
 
+import cats.syntax.all.*
 import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import java.nio.charset.StandardCharsets.UTF_8
@@ -240,9 +241,10 @@ final class TournamentApi(
     import lila.user.TrophyKind.*
     import lila.tournament.Tournament.tournamentUrl
     tour.schedule.exists(_.freq == Schedule.Freq.Marathon) ?? {
-      playerRepo.bestByTourWithRank(tour.id, 500).flatMap { players =>
-        lila.common.LilaFuture
-          .applySequentially(players) {
+      playerRepo
+        .bestByTourWithRank(tour.id, 500)
+        .flatMap:
+          _.traverse_ :
             case rp if rp.rank.value == 1 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
             case rp if rp.rank <= 10 =>
@@ -252,9 +254,6 @@ final class TournamentApi(
             case rp if rp.rank <= 100 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
             case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
-          }
-          .void
-      }
     }
 
   def getVerdicts(tour: Tournament, me: Option[User], playerExists: Boolean)(using
@@ -277,7 +276,8 @@ final class TournamentApi(
       playerRepo.find(tour.id, me.id) flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if (
+          if (me.marks.prizeban && tour.looksLikePrize) fuccess(JoinResult.PrizeBanned)
+          else if (
             prevPlayer.nonEmpty || tour.password.forall(p =>
               // plain text access code
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
@@ -486,7 +486,7 @@ final class TournamentApi(
               }
             } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
               pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-                lila.common.LilaFuture.applySequentially(uids.toList)(recomputePlayerAndSheet(tour))
+                uids.toList.traverse_(recomputePlayerAndSheet(tour))
             }
           }
         } >>
