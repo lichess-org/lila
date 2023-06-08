@@ -93,7 +93,7 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
           )
         )
       : null,
-    h('div.voice-container', renderVoiceBar(ctrl.voice, ctrl.redraw)),
+    h('div.voice-container', renderVoiceBar(ctrl.voice, ctrl.redraw, 'coords')),
     h('div.keyboard-container', [
       h('span', [
         h('input.keyboard', {
