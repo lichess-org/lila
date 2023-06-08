@@ -68,6 +68,7 @@ object TestCase:
   import Fixtures.*
   val all = standards.map((str, expected) => TestCase(Standard, str, expected))
     ++ crazyhouses.map((str, expected) => TestCase(Crazyhouse, str, expected))
+    ++ antichess.map((str, expected) => TestCase(Antichess, str, expected))
 
 enum StudyAction:
   case Move(m: AnaMove)
@@ -304,3 +305,16 @@ object Fixtures:
   val pgn7 = "1. c4 b5 2. cxb5 c6 3. bxc6 Nxc6 4. P@c7 Qxc7 5. P@b6 (5. P@d6)"
 
   val crazyhouses = List(m7 -> pgn7)
+
+  val m9 = """
+{"t":"anaMove","d":{"orig":"e2","dest":"e4","variant":"antichess","fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1","path":"","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"f7","dest":"f5","variant":"antichess","fen":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b - - 0 1","path":"/?","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"e4","dest":"f5","variant":"antichess","fen":"rnbqkbnr/ppppp1pp/8/5p2/4P3/8/PPPP1PPP/RNBQKBNR w - - 0 2","path":"/?XH","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"g8","dest":"f6","variant":"antichess","fen":"rnbqkbnr/ppppp1pp/8/5P2/8/8/PPPP1PPP/RNBQKBNR b - - 0 2","path":"/?XH?H","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"d1","dest":"h5","variant":"antichess","fen":"rnbqkb1r/ppppp1pp/5n2/5P2/8/8/PPPP1PPP/RNBQKBNR w - - 1 3","path":"/?XH?HaP","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"f6","dest":"h5","variant":"antichess","fen":"rnbqkb1r/ppppp1pp/5n2/5P1Q/8/8/PPPP1PPP/RNB1KBNR b - - 2 3","path":"/?XH?HaP&J","ch":"BWRqIKUe","sticky":false}}
+""".trim
+
+  val pgn9 = "1. e4 f5 2. exf5 Nf6 3. Qh5 Nxh5"
+
+  val antichess = List(m9 -> pgn9)
