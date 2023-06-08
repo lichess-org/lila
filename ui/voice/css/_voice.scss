@@ -143,8 +143,17 @@ button#microphone-button {
 
 .voice-choices {
   @extend %flex-between;
+  gap: 1em;
 
   .active {
     @extend %active-primary;
+  }
+
+  &__device {
+    flex-flow: row nowrap;
+    select {
+      width: 0;
+      flex: 1;
+    }
   }
 }

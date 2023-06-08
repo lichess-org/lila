@@ -32,7 +32,6 @@ export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
     if (e.key !== 'Shift') return;
     clearTimeout(keyupTimeout);
     keyupTimeout = setTimeout(() => lichess.mic.stop(), 600);
-
   };
   const pushTalkOn = () => {
     // TODO: setTimeout to periodically generate events (to check modifier state)

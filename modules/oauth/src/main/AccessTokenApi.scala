@@ -1,5 +1,6 @@
 package lila.oauth
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 
 import lila.common.Bearer
@@ -55,34 +56,34 @@ final class AccessTokenApi(
       setup: OAuthTokenForm.AdminChallengeTokensData,
       admin: User
   ): Fu[Map[UserId, AccessToken]] =
-    userRepo.enabledByIds(setup.usernames) flatMap { users =>
-      val scope = OAuthScope.Challenge.Write
-      lila.common.LilaFuture
-        .linear(users) { user =>
-          coll.one[AccessToken](
-            $doc(
-              F.userId       -> user.id,
-              F.clientOrigin -> setup.description,
-              F.scopes       -> scope.key
-            )
-          ) getOrElse {
-            val plain = Bearer.randomPersonal()
-            create(
-              AccessToken(
-                id = AccessToken.Id.from(plain),
-                plain = plain,
-                userId = user.id,
-                description = s"Challenge admin: ${admin.username}".some,
-                createdAt = nowInstant.some,
-                scopes = List(scope),
-                clientOrigin = setup.description.some,
-                expires = Some(nowInstant plusMonths 6)
+    userRepo
+      .enabledByIds(setup.usernames)
+      .flatMap: users =>
+        val scope = OAuthScope.Challenge.Write
+        users
+          .traverse: user =>
+            coll.one[AccessToken](
+              $doc(
+                F.userId       -> user.id,
+                F.clientOrigin -> setup.description,
+                F.scopes       -> scope.key
               )
-            )
-          } map { user.id -> _ }
-        }
-        .map(_.toMap)
-    }
+            ) getOrElse {
+              val plain = Bearer.randomPersonal()
+              create(
+                AccessToken(
+                  id = AccessToken.Id.from(plain),
+                  plain = plain,
+                  userId = user.id,
+                  description = s"Challenge admin: ${admin.username}".some,
+                  createdAt = nowInstant.some,
+                  scopes = List(scope),
+                  clientOrigin = setup.description.some,
+                  expires = Some(nowInstant plusMonths 6)
+                )
+              )
+            } map { user.id -> _ }
+          .map(_.toMap)
 
   def listPersonal(user: User): Fu[List[AccessToken]] =
     coll
