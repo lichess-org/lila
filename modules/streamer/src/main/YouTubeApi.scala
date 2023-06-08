@@ -30,7 +30,6 @@ final private class YouTubeApi(
       .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
-
     cfg.googleApiKey.value.nonEmpty ?? Future
       .sequence {
         idPages.map { idPage =>
@@ -55,6 +54,12 @@ final private class YouTubeApi(
       .map(_.flatten)
       .addEffect { streams =>
         if streams != lastResults then
+          val newStreams  = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
+          val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
+          if newStreams.nonEmpty then
+            logger.info(s"fetchStreams NEW ${newStreams.map(_.channelId).mkString(" ")}")
+          if goneStreams.nonEmpty then
+            logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
           syncDb(tubers, streams)
           lastResults = streams
       }
@@ -64,12 +69,12 @@ final private class YouTubeApi(
     val video   = (xml \ "entry" \ "videoId").text
     if channel.nonEmpty && video.nonEmpty
     then
-      lila.log("streamer").info(s"onYouTubeVideo $video on channel $channel")
+      logger.info(s"onYouTubeVideo $video on channel $channel")
       onVideo(channel, video)
     else
       val deleted = (xml \ "deleted-entry" \@ "ref")
       if deleted.nonEmpty
-      then lila.log("streamer").warn(s"onYouTubeVideo deleted-entry $deleted")
+      then logger.warn(s"onYouTubeVideo deleted-entry $deleted")
       funit
 
   private def onVideo(channelId: String, videoId: String): Funit = coll.update
@@ -93,9 +98,14 @@ final private class YouTubeApi(
       )
     )
     .flatMap {
-      case res if res.status / 100 != 2 =>
-        fufail(s"YouTubeApi.channelSubscribe status: ${res.status} ${res.body[String].take(200)}")
-      case _ => funit
+      case res if res.status / 100 == 2 =>
+        logger.info(s"WebSub: REQUESTED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId")
+        funit
+      case res =>
+        logger.info(
+          s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
+        )
+        fufail(s"YouTubeApi.channelSubscribe $channelId failed ${res.status} ${res.body[String].take(200)}")
     }
 
   private def asFormBody(params: (String, String)*): String =
