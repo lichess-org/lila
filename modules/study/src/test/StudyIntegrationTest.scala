@@ -3,9 +3,9 @@ package lila.study
 import cats.syntax.all.*
 
 import chess.{ Square, White }
-import chess.variant.{ Standard, Variant }
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
+import chess.variant.*
 
 import lila.socket.AnaMove
 import java.time.Instant
@@ -35,7 +35,7 @@ class StudyIntegrationTest extends munit.FunSuite:
       chapterId,
       studyId,
       StudyChapterName("chapterName"),
-      Chapter.Setup(None, Standard, White, None),
+      Chapter.Setup(None, variant, White, None),
       root,
       Tags.empty,
       0,
@@ -52,9 +52,9 @@ class StudyIntegrationTest extends munit.FunSuite:
   import Helpers.*
   import StudyAction.*
 
-  test("moves"):
+  test("all actions"):
     TestCase.all.foreach: testCase =>
-      val chapter = defaultChapter(Standard)
+      val chapter = defaultChapter(testCase.variant)
       val output  = chapter.execute(testCase.actions).get
       assertEquals(rootToPgn(output.root).value, testCase.expected)
 
@@ -62,11 +62,12 @@ case class TestCase(variant: Variant, actions: List[StudyAction], expected: Stri
 
 object TestCase:
   def apply(variant: Variant, actionStr: String, expected: String): TestCase =
-    val actions = actionStr.linesIterator.toList
-      .map(StudyAction.parse)
+    val actions = actionStr.linesIterator.toList.map(StudyAction.parse)
     TestCase(variant, actions, expected)
 
-  val all = Fixtures.standards.map((str, expected) => TestCase(Standard, str, expected))
+  import Fixtures.*
+  val all = standards.map((str, expected) => TestCase(Standard, str, expected))
+    ++ crazyhouses.map((str, expected) => TestCase(Crazyhouse, str, expected))
 
 enum StudyAction:
   case Move(m: AnaMove)
@@ -103,8 +104,7 @@ object StudyAction:
     jsObject.str("t") match
       case Some("anaMove") =>
         Move(AnaMove.parse(jsObject).get)
-      case Some("AnaDrop") =>
-        ???
+      case Some("anaDrop") =>
         Drop(AnaDrop.parse(jsObject).get)
       case Some("deleteNode") =>
         DeleteNode(jsObject.get[AtPosition]("d").get)
@@ -287,3 +287,20 @@ object Fixtures:
   val ms        = List(m0, m1, m2, m3, m4, m5, m6)
   val ps        = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
   val standards = ms.zip(ps)
+
+  val m7 = """
+{"t":"anaMove","d":{"orig":"c2","dest":"c4","variant":"crazyhouse","fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w KQkq - 0 1","path":"","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"b7","dest":"b5","variant":"crazyhouse","fen":"rnbqkbnr/pppppppp/8/8/2P5/8/PP1PPPPP/RNBQKBNR/ b KQkq - 0 1","path":"-=","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"c4","dest":"b5","variant":"crazyhouse","fen":"rnbqkbnr/p1pppppp/8/1p6/2P5/8/PP1PPPPP/RNBQKBNR/ w KQkq - 0 2","path":"-=TD","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"c7","dest":"c6","variant":"crazyhouse","fen":"rnbqkbnr/p1pppppp/8/1P6/8/8/PP1PPPPP/RNBQKBNR/P b KQkq - 0 2","path":"-=TD=D","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"b5","dest":"c6","variant":"crazyhouse","fen":"rnbqkbnr/p2ppppp/2p5/1P6/8/8/PP1PPPPP/RNBQKBNR/P w KQkq - 0 3","path":"-=TD=DUM","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"b8","dest":"c6","variant":"crazyhouse","fen":"rnbqkbnr/p2ppppp/2P5/8/8/8/PP1PPPPP/RNBQKBNR/PP b KQkq - 0 3","path":"-=TD=DUMDM","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaDrop","d":{"role":"pawn","pos":"c7","variant":"crazyhouse","fen":"r1bqkbnr/p2ppppp/2n5/8/8/8/PP1PPPPP/RNBQKBNR/PPp w KQkq - 0 4","path":"-=TD=DUMDM\\M","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"d8","dest":"c7","variant":"crazyhouse","fen":"r1bqkbnr/p1Pppppp/2n5/8/8/8/PP1PPPPP/RNBQKBNR/Pp b KQkq - 0 4","path":"-=TD=DUMDM\\MU\u008f","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaDrop","d":{"role":"pawn","pos":"b6","variant":"crazyhouse","fen":"r1b1kbnr/p1qppppp/2n5/8/8/8/PP1PPPPP/RNBQKBNR/Ppp w KQkq - 0 5","path":"-=TD=DUMDM\\MU\u008f^U","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaDrop","d":{"role":"pawn","pos":"d6","variant":"crazyhouse","fen":"r1b1kbnr/p1qppppp/2n5/8/8/8/PP1PPPPP/RNBQKBNR/Ppp w KQkq - 0 5","path":"-=TD=DUMDM\\MU\u008f^U","ch":"Drb6pzLF","sticky":false}}
+""".trim
+
+  val pgn7 = "1. c4 b5 2. cxb5 c6 3. bxc6 Nxc6 4. P@c7 Qxc7 5. P@b6 (5. P@d6)"
+
+  val crazyhouses = List(m7 -> pgn7)
