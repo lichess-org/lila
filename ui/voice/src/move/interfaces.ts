@@ -22,3 +22,8 @@ export interface VoiceMove extends VoiceModule {
   promotionHook: () => (ctrl: PromotionCtrl, roles: cg.Role[] | false) => void;
   opponentRequest: (request: string, callback: (v: boolean) => void) => void;
 }
+
+export interface Match {
+  cost: number;
+  isSan?: boolean;
+}
