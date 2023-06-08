@@ -246,13 +246,11 @@ trait SetupHelper { self: I18nHelper =>
 
   def submitMoveChoices(using Lang) =
     List(
-      (Pref.SubmitMove.NEVER, trans.never.txt()),
       (Pref.SubmitMove.UNLIMITED, trans.unlimited.txt()),
       (Pref.SubmitMove.CORRESPONDENCE, trans.correspondence.txt()),
       (Pref.SubmitMove.CLASSICAL, trans.classical.txt()),
       (Pref.SubmitMove.RAPID, trans.rapid.txt()),
-      (Pref.SubmitMove.BLITZ, trans.blitz.txt()),
-      (Pref.SubmitMove.ALWAYS, trans.always.txt())
+      (Pref.SubmitMove.BLITZ, trans.blitz.txt())
     )
 
   def confirmResignChoices(using Lang) =

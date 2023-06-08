@@ -23,38 +23,12 @@ lichess.load.then(() => {
       if (this.type === 'checkbox') {
         const bitInputs = $(`input[type="checkbox"][name="${this.name}"]`);
 
-        if (this.value === '-1') {
-          if (this.checked) {
-            for (let i = 0; i < bitInputs.length; ++i) {
-              if (bitInputs !== undefined && bitInputs[i] !== undefined) {
-                (<HTMLInputElement>bitInputs[i]).checked = parseInt((<HTMLInputElement>bitInputs[i]).value) !== 0;
-              }
-            }
-          }
-        } else if (this.value === '0') {
-          if (this.checked) {
-            //Deselect all non-Never
-            for (let i = 0; i < bitInputs.length; ++i) {
-              if (bitInputs !== undefined && bitInputs[i] !== undefined) {
-                if (parseInt((<HTMLInputElement>bitInputs[i]).value) !== 0) {
-                  (<HTMLInputElement>bitInputs[i]).checked = false;
-                }
-              }
-            }
-          } else {
-            //self-reselect;  Never is never
-            this.checked = !this.checked;
-            return;
-          }
-        }
-
         let sum = 0;
         for (let i = 0; i < bitInputs.length; ++i) {
           if (bitInputs !== undefined && bitInputs[i] !== undefined && (<HTMLInputElement>bitInputs[i])?.checked) {
             sum |= parseInt((<HTMLInputElement>bitInputs[i])?.value);
           }
         }
-        (<HTMLInputElement>$(`input[type="checkbox"][name="${this.name}"][value="0"]`)[0]).checked = sum === 0;
 
         const valueHidden = $(`input[type="hidden"][name="${this.name}"]`);
         valueHidden.val(sum.toString());

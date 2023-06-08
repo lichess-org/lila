@@ -117,14 +117,13 @@ final class JsonView(
                 .add("submitMove" -> {
                   import Pref.SubmitMove.*
                   pref.submitMove match
-                    case _ if game.hasAi || flags.nvui                                                        => false
-                    case ALWAYS                                                                               => true
-                    case n if ((n & UNLIMITED) != 0) && game.isCorrespondence && !game.hasCorrespondenceClock => true
-                    case n if ((n & CORRESPONDENCE) != 0) && game.hasCorrespondenceClock                      => true
-                    case n if ((n & CLASSICAL) != 0) && game.isSpeed(Speed.Classical)                         => true
-                    case n if ((n & RAPID) != 0) && game.isSpeed(Speed.Rapid)                                 => true
-                    case n if ((n & BLITZ) != 0) && game.isSpeed(Speed.Blitz)                                 => true
-                    case _                                                                                    => false
+                    case _ if game.hasAi || flags.nvui                                 => false
+                    case n if (n & UNLIMITED) != 0 && game.isUnlimited                 => true
+                    case n if (n & CORRESPONDENCE) != 0 && game.hasCorrespondenceClock => true
+                    case n if (n & CLASSICAL) != 0 && game.isSpeed(Speed.Classical)    => true
+                    case n if (n & RAPID) != 0 && game.isSpeed(Speed.Rapid)            => true
+                    case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
+                    case _                                                             => false
                 })
           )
           .add("clock" -> game.clock.map(clockJson))
