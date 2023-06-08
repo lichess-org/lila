@@ -2,15 +2,8 @@
   "crowdv": "en-1.json",
   "partials": {
     "commands": [ "yes", "no", "stop" ],
-    "colors": [ "green", "blue", "purple", "pink", "yellow", "orange", "white", "brown" ],
-    "numbers": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
-    "wake": {
-      "phrase": "hey lee chess",
-      "ignore": [
-        "nay", "pay", "way", "say", "may", "gray", "ray", "lay", "b", "c", "g", "p", "t",
-        "key", "tree", "knee", "like", "lake", "leak", "look", "jest", "best", "vest"
-      ]
-    }
+    "colors": [ "green", "blue", "purple", "pink", "yellow", "orange", "red", "brown" ],
+    "numbers": [ "1", "2", "3", "4", "5", "6", "7", "8" ]
   },
   "entries": [
     { "in": "a", "tok": "a", "tags": [ "file", "move" ] },

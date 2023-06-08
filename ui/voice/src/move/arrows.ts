@@ -10,8 +10,8 @@ export const brushes = new Map<string, DrawBrush>([
   ['pink', { key: 'vpn', color: '#ee2080', opacity: 0.5, lineWidth: 12 }],
   ['yellow', { key: 'vyl', color: '#ffef00', opacity: 0.6, lineWidth: 12 }],
   ['orange', { key: 'vor', color: '#f6931f', opacity: 0.8, lineWidth: 12 }],
-  ['brown', { key: 'vgy', color: '#7b3c13', opacity: 0.8, lineWidth: 12 }],
   ['red', { key: 'vrd', color: '#881010', opacity: 0.8, lineWidth: 12 }],
+  ['brown', { key: 'vgy', color: '#7b3c13', opacity: 0.8, lineWidth: 12 }],
   ['grey', { key: 'vgr', color: '#666666', opacity: 0.8, lineWidth: 12 }],
   ['white', { key: 'vwh', color: '#ffffff', opacity: 1.0, lineWidth: 15 }],
 ]);
