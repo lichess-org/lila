@@ -7,6 +7,7 @@ import reactivemongo.api.*
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
+import reactivemongo.api.bson.BSONDocument
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
     Executor,
@@ -61,7 +62,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] val selectPrivateOrUnlisted =
     "visibility" $ne (Study.Visibility.Public: Study.Visibility)
   private[study] def selectLiker(userId: UserId) = $doc(F.likers -> userId)
-  private[study] def selectContributorId(userId: UserId) =
+  private[study] def selectContributorId(userId: UserId): BSONDocument =
     selectMemberId(userId) ++ // use the index
       $doc("ownerId" $ne userId) ++
       $doc(s"members.$userId.role" -> "w")
@@ -175,44 +176,21 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def recentByOwnerWithChapterCount(
       chapterColl: AsyncColl
   )(userId: UserId, nb: Int): Fu[List[(Study.IdName, Int)]] =
-    coll:
-      _.aggregateList(nb) { framework =>
-        import framework.*
-        Match(selectOwnerId(userId)) -> List(
-          Project(idNameProjection),
-          PipelineOperator(
-            $lookup.pipeline(
-              from = chapterColl,
-              as = "chapters",
-              local = "_id",
-              foreign = "studyId",
-              pipe = List($doc("$project" -> $id(true)))
-            )
-          ),
-          AddFields($doc("chapters" -> $doc("$size" -> "$chapters")))
-        )
-      }
-        .map: docs =>
-          for
-            doc        <- docs
-            idName     <- idNameHandler.readOpt(doc ppAs lila.db.BSON.debug)
-            nbChapters <- doc.int("chapters")
-          yield (idName, nbChapters)
-
-  def recentByContributor(userId: UserId, nb: Int) =
-    coll:
-      _.find(selectContributorId(userId), idNameProjection.some)
-        .sort($sort desc "updatedAt")
-        .cursor[Study.IdName](readPref)
-        .list(nb)
+    findRecentStudyWithChapterCount(selectOwnerId)(chapterColl)(userId, nb)
 
   def recentByContributorWithChapterCount(
       chapterColl: AsyncColl
   )(userId: UserId, nb: Int): Fu[List[(Study.IdName, Int)]] =
+    findRecentStudyWithChapterCount(selectContributorId)(chapterColl)(userId, nb)
+
+  private def findRecentStudyWithChapterCount(query: UserId => BSONDocument)(
+      chapterColl: AsyncColl
+  )(userId: UserId, nb: Int) =
     coll:
       _.aggregateList(nb) { framework =>
         import framework.*
-        Match(selectContributorId(userId)) -> List(
+        Match(query(userId)) -> List(
+          Sort(Descending("updatedAt")),
           Project(idNameProjection),
           PipelineOperator(
             $lookup.pipeline(
@@ -229,7 +207,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         .map: docs =>
           for
             doc        <- docs
-            idName     <- idNameHandler.readOpt(doc ppAs lila.db.BSON.debug)
+            idName     <- idNameHandler.readOpt(doc)
             nbChapters <- doc.int("chapters")
           yield (idName, nbChapters)
 
