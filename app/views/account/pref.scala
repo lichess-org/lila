@@ -127,7 +127,12 @@ object pref:
             ),
             setting(
               moveConfirmation(),
-              radios(form("behavior.submitMove"), submitMoveChoices)
+              frag(
+                bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
+                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
+                  explainCanThenBeTemporarilyDisabled()
+                )
+              )
             ),
             setting(
               confirmResignationAndDrawOffers(),

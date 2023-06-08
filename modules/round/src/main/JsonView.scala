@@ -12,6 +12,7 @@ import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
+import chess.Speed
 
 final class JsonView(
     userRepo: UserRepo,
@@ -116,11 +117,13 @@ final class JsonView(
                 .add("submitMove" -> {
                   import Pref.SubmitMove.*
                   pref.submitMove match
-                    case _ if game.hasAi || flags.nvui                      => false
-                    case ALWAYS                                             => true
-                    case CORRESPONDENCE_UNLIMITED if game.isCorrespondence  => true
-                    case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true
-                    case _                                                  => false
+                    case _ if game.hasAi || flags.nvui                                 => false
+                    case n if (n & UNLIMITED) != 0 && game.isUnlimited                 => true
+                    case n if (n & CORRESPONDENCE) != 0 && game.hasCorrespondenceClock => true
+                    case n if (n & CLASSICAL) != 0 && game.isSpeed(Speed.Classical)    => true
+                    case n if (n & RAPID) != 0 && game.isSpeed(Speed.Rapid)            => true
+                    case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
+                    case _                                                             => false
                 })
           )
           .add("clock" -> game.clock.map(clockJson))
