@@ -1695,6 +1695,7 @@ object I18nKeys:
     val `claimDrawOnThreefoldRepetitionAutomatically` = I18nKey("preferences:claimDrawOnThreefoldRepetitionAutomatically")
     val `whenTimeRemainingLessThanThirtySeconds` = I18nKey("preferences:whenTimeRemainingLessThanThirtySeconds")
     val `moveConfirmation` = I18nKey("preferences:moveConfirmation")
+    val `explainCanThenBeTemporarilyDisabled` = I18nKey("preferences:explainCanThenBeTemporarilyDisabled")
     val `inCorrespondenceGames` = I18nKey("preferences:inCorrespondenceGames")
     val `correspondenceAndUnlimited` = I18nKey("preferences:correspondenceAndUnlimited")
     val `confirmResignationAndDrawOffers` = I18nKey("preferences:confirmResignationAndDrawOffers")
