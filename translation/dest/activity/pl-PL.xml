@@ -57,10 +57,10 @@
     <item quantity="other">Rozpoczęcie obserwowania %s graczy</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Zyskanie nowego obserwującego</item>
-    <item quantity="few">Zyskanie %s nowych obserwujących</item>
-    <item quantity="many">Zyskanie %s nowych obserwujących</item>
-    <item quantity="other">Zyskanie %s nowych obserwujących</item>
+    <item quantity="one">Zyskano %s nowego obserwującego/-ą</item>
+    <item quantity="few">Zyskano %s nowych obserwujących</item>
+    <item quantity="many">Zyskano %s nowych obserwujących</item>
+    <item quantity="other">Zyskano %s nowych obserwujących</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Rozegranie symultany</item>
