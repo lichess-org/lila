@@ -93,6 +93,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' biribilkaketarekin, hurrengo harrapaketa edo peoi mugimendura arteko mugimendu erdietan oinarrituta</string>
   <string name="noGameFound">Ez da partidarik aurkitu</string>
+  <string name="maxDepthReached">Gehienezko sakonerara iritsi zara!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Agian hobespenen menutik partida gehiago gehitu beharko dituzu?</string>
   <string name="openings">Irekierak</string>
   <string name="openingExplorer">Hasiera-arakatzailea</string>
@@ -119,6 +120,7 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinitua</string>
   <string name="removesTheDepthLimit">Sakonera muga ezabatzendu eta zure ordenagailua epel mantentzen du</string>
+  <string name="engineManager">Motore kudeatzailea</string>
   <string name="blunder">Akats larria</string>
   <string name="mistake">Akatsa</string>
   <string name="inaccuracy">Oker txikia</string>
