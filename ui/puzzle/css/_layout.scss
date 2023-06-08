@@ -69,13 +69,13 @@ $hand-col1-height: auto;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $gauge-gap $col2-uniboard-table;
-    grid-template-rows: min-content 1fr min-content auto 1fr;
+    grid-template-rows: min-content 1fr min-content auto auto 1fr;
     grid-template-areas:
       'board   gauge hand-top'
       'board   gauge tools'
       'board   gauge hand-bot'
       'session .     controls'
-      'kb-move .     controls'
+      'kb-move .     .'
       'side    side  side';
 
     .board-layout-1 & {
