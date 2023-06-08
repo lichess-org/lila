@@ -318,6 +318,20 @@ object mod:
       a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
     )
 
+  def boardTokens(tokens: List[lila.oauth.AccessToken])(using Context): Frag =
+    if tokens.isEmpty then emptyFrag
+    else
+      mzSection("boardTokens")(
+        strong(cls := "inline")(pluralize("Board token", tokens.size)),
+        ul:
+          tokens.map: token =>
+            li(
+              List(token.description, token.clientOrigin).flatten.mkString(" "),
+              ", last used ",
+              token.usedAt map momentFromNowOnce
+            )
+      )
+
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Lang) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(
@@ -326,8 +340,8 @@ object mod:
           history.isEmpty option ": nothing to show"
         ),
         history.nonEmpty ?? frag(
-          ul(
-            history.map { e =>
+          ul:
+            history.map: e =>
               li(
                 userIdLink(e.mod.userId.some, withTitle = false),
                 " ",
@@ -341,28 +355,22 @@ object mod:
                 " ",
                 momentFromNowServer(e.date)
               )
-            }
-          ),
+          ,
           br
         )
       ),
-      appeal map { a =>
+      appeal.map: a =>
         frag(
           div(cls := "mod_log mod_log--appeal")(
-            st.a(href := appealRoutes.Appeal.show(a.id))(
-              strong(cls := "text", dataIcon := licon.CautionTriangle)(
-                "Appeal status: ",
-                a.status.toString
-              )
-            ),
+            st.a(href := appealRoutes.Appeal.show(a.id)):
+              strong(cls := "text", dataIcon := licon.CautionTriangle)("Appeal status: ", a.status.toString)
+            ,
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            a.msgs.size > 1 option st.a(href := appealRoutes.Appeal.show(a.id))(
+            a.msgs.size > 1 option st.a(href := appealRoutes.Appeal.show(a.id)):
               frag("and ", pluralize("more message", a.msgs.size - 1))
-            )
           )
         )
-      }
     )
 
   def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Lang): Frag =
@@ -372,7 +380,7 @@ object mod:
           s"Reports sent by ${u.username}",
           reports.by.isEmpty option ": nothing to show."
         ),
-        reports.by.map { r =>
+        reports.by.map: r =>
           r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
             postForm(action := reportRoutes.inquiry(r.id))(
               reportSubmitButton(r),
@@ -384,14 +392,13 @@ object mod:
               shorten(atom.text, 200)
             )
           }
-        }
       ),
       div(cls := "mz_reports mz_reports--in")(
         strong(cls := "text", dataIcon := licon.CautionTriangle)(
           s"Reports concerning ${u.username}",
           reports.about.isEmpty option ": nothing to show."
         ),
-        reports.about.map { r =>
+        reports.about.map: r =>
           postForm(action := reportRoutes.inquiry(r.id))(
             reportSubmitButton(r),
             div(cls := "atoms")(
@@ -408,7 +415,6 @@ object mod:
               (r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
             )
           )
-        }
       )
     )
 

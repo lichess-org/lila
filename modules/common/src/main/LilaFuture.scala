@@ -37,22 +37,6 @@ object LilaFuture:
   )(f: A => Fu[Boolean])(using Executor): Fu[List[A]] =
     filter(list)(a => !f(a))
 
-  def linear[A, B, M[B] <: Iterable[B]](
-      in: M[A]
-  )(f: A => Fu[B])(using cbf: BuildFrom[M[A], B, M[B]], ec: Executor): Fu[M[B]] =
-    in.foldLeft(fuccess(cbf.newBuilder(in))) { (fr, a) =>
-      fr flatMap { r =>
-        f(a).dmap(r += _)
-      }
-    }.dmap(_.result())
-
-  def applySequentially[A](
-      list: List[A]
-  )(f: A => Funit)(using Executor): Funit =
-    list match
-      case h :: t => f(h) >> applySequentially(t)(f)
-      case Nil    => funit
-
   def find[A](
       list: List[A]
   )(f: A => Fu[Boolean])(using Executor): Fu[Option[A]] =

@@ -56,7 +56,7 @@ object RelayTour:
 
   case class ActiveWithSomeRounds(tour: RelayTour, display: RelayRound, link: RelayRound)
       extends RelayRound.AndTour:
-    def ongoing = display.startedAt.isDefined
+    export display.{ hasStarted as ongoing }
 
   case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour:
     def link    = round

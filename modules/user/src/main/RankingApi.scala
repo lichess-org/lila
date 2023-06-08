@@ -1,5 +1,6 @@
 package lila.user
 
+import cats.syntax.all.*
 import reactivemongo.api.bson.*
 import scala.util.Success
 
@@ -118,10 +119,9 @@ final class RankingApi(
     private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]] {
       _.refreshAfterWrite(15 minutes)
         .buildAsyncFuture { _ =>
-          lila.common.LilaFuture
-            .linear(PerfType.leaderboardable) { pt =>
+          PerfType.leaderboardable
+            .traverse: pt =>
               compute(pt).dmap(pt -> _)
-            }
             .map(_.toMap)
             .chronometer
             .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")

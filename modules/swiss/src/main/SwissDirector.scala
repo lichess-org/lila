@@ -1,5 +1,6 @@
 package lila.swiss
 
+import cats.syntax.all.*
 import chess.{ Black, Color, White }
 
 import lila.db.dsl.{ *, given }
@@ -64,9 +65,8 @@ final private class SwissDirector(
             }
             _ <- mongo.pairing.insert.many(pairings).void
             games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
-            _ <- lila.common.LilaFuture.applySequentially(games) { game =>
+            _ <- games.traverse_ : game =>
               gameRepo.insertDenormalized(game) >>- onStart(game.id)
-            }
           } yield swiss.some
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
