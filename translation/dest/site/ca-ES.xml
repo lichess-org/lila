@@ -99,6 +99,7 @@
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="openingEndgameExplorer">Explorador d\'obertures i finals</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Juga el primer moviment de l\'explorador d\'obertures/finals</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
   <string name="lossSavedBy50MoveRule">Derrota no permesa per la regla dels 50 moviments</string>
   <string name="winOr50MovesByPriorMistake">Victòria o taules per 50 moviments a causa d\'un error anterior</string>
@@ -682,6 +683,11 @@
   <string name="keyGoToStartOrEnd">anar a l\'inici/anar al final</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentaris</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variació</string>
+  <string name="keyRequestComputerAnalysis">Demana una anàlisi computeritzada, aprèn dels teus errors</string>
+  <string name="keyNextLearnFromYourMistakes">Següent (apren dels teus errors)</string>
+  <string name="keyNextBlunder">Següent errada</string>
+  <string name="keyNextMistake">Següent errada greu</string>
+  <string name="keyNextInaccuracy">Següent imprecisió</string>
   <string name="newTournament">Nou torneig</string>
   <string name="tournamentHomeTitle">Torneig d\'escacs amb diversos controls de temps i variants</string>
   <string name="tournamentHomeDescription">Juga tornejos d\'escacs ràpids! Uneix-te a un torneig programat o crea\'n un de propi. Bullet, Blitz, Classic, Chess960, King of the Hill, Threecheck i moltes més opcions perquè no s\'acabi la diversió dels escacs.</string>
