@@ -37,8 +37,8 @@
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
-    <item quantity="other">Ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="one">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
   <string name="opponentLeftChoices">Úgy tűnik, az ellenfél kilépett. Igényelhetsz győzelmet vagy döntetlent, esetleg várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
@@ -57,7 +57,7 @@
   <string name="computerAnalysisDisabled">Számítógépes elemzés letiltva</string>
   <string name="analysis">Elemzőtábla</string>
   <string name="depthX">%s mélység</string>
-  <string name="usingServerAnalysis">Szerver elemzés használata</string>
+  <string name="usingServerAnalysis">A szerver elemzését használja</string>
   <string name="loadingEngine">Motor betöltése...</string>
   <string name="calculatingMoves">Lépések kiszámítása...</string>
   <string name="engineFailed">Hiba a motor betöltésekor</string>
@@ -94,11 +94,12 @@
   <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
   <string name="maxDepthReached">Maximális mélység elérve!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Több játszma bevétele a beállítások menüben?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Próbáltál több játszmát hozzáadni a beállítások menüben?</string>
   <string name="openings">Megnyitások</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
   <string name="openingEndgameExplorer">Megnyitás/végjáték böngésző</string>
   <string name="xOpeningExplorer">%s megnyitás böngésző</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Lépd meg az első megnyitás/végjáték felfedező lépést</string>
   <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
   <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
   <string name="winOr50MovesByPriorMistake">Győzelem, vagy 50 lépéses szabály korábbi hiba alapján</string>
@@ -119,7 +120,7 @@
   <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
-  <string name="removesTheDepthLimit">Nincs mélységkorlát és melegszik a számítógéped</string>
+  <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
   <string name="engineManager">Motor menedzser</string>
   <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Visszavágó lemondása</string>
   <string name="viewRematch">Visszavágó megtekintése</string>
   <string name="confirmMove">Erősítsd meg a lépést</string>
+  <string name="enableConfirmationForThisGame">Megerősítés engedélyezése erre a játszmára</string>
   <string name="play">Játék</string>
   <string name="inbox">Üzenetek</string>
   <string name="chatRoom">Csevegő</string>
@@ -681,6 +683,11 @@
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
   <string name="keyEnterOrExitVariation">ki/belépés változatba</string>
+  <string name="keyRequestComputerAnalysis">Kérelmezz számítógépes elemzést és tanulj a hibáidból</string>
+  <string name="keyNextLearnFromYourMistakes">Következő (Tanulj a hibáidból)</string>
+  <string name="keyNextBlunder">Következő baklövés</string>
+  <string name="keyNextMistake">Következő hiba</string>
+  <string name="keyNextInaccuracy">Következő pontatlanság</string>
   <string name="newTournament">Új torna</string>
   <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
   <string name="tournamentHomeDescription">Vegyél részt villám-versenyeken! Csatlakozz hivatalos versenyekhez, vagy hozz létre egyet saját magad. Bullet, Blitz, Hagyományos, Sakk960, King of the Hill, Threecheck és mások elérhetők, hogy minél jobban élvezd a sakkot.</string>
