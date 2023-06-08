@@ -87,21 +87,19 @@ final class UblogRank(
         $doc("topics" -> true, "likes" -> true, "lived" -> true, "language" -> true).some
       )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .list(500) flatMap { docs =>
-      lila.common.LilaFuture.applySequentially(docs) { doc =>
-        (
-          doc.string("_id"),
-          doc.getAsOpt[List[UblogTopic]]("topics"),
-          doc.getAsOpt[UblogPost.Likes]("likes"),
-          doc.getAsOpt[UblogPost.Recorded]("lived"),
-          doc.getAsOpt[Lang]("language")
-        ).tupled ?? { case (id, topics, likes, lived, language) =>
-          colls.post
-            .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
-            .void
-        }
-      }
-    }
+      .list(500) flatMap:
+        _.traverse_ : doc =>
+          (
+            doc.string("_id"),
+            doc.getAsOpt[List[UblogTopic]]("topics"),
+            doc.getAsOpt[UblogPost.Likes]("likes"),
+            doc.getAsOpt[UblogPost.Recorded]("lived"),
+            doc.getAsOpt[Lang]("language")
+          ).tupled ?? { case (id, topics, likes, lived, language) =>
+            colls.post
+              .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
+              .void
+          }
 
   def recomputeRankOfAllPosts: Funit =
     colls.blog
