@@ -3,7 +3,7 @@ package lila.study
 import cats.syntax.all.*
 
 import chess.{ Square, White }
-import chess.variant.Standard
+import chess.variant.{ Standard, Variant }
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 
@@ -29,38 +29,44 @@ val studyInstant = Instant.ofEpochSecond(1685031726L)
 
 class StudyIntegrationTest extends munit.FunSuite:
 
-  val root = Root.default(Standard)
-  val chapter = Chapter(
-    chapterId,
-    studyId,
-    StudyChapterName("chapterName"),
-    Chapter.Setup(None, Standard, White, None),
-    root,
-    Tags.empty,
-    0,
-    userId,
-    None,
-    None,
-    None,
-    None,
-    None,
-    None,
-    studyInstant
-  )
+  def defaultChapter(variant: Variant): Chapter =
+    val root = Root.default(variant)
+    Chapter(
+      chapterId,
+      studyId,
+      StudyChapterName("chapterName"),
+      Chapter.Setup(None, Standard, White, None),
+      root,
+      Tags.empty,
+      0,
+      userId,
+      None,
+      None,
+      None,
+      None,
+      None,
+      None,
+      studyInstant
+    )
 
   import Helpers.*
   import StudyAction.*
-  test("moves"):
-    Fixtures.all.foreach: (str, expected) =>
-      val output = chapter.execute(str).get
-      assertEquals(rootToPgn(output.root).value, expected)
 
-  extension (s: String)
-    def toMoves: List[AnaMove] =
-      s.linesIterator.toList
-        .map(Json.parse(_).asInstanceOf[JsObject])
-        .traverse(AnaMove.parse)
-        .get
+  test("moves"):
+    TestCase.all.foreach: testCase =>
+      val chapter = defaultChapter(Standard)
+      val output  = chapter.execute(testCase.actions).get
+      assertEquals(rootToPgn(output.root).value, testCase.expected)
+
+case class TestCase(variant: Variant, actions: List[StudyAction], expected: String)
+
+object TestCase:
+  def apply(variant: Variant, actionStr: String, expected: String): TestCase =
+    val actions = actionStr.linesIterator.toList
+      .map(StudyAction.parse)
+    TestCase(variant, actions, expected)
+
+  val all = Fixtures.standards.map((str, expected) => TestCase(Standard, str, expected))
 
 enum StudyAction:
   case Move(m: AnaMove)
@@ -187,12 +193,6 @@ object StudyAction:
       actions.foldLeft(chapter.some): (chapter, action) =>
         chapter.flatMap(_.execute(action))
 
-    def execute(str: String): Option[Chapter] =
-      chapter.execute(
-        str.linesIterator.toList
-          .map(StudyAction.parse)
-      )
-
 object Fixtures:
 
   val m0   = ""
@@ -284,6 +284,6 @@ object Fixtures:
   val pgn6 =
     "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
 
-  val ms  = List(m0, m1, m2, m3, m4, m5, m6)
-  val ps  = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
-  val all = ms.zip(ps)
+  val ms        = List(m0, m1, m2, m3, m4, m5, m6)
+  val ps        = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
+  val standards = ms.zip(ps)
