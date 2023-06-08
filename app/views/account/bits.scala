@@ -49,3 +49,33 @@ object bits:
         )
       }.toList
     )
+
+  def bitCheckboxes(field: play.api.data.Field, options: Iterable[(Int, String)], prefix: String = "ir") =
+    st.group(cls := "radio")(
+      /// Will hold the value being calculated with the various checkboxes when sending
+      div(
+        input(
+          st.id := s"$prefix${field.id}_hidden",
+          true option st.checked,
+          tpe      := "hidden",
+          st.value := "",
+          name     := field.name
+        ),
+        st.style := "display: none;"
+      ) :: options
+        .map: (key, value) =>
+          val id      = s"$prefix${field.id}_$key"
+          val intVal  = ~field.value.flatMap(_.toIntOption)
+          val checked = (intVal & key) == key
+          div(
+            input(
+              st.id := id,
+              checked option st.checked,
+              tpe      := "checkbox",
+              st.value := key.toString,
+              name     := field.name
+            ),
+            label(`for` := id)(value)
+          )
+        .toList
+    )

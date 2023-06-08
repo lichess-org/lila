@@ -202,16 +202,18 @@ object Pref:
     )
 
   object SubmitMove:
-    val NEVER                    = 0
-    val CORRESPONDENCE_ONLY      = 4
-    val CORRESPONDENCE_UNLIMITED = 1
-    val ALWAYS                   = 2
+    val UNLIMITED      = 1
+    val CORRESPONDENCE = 2
+    val CLASSICAL      = 4
+    val RAPID          = 8
+    val BLITZ          = 16
 
     val choices = Seq(
-      NEVER                    -> "Never",
-      CORRESPONDENCE_ONLY      -> "Correspondence games only",
-      CORRESPONDENCE_UNLIMITED -> "Correspondence and unlimited",
-      ALWAYS                   -> "Always"
+      UNLIMITED      -> "Unlimited",
+      CORRESPONDENCE -> "Correspondence",
+      CLASSICAL      -> "Classical",
+      RAPID          -> "Rapid",
+      BLITZ          -> "Blitz"
     )
 
   object ConfirmResign extends BooleanPref
@@ -451,7 +453,7 @@ object Pref:
     challenge = Challenge.REGISTERED,
     message = Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,
-    submitMove = SubmitMove.CORRESPONDENCE_ONLY,
+    submitMove = SubmitMove.CORRESPONDENCE,
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,

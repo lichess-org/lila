@@ -83,5 +83,14 @@ export class BoardMenu {
       disabled: !enabled,
     });
 
+  confirmMove = (toggle: Toggle, enabled = true) =>
+    this.cmnToggle({
+      name: 'Confirm move',
+      id: 'confirmmove',
+      checked: toggle(),
+      change: toggle,
+      disabled: !enabled,
+    });
+
   private cmnToggle = (t: controls.ToggleSettings) => controls.toggle(t, this.trans, this.redraw);
 }
