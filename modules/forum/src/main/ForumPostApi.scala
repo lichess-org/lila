@@ -110,11 +110,11 @@ final class ForumPostApi(
       categSlug: String,
       postId: ForumPostId,
       me: User,
-      reaction: String,
+      reactionStr: String,
       v: Boolean
   ): Fu[Option[ForumPost]] =
-    ForumPost.Reaction.set(reaction) ?? {
-      if (v) lila.mon.forum.reaction(reaction).increment()
+    ForumPost.Reaction(reactionStr) ?? { reaction =>
+      if (v) lila.mon.forum.reaction(reaction.key).increment()
       postRepo.coll
         .findAndUpdateSimplified[ForumPost](
           selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
@@ -124,9 +124,9 @@ final class ForumPostApi(
           },
           fetchNewObject = true
         ) >>- {
-        if me.marks.troll && reaction == "-1" && v then
+        if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
           scheduler.scheduleOnce(5 minutes):
-            react(categSlug, postId, me, reaction, false)
+            react(categSlug, postId, me, reaction.key, false)
       }
     }
 
