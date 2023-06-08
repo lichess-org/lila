@@ -539,14 +539,16 @@ final class StudyApi(
             chapterRepo
               .countByStudyId(study.id)
               .flatMap: count =>
-                if (count >= Study.maxChapters) funit
+                if count >= Study.maxChapters then
+                  // sendTo(study.id)(_.validationError("tooooooooooooooooooooooooooooooo", who.sri))
+                  fufail(s"Too many chapters for $studyId")
                 else
                   data.initial ?? {
                     chapterRepo.firstByStudy(study.id) flatMap {
                       _.filter(_.isEmptyInitial) ?? chapterRepo.delete
                     }
                   } >>
-                    chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+                    chapterRepo.nextOrderByStudy(study.id).flatMap: order =>
                       chapterMaker(study, data, order, who.u, withRatings) flatMap { chapter =>
                         doAddChapter(study, chapter, sticky, who)
                       } addFailureEffect {
@@ -554,7 +556,6 @@ final class StudyApi(
                           sendTo(study.id)(_.validationError(error, who.sri))
                         case u => logger.error(s"StudyApi.addChapter to $studyId", u)
                       }
-                    }
 
   def rename(studyId: StudyId, name: StudyName): Funit =
     sequenceStudy(studyId): old =>

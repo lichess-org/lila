@@ -278,10 +278,15 @@ final class Study(
   }
 
   private def createStudy(data: StudyForm.importGame.Data, me: lila.user.User)(using ctx: Context) =
-    env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
-      _.fold(notFound): sc =>
-        Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id)).toFuccess
-    }
+    env.study.api
+      .importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)
+      .flatMap {
+        _.fold(notFound): sc =>
+          Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id)).toFuccess
+      }
+      .recoverWith { case e: lila.base.LilaException =>
+        Redirect(routes.Study.createAs).flashFailure(e.message).toFuccess
+      }
 
   def delete(id: StudyId) = Auth { _ ?=> me =>
     env.study.api.byIdAndOwnerOrAdmin(id, me) flatMapz { study =>
