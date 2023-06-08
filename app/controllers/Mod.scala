@@ -29,13 +29,12 @@ final class Mod(
 
   def alt(username: UserStr, v: Boolean) =
     OAuthModBody(_.CloseAccount) { me =>
-      withSuspect(username) { sus =>
+      withSuspect(username): sus =>
         for
           _ <- modApi.setAlt(me, sus, v)
           _ <- (v && sus.user.enabled.yes) ?? env.api.accountClosure.close(sus.user, me)
           _ <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
         yield sus.some
-      }
     }(reportC.onModAction)
 
   def engine(username: UserStr, v: Boolean) =
@@ -78,13 +77,12 @@ final class Mod(
   def warn(username: UserStr, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
       env.mod.presets.getPmPresets(me.user).named(subject) ?? { preset =>
-        withSuspect(username) { suspect =>
+        withSuspect(username): suspect =>
           for
             _ <- env.msg.api.systemPost(suspect.user.id, preset.text)
             _ <- env.mod.logApi.modMessage(me.id into ModId, suspect.user.id, preset.name)
             _ <- preset.isNameClose ?? env.irc.api.nameClosePreset(suspect.user.username)
           yield suspect.some
-        }
       }
     }(reportC.onModAction)
 
@@ -95,11 +93,10 @@ final class Mod(
 
   def deletePmsAndChats(username: UserStr) =
     OAuthMod(_.Shadowban) { _ => _ =>
-      withSuspect(username) { sus =>
+      withSuspect(username): sus =>
         env.mod.publicChat.deleteAll(sus) >>
           env.forum.delete.allByUser(sus.user) >>
           env.msg.api.deleteAllBy(sus.user) map some
-      }
     }(actionResult(username))
 
   def disableTwoFactor(username: UserStr) =
@@ -121,35 +118,30 @@ final class Mod(
 
   def reportban(username: UserStr, v: Boolean) =
     OAuthMod(_.ReportBan) { _ => me =>
-      withSuspect(username) { sus =>
+      withSuspect(username): sus =>
         modApi.setReportban(me, sus, v) map some
-      }
     }(actionResult(username))
 
   def rankban(username: UserStr, v: Boolean) =
     OAuthMod(_.RemoveRanking) { _ => me =>
-      withSuspect(username) { sus =>
+      withSuspect(username): sus =>
         modApi.setRankban(me, sus, v) map some
-      }
     }(actionResult(username))
 
   def prizeban(username: UserStr, v: Boolean) =
     OAuthMod(_.PrizeBan) { _ => me =>
-      withSuspect(username) { sus =>
+      withSuspect(username): sus =>
         modApi.setPrizeban(me, sus, v) map some
-      }
     }(actionResult(username))
 
   def impersonate(username: UserStr) = Auth { _ ?=> me =>
-    if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess {
+    if (username == UserName("-") && env.mod.impersonate.isImpersonated(me)) fuccess:
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
-    }
     else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId))
-      OptionFuRedirect(env.user.repo byId username) { user =>
+      OptionFuRedirect(env.user.repo byId username): user =>
         env.mod.impersonate.start(me, user)
         fuccess(routes.User.show(user.username))
-      }
     else notFound
   }
 
@@ -231,7 +223,7 @@ final class Mod(
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)
           .mon(_.mod.comm.segment("recentPovs"))
-          .flatMap { povs =>
+          .flatMap: povs =>
             priv.?? {
               env.chat.api.playerChat
                 .optionsByOrderedIds(povs.map(_.gameId into ChatId))
@@ -272,9 +264,11 @@ final class Mod(
                     html.mod.communication(
                       me,
                       user,
-                      (povs zip chats) collect {
-                        case (p, Some(c)) if c.nonEmpty => p -> c
-                      } take 15,
+                      povs
+                        .zip(chats)
+                        .collect:
+                          case (p, Some(c)) if c.nonEmpty => p -> c
+                        .take(15),
                       convos,
                       publicLines,
                       notes.filter(_.from != lila.user.User.irwinId),
@@ -284,7 +278,6 @@ final class Mod(
                       priv
                     )
               }
-          }
     }
 
   def communicationPublic(username: UserStr)  = communications(username, priv = false)
@@ -309,10 +302,11 @@ final class Mod(
       (isGranted(_.Appeals) ?? env.appeal.api.exists(user)) flatMap { isAppeal =>
         isAppeal.??(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
           case Some(ongoing) if ongoing.mod != me.id =>
-            env.user.lightUserApi.asyncFallback(ongoing.mod) map { mod =>
-              Redirect(appeal.routes.Appeal.show(user.username))
-                .flashFailure(s"Currently processed by ${mod.name}")
-            }
+            env.user.lightUserApi
+              .asyncFallback(ongoing.mod)
+              .map: mod =>
+                Redirect(appeal.routes.Appeal.show(user.username))
+                  .flashFailure(s"Currently processed by ${mod.name}")
           case _ =>
             val f =
               if (isAppeal) env.report.api.inquiries.appeal
@@ -335,23 +329,24 @@ final class Mod(
     lila.mod.Gamify
       .Period(periodStr)
       .fold(notFound): period =>
-        env.mod.gamify.leaderboards map { leaderboards =>
+        env.mod.gamify.leaderboards.map: leaderboards =>
           Ok(html.mod.gamify.period(leaderboards, period))
-        }
   }
 
   def activity = activityOf("team", "month")
 
   def activityOf(who: String, period: String) = Secure(_.GamifyView) { ctx ?=> me =>
-    env.mod.activity(who, period)(me.user) map { activity =>
-      Ok(html.mod.activity(activity))
-    }
+    env.mod
+      .activity(who, period)(me.user)
+      .map: activity =>
+        Ok(html.mod.activity(activity))
   }
 
   def queues(period: String) = Secure(_.GamifyView) { ctx ?=> _ =>
-    env.mod.queueStats(period) map { stats =>
-      Ok(html.mod.queueStats(stats))
-    }
+    env.mod
+      .queueStats(period)
+      .map: stats =>
+        Ok(html.mod.queueStats(stats))
   }
 
   def search = SecureBody(_.UserSearch) { ctx ?=> me =>
@@ -467,7 +462,7 @@ final class Mod(
                 lila.mon.user.register.modConfirmEmail.increment()
                 modApi.setEmail(me.id into ModId, user.id, setEmail)
               } >>
-                env.user.repo.email(user.id) map { email =>
+                env.user.repo.email(user.id).map { email =>
                   Ok(html.mod.emailConfirm("", user.some, email)).some
                 }
             case _ => fuccess(none)
