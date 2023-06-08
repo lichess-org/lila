@@ -250,7 +250,7 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.SubmitMove.CORRESPONDENCE, trans.correspondence.txt()),
       (Pref.SubmitMove.CLASSICAL, trans.classical.txt()),
       (Pref.SubmitMove.RAPID, trans.rapid.txt()),
-      (Pref.SubmitMove.BLITZ, trans.blitz.txt())
+      (Pref.SubmitMove.BLITZ, "Blitz")
     )
 
   def confirmResignChoices(using Lang) =
