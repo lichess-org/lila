@@ -206,6 +206,33 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         .cursor[Study.IdName](readPref)
         .list(nb)
 
+  def recentByContributorWithChapterCount(
+      chapterColl: AsyncColl
+  )(userId: UserId, nb: Int): Fu[List[(Study.IdName, Int)]] =
+    coll:
+      _.aggregateList(nb) { framework =>
+        import framework.*
+        Match(selectContributorId(userId)) -> List(
+          Project(idNameProjection),
+          PipelineOperator(
+            $lookup.pipeline(
+              from = chapterColl,
+              as = "chapters",
+              local = "_id",
+              foreign = "studyId",
+              pipe = List($doc("$project" -> $id(true)))
+            )
+          ),
+          AddFields($doc("chapters" -> $doc("$size" -> "$chapters")))
+        )
+      }
+        .map: docs =>
+          for
+            doc        <- docs
+            idName     <- idNameHandler.readOpt(doc ppAs lila.db.BSON.debug)
+            nbChapters <- doc.int("chapters")
+          yield (idName, nbChapters)
+
   def isContributor(studyId: StudyId, userId: UserId) =
     coll(_.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w")))
 

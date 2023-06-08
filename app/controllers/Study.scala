@@ -257,7 +257,7 @@ final class Study(
         data =>
           for
             owner   <- env.study.api.recentByOwnerWithChapterCount(me.id, 50)
-            contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
+            contrib <- env.study.api.recentByContributorWithChapterCount(me.id, 50)
             res <-
               if owner.isEmpty && contrib.isEmpty then createStudy(data, me)
               else

@@ -15,7 +15,7 @@ object create:
   def apply(
       data: lila.study.StudyForm.importGame.Data,
       owner: List[(Study.IdName, Int)],
-      contrib: List[Study.IdName],
+      contrib: List[(Study.IdName, Int)],
       backUrl: Option[String]
   )(implicit ctx: Context) =
     views.html.site.message(
@@ -48,7 +48,7 @@ object create:
             ),
             div(
               h2(trans.study.studiesIContributeTo()),
-              contrib map studyButton
+              contrib.map(_._1).map(studyButton)
             )
           )
         )

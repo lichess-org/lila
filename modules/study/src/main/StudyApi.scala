@@ -98,7 +98,8 @@ final class StudyApi(
       }
     } >> byIdWithFirstChapter(study.id)
 
-  def recentByOwnerWithChapterCount = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll) _
+  def recentByOwnerWithChapterCount = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
+  def recentByContributorWithChapterCount = studyRepo.recentByContributorWithChapterCount(chapterRepo.coll)
 
   export chapterRepo.studyIdOf
 
