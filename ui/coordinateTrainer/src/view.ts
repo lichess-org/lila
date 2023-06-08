@@ -1,5 +1,6 @@
 import { h, VNode, VNodeStyle } from 'snabbdom';
 import { bind, MaybeVNode } from 'common/snabbdom';
+import { renderVoiceBar } from 'voice';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
 import { CoordModifier } from './interfaces';
@@ -71,25 +72,6 @@ const progress = (ctrl: CoordinateTrainerCtrl): VNode => {
 
 const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
   const coordinateInput = [
-    h(
-      'div.keyboard-container',
-      {
-        class: {
-          hidden: ctrl.coordinateInputMethod() === 'buttons',
-        },
-      },
-      [
-        h('input.keyboard', {
-          hook: {
-            insert: vnode => {
-              ctrl.keyboardInput = vnode.elm as HTMLInputElement;
-            },
-          },
-          on: { keyup: ctrl.onKeyboardInputKeyUp },
-        }),
-        ctrl.playing ? h('span', 'Enter the coordinate') : h('strong', 'Press <enter> to start'),
-      ]
-    ),
     ctrl.coordinateInputMethod() === 'buttons'
       ? h(
           'div.files-ranks',
@@ -111,15 +93,27 @@ const coordinateInput = (ctrl: CoordinateTrainerCtrl): MaybeVNode => {
           )
         )
       : null,
-  ];
-  const inputMethodSwitcher = ctrl.playing
-    ? null
-    : h(
+    h('div.voice-container', renderVoiceBar(ctrl.voice, ctrl.redraw)),
+    h('div.keyboard-container', [
+      h('span', [
+        h('input.keyboard', {
+          hook: {
+            insert: vnode => {
+              ctrl.keyboardInput = vnode.elm as HTMLInputElement;
+            },
+          },
+          on: { keyup: ctrl.onKeyboardInputKeyUp },
+        }),
+        ctrl.playing ? h('span', 'Enter the coordinate') : h('strong', 'Press <enter> to start'),
+      ]),
+      h(
         'a',
         { on: { click: () => ctrl.toggleInputMethod() } },
-        ctrl.coordinateInputMethod() === 'text' ? 'Use buttons instead' : 'Use keyboard instead'
-      );
-  return ctrl.mode() === 'nameSquare' ? h('div.coordinate-input', [...coordinateInput, inputMethodSwitcher]) : null;
+        ctrl.coordinateInputMethod() === 'text' ? 'Show buttons' : 'Hide buttons'
+      ),
+    ]),
+  ];
+  return ctrl.mode() === 'nameSquare' ? h('div.coordinate-input', [...coordinateInput]) : null;
 };
 
 const view = (ctrl: CoordinateTrainerCtrl): VNode =>

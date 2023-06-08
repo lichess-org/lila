@@ -46,27 +46,31 @@ function validOps(h: string, x: string, pos: number) {
   return validOps;
 }
 
-// optimizations for when a set has only one element, which is most of the time
+// optimizations for xval mappings when most keys only map to 1 value.  On V8 using
+// voice move data, this is 50% faster while using half the memory of Map<string, Set>
 
-export function spread<T>(v: undefined | T | Set<T>): T[] {
+export type SparseSet<T> = Set<T> | T;
+export type SparseMap<V> = Map<string, SparseSet<V>>;
+
+export function spread<T>(v: undefined | SparseSet<T>): T[] {
   return v === undefined ? [] : v instanceof Set ? [...v] : [v];
 }
 
-export function spreadMap<T>(m: Map<string, T | Set<T>>): [string, T[]][] {
+export function spreadMap<T>(m: SparseMap<T>): [string, T[]][] {
   return [...m].map(([k, v]) => [k, spread(v)]);
 }
 
-export function getSpread<T>(m: Map<string, T | Set<T>>, key: string): T[] {
+export function getSpread<T>(m: SparseMap<T>, key: string): T[] {
   return spread(m.get(key));
 }
 
-export function remove<T>(m: Map<string, T | Set<T>>, key: string, val: T) {
+export function remove<T>(m: SparseMap<T>, key: string, val: T) {
   const v = m.get(key);
   if (v === val) m.delete(key);
   else if (v instanceof Set) v.delete(val);
 }
 
-export function pushMap<T>(m: Map<string, T | Set<T>>, key: string, val: T) {
+export function pushMap<T>(m: SparseMap<T>, key: string, val: T) {
   const v = m.get(key);
   if (!v) m.set(key, val);
   else {

@@ -4,10 +4,20 @@ import * as prop from 'common/storage';
 import * as cs from 'chess';
 import { src as src, dest as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
-import { RootCtrl, VoiceMove, VoiceCtrl, Entry } from '../main';
+import { RootCtrl, VoiceMove, VoiceCtrl, Entry, Match } from '../main';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import { findTransforms, movesTo, pushMap, spreadMap, spread, getSpread, remove, type Transform } from './util';
+import {
+  type SparseMap,
+  type Transform,
+  spread,
+  spreadMap,
+  getSpread,
+  remove,
+  pushMap,
+  movesTo,
+  findTransforms,
+} from '../util';
 
 // Based on the original implementation by Sam 'Spammy' Ezeh. see the README.md in ui/voice/@build
 
@@ -16,27 +26,28 @@ export default (window as any).LichessVoiceMove = function (
   ui: VoiceCtrl,
   initialFen: string
 ): VoiceMove {
-  const cg: CgApi = root.chessground;
-  const byVal = new Map<string, Entry | Set<Entry>>(); // map values to lexicon entries
-  const byTok = new Map<string, Entry>(); // map token chars to lexicon entries
-  const byWord = new Map<string, Entry>(); // map input words to lexicon entries
-  const confirm = new Map<string, (v: boolean) => void>(); // boolean confirmation callbacks
-
-  let entries: Entry[] = [];
-  let partials = { commands: [], colors: [], numbers: [], wake: { ignore: [], phrase: undefined } };
-  let board: cs.Board;
-  let ucis: Uci[]; // every legal move in uci
-  let moves: Map<string, Uci | Set<Uci>>; // on full phrase - map valid xvals to all full legal moves
-  let squares: Map<string, Uci | Set<Uci>>; // on full phrase - map of xvals to selectable or reachable square(s)
-  let choices: Map<string, Uci> | undefined; // map choice (blue, red, 1, 2, etc) to action
-  let choiceTimeout: number | undefined; // timeout for ambiguity choices
-
+  const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
   const MAX_CHOICES = 8; // don't use brushes.length
 
+  const cg: CgApi = root.chessground;
+  const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
+  const byTok: Map<string, Entry> = new Map(); // map token chars to lexicon entries
+  const byWord: Map<string, Entry> = new Map(); // map input words to lexicon entries
+  const moves: SparseMap<Uci> = new Map(); // map valid xvals to all full legal movesmmmmmmmmmh
+  const squares: SparseMap<Uci> = new Map(); // map of xvals to selectable or reachable square(s)
+  const sans: SparseMap<string> = new Map(); // map xvals to ucis of valid sans
+  const confirm: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
   const clarityPref = prop.storedIntProp('voice.clarity', 0);
   const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
   const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
-  const debug = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
+
+  let entries: Entry[] = [];
+  let partials = { commands: [], colors: [], numbers: [] };
+  let board: cs.Board;
+  let ucis: Uci[]; // every legal move in uci
+
+  let choices: Map<string, Uci> | undefined; // map choice (blue, red, 1, 2, etc) to action
+  let choiceTimeout: number | undefined; // timeout for ambiguity choices
 
   const commands: { [_: string]: () => void } = {
     no: () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress()),
@@ -107,28 +118,28 @@ export default (window as any).LichessVoiceMove = function (
     cg.setShapes([]);
     if (!cg.state.movable.dests) return;
     ucis = cs.destsToUcis(cg.state.movable.dests);
-    moves = buildMoves();
-    squares = buildSquares();
+    buildMoves();
+    buildSquares();
   }
 
   function listen(text: string, msgType: Voice.MsgType) {
     if (msgType === 'stop' && !ui.pushTalk()) clearMoveProgress();
     else if (msgType === 'full') {
       try {
-        if (debug?.collapse) console.groupCollapsed(`listen '${text}'`);
+        if (DEBUG.collapse) console.groupCollapsed(`listen '${text}'`);
+        else console.info(`listen '${text}'`);
         if (handleCommand(text) || handleAmbiguity(text) || handleMove(text)) {
           confirm.forEach((cb, _) => cb(false));
           confirm.clear();
         }
       } finally {
-        if (debug?.collapse) console.groupEnd();
+        if (DEBUG.collapse) console.groupEnd();
       }
     }
     root.redraw();
   }
 
   function listenTimer(word: string) {
-    console.log('hayo', word);
     if (!choices || !choiceTimeout) return;
     const val = wordVal(word);
     const move = choices.get(val);
@@ -175,11 +186,10 @@ export default (window as any).LichessVoiceMove = function (
     );
     if (!chosen) {
       clearMoveProgress();
-      if (debug) console.log('handleAmbiguity', `no match for '${phrase}' among`, choices);
+      console.info('handleAmbiguity', `no match for '${phrase}' among`, choices);
       return false;
     }
-    if (debug)
-      console.log('handleAmbiguity', `matched '${phrase}' to '${chosen[0]}' at cost=${chosen[1]} among`, choices);
+    console.info('handleAmbiguity', `matched '${phrase}' to '${chosen[0]}' at cost=${chosen[1]} among`, choices);
     submit(chosen[0]);
     return true;
   }
@@ -189,35 +199,39 @@ export default (window as any).LichessVoiceMove = function (
     return chooseMoves(matchMany(phrase, [...spreadMap(moves), ...spreadMap(squares)]));
   }
 
-  // mappings can be partite over tag sets. in the substitution graph, all tokens with identical
-  // tags define a partition and cannot share an edge when the partite argument is true.
-  function matchMany(phrase: string, xvalsToOutSet: [string, string[]][], partite = false): [string, number][] {
+  // see the README.md in ui/voice/@build to decrypt these variable names.
+
+  function matchMany(phrase: string, xvalsOut: [string, string[]][], partite = false): [string, Match][] {
     const htoks = wordsToks(phrase);
-    const xtoksToOutSet = new Map<string, Set<string>>(); // temp map for val->tok expansion
-    for (const [xvals, outs] of xvalsToOutSet) {
+    const xtoksOut: SparseMap<string> = new Map(); // temp map for token expansion
+    for (const [xvals, outs] of xvalsOut) {
       for (const xtoks of valsToks(xvals)) {
-        for (const out of outs) pushMap(xtoksToOutSet, xtoks, out);
+        for (const out of outs) pushMap(xtoksOut, xtoks, out);
       }
     }
-    const matchMap = new Map<string, number>();
-    for (const [xtoks, outs] of spreadMap(xtoksToOutSet)) {
+    const matches = new Map<string, Match>();
+
+    for (const [xtoks, outs] of spreadMap(xtoksOut)) {
       const cost = costToMatch(htoks, xtoks, partite);
-      if (cost < 1)
-        for (const out of outs) {
-          if (!matchMap.has(out) || matchMap.get(out)! > cost) matchMap.set(out, cost);
+      const sanUcis = new Set(getSpread(sans, toksVals(xtoks)));
+      if (cost > 1) continue;
+      for (const out of outs) {
+        if (!matches.has(out) || matches.get(out)!.cost > cost) {
+          matches.set(out, { isSan: sanUcis.has(out), cost });
         }
+      }
     }
-    const matches = [...matchMap].sort(([, lhsCost], [, rhsCost]) => lhsCost - rhsCost);
-    if ((debug && matches.length > 0) || debug?.emptyMatches)
-      console.log('matchMany', `from: `, xtoksToOutSet, '\nto: ', new Map(matches));
-    return matches;
+    const sorted = [...matches].sort(([, lhs], [, rhs]) => lhs.cost - rhs.cost);
+    if (sorted.length > 0 || DEBUG.emptyMatches)
+      console.info('matchMany', `from: `, xtoksOut, '\nto: ', new Map(sorted));
+    return sorted;
   }
 
-  function matchOne(heard: string, xvalsToOutSet: [string, string[]][]): [string, number] | undefined {
-    return matchMany(heard, xvalsToOutSet, true)[0];
+  function matchOne(heard: string, xvalsOut: [string, string[]][]): [string, Match] | undefined {
+    return matchMany(heard, xvalsOut, true)[0];
   }
 
-  function matchOneTags(heard: string, tags: string[], vals: string[] = []): [string, number] | undefined {
+  function matchOneTags(heard: string, tags: string[], vals: string[] = []): [string, Match] | undefined {
     return matchOne(heard, [...vals.map(v => [v, [v]]), ...byTags(tags).map(e => [e.val!, [e.val!]])] as [
       string,
       string[]
@@ -229,7 +243,7 @@ export default (window as any).LichessVoiceMove = function (
     const xforms = findTransforms(h, x)
       .map(t => t.reduce((acc, t) => acc + transformCost(t, partite), 0))
       .sort((lhs, rhs) => lhs - rhs);
-    return xforms?.[0];
+    return xforms?.[0] ?? Infinity;
   }
 
   function transformCost(transform: Transform, partite: boolean) {
@@ -240,23 +254,31 @@ export default (window as any).LichessVoiceMove = function (
       // mappings within a tag partition are not allowed when partite is true
       const to = byTok.get(transform.to);
       // should be optimized, maybe consolidate tags when parsing the lexicon
-      if (from?.tags?.every(x => to?.tags?.includes(x)) && from.tags.length === to!.tags.length) return 100;
+      if (from?.tags?.every(x => to?.tags?.includes(x)) && from.tags.length === to!.tags.length) return Infinity;
     }
-    return sub?.cost ?? 100;
+    return sub?.cost ?? Infinity;
   }
 
-  function chooseMoves(m: [string, number][]) {
+  function chooseMoves(m: [string, Match][]) {
     if (m.length === 0) return false;
+    if (m.length === 1 && m[0][0].length === 2) {
+      console.info('chooseMoves', `select '${m[0][0]}'`);
+      submit(m[0][0]);
+      return true;
+    }
     if (timer()) return ambiguate(m);
-    if ((m.length === 1 && m[0][1] < 0.4) || (m.length > 1 && m[1][1] - m[0][1] > [0.7, 0.5, 0.3][clarityPref()])) {
-      if (debug) console.log('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1]}`);
+    if (
+      (m.length === 1 && m[0][1].cost < 0.4) ||
+      (m.length > 1 && m[1][1].cost - m[0][1].cost > [0.7, 0.5, 0.3][clarityPref()])
+    ) {
+      console.info('chooseMoves', `chose '${m[0][0]}' cost=${m[0][1].cost}`);
       submit(m[0][0]);
       return true;
     }
     return ambiguate(m);
   }
 
-  function ambiguate(options: [string, number][]) {
+  function ambiguate(options: [string, Match][]) {
     if (options.length === 0) return false;
     // dedup by uci squares & keep first to preserve cost order
     options = options
@@ -265,24 +287,20 @@ export default (window as any).LichessVoiceMove = function (
       )
       .slice(0, MAX_CHOICES);
 
-    // if multiple choices with identical cost head the list, prefer a single pawn move
-    const sameLowCost = options.filter(([_, cost]) => cost === options[0][1]);
-    const pawnMoves = sameLowCost.filter(
-      ([uci, _]) => uci.length > 3 && board.pieces[cs.square(src(uci))].toUpperCase() === 'P'
-    );
-    if (pawnMoves.length === 1 && sameLowCost.length > 1) {
-      // bump the other costs and move pawn uci to front
-      const pIndex = sameLowCost.findIndex(([uci, _]) => uci === pawnMoves[0][0]);
-      [options[0], options[pIndex]] = [options[pIndex], options[0]];
-      for (let i = 1; i < sameLowCost.length; i++) {
-        options[i][1] += 0.01;
-      }
+    // if multiple choices with identical cost head the list, prefer a single SAN move
+    const sameLowCost = options.filter(([_, m]) => m.cost === options[0][1].cost);
+    const sanMoves = sameLowCost.filter(([_, m]) => m.isSan);
+    if (sanMoves.length === 1 && sameLowCost.length > 1) {
+      // move san uci to front and make it cheaper
+      const sanIndex = sameLowCost.findIndex(([uci, _]) => uci === sanMoves[0][0]);
+      [options[0], options[sanIndex]] = [options[sanIndex], options[0]];
+      options[0][1].cost -= 0.01;
     }
-    // trim choices to clarity window
     if (timer()) {
-      const clarity = clarityPref();
-      const lowestCost = options[0][1];
-      options = options.filter(([, cost]) => cost - lowestCost <= [1.0, 0.5, 0.001][clarity]);
+      const clarityThreshold = [1.0, 0.5, 0.001][clarityPref()];
+      const lowestCost = options[0][1].cost;
+      // trim choices to clarity window
+      options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
     }
 
     choices = new Map<string, Uci>();
@@ -293,7 +311,7 @@ export default (window as any).LichessVoiceMove = function (
       options.forEach(([uci], i) => choices!.set(colorNames[i], uci));
     } else options.forEach(([uci], i) => choices!.set(`${i + 1}`, uci));
 
-    if (debug) console.log('ambiguate', choices);
+    console.info('ambiguate', choices);
     choiceTimeout = 0;
     if (preferred && timer()) {
       choiceTimeout = setTimeout(() => {
@@ -318,7 +336,7 @@ export default (window as any).LichessVoiceMove = function (
     if (uci.length < 3) {
       const dests = ucis.filter(x => x.startsWith(uci));
 
-      if (dests.length <= MAX_CHOICES) return ambiguate(dests.map(uci => [uci, 0]));
+      if (dests.length <= MAX_CHOICES) return ambiguate(dests.map(uci => [uci, { cost: 0 }]));
       if (uci !== selection()) selection(src(uci));
       cg.redrawAll();
       return true;
@@ -350,9 +368,16 @@ export default (window as any).LichessVoiceMove = function (
         : lichess.mic.removeListener('promotion');
   }
 
-  // given each uci, build every possible move phrase for it
-  function buildMoves(): Map<string, Uci | Set<Uci>> {
-    const moves = new Map<string, Uci | Set<Uci>>();
+  // given each uci, build every possible move phrase for it, and keep clues
+  function buildMoves() {
+    const addToks = (xtoks: string, sanUci?: Uci) => {
+      const xvals = xtoks.split('').join(',');
+      xvalset.add(xvals);
+      if (sanUci) pushMap(sans, xvals, sanUci);
+    };
+    moves.clear();
+    sans.clear();
+    const xvalset: Set<string> = new Set(); // allowable exact phrases for uci
     for (const uci of ucis) {
       const usrc = src(uci),
         udest = dest(uci),
@@ -367,33 +392,33 @@ export default (window as any).LichessVoiceMove = function (
           moves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
         } else if (Math.abs(nsrc & 7) - Math.abs(ndest & 7) > 1) continue; // require the rook square explicitly
       }
-      const xtokset = new Set<Uci>(); // allowable exact phrases for uci
-      xtokset.add(uci);
+      xvalset.clear();
+      xvalset.add(uci);
+
       if (dp && !isOurs(dp)) {
         const drole = dp.toUpperCase(); // takes
-        xtokset.add(`${srole}${drole}`);
-        xtokset.add(`${srole}x${drole}`);
-        pushMap(moves, `${srole},x`, uci); // keep out of xtokset to avoid conflicts with promotion
-        xtokset.add(`x${drole}`);
-        xtokset.add(`x`);
+        addToks(`${srole}${drole}`);
+        addToks(`${srole}x${drole}`);
+        pushMap(moves, `${srole},x`, uci); // keep out of xvalset to avoid conflicts with promotion
+        addToks(`x${drole}`);
+        addToks(`${uci[0]}x`);
+        addToks(`${uci[0]}x${drole}`);
+        addToks(`x`);
       }
       if (srole === 'P') {
-        xtokset.add(udest); // includes en passant
+        addToks(udest, uci); // includes en passant
         if (uci[0] === uci[2]) {
-          xtokset.add(`P${udest}`);
+          addToks(`P${udest}`);
         } else if (dp) {
-          xtokset.add(`${usrc}x${udest}`);
-          xtokset.add(`Px${udest}`);
-        } else {
-          xtokset.add(`${usrc}${udest}`);
-          xtokset.add(`${uci[0]}${udest}`);
-          xtokset.add(`P${uci[0]}${udest}`);
+          addToks(`${usrc}x${udest}`);
+          addToks(`Px${udest}`);
+          addToks(`${uci[0]}x${udest}`, uci);
         }
         if (uci[3] === '1' || uci[3] === '8') {
-          for (const moveToks of xtokset) {
+          for (const moveVals of xvalset) {
             for (const role of 'QRBN') {
-              for (const xtoks of [`${moveToks}=${role}`, `${moveToks}${role}`]) {
-                pushMap(moves, [...xtoks].join(','), `${uci}${role}`);
+              for (const xvals of [`${moveVals},=,${role}`, `${moveVals},${role}`]) {
+                pushMap(moves, xvals, `${uci}${role}`);
               }
             }
           }
@@ -409,19 +434,17 @@ export default (window as any).LichessVoiceMove = function (
           else file = uci[0];
         }
         for (const piece of [`${srole}${file}${rank}`, `${srole}`]) {
-          if (dp) xtokset.add(`${piece}x${udest}`);
-          xtokset.add(`${piece}${udest}`);
+          if (dp) addToks(`${piece}x${udest}`, uci);
+          addToks(`${piece}${udest}`, uci);
         }
       }
-      // since all toks === vals in xtokset, just comma separate to map to val space
-      [...xtokset].map(x => pushMap(moves, [...x].join(','), uci));
+      for (const xvals of xvalset) pushMap(moves, xvals, uci);
     }
-    if (debug?.buildMoves) console.log('buildMoves', moves);
-    return moves;
+    if (DEBUG.buildMoves) console.info('buildMoves', moves);
   }
 
-  function buildSquares(): Map<string, Uci | Set<Uci>> {
-    const squares = new Map<string, Uci | Set<Uci>>();
+  function buildSquares() {
+    squares.clear();
     for (const uci of ucis) {
       const sel = selection();
       if (sel && !uci.startsWith(sel)) continue;
@@ -433,10 +456,10 @@ export default (window as any).LichessVoiceMove = function (
         srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
       pushMap(squares, `${usrc[0]},${usrc[1]}`, usrc);
       pushMap(squares, `${udest[0]},${udest[1]}`, uci);
-      if (srole !== 'P') {
-        pushMap(squares, srole, uci);
-        pushMap(squares, srole, usrc);
-      }
+      //if (srole !== 'P') {
+      pushMap(squares, srole, uci);
+      pushMap(squares, srole, usrc);
+      //}
       if (dp && !isOurs(dp)) pushMap(squares, dp.toUpperCase(), uci);
     }
     // deconflict role partials for move & select
@@ -446,8 +469,7 @@ export default (window as any).LichessVoiceMove = function (
       if (moves.length > MAX_CHOICES) moves.forEach(x => remove(squares, xouts, x));
       else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(squares, xouts, x));
     }
-    if (debug?.buildSquares) console.log('buildSquares', squares);
-    return squares;
+    if (DEBUG.buildSquares) console.info('buildSquares', squares);
   }
 
   function isOurs(p: string | undefined) {
@@ -464,14 +486,14 @@ export default (window as any).LichessVoiceMove = function (
     choiceTimeout = undefined;
     choices = undefined;
     cg.setShapes([]);
-    selection(undefined);
+    selection(false);
     if (mustRedraw) cg.redrawAll();
   }
 
   function selection(sq?: Key | false) {
     if (sq !== undefined) {
       cg.selectSquare(sq || null);
-      squares = buildSquares();
+      buildSquares();
     }
     return cg.state.selected;
   }
@@ -484,8 +506,12 @@ export default (window as any).LichessVoiceMove = function (
     return selection !== undefined || choices !== undefined;
   }
 
-  function tokWord(tok?: string) {
-    return tok && byTok.get(tok)?.in;
+  function tokWord(tok: string) {
+    return byTok.get(tok)?.in;
+  }
+
+  function toksVals(toks: string) {
+    return [...toks].map(tok => byTok.get(tok)?.val).join(',');
   }
 
   function tagWords(tags?: string[], intersect = false) {

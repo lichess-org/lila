@@ -55,7 +55,7 @@ export class BoardMenu {
       name
     );
 
-  zenMode = (enabled: boolean = true) =>
+  zenMode = (enabled = true) =>
     this.cmnToggle({
       name: 'Zen mode',
       id: 'zen',
@@ -64,7 +64,7 @@ export class BoardMenu {
       disabled: !enabled,
     });
 
-  voiceInput = (toggle: Toggle, enabled: boolean = true) =>
+  voiceInput = (toggle: Toggle, enabled = true) =>
     this.cmnToggle({
       name: 'Voice input',
       id: 'voice',
@@ -74,7 +74,7 @@ export class BoardMenu {
       disabled: !enabled,
     });
 
-  keyboardInput = (toggle: Toggle, enabled: boolean = true) =>
+  keyboardInput = (toggle: Toggle, enabled = true) =>
     this.cmnToggle({
       name: 'Keyboard input',
       id: 'keyboard',

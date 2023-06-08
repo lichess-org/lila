@@ -146,6 +146,12 @@ object helpModal:
       )
     )
 
+  def voiceCoords(using Lang) =
+    frag(
+      h2("Voice commands"),
+      "This space for rent"
+    )
+
   def voiceMove(using Lang) =
     import trans.keyboardMove.*
     frag(
