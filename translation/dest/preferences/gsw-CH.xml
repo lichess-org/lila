@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal glicher Stellig</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtzit &lt; 30 Sekunde</string>
   <string name="moveConfirmation">Zugsbeschtätigung</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Chann während eme Schpil im Brättmenü deaktiviert werde</string>
   <string name="inCorrespondenceGames">Bi Fernschach</string>
   <string name="correspondenceAndUnlimited">Bi Fernschach und ohni Uhr</string>
   <string name="confirmResignationAndDrawOffers">Ufgab und Remis Agebot beschtätige</string>
