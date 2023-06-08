@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Oyun esnasında tahta menüsünden devre dışı bırakılabilir</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>
   <string name="confirmResignationAndDrawOffers">Oyundan çekilme ve beraberlik tekliflerini onayla</string>
