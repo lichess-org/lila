@@ -99,6 +99,7 @@
   <string name="openingExplorer">Explorador de aberturas</string>
   <string name="openingEndgameExplorer">Explorador de Aberturas/Finais</string>
   <string name="xOpeningExplorer">%s Explorador de aberturas</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Jogar primeiro lance do explorador de aberturas/finais</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pela regra dos 50 movimentos</string>
   <string name="winOr50MovesByPriorMistake">Vitória ou 50 movimentos por erro anterior</string>
@@ -682,6 +683,11 @@
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
+  <string name="keyRequestComputerAnalysis">Solicite análise do computador, aprenda com seus erros</string>
+  <string name="keyNextLearnFromYourMistakes">Próximo (aprenda com seus erros)</string>
+  <string name="keyNextBlunder">Próximo erro grave</string>
+  <string name="keyNextMistake">Próximo erro</string>
+  <string name="keyNextInaccuracy">Próxima imprecisão</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos controles de tempo e variantes</string>
   <string name="tournamentHomeDescription">Jogue xadrez em ritmo acelerado! Entre em um torneio oficial agendado ou crie seu próprio. Bullet, Blitz, Clássico, Chess960, King of the Hill, Três Xeques e outras modalidades disponíveis para uma ilimitada diversão enxadrística.</string>
