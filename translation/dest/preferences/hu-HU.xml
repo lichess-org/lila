@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>
   <string name="moveConfirmation">Lépés jóváhagyatása</string>
+  <string name="explainCanThenBeTemporarilyDisabled">A tábla menüvel játék közben kikapcsolható</string>
   <string name="inCorrespondenceGames">Levelező mérkőzés</string>
   <string name="correspondenceAndUnlimited">Távjáték és korlátlan</string>
   <string name="confirmResignationAndDrawOffers">Feladás és döntetlen kérelem megerősítése</string>
