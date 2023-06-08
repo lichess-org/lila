@@ -99,6 +99,7 @@
   <string name="openingExplorer">Eröffnigsdatäbank</string>
   <string name="openingEndgameExplorer">Eröffnigs- / Ändschpiel-Explorer</string>
   <string name="xOpeningExplorer">%s Eröffnigs-Explorer</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Erschte Eröffnigs-/Endschpil-Erkundigszug schpille</string>
   <string name="winPreventedBy50MoveRule">Sieg mit de 50-Züg-Regle verhinderet</string>
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
   <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züg dur en vorherige Fähler</string>
@@ -691,6 +692,11 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
   <string name="keyEnterOrExitVariation">wähl/verlah Variante</string>
+  <string name="keyRequestComputerAnalysis">Computeranalyse afordere, Lern us dine Fähler</string>
+  <string name="keyNextLearnFromYourMistakes">Nächschts (Lern vu dine Fähler)</string>
+  <string name="keyNextBlunder">Nächschte Patzer</string>
+  <string name="keyNextMistake">Nächschte Fähler</string>
+  <string name="keyNextInaccuracy">Nächschti Ungnauigkeit</string>
   <string name="newTournament">Neus Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedene Zitkontrolle und Variante</string>
   <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell es Eiges. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfach-Schach und witeri Variante sind vorhande - für ändlose Schach-Spass.</string>
