@@ -256,7 +256,7 @@ final class Study(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)).toFuccess,
         data =>
           for
-            owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
+            owner   <- env.study.api.recentByOwnerWithChapterCount(me.id, 50)
             contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
             res <-
               if owner.isEmpty && contrib.isEmpty then createStudy(data, me)

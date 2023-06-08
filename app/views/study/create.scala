@@ -14,7 +14,7 @@ object create:
 
   def apply(
       data: lila.study.StudyForm.importGame.Data,
-      owner: List[Study.IdName],
+      owner: List[(Study.IdName, Int)],
       contrib: List[Study.IdName],
       backUrl: Option[String]
   )(implicit ctx: Context) =
@@ -44,7 +44,7 @@ object create:
           div(cls := "studies")(
             div(
               h2(trans.study.myStudies()),
-              owner map studyButton
+              owner.map(_._1) map studyButton
             ),
             div(
               h2(trans.study.studiesIContributeTo()),

@@ -172,12 +172,32 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def publicIdNames(ids: List[StudyId]): Fu[List[Study.IdName]] =
     coll(_.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[Study.IdName]().listAll())
 
-  def recentByOwner(userId: UserId, nb: Int) =
+  def recentByOwnerWithChapterCount(
+      chapterColl: AsyncColl
+  )(userId: UserId, nb: Int): Fu[List[(Study.IdName, Int)]] =
     coll:
-      _.find(selectOwnerId(userId), idNameProjection.some)
-        .sort($sort desc "updatedAt")
-        .cursor[Study.IdName](readPref)
-        .list(nb)
+      _.aggregateList(nb) { framework =>
+        import framework.*
+        Match(selectOwnerId(userId)) -> List(
+          Project(idNameProjection),
+          PipelineOperator(
+            $lookup.pipeline(
+              from = chapterColl,
+              as = "chapters",
+              local = "_id",
+              foreign = "studyId",
+              pipe = List($doc("$project" -> $id(true)))
+            )
+          ),
+          AddFields($doc("chapters" -> $doc("$size" -> "$chapters")))
+        )
+      }
+        .map: docs =>
+          for
+            doc        <- docs
+            idName     <- idNameHandler.readOpt(doc ppAs lila.db.BSON.debug)
+            nbChapters <- doc.int("chapters")
+          yield (idName, nbChapters)
 
   def recentByContributor(userId: UserId, nb: Int) =
     coll:
