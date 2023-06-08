@@ -681,6 +681,10 @@
   <string name="keyGoToStartOrEnd">ga naar het begin/eind</string>
   <string name="keyShowOrHideComments">toon/verberg opmerkingen</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
+  <string name="keyRequestComputerAnalysis">Verzoek om computeranalyse, Leer van je fouten</string>
+  <string name="keyNextLearnFromYourMistakes">Volgende (leer van je fouten)</string>
+  <string name="keyNextMistake">Volgende fout</string>
+  <string name="keyNextInaccuracy">Volgende onnauwkeurigheid</string>
   <string name="newTournament">Nieuw toernooi</string>
   <string name="tournamentHomeTitle">Schaaktoernooi met verschillende speelduur en varianten</string>
   <string name="tournamentHomeDescription">Speel snelle schaaktoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, en meer opties verkrijgbaar voor eindeloos schaakplezier.</string>
