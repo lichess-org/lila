@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Posizioa hirutan errepikatzen denean berdinketa automatikoki eskatu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 segundo baino gutxiago geratzen denean</string>
   <string name="moveConfirmation">Jokaldia baieztatzea</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Partida baten zehar taularen menua erabiliz desaktibatu daiteke</string>
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="correspondenceAndUnlimited">Posta-xakea,  denbora-eperik gabe</string>
   <string name="confirmResignationAndDrawOffers">Etsitze eta berdinketa eskaeren baieztapena eskatu</string>
