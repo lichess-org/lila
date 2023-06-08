@@ -9,8 +9,10 @@ import controllers.routes
 
 object create:
 
-  private def studyButton(s: Study.IdName) =
-    submitButton(name := "as", value := s.id, cls := "submit button")(s.name)
+  private def studyButton(s: Study.IdName, chapterCount: Int) =
+    if chapterCount >= Study.maxChapters then
+      button(name := "as", value := s.id, cls := "button disabled")(s.name)
+    else submitButton(name := "as", value := s.id, cls := "submit button")(s.name)
 
   def apply(
       data: lila.study.StudyForm.importGame.Data,
@@ -44,11 +46,11 @@ object create:
           div(cls := "studies")(
             div(
               h2(trans.study.myStudies()),
-              owner.map(_._1) map studyButton
+              owner.map(studyButton)
             ),
             div(
               h2(trans.study.studiesIContributeTo()),
-              contrib.map(_._1).map(studyButton)
+              contrib.map(studyButton)
             )
           )
         )
