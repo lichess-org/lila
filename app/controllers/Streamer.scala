@@ -167,7 +167,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     env.streamer.ytApi.onVideoXml
 
   def youTubePubSubChallenge = Anon:
-    Ok(get("hub.challenge", req).get).toFuccess
+    fuccess:
+      get("hub.challenge", req).fold(BadRequest): challenge =>
+        lila.log("streamer").info(s"youTubePubSubChallenge $challenge")
+        Ok(challenge)
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context) =
     ctx.me.fold(notFound): me =>
