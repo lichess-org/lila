@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kiedy pozostało mniej niż 30 sekund</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Może być wyłączony podczas partii z menu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
   <string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
