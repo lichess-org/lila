@@ -128,7 +128,7 @@ object pref:
             setting(
               moveConfirmation(),
               frag(
-                checkboxes(form("behavior.submitMove"), submitMoveChoices),
+                bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
                 div(cls := "help text shy", dataIcon := licon.InfoCircle)(
                   explainCanThenBeTemporarilyDisabled()
                 )
