@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclama patta automaticamente dopo triplice ripetizione</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quando il tempo rimanente è &lt; 30 secondi</string>
   <string name="moveConfirmation">Conferma della mossa</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Può essere disabilitato durante una partita dal menu della scacchiera</string>
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
   <string name="correspondenceAndUnlimited">Corrispondenza e senza limiti di tempo</string>
   <string name="confirmResignationAndDrawOffers">Conferma abbandono e offerte di patta</string>
