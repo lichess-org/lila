@@ -19,7 +19,7 @@ export default function (ctrl: RoundController) {
         menu.zenMode(!spectator),
         menu.voiceInput(ctrl.voiceMoveEnabled, !spectator),
         menu.keyboardInput(ctrl.keyboardMoveEnabled, !spectator),
-        d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled, !spectator) : undefined,
+        !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,
       ]),
       h('section.board-menu__links', [
         h('a', { attrs: { target: '_blank', href: '/account/preferences/display' } }, 'Game display preferences'),
