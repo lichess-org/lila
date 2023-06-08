@@ -22,7 +22,7 @@ final class ForumPostApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage
-)(using Executor):
+)(using Executor)(using scheduler: Scheduler):
 
   import BSONHandlers.given
 
@@ -123,19 +123,22 @@ final class ForumPostApi(
             else $pull(s"reactions.$reaction"       -> me.id)
           },
           fetchNewObject = true
-        )
+        ) >>- {
+        if me.marks.troll && reaction == "-1" && v then
+          scheduler.scheduleOnce(5 minutes):
+            react(categSlug, postId, me, reaction, false)
+      }
     }
 
   def views(posts: List[ForumPost]): Fu[List[PostView]] =
     for
       topics <- topicRepo.coll.byIds[ForumTopic, ForumTopicId](posts.map(_.topicId).distinct)
       categs <- categRepo.coll.byIds[ForumCateg, ForumCategId](topics.map(_.categId).distinct)
-    yield posts flatMap { post =>
+    yield posts.flatMap: post =>
       for
         topic <- topics.find(_.id == post.topicId)
         categ <- categs.find(_.id == topic.categId)
       yield PostView(post, topic, categ)
-    }
 
   def viewsFromIds(postIds: Seq[ForumPostId]): Fu[List[PostView]] =
     postRepo.coll.byOrderedIds[ForumPost, ForumPostId](postIds)(_.id) flatMap views
