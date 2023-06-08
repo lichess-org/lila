@@ -231,6 +231,7 @@ object I18nKeys:
   val `cancelRematchOffer` = I18nKey("cancelRematchOffer")
   val `viewRematch` = I18nKey("viewRematch")
   val `confirmMove` = I18nKey("confirmMove")
+  val `enableConfirmationForThisGame` = I18nKey("enableConfirmationForThisGame")
   val `play` = I18nKey("play")
   val `inbox` = I18nKey("inbox")
   val `chatRoom` = I18nKey("chatRoom")

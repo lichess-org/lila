@@ -77,6 +77,7 @@ export default class RoundController {
   menu: ToggleWithUsed;
   voiceMoveEnabled: Toggle;
   keyboardMoveEnabled: Toggle;
+  confirmMoveEnabled: Toggle = toggle(true);
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -359,7 +360,7 @@ export default class RoundController {
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && !meta.premove) {
+    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
       this.moveToSubmit = move;
       this.redraw();
     } else {
@@ -371,13 +372,10 @@ export default class RoundController {
   };
 
   sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
-    const drop: SocketDrop = {
-      role: role,
-      pos: key,
-    };
+    const drop: SocketDrop = { role, pos: key };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && !isPredrop) {
+    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
       this.dropToSubmit = drop;
       this.redraw();
     } else {

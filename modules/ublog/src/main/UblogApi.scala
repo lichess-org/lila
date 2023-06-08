@@ -104,11 +104,11 @@ final class UblogApi(
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
 
   def uploadImage(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] =
-    for {
+    for
       pic <- picfitApi.uploadFile(imageRel(post), picture, userId = user.id)
       image = post.image.fold(UblogImage(pic.id))(_.copy(id = pic.id))
       _ <- colls.post.updateField($id(post.id), "image", image)
-    } yield post.copy(image = image.some)
+    yield post.copy(image = image.some)
 
   def deleteImage(post: UblogPost): Fu[UblogPost] =
     picfitApi.deleteByRel(imageRel(post)) >>
