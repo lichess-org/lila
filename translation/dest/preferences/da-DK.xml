@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv automatisk remis ved trækgentagelse</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når tilbageværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Bekræft træk</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Kan deaktiveres i løbet af et parti med brætmenuen</string>
   <string name="inCorrespondenceGames">I korrespondancepartier</string>
   <string name="correspondenceAndUnlimited">Korrespondance og ubegrænset</string>
   <string name="confirmResignationAndDrawOffers">Bekræft opgivelse og tilbud om remis</string>
