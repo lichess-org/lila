@@ -5,6 +5,7 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
+import reactivemongo.api.bson.*
 
 import lila.common.{ given, * }
 import lila.common.config.NetConfig
@@ -16,7 +17,8 @@ final private class YouTubeApi(
     coll: lila.db.dsl.Coll,
     keyword: Stream.Keyword,
     cfg: StreamerConfig,
-    net: NetConfig
+    net: NetConfig,
+    isOnline: lila.socket.IsOnline
 )(using Executor, akka.stream.Materializer):
 
   private var lastResults: List[YouTube.Stream] = List()
@@ -77,13 +79,22 @@ final private class YouTubeApi(
       then logger.warn(s"onYouTubeVideo deleted-entry $deleted")
       funit
 
-  private def onVideo(channelId: String, videoId: String): Funit = coll.update
-    .one(
-      $doc("youTube.channelId"     -> channelId, "approval.granted" -> true),
-      $set("youTube.pubsubVideoId" -> videoId),
-      multi = true // ?
-    )
-    .void
+  private def onVideo(channelId: String, videoId: String): Funit =
+    import BsonHandlers.given
+    coll
+      .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
+      .sort($sort desc "seenAt")
+      .cursor[Streamer]()
+      .list(1)
+      .map(_.headOption)
+      .map:
+        case Some(s) =>
+          if isOnline(UserId(s._id.value)) then
+            logger.info(s"LIVE and ONLINE ${s._id} on YouTube channel $channelId")
+          else logger.warn(s"LIVE but OFFLINE ${s._id} on YouTube channel $channelId")
+          coll.update.one($doc("_id" -> s._id), $set("youTube.pubsubVideoId" -> videoId))
+        case None =>
+          logger.info(s"LIVE but UNAPPROVED $videoId on unapproved channel $channelId")
 
   def channelSubscribe(channelId: String, subscribe: Boolean): Funit = ws
     .url("https://pubsubhubbub.appspot.com/subscribe")
