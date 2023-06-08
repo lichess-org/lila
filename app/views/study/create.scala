@@ -10,9 +10,11 @@ import controllers.routes
 object create:
 
   private def studyButton(s: Study.IdName, chapterCount: Int) =
-    if chapterCount >= Study.maxChapters then
-      button(name := "as", value := s.id, cls := "button disabled")(s.name)
-    else submitButton(name := "as", value := s.id, cls := "submit button")(s.name)
+    val btn =
+      if chapterCount >= Study.maxChapters then submitButton(cls := "disabled", st.disabled)
+      else submitButton
+
+    btn(name := "as", value := s.id, cls := "button submit")(s.name)
 
   def apply(
       data: lila.study.StudyForm.importGame.Data,
