@@ -50,13 +50,6 @@ object bits:
       }.toList
     )
 
-  def unwrapOption(s: Option[String]): Int = {
-    s.match {
-      case Some(value) => value.toInt
-      case _           => 0
-    }
-  }
-
   def checkboxes[A](field: play.api.data.Field, options: Iterable[(A, String)], prefix: String = "ir") =
     st.group(cls := "radio")(
       /// Will hold the value being calculated with the various checkboxes when sending
@@ -76,7 +69,7 @@ object bits:
           /// Values, with Never/Always for convenience
           options.map { (key, value) =>
             val id     = s"$prefix${field.id}_$key"
-            val intVal = unwrapOption(field.value)
+            val intVal = ~field.value.flatMap(_.toIntOption)
             val keyVal = key.toString.toInt
             val checked = keyVal == 0 && intVal == 0 || // NEVER
               keyVal == -1 && intVal == -1 || // ALWAYS
