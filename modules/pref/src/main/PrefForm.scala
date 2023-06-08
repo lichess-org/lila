@@ -17,7 +17,7 @@ object PrefForm:
     (anInt & bit) == bit
 
   private def bitContainedIn(choices: Seq[(Int, String)]): Int => Boolean =
-    choice => choice == 0 || choices.exists(pair => bitPresent(choice, pair._1))
+    choice => choice == 0 || choices.exists((bit, _) => bitPresent(choice, bit))
 
   private def bitCheckedNumber(choices: Seq[(Int, String)]) =
     number.verifying(bitContainedIn(choices))
