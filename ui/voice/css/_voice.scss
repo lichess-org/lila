@@ -13,8 +13,12 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
   background: $c-bg-box;
   padding-#{$end-direction}: 6px;
 
-  #voice-control.puz & {
+  #voice-bar.puz & {
     background: $c-bg-zebra;
+  }
+
+  #voice-bar.coords & button#voice-help-button {
+    display: none;
   }
 
   > button {
@@ -102,6 +106,7 @@ button#microphone-button {
     margin: 5px;
   }
 }
+
 .voice-setting {
   @extend %flex-center-nowrap;
   * {

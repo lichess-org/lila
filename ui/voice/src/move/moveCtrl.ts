@@ -27,7 +27,6 @@ export default (window as any).LichessVoiceMove = function (
   initialFen: string
 ): VoiceMove {
   const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
-  const MAX_CHOICES = 8; // don't use brushes.length
 
   const cg: CgApi = root.chessground;
   const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
@@ -111,6 +110,10 @@ export default (window as any).LichessVoiceMove = function (
     if (timer() === 0) return;
     const words = [...partials.commands, ...(colorsPref() ? partials.colors : partials.numbers)].map(w => valWord(w));
     lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
+  }
+
+  function maxArrows() {
+    return Math.min(8, colorsPref() ? partials.colors.length : partials.numbers.length);
   }
 
   function update(fen: string) {
@@ -285,7 +288,7 @@ export default (window as any).LichessVoiceMove = function (
       .filter(
         ([uci, _], keepIfFirst) => options.findIndex(first => first[0].slice(0, 4) === uci.slice(0, 4)) === keepIfFirst
       )
-      .slice(0, MAX_CHOICES);
+      .slice(0, maxArrows());
 
     // if multiple choices with identical cost head the list, prefer a single SAN move
     const sameLowCost = options.filter(([_, m]) => m.cost === options[0][1].cost);
@@ -336,7 +339,7 @@ export default (window as any).LichessVoiceMove = function (
     if (uci.length < 3) {
       const dests = ucis.filter(x => x.startsWith(uci));
 
-      if (dests.length <= MAX_CHOICES) return ambiguate(dests.map(uci => [uci, { cost: 0 }]));
+      if (dests.length <= maxArrows()) return ambiguate(dests.map(uci => [uci, { cost: 0 }]));
       if (uci !== selection()) selection(src(uci));
       cg.redrawAll();
       return true;
@@ -466,7 +469,7 @@ export default (window as any).LichessVoiceMove = function (
     for (const [xouts, set] of squares) {
       if (!'PNBRQK'.includes(xouts)) continue;
       const moves = spread(set).filter(x => x.length > 2);
-      if (moves.length > MAX_CHOICES) moves.forEach(x => remove(squares, xouts, x));
+      if (moves.length > maxArrows()) moves.forEach(x => remove(squares, xouts, x));
       else if (moves.length > 0) [...set].filter(x => x.length === 2).forEach(x => remove(squares, xouts, x));
     }
     if (DEBUG.buildSquares) console.info('buildSquares', squares);

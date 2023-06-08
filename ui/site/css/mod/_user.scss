@@ -1,5 +1,6 @@
 .mod-zone {
   @extend %flex-wrap;
+  gap: 0.5em;
 
   margin: 0 20px 1em 20px;
   > * {
@@ -85,38 +86,43 @@
     flex: 1 1 auto;
   }
 
-  &--plan,
-  &--student {
+  &--boardTokens {
     order: 5;
     flex: 1 1 auto;
   }
 
-  &--kaladin {
+  &--plan,
+  &--student {
     order: 6;
+    flex: 1 1 auto;
   }
 
-  &--irwin {
+  &--kaladin {
     order: 7;
   }
 
-  &--assessments {
+  &--irwin {
     order: 8;
   }
 
-  &--mod_log {
+  &--assessments {
     order: 9;
   }
 
-  &--reports {
+  &--mod_log {
     order: 10;
   }
 
-  &--identification {
+  &--reports {
     order: 11;
   }
 
-  &--others {
+  &--identification {
     order: 12;
+  }
+
+  &--others {
+    order: 13;
   }
 
   &--menu {

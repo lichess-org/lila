@@ -328,15 +328,14 @@ final class User(
   protected[controllers] def modZoneOrRedirect(holder: Holder, username: UserStr)(using
       ctx: Context
   ): Fu[Result] =
-    if (HTTPRequest isEventSource ctx.req) renderModZone(holder, username)
+    if HTTPRequest isEventSource ctx.req then renderModZone(holder, username)
     else fuccess(modC.redirect(username))
 
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, ?] =
-    Source futureSource {
+    Source.futureSource:
       fu.monSuccess(_.mod zoneSegment name)
         .logFailure(lila.log("modZoneSegment").branch(s"$name ${user.id}"))
         .map(Source.single)
-    }
 
   protected[controllers] def loginsTableData(
       user: UserModel,
@@ -382,9 +381,8 @@ final class User(
 
         val reportLog = isGranted(_.SeeReport) ?? env.report.api
           .byAndAbout(user, 20, holder)
-          .flatMap { rs =>
+          .flatMap: rs =>
             lightUserApi.preloadMany(rs.userIds) inject rs
-          }
           .map(view.reportLog(user))
 
         val prefs = isGranted(_.CheatHunter) ?? env.pref.api.getPref(user).map(view.prefs(user))
@@ -420,13 +418,15 @@ final class User(
 
         val irwin =
           isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).mapz(html.irwin.report)
-        val assess = isGranted(_.MarkEngine) ?? env.mod.assessApi.getPlayerAggregateAssessmentWithGames(
-          user.id
-        ) flatMapz { as =>
-          lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
-        }
+        val assess = isGranted(_.MarkEngine) ??
+          env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMapz { as =>
+            lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
+          }
+
+        val boardTokens = env.oAuth.tokenApi.usedBoardApi(user).map(html.user.mod.boardTokens)
+
         given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
-        Ok.chunked {
+        Ok.chunked:
           Source.single(html.user.mod.menu) merge
             modZoneSegment(actions, "actions", user) merge
             modZoneSegment(modLog, "modLog", user) merge
@@ -439,23 +439,23 @@ final class User(
             modZoneSegment(identification, "identification", user) merge
             modZoneSegment(kaladin, "kaladin", user) merge
             modZoneSegment(irwin, "irwin", user) merge
-            modZoneSegment(assess, "assess", user) via
+            modZoneSegment(assess, "assess", user) merge
+            modZoneSegment(boardTokens, "boardTokens", user) via
             EventSource.flow log "User.renderModZone"
-        }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+        .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
-          Ok(
+          Ok:
             html.user.mod.actions(
               user,
               emails,
               erased,
               env.mod.presets.getPmPresets(ctx.me)
             )
-          )
         }
     }
 
