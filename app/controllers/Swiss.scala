@@ -313,7 +313,7 @@ final class Swiss(
     }
 
   private def canHaveChat(swiss: SwissModel)(using Context): Fu[Boolean] =
-    canHaveChat(swiss.roundInfo)
+    env.api.chatFreshness.of(swiss) ?? canHaveChat(swiss.roundInfo)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
     (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
