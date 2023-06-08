@@ -288,6 +288,7 @@
   <string name="cancelRematchOffer">Angebot zur Revanche zurückziehen</string>
   <string name="viewRematch">Revanche ansehen</string>
   <string name="confirmMove">Zug bestätigen</string>
+  <string name="enableConfirmationForThisGame">Bestätigung für diese Partie aktivieren</string>
   <string name="play">Spielen</string>
   <string name="inbox">Posteingang</string>
   <string name="chatRoom">Chatraum</string>
