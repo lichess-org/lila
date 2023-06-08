@@ -77,13 +77,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     });
 
-  const keyToMouseEvent = (key: string, eventName: string, selector: string) => {
-    kbd.bind(key, () => {
+  const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
+    kbd.bind(key, () =>
       $(selector).each(function (this: HTMLElement) {
         this.dispatchEvent(new MouseEvent(eventName));
-      });
-    });
-  };
+      })
+    );
   if (ctrl.study) {
     keyToMouseEvent('d', 'mousedown', '.study__buttons .comments');
     keyToMouseEvent('g', 'mousedown', '.study__buttons .glyphs');
@@ -111,11 +110,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
       if (move) ctrl.explorerMove(move);
     });
 
-    const keyToJumpToGlyphSymbol = (key: string, symbol: string) =>
-      kbd.bind(key, () => ctrl.jumpToGlyphSymbol(ctrl.bottomColor(), symbol));
-    keyToJumpToGlyphSymbol('b', '??');
-    keyToJumpToGlyphSymbol('m', '?');
-    keyToJumpToGlyphSymbol('i', '?!');
+    [
+      ['b', '??'],
+      ['m', '?'],
+      ['i', '?!'],
+    ].forEach(([key, symbol]) => kbd.bind(key, () => ctrl.jumpToGlyphSymbol(ctrl.bottomColor(), symbol)));
   }
 };
 
