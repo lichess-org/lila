@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Pretendo barazim ne perseritjen tre here te levizjeve automatikisht</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
   <string name="moveConfirmation">Pohim i lëvizjeve</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Mund të çaktivizohet gjatë një loje me menu tabele</string>
   <string name="inCorrespondenceGames">Lojëkëmbimet</string>
   <string name="correspondenceAndUnlimited">Korrespondencë dhe i pakufizuar</string>
   <string name="confirmResignationAndDrawOffers">Te konfirmosh dorezimin dhe ofertat e barazimit</string>
