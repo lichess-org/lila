@@ -77,14 +77,13 @@ export default class RoundController {
   menu: ToggleWithUsed;
   voiceMoveEnabled: Toggle;
   keyboardMoveEnabled: Toggle;
-  confirmMoveEnabled: Toggle;
+  confirmMoveEnabled: Toggle = toggle(true);
   loading = false;
   loadingTimeout: number;
   redirecting = false;
   transientMove: TransientMove;
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
-  allowMoveConfirmation = true;
   goneBerserk: GoneBerserk = {};
   resignConfirm?: Timeout = undefined;
   drawConfirm?: Timeout = undefined;
@@ -105,7 +104,6 @@ export default class RoundController {
 
     const d = (this.data = opts.data);
 
-    this.allowMoveConfirmation = true;
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;
@@ -153,9 +151,6 @@ export default class RoundController {
     this.keyboardMoveEnabled = toggle(d.pref.keyboardMove, async v => {
       await xhr.setPreference('keyboardMove', v ? '1' : '0');
       lichess.reload();
-    });
-    this.confirmMoveEnabled = toggle(this.allowMoveConfirmation, () => {
-      this.allowMoveConfirmation = !this.allowMoveConfirmation;
     });
 
     this.trans = lichess.trans(opts.i18n);
@@ -365,7 +360,7 @@ export default class RoundController {
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && this.allowMoveConfirmation && !meta.premove) {
+    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
       this.moveToSubmit = move;
       this.redraw();
     } else {
@@ -377,13 +372,10 @@ export default class RoundController {
   };
 
   sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
-    const drop: SocketDrop = {
-      role: role,
-      pos: key,
-    };
+    const drop: SocketDrop = { role, pos: key };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && this.allowMoveConfirmation && !isPredrop) {
+    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
       this.dropToSubmit = drop;
       this.redraw();
     } else {
