@@ -13,7 +13,6 @@ import { Result } from '@badrap/result';
 import { storedBooleanProp, storedIntProp, StoredProp, storedStringProp } from 'common/storage';
 import { Rules } from 'chessops';
 import { CevalPlatform, CevalTechnology, detectPlatform } from './platform';
-import { Api as ChessgroundApi } from 'chessground/api';
 
 export default class CevalCtrl {
   rules: Rules;
@@ -85,6 +84,8 @@ export default class CevalCtrl {
     this.technology = this.platform.technology;
 
     this.multiPv = storedIntProp(this.storageKey('ceval.multipv'), this.opts.multiPvDefault || 1);
+
+    this.onToggleComputer();
   }
 
   storageKey = (k: string) => (this.opts.storageKeyPrefix ? `${this.opts.storageKeyPrefix}.${k}` : k);
@@ -277,6 +278,7 @@ export default class CevalCtrl {
     if (!this.possible || !this.allowed()) return;
     if (this.engineType() !== type) this.stop();
     this.engineType(type);
+    this.onToggleComputer();
     this.opts.engineChanged();
     if (type.startsWith('external-') || type === 'local') {
       if (!this.initialEngineType) this.initialEngineType = type;
@@ -290,7 +292,7 @@ export default class CevalCtrl {
     this.startCeval();
   }
   getEngineType(): EngineType {
-    if (!this.possible || !this.allowed()) return 'disabled';
+    if (!this.possible || !this.allowed() || this.opts.disallowed?.()) return 'disabled';
     const type = this.engineType();
     if (
       (type === 'server' && !this.opts.showServerAnalysis) ||
@@ -365,13 +367,6 @@ export default class CevalCtrl {
     dom: 1,
   };
 
-  withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined => {
-    const chessground = this.opts.getChessground();
-    if (!chessground) return;
-    if (this.cgVersion.js !== this.cgVersion.dom) return;
-    return f(chessground);
-  };
-
   onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
     this.opts.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
@@ -406,6 +401,14 @@ export default class CevalCtrl {
     const chessground = this.opts.getChessground();
     if (this.showAutoShapes() || this.showMoveAnnotation()) this.opts.setAutoShapes();
     else if (chessground) chessground.setAutoShapes([]);
+  }
+
+  private onToggleComputer() {
+    if (!this.showServerComments()) {
+      this.opts.tree.removeComputerVariations();
+      const chessground = this.opts.getChessground();
+      if (chessground) chessground.setAutoShapes([]);
+    } else this.resetAutoShapes();
   }
 
   toggleAutoShapes = (v: boolean): void => {

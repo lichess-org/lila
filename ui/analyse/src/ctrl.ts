@@ -95,10 +95,6 @@ export default class AnalyseCtrl implements ParentCtrl {
   treeView: TreeView;
   isStudy: boolean;
   treeVersion = 1; // increment to recreate tree
-  cgVersion = {
-    js: 1, // increment to recreate chessground
-    dom: 1,
-  };
 
   // underboard inputs
   fenInput?: string;
@@ -145,7 +141,6 @@ export default class AnalyseCtrl implements ParentCtrl {
     this.setPath(this.initialPath);
 
     this.showGround();
-    this.onToggleComputer();
     this.ceval.startCeval();
     this.explorer.setNode();
     this.study = opts.study
@@ -651,7 +646,6 @@ export default class AnalyseCtrl implements ParentCtrl {
           this.ceval.threatMode(false);
           if (this.practice) this.togglePractice();
         }
-        this.onToggleComputer();
         this.redraw();
       },
       getChessground: () => this.chessground,
@@ -728,18 +722,6 @@ export default class AnalyseCtrl implements ParentCtrl {
         });
     });
     lichess.pubsub.emit('analysis.server.start');
-  }
-
-  private resetAutoShapes() {
-    if (this.ceval.showAutoShapes() || this.ceval.showMoveAnnotation()) this.setAutoShapes();
-    else this.chessground && this.chessground.setAutoShapes([]);
-  }
-
-  private onToggleComputer() {
-    if (!this.ceval.showServerComments()) {
-      this.tree.removeComputerVariations();
-      this.chessground && this.chessground.setAutoShapes([]);
-    } else this.resetAutoShapes();
   }
 
   mergeAnalysisData(data: ServerEvalData) {
@@ -880,6 +862,9 @@ export default class AnalyseCtrl implements ParentCtrl {
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 
-  withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
-    this.chessground && this.ceval.cgVersion.js === this.ceval.cgVersion.dom ? f(this.chessground) : undefined;
+  withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined => {
+    if (!this.chessground) return;
+    if (this.ceval.cgVersion.js !== this.ceval.cgVersion.dom) return;
+    return f(this.chessground);
+  };
 }

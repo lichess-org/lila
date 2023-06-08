@@ -436,6 +436,7 @@ export default class PuzzleController implements ParentCtrl {
       getNode: () => this.vm.node,
       outcome: this.outcome,
       getNodeList: () => this.vm.nodeList,
+      disallowed: () => this.vm.mode !== 'view',
     });
   };
 

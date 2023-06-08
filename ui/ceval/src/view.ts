@@ -75,7 +75,7 @@ function shortEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
         hidden: !ceval.canContinue(),
         tabindex: 0,
         title: trans.noarg('goDeeper'),
-        'data-icon': '',
+        'data-icon': licon.PlusButton,
       },
       hook: bind('click', ceval.continue),
     })
@@ -86,7 +86,7 @@ function shortEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
         hidden: !ceval.canPause(),
         tabindex: 0,
         title: 'Pause',
-        'data-icon': licon.PlusButton,
+        'data-icon': licon.Pause,
       },
       hook: bind('click', ceval.stop),
     })

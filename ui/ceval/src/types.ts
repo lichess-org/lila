@@ -57,6 +57,7 @@ export interface CevalOpts {
   getNode(): Tree.Node;
   outcome(): Outcome | undefined;
   getNodeList(): Array<Tree.Node>;
+  disallowed?(): boolean;
 }
 
 export interface Hovering {
