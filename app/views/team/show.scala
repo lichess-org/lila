@@ -54,7 +54,8 @@ object show {
                 )
               )
             )}""")
-        )
+        ),
+      canonicalPath = lila.common.CanonicalPath(routes.Team.show(t.id)).some
     ) {
       val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)
       main(

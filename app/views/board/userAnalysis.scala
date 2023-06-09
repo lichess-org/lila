@@ -45,7 +45,8 @@ object userAnalysis {
           description = "Analyse shogi positions and variations on an interactive shogi board"
         )
         .some,
-      zoomable = true
+      zoomable = true,
+      canonicalPath = lila.common.CanonicalPath(routes.UserAnalysis.index).some
     ) {
       main(cls := s"analyse variant-${pov.game.variant.key}")(
         pov.game.synthetic option st.aside(cls := "analyse__side")(

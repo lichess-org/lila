@@ -74,7 +74,8 @@ object topic {
       canModCateg: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
+      title =
+        s"${topic.name} • ${trans.page.txt().toLowerCase} ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
         jsTag("forum-post.js"),
         formWithCaptcha.isDefined option captchaTag,
@@ -88,7 +89,9 @@ object topic {
           description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
         )
         .some,
-      withHrefLangs = none
+      withHrefLangs = none,
+      canonicalPath =
+        lila.common.CanonicalPath(routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)).some
     ) {
       val teamOnly = categ.team.filterNot(myTeam)
       val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)

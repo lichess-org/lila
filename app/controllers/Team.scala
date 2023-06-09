@@ -41,7 +41,7 @@ final class Team(
 
   def show(id: String, page: Int) =
     Open { implicit ctx =>
-      OptionFuResult(api team id) { renderTeam(_, page) }
+      OptionFuOk(api team id) { renderTeam(_, page) }
     }
 
   def search(text: String, page: Int) =
@@ -64,7 +64,7 @@ final class Team(
         info.userIds ::: chat.??(_.chat.userIds)
       }
       version <- hasChat ?? env.team.version(team.id).dmap(some)
-    } yield Ok(html.team.show(team, members, info, chat, version)).withCanonical(routes.Team.show(team.id))
+    } yield html.team.show(team, members, info, chat, version)
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo)(implicit ctx: Context): Boolean =
     !team.isChatFor(_.NONE) && ctx.noKid && {

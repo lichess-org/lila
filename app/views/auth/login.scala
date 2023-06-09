@@ -19,7 +19,8 @@ object login {
     views.html.base.layout(
       title = trans.signIn.txt(),
       moreJs = jsTag("login.js"),
-      moreCss = cssTag("auth")
+      moreCss = cssTag("auth"),
+      canonicalPath = lila.common.CanonicalPath(routes.Auth.login).some
     ) {
       main(cls := "auth auth-login box box-pad")(
         h1(trans.signIn()),

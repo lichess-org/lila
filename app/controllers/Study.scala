@@ -193,14 +193,11 @@ final class Study(
         for {
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
-            html =
-              for {
-                chat     <- chatOf(sc.study)
-                sVersion <- env.study.version(sc.study.id)
-                streams  <- streamsOf(sc.study)
-              } yield Ok(html.study.show(sc.study, data, chat, sVersion, streams))
-                .withCanonical(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value))
-                .enableSharedArrayBuffer,
+            html = for {
+              chat     <- chatOf(sc.study)
+              sVersion <- env.study.version(sc.study.id)
+              streams  <- streamsOf(sc.study)
+            } yield Ok(html.study.show(sc, data, chat, sVersion, streams)).enableSharedArrayBuffer,
             api = _ =>
               chatOf(sc.study).map { chatOpt =>
                 Ok(

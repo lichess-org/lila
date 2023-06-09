@@ -37,17 +37,6 @@ abstract private[controllers] class LilaController(val env: Env)
     def flashSuccess: Result              = flashSuccess("")
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
     def flashFailure: Result              = flashFailure("")
-    def withCanonical(url: String)(implicit req: RequestHeader): Result = result.withHeaders {
-      val langQuery = req
-        .getQueryString("lang")
-        .flatMap(lila.i18n.I18nLangPicker.byQuery)
-        .filterNot(_.language == "en")
-        .fold("") { l =>
-          s"?lang=${lila.i18n.fixJavaLanguageCode(l)}"
-        }
-      LINK -> s"<${env.net.baseUrl}$url$langQuery>; rel=\"canonical\""
-    }
-    def withCanonical(call: Call)(implicit req: RequestHeader): Result = withCanonical(call.url)
     def enableSharedArrayBuffer(implicit req: RequestHeader): Result = result.withHeaders(
       "Cross-Origin-Opener-Policy" -> "same-origin",
       "Cross-Origin-Embedder-Policy" -> {
@@ -511,8 +500,8 @@ abstract private[controllers] class LilaController(val env: Env)
   private def getAndSaveLang(req: RequestHeader, user: Option[UserModel]): Lang = {
     val langToSave = I18nLangPicker(req, user.flatMap(_.lang))
     user.filter(_.lang.fold(true)(_ != langToSave.code)) foreach { env.user.repo.setLang(_, langToSave) }
-    val qLang = get("lang", req).flatMap(I18nLangPicker.byQuery)
-    qLang.getOrElse(langToSave)
+    val queryLang = req.getQueryString("lang").flatMap(I18nLangPicker.byQuery)
+    queryLang.getOrElse(langToSave)
   }
 
   private def pageDataBuilder(ctx: UserContext, hasFingerPrint: Boolean): Fu[PageData] = {

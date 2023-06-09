@@ -1,6 +1,7 @@
 package lila.common
 
 import scala.concurrent.duration._
+import play.api.mvc.Call
 
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
@@ -127,6 +128,9 @@ object Domain {
     def domain = Domain(value)
   }
 }
+
+case class CanonicalPath(value: String) extends AnyVal
+object CanonicalPath { def apply(call: Call): CanonicalPath = CanonicalPath(call.url) }
 
 case class Strings(value: List[String]) extends AnyVal
 

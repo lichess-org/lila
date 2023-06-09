@@ -64,12 +64,14 @@ object bits {
   private[team] def layout(
       title: String,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
-      moreJs: Frag = emptyFrag
+      moreJs: Frag = emptyFrag,
+      canonicalPath: Option[lila.common.CanonicalPath] = None
   )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
       moreJs = frag(infiniteScrollTag, moreJs),
-      openGraph = openGraph
+      openGraph = openGraph,
+      canonicalPath = canonicalPath
     )(body)
 }

@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.ContentSecurityPolicy
 import lila.common.String.html.safeJsonValue
 import lila.common.base.StringUtils.escapeHtmlRaw
+import lila.common.CanonicalPath
 
 import controllers.routes
 
@@ -162,8 +163,19 @@ object layout {
       "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
 
-  private def hrefLang(lang: String, path: String) =
-    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
+  private def canonical(canonicalPath: CanonicalPath)(implicit ctx: Context) = raw {
+    val langQuery = ctx.req
+      .getQueryString("lang")
+      .flatMap(lila.i18n.I18nLangPicker.byQuery)
+      .filterNot(_.language == "en")
+      .fold("") { l =>
+        s"?lang=${lila.i18n.fixJavaLanguageCode(l)}"
+      }
+    s"""<link rel="canonical" href="$netBaseUrl${canonicalPath.value}$langQuery" />"""
+  }
+
+  private def hrefLang(langCode: String, pathWithQuery: String) =
+    s"""<link rel="alternate" hreflang="$langCode" href="$netBaseUrl$pathWithQuery"/>"""
 
   private def hrefLangs(altLangs: lila.i18n.LangList.AlternativeLangs)(implicit ctx: Context) = raw {
     val path      = ctx.req.path
@@ -171,8 +183,8 @@ object layout {
     altLangs match {
       case lila.i18n.LangList.EnglishJapanese => baseLangs + hrefLang("ja", s"$path?lang=ja")
       case lila.i18n.LangList.All =>
-        baseLangs + (lila.i18n.LangList.alternativeLangCodes.map { lang =>
-          hrefLang(lang, s"$path?lang=$lang")
+        baseLangs + (lila.i18n.LangList.alternativeLangCodes.map { langCode =>
+          hrefLang(langCode, s"$path?lang=$langCode")
         }).mkString
     }
   }
@@ -230,6 +242,7 @@ object layout {
       deferJs: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
+      canonicalPath: Option[CanonicalPath] = None,
       withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = Some(lila.i18n.LangList.All)
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
@@ -271,7 +284,8 @@ object layout {
           boardPreload,
           manifests,
           jsLicense,
-          withHrefLangs.filter(_ => ctx.req.queryString.removed("lang").isEmpty).map(hrefLangs)
+          canonicalPath.map(canonical),
+          withHrefLangs.filter(_ => ctx.req.queryString.removed("lang").isEmpty && robots).map(hrefLangs)
         ),
         st.body(
           cls := List(

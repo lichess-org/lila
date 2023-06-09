@@ -75,7 +75,7 @@ final class Practice(
             practice = lila.practice.JsonView(us)
           )
         )
-      ).noCache.enableSharedArrayBuffer.withCanonical(s"${us.url}/${us.study.chapter.id.value}")
+      ).noCache.enableSharedArrayBuffer
     }
 
   def chapter(studyId: String, chapterId: String) =

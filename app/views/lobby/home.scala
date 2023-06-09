@@ -48,7 +48,8 @@ object home {
           description = trans.siteDescription.txt()
         )
         .some,
-      deferJs = true
+      deferJs = true,
+      canonicalPath = lila.common.CanonicalPath("").some
     ) {
       main(
         cls := List(

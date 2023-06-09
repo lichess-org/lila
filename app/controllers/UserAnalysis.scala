@@ -51,9 +51,7 @@ final class UserAnalysis(
           owner = false,
           me = ctx.me
         ) map { data =>
-        Ok(html.board.userAnalysis(data, pov))
-          .withCanonical(routes.UserAnalysis.index)
-          .enableSharedArrayBuffer
+        Ok(html.board.userAnalysis(data, pov)).enableSharedArrayBuffer
       }
     }
 

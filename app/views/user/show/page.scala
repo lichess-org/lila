@@ -37,7 +37,8 @@ object page {
         cssTag("user.show"),
         isGranted(_.UserSpy) option cssTag("mod.user")
       ),
-      robots = u.count.game >= 10
+      robots = u.count.game >= 10,
+      canonicalPath = lila.common.CanonicalPath(routes.User.show(u.username)).some
     ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
@@ -59,14 +60,15 @@ object page {
     views.html.base.layout(
       title =
         s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) ""
-          else " - page " + games.currentPage}",
+          else s" - ${trans.page.txt()} ${games.currentPage.toString}"}",
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
         filters.current.name == "search" option cssTag("user.show.search"),
         isGranted(_.UserSpy) option cssTag("mod.user")
       ),
-      robots = u.count.game >= 10
+      robots = u.count.game >= 10,
+      canonicalPath = lila.common.CanonicalPath(routes.User.games(u.username, filters.current.name)).some
     ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),

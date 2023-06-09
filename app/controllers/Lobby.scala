@@ -26,7 +26,7 @@ final class Lobby(
       negotiate(
         html = env.pageCache { () =>
           keyPages.homeHtml.dmap { html =>
-            Ok(html).noCache.withCanonical("")
+            Ok(html).noCache
           }
         } dmap env.lilaCookie.ensure(ctx.req),
         api = _ =>
