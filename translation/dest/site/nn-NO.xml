@@ -99,6 +99,7 @@
   <string name="openingExplorer">Opningsbok</string>
   <string name="openingEndgameExplorer">Opnings-/sluttspelbok</string>
   <string name="xOpeningExplorer">%s opningsutforskar</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spel det første trekket frå opning- og sluttspelbok</string>
   <string name="winPreventedBy50MoveRule">Vinst forhindra av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindra av 50-trekkregelen</string>
   <string name="winOr50MovesByPriorMistake">Vinst eller 50 trekk etter tidlegare feil</string>
