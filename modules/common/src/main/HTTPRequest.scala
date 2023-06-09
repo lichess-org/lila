@@ -56,10 +56,9 @@ object HTTPRequest:
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
   def ipAddress(req: RequestHeader) =
-    IpAddress.unchecked {
+    IpAddress.unchecked:
       // chain of trusted proxies, strip scope id
       req.remoteAddress.split(", ").last.split("%").head
-    }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
 

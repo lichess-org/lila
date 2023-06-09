@@ -3,7 +3,7 @@ package stat
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -15,7 +15,7 @@ import controllers.routes
 
 object ratingDistribution:
 
-  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User])(implicit ctx: Context) =
+  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User])(implicit ctx: WebContext) =
     views.html.base.layout(
       title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
       moreCss = cssTag("user.rating.stats"),

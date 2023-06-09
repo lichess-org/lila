@@ -2,7 +2,7 @@ package views.html.tutor
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
@@ -10,7 +10,7 @@ import lila.tutor.TutorPerfReport
 
 object time:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using Context) =
+  def apply(report: TutorPerfReport, user: lila.user.User)(using WebContext) =
     bits.layout(menu = perf.menu(user, report, "time"))(
       cls := "tutor__time box",
       boxTop(

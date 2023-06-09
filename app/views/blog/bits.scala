@@ -1,6 +1,6 @@
 package views.html.blog
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.MiniPost
@@ -10,7 +10,7 @@ import controllers.routes
 
 object bits:
 
-  def menu(year: Option[Int], active: Option[String])(implicit ctx: Context) =
+  def menu(year: Option[Int], active: Option[String])(implicit ctx: WebContext) =
     st.nav(cls := "page-menu__menu subnav force-ltr")(
       a(cls := active.has("community").option("active"), href := langHref(routes.Ublog.communityAll()))(
         "Community blogs"
@@ -33,7 +33,7 @@ object bits:
       post: MiniPost,
       postClass: Option[String] = None,
       header: Tag = h2
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     a(cls := postClass)(href := routes.Blog.show(post.id, post.slug))(
       st.img(src := post.image),
       div(cls := "content")(
@@ -45,7 +45,7 @@ object bits:
 
   private[blog] def metas(
       doc: io.prismic.Document
-  )(using ctx: Context, prismic: lila.blog.BlogApi.Context) =
+  )(using ctx: WebContext, prismic: lila.blog.BlogApi.Context) =
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>
@@ -61,4 +61,4 @@ object bits:
       strong(cls := "headline")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw))
     )
 
-  private[blog] def csp(using Context) = defaultCsp.withPrismic(isGranted(_.Prismic)).some
+  private[blog] def csp(using WebContext) = defaultCsp.withPrismic(isGranted(_.Prismic)).some

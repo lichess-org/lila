@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.common.Json.given
@@ -22,7 +22,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   private def forms      = env.tournament.forms
   private def cachedTour = env.tournament.cached.tourCache.byId
 
-  private def tournamentNotFound(using Context) = NotFound(html.tournament.bits.notFound())
+  private def tournamentNotFound(using WebContext) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
     _.refreshAfterWrite(3.seconds)
@@ -37,7 +37,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
 
-  private def serveHome(using ctx: Context) = NoBot:
+  private def serveHome(using ctx: WebContext) = NoBot:
     for
       (visible, scheduled) <- upcomingCache.getUnit
       teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
@@ -65,7 +65,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       _       <- env.user.lightUserApi preloadMany winners.userIds
     yield Ok(html.tournament.leaderboard(winners))
 
-  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
+  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: WebContext): Boolean =
     tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
       env.api.chatFreshness.of(tour) &&
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
@@ -194,7 +194,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           }
   }
 
-  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
     else
@@ -304,7 +304,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           )
   }
 
-  def apiCreate = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiCreate = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.isBot || me.lame
     then notFoundJson("This account cannot create tournaments")
     else doApiCreate(me)
@@ -337,7 +337,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         )
     }
 
-  def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     cachedTour(id) flatMap {
       _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) ?? { tour =>
@@ -411,7 +411,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
   }
 
-  def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     cachedTour(id) flatMapz {
       case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
@@ -524,7 +524,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
 
   private def WithEditableTournament(id: TourId, me: UserModel)(
       f: Tour => Fu[Result]
-  )(using Context): Fu[Result] =
+  )(using WebContext): Fu[Result] =
     cachedTour(id) flatMap {
       case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)

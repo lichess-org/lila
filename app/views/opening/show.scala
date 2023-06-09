@@ -3,7 +3,7 @@ package views.html.opening
 import cats.syntax.all.*
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningPage
@@ -12,7 +12,7 @@ object show:
 
   import bits.*
 
-  def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: Context) =
+  def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: WebContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(page.some),

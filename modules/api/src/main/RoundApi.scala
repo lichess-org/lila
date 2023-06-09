@@ -35,7 +35,7 @@ final private[api] class RoundApi(
 )(using Executor):
 
   def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(using
-      ctx: Context
+      ctx: WebContext
   ): Fu[JsObject] =
     gameRepo
       .initialFen(pov.game)
@@ -74,7 +74,7 @@ final private[api] class RoundApi(
       apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv],
       initialFenO: Option[Option[Fen.Epd]] = None
-  )(using ctx: Context): Fu[JsObject] =
+  )(using ctx: WebContext): Fu[JsObject] =
     initialFenO
       .fold(gameRepo initialFen pov.game)(fuccess)
       .flatMap { initialFen =>
@@ -104,7 +104,7 @@ final private[api] class RoundApi(
       }
       .mon(_.round.api.watcher)
 
-  private def ctxFlags(using ctx: Context) =
+  private def ctxFlags(using ctx: WebContext) =
     WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs), rating = ctx.pref.showRatings, nvui = ctx.blind)
 
   def review(
@@ -115,7 +115,7 @@ final private[api] class RoundApi(
       initialFen: Option[Fen.Epd],
       withFlags: WithFlags,
       owner: Boolean = false
-  )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
+  )(using ctx: WebContext): Fu[JsObject] = withExternalEngines(ctx.me) {
     given play.api.i18n.Lang = ctx.lang
     jsonView.watcherJson(
       pov,

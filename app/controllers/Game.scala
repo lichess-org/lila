@@ -55,20 +55,19 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def exportByUser(username: UserStr) = OpenOrScoped()(
-    open = ctx ?=> handleExport(username, ctx.me, ctx.req, oauth = false),
-    scoped = req ?=> me => handleExport(username, me.some, req, oauth = true)
+    open = ctx ?=> handleExport(username, ctx.me, oauth = false),
+    scoped = _ ?=> me => handleExport(username, me.some, oauth = true)
   )
 
-  def apiExportByUser(username: UserStr) = AnonOrScoped() { req ?=> me =>
-    handleExport(username, me, req, oauth = me.isDefined)
+  def apiExportByUser(username: UserStr) = AnonOrScoped() { _ ?=> me =>
+    handleExport(username, me, oauth = me.isDefined)
   }
 
   private def handleExport(
       username: UserStr,
       me: Option[lila.user.User],
-      req: RequestHeader,
       oauth: Boolean
-  ) =
+  )(using req: RequestHeader) =
     env.user.repo byId username flatMap {
       _.filter(u => u.enabled.yes || me.exists(_ is u) || me.??(isGranted(_.GamesModView, _))) ?? { user =>
         val format = GameApiV2.Format byRequest req
@@ -126,24 +125,20 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
   def apiExportByUserImportedGames(username: UserStr) =
-    AuthOrScoped()(
-      auth = ctx ?=> me => handleExportByUserImportedGames(username, me, ctx.req),
-      scoped = req ?=> me => handleExportByUserImportedGames(username, me, req)
-    )
-
-  private def handleExportByUserImportedGames(username: UserStr, me: lila.user.User, req: RequestHeader) =
-    fuccess {
-      if (!me.is(username)) Forbidden("Imported games of other players cannot be downloaded")
+    def doExport(username: UserStr)(me: lila.user.User)(using req: RequestHeader) = fuccess:
+      if !me.is(username) then Forbidden("Imported games of other players cannot be downloaded")
       else
         apiC
           .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(
             env.api.gameApiV2.exportUserImportedGames(me)
-          ) { source =>
+          ): source =>
             Ok.chunked(source)
               .pipe(asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn"))
               .as(pgnContentType)
-          }
-    }
+    AuthOrScoped()(
+      auth = _ ?=> doExport(username),
+      scoped = _ ?=> doExport(username)
+    )
 
   def exportByIds = AnonBodyOf(parse.tolerantText): body =>
     val config = GameApiV2.ByIdsConfig(

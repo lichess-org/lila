@@ -1,7 +1,7 @@
 package views.html.streamer
 
 import controllers.routes
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -14,7 +14,7 @@ object show:
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
       activities: Vector[lila.activity.ActivityView]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),

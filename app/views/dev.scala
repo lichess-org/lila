@@ -2,7 +2,7 @@ package views.html
 
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -10,7 +10,7 @@ import controllers.routes
 
 object dev:
 
-  def settings(settings: List[lila.memo.SettingStore[?]])(implicit ctx: Context) =
+  def settings(settings: List[lila.memo.SettingStore[?]])(implicit ctx: WebContext) =
     val title = "Settings"
     views.html.base.layout(
       title = title,
@@ -35,7 +35,7 @@ object dev:
       )
     )
 
-  def cli(form: Form[?], res: Option[String])(implicit ctx: Context) =
+  def cli(form: Form[?], res: Option[String])(implicit ctx: WebContext) =
     val title = "Command Line Interface"
     views.html.base.layout(
       title = title,

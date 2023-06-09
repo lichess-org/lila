@@ -7,8 +7,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
-import lila.api.BodyContext
-import lila.api.Context
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.ApiVersion
 import lila.common.Json.given
@@ -29,7 +28,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       newUser: Option[UserModel] = None,
       apiVersion: Option[ApiVersion] = None
-  )(using ctx: Context): Fu[JsObject] =
+  )(using ctx: AnyContext): Fu[JsObject] =
     if (apiVersion.exists(v => !ApiVersion.puzzleV2(v)))
       env.puzzle.jsonView.bc(puzzle = puzzle, user = newUser orElse ctx.me)
     else
@@ -46,7 +45,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       color: Option[Color] = None,
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       langPath: Option[LangPath] = None
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     renderJson(puzzle, angle, replay) zip
       ctx.me.??(u => env.puzzle.session.getSettings(u) dmap some) map { case (json, settings) =>
         Ok(
@@ -84,7 +83,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def homeLang = LangPage(routes.Puzzle.home.url)(serveHome)
 
-  private def serveHome(using Context) = NoBot:
+  private def serveHome(using WebContext) = NoBot:
     val angle = PuzzleAngle.mix
     nextPuzzleForMe(angle, none) flatMap {
       _.fold(redirectNoPuzzle) {
@@ -96,7 +95,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       angle: PuzzleAngle,
       color: Option[Option[Color]],
       difficulty: PuzzleDifficulty = PuzzleDifficulty.Normal
-  )(using ctx: Context): Fu[Option[Puz]] =
+  )(using ctx: WebContext): Fu[Option[Puz]] =
     ctx.me match
       case Some(me) =>
         ctx.req.session.get(cookieDifficulty).flatMap(PuzzleDifficulty.find).?? {
@@ -129,7 +128,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   private def onComplete[A](form: Form[RoundData])(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
-      ctx: BodyContext[A]
+      ctx: WebBodyContext[A]
   ) =
     given play.api.mvc.Request[?] = ctx.body
     form
@@ -217,7 +216,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def streak     = Open(serveStreak)
   def streakLang = LangPage(routes.Puzzle.streak)(serveStreak)
 
-  private def serveStreak(using ctx: Context) = NoBot:
+  private def serveStreak(using ctx: WebContext) = NoBot:
     streakJsonAndPuzzle.mapz: (json, puzzle) =>
       Ok(
         views.html.puzzle
@@ -291,7 +290,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def themes     = Open(serveThemes)
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
-  private def serveThemes(using Context) =
+  private def serveThemes(using WebContext) =
     env.puzzle.api.angles map { all =>
       Ok(views.html.puzzle.theme.list(all))
     }
@@ -313,7 +312,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def showLang(lang: String, angleOrId: String) =
     LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId))(lang)
 
-  private def serveShow(angleOrId: String)(using ctx: Context) = NoBot:
+  private def serveShow(angleOrId: String)(using ctx: WebContext) = NoBot:
     val langPath = LangPath(routes.Puzzle.show(angleOrId)).some
     PuzzleAngle find angleOrId match
       case Some(angle) =>
@@ -359,11 +358,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.daily.get.map:
       _.fold(NotFound)(html.puzzle.embed(_))
 
-  def activity = Scoped(_.Puzzle.Read) { req ?=> me =>
+  def activity = Scoped(_.Puzzle.Read) { ctx ?=> me =>
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
-      max = getInt("max", req).map(_ atLeast 1),
-      before = getTimestamp("before", req)
+      max = getInt("max").map(_ atLeast 1),
+      before = getTimestamp("before", ctx.req)
     )
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)):
@@ -409,8 +408,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           Ok(views.html.puzzle.history(user, history))
   }
 
-  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { req ?=> me =>
-    batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb", req) | 15).dmap(Ok.apply)
+  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { _ ?=> me =>
+    batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
   }
 
   private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty", req))
@@ -418,8 +417,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.batch.nextFor(me, angle, difficulty, nb atMost 50) flatMap
       env.puzzle.jsonView.batch(me)
 
-  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { req ?=> me =>
-    req.body
+  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { ctx ?=> me =>
+    ctx.body.body
       .validate[lila.puzzle.PuzzleForm.batch.SolveData]
       .fold(
         err => BadRequest(err.toString).toFuccess,
@@ -525,7 +524,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def help = Open:
     Ok(html.site.helpModal.puzzle).toFuccess
 
-  private def DashboardPage(username: Option[UserStr])(f: Context ?=> UserModel => Fu[Result]) =
+  private def DashboardPage(username: Option[UserStr])(f: WebContext ?=> UserModel => Fu[Result]) =
     Auth { ctx ?=> me =>
       username
         .??(env.user.repo.byId)

@@ -2,7 +2,7 @@ package views.html
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -20,7 +20,7 @@ object insight:
       ui: play.api.libs.json.JsObject,
       question: play.api.libs.json.JsObject,
       stale: Boolean
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     views.html.base.layout(
       title = trans.insight.xChessInsights.txt(u.username),
       moreJs = frag(
@@ -50,7 +50,7 @@ object insight:
       frag(main(id := "insight"))
     )
 
-  def empty(u: User)(implicit ctx: Context) =
+  def empty(u: User)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = trans.insight.xChessInsights.txt(u.username),
       moreJs = jsTag("insight-refresh.js"),
@@ -63,7 +63,7 @@ object insight:
       )
     )
 
-  def forbidden(u: User)(implicit ctx: Context) =
+  def forbidden(u: User)(implicit ctx: WebContext) =
     views.html.site.message(
       title = trans.insight.insightsAreProtected.txt(u.username),
       back = routes.User.show(u.id).url.some

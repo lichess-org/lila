@@ -3,7 +3,7 @@ package views.html.ublog
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Captcha
@@ -16,9 +16,9 @@ object form:
 
   import views.html.ublog.{ post as postView }
 
-  private def moreCss(implicit ctx: Context) = frag(cssTag("ublog.form"), cssTag("tagify"))
+  private def moreCss(implicit ctx: WebContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
-  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(implicit ctx: Context) =
+  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(implicit ctx: WebContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
@@ -35,7 +35,7 @@ object form:
       )
     }
 
-  def edit(post: UblogPost, f: Form[UblogPostData])(implicit ctx: Context) =
+  def edit(post: UblogPost, f: Form[UblogPostData])(implicit ctx: WebContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
@@ -69,7 +69,7 @@ object form:
       )
     }
 
-  private def imageForm(post: UblogPost)(implicit ctx: Context) =
+  private def imageForm(post: UblogPost)(implicit ctx: WebContext) =
     postForm(
       cls     := "ublog-post-form__image",
       action  := routes.Ublog.image(post.id),
@@ -113,7 +113,7 @@ object form:
     postView.thumbnail(post, _.Small)(cls := post.image.isDefined.option("user-image"))
 
   private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(using
-      Context
+      WebContext
   ) =
     postForm(
       cls    := "form3 ublog-post-form__main",
@@ -194,7 +194,7 @@ object form:
       )
     )
 
-  private def etiquette(implicit ctx: Context) = div(cls := "ublog-post-form__etiquette")(
+  private def etiquette(implicit ctx: WebContext) = div(cls := "ublog-post-form__etiquette")(
     p(trans.ublog.safeAndRespectfulContent()),
     p(trans.ublog.inappropriateContentAccountClosed()),
     p(
@@ -208,7 +208,7 @@ object form:
     p(tips)
   )
 
-  def tips(implicit ctx: Context) = a(
+  def tips(implicit ctx: WebContext) = a(
     dataIcon := licon.InfoCircle,
     href     := routes.Page.loneBookmark("blog-tips"),
     cls      := "text",

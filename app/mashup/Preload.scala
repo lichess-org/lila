@@ -4,7 +4,7 @@ package mashup
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.event.Event
 import lila.game.{ Game, Pov }
 import lila.playban.TempBan
@@ -44,7 +44,7 @@ final class Preload(
       events: Fu[List[Event]],
       simuls: Fu[List[Simul]],
       streamerSpots: Int
-  )(using ctx: Context): Fu[Homepage] =
+  )(using ctx: WebContext): Fu[Homepage] =
     lobbyApi.apply.mon(_.lobby segment "lobbyApi") zip
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip

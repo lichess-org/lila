@@ -4,7 +4,7 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -12,7 +12,7 @@ import lila.user.User
 object form:
 
   def apply(form: Form[?], reqUser: Option[User] = None, captcha: lila.common.Captcha)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     views.html.base.layout(
       title = trans.reportAUser.txt(),
