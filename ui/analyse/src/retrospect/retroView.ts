@@ -11,11 +11,11 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
   const html = [];
   html.push(h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, ctrl.noarg('viewTheSolution')));
   html.push(h('a.skip-mistake', { hook: bind('click', ctrl.skip) }, ctrl.noarg('skipThisMove')));
-  
+
   if (completed > 0) {
     html.push(h('a.prev-mistake', { hook: bind('click', ctrl.previous) }, ctrl.noarg('previousMove')));
   }
-  
+
   return h('div.choices', html);
 }
 
