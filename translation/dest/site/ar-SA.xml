@@ -107,6 +107,7 @@
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Play first opening/endgame-explorer move</string>
   <string name="winPreventedBy50MoveRule">قاعدة ال 50 نقلة منعت الفوز</string>
   <string name="lossSavedBy50MoveRule">قاعدة ال 50 نقلة منعت الخسارة</string>
   <string name="winOr50MovesByPriorMistake">فوز أو 50 حركة عن طريق خطأ سابق</string>
