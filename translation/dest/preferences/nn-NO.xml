@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
   <string name="moveConfirmation">Stadfest trekket</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Kan under pågåande parti deaktiveras ved hjelp av brettmenyen</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="correspondenceAndUnlimited">Fjernsjakk og ubegrensa tid</string>
   <string name="confirmResignationAndDrawOffers">Stadfest når du gir opp eller tilbyr remis</string>
