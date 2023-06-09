@@ -26,9 +26,6 @@ final private class StudySequencer(
   ): Fu[A] =
     sequenceStudy(studyId): study =>
       chapterRepo
-        .byId(chapterId)
-        .flatMap:
-          _.filter(_.studyId == studyId) ?? { chapter =>
-            f(Study.WithChapter(study, chapter))
-          }
+        .byIdAndStudy(chapterId, studyId)
+        .flatMapz(c => f(Study.WithChapter(study, c)))
         .mon(_.study.sequencer.chapterTime)
