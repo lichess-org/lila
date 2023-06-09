@@ -22,6 +22,7 @@ case class UserInfo(
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
+    nbSimuls: Int,
     teamIds: List[lila.team.TeamId],
     isStreamer: Boolean,
     isCoach: Boolean,
@@ -107,6 +108,7 @@ object UserInfo:
       postApi: ForumPostApi,
       ublogApi: UblogApi,
       studyRepo: lila.study.StudyRepo,
+      simulApi: lila.simul.SimulApi,
       ratingChartApi: lila.history.RatingChartApi,
       userApi: lila.api.UserApi,
       isHostingSimul: lila.round.IsSimulHost,
@@ -123,6 +125,7 @@ object UserInfo:
         postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts") zip
         (withUblog ?? ublogApi.userBlogPreviewFor(user, 3, ctx.me)) zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
+        simulApi.nbHostedByUser(user.id).mon(_.user segment "nbSimuls").thenPp zip
         userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies") zip
         teamApi.joinedTeamIdsOfUserAsSeenBy(user, ctx.me).mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
@@ -130,7 +133,7 @@ object UserInfo:
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") map {
           // format: off
-          case ((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
+          case (((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), nbSimuls), trophiesAndAwards), teamIds), isCoach), isStreamer), insightVisible), hasSimul) =>
           // format: on
             new UserInfo(
               user = user,
@@ -141,6 +144,7 @@ object UserInfo:
               nbForumPosts = nbForumPosts,
               ublog = ublog,
               nbStudies = nbStudies,
+              nbSimuls = nbSimuls,
               trophies = trophiesAndAwards,
               teamIds = teamIds,
               isStreamer = isStreamer,

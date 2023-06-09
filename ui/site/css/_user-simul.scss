@@ -1,0 +1,47 @@
+.simul-list {
+  .slist {
+    white-space: nowrap;
+
+    .count {
+      @extend %roboto;
+
+      vertical-align: center;
+      color: $c-brag;
+      font-size: 40px;
+      text-align: center;
+      line-height: 72px;
+      width: 80px;
+    }
+
+    .icon {
+      text-align: center;
+      font-size: 3em;
+      color: $c-brag;
+    }
+
+    .color-icon {
+      display: block;
+      width: 50px;
+      height: 50px;
+      background-size: 50px;
+
+      &.white {
+        background-image: url(../piece/cburnett/wK.svg);
+      }
+
+      &.random {
+        background-image: url(../images/wbK.svg);
+      }
+
+      &.black {
+        background-image: url(../piece/cburnett/bK.svg);
+      }
+    }
+
+    .name {
+      letter-spacing: 3px;
+      font-size: 1.7em;
+      display: block;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import reactivemongo.api.ReadPreference
 
 final private[simul] class SimulRepo(val coll: Coll)(using Executor):
 
@@ -37,9 +38,18 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
         "hostColor" -> o.hostColor.name
       )
 
-  import SimulCondition.bsonHandler
+  import lila.gathering.ConditionHandlers.BSONHandlers.given
+  private given BSONDocumentHandler[SimulCondition.All] = Macros.handler
 
-  private given BSONDocumentHandler[Simul] = Macros.handler
+  // old Simuls do not have "conditions" field in the db
+  // this hack adds empty conditions if they are missing
+  private given BSONDocumentWriter[Simul] = Macros.writer
+  private given BSONDocumentReader[Simul] with
+    def readDocument(doc: BSONDocument) =
+      val docWithConditions =
+        if doc.contains("conditions") then doc
+        else doc ++ $doc("conditions" -> lila.simul.SimulCondition.All.empty)
+      Macros.reader[Simul].readDocument(docWithConditions)
 
   private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect  = $doc("status" -> SimulStatus.Started.id)
@@ -70,6 +80,15 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .hint(coll hint $doc("hostId" -> 1))
       .cursor[Simul]()
       .listAll()
+
+  def byHostAdapter(hostId: UserId) =
+    new lila.db.paginator.Adapter[Simul](
+      collection = coll,
+      selector = finishedSelect ++ $doc("hostId" -> hostId),
+      projection = none,
+      sort = createdSort,
+      readPreference = ReadPreference.secondaryPreferred
+    )
 
   def hostId(id: SimulId): Fu[Option[UserId]] =
     coll.primitiveOne[UserId]($id(id), "hostId")
