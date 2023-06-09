@@ -57,7 +57,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         )
       .map: docs =>
         for
-          doc <- docs
+          doc     <- docs
           study   <- doc.asOpt[Study]
           chapter <- doc.getAsOpt[Chapter]("chapter")
         yield Study.WithChapter(study, chapter)
