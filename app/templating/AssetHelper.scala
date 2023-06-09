@@ -62,14 +62,14 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
 
   def depsTag = jsAt("compiled/deps.min.js")
 
-  def roundTag                         = jsModule("round")
+  def roundTag                            = jsModule("round")
   def roundNvuiTag(using ctx: WebContext) = ctx.blind option jsModule("round.nvui")
 
-  def analyseTag                         = jsModule("analysisBoard")
-  def analyseStudyTag                    = jsModule("analysisBoard.study")
+  def analyseTag                            = jsModule("analysisBoard")
+  def analyseStudyTag                       = jsModule("analysisBoard.study")
   def analyseNvuiTag(using ctx: WebContext) = ctx.blind option jsModule("analysisBoard.nvui")
 
-  def puzzleTag                         = jsModule("puzzle")
+  def puzzleTag                            = jsModule("puzzle")
   def puzzleNvuiTag(using ctx: WebContext) = ctx.blind option jsModule("puzzle.nvui")
 
   def captchaTag          = jsModule("captcha")
@@ -81,12 +81,11 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
   def prismicJs(using ctx: WebContext): Frag =
-    raw {
+    raw:
       isGranted(_.Prismic) ?? {
         embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
           """<script src="//static.cdn.prismic.io/prismic.min.js"></script>"""
       }
-    }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy =
     val sockets = socketDomains map { x => s"wss://$x${!req.secure ?? s" ws://$x"}" }

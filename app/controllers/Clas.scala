@@ -56,7 +56,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def create = SecureBody(_.Teacher) { ctx ?=> me =>
     SafeTeacher:
       env.clas.forms.clas.create
-        .bindFromRequest()(ctx.body, formBinding)
+        .bindFromRequest()
         .fold(
           err => BadRequest(html.clas.clas.create(err)).toFuccess,
           data => env.clas.api.clas.create(data, me.user) map redirectTo
@@ -128,7 +128,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def wallUpdate(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me =>
     WithClass(me, id): clas =>
       env.clas.forms.clas.wall
-        .bindFromRequest()(ctx.body, formBinding)
+        .bindFromRequest()
         .fold(
           err =>
             env.clas.api.student.activeWithUsers(clas) map { students =>
@@ -152,7 +152,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def notifyPost(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me =>
     WithClass(me, id): clas =>
       env.clas.forms.clas.notifyText
-        .bindFromRequest()(ctx.body, formBinding)
+        .bindFromRequest()
         .fold(
           err =>
             env.clas.api.student.activeWithUsers(clas) map { students =>
@@ -218,7 +218,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClass(me, id): clas =>
       env.clas.forms.clas
         .edit(clas)
-        .bindFromRequest()(ctx.body, formBinding)
+        .bindFromRequest()
         .fold(
           err =>
             env.clas.api.student.activeWithUsers(clas) map { students =>
@@ -269,7 +269,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         SafeTeacher:
           WithClassAndStudents(me, id): (clas, students) =>
             env.clas.forms.student.create
-              .bindFromRequest()(ctx.body, formBinding)
+              .bindFromRequest()
               .fold(
                 err =>
                   env.clas.api.student.count(clas.id) map { nbStudents =>
@@ -323,7 +323,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             env.clas.api.student.count(clas.id) flatMap { nbStudents =>
               env.clas.forms.student
                 .manyCreate(lila.clas.Clas.maxStudents - nbStudents)
-                .bindFromRequest()(ctx.body, formBinding)
+                .bindFromRequest()
                 .fold(
                   err => BadRequest(html.clas.student.manyForm(clas, students, err, nbStudents)).toFuccess,
                   data =>
@@ -346,7 +346,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAndStudents(me, id): (clas, students) =>
       env.clas.forms.student
         .invite(clas)
-        .bindFromRequest()(ctx.body, formBinding)
+        .bindFromRequest()
         .fold(
           err =>
             env.clas.api.student.count(clas.id) map { nbStudents =>
@@ -399,7 +399,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         env.clas.forms.student
           .edit(s.student)
-          .bindFromRequest()(ctx.body, formBinding)
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.clas.student.edit(clas, students, s, err)).toFuccess,
             data =>
@@ -442,7 +442,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         then
           env.security.forms.preloadEmailDns() >>
             env.clas.forms.student.release
-              .bindFromRequest()(ctx.body, formBinding)
+              .bindFromRequest()
               .fold(
                 err => BadRequest(html.clas.student.release(clas, students, s, err)).toFuccess,
                 email =>

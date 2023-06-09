@@ -194,7 +194,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           }
   }
 
-  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
     else
@@ -304,7 +304,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
           )
   }
 
-  def apiCreate = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiCreate = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.isBot || me.lame
     then notFoundJson("This account cannot create tournaments")
     else doApiCreate(me)
@@ -337,7 +337,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         )
     }
 
-  def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     cachedTour(id) flatMap {
       _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) ?? { tour =>
@@ -411,7 +411,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       case tour => Redirect(routes.Tournament.show(tour.id)).toFuccess
   }
 
-  def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     cachedTour(id) flatMapz {
       case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>

@@ -5,9 +5,14 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.HTTPRequest
 import lila.pref.Pref
-import lila.user.{ BodyUserContext, HeaderUserContext, UserContext }
+import lila.user.{ UserBodyContext, UserContext }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.OAuthScope
+
+object context:
+  export lila.api.{ AnyContext, BodyContext }
+  export lila.api.{ WebContext, WebBodyContext }
+  export lila.api.{ OAuthContext, OAuthBodyContext }
 
 case class PageData(
     teamNbRequests: Int,
@@ -39,19 +44,23 @@ object PageData:
 
   def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
 
-trait AnyContext extends lila.user.UserContextWrapper:
+trait AnyContext:
   val userContext: UserContext
-  export userContext.lang
-
-trait HeaderContext extends AnyContext
+  export userContext.{ req, me, impersonatedBy, lang, userId, is, kid, noKid, troll }
+  export me.{ isDefined as isAuth, isEmpty as isAnon }
+  def isBot        = me.exists(_.isBot)
+  def noBot        = !isBot
+  def isAppealUser = me.exists(_.enabled.no)
+  def ipAddress    = HTTPRequest ipAddress userContext.req
+  def ip           = ipAddress // TODO remove
 
 trait BodyContext[A] extends AnyContext:
-  val body: Request[A]
+  def body: Request[A]
 
-sealed trait WebContext extends AnyContext:
-  val pageData: PageData
-
-  def withLang(newLang: Lang): WebContext
+class WebContext(
+    val userContext: UserContext,
+    val pageData: PageData
+) extends AnyContext:
 
   export pageData.{ teamNbRequests, nbChallenges, nbNotifications, pref, blindMode as blind, nonce, hasClas }
   def noBlind = !blind
@@ -83,63 +92,36 @@ sealed trait WebContext extends AnyContext:
 
   def flash(name: String): Option[String] = req.flash get name
 
-sealed abstract class WebBaseContext(
-    val userContext: lila.user.UserContext,
-    val pageData: PageData
-) extends WebContext
-
-final class WebHeaderContext(
-    headerContext: HeaderUserContext,
-    data: PageData
-) extends WebBaseContext(headerContext, data)
-    with HeaderContext:
-  def withLang(l: Lang) = WebHeaderContext(headerContext withLang l, data)
+  def withLang(l: Lang) = new WebContext(userContext withLang l, pageData)
 
 final class WebBodyContext[A](
-    val bodyContext: BodyUserContext[A],
+    bodyContext: UserBodyContext[A],
     data: PageData
-) extends WebBaseContext(bodyContext, data)
+) extends WebContext(bodyContext, data)
     with BodyContext[A]:
-  export bodyContext.body
-  def withLang(l: Lang) = WebBodyContext(bodyContext withLang l, data)
 
-sealed trait OAuthContext extends AnyContext:
+  export bodyContext.body
+  override def withLang(l: Lang) = WebBodyContext(bodyContext withLang l, data)
+
+sealed trait OAuthAnyContext extends AnyContext:
   val scopes: List[OAuthScope]
 
-sealed abstract class OAuthBaseContext(
-    val userContext: lila.user.UserContext,
+class OAuthContext(
+    val userContext: UserContext,
     val scopes: List[OAuthScope]
-) extends OAuthContext
-
-final class OAuthHeaderContext(
-    headerContext: HeaderUserContext,
-    scopes: List[OAuthScope]
-) extends OAuthBaseContext(headerContext, scopes)
-    with HeaderContext:
-  def withLang(l: Lang) = OAuthHeaderContext(headerContext withLang l, scopes)
+) extends OAuthAnyContext:
+  def withLang(l: Lang) = OAuthContext(userContext withLang l, scopes)
 
 final class OAuthBodyContext[A](
-    val bodyContext: BodyUserContext[A],
-    scopes: List[OAuthScope]
-) extends OAuthBaseContext(bodyContext, scopes)
+    val bodyContext: UserBodyContext[A],
+    override val scopes: List[OAuthScope]
+) extends OAuthContext(bodyContext, scopes)
     with BodyContext[A]:
   export bodyContext.body
-  def scoped            = me.map(OAuthScope.Scoped(_, scopes))
-  def withLang(l: Lang) = OAuthBodyContext(bodyContext withLang l, scopes)
+  def scoped                     = me.map(OAuthScope.Scoped(_, scopes))
+  override def withLang(l: Lang) = OAuthBodyContext(bodyContext withLang l, scopes)
 
 object WebContext:
 
-  def error(req: RequestHeader, lang: Lang, nonce: Option[Nonce]): WebHeaderContext =
-    WebHeaderContext(UserContext(req, none, none, lang), PageData.error(req, nonce))
-
-  def apply(userContext: HeaderUserContext, pageData: PageData): WebHeaderContext =
-    WebHeaderContext(userContext, pageData)
-
-  def apply[A](userContext: BodyUserContext[A], pageData: PageData): WebBodyContext[A] =
-    WebBodyContext(userContext, pageData)
-
-  def apply(userContext: HeaderUserContext, scopes: List[OAuthScope]): OAuthHeaderContext =
-    OAuthHeaderContext(userContext, scopes)
-
-  def apply[A](userContext: BodyUserContext[A], scopes: List[OAuthScope]): OAuthBodyContext[A] =
-    OAuthBodyContext(userContext, scopes)
+  def error(req: RequestHeader, lang: Lang, nonce: Option[Nonce]): WebContext =
+    WebContext(UserContext(req, none, none, lang), PageData.error(req, nonce))

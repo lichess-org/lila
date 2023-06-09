@@ -12,6 +12,8 @@ trait I18nHelper:
 
   export LangList.{ nameByStr as langName }
 
+  given (using ctx: lila.user.UserContext): Lang = ctx.lang
+
   def transKey(key: I18nKey, args: Seq[Matchable] = Nil)(using lang: Lang): Frag =
     Translator.frag.literal(key, args, lang)
 

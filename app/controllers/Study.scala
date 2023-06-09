@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scala.util.chaining.*
 
-import lila.api.WebContext
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ HTTPRequest, IpAddress }
@@ -192,36 +192,37 @@ final class Study(
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     .dmap(_.noCache)
 
-  private[controllers] def getJsonData(sc: WithChapter)(using ctx: WebContext): Fu[(WithChapter, JsData)] = for
-    chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
-    (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
-    chapter = resetToChapter | sc.chapter
-    _ <- env.user.lightUserApi preloadMany study.members.ids.toList
-    pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-    analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id into Analysis.Id)
-    division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
-    baseData <- env.api.roundApi.withExternalEngines(
-      ctx.me,
-      env.round.jsonView.userAnalysisJson(
-        pov,
-        ctx.pref,
-        chapter.root.fen.some,
-        chapter.setup.orientation,
-        owner = false,
-        division = division
+  private[controllers] def getJsonData(sc: WithChapter)(using ctx: WebContext): Fu[(WithChapter, JsData)] =
+    for
+      chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
+      (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
+      chapter = resetToChapter | sc.chapter
+      _ <- env.user.lightUserApi preloadMany study.members.ids.toList
+      pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
+      analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id into Analysis.Id)
+      division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
+      baseData <- env.api.roundApi.withExternalEngines(
+        ctx.me,
+        env.round.jsonView.userAnalysisJson(
+          pov,
+          ctx.pref,
+          chapter.root.fen.some,
+          chapter.setup.orientation,
+          owner = false,
+          division = division
+        )
       )
+      studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
+    yield WithChapter(study, chapter) -> JsData(
+      study = studyJson,
+      analysis = baseData
+        .add(
+          "treeParts" -> partitionTreeJsonWriter.writes {
+            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+          }.some
+        )
+        .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
     )
-    studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
-  yield WithChapter(study, chapter) -> JsData(
-    study = studyJson,
-    analysis = baseData
-      .add(
-        "treeParts" -> partitionTreeJsonWriter.writes {
-          lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-        }.some
-      )
-      .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
-  )
 
   def show(id: StudyId) = Open:
     orRelay(id):
@@ -411,10 +412,10 @@ final class Study(
           doPgn(study, ctx.req).toFuccess
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
-  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
+  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { ctx ?=> me =>
     env.study.api.byId(id).map {
       _.fold(studyNotFoundText): study =>
-        if req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
+        if ctx.req.method == "HEAD" then Ok.withDateHeaders(studyLastModified(study))
         else
           PgnRateLimitPerIp(req.ipAddress, rateLimited, msg = id):
             CanView(study, me) {
@@ -432,16 +433,16 @@ final class Study(
   private def studyLastModified(s: StudyModel) = LAST_MODIFIED -> s.updatedAt.atZone(utcZone)
 
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
-    doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)(using ctx.req, ctx.me)
+    doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)
 
-  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) = AnonOrScoped(_.Study.Read) { req ?=> me =>
+  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) = AnonOrScoped(_.Study.Read) { ctx ?=> _ =>
     doChapterPgn(
       id,
       chapterId,
       fuccess(studyNotFoundText),
       _ => fuccess(privateUnauthorizedText),
       _ => fuccess(privateForbiddenText)
-    )(using req, me)
+    )
   }
 
   private def doChapterPgn(
@@ -450,10 +451,10 @@ final class Study(
       studyNotFound: => Fu[Result],
       studyUnauthorized: StudyModel => Fu[Result],
       studyForbidden: StudyModel => Fu[Result]
-  )(using req: RequestHeader, me: Option[lila.user.User]) =
+  )(using ctx: AnyContext) =
     env.study.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(studyNotFound) { case WithChapter(study, chapter) =>
-        CanView(study, me) {
+        CanView(study, ctx.me) {
           env.study.pgnDump.ofChapter(study, requestPgnFlags(req))(chapter) map { pgn =>
             Ok(pgn.toString)
               .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))

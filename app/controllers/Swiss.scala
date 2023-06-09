@@ -119,19 +119,18 @@ final class Swiss(
       CheckTeamLeader(teamId):
         env.swiss.forms
           .create(me)
-          .bindFromRequest()(ctx.body, formBinding)
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.swiss.form.create(err, teamId)).toFuccess,
             data =>
-              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
+              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))):
                 env.swiss.api.create(data, me, teamId) map { swiss =>
                   Redirect(routes.Swiss.show(swiss.id))
                 }
-              }
           )
   }
 
-  def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.isBot || me.lame then notFoundJson("This account cannot create tournaments")
     else
       env.team.cached.isLeader(teamId, me.id) flatMap {
@@ -142,7 +141,7 @@ final class Swiss(
             .fold(
               jsonFormErrorDefaultLang,
               data =>
-                tourC.rateLimitCreation(me, isPrivate = true, req, rateLimited):
+                tourC.rateLimitCreation(me, isPrivate = true, ctx.req, rateLimited):
                   env.swiss.api.create(data, me, teamId) flatMap env.swiss.json.api map JsonOk
             )
         else notFoundJson("You're not a leader of that team")
@@ -165,7 +164,7 @@ final class Swiss(
       doJoin(me, id, bodyPassword)
   }
 
-  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
     else doJoin(me, id, bodyPassword)
@@ -213,7 +212,7 @@ final class Swiss(
         )
   }
 
-  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     WithEditableSwiss(
       id,

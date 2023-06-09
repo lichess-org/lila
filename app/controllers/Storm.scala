@@ -30,17 +30,14 @@ final class Storm(env: Env) extends LilaController(env):
   }
 
   def record =
-    def doRecord(me: Option[lila.user.User], mobile: Boolean)(using Request[?]) =
-      env.storm.forms.run
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(none),
-          data => env.storm.dayApi.addRun(data, me, mobile = mobile)
-        ) map env.storm.json.newHigh map JsonOk
-    OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write))(
-      open = ctx ?=> NoBot { doRecord(ctx.me, mobile = false) },
-      scoped = req ?=> me => doRecord(me.some, mobile = HTTPRequest.isLichessMobile(req))
-    )
+    OpenOrScopedBody(parse.anyContent)(Seq(_.Puzzle.Write)): ctx ?=>
+      NoBot:
+        env.storm.forms.run
+          .bindFromRequest()
+          .fold(
+            _ => fuccess(none),
+            data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
+          ) map env.storm.json.newHigh map JsonOk
 
   def dashboard(page: Int) = Auth { ctx ?=> me =>
     renderDashboardOf(me, page)

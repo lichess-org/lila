@@ -5,7 +5,7 @@ import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import play.api.data.*
 import views.*
 
-import lila.api.{ BodyContext, WebContext }
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
@@ -71,7 +71,9 @@ final class Report(
     else if (inquiry.isComm) Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
-  protected[controllers] def onModAction(me: Holder)(goTo: Suspect)(using ctx: BodyContext[?]): Fu[Result] =
+  protected[controllers] def onModAction(
+      me: Holder
+  )(goTo: Suspect)(using ctx: WebBodyContext[?]): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then userC.renderModZoneActions(goTo.user.username)
     else
       api.inquiries
@@ -82,7 +84,7 @@ final class Report(
       inquiry: ReportModel,
       me: Holder,
       processed: Boolean = false
-  )(using ctx: BodyContext[?]): Fu[Result] =
+  )(using ctx: WebBodyContext[?]): Fu[Result] =
     val dataOpt = ctx.body.body match
       case AnyContentAsFormUrlEncoded(data) => data.some
       case _                                => none

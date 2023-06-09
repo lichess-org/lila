@@ -69,8 +69,7 @@ final class Setup(
   def friend(userId: Option[UserStr]) =
     OpenBody:
       PostRateLimit(ctx.ip, rateLimitedFu):
-        forms
-          .friend(ctx)
+        forms.friend
           .bindFromRequest()
           .fold(
             jsonFormError,
@@ -126,31 +125,27 @@ final class Setup(
         )
     case HookResult.Refused => BadRequest(jsonError("Game was not created"))
 
-  def hook(sri: Sri) =
-    def send(me: Option[lila.user.User])(using req: Request[_], lang: Lang) =
-      NoPlaybanOrCurrent(me):
+  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile)): ctx ?=>
+    NoBot:
+      NoPlaybanOrCurrent(ctx.me):
         forms
-          .hook(me)
+          .hook(ctx.me)
           .bindFromRequest()
           .fold(
             jsonFormError,
             userConfig =>
               PostRateLimit(req.ipAddress, rateLimitedFu):
-                AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = me.isEmpty ?? 1):
-                  (me.map(_.id) ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = ctx.isAnon ?? 1):
+                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
                     processor.hook(
-                      me,
-                      userConfig withinLimits me,
+                      ctx.me,
+                      userConfig withinLimits ctx.me,
                       sri,
                       req.sid,
                       lila.pool.Blocking(blocking)
                     ) map hookResponse
                   }
           )
-    OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile))(
-      open = ctx ?=> NoBot(send(ctx.me)),
-      scoped = req ?=> me => send(me.some)(using req, reqLang(me))
-    )
 
   def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
@@ -186,7 +181,7 @@ final class Setup(
     ttl = 10.minutes,
     maxConcurrency = 1
   )
-  def boardApiHook = ScopedBody(_.Board.Play) { req ?=> me =>
+  def boardApiHook = ScopedBody(_.Board.Play) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     if me.isBot then notForBotAccounts.toFuccess
     else
@@ -224,7 +219,7 @@ final class Setup(
       case None    => BadRequest.toFuccess
       case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
 
-  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
+  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot ?? 1):
       PostRateLimit(req.ipAddress, rateLimitedFu):

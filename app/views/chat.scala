@@ -53,7 +53,7 @@ object chat:
       localMod: Boolean = false,
       broadcastMod: Boolean = false,
       palantir: Boolean = false
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     Json
       .obj(
         "data" -> Json

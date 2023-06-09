@@ -7,6 +7,8 @@ import lila.user.{ User, UserContext, Holder }
 
 trait SecurityHelper:
 
+  given (using ctx: lila.api.AnyContext): UserContext = ctx.userContext
+
   def isGranted(permission: Permission.Selector)(using UserContext): Boolean =
     isGranted(permission(Permission))
 

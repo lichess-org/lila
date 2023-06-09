@@ -28,7 +28,7 @@ final class Challenge(
       api allFor me.id map env.challenge.jsonView.apply map JsonOk
   }
 
-  def apiList = ScopedBody(_.Challenge.Read) { req ?=> me =>
+  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     api.allFor(me.id, 300) map { all =>
       JsonOk:
@@ -156,7 +156,7 @@ final class Challenge(
         )
     }
   }
-  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
+  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     api.activeByIdFor(id, me) flatMap {
       case None =>
@@ -179,7 +179,7 @@ final class Challenge(
       OptionFuResult(api byId id): c =>
         if isMine(c) then api cancel c else notFound
 
-  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
+  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     api.activeByIdBy(id, me) flatMap {
       case Some(c) => api.cancel(c) inject jsonOkResult
       case None =>
@@ -198,9 +198,9 @@ final class Challenge(
                 lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
                 jsonOkResult.toFuccess
               case Some(pov) if pov.game.playable =>
-                Bearer.from(get("opponentToken", req)) match
+                Bearer.from(get("opponentToken")) match
                   case Some(bearer) =>
-                    env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
+                    env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), ctx.req.some) map {
                       case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
                         lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                         jsonOkResult
@@ -282,7 +282,7 @@ final class Challenge(
       else notFound
   }
 
-  def apiCreate(username: UserStr) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
+  def apiCreate(username: UserStr) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang
     !me.is(username) ?? env.setup.forms.api
       .user(me)
@@ -366,7 +366,7 @@ final class Challenge(
             else BadRequest(jsonError("dest and accept user don't match")).toFuccess
         )
 
-  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { req ?=> me =>
+  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { ctx ?=> me =>
     given play.api.i18n.Lang = reqLang(me)
     env.setup.forms.api.open
       .bindFromRequest()

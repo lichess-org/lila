@@ -156,13 +156,13 @@ final class Analyse(
     }
   }
 
-  def externalEngineCreate = ScopedBody(_.Engine.Write) { req ?=> me =>
-    HTTPRequest.bearer(req) ?? { bearer =>
+  def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me =>
+    HTTPRequest.bearer(ctx.req) ?? { bearer =>
       val tokenId = AccessToken.Id from bearer
       lila.analyse.ExternalEngine.form
         .bindFromRequest()
         .fold(
-          err => newJsonFormError(err)(using me.realLang | reqLang),
+          err => newJsonFormError(err),
           data =>
             env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
               Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -171,7 +171,7 @@ final class Analyse(
     }
   }
 
-  def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { req ?=> me =>
+  def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me =>
     env.analyse.externalEngine.find(me, id) flatMap {
       _.fold(notFoundJson()) { engine =>
         lila.analyse.ExternalEngine.form

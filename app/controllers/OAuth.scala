@@ -111,8 +111,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         }
       case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
 
-  def tokenRevoke = Scoped() { req ?=> _ =>
-    HTTPRequest.bearer(req) ?? { token =>
+  def tokenRevoke = Scoped() { ctx ?=> _ =>
+    HTTPRequest.bearer(ctx.req) ?? { token =>
       env.oAuth.tokenApi.revoke(token) inject NoContent
     }
   }
@@ -128,7 +128,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def challengeTokens = ScopedBody(_.Web.Mod) { req ?=> me =>
+  def challengeTokens = ScopedBody(_.Web.Mod) { ctx ?=> me =>
     if isGranted(_.ApiChallengeAdmin, me) then
       lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()

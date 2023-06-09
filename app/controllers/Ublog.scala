@@ -103,7 +103,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def create = AuthBody { ctx ?=> me =>
     NotForKids:
       env.ublog.form.create
-        .bindFromRequest()(ctx.body, formBinding)
+        .bindFromRequest()
         .fold(
           err =>
             env.ublog.form.anyCaptcha map { captcha =>
@@ -129,7 +129,7 @@ final class Ublog(env: Env) extends LilaController(env):
       env.ublog.api.findByUserBlogOrAdmin(id, me) flatMapz { prev =>
         env.ublog.form
           .edit(prev)
-          .bindFromRequest()(ctx.body, formBinding)
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.ublog.form.edit(prev, err)).toFuccess,
             data =>

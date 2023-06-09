@@ -9,25 +9,15 @@ import play.api.libs.json.{ JsArray, JsNumber, JsObject, JsString, JsValue, Json
 import play.api.mvc.*
 import scalatags.Text.Frag
 
-import lila.api.{
-  WebBodyContext,
-  WebContext,
-  WebHeaderContext,
-  AnyContext,
-  HeaderContext,
-  BodyContext,
-  OAuthBodyContext,
-  PageData,
-  Nonce
-}
+import lila.api.context.*
+import lila.api.{ PageData, Nonce }
 import lila.app.{ *, given }
 import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.oauth.OAuthScope.Scoped
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
-import lila.user.{ Holder, User as UserModel, UserContext }
-import lila.api.OAuthHeaderContext
+import lila.user.{ Holder, User, UserContext, UserBodyContext }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -44,7 +34,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected given Zero[Result]             = Zero(Results.NotFound)
   protected given Conversion[Frag, Result] = Ok(_)
-  protected given formBinding: FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
+  protected given FormBinding              = parse.formBinding(parse.DefaultMaxTextLength)
 
   protected val keyPages                   = KeyPages(env)
   protected val renderNotFound             = keyPages.notFound
@@ -65,14 +55,15 @@ abstract private[controllers] class LilaController(val env: Env)
   inline def ctx(using it: WebContext)    = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
 
-  given (using ctx: WebContext): Lang                                 = ctx.lang
-  given (using ctx: WebContext): RequestHeader                        = ctx.req
-  given (using req: RequestHeader): ui.EmbedConfig                    = ui.EmbedConfig(req)
-  given reqBody(using it: WebBodyContext[?]): play.api.mvc.Request[?] = it.body
+  given (using ctx: AnyContext): Lang                              = ctx.lang
+  given (using ctx: AnyContext): RequestHeader                     = ctx.req
+  given (using ctx: AnyContext): UserContext                       = ctx.userContext
+  given (using req: RequestHeader): ui.EmbedConfig                 = ui.EmbedConfig(req)
+  given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
 
-  def reqLang(using req: RequestHeader): Lang                     = I18nLangPicker(req)
-  def reqLang(user: UserModel)(using RequestHeader): Lang         = I18nLangPicker(req, user.lang)
-  def reqLang(user: Option[UserModel])(using RequestHeader): Lang = I18nLangPicker(req, user.flatMap(_.lang))
+  def reqLang(using req: RequestHeader): Lang                = I18nLangPicker(req)
+  def reqLang(user: User)(using RequestHeader): Lang         = I18nLangPicker(req, user.lang)
+  def reqLang(user: Option[User])(using RequestHeader): Lang = I18nLangPicker(req, user.flatMap(_.lang))
 
   /* Anonymous requests */
   protected def Anon(f: RequestHeader ?=> Fu[Result]): Action[Unit] =
@@ -107,7 +98,7 @@ abstract private[controllers] class LilaController(val env: Env)
   /* Anonymous, authenticated, and oauth requests */
   protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
       open: WebContext ?=> Fu[Result],
-      scoped: OAuthHeaderContext ?=> UserModel => Fu[Result]
+      scoped: OAuthContext ?=> User => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
@@ -116,7 +107,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous, authenticated, and oauth requests */
   protected def OpenOrScoped(selectors: OAuthScope.Selector*)(
-      f: AnyContext ?=> Option[UserModel] => Fu[Result]
+      f: AnyContext ?=> Option[User] => Fu[Result]
   ): Action[Unit] =
     OpenOrScoped(selectors*)(
       open = ctx ?=> f(ctx.me),
@@ -130,7 +121,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   // protected def OpenOrScopedBody(selectors: OAuthScope.Selector*)(
   //     open: BodyContext[_] => Fu[Result],
-  //     scoped: Request[_] => UserModel => Fu[Result]
+  //     scoped: Request[_] => User => Fu[Result]
   // ): Action[AnyContent] = OpenOrScopedBody(parse.anyContent)(selectors)(auth, scoped)
 
   /* Anonymous, authenticated, and oauth requests with a body */
@@ -144,26 +135,26 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Anonymous and oauth requests */
   protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
-      f: HeaderContext ?=> Option[UserModel] => Fu[Result]
+      f: AnyContext ?=> Option[User] => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
       then handleScoped(selectors)(ctx ?=> user => f(using ctx)(user.some))(req)
-      else f(using reqHeaderContext(req))(none)
+      else f(using anyContext(req))(none)
 
   /* Anonymous and oauth requests with a body */
   protected def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
-      f: BodyContext[A] ?=> Option[UserModel] => Fu[Result]
+      f: BodyContext[A] ?=> Option[User] => Fu[Result]
   ): Action[A] =
     Action.async(parser): req =>
       if HTTPRequest.isOAuth(req)
       then ScopedBody(parser)(selectors)(ctx ?=> user => f(using ctx)(user.some))(req)
-      else f(using reqBodyContext(req))(none)
+      else f(using bodyContext(req))(none)
 
   /* Authenticated and oauth requests */
   protected def AuthOrScoped(selectors: OAuthScope.Selector*)(
-      auth: WebContext ?=> UserModel => Fu[Result],
-      scoped: OAuthHeaderContext ?=> UserModel => Fu[Result]
+      auth: WebContext ?=> User => Fu[Result],
+      scoped: OAuthContext ?=> User => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
@@ -172,14 +163,14 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and oauth requests with a body */
   protected def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
-      auth: WebBodyContext[?] ?=> UserModel => Fu[Result],
-      scoped: OAuthBodyContext[?] ?=> UserModel => Fu[Result]
+      auth: WebBodyContext[?] ?=> User => Fu[Result],
+      scoped: OAuthBodyContext[?] ?=> User => Fu[Result]
   ): Action[AnyContent] = AuthOrScopedBody(parse.anyContent)(selectors)(auth, scoped)
 
   /* Authenticated and oauth requests with a body */
   protected def AuthOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
-      auth: WebBodyContext[A] ?=> UserModel => Fu[Result],
-      scoped: OAuthBodyContext[A] ?=> UserModel => Fu[Result]
+      auth: WebBodyContext[A] ?=> User => Fu[Result],
+      scoped: OAuthBodyContext[A] ?=> User => Fu[Result]
   ): Action[A] =
     Action.async(parser): req =>
       if HTTPRequest.isOAuth(req)
@@ -187,26 +178,26 @@ abstract private[controllers] class LilaController(val env: Env)
       else AuthBody(parser)(auth)(req)
 
   /* Authenticated requests */
-  protected def Auth(f: WebContext ?=> UserModel => Fu[Result]): Action[Unit] =
+  protected def Auth(f: WebContext ?=> User => Fu[Result]): Action[Unit] =
     Auth(parse.empty)(f)
 
   /* Authenticated requests */
-  protected def Auth[A](parser: BodyParser[A])(f: WebContext ?=> UserModel => Fu[Result]): Action[A] =
+  protected def Auth[A](parser: BodyParser[A])(f: WebContext ?=> User => Fu[Result]): Action[A] =
     Action.async(parser) { handleAuth(f, _) }
 
-  private def handleAuth(f: WebContext ?=> UserModel => Fu[Result], req: RequestHeader): Fu[Result] =
+  private def handleAuth(f: WebContext ?=> User => Fu[Result], req: RequestHeader): Fu[Result] =
     CSRF(req):
       reqToCtx(req).flatMap: ctx =>
         ctx.me.fold(authenticationFailed(using ctx))(f(using ctx))
 
   /* Authenticated requests with a body */
-  protected def AuthBody(f: WebBodyContext[?] ?=> UserModel => Fu[Result]): Action[AnyContent] =
+  protected def AuthBody(f: WebBodyContext[?] ?=> User => Fu[Result]): Action[AnyContent] =
     AuthBody(parse.anyContent)(f)
 
   /* Authenticated requests with a body */
   protected def AuthBody[A](
       parser: BodyParser[A]
-  )(f: WebBodyContext[A] ?=> UserModel => Fu[Result]): Action[A] =
+  )(f: WebBodyContext[A] ?=> User => Fu[Result]): Action[A] =
     Action.async(parser): req =>
       CSRF(req):
         reqToCtx(req).flatMap: ctx =>
@@ -232,8 +223,8 @@ abstract private[controllers] class LilaController(val env: Env)
       else authorizationFailed
 
   protected def SecureF(
-      s: UserModel => Boolean
-  )(f: WebContext ?=> UserModel => Fu[Result]): Action[AnyContent] =
+      s: User => Boolean
+  )(f: WebContext ?=> User => Fu[Result]): Action[AnyContent] =
     Auth(parse.anyContent): me =>
       if s(me) then f(me) else authorizationFailed
 
@@ -256,39 +247,39 @@ abstract private[controllers] class LilaController(val env: Env)
   /* OAuth requests */
   protected def Scoped[A](
       parser: BodyParser[A]
-  )(selectors: Seq[OAuthScope.Selector])(f: OAuthHeaderContext ?=> UserModel => Fu[Result]): Action[A] =
+  )(selectors: Seq[OAuthScope.Selector])(f: OAuthContext ?=> User => Fu[Result]): Action[A] =
     Action.async(parser)(handleScoped(selectors)(f))
 
   /* OAuth requests */
   protected def Scoped(
       selectors: OAuthScope.Selector*
-  )(f: OAuthHeaderContext ?=> UserModel => Fu[Result]): Action[Unit] =
+  )(f: OAuthContext ?=> User => Fu[Result]): Action[Unit] =
     Scoped(parse.empty)(selectors)(f)
 
   /* OAuth requests with a body */
   protected def ScopedBody[A](
       parser: BodyParser[A]
-  )(selectors: Seq[OAuthScope.Selector])(f: OAuthBodyContext[A] ?=> UserModel => Fu[Result]): Action[A] =
+  )(selectors: Seq[OAuthScope.Selector])(f: OAuthBodyContext[A] ?=> User => Fu[Result]): Action[A] =
     Action.async(parser)(handleScopedBody(selectors)(f))
 
   /* OAuth requests with a body */
   protected def ScopedBody(
       selectors: OAuthScope.Selector*
-  )(f: OAuthBodyContext[?] ?=> UserModel => Fu[Result]): Action[AnyContent] =
+  )(f: OAuthBodyContext[?] ?=> User => Fu[Result]): Action[AnyContent] =
     ScopedBody(parse.anyContent)(selectors)(f)
 
   private def handleScoped(
       selectors: Seq[OAuthScope.Selector]
-  )(f: OAuthHeaderContext ?=> UserModel => Fu[Result])(req: RequestHeader): Fu[Result] =
+  )(f: OAuthContext ?=> User => Fu[Result])(req: RequestHeader): Fu[Result] =
     handleScopedCommon(selectors, req): (scoped, lang) =>
       val ctx = UserContext(req, scoped.user.some, none, lang)
-      f(using OAuthHeaderContext(ctx, scoped.scopes))(scoped.user)
+      f(using OAuthContext(ctx, scoped.scopes))(scoped.user)
 
   private def handleScopedBody[A](
       selectors: Seq[OAuthScope.Selector]
-  )(f: OAuthBodyContext[A] ?=> UserModel => Fu[Result])(req: Request[A]): Fu[Result] =
+  )(f: OAuthBodyContext[A] ?=> User => Fu[Result])(req: Request[A]): Fu[Result] =
     handleScopedCommon(selectors, req): (scoped, lang) =>
-      val ctx = UserContext(req, scoped.user.some, none, lang)
+      val ctx = UserBodyContext(req, scoped.user.some, none, lang)
       f(using OAuthBodyContext(ctx, scoped.scopes))(scoped.user)
 
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector], req: RequestHeader)(
@@ -307,23 +298,23 @@ abstract private[controllers] class LilaController(val env: Env)
     case e @ lila.oauth.OAuthServer.MissingScope(available) =>
       lila.mon.user.oauth.request(false).increment()
       OAuthServer
-        .responseHeaders(scopes, available) {
+        .responseHeaders(scopes, available):
           Forbidden(jsonError(e.message))
-        }
         .toFuccess
     case e =>
       lila.mon.user.oauth.request(false).increment()
       OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.toFuccess
 
-  private def reqHeaderContext(request: RequestHeader): HeaderContext = new:
+  private def anyContext(request: RequestHeader): AnyContext = new:
     val userContext = UserContext(request, none, none, getAndSaveLang(request, none))
-  private def reqBodyContext[A](request: Request[A]): BodyContext[A] = new:
+  private def bodyContext[A](request: Request[A]): BodyContext[A] = new:
     val userContext = UserContext(request, none, none, getAndSaveLang(request, none))
+    def body        = request
 
   /* Authenticated and OAuth requests requiring certain permissions */
   protected def SecureOrScoped(perm: Permission.Selector)(
       secure: WebContext ?=> Holder => Fu[Result],
-      scoped: OAuthHeaderContext ?=> Holder => Fu[Result]
+      scoped: OAuthContext ?=> Holder => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
@@ -332,7 +323,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   /* Authenticated and OAuth requests requiring certain permissions */
   protected def SecuredScoped(perm: Permission.Selector)(
-      f: OAuthHeaderContext ?=> Holder => Fu[Result]
+      f: OAuthContext ?=> Holder => Fu[Result]
   ) =
     Scoped() { ctx ?=> me =>
       IfGranted(perm, ctx.req, me)(f(Holder(me)))
@@ -363,7 +354,7 @@ abstract private[controllers] class LilaController(val env: Env)
         case web: WebContext => authorizationFailed(using web)
         case _               => authorizationFailed(ctx.req)
 
-  def IfGranted(perm: Permission.Selector, req: RequestHeader, me: UserModel)(f: => Fu[Result]): Fu[Result] =
+  def IfGranted(perm: Permission.Selector, req: RequestHeader, me: User)(f: => Fu[Result]): Fu[Result] =
     if isGranted(perm, me) then f else authorizationFailed(req)
 
   protected def Firewall[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
@@ -388,15 +379,19 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NoLame[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
     NoEngine(NoBooster(a))
 
-  protected def NoBot[A <: Result](a: => Fu[A])(using ctx: WebContext): Fu[Result] =
-    if ctx.isBot
-    then Forbidden(views.html.site.message.noBot).toFuccess
+  protected def NoBot[A <: Result](a: => Fu[A])(using ctx: AnyContext): Fu[Result] =
+    if ctx.isBot then
+      ctx
+        .match
+          case web: WebContext => Forbidden(views.html.site.message.noBot(using web))
+          case _               => Forbidden(jsonError("no bots allowed"))
+        .toFuccess
     else a
 
   protected def NoLameOrBot[A <: Result](a: => Fu[A])(using WebContext): Fu[Result] =
     NoLame(NoBot(a))
 
-  protected def NoLameOrBot[A <: Result](me: UserModel)(a: => Fu[A]): Fu[Result] =
+  protected def NoLameOrBot[A <: Result](me: User)(a: => Fu[A]): Fu[Result] =
     if (me.isBot) notForBotAccounts.toFuccess
     else if (me.lame) Forbidden.toFuccess
     else a
@@ -434,7 +429,7 @@ abstract private[controllers] class LilaController(val env: Env)
           api = _ => currentGameJsonError(current)
         )
     }
-  protected def NoCurrentGame(me: Option[UserModel])(a: => Fu[Result]): Fu[Result] = me
+  protected def NoCurrentGame(me: Option[User])(a: => Fu[Result]): Fu[Result] = me
     .??(env.preloader.currentGameMyTurn)
     .flatMap:
       _.fold(a)(currentGameJsonError)
@@ -447,7 +442,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def NoPlaybanOrCurrent(a: => Fu[Result])(using WebContext): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
-  protected def NoPlaybanOrCurrent(me: Option[UserModel])(a: => Fu[Result]): Fu[Result] =
+  protected def NoPlaybanOrCurrent(me: Option[User])(a: => Fu[Result]): Fu[Result] =
     NoPlayban(me.map(_.id))(NoCurrentGame(me)(a))
 
   protected def JsonOk(body: JsValue): Result             = Ok(body) as JSON
@@ -528,7 +523,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def notFoundReq(req: RequestHeader): Fu[Result] =
     reqToCtx(req).flatMap(notFound(using _))
 
-  protected def isGranted(permission: Permission.Selector, user: UserModel): Boolean =
+  protected def isGranted(permission: Permission.Selector, user: User): Boolean =
     Granter(permission(Permission))(user)
 
   protected def isGranted(permission: Permission.Selector)(using AnyContext): Boolean =
@@ -578,7 +573,7 @@ abstract private[controllers] class LilaController(val env: Env)
         api(v).dmap(_ as JSON)
       .dmap(_.withHeaders("Vary" -> "Accept"))
 
-  protected def reqToCtx(req: RequestHeader): Fu[WebHeaderContext] =
+  protected def reqToCtx(req: RequestHeader): Fu[WebContext] =
     restoreUser(req).flatMap: (d, impersonatedBy) =>
       val lang = getAndSaveLang(req, d.map(_.user))
       val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
@@ -587,10 +582,10 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def reqToCtx[A](req: Request[A]): Fu[WebBodyContext[A]] =
     restoreUser(req).flatMap: (d, impersonatedBy) =>
       val lang = getAndSaveLang(req, d.map(_.user))
-      val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
-      pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { WebContext(ctx, _) }
+      val ctx  = UserBodyContext(req, d.map(_.user), impersonatedBy, lang)
+      pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { WebBodyContext(ctx, _) }
 
-  private def getAndSaveLang(req: RequestHeader, user: Option[UserModel]): Lang =
+  private def getAndSaveLang(req: RequestHeader, user: Option[User]): Lang =
     val lang = I18nLangPicker(req, user.flatMap(_.lang))
     user.filter(_.lang.fold(true)(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
     lang
@@ -631,7 +626,7 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   // user, impersonatedBy
-  type RestoredUser = (Option[FingerPrintedUser], Option[UserModel])
+  type RestoredUser = (Option[FingerPrintedUser], Option[User])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     env.security.api restoreUser req dmap {
       case Some(Left(AppealUser(user))) if HTTPRequest.isClosedLoginPath(req) =>
@@ -712,7 +707,8 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def jsonFormErrorDefaultLang(err: Form[?]) =
     jsonFormError(err)(using lila.i18n.defaultLang)
 
-  protected def jsonFormErrorFor(err: Form[?], req: RequestHeader, user: Option[UserModel]) =
+  // TODO remove? use ctx?
+  protected def jsonFormErrorFor(err: Form[?], req: RequestHeader, user: Option[User]) =
     jsonFormError(err)(using I18nLangPicker(req, user.flatMap(_.lang)))
 
   protected def newJsonFormError(err: Form[?])(using Lang) =

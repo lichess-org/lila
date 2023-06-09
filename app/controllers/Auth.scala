@@ -465,9 +465,9 @@ final class Auth(
 
   def makeLoginToken = AuthOrScoped(_.Web.Login)(
     _ ?=> loginTokenFor,
-    req ?=>
+    ctx ?=>
       user =>
-        lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient req}")
+        lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient ctx.req}")
         loginTokenFor(user)
   )
 

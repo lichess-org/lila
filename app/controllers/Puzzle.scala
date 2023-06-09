@@ -7,8 +7,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
-import lila.api.BodyContext
-import lila.api.WebContext
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.ApiVersion
 import lila.common.Json.given
@@ -29,7 +28,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       newUser: Option[UserModel] = None,
       apiVersion: Option[ApiVersion] = None
-  )(using ctx: WebContext): Fu[JsObject] =
+  )(using ctx: AnyContext): Fu[JsObject] =
     if (apiVersion.exists(v => !ApiVersion.puzzleV2(v)))
       env.puzzle.jsonView.bc(puzzle = puzzle, user = newUser orElse ctx.me)
     else
@@ -129,7 +128,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   private def onComplete[A](form: Form[RoundData])(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
-      ctx: BodyContext[A]
+      ctx: WebBodyContext[A]
   ) =
     given play.api.mvc.Request[?] = ctx.body
     form
@@ -359,11 +358,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.daily.get.map:
       _.fold(NotFound)(html.puzzle.embed(_))
 
-  def activity = Scoped(_.Puzzle.Read) { req ?=> me =>
+  def activity = Scoped(_.Puzzle.Read) { ctx ?=> me =>
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
-      max = getInt("max", req).map(_ atLeast 1),
-      before = getTimestamp("before", req)
+      max = getInt("max").map(_ atLeast 1),
+      before = getTimestamp("before", ctx.req)
     )
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some, me.some)(env.puzzle.activity.stream(config)):
@@ -409,8 +408,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           Ok(views.html.puzzle.history(user, history))
   }
 
-  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { req ?=> me =>
-    batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb", req) | 15).dmap(Ok.apply)
+  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { _ ?=> me =>
+    batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
   }
 
   private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty", req))
@@ -418,8 +417,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.batch.nextFor(me, angle, difficulty, nb atMost 50) flatMap
       env.puzzle.jsonView.batch(me)
 
-  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { req ?=> me =>
-    req.body
+  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { ctx ?=> me =>
+    ctx.body.body
       .validate[lila.puzzle.PuzzleForm.batch.SolveData]
       .fold(
         err => BadRequest(err.toString).toFuccess,

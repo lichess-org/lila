@@ -9,7 +9,7 @@ import controllers.routes
 
 object email:
 
-  def apply(form: play.api.data.Form[?])(implicit ctx: WebContext) =
+  def apply(form: play.api.data.Form[?])(using WebContext) =
     account.layout(
       title = trans.changeEmail.txt(),
       active = "email"

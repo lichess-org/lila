@@ -72,9 +72,9 @@ final class Dev(env: Env) extends LilaController(env):
       )
   }
 
-  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { req ?=> me =>
+  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me =>
     lila.security.Granter(_.Cli)(me) ?? {
-      runAs(me.id, req.body) map { Ok(_) }
+      runAs(me.id, ctx.body.body) map { Ok(_) }
     }
   }
 

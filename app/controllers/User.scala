@@ -110,7 +110,7 @@ final class User(
                 filter = filters.current,
                 me = ctx.me,
                 page = page
-              )(using reqBody, formBinding, reqLang)
+              )
               _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
               _ <- env.tournament.cached.nameCache preloadMany {
                 pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
@@ -126,7 +126,7 @@ final class User(
                     social <- env.socialInfo(u, ctx)
                     searchForm = (filters.current == GameFilter.Search) option
                       GameFilterMenu
-                        .searchForm(userGameSearch, filters.current)(using reqBody, formBinding, reqLang)
+                        .searchForm(userGameSearch, filters.current)
                   yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
                 else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
             yield Ok(res).withCanonical(routes.User.games(u.username, filters.current.name)),
@@ -485,7 +485,7 @@ final class User(
     }
   }
 
-  def apiWriteNote(username: UserStr) = ScopedBody() { req ?=> me =>
+  def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me =>
     lila.user.UserForm.apiNote
       .bindFromRequest()
       .fold(

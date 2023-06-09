@@ -95,21 +95,20 @@ final class Team(
       (isGranted(_.ModerateForum) && requestModView)
     }
 
-  def users(teamId: TeamId) = AnonOrScoped(_.Team.Read) { req ?=> me =>
+  def users(teamId: TeamId) = AnonOrScoped(_.Team.Read) { ctx ?=> me =>
     api teamEnabled teamId flatMapz { team =>
       val canView: Fu[Boolean] =
         if team.publicMembers then fuccess(true)
         else me.??(u => api.belongsTo(team.id, u.id))
-      canView map {
+      canView.map:
         if _ then
           apiC.jsonDownload(
             env.team
               .memberStream(team, config.MaxPerSecond(20))
               .map: (user, joinedAt) =>
                 env.api.userApi.one(user, joinedAt.some)
-          )(using req)
+          )
         else Unauthorized
-      }
     }
   }
 
@@ -160,7 +159,7 @@ final class Team(
   )
   private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
 
-  def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { req ?=> me =>
+  def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { ctx ?=> me =>
     WithOwnedTeamEnabledApi(teamId, me): team =>
       def limited =
         if kickLimitReportOnce(username.id) then
@@ -298,7 +297,7 @@ final class Team(
                         )
                   )
       ,
-      scoped = req ?=>
+      scoped = ctx ?=>
         me =>
           api.team(id) flatMapz { team =>
             given play.api.i18n.Lang = reqLang
@@ -325,13 +324,13 @@ final class Team(
     )
 
   def subscribe(teamId: TeamId) =
-    def doSub(req: Request[?], me: UserModel) =
+    def doSub(me: UserModel)(using req: Request[?]) =
       Form(single("subscribe" -> optional(boolean)))
-        .bindFromRequest()(req, formBinding)
+        .bindFromRequest()
         .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
     AuthOrScopedBody(_.Team.Write)(
-      auth = ctx ?=> me => doSub(ctx.body, me) inject jsonOkResult,
-      scoped = req ?=> me => doSub(req, me) inject jsonOkResult
+      auth = ctx ?=> me => doSub(me) inject jsonOkResult,
+      scoped = ctx ?=> me => doSub(me) inject jsonOkResult
     )
 
   def requests = Auth { ctx ?=> me =>
@@ -341,9 +340,8 @@ final class Team(
   }
 
   def requestForm(id: TeamId) = Auth { ctx ?=> me =>
-    OptionFuOk(api.requestable(id, me)) { team =>
+    OptionFuOk(api.requestable(id, me)): team =>
       fuccess(html.team.request.requestForm(team, forms.request(team)))
-    }
   }
 
   def requestCreate(id: TeamId) = AuthBody { ctx ?=> me =>
@@ -466,7 +464,7 @@ final class Team(
                     case RateLimit.Result.Limited => "failure" -> rateLimitedMsg
                   )
             ),
-      scoped = req ?=>
+      scoped = ctx ?=>
         me =>
           api teamEnabled id flatMap {
             _.filter(_ leaders me.id) ?? { team =>
@@ -521,11 +519,11 @@ final class Team(
       }
   }
 
-  def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { req ?=> me =>
+  def apiRequests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me =>
     WithOwnedTeamEnabledApi(teamId, me) { team =>
       import env.team.jsonView.requestWithUserWrites
       val reqs =
-        if getBool("declined", req) then api.declinedRequestsWithUsers(team)
+        if getBool("declined") then api.declinedRequestsWithUsers(team)
         else api.requestsWithUsers(team)
       reqs map Json.toJson map ApiResult.Data.apply
     }

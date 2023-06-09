@@ -49,7 +49,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
         me =>
           NoLameOrBot:
             env.relay.tourForm.create
-              .bindFromRequest()(ctx.body, formBinding)
+              .bindFromRequest()
               .fold(
                 err => BadRequest(html.relay.tourForm.create(err)).toFuccess,
                 setup =>
@@ -60,15 +60,15 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                   }
               )
       ,
-      scoped = req ?=>
+      scoped = ctx ?=>
         me =>
           NoLameOrBot(me):
             env.relay.tourForm.create
-              .bindFromRequest()(req, formBinding)
+              .bindFromRequest()
               .fold(
                 err => BadRequest(apiFormError(err)).toFuccess,
                 setup =>
-                  rateLimitCreation(me, req, rateLimited):
+                  rateLimitCreation(me, ctx.req, rateLimited):
                     JsonOk:
                       env.relay.api.tourCreate(setup, me) map { tour =>
                         env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
@@ -89,7 +89,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           WithTourCanUpdate(id): tour =>
             env.relay.tourForm
               .edit(tour)
-              .bindFromRequest()(ctx.body, formBinding)
+              .bindFromRequest()
               .fold(
                 err => BadRequest(html.relay.tourForm.edit(tour, err)).toFuccess,
                 setup =>
