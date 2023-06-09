@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
   <string name="upVote">Daj plusa zadaniu</string>
   <string name="downVote">Daj minusa zadaniu</string>
-  <string name="yourPuzzleRatingWillNotChange">Twój ranking w rozwiązywaniu zadań nie ulegnie zmianie. Pamiętaj, że ranking jest używany jedynie do wybierania zadań odpowiednich dla Twojego poziomu.</string>
+  <string name="yourPuzzleRatingWillNotChange">Twój ranking w rozwiązywaniu zadań nie ulegnie zmianie. Pamiętaj, że zadania nie są rywalizacją. Twój ranking pomaga wybrać najlepsze zadania dla Twoich aktualnych umiejętności.</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
   <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zadania:</string>
