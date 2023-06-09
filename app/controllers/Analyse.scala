@@ -177,7 +177,7 @@ final class Analyse(
         lila.analyse.ExternalEngine.form
           .bindFromRequest()
           .fold(
-            err => newJsonFormError(err)(using me.realLang | reqLang),
+            err => newJsonFormError(err),
             data =>
               env.analyse.externalEngine.update(engine, data) map { engine =>
                 JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))

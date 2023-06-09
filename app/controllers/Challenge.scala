@@ -29,7 +29,6 @@ final class Challenge(
   }
 
   def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me =>
-    given play.api.i18n.Lang = reqLang
     api.allFor(me.id, 300) map { all =>
       JsonOk:
         Json.obj(
@@ -157,7 +156,6 @@ final class Challenge(
     }
   }
   def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
-    given play.api.i18n.Lang = reqLang
     api.activeByIdFor(id, me) flatMap {
       case None =>
         env.bot.player.rematchDecline(id into GameId, me) flatMap {
@@ -200,7 +198,7 @@ final class Challenge(
               case Some(pov) if pov.game.playable =>
                 Bearer.from(get("opponentToken")) match
                   case Some(bearer) =>
-                    env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), ctx.req.some) map {
+                    env.oAuth.server.auth(bearer, OAuthScope.select(_.Challenge.Write), ctx.req.some) map {
                       case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
                         lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                         jsonOkResult
@@ -221,7 +219,7 @@ final class Challenge(
 
   def apiStartClocks(id: GameId) = Anon:
     import cats.syntax.all.*
-    val scopes = List(OAuthScope.Challenge.Write)
+    val scopes = OAuthScope.select(_.Challenge.Write)
     (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
       env.oAuth.server.authBoth(scopes, req)
     } ?? {
@@ -283,7 +281,6 @@ final class Challenge(
   }
 
   def apiCreate(username: UserStr) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
-    given play.api.i18n.Lang = reqLang
     !me.is(username) ?? env.setup.forms.api
       .user(me)
       .bindFromRequest()
@@ -347,7 +344,7 @@ final class Challenge(
       strToken: String
   )(managedBy: lila.user.User, message: Option[Template])(using req: RequestHeader): Fu[Result] =
     env.oAuth.server
-      .auth(Bearer(strToken), List(lila.oauth.OAuthScope.Challenge.Write), req.some)
+      .auth(Bearer(strToken), OAuthScope.select(_.Challenge.Write), req.some)
       .flatMap:
         _.fold(
           err => BadRequest(jsonError(err.message)).toFuccess,
@@ -367,7 +364,6 @@ final class Challenge(
         )
 
   def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { ctx ?=> me =>
-    given play.api.i18n.Lang = reqLang(me)
     env.setup.forms.api.open
       .bindFromRequest()
       .fold(

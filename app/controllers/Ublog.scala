@@ -294,7 +294,6 @@ final class Ublog(env: Env) extends LilaController(env):
       .flatMap:
         case None => NotFound.toFuccess
         case Some(user) =>
-          given play.api.i18n.Lang = reqLang
           env.ublog.api
             .getUserBlog(user)
             .flatMap: blog =>

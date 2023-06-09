@@ -101,7 +101,7 @@ final class Account(
           me.some,
           withFollows = apiC.userWithFollows(ctx.req),
           withTrophies = false
-        )(using reqLang(me)) dmap { JsonOk(_) }
+        ) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying = Scoped() { ctx ?=> doNowPlaying }

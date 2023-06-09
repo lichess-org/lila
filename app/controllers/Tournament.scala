@@ -310,7 +310,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     else doApiCreate(me)
   }
 
-  private def doApiCreate(me: UserModel)(using req: Request[?]): Fu[Result] =
+  private def doApiCreate(me: UserModel)(using ctx: BodyContext[?]): Fu[Result] =
     env.team.api.lightsByLeader(me.id) flatMap { teams =>
       forms
         .create(me, teams)
@@ -318,7 +318,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
         .fold(
           jsonFormErrorDefaultLang,
           setup =>
-            rateLimitCreation(me, setup.isPrivate, req, rateLimited) {
+            rateLimitCreation(me, setup.isPrivate, ctx.req, rateLimited) {
               env.team.api.lightsByLeader(me.id) flatMap { teams =>
                 api.createTournament(setup, me, teams, andJoin = false) flatMap { tour =>
                   jsonView(
@@ -330,7 +330,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     none,
                     partial = false,
                     withScores = false
-                  )(using reqLang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
+                  )(using _ => fuccess(teams.map(_.id))) map { Ok(_) }
                 }
               }
             }
@@ -338,7 +338,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
     }
 
   def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
-    given play.api.i18n.Lang = reqLang
     cachedTour(id) flatMap {
       _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) ?? { tour =>
         env.team.api.lightsByLeader(me.id) flatMap { teams =>
@@ -358,7 +357,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     none,
                     partial = false,
                     withScores = true
-                  )(using reqLang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
+                  )(using _ => fuccess(teams.map(_.id))) map { Ok(_) }
                 }
             )
         }
@@ -412,7 +411,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
-    given play.api.i18n.Lang = reqLang
     cachedTour(id) flatMapz {
       case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
         lila.tournament.TeamBattle.DataForm.empty
@@ -505,14 +503,13 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def byTeam(id: TeamId) = Anon:
-    given play.api.i18n.Lang = reqLang
-    apiC.jsonDownload {
+    apiC.jsonDownload:
       repo
         .byTeamCursor(id)
         .documentSource(getInt("max", req) | 100)
         .mapAsync(1)(env.tournament.apiJsonView.fullJson)
         .throttle(20, 1.second)
-    }.toFuccess
+        .toFuccess
 
   def battleTeams(id: TourId) = Open:
     cachedTour(id).flatMap:

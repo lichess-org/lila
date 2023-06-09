@@ -184,7 +184,7 @@ final class Api(
         socketVersion = none,
         partial = false,
         withScores = true
-      )(using reqLang, _ => fuccess(Nil)) map some
+      )(using reqLang)(using _ => fuccess(Nil)) map some
     } map toApiResult
 
   def tournamentGames(id: TourId) =
@@ -242,13 +242,12 @@ final class Api(
 
   def tournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
     (name.id != lila.user.User.lichessId) ?? env.user.repo.byId(name) flatMapz { user =>
-      val nb     = getInt("nb", req) | Int.MaxValue
-      given Lang = reqLang
-      jsonDownload {
+      val nb = getInt("nb", req) | Int.MaxValue
+      jsonDownload:
         env.tournament.api
           .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
-      }.toFuccess
+          .toFuccess
     }
 
   def swissGames(id: SwissId) = AnonOrScoped() { ctx ?=> me =>
@@ -292,7 +291,7 @@ final class Api(
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)() { ctx ?=> me =>
     val max = me.fold(300) { u => if u is lila.user.User.lichess4545Id then 900 else 500 }
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)) { ids =>
-      GlobalConcurrencyLimitPerIP.events(ctx.ipAddress)(
+      GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         addKeepAlive:
           env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames", req))
       )(sourceToNdJsonOption)
@@ -301,14 +300,13 @@ final class Api(
 
   def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)() { ctx ?=> me =>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax(me), lila.game.Game.strToIdOpt) { ids =>
-      GlobalConcurrencyLimitPerIP.events(ctx.ipAddress)(
-        addKeepAlive(
+      GlobalConcurrencyLimitPerIP.events(ctx.ip)(
+        addKeepAlive:
           env.game.gamesByIdsStream(
             streamId,
             initialIds = ids,
             maxGames = if me.isDefined then 5_000 else 1_000
           )
-        )
       )(sourceToNdJsonOption)
     }.toFuccess
   }
@@ -392,7 +390,7 @@ final class Api(
     }
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
-    given play.api.i18n.Lang = reqLang(using req)
+    given Lang = reqLang(using req)
     env.perfStat.api.data(username, perfKey, none) map {
       _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
     }

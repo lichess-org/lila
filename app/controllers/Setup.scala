@@ -5,7 +5,7 @@ import play.api.mvc.Request
 import play.api.i18n.Lang
 
 import chess.format.Fen
-import lila.api.WebContext
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.game.{ AnonCookie, Pov }
@@ -181,19 +181,22 @@ final class Setup(
     ttl = 10.minutes,
     maxConcurrency = 1
   )
-  def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile) { req ?=> me =>
+  def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile) { ctx ?=> me =>
     val author = me match
       case Some(u) if u.isBot => Left(notForBotAccounts)
       case Some(u)            => Right(Right(u))
       case None =>
-        getAs[Sri]("sri", req) match
+        getAs[Sri]("sri") match
           case Some(sri) => Right(Left(sri))
           case None      => Left(BadRequest(jsonError("Authentication required")))
     author match
       case Left(err) => err.toFuccess
       case Right(author) =>
-        given play.api.i18n.Lang = reqLang(author.toOption)
-        forms.boardApiHook
+        val isMobile: Boolean = ctx match
+          case oauth: OAuthBodyContext[?] => oauth.scopes.has(_.Web.Mobile)
+          case _                          => false
+        forms
+          .boardApiHook(isMobile)
           .bindFromRequest()
           .fold(
             newJsonFormError,
@@ -231,7 +234,6 @@ final class Setup(
       case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
-    given play.api.i18n.Lang = reqLang
     BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot ?? 1):
       PostRateLimit(req.ipAddress, rateLimitedFu):
         forms.api.ai

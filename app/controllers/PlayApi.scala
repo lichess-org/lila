@@ -10,8 +10,6 @@ import lila.user.{ User as UserModel }
 // both bot & board APIs
 final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private given (using req: RequestHeader): play.api.i18n.Lang = reqLang
-
   // bot endpoints
 
   def botGameStream(id: GameAnyId) = Scoped(_.Bot.Play) { ctx ?=> me =>

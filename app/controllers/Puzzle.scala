@@ -371,11 +371,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def apiDashboard(days: Int) =
-    def render(me: UserModel)(using play.api.i18n.Lang) = JsonOptionOk:
+    def render(me: UserModel)(using Lang) = JsonOptionOk:
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
     AuthOrScoped(_.Puzzle.Read)(
       auth = _ ?=> render,
-      scoped = _ ?=> me => render(me)(using reqLang)
+      scoped = _ ?=> render
     )
 
   def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =

@@ -124,7 +124,7 @@ final class SecurityApi(
 
   def oauthScoped(
       req: RequestHeader,
-      scopes: List[lila.oauth.OAuthScope]
+      scopes: lila.oauth.OAuthScopes
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
     oAuthServer.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
 

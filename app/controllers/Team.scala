@@ -300,7 +300,6 @@ final class Team(
       scoped = ctx ?=>
         me =>
           api.team(id) flatMapz { team =>
-            given play.api.i18n.Lang = reqLang
             forms
               .apiRequest(team)
               .bindFromRequest()
@@ -469,7 +468,7 @@ final class Team(
           api teamEnabled id flatMap {
             _.filter(_ leaders me.id) ?? { team =>
               doPmAll(team, me).fold(
-                err => BadRequest(errorsAsJson(err)(using reqLang)).toFuccess,
+                err => BadRequest(errorsAsJson(err)).toFuccess,
                 _.map:
                   case RateLimit.Result.Through => jsonOkResult
                   case RateLimit.Result.Limited => rateLimitedJson

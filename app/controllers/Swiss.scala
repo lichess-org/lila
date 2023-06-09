@@ -6,7 +6,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
-import lila.api.WebContext
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.swiss.Swiss.ChatFor
@@ -213,34 +213,31 @@ final class Swiss(
   }
 
   def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
-    given play.api.i18n.Lang = reqLang
     WithEditableSwiss(
       id,
       me,
       _ => Unauthorized(Json.obj("error" -> "This user cannot edit this swiss")).toFuccess
-    ) { swiss =>
+    ): swiss =>
       env.swiss.forms
         .edit(me, swiss)
         .bindFromRequest()
         .fold(
           newJsonFormError,
-          data => {
+          data =>
             env.swiss.api.update(swiss.id, data) flatMapz { swiss =>
               env.swiss.json.api(swiss) map JsonOk
             }
-          }
         )
-    }
   }
 
   def scheduleNextRound(id: SwissId) =
-    def doSchedule(using Request[?])(me: UserModel) = WithEditableSwiss(id, me) { swiss =>
+    def doSchedule(using BodyContext[?])(me: UserModel) = WithEditableSwiss(id, me) { swiss =>
       env.swiss.forms.nextRound
         .bindFromRequest()
         .fold(
           err =>
             render.async:
-              case Accepts.Json() => newJsonFormError(err)(using reqLang)
+              case Accepts.Json() => newJsonFormError(err)
               case _              => Redirect(routes.Swiss.show(id)).toFuccess
           ,
           date =>

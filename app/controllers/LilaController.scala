@@ -14,8 +14,7 @@ import lila.api.{ PageData, Nonce }
 import lila.app.{ *, given }
 import lila.common.{ ApiVersion, HTTPRequest, config }
 import lila.i18n.{ I18nKey, I18nLangPicker }
-import lila.oauth.{ OAuthScope, OAuthServer }
-import lila.oauth.OAuthScope.Scoped
+import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
 import lila.user.{ Holder, User, UserContext, UserBodyContext }
 
@@ -61,9 +60,7 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using req: RequestHeader): ui.EmbedConfig                 = ui.EmbedConfig(req)
   given reqBody(using it: BodyContext[?]): play.api.mvc.Request[?] = it.body
 
-  def reqLang(using req: RequestHeader): Lang                = I18nLangPicker(req)
-  def reqLang(user: User)(using RequestHeader): Lang         = I18nLangPicker(req, user.lang)
-  def reqLang(user: Option[User])(using RequestHeader): Lang = I18nLangPicker(req, user.flatMap(_.lang))
+  def reqLang(using req: RequestHeader): Lang = I18nLangPicker(req)
 
   /* Anonymous requests */
   protected def Anon(f: RequestHeader ?=> Fu[Result]): Action[Unit] =
@@ -294,7 +291,7 @@ abstract private[controllers] class LilaController(val env: Env)
         f(scoped, lang) map OAuthServer.responseHeaders(scopes, scoped.scopes)
     }
 
-  protected def handleScopedFail(scopes: Seq[OAuthScope], e: OAuthServer.AuthError) = e match
+  protected def handleScopedFail(scopes: OAuthScopes, e: OAuthServer.AuthError) = e match
     case e @ lila.oauth.OAuthServer.MissingScope(available) =>
       lila.mon.user.oauth.request(false).increment()
       OAuthServer
@@ -303,7 +300,7 @@ abstract private[controllers] class LilaController(val env: Env)
         .toFuccess
     case e =>
       lila.mon.user.oauth.request(false).increment()
-      OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.toFuccess
+      OAuthServer.responseHeaders(scopes, OAuthScopes(Nil)) { Unauthorized(jsonError(e.message)) }.toFuccess
 
   private def anyContext(request: RequestHeader): AnyContext = new:
     val userContext = UserContext(request, none, none, getAndSaveLang(request, none))

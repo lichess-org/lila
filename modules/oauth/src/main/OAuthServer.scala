@@ -14,16 +14,17 @@ final class OAuthServer(
 
   import OAuthServer.*
 
-  def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
+  def auth(req: RequestHeader, scopes: OAuthScopes): Fu[AuthResult] =
     HTTPRequest.bearer(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
       auth(_, scopes, req.some)
     } recover { case e: AuthError =>
       Left(e)
     }
 
-  def auth(tokenId: Bearer, scopes: List[OAuthScope], andLogReq: Option[RequestHeader]): Fu[AuthResult] =
+  def auth(tokenId: Bearer, scopes: OAuthScopes, andLogReq: Option[RequestHeader]): Fu[AuthResult] =
     tokenApi.get(tokenId) orFailWith NoSuchToken flatMap {
-      case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
+      case at if scopes.value.nonEmpty && !scopes.intersects(at.scopes) =>
+        fufail(MissingScope(at.scopes))
       case at =>
         userRepo enabledById at.userId flatMap {
           case None => fufail(NoSuchUser)
@@ -46,7 +47,7 @@ final class OAuthServer(
       Left(e)
     }
 
-  def authBoth(scopes: List[OAuthScope], req: RequestHeader)(
+  def authBoth(scopes: OAuthScopes, req: RequestHeader)(
       token1: Bearer,
       token2: Bearer
   ): Fu[Either[AuthError, (User, User)]] = for
@@ -65,15 +66,15 @@ object OAuthServer:
   sealed abstract class AuthError(val message: String) extends lila.base.LilaException
   case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
   case object NoSuchToken                              extends AuthError("No such token")
-  case class MissingScope(scopes: List[OAuthScope])    extends AuthError("Missing scope")
+  case class MissingScope(scopes: OAuthScopes)         extends AuthError("Missing scope")
   case object NoSuchUser                               extends AuthError("No such user")
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
   case object OriginBlocked        extends AuthError("Origin blocked")
 
-  def responseHeaders(acceptedScopes: Seq[OAuthScope], availableScopes: Seq[OAuthScope])(
+  def responseHeaders(acceptedScopes: OAuthScopes, availableScopes: OAuthScopes)(
       res: Result
   ): Result =
     res.withHeaders(
-      "X-OAuth-Scopes"          -> OAuthScope.keyList(availableScopes),
-      "X-Accepted-OAuth-Scopes" -> OAuthScope.keyList(acceptedScopes)
+      "X-OAuth-Scopes"          -> availableScopes.keyList,
+      "X-Accepted-OAuth-Scopes" -> acceptedScopes.keyList
     )
