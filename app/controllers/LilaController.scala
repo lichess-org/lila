@@ -163,7 +163,7 @@ abstract private[controllers] class LilaController(val env: Env)
   /* Authenticated and oauth requests */
   protected def AuthOrScoped(selectors: OAuthScope.Selector*)(
       auth: WebContext ?=> UserModel => Fu[Result],
-      scoped: RequestHeader ?=> Scoped => Fu[Result]
+      scoped: OAuthHeaderContext ?=> UserModel => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
@@ -173,13 +173,13 @@ abstract private[controllers] class LilaController(val env: Env)
   /* Authenticated and oauth requests with a body */
   protected def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
       auth: WebBodyContext[?] ?=> UserModel => Fu[Result],
-      scoped: Request[?] ?=> UserModel => Fu[Result]
+      scoped: OAuthBodyContext[?] ?=> UserModel => Fu[Result]
   ): Action[AnyContent] = AuthOrScopedBody(parse.anyContent)(selectors)(auth, scoped)
 
   /* Authenticated and oauth requests with a body */
   protected def AuthOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
       auth: WebBodyContext[A] ?=> UserModel => Fu[Result],
-      scoped: Request[A] ?=> UserModel => Fu[Result]
+      scoped: OAuthBodyContext[A] ?=> UserModel => Fu[Result]
   ): Action[A] =
     Action.async(parser): req =>
       if HTTPRequest.isOAuth(req)
@@ -323,41 +323,45 @@ abstract private[controllers] class LilaController(val env: Env)
   /* Authenticated and OAuth requests requiring certain permissions */
   protected def SecureOrScoped(perm: Permission.Selector)(
       secure: WebContext ?=> Holder => Fu[Result],
-      scoped: RequestHeader ?=> Holder => Fu[Result]
+      scoped: OAuthHeaderContext ?=> Holder => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty): req =>
       if HTTPRequest.isOAuth(req)
-      then SecureOrScoped(perm)(scoped)(req)
+      then SecuredScoped(perm)(scoped)(req)
       else Secure(parse.empty)(perm(Permission))(secure)(req)
 
   /* Authenticated and OAuth requests requiring certain permissions */
-  protected def SecureOrScoped(perm: Permission.Selector)(
-      f: RequestHeader ?=> Holder => Fu[Result]
+  protected def SecuredScoped(perm: Permission.Selector)(
+      f: OAuthHeaderContext ?=> Holder => Fu[Result]
   ) =
-    Scoped() { req ?=> me =>
-      IfGranted(perm, req, me)(f(Holder(me)))
+    Scoped() { ctx ?=> me =>
+      IfGranted(perm, ctx.req, me)(f(Holder(me)))
     }
 
   /* Authenticated and OAuth requests requiring certain permissions, with a body */
   protected def SecureOrScopedBody(perm: Permission.Selector)(
       secure: WebBodyContext[?] ?=> Holder => Fu[Result],
-      scoped: Request[?] ?=> Holder => Fu[Result]
+      scoped: OAuthBodyContext[?] ?=> Holder => Fu[Result]
   ): Action[AnyContent] =
     Action.async(parse.anyContent): req =>
       if HTTPRequest.isOAuth(req)
       then SecuredScopedBody(perm)(scoped)(req)
       else SecureBody(parse.anyContent)(perm(Permission))(secure)(req)
 
-  /* Authenticated and OAuth requests requiring certain permissions, with a body */
+  /* OAuth requests requiring certain permissions, with a body */
   protected def SecuredScopedBody(perm: Permission.Selector)(
-      f: Request[?] ?=> Holder => Fu[Result]
+      f: OAuthBodyContext[?] ?=> Holder => Fu[Result]
   ) =
-    ScopedBody() { req ?=> scoped =>
-      IfGranted(perm, req, scoped.user)(f(Holder(scoped.user)))
+    ScopedBody() { ctx ?=> user =>
+      IfGranted(perm)(f(Holder(user)))
     }
 
-  def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using WebContext): Fu[Result] =
-    if isGranted(perm) then f else authorizationFailed
+  def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using ctx: AnyContext): Fu[Result] =
+    if isGranted(perm) then f
+    else
+      ctx match
+        case web: WebContext => authorizationFailed(using web)
+        case _               => authorizationFailed(ctx.req)
 
   def IfGranted(perm: Permission.Selector, req: RequestHeader, me: UserModel)(f: => Fu[Result]): Fu[Result] =
     if isGranted(perm, me) then f else authorizationFailed(req)
@@ -527,10 +531,10 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def isGranted(permission: Permission.Selector, user: UserModel): Boolean =
     Granter(permission(Permission))(user)
 
-  protected def isGranted(permission: Permission.Selector)(using WebContext): Boolean =
+  protected def isGranted(permission: Permission.Selector)(using AnyContext): Boolean =
     isGranted(permission(Permission))
 
-  protected def isGranted(permission: Permission)(using ctx: WebContext): Boolean =
+  protected def isGranted(permission: Permission)(using ctx: AnyContext): Boolean =
     ctx.me ?? Granter(permission)
 
   protected def authenticationFailed(using ctx: WebContext): Fu[Result] =
