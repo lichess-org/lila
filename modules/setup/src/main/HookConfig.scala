@@ -35,16 +35,14 @@ case class HookConfig(
 
   def makeSpeed = chess.Speed(makeClock)
 
-  def fixColor =
-    copy(
-      color =
-        if (
-          mode == Mode.Rated &&
-          lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
-          color != Color.Random
-        ) Color.Random
-        else color
-    )
+  def fixColor = copy(
+    color =
+      if mode == Mode.Rated &&
+        lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
+        color != Color.Random
+      then Color.Random
+      else color
+  )
 
   def >> =
     (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
@@ -65,31 +63,30 @@ case class HookConfig(
     timeMode match
       case TimeMode.RealTime =>
         val clock = justMakeClock
-        Left(
+        Left:
           Hook.make(
             sri = sri,
             variant = variant,
             clock = clock,
-            mode = if (lila.game.Game.allowRated(variant, clock.some)) mode else Mode.Casual,
+            mode = if lila.game.Game.allowRated(variant, clock.some) then mode else Mode.Casual,
             color = color.name,
             user = user,
             blocking = blocking,
             sid = sid,
             ratingRange = ratingRange
           )
-        )
       case _ =>
-        Right(user map { u =>
-          Seek.make(
-            variant = variant,
-            daysPerTurn = makeDaysPerTurn,
-            mode = mode,
-            color = color.name,
-            user = u,
-            blocking = blocking,
-            ratingRange = ratingRange
-          )
-        })
+        Right:
+          user.map: u =>
+            Seek.make(
+              variant = variant,
+              daysPerTurn = makeDaysPerTurn,
+              mode = mode,
+              color = color.name,
+              user = u,
+              blocking = blocking,
+              ratingRange = ratingRange
+            )
 
   def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
 
