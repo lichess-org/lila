@@ -115,7 +115,8 @@ object OAuthScope:
 
   def keyList(scopes: Iterable[OAuthScope]) = scopes.map(_.key) mkString ", "
 
-  def select(selectors: Iterable[OAuthScope.type => OAuthScope]) = selectors.map(_(OAuthScope)).toList
+  def select(selectors: Iterable[OAuthScope.type => OAuthScope]): List[OAuthScope] =
+    selectors.map(_(OAuthScope)).toList
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

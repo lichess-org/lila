@@ -2,7 +2,7 @@ package views.html.auth
 
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -13,7 +13,7 @@ object checkYourEmail:
   def apply(
       userEmail: Option[lila.security.EmailConfirm.UserEmail],
       form: Option[Form[?]] = None
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = "Check your email",
       moreCss = cssTag("email-confirm")

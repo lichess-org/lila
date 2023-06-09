@@ -4,7 +4,7 @@ package tournament
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
@@ -13,7 +13,7 @@ import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
 
-  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using Context) =
+  def create(form: Form[?], leaderTeams: List[LeaderTeam])(using WebContext) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -56,7 +56,7 @@ object form:
       )
     }
 
-  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using Context) =
+  def edit(tour: Tournament, form: Form[?], myTeams: List[LeaderTeam])(using WebContext) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -107,7 +107,7 @@ object form:
       fields: TourFields,
       teams: List[LeaderTeam],
       tour: Option[Tournament]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     frag(
       form3.split(
         fields.entryCode,
@@ -181,7 +181,7 @@ object form:
       tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
 
-final private class TourFields(form: Form[?], tour: Option[Tournament])(using Context):
+final private class TourFields(form: Form[?], tour: Option[Tournament])(using WebContext):
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 

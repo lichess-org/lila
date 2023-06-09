@@ -3,14 +3,14 @@ package views.html.swiss
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
 
 object home:
 
-  def apply(featured: FeaturedSwisses)(implicit ctx: Context) =
+  def apply(featured: FeaturedSwisses)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
@@ -43,7 +43,7 @@ object home:
       )
     }
 
-  private def renderList(name: String)(swisses: List[Swiss])(implicit ctx: Context) =
+  private def renderList(name: String)(swisses: List[Swiss])(implicit ctx: WebContext) =
     table(cls := "slist swisses")(
       thead(tr(th(colspan := 4)(name))),
       tbody(

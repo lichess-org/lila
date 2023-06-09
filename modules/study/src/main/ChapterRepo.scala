@@ -27,7 +27,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def deleteByStudyIds(ids: List[StudyId]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
 
   def byIdAndStudy(id: StudyChapterId, studyId: StudyId): Fu[Option[Chapter]] =
-    coll(_.byId[Chapter](id)).dmap { _.filter(_.studyId == studyId) }
+    coll(_.one($id(id) ++ $studyId(studyId)))
 
   def firstByStudy(studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.find($studyId(studyId)).sort($sort asc "order").one[Chapter])

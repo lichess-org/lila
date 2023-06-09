@@ -3,7 +3,7 @@ package views.html.team
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -28,7 +28,7 @@ object show:
       requestedModView: Boolean = false,
       log: List[Modlog] = Nil
   )(using
-      ctx: Context
+      ctx: WebContext
   ) =
     bits.layout(
       title = t.name,
@@ -252,7 +252,7 @@ object show:
     }
 
   // handle special teams here
-  private def joinButton(t: Team)(implicit ctx: Context) =
+  private def joinButton(t: Team)(implicit ctx: WebContext) =
     t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
       case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
@@ -261,10 +261,10 @@ object show:
           submitButton(cls := "button button-green")(joinTeam())
         )
 
-  private def joinAt(url: String)(implicit ctx: Context) =
+  private def joinAt(url: String)(implicit ctx: WebContext) =
     a(cls := "button button-green", href := url)(joinTeam())
 
-  private def renderLog(entries: List[Modlog])(implicit ctx: Context) = div(cls := "team-show__log")(
+  private def renderLog(entries: List[Modlog])(implicit ctx: WebContext) = div(cls := "team-show__log")(
     h2("Mod log"),
     ul(
       entries.map { e =>

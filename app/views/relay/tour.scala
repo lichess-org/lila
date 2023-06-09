@@ -1,6 +1,6 @@
 package views.html.relay
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -17,7 +17,7 @@ object tour:
       active: List[RelayTour.ActiveWithSomeRounds],
       pager: Paginator[RelayTour.WithLastRound],
       query: String = ""
-  )(using Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
@@ -39,7 +39,7 @@ object tour:
     }
 
   def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(using
-      Context
+      WebContext
   ) =
     val title = ~doc.getText("doc.title")
     views.html.base.layout(
@@ -55,7 +55,7 @@ object tour:
       )
     }
 
-  def pageMenu(menu: String)(using Context) =
+  def pageMenu(menu: String)(using WebContext) =
     st.nav(cls := "page-menu__menu subnav")(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
@@ -63,7 +63,7 @@ object tour:
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))("About broadcasts")
     )
 
-  private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
+  private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using WebContext) =
     div(
       cls := List(
         "relay-widget"                                        -> true,
@@ -86,13 +86,13 @@ object tour:
       )
     )
 
-  private def searchForm(search: String)(using Context) = div(cls := "box__top__actions")(
+  private def searchForm(search: String)(using WebContext) = div(cls := "box__top__actions")(
     st.form(cls := "search", action := routes.RelayTour.index())(
       input(st.name := "q", value := search, placeholder := trans.search.search.txt())
     )
   )
 
-  private def renderPager(pager: Paginator[WithLastRound], query: String)(using Context) =
+  private def renderPager(pager: Paginator[WithLastRound], query: String)(using WebContext) =
     st.section(cls := "infinite-scroll")(
       pager.currentPageResults map { tr =>
         renderWidget(tr, ongoing = _ => false)(cls := "paginated")

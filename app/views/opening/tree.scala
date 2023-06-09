@@ -2,7 +2,7 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningTree, OpeningConfig }
@@ -11,7 +11,7 @@ object tree:
 
   import bits.*
 
-  def apply(root: OpeningTree, config: OpeningConfig)(using Context) =
+  def apply(root: OpeningTree, config: OpeningConfig)(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
       moreJs = moreJs(none),

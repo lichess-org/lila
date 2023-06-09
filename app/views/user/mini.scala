@@ -1,6 +1,6 @@
 package views.html.user
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -17,7 +17,7 @@ object mini:
       rel: Option[lila.relation.Relation],
       ping: Option[Int],
       crosstable: Option[lila.game.Crosstable]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(

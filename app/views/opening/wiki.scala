@@ -3,14 +3,14 @@ package views.html.opening
 import chess.opening.Opening
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningPage, OpeningWiki }
 
 object wiki:
 
-  def apply(page: OpeningPage)(using Context) =
+  def apply(page: OpeningPage)(using WebContext) =
     div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
       div(cls := "opening__wiki__markup")(
         page.wiki

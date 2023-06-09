@@ -61,16 +61,13 @@ final class Msg(env: Env) extends LilaController(env):
   }
 
   def compatCreate = AuthBody { ctx ?=> me =>
-    ctx.noKid ?? ctx.noBot ?? {
-      env.msg.compat
-        .create(me)(ctx.body, formBinding)
-        .fold(
-          jsonFormError,
-          _ map { id =>
-            Ok(Json.obj("ok" -> true, "id" -> id))
-          }
-        )
-    }
+    ctx.noKid ?? ctx.noBot ?? env.msg.compat
+      .create(me)
+      .fold(
+        jsonFormError,
+        _.map: id =>
+          Ok(Json.obj("ok" -> true, "id" -> id))
+      )
   }
 
   def apiPost(username: UserStr) =
@@ -86,7 +83,7 @@ final class Msg(env: Env) extends LilaController(env):
               _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
             ),
       // new API: create/reply
-      scoped = req ?=>
+      scoped = ctx ?=>
         me =>
           (!me.kid && !me.is(userId)) ?? {
             import play.api.data.*
@@ -94,7 +91,7 @@ final class Msg(env: Env) extends LilaController(env):
             Form(single("text" -> nonEmptyText))
               .bindFromRequest()
               .fold(
-                err => jsonFormErrorFor(err, req, me.some),
+                jsonFormError,
                 text =>
                   env.msg.api.post(me.id, userId, text) map {
                     case lila.msg.MsgApi.PostResult.Success => jsonOkResult

@@ -1,6 +1,6 @@
 package views.html.study
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.study.Study
@@ -17,7 +17,7 @@ object create:
       owner: List[Study.IdName],
       contrib: List[Study.IdName],
       backUrl: Option[String]
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     views.html.site.message(
       title = trans.toStudy.txt(),
       icon = Some(licon.StudyBoard),

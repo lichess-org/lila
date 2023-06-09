@@ -4,20 +4,20 @@ import play.api.mvc.*
 import play.api.libs.json.Json
 import scalatags.Text.all.Frag
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ *, given }
 import lila.memo.CacheApi.*
 import views.*
 
 final class KeyPages(env: Env)(using Executor):
 
-  def home(status: Results.Status)(using ctx: Context): Fu[Result] =
+  def home(status: Results.Status)(using ctx: WebContext): Fu[Result] =
     homeHtml
       .map { html =>
         env.lilaCookie.ensure(ctx.req)(status(html))
       }
 
-  def homeHtml(using ctx: Context): Fu[Frag] =
+  def homeHtml(using ctx: WebContext): Fu[Frag] =
     env
       .preloader(
         tours = env.tournament.cached.onHomepage.getUnit.recoverDefault,
@@ -33,10 +33,10 @@ final class KeyPages(env: Env)(using Executor):
         }
       }
 
-  def notFound(ctx: Context): Result =
+  def notFound(ctx: WebContext): Result =
     Results.NotFound(html.base.notFound()(ctx))
 
-  def blacklisted(using ctx: Context): Result =
+  def blacklisted(using ctx: WebContext): Result =
     if (lila.api.Mobile.Api requested ctx.req)
       Results.Unauthorized(
         Json.obj(
