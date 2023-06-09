@@ -83,6 +83,7 @@ final private[api] class RoundApi(
           pov,
           ctx.pref.some,
           apiVersion,
+          ctx.userId,
           tv,
           initialFen = initialFen,
           flags = ctxFlags
@@ -120,6 +121,7 @@ final private[api] class RoundApi(
       pov,
       ctx.pref.some,
       apiVersion,
+      ctx.userId,
       tv,
       initialFen = initialFen,
       flags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
