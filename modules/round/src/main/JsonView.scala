@@ -184,7 +184,7 @@ final class JsonView(
                   "version"   -> socket.version,
                   "spectator" -> true
                 )
-                .add("id" -> (apiVersion < 100).??(me.flatMap(game.player).map(_.id)))
+                .add("id" -> (apiVersion < 10).??(me.flatMap(game.player).map(_.id)))
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, flags).add(
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
