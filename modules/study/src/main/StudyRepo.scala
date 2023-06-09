@@ -7,6 +7,7 @@ import reactivemongo.api.*
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
+import reactivemongo.api.bson.BSONDocument
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
     Executor,
@@ -61,7 +62,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] val selectPrivateOrUnlisted =
     "visibility" $ne (Study.Visibility.Public: Study.Visibility)
   private[study] def selectLiker(userId: UserId) = $doc(F.likers -> userId)
-  private[study] def selectContributorId(userId: UserId) =
+  private[study] def selectContributorId(userId: UserId): BSONDocument =
     selectMemberId(userId) ++ // use the index
       $doc("ownerId" $ne userId) ++
       $doc(s"members.$userId.role" -> "w")
@@ -172,19 +173,43 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def publicIdNames(ids: List[StudyId]): Fu[List[Study.IdName]] =
     coll(_.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[Study.IdName]().listAll())
 
-  def recentByOwner(userId: UserId, nb: Int) =
-    coll:
-      _.find(selectOwnerId(userId), idNameProjection.some)
-        .sort($sort desc "updatedAt")
-        .cursor[Study.IdName](readPref)
-        .list(nb)
+  def recentByOwnerWithChapterCount(
+      chapterColl: AsyncColl
+  )(userId: UserId, nb: Int): Fu[List[(Study.IdName, Int)]] =
+    findRecentStudyWithChapterCount(selectOwnerId)(chapterColl)(userId, nb)
 
-  def recentByContributor(userId: UserId, nb: Int) =
+  def recentByContributorWithChapterCount(
+      chapterColl: AsyncColl
+  )(userId: UserId, nb: Int): Fu[List[(Study.IdName, Int)]] =
+    findRecentStudyWithChapterCount(selectContributorId)(chapterColl)(userId, nb)
+
+  private def findRecentStudyWithChapterCount(query: UserId => BSONDocument)(
+      chapterColl: AsyncColl
+  )(userId: UserId, nb: Int) =
     coll:
-      _.find(selectContributorId(userId), idNameProjection.some)
-        .sort($sort desc "updatedAt")
-        .cursor[Study.IdName](readPref)
-        .list(nb)
+      _.aggregateList(nb) { framework =>
+        import framework.*
+        Match(query(userId)) -> List(
+          Sort(Descending("updatedAt")),
+          Project(idNameProjection),
+          PipelineOperator(
+            $lookup.pipeline(
+              from = chapterColl,
+              as = "chapters",
+              local = "_id",
+              foreign = "studyId",
+              pipe = List($doc("$project" -> $id(true)))
+            )
+          ),
+          AddFields($doc("chapters" -> $doc("$size" -> "$chapters")))
+        )
+      }
+        .map: docs =>
+          for
+            doc        <- docs
+            idName     <- idNameHandler.readOpt(doc)
+            nbChapters <- doc.int("chapters")
+          yield (idName, nbChapters)
 
   def isContributor(studyId: StudyId, userId: UserId) =
     coll(_.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w")))
