@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
   <string name="moveConfirmation">Подтверждение хода</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Может быть отключено во время игры вместе с меню доски</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
   <string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
@@ -60,7 +61,7 @@
   <string name="notifyTournamentSoon">Турнир скоро начнётся</string>
   <string name="notifyTimeAlarm">В игре по переписке скоро упадёт флажок</string>
   <string name="notifyBell">Звуковое оповещение на Личесс</string>
-  <string name="notifyPush">Оповещение на устройстве когда Вы не находитесь на сайте Личесс</string>
+  <string name="notifyPush">Оповещение на устройстве, когда Вы не находитесь на сайте Личесс</string>
   <string name="notifyWeb">Браузер</string>
   <string name="notifyDevice">Устройство</string>
   <string name="bellNotificationSound">Звук колокольчика уведомлений</string>
