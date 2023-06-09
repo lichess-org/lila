@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når gjenværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Trekkbekreftelse</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Kan skrus av under partiene med menyen på brettet</string>
   <string name="inCorrespondenceGames">I fjernsjakk</string>
   <string name="correspondenceAndUnlimited">Korrespondanse og ubegrenset</string>
   <string name="confirmResignationAndDrawOffers">Bekreft når du gir opp eller tilbyr remis</string>
