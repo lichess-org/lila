@@ -6,6 +6,7 @@ import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { renderIndexAndMove } from '../moveView';
 import { RetroCtrl } from './retroCtrl';
+import { opposite } from 'shogiops/util';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
@@ -217,7 +218,7 @@ const feedback = {
               {
                 hook: bind('click', ctrl.flip),
               },
-              transWithColorName(ctrl.trans, 'reviewXMistakes', ctrl.color, handicap)
+              transWithColorName(ctrl.trans, 'reviewXMistakes', opposite(ctrl.color), handicap)
             ),
           ]),
         ]),
