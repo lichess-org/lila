@@ -46,7 +46,7 @@ final class JsonView(
       partial: Boolean,
       withScores: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none
-  )(using lang: Lang)(using getUserTeamIds: Condition.GetUserTeamIds): Fu[JsObject] =
+  )(using lang: Lang, getUserTeamIds: Condition.GetUserTeamIds): Fu[JsObject] =
     for {
       data   <- cachableData get tour.id
       myInfo <- myInfo.orLoad(me ?? { fetchMyInfo(tour, _) })

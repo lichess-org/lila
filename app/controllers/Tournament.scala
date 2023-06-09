@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, Preload }
 import lila.common.Json.given
@@ -12,6 +12,7 @@ import lila.memo.CacheApi.*
 import lila.tournament.{ Tournament as Tour, TournamentForm, VisibleTournaments, MyInfo }
 import lila.user.{ User as UserModel }
 import lila.gathering.Condition.GetUserTeamIds
+import play.api.i18n.Lang
 
 final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializer)
     extends LilaController(env):
@@ -330,7 +331,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     none,
                     partial = false,
                     withScores = false
-                  )(using _ => fuccess(teams.map(_.id))) map { Ok(_) }
+                  )(using ctx.lang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
                 }
               }
             }
@@ -357,7 +358,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
                     none,
                     partial = false,
                     withScores = true
-                  )(using _ => fuccess(teams.map(_.id))) map { Ok(_) }
+                  )(using ctx.lang, _ => fuccess(teams.map(_.id))) map { Ok(_) }
                 }
             )
         }
@@ -503,13 +504,15 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def byTeam(id: TeamId) = Anon:
-    apiC.jsonDownload:
-      repo
-        .byTeamCursor(id)
-        .documentSource(getInt("max", req) | 100)
-        .mapAsync(1)(env.tournament.apiJsonView.fullJson)
-        .throttle(20, 1.second)
-        .toFuccess
+    given Lang = reqLang
+    apiC
+      .jsonDownload:
+        repo
+          .byTeamCursor(id)
+          .documentSource(getInt("max", req) | 100)
+          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
+          .throttle(20, 1.second)
+      .toFuccess
 
   def battleTeams(id: TourId) = Open:
     cachedTour(id).flatMap:

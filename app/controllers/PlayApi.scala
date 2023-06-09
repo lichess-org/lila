@@ -4,6 +4,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
+import lila.api.AnyContext
 import lila.game.Pov
 import lila.user.{ User as UserModel }
 
@@ -58,7 +59,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   // common code for bot & board APIs
   private object impl:
 
-    def gameStream(me: UserModel, pov: Pov)(using RequestHeader) =
+    def gameStream(me: UserModel, pov: Pov)(using AnyContext) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
       }

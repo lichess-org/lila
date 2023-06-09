@@ -184,7 +184,7 @@ final class Api(
         socketVersion = none,
         partial = false,
         withScores = true
-      )(using reqLang)(using _ => fuccess(Nil)) map some
+      )(using reqLang, _ => fuccess(Nil)) map some
     } map toApiResult
 
   def tournamentGames(id: TourId) =
@@ -244,10 +244,11 @@ final class Api(
     (name.id != lila.user.User.lichessId) ?? env.user.repo.byId(name) flatMapz { user =>
       val nb = getInt("nb", req) | Int.MaxValue
       jsonDownload:
+        given Lang = reqLang
         env.tournament.api
           .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
-          .toFuccess
+      .toFuccess
     }
 
   def swissGames(id: SwissId) = AnonOrScoped() { ctx ?=> me =>
