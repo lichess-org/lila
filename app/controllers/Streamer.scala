@@ -169,7 +169,13 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def youTubePubSubChallenge = Anon:
     fuccess:
       get("hub.challenge", req).fold(BadRequest): challenge =>
-        lila.log("streamer").info(s"youTubePubSubChallenge $challenge")
+        val days      = get("hub.lease_seconds", req).map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
+        val channelId = get("hub.topic", req).map(t => s" on ${t.split("=").last}")
+        lila
+          .log("streamer")
+          .info(
+            s"WebSub: CONFIRMED ${~get("hub.mode", req)}${~days}${~channelId}"
+          )
         Ok(challenge)
 
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext) =
