@@ -288,6 +288,7 @@
   <string name="cancelRematchOffer">لغو کردن پیشنهاد بازی دوباره</string>
   <string name="viewRematch">مشاهده بازی دوباره</string>
   <string name="confirmMove">تایید حرکت</string>
+  <string name="enableConfirmationForThisGame">«تایید حرکت» را برای این بازی فعال کن</string>
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">گپ</string>
@@ -776,6 +777,7 @@
   <string name="invalidFen">پوزیشن وارد شده نامعتبر است</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
+  <string name="notificationsX">هشدار: %1$s</string>
   <string name="perfRatingX">ریتینگ. %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>

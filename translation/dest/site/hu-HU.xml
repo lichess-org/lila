@@ -37,8 +37,8 @@
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
-    <item quantity="other">Ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="one">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+    <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
   <string name="opponentLeftChoices">Úgy tűnik, az ellenfél kilépett. Igényelhetsz győzelmet vagy döntetlent, esetleg várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
@@ -57,7 +57,7 @@
   <string name="computerAnalysisDisabled">Számítógépes elemzés letiltva</string>
   <string name="analysis">Elemzőtábla</string>
   <string name="depthX">%s mélység</string>
-  <string name="usingServerAnalysis">Szerver elemzés használata</string>
+  <string name="usingServerAnalysis">A szerver elemzését használja</string>
   <string name="loadingEngine">Motor betöltése...</string>
   <string name="calculatingMoves">Lépések kiszámítása...</string>
   <string name="engineFailed">Hiba a motor betöltésekor</string>
@@ -93,11 +93,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Több játszma bevétele a beállítások menüben?</string>
+  <string name="maxDepthReached">Maximális mélység elérve!</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Próbáltál több játszmát hozzáadni a beállítások menüben?</string>
   <string name="openings">Megnyitások</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
   <string name="openingEndgameExplorer">Megnyitás/végjáték böngésző</string>
   <string name="xOpeningExplorer">%s megnyitás böngésző</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Lépd meg az első megnyitás/végjáték felfedező lépést</string>
   <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
   <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
   <string name="winOr50MovesByPriorMistake">Győzelem, vagy 50 lépéses szabály korábbi hiba alapján</string>
@@ -118,7 +120,8 @@
   <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
-  <string name="removesTheDepthLimit">Nincs mélységkorlát és melegszik a számítógéped</string>
+  <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
+  <string name="engineManager">Motor menedzser</string>
   <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
@@ -150,6 +153,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s játszma</item>
     <item quantity="other">%s játszma</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s pontszám %2$s játszma alatt</item>
+    <item quantity="other">%1$s pontszám %2$s játszma alatt</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s kedvenc</item>
@@ -282,6 +289,7 @@
   <string name="cancelRematchOffer">Visszavágó lemondása</string>
   <string name="viewRematch">Visszavágó megtekintése</string>
   <string name="confirmMove">Erősítsd meg a lépést</string>
+  <string name="enableConfirmationForThisGame">Megerősítés engedélyezése erre a játszmára</string>
   <string name="play">Játék</string>
   <string name="inbox">Üzenetek</string>
   <string name="chatRoom">Csevegő</string>
@@ -342,6 +350,7 @@
   </plurals>
   <string name="viewTournament">Verseny megtekintése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
+  <string name="noDrawBeforeSwissLimit">Nem ajánlhatsz döntetlent 30 lépés előtt egy Svájci rendszerű versenyen.</string>
   <string name="thematic">Tematikus</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s értékelt játszma</item>
@@ -674,6 +683,11 @@
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
   <string name="keyEnterOrExitVariation">ki/belépés változatba</string>
+  <string name="keyRequestComputerAnalysis">Kérelmezz számítógépes elemzést és tanulj a hibáidból</string>
+  <string name="keyNextLearnFromYourMistakes">Következő (Tanulj a hibáidból)</string>
+  <string name="keyNextBlunder">Következő baklövés</string>
+  <string name="keyNextMistake">Következő hiba</string>
+  <string name="keyNextInaccuracy">Következő pontatlanság</string>
   <string name="newTournament">Új torna</string>
   <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
   <string name="tournamentHomeDescription">Vegyél részt villám-versenyeken! Csatlakozz hivatalos versenyekhez, vagy hozz létre egyet saját magad. Bullet, Blitz, Hagyományos, Sakk960, King of the Hill, Threecheck és mások elérhetők, hogy minél jobban élvezd a sakkot.</string>
@@ -771,6 +785,7 @@
   <string name="invalidFen">Hibás FEN</string>
   <string name="custom">Egyéni</string>
   <string name="notifications">Értesítések</string>
+  <string name="notificationsX">Értesítések: %1$s</string>
   <string name="perfRatingX">Pontszám: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s másodperc a kezdőlépés megtételére</item>
@@ -865,6 +880,8 @@
   <string name="useTheReportForm">ezen az oldalon</string>
   <string name="toRequestSupport">Segítségért %1$s</string>
   <string name="tryTheContactPage">lépjen velünk kapcsolatba</string>
+  <string name="makeSureToRead">Olvasd el %1$s</string>
+  <string name="theForumEtiquette">a fórum etikettet</string>
   <string name="thisTopicIsArchived">Ezt a témát archiváltuk, ezért nem lehet már hozzászólni.</string>
   <string name="joinTheTeamXToPost">Csatlakozz %1$s csapathoz, hogy írhass ebbe a fórumba.</string>
   <string name="teamNamedX">%1$s csapat</string>

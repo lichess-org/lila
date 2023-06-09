@@ -288,6 +288,7 @@
   <string name="cancelRematchOffer">Uitnodiging voor nieuwe partij annuleren</string>
   <string name="viewRematch">Herkansingspartij bekijken</string>
   <string name="confirmMove">Bevestig zet</string>
+  <string name="enableConfirmationForThisGame">Bevestiging voor deze partij inschakelen</string>
   <string name="play">Spelen</string>
   <string name="inbox">Postvak IN</string>
   <string name="chatRoom">Chatruimte</string>
@@ -681,6 +682,10 @@
   <string name="keyGoToStartOrEnd">ga naar het begin/eind</string>
   <string name="keyShowOrHideComments">toon/verberg opmerkingen</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
+  <string name="keyRequestComputerAnalysis">Verzoek om computeranalyse, Leer van je fouten</string>
+  <string name="keyNextLearnFromYourMistakes">Volgende (leer van je fouten)</string>
+  <string name="keyNextMistake">Volgende fout</string>
+  <string name="keyNextInaccuracy">Volgende onnauwkeurigheid</string>
   <string name="newTournament">Nieuw toernooi</string>
   <string name="tournamentHomeTitle">Schaaktoernooi met verschillende speelduur en varianten</string>
   <string name="tournamentHomeDescription">Speel snelle schaaktoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, en meer opties verkrijgbaar voor eindeloos schaakplezier.</string>
@@ -778,6 +783,7 @@
   <string name="invalidFen">Ongeldige FEN</string>
   <string name="custom">Aangepast</string>
   <string name="notifications">Meldingen</string>
+  <string name="notificationsX">Meldingen: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde om de eerste zet te spelen</item>

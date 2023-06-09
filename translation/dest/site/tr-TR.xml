@@ -99,6 +99,7 @@
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="openingEndgameExplorer">Açılış/oyunsonu kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
+  <string name="playFirstOpeningEndgameExplorerMove">İlk sıradaki açılış kaşifi/oyun sonu analizi hamlesini oyna</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde önlendi</string>
   <string name="winOr50MovesByPriorMistake">Galibiyet veya geçmiş hata sebebiyle 50 hamle</string>
@@ -120,6 +121,7 @@
   <string name="memory">Hafıza</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
+  <string name="engineManager">Motor yöneticisi</string>
   <string name="blunder">Vahim hata</string>
   <string name="mistake">Hata</string>
   <string name="inaccuracy">Kusurlu hamle</string>
@@ -676,6 +678,11 @@
   <string name="keyGoToStartOrEnd">başa/sona git</string>
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
+  <string name="keyRequestComputerAnalysis">Bilgisayar analizi talep et, Hatalarından ders al</string>
+  <string name="keyNextLearnFromYourMistakes">Sonraki (Hatalarından ders al)</string>
+  <string name="keyNextBlunder">Sonraki vahim hata</string>
+  <string name="keyNextMistake">Sonraki hata</string>
+  <string name="keyNextInaccuracy">Sonraki kusurlu hamle</string>
   <string name="newTournament">Yeni turnuva</string>
   <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
   <string name="tournamentHomeDescription">Hızlı tempolu satranç turnuvalarında oynayın! Önceden planlanmış turnuvalara katılın, ya da kendi turnuvanızı oluşturun. Sınırsız satranç eğlenceniz için Kurşun, Yıldırım, Klasik, Satranç960, Tepenin Şahı, Üçşah ve daha fazla seçenek mevcuttur.</string>
@@ -773,6 +780,7 @@
   <string name="invalidFen">Geçersiz FEN</string>
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
+  <string name="notificationsX">Bildirimler: %1$s</string>
   <string name="perfRatingX">Puan: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">İlk hamle için son %s saniye</item>
