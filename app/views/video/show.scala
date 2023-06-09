@@ -2,7 +2,7 @@ package views.html.video
 
 import lila.common.String.html.richText
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -14,7 +14,7 @@ object show:
       video: lila.video.Video,
       similar: Seq[lila.video.VideoView],
       control: lila.video.UserControl
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     layout(
       title = s"${video.title} • Free Chess Videos",
       control = control,

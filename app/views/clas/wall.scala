@@ -3,14 +3,14 @@ package views.html.clas
 import controllers.clas.routes.{ Clas as clasRoutes }
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 
 object wall:
 
-  def show(c: Clas, html: Html, students: List[Student.WithUser])(using Context) =
+  def show(c: Clas, html: Html, students: List[Student.WithUser])(using WebContext) =
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
       div(cls := "clas-wall__actions")(
         a(
@@ -34,7 +34,7 @@ object wall:
         div(cls := "box__pad clas-wall")(rawHtml(html))
     )
 
-  def edit(c: Clas, students: List[Student.WithUser], form: Form[?])(using Context) =
+  def edit(c: Clas, students: List[Student.WithUser], form: Form[?])(using WebContext) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(

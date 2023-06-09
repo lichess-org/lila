@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scala.util.chaining.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ HTTPRequest, IpAddress }
@@ -49,7 +49,7 @@ final class Study(
   def all(order: Order, page: Int) = Open:
     allResults(order, page)
 
-  private def allResults(order: Order, page: Int)(using ctx: Context) =
+  private def allResults(order: Order, page: Int)(using ctx: WebContext) =
     Reasonable(page) {
       order match
         case order if !Order.withoutSelector.contains(order) =>
@@ -151,7 +151,7 @@ final class Study(
 
   private def orRelay(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: WebContext): Fu[Result] =
     if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(id into RelayRoundId) flatMap {
       _.fold(f) { rt =>
         Redirect(chapterId.fold(rt.path)(rt.path)).toFuccess
@@ -159,7 +159,7 @@ final class Study(
     }
     else f
 
-  private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
+  private def showQuery(query: Fu[Option[WithChapter]])(using ctx: WebContext): Fu[Result] =
     OptionFuResult(query): oldSc =>
       CanView(oldSc.study, ctx.me) {
         for
@@ -192,7 +192,7 @@ final class Study(
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     .dmap(_.noCache)
 
-  private[controllers] def getJsonData(sc: WithChapter)(using ctx: Context): Fu[(WithChapter, JsData)] = for
+  private[controllers] def getJsonData(sc: WithChapter)(using ctx: WebContext): Fu[(WithChapter, JsData)] = for
     chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
     (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
     chapter = resetToChapter | sc.chapter
@@ -239,7 +239,7 @@ final class Study(
       }
     }
 
-  private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
+  private[controllers] def chatOf(study: lila.study.Study)(using ctx: WebContext) = {
     ctx.noKid && ctx.noBot && // no public chats for kids and bots
     ctx.me.fold(true) {       // anon can see public chats
       env.chat.panic.allowed
@@ -277,7 +277,7 @@ final class Study(
       )
   }
 
-  private def createStudy(data: StudyForm.importGame.Data, me: lila.user.User)(using ctx: Context) =
+  private def createStudy(data: StudyForm.importGame.Data, me: lila.user.User)(using ctx: WebContext) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
       _.fold(notFound): sc =>
         Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id)).toFuccess
@@ -559,7 +559,7 @@ final class Study(
 
   def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
-  def privateUnauthorizedFu(study: StudyModel)(using Context) =
+  def privateUnauthorizedFu(study: StudyModel)(using WebContext) =
     negotiate(
       html = fuccess(Unauthorized(html.site.message.privateStudy(study))),
       api = _ => fuccess(privateUnauthorizedJson)
@@ -567,7 +567,7 @@ final class Study(
 
   def privateForbiddenText = Forbidden("This study is now private")
   def privateForbiddenJson = Forbidden(jsonError("This study is now private"))
-  def privateForbiddenFu(study: StudyModel)(using Context) =
+  def privateForbiddenFu(study: StudyModel)(using WebContext) =
     negotiate(
       html = fuccess(Forbidden(html.site.message.privateStudy(study))),
       api = _ => fuccess(privateForbiddenJson)

@@ -1,6 +1,6 @@
 package views.html
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -8,7 +8,7 @@ import controllers.routes
 
 object bookmark:
 
-  def toggle(g: lila.game.Game, bookmarked: Boolean)(implicit ctx: Context) =
+  def toggle(g: lila.game.Game, bookmarked: Boolean)(implicit ctx: WebContext) =
     if (ctx.isAuth)
       a(
         cls := List(

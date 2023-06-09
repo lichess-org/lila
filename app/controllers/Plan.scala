@@ -4,7 +4,7 @@ import java.util.Currency
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.EmailAddress
 import lila.plan.{
@@ -51,13 +51,13 @@ final class Plan(env: Env) extends LilaController(env):
         case _                     => Redirect(routes.Plan.index).toFuccess
       }
 
-  private def indexAnon(using Context) = renderIndex(email = none, patron = none)
+  private def indexAnon(using WebContext) = renderIndex(email = none, patron = none)
 
-  private def indexFreeUser(me: UserModel)(using Context) =
+  private def indexFreeUser(me: UserModel)(using WebContext) =
     env.user.repo email me.id flatMap { renderIndex(_, patron = none) }
 
   private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(using
-      Context
+      WebContext
   ): Fu[Result] =
     for
       recentIds <- env.plan.api.recentChargeUserIds
@@ -77,7 +77,7 @@ final class Plan(env: Env) extends LilaController(env):
     )
 
   private def indexStripePatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(using
-      ctx: Context
+      ctx: WebContext
   ) = for {
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
     info    <- env.plan.api.stripe.customerInfo(me, customer)
@@ -94,13 +94,13 @@ final class Plan(env: Env) extends LilaController(env):
   } yield res
 
   private def indexPayPalPatron(me: UserModel, patron: lila.plan.Patron, sub: PayPalSubscription)(using
-      Context
+      WebContext
   ) =
     env.plan.api.giftsFrom(me) map { gifts =>
       Ok(html.plan.indexPayPal(me, patron, sub, gifts))
     }
 
-  private def myCurrency(using ctx: Context): Currency =
+  private def myCurrency(using ctx: WebContext): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
       env.plan.currencyApi.currencyByCountryCodeOrLang(
         env.security.geoIP(ctx.ip).flatMap(_.countryCode),
@@ -155,7 +155,7 @@ final class Plan(env: Env) extends LilaController(env):
       checkout: PlanCheckout,
       customerId: StripeCustomerId,
       giftTo: Option[UserModel]
-  )(using ctx: Context) = {
+  )(using ctx: WebContext) = {
     for
       isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
       data = CreateStripeSession(

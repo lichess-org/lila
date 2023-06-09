@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
 
-import lila.api.{ BodyContext, Context }
+import lila.api.{ WebBodyContext, WebContext }
 import lila.app.{ given, * }
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
@@ -367,7 +367,7 @@ final class Mod(
         case Left(err)  => res flashFailure err
   }
 
-  protected[controllers] def searchTerm(me: Holder, q: String)(using Context) =
+  protected[controllers] def searchTerm(me: Holder, q: String)(using WebContext) =
     env.mod
       .search(q)
       .map: users =>
@@ -533,7 +533,7 @@ final class Mod(
     env.report.api getSuspect username flatMapz f
 
   private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
-      secure: Context ?=> Holder => A => Fu[Result]
+      secure: WebContext ?=> Holder => A => Fu[Result]
   ): Action[Unit] =
     SecureOrScoped(perm)(
       secure = ctx ?=> me => f(ctx.req)(me) flatMapz secure(me),
@@ -543,7 +543,7 @@ final class Mod(
             _.isDefined ?? fuccess(jsonOkResult)
     )
   private def OAuthModBody[A](perm: Permission.Selector)(f: Holder => Fu[Option[A]])(
-      secure: BodyContext[?] ?=> Holder => A => Fu[Result]
+      secure: WebBodyContext[?] ?=> Holder => A => Fu[Result]
   ): Action[AnyContent] =
     SecureOrScopedBody(perm)(
       secure = ctx ?=> me => f(me) flatMapz secure(me),
@@ -555,7 +555,7 @@ final class Mod(
 
   private def actionResult(
       username: UserStr
-  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: Context) =
+  )(@nowarn user: Holder)(@nowarn res: Any)(using ctx: WebContext) =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then fuccess(redirect(username))
     else userC.renderModZoneActions(username)

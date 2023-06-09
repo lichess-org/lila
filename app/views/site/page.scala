@@ -2,14 +2,14 @@ package views.html.site
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import io.prismic.{ Document, DocumentLinkResolver }
 
 object page:
 
-  def lone(doc: Document, resolver: DocumentLinkResolver)(using Context) =
+  def lone(doc: Document, resolver: DocumentLinkResolver)(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("page"),
       title = ~doc.getText("doc.title"),
@@ -17,11 +17,11 @@ object page:
     ):
       main(cls := "page-small box box-pad page force-ltr")(pageContent(doc, resolver))
 
-  private def fairPlayJs(using Context) = embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+  private def fairPlayJs(using WebContext) = embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })""")
 
-  def withMenu(active: String, doc: Document, resolver: DocumentLinkResolver)(using Context) =
+  def withMenu(active: String, doc: Document, resolver: DocumentLinkResolver)(using WebContext) =
     layout(
       title = ~doc.getText("doc.title"),
       active = active,
@@ -40,7 +40,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     )
   )
 
-  def source(doc: Document, resolver: DocumentLinkResolver)(using Context) =
+  def source(doc: Document, resolver: DocumentLinkResolver)(using WebContext) =
     val title = ~doc.getText("doc.title")
     layout(
       title = title,
@@ -87,7 +87,7 @@ $('#asset-version-message').text(lichess.info.message);"""
         st.section(cls := "box")(freeJs())
       )
 
-  def webmasters(using Context) =
+  def webmasters(using WebContext) =
     val parameters = frag(
       p("Parameters:"),
       ul(
@@ -203,7 +203,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       contentCls: String = "",
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag
-  )(body: Frag)(using Context) =
+  )(body: Frag)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = moreCss,

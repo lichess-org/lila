@@ -2,7 +2,7 @@ package views.html.team
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.paginator.Paginator
@@ -12,7 +12,7 @@ object members:
 
   import trans.team.*
 
-  def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(using Context) =
+  def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(using WebContext) =
     bits.layout(
       title = t.name,
       openGraph = lila.app.ui

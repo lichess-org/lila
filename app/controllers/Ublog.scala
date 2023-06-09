@@ -3,7 +3,7 @@ package controllers
 import play.api.i18n.Lang
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList }
@@ -149,7 +149,7 @@ final class Ublog(env: Env) extends LilaController(env):
     }
   }
 
-  private def logModAction(post: UblogPost, action: String)(using ctx: Context): Funit =
+  private def logModAction(post: UblogPost, action: String)(using ctx: WebContext): Funit =
     isGranted(_.ModerateBlog) ?? ctx.me ?? { me =>
       !me.is(post.created.by) ?? {
         env.user.repo.byId(post.created.by) flatMapz { user =>
@@ -240,7 +240,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def communityAll(page: Int) = Open:
     communityIndex(none, page)
 
-  def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
+  def communityIndex(l: Option[Lang], page: Int)(using ctx: WebContext) =
     NotForKids:
       Reasonable(page, config.Max(8)):
         pageHit(ctx.req)
@@ -304,8 +304,8 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
-  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
+  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: WebContext) =
     ctx.is(user) || isGranted(_.ModerateBlog) || isBlogVisible(user, blog)
 
-  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: Context) =
+  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: WebContext) =
     canViewBlogOf(user, blog) && (ctx.is(user) || post.live)

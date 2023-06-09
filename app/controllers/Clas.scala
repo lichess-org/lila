@@ -7,7 +7,7 @@ import play.api.data.Forms.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.user.Holder
 import lila.clas.ClasInvite
@@ -43,7 +43,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     }
   }
 
-  private def renderHome(using Context) =
+  private def renderHome(using WebContext) =
     fuccess {
       pageHit
       Ok(views.html.clas.clas.home)
@@ -95,8 +95,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def WithClassAny(id: ClasId, me: lila.user.User)(
       forTeacher: => Fu[Result],
       forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
-      orDefault: Context => Fu[Result] = notFound(using _)
-  )(using ctx: Context): Fu[Result] =
+      orDefault: WebContext => Fu[Result] = notFound(using _)
+  )(using ctx: WebContext): Fu[Result] =
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, id)) flatMap {
       if _ then forTeacher
       else
@@ -479,7 +479,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         Redirect(routes.Clas.index)
   }
 
-  private def couldBeTeacher(using ctx: Context) = ctx.me match
+  private def couldBeTeacher(using ctx: WebContext) = ctx.me match
     case None                 => fuTrue
     case Some(me) if me.isBot => fuFalse
     case Some(me) if me.kid   => fuFalse
@@ -516,7 +516,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
       f: => Fu[Result]
-  )(using Context): Fu[Result] =
+  )(using WebContext): Fu[Result] =
     if (students.sizeIs <= lila.clas.Clas.maxStudents) f
     else Unauthorized(views.html.clas.teacherDashboard.unreasonable(clas, students, active)).toFuccess
 
@@ -539,7 +539,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       env.clas.api.student.get(clas, user) flatMapz f
     }
 
-  private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
+  private def SafeTeacher(f: => Fu[Result])(using WebContext): Fu[Result] =
     if (ctx.me.exists(!_.lameOrTroll)) f
     else Redirect(routes.Clas.index).toFuccess
 

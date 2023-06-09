@@ -5,7 +5,7 @@ import play.api.mvc.Request
 import play.api.i18n.Lang
 
 import chess.format.Fen
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.game.{ AnonCookie, Pov }
@@ -239,7 +239,7 @@ final class Setup(
           )
   }
 
-  private[controllers] def redirectPov(pov: Pov)(using ctx: Context) =
+  private[controllers] def redirectPov(pov: Pov)(using ctx: WebContext) =
     val redir = Redirect(routes.Round.watcher(pov.gameId.value, "white"))
     if ctx.isAuth then redir
     else

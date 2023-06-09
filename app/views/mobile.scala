@@ -2,14 +2,14 @@ package views.html
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.LangPath
 
 object mobile:
 
-  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using Context) =
+  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using WebContext) =
     views.html.base.layout(
       title = "Mobile",
       moreCss = cssTag("mobile"),

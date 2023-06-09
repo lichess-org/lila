@@ -5,7 +5,7 @@ import play.api.libs.json.{ JsValue, Json }
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.insight.{ InsightDimension, InsightMetric }
 
@@ -34,7 +34,7 @@ final class Insight(env: Env) extends LilaController(env):
     Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
 
   private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     import lila.insight.InsightApi.UserStatus.*
     env.insight.api userStatus user flatMap {
@@ -76,7 +76,7 @@ final class Insight(env: Env) extends LilaController(env):
         }
       )
 
-  private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(using ctx: Context) =
+  private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(using ctx: WebContext) =
     env.user.repo byId username flatMap {
       _.fold(notFound) { u =>
         env.insight.share.grant(u, ctx.me) flatMap {

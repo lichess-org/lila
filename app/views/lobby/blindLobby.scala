@@ -1,20 +1,20 @@
 package views.html.lobby
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov
 
 object blindLobby:
 
-  def apply(games: List[Pov])(implicit ctx: Context) =
+  def apply(games: List[Pov])(implicit ctx: WebContext) =
     div(
       h2(games.size, " ongoing games"),
       games.nonEmpty option ongoingGames(games),
       div(cls := "lobby__app")
     )
 
-  private def ongoingGames(games: List[Pov])(implicit ctx: Context) =
+  private def ongoingGames(games: List[Pov])(implicit ctx: WebContext) =
     games.partition(_.isMyTurn) match
       case (myTurn, opTurn) =>
         frag(
@@ -24,7 +24,7 @@ object blindLobby:
           ul(opTurn map renderGame)
         )
 
-  private def renderGame(pov: Pov)(implicit ctx: Context) =
+  private def renderGame(pov: Pov)(implicit ctx: WebContext) =
     li(
       a(href := gameLink(pov))(
         playerText(pov.opponent),

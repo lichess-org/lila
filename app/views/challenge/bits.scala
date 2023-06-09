@@ -2,7 +2,7 @@ package views.html.challenge
 
 import play.api.libs.json.{ Json, JsObject }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
@@ -12,7 +12,7 @@ import controllers.routes
 
 object bits:
 
-  def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using Context) =
+  def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using WebContext) =
     frag(
       jsModule("challengePage"),
       embedJsUnsafeLoadThen(s"""challengePageStart(${safeJsonValue(
@@ -25,7 +25,7 @@ object bits:
         )})""")
     )
 
-  def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: Context) =
+  def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: WebContext) =
     div(cls := "details")(
       div(
         cls      := "variant",

@@ -6,7 +6,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.swiss.Swiss.ChatFor
@@ -21,12 +21,12 @@ final class Swiss(
     mat: akka.stream.Materializer
 ) extends LilaController(env):
 
-  private def swissNotFound(using Context) = NotFound(html.swiss.bits.notFound())
+  private def swissNotFound(using WebContext) = NotFound(html.swiss.bits.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Swiss.home)(serveHome)
 
-  private def serveHome(using Context) = NoBot {
+  private def serveHome(using WebContext) = NoBot {
     ctx.userId.??(env.team.cached.teamIdsList) flatMap
       env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
   }
@@ -103,7 +103,7 @@ final class Swiss(
         }
       }
 
-  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
+  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMapz f
 
   def form(teamId: TeamId) = Auth { ctx ?=> me =>
@@ -312,10 +312,10 @@ final class Swiss(
       else fallback(swiss)
     }
 
-  private def canHaveChat(swiss: SwissModel)(using Context): Fu[Boolean] =
+  private def canHaveChat(swiss: SwissModel)(using WebContext): Fu[Boolean] =
     env.api.chatFreshness.of(swiss) ?? canHaveChat(swiss.roundInfo)
 
-  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
+  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: WebContext): Fu[Boolean] =
     (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
       swiss.chatFor match
         case ChatFor.NONE                  => fuFalse

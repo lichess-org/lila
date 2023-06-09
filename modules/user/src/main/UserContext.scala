@@ -59,12 +59,10 @@ final case class HeaderUserContext(r: RequestHeader, m: Option[User], i: Option[
 
 trait UserContextWrapper extends UserContext:
   val userContext: UserContext
-  val req            = userContext.req
-  val me             = userContext.me
-  val impersonatedBy = userContext.impersonatedBy
-  def isBot          = me.exists(_.isBot)
-  def noBot          = !isBot
-  def isAppealUser   = me.exists(_.enabled.no)
+  export userContext.{ req, me, impersonatedBy }
+  def isBot        = me.exists(_.isBot)
+  def noBot        = !isBot
+  def isAppealUser = me.exists(_.enabled.no)
 
 object UserContext:
 
@@ -74,7 +72,7 @@ object UserContext:
       impersonatedBy: Option[User],
       lang: Lang
   ): HeaderUserContext =
-    new HeaderUserContext(req, me, impersonatedBy, lang)
+    HeaderUserContext(req, me, impersonatedBy, lang)
 
   def apply[A](
       req: Request[A],
@@ -82,7 +80,7 @@ object UserContext:
       impersonatedBy: Option[User],
       lang: Lang
   ): BodyUserContext[A] =
-    new BodyUserContext(req, me, impersonatedBy, lang)
+    BodyUserContext(req, me, impersonatedBy, lang)
 
   trait ToLang:
     given (using ctx: UserContext): Lang = ctx.lang

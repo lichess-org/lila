@@ -6,7 +6,7 @@ import scala.util.chaining.*
 import views.html
 
 import lila.api.AnnounceStore
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.security.SecurityForm.Reopen
 import lila.user.{ Holder, TotpSecret, User as UserModel }
@@ -148,7 +148,7 @@ final class Account(
     }
   }
 
-  private def refreshSessionId(me: UserModel, result: Result)(using ctx: Context): Fu[Result] =
+  private def refreshSessionId(me: UserModel, result: Result)(using ctx: WebContext): Fu[Result] =
     env.security.store.closeAllSessionsOf(me.id) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
@@ -175,7 +175,7 @@ final class Account(
     }
   }
 
-  def renderCheckYourEmail(using Context) =
+  def renderCheckYourEmail(using WebContext) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { ctx ?=> me =>
@@ -321,7 +321,7 @@ final class Account(
       case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
   }
 
-  private def currentSessionId(using Context) =
+  private def currentSessionId(using WebContext) =
     ~env.security.api.reqSessionId(ctx.req)
 
   def security = Auth { _ ?=> me =>
@@ -351,7 +351,7 @@ final class Account(
   }
 
   private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     env.security.forms.reopen map { baseForm =>
       html.account.reopen.form(form.foldLeft(baseForm)(_ withForm _), msg)

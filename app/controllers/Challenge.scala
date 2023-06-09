@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 import views.html
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.{ Id as ChallengeId }
@@ -43,14 +43,14 @@ final class Challenge(
     Open:
       showId(id)
 
-  protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
+  protected[controllers] def showId(id: ChallengeId)(using WebContext): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
       c: ChallengeModel,
       error: Option[String] = None,
       justCreated: Boolean = false
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: WebContext): Fu[Result] =
     env.challenge version c.id flatMap { version =>
       val mine = justCreated || isMine(c)
       import lila.challenge.Direction
@@ -77,7 +77,7 @@ final class Challenge(
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } map env.lilaCookie.ensure(ctx.req)
 
-  private def isMine(challenge: ChallengeModel)(using Context) =
+  private def isMine(challenge: ChallengeModel)(using WebContext) =
     challenge.challenger match
       case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
@@ -129,7 +129,7 @@ final class Challenge(
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
       res: Result
-  )(using Context): Fu[Result] =
+  )(using WebContext): Fu[Result] =
     cond ?? {
       env.game.gameRepo.game(c.id into GameId).map {
         _ map { game =>

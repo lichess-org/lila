@@ -3,7 +3,7 @@ package forum
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
@@ -11,7 +11,7 @@ import lila.security.{ Granter, Permission }
 
 object bits:
 
-  def searchForm(search: String = "")(implicit ctx: Context) =
+  def searchForm(search: String = "")(implicit ctx: WebContext) =
     div(cls := "box__top__actions")(
       form(cls := "search", action := routes.ForumPost.search())(
         input(
@@ -24,7 +24,7 @@ object bits:
     )
 
   def authorLink(post: ForumPost, cssClass: Option[String] = None, withOnline: Boolean = true)(using
-      ctx: Context
+      ctx: WebContext
   ): Frag =
     if (!(ctx.me ?? Granter(Permission.ModerateForum)) && post.erased) span(cls := "author")("<erased>")
     else

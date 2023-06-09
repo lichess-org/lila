@@ -5,7 +5,7 @@ import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import play.api.data.*
 import views.*
 
-import lila.api.{ BodyContext, Context }
+import lila.api.{ BodyContext, WebContext }
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
@@ -38,7 +38,7 @@ final class Report(
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(me: Holder, room: String)(using Context) =
+  private def renderList(me: Holder, room: String)(using WebContext) =
     api.openAndRecentWithFilter(me, 12, Room(room)) zip getScores flatMap {
       case (reports, ((scores, streamers), appeals)) =>
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) inject

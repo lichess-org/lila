@@ -2,7 +2,7 @@ package controllers
 
 import play.api.mvc.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 
@@ -11,7 +11,7 @@ final class Storm(env: Env) extends LilaController(env):
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Storm.home)(serveHome)
 
-  private def serveHome(using ctx: Context) = NoBot:
+  private def serveHome(using ctx: WebContext) = NoBot:
     dataAndHighScore(ctx.me, ctx.pref.some) map { (data, high) =>
       Ok(views.html.storm.home(data, high)).noCache
     }
@@ -51,7 +51,7 @@ final class Storm(env: Env) extends LilaController(env):
       renderDashboardOf(_, page)
     }
 
-  private def renderDashboardOf(user: lila.user.User, page: Int)(using Context): Fu[Result] =
+  private def renderDashboardOf(user: lila.user.User, page: Int)(using WebContext): Fu[Result] =
     env.storm.dayApi.history(user.id, page) flatMap { history =>
       env.storm.highApi.get(user.id) map { high =>
         Ok(views.html.storm.dashboard(user, history, high))

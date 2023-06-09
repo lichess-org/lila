@@ -1,6 +1,6 @@
 package views.html.tournament
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TournamentShield
@@ -11,7 +11,7 @@ object shields:
 
   private val section = st.section(cls := "tournament-shields__item")
 
-  def apply(history: TournamentShield.History)(implicit ctx: Context) =
+  def apply(history: TournamentShield.History)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = "Tournament shields",
       moreCss = cssTag("tournament.leaderboard"),
@@ -43,7 +43,7 @@ object shields:
       )
     }
 
-  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit ctx: Context) =
+  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit ctx: WebContext) =
     views.html.base.layout(
       title = "Tournament shields",
       moreCss = frag(cssTag("tournament.leaderboard"), cssTag("slist"))

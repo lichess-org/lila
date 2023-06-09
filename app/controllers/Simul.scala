@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.simul.{ Simul as Sim }
@@ -12,12 +12,12 @@ final class Simul(env: Env) extends LilaController(env):
 
   private def forms = lila.simul.SimulForm
 
-  private def simulNotFound(using Context) = NotFound(html.simul.bits.notFound())
+  private def simulNotFound(using WebContext) = NotFound(html.simul.bits.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Simul.home)(serveHome)
 
-  private def serveHome(using ctx: Context) = NoBot:
+  private def serveHome(using ctx: WebContext) = NoBot:
     pageHit
     fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
       Ok(html.simul.home(pending, created, started, finished)).toFuccess
@@ -58,7 +58,7 @@ final class Simul(env: Env) extends LilaController(env):
       }
     } dmap (_.noCache)
 
-  private[controllers] def canHaveChat(simul: Sim)(using ctx: Context): Boolean =
+  private[controllers] def canHaveChat(simul: Sim)(using ctx: WebContext): Boolean =
     ctx.noKid && ctx.noBot &&                     // no public chats for kids or bots
       ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
         env.chat.panic.allowed
@@ -170,14 +170,14 @@ final class Simul(env: Env) extends LilaController(env):
             )
   }
 
-  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
+  private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: WebContext): Fu[Result] =
     env.simul.repo.find(simulId).flatMap {
       case None                                                                    => notFound
       case Some(simul) if ctx.userId.has(simul.hostId) || isGranted(_.ManageSimul) => f(simul)
       case _                                                                       => fuccess(Unauthorized)
     }
 
-  private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using Context): Fu[Result] =
+  private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using WebContext): Fu[Result] =
     AsHost(id): sim =>
       if (sim.isStarted) then Redirect(routes.Simul.show(sim.id)).toFuccess
       else f(sim)

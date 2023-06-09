@@ -3,7 +3,7 @@ package controllers
 import play.api.data.Form
 import play.api.mvc.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 
 // import lila.common.config.MaxPerSecond
@@ -178,7 +178,7 @@ final class RelayRound(
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: WebContext): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
       if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).toFuccess
       else f(rt)
@@ -186,12 +186,12 @@ final class RelayRound(
 
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
-  )(using Context): Fu[Result] =
+  )(using WebContext): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: WebContext): Fu[Result] =
     WithTour(id) { tour =>
       ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
         env.relay.api withRounds tour flatMap f
@@ -199,7 +199,7 @@ final class RelayRound(
     }
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
-      ctx: Context
+      ctx: WebContext
   ): Fu[Result] =
     studyC.CanView(oldSc.study, ctx.me) {
       for
