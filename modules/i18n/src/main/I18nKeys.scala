@@ -654,6 +654,7 @@ object I18nKeys:
   val `blackWinsGame` = I18nKey("blackWinsGame")
   val `learnFromYourMistakes` = I18nKey("learnFromYourMistakes")
   val `learnFromThisMistake` = I18nKey("learnFromThisMistake")
+  val `previousMove` = I18nKey("previousMove")
   val `skipThisMove` = I18nKey("skipThisMove")
   val `next` = I18nKey("next")
   val `xWasPlayed` = I18nKey("xWasPlayed")

@@ -7,22 +7,16 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
-  return h('div.choices', [
-    h(
-      'a',
-      {
-        hook: bind('click', ctrl.viewSolution, ctrl.redraw),
-      },
-      ctrl.noarg('viewTheSolution')
-    ),
-    h(
-      'a',
-      {
-        hook: bind('click', ctrl.skip),
-      },
-      ctrl.noarg('skipThisMove')
-    ),
-  ]);
+  const [completed] = ctrl.completion();
+  const html = [];
+  html.push(h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, ctrl.noarg('viewTheSolution')));
+  html.push(h('a.skip-mistake', { hook: bind('click', ctrl.skip) }, ctrl.noarg('skipThisMove')));
+  
+  if (completed > 0) {
+    html.push(h('a.prev-mistake', { hook: bind('click', ctrl.previous) }, ctrl.noarg('previousMove')));
+  }
+  
+  return h('div.choices', html);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {

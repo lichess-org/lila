@@ -16,7 +16,9 @@ export interface RetroCtrl {
   color: Color;
   isPlySolved(ply: Ply): boolean;
   onJump(): void;
+  jumpToPrevious(): void;
   jumpToNext(): void;
+  previous(): void;
   skip(): void;
   viewSolution(): void;
   hideComputerLine(node: Tree.Node): boolean;
@@ -59,19 +61,56 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     return solvedPlies.includes(ply);
   }
 
+  function getPreviousNode(): Tree.Node | undefined {
+    const colorModulo = color == 'white' ? 1 : 0;
+    candidateNodes = evalSwings(root.mainline, n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply));
+
+    const cur = current();
+
+    // get the last ply
+    let prev = solvedPlies.pop();
+
+    // if they solved it then the current one was added to the solved plies, so go back one more step
+    if (solvedPlies.length && cur?.fault.node.ply === prev) {
+      prev = solvedPlies.pop();
+    }
+
+    return candidateNodes.find(n => n.ply === prev);
+  }
+
   function findNextNode(): Tree.Node | undefined {
     const colorModulo = color == 'white' ? 1 : 0;
     candidateNodes = evalSwings(root.mainline, n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply));
     return candidateNodes.find(n => !isPlySolved(n.ply));
   }
 
-  function jumpToNext(): void {
+  function jumpToPrevious(): void {
     feedback('find');
+
+    const prev = getPreviousNode();
+
+    if (!prev) {
+      current(null);
+      return redraw();
+    }
+
+    jumpToNode(prev);
+  }
+
+  function jumpToNext() {
+    feedback('find');
+
     const node = findNextNode();
+
     if (!node) {
       current(null);
       return redraw();
     }
+
+    jumpToNode(node);
+  }
+
+  function jumpToNode(node: Tree.Node): void {
     const fault = {
       node,
       path: root.mainlinePathToPly(node.ply),
@@ -105,7 +144,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
         });
         if (ucis.includes(fault.node.uci!)) {
           explorerCancelPlies.push(fault.node.ply);
-          setTimeout(jumpToNext, 100);
+          setTimeout(jumpToNode, 100, node);
         } else {
           cur.openingUcis = ucis;
           current(cur);
@@ -178,6 +217,11 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     solveCurrent();
   }
 
+  function previous() {
+    solveCurrent();
+    jumpToPrevious();
+  }
+
   function skip() {
     solveCurrent();
     jumpToNext();
@@ -202,18 +246,20 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     return fb === 'find' || fb === 'fail';
   }
 
-  jumpToNext();
-
   function onMergeAnalysisData() {
     if (isSolving() && !current()) jumpToNext();
   }
+
+  jumpToNext();
 
   return {
     current,
     color,
     isPlySolved,
     onJump,
+    jumpToPrevious,
     jumpToNext,
+    previous,
     skip,
     viewSolution,
     hideComputerLine,

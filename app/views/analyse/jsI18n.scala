@@ -104,6 +104,7 @@ object jsI18n:
         // retrospect (also uses youBrowsedAway, bestWasX, evaluatingYourMove)
         trans.learnFromYourMistakes,
         trans.learnFromThisMistake,
+        trans.previousMove,
         trans.skipThisMove,
         trans.next,
         trans.xWasPlayed,
