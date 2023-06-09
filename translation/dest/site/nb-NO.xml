@@ -99,6 +99,7 @@
   <string name="openingExplorer">Åpningsutforsker</string>
   <string name="openingEndgameExplorer">Åpnings-/sluttspillsutforsker</string>
   <string name="xOpeningExplorer">Åpningsutforsker for %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Utfør det første trekket fra åpnings-/sluttspillsutforskeren</string>
   <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekksregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
   <string name="winOr50MovesByPriorMistake">Seier eller 50 trekk etter tidligere feil</string>
@@ -682,6 +683,11 @@
   <string name="keyGoToStartOrEnd">Gå til start/slutt</string>
   <string name="keyShowOrHideComments">Vis/skjul kommentarer</string>
   <string name="keyEnterOrExitVariation">Gå inn i/ut av variant</string>
+  <string name="keyRequestComputerAnalysis">Be om maskinanalyse, lær av feilene dine</string>
+  <string name="keyNextLearnFromYourMistakes">Neste (lær av feilene dine)</string>
+  <string name="keyNextBlunder">Neste bukk</string>
+  <string name="keyNextMistake">Neste feil</string>
+  <string name="keyNextInaccuracy">Neste unøyaktighet</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturneringer med ulike tidskontroller og varianter</string>
   <string name="tournamentHomeDescription">Spill fartsfylte sjakkturneringer! Delta i offisielle, faste turneringer eller lag din egen. Lynsjakk, hurtigsjakk, og andre varianter er tilgjengelig for endeløs sjakkunderholdning.</string>
