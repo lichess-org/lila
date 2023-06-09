@@ -72,7 +72,7 @@ object list {
       nextPageUrl: Int => String,
       search: String = ""
   )(implicit ctx: Context) =
-    bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {
+    bits.layout(title = s"$name - ${trans.page.txt().toLowerCase} ${teams.currentPage}") {
       main(cls := "team-list page-menu")(
         bits.menu("all".some),
         div(cls := "page-menu__content box")(

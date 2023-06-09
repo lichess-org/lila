@@ -103,6 +103,7 @@ export interface StudyData {
       sente: boolean;
       gote: boolean;
     };
+    withOpponent: boolean;
   };
   likes: number;
   isNew?: boolean;
