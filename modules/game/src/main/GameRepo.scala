@@ -431,9 +431,9 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       })
   }
 
-  def random: Fu[Option[Game]] =
+  def randomStandard: Fu[Option[Game]] =
     coll.ext
-      .find($empty)
+      .find(Query.variantStandard)
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom nextInt 1000)
       .one[Game]

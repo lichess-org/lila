@@ -44,7 +44,7 @@ final class Tv(
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[Game.ID]] =
     trouper.ask[List[Game.ID]](TvTrouper.GetGameIds(channel, max, _))
 
-  def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
+  def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.randomStandard
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
