@@ -6,6 +6,7 @@
   &-wrap {
     @extend %box-radius, %popup-shadow, %flex-column;
     background: $c-bg-box;
+    border: $border;
     position: relative;
     padding: 2rem;
     text-align: center;

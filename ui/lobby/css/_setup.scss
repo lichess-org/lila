@@ -47,12 +47,17 @@ $c-slider: $c-setup;
     border-bottom: none;
   }
   .advanced_toggle {
-    display: inline-block !important;
+    display: none;
+    &.show-inline-block {
+      display: inline-block !important;
+    }
     border: solid $c-setup;
-    border-width: 0 7px 7px 0;
+    border-width: 0 8px 8px 0;
+    border-radius: 3px;
     padding: 5px;
     transform: rotate(45deg);
     margin-top: 1rem;
+    cursor: pointer;
     &.active {
       margin-top: 1.5rem;
       transform: rotate(-135deg);
@@ -124,9 +129,11 @@ $c-slider: $c-setup;
     }
   }
   .ratings {
+    @extend %box-radius-bottom;
     padding: 0.5em;
     width: 100%;
     text-align: center;
+    border-bottom: none;
   }
   .ratings div {
     display: none;
@@ -144,6 +151,12 @@ $c-slider: $c-setup;
       width: 64px;
       height: 64px;
       padding: 7px;
+      @if $theme == 'transp' {
+        background: $c-bg-input;
+        &:hover {
+          background: darken($c-bg-input, 3) !important;
+        }
+      }
       i {
         display: block;
         padding: 0;

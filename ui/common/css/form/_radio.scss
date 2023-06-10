@@ -1,5 +1,6 @@
 group.radio {
-  @extend %box-neat, %flex-wrap;
+  @extend %box-radius, %flex-wrap;
+  border: $border;
   overflow: hidden;
   div {
     flex: 1 1 auto;
@@ -26,5 +27,6 @@ group.radio {
   }
   input:checked + label {
     @extend %active;
+    text-shadow: none !important;
   }
 }

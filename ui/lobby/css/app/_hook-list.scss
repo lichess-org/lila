@@ -81,7 +81,7 @@
   a {
     background: $c-accent;
     &:hover {
-      background: darken($c-accent, 5);
+      background: $c-accent;
     }
   }
 }

@@ -1,5 +1,5 @@
 $c-slider: mix($c-secondary, $c-bg-box, 90%) !default;
-$slider-width: 12px;
+$slider-width: 13px;
 
 .ui-slider {
   background: $c-slider;
@@ -15,7 +15,8 @@ $slider-width: 12px;
 }
 .ui-widget-content {
   @extend %box-radius;
-  background: c-dimmer($c-slider, 70%);
+  background: $c-bg-input;
+  border: $border;
 }
 .ui-slider-handle {
   background: $c-slider;

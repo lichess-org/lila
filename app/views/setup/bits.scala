@@ -173,7 +173,7 @@ private object bits {
             span(form("byoyomi").value),
             renderInput(form("byoyomi"))
           ),
-          a(cls := "advanced_toggle"),
+          div(cls := "advanced_toggle"),
           div(cls := "advanced_setup")(
             div(cls := "periods buttons")(
               trans.periods(),
