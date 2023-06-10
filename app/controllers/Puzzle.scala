@@ -263,7 +263,7 @@ final class Puzzle(
     NoBot {
       val theme = PuzzleTheme.findOrAny(themeKey)
       OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
-        if (puzzle.themes contains theme.key) renderShow(puzzle, theme)
+        if (puzzle.themes contains theme.key) renderShow(puzzle, theme, robots = false)
         else Redirect(routes.Puzzle.show(puzzle.id.value)).fuccess
       }
     }
