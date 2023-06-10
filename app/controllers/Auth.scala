@@ -455,21 +455,21 @@ final class Auth(
                 lila.mon.user.auth.magicLinkConfirm("success").increment().unit
           }
 
-  private def loginTokenFor(me: UserModel) = JsonOk:
-    env.security.loginToken generate me map { token =>
-      Json.obj(
-        "userId" -> me.id,
-        "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
-      )
-    }
-
-  def makeLoginToken = AuthOrScoped(_.Web.Login)(
-    _ ?=> loginTokenFor,
-    ctx ?=>
-      user =>
-        lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient ctx.req}")
-        loginTokenFor(user)
-  )
+  def makeLoginToken =
+    def loginTokenFor(me: UserModel) = JsonOk:
+      env.security.loginToken generate me map { token =>
+        Json.obj(
+          "userId" -> me.id,
+          "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
+        )
+      }
+    AuthOrScoped(_.Web.Login)(
+      _ ?=> loginTokenFor,
+      ctx ?=>
+        user =>
+          lila.log("oauth").info(s"api makeLoginToken ${user.id} ${HTTPRequest printClient ctx.req}")
+          loginTokenFor(user)
+    )
 
   def loginWithToken(token: String) = Open:
     if ctx.isAuth

@@ -395,9 +395,8 @@ final class Team(
     AuthOrScoped(_.Team.Write)(
       auth = ctx ?=>
         me =>
-          OptionFuResult(api team id) { team =>
-            if team isOnlyLeader me.id
-            then
+          OptionFuResult(api team id): team =>
+            if team isOnlyLeader me.id then
               negotiate(
                 html = Redirect(routes.Team.edit(team.id))
                   .flashFailure(lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt())
@@ -410,13 +409,12 @@ final class Team(
                   html = Redirect(routes.Team.mine).flashSuccess.toFuccess,
                   api = _ => jsonOkResult.toFuccess
                 )
-          },
+      ,
       scoped = _ ?=>
         me =>
           api team id flatMap {
-            _.fold(notFoundJson()) { team =>
+            _.fold(notFoundJson()): team =>
               api.cancelRequestOrQuit(team, me) inject jsonOkResult
-            }
           }
     )
 
@@ -438,9 +436,8 @@ final class Team(
           })
 
   def pmAll(id: TeamId) = Auth { ctx ?=> _ =>
-    WithOwnedTeamEnabled(id) { team =>
+    WithOwnedTeamEnabled(id): team =>
       renderPmAll(team, forms.pmAll)
-    }
   }
 
   private def renderPmAll(team: TeamModel, form: Form[?])(using WebContext) = for
