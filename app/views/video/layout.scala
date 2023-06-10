@@ -18,7 +18,8 @@ object layout {
       moreCss = cssTag("video"),
       moreJs = infiniteScrollTag,
       wrapClass = "full-screen-force",
-      openGraph = openGraph
+      openGraph = openGraph,
+      withHrefLangs = none
     ) {
       main(cls := "video page-menu")(
         st.aside(cls := "page-menu__menu")(
