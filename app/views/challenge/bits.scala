@@ -41,6 +41,14 @@ object bits {
           )
         )
       ),
-      div(cls := "mode")(modeName(c.mode))
+      div(cls := "mode")(
+        shogi.Color.fromName(c.colorChoice.toString.toLowerCase).fold(trans.randomColor.txt()) { color =>
+          if (c.initialSfen.fold(false)(sfen => shogi.Handicap.isHandicap(sfen, c.variant)))
+            handicapColorName(color)
+          else standardColorName(color)
+        },
+        " - ",
+        modeName(c.mode)
+      )
     )
 }
