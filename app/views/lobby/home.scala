@@ -139,8 +139,8 @@ object home {
             )
         ),
         featured map { g =>
-          div(cls := "lobby__tv")(
-            gameSfen(Pov first g, tv = true),
+          a(cls := "lobby__tv", href := routes.Tv.index)(
+            gameSfen(Pov first g, withLink = false, tv = true),
             views.html.game.bits.vstext(Pov first g)(ctx.some)
           )
         },
