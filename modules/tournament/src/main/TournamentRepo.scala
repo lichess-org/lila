@@ -227,13 +227,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
         import Schedule.Freq._
         val base = schedule.freq match {
           case Unique                     => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60 *)
-          case Unique | Yearly | Marathon => 24 * 60
-          case Monthly | Shield           => 6 * 60
-          case Weekly | Weekend           => 3 * 60
-          case Daily                      => 1 * 60
+          case Unique | Yearly | Marathon => 48 * 60
+          case Monthly | Shield           => 8 * 60
+          case Weekly | Weekend           => 4 * 60
+          case Daily                      => 2 * 60
           case _                          => 30
         }
-        if (!tour.variant.standard) base / 3 else base
+        if (!tour.variant.standard) base / 2 else base
       }
     }
 
