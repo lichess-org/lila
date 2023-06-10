@@ -107,7 +107,6 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     confirmMove: () => root.submitUsi?.(true),
     usedMove,
     jump(plyDelta: number) {
-      // root.userJump(root.ply + delta);
       root.userJumpPlyDelta && root.userJumpPlyDelta(plyDelta);
       root.redraw();
     },

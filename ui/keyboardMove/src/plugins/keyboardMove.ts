@@ -162,30 +162,36 @@ window.lishogi.keyboardMove = function (opts: Opts) {
   };
 };
 
+let initiated = false; // so that enter keydown to focus, doesn't trigger keyup to submit
 function makeBindings(opts: any, submit: Submit, clear: () => void) {
   window.Mousetrap.bind('enter', () => opts.input.focus());
   opts.input.addEventListener('keyup', (e: KeyboardEvent) => {
     if (!e.isTrusted) return;
-    const v = (e.target as HTMLInputElement).value;
+    const v = (e.target as HTMLInputElement).value,
+      submitCommand = e.which === 13 && initiated;
 
     if (v.includes('/')) {
       focusChat();
       clear();
-    } else if (v === '' && e.which == 13) opts.ctrl.confirmMove();
+    } else if (v === '' && submitCommand) opts.ctrl.confirmMove();
     else
       submit(v, {
-        submitCommand: e.which === 13,
+        submitCommand: submitCommand,
         isTrusted: e.isTrusted,
       });
   });
   opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
-  opts.input.addEventListener('blur', () => opts.ctrl.setFocus(false));
+  opts.input.addEventListener('blur', () => {
+    opts.ctrl.setFocus(false);
+    initiated = false;
+  });
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
+    initiated = true;
     if (e.which > 36 && e.which < 41) {
-      if (e.which == 37) opts.ctrl.jump(-1);
-      else if (e.which == 38) opts.ctrl.jump(-999);
-      else if (e.which == 39) opts.ctrl.jump(1);
+      if (e.which === 37) opts.ctrl.jump(-1);
+      else if (e.which === 38) opts.ctrl.jump(-999);
+      else if (e.which === 39) opts.ctrl.jump(1);
       else opts.ctrl.jump(999);
       e.preventDefault();
     }

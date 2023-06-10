@@ -283,6 +283,8 @@ export default class RoundController {
     else this.redraw();
   };
 
+  userJumpPlyDelta = (plyDelta: Ply) => this.userJump(this.ply + plyDelta);
+
   isPlaying = () => game.isPlayerPlaying(this.data);
 
   jump = (ply: Ply): boolean => {
