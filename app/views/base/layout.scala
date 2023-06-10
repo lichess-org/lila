@@ -402,7 +402,7 @@ object layout {
           topnav()
         ),
         div(cls := "site-buttons")(
-          if (ctx.req.path == "/") switchLanguage else "",
+          (ctx.isAnon && ctx.req.path == "/") option switchLanguage,
           clinput,
           reports,
           teamRequests,
