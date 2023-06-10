@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.WebContext
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.{ config, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
@@ -323,14 +323,12 @@ final class Team(
     )
 
   def subscribe(teamId: TeamId) =
-    def doSub(me: UserModel)(using req: Request[?]) =
+    def doSub(me: UserModel)(using ctx: BodyContext[?]) =
       Form(single("subscribe" -> optional(boolean)))
         .bindFromRequest()
         .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
-    AuthOrScopedBody(_.Team.Write)(
-      auth = ctx ?=> me => doSub(me) inject jsonOkResult,
-      scoped = ctx ?=> me => doSub(me) inject jsonOkResult
-    )
+        .inject(jsonOkResult)
+    AuthOrScopedBody(_.Team.Write)(doSub, doSub)
 
   def requests = Auth { ctx ?=> me =>
     import lila.memo.CacheApi.*

@@ -204,11 +204,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def Secure(perm: Permission.Selector)(
       f: WebContext ?=> Holder => Fu[Result]
   ): Action[AnyContent] =
-    Secure(perm(Permission))(f)
-
-  /* Authenticated requests requiring certain permissions */
-  protected def Secure(perm: Permission)(f: WebContext ?=> Holder => Fu[Result]): Action[AnyContent] =
-    Secure(parse.anyContent)(perm)(f)
+    Secure(parse.anyContent)(perm(Permission))(f)
 
   /* Authenticated requests requiring certain permissions */
   protected def Secure[A](
@@ -218,12 +214,6 @@ abstract private[controllers] class LilaController(val env: Env)
       if isGranted(perm)
       then f(Holder(me))
       else authorizationFailed
-
-  protected def SecureF(
-      s: User => Boolean
-  )(f: WebContext ?=> User => Fu[Result]): Action[AnyContent] =
-    Auth(parse.anyContent): me =>
-      if s(me) then f(me) else authorizationFailed
 
   /* Authenticated requests requiring certain permissions, with a body */
   protected def SecureBody[A](
@@ -640,9 +630,8 @@ abstract private[controllers] class LilaController(val env: Env)
       case None => fuccess(None -> None)
       case Some(d) =>
         env.mod.impersonate.impersonating(d.user) map {
-          _.fold[RestoredUser](d.some -> None) { impersonated =>
+          _.fold[RestoredUser](d.some -> None): impersonated =>
             FingerPrintedUser(impersonated, hasFingerPrint = true).some -> d.user.some
-          }
         }
     }
 

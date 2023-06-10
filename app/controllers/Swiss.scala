@@ -231,7 +231,7 @@ final class Swiss(
   }
 
   def scheduleNextRound(id: SwissId) =
-    def doSchedule(using BodyContext[?])(me: UserModel) = WithEditableSwiss(id, me) { swiss =>
+    def doSchedule(using BodyContext[?])(me: UserModel) = WithEditableSwiss(id, me): swiss =>
       env.swiss.forms.nextRound
         .bindFromRequest()
         .fold(
@@ -245,11 +245,7 @@ final class Swiss(
               case Accepts.Json() => NoContent
               case _              => Redirect(routes.Swiss.show(id))
         )
-    }
-    AuthOrScopedBody(_.Tournament.Write)(
-      auth = doSchedule,
-      scoped = doSchedule
-    )
+    AuthOrScopedBody(_.Tournament.Write)(doSchedule, doSchedule)
 
   def terminate(id: SwissId) = Auth { _ ?=> me =>
     WithEditableSwiss(id, me): swiss =>
