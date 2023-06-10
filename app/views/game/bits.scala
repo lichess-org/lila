@@ -64,8 +64,7 @@ object bits {
 
   def variantLink(
       variant: shogi.variant.Variant,
-      perfType: Option[lila.rating.PerfType] = None,
-      initialSfen: Option[shogi.format.forsyth.Sfen] = None
+      perfType: Option[lila.rating.PerfType] = None
   )(implicit lang: Lang): Frag = {
     def link(
         href: String,
@@ -81,7 +80,7 @@ object bits {
 
     if (!variant.standard)
       link(
-        href = routes.Page.variant(variant.key, none).url,
+        href = routes.Page.variant(variant.key).url,
         title = variant.title,
         name = variantName(variant)
       )

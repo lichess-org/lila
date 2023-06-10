@@ -714,7 +714,7 @@ GET   /explanation/csa                 controllers.Page.csa
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
-GET   /variant/:key                    controllers.Page.variant(key, lang: Option[String])
+GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
 GET   /help/master                     controllers.Page.notSupported

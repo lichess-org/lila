@@ -110,7 +110,7 @@ object bits {
       ),
       div(id := "variants_list", cls := "lobby__box__content")(
         Variant.all.filterNot(_.standard).map { v =>
-          a(cls := "variants_item", href := routes.Page.variant(v.key, none))(variantNameTag(v))
+          a(cls := "variants_item", href := routes.Page.variant(v.key))(variantNameTag(v))
         }
       )
     )

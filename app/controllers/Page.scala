@@ -110,12 +110,12 @@ final class Page(
       )
     }
 
-  def variant(key: String, lang: Option[String] = None) =
+  def variant(key: String) =
     Open { implicit ctx =>
       (for {
         variant  <- shogi.variant.Variant.byKey get key
         perfType <- lila.rating.PerfType byVariant variant
-      } yield OptionOk(prismicC.getVariant(variant, BlogLang.fromLangCode(lang.getOrElse(ctx.lang.code)))) {
+      } yield OptionOk(prismicC.getVariant(variant, BlogLang.fromLangCode(ctx.lang.code))) {
         case (doc, resolver) =>
           views.html.site.variant.show(doc, resolver, variant, perfType)
       }) | notFound
