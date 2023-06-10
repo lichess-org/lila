@@ -391,7 +391,7 @@ object Pref {
 
   lazy val default = Pref(
     _id = "",
-    dark = false,
+    dark = true,
     transp = false,
     bgImg = none,
     theme = Theme.default.name,
