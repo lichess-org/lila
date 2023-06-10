@@ -2,7 +2,7 @@ import { Prop, prop } from 'common/common';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import { iconTag, scrollTo, titleNameToId } from '../util';
-import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
+import { StudyCtrl, StudyData, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { makeCtrl as inviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';
 
@@ -156,9 +156,14 @@ export function ctrl(opts: Opts) {
   };
 }
 
+function isPostGameStudyPlayer(data: StudyData, userId: string): boolean {
+  return data.postGameStudy?.players.sente.userId === userId || data.postGameStudy?.players.gote.userId === userId;
+}
+
 export function view(ctrl: StudyCtrl): VNode {
   const members = ctrl.members,
-    isOwner = members.isOwner();
+    isOwner = members.isOwner(),
+    canInvite = isOwner || (ctrl.data.postGameStudy?.withOpponent && isPostGameStudyPlayer(ctrl.data, members.myId));
 
   function username(member: StudyMember) {
     var u = member.user;
@@ -190,7 +195,10 @@ export function view(ctrl: StudyCtrl): VNode {
   }
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
-    if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
+    if (
+      (isOwner || (canInvite && !isPostGameStudyPlayer(ctrl.data, member.user.id))) &&
+      (member.user.id !== members.myId || ctrl.data.admin)
+    )
       return h('act', {
         key: 'cfg-' + member.user.id,
         attrs: dataIcon('%'),
@@ -287,7 +295,7 @@ export function view(ctrl: StudyCtrl): VNode {
           ];
         })
         .reduce((a, b) => a.concat(b), []),
-      isOwner && ordered.length < members.max
+      canInvite && ordered.length < members.max
         ? h(
             'div.add',
             {
