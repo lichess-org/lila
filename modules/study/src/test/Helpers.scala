@@ -16,6 +16,10 @@ object Helpers:
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
 
+  def rootToPgn(root: NewRoot) = PgnDump
+    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
+    .render
+
   object NewRootC:
     def fromRoot(root: Root) =
       NewRoot(NewTree.fromNode(root), NewTree(root))

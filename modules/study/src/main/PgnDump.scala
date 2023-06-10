@@ -113,6 +113,13 @@ object PgnDump:
   def rootToTree(root: Root)(using flags: WithFlags): Option[PgnTree] =
     NewTree(root).map(treeToTree(_)(using flags))
 
+  def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
+    Pgn(
+      tags,
+      Initial(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
+      root.tree.map(treeToTree(_)(using flags))
+    )
+
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branch2move) else tree.mapMainline(branch2move)
 

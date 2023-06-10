@@ -123,6 +123,10 @@ object NewTree:
   def apply(value: NewBranch, child: Option[NewTree], variations: List[Variation[NewBranch]]) =
     ChessNode(value, child, variations)
 
+  extension (tree: NewTree)
+    def clearVariations: NewTree =
+      tree.withVariations(Nil).copy(child = tree.child.map(_.clearVariations))
+
   def apply(root: Root): Option[NewTree] =
     root.children.first.map: first =>
       NewTree(
@@ -197,7 +201,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   }
   def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
 
-  def mapChild(f: NewBranch => NewBranch): NewRoot =
+  def mapChildrent(f: NewBranch => NewBranch): NewRoot =
     copy(tree = tree.map(_.map(f)))
 
   def pathExists(path: UciPath): Boolean =
@@ -206,6 +210,14 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def addNodeAt(path: UciPath, node: NewTree): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(tree = node.some).some
     else tree.flatMap(_.addNodeAt(path.ids)(node)).map(x => copy(tree = x.some))
+
+  def deleteNodeAt(path: UciPath): Option[NewRoot] =
+    if tree.isEmpty && path.isEmpty then copy(tree = none).some
+    else tree.flatMap(_.deleteAt(path.ids)).flatten.map(x => copy(tree = x.some))
+
+  def addBranchAt(path: UciPath, branch: NewBranch): Option[NewRoot] =
+    if tree.isEmpty && path.isEmpty then copy(tree = ChessNode(branch).some).some
+    else tree.flatMap(_.addValueAsChildOrVariationAt(path.ids, branch)).map(x => copy(tree = x.some))
 
   def modifyWithParentPathMetas(path: UciPath, f: Metas => Metas): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
@@ -221,7 +233,12 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
         _.modifyChildAt(path.ids, x => x.copy(value = f(x.value))).map(x => copy(tree = x.some))
       )
 
+
+  def updateTree(f: NewTree => Option[NewTree]): NewRoot =
+    copy(tree = tree.flatMap(f))
+
   def withoutChildren: NewRoot = copy(tree = None)
+
   def withTree(t: Option[NewTree]): NewRoot =
     copy(tree = t)
 

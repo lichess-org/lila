@@ -9,6 +9,8 @@ import play.api.libs.json.JsObject
 
 import lila.tree.Branch
 import lila.common.Json.given
+import lila.tree.NewBranch
+import lila.tree.Metas
 
 case class AnaDrop(
     role: chess.Role,
@@ -38,6 +40,34 @@ case class AnaDrop(
         )
       }
     }
+
+  def newBranch: Either[ErrorStr, NewBranch] =
+    chess
+      .Game(variant.some, fen.some)
+      .drop(role, pos)
+      .toEither
+      .flatMap: (game, move) =>
+        game.sans.lastOption
+          .toRight(ErrorStr("Moved but no last move!"))
+          .map: san =>
+            val uci     = Uci(move)
+            val movable = game.situation playable false
+            val fen     = chess.format.Fen write game
+            NewBranch(
+              id = UciCharPair(uci),
+              path = UciPath.root,
+              move = Uci.WithSan(uci, san),
+              metas = Metas(
+                ply = game.ply,
+                fen = fen,
+                check = game.situation.check,
+                dests = Some(movable ?? game.situation.destinations),
+                opening = (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)) ??
+                  OpeningDb.findByEpdFen(fen),
+                drops = if (movable) game.situation.drops else Some(Nil),
+                crazyData = game.situation.board.crazyData
+              )
+            )
 
 object AnaDrop:
 
