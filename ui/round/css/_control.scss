@@ -159,8 +159,10 @@
   .analysis {
     display: none;
     @include breakpoint($mq-col1) {
-      display: block;
-      margin-left: 2em;
+      &:not(.disabled) {
+        display: block;
+        margin-left: 2em;
+      }
     }
   }
   .draw {

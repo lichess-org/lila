@@ -75,6 +75,9 @@
     &__table {
       display: none;
     }
+    .keyboard-move {
+      margin-left: $block-gap;
+    }
 
     &.move-confirm {
       // replace move list with move confirmation
@@ -128,7 +131,7 @@
       }
     }
     .keyboard-move {
-      margin-top: $block-gap;
+      margin: $block-gap 0 0 0;
     }
     .board-layout-1 & {
       grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
