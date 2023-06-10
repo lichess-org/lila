@@ -39,6 +39,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
   <string name="moveConfirmation">Confirmation de coup</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Peut être désactivé pendant une partie grâce au menu de l\'échiquer</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="correspondenceAndUnlimited">Correspondance et illimité</string>
   <string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
