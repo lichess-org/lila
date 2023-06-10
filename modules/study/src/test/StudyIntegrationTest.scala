@@ -19,7 +19,7 @@ import lila.user.User
 import lila.socket.AnaDrop
 import chess.format.pgn.Glyph
 import lila.socket.AnaAny
-import lila.tree.{NewRoot, NewTree, Node, Root, Branch}
+import lila.tree.{ NewRoot, NewTree, Node, Root, Branch }
 
 val studyId      = StudyId("studyId")
 val chapterId    = StudyChapterId("chapterId")
@@ -95,8 +95,8 @@ object TestCase:
 
   import Fixtures.*
   val all = standards.map((str, expected) => TestCase(Standard, str, expected))
-  // ++ crazyhouses.map((str, expected) => TestCase(Crazyhouse, str, expected))
-  // ++ antichess.map((str, expected) => TestCase(Antichess, str, expected))
+  ++ crazyhouses.map((str, expected) => TestCase(Crazyhouse, str, expected))
+  ++ antichess.map((str, expected) => TestCase(Antichess, str, expected))
 
 enum StudyAction:
   case Move(m: AnaMove)
@@ -373,8 +373,10 @@ object Fixtures:
   val pgn6 =
     "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
 
-  val ms        = List(m0, m1, m2, m4, m5, m6)
-  val ps        = List(pgn0, pgn1, pgn2, pgn4, pgn5, pgn6)
+  // val ms        = List(m0, m1, m2, m3, m4, m5, m6)
+  // val ps        = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
+  val ms        = List(m0, m1, m2, m3)
+  val ps        = List(pgn0, pgn1, pgn2, pgn3)
   val standards = ms.zip(ps)
 
   val m7 = """

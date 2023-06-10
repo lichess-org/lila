@@ -46,22 +46,22 @@ case class NewChapter(
     }
 
   def setShapes(shapes: Shapes, path: UciPath): Option[NewChapter] =
-    updateRoot(_.modifyWithParentPathMetas(path, _.copy(shapes = shapes)))
+    updateRoot(_.modifyAt(path, _.copy(shapes = shapes)))
 
   def setComment(comment: Comment, path: UciPath): Option[NewChapter] =
-    updateRoot(_.modifyWithParentPathMetas(path, _.setComment(comment)))
+    updateRoot(_.modifyAt(path, _.setComment(comment)))
 
   def setGamebook(gamebook: Gamebook, path: UciPath): Option[NewChapter] =
-    updateRoot(_.modifyWithParentPathMetas(path, _.copy(gamebook = gamebook.some)))
+    updateRoot(_.modifyAt(path, _.copy(gamebook = gamebook.some)))
 
   def deleteComment(commentId: Comment.Id, path: UciPath): Option[NewChapter] =
-    updateRoot(_.modifyWithParentPathMetas(path, _.deleteComment(commentId)))
+    updateRoot(_.modifyAt(path, _.deleteComment(commentId)))
 
   def toggleGlyph(glyph: Glyph, path: UciPath): Option[NewChapter] =
-    updateRoot(_.modifyWithParentPathMetas(path, _.toggleGlyph(glyph)))
+    updateRoot(_.modifyAt(path, _.toggleGlyph(glyph)))
 
   def setClock(clock: Option[Centis], path: UciPath): Option[NewChapter] =
-    updateRoot(_.modifyWithParentPathMetas(path, _.copy(clock = clock)))
+    updateRoot(_.modifyAt(path, _.copy(clock = clock)))
 
   def forceVariation(force: Boolean, path: UciPath): Option[NewChapter] =
     updateRoot(_.modifyWithParentPath(path, _.copy(forceVariation = force)))

@@ -226,13 +226,20 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
         _.modifyChildAt(path.ids, _.focus(_.value.metas).modify(f)).map(x => copy(tree = x.some))
       )
 
+  def modifyAt(path: UciPath, f: Metas => Metas): Option[NewRoot] =
+    def b(n: NewBranch): NewBranch = n.focus(_.metas).modify(f)
+    if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
+    else
+      tree.flatMap(
+        _.modifyAt(path.ids, Tree.lift(b)).map(x => copy(tree = x.some))
+      )
+
   def modifyWithParentPath(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then this.some
     else
       tree.flatMap(
         _.modifyChildAt(path.ids, x => x.copy(value = f(x.value))).map(x => copy(tree = x.some))
       )
-
 
   def updateTree(f: NewTree => Option[NewTree]): NewRoot =
     copy(tree = tree.flatMap(f))
