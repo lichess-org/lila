@@ -137,7 +137,7 @@
   <string name="xEloTag" comment="Tags for kif and csa">%s Elo</string>
   <string name="xTitleTag" comment="Tags for kif and csa">%s title</string>
   <string name="xTeamTag" comment="Tags for kif and csa">%s team</string>
-  <string name="openingTag" comment="Tags for kif and csa">%s Elo</string>
+  <string name="openingTag" comment="Tags for kif and csa">Opening</string>
   <string name="resultTag" comment="Tags for kif and csa">Result</string>
   <string name="problemNameTag" comment="Tags for kif and csa">Problem name</string>
   <string name="problemIdTag" comment="Tags for kif and csa">Problem Id</string>
