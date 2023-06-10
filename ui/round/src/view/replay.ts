@@ -56,7 +56,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         },
         [
           viewStatus(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, handicap),
-          winner ? ' • ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, handicap) : '',
+          winner ? ' - ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, handicap) : '',
         ]
       ),
     ]);

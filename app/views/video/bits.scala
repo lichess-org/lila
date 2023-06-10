@@ -33,7 +33,7 @@ object bits {
       ctx: Context
   ) =
     layout(
-      title = s"$name • Free Shogi Videos",
+      title = s"$name - Free Shogi Videos",
       control = control
     )(
       div(cls := "box__top")(
@@ -79,7 +79,7 @@ object bits {
     )
 
   def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(implicit ctx: Context) =
-    layout(title = s"Tags • Free Shogi Videos", control = control)(
+    layout(title = s"Tags - Free Shogi Videos", control = control)(
       div(cls := "box__top")(
         h1(cls := "lishogi_title")(
           a(cls := "text", dataIcon := "i", href := s"${routes.Video.index}?${control.queryString}")(

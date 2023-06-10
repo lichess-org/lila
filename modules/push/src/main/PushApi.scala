@@ -271,7 +271,7 @@ final private class PushApi(
         case c: Clock          => c.show
       },
       c.variant.name
-    ) mkString " • "
+    ) mkString " - "
   }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =

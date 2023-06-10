@@ -9,7 +9,7 @@ import controllers.routes
 
 object side {
 
-  private val separator  = " • "
+  private val separator  = " - "
   private val dataUserTv = attr("data-user-tv")
   private val dataTime   = attr("data-time")
 

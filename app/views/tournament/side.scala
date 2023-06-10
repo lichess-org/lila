@@ -11,7 +11,7 @@ import controllers.routes
 
 object side {
 
-  private val separator = " • "
+  private val separator = " - "
 
   def apply(
       tour: Tournament,

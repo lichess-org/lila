@@ -37,7 +37,7 @@ object gamesContent {
             frag(
               div(cls := "search__status")(
                 strong(pager.nbResults.localize, " games found"),
-                " • ",
+                " - ",
                 permalink
               ),
               div(cls := "search__rows")(
@@ -50,7 +50,7 @@ object gamesContent {
           else
             div(cls := "search__status")(
               strong("No game found"),
-              " • ",
+              " - ",
               permalink
             )
         } else

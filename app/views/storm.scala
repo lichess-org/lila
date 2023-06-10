@@ -82,9 +82,9 @@ object storm {
           h1(
             !ctx.is(user) option frag(
               userLink(user),
-              " • "
+              " - "
             ),
-            "Tsume Storm • ",
+            "Tsume Storm - ",
             trans.storm.highscores()
           ),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(

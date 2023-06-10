@@ -16,7 +16,7 @@ object show {
       control: lila.video.UserControl
   )(implicit ctx: Context) =
     layout(
-      title = s"${video.title} • Free Shogi Videos",
+      title = s"${video.title} - Free Shogi Videos",
       control = control,
       openGraph = lila.app.ui
         .OpenGraph(

@@ -51,7 +51,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
           h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
           h(
             'span.desc',
-            [trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl, trans), trans(c.variant.key)].join(' • ')
+            [trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl, trans), trans(c.variant.key)].join(' - ')
           ),
         ]),
         h('i', {

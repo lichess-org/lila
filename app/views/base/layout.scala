@@ -256,8 +256,8 @@ object layout {
           metaThemeColor,
           st.headTitle {
             if (ctx.blind) "lishogi"
-            else if (isProd) fullTitle | s"$title • lishogi.org"
-            else s"[dev] ${fullTitle | s"$title • lishogi.dev"}"
+            else if (isProd) fullTitle | s"$title | lishogi.org"
+            else s"[dev] ${fullTitle | s"$title | lishogi.dev"}"
           },
           cssTag("site"),
           ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),

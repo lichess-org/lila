@@ -208,9 +208,9 @@ trait GameHelper {
     val u1 = playerText(game player color, withRating = true)
     val u2 = playerText(game opponent color, withRating = true)
     val clock = game.clock ?? { c =>
-      " • " + c.config.show
+      " - " + c.config.show
     }
-    val variant = !game.variant.standard ?? s" • ${game.variant.name}"
+    val variant = !game.variant.standard ?? s" - ${game.variant.name}"
     s"$u1 vs $u2$clock$variant"
   }
 

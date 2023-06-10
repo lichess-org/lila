@@ -13,7 +13,7 @@ object tournaments {
 
   def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(implicit ctx: Context) = {
     views.html.base.layout(
-      title = s"${t.name} • ${trans.tournaments.txt()}",
+      title = s"${t.name} - ${trans.tournaments.txt()}",
       moreCss = cssTag("team"),
       wrapClass = "full-screen-force"
     ) {
@@ -21,7 +21,7 @@ object tournaments {
         div(cls := "box")(
           h1(
             views.html.team.bits.link(t),
-            " • ",
+            " - ",
             trans.tournaments()
           ),
           div(cls := "team-tournaments team-tournaments--both")(
@@ -60,12 +60,12 @@ object tournaments {
                   span(cls := "name")(t.name()),
                   span(cls := "setup")(
                     t.clock.show,
-                    " • ",
+                    " - ",
                     if (!t.variant.standard) variantName(t.variant) else t.perfType.map(_.trans),
-                    t.position.isDefined option frag(" • ", trans.thematic()),
-                    " • ",
+                    t.position.isDefined option frag(" - ", trans.thematic()),
+                    " - ",
                     t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
-                    " • ",
+                    " - ",
                     t.durationString
                   )
                 ),
@@ -74,9 +74,9 @@ object tournaments {
                   span(cls := "name")(s.name),
                   span(cls := "setup")(
                     s.clock.show,
-                    " • ",
+                    " - ",
                     if (!s.variant.standard) variantName(s.variant) else s.perfType.map(_.trans),
-                    " • ",
+                    " - ",
                     (if (s.settings.rated) trans.ratedTournament else trans.casualTournament) ()
                   )
                 )

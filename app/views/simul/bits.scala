@@ -33,7 +33,7 @@ object bits {
         span(cls := "name")(s.name, " simul"),
         span(cls := "more")(
           trans.nbPlayers.plural(s.applicants.size, s.applicants.size.localize),
-          " • ",
+          " - ",
           trans.join()
         )
       )
@@ -54,7 +54,7 @@ object bits {
   private[simul] def setup(sim: lila.simul.Simul)(implicit lang: play.api.i18n.Lang) =
     span(cls := List("setup" -> true, "rich" -> sim.variantRich))(
       sim.clock.config.show,
-      " • ",
+      " - ",
       sim.variants.map(v => variantName(v)).mkString(", ")
     )
 

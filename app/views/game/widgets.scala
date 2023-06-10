@@ -8,7 +8,7 @@ import lila.game.{ Game, Player, Pov }
 
 object widgets {
 
-  private val separator = " • "
+  private val separator = " - "
 
   def apply(
       games: Seq[Game],

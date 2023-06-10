@@ -75,7 +75,7 @@ object topic {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title =
-        s"${topic.name} • ${trans.page.txt().toLowerCase} ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
+        s"${topic.name} - ${trans.page.txt().toLowerCase} ${posts.currentPage}/${posts.nbPages} - ${categ.name}",
       moreJs = frag(
         jsTag("forum-post.js"),
         formWithCaptcha.isDefined option captchaTag,

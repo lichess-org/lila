@@ -34,7 +34,7 @@ object homepageSpotlight {
                 span(cls := "headline")(spot.headline),
                 span(cls := "more")(
                   trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
-                  " • ",
+                  " - ",
                   if (tour.isStarted) trans.finishesX(momentFromNow(tour.finishesAt))
                   else momentFromNow(tour.startsAt)
                 )
@@ -50,7 +50,7 @@ object homepageSpotlight {
         span(cls := "name")(tour.name()),
         span(cls := "more")(
           trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
-          " • ",
+          " - ",
           if (tour.isStarted) trans.eventInProgress() else momentFromNow(tour.startsAt)
         )
       )

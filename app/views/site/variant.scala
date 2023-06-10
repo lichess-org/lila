@@ -16,7 +16,7 @@ object variant {
   )(implicit ctx: Context) =
     layout(
       active = perfType.some,
-      title = s"${variantName(variant)} • ${variant.title}",
+      title = s"${variantName(variant)} - ${variant.title}",
       klass = "box-pad page variant"
     )(
       h1(cls := "text", dataIcon := perfType.iconChar)(variantName(variant)),

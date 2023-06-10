@@ -203,7 +203,7 @@ object show {
                         strong(post.topicName),
                         em(
                           post.userId map usernameOrId,
-                          " • ",
+                          " - ",
                           momentFromNow(post.createdAt)
                         )
                       ),

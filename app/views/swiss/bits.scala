@@ -52,11 +52,11 @@ object bits {
                 span(cls := "name")(s.name),
                 span(cls := "setup")(
                   s.clock.show,
-                  " • ",
+                  " - ",
                   if (!s.variant.standard) variantName(s.variant) else s.perfType.map(_.trans),
-                  " • ",
+                  " - ",
                   if (s.settings.rated) trans.ratedTournament() else trans.casualTournament(),
-                  " • ",
+                  " - ",
                   s.estimatedDurationString
                 )
               )

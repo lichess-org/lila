@@ -41,7 +41,7 @@ object side {
       }
     )
 
-  private val separator = " • "
+  private val separator = " - "
 
   def meta(pov: lila.game.Pov)(implicit ctx: Context): Frag = {
     import pov._

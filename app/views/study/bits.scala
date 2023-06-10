@@ -64,9 +64,9 @@ object bits {
             iconTag(if (s.liked) "" else ""),
             " ",
             s.study.likes.value,
-            " • ",
+            " - ",
             usernameOrId(s.study.ownerId),
-            " • ",
+            " - ",
             momentFromNow(s.study.createdAt)
           )
         )

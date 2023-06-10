@@ -31,12 +31,12 @@ object finishedList {
         span(cls := "name")(t.name()),
         span(cls := "setup")(
           t.clock.show,
-          " • ",
+          " - ",
           if (!t.variant.standard) variantName(t.variant) else t.perfType.map(_.trans),
-          t.position.isDefined option frag(" • ", trans.thematic()),
-          " • ",
+          t.position.isDefined option frag(" - ", trans.thematic()),
+          " - ",
           t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
-          " • ",
+          " - ",
           t.durationString
         )
       )

@@ -14,7 +14,7 @@ object index {
   ) = {
 
     val tagString =
-      s"${if (control.filter.tags.nonEmpty) control.filter.tags.mkString(" + ") + " • " else ""}"
+      s"${if (control.filter.tags.nonEmpty) control.filter.tags.mkString(" + ") + " - " else ""}"
 
     layout(
       title = s"${tagString}Free Shogi Videos",
@@ -23,7 +23,7 @@ object index {
           title = s"${tagString}free, carefully curated shogi videos",
           description =
             s"${videos.nbResults} curated shogi videos${if (tagString.nonEmpty) " matching the tags " + tagString
-              else " • "}free for all",
+              else " - "}free for all",
           url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
         )
         .some,

@@ -14,7 +14,7 @@ import controllers.routes
 object bits {
 
   def followers(u: User, pag: Paginator[Related], nbFollowing: Int)(implicit ctx: Context) =
-    layout(s"${u.username} • ${trans.nbFollowers.pluralSameTxt(pag.nbResults)}")(
+    layout(s"${u.username} - ${trans.nbFollowers.pluralSameTxt(pag.nbResults)}")(
       div(cls := "box__top")(
         h1(userLink(u, withOnline = false)),
         div(cls := "actions")(
@@ -29,7 +29,7 @@ object bits {
     )
 
   def following(u: User, pag: Paginator[Related], nbFollowers: Int)(implicit ctx: Context) =
-    layout(s"${u.username} • ${trans.nbFollowing.pluralSameTxt(pag.nbResults)}")(
+    layout(s"${u.username} - ${trans.nbFollowing.pluralSameTxt(pag.nbResults)}")(
       div(cls := "box__top")(
         h1(userLink(u, withOnline = false)),
         div(cls := "actions")(
@@ -44,7 +44,7 @@ object bits {
     )
 
   def blocks(u: User, pag: Paginator[Related])(implicit ctx: Context) =
-    layout(s"${u.username} • ${trans.blocks.pluralSameTxt(pag.nbResults)}")(
+    layout(s"${u.username} - ${trans.blocks.pluralSameTxt(pag.nbResults)}")(
       div(cls := "box__top")(
         h1(userLink(u, withOnline = false)),
         div(cls := "actions")(

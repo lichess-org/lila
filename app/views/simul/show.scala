@@ -58,10 +58,10 @@ object show {
                   span(cls := "clock")(sim.clock.config.show),
                   div(cls := "setup")(
                     sim.variants.map(v => variantName(v)).mkString(", "),
-                    " • ",
+                    " - ",
                     trans.casual(),
                     (isGranted(_.ManageSimul) || ctx.userId.has(sim.hostId)) && sim.isCreated option frag(
-                      " • ",
+                      " - ",
                       a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag("%"))
                     )
                   )
@@ -90,13 +90,14 @@ object show {
                   strong(h.japanese),
                   " ",
                   h.english,
-                  " • ",
+                  " - ",
                   views.html.base.bits.sfenAnalysisLink(h.sfen)
                 )
               } orElse sim.position.map { sfen =>
                 frag(
                   br,
-                  "Custom position • ",
+                  trans.fromPosition(),
+                  " - ",
                   views.html.base.bits.sfenAnalysisLink(sfen)
                 )
               }

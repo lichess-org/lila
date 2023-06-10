@@ -12,7 +12,7 @@ object admin {
   import trans.team._
 
   def leaders(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
-    val title = s"${t.name} • ${trans.team.teamLeaders.txt()}"
+    val title = s"${t.name} - ${trans.team.teamLeaders.txt()}"
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -41,7 +41,7 @@ object admin {
 
   def kick(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
 
-    val title = s"${t.name} • ${kickSomeone.txt()}"
+    val title = s"${t.name} - ${kickSomeone.txt()}"
 
     bits.layout(title = title) {
       main(cls := "page-menu page-small")(
@@ -67,7 +67,7 @@ object admin {
       ctx: Context
   ) = {
 
-    val title = s"${t.name} • ${messageAllMembers.txt()}"
+    val title = s"${t.name} - ${messageAllMembers.txt()}"
 
     views.html.base.layout(
       title = title,
