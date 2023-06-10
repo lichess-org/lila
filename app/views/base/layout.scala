@@ -285,7 +285,7 @@ object layout {
           manifests,
           jsLicense,
           canonicalPath.map(canonical),
-          withHrefLangs.filter(_ => ctx.req.queryString.removed("lang").isEmpty && robots).map(hrefLangs)
+          withHrefLangs.filter(_ => ctx.req.queryString.removed("lang").isEmpty).map(hrefLangs)
         ),
         st.body(
           cls := List(
