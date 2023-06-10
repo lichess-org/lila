@@ -6,7 +6,6 @@
   @extend %box-radius;
 
   overflow: hidden;
-  overflow: clip;
 
   /* helps with clipping background into border-radius */
 }
