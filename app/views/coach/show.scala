@@ -101,6 +101,7 @@ object show:
                   heightA             := "192",
                   src                 := url.value,
                   attr("frameborder") := "0",
+                  frame.credentialless,
                   frame.allowfullscreen
                 )
               }

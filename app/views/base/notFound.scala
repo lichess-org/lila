@@ -33,7 +33,8 @@ object notFound:
             src            := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
             st.frameborder := 0,
             widthA         := 400,
-            heightA        := 500
+            heightA        := 500,
+            frame.credentialless
           ),
           p(cls := "credits")(
             a(href := "https://github.com/Saturnyn/ChessPursuit")("ChessPursuit"),

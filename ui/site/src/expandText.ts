@@ -73,7 +73,7 @@ lichess.load.then(() => {
   }
 
   function expandYoutube(a: Candidate) {
-    const $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
+    const $iframe = $('<div class="embed"><iframe src="' + a.src + '" credentialless></iframe></div>');
     $(a.element).replaceWith($iframe);
     return $iframe;
   }
@@ -98,6 +98,17 @@ lichess.load.then(() => {
     );
     if (!twitterLoaded) {
       twitterLoaded = true;
+
+      // polyfill document.createElement so that iframes created by twitter get the `credentialless` attribute
+      const originalCreateElement = document.createElement;
+      document.createElement = function () {
+        const element = originalCreateElement.apply(this, arguments as any);
+        if (element instanceof HTMLIFrameElement) {
+          (element as any).credentialless = true;
+        }
+        return element;
+      };
+
       xhr.script('https://platform.twitter.com/widgets.js');
     }
   }
