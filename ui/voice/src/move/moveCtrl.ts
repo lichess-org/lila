@@ -1,6 +1,6 @@
 import { Api as CgApi } from 'chessground/api';
 import * as xhr from 'common/xhr';
-import * as prop from 'common/storage';
+import * as storage from 'common/storage';
 import * as cs from 'chess';
 import { src as src, dest as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
@@ -36,9 +36,9 @@ export default (window as any).LichessVoiceMove = function (
   const squares: SparseMap<Uci> = new Map(); // map of xvals to selectable or reachable square(s)
   const sans: SparseMap<string> = new Map(); // map xvals to ucis of valid sans
   const confirm: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
-  const clarityPref = prop.storedIntProp('voice.clarity', 0);
-  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
-  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
+  const clarityPref = storage.storedIntProp('voice.clarity', 0);
+  const colorsPref = storage.storedToggle('voice.useColors', true, _ => initTimerRec());
+  const timerPref = storage.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
 
   let entries: Entry[] = [];
   let partials = { commands: [], colors: [], numbers: [] };

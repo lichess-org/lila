@@ -1,5 +1,5 @@
 import { propWithEffect, toggle as commonToggle } from 'common';
-import * as prop from 'common/storage';
+import * as storage from 'common/storage';
 import { VoiceCtrl, VoiceModule } from './interfaces';
 
 export * from './interfaces';
@@ -42,8 +42,8 @@ export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
     document.removeEventListener('keydown', keydownListener);
     document.removeEventListener('keyup', keyupListener);
   };
-  const enabled = prop.storedBooleanProp('voice.on', false);
-  const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
+  const enabled = storage.storedBooleanProp('voice.on', false);
+  const pushTalk = storage.storedToggle('voice.pushTalk', false, val => {
     lichess.mic.stop();
     if (val) {
       pushTalkOn();
@@ -52,7 +52,7 @@ export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
     if (enabled()) lichess.mic.start(!val);
   });
 
-  const lang = prop.storedStringPropWithEffect('voice.lang', 'en', code => {
+  const lang = storage.storedStringPropWithEffect('voice.lang', 'en', code => {
     if (code === lichess.mic.lang) return;
     lichess.mic.setLang(code);
     opts

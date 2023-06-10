@@ -27,7 +27,6 @@ import { StoredProp, ToggleWithUsed, storedToggle } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
-import { toggle as boardMenuToggle } from 'board/menu';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
 import PuzzleSounds from './sounds';
@@ -52,7 +51,6 @@ export default class PuzzleController implements ParentCtrl {
   sound = new PuzzleSounds();
   music: any;
   flipped = toggle(false);
-  menu = boardMenuToggle(redraw);
   trans: Trans;
 
   keyboardMove?: KeyboardMove;
@@ -74,11 +72,8 @@ export default class PuzzleController implements ParentCtrl {
     this.session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
     this.menu = boardMenuToggle(this.redraw);
     this.trans = lichess.trans(opts.i18n);
-    this.promotion = new PromotionCtrl(
-      this.withGround,
-      () => this.withGround(g => g.set(this.vm.cgConfig)),
-      this.redraw
-    );
+    this.promotion = new PromotionCtrl(this.withGround, () => this.withGround(g => g.set(this.vm.cgConfig)), redraw);
+    this.menu = boardMenuToggle(redraw);
 
     this.initiate(opts.data);
 
@@ -133,10 +128,7 @@ export default class PuzzleController implements ParentCtrl {
       vote: this.vote,
       solve: this.viewSolution,
     });
-    if (this.opts.pref.voiceMove)
-      makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen).then(vm => {
-        this.voiceMove = vm;
-      });
+    if (this.opts.pref.voiceMove) this.voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.vm.node.fen);
     if (this.opts.pref.keyboardMove)
       this.keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.vm.node.fen });
     requestAnimationFrame(() => this.redraw());
@@ -230,7 +222,7 @@ export default class PuzzleController implements ParentCtrl {
 
   userMove = (orig: Key, dest: Key): void => {
     this.vm.justPlayed = orig;
-    if (!this.promotion.start(orig, dest, { submit: this.playUserMove, show: this.voiceMove?.showPromotion }))
+    if (!this.promotion.start(orig, dest, { submit: this.playUserMove, show: this.voiceMove?.promotionHook() }))
       this.playUserMove(orig, dest);
     this.voiceMove?.update(this.vm.node.fen);
     this.keyboardMove?.update({ fen: this.vm.node.fen });
