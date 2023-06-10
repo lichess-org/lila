@@ -246,10 +246,11 @@ trait SetupHelper { self: I18nHelper =>
 
   def submitMoveChoices(using Lang) =
     List(
-      (Pref.SubmitMove.NEVER, trans.never.txt()),
-      (Pref.SubmitMove.CORRESPONDENCE_ONLY, trans.preferences.inCorrespondenceGames.txt()),
-      (Pref.SubmitMove.CORRESPONDENCE_UNLIMITED, trans.preferences.correspondenceAndUnlimited.txt()),
-      (Pref.SubmitMove.ALWAYS, trans.always.txt())
+      (Pref.SubmitMove.UNLIMITED, trans.unlimited.txt()),
+      (Pref.SubmitMove.CORRESPONDENCE, trans.correspondence.txt()),
+      (Pref.SubmitMove.CLASSICAL, trans.classical.txt()),
+      (Pref.SubmitMove.RAPID, trans.rapid.txt()),
+      (Pref.SubmitMove.BLITZ, "Blitz")
     )
 
   def confirmResignChoices(using Lang) =

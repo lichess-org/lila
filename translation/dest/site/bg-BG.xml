@@ -99,6 +99,7 @@
   <string name="openingExplorer">Изследовател на дебютите</string>
   <string name="openingEndgameExplorer">Изследовател на дебюти/ендшпили</string>
   <string name="xOpeningExplorer">%s датабаза</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Изиграй първия ход от изследователя на дебютите/ендшпилите</string>
   <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
   <string name="lossSavedBy50MoveRule">Загубата е преодоляна от правилото за 50 хода</string>
   <string name="winOr50MovesByPriorMistake">Победа или 50 хода заради грешка</string>
@@ -681,6 +682,11 @@
   <string name="keyGoToStartOrEnd">към началото/края</string>
   <string name="keyShowOrHideComments">покажи/скрий коментарите</string>
   <string name="keyEnterOrExitVariation">влез/излез от вариацията</string>
+  <string name="keyRequestComputerAnalysis">Поискайте компютърен анализ, Учете се от грешките си</string>
+  <string name="keyNextLearnFromYourMistakes">Продължи (Учете се от грешките си)</string>
+  <string name="keyNextBlunder">Следваща груба грешка</string>
+  <string name="keyNextMistake">Следваща грешка</string>
+  <string name="keyNextInaccuracy">Следваща неточност</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шахматният турнир включва различни времеви контроли и варианти</string>
   <string name="tournamentHomeDescription">Играй в състезания по бърз шахмат! Участвай в разписаните състезания или създай свое собствено. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck и още възможности предоставящи безкрайна шахматна забава.</string>
@@ -777,6 +783,7 @@
   <string name="invalidFen">Невалиден FEN</string>
   <string name="custom">По избор</string>
   <string name="notifications">Известия</string>
+  <string name="notificationsX">Известия: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за първия ход</item>

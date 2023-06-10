@@ -1,6 +1,6 @@
 package views.html.video
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -9,7 +9,7 @@ import controllers.routes
 
 object search:
 
-  def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using Context) =
+  def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using WebContext) =
     layout(title = s"${control.query.getOrElse("Search")} • Free Chess Videos", control = control)(
       boxTop(
         h1(pluralize("video", videos.nbResults), " found"),

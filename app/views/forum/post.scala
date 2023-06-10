@@ -4,7 +4,7 @@ package html.forum
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ask.AskApi.Frozen
@@ -12,7 +12,7 @@ import lila.forum.ForumPost
 
 object post:
 
-  def recent(posts: List[lila.forum.MiniForumPost])(using Context) =
+  def recent(posts: List[lila.forum.MiniForumPost])(using WebContext) =
     ol(
       posts map { p =>
         li(
@@ -38,8 +38,8 @@ object post:
       canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean
-  )(implicit ctx: Context) = postWithFrag match
-    case ForumPost.WithFrag(post, body, asks) =>
+  )(using ctx: WebContext) = postWithFrag match
+    case ForumPost.WithFrag(post, body) =>
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg) option div(
@@ -134,7 +134,7 @@ object post:
           )
       )
 
-  def reactions(post: ForumPost, canReact: Boolean)(using ctx: Context) =
+  def reactions(post: ForumPost, canReact: Boolean)(using ctx: WebContext) =
     val mine             = ctx.me ?? { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(

@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
@@ -15,7 +15,7 @@ import lila.user.User
 
 object storm:
 
-  def home(data: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
+  def home(data: JsObject, high: Option[StormHigh])(implicit ctx: WebContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
       moreJs = frag(
@@ -71,7 +71,7 @@ object storm:
 
   private val numberTag = tag("number")
 
-  def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(implicit ctx: Context) =
+  def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = s"${user.username} Puzzle Storm",
       moreCss = frag(cssTag("storm.dashboard")),

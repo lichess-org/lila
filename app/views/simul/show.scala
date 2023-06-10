@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -21,7 +21,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
       verdicts: Condition.WithVerdicts
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     val userIsHost = ctx.userId has sim.hostId
     views.html.base.layout(
       moreCss = cssTag("simul.show"),

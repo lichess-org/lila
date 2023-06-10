@@ -9,7 +9,7 @@ import scalatags.Text.all.stringFrag
 import views.*
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.{ HTTPRequest, IpAddress, Bearer }
 import lila.common.Json.given
@@ -31,7 +31,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       username = UserStr from get("username", req)
     )
 
-  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context) =
+  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: WebContext) =
     reqToAuthorizationRequest(ctx.req).prompt match
       case Validated.Valid(prompt) => f(prompt)
       case Validated.Invalid(error) =>
@@ -111,8 +111,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         }
       case Validated.Invalid(err) => BadRequest(err.toJson).toFuccess
 
-  def tokenRevoke = Scoped() { req ?=> _ =>
-    HTTPRequest.bearer(req) ?? { token =>
+  def tokenRevoke = Scoped() { ctx ?=> _ =>
+    HTTPRequest.bearer(ctx.req) ?? { token =>
       env.oAuth.tokenApi.revoke(token) inject NoContent
     }
   }
@@ -128,7 +128,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def challengeTokens = ScopedBody(_.Web.Mod) { req ?=> me =>
+  def challengeTokens = ScopedBody(_.Web.Mod) { ctx ?=> me =>
     if isGranted(_.ApiChallengeAdmin, me) then
       lila.oauth.OAuthTokenForm.adminChallengeTokens
         .bindFromRequest()

@@ -6,6 +6,7 @@
   right: 0;
   background: $c-bg-popup;
   padding: 0 1.5em;
+  user-select: none;
 
   > div {
     @extend %flex-column;

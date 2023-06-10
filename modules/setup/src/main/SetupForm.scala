@@ -35,11 +35,11 @@ object SetupForm:
       .verifying("invalidFen", _.validFen)
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
 
-  def friendFilled(fen: Option[Fen.Epd])(using ctx: UserContext): Form[FriendConfig] =
-    friend(ctx) fill fen.foldLeft(FriendConfig.default): (config, f) =>
+  def friendFilled(fen: Option[Fen.Epd])(using UserContext): Form[FriendConfig] =
+    friend fill fen.foldLeft(FriendConfig.default): (config, f) =>
       config.copy(fen = f.some, variant = chess.variant.FromPosition)
 
-  def friend(ctx: UserContext) = Form:
+  def friend(using ctx: UserContext) = Form:
     mapping(
       "variant"   -> variantWithFenAndVariants,
       "timeMode"  -> timeMode,
@@ -71,7 +71,7 @@ object SetupForm:
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
 
-  lazy val boardApiHook = Form:
+  private lazy val boardApiHookBase: Mapping[HookConfig] =
     mapping(
       "time"        -> optional(time),
       "increment"   -> optional(increment),
@@ -83,7 +83,7 @@ object SetupForm:
     )((t, i, d, v, r, c, g) =>
       HookConfig(
         variant = Variant.orDefault(v),
-        timeMode = if (d.isDefined) TimeMode.Correspondence else TimeMode.RealTime,
+        timeMode = if d.isDefined then TimeMode.Correspondence else TimeMode.RealTime,
         time = t | 10,
         increment = i | Clock.IncrementSeconds(5),
         days = d | Days(7),
@@ -93,9 +93,13 @@ object SetupForm:
       )
     )(_ => none)
       .verifying("Invalid clock", _.validClock)
+
+  def boardApiHook(mobile: Boolean) = Form:
+    boardApiHookBase
       .verifying(
         "Invalid time control",
-        hook => hook.makeClock.exists(lila.game.Game.isBoardCompatible) || hook.makeDaysPerTurn.isDefined
+        hook =>
+          mobile || hook.makeClock.exists(lila.game.Game.isBoardCompatible) || hook.makeDaysPerTurn.isDefined
       )
 
   object api:

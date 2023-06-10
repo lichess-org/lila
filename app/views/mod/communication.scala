@@ -2,7 +2,7 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -27,7 +27,7 @@ object communication:
       logins: lila.security.UserLogins.TableData[UserWithModlog],
       appeals: List[lila.appeal.Appeal],
       priv: Boolean
-  )(implicit ctx: Context, renderIp: RenderIp) =
+  )(implicit ctx: WebContext, renderIp: RenderIp) =
     views.html.base.layout(
       title = u.username + " communications",
       moreCss = frag(

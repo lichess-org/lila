@@ -4,7 +4,7 @@ import play.api.libs.json.{ JsObject, Json }
 
 import chess.variant.{ Variant, FromPosition, Crazyhouse }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -19,7 +19,7 @@ object userAnalysis:
       pov: lila.game.Pov,
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     views.html.base.layout(
       title = trans.analysis.txt(),
       moreCss = frag(

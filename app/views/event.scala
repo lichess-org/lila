@@ -3,7 +3,7 @@ package views.html
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
@@ -14,7 +14,7 @@ object event:
 
   private val dataSeconds = attr("data-seconds")
 
-  def create(form: Form[?])(implicit ctx: Context) =
+  def create(form: Form[?])(implicit ctx: WebContext) =
     layout(title = "New event", css = "mod.form") {
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New event"),
@@ -22,7 +22,7 @@ object event:
       )
     }
 
-  def edit(event: Event, form: Form[?])(implicit ctx: Context) =
+  def edit(event: Event, form: Form[?])(implicit ctx: WebContext) =
     layout(title = event.title, css = "mod.form") {
       div(cls := "crud edit page-menu__content box box-pad")(
         boxTop(
@@ -48,7 +48,7 @@ object event:
       case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := licon.RadioTower)
       case Some(c)                                  => img(cls := "img", src := assetUrl(s"images/$c"))
 
-  def show(e: Event)(implicit ctx: Context) =
+  def show(e: Event)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = e.title,
       moreCss = cssTag("event"),
@@ -86,7 +86,7 @@ object event:
     def apply(e: Event, text: Markdown): Frag =
       rawHtml(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
 
-  def manager(events: List[Event])(implicit ctx: Context) =
+  def manager(events: List[Event])(implicit ctx: WebContext) =
     val title = "Event manager"
     layout(title = title) {
       div(cls := "crud page-menu__content box")(
@@ -130,7 +130,7 @@ object event:
       )
     }
 
-  private def inForm(form: Form[?])(implicit ctx: Context) =
+  private def inForm(form: Form[?])(implicit ctx: WebContext) =
     frag(
       form3.split(
         form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(
@@ -217,7 +217,7 @@ object event:
       form3.action(form3.submit(trans.apply()))
     )
 
-  private def layout(title: String, css: String = "mod.misc")(body: Frag)(implicit ctx: Context) =
+  private def layout(title: String, css: String = "mod.misc")(body: Frag)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),

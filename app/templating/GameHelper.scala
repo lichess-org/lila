@@ -4,7 +4,7 @@ package templating
 import chess.{ Black, Clock, Color, Mode, Outcome, Ply, White, Status as S }
 import controllers.routes
 import play.api.i18n.Lang
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Namer, Player, LightPlayer, Pov }
 import lila.i18n.{ defaultLang, I18nKeys as trans }
@@ -122,7 +122,7 @@ trait GameHelper:
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(using ctx: Context): Frag =
+  )(using ctx: WebContext): Frag =
     given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
@@ -166,7 +166,7 @@ trait GameHelper:
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(using ctx: Context): Frag =
+  )(using ctx: WebContext): Frag =
     given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match
@@ -253,7 +253,7 @@ trait GameHelper:
       color: Color,
       ownerLink: Boolean = false,
       tv: Boolean = false
-  )(using ctx: Context): String = {
+  )(using ctx: WebContext): String = {
     val owner = ownerLink ?? ctx.me.flatMap(game.player)
     if (tv) routes.Tv.index
     else
@@ -262,9 +262,9 @@ trait GameHelper:
       }
   }.toString
 
-  def gameLink(pov: Pov)(using Context): String = gameLink(pov.game, pov.color)
+  def gameLink(pov: Pov)(using WebContext): String = gameLink(pov.game, pov.color)
 
-  def challengeTitle(c: lila.challenge.Challenge)(using ctx: Context) =
+  def challengeTitle(c: lila.challenge.Challenge)(using ctx: WebContext) =
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
@@ -280,7 +280,7 @@ trait GameHelper:
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =
+  def challengeOpenGraph(c: lila.challenge.Challenge)(using WebContext) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

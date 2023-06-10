@@ -2,7 +2,7 @@ package views.html.clas
 
 import controllers.clas.routes.{ Clas as clasRoutes }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite }
@@ -12,7 +12,7 @@ object invite:
   def show(
       c: Clas,
       invite: ClasInvite
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     views.html.base.layout(
       moreCss = cssTag("clas"),
       title = c.name

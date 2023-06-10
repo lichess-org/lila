@@ -13,6 +13,15 @@ object PrefForm:
   private def checkedNumber(choices: Seq[(Int, String)]) =
     number.verifying(containedIn(choices))
 
+  private def bitPresent(anInt: Int, bit: Int): Boolean =
+    (anInt & bit) == bit
+
+  private def bitContainedIn(choices: Seq[(Int, String)]): Int => Boolean =
+    choice => choice == 0 || choices.exists((bit, _) => bitPresent(choice, bit))
+
+  private def bitCheckedNumber(choices: Seq[(Int, String)]) =
+    number.verifying(bitContainedIn(choices))
+
   private lazy val booleanNumber =
     number.verifying(Pref.BooleanPref.verify)
 
@@ -36,7 +45,7 @@ object PrefForm:
         "takeback"      -> checkedNumber(Pref.Takeback.choices),
         "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices),
         "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
-        "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
+        "submitMove"    -> optional(bitCheckedNumber(Pref.SubmitMove.choices)),
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
         "keyboardMove"  -> optional(booleanNumber),
         "voice"         -> optional(booleanNumber),
@@ -76,7 +85,7 @@ object PrefForm:
       takeback: Int,
       autoQueen: Int,
       autoThreefold: Int,
-      submitMove: Int,
+      submitMove: Option[Int],
       confirmResign: Int,
       keyboardMove: Option[Int],
       voice: Option[Int],
@@ -122,7 +131,7 @@ object PrefForm:
         studyInvite = studyInvite | Pref.default.studyInvite,
         premove = behavior.premove == 1,
         animation = display.animation,
-        submitMove = behavior.submitMove,
+        submitMove = behavior.submitMove.getOrElse(0),
         insightShare = insightShare,
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
@@ -157,7 +166,7 @@ object PrefForm:
           takeback = pref.takeback,
           autoQueen = pref.autoQueen,
           autoThreefold = pref.autoThreefold,
-          submitMove = pref.submitMove,
+          submitMove = pref.submitMove.some,
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
           voice = (if pref.hasVoice then 1 else 0).some,

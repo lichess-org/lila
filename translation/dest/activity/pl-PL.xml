@@ -3,22 +3,22 @@
   <string name="activity">Aktywność</string>
   <string name="hostedALiveStream">Udostępnił stream na żywo</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Wspomógł lichess.org przez miesiąc jako %2$s</item>
-    <item quantity="few">Wspiera Lichess przez %1$s miesiące jako %2$s</item>
-    <item quantity="many">Wsparcie lichess.org przez %1$s miesięcy jako %2$s</item>
-    <item quantity="other">Wsparcie lichess.org przez %1$s miesięcy jako %2$s</item>
+    <item quantity="one">Wspomógł/-ogła lichess.org na miesiąc jako %2$s</item>
+    <item quantity="few">Wspiera lichess.org przez %1$s miesiące jako %2$s</item>
+    <item quantity="many">Wspiera lichess.org przez %1$s miesięcy jako %2$s</item>
+    <item quantity="other">Wspiera lichess.org przez %1$s miesięcy jako %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Przerobione %1$s ćwiczenie w %2$s</item>
-    <item quantity="few">Przerobione %1$s ćwiczenia w %2$s</item>
-    <item quantity="many">Przerobione %1$s ćwiczeń w %2$s</item>
-    <item quantity="other">Przerobione %1$s ćwiczeń w %2$s</item>
+    <item quantity="one">Przerobiono %1$s ćwiczenie w %2$s</item>
+    <item quantity="few">Przerobiono %1$s ćwiczenia w %2$s</item>
+    <item quantity="many">Przerobiono %1$s ćwiczeń w %2$s</item>
+    <item quantity="other">Przerobiono %1$s ćwiczeń w %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Rozwiązanie zadania szachowego</item>
-    <item quantity="few">Rozwiązanie %s zadań szachowych</item>
-    <item quantity="many">Rozwiązanie %s zadań szachowych</item>
-    <item quantity="other">Rozwiązanie %s zadań szachowych</item>
+    <item quantity="one">Rozwiązano %s zadanie szachowe</item>
+    <item quantity="few">Rozwiązano %s zadania szachowe</item>
+    <item quantity="many">Rozwiązano %s zadań szachowych</item>
+    <item quantity="other">Rozwiązano %s zadań szachowych</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Rozegrana %1$s partia %2$s</item>
@@ -57,10 +57,10 @@
     <item quantity="other">Rozpoczęcie obserwowania %s graczy</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Zyskanie nowego obserwującego</item>
-    <item quantity="few">Zyskanie %s nowych obserwujących</item>
-    <item quantity="many">Zyskanie %s nowych obserwujących</item>
-    <item quantity="other">Zyskanie %s nowych obserwujących</item>
+    <item quantity="one">Zyskano %s nowego obserwującego/-ą</item>
+    <item quantity="few">Zyskano %s nowych obserwujących</item>
+    <item quantity="many">Zyskano %s nowych obserwujących</item>
+    <item quantity="other">Zyskano %s nowych obserwujących</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Rozegranie symultany</item>

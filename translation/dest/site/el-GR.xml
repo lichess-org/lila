@@ -675,6 +675,11 @@
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
+  <string name="keyRequestComputerAnalysis">Ζητήστε ανάλυση της θέσης από υπολογιστή, Μάθετε από τα λάθη σας</string>
+  <string name="keyNextLearnFromYourMistakes">Συνέχεια (Μάθετε από τα λάθη σας)</string>
+  <string name="keyNextBlunder">Επόμενο σοβαρό σφάλμα</string>
+  <string name="keyNextMistake">Επόμενο λάθος</string>
+  <string name="keyNextInaccuracy">Επόμενη ανακρίβεια</string>
   <string name="newTournament">Νέο πρωτάθλημα</string>
   <string name="tournamentHomeTitle">Σκακιστικό πρωτάθλημα διαφόρων χρόνων και εκδοχών</string>
   <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
@@ -771,6 +776,7 @@
   <string name="invalidFen">Μη έγκυρο FEN</string>
   <string name="custom">Προσαρμογή</string>
   <string name="notifications">Ειδοποιήσεις</string>
+  <string name="notificationsX">Ειδοποιήσεις: %1$s</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>

@@ -5,7 +5,7 @@ import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 
-import lila.chat.GetLinkCheck
+import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.common.config.*
 import lila.hub.actorApi.Announce
@@ -107,12 +107,16 @@ final class Env(
   if (mode == Mode.Prod) scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
   private lazy val linkCheck = wire[LinkCheck]
+  lazy val chatFreshness     = wire[ChatFreshness]
 
   private lazy val pagerDuty = wire[PagerDuty]
 
   Bus.subscribeFuns(
     "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>
       promise completeWith linkCheck(line, source)
+    },
+    "chatFreshness" -> { case IsChatFresh(source, promise) =>
+      promise completeWith chatFreshness.of(source)
     },
     "announce" -> {
       case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit

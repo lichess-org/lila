@@ -120,6 +120,7 @@
   <string name="memory">Aarbechtsspäicher</string>
   <string name="infiniteAnalysis">Endlos Analyse</string>
   <string name="removesTheDepthLimit">Entfernt d\'Déifenbegrenzung an hält däin Computer waarm</string>
+  <string name="engineManager">Engineverwaltung</string>
   <string name="blunder">Gaffe</string>
   <string name="mistake">Feeler</string>
   <string name="inaccuracy">Ongenauegkeet</string>
@@ -676,6 +677,11 @@
   <string name="keyGoToStartOrEnd">bei Start/Schluss goen</string>
   <string name="keyShowOrHideComments">Kommentarer weisen/verstoppen</string>
   <string name="keyEnterOrExitVariation">Variant wiehlen/verloossen</string>
+  <string name="keyRequestComputerAnalysis">Computer-Analyse ufroen, léier aus dengen Feeler</string>
+  <string name="keyNextLearnFromYourMistakes">Nächst (Aus dengen Feeler léieren)</string>
+  <string name="keyNextBlunder">Nächst Gaffe</string>
+  <string name="keyNextMistake">Nächsten Feeler</string>
+  <string name="keyNextInaccuracy">Nächst Ongenauegkeet</string>
   <string name="newTournament">Neien Turnéier</string>
   <string name="tournamentHomeTitle">Schach Turnéier mat verschiddenen Zäitkontrollen and Varianten</string>
   <string name="tournamentHomeDescription">Spill rasant Schachturnéier! Triet engem offiziell geplangten Turnéier bäi oder kreéier däin eegenen. Bullet, Blitz, Klassesch, Chess960, King of the Kill, Threecheck an weider Optiounen fir grenzenlosen Schachspaass.</string>

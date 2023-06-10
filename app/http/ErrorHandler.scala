@@ -25,7 +25,7 @@ final class ErrorHandler(
       lila.mon.http.error(actionName, client, req.method, 500).increment()
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
-        val errorCtx = lila.api.Context.error(
+        val errorCtx = lila.api.WebContext.error(
           req,
           lila.i18n.defaultLang,
           HTTPRequest.isSynchronousHttp(req) option lila.api.Nonce.random

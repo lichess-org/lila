@@ -1,6 +1,6 @@
 package views.html.swiss
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKeys as trans }
@@ -22,7 +22,7 @@ object bits:
 
   def idToName(id: SwissId): String = env.swiss.getName sync id getOrElse "Tournament"
 
-  def notFound()(using Context) =
+  def notFound()(using WebContext) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
@@ -36,7 +36,7 @@ object bits:
       )
     }
 
-  def forTeam(swisses: List[Swiss])(using Context) =
+  def forTeam(swisses: List[Swiss])(using WebContext) =
     table(cls := "slist")(
       tbody(
         swisses map { s =>
@@ -79,7 +79,7 @@ object bits:
           trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
 
-  def homepageSpotlight(s: Swiss)(using Context) =
+  def homepageSpotlight(s: Swiss)(using WebContext) =
     a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
       iconTag(s.perfType.icon)(cls := "img icon"),
       span(cls := "content")(
@@ -92,7 +92,7 @@ object bits:
       )
     )
 
-  def jsI18n(using Context) = i18nJsObject(i18nKeys)
+  def jsI18n(using WebContext) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.join,

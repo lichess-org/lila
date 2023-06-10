@@ -5,7 +5,7 @@ import play.api.libs.json.JsArray
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
@@ -36,7 +36,7 @@ final class Analyse(
     }
   }
 
-  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
+  def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: WebContext) =
     if HTTPRequest.isCrawler(ctx.req).yes then replayBot(pov)
     else
       env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
@@ -109,7 +109,7 @@ final class Analyse(
         }
     }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using Context) =
+  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using WebContext) =
     (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
@@ -125,7 +125,7 @@ final class Analyse(
       }
     }
 
-  private def replayBot(pov: Pov)(using Context) =
+  private def replayBot(pov: Pov)(using WebContext) =
     for
       initialFen <- env.game.gameRepo initialFen pov.gameId
       analysis   <- env.analyse.analyser get pov.game
@@ -156,13 +156,13 @@ final class Analyse(
     }
   }
 
-  def externalEngineCreate = ScopedBody(_.Engine.Write) { req ?=> me =>
-    HTTPRequest.bearer(req) ?? { bearer =>
+  def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me =>
+    HTTPRequest.bearer(ctx.req) ?? { bearer =>
       val tokenId = AccessToken.Id from bearer
       lila.analyse.ExternalEngine.form
         .bindFromRequest()
         .fold(
-          err => newJsonFormError(err)(using me.realLang | reqLang),
+          err => newJsonFormError(err),
           data =>
             env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
               Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
@@ -171,13 +171,13 @@ final class Analyse(
     }
   }
 
-  def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { req ?=> me =>
+  def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me =>
     env.analyse.externalEngine.find(me, id) flatMap {
       _.fold(notFoundJson()) { engine =>
         lila.analyse.ExternalEngine.form
           .bindFromRequest()
           .fold(
-            err => newJsonFormError(err)(using me.realLang | reqLang),
+            err => newJsonFormError(err),
             data =>
               env.analyse.externalEngine.update(engine, data) map { engine =>
                 JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))

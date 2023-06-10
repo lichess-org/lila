@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ *, given }
 import lila.hub.actorApi.captcha.ValidCaptcha
 
@@ -60,7 +60,7 @@ final class Main(
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
-  private def serveMobile(using Context) =
+  private def serveMobile(using WebContext) =
     pageHit
     OptionOk(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
       html.mobile(doc, resolver)

@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.game.Pov
 import lila.round.JsonView.WithFlags
@@ -107,7 +107,7 @@ final class UserAnalysis(
       }
 
   private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(using
-      ctx: Context
+      ctx: WebContext
   ): Fu[Result] =
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
       val owner = isMyPov(pov)

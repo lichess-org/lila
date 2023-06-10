@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
 import lila.common.Json.given
@@ -78,7 +78,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  private def modData(streamer: StreamerModel)(using Context) =
+  private def modData(streamer: StreamerModel)(using WebContext) =
     isGranted(_.ModLog) ?? {
       logApi.userHistory(streamer.userId) zip
         env.user.noteApi.byUserForMod(streamer.userId) zip
@@ -169,10 +169,16 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def youTubePubSubChallenge = Anon:
     fuccess:
       get("hub.challenge", req).fold(BadRequest): challenge =>
-        lila.log("streamer").info(s"youTubePubSubChallenge $challenge")
+        val days      = get("hub.lease_seconds", req).map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
+        val channelId = get("hub.topic", req).map(t => s" on ${t.split("=").last}")
+        lila
+          .log("streamer")
+          .info(
+            s"WebSub: CONFIRMED ${~get("hub.mode", req)}${~days}${~channelId}"
+          )
         Ok(challenge)
 
-  private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context) =
+  private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext) =
     ctx.me.fold(notFound): me =>
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.id) flatMap {
@@ -184,7 +190,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
         .toFuccess
 
-  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: Context) =
+  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: WebContext) =
     ctx.noKid ?? {
       if (s.streamer.isListed || ctx.me.exists(_ is s.streamer) || isGranted(_.Admin)) f
       else notFound

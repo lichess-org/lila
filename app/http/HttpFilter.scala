@@ -28,7 +28,12 @@ final class HttpFilter(env: Env)(using val mat: Materializer) extends Filter:
       redirectWrongDomain(req) map fuccess getOrElse {
         nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
           monitoring(req, startTime, result)
-          result
+          if HTTPRequest.isChrome113Plus(req) then
+            result.withHeaders(
+              "Cross-Origin-Opener-Policy"   -> "same-origin",
+              "Cross-Origin-Embedder-Policy" -> "credentialless"
+            )
+          else result
         }
       }
 

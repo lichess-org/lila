@@ -1,6 +1,6 @@
 package views.html.mod
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.{ Holder, User }
@@ -10,7 +10,7 @@ import controllers.routes
 
 object permissions:
 
-  def apply(u: User, me: Holder)(implicit ctx: Context) =
+  def apply(u: User, me: Holder)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
