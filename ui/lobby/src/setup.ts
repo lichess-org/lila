@@ -389,16 +389,15 @@ export default class Setup {
       });
 
     const initAdvancedTimeSetup = (): void => {
+      $advancedTimeToggle.toggleClass('show-inline-block', $timeModeSelect.val() === '1');
       if (
         ($incrementInput.val() === '0' && $periodsInput.filter(':checked').val() === '1') ||
         $timeModeSelect.val() !== '1'
       ) {
         $advancedTimeSetup.hide();
-        $advancedTimeToggle.hide();
         $advancedTimeToggle.removeClass('active');
       } else {
         $advancedTimeSetup.show();
-        $advancedTimeToggle.show();
         $advancedTimeToggle.addClass('active');
       }
     };
