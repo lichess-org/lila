@@ -84,7 +84,7 @@ const toKanji = {
   Problemname: '作品名',
   Problemid: '作品番号',
   Composer: '作者',
-  Dateofpublicatio: '発表年月',
+  Dateofpublication: '発表年月',
   Publication: '発表誌',
   Collection: '出典',
   Length: '手数',
