@@ -38,6 +38,31 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def byId(id: StudyId) = coll(_.find($id(id), projection.some).one[Study])
 
+  def byIdWithChapter(
+      chapterColl: AsyncColl
+  )(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
+    coll:
+      _.aggregateOne(): framework =>
+        import framework.*
+        Match($id(id)) -> List(
+          PipelineOperator(
+            $lookup.pipeline(
+              from = chapterColl,
+              local = "_id",
+              foreign = "studyId",
+              as = "chapter",
+              pipe = List($doc("$match" -> $doc("_id" -> chapterId)))
+            )
+          ),
+          UnwindField("chapter")
+        )
+      .map: docs =>
+        for
+          doc     <- docs
+          study   <- doc.asOpt[Study]
+          chapter <- doc.getAsOpt[Chapter]("chapter")
+        yield Study.WithChapter(study, chapter)
+
   def byOrderedIds(ids: Seq[StudyId]) = coll(_.byOrderedIds[Study, StudyId](ids)(_.id))
 
   def lightById(id: StudyId): Fu[Option[Study.LightStudy]] =
