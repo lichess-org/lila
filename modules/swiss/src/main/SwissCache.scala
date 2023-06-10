@@ -37,8 +37,6 @@ final class SwissCache(
         mongo.swiss.byId[Swiss](id).map2(_.roundInfo)
 
   private[swiss] object featuredInTeam:
-    private val cache = cacheApi[TeamId, List[SwissId]](256, "swiss.visibleByTeam"):
-      _.expireAfterAccess(30 minutes).buildAsyncFuture(compute)
     private val compute = (teamId: TeamId) =>
       val max = 5
       for
@@ -55,6 +53,9 @@ final class SwissCache(
           "_id"
         )
       yield enterable ::: finished
+
+    private val cache = cacheApi[TeamId, List[SwissId]](256, "swiss.visibleByTeam"):
+      _.expireAfterAccess(30 minutes).buildAsyncFuture(compute)
 
     export cache.get
     def invalidate(teamId: TeamId) = cache.put(teamId, compute(teamId))
