@@ -51,7 +51,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
               local = "_id",
               foreign = "studyId",
               as = "chapter",
-              pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", chapterId)))))
+              pipe = List($doc("$match" -> $doc("_id" -> chapterId)))
             )
           ),
           UnwindField("chapter")
