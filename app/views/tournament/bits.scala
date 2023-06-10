@@ -1,6 +1,6 @@
 package views.html.tournament
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.{ I18nKeys as trans }
@@ -10,7 +10,7 @@ import controllers.routes
 
 object bits:
 
-  def notFound()(using Context) =
+  def notFound()(using WebContext) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
@@ -24,7 +24,7 @@ object bits:
       )
     }
 
-  def enterable(tours: List[Tournament])(using Context) =
+  def enterable(tours: List[Tournament])(using WebContext) =
     table(cls := "tournaments")(
       tours map { tour =>
         tr(
@@ -50,9 +50,9 @@ object bits:
         "If it has prizes, Lichess is not responsible for paying them."
       )
 
-  def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)
+  def scheduleJsI18n(using WebContext) = i18nJsObject(schedulei18nKeys)
 
-  def jsI18n(tour: Tournament)(using Context) = i18nJsObject(
+  def jsI18n(tour: Tournament)(using WebContext) = i18nJsObject(
     i18nKeys ++ (tour.isTeamBattle ?? teamBattleI18nKeys)
   )
 

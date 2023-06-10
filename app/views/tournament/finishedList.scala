@@ -1,6 +1,6 @@
 package views.html.tournament
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.Tournament
@@ -9,10 +9,10 @@ import controllers.routes
 
 object finishedList:
 
-  def apply(finished: List[Tournament])(implicit ctx: Context): Tag =
+  def apply(finished: List[Tournament])(implicit ctx: WebContext): Tag =
     tbody(finished map apply)
 
-  def apply(t: Tournament)(implicit ctx: Context): Tag =
+  def apply(t: Tournament)(implicit ctx: WebContext): Tag =
     tr(cls := "paginated")(
       td(cls := "icon")(iconTag(tournamentIcon(t))),
       header(t),
@@ -26,7 +26,7 @@ object finishedList:
       )
     )
 
-  def header(t: Tournament)(implicit ctx: Context) =
+  def header(t: Tournament)(implicit ctx: WebContext) =
     td(cls := "header")(
       a(href := routes.Tournament.show(t.id))(
         span(cls := "name")(t.name()),

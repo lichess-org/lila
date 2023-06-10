@@ -99,6 +99,7 @@
   <string name="openingExplorer">Opningsbok</string>
   <string name="openingEndgameExplorer">Opnings-/sluttspelbok</string>
   <string name="xOpeningExplorer">%s opningsutforskar</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spel det første trekket frå opning- og sluttspelbok</string>
   <string name="winPreventedBy50MoveRule">Vinst forhindra av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindra av 50-trekkregelen</string>
   <string name="winOr50MovesByPriorMistake">Vinst eller 50 trekk etter tidlegare feil</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Avbryt førespurnad om omkamp</string>
   <string name="viewRematch">Vis omkampen</string>
   <string name="confirmMove">Stadfest trekk</string>
+  <string name="enableConfirmationForThisGame">Aktivér stadfesting for dette partiet</string>
   <string name="play">Spel</string>
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Praterom</string>
@@ -682,6 +684,11 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyGoToStartOrEnd">gå til byrjinga/slutten</string>
   <string name="keyShowOrHideComments">syn/gøym kommentarar</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
+  <string name="keyRequestComputerAnalysis">Be om maskinanalyse. Lær av feila dine</string>
+  <string name="keyNextLearnFromYourMistakes">Neste (lær av feila dine)</string>
+  <string name="keyNextBlunder">Neste store mistak (\"bukk\")</string>
+  <string name="keyNextMistake">Neste mistak</string>
+  <string name="keyNextInaccuracy">Neste upresise trekk</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
   <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lyn-, snøgg-, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
@@ -779,6 +786,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpassa</string>
   <string name="notifications">Meldingar</string>
+  <string name="notificationsX">Varsel: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>

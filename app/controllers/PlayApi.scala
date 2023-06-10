@@ -4,17 +4,16 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.app.{ given, * }
+import lila.api.AnyContext
 import lila.game.Pov
 import lila.user.{ User as UserModel }
 
 // both bot & board APIs
 final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private given (using req: RequestHeader): play.api.i18n.Lang = reqLang
-
   // bot endpoints
 
-  def botGameStream(id: GameAnyId) = Scoped(_.Bot.Play) { req ?=> me =>
+  def botGameStream(id: GameAnyId) = Scoped(_.Bot.Play) { ctx ?=> me =>
     WithPovAsBot(id, me) { impl.gameStream(me, _) }
   }
 
@@ -22,7 +21,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
     WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
   }
 
-  def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { req ?=> me =>
+  def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { ctx ?=> me =>
     if cmd == "account/upgrade" then
       env.user.repo
         .isManaged(me.id)
@@ -43,7 +42,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   // board endpoints
 
-  def boardGameStream(id: GameAnyId) = Scoped(_.Board.Play) { req ?=> me =>
+  def boardGameStream(id: GameAnyId) = Scoped(_.Board.Play) { ctx ?=> me =>
     WithPovAsBoard(id, me) { impl.gameStream(me, _) }
   }
 
@@ -53,14 +52,14 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         impl.move(me, _, uci, offeringDraw)
     }
 
-  def boardCommandPost(cmd: String) = ScopedBody(_.Board.Play) { req ?=> me =>
+  def boardCommandPost(cmd: String) = ScopedBody(_.Board.Play) { ctx ?=> me =>
     impl.command(me, cmd)(WithPovAsBoard)
   }
 
   // common code for bot & board APIs
   private object impl:
 
-    def gameStream(me: UserModel, pov: Pov)(using RequestHeader) =
+    def gameStream(me: UserModel, pov: Pov)(using AnyContext) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
       }

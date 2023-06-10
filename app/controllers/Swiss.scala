@@ -6,7 +6,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 import views.*
 
-import lila.api.Context
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.swiss.Swiss.ChatFor
@@ -21,12 +21,12 @@ final class Swiss(
     mat: akka.stream.Materializer
 ) extends LilaController(env):
 
-  private def swissNotFound(using Context) = NotFound(html.swiss.bits.notFound())
+  private def swissNotFound(using WebContext) = NotFound(html.swiss.bits.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Swiss.home)(serveHome)
 
-  private def serveHome(using Context) = NoBot {
+  private def serveHome(using WebContext) = NoBot {
     ctx.userId.??(env.team.cached.teamIdsList) flatMap
       env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
   }
@@ -103,7 +103,7 @@ final class Swiss(
         }
       }
 
-  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
+  private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: WebContext): Fu[Result] =
     ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMapz f
 
   def form(teamId: TeamId) = Auth { ctx ?=> me =>
@@ -119,19 +119,18 @@ final class Swiss(
       CheckTeamLeader(teamId):
         env.swiss.forms
           .create(me)
-          .bindFromRequest()(ctx.body, formBinding)
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.swiss.form.create(err, teamId)).toFuccess,
             data =>
-              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
+              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))):
                 env.swiss.api.create(data, me, teamId) map { swiss =>
                   Redirect(routes.Swiss.show(swiss.id))
                 }
-              }
           )
   }
 
-  def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.isBot || me.lame then notFoundJson("This account cannot create tournaments")
     else
       env.team.cached.isLeader(teamId, me.id) flatMap {
@@ -142,7 +141,7 @@ final class Swiss(
             .fold(
               jsonFormErrorDefaultLang,
               data =>
-                tourC.rateLimitCreation(me, isPrivate = true, req, rateLimited):
+                tourC.rateLimitCreation(me, isPrivate = true, ctx.req, rateLimited):
                   env.swiss.api.create(data, me, teamId) flatMap env.swiss.json.api map JsonOk
             )
         else notFoundJson("You're not a leader of that team")
@@ -165,7 +164,7 @@ final class Swiss(
       doJoin(me, id, bodyPassword)
   }
 
-  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
+  def apiJoin(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     if me.lame || me.isBot
     then Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).toFuccess
     else doJoin(me, id, bodyPassword)
@@ -213,35 +212,32 @@ final class Swiss(
         )
   }
 
-  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me =>
-    given play.api.i18n.Lang = reqLang
+  def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { ctx ?=> me =>
     WithEditableSwiss(
       id,
       me,
       _ => Unauthorized(Json.obj("error" -> "This user cannot edit this swiss")).toFuccess
-    ) { swiss =>
+    ): swiss =>
       env.swiss.forms
         .edit(me, swiss)
         .bindFromRequest()
         .fold(
           newJsonFormError,
-          data => {
+          data =>
             env.swiss.api.update(swiss.id, data) flatMapz { swiss =>
               env.swiss.json.api(swiss) map JsonOk
             }
-          }
         )
-    }
   }
 
   def scheduleNextRound(id: SwissId) =
-    def doSchedule(using Request[?])(me: UserModel) = WithEditableSwiss(id, me) { swiss =>
+    def doSchedule(using BodyContext[?])(me: UserModel) = WithEditableSwiss(id, me): swiss =>
       env.swiss.forms.nextRound
         .bindFromRequest()
         .fold(
           err =>
             render.async:
-              case Accepts.Json() => newJsonFormError(err)(using reqLang)
+              case Accepts.Json() => newJsonFormError(err)
               case _              => Redirect(routes.Swiss.show(id)).toFuccess
           ,
           date =>
@@ -249,11 +245,7 @@ final class Swiss(
               case Accepts.Json() => NoContent
               case _              => Redirect(routes.Swiss.show(id))
         )
-    }
-    AuthOrScopedBody(_.Tournament.Write)(
-      auth = doSchedule,
-      scoped = doSchedule
-    )
+    AuthOrScopedBody(_.Tournament.Write)(doSchedule, doSchedule)
 
   def terminate(id: SwissId) = Auth { _ ?=> me =>
     WithEditableSwiss(id, me): swiss =>
@@ -312,10 +304,10 @@ final class Swiss(
       else fallback(swiss)
     }
 
-  private def canHaveChat(swiss: SwissModel)(using Context): Fu[Boolean] =
+  private def canHaveChat(swiss: SwissModel)(using WebContext): Fu[Boolean] =
     env.api.chatFreshness.of(swiss) ?? canHaveChat(swiss.roundInfo)
 
-  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: Context): Fu[Boolean] =
+  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: WebContext): Fu[Boolean] =
     (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
       swiss.chatFor match
         case ChatFor.NONE                  => fuFalse

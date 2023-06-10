@@ -95,7 +95,10 @@ final class StudyApi(
       }
     } >> byIdWithFirstChapter(study.id)
 
-  def studyIdOf = chapterRepo.studyIdOf
+  def recentByOwnerWithChapterCount = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
+  def recentByContributorWithChapterCount = studyRepo.recentByContributorWithChapterCount(chapterRepo.coll)
+
+  export chapterRepo.studyIdOf
 
   def members(id: StudyId): Fu[Option[StudyMembers]] = studyRepo membersById id
 

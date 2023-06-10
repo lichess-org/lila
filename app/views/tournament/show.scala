@@ -3,7 +3,7 @@ package tournament
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
@@ -20,7 +20,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],
       shieldOwner: Option[UserId]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(

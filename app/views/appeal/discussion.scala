@@ -5,7 +5,7 @@ import controllers.routes
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
@@ -29,7 +29,7 @@ object discussion:
       markedByMe: Boolean
   )
 
-  def apply(appeal: Appeal, me: User, textForm: Form[?])(using Context) =
+  def apply(appeal: Appeal, me: User, textForm: Form[?])(using WebContext) =
     bits.layout("Appeal") {
       main(cls := "page-small box box-pad appeal")(
         renderAppeal(appeal, textForm, Right(me))
@@ -40,7 +40,7 @@ object discussion:
       appeal: Appeal,
       textForm: Form[?],
       modData: ModData
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     bits.layout(s"Appeal by ${modData.suspect.user.username}") {
       main(cls := "box box-pad appeal")(
         renderAppeal(appeal, textForm, Left(modData)),
@@ -79,7 +79,7 @@ object discussion:
       appeal: Appeal,
       textForm: Form[?],
       as: Either[ModData, User]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     frag(
       h1(
         div(cls := "title")(
@@ -133,7 +133,7 @@ object discussion:
       )
     )
 
-  private def renderMark(suspect: User)(using ctx: Context) =
+  private def renderMark(suspect: User)(using ctx: WebContext) =
     val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
     if (suspect.enabled.no || query.contains("alt")) tree.closedByModerators
     else if (suspect.marks.engine || query.contains("engine")) tree.engineMarked
@@ -142,7 +142,7 @@ object discussion:
     else if (suspect.marks.rankban || query.contains("rankban")) tree.excludedFromLeaderboards
     else tree.cleanAllGood
 
-  private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
+  private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using WebContext) =
     if (appeal isAbout userId) userIdLink(userId.some, params = asMod ?? "?mod")
     else
       span(
@@ -154,7 +154,7 @@ object discussion:
         )
       )
 
-  def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using Context) =
+  def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using WebContext) =
     postForm(st.action := action)(
       form3.globalError(form),
       form3.group(

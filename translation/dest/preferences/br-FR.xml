@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Dibaboù</string>
+  <string name="privacy">Buhez prevez</string>
+  <string name="notifications">Kemennoù</string>
   <string name="pieceAnimation">Mod da fiñval ar pezhioù</string>
   <string name="materialDifference">Diforc\'hioù a-fet dafar</string>
   <string name="boardHighlights">Gouleier evit sikour war an dablez (fiñvadenn ziwezhañ ha bec\'h d\'ar roue)</string>
@@ -42,5 +44,7 @@
   <string name="castleByMovingOntoTheRook">Diblasañ ar roue war an tour evit rokañ</string>
   <string name="inputMovesWithTheKeyboard">Aozañ an touchennaoueg evit c\'hoari gantañ</string>
   <string name="yourPreferencesHaveBeenSaved">Savetaet eo bet ho tibaboù.</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Klevet ar c\'hloc\'h</string>
+  <string name="notifyTournamentSoon">Un tournamant a vo a-benn nebeut</string>
+  <string name="notifyWeb">Merdeer</string>
+  <string name="bellNotificationSound">Klevet ar c\'hloc\'h</string>
 </resources>

@@ -102,6 +102,7 @@
   <string name="openingExplorer">Raziskovalec otvoritev</string>
   <string name="openingEndgameExplorer">Raziskovalec otovoritev/končnic</string>
   <string name="xOpeningExplorer">%s raziskovalec otvoritev</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Odigrajte prvo potezo raziskovalca na začetku/koncu igre</string>
   <string name="winPreventedBy50MoveRule">Zmago preprečilo pravilo 50 potez</string>
   <string name="lossSavedBy50MoveRule">Poraz rešilo pravilo 50 potez</string>
   <string name="winOr50MovesByPriorMistake">Zmagajte ali 50 potez po predhodni napaki</string>
@@ -744,6 +745,11 @@
   <string name="keyGoToStartOrEnd">pojdi na začetek/konec</string>
   <string name="keyShowOrHideComments">pokaži/skrij komentarje</string>
   <string name="keyEnterOrExitVariation">vstopi/izstopi v varianto</string>
+  <string name="keyRequestComputerAnalysis">Zahtevajte računalniško analizo, učite se iz svojih napak</string>
+  <string name="keyNextLearnFromYourMistakes">Naslednji (Učite se iz svojih napak)</string>
+  <string name="keyNextBlunder">Naslednji spodrsljaj</string>
+  <string name="keyNextMistake">Naslednja napaka</string>
+  <string name="keyNextInaccuracy">Naslednja nepravilnost</string>
   <string name="newTournament">Nov turnir</string>
   <string name="tournamentHomeTitle">Turnir z možnostjo različnih variant in različnih igralnih časov</string>
   <string name="tournamentHomeDescription">Igraj turnirje z hitrim tempom! Pridruži se uradnemu turnirju ali ustvari svoj turnir. Hitropotezno, Pospešeno, Klasično, Šah960, Trojni šah in ostale možnosti so na voljo za neskončno šahovsko zabavo.</string>
@@ -845,6 +851,7 @@
   <string name="invalidFen">Neveljaven FEN</string>
   <string name="custom">Po meri</string>
   <string name="notifications">Obvestila</string>
+  <string name="notificationsX">Obvestila: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund za prvo potezo</item>

@@ -3,7 +3,7 @@ package account
 
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.EmailConfirm.Help.Status
@@ -12,7 +12,7 @@ import controllers.routes
 
 object emailConfirmHelp:
 
-  def apply(form: Form[?], status: Option[Status])(using Context) =
+  def apply(form: Form[?], status: Option[Status])(using WebContext) =
     views.html.base.layout(
       title = trans.emailConfirmHelp.txt(),
       moreCss = cssTag("email-confirm")

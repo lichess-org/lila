@@ -99,6 +99,7 @@
   <string name="openingExplorer">Eksplorues hapjesh</string>
   <string name="openingEndgameExplorer">Eksplorues hapjesh/mbylljesh loje</string>
   <string name="xOpeningExplorer">Eksploruesi i hapjeve %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Luaj lëvizjen e parë të eksploruesit të hapjeve/mbylljeve të lojës</string>
   <string name="winPreventedBy50MoveRule">Fitore e parandaluar nga rregulli i 50 lëvizjeve</string>
   <string name="lossSavedBy50MoveRule">Humbje e parandaluar nga rregulli i 50 lëvizjeve</string>
   <string name="winOr50MovesByPriorMistake">Fitore ose 50 lëvizje me gabim të mëparshëm</string>
@@ -287,6 +288,7 @@
   <string name="cancelRematchOffer">Anulo ofertën për lojë rishtas</string>
   <string name="viewRematch">Shihni lojën rishtas</string>
   <string name="confirmMove">Konfirmo lëvizjen</string>
+  <string name="enableConfirmationForThisGame">Aktivizo ripohim për këtë lojë</string>
   <string name="play">Luaj</string>
   <string name="inbox">Mesazhet</string>
   <string name="chatRoom">Dhomë bisedash</string>
@@ -682,6 +684,11 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyGoToStartOrEnd">shko në fillim/fund</string>
   <string name="keyShowOrHideComments">shfaq/fshih komentet</string>
   <string name="keyEnterOrExitVariation">hyr/dil nga varianti</string>
+  <string name="keyRequestComputerAnalysis">Kërkoni analizim nga kompjuteri, Mësoni nga gabimet tuaja</string>
+  <string name="keyNextLearnFromYourMistakes">Pasuesi (Mësoni nga gabimet tuaja)</string>
+  <string name="keyNextBlunder">Gafa pasuese</string>
+  <string name="keyNextMistake">Gabimi pasues</string>
+  <string name="keyNextInaccuracy">Pasaktësia pasuese</string>
   <string name="newTournament">Turne i ri</string>
   <string name="tournamentHomeTitle">Turne shahu me kontrolle kohore dhe variante të ndryshme</string>
   <string name="tournamentHomeDescription">Luani turne shahu me ritëm të shpejtë! Merrni pjesë në një turne zyrtar të planifikuar, ose krijoni tuajin. Plumb, Blic, Klasik, Shah960, Mbreti i Kodrës, Treshah dhe më tepër mundësi të gatshme, për argëtim të pafund në shah.</string>
@@ -779,6 +786,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="invalidFen">FEN e pavlefshme</string>
   <string name="custom">Vetjake</string>
   <string name="notifications">Njoftime</string>
+  <string name="notificationsX">Njoftime: %1$s</string>
   <string name="perfRatingX">Vlerësimi: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekondë për kryerjen e lëvizjes së parë</item>

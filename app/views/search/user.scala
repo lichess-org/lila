@@ -2,7 +2,7 @@ package views.html.search
 
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -13,7 +13,7 @@ object user:
 
   import trans.search.*
 
-  def apply(u: User, form: Form[?])(using Context) =
+  def apply(u: User, form: Form[?])(using WebContext) =
     val commons = bits of form
     import commons.*
     st.form(

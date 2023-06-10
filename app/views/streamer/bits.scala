@@ -2,7 +2,7 @@ package views.html.streamer
 
 import controllers.routes
 import play.api.i18n.Lang
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
@@ -11,7 +11,7 @@ object bits:
 
   import trans.streamer.*
 
-  def create(using Context) =
+  def create(using WebContext) =
     views.html.site.message(
       title = becomeStreamer.txt(),
       icon = Some(licon.Mic),
@@ -30,7 +30,7 @@ object bits:
       )
     )
 
-  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(using ctx: Context) =
+  def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(using ctx: WebContext) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
       s.map { st =>
@@ -111,7 +111,7 @@ object bits:
       }
     )
 
-  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: Context): Option[Tag] =
+  def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: WebContext): Option[Tag] =
     ctx.isAuth && !ctx.is(s.user) option {
       val id = s"streamer-subscribe-${s.streamer.userId}"
       label(cls := "streamer-subscribe")(

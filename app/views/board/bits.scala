@@ -3,7 +3,7 @@ package views.html.board
 import chess.format.{ Fen, Uci, BoardFen }
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov
@@ -31,12 +31,12 @@ object bits:
   def miniSpan(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None) =
     mini(fen, color, lastMove)(span)
 
-  private def explorerConfig(using ctx: Context) = Json.obj(
+  private def explorerConfig(using ctx: WebContext) = Json.obj(
     "endpoint"          -> explorerEndpoint,
     "tablebaseEndpoint" -> tablebaseEndpoint,
     "showRatings"       -> ctx.pref.showRatings
   )
-  def explorerAndCevalConfig(using ctx: Context) =
+  def explorerAndCevalConfig(using ctx: WebContext) =
     Json.obj(
       "explorer"               -> explorerConfig,
       "externalEngineEndpoint" -> externalEngineEndpoint

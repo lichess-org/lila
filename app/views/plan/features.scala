@@ -3,7 +3,7 @@ package html.plan
 
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -13,7 +13,7 @@ object features:
 
   val engineFullName = "Stockfish 15.1 NNUE"
 
-  def apply()(implicit ctx: Context) =
+  def apply()(implicit ctx: WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("feature"),

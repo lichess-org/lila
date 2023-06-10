@@ -1,6 +1,6 @@
 package views.html.team
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -11,7 +11,7 @@ object list:
 
   import trans.team.*
 
-  def search(text: String, teams: Paginator[lila.team.Team])(using Context) =
+  def search(text: String, teams: Paginator[lila.team.Team])(using WebContext) =
     list(
       name = s"""${trans.search.search.txt()} "$text"""",
       teams = teams,
@@ -19,14 +19,14 @@ object list:
       search = text
     )
 
-  def all(teams: Paginator[lila.team.Team])(using Context) =
+  def all(teams: Paginator[lila.team.Team])(using WebContext) =
     list(
       name = trans.team.teams.txt(),
       teams = teams,
       nextPageUrl = n => routes.Team.all(n).url
     )
 
-  def mine(teams: List[lila.team.Team])(using ctx: Context) =
+  def mine(teams: List[lila.team.Team])(using ctx: WebContext) =
     bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
@@ -46,7 +46,7 @@ object list:
       )
     }
 
-  def ledByMe(teams: List[lila.team.Team])(using Context) =
+  def ledByMe(teams: List[lila.team.Team])(using WebContext) =
     bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
@@ -61,7 +61,7 @@ object list:
       )
     }
 
-  private def noTeam()(using Context) =
+  private def noTeam()(using WebContext) =
     tbody(
       tr(
         td(colspan := "2")(
@@ -76,7 +76,7 @@ object list:
       teams: Paginator[lila.team.Team],
       nextPageUrl: Int => String,
       search: String = ""
-  )(using Context) =
+  )(using WebContext) =
     bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {
       main(cls := "team-list page-menu")(
         bits.menu("all".some),

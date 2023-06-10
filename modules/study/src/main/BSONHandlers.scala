@@ -57,7 +57,7 @@ object BSONHandlers:
   )
 
   import Study.IdName
-  given BSONDocumentHandler[IdName] = Macros.handler
+  given idNameHandler: BSONDocumentHandler[IdName] = Macros.handler
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {

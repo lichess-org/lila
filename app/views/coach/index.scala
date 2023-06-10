@@ -4,7 +4,7 @@ package coach
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -25,7 +25,7 @@ object index:
       countryCodes: Set[String],
       country: Option[Country]
   )(using
-      ctx: Context
+      ctx: WebContext
   ) =
     views.html.base.layout(
       title = lichessCoaches.txt(),

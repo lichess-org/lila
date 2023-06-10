@@ -26,7 +26,7 @@ object AccessToken:
   object Id extends OpaqueString[Id]:
     def from(bearer: Bearer) = Id(Algo.sha256(bearer.value).hex)
 
-  case class ForAuth(userId: UserId, scopes: List[OAuthScope], clientOrigin: Option[String])
+  case class ForAuth(userId: UserId, scopes: OAuthScopes, clientOrigin: Option[String])
 
   object BSONFields:
     val id           = "_id"
@@ -49,13 +49,13 @@ object AccessToken:
     BSONFields.clientOrigin -> true
   )
 
-  given BSONDocumentReader[ForAuth] = new BSONDocumentReader[ForAuth]:
+  given BSONDocumentReader[ForAuth] = new:
     def readDocument(doc: BSONDocument) =
-      for {
+      for
         userId <- doc.getAsTry[UserId](BSONFields.userId)
-        scopes <- doc.getAsTry[List[OAuthScope]](BSONFields.scopes)
+        scopes <- doc.getAsTry[OAuthScopes](BSONFields.scopes)
         origin = doc.getAsOpt[String](BSONFields.clientOrigin)
-      } yield ForAuth(userId, scopes, origin)
+      yield ForAuth(userId, scopes, origin)
 
   given BSONDocumentHandler[AccessToken] = new BSON[AccessToken]:
 

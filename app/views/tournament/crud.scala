@@ -4,7 +4,7 @@ package tournament
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -16,7 +16,7 @@ object crud:
 
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
       body: Frag
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
@@ -31,7 +31,7 @@ object crud:
       )
     }
 
-  def create(form: Form[?])(implicit ctx: Context) =
+  def create(form: Form[?])(implicit ctx: WebContext) =
     layout(
       title = "New tournament",
       css = "mod.form"
@@ -42,7 +42,7 @@ object crud:
       )
     }
 
-  def edit(tour: Tournament, form: Form[?])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[?])(implicit ctx: WebContext) =
     layout(
       title = tour.name(),
       css = "mod.form"
@@ -65,7 +65,7 @@ object crud:
       )
     }
 
-  private def inForm(form: Form[?], tour: Option[Tournament])(implicit ctx: Context) =
+  private def inForm(form: Form[?], tour: Option[Tournament])(implicit ctx: WebContext) =
     frag(
       form3.split(
         form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
@@ -139,7 +139,7 @@ object crud:
       form3.action(form3.submit(trans.apply()))
     )
 
-  def index(tours: Paginator[Tournament])(implicit ctx: Context) =
+  def index(tours: Paginator[Tournament])(implicit ctx: WebContext) =
     layout(
       title = "Tournament manager",
       evenMoreJs = infiniteScrollTag

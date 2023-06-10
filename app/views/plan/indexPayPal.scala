@@ -2,7 +2,7 @@ package views.html.plan
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -17,7 +17,7 @@ object indexPayPal:
       patron: lila.plan.Patron,
       subscription: lila.plan.PayPalSubscription,
       gifts: List[lila.plan.Charge.Gift]
-  )(using Context) =
+  )(using WebContext) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
