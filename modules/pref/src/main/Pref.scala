@@ -113,7 +113,7 @@ case class Pref(
 
 object Pref {
 
-  val defaultBgImg = "//lishogi1.org/assets/images/background/landscape.jpg"
+  val defaultBgImg = "//lishogi1.org/assets/images/background/nature.jpg"
 
   trait BooleanPref {
     val NO      = 0
