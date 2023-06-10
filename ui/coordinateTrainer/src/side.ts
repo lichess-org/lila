@@ -109,6 +109,11 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               change: e => {
                 const target = e.target as HTMLInputElement;
                 ctrl.mode(target.value as Mode);
+                if (target.value === 'nameSquare') {
+                  if (ctrl.voice.enabled()) lichess.mic.start();
+                } else {
+                  lichess.mic.stop();
+                }
               },
               keyup: ctrl.onRadioInputKeyUp,
             },

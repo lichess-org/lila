@@ -217,7 +217,7 @@ export default class RoundController {
       dest,
       {
         submit: (orig, dest, role) => this.sendMove(orig, dest, role, meta),
-        show: this.voiceMove?.showPromotion,
+        show: this.voiceMove?.promotionHook(),
       },
       meta,
       this.keyboardMove?.justSelected() //this.voiceMove?.justSelected()
@@ -782,10 +782,7 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
-    if (this.data.pref.voiceMove)
-      makeVoiceMove(this, this.stepAt(this.ply).fen).then(vm => {
-        this.voiceMove = vm;
-      });
+    if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
   };
 

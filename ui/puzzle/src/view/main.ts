@@ -12,7 +12,7 @@ import { onInsert, bindNonPassive } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import { renderVoiceMove } from 'voice';
+import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
 import boardMenu from './boardMenu';
@@ -52,7 +52,6 @@ function controls(ctrl: Controller): VNode {
             else if (action === 'next') control.next(ctrl);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-            else if (action === 'menu') ctrl.menu.toggle();
           },
           ctrl.redraw
         );
@@ -66,6 +65,7 @@ function controls(ctrl: Controller): VNode {
         jumpButton(licon.JumpLast, 'last', !nextNode, goNext),
         boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
       ]),
+      boardMenu(ctrl),
     ]
   );
 }
@@ -127,7 +127,7 @@ export default function (ctrl: Controller): VNode {
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
-        ctrl.voiceMove ? renderVoiceMove(ctrl.voiceMove, ctrl.redraw, 'puz') : null,
+        ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw, 'puz') : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         h(
@@ -144,7 +144,6 @@ export default function (ctrl: Controller): VNode {
       ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
       session(ctrl),
       ctrl.keyboardHelp() ? keyboard.view(ctrl) : null,
-      boardMenu(ctrl),
     ]
   );
 }

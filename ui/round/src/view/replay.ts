@@ -12,6 +12,7 @@ import { h, VNode } from 'snabbdom';
 import { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
 import { MaybeVNodes } from 'common/snabbdom';
+import boardMenu from './boardMenu';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -161,11 +162,6 @@ function renderButtons(ctrl: RoundController) {
           const target = e.target as HTMLElement;
           const ply = parseInt(target.getAttribute('data-ply') || '');
           if (!isNaN(ply)) ctrl.userJump(ply);
-          else {
-            const action =
-              target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-            if (action === 'menu') ctrl.menu.toggle();
-          }
         },
         ctrl.redraw
       ),
@@ -251,6 +247,7 @@ export function render(ctrl: RoundController): VNode | undefined {
     ? undefined
     : h(rmovesTag, [
         renderButtons(ctrl),
+        boardMenu(ctrl),
         initMessage(ctrl) ||
           (isCol1()
             ? h('div.col1-moves', [

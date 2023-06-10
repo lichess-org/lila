@@ -1,10 +1,10 @@
 import { h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { game as gameRoute } from 'game/router';
-import { modal as menuModal } from 'board/menu';
+import { menu as menuDropdown } from 'board/menu';
 
 export default function (ctrl: RoundController) {
-  return menuModal(ctrl.trans, ctrl.redraw, ctrl.menu, menu => {
+  return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => {
     const d = ctrl.data,
       spectator = d.player.spectator;
     return [
