@@ -122,6 +122,15 @@ trait SetupHelper { self: I18nHelper =>
       (Mode.Rated.id.toString, trans.ratedTournament.txt(), none)
     )
 
+  def variantIcon(v: shogi.variant.Variant): String =
+    v match {
+      case shogi.variant.Minishogi  => ","
+      case shogi.variant.Chushogi   => "("
+      case shogi.variant.Annanshogi => ""
+      case shogi.variant.Kyotoshogi => ""
+      case _                        => "C"
+    }
+
   def variantName(v: shogi.variant.Variant)(implicit lang: Lang): String =
     v match {
       case shogi.variant.Minishogi  => trans.minishogi.txt()

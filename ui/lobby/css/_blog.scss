@@ -4,9 +4,10 @@
     color: $c-font;
     flex-wrap: nowrap;
     overflow: hidden;
-    padding: 0.2em 0.5em;
+    padding: 0 0.5em 0 0;
+    border-top: $border;
     &:hover {
-      background: mix($c-link, $c-bg-box, 15%);
+      background: $c-bg-zebra;
     }
     .text {
       flex: 1 1 100%;
@@ -15,8 +16,8 @@
       display: block;
     }
     img {
-      height: 4em;
-      width: 4em;
+      height: 5.5em;
+      width: 5.5em;
       margin-right: 0.8em;
     }
     time {

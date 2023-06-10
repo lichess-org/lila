@@ -1,16 +1,13 @@
 .lobby {
   &__box {
     @extend %flex-column, %box-neat-force;
+    background: $c-bg-box;
     &__top {
-      @extend %metal, %flex-between;
+      @extend %flex-between;
       flex: 0 0 auto;
       padding: 0.3em 0.5em;
       .more {
         color: $c-font-dim;
-        @include transition();
-        &:hover {
-          color: $c-link;
-        }
       }
       .title {
         @extend %base-font;
@@ -19,9 +16,12 @@
         color: $c-font-dim;
         padding: 0.3em;
       }
+      &:hover .more {
+        @include transition();
+        color: $c-link;
+      }
     }
     &__content {
-      background: $c-bg-box;
       overflow-x: hidden;
       overflow-y: auto;
     }
@@ -65,8 +65,11 @@
       padding-right: 0.7em;
     }
   }
-  &__forum .lobby__box__top,
-  &__blog .lobby__box__top {
-    border-bottom: $border;
+  &__forum,
+  &__description,
+  &__variants {
+    .lobby__box__top {
+      border-bottom: $border;
+    }
   }
 }

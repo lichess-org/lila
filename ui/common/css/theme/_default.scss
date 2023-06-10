@@ -9,7 +9,7 @@
   @return mix(#000, $color, $weight);
 }
 
-$c-site-hue: 37;
+$c-site-hue: 32;
 
 $c-bg-page: hsl($c-site-hue, 10%, 92%); // hsl(210, 17%, 95%)
 $c-bg-high: hsl(0, 0%, 100%);
@@ -21,8 +21,8 @@ $c-bg-zebra2: hsl($c-site-hue, 12%, 92%);
 
 $c-body-gradient: hsl($c-site-hue, 12%, 84%);
 
-$c-font: hsl(0, 0%, 30%);
-$c-font-dim: c-light($c-font, 47%);
+$c-font: hsl(0, 0%, 28%);
+$c-font-dim: c-light($c-font, 42%);
 $c-font-dimmer: c-light($c-font, 70%);
 $c-font-clear: c-light($c-font, 12%);
 $c-font-clearer: c-light($c-font, 0%);

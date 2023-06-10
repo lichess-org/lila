@@ -7,13 +7,17 @@
     }
 
     td {
+      display: flex;
+      flex-wrap: wrap;
       padding: 0.4em 0;
       text-align: right;
+      gap: 1rem;
     }
 
     .half {
-      float: left;
-      width: 50%;
+      @extend %flex-between-nowrap;
+      flex: 1 188px;
+      gap: 2rem;
     }
 
     label {
@@ -26,7 +30,7 @@
     }
 
     input[type='text'] {
-      width: 86%;
+      width: 100%;
     }
     select {
       text-transform: capitalize;
@@ -37,11 +41,12 @@
     }
 
     .single select {
-      width: 99%;
+      float: left;
+      width: 100%;
     }
 
     .half select {
-      width: 78%;
+      width: 100%;
     }
 
     input.submit {

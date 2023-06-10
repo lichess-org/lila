@@ -71,11 +71,9 @@
   }
   &.button-metal {
     @extend %metal;
-    &,
-    &:hover {
-      color: $c-font-dim;
-    }
+    color: $c-font-dim;
     &:not(.disabled):hover {
+      color: $c-font;
       @extend %metal-hover;
     }
   }

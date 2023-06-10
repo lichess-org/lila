@@ -36,15 +36,6 @@
 %metal-hover {
   @include metal-hover;
 }
-%page-metal {
-  @include page-metal;
-}
-%page-metal-hover {
-  @include page-metal;
-}
-%metal-bg {
-  @include metal-bg;
-}
 
 %active-inset-shadow {
   box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;

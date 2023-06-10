@@ -20,6 +20,9 @@
 
 #topnav a[href='/patron'] {
   @extend %flex-center;
+  &:hover {
+    background-color: $c-brag;
+  }
   &::after {
     @extend %data-icon;
     content: '';

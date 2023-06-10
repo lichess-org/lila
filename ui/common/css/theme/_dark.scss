@@ -11,18 +11,18 @@ $theme-dark: true;
   @return mix(#fff, $color, $weight);
 }
 
-$c-bg-page: hsl($c-site-hue, 10%, 8%);
-$c-bg-high: hsl($c-site-hue, 7%, 14%);
-$c-bg-low: hsl($c-site-hue, 7%, 22%);
+$c-bg-page: hsl($c-site-hue, 8%, 7%);
+$c-bg-high: hsl($c-site-hue, 5%, 14%);
+$c-bg-low: hsl($c-site-hue, 5%, 21%);
 
 /* even rows in list or tables, subtle shade of $c-bg-high */
-$c-bg-zebra: hsl($c-site-hue, 5%, 18%);
-$c-bg-zebra2: hsl($c-site-hue, 5%, 23%);
+$c-bg-zebra: hsl($c-site-hue, 3%, 18%);
+$c-bg-zebra2: hsl($c-site-hue, 3%, 23%);
 
-$c-body-gradient: hsl($c-site-hue, 6%, 16%);
+$c-body-gradient: hsl($c-site-hue, 5%, 16%);
 
-$c-font: hsl(0, 0%, 73%);
-$c-font-dim: c-light($c-font, 60%);
+$c-font: hsl(0, 0%, 75%);
+$c-font-dim: c-light($c-font, 64%);
 $c-font-dimmer: c-light($c-font, 42%);
 $c-font-clear: c-light($c-font, 80%);
 $c-font-clearer: c-light($c-font, 89%);
@@ -93,22 +93,12 @@ $border: $border-width $border-style $c-border;
 $c-font-shadow: black;
 $text-shadow: none;
 
-@mixin metal-bg {
-  background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
-}
 @mixin metal {
-  @include metal-bg;
+  background: $c-bg-zebra;
 }
 @mixin metal-hover {
-  background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
+  background: $c-bg-zebra2;
   color: $c-font-clear;
-}
-
-@mixin page-metal {
-  @include metal;
-}
-@mixin page-metal-hover {
-  @include metal-hover;
 }
 
 @mixin theme-style {

@@ -77,11 +77,11 @@ body {
   display: flex;
   flex-wrap: wrap;
   .variants_item {
-    padding: 0.5rem 0;
+    padding: 0.7rem 0;
     width: 50%;
     text-align: center;
     &:hover {
-      background: mix($c-primary, $c-bg-box, 20%);
+      background: $c-bg-zebra;
     }
     h3 {
       font-size: 1.2rem;

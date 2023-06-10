@@ -20,7 +20,7 @@
     flex: 1 1 100%;
     position: relative;
     @if $theme == "transp" {
-      background: fade-out($c-bg-box, 0.2);
+      background: $c-bg-box;
     } @else {
       $logo-color: "dadada";
       @if $theme-dark {

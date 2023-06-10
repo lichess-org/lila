@@ -78,4 +78,10 @@
 .lseeks .create {
   margin-top: 20px;
   text-align: center;
+  a {
+    background: $c-accent;
+    &:hover {
+      background: darken($c-accent, 5);
+    }
+  }
 }

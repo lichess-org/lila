@@ -31,21 +31,11 @@ $text-shadow: 0.5px 1px 1px #000;
   color: $c-font-clearer;
 }
 
-@mixin metal-bg {
-  background: linear-gradient(to bottom, hsla(0, 0, 0, 0.4), hsla(0, 0, 0, 0.5) 100%);
-}
 @mixin metal {
-  @include metal-bg;
+  background: hsla(0, 0%, 0%, 0.6);
 }
 @mixin metal-hover {
-  background: linear-gradient(to bottom, hsla(0, 0, 0, 0.45), hsla(0, 0, 0, 0.55) 100%);
-}
-
-@mixin page-metal {
-  @include metal;
-}
-@mixin page-metal-hover {
-  @include metal-hover;
+  background: hsla(0, 0%, 7%, 0.55);
 }
 
 @mixin theme-style {

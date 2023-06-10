@@ -18,7 +18,7 @@ $c-slider: $c-setup;
     margin-bottom: 1em;
   }
   group.radio {
-    margin: 0 auto 1em auto;
+    margin: auto;
     width: 70%;
     .disabled {
       opacity: 0.4;
@@ -34,16 +34,17 @@ $c-slider: $c-setup;
       flex-basis: 50%;
     }
   }
-  .optional_config {
-    border-bottom: $border;
-  }
   .mode_choice {
-    margin-top: 1em;
+    margin: 0.5em 0;
   }
   .optional_config,
   .ratings {
     background: $c-bg-zebra;
     border-top: $border;
+    border-bottom: $border;
+  }
+  .sfen_position {
+    border-bottom: none;
   }
   .advanced_toggle {
     display: inline-block !important;
@@ -78,6 +79,7 @@ $c-slider: $c-setup;
   .sfen_position {
     .handicap.label_select {
       @extend %flex-center-nowrap;
+      margin-top: 1rem;
       label {
         text-align: left;
         flex: unset;
@@ -122,7 +124,7 @@ $c-slider: $c-setup;
     }
   }
   .ratings {
-    padding: 1em;
+    padding: 0.5em;
     width: 100%;
     text-align: center;
   }
@@ -136,6 +138,7 @@ $c-slider: $c-setup;
     padding: 0;
     text-align: center;
     position: relative;
+    margin-top: 0.5em;
     &__button {
       margin: 0 0.5em;
       width: 64px;

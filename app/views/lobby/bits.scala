@@ -23,9 +23,9 @@ object bits {
   )(implicit ctx: Context) =
     frag(
       div(cls := "lobby__leaderboard lobby__box")(
-        div(cls := "lobby__box__top")(
+        a(cls := "lobby__box__top", href := langHref(routes.User.list))(
           h2(cls := "title text", dataIcon := "'")(trans.leaderboard()),
-          a(cls := "more", href := langHref(routes.User.list))(trans.more(), " »")
+          span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
@@ -44,14 +44,14 @@ object bits {
         )
       ),
       div(cls := "lobby__winners lobby__box")(
-        div(cls := "lobby__box__top")(
+        a(cls := "lobby__box__top", href := langHref(routes.Tournament.leaderboard))(
           h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
-          a(cls := "more", href := langHref(routes.Tournament.leaderboard))(trans.more(), " »")
+          span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
             tbody(
-              tournamentWinners take 10 map { w =>
+              tournamentWinners take 12 map { w =>
                 tr(
                   td(userIdLink(w.userId.some)),
                   td(
@@ -89,7 +89,7 @@ object bits {
     div(cls := "lobby__description lobby__box")(
       a(cls := "lobby__box__top", href := langHref(routes.Learn.index))(
         h2(cls := "title text", dataIcon := "C")(trans.shogi()),
-        span(cls := "more")(trans.learnMenu(), " »")
+        span(cls := "more")(trans.more(), " »")
       ),
       div(id := "shogi_description", cls := "lobby__box__content")(
         p(
@@ -115,28 +115,10 @@ object bits {
       )
     )
 
-  private def variantNameTag(variant: Variant)(implicit ctx: Context): Frag = {
-    val showKanjiName = ctx.lang.language != "ja"
-    variant match {
-      case Kyotoshogi =>
-        h3(dataIcon := "")(
-          s"${trans.kyotoshogi.txt()}${if (showKanjiName) " (京都将棋)" else ""}"
-        )
-      case Annanshogi =>
-        h3(dataIcon := "")(
-          s"${trans.annanshogi.txt()}${if (showKanjiName) " (安南将棋)" else ""}"
-        )
-      case Chushogi =>
-        h3(dataIcon := "(")(
-          s"${trans.chushogi.txt()}${if (showKanjiName) " (中将棋)" else ""}"
-        )
-      case Minishogi =>
-        h3(dataIcon := ",")(
-          s"${trans.minishogi.txt()}${if (showKanjiName) " (5五将棋)" else ""}"
-        )
-      case _ => trans.shogi.txt()
-    }
-  }
+  private def variantNameTag(variant: Variant)(implicit ctx: Context): Frag =
+    h3(dataIcon := variantIcon(variant))(
+      variantName(variant)
+    )
 
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = {
     posts.nonEmpty option
