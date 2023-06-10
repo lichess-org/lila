@@ -3,7 +3,7 @@ package views.html.lobby
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -13,7 +13,7 @@ import lila.game.Pov
 
 object home:
 
-  def apply(homepage: Homepage)(using ctx: Context) =
+  def apply(homepage: Homepage)(using ctx: WebContext) =
     import homepage.*
     views.html.base.layout(
       title = "",

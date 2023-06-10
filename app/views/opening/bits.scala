@@ -6,7 +6,7 @@ import controllers.routes
 import play.api.libs.json.Json
 import play.api.mvc.Call
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -45,7 +45,7 @@ object bits:
       )
     }
 
-  def configForm(config: OpeningConfig, thenTo: String)(using Context) =
+  def configForm(config: OpeningConfig, thenTo: String)(using WebContext) =
     import OpeningConfig.*
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
@@ -73,7 +73,7 @@ object bits:
       )
     )
 
-  def moreJs(page: Option[OpeningPage])(using Context) = frag(
+  def moreJs(page: Option[OpeningPage])(using WebContext) = frag(
     jsModule("opening"),
     embedJsUnsafeLoadThen {
       page match {

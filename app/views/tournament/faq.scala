@@ -1,7 +1,7 @@
 package views.html
 package tournament
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -11,7 +11,7 @@ object faq:
 
   import trans.arena.*
 
-  def page(implicit ctx: Context) =
+  def page(implicit ctx: WebContext) =
     views.html.base.layout(
       title = trans.tournamentFAQ.txt(),
       moreCss = cssTag("page")
@@ -27,7 +27,7 @@ object faq:
       )
     }
 
-  def apply(rated: Option[Boolean] = None, privateId: Option[String] = None)(implicit ctx: Context) =
+  def apply(rated: Option[Boolean] = None, privateId: Option[String] = None)(implicit ctx: WebContext) =
     frag(
       privateId.map { id =>
         frag(

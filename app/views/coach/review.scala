@@ -2,7 +2,7 @@ package views.html.coach
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -11,7 +11,7 @@ object review:
 
   import trans.coach.*
 
-  def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
+  def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: WebContext) =
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
       h2(
         studentReviews(reviews.list.size),
@@ -38,7 +38,7 @@ object review:
       }
     )
 
-  def form(c: lila.coach.Coach.WithUser, mine: Option[lila.coach.CoachReview])(implicit ctx: Context) =
+  def form(c: lila.coach.Coach.WithUser, mine: Option[lila.coach.CoachReview])(implicit ctx: WebContext) =
     div(cls := "coach-review-form")(
       if (mine.exists(_.pendingApproval))
         div(cls := "approval")(

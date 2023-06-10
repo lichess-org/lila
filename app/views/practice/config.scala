@@ -2,7 +2,7 @@ package views.html.practice
 
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -10,7 +10,7 @@ import controllers.routes
 
 object config:
 
-  def apply(structure: lila.practice.PracticeStructure, form: Form[?])(implicit ctx: Context) =
+  def apply(structure: lila.practice.PracticeStructure, form: Form[?])(implicit ctx: WebContext) =
     views.html.base.layout(
       title = "Practice structure",
       moreCss = cssTag("mod.misc")

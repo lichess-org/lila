@@ -25,8 +25,7 @@ final class BulkPairing(env: Env) extends LilaController(env):
     }
   }
 
-  def create = ScopedBody(_.Challenge.Bulk) { req ?=> me =>
-    given play.api.i18n.Lang = reqLang
+  def create = ScopedBody(_.Challenge.Bulk) { ctx ?=> me =>
     import lila.setup.SetupBulk
     lila.setup.SetupBulk.form
       .bindFromRequest()

@@ -53,7 +53,7 @@ final private class RelayFetch(
           else if (rt.round.shouldGiveUp)
             val msg = "Finish for lack of start"
             logger.info(s"$msg ${rt.round}")
-            if (rt.tour.official) irc.broadcastError(rt.round.id.value, rt.fullName, msg)
+            if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
             api.update(rt.round)(_.finish)
           else fuccess(rt.round)
         }.parallel
@@ -62,58 +62,56 @@ final private class RelayFetch(
 
   // no writing the relay; only reading!
   private def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =
-    if (!rt.round.sync.playing) fuccess(rt.round.withSync(_.play))
+    if !rt.round.sync.playing then fuccess(rt.round.withSync(_.play))
     else
       fetchGames(rt)
         .map(games => rt.tour.players.fold(games)(_ update games))
         .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
         .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size).unit)
-        .flatMap { games =>
+        .flatMap: games =>
           sync(rt, games)
             .withTimeoutError(7 seconds, SyncResult.Timeout)
             .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
-            .map { res =>
+            .map: res =>
               res -> rt.round
                 .withSync(_ addLog SyncLog.event(res.nbMoves, none))
                 .copy(finished = games.forall(_.end.isDefined))
-            }
-        }
-        .recover { case e: Exception =>
-          e.match {
-            case SyncResult.Timeout =>
-              if (rt.tour.official) logger.info(s"Sync timeout ${rt.round}")
-              SyncResult.Timeout
-            case _ =>
-              if (rt.tour.official) logger.info(s"Sync error ${rt.round} ${e.getMessage take 80}")
-              SyncResult.Error(e.getMessage)
-          } -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
-        }
-        .map { (result, newRelay) =>
+        .recover:
+          case e: Exception =>
+            e.match {
+              case SyncResult.Timeout =>
+                if (rt.tour.official) logger.info(s"Sync timeout ${rt.round}")
+                SyncResult.Timeout
+              case _ =>
+                if (rt.tour.official) logger.info(s"Sync error ${rt.round} ${e.getMessage take 80}")
+                SyncResult.Error(e.getMessage)
+            } -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
+        .map: (result, newRelay) =>
           afterSync(result, newRelay withTour rt.tour)
-        }
 
   private def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
     result match
       case result: SyncResult.Ok if result.nbMoves == 0 => continueRelay(rt)
       case result: SyncResult.Ok =>
         lila.mon.relay.moves(rt.tour.official, rt.round.slug).increment(result.nbMoves)
+        if !rt.round.hasStarted && !rt.tour.official then irc.broadcastStart(rt.round.id, rt.fullName)
         continueRelay(rt.round.ensureStarted.resume withTour rt.tour)
       case _ => continueRelay(rt)
 
   private def continueRelay(rt: RelayRound.WithTour): RelayRound =
     rt.round.sync.upstream.fold(rt.round) { upstream =>
       val seconds: Seconds =
-        if (rt.round.sync.log.alwaysFails)
+        if rt.round.sync.log.alwaysFails then
           rt.round.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)
             .ifTrue(rt.tour.official && rt.round.shouldHaveStarted)
             .filterNot(_ contains "Cannot parse moves")
             .filterNot(_ contains "Found an empty PGN")
-            .foreach { irc.broadcastError(rt.round.id.value, rt.fullName, _) }
+            .foreach { irc.broadcastError(rt.round.id, rt.fullName, _) }
           Seconds(60)
         else rt.round.sync.period | Seconds(if upstream.local then 3 else 6)
-      rt.round.withSync {
+      rt.round.withSync:
         _.copy(
           nextAt = nowInstant plusSeconds {
             seconds.atLeast {
@@ -121,7 +119,6 @@ final private class RelayFetch(
             }.value
           } some
         )
-      }
     }
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(

@@ -2,13 +2,13 @@ package views.html.tournament
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object homepageSpotlight:
 
-  def apply(tour: lila.tournament.Tournament)(implicit ctx: Context) =
+  def apply(tour: lila.tournament.Tournament)(implicit ctx: WebContext) =
     val schedClass = tour.schedule ?? { sched =>
       val invert  = (sched.freq.isWeeklyOrBetter && tour.isNowOrSoon) ?? " invert"
       val distant = tour.isDistant ?? " distant little"

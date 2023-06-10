@@ -1,7 +1,7 @@
 package views.html
 package user
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
@@ -17,7 +17,7 @@ object list:
       online: List[User],
       leaderboards: lila.user.Perfs.Leaderboards,
       nbAllTime: List[User.LightCount]
-  )(using ctx: Context) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.players.txt(),
       moreCss = cssTag("user.list"),
@@ -67,7 +67,7 @@ object list:
       )
     }
 
-  private def tournamentWinners(winners: List[lila.tournament.Winner])(using Context) =
+  private def tournamentWinners(winners: List[lila.tournament.Winner])(using WebContext) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := licon.Trophy)(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
@@ -82,7 +82,7 @@ object list:
       })
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: Context) =
+  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: WebContext) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.icon)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
@@ -96,7 +96,7 @@ object list:
     )
 
   private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[licon.Icon])(using
-      Context
+      WebContext
   ) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),

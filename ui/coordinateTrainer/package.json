@@ -17,7 +17,8 @@
     "@types/fnando__sparkline": "^0.3.4",
     "@types/lichess": "workspace:*",
     "common": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "^3.5.1",
+    "voice": "workspace:*"
   },
   "scripts": {
     "compile": "tsc",

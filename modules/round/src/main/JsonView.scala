@@ -12,6 +12,7 @@ import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
+import chess.Speed
 
 final class JsonView(
     userRepo: UserRepo,
@@ -116,11 +117,13 @@ final class JsonView(
                 .add("submitMove" -> {
                   import Pref.SubmitMove.*
                   pref.submitMove match
-                    case _ if game.hasAi || flags.nvui                      => false
-                    case ALWAYS                                             => true
-                    case CORRESPONDENCE_UNLIMITED if game.isCorrespondence  => true
-                    case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true
-                    case _                                                  => false
+                    case _ if game.hasAi || flags.nvui                                 => false
+                    case n if (n & UNLIMITED) != 0 && game.isUnlimited                 => true
+                    case n if (n & CORRESPONDENCE) != 0 && game.hasCorrespondenceClock => true
+                    case n if (n & CLASSICAL) != 0 && game.isSpeed(Speed.Classical)    => true
+                    case n if (n & RAPID) != 0 && game.isSpeed(Speed.Rapid)            => true
+                    case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
+                    case _                                                             => false
                 })
           )
           .add("clock" -> game.clock.map(clockJson))
@@ -157,6 +160,7 @@ final class JsonView(
       pov: Pov,
       pref: Option[Pref],
       apiVersion: ApiVersion,
+      me: Option[UserId],
       tv: Option[OnTv],
       initialFen: Option[Fen.Epd] = None,
       flags: WithFlags
@@ -175,10 +179,12 @@ final class JsonView(
             "clock"          -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock,
             "player" -> {
-              commonWatcherJson(game, player, playerUser, flags) ++ Json.obj(
-                "version"   -> socket.version,
-                "spectator" -> true
-              )
+              commonWatcherJson(game, player, playerUser, flags) ++ Json
+                .obj(
+                  "version"   -> socket.version,
+                  "spectator" -> true
+                )
+                .add("id" -> (apiVersion < 10).??(me.flatMap(game.player).map(_.id)))
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, flags).add(
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color))

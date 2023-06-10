@@ -77,6 +77,7 @@ export default class RoundController {
   menu: ToggleWithUsed;
   voiceMoveEnabled: Toggle;
   keyboardMoveEnabled: Toggle;
+  confirmMoveEnabled: Toggle = toggle(true);
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -216,7 +217,7 @@ export default class RoundController {
       dest,
       {
         submit: (orig, dest, role) => this.sendMove(orig, dest, role, meta),
-        show: this.voiceMove?.showPromotion,
+        show: this.voiceMove?.promotionHook(),
       },
       meta,
       this.keyboardMove?.justSelected() //this.voiceMove?.justSelected()
@@ -359,7 +360,7 @@ export default class RoundController {
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && !meta.premove) {
+    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
       this.moveToSubmit = move;
       this.redraw();
     } else {
@@ -371,13 +372,10 @@ export default class RoundController {
   };
 
   sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
-    const drop: SocketDrop = {
-      role: role,
-      pos: key,
-    };
+    const drop: SocketDrop = { role, pos: key };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && !isPredrop) {
+    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
       this.dropToSubmit = drop;
       this.redraw();
     } else {
@@ -784,10 +782,7 @@ export default class RoundController {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
-    if (this.data.pref.voiceMove)
-      makeVoiceMove(this, this.stepAt(this.ply).fen).then(vm => {
-        this.voiceMove = vm;
-      });
+    if (this.data.pref.voiceMove) this.voiceMove = makeVoiceMove(this, this.stepAt(this.ply).fen);
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
   };
 

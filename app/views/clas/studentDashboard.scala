@@ -1,7 +1,7 @@
 package views.html.clas
 
 import controllers.routes
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
@@ -15,7 +15,7 @@ object studentDashboard:
       wall: Html,
       teachers: List[User],
       students: List[Student.WithUser]
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "clas-show dashboard dashboard-student",
       div(cls := "clas-show__top")(
@@ -62,7 +62,7 @@ object studentDashboard:
       div(cls := "students")(studentList(students))
     )
 
-  def studentList(students: List[Student.WithUser])(implicit ctx: Context) =
+  def studentList(students: List[Student.WithUser])(implicit ctx: WebContext) =
     table(cls := "slist slist-pad sortable")(
       thead(
         tr(
@@ -97,7 +97,7 @@ object studentDashboard:
       )
     )
 
-  private def challengeTd(user: lila.user.User)(implicit ctx: Context) =
+  private def challengeTd(user: lila.user.User)(implicit ctx: WebContext) =
     if (ctx is user) td
     else
       val online = isOnline(user.id)

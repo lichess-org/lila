@@ -6,7 +6,7 @@ import scala.util.chaining.*
 import views.html
 
 import lila.api.AnnounceStore
-import lila.api.Context
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.security.SecurityForm.Reopen
 import lila.user.{ Holder, TotpSecret, User as UserModel }
@@ -86,31 +86,29 @@ final class Account(
   def nowPlaying = Auth { _ ?=> me =>
     negotiate(
       html = notFound,
-      api = _ => doNowPlaying(me, ctx.req)
+      api = _ => doNowPlaying(me)
     )
   }
 
   val apiMe =
     val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.account.user")
-    Scoped() { req ?=> me =>
+    Scoped() { ctx ?=> me =>
       def limited = rateLimitedFu:
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
       rateLimit(me.id, limited):
         env.api.userApi.extended(
           me,
           me.some,
-          withFollows = apiC.userWithFollows(req),
+          withFollows = apiC.userWithFollows(ctx.req),
           withTrophies = false
-        )(using reqLang(me)) dmap { JsonOk(_) }
+        ) dmap { JsonOk(_) }
     }
 
-  def apiNowPlaying = Scoped() { req ?=> me =>
-    doNowPlaying(me, req)
-  }
+  def apiNowPlaying = Scoped() { ctx ?=> doNowPlaying }
 
-  private def doNowPlaying(me: lila.user.User, req: RequestHeader) =
+  private def doNowPlaying(me: lila.user.User)(using AnyContext) =
     env.round.proxyRepo.urgentGames(me) map { povs =>
-      val nb = (getInt("nb", req) | 9) atMost 50
+      val nb = (getInt("nb") | 9) atMost 50
       Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map env.api.lobbyApi.nowPlaying)))
     }
 
@@ -148,7 +146,7 @@ final class Account(
     }
   }
 
-  private def refreshSessionId(me: UserModel, result: Result)(using ctx: Context): Fu[Result] =
+  private def refreshSessionId(me: UserModel, result: Result)(using ctx: WebContext): Fu[Result] =
     env.security.store.closeAllSessionsOf(me.id) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
@@ -175,7 +173,7 @@ final class Account(
     }
   }
 
-  def renderCheckYourEmail(using Context) =
+  def renderCheckYourEmail(using WebContext) =
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { ctx ?=> me =>
@@ -315,13 +313,13 @@ final class Account(
       }
   }
 
-  def apiKidPost = Scoped(_.Preference.Write) { req ?=> me =>
-    getBoolOpt("v", req) match
+  def apiKidPost = Scoped(_.Preference.Write) { ctx ?=> me =>
+    getBoolOpt("v") match
       case None    => BadRequest(jsonError("Missing v parameter")).toFuccess
       case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
   }
 
-  private def currentSessionId(using Context) =
+  private def currentSessionId(using WebContext) =
     ~env.security.api.reqSessionId(ctx.req)
 
   def security = Auth { _ ?=> me =>
@@ -351,7 +349,7 @@ final class Account(
   }
 
   private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     env.security.forms.reopen map { baseForm =>
       html.account.reopen.form(form.foldLeft(baseForm)(_ withForm _), msg)

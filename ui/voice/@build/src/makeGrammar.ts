@@ -35,7 +35,7 @@ async function main() {
   const opThreshold = parseInt(getArg('max-ops') ?? '1');
   const freqThreshold = parseFloat(getArg('freq') ?? '0.002');
   const countThreshold = parseInt(getArg('count') ?? '6');
-  const grammar = ps.argv.slice(2).filter(x => !x.startsWith('-'))[0] ?? getArg('grammar') ?? 'moves-en';
+  const grammar = ps.argv.slice(2).filter(x => !x.startsWith('-'))[0] ?? getArg('grammar') ?? 'move-en';
   const lexicon = JSON.parse(fs.readFileSync(`lexicon/${grammar}-lex.json`, 'utf-8')) as Lexicon;
 
   builder = new Builder(lexicon);

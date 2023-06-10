@@ -44,7 +44,7 @@ const cgConfig: Config = {
 
 const loadExampleGames = () =>
   $('.opening__games .lpv--todo')
-    .removeClass('.lpv--todo')
+    .removeClass('lpv--todo')
     .each(function (this: HTMLElement) {
       Lpv(this, {
         pgn: this.dataset['pgn']!,

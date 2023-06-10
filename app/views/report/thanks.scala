@@ -1,6 +1,6 @@
 package views.html.report
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -8,7 +8,7 @@ import controllers.routes
 
 object thanks:
 
-  def apply(userId: UserId, blocked: Boolean)(implicit ctx: Context) =
+  def apply(userId: UserId, blocked: Boolean)(implicit ctx: WebContext) =
 
     val title = "Thanks for the report"
 

@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.notify.NotificationPref
@@ -99,7 +99,7 @@ final class Pref(env: Env) extends LilaController(env):
     "keyboardMove" -> (forms.keyboardMove -> save("keyboardMove"))
   )
 
-  private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
+  private def save(name: String)(value: String, ctx: WebContext): Fu[Cookie] =
     ctx.me ?? {
       api.setPrefString(_, name, value)
     } inject env.lilaCookie.session(name, value)(using ctx.req)

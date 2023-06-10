@@ -2,7 +2,7 @@ package views.html.tutor
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorQueue
@@ -13,7 +13,7 @@ import chess.format.pgn.PgnStr
 
 object empty:
 
-  def start(user: User)(using Context) =
+  def start(user: User)(using WebContext) =
     bits.layout(menu = emptyFrag, pageSmall = true)(
       cls := "tutor__empty box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
@@ -23,7 +23,7 @@ object empty:
       )
     )
 
-  def queued(in: TutorQueue.InQueue, user: User, waitGames: List[(Pov, PgnStr)])(using Context) =
+  def queued(in: TutorQueue.InQueue, user: User, waitGames: List[(Pov, PgnStr)])(using WebContext) =
     bits.layout(
       menu = emptyFrag,
       title = "Lichess Tutor - Examining games...",
@@ -71,7 +71,7 @@ object empty:
     "and comparing your playstyle to thousands of other players with similar rating."
   )
 
-  def insufficientGames(user: User)(using Context) =
+  def insufficientGames(user: User)(using WebContext) =
     bits.layout(menu = emptyFrag, pageSmall = true)(
       cls := "tutor__insufficient box",
       boxTop(h1(bits.otherUser(user), "Lichess Tutor")),

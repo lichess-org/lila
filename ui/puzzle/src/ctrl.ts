@@ -31,6 +31,7 @@ import { toggle as boardMenuToggle } from 'board/menu';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
 import PuzzleSounds from './sounds';
+import { toggle as boardMenuToggle } from 'board/menu';
 
 export default class PuzzleController implements ParentCtrl {
   vm: Vm = {
@@ -51,6 +52,7 @@ export default class PuzzleController implements ParentCtrl {
   sound = new PuzzleSounds();
   music: any;
   flipped = toggle(false);
+  menu = boardMenuToggle(redraw);
   trans: Trans;
 
   keyboardMove?: KeyboardMove;

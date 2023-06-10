@@ -3,7 +3,7 @@ package views.html
 import controllers.routes
 import scala.util.chaining.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.oauth.AccessToken
@@ -12,7 +12,7 @@ object dgt:
 
   private val liveChessVersion = "2.2.5+"
 
-  def index(implicit ctx: Context) =
+  def index(implicit ctx: WebContext) =
     layout("index")(
       h1(cls := "box__top")("Lichess & DGT"),
       p(
@@ -68,7 +68,7 @@ object dgt:
       )
     )
 
-  def play(token: AccessToken)(implicit ctx: Context) =
+  def play(token: AccessToken)(implicit ctx: WebContext) =
     layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.plain.value}")"""))(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
@@ -84,7 +84,7 @@ object dgt:
       )
     )
 
-  def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =
+  def config(token: Option[lila.oauth.AccessToken])(implicit ctx: WebContext) =
     layout("config", embedJsUnsafeLoadThen("LichessDgt.configPage()"))(
       div(cls := "account")(
         h1(cls := "box__top")("DGT - configure"),
@@ -212,7 +212,7 @@ object dgt:
       }.toList
     )
 
-  private def layout(path: String, jsCall: Frag = emptyFrag)(body: Modifier*)(implicit ctx: Context) =
+  private def layout(path: String, jsCall: Frag = emptyFrag)(body: Modifier*)(implicit ctx: WebContext) =
     views.html.base.layout(
       moreCss = cssTag("dgt"),
       moreJs = frag(jsModule("dgt"), jsCall),

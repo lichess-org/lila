@@ -6,7 +6,7 @@ import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
@@ -38,7 +38,7 @@ object mod:
       emails: User.Emails,
       erased: User.Erased,
       pmPresets: ModPresets
-  )(using Context): Frag =
+  )(using WebContext): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(
         isGranted(_.ModMessage) option {
@@ -224,13 +224,13 @@ object mod:
       )
     )
 
-  private def gdprEraseForm(u: User)(using Context) =
+  private def gdprEraseForm(u: User)(using WebContext) =
     postForm(
       action := routes.Mod.gdprErase(u.username),
       cls    := "gdpr-erasure"
     )(gdprEraseButton(u)(cls := "btn-rack__btn confirm"))
 
-  def gdprEraseButton(u: User)(using Context) =
+  def gdprEraseButton(u: User)(using WebContext) =
     val allowed = u.marks.clean || isGranted(_.Admin)
     submitButton(
       cls := !allowed option "disabled",
@@ -242,7 +242,7 @@ object mod:
       !allowed option disabled
     )("GDPR erasure")
 
-  def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
+  def prefs(u: User)(pref: lila.pref.Pref)(using WebContext) =
     frag(
       canViewRoles(u) option mzSection("roles")(
         (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span) (
@@ -274,7 +274,7 @@ object mod:
       strong(cls := "fat")(rageSit.counterView, " / ", playbans)
     )
 
-  def plan(u: User)(charges: List[lila.plan.Charge])(using Context): Option[Frag] =
+  def plan(u: User)(charges: List[lila.plan.Charge])(using WebContext): Option[Frag] =
     charges.nonEmpty option
       mzSection("plan")(
         strong(cls := "text inline", dataIcon := patronIconChar)(
@@ -310,7 +310,7 @@ object mod:
         br
       )
 
-  def student(managed: lila.clas.Student.ManagedInfo)(using Context): Frag =
+  def student(managed: lila.clas.Student.ManagedInfo)(using WebContext): Frag =
     mzSection("student")(
       "Created by ",
       userLink(managed.createdBy),
@@ -318,7 +318,7 @@ object mod:
       a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
     )
 
-  def boardTokens(tokens: List[lila.oauth.AccessToken])(using Context): Frag =
+  def boardTokens(tokens: List[lila.oauth.AccessToken])(using WebContext): Frag =
     if tokens.isEmpty then emptyFrag
     else
       mzSection("boardTokens")(
@@ -418,7 +418,7 @@ object mod:
       )
     )
 
-  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using Context): Frag =
+  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(using WebContext): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
         p(cls := "text", dataIcon := licon.CautionCircle)(
@@ -573,13 +573,13 @@ object mod:
   private val clean: Frag     = iconTag(licon.User)
   private val reportban       = iconTag(licon.CautionTriangle)
   private val notesText       = iconTag(licon.Pencil)
-  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
+  private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: WebContext) =
     if (nb > 0) td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
     else td
 
   def otherUsers(mod: Holder, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(
       using
-      ctx: Context,
+      ctx: WebContext,
       renderIp: RenderIp
   ): Tag =
     import data.*
@@ -688,7 +688,7 @@ object mod:
       case email                        => frag(email)
     }
 
-  def identification(logins: UserLogins)(using ctx: Context, renderIp: RenderIp): Frag =
+  def identification(logins: UserLogins)(using ctx: WebContext, renderIp: RenderIp): Frag =
     val canIpBan  = isGranted(_.IpBan)
     val canFpBan  = isGranted(_.PrintBan)
     val canLocate = isGranted(_.Admin)
