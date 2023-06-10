@@ -211,15 +211,16 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
     if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
     else
       tree.flatMap(
-        _.modifyWithParentPath(path.ids, _.focus(_.value.metas).modify(f)).map(x => copy(tree = x.some))
+        _.modifyChildAt(path.ids, _.focus(_.value.metas).modify(f)).map(x => copy(tree = x.some))
       )
 
   def modifyWithParentPath(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then this.some
     else
       tree.flatMap(
-        _.modifyWithParentPath(path.ids, x => x.copy(value = f(x.value))).map(x => copy(tree = x.some))
+        _.modifyChildAt(path.ids, x => x.copy(value = f(x.value))).map(x => copy(tree = x.some))
       )
+
   def withoutChildren: NewRoot = copy(tree = None)
   def withTree(t: Option[NewTree]): NewRoot =
     copy(tree = t)
@@ -235,7 +236,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def lastMainlineMetasOrRoots = lastMainlineMetas | metas
   def modifyLastMainlineOrRoot(f: Metas => Metas): NewRoot =
     tree.fold(copy(metas = f(metas)))(tree =>
-      copy(tree = tree.modifyLastMainlineNode(ChessNode.lift(_.focus(_.metas).modify(f))).some)
+      copy(tree = tree.modifyLastMainlineNode(_.withValue(_.focus(_.metas).modify(f))).some)
     )
 
   override def toString = s"$tree"
