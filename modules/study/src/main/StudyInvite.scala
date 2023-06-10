@@ -32,7 +32,10 @@ final private class StudyInvite(
       role: StudyMember.Role = StudyMember.Role.Read
   ): Fu[User] =
     for {
-      _       <- !study.isOwner(byUserId) ?? fufail[Unit]("Only study owner can invite")
+      _ <- !(study.isOwner(byUserId) ||
+        study.isPostGameStudyWithOpponentPlayer(byUserId)) ?? fufail[Unit](
+        "Only study owner or study creators can invite"
+      )
       _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
       inviter <- userRepo.named(byUserId) orFail "No such inviter"
       invited <-

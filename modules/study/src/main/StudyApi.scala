@@ -360,7 +360,9 @@ final class StudyApi(
 
   def setRole(studyId: Study.Id, userId: User.ID, roleStr: String)(who: Who) =
     sequenceStudy(studyId) { study =>
-      canActAsOwner(study, who.u) flatMap {
+      (canActAsOwner(study, who.u) >>| fuccess(
+        study.isPostGameStudyWithOpponentPlayer(who.u) && !study.isPostGameStudyWithOpponentPlayer(userId)
+      )) flatMap {
         _ ?? {
           val role    = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
           val members = study.members.update(userId, _.copy(role = role))
