@@ -49,7 +49,7 @@ object home {
         )
         .some,
       deferJs = true,
-      canonicalPath = lila.common.CanonicalPath("").some
+      canonicalPath = lila.common.CanonicalPath("/").some
     ) {
       main(
         cls := List(
