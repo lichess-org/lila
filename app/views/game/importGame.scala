@@ -35,7 +35,7 @@ object importGame {
             ),
             div(cls := "right")(
               form3.group(form("notationFile"), raw("Or upload a KIF/CSA file"), klass = "upload") { f =>
-                form3.file.notation(f.name)
+                form3.file.notation(f)
               },
               form3.checkbox(
                 form("analyse"),
