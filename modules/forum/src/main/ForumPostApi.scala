@@ -24,7 +24,7 @@ final class ForumPostApi(
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
     askApi: AskApi
-)(using Executor):
+)(using Executor)(using scheduler: Scheduler):
 
   import BSONHandlers.given
 
@@ -116,11 +116,11 @@ final class ForumPostApi(
       categSlug: String,
       postId: ForumPostId,
       me: User,
-      reaction: String,
+      reactionStr: String,
       v: Boolean
   ): Fu[Option[ForumPost]] =
-    ForumPost.Reaction.set(reaction) ?? {
-      if (v) lila.mon.forum.reaction(reaction).increment()
+    ForumPost.Reaction(reactionStr) ?? { reaction =>
+      if (v) lila.mon.forum.reaction(reaction.key).increment()
       postRepo.coll
         .findAndUpdateSimplified[ForumPost](
           selector = $id(postId) ++ $doc("categId" -> categSlug, "userId" $ne me.id),
@@ -129,19 +129,22 @@ final class ForumPostApi(
             else $pull(s"reactions.$reaction"       -> me.id)
           },
           fetchNewObject = true
-        )
+        ) >>- {
+        if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
+          scheduler.scheduleOnce(5 minutes):
+            react(categSlug, postId, me, reaction.key, false)
+      }
     }
 
   def views(posts: List[ForumPost]): Fu[List[PostView]] =
     for
       topics <- topicRepo.coll.byIds[ForumTopic, ForumTopicId](posts.map(_.topicId).distinct)
       categs <- categRepo.coll.byIds[ForumCateg, ForumCategId](topics.map(_.categId).distinct)
-    yield posts flatMap { post =>
+    yield posts.flatMap: post =>
       for
         topic <- topics.find(_.id == post.topicId)
         categ <- categs.find(_.id == topic.categId)
       yield PostView(post, topic, categ)
-    }
 
   def viewsFromIds(postIds: Seq[ForumPostId]): Fu[List[PostView]] =
     postRepo.coll.byOrderedIds[ForumPost, ForumPostId](postIds)(_.id) flatMap views
@@ -151,9 +154,8 @@ final class ForumPostApi(
 
   def liteViews(posts: Seq[ForumPost]): Fu[Seq[PostLiteView]] =
     topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId.value).distinct) map { topics =>
-      posts.flatMap { post =>
+      posts.flatMap: post =>
         topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
-      }
     }
   def liteViewsByIds(postIds: Seq[ForumPostId]): Fu[Seq[PostLiteView]] =
     postRepo.byIds(postIds) flatMap liteViews

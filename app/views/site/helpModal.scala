@@ -194,7 +194,7 @@ object helpModal:
                 ),
                 li(
                   "Use the phonetic alphabet to improve recognition of chessboard files. ",
-                  phonetics()
+                  phonetics
                 )
               )
             )
@@ -238,6 +238,7 @@ object helpModal:
       )
     )
 
-  private def phonetics() =
-    for letter <- List("a", "b", "c", "d", "e", "f", "g", "h")
-    yield frag(s"${letter.capitalize} is ", phonetic(letter), ". ")
+  private def phonetics = "abcdefgh"
+    .map(_.toString)
+    .map: letter =>
+      frag(s"${letter.capitalize} is ", phonetic(letter), ". ")

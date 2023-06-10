@@ -1,9 +1,8 @@
 import { h } from 'snabbdom';
 import { ToggleWithUsed, toggleWithUsed } from 'common/storage';
-import { Toggle, toggle as baseToggle } from 'common/common';
+import { Toggle, toggle as baseToggle, onClickAway } from 'common/common';
 import * as licon from 'common/licon';
-import { MaybeVNode, MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
-import { snabModal } from 'common/modal';
+import { MaybeVNode, MaybeVNodes, bind, dataIcon, onInsert } from 'common/snabbdom';
 import { Redraw } from 'chessground/types';
 import * as controls from 'common/controls';
 
@@ -17,25 +16,27 @@ export const toggleButton = (toggle: ToggleWithUsed, title: string) =>
       class: { active: toggle() },
       attrs: {
         title,
-        'data-act': 'menu',
         'data-icon': licon.Hamburger,
       },
+      hook: bind('click', () => toggle.toggle()),
     },
     toggle.used() ? undefined : h('div.board-menu-toggle__new')
   );
 
-export const modal = (
+export const menu = (
   trans: Trans,
   redraw: Redraw,
   toggle: Toggle,
   content: (menu: BoardMenu) => MaybeVNodes
 ): MaybeVNode =>
   toggle()
-    ? snabModal({
-        class: 'board-menu',
-        onClose: () => toggle(false),
-        content: content(new BoardMenu(trans, redraw)),
-      })
+    ? h(
+        'div.board-menu',
+        {
+          hook: onInsert(onClickAway(() => toggle(false))),
+        },
+        content(new BoardMenu(trans, redraw))
+      )
     : undefined;
 
 export class BoardMenu {

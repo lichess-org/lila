@@ -1,7 +1,7 @@
 {
   "crowdv": "en-1.json",
   "partials": {
-    "commands": ["yes", "no", "stop"],
+    "commands": ["yes", "no"],
     "colors": ["green", "blue", "purple", "pink", "yellow", "orange", "red", "brown"],
     "numbers": ["1", "2", "3", "4", "5", "6", "7", "8"]
   },

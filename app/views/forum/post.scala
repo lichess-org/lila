@@ -142,18 +142,20 @@ object post:
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(
-          dataHref := canActuallyReact option routes.ForumPost.react(post.categId, post.id, r, !mine(r)).url,
-          cls      := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          dataHref := canActuallyReact option routes.ForumPost
+            .react(post.categId, post.id, r.key, !mine(r))
+            .url,
+          cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if (size > 0) {
               val who =
                 if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} others"
                 else users mkString ", "
               s"$who reacted with $r"
-            } else r
+            } else r.key
           }
         )(
-          img(src := assetUrl(s"images/emoji/$r.png"), alt := r),
+          img(src := assetUrl(s"images/emoji/$r.png"), alt := r.key),
           size > 0 option size
         )
       }

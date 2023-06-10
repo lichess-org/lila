@@ -158,7 +158,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
         ctrl.moduleId !== 'coords'
           ? xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`))
           : Promise.resolve({ entries: [] }),
-        xhr.text(xhr.url(`/help/voice?module=${ctrl.moduleId}`, {})),
+        xhr.text(xhr.url(`/help/voice/${ctrl.moduleId}`, {})),
       ]);
       // using lexicon instead of crowdin translations for moves/commands
       el.find('.scrollable').html(html);

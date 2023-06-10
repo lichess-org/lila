@@ -19,6 +19,9 @@ export const supportedLangs = [
   ['de', 'Deutsch'],
   ['tr', 'Türkçe'],
   ['vi', 'Tiếng Việt'],
+  ['ru', 'Русский'],
+  ['it', 'Italiano'],
+  ['sv', 'Svenska'],
 ];
 
 export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
