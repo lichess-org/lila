@@ -30,7 +30,7 @@ private object bits {
         dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}"""
       )(
         renderLabel(form("sfen"), "SFEN"),
-        form3.input(form("sfen"))(st.placeholder := trans.default.txt())
+        renderSfenInput(form("sfen"))(st.placeholder := trans.default.txt())
       )
     else
       div(cls := "sfen_position optional_config")(
@@ -52,7 +52,7 @@ private object bits {
             dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}"""
           )(
             renderLabel(form("sfen"), "SFEN"),
-            form3.input(form("sfen"))(st.placeholder := trans.pasteTheSfenStringHere.txt()),
+            renderSfenInput(form("sfen"))(st.placeholder := trans.pasteTheSfenStringHere.txt()),
             a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
           ),
           a(cls := "board_editor", href := url)(
@@ -71,6 +71,14 @@ private object bits {
         )
       )
   }
+
+  def renderSfenInput(field: Field) =
+    input(
+      `type`  := "text",
+      cls     := "form-control",
+      id      := s"$prefix${field.id}",
+      st.name := field.name
+    )
 
   def renderVariant(form: Form[_], variants: List[SelectChoice])(implicit ctx: Context) =
     div(cls := "variant label_select")(
