@@ -18,24 +18,14 @@ private object Mappings:
   val aiVariants                = typeIn(Config.aiVariants.toSet)
   val variantWithVariants       = typeIn(Config.variantsWithVariants.toSet)
   val variantWithFenAndVariants = typeIn(Config.variantsWithFenAndVariants.toSet)
-  val boardApiVariants = Set(
-    V.Standard.key,
-    V.Chess960.key,
-    V.Crazyhouse.key,
-    V.KingOfTheHill.key,
-    V.ThreeCheck.key,
-    V.Antichess.key,
-    V.Atomic.key,
-    V.Horde.key,
-    V.RacingKings.key
-  )
-  val boardApiVariantKeys      = typeIn(boardApiVariants)
-  val time                     = of[Double].verifying(HookConfig validateTime _)
-  val increment                = of[Clock.IncrementSeconds].verifying(HookConfig validateIncrement _)
-  val daysChoices              = Days from List(1, 2, 3, 5, 7, 10, 14)
-  val days                     = typeIn(daysChoices.toSet)
-  def timeMode                 = number.verifying(TimeMode.ids contains _)
-  def mode(withRated: Boolean) = optional(rawMode(withRated))
+  val boardApiVariants          = V.Variant.list.all.view.filterNot(_.fromPosition).map(_.key).toSet
+  val boardApiVariantKeys       = typeIn(boardApiVariants)
+  val time                      = of[Double].verifying(HookConfig validateTime _)
+  val increment                 = of[Clock.IncrementSeconds].verifying(HookConfig validateIncrement _)
+  val daysChoices               = Days from List(1, 2, 3, 5, 7, 10, 14)
+  val days                      = typeIn(daysChoices.toSet)
+  def timeMode                  = number.verifying(TimeMode.ids contains _)
+  def mode(withRated: Boolean)  = optional(rawMode(withRated))
   def rawMode(withRated: Boolean) =
     number
       .verifying(HookConfig.modes contains _)
@@ -44,10 +34,9 @@ private object Mappings:
   val color       = text.verifying(Color.names contains _)
   val level       = number.verifying(AiConfig.levels contains _)
   val speed       = number.verifying(Config.speeds contains _)
-  val fenField = optional {
+  val fenField = optional:
     import lila.common.Form.fen.{ mapping, truncateMoveNumber }
     mapping.transform[Fen.Epd](truncateMoveNumber, identity)
-  }
   val gameRules = lila.common.Form.strings
     .separator(",")
     .verifying(_.forall(GameRule.byKey.contains))

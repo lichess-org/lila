@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.racer.RacerPlayer
 import lila.racer.RacerRace
@@ -14,7 +14,7 @@ final class Racer(env: Env) extends LilaController(env):
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Racer.home)(serveHome)
 
-  private def serveHome(using Context) = NoBot:
+  private def serveHome(using WebContext) = NoBot:
     Ok(html.racer.home).toFuccess
 
   def create =
@@ -63,7 +63,7 @@ final class Racer(env: Env) extends LilaController(env):
       }
     }
 
-  private def WithPlayerId(f: Context ?=> RacerPlayer.Id => Fu[Result]) = Open:
+  private def WithPlayerId(f: WebContext ?=> RacerPlayer.Id => Fu[Result]) = Open:
     NoBot:
       ctx.req.sid map { env.racer.api.playerId(_, ctx.me) } match
         case Some(id) => f(id)

@@ -3,7 +3,7 @@ package views.html.clas
 import controllers.clas.routes.{ Clas as clasRoutes }
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
@@ -16,7 +16,7 @@ object teacherDashboard:
       c: Clas,
       students: List[Student.WithUser],
       active: String
-  )(modifiers: Modifier*)(using Context) =
+  )(modifiers: Modifier*)(using WebContext) =
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
@@ -49,7 +49,7 @@ object teacherDashboard:
   def overview(
       c: Clas,
       students: List[Student.WithUser]
-  )(using Context) =
+  )(using WebContext) =
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
         c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc)),
@@ -72,7 +72,7 @@ object teacherDashboard:
       c: Clas,
       all: List[Student.WithUser],
       invites: List[ClasInvite]
-  )(using Context) =
+  )(using WebContext) =
     layout(c, all.filter(_.student.isActive), "students") {
       val archived = all.filter(_.student.isArchived)
       val inviteBox =
@@ -112,7 +112,7 @@ object teacherDashboard:
       frag(inviteBox, archivedBox)
     }
 
-  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using Context) =
+  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using WebContext) =
     layout(c, students, active)(
       div(cls := "box__pad students__empty")(
         p(
@@ -132,7 +132,7 @@ object teacherDashboard:
       c: Clas,
       students: List[Student.WithUser],
       progress: ClasProgress
-  )(using Context) =
+  )(using WebContext) =
     layout(c, students, "progress")(
       progressHeader(c, progress.some),
       div(cls := "students")(
@@ -187,7 +187,7 @@ object teacherDashboard:
       basicCompletion: Map[UserId, Int],
       practiceCompletion: Map[UserId, Int],
       coordScores: Map[UserId, chess.ByColor[Int]]
-  )(using Context) =
+  )(using WebContext) =
     layout(c, students, "progress")(
       progressHeader(c, none),
       div(cls := "students")(
@@ -226,7 +226,7 @@ object teacherDashboard:
       )
     )
 
-  private def progressHeader(c: Clas, progress: Option[ClasProgress])(using Context) =
+  private def progressHeader(c: Clas, progress: Option[ClasProgress])(using WebContext) =
     div(cls := "progress")(
       div(cls := "progress-perf")(
         label(trans.variant()),
@@ -264,7 +264,7 @@ object teacherDashboard:
       }
     )
 
-  private def studentList(c: Clas, students: List[Student.WithUser])(using Context) =
+  private def studentList(c: Clas, students: List[Student.WithUser])(using WebContext) =
     div(cls := "students")(
       table(cls := "slist slist-pad sortable")(
         thead(
@@ -297,7 +297,7 @@ object teacherDashboard:
       )
     )
 
-  private def studentTd(c: Clas, s: Student.WithUser)(using Context) =
+  private def studentTd(c: Clas, s: Student.WithUser)(using WebContext) =
     td(
       a(href := clasRoutes.studentShow(c.id.value, s.user.username))(
         userSpan(

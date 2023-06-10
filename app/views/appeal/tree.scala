@@ -4,7 +4,7 @@ package appeal
 import controllers.routes
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -23,7 +23,7 @@ object tree:
   val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
   val closedByModerators       = "Your account was closed by moderators.";
 
-  private def cleanMenu(using Context): Branch =
+  private def cleanMenu(using WebContext): Branch =
     Branch(
       "root",
       cleanAllGood,
@@ -68,7 +68,7 @@ object tree:
       )
     )
 
-  private def engineMenu(using Context): Branch =
+  private def engineMenu(using WebContext): Branch =
     val accept =
       "I accept that I used outside assistance in my games."
     val deny =
@@ -110,7 +110,7 @@ object tree:
       ).some
     )
 
-  private def boostMenu(using Context): Branch =
+  private def boostMenu(using WebContext): Branch =
     val accept = "I accept that I manipulated my rating."
     val acceptFull =
       "I accept that I deliberately manipulated my rating by losing games on purpose, or by playing another account that was deliberately losing games. I am sorry and I would like another chance."
@@ -144,7 +144,7 @@ object tree:
       ).some
     )
 
-  private def muteMenu(using Context): Branch =
+  private def muteMenu(using WebContext): Branch =
     val accept = "I accept that I have not followed the communication guidelines"
     val acceptFull =
       "I accept that I have not followed the communication guidelines. I will behave better in future, please give me another chance."
@@ -183,7 +183,7 @@ object tree:
       ).some
     )
 
-  private def rankBanMenu(using Context): Branch =
+  private def rankBanMenu(using WebContext): Branch =
     val accept = "I accept that I have manipulated my account to get on the leaderboard."
     val deny =
       "I deny having manipulated my account to get on the leaderboard."
@@ -259,7 +259,7 @@ object tree:
       )
     )
 
-  private def altScreen(using Context) = div(cls := "leaf")(
+  private def altScreen(using WebContext) = div(cls := "leaf")(
     h2(closedByModerators),
     div(cls := "content")(
       p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
@@ -274,7 +274,7 @@ object tree:
     newAppeal()
   )
 
-  def apply(me: User, playban: Boolean)(using ctx: Context) =
+  def apply(me: User, playban: Boolean)(using ctx: WebContext) =
     bits.layout("Appeal a moderation decision") {
       val query    = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
       val isMarked = playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban
@@ -315,7 +315,7 @@ object tree:
     p("Please be honest, concise, and on point.")
   )
 
-  private def newAppeal(preset: String = "")(using Context) =
+  private def newAppeal(preset: String = "")(using WebContext) =
     discussion.renderForm(
       lila.appeal.Appeal.form.fill(preset),
       action = appealRoutes.post.url,

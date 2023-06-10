@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 import views.html
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.{ Id as ChallengeId }
@@ -28,8 +28,7 @@ final class Challenge(
       api allFor me.id map env.challenge.jsonView.apply map JsonOk
   }
 
-  def apiList = ScopedBody(_.Challenge.Read) { req ?=> me =>
-    given play.api.i18n.Lang = reqLang
+  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me =>
     api.allFor(me.id, 300) map { all =>
       JsonOk:
         Json.obj(
@@ -43,14 +42,14 @@ final class Challenge(
     Open:
       showId(id)
 
-  protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
+  protected[controllers] def showId(id: ChallengeId)(using WebContext): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
 
   protected[controllers] def showChallenge(
       c: ChallengeModel,
       error: Option[String] = None,
       justCreated: Boolean = false
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: WebContext): Fu[Result] =
     env.challenge version c.id flatMap { version =>
       val mine = justCreated || isMine(c)
       import lila.challenge.Direction
@@ -77,7 +76,7 @@ final class Challenge(
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } map env.lilaCookie.ensure(ctx.req)
 
-  private def isMine(challenge: ChallengeModel)(using Context) =
+  private def isMine(challenge: ChallengeModel)(using WebContext) =
     challenge.challenger match
       case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
@@ -129,7 +128,7 @@ final class Challenge(
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
       res: Result
-  )(using Context): Fu[Result] =
+  )(using WebContext): Fu[Result] =
     cond ?? {
       env.game.gameRepo.game(c.id into GameId).map {
         _ map { game =>
@@ -156,8 +155,7 @@ final class Challenge(
         )
     }
   }
-  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
-    given play.api.i18n.Lang = reqLang
+  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     api.activeByIdFor(id, me) flatMap {
       case None =>
         env.bot.player.rematchDecline(id into GameId, me) flatMap {
@@ -179,7 +177,7 @@ final class Challenge(
       OptionFuResult(api byId id): c =>
         if isMine(c) then api cancel c else notFound
 
-  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
+  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     api.activeByIdBy(id, me) flatMap {
       case Some(c) => api.cancel(c) inject jsonOkResult
       case None =>
@@ -198,9 +196,9 @@ final class Challenge(
                 lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
                 jsonOkResult.toFuccess
               case Some(pov) if pov.game.playable =>
-                Bearer.from(get("opponentToken", req)) match
+                Bearer.from(get("opponentToken")) match
                   case Some(bearer) =>
-                    env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write), req.some) map {
+                    env.oAuth.server.auth(bearer, OAuthScope.select(_.Challenge.Write), ctx.req.some) map {
                       case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
                         lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                         jsonOkResult
@@ -221,7 +219,7 @@ final class Challenge(
 
   def apiStartClocks(id: GameId) = Anon:
     import cats.syntax.all.*
-    val scopes = List(OAuthScope.Challenge.Write)
+    val scopes = OAuthScope.select(_.Challenge.Write)
     (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
       env.oAuth.server.authBoth(scopes, req)
     } ?? {
@@ -282,8 +280,7 @@ final class Challenge(
       else notFound
   }
 
-  def apiCreate(username: UserStr) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
-    given play.api.i18n.Lang = reqLang
+  def apiCreate(username: UserStr) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     !me.is(username) ?? env.setup.forms.api
       .user(me)
       .bindFromRequest()
@@ -347,7 +344,7 @@ final class Challenge(
       strToken: String
   )(managedBy: lila.user.User, message: Option[Template])(using req: RequestHeader): Fu[Result] =
     env.oAuth.server
-      .auth(Bearer(strToken), List(lila.oauth.OAuthScope.Challenge.Write), req.some)
+      .auth(Bearer(strToken), OAuthScope.select(_.Challenge.Write), req.some)
       .flatMap:
         _.fold(
           err => BadRequest(jsonError(err.message)).toFuccess,
@@ -366,8 +363,7 @@ final class Challenge(
             else BadRequest(jsonError("dest and accept user don't match")).toFuccess
         )
 
-  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { req ?=> me =>
-    given play.api.i18n.Lang = reqLang(me)
+  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write) { ctx ?=> me =>
     env.setup.forms.api.open
       .bindFromRequest()
       .fold(

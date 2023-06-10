@@ -103,6 +103,7 @@
   <string name="openingExplorer">Biblioteka otwarć</string>
   <string name="openingEndgameExplorer">Biblioteka otwarć i końcówek</string>
   <string name="xOpeningExplorer">Biblioteka otwarć %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Zagraj pierwsze posunięcie z przeglądarki otwarć/końcówek</string>
   <string name="winPreventedBy50MoveRule">Bez wygranej ze względu na regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Bez przegranej ze względu na regułę 50 ruchów</string>
   <string name="winOr50MovesByPriorMistake">Zwycięstwo lub 50 posunięć bez rozstrzygnięcia</string>
@@ -253,7 +254,7 @@
   <string name="emailSent">Wysłaliśmy do Ciebie e-mail na %s.</string>
   <string name="emailCanTakeSomeTime">Dostarczenie emaila może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
-  <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz email. Jeśli tak, oznacz go jako nie spam.</string>
+  <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz e-mail. Jeśli tak, oznacz go jako nie spam.</string>
   <string name="emailForSignupHelp">Jeśli wszystko inne zawiedzie, wyślij nam ten e-mail:</string>
   <string name="copyTextToEmail">Skopiuj i wklej powyższy tekst i wyślij go do %s</string>
   <string name="waitForSignupHelp">Wkrótce wrócimy do Ciebie, aby pomóc Ci w dokończeniu rejestracji.</string>
@@ -318,6 +319,7 @@
   <string name="cancelRematchOffer">Wycofaj propozycję rewanżu</string>
   <string name="viewRematch">Zobacz rewanż</string>
   <string name="confirmMove">Potwierdź ruch</string>
+  <string name="enableConfirmationForThisGame">Włącz potwierdzenie dla tej partii</string>
   <string name="play">Zagraj</string>
   <string name="inbox">Wiadomości</string>
   <string name="chatRoom">Czat</string>
@@ -753,6 +755,11 @@
   <string name="keyGoToStartOrEnd">idź na początek/koniec</string>
   <string name="keyShowOrHideComments">pokaż/ukryj komentarze</string>
   <string name="keyEnterOrExitVariation">wejdź/opuść wariant</string>
+  <string name="keyRequestComputerAnalysis">Poproś o analizę komputerową, ucz się na swoich błędach</string>
+  <string name="keyNextLearnFromYourMistakes">Następny (Ucz się na swoich błędach)</string>
+  <string name="keyNextBlunder">Następny błąd</string>
+  <string name="keyNextMistake">Następna pomyłka</string>
+  <string name="keyNextInaccuracy">Następna niedokładność</string>
   <string name="newTournament">Nowy turniej</string>
   <string name="tournamentHomeTitle">Turnieje szachowe z możliwością rozgrywki w różnym tempie i odmianach szachów</string>
   <string name="tournamentHomeDescription">Weź udział w turniejach szachowych online! Dołącz do istniejącego turnieju lub stwórz własny. Błyskawiczne, szybkie, klasyczne, Fishera, król w centrum, trzy szachy i wiele innych opcji, aby szachowa zabawa trwała w nieskończoność.</string>
@@ -797,7 +804,7 @@
   <string name="withEverybody">Każdemu</string>
   <string name="kidMode">Tryb dla dzieci</string>
   <string name="kidModeExplanation">Chodzi o bezpieczeństwo. W trybie dla dzieci możliwość komunikacji w serwisie jest wyłączona. Włącz go na rzecz swoich dzieci, czy uczniów, by chronić ich przed możliwymi zagrożeniami ze strony innych użytkowników internetu.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, byś wiedział, że dziecko jest chronione.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, wiesz wtedy, że Twoje dziecko jest chronione.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Twoim kontem zarządza nauczyciel. Poproś go o przekazanie zarządzania Tobie.</string>
   <string name="enableKidMode">Włącz tryb dla dzieci</string>
   <string name="disableKidMode">Wyłącz tryb dla dzieci</string>
@@ -854,6 +861,7 @@
   <string name="invalidFen">Nieprawidłowy FEN</string>
   <string name="custom">Niestandardowa</string>
   <string name="notifications">Powiadomienia</string>
+  <string name="notificationsX">Powiadomienia: %1$s</string>
   <string name="perfRatingX">Ranking: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na wykonanie pierwszego ruchu</item>

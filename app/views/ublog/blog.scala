@@ -2,7 +2,7 @@ package views.html.ublog
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -14,7 +14,7 @@ object blog:
 
   import views.html.ublog.{ post as postView }
 
-  def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
+  def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: WebContext) =
     val title = trans.ublog.xBlog.txt(user.username)
     views.html.base.layout(
       moreCss = cssTag("ublog"),

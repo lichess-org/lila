@@ -99,6 +99,7 @@
   <string name="openingExplorer">Abrir o explorador</string>
   <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Xoga o primeiro movemento do explorador de aperturas/finais</string>
   <string name="winPreventedBy50MoveRule">Victoria impedida pola regra das 50 xogadas</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
   <string name="winOr50MovesByPriorMistake">Victoria ou 50 movementos a causa dun erro anterior</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Cancelar a oferta de desquite</string>
   <string name="viewRematch">Ver desquite</string>
   <string name="confirmMove">Confirma o movemento</string>
+  <string name="enableConfirmationForThisGame">Habilita a confirmación para esta partida</string>
   <string name="play">Xogar</string>
   <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
@@ -682,6 +684,11 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/saír de variante</string>
+  <string name="keyRequestComputerAnalysis">Solicita unha análise por computador, Aprende dos teus erros</string>
+  <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
+  <string name="keyNextBlunder">Seguinte metida de zoca</string>
+  <string name="keyNextMistake">Seguinte erro</string>
+  <string name="keyNextInaccuracy">Seguinte imprecisión</string>
   <string name="newTournament">Novo torneo</string>
   <string name="tournamentHomeTitle">Torneo de xadrez con varios controis de tempo e variantes</string>
   <string name="tournamentHomeDescription">Xoga torneos de xadrez acelerados! Únete a un torneo oficial programado, ou crea un de teu. Bullet, Blitz, Estándar, Chess960, King of the Hill, Threecheck, e máis opcións dispoñibles para unha diversión xadrecística sen fin.</string>
@@ -779,6 +786,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="invalidFen">FEN non válido</string>
   <string name="custom">Á medida</string>
   <string name="notifications">Notificacións</string>
+  <string name="notificationsX">Notificacións: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para facer o primeiro movemento</item>

@@ -130,8 +130,7 @@ lichess.load.then(() => {
       }
     });
 
-    /* A disgusting hack for a disgusting browser
-     * Edge randomly fails to rasterize SVG on page load
+    /* Edge randomly fails to rasterize SVG on page load
      * A different SVG must be loaded so a new image can be rasterized */
     if (navigator.userAgent.includes('Edge/'))
       setTimeout(() => {

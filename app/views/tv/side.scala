@@ -1,6 +1,6 @@
 package views.html.tv
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -45,7 +45,7 @@ object side:
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(implicit ctx: Context): Frag =
+  def meta(pov: lila.game.Pov)(implicit ctx: WebContext): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(
@@ -80,7 +80,7 @@ object side:
   def sides(
       pov: lila.game.Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     div(cls := "sides")(
       cross.map {
         views.html.game.crosstable(_, pov.gameId.some)

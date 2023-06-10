@@ -15,7 +15,7 @@
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
   <string name="showPlayerRatings">显示等级分</string>
-  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/display">该选项可在网站内隐藏等级分，使你可以专注于下棋本身。对局依旧会影响等级分，但不会向你显示。</string>
+  <string name="explainShowPlayerRatings">该选项可在网站内隐藏等级分，使你可以专注于下棋本身。对局依旧会影响等级分，但不会向你显示。</string>
   <string name="displayBoardResizeHandle">调整棋盘大小</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="blindfoldChess">盲棋(看不见棋子)</string>
@@ -63,5 +63,5 @@
   <string name="notifyPush">当您不在Lichess时的设备通知</string>
   <string name="notifyWeb">浏览器通知</string>
   <string name="notifyDevice">设备通知</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">通知声音</string>
+  <string name="bellNotificationSound">通知声音</string>
 </resources>

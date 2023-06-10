@@ -68,7 +68,7 @@ async function dbAsync(dbInfo: DbInfo) {
   return new Promise<IDBDatabase>((resolve, reject) => {
     const result = window.indexedDB.open(dbName, dbInfo?.version ?? 1);
     result.onsuccess = (e: Event) => resolve((e.target as IDBOpenDBRequest).result);
-    result.onerror = (e: Event) => reject((e.target as IDBOpenDBRequest).result);
+    result.onerror = (e: Event) => reject((e.target as IDBOpenDBRequest).result ?? 'IndexedDB Unavailable');
     result.onupgradeneeded = (e: IDBVersionChangeEvent) => {
       const db = (e.target as IDBOpenDBRequest).result;
       const txn = (e.target as IDBOpenDBRequest).transaction;

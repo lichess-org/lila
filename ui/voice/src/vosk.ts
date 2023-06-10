@@ -1,13 +1,11 @@
 import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
 import { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
 import { Selector, Selectable } from 'common/selector';
-import { RecognizerOpts } from '../interfaces';
+import { RecognizerOpts } from './interfaces';
 
 const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
-const BUF_SIZE = 8192;
 
-// Based on the original implementation by Sam 'Spammy' Ezeh who found Vosk-browser and first
-// got it working in lichess.
+// Thanks to Sam 'Spammy' Ezeh who found Vosk-browser and first got it working in lichess.
 
 export default (window as any).LichessVoicePlugin.vosk = new (class {
   voiceModel?: Model;
@@ -29,8 +27,11 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
     }
     const kaldi = new this.voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.words));
 
+    // buffer size under 100ms for timely partial results, 200ms for full results
+    const bufSize = 2 ** Math.ceil(Math.log2(opts.audioCtx.sampleRate / (opts.partial ? 16 : 8)));
+
     // fun fact - createScriptProcessor was deprecated in 2014
-    const node = opts.audioCtx.createScriptProcessor(BUF_SIZE, 1, 1);
+    const node = opts.audioCtx.createScriptProcessor(bufSize, 1, 1);
     if (opts.partial)
       kaldi.on('partialresult', (msg: ServerMessagePartialResult) => {
         if (msg.result.partial.length < 1 || !this.recs.selected?.partial) return;
@@ -42,7 +43,11 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
         opts.broadcast(msg.result.text, 'full', 3000);
       });
 
-    if (LOG_LEVEL >= -1) console.info(`Creating '${opts.recId}' recognizer with`, opts.words);
+    if (LOG_LEVEL >= -1)
+      console.info(
+        `Created ${opts.audioCtx.sampleRate.toFixed()}Hz recognizer '${opts.recId}' with buffer size ${bufSize}`,
+        opts.words
+      );
 
     this.recs.set(opts.recId, new KaldiRec(kaldi, node, opts.partial));
     return node;
@@ -52,8 +57,8 @@ export default (window as any).LichessVoicePlugin.vosk = new (class {
     return this.voiceModel !== undefined && (!lang || lang === this.lang);
   }
 
-  select(lex: string | false): void {
-    this.recs.select(lex);
+  select(recId: string | false): void {
+    this.recs.select(recId);
   }
 })();
 
@@ -73,10 +78,10 @@ class KaldiRec implements Selectable {
   }
   deselect() {
     if (!this.node.onaudioprocess) return;
+    this.kaldi.retrieveFinalResult(); // flush lattice
     this.node.onaudioprocess = null;
-    if (this.partial) this.kaldi.retrieveFinalResult(); // flush lattice
   }
-  dispose() {
+  close() {
     this.deselect();
     this.kaldi.remove();
   }

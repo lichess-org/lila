@@ -6,6 +6,14 @@ import lila.i18n.I18nKeys.{ oauthScope as trans }
 sealed abstract class OAuthScope(val key: String, val name: I18nKey):
   override def toString = s"Scope($key)"
 
+opaque type OAuthScopes = List[OAuthScope]
+object OAuthScopes extends TotalWrapper[OAuthScopes, List[OAuthScope]]:
+  extension (e: OAuthScopes)
+    def has(s: OAuthScope): Boolean             = e contains s
+    def has(s: OAuthScope.Selector): Boolean    = has(s(OAuthScope))
+    def keyList: String                         = e.map(_.key) mkString ", "
+    def intersects(other: OAuthScopes): Boolean = e.exists(other.has)
+
 object OAuthScope:
 
   object Preference:
@@ -61,7 +69,7 @@ object OAuthScope:
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
     case object Mod    extends OAuthScope("web:mod", trans.webMod)
 
-  case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
+  case class Scoped(user: lila.user.User, scopes: OAuthScopes)
 
   type Selector = OAuthScope.type => OAuthScope
 
@@ -113,9 +121,9 @@ object OAuthScope:
 
   val byKey: Map[String, OAuthScope] = all.mapBy(_.key)
 
-  def keyList(scopes: Iterable[OAuthScope]) = scopes.map(_.key) mkString ", "
-
-  def select(selectors: Iterable[OAuthScope.type => OAuthScope]) = selectors.map(_(OAuthScope)).toList
+  def select(selectors: Iterable[Selector]): OAuthScopes =
+    OAuthScopes(selectors.map(_(OAuthScope)).toList)
+  def select(selectors: Selector*): OAuthScopes = select(selectors)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

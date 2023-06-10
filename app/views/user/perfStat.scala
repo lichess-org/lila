@@ -2,7 +2,7 @@ package views.html.user
 
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.{ Perf, PerfType }
@@ -18,7 +18,7 @@ object perfStat:
   def apply(
       data: PerfStatData,
       ratingChart: Option[String]
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     import data.*
     import stat.perfType
     views.html.base.layout(
@@ -73,7 +73,7 @@ object perfStat:
   private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(using
-      ctx: Context
+      ctx: WebContext
   ): Frag =
     st.section(cls := "glicko")(
       h2(

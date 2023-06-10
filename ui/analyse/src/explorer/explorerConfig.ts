@@ -62,8 +62,8 @@ export class ExplorerConfigCtrl {
     const byDbData = {} as ByDbSettings;
     for (const db of this.allDbs) {
       byDbData[db] = {
-        since: storedStringProp('explorer.since-2.' + db, ''),
-        until: storedStringProp('explorer.until-2.' + db, ''),
+        since: storedStringProp('analyse.explorer.since-2.' + db, ''),
+        until: storedStringProp('analyse.explorer.until-2.' + db, ''),
       };
     }
     const prevData = previous?.data;
@@ -75,13 +75,13 @@ export class ExplorerConfigCtrl {
         str => str as ExplorerDb,
         v => v
       ),
-      rating: storedJsonProp('explorer.rating', () => allRatings.slice(1)),
+      rating: storedJsonProp('analyse.explorer.rating', () => allRatings.slice(1)),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds.slice(1)),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       byDbData,
       playerName: {
         open: prevData?.playerName.open || prop(false),
-        value: storedStringProp('explorer.player.name', document.body.dataset['user'] || ''),
+        value: storedStringProp('analyse.explorer.player.name', document.body.dataset['user'] || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
       color: prevData?.color || prop('white'),

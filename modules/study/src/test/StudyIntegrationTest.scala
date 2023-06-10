@@ -3,9 +3,9 @@ package lila.study
 import cats.syntax.all.*
 
 import chess.{ Square, White }
-import chess.variant.Standard
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
+import chess.variant.*
 
 import lila.socket.AnaMove
 import java.time.Instant
@@ -29,38 +29,46 @@ val studyInstant = Instant.ofEpochSecond(1685031726L)
 
 class StudyIntegrationTest extends munit.FunSuite:
 
-  val root = Root.default(Standard)
-  val chapter = Chapter(
-    chapterId,
-    studyId,
-    StudyChapterName("chapterName"),
-    Chapter.Setup(None, Standard, White, None),
-    root,
-    Tags.empty,
-    0,
-    userId,
-    None,
-    None,
-    None,
-    None,
-    None,
-    None,
-    studyInstant
-  )
+  def defaultChapter(variant: Variant): Chapter =
+    val root = Root.default(variant)
+    Chapter(
+      chapterId,
+      studyId,
+      StudyChapterName("chapterName"),
+      Chapter.Setup(None, variant, White, None),
+      root,
+      Tags.empty,
+      0,
+      userId,
+      None,
+      None,
+      None,
+      None,
+      None,
+      None,
+      studyInstant
+    )
 
   import Helpers.*
   import StudyAction.*
-  test("moves"):
-    Fixtures.all.foreach: (str, expected) =>
-      val output = chapter.execute(str).get
-      assertEquals(rootToPgn(output.root).value, expected)
 
-  extension (s: String)
-    def toMoves: List[AnaMove] =
-      s.linesIterator.toList
-        .map(Json.parse(_).asInstanceOf[JsObject])
-        .traverse(AnaMove.parse)
-        .get
+  test("all actions"):
+    TestCase.all.foreach: testCase =>
+      val chapter = defaultChapter(testCase.variant)
+      val output  = chapter.execute(testCase.actions).get
+      assertEquals(rootToPgn(output.root).value, testCase.expected)
+
+case class TestCase(variant: Variant, actions: List[StudyAction], expected: String)
+
+object TestCase:
+  def apply(variant: Variant, actionStr: String, expected: String): TestCase =
+    val actions = actionStr.linesIterator.toList.map(StudyAction.parse)
+    TestCase(variant, actions, expected)
+
+  import Fixtures.*
+  val all = standards.map((str, expected) => TestCase(Standard, str, expected))
+    ++ crazyhouses.map((str, expected) => TestCase(Crazyhouse, str, expected))
+    ++ antichess.map((str, expected) => TestCase(Antichess, str, expected))
 
 enum StudyAction:
   case Move(m: AnaMove)
@@ -97,8 +105,7 @@ object StudyAction:
     jsObject.str("t") match
       case Some("anaMove") =>
         Move(AnaMove.parse(jsObject).get)
-      case Some("AnaDrop") =>
-        ???
+      case Some("anaDrop") =>
         Drop(AnaDrop.parse(jsObject).get)
       case Some("deleteNode") =>
         DeleteNode(jsObject.get[AtPosition]("d").get)
@@ -186,12 +193,6 @@ object StudyAction:
     def execute(actions: List[StudyAction]): Option[Chapter] =
       actions.foldLeft(chapter.some): (chapter, action) =>
         chapter.flatMap(_.execute(action))
-
-    def execute(str: String): Option[Chapter] =
-      chapter.execute(
-        str.linesIterator.toList
-          .map(StudyAction.parse)
-      )
 
 object Fixtures:
 
@@ -284,6 +285,36 @@ object Fixtures:
   val pgn6 =
     "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
 
-  val ms  = List(m0, m1, m2, m3, m4, m5, m6)
-  val ps  = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
-  val all = ms.zip(ps)
+  val ms        = List(m0, m1, m2, m3, m4, m5, m6)
+  val ps        = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
+  val standards = ms.zip(ps)
+
+  val m7 = """
+{"t":"anaMove","d":{"orig":"c2","dest":"c4","variant":"crazyhouse","fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w KQkq - 0 1","path":"","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"b7","dest":"b5","variant":"crazyhouse","fen":"rnbqkbnr/pppppppp/8/8/2P5/8/PP1PPPPP/RNBQKBNR/ b KQkq - 0 1","path":"-=","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"c4","dest":"b5","variant":"crazyhouse","fen":"rnbqkbnr/p1pppppp/8/1p6/2P5/8/PP1PPPPP/RNBQKBNR/ w KQkq - 0 2","path":"-=TD","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"c7","dest":"c6","variant":"crazyhouse","fen":"rnbqkbnr/p1pppppp/8/1P6/8/8/PP1PPPPP/RNBQKBNR/P b KQkq - 0 2","path":"-=TD=D","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"b5","dest":"c6","variant":"crazyhouse","fen":"rnbqkbnr/p2ppppp/2p5/1P6/8/8/PP1PPPPP/RNBQKBNR/P w KQkq - 0 3","path":"-=TD=DUM","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"b8","dest":"c6","variant":"crazyhouse","fen":"rnbqkbnr/p2ppppp/2P5/8/8/8/PP1PPPPP/RNBQKBNR/PP b KQkq - 0 3","path":"-=TD=DUMDM","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaDrop","d":{"role":"pawn","pos":"c7","variant":"crazyhouse","fen":"r1bqkbnr/p2ppppp/2n5/8/8/8/PP1PPPPP/RNBQKBNR/PPp w KQkq - 0 4","path":"-=TD=DUMDM\\M","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaMove","d":{"orig":"d8","dest":"c7","variant":"crazyhouse","fen":"r1bqkbnr/p1Pppppp/2n5/8/8/8/PP1PPPPP/RNBQKBNR/Pp b KQkq - 0 4","path":"-=TD=DUMDM\\MU\u008f","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaDrop","d":{"role":"pawn","pos":"b6","variant":"crazyhouse","fen":"r1b1kbnr/p1qppppp/2n5/8/8/8/PP1PPPPP/RNBQKBNR/Ppp w KQkq - 0 5","path":"-=TD=DUMDM\\MU\u008f^U","ch":"Drb6pzLF","sticky":false}}
+{"t":"anaDrop","d":{"role":"pawn","pos":"d6","variant":"crazyhouse","fen":"r1b1kbnr/p1qppppp/2n5/8/8/8/PP1PPPPP/RNBQKBNR/Ppp w KQkq - 0 5","path":"-=TD=DUMDM\\MU\u008f^U","ch":"Drb6pzLF","sticky":false}}
+""".trim
+
+  val pgn7 = "1. c4 b5 2. cxb5 c6 3. bxc6 Nxc6 4. P@c7 Qxc7 5. P@b6 (5. P@d6)"
+
+  val crazyhouses = List(m7 -> pgn7)
+
+  val m9 = """
+{"t":"anaMove","d":{"orig":"e2","dest":"e4","variant":"antichess","fen":"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1","path":"","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"f7","dest":"f5","variant":"antichess","fen":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b - - 0 1","path":"/?","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"e4","dest":"f5","variant":"antichess","fen":"rnbqkbnr/ppppp1pp/8/5p2/4P3/8/PPPP1PPP/RNBQKBNR w - - 0 2","path":"/?XH","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"g8","dest":"f6","variant":"antichess","fen":"rnbqkbnr/ppppp1pp/8/5P2/8/8/PPPP1PPP/RNBQKBNR b - - 0 2","path":"/?XH?H","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"d1","dest":"h5","variant":"antichess","fen":"rnbqkb1r/ppppp1pp/5n2/5P2/8/8/PPPP1PPP/RNBQKBNR w - - 1 3","path":"/?XH?HaP","ch":"BWRqIKUe","sticky":false}}
+{"t":"anaMove","d":{"orig":"f6","dest":"h5","variant":"antichess","fen":"rnbqkb1r/ppppp1pp/5n2/5P1Q/8/8/PPPP1PPP/RNB1KBNR b - - 2 3","path":"/?XH?HaP&J","ch":"BWRqIKUe","sticky":false}}
+""".trim
+
+  val pgn9 = "1. e4 f5 2. exf5 Nf6 3. Qh5 Nxh5"
+
+  val antichess = List(m9 -> pgn9)

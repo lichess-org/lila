@@ -15,6 +15,7 @@
   <string name="pgnLetter">Buschtaf (K, D, T, L, S)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
   <string name="showPlayerRatings">Spillerwäertungen uweisen</string>
+  <string name="explainShowPlayerRatings">Verstopp all Wäertungen op der Websäit, fir dass du dech voll op de Schach konzentréieren kanns. Partien können ëmmer nach gewäert sinn, et geet just drëm, wat du gesäis.</string>
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
   <string name="blindfoldChess">Blanneschach (onsichtbar Figuren)</string>
@@ -33,10 +34,12 @@
   <string name="takebacksWithOpponentApproval">Zeréckhuelen (mat Zoustemmung vum Géigner)</string>
   <string name="inCasualGamesOnly">Just an ongewäerten Partien</string>
   <string name="promoteToQueenAutomatically">Automatesch zur Damm ëmwandelen</string>
+  <string name="explainPromoteToQueenAutomatically">Dréck ob deng &lt;ctrl&gt; Tasten während der Emwandlung fir temporär déi automatesch Emwandlung ze desaktivéieren</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Wann verbleiwend Zäit &lt; 30 Sekonnen</string>
   <string name="moveConfirmation">Zich confirméieren</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Kann während der Partie desaktivéiert ginn iwwert den Brietmenü</string>
   <string name="inCorrespondenceGames">Korrespondenz Schach</string>
   <string name="correspondenceAndUnlimited">Korrespondenz an onbegrenzt</string>
   <string name="confirmResignationAndDrawOffers">Resignatioun and Remis Offeren confirméieren</string>
@@ -61,5 +64,5 @@
   <string name="notifyPush">Gerät Benoriichtegung wanns du net ob Lichess bass</string>
   <string name="notifyWeb">Web-Browser</string>
   <string name="notifyDevice">Gerät</string>
-  <string name="bellNotificationSound" comment="bellNotificationSound&#10;&#10;Preference on https://lichess.org/account/preferences/notification&#10;&#10;Allows players to enable/disable this sound played when receiving a bell notification (e.g. for getting mentioned in the forum or invited to a study).">Glacken-Notifikatiounstoun</string>
+  <string name="bellNotificationSound">Glacken-Notifikatiounstoun</string>
 </resources>

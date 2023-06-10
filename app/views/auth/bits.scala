@@ -4,7 +4,7 @@ package auth
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.HcaptchaForm
@@ -12,7 +12,7 @@ import lila.user.User
 
 object bits:
 
-  def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using Context) =
+  def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using WebContext) =
     frag(
       form3.group(
         username,
@@ -35,7 +35,7 @@ object bits:
       }
     )
 
-  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using Context) =
+  def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using WebContext) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("auth"),
@@ -59,7 +59,7 @@ object bits:
       )
     }
 
-  def passwordResetSent(email: String)(using Context) =
+  def passwordResetSent(email: String)(using WebContext) =
     views.html.base.layout(
       title = trans.passwordReset.txt()
     ) {
@@ -70,7 +70,7 @@ object bits:
       )
     }
 
-  def passwordResetConfirm(u: User, token: String, form: Form[?], ok: Option[Boolean] = None)(using Context) =
+  def passwordResetConfirm(u: User, token: String, form: Form[?], ok: Option[Boolean] = None)(using WebContext) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
       moreCss = cssTag("form3"),
@@ -109,7 +109,7 @@ object bits:
       )
     }
 
-  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using Context) =
+  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using WebContext) =
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
@@ -134,7 +134,7 @@ object bits:
       )
     }
 
-  def magicLinkSent(using Context) =
+  def magicLinkSent(using WebContext) =
     views.html.base.layout(
       title = "Log in by email"
     ) {
@@ -145,7 +145,7 @@ object bits:
       )
     }
 
-  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using Context) =
+  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using WebContext) =
     views.html.base.layout(
       title = s"Log in as ${user.username}",
       moreCss = cssTag("form3")
@@ -194,7 +194,7 @@ body { margin-top: 45px; }
       )
     )
 
-  def tor()(using Context) =
+  def tor()(using WebContext) =
     views.html.base.layout(
       title = "Tor exit node"
     ) {
@@ -205,7 +205,7 @@ body { margin-top: 45px; }
       )
     }
 
-  def logout()(using Context) =
+  def logout()(using WebContext) =
     views.html.base.layout(
       title = trans.logOut.txt()
     ) {

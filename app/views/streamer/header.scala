@@ -1,6 +1,6 @@
 package views.html.streamer
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -9,7 +9,7 @@ object header:
   import trans.streamer.*
 
   def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(implicit
-      ctx: Context
+      ctx: WebContext
   ) =
     div(cls := "streamer-header")(
       picture.thumbnail(s.streamer, s.user),

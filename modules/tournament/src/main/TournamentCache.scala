@@ -16,13 +16,10 @@ final class TournamentCache(
 ):
 
   object tourCache:
-
-    private val cache = cacheApi[TourId, Option[Tournament]](512, "tournament.tournament") {
+    private val cache = cacheApi[TourId, Option[Tournament]](512, "tournament.tournament"):
       _.expireAfterWrite(1 second)
         .buildAsyncFuture(tournamentRepo.byId)
-    }
-    def clear(id: TourId) = cache.invalidate(id)
-
+    def clear(id: TourId)     = cache.invalidate(id)
     def byId                  = cache.get
     def created(id: TourId)   = cache.get(id).dmap(_.filter(_.isCreated))
     def started(id: TourId)   = cache.get(id).dmap(_.filter(_.isStarted))
@@ -39,48 +36,41 @@ final class TournamentCache(
     expireAfter = Syncache.ExpireAfter.Access(20 minutes)
   )
 
-  val onHomepage = cacheApi.unit[List[Tournament]] {
+  val onHomepage = cacheApi.unit[List[Tournament]]:
     _.refreshAfterWrite(2 seconds)
       .buildAsyncFuture(_ => tournamentRepo.onHomepage)
-  }
 
   def ranking(tour: Tournament): Fu[FullRanking] =
     if (tour.isFinished) finishedRanking get tour.id
     else ongoingRanking get tour.id
 
   // only applies to ongoing tournaments
-  private val ongoingRanking = cacheApi[TourId, FullRanking](64, "tournament.ongoingRanking") {
+  private val ongoingRanking = cacheApi[TourId, FullRanking](64, "tournament.ongoingRanking"):
     _.expireAfterWrite(3 seconds)
       .buildAsyncFuture(playerRepo.computeRanking)
-  }
 
   // only applies to finished tournaments
-  private val finishedRanking = cacheApi[TourId, FullRanking](1024, "tournament.finishedRanking") {
+  private val finishedRanking = cacheApi[TourId, FullRanking](1024, "tournament.finishedRanking"):
     _.expireAfterAccess(1 hour)
       .maximumSize(2048)
       .buildAsyncFuture(playerRepo.computeRanking)
-  }
 
   private[tournament] val teamInfo =
-    cacheApi[(TourId, TeamId), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
+    cacheApi[(TourId, TeamId), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo"):
       _.expireAfterWrite(5 seconds)
         .maximumSize(64)
-        .buildAsyncFuture { case (tourId, teamId) =>
+        .buildAsyncFuture: (tourId, teamId) =>
           playerRepo.teamInfo(tourId, teamId) dmap some
-        }
-    }
 
   object battle:
 
     val teamStanding =
-      cacheApi[TourId, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding") {
+      cacheApi[TourId, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding"):
         _.expireAfterWrite(1 second)
-          .buildAsyncFuture { id =>
+          .buildAsyncFuture: id =>
             tournamentRepo teamBattleOf id flatMapz {
               playerRepo.bestTeamIdsByTour(id, _)
             }
-          }
-      }
 
   private[tournament] object sheet:
 
@@ -126,13 +116,11 @@ final class TournamentCache(
         arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable, key.variant)
       }
 
-    private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet") {
+    private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet"):
       _.expireAfterAccess(4 minutes)
         .maximumSize(65536)
         .buildAsyncFuture(compute)
-    }
 
-  private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]] {
+  private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]]:
     _.refreshAfterWrite(15 seconds)
       .buildAsyncFuture(_ => tournamentRepo.notableFinished(20))
-  }

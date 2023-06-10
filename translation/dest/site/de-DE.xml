@@ -99,6 +99,7 @@
   <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="openingEndgameExplorer">Eröffnungs-/Endspiel Explorer</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spiele den ersten Eröffnungs/Endspiel-Explorer Zug</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
   <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
   <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züge durch vorherigen Fehler</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Angebot zur Revanche zurückziehen</string>
   <string name="viewRematch">Revanche ansehen</string>
   <string name="confirmMove">Zug bestätigen</string>
+  <string name="enableConfirmationForThisGame">Bestätigung für diese Partie aktivieren</string>
   <string name="play">Spielen</string>
   <string name="inbox">Posteingang</string>
   <string name="chatRoom">Chatraum</string>
@@ -681,6 +683,11 @@
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
+  <string name="keyRequestComputerAnalysis">Fordere eine Computer-Analyse an, lerne aus deinen Fehlern</string>
+  <string name="keyNextLearnFromYourMistakes">Als Nächstes (Lerne aus deinen Fehlern)</string>
+  <string name="keyNextBlunder">Nächster grober Patzer</string>
+  <string name="keyNextMistake">Nächster Fehler</string>
+  <string name="keyNextInaccuracy">Nächste Ungenauigkeit</string>
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>

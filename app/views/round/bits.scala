@@ -5,7 +5,7 @@ import chess.variant.{ Crazyhouse, Variant }
 import controllers.routes
 import scala.util.chaining.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Pov }
@@ -25,7 +25,7 @@ object bits:
       zenable: Boolean = false,
       robots: Boolean = false,
       withHrefLangs: Option[LangPath] = None
-  )(body: Frag)(implicit ctx: Context) =
+  )(body: Frag)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = title,
       openGraph = openGraph,
@@ -46,12 +46,12 @@ object bits:
       withHrefLangs = withHrefLangs
     )(body)
 
-  def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: Context) =
+  def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: WebContext) =
     cross map { c =>
       views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
     }
 
-  def underchat(game: Game)(implicit ctx: Context) =
+  def underchat(game: Game)(implicit ctx: WebContext) =
     frag(
       views.html.chat.spectatorsFrag,
       isGranted(_.ViewBlurs) option div(cls := "round__mod")(
@@ -73,7 +73,7 @@ object bits:
       )
     )
 
-  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(implicit ctx: Context) =
+  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(implicit ctx: WebContext) =
     frag(
       h3(
         simul.map { s =>
@@ -126,7 +126,7 @@ object bits:
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(using Context) =
+  )(using WebContext) =
     views.html.game.side(
       pov,
       (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
@@ -136,7 +136,7 @@ object bits:
       bookmarked = bookmarked
     )
 
-  def roundAppPreload(pov: Pov)(using Context) =
+  def roundAppPreload(pov: Pov)(using WebContext) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(chessground(pov)),
       div(cls := "col1-rmoves-preload")

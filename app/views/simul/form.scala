@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 import play.api.data.Form
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LeaderTeam
@@ -13,7 +13,7 @@ import lila.gathering.ConditionForm
 
 object form:
 
-  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using Context) =
+  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(using WebContext) =
     views.html.base.layout(
       title = trans.hostANewSimul.txt(),
       moreCss = cssTag("simul.form"),
@@ -35,7 +35,7 @@ object form:
       )
     }
 
-  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(using Context) =
+  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(using WebContext) =
     views.html.base.layout(
       title = s"Edit ${simul.fullName}",
       moreCss = cssTag("simul.form"),
@@ -59,7 +59,7 @@ object form:
     }
 
   private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     import lila.simul.SimulForm.*
     frag(

@@ -3,7 +3,7 @@ package views.html.mod
 import cats.syntax.all.*
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
@@ -13,7 +13,7 @@ import controllers.routes
 object gamify:
 
   def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(using
-      ctx: Context
+      ctx: WebContext
   ) =
     val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
@@ -62,7 +62,7 @@ object gamify:
     }
 
   def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(using
-      ctx: Context
+      ctx: WebContext
   ) =
     val title = s"Moderators of the ${period.name}"
     views.html.base.layout(

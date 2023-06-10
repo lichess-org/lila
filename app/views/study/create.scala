@@ -1,6 +1,6 @@
 package views.html.study
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.study.Study
@@ -9,15 +9,19 @@ import controllers.routes
 
 object create:
 
-  private def studyButton(s: Study.IdName) =
-    submitButton(name := "as", value := s.id, cls := "submit button")(s.name)
+  private def studyButton(s: Study.IdName, chapterCount: Int) =
+    val btn =
+      if chapterCount >= Study.maxChapters then submitButton(cls := "disabled", st.disabled)
+      else submitButton
+
+    btn(name := "as", value := s.id, cls := "button submit")(s.name)
 
   def apply(
       data: lila.study.StudyForm.importGame.Data,
-      owner: List[Study.IdName],
-      contrib: List[Study.IdName],
+      owner: List[(Study.IdName, Int)],
+      contrib: List[(Study.IdName, Int)],
       backUrl: Option[String]
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     views.html.site.message(
       title = trans.toStudy.txt(),
       icon = Some(licon.StudyBoard),
@@ -43,11 +47,11 @@ object create:
           div(cls := "studies")(
             div(
               h2(trans.study.myStudies()),
-              owner map studyButton
+              owner.map(studyButton)
             ),
             div(
               h2(trans.study.studiesIContributeTo()),
-              contrib map studyButton
+              contrib.map(studyButton)
             )
           )
         )

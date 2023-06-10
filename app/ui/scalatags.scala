@@ -7,7 +7,7 @@ import scalatags.text.Builder
 import scalatags.Text.GenericAttr
 import scalatags.Text.{ Aggregate, Cap }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.user.Title
 import lila.common.licon.Icon
 
@@ -172,6 +172,6 @@ trait ScalatagsExtensions:
     if (blind) t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-  def titleOrText(v: String)(using ctx: Context): Modifier = titleOrText(ctx.blind, v)
+  def titleOrText(v: String)(using ctx: WebContext): Modifier = titleOrText(ctx.blind, v)
 
 object ScalatagsExtensions extends ScalatagsExtensions

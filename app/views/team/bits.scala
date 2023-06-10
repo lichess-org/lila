@@ -3,7 +3,7 @@ package views.html.team
 import controllers.routes
 import scala.util.chaining.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
@@ -19,7 +19,7 @@ object bits:
   def link(team: Team): Frag =
     a(href := routes.Team.show(team.id))(team.name)
 
-  def menu(currentTab: Option[String])(implicit ctx: Context) =
+  def menu(currentTab: Option[String])(implicit ctx: WebContext) =
     ~currentTab pipe { tab =>
       st.nav(cls := "page-menu__menu subnav")(
         (ctx.teamNbRequests > 0) option
@@ -52,7 +52,7 @@ object bits:
       .build[Markdown, Html]()
     def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))
 
-  private[team] def teamTr(t: Team)(using ctx: Context) =
+  private[team] def teamTr(t: Team)(using ctx: WebContext) =
     val isMine = isMyTeamSync(t.id)
     tr(cls := "paginated")(
       td(cls := "subject")(
@@ -81,7 +81,7 @@ object bits:
       title: String,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       moreJs: Frag = emptyFrag
-  )(body: Frag)(implicit ctx: Context) =
+  )(body: Frag)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),

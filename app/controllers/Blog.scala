@@ -4,7 +4,7 @@ import io.prismic.Document
 import org.apache.commons.lang3.StringUtils
 import play.api.mvc.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.blog.BlogApi
 import lila.common.config.MaxPerPage
@@ -124,13 +124,13 @@ final class Blog(
       }
     }
 
-  private def WithPrismic(f: Context ?=> BlogApi.Context ?=> Fu[Result]) = Open:
+  private def WithPrismic(f: WebContext ?=> BlogApi.Context ?=> Fu[Result]) = Open:
     blogApi context ctx.req flatMap { f(using ctx)(using _) }
 
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[Document], slug: String)(
       callback: Either[String, Document] => Result
-  )(using lila.api.Context) =
+  )(using lila.api.WebContext) =
     document.collect {
       case document if document.slug == slug => fuccess(callback(Right(document)))
       case document

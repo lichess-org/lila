@@ -4,12 +4,12 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.Condition
 import lila.rating.PerfType
-import lila.api.Context
+import lila.api.WebContext
 
 object gathering:
 
   def verdicts(vs: Condition.WithVerdicts, pt: PerfType, relevant: Boolean = true)(using
-      ctx: Context
+      ctx: WebContext
   ): Option[Tag] =
     vs.nonEmpty option st.section(
       dataIcon := relevant.option(if ctx.isAuth && vs.accepted then licon.Checkmark else licon.Padlock),

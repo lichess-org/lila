@@ -160,6 +160,7 @@ final class JsonView(
       pov: Pov,
       pref: Option[Pref],
       apiVersion: ApiVersion,
+      me: Option[UserId],
       tv: Option[OnTv],
       initialFen: Option[Fen.Epd] = None,
       flags: WithFlags
@@ -178,10 +179,12 @@ final class JsonView(
             "clock"          -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock,
             "player" -> {
-              commonWatcherJson(game, player, playerUser, flags) ++ Json.obj(
-                "version"   -> socket.version,
-                "spectator" -> true
-              )
+              commonWatcherJson(game, player, playerUser, flags) ++ Json
+                .obj(
+                  "version"   -> socket.version,
+                  "spectator" -> true
+                )
+                .add("id" -> (apiVersion < 10).??(me.flatMap(game.player).map(_.id)))
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, flags).add(
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color))

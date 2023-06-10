@@ -5,7 +5,7 @@ import scala.util.chaining.*
 import play.api.libs.json.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.game.Pov
 import lila.tv.Tv.Channel
@@ -16,11 +16,11 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def index     = Open(serveIndex)
   def indexLang = LangPage(routes.Tv.index)(serveIndex)
 
-  private def serveIndex(using Context) = serveChannel(Channel.Best.key)
+  private def serveIndex(using WebContext) = serveChannel(Channel.Best.key)
 
   def onChannel(chanKey: String) = Open(serveChannel(chanKey))
 
-  private def serveChannel(chanKey: String)(using Context) =
+  private def serveChannel(chanKey: String)(using WebContext) =
     Channel.byKey.get(chanKey) ?? lichessTv
 
   def sides(gameId: GameId, color: String) = Open:
@@ -37,7 +37,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       _.channels map { (chan, champ) => chan.name -> champ }
     } map { Json.toJson(_) } dmap Api.ApiResult.Data.apply
 
-  private def lichessTv(channel: Channel)(using Context) =
+  private def lichessTv(channel: Channel)(using WebContext) =
     OptionFuResult(env.tv.tv getGameAndHistory channel): (game, history) =>
       val flip    = getBool("flip")
       val natural = Pov naturalOrientation game

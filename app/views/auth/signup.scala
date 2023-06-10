@@ -3,7 +3,7 @@ package auth
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ HTTPRequest, LangPath }
@@ -11,7 +11,7 @@ import lila.security.PasswordCheck
 
 object signup:
 
-  def apply(form: lila.security.HcaptchaForm[?])(using ctx: Context) =
+  def apply(form: lila.security.HcaptchaForm[?])(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(
@@ -56,7 +56,7 @@ object signup:
       )
     }
 
-  private def agreement(form: play.api.data.Field, error: Boolean)(implicit ctx: Context) =
+  private def agreement(form: play.api.data.Field, error: Boolean)(implicit ctx: WebContext) =
     div(cls := "agreement")(
       error option p(
         strong(cls := "error")(
@@ -68,7 +68,7 @@ object signup:
       }
     )
 
-  private def agreements(implicit ctx: Context) = List(
+  private def agreements(implicit ctx: WebContext) = List(
     "assistance" -> trans.agreementAssistance(),
     "nice"       -> trans.agreementNice(),
     "account"    -> trans.agreementMultipleAccounts(a(href := routes.Page.tos)(trans.termsOfService())),

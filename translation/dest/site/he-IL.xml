@@ -103,6 +103,7 @@
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="openingEndgameExplorer">סייר פתיחות/סיומים</string>
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">שחקו את המהלך הראשון על פי סייר הפתיחות והסיומים</string>
   <string name="winPreventedBy50MoveRule">ניצחון נמנע מפאת כלל 50 המהלכים</string>
   <string name="lossSavedBy50MoveRule">הפסד נמנע מפאת כלל 50 המהלכים</string>
   <string name="winOr50MovesByPriorMistake">ניצחון או כלל 50 המסעים בגלל טעות קודמת</string>
@@ -318,6 +319,7 @@
   <string name="cancelRematchOffer">ביטול ההצעה למשחק חוזר</string>
   <string name="viewRematch">צפייה במשחק החוזר</string>
   <string name="confirmMove">אישור המהלך</string>
+  <string name="enableConfirmationForThisGame">הפעל אישור מהלכים מראש למשחק הזה</string>
   <string name="play">שחקו</string>
   <string name="inbox">תיבת דואר</string>
   <string name="chatRoom">חדר צ\'אט</string>
@@ -753,6 +755,11 @@
   <string name="keyGoToStartOrEnd">מעבר להתחלה/לסיום</string>
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה או צא ממנה</string>
+  <string name="keyRequestComputerAnalysis">בקשו ניתוח ממוחשב, למדו מטעויותיכם</string>
+  <string name="keyNextLearnFromYourMistakes">הבא (למדו מטעויותיכם)</string>
+  <string name="keyNextBlunder">הטעות הגסה הבאה</string>
+  <string name="keyNextMistake">הטעות הבאה</string>
+  <string name="keyNextInaccuracy">אי־הדיוק הבא</string>
   <string name="newTournament">טורניר חדש</string>
   <string name="tournamentHomeTitle">טורנירי שחמט הכוללים משחקים עם מגבלות זמן וסוגי שחמט מגוונים</string>
   <string name="tournamentHomeDescription">שחק בטורנירי שחמט מהירים! הצטרף לטורניר רשמי ומתוכנן, או צור אחד משלך. Bullet, Blitz, Threecheck, Chess960, King of the Hill, Classical, ואפשרויות נוספות של משחקי שחמט מהנים.</string>

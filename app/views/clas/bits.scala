@@ -1,7 +1,7 @@
 package views.html.clas
 
 import controllers.clas.routes
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
@@ -12,7 +12,7 @@ object bits:
       title: String,
       active: Either[Clas.WithStudents, String],
       student: Option[Student] = none
-  )(body: Modifier*)(using Context) =
+  )(body: Modifier*)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("clas"),
@@ -48,7 +48,7 @@ object bits:
       else main(cls := "page-small box")(body)
     )
 
-  def showArchived(archived: Clas.Recorded)(using Context) =
+  def showArchived(archived: Clas.Recorded)(using WebContext) =
     div(
       trans.clas.removedByX(userIdLink(archived.by.some)),
       " ",

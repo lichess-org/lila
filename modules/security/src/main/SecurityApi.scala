@@ -124,27 +124,26 @@ final class SecurityApi(
 
   def oauthScoped(
       req: RequestHeader,
-      scopes: List[lila.oauth.OAuthScope]
+      scopes: lila.oauth.OAuthScopes
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
     oAuthServer.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
-    if (scoped.scopes has OAuthScope.Web.Mod) scoped
+    if scoped.scopes.has(OAuthScope.Web.Mod) then scoped
     else scoped.copy(user = stripRolesOfUser(scoped.user))
 
   private def stripRolesOfCookieUser(user: User) =
-    if (mode == Mode.Prod && user.totpSecret.isEmpty) stripRolesOfUser(user)
+    if mode == Mode.Prod && user.totpSecret.isEmpty then stripRolesOfUser(user)
     else user
 
   private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {
-      _.map { session =>
+      _.map: session =>
         LocatedSession(session, geoIP(session.ip))
-      }
     }
 
   def dedup(userId: UserId, req: RequestHeader): Funit =
