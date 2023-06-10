@@ -172,7 +172,7 @@ object LangList {
       "cs-CZ",
       "fr-FR",
       "de-DE",
-      "hi-IN",
+      // "hi-IN",
       "it-IT",
       "ja-JP",
       "pl-PL",
