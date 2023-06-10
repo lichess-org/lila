@@ -39,7 +39,7 @@ object post:
       canModCateg: Boolean,
       canReact: Boolean
   )(using ctx: WebContext) = postWithFrag match
-    case ForumPost.WithFrag(post, body) =>
+    case ForumPost.WithFrag(post, body, asks) =>
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg) option div(

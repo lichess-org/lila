@@ -4,7 +4,7 @@ import scala.collection.mutable
 import scala.util.Random.shuffle
 
 import controllers.routes
-import lila.api.Context
+import lila.api.context.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ask.Ask
@@ -13,7 +13,7 @@ import lila.security.{ Granter, Permission }
 
 object ask:
 
-  def renderMany(frag: Frag, asks: Iterable[Option[Ask]])(using Context): Frag =
+  def renderMany(frag: Frag, asks: Iterable[Option[Ask]])(using WebContext): Frag =
     if asks.isEmpty then frag
     else
       RawFrag:
@@ -27,11 +27,11 @@ object ask:
         )
 
   def renderOne(ask: Ask, prevView: Option[List[Int]] = None, tallyView: Boolean = false)(using
-      ctx: Context
+      ctx: WebContext
   ): Frag =
     RenderAsk(ask, prevView, tallyView, ctx).render
 
-  def renderGraph(ask: Ask)(using ctx: Context): Frag =
+  def renderGraph(ask: Ask)(using ctx: WebContext): Frag =
     if ask.isRanked then RenderAsk(ask, None, true, ctx).rankGraphBody
     else RenderAsk(ask, None, true, ctx).pollGraphBody
 
@@ -39,7 +39,7 @@ private case class RenderAsk(
     ask: Ask,
     prevView: Option[List[Int]],
     tallyView: Boolean,
-    ctx: Context
+    ctx: WebContext
 ):
   // this.me is what AskApi cares about. It's either Some(user id), Some(anonymous hash), or None
   val me = ctx.me.fold(ask.toAnon(ctx.ip))(u => ask.toAnon(u.id))

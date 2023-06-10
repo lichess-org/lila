@@ -3,7 +3,7 @@ package controllers
 import play.api.data.Form
 import play.api.data.Forms.single
 
-import lila.api.Context
+import lila.api.context.WebContext
 import lila.app.{ given, * }
 import lila.ask.Ask.anonHash
 import lila.security.{ Granter, Permission }
@@ -91,7 +91,7 @@ final class Ask(env: Env) extends LilaController(env):
 
   def reset(aid: String) = authorizedAction(aid, env.ask.api.reset)
 
-  private def effectiveId(aid: String, anon: Boolean)(using ctx: Context) =
+  private def effectiveId(aid: String, anon: Boolean)(using ctx: WebContext) =
     ctx.me match
       case Some(u) => fuccess((if anon then anonHash(u.id, aid) else u.id.value).some)
       case None =>
