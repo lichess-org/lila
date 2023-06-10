@@ -394,7 +394,9 @@ final class StudyApi(
     sequenceStudy(studyId) { study =>
       studyRepo.isAdminMember(study, who.u) flatMap { isAdmin =>
         val allowed = study.isMember(userId) && {
-          (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
+          (isAdmin && !study.isOwner(userId)) ||
+          (study.isOwner(who.u) ^ (who.u == userId)) ||
+          (study.isPostGameStudyWithOpponentPlayer(who.u) && !study.isPostGameStudyWithOpponentPlayer(userId))
         }
         allowed ?? {
           studyRepo.removeMember(study, userId) >>-

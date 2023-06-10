@@ -30,7 +30,7 @@ case class Study(
   def isOwner(id: User.ID) = ownerId == id
 
   def isPostGameStudyWithOpponentPlayer(id: User.ID) =
-    postGameStudy.exists(pgs => pgs.withOpponent && pgs.findPlayer(id).isDefined)
+    isOwner(User.lishogiId) && postGameStudy.exists(pgs => pgs.withOpponent && pgs.findPlayer(id).isDefined)
 
   def isMember(id: User.ID) = members contains id
 
