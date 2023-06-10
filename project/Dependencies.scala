@@ -29,7 +29,7 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.2.4.RELEASE"
   val nettyTransport =
     "io.netty" % s"netty-transport-native-$notifier" % "4.1.93.Final" classifier s"$os-$arch"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M7" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M8" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.15.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.10.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
