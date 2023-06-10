@@ -221,7 +221,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def friends(page: Int) = Auth { _ ?=> me =>
     NotForKids:
-      Reasonable(page, config.Max(10)):
+      Reasonable(page, config.Max(100)):
         env.ublog.paginator.liveByFollowed(me, page) map { posts =>
           Ok(html.ublog.index.friends(posts))
         }
@@ -242,7 +242,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def communityIndex(l: Option[Lang], page: Int)(using ctx: WebContext) =
     NotForKids:
-      Reasonable(page, config.Max(8)):
+      Reasonable(page, config.Max(100)):
         pageHit(ctx.req)
         env.ublog.paginator.liveByCommunity(l, page) map { posts =>
           Ok(html.ublog.index.community(l, posts))
@@ -263,7 +263,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def liked(page: Int) = Auth { ctx ?=> _ =>
     NotForKids {
-      Reasonable(page, config.Max(15)) {
+      Reasonable(page, config.Max(100)) {
         ctx.me ?? { me =>
           env.ublog.paginator.liveByLiked(me, page) map { posts =>
             Ok(html.ublog.index.liked(posts))
@@ -281,7 +281,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def topic(str: String, page: Int) = Open:
     NotForKids:
-      Reasonable(page, config.Max(5)):
+      Reasonable(page, config.Max(100)):
         lila.ublog.UblogTopic.fromUrl(str) ?? { top =>
           env.ublog.paginator.liveByTopic(top, page) map { posts =>
             Ok(html.ublog.index.topic(top, posts))
