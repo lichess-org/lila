@@ -37,7 +37,7 @@ final class SwissCache(
         mongo.swiss.byId[Swiss](id).map2(_.roundInfo)
 
   private[swiss] object featuredInTeam:
-    private val compute = (teamId: TeamId) =>
+    private def compute(teamId: TeamId) =
       val max = 5
       for
         enterable <- mongo.swiss.primitive[SwissId](
