@@ -23,7 +23,7 @@ case class UblogPost(
     views: UblogPost.Views
 ) extends UblogPost.BasePost:
 
-  def isBy(u: User) = created.by == u.id
+  def isBy(u: User) = created.by is u
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
 
