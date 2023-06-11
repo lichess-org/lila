@@ -19,8 +19,8 @@ export const toggleButton = (toggle: ToggleWithUsed, title: string) =>
         'data-icon': licon.Hamburger,
       },
       hook: bind('click', () => toggle.toggle()),
-    },
-    toggle.used() ? undefined : h('div.board-menu-toggle__new')
+    }
+    // toggle.used() ? undefined : h('div.board-menu-toggle__new')
   );
 
 export const menu = (
