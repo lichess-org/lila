@@ -29,13 +29,12 @@ final class Ublog(env: Env) extends LilaController(env):
             }
 
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me =>
-    NotForKids {
+    NotForKids:
       if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).toFuccess
       else
         env.ublog.paginator.byUser(me, false, page) map { posts =>
           Ok(html.ublog.index.drafts(me, posts))
         }
-    }
   }
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open:
@@ -78,20 +77,17 @@ final class Ublog(env: Env) extends LilaController(env):
       }
 
   def form(username: UserStr) = Auth { ctx ?=> me =>
-    NotForKids {
+    NotForKids:
       if (env.ublog.api.canBlog(me))
         if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).toFuccess
         else
-          env.ublog.form.anyCaptcha map { captcha =>
+          env.ublog.form.anyCaptcha.map: captcha =>
             Ok(html.ublog.form.create(me, env.ublog.form.create, captcha))
-          }
       else
-        Unauthorized(
-          html.site.message.notYet(
+        Unauthorized:
+          html.site.message.notYet:
             "Please play a few games and wait 2 days before you can create blog posts."
-          )
-        ).toFuccess
-    }
+        .toFuccess
   }
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
@@ -106,9 +102,8 @@ final class Ublog(env: Env) extends LilaController(env):
         .bindFromRequest()
         .fold(
           err =>
-            env.ublog.form.anyCaptcha map { captcha =>
-              BadRequest(html.ublog.form.create(me, err, captcha))
-            },
+            env.ublog.form.anyCaptcha.map: captcha =>
+              BadRequest(html.ublog.form.create(me, err, captcha)),
           data =>
             CreateLimitPerUser(me.id, rateLimitedFu, cost = if me.isVerified then 1 else 3):
               env.ublog.api.create(data, me) map { post =>
@@ -159,22 +154,19 @@ final class Ublog(env: Env) extends LilaController(env):
     }
 
   def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> me =>
-    NoBot {
-      NotForKids {
+    NoBot:
+      NotForKids:
         env.ublog.rank.like(id, me, v) map { likes =>
           Ok(likes.value)
         }
-      }
-    }
   }
 
   def redirect(id: UblogPostId) = Open:
     env.ublog.api
       .postPreview(id)
       .flatMap:
-        _.fold(notFound) { post =>
+        _.fold(notFound): post =>
           Redirect(urlOfPost(post)).toFuccess
-        }
 
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me =>
     UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMapz { blog =>
@@ -262,22 +254,19 @@ final class Ublog(env: Env) extends LilaController(env):
         Ok(html.ublog.atom.community(language, posts.currentPageResults)) as XML
 
   def liked(page: Int) = Auth { ctx ?=> _ =>
-    NotForKids {
-      Reasonable(page, config.Max(100)) {
+    NotForKids:
+      Reasonable(page, config.Max(100)):
         ctx.me ?? { me =>
           env.ublog.paginator.liveByLiked(me, page) map { posts =>
             Ok(html.ublog.index.liked(posts))
           }
         }
-      }
-    }
   }
 
   def topics = Open:
     NotForKids:
-      env.ublog.topic.withPosts map { topics =>
+      env.ublog.topic.withPosts.map: topics =>
         Ok(html.ublog.index.topics(topics))
-      }
 
   def topic(str: String, page: Int) = Open:
     NotForKids:

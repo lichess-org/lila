@@ -77,15 +77,14 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
             Project($doc("k" -> true, "nb" -> "$v.nb", "posts" -> "$v.posts"))
           )
         }
-        .map { docs =>
-          for {
+        .map: docs =>
+          for
             doc   <- docs
             t     <- doc string "k"
             topic <- UblogTopic.get(t)
             nb    <- doc int "nb"
             posts <- doc.getAsOpt[List[UblogPost.PreviewPost]]("posts")
-          } yield UblogTopic.WithPosts(topic, posts, nb)
-        }
+          yield UblogTopic.WithPosts(topic, posts, nb)
 
     })
 
