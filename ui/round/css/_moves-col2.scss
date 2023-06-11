@@ -2,6 +2,12 @@
 @include breakpoint($mq-col2) {
   background: $c-bg-box;
 
+  .fbt,
+  .noop {
+    height: $buttons-height;
+    line-height: calc($buttons-height - 0.1rem);
+  }
+
   #{$moves-tag} {
     display: flex;
     flex-flow: row wrap;
