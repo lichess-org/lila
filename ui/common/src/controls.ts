@@ -46,8 +46,8 @@ export const rangeConfig = (read: () => number, write: (value: number) => void):
     el.addEventListener('mouseout', _ => el.blur());
   });
 
-export const boolPrefXhrToggle = (prefKey: string, val: boolean, redraw?: () => void) =>
+export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => void = lichess.reload) =>
   baseToggle(val, async v => {
     await xhr.text(`/pref/${prefKey}`, { method: 'post', body: xhr.form({ [prefKey]: v ? '1' : '0' }) });
-    redraw ? redraw() : lichess.reload();
+    effect();
   });
