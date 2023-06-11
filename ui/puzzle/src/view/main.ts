@@ -61,7 +61,7 @@ function controls(ctrl: Controller): VNode {
       h('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', !node.ply),
         jumpButton(licon.JumpPrev, 'prev', !node.ply),
-        jumpButton(licon.JumpNext, 'next', !nextNode, goNext),
+        jumpButton(licon.JumpNext, 'next', !nextNode),
         jumpButton(licon.JumpLast, 'last', !nextNode, goNext),
         boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
       ]),
