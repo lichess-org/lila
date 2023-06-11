@@ -19,7 +19,7 @@ export const toggleButton = (toggle: ToggleWithUsed, title: string) =>
         title,
         'data-icon': licon.Hamburger,
       },
-      hook: onInsert(el => bindMobileMousedown(el, () => toggle.toggle())),
+      hook: onInsert(bindMobileMousedown(toggle.toggle)),
     }
     // toggle.used() ? undefined : h('div.board-menu-toggle__new')
   );
@@ -52,7 +52,7 @@ export class BoardMenu {
           title: 'Hotkey: f',
           ...dataIcon(licon.ChasingArrows),
         },
-        hook: onInsert(el => bindMobileMousedown(el, onChange)),
+        hook: onInsert(bindMobileMousedown(onChange)),
       },
       name
     );

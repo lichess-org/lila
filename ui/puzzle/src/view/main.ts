@@ -43,18 +43,14 @@ function controls(ctrl: Controller): VNode {
   return h(
     'div.puzzle__controls.analyse-controls',
     {
-      hook: onInsert(el =>
-        bindMobileMousedown(
-          el,
-          e => {
-            const action = dataAct(e);
-            if (action === 'prev') control.prev(ctrl);
-            else if (action === 'next') control.next(ctrl);
-            else if (action === 'first') control.first(ctrl);
-            else if (action === 'last') control.last(ctrl);
-          },
-          ctrl.redraw
-        )
+      hook: onInsert(
+        bindMobileMousedown(e => {
+          const action = dataAct(e);
+          if (action === 'prev') control.prev(ctrl);
+          else if (action === 'next') control.next(ctrl);
+          else if (action === 'first') control.first(ctrl);
+          else if (action === 'last') control.last(ctrl);
+        }, ctrl.redraw)
       ),
     },
     [

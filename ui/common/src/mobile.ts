@@ -20,19 +20,21 @@ export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, red
   el.addEventListener('touchend', () => clearTimeout(longPressCountdown));
 }
 
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
-  for (const mousedownEvent of ['touchstart', 'mousedown']) {
-    el.addEventListener(
-      mousedownEvent,
-      e => {
-        f(e);
-        e.preventDefault();
-        if (redraw) redraw();
-      },
-      { passive: false }
-    );
-  }
-}
+export const bindMobileMousedown =
+  (f: (e: Event) => unknown, redraw?: () => void) =>
+  (el: HTMLElement): void => {
+    for (const mousedownEvent of ['touchstart', 'mousedown']) {
+      el.addEventListener(
+        mousedownEvent,
+        e => {
+          f(e);
+          e.preventDefault();
+          if (redraw) redraw();
+        },
+        { passive: false }
+      );
+    }
+  };
 
 export const hookMobileMousedown = (f: (e: Event) => any) => bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
