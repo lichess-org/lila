@@ -28,25 +28,22 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
       "move"        -> text
     )(UblogPostData.apply)(unapply)
 
-  val create = Form(
+  val create = Form:
     base.verifying(captchaFailMessage, validateCaptcha)
-  )
 
-  def edit(post: UblogPost) =
-    Form(base).fill(
-      UblogPostData(
-        title = post.title,
-        intro = post.intro,
-        markdown = removeLatex(post.markdown),
-        imageAlt = post.image.flatMap(_.alt),
-        imageCredit = post.image.flatMap(_.credit),
-        language = post.language.code.some,
-        topics = post.topics.mkString(", ").some,
-        live = post.live,
-        discuss = ~post.discuss,
-        gameId = GameId(""),
-        move = ""
-      )
+  def edit(post: UblogPost) = Form(base).fill:
+    UblogPostData(
+      title = post.title,
+      intro = post.intro,
+      markdown = removeLatex(post.markdown),
+      imageAlt = post.image.flatMap(_.alt),
+      imageCredit = post.image.flatMap(_.credit),
+      language = post.language.code.some,
+      topics = post.topics.mkString(", ").some,
+      live = post.live,
+      discuss = ~post.discuss,
+      gameId = GameId(""),
+      move = ""
     )
 
   // $$something$$ breaks the TUI editor WYSIWYG
@@ -106,9 +103,7 @@ object UblogForm:
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
       )
 
-  val tier = Form(
-    single(
+  val tier = Form:
+    single:
       "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
         .into[UblogBlog.Tier]
-    )
-  )

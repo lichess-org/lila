@@ -68,7 +68,7 @@ final class UblogPaginator(
       adapter = new AdapterLike[PreviewPost] {
         def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
-          aggregateVisiblePosts($doc("topics" -> topic.value), offset, length)
+          aggregateVisiblePosts($doc("topics" -> topic), offset, length)
       },
       currentPage = page,
       maxPerPage = maxPerPage
