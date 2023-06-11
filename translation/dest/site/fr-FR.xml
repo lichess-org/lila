@@ -99,6 +99,7 @@
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
   <string name="openingEndgameExplorer">Explorateur d\'ouvertures/de finales</string>
   <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Jouer le premier coup dans l\'explorateur d\'ouverture/de finale</string>
   <string name="winPreventedBy50MoveRule">Gain empêché par la règle des 50 coups</string>
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
   <string name="winOr50MovesByPriorMistake">Victoire ou 50 coups par suite d\'une erreur</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Annuler la proposition de revanche</string>
   <string name="viewRematch">Voir la revanche</string>
   <string name="confirmMove">Confirmer le coup</string>
+  <string name="enableConfirmationForThisGame">Activer la confirmation pour cette partie</string>
   <string name="play">Jouer</string>
   <string name="inbox">Boîte de réception</string>
   <string name="chatRoom">Salon de discussion</string>
