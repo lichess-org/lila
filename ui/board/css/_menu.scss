@@ -1,5 +1,8 @@
 .board-menu {
   @extend %flex-column, %dropdown-shadow;
+  @if $theme == 'transp' {
+    backdrop-filter: blur(6px);
+  }
   position: absolute;
   z-index: z(mz-menu);
   min-width: 100%;

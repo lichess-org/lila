@@ -2,6 +2,7 @@ import { h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { game as gameRoute } from 'game/router';
 import { menu as menuDropdown } from 'board/menu';
+import { boolPrefXhrToggle } from 'common/controls';
 
 export default function (ctrl: RoundController) {
   return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => {
@@ -17,8 +18,8 @@ export default function (ctrl: RoundController) {
       ]),
       h('section', [
         menu.zenMode(!spectator),
-        menu.voiceInput(ctrl.voiceMoveEnabled, !spectator),
-        menu.keyboardInput(ctrl.keyboardMoveEnabled, !spectator),
+        menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
+        menu.keyboardInput(boolPrefXhrToggle('voice', !!ctrl.keyboardMove), !spectator),
         !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,
       ]),
       h('section.board-menu__links', [
