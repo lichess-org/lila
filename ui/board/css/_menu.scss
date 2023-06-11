@@ -1,12 +1,24 @@
 .board-menu {
   @extend %flex-column, %dropdown-shadow;
-  position: absolute;
-  z-index: z(mz-menu);
-  min-width: 100%;
-  right: 0;
   background: $c-bg-popup;
-  padding: 0 1.5em;
+  padding: 0.5em 1.5em;
   user-select: none;
+
+  @include breakpoint($mq-small) {
+    position: absolute;
+    right: 0;
+    min-width: 100%;
+    z-index: z(mz-menu);
+  }
+  @include breakpoint($mq-not-small) {
+    position: fixed;
+    top: 50% !important;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: z(context-menu);
+    min-width: 80%;
+    border-radius: $box-radius-size;
+  }
 
   > div {
     @extend %flex-column;

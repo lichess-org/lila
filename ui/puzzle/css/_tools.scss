@@ -142,12 +142,11 @@
     flex: 1 1 auto;
   }
   .board-menu {
-    @extend %box-radius-top;
-    bottom: $col3-uniboard-controls;
-    @include breakpoint($mq-col1) {
-      bottom: $col1-uniboard-controls;
+    @include breakpoint($mq-col2) {
+      bottom: $col3-uniboard-controls;
+      border-radius: $box-radius-size $box-radius-size 0 0;
+      border-bottom: 2px solid $c-secondary;
     }
-    border-bottom: 2px solid $c-secondary;
   }
 
   .fbt {
