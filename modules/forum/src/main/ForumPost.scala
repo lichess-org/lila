@@ -99,6 +99,7 @@ object ForumPost:
     case Thinking extends Reaction("thinking")
     case Heart    extends Reaction("heart")
     case Horsey   extends Reaction("horsey")
+    override def toString = key
   object Reaction:
     val list               = values.toList
     val set                = values.toSet
