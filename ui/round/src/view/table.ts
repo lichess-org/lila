@@ -11,6 +11,7 @@ import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
 import { MaybeVNodes } from 'common/snabbdom';
+import { toggleButton as boardMenuToggleButton } from 'board/menu';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
@@ -87,6 +88,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
                   () => ctrl.resign(true)
                 ),
             replay.analysisButton(ctrl),
+            boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
           ],
     buttons: MaybeVNodes = loading
       ? [loader()]

@@ -35,19 +35,11 @@ $buttons-height: 2.5rem;
   .noop {
     flex: 0 0 calc(100% / 6);
     text-align: center;
-    height: $buttons-height;
-    line-height: calc($buttons-height - 0.1rem);
   }
 
   #{$moves-tag},
   .message {
     flex: 0 0 7.4rem;
-  }
-
-  .board-menu {
-    @extend %box-radius-bottom;
-    top: $buttons-height;
-    border-top: 2px solid $c-secondary;
   }
 
   @import 'moves-col1';
