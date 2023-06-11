@@ -19,7 +19,7 @@ export default function (ctrl: RoundController) {
       h('section', [
         menu.zenMode(!spectator),
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
-        menu.keyboardInput(boolPrefXhrToggle('voice', !!ctrl.keyboardMove), !spectator),
+        menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
         !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,
       ]),
       h('section.board-menu__links', [
