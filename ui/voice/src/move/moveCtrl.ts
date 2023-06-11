@@ -307,7 +307,7 @@ export default (window as any).LichessVoiceMove = function (
     }
 
     choices = new Map<string, Uci>();
-    const preferred = options.length === 1 || options[0][1] < options[1][1];
+    const preferred = options.length === 1 || options[0][1].cost < options[1][1].cost;
     if (preferred) choices.set('yes', options[0][0]);
     if (colorsPref()) {
       const colorNames = [...brushes.keys()];
