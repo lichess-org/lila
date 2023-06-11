@@ -242,7 +242,13 @@ object StudyAction:
     def setShapes(chapter: NewChapter, position: Position.Ref, shapes: Shapes) =
       chapter.setShapes(shapes, position.path)
 
-    def promote(chapter: NewChapter, position: Position.Ref, toMainline: Boolean) = ???
+    def promote(chapter: NewChapter, position: Position.Ref, toMainline: Boolean) =
+      chapter
+        .updateRoot: root =>
+          root.updateTree: tree =>
+            if toMainline then tree.promoteToMainline(position.path.ids)
+            else tree.promote(position.path.ids)
+          .some
 
     def toggleGlyph(chapter: NewChapter, position: Position.Ref, glyph: Glyph) =
       chapter.toggleGlyph(glyph, position.path)
@@ -373,10 +379,8 @@ object Fixtures:
   val pgn6 =
     "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
 
-  // val ms        = List(m0, m1, m2, m3, m4, m5, m6)
-  // val ps        = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
-  val ms        = List(m0, m1, m2, m3)
-  val ps        = List(pgn0, pgn1, pgn2, pgn3)
+  val ms        = List(m0, m1, m2, m3, m4, m5, m6)
+  val ps        = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
   val standards = ms.zip(ps)
 
   val m7 = """

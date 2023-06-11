@@ -96,8 +96,10 @@ case class NewBranch(
   def setGamebook(gamebook: Gamebook)      = this.focus(_.metas.gamebook).set(gamebook.some)
   def setShapes(s: Shapes)                 = this.focus(_.metas.shapes).set(s)
   def toggleGlyph(glyph: Glyph)            = this.focus(_.metas).modify(_.toggleGlyph(glyph))
-  def clearAnnotations = this.focus(_.metas).modify(_.copy(shapes = Shapes.empty, glyphs = Glyphs.empty))
-  def setComp          = copy(comp = true)
+  def clearAnnotations = this
+    .focus(_.metas)
+    .modify(_.copy(shapes = Shapes.empty, glyphs = Glyphs.empty, comments = Comments.empty))
+  def setComp = copy(comp = true)
   def merge(n: NewBranch): NewBranch =
     copy(
       metas = metas.copy(
@@ -122,10 +124,6 @@ object NewTree:
   // default case class constructor not working with type alias?
   def apply(value: NewBranch, child: Option[NewTree], variations: List[Variation[NewBranch]]) =
     ChessNode(value, child, variations)
-
-  extension (tree: NewTree)
-    def clearVariations: NewTree =
-      tree.withVariations(Nil).copy(child = tree.child.map(_.clearVariations))
 
   def apply(root: Root): Option[NewTree] =
     root.children.first.map: first =>
@@ -223,7 +221,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
     if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
     else
       tree.flatMap(
-        _.modifyChildAt(path.ids, _.focus(_.value.metas).modify(f)).map(x => copy(tree = x.some))
+        _.modifyChildAt(path.ids, _.focus(_.value.metas).modify(f).some).map(x => copy(tree = x.some))
       )
 
   def modifyAt(path: UciPath, f: Metas => Metas): Option[NewRoot] =
@@ -231,14 +229,14 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
     if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
     else
       tree.flatMap(
-        _.modifyAt(path.ids, Tree.lift(b)).map(x => copy(tree = x.some))
+        _.modifyAt(path.ids, Tree.liftOption(b)).map(x => copy(tree = x.some))
       )
 
   def modifyWithParentPath(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then this.some
     else
       tree.flatMap(
-        _.modifyChildAt(path.ids, x => x.copy(value = f(x.value))).map(x => copy(tree = x.some))
+        _.modifyChildAt(path.ids, _.focus(_.value).modify(f).some).map(x => copy(tree = x.some))
       )
 
   def updateTree(f: NewTree => Option[NewTree]): NewRoot =
