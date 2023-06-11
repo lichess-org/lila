@@ -235,7 +235,7 @@ object layout:
           metaThemeColor,
           st.headTitle {
             val prodTitle = fullTitle | s"$title • $siteName"
-            if netConfig.isProd then title
+            if netConfig.isProd then prodTitle
             else s"${ctx.me.??(_.username + " ")} $prodTitle"
           },
           cssTag("site"),
