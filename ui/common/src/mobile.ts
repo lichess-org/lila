@@ -13,17 +13,11 @@ export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, red
     }, longPressDuration);
   });
 
-  el.addEventListener('touchmove', () => {
-    clearTimeout(longPressCountdown);
-  });
+  el.addEventListener('touchmove', () => clearTimeout(longPressCountdown));
 
-  el.addEventListener('touchcancel', () => {
-    clearTimeout(longPressCountdown);
-  });
+  el.addEventListener('touchcancel', () => clearTimeout(longPressCountdown));
 
-  el.addEventListener('touchend', () => {
-    clearTimeout(longPressCountdown);
-  });
+  el.addEventListener('touchend', () => clearTimeout(longPressCountdown));
 }
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
@@ -40,9 +34,7 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, r
   }
 }
 
-export function hookMobileMousedown(f: (e: Event) => any) {
-  return bind('ontouchstart' in window ? 'click' : 'mousedown', f);
-}
+export const hookMobileMousedown = (f: (e: Event) => any) => bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
 export const isMobile = (): boolean => isAndroid() || isIOS();
 

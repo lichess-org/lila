@@ -43,7 +43,7 @@ function controls(ctrl: Controller): VNode {
   return h(
     'div.puzzle__controls.analyse-controls',
     {
-      hook: onInsert(el => {
+      hook: onInsert(el =>
         bindMobileMousedown(
           el,
           e => {
@@ -54,8 +54,8 @@ function controls(ctrl: Controller): VNode {
             else if (action === 'last') control.last(ctrl);
           },
           ctrl.redraw
-        );
-      }),
+        )
+      ),
     },
     [
       h('div.jumps', [
