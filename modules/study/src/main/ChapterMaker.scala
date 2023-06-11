@@ -44,16 +44,7 @@ final private class ChapterMaker(
       }
     } yield Chapter.make(
       studyId = study.id,
-      name = parsed.tags(_.White).flatMap { white =>
-        parsed
-          .tags(_.Black)
-          .ifTrue {
-            data.name.value.isEmpty || data.isDefaultName
-          }
-          .map { black =>
-            StudyChapterName(s"$white - $black")
-          }
-      } | data.name,
+      name = getChapterNameFromPgn(data, parsed),
       setup = Chapter.Setup(
         none,
         parsed.variant,
@@ -67,6 +58,24 @@ final private class ChapterMaker(
       gamebook = data.isGamebook,
       conceal = data.isConceal option parsed.root.ply
     )
+
+  private def getChapterNameFromPgn(data: Data, parsed: PgnImport.Result): StudyChapterName =
+    val isDefault     = data.name.value.isEmpty || data.isDefaultName
+    val eventTag      = parsed.tags.apply("Event")
+    val vsTitle       = getVsTitleFromPgn(parsed)
+    val tentativeName = eventTag.getOrElse(vsTitle)
+    if (!isDefault || tentativeName == "") data.name else StudyChapterName(tentativeName)
+
+  def getVsTitleFromPgn(parsed: PgnImport.Result): String = {
+    parsed
+      .tags(_.White)
+      .flatMap { white =>
+        parsed.tags(_.Black).map { black =>
+          s"$white - $black"
+        }
+      }
+      .getOrElse("")
+  }
 
   private def resolveOrientation(data: Data, root: Root, tags: Tags = Tags.empty): Color =
     data.orientation match

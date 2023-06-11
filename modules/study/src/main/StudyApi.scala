@@ -5,7 +5,7 @@ import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Tag }
 
 import lila.chat.ChatApi
 import lila.common.Bus
@@ -95,7 +95,7 @@ final class StudyApi(
       }
     } >> byIdWithFirstChapter(study.id)
 
-  def recentByOwnerWithChapterCount = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
+  def recentByOwnerWithChapterCount       = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
   def recentByContributorWithChapterCount = studyRepo.recentByContributorWithChapterCount(chapterRepo.coll)
 
   export chapterRepo.studyIdOf
@@ -415,7 +415,18 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, setTag.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
+          if (setTag.tag.name == Tag.Event) {
+            val data: ChapterMaker.EditData = ChapterMaker.EditData(
+              chapter.id,
+              StudyChapterName(setTag.tag.value),
+              ChapterMaker.Orientation.Auto,
+              ChapterMaker.Mode.Normal,
+              chapter.description.getOrElse("-")
+            )
+            editChapter(studyId, data)(who)
+          } else {
+            doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
+          }
 
   def setTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
@@ -614,6 +625,8 @@ final class StudyApi(
           )
           if (chapter == newChapter) funit
           else
+            var eventTag = Tag(Tag.Event, newChapter.name.toString)
+            doSetTags(study, newChapter, PgnTags(newChapter.tags + eventTag), who)
             chapterRepo.update(newChapter) >> {
               if (chapter.conceal != newChapter.conceal)
                 (newChapter.conceal.isDefined && study.position.chapterId == chapter.id).?? {
