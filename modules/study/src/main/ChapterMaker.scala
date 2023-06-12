@@ -60,22 +60,16 @@ final private class ChapterMaker(
     )
 
   private def getChapterNameFromPgn(data: Data, parsed: PgnImport.Result): StudyChapterName =
-    val isDefault     = data.name.value.isEmpty || data.isDefaultName
-    val eventTag      = parsed.tags.apply("Event")
-    val vsTitle       = getVsTitleFromPgn(parsed)
-    val tentativeName = eventTag.getOrElse(vsTitle)
-    if (!isDefault || tentativeName == "") data.name else StudyChapterName(tentativeName)
-
-  def getVsTitleFromPgn(parsed: PgnImport.Result): String = {
-    parsed
-      .tags(_.White)
-      .flatMap { white =>
-        parsed.tags(_.Black).map { black =>
-          s"$white - $black"
-        }
-      }
-      .getOrElse("")
-  }
+    def vsFromPgnTags = for
+      white <- parsed.tags(_.White)
+      black <- parsed.tags(_.Black)
+    yield s"$white - $black"
+    data.name.some
+      .ifFalse(data.isDefaultName)
+      .orElse:
+        StudyChapterName.from:
+          parsed.tags("Event").orElse(vsFromPgnTags).filter(_.nonEmpty)
+      .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, tags: Tags = Tags.empty): Color =
     data.orientation match
