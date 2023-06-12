@@ -76,7 +76,7 @@ function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
 }
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
-  const gameName = game.clock ? `${game.clock} • ${game.perf!.name}` : `${game.perf!.name}`;
+  const gameName = game.clock ? `${game.clock} - ${game.perf!.name}` : `${game.perf!.name}`;
   return h(
     'div.infos',
     {
