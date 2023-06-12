@@ -130,7 +130,7 @@ final class RelayRound(
             if rt.round.sync.ongoing then
               env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
                 chapters.find(_.looksAlive) orElse chapters.headOption match {
-                  case Some(chapter) => env.study.api.byIdWithChapter(rt.round.studyId, chapter.id)
+                  case Some(chapter) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
                   case None          => env.study.api byIdWithChapter rt.round.studyId
                 }
               }
@@ -162,9 +162,8 @@ final class RelayRound(
   }
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) = Open:
-    WithRoundAndTour(ts, rs, id) { rt =>
-      env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
-    }
+    WithRoundAndTour(ts, rs, id): rt =>
+      env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me =>
     env.relay.api
