@@ -26,7 +26,7 @@ object EmbedConfig {
   def apply(req: RequestHeader): EmbedConfig = {
     val pieceSet = get("pieceSet", req)
     EmbedConfig(
-      bg = get("bg", req).filterNot("auto".==) | "light",
+      bg = get("bg", req).filterNot("auto".==) | "dark",
       board = lila.pref.Theme(~get("theme", req)).cssClass,
       pieceSet = lila.pref.PieceSet(~pieceSet),
       chuPieceSet = lila.pref.ChuPieceSet(get("chuPieceSet", req) | ~pieceSet),

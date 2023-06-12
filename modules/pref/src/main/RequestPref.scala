@@ -27,7 +27,7 @@ object RequestPref {
       handsColor = paramOrSession("handsColor") | CustomTheme.default.handsColor,
       handsImg = paramOrSession("handsImg") | CustomTheme.default.handsImg
     ).some.filterNot(_ == CustomTheme.default)
-    val bg       = paramOrSession("bg") | "light"
+    val bg       = paramOrSession("bg") | "dark"
     val theme    = paramOrSession("theme") | default.theme
     val pieceSet = paramOrSession("pieceSet")
 
