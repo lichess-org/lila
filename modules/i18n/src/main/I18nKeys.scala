@@ -823,6 +823,7 @@ object I18nKeys:
   val `giveNbSeconds` = I18nKey("giveNbSeconds")
   val `nbTournamentPoints` = I18nKey("nbTournamentPoints")
   val `nbStudies` = I18nKey("nbStudies")
+  val `nbSimuls` = I18nKey("nbSimuls")
   val `moreThanNbRatedGames` = I18nKey("moreThanNbRatedGames")
   val `moreThanNbPerfRatedGames` = I18nKey("moreThanNbPerfRatedGames")
   val `needNbMorePerfGames` = I18nKey("needNbMorePerfGames")

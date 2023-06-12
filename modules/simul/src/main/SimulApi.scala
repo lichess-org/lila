@@ -18,6 +18,8 @@ import lila.hub.LeaderTeam
 import lila.gathering.Condition
 import lila.gathering.Condition.GetUserTeamIds
 import lila.rating.PerfType
+import lila.common.paginator.Paginator
+import lila.common.config.MaxPerPage
 
 final class SimulApi(
     userRepo: UserRepo,
@@ -224,6 +226,18 @@ final class SimulApi(
 
   def teamOf(id: SimulId): Fu[Option[TeamId]] =
     repo.coll.primitiveOne[TeamId]($id(id), "team")
+
+  def hostedByUser(userId: UserId, page: Int): Fu[Paginator[Simul]] =
+    Paginator(
+      adapter = repo.byHostAdapter(userId),
+      currentPage = page,
+      maxPerPage = MaxPerPage(20)
+    )
+
+  object countHostedByUser:
+    private val cache = cacheApi[UserId, Int](1024, "simul.nb.hosted"):
+      _.expireAfterWrite(10 minutes).buildAsyncFuture(repo.countByHost)
+    export cache.get
 
   private def makeGame(simul: Simul, host: User)(
       pairing: SimulPairing,
