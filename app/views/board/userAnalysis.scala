@@ -19,7 +19,7 @@ object userAnalysis:
       pov: lila.game.Pov,
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.analysis.txt(),
       moreCss = frag(

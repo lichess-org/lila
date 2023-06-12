@@ -76,7 +76,7 @@ final class BlogApi(
 
   def context(
       req: RequestHeader
-  )(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
+  )(using linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
     prismicApi map { api =>
       val ref = resolveRef(api) {
         req.cookies
@@ -94,7 +94,7 @@ final class BlogApi(
       BlogApi.Context(api, api.master.ref, linkResolver(api, none))
     }
 
-  def all(page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
+  def all(page: Int = 1)(using prismic: BlogApi.Context): Fu[List[Document]] =
     recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
       val docs = res.??(_.currentPageResults).toList
       (docs.nonEmpty ?? all(page + 1)) map (docs ::: _)

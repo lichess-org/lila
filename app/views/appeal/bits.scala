@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.*
 
 object bits:
 
-  def layout(title: String)(body: Frag)(implicit ctx: WebContext) =
+  def layout(title: String)(body: Frag)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = frag(

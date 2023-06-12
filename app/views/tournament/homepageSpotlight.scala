@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object homepageSpotlight:
 
-  def apply(tour: lila.tournament.Tournament)(implicit ctx: WebContext) =
+  def apply(tour: lila.tournament.Tournament)(using WebContext) =
     val schedClass = tour.schedule ?? { sched =>
       val invert  = (sched.freq.isWeeklyOrBetter && tour.isNowOrSoon) ?? " invert"
       val distant = tour.isDistant ?? " distant little"

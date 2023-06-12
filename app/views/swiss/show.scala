@@ -25,7 +25,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[UserId],
       isLocalMod: Boolean
-  )(implicit ctx: WebContext): Frag =
+  )(using ctx: WebContext): Frag =
     val isDirector       = ctx.userId.has(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
@@ -80,7 +80,7 @@ object show:
       )
     )
 
-  def round(s: Swiss, r: SwissRoundNumber, pairings: Paginator[SwissPairing])(implicit ctx: WebContext) =
+  def round(s: Swiss, r: SwissRoundNumber, pairings: Paginator[SwissPairing])(using WebContext) =
     views.html.base.layout(
       title = s"${fullName(s)} • Round $r/${s.round}",
       moreCss = cssTag("swiss.show")

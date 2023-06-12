@@ -11,7 +11,7 @@ import controllers.routes
 
 object leaderboard:
 
-  private def freqWinner(w: lila.tournament.Winner, freq: String)(implicit lang: Lang) =
+  private def freqWinner(w: lila.tournament.Winner, freq: String)(using Lang) =
     li(
       userIdLink(w.userId.some),
       a(title := w.tourName, href := routes.Tournament.show(w.tourId))(freq)
@@ -40,7 +40,7 @@ object leaderboard:
       )
     )
 
-  def apply(winners: lila.tournament.AllWinners)(implicit ctx: WebContext) =
+  def apply(winners: lila.tournament.AllWinners)(using WebContext) =
     views.html.base.layout(
       title = "Tournament leaderboard",
       moreCss = cssTag("tournament.leaderboard"),

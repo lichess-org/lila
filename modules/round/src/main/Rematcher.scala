@@ -14,11 +14,10 @@ import lila.i18n.{ defaultLang, I18nKeys as trans }
 final private class Rematcher(
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    idGenerator: lila.game.IdGenerator,
     messenger: Messenger,
     onStart: OnStart,
     rematches: Rematches
-)(using Executor):
+)(using Executor, lila.game.IdGenerator):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -125,7 +124,7 @@ final private class Rematcher(
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
       )
-      game <- withId.fold(sloppy withUniqueId idGenerator) { id => fuccess(sloppy withId id) }
+      game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy withId id) }
     } yield game
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =

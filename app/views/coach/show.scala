@@ -26,7 +26,7 @@ object show:
       studies: Seq[lila.study.Study.WithChaptersAndLiked],
       posts: Seq[lila.ublog.UblogPost.PreviewPost],
       myReview: Option[lila.coach.CoachReview]
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)

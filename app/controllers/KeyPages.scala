@@ -33,8 +33,8 @@ final class KeyPages(env: Env)(using Executor):
         }
       }
 
-  def notFound(ctx: WebContext): Result =
-    Results.NotFound(html.base.notFound()(ctx))
+  def notFound(using WebContext): Result =
+    Results.NotFound(html.base.notFound())
 
   def blacklisted(using ctx: WebContext): Result =
     if (lila.api.Mobile.Api requested ctx.req)

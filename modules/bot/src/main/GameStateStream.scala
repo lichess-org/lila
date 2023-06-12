@@ -53,7 +53,7 @@ final class GameStateStream(
       }
     }
 
-  private def uniqChan(pov: Pov)(implicit req: RequestHeader) =
+  private def uniqChan(pov: Pov)(using req: RequestHeader) =
     s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
 
   private def mkActor(

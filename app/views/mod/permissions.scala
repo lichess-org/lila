@@ -10,7 +10,7 @@ import controllers.routes
 
 object permissions:
 
-  def apply(u: User, me: Holder)(implicit ctx: WebContext) =
+  def apply(u: User, me: Holder)(using WebContext) =
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(

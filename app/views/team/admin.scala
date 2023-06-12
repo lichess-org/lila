@@ -13,7 +13,7 @@ object admin:
 
   import trans.team.*
 
-  def leaders(t: lila.team.Team, form: Form[?])(implicit ctx: WebContext) =
+  def leaders(t: lila.team.Team, form: Form[?])(using WebContext) =
     views.html.base.layout(
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
@@ -37,7 +37,7 @@ object admin:
       )
     }
 
-  def kick(t: lila.team.Team, form: Form[?])(implicit ctx: WebContext) =
+  def kick(t: lila.team.Team, form: Form[?])(using WebContext) =
     views.html.base.layout(
       title = s"${t.name} • ${kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),

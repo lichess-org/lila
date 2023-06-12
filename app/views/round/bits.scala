@@ -25,7 +25,7 @@ object bits:
       zenable: Boolean = false,
       robots: Boolean = false,
       withHrefLangs: Option[LangPath] = None
-  )(body: Frag)(implicit ctx: WebContext) =
+  )(body: Frag)(using ctx: WebContext) =
     views.html.base.layout(
       title = title,
       openGraph = openGraph,
@@ -46,12 +46,12 @@ object bits:
       withHrefLangs = withHrefLangs
     )(body)
 
-  def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: WebContext) =
+  def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: WebContext) =
     cross map { c =>
       views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
     }
 
-  def underchat(game: Game)(implicit ctx: WebContext) =
+  def underchat(game: Game)(using ctx: WebContext) =
     frag(
       views.html.chat.spectatorsFrag,
       isGranted(_.ViewBlurs) option div(cls := "round__mod")(
@@ -73,7 +73,7 @@ object bits:
       )
     )
 
-  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(implicit ctx: WebContext) =
+  def others(playing: List[Pov], simul: Option[lila.simul.Simul])(using WebContext) =
     frag(
       h3(
         simul.map { s =>

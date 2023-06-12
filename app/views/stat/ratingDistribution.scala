@@ -15,7 +15,7 @@ import controllers.routes
 
 object ratingDistribution:
 
-  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User])(implicit ctx: WebContext) =
+  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User])(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
       moreCss = cssTag("user.rating.stats"),

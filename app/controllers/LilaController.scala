@@ -35,8 +35,9 @@ abstract private[controllers] class LilaController(val env: Env)
   protected given Conversion[Frag, Result] = Ok(_)
   protected given FormBinding              = parse.formBinding(parse.DefaultMaxTextLength)
 
-  protected val keyPages                   = KeyPages(env)
-  protected val renderNotFound             = keyPages.notFound
+  protected val keyPages = KeyPages(env)
+  export keyPages.{ notFound as renderNotFound }
+
   protected val rateLimitedMsg             = "Too many requests. Try again later."
   protected val rateLimited                = Results.TooManyRequests(rateLimitedMsg)
   protected val rateLimitedJson            = Results.TooManyRequests(jsonError(rateLimitedMsg))
@@ -491,7 +492,7 @@ abstract private[controllers] class LilaController(val env: Env)
     negotiate(
       html =
         if HTTPRequest.isSynchronousHttp(ctx.req)
-        then fuccess(renderNotFound(ctx))
+        then fuccess(renderNotFound)
         else fuccess(Results.NotFound("Resource not found")),
       api = _ => notFoundJson("Resource not found")
     )

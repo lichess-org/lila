@@ -36,7 +36,7 @@ object history:
       )
     )
 
-  private def renderSession(session: PuzzleSession)(implicit ctx: WebContext) =
+  private def renderSession(session: PuzzleSession)(using ctx: WebContext) =
     div(cls := "puzzle-history__session")(
       h2(cls := "puzzle-history__session__title")(
         strong(PuzzleTheme(session.theme).name()),
@@ -45,7 +45,7 @@ object history:
       div(cls := "puzzle-history__session__rounds")(session.puzzles.toList.reverse map renderRound)
     )
 
-  private def renderRound(r: SessionRound)(implicit ctx: WebContext) =
+  private def renderRound(r: SessionRound)(using WebContext) =
     a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id))(
       views.html.board.bits.mini(r.puzzle.fenAfterInitialMove.board, r.puzzle.color, r.puzzle.line.head.some)(
         span(cls := "puzzle-history__round__puzzle")

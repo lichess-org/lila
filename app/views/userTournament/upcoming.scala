@@ -9,7 +9,7 @@ import lila.user.User
 
 object upcoming:
 
-  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(implicit ctx: WebContext) =
+  def apply(u: User, pager: Paginator[lila.tournament.Tournament])(using WebContext) =
     bits.layout(
       u = u,
       title = s"${u.username} upcoming tournaments",

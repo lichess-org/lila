@@ -11,7 +11,7 @@ object review:
 
   import trans.coach.*
 
-  def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: WebContext) =
+  def list(reviews: lila.coach.CoachReview.Reviews)(using WebContext) =
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
       h2(
         studentReviews(reviews.list.size),
@@ -38,7 +38,7 @@ object review:
       }
     )
 
-  def form(c: lila.coach.Coach.WithUser, mine: Option[lila.coach.CoachReview])(implicit ctx: WebContext) =
+  def form(c: lila.coach.Coach.WithUser, mine: Option[lila.coach.CoachReview])(using ctx: WebContext) =
     div(cls := "coach-review-form")(
       if (mine.exists(_.pendingApproval))
         div(cls := "approval")(

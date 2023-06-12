@@ -93,9 +93,8 @@ final class BotJsonView(
       .add("rating" -> pov.player.rating)
       .add("provisional" -> pov.player.provisional)
 
-  implicit private val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
+  private given OWrites[chess.Clock.Config] = OWrites: c =>
     Json.obj(
       "initial"   -> c.limit.millis,
       "increment" -> c.increment.millis
     )
-  }

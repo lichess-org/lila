@@ -9,7 +9,7 @@ import controllers.routes
 
 object impersonate:
 
-  def apply(user: lila.user.User)(implicit lang: Lang) =
+  def apply(user: lila.user.User)(using Lang) =
     div(id := "impersonate")(
       div(cls := "meat")(
         "You are impersonating ",

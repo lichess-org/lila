@@ -492,7 +492,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def invitationAccept(id: ClasInvite.Id) = AuthBody { ctx ?=> me =>
-    Form(single("v" -> boolean))
+    Form(single("v" -> Forms.boolean))
       .bindFromRequest()
       .fold(
         _ => Redirect(routes.Clas.invitation(id)).toFuccess,

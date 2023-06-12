@@ -24,11 +24,8 @@ final private class AggregationPipeline(store: InsightStorage)(using
       withPovs: Boolean,
       nbGames: config.Max = maxGames
   ): Fu[List[Bdoc]] =
-    store.coll {
-      _.aggregateList(
-        maxDocs = Int.MaxValue,
-        allowDiskUse = true
-      ) { implicit framework =>
+    store.coll:
+      _.aggregateList(maxDocs = Int.MaxValue, allowDiskUse = true): framework =>
         import framework.*
         import question.{ dimension, filters, metric }
         import lila.insight.{ InsightDimension as D, InsightMetric as M }
@@ -420,5 +417,3 @@ final private class AggregationPipeline(store: InsightStorage)(using
           }).flatten
         }
         pipeline
-      }
-    }

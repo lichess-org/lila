@@ -16,7 +16,7 @@ object crud:
 
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
       body: Frag
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
@@ -31,7 +31,7 @@ object crud:
       )
     }
 
-  def create(form: Form[?])(implicit ctx: WebContext) =
+  def create(form: Form[?])(using WebContext) =
     layout(
       title = "New tournament",
       css = "mod.form"
@@ -42,7 +42,7 @@ object crud:
       )
     }
 
-  def edit(tour: Tournament, form: Form[?])(implicit ctx: WebContext) =
+  def edit(tour: Tournament, form: Form[?])(using WebContext) =
     layout(
       title = tour.name(),
       css = "mod.form"
@@ -65,7 +65,7 @@ object crud:
       )
     }
 
-  private def inForm(form: Form[?], tour: Option[Tournament])(implicit ctx: WebContext) =
+  private def inForm(form: Form[?], tour: Option[Tournament])(using WebContext) =
     frag(
       form3.split(
         form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
@@ -139,7 +139,7 @@ object crud:
       form3.action(form3.submit(trans.apply()))
     )
 
-  def index(tours: Paginator[Tournament])(implicit ctx: WebContext) =
+  def index(tours: Paginator[Tournament])(using WebContext) =
     layout(
       title = "Tournament manager",
       evenMoreJs = infiniteScrollTag

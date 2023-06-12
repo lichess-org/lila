@@ -10,7 +10,7 @@ object request:
 
   import trans.team.*
 
-  def requestForm(t: lila.team.Team, form: Form[?])(implicit ctx: WebContext) =
+  def requestForm(t: lila.team.Team, form: Form[?])(using WebContext) =
 
     val title = s"${joinTeam.txt()} ${t.name}"
 
@@ -41,7 +41,7 @@ object request:
       )
     }
 
-  def all(requests: List[lila.team.RequestWithUser])(implicit ctx: WebContext) =
+  def all(requests: List[lila.team.RequestWithUser])(using WebContext) =
     val title = xJoinRequests.pluralSameTxt(requests.size)
     bits.layout(title = title) {
       main(cls := "page-menu")(

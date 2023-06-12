@@ -27,7 +27,7 @@ object communication:
       logins: lila.security.UserLogins.TableData[UserWithModlog],
       appeals: List[lila.appeal.Appeal],
       priv: Boolean
-  )(implicit ctx: WebContext, renderIp: RenderIp) =
+  )(using ctx: WebContext, renderIp: RenderIp) =
     views.html.base.layout(
       title = u.username + " communications",
       moreCss = frag(

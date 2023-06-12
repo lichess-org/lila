@@ -157,19 +157,6 @@ trait dsl:
   trait CurrentDateValueProducer[T]:
     def produce: BSONValue
 
-  implicit final class BooleanCurrentDateValueProducer(value: Boolean)
-      extends CurrentDateValueProducer[Boolean]:
-    def produce: BSONValue = BSONBoolean(value)
-
-  implicit final class StringCurrentDateValueProducer(value: String) extends CurrentDateValueProducer[String]:
-    def isValid: Boolean = Seq("date", "timestamp") contains value
-
-    def produce: BSONValue =
-      if (!isValid)
-        throw new IllegalArgumentException(value)
-
-      $doc("$type" -> value)
-
   // End of Top Level Field Update Operators
   // **********************************************************************************************//
 
@@ -215,7 +202,7 @@ trait dsl:
   /** Represents the state of an expression which has a field and a value */
   trait Expression[V] extends ElementBuilder:
     def value: V
-    def toBdoc(implicit writer: BSONWriter[V]) = toBSONDocument(this)
+    def toBdoc(using BSONWriter[V]) = toBSONDocument(this)
 
   /*
    * This type of expressions cannot be cascaded. Examples:
@@ -369,7 +356,7 @@ object dsl extends dsl with Handlers:
   extension [A](c: Cursor[A])(using Executor)
 
     // like collect, but with stopOnError defaulting to false
-    def gather[M[_]](upTo: Int = Int.MaxValue)(implicit cbf: Factory[A, M[A]]): Fu[M[A]] =
+    def gather[M[_]](upTo: Int = Int.MaxValue)(using Factory[A, M[A]]): Fu[M[A]] =
       c.collect[M](upTo, Cursor.ContOnError[M[A]]())
 
     def list(limit: Int): Fu[List[A]] = gather[List](limit)
@@ -381,7 +368,7 @@ object dsl extends dsl with Handlers:
 
       // extension [A](cursor: Cursor.WithOps[A])(using Executor)
 
-      //   def gather[M[_]](upTo: Int)(implicit factory: Factory[A, M[A]]): Fu[M[A]] =
+      //   def gather[M[_]](upTo: Int)(using Factory[A, M[A]]): Fu[M[A]] =
       //     cursor.collect[M](upTo, Cursor.ContOnError[M[A]]())
 
       //   def list(): Fu[List[A]] =

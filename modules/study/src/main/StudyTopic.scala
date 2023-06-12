@@ -37,9 +37,9 @@ final private class StudyTopicRepo(val coll: AsyncColl)
 final private class StudyUserTopicRepo(val coll: AsyncColl)
 
 final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTopicRepo, studyRepo: StudyRepo)(
-    implicit
-    ec: Executor,
-    scheduler: Scheduler
+    using
+    Executor,
+    Scheduler
 ):
 
   def byId(str: String): Fu[Option[StudyTopic]] =

@@ -10,7 +10,7 @@ import lila.common.LangPath
 
 object show:
 
-  def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: WebContext) =
+  def apply(scoreOption: Option[lila.coordinate.Score])(using WebContext) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
       moreCss = frag(

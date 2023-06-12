@@ -14,7 +14,7 @@ object index:
 
   import trans.learn.{ play as _, * }
 
-  def apply(data: Option[play.api.libs.json.JsValue])(implicit ctx: WebContext) =
+  def apply(data: Option[play.api.libs.json.JsValue])(using WebContext) =
     views.html.base.layout(
       title = s"${learnChess.txt()} - ${byPlaying.txt()}",
       moreJs = frag(

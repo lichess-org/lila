@@ -252,7 +252,7 @@ object show:
     }
 
   // handle special teams here
-  private def joinButton(t: Team)(implicit ctx: WebContext) =
+  private def joinButton(t: Team)(using WebContext) =
     t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
       case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
@@ -261,10 +261,10 @@ object show:
           submitButton(cls := "button button-green")(joinTeam())
         )
 
-  private def joinAt(url: String)(implicit ctx: WebContext) =
+  private def joinAt(url: String)(using WebContext) =
     a(cls := "button button-green", href := url)(joinTeam())
 
-  private def renderLog(entries: List[Modlog])(implicit ctx: WebContext) = div(cls := "team-show__log")(
+  private def renderLog(entries: List[Modlog])(using WebContext) = div(cls := "team-show__log")(
     h2("Mod log"),
     ul(
       entries.map { e =>

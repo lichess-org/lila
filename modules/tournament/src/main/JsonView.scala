@@ -381,7 +381,7 @@ final class JsonView(
       JsArray(ranked take max map teamBattleRankedWrites.writes)
     }
 
-  implicit private val teamBattleRankedWrites: Writes[TeamBattle.RankedTeam] = OWrites { rt =>
+  private given teamBattleRankedWrites: Writes[TeamBattle.RankedTeam] = OWrites: rt =>
     Json.obj(
       "rank"  -> rt.rank,
       "id"    -> rt.teamId,
@@ -393,7 +393,6 @@ final class JsonView(
         )
       }
     )
-  }
 
   private def getMyRankedTeam(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.RankedTeam]] =
     tour.teamBattle.exists(_.hasTooManyTeams) ??

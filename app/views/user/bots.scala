@@ -10,7 +10,7 @@ import lila.user.User
 
 object bots:
 
-  def apply(users: List[User])(implicit ctx: WebContext) =
+  def apply(users: List[User])(using WebContext) =
 
     val title = s"${users.size} Online bots"
 
@@ -47,7 +47,7 @@ object bots:
       )
     )
 
-  private def botTable(users: List[User])(implicit ctx: WebContext) = div(cls := "bots__list")(
+  private def botTable(users: List[User])(using ctx: WebContext) = div(cls := "bots__list")(
     users map { u =>
       div(cls := "bots__list__entry")(
         div(cls := "bots__list__entry__desc")(

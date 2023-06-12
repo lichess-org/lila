@@ -98,7 +98,7 @@ final class UserLoginsApi(
       max: Int
   ): Fu[List[OtherUser[User]]] =
     ipSet.nonEmpty ?? store.coll
-      .aggregateList(max, readPreference = temporarilyPrimary) { implicit framework =>
+      .aggregateList(max, readPreference = temporarilyPrimary): framework =>
         import framework.*
         import FingerHash.given
         Match(
@@ -142,20 +142,18 @@ final class UserLoginsApi(
           ),
           UnwindField("user")
         )
-      }
-      .map { docs =>
+      .map: docs =>
         import lila.user.User.given
         import FingerHash.given
-        for {
+        for
           doc  <- docs
           user <- doc.getAsOpt[User]("user")
           ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(collectionReader)
           fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(collectionReader)
-        } yield OtherUser(user, ips intersect ipSet, fps intersect fpSet)
-      }
+        yield OtherUser(user, ips intersect ipSet, fps intersect fpSet)
 
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]] =
-    for {
+    for
       (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
       users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[UserId, Set](
         "user",
@@ -165,7 +163,7 @@ final class UserLoginsApi(
           "user" $ne userId
         )
       )
-    } yield users
+    yield users
 
   private def nextValues(field: String, userId: UserId): Fu[Set[String]] =
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))

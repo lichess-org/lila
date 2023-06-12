@@ -67,7 +67,7 @@ document.getElementById('chapter-selector').onchange = function() {
       )
     )
 
-  def notFound(implicit config: EmbedConfig) =
+  def notFound(using EmbedConfig) =
     views.html.base.embed(
       title = s"404 - ${trans.study.studyNotFound.txt()}",
       cssModule = "analyse.embed"

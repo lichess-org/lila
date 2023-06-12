@@ -25,7 +25,7 @@ object index:
       recentIds: List[UserId],
       bestIds: List[UserId],
       pricing: lila.plan.PlanPricing
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
@@ -258,10 +258,10 @@ object index:
       )
     }
 
-  private def showCurrency(cur: Currency)(implicit ctx: WebContext) =
+  private def showCurrency(cur: Currency)(using ctx: WebContext) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
-  private def faq(implicit lang: Lang) =
+  private def faq(using Lang) =
     div(cls := "faq")(
       dl(
         dt(whereMoneyGoes()),

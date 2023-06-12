@@ -622,7 +622,7 @@ final class SwissApi(
 
   def withdrawAll(user: User, teamIds: List[TeamId]): Funit =
     mongo.swiss
-      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred): framework =>
         import framework.*
         Match($doc("finishedAt" $exists false, "nbPlayers" $gt 0, "teamId" $in teamIds)) -> List(
           PipelineOperator(
@@ -645,11 +645,9 @@ final class SwissApi(
           Match("player" $ne $arr()),
           Project($id(true))
         )
-      }
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
-      .flatMap {
+      .flatMap:
         _.map { withdraw(_, user.id) }.parallel.void
-      }
 
   def isUnfinished(id: SwissId): Fu[Boolean] =
     mongo.swiss.exists($id(id) ++ $doc("finishedAt" $exists false))

@@ -10,7 +10,7 @@ import lila.coach.Coach
 
 object picture:
 
-  def apply(c: Coach.WithUser, error: Option[String] = None)(implicit ctx: WebContext) =
+  def apply(c: Coach.WithUser, error: Option[String] = None)(using WebContext) =
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach picture",
       evenMoreJs = jsTag("coach.form.js"),

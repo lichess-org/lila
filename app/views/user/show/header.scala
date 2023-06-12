@@ -252,7 +252,7 @@ object header:
       )
     )
 
-  def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: WebContext) = div(cls := "note-zone")(
+  def noteZone(u: User, notes: List[lila.user.Note])(using ctx: WebContext) = div(cls := "note-zone")(
     postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
         placeholder := trans.writeAPrivateNoteAboutThisUser.txt()

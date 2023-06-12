@@ -12,8 +12,8 @@ final class MsgJson(
     isOnline: lila.socket.IsOnline
 )(using Executor):
 
-  implicit private val lastMsgWrites: OWrites[Msg.Last]    = Json.writes[Msg.Last]
-  implicit private val relationsWrites: OWrites[Relations] = Json.writes[Relations]
+  private given lastMsgWrites: OWrites[Msg.Last]    = Json.writes
+  private given relationsWrites: OWrites[Relations] = Json.writes
 
   def threads(me: User)(threads: List[MsgThread]): Fu[JsArray] =
     withContacts(me, threads) map { threads =>
