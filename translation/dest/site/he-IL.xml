@@ -394,6 +394,12 @@
     <item quantity="many">%s לוחות למידה</item>
     <item quantity="other">%s לוחות למידה</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">משחק סימולטני %s</item>
+    <item quantity="two">%s משחקים סימולטניים</item>
+    <item quantity="many">%s משחקים סימולטניים</item>
+    <item quantity="other">%s משחקים סימולטניים</item>
+  </plurals>
   <string name="viewTournament">צפייה בטורניר</string>
   <string name="backToTournament">חזרה לטורניר</string>
   <string name="noDrawBeforeSwissLimit">אין אפשרות לסיים את המשחק בתיקו בטורניר שוויצרי לפני ששוחקו 30 מהלכים.</string>
