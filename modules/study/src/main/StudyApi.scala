@@ -64,7 +64,7 @@ final class StudyApi(
       }
 
   def byIdWithChapter(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
-    studyRepo.byIdWithChapter(chapterRepo.coll)(id, chapterId)
+    studyRepo.byIdWithChapter(chapterRepo.coll)(id, chapterId) orElse byIdWithChapter(id)
 
   def byIdWithFirstChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo firstByStudy id)
