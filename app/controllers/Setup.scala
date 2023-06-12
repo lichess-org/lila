@@ -14,6 +14,7 @@ import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
 import views.*
+import play.api.mvc.Result
 
 final class Setup(
     env: Env,
@@ -182,7 +183,7 @@ final class Setup(
     maxConcurrency = 1
   )
   def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile) { ctx ?=> me =>
-    val author = me match
+    val author: Either[Result, Either[Sri, lila.user.User]] = me match
       case Some(u) if u.isBot => Left(notForBotAccounts)
       case Some(u)            => Right(Right(u))
       case None =>
@@ -192,11 +193,8 @@ final class Setup(
     author match
       case Left(err) => err.toFuccess
       case Right(author) =>
-        val isMobile: Boolean = ctx match
-          case oauth: OAuthBodyContext[?] => oauth.scopes.has(_.Web.Mobile)
-          case _                          => false
         forms
-          .boardApiHook(isMobile)
+          .boardApiHook(ctx.isMobile)
           .bindFromRequest()
           .fold(
             newJsonFormError,
