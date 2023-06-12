@@ -73,7 +73,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .listAll()
 
   def byHostAdapter(hostId: UserId) =
-    new lila.db.paginator.Adapter[Simul](
+    lila.db.paginator.Adapter[Simul](
       collection = coll,
       selector = finishedSelect ++ $doc("hostId" -> hostId),
       projection = none,
@@ -83,6 +83,8 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
 
   def hostId(id: SimulId): Fu[Option[UserId]] =
     coll.primitiveOne[UserId]($id(id), "hostId")
+
+  def countByHost(hostId: UserId) = coll.countSel($doc("hostId" -> hostId))
 
   private val featurableSelect = $doc("featurable" -> true)
 

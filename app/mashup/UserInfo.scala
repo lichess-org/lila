@@ -125,7 +125,7 @@ object UserInfo:
         postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts") zip
         (withUblog ?? ublogApi.userBlogPreviewFor(user, 3, ctx.me)) zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
-        simulApi.nbHostedByUser(user.id).mon(_.user segment "nbSimuls").thenPp zip
+        simulApi.countHostedByUser.get(user.id).mon(_.user segment "nbSimuls") zip
         userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies") zip
         teamApi.joinedTeamIdsOfUserAsSeenBy(user, ctx.me).mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip

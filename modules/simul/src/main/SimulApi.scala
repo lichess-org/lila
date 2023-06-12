@@ -234,7 +234,10 @@ final class SimulApi(
       maxPerPage = MaxPerPage(20)
     )
 
-  def nbHostedByUser(userId: UserId): Fu[Int] = repo.byHostAdapter(userId).nbResults
+  object countHostedByUser:
+    private val cache = cacheApi[UserId, Int](1024, "simul.nb.hosted"):
+      _.expireAfterWrite(10 minutes).buildAsyncFuture(repo.countByHost)
+    export cache.get
 
   private def makeGame(simul: Simul, host: User)(
       pairing: SimulPairing,
