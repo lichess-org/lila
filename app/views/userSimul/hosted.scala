@@ -44,7 +44,7 @@ object hosted:
                   td(i(cls := s"color-icon $hostColor"))
                 )
               },
-              pagerNextTable(pager, np => routes.UserSimul.path(user.username, "hosted", np).url)
+              pagerNextTable(pager, np => routes.Simul.byUser(user.username, np).url)
             )
           )
         )

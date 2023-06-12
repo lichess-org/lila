@@ -52,7 +52,7 @@ object header:
             splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
           ),
           u.noBot option a(
-            href := routes.UserSimul.path(u.username, "hosted"),
+            href := routes.Simul.byUser(u.username),
             cls  := "nm-item simul_stats"
           )(
             splitNumber(trans.nbSimuls.pluralSame(info.nbSimuls))
