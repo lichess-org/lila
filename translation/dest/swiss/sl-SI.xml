@@ -63,6 +63,13 @@ Kadar igralca v krogu ni mogoče seznaniti, prejme eno točko.</string>
   <string name="sonnebornBergerScore">Ocena Sonneborn – Berger</string>
   <string name="tiebreaksCalculationA">Z %s.
 Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezultata vsakega nasprotnika, s katerim igralec remizira.</string>
+  <string name="earlyDrawsQ">Kaj se zgodi pri zgodnjih remijih?</string>
+  <string name="earlyDrawsA">Igralec dobi slovo ene točke vsakič, ko sistem za seznanjanje ne najde para zanj.
+Poleg tega se igralec, ki se turnirju pridruži pozno, pripiše eno samo polovico točke.</string>
+  <string name="protectionAgainstNoShowQ">Kaj se naredi v zvezi z neprihodom?</string>
+  <string name="protectionAgainstNoShowA">Igralci, ki se prijavijo na švicarske dogodke, vendar ne igrajo njihovih iger, so lahko problematični.
+Da bi ublažil to težavo, Lichess igralcem, ki niso igrali igre, prepreči, da bi se za določen čas pridružili novemu švicarskemu dogodku.
+Ustvarjalec švicarskega dogodka se lahko vseeno odloči, da mu dovoli, da se dogodku pridruži.</string>
   <string name="pairingWaitTimeArena">Hitro: ne čakaj na vse igralce</string>
   <string name="pairingWaitTimeSwiss">Počasi: čakaj na vse igralce</string>
   <string name="lateJoinUntil">Da, dokler se ne začne več kot polovica krogov</string>

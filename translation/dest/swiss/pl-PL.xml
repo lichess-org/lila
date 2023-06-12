@@ -79,6 +79,10 @@ Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołącza do turnieju
   <string name="whatIfOneDoesntPlayA">Jego czas na zegarze będzie upływał, aż skończy się i wtedy przegra partię.
 Następnie system wycofa takiego uczestnika z turnieju, więc nie przegra on więcej partii.
 Uczestnik ten może w każdej chwili ponownie dołączyć do turnieju.</string>
+  <string name="protectionAgainstNoShowQ">Co się dzieje z graczami, którzy nie przystępują do partii?</string>
+  <string name="protectionAgainstNoShowA">Gracze, którzy zapisali się do turnieju w systemie szwajcarskim, ale nie rozgrywają swoich partii, stanowią problem.
+W celu minimalizacji skali takich sytuacji Lichess uniemożliwia przez pewien czas zapisy na turnieje w systemie szwajcarskim graczom, którzy nie podeszli do partii. 
+Twórca turnieju może jednak zezwolić im na dołączenie.</string>
   <string name="lateJoinQ">Czy można dołączyć do turnieju po jego rozpoczęciu?</string>
   <string name="lateJoinA">Tak, dopóki nie rozpocznie się ponad połowa rund. Na przykład w 11-rundowym turnieju uczestnicy mogą dołączyć przed rozpoczęciem się 6 rundy, a w 12-rundowym turnieju przed rozpoczęciem się rundy 7.
 Uczestnicy dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt bez gry), nawet jeśli przegapili już kilka rund.</string>

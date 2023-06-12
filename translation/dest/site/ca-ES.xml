@@ -348,6 +348,10 @@
     <item quantity="one">%s estudi</item>
     <item quantity="other">%s estudis</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultània</item>
+    <item quantity="other">%s simultànies</item>
+  </plurals>
   <string name="viewTournament">Mirar el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="noDrawBeforeSwissLimit">No es pot fer taules abans dels 30 moviments en un torneig suís.</string>

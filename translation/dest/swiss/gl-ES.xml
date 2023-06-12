@@ -60,6 +60,7 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
 Cremos que é máis probable que se cumpran estas condicións nun equipo que en torneos globais.</string>
   <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
   <string name="numberOfByesA">Un xogador/a ten un \"bye\" de un punto cada vez que o sistema de emparellamento non pode atoparlle opoñente. Adicionalmente, un \"bye\" de medio punto daráselle a un xogador cando entre tardiamente nun torneo.</string>
+  <string name="earlyDrawsQ">Que pasa coas táboas rápidas?</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador/a non xoga unha partida?</string>
   <string name="whatIfOneDoesntPlayA">O seu reló pararase, será marcado e perderá a partida.
 Entón o sistema botará ao xogador do torneo, para que non perda máis partidas.
