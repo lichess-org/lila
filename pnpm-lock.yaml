@@ -407,6 +407,12 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1
 
+  ui/lazy:
+    dependencies:
+      '@types/lichess':
+        specifier: workspace:*
+        version: link:../@types/lichess
+
   ui/learn:
     dependencies:
       '@types/cash':

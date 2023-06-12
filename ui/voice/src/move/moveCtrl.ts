@@ -35,7 +35,7 @@ export default (window as any).LichessVoiceMove = function (
   const moves: SparseMap<Uci> = new Map(); // map valid xvals to all full legal movesmmmmmmmmmh
   const squares: SparseMap<Uci> = new Map(); // map of xvals to selectable or reachable square(s)
   const sans: SparseMap<string> = new Map(); // map xvals to ucis of valid sans
-  const confirm: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
+  const confirmations: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
   const clarityPref = prop.storedIntProp('voice.clarity', 0);
   const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
   const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
@@ -76,7 +76,7 @@ export default (window as any).LichessVoiceMove = function (
     allPhrases,
     update,
     promotionHook,
-    opponentRequest,
+    confirm,
   };
 
   function prefNodes() {
@@ -132,8 +132,8 @@ export default (window as any).LichessVoiceMove = function (
         if (DEBUG.collapse) console.groupCollapsed(`listen '${text}'`);
         else console.info(`listen '${text}'`);
         if (handleCommand(text) || handleAmbiguity(text) || handleMove(text)) {
-          confirm.forEach((cb, _) => cb(false));
-          confirm.clear();
+          confirmations.forEach((cb, _) => cb(false));
+          confirmations.clear();
         }
       } finally {
         if (DEBUG.collapse) console.groupEnd();
@@ -167,9 +167,9 @@ export default (window as any).LichessVoiceMove = function (
     const c = matchOneTags(msgText, ['command', 'choice'])?.[0];
     if (!c) return false;
 
-    for (const [action, callback] of confirm) {
+    for (const [action, callback] of confirmations) {
       if (c === 'yes' || c === 'no' || c === action) {
-        confirm.delete(action);
+        confirmations.delete(action);
         callback(c !== 'no');
         return true;
       }
@@ -329,9 +329,9 @@ export default (window as any).LichessVoiceMove = function (
     return true;
   }
 
-  function opponentRequest(request: string, callback?: (granted: boolean) => void) {
-    if (callback) confirm.set(request, callback);
-    else confirm.delete(request);
+  function confirm(request: string, callback?: (granted: boolean) => void) {
+    if (callback) confirmations.set(request, callback);
+    else confirmations.delete(request);
   }
 
   function submit(uci: Uci) {

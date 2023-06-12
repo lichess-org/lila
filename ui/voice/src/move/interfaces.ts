@@ -20,7 +20,7 @@ export interface RootCtrl {
 export interface VoiceMove extends VoiceModule {
   update: (fen: string, yourMove?: boolean) => void;
   promotionHook: () => (ctrl: PromotionCtrl, roles: cg.Role[] | false) => void;
-  opponentRequest: (request: string, callback: (v: boolean) => void) => void;
+  confirm: (request: string, callback: (v: boolean) => void) => void;
 }
 
 export interface Match {

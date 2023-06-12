@@ -11,7 +11,7 @@ export function makeVoiceMove(ctrl: RootCtrl, fen: string): VoiceMove {
     ui,
     initGrammar: () => move.initGrammar(),
     update: fen => move.update(fen),
-    opponentRequest: (request, callback) => move.opponentRequest(request, callback),
+    confirm: (request, callback) => move.confirm(request, callback),
     get promotionHook() {
       return move.promotionHook;
     },

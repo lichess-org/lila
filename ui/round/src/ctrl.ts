@@ -343,6 +343,18 @@ export default class RoundController {
     this.redraw();
   };
 
+  auxMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
+    if (!role) {
+      this.chessground.move(orig, dest);
+      // TODO look into possibility of making cg.Api.move function update player turn itself.
+      this.chessground.state.movable.dests = undefined;
+      this.chessground.state.turnColor = this.chessground.state.turnColor === 'white' ? 'black' : 'white';
+
+      if (this.startPromotion(orig, dest, { premove: false })) return;
+    }
+    this.sendMove(orig, dest, role, { premove: false });
+  };
+
   sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
     const move: SocketMove = {
       u: orig + dest,
@@ -628,7 +640,7 @@ export default class RoundController {
   };
 
   opponentRequest(req: string, i18nKey: string) {
-    this.voiceMove?.opponentRequest(req, (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`));
+    this.voiceMove?.confirm(req, (v: boolean) => this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`));
     notify(this.noarg(i18nKey));
   }
 
@@ -777,17 +789,6 @@ export default class RoundController {
   };
 
   stepAt = (ply: Ply) => round.plyStep(this.data, ply);
-
-  auxMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
-    if (
-      role ||
-      !this.promotion.start(orig, dest, {
-        submit: (orig, dest, role) => this.sendMove(orig, dest, role, { premove: false }),
-        show: this.voiceMove?.promotionHook(),
-      })
-    )
-      this.sendMove(orig, dest, role, { premove: false });
-  };
 
   private delayedInit = () => {
     const d = this.data;
