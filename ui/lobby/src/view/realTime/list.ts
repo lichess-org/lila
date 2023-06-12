@@ -24,7 +24,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       },
     },
     tds([
-      h('span.is.is2.color-icon.' + (hook.c || 'random')),
+      h('span.is.color-icon.' + (hook.c || 'random')),
       hook.rating
         ? h(
             'span.ulink.ulpt',
