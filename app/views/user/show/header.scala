@@ -51,7 +51,7 @@ object header:
           )(
             splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
           ),
-          u.noBot option a(
+          info.nbSimuls > 0 option a(
             href := routes.Simul.byUser(u.username),
             cls  := "nm-item simul_stats"
           )(
