@@ -157,7 +157,6 @@ object LangList {
   }
 
   val defaultRegions = Map[String, Lang](
-    "de" -> Lang("de", "DE"),
     "en" -> Lang("en", "US"),
     "pt" -> Lang("pt", "BR"),
     "zh" -> Lang("zh", "CN")
