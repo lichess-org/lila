@@ -346,13 +346,8 @@ export default (window as any).LichessVoiceMove = function (
     }
     const role = cs.promo(uci) as cs.Role;
     cg.cancelMove();
-    if (role) {
-      promote(cg, dest(uci), role);
-      root.sendMove(src(uci), dest(uci), role, { premove: false });
-    } else {
-      cg.selectSquare(src(uci), true);
-      cg.selectSquare(dest(uci), false);
-    }
+    if (role) promote(cg, dest(uci), role);
+    root.auxMove(src(uci), dest(uci), role);
     return true;
   }
 

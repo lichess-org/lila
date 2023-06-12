@@ -76,7 +76,7 @@ export function makeConfig(ctrl: RoundController): Config {
       showGhost: data.pref.highlight,
     },
     selectable: {
-      enabled: data.pref.moveEvent !== Prefs.MoveEvent.Drag,
+      enabled: data.pref.moveEvent !== Prefs.MoveEvent.Drag || ctrl.data.pref.voiceMove,
     },
     drawable: {
       enabled: true,

@@ -2,6 +2,7 @@
   @extend %flex-column, %dropdown-shadow;
   @if $theme == 'transp' {
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
   background: $c-bg-popup;
   padding: 0.5em 1.5em;

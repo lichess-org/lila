@@ -96,6 +96,7 @@ button#microphone-button {
   @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
   position: absolute;
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-top: 2px solid $c-primary;
   z-index: z(mz-menu);
   width: 100%;

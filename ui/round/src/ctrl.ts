@@ -210,7 +210,7 @@ export default class RoundController {
         show: this.voiceMove?.promotionHook(),
       },
       meta,
-      this.keyboardMove?.justSelected() //this.voiceMove?.justSelected()
+      this.keyboardMove?.justSelected()
     );
 
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => this.startPromotion(orig, dest, meta);
@@ -777,6 +777,17 @@ export default class RoundController {
   };
 
   stepAt = (ply: Ply) => round.plyStep(this.data, ply);
+
+  auxMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
+    if (
+      role ||
+      !this.promotion.start(orig, dest, {
+        submit: (orig, dest, role) => this.sendMove(orig, dest, role, { premove: false }),
+        show: this.voiceMove?.promotionHook(),
+      })
+    )
+      this.sendMove(orig, dest, role, { premove: false });
+  };
 
   private delayedInit = () => {
     const d = this.data;
