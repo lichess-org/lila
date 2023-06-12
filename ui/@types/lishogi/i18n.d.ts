@@ -758,6 +758,8 @@ export type I18nKey =
 'challengeDeclined'|
 'challengeAccepted'|
 'challengeCanceled'|
+'pressXtoFocus'|
+'pressXtoSubmit'|
 'opponentLeftCounter'|
 'nbMoves'|
 'nbPlayers'|
