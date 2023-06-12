@@ -176,7 +176,7 @@ final class Simul(env: Env) extends LilaController(env):
         env.user.repo.byId(username).map { _.filter(_.enabled.yes || isGranted(_.SeeReport)) }
       OptionFuResult(userOption): user =>
         env.simul.api.hostedByUser(user.id, page).map { entries =>
-          Ok(html.userSimul.hosted(user, entries))
+          Ok(html.simul.hosted(user, entries))
         }
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: WebContext): Fu[Result] =

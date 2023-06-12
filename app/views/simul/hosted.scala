@@ -1,5 +1,5 @@
 package views.html
-package userSimul
+package simul
 
 import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
