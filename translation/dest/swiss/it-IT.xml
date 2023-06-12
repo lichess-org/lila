@@ -68,9 +68,9 @@ Un bye del valore di mezzo punto è assegnato una tantum se un giocatore si unis
 Il giocatore sarà squalificato dal torneo, così da non perdere altre partite.
 Potrà riprendere a giocare nel torneo in qualsiasi momento.</string>
   <string name="protectionAgainstNoShowQ">Cosa succede nel caso non ci si presenti?</string>
-  <string name="protectionAgainstNoShowA">I giocatori che si iscrivono ai tornei svizzeri ma non giocano le partite possono essere problematici.
-Per ridurre questo problema, Lichess impedisce ai giocatori che non sono riusciti a giocare una partita di partecipare ad un nuovo torneo svizzero per un certo periodo di tempo.
-I creatori del torneo svizzero possono decidere di fargli partecipare comunque all\'evento.</string>
+  <string name="protectionAgainstNoShowA">Può essere problematico se un giocatore si iscrive ad un torneo svizzero ma non partecipa alle proprie partite.
+Per contrastare questo problema, Lichess impedisce, ai giocatori che non sono riusciti a giocare una partita, di partecipare ad un nuovo torneo svizzero per un certo periodo di tempo.
+L\'organizzatore di un dato torneo svizzero può decidere di ammetterli comunque all\'evento.</string>
   <string name="lateJoinQ">I giocatori possono entrare in ritardo?</string>
   <string name="lateJoinA">Sì, finché sono stati giocati meno della metà dei turni; ad esempio in un torneo svizzero a 11 turni i giocatori possono entrare prima che inizi il turno 6 e in un torneo a 12 turni prima dell\'inizio del turno 7.
 I partecipanti tardivi ottengono un singolo bye, anche se si sono persi più turni.</string>
