@@ -60,8 +60,14 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
 Desse eigenskapane finn ein truleg heller innan lag enn i opne, globale turneringar.</string>
   <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få om motspelaren ikkje møter opp i rett tid?</string>
   <string name="numberOfByesA">Ein spelar får eit poeng kvar gong systemet ikkje finn ein motspelar. I tillegg får spelarar som kjem for seint til turneringsstart eit einsleg halvpoeng.</string>
+  <string name="earlyDrawsQ">Kva hender ved tidlege remisar?</string>
+  <string name="earlyDrawsA">Ein spelar får eitt poeng, ein såkalla \"bye\", kvar runde systemet ikkje finn motspelar til deltakaren. I tillegg får som kjem seint til turneringa ein \"bye\" på eit halvt poeng.</string>
   <string name="whatIfOneDoesntPlayQ">Kva hender om ein spelar ikkje møter opp til eit parti?</string>
   <string name="whatIfOneDoesntPlayA">Klokka deira vil gå og dei vil tape partiet. System vil deretter fjerne spelaren frå turneringa slik at dei ikkje tapar fleire parti. Spelaren kan når som helst koma attende til turneringa.</string>
+  <string name="protectionAgainstNoShowQ">Kva hender med spelarar som ikkje stiller opp (\"DNS\")?</string>
+  <string name="protectionAgainstNoShowA">Spelarar som registrerer seg for sveitsarturneringar uten å delta, kan utgjera eit problem.
+For å forsøke å lindra dette problemet stenger Lichess slike spelarar ute frå sveitsarturneringar for eit visst tidsrom.
+Arrangørar av sveitsarturneringar kan på eiga hand like fullt akseptera dei som deltakarar i turneringa deira.</string>
   <string name="lateJoinQ">Kan spelarar koma til ei turnering etter at den har starta?</string>
   <string name="lateJoinA">Ja, heilt fram til halvparten av rundane har starta. Til dømes kan ein spelar koma inn i ein 11-rundars sveitsarturnering fram til sjette runde har starta og fram til sjuande runde i ein 12-rundars turnering.
 Spelarar som kjem til turneringa etter at den er starta vert godskrivne med berre eit halvt poeng, sjølv om dei mista meir enn ein runde.</string>
