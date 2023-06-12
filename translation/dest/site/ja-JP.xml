@@ -324,6 +324,9 @@
   <plurals name="nbStudies">
     <item quantity="other">%s 研究</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s 同時対局</item>
+  </plurals>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
   <string name="noDrawBeforeSwissLimit">スイス式トーナメントでは 30 手指すまでドローは認められません。</string>
