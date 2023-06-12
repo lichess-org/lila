@@ -1,7 +1,7 @@
 package views.html
 package userSimul
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
@@ -11,7 +11,7 @@ import controllers.routes
 
 object hosted:
 
-  def apply(user: User, pager: Paginator[lila.simul.Simul])(using Context) =
+  def apply(user: User, pager: Paginator[lila.simul.Simul])(using WebContext) =
     views.html.base.layout(
       title = s"${user.username} hosted simuls",
       moreCss = cssTag("user-simul"),
