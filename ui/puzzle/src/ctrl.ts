@@ -51,6 +51,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     streakFailStorage.listen(_ => failStreak(streak));
   }
   const session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, hasStreak);
+
   const menu = boardMenuToggle(redraw);
 
   // required by ceval
