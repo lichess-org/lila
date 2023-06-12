@@ -43,13 +43,12 @@
   }
   .byoyomi {
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     font-size: 1.2rem;
     @include breakpoint($mq-xx-small) {
       font-size: 1.5rem;
-    }
-    @include breakpoint($mq-col1) {
-      flex-direction: row-reverse;
+      flex-direction: row;
     }
     padding: 0 0.35rem;
     opacity: 0.8;
@@ -128,6 +127,15 @@
   &.emerg.running .time {
     background-color: mix($c-bad, $c-bg-box, 50%);
     color: $c-font-clearer;
+  }
+  &.over {
+    display: none;
+  }
+  .board-layout-1 &.over {
+    display: flex;
+    .time, .byoyomi {
+      color: $c-font-dimmer;
+    }
   }
   .go-berserk {
     font-size: 2.2em;

@@ -13,12 +13,10 @@
 .ruser-bottom {
   grid-area: user-bot;
 }
-.rclock-top,
-.empty__clock-top {
+.rclock-top {
   grid-area: clock-top;
 }
-.rclock-bottom,
-.empty__clock-bottom {
+.rclock-bottom {
   grid-area: clock-bot;
 }
 .rmoves {
@@ -57,12 +55,10 @@
     // columns: auto min-content;
     // This is required to display the overflowable horizontal move list,
     // so that it can be contain within the grid parent.
-    .rclock-top,
-    .empty__clock-top {
+    .rclock-top {
       grid-area: 3 / 1 / 3 / 2;
     }
-    .rclock-bottom,
-    .empty__clock-bottom {
+    .rclock-bottom {
       grid-area: 6 / 1 / 6 / 2;
     }
 
@@ -134,6 +130,44 @@
       margin: $block-gap 0 0 0;
     }
     .board-layout-1 & {
+      grid-template-rows: auto auto auto minmax(0, 1fr);
+      grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
+      grid-template-areas:
+        'hand-top  . board    . hand-bot  . clock-top'
+        'hand-top  . board    . hand-bot  . expi-top'
+        'hand-top  . board    . hand-bot  . user-top'
+        'hand-top  . board    . hand-bot  . moves'
+        'hand-top  . board    . hand-bot  . controls'
+        'hand-top  . board    . hand-bot  . user-bot'
+        'hand-top  . board    . hand-bot  . expi-bot'
+        'hand-top  . board    . hand-bot  . clock-bot'
+        '.         . kb-move  . .         . .';
+      grid-column-gap: 0;
+      .round__app__table {
+        grid-area: 2 / 7 / 8 / 8;
+      }
+      .rcontrols {
+        align-self: flex-end;
+        .ricons {
+          &.empty {
+            display: none;
+          }
+          &.confirm > button {
+            visibility: visible;
+            opacity: 0.5;
+            pointer-events: none;
+          }
+        }
+      }
+      .rmoves.impasse {
+        display: flex;
+      }
+      @include breakpoint($mq-col2-uniboard-squeeze-1) {
+        grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
+      }
+    }
+
+    .compact-layout & {
       grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
       grid-template-columns: $square-9 $hand-gap $col2-uniboard-width $hand-gap $square-9 $gauge-gap $col3-uniboard-table-no-hands;
       grid-template-areas:
@@ -215,26 +249,11 @@
       .expiration {
         height: 25px;
       }
-      .rcontrols {
-        align-self: flex-end;
-        .ricons {
-          &.empty {
-            display: none;
-          }
-          &.confirm > button {
-            visibility: visible;
-            opacity: 0.5;
-            pointer-events: none;
-          }
-        }
-      }
-      .rmoves.impasse {
-        display: flex;
-      }
       @include breakpoint($mq-col2-uniboard-squeeze-1) {
         grid-template-columns: $square-9-squeeze $hand-gap $board-squeeze $hand-gap $square-9-squeeze $gauge-gap $col3-uniboard-table-no-hands-squeeze;
       }
     }
+
     @include breakpoint($mq-short) {
       & .rmoves .moves {
         display: flex;

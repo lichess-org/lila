@@ -11,7 +11,9 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
   const clock = ctrl.clock!,
     millis = clock.millisOf(player.color),
     isPlayer = ctrl.data.player.color === player.color,
-    isRunning = player.color === clock.times.activeColor;
+    isRunning = player.color === clock.times.activeColor,
+    isOver = ctrl.data.game.status.id > 20;
+
   const update = (el: HTMLElement) => {
     const els = clock.elements[player.color],
       millis = clock.millisOf(player.color),
@@ -30,6 +32,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       class: {
         outoftime: millis <= 0,
         running: isRunning,
+        over: isOver,
         emerg:
           (millis < clock.emergMs && clock.byoyomi === 0) ||
           (clock.isUsingByo(player.color) && millis < clock.byoEmergeS * 1000),

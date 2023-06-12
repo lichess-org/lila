@@ -236,12 +236,14 @@ object Pref {
   }
 
   object BoardLayout {
-    val SIDE    = 0
+    val DEFAULT = 0
     val COMPACT = 1
+    val SIDE    = 2
 
     val choices = Seq(
-      SIDE,
-      COMPACT
+      DEFAULT,
+      COMPACT,
+      SIDE
     )
   }
 
@@ -404,9 +406,9 @@ object Pref {
     moretime = Moretime.ALWAYS,
     clockSound = true,
     premove = true,
-    boardLayout = BoardLayout.COMPACT,
+    boardLayout = BoardLayout.DEFAULT,
     animation = 2,
-    coords = Coords.INSIDE,
+    coords = Coords.OUTSIDE,
     clearHands = false,
     follow = true,
     highlightLastDests = true,

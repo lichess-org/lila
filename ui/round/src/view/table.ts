@@ -127,8 +127,7 @@ function whosTurn(ctrl: RoundController, color: Color, position: Position) {
 
 function anyClock(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
-  if (ctrl.data.game.status.id > 20) return h('div.empty__clock-' + position);
-  else if (ctrl.clock) return renderClock(ctrl, player, position);
+  if (ctrl.clock) return renderClock(ctrl, player, position);
   else if (ctrl.data.correspondence && ctrl.data.game.plies > 1 && !(ctrl.data.game.status.id > 20))
     return renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, ctrl.data.game.player);
   else return whosTurn(ctrl, player.color, position);
