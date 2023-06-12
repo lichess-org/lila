@@ -31,7 +31,7 @@ import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
-import { uciToMove } from 'chessground/util';
+import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { toggle as boardMenuToggle } from 'board/menu';
 
@@ -348,7 +348,7 @@ export default class RoundController {
       this.chessground.move(orig, dest);
       // TODO look into possibility of making cg.Api.move function update player turn itself.
       this.chessground.state.movable.dests = undefined;
-      this.chessground.state.turnColor = this.chessground.state.turnColor === 'white' ? 'black' : 'white';
+      this.chessground.state.turnColor = opposite(this.chessground.state.turnColor);
 
       if (this.startPromotion(orig, dest, { premove: false })) return;
     }
