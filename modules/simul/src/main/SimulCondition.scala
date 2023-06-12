@@ -36,6 +36,11 @@ object SimulCondition:
         "team"      -> teamMember(leaderTeams)
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
+  import reactivemongo.api.bson.*
+  given bsonHandler: BSONDocumentHandler[All] =
+    import lila.gathering.ConditionHandlers.BSONHandlers.given
+    Macros.handler
+
   final class Verify(historyApi: lila.history.HistoryApi):
     def apply(simul: Simul, user: User, pt: PerfType)(using
         ex: Executor,

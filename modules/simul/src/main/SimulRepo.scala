@@ -38,18 +38,9 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
         "hostColor" -> o.hostColor.name
       )
 
-  import lila.gathering.ConditionHandlers.BSONHandlers.given
-  private given BSONDocumentHandler[SimulCondition.All] = Macros.handler
+  import SimulCondition.bsonHandler
 
-  // old Simuls do not have "conditions" field in the db
-  // this hack adds empty conditions if they are missing
-  private given BSONDocumentWriter[Simul] = Macros.writer
-  private given BSONDocumentReader[Simul] with
-    def readDocument(doc: BSONDocument) =
-      val docWithConditions =
-        if doc.contains("conditions") then doc
-        else doc ++ $doc("conditions" -> lila.simul.SimulCondition.All.empty)
-      Macros.reader[Simul].readDocument(docWithConditions)
+  private given BSONDocumentHandler[Simul] = Macros.handler
 
   private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect  = $doc("status" -> SimulStatus.Started.id)
