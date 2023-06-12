@@ -348,6 +348,10 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studier</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultan</item>
+    <item quantity="other">%s simultaner</item>
+  </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringen</string>
   <string name="noDrawBeforeSwissLimit">Ingen remis før 30 trekk i sveitserturneringer.</string>
