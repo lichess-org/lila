@@ -61,9 +61,11 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
 function timerShape(uci: Uci, offset: [number, number], duration: number, color: string, alpha = 0.4) {
   // works around a firefox stroke-dasharray animation bug
   setTimeout(() => {
-    const anim = document.querySelector('#voice-timer-arc') as SVGAnimationElement;
-    anim.beginElement();
-    anim.parentElement!.setAttribute('visibility', 'visible');
+    for (const anim of $('.voice-timer-arc').get() as any[]) {
+      anim?.beginElement();
+      anim?.parentElement!.setAttribute('visibility', 'visible');
+      if (color === 'grey') return; // don't show numbered arrow outlines
+    }
   });
   return {
     orig: src(uci),
@@ -72,8 +74,13 @@ function timerShape(uci: Uci, offset: [number, number], duration: number, color:
       (color !== 'grey' ? `<svg width="100" height="100">` : `<svg viewBox="${offset[0]} ${offset[1]} 100 100">`) +
       `<circle cx="50" cy="50" r="25" fill="transparent" stroke="${color}" transform="rotate(270,50,50)"
                stroke-width="50" stroke-opacity="${alpha}" begin="indefinite" visibility="hidden">
-         <animate id="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
+         <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
                   values="0 ${Math.PI * 50}; ${Math.PI * 50} ${Math.PI * 50}"/>
+       </circle>
+       <circle cx="50" cy="50" r="50" fill="transparent" stroke="white" transform="rotate(270,50,50)"
+               stroke-width="4" stroke-opacity="0.7" begin="indefinite" visibility="hidden">
+         <animate class="voice-timer-arc" attributeName="stroke-dasharray" dur="${duration}s"
+                  values="0 ${Math.PI * 100}; ${Math.PI * 100} ${Math.PI * 100}"/>
        </circle></svg>`,
   };
 }

@@ -1,6 +1,6 @@
 .voice-move-help {
   @extend %help-modal;
-  backdrop-filter: blur(6px);
+  @include back-blur();
 
   td.tips li {
     list-style: disc;
