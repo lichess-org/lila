@@ -60,11 +60,18 @@ Add the scores of every opponent the player beats and half of the score of every
 We think these conditions are more likely to be met within a team than in global tournaments.</string>
   <string name="numberOfByesQ">How many byes can a player get?</string>
   <string name="numberOfByesA">A player gets a bye of one point every time the pairing system can't find a pairing for them.
-Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>	
+Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>
+  <string name="earlyDrawsQ">What happens with early draws?</string>
+  <string name="earlyDrawsA">A player gets a bye of one point every time the pairing system can't find a pairing for them.
+Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>
   <string name="whatIfOneDoesntPlayQ">What happens if a player doesn't play a game?</string>
   <string name="whatIfOneDoesntPlayA">Their clock will tick, they will flag, and lose the game.
 Then the system will withdraw the player from the tournament, so they don't lose more games.
  They can re-join the tournament at any time.</string>
+  <string name="protectionAgainstNoShowQ">What is done regarding no-shows?</string>
+  <string name="protectionAgainstNoShowA">Players who sign up for swiss events but don't play their games can be problematic.
+To alleviate this issue, Lichess prevents players who failed to play a game from joining a new Swiss event for a given amount of time.
+The creator of a Swiss event can decide to let them join the event anyway.</string>
   <string name="lateJoinQ">Can players late-join?</string>
   <string name="lateJoinA">Yes, until more than half the rounds have started; for example in a 11-rounds swiss players can join before round 6 starts and in a 12-rounds before round 7 starts.
 Late joiners get a single bye, even if they missed several rounds.</string>
