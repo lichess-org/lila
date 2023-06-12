@@ -5,7 +5,7 @@ import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Tag }
 
 import lila.chat.ChatApi
 import lila.common.Bus
@@ -95,7 +95,7 @@ final class StudyApi(
       }
     } >> byIdWithFirstChapter(study.id)
 
-  def recentByOwnerWithChapterCount = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
+  def recentByOwnerWithChapterCount       = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
   def recentByContributorWithChapterCount = studyRepo.recentByContributorWithChapterCount(chapterRepo.coll)
 
   export chapterRepo.studyIdOf
