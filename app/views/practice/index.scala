@@ -1,7 +1,7 @@
 package views.html
 package practice
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -9,7 +9,7 @@ import controllers.routes
 
 object index:
 
-  def apply(data: lila.practice.UserPractice)(implicit ctx: Context) =
+  def apply(data: lila.practice.UserPractice)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = "Practice chess positions",
       moreCss = cssTag("practice.index"),

@@ -43,7 +43,7 @@ final class MarkdownRender(
     blockQuote: Boolean = false,
     list: Boolean = false,
     code: Boolean = false,
-    gameExpand: Option[MarkdownRender.GameExpand] = None,
+    pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
 ):
 
@@ -56,7 +56,7 @@ final class MarkdownRender(
     extensions.add(AutolinkExtension.create())
     extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
   extensions.add(
-    gameExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.GameEmbedExtension(_) }
+    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.PgnEmbedExtension(_) }
   )
 
   private val options = MutableDataSet()
@@ -106,9 +106,10 @@ final class MarkdownRender(
 
 object MarkdownRender:
 
-  type Key = String
+  type Key         = String
+  type PgnSourceId = String
 
-  case class GameExpand(domain: config.NetDomain, getPgn: GameId => Option[PgnStr])
+  case class PgnSourceExpand(domain: config.NetDomain, getPgn: PgnSourceId => Option[PgnStr])
 
   private val rel = "nofollow noopener noreferrer"
 
@@ -179,15 +180,15 @@ object MarkdownRender:
                   .tag("/a")
           }.unit
 
-  private class GameEmbedExtension(expander: GameExpand) extends HtmlRenderer.HtmlRendererExtension:
+  private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
       htmlRendererBuilder
         .nodeRendererFactory(new NodeRendererFactory {
-          override def apply(options: DataHolder) = new GameEmbedNodeRenderer(expander)
+          override def apply(options: DataHolder) = new PgnEmbedNodeRenderer(expander)
         })
         .unit
-  private class GameEmbedNodeRenderer(expander: GameExpand) extends NodeRenderer:
+  private class PgnEmbedNodeRenderer(expander: PgnSourceExpand) extends NodeRenderer:
     override def getNodeRenderingHandlers() =
       new java.util.HashSet(
         Arrays.asList(
@@ -198,24 +199,16 @@ object MarkdownRender:
 
     private val gameRegex =
       s"""^(?:https?://)?${expander.domain}/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r
+    private val chapterRegex =
+      s"""^(?:https?://)?${expander.domain}/study/(?:embed/)?(?:\\w{8})/(\\w{8})(?:#(last|\\d+))?$$""".r
 
     private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
-      // Based on implementation in CoreNodeRenderer.
-      if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
-        context.renderChildren(node)
-      else
-        val link         = context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
-        def justAsLink() = renderLinkWithBase(node, context, html, link)
-        link.getUrl match
-          case gameRegex(id, color, ply) =>
-            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
-          case _ => justAsLink()
+      renderLinkNode(node, context, html)
 
-    private def renderAutoLink(
-        node: AutoLink,
-        context: NodeRendererContext,
-        html: HtmlWriter
-    ): Unit =
+    private def renderAutoLink(node: AutoLink, context: NodeRendererContext, html: HtmlWriter): Unit =
+      renderLinkNode(node, context, html)
+
+    private def renderLinkNode(node: LinkNode, context: NodeRendererContext, html: HtmlWriter) =
       // Based on implementation in CoreNodeRenderer.
       if (context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context))
         context.renderChildren(node)
@@ -224,7 +217,13 @@ object MarkdownRender:
         def justAsLink() = renderLinkWithBase(node, context, html, link)
         link.getUrl match
           case gameRegex(id, color, ply) =>
-            expander.getPgn(GameId(id)).fold(justAsLink())(renderPgnViewer(node, html, link, _, color, ply))
+            expander
+              .getPgn(id)
+              .fold(justAsLink())(renderPgnViewer(node, html, link, _, Option(color), Option(ply)))
+          case chapterRegex(id, ply) =>
+            expander
+              .getPgn(id)
+              .fold(justAsLink())(renderPgnViewer(node, html, link, _, none, Option(ply)))
           case _ => justAsLink()
 
     private def renderLinkWithBase(
@@ -245,20 +244,22 @@ object MarkdownRender:
         html: HtmlWriter,
         link: ResolvedLink,
         pgn: PgnStr,
-        color: String,
-        ply: String
+        color: Option[String],
+        ply: Option[String]
     ) =
       html
         .attr("data-pgn", pgn.value)
-        .attr("data-orientation", Option(color) | "white")
-        .attr("data-ply", Option(ply) | "")
         .attr("class", "lpv--autostart is2d")
+      color.foreach:
+        html.attr("data-orientation", _)
+      ply.foreach:
+        html.attr("data-ply", _)
+      html
         .srcPos(node.getChars())
         .withAttr(link)
         .tag("div")
         .text(link.getUrl)
         .tag("/div")
-        .unit
 
   private object LilaLinkExtension extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()

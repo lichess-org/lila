@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Daeoù</string>
   <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
   <string name="challengeDeclined">Dae nac’het</string>
   <string name="challengeAccepted">Dae asantet!</string>
@@ -12,7 +11,11 @@
   <string name="cannotChallengeDueToProvisionalXRating">Ne c\'hallit ket daeañ abalamour d\'ar renkadur %s da c\'hortoz.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">Ne vez ket degemeret daeoù nemet digant mignoned gant %s.</string>
   <string name="declineGeneric">Ne zegemeran ket daeoù er mare-mañ.</string>
+  <string name="declineLater">N\'on ket dijabl evit poent, kasit ur goulenn din en-dro diwezhatoc\'h mar plij ganeoc\'h.</string>
   <string name="declineRated">Kasit din un dae renket kentoc\'h, mar plij ganeoc\'h.</string>
+  <string name="declineCasual">Kasit un dae ordin din kentoc\'h mar plij ganeoc\'h.</string>
+  <string name="declineVariant">Ne fell ket din c\'hoari an doare echedoù-mañ evit poent.</string>
   <string name="declineNoBot">Ne zegemeran ket daeoù kaset gant robotoù.</string>
+  <string name="declineOnlyBot">Daeoù kaset gant robotoù a zegemeran nemetken.</string>
   <string name="inviteLichessUser">Pediñ ur c\'hoarier war Lichess mod-all:</string>
 </resources>

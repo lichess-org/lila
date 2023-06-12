@@ -1,8 +1,8 @@
 {
   "crowdv": "en-1.json",
   "partials": {
-    "commands": [ "yes", "no", "stop" ],
-    "colors": [ "green", "blue", "purple", "pink", "yellow", "orange", "white", "brown" ],
+    "commands": [ "yes", "no" ],
+    "colors": [ "green", "blue", "purple", "pink", "yellow", "orange", "red", "brown" ],
     "numbers": [ "1", "2", "3", "4", "5", "6", "7", "8" ]
   },
   "entries": [
@@ -95,6 +95,8 @@
     { "in": "mate", "val": "", "tags": [ "move", "ignore" ] },
     { "in": "check", "val": "", "tags": [ "move", "ignore" ] },
     { "in": "puzzle", "val": "", "tags": [ "ignore" ] },
+    { "in": "lee", "val": "", "tags": [ "ignore" ] },
+    { "in": "chess", "val": "", "tags": [ "ignore" ] },
     { "in": "and", "val": "", "tags": [ "ignore" ] },
     { "in": "oh", "val": "", "tags": [ "ignore" ] },
     { "in": "um", "val": "", "tags": [ "ignore" ] },

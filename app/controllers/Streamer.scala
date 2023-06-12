@@ -4,14 +4,15 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
 import lila.common.Json.given
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
-  export env.streamer.api
+  import env.streamer.api
+  import env.mod.logApi
 
   def index(page: Int) = Open:
     NoBot:
@@ -77,9 +78,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  private def modData(streamer: StreamerModel)(using Context) =
+  private def modData(streamer: StreamerModel)(using WebContext) =
     isGranted(_.ModLog) ?? {
-      env.mod.logApi.userHistory(streamer.userId) zip
+      logApi.userHistory(streamer.userId) zip
         env.user.noteApi.byUserForMod(streamer.userId) zip
         env.streamer.api.sameChannels(streamer) map some
     }
@@ -108,9 +109,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
               },
             data =>
               api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
-                if (change.decline) env.mod.logApi.streamerDecline(lila.report.Mod(me), s.user.id)
-                change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
-                change.tier foreach { env.mod.logApi.streamerTier(lila.report.Mod(me), s.user.id, _) }
+                if (change.decline) logApi.streamerDecline(lila.report.Mod(me), s.user.id)
+                change.list foreach { logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
+                change.tier foreach { logApi.streamerTier(lila.report.Mod(me), s.user.id, _) }
                 if (data.approval.flatMap(_.quick).isDefined)
                   env.streamer.pager.nextRequestId map { nextId =>
                     Redirect:
@@ -166,9 +167,18 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     env.streamer.ytApi.onVideoXml
 
   def youTubePubSubChallenge = Anon:
-    Ok(get("hub.challenge", req).get).toFuccess
+    fuccess:
+      get("hub.challenge", req).fold(BadRequest): challenge =>
+        val days      = get("hub.lease_seconds", req).map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
+        val channelId = get("hub.topic", req).map(t => s" on ${t.split("=").last}")
+        lila
+          .log("streamer")
+          .info(
+            s"WebSub: CONFIRMED ${~get("hub.mode", req)}${~days}${~channelId}"
+          )
+        Ok(challenge)
 
-  private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context) =
+  private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: WebContext) =
     ctx.me.fold(notFound): me =>
       if (StreamerModel.canApply(me) || isGranted(_.Streamers))
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.id) flatMap {
@@ -176,12 +186,11 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         }
       else
         Ok:
-          html.site.message("Too soon")(
+          html.site.message("Too soon"):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
-          )
         .toFuccess
 
-  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: Context) =
+  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: WebContext) =
     ctx.noKid ?? {
       if (s.streamer.isListed || ctx.me.exists(_ is s.streamer) || isGranted(_.Admin)) f
       else notFound

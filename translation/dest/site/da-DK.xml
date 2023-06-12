@@ -99,6 +99,7 @@
   <string name="openingExplorer">Åbningsbog</string>
   <string name="openingEndgameExplorer">Åbning/slutspilsbog</string>
   <string name="xOpeningExplorer">%s åbningsbog</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spil det første træk fra åbnings- og slutspilsbog</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
   <string name="winOr50MovesByPriorMistake">Sejr eller 50 træk efter tidligere fejl</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Træk revanchetilbud tilbage</string>
   <string name="viewRematch">Se revanchekamp</string>
   <string name="confirmMove">Bekræft træk</string>
+  <string name="enableConfirmationForThisGame">Aktivér bekræftelse for dette parti</string>
   <string name="play">Spil</string>
   <string name="inbox">Indbakke</string>
   <string name="chatRoom">Chatrum</string>
@@ -681,6 +683,11 @@
   <string name="keyGoToStartOrEnd">gå til start/slut</string>
   <string name="keyShowOrHideComments">vis/skjul kommentar</string>
   <string name="keyEnterOrExitVariation">Start/slut variation</string>
+  <string name="keyRequestComputerAnalysis">Anmod om computeranalyse, Lær af dine fejl</string>
+  <string name="keyNextLearnFromYourMistakes">Næste (Lær af dine fejl)</string>
+  <string name="keyNextBlunder">Næste brøler</string>
+  <string name="keyNextMistake">Næste fejl</string>
+  <string name="keyNextInaccuracy">Næste unøjagtighed</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Skakturnering med forskellige tidskontroller og varianter</string>
   <string name="tournamentHomeDescription">Spil tempofyldte skakturneringer! Meld dig til en officielt organiseret turnering eller opret din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Tre-check og andre muligheder for ubegrænset skaksjov.</string>
@@ -778,6 +785,7 @@
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Notifikationer</string>
+  <string name="notificationsX">Notifikationer: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>

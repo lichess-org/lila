@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 import scala.util.chaining.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
@@ -26,7 +26,7 @@ object games:
       arenas: Seq[TourEntry],
       swisses: Seq[(Swiss.IdName, Rank)]
   )(using
-      ctx: Context
+      ctx: WebContext
   ) =
     views.html.base.layout(
       title = s"${user.username} games",

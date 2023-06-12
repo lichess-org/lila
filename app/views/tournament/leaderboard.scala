@@ -2,7 +2,7 @@ package views.html.tournament
 
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
@@ -40,7 +40,7 @@ object leaderboard:
       )
     )
 
-  def apply(winners: lila.tournament.AllWinners)(implicit ctx: Context) =
+  def apply(winners: lila.tournament.AllWinners)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = "Tournament leaderboard",
       moreCss = cssTag("tournament.leaderboard"),

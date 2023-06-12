@@ -26,12 +26,13 @@ case class Swiss(
 ):
   inline def id = _id
 
-  def isCreated          = round.value == 0
-  def isStarted          = !isCreated && !isFinished
-  def isFinished         = finishedAt.isDefined
-  def isNotFinished      = !isFinished
-  def isNowOrSoon        = startsAt.isBefore(nowInstant plusMinutes 15) && !isFinished
-  def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.toSeconds) < 30 * 60)
+  def isCreated            = round.value == 0
+  def isStarted            = !isCreated && !isFinished
+  def isFinished           = finishedAt.isDefined
+  def isNotFinished        = !isFinished
+  def isNowOrSoon          = startsAt.isBefore(nowInstant plusMinutes 15) && !isFinished
+  def finishedSinceSeconds = finishedAt.map(nowSeconds - _.toSeconds)
+  def isRecentlyFinished   = finishedSinceSeconds.exists(_ < 30 * 60)
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 

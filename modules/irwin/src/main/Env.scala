@@ -1,5 +1,6 @@
 package lila.irwin
 
+import cats.syntax.all.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
@@ -45,14 +46,14 @@ final class Env(
     scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
       (for {
         leaders <- tournamentApi.allCurrentLeadersInStandard
-        suspects <- lila.common.LilaFuture
-          .linear(leaders.toList) { case (tour, top) =>
-            userRepo byIds top.value.zipWithIndex
-              .filter(_._2 <= tour.nbPlayers * 2 / 100)
-              .map(_._1.userId)
-              .take(20)
-          }
-          .map(_.flatten.map(Suspect.apply))
+        suspects <-
+          leaders.toList
+            .traverse: (tour, top) =>
+              userRepo byIds top.value.zipWithIndex
+                .filter(_._2 <= tour.nbPlayers * 2 / 100)
+                .map(_._1.userId)
+                .take(20)
+            .map(_.flatten.map(Suspect.apply))
         _ <- irwinApi.requests.fromTournamentLeaders(suspects)
         _ <- kaladinApi.tournamentLeaders(suspects)
       } yield ()).unit

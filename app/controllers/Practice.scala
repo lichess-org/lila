@@ -2,7 +2,7 @@ package controllers
 
 import play.api.libs.json.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
@@ -49,7 +49,7 @@ final class Practice(
             Redirect(routes.Practice.show(section.id, study.slug, study.id)).toFuccess
           }
 
-  private def showUserPractice(us: lila.practice.UserStudy)(using Context) =
+  private def showUserPractice(us: lila.practice.UserStudy)(using WebContext) =
     analysisJson(us) map { (analysisJson, studyJson) =>
       Ok(
         html.practice
@@ -77,7 +77,7 @@ final class Practice(
       }
     }
 
-  private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] =
+  private def analysisJson(us: UserStudy)(using WebContext): Fu[(JsObject, JsObject)] =
     us match
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
         env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>

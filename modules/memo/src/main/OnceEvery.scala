@@ -6,18 +6,16 @@ object OnceEvery:
 
     val cache = ExpireSetMemo[K](ttl)
 
-    key => {
+    key =>
       val isNew = !cache.get(key)
       if (isNew) cache.put(key)
       isNew
-    }
 
   def hashCode[A](ttl: FiniteDuration): A => Boolean =
 
-    val cache = new HashCodeExpireSetMemo[A](ttl)
+    val cache = HashCodeExpireSetMemo[A](ttl)
 
-    key => {
+    key =>
       val isNew = !cache.get(key)
       if (isNew) cache.put(key)
       isNew
-    }

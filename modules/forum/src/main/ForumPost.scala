@@ -86,28 +86,30 @@ object ForumPost:
   opaque type Id = String
   object Id extends TotalWrapper[Id, String]
 
-  type Reactions = Map[String, Set[UserId]]
+  type Reactions = Map[Reaction, Set[UserId]]
 
   val idSize                  = 8
   private val permitEditsFor  = 4 hours
   private val showEditFormFor = 3 hours
 
+  enum Reaction(val key: String):
+    case PlusOne  extends Reaction("+1")
+    case MinusOne extends Reaction("-1")
+    case Laugh    extends Reaction("laugh")
+    case Thinking extends Reaction("thinking")
+    case Heart    extends Reaction("heart")
+    case Horsey   extends Reaction("horsey")
+    override def toString = key
   object Reaction:
-    val PlusOne  = "+1"
-    val MinusOne = "-1"
-    val Laugh    = "laugh"
-    val Thinking = "thinking"
-    val Heart    = "heart"
-    val Horsey   = "horsey"
-
-    val list: List[String]    = List(PlusOne, MinusOne, Laugh, Thinking, Heart, Horsey)
-    val set                   = list.toSet
-    val positive: Set[String] = Set(PlusOne, Laugh, Heart, Horsey)
-
-    def of(reactions: Reactions, me: User): Set[String] =
-      reactions.view.collect {
-        case (reaction, users) if users(me.id) => reaction
-      }.toSet
+    val list               = values.toList
+    val set                = values.toSet
+    val positive           = Set(PlusOne, Laugh, Heart, Horsey)
+    def apply(key: String) = list.find(_.key == key)
+    def of(reactions: Reactions, me: User): Set[Reaction] =
+      reactions.view
+        .collect:
+          case (reaction, users) if users(me.id) => reaction
+        .toSet
 
   case class WithFrag(post: ForumPost, body: scalatags.Text.all.Frag)
 

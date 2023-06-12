@@ -1,5 +1,6 @@
 package lila.relay
 
+import cats.syntax.traverse.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
 import lila.socket.Socket.Sri
@@ -15,33 +16,37 @@ final private class RelaySync(
 )(using Executor):
 
   def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
-    studyApi byId rt.round.studyId orFail "Missing relay study!" flatMap { study =>
-      chapterRepo orderedByStudy study.id flatMap { chapters =>
-        RelayInputSanity(chapters, games) match
-          case Left(fail) => fufail(fail.msg)
-          case Right(games) =>
-            lila.common.LilaFuture.linear(games) { game =>
-              findCorrespondingChapter(game, chapters, games.size) match
-                case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
-                case None =>
-                  chapterRepo.countByStudyId(study.id) flatMap {
-                    case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
-                    case _ =>
-                      createChapter(study, game) flatMap { chapter =>
-                        chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                          studyApi.deleteChapter(study.id, initial.id) {
-                            actorApi.Who(study.ownerId, sri)
+    studyApi
+      .byId(rt.round.studyId)
+      .orFail("Missing relay study!")
+      .flatMap: study =>
+        chapterRepo
+          .orderedByStudy(study.id)
+          .flatMap: chapters =>
+            RelayInputSanity(chapters, games) match
+              case Left(fail) => fufail(fail.msg)
+              case Right(games) =>
+                games.traverse: game =>
+                  findCorrespondingChapter(game, chapters, games.size) match
+                    case Some(chapter) => updateChapter(rt.tour, study, chapter, game) dmap some
+                    case None =>
+                      chapterRepo.countByStudyId(study.id) flatMap {
+                        case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
+                        case _ =>
+                          createChapter(study, game) flatMap { chapter =>
+                            chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
+                              studyApi.deleteChapter(study.id, initial.id) {
+                                actorApi.Who(study.ownerId, sri)
+                              }
+                            } inject SyncResult
+                              .ChapterResult(chapter.id, true, chapter.root.mainline.size)
+                              .some
                           }
-                        } inject SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
                       }
-                  }
-            } flatMap { chapterUpdates =>
-              val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
-              lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
-              tourRepo.setSyncedNow(rt.tour) inject result
-            }
-      }
-    }
+          .flatMap: chapterUpdates =>
+            val result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
+            lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
+            tourRepo.setSyncedNow(rt.tour) inject result
 
   /*
    * If the source contains several games, use their index to match them with the study chapter.

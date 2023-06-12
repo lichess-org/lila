@@ -24,11 +24,7 @@ final private class StudySequencer(
   def sequenceStudyWithChapter[A <: Matchable: Zero](studyId: StudyId, chapterId: StudyChapterId)(
       f: Study.WithChapter => Fu[A]
   ): Fu[A] =
-    sequenceStudy(studyId): study =>
-      chapterRepo
-        .byId(chapterId)
-        .flatMap:
-          _.filter(_.studyId == studyId) ?? { chapter =>
-            f(Study.WithChapter(study, chapter))
-          }
-        .mon(_.study.sequencer.chapterTime)
+    workQueue(studyId):
+      studyRepo
+        .byIdWithChapter(chapterRepo.coll)(studyId, chapterId)
+        .flatMapz(f)

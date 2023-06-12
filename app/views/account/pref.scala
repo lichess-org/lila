@@ -1,7 +1,7 @@
 package views.html
 package account
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.pref.PrefCateg
@@ -17,7 +17,7 @@ object pref:
 
   private def setting(name: Frag, body: Frag) = st.section(h2(name), body)
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using WebContext) =
     account.layout(
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",
       active = categ.slug
@@ -123,7 +123,12 @@ object pref:
             ),
             setting(
               moveConfirmation(),
-              radios(form("behavior.submitMove"), submitMoveChoices)
+              frag(
+                bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
+                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
+                  explainCanThenBeTemporarilyDisabled()
+                )
+              )
             ),
             setting(
               confirmResignationAndDrawOffers(),

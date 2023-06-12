@@ -31,8 +31,19 @@
   <string name="noPostsInThisBlogYet">Pennad ebet evit poent.</string>
   <string name="noDrafts">Brouilhoñs ebet.</string>
   <string name="latestBlogPosts">Pennadoù diwezhañ</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Lenn ur pennad</item>
+    <item quantity="two">Lenn an %s bennad</item>
+    <item quantity="few">Lenn ar/an %s pennad</item>
+    <item quantity="many">Lenn ar/an %s pennad</item>
+    <item quantity="other">Lenn ar/an %s pennad</item>
+  </plurals>
+  <string name="imageCredit">Perc\'henn ar skeudenn</string>
+  <string name="deleteBlog">Dilemel ar blog-mañ da viken</string>
   <string name="deleteImage">Dilemel ar skeudenn</string>
+  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Gallout a rit ober digudenn gant skeudennoù o tont deus al lec\'hiennoù-mañ: </string>
   <string name="useImagesYouMadeYourself">Gallout a rit ober gant skeudennoù graet ganeoc\'h, fotoioù, tapadennoù-skramm deus Lichess.... gant ma ne vo ket unan all perc\'henn war ar pezh a embannit.</string>
+  <string name="safeAndRespectfulContent">Na skrivit nemet traoù dereat ha seven mar plij ganeoc\'h. Arabat laerezh ar pezh a vez graet gant unan all.</string>
   <string name="inappropriateContentAccountClosed">Un dra bennak ha ne vefe ket dereat a vo trawalc\'h evit ma serrfemp ho kont.</string>
   <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Un nebeud alioù fur da skrivañ traoù kaer en ho plog</string>
 </resources>

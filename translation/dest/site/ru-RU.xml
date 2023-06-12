@@ -103,6 +103,7 @@
   <string name="openingExplorer">База дебютов</string>
   <string name="openingEndgameExplorer">База дебютов/окончаний</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Играть первый ход изучателя дебютов/эндшпилей</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
   <string name="winOr50MovesByPriorMistake">Победа или правило 50 ходов</string>
@@ -318,6 +319,7 @@
   <string name="cancelRematchOffer">Отказаться от реванша</string>
   <string name="viewRematch">Посмотреть матч-реванш</string>
   <string name="confirmMove">Подтвердить ход</string>
+  <string name="enableConfirmationForThisGame">Включить подтверждение для этой игры</string>
   <string name="play">Игра</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
@@ -753,6 +755,10 @@
   <string name="keyGoToStartOrEnd">в начало/конец</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
+  <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь на своих ошибках</string>
+  <string name="keyNextBlunder">Следующий зевок</string>
+  <string name="keyNextMistake">Следующая ошибка</string>
+  <string name="keyNextInaccuracy">Следующая неточность</string>
   <string name="newTournament">Новый турнир</string>
   <string name="tournamentHomeTitle">Шахматный турнир по различным вариантам шахмат и контролем времени</string>
   <string name="tournamentHomeDescription">Играйте в быстрые шахматы на турнире! Выбирайте любой из официальных турниров Lichess или создайте свой собственный. Пуля, блиц, классика, шахматы Фишера, король в центре, три шаха и другие варианты игры обеспечат вам бесконечное шахматное удовольствие!</string>
@@ -854,6 +860,7 @@
   <string name="invalidFen">Некорректный FEN</string>
   <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
+  <string name="notificationsX">Оповещения: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на первый ход</item>

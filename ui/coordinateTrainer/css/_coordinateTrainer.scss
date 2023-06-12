@@ -157,16 +157,22 @@
   }
 
   .coordinate-input {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    row-gap: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'buttons buttons' 'voice voice' 'keyboard keyboard';
+    grid-row-gap: 1vh;
+    @include breakpoint($mq-x-small) {
+      grid-template-areas: 'keyboard voice' 'buttons buttons';
+    }
   }
 
   .keyboard-container {
-    display: flex;
-    align-items: center;
-
+    @extend %flex-between;
+    grid-area: keyboard;
+    width: 100%;
+    a {
+      margin-right: 2vw;
+    }
     input.keyboard {
       width: 4em;
       margin-#{$end-direction}: 1em;
@@ -176,7 +182,12 @@
     }
   }
 
+  .voice-container {
+    grid-area: voice;
+  }
+
   .files-ranks {
+    grid-area: buttons;
     display: grid;
     width: 100%;
     grid-template-columns: repeat(8, 1fr);

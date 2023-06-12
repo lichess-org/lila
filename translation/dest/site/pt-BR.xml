@@ -99,6 +99,7 @@
   <string name="openingExplorer">Explorador de aberturas</string>
   <string name="openingEndgameExplorer">Explorador de Aberturas/Finais</string>
   <string name="xOpeningExplorer">%s Explorador de aberturas</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Jogue o primeiro lance do explorador de aberturas/finais</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pela regra dos 50 movimentos</string>
   <string name="winOr50MovesByPriorMistake">Vitória ou 50 movimentos por erro anterior</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Cancelar oferta de revanche</string>
   <string name="viewRematch">Ver revanche</string>
   <string name="confirmMove">Confirmar lance</string>
+  <string name="enableConfirmationForThisGame">Habilitar confirmação para este jogo</string>
   <string name="play">Jogar</string>
   <string name="inbox">Mensagens</string>
   <string name="chatRoom">Sala de chat</string>
@@ -681,6 +683,11 @@
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
+  <string name="keyRequestComputerAnalysis">Solicite análise do computador, aprenda com seus erros</string>
+  <string name="keyNextLearnFromYourMistakes">Próximo (Aprenda com seus erros)</string>
+  <string name="keyNextBlunder">Próximo erro grave</string>
+  <string name="keyNextMistake">Próximo erro</string>
+  <string name="keyNextInaccuracy">Próxima imprecisão</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos controles de tempo e variantes</string>
   <string name="tournamentHomeDescription">Jogue xadrez em ritmo acelerado! Entre em um torneio oficial agendado ou crie seu próprio. Bullet, Blitz, Clássico, Chess960, King of the Hill, Três Xeques e outras modalidades disponíveis para uma ilimitada diversão enxadrística.</string>
@@ -778,6 +785,7 @@
   <string name="invalidFen">FEN inválido</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
+  <string name="notificationsX">Notificações: %1$s</string>
   <string name="perfRatingX">Classificação: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para fazer o primeiro lance</item>

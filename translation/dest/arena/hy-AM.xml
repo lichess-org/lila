@@ -55,6 +55,7 @@
   <string name="arenaStreaks">«Արենայի» շարքեր</string>
   <string name="arenaStreaksHelp">Երկու անընդմեջ հաղթանակից հետո յուրաքանչյուր հաջորդ հաղթանակը տալիս է ոչ թե 2, այլ 4 միավոր։</string>
   <string name="noBerserkAllowed">Բերսերկ չի թույլատրվում</string>
+  <string name="noArenaStreaks">Առանց Արենայի շարքեր</string>
   <string name="averagePerformance">Միջին պերֆորմանս</string>
   <string name="averageScore">Միավորների միջին քանակ</string>
 </resources>

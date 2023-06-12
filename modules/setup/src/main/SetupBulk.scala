@@ -197,11 +197,10 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
       .mapConcat { case (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       }
-      .mapAsync(8) { token =>
-        oauthServer.auth(token, List(OAuthScope.Challenge.Write), none) map {
+      .mapAsync(8): token =>
+        oauthServer.auth(token, OAuthScope.select(_.Challenge.Write), none) map {
           _.left.map { BadToken(token, _) }
         }
-      }
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)) {
         case (Left(bads), Left(bad))       => Left(bad :: bads)
         case (Left(bads), _)               => Left(bads)

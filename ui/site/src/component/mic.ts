@@ -1,13 +1,36 @@
 import { objectStorage } from 'common/objectStorage';
-import * as xhr from 'common/xhr';
+import { Selector, Selectable } from 'common/selector';
+import { storedStringProp } from 'common/storage';
 
-class Recognizer {
+type Audio = { vosk?: AudioNode; source?: AudioNode; ctx?: AudioContext };
+
+class RecNode implements Selectable {
   listenerMap = new Map<string, Voice.Listener>();
-  vocab: string[] = [];
+  words: string[];
   node?: AudioNode;
+  partial: boolean;
+
+  constructor(words: string[], partial: boolean) {
+    this.words = words;
+    this.partial = partial;
+  }
+
+  select(audio?: Audio) {
+    if (!audio?.source || !this.node) return;
+    audio.source.connect(this.node);
+    this.node.connect(audio.ctx!.destination);
+  }
+
+  deselect() {
+    this.node?.disconnect();
+  }
+
+  close() {
+    this.node = undefined;
+  }
 
   get listeners(): Voice.Listener[] {
-    return [...this.listenerMap.values()].reverse(); // LIFO because reasons
+    return [...this.listenerMap.values()].reverse(); // LIFO for interrupt
   }
 }
 
@@ -17,12 +40,16 @@ export const mic =
   new (class implements Voice.Microphone {
     language = 'en';
 
-    audioCtx: AudioContext;
+    audioCtx: AudioContext | undefined;
     mediaStream: MediaStream;
     micSource: AudioNode;
 
-    listenMode: Voice.ListenMode;
-    recs: { full: Recognizer; partial: Recognizer };
+    deviceId = storedStringProp('voice.micDeviceId', 'default');
+    deviceIds?: string[];
+
+    recs = new Selector<RecNode, Audio>();
+    recId = 'default';
+    ctrl: Voice.Listener;
     download?: XMLHttpRequest;
     broadcastTimeout?: number;
     voskStatus = '';
@@ -33,23 +60,10 @@ export const mic =
     constructor() {
       (window.LichessVoicePlugin as any) = { mic: this, vosk: undefined };
       lichess.mic = this;
-      this.recs = { full: new Recognizer(), partial: new Recognizer() };
     }
 
     get lang() {
       return this.language;
-    }
-
-    get vosk(): any {
-      return (window.LichessVoicePlugin as any)?.vosk;
-    }
-
-    addListener(id: string, listener: Voice.Listener, mode: Voice.ListenMode = 'full') {
-      this.recs[mode].listenerMap.set(id, listener);
-    }
-
-    removeListener(id: string) {
-      Object.values(this.recs).forEach(rec => rec.listenerMap.delete(id));
     }
 
     setLang(lang: string) {
@@ -58,112 +72,107 @@ export const mic =
       this.language = lang;
     }
 
-    setVocabulary(vocab: string[], mode: Voice.ListenMode = 'full') {
-      const rec = this.recs[mode];
-      if (vocab.length === rec.vocab.length && vocab.every((w, i) => w === rec.vocab[i])) return;
-      rec.vocab = vocab;
-      rec.node?.disconnect();
-      rec.node = undefined;
-      if (this.vosk?.isReady(this.lang)) this.initKaldi(mode);
+    async getMics() {
+      return navigator.mediaDevices.enumerateDevices().then(d => d.filter(d => d.kind == 'audioinput'));
     }
 
-    useGrammar(name: string): Promise<any> {
-      return xhr.jsonSimple(lichess.assetUrl(`compiled/grammar/${name}.json`));
+    get micId() {
+      return this.deviceId();
     }
 
-    stop() {
-      if (this.micTrack) this.micTrack.enabled = false;
-      this.vosk?.stop();
-      this.download?.abort();
-      if (!this.download) this.broadcast('', 'stop');
-      this.download = undefined;
+    setMic(id: string) {
+      const listening = this.isListening;
+      lichess.mic.stop();
+      this.deviceId(id);
+      this.recs.close();
+      this.audioCtx?.close();
+      this.audioCtx = undefined;
+      if (listening) this.start();
     }
 
-    async start(): Promise<void> {
-      let [text, msgType] = ['Unknown', 'error' as Voice.MsgType];
+    setController(ctrl: Voice.Listener) {
+      this.ctrl = ctrl;
+      this.ctrl('', 'status'); // hello
+    }
+
+    addListener(listener: Voice.Listener, also: { recId?: string; listenerId?: string } = {}) {
+      const recId = also.recId ?? 'default';
+      if (!this.recs.group.has(recId)) throw `No recognizer for '${recId}'`;
+      this.recs.group.get(recId)!.listenerMap.set(also.listenerId ?? recId, listener);
+    }
+
+    removeListener(listenerId: string) {
+      this.recs.group.forEach(v => v.listenerMap.delete(listenerId));
+    }
+
+    initRecognizer(
+      words: string[],
+      also: {
+        recId?: string;
+        partial?: boolean;
+        listener?: Voice.Listener;
+        listenerId?: string;
+      } = {}
+    ) {
+      if (words.length === 0) {
+        this.recs.delete(also.recId);
+        return;
+      }
+      const recId = also.recId ?? 'default';
+      const rec = new RecNode(words.slice(), also.partial === true);
+      if (this.vosk?.isLoaded(this.lang)) this.initKaldi(recId, rec);
+      this.recs.set(recId, rec);
+      if (also.listener) this.addListener(also.listener, { recId, listenerId: also.listenerId });
+    }
+
+    setRecognizer(recId = 'default') {
+      this.recId = recId;
+      this.recs.select(recId);
+      this.vosk?.select(recId);
+    }
+
+    async start(listen = true): Promise<void> {
       try {
-        if (this.isListening) return;
+        if (listen && this.isListening && this.recId === this.recs.key) return;
         this.busy = true;
         await this.initModel();
-        if (!this.recs.full.node) this.initKaldi('full');
-        if (!this.recs.partial.node) this.initKaldi('partial');
-        this.micTrack!.enabled = true;
-        this.mode = 'full';
-        [text, msgType] = ['Listening...', 'start'];
-      } catch (e: any) {
-        this.stop();
-        console.log(e);
-        [text, msgType] = [e.toString(), 'error'];
-        throw e;
-      } finally {
+        for (const [recId, rec] of this.recs.group) this.initKaldi(recId, rec);
+        this.recs.select(this.recId);
+        this.vosk?.select(this.recId);
+        this.micTrack!.enabled = listen;
         this.busy = false;
-        this.broadcast(text, msgType, 4000);
+        this.broadcast(this.recId, 'start');
+      } catch (e: any) {
+        this.stop([e.toString(), 'error']);
+        throw e;
       }
     }
 
+    stop(reason: [string, Voice.MsgType] = ['', 'stop']) {
+      if (this.micTrack) this.micTrack.enabled = false;
+      this.download?.abort();
+      this.download = undefined;
+      this.busy = false;
+      this.recs.select(false);
+      this.vosk?.select(false);
+      this.broadcast(...reason);
+    }
+
     // pause/resume use a counter so calls must be balanced.
+    // short duration interruptions, use start/stop otherwise
     pause() {
       if (++this.paused !== 1 || !this.micTrack?.enabled) return;
       this.micTrack.enabled = false;
-      this.broadcast('Paused...', 'status');
     }
 
     resume() {
       this.paused = Math.min(this.paused - 1, 0);
       if (this.paused !== 0 || this.micTrack?.enabled === undefined) return;
       this.micTrack.enabled = true;
-      this.broadcast('Listening...', 'status');
     }
 
-    initKaldi(mode: Voice.ListenMode) {
-      this.recs[mode].node = this.vosk?.setRecognizer({
-        mode: mode,
-        audioCtx: this.audioCtx!,
-        vocab: this.recs[mode].vocab,
-        broadcast: this.broadcast.bind(this),
-      });
-    }
-
-    async initModel(): Promise<void> {
-      if (this.vosk?.isReady(this.lang)) return;
-      this.broadcast('Loading...');
-
-      const modelUrl = lichess.assetUrl(models.get(this.lang)!, { noVersion: true });
-      const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
-
-      const audioAsync = this.initAudio();
-      await lichess.loadModule('voice.vosk');
-      await downloadAsync;
-      await this.vosk.initModel(modelUrl, this.lang);
-      await audioAsync;
-    }
-
-    async initAudio(): Promise<void> {
-      if (this.audioCtx) return;
-      this.audioCtx = new AudioContext();
-      this.mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: false,
-        audio: {
-          sampleRate: this.audioCtx.sampleRate,
-          echoCancellation: true,
-          noiseSuppression: true,
-        },
-      });
-      this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
-    }
-
-    set mode(mode: Voice.ListenMode) {
-      if (!this.recs[mode]) return;
-      this.recs[this.listenMode]?.node?.disconnect();
-      this.micSource!.disconnect();
-      this.micSource!.connect(this.recs[mode].node!);
-      this.recs[mode].node!.connect(this.audioCtx!.destination);
-      this.vosk.setMode(mode);
-      this.listenMode = mode;
-    }
-
-    get mode(): Voice.ListenMode {
-      return this.listenMode;
+    get isListening(): boolean {
+      return this.micEnabled && !this.isBusy;
     }
 
     get isBusy(): boolean {
@@ -174,33 +183,80 @@ export const mic =
       return this.voskStatus;
     }
 
-    get isListening(): boolean {
+    stopPropagation() {
+      this.interrupt = true;
+    }
+
+    private get vosk(): any {
+      return (window.LichessVoicePlugin as any)?.vosk;
+    }
+
+    private get micEnabled(): boolean {
       return this.paused === 0 && !this.busy && this.micTrack?.enabled === true;
     }
 
-    get micTrack(): MediaStreamTrack | undefined {
+    private get micTrack(): MediaStreamTrack | undefined {
       return this.mediaStream?.getAudioTracks()[0];
     }
 
-    broadcast(text: string, msgType: Voice.MsgType = 'status', forMs = 0) {
-      if (msgType === 'partial') {
-        for (const li of this.recs['partial'].listeners) li(text, msgType);
+    private initKaldi(recId: string, rec: RecNode) {
+      if (rec.node) return;
+      rec.node = this.vosk?.initRecognizer({
+        recId: recId,
+        audioCtx: this.audioCtx!,
+        partial: rec.partial,
+        words: rec.words,
+        broadcast: this.broadcast.bind(this),
+      });
+    }
+
+    private async initModel(): Promise<void> {
+      if (this.vosk?.isLoaded(this.lang)) {
+        await this.initAudio();
         return;
       }
-      window.clearTimeout(this.broadcastTimeout);
+      this.broadcast('Loading...');
+
+      const modelUrl = lichess.assetUrl(models.get(this.lang)!, { noVersion: true });
+      const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
+      const audioAsync = this.initAudio();
+
+      await lichess.loadModule('voice.vosk');
+      await downloadAsync;
+      await this.vosk.initModel(modelUrl, this.lang);
+      await audioAsync;
+    }
+
+    private async initAudio(): Promise<void> {
+      if (this.audioCtx?.state === 'suspended') await this.audioCtx.resume();
+      if (this.audioCtx?.state === 'running') return;
+      else if (this.audioCtx) throw `Error ${this.audioCtx.state}`;
+      this.mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: false,
+        audio: {
+          sampleRate: { ideal: 16000 },
+          echoCancellation: { ideal: true },
+          noiseSuppression: { ideal: true },
+          deviceId: this.micId,
+        },
+      });
+      this.audioCtx = new AudioContext({ sampleRate: this.mediaStream.getAudioTracks()[0].getSettings().sampleRate });
+      this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
+      this.recs.ctx = { vosk: this.vosk, source: this.micSource, ctx: this.audioCtx };
+    }
+
+    private broadcast(text: string, msgType: Voice.MsgType = 'status', forMs = 0) {
+      this.ctrl?.call(this, text, msgType);
+      if (msgType === 'status' || msgType === 'full') window.clearTimeout(this.broadcastTimeout);
       this.voskStatus = text;
-      for (const li of this.recs['full'].listeners) {
+      for (const li of this.recs.get(this.recId)?.listeners ?? []) {
         if (!this.interrupt) li(text, msgType);
       }
       this.interrupt = false;
       this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
     }
 
-    stopPropagation() {
-      this.interrupt = true;
-    }
-
-    async downloadModel(emscriptenPath: string): Promise<void> {
+    private async downloadModel(emscriptenPath: string): Promise<void> {
       const voskStore = await objectStorage<any>({
         db: '/vosk',
         store: 'FILE_DATA',
@@ -211,19 +267,19 @@ export const mic =
         },
       });
       if ((await voskStore.count(`${emscriptenPath}/extracted.ok`)) > 0) return;
-
       const modelBlob: ArrayBuffer | undefined = await new Promise((resolve, reject) => {
         this.download = new XMLHttpRequest();
-        this.download.open('GET', lichess.assetUrl(models.get(this.lang)!), true);
+        this.download.open('GET', lichess.assetUrl(models.get(this.lang)!, { noVersion: true }), true);
         this.download.responseType = 'arraybuffer';
         this.download.onerror = _ => reject('Failed. See console');
         this.download.onabort = _ => reject('Aborted');
-        this.download.onprogress = (e: ProgressEvent) =>
+        this.download.onprogress = (e: ProgressEvent) => {
           this.broadcast(
             e.total <= 0
               ? 'Downloading...'
               : `Downloaded ${Math.round((100 * e.loaded) / e.total)}% of ${Math.round(e.total / 1000000)}MB`
           );
+        };
 
         this.download.onload = _ => {
           if (this.download?.status !== 200) reject(`${this.download?.status} Failed`);

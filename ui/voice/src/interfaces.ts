@@ -1,36 +1,29 @@
-import { Api as CgApi } from 'chessground/api';
-import * as cg from 'chessground/types';
-import { Prop, Toggle } from 'common';
+import { Toggle } from 'common';
+import { VNode } from 'snabbdom';
 
-export interface RootCtrl {
-  chessground: CgApi;
-  sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta?: cg.MoveMetadata) => void;
-  redraw: () => void;
-  flipNow: () => void;
-  offerDraw?: (v: boolean, immediately?: boolean) => void;
-  takebackYes?: () => void;
-  resign?: (v: boolean, immediately?: boolean) => void;
-  rematch?: (accept?: boolean) => boolean;
-  next?: () => void;
-  vote?: (v: boolean) => void;
-  solve?: () => void;
+export interface VoiceCtrl {
+  lang: (lang?: string) => string;
+  micId: (deviceId?: string) => string;
+  enabled: (enabled?: boolean) => boolean;
+  toggle: () => void;
+  showHelp: (v?: boolean) => boolean;
+  pushTalk: (v?: boolean) => boolean;
+  showPrefs: Toggle;
+  module: () => VoiceModule | undefined;
+  moduleId: string;
 }
 
-export interface VoiceMove {
-  showHelp: Prop<boolean>;
-  showSettings: Toggle;
-  clarityPref: Prop<number>;
-  timerPref: Prop<number>;
-  colorsPref: Prop<boolean>;
-  langPref: Prop<string>;
+export interface VoiceModule {
+  ui: VoiceCtrl;
+  initGrammar: (recId?: string) => Promise<void>;
+  prefNodes: (redraw?: () => void) => VNode[];
   allPhrases: () => [string, string][];
-  update(fen: string, yourMove?: boolean): void;
-  opponentRequest(request: string, callback: (v: boolean) => void): void;
 }
 
 export interface RecognizerOpts {
-  vocab: string[];
-  mode: Voice.ListenMode;
+  words: string[];
+  recId: string;
+  partial: boolean;
   audioCtx: AudioContext;
   broadcast: (text: string, msgType: Voice.MsgType, forMs: number) => void;
 }
@@ -46,15 +39,4 @@ export type Entry = {
   tags: string[];
   val?: string;
   subs?: Sub[];
-};
-
-export type Partials = {
-  commands: string[];
-  colors: string[];
-  numbers: string[];
-};
-
-export type Grammar = {
-  partials: Partials;
-  entries: Entry[];
 };

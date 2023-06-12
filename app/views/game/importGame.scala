@@ -1,7 +1,7 @@
 package views.html
 package game
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import chess.format.pgn.PgnStr
@@ -10,10 +10,10 @@ import controllers.routes
 
 object importGame:
 
-  private def analyseHelp(using ctx: Context) =
+  private def analyseHelp(using ctx: WebContext) =
     ctx.isAnon option a(cls := "blue", href := routes.Auth.signup)(trans.youNeedAnAccountToDoThat())
 
-  def apply(form: play.api.data.Form[?])(using ctx: Context) =
+  def apply(form: play.api.data.Form[?])(using ctx: WebContext) =
     views.html.base.layout(
       title = trans.importGame.txt(),
       moreCss = cssTag("importer"),

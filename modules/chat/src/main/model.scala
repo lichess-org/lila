@@ -21,3 +21,4 @@ object BusChan:
   type Select = BusChan.type => BusChan
 
 case class GetLinkCheck(line: UserLine, source: PublicSource, promise: Promise[Boolean])
+case class IsChatFresh(source: PublicSource, promise: Promise[Boolean])

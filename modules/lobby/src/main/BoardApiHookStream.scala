@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import lila.common.Bus
 
 final class BoardApiHookStream(
-    trouper: LobbySyncActor
+    lobby: LobbySyncActor
 )(using ec: Executor, system: ActorSystem):
 
   private case object SetOnline
@@ -18,9 +18,10 @@ final class BoardApiHookStream(
   def apply(hook: Hook): Source[Option[JsObject], ?] =
     blueprint.mapMaterializedValue: queue =>
       val actor = system.actorOf(Props(mkActor(hook, queue)))
-      queue.watchCompletion().addEffectAnyway {
-        actor ! PoisonPill
-      }
+      queue
+        .watchCompletion()
+        .addEffectAnyway:
+          actor ! PoisonPill
 
   private def mkActor(hook: Hook, queue: SourceQueueWithComplete[Option[JsObject]]): Actor = new:
 
@@ -29,12 +30,12 @@ final class BoardApiHookStream(
     override def preStart(): Unit =
       super.preStart()
       Bus.subscribe(self, classifiers)
-      trouper ! actorApi.AddHook(hook)
+      lobby ! actorApi.AddHook(hook)
 
     override def postStop() =
       super.postStop()
       Bus.unsubscribe(self, classifiers)
-      trouper ! actorApi.CancelHook(hook.sri)
+      lobby ! actorApi.CancelHook(hook.sri)
       queue.complete()
 
     self ! SetOnline

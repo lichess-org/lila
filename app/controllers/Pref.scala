@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.notify.NotificationPref
@@ -86,19 +86,20 @@ final class Pref(env: Env) extends LilaController(env):
       }
 
   private lazy val setters = Map(
-    "theme"      -> (forms.theme      -> save("theme")),
-    "pieceSet"   -> (forms.pieceSet   -> save("pieceSet")),
-    "theme3d"    -> (forms.theme3d    -> save("theme3d")),
-    "pieceSet3d" -> (forms.pieceSet3d -> save("pieceSet3d")),
-    "soundSet"   -> (forms.soundSet   -> save("soundSet")),
-    "bg"         -> (forms.bg         -> save("bg")),
-    "bgImg"      -> (forms.bgImg      -> save("bgImg")),
-    "is3d"       -> (forms.is3d       -> save("is3d")),
-    "zen"        -> (forms.zen        -> save("zen")),
-    "voice"      -> (forms.voice      -> save("voice"))
+    "theme"        -> (forms.theme        -> save("theme")),
+    "pieceSet"     -> (forms.pieceSet     -> save("pieceSet")),
+    "theme3d"      -> (forms.theme3d      -> save("theme3d")),
+    "pieceSet3d"   -> (forms.pieceSet3d   -> save("pieceSet3d")),
+    "soundSet"     -> (forms.soundSet     -> save("soundSet")),
+    "bg"           -> (forms.bg           -> save("bg")),
+    "bgImg"        -> (forms.bgImg        -> save("bgImg")),
+    "is3d"         -> (forms.is3d         -> save("is3d")),
+    "zen"          -> (forms.zen          -> save("zen")),
+    "voice"        -> (forms.voice        -> save("voice")),
+    "keyboardMove" -> (forms.keyboardMove -> save("keyboardMove"))
   )
 
-  private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
+  private def save(name: String)(value: String, ctx: WebContext): Fu[Cookie] =
     ctx.me ?? {
       api.setPrefString(_, name, value)
     } inject env.lilaCookie.session(name, value)(using ctx.req)

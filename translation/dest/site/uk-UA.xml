@@ -142,7 +142,7 @@
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s неточність</item>
-    <item quantity="few">%s неточністі</item>
+    <item quantity="few">%s неточності</item>
     <item quantity="many">%s неточностей</item>
     <item quantity="other">%s неточностей</item>
   </plurals>
@@ -754,6 +754,9 @@
   <string name="keyGoToStartOrEnd">перейти до початку/кінця</string>
   <string name="keyShowOrHideComments">показати/приховати коментарі</string>
   <string name="keyEnterOrExitVariation">зайти/вийти з варіанту</string>
+  <string name="keyNextBlunder">Наступна груба помилка</string>
+  <string name="keyNextMistake">Наступна помилка</string>
+  <string name="keyNextInaccuracy">Наступна неточність</string>
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
   <string name="tournamentHomeDescription">Грайте у швидкі шахи на турнірі! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи Фішера, \"Цар гори\", \"Три шахи\" та інші варіанти забезпечать нескінченне задоволення.</string>
@@ -855,6 +858,7 @@
   <string name="invalidFen">Неприпустимий FEN</string>
   <string name="custom">Своя гра</string>
   <string name="notifications">Сповіщення</string>
+  <string name="notificationsX">Сповіщення: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>

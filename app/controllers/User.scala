@@ -10,7 +10,7 @@ import scala.util.chaining.*
 import scalatags.Text.Frag
 import views.*
 
-import lila.api.{ BodyContext, Context }
+import lila.api.{ WebBodyContext, WebContext }
 import lila.app.{ given, * }
 import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.common.paginator.Paginator
@@ -50,7 +50,7 @@ final class User(
         case Some(gameId) => gameC.exportGame(gameId, req)
       }
 
-  private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
+  private def apiGames(u: UserModel, filter: String, page: Int)(using WebBodyContext[?]) =
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
@@ -62,7 +62,7 @@ final class User(
         api = _ => apiGames(u, GameFilter.All.name, 1)
       )
 
-  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using ctx: Context) =
+  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using ctx: WebContext) =
     if HTTPRequest isSynchronousHttp ctx.req
     then
       for
@@ -110,7 +110,7 @@ final class User(
                 filter = filters.current,
                 me = ctx.me,
                 page = page
-              )(using reqBody, formBinding, reqLang)
+              )
               _ <- lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
               _ <- env.tournament.cached.nameCache preloadMany {
                 pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
@@ -126,14 +126,14 @@ final class User(
                     social <- env.socialInfo(u, ctx)
                     searchForm = (filters.current == GameFilter.Search) option
                       GameFilterMenu
-                        .searchForm(userGameSearch, filters.current)(using reqBody, formBinding, reqLang)
+                        .searchForm(userGameSearch, filters.current)
                   yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
                 else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
             yield Ok(res).withCanonical(routes.User.games(u.username, filters.current.name)),
             api = _ => apiGames(u, filter, page)
           )
 
-  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
+  private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: WebContext): Fu[Result] =
     if (UserModel.isGhost(username.id))
       negotiate(
         html = Ok(html.site.bits.ghost).toFuccess,
@@ -229,7 +229,7 @@ final class User(
       u: UserModel,
       filterName: String,
       page: Int
-  )(using ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
+  )(using ctx: WebBodyContext[?]): Fu[Paginator[GameModel]] =
     UserGamesRateLimitPerIP(
       ctx.ip,
       fuccess(Paginator.empty[GameModel]),
@@ -326,23 +326,22 @@ final class User(
   }
 
   protected[controllers] def modZoneOrRedirect(holder: Holder, username: UserStr)(using
-      ctx: Context
+      ctx: WebContext
   ): Fu[Result] =
-    if (HTTPRequest isEventSource ctx.req) renderModZone(holder, username)
+    if HTTPRequest isEventSource ctx.req then renderModZone(holder, username)
     else fuccess(modC.redirect(username))
 
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, ?] =
-    Source futureSource {
+    Source.futureSource:
       fu.monSuccess(_.mod zoneSegment name)
         .logFailure(lila.log("modZoneSegment").branch(s"$name ${user.id}"))
         .map(Source.single)
-    }
 
   protected[controllers] def loginsTableData(
       user: UserModel,
       userLogins: UserLogins,
       max: Int
-  )(using Context): Fu[UserLogins.TableData[UserWithModlog]] =
+  )(using WebContext): Fu[UserLogins.TableData[UserWithModlog]] =
     val familyUserIds = user.id :: userLogins.otherUserIds
     (isGranted(_.ModNote) ?? env.user.noteApi
       .byUsersForMod(familyUserIds)
@@ -357,7 +356,7 @@ final class User(
       }
 
   protected[controllers] def renderModZone(holder: Holder, username: UserStr)(using
-      ctx: Context
+      ctx: WebContext
   ): Fu[Result] =
     env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
@@ -382,9 +381,8 @@ final class User(
 
         val reportLog = isGranted(_.SeeReport) ?? env.report.api
           .byAndAbout(user, 20, holder)
-          .flatMap { rs =>
+          .flatMap: rs =>
             lightUserApi.preloadMany(rs.userIds) inject rs
-          }
           .map(view.reportLog(user))
 
         val prefs = isGranted(_.CheatHunter) ?? env.pref.api.getPref(user).map(view.prefs(user))
@@ -420,13 +418,15 @@ final class User(
 
         val irwin =
           isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).mapz(html.irwin.report)
-        val assess = isGranted(_.MarkEngine) ?? env.mod.assessApi.getPlayerAggregateAssessmentWithGames(
-          user.id
-        ) flatMapz { as =>
-          lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
-        }
+        val assess = isGranted(_.MarkEngine) ??
+          env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMapz { as =>
+            lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
+          }
+
+        val boardTokens = env.oAuth.tokenApi.usedBoardApi(user).map(html.user.mod.boardTokens)
+
         given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
-        Ok.chunked {
+        Ok.chunked:
           Source.single(html.user.mod.menu) merge
             modZoneSegment(actions, "actions", user) merge
             modZoneSegment(modLog, "modLog", user) merge
@@ -439,23 +439,23 @@ final class User(
             modZoneSegment(identification, "identification", user) merge
             modZoneSegment(kaladin, "kaladin", user) merge
             modZoneSegment(irwin, "irwin", user) merge
-            modZoneSegment(assess, "assess", user) via
+            modZoneSegment(assess, "assess", user) merge
+            modZoneSegment(boardTokens, "boardTokens", user) via
             EventSource.flow log "User.renderModZone"
-        }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+        .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
 
-  protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
+  protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: WebContext) =
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
-          Ok(
+          Ok:
             html.user.mod.actions(
               user,
               emails,
               erased,
               env.mod.presets.getPmPresets(ctx.me)
             )
-          )
         }
     }
 
@@ -485,7 +485,7 @@ final class User(
     }
   }
 
-  def apiWriteNote(username: UserStr) = ScopedBody() { req ?=> me =>
+  def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me =>
     lila.user.UserForm.apiNote
       .bindFromRequest()
       .fold(
@@ -619,7 +619,7 @@ final class User(
       tryRedirect(username) getOrElse notFound
     }
 
-  def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
+  def tryRedirect(username: UserStr)(using WebContext): Fu[Option[Result]] =
     env.user.repo byId username map {
       _.filter(_.enabled.yes || isGranted(_.SeeReport)) map { user =>
         Redirect(routes.User.show(user.username))

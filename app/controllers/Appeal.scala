@@ -4,7 +4,7 @@ package appeal
 import play.api.mvc.Result
 import views.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 import lila.report.{ Suspect, Mod }
 import play.api.data.Form
@@ -12,8 +12,8 @@ import play.api.data.Form
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
     extends LilaController(env):
 
-  private def modForm(using Context)  = lila.appeal.Appeal.modForm
-  private def userForm(using Context) = lila.appeal.Appeal.form
+  private def modForm(using WebContext)  = lila.appeal.Appeal.modForm
+  private def userForm(using WebContext) = lila.appeal.Appeal.form
 
   def home = Auth { _ ?=> me =>
     renderAppealOrTree(me) map { Ok(_) }
@@ -31,7 +31,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   private def renderAppealOrTree(
       me: lila.user.User,
       err: Option[Form[String]] = None
-  )(using Context) = env.appeal.api mine me flatMap {
+  )(using WebContext) = env.appeal.api mine me flatMap {
     case None =>
       env.playban.api.currentBan(me.id).dmap(_.isDefined) map {
         html.appeal.tree(me, _)
@@ -93,7 +93,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
         )
   }
 
-  private def getModData(me: lila.user.Holder, suspect: Suspect)(using Context) =
+  private def getModData(me: lila.user.Holder, suspect: Suspect)(using WebContext) =
     for
       users      <- env.security.userLogins(suspect.user, 100)
       logins     <- userC.loginsTableData(suspect.user, users, 100)
@@ -134,7 +134,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   private def asMod(
       username: UserStr
-  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using Context): Fu[Result] =
+  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using WebContext): Fu[Result] =
     env.user.repo byId username flatMapz { user =>
       env.appeal.api get user flatMapz { appeal =>
         f(appeal, Suspect(user)) dmap some

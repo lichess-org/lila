@@ -3,14 +3,14 @@ package views.html.swiss
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
 
 object home:
 
-  def apply(featured: FeaturedSwisses)(implicit ctx: Context) =
+  def apply(featured: FeaturedSwisses)(implicit ctx: WebContext) =
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
@@ -43,7 +43,7 @@ object home:
       )
     }
 
-  private def renderList(name: String)(swisses: List[Swiss])(implicit ctx: Context) =
+  private def renderList(name: String)(swisses: List[Swiss])(implicit ctx: WebContext) =
     table(cls := "slist swisses")(
       thead(tr(th(colspan := 4)(name))),
       tbody(
@@ -188,18 +188,16 @@ object home:
       trans.swiss.numberOfByesA()
     ),
     faqEntry(
-      frag("Early draws"),
-      frag(
-        "In swiss games, players cannot draw before 30 moves are played. While this measure cannot prevent pre-arranged draws, it at least makes it harder to agree to a draw on the fly."
-      )
+      trans.swiss.earlyDrawsQ(),
+      trans.swiss.earlyDrawsA()
     ),
     faqEntry(
       trans.swiss.whatIfOneDoesntPlayQ(),
       trans.swiss.whatIfOneDoesntPlayA()
     ),
     faqEntry(
-      "Protection against no-show",
-      "Players who sign up for swiss events but don't play their games can be problematic. To alleviate this issue, Lichess prevents players who failed to play a game from joining a new Swiss event for a given amount of time. The creator of a Swiss event can decide to let them join the event anyway."
+      trans.swiss.protectionAgainstNoShowQ(),
+      trans.swiss.protectionAgainstNoShowA()
     ),
     faqEntry(
       trans.swiss.lateJoinQ(),

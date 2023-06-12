@@ -3,7 +3,7 @@ package controllers
 import play.api.data.Form
 import play.api.mvc.*
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.{ given, * }
 
 // import lila.common.config.MaxPerSecond
@@ -36,7 +36,7 @@ final class RelayRound(
               val tour = trs.tour
               env.relay.roundForm
                 .create(trs)
-                .bindFromRequest()(ctx.body, formBinding)
+                .bindFromRequest()
                 .fold(
                   err => BadRequest(html.relay.roundForm.create(err, tour)).toFuccess,
                   setup =>
@@ -51,24 +51,22 @@ final class RelayRound(
                     }
                 )
       ,
-      scoped = req ?=>
+      scoped = ctx ?=>
         me =>
           NoLameOrBot(me):
             env.relay.api tourById TourModel.Id(tourId) flatMapz { tour =>
               env.relay.api.withRounds(tour) flatMap { trs =>
                 env.relay.roundForm
                   .create(trs)
-                  .bindFromRequest()(req, formBinding)
+                  .bindFromRequest()
                   .fold(
                     err => BadRequest(apiFormError(err)).toFuccess,
                     setup =>
-                      rateLimitCreation(me, req, rateLimited) {
-                        JsonOk {
+                      rateLimitCreation(me, ctx.req, rateLimited):
+                        JsonOk:
                           env.relay.api.create(setup, me, tour) map { round =>
                             env.relay.jsonView.withUrl(round withTour tour)
                           }
-                        }
-                      }
                   )
               }
             }
@@ -91,7 +89,7 @@ final class RelayRound(
                 rt => Redirect(rt.path)
               )
       ,
-      scoped = req ?=>
+      scoped = ctx ?=>
         me =>
           doUpdate(id, me) map {
             case None => NotFound(jsonError("No such broadcast"))
@@ -132,7 +130,7 @@ final class RelayRound(
             if rt.round.sync.ongoing then
               env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
                 chapters.find(_.looksAlive) orElse chapters.headOption match {
-                  case Some(chapter) => env.study.api.byIdWithChapter(rt.round.studyId, chapter.id)
+                  case Some(chapter) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
                   case None          => env.study.api byIdWithChapter rt.round.studyId
                 }
               }
@@ -151,7 +149,7 @@ final class RelayRound(
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
   def apiPgn(id: StudyId)                      = studyC.apiPgn(id)
 
-  def stream(id: RelayRoundId) = AnonOrScoped() { req ?=> me =>
+  def stream(id: RelayRoundId) = AnonOrScoped() { ctx ?=> me =>
     env.relay.api.byIdWithStudy(id) flatMapz { rt =>
       studyC.CanView(rt.study, me) {
         apiC.GlobalConcurrencyLimitPerIP
@@ -164,21 +162,20 @@ final class RelayRound(
   }
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) = Open:
-    WithRoundAndTour(ts, rs, id) { rt =>
-      env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
-    }
+    WithRoundAndTour(ts, rs, id): rt =>
+      env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId) flatMapz { doShow(rt, _) }
 
-  def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { req ?=> me =>
+  def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me =>
     env.relay.api
       .byIdAndContributor(id, me)
       .flatMap:
         case None     => notFoundJson()
-        case Some(rt) => env.relay.push(rt, PgnStr(req.body)) inject jsonOkResult
+        case Some(rt) => env.relay.push(rt, PgnStr(ctx.body.body)) inject jsonOkResult
   }
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: WebContext): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
       if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).toFuccess
       else f(rt)
@@ -186,12 +183,12 @@ final class RelayRound(
 
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
-  )(using Context): Fu[Result] =
+  )(using WebContext): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: WebContext): Fu[Result] =
     WithTour(id) { tour =>
       ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
         env.relay.api withRounds tour flatMap f
@@ -199,7 +196,7 @@ final class RelayRound(
     }
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(using
-      ctx: Context
+      ctx: WebContext
   ): Fu[Result] =
     studyC.CanView(oldSc.study, ctx.me) {
       for

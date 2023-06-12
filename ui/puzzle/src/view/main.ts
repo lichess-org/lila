@@ -12,8 +12,10 @@ import { onInsert, bindNonPassive } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/mobile';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import { renderVoiceMove } from 'voice';
+import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
+import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import boardMenu from './boardMenu';
 
 import * as Prefs from 'common/prefs';
 
@@ -37,31 +39,29 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing = f
 function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
-  const goNext = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
+  const notOnLastMove = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
   return h(
     'div.puzzle__controls.analyse-controls',
     {
-      hook: onInsert(el => {
-        bindMobileMousedown(
-          el,
-          e => {
-            const action = dataAct(e);
-            if (action === 'prev') control.prev(ctrl);
-            else if (action === 'next') control.next(ctrl);
-            else if (action === 'first') control.first(ctrl);
-            else if (action === 'last') control.last(ctrl);
-          },
-          ctrl.redraw
-        );
-      }),
+      hook: onInsert(
+        bindMobileMousedown(e => {
+          const action = dataAct(e);
+          if (action === 'prev') control.prev(ctrl);
+          else if (action === 'next') control.next(ctrl);
+          else if (action === 'first') control.first(ctrl);
+          else if (action === 'last') control.last(ctrl);
+        }, ctrl.redraw)
+      ),
     },
     [
       h('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', !node.ply),
         jumpButton(licon.JumpPrev, 'prev', !node.ply),
-        jumpButton(licon.JumpNext, 'next', !nextNode, goNext),
-        jumpButton(licon.JumpLast, 'last', !nextNode, goNext),
+        jumpButton(licon.JumpNext, 'next', !nextNode),
+        jumpButton(licon.JumpLast, 'last', !nextNode, notOnLastMove),
+        boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
       ]),
+      boardMenu(ctrl),
     ]
   );
 }
@@ -123,7 +123,7 @@ export default function (ctrl: Controller): VNode {
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
-        ctrl.voiceMove ? renderVoiceMove(ctrl.redraw, !showCeval) : null,
+        ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw, 'puz') : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         h(

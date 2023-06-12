@@ -99,6 +99,7 @@
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="openingEndgameExplorer">Explorador d\'obertures i finals</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Juga el primer moviment de l\'explorador d\'obertures/finals</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
   <string name="lossSavedBy50MoveRule">Derrota no permesa per la regla dels 50 moviments</string>
   <string name="winOr50MovesByPriorMistake">Victòria o taules per 50 moviments a causa d\'un error anterior</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Anul·lar la petició de revenja</string>
   <string name="viewRematch">Mirar la partida de revenja</string>
   <string name="confirmMove">Confirmar la jugada</string>
+  <string name="enableConfirmationForThisGame">Activa la confirmació per aquesta partida</string>
   <string name="play">Jugar</string>
   <string name="inbox">Bústia d\'entrada</string>
   <string name="chatRoom">Sala de xat</string>
@@ -681,6 +683,11 @@
   <string name="keyGoToStartOrEnd">anar a l\'inici/anar al final</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentaris</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variació</string>
+  <string name="keyRequestComputerAnalysis">Demana una anàlisi computeritzada, aprèn dels teus errors</string>
+  <string name="keyNextLearnFromYourMistakes">Següent (apren dels teus errors)</string>
+  <string name="keyNextBlunder">Següent errada</string>
+  <string name="keyNextMistake">Següent errada greu</string>
+  <string name="keyNextInaccuracy">Següent imprecisió</string>
   <string name="newTournament">Nou torneig</string>
   <string name="tournamentHomeTitle">Torneig d\'escacs amb diversos controls de temps i variants</string>
   <string name="tournamentHomeDescription">Juga tornejos d\'escacs ràpids! Uneix-te a un torneig programat o crea\'n un de propi. Bullet, Blitz, Classic, Chess960, King of the Hill, Threecheck i moltes més opcions perquè no s\'acabi la diversió dels escacs.</string>
@@ -778,6 +785,7 @@
   <string name="invalidFen">FEN no vàlid</string>
   <string name="custom">Personalitzat</string>
   <string name="notifications">Avisos</string>
+  <string name="notificationsX">Notificacions: %1$s</string>
   <string name="perfRatingX">Classificació: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segon per jugar el primer moviment</item>

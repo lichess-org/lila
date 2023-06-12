@@ -5,7 +5,7 @@ import play.api.mvc.Request
 import play.api.i18n.Lang
 
 import chess.format.Fen
-import lila.api.Context
+import lila.api.context.*
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.game.{ AnonCookie, Pov }
@@ -14,6 +14,7 @@ import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
 import views.*
+import play.api.mvc.Result
 
 final class Setup(
     env: Env,
@@ -69,8 +70,7 @@ final class Setup(
   def friend(userId: Option[UserStr]) =
     OpenBody:
       PostRateLimit(ctx.ip, rateLimitedFu):
-        forms
-          .friend(ctx)
+        forms.friend
           .bindFromRequest()
           .fold(
             jsonFormError,
@@ -126,31 +126,27 @@ final class Setup(
         )
     case HookResult.Refused => BadRequest(jsonError("Game was not created"))
 
-  def hook(sri: Sri) =
-    def send(me: Option[lila.user.User])(using req: Request[_], lang: Lang) =
-      NoPlaybanOrCurrent(me):
+  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile)): ctx ?=>
+    NoBot:
+      NoPlaybanOrCurrent(ctx.me):
         forms
-          .hook(me)
+          .hook(ctx.me)
           .bindFromRequest()
           .fold(
             jsonFormError,
             userConfig =>
               PostRateLimit(req.ipAddress, rateLimitedFu):
-                AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = me.isEmpty ?? 1):
-                  (me.map(_.id) ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = ctx.isAnon ?? 1):
+                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
                     processor.hook(
-                      me,
-                      userConfig withinLimits me,
+                      ctx.me,
+                      userConfig withinLimits ctx.me,
                       sri,
                       req.sid,
                       lila.pool.Blocking(blocking)
                     ) map hookResponse
                   }
           )
-    OpenOrScopedBody(parse.anyContent)(Seq(_.Web.Mobile))(
-      open = ctx ?=> NoBot(send(ctx.me)),
-      scoped = req ?=> me => send(me.some)(using req, reqLang(me))
-    )
 
   def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
@@ -180,40 +176,51 @@ final class Setup(
             yield hookResponse(hookResult)
           }
 
-  private val BoardApiHookConcurrencyLimitPerUser = lila.memo.ConcurrencyLimit[UserId](
+  private val BoardApiHookConcurrencyLimitPerUserOrSri = lila.memo.ConcurrencyLimit[Either[Sri, UserId]](
     name = "Board API hook Stream API concurrency per user",
     key = "boardApiHook.concurrency.limit.user",
     ttl = 10.minutes,
     maxConcurrency = 1
   )
-  def boardApiHook = ScopedBody(_.Board.Play) { req ?=> me =>
-    given play.api.i18n.Lang = reqLang
-    if me.isBot then notForBotAccounts.toFuccess
-    else
-      forms.boardApiHook
-        .bindFromRequest()
-        .fold(
-          newJsonFormError,
-          config =>
-            env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
-              val uniqId = s"sri:${me.id}"
-              config.fixColor
-                .hook(Sri(uniqId), me.some, sid = uniqId.some, lila.pool.Blocking(blocking)) match {
-                case Left(hook) =>
-                  PostRateLimit(req.ipAddress, rateLimitedFu):
-                    BoardApiHookConcurrencyLimitPerUser(me.id)(
-                      env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                    )(apiC.sourceToNdJsonOption).toFuccess
-                case Right(Some(seek)) =>
-                  env.setup.processor.createSeekIfAllowed(seek, me.id) map {
-                    case HookResult.Refused =>
-                      BadRequest(Json.obj("error" -> "Already playing too many games"))
-                    case HookResult.Created(id) => Ok(Json.obj("id" -> id))
-                  }
-                case Right(None) => notFoundJson()
+  def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile) { ctx ?=> me =>
+    val author: Either[Result, Either[Sri, lila.user.User]] = me match
+      case Some(u) if u.isBot => Left(notForBotAccounts)
+      case Some(u)            => Right(Right(u))
+      case None =>
+        getAs[Sri]("sri") match
+          case Some(sri) => Right(Left(sri))
+          case None      => Left(BadRequest(jsonError("Authentication required")))
+    author match
+      case Left(err) => err.toFuccess
+      case Right(author) =>
+        forms
+          .boardApiHook(ctx.isMobile)
+          .bindFromRequest()
+          .fold(
+            newJsonFormError,
+            config =>
+              me.map(_.id).??(env.relation.api.fetchBlocking) flatMap { blocking =>
+                val uniqId = author.fold(_.value, u => s"sri:${u.id}")
+                config.fixColor
+                  .hook(Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
+                  case Left(hook) =>
+                    PostRateLimit(req.ipAddress, rateLimitedFu):
+                      BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
+                        env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                      )(apiC.sourceToNdJsonOption).toFuccess
+                  case Right(Some(seek)) =>
+                    author match
+                      case Left(_) => BadRequest(jsonError("Anonymous users cannot create seeks")).toFuccess
+                      case Right(u) =>
+                        env.setup.processor.createSeekIfAllowed(seek, u.id) map {
+                          case HookResult.Refused =>
+                            BadRequest(Json.obj("error" -> "Already playing too many games"))
+                          case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                        }
+                  case Right(None) => notFoundJson()
+
               }
-            }
-        )
+          )
   }
 
   def filterForm = Open:
@@ -224,8 +231,7 @@ final class Setup(
       case None    => BadRequest.toFuccess
       case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
 
-  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req ?=> me =>
-    given play.api.i18n.Lang = reqLang
+  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
     BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot ?? 1):
       PostRateLimit(req.ipAddress, rateLimitedFu):
         forms.api.ai
@@ -239,7 +245,7 @@ final class Setup(
           )
   }
 
-  private[controllers] def redirectPov(pov: Pov)(using ctx: Context) =
+  private[controllers] def redirectPov(pov: Pov)(using ctx: WebContext) =
     val redir = Redirect(routes.Round.watcher(pov.gameId.value, "white"))
     if ctx.isAuth then redir
     else

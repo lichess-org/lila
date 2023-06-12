@@ -10,7 +10,7 @@ opaque type UblogTopic = String
 object UblogTopic extends OpaqueString[UblogTopic]:
   extension (a: UblogTopic) def url = a.replace(" ", "_")
 
-  val chess = List(
+  val chess: List[UblogTopic] = List(
     "Chess",
     "Analysis",
     "Puzzle",
@@ -25,16 +25,17 @@ object UblogTopic extends OpaqueString[UblogTopic]:
     "Tournament",
     "Chess variant"
   )
-  val all = chess ::: List(
+  val offTopic: UblogTopic = "Off topic"
+  val all: List[UblogTopic] = chess ::: List(
     "Software Development",
     "Lichess",
-    "Off topic"
+    offTopic
   )
-  val exists                   = all.toSet
-  val chessExists              = chess.toSet
-  def get(str: String)         = exists(str) option UblogTopic(str)
-  def fromStrList(str: String) = str.split(',').toList.flatMap(get).distinct
-  def fromUrl(str: String)     = get(str.replace("_", " "))
+  val exists: Set[UblogTopic]                    = all.toSet
+  val chessExists: Set[UblogTopic]               = chess.toSet
+  def get(str: String): Option[UblogTopic]       = exists(str) option UblogTopic(str)
+  def fromStrList(str: String): List[UblogTopic] = str.split(',').toList.flatMap(get).distinct
+  def fromUrl(str: String): Option[UblogTopic]   = get(str.replace("_", " "))
 
   case class WithPosts(topic: UblogTopic, posts: List[UblogPost.PreviewPost], nb: Int)
 
@@ -48,8 +49,8 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
         .aggregateList(UblogTopic.all.size, ReadPreference.secondaryPreferred) { framework =>
           import framework.*
           Facet(
-            UblogTopic.all.map { topic =>
-              topic -> List(
+            UblogTopic.all.map: topic =>
+              topic.value -> List(
                 Match($doc("live" -> true, "topics" -> topic)),
                 Sort(Descending("rank")),
                 Project(previewPostProjection ++ $doc("rank" -> true)),
@@ -68,7 +69,6 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
                   )
                 )
               )
-            }
           ) -> List(
             Project($doc("all" -> $doc("$objectToArray" -> "$$ROOT"))),
             UnwindField("all"),
@@ -77,15 +77,14 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
             Project($doc("k" -> true, "nb" -> "$v.nb", "posts" -> "$v.posts"))
           )
         }
-        .map { docs =>
-          for {
+        .map: docs =>
+          for
             doc   <- docs
             t     <- doc string "k"
             topic <- UblogTopic.get(t)
             nb    <- doc int "nb"
             posts <- doc.getAsOpt[List[UblogPost.PreviewPost]]("posts")
-          } yield UblogTopic.WithPosts(topic, posts, nb)
-        }
+          yield UblogTopic.WithPosts(topic, posts, nb)
 
     })
 

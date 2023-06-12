@@ -4,14 +4,14 @@ package html.forum
 import controllers.report.routes.{ Report as reportRoutes }
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
 
 object post:
 
-  def recent(posts: List[lila.forum.MiniForumPost])(using Context) =
+  def recent(posts: List[lila.forum.MiniForumPost])(using WebContext) =
     ol(
       posts map { p =>
         li(
@@ -37,7 +37,7 @@ object post:
       canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean
-  )(using ctx: Context) = postWithFrag match
+  )(using ctx: WebContext) = postWithFrag match
     case ForumPost.WithFrag(post, body) =>
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
@@ -133,7 +133,7 @@ object post:
           )
       )
 
-  def reactions(post: ForumPost, canReact: Boolean)(using ctx: Context) =
+  def reactions(post: ForumPost, canReact: Boolean)(using ctx: WebContext) =
     val mine             = ctx.me ?? { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
@@ -141,18 +141,20 @@ object post:
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(
-          dataHref := canActuallyReact option routes.ForumPost.react(post.categId, post.id, r, !mine(r)).url,
-          cls      := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          dataHref := canActuallyReact option routes.ForumPost
+            .react(post.categId, post.id, r.key, !mine(r))
+            .url,
+          cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if (size > 0) {
               val who =
                 if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} others"
                 else users mkString ", "
               s"$who reacted with $r"
-            } else r
+            } else r.key
           }
         )(
-          img(src := assetUrl(s"images/emoji/$r.png"), alt := r),
+          img(src := assetUrl(s"images/emoji/$r.png"), alt := r.key),
           size > 0 option size
         )
       }

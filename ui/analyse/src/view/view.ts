@@ -162,27 +162,23 @@ function controls(ctrl: AnalyseCtrl) {
   return h(
     'div.analyse__controls.analyse-controls',
     {
-      hook: onInsert(el => {
-        bindMobileMousedown(
-          el,
-          e => {
-            const action = dataAct(e);
-            if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
-            else if (action === 'first') control.first(ctrl);
-            else if (action === 'last') control.last(ctrl);
-            else if (action === 'explorer') ctrl.toggleExplorer();
-            else if (action === 'practice') ctrl.togglePractice();
-            else if (action === 'menu') ctrl.actionMenu.toggle();
-            else if (action === 'analysis' && ctrl.studyPractice)
-              window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
-            else if (action === 'persistence') {
-              ctrl.persistence?.autoOpen(false);
-              ctrl.togglePersistence();
-            }
-          },
-          ctrl.redraw
-        );
-      }),
+      hook: onInsert(
+        bindMobileMousedown(e => {
+          const action = dataAct(e);
+          if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
+          else if (action === 'first') control.first(ctrl);
+          else if (action === 'last') control.last(ctrl);
+          else if (action === 'explorer') ctrl.toggleExplorer();
+          else if (action === 'practice') ctrl.togglePractice();
+          else if (action === 'menu') ctrl.actionMenu.toggle();
+          else if (action === 'analysis' && ctrl.studyPractice)
+            window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
+          else if (action === 'persistence') {
+            ctrl.persistence?.autoOpen(false);
+            ctrl.togglePersistence();
+          }
+        }, ctrl.redraw)
+      ),
     },
     [
       ctrl.embed
@@ -341,7 +337,7 @@ export default function (deps?: typeof studyDeps) {
 
   const renderAnalyse = (ctrl: AnalyseCtrl, concealOf?: ConcealOf) =>
     h('div.analyse__moves.areplay', [
-      h('div', [
+      h(`div.areplay__v${ctrl.treeVersion}`, [
         ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
         renderTreeView(ctrl, concealOf),
         ...renderResult(ctrl),

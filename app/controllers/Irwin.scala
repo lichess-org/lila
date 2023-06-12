@@ -12,9 +12,9 @@ final class Irwin(env: Env) extends LilaController(env):
     }
   }
 
-  def saveReport = ScopedBody(parse.json)(Nil) { req ?=> me =>
-    IfGranted(_.Admin, req, me):
-      req.body
+  def saveReport = ScopedBody(parse.json)(Nil) { ctx ?=> me =>
+    IfGranted(_.Admin):
+      ctx.body.body
         .validate[lila.irwin.IrwinReport]
         .fold(
           err => fuccess(BadRequest(err.toString)),
@@ -22,8 +22,8 @@ final class Irwin(env: Env) extends LilaController(env):
         ) map (_ as TEXT)
   }
 
-  def eventStream = Scoped() { req ?=> me =>
-    IfGranted(_.Admin, req, me):
+  def eventStream = Scoped() { _ ?=> me =>
+    IfGranted(_.Admin):
       noProxyBuffer(Ok.chunked(env.irwin.irwinStream())).toFuccess
   }
 

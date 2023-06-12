@@ -84,9 +84,8 @@ final class Env(
 
   def cli: lila.common.Cli = new:
     def process = { case "study" :: "rank" :: "reset" :: Nil =>
-      api.resetAllRanks.map { count =>
+      studyRepo.resetAllRanks.map: count =>
         s"$count done"
-      }
     }
 
   lila.common.Bus.subscribeFun("studyAnalysisProgress") {

@@ -1,6 +1,6 @@
 package views.html.coordinate
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.String.html.safeJsonValue
@@ -10,10 +10,13 @@ import lila.common.LangPath
 
 object show:
 
-  def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
+  def apply(scoreOption: Option[lila.coordinate.Score])(implicit ctx: WebContext) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
-      moreCss = cssTag("coordinateTrainer"),
+      moreCss = frag(
+        cssTag("coordinateTrainer"),
+        cssTag("voice")
+      ),
       moreJs = frag(
         jsModule("coordinateTrainer"),
         embedJsUnsafeLoadThen(
@@ -22,6 +25,7 @@ object show:
             )});"""
         )
       ),
+      csp = defaultCsp.withPeer.withWebAssembly.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess board coordinates trainer",

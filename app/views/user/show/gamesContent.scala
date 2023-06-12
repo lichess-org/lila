@@ -2,7 +2,7 @@ package views.html.user.show
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
@@ -18,7 +18,7 @@ object gamesContent:
       filters: lila.app.mashup.GameFilterMenu,
       filterName: String,
       notes: Map[GameId, String]
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map { f =>

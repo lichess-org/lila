@@ -87,7 +87,7 @@ def parse_codes():
                         continue
                     codes[name] = code_point
     print('' if not warnings else f'\nWarnings:\n{"".join(warnings)}')
-    return codes
+    return dict(sorted(codes.items(), key=lambda x: x[1]))
 
 
 def gen_sources(codes):
@@ -123,14 +123,14 @@ def find_replace_chars(names, do_replace):
     print('Replacing...' if do_replace else 'Checking...')
 
     sources = []
-    
+
     for dir, _, files in os.walk('.'):
-        if '/node_modules' in dir or '/dist' in dir:
+        if '/node_modules' in dir or '/dist' in dir or '.metals' in dir:
             continue
         sources.extend([join(dir, f) for f in filter(
             lambda f: \
                 any(map(lambda e: f.endswith(e), ['.ts', '.scala', '.scss'])) \
-                and not f in ['Licon.scala', 'licon.ts'], 
+                and not f in ['Licon.scala', 'licon.ts'],
             files
         )])
 

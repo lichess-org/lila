@@ -5,7 +5,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.api.Context
+import lila.api.WebContext
 import lila.common.Json.given
 
 final class Lobby(env: Env) extends LilaController(env):
@@ -30,7 +30,7 @@ final class Lobby(env: Env) extends LilaController(env):
           Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
     )
 
-  private def serveHtmlHome(using ctx: Context) =
+  private def serveHtmlHome(using ctx: WebContext) =
     env.pageCache { () =>
       keyPages.homeHtml.map { html =>
         Ok(html).withCanonical("").noCache

@@ -1,7 +1,7 @@
 package views.html
 package account
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -16,7 +16,7 @@ object security:
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(using Context) =
+  )(using WebContext) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security")(
         div(cls := "box")(

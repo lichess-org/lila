@@ -2,7 +2,7 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
@@ -10,7 +10,7 @@ import lila.mod.ModActivity.*
 
 object activity:
 
-  def apply(p: Result)(using Context) =
+  def apply(p: Result)(using WebContext) =
     views.html.base.layout(
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),

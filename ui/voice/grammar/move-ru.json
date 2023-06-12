@@ -1,619 +1,364 @@
 {
-  "crowdv": "en-1.json",
   "partials": {
-    "commands": ["yes", "no", "stop"],
-    "colors": ["green", "blue", "purple", "pink", "yellow", "orange", "white", "brown"],
+    "commands": ["yes", "no"],
+    "colors": ["green", "blue", "purple", "pink", "yellow", "orange", "red", "brown"],
     "numbers": ["1", "2", "3", "4", "5", "6", "7", "8"]
   },
   "entries": [
     {
-      "in": "a",
+      "in": "а",
       "tok": "a",
       "tags": ["file", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "e",
-          "cost": 0.4646551724137931
-        },
-        {
-          "to": "f",
-          "cost": 0.46896551724137936
-        },
-        {
-          "to": "8",
-          "cost": 0.47327586206896555
-        },
-        {
-          "to": "a8",
-          "cost": 0.5336206896551724
-        },
-        {
-          "to": "h",
-          "cost": 0.5681034482758621
-        },
-        {
-          "to": "8a",
-          "cost": 0.753448275862069
         }
       ]
     },
     {
-      "in": "b",
+      "in": "б",
       "tok": "b",
       "tags": ["file", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "d",
-          "cost": 0.4818965517241379
-        },
-        {
-          "to": "e",
-          "cost": 0.5896551724137931
-        },
-        {
-          "to": "b8",
-          "cost": 0.6801724137931034
         }
       ]
     },
     {
-      "in": "c",
+      "in": "ц",
       "tok": "c",
       "tags": ["file", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "3",
-          "cost": 0.710344827586207
-        },
-        {
-          "to": "6",
-          "cost": 0.7362068965517241
-        },
-        {
-          "to": "g",
-          "cost": 0.7405172413793104
-        },
-        {
-          "to": "c8",
-          "cost": 0.7577586206896552
         }
       ]
     },
     {
-      "in": "d",
+      "in": "д",
       "tok": "d",
       "tags": ["file", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "g",
-          "cost": 0.48620689655172417
-        },
-        {
-          "to": "b",
-          "cost": 0.4991379310344828
-        },
-        {
-          "to": "e",
-          "cost": 0.6068965517241379
-        },
-        {
-          "to": "d8",
-          "cost": 0.7146551724137931
-        },
-        {
-          "to": "3",
-          "cost": 0.7275862068965517
-        },
-        {
-          "to": "8d",
-          "cost": 0.8439655172413794
-        },
-        {
-          "to": "a",
-          "cost": 0.856896551724138
-        },
-        {
-          "to": "c",
-          "cost": 0.8913793103448275
         }
       ]
     },
     {
-      "in": "e",
+      "in": "е",
       "tok": "e",
       "tags": ["file", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "a",
-          "cost": 0.47758620689655173
-        },
-        {
-          "to": "b",
-          "cost": 0.5077586206896552
-        },
-        {
-          "to": "d",
-          "cost": 0.5120689655172415
-        },
-        {
-          "to": "g",
-          "cost": 0.5293103448275862
-        },
-        {
-          "to": "c",
-          "cost": 0.5508620689655173
-        },
-        {
-          "to": "e8",
-          "cost": 0.6974137931034483
         }
       ]
     },
     {
-      "in": "f",
+      "in": "ф",
       "tok": "f",
       "tags": ["file", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "a",
-          "cost": 0.6758620689655173
-        },
-        {
-          "to": "h",
-          "cost": 0.7060344827586207
-        },
-        {
-          "to": "e",
-          "cost": 0.8310344827586207
-        },
-        {
-          "to": "8f",
-          "cost": 0.8612068965517241
         }
       ]
     },
     {
-      "in": "g",
+      "in": "г",
       "tok": "g",
       "tags": ["file", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "d",
-          "cost": 0.503448275862069
-        },
-        {
-          "to": "g8",
-          "cost": 0.5637931034482759
-        },
-        {
-          "to": "c",
-          "cost": 0.835344827586207
-        },
-        {
-          "to": "8g",
-          "cost": 0.8482758620689655
         }
       ]
     },
     {
-      "in": "h",
+      "in": "джи",
+      "tok": "g",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "жи",
+      "tok": "g",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "ж",
+      "tok": "g",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "х",
       "tok": "h",
       "tags": ["file", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "8",
-          "cost": 0.5163793103448276
-        },
-        {
-          "to": "a",
-          "cost": 0.6413793103448276
-        },
-        {
-          "to": "8h",
-          "cost": 0.7879310344827586
-        },
-        {
-          "to": "e",
-          "cost": 0.878448275862069
         }
       ]
     },
     {
-      "in": "one",
+      "in": "аш",
+      "tok": "h",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "эйч",
+      "tok": "h",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "ш",
+      "tok": "h",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "один",
       "tok": "1",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "P",
-          "cost": 0.6025862068965517
-        },
-        {
-          "to": "e1",
-          "cost": 0.6155172413793104
-        },
-        {
-          "to": "f1",
-          "cost": 0.8137931034482759
         }
       ]
     },
     {
-      "in": "two",
+      "in": "два",
       "tok": "2",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "g",
-          "cost": 0.628448275862069
-        },
-        {
-          "to": "e2",
-          "cost": 0.6370689655172415
-        },
-        {
-          "to": "3",
-          "cost": 0.693103448275862
-        },
-        {
-          "to": "d",
-          "cost": 0.8655172413793104
-        },
-        {
-          "to": "f2",
-          "cost": 0.8827586206896552
-        },
-        {
-          "to": "I",
-          "cost": 0.4
         }
       ]
     },
     {
-      "in": "three",
+      "in": "три",
       "tok": "3",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "3e",
-          "cost": 0.5206896551724138
-        },
-        {
-          "to": "e3",
-          "cost": 0.7017241379310345
-        },
-        {
-          "to": "3a",
-          "cost": 0.7663793103448275
-        },
-        {
-          "to": "f3",
-          "cost": 0.775
         }
       ]
     },
     {
-      "in": "four",
+      "in": "четыре",
       "tok": "4",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "f4",
-          "cost": 0.6112068965517241
-        },
-        {
-          "to": "e4",
-          "cost": 0.7189655172413794
-        },
-        {
-          "to": "4f",
-          "cost": 0.8008620689655173
-        },
-        {
-          "to": "4a",
-          "cost": 0.8870689655172415
         }
       ]
     },
     {
-      "in": "five",
+      "in": "пять",
       "tok": "5",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "f5",
-          "cost": 0.585344827586207
-        },
-        {
-          "to": "5f",
-          "cost": 0.6241379310344828
-        },
-        {
-          "to": "e5",
-          "cost": 0.7232758620689655
-        },
-        {
-          "to": "5a",
-          "cost": 0.8267241379310345
         }
       ]
     },
     {
-      "in": "six",
+      "in": "шесть",
       "tok": "6",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "f6",
-          "cost": 0.6887931034482759
-        },
-        {
-          "to": "e6",
-          "cost": 0.7706896551724138
-        },
-        {
-          "to": "6a",
-          "cost": 0.7922413793103449
-        },
-        {
-          "to": "h6",
-          "cost": 0.8094827586206896
-        },
-        {
-          "to": "c6",
-          "cost": 0.8956896551724138
         }
       ]
     },
     {
-      "in": "seven",
+      "in": "семь",
       "tok": "7",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "h7",
-          "cost": 0.7793103448275862
-        },
-        {
-          "to": "e7",
-          "cost": 0.8224137931034483
-        },
-        {
-          "to": "7f",
-          "cost": 0.8396551724137931
-        },
-        {
-          "to": "7a",
-          "cost": 0.8698275862068966
-        },
-        {
-          "to": "f7",
-          "cost": 0.8741379310344828
         }
       ]
     },
     {
-      "in": "eight",
+      "in": "восемь",
       "tok": "8",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "a",
-          "cost": 0.4431034482758621
-        },
-        {
-          "to": "a8",
-          "cost": 0.4517241379310345
-        },
-        {
-          "to": "h",
-          "cost": 0.46034482758620693
-        },
-        {
-          "to": "e",
-          "cost": 0.5551724137931034
-        },
-        {
-          "to": "8a",
-          "cost": 0.65
-        },
-        {
-          "to": "e8",
-          "cost": 0.731896551724138
         }
       ]
     },
     {
-      "in": "pawn",
+      "in": "пешка",
       "tok": "P",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "Pa",
-          "cost": 0.5810344827586207
-        },
-        {
-          "to": "Pe",
-          "cost": 0.7620689655172415
-        },
-        {
-          "to": "Pf",
-          "cost": 0.7965517241379311
         }
       ]
     },
     {
-      "in": "knight",
+      "in": "конь",
       "tok": "N",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "K",
-          "cost": 0.5594827586206896
-        },
-        {
-          "to": "Na",
-          "cost": 0.6844827586206896
-        },
-        {
-          "to": "Nd",
-          "cost": 0.818103448275862
         }
       ]
     },
     {
-      "in": "bishop",
+      "in": "лошадь",
+      "tok": "N",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "слон",
       "tok": "B",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "Bf",
-          "cost": 0.7491379310344828
-        },
-        {
-          "to": "Ba",
-          "cost": 0.7836206896551725
         }
       ]
     },
     {
-      "in": "rook",
+      "in": "ладья",
       "tok": "R",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "Ra",
-          "cost": 0.6198275862068966
         }
       ]
     },
     {
-      "in": "queen",
+      "in": "башня",
+      "tok": "R",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "дама",
       "tok": "Q",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "Qe",
-          "cost": 0.6543103448275862
-        },
-        {
-          "to": "8Q",
-          "cost": 0.6586206896551725
         }
       ]
     },
     {
-      "in": "king",
+      "in": "ферзь",
+      "tok": "Q",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "королева",
+      "tok": "Q",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "король",
       "tok": "K",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "Ka",
-          "cost": 0.5465517241379311
-        },
-        {
-          "to": "Kf",
-          "cost": 0.5939655172413794
-        },
-        {
-          "to": "Ke",
-          "cost": 0.5982758620689655
-        },
-        {
-          "to": "N",
-          "cost": 0.6629310344827586
         }
       ]
     },
     {
-      "in": "castle",
+      "in": "рокировка",
       "val": "castle",
       "tags": ["move"],
       "tok": "!",
@@ -625,43 +370,43 @@
       ]
     },
     {
-      "in": "short castle",
+      "in": "короткая рокировка",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "u!"
+      "tok": "z!"
     },
     {
-      "in": "king side castle",
+      "in": "два нуля",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "Kv!"
+      "tok": "2{"
     },
     {
-      "in": "castle king side",
+      "in": "рокировка королевского фланга",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "!Kv"
+      "tok": "!|}"
     },
     {
-      "in": "long castle",
+      "in": "длинная рокировка",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "w!"
+      "tok": "Ā!"
     },
     {
-      "in": "castle queen side",
+      "in": "три нуля",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "!Qv"
+      "tok": "3{"
     },
     {
-      "in": "queen side castle",
+      "in": "рокировка ферзевого фланга",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "Qv!"
+      "tok": "!ā}"
     },
     {
-      "in": "take",
+      "in": "берет",
       "val": "x",
       "tags": ["move"],
       "tok": "#",
@@ -673,7 +418,7 @@
       ]
     },
     {
-      "in": "takes",
+      "in": "забирает",
       "val": "x",
       "tags": ["move"],
       "tok": "$",
@@ -681,19 +426,11 @@
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "6",
-          "cost": 0.4948275862068966
-        },
-        {
-          "to": "h",
-          "cost": 0.6327586206896552
         }
       ]
     },
     {
-      "in": "capture",
+      "in": "ест",
       "val": "x",
       "tags": ["move"],
       "tok": "%",
@@ -705,7 +442,7 @@
       ]
     },
     {
-      "in": "captures",
+      "in": "бьёт",
       "val": "x",
       "tags": ["move"],
       "tok": "&",
@@ -713,15 +450,11 @@
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "&R",
-          "cost": 0.5767241379310345
         }
       ]
     },
     {
-      "in": "promote",
+      "in": "становится",
       "val": "=",
       "tags": ["move"],
       "tok": "(",
@@ -729,15 +462,11 @@
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "8(",
-          "cost": 0.49051724137931035
         }
       ]
     },
     {
-      "in": "promotes",
+      "in": "повышается",
       "val": "=",
       "tags": ["move"],
       "tok": ")",
@@ -749,9 +478,9 @@
       ]
     },
     {
-      "in": "promotion",
-      "val": "=",
-      "tags": ["move"],
+      "in": "упс",
+      "val": "takeback",
+      "tags": ["command"],
       "tok": "*",
       "subs": [
         {
@@ -761,7 +490,7 @@
       ]
     },
     {
-      "in": "undo",
+      "in": "переиграть",
       "val": "takeback",
       "tags": ["command"],
       "tok": "+",
@@ -773,9 +502,15 @@
       ]
     },
     {
-      "in": "oops",
+      "in": "предложить переиграть ход",
       "val": "takeback",
       "tags": ["command"],
+      "tok": "Ă+ă"
+    },
+    {
+      "in": "ничья",
+      "val": "draw",
+      "tags": ["command", "round"],
       "tok": "-",
       "subs": [
         {
@@ -785,8 +520,20 @@
       ]
     },
     {
-      "in": "draw",
+      "in": "предложить ничью",
       "val": "draw",
+      "tags": ["command", "round"],
+      "tok": "ĂĄ"
+    },
+    {
+      "in": "принять ничью",
+      "val": "draw",
+      "tags": ["command", "round"],
+      "tok": "IĄ"
+    },
+    {
+      "in": "сдаться",
+      "val": "resign",
       "tags": ["command", "round"],
       "tok": ".",
       "subs": [
@@ -797,20 +544,8 @@
       ]
     },
     {
-      "in": "offer draw",
-      "val": "draw",
-      "tags": ["command", "round"],
-      "tok": "x."
-    },
-    {
-      "in": "accept draw",
-      "val": "draw",
-      "tags": ["command", "round"],
-      "tok": "y."
-    },
-    {
-      "in": "resign",
-      "val": "resign",
+      "in": "реванш",
+      "val": "rematch",
       "tags": ["command", "round"],
       "tok": "/",
       "subs": [
@@ -821,8 +556,20 @@
       ]
     },
     {
-      "in": "rematch",
-      "val": "rematch",
+      "in": "повернуть доску",
+      "val": "flip",
+      "tags": ["command"],
+      "tok": "ąĆ"
+    },
+    {
+      "in": "перевернуть доску",
+      "val": "flip",
+      "tags": ["command"],
+      "tok": "ćĆ"
+    },
+    {
+      "in": "часы",
+      "val": "clock",
       "tags": ["command", "round"],
       "tok": "0",
       "subs": [
@@ -833,9 +580,9 @@
       ]
     },
     {
-      "in": "flip",
-      "val": "flip",
-      "tags": ["command"],
+      "in": "время",
+      "val": "clock",
+      "tags": ["command", "round"],
       "tok": "9",
       "subs": [
         {
@@ -845,8 +592,8 @@
       ]
     },
     {
-      "in": "clock",
-      "val": "clock",
+      "in": "противник",
+      "val": "who",
       "tags": ["command", "round"],
       "tok": ":",
       "subs": [
@@ -857,7 +604,7 @@
       ]
     },
     {
-      "in": "opponent",
+      "in": "оппонент",
       "val": "who",
       "tags": ["command", "round"],
       "tok": ";",
@@ -869,7 +616,7 @@
       ]
     },
     {
-      "in": "next",
+      "in": "следующий",
       "val": "next",
       "tags": ["command", "puzzle"],
       "tok": "<",
@@ -881,7 +628,7 @@
       ]
     },
     {
-      "in": "continue",
+      "in": "далее",
       "val": "next",
       "tags": ["command", "puzzle"],
       "tok": "=",
@@ -893,20 +640,8 @@
       ]
     },
     {
-      "in": "thumbs up",
-      "val": "upvote",
-      "tags": ["command", "puzzle"],
-      "tok": "z{"
-    },
-    {
-      "in": "thumbs down",
-      "val": "downvote",
-      "tags": ["command", "puzzle"],
-      "tok": "z|"
-    },
-    {
-      "in": "solution",
-      "val": "solve",
+      "in": "продолжить",
+      "val": "next",
       "tags": ["command", "puzzle"],
       "tok": ">",
       "subs": [
@@ -917,9 +652,15 @@
       ]
     },
     {
-      "in": "help",
-      "val": "help",
-      "tags": ["command"],
+      "in": "пальцы вверх",
+      "val": "upvote",
+      "tags": ["command", "puzzle"],
+      "tok": "Ĉĉ"
+    },
+    {
+      "in": "плюс",
+      "val": "upvote",
+      "tags": ["command", "puzzle"],
       "tok": "?",
       "subs": [
         {
@@ -929,9 +670,15 @@
       ]
     },
     {
-      "in": "stop",
-      "val": "stop",
-      "tags": ["command"],
+      "in": "пальцы вниз",
+      "val": "downvote",
+      "tags": ["command", "puzzle"],
+      "tok": "ĈĊ"
+    },
+    {
+      "in": "минус",
+      "val": "downvote",
+      "tags": ["command", "puzzle"],
       "tok": "@",
       "subs": [
         {
@@ -941,41 +688,21 @@
       ]
     },
     {
-      "in": "stop listening",
-      "val": "mic-off",
-      "tags": ["command"],
-      "tok": "@}"
-    },
-    {
-      "in": "stop recording",
-      "val": "mic-off",
-      "tags": ["command"],
-      "tok": "@Ā"
-    },
-    {
-      "in": "yes",
-      "val": "yes",
-      "tags": ["choice"],
+      "in": "решение",
+      "val": "solve",
+      "tags": ["command", "puzzle"],
       "tok": "A",
       "subs": [
         {
           "to": "",
-          "cost": 0.43017241379310345
-        },
-        {
-          "to": "e",
-          "cost": 0.42155172413793107
-        },
-        {
-          "to": "e8",
-          "cost": 0.4560344827586207
+          "cost": 0.5
         }
       ]
     },
     {
-      "in": "confirm",
-      "val": "yes",
-      "tags": ["choice"],
+      "in": "подсказка",
+      "val": "solve",
+      "tags": ["command", "puzzle"],
       "tok": "C",
       "subs": [
         {
@@ -985,25 +712,33 @@
       ]
     },
     {
-      "in": "no",
-      "val": "no",
-      "tags": ["choice"],
+      "in": "помощь",
+      "val": "help",
+      "tags": ["command"],
       "tok": "D",
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "N",
-          "cost": 0.41724137931034483
         }
       ]
     },
     {
-      "in": "clear",
-      "val": "no",
-      "tags": ["choice"],
+      "in": "остановить прослушивание",
+      "val": "stop",
+      "tags": ["command"],
+      "tok": "Eċ"
+    },
+    {
+      "in": "остановить запись",
+      "val": "stop",
+      "tags": ["command"],
+      "tok": "EČ"
+    },
+    {
+      "in": "остановить",
+      "val": "stop",
+      "tags": ["command"],
       "tok": "E",
       "subs": [
         {
@@ -1013,9 +748,9 @@
       ]
     },
     {
-      "in": "close",
-      "val": "no",
-      "tags": ["choice"],
+      "in": "стоп",
+      "val": "stop",
+      "tags": ["command"],
       "tok": "F",
       "subs": [
         {
@@ -1025,8 +760,8 @@
       ]
     },
     {
-      "in": "cancel",
-      "val": "no",
+      "in": "да",
+      "val": "yes",
       "tags": ["choice"],
       "tok": "G",
       "subs": [
@@ -1037,8 +772,8 @@
       ]
     },
     {
-      "in": "abort",
-      "val": "no",
+      "in": "ок",
+      "val": "yes",
       "tags": ["choice"],
       "tok": "H",
       "subs": [
@@ -1049,49 +784,33 @@
       ]
     },
     {
-      "in": "blue",
-      "val": "blue",
-      "tags": ["color", "choice"],
+      "in": "принять",
+      "val": "yes",
+      "tags": ["choice"],
       "tok": "I",
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "2",
-          "cost": 0.41293103448275864
-        },
-        {
-          "to": "b",
-          "cost": 0.4344827586206897
         }
       ]
     },
     {
-      "in": "green",
-      "val": "green",
-      "tags": ["color", "choice"],
+      "in": "подтвердить",
+      "val": "yes",
+      "tags": ["choice"],
       "tok": "J",
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "Q",
-          "cost": 0.4
-        },
-        {
-          "to": "3",
-          "cost": 0.42586206896551726
         }
       ]
     },
     {
-      "in": "yellow",
-      "val": "yellow",
-      "tags": ["color", "choice"],
+      "in": "нет",
+      "val": "no",
+      "tags": ["choice"],
       "tok": "L",
       "subs": [
         {
@@ -1101,25 +820,21 @@
       ]
     },
     {
-      "in": "red",
-      "val": "red",
-      "tags": ["color", "choice"],
+      "in": "отменить",
+      "val": "no",
+      "tags": ["choice"],
       "tok": "M",
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        },
-        {
-          "to": "8",
-          "cost": 0.4387931034482759
         }
       ]
     },
     {
-      "in": "pink",
-      "val": "pink",
-      "tags": ["color", "choice"],
+      "in": "закрыть",
+      "val": "no",
+      "tags": ["choice"],
       "tok": "O",
       "subs": [
         {
@@ -1129,9 +844,9 @@
       ]
     },
     {
-      "in": "purple",
-      "val": "purple",
-      "tags": ["color", "choice"],
+      "in": "убрать",
+      "val": "no",
+      "tags": ["choice"],
       "tok": "S",
       "subs": [
         {
@@ -1141,8 +856,8 @@
       ]
     },
     {
-      "in": "orange",
-      "val": "orange",
+      "in": "синий",
+      "val": "blue",
       "tags": ["color", "choice"],
       "tok": "T",
       "subs": [
@@ -1153,8 +868,8 @@
       ]
     },
     {
-      "in": "brown",
-      "val": "brown",
+      "in": "голубой",
+      "val": "blue",
       "tags": ["color", "choice"],
       "tok": "U",
       "subs": [
@@ -1165,8 +880,8 @@
       ]
     },
     {
-      "in": "white",
-      "val": "white",
+      "in": "зеленый",
+      "val": "green",
       "tags": ["color", "choice"],
       "tok": "V",
       "subs": [
@@ -1177,9 +892,9 @@
       ]
     },
     {
-      "in": "alfa",
-      "val": "a",
-      "tags": ["file", "move", "phonetic"],
+      "in": "желтый",
+      "val": "yellow",
+      "tags": ["color", "choice"],
       "tok": "W",
       "subs": [
         {
@@ -1189,9 +904,9 @@
       ]
     },
     {
-      "in": "bravo",
-      "val": "b",
-      "tags": ["file", "move", "phonetic"],
+      "in": "красный",
+      "val": "red",
+      "tags": ["color", "choice"],
       "tok": "X",
       "subs": [
         {
@@ -1201,9 +916,9 @@
       ]
     },
     {
-      "in": "charlie",
-      "val": "c",
-      "tags": ["file", "move", "phonetic"],
+      "in": "розовый",
+      "val": "pink",
+      "tags": ["color", "choice"],
       "tok": "Y",
       "subs": [
         {
@@ -1213,9 +928,9 @@
       ]
     },
     {
-      "in": "delta",
-      "val": "d",
-      "tags": ["file", "move", "phonetic"],
+      "in": "фиолетовый",
+      "val": "purple",
+      "tags": ["color", "choice"],
       "tok": "Z",
       "subs": [
         {
@@ -1225,9 +940,9 @@
       ]
     },
     {
-      "in": "echo",
-      "val": "e",
-      "tags": ["file", "move", "phonetic"],
+      "in": "оранжевый",
+      "val": "orange",
+      "tags": ["color", "choice"],
       "tok": "[",
       "subs": [
         {
@@ -1237,9 +952,9 @@
       ]
     },
     {
-      "in": "foxtrot",
-      "val": "f",
-      "tags": ["file", "move", "phonetic"],
+      "in": "коричневый",
+      "val": "brown",
+      "tags": ["color", "choice"],
       "tok": "\\",
       "subs": [
         {
@@ -1249,9 +964,9 @@
       ]
     },
     {
-      "in": "golf",
-      "val": "g",
-      "tags": ["file", "move", "phonetic"],
+      "in": "белый",
+      "val": "white",
+      "tags": ["color", "choice"],
       "tok": "]",
       "subs": [
         {
@@ -1261,9 +976,9 @@
       ]
     },
     {
-      "in": "hotel",
-      "val": "h",
-      "tags": ["file", "move", "phonetic"],
+      "in": "альфа",
+      "val": "a",
+      "tags": ["file", "move", "nato"],
       "tok": "^",
       "subs": [
         {
@@ -1273,101 +988,93 @@
       ]
     },
     {
-      "in": "mate",
-      "val": "",
-      "tags": ["move", "ignore"],
+      "in": "браво",
+      "val": "b",
+      "tags": ["file", "move", "nato"],
       "tok": "_",
       "subs": [
         {
           "to": "",
-          "cost": 0
-        },
-        {
-          "to": "N",
-          "cost": 0.4474137931034483
-        },
-        {
-          "to": "b",
-          "cost": 0.525
+          "cost": 0.5
         }
       ]
     },
     {
-      "in": "check",
-      "val": "",
-      "tags": ["move", "ignore"],
+      "in": "чарли",
+      "val": "c",
+      "tags": ["file", "move", "nato"],
       "tok": "`",
       "subs": [
         {
           "to": "",
-          "cost": 0
+          "cost": 0.5
         }
       ]
     },
     {
-      "in": "puzzle",
-      "val": "",
-      "tags": ["ignore"],
+      "in": "дельта",
+      "val": "d",
+      "tags": ["file", "move", "nato"],
       "tok": "i",
       "subs": [
         {
           "to": "",
-          "cost": 0
+          "cost": 0.5
         }
       ]
     },
     {
-      "in": "and",
-      "val": "",
-      "tags": ["ignore"],
+      "in": "эхо",
+      "val": "e",
+      "tags": ["file", "move", "nato"],
       "tok": "j",
       "subs": [
         {
           "to": "",
-          "cost": 0
+          "cost": 0.5
         }
       ]
     },
     {
-      "in": "oh",
-      "val": "",
-      "tags": ["ignore"],
+      "in": "фокстрот",
+      "val": "f",
+      "tags": ["file", "move", "nato"],
       "tok": "k",
       "subs": [
         {
           "to": "",
-          "cost": 0
+          "cost": 0.5
         }
       ]
     },
     {
-      "in": "um",
-      "val": "",
-      "tags": ["ignore"],
+      "in": "гольф",
+      "val": "g",
+      "tags": ["file", "move", "nato"],
       "tok": "l",
       "subs": [
         {
           "to": "",
-          "cost": 0
+          "cost": 0.5
         }
       ]
     },
     {
-      "in": "uh",
-      "val": "",
-      "tags": ["ignore"],
+      "in": "отель",
+      "val": "h",
+      "tags": ["file", "move", "nato"],
       "tok": "m",
       "subs": [
         {
           "to": "",
-          "cost": 0
+          "cost": 0.5
         }
       ]
     },
     {
-      "in": "hmm",
+      "in": "шахмат",
       "val": "",
-      "tags": ["ignore"],
+      "tags": ["move", "ignore"],
       "tok": "n",
       "subs": [
         {
@@ -1377,9 +1084,9 @@
       ]
     },
     {
-      "in": "huh",
+      "in": "мат",
       "val": "",
-      "tags": ["ignore"],
+      "tags": ["move", "ignore"],
       "tok": "o",
       "subs": [
         {
@@ -1389,9 +1096,9 @@
       ]
     },
     {
-      "in": "his",
+      "in": "шах",
       "val": "",
-      "tags": ["ignore"],
+      "tags": ["move", "ignore"],
       "tok": "p",
       "subs": [
         {
@@ -1401,7 +1108,7 @@
       ]
     },
     {
-      "in": "her",
+      "in": "пазл",
       "val": "",
       "tags": ["ignore"],
       "tok": "q",
@@ -1413,7 +1120,7 @@
       ]
     },
     {
-      "in": "the",
+      "in": "и",
       "val": "",
       "tags": ["ignore"],
       "tok": "r",
@@ -1421,23 +1128,11 @@
         {
           "to": "",
           "cost": 0
-        },
-        {
-          "to": "d",
-          "cost": 0.3
-        },
-        {
-          "to": "b",
-          "cost": 0.6
-        },
-        {
-          "to": "e",
-          "cost": 0.6
         }
       ]
     },
     {
-      "in": "their",
+      "in": "на",
       "val": "",
       "tags": ["ignore"],
       "tok": "s",
@@ -1449,7 +1144,7 @@
       ]
     },
     {
-      "in": "training",
+      "in": "а",
       "val": "",
       "tags": ["ignore"],
       "tok": "t",
@@ -1461,70 +1156,67 @@
       ]
     },
     {
-      "in": "short",
+      "in": "э",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "u",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
         }
       ]
     },
     {
-      "in": "side",
+      "in": "хм",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "v",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
         }
       ]
     },
     {
-      "in": "long",
+      "in": "ага",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "w",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
-        },
-        {
-          "to": "1",
-          "cost": 0.4043103448275862
-        },
-        {
-          "to": "P",
-          "cost": 0.40862068965517245
+          "cost": 0
         }
       ]
     },
     {
-      "in": "offer",
+      "in": "в",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "x",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
         }
       ]
     },
     {
-      "in": "accept",
+      "in": "за",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "y",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
         }
       ]
     },
     {
-      "in": "thumbs",
+      "in": "короткая",
       "tok": "z",
       "tags": ["part"],
       "subs": [
@@ -1535,7 +1227,7 @@
       ]
     },
     {
-      "in": "up",
+      "in": "нуля",
       "tok": "{",
       "tags": ["part"],
       "subs": [
@@ -1546,7 +1238,7 @@
       ]
     },
     {
-      "in": "down",
+      "in": "королевского",
       "tok": "|",
       "tags": ["part"],
       "subs": [
@@ -1557,7 +1249,7 @@
       ]
     },
     {
-      "in": "listening",
+      "in": "фланга",
       "tok": "}",
       "tags": ["part"],
       "subs": [
@@ -1568,8 +1260,140 @@
       ]
     },
     {
-      "in": "recording",
+      "in": "длинная",
       "tok": "Ā",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "ферзевого",
+      "tok": "ā",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "предложить",
+      "tok": "Ă",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "ход",
+      "tok": "ă",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "ничью",
+      "tok": "Ą",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "повернуть",
+      "tok": "ą",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "доску",
+      "tok": "Ć",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "перевернуть",
+      "tok": "ć",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "пальцы",
+      "tok": "Ĉ",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "вверх",
+      "tok": "ĉ",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "вниз",
+      "tok": "Ċ",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "прослушивание",
+      "tok": "ċ",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "запись",
+      "tok": "Č",
       "tags": ["part"],
       "subs": [
         {

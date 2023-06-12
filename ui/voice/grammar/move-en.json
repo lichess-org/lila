@@ -1,7 +1,8 @@
 {
+  "crowdv": "en-1.json",
   "partials": {
-    "commands": ["yes", "no", "stop"],
-    "colors": ["green", "blue", "purple", "pink", "yellow", "orange", "white", "brown"],
+    "commands": ["yes", "no"],
+    "colors": ["green", "blue", "purple", "pink", "yellow", "orange", "red", "brown"],
     "numbers": ["1", "2", "3", "4", "5", "6", "7", "8"]
   },
   "entries": [
@@ -13,6 +14,30 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "e",
+          "cost": 0.4646551724137931
+        },
+        {
+          "to": "f",
+          "cost": 0.46896551724137936
+        },
+        {
+          "to": "8",
+          "cost": 0.47327586206896555
+        },
+        {
+          "to": "a8",
+          "cost": 0.5336206896551724
+        },
+        {
+          "to": "h",
+          "cost": 0.5681034482758621
+        },
+        {
+          "to": "8a",
+          "cost": 0.753448275862069
         }
       ]
     },
@@ -24,6 +49,18 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "d",
+          "cost": 0.4818965517241379
+        },
+        {
+          "to": "e",
+          "cost": 0.5896551724137931
+        },
+        {
+          "to": "b8",
+          "cost": 0.6801724137931034
         }
       ]
     },
@@ -35,6 +72,22 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "3",
+          "cost": 0.710344827586207
+        },
+        {
+          "to": "6",
+          "cost": 0.7362068965517241
+        },
+        {
+          "to": "g",
+          "cost": 0.7405172413793104
+        },
+        {
+          "to": "c8",
+          "cost": 0.7577586206896552
         }
       ]
     },
@@ -46,6 +99,38 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "g",
+          "cost": 0.48620689655172417
+        },
+        {
+          "to": "b",
+          "cost": 0.4991379310344828
+        },
+        {
+          "to": "e",
+          "cost": 0.6068965517241379
+        },
+        {
+          "to": "d8",
+          "cost": 0.7146551724137931
+        },
+        {
+          "to": "3",
+          "cost": 0.7275862068965517
+        },
+        {
+          "to": "8d",
+          "cost": 0.8439655172413794
+        },
+        {
+          "to": "a",
+          "cost": 0.856896551724138
+        },
+        {
+          "to": "c",
+          "cost": 0.8913793103448275
         }
       ]
     },
@@ -57,6 +142,30 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "a",
+          "cost": 0.47758620689655173
+        },
+        {
+          "to": "b",
+          "cost": 0.5077586206896552
+        },
+        {
+          "to": "d",
+          "cost": 0.5120689655172415
+        },
+        {
+          "to": "g",
+          "cost": 0.5293103448275862
+        },
+        {
+          "to": "c",
+          "cost": 0.5508620689655173
+        },
+        {
+          "to": "e8",
+          "cost": 0.6974137931034483
         }
       ]
     },
@@ -68,6 +177,22 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "a",
+          "cost": 0.6758620689655173
+        },
+        {
+          "to": "h",
+          "cost": 0.7060344827586207
+        },
+        {
+          "to": "e",
+          "cost": 0.8310344827586207
+        },
+        {
+          "to": "8f",
+          "cost": 0.8612068965517241
         }
       ]
     },
@@ -79,6 +204,22 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "d",
+          "cost": 0.503448275862069
+        },
+        {
+          "to": "g8",
+          "cost": 0.5637931034482759
+        },
+        {
+          "to": "c",
+          "cost": 0.835344827586207
+        },
+        {
+          "to": "8g",
+          "cost": 0.8482758620689655
         }
       ]
     },
@@ -90,176 +231,389 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "8",
+          "cost": 0.5163793103448276
+        },
+        {
+          "to": "a",
+          "cost": 0.6413793103448276
+        },
+        {
+          "to": "8h",
+          "cost": 0.7879310344827586
+        },
+        {
+          "to": "e",
+          "cost": 0.878448275862069
         }
       ]
     },
     {
-      "in": "eins",
+      "in": "one",
       "tok": "1",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "P",
+          "cost": 0.6025862068965517
+        },
+        {
+          "to": "e1",
+          "cost": 0.6155172413793104
+        },
+        {
+          "to": "f1",
+          "cost": 0.8137931034482759
         }
       ]
     },
     {
-      "in": "zwei",
+      "in": "two",
       "tok": "2",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "g",
+          "cost": 0.628448275862069
+        },
+        {
+          "to": "e2",
+          "cost": 0.6370689655172415
+        },
+        {
+          "to": "3",
+          "cost": 0.693103448275862
+        },
+        {
+          "to": "d",
+          "cost": 0.8655172413793104
+        },
+        {
+          "to": "f2",
+          "cost": 0.8827586206896552
+        },
+        {
+          "to": "I",
+          "cost": 0.4
         }
       ]
     },
     {
-      "in": "drei",
+      "in": "three",
       "tok": "3",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "3e",
+          "cost": 0.5206896551724138
+        },
+        {
+          "to": "e3",
+          "cost": 0.7017241379310345
+        },
+        {
+          "to": "3a",
+          "cost": 0.7663793103448275
+        },
+        {
+          "to": "f3",
+          "cost": 0.775
         }
       ]
     },
     {
-      "in": "vier",
+      "in": "four",
       "tok": "4",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "f4",
+          "cost": 0.6112068965517241
+        },
+        {
+          "to": "e4",
+          "cost": 0.7189655172413794
+        },
+        {
+          "to": "4f",
+          "cost": 0.8008620689655173
+        },
+        {
+          "to": "4a",
+          "cost": 0.8870689655172415
         }
       ]
     },
     {
-      "in": "fünf",
+      "in": "five",
       "tok": "5",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "f5",
+          "cost": 0.585344827586207
+        },
+        {
+          "to": "5f",
+          "cost": 0.6241379310344828
+        },
+        {
+          "to": "e5",
+          "cost": 0.7232758620689655
+        },
+        {
+          "to": "5a",
+          "cost": 0.8267241379310345
         }
       ]
     },
     {
-      "in": "sechs",
+      "in": "six",
       "tok": "6",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "f6",
+          "cost": 0.6887931034482759
+        },
+        {
+          "to": "e6",
+          "cost": 0.7706896551724138
+        },
+        {
+          "to": "6a",
+          "cost": 0.7922413793103449
+        },
+        {
+          "to": "h6",
+          "cost": 0.8094827586206896
+        },
+        {
+          "to": "c6",
+          "cost": 0.8956896551724138
         }
       ]
     },
     {
-      "in": "sieben",
+      "in": "seven",
       "tok": "7",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "h7",
+          "cost": 0.7793103448275862
+        },
+        {
+          "to": "e7",
+          "cost": 0.8224137931034483
+        },
+        {
+          "to": "7f",
+          "cost": 0.8396551724137931
+        },
+        {
+          "to": "7a",
+          "cost": 0.8698275862068966
+        },
+        {
+          "to": "f7",
+          "cost": 0.8741379310344828
         }
       ]
     },
     {
-      "in": "acht",
+      "in": "eight",
       "tok": "8",
       "tags": ["rank", "move", "choice"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "a",
+          "cost": 0.4431034482758621
+        },
+        {
+          "to": "a8",
+          "cost": 0.4517241379310345
+        },
+        {
+          "to": "h",
+          "cost": 0.46034482758620693
+        },
+        {
+          "to": "e",
+          "cost": 0.5551724137931034
+        },
+        {
+          "to": "8a",
+          "cost": 0.65
+        },
+        {
+          "to": "e8",
+          "cost": 0.731896551724138
         }
       ]
     },
     {
-      "in": "bauer",
+      "in": "pawn",
       "tok": "P",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "Pa",
+          "cost": 0.5810344827586207
+        },
+        {
+          "to": "Pe",
+          "cost": 0.7620689655172415
+        },
+        {
+          "to": "Pf",
+          "cost": 0.7965517241379311
         }
       ]
     },
     {
-      "in": "springer",
+      "in": "knight",
       "tok": "N",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "pferd",
-      "tok": "N",
-      "tags": ["role", "move"],
-      "subs": [
+        },
         {
-          "to": "",
-          "cost": 0.5
+          "to": "K",
+          "cost": 0.5594827586206896
+        },
+        {
+          "to": "Na",
+          "cost": 0.6844827586206896
+        },
+        {
+          "to": "Nd",
+          "cost": 0.818103448275862
         }
       ]
     },
     {
-      "in": "läufer",
+      "in": "bishop",
       "tok": "B",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "Bf",
+          "cost": 0.7491379310344828
+        },
+        {
+          "to": "Ba",
+          "cost": 0.7836206896551725
         }
       ]
     },
     {
-      "in": "turm",
+      "in": "rook",
       "tok": "R",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "Ra",
+          "cost": 0.6198275862068966
         }
       ]
     },
     {
-      "in": "dame",
+      "in": "queen",
       "tok": "Q",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "Qe",
+          "cost": 0.6543103448275862
+        },
+        {
+          "to": "8Q",
+          "cost": 0.6586206896551725
         }
       ]
     },
     {
-      "in": "könig",
+      "in": "king",
       "tok": "K",
       "tags": ["role", "move"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "Ka",
+          "cost": 0.5465517241379311
+        },
+        {
+          "to": "Kf",
+          "cost": 0.5939655172413794
+        },
+        {
+          "to": "Ke",
+          "cost": 0.5982758620689655
+        },
+        {
+          "to": "N",
+          "cost": 0.6629310344827586
         }
       ]
     },
     {
-      "in": "rochade",
+      "in": "castle",
       "val": "castle",
       "tags": ["move"],
       "tok": "!",
@@ -271,31 +625,43 @@
       ]
     },
     {
-      "in": "kurze rochade",
+      "in": "short castle",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "r!"
+      "tok": "w!"
     },
     {
-      "in": "rochieren kurz",
+      "in": "king side castle",
       "val": "O-O",
       "tags": ["move"],
-      "tok": "st"
+      "tok": "Kx!"
     },
     {
-      "in": "lange rochade",
+      "in": "castle king side",
+      "val": "O-O",
+      "tags": ["move"],
+      "tok": "!Kx"
+    },
+    {
+      "in": "long castle",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "u!"
+      "tok": "y!"
     },
     {
-      "in": "rochieren lang",
+      "in": "castle queen side",
       "val": "O-O-O",
       "tags": ["move"],
-      "tok": "sv"
+      "tok": "!Qx"
     },
     {
-      "in": "schlage",
+      "in": "queen side castle",
+      "val": "O-O-O",
+      "tags": ["move"],
+      "tok": "Qx!"
+    },
+    {
+      "in": "take",
       "val": "x",
       "tags": ["move"],
       "tok": "#",
@@ -307,7 +673,7 @@
       ]
     },
     {
-      "in": "schlägt",
+      "in": "takes",
       "val": "x",
       "tags": ["move"],
       "tok": "$",
@@ -315,12 +681,20 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "6",
+          "cost": 0.4948275862068966
+        },
+        {
+          "to": "h",
+          "cost": 0.6327586206896552
         }
       ]
     },
     {
-      "in": "wird",
-      "val": "=",
+      "in": "capture",
+      "val": "x",
       "tags": ["move"],
       "tok": "%",
       "subs": [
@@ -331,33 +705,41 @@
       ]
     },
     {
-      "in": "umwandlung",
-      "val": "=",
+      "in": "captures",
+      "val": "x",
       "tags": ["move"],
       "tok": "&",
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "&R",
+          "cost": 0.5767241379310345
         }
       ]
     },
     {
-      "in": "ups",
-      "val": "takeback",
-      "tags": ["command"],
+      "in": "promote",
+      "val": "=",
+      "tags": ["move"],
       "tok": "(",
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "8(",
+          "cost": 0.49051724137931035
         }
       ]
     },
     {
-      "in": "zurück",
-      "val": "takeback",
-      "tags": ["command"],
+      "in": "promotes",
+      "val": "=",
+      "tags": ["move"],
       "tok": ")",
       "subs": [
         {
@@ -367,9 +749,9 @@
       ]
     },
     {
-      "in": "rückgängig",
-      "val": "takeback",
-      "tags": ["command"],
+      "in": "promotion",
+      "val": "=",
+      "tags": ["move"],
       "tok": "*",
       "subs": [
         {
@@ -379,9 +761,9 @@
       ]
     },
     {
-      "in": "remis",
-      "val": "draw",
-      "tags": ["command", "round"],
+      "in": "undo",
+      "val": "takeback",
+      "tags": ["command"],
       "tok": "+",
       "subs": [
         {
@@ -391,27 +773,9 @@
       ]
     },
     {
-      "in": "biete remis",
-      "val": "draw",
-      "tags": ["command", "round"],
-      "tok": "w+"
-    },
-    {
-      "in": "remis anbieten",
-      "val": "draw",
-      "tags": ["command", "round"],
-      "tok": "+x"
-    },
-    {
-      "in": "remis annehmen",
-      "val": "draw",
-      "tags": ["command", "round"],
-      "tok": "+y"
-    },
-    {
-      "in": "aufgeben",
-      "val": "resign",
-      "tags": ["command", "round"],
+      "in": "oops",
+      "val": "takeback",
+      "tags": ["command"],
       "tok": "-",
       "subs": [
         {
@@ -421,8 +785,8 @@
       ]
     },
     {
-      "in": "revanche",
-      "val": "rematch",
+      "in": "draw",
+      "val": "draw",
       "tags": ["command", "round"],
       "tok": ".",
       "subs": [
@@ -433,14 +797,20 @@
       ]
     },
     {
-      "in": "brett drehen",
-      "val": "flip",
-      "tags": ["command"],
-      "tok": "z{"
+      "in": "offer draw",
+      "val": "draw",
+      "tags": ["command", "round"],
+      "tok": "z."
     },
     {
-      "in": "uhr",
-      "val": "clock",
+      "in": "accept draw",
+      "val": "draw",
+      "tags": ["command", "round"],
+      "tok": "{."
+    },
+    {
+      "in": "resign",
+      "val": "resign",
       "tags": ["command", "round"],
       "tok": "/",
       "subs": [
@@ -451,8 +821,8 @@
       ]
     },
     {
-      "in": "zeit",
-      "val": "clock",
+      "in": "rematch",
+      "val": "rematch",
       "tags": ["command", "round"],
       "tok": "0",
       "subs": [
@@ -463,9 +833,9 @@
       ]
     },
     {
-      "in": "gegner",
-      "val": "who",
-      "tags": ["command", "round"],
+      "in": "flip",
+      "val": "flip",
+      "tags": ["command"],
       "tok": "9",
       "subs": [
         {
@@ -475,9 +845,9 @@
       ]
     },
     {
-      "in": "weiter",
-      "val": "next",
-      "tags": ["command", "puzzle"],
+      "in": "clock",
+      "val": "clock",
+      "tags": ["command", "round"],
       "tok": ":",
       "subs": [
         {
@@ -487,9 +857,9 @@
       ]
     },
     {
-      "in": "nächste",
-      "val": "next",
-      "tags": ["command", "puzzle"],
+      "in": "opponent",
+      "val": "who",
+      "tags": ["command", "round"],
       "tok": ";",
       "subs": [
         {
@@ -499,20 +869,8 @@
       ]
     },
     {
-      "in": "daumen hoch",
-      "val": "upvote",
-      "tags": ["command", "puzzle"],
-      "tok": "|}"
-    },
-    {
-      "in": "daumen runter",
-      "val": "downvote",
-      "tags": ["command", "puzzle"],
-      "tok": "|Ā"
-    },
-    {
-      "in": "lösung",
-      "val": "solve",
+      "in": "next",
+      "val": "next",
       "tags": ["command", "puzzle"],
       "tok": "<",
       "subs": [
@@ -523,9 +881,9 @@
       ]
     },
     {
-      "in": "hilfe",
-      "val": "help",
-      "tags": ["command"],
+      "in": "continue",
+      "val": "next",
+      "tags": ["command", "puzzle"],
       "tok": "=",
       "subs": [
         {
@@ -535,9 +893,21 @@
       ]
     },
     {
-      "in": "stoppen",
-      "val": "stop",
-      "tags": ["command"],
+      "in": "thumbs up",
+      "val": "upvote",
+      "tags": ["command", "puzzle"],
+      "tok": "|}"
+    },
+    {
+      "in": "thumbs down",
+      "val": "downvote",
+      "tags": ["command", "puzzle"],
+      "tok": "|Ā"
+    },
+    {
+      "in": "solution",
+      "val": "solve",
+      "tags": ["command", "puzzle"],
       "tok": ">",
       "subs": [
         {
@@ -547,9 +917,9 @@
       ]
     },
     {
-      "in": "ja",
-      "val": "yes",
-      "tags": ["choice"],
+      "in": "help",
+      "val": "help",
+      "tags": ["command"],
       "tok": "?",
       "subs": [
         {
@@ -559,9 +929,9 @@
       ]
     },
     {
-      "in": "bestätigen",
-      "val": "yes",
-      "tags": ["choice"],
+      "in": "stop",
+      "val": "stop",
+      "tags": ["command"],
       "tok": "@",
       "subs": [
         {
@@ -571,20 +941,40 @@
       ]
     },
     {
-      "in": "nein",
-      "val": "no",
+      "in": "stop listening",
+      "val": "mic-off",
+      "tags": ["command"],
+      "tok": "@ā"
+    },
+    {
+      "in": "stop recording",
+      "val": "mic-off",
+      "tags": ["command"],
+      "tok": "@Ă"
+    },
+    {
+      "in": "yes",
+      "val": "yes",
       "tags": ["choice"],
       "tok": "A",
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0.43017241379310345
+        },
+        {
+          "to": "e",
+          "cost": 0.42155172413793107
+        },
+        {
+          "to": "e8",
+          "cost": 0.4560344827586207
         }
       ]
     },
     {
-      "in": "abbrechen",
-      "val": "no",
+      "in": "confirm",
+      "val": "yes",
       "tags": ["choice"],
       "tok": "C",
       "subs": [
@@ -595,7 +985,7 @@
       ]
     },
     {
-      "in": "abbruch",
+      "in": "no",
       "val": "no",
       "tags": ["choice"],
       "tok": "D",
@@ -603,11 +993,15 @@
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "N",
+          "cost": 0.41724137931034483
         }
       ]
     },
     {
-      "in": "schließen",
+      "in": "clear",
       "val": "no",
       "tags": ["choice"],
       "tok": "E",
@@ -619,9 +1013,9 @@
       ]
     },
     {
-      "in": "blau",
-      "val": "blue",
-      "tags": ["color", "choice"],
+      "in": "close",
+      "val": "no",
+      "tags": ["choice"],
       "tok": "F",
       "subs": [
         {
@@ -631,9 +1025,9 @@
       ]
     },
     {
-      "in": "grün",
-      "val": "green",
-      "tags": ["color", "choice"],
+      "in": "cancel",
+      "val": "no",
+      "tags": ["choice"],
       "tok": "G",
       "subs": [
         {
@@ -643,9 +1037,9 @@
       ]
     },
     {
-      "in": "gelb",
-      "val": "yellow",
-      "tags": ["color", "choice"],
+      "in": "abort",
+      "val": "no",
+      "tags": ["choice"],
       "tok": "H",
       "subs": [
         {
@@ -655,32 +1049,48 @@
       ]
     },
     {
-      "in": "rot",
-      "val": "red",
+      "in": "blue",
+      "val": "blue",
       "tags": ["color", "choice"],
       "tok": "I",
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "2",
+          "cost": 0.41293103448275864
+        },
+        {
+          "to": "b",
+          "cost": 0.4344827586206897
         }
       ]
     },
     {
-      "in": "pink",
-      "val": "pink",
+      "in": "green",
+      "val": "green",
       "tags": ["color", "choice"],
       "tok": "J",
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "Q",
+          "cost": 0.4
+        },
+        {
+          "to": "3",
+          "cost": 0.42586206896551726
         }
       ]
     },
     {
-      "in": "lila",
-      "val": "purple",
+      "in": "yellow",
+      "val": "yellow",
       "tags": ["color", "choice"],
       "tok": "L",
       "subs": [
@@ -691,10 +1101,38 @@
       ]
     },
     {
-      "in": "violett",
-      "val": "purple",
+      "in": "red",
+      "val": "red",
       "tags": ["color", "choice"],
       "tok": "M",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        },
+        {
+          "to": "8",
+          "cost": 0.4387931034482759
+        }
+      ]
+    },
+    {
+      "in": "pink",
+      "val": "pink",
+      "tags": ["color", "choice"],
+      "tok": "O",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "purple",
+      "val": "purple",
+      "tags": ["color", "choice"],
+      "tok": "S",
       "subs": [
         {
           "to": "",
@@ -706,30 +1144,6 @@
       "in": "orange",
       "val": "orange",
       "tags": ["color", "choice"],
-      "tok": "O",
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "braun",
-      "val": "brown",
-      "tags": ["color", "choice"],
-      "tok": "S",
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "weiß",
-      "val": "white",
-      "tags": ["color", "choice"],
       "tok": "T",
       "subs": [
         {
@@ -739,10 +1153,38 @@
       ]
     },
     {
+      "in": "brown",
+      "val": "brown",
+      "tags": ["color", "choice"],
+      "tok": "U",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "white",
+      "val": "white",
+      "tags": ["color", "choice"],
+      "tok": "V",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        },
+        {
+          "to": "N",
+          "cost": 0.4
+        }
+      ]
+    },
+    {
       "in": "alfa",
       "val": "a",
       "tags": ["file", "move", "phonetic"],
-      "tok": "U",
+      "tok": "W",
       "subs": [
         {
           "to": "",
@@ -754,7 +1196,7 @@
       "in": "bravo",
       "val": "b",
       "tags": ["file", "move", "phonetic"],
-      "tok": "V",
+      "tok": "X",
       "subs": [
         {
           "to": "",
@@ -766,7 +1208,7 @@
       "in": "charlie",
       "val": "c",
       "tags": ["file", "move", "phonetic"],
-      "tok": "W",
+      "tok": "Y",
       "subs": [
         {
           "to": "",
@@ -778,7 +1220,7 @@
       "in": "delta",
       "val": "d",
       "tags": ["file", "move", "phonetic"],
-      "tok": "X",
+      "tok": "Z",
       "subs": [
         {
           "to": "",
@@ -790,7 +1232,7 @@
       "in": "echo",
       "val": "e",
       "tags": ["file", "move", "phonetic"],
-      "tok": "Y",
+      "tok": "[",
       "subs": [
         {
           "to": "",
@@ -802,7 +1244,7 @@
       "in": "foxtrot",
       "val": "f",
       "tags": ["file", "move", "phonetic"],
-      "tok": "Z",
+      "tok": "\\",
       "subs": [
         {
           "to": "",
@@ -814,7 +1256,7 @@
       "in": "golf",
       "val": "g",
       "tags": ["file", "move", "phonetic"],
-      "tok": "[",
+      "tok": "]",
       "subs": [
         {
           "to": "",
@@ -826,7 +1268,7 @@
       "in": "hotel",
       "val": "h",
       "tags": ["file", "move", "phonetic"],
-      "tok": "\\",
+      "tok": "^",
       "subs": [
         {
           "to": "",
@@ -835,31 +1277,7 @@
       ]
     },
     {
-      "in": "matt",
-      "val": "",
-      "tags": ["move", "ignore"],
-      "tok": "]",
-      "subs": [
-        {
-          "to": "",
-          "cost": 0
-        }
-      ]
-    },
-    {
-      "in": "schachmatt",
-      "val": "",
-      "tags": ["move", "ignore"],
-      "tok": "^",
-      "subs": [
-        {
-          "to": "",
-          "cost": 0
-        }
-      ]
-    },
-    {
-      "in": "schach",
+      "in": "mate",
       "val": "",
       "tags": ["move", "ignore"],
       "tok": "_",
@@ -867,13 +1285,21 @@
         {
           "to": "",
           "cost": 0
+        },
+        {
+          "to": "N",
+          "cost": 0.4474137931034483
+        },
+        {
+          "to": "b",
+          "cost": 0.525
         }
       ]
     },
     {
-      "in": "aufgabe",
+      "in": "check",
       "val": "",
-      "tags": ["ignore"],
+      "tags": ["move", "ignore"],
       "tok": "`",
       "subs": [
         {
@@ -883,7 +1309,7 @@
       ]
     },
     {
-      "in": "und",
+      "in": "puzzle",
       "val": "",
       "tags": ["ignore"],
       "tok": "i",
@@ -895,7 +1321,7 @@
       ]
     },
     {
-      "in": "oh",
+      "in": "lee",
       "val": "",
       "tags": ["ignore"],
       "tok": "j",
@@ -907,7 +1333,7 @@
       ]
     },
     {
-      "in": "äh",
+      "in": "chess",
       "val": "",
       "tags": ["ignore"],
       "tok": "k",
@@ -919,7 +1345,7 @@
       ]
     },
     {
-      "in": "ehm",
+      "in": "and",
       "val": "",
       "tags": ["ignore"],
       "tok": "l",
@@ -931,7 +1357,7 @@
       ]
     },
     {
-      "in": "hmm",
+      "in": "oh",
       "val": "",
       "tags": ["ignore"],
       "tok": "m",
@@ -943,7 +1369,7 @@
       ]
     },
     {
-      "in": "huch",
+      "in": "um",
       "val": "",
       "tags": ["ignore"],
       "tok": "n",
@@ -955,7 +1381,7 @@
       ]
     },
     {
-      "in": "seinen",
+      "in": "uh",
       "val": "",
       "tags": ["ignore"],
       "tok": "o",
@@ -967,7 +1393,7 @@
       ]
     },
     {
-      "in": "ihren",
+      "in": "hmm",
       "val": "",
       "tags": ["ignore"],
       "tok": "p",
@@ -979,7 +1405,7 @@
       ]
     },
     {
-      "in": "den",
+      "in": "huh",
       "val": "",
       "tags": ["ignore"],
       "tok": "q",
@@ -991,62 +1417,79 @@
       ]
     },
     {
-      "in": "kurze",
+      "in": "his",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "r",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
         }
       ]
     },
     {
-      "in": "rochieren",
+      "in": "her",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "s",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
         }
       ]
     },
     {
-      "in": "kurz",
+      "in": "the",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "t",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
+        },
+        {
+          "to": "d",
+          "cost": 0.3
+        },
+        {
+          "to": "b",
+          "cost": 0.6
+        },
+        {
+          "to": "e",
+          "cost": 0.6
         }
       ]
     },
     {
-      "in": "lange",
+      "in": "their",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "u",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
         }
       ]
     },
     {
-      "in": "lang",
+      "in": "training",
+      "val": "",
+      "tags": ["ignore"],
       "tok": "v",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
-          "cost": 0.5
+          "cost": 0
         }
       ]
     },
     {
-      "in": "biete",
+      "in": "short",
       "tok": "w",
       "tags": ["part"],
       "subs": [
@@ -1057,7 +1500,7 @@
       ]
     },
     {
-      "in": "anbieten",
+      "in": "side",
       "tok": "x",
       "tags": ["part"],
       "subs": [
@@ -1068,18 +1511,26 @@
       ]
     },
     {
-      "in": "annehmen",
+      "in": "long",
       "tok": "y",
       "tags": ["part"],
       "subs": [
         {
           "to": "",
           "cost": 0.5
+        },
+        {
+          "to": "1",
+          "cost": 0.4043103448275862
+        },
+        {
+          "to": "P",
+          "cost": 0.40862068965517245
         }
       ]
     },
     {
-      "in": "brett",
+      "in": "offer",
       "tok": "z",
       "tags": ["part"],
       "subs": [
@@ -1090,7 +1541,7 @@
       ]
     },
     {
-      "in": "drehen",
+      "in": "accept",
       "tok": "{",
       "tags": ["part"],
       "subs": [
@@ -1101,7 +1552,7 @@
       ]
     },
     {
-      "in": "daumen",
+      "in": "thumbs",
       "tok": "|",
       "tags": ["part"],
       "subs": [
@@ -1112,7 +1563,7 @@
       ]
     },
     {
-      "in": "hoch",
+      "in": "up",
       "tok": "}",
       "tags": ["part"],
       "subs": [
@@ -1123,8 +1574,30 @@
       ]
     },
     {
-      "in": "runter",
+      "in": "down",
       "tok": "Ā",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "listening",
+      "tok": "ā",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "recording",
+      "tok": "Ă",
       "tags": ["part"],
       "subs": [
         {

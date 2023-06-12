@@ -101,7 +101,7 @@ function toYouTubeEmbedUrl(url: string) {
 export function toYouTubeEmbed(url: string): string | undefined {
   const embedUrl = toYouTubeEmbedUrl(url);
   return embedUrl
-    ? `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+    ? `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen credentialless></iframe></div>`
     : undefined;
 }
 
@@ -114,6 +114,6 @@ function toTwitchEmbedUrl(url: string) {
 export function toTwitchEmbed(url: string): string | undefined {
   const embedUrl = toTwitchEmbedUrl(url);
   return embedUrl
-    ? `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`
+    ? `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen credentialless></iframe></div>`
     : undefined;
 }

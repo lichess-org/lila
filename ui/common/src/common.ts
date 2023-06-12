@@ -45,11 +45,13 @@ export const withEffect =
 
 export interface Toggle extends PropWithEffect<boolean> {
   toggle(): void;
+  effect(value: boolean): void;
 }
 
 export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
   const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
   prop.toggle = () => prop(!prop());
+  prop.effect = effect;
   return prop;
 };
 
@@ -70,5 +72,5 @@ export const scrollTo = (el: HTMLElement, target: HTMLElement | null) => {
 
 export const onClickAway = (f: () => void) => (el: HTMLElement) => {
   const listen: () => void = () => $(document).one('click', e => (el.contains(e.target) ? listen() : f()));
-  setTimeout(listen, 100);
+  setTimeout(listen, 300);
 };

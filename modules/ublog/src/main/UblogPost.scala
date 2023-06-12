@@ -23,9 +23,9 @@ case class UblogPost(
     views: UblogPost.Views
 ) extends UblogPost.BasePost:
 
-  def isBy(u: User) = created.by == u.id
+  def isBy(u: User) = created.by is u
 
-  def indexable = live && topics.exists(t => UblogTopic.chessExists(t.value))
+  def indexable = live && topics.exists(UblogTopic.chessExists)
 
 case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
 

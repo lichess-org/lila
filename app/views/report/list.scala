@@ -4,7 +4,7 @@ import controllers.routes
 import controllers.appeal.routes.{ Appeal as appealRoutes }
 import controllers.report.routes.{ Report as reportRoutes }
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
@@ -18,7 +18,7 @@ object list:
       scores: lila.report.Room.Scores,
       streamers: Int,
       appeals: Int
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     layout(filter, scores, streamers, appeals)(
       table(cls := "slist slist-pad see")(
         thead(
@@ -92,7 +92,7 @@ object list:
 
   def layout(filter: String, scores: lila.report.Room.Scores, streamers: Int, appeals: Int)(
       body: Frag
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     views.html.base.layout(
       title = "Reports",
       moreCss = cssTag("mod.report")

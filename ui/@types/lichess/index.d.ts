@@ -23,6 +23,7 @@ interface Lichess {
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
   contentLoaded(parent?: HTMLElement): void;
+  blindMode: boolean;
   unload: {
     expected: boolean;
   };
@@ -40,7 +41,7 @@ interface Lichess {
 
   socket: any;
   sound: SoundI;
-  mic?: Voice.Microphone;
+  mic: Voice.Microphone;
 
   miniBoard: {
     init(node: HTMLElement): void;
@@ -202,29 +203,44 @@ declare namespace Voice {
   export type Listener = (msgText: string, msgType: MsgType) => void;
 
   export interface Microphone {
-    setVocabulary: (vocabulary: string[], mode?: ListenMode) => void; // required
-    setLang: (language: string) => void; // defaults to 'en';
+    setLang: (language: string) => void;
 
-    mode: ListenMode; // starts in 'full'
+    getMics: () => Promise<MediaDeviceInfo[]>;
+    setMic: (micId: string) => void;
 
-    // optional, to fetch a grammar
-    useGrammar: (grammarName: string) => Promise<any>;
+    initRecognizer: (
+      words: string[],
+      also?: {
+        recId?: string; // = 'default' if not provided
+        partial?: boolean; // = false
+        listener?: Listener; // = undefined
+        listenerId?: string; // = recId (needed to disambiguate multiple listeners on the same recId)
+      }
+    ) => void;
+    setRecognizer: (recId: string) => void;
 
-    start: () => Promise<void>; // initialize if necessary and begin recording
-    stop: () => void; // stop recording/downloading/whatever
+    addListener: (
+      listener: Listener,
+      also?: {
+        recId?: string; // = 'default'
+        listenerId?: string; // = recId
+      }
+    ) => void;
+    removeListener: (listenerId: string) => void;
+    setController: (listener: Listener) => void; // for status display, indicators, etc
+    stopPropagation: () => void; // interrupt broadcast propagation on current rec (for modal interactions)
 
-    pause: () => void; // mute mic, no overhead
-    resume: () => void; // unmute mic
+    start: (listen?: boolean) => Promise<void>; // listen = true if not provided, if false just initialize
+    stop: () => void; // stop listening/downloading/whatever
+    pause: () => void;
+    resume: () => void;
 
+    readonly isListening: boolean;
     readonly isBusy: boolean; // are we downloading, extracting, or loading?
-    readonly isListening: boolean; // are we recording?
-    readonly status: string; // errors, progress, or the most recent voice command
+    readonly status: string; // status display for setController listener
+    readonly recId: string; // get/set current recognizer
+    readonly micId: string;
     readonly lang: string; // defaults to 'en'
-
-    addListener: (id: string, listener: Listener, mode?: ListenMode) => void;
-    removeListener: (id: string) => void;
-
-    stopPropagation: () => void; // listeners can call this to stop propagation during modal interactions
   }
 }
 

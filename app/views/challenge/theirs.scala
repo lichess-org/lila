@@ -1,6 +1,6 @@
 package views.html.challenge
 
-import lila.api.Context
+import lila.api.WebContext
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
@@ -15,7 +15,7 @@ object theirs:
       json: play.api.libs.json.JsObject,
       user: Option[lila.user.User],
       color: Option[chess.Color]
-  )(implicit ctx: Context) =
+  )(implicit ctx: WebContext) =
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,

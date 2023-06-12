@@ -7,7 +7,7 @@ import { storedBooleanProp } from 'common/storage';
 export default class Persistence {
   isDirty = false; // there are persisted user moves
   open = prop(false);
-  autoOpen = storedBooleanProp('persistence-auto-open', true);
+  autoOpen = storedBooleanProp('analyse.persistence-auto-open', true);
   moveDb?: ObjectStorage<AnalyseState>;
 
   constructor(readonly ctrl: AnalyseCtrl) {}

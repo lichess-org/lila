@@ -56,10 +56,10 @@ final class Importer(env: Env) extends LilaController(env):
       )
 
   def apiSendGame =
-    AnonOrScopedBody(parse.anyContent)() { req ?=> me =>
+    AnonOrScopedBody(parse.anyContent)() { ctx ?=> me =>
       ImportRateLimitPerIP(req.ipAddress, rateLimitedFu, cost = if me.isDefined then 1 else 2):
         env.importer.forms.importForm
-          .bindFromRequest()(req, formBinding)
+          .bindFromRequest()
           .fold(
             err => BadRequest(apiFormError(err)).toFuccess,
             data =>
