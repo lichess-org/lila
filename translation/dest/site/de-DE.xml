@@ -348,6 +348,10 @@
     <item quantity="one">%s Studie</item>
     <item quantity="other">%s Studien</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s Simultan-Partie</item>
+    <item quantity="other">%s Simultan-Partien</item>
+  </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
   <string name="noDrawBeforeSwissLimit">Du kannst in einem Turnier nach Schweizer System nicht vor dem Erreichen des 30. Zugs Remis anbieten.</string>
