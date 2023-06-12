@@ -785,8 +785,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       lichess-pgn-viewer:
-        specifier: ^1.5.6
-        version: 1.5.6
+        specifier: ^1.5.7
+        version: 1.5.7
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -5014,6 +5014,15 @@ packages:
 
   /lichess-pgn-viewer@1.5.6:
     resolution: {integrity: sha512-5y7W7oOWQikJkPZv7Cv0bLOw5t6qEz6hs8xJZcc7q97RbNdTPVprMAenxzEoFRU2UaEJaJ3FbDs/DbRmwNQk4A==}
+    dependencies:
+      '@types/node': 18.16.17
+      chessground: 8.3.10
+      chessops: 0.12.7
+      snabbdom: 3.5.1
+    dev: false
+
+  /lichess-pgn-viewer@1.5.7:
+    resolution: {integrity: sha512-NGrMwA6h4SMS/amtDRSXQHrgiqeNmll15WGq4cl+4uZe5MR0wsJxpZUImCb0oJ47NXkZdl3zz4ahX2whENC7Mg==}
     dependencies:
       '@types/node': 18.16.17
       chessground: 8.3.10
