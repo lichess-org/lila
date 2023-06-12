@@ -24,9 +24,8 @@ object hosted:
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
-                th(colspan := 3)(h1(userLink(user, withOnline = true), " simuls")),
-                th(s"${trans.wins.txt()}/${trans.draws.txt()}/${trans.losses.txt()}"),
-                th(trans.side())
+                th(colspan := 2)(h1(userLink(user, withOnline = true), " simuls")),
+                th(s"${trans.wins.txt()}/${trans.draws.txt()}/${trans.losses.txt()}")
               )
             ),
             tbody(cls := "infinite-scroll")(
@@ -38,10 +37,12 @@ object hosted:
                 tr(cls := "paginated")(
                   td(cls := "icon")(iconTag(s.mainPerfType.icon)),
                   td(cls := "name")(a(href := routes.Simul.show(s.id))(s.fullName)),
-                  td(s.clock.config.toString),
-                  td(momentFromNow(s.createdAt)),
-                  td(s"${s.wins} / ${s.draws} / ${s.losses}"),
-                  td(i(cls := s"color-icon is $hostColor"))
+                  td(
+                    span(cls := s"color-icon is $hostColor text", title := hostColor)(s.clock.config.show),
+                    br,
+                    momentFromNow(s.createdAt)
+                  ),
+                  td(s"${s.wins} / ${s.draws} / ${s.losses}")
                 )
               },
               pagerNextTable(pager, np => routes.Simul.byUser(user.username, np).url)

@@ -17,12 +17,11 @@
     color: $c-brag;
   }
 
-  .color-icon {
-    display: block;
-  }
-
   .name {
     @extend %break-word;
     font-size: 1.7em;
+  }
+  time {
+    white-space: nowrap;
   }
 }
