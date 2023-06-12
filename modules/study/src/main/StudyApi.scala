@@ -34,6 +34,7 @@ final class StudyApi(
   import sequencer.*
 
   export studyRepo.{ byId, byOrderedIds as byIds, publicIdNames }
+  export chapterRepo.{ orderedMetadataByStudy as chapterMetadatas }
 
   def publicByIds(ids: Seq[StudyId]) = byIds(ids) map { _.filter(_.isPublic) }
 
@@ -751,12 +752,8 @@ final class StudyApi(
       }
     }
 
-  def resetAllRanks = studyRepo.resetAllRanks
-
   def chapterIdNames(studyIds: List[StudyId]): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
     chapterRepo.idNamesByStudyIds(studyIds, Study.maxChapters)
-
-  def chapterMetadatas = chapterRepo.orderedMetadataByStudy
 
   def withLiked(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithLiked]] =
     me.?? { u =>

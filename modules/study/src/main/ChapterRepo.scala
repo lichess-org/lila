@@ -47,12 +47,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     ).some
 
   def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =
-    coll {
+    coll:
       _.find($studyId(studyId), metadataProjection)
         .sort($sort asc "order")
         .cursor[Chapter.Metadata]()
         .list(300)
-    }
 
   def orderedByStudySource(studyId: StudyId): Source[Chapter, ?] =
     Source.futureSource:
@@ -232,14 +231,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
     coll:
-      _.find(
-        $studyId(studyId),
-        $doc("_id" -> true, "name" -> true).some
-      )
+      _.find($studyId(studyId), $doc("_id" -> true, "name" -> true).some)
         .sort($sort asc "order")
         .cursor[Bdoc](readPref)
         .list(Study.maxChapters * 2)
-    .dmap { _ flatMap readIdName }
+    .dmap(_ flatMap readIdName)
 
   private def readIdName(doc: Bdoc) =
     for
