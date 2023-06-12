@@ -42,7 +42,7 @@ class MarkdownTest extends munit.FunSuite {
     assertEquals(
       mdRender(md),
       Html:
-        s"""<p>foo <div data-pgn="$gamePgn" data-orientation="white" data-ply="" class="lpv--autostart is2d">$gameUrl</div> bar</p>
+        s"""<p>foo <div data-pgn="$gamePgn" class="lpv--autostart is2d">$gameUrl</div> bar</p>
 """
     )
   }
@@ -51,7 +51,7 @@ class MarkdownTest extends munit.FunSuite {
     assertEquals(
       mdRender(md),
       Html:
-        s"""<p>foo <div data-pgn="$gamePgn" data-orientation="white" data-ply="" class="lpv--autostart is2d">$gameUrl</div> bar</p>
+        s"""<p>foo <div data-pgn="$gamePgn" class="lpv--autostart is2d">$gameUrl</div> bar</p>
 """
     )
   }
@@ -60,7 +60,7 @@ class MarkdownTest extends munit.FunSuite {
     assertEquals(
       mdRender(md),
       Html:
-        s"""<p>prefix <div data-pgn="$gamePgn" data-orientation="white" data-ply="1" class="lpv--autostart is2d">$gameUrl#1</div> suffix</p>
+        s"""<p>prefix <div data-pgn="$gamePgn" class="lpv--autostart is2d" data-ply="1">$gameUrl#1</div> suffix</p>
 """
     )
   }
@@ -83,7 +83,7 @@ class MarkdownTest extends munit.FunSuite {
     assertEquals(
       mdRender(md),
       Html:
-        s"""<p>foo <div data-pgn="$chapterPgn" data-orientation="white" data-ply="" class="lpv--autostart is2d">$chapterUrl</div> bar</p>
+        s"""<p>foo <div data-pgn="$chapterPgn" class="lpv--autostart is2d">$chapterUrl</div> bar</p>
 """
     )
   }
