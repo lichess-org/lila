@@ -364,7 +364,7 @@ export default class RoundController {
     this.resign(false);
     if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
       this.moveToSubmit = move;
-      this.voiceMove?.confirm('submitMove', v => this.submitMove(v));
+      this.voiceMove?.confirm('submitMove', this.submitMove);
       this.redraw();
     } else {
       this.actualSendMove('move', move, {
@@ -380,7 +380,7 @@ export default class RoundController {
     this.resign(false);
     if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
       this.dropToSubmit = drop;
-      this.voiceMove?.confirm('submitMove', v => this.submitMove(v));
+      this.voiceMove?.confirm('submitMove', this.submitMove);
       this.redraw();
     } else {
       this.actualSendMove('drop', drop, {
