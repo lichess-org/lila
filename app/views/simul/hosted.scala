@@ -17,10 +17,10 @@ object hosted:
       moreCss = cssTag("user-simul"),
       moreJs = infiniteScrollTag
     ) {
-      if (pager.nbResults == 0) div(cls := "box-pad")(user.username, " hasn't hosted any simuls yet!")
-      else
-        div(cls := "simul-list")(
-          table(cls := "slist")(
+      main(cls := "page-small box simul-list")(
+        if (pager.nbResults == 0) div(cls := "box__top")(h1(userLink(user), " hasn't hosted any simuls yet!"))
+        else
+          table(cls := "slist slist-pad")(
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
@@ -37,15 +37,15 @@ object hosted:
 
                 tr(cls := "paginated")(
                   td(cls := "icon")(iconTag(s.mainPerfType.icon)),
-                  td(cls := "name")(s.fullName),
+                  td(cls := "name")(a(href := routes.Simul.show(s.id))(s.fullName)),
                   td(s.clock.config.toString),
                   td(momentFromNow(s.createdAt)),
                   td(s"${s.wins} / ${s.draws} / ${s.losses}"),
-                  td(i(cls := s"color-icon $hostColor"))
+                  td(i(cls := s"color-icon is $hostColor"))
                 )
               },
               pagerNextTable(pager, np => routes.Simul.byUser(user.username, np).url)
             )
           )
-        )
+      )
     }
