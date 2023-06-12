@@ -415,18 +415,7 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, setTag.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          if (setTag.tag.name == Tag.Event) {
-            val data: ChapterMaker.EditData = ChapterMaker.EditData(
-              chapter.id,
-              StudyChapterName(setTag.tag.value),
-              ChapterMaker.Orientation.Auto,
-              ChapterMaker.Mode.Normal,
-              chapter.description.getOrElse("-")
-            )
-            editChapter(studyId, data)(who)
-          } else {
-            doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
-          }
+          doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
 
   def setTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
@@ -625,8 +614,6 @@ final class StudyApi(
           )
           if (chapter == newChapter) funit
           else
-            var eventTag = Tag(Tag.Event, newChapter.name.toString)
-            doSetTags(study, newChapter, PgnTags(newChapter.tags + eventTag), who)
             chapterRepo.update(newChapter) >> {
               if (chapter.conceal != newChapter.conceal)
                 (newChapter.conceal.isDefined && study.position.chapterId == chapter.id).?? {
