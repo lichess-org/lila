@@ -99,6 +99,7 @@ object PgnDump:
       source: Boolean,
       orientation: Boolean
   )
+  val fullFlags = WithFlags(true, true, true, true, true)
 
   private type Variations = List[Branch]
   private val noVariations: Variations = Nil

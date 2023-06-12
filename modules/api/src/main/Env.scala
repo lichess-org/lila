@@ -123,6 +123,7 @@ final class Env(
     },
     "lpv" -> {
       case GamePgnsFromText(text, p)      => p completeWith textLpvExpand.gamePgnsFromText(text)
+      case AllPgnsFromText(text, p)       => p completeWith textLpvExpand.allPgnsFromText(text)
       case LpvLinkRenderFromText(text, p) => p completeWith textLpvExpand.linkRenderFromText(text)
     }
   )

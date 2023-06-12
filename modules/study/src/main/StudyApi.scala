@@ -72,6 +72,11 @@ final class StudyApi(
   def byIdWithFirstChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo firstByStudy id)
 
+  def byChapterId(chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
+    chapterRepo.byId(chapterId).flatMapz { chapter =>
+      studyRepo.byId(chapter.studyId).mapz { Study.WithChapter(_, chapter).some }
+    }
+
   private[study] def byIdWithLastChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo lastByStudy id)
 

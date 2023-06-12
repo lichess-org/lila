@@ -56,13 +56,12 @@ final class BlogApi(
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] =
     one(prismic.api, prismic.ref.some, id).flatMapz { doc =>
-      doc.getHtml("blog.body", prismic.linkResolver) match {
+      doc.getHtml("blog.body", prismic.linkResolver) match
         case Some(html) =>
           Bus
             .ask("lpv")(GamePgnsFromText(html, _))
             .map(pgnCache.putAll) inject doc.some
         case _ => fuccess(doc.some)
-      }
     }
 
   def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] =
