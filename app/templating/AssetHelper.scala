@@ -87,7 +87,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
           """<script src="//static.cdn.prismic.io/prismic.min.js"></script>"""
       }
 
-  def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy =
+  def basicCsp(using req: RequestHeader): ContentSecurityPolicy =
     val sockets = socketDomains map { x => s"wss://$x${!req.secure ?? s" ws://$x"}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = !req.secure ?? List("http://127.0.0.1:3000")
@@ -105,24 +105,20 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     )
 
   def defaultCsp(using ctx: WebContext): ContentSecurityPolicy =
-    val csp = basicCsp(ctx.req)
+    val csp = basicCsp(using ctx.req)
     ctx.nonce.fold(csp)(csp.withNonce(_))
 
   def analysisCsp(using ctx: WebContext): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)
 
-  def embedJsUnsafe(js: String)(using ctx: WebContext): Frag =
-    raw {
-      val nonce = ctx.nonce ?? { nonce =>
-        s""" nonce="$nonce""""
-      }
-      s"""<script$nonce>$js</script>"""
+  def embedJsUnsafe(js: String)(using ctx: WebContext): Frag = raw:
+    val nonce = ctx.nonce ?? { nonce =>
+      s""" nonce="$nonce""""
     }
+    s"""<script$nonce>$js</script>"""
 
-  def embedJsUnsafe(js: String, nonce: Nonce): Frag =
-    raw {
-      s"""<script nonce="$nonce">$js</script>"""
-    }
+  def embedJsUnsafe(js: String, nonce: Nonce): Frag = raw:
+    s"""<script nonce="$nonce">$js</script>"""
 
   def embedJsUnsafeLoadThen(js: String)(using ctx: WebContext): Frag =
     embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")

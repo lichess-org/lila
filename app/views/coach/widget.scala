@@ -20,7 +20,7 @@ object widget:
       c.user.realNameOrUsername
     )
 
-  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(implicit ctx: WebContext) =
+  def apply(c: lila.coach.Coach.WithUser, link: Boolean)(using WebContext) =
     val profile = c.user.profileOrDefault
     frag(
       link option a(cls := "overlay", href := routes.Coach.show(c.user.username)),

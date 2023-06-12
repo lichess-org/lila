@@ -11,7 +11,7 @@ object shields:
 
   private val section = st.section(cls := "tournament-shields__item")
 
-  def apply(history: TournamentShield.History)(implicit ctx: WebContext) =
+  def apply(history: TournamentShield.History)(using WebContext) =
     views.html.base.layout(
       title = "Tournament shields",
       moreCss = cssTag("tournament.leaderboard"),
@@ -43,7 +43,7 @@ object shields:
       )
     }
 
-  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit ctx: WebContext) =
+  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using WebContext) =
     views.html.base.layout(
       title = "Tournament shields",
       moreCss = frag(cssTag("tournament.leaderboard"), cssTag("slist"))

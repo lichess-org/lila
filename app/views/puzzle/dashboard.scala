@@ -62,7 +62,7 @@ object dashboard:
         )
     }
 
-  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: WebContext) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -76,7 +76,7 @@ object dashboard:
       dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
     }
 
-  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: WebContext) =
+  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: WebContext) =
     dashboardLayout(
       user = user,
       days = days,
@@ -100,7 +100,7 @@ object dashboard:
       moreJs: Frag = emptyFrag
   )(
       body: PuzzleDashboard => Option[Frag]
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),

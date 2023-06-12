@@ -32,7 +32,7 @@ final private[round] class Drawer(
       .parallel
       .dmap(_.flatten.headOption)
 
-  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
+  def yes(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
     pov match
       case pov if pov.game.history.threefoldRepetition =>
         finisher.other(pov.game, _.Draw, None)
@@ -52,7 +52,7 @@ final private[round] class Drawer(
       case _ => fuccess(List(Event.ReloadOwner))
   }
 
-  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
+  def no(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
     pov match {
       case Pov(g, color) if pov.player.isOfferingDraw =>
         proxy.save {
@@ -72,11 +72,11 @@ final private[round] class Drawer(
     }: Fu[Events]
   }
 
-  def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  def claim(pov: Pov)(using GameProxy): Fu[Events] =
     (pov.game.drawable && pov.game.history.threefoldRepetition) ??
       finisher.other(pov.game, _.Draw, None)
 
-  def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
+  def force(game: Game)(using GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
   private def publishDrawOffer(game: Game): Unit = if (game.nonAi)
     if (game.isCorrespondence)

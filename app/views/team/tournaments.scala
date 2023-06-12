@@ -114,6 +114,6 @@ object tournaments:
       }
     )
 
-  private def renderStartsAt(any: TeamInfo.AnyTour)(implicit lang: Lang): Frag =
+  private def renderStartsAt(any: TeamInfo.AnyTour)(using Lang): Frag =
     if (any.isEnterable && any.startsAt.isBeforeNow) trans.playingRightNow()
     else momentFromNowOnce(any.startsAt)

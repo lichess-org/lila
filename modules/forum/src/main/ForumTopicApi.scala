@@ -33,9 +33,7 @@ final private class ForumTopicApi(
       slug: String,
       page: Int,
       forUser: Option[User]
-  )(implicit
-      netDomain: lila.common.config.NetDomain
-  ): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
+  )(using lila.common.config.NetDomain): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for {
       data <- categRepo byId categId flatMapz { categ =>
         topicRepo.forUser(forUser).byTree(categId, slug) dmap {

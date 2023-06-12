@@ -92,7 +92,7 @@ object clas:
       }
     )
 
-  def teachers(clas: Clas)(implicit lang: Lang) =
+  def teachers(clas: Clas)(using Lang) =
     div(cls := "clas-teachers")(
       trans.clas.teachersX(
         fragList(clas.teachers.toList.map(t => userIdLink(t.some)))

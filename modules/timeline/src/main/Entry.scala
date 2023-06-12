@@ -29,7 +29,7 @@ object Entry:
 
   case class ForUsers(entry: Entry, userIds: List[UserId])
 
-  private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
+  private def toBson[A](data: A)(using writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
 
   private[timeline] def make(data: Atom): Entry = {
     import atomBsonHandlers.given

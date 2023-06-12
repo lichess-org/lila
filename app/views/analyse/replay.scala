@@ -15,7 +15,7 @@ import lila.game.Pov
 
 object replay:
 
-  private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
+  private[analyse] def titleOf(pov: Pov)(using Lang) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
         .fold(trans.analysis.txt())(_.opening.name)}"
 
@@ -31,7 +31,7 @@ object replay:
       userTv: Option[lila.user.User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
 
     import pov.*
 

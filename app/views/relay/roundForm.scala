@@ -14,14 +14,14 @@ object roundForm:
 
   import trans.broadcast.*
 
-  def create(form: Form[Data], tour: RelayTour)(implicit ctx: WebContext) =
+  def create(form: Form[Data], tour: RelayTour)(using WebContext) =
     layout(newBroadcast.txt())(
       boxTop(h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound())),
       standardFlash,
       inner(form, routes.RelayRound.create(tour.id.value), tour, create = true)
     )
 
-  def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: WebContext) =
+  def edit(rt: RelayRound.WithTour, form: Form[Data])(using WebContext) =
     layout(rt.fullName)(
       boxTop(
         h1(
@@ -51,7 +51,7 @@ object roundForm:
       )
     )
 
-  private def layout(title: String)(body: Modifier*)(implicit ctx: WebContext) =
+  private def layout(title: String)(body: Modifier*)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),

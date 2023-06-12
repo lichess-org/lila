@@ -11,7 +11,7 @@ import controllers.routes
 
 object bits:
 
-  def best(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: WebContext) =
+  def best(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(using WebContext) =
     layout(
       u,
       title = s"${u.username} best tournaments",
@@ -21,7 +21,7 @@ object bits:
       views.html.userTournament.list(u, "best", pager, "BEST")
     }
 
-  def recent(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: WebContext) =
+  def recent(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(using WebContext) =
     layout(
       u,
       title = s"${u.username} recent tournaments",
@@ -33,7 +33,7 @@ object bits:
 
   def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(
       body: Frag
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("user-tournament"),

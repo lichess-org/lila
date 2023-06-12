@@ -15,7 +15,7 @@ object theirs:
       json: play.api.libs.json.JsObject,
       user: Option[lila.user.User],
       color: Option[chess.Color]
-  )(implicit ctx: WebContext) =
+  )(using ctx: WebContext) =
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,

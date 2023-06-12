@@ -348,6 +348,10 @@
     <item quantity="one">%s study</item>
     <item quantity="other">%s studies</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simul</item>
+    <item quantity="other">%s simuls</item>
+  </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
   <string name="noDrawBeforeSwissLimit">You cannot draw before 30 moves are played in a Swiss tournament.</string>

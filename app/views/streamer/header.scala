@@ -8,9 +8,7 @@ object header:
 
   import trans.streamer.*
 
-  def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(implicit
-      ctx: WebContext
-  ) =
+  def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(using WebContext) =
     div(cls := "streamer-header")(
       picture.thumbnail(s.streamer, s.user),
       div(cls := "overview")(

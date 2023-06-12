@@ -5,7 +5,7 @@ import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Tag }
 
 import lila.chat.ChatApi
 import lila.common.Bus
@@ -34,6 +34,7 @@ final class StudyApi(
   import sequencer.*
 
   export studyRepo.{ byId, byOrderedIds as byIds, publicIdNames }
+  export chapterRepo.{ orderedMetadataByStudy as chapterMetadatas }
 
   def publicByIds(ids: Seq[StudyId]) = byIds(ids) map { _.filter(_.isPublic) }
 
@@ -66,8 +67,16 @@ final class StudyApi(
   def byIdWithChapter(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
     studyRepo.byIdWithChapter(chapterRepo.coll)(id, chapterId)
 
+  def byIdWithChapterOrFallback(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
+    byIdWithChapter(id, chapterId) orElse byIdWithChapter(id)
+
   def byIdWithFirstChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo firstByStudy id)
+
+  def byChapterId(chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
+    chapterRepo.byId(chapterId).flatMapz { chapter =>
+      studyRepo.byId(chapter.studyId).mapz { Study.WithChapter(_, chapter).some }
+    }
 
   private[study] def byIdWithLastChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byIdWithChapterFinder(id, chapterRepo lastByStudy id)
@@ -95,7 +104,7 @@ final class StudyApi(
       }
     } >> byIdWithFirstChapter(study.id)
 
-  def recentByOwnerWithChapterCount = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
+  def recentByOwnerWithChapterCount       = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
   def recentByContributorWithChapterCount = studyRepo.recentByContributorWithChapterCount(chapterRepo.coll)
 
   export chapterRepo.studyIdOf
@@ -743,12 +752,8 @@ final class StudyApi(
       }
     }
 
-  def resetAllRanks = studyRepo.resetAllRanks
-
   def chapterIdNames(studyIds: List[StudyId]): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
     chapterRepo.idNamesByStudyIds(studyIds, Study.maxChapters)
-
-  def chapterMetadatas = chapterRepo.orderedMetadataByStudy
 
   def withLiked(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithLiked]] =
     me.?? { u =>

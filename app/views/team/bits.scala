@@ -19,7 +19,7 @@ object bits:
   def link(team: Team): Frag =
     a(href := routes.Team.show(team.id))(team.name)
 
-  def menu(currentTab: Option[String])(implicit ctx: WebContext) =
+  def menu(currentTab: Option[String])(using ctx: WebContext) =
     ~currentTab pipe { tab =>
       st.nav(cls := "page-menu__menu subnav")(
         (ctx.teamNbRequests > 0) option
@@ -81,7 +81,7 @@ object bits:
       title: String,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       moreJs: Frag = emptyFrag
-  )(body: Frag)(implicit ctx: WebContext) =
+  )(body: Frag)(using WebContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),

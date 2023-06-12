@@ -90,7 +90,7 @@ object side:
       chat option views.html.chat.frag
     )
 
-  private def teamBattle(tour: Tournament)(battle: TeamBattle)(implicit ctx: WebContext) =
+  private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: WebContext) =
     st.section(cls := "team-battle")(
       p(cls := "team-battle__title text", dataIcon := licon.Group)(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",

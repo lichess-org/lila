@@ -9,7 +9,7 @@ import controllers.routes
 
 object kid:
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(implicit ctx: WebContext) =
+  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(using WebContext) =
     account.layout(
       title = s"${u.username} - ${trans.kidMode.txt()}",
       active = "kid"

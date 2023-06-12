@@ -95,7 +95,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   private[tournament] def upcomingAdapterExpensiveCacheMe(userId: UserId, max: Int) =
     coll
-      .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateList(max, readPreference = ReadPreference.secondaryPreferred): framework =>
         import framework.*
         Match(enterableSelect ++ nonEmptySelect) -> List(
           PipelineOperator(lookupPlayer(userId, $doc("tid" -> true, "_id" -> false).some)),
@@ -103,7 +103,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
           Sort(Ascending("startsAt")),
           Limit(max)
         )
-      }
       .map(_.flatMap(_.asOpt[Tournament]))
       .dmap { new lila.db.paginator.StaticAdapter(_) }
 
@@ -155,14 +154,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       reason: String
   ): Fu[List[TourId]] =
     coll
-      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred): framework =>
         import framework.*
         Match(enterableSelect ++ nonEmptySelect ++ teamId.??(forTeamSelect)) -> List(
           PipelineOperator(lookupPlayer(userId, none)),
           Match("player" $ne $arr()),
           Project($id(true))
         )
-      }
       .map(_.flatMap(_.getAsOpt[TourId]("_id")))
       .monSuccess(_.tournament.withdrawableIds(reason))
 

@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.data.Form
+import play.api.data.{ Forms, Form }
 import play.api.data.Forms.*
 import play.api.libs.json.*
 import play.api.mvc.*
@@ -324,7 +324,7 @@ final class Team(
 
   def subscribe(teamId: TeamId) =
     def doSub(me: UserModel)(using ctx: BodyContext[?]) =
-      Form(single("subscribe" -> optional(boolean)))
+      Form(single("subscribe" -> optional(Forms.boolean)))
         .bindFromRequest()
         .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
         .inject(jsonOkResult)

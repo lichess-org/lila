@@ -12,7 +12,7 @@ object invite:
   def show(
       c: Clas,
       invite: ClasInvite
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     views.html.base.layout(
       moreCss = cssTag("clas"),
       title = c.name

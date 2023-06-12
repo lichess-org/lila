@@ -174,8 +174,8 @@ final class Study(
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enableSharedArrayBuffer,
             api = _ =>
-              chatOf(sc.study).map { chatOpt =>
-                Ok(
+              chatOf(sc.study).map: chatOpt =>
+                Ok:
                   Json.obj(
                     "study" -> data.study.add("chat" -> chatOpt.map { c =>
                       lila.chat.JsonView.mobile(
@@ -185,8 +185,6 @@ final class Study(
                     }),
                     "analysis" -> data.analysis
                   )
-                )
-              }
           )
         yield res
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
@@ -231,7 +229,16 @@ final class Study(
   def chapter(id: StudyId, chapterId: StudyChapterId) =
     Open:
       orRelay(id, chapterId.some):
-        showQuery(env.study.api.byIdWithChapter(id, chapterId))
+        env.study.api
+          .byIdWithChapter(id, chapterId)
+          .flatMap:
+            case None =>
+              env.study.studyRepo
+                .exists(id)
+                .flatMap:
+                  if _ then Redirect(routes.Study.show(id)).toFuccess
+                  else showQuery(fuccess(none))
+            case sc => showQuery(fuccess(sc))
 
   def chapterMeta(id: StudyId, chapterId: StudyChapterId) = Open:
     env.study.chapterRepo.byId(chapterId).map {
@@ -326,7 +333,7 @@ final class Study(
   def embed(id: StudyId, chapterId: StudyChapterId) = Anon:
     val studyWithChapter =
       if (chapterId.value == "autochap") env.study.api.byIdWithChapter(id)
-      else env.study.api.byIdWithChapter(id, chapterId)
+      else env.study.api.byIdWithChapterOrFallback(id, chapterId)
     studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
       _.fold(embedNotFound) { case WithChapter(study, chapter) =>
         for

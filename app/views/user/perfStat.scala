@@ -18,7 +18,7 @@ object perfStat:
   def apply(
       data: PerfStatData,
       ratingChart: Option[String]
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     import data.*
     import stat.perfType
     views.html.base.layout(

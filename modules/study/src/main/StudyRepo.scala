@@ -59,8 +59,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       .map: docs =>
         for
           doc     <- docs
-          study   <- doc.asOpt[Study]
           chapter <- doc.getAsOpt[Chapter]("chapter")
+          study   <- doc.asOpt[Study]
         yield Study.WithChapter(study, chapter)
 
   def byOrderedIds(ids: Seq[StudyId]) = coll(_.byOrderedIds[Study, StudyId](ids)(_.id))

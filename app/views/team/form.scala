@@ -12,7 +12,7 @@ object form:
 
   import trans.team.*
 
-  def create(form: Form[?], captcha: lila.common.Captcha)(implicit ctx: WebContext) =
+  def create(form: Form[?], captcha: lila.common.Captcha)(using WebContext) =
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),
@@ -37,7 +37,7 @@ object form:
       )
     }
 
-  def edit(t: Team, form: Form[?])(implicit ctx: WebContext) =
+  def edit(t: Team, form: Form[?])(using ctx: WebContext) =
     bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")) {
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
@@ -92,7 +92,7 @@ object form:
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
-  private def textFields(form: Form[?])(implicit ctx: WebContext) = frag(
+  private def textFields(form: Form[?])(using WebContext) = frag(
     form3.group(
       form("intro"),
       "Introduction",
@@ -120,7 +120,7 @@ object form:
     )
   )
 
-  private def accessFields(form: Form[?])(implicit ctx: WebContext) =
+  private def accessFields(form: Form[?])(using WebContext) =
     frag(
       form3.checkbox(
         form("hideMembers"),
@@ -160,7 +160,7 @@ object form:
       )
     )
 
-  private def entryFields(form: Form[?], team: Option[Team])(implicit ctx: WebContext) =
+  private def entryFields(form: Form[?], team: Option[Team])(using ctx: WebContext) =
     form3.split(
       form3.checkbox(
         form("request"),

@@ -98,6 +98,7 @@ package captcha:
 
 package lpv:
   case class GamePgnsFromText(text: String, promise: Promise[Map[GameId, chess.format.pgn.PgnStr]])
+  case class AllPgnsFromText(text: String, promise: Promise[Map[String, chess.format.pgn.PgnStr]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
 
 package simul:

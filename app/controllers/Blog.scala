@@ -15,7 +15,7 @@ final class Blog(
 )(using play.api.libs.ws.StandaloneWSClient)
     extends LilaController(env):
 
-  import prismicC.*
+  import prismicC.{ given, * }
 
   private def blogApi = env.blog.api
 

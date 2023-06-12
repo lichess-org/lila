@@ -13,7 +13,7 @@ object replayBot:
       pgn: String,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     views.html.analyse.bits.layout(
       title = replay titleOf pov,
       moreCss = cssTag("analyse.round"),

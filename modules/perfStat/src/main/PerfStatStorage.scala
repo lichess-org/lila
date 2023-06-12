@@ -98,5 +98,5 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
       case (field, v) if am.get(field).fold(true)(_ != v) => field -> v
     }
 
-  private def docMap[T](a: T)(implicit writer: BSONDocumentWriter[T]) =
+  private def docMap[T](a: T)(using writer: BSONDocumentWriter[T]) =
     writer.writeTry(a).get.toMap

@@ -99,7 +99,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   def countRequestsOfLeader(userId: UserId, requestColl: Coll): Fu[Int] =
     coll
-      .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateOne(readPreference = ReadPreference.secondaryPreferred): framework =>
         import framework.*
         Match($doc("leaders" -> userId)) -> List(
           Group(BSONNull)("ids" -> PushField("_id")),
@@ -126,7 +126,6 @@ final class TeamRepo(val coll: Coll)(using Executor):
             "nb" -> Sum($doc("$size" -> "$requests"))
           )
         )
-      }
       .map(~_.flatMap(_.int("nb")))
 
   def forumAccess(id: TeamId): Fu[Option[Team.Access]] =

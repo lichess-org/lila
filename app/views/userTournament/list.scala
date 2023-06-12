@@ -17,7 +17,7 @@ object list:
       path: String,
       pager: Paginator[lila.tournament.LeaderboardApi.TourEntry],
       count: String
-  )(implicit lang: Lang) =
+  )(using Lang) =
     if (pager.nbResults == 0)
       div(cls := "box-pad")(u.username, " hasn't played in any tournament yet!")
     else

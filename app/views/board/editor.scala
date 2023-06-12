@@ -16,7 +16,7 @@ object editor:
       fen: Option[Fen.Epd],
       positionsJson: String,
       endgamePositionsJson: String
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(

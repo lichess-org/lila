@@ -11,7 +11,7 @@ import lila.security.{ Granter, Permission }
 
 object bits:
 
-  def searchForm(search: String = "")(implicit ctx: WebContext) =
+  def searchForm(search: String = "")(using WebContext) =
     div(cls := "box__top__actions")(
       form(cls := "search", action := routes.ForumPost.search())(
         input(

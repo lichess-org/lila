@@ -43,9 +43,7 @@ trait StringHelper { self: I18nHelper with NumberHelper =>
           frag(first :: rest.map { frag(separator, _) }).render
         )
 
-  implicit def lilaRichString(str: String): LilaRichString = new LilaRichString(str)
+  extension (e: String)
+    def active(other: String, one: String = "active")  = if e == other then one else ""
+    def activeO(other: String, one: String = "active") = e == other option one
 }
-
-final class LilaRichString(val str: String) extends AnyVal:
-  def active(other: String, one: String = "active")  = if (str == other) one else ""
-  def activeO(other: String, one: String = "active") = if (str == other) Some(one) else None

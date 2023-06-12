@@ -7,7 +7,7 @@ import lila.i18n.{ I18nKeys as trans }
 
 object jsI18n:
 
-  def apply(g: lila.game.Game)(implicit lang: Lang) =
+  def apply(g: lila.game.Game)(using Lang) =
     i18nJsObject {
       baseTranslations ++ {
         if (g.isCorrespondence) correspondenceTranslations

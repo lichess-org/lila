@@ -39,7 +39,7 @@ final class Main(
           }
         )
 
-  def handlerNotFound(req: RequestHeader) = reqToCtx(req) map renderNotFound
+  def handlerNotFound(req: RequestHeader) = reqToCtx(req) map { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.large

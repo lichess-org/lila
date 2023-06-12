@@ -5,7 +5,7 @@ import play.api.Mode
 
 import lila.common.config
 import lila.common.{ Bus, Markdown, MarkdownRender }
-import lila.hub.actorApi.lpv.GamePgnsFromText
+import lila.hub.actorApi.lpv.AllPgnsFromText
 import lila.memo.CacheApi
 
 final class UblogMarkup(
@@ -18,8 +18,11 @@ final class UblogMarkup(
 
   import UblogMarkup.*
 
-  private val pgnCache = cacheApi.notLoadingSync[GameId, chess.format.pgn.PgnStr](256, "ublogMarkup.pgn"):
-    _.expireAfterWrite(1 second).build()
+  type PgnSourceId = String
+
+  private val pgnCache =
+    cacheApi.notLoadingSync[PgnSourceId, chess.format.pgn.PgnStr](256, "ublogMarkup.pgn"):
+      _.expireAfterWrite(1 second).build()
 
   private val renderer = MarkdownRender(
     autoLink = true,
@@ -29,7 +32,7 @@ final class UblogMarkup(
     blockQuote = true,
     code = true,
     table = true,
-    gameExpand = MarkdownRender.GameExpand(netDomain, pgnCache.getIfPresent).some,
+    pgnExpand = MarkdownRender.PgnSourceExpand(netDomain, pgnCache.getIfPresent).some,
     assetDomain.some
   )
 
@@ -41,7 +44,7 @@ final class UblogMarkup(
     _.maximumSize(2048)
       .expireAfterWrite(if (mode == Mode.Prod) 15 minutes else 1 second)
       .buildAsyncFuture: (id, markdown) =>
-        Bus.ask("lpv")(GamePgnsFromText(markdown.value, _)) andThen { case scala.util.Success(pgns) =>
+        Bus.ask("lpv")(AllPgnsFromText(markdown.value, _)) andThen { case scala.util.Success(pgns) =>
           pgnCache.putAll(pgns)
         } inject process(id)(markdown)
 

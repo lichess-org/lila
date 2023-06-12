@@ -10,7 +10,7 @@ import controllers.routes
 
 object bits:
 
-  def menu(year: Option[Int], active: Option[String])(implicit ctx: WebContext) =
+  def menu(year: Option[Int], active: Option[String])(using ctx: WebContext) =
     st.nav(cls := "page-menu__menu subnav force-ltr")(
       a(cls := active.has("community").option("active"), href := langHref(routes.Ublog.communityAll()))(
         "Community blogs"
@@ -33,7 +33,7 @@ object bits:
       post: MiniPost,
       postClass: Option[String] = None,
       header: Tag = h2
-  )(implicit ctx: WebContext) =
+  )(using WebContext) =
     a(cls := postClass)(href := routes.Blog.show(post.id, post.slug))(
       st.img(src := post.image),
       div(cls := "content")(

@@ -15,7 +15,7 @@ object widgets:
       notes: Map[GameId, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
-  )(implicit ctx: WebContext): Frag =
+  )(using WebContext): Frag =
     games map { g =>
       val fromPlayer  = user flatMap g.player
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
@@ -106,7 +106,7 @@ object widgets:
       )
     }
 
-  def showClock(game: Game)(implicit ctx: WebContext) =
+  def showClock(game: Game)(using WebContext) =
     game.clock.map { clock =>
       frag(clock.config.show)
     } getOrElse {
@@ -124,7 +124,7 @@ object widgets:
 
   private lazy val anonSpan = span(cls := "anon")(lila.user.User.anonymous)
 
-  private def gamePlayer(player: Player)(implicit ctx: WebContext) =
+  private def gamePlayer(player: Player)(using ctx: WebContext) =
     div(cls := s"player ${player.color.name}")(
       player.playerUser map { playerUser =>
         frag(

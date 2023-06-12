@@ -9,7 +9,7 @@ import controllers.routes
 
 object passwd:
 
-  def apply(form: play.api.data.Form[?])(implicit ctx: WebContext) =
+  def apply(form: play.api.data.Form[?])(using WebContext) =
     account.layout(
       title = trans.changePassword.txt(),
       active = "password",
