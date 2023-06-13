@@ -241,7 +241,6 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
 object NewRoot:
   def default(variant: Variant)                        = NewRoot(Metas.default(variant), None)
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
-  extension (path: UciPath) def ids                    = path.computeIds.toList
 
   given defaultNodeJsonWriter: Writes[NewRoot] = makeNodeJsonWriter(alwaysChildren = true)
   def minimalNodeJsonWriter                    = makeNodeJsonWriter(alwaysChildren = false)
