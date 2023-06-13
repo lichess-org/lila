@@ -49,14 +49,13 @@ final class Swiss(
               playerInfo = none,
               isInTeam = isInTeam
             )
-            canChat <- canHaveChat(swiss)
+            canChat <- canHaveChat(swiss.roundInfo)
             chat <-
               canChat ?? env.chat.api.userChat.cached
                 .findMine(swiss.id into ChatId, ctx.me)
-                .dmap(some)
-            _ <- chat ?? { c =>
-              env.user.lightUserApi.preloadMany(c.chat.userIds)
-            }
+                .flatMap: c =>
+                  env.user.lightUserApi.preloadMany(c.chat.userIds) inject
+                    c.copy(locked = !env.api.chatFreshness.of(swiss)).some
             streamers  <- streamerCache get swiss.id
             isLocalMod <- canChat ?? ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
           } yield Ok(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
@@ -303,9 +302,6 @@ final class Swiss(
       else if (isGranted(_.ManageTournament, me)) f(swiss)
       else fallback(swiss)
     }
-
-  private def canHaveChat(swiss: SwissModel)(using WebContext): Fu[Boolean] =
-    env.api.chatFreshness.of(swiss) ?? canHaveChat(swiss.roundInfo)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(using ctx: WebContext): Fu[Boolean] =
     (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {

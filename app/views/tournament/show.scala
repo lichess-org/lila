@@ -37,7 +37,8 @@ object show:
                   timeout = c.timeout,
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
-                  localMod = ctx.userId has tour.createdBy
+                  localMod = ctx.userId has tour.createdBy,
+                  writeable = !c.locked
                 )
               },
               "showRatings" -> ctx.pref.showRatings

@@ -52,7 +52,7 @@ case class UserChat(
   def hasRecentLine(u: User): Boolean = lines.reverse.take(12).exists(_.userId == u.id)
 
 object UserChat:
-  case class Mine(chat: UserChat, timeout: Boolean):
+  case class Mine(chat: UserChat, timeout: Boolean, locked: Boolean = false):
     def truncate(max: Int) = copy(chat = chat truncate max)
 
 case class MixedChat(
