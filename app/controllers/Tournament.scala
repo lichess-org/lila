@@ -84,12 +84,12 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       def loadChat(tour: Tour, json: JsObject) =
         canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
           .findMine(ChatId(tour.id), ctx.me)
-          .flatMap { c =>
-            env.user.lightUserApi.preloadMany(c.chat.userIds) inject c.some
-          }
+          .flatMap: c =>
+            env.user.lightUserApi.preloadMany(c.chat.userIds) inject
+              c.copy(locked = !env.api.chatFreshness.of(tour)).some
       negotiate(
         html = tourOption
-          .fold(tournamentNotFound.toFuccess) { tour =>
+          .fold(tournamentNotFound.toFuccess): tour =>
             for
               myInfo   <- ctx.me.?? { jsonView.fetchMyInfo(tour, _) }
               verdicts <- api.getVerdicts(tour, ctx.me, myInfo.isDefined)
@@ -111,15 +111,13 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               }
               streamers   <- streamerCache get tour.id
               shieldOwner <- env.tournament.shieldApi currentOwner tour
-            yield {
+            yield
               env.tournament.lilaHttp.hit(tour)
               Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)).noCache
-            }
-          }
           .monSuccess(_.tournament.apiShowPartial(partial = false, HTTPRequest clientName ctx.req)),
         api = _ =>
           tourOption
-            .fold(notFoundJson("No such tournament")) { tour =>
+            .fold(notFoundJson("No such tournament")): tour =>
               for
                 playerInfoExt <- getUserStr("playerInfo").map(_.id).?? { api.playerInfo(tour, _) }
                 socketVersion <- getBool("socketVersion").??(env.tournament version tour.id dmap some)
@@ -138,7 +136,6 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
               yield Ok(json.add("chat" -> chat.map { c =>
                 lila.chat.JsonView.mobile(chat = c.chat)
               })).noCache
-            }
             .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
       )
     }
