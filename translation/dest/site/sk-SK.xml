@@ -393,6 +393,12 @@
     <item quantity="many">%s štúdií</item>
     <item quantity="other">%s štúdií</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultánka</item>
+    <item quantity="few">%s simultánky</item>
+    <item quantity="many">%s simultánok</item>
+    <item quantity="other">%s simultánok</item>
+  </plurals>
   <string name="viewTournament">Zobraziť turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
   <string name="noDrawBeforeSwissLimit">V turnaji švajčiarskeho systému nie je možné remizovať pokiaľ sa neodohralo 30 ťahov.</string>

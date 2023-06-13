@@ -99,6 +99,7 @@
   <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
   <string name="openingEndgameExplorer">Սկզբնախաղերի/վերջնախաղերի տեղեկատու</string>
   <string name="xOpeningExplorer">%s սկզբնախաղերի դիտարկիչ</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Խաղալ սկզբնախաղեր­/վերջնախաղեր սովորողի առաջին քայլը</string>
   <string name="winPreventedBy50MoveRule">Հաղթանակը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="lossSavedBy50MoveRule">Պարտությունը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="winOr50MovesByPriorMistake">Հաղթանակ կամ 50 քայլ վերջին սխալից հետո</string>
@@ -288,6 +289,7 @@
   <string name="cancelRematchOffer">Կասեցնել ռևանշի առաջարկը</string>
   <string name="viewRematch">Ցույց տալ ռեւանշը</string>
   <string name="confirmMove">Հաստատել քայլը</string>
+  <string name="enableConfirmationForThisGame">Միացնել հաստատում այս պարտիայի համար</string>
   <string name="play">Խաղալ</string>
   <string name="inbox">Փոստարկղ</string>
   <string name="chatRoom">Զրուցարանի պատուհան</string>
@@ -681,6 +683,10 @@
   <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>
   <string name="keyShowOrHideComments">ցույց տալ/թաքցնել մեկնաբանությունները</string>
   <string name="keyEnterOrExitVariation">բացել/փակել տարբերակը</string>
+  <string name="keyRequestComputerAnalysis">Պատվիրեք համակարգչային վերլուծություն, սովորեք սեփական սխալներից</string>
+  <string name="keyNextBlunder">Հաջորդ վրիպումը</string>
+  <string name="keyNextMistake">Հաջորդ սխալը</string>
+  <string name="keyNextInaccuracy">Հաջորդ անճշտությունը</string>
   <string name="newTournament">Նոր մրցաշար</string>
   <string name="tournamentHomeTitle">Շախմատի զանազան տարբերակներով և ժամակարգերով մրցաշարեր</string>
   <string name="tournamentHomeDescription">Մրցաշարում խաղացե՜ք արագ շախմատ։ Ընտրեք Lichess-ի պաշտոնական մրցաշարերից ցանկացածը կամ ստեղծեք ձերը։ Գնդակ (Bullet), կայծակնային (Blitz), դասական, շախմատ-960 (Ֆիշերի շախմատ, Chess960), արքան կենտրոնում (King of the Hill), երեք շախ (Threecheck) և խաղի այլ տարբերակներ. դրանք կապահովեն ձեր շախմատային հաճույքը։</string>

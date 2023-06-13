@@ -348,6 +348,10 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studiar</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultant parti</item>
+    <item quantity="other">%s simultane parti</item>
+  </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Attende til turneringa</string>
   <string name="noDrawBeforeSwissLimit">I sveitsarturneringer må det spelast minst 30 trekk før det er lov å tilby remis.</string>
