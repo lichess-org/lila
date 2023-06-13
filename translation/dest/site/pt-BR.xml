@@ -348,6 +348,10 @@
     <item quantity="one">%s estudo</item>
     <item quantity="other">%s estudos</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultânea</item>
+    <item quantity="other">%s simultâneas</item>
+  </plurals>
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
   <string name="noDrawBeforeSwissLimit">Não é possível empatar antes de 30 lances em um torneio suíço.</string>
