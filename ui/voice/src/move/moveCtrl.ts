@@ -27,26 +27,23 @@ export default (window as any).LichessVoiceMove = function (
   initialFen: string
 ): VoiceMove {
   const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
-
   const cg: CgApi = root.chessground;
-  const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
-  const byTok: Map<string, Entry> = new Map(); // map token chars to lexicon entries
-  const byWord: Map<string, Entry> = new Map(); // map input words to lexicon entries
-  const moves: SparseMap<Uci> = new Map(); // map valid xvals to all full legal movesmmmmmmmmmh
-  const squares: SparseMap<Uci> = new Map(); // map of xvals to selectable or reachable square(s)
-  const sans: SparseMap<string> = new Map(); // map xvals to ucis of valid sans
-  const confirmations: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
-  const clarityPref = prop.storedIntProp('voice.clarity', 0);
-  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
-  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
-
   let entries: Entry[] = [];
   let partials = { commands: [], colors: [], numbers: [] };
   let board: cs.Board;
   let ucis: Uci[]; // every legal move in uci
-
-  let choices: Map<string, Uci> | undefined; // map choice (blue, red, 1, 2, etc) to action
+  const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
+  const byTok: Map<string, Entry> = new Map(); // map token chars to lexicon entries
+  const byWord: Map<string, Entry> = new Map(); // map input words to lexicon entries
+  const moves: SparseMap<Uci> = new Map(); // map values to all full legal moves
+  const squares: SparseMap<Uci> = new Map(); // map values to selectable or reachable squares
+  const sans: SparseMap<Uci> = new Map(); // map values to ucis of valid sans
+  const confirmations: Map<string, (v: boolean) => void> = new Map(); // boolean confirmation callbacks
+  let choices: Map<string, Uci> | undefined; // map choice arrows (yes, blue, red, 1, 2, etc) to moves
   let choiceTimeout: number | undefined; // timeout for ambiguity choices
+  const clarityPref = prop.storedIntProp('voice.clarity', 0);
+  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
+  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
 
   const commands: { [_: string]: () => void } = {
     no: () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress()),

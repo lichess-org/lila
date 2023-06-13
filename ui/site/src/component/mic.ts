@@ -141,7 +141,7 @@ export const mic =
         this.vosk?.select(this.recId);
         this.micTrack!.enabled = listen;
         this.busy = false;
-        this.broadcast(this.recId, 'start');
+        this.broadcast(listen ? 'Listening...' : '', 'start');
       } catch (e: any) {
         this.stop([e.toString(), 'error']);
         throw e;

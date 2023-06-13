@@ -22,33 +22,24 @@ export const supportedLangs = [
 ];
 
 export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
-  let keyupTimeout: number;
-  const keydownListener = (e: KeyboardEvent) => {
-    if (e.key !== 'Shift') return;
-    lichess.mic.start();
-    clearTimeout(keyupTimeout);
-  };
-  const keyupListener = (e: KeyboardEvent) => {
-    if (e.key !== 'Shift') return;
-    clearTimeout(keyupTimeout);
-    keyupTimeout = setTimeout(() => lichess.mic.stop(), 600);
-  };
-  const pushTalkOn = () => {
-    // TODO: setTimeout to periodically generate events (to check modifier state)
-    document.addEventListener('keydown', keydownListener);
-    document.addEventListener('keyup', keyupListener);
-  };
-  const pushTalkOff = () => {
-    document.removeEventListener('keydown', keydownListener);
-    document.removeEventListener('keyup', keyupListener);
-  };
+  function toggle() {
+    if (pushTalk()) {
+      enabled(false);
+      pushTalk(false);
+    } else enabled(!enabled()) ? lichess.mic.start() : lichess.mic.stop();
+    if (opts.tpe === 'move' && lichess.once('voice.rtfm')) showHelp(true);
+  }
+
+  function micId(deviceId?: string) {
+    if (deviceId) lichess.mic.setMic(deviceId);
+    return lichess.mic.micId;
+  }
+
   const enabled = prop.storedBooleanProp('voice.on', false);
+
   const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
     lichess.mic.stop();
-    if (val) {
-      pushTalkOn();
-      enabled(true);
-    } else pushTalkOff();
+    if (val) enabled(true);
     if (enabled()) lichess.mic.start(!val);
   });
 
@@ -65,24 +56,21 @@ export function makeCtrl(opts: VoiceUIOpts): VoiceCtrl {
 
   const showHelp = propWithEffect(false, opts.redraw);
 
-  const toggle = () => {
-    if (pushTalk()) {
-      enabled(false);
-      pushTalk(false);
-    } else enabled(!enabled()) ? lichess.mic.start() : lichess.mic.stop();
-    if (lichess.once('voice.rtfm')) showHelp(true);
-  };
-
-  const micId = (deviceId?: string) => {
-    if (deviceId) lichess.mic.setMic(deviceId);
-    return lichess.mic.micId;
-  };
+  let keyupTimeout: number;
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key !== 'Shift' || !pushTalk()) return;
+    lichess.mic.start();
+    clearTimeout(keyupTimeout);
+  });
+  document.addEventListener('keyup', (e: KeyboardEvent) => {
+    if (e.key !== 'Shift' || !pushTalk()) return;
+    clearTimeout(keyupTimeout);
+    keyupTimeout = setTimeout(() => lichess.mic.stop(), 600);
+  });
 
   lichess.mic.setLang(lang());
-  if (pushTalk()) {
-    pushTalkOn();
-    lichess.mic.start(false);
-  } else if (enabled()) lichess.mic.start(true);
+  if (pushTalk()) lichess.mic.start(false);
+  else if (enabled()) lichess.mic.start(true);
 
   return {
     lang,
