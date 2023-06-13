@@ -11,7 +11,7 @@ final class Coordinate(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Coordinate.home)(serveHome)
 
   private def serveHome(using ctx: WebContext): Fu[Result] =
-    ctx.userId ?? { userId =>
+    ctx.userId so { userId =>
       env.coordinate.api getScore userId map (_.some)
     } map { score =>
       views.html.coordinate.show(score)

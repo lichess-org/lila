@@ -55,7 +55,7 @@ case class Glicko(
         volatility = volatility * (1 - weight) + other.volatility * weight
       )
 
-  def display = s"$intRating${provisional.yes ?? "?"}"
+  def display = s"$intRating${provisional.yes so "?"}"
 
   override def toString = f"$intRating/$intDeviation/${volatility}%.3f"
 

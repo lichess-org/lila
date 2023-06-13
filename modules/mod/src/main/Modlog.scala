@@ -16,7 +16,7 @@ case class Modlog(
   def notable      = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess
 
-  def gameId = details.ifTrue(action == Modlog.cheatDetected).??(_.split(' ').lift(1))
+  def gameId = details.ifTrue(action == Modlog.cheatDetected).so(_.split(' ').lift(1))
 
   def indexAs(i: String) = copy(index = i.some)
 
@@ -153,6 +153,6 @@ object Modlog:
   val blankedPassword     = "blankedPassword"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
-  def explain(e: Modlog) = (e.index has "team") ?? ~e.details match
+  def explain(e: Modlog) = (e.index has "team") so ~e.details match
     case explainRegex(explain) => explain.some
     case _                     => none

@@ -51,7 +51,7 @@ object Puzzle:
         l + charToInt(char) * pow
       }
 
-    def apply(l: Long): Option[PuzzleId] = (l > 130_000) ?? {
+    def apply(l: Long): Option[PuzzleId] = (l > 130_000) so {
       val str = powers.reverse
         .foldLeft(("", l)) { case ((id, rest), pow) =>
           val frac = rest / pow

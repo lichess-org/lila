@@ -44,7 +44,7 @@ object post:
           (!post.erased || canModCateg) option div(
             bits.authorLink(
               post = post,
-              cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some
+              cssClass = s"author${(topic.userId == post.userId) so " author--op"}".some
             ),
             a(href := url)(
               post.updatedAt
@@ -134,7 +134,7 @@ object post:
       )
 
   def reactions(post: ForumPost, canReact: Boolean)(using ctx: WebContext) =
-    val mine             = ctx.me ?? { ForumPost.Reaction.of(~post.reactions, _) }
+    val mine             = ctx.me so { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
       ForumPost.Reaction.list.map { r =>

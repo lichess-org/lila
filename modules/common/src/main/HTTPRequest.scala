@@ -90,7 +90,7 @@ object HTTPRequest:
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).??(_.value)}"
+    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).so(_.value)}"
 
   def bearer(req: RequestHeader): Option[Bearer] =
     req.headers.get(HeaderNames.AUTHORIZATION).flatMap { authorization =>

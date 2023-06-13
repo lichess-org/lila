@@ -365,7 +365,7 @@ Thank you all, you rock!""",
             Schedule(Hourly, SuperBlitz, Standard, none, when),
             Schedule(Hourly, Blitz, Standard, none, when)
           ) ::: {
-            (when.getHour % 2 == 0) ?? List(Schedule(Hourly, Rapid, Standard, none, when))
+            (when.getHour % 2 == 0) so List(Schedule(Hourly, Rapid, Standard, none, when))
           }
         }
         .map(_.plan),
@@ -419,15 +419,16 @@ Thank you all, you rock!""",
           case 1 => KingOfTheHill
           case _ => Crazyhouse
         List(Schedule(Hourly, speed, variant, none, when).plan) :::
-          (speed == Bullet) ?? List(
-            Schedule(
-              Hourly,
-              if when.getHour == 17 then HyperBullet else Bullet,
-              variant,
-              none,
-              when plusMinutes 30
-            ).plan
-          )
+          (speed == Bullet).so:
+            List(
+              Schedule(
+                Hourly,
+                if when.getHour == 17 then HyperBullet else Bullet,
+                variant,
+                none,
+                when plusMinutes 30
+              ).plan
+            )
       },
       // hourly atomic/antichess variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
@@ -439,15 +440,16 @@ Thank you all, you rock!""",
           case 3 | 6 => SuperBlitz
         val variant = if when.getHour % 2 == 0 then Atomic else Antichess
         List(Schedule(Hourly, speed, variant, none, when).plan) :::
-          (speed == Bullet) ?? List(
-            Schedule(
-              Hourly,
-              if when.getHour == 18 then HyperBullet else Bullet,
-              variant,
-              none,
-              when plusMinutes 30
-            ).plan
-          )
+          (speed == Bullet).so:
+            List(
+              Schedule(
+                Hourly,
+                if when.getHour == 18 then HyperBullet else Bullet,
+                variant,
+                none,
+                when plusMinutes 30
+              ).plan
+            )
       },
       // hourly threecheck/horde/racing variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
@@ -462,30 +464,30 @@ Thank you all, you rock!""",
           case 1 => Horde
           case _ => RacingKings
         List(Schedule(Hourly, speed, variant, none, when).plan) :::
-          (speed == Bullet) ?? List(
-            Schedule(
-              Hourly,
-              if when.getHour == 19 then HyperBullet else Bullet,
-              variant,
-              none,
-              when plusMinutes 30
-            ).plan
-          )
+          (speed == Bullet).so:
+            List(
+              Schedule(
+                Hourly,
+                if when.getHour == 19 then HyperBullet else Bullet,
+                variant,
+                none,
+                when plusMinutes 30
+              ).plan
+            )
       }
     ).flatten.filter(_.schedule.at.instant.isAfter(rightNow))
 
   private def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
-      .foldLeft(List[Tournament]()) { (tourns, t) =>
+      .foldLeft(List[Tournament]()): (tourns, t) =>
         if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
         else t :: tourns
-      }
       .reverse
 
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
-    t.schedule exists { s =>
-      ts exists { t2 =>
-        t.variant == t2.variant && t2.schedule.?? {
+    t.schedule.exists: s =>
+      ts.exists: t2 =>
+        t.variant == t2.variant && t2.schedule.so:
           // prevent daily && weekly on the same day
           case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameSpeed(s2) => s sameDay s2
           case s2 =>
@@ -494,9 +496,6 @@ Thank you all, you rock!""",
                 s.hasMaxRating ||  // overlapping same rating limit
                 s.similarSpeed(s2) // overlapping similar
             ) && s.similarConditions(s2) && t.overlaps(t2)
-        }
-      }
-    }
 
   private def atTopOfHour(rightNow: Instant, hourDelta: Int): LocalDateTime =
     rightNow.plusHours(hourDelta).dateTime.withMinute(0)

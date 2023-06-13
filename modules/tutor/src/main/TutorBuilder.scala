@@ -35,7 +35,7 @@ final private class TutorBuilder(
   def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
     user     <- userRepo byId userId orFail s"No such user $userId"
     hasFresh <- hasFreshReport(user)
-    report <- !hasFresh ?? {
+    report <- !hasFresh so {
       val chrono = lila.common.Chronometer.lapTry(produce(user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for
@@ -60,7 +60,7 @@ final private class TutorBuilder(
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _     <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor buildSegment "fishnet-analysis")
-    perfs <- (tutorUsers.toNel ?? TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
+    perfs <- (tutorUsers.toNel so TutorPerfReport.compute).monSuccess(_.tutor buildSegment "perf-reports")
   yield TutorFullReport(user.id, nowInstant, perfs)
 
   private[tutor] def eligiblePerfTypesOf(user: User) =

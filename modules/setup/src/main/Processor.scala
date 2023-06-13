@@ -17,14 +17,14 @@ final private[setup] class Processor(
     pov <- config pov ctx.me
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
-    _ <- pov.game.player.isAi ?? fishnetPlayer(pov.game)
+    _ <- pov.game.player.isAi so fishnetPlayer(pov.game)
   yield pov
 
   def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = for
     pov <- config pov me.some
     _   <- gameRepo insertDenormalized pov.game
     _ = onStart(pov.gameId)
-    _ <- pov.game.player.isAi ?? fishnetPlayer(pov.game)
+    _ <- pov.game.player.isAi so fishnetPlayer(pov.game)
   yield pov
 
   def hook(

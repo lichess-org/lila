@@ -190,7 +190,7 @@ final class RelayRound(
       f: TourModel.WithRounds => Fu[Result]
   )(using ctx: WebContext): Fu[Result] =
     WithTour(id) { tour =>
-      ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
+      ctx.me.so { env.relay.api.canUpdate(_, tour) } flatMapz {
         env.relay.api withRounds tour flatMap f
       }
     }

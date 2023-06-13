@@ -53,7 +53,7 @@ final class Env(
       api.reviews.deleteAllBy(userId).unit
     case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
       if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
-        white ?? api.setRating
-        black ?? api.setRating
+        white so api.setRating
+        black so api.setRating
       }.unit
   }

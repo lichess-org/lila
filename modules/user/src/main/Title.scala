@@ -51,7 +51,7 @@ object Title:
         case _                          => none
 
     def apply(url: String)(using ws: StandaloneWSClient): Fu[Option[UserTitle]] =
-      toFideId(url) ?? fromFideProfile
+      toFideId(url) so fromFideProfile
 
     private def fromFideProfile(id: Int)(using ws: StandaloneWSClient): Fu[Option[UserTitle]] =
       ws.url(s"""https://ratings.fide.com/profile/$id""").get().dmap(_.body) dmap {

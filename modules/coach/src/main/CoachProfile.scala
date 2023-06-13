@@ -14,9 +14,9 @@ case class CoachProfile(
     publicStudies: Option[String] = None
 ):
 
-  lazy val youtubeUrls = youtubeVideos ?? UrlList.youtube.apply
+  lazy val youtubeUrls = youtubeVideos so UrlList.youtube.apply
 
-  lazy val studyIds = publicStudies ?? UrlList.study.apply
+  lazy val studyIds = publicStudies so UrlList.study.apply
 
   def textLines: List[String] = List(
     "headline"           -> headline,

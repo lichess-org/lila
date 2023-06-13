@@ -18,7 +18,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
       angle: PuzzleAngle,
       difficulty: PuzzleDifficulty,
       nb: Int
-  ): Fu[Vector[Puzzle]] = (nb > 0) ?? {
+  ): Fu[Vector[Puzzle]] = (nb > 0) so {
     user.fold(anonApi.getBatchFor(angle, difficulty, nb)): user =>
       val tier =
         if user.perfs.puzzle.nb > 5000 then PuzzleTier.good

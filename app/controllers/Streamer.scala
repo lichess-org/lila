@@ -16,7 +16,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   def index(page: Int) = Open:
     NoBot:
-      ctx.noKid ?? {
+      ctx.noKid.so:
         pageHit
         val requests = getBool("requests") && isGranted(_.Streamers)
         for
@@ -24,7 +24,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           live        <- api.withUsers(liveStreams, ctx.me.map(_.id))
           pager       <- env.streamer.pager.get(page, liveStreams, ctx.me.map(_.id), requests)
         yield Ok(html.streamer.index(live, pager, requests))
-      }
 
   def featured = Anon:
     env.streamer.liveStreamApi.all.map: streams =>
@@ -68,22 +67,19 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         }
 
   def create = AuthBody { _ ?=> me =>
-    ctx.noKid ?? {
-      NoLameOrBot {
+    ctx.noKid.so:
+      NoLameOrBot:
         api find me flatMap {
           case None => api.create(me) inject Redirect(routes.Streamer.edit)
           case _    => Redirect(routes.Streamer.edit).toFuccess
         }
-      }
-    }
   }
 
   private def modData(streamer: StreamerModel)(using WebContext) =
-    isGranted(_.ModLog) ?? {
+    isGranted(_.ModLog).so:
       logApi.userHistory(streamer.userId) zip
         env.user.noteApi.byUserForMod(streamer.userId) zip
         env.streamer.api.sameChannels(streamer) map some
-    }
 
   def edit = Auth { ctx ?=> _ =>
     AsStreamer { s =>
@@ -191,7 +187,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         .toFuccess
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: WebContext) =
-    ctx.noKid ?? {
+    ctx.noKid.so:
       if (s.streamer.isListed || ctx.me.exists(_ is s.streamer) || isGranted(_.Admin)) f
       else notFound
-    }

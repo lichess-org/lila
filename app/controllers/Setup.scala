@@ -49,7 +49,7 @@ final class Setup(
   )
 
   def ai = OpenBody:
-    BotAiRateLimit(ctx.userId | UserId(""), rateLimitedFu, cost = ctx.me.exists(_.isBot) ?? 1):
+    BotAiRateLimit(ctx.userId | UserId(""), rateLimitedFu, cost = ctx.me.exists(_.isBot) so 1):
       PostRateLimit(ctx.ip, rateLimitedFu):
         forms.ai
           .bindFromRequest()
@@ -75,8 +75,8 @@ final class Setup(
           .fold(
             jsonFormError,
             config =>
-              userId ?? env.user.repo.enabledById flatMap { destUser =>
-                destUser ?? { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
+              userId so env.user.repo.enabledById flatMap { destUser =>
+                destUser so { env.challenge.granter.isDenied(ctx.me, _, config.perfType) } flatMap {
                   case Some(denied) =>
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
@@ -136,8 +136,8 @@ final class Setup(
             jsonFormError,
             userConfig =>
               PostRateLimit(req.ipAddress, rateLimitedFu):
-                AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = ctx.isAnon ?? 1):
-                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                AnonHookRateLimit(req.ipAddress, rateLimitedFu, cost = ctx.isAnon so 1):
+                  (ctx.userId so env.relation.api.fetchBlocking) flatMap { blocking =>
                     processor.hook(
                       ctx.me,
                       userConfig withinLimits ctx.me,
@@ -154,7 +154,7 @@ final class Setup(
         NoPlaybanOrCurrent:
           env.game.gameRepo game gameId flatMapz { game =>
             for
-              blocking <- ctx.userId ?? env.relation.api.fetchBlocking
+              blocking <- ctx.userId so env.relation.api.fetchBlocking
               hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
               hookConfigWithRating = get("rr").fold(
                 hookConfig.withRatingRange(
@@ -199,7 +199,7 @@ final class Setup(
           .fold(
             newJsonFormError,
             config =>
-              me.map(_.id).??(env.relation.api.fetchBlocking) flatMap { blocking =>
+              me.map(_.id).so(env.relation.api.fetchBlocking) flatMap { blocking =>
                 val uniqId = author.fold(_.value, u => s"sri:${u.id}")
                 config.fixColor
                   .hook(Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
@@ -232,7 +232,7 @@ final class Setup(
       case Some(v) => Ok(html.board.bits.miniSpan(v.fen.board, v.color)).toFuccess
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me =>
-    BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot ?? 1):
+    BotAiRateLimit(me.id, rateLimitedFu, cost = me.isBot so 1):
       PostRateLimit(req.ipAddress, rateLimitedFu):
         forms.api.ai
           .bindFromRequest()

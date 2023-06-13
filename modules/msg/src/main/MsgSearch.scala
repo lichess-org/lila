@@ -21,7 +21,7 @@ final class MsgSearch(
   def apply(me: User, q: String): Fu[MsgSearch.Result] =
     if (me.kid) forKid(me, q)
     else
-      searchThreads(me, q) zip UserStr.read(q).??(searchFriends(me, _)) zip searchUsers(UserStr(q)) map {
+      searchThreads(me, q) zip UserStr.read(q).so(searchFriends(me, _)) zip searchUsers(UserStr(q)) map {
         case ((threads, friends), users) =>
           MsgSearch
             .Result(

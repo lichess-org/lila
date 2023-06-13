@@ -41,7 +41,7 @@ final private class PushApi(
     else
       game.userIds
         .map { userId =>
-          Pov.ofUserId(game, userId) ?? { pov =>
+          Pov.ofUserId(game, userId) so { pov =>
             IfAway(pov) {
               gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
@@ -80,13 +80,13 @@ final private class PushApi(
   def move(move: MoveEvent): Funit =
     LilaFuture.delay(2 seconds) {
       proxyRepo.game(move.gameId) flatMap {
-        _.filter(_.playable) ?? { game =>
+        _.filter(_.playable) so { game =>
           val pov = Pov(game, game.player.color)
-          game.player.userId ?? { userId =>
+          game.player.userId so { userId =>
             IfAway(pov) {
               gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
-                  game.sans.lastOption ?? { sanMove =>
+                  game.sans.lastOption so { sanMove =>
                     maybePush(
                       userId,
                       _.move,
@@ -115,11 +115,11 @@ final private class PushApi(
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
-        _.filter(_.playable).?? { game =>
+        _.filter(_.playable).so { game =>
           game.players.collectFirst {
             case p if p.isProposingTakeback => Pov(game, game opponent p)
-          } ?? { pov => // the pov of the receiver
-            pov.player.userId ?? { userId =>
+          } so { pov => // the pov of the receiver
+            pov.player.userId so { userId =>
               IfAway(pov) {
                 asyncOpponentName(pov) flatMap { opponent =>
                   maybePush(
@@ -149,11 +149,11 @@ final private class PushApi(
   def drawOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds) {
       proxyRepo.game(gameId) flatMap {
-        _.filter(_.playable).?? { game =>
+        _.filter(_.playable).so { game =>
           game.players.collectFirst {
             case p if p.isOfferingDraw => Pov(game, game opponent p)
-          } ?? { pov => // the pov of the receiver
-            pov.player.userId ?? { userId =>
+          } so { pov => // the pov of the receiver
+            pov.player.userId so { userId =>
               IfAway(pov) {
                 asyncOpponentName(pov) flatMap { opponent =>
                   maybePush(
@@ -180,7 +180,7 @@ final private class PushApi(
     }
 
   def corresAlarm(pov: Pov): Funit =
-    pov.player.userId ?? { userId =>
+    pov.player.userId so { userId =>
       asyncOpponentName(pov) flatMap { opponent =>
         maybePush(
           userId,
@@ -249,8 +249,8 @@ final private class PushApi(
     )
 
   def challengeCreate(c: Challenge): Funit =
-    c.destUser ?? { dest =>
-      c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
+    c.destUser so { dest =>
+      c.challengerUser.ifFalse(c.hasClock) so { challenger =>
         lightUser(challenger.id) flatMap { lightChallenger =>
           maybePush(
             dest.id,
@@ -275,8 +275,8 @@ final private class PushApi(
     }
 
   def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
-    c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
-      joinerId ?? lightUser.optional flatMap { lightJoiner =>
+    c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) so { challenger =>
+      joinerId so lightUser.optional flatMap { lightJoiner =>
         maybePush(
           challenger.id,
           _.challenge.accept,
@@ -385,10 +385,10 @@ final private class PushApi(
     }
 
   private def filterPush(to: NotifyAllows, monitor: MonitorType, data: PushApi.Data): Funit = for
-    _ <- to.allows.web ?? webPush(to.userId, data).addEffects(res =>
+    _ <- to.allows.web so webPush(to.userId, data).addEffects(res =>
       monitor(lila.mon.push.send)("web", res.isSuccess, 1)
     )
-    _ <- to.allows.device ?? firebasePush(to.userId, data).addEffects(res =>
+    _ <- to.allows.device so firebasePush(to.userId, data).addEffects(res =>
       monitor(lila.mon.push.send)("firebase", res.isSuccess, 1)
     )
   yield ()

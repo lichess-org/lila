@@ -24,7 +24,7 @@ final class RelayLeaderboardApi(
 
   import BSONHandlers.given
 
-  def apply(tour: RelayTour): Fu[Option[RelayLeaderboard]] = tour.autoLeaderboard ?? {
+  def apply(tour: RelayTour): Fu[Option[RelayLeaderboard]] = tour.autoLeaderboard so {
     cache get tour.id dmap some
   }
 

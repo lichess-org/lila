@@ -26,7 +26,7 @@ case class RelayPlayers(text: String):
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags) { case (tags, color) =>
       tags ++ Tags {
-        tags(color.name).flatMap(players.get) ?? { rp =>
+        tags(color.name).flatMap(players.get) so { rp =>
           List(
             Tag(color.fold(Tag.White, Tag.Black), rp.name).some,
             rp.rating.map { rating => Tag(color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) }

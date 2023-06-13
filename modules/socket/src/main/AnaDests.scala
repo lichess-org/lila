@@ -21,9 +21,9 @@ case class AnaDests(
     if (isInitial) AnaDests.initialDests
     else
       val sit = chess.Game(variant.some, fen.some).situation
-      sit.playable(false) ?? destString(sit.destinations)
+      sit.playable(false) so destString(sit.destinations)
 
-  lazy val opening = Variant.list.openingSensibleVariants(variant) ?? {
+  lazy val opening = Variant.list.openingSensibleVariants(variant) so {
     OpeningDb findByEpdFen fen
   }
 

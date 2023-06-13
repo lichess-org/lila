@@ -31,11 +31,9 @@ final class RequesterApi(coll: Coll)(using Executor):
       )
       .map { doc =>
         val daily = doc.flatMap(_ int formatter.print(now))
-        val weekly = doc ?? {
-          _.values.foldLeft(0) {
+        val weekly = doc.so:
+          _.values.foldLeft(0):
             case (acc, BSONInteger(v)) => acc + v
             case (acc, _)              => acc
-          }
-        }
         (~daily, weekly)
       }

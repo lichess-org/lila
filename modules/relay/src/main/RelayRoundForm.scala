@@ -123,7 +123,7 @@ object RelayRoundForm:
     private def makeSync(user: User) =
       RelayRound.Sync(
         upstream = syncUrl.flatMap(cleanUrl).map { u =>
-          RelayRound.Sync.UpstreamUrl(s"$u${syncUrlRound.??(" " +)}")
+          RelayRound.Sync.UpstreamUrl(s"$u${syncUrlRound.so(" " +)}")
         } orElse gameIds.map { ids =>
           RelayRound.Sync.UpstreamIds(ids.ids)
         },

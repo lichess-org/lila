@@ -37,7 +37,7 @@ object layout:
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() ?? "external."}css"),
+        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() so "external."}css"),
         rel  := "stylesheet"
       )
   import bits.*
@@ -45,9 +45,9 @@ object layout:
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
-    val linkType = tpe.??(t => s"""type="$t" """)
+    val linkType = tpe.so(t => s"""type="$t" """)
     raw:
-      s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin ?? "crossorigin"}>"""
+      s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin so "crossorigin"}>"""
 
   private def fontPreload(using ctx: WebContext) = frag(
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
@@ -236,7 +236,7 @@ object layout:
           st.headTitle {
             val prodTitle = fullTitle | s"$title • $siteName"
             if netConfig.isProd then prodTitle
-            else s"${ctx.me.??(_.username + " ")} $prodTitle"
+            else s"${ctx.me.so(_.username + " ")} $prodTitle"
           },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),

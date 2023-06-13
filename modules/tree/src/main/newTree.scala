@@ -173,7 +173,7 @@ object NewTree:
 
   // given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
   // def minimalNodeJsonWriter: Writes[NewTree]   = makeNodeJsonWriter(alwaysChildren = false)
-  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ???
+  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ?so
   // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
 
@@ -210,16 +210,14 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def modifyWithParentPathMetas(path: UciPath, f: Metas => Metas): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
     else
-      tree.flatMap(
+      tree.flatMap:
         _.modifyChildAt(path.ids, _.focus(_.value.metas).modify(f)).map(x => copy(tree = x.some))
-      )
 
   def modifyWithParentPath(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then this.some
     else
-      tree.flatMap(
+      tree.flatMap:
         _.modifyChildAt(path.ids, x => x.copy(value = f(x.value))).map(x => copy(tree = x.some))
-      )
 
   def withoutChildren: NewRoot = copy(tree = None)
   def withTree(t: Option[NewTree]): NewRoot =

@@ -16,7 +16,7 @@ final class MentionNotifier(
 )(using Executor):
 
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
-    post.userId.ifFalse(post.troll) ?? { author =>
+    post.userId.ifFalse(post.troll) so { author =>
       filterValidUsers(extractMentionedUsers(post), author) flatMap { mentionedUsers =>
         mentionedUsers
           .map { user =>
@@ -53,7 +53,7 @@ final class MentionNotifier(
     } yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =
-    post.text.contains('@') ?? {
+    post.text.contains('@') so {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
       (post.userId foldLeft m.map(_ group 1).map(u => UserStr(u).id).toSet) { _ - _ }
     }

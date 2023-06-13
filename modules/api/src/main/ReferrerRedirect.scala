@@ -18,7 +18,7 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
   // allow relative and absolute redirects only to the same domain or
   // subdomains, excluding /mobile (which is shown after logout)
   def valid(referrer: String): Option[String] =
-    (!sillyLoginReferrers(referrer) && validCharsRegex.matches(referrer)) ?? Try {
+    (!sillyLoginReferrers(referrer) && validCharsRegex.matches(referrer)) so Try {
       URL.parse(URL.parse(baseUrl.value), referrer)
     }.toOption
       .filter { url =>

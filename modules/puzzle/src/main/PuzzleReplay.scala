@@ -41,15 +41,15 @@ final class PuzzleReplayApi(
         if (current.days == days && current.theme == theme && current.remaining.nonEmpty) fuccess(current)
         else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
       } flatMap { replay =>
-        replay.remaining.headOption ?? { id =>
+        replay.remaining.headOption so { id =>
           colls.puzzle(_.byId[Puzzle](id)) map2 (_ -> replay)
         }
       }
     } getOrElse fuccess(None)
 
   def onComplete(round: PuzzleRound, days: PuzzleDashboard.Days, angle: PuzzleAngle): Funit =
-    angle.asTheme ?? { theme =>
-      replays.getIfPresent(round.userId) ?? {
+    angle.asTheme so { theme =>
+      replays.getIfPresent(round.userId) so {
         _ map { replay =>
           if (replay.days == days && replay.theme == theme)
             replays.put(round.userId, fuccess(replay.step))

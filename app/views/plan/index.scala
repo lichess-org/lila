@@ -26,7 +26,7 @@ object index:
       bestIds: List[UserId],
       pricing: lila.plan.PlanPricing
   )(using ctx: WebContext) =
-    val localeParam = lila.plan.PayPalClient.locale(ctx.lang) ?? { l => s"&locale=$l" }
+    val localeParam = lila.plan.PayPalClient.locale(ctx.lang) so { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
@@ -68,7 +68,7 @@ object index:
           )
         ),
         div(cls := "page-menu__content box")(
-          patron.ifTrue(ctx.me.??(_.isPatron)).map { p =>
+          patron.ifTrue(ctx.me.so(_.isPatron)).map { p =>
             div(cls := "banner one_time_active")(
               iconTag(patronIconChar),
               div(
@@ -102,7 +102,7 @@ object index:
               div(cls := "content")(
                 div(
                   cls                          := "plan_checkout",
-                  attr("data-email")           := email.??(_.value),
+                  attr("data-email")           := email.so(_.value),
                   attr("data-lifetime-amount") := pricing.lifetime.amount
                 )(
                   ctx.me map { me =>

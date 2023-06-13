@@ -23,8 +23,8 @@ final class Coach(env: Env) extends LilaController(env):
   private def searchResults(l: String, o: String, c: String, page: Int)(using WebContext) =
     pageHit
     val order   = CoachPager.Order(o)
-    val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)
-    val country = (c != "all") ?? Countries.info(c)
+    val lang    = (l != "all") so play.api.i18n.Lang.get(l)
+    val country = (c != "all") so Countries.info(c)
     for
       langCodes    <- env.coach.api.allLanguages
       countryCodes <- env.coach.api.allCountries
@@ -39,7 +39,7 @@ final class Coach(env: Env) extends LilaController(env):
           studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
           posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
           reviews  <- api.reviews.approvedByCoach(c.coach)
-          myReview <- ctx.me.?? { api.reviews.find(_, c.coach) }
+          myReview <- ctx.me.so { api.reviews.find(_, c.coach) }
         yield
           lila.mon.coach.pageView.profile(c.coach.id.value).increment()
           Ok(html.coach.show(c, reviews, studies, posts, myReview))

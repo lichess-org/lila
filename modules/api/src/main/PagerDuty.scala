@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(using Executor):
 
   def lilaRestart(date: Instant): Funit =
-    (config.serviceId.nonEmpty && config.apiKey.value.nonEmpty) ??
+    (config.serviceId.nonEmpty && config.apiKey.value.nonEmpty) so
       ws.url("https://api.pagerduty.com/maintenance_windows")
         .withHttpHeaders(
           "Authorization" -> s"Token token=${config.apiKey.value}",

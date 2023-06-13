@@ -39,10 +39,10 @@ object show:
                   c.chat,
                   name = trans.chatRoom.txt(),
                   timeout = c.timeout,
-                  writeable = ctx.userId.??(rt.study.canChat),
+                  writeable = ctx.userId.so(rt.study.canChat),
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
-                  localMod = rt.tour.tier.isEmpty && ctx.userId.??(rt.study.canContribute),
+                  localMod = rt.tour.tier.isEmpty && ctx.userId.so(rt.study.canContribute),
                   broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout)
                 )
               ),

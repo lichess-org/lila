@@ -72,7 +72,7 @@
 //           NbMovesRatio(moves.count(identity), moves.size)
 //         }
 //       val isDefeatByFlagWithGoodPosition =
-//         (~pov.loss && pov.game.status == Status.Outoftime) ?? {
+//         (~pov.loss && pov.game.status == Status.Outoftime) so {
 //           analysis match {
 //             case Some(an) =>
 //               an.infos.lastOption

@@ -63,7 +63,7 @@ final class Ip2ProxyServer(
               .get()
               .withTimeout(3 seconds, "Ip2Proxy.batch")
               .map {
-                _.body[JsValue].asOpt[Seq[JsObject]] ?? {
+                _.body[JsValue].asOpt[Seq[JsObject]] so {
                   _.map(readProxyName)
                 }
               }

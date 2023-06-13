@@ -69,7 +69,7 @@ object Lila {
   def readServerConfigSettings(process: ServerProcess): ServerConfig =
     val configuration: Configuration =
       val rootDirArg    = process.args.headOption.map(new File(_))
-      val rootDirConfig = rootDirArg.??(ServerConfig.rootDirConfig(_))
+      val rootDirConfig = rootDirArg.so(ServerConfig.rootDirConfig(_))
       Configuration.load(process.classLoader, process.properties, rootDirConfig, true)
 
     val rootDir: File =

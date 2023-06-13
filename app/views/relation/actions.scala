@@ -25,7 +25,7 @@ object actions:
         dataIcon := licon.Swords
       ),
       ctx.userId map { myId =>
-        !user.is(myId) ?? frag(
+        !user.is(myId) so frag(
           (!blocked && !user.isBot) option a(
             titleOrText(trans.composeMessage.txt()),
             href     := routes.Msg.convo(user.name),

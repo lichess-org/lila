@@ -32,7 +32,7 @@ private[study] object UciPathDb:
 
   def isMainline(node: Node, path: UciPath): Boolean =
     path.split.fold(true) { (id, rest) =>
-      node.children.first ?? { child =>
+      node.children.first so { child =>
         child.id == id && isMainline(child, rest)
       }
     }

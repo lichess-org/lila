@@ -45,8 +45,8 @@ object Crosstable:
     def toList = List(user1, user2)
 
     def showScore(userId: UserId) =
-      val byTen = user(userId) ?? (_.score)
-      s"${byTen / 10}${(byTen % 10 != 0).??("½")}" match
+      val byTen = user(userId) so (_.score)
+      s"${byTen / 10}${(byTen % 10 != 0).so("½")}" match
         case "0½" => "½"
         case x    => x
 

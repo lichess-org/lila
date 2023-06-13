@@ -82,7 +82,7 @@ object form:
                 translatedVariantChoicesWithVariants,
                 checks = form.value
                   .map(_.variants.map(_.toString))
-                  .getOrElse(simul.??(_.variants.map(_.id.toString)))
+                  .getOrElse(simul.so(_.variants.map(_.id.toString)))
                   .toSet
               )
             ),

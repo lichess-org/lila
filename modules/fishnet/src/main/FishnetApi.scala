@@ -56,9 +56,9 @@ final class FishnetApi(
       analysisColl
         .find(
           $doc("acquired" $exists false) ++ {
-            !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
+            !client.offline so $doc("lastTryByKey" $ne client.key) // client alternation
           } ++ {
-            slow ?? $doc("sender.system" -> true)
+            slow so $doc("sender.system" -> true)
           }
         )
         .sort(

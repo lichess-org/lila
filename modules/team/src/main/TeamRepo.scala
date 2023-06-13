@@ -132,11 +132,11 @@ final class TeamRepo(val coll: Coll)(using Executor):
     coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty ?? coll.secondaryPreferred
+    ids.nonEmpty so coll.secondaryPreferred
       .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty ?? coll.secondaryPreferred
+    ids.nonEmpty so coll.secondaryPreferred
       .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum" $ne Team.Access.EVERYONE))
 
   private[team] val enabledSelect = $doc("enabled" -> true)

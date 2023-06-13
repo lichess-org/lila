@@ -32,8 +32,8 @@ final class Mod(
       withSuspect(username): sus =>
         for
           _ <- modApi.setAlt(me, sus, v)
-          _ <- (v && sus.user.enabled.yes) ?? env.api.accountClosure.close(sus.user, me)
-          _ <- (!v && sus.user.enabled.no) ?? modApi.reopenAccount(me.id into ModId, sus.user.id)
+          _ <- (v && sus.user.enabled.yes) so env.api.accountClosure.close(sus.user, me)
+          _ <- (!v && sus.user.enabled.no) so modApi.reopenAccount(me.id into ModId, sus.user.id)
         yield sus.some
     }(reportC.onModAction)
 
@@ -73,12 +73,12 @@ final class Mod(
   }(reportC.onModAction)
 
   def warn(username: UserStr, subject: String) = OAuthModBody(_.ModMessage) { me =>
-    env.mod.presets.getPmPresets(me.user).named(subject) ?? { preset =>
+    env.mod.presets.getPmPresets(me.user).named(subject) so { preset =>
       withSuspect(username): suspect =>
         for
           _ <- env.msg.api.systemPost(suspect.user.id, preset.text)
           _ <- env.mod.logApi.modMessage(me.id into ModId, suspect.user.id, preset.name)
-          _ <- preset.isNameClose ?? env.irc.api.nameClosePreset(suspect.user.username)
+          _ <- preset.isNameClose so env.irc.api.nameClosePreset(suspect.user.username)
         yield suspect.some
     }
   }(reportC.onModAction)
@@ -213,12 +213,12 @@ final class Mod(
           .recentPovsByUserFromSecondary(user, 80)
           .mon(_.mod.comm.segment("recentPovs"))
           .flatMap: povs =>
-            priv.?? {
+            priv.so {
               env.chat.api.playerChat
                 .optionsByOrderedIds(povs.map(_.gameId into ChatId))
                 .mon(_.mod.comm.segment("playerChats"))
             } zip
-              priv.?? {
+              priv.so {
                 env.msg.api
                   .recentByForMod(user, 30)
                   .mon(_.mod.comm.segment("pms"))
@@ -238,7 +238,7 @@ final class Mod(
                 userC.loginsTableData(user, _, 100)
               } flatMap { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
                 if (priv)
-                  if (!inquiry.??(_.isRecentCommOf(Suspect(user))))
+                  if (!inquiry.so(_.isRecentCommOf(Suspect(user))))
                     env.irc.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.userId))
                     if (isGranted(_.MonitoredMod))
                       env.irc.api.monitorMod(
@@ -276,7 +276,7 @@ final class Mod(
     Redirect(userUrl(username, mod))
 
   protected[controllers] def userUrl(username: UserStr, mod: Boolean = true) =
-    s"${routes.User.show(username.value).url}${mod ?? "?mod"}"
+    s"${routes.User.show(username.value).url}${mod so "?mod"}"
 
   def refreshUserAssess(username: UserStr) = Secure(_.MarkEngine) { ctx ?=> me =>
     OptionFuResult(env.user.repo byId username): user =>
@@ -288,8 +288,8 @@ final class Mod(
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me =>
     OptionFuResult(env.user.repo byId username): user =>
-      (isGranted(_.Appeals) ?? env.appeal.api.exists(user)) flatMap { isAppeal =>
-        isAppeal.??(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
+      (isGranted(_.Appeals) so env.appeal.api.exists(user)) flatMap { isAppeal =>
+        isAppeal.so(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
           case Some(ongoing) if ongoing.mod != me.id =>
             env.user.lightUserApi
               .asyncFallback(ongoing.mod)
@@ -382,7 +382,7 @@ final class Mod(
 
   def singleIp(ip: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me =>
     given lila.mod.IpRender.RenderIp = env.mod.ipRender(me)
-    env.mod.ipRender.decrypt(ip) ?? { address =>
+    env.mod.ipRender.decrypt(ip) so { address =>
       for
         uids       <- env.security.api recentUserIdsByIp address
         users      <- env.user.repo usersFromSecondary uids.reverse
@@ -397,7 +397,7 @@ final class Mod(
       if v then env.security.firewall.blockIps
       else env.security.firewall.unblockIps
     val ipAddr = IpAddress from ip
-    op(ipAddr) >> (ipAddr ?? {
+    op(ipAddr) >> (ipAddr so {
       env.security.api.recentUserIdsByIp(_) flatMap { userIds =>
         env.irc.api.ipBan(me, ip, v, userIds)
       }
@@ -429,10 +429,10 @@ final class Mod(
           permissions =>
             val newPermissions = Permission(permissions) diff Permission(user.roles)
             modApi.setPermissions(me, user.username, Permission(permissions)) >> {
-              newPermissions(Permission.Coach) ?? env.mailer.automaticEmail.onBecomeCoach(user)
+              newPermissions(Permission.Coach) so env.mailer.automaticEmail.onBecomeCoach(user)
             } >> {
               Permission(permissions)
-                .exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
+                .exists(_ is Permission.SeeReport) so env.plan.api.setLifetime(user)
             } inject Redirect(routes.Mod.permissions(user.username.value)).flashSuccess
         )
   }
@@ -447,7 +447,7 @@ final class Mod(
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
           env.mod.search(q).map(_.filter(_.user.enabled.yes)) flatMap {
             case List(UserModel.WithEmails(user, _)) =>
-              (!user.everLoggedIn).?? {
+              (!user.everLoggedIn).so {
                 lila.mon.user.register.modConfirmEmail.increment()
                 modApi.setEmail(me.id into ModId, user.id, setEmail)
               } >>
@@ -456,9 +456,9 @@ final class Mod(
                 }
             case _ => fuccess(none)
           }
-        email.?? { em =>
+        email.so { em =>
           tryWith(em, em.value) orElse {
-            username ?? { tryWith(em, _) }
+            username so { tryWith(em, _) }
           } recover lila.db.recoverDuplicateKey(_ => none)
         } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).toFuccess
   }
@@ -528,7 +528,7 @@ final class Mod(
       scoped = ctx ?=>
         holder =>
           f(using ctx)(holder).flatMap:
-            _.isDefined ?? fuccess(jsonOkResult)
+            _.isDefined so fuccess(jsonOkResult)
     )
   private def OAuthModBody[A](perm: Permission.Selector)(f: Holder => Fu[Option[A]])(
       thenWhat: WebBodyContext[?] ?=> Holder => A => Fu[Result]
@@ -538,7 +538,7 @@ final class Mod(
       scoped = _ ?=>
         me =>
           f(me).flatMap:
-            _.isDefined ?? fuccess(jsonOkResult)
+            _.isDefined so fuccess(jsonOkResult)
     )
 
   private def actionResult(

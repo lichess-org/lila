@@ -35,7 +35,7 @@ final class InsightApi(
       .aggregate(question, Left(user), withPovs = withPovs)
       .flatMap { aggDocs =>
         val clusters = AggregationClusters(question, aggDocs)
-        withPovs ?? {
+        withPovs so {
           gameRepo.userPovsByGameIds(clusters.flatMap(_.gameIds) botN 4, user)
         } map { Answer(question, clusters, _) }
       }
@@ -66,7 +66,7 @@ final class InsightApi(
   def updateGame(g: Game) =
     Pov(g)
       .map { pov =>
-        pov.player.userId ?? { userId =>
+        pov.player.userId so { userId =>
           storage find InsightEntry.povToId(pov) flatMapz {
             indexer.update(g, userId, _)
           }

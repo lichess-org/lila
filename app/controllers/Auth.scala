@@ -112,7 +112,7 @@ final class Auth(
               ),
             (login, pass) =>
               LoginRateLimit(login.normalize, ctx.req) { chargeLimiters =>
-                env.security.pwned(pass) foreach { _ ?? chargeLimiters() }
+                env.security.pwned(pass) foreach { _ so chargeLimiters() }
                 val isEmail  = EmailAddress.isValid(login.value)
                 val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
                 api.loadLoginForm(login) flatMap {
@@ -245,7 +245,7 @@ final class Auth(
 
   // after signup and before confirmation
   def fixEmail = OpenBody:
-    lila.security.EmailConfirm.cookie.get(ctx.req) ?? { userEmail =>
+    lila.security.EmailConfirm.cookie.get(ctx.req) so { userEmail =>
       forms.preloadEmailDns() >> forms
         .fixEmail(userEmail.email)
         .bindFromRequest()
@@ -286,10 +286,9 @@ final class Auth(
       case Result.JustConfirmed(user) =>
         lila.mon.user.register.confirmEmailResult(true).increment()
         env.user.repo.email(user.id).flatMap {
-          _.?? { email =>
+          _.so: email =>
             authLog(user.username, email.some, s"Confirmed email ${email.value}")
             welcome(user, email, sendWelcomeEmail = false)
-          }
         } >> redirectNewUser(user)
     }
 
@@ -306,9 +305,9 @@ final class Auth(
     api
       .setFingerPrint(ctx.req, FingerPrint(fp))
       .logFailure(lila log "fp", _ => s"${HTTPRequest print ctx.req} $fp") flatMapz { hash =>
-      !me.lame ?? (for
+      !me.lame so (for
         otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
-        _ <- (otherIds.sizeIs >= 2) ?? env.user.repo.countLameOrTroll(otherIds).flatMap {
+        _ <- (otherIds.sizeIs >= 2) so env.user.repo.countLameOrTroll(otherIds).flatMap {
           case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoAltPrintReport(me.id)
           case _                                        => funit
         }
@@ -514,8 +513,8 @@ final class Auth(
           PasswordHasher.rateLimit[Result](
             rateLimitedFu,
             enforce = env.net.rateLimit,
-            ipCost = 1 + ipSusp.??(15) + EmailAddress.isValid(id.value).??(2),
-            userCost = 1 + multipleIps.??(4)
+            ipCost = 1 + ipSusp.so(15) + EmailAddress.isValid(id.value).so(2),
+            userCost = 1 + multipleIps.so(4)
           )(id, req)(run)
 
   private[controllers] def HasherRateLimit(id: UserId, req: RequestHeader)(run: => Fu[Result]): Fu[Result] =

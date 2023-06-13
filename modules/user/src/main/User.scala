@@ -34,7 +34,7 @@ case class User(
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}${enabled.no ?? " closed"}"
+    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll so " troll"}${marks.engine so " engine"}${enabled.no so " closed"}"
 
   def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
@@ -67,7 +67,7 @@ case class User(
 
   def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).toMillis).millis
 
-  def everLoggedIn = seenAt.??(createdAt !=)
+  def everLoggedIn = seenAt.so(createdAt !=)
 
   def lame = marks.boost || marks.engine
 
@@ -90,7 +90,7 @@ case class User(
 
   private def bestOf(perfTypes: List[PerfType], nb: Int) =
     perfTypes.sortBy { pt =>
-      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).??(_.roundSeconds))
+      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
     } take nb
 
   def best8Perfs: List[PerfType] = User.firstRow ::: bestOf(User.secondRow, 4)

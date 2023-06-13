@@ -132,7 +132,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .one(
         $id(simul.id),
         $set(bsonWriteObjTry[Simul](simul).get) ++
-          simul.estimatedStartAt.isEmpty ?? ($unset("estimatedStartAt"))
+          simul.estimatedStartAt.isEmpty.so($unset("estimatedStartAt"))
       )
       .void
 

@@ -28,7 +28,7 @@ object show:
       myReview: Option[lila.coach.CoachReview]
   )(using ctx: WebContext) =
     val profile   = c.coach.profile
-    val coachName = s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}"
+    val coachName = s"${c.user.title.so(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)
     views.html.base.layout(
       title = title,

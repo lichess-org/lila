@@ -36,7 +36,7 @@ object permissions:
                       val id = s"permission-${perm.dbKey}"
                       div(
                         cls := isGranted(perm, u) option "granted",
-                        title := isGranted(perm, u).?? {
+                        title := isGranted(perm, u).so {
                           Permission.findGranterPackage(userPerms, perm).map { p =>
                             s"Granted by package: $p"
                           }

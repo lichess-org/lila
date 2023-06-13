@@ -52,7 +52,7 @@ final class RoundSocket(
       rounds.getOrMake(id).getGame dmap { id -> _ }
     }.parallel
 
-  def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
+  def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
 
   // get the proxied version of the game
   def upgradeIfPresent(game: Game): Fu[Game] =
@@ -60,9 +60,7 @@ final class RoundSocket(
 
   // update the proxied game
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
-    rounds.getIfPresent(gameId) ?? {
-      _ updateGame f
-    }
+    rounds.getIfPresent(gameId).so(_ updateGame f)
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =

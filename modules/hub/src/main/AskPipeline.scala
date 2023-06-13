@@ -44,7 +44,7 @@ final class AskPipeline[A](
 
   private def complete(res: Either[Exception, A]) =
     state match
-      case State.Idle => // ???
+      case State.Idle => // ?so
       case State.Processing(current, next) =>
         res.fold(
           err => current.foreach(_ failure err),

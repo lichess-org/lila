@@ -20,7 +20,7 @@ object authorize:
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using WebContext) =
     val isDanger           = prompt.maybeScopes.exists(OAuthScope.dangerList.contains)
-    val buttonClass        = s"button${isDanger ?? " button-red confirm text"}"
+    val buttonClass        = s"button${isDanger so " button-red confirm text"}"
     val buttonDelay        = if (isDanger) 5000 else 2000
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     views.html.base.layout(

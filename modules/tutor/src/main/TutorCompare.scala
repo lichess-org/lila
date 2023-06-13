@@ -12,7 +12,7 @@ case class TutorCompare[D, V](
   import TutorCompare.*
   import TutorNumber.*
 
-  val totalCountMine = points.map(_._2.mine.??(_.count)).sum
+  val totalCountMine = points.map(_._2.mine.so(_.count)).sum
 
   lazy val dimensionComparisons: List[AnyComparison] =
     val myPoints: List[(D, ValueCount[V])] =

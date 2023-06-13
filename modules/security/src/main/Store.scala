@@ -207,10 +207,9 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using
     )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
-    FingerHash.from(fp) ?? { hash =>
-      coll.secondaryPreferred.exists(
+    FingerHash.from(fp).so { hash =>
+      coll.secondaryPreferred.exists:
         $doc("fp" -> hash, "date" -> $gt(nowInstant minusDays 7))
-      )
     }
 
 object Store:

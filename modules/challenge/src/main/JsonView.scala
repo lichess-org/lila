@@ -27,7 +27,7 @@ final class JsonView(
         "rating" -> r.rating.int
       )
       .add("provisional" -> r.rating.provisional)
-      .add("patron" -> light.??(_.isPatron))
+      .add("patron" -> light.so(_.isPatron))
       .add("online" -> isOnline(r.id))
       .add("lag" -> UserLagCache.getLagRating(r.id))
   }

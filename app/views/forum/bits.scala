@@ -26,7 +26,7 @@ object bits:
   def authorLink(post: ForumPost, cssClass: Option[String] = None, withOnline: Boolean = true)(using
       ctx: WebContext
   ): Frag =
-    if (!(ctx.me ?? Granter(Permission.ModerateForum)) && post.erased) span(cls := "author")("<erased>")
+    if (!(ctx.me so Granter(Permission.ModerateForum)) && post.erased) span(cls := "author")("<erased>")
     else
       userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = ~post.modIcon)
 

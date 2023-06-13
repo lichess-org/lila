@@ -125,7 +125,7 @@ object form:
           form3.split(
             form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
             form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
-          )(cls := s"ublog-post-form__image-text ${p.image.isDefined ?? "visible"}")
+          )(cls := s"ublog-post-form__image-text ${p.image.isDefined so "visible"}")
         )
       },
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),

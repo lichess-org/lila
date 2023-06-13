@@ -80,7 +80,7 @@ case class Game(
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean  = c == turnColor
-  def turnOf(u: User): Boolean   = player(u) ?? turnOf
+  def turnOf(u: User): Boolean   = player(u) so turnOf
 
   def playedTurns = ply - startedAtPly
 
@@ -189,7 +189,7 @@ case class Game(
       chess = game,
       binaryMoveTimes = (!isPgnImport && chess.clock.isEmpty).option {
         BinaryFormat.moveTime.write {
-          binaryMoveTimes.?? { t =>
+          binaryMoveTimes.so { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
           } :+ Centis.ofLong(nowCentis - movedAt.toCentis).nonNeg
         }
@@ -216,7 +216,7 @@ case class Game(
       Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
     ) :: {
       // abstraction leak, I know.
-      (updated.board.variant.threeCheck && game.situation.check.yes) ?? List(
+      (updated.board.variant.threeCheck && game.situation.check.yes) so List(
         Event.CheckCount(
           white = updated.history.checkCount.white,
           black = updated.history.checkCount.black
@@ -268,7 +268,7 @@ case class Game(
     }
 
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
-    playable ?? correspondenceClock
+    playable so correspondenceClock
 
   def speed = Speed(chess.clock.map(_.config))
 
@@ -327,7 +327,7 @@ case class Game(
   def swissPreventsDraw = isSwiss && playedTurns < 60
 
   def playerHasOfferedDrawRecently(color: Color) =
-    drawOffers.lastBy(color) ?? (_ >= ply - 20)
+    drawOffers.lastBy(color) so (_ >= ply - 20)
 
   def offerDraw(color: Color) = copy(
     metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))
@@ -350,14 +350,14 @@ case class Game(
 
   def moretimeable(color: Color) =
     playable && canTakebackOrAddTime && !metadata.hasRule(_.NoGiveTime) && {
-      clock.??(_ moretimeable color) || correspondenceClock.??(_ moretimeable color)
+      clock.so(_ moretimeable color) || correspondenceClock.so(_ moretimeable color)
     }
 
   def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
   def abortableByUser = abortable && !metadata.hasRule(_.NoAbort)
 
   def berserkable =
-    isTournament && clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
+    isTournament && clock.so(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
   def goBerserk(color: Color): Option[Progress] =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
@@ -425,7 +425,7 @@ case class Game(
     if (isTournament && variant.fromPosition) Standard
     else variant
 
-  def fromPosition = variant.fromPosition || source.??(Source.Position ==)
+  def fromPosition = variant.fromPosition || source.so(Source.Position ==)
 
   def imported = source contains Source.Import
 
@@ -454,7 +454,7 @@ case class Game(
     if (isCorrespondence) outoftimeCorrespondence else outoftimeClock(withGrace)
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
-    clock ?? { c =>
+    clock so { c =>
       started && playable && {
         c.outOfTime(turnColor, withGrace) || {
           !c.isRunning && c.players.exists(_.elapsed.centis > 0)
@@ -463,7 +463,7 @@ case class Game(
     }
 
   private def outoftimeCorrespondence: Boolean =
-    playableCorrespondenceClock ?? { _ outoftime turnColor }
+    playableCorrespondenceClock so { _ outoftime turnColor }
 
   def isCorrespondence  = speed == Speed.Correspondence
   def isSpeed(s: Speed) = speed == s;
@@ -476,7 +476,7 @@ case class Game(
 
   def isUnlimited = !hasClock && !hasCorrespondenceClock
 
-  def isClockRunning = clock ?? (_.isRunning)
+  def isClockRunning = clock so (_.isRunning)
 
   def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
 
@@ -553,7 +553,7 @@ case class Game(
 
   def hasBookmarks = bookmarks > 0
 
-  def showBookmarks = hasBookmarks ?? bookmarks.toString
+  def showBookmarks = hasBookmarks so bookmarks.toString
 
   def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
 
@@ -588,7 +588,7 @@ case class Game(
   def resetTurns = copy(chess = chess.copy(ply = Ply.initial, startedAtPly = Ply.initial))
 
   lazy val opening: Option[Opening.AtPly] =
-    (!fromPosition && Variant.list.openingSensibleVariants(variant)) ?? OpeningDb.search(sans)
+    (!fromPosition && Variant.list.openingSensibleVariants(variant)) so OpeningDb.search(sans)
 
   def synthetic = id == Game.syntheticId
 
@@ -676,7 +676,7 @@ object Game:
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
     variant.standard || {
-      clock ?? { c =>
+      clock so { c =>
         c.estimateTotalTime >= Centis(3000) &&
         c.limitSeconds > 0 || c.incrementSeconds > 1
       }

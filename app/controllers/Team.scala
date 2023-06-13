@@ -30,7 +30,7 @@ final class Team(
       }
 
   def home(page: Int) = Open:
-    ctx.me.??(api.hasTeams) map {
+    ctx.me.so(api.hasTeams) map {
       if _ then Redirect(routes.Team.mine)
       else Redirect(routes.Team.all(page))
     }
@@ -43,7 +43,7 @@ final class Team(
     Reasonable(page, config.Max(50)):
       OptionFuResult(api teamEnabled id): team =>
         val canSee =
-          fuccess(team.publicMembers || isGranted(_.ManageTeam)) >>| ctx.userId.?? {
+          fuccess(team.publicMembers || isGranted(_.ManageTeam)) >>| ctx.userId.so {
             api.belongsTo(team.id, _)
           }
         canSee flatMap {
@@ -63,16 +63,16 @@ final class Team(
   private def renderTeam(team: TeamModel, page: Int, requestModView: Boolean)(using ctx: WebContext) = for
     info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
     members <- paginator.teamMembers(team, page)
-    log     <- (requestModView && isGranted(_.ManageTeam)).??(env.mod.logApi.teamLog(team.id))
+    log     <- (requestModView && isGranted(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(team, info, requestModView)
     chat <-
-      hasChat ?? env.chat.api.userChat.cached
+      hasChat so env.chat.api.userChat.cached
         .findMine(ChatId(team.id), ctx.me)
         .map(some)
     _ <- env.user.lightUserApi preloadMany {
-      team.leaders.toList ::: info.userIds ::: chat.??(_.chat.userIds)
+      team.leaders.toList ::: info.userIds ::: chat.so(_.chat.userIds)
     }
-    version <- hasChat ?? env.team.version(team.id).dmap(some)
+    version <- hasChat so env.team.version(team.id).dmap(some)
   yield Ok(html.team.show(team, members, info, chat, version, requestModView, log))
     .withCanonical(routes.Team.show(team.id))
 
@@ -99,7 +99,7 @@ final class Team(
     api teamEnabled teamId flatMapz { team =>
       val canView: Fu[Boolean] =
         if team.publicMembers then fuccess(true)
-        else me.??(u => api.belongsTo(team.id, u.id))
+        else me.so(u => api.belongsTo(team.id, u.id))
       canView.map:
         if _ then
           apiC.jsonDownload(
@@ -145,7 +145,7 @@ final class Team(
 
   def kick(id: TeamId) = AuthBody { ctx ?=> me =>
     WithOwnedTeamEnabled(id): team =>
-      forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).parallel } inject Redirect(
+      forms.members.bindFromRequest().value so { api.kickMembers(team, _, me).parallel } inject Redirect(
         routes.Team.show(team.id)
       ).flashSuccess
   }
@@ -177,7 +177,7 @@ final class Team(
 
   def leaders(id: TeamId) = AuthBody { ctx ?=> me =>
     WithOwnedTeamEnabled(id): team =>
-      forms.leaders(team).bindFromRequest().value ?? {
+      forms.leaders(team).bindFromRequest().value so {
         api.setLeaders(team, _, me, isGranted(_.ManageTeam))
       } inject Redirect(
         routes.Team.show(team.id)
@@ -353,7 +353,7 @@ final class Team(
               setup =>
                 if (team.open) webJoin(team, me, request = none, password = setup.password)
                 else
-                  setup.message ?? { msg =>
+                  setup.message so { msg =>
                     api.createRequest(team, me, msg) inject Redirect(routes.Team.show(team.id)).flashSuccess
                   }
             )
@@ -370,7 +370,7 @@ final class Team(
     import cats.syntax.all.*
     OptionFuRedirectUrl(for
       requestOption <- api request requestId
-      teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
+      teamOption    <- requestOption.so(req => env.team.teamRepo.byLeader(req.team, me.id))
     yield (teamOption, requestOption).mapN((_, _))) { (team, request) =>
       forms.processRequest
         .bindFromRequest()
@@ -461,7 +461,7 @@ final class Team(
       scoped = ctx ?=>
         me =>
           api teamEnabled id flatMap {
-            _.filter(_ leaders me.id) ?? { team =>
+            _.filter(_ leaders me.id) so { team =>
               doPmAll(team, me).fold(
                 err => BadRequest(errorsAsJson(err)).toFuccess,
                 _.map:
@@ -486,8 +486,8 @@ final class Team(
     JsonOptionOk:
       api teamEnabled id flatMapz { team =>
         for
-          joined    <- ctx.userId.?? { api.belongsTo(id, _) }
-          requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
+          joined    <- ctx.userId.so { api.belongsTo(id, _) }
+          requested <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
         yield {
           env.team.jsonView.teamWrites.writes(team) ++ Json
             .obj(

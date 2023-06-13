@@ -28,7 +28,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       "metadata[ipAddress]" -> data.ipOption.fold("?")(_.value)
     ) ::: {
       // https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_method_types
-      (mode == StripeMode.setup) ?? List("payment_method_types[]" -> "card")
+      (mode == StripeMode.setup) so List("payment_method_types[]" -> "card")
     }
 
   def createOneTimeSession(data: CreateStripeSession)(using Lang): Fu[StripeSession] =
@@ -41,12 +41,12 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
         "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
         "line_items[0][price_data][unit_amount]" -> StripeAmount(data.checkout.money).value,
         "line_items[0][quantity]"                -> 1
-      ) ::: data.isLifetime.?? {
+      ) ::: data.isLifetime.so {
         List(
           "line_items[0][description]" ->
             lila.i18n.I18nKeys.patron.payLifetimeOnce.txt(data.checkout.money.display)
         )
-      } ::: data.giftTo.?? { giftTo =>
+      } ::: data.giftTo.so { giftTo =>
         List(
           "metadata[giftTo]" -> giftTo.id.value,
           "payment_intent_data[metadata][giftTo]" -> giftTo.id.value, // so we can get it from charge.metadata.giftTo
@@ -104,7 +104,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
     getOne[StripeInvoice]("invoices/upcoming", "customer" -> customerId.value)
 
   def getPaymentMethod(sub: StripeSubscription): Fu[Option[StripePaymentMethod]] =
-    sub.default_payment_method ?? { id =>
+    sub.default_payment_method so { id =>
       getOne[StripePaymentMethod](s"payment_methods/$id")
     }
 

@@ -70,7 +70,7 @@ object header:
             cls  := "nm-item",
             href := routes.Ublog.index(u.username)
           )(
-            splitNumber(s"${info.ublog.??(_.nbPosts)} blog posts")
+            splitNumber(s"${info.ublog.so(_.nbPosts)} blog posts")
           ),
           (ctx.isAuth && !ctx.is(u)) option
             a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes"))
@@ -220,8 +220,8 @@ object header:
             )
           )
       },
-      info.ublog.??(_.latests).nonEmpty option div(cls := "user-show__blog ublog-post-cards")(
-        info.ublog.??(_.latests) map { views.html.ublog.post.card(_, showAuthor = false) }
+      info.ublog.so(_.latests).nonEmpty option div(cls := "user-show__blog ublog-post-cards")(
+        info.ublog.so(_.latests) map { views.html.ublog.post.card(_, showAuthor = false) }
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
         a(

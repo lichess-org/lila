@@ -83,7 +83,7 @@ object show:
                   href     := s"${routes.UserAnalysis.pgn(page.query.sans mkString "_")}#explorer"
                 )(trans.openingExplorer())
               ),
-              if (page.explored.??(_.history).nonEmpty)
+              if (page.explored.so(_.history).nonEmpty)
                 div(cls := "opening__popularity opening__popularity--chart")(
                   canvas(cls := "opening__popularity__chart")
                 )
@@ -108,7 +108,7 @@ object show:
     }
 
   private def exampleGames(page: OpeningPage) =
-    div(cls := "opening__games")(page.explored.??(_.games).map { game =>
+    div(cls := "opening__games")(page.explored.so(_.games).map { game =>
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom is2d",
         st.data("pgn")   := game.pgn.toString,

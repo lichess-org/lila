@@ -72,7 +72,7 @@ final private class RatingRefund(
                 curRating = user.perfs(ref.perf).intRating,
                 perfs = perfs
               )
-              (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
+              (points > 0) so refundPoints(Victim(user), ref.perf, points)
             }
           }
 

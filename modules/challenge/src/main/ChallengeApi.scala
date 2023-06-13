@@ -178,9 +178,9 @@ final class ChallengeApi(
     repo.remove(c.id) >>- uncacheAndNotify(c)
 
   private def uncacheAndNotify(c: Challenge): Unit =
-    c.destUserId ?? countInFor.invalidate
-    c.destUserId ?? notifyUser.apply
-    c.challengerUserId ?? notifyUser.apply
+    c.destUserId so countInFor.invalidate
+    c.destUserId so notifyUser.apply
+    c.challengerUserId so notifyUser.apply
     socketReload(c.id)
 
   private def socketReload(id: Id): Unit =

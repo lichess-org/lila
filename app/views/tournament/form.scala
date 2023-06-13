@@ -142,7 +142,7 @@ object form:
         )(form3.textarea(_)(rows := 4))
       ),
       form3.split(
-        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
+        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) so {
           form3.checkbox(
             form("conditions.titled"),
             trans.onlyTitled(),

@@ -71,7 +71,7 @@ final class Tutor(env: Env) extends LilaController(env):
           _.fold(notFound): user =>
             if isGranted(_.SeeInsight) then proceed(user)
             else
-              (user.enabled.yes ?? env.clas.api.clas.isTeacherOf(holder.id, user.id)) flatMap {
+              (user.enabled.yes so env.clas.api.clas.isTeacherOf(holder.id, user.id)) flatMap {
                 if _ then proceed(user) else notFound
               }
         }

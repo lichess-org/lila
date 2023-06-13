@@ -67,7 +67,7 @@ final private class Takebacker(
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
 
   def isAllowedIn(game: Game): Fu[Boolean] =
-    game.canTakebackOrAddTime ?? isAllowedByPrefs(game)
+    game.canTakebackOrAddTime so isAllowedByPrefs(game)
 
   private def isAllowedByPrefs(game: Game): Fu[Boolean] =
     if (game.hasAi) fuTrue

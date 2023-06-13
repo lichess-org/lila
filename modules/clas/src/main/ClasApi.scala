@@ -84,7 +84,7 @@ final class ClasApi(
           )
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      studentCache.isStudent(student) ?? colls.student
+      studentCache.isStudent(student) so colls.student
         .aggregateExists(readPreference = ReadPreference.secondaryPreferred): framework =>
           import framework.*
           Match($doc("userId" -> student)) -> List(

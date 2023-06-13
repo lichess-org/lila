@@ -23,7 +23,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               Ok(html.relay.tour.index(Nil, pager, query))
         case None =>
           for
-            active <- (page == 1).??(env.relay.api.officialActive.get({}))
+            active <- (page == 1).so(env.relay.api.officialActive.get({}))
             pager  <- env.relay.pager.inactive(page)
           yield Ok(html.relay.tour.index(active, pager))
     }
@@ -144,7 +144,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   private def redirectToTour(tour: TourModel)(using ctx: WebContext): Fu[Result] =
     env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
       case None =>
-        ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz {
+        ctx.me.so { env.relay.api.canUpdate(_, tour) } flatMapz {
           Redirect(routes.RelayRound.form(tour.id.value)).toFuccess
         }
       case Some(round) => Redirect(round.withTour(tour).path).toFuccess
@@ -157,7 +157,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       id: TourModel.Id
   )(f: TourModel => Fu[Result])(using ctx: WebContext): Fu[Result] =
     WithTour(id) { tour =>
-      ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMapz f(tour)
+      ctx.me.so { env.relay.api.canUpdate(_, tour) } flatMapz f(tour)
     }
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](

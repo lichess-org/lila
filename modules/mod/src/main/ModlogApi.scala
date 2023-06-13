@@ -303,10 +303,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
   private def add(m: Modlog): Funit =
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
-    m.notable ?? {
+    m.notable so {
       coll.insert.one {
-        bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).??($doc("human" -> true))
-      } >> (m.notableZulip ?? zulipMonitor(m))
+        bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so($doc("human" -> true))
+      } >> (m.notableZulip so zulipMonitor(m))
     }
 
   private def zulipMonitor(m: Modlog): Funit =
@@ -321,7 +321,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
       case M.modMessage | M.postAsAnonMod | M.editAsAnonMod                 => "left_speech_bubble"
       case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
-    val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""
+    val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
     userRepo.isMonitoredMod(m.mod) flatMapz {
       val monitorType = m.action match
         case M.closeAccount | M.alt => None
@@ -332,7 +332,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(usin
             M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
           Some(IrcApi.ModDomain.Comm)
         case _ => Some(IrcApi.ModDomain.Other)
-      monitorType ?? {
+      monitorType so {
         ircApi.monitorMod(m.mod.id, icon = icon, text = text, _)
       }
     }

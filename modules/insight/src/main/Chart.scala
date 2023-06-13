@@ -107,7 +107,7 @@ object Chart:
       }
 
     def gameUserJson(player: lila.game.Player): Fu[JsObject] =
-      (player.userId ?? getLightUser) map { lu =>
+      (player.userId so getLightUser) map { lu =>
         Json
           .obj("rating" -> player.rating)
           .add("name", lu.map(_.name))

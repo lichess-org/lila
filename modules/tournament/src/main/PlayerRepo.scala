@@ -143,9 +143,9 @@ final class PlayerRepo(coll: Coll)(using Executor):
           aggs      <- doc.getAsOpt[List[Bdoc]]("agg")
           agg       <- aggs.headOption
           nbPlayers <- agg.int("nb")
-          rating = agg.double("rating").??(math.round)
-          perf   = agg.double("perf").??(math.round)
-          score  = agg.double("score").??(math.round)
+          rating = agg.double("rating").so(math.round)
+          perf   = agg.double("perf").so(math.round)
+          score  = agg.double("score").so(math.round)
           topPlayers <- doc.getAsOpt[List[Player]]("topPlayers")
         } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
       }
@@ -171,10 +171,10 @@ final class PlayerRepo(coll: Coll)(using Executor):
       }
 
   def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
-    game.twoUserIds ?? { case (w, b) =>
+    game.twoUserIds so { case (w, b) =>
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
         import cats.syntax.all.*
-        (m.get(w), m.get(b)).mapN((_, _)) ?? { case (wt, bt) =>
+        (m.get(w), m.get(b)).mapN((_, _)) so { case (wt, bt) =>
           TeamBattle.TeamVs(chess.ByColor(wt, bt)).some
         }
       }
@@ -331,7 +331,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       .result
 
   def searchPlayers(tourId: TourId, term: UserStr, nb: Int): Fu[List[UserId]] =
-    User.validateId(term) ?? { valid =>
+    User.validateId(term) so { valid =>
       coll.primitive[UserId](
         selector = $doc(
           "tid" -> tourId,

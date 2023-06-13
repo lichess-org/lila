@@ -126,7 +126,7 @@ object teamBattle:
               tr(
                 td(index + 1),
                 td(
-                  (index < tour.teamBattle.??(_.nbLeaders)) option iconTag(licon.Crown),
+                  (index < tour.teamBattle.so(_.nbLeaders)) option iconTag(licon.Crown),
                   userIdLink(player.userId.some)
                 ),
                 td(player.score),

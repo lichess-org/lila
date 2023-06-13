@@ -44,7 +44,7 @@ final class ChatApi(
 
       private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] =
         cache get chatId flatMap { chat =>
-          (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+          (!chat.isEmpty so chatTimeout.isActive(chatId, me.id)) dmap {
             UserChat.Mine(chat forUser me.some, _)
           }
         }
@@ -69,7 +69,7 @@ final class ChatApi(
 
     private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] =
       find(chatId) flatMap { chat =>
-        (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+        (!chat.isEmpty so chatTimeout.isActive(chatId, me.id)) dmap {
           UserChat.Mine(chat forUser me.some, _)
         }
       }
@@ -87,7 +87,7 @@ final class ChatApi(
           if _ then
             linkCheck(line, publicSource) flatMap {
               if _ then
-                (persist ?? persistLine(chatId, line)) >>- {
+                (persist so persistLine(chatId, line)) >>- {
                   if (persist)
                     if (publicSource.isDefined) cached invalidate chatId
                     shutup ! {
@@ -158,7 +158,7 @@ final class ChatApi(
       }
 
     def publicTimeout(data: ChatTimeout.TimeoutFormData, me: Holder): Funit =
-      ChatTimeout.Reason(data.reason) ?? { reason =>
+      ChatTimeout.Reason(data.reason) so { reason =>
         timeout(
           chatId = data.roomId into ChatId,
           modId = me.id,
@@ -229,7 +229,7 @@ final class ChatApi(
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
       val chat   = c.markDeleted(user)
       val change = chat != c
-      change.?? {
+      change.so {
         coll.update.one($id(chat.id), chat).void >>- {
           cached invalidate chat.id
           publish(chat.id, OnTimeout(chat.id, user.id), busChan)
@@ -282,7 +282,7 @@ final class ChatApi(
       coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
 
     def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
-      makeLine(chatId, color, text) ?? { line =>
+      makeLine(chatId, color, text) so { line =>
         persistLine(chatId, line) >>- {
           publish(chatId, ChatLine(chatId, line), busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment().unit

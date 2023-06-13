@@ -47,7 +47,7 @@ object bits:
     }
 
   def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Lang) =
-    !u.lame ??
+    !u.lame so
       rankMap.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1 =>
           span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(

@@ -21,7 +21,7 @@ object TreeBuilder:
       initialFen: Fen.Epd,
       withFlags: WithFlags
   ): Root =
-    val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
+    val withClocks: Option[Vector[Centis]] = withFlags.clocks so game.bothClockStates
     val drawOfferPlies                     = game.drawOffers.normalizedPlies
     chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
       case (init, games, error) =>
@@ -30,14 +30,14 @@ object TreeBuilder:
           if (withFlags.opening && Variant.list.openingSensibleVariants(game.variant)) OpeningDb.findByEpdFen
           else _ => None
         val fen                       = Fen write init
-        val infos: Vector[Info]       = analysis.??(_.infos.toVector)
-        val advices: Map[Ply, Advice] = analysis.??(_.advices.mapBy(_.ply))
+        val infos: Vector[Info]       = analysis.so(_.infos.toVector)
+        val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
         val root = Root(
           ply = init.ply,
           fen = fen,
           check = init.situation.check,
           opening = openingOf(fen),
-          clock = withFlags.clocks ?? game.clock.map { c =>
+          clock = withFlags.clocks so game.clock.map { c =>
             Centis.ofSeconds(c.limitSeconds.value)
           },
           crazyData = init.situation.board.crazyData,

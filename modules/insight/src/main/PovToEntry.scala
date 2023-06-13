@@ -42,9 +42,9 @@ final private class PovToEntry(
   private def enrich(game: Game, userId: UserId, provisional: Boolean): Fu[Option[RichPov]] =
     if (removeWrongAnalysis(game)) fuccess(none)
     else
-      lila.game.Pov.ofUserId(game, userId) ?? { pov =>
+      lila.game.Pov.ofUserId(game, userId) so { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id into Analysis.Id)) map { (fen, an) =>
+          (game.metadata.analysed so analysisRepo.byId(game.id into Analysis.Id)) map { (fen, an) =>
             chess.Replay
               .situations(
                 sans = game.sans,
@@ -64,7 +64,7 @@ final private class PovToEntry(
                   clock = game.clock.map(_.config),
                   movetimes = game.clock.flatMap(_ => game.moveTimes(pov.color)) map (_.toVector),
                   clockStates = game.clockHistory.map(_(pov.color)),
-                  advices = an.??(_.advices.mapBy(_.info.ply))
+                  advices = an.so(_.advices.mapBy(_.info.ply))
                 )
           }
       }
@@ -80,11 +80,11 @@ final private class PovToEntry(
 
   private def makeMoves(from: RichPov): List[InsightMove] =
     val sideAndStart = from.pov.sideAndStart
-    def cpDiffs      = from.analysis ?? { AccuracyCP.diffsList(sideAndStart, _).toVector }
+    def cpDiffs      = from.analysis so { AccuracyCP.diffsList(sideAndStart, _).toVector }
     val accuracyPercents = from.analysis map {
       AccuracyPercent.fromAnalysisAndPov(sideAndStart, _).toVector
     }
-    val prevInfos = from.analysis.?? { an =>
+    val prevInfos = from.analysis.so { an =>
       AccuracyCP.prevColorInfos(sideAndStart, an) pipe { is =>
         from.pov.color.fold(is, is.map(_.invert))
       }
@@ -210,7 +210,7 @@ final private class PovToEntry(
     )
 
   private def findOpening(from: RichPov): Option[SimpleOpening] =
-    from.pov.game.variant.standard ?? OpeningDb
+    from.pov.game.variant.standard so OpeningDb
       .searchInSituations(from.situations.toList)
       .map(_.opening)
       .flatMap(SimpleOpening.apply)

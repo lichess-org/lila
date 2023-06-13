@@ -25,7 +25,7 @@ object ServerEval:
     def apply(study: Study, chapter: Chapter, userId: UserId, unlimited: Boolean = false): Funit =
       chapter.serverEval.fold(true) { eval =>
         !eval.done && onceEvery(chapter.id)
-      } ?? {
+      } so {
         val unlimitedFu =
           fuccess(unlimited) >>|
             fuccess(userId == User.lichessId) >>| userRepo
@@ -62,24 +62,25 @@ object ServerEval:
   )(using Executor):
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
-      analysis.studyId ?? { studyId =>
+      analysis.studyId so { studyId =>
         sequencer.sequenceStudyWithChapter(studyId, analysis.id into StudyChapterId) {
           case Study.WithChapter(_, chapter) =>
-            (complete ?? chapterRepo.completeServerEval(chapter)) >> {
+            (complete so chapterRepo.completeServerEval(chapter)) >> {
               lila.common.LilaFuture
                 .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(UciPath.root) {
                   case (path, (node, (info, advOpt))) =>
-                    chapter.root.nodeAt(path).flatMap { parent =>
-                      analysisLine(parent, chapter.setup.variant, info) map { subTree =>
-                        parent.addChild(subTree) -> subTree
-                      }
-                    } ?? { (newParent, subTree) =>
-                      chapterRepo.addSubTree(subTree, newParent, path)(chapter)
-                    } >> {
+                    chapter.root
+                      .nodeAt(path)
+                      .flatMap: parent =>
+                        analysisLine(parent, chapter.setup.variant, info).map: subTree =>
+                          parent.addChild(subTree) -> subTree
+                      .so { (newParent, subTree) =>
+                        chapterRepo.addSubTree(subTree, newParent, path)(chapter)
+                      } >> {
                       import BSONHandlers.given
                       import lila.db.dsl.given
                       import lila.study.Node.{ BsonFields as F }
-                      ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
+                      ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) so
                         chapterRepo
                           .setNodeValues(
                             chapter,
@@ -113,7 +114,7 @@ object ServerEval:
               chapterRepo
                 .byId(analysis.id into StudyChapterId)
                 .foreach:
-                  _ ?? { chapter =>
+                  _ so { chapter =>
                     socket.onServerEval(
                       studyId,
                       ServerEval.Progress(

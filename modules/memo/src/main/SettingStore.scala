@@ -26,16 +26,16 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
 
   def set(v: A): Funit = {
     value = v
-    persist ?? coll.update.one(dbId, $set(dbField -> v), upsert = true).void
+    persist so coll.update.one(dbId, $set(dbField -> v), upsert = true).void
   } >> onSet(v)
 
   def form: Form[?] = summon[SettingStore.Formable[A]] form value
 
-  def setString(str: String): Funit = (summon[SettingStore.StringReader[A]] read str) ?? set
+  def setString(str: String): Funit = (summon[SettingStore.StringReader[A]] read str) so set
 
   private val dbId = $id(id)
 
-  persist ?? coll.primitiveOne[A](dbId, dbField) map2 { (v: A) =>
+  persist so coll.primitiveOne[A](dbId, dbField) map2 { (v: A) =>
     value = init(ConfigValue(default), DbValue(v))
   }
 

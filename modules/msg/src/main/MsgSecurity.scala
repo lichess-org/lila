@@ -120,17 +120,17 @@ final private class MsgSecurity(
       else fuccess(limitWith(ReplyLimitPerUser))
 
     private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
-      (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) ??
+      (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) so
         fuccess(FakeTeamMessage.some)
 
     private def isSpam(text: String): Fu[Option[Verdict]] =
-      spam.detect(text) ?? fuccess(Spam.some)
+      spam.detect(text) so fuccess(Spam.some)
 
     private def isTroll(contacts: User.Contacts): Fu[Option[Verdict]] =
-      contacts.orig.isTroll ?? fuccess(Troll.some)
+      contacts.orig.isTroll so fuccess(Troll.some)
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
-      (isNew && Analyser(text).dirty) ??
+      (isNew && Analyser(text).dirty) so
         !userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)) dmap { _ option Dirt }
 
   object may:

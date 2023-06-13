@@ -28,7 +28,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for
     wiki <- cache get op.key
-    revisions <- withRevisions ?? {
+    revisions <- withRevisions so {
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
     }
   yield wiki.copy(revisions = (~revisions) take 25)
@@ -99,9 +99,9 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   yield OpeningWiki(text map markdown.render(key), Nil, popularity)
 
   private def updatePopularity(key: OpeningKey): Fu[Long] =
-    OpeningDb.shortestLines.get(key) ?? { op =>
+    OpeningDb.shortestLines.get(key) so { op =>
       explorer.simplePopularity(op) flatMap {
-        _.?? { popularity =>
+        _.so { popularity =>
           coll.update
             .one(
               $id(key),

@@ -132,7 +132,7 @@ object perfStat:
     )
 
   private def pct(num: Int, denom: Int): String =
-    (denom != 0) ?? s"${Math.round(num * 100.0 / denom)}%"
+    (denom != 0) so s"${Math.round(num * 100.0 / denom)}%"
 
   private def counter(count: lila.perfStat.Count)(using Lang): Frag =
     st.section(cls := "counter split")(

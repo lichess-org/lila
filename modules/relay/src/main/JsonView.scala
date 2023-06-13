@@ -59,7 +59,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
   ) = leaderboardApi(trs.tour) map { leaderboard =>
     JsonView.JsData(
       relay = apply(trs)
-        .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync)))
+        .add("sync" -> (canContribute so trs.rounds.find(_.id == currentRoundId).map(_.sync)))
         .add("leaderboard" -> leaderboard.map(_.players)),
       study = studyData.study,
       analysis = studyData.analysis
@@ -79,7 +79,7 @@ object JsonView:
         "log"     -> s.log.events
       )
       .add("delay" -> s.delay) ++
-      s.upstream.?? {
+      s.upstream.so {
         case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
         case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
       }

@@ -12,7 +12,7 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
   def byId(id: Analysis.Id): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
   def byGame(game: Game): Fu[Option[Analysis]] =
-    game.metadata.analysed ?? byId(game.id into Analysis.Id)
+    game.metadata.analysed so byId(game.id into Analysis.Id)
 
   def byIds(ids: Seq[Analysis.Id]): Fu[Seq[Option[Analysis]]] =
     coll.optionsByOrderedIds[Analysis, Analysis.Id](ids)(_.id)

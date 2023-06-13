@@ -22,12 +22,10 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def exists(id: Challenge.Id) = coll.countSel($id(id)).dmap(0 <)
 
   def insert(c: Challenge): Funit =
-    coll.insert.one(c) >> c.challengerUser.?? { challenger =>
-      createdByChallengerId()(challenger.id).flatMap {
+    coll.insert.one(c) >> c.challengerUser.so: challenger =>
+      createdByChallengerId()(challenger.id).flatMap:
         case challenges if challenges.sizeIs <= maxOutgoing => funit
         case challenges => challenges.drop(maxOutgoing).map(_.id).map(remove).parallel.void
-      }
-    }
 
   def update(c: Challenge): Funit = coll.update.one($id(c.id), c).void
 
@@ -42,7 +40,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   def createdByPopularDestId(max: Int = 50)(userId: UserId): Fu[List[Challenge]] = for {
     realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l" $exists true), max)
-    corres <- (realTime.sizeIs < max) ?? createdList(
+    corres <- (realTime.sizeIs < max) so createdList(
       $doc($doc("destUser.id" -> userId), "timeControl.l" $exists false),
       max - realTime.size
     )
@@ -52,7 +50,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     coll.update
       .one(
         $id(c.id),
-        $set($doc("challenger" -> c.challenger) ++ color.?? { c =>
+        $set($doc("challenger" -> c.challenger) ++ color.so { c =>
           $doc("colorChoice" -> Challenge.ColorChoice(c), "finalColor" -> c)
         })
       )
@@ -121,7 +119,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def cancel(challenge: Challenge)  = setStatus(challenge, Status.Canceled, Some(_ plusHours 3))
   def decline(challenge: Challenge, reason: Challenge.DeclineReason) =
     setStatus(challenge, Status.Declined, Some(_ plusHours 3)) >> {
-      (reason != Challenge.DeclineReason.default) ??
+      (reason != Challenge.DeclineReason.default) so
         coll.updateField($id(challenge.id), "declineReason", reason).void
     }
   private[challenge] def accept(challenge: Challenge) =

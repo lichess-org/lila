@@ -47,7 +47,7 @@ final class BlogApi(
     recent(prismic.api, page, maxPerPage, prismic.ref.some)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
-    looksLikePrismicId(id) ?? api
+    looksLikePrismicId(id) so api
       .forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(ref | api.master.ref)
@@ -96,8 +96,8 @@ final class BlogApi(
 
   def all(page: Int = 1)(using prismic: BlogApi.Context): Fu[List[Document]] =
     recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
-      val docs = res.??(_.currentPageResults).toList
-      (docs.nonEmpty ?? all(page + 1)) map (docs ::: _)
+      val docs = res.so(_.currentPageResults).toList
+      (docs.nonEmpty so all(page + 1)) map (docs ::: _)
     }
 
   def expand(html: Html) = Html(

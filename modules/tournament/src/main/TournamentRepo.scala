@@ -43,7 +43,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   private[tournament] def startedCursorWithNbPlayersGte(nbPlayers: Option[Int]) =
     coll
-      .find(startedSelect ++ nbPlayers.??(nbPlayersSelect))
+      .find(startedSelect ++ nbPlayers.so(nbPlayersSelect))
       .batchSize(1)
       .cursor[Tournament]()
 
@@ -125,7 +125,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .cursor[Tournament]()
 
   private[tournament] def upcomingByTeam(teamId: TeamId, nb: Int) =
-    (nb > 0) ?? coll
+    (nb > 0) so coll
       .find(
         forTeamSelect(teamId) ++ enterableSelect ++ $doc(
           "startsAt" $gt nowInstant.minusDays(1)
@@ -136,7 +136,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .list(nb)
 
   private[tournament] def finishedByTeam(teamId: TeamId, nb: Int) =
-    (nb > 0) ?? coll
+    (nb > 0) so coll
       .find(forTeamSelect(teamId) ++ finishedSelect)
       .sort($sort desc "startsAt")
       .cursor[Tournament]()
@@ -156,7 +156,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
     coll
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred): framework =>
         import framework.*
-        Match(enterableSelect ++ nonEmptySelect ++ teamId.??(forTeamSelect)) -> List(
+        Match(enterableSelect ++ nonEmptySelect ++ teamId.so(forTeamSelect)) -> List(
           PipelineOperator(lookupPlayer(userId, none)),
           Match("player" $ne $arr()),
           Project($id(true))
@@ -336,7 +336,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
 
   def insert(tour: Tournament) = coll.insert.one(tour)
 
-  def insert(tours: Seq[Tournament]) = tours.nonEmpty ??
+  def insert(tours: Seq[Tournament]) = tours.nonEmpty so
     coll.insert(ordered = false).many(tours).void
 
   def remove(tour: Tournament) = coll.delete.one($id(tour.id))
@@ -360,7 +360,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       readPreference: ReadPreference = temporarilyPrimary
   ): AkkaStreamCursor[Tournament] =
     coll
-      .find($doc("createdBy" -> owner.id) ++ (status.nonEmpty ?? $doc("status" $in status)))
+      .find($doc("createdBy" -> owner.id) ++ (status.nonEmpty so $doc("status" $in status)))
       .sort($sort desc "startsAt")
       .batchSize(batchSize)
       .cursor[Tournament](readPreference)

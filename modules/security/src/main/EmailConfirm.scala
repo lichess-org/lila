@@ -42,7 +42,7 @@ final class EmailConfirmMailer(
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(using Lang): Funit =
-    !email.looksLikeFakeEmail ?? {
+    !email.looksLikeFakeEmail so {
       tokener make user.id flatMap { token =>
         lila.mon.email.send.confirmation.increment()
         val url = s"$baseUrl/signup/confirm/$token"
@@ -83,7 +83,7 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
 
   private val tokener = new StringToken[UserId](
     secret = tokenerSecret,
-    getCurrentValue = id => userRepo email id dmap (_.??(_.value))
+    getCurrentValue = id => userRepo email id dmap (_.so(_.value))
   )
 
 object EmailConfirm:

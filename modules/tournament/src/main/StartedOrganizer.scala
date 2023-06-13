@@ -53,12 +53,12 @@ final private class StartedOrganizer(
     else if (tour.nbPlayers < 2) funit
     else if (tour.nbPlayers < 30)
       playerRepo nbActivePlayers tour.id flatMap { nb =>
-        (nb >= 2) ?? startPairing(tour, nb.some)
+        (nb >= 2) so startPairing(tour, nb.some)
       }
     else startPairing(tour)
 
   private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Funit =
-    !tour.pairingsClosed ??
+    !tour.pairingsClosed so
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
