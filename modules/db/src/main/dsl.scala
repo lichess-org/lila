@@ -348,8 +348,8 @@ trait dsl:
       with ArrayOperators
 
   import scala.language.implicitConversions
-  implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): Bdoc =
-    $doc(expression.field -> expression.value)
+  given toBSONDocument[V](using BSONWriter[V]): Conversion[Expression[V], Bdoc] =
+    expression => $doc(expression.field -> expression.value)
 
 object dsl extends dsl with Handlers:
 

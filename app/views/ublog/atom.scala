@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 

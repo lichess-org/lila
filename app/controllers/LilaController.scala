@@ -44,11 +44,8 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val rateLimitedFu              = rateLimited.toFuccess
   protected def rateLimitedFu(msg: String) = Results.TooManyRequests(jsonError(msg)).toFuccess
 
-  implicit protected def LilaFunitToResult(funit: Funit)(using req: RequestHeader): Fu[Result] =
-    negotiate(
-      html = fuccess(Ok("ok")),
-      api = _ => fuccess(jsonOkResult)
-    )
+  protected given (using RequestHeader): Conversion[Funit, Fu[Result]] =
+    _ => negotiate(fuccess(Ok("ok")), _ => fuccess(jsonOkResult))
 
   given lila.common.config.NetDomain = env.net.domain
 
