@@ -36,7 +36,7 @@ class RecNode implements Selectable {
 
 // this code is bundled with callers, so lazy create and store in window global
 export const mic =
-  window.LichessVoicePlugin?.mic so
+  window.LichessVoicePlugin?.mic ??
   new (class implements Voice.Microphone {
     language = 'en';
 
