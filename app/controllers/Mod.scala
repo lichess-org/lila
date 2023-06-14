@@ -468,7 +468,7 @@ final class Mod(
   }
 
   def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me =>
-    val v = getBool("v", req)
+    val v = getBool("v")
     env.chat.panic.set(v)
     env.irc.api.chatPanic(me, v)
     fuccess(().some)

@@ -310,6 +310,6 @@ final class Plan(env: Env) extends LilaController(env):
           env.plan.api.payPal.onLegacyCharge(
             ipn,
             ip = req.ipAddress,
-            key = get("key", req) | "N/A"
+            key = get("key") | "N/A"
           ) inject Ok
       )

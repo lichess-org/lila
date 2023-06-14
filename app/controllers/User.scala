@@ -47,7 +47,7 @@ final class User(
     env.game.cached.lastPlayedPlayingId(username.id) orElse
       env.game.gameRepo.quickLastPlayedId(username.id) flatMap {
         case None         => NotFound("No ongoing game").toFuccess
-        case Some(gameId) => gameC.exportGame(gameId, req)
+        case Some(gameId) => gameC.exportGame(gameId)
       }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(using WebBodyContext[?]) =
@@ -189,15 +189,12 @@ final class User(
     negotiate(
       html = notFoundJson(),
       api = _ =>
-        env.user.cached.getTop50Online map { users =>
-          Ok(
-            Json.toJson(
+        env.user.cached.getTop50Online.map: users =>
+          Ok:
+            Json.toJson:
               users
-                .take(getInt("nb", req).fold(10)(_ min max))
+                .take(getInt("nb").fold(10)(_ min max))
                 .map(env.user.jsonView.full(_, withRating = true, withProfile = true))
-            )
-          )
-        }
     )
 
   def ratingHistory(username: UserStr) = OpenBody:
@@ -559,32 +556,32 @@ final class User(
         )
 
   def autocomplete = OpenOrScoped(): me =>
-    getUserStr("term", req).flatMap(UserModel.validateId) match
-      case None                               => BadRequest("No search term provided").toFuccess
-      case Some(id) if getBool("exists", req) => env.user.repo exists id map JsonOk
+    getUserStr("term").flatMap(UserModel.validateId) match
+      case None                          => BadRequest("No search term provided").toFuccess
+      case Some(id) if getBool("exists") => env.user.repo exists id map JsonOk
       case Some(term) =>
         {
-          (get("tour", req), get("swiss", req), get("team", req)) match
+          (get("tour"), get("swiss"), get("team")) match
             case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
             case (_, Some(swissId), _) =>
               env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
             case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, me, 10)
             case _ =>
-              me.ifTrue(getBool("friend", req)) match
+              me.ifTrue(getBool("friend")) match
                 case Some(follower) =>
                   env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
                     case Nil     => env.user.cached userIdsLike term
                     case userIds => fuccess(userIds)
                   }
-                case None if getBool("teacher", req) =>
+                case None if getBool("teacher") =>
                   env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
                 case None => env.user.cached userIdsLike term
         } flatMap { userIds =>
-          if getBool("names", req) then
+          if getBool("names") then
             lightUserApi.asyncMany(userIds) map { users =>
               Json toJson users.flatMap(_.map(_.name))
             }
-          else if getBool("object", req) then
+          else if getBool("object") then
             lightUserApi.asyncMany(userIds) map { users =>
               Json.obj(
                 "result" -> JsArray(users collect { case Some(u) =>

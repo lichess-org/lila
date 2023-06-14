@@ -75,7 +75,7 @@ final class Main(
       userId = ctx.userId,
       ip = ctx.ip,
       fullId = id,
-      name = get("n", ctx.req) | "?"
+      name = get("n") | "?"
     )
     NoContent.toFuccess
 
