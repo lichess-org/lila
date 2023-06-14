@@ -850,8 +850,6 @@
   <string name="congratsYouWon">Xin chúc mừng, bạn đã giành chiến thắng!</string>
   <string name="gameVsX">Ván đấu với%1$s</string>
   <string name="resVsX">%1$s với%2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Ai đó đã xem xét hồ sơ huấn luyện viên của bạn.</string>
-  <string name="newPendingReview">Đánh giá mới đang chờ xử lý</string>
   <string name="lostAgainstTOSViolator">Bạn đã thua người vi phạm Điều Khoản Dịch Vụ của Lichess</string>
   <string name="refundXpointsTimeControlY">Hoàn lại:%1$s điểm xếp hạng %2$s.</string>
   <string name="timeAlmostUp">Thời gian sắp hết!</string>

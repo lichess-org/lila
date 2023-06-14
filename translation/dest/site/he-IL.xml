@@ -986,8 +986,6 @@
   <string name="congratsYouWon">כל הכבוד, ניצחתם!</string>
   <string name="gameVsX">המשחק נגד %1$s</string>
   <string name="resVsX">%1$s נגד %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">מישהו כתב ביקורת על פרופיל המאמן שלך.</string>
-  <string name="newPendingReview">ביקורת ממתינה חדשה</string>
   <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תנאי השימוש בליצ\'ס</string>
   <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>

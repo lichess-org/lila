@@ -832,8 +832,6 @@
   <string name="congratsYouWon">Təbriklər, siz qalib gəldiniz!</string>
   <string name="gameVsX">%1$s-ya qarşı oyun</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Kimsə məşqçi profilinə baxdı.</string>
-  <string name="newPendingReview">Yeni gözləyən rəy</string>
   <string name="lostAgainstTOSViolator">\"Liches\" xidmət şərtlərini pozana qarşı uduzdun</string>
   <string name="refundXpointsTimeControlY">Geri qaytarma: \"%2$s\"-də %1$s reytinq xalı.</string>
   <string name="timeAlmostUp">Vaxt bitmək üzrədir!</string>

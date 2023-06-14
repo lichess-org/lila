@@ -16,6 +16,12 @@
     <item quantity="many">%s pokusov</item>
     <item quantity="other">%s pokusov</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Odohraný jeden cyklus %2$s</item>
+    <item quantity="few">Odohrané %1$s cykly %2$s</item>
+    <item quantity="many">Odohraných %1$s cyklov %2$s</item>
+    <item quantity="other">Odohraných %1$s cyklov %2$s</item>
+  </plurals>
   <string name="highscoreX">Najvyššie skóre: %s</string>
   <string name="score">Skóre</string>
   <string name="moves">Počet ťahov</string>
@@ -48,5 +54,13 @@
   <string name="skip">preskočiť</string>
   <string name="skipHelp">Počas každých pretekov môžete raz vynechať ťah:</string>
   <string name="skipExplanation">Vynechajte tento ťah aby ste neprišli o kombo! Je možné len raz počas pretekov.</string>
+  <string name="failedPuzzles">Neúspešne riešené úlohy</string>
+  <string name="slowPuzzles">Pomaly riešené úlohy</string>
   <string name="skippedPuzzle">Preskočené úlohy</string>
+  <string name="thisWeek">Tento týždeň</string>
+  <string name="thisMonth">Tento mesiac</string>
+  <string name="allTime">Celkovo</string>
+  <string name="clickToReload">Kliknite pre opätovné načítanie</string>
+  <string name="thisRunHasExpired">Tento cyklus vypršal!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Tento cyklus ste otvorili v inej záložke!</string>
 </resources>

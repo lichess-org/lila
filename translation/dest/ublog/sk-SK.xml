@@ -9,6 +9,8 @@
   <string name="postBody">Telo príspevku</string>
   <string name="drafts">Koncepty</string>
   <string name="published">Zverejnené</string>
+  <string name="createBlogDiscussion">Povoliť komentáre</string>
+  <string name="createBlogDiscussionHelp">Na fóre sa vytvorí téma, v ktorej budú ľudia môcť komentovať Váš príspevok</string>
   <string name="publishOnYourBlog">Zverejnené na tvojom blogu</string>
   <string name="publishHelp">Ak je toto pole začiarknuté, príspevok bude uvedený na vašom blogu. Ak nie je, bude príspevok uvedený ako súkromný vo forme konceptu</string>
   <plurals name="publishedNbBlogPosts">

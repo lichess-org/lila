@@ -59,4 +59,5 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="noArenaStreaks">Sin rachas de torneo</string>
   <string name="averagePerformance">Rendimiento medio</string>
   <string name="averageScore">Puntuación media</string>
+  <string name="myTournaments">Mis torneos</string>
 </resources>

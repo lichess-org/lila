@@ -42,6 +42,12 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Minimálna dĺžka partie</string>
   <string name="history">História zápasov v aréne</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Prezerať tím</item>
+    <item quantity="few">Prezerať všetky %s tímy</item>
+    <item quantity="many">Prezerať všetkých %s tímov</item>
+    <item quantity="other">Prezerať všetkých %s tímov</item>
+  </plurals>
   <string name="newTeamBattle">Nový tímový súboj</string>
   <string name="customStartDate">Vlastný dátum začiatku</string>
   <string name="customStartDateHelp">Vo Vašom miestnom časovom pásme. Toto nastavenie je nadradené nastaveniu \"Čas pred začiatkom turnaja\"</string>
@@ -54,4 +60,5 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="noArenaStreaks">Série výhier vypnuté</string>
   <string name="averagePerformance">Priemerný výkon</string>
   <string name="averageScore">Priemerné skóre</string>
+  <string name="myTournaments">Moje turnaje</string>
 </resources>

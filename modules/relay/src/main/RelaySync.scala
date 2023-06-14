@@ -93,7 +93,7 @@ final private class RelaySync(
       case (found, _) => found
     } match
       case (path, newNode) =>
-        !path.isMainline(chapter.root) so {
+        (!path.isMainline(chapter.root)).so {
           logger.info(s"Change mainline ${showSC(study, chapter)} $path")
           studyApi.promote(
             studyId = study.id,

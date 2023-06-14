@@ -880,8 +880,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="congratsYouWon">Palju õnne, sa võitsid!</string>
   <string name="gameVsX">Mängus %1$s vastu</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Keegi vaatas su treeneriprofiili üle.</string>
-  <string name="newPendingReview">Läbivaatus on pooleli</string>
   <string name="lostAgainstTOSViolator">Sa kaotasid kellegile, kes rikkus Lichessi teenusetingimusi</string>
   <string name="refundXpointsTimeControlY">Tagastus: %1$s %2$s reitingupunkti.</string>
   <string name="timeAlmostUp">Aeg on peaaegu otsas!</string>

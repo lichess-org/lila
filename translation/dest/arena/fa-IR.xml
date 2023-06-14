@@ -56,4 +56,5 @@
   <string name="noBerserkAllowed">برزرک مجاز نیست</string>
   <string name="averagePerformance">میانگین عملکرد</string>
   <string name="averageScore">میانگین امتیاز</string>
+  <string name="myTournaments">مسابقات من</string>
 </resources>

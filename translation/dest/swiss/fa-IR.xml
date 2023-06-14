@@ -110,4 +110,5 @@
   <string name="unlimitedAndFree">بدون محدودیت و رایگان</string>
   <string name="predefinedUsers">تنها کاربران از پیش تعریف شده اجازه ورود دارند</string>
   <string name="forbiddedUsers">اگر این لیست خالی نیست، بنابراین کاربرانی که در لیست نیستند امکان ورود ندارند. یک نام کاربری در هر خط.</string>
+  <string name="playYourGames">بازی‌های خود را بازی کنید</string>
 </resources>

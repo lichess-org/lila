@@ -96,9 +96,10 @@
   <string name="maxDepthReached">Maksimisyvyys saavutettu!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
   <string name="openings">Avaukset</string>
-  <string name="openingExplorer">Avaustietokanta</string>
+  <string name="openingExplorer">Avausselain</string>
   <string name="openingEndgameExplorer">Avaus- ja loppupeliselain</string>
-  <string name="xOpeningExplorer">%s -avaustietokanta</string>
+  <string name="xOpeningExplorer">%s -avausselain</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Pelaa ensimmäinen avaus-/loppupeliselaimen siirto</string>
   <string name="winPreventedBy50MoveRule">50 siirron sääntö estää voiton</string>
   <string name="lossSavedBy50MoveRule">50 siirron sääntö estää tappion</string>
   <string name="winOr50MovesByPriorMistake">Voitto tai 50 siirtoa edeltävän virheen seurauksena</string>
@@ -322,7 +323,7 @@
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
   <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
-  <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
+  <string name="openingExplorerAndTablebase">Avausselain ja -tietokanta</string>
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Ehdota siirron peruutusta</string>
   <string name="takebackPropositionSent">Siirron peruutusta ehdotettu</string>
@@ -341,6 +342,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s tutkielma</item>
     <item quantity="other">­%s tutkielmaa</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultaani</item>
+    <item quantity="other">%s simultaania</item>
   </plurals>
   <string name="viewTournament">Katso turnausta</string>
   <string name="backToTournament">Takaisin turnaukseen</string>
@@ -677,6 +682,11 @@
   <string name="keyGoToStartOrEnd">siirry alkuun/loppuun</string>
   <string name="keyShowOrHideComments">näytä/piilota kommentit</string>
   <string name="keyEnterOrExitVariation">lisää/poista muunnelma</string>
+  <string name="keyRequestComputerAnalysis">Pyydä tietokoneanalyysiä, opi virheistäsi</string>
+  <string name="keyNextLearnFromYourMistakes">Seuraava (Opi virheistäsi)</string>
+  <string name="keyNextBlunder">Seuraava vakava virhe</string>
+  <string name="keyNextMistake">Seuraava virhe</string>
+  <string name="keyNextInaccuracy">Seuraava epätarkkuus</string>
   <string name="newTournament">Uusi turnaus</string>
   <string name="tournamentHomeTitle">Shakkiturnaus, jossa on monia aikarajoja ja variantteja</string>
   <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Osallistu aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon: Bullet, Blitz, Klassinen, Shakki960, King of the Hill, Threecheck ja paljon muuta.</string>
@@ -887,8 +897,6 @@
   <string name="congratsYouWon">Onnittelut, sinä voitit!</string>
   <string name="gameVsX">Peli käyttäjää %1$s vastaan</string>
   <string name="resVsX">%1$s vastaan %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Joku kirjoitti valmentajaprofiiliisi arvostelun.</string>
-  <string name="newPendingReview">Uusi arvostelu</string>
   <string name="lostAgainstTOSViolator">Olet hävinnyt Lichessin käyttöehtoja rikkoneelle henkilölle</string>
   <string name="refundXpointsTimeControlY">Hyvitys: %1$s %2$s vahvuuslukupistettä.</string>
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
