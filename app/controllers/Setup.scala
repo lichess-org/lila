@@ -183,11 +183,12 @@ final class Setup(
     maxConcurrency = 1
   )
   def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile) { ctx ?=> me =>
+    val reqSri = getAs[Sri]("sri")
     val author: Either[Result, Either[Sri, lila.user.User]] = me match
       case Some(u) if u.isBot => Left(notForBotAccounts)
       case Some(u)            => Right(Right(u))
       case None =>
-        getAs[Sri]("sri") match
+        reqSri match
           case Some(sri) => Right(Left(sri))
           case None      => Left(BadRequest(jsonError("Authentication required")))
     author match
@@ -202,7 +203,7 @@ final class Setup(
               me.map(_.id).so(env.relation.api.fetchBlocking) flatMap { blocking =>
                 val uniqId = author.fold(_.value, u => s"sri:${u.id}")
                 config.fixColor
-                  .hook(Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
+                  .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking)) match
                   case Left(hook) =>
                     PostRateLimit(req.ipAddress, rateLimitedFu):
                       BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
