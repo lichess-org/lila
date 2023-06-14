@@ -153,13 +153,12 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       env.oAuth.tokenApi.test(bearers) map { tokens =>
         import lila.common.Json.given
         ApiResult.Data(JsObject(tokens.map { (bearer, token) =>
-          bearer.value -> token.fold[JsValue](JsNull) { t =>
+          bearer.value -> token.fold[JsValue](JsNull): t =>
             Json.obj(
               "userId"  -> t.userId,
-              "scopes"  -> t.scopes.map(_.key).mkString(","),
+              "scopes"  -> t.scopes.keyList,
               "expires" -> t.expires
             )
-          }
         }))
       }
     .map(apiC.toHttp)

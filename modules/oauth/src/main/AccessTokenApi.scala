@@ -30,10 +30,13 @@ final class AccessTokenApi(
           userId = me.id,
           description = setup.description.some,
           createdAt = nowInstant.some,
-          scopes = setup.scopes
-            .flatMap(OAuthScope.byKey.get)
-            .filterNot(_ == OAuthScope.Bot.Play && noBot)
-            .filterNot(_ == OAuthScope.Web.Mobile),
+          scopes = OAuthScopes:
+            setup.scopes
+              .flatMap(OAuthScope.byKey.get)
+              .filterNot(_ == OAuthScope.Bot.Play && noBot)
+              .filterNot(_ == OAuthScope.Web.Mobile)
+              .toList
+          ,
           clientOrigin = None,
           expires = None
         )
@@ -79,7 +82,7 @@ final class AccessTokenApi(
                     userId = user.id,
                     description = s"Challenge admin: ${admin.username}".some,
                     createdAt = nowInstant.some,
-                    scopes = List(scope),
+                    scopes = OAuthScopes(List(scope)),
                     clientOrigin = setup.description.some,
                     expires = Some(nowInstant plusMonths 6)
                   )

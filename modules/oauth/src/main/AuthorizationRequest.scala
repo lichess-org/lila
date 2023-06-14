@@ -48,17 +48,17 @@ object AuthorizationRequest:
 
     def cancelUrl = errorUrl(Error.AccessDenied)
 
-    private def validScopes: Validated[Error, List[OAuthScope]] =
+    private def validScopes: Validated[Error, OAuthScopes] =
       (~scope)
         .split(" ")
         .filter(_ != "")
         .foldLeft(Validated.valid[Error, List[OAuthScope]](List.empty[OAuthScope])) { case (acc, key) =>
-          acc.andThen { valid =>
+          acc.andThen: valid =>
             OAuthScope.byKey.get(key).toValid(Error.InvalidScope(key)).map(_ :: valid)
-          }
         }
+        .map(OAuthScopes(_))
 
-    def maybeScopes: List[OAuthScope] = validScopes.getOrElse(Nil)
+    def scopes: OAuthScopes = validScopes.getOrElse(OAuthScopes(Nil))
 
     def maybeLegacy: Boolean = codeChallengeMethod.isEmpty && codeChallenge.isEmpty
 
@@ -78,11 +78,11 @@ object AuthorizationRequest:
               .map(Right.apply)
           })
       }) dmap { challenge =>
-        for {
+        for
           challenge <- challenge
           scopes    <- validScopes
           _         <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
-        } yield Authorized(
+        yield Authorized(
           clientId,
           redirectUri,
           state,
@@ -97,7 +97,7 @@ object AuthorizationRequest:
       redirectUri: RedirectUri,
       state: Option[State],
       user: UserId,
-      scopes: List[OAuthScope],
+      scopes: OAuthScopes,
       challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
   ):
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)

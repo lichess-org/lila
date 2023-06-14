@@ -19,7 +19,7 @@ object authorize:
   )
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using WebContext) =
-    val isDanger           = prompt.maybeScopes.exists(OAuthScope.dangerList.contains)
+    val isDanger           = prompt.scopes.intersects(OAuthScope.dangerList)
     val buttonClass        = s"button${isDanger so " button-red confirm text"}"
     val buttonDelay        = if (isDanger) 5000 else 2000
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
@@ -45,12 +45,11 @@ object authorize:
             strong(otherUserRequested.fold(me.username)(_.name)),
             " account:"
           ),
-          if (prompt.maybeScopes.isEmpty) ul(li("Only public data"))
+          if (prompt.scopes.isEmpty) ul(li("Only public data"))
           else
             ul(cls := "oauth__scopes")(
-              prompt.maybeScopes map { scope =>
-                li(cls := List("danger" -> OAuthScope.dangerList(scope)))(scope.name())
-              }
+              prompt.scopes.value.map: scope =>
+                li(cls := List("danger" -> OAuthScope.dangerList.has(scope)))(scope.name())
             ),
           form3.actions(
             a(href := prompt.cancelUrl)("Cancel"),

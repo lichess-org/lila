@@ -63,7 +63,7 @@ private object AuthorizationApi:
       userId: UserId,
       redirectUri: Protocol.RedirectUri,
       challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
-      scopes: List[OAuthScope],
+      scopes: OAuthScopes,
       expires: Instant
   )
 
@@ -78,11 +78,11 @@ private object AuthorizationApi:
         clientId = Protocol.ClientId(r.str(F.clientId)),
         userId = r.get[UserId](F.userId),
         redirectUri = Protocol.RedirectUri.unchecked(r.str(F.redirectUri)),
-        challenge = r.strO(F.hashedClientSecret) match {
+        challenge = r.strO(F.hashedClientSecret) match
           case Some(hashedClientSecret) => Left(LegacyClientApi.HashedClientSecret(hashedClientSecret))
           case None                     => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
-        },
-        scopes = r.get[List[OAuthScope]](F.scopes),
+        ,
+        scopes = r.get[OAuthScopes](F.scopes),
         expires = r.get[Instant](F.expires)
       )
 
