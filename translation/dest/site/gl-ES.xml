@@ -899,8 +899,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="congratsYouWon">Parabéns, gañaches!</string>
   <string name="gameVsX">Xogo contra %1$s</string>
   <string name="resVsX">%1$s contra %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Alguén revisou o teu perfil de entrenador/a.</string>
-  <string name="newPendingReview">Nova revisión pendente</string>
   <string name="lostAgainstTOSViolator">Perdiches con alguén que incumpriu as condicións de servizo de Lichess</string>
   <string name="refundXpointsTimeControlY">Recuperaches %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
