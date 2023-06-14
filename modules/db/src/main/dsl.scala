@@ -64,95 +64,55 @@ trait dsl:
 
   // **********************************************************************************************//
   // Top Level Logical Operators
-  def $or(expressions: Bdoc*): Bdoc =
-    $doc("$or" -> expressions)
-
-  def $and(expressions: Bdoc*): Bdoc =
-    $doc("$and" -> expressions)
-
-  def $nor(expressions: Bdoc*): Bdoc =
-    $doc("$nor" -> expressions)
-
-  def $not(expression: Bdoc): Bdoc =
-    $doc("$not" -> expression)
-
-  def $expr(expression: Bdoc): Bdoc =
-    $doc("$expr" -> expression)
+  def $or(expressions: Bdoc*): Bdoc  = $doc("$or" -> expressions)
+  def $and(expressions: Bdoc*): Bdoc = $doc("$and" -> expressions)
+  def $nor(expressions: Bdoc*): Bdoc = $doc("$nor" -> expressions)
+  def $not(expression: Bdoc): Bdoc   = $doc("$not" -> expression)
+  def $expr(expression: Bdoc): Bdoc  = $doc("$expr" -> expression)
 
   // End of Top Level Logical Operators
   // **********************************************************************************************//
 
   // **********************************************************************************************//
   // Top Level Evaluation Operators
-  def $text(term: String): Bdoc =
-    $doc("$text" -> $doc("$search" -> term))
-
-  def $text(term: String, lang: String): Bdoc =
-    $doc("$text" -> $doc("$search" -> term, f"$$language" -> lang))
+  def $text(term: String): Bdoc = $doc("$text" -> $doc("$search" -> term))
+  def $text(term: String, lang: String): Bdoc = $doc:
+    "$text" -> $doc("$search" -> term, f"$$language" -> lang)
 
   // End of Top Level Evaluation Operators
   // **********************************************************************************************//
 
   // **********************************************************************************************//
   // Top Level Field Update Operators
-  def $inc(item: ElementProducer, items: ElementProducer*): Bdoc =
-    $doc("$inc" -> $doc((Seq(item) ++ items)*))
-  def $inc(doc: Bdoc): Bdoc =
-    $doc("$inc" -> doc)
+  def $inc(item: ElementProducer, items: ElementProducer*): Bdoc = $doc("$inc" -> $doc((Seq(item) ++ items)*))
+  def $inc(doc: Bdoc): Bdoc                                      = $doc("$inc" -> doc)
 
   def $mul(item: ElementProducer): Bdoc =
     $doc("$mul" -> $doc(item))
 
-  def $setOnInsert(item: ElementProducer, items: ElementProducer*): Bdoc =
-    $doc("$setOnInsert" -> $doc((Seq(item) ++ items)*))
-
-  def $set(items: ElementProducer*): Bdoc =
-    $doc("$set" -> items.nonEmpty.so($doc(items*)))
-
-  def $unset(fields: Iterable[String]): Bdoc =
-    $doc("$unset" -> fields.nonEmpty.so($doc(fields.map((_, BSONString(""))))))
-
-  def $unset(field: String, fields: String*): Bdoc =
-    $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString("")))))
-
+  def $set(items: ElementProducer*): Bdoc = $doc:
+    "$set" -> items.nonEmpty.so($doc(items*))
+  def $unset(fields: Iterable[String]): Bdoc = $doc:
+    "$unset" -> fields.nonEmpty.so($doc(fields.map(k => (k, BSONString("")))))
+  def $unset(field: String, fields: String*): Bdoc = $doc:
+    "$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString(""))))
   def $setBoolOrUnset(field: String, value: Boolean): Bdoc =
-    if (value) $set(field -> true) else $unset(field)
-
-  def $min(item: ElementProducer): Bdoc =
-    $doc("$min" -> $doc(item))
-
-  def $max(item: ElementProducer): Bdoc =
-    $doc("$max" -> $doc(item))
-
-  def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc =
-    $doc("$divide" -> $arr(a, b))
-  def $multiply[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc =
-    $doc("$multiply" -> $arr(a, b))
+    if value then $set(field -> true) else $unset(field)
+  def $min(item: ElementProducer): Bdoc                         = $doc("$min" -> $doc(item))
+  def $max(item: ElementProducer): Bdoc                         = $doc("$max" -> $doc(item))
+  def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc   = $doc("$divide" -> $arr(a, b))
+  def $multiply[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = $doc("$multiply" -> $arr(a, b))
 
   // Helpers
-  def $eq[T: BSONWriter](value: T) = $doc("$eq" -> value)
-
-  def $gt[T: BSONWriter](value: T) = $doc("$gt" -> value)
-
-  /** Matches values that are greater than or equal to the value specified in the query. */
-  def $gte[T: BSONWriter](value: T) = $doc("$gte" -> value)
-
-  /** Matches any of the values that exist in an array specified in the query. */
-  def $in[T: BSONWriter](values: T*) = $doc("$in" -> values)
-
-  /** Matches values that are less than the value specified in the query. */
-  def $lt[T: BSONWriter](value: T) = $doc("$lt" -> value)
-
-  /** Matches values that are less than or equal to the value specified in the query. */
-  def $lte[T: BSONWriter](value: T) = $doc("$lte" -> value)
-
-  /** Matches all values that are not equal to the value specified in the query. */
-  def $ne[T: BSONWriter](value: T) = $doc("$ne" -> value)
-
-  /** Matches values that do not exist in an array specified to the query. */
+  def $eq[T: BSONWriter](value: T)    = $doc("$eq" -> value)
+  def $gt[T: BSONWriter](value: T)    = $doc("$gt" -> value)
+  def $gte[T: BSONWriter](value: T)   = $doc("$gte" -> value)
+  def $in[T: BSONWriter](values: T*)  = $doc("$in" -> values)
+  def $lt[T: BSONWriter](value: T)    = $doc("$lt" -> value)
+  def $lte[T: BSONWriter](value: T)   = $doc("$lte" -> value)
+  def $ne[T: BSONWriter](value: T)    = $doc("$ne" -> value)
   def $nin[T: BSONWriter](values: T*) = $doc("$nin" -> values)
-
-  def $exists(value: Boolean) = $doc("$exists" -> value)
+  def $exists(value: Boolean)         = $doc("$exists" -> value)
 
   trait CurrentDateValueProducer[T]:
     def produce: BSONValue
@@ -171,20 +131,14 @@ trait dsl:
       throw new IllegalArgumentException(s"${item._2} is not equal to: -1 | 1")
     $doc("$pop" -> $doc(item))
 
-  def $push(item: ElementProducer): Bdoc =
-    $doc("$push" -> $doc(item))
+  def $push(item: ElementProducer): Bdoc = $doc("$push" -> $doc(item))
 
-  def $pushEach[T: BSONWriter](field: String, values: T*): Bdoc =
-    $doc(
-      "$push" -> $doc(
-        field -> $doc(
-          "$each" -> values
-        )
-      )
-    )
+  def $pushEach[T: BSONWriter](field: String, values: T*): Bdoc = $doc:
+    "$push" -> $doc:
+      field -> $doc:
+        "$each" -> values
 
-  def $pull(item: ElementProducer): Bdoc =
-    $doc("$pull" -> $doc(item))
+  def $pull(item: ElementProducer): Bdoc = $doc("$pull" -> $doc(item))
 
   def $addOrPull[T: BSONWriter](key: String, value: T, add: Boolean): Bdoc =
     $doc((if (add) "$addToSet" else "$pull") -> $doc(key -> value))
@@ -256,7 +210,7 @@ trait dsl:
     def $lte[T: BSONWriter](value: T): CompositeExpression =
       CompositeExpression(field, append($doc("$lte" -> value)))
 
-    def $inRange(range: Range) =
+    def $inRange(range: Range): CompositeExpression =
       CompositeExpression(field, append($doc("$gte" -> range.min, "$lte" -> range.max)))
 
     /** Matches all values that are not equal to the value specified in the query. */

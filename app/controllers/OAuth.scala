@@ -18,21 +18,21 @@ import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def reqToAuthorizationRequest(req: RequestHeader) =
+  private def reqToAuthorizationRequest(using RequestHeader) =
     import lila.oauth.Protocol.*
     AuthorizationRequest.Raw(
-      clientId = ClientId from get("client_id", req),
-      responseType = get("response_type", req),
-      redirectUri = get("redirect_uri", req),
-      state = State from get("state", req),
-      codeChallengeMethod = get("code_challenge_method", req),
-      codeChallenge = CodeChallenge from get("code_challenge", req),
-      scope = get("scope", req),
-      username = UserStr from get("username", req)
+      clientId = ClientId from get("client_id"),
+      responseType = get("response_type"),
+      redirectUri = get("redirect_uri"),
+      state = State from get("state"),
+      codeChallengeMethod = get("code_challenge_method"),
+      codeChallenge = CodeChallenge from get("code_challenge"),
+      scope = get("scope"),
+      username = UserStr from get("username")
     )
 
   private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: WebContext) =
-    reqToAuthorizationRequest(ctx.req).prompt match
+    reqToAuthorizationRequest.prompt match
       case Validated.Valid(prompt) => f(prompt)
       case Validated.Invalid(error) =>
         BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).toFuccess

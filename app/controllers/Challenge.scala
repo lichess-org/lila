@@ -220,7 +220,7 @@ final class Challenge(
   def apiStartClocks(id: GameId) = Anon:
     import cats.syntax.all.*
     val scopes = OAuthScope.select(_.Challenge.Write)
-    (Bearer from get("token1", req), Bearer from get("token2", req)).mapN {
+    (Bearer from get("token1"), Bearer from get("token2")).mapN {
       env.oAuth.server.authBoth(scopes, req)
     } so {
       _ flatMap {

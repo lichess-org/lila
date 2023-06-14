@@ -76,12 +76,12 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
 
   def apiGamesChannel(chanKey: String) = Anon:
     Channel.byKey.get(chanKey) so { channel =>
-      env.tv.tv.getGameIds(channel, getInt("nb", req).fold(10)(_ atMost 30 atLeast 1)) map { gameIds =>
+      env.tv.tv.getGameIds(channel, getInt("nb").fold(10)(_ atMost 30 atLeast 1)) map { gameIds =>
         val config =
           lila.api.GameApiV2.ByIdsConfig(
             ids = gameIds,
             format = lila.api.GameApiV2.Format byRequest req,
-            flags = gameC.requestPgnFlags(req, extended = false).copy(delayMoves = false),
+            flags = gameC.requestPgnFlags(extended = false).copy(delayMoves = false),
             perSecond = lila.common.config.MaxPerSecond(30)
           )
         noProxyBuffer(Ok.chunked(env.api.gameApiV2.exportByIds(config))).as(gameC.gameContentType(config))
@@ -93,7 +93,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     import akka.pattern.ask
     import lila.round.TvBroadcast
     import play.api.libs.EventSource
-    val bc   = getBool("bc", req)
+    val bc   = getBool("bc")
     val ctag = summon[scala.reflect.ClassTag[TvBroadcast.SourceType]]
     env.round.tvBroadcast ? TvBroadcast.Connect(bc) mapTo ctag map { source =>
       if bc then

@@ -137,7 +137,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
     apiC
       .jsonDownload:
         env.relay.api
-          .officialTourStream(MaxPerSecond(20), getInt("nb", req) | 20)
+          .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
           .map(env.relay.jsonView.apply(_, withUrls = true))
       .toFuccess
 

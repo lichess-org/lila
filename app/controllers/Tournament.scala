@@ -209,16 +209,14 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin, me: UserModel) =
     data.team
       .so { env.team.cached.isLeader(_, me.id) }
-      .flatMap { isLeader =>
+      .flatMap: isLeader =>
         api.joinWithResult(tourId, me, data = data, isLeader)
-      }
 
   def pause(id: TourId) = Auth { ctx ?=> me =>
-    OptionResult(cachedTour(id)) { tour =>
+    OptionResult(cachedTour(id)): tour =>
       api.selfPause(tour.id, me.id)
-      if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
+      if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Tournament.show(tour.id))
-    }
   }
 
   def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me =>
@@ -228,21 +226,19 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
   }
 
   def form = Auth { ctx ?=> me =>
-    NoBot {
+    NoBot:
       env.team.api.lightsByLeader(me.id) map { teams =>
         Ok(html.tournament.form.create(forms.create(me, teams), teams))
       }
-    }
   }
 
   def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me =>
-    NoBot {
+    NoBot:
       env.team.api.lightsByLeader(me.id) flatMap { teams =>
         env.team.api.leads(teamId, me.id) mapz {
           Ok(html.tournament.form.create(forms.create(me, teams, teamId.some), Nil))
         }
       }
-    }
   }
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
@@ -505,7 +501,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       .jsonDownload:
         repo
           .byTeamCursor(id)
-          .documentSource(getInt("max", req) | 100)
+          .documentSource(getInt("max") | 100)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           .throttle(20, 1.second)
       .toFuccess

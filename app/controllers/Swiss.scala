@@ -65,11 +65,10 @@ final class Swiss(
             for {
               isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId))
               verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
-              socketVersion <- getBool("socketVersion", ctx.req).so(env.swiss version swiss.id dmap some)
-              playerInfo <- getUserStr("playerInfo", ctx.req).map(_.id).so {
-                env.swiss.api.playerInfo(swiss, _)
-              }
-              page = getInt("page", ctx.req).filter(0.<)
+              socketVersion <- getBool("socketVersion").so(env.swiss version swiss.id dmap some)
+              playerInfo <- getUserStr("playerInfo").so: u =>
+                env.swiss.api.playerInfo(swiss, u.id)
+              page = getInt("page").filter(0.<)
               json <- env.swiss.json(
                 swiss = swiss,
                 me = ctx.me,
@@ -282,7 +281,7 @@ final class Swiss(
     apiC.jsonDownload {
       env.swiss.api
         .byTeamCursor(id)
-        .documentSource(getInt("max", req) | 100)
+        .documentSource(getInt("max") | 100)
         .mapAsync(4)(env.swiss.json.api)
         .throttle(20, 1.second)
     }.toFuccess

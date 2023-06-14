@@ -32,17 +32,17 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def exportOne(id: GameAnyId) = Anon:
-    exportGame(GameModel anyToId id, req)
+    exportGame(GameModel anyToId id)
 
-  private[controllers] def exportGame(gameId: GameId, req: RequestHeader): Fu[Result] =
+  private[controllers] def exportGame(gameId: GameId)(using req: RequestHeader): Fu[Result] =
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
       case None => NotFound.toFuccess
       case Some(game) =>
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
-          imported = getBool("imported", req),
-          flags = requestPgnFlags(req, extended = true),
-          playerFile = get("players", req)
+          imported = getBool("imported"),
+          flags = requestPgnFlags(extended = true),
+          playerFile = get("players")
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config.format) map { filename =>
@@ -73,30 +73,29 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       _.filter(u => u.enabled.yes || me.exists(_ is u) || me.so(isGranted(_.GamesModView, _))) so { user =>
         val format = GameApiV2.Format byRequest req
         import lila.rating.{ Perf, PerfType }
-        WithVs(req) { vs =>
-          val finished = getBoolOpt("finished", req) | true
+        WithVs: vs =>
+          val finished = getBoolOpt("finished") | true
           val config = GameApiV2.ByUserConfig(
             user = user,
             format = format,
             vs = vs,
-            since = getTimestamp("since", req),
-            until = getTimestamp("until", req),
-            max = getInt("max", req).map(_ atLeast 1),
-            rated = getBoolOpt("rated", req),
-            perfType = (~get("perfType", req) split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
-            color = get("color", req) flatMap chess.Color.fromName,
-            analysed = getBoolOpt("analysed", req),
-            flags = requestPgnFlags(req, extended = false),
-            sort =
-              if (get("sort", req) has "dateAsc") GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
+            since = getTimestamp("since"),
+            until = getTimestamp("until"),
+            max = getInt("max").map(_ atLeast 1),
+            rated = getBoolOpt("rated"),
+            perfType = (~get("perfType") split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
+            color = get("color") flatMap chess.Color.fromName,
+            analysed = getBoolOpt("analysed"),
+            flags = requestPgnFlags(extended = false),
+            sort = if (get("sort") has "dateAsc") GameApiV2.GameSort.DateAsc else GameApiV2.GameSort.DateDesc,
             perSecond = MaxPerSecond(me match {
               case Some(m) if m is lila.user.User.explorerId => env.apiExplorerGamesPerSecond.get()
               case Some(m) if m is user.id                   => 60
               case Some(_) if oauth => 30 // bonus for oauth logged in only (not for CSRF)
               case _                => 20
             }),
-            playerFile = get("players", req),
-            ongoing = getBool("ongoing", req) || !finished,
+            playerFile = get("players"),
+            ongoing = getBool("ongoing") || !finished,
             finished = finished
           )
           if (me.exists(_ is lila.user.User.explorerId))
@@ -108,18 +107,14 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
             apiC
               .GlobalConcurrencyLimitPerIpAndUserOption(req, me, user.some)(
                 env.api.gameApiV2.exportByUser(config)
-              ) { source =>
+              ): source =>
                 Ok.chunked(source)
-                  .pipe(
-                    asAttachmentStream(
+                  .pipe:
+                    asAttachmentStream:
                       s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
-                    )
-                  )
                   .as(gameContentType(config))
-              }
               .toFuccess
 
-        }
       }
     }
 
@@ -142,9 +137,9 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     val config = GameApiV2.ByIdsConfig(
       ids = GameId from body.split(',').view.take(300).toSeq,
       format = GameApiV2.Format byRequest req,
-      flags = requestPgnFlags(req, extended = false),
+      flags = requestPgnFlags(extended = false),
       perSecond = MaxPerSecond(30),
-      playerFile = get("players", req)
+      playerFile = get("players")
     )
     apiC.GlobalConcurrencyLimitPerIP
       .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)) { source =>
@@ -152,8 +147,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       }
       .toFuccess
 
-  private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
-    getUserStr("vs", req) match
+  private def WithVs(f: Option[lila.user.User] => Fu[Result])(using RequestHeader): Fu[Result] =
+    getUserStr("vs") match
       case None => f(none)
       case Some(name) =>
         env.user.repo byId name flatMap {
@@ -161,22 +156,22 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           case Some(user) => f(user.some)
         }
 
-  private[controllers] def requestPgnFlags(req: RequestHeader, extended: Boolean) =
+  private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader) =
     lila.game.PgnDump.WithFlags(
-      moves = getBoolOpt("moves", req) | true,
-      tags = getBoolOpt("tags", req) | true,
-      clocks = getBoolOpt("clocks", req) | extended,
-      evals = getBoolOpt("evals", req) | extended,
-      opening = getBoolOpt("opening", req) | extended,
-      literate = getBool("literate", req),
-      pgnInJson = getBool("pgnInJson", req),
-      delayMoves = delayMovesFromReq(req),
-      lastFen = getBool("lastFen", req),
-      accuracy = getBool("accuracy", req)
+      moves = getBoolOpt("moves") | true,
+      tags = getBoolOpt("tags") | true,
+      clocks = getBoolOpt("clocks") | extended,
+      evals = getBoolOpt("evals") | extended,
+      opening = getBoolOpt("opening") | extended,
+      literate = getBool("literate"),
+      pgnInJson = getBool("pgnInJson"),
+      delayMoves = delayMovesFromReq,
+      lastFen = getBool("lastFen"),
+      accuracy = getBool("accuracy")
     )
 
-  private[controllers] def delayMovesFromReq(req: RequestHeader) =
-    !get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
+  private[controllers] def delayMovesFromReq(using RequestHeader) =
+    !get("key").exists(env.noDelaySecretSetting.get().value.contains)
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match

@@ -99,7 +99,7 @@ final class Account(
         env.api.userApi.extended(
           me,
           me.some,
-          withFollows = apiC.userWithFollows(ctx.req),
+          withFollows = apiC.userWithFollows,
           withTrophies = false
         ) dmap { JsonOk(_) }
     }
