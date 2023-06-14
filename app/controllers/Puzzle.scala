@@ -241,7 +241,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     streakJsonAndPuzzle(using reqLang).mapz: (json, _) =>
       JsonOk(json)
 
-  def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write) { _ ?=> me =>
+  def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> me =>
     if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
       lila.mon.streak.run.score("mobile").record(score)
       setStreakResult(me.id, score)
@@ -353,7 +353,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.daily.get.map:
       _.fold(NotFound)(html.puzzle.embed(_))
 
-  def activity = Scoped(_.Puzzle.Read) { ctx ?=> me =>
+  def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me =>
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
       max = getInt("max").map(_ atLeast 1),
@@ -368,7 +368,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def apiDashboard(days: Int) =
     def render(me: UserModel)(using AnyContext) = JsonOptionOk:
       env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
-    AuthOrScoped(_.Puzzle.Read)(render, render)
+    AuthOrScoped(_.Puzzle.Read, _.Web.Mobile)(render, render)
 
   def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =
     DashboardPage(u) { ctx ?=> user =>
@@ -400,7 +400,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           Ok(views.html.puzzle.history(user, history))
   }
 
-  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read) { _ ?=> me =>
+  def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me =>
     batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
   }
 
@@ -409,26 +409,27 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.batch.nextFor(me, angle, difficulty, nb atMost 50) flatMap
       env.puzzle.jsonView.batch(me)
 
-  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write) { ctx ?=> me =>
-    ctx.body.body
-      .validate[lila.puzzle.PuzzleForm.batch.SolveData]
-      .fold(
-        err => BadRequest(err.toString).toFuccess,
-        data =>
-          val angle = PuzzleAngle findOrMix angleStr
-          for
-            rounds <- me match
-              case Some(me) =>
-                env.puzzle.finisher.batch(me, angle, data.solutions).map {
-                  _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
-                }
-              case None =>
-                data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
-            newMe       <- me.so(env.user.repo.byId)
-            nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb"))
-            result = nextPuzzles ++ Json.obj("rounds" -> rounds)
-          yield Ok(result)
-      )
+  def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile) {
+    ctx ?=> me =>
+      ctx.body.body
+        .validate[lila.puzzle.PuzzleForm.batch.SolveData]
+        .fold(
+          err => BadRequest(err.toString).toFuccess,
+          data =>
+            val angle = PuzzleAngle findOrMix angleStr
+            for
+              rounds <- me match
+                case Some(me) =>
+                  env.puzzle.finisher.batch(me, angle, data.solutions).map {
+                    _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
+                  }
+                case None =>
+                  data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
+              newMe       <- me.so(env.user.repo.byId)
+              nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb"))
+              result = nextPuzzles ++ Json.obj("rounds" -> rounds)
+            yield Ok(result)
+        )
   }
 
   def mobileBcLoad(nid: Long) = Open:
