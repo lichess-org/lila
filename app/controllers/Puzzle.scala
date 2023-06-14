@@ -404,7 +404,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     batchSelect(me, PuzzleAngle findOrMix angleStr, reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
   }
 
-  private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty", req))
+  private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty"))
   private def batchSelect(me: Option[UserModel], angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int) =
     env.puzzle.batch.nextFor(me, angle, difficulty, nb atMost 50) flatMap
       env.puzzle.jsonView.batch(me)
@@ -425,7 +425,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               case None =>
                 data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
             newMe       <- me.so(env.user.repo.byId)
-            nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb", req))
+            nextPuzzles <- batchSelect(newMe, angle, reqDifficulty, ~getInt("nb"))
             result = nextPuzzles ++ Json.obj("rounds" -> rounds)
           yield Ok(result)
       )

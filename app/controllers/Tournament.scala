@@ -501,7 +501,7 @@ final class Tournament(env: Env, apiC: => Api)(using mat: akka.stream.Materializ
       .jsonDownload:
         repo
           .byTeamCursor(id)
-          .documentSource(getInt("max", req) | 100)
+          .documentSource(getInt("max") | 100)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           .throttle(20, 1.second)
       .toFuccess

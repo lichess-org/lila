@@ -417,13 +417,13 @@ final class Team(
     )
 
   def autocomplete = Anon:
-    get("term", req).filter(_.nonEmpty) match
+    get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided").toFuccess
       case Some(term) =>
-        for {
+        for
           teams <- api.autocomplete(term, 10)
           _     <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
-        } yield JsonOk:
+        yield JsonOk:
           JsArray(teams map { team =>
             Json.obj(
               "id"      -> team.id,

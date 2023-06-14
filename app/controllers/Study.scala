@@ -416,7 +416,7 @@ final class Study(
     PgnRateLimitPerIp(ctx.ip, rateLimitedFu, msg = id):
       OptionFuResult(env.study.api byId id): study =>
         CanView(study, ctx.me) {
-          doPgn(study, ctx.req).toFuccess
+          doPgn(study).toFuccess
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read) { ctx ?=> me =>
@@ -426,13 +426,13 @@ final class Study(
         else
           PgnRateLimitPerIp(req.ipAddress, rateLimited, msg = id):
             CanView(study, me) {
-              doPgn(study, req)
+              doPgn(study)
             }(privateUnauthorizedText, privateForbiddenText)
     }
   }
 
-  private def doPgn(study: StudyModel, req: RequestHeader) =
-    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags(req)).throttle(16, 1.second))
+  private def doPgn(study: StudyModel)(using RequestHeader) =
+    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
       .withDateHeaders(studyLastModified(study))
@@ -462,7 +462,7 @@ final class Study(
     env.study.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(studyNotFound) { case WithChapter(study, chapter) =>
         CanView(study, ctx.me) {
-          env.study.pgnDump.ofChapter(study, requestPgnFlags(req))(chapter) map { pgn =>
+          env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter) map { pgn =>
             Ok(pgn.toString)
               .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
               .as(pgnContentType)
@@ -474,17 +474,15 @@ final class Study(
   def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read) { me =>
     val name   = if (username.value == "me") me.fold(UserName("me"))(_.username) else username.into(UserName)
     val userId = name.id
-    val flags  = requestPgnFlags(req)
     val isMe   = me.exists(_ is userId)
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me, userId.some) {
         env.study.studyRepo
           .sourceByOwner(userId, isMe)
-          .flatMapConcat(env.study.pgnDump.chaptersOf(_, flags))
+          .flatMapConcat(env.study.pgnDump.chaptersOf(_, requestPgnFlags))
           .throttle(16, 1.second)
-          .withAttributes(
+          .withAttributes:
             akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
-          )
       } { source =>
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"${name}-${if (isMe) "all" else "public"}-studies.pgn"))
@@ -504,13 +502,13 @@ final class Study(
       .toFuccess
   }
 
-  private def requestPgnFlags(req: RequestHeader) =
+  private def requestPgnFlags(using RequestHeader) =
     lila.study.PgnDump.WithFlags(
-      comments = getBoolOpt("comments", req) | true,
-      variations = getBoolOpt("variations", req) | true,
-      clocks = getBoolOpt("clocks", req) | true,
-      source = getBool("source", req),
-      orientation = getBool("orientation", req)
+      comments = getBoolOpt("comments") | true,
+      variations = getBoolOpt("variations") | true,
+      clocks = getBoolOpt("clocks") | true,
+      source = getBool("source"),
+      orientation = getBool("orientation")
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:
@@ -535,11 +533,11 @@ final class Study(
       }(privateUnauthorizedJson.toFuccess, privateForbiddenJson.toFuccess)
 
   def topicAutocomplete = Anon:
-    get("term", req).filter(_.nonEmpty) match
+    get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided").toFuccess
       case Some(term) =>
         import lila.common.Json.given
-        env.study.topicApi.findLike(term, getUserStr("user", req).map(_.id)) map { JsonOk(_) }
+        env.study.topicApi.findLike(term, getUserStr("user").map(_.id)) map { JsonOk(_) }
 
   def topics = Open:
     env.study.topicApi.popular(50) zip

@@ -90,9 +90,16 @@ trait dsl:
   def $mul(item: ElementProducer): Bdoc =
     $doc("$mul" -> $doc(item))
 
-  def $setBoolOrUnset(field: String, value: Boolean): Bdoc = if (value) $set(field -> true) else $unset(field)
-  def $min(item: ElementProducer): Bdoc                    = $doc("$min" -> $doc(item))
-  def $max(item: ElementProducer): Bdoc                    = $doc("$max" -> $doc(item))
+  def $set(items: ElementProducer*): Bdoc = $doc:
+    "$set" -> items.nonEmpty.so($doc(items*))
+  def $unset(fields: Iterable[String]): Bdoc = $doc:
+    "$unset" -> fields.nonEmpty.so($doc(fields.map(k => (k, BSONString("")))))
+  def $unset(field: String, fields: String*): Bdoc = $doc:
+    "$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString(""))))
+  def $setBoolOrUnset(field: String, value: Boolean): Bdoc =
+    if value then $set(field -> true) else $unset(field)
+  def $min(item: ElementProducer): Bdoc                         = $doc("$min" -> $doc(item))
+  def $max(item: ElementProducer): Bdoc                         = $doc("$max" -> $doc(item))
   def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc   = $doc("$divide" -> $arr(a, b))
   def $multiply[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc = $doc("$multiply" -> $arr(a, b))
 
