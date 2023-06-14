@@ -42,7 +42,7 @@ final class Lobby(env: Env) extends LilaController(env):
       LangPage("/")(serveHtmlHome)(lang)
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
-    reqToCtx(req) flatMap { ctx =>
+    webContext(req) flatMap { ctx =>
       keyPages.home(status)(using ctx)
     }
 

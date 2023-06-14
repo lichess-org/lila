@@ -354,7 +354,7 @@ final class Challenge(
                 env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok:
                   Json.obj:
                     "game" -> {
-                      env.game.jsonView.base(g, challenge.initialFen) ++ Json.obj(
+                      env.game.jsonView.baseWithChessDenorm(g, challenge.initialFen) ++ Json.obj(
                         "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
                       )
                     }

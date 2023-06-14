@@ -390,17 +390,17 @@ final class Api(
     }
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
-    given Lang = reqLang(using req)
+    given Lang = reqLang
     env.perfStat.api.data(username, perfKey, none) map {
       _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
     }
 
   def ApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:
-    js(using req) map toHttp
+    js map toHttp
 
   def MobileApiRequest(js: RequestHeader ?=> Fu[ApiResult]) = Anon:
     if lila.api.Mobile.Api.requested(req)
-    then js(using req) map toHttp
+    then js map toHttp
     else fuccess(NotFound)
 
   def toApiResult(json: Option[JsValue]): ApiResult =

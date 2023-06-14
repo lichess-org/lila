@@ -39,7 +39,7 @@ final class Main(
           }
         )
 
-  def handlerNotFound(req: RequestHeader) = reqToCtx(req) map { renderNotFound(using _) }
+  def handlerNotFound(req: RequestHeader) = webContext(req) map { renderNotFound(using _) }
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.large
@@ -96,13 +96,13 @@ final class Main(
     Ok(html.site.bits.getFishnet()).toFuccess
 
   def costs = Anon:
-    pageHit(req)
+    pageHit
     fuccess:
       Redirect:
         "https://docs.google.com/spreadsheets/d/1Si3PMUJGR9KrpE5lngSkHLJKJkb0ZuI4/preview"
 
   def verifyTitle = Anon:
-    pageHit(req)
+    pageHit
     fuccess:
       Redirect:
         "https://docs.google.com/forms/d/e/1FAIpQLSelXSHdiFw_PmZetxY8AaIJSM-Ahb5QnJcfQMDaiPJSf24lDQ/viewform"

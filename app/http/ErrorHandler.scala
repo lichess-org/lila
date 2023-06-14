@@ -16,7 +16,8 @@ final class ErrorHandler(
     mainC: => controllers.Main,
     lobbyC: => controllers.Lobby
 )(using Executor)
-    extends DefaultHttpErrorHandler(environment, config, router.some):
+    extends DefaultHttpErrorHandler(environment, config, router.some)
+    with ResponseWriter:
 
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {
@@ -45,9 +46,8 @@ final class ErrorHandler(
       case _ if req.attrs.contains(request.RequestAttrKey.Session) =>
         lobbyC.handleStatus(req, Results.BadRequest)
       case _ =>
-        fuccess {
+        fuccess:
           Results.BadRequest("Sorry, the request could not be processed")
-        }
 
   private def canShowErrorPage(req: RequestHeader): Boolean =
     HTTPRequest.isSynchronousHttp(req) && !HTTPRequest.hasFileExtension(req)
