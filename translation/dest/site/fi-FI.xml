@@ -897,8 +897,6 @@
   <string name="congratsYouWon">Onnittelut, sinä voitit!</string>
   <string name="gameVsX">Peli käyttäjää %1$s vastaan</string>
   <string name="resVsX">%1$s vastaan %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Joku kirjoitti valmentajaprofiiliisi arvostelun.</string>
-  <string name="newPendingReview">Uusi arvostelu</string>
   <string name="lostAgainstTOSViolator">Olet hävinnyt Lichessin käyttöehtoja rikkoneelle henkilölle</string>
   <string name="refundXpointsTimeControlY">Hyvitys: %1$s %2$s vahvuuslukupistettä.</string>
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
