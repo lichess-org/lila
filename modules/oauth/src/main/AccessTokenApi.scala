@@ -113,12 +113,12 @@ final class AccessTokenApi(
         F.clientOrigin -> $exists(false)
       )
 
-  def findCompatiblePersonal(user: User, scopes: Set[OAuthScope]): Fu[Option[AccessToken]] =
+  def findCompatiblePersonal(user: User, scopes: OAuthScopes): Fu[Option[AccessToken]] =
     coll.one[AccessToken]:
       $doc(
         F.userId       -> user.id,
         F.clientOrigin -> $exists(false),
-        F.scopes $all scopes.toSeq
+        F.scopes $all scopes.value
       )
 
   def listClients(user: User, limit: Int): Fu[List[AccessTokenApi.Client]] =
