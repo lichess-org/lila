@@ -280,6 +280,7 @@
   <string name="rated">Rated</string>
   <string name="casualTournament">Casual</string>
   <string name="ratedTournament">Rated</string>
+  <string name="playYourGames">Play your games</string>
   <string name="thisGameIsRated">This game is rated</string>
   <string name="rematch">Rematch</string>
   <string name="rematchOfferSent">Rematch offer sent</string>
@@ -456,6 +457,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="winner">Winner</string>
   <string name="standing">Standing</string>
   <string name="createANewTournament">Create a new tournament</string>
+  <string name="myTournaments">My tournaments</string>
   <string name="tournamentCalendar">Tournament calendar</string>
   <string name="conditionOfEntry">Entry requirements:</string>
   <string name="advancedSettings">Advanced settings</string>
