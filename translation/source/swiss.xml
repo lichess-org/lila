@@ -84,15 +84,15 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="otherSystemsQ">What about other tournament systems?</string>
   <string name="otherSystemsA">We don't plan to add more tournament systems to Lichess at the moment.</string>
   <string name="swissDescription">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players.</string>
-  <string name="teamOnly">Swiss tournaments can only be created by team leaders, and can only be played by team members.           
-%1$s to start playing in swiss tournaments.</string>           
+  <string name="teamOnly">Swiss tournaments can only be created by team leaders, and can only be played by team members.
+%1$s to start playing in swiss tournaments.</string>
   <string name="joinOrCreateTeam">Join or create a team</string>
   <string name="nowPlaying">Now playing</string>
   <string name="startingSoon">Starting soon</string>
   <string name="comparison">Comparison</string>
   <string name="tournDuration">Duration of the tournament</string>
   <string name="predefinedDuration">Predefined duration in minutes</string>
-  <string name="durationUnknown">Predefined max rounds, but duration unknown</string>	
+  <string name="durationUnknown">Predefined max rounds, but duration unknown</string>
   <string name="numberOfGames">Number of games</string>
   <string name="numberOfGamesAsManyAsPossible">As many as can be played in the allotted duration</string>
   <string name="numberOfGamesPreDefined">Decided in advance, same for all players</string>
@@ -105,8 +105,8 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="identicalPairing">Identical pairing</string>
   <string name="possibleButNotConsecutive">Possible, but not consecutive</string>
   <string name="identicalForbidden">Forbidden</string>
-  <string name="lateJoin">Late join</string>  
-  <string name="lateJoinUntil">Yes until more than half the rounds have started</string> 
+  <string name="lateJoin">Late join</string>
+  <string name="lateJoinUntil">Yes until more than half the rounds have started</string>
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Yes but might reduce the number of rounds</string>
   <string name="streaksAndBerserk">Streaks and Berserk</string>
@@ -114,4 +114,5 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="unlimitedAndFree">Unlimited and free</string>
   <string name="predefinedUsers">Only allow pre-defined users to join</string>
   <string name="forbiddedUsers">If this list is non-empty, then users absent from this list will be forbidden to join. One username per line.</string>
+  <string name="playYourGames">Play your games</string>
 </resources>

@@ -7,13 +7,14 @@ import lila.user.User
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import alleycats.Zero
+import lila.i18n.{ I18nKeys => trans }
 
 object SwissCondition:
 
   type GetBannedUntil = UserId => Fu[Option[Instant]]
 
   case object PlayYourGames extends Condition:
-    def name(perf: PerfType)(using Lang) = "Play your games"
+    def name(perf: PerfType)(using Lang) = trans.swiss.playYourGames.txt()
     def withBan(bannedUntil: Option[Instant]) = withVerdict:
       bannedUntil.fold[Verdict](Accepted)(RefusedUntil.apply)
 

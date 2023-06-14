@@ -60,7 +60,7 @@ object home:
           p(cls := "tour__links")(
             ctx.me map { me =>
               frag(
-                a(href := routes.UserTournament.path(me.username, "created"))("My tournaments"),
+                a(href := routes.UserTournament.path(me.username, "created"))(trans.arena.myTournaments()),
                 br
               )
             },

@@ -881,6 +881,7 @@ object I18nKeys:
     val `noArenaStreaks` = I18nKey("arena:noArenaStreaks")
     val `averagePerformance` = I18nKey("arena:averagePerformance")
     val `averageScore` = I18nKey("arena:averageScore")
+    val `myTournaments` = I18nKey("arena:myTournaments")
     val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
     val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
 
@@ -2077,6 +2078,7 @@ object I18nKeys:
     val `unlimitedAndFree` = I18nKey("swiss:unlimitedAndFree")
     val `predefinedUsers` = I18nKey("swiss:predefinedUsers")
     val `forbiddedUsers` = I18nKey("swiss:forbiddedUsers")
+    val `playYourGames` = I18nKey("swiss:playYourGames")
     val `viewAllXRounds` = I18nKey("swiss:viewAllXRounds")
     val `nbRounds` = I18nKey("swiss:nbRounds")
     val `xRoundsSwiss` = I18nKey("swiss:xRoundsSwiss")
