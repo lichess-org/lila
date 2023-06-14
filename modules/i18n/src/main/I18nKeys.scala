@@ -326,7 +326,6 @@ object I18nKeys:
   val `winner` = I18nKey("winner")
   val `standing` = I18nKey("standing")
   val `createANewTournament` = I18nKey("createANewTournament")
-  val `myTournaments` = I18nKey("myTournaments")
   val `tournamentCalendar` = I18nKey("tournamentCalendar")
   val `conditionOfEntry` = I18nKey("conditionOfEntry")
   val `advancedSettings` = I18nKey("advancedSettings")
@@ -882,6 +881,7 @@ object I18nKeys:
     val `noArenaStreaks` = I18nKey("arena:noArenaStreaks")
     val `averagePerformance` = I18nKey("arena:averagePerformance")
     val `averageScore` = I18nKey("arena:averageScore")
+    val `myTournaments` = I18nKey("arena:myTournaments")
     val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
     val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
 
