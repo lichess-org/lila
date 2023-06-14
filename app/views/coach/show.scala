@@ -13,26 +13,22 @@ object show:
   import trans.coach.*
 
   private def section(title: Frag, text: Option[RichText]) =
-    text.map { t =>
+    text.map: t =>
       st.section(
         h2(cls := "coach-show__title")(title),
         div(cls := "content")(richText(t.value))
       )
-    }
 
   def apply(
       c: lila.coach.Coach.WithUser,
-      coachReviews: lila.coach.CoachReview.Reviews,
       studies: Seq[lila.study.Study.WithChaptersAndLiked],
-      posts: Seq[lila.ublog.UblogPost.PreviewPost],
-      myReview: Option[lila.coach.CoachReview]
+      posts: Seq[lila.ublog.UblogPost.PreviewPost]
   )(using ctx: WebContext) =
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.so(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)
     views.html.base.layout(
       title = title,
-      moreJs = jsModule("coach.show"),
       moreCss = cssTag("coach"),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -61,8 +57,6 @@ object show:
               dataIcon := licon.BubbleSpeech,
               href     := s"${routes.Msg.convo(c.user.username)}"
             )(sendPM()),
-          ctx.me.exists(_.id != c.user.id) option review.form(c, myReview),
-          review.list(coachReviews)
         ),
         div(cls := "coach-show__main coach-main box")(
           div(cls := "coach-widget")(widget(c, link = false)),

@@ -621,10 +621,7 @@ GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 GET   /coach/picture/edit              controllers.Coach.picture
 POST  /upload/image/coach              controllers.Coach.pictureApply
-POST  /coach/approve-review/:id        controllers.Coach.approveReview(id)
-POST  /coach/mod-review/:id            controllers.Coach.modReview(id)
 GET   /coach/:username                 controllers.Coach.show(username)
-POST  /coach/:username/review          controllers.Coach.review(username)
 GET   /coach/:lang/:country/:order     controllers.Coach.search(lang, order, country, page: Int ?= 1)
 GET   /$lang<\w\w\w?>/coach            controllers.Coach.homeLang(lang)
 

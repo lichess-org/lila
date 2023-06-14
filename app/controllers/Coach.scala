@@ -35,53 +35,12 @@ final class Coach(env: Env) extends LilaController(env):
     OptionFuResult(api find username): c =>
       WithVisibleCoach(c):
         for
-          stu      <- env.study.api.publicByIds(c.coach.profile.studyIds)
-          studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
-          posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
-          reviews  <- api.reviews.approvedByCoach(c.coach)
-          myReview <- ctx.me.so { api.reviews.find(_, c.coach) }
+          stu     <- env.study.api.publicByIds(c.coach.profile.studyIds)
+          studies <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
+          posts   <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
         yield
           lila.mon.coach.pageView.profile(c.coach.id.value).increment()
-          Ok(html.coach.show(c, reviews, studies, posts, myReview))
-
-  def review(username: UserStr) = AuthBody { ctx ?=> me =>
-    OptionFuResult(api find username) { c =>
-      NoBot:
-        WithVisibleCoach(c):
-          lila.coach.CoachReviewForm.form
-            .bindFromRequest()
-            .fold(
-              _ => Redirect(routes.Coach.show(c.user.username)).toFuccess,
-              data => {
-                if (data.score < 4 && !me.marks.reportban)
-                  env.report.api.create(
-                    lila.report.Report.Candidate(
-                      reporter = lila.report.Reporter(me),
-                      suspect = lila.report.Suspect(c.user),
-                      reason = lila.report.Reason.Other,
-                      text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}"
-                    )
-                  )
-                api.reviews.add(me, c.coach, data) inject
-                  Redirect(routes.Coach.show(c.user.username))
-              }
-            )
-    }
-  }
-
-  def approveReview(id: String) = SecureBody(_.Coach) { ctx ?=> me =>
-    OptionFuResult(api.reviews.byId(id)): review =>
-      api.byId(review.coachId).dmap(_.exists(_ is me.user)) flatMap {
-        if _ then api.reviews.approve(review, getBool("v")) inject Ok
-        else notFound
-      }
-  }
-
-  def modReview(id: String) = SecureBody(_.DisapproveCoachReview) { ctx ?=> me =>
-    OptionFuResult(api.reviews byId id): review =>
-      env.mod.logApi.coachReview(me.id into ModId, review.coachId.userId, review.userId) >>
-        api.reviews.mod(review) inject Redirect(routes.Coach.show(review.coachId.value))
-  }
+          Ok(html.coach.show(c, studies, posts))
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: WebContext) =
     if c.isListed || ctx.me.exists(_ is c.coach) || isGranted(_.Admin) then f
@@ -89,10 +48,8 @@ final class Coach(env: Env) extends LilaController(env):
 
   def edit = Secure(_.Coach) { ctx ?=> me =>
     OptionFuResult(api findOrInit me): c =>
-      env.msg.twoFactorReminder(me.id) >>
-        api.reviews.pendingByCoach(c.coach) map { reviews =>
-          Ok(html.coach.edit(c, CoachProfileForm edit c.coach, reviews)).noCache
-        }
+      env.msg.twoFactorReminder(me.id) inject
+        Ok(html.coach.edit(c, CoachProfileForm edit c.coach)).noCache
   }
 
   def editApply = SecureBody(_.Coach) { ctx ?=> me =>

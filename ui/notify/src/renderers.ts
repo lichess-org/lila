@@ -113,14 +113,6 @@ export default function makeRenderers(trans: Trans): Renderers {
       html: n => generic(n, '/patron', licon.Wings, [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
       text: _ => 'Patron account expired',
     },
-    coachReview: {
-      html: n =>
-        generic(n, '/coach/edit', licon.GraduateCap, [
-          h('span', [h('strong', 'New pending review'), drawTime(n)]),
-          h('span', trans.noarg('someoneReviewedYourCoachProfile')),
-        ]),
-      text: _ => trans.noarg('newPendingReview'),
-    },
     ratingRefund: {
       html: n =>
         generic(n, '/faq#rating-refund', licon.InfoCircle, [

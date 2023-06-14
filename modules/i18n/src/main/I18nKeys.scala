@@ -737,8 +737,6 @@ object I18nKeys:
   val `congratsYouWon` = I18nKey("congratsYouWon")
   val `gameVsX` = I18nKey("gameVsX")
   val `resVsX` = I18nKey("resVsX")
-  val `someoneReviewedYourCoachProfile` = I18nKey("someoneReviewedYourCoachProfile")
-  val `newPendingReview` = I18nKey("newPendingReview")
   val `lostAgainstTOSViolator` = I18nKey("lostAgainstTOSViolator")
   val `refundXpointsTimeControlY` = I18nKey("refundXpointsTimeControlY")
   val `timeAlmostUp` = I18nKey("timeAlmostUp")

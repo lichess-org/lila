@@ -99,15 +99,6 @@ final class PersonalDataExport(
       } map Source.apply
     }
 
-    val coachReviews =
-      Source.futureSource {
-        coachApi.reviews.allByPoster(user) map { reviews =>
-          Source(List(textTitle("Coach reviews")) ::: reviews.list.map { r =>
-            s"${r.coachId}: ${r.text}\n"
-          })
-        }
-      }
-
     val forumPosts =
       Source(List(textTitle("Forum posts"))) concat
         forumEnv.postRepo.allByUserCursor(user).documentSource().throttle(heavyPerSecond, 1 second).map { p =>
@@ -185,7 +176,7 @@ final class PersonalDataExport(
         ublogApi
           .postCursor(user)
           .documentSource()
-          .map { post =>
+          .map: post =>
             List(
               "date"   -> textDate(post.created.at),
               "title"  -> post.title,
@@ -193,10 +184,9 @@ final class PersonalDataExport(
               "body"   -> post.markdown,
               "image"  -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
               "topics" -> post.topics.mkString(", ")
-            ).map { case (k, v) =>
+            ).map: (k, v) =>
               s"$k: $v"
-            }.mkString("\n") + bigSep
-          }
+            .mkString("\n") + bigSep
           .throttle(heavyPerSecond, 1 second)
 
     val outro = Source(List(textTitle("End of data export.")))
@@ -207,7 +197,6 @@ final class PersonalDataExport(
       followedUsers,
       streamer,
       coach,
-      coachReviews,
       ublogPosts,
       forumPosts,
       privateMessages,

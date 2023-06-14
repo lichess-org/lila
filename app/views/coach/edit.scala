@@ -29,7 +29,7 @@ object edit:
     }
   }
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[?], reviews: lila.coach.CoachReview.Reviews)(using
+  def apply(c: lila.coach.Coach.WithUser, form: Form[?])(using
       ctx: WebContext
   ) =
     views.html.account.layout(
@@ -73,10 +73,7 @@ object edit:
           div(cls := "tabs")(
             div(dataTab := "basics", cls := "active")("Basics"),
             div(dataTab := "texts")("Texts"),
-            div(dataTab := "contents")("Contents"),
-            div(dataTab := "reviews", dataCount := reviews.list.size, cls := "data-count")(
-              "Pending reviews"
-            )
+            div(dataTab := "contents")("Contents")
           ),
           div(cls := "panels")(
             div(cls := "panel basics active")(
@@ -161,34 +158,6 @@ object edit:
                 raw("Featured youtube videos"),
                 help = raw("Up to 6 Youtube video URLs, one per line").some
               )(form3.textarea(_)(rows := 6))
-            ),
-            div(cls := "panel reviews")(
-              p(cls := "help text", dataIcon := licon.InfoCircle)(
-                "Reviews are visible only after you approve them."
-              ),
-              reviews.list.map { r =>
-                div(cls := "review", attr("data-action") := routes.Coach.approveReview(r.id))(
-                  div(cls := "user")(
-                    userIdLink(r.userId.some),
-                    review.barRating(selected = r.score.some, enabled = false),
-                    momentFromNow(r.updatedAt)
-                  ),
-                  div(cls := "content")(
-                    r.moddedAt.isDefined option div(cls := "modded")(
-                      "Moderators have disapproved this review. Please only accept reviews from ",
-                      "actual students, based on actual lessons. Reviews must be about your coaching services.",
-                      br,
-                      "You may delete this review, or ask the author to rephrase it, then approve it."
-                    ),
-                    richText(r.text)
-                  ),
-                  div(cls := "actions btn-rack")(
-                    r.moddedAt.fold(true)(_.isBefore(r.updatedAt)) option
-                      a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := licon.Checkmark),
-                    a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := licon.X)
-                  )
-                )
-              }
             )
           ),
           div(cls := "status text", dataIcon := licon.Checkmark)("Your changes have been saved.")

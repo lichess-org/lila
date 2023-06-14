@@ -6,7 +6,6 @@ import reactivemongo.api.*
 import lila.coach.CoachPager.Order.Alphabetical
 import lila.coach.CoachPager.Order.LichessRating
 import lila.coach.CoachPager.Order.Login
-import lila.coach.CoachPager.Order.NbReview
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.security.Permission
@@ -39,14 +38,12 @@ final class CoachPager(
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework.*
               Match(selector) -> List(
-                Sort(
-                  order match {
+                Sort:
+                  order match
                     case Alphabetical  => Ascending("_id")
-                    case NbReview      => Descending("nbReviews")
                     case LichessRating => Descending("user.rating")
                     case Login         => Descending("user.seenAt")
-                  }
-                ),
+                ,
                 PipelineOperator(
                   $doc(
                     "$lookup" -> $doc(
@@ -96,6 +93,7 @@ final class CoachPager(
 
 object CoachPager:
 
+  // TODO enum
   sealed abstract class Order(
       val key: String,
       val name: String
@@ -104,9 +102,8 @@ object CoachPager:
   object Order:
     case object Login         extends Order("login", "Last login")
     case object LichessRating extends Order("rating", "Lichess rating")
-    case object NbReview      extends Order("review", "User reviews")
     case object Alphabetical  extends Order("alphabetical", "Alphabetical")
 
     val default                   = Login
-    val all                       = List(Login, LichessRating, NbReview, Alphabetical)
+    val all                       = List(Login, LichessRating, Alphabetical)
     def apply(key: String): Order = all.find(_.key == key) | default

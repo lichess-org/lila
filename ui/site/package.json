@@ -54,7 +54,6 @@
       "src/account.ts": "account",
       "src/passwordComplexity.ts": "passwordComplexity",
       "src/coachForm.ts": "coach.form",
-      "src/coachShow.ts": "coach.show",
       "src/challengePage.ts": "challengePage",
       "src/checkout.ts": "checkout",
       "src/plan.ts": "plan",
