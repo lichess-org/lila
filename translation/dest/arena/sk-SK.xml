@@ -60,4 +60,5 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="noArenaStreaks">Série výhier vypnuté</string>
   <string name="averagePerformance">Priemerný výkon</string>
   <string name="averageScore">Priemerné skóre</string>
+  <string name="myTournaments">Moje turnaje</string>
 </resources>
