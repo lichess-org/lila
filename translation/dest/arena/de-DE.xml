@@ -59,4 +59,5 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="noArenaStreaks">Keine Arena-Siegesserien</string>
   <string name="averagePerformance">Durchschnittliche Leistung</string>
   <string name="averageScore">Durchschnittliche Punktzahl</string>
+  <string name="myTournaments">Meine Turniere</string>
 </resources>
