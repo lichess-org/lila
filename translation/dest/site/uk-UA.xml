@@ -977,8 +977,6 @@
   <string name="congratsYouWon">Вітання, ви виграли!</string>
   <string name="gameVsX">Гра проти %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Хтось переглянув ваш тренерський профіль.</string>
-  <string name="newPendingReview">Новий огляд в очікуванні</string>
   <string name="lostAgainstTOSViolator">Ви програли комусь хто порушував Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Повернення: %1$s %2$s рангових очок.</string>
   <string name="timeAlmostUp">Час майже скінчився!</string>
