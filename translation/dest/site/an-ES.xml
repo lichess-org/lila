@@ -885,8 +885,6 @@
   <string name="congratsYouWon">Felicidaz, has ganau!</string>
   <string name="gameVsX">Partida vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Belún ha feito una resenya d\'o tuyo perfil d\'entrenador.</string>
-  <string name="newPendingReview">Nueva resenya pendient</string>
   <string name="lostAgainstTOSViolator">Has perdiu contra belún que ha violau las CDS de Lichess</string>
   <string name="refundXpointsTimeControlY">Recuperas: %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">Cuasi ha rematau lo tiempo!</string>
